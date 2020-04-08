@@ -21,9 +21,13 @@
 
 using System;
 using Components.Persistence.Stability;
+using Components.Persistence.Stability.Data;
 using Core.Common.Base.IO;
 using Core.Common.Util;
+using log4net;
 using Riskeer.MacroStabilityInwards.Data;
+using Riskeer.MacroStabilityInwards.IO.Properties;
+using CoreCommonUtilResources = Core.Common.Util.Properties.Resources;
 
 namespace Riskeer.MacroStabilityInwards.IO.Exporters
 {
@@ -32,6 +36,9 @@ namespace Riskeer.MacroStabilityInwards.IO.Exporters
     /// </summary>
     public class MacroStabilityInwardsCalculationExporter : IFileExporter
     {
+        private static readonly ILog log = LogManager.GetLogger(typeof(MacroStabilityInwardsCalculationExporter));
+
+        private readonly IPersistenceFactory persistenceFactory;
         private readonly string filePath;
 
         /// <summary>
@@ -65,13 +72,31 @@ namespace Riskeer.MacroStabilityInwards.IO.Exporters
             }
 
             IOUtils.ValidateFilePath(filePath);
-            
+
+            this.persistenceFactory = persistenceFactory;
             this.filePath = filePath;
         }
 
         public bool Export()
         {
-            return false;
+            PersistableDataModel persistableDataModel = CreatePersistableDataModel();
+
+            try
+            {
+                persistenceFactory.CreateArchivePersister(filePath, persistableDataModel);
+            }
+            catch (Exception)
+            {
+                log.ErrorFormat("{0} {1}", string.Format(CoreCommonUtilResources.Error_General_output_error_0, filePath), Resources.MacroStabilityInwardsCalculationExporter_Export_no_stability_project_exported);
+                return false;
+            }
+
+            return true;
+        }
+
+        private PersistableDataModel CreatePersistableDataModel()
+        {
+            return new PersistableDataModel();
         }
     }
 }

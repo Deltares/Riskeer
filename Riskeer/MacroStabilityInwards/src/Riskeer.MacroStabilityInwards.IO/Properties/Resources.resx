@@ -205,4 +205,7 @@
   <data name="Transform_PreconsolidationStressLocation_0_has_invalid_configuration_ErrorMessage_1_" xml:space="preserve">
     <value>Grensspanning op locatie {0} heeft een ongeldige waarde. {1}</value>
   </data>
+  <data name="MacroStabilityInwardsCalculationExporter_Export_no_stability_project_exported" xml:space="preserve">
+    <value>Er is geen D-GEO Suite Stability Project geëxporteerd.</value>
+  </data>
 </root>

@@ -20,8 +20,18 @@ namespace Riskeer.MacroStabilityInwards.IO.TestUtil
         /// </summary>
         public string FilePath { get; private set; }
 
+        /// <summary>
+        /// Gets or sets whether an exception should be thrown.
+        /// </summary>
+        public bool ThrowException { get; set; }
+
         public Persister CreateArchivePersister(string path, PersistableDataModel dataModel)
         {
+            if (ThrowException)
+            {
+                throw new Exception("Exception in persistor.");
+            }
+
             FilePath = path;
             PersistableDataModel = dataModel;
 

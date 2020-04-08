@@ -27,6 +27,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.MacroStabilityInwards.IO.Exporters;
+using Riskeer.MacroStabilityInwards.IO.TestUtil;
 
 namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
 {
@@ -96,21 +97,43 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
         }
 
         [Test]
-        public void Export_Always_ReturnsFalse()
+        public void Export_PersistenceFactoryThrowsException_LogsErrorAndReturnsFalse()
         {
             // Setup
-            var mocks = new MockRepository();
-            var persistenceFactory = mocks.Stub<IPersistenceFactory>();
-            mocks.ReplayAll();
+            const string filePath = "ValidFilePath";
+            var persistenceFactory = new MacroStabilityInwardsTestPersistenceFactory
+            {
+                ThrowException = true
+            };
 
-            var exporter = new MacroStabilityInwardsCalculationExporter(new MacroStabilityInwardsCalculation(), persistenceFactory, "ValidFilePath");
+            var exporter = new MacroStabilityInwardsCalculationExporter(new MacroStabilityInwardsCalculation(), persistenceFactory, filePath);
+
+            // Call
+            var exportResult = true;
+            void Call() => exportResult = exporter.Export();
+
+            // Assert
+            string expectedMessage = $"Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{filePath}'. Er is geen D-GEO Suite Stability Project geëxporteerd.";
+            TestHelper.AssertLogMessageWithLevelIsGenerated(Call, new Tuple<string, LogLevelConstant>(expectedMessage, LogLevelConstant.Error));
+            Assert.IsFalse(exportResult);
+        }
+
+        [Test]
+        public void Export_RunsSuccessful_SetsDataCorrectlyAndReturnsTrue()
+        {
+            // Setup
+            const string filePath = "ValidFilePath";
+            var persistenceFactory = new MacroStabilityInwardsTestPersistenceFactory();
+
+            var exporter = new MacroStabilityInwardsCalculationExporter(new MacroStabilityInwardsCalculation(), persistenceFactory, filePath);
 
             // Call
             bool exportResult = exporter.Export();
 
             // Assert
-            Assert.IsFalse(exportResult);
-            mocks.VerifyAll();
+            Assert.IsNotNull(persistenceFactory.PersistableDataModel);
+            Assert.AreEqual(filePath, persistenceFactory.FilePath);
+            Assert.IsTrue(exportResult);
         }
     }
 }
