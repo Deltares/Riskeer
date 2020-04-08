@@ -263,6 +263,110 @@ namespace Riskeer.Storage.Core.Test.Read.GrassCoverErosionOutwards
                         Order = 2,
                         CalculationConvergence = Convert.ToByte(CalculationConvergence.NotCalculated),
                         OutputType = Convert.ToByte(GrassCoverErosionOutwardsWaveConditionsOutputType.WaveImpact)
+                    }
+                }
+            };
+
+            var collector = new ReadConversionCollector();
+
+            // Call
+            GrassCoverErosionOutwardsWaveConditionsCalculation calculation = entity.Read(collector);
+
+            // Assert
+            Assert.IsNotNull(calculation.Output);
+            double accuracy = calculation.Output.WaveImpactOutput.First().WaterLevel.GetAccuracy();
+
+            Assert.AreEqual(2, calculation.Output.WaveRunUpOutput.Count());
+            Assert.AreEqual(outputALevel, calculation.Output.WaveRunUpOutput.ElementAt(0).WaterLevel, accuracy);
+            Assert.AreEqual(outputBLevel, calculation.Output.WaveRunUpOutput.ElementAt(1).WaterLevel, accuracy);
+
+            Assert.AreEqual(1, calculation.Output.WaveImpactOutput.Count());
+            Assert.AreEqual(outputCLevel, calculation.Output.WaveImpactOutput.ElementAt(0).WaterLevel, accuracy);
+        }
+
+        [Test]
+        public void Read_EntityWithCalculationOutputEntityWithWaveRunUpAndTailorMadeWaveImpact_CalculationWithOutput()
+        {
+            // Setup
+            const double outputALevel = 0;
+            const double outputBLevel = 1.1;
+            const double outputCLevel = 2.2;
+            var entity = new GrassCoverErosionOutwardsWaveConditionsCalculationEntity
+            {
+                GrassCoverErosionOutwardsWaveConditionsOutputEntities =
+                {
+                    new GrassCoverErosionOutwardsWaveConditionsOutputEntity
+                    {
+                        WaterLevel = outputBLevel,
+                        Order = 1,
+                        CalculationConvergence = Convert.ToByte(CalculationConvergence.NotCalculated),
+                        OutputType = Convert.ToByte(GrassCoverErosionOutwardsWaveConditionsOutputType.WaveRunUp)
+                    },
+                    new GrassCoverErosionOutwardsWaveConditionsOutputEntity
+                    {
+                        WaterLevel = outputALevel,
+                        Order = 0,
+                        CalculationConvergence = Convert.ToByte(CalculationConvergence.NotCalculated),
+                        OutputType = Convert.ToByte(GrassCoverErosionOutwardsWaveConditionsOutputType.WaveRunUp)
+                    },
+                    new GrassCoverErosionOutwardsWaveConditionsOutputEntity
+                    {
+                        WaterLevel = outputCLevel,
+                        Order = 2,
+                        CalculationConvergence = Convert.ToByte(CalculationConvergence.NotCalculated),
+                        OutputType = Convert.ToByte(GrassCoverErosionOutwardsWaveConditionsOutputType.TailorMadeWaveImpact)
+                    }
+                }
+            };
+
+            var collector = new ReadConversionCollector();
+
+            // Call
+            GrassCoverErosionOutwardsWaveConditionsCalculation calculation = entity.Read(collector);
+
+            // Assert
+            Assert.IsNotNull(calculation.Output);
+            double accuracy = calculation.Output.TailorMadeWaveImpactOutput.First().WaterLevel.GetAccuracy();
+
+            Assert.AreEqual(2, calculation.Output.WaveRunUpOutput.Count());
+            Assert.AreEqual(outputALevel, calculation.Output.WaveRunUpOutput.ElementAt(0).WaterLevel, accuracy);
+            Assert.AreEqual(outputBLevel, calculation.Output.WaveRunUpOutput.ElementAt(1).WaterLevel, accuracy);
+
+            Assert.AreEqual(1, calculation.Output.TailorMadeWaveImpactOutput.Count());
+            Assert.AreEqual(outputCLevel, calculation.Output.TailorMadeWaveImpactOutput.ElementAt(0).WaterLevel, accuracy);
+        }
+
+        [Test]
+        public void Read_EntityWithCalculationOutputEntityWithWaveRunUpAndWaveImpactAndTailorMadeWaveImpact_CalculationWithOutput()
+        {
+            // Setup
+            const double outputALevel = 0;
+            const double outputBLevel = 1.1;
+            const double outputCLevel = 2.2;
+            var entity = new GrassCoverErosionOutwardsWaveConditionsCalculationEntity
+            {
+                GrassCoverErosionOutwardsWaveConditionsOutputEntities =
+                {
+                    new GrassCoverErosionOutwardsWaveConditionsOutputEntity
+                    {
+                        WaterLevel = outputBLevel,
+                        Order = 1,
+                        CalculationConvergence = Convert.ToByte(CalculationConvergence.NotCalculated),
+                        OutputType = Convert.ToByte(GrassCoverErosionOutwardsWaveConditionsOutputType.WaveRunUp)
+                    },
+                    new GrassCoverErosionOutwardsWaveConditionsOutputEntity
+                    {
+                        WaterLevel = outputALevel,
+                        Order = 0,
+                        CalculationConvergence = Convert.ToByte(CalculationConvergence.NotCalculated),
+                        OutputType = Convert.ToByte(GrassCoverErosionOutwardsWaveConditionsOutputType.WaveRunUp)
+                    },
+                    new GrassCoverErosionOutwardsWaveConditionsOutputEntity
+                    {
+                        WaterLevel = outputCLevel,
+                        Order = 2,
+                        CalculationConvergence = Convert.ToByte(CalculationConvergence.NotCalculated),
+                        OutputType = Convert.ToByte(GrassCoverErosionOutwardsWaveConditionsOutputType.WaveImpact)
                     },
                     new GrassCoverErosionOutwardsWaveConditionsOutputEntity
                     {
@@ -354,7 +458,7 @@ namespace Riskeer.Storage.Core.Test.Read.GrassCoverErosionOutwards
         }
 
         [Test]
-        public void Read_EntityWithCalculationOutputEntityWithWavImpact_CalculationWithOutput()
+        public void Read_EntityWithCalculationOutputEntityWithWaveImpact_CalculationWithOutput()
         {
             // Setup
             const double outputALevel = 0;
@@ -397,7 +501,7 @@ namespace Riskeer.Storage.Core.Test.Read.GrassCoverErosionOutwards
         }
 
         [Test]
-        public void Read_EntityWithCalculationOutputEntityWithTailorMadeWavImpact_CalculationWithOutput()
+        public void Read_EntityWithCalculationOutputEntityWithTailorMadeWaveImpact_CalculationWithOutput()
         {
             // Setup
             const double outputALevel = 0;
