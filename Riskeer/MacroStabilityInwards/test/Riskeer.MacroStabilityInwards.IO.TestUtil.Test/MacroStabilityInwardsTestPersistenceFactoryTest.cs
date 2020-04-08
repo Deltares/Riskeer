@@ -31,7 +31,7 @@ namespace Riskeer.MacroStabilityInwards.IO.TestUtil.Test
             var persistenceFactory = new MacroStabilityInwardsTestPersistenceFactory();
 
             // Call
-            Persister persister = persistenceFactory.CreateArchivePersister(filePath, persistableDataModel);
+            IPersister persister = persistenceFactory.CreateArchivePersister(filePath, persistableDataModel);
 
             // Assert
             Assert.AreSame(persistableDataModel, persistenceFactory.PersistableDataModel);

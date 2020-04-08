@@ -25,7 +25,7 @@ namespace Riskeer.MacroStabilityInwards.IO.TestUtil
         /// </summary>
         public bool ThrowException { get; set; }
 
-        public Persister CreateArchivePersister(string path, PersistableDataModel dataModel)
+        public IPersister CreateArchivePersister(string path, PersistableDataModel dataModel)
         {
             if (ThrowException)
             {
