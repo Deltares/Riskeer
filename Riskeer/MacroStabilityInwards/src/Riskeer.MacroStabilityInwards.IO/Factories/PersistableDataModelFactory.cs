@@ -48,7 +48,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
                     IsDataValidated = true
                 },
                 CalculationSettings = new[]
-               {
+                {
                     new PersistableCalculationSettings
                     {
                         Id = "0"
@@ -69,10 +69,10 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
                         },
                         CalculationType = PersistableCalculationType.Deterministic,
                         Id = "1"
-                    },
+                    }
                 },
                 Stages = new[]
-               {
+                {
                     new PersistableStage
                     {
                         Id = "0",
