@@ -314,6 +314,24 @@ namespace Riskeer.MacroStabilityInwards.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Export from Riskeer.
+        /// </summary>
+        public static string PersistableDataModelFactory_Create_Export_from_Riskeer {
+            get {
+                return ResourceManager.GetString("PersistableDataModelFactory_Create_Export_from_Riskeer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Riskeer {0}.
+        /// </summary>
+        public static string PersistableDataModelFactory_Create_Riskeer_Version_0 {
+            get {
+                return ResourceManager.GetString("PersistableDataModelFactory_Create_Riskeer_Version_0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Onverzadigd gewicht.
         /// </summary>
         public static string SoilLayerData_AbovePhreaticLevelDistribution_Description {

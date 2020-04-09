@@ -17,6 +17,9 @@ namespace Riskeer.MacroStabilityInwards.IO.TestUtil
             PersistCalled = true;
         }
 
-        public void Dispose() {}
+        public void Dispose()
+        {
+            // Do nothing
+        }
     }
 }
