@@ -38,19 +38,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
             {
                 Info = PersistableProjectInfoFactory.Create(calculation, filePath),
                 CalculationSettings = PersistableCalculationSettingsFactory.Create(calculation.Output.SlidingCurve, idFactory, registry),
-                Stages = new[]
-                {
-                    new PersistableStage
-                    {
-                        Id = "0",
-                        CalculationSettingsId = "0"
-                    },
-                    new PersistableStage
-                    {
-                        Id = "1",
-                        CalculationSettingsId = "1"
-                    }
-                }
+                Stages = PersistableStageFactory.Create(idFactory, registry)
             };
         }
     }
