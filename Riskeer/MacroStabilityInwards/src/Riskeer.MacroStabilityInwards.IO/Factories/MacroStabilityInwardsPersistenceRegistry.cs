@@ -7,7 +7,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
     /// <summary>
     /// Registry used to keep track of items when exporting data.
     /// </summary>
-    public class MacroStabilityInwardsPersistenceRegistry
+    internal class MacroStabilityInwardsPersistenceRegistry
     {
         private readonly Dictionary<PersistableCalculationSettings, string> settings;
 
