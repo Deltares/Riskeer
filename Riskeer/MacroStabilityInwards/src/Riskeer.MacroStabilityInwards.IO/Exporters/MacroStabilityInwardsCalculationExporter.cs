@@ -29,7 +29,6 @@ using Core.Common.Util.Reflection;
 using log4net;
 using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.MacroStabilityInwards.IO.Properties;
-using Shared.Common;
 using Shared.Components.Persistence;
 using CoreCommonUtilResources = Core.Common.Util.Properties.Resources;
 
@@ -116,6 +115,43 @@ namespace Riskeer.MacroStabilityInwards.IO.Exporters
                     Remarks = "Export from Riskeer",
                     Created = DateTime.Now,
                     IsDataValidated = true
+                },
+                CalculationSettings = new []
+                {
+                    new PersistableCalculationSettings
+                    {
+                        Id = "0"
+                    },
+                    new PersistableCalculationSettings
+                    {
+                        AnalysisType = PersistableAnalysisType.UpliftVan,
+                        UpliftVan = new PersistableUpliftVanSettings
+                        {
+                            SlipPlane = new PersistableTwoCirclesOnTangentLine
+                            {
+                                FirstCircleCenter = new PersistablePoint(calculation.Output.SlidingCurve.LeftCircle.Center.X,
+                                                                         calculation.Output.SlidingCurve.LeftCircle.Center.Y),
+                                FirstCircleRadius = calculation.Output.SlidingCurve.LeftCircle.Radius,
+                                SecondCircleCenter = new PersistablePoint(calculation.Output.SlidingCurve.RightCircle.Center.X,
+                                                                          calculation.Output.SlidingCurve.RightCircle.Center.Y)
+                            }
+                        },
+                        CalculationType = PersistableCalculationType.Deterministic,
+                        Id = "1"
+                    },
+                },
+                Stages = new []
+                {
+                    new PersistableStage
+                    {
+                        Id = "0",
+                        CalculationSettingsId = "0"
+                    },
+                    new PersistableStage
+                    {
+                        Id = "1",
+                        CalculationSettingsId = "1"
+                    }
                 }
             };
         }

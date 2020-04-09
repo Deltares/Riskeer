@@ -20,18 +20,22 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using Components.Persistence.Stability;
 using Components.Persistence.Stability.Data;
+using Core.Common.Base;
 using Core.Common.Base.IO;
 using Core.Common.TestUtil;
 using Core.Common.Util.Reflection;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Riskeer.Common.Data.TestUtil;
 using Riskeer.MacroStabilityInwards.Data;
+using Riskeer.MacroStabilityInwards.Data.TestUtil;
 using Riskeer.MacroStabilityInwards.IO.Exporters;
 using Riskeer.MacroStabilityInwards.IO.TestUtil;
-using Riskeer.MacroStabilityInwards.Primitives;
 
 namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
 {
@@ -105,12 +109,15 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
         {
             // Setup
             const string filePath = "ValidFilePath";
+            MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput(new TestHydraulicBoundaryLocation());
+            calculation.Output = MacroStabilityInwardsOutputTestFactory.CreateRandomOutput();
+
             var persistenceFactory = new MacroStabilityInwardsTestPersistenceFactory
             {
                 ThrowException = true
             };
 
-            var exporter = new MacroStabilityInwardsCalculationExporter(new MacroStabilityInwardsCalculation(), persistenceFactory, filePath);
+            var exporter = new MacroStabilityInwardsCalculationExporter(calculation, persistenceFactory, filePath);
 
             // Call
             var exportResult = true;
@@ -127,13 +134,9 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
         {
             // Setup
             const string filePath = "ValidFilePath";
-            var calculation = new MacroStabilityInwardsCalculation
-            {
-                InputParameters =
-                {
-                    SurfaceLine = new MacroStabilityInwardsSurfaceLine("Test")
-                }
-            };
+            MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput(new TestHydraulicBoundaryLocation());
+            calculation.Output = MacroStabilityInwardsOutputTestFactory.CreateRandomOutput();
+            
             var persistenceFactory = new MacroStabilityInwardsTestPersistenceFactory();
 
             var exporter = new MacroStabilityInwardsCalculationExporter(calculation, persistenceFactory, filePath);
@@ -154,9 +157,9 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
         private void AssertPersistableDataModel(MacroStabilityInwardsCalculation calculation, PersistableDataModel persistableDataModel, string filePath)
         {
             AssertProjectInfo(calculation, persistableDataModel.Info, filePath);
+            AssertCalculationSettings(calculation, persistableDataModel.CalculationSettings);
 
             Assert.IsNull(persistableDataModel.AssessmentResults);
-            Assert.IsNull(persistableDataModel.CalculationSettings);
             Assert.IsNull(persistableDataModel.Decorations);
             Assert.IsNull(persistableDataModel.Geometry);
             Assert.IsNull(persistableDataModel.Loads);
@@ -166,11 +169,12 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
             Assert.IsNull(persistableDataModel.SoilLayers);
             Assert.IsNull(persistableDataModel.SoilVisualizations);
             Assert.IsNull(persistableDataModel.Soils);
-            Assert.IsNull(persistableDataModel.Stages);
             Assert.IsNull(persistableDataModel.WaternetCreatorSettings);
             Assert.IsNull(persistableDataModel.Waternets);
             Assert.IsNull(persistableDataModel.StateCorrelations);
             Assert.IsNull(persistableDataModel.States);
+
+            AssertStages(persistableDataModel);
         }
 
         private void AssertProjectInfo(MacroStabilityInwardsCalculation calculation, PersistableProjectInfo persistableProjectInfo, string filePath)
@@ -186,6 +190,40 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
             Assert.IsNull(persistableProjectInfo.LastModifier);
             Assert.IsNull(persistableProjectInfo.Analyst);
             Assert.IsTrue(persistableProjectInfo.IsDataValidated);
+        }
+
+        private void AssertCalculationSettings(MacroStabilityInwardsCalculation calculation, IEnumerable<PersistableCalculationSettings> calculationSettings)
+        {
+            Assert.AreEqual(2, calculationSettings.Count());
+            PersistableCalculationSettings emptyCalculationSettings = calculationSettings.First();
+
+            Assert.AreEqual("0", emptyCalculationSettings.Id);
+            Assert.IsNull(emptyCalculationSettings.AnalysisType);
+            Assert.IsNull(emptyCalculationSettings.CalculationType);
+            Assert.IsNull(emptyCalculationSettings.UpliftVan);
+
+            PersistableCalculationSettings actualCalculationSettings = calculationSettings.Last();
+            Assert.AreEqual("1", actualCalculationSettings.Id);
+            Assert.AreEqual(PersistableAnalysisType.UpliftVan, actualCalculationSettings.AnalysisType);
+            Assert.AreEqual(PersistableCalculationType.Deterministic, actualCalculationSettings.CalculationType);
+            Assert.AreEqual(calculation.Output.SlidingCurve.LeftCircle.Center.X ,actualCalculationSettings.UpliftVan.SlipPlane.FirstCircleCenter.Value.X);
+            Assert.AreEqual(calculation.Output.SlidingCurve.LeftCircle.Center.Y ,actualCalculationSettings.UpliftVan.SlipPlane.FirstCircleCenter.Value.Z);
+            Assert.AreEqual(calculation.Output.SlidingCurve.LeftCircle.Radius ,actualCalculationSettings.UpliftVan.SlipPlane.FirstCircleRadius);
+            Assert.AreEqual(calculation.Output.SlidingCurve.RightCircle.Center.X, actualCalculationSettings.UpliftVan.SlipPlane.SecondCircleCenter.Value.X);
+            Assert.AreEqual(calculation.Output.SlidingCurve.RightCircle.Center.Y, actualCalculationSettings.UpliftVan.SlipPlane.SecondCircleCenter.Value.Z);
+        }
+
+        private void AssertStages(PersistableDataModel persistableDataModel)
+        {
+            IEnumerable<PersistableStage> stages = persistableDataModel.Stages;
+            Assert.AreEqual(2, stages.Count());
+            PersistableStage firstStage = stages.First();
+            Assert.AreEqual("0", firstStage.Id);
+            Assert.AreEqual(persistableDataModel.CalculationSettings.First().Id, firstStage.CalculationSettingsId);
+            
+            PersistableStage lastStage = stages.Last();
+            Assert.AreEqual("1", lastStage.Id);
+            Assert.AreEqual(persistableDataModel.CalculationSettings.Last().Id, lastStage.CalculationSettingsId);
         }
     }
 }
