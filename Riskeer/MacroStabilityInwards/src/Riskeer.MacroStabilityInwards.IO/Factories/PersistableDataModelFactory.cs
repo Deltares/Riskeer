@@ -31,33 +31,13 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
                 throw new InvalidOperationException("Calculation must have output.");
             }
 
+            var idFactory = new IdFactory();
+            var registry = new MacroStabilityInwardsPersistenceRegistry();
+
             return new PersistableDataModel
             {
                 Info = PersistableProjectInfoFactory.Create(calculation, filePath),
-                CalculationSettings = new[]
-                {
-                    new PersistableCalculationSettings
-                    {
-                        Id = "0"
-                    },
-                    new PersistableCalculationSettings
-                    {
-                        AnalysisType = PersistableAnalysisType.UpliftVan,
-                        UpliftVan = new PersistableUpliftVanSettings
-                        {
-                            SlipPlane = new PersistableTwoCirclesOnTangentLine
-                            {
-                                FirstCircleCenter = new PersistablePoint(calculation.Output.SlidingCurve.LeftCircle.Center.X,
-                                                                         calculation.Output.SlidingCurve.LeftCircle.Center.Y),
-                                FirstCircleRadius = calculation.Output.SlidingCurve.LeftCircle.Radius,
-                                SecondCircleCenter = new PersistablePoint(calculation.Output.SlidingCurve.RightCircle.Center.X,
-                                                                          calculation.Output.SlidingCurve.RightCircle.Center.Y)
-                            }
-                        },
-                        CalculationType = PersistableCalculationType.Deterministic,
-                        Id = "1"
-                    }
-                },
+                CalculationSettings = PersistableCalculationSettingsFactory.Create(calculation.Output.SlidingCurve, idFactory, registry),
                 Stages = new[]
                 {
                     new PersistableStage
