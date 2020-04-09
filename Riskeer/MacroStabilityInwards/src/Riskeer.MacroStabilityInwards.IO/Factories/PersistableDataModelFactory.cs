@@ -32,7 +32,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
             }
 
             var idFactory = new IdFactory();
-            var registry = new MacroStabilityInwardsPersistenceRegistry();
+            var registry = new MacroStabilityInwardsExportRegistry();
 
             return new PersistableDataModel
             {

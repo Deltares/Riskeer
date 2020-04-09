@@ -18,7 +18,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
         /// <param name="registry">The persistence registry.</param>
         /// <returns>A collection of <see cref="PersistableCalculationSettings"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public static IEnumerable<PersistableCalculationSettings> Create(MacroStabilityInwardsSlidingCurve slidingCurve, IdFactory idFactory, MacroStabilityInwardsPersistenceRegistry registry)
+        public static IEnumerable<PersistableCalculationSettings> Create(MacroStabilityInwardsSlidingCurve slidingCurve, IdFactory idFactory, MacroStabilityInwardsExportRegistry registry)
         {
             if (slidingCurve == null)
             {
@@ -58,7 +58,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
             };
         }
 
-        private static PersistableCalculationSettings Create(IdFactory idFactory, MacroStabilityInwardsPersistenceRegistry registry)
+        private static PersistableCalculationSettings Create(IdFactory idFactory, MacroStabilityInwardsExportRegistry registry)
         {
             var emptySettings = new PersistableCalculationSettings
             {

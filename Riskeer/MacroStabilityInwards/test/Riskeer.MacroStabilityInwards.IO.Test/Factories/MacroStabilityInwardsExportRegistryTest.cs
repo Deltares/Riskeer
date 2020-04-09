@@ -8,13 +8,13 @@ using Riskeer.MacroStabilityInwards.IO.Factories;
 namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
 {
     [TestFixture]
-    public class MacroStabilityInwardsPersistenceRegistryTest
+    public class MacroStabilityInwardsExportRegistryTest
     {
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Call
-            var registry = new MacroStabilityInwardsPersistenceRegistry();
+            var registry = new MacroStabilityInwardsExportRegistry();
 
             // Assert
             Assert.IsEmpty(registry.Settings);
@@ -24,7 +24,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
         public void AddSettings_SettingsNull_ThrowsArgumentNullException()
         {
             // Setup
-            var registry = new MacroStabilityInwardsPersistenceRegistry();
+            var registry = new MacroStabilityInwardsExportRegistry();
 
             // Call
             void Call() => registry.Add(null, "1");
@@ -38,7 +38,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
         public void AddSettings_WithSettings_AddsSettings()
         {
             // Setup
-            var registry = new MacroStabilityInwardsPersistenceRegistry();
+            var registry = new MacroStabilityInwardsExportRegistry();
             var settings = new PersistableCalculationSettings();
             const string id = "1";
 

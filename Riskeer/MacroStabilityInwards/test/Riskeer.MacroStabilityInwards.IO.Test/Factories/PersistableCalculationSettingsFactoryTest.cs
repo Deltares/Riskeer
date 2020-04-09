@@ -16,7 +16,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
         public void Create_SlidingCurveNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => PersistableCalculationSettingsFactory.Create(null, new IdFactory(), new MacroStabilityInwardsPersistenceRegistry());
+            void Call() => PersistableCalculationSettingsFactory.Create(null, new IdFactory(), new MacroStabilityInwardsExportRegistry());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -28,7 +28,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
         {
             // Call
             void Call() => PersistableCalculationSettingsFactory.Create(MacroStabilityInwardsOutputTestFactory.CreateOutput().SlidingCurve,
-                                                                        null, new MacroStabilityInwardsPersistenceRegistry());
+                                                                        null, new MacroStabilityInwardsExportRegistry());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -53,7 +53,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
             // Setup
             MacroStabilityInwardsSlidingCurve slidingCurve = MacroStabilityInwardsOutputTestFactory.CreateOutput().SlidingCurve;
             var idFactory = new IdFactory();
-            var registry = new MacroStabilityInwardsPersistenceRegistry();
+            var registry = new MacroStabilityInwardsExportRegistry();
 
             // Call
             IEnumerable<PersistableCalculationSettings> settingsCollection = PersistableCalculationSettingsFactory.Create(slidingCurve, idFactory, registry);
