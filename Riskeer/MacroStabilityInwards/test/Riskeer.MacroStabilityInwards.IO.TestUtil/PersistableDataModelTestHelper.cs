@@ -43,7 +43,7 @@ namespace Riskeer.MacroStabilityInwards.IO.TestUtil
             Assert.IsNull(persistableDataModel.StateCorrelations);
             Assert.IsNull(persistableDataModel.States);
 
-            AssertStages(persistableDataModel);
+            AssertStages(persistableDataModel.Stages, persistableDataModel.CalculationSettings);
         }
 
         /// <summary>
@@ -101,17 +101,17 @@ namespace Riskeer.MacroStabilityInwards.IO.TestUtil
             Assert.AreEqual(slidingCurve.RightCircle.Center.Y, actualCalculationSettings.UpliftVan.SlipPlane.SecondCircleCenter.Value.Z);
         }
 
-        private static void AssertStages(PersistableDataModel persistableDataModel)
+        public static void AssertStages(IEnumerable<PersistableStage> stages, IEnumerable<PersistableCalculationSettings> calculationSettings)
         {
-            IEnumerable<PersistableStage> stages = persistableDataModel.Stages;
             Assert.AreEqual(2, stages.Count());
+            
             PersistableStage firstStage = stages.First();
-            Assert.AreEqual("0", firstStage.Id);
-            Assert.AreEqual(persistableDataModel.CalculationSettings.First().Id, firstStage.CalculationSettingsId);
+            Assert.IsNotNull(firstStage.Id);
+            Assert.AreEqual(calculationSettings.First().Id, firstStage.CalculationSettingsId);
 
             PersistableStage lastStage = stages.Last();
-            Assert.AreEqual("1", lastStage.Id);
-            Assert.AreEqual(persistableDataModel.CalculationSettings.Last().Id, lastStage.CalculationSettingsId);
+            Assert.IsNotNull(lastStage.Id);
+            Assert.AreEqual(calculationSettings.Last().Id, lastStage.CalculationSettingsId);
         }
     }
 }
