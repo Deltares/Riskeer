@@ -49,7 +49,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
             PersistableDataModel persistableDataModel = PersistableDataModelFactory.Create(calculation, filePath);
 
             // Assert
-            PersistableDataModelTestHelper.AssertPersistableDataModel(calculation, persistableDataModel, filePath);
+            PersistableDataModelTestHelper.AssertPersistableDataModel(calculation, filePath, persistableDataModel);
         }
     }
 }

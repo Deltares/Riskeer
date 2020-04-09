@@ -19,13 +19,13 @@ namespace Riskeer.MacroStabilityInwards.IO.TestUtil
         /// and the <paramref name="filePath"/>.
         /// </summary>
         /// <param name="calculation">The calculation that contains the original data.</param>
-        /// <param name="persistableDataModel">The <see cref="PersistableDataModel"/> that needs to be asserted.</param>
         /// <param name="filePath">The file path that is used.</param>
+        /// <param name="persistableDataModel">The <see cref="PersistableDataModel"/> that needs to be asserted.</param>
         /// <exception cref="AssertionException">Thrown when the data in <paramref name="persistableDataModel"/>
         /// is not correct.</exception>
-        public static void AssertPersistableDataModel(MacroStabilityInwardsCalculation calculation, PersistableDataModel persistableDataModel, string filePath)
+        public static void AssertPersistableDataModel(MacroStabilityInwardsCalculation calculation, string filePath, PersistableDataModel persistableDataModel)
         {
-            AssertProjectInfo(calculation, persistableDataModel.Info, filePath);
+            AssertProjectInfo(calculation, filePath, persistableDataModel.Info);
             AssertCalculationSettings(calculation, persistableDataModel.CalculationSettings);
 
             Assert.IsNull(persistableDataModel.AssessmentResults);
@@ -46,7 +46,17 @@ namespace Riskeer.MacroStabilityInwards.IO.TestUtil
             AssertStages(persistableDataModel);
         }
 
-        private static void AssertProjectInfo(MacroStabilityInwardsCalculation calculation, PersistableProjectInfo persistableProjectInfo, string filePath)
+        /// <summary>
+        /// Asserts whether the <see cref="PersistableProjectInfo"/> contains the data
+        /// that is representative for the <paramref name="calculation"/>
+        /// and the <paramref name="filePath"/>.
+        /// </summary>
+        /// <param name="calculation">The calculation that contains the original data.</param>
+        /// <param name="filePath">The file path that is used.</param>
+        /// <param name="persistableProjectInfo">The <see cref="PersistableProjectInfo"/> that needs to be asserted.</param>
+        /// <exception cref="AssertionException">Thrown when the data in <paramref name="persistableProjectInfo"/>
+        /// is not correct.</exception>
+        public static void AssertProjectInfo(MacroStabilityInwardsCalculation calculation, string filePath, PersistableProjectInfo persistableProjectInfo)
         {
             Assert.AreEqual(filePath, persistableProjectInfo.Path);
             Assert.AreEqual(calculation.Name, persistableProjectInfo.Project);

@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Reflection;
 using Components.Persistence.Stability.Data;
-using Core.Common.Util.Reflection;
 using Riskeer.MacroStabilityInwards.Data;
-using Riskeer.MacroStabilityInwards.IO.Properties;
 
 namespace Riskeer.MacroStabilityInwards.IO.Factories
 {
@@ -36,17 +33,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
 
             return new PersistableDataModel
             {
-                Info = new PersistableProjectInfo
-                {
-                    Path = filePath,
-                    Project = calculation.Name,
-                    CrossSection = calculation.InputParameters.SurfaceLine.Name,
-                    ApplicationCreated = string.Format(Resources.PersistableDataModelFactory_Create_Riskeer_Version_0,
-                                                       AssemblyUtils.GetAssemblyInfo(Assembly.GetAssembly(typeof(PersistableDataModelFactory))).Version),
-                    Remarks = Resources.PersistableDataModelFactory_Create_Export_from_Riskeer,
-                    Created = DateTime.Now,
-                    IsDataValidated = true
-                },
+                Info = PersistableProjectInfoFactory.Create(calculation, filePath),
                 CalculationSettings = new[]
                 {
                     new PersistableCalculationSettings

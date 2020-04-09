@@ -316,18 +316,18 @@ namespace Riskeer.MacroStabilityInwards.IO.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Export from Riskeer.
         /// </summary>
-        public static string PersistableDataModelFactory_Create_Export_from_Riskeer {
+        public static string PersistableProjectInfoFactory_Create_Export_from_Riskeer {
             get {
-                return ResourceManager.GetString("PersistableDataModelFactory_Create_Export_from_Riskeer", resourceCulture);
+                return ResourceManager.GetString("PersistableProjectInfoFactory_Create_Export_from_Riskeer", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Riskeer {0}.
         /// </summary>
-        public static string PersistableDataModelFactory_Create_Riskeer_Version_0 {
+        public static string PersistableProjectInfoFactory_Create_Riskeer_Version_0 {
             get {
-                return ResourceManager.GetString("PersistableDataModelFactory_Create_Riskeer_Version_0", resourceCulture);
+                return ResourceManager.GetString("PersistableProjectInfoFactory_Create_Riskeer_Version_0", resourceCulture);
             }
         }
         
