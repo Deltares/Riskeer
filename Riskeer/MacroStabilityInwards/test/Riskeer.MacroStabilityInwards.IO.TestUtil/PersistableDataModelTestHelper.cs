@@ -26,7 +26,7 @@ namespace Riskeer.MacroStabilityInwards.IO.TestUtil
         public static void AssertPersistableDataModel(MacroStabilityInwardsCalculation calculation, string filePath, PersistableDataModel persistableDataModel)
         {
             AssertProjectInfo(calculation, filePath, persistableDataModel.Info);
-            AssertCalculationSettings(calculation, persistableDataModel.CalculationSettings);
+            AssertCalculationSettings(calculation.Output.SlidingCurve, persistableDataModel.CalculationSettings);
 
             Assert.IsNull(persistableDataModel.AssessmentResults);
             Assert.IsNull(persistableDataModel.Decorations);
@@ -71,7 +71,16 @@ namespace Riskeer.MacroStabilityInwards.IO.TestUtil
             Assert.IsTrue(persistableProjectInfo.IsDataValidated);
         }
 
-        private static void AssertCalculationSettings(MacroStabilityInwardsCalculation calculation, IEnumerable<PersistableCalculationSettings> calculationSettings)
+        /// <summary>
+        /// Asserts whether the <see cref="PersistableCalculationSettings"/> contains the data
+        /// that is representative for the <paramref name="slidingCurve"/>.
+        /// </summary>
+        /// <param name="slidingCurve">The sliding curve that contains the original data.</param>
+        /// <param name="calculationSettings">The collection of <see cref="PersistableCalculationSettings"/>
+        /// that needs to be asserted</param>
+        /// <exception cref="AssertionException">Thrown when the data in <paramref name="calculationSettings"/>
+        /// is not correct.</exception>
+        public static void AssertCalculationSettings(MacroStabilityInwardsSlidingCurve slidingCurve, IEnumerable<PersistableCalculationSettings> calculationSettings)
         {
             Assert.AreEqual(2, calculationSettings.Count());
             PersistableCalculationSettings emptyCalculationSettings = calculationSettings.First();
@@ -85,11 +94,11 @@ namespace Riskeer.MacroStabilityInwards.IO.TestUtil
             Assert.AreEqual("1", actualCalculationSettings.Id);
             Assert.AreEqual(PersistableAnalysisType.UpliftVan, actualCalculationSettings.AnalysisType);
             Assert.AreEqual(PersistableCalculationType.Deterministic, actualCalculationSettings.CalculationType);
-            Assert.AreEqual(calculation.Output.SlidingCurve.LeftCircle.Center.X, actualCalculationSettings.UpliftVan.SlipPlane.FirstCircleCenter.Value.X);
-            Assert.AreEqual(calculation.Output.SlidingCurve.LeftCircle.Center.Y, actualCalculationSettings.UpliftVan.SlipPlane.FirstCircleCenter.Value.Z);
-            Assert.AreEqual(calculation.Output.SlidingCurve.LeftCircle.Radius, actualCalculationSettings.UpliftVan.SlipPlane.FirstCircleRadius);
-            Assert.AreEqual(calculation.Output.SlidingCurve.RightCircle.Center.X, actualCalculationSettings.UpliftVan.SlipPlane.SecondCircleCenter.Value.X);
-            Assert.AreEqual(calculation.Output.SlidingCurve.RightCircle.Center.Y, actualCalculationSettings.UpliftVan.SlipPlane.SecondCircleCenter.Value.Z);
+            Assert.AreEqual(slidingCurve.LeftCircle.Center.X, actualCalculationSettings.UpliftVan.SlipPlane.FirstCircleCenter.Value.X);
+            Assert.AreEqual(slidingCurve.LeftCircle.Center.Y, actualCalculationSettings.UpliftVan.SlipPlane.FirstCircleCenter.Value.Z);
+            Assert.AreEqual(slidingCurve.LeftCircle.Radius, actualCalculationSettings.UpliftVan.SlipPlane.FirstCircleRadius);
+            Assert.AreEqual(slidingCurve.RightCircle.Center.X, actualCalculationSettings.UpliftVan.SlipPlane.SecondCircleCenter.Value.X);
+            Assert.AreEqual(slidingCurve.RightCircle.Center.Y, actualCalculationSettings.UpliftVan.SlipPlane.SecondCircleCenter.Value.Z);
         }
 
         private static void AssertStages(PersistableDataModel persistableDataModel)
