@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using Components.Persistence.Stability.Data;
+using Core.Common.TestUtil;
+using Core.Common.Util.Extensions;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.MacroStabilityInwards.Data.SoilProfile;
@@ -60,11 +63,18 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
         }
 
         [Test]
-        public void Create_WithValidData_ReturnsPersistableSoilCollection()
+        [TestCase(MacroStabilityInwardsShearStrengthModel.CPhi, PersistableShearStrengthModelType.CPhi, PersistableShearStrengthModelType.CPhi)]
+        [TestCase(MacroStabilityInwardsShearStrengthModel.SuCalculated, PersistableShearStrengthModelType.Su, PersistableShearStrengthModelType.Su)]
+        [TestCase(MacroStabilityInwardsShearStrengthModel.CPhiOrSuCalculated, PersistableShearStrengthModelType.CPhi, PersistableShearStrengthModelType.Su)]
+        public void Create_WithValidData_ReturnsPersistableSoilCollection(MacroStabilityInwardsShearStrengthModel shearStrengthModel,
+                                                                              PersistableShearStrengthModelType expectedShearStrengthModelTypeAbovePhreaticLevel,
+                                                                              PersistableShearStrengthModelType expectedShearStrengthModelTypeBelowPhreaticLevel)
         {
             // Setup
             MacroStabilityInwardsSoilProfile2D soilProfile = MacroStabilityInwardsSoilProfile2DTestFactory.CreateMacroStabilityInwardsSoilProfile2D();
             var registry = new MacroStabilityInwardsExportRegistry();
+
+            soilProfile.Layers.ForEachElementDo(layer => layer.Data.ShearStrengthModel = shearStrengthModel);
 
             // Call
             PersistableSoilCollection soilCollection = PersistableSoilCollectionFactory.Create(soilProfile, new IdFactory(), registry);
@@ -91,10 +101,32 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
                 Assert.IsFalse(soil.CohesionAndFrictionAngleCorrelated);
                 Assert.IsFalse(soil.ShearStrengthRatioAndShearStrengthExponentCorrelated);
 
+                Assert.AreEqual(expectedShearStrengthModelTypeAbovePhreaticLevel, soil.ShearStrengthModelTypeAbovePhreaticLevel);
+                Assert.AreEqual(expectedShearStrengthModelTypeBelowPhreaticLevel, soil.ShearStrengthModelTypeBelowPhreaticLevel);
+
                 KeyValuePair<IMacroStabilityInwardsSoilLayer, string> registrySoil = registry.Soils.ElementAt(i);
                 Assert.AreSame(layer, registrySoil.Key);
                 Assert.AreEqual(soil.Id, registrySoil.Value);
             }
+        }
+
+        [Test]
+        public void Create_InvalidShearStrengthType_ThrowsInvalidEnumArgumentException()
+        {
+            // Setup
+            MacroStabilityInwardsSoilProfile2D soilProfile = MacroStabilityInwardsSoilProfile2DTestFactory.CreateMacroStabilityInwardsSoilProfile2D();
+            var registry = new MacroStabilityInwardsExportRegistry();
+
+            var shearStrengthModel = (MacroStabilityInwardsShearStrengthModel) 99;
+            soilProfile.Layers.First().Data.ShearStrengthModel = shearStrengthModel;
+
+            // Call
+            void Call() => PersistableSoilCollectionFactory.Create(soilProfile, new IdFactory(), registry);
+
+            // Assert
+            string message = $"The value of argument 'shearStrengthModel' ({shearStrengthModel}) is invalid for Enum type '{nameof(MacroStabilityInwardsShearStrengthModel)}'.";
+            var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(Call, message);
+            Assert.AreEqual("shearStrengthModel", exception.ParamName);
         }
     }
 }

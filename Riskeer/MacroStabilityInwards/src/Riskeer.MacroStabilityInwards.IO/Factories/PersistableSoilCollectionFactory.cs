@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Linq;
 using Components.Persistence.Stability.Data;
 using Riskeer.MacroStabilityInwards.Data.SoilProfile;
@@ -46,7 +47,9 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
                 IsProbabilistic = true,
                 Cohesion = MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetCohesion(layerData).GetDesignValue(),
                 CohesionAndFrictionAngleCorrelated = false,
-                ShearStrengthRatioAndShearStrengthExponentCorrelated = false
+                ShearStrengthRatioAndShearStrengthExponentCorrelated = false,
+                ShearStrengthModelTypeAbovePhreaticLevel = GetShearStrengthModelTypeForAbovePhreaticLevel(layerData.ShearStrengthModel),
+                ShearStrengthModelTypeBelowPhreaticLevel = GetShearStrengthModelTypeForBelowPhreaticLevel(layerData.ShearStrengthModel)
             };
 
             soil.Code = $"{soil.Name}-{soil.Id}";
@@ -54,6 +57,70 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
             registry.Add(layer, soil.Id);
 
             return soil;
+        }
+
+        /// <summary>
+        /// Gets the <see cref="PersistableShearStrengthModelType"/> for
+        /// above phreatic level.
+        /// </summary>
+        /// <param name="shearStrengthModel">The <see cref="MacroStabilityInwardsShearStrengthModel"/>
+        /// to get the <see cref="PersistableShearStrengthModelType"/> for.</param>
+        /// <returns>The <see cref="PersistableShearStrengthModelType"/>.</returns>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="shearStrengthModel"/>
+        /// has an invalid value for <see cref="MacroStabilityInwardsShearStrengthModel"/>.</exception>
+        /// <exception cref="NotSupportedException">Thrown when <paramref name="shearStrengthModel"/>
+        /// is not supported.</exception>
+        private static PersistableShearStrengthModelType GetShearStrengthModelTypeForAbovePhreaticLevel(MacroStabilityInwardsShearStrengthModel shearStrengthModel)
+        {
+            if (!Enum.IsDefined(typeof(MacroStabilityInwardsShearStrengthModel), shearStrengthModel))
+            {
+                throw new InvalidEnumArgumentException(nameof(shearStrengthModel),
+                                                       (int)shearStrengthModel,
+                                                       typeof(MacroStabilityInwardsShearStrengthModel));
+            }
+
+            switch (shearStrengthModel)
+            {
+                case MacroStabilityInwardsShearStrengthModel.CPhi:
+                case MacroStabilityInwardsShearStrengthModel.CPhiOrSuCalculated:
+                    return PersistableShearStrengthModelType.CPhi;
+                case MacroStabilityInwardsShearStrengthModel.SuCalculated:
+                    return PersistableShearStrengthModelType.Su;
+                default:
+                    throw new NotSupportedException();
+            }
+        }
+
+        /// <summary>
+        /// Gets the <see cref="PersistableShearStrengthModelType"/> for
+        /// below phreatic level.
+        /// </summary>
+        /// <param name="shearStrengthModel">The <see cref="MacroStabilityInwardsShearStrengthModel"/>
+        /// to get the <see cref="PersistableShearStrengthModelType"/> for.</param>
+        /// <returns>The <see cref="PersistableShearStrengthModelType"/>.</returns>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="shearStrengthModel"/>
+        /// has an invalid value for <see cref="MacroStabilityInwardsShearStrengthModel"/>.</exception>
+        /// <exception cref="NotSupportedException">Thrown when <paramref name="shearStrengthModel"/>
+        /// is not supported.</exception>
+        private static PersistableShearStrengthModelType GetShearStrengthModelTypeForBelowPhreaticLevel(MacroStabilityInwardsShearStrengthModel shearStrengthModel)
+        {
+            if (!Enum.IsDefined(typeof(MacroStabilityInwardsShearStrengthModel), shearStrengthModel))
+            {
+                throw new InvalidEnumArgumentException(nameof(shearStrengthModel),
+                                                       (int)shearStrengthModel,
+                                                       typeof(MacroStabilityInwardsShearStrengthModel));
+            }
+
+            switch (shearStrengthModel)
+            {
+                case MacroStabilityInwardsShearStrengthModel.CPhi:
+                    return PersistableShearStrengthModelType.CPhi;
+                case MacroStabilityInwardsShearStrengthModel.SuCalculated:
+                case MacroStabilityInwardsShearStrengthModel.CPhiOrSuCalculated:
+                    return PersistableShearStrengthModelType.Su;
+                default:
+                    throw new NotSupportedException();
+            }
         }
     }
 }
