@@ -5,6 +5,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.Probabilistics;
 using Riskeer.MacroStabilityInwards.IO.Factories;
+using Riskeer.MacroStabilityInwards.IO.TestUtil;
 
 namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
 {
@@ -38,9 +39,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
             PersistableStochasticParameter stochasticParameter = PersistableStochasticParameterFactory.Create(distribution);
 
             // Assert
-            Assert.AreEqual(distribution.Mean.Value, stochasticParameter.Mean);
-            Assert.AreEqual(distribution.Mean * distribution.CoefficientOfVariation, stochasticParameter.StandardDeviation);
-            Assert.IsTrue(stochasticParameter.IsProbabilistic);
+            PersistableDataModelTestHelper.AssertStochasticParameter(distribution, stochasticParameter);
             mocks.VerifyAll();
         }
     }

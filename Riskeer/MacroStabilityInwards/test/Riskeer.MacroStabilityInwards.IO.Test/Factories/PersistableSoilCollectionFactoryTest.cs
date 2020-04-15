@@ -10,6 +10,7 @@ using Rhino.Mocks;
 using Riskeer.MacroStabilityInwards.Data.SoilProfile;
 using Riskeer.MacroStabilityInwards.Data.TestUtil.SoilProfile;
 using Riskeer.MacroStabilityInwards.IO.Factories;
+using Riskeer.MacroStabilityInwards.IO.TestUtil;
 using Riskeer.MacroStabilityInwards.Primitives;
 
 namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
@@ -97,6 +98,19 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
                 Assert.IsTrue(soil.IsProbabilistic);
 
                 Assert.AreEqual(MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetCohesion(layer.Data).GetDesignValue(), soil.Cohesion);
+                PersistableDataModelTestHelper.AssertStochasticParameter(layer.Data.Cohesion, soil.CohesionStochasticParameter);
+                
+                Assert.AreEqual(MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetFrictionAngle(layer.Data).GetDesignValue(), soil.FrictionAngle);
+                PersistableDataModelTestHelper.AssertStochasticParameter(layer.Data.FrictionAngle, soil.FrictionAngleStochasticParameter);
+
+                Assert.AreEqual(MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetShearStrengthRatio(layer.Data).GetDesignValue(), soil.ShearStrengthRatio);
+                PersistableDataModelTestHelper.AssertStochasticParameter(layer.Data.ShearStrengthRatio, soil.ShearStrengthRatioStochasticParameter);
+
+                Assert.AreEqual(MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetStrengthIncreaseExponent(layer.Data).GetDesignValue(), soil.StrengthIncreaseExponent);
+                PersistableDataModelTestHelper.AssertStochasticParameter(layer.Data.StrengthIncreaseExponent, soil.StrengthIncreaseExponentStochasticParameter);
+
+                Assert.AreEqual(MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetAbovePhreaticLevel(layer.Data).GetDesignValue(), soil.VolumetricWeightAbovePhreaticLevel);
+                Assert.AreEqual(MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetBelowPhreaticLevel(layer.Data).GetDesignValue(), soil.VolumetricWeightBelowPhreaticLevel);
 
                 Assert.IsFalse(soil.CohesionAndFrictionAngleCorrelated);
                 Assert.IsFalse(soil.ShearStrengthRatioAndShearStrengthExponentCorrelated);
@@ -117,7 +131,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
             MacroStabilityInwardsSoilProfile2D soilProfile = MacroStabilityInwardsSoilProfile2DTestFactory.CreateMacroStabilityInwardsSoilProfile2D();
             var registry = new MacroStabilityInwardsExportRegistry();
 
-            var shearStrengthModel = (MacroStabilityInwardsShearStrengthModel) 99;
+            const MacroStabilityInwardsShearStrengthModel shearStrengthModel = (MacroStabilityInwardsShearStrengthModel) 99;
             soilProfile.Layers.First().Data.ShearStrengthModel = shearStrengthModel;
 
             // Call

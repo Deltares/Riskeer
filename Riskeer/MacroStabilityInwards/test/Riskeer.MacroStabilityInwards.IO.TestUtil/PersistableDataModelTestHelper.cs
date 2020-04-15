@@ -4,6 +4,7 @@ using System.Reflection;
 using Components.Persistence.Stability.Data;
 using Core.Common.Util.Reflection;
 using NUnit.Framework;
+using Riskeer.Common.Data.Probabilistics;
 using Riskeer.MacroStabilityInwards.Data;
 
 namespace Riskeer.MacroStabilityInwards.IO.TestUtil
@@ -77,7 +78,7 @@ namespace Riskeer.MacroStabilityInwards.IO.TestUtil
         /// </summary>
         /// <param name="slidingCurve">The sliding curve that contains the original data.</param>
         /// <param name="calculationSettings">The collection of <see cref="PersistableCalculationSettings"/>
-        /// that needs to be asserted</param>
+        /// that needs to be asserted.</param>
         /// <exception cref="AssertionException">Thrown when the data in <paramref name="calculationSettings"/>
         /// is not correct.</exception>
         public static void AssertCalculationSettings(MacroStabilityInwardsSlidingCurve slidingCurve, IEnumerable<PersistableCalculationSettings> calculationSettings)
@@ -101,6 +102,13 @@ namespace Riskeer.MacroStabilityInwards.IO.TestUtil
             Assert.AreEqual(slidingCurve.RightCircle.Center.Y, actualCalculationSettings.UpliftVan.SlipPlane.SecondCircleCenter.Value.Z);
         }
 
+        /// <summary>
+        /// Asserts whether the <see cref="PersistableStage"/> contains the correct data.
+        /// </summary>
+        /// <param name="stages">The stages that needs to be asserted.</param>
+        /// <param name="calculationSettings">The calculation settings that are used.</param>
+        /// <exception cref="AssertionException">Thrown when the data in <paramref name="stages"/>
+        /// is not correct.</exception>
         public static void AssertStages(IEnumerable<PersistableStage> stages, IEnumerable<PersistableCalculationSettings> calculationSettings)
         {
             Assert.AreEqual(2, stages.Count());
@@ -112,6 +120,22 @@ namespace Riskeer.MacroStabilityInwards.IO.TestUtil
             PersistableStage lastStage = stages.Last();
             Assert.IsNotNull(lastStage.Id);
             Assert.AreEqual(calculationSettings.Last().Id, lastStage.CalculationSettingsId);
+        }
+
+        /// <summary>
+        /// Assert whether the <see cref="PersistableStochasticParameter"/> contains the data
+        /// that is representative for the <paramref name="distribution"/>.
+        /// </summary>
+        /// <param name="distribution">The distribution that contains the original data.</param>
+        /// <param name="stochasticParameter">the <see cref="PersistableStochasticParameter"/>
+        /// that needs to be asserted.</param>
+        /// <exception cref="AssertionException">Thrown when the data in <paramref name="stochasticParameter"/>
+        /// is not correct.</exception>
+        public static void AssertStochasticParameter(IVariationCoefficientDistribution distribution, PersistableStochasticParameter stochasticParameter)
+        {
+            Assert.AreEqual(distribution.Mean.Value, stochasticParameter.Mean);
+            Assert.AreEqual(distribution.Mean * distribution.CoefficientOfVariation, stochasticParameter.StandardDeviation);
+            Assert.IsTrue(stochasticParameter.IsProbabilistic);
         }
     }
 }
