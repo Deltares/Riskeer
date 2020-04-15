@@ -64,12 +64,10 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
         }
 
         [Test]
-        [TestCase(MacroStabilityInwardsShearStrengthModel.CPhi, PersistableShearStrengthModelType.CPhi, PersistableShearStrengthModelType.CPhi)]
-        [TestCase(MacroStabilityInwardsShearStrengthModel.SuCalculated, PersistableShearStrengthModelType.Su, PersistableShearStrengthModelType.Su)]
-        [TestCase(MacroStabilityInwardsShearStrengthModel.CPhiOrSuCalculated, PersistableShearStrengthModelType.CPhi, PersistableShearStrengthModelType.Su)]
-        public void Create_WithValidData_ReturnsPersistableSoilCollection(MacroStabilityInwardsShearStrengthModel shearStrengthModel,
-                                                                              PersistableShearStrengthModelType expectedShearStrengthModelTypeAbovePhreaticLevel,
-                                                                              PersistableShearStrengthModelType expectedShearStrengthModelTypeBelowPhreaticLevel)
+        [TestCase(MacroStabilityInwardsShearStrengthModel.CPhi)]
+        [TestCase(MacroStabilityInwardsShearStrengthModel.SuCalculated)]
+        [TestCase(MacroStabilityInwardsShearStrengthModel.CPhiOrSuCalculated)]
+        public void Create_WithValidData_ReturnsPersistableSoilCollection(MacroStabilityInwardsShearStrengthModel shearStrengthModel)
         {
             // Setup
             MacroStabilityInwardsSoilProfile2D soilProfile = MacroStabilityInwardsSoilProfile2DTestFactory.CreateMacroStabilityInwardsSoilProfile2D();
@@ -83,44 +81,14 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
             // Assert
             IEnumerable<MacroStabilityInwardsSoilLayer2D> originalLayers = soilProfile.Layers;
             IEnumerable<PersistableSoil> actualSoils = soilCollection.Soils;
+            PersistableDataModelTestHelper.AssertPersistableSoils(originalLayers, actualSoils);
 
-            Assert.AreEqual(originalLayers.Count(), actualSoils.Count());
-            Assert.AreEqual(originalLayers.Count(), registry.Soils.Count);
-
+            Assert.AreEqual(actualSoils.Count(), registry.Soils.Count);
             for (var i = 0; i < originalLayers.Count(); i++)
             {
-                MacroStabilityInwardsSoilLayer2D layer = originalLayers.ElementAt(i);
-                PersistableSoil soil = actualSoils.ElementAt(i);
-
-                Assert.IsNotNull(soil.Id);
-                Assert.AreEqual(layer.Data.MaterialName, soil.Name);
-                Assert.AreEqual($"{layer.Data.MaterialName}-{soil.Id}", soil.Code);
-                Assert.IsTrue(soil.IsProbabilistic);
-
-                Assert.AreEqual(MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetCohesion(layer.Data).GetDesignValue(), soil.Cohesion);
-                PersistableDataModelTestHelper.AssertStochasticParameter(layer.Data.Cohesion, soil.CohesionStochasticParameter);
-                
-                Assert.AreEqual(MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetFrictionAngle(layer.Data).GetDesignValue(), soil.FrictionAngle);
-                PersistableDataModelTestHelper.AssertStochasticParameter(layer.Data.FrictionAngle, soil.FrictionAngleStochasticParameter);
-
-                Assert.AreEqual(MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetShearStrengthRatio(layer.Data).GetDesignValue(), soil.ShearStrengthRatio);
-                PersistableDataModelTestHelper.AssertStochasticParameter(layer.Data.ShearStrengthRatio, soil.ShearStrengthRatioStochasticParameter);
-
-                Assert.AreEqual(MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetStrengthIncreaseExponent(layer.Data).GetDesignValue(), soil.StrengthIncreaseExponent);
-                PersistableDataModelTestHelper.AssertStochasticParameter(layer.Data.StrengthIncreaseExponent, soil.StrengthIncreaseExponentStochasticParameter);
-
-                Assert.AreEqual(MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetAbovePhreaticLevel(layer.Data).GetDesignValue(), soil.VolumetricWeightAbovePhreaticLevel);
-                Assert.AreEqual(MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetBelowPhreaticLevel(layer.Data).GetDesignValue(), soil.VolumetricWeightBelowPhreaticLevel);
-
-                Assert.IsFalse(soil.CohesionAndFrictionAngleCorrelated);
-                Assert.IsFalse(soil.ShearStrengthRatioAndShearStrengthExponentCorrelated);
-
-                Assert.AreEqual(expectedShearStrengthModelTypeAbovePhreaticLevel, soil.ShearStrengthModelTypeAbovePhreaticLevel);
-                Assert.AreEqual(expectedShearStrengthModelTypeBelowPhreaticLevel, soil.ShearStrengthModelTypeBelowPhreaticLevel);
-
                 KeyValuePair<IMacroStabilityInwardsSoilLayer, string> registrySoil = registry.Soils.ElementAt(i);
-                Assert.AreSame(layer, registrySoil.Key);
-                Assert.AreEqual(soil.Id, registrySoil.Value);
+                Assert.AreSame(originalLayers.ElementAt(i), registrySoil.Key);
+                Assert.AreEqual(actualSoils.ElementAt(i).Id, registrySoil.Value);
             }
         }
 

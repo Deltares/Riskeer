@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Components.Persistence.Stability.Data;
@@ -6,6 +7,7 @@ using Core.Common.Util.Reflection;
 using NUnit.Framework;
 using Riskeer.Common.Data.Probabilistics;
 using Riskeer.MacroStabilityInwards.Data;
+using Riskeer.MacroStabilityInwards.Primitives;
 
 namespace Riskeer.MacroStabilityInwards.IO.TestUtil
 {
@@ -112,7 +114,7 @@ namespace Riskeer.MacroStabilityInwards.IO.TestUtil
         public static void AssertStages(IEnumerable<PersistableStage> stages, IEnumerable<PersistableCalculationSettings> calculationSettings)
         {
             Assert.AreEqual(2, stages.Count());
-            
+
             PersistableStage firstStage = stages.First();
             Assert.IsNotNull(firstStage.Id);
             Assert.AreEqual(calculationSettings.First().Id, firstStage.CalculationSettingsId);
@@ -120,6 +122,52 @@ namespace Riskeer.MacroStabilityInwards.IO.TestUtil
             PersistableStage lastStage = stages.Last();
             Assert.IsNotNull(lastStage.Id);
             Assert.AreEqual(calculationSettings.Last().Id, lastStage.CalculationSettingsId);
+        }
+
+        /// <summary>
+        /// Asserts whether the <see cref="PersistableSoil"/> contains the data
+        /// that is representative for the <paramref name="originalLayers"/>.
+        /// </summary>
+        /// <param name="originalLayers">The layers that contain the original data.</param>
+        /// <param name="actualSoils">The collection of <see cref="PersistableSoil"/>
+        /// that needs to be asserted.</param>
+        /// <exception cref="AssertionException">Thrown when the data in <paramref name="actualSoils"/>
+        /// is not correct.</exception>
+        public static void AssertPersistableSoils(IEnumerable<MacroStabilityInwardsSoilLayer2D> originalLayers, IEnumerable<PersistableSoil> actualSoils)
+        {
+            Assert.AreEqual(originalLayers.Count(), actualSoils.Count());
+
+            for (var i = 0; i < originalLayers.Count(); i++)
+            {
+                PersistableSoil soil = actualSoils.ElementAt(i);
+                MacroStabilityInwardsSoilLayerData layerData = originalLayers.ElementAt(i).Data;
+
+                Assert.IsNotNull(soil.Id);
+                Assert.AreEqual(layerData.MaterialName, soil.Name);
+                Assert.AreEqual($"{layerData.MaterialName}-{soil.Id}", soil.Code);
+                Assert.IsTrue(soil.IsProbabilistic);
+
+                Assert.AreEqual(MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetCohesion(layerData).GetDesignValue(), soil.Cohesion);
+                AssertStochasticParameter(layerData.Cohesion, soil.CohesionStochasticParameter);
+
+                Assert.AreEqual(MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetFrictionAngle(layerData).GetDesignValue(), soil.FrictionAngle);
+                AssertStochasticParameter(layerData.FrictionAngle, soil.FrictionAngleStochasticParameter);
+
+                Assert.AreEqual(MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetShearStrengthRatio(layerData).GetDesignValue(), soil.ShearStrengthRatio);
+                AssertStochasticParameter(layerData.ShearStrengthRatio, soil.ShearStrengthRatioStochasticParameter);
+
+                Assert.AreEqual(MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetStrengthIncreaseExponent(layerData).GetDesignValue(), soil.StrengthIncreaseExponent);
+                AssertStochasticParameter(layerData.StrengthIncreaseExponent, soil.StrengthIncreaseExponentStochasticParameter);
+
+                Assert.AreEqual(MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetAbovePhreaticLevel(layerData).GetDesignValue(), soil.VolumetricWeightAbovePhreaticLevel);
+                Assert.AreEqual(MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetBelowPhreaticLevel(layerData).GetDesignValue(), soil.VolumetricWeightBelowPhreaticLevel);
+
+                Assert.IsFalse(soil.CohesionAndFrictionAngleCorrelated);
+                Assert.IsFalse(soil.ShearStrengthRatioAndShearStrengthExponentCorrelated);
+
+                Assert.AreEqual(GetExpectedShearStrengthModelTypeForAbovePhreaticLevel(layerData.ShearStrengthModel), soil.ShearStrengthModelTypeAbovePhreaticLevel);
+                Assert.AreEqual(GetExpectedShearStrengthModelTypeForBelowPhreaticLevel(layerData.ShearStrengthModel), soil.ShearStrengthModelTypeBelowPhreaticLevel);
+            }
         }
 
         /// <summary>
@@ -136,6 +184,34 @@ namespace Riskeer.MacroStabilityInwards.IO.TestUtil
             Assert.AreEqual(distribution.Mean.Value, stochasticParameter.Mean);
             Assert.AreEqual(distribution.Mean * distribution.CoefficientOfVariation, stochasticParameter.StandardDeviation);
             Assert.IsTrue(stochasticParameter.IsProbabilistic);
+        }
+
+        private static PersistableShearStrengthModelType GetExpectedShearStrengthModelTypeForAbovePhreaticLevel(MacroStabilityInwardsShearStrengthModel shearStrengthModel)
+        {
+            switch (shearStrengthModel)
+            {
+                case MacroStabilityInwardsShearStrengthModel.CPhi:
+                case MacroStabilityInwardsShearStrengthModel.CPhiOrSuCalculated:
+                    return PersistableShearStrengthModelType.CPhi;
+                case MacroStabilityInwardsShearStrengthModel.SuCalculated:
+                    return PersistableShearStrengthModelType.Su;
+                default:
+                    throw new NotSupportedException();
+            }
+        }
+
+        private static PersistableShearStrengthModelType GetExpectedShearStrengthModelTypeForBelowPhreaticLevel(MacroStabilityInwardsShearStrengthModel shearStrengthModel)
+        {
+            switch (shearStrengthModel)
+            {
+                case MacroStabilityInwardsShearStrengthModel.CPhi:
+                    return PersistableShearStrengthModelType.CPhi;
+                case MacroStabilityInwardsShearStrengthModel.SuCalculated:
+                case MacroStabilityInwardsShearStrengthModel.CPhiOrSuCalculated:
+                    return PersistableShearStrengthModelType.Su;
+                default:
+                    throw new NotSupportedException();
+            }
         }
     }
 }
