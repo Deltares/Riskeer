@@ -33,6 +33,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
     {
         private readonly Dictionary<PersistableCalculationSettings, string> settings;
         private readonly Dictionary<IMacroStabilityInwardsSoilLayer, string> soils;
+        private readonly Dictionary<IMacroStabilityInwardsSoilLayer, string> geometries;
 
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsExportRegistry"/>.
@@ -41,6 +42,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
         {
             settings = new Dictionary<PersistableCalculationSettings, string>();
             soils = new Dictionary<IMacroStabilityInwardsSoilLayer, string>();
+            geometries = new Dictionary<IMacroStabilityInwardsSoilLayer, string>();
         }
 
         /// <summary>
@@ -52,6 +54,11 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
         /// Gets the soils and their unique identifiers.
         /// </summary>
         public IReadOnlyDictionary<IMacroStabilityInwardsSoilLayer, string> Soils => soils;
+
+        /// <summary>
+        /// Gets the geometries and their unique identifiers.
+        /// </summary>
+        public IReadOnlyDictionary<IMacroStabilityInwardsSoilLayer, string> Geometries => geometries;
 
         /// <summary>
         /// Adds a created <see cref="PersistableCalculationSettings"/> to the registry.
@@ -77,7 +84,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
         /// <param name="id">The id of the settings.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="soilLayer"/>
         /// is <c>null</c>.</exception>
-        public void Add(IMacroStabilityInwardsSoilLayer soilLayer, string id)
+        public void AddSoil(IMacroStabilityInwardsSoilLayer soilLayer, string id)
         {
             if (soilLayer == null)
             {
@@ -85,6 +92,23 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
             }
 
             soils.Add(soilLayer, id);
+        }
+
+        /// <summary>
+        /// Adds an <see cref="IMacroStabilityInwardsSoilLayer"/> to the registry.
+        /// </summary>
+        /// <param name="geometryLayer">The geometry layer to register.</param>
+        /// <param name="id">The id of the settings.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="geometryLayer"/>
+        /// is <c>null</c>.</exception>
+        public void AddGeometry(IMacroStabilityInwardsSoilLayer geometryLayer, string id)
+        {
+            if (geometryLayer == null)
+            {
+                throw new ArgumentNullException(nameof(geometryLayer));
+            }
+
+            geometries.Add(geometryLayer, id);
         }
     }
 }

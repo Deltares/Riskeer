@@ -144,7 +144,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
 
             soil.Code = $"{soil.Name}-{soil.Id}";
 
-            registry.Add(layer, soil.Id);
+            registry.AddSoil(layer, soil.Id);
 
             return soil;
         }

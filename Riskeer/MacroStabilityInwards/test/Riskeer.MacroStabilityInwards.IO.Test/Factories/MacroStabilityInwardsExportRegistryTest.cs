@@ -42,6 +42,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
             // Assert
             CollectionAssert.IsEmpty(registry.Settings);
             CollectionAssert.IsEmpty(registry.Soils);
+            CollectionAssert.IsEmpty(registry.Geometries);
         }
 
         [Test]
@@ -51,7 +52,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
             var registry = new MacroStabilityInwardsExportRegistry();
 
             // Call
-            void Call() => registry.Add((PersistableCalculationSettings) null, "1");
+            void Call() => registry.Add(null, "1");
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -83,7 +84,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
             var registry = new MacroStabilityInwardsExportRegistry();
 
             // Call
-            void Call() => registry.Add((IMacroStabilityInwardsSoilLayer) null, "1");
+            void Call() => registry.AddSoil(null, "1");
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -91,7 +92,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
         }
 
         [Test]
-        public void AddSoil_WithSoilLayer_AddsSoil()
+        public void AddSoil_WithSoilLayer_AddsSoilLayer()
         {
             // Setup
             var mocks = new MockRepository();
@@ -102,13 +103,48 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
             const string id = "1";
 
             // Call
-            registry.Add(soilLayer, id);
+            registry.AddSoil(soilLayer, id);
 
             // Assert
             Assert.AreEqual(1, registry.Soils.Count);
             KeyValuePair<IMacroStabilityInwardsSoilLayer, string> storedSoil = registry.Soils.Single();
             Assert.AreSame(soilLayer, storedSoil.Key);
             Assert.AreEqual(id, storedSoil.Value);
+        }
+
+        [Test]
+        public void AddGeometry_GeometryLayerNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var registry = new MacroStabilityInwardsExportRegistry();
+
+            // Call
+            void Call() => registry.AddGeometry(null, "1");
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("geometryLayer", exception.ParamName);
+        }
+
+        [Test]
+        public void AddGeometry_WithGeometryLayer_AddsGeometryLayer()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var geometryLayer = mocks.Stub<IMacroStabilityInwardsSoilLayer>();
+            mocks.ReplayAll();
+
+            var registry = new MacroStabilityInwardsExportRegistry();
+            const string id = "1";
+
+            // Call
+            registry.AddGeometry(geometryLayer, id);
+
+            // Assert
+            Assert.AreEqual(1, registry.Geometries.Count);
+            KeyValuePair<IMacroStabilityInwardsSoilLayer, string> storedGeometry = registry.Geometries.Single();
+            Assert.AreSame(geometryLayer, storedGeometry.Key);
+            Assert.AreEqual(id, storedGeometry.Value);
         }
     }
 }
