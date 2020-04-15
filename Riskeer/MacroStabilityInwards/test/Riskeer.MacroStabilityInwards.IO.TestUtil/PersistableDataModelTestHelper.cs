@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Components.Persistence.Stability.Data;
+using Core.Common.Base.Data;
 using Core.Common.Util.Reflection;
 using NUnit.Framework;
 using Riskeer.Common.Data.Probabilistics;
@@ -188,6 +189,15 @@ namespace Riskeer.MacroStabilityInwards.IO.TestUtil
 
                 Assert.AreEqual(GetExpectedShearStrengthModelTypeForAbovePhreaticLevel(layerData.ShearStrengthModel), soil.ShearStrengthModelTypeAbovePhreaticLevel);
                 Assert.AreEqual(GetExpectedShearStrengthModelTypeForBelowPhreaticLevel(layerData.ShearStrengthModel), soil.ShearStrengthModelTypeBelowPhreaticLevel);
+
+                var dilatancyDistribution = new VariationCoefficientNormalDistribution(2)
+                {
+                    Mean = (RoundedDouble)1,
+                    CoefficientOfVariation = (RoundedDouble)0
+                };
+
+                Assert.AreEqual(0, soil.Dilatancy);
+                AssertStochasticParameter(dilatancyDistribution, soil.DilatancyStochasticParameter, false);
             }
         }
 
@@ -198,13 +208,14 @@ namespace Riskeer.MacroStabilityInwards.IO.TestUtil
         /// <param name="distribution">The distribution that contains the original data.</param>
         /// <param name="stochasticParameter">the <see cref="PersistableStochasticParameter"/>
         /// that needs to be asserted.</param>
+        /// <param name="expectedIsProbabilistic">The expected value for <see cref="PersistableStochasticParameter.IsProbabilistic"/>.</param>
         /// <exception cref="AssertionException">Thrown when the data in <paramref name="stochasticParameter"/>
         /// is not correct.</exception>
-        public static void AssertStochasticParameter(IVariationCoefficientDistribution distribution, PersistableStochasticParameter stochasticParameter)
+        public static void AssertStochasticParameter(IVariationCoefficientDistribution distribution, PersistableStochasticParameter stochasticParameter, bool expectedIsProbabilistic = true)
         {
             Assert.AreEqual(distribution.Mean.Value, stochasticParameter.Mean);
             Assert.AreEqual(distribution.Mean * distribution.CoefficientOfVariation, stochasticParameter.StandardDeviation);
-            Assert.IsTrue(stochasticParameter.IsProbabilistic);
+            Assert.AreEqual(expectedIsProbabilistic, stochasticParameter.IsProbabilistic);
         }
 
         private static PersistableShearStrengthModelType GetExpectedShearStrengthModelTypeForAbovePhreaticLevel(MacroStabilityInwardsShearStrengthModel shearStrengthModel)

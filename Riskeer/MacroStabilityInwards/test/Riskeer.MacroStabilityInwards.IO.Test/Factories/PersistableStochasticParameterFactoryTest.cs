@@ -45,7 +45,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
         }
 
         [Test]
-        public void Create_WithData_ReturnsPersistableStochasticParameter()
+        public void Create_WithDistribution_ReturnsPersistableStochasticParameter()
         {
             // Setup
             var mocks = new MockRepository();
@@ -61,6 +61,28 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
 
             // Assert
             PersistableDataModelTestHelper.AssertStochasticParameter(distribution, stochasticParameter);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Create_WithDistributionAndIsProbabilistic_ReturnsPersistableStochasticParameter()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var distribution = mocks.Stub<IVariationCoefficientDistribution>();
+            mocks.ReplayAll();
+
+            var random = new Random(21);
+            distribution.Mean = random.NextRoundedDouble();
+            distribution.CoefficientOfVariation = random.NextRoundedDouble();
+
+            const bool isProbabilistic = false;
+
+            // Call
+            PersistableStochasticParameter stochasticParameter = PersistableStochasticParameterFactory.Create(distribution, isProbabilistic);
+
+            // Assert
+            PersistableDataModelTestHelper.AssertStochasticParameter(distribution, stochasticParameter, isProbabilistic);
             mocks.VerifyAll();
         }
     }

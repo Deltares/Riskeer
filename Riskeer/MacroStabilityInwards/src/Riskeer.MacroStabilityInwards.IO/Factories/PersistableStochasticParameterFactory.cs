@@ -35,10 +35,13 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
         /// </summary>
         /// <param name="distribution">The distribution to create the
         /// <see cref="PersistableStochasticParameter"/> for.</param>
+        /// <param name="isProbabilistic">Indicator whether the
+        /// <see cref="PersistableStochasticParameter"/> is probabilistic.</param>
         /// <returns>The created <see cref="PersistableStochasticParameter"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="distribution"/>
         /// is <c>null</c>.</exception>
-        public static PersistableStochasticParameter Create(IVariationCoefficientDistribution distribution)
+        /// <remarks><paramref name="isProbabilistic"/> is default set to <c>true</c>.</remarks>
+        public static PersistableStochasticParameter Create(IVariationCoefficientDistribution distribution, bool isProbabilistic = true)
         {
             if (distribution == null)
             {
@@ -47,7 +50,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
 
             return new PersistableStochasticParameter
             {
-                IsProbabilistic = true,
+                IsProbabilistic = isProbabilistic,
                 Mean = distribution.Mean,
                 StandardDeviation = GetStandardDeviation(distribution)
             };

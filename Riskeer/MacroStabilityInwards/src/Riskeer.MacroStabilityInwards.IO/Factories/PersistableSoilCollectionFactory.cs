@@ -24,6 +24,8 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using Components.Persistence.Stability.Data;
+using Core.Common.Base.Data;
+using Riskeer.Common.Data.Probabilistics;
 using Riskeer.MacroStabilityInwards.Data.SoilProfile;
 using Riskeer.MacroStabilityInwards.Primitives;
 
@@ -131,7 +133,13 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
                 ShearStrengthModelTypeAbovePhreaticLevel = GetShearStrengthModelTypeForAbovePhreaticLevel(layerData.ShearStrengthModel),
                 ShearStrengthModelTypeBelowPhreaticLevel = GetShearStrengthModelTypeForBelowPhreaticLevel(layerData.ShearStrengthModel),
                 VolumetricWeightAbovePhreaticLevel = MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetAbovePhreaticLevel(layerData).GetDesignValue(),
-                VolumetricWeightBelowPhreaticLevel = MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetBelowPhreaticLevel(layerData).GetDesignValue()
+                VolumetricWeightBelowPhreaticLevel = MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetBelowPhreaticLevel(layerData).GetDesignValue(),
+                Dilatancy = 0,
+                DilatancyStochasticParameter = PersistableStochasticParameterFactory.Create(new VariationCoefficientNormalDistribution(2)
+                {
+                    Mean = (RoundedDouble) 1,
+                    CoefficientOfVariation = (RoundedDouble) 0
+                }, false)
             };
 
             soil.Code = $"{soil.Name}-{soil.Id}";
