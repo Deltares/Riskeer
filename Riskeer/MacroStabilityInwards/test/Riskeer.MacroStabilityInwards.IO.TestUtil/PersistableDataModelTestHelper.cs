@@ -30,6 +30,7 @@ namespace Riskeer.MacroStabilityInwards.IO.TestUtil
         {
             AssertProjectInfo(calculation, filePath, persistableDataModel.Info);
             AssertCalculationSettings(calculation.Output.SlidingCurve, persistableDataModel.CalculationSettings);
+            AssertPersistableSoils(calculation.InputParameters.StochasticSoilProfile.SoilProfile.Layers, persistableDataModel.Soils.Soils);
 
             Assert.IsNull(persistableDataModel.AssessmentResults);
             Assert.IsNull(persistableDataModel.Decorations);
@@ -40,7 +41,6 @@ namespace Riskeer.MacroStabilityInwards.IO.TestUtil
             Assert.IsNull(persistableDataModel.SoilCorrelations);
             Assert.IsNull(persistableDataModel.SoilLayers);
             Assert.IsNull(persistableDataModel.SoilVisualizations);
-            Assert.IsNull(persistableDataModel.Soils);
             Assert.IsNull(persistableDataModel.WaternetCreatorSettings);
             Assert.IsNull(persistableDataModel.Waternets);
             Assert.IsNull(persistableDataModel.StateCorrelations);
@@ -133,7 +133,7 @@ namespace Riskeer.MacroStabilityInwards.IO.TestUtil
         /// that needs to be asserted.</param>
         /// <exception cref="AssertionException">Thrown when the data in <paramref name="actualSoils"/>
         /// is not correct.</exception>
-        public static void AssertPersistableSoils(IEnumerable<MacroStabilityInwardsSoilLayer2D> originalLayers, IEnumerable<PersistableSoil> actualSoils)
+        public static void AssertPersistableSoils(IEnumerable<IMacroStabilityInwardsSoilLayer> originalLayers, IEnumerable<PersistableSoil> actualSoils)
         {
             Assert.AreEqual(originalLayers.Count(), actualSoils.Count());
 
