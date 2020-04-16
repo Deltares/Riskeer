@@ -22,6 +22,7 @@
 using System;
 using Components.Persistence.Stability.Data;
 using Riskeer.MacroStabilityInwards.Data;
+using Riskeer.MacroStabilityInwards.Primitives;
 
 namespace Riskeer.MacroStabilityInwards.IO.Factories
 {
@@ -55,11 +56,13 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
             var idFactory = new IdFactory();
             var registry = new MacroStabilityInwardsExportRegistry();
 
+            IMacroStabilityInwardsSoilProfileUnderSurfaceLine soilProfile = calculation.InputParameters.SoilProfileUnderSurfaceLine;
             return new PersistableDataModel
             {
                 Info = PersistableProjectInfoFactory.Create(calculation, filePath),
                 CalculationSettings = PersistableCalculationSettingsFactory.Create(calculation.Output.SlidingCurve, idFactory, registry),
-                Soils = PersistableSoilCollectionFactory.Create(calculation.InputParameters.SoilProfileUnderSurfaceLine, idFactory, registry),
+                Soils = PersistableSoilCollectionFactory.Create(soilProfile, idFactory, registry),
+                Geometry = PersistableGeometryFactory.Create(soilProfile, idFactory, registry),
                 Stages = PersistableStageFactory.Create(idFactory, registry)
             };
         }

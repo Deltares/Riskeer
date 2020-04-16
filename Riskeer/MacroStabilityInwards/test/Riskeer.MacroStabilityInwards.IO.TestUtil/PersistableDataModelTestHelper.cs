@@ -53,11 +53,13 @@ namespace Riskeer.MacroStabilityInwards.IO.TestUtil
         {
             AssertProjectInfo(calculation, filePath, persistableDataModel.Info);
             AssertCalculationSettings(calculation.Output.SlidingCurve, persistableDataModel.CalculationSettings);
-            AssertPersistableSoils(MacroStabilityInwardsSoilProfile2DLayersHelper.GetLayersRecursively(calculation.InputParameters.SoilProfileUnderSurfaceLine.Layers), persistableDataModel.Soils.Soils);
+
+            IEnumerable<MacroStabilityInwardsSoilLayer2D> layers = MacroStabilityInwardsSoilProfile2DLayersHelper.GetLayersRecursively(calculation.InputParameters.SoilProfileUnderSurfaceLine.Layers);
+            AssertPersistableSoils(layers, persistableDataModel.Soils.Soils);
+            AssertPersistableGeometry(layers, persistableDataModel.Geometry);
 
             Assert.IsNull(persistableDataModel.AssessmentResults);
             Assert.IsNull(persistableDataModel.Decorations);
-            Assert.IsNull(persistableDataModel.Geometry);
             Assert.IsNull(persistableDataModel.Loads);
             Assert.IsNull(persistableDataModel.NailPropertiesForSoils);
             Assert.IsNull(persistableDataModel.Reinforcements);
@@ -125,26 +127,6 @@ namespace Riskeer.MacroStabilityInwards.IO.TestUtil
             Assert.AreEqual(slidingCurve.LeftCircle.Radius, actualCalculationSettings.UpliftVan.SlipPlane.FirstCircleRadius);
             Assert.AreEqual(slidingCurve.RightCircle.Center.X, actualCalculationSettings.UpliftVan.SlipPlane.SecondCircleCenter.Value.X);
             Assert.AreEqual(slidingCurve.RightCircle.Center.Y, actualCalculationSettings.UpliftVan.SlipPlane.SecondCircleCenter.Value.Z);
-        }
-
-        /// <summary>
-        /// Asserts whether the <see cref="PersistableStage"/> contains the correct data.
-        /// </summary>
-        /// <param name="stages">The stages that needs to be asserted.</param>
-        /// <param name="calculationSettings">The calculation settings that are used.</param>
-        /// <exception cref="AssertionException">Thrown when the data in <paramref name="stages"/>
-        /// is not correct.</exception>
-        public static void AssertStages(IEnumerable<PersistableStage> stages, IEnumerable<PersistableCalculationSettings> calculationSettings)
-        {
-            Assert.AreEqual(2, stages.Count());
-
-            PersistableStage firstStage = stages.First();
-            Assert.IsNotNull(firstStage.Id);
-            Assert.AreEqual(calculationSettings.First().Id, firstStage.CalculationSettingsId);
-
-            PersistableStage lastStage = stages.Last();
-            Assert.IsNotNull(lastStage.Id);
-            Assert.AreEqual(calculationSettings.Last().Id, lastStage.CalculationSettingsId);
         }
 
         /// <summary>
@@ -217,6 +199,58 @@ namespace Riskeer.MacroStabilityInwards.IO.TestUtil
             Assert.AreEqual(distribution.Mean.Value, stochasticParameter.Mean);
             Assert.AreEqual(distribution.Mean * distribution.CoefficientOfVariation, stochasticParameter.StandardDeviation);
             Assert.AreEqual(expectedIsProbabilistic, stochasticParameter.IsProbabilistic);
+        }
+
+        /// <summary>
+        /// Asserts whether the <see cref="PersistableGeometry"/> contains the data
+        /// that is representative for the <paramref name="layers"/>.
+        /// </summary>
+        /// <param name="layers">The layers that contain the original data.</param>
+        /// <param name="geometries">The <see cref="PersistableGeometry"/> that needs to be asserted.</param>
+        /// <exception cref="AssertionException">Thrown when the data in <paramref name="geometries"/>
+        /// is not correct.</exception>
+        public static void AssertPersistableGeometry(IEnumerable<MacroStabilityInwardsSoilLayer2D> layers, IEnumerable<PersistableGeometry> geometries)
+        {
+            Assert.AreEqual(2, geometries.Count());
+
+            foreach (PersistableGeometry persistableGeometry in geometries)
+            {
+                Assert.IsNotNull(persistableGeometry.Id);
+                IEnumerable<PersistableLayer> persistableGeometryLayers = persistableGeometry.Layers;
+
+                Assert.AreEqual(layers.Count(), persistableGeometryLayers.Count());
+
+                for (int i = 0; i < layers.Count(); i++)
+                {
+                    MacroStabilityInwardsSoilLayer2D soilLayer = layers.ElementAt(i);
+                    PersistableLayer persistableLayer = persistableGeometryLayers.ElementAt(i);
+
+                    Assert.IsNotNull(persistableLayer.Id);
+                    Assert.AreEqual(soilLayer.Data.MaterialName, persistableLayer.Label);
+
+                    CollectionAssert.AreEqual(soilLayer.OuterRing.Points.Select(p => new PersistablePoint(p.X, p.Y)), persistableLayer.Points);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Asserts whether the <see cref="PersistableStage"/> contains the correct data.
+        /// </summary>
+        /// <param name="stages">The stages that needs to be asserted.</param>
+        /// <param name="calculationSettings">The calculation settings that are used.</param>
+        /// <exception cref="AssertionException">Thrown when the data in <paramref name="stages"/>
+        /// is not correct.</exception>
+        public static void AssertStages(IEnumerable<PersistableStage> stages, IEnumerable<PersistableCalculationSettings> calculationSettings)
+        {
+            Assert.AreEqual(2, stages.Count());
+
+            PersistableStage firstStage = stages.First();
+            Assert.IsNotNull(firstStage.Id);
+            Assert.AreEqual(calculationSettings.First().Id, firstStage.CalculationSettingsId);
+
+            PersistableStage lastStage = stages.Last();
+            Assert.IsNotNull(lastStage.Id);
+            Assert.AreEqual(calculationSettings.Last().Id, lastStage.CalculationSettingsId);
         }
 
         private static PersistableShearStrengthModelType GetExpectedShearStrengthModelTypeForAbovePhreaticLevel(MacroStabilityInwardsShearStrengthModel shearStrengthModel)

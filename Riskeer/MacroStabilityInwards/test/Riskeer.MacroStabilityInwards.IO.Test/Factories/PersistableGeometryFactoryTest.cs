@@ -28,6 +28,7 @@ using Rhino.Mocks;
 using Riskeer.MacroStabilityInwards.Data.SoilProfile;
 using Riskeer.MacroStabilityInwards.Data.TestUtil.SoilProfile;
 using Riskeer.MacroStabilityInwards.IO.Factories;
+using Riskeer.MacroStabilityInwards.IO.TestUtil;
 using Riskeer.MacroStabilityInwards.Primitives;
 
 namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
@@ -98,29 +99,15 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
             IEnumerable<PersistableGeometry> geometries = PersistableGeometryFactory.Create(soilProfile, new IdFactory(), registry);
 
             // Assert
-            Assert.AreEqual(2, geometries.Count());
-
             IEnumerable<MacroStabilityInwardsSoilLayer2D> layersRecursively = MacroStabilityInwardsSoilProfile2DLayersHelper.GetLayersRecursively(soilProfile.Layers);
 
-            foreach (PersistableGeometry persistableGeometry in geometries)
-            {
-                Assert.IsNotNull(persistableGeometry.Id);
-                IEnumerable<PersistableLayer> persistableGeometryLayers = persistableGeometry.Layers;
+            PersistableDataModelTestHelper.AssertPersistableGeometry(layersRecursively, geometries);
+            AssertRegistry(registry, geometries, layersRecursively);
+        }
 
-                Assert.AreEqual(layersRecursively.Count(), persistableGeometryLayers.Count());
-
-                for (int i = 0; i < layersRecursively.Count(); i++)
-                {
-                    MacroStabilityInwardsSoilLayer2D soilLayer = layersRecursively.ElementAt(i);
-                    PersistableLayer persistableLayer = persistableGeometryLayers.ElementAt(i);
-
-                    Assert.IsNotNull(persistableLayer.Id);
-                    Assert.AreEqual(soilLayer.Data.MaterialName, persistableLayer.Label);
-
-                    CollectionAssert.AreEqual(soilLayer.OuterRing.Points.Select(p => new PersistablePoint(p.X, p.Y)), persistableLayer.Points);
-                }
-            }
-
+        private static void AssertRegistry(MacroStabilityInwardsExportRegistry registry, IEnumerable<PersistableGeometry> geometries,
+                                           IEnumerable<MacroStabilityInwardsSoilLayer2D> layers)
+        {
             var stageTypes = new[]
             {
                 MacroStabilityInwardsExportStageType.Daily,
@@ -130,7 +117,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
             Assert.AreEqual(stageTypes.Length, registry.Geometries.Count);
             Assert.AreEqual(stageTypes.Length, registry.GeometryLayers.Count);
 
-            for (int i = 0; i < stageTypes.Length; i++)
+            for (var i = 0; i < stageTypes.Length; i++)
             {
                 KeyValuePair<MacroStabilityInwardsExportStageType, string> storedGeometry = registry.Geometries.ElementAt(i);
                 Assert.AreEqual(stageTypes[i], storedGeometry.Key);
@@ -143,11 +130,11 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
                 IEnumerable<PersistableLayer> persistableGeometryLayers = geometries.ElementAt(i).Layers;
                 Assert.AreEqual(persistableGeometryLayers.Count(), storedGeometryLayers.Value.Count);
 
-                for (int j = 0; j < persistableGeometryLayers.Count(); j++)
+                for (var j = 0; j < persistableGeometryLayers.Count(); j++)
                 {
                     KeyValuePair<MacroStabilityInwardsSoilLayer2D, string> storedGeometryLayer = storedGeometryLayers.Value.ElementAt(j);
 
-                    Assert.AreSame(layersRecursively.ElementAt(j), storedGeometryLayer.Key);
+                    Assert.AreSame(layers.ElementAt(j), storedGeometryLayer.Key);
                     Assert.AreEqual(persistableGeometryLayers.ElementAt(j).Id, storedGeometryLayer.Value);
                 }
             }
