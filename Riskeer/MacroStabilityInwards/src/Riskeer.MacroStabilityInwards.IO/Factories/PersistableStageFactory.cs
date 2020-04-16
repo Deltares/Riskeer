@@ -51,14 +51,20 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
                 throw new ArgumentNullException(nameof(registry));
             }
 
+            var stageTypes = new[]
+            {
+                MacroStabilityInwardsExportStageType.Daily,
+                MacroStabilityInwardsExportStageType.Extreme
+            };
+
             var stages = new List<PersistableStage>();
 
-            for (var i = 0; i < 2; i++)
+            foreach (MacroStabilityInwardsExportStageType stageType in stageTypes)
             {
                 stages.Add(new PersistableStage
                 {
                     Id = idFactory.Create(),
-                    CalculationSettingsId = registry.Settings.ElementAt(i).Value
+                    CalculationSettingsId = registry.Settings[stageType]
                 });
             }
 

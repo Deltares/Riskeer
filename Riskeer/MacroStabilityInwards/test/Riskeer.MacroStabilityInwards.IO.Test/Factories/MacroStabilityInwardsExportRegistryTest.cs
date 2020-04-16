@@ -21,8 +21,9 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
-using Components.Persistence.Stability.Data;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.MacroStabilityInwards.IO.Factories;
@@ -46,17 +47,18 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
         }
 
         [Test]
-        public void AddSettings_SettingsNull_ThrowsArgumentNullException()
+        public void AddSettings_InvalidStageType_ThrowsInvalidEnumArgumentException()
         {
             // Setup
             var registry = new MacroStabilityInwardsExportRegistry();
+            const MacroStabilityInwardsExportStageType stageType = (MacroStabilityInwardsExportStageType)99;
 
             // Call
-            void Call() => registry.Add(null, "1");
+            void Call() => registry.Add(stageType, "1");
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("createdSettings", exception.ParamName);
+            string expectedMessage = $"The value of argument '{nameof(stageType)}' ({stageType}) is invalid for Enum type '{nameof(MacroStabilityInwardsExportStageType)}'.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(Call, expectedMessage);
         }
 
         [Test]
@@ -64,16 +66,16 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
         {
             // Setup
             var registry = new MacroStabilityInwardsExportRegistry();
-            var settings = new PersistableCalculationSettings();
+            const MacroStabilityInwardsExportStageType stageType = MacroStabilityInwardsExportStageType.Daily;
             const string id = "1";
 
             // Call
-            registry.Add(settings, id);
+            registry.Add(stageType, id);
 
             // Assert
             Assert.AreEqual(1, registry.Settings.Count);
-            KeyValuePair<PersistableCalculationSettings, string> storedSettings = registry.Settings.Single();
-            Assert.AreSame(settings, storedSettings.Key);
+            KeyValuePair<MacroStabilityInwardsExportStageType, string> storedSettings = registry.Settings.Single();
+            Assert.AreEqual(stageType, storedSettings.Key);
             Assert.AreEqual(id, storedSettings.Value);
         }
 

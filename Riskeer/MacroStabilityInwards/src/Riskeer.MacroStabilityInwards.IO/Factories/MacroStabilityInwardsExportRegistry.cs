@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using Components.Persistence.Stability.Data;
 using Riskeer.MacroStabilityInwards.Primitives;
 
@@ -31,7 +32,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
     /// </summary>
     internal class MacroStabilityInwardsExportRegistry
     {
-        private readonly Dictionary<PersistableCalculationSettings, string> settings;
+        private readonly Dictionary<MacroStabilityInwardsExportStageType, string> settings;
         private readonly Dictionary<IMacroStabilityInwardsSoilLayer, string> soils;
         private readonly Dictionary<IMacroStabilityInwardsSoilLayer, string> geometries;
 
@@ -40,7 +41,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
         /// </summary>
         public MacroStabilityInwardsExportRegistry()
         {
-            settings = new Dictionary<PersistableCalculationSettings, string>();
+            settings = new Dictionary<MacroStabilityInwardsExportStageType, string>();
             soils = new Dictionary<IMacroStabilityInwardsSoilLayer, string>();
             geometries = new Dictionary<IMacroStabilityInwardsSoilLayer, string>();
         }
@@ -48,7 +49,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
         /// <summary>
         /// Gets the created <see cref="PersistableCalculationSettings"/> and their unique identifiers.
         /// </summary>
-        public IReadOnlyDictionary<PersistableCalculationSettings, string> Settings => settings;
+        public IReadOnlyDictionary<MacroStabilityInwardsExportStageType, string> Settings => settings;
 
         /// <summary>
         /// Gets the soils and their unique identifiers.
@@ -63,18 +64,21 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
         /// <summary>
         /// Adds a created <see cref="PersistableCalculationSettings"/> to the registry.
         /// </summary>
-        /// <param name="createdSettings">The settings to register.</param>
+        /// <param name="stageType">The <see cref="MacroStabilityInwardsExportStageType"/>
+        /// to register the settings for.</param>
         /// <param name="id">The id of the settings.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="createdSettings"/>
-        /// is <c>null</c>.</exception>
-        public void Add(PersistableCalculationSettings createdSettings, string id)
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="stageType"/>
+        /// has an invalid value.</exception>
+        public void Add(MacroStabilityInwardsExportStageType stageType, string id)
         {
-            if (createdSettings == null)
+            if (!Enum.IsDefined(typeof(MacroStabilityInwardsExportStageType), stageType))
             {
-                throw new ArgumentNullException(nameof(createdSettings));
+                throw new InvalidEnumArgumentException(nameof(stageType),
+                                                       (int) stageType,
+                                                       typeof(MacroStabilityInwardsExportStageType));
             }
 
-            settings.Add(createdSettings, id);
+            settings.Add(stageType, id);
         }
 
         /// <summary>

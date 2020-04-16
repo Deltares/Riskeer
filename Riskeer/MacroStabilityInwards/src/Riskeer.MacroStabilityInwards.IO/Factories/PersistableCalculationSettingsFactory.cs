@@ -56,8 +56,8 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
                 throw new ArgumentNullException(nameof(registry));
             }
 
-            PersistableCalculationSettings emptySettings = Create(idFactory, registry);
-            PersistableCalculationSettings filledSettings = Create(idFactory, registry);
+            PersistableCalculationSettings emptySettings = Create(idFactory, registry, MacroStabilityInwardsExportStageType.Daily);
+            PersistableCalculationSettings filledSettings = Create(idFactory, registry, MacroStabilityInwardsExportStageType.Extreme);
             filledSettings.AnalysisType = PersistableAnalysisType.UpliftVan;
             filledSettings.UpliftVan = new PersistableUpliftVanSettings
             {
@@ -79,14 +79,15 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
             };
         }
 
-        private static PersistableCalculationSettings Create(IdFactory idFactory, MacroStabilityInwardsExportRegistry registry)
+        private static PersistableCalculationSettings Create(IdFactory idFactory, MacroStabilityInwardsExportRegistry registry,
+                                                             MacroStabilityInwardsExportStageType stageType)
         {
             var emptySettings = new PersistableCalculationSettings
             {
                 Id = idFactory.Create()
             };
 
-            registry.Add(emptySettings, emptySettings.Id);
+            registry.Add(stageType, emptySettings.Id);
             return emptySettings;
         }
     }

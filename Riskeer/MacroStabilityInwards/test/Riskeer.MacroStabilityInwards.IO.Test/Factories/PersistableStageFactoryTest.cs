@@ -59,20 +59,30 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
             // Setup
             var idFactory = new IdFactory();
             var registry = new MacroStabilityInwardsExportRegistry();
-            for (var i = 0; i < 2; i++)
+
+            var stageTypes = new[]
+            {
+                MacroStabilityInwardsExportStageType.Daily,
+                MacroStabilityInwardsExportStageType.Extreme
+            };
+
+            var settingsList = new List<PersistableCalculationSettings>();
+
+            foreach (MacroStabilityInwardsExportStageType stageType in stageTypes)
             {
                 var settings = new PersistableCalculationSettings
                 {
                     Id = idFactory.Create()
                 };
-                registry.Add(settings, settings.Id);
+                settingsList.Add(settings);
+                registry.Add(stageType, settings.Id);
             }
 
             // Call
             IEnumerable<PersistableStage> stages = PersistableStageFactory.Create(idFactory, registry);
 
             // Assert
-            PersistableDataModelTestHelper.AssertStages(stages, registry.Settings.Keys);
+            PersistableDataModelTestHelper.AssertStages(stages, settingsList);
         }
     }
 }

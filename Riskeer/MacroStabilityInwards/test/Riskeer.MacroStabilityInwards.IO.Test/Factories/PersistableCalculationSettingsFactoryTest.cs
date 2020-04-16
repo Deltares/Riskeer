@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Components.Persistence.Stability.Data;
 using NUnit.Framework;
 using Riskeer.MacroStabilityInwards.Data;
@@ -81,7 +82,16 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
 
             // Assert
             PersistableDataModelTestHelper.AssertCalculationSettings(slidingCurve, settingsCollection);
-            CollectionAssert.AreEqual(settingsCollection, registry.Settings.Keys);
+            
+            Assert.AreEqual(settingsCollection.Count(), registry.Settings.Count);
+
+            KeyValuePair<MacroStabilityInwardsExportStageType, string> firstSetting = registry.Settings.ElementAt(0);
+            Assert.AreEqual(MacroStabilityInwardsExportStageType.Daily, firstSetting.Key);
+            Assert.AreEqual(settingsCollection.ElementAt(0).Id, firstSetting.Value);
+
+            KeyValuePair<MacroStabilityInwardsExportStageType, string> lastSetting = registry.Settings.ElementAt(1);
+            Assert.AreEqual(MacroStabilityInwardsExportStageType.Extreme, lastSetting.Key);
+            Assert.AreEqual(settingsCollection.ElementAt(1).Id, lastSetting.Value);
         }
     }
 }
