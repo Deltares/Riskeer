@@ -43,6 +43,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
             // Assert
             CollectionAssert.IsEmpty(registry.Settings);
             CollectionAssert.IsEmpty(registry.Soils);
+            CollectionAssert.IsEmpty(registry.Geometries);
             CollectionAssert.IsEmpty(registry.GeometryLayers);
         }
 
@@ -51,7 +52,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
         {
             // Setup
             var registry = new MacroStabilityInwardsExportRegistry();
-            const MacroStabilityInwardsExportStageType stageType = (MacroStabilityInwardsExportStageType)99;
+            const MacroStabilityInwardsExportStageType stageType = (MacroStabilityInwardsExportStageType) 99;
 
             // Call
             void Call() => registry.AddSettings(stageType, "1");
@@ -66,7 +67,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
         {
             // Setup
             var registry = new MacroStabilityInwardsExportRegistry();
-            const MacroStabilityInwardsExportStageType stageType = MacroStabilityInwardsExportStageType.Daily;
+            var stageType = new Random(21).NextEnumValue<MacroStabilityInwardsExportStageType>();
             const string id = "1";
 
             // Call
@@ -115,6 +116,39 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
         }
 
         [Test]
+        public void AddGeometry_InvalidStageType_ThrowsInvalidEnumArgumentException()
+        {
+            // Setup
+            var registry = new MacroStabilityInwardsExportRegistry();
+            const MacroStabilityInwardsExportStageType stageType = (MacroStabilityInwardsExportStageType) 99;
+
+            // Call
+            void Call() => registry.AddGeometry(stageType, "1");
+
+            // Assert
+            string expectedMessage = $"The value of argument '{nameof(stageType)}' ({stageType}) is invalid for Enum type '{nameof(MacroStabilityInwardsExportStageType)}'.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(Call, expectedMessage);
+        }
+
+        [Test]
+        public void AddGeometry_WithGeometry_AddsSettings()
+        {
+            // Setup
+            var registry = new MacroStabilityInwardsExportRegistry();
+            var stageType = new Random(21).NextEnumValue<MacroStabilityInwardsExportStageType>();
+            const string id = "1";
+
+            // Call
+            registry.AddGeometry(stageType, id);
+
+            // Assert
+            Assert.AreEqual(1, registry.Geometries.Count);
+            KeyValuePair<MacroStabilityInwardsExportStageType, string> storedGeometry = registry.Geometries.Single();
+            Assert.AreEqual(stageType, storedGeometry.Key);
+            Assert.AreEqual(id, storedGeometry.Value);
+        }
+
+        [Test]
         public void AddGeometryLayer_InvalidStageType_ThrowsInvalidEnumArgumentException()
         {
             // Setup
@@ -123,7 +157,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
             mocks.ReplayAll();
 
             var registry = new MacroStabilityInwardsExportRegistry();
-            const MacroStabilityInwardsExportStageType stageType = (MacroStabilityInwardsExportStageType)99;
+            const MacroStabilityInwardsExportStageType stageType = (MacroStabilityInwardsExportStageType) 99;
 
             // Call
             void Call() => registry.AddGeometryLayer(stageType, geometryLayer, "1");

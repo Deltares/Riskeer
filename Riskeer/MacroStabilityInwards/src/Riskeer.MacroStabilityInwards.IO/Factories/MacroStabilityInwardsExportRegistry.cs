@@ -22,7 +22,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using Components.Persistence.Stability.Data;
 using Riskeer.MacroStabilityInwards.Primitives;
 
 namespace Riskeer.MacroStabilityInwards.IO.Factories
@@ -34,6 +33,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
     {
         private readonly Dictionary<MacroStabilityInwardsExportStageType, string> settings;
         private readonly Dictionary<IMacroStabilityInwardsSoilLayer, string> soils;
+        private readonly Dictionary<MacroStabilityInwardsExportStageType, string> geometries;
         private readonly Dictionary<MacroStabilityInwardsExportStageType, Dictionary<IMacroStabilityInwardsSoilLayer, string>> geometryLayers;
 
         /// <summary>
@@ -43,11 +43,12 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
         {
             settings = new Dictionary<MacroStabilityInwardsExportStageType, string>();
             soils = new Dictionary<IMacroStabilityInwardsSoilLayer, string>();
+            geometries = new Dictionary<MacroStabilityInwardsExportStageType, string>();
             geometryLayers = new Dictionary<MacroStabilityInwardsExportStageType, Dictionary<IMacroStabilityInwardsSoilLayer, string>>();
         }
 
         /// <summary>
-        /// Gets the created <see cref="PersistableCalculationSettings"/> and their unique identifiers.
+        /// Gets the calculation settings and their unique identifiers.
         /// </summary>
         public IReadOnlyDictionary<MacroStabilityInwardsExportStageType, string> Settings => settings;
 
@@ -57,12 +58,17 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
         public IReadOnlyDictionary<IMacroStabilityInwardsSoilLayer, string> Soils => soils;
 
         /// <summary>
+        /// Gets the geometries and their unique identifiers.
+        /// </summary>
+        public IReadOnlyDictionary<MacroStabilityInwardsExportStageType, string> Geometries => geometries;
+
+        /// <summary>
         /// Gets the geometry layers and their unique identifiers.
         /// </summary>
         public IReadOnlyDictionary<MacroStabilityInwardsExportStageType, Dictionary<IMacroStabilityInwardsSoilLayer, string>> GeometryLayers => geometryLayers;
 
         /// <summary>
-        /// Adds a created <see cref="PersistableCalculationSettings"/> to the registry.
+        /// Adds calculation settings to the registry.
         /// </summary>
         /// <param name="stageType">The <see cref="MacroStabilityInwardsExportStageType"/>
         /// to register the settings for.</param>
@@ -71,12 +77,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
         /// has an invalid value.</exception>
         public void AddSettings(MacroStabilityInwardsExportStageType stageType, string id)
         {
-            if (!Enum.IsDefined(typeof(MacroStabilityInwardsExportStageType), stageType))
-            {
-                throw new InvalidEnumArgumentException(nameof(stageType),
-                                                       (int) stageType,
-                                                       typeof(MacroStabilityInwardsExportStageType));
-            }
+            ValidateStageType(stageType);
 
             settings.Add(stageType, id);
         }
@@ -99,7 +100,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
         }
 
         /// <summary>
-        /// Adds an <see cref="IMacroStabilityInwardsSoilLayer"/> to the registry.
+        /// Adds a geometry layer to the registry.
         /// </summary>
         /// <param name="stageType">The <see cref="MacroStabilityInwardsExportStageType"/>
         /// to register the geometry layer for.</param>
@@ -111,12 +112,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
         /// is <c>null</c>.</exception>
         public void AddGeometryLayer(MacroStabilityInwardsExportStageType stageType, IMacroStabilityInwardsSoilLayer geometryLayer, string id)
         {
-            if (!Enum.IsDefined(typeof(MacroStabilityInwardsExportStageType), stageType))
-            {
-                throw new InvalidEnumArgumentException(nameof(stageType),
-                                                       (int) stageType,
-                                                       typeof(MacroStabilityInwardsExportStageType));
-            }
+            ValidateStageType(stageType);
 
             if (geometryLayer == null)
             {
@@ -129,6 +125,37 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
             }
 
             geometryLayers[stageType].Add(geometryLayer, id);
+        }
+
+        /// <summary>
+        /// Adds a geometry to the register.
+        /// </summary>
+        /// <param name="stageType">The <see cref="MacroStabilityInwardsExportStageType"/>
+        /// to register the geometry for.</param>
+        /// <param name="id">The id of the settings.</param>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="stageType"/>
+        /// has an invalid value.</exception>
+        public void AddGeometry(MacroStabilityInwardsExportStageType stageType, string id)
+        {
+            ValidateStageType(stageType);
+
+            geometries.Add(stageType, id);
+        }
+
+        /// <summary>
+        /// Validates the <see cref="MacroStabilityInwardsExportStageType"/>.
+        /// </summary>
+        /// <param name="stageType">The stage type to validate.</param>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="stageType"/>
+        /// has an invalid value.</exception>
+        private static void ValidateStageType(MacroStabilityInwardsExportStageType stageType)
+        {
+            if (!Enum.IsDefined(typeof(MacroStabilityInwardsExportStageType), stageType))
+            {
+                throw new InvalidEnumArgumentException(nameof(stageType),
+                                                       (int) stageType,
+                                                       typeof(MacroStabilityInwardsExportStageType));
+            }
         }
     }
 }
