@@ -67,6 +67,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
             };
 
             var settingsList = new List<PersistableCalculationSettings>();
+            var geometryList = new List<PersistableGeometry>();
 
             foreach (MacroStabilityInwardsExportStageType stageType in stageTypes)
             {
@@ -75,14 +76,22 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
                     Id = idFactory.Create()
                 };
                 settingsList.Add(settings);
+
+                var geometry = new PersistableGeometry
+                {
+                    Id = idFactory.Create()
+                };
+                geometryList.Add(geometry);
+
                 registry.AddSettings(stageType, settings.Id);
+                registry.AddGeometry(stageType, geometry.Id);
             }
 
             // Call
             IEnumerable<PersistableStage> stages = PersistableStageFactory.Create(idFactory, registry);
 
             // Assert
-            PersistableDataModelTestHelper.AssertStages(stages, settingsList);
+            PersistableDataModelTestHelper.AssertStages(stages, settingsList, geometryList);
         }
     }
 }

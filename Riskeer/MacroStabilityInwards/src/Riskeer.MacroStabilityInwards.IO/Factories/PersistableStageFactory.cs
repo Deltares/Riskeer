@@ -64,7 +64,8 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
                 stages.Add(new PersistableStage
                 {
                     Id = idFactory.Create(),
-                    CalculationSettingsId = registry.Settings[stageType]
+                    CalculationSettingsId = registry.Settings[stageType],
+                    GeometryId = registry.Geometries[stageType]
                 });
             }
 

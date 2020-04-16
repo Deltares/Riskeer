@@ -71,7 +71,7 @@ namespace Riskeer.MacroStabilityInwards.IO.TestUtil
             Assert.IsNull(persistableDataModel.StateCorrelations);
             Assert.IsNull(persistableDataModel.States);
 
-            AssertStages(persistableDataModel.Stages, persistableDataModel.CalculationSettings);
+            AssertStages(persistableDataModel.Stages, persistableDataModel.CalculationSettings, persistableDataModel.Geometry);
         }
 
         /// <summary>
@@ -238,19 +238,21 @@ namespace Riskeer.MacroStabilityInwards.IO.TestUtil
         /// </summary>
         /// <param name="stages">The stages that needs to be asserted.</param>
         /// <param name="calculationSettings">The calculation settings that are used.</param>
+        /// <param name="geometries">The geometries that are used.</param>
         /// <exception cref="AssertionException">Thrown when the data in <paramref name="stages"/>
         /// is not correct.</exception>
-        public static void AssertStages(IEnumerable<PersistableStage> stages, IEnumerable<PersistableCalculationSettings> calculationSettings)
+        public static void AssertStages(IEnumerable<PersistableStage> stages, IEnumerable<PersistableCalculationSettings> calculationSettings,
+                                        IEnumerable<PersistableGeometry> geometries)
         {
             Assert.AreEqual(2, stages.Count());
 
-            PersistableStage firstStage = stages.First();
-            Assert.IsNotNull(firstStage.Id);
-            Assert.AreEqual(calculationSettings.First().Id, firstStage.CalculationSettingsId);
-
-            PersistableStage lastStage = stages.Last();
-            Assert.IsNotNull(lastStage.Id);
-            Assert.AreEqual(calculationSettings.Last().Id, lastStage.CalculationSettingsId);
+            for (int i = 0; i < stages.Count(); i++)
+            {
+                PersistableStage stage = stages.ElementAt(i);
+                Assert.IsNotNull(stage.Id);
+                Assert.AreEqual(calculationSettings.ElementAt(i).Id, stage.CalculationSettingsId);
+                Assert.AreEqual(geometries.ElementAt(i).Id, stage.GeometryId);
+            }
         }
 
         private static PersistableShearStrengthModelType GetExpectedShearStrengthModelTypeForAbovePhreaticLevel(MacroStabilityInwardsShearStrengthModel shearStrengthModel)
