@@ -56,10 +56,10 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
                 throw new ArgumentNullException(nameof(registry));
             }
 
-            PersistableCalculationSettings emptySettings = Create(idFactory, registry, MacroStabilityInwardsExportStageType.Daily);
-            PersistableCalculationSettings filledSettings = Create(idFactory, registry, MacroStabilityInwardsExportStageType.Extreme);
-            filledSettings.AnalysisType = PersistableAnalysisType.UpliftVan;
-            filledSettings.UpliftVan = new PersistableUpliftVanSettings
+            PersistableCalculationSettings dailySettings = Create(idFactory, registry, MacroStabilityInwardsExportStageType.Daily);
+            PersistableCalculationSettings extremeSettings = Create(idFactory, registry, MacroStabilityInwardsExportStageType.Extreme);
+            extremeSettings.AnalysisType = PersistableAnalysisType.UpliftVan;
+            extremeSettings.UpliftVan = new PersistableUpliftVanSettings
             {
                 SlipPlane = new PersistableTwoCirclesOnTangentLine
                 {
@@ -70,25 +70,25 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
                                                               slidingCurve.RightCircle.Center.Y)
                 }
             };
-            filledSettings.CalculationType = PersistableCalculationType.Deterministic;
+            extremeSettings.CalculationType = PersistableCalculationType.Deterministic;
 
             return new[]
             {
-                emptySettings,
-                filledSettings
+                dailySettings,
+                extremeSettings
             };
         }
 
         private static PersistableCalculationSettings Create(IdFactory idFactory, MacroStabilityInwardsExportRegistry registry,
                                                              MacroStabilityInwardsExportStageType stageType)
         {
-            var emptySettings = new PersistableCalculationSettings
+            var settings = new PersistableCalculationSettings
             {
                 Id = idFactory.Create()
             };
 
-            registry.Add(stageType, emptySettings.Id);
-            return emptySettings;
+            registry.AddSettings(stageType, settings.Id);
+            return settings;
         }
     }
 }

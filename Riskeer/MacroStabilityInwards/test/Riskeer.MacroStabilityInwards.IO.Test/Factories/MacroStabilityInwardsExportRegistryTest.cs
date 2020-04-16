@@ -54,7 +54,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
             const MacroStabilityInwardsExportStageType stageType = (MacroStabilityInwardsExportStageType)99;
 
             // Call
-            void Call() => registry.Add(stageType, "1");
+            void Call() => registry.AddSettings(stageType, "1");
 
             // Assert
             string expectedMessage = $"The value of argument '{nameof(stageType)}' ({stageType}) is invalid for Enum type '{nameof(MacroStabilityInwardsExportStageType)}'.";
@@ -70,7 +70,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
             const string id = "1";
 
             // Call
-            registry.Add(stageType, id);
+            registry.AddSettings(stageType, id);
 
             // Assert
             Assert.AreEqual(1, registry.Settings.Count);
@@ -109,9 +109,29 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
 
             // Assert
             Assert.AreEqual(1, registry.Soils.Count);
-            KeyValuePair<IMacroStabilityInwardsSoilLayer, string> storedSoil = registry.Soils.Single();
-            Assert.AreSame(soilLayer, storedSoil.Key);
-            Assert.AreEqual(id, storedSoil.Value);
+            KeyValuePair<IMacroStabilityInwardsSoilLayer, string> registeredSoil = registry.Soils.Single();
+            Assert.AreSame(soilLayer, registeredSoil.Key);
+            Assert.AreEqual(id, registeredSoil.Value);
+        }
+
+        [Test]
+        public void AddGeometry_InvalidStageType_ThrowsInvalidEnumArgumentException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var geometryLayer = mocks.Stub<IMacroStabilityInwardsSoilLayer>();
+            mocks.ReplayAll();
+
+            var registry = new MacroStabilityInwardsExportRegistry();
+            const MacroStabilityInwardsExportStageType stageType = (MacroStabilityInwardsExportStageType)99;
+
+            // Call
+            void Call() => registry.AddGeometry(stageType, geometryLayer, "1");
+
+            // Assert
+            string expectedMessage = $"The value of argument '{nameof(stageType)}' ({stageType}) is invalid for Enum type '{nameof(MacroStabilityInwardsExportStageType)}'.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(Call, expectedMessage);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -121,7 +141,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
             var registry = new MacroStabilityInwardsExportRegistry();
 
             // Call
-            void Call() => registry.AddGeometry(null, "1");
+            void Call() => registry.AddGeometry(new Random(21).NextEnumValue<MacroStabilityInwardsExportStageType>(), null, "1");
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -129,7 +149,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
         }
 
         [Test]
-        public void AddGeometry_WithGeometryLayer_AddsGeometryLayer()
+        public void AddGeometry_NewStageType_AddsStageTypeAndGeometryLayer()
         {
             // Setup
             var mocks = new MockRepository();
@@ -137,16 +157,61 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
             mocks.ReplayAll();
 
             var registry = new MacroStabilityInwardsExportRegistry();
+            var stageType = new Random(21).NextEnumValue<MacroStabilityInwardsExportStageType>();
             const string id = "1";
 
             // Call
-            registry.AddGeometry(geometryLayer, id);
+            registry.AddGeometry(stageType, geometryLayer, id);
 
             // Assert
             Assert.AreEqual(1, registry.Geometries.Count);
-            KeyValuePair<IMacroStabilityInwardsSoilLayer, string> storedGeometry = registry.Geometries.Single();
-            Assert.AreSame(geometryLayer, storedGeometry.Key);
-            Assert.AreEqual(id, storedGeometry.Value);
+            KeyValuePair<MacroStabilityInwardsExportStageType, Dictionary<IMacroStabilityInwardsSoilLayer, string>> registeredStorageTypeGeometry = registry.Geometries.Single();
+            Assert.AreEqual(stageType, registeredStorageTypeGeometry.Key);
+
+            Assert.AreEqual(1, registeredStorageTypeGeometry.Value.Count);
+            KeyValuePair<IMacroStabilityInwardsSoilLayer, string> registeredGeometry = registeredStorageTypeGeometry.Value.Single();
+
+            Assert.AreSame(geometryLayer, registeredGeometry.Key);
+            Assert.AreEqual(id, registeredGeometry.Value);
+        }
+
+        [Test]
+        public void AddGeometry_StageTypeAlreadyRegistered_AddsGeometryLayer()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var geometryLayer1 = mocks.Stub<IMacroStabilityInwardsSoilLayer>();
+            var geometryLayer2 = mocks.Stub<IMacroStabilityInwardsSoilLayer>();
+            mocks.ReplayAll();
+
+            var registry = new MacroStabilityInwardsExportRegistry();
+            var stageType = new Random(21).NextEnumValue<MacroStabilityInwardsExportStageType>();
+            const string id1 = "1";
+            const string id2 = "2";
+
+            registry.AddGeometry(stageType, geometryLayer1, id1);
+
+            // Precondition
+            Assert.AreEqual(1, registry.Geometries.Count);
+
+            // Call
+            registry.AddGeometry(stageType, geometryLayer2, id2);
+
+            // Assert
+            Assert.AreEqual(1, registry.Geometries.Count);
+            KeyValuePair<MacroStabilityInwardsExportStageType, Dictionary<IMacroStabilityInwardsSoilLayer, string>> registeredStageTypeGeometry = registry.Geometries.Single();
+            Assert.AreEqual(stageType, registeredStageTypeGeometry.Key);
+
+            Assert.AreEqual(2, registeredStageTypeGeometry.Value.Count);
+
+            Dictionary<IMacroStabilityInwardsSoilLayer, string> registeredGeometries = registeredStageTypeGeometry.Value;
+
+            KeyValuePair<IMacroStabilityInwardsSoilLayer, string> registeredGeometry1 = registeredGeometries.First();
+            Assert.AreSame(geometryLayer1, registeredGeometry1.Key);
+            Assert.AreEqual(id1, registeredGeometry1.Value);
+            KeyValuePair<IMacroStabilityInwardsSoilLayer, string> registeredGeometry2 = registeredGeometries.Last();
+            Assert.AreSame(geometryLayer2, registeredGeometry2.Key);
+            Assert.AreEqual(id2, registeredGeometry2.Value);
         }
     }
 }

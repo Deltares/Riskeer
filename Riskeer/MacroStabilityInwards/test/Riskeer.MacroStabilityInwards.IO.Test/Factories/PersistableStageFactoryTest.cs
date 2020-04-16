@@ -75,7 +75,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
                     Id = idFactory.Create()
                 };
                 settingsList.Add(settings);
-                registry.Add(stageType, settings.Id);
+                registry.AddSettings(stageType, settings.Id);
             }
 
             // Call
