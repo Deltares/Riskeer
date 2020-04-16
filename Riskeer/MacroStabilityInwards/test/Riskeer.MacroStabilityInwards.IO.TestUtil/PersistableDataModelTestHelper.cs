@@ -29,6 +29,7 @@ using Core.Common.Util.Reflection;
 using NUnit.Framework;
 using Riskeer.Common.Data.Probabilistics;
 using Riskeer.MacroStabilityInwards.Data;
+using Riskeer.MacroStabilityInwards.Data.SoilProfile;
 using Riskeer.MacroStabilityInwards.Primitives;
 
 namespace Riskeer.MacroStabilityInwards.IO.TestUtil
@@ -52,7 +53,7 @@ namespace Riskeer.MacroStabilityInwards.IO.TestUtil
         {
             AssertProjectInfo(calculation, filePath, persistableDataModel.Info);
             AssertCalculationSettings(calculation.Output.SlidingCurve, persistableDataModel.CalculationSettings);
-            AssertPersistableSoils(calculation.InputParameters.StochasticSoilProfile.SoilProfile.Layers, persistableDataModel.Soils.Soils);
+            AssertPersistableSoils(MacroStabilityInwardsSoilProfile2DLayersHelper.GetLayersRecursively(calculation.InputParameters.SoilProfileUnderSurfaceLine.Layers), persistableDataModel.Soils.Soils);
 
             Assert.IsNull(persistableDataModel.AssessmentResults);
             Assert.IsNull(persistableDataModel.Decorations);

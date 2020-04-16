@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using Components.Persistence.Stability.Data;
@@ -46,13 +45,9 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         /// <exception cref="InvalidEnumArgumentException">Thrown when
         /// <see cref="MacroStabilityInwardsShearStrengthModel"/> has an invalid value.</exception>
-        /// <exception cref="NotSupportedException">Thrown when:
-        /// <list type="bullet">
-        /// <item><see cref="MacroStabilityInwardsShearStrengthModel"/> has a valid value but is not supported;</item>
-        /// <item>The given <paramref name="soilProfile"/> type is not supported.</item>
-        /// </list>
-        /// </exception>
-        public static PersistableSoilCollection Create(IMacroStabilityInwardsSoilProfile<IMacroStabilityInwardsSoilLayer> soilProfile,
+        /// <exception cref="NotSupportedException">Thrown when <see cref="MacroStabilityInwardsShearStrengthModel"/>
+        /// has a valid value but is not supported.</exception>
+        public static PersistableSoilCollection Create(IMacroStabilityInwardsSoilProfileUnderSurfaceLine soilProfile,
                                                        IdFactory idFactory, MacroStabilityInwardsExportRegistry registry)
         {
             if (soilProfile == null)
@@ -72,32 +67,8 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
 
             return new PersistableSoilCollection
             {
-                Soils = GetLayers(soilProfile).Select(l => Create(l, idFactory, registry)).ToArray()
+                Soils = MacroStabilityInwardsSoilProfile2DLayersHelper.GetLayersRecursively(soilProfile.Layers).Select(l => Create(l, idFactory, registry)).ToArray()
             };
-        }
-
-        /// <summary>
-        /// Gets all the layers within <paramref name="soilProfile"/>.
-        /// </summary>
-        /// <param name="soilProfile">The <see cref="IMacroStabilityInwardsSoilProfile{T}"/> to get the layers from.</param>
-        /// <returns>All layers from <paramref name="soilProfile"/>.</returns>
-        /// <exception cref="NotSupportedException">Thrown when the given <paramref name="soilProfile"/> type
-        /// is not supported.</exception>
-        private static IEnumerable<IMacroStabilityInwardsSoilLayer> GetLayers(IMacroStabilityInwardsSoilProfile<IMacroStabilityInwardsSoilLayer> soilProfile)
-        {
-            if (soilProfile is MacroStabilityInwardsSoilProfile1D soilProfile1D)
-            {
-                return soilProfile1D.Layers;
-            }
-
-            if (soilProfile is MacroStabilityInwardsSoilProfile2D soilProfile2D)
-            {
-                return MacroStabilityInwardsSoilProfile2DLayersHelper.GetLayersRecursively(soilProfile2D.Layers);
-            }
-
-            throw new NotSupportedException($"{soilProfile.GetType().Name} is not supported. " +
-                                            $"Supported types are: {nameof(MacroStabilityInwardsSoilProfile1D)} " +
-                                            $"and {nameof(MacroStabilityInwardsSoilProfile2D)}.");
         }
 
         /// <summary>
