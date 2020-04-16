@@ -121,7 +121,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
 
             if (!geometryLayers.ContainsKey(stageType))
             {
-                geometryLayers.Add(stageType, new Dictionary<MacroStabilityInwardsSoilLayer2D, string>());
+                geometryLayers.Add(stageType, new Dictionary<MacroStabilityInwardsSoilLayer2D, string>(new LayerComparer()));
             }
 
             geometryLayers[stageType].Add(geometryLayer, id);
@@ -155,6 +155,19 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
                 throw new InvalidEnumArgumentException(nameof(stageType),
                                                        (int) stageType,
                                                        typeof(MacroStabilityInwardsExportStageType));
+            }
+        }
+
+        private class LayerComparer : IEqualityComparer<MacroStabilityInwardsSoilLayer2D>
+        {
+            public bool Equals(MacroStabilityInwardsSoilLayer2D x, MacroStabilityInwardsSoilLayer2D y)
+            {
+                return ReferenceEquals(x, y);
+            }
+
+            public int GetHashCode(MacroStabilityInwardsSoilLayer2D obj)
+            {
+                return obj.GetHashCode();
             }
         }
     }
