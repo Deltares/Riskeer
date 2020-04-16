@@ -43,7 +43,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
             // Assert
             CollectionAssert.IsEmpty(registry.Settings);
             CollectionAssert.IsEmpty(registry.Soils);
-            CollectionAssert.IsEmpty(registry.Geometries);
+            CollectionAssert.IsEmpty(registry.GeometryLayers);
         }
 
         [Test]
@@ -115,7 +115,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
         }
 
         [Test]
-        public void AddGeometry_InvalidStageType_ThrowsInvalidEnumArgumentException()
+        public void AddGeometryLayer_InvalidStageType_ThrowsInvalidEnumArgumentException()
         {
             // Setup
             var mocks = new MockRepository();
@@ -126,7 +126,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
             const MacroStabilityInwardsExportStageType stageType = (MacroStabilityInwardsExportStageType)99;
 
             // Call
-            void Call() => registry.AddGeometry(stageType, geometryLayer, "1");
+            void Call() => registry.AddGeometryLayer(stageType, geometryLayer, "1");
 
             // Assert
             string expectedMessage = $"The value of argument '{nameof(stageType)}' ({stageType}) is invalid for Enum type '{nameof(MacroStabilityInwardsExportStageType)}'.";
@@ -135,13 +135,13 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
         }
 
         [Test]
-        public void AddGeometry_GeometryLayerNull_ThrowsArgumentNullException()
+        public void AddGeometryLayer_GeometryLayerNull_ThrowsArgumentNullException()
         {
             // Setup
             var registry = new MacroStabilityInwardsExportRegistry();
 
             // Call
-            void Call() => registry.AddGeometry(new Random(21).NextEnumValue<MacroStabilityInwardsExportStageType>(), null, "1");
+            void Call() => registry.AddGeometryLayer(new Random(21).NextEnumValue<MacroStabilityInwardsExportStageType>(), null, "1");
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -149,7 +149,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
         }
 
         [Test]
-        public void AddGeometry_NewStageType_AddsStageTypeAndGeometryLayer()
+        public void AddGeometryLayer_NewStageType_AddsStageTypeAndGeometryLayer()
         {
             // Setup
             var mocks = new MockRepository();
@@ -161,11 +161,11 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
             const string id = "1";
 
             // Call
-            registry.AddGeometry(stageType, geometryLayer, id);
+            registry.AddGeometryLayer(stageType, geometryLayer, id);
 
             // Assert
-            Assert.AreEqual(1, registry.Geometries.Count);
-            KeyValuePair<MacroStabilityInwardsExportStageType, Dictionary<IMacroStabilityInwardsSoilLayer, string>> registeredStorageTypeGeometry = registry.Geometries.Single();
+            Assert.AreEqual(1, registry.GeometryLayers.Count);
+            KeyValuePair<MacroStabilityInwardsExportStageType, Dictionary<IMacroStabilityInwardsSoilLayer, string>> registeredStorageTypeGeometry = registry.GeometryLayers.Single();
             Assert.AreEqual(stageType, registeredStorageTypeGeometry.Key);
 
             Assert.AreEqual(1, registeredStorageTypeGeometry.Value.Count);
@@ -176,7 +176,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
         }
 
         [Test]
-        public void AddGeometry_StageTypeAlreadyRegistered_AddsGeometryLayer()
+        public void AddGeometryLayer_StageTypeAlreadyRegistered_AddsGeometryLayer()
         {
             // Setup
             var mocks = new MockRepository();
@@ -189,17 +189,17 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
             const string id1 = "1";
             const string id2 = "2";
 
-            registry.AddGeometry(stageType, geometryLayer1, id1);
+            registry.AddGeometryLayer(stageType, geometryLayer1, id1);
 
             // Precondition
-            Assert.AreEqual(1, registry.Geometries.Count);
+            Assert.AreEqual(1, registry.GeometryLayers.Count);
 
             // Call
-            registry.AddGeometry(stageType, geometryLayer2, id2);
+            registry.AddGeometryLayer(stageType, geometryLayer2, id2);
 
             // Assert
-            Assert.AreEqual(1, registry.Geometries.Count);
-            KeyValuePair<MacroStabilityInwardsExportStageType, Dictionary<IMacroStabilityInwardsSoilLayer, string>> registeredStageTypeGeometry = registry.Geometries.Single();
+            Assert.AreEqual(1, registry.GeometryLayers.Count);
+            KeyValuePair<MacroStabilityInwardsExportStageType, Dictionary<IMacroStabilityInwardsSoilLayer, string>> registeredStageTypeGeometry = registry.GeometryLayers.Single();
             Assert.AreEqual(stageType, registeredStageTypeGeometry.Key);
 
             Assert.AreEqual(2, registeredStageTypeGeometry.Value.Count);
