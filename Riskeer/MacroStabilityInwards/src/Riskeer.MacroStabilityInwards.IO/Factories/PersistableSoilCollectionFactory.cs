@@ -82,7 +82,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
         /// <see cref="MacroStabilityInwardsShearStrengthModel"/> has an invalid value.</exception>
         /// <exception cref="NotSupportedException">Thrown when <see cref="MacroStabilityInwardsShearStrengthModel"/>
         /// has a valid value but is not supported.</exception>
-        private static PersistableSoil Create(IMacroStabilityInwardsSoilLayer layer, IdFactory idFactory, MacroStabilityInwardsExportRegistry registry)
+        private static PersistableSoil Create(MacroStabilityInwardsSoilLayer2D layer, IdFactory idFactory, MacroStabilityInwardsExportRegistry registry)
         {
             MacroStabilityInwardsSoilLayerData layerData = layer.Data;
 

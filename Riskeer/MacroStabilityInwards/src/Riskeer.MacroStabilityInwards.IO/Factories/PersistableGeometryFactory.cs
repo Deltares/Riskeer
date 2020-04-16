@@ -20,6 +20,8 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Components.Persistence.Stability.Data;
 using Riskeer.MacroStabilityInwards.Data.SoilProfile;
 using Riskeer.MacroStabilityInwards.Primitives;
@@ -37,10 +39,10 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
         /// <param name="soilProfile">The soil profile to use.</param>
         /// <param name="idFactory">The factory fo IDs.</param>
         /// <param name="registry">The persistence registry.</param>
-        /// <returns>The created <see cref="PersistableGeometry"/>.</returns>
+        /// <returns>A collection of <see cref="PersistableGeometry"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public static PersistableGeometry Create(IMacroStabilityInwardsSoilProfile<IMacroStabilityInwardsSoilLayer> soilProfile,
-                                                 IdFactory idFactory, MacroStabilityInwardsExportRegistry registry)
+        public static IEnumerable<PersistableGeometry> Create(IMacroStabilityInwardsSoilProfileUnderSurfaceLine soilProfile,
+                                                              IdFactory idFactory, MacroStabilityInwardsExportRegistry registry)
         {
             if (soilProfile == null)
             {
@@ -57,7 +59,41 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
                 throw new ArgumentNullException(nameof(registry));
             }
 
-            return null;
+            return new[]
+            {
+                CreateGeometry(soilProfile, MacroStabilityInwardsExportStageType.Daily, idFactory, registry),
+                CreateGeometry(soilProfile, MacroStabilityInwardsExportStageType.Extreme, idFactory, registry)
+            };
+        }
+
+        private static PersistableGeometry CreateGeometry(IMacroStabilityInwardsSoilProfileUnderSurfaceLine soilProfile, MacroStabilityInwardsExportStageType stageType,
+                                                          IdFactory idFactory, MacroStabilityInwardsExportRegistry registry)
+        {
+            var geometry = new PersistableGeometry
+            {
+                Id = idFactory.Create(),
+                Layers = MacroStabilityInwardsSoilProfile2DLayersHelper.GetLayersRecursively(soilProfile.Layers)
+                                                                       .Select(l => CreateLayer(l, stageType, idFactory, registry))
+                                                                       .ToArray()
+            };
+
+            registry.AddGeometry(stageType, geometry.Id);
+
+            return geometry;
+        }
+
+        private static PersistableLayer CreateLayer(MacroStabilityInwardsSoilLayer2D layer, MacroStabilityInwardsExportStageType stageType,
+                                                    IdFactory idFactory, MacroStabilityInwardsExportRegistry registry)
+        {
+            var persistableLayer = new PersistableLayer
+            {
+                Id = idFactory.Create(),
+                Label = layer.Data.MaterialName,
+                Points = layer.OuterRing.Points.Select(p => new PersistablePoint(p.X, p.Y)).ToArray()
+            };
+
+            registry.AddGeometryLayer(stageType, layer, persistableLayer.Id);
+            return persistableLayer;
         }
     }
 }

@@ -20,10 +20,13 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Components.Persistence.Stability.Data;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.MacroStabilityInwards.Data.SoilProfile;
+using Riskeer.MacroStabilityInwards.Data.TestUtil.SoilProfile;
 using Riskeer.MacroStabilityInwards.IO.Factories;
 using Riskeer.MacroStabilityInwards.Primitives;
 
@@ -48,7 +51,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
         {
             // Setup
             var mocks = new MockRepository();
-            var soilProfile = mocks.Stub<IMacroStabilityInwardsSoilProfile<IMacroStabilityInwardsSoilLayer>>();
+            var soilProfile = mocks.Stub<IMacroStabilityInwardsSoilProfileUnderSurfaceLine>();
             mocks.ReplayAll();
 
             // Call
@@ -65,7 +68,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
         {
             // Setup
             var mocks = new MockRepository();
-            var soilProfile = mocks.Stub<IMacroStabilityInwardsSoilProfile<IMacroStabilityInwardsSoilLayer>>();
+            var soilProfile = mocks.Stub<IMacroStabilityInwardsSoilProfileUnderSurfaceLine>();
             mocks.ReplayAll();
 
             // Call
@@ -81,16 +84,73 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
         public void Create_WithValidData_ReturnsNull()
         {
             // Setup
-            var mocks = new MockRepository();
-            var soilProfile = mocks.Stub<IMacroStabilityInwardsSoilProfile<IMacroStabilityInwardsSoilLayer>>();
-            mocks.ReplayAll();
+            var soilProfile = new MacroStabilityInwardsSoilProfileUnderSurfaceLine(new[]
+            {
+                MacroStabilityInwardsSoilLayer2DTestFactory.CreateMacroStabilityInwardsSoilLayer2D(new[]
+                {
+                    MacroStabilityInwardsSoilLayer2DTestFactory.CreateMacroStabilityInwardsSoilLayer2D()
+                })
+            }, Enumerable.Empty<IMacroStabilityInwardsPreconsolidationStress>());
+
+            var registry = new MacroStabilityInwardsExportRegistry();
 
             // Call
-            PersistableGeometry geometry = PersistableGeometryFactory.Create(soilProfile, new IdFactory(), new MacroStabilityInwardsExportRegistry());
+            IEnumerable<PersistableGeometry> geometries = PersistableGeometryFactory.Create(soilProfile, new IdFactory(), registry);
 
             // Assert
-            Assert.IsNull(geometry);
-            mocks.VerifyAll();
+            Assert.AreEqual(2, geometries.Count());
+
+            IEnumerable<MacroStabilityInwardsSoilLayer2D> layersRecursively = MacroStabilityInwardsSoilProfile2DLayersHelper.GetLayersRecursively(soilProfile.Layers);
+
+            foreach (PersistableGeometry persistableGeometry in geometries)
+            {
+                Assert.IsNotNull(persistableGeometry.Id);
+                IEnumerable<PersistableLayer> persistableGeometryLayers = persistableGeometry.Layers;
+
+                Assert.AreEqual(layersRecursively.Count(), persistableGeometryLayers.Count());
+
+                for (int i = 0; i < layersRecursively.Count(); i++)
+                {
+                    MacroStabilityInwardsSoilLayer2D soilLayer = layersRecursively.ElementAt(i);
+                    PersistableLayer persistableLayer = persistableGeometryLayers.ElementAt(i);
+
+                    Assert.IsNotNull(persistableLayer.Id);
+                    Assert.AreEqual(soilLayer.Data.MaterialName, persistableLayer.Label);
+
+                    CollectionAssert.AreEqual(soilLayer.OuterRing.Points.Select(p => new PersistablePoint(p.X, p.Y)), persistableLayer.Points);
+                }
+            }
+
+            var stageTypes = new[]
+            {
+                MacroStabilityInwardsExportStageType.Daily,
+                MacroStabilityInwardsExportStageType.Extreme
+            };
+
+            Assert.AreEqual(stageTypes.Length, registry.Geometries.Count);
+            Assert.AreEqual(stageTypes.Length, registry.GeometryLayers.Count);
+
+            for (int i = 0; i < stageTypes.Length; i++)
+            {
+                KeyValuePair<MacroStabilityInwardsExportStageType, string> storedGeometry = registry.Geometries.ElementAt(i);
+                Assert.AreEqual(stageTypes[i], storedGeometry.Key);
+                Assert.AreEqual(geometries.ElementAt(i).Id, storedGeometry.Value);
+
+                KeyValuePair<MacroStabilityInwardsExportStageType, Dictionary<MacroStabilityInwardsSoilLayer2D, string>> storedGeometryLayers = registry.GeometryLayers.ElementAt(i);
+
+                Assert.AreEqual(stageTypes[i], storedGeometryLayers.Key);
+
+                IEnumerable<PersistableLayer> persistableGeometryLayers = geometries.ElementAt(i).Layers;
+                Assert.AreEqual(persistableGeometryLayers.Count(), storedGeometryLayers.Value.Count);
+
+                for (int j = 0; j < persistableGeometryLayers.Count(); j++)
+                {
+                    KeyValuePair<MacroStabilityInwardsSoilLayer2D, string> storedGeometryLayer = storedGeometryLayers.Value.ElementAt(j);
+
+                    Assert.AreSame(layersRecursively.ElementAt(j), storedGeometryLayer.Key);
+                    Assert.AreEqual(persistableGeometryLayers.ElementAt(j).Id, storedGeometryLayer.Value);
+                }
+            }
         }
     }
 }

@@ -32,9 +32,9 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
     internal class MacroStabilityInwardsExportRegistry
     {
         private readonly Dictionary<MacroStabilityInwardsExportStageType, string> settings;
-        private readonly Dictionary<IMacroStabilityInwardsSoilLayer, string> soils;
+        private readonly Dictionary<MacroStabilityInwardsSoilLayer2D, string> soils;
         private readonly Dictionary<MacroStabilityInwardsExportStageType, string> geometries;
-        private readonly Dictionary<MacroStabilityInwardsExportStageType, Dictionary<IMacroStabilityInwardsSoilLayer, string>> geometryLayers;
+        private readonly Dictionary<MacroStabilityInwardsExportStageType, Dictionary<MacroStabilityInwardsSoilLayer2D, string>> geometryLayers;
 
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsExportRegistry"/>.
@@ -42,9 +42,9 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
         public MacroStabilityInwardsExportRegistry()
         {
             settings = new Dictionary<MacroStabilityInwardsExportStageType, string>();
-            soils = new Dictionary<IMacroStabilityInwardsSoilLayer, string>();
+            soils = new Dictionary<MacroStabilityInwardsSoilLayer2D, string>();
             geometries = new Dictionary<MacroStabilityInwardsExportStageType, string>();
-            geometryLayers = new Dictionary<MacroStabilityInwardsExportStageType, Dictionary<IMacroStabilityInwardsSoilLayer, string>>();
+            geometryLayers = new Dictionary<MacroStabilityInwardsExportStageType, Dictionary<MacroStabilityInwardsSoilLayer2D, string>>();
         }
 
         /// <summary>
@@ -55,7 +55,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
         /// <summary>
         /// Gets the soils and their unique identifiers.
         /// </summary>
-        public IReadOnlyDictionary<IMacroStabilityInwardsSoilLayer, string> Soils => soils;
+        public IReadOnlyDictionary<MacroStabilityInwardsSoilLayer2D, string> Soils => soils;
 
         /// <summary>
         /// Gets the geometries and their unique identifiers.
@@ -65,7 +65,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
         /// <summary>
         /// Gets the geometry layers and their unique identifiers.
         /// </summary>
-        public IReadOnlyDictionary<MacroStabilityInwardsExportStageType, Dictionary<IMacroStabilityInwardsSoilLayer, string>> GeometryLayers => geometryLayers;
+        public IReadOnlyDictionary<MacroStabilityInwardsExportStageType, Dictionary<MacroStabilityInwardsSoilLayer2D, string>> GeometryLayers => geometryLayers;
 
         /// <summary>
         /// Adds calculation settings to the registry.
@@ -83,13 +83,13 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
         }
 
         /// <summary>
-        /// Adds an <see cref="IMacroStabilityInwardsSoilLayer"/> to the registry.
+        /// Adds an <see cref="MacroStabilityInwardsSoilLayer2D"/> to the registry.
         /// </summary>
         /// <param name="soilLayer">The soil layer to register.</param>
         /// <param name="id">The id of the settings.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="soilLayer"/>
         /// is <c>null</c>.</exception>
-        public void AddSoil(IMacroStabilityInwardsSoilLayer soilLayer, string id)
+        public void AddSoil(MacroStabilityInwardsSoilLayer2D soilLayer, string id)
         {
             if (soilLayer == null)
             {
@@ -110,7 +110,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
         /// has an invalid value.</exception>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="geometryLayer"/>
         /// is <c>null</c>.</exception>
-        public void AddGeometryLayer(MacroStabilityInwardsExportStageType stageType, IMacroStabilityInwardsSoilLayer geometryLayer, string id)
+        public void AddGeometryLayer(MacroStabilityInwardsExportStageType stageType, MacroStabilityInwardsSoilLayer2D geometryLayer, string id)
         {
             ValidateStageType(stageType);
 
@@ -121,7 +121,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
 
             if (!geometryLayers.ContainsKey(stageType))
             {
-                geometryLayers.Add(stageType, new Dictionary<IMacroStabilityInwardsSoilLayer, string>());
+                geometryLayers.Add(stageType, new Dictionary<MacroStabilityInwardsSoilLayer2D, string>());
             }
 
             geometryLayers[stageType].Add(geometryLayer, id);

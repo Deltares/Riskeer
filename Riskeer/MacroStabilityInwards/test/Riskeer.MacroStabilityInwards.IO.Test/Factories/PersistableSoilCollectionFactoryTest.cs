@@ -116,7 +116,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
             Assert.AreEqual(actualSoils.Count(), registry.Soils.Count);
             for (var i = 0; i < originalLayers.Count(); i++)
             {
-                KeyValuePair<IMacroStabilityInwardsSoilLayer, string> registrySoil = registry.Soils.ElementAt(i);
+                KeyValuePair<MacroStabilityInwardsSoilLayer2D, string> registrySoil = registry.Soils.ElementAt(i);
                 Assert.AreSame(originalLayers.ElementAt(i), registrySoil.Key);
                 Assert.AreEqual(actualSoils.ElementAt(i).Id, registrySoil.Value);
             }
