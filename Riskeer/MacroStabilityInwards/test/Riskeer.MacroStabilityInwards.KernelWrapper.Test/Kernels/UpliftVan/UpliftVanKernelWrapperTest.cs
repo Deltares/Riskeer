@@ -195,21 +195,21 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
             var validationMessages = kernel.Validate();
 
             // Assert
-            Assert.AreEqual(validationMessages.Count(), 0);
+            Assert.AreEqual(0,validationMessages.Count());
         }
 
         [Test]
         public void Validate_InputNotComplete_ThrowsUpliftVanKernelWrapperException()
         {
             // Setup
-            var kernel = new UpliftVanKernelWrapper();
+            UpliftVanKernelWrapper kernel = CreateInvalidKernel(new Soil());
 
             // Call
-            TestDelegate test = () => kernel.Validate();
+            void Test() => kernel.Calculate();
 
             // Assert
-            var exception = Assert.Throws<UpliftVanKernelWrapperException>(test);
-            Assert.IsInstanceOf<XmlSchemaValidationException>(exception.InnerException);
+            var exception = Assert.Throws<UpliftVanKernelWrapperException>(Test);
+            Assert.IsInstanceOf<NullReferenceException>(exception.InnerException);
             Assert.AreEqual(exception.InnerException.Message, exception.Message);
         }
 
@@ -220,10 +220,10 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
             UpliftVanKernelWrapper kernel = CreateInvalidKernel(null);
 
             // Call
-            TestDelegate test = () => kernel.Validate();
+            void Test() => kernel.Validate();
 
             // Assert
-            var exception = Assert.Throws<UpliftVanKernelWrapperException>(test);
+            var exception = Assert.Throws<UpliftVanKernelWrapperException>(Test);
             Assert.IsInstanceOf<ArgumentNullException>(exception.InnerException);
             Assert.AreEqual(exception.InnerException.Message, exception.Message);
         }
