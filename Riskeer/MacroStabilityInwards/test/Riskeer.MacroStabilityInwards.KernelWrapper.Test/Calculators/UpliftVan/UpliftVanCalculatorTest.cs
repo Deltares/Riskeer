@@ -43,6 +43,7 @@ using Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan;
 using Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan.Input;
 using Riskeer.MacroStabilityInwards.Primitives;
 using Point2D = Core.Common.Base.Geometry.Point2D;
+using ShearStrengthModel = Deltares.MacroStability.Geometry.ShearStrengthModel;
 using SoilLayer = Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Input.SoilLayer;
 using SoilProfile = Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Input.SoilProfile;
 
@@ -382,13 +383,17 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
 
         private static SoilProfile CreateValidSoilProfile(MacroStabilityInwardsSurfaceLine surfaceLine)
         {
+            Point2D last = surfaceLine.LocalGeometry.Last();
+
+            last = new Point2D(last.X, last.Y - 1);
+
             return new SoilProfile(new[]
             {
                 new SoilLayer(
                     new[]
                     {
                         surfaceLine.LocalGeometry.First(),
-                        surfaceLine.LocalGeometry.Last()
+                        last
                     },
                     new SoilLayer.ConstructionProperties(),
                     Enumerable.Empty<SoilLayer>()),
@@ -396,7 +401,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
                     new[]
                     {
                         surfaceLine.LocalGeometry.First(),
-                        surfaceLine.LocalGeometry.Last()
+                        last
                     },
                     new SoilLayer.ConstructionProperties
                     {
@@ -407,7 +412,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
                     new[]
                     {
                         surfaceLine.LocalGeometry.First(),
-                        surfaceLine.LocalGeometry.Last()
+                        last
                     },
                     new SoilLayer.ConstructionProperties(),
                     Enumerable.Empty<SoilLayer>()),
@@ -415,7 +420,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
                     new[]
                     {
                         surfaceLine.LocalGeometry.First(),
-                        surfaceLine.LocalGeometry.Last()
+                        last
                     },
                     new SoilLayer.ConstructionProperties(),
                     Enumerable.Empty<SoilLayer>())

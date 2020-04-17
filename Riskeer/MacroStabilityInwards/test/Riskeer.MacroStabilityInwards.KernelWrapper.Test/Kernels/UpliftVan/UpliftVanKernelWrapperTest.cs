@@ -28,7 +28,6 @@ using Core.Common.Util.Reflection;
 using Deltares.MacroStability.Data;
 using Deltares.MacroStability.Geometry;
 using Deltares.MacroStability.Standard;
-using Deltares.MacroStability.WaternetCreator;
 using NUnit.Framework;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan;
 
@@ -60,9 +59,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
             // Setup
             var random = new Random(21);
             var soilProfile2D = new SoilProfile2D();
-            var stabilityLocationExtreme = new Location();
-            var stabilityLocationDaily = new Location();
-            var surfaceLine = new SurfaceLine2();
             double maximumSliceWidth = random.NextDouble();
             var slipPlaneUpliftVan = new SlipPlaneUpliftVan();
             bool moveGrid = random.NextBoolean();
@@ -80,20 +76,12 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
 
             // Assert
             var stabilityModel = TypeUtils.GetField<StabilityModel>(kernel, "stabilityModel");
-            var location = TypeUtils.GetField<Location>(kernel, "location");
 
             Assert.IsNotNull(stabilityModel.SlipPlaneConstraints);
             Assert.AreEqual(GridOrientation.Inwards, stabilityModel.GridOrientation);
             Assert.IsNotNull(stabilityModel.SlipCircle);
             Assert.AreEqual(SearchAlgorithm.Grid, stabilityModel.SearchAlgorithm);
             Assert.AreEqual(ModelOptions.UpliftVan, stabilityModel.ModelOption);
-            ConstructionStage firstConstructionStage = stabilityModel.ConstructionStages.First();
-            Assert.IsNotNull(firstConstructionStage.GeotechnicsData.CurrentWaternet);
-            Assert.AreEqual("WaternetDaily", firstConstructionStage.GeotechnicsData.CurrentWaternet.Name);
-            Assert.AreSame(surfaceLine, location.Surfaceline);
-            Assert.AreSame(stabilityLocationExtreme, location);
-            Assert.AreSame(stabilityLocationDaily, location);
-            Assert.AreSame(soilProfile2D, location.SoilProfile2D);
             Assert.AreEqual(maximumSliceWidth, stabilityModel.MaximumSliceWidth);
             Assert.AreSame(slipPlaneUpliftVan, stabilityModel.SlipPlaneUpliftVan);
             Assert.AreSame(slipPlaneConstraints, stabilityModel.SlipPlaneConstraints);
@@ -137,6 +125,36 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
         }
 
         [Test]
+        public void Calculate_CompleteInput_ReturnsNoErrors()
+        {
+            // Setup
+            UpliftVanKernelWrapper kernel = CreateValidKernel(new Soil
+            {
+                ShearStrengthModel = ShearStrengthModel.CPhi,
+                AbovePhreaticLevel = 15.0,
+                BelowPhreaticLevel = 15.0,
+                Cohesion = 10.0,
+                Dilatancy = 10.0,
+                FrictionAngle = 10.0
+            });
+
+            // Call
+            kernel.Calculate();
+
+            // Assert
+            LogMessage[] errorMessages = kernel.CalculationMessages.Where(m => m.MessageType == LogMessageType.Error ||
+                                                                               m.MessageType == LogMessageType.FatalError).ToArray();
+            Assert.AreEqual(0, errorMessages.Length);
+
+            Assert.IsFalse(double.IsNaN(kernel.FactorOfStability));
+            Assert.IsFalse(double.IsNaN(kernel.ZValue));
+            Assert.IsFalse(double.IsNaN(kernel.ForbiddenZonesXEntryMin));
+            Assert.IsFalse(double.IsNaN(kernel.ForbiddenZonesXEntryMax));
+            Assert.IsNotNull(kernel.SlidingCurveResult);
+            Assert.IsNotNull(kernel.SlipPlaneResult);
+        }
+
+        [Test]
         public void Calculate_ErrorInValidation_SetsCalculationMessages()
         {
             // Setup
@@ -157,6 +175,27 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
             LogMessage secondMessage = messages.ElementAt(1);
             Assert.AreEqual(LogMessageType.Error, secondMessage.MessageType);
             Assert.AreEqual("Fatale fout in Uplift-Van berekening", secondMessage.Message);
+        }
+
+        [Test]
+        public void Validate_InputComplete_NoValidationMessages()
+        {
+            // Setup
+            UpliftVanKernelWrapper kernel = CreateValidKernel(new Soil
+            {
+                ShearStrengthModel = ShearStrengthModel.CPhi,
+                AbovePhreaticLevel = 15.0,
+                BelowPhreaticLevel = 15.0,
+                Cohesion = 10.0,
+                Dilatancy = 10.0,
+                FrictionAngle = 10.0
+            });
+
+            // Call
+            var validationMessages = kernel.Validate();
+
+            // Assert
+            Assert.AreEqual(validationMessages.Count(), 0);
         }
 
         [Test]
@@ -187,6 +226,152 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
             var exception = Assert.Throws<UpliftVanKernelWrapperException>(test);
             Assert.IsInstanceOf<ArgumentNullException>(exception.InnerException);
             Assert.AreEqual(exception.InnerException.Message, exception.Message);
+        }
+
+        private static UpliftVanKernelWrapper CreateValidKernel(Soil soil)
+        {
+            var point1 = new Point2D(-50, -50);
+            var point2 = new Point2D(100, -50);
+            var point3 = new Point2D(100, 6);
+            var point4 = new Point2D(50, 6);
+            var point5 = new Point2D(0, 10);
+            var point6 = new Point2D(-25, 10);
+            var point7 = new Point2D(-35, 6);
+            var point8 = new Point2D(-50, 6);
+            var curve1 = new GeometryCurve(point1, point2);
+            var curve2 = new GeometryCurve(point2, point3);
+            var curve3 = new GeometryCurve(point3, point4);
+            var curve4 = new GeometryCurve(point4, point5);
+            var curve5 = new GeometryCurve(point5, point6);
+            var curve6 = new GeometryCurve(point6, point7);
+            var curve7 = new GeometryCurve(point7, point8);
+            var curve8 = new GeometryCurve(point8, point1);
+            var loop = new GeometryLoop
+            {
+                CurveList =
+                {
+                    curve1,
+                    curve2,
+                    curve3,
+                    curve4,
+                    curve5,
+                    curve6,
+                    curve7,
+                    curve8
+                }
+            };
+            var geometrySurface = new GeometrySurface
+            {
+                OuterLoop = loop
+            };
+            var kernelWrapper = new UpliftVanKernelWrapper();
+            kernelWrapper.SetSoilModel(new List<Soil>
+            {
+                soil
+            });
+            kernelWrapper.SetSoilProfile(new SoilProfile2D
+            {
+                Geometry = new GeometryData
+                {
+                    Points =
+                    {
+                        point1,
+                        point2,
+                        point3,
+                        point4,
+                        point5,
+                        point6,
+                        point7,
+                        point8
+                    },
+                    Curves =
+                    {
+                        curve1,
+                        curve2,
+                        curve3,
+                        curve4,
+                        curve5,
+                        curve6,
+                        curve7,
+                        curve8
+                    },
+                    Loops =
+                    {
+                        loop
+                    },
+                    Surfaces =
+                    {
+                        geometrySurface
+                    },
+                    Left = -50,
+                    Right = 100,
+                    Bottom = -50
+                },
+                Surfaces =
+                {
+                    new SoilLayer2D
+                    {
+                        GeometrySurface = geometrySurface,
+                        Soil = soil
+                    }
+                }
+            });
+            kernelWrapper.SetSlipPlaneUpliftVan(new SlipPlaneUpliftVan
+            {
+                SlipPlaneLeftGrid = new SlipCircleGrid
+                {
+                    GridXLeft = -10.0,
+                    GridXRight = 20.0,
+                    GridZBottom = 12.0,
+                    GridZTop = 25.0,
+                    GridXNumber = 5,
+                    GridZNumber = 5
+                },
+                SlipPlaneRightGrid = new SlipCircleGrid
+                {
+                    GridXLeft = 30,
+                    GridXRight = 60,
+                    GridZBottom = 10.0,
+                    GridZTop = 20.0,
+                    GridXNumber = 5,
+                    GridZNumber = 5
+                }
+            });
+            var surfaceLine = new SurfaceLine2
+            {
+                Geometry = new GeometryPointString
+                {
+                    CalcPoints =
+                    {
+                        point8,
+                        point7,
+                        point6,
+                        point5,
+                        point4,
+                        point3
+                    }
+                }
+            };
+            surfaceLine.Geometry.SyncPoints();
+            surfaceLine.CharacteristicPoints.Add(new CharacteristicPoint
+            {
+                CharacteristicPointType = CharacteristicPointType.DikeTopAtPolder,
+                X = 0,
+                Z = 10,
+                GeometryPoint = surfaceLine.Geometry.Points[5]
+            });
+
+            kernelWrapper.SetSurfaceLine(surfaceLine);
+            kernelWrapper.SetGridAutomaticDetermined(false);
+            kernelWrapper.SetMoveGrid(true);
+            kernelWrapper.SetMaximumSliceWidth(100);
+            kernelWrapper.SetSlipPlaneConstraints(new SlipPlaneConstraints
+            {
+                XLeftMin = 0.0,
+                XLeftMax = 100
+            });
+
+            return kernelWrapper;
         }
 
         private static UpliftVanKernelWrapper CreateInvalidKernel(Soil soil)
@@ -258,7 +443,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
             kernelWrapper.SetMoveGrid(true);
             kernelWrapper.SetMaximumSliceWidth(0);
             kernelWrapper.SetSlipPlaneConstraints(new SlipPlaneConstraints());
-            
+
             return kernelWrapper;
         }
 

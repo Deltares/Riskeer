@@ -1,6 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <Import Project="$(SolutionDir)\build\Test.targets" />
   <ItemGroup>
+    <Reference Include="Deltares.MacroStability.Geometry">
+      <HintPath>..\..\..\..\lib\Plugins\Wti\Deltares.MacroStability.Geometry.dll</HintPath>
+    </Reference>
+    <Reference Include="Deltares.MacroStability.Standard">
+      <HintPath>..\..\..\..\lib\Plugins\Wti\Deltares.MacroStability.Standard.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="WTIStability, Culture=neutral, processorArchitecture=x86">
@@ -13,11 +19,11 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj"/>
-    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Data\Riskeer.Common.Data.csproj"/>
-    <ProjectReference Include="..\..\src\Riskeer.MacroStabilityInwards.KernelWrapper\Riskeer.MacroStabilityInwards.KernelWrapper.csproj"/>
-    <ProjectReference Include="..\..\src\Riskeer.MacroStabilityInwards.Primitives\Riskeer.MacroStabilityInwards.Primitives.csproj"/>
-    <ProjectReference Include="..\Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil\Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.csproj"/>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj" />
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Data\Riskeer.Common.Data.csproj" />
+    <ProjectReference Include="..\..\src\Riskeer.MacroStabilityInwards.KernelWrapper\Riskeer.MacroStabilityInwards.KernelWrapper.csproj" />
+    <ProjectReference Include="..\..\src\Riskeer.MacroStabilityInwards.Primitives\Riskeer.MacroStabilityInwards.Primitives.csproj" />
+    <ProjectReference Include="..\Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil\Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.csproj" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="NUnit">
