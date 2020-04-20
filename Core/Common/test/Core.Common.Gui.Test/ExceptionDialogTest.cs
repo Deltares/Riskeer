@@ -20,9 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Diagnostics;
-using System.Runtime.InteropServices;
-using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 using Core.Common.Gui.Commands;
@@ -247,15 +244,7 @@ namespace Core.Common.Gui.Test
                 var button = new ButtonTester("buttonCopyTextToClipboard");
 
                 // Call
-                try
-                {
-                    button.Click();
-                }
-                catch (Exception)
-                {
-                    WriteDebuggingInformation();
-                    throw;
-                }
+                button.Click();
 
                 // Assert
                 Assert.AreEqual(exception.ToString(), Clipboard.GetText());
@@ -344,40 +333,5 @@ namespace Core.Common.Gui.Test
 
             mocks.VerifyAll();
         }
-
-        #region Debugging Clipboard
-
-        [DllImport("user32.dll")]
-        private static extern IntPtr GetOpenClipboardWindow();
-
-        [DllImport("user32.dll")]
-        private static extern int GetWindowText(int hwnd, StringBuilder text, int count);
-
-        [DllImport("user32.dll")]
-        private static extern int GetWindowTextLength(int hwnd);
-
-        [DllImport("user32.dll", SetLastError = true)]
-        private static extern int GetWindowThreadProcessId(IntPtr hWnd, out int lpdwProcessId);
-
-        private static void WriteDebuggingInformation()
-        {
-            // Write id of process that blocks the Clipboard to Console
-            GetWindowThreadProcessId(GetOpenClipboardWindow(), out int processId);
-            Console.WriteLine($"Id of process that locks Clipboard = {Process.GetProcessById(processId)}");
-
-            // Write text of window that blocks the Clipboard to Console (if any)
-            IntPtr openClipboardWindow = GetOpenClipboardWindow();
-            if (openClipboardWindow == IntPtr.Zero)
-            {
-                Console.WriteLine("No window that locks Clipboard");
-            }
-            int int32Handle = openClipboardWindow.ToInt32();
-            int len = GetWindowTextLength(int32Handle);
-            var sb = new StringBuilder(len);
-            GetWindowText(int32Handle, sb, len);
-            Console.WriteLine($"Window that locks Clipboard = {sb}");
-        }
-
-        # endregion
     }
 }
