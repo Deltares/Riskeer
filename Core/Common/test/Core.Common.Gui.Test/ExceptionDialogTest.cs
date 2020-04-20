@@ -361,20 +361,16 @@ namespace Core.Common.Gui.Test
 
         private static void WriteDebuggingInformation()
         {
-            // Write id and name of process that blocks the Clipboard to Console
+            // Write id of process that blocks the Clipboard to Console
             GetWindowThreadProcessId(GetOpenClipboardWindow(), out int processId);
-            Process process = Process.GetProcessById(processId);
-            Console.WriteLine($"Id of process that locks Clipboard = {processId}");
-            Console.WriteLine($"Name of process that locks Clipboard = {process.ProcessName}");
+            Console.WriteLine($"Id of process that locks Clipboard = {Process.GetProcessById(processId)}");
 
             // Write text of window that blocks the Clipboard to Console (if any)
             IntPtr openClipboardWindow = GetOpenClipboardWindow();
             if (openClipboardWindow == IntPtr.Zero)
             {
                 Console.WriteLine("No window that locks Clipboard");
-                return;
             }
-
             int int32Handle = openClipboardWindow.ToInt32();
             int len = GetWindowTextLength(int32Handle);
             var sb = new StringBuilder(len);
