@@ -20,16 +20,14 @@
 // All rights reserved.
 
 using System;
-using System.Reflection;
 using Components.Persistence.Stability;
 using Components.Persistence.Stability.Data;
 using Core.Common.Base.IO;
 using Core.Common.Util;
-using Core.Common.Util.Reflection;
 using log4net;
 using Riskeer.MacroStabilityInwards.Data;
+using Riskeer.MacroStabilityInwards.IO.Factories;
 using Riskeer.MacroStabilityInwards.IO.Properties;
-using Shared.Common;
 using Shared.Components.Persistence;
 using CoreCommonUtilResources = Core.Common.Util.Properties.Resources;
 
@@ -85,7 +83,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Exporters
 
         public bool Export()
         {
-            PersistableDataModel persistableDataModel = CreatePersistableDataModel();
+            PersistableDataModel persistableDataModel = PersistableDataModelFactory.Create(calculation, filePath);
 
             try
             {
@@ -101,22 +99,6 @@ namespace Riskeer.MacroStabilityInwards.IO.Exporters
             }
 
             return true;
-        }
-
-        private PersistableDataModel CreatePersistableDataModel()
-        {
-            return new PersistableDataModel
-            {
-                Info = new PersistableProjectInfo
-                {
-                    Path = filePath,
-                    Project = calculation.Name,
-                    CrossSection = calculation.InputParameters.SurfaceLine?.Name,
-                    ApplicationCreated = $"Riskeer {AssemblyUtils.GetAssemblyInfo(Assembly.GetAssembly(GetType())).Version}",
-                    Remarks = "Export from Riskeer",
-                    Created = DateTime.Now
-                }
-            };
         }
     }
 }

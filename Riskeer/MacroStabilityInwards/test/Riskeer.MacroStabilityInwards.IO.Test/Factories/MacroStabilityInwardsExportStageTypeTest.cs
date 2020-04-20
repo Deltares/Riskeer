@@ -19,28 +19,30 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Shared.Components.Persistence;
+using System.Collections.Generic;
+using Core.Common.TestUtil;
+using NUnit.Framework;
+using Riskeer.MacroStabilityInwards.IO.Factories;
 
-namespace Riskeer.MacroStabilityInwards.IO.TestUtil
+namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
 {
-    /// <summary>
-    /// Persister that can be used in tests.
-    /// </summary>
-    public class MacroStabilityInwardsTestPersister : IPersister
+    [TestFixture]
+    public class MacroStabilityInwardsExportStageTypeTest : EnumValuesTestFixture<MacroStabilityInwardsExportStageType, int>
     {
-        /// <summary>
-        /// Gets whether persist is called.
-        /// </summary>
-        public bool PersistCalled { get; private set; }
-
-        public void Persist()
+        protected override IDictionary<MacroStabilityInwardsExportStageType, int> ExpectedValueForEnumValues
         {
-            PersistCalled = true;
-        }
-
-        public void Dispose()
-        {
-            // Do nothing
+            get
+            {
+                return new Dictionary<MacroStabilityInwardsExportStageType, int>
+                {
+                    {
+                        MacroStabilityInwardsExportStageType.Daily, 1
+                    },
+                    {
+                        MacroStabilityInwardsExportStageType.Extreme, 2
+                    }
+                };
+            }
         }
     }
 }

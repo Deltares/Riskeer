@@ -208,4 +208,10 @@
   <data name="MacroStabilityInwardsCalculationExporter_Export_no_stability_project_exported" xml:space="preserve">
     <value>Er is geen D-GEO Suite Stability Project geëxporteerd.</value>
   </data>
+  <data name="PersistableProjectInfoFactory_Create_Riskeer_Version_0" xml:space="preserve">
+    <value>Riskeer {0}</value>
+  </data>
+  <data name="PersistableProjectInfoFactory_Create_Export_from_Riskeer" xml:space="preserve">
+    <value>Export from Riskeer</value>
+  </data>
 </root>

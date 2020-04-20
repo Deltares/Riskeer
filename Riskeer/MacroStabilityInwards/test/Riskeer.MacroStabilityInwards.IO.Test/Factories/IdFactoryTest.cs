@@ -19,28 +19,26 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Shared.Components.Persistence;
+using NUnit.Framework;
+using Riskeer.MacroStabilityInwards.IO.Factories;
 
-namespace Riskeer.MacroStabilityInwards.IO.TestUtil
+namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
 {
-    /// <summary>
-    /// Persister that can be used in tests.
-    /// </summary>
-    public class MacroStabilityInwardsTestPersister : IPersister
+    [TestFixture]
+    public class IdFactoryTest
     {
-        /// <summary>
-        /// Gets whether persist is called.
-        /// </summary>
-        public bool PersistCalled { get; private set; }
-
-        public void Persist()
+        [Test]
+        public void Create_Always_ReturnsUniqueId()
         {
-            PersistCalled = true;
-        }
+            // Setup
+            var idFactory = new IdFactory();
+            
+            // Call
+            string firstId = idFactory.Create();
+            string secondId = idFactory.Create();
 
-        public void Dispose()
-        {
-            // Do nothing
+            // Assert
+            Assert.AreNotEqual(firstId, secondId);
         }
     }
 }

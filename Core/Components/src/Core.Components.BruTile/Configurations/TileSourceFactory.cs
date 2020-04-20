@@ -43,11 +43,21 @@ namespace Core.Components.BruTile.Configurations
         /// <summary>
         /// Gets the singleton instance of <see cref="ITileSourceFactory"/>.
         /// </summary>
+        /// <remarks>
+        /// Also performs some one time setup logic (adding support for all security protocols).
+        /// </remarks>
         public static ITileSourceFactory Instance
         {
             get
             {
-                return instance ?? (instance = new TileSourceFactory());
+                if (instance == null)
+                {
+                    instance = new TileSourceFactory();
+
+                    AddSupportForAllSecurityProtocols();
+                }
+
+                return instance;
             }
             set
             {
@@ -97,6 +107,15 @@ namespace Core.Components.BruTile.Configurations
                                                capabilitiesUrl);
                 throw new CannotFindTileSourceException(message, e);
             }
+        }
+
+        private static void AddSupportForAllSecurityProtocols()
+        {
+            ServicePointManager.SecurityProtocol |=
+                SecurityProtocolType.Ssl3 |
+                SecurityProtocolType.Tls |
+                SecurityProtocolType.Tls11 |
+                SecurityProtocolType.Tls12;
         }
     }
 }

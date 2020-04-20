@@ -19,28 +19,21 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Shared.Components.Persistence;
-
-namespace Riskeer.MacroStabilityInwards.IO.TestUtil
+namespace Riskeer.MacroStabilityInwards.IO.Factories
 {
     /// <summary>
-    /// Persister that can be used in tests.
+    /// Defines the various types of construction stages.
     /// </summary>
-    public class MacroStabilityInwardsTestPersister : IPersister
+    public enum MacroStabilityInwardsExportStageType
     {
         /// <summary>
-        /// Gets whether persist is called.
+        /// The daily construction stage.
         /// </summary>
-        public bool PersistCalled { get; private set; }
+        Daily = 1,
 
-        public void Persist()
-        {
-            PersistCalled = true;
-        }
-
-        public void Dispose()
-        {
-            // Do nothing
-        }
+        /// <summary>
+        /// The extreme construction stage.
+        /// </summary>
+        Extreme = 2
     }
 }
