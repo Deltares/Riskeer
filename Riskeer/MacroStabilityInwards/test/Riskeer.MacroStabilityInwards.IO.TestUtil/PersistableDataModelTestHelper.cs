@@ -72,7 +72,7 @@ namespace Riskeer.MacroStabilityInwards.IO.TestUtil
             Assert.IsNull(persistableDataModel.StateCorrelations);
             Assert.IsNull(persistableDataModel.States);
 
-            AssertStages(persistableDataModel.Stages, persistableDataModel.CalculationSettings, persistableDataModel.Geometry);
+            AssertStages(persistableDataModel.Stages, persistableDataModel.CalculationSettings, persistableDataModel.Geometry, persistableDataModel.SoilLayers);
         }
 
         /// <summary>
@@ -275,19 +275,21 @@ namespace Riskeer.MacroStabilityInwards.IO.TestUtil
         /// <param name="stages">The stages that needs to be asserted.</param>
         /// <param name="calculationSettings">The calculation settings that are used.</param>
         /// <param name="geometries">The geometries that are used.</param>
+        /// <param name="soilLayers">The soil layers that are used.</param>
         /// <exception cref="AssertionException">Thrown when the data in <paramref name="stages"/>
         /// is not correct.</exception>
         public static void AssertStages(IEnumerable<PersistableStage> stages, IEnumerable<PersistableCalculationSettings> calculationSettings,
-                                        IEnumerable<PersistableGeometry> geometries)
+                                        IEnumerable<PersistableGeometry> geometries, IEnumerable<PersistableSoilLayerCollection> soilLayers)
         {
             Assert.AreEqual(2, stages.Count());
 
-            for (int i = 0; i < stages.Count(); i++)
+            for (var i = 0; i < stages.Count(); i++)
             {
                 PersistableStage stage = stages.ElementAt(i);
                 Assert.IsNotNull(stage.Id);
                 Assert.AreEqual(calculationSettings.ElementAt(i).Id, stage.CalculationSettingsId);
                 Assert.AreEqual(geometries.ElementAt(i).Id, stage.GeometryId);
+                Assert.AreEqual(soilLayers.ElementAt(i).Id, stage.SoilLayersId);
             }
         }
 
