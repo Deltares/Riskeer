@@ -351,9 +351,6 @@ namespace Core.Common.Gui.Test
         private static extern IntPtr GetOpenClipboardWindow();
 
         [DllImport("user32.dll")]
-        private static extern IntPtr GetClipboardOwner();
-
-        [DllImport("user32.dll")]
         private static extern int GetWindowText(int hwnd, StringBuilder text, int count);
 
         [DllImport("user32.dll")]
@@ -364,12 +361,6 @@ namespace Core.Common.Gui.Test
 
         private static void WriteDebuggingInformation()
         {
-            // Write id and name of process that last opened the Clipboard
-            GetWindowThreadProcessId(GetClipboardOwner(), out int ownerProcessId);
-            Process ownerProcess = Process.GetProcessById(ownerProcessId);
-            Console.WriteLine($"Id of process that last opened the Clipboard = {ownerProcessId}");
-            Console.WriteLine($"Name of process that last opened the Clipboard = {ownerProcess.ProcessName}");
-
             // Write id and name of process that blocks the Clipboard to Console
             GetWindowThreadProcessId(GetOpenClipboardWindow(), out int processId);
             Process process = Process.GetProcessById(processId);
