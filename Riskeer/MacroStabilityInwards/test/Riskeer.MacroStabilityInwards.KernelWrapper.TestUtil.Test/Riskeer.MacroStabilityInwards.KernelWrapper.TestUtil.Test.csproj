@@ -9,9 +9,6 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="WTIStability, Culture=neutral, processorArchitecture=x86">
-      <HintPath>..\..\..\..\lib\Plugins\Wti\WTIStability.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.licenseheader">
