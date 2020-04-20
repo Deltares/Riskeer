@@ -21,7 +21,10 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Components.Persistence.Stability.Data;
+using Riskeer.MacroStabilityInwards.Data.SoilProfile;
+using Riskeer.MacroStabilityInwards.Primitives;
 
 namespace Riskeer.MacroStabilityInwards.IO.Factories
 {
@@ -33,13 +36,19 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
         /// <summary>
         /// Creates a collection of <see cref="PersistableSoilLayerCollection"/>.
         /// </summary>
+        /// <param name="soilProfile">The soil profile to use.</param>
         /// <param name="idFactory">The factory fo IDs.</param>
         /// <param name="registry">The persistence registry.</param>
         /// <returns>A collection of <see cref="PersistableSoilLayerCollection"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter
         /// is <c>null</c>.</exception>
-        public static IEnumerable<PersistableSoilLayerCollection> Create(IdFactory idFactory, MacroStabilityInwardsExportRegistry registry)
+        public static IEnumerable<PersistableSoilLayerCollection> Create(IMacroStabilityInwardsSoilProfileUnderSurfaceLine soilProfile, IdFactory idFactory, MacroStabilityInwardsExportRegistry registry)
         {
+            if (soilProfile == null)
+            {
+                throw new ArgumentNullException(nameof(soilProfile));
+            }
+
             if (idFactory == null)
             {
                 throw new ArgumentNullException(nameof(idFactory));
@@ -50,7 +59,38 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
                 throw new ArgumentNullException(nameof(registry));
             }
 
-            return null;
+            return new[]
+            {
+                CreateSoilLayerCollection(soilProfile, MacroStabilityInwardsExportStageType.Daily, idFactory, registry),
+                CreateSoilLayerCollection(soilProfile, MacroStabilityInwardsExportStageType.Extreme, idFactory, registry)
+            };
+        }
+
+        private static PersistableSoilLayerCollection CreateSoilLayerCollection(IMacroStabilityInwardsSoilProfileUnderSurfaceLine soilProfile,
+                                                                                MacroStabilityInwardsExportStageType stageType, IdFactory idFactory,
+                                                                                MacroStabilityInwardsExportRegistry registry)
+        {
+            var soilLayerCollection = new PersistableSoilLayerCollection
+            {
+                Id = idFactory.Create(),
+                SoilLayers = MacroStabilityInwardsSoilProfile2DLayersHelper.GetLayersRecursively(soilProfile.Layers)
+                                                                           .Select(l => Create(l, stageType, registry))
+                                                                           .ToArray()
+            };
+
+            registry.AddSoilLayer(stageType, soilLayerCollection.Id);
+
+            return soilLayerCollection;
+        }
+
+        private static PersistableSoilLayer Create(MacroStabilityInwardsSoilLayer2D layer, MacroStabilityInwardsExportStageType stageType,
+                                                   MacroStabilityInwardsExportRegistry registry)
+        {
+            return new PersistableSoilLayer
+            {
+                LayerId = registry.GeometryLayers[stageType][layer],
+                SoilId = registry.Soils[layer]
+            };
         }
     }
 }
