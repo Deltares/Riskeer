@@ -43,7 +43,6 @@ using Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan;
 using Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan.Input;
 using Riskeer.MacroStabilityInwards.Primitives;
 using Point2D = Core.Common.Base.Geometry.Point2D;
-using ShearStrengthModel = Deltares.MacroStability.Geometry.ShearStrengthModel;
 using SoilLayer = Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Input.SoilLayer;
 using SoilProfile = Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Input.SoilProfile;
 
@@ -73,7 +72,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
         public void Constructor_FactoryNull_ArgumentNullException()
         {
             // Setup
-            UpliftVanCalculatorInput input = CreateValidCalculatorInput();
+            UpliftVanCalculatorInput input = CreateCompleteCalculatorInput();
 
             // Call
             TestDelegate call = () => new UpliftVanCalculator(input, null);
@@ -91,7 +90,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
             var factory = mocks.Stub<IMacroStabilityInwardsKernelFactory>();
             mocks.ReplayAll();
 
-            UpliftVanCalculatorInput input = CreateValidCalculatorInput();
+            UpliftVanCalculatorInput input = CreateCompleteCalculatorInput();
 
             // Call
             var calculator = new UpliftVanCalculator(input, factory);
@@ -105,7 +104,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
         public void Calculate_CalculatorWithValidInputAndKernelWithValidOutput_KernelCalculateMethodCalled()
         {
             // Setup
-            UpliftVanCalculatorInput input = CreateValidCalculatorInput();
+            UpliftVanCalculatorInput input = CreateCompleteCalculatorInput();
 
             using (new MacroStabilityInwardsKernelFactoryConfig())
             {
@@ -158,7 +157,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
         public void Calculate_KernelWithCompleteOutput_OutputCorrectlyReturnedByCalculator()
         {
             // Setup
-            UpliftVanCalculatorInput input = CreateValidCalculatorInput();
+            UpliftVanCalculatorInput input = CreateCompleteCalculatorInput();
 
             using (new MacroStabilityInwardsKernelFactoryConfig())
             {
@@ -186,7 +185,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
         public void Calculate_KernelReturnsLogMessages_ReturnsExpectedLogMessages()
         {
             // Setup
-            UpliftVanCalculatorInput input = CreateValidCalculatorInput();
+            UpliftVanCalculatorInput input = CreateCompleteCalculatorInput();
 
             using (new MacroStabilityInwardsKernelFactoryConfig())
             {
@@ -230,7 +229,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
         public void Calculate_KernelThrowsUpliftVanKernelWrapperException_ThrowUpliftVanCalculatorException()
         {
             // Setup
-            UpliftVanCalculatorInput input = CreateValidCalculatorInput();
+            UpliftVanCalculatorInput input = CreateCompleteCalculatorInput();
 
             using (new MacroStabilityInwardsKernelFactoryConfig())
             {
@@ -252,7 +251,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
         public void Validate_CalculatorWithValidInput_KernelValidateMethodCalled()
         {
             // Setup
-            UpliftVanCalculatorInput input = CreateValidCalculatorInput();
+            UpliftVanCalculatorInput input = CreateCompleteCalculatorInput();
             using (new MacroStabilityInwardsKernelFactoryConfig())
             {
                 var factory = (TestMacroStabilityInwardsKernelFactory) MacroStabilityInwardsKernelWrapperFactory.Instance;
@@ -269,7 +268,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
         public void Validate_CalculatorWithValidInput_ReturnEmptyEnumerable()
         {
             // Setup
-            UpliftVanCalculatorInput input = CreateValidCalculatorInput();
+            UpliftVanCalculatorInput input = CreateCompleteCalculatorInput();
             using (new MacroStabilityInwardsKernelFactoryConfig())
             {
                 var factory = (TestMacroStabilityInwardsKernelFactory) MacroStabilityInwardsKernelWrapperFactory.Instance;
@@ -293,7 +292,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
                 upliftVanKernel.ReturnValidationResults = true;
 
                 // Call
-                IEnumerable<UpliftVanKernelMessage> kernelMessages = new UpliftVanCalculator(CreateValidCalculatorInput(),
+                IEnumerable<UpliftVanKernelMessage> kernelMessages = new UpliftVanCalculator(CreateCompleteCalculatorInput(),
                                                                                              factory).Validate().ToList();
 
                 // Assert
@@ -318,31 +317,13 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
                 upliftVanKernel.ThrowExceptionOnValidate = true;
 
                 // Call
-                TestDelegate test = () => new UpliftVanCalculator(CreateValidCalculatorInput(), factory).Validate();
+                TestDelegate test = () => new UpliftVanCalculator(CreateCompleteCalculatorInput(), factory).Validate();
 
                 // Assert
                 var exception = Assert.Throws<UpliftVanCalculatorException>(test);
                 Assert.IsInstanceOf<UpliftVanKernelWrapperException>(exception.InnerException);
                 Assert.AreEqual(exception.InnerException.Message, exception.Message);
             }
-        }
-
-        private static UpliftVanCalculatorInput CreateValidCalculatorInput()
-        {
-            var random = new Random(21);
-
-            MacroStabilityInwardsSurfaceLine surfaceLine = CreateValidSurfaceLine();
-            return new UpliftVanCalculatorInput(new UpliftVanCalculatorInput.ConstructionProperties
-            {
-                AssessmentLevel = random.NextDouble(),
-                SurfaceLine = surfaceLine,
-                SoilProfile = CreateValidSoilProfile(surfaceLine),
-                DrainageConstruction = new DrainageConstruction(),
-                PhreaticLineOffsetsExtreme = new PhreaticLineOffsets(),
-                PhreaticLineOffsetsDaily = new PhreaticLineOffsets(),
-                SlipPlane = new UpliftVanSlipPlane(),
-                SlipPlaneConstraints = new UpliftVanSlipPlaneConstraints(random.NextDouble(), random.NextDouble(), random.NextBoolean())
-            });
         }
 
         private static UpliftVanCalculatorInput CreateCompleteCalculatorInput()
@@ -353,76 +334,70 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
 
             return new UpliftVanCalculatorInput(new UpliftVanCalculatorInput.ConstructionProperties
             {
-                AssessmentLevel = random.NextDouble(),
+                AssessmentLevel = -1,
                 SurfaceLine = surfaceLine,
-                SoilProfile = CreateValidSoilProfile(surfaceLine),
+                SoilProfile = CreateValidSoilProfile(),
                 DrainageConstruction = new DrainageConstruction(),
                 PhreaticLineOffsetsExtreme = new PhreaticLineOffsets(),
                 PhreaticLineOffsetsDaily = new PhreaticLineOffsets(),
                 SlipPlane = new UpliftVanSlipPlane(),
                 SlipPlaneConstraints = new UpliftVanSlipPlaneConstraints(random.NextDouble(), random.NextDouble(), random.NextBoolean()),
-                WaterLevelRiverAverage = random.NextDouble(),
-                WaterLevelPolderExtreme = random.NextDouble(),
-                WaterLevelPolderDaily = random.NextDouble(),
+                WaterLevelRiverAverage = -1,
+                WaterLevelPolderExtreme = -1,
+                WaterLevelPolderDaily = -1,
                 MinimumLevelPhreaticLineAtDikeTopRiver = random.NextDouble(),
                 MinimumLevelPhreaticLineAtDikeTopPolder = random.NextDouble(),
-                LeakageLengthOutwardsPhreaticLine3 = random.NextDouble(),
-                LeakageLengthInwardsPhreaticLine3 = random.NextDouble(),
-                LeakageLengthOutwardsPhreaticLine4 = random.NextDouble(),
-                LeakageLengthInwardsPhreaticLine4 = random.NextDouble(),
-                PiezometricHeadPhreaticLine2Outwards = random.NextDouble(),
-                PiezometricHeadPhreaticLine2Inwards = random.NextDouble(),
+                LeakageLengthOutwardsPhreaticLine3 = random.NextDouble() + 1,
+                LeakageLengthInwardsPhreaticLine3 = random.NextDouble() + 1,
+                LeakageLengthOutwardsPhreaticLine4 = random.NextDouble() + 1,
+                LeakageLengthInwardsPhreaticLine4 = random.NextDouble() + 1,
+                PiezometricHeadPhreaticLine2Outwards = 0.2,
+                PiezometricHeadPhreaticLine2Inwards = 0.1,
                 PenetrationLengthExtreme = random.NextDouble(),
                 PenetrationLengthDaily = random.NextDouble(),
                 AdjustPhreaticLine3And4ForUplift = random.NextBoolean(),
                 DikeSoilScenario = random.NextEnumValue<MacroStabilityInwardsDikeSoilScenario>(),
                 MoveGrid = random.NextBoolean(),
-                MaximumSliceWidth = random.NextDouble()
+                MaximumSliceWidth = random.NextDouble(),
+                
             });
         }
 
-        private static SoilProfile CreateValidSoilProfile(MacroStabilityInwardsSurfaceLine surfaceLine)
+        private static SoilProfile CreateValidSoilProfile()
         {
-            Point2D last = surfaceLine.LocalGeometry.Last();
-
-            last = new Point2D(last.X, last.Y - 1);
-
             return new SoilProfile(new[]
             {
                 new SoilLayer(
                     new[]
                     {
-                        surfaceLine.LocalGeometry.First(),
-                        last
+                        new Point2D(-5, 0),
+                        new Point2D(0, 5),
+                        new Point2D(5, 0)
                     },
                     new SoilLayer.ConstructionProperties(),
                     Enumerable.Empty<SoilLayer>()),
                 new SoilLayer(
                     new[]
                     {
-                        surfaceLine.LocalGeometry.First(),
-                        last
+                        new Point2D(-10, 0),
+                        new Point2D(10, 0),
+                        new Point2D(10, -5),
+                        new Point2D(-10, -5)
+                    },
+                    new SoilLayer.ConstructionProperties(),
+                    Enumerable.Empty<SoilLayer>()),
+                new SoilLayer(
+                    new[]
+                    {
+                        new Point2D(-10, -5),
+                        new Point2D(10, -5),
+                        new Point2D(10, -10),
+                        new Point2D(-10, -10)
                     },
                     new SoilLayer.ConstructionProperties
                     {
                         IsAquifer = true
                     },
-                    Enumerable.Empty<SoilLayer>()),
-                new SoilLayer(
-                    new[]
-                    {
-                        surfaceLine.LocalGeometry.First(),
-                        last
-                    },
-                    new SoilLayer.ConstructionProperties(),
-                    Enumerable.Empty<SoilLayer>()),
-                new SoilLayer(
-                    new[]
-                    {
-                        surfaceLine.LocalGeometry.First(),
-                        last
-                    },
-                    new SoilLayer.ConstructionProperties(),
                     Enumerable.Empty<SoilLayer>())
             }, new[]
             {
@@ -433,16 +408,22 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
         private static MacroStabilityInwardsSurfaceLine CreateValidSurfaceLine()
         {
             var surfaceLine = new MacroStabilityInwardsSurfaceLine(string.Empty);
-            var dikeToeAtRiver = new Point3D(1, 0, 8);
 
             surfaceLine.SetGeometry(new[]
             {
-                new Point3D(0, 0, 2),
-                dikeToeAtRiver,
-                new Point3D(2, 0, -1)
+                new Point3D(-10, 0, 0),
+                new Point3D(-5, 0, 0),
+                new Point3D(0, 0, 5), 
+                new Point3D(5, 0, 0),
+                new Point3D(10, 0, 0)
             });
 
-            surfaceLine.SetDikeToeAtRiverAt(dikeToeAtRiver);
+            surfaceLine.SetSurfaceLevelOutsideAt(new Point3D(-10, 0, 0));
+            surfaceLine.SetDikeToeAtRiverAt(new Point3D(-5, 0, 0));
+            surfaceLine.SetDikeTopAtRiverAt(new Point3D(0, 0, 5));
+            surfaceLine.SetDikeTopAtPolderAt(new Point3D(0, 0, 5));
+            surfaceLine.SetDikeToeAtPolderAt(new Point3D(5, 0, 0));
+            surfaceLine.SetSurfaceLevelInsideAt(new Point3D(10, 0, 0));
 
             return surfaceLine;
         }
