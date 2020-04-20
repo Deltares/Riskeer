@@ -63,6 +63,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
                 CalculationSettings = PersistableCalculationSettingsFactory.Create(calculation.Output.SlidingCurve, idFactory, registry),
                 Soils = PersistableSoilCollectionFactory.Create(soilProfile, idFactory, registry),
                 Geometry = PersistableGeometryFactory.Create(soilProfile, idFactory, registry),
+                SoilLayers = PersistableSoilLayerCollectionFactory.Create(soilProfile, idFactory, registry),
                 Stages = PersistableStageFactory.Create(idFactory, registry)
             };
         }

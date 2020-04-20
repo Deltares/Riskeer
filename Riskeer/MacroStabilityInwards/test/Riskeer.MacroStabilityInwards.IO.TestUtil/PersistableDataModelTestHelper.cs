@@ -27,6 +27,7 @@ using Components.Persistence.Stability.Data;
 using Core.Common.Base.Data;
 using Core.Common.Util.Reflection;
 using NUnit.Framework;
+using Rhino.Mocks;
 using Riskeer.Common.Data.Probabilistics;
 using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.MacroStabilityInwards.Data.SoilProfile;
@@ -57,6 +58,7 @@ namespace Riskeer.MacroStabilityInwards.IO.TestUtil
             IEnumerable<MacroStabilityInwardsSoilLayer2D> layers = MacroStabilityInwardsSoilProfile2DLayersHelper.GetLayersRecursively(calculation.InputParameters.SoilProfileUnderSurfaceLine.Layers);
             AssertPersistableSoils(layers, persistableDataModel.Soils.Soils);
             AssertPersistableGeometry(layers, persistableDataModel.Geometry);
+            AssertPersistableSoilLayers(layers, persistableDataModel.SoilLayers, persistableDataModel.Soils.Soils, persistableDataModel.Geometry);
 
             Assert.IsNull(persistableDataModel.AssessmentResults);
             Assert.IsNull(persistableDataModel.Decorations);
@@ -64,7 +66,6 @@ namespace Riskeer.MacroStabilityInwards.IO.TestUtil
             Assert.IsNull(persistableDataModel.NailPropertiesForSoils);
             Assert.IsNull(persistableDataModel.Reinforcements);
             Assert.IsNull(persistableDataModel.SoilCorrelations);
-            Assert.IsNull(persistableDataModel.SoilLayers);
             Assert.IsNull(persistableDataModel.SoilVisualizations);
             Assert.IsNull(persistableDataModel.WaternetCreatorSettings);
             Assert.IsNull(persistableDataModel.Waternets);
@@ -229,6 +230,41 @@ namespace Riskeer.MacroStabilityInwards.IO.TestUtil
                     Assert.AreEqual(soilLayer.Data.MaterialName, persistableLayer.Label);
 
                     CollectionAssert.AreEqual(soilLayer.OuterRing.Points.Select(p => new PersistablePoint(p.X, p.Y)), persistableLayer.Points);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Asserts whether the <see cref="PersistableSoilLayerCollection"/> contains the data
+        /// that is representative for the <paramref name="layers"/>.
+        /// </summary>
+        /// <param name="layers">The layers that contain the original data.</param>
+        /// <param name="soilLayerCollections">The <see cref="PersistableSoilLayerCollection"/>
+        /// that needs to be asserted.</param>
+        /// <param name="soils">The soils that are used.</param>
+        /// <param name="geometries">The geometries that are used.</param>
+        /// <exception cref="AssertionException">Thrown when the data in <paramref name="soilLayerCollections"/>
+        /// is not correct.</exception>
+        public static void AssertPersistableSoilLayers(IEnumerable<MacroStabilityInwardsSoilLayer2D> layers, IEnumerable<PersistableSoilLayerCollection> soilLayerCollections,
+                                                       IEnumerable<PersistableSoil> soils, IEnumerable<PersistableGeometry> geometries)
+        {
+            Assert.AreEqual(2, soilLayerCollections.Count());
+
+            IEnumerable<MacroStabilityInwardsSoilLayer2D> originalLayers = MacroStabilityInwardsSoilProfile2DLayersHelper.GetLayersRecursively(layers);
+
+            for (var i = 0; i < soilLayerCollections.Count(); i++)
+            {
+                PersistableSoilLayerCollection soilLayerCollection = soilLayerCollections.ElementAt(i);
+
+                Assert.IsNotNull(soilLayerCollection.Id);
+                Assert.AreEqual(originalLayers.Count(), soilLayerCollection.SoilLayers.Count());
+
+                for (var j = 0; j < originalLayers.Count(); j++)
+                {
+                    PersistableSoilLayer persistableSoilLayer = soilLayerCollection.SoilLayers.ElementAt(j);
+
+                    Assert.AreEqual(soils.ElementAt(j).Id, persistableSoilLayer.SoilId);
+                    Assert.AreEqual(geometries.ElementAt(i).Layers.ElementAt(j).Id, persistableSoilLayer.LayerId);
                 }
             }
         }
