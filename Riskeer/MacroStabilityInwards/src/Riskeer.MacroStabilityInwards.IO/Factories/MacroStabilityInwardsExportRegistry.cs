@@ -35,6 +35,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
         private readonly Dictionary<MacroStabilityInwardsSoilLayer2D, string> soils;
         private readonly Dictionary<MacroStabilityInwardsExportStageType, string> geometries;
         private readonly Dictionary<MacroStabilityInwardsExportStageType, Dictionary<MacroStabilityInwardsSoilLayer2D, string>> geometryLayers;
+        private readonly Dictionary<MacroStabilityInwardsExportStageType, string> soilLayers;
 
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsExportRegistry"/>.
@@ -45,6 +46,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
             soils = new Dictionary<MacroStabilityInwardsSoilLayer2D, string>();
             geometries = new Dictionary<MacroStabilityInwardsExportStageType, string>();
             geometryLayers = new Dictionary<MacroStabilityInwardsExportStageType, Dictionary<MacroStabilityInwardsSoilLayer2D, string>>();
+            soilLayers = new Dictionary<MacroStabilityInwardsExportStageType, string>();
         }
 
         /// <summary>
@@ -66,6 +68,11 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
         /// Gets the geometry layers and their unique identifiers.
         /// </summary>
         public IReadOnlyDictionary<MacroStabilityInwardsExportStageType, Dictionary<MacroStabilityInwardsSoilLayer2D, string>> GeometryLayers => geometryLayers;
+
+        /// <summary>
+        /// Gets the soil layers and their unique identifiers.
+        /// </summary>
+        public IReadOnlyDictionary<MacroStabilityInwardsExportStageType, string> SoilLayers => soilLayers;
 
         /// <summary>
         /// Adds calculation settings to the registry.
@@ -140,6 +147,21 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
             ValidateStageType(stageType);
 
             geometries.Add(stageType, id);
+        }
+
+        /// <summary>
+        /// Adds a soil layer to the register.
+        /// </summary>
+        /// <param name="stageType">The <see cref="MacroStabilityInwardsExportStageType"/>
+        /// to register the soil layer for.</param>
+        /// <param name="id">The id of the settings.</param>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="stageType"/>
+        /// has an invalid value.</exception>
+        public void AddSoilLayer(MacroStabilityInwardsExportStageType stageType, string id)
+        {
+            ValidateStageType(stageType);
+
+            soilLayers.Add(stageType, id);
         }
 
         /// <summary>
