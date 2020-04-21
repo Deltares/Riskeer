@@ -46,6 +46,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
             CollectionAssert.IsEmpty(registry.Geometries);
             CollectionAssert.IsEmpty(registry.GeometryLayers);
             CollectionAssert.IsEmpty(registry.SoilLayers);
+            CollectionAssert.IsEmpty(registry.Waternets);
         }
 
         [Test]
@@ -271,6 +272,39 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
             KeyValuePair<MacroStabilityInwardsExportStageType, string> registeredSoilLayers = registry.SoilLayers.Single();
             Assert.AreEqual(stageType, registeredSoilLayers.Key);
             Assert.AreEqual(id, registeredSoilLayers.Value);
+        }
+
+        [Test]
+        public void AddWaternet_InvalidStageType_ThrowsInvalidEnumArgumentException()
+        {
+            // Setup
+            var registry = new MacroStabilityInwardsExportRegistry();
+            const MacroStabilityInwardsExportStageType stageType = (MacroStabilityInwardsExportStageType)99;
+
+            // Call
+            void Call() => registry.AddWaternet(stageType, "1");
+
+            // Assert
+            string expectedMessage = $"The value of argument '{nameof(stageType)}' ({stageType}) is invalid for Enum type '{nameof(MacroStabilityInwardsExportStageType)}'.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(Call, expectedMessage);
+        }
+
+        [Test]
+        public void AddWaternet_WithWaternet_AddsWaternet()
+        {
+            // Setup
+            var registry = new MacroStabilityInwardsExportRegistry();
+            var stageType = new Random(21).NextEnumValue<MacroStabilityInwardsExportStageType>();
+            const string id = "1";
+
+            // Call
+            registry.AddWaternet(stageType, id);
+
+            // Assert
+            Assert.AreEqual(1, registry.Waternets.Count);
+            KeyValuePair<MacroStabilityInwardsExportStageType, string> registeredWaternets = registry.Waternets.Single();
+            Assert.AreEqual(stageType, registeredWaternets.Key);
+            Assert.AreEqual(id, registeredWaternets.Value);
         }
     }
 }
