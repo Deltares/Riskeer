@@ -45,6 +45,9 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
             CollectionAssert.IsEmpty(registry.Soils);
             CollectionAssert.IsEmpty(registry.Geometries);
             CollectionAssert.IsEmpty(registry.GeometryLayers);
+            CollectionAssert.IsEmpty(registry.SoilLayers);
+            CollectionAssert.IsEmpty(registry.Waternets);
+            CollectionAssert.IsEmpty(registry.WaternetCreatorSettings);
         }
 
         [Test]
@@ -75,9 +78,9 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
 
             // Assert
             Assert.AreEqual(1, registry.Settings.Count);
-            KeyValuePair<MacroStabilityInwardsExportStageType, string> storedSettings = registry.Settings.Single();
-            Assert.AreEqual(stageType, storedSettings.Key);
-            Assert.AreEqual(id, storedSettings.Value);
+            KeyValuePair<MacroStabilityInwardsExportStageType, string> registeredSettings = registry.Settings.Single();
+            Assert.AreEqual(stageType, registeredSettings.Key);
+            Assert.AreEqual(id, registeredSettings.Value);
         }
 
         [Test]
@@ -129,7 +132,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
         }
 
         [Test]
-        public void AddGeometry_WithGeometry_AddsSettings()
+        public void AddGeometry_WithGeometry_AddsGeometry()
         {
             // Setup
             var registry = new MacroStabilityInwardsExportRegistry();
@@ -141,9 +144,9 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
 
             // Assert
             Assert.AreEqual(1, registry.Geometries.Count);
-            KeyValuePair<MacroStabilityInwardsExportStageType, string> storedGeometry = registry.Geometries.Single();
-            Assert.AreEqual(stageType, storedGeometry.Key);
-            Assert.AreEqual(id, storedGeometry.Value);
+            KeyValuePair<MacroStabilityInwardsExportStageType, string> registeredGeometry = registry.Geometries.Single();
+            Assert.AreEqual(stageType, registeredGeometry.Key);
+            Assert.AreEqual(id, registeredGeometry.Value);
         }
 
         [Test]
@@ -237,6 +240,105 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
             KeyValuePair<MacroStabilityInwardsSoilLayer2D, string> registeredGeometry2 = registeredGeometries.Last();
             Assert.AreSame(geometryLayer2, registeredGeometry2.Key);
             Assert.AreEqual(id2, registeredGeometry2.Value);
+        }
+
+        [Test]
+        public void AddSoilLayer_InvalidStageType_ThrowsInvalidEnumArgumentException()
+        {
+            // Setup
+            var registry = new MacroStabilityInwardsExportRegistry();
+            const MacroStabilityInwardsExportStageType stageType = (MacroStabilityInwardsExportStageType)99;
+
+            // Call
+            void Call() => registry.AddSoilLayer(stageType, "1");
+
+            // Assert
+            string expectedMessage = $"The value of argument '{nameof(stageType)}' ({stageType}) is invalid for Enum type '{nameof(MacroStabilityInwardsExportStageType)}'.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(Call, expectedMessage);
+        }
+
+        [Test]
+        public void AddSoilLayer_WithSoilLayer_AddsSoilLayer()
+        {
+            // Setup
+            var registry = new MacroStabilityInwardsExportRegistry();
+            var stageType = new Random(21).NextEnumValue<MacroStabilityInwardsExportStageType>();
+            const string id = "1";
+
+            // Call
+            registry.AddSoilLayer(stageType, id);
+
+            // Assert
+            Assert.AreEqual(1, registry.SoilLayers.Count);
+            KeyValuePair<MacroStabilityInwardsExportStageType, string> registeredSoilLayers = registry.SoilLayers.Single();
+            Assert.AreEqual(stageType, registeredSoilLayers.Key);
+            Assert.AreEqual(id, registeredSoilLayers.Value);
+        }
+
+        [Test]
+        public void AddWaternet_InvalidStageType_ThrowsInvalidEnumArgumentException()
+        {
+            // Setup
+            var registry = new MacroStabilityInwardsExportRegistry();
+            const MacroStabilityInwardsExportStageType stageType = (MacroStabilityInwardsExportStageType)99;
+
+            // Call
+            void Call() => registry.AddWaternet(stageType, "1");
+
+            // Assert
+            string expectedMessage = $"The value of argument '{nameof(stageType)}' ({stageType}) is invalid for Enum type '{nameof(MacroStabilityInwardsExportStageType)}'.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(Call, expectedMessage);
+        }
+
+        [Test]
+        public void AddWaternet_WithWaternet_AddsWaternet()
+        {
+            // Setup
+            var registry = new MacroStabilityInwardsExportRegistry();
+            var stageType = new Random(21).NextEnumValue<MacroStabilityInwardsExportStageType>();
+            const string id = "1";
+
+            // Call
+            registry.AddWaternet(stageType, id);
+
+            // Assert
+            Assert.AreEqual(1, registry.Waternets.Count);
+            KeyValuePair<MacroStabilityInwardsExportStageType, string> registeredWaternets = registry.Waternets.Single();
+            Assert.AreEqual(stageType, registeredWaternets.Key);
+            Assert.AreEqual(id, registeredWaternets.Value);
+        }
+
+        [Test]
+        public void AddWaternetCreatorSettings_InvalidStageType_ThrowsInvalidEnumArgumentException()
+        {
+            // Setup
+            var registry = new MacroStabilityInwardsExportRegistry();
+            const MacroStabilityInwardsExportStageType stageType = (MacroStabilityInwardsExportStageType)99;
+
+            // Call
+            void Call() => registry.AddWaternetCreatorSettings(stageType, "1");
+
+            // Assert
+            string expectedMessage = $"The value of argument '{nameof(stageType)}' ({stageType}) is invalid for Enum type '{nameof(MacroStabilityInwardsExportStageType)}'.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(Call, expectedMessage);
+        }
+
+        [Test]
+        public void AddWaternetCreatorSettings_WithWaternetCreatorSettings_AddsWaternetCreatorSettings()
+        {
+            // Setup
+            var registry = new MacroStabilityInwardsExportRegistry();
+            var stageType = new Random(21).NextEnumValue<MacroStabilityInwardsExportStageType>();
+            const string id = "1";
+
+            // Call
+            registry.AddWaternetCreatorSettings(stageType, id);
+
+            // Assert
+            Assert.AreEqual(1, registry.WaternetCreatorSettings.Count);
+            KeyValuePair<MacroStabilityInwardsExportStageType, string> registeredWaternetCreatorSettings = registry.WaternetCreatorSettings.Single();
+            Assert.AreEqual(stageType, registeredWaternetCreatorSettings.Key);
+            Assert.AreEqual(id, registeredWaternetCreatorSettings.Value);
         }
     }
 }

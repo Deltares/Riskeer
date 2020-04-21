@@ -21,7 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Components.Persistence.Stability.Data;
 
 namespace Riskeer.MacroStabilityInwards.IO.Factories
@@ -51,25 +50,24 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
                 throw new ArgumentNullException(nameof(registry));
             }
 
-            var stageTypes = new[]
+            return new[]
             {
-                MacroStabilityInwardsExportStageType.Daily,
-                MacroStabilityInwardsExportStageType.Extreme
+                Create(MacroStabilityInwardsExportStageType.Daily, idFactory, registry),
+                Create(MacroStabilityInwardsExportStageType.Extreme, idFactory, registry)
             };
+        }
 
-            var stages = new List<PersistableStage>();
-
-            foreach (MacroStabilityInwardsExportStageType stageType in stageTypes)
+        private static PersistableStage Create(MacroStabilityInwardsExportStageType stageType, IdFactory idFactory,
+                                               MacroStabilityInwardsExportRegistry registry)
+        {
+            return new PersistableStage
             {
-                stages.Add(new PersistableStage
-                {
-                    Id = idFactory.Create(),
-                    CalculationSettingsId = registry.Settings[stageType],
-                    GeometryId = registry.Geometries[stageType]
-                });
-            }
-
-            return stages;
+                Id = idFactory.Create(),
+                CalculationSettingsId = registry.Settings[stageType],
+                GeometryId = registry.Geometries[stageType],
+                SoilLayersId = registry.SoilLayers[stageType],
+                WaternetId = registry.Waternets[stageType]
+            };
         }
     }
 }

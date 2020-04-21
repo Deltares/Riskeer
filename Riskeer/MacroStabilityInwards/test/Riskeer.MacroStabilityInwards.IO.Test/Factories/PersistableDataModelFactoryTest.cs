@@ -27,6 +27,7 @@ using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.MacroStabilityInwards.Data.TestUtil;
 using Riskeer.MacroStabilityInwards.IO.Factories;
 using Riskeer.MacroStabilityInwards.IO.TestUtil;
+using Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators;
 
 namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
 {
@@ -37,11 +38,22 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
         public void Create_CalculationNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => PersistableDataModelFactory.Create(null, string.Empty);
+            void Call() => PersistableDataModelFactory.Create(null, AssessmentSectionTestHelper.GetTestAssessmentLevel, string.Empty);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("calculation", exception.ParamName);
+        }
+
+        [Test]
+        public void Create_GetAssessmentLevelFuncNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => PersistableDataModelFactory.Create(new MacroStabilityInwardsCalculation(), null, string.Empty);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("getNormativeAssessmentLevelFunc", exception.ParamName);
         }
 
         [Test]
@@ -51,7 +63,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
             MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput(new TestHydraulicBoundaryLocation());
 
             // Call
-            void Call() => PersistableDataModelFactory.Create(calculation, string.Empty);
+            void Call() => PersistableDataModelFactory.Create(calculation, AssessmentSectionTestHelper.GetTestAssessmentLevel, string.Empty);
 
             // Assert
             var exception = Assert.Throws<InvalidOperationException>(Call);
@@ -66,11 +78,14 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
             MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput(new TestHydraulicBoundaryLocation());
             calculation.Output = MacroStabilityInwardsOutputTestFactory.CreateRandomOutput();
 
-            // Call
-            PersistableDataModel persistableDataModel = PersistableDataModelFactory.Create(calculation, filePath);
+            using (new MacroStabilityInwardsCalculatorFactoryConfig())
+            {
+                // Call
+                PersistableDataModel persistableDataModel = PersistableDataModelFactory.Create(calculation, AssessmentSectionTestHelper.GetTestAssessmentLevel, filePath);
 
-            // Assert
-            PersistableDataModelTestHelper.AssertPersistableDataModel(calculation, filePath, persistableDataModel);
+                // Assert
+                PersistableDataModelTestHelper.AssertPersistableDataModel(calculation, filePath, persistableDataModel);
+            }
         }
     }
 }

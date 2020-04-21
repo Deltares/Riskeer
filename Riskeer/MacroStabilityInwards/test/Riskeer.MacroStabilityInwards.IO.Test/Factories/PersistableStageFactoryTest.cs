@@ -68,6 +68,8 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
 
             var settingsList = new List<PersistableCalculationSettings>();
             var geometryList = new List<PersistableGeometry>();
+            var soilLayersList = new List<PersistableSoilLayerCollection>();
+            var waternetList = new List<PersistableWaternet>();
 
             foreach (MacroStabilityInwardsExportStageType stageType in stageTypes)
             {
@@ -83,15 +85,29 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
                 };
                 geometryList.Add(geometry);
 
+                var persistableSoilLayerCollection = new PersistableSoilLayerCollection
+                {
+                    Id = idFactory.Create()
+                };
+                soilLayersList.Add(persistableSoilLayerCollection);
+
+                var waternet = new PersistableWaternet
+                {
+                    Id = idFactory.Create()
+                };
+                waternetList.Add(waternet);
+
                 registry.AddSettings(stageType, settings.Id);
                 registry.AddGeometry(stageType, geometry.Id);
+                registry.AddSoilLayer(stageType, persistableSoilLayerCollection.Id);
+                registry.AddWaternet(stageType, waternet.Id);
             }
 
             // Call
             IEnumerable<PersistableStage> stages = PersistableStageFactory.Create(idFactory, registry);
 
             // Assert
-            PersistableDataModelTestHelper.AssertStages(stages, settingsList, geometryList);
+            PersistableDataModelTestHelper.AssertStages(stages, settingsList, geometryList, soilLayersList, waternetList);
         }
     }
 }

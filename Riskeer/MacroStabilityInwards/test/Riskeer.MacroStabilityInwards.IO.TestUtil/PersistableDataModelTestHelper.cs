@@ -57,6 +57,12 @@ namespace Riskeer.MacroStabilityInwards.IO.TestUtil
             IEnumerable<MacroStabilityInwardsSoilLayer2D> layers = MacroStabilityInwardsSoilProfile2DLayersHelper.GetLayersRecursively(calculation.InputParameters.SoilProfileUnderSurfaceLine.Layers);
             AssertPersistableSoils(layers, persistableDataModel.Soils.Soils);
             AssertPersistableGeometry(layers, persistableDataModel.Geometry);
+            AssertPersistableSoilLayers(layers, persistableDataModel.SoilLayers, persistableDataModel.Soils.Soils, persistableDataModel.Geometry);
+            AssertWaternets(new[]
+            {
+                DerivedMacroStabilityInwardsInput.GetWaternetDaily(calculation.InputParameters),
+                DerivedMacroStabilityInwardsInput.GetWaternetExtreme(calculation.InputParameters, RoundedDouble.NaN)
+            }, persistableDataModel.Waternets);
 
             Assert.IsNull(persistableDataModel.AssessmentResults);
             Assert.IsNull(persistableDataModel.Decorations);
@@ -64,14 +70,13 @@ namespace Riskeer.MacroStabilityInwards.IO.TestUtil
             Assert.IsNull(persistableDataModel.NailPropertiesForSoils);
             Assert.IsNull(persistableDataModel.Reinforcements);
             Assert.IsNull(persistableDataModel.SoilCorrelations);
-            Assert.IsNull(persistableDataModel.SoilLayers);
             Assert.IsNull(persistableDataModel.SoilVisualizations);
             Assert.IsNull(persistableDataModel.WaternetCreatorSettings);
-            Assert.IsNull(persistableDataModel.Waternets);
             Assert.IsNull(persistableDataModel.StateCorrelations);
             Assert.IsNull(persistableDataModel.States);
 
-            AssertStages(persistableDataModel.Stages, persistableDataModel.CalculationSettings, persistableDataModel.Geometry);
+            AssertStages(persistableDataModel.Stages, persistableDataModel.CalculationSettings, persistableDataModel.Geometry, persistableDataModel.SoilLayers,
+                         persistableDataModel.Waternets);
         }
 
         /// <summary>
@@ -234,24 +239,117 @@ namespace Riskeer.MacroStabilityInwards.IO.TestUtil
         }
 
         /// <summary>
+        /// Asserts whether the <see cref="PersistableSoilLayerCollection"/> contains the data
+        /// that is representative for the <paramref name="layers"/>.
+        /// </summary>
+        /// <param name="layers">The layers that contain the original data.</param>
+        /// <param name="soilLayerCollections">The <see cref="PersistableSoilLayerCollection"/>
+        /// that needs to be asserted.</param>
+        /// <param name="soils">The soils that are used.</param>
+        /// <param name="geometries">The geometries that are used.</param>
+        /// <exception cref="AssertionException">Thrown when the data in <paramref name="soilLayerCollections"/>
+        /// is not correct.</exception>
+        public static void AssertPersistableSoilLayers(IEnumerable<MacroStabilityInwardsSoilLayer2D> layers, IEnumerable<PersistableSoilLayerCollection> soilLayerCollections,
+                                                       IEnumerable<PersistableSoil> soils, IEnumerable<PersistableGeometry> geometries)
+        {
+            Assert.AreEqual(2, soilLayerCollections.Count());
+
+            IEnumerable<MacroStabilityInwardsSoilLayer2D> originalLayers = MacroStabilityInwardsSoilProfile2DLayersHelper.GetLayersRecursively(layers);
+
+            for (var i = 0; i < soilLayerCollections.Count(); i++)
+            {
+                PersistableSoilLayerCollection soilLayerCollection = soilLayerCollections.ElementAt(i);
+
+                Assert.IsNotNull(soilLayerCollection.Id);
+                Assert.AreEqual(originalLayers.Count(), soilLayerCollection.SoilLayers.Count());
+
+                for (var j = 0; j < originalLayers.Count(); j++)
+                {
+                    PersistableSoilLayer persistableSoilLayer = soilLayerCollection.SoilLayers.ElementAt(j);
+
+                    Assert.AreEqual(soils.ElementAt(j).Id, persistableSoilLayer.SoilId);
+                    Assert.AreEqual(geometries.ElementAt(i).Layers.ElementAt(j).Id, persistableSoilLayer.LayerId);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Asserts whether the <see cref="MacroStabilityInwardsWaternet"/> contains the data
+        /// that is representative for the <paramref name="originalWaternets"/>.
+        /// </summary>
+        /// <param name="originalWaternets">The waternets that contain the original data.</param>
+        /// <param name="actualWaternets">The <see cref="PersistableWaternet"/>
+        /// that needs to be asserted.</param>
+        /// <exception cref="AssertionException">Thrown when the data in <paramref name="actualWaternets"/>
+        /// is not correct.</exception>
+        public static void AssertWaternets(IEnumerable<MacroStabilityInwardsWaternet> originalWaternets, IEnumerable<PersistableWaternet> actualWaternets)
+        {
+            Assert.AreEqual(originalWaternets.Count(), actualWaternets.Count());
+
+            for (var i = 0; i < originalWaternets.Count(); i++)
+            {
+                MacroStabilityInwardsWaternet originalWaternet = originalWaternets.ElementAt(i);
+                PersistableWaternet actualWaternet = actualWaternets.ElementAt(i);
+
+                Assert.IsNotNull(actualWaternet.Id);
+                Assert.AreEqual(9.81, actualWaternet.UnitWeightWater);
+
+                PersistableHeadLine firstHeadLine = actualWaternet.HeadLines.First();
+                Assert.AreEqual(actualWaternet.PhreaticLineId, firstHeadLine.Id);
+
+                Assert.AreEqual(originalWaternet.PhreaticLines.Count(), actualWaternet.HeadLines.Count());
+
+                for (var j = 0; j < originalWaternet.PhreaticLines.Count(); j++)
+                {
+                    MacroStabilityInwardsPhreaticLine phreaticLine = originalWaternet.PhreaticLines.ElementAt(j);
+                    PersistableHeadLine headLine = actualWaternet.HeadLines.ElementAt(j);
+
+                    Assert.IsNotNull(headLine.Id);
+                    Assert.AreEqual(phreaticLine.Name, headLine.Label);
+                    CollectionAssert.AreEqual(phreaticLine.Geometry.Select(p => new PersistablePoint(p.X, p.Y)), headLine.Points);
+                }
+
+                Assert.AreEqual(originalWaternet.WaternetLines.Count(), actualWaternet.ReferenceLines.Count());
+
+                for (var j = 0; j < originalWaternet.WaternetLines.Count(); j++)
+                {
+                    MacroStabilityInwardsWaternetLine waternetLine = originalWaternet.WaternetLines.ElementAt(j);
+                    PersistableReferenceLine referenceLine = actualWaternet.ReferenceLines.ElementAt(j);
+
+                    Assert.IsNotNull(referenceLine.Id);
+                    Assert.AreEqual(waternetLine.Name, referenceLine.Label);
+                    CollectionAssert.AreEqual(waternetLine.Geometry.Select(p => new PersistablePoint(p.X, p.Y)), referenceLine.Points);
+
+                    Assert.AreEqual(firstHeadLine.Id, referenceLine.TopHeadLineId);
+                    Assert.AreEqual(firstHeadLine.Id, referenceLine.BottomHeadLineId);
+                }
+            }
+        }
+
+        /// <summary>
         /// Asserts whether the <see cref="PersistableStage"/> contains the correct data.
         /// </summary>
         /// <param name="stages">The stages that needs to be asserted.</param>
         /// <param name="calculationSettings">The calculation settings that are used.</param>
         /// <param name="geometries">The geometries that are used.</param>
+        /// <param name="soilLayers">The soil layers that are used.</param>
+        /// <param name="waternets">The waternets that are used.</param>
         /// <exception cref="AssertionException">Thrown when the data in <paramref name="stages"/>
         /// is not correct.</exception>
         public static void AssertStages(IEnumerable<PersistableStage> stages, IEnumerable<PersistableCalculationSettings> calculationSettings,
-                                        IEnumerable<PersistableGeometry> geometries)
+                                        IEnumerable<PersistableGeometry> geometries, IEnumerable<PersistableSoilLayerCollection> soilLayers,
+                                        IEnumerable<PersistableWaternet> waternets)
         {
             Assert.AreEqual(2, stages.Count());
 
-            for (int i = 0; i < stages.Count(); i++)
+            for (var i = 0; i < stages.Count(); i++)
             {
                 PersistableStage stage = stages.ElementAt(i);
                 Assert.IsNotNull(stage.Id);
                 Assert.AreEqual(calculationSettings.ElementAt(i).Id, stage.CalculationSettingsId);
                 Assert.AreEqual(geometries.ElementAt(i).Id, stage.GeometryId);
+                Assert.AreEqual(soilLayers.ElementAt(i).Id, stage.SoilLayersId);
+                Assert.AreEqual(waternets.ElementAt(i).Id, stage.WaternetId);
             }
         }
 

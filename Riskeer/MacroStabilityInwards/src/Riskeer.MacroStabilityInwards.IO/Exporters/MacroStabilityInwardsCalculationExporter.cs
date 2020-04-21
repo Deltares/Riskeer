@@ -22,6 +22,7 @@
 using System;
 using Components.Persistence.Stability;
 using Components.Persistence.Stability.Data;
+using Core.Common.Base.Data;
 using Core.Common.Base.IO;
 using Core.Common.Util;
 using log4net;
@@ -43,6 +44,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Exporters
         private readonly MacroStabilityInwardsCalculation calculation;
         private readonly IPersistenceFactory persistenceFactory;
         private readonly string filePath;
+        private readonly Func<RoundedDouble> getNormativeAssessmentLevelFunc;
 
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsCalculationExporter"/>.
@@ -50,8 +52,10 @@ namespace Riskeer.MacroStabilityInwards.IO.Exporters
         /// <param name="calculation">The calculation to export.</param>
         /// <param name="persistenceFactory">The persistence factory to use.</param>
         /// <param name="filePath">The file path to export to.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculation"/> or
-        /// <see cref="persistenceFactory"/> is <c>null</c>.</exception>
+        /// <param name="getNormativeAssessmentLevelFunc"><see cref="Func{TResult}"/>
+        /// for obtaining the normative assessment level.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculation"/>,
+        /// <paramref name="persistenceFactory"/> or <paramref name="getNormativeAssessmentLevelFunc"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is invalid.</exception>
         /// <remarks>A valid path:
         /// <list type="bullet">
@@ -62,7 +66,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Exporters
         /// </list></remarks>
         public MacroStabilityInwardsCalculationExporter(MacroStabilityInwardsCalculation calculation,
                                                         IPersistenceFactory persistenceFactory,
-                                                        string filePath)
+                                                        string filePath, Func<RoundedDouble> getNormativeAssessmentLevelFunc)
         {
             if (calculation == null)
             {
@@ -74,16 +78,22 @@ namespace Riskeer.MacroStabilityInwards.IO.Exporters
                 throw new ArgumentNullException(nameof(persistenceFactory));
             }
 
+            if (getNormativeAssessmentLevelFunc == null)
+            {
+                throw new ArgumentNullException(nameof(getNormativeAssessmentLevelFunc));
+            }
+
             IOUtils.ValidateFilePath(filePath);
 
             this.calculation = calculation;
             this.persistenceFactory = persistenceFactory;
             this.filePath = filePath;
+            this.getNormativeAssessmentLevelFunc = getNormativeAssessmentLevelFunc;
         }
 
         public bool Export()
         {
-            PersistableDataModel persistableDataModel = PersistableDataModelFactory.Create(calculation, filePath);
+            PersistableDataModel persistableDataModel = PersistableDataModelFactory.Create(calculation, getNormativeAssessmentLevelFunc, filePath);
 
             try
             {
