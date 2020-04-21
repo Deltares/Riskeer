@@ -45,10 +45,12 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Output
         }
 
         [Test]
-        public void Create_WithSlidingCurve_ReturnSlidingCurveResult()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Create_WithSlidingCurve_ReturnSlidingCurveResult(bool leftCircleIsActive)
         {
             // Setup
-            var random = new Random();
+            var random = new Random(21);
             double activeCircleX = random.Next();
             double activeCircleZ = random.Next();
 
@@ -91,7 +93,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Output
             UpliftVanSlidingCurveResult result = UpliftVanSlidingCurveResultCreator.Create(slidingCurve);
 
             // Assert
-            bool leftCircleIsActive = slidingCurve.ActiveCircle.X <= slidingCurve.PassiveCircle.X;
             AssertActiveCircle(leftCircleIsActive ? result.LeftCircle : result.RightCircle,
                                activeCircleX, activeCircleZ, activeCircleIteratedForce,
                                activeCircleNonIteratedForce, activeCircleRadius,
