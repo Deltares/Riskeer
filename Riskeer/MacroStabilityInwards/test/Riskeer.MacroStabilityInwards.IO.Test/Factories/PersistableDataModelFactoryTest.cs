@@ -27,6 +27,7 @@ using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.MacroStabilityInwards.Data.TestUtil;
 using Riskeer.MacroStabilityInwards.IO.Factories;
 using Riskeer.MacroStabilityInwards.IO.TestUtil;
+using Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators;
 
 namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
 {
@@ -77,11 +78,14 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
             MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput(new TestHydraulicBoundaryLocation());
             calculation.Output = MacroStabilityInwardsOutputTestFactory.CreateRandomOutput();
 
-            // Call
-            PersistableDataModel persistableDataModel = PersistableDataModelFactory.Create(calculation, AssessmentSectionTestHelper.GetTestAssessmentLevel, filePath);
+            using (new MacroStabilityInwardsCalculatorFactoryConfig())
+            {
+                // Call
+                PersistableDataModel persistableDataModel = PersistableDataModelFactory.Create(calculation, AssessmentSectionTestHelper.GetTestAssessmentLevel, filePath);
 
-            // Assert
-            PersistableDataModelTestHelper.AssertPersistableDataModel(calculation, filePath, persistableDataModel);
+                // Assert
+                PersistableDataModelTestHelper.AssertPersistableDataModel(calculation, filePath, persistableDataModel);
+            }
         }
     }
 }

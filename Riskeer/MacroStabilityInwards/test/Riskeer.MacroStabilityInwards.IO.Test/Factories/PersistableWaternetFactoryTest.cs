@@ -26,6 +26,7 @@ using Components.Persistence.Stability.Data;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Riskeer.MacroStabilityInwards.IO.Factories;
+using Riskeer.MacroStabilityInwards.IO.TestUtil;
 using Riskeer.MacroStabilityInwards.Primitives;
 
 namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
@@ -44,6 +45,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("dailyWaternet", exception.ParamName);
         }
+
         [Test]
         public void Create_ExtremeWaternetNull_ThrowsArgumentNullException()
         {
@@ -100,7 +102,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
             {
                 waternetLine1
             });
-            
+
             var extremeWaternet = new MacroStabilityInwardsWaternet(new[]
             {
                 phreaticLine2
@@ -116,7 +118,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
             IEnumerable<PersistableWaternet> persistableWaternets = PersistableWaternetFactory.Create(dailyWaternet, extremeWaternet, idFactory, registry);
 
             // Assert
-            AssertWaternets(new[]
+            PersistableDataModelTestHelper.AssertWaternets(new[]
             {
                 dailyWaternet,
                 extremeWaternet
@@ -133,50 +135,6 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
             for (var i = 0; i < stages.Length; i++)
             {
                 Assert.AreEqual(registry.Waternets[stages[i]], persistableWaternets.ElementAt(i).Id);
-            }
-        }
-
-        private static void AssertWaternets(IEnumerable<MacroStabilityInwardsWaternet> originalWaternets, IEnumerable<PersistableWaternet> actualWaternets)
-        {
-            Assert.AreEqual(originalWaternets.Count(), actualWaternets.Count());
-
-            for (var i = 0; i < originalWaternets.Count(); i++)
-            {
-                MacroStabilityInwardsWaternet originalWaternet = originalWaternets.ElementAt(i);
-                PersistableWaternet actualWaternet = actualWaternets.ElementAt(i);
-
-                Assert.IsNotNull(actualWaternet.Id);
-                Assert.AreEqual(9.81, actualWaternet.UnitWeightWater);
-
-                PersistableHeadLine firstHeadLine = actualWaternet.HeadLines.First();
-                Assert.AreEqual(actualWaternet.PhreaticLineId, firstHeadLine.Id);
-
-                Assert.AreEqual(originalWaternet.PhreaticLines.Count(), actualWaternet.HeadLines.Count());
-
-                for (var j = 0; j < originalWaternet.PhreaticLines.Count(); j++)
-                {
-                    MacroStabilityInwardsPhreaticLine phreaticLine = originalWaternet.PhreaticLines.ElementAt(j);
-                    PersistableHeadLine headLine = actualWaternet.HeadLines.ElementAt(j);
-
-                    Assert.IsNotNull(headLine.Id);
-                    Assert.AreEqual(phreaticLine.Name, headLine.Label);
-                    CollectionAssert.AreEqual(phreaticLine.Geometry.Select(p => new PersistablePoint(p.X, p.Y)), headLine.Points);
-                }
-
-                Assert.AreEqual(originalWaternet.WaternetLines.Count(), actualWaternet.ReferenceLines.Count());
-
-                for (var j = 0; j < originalWaternet.WaternetLines.Count(); j++)
-                {
-                    MacroStabilityInwardsWaternetLine waternetLine = originalWaternet.WaternetLines.ElementAt(j);
-                    PersistableReferenceLine referenceLine = actualWaternet.ReferenceLines.ElementAt(j);
-
-                    Assert.IsNotNull(referenceLine.Id);
-                    Assert.AreEqual(waternetLine.Name, referenceLine.Label);
-                    CollectionAssert.AreEqual(waternetLine.Geometry.Select(p => new PersistablePoint(p.X, p.Y)), referenceLine.Points);
-
-                    Assert.AreEqual(firstHeadLine.Id, referenceLine.TopHeadLineId);
-                    Assert.AreEqual(firstHeadLine.Id, referenceLine.BottomHeadLineId);
-                }
             }
         }
     }

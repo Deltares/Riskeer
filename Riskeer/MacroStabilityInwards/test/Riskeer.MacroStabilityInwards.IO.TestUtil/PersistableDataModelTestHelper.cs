@@ -27,7 +27,6 @@ using Components.Persistence.Stability.Data;
 using Core.Common.Base.Data;
 using Core.Common.Util.Reflection;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.Probabilistics;
 using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.MacroStabilityInwards.Data.SoilProfile;
@@ -59,6 +58,11 @@ namespace Riskeer.MacroStabilityInwards.IO.TestUtil
             AssertPersistableSoils(layers, persistableDataModel.Soils.Soils);
             AssertPersistableGeometry(layers, persistableDataModel.Geometry);
             AssertPersistableSoilLayers(layers, persistableDataModel.SoilLayers, persistableDataModel.Soils.Soils, persistableDataModel.Geometry);
+            AssertWaternets(new[]
+            {
+                DerivedMacroStabilityInwardsInput.GetWaternetDaily(calculation.InputParameters),
+                DerivedMacroStabilityInwardsInput.GetWaternetExtreme(calculation.InputParameters, RoundedDouble.NaN)
+            }, persistableDataModel.Waternets);
 
             Assert.IsNull(persistableDataModel.AssessmentResults);
             Assert.IsNull(persistableDataModel.Decorations);
@@ -68,7 +72,6 @@ namespace Riskeer.MacroStabilityInwards.IO.TestUtil
             Assert.IsNull(persistableDataModel.SoilCorrelations);
             Assert.IsNull(persistableDataModel.SoilVisualizations);
             Assert.IsNull(persistableDataModel.WaternetCreatorSettings);
-            Assert.IsNull(persistableDataModel.Waternets);
             Assert.IsNull(persistableDataModel.StateCorrelations);
             Assert.IsNull(persistableDataModel.States);
 
@@ -265,6 +268,59 @@ namespace Riskeer.MacroStabilityInwards.IO.TestUtil
 
                     Assert.AreEqual(soils.ElementAt(j).Id, persistableSoilLayer.SoilId);
                     Assert.AreEqual(geometries.ElementAt(i).Layers.ElementAt(j).Id, persistableSoilLayer.LayerId);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Asserts whether the <see cref="MacroStabilityInwardsWaternet"/> contains the data
+        /// that is representative for the <paramref name="originalWaternets"/>.
+        /// </summary>
+        /// <param name="originalWaternets">The waternets that contain the original data.</param>
+        /// <param name="actualWaternets">The <see cref="PersistableWaternet"/>
+        /// that needs to be asserted.</param>
+        /// <exception cref="AssertionException">Thrown when the data in <paramref name="actualWaternets"/>
+        /// is not correct.</exception>
+        public static void AssertWaternets(IEnumerable<MacroStabilityInwardsWaternet> originalWaternets, IEnumerable<PersistableWaternet> actualWaternets)
+        {
+            Assert.AreEqual(originalWaternets.Count(), actualWaternets.Count());
+
+            for (var i = 0; i < originalWaternets.Count(); i++)
+            {
+                MacroStabilityInwardsWaternet originalWaternet = originalWaternets.ElementAt(i);
+                PersistableWaternet actualWaternet = actualWaternets.ElementAt(i);
+
+                Assert.IsNotNull(actualWaternet.Id);
+                Assert.AreEqual(9.81, actualWaternet.UnitWeightWater);
+
+                PersistableHeadLine firstHeadLine = actualWaternet.HeadLines.First();
+                Assert.AreEqual(actualWaternet.PhreaticLineId, firstHeadLine.Id);
+
+                Assert.AreEqual(originalWaternet.PhreaticLines.Count(), actualWaternet.HeadLines.Count());
+
+                for (var j = 0; j < originalWaternet.PhreaticLines.Count(); j++)
+                {
+                    MacroStabilityInwardsPhreaticLine phreaticLine = originalWaternet.PhreaticLines.ElementAt(j);
+                    PersistableHeadLine headLine = actualWaternet.HeadLines.ElementAt(j);
+
+                    Assert.IsNotNull(headLine.Id);
+                    Assert.AreEqual(phreaticLine.Name, headLine.Label);
+                    CollectionAssert.AreEqual(phreaticLine.Geometry.Select(p => new PersistablePoint(p.X, p.Y)), headLine.Points);
+                }
+
+                Assert.AreEqual(originalWaternet.WaternetLines.Count(), actualWaternet.ReferenceLines.Count());
+
+                for (var j = 0; j < originalWaternet.WaternetLines.Count(); j++)
+                {
+                    MacroStabilityInwardsWaternetLine waternetLine = originalWaternet.WaternetLines.ElementAt(j);
+                    PersistableReferenceLine referenceLine = actualWaternet.ReferenceLines.ElementAt(j);
+
+                    Assert.IsNotNull(referenceLine.Id);
+                    Assert.AreEqual(waternetLine.Name, referenceLine.Label);
+                    CollectionAssert.AreEqual(waternetLine.Geometry.Select(p => new PersistablePoint(p.X, p.Y)), referenceLine.Points);
+
+                    Assert.AreEqual(firstHeadLine.Id, referenceLine.TopHeadLineId);
+                    Assert.AreEqual(firstHeadLine.Id, referenceLine.BottomHeadLineId);
                 }
             }
         }

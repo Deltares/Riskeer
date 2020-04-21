@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2019. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2019. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -74,8 +74,19 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
                 Soils = PersistableSoilCollectionFactory.Create(soilProfile, idFactory, registry),
                 Geometry = PersistableGeometryFactory.Create(soilProfile, idFactory, registry),
                 SoilLayers = PersistableSoilLayerCollectionFactory.Create(soilProfile, idFactory, registry),
+                Waternets = PersistableWaternetFactory.Create(
+                    DerivedMacroStabilityInwardsInput.GetWaternetDaily(calculation.InputParameters),
+                    DerivedMacroStabilityInwardsInput.GetWaternetExtreme(calculation.InputParameters, GetAssessmentLevel(calculation.InputParameters, getNormativeAssessmentLevelFunc)),
+                    idFactory, registry),
                 Stages = PersistableStageFactory.Create(idFactory, registry)
             };
+        }
+
+        private static RoundedDouble GetAssessmentLevel(MacroStabilityInwardsInput input, Func<RoundedDouble> getNormativeAssessmentLevelFunc)
+        {
+            return input.UseAssessmentLevelManualInput
+                       ? input.AssessmentLevel
+                       : getNormativeAssessmentLevelFunc();
         }
     }
 }

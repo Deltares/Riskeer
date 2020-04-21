@@ -30,6 +30,7 @@ using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.MacroStabilityInwards.Data.TestUtil;
 using Riskeer.MacroStabilityInwards.IO.Exporters;
 using Riskeer.MacroStabilityInwards.IO.TestUtil;
+using Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators;
 
 namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
 {
@@ -151,17 +152,20 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
 
             var exporter = new MacroStabilityInwardsCalculationExporter(calculation, persistenceFactory, filePath, AssessmentSectionTestHelper.GetTestAssessmentLevel);
 
-            // Call
-            bool exportResult = exporter.Export();
+            using (new MacroStabilityInwardsCalculatorFactoryConfig())
+            {
+                // Call
+                bool exportResult = exporter.Export();
 
-            // Assert
-            PersistableDataModelTestHelper.AssertPersistableDataModel(calculation, filePath, persistenceFactory.PersistableDataModel);
-            Assert.AreEqual(filePath, persistenceFactory.FilePath);
+                // Assert
+                PersistableDataModelTestHelper.AssertPersistableDataModel(calculation, filePath, persistenceFactory.PersistableDataModel);
+                Assert.AreEqual(filePath, persistenceFactory.FilePath);
 
-            var persister = (MacroStabilityInwardsTestPersister) persistenceFactory.CreatedPersister;
-            Assert.IsTrue(persister.PersistCalled);
+                var persister = (MacroStabilityInwardsTestPersister) persistenceFactory.CreatedPersister;
+                Assert.IsTrue(persister.PersistCalled);
 
-            Assert.IsTrue(exportResult);
+                Assert.IsTrue(exportResult);
+            }
         }
     }
 }
