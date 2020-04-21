@@ -45,7 +45,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
             mocks.ReplayAll();
 
             // Call
-            var exporter = new MacroStabilityInwardsCalculationExporter(new MacroStabilityInwardsCalculation(), persistenceFactory, "ValidFilePath");
+            var exporter = new MacroStabilityInwardsCalculationExporter(new MacroStabilityInwardsCalculation(), persistenceFactory, "ValidFilePath", AssessmentSectionTestHelper.GetTestAssessmentLevel);
 
             // Assert
             Assert.IsInstanceOf<IFileExporter>(exporter);
@@ -61,7 +61,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
             mocks.ReplayAll();
 
             // Call
-            void Call() => new MacroStabilityInwardsCalculationExporter(null, persistenceFactory, string.Empty);
+            void Call() => new MacroStabilityInwardsCalculationExporter(null, persistenceFactory, string.Empty, AssessmentSectionTestHelper.GetTestAssessmentLevel);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -73,11 +73,28 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
         public void Constructor_PersistenceFactoryNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => new MacroStabilityInwardsCalculationExporter(new MacroStabilityInwardsCalculation(), null, string.Empty);
+            void Call() => new MacroStabilityInwardsCalculationExporter(new MacroStabilityInwardsCalculation(), null, string.Empty, AssessmentSectionTestHelper.GetTestAssessmentLevel);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("persistenceFactory", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_GetAssessmentLevelFuncNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var persistenceFactory = mocks.Stub<IPersistenceFactory>();
+            mocks.ReplayAll();
+
+            // Call
+            void Call() => new MacroStabilityInwardsCalculationExporter(new MacroStabilityInwardsCalculation(), persistenceFactory, string.Empty, null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("getNormativeAssessmentLevelFunc", exception.ParamName);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -90,7 +107,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
             mocks.ReplayAll();
 
             // Call
-            void Call() => new MacroStabilityInwardsCalculationExporter(new MacroStabilityInwardsCalculation(), persistenceFactory, filePath);
+            void Call() => new MacroStabilityInwardsCalculationExporter(new MacroStabilityInwardsCalculation(), persistenceFactory, filePath, AssessmentSectionTestHelper.GetTestAssessmentLevel);
 
             // Assert
             Assert.Throws<ArgumentException>(Call);
@@ -110,7 +127,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
                 ThrowException = true
             };
 
-            var exporter = new MacroStabilityInwardsCalculationExporter(calculation, persistenceFactory, filePath);
+            var exporter = new MacroStabilityInwardsCalculationExporter(calculation, persistenceFactory, filePath, AssessmentSectionTestHelper.GetTestAssessmentLevel);
 
             // Call
             var exportResult = true;
@@ -132,7 +149,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
 
             var persistenceFactory = new MacroStabilityInwardsTestPersistenceFactory();
 
-            var exporter = new MacroStabilityInwardsCalculationExporter(calculation, persistenceFactory, filePath);
+            var exporter = new MacroStabilityInwardsCalculationExporter(calculation, persistenceFactory, filePath, AssessmentSectionTestHelper.GetTestAssessmentLevel);
 
             // Call
             bool exportResult = exporter.Export();

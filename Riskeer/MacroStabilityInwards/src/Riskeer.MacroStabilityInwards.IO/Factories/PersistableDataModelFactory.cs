@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2019. All rights reserved.
+// Copyright (C) Stichting Deltares 2019. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -21,6 +21,7 @@
 
 using System;
 using Components.Persistence.Stability.Data;
+using Core.Common.Base.Data;
 using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.MacroStabilityInwards.Primitives;
 
@@ -35,17 +36,26 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
         /// Creates a new <see cref="PersistableDataModel"/>.
         /// </summary>
         /// <param name="calculation">The calculation to get the data from.</param>
+        /// <param name="getNormativeAssessmentLevelFunc"><see cref="Func{TResult}"/>
+        /// for obtaining the normative assessment level.</param>
         /// <param name="filePath">The filePath that is used.</param>
         /// <returns>A created <see cref="PersistableDataModel"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculation"/>
-        /// is <c>null</c>.</exception>
+        /// or <paramref name="getNormativeAssessmentLevelFunc"/> is <c>null</c>.</exception>
         /// <exception cref="InvalidOperationException">Thrown when <paramref name="calculation"/>
         /// has no output.</exception>
-        public static PersistableDataModel Create(MacroStabilityInwardsCalculation calculation, string filePath)
+        public static PersistableDataModel Create(MacroStabilityInwardsCalculation calculation,
+                                                  Func<RoundedDouble> getNormativeAssessmentLevelFunc,
+                                                  string filePath)
         {
             if (calculation == null)
             {
                 throw new ArgumentNullException(nameof(calculation));
+            }
+
+            if (getNormativeAssessmentLevelFunc == null)
+            {
+                throw new ArgumentNullException(nameof(getNormativeAssessmentLevelFunc));
             }
 
             if (!calculation.HasOutput)
