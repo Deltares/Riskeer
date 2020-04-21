@@ -69,10 +69,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan
 
         public SoilProfile2D SoilProfile { get; private set; }
 
-        public Location LocationExtreme { get; private set; }
-
-        public Location LocationDaily { get; private set; }
-
         public bool MoveGrid { get; private set; }
 
         public double MaximumSliceWidth { get; private set; }

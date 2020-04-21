@@ -143,8 +143,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
 
                 KernelInputAssert.AssertSoilModels(SoilModelCreator.Create(layersWithSoil.Select(lws => lws.Soil).ToArray()), upliftVanKernel.SoilModel);
                 KernelInputAssert.AssertSoilProfiles(SoilProfileCreator.Create(input.SoilProfile.PreconsolidationStresses, layersWithSoil), upliftVanKernel.SoilProfile);
-                KernelInputAssert.AssertStabilityLocations(UpliftVanStabilityLocationCreator.CreateExtreme(input), upliftVanKernel.LocationExtreme);
-                KernelInputAssert.AssertStabilityLocations(UpliftVanStabilityLocationCreator.CreateDaily(input), upliftVanKernel.LocationDaily);
                 KernelInputAssert.AssertSurfaceLines(SurfaceLineCreator.Create(input.SurfaceLine), upliftVanKernel.SurfaceLine);
                 UpliftVanKernelInputAssert.AssertSlipPlanesUpliftVan(SlipPlaneUpliftVanCreator.Create(input.SlipPlane), upliftVanKernel.SlipPlaneUpliftVan);
                 UpliftVanKernelInputAssert.AssertSlipPlaneConstraints(SlipPlaneConstraintsCreator.Create(input.SlipPlaneConstraints), upliftVanKernel.SlipPlaneConstraints);

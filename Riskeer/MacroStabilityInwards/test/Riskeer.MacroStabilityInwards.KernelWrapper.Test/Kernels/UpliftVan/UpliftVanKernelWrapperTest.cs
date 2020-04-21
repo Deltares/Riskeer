@@ -22,7 +22,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Xml.Schema;
 using Core.Common.TestUtil;
 using Core.Common.Util.Reflection;
 using Deltares.MacroStability.Data;
