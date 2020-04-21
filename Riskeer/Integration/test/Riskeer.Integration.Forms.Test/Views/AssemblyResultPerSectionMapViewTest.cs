@@ -579,8 +579,8 @@ namespace Riskeer.Integration.Forms.Test.Views
             var warningIcon = (PictureBox) warningPanel.Controls.Find("warningIcon", false).Single();
             TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.PencilWarning.ToBitmap(), warningIcon.Image);
             Assert.AreEqual(DockStyle.Left, warningIcon.Dock);
-            Assert.AreEqual(16, warningIcon.MaximumSize.Height);
-            Assert.AreEqual(16, warningIcon.MaximumSize.Width);
+            Assert.AreEqual(20, warningIcon.MaximumSize.Height);
+            Assert.AreEqual(21, warningIcon.MaximumSize.Width);
             Assert.AreEqual(PictureBoxSizeMode.StretchImage, warningIcon.SizeMode);
             Assert.AreEqual(SystemColors.Info, warningPanel.BackColor);
 

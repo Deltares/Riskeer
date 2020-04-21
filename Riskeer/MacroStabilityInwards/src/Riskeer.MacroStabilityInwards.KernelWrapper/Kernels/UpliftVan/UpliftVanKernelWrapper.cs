@@ -27,7 +27,6 @@ using Deltares.MacroStability.Geometry;
 using Deltares.MacroStability.Kernel;
 using Deltares.MacroStability.Preprocessing;
 using Deltares.MacroStability.Standard;
-using Deltares.MacroStability.WaternetCreator;
 using Deltares.WTIStability.Calculation.Wrapper;
 using WtiStabilityWaternet = Deltares.MacroStability.Geometry.Waternet;
 
@@ -44,7 +43,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
         private SurfaceLine2 surfaceLine2;
         private WtiStabilityWaternet dailyWaternet;
         private WtiStabilityWaternet extremeWaternet;
-        private Location stabilityLocation;
 
         /// <summary>
         /// Creates a new instance of <see cref="UpliftVanKernelWrapper"/>.

@@ -40,6 +40,8 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan
     {
         private readonly UpliftVanCalculatorInput input;
         private readonly IMacroStabilityInwardsKernelFactory factory;
+        private WaternetDailyKernelWrapper waternetDailyKernelWrapper;
+        private WaternetExtremeKernelWrapper waternetExtremeKernelWrapper;
 
         /// <summary>
         /// Creates a new instance of <see cref="UpliftVanCalculator"/>.
@@ -125,14 +127,14 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan
             upliftVanKernel.SetSoilModel(SoilModelCreator.Create(layersWithSoil.Select(lws => lws.Soil).ToArray()));
             upliftVanKernel.SetSoilProfile(soilProfile2D);
             
-            var waternetDailyKernelWrapper = new WaternetDailyKernelWrapper();
+            waternetDailyKernelWrapper = new WaternetDailyKernelWrapper();
             waternetDailyKernelWrapper.SetLocation(UpliftVanStabilityLocationCreator.CreateDaily(input));
             waternetDailyKernelWrapper.SetSoilProfile(soilProfile2D);
             waternetDailyKernelWrapper.SetSurfaceLine(surfaceLine2);
             waternetDailyKernelWrapper.Calculate();
             upliftVanKernel.SetWaternetDaily(waternetDailyKernelWrapper.Waternet);
 
-            var waternetExtremeKernelWrapper = new WaternetExtremeKernelWrapper();
+            waternetExtremeKernelWrapper = new WaternetExtremeKernelWrapper();
             waternetExtremeKernelWrapper.SetLocation(UpliftVanStabilityLocationCreator.CreateExtreme(input));
             waternetExtremeKernelWrapper.SetSoilProfile(soilProfile2D);
             waternetExtremeKernelWrapper.SetSurfaceLine(surfaceLine2);

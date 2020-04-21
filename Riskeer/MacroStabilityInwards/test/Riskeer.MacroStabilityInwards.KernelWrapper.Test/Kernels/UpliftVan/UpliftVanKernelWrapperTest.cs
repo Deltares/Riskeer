@@ -29,6 +29,7 @@ using Deltares.MacroStability.Geometry;
 using Deltares.MacroStability.Standard;
 using NUnit.Framework;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan;
+using WtiStabilityWaternet = Deltares.MacroStability.Geometry.Waternet;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
 {
@@ -63,6 +64,8 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
             bool moveGrid = random.NextBoolean();
             bool gridAutomaticDetermined = random.NextBoolean();
             var slipPlaneConstraints = new SlipPlaneConstraints();
+            var waternetDaily = new WtiStabilityWaternet();
+            var waternetExtreme = new WtiStabilityWaternet();
 
             // Call
             var kernel = new UpliftVanKernelWrapper();
@@ -72,9 +75,13 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
             kernel.SetMoveGrid(moveGrid);
             kernel.SetGridAutomaticDetermined(gridAutomaticDetermined);
             kernel.SetSlipPlaneConstraints(slipPlaneConstraints);
+            kernel.SetWaternetDaily(waternetDaily);
+            kernel.SetWaternetExtreme(waternetExtreme);
 
             // Assert
             var stabilityModel = TypeUtils.GetField<StabilityModel>(kernel, "stabilityModel");
+            var actualDailyWaternet = TypeUtils.GetField<WtiStabilityWaternet>(kernel, "dailyWaternet");
+            var actualExtremeWaternet = TypeUtils.GetField<WtiStabilityWaternet>(kernel, "extremeWaternet");
 
             Assert.IsNotNull(stabilityModel.SlipPlaneConstraints);
             Assert.AreEqual(GridOrientation.Inwards, stabilityModel.GridOrientation);
@@ -85,6 +92,8 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
             Assert.AreSame(slipPlaneUpliftVan, stabilityModel.SlipPlaneUpliftVan);
             Assert.AreSame(slipPlaneConstraints, stabilityModel.SlipPlaneConstraints);
             Assert.AreEqual(moveGrid, stabilityModel.MoveGrid);
+            Assert.AreEqual(waternetDaily, actualDailyWaternet);
+            Assert.AreEqual(waternetExtreme, actualExtremeWaternet);
 
             AssertIrrelevantValues(stabilityModel);
         }

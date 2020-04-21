@@ -19,12 +19,12 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Deltares.MacroStability.Geometry;
 using Deltares.MacroStability.WaternetCreator;
 using NUnit.Framework;
+using WtiStabilityWaternet = Deltares.MacroStability.Geometry.Waternet;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan.Input
 {
@@ -295,6 +295,16 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan
             Assert.AreEqual(expected.Owner, actual.Owner);
             Assert.AreEqual(expected.X, actual.X);
             Assert.AreEqual(expected.Z, actual.Z);
+        }
+
+        public static void AssertWaternet(WtiStabilityWaternet expected, WtiStabilityWaternet actual)
+        {
+            Assert.AreEqual(expected.Name, actual.Name);
+            Assert.AreEqual(expected.HeadLineList, actual.HeadLineList);
+            Assert.AreEqual(expected.IsGenerated, actual.IsGenerated);
+            Assert.AreEqual(expected.PhreaticLine, actual.PhreaticLine);
+            Assert.AreEqual(expected.UnitWeight, actual.UnitWeight);
+            Assert.AreEqual(expected.WaternetLineList, actual.WaternetLineList);
         }
     }
 }
