@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2019. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2019. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Components.Persistence.Stability.Data;
 using Riskeer.MacroStabilityInwards.Primitives;
 
@@ -31,6 +32,8 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
     /// </summary>
     internal static class PersistableWaternetFactory
     {
+        private static Dictionary<MacroStabilityInwardsPhreaticLine, PersistableHeadLine> createdHeadLines;
+
         /// <summary>
         /// Creates a new collection of <see cref="PersistableWaternet"/>.
         /// </summary>
@@ -64,7 +67,73 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
                 throw new ArgumentNullException(nameof(registry));
             }
 
-            return null;
+            createdHeadLines = new Dictionary<MacroStabilityInwardsPhreaticLine, PersistableHeadLine>(new PhreaticLineComparer());
+
+            return new[]
+            {
+                Create(dailyWaternet, MacroStabilityInwardsExportStageType.Daily, idFactory, registry),
+                Create(extremeWaternet, MacroStabilityInwardsExportStageType.Extreme, idFactory, registry)
+            };
+        }
+
+        private static PersistableWaternet Create(MacroStabilityInwardsWaternet waternet, MacroStabilityInwardsExportStageType stageType,
+                                                  IdFactory idFactory, MacroStabilityInwardsExportRegistry registry)
+        {
+            var persistableWaternet = new PersistableWaternet
+            {
+                Id = idFactory.Create(),
+                UnitWeightWater = 9.81,
+                HeadLines = waternet.PhreaticLines.Select(pl => Create(pl, idFactory)).ToArray(),
+                ReferenceLines = waternet.WaternetLines.Select(wl => Create(wl, idFactory)).ToArray(),
+                PhreaticLineId = createdHeadLines[waternet.PhreaticLines.First()].Id
+            };
+
+            registry.AddWaternet(stageType, persistableWaternet.Id);
+
+            return persistableWaternet;
+        }
+
+        private static PersistableHeadLine Create(MacroStabilityInwardsPhreaticLine phreaticLine, IdFactory idFactory)
+        {
+            var headLine = new PersistableHeadLine
+            {
+                Id = idFactory.Create(),
+                Label = phreaticLine.Name,
+                Points = phreaticLine.Geometry.Select(point => new PersistablePoint(point.X, point.Y)).ToArray()
+            };
+
+            createdHeadLines.Add(phreaticLine, headLine);
+
+            return headLine;
+        }
+
+        private static PersistableReferenceLine Create(MacroStabilityInwardsWaternetLine waternetLine, IdFactory idFactory)
+        {
+            string headLineId = createdHeadLines[waternetLine.PhreaticLine].Id;
+
+            var referenceLine = new PersistableReferenceLine
+            {
+                Id = idFactory.Create(),
+                Label = waternetLine.Name,
+                Points = waternetLine.Geometry.Select(point => new PersistablePoint(point.X, point.Y)).ToArray(),
+                TopHeadLineId = headLineId,
+                BottomHeadLineId = headLineId
+            };
+
+            return referenceLine;
+        }
+
+        private class PhreaticLineComparer : IEqualityComparer<MacroStabilityInwardsPhreaticLine>
+        {
+            public bool Equals(MacroStabilityInwardsPhreaticLine x, MacroStabilityInwardsPhreaticLine y)
+            {
+                return ReferenceEquals(x, y);
+            }
+
+            public int GetHashCode(MacroStabilityInwardsPhreaticLine obj)
+            {
+                return obj.GetHashCode();
+            }
         }
     }
 }

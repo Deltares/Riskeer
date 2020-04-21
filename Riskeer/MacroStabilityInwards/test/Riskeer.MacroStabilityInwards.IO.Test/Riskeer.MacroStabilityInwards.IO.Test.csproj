@@ -32,6 +32,7 @@
     <ProjectReference Include="..\..\src\Riskeer.MacroStabilityInwards.Primitives\Riskeer.MacroStabilityInwards.Primitives.csproj" />
     <ProjectReference Include="..\Riskeer.MacroStabilityInwards.Data.TestUtil\Riskeer.MacroStabilityInwards.Data.TestUtil.csproj" />
     <ProjectReference Include="..\Riskeer.MacroStabilityInwards.IO.TestUtil\Riskeer.MacroStabilityInwards.IO.TestUtil.csproj" />
+    <ProjectReference Include="..\Riskeer.MacroStabilityInwards.Primitives.TestUtil\Riskeer.MacroStabilityInwards.Primitives.TestUtil.csproj" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="NUnit">

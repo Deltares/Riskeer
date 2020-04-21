@@ -34,8 +34,8 @@ namespace Riskeer.MacroStabilityInwards.Primitives
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsWaternet"/>.
         /// </summary>
-        /// <param name="phreaticLines">The collection of <see cref="MacroStabilityInwardsPhreaticLine"/></param>
-        /// <param name="waternetLines">The collection of <see cref="MacroStabilityInwardsWaternetLine"/></param>
+        /// <param name="phreaticLines">The collection of <see cref="MacroStabilityInwardsPhreaticLine"/>.</param>
+        /// <param name="waternetLines">The collection of <see cref="MacroStabilityInwardsWaternetLine"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input argument
         /// is <c>null</c>.</exception>
         public MacroStabilityInwardsWaternet(IEnumerable<MacroStabilityInwardsPhreaticLine> phreaticLines,
