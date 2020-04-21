@@ -57,7 +57,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
 
             return kernelSlipPlane;
         }
-        
+
         private static SlipCircleTangentLine CreateTangentline(UpliftVanSlipPlane slipPlane)
         {
             var tangentLine = new SlipCircleTangentLine();

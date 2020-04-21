@@ -55,8 +55,8 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             // Assert
             Assert.AreEqual(upliftVanSlipPlaneConstraints.SlipPlaneMinimumLength, constraints.SlipPlaneMinLength);
             Assert.AreEqual(upliftVanSlipPlaneConstraints.SlipPlaneMinimumDepth, constraints.SlipPlaneMinDepth);
-            Assert.AreEqual(upliftVanSlipPlaneConstraints.ZoneBoundaryLeft, constraints.XLeftMin);
-            Assert.AreEqual(upliftVanSlipPlaneConstraints.ZoneBoundaryRight, constraints.XLeftMax);
+            Assert.AreEqual(upliftVanSlipPlaneConstraints.ZoneBoundaryLeft, constraints.XLeftMax);
+            Assert.AreEqual(upliftVanSlipPlaneConstraints.ZoneBoundaryRight, constraints.XRightMax);
         }
     }
 }

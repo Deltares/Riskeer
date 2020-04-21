@@ -48,7 +48,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernels.Upli
         {
             // Setup
             var kernel = new UpliftVanKernelStub();
-            
+
             // Precondition
             Assert.IsFalse(kernel.Calculated);
 
@@ -175,7 +175,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernels.Upli
             };
 
             // Call
-            List<IValidationResult> results = calculator.Validate().ToList();
+            IEnumerable<ValidationResult> results = calculator.Validate().ToList();
 
             // Assert
             Assert.IsTrue(calculator.Validated);
@@ -196,7 +196,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernels.Upli
             };
 
             // Call
-            List<IValidationResult> results = calculator.Validate().ToList();
+            IEnumerable<ValidationResult> results = calculator.Validate().ToList();
 
             // Assert
             Assert.IsTrue(calculator.Validated);

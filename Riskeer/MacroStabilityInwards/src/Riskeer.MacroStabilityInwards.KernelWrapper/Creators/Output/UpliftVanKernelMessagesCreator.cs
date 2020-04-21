@@ -60,7 +60,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Output
         /// taken from the <paramref name="validationResults"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="validationResults"/>
         /// is <c>null</c>.</exception>
-        public static IEnumerable<UpliftVanKernelMessage> CreateFromValidationResults(IEnumerable<IValidationResult> validationResults)
+        public static IEnumerable<UpliftVanKernelMessage> CreateFromValidationResults(IEnumerable<ValidationResult> validationResults)
         {
             if (validationResults == null)
             {
@@ -92,9 +92,9 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Output
             }
         }
 
-        private static IEnumerable<UpliftVanKernelMessage> CreateValidationMessages(IEnumerable<IValidationResult> validationResults)
+        private static IEnumerable<UpliftVanKernelMessage> CreateValidationMessages(IEnumerable<ValidationResult> validationResults)
         {
-            foreach (IValidationResult logMessage in validationResults)
+            foreach (ValidationResult logMessage in validationResults)
             {
                 UpliftVanKernelMessageType type;
                 switch (logMessage.MessageType)

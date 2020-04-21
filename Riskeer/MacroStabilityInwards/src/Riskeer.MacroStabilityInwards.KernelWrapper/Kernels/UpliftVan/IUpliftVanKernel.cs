@@ -113,11 +113,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
         void SetSlipPlaneUpliftVan(SlipPlaneUpliftVan slipPlaneUpliftVan);
 
         /// <summary>
-        /// Sets the surface line.
-        /// </summary>
-        void SetSurfaceLine(SurfaceLine2 surfaceLine);
-
-        /// <summary>
         /// Sets the slip plane constraints.
         /// </summary>
         void SetSlipPlaneConstraints(SlipPlaneConstraints slipPlaneConstraints);
@@ -140,6 +135,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
         /// <returns>An <see cref="IEnumerable{T}"/> of <see cref="ValidationResult"/> objects.</returns>
         /// <exception cref="UpliftVanKernelWrapperException">Thrown when 
         /// an error occurs when performing the validation.</exception>
-        IEnumerable<IValidationResult> Validate();
+        IEnumerable<ValidationResult> Validate();
     }
 }
