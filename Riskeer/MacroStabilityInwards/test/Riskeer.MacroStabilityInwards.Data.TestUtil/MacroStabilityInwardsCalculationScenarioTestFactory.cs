@@ -258,7 +258,7 @@ namespace Riskeer.MacroStabilityInwards.Data.TestUtil
                     StochasticSoilProfile = stochasticSoilProfile,
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation,
                     DikeSoilScenario = MacroStabilityInwardsDikeSoilScenario.SandDikeOnClay,
-                    WaterLevelRiverAverage = (RoundedDouble) 0.4,
+                    WaterLevelRiverAverage = (RoundedDouble) 0.1,
                     LocationInputExtreme =
                     {
                         WaterLevelPolder = (RoundedDouble) 0.5,
