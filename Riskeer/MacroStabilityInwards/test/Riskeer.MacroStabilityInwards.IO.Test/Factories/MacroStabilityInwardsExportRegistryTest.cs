@@ -47,6 +47,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
             CollectionAssert.IsEmpty(registry.GeometryLayers);
             CollectionAssert.IsEmpty(registry.SoilLayers);
             CollectionAssert.IsEmpty(registry.Waternets);
+            CollectionAssert.IsEmpty(registry.WaternetCreatorSettings);
         }
 
         [Test]
@@ -305,6 +306,39 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
             KeyValuePair<MacroStabilityInwardsExportStageType, string> registeredWaternets = registry.Waternets.Single();
             Assert.AreEqual(stageType, registeredWaternets.Key);
             Assert.AreEqual(id, registeredWaternets.Value);
+        }
+
+        [Test]
+        public void AddWaternetCreatorSettings_InvalidStageType_ThrowsInvalidEnumArgumentException()
+        {
+            // Setup
+            var registry = new MacroStabilityInwardsExportRegistry();
+            const MacroStabilityInwardsExportStageType stageType = (MacroStabilityInwardsExportStageType)99;
+
+            // Call
+            void Call() => registry.AddWaternetCreatorSettings(stageType, "1");
+
+            // Assert
+            string expectedMessage = $"The value of argument '{nameof(stageType)}' ({stageType}) is invalid for Enum type '{nameof(MacroStabilityInwardsExportStageType)}'.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(Call, expectedMessage);
+        }
+
+        [Test]
+        public void AddWaternetCreatorSettings_WithWaternetCreatorSettings_AddsWaternetCreatorSettings()
+        {
+            // Setup
+            var registry = new MacroStabilityInwardsExportRegistry();
+            var stageType = new Random(21).NextEnumValue<MacroStabilityInwardsExportStageType>();
+            const string id = "1";
+
+            // Call
+            registry.AddWaternetCreatorSettings(stageType, id);
+
+            // Assert
+            Assert.AreEqual(1, registry.WaternetCreatorSettings.Count);
+            KeyValuePair<MacroStabilityInwardsExportStageType, string> registeredWaternetCreatorSettings = registry.WaternetCreatorSettings.Single();
+            Assert.AreEqual(stageType, registeredWaternetCreatorSettings.Key);
+            Assert.AreEqual(id, registeredWaternetCreatorSettings.Value);
         }
     }
 }
