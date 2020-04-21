@@ -163,29 +163,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
         }
 
         [Test]
-        public void Calculate_ErrorInValidation_SetsCalculationMessages()
-        {
-            // Setup
-            UpliftVanKernelWrapper kernel = CreateInvalidKernel(new Soil());
-
-            // Call
-            kernel.Calculate();
-
-            // Assert
-            LogMessage[] messages = kernel.CalculationMessages.ToArray();
-            Assert.AreEqual(2, messages.Length);
-
-            LogMessage firstMessage = messages.ElementAt(0);
-            Assert.AreEqual(LogMessageType.Error, firstMessage.MessageType);
-            Assert.AreEqual($"Index was out of range. Must be non-negative and less than the size of the collection.{Environment.NewLine}" +
-                            "Parameter name: index", firstMessage.Message);
-
-            LogMessage secondMessage = messages.ElementAt(1);
-            Assert.AreEqual(LogMessageType.Error, secondMessage.MessageType);
-            Assert.AreEqual("Fatale fout in Uplift-Van berekening", secondMessage.Message);
-        }
-
-        [Test]
         public void Validate_InputComplete_NoValidationMessages()
         {
             // Setup
@@ -203,7 +180,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
             var validationMessages = kernel.Validate();
 
             // Assert
-            Assert.AreEqual(0,validationMessages.Count());
+            Assert.IsEmpty(validationMessages.Where(vm => vm.MessageType == ValidationResultType.Error));
         }
 
         [Test]
@@ -222,18 +199,16 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
         }
 
         [Test]
-        public void Validate_InvalidInput_ThrowsUpliftVanKernelWrapperException()
+        public void Validate_InvalidInput_GeneratesValidationMessages()
         {
             // Setup
             UpliftVanKernelWrapper kernel = CreateInvalidKernel(null);
 
             // Call
-            void Test() => kernel.Validate();
+            var validationMessages = kernel.Validate();
 
             // Assert
-            var exception = Assert.Throws<UpliftVanKernelWrapperException>(Test);
-            Assert.IsInstanceOf<ArgumentNullException>(exception.InnerException);
-            Assert.AreEqual(exception.InnerException.Message, exception.Message);
+            Assert.AreEqual(14, validationMessages.Count());
         }
 
         private static UpliftVanKernelWrapper CreateValidKernel(Soil soil)

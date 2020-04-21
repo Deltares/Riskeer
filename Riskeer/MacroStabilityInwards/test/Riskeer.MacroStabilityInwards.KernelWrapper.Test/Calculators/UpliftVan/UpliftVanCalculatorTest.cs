@@ -356,8 +356,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
                 AdjustPhreaticLine3And4ForUplift = random.NextBoolean(),
                 DikeSoilScenario = random.NextEnumValue<MacroStabilityInwardsDikeSoilScenario>(),
                 MoveGrid = random.NextBoolean(),
-                MaximumSliceWidth = random.NextDouble(),
-                
+                MaximumSliceWidth = random.NextDouble()
             });
         }
 
