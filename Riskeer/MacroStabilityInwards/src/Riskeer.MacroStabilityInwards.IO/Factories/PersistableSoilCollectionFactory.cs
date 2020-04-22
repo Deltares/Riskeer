@@ -67,7 +67,9 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
 
             return new PersistableSoilCollection
             {
-                Soils = MacroStabilityInwardsSoilProfile2DLayersHelper.GetLayersRecursively(soilProfile.Layers).Select(l => Create(l, idFactory, registry)).ToArray()
+                Soils = MacroStabilityInwardsSoilProfile2DLayersHelper.GetLayersRecursively(soilProfile.Layers)
+                                                                      .Select(l => Create(l, idFactory, registry))
+                                                                      .ToArray()
             };
         }
 
