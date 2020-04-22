@@ -66,7 +66,8 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
                 CalculationSettingsId = registry.Settings[stageType],
                 GeometryId = registry.Geometries[stageType],
                 SoilLayersId = registry.SoilLayers[stageType],
-                WaternetId = registry.Waternets[stageType]
+                WaternetId = registry.Waternets[stageType],
+                WaternetCreatorSettingsId = registry.WaternetCreatorSettings[stageType]
             };
         }
     }

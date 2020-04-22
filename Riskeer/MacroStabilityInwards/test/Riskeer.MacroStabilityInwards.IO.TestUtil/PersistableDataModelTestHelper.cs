@@ -82,7 +82,7 @@ namespace Riskeer.MacroStabilityInwards.IO.TestUtil
             Assert.IsNull(persistableDataModel.States);
 
             AssertStages(persistableDataModel.Stages, persistableDataModel.CalculationSettings, persistableDataModel.Geometry, persistableDataModel.SoilLayers,
-                         persistableDataModel.Waternets);
+                         persistableDataModel.Waternets, persistableDataModel.WaternetCreatorSettings);
         }
 
         /// <summary>
@@ -397,11 +397,12 @@ namespace Riskeer.MacroStabilityInwards.IO.TestUtil
         /// <param name="geometries">The geometries that are used.</param>
         /// <param name="soilLayers">The soil layers that are used.</param>
         /// <param name="waternets">The waternets that are used.</param>
+        /// <param name="waternetCreatorSettings">The waternet creator settings that are used.</param>
         /// <exception cref="AssertionException">Thrown when the data in <paramref name="stages"/>
         /// is not correct.</exception>
         public static void AssertStages(IEnumerable<PersistableStage> stages, IEnumerable<PersistableCalculationSettings> calculationSettings,
                                         IEnumerable<PersistableGeometry> geometries, IEnumerable<PersistableSoilLayerCollection> soilLayers,
-                                        IEnumerable<PersistableWaternet> waternets)
+                                        IEnumerable<PersistableWaternet> waternets, IEnumerable<PersistableWaternetCreatorSettings> waternetCreatorSettings)
         {
             Assert.AreEqual(2, stages.Count());
 
@@ -413,6 +414,7 @@ namespace Riskeer.MacroStabilityInwards.IO.TestUtil
                 Assert.AreEqual(geometries.ElementAt(i).Id, stage.GeometryId);
                 Assert.AreEqual(soilLayers.ElementAt(i).Id, stage.SoilLayersId);
                 Assert.AreEqual(waternets.ElementAt(i).Id, stage.WaternetId);
+                Assert.AreEqual(waternetCreatorSettings.ElementAt(i).Id, stage.WaternetCreatorSettingsId);
             }
         }
 
