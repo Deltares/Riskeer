@@ -17,7 +17,9 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.IO\Riskeer.Common.IO.csproj" />
+    <ProjectReference Include="..\..\..\Common\test\Riskeer.Common.Data.TestUtil\Riskeer.Common.Data.TestUtil.csproj" />
     <ProjectReference Include="..\..\..\Common\test\Riskeer.Common.IO.TestUtil\Riskeer.Common.IO.TestUtil.csproj" />
     <ProjectReference Include="..\..\src\Riskeer.MacroStabilityInwards.Data\Riskeer.MacroStabilityInwards.Data.csproj" />
+    <ProjectReference Include="..\..\src\Riskeer.MacroStabilityInwards.IO\Riskeer.MacroStabilityInwards.IO.csproj" />
   </ItemGroup>
 </Project>
