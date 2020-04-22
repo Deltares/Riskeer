@@ -48,6 +48,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
             CollectionAssert.IsEmpty(registry.SoilLayers);
             CollectionAssert.IsEmpty(registry.Waternets);
             CollectionAssert.IsEmpty(registry.WaternetCreatorSettings);
+            CollectionAssert.IsEmpty(registry.States);
         }
 
         [Test]
@@ -341,6 +342,39 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
             KeyValuePair<MacroStabilityInwardsExportStageType, string> registeredWaternetCreatorSettings = registry.WaternetCreatorSettings.Single();
             Assert.AreEqual(stageType, registeredWaternetCreatorSettings.Key);
             Assert.AreEqual(id, registeredWaternetCreatorSettings.Value);
+        }
+
+        [Test]
+        public void AddState_InvalidStageType_ThrowsInvalidEnumArgumentException()
+        {
+            // Setup
+            var registry = new MacroStabilityInwardsExportRegistry();
+            const MacroStabilityInwardsExportStageType stageType = (MacroStabilityInwardsExportStageType)99;
+
+            // Call
+            void Call() => registry.AddState(stageType, "1");
+
+            // Assert
+            string expectedMessage = $"The value of argument '{nameof(stageType)}' ({stageType}) is invalid for Enum type '{nameof(MacroStabilityInwardsExportStageType)}'.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(Call, expectedMessage);
+        }
+
+        [Test]
+        public void AddState_WithWaternetCreatorSettings_AddsWaternetCreatorSettings()
+        {
+            // Setup
+            var registry = new MacroStabilityInwardsExportRegistry();
+            var stageType = new Random(21).NextEnumValue<MacroStabilityInwardsExportStageType>();
+            const string id = "1";
+
+            // Call
+            registry.AddState(stageType, id);
+
+            // Assert
+            Assert.AreEqual(1, registry.States.Count);
+            KeyValuePair<MacroStabilityInwardsExportStageType, string> registeredStates = registry.States.Single();
+            Assert.AreEqual(stageType, registeredStates.Key);
+            Assert.AreEqual(id, registeredStates.Value);
         }
     }
 }
