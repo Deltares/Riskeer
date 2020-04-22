@@ -50,9 +50,8 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Output
             }
 
             bool leftCircleIsActive = slidingCurve.ActiveCircle.X <= slidingCurve.PassiveCircle.X;
-            bool rightCircleIsActive = slidingCurve.ActiveCircle.X > slidingCurve.PassiveCircle.X;
             UpliftVanSlidingCircleResult leftCircle = leftCircleIsActive ? CreateActiveCircle(slidingCurve) : CreatePassiveCircle(slidingCurve);
-            UpliftVanSlidingCircleResult rightCircle = rightCircleIsActive ? CreateActiveCircle(slidingCurve) : CreatePassiveCircle(slidingCurve);
+            UpliftVanSlidingCircleResult rightCircle = leftCircleIsActive ? CreatePassiveCircle(slidingCurve) : CreateActiveCircle(slidingCurve);
 
             return new UpliftVanSlidingCurveResult(leftCircle, rightCircle, CreateSlices(slidingCurve.Slices),
                                                    slidingCurve.HorizontalForce0, slidingCurve.HorizontalForce);

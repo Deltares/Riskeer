@@ -134,6 +134,11 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan
             SlipPlaneUpliftVan = slipPlaneUpliftVan;
         }
 
+        public void SetSurfaceLine(SurfaceLine2 surfaceLine)
+        {
+            SurfaceLine = surfaceLine;
+        }
+
         public void SetSlipPlaneConstraints(SlipPlaneConstraints slipPlaneConstraints)
         {
             SlipPlaneConstraints = slipPlaneConstraints;
@@ -171,7 +176,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan
             Calculated = true;
         }
 
-        public IEnumerable<ValidationResult> Validate()
+        public IEnumerable<IValidationResult> Validate()
         {
             if (ThrowExceptionOnValidate)
             {

@@ -1,9 +1,135 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <Import Project="$(SolutionDir)\build\Test.targets" />
   <ItemGroup>
+    <Reference Include="Components.Persistence.Stability">
+      <HintPath>..\..\..\..\lib\Plugins\Wti\Components.Persistence.Stability.dll</HintPath>
+    </Reference>
+    <Reference Include="Deltares.Geometry">
+      <HintPath>..\..\..\..\lib\Plugins\Wti\Deltares.Geometry.dll</HintPath>
+    </Reference>
+    <Reference Include="Deltares.Geotechnics">
+      <HintPath>..\..\..\..\lib\Plugins\Wti\Deltares.Geotechnics.dll</HintPath>
+    </Reference>
+    <Reference Include="Deltares.MacroStability.Calculation">
+      <HintPath>..\..\..\..\lib\Plugins\Wti\Deltares.MacroStability.Calculation.dll</HintPath>
+    </Reference>
+    <Reference Include="Deltares.MacroStability.Calculation.Tests">
+      <HintPath>..\..\..\..\lib\Plugins\Wti\Deltares.MacroStability.Calculation.Tests.dll</HintPath>
+    </Reference>
+    <Reference Include="Deltares.MacroStability.Data">
+      <HintPath>..\..\..\..\lib\Plugins\Wti\Deltares.MacroStability.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Deltares.MacroStability.Data.Tests">
+      <HintPath>..\..\..\..\lib\Plugins\Wti\Deltares.MacroStability.Data.Tests.dll</HintPath>
+    </Reference>
+    <Reference Include="Deltares.MacroStability.Data.TestUtils">
+      <HintPath>..\..\..\..\lib\Plugins\Wti\Deltares.MacroStability.Data.TestUtils.dll</HintPath>
+    </Reference>
+    <Reference Include="Deltares.MacroStability.FileBased.Tests">
+      <HintPath>..\..\..\..\lib\Plugins\Wti\Deltares.MacroStability.FileBased.Tests.dll</HintPath>
+    </Reference>
+    <Reference Include="Deltares.MacroStability.Geometry">
+      <HintPath>..\..\..\..\lib\Plugins\Wti\Deltares.MacroStability.Geometry.dll</HintPath>
+    </Reference>
+    <Reference Include="Deltares.MacroStability.Geometry.Tests">
+      <HintPath>..\..\..\..\lib\Plugins\Wti\Deltares.MacroStability.Geometry.Tests.dll</HintPath>
+    </Reference>
+    <Reference Include="Deltares.MacroStability.IntegrationTests">
+      <HintPath>..\..\..\..\lib\Plugins\Wti\Deltares.MacroStability.IntegrationTests.dll</HintPath>
+    </Reference>
+    <Reference Include="Deltares.MacroStability.Interface">
+      <HintPath>..\..\..\..\lib\Plugins\Wti\Deltares.MacroStability.Interface.dll</HintPath>
+    </Reference>
+    <Reference Include="Deltares.MacroStability.Interface.Tests">
+      <HintPath>..\..\..\..\lib\Plugins\Wti\Deltares.MacroStability.Interface.Tests.dll</HintPath>
+    </Reference>
+    <Reference Include="Deltares.MacroStability.Io">
+      <HintPath>..\..\..\..\lib\Plugins\Wti\Deltares.MacroStability.Io.dll</HintPath>
+    </Reference>
+    <Reference Include="Deltares.MacroStability.Kernel">
+      <HintPath>..\..\..\..\lib\Plugins\Wti\Deltares.MacroStability.Kernel.dll</HintPath>
+    </Reference>
+    <Reference Include="Deltares.MacroStability.Preprocessing">
+      <HintPath>..\..\..\..\lib\Plugins\Wti\Deltares.MacroStability.Preprocessing.dll</HintPath>
+    </Reference>
+    <Reference Include="Deltares.MacroStability.Preprocessing.Tests">
+      <HintPath>..\..\..\..\lib\Plugins\Wti\Deltares.MacroStability.Preprocessing.Tests.dll</HintPath>
+    </Reference>
+    <Reference Include="Deltares.MacroStability.Reliability">
+      <HintPath>..\..\..\..\lib\Plugins\Wti\Deltares.MacroStability.Reliability.dll</HintPath>
+    </Reference>
+    <Reference Include="Deltares.MacroStability.Standard">
+      <HintPath>..\..\..\..\lib\Plugins\Wti\Deltares.MacroStability.Standard.dll</HintPath>
+    </Reference>
+    <Reference Include="Deltares.MacroStability.TestFileUtils">
+      <HintPath>..\..\..\..\lib\Plugins\Wti\Deltares.MacroStability.TestFileUtils.dll</HintPath>
+    </Reference>
+    <Reference Include="Deltares.MacroStability.Version">
+      <HintPath>..\..\..\..\lib\Plugins\Wti\Deltares.MacroStability.Version.dll</HintPath>
+    </Reference>
+    <Reference Include="Deltares.MacroStability.WaternetCreator">
+      <HintPath>..\..\..\..\lib\Plugins\Wti\Deltares.MacroStability.WaternetCreator.dll</HintPath>
+    </Reference>
+    <Reference Include="Deltares.MacroStability.WaternetCreator.Tests">
+      <HintPath>..\..\..\..\lib\Plugins\Wti\Deltares.MacroStability.WaternetCreator.Tests.dll</HintPath>
+    </Reference>
+    <Reference Include="Deltares.Mathematics">
+      <HintPath>..\..\..\..\lib\Plugins\Wti\Deltares.Mathematics.dll</HintPath>
+    </Reference>
+    <Reference Include="Deltares.MStab">
+      <HintPath>..\..\..\..\lib\Plugins\Wti\Deltares.MStab.dll</HintPath>
+    </Reference>
+    <Reference Include="Deltares.MStab.IO.Classic">
+      <HintPath>..\..\..\..\lib\Plugins\Wti\Deltares.MStab.IO.Classic.dll</HintPath>
+    </Reference>
+    <Reference Include="Deltares.Probabilistic">
+      <HintPath>..\..\..\..\lib\Plugins\Wti\Deltares.Probabilistic.dll</HintPath>
+    </Reference>
+    <Reference Include="Deltares.SearchAlgorithms">
+      <HintPath>..\..\..\..\lib\Plugins\Wti\Deltares.SearchAlgorithms.dll</HintPath>
+    </Reference>
+    <Reference Include="Deltares.SearchAlgorithms.Tests">
+      <HintPath>..\..\..\..\lib\Plugins\Wti\Deltares.SearchAlgorithms.Tests.dll</HintPath>
+    </Reference>
+    <Reference Include="Deltares.SoilStress.Calculation">
+      <HintPath>..\..\..\..\lib\Plugins\Wti\Deltares.SoilStress.Calculation.dll</HintPath>
+    </Reference>
+    <Reference Include="Deltares.SoilStress.Data">
+      <HintPath>..\..\..\..\lib\Plugins\Wti\Deltares.SoilStress.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Deltares.SoilStress.Tests">
+      <HintPath>..\..\..\..\lib\Plugins\Wti\Deltares.SoilStress.Tests.dll</HintPath>
+    </Reference>
+    <Reference Include="Deltares.Stability">
+      <HintPath>..\..\..\..\lib\Plugins\Wti\Deltares.Stability.dll</HintPath>
+    </Reference>
+    <Reference Include="Deltares.Stability.WTI">
+      <HintPath>..\..\..\..\lib\Plugins\Wti\Deltares.Stability.WTI.dll</HintPath>
+    </Reference>
+    <Reference Include="Deltares.Standard">
+      <HintPath>..\..\..\..\lib\Plugins\Wti\Deltares.Standard.dll</HintPath>
+    </Reference>
+    <Reference Include="Deltares.WTIStability.Calculation.Wrapper">
+      <HintPath>..\..\..\..\lib\Plugins\Wti\Deltares.WTIStability.Calculation.Wrapper.dll</HintPath>
+    </Reference>
+    <Reference Include="Deltares.WTIStability.Calculation.Wrapper.Tests">
+      <HintPath>..\..\..\..\lib\Plugins\Wti\Deltares.WTIStability.Calculation.Wrapper.Tests.dll</HintPath>
+    </Reference>
+    <Reference Include="Deltares.WTIStability.Data">
+      <HintPath>..\..\..\..\lib\Plugins\Wti\Deltares.WTIStability.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Deltares.WTIStability.IO">
+      <HintPath>..\..\..\..\lib\Plugins\Wti\Deltares.WTIStability.IO.dll</HintPath>
+    </Reference>
+    <Reference Include="Deltares.WTIStability.IO.Tests">
+      <HintPath>..\..\..\..\lib\Plugins\Wti\Deltares.WTIStability.IO.Tests.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml" />
+    <Reference Include="WTIPiping">
+      <HintPath>..\..\..\..\lib\Plugins\Wti\WTIPiping.dll</HintPath>
+    </Reference>
     <Reference Include="WTIStability, Culture=neutral, processorArchitecture=x86">
       <HintPath>..\..\..\..\lib\Plugins\Wti\WTIStability.dll</HintPath>
     </Reference>
@@ -14,13 +140,13 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj"/>
-    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Util\Core.Common.Util.csproj"/>
-    <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.TestUtil\Core.Common.TestUtil.csproj"/>
-    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Data\Riskeer.Common.Data.csproj"/>
-    <ProjectReference Include="..\..\src\Riskeer.MacroStabilityInwards.KernelWrapper\Riskeer.MacroStabilityInwards.KernelWrapper.csproj"/>
-    <ProjectReference Include="..\..\src\Riskeer.MacroStabilityInwards.Primitives\Riskeer.MacroStabilityInwards.Primitives.csproj"/>
-    <ProjectReference Include="..\Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil\Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.csproj"/>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj" />
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Util\Core.Common.Util.csproj" />
+    <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.TestUtil\Core.Common.TestUtil.csproj" />
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Data\Riskeer.Common.Data.csproj" />
+    <ProjectReference Include="..\..\src\Riskeer.MacroStabilityInwards.KernelWrapper\Riskeer.MacroStabilityInwards.KernelWrapper.csproj" />
+    <ProjectReference Include="..\..\src\Riskeer.MacroStabilityInwards.Primitives\Riskeer.MacroStabilityInwards.Primitives.csproj" />
+    <ProjectReference Include="..\Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil\Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.csproj" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="NUnit">

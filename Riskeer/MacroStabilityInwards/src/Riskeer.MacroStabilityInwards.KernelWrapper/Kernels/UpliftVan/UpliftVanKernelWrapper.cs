@@ -28,7 +28,6 @@ using Deltares.MacroStability.Kernel;
 using Deltares.MacroStability.Preprocessing;
 using Deltares.MacroStability.Standard;
 using Deltares.WTIStability.Calculation.Wrapper;
-using Deltares.WTIStability.IO;
 using WtiStabilityWaternet = Deltares.MacroStability.Geometry.Waternet;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
@@ -41,7 +40,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
         private readonly StabilityModel stabilityModel;
         private KernelModel kernelModel;
         private SoilProfile2D soilProfile2D;
-        private bool autoGridDetermination;
+        private SurfaceLine2 surfaceLine2;
         private WtiStabilityWaternet dailyWaternet;
         private WtiStabilityWaternet extremeWaternet;
 
@@ -108,10 +107,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
             stabilityModel.SlipPlaneConstraints = slipPlaneConstraints;
         }
 
-        public void SetGridAutomaticDetermined(bool gridAutomaticDetermined)
-        {
-            autoGridDetermination = gridAutomaticDetermined;
-        }
+        public void SetGridAutomaticDetermined(bool gridAutomaticDetermined) {}
 
         public void SetSoilModel(IList<Soil> soilModel)
         {
@@ -123,25 +119,16 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
             soilProfile2D = soilProfile;
         }
 
+        public void SetSurfaceLine(SurfaceLine2 surfaceLine)
+        {
+            surfaceLine2 = surfaceLine;
+        }
+
         public void Calculate()
         {
             try
             {
-                kernelModel = new KernelModel
-                {
-                    StabilityModel = stabilityModel,
-                    PreprocessingModel = new PreprocessingModel()
-                };
-                kernelModel.PreprocessingModel.SearchAreaConditions.AutoSearchArea = autoGridDetermination;
-
-                ConstructionStage dailyStage = stabilityModel.ConstructionStages.First();
-                dailyStage.GeotechnicsData.CurrentWaternet = dailyWaternet;
-                dailyStage.SoilProfile = soilProfile2D;
-               
-                stabilityModel.ConstructionStages.Add(new ConstructionStage());
-                ConstructionStage extremeStage = stabilityModel.ConstructionStages.ElementAt(1);
-                extremeStage.GeotechnicsData.CurrentWaternet = extremeWaternet;
-                extremeStage.SoilProfile = soilProfile2D;
+                ConfigureKernelModel();
 
                 var kernelCalculation = new KernelCalculation();
                 kernelCalculation.Run(kernelModel);
@@ -155,21 +142,47 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
             }
         }
 
-        public IEnumerable<ValidationResult> Validate()
+        public IEnumerable<IValidationResult> Validate()
         {
             try
             {
-                var wtiStabilityCalculation = new WTIStabilityCalculation();
-                wtiStabilityCalculation.InitializeForDeterministic(WTISerializer.Serialize(kernelModel));
+                ConfigureKernelModel();
 
-                string result = wtiStabilityCalculation.Validate();
-
-                return WTIDeserializer.DeserializeValidation(result);
+                IValidationResult[] validationResults = Validator.Validate(kernelModel);
+                return validationResults;
             }
             catch (Exception e)
             {
                 throw new UpliftVanKernelWrapperException(e.Message, e);
             }
+        }
+
+        private void ConfigureKernelModel()
+        {
+            kernelModel = new KernelModel
+            {
+                StabilityModel = stabilityModel,
+                PreprocessingModel = new PreprocessingModel()
+            };
+
+            stabilityModel.ConstructionStages.Add(new ConstructionStage());
+            kernelModel.PreprocessingModel.PreProcessingConstructionStages.Add(new PreprocessingConstructionStage
+            {
+                StabilityModel = stabilityModel
+            });
+            ConstructionStage dailyStage = stabilityModel.ConstructionStages.First();
+            dailyStage.GeotechnicsData.CurrentWaternet = dailyWaternet;
+            dailyStage.SoilProfile = soilProfile2D;
+
+            stabilityModel.ConstructionStages.Add(new ConstructionStage());
+            kernelModel.PreprocessingModel.PreProcessingConstructionStages.Add(new PreprocessingConstructionStage
+            {
+                StabilityModel = stabilityModel
+            });
+            ConstructionStage extremeStage = stabilityModel.ConstructionStages.ElementAt(1);
+            extremeStage.GeotechnicsData.CurrentWaternet = extremeWaternet;
+            extremeStage.SoilProfile = soilProfile2D;
+            kernelModel.PreprocessingModel.LastStage.SurfaceLine = surfaceLine2;
         }
 
         private void ReadLogMessages(List<LogMessage> kernelCalculationLogMessages)
