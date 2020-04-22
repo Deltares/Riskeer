@@ -165,24 +165,21 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
                 PreprocessingModel = new PreprocessingModel()
             };
 
-            stabilityModel.ConstructionStages.Add(new ConstructionStage());
-            kernelModel.PreprocessingModel.PreProcessingConstructionStages.Add(new PreprocessingConstructionStage
-            {
-                StabilityModel = stabilityModel
-            });
-            ConstructionStage dailyStage = stabilityModel.ConstructionStages.First();
-            dailyStage.GeotechnicsData.CurrentWaternet = dailyWaternet;
-            dailyStage.SoilProfile = soilProfile2D;
-
-            stabilityModel.ConstructionStages.Add(new ConstructionStage());
-            kernelModel.PreprocessingModel.PreProcessingConstructionStages.Add(new PreprocessingConstructionStage
-            {
-                StabilityModel = stabilityModel
-            });
-            ConstructionStage extremeStage = stabilityModel.ConstructionStages.ElementAt(1);
-            extremeStage.GeotechnicsData.CurrentWaternet = extremeWaternet;
-            extremeStage.SoilProfile = soilProfile2D;
+            AddConstructionStage(0, dailyWaternet);
+            AddConstructionStage(1, extremeWaternet);
             kernelModel.PreprocessingModel.LastStage.SurfaceLine = surfaceLine2;
+        }
+
+        private void AddConstructionStage(int constructionStageIndex, WtiStabilityWaternet waternet)
+        {
+            stabilityModel.ConstructionStages.Add(new ConstructionStage());
+            kernelModel.PreprocessingModel.PreProcessingConstructionStages.Add(new PreprocessingConstructionStage
+            {
+                StabilityModel = stabilityModel
+            });
+            ConstructionStage constructionStage = stabilityModel.ConstructionStages.ElementAt(constructionStageIndex);
+            constructionStage.GeotechnicsData.CurrentWaternet = waternet;
+            constructionStage.SoilProfile = soilProfile2D;
         }
 
         private void ReadLogMessages(List<LogMessage> kernelCalculationLogMessages)
