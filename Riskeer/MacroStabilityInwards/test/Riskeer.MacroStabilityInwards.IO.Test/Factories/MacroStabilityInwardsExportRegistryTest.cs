@@ -211,6 +211,8 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
             // Setup
             MacroStabilityInwardsSoilLayer2D geometryLayer1 = MacroStabilityInwardsSoilLayer2DTestFactory.CreateMacroStabilityInwardsSoilLayer2D();
             MacroStabilityInwardsSoilLayer2D geometryLayer2 = MacroStabilityInwardsSoilLayer2DTestFactory.CreateMacroStabilityInwardsSoilLayer2D();
+            geometryLayer2.Data.MaterialName = "Test material";
+            geometryLayer2.Data.IsAquifer = true;
 
             var registry = new MacroStabilityInwardsExportRegistry();
             var stageType = new Random(21).NextEnumValue<MacroStabilityInwardsExportStageType>();
