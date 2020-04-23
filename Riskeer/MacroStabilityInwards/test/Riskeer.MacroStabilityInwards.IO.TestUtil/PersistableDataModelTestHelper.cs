@@ -84,7 +84,7 @@ namespace Riskeer.MacroStabilityInwards.IO.TestUtil
             Assert.IsNull(persistableDataModel.StateCorrelations);
 
             AssertStages(persistableDataModel.Stages, persistableDataModel.CalculationSettings, persistableDataModel.Geometry, persistableDataModel.SoilLayers,
-                         persistableDataModel.Waternets, persistableDataModel.WaternetCreatorSettings);
+                         persistableDataModel.Waternets, persistableDataModel.WaternetCreatorSettings, persistableDataModel.States);
         }
 
         /// <summary>
@@ -446,11 +446,13 @@ namespace Riskeer.MacroStabilityInwards.IO.TestUtil
         /// <param name="soilLayers">The soil layers that are used.</param>
         /// <param name="waternets">The waternets that are used.</param>
         /// <param name="waternetCreatorSettings">The waternet creator settings that are used.</param>
+        /// <param name="states">The states that are used.</param>
         /// <exception cref="AssertionException">Thrown when the data in <paramref name="stages"/>
         /// is not correct.</exception>
         public static void AssertStages(IEnumerable<PersistableStage> stages, IEnumerable<PersistableCalculationSettings> calculationSettings,
                                         IEnumerable<PersistableGeometry> geometries, IEnumerable<PersistableSoilLayerCollection> soilLayers,
-                                        IEnumerable<PersistableWaternet> waternets, IEnumerable<PersistableWaternetCreatorSettings> waternetCreatorSettings)
+                                        IEnumerable<PersistableWaternet> waternets, IEnumerable<PersistableWaternetCreatorSettings> waternetCreatorSettings,
+                                        IEnumerable<PersistableState> states)
         {
             Assert.AreEqual(2, stages.Count());
 
@@ -463,6 +465,7 @@ namespace Riskeer.MacroStabilityInwards.IO.TestUtil
                 Assert.AreEqual(soilLayers.ElementAt(i).Id, stage.SoilLayersId);
                 Assert.AreEqual(waternets.ElementAt(i).Id, stage.WaternetId);
                 Assert.AreEqual(waternetCreatorSettings.ElementAt(i).Id, stage.WaternetCreatorSettingsId);
+                Assert.AreEqual(states.ElementAt(i).Id, stage.StateId);
             }
         }
 
