@@ -429,6 +429,41 @@ namespace Core.Common.Geometry.Test
             Assert.AreEqual(new Point2D(firstPointX, completingPointsLevel), pointsOfPolygon.ElementAt(4));
         }
 
+        [Test]
+        public void GetPolygonInteriorPoint_OuterRingNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => AdvancedMath2D.GetPolygonInteriorPoint(null, new IEnumerable<Point2D>[0]);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("outerRing", exception.ParamName);
+        }
+
+        [Test]
+        public void GetPolygonInteriorPoint_InnerRingsNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => AdvancedMath2D.GetPolygonInteriorPoint(CreateBasePolygon(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("innerRings", exception.ParamName);
+        }
+
+        [Test]
+        public void GetPolygonInteriorPoint_WithGeometry_ReturnsInteriorPoint()
+        {
+            // Setup
+            Point2D[] outerRing = CreateBasePolygon();
+
+            // Call
+            Point2D interiorPoint = AdvancedMath2D.GetPolygonInteriorPoint(outerRing, new IEnumerable<Point2D>[0]);
+
+            // Assert
+            Assert.AreEqual(new Point2D(2, 2), interiorPoint);
+        }
+
         private static double[] ThreeRandomXCoordinates()
         {
             var random = new Random(21);

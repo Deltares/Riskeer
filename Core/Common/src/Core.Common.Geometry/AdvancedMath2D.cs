@@ -119,6 +119,36 @@ namespace Core.Common.Geometry
             }).ToArray();
         }
 
+        /// <summary>
+        /// Gets the interior point of a polygon.
+        /// </summary>
+        /// <param name="outerRing">The outer ring of the polygon.</param>
+        /// <param name="innerRings">The inner rings of the polygon.</param>
+        /// <returns>The interior point.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when any
+        /// parameter is <c>null</c>.</exception>
+        public static Point2D GetPolygonInteriorPoint(IEnumerable<Point2D> outerRing, IEnumerable<IEnumerable<Point2D>> innerRings)
+        {
+            if (outerRing == null)
+            {
+                throw new ArgumentNullException(nameof(outerRing));
+            }
+
+            if (innerRings == null)
+            {
+                throw new ArgumentNullException(nameof(innerRings));
+            }
+
+            Polygon outerPolygon = PointsToPolygon(outerRing);
+            IEnumerable<Polygon> innerPolygons = innerRings.Select(PointsToPolygon).ToArray();
+
+            var polygon = new Polygon(outerPolygon.Shell, innerPolygons.Select(p => p.Shell).ToArray());
+
+            IPoint interiorPoint = polygon.InteriorPoint;
+
+            return new Point2D(interiorPoint.X, interiorPoint.Y);
+        }
+
         private static IEnumerable<Point2D> GetPointsFromLine(IEnumerable<Point2D> line, double completingPointsLevel)
         {
             foreach (Point2D point in line)
