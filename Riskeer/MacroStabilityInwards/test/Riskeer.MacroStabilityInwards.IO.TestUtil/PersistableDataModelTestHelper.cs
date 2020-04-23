@@ -25,6 +25,8 @@ using System.Linq;
 using System.Reflection;
 using Components.Persistence.Stability.Data;
 using Core.Common.Base.Data;
+using Core.Common.Base.Geometry;
+using Core.Common.Geometry;
 using Core.Common.Util.Reflection;
 using NUnit.Framework;
 using Riskeer.Common.Data.Probabilistics;
@@ -70,6 +72,7 @@ namespace Riskeer.MacroStabilityInwards.IO.TestUtil
                 MacroStabilityInwardsExportStageType.Daily,
                 MacroStabilityInwardsExportStageType.Extreme
             });
+            AssertStates(calculation.InputParameters.SoilProfileUnderSurfaceLine, persistableDataModel.States);
 
             Assert.IsNull(persistableDataModel.AssessmentResults);
             Assert.IsNull(persistableDataModel.Decorations);
@@ -79,7 +82,6 @@ namespace Riskeer.MacroStabilityInwards.IO.TestUtil
             Assert.IsNull(persistableDataModel.SoilCorrelations);
             Assert.IsNull(persistableDataModel.SoilVisualizations);
             Assert.IsNull(persistableDataModel.StateCorrelations);
-            Assert.IsNull(persistableDataModel.States);
 
             AssertStages(persistableDataModel.Stages, persistableDataModel.CalculationSettings, persistableDataModel.Geometry, persistableDataModel.SoilLayers,
                          persistableDataModel.Waternets, persistableDataModel.WaternetCreatorSettings);
@@ -385,6 +387,52 @@ namespace Riskeer.MacroStabilityInwards.IO.TestUtil
                     Assert.AreEqual(input.LocationInputExtreme.WaterLevelPolder, waternetCreatorSettings.WaterLevelHinterland);
                     Assert.AreEqual(input.LocationInputExtreme.PenetrationLength, waternetCreatorSettings.IntrusionLength);
                     AssertOffsets(input.LocationInputExtreme, waternetCreatorSettings);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Asserts whether the <see cref="PersistableState"/> contains the data
+        /// that is representative for the <paramref name="soilProfile"/>.
+        /// </summary>
+        /// <param name="soilProfile">The input that contains the original data.</param>
+        /// <param name="states">The <see cref="PersistableState"/>
+        /// that needs to be asserted.</param>
+        /// <exception cref="AssertionException">Thrown when the data in <paramref name="states"/>
+        /// is not correct.</exception>
+        public static void AssertStates(IMacroStabilityInwardsSoilProfileUnderSurfaceLine soilProfile, IEnumerable<PersistableState> states)
+        {
+            Assert.AreEqual(2, states.Count());
+
+            IEnumerable<MacroStabilityInwardsSoilLayer2D> layersWithPop = MacroStabilityInwardsSoilProfile2DLayersHelper.GetLayersRecursively(soilProfile.Layers)
+                                                                                                                        .Where(l => l.Data.UsePop);
+
+            for (var i = 0; i < states.Count(); i++)
+            {
+                PersistableState state = states.ElementAt(i);
+
+                Assert.IsNotNull(state.Id);
+                CollectionAssert.IsEmpty(state.StateLines);
+
+                Assert.AreEqual(layersWithPop.Count(), state.StatePoints.Count());
+
+                for (var j = 0; j < layersWithPop.Count(); j++)
+                {
+                    MacroStabilityInwardsSoilLayer2D layerWithPop = layersWithPop.ElementAt(j);
+                    PersistableStatePoint statePoint = state.StatePoints.ElementAt(j);
+
+                    Assert.IsNotNull(statePoint.Id);
+                    Assert.IsEmpty(statePoint.Label);
+                    Assert.IsNotNull(statePoint.LayerId);
+                    Assert.IsTrue(statePoint.IsProbabilistic);
+
+                    Point2D interiorPoint = AdvancedMath2D.GetPolygonInteriorPoint(layerWithPop.OuterRing.Points, layerWithPop.NestedLayers.Select(layers => layers.OuterRing.Points));
+                    Assert.AreEqual(interiorPoint.X, statePoint.Point.X);
+                    Assert.AreEqual(interiorPoint.Y, statePoint.Point.Z);
+
+                    Assert.AreEqual(MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetPop(layerWithPop.Data).GetDesignValue(), statePoint.Stress.Pop);
+                    AssertStochasticParameter(layerWithPop.Data.Pop, statePoint.Stress.PopStochasticParameter);
+                    Assert.AreEqual(PersistableStateType.Pop, statePoint.Stress.StateType);
                 }
             }
         }
