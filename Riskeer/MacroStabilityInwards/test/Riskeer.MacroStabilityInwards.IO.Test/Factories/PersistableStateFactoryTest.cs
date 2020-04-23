@@ -20,9 +20,20 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using Components.Persistence.Stability.Data;
+using Core.Common.Base.Geometry;
+using Core.Common.Geometry;
+using Core.Common.Util.Extensions;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Riskeer.Common.Data.TestUtil;
+using Riskeer.MacroStabilityInwards.Data;
+using Riskeer.MacroStabilityInwards.Data.SoilProfile;
+using Riskeer.MacroStabilityInwards.Data.TestUtil;
 using Riskeer.MacroStabilityInwards.IO.Factories;
+using Riskeer.MacroStabilityInwards.IO.TestUtil;
 using Riskeer.MacroStabilityInwards.Primitives;
 
 namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
@@ -73,6 +84,76 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("registry", exception.ParamName);
             mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Create_WithValidData_ReturnsPersistableStates()
+        {
+            // Setup
+            MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput(
+                new TestHydraulicBoundaryLocation());
+            IMacroStabilityInwardsSoilProfileUnderSurfaceLine soilProfile = calculation.InputParameters.SoilProfileUnderSurfaceLine;
+            soilProfile.Layers.ForEachElementDo(l => l.Data.UsePop = true);
+
+            var idFactory = new IdFactory();
+            var registry = new MacroStabilityInwardsExportRegistry();
+
+            PersistableGeometryFactory.Create(soilProfile, idFactory, registry);
+
+            // Call
+            IEnumerable<PersistableState> states = PersistableStateFactory.Create(soilProfile, idFactory, registry);
+
+            // Assert
+            Assert.AreEqual(2, states.Count());
+
+            IEnumerable<MacroStabilityInwardsSoilLayer2D> layersWithPop = MacroStabilityInwardsSoilProfile2DLayersHelper.GetLayersRecursively(soilProfile.Layers)
+                                                                                                                        .Where(l => l.Data.UsePop);
+
+            for (var i = 0; i < states.Count(); i++)
+            {
+                PersistableState state = states.ElementAt(i);
+
+                Assert.IsNotNull(state.Id);
+                CollectionAssert.IsEmpty(state.StateLines);
+
+                Assert.AreEqual(layersWithPop.Count(), state.StatePoints.Count());
+
+                for (var j = 0; j < layersWithPop.Count(); j++)
+                {
+                    MacroStabilityInwardsSoilLayer2D layerWithPop = layersWithPop.ElementAt(j);
+                    PersistableStatePoint statePoint = state.StatePoints.ElementAt(j);
+
+                    Assert.IsNotNull(statePoint.Id);
+                    Assert.IsEmpty(statePoint.Label);
+                    Assert.IsNotNull(statePoint.LayerId);
+                    Assert.IsTrue(statePoint.IsProbabilistic);
+
+                    Point2D interiorPoint = AdvancedMath2D.GetPolygonInteriorPoint(layerWithPop.OuterRing.Points, layerWithPop.NestedLayers.Select(layers => layers.OuterRing.Points));
+                    Assert.AreEqual(interiorPoint.X, statePoint.Point.X);
+                    Assert.AreEqual(interiorPoint.Y, statePoint.Point.Z);
+
+                    Assert.AreEqual(MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetPop(layerWithPop.Data).GetDesignValue(), statePoint.Stress.Pop);
+                    PersistableDataModelTestHelper.AssertStochasticParameter(layerWithPop.Data.Pop, statePoint.Stress.PopStochasticParameter);
+                    Assert.AreEqual(PersistableStateType.Pop, statePoint.Stress.StateType);
+                }
+            }
+
+            AssertRegistry(registry, new []
+            {
+                MacroStabilityInwardsExportStageType.Daily,
+                MacroStabilityInwardsExportStageType.Extreme
+            }, states);
+        }
+
+        private static void AssertRegistry(MacroStabilityInwardsExportRegistry registry, MacroStabilityInwardsExportStageType[] stages, IEnumerable<PersistableState> states)
+        {
+            Assert.AreEqual(stages.Length, registry.States.Count);
+
+            for (var i = 0; i < stages.Length; i++)
+            {
+                PersistableState state = states.ElementAt(i);
+                Assert.AreEqual(registry.States[stages[i]], state.Id);
+            }
         }
     }
 }

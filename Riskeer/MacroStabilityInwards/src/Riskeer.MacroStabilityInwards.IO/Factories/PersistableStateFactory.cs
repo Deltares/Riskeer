@@ -21,7 +21,11 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Components.Persistence.Stability.Data;
+using Core.Common.Base.Geometry;
+using Core.Common.Geometry;
+using Riskeer.MacroStabilityInwards.Data.SoilProfile;
 using Riskeer.MacroStabilityInwards.Primitives;
 
 namespace Riskeer.MacroStabilityInwards.IO.Factories
@@ -57,7 +61,60 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
                 throw new ArgumentNullException(nameof(registry));
             }
 
-            return null;
+            return new[]
+            {
+                Create(soilProfile, MacroStabilityInwardsExportStageType.Daily, idFactory, registry),
+                Create(soilProfile, MacroStabilityInwardsExportStageType.Extreme, idFactory, registry)
+            };
+        }
+
+        private static PersistableState Create(IMacroStabilityInwardsSoilProfileUnderSurfaceLine soilProfile, MacroStabilityInwardsExportStageType stageType,
+                                               IdFactory idFactory, MacroStabilityInwardsExportRegistry registry)
+        {
+            var state = new PersistableState
+            {
+                Id = idFactory.Create(),
+                StateLines = Enumerable.Empty<PersistableStateLine>(),
+                StatePoints = MacroStabilityInwardsSoilProfile2DLayersHelper.GetLayersRecursively(soilProfile.Layers)
+                                                                            .Where(l => l.Data.UsePop)
+                                                                            .Select(l => CreateStatePoint(l, stageType, idFactory, registry))
+                                                                            .ToArray()
+            };
+
+            registry.AddState(stageType, state.Id);
+
+            return state;
+        }
+
+        private static PersistableStatePoint CreateStatePoint(MacroStabilityInwardsSoilLayer2D layer, MacroStabilityInwardsExportStageType stageType,
+                                                              IdFactory idFactory, MacroStabilityInwardsExportRegistry registry)
+        {
+            return new PersistableStatePoint
+            {
+                Id = idFactory.Create(),
+                IsProbabilistic = true,
+                LayerId = registry.GeometryLayers[stageType][layer],
+                Point = CreatePoint(layer),
+                Stress = CreateStress(layer.Data),
+                Label = string.Empty
+            };
+        }
+
+        private static PersistablePoint CreatePoint(MacroStabilityInwardsSoilLayer2D layer)
+        {
+            Point2D interiorPoint = AdvancedMath2D.GetPolygonInteriorPoint(layer.OuterRing.Points, layer.NestedLayers.Select(layers => layers.OuterRing.Points));
+
+            return new PersistablePoint(interiorPoint.X, interiorPoint.Y);
+        }
+
+        private static PersistableStress CreateStress(MacroStabilityInwardsSoilLayerData layerData)
+        {
+            return new PersistableStress
+            {
+                Pop = MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetPop(layerData).GetDesignValue(),
+                PopStochasticParameter = PersistableStochasticParameterFactory.Create(layerData.Pop),
+                StateType = PersistableStateType.Pop
+            };
         }
     }
 }
