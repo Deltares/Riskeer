@@ -124,22 +124,22 @@ namespace Riskeer.MacroStabilityInwards.IO.TestUtil
         public static void AssertCalculationSettings(MacroStabilityInwardsSlidingCurve slidingCurve, IEnumerable<PersistableCalculationSettings> calculationSettings)
         {
             Assert.AreEqual(2, calculationSettings.Count());
-            PersistableCalculationSettings emptyCalculationSettings = calculationSettings.First();
+            PersistableCalculationSettings dailyCalculationSettings = calculationSettings.First();
 
-            Assert.AreEqual("0", emptyCalculationSettings.Id);
-            Assert.IsNull(emptyCalculationSettings.AnalysisType);
-            Assert.IsNull(emptyCalculationSettings.CalculationType);
-            Assert.IsNull(emptyCalculationSettings.UpliftVan);
+            Assert.IsNotNull(dailyCalculationSettings.Id);
+            Assert.AreEqual(PersistableAnalysisType.UpliftVan, dailyCalculationSettings.AnalysisType);
+            Assert.IsNull(dailyCalculationSettings.CalculationType);
+            Assert.IsNull(dailyCalculationSettings.UpliftVan);
 
-            PersistableCalculationSettings actualCalculationSettings = calculationSettings.Last();
-            Assert.AreEqual("1", actualCalculationSettings.Id);
-            Assert.AreEqual(PersistableAnalysisType.UpliftVan, actualCalculationSettings.AnalysisType);
-            Assert.AreEqual(PersistableCalculationType.Deterministic, actualCalculationSettings.CalculationType);
-            Assert.AreEqual(slidingCurve.LeftCircle.Center.X, actualCalculationSettings.UpliftVan.SlipPlane.FirstCircleCenter.Value.X);
-            Assert.AreEqual(slidingCurve.LeftCircle.Center.Y, actualCalculationSettings.UpliftVan.SlipPlane.FirstCircleCenter.Value.Z);
-            Assert.AreEqual(slidingCurve.LeftCircle.Radius, actualCalculationSettings.UpliftVan.SlipPlane.FirstCircleRadius);
-            Assert.AreEqual(slidingCurve.RightCircle.Center.X, actualCalculationSettings.UpliftVan.SlipPlane.SecondCircleCenter.Value.X);
-            Assert.AreEqual(slidingCurve.RightCircle.Center.Y, actualCalculationSettings.UpliftVan.SlipPlane.SecondCircleCenter.Value.Z);
+            PersistableCalculationSettings extremeCalculationSettings = calculationSettings.Last();
+            Assert.IsNotNull(extremeCalculationSettings.Id);
+            Assert.AreEqual(PersistableAnalysisType.UpliftVan, extremeCalculationSettings.AnalysisType);
+            Assert.AreEqual(PersistableCalculationType.Deterministic, extremeCalculationSettings.CalculationType);
+            Assert.AreEqual(slidingCurve.LeftCircle.Center.X, extremeCalculationSettings.UpliftVan.SlipPlane.FirstCircleCenter.Value.X);
+            Assert.AreEqual(slidingCurve.LeftCircle.Center.Y, extremeCalculationSettings.UpliftVan.SlipPlane.FirstCircleCenter.Value.Z);
+            Assert.AreEqual(slidingCurve.LeftCircle.Radius, extremeCalculationSettings.UpliftVan.SlipPlane.FirstCircleRadius);
+            Assert.AreEqual(slidingCurve.RightCircle.Center.X, extremeCalculationSettings.UpliftVan.SlipPlane.SecondCircleCenter.Value.X);
+            Assert.AreEqual(slidingCurve.RightCircle.Center.Y, extremeCalculationSettings.UpliftVan.SlipPlane.SecondCircleCenter.Value.Z);
         }
 
         /// <summary>

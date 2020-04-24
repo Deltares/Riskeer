@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 using Components.Persistence.Stability.Data;
 using Riskeer.MacroStabilityInwards.Data;
 
@@ -58,6 +59,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
 
             PersistableCalculationSettings dailySettings = Create(idFactory, registry, MacroStabilityInwardsExportStageType.Daily);
             PersistableCalculationSettings extremeSettings = Create(idFactory, registry, MacroStabilityInwardsExportStageType.Extreme);
+            dailySettings.AnalysisType = PersistableAnalysisType.UpliftVan;
             extremeSettings.AnalysisType = PersistableAnalysisType.UpliftVan;
             extremeSettings.UpliftVan = new PersistableUpliftVanSettings
             {
