@@ -452,7 +452,7 @@ namespace Core.Common.Geometry.Test
         }
 
         [Test]
-        public void GetPolygonInteriorPoint_WithGeometry_ReturnsInteriorPoint()
+        public void GetPolygonInteriorPoint_SquarePolygon_ReturnsInteriorPoint()
         {
             // Setup
             Point2D[] outerRing = CreateBasePolygon();
@@ -462,6 +462,65 @@ namespace Core.Common.Geometry.Test
 
             // Assert
             Assert.AreEqual(new Point2D(2, 2), interiorPoint);
+        }
+
+        [Test]
+        public void GetPolygonInteriorPoint_TrianglePolygon_ReturnsInteriorPoint()
+        {
+            // Setup
+            var outerRing = new[]
+            {
+                new Point2D(0, 0),
+                new Point2D(3, 4),
+                new Point2D(6, 0)
+            };
+
+            // Call
+            Point2D interiorPoint = AdvancedMath2D.GetPolygonInteriorPoint(outerRing, new IEnumerable<Point2D>[0]);
+
+            // Assert
+            Assert.AreEqual(new Point2D(3, 2), interiorPoint);
+        }
+
+        [Test]
+        public void GetPolygonInteriorPoint_PolygonWithHoles_ReturnsInteriorPoint()
+        {
+            // Setup
+            var outerRing = new[]
+            {
+                new Point2D(0, 0),
+                new Point2D(0, 4),
+                new Point2D(2, 6),
+                new Point2D(4, 4),
+                new Point2D(4, 0),
+                new Point2D(2, -2)
+            };
+
+            var innerRing1 = new[]
+            {
+                new Point2D(1, 3),
+                new Point2D(2, 4),
+                new Point2D(3, 3),
+                new Point2D(2, 2)
+            };
+
+            var innerRing2 = new[]
+            {
+                new Point2D(1, 1),
+                new Point2D(2, 2),
+                new Point2D(3, 1),
+                new Point2D(2, 0)
+            };
+
+            // Call
+            Point2D interiorPoint = AdvancedMath2D.GetPolygonInteriorPoint(outerRing, new []
+            {
+                innerRing1,
+                innerRing2
+            });
+
+            // Assert
+            Assert.AreEqual(new Point2D(0.75, 2.5), interiorPoint);
         }
 
         private static double[] ThreeRandomXCoordinates()
