@@ -276,7 +276,7 @@ namespace Riskeer.Common.IO.Configurations.Helpers
             {
                 try
                 {
-                    distribution.Mean = (RoundedDouble)mean.Value;
+                    distribution.Mean = (RoundedDouble) mean.Value;
                 }
                 catch (ArgumentOutOfRangeException e)
                 {
@@ -362,7 +362,7 @@ namespace Riskeer.Common.IO.Configurations.Helpers
             {
                 try
                 {
-                    distribution.StandardDeviation = (RoundedDouble)standardDeviation.Value;
+                    distribution.StandardDeviation = (RoundedDouble) standardDeviation.Value;
                 }
                 catch (ArgumentOutOfRangeException e)
                 {

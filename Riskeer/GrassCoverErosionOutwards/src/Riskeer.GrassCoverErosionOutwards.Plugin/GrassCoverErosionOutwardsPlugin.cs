@@ -999,7 +999,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                                         GrassCoverErosionOutwardsWaveConditionsCalculationContext context)
         {
             ActivityProgressDialogRunner.Run(Gui.MainWindow,
-                                             GrassCoverErosionOutwardsCalculationActivityFactory.CreateCalculationActivity(calculation,
+                                             GrassCoverErosionOutwardsCalculationActivityFactory.CreateWaveConditionsCalculationActivity(calculation,
                                                                                                                            context.FailureMechanism,
                                                                                                                            context.AssessmentSection));
         }

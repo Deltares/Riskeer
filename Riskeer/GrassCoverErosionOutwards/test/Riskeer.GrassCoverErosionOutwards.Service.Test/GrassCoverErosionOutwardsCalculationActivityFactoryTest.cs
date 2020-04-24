@@ -391,9 +391,9 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () => GrassCoverErosionOutwardsCalculationActivityFactory.CreateCalculationActivity(null,
-                                                                                                                    new GrassCoverErosionOutwardsFailureMechanism(),
-                                                                                                                    assessmentSection);
+            TestDelegate test = () => GrassCoverErosionOutwardsCalculationActivityFactory.CreateWaveConditionsCalculationActivity(null,
+                                                                                                                                  new GrassCoverErosionOutwardsFailureMechanism(),
+                                                                                                                                  assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -410,9 +410,9 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () => GrassCoverErosionOutwardsCalculationActivityFactory.CreateCalculationActivity(new GrassCoverErosionOutwardsWaveConditionsCalculation(),
-                                                                                                                    null,
-                                                                                                                    assessmentSection);
+            TestDelegate test = () => GrassCoverErosionOutwardsCalculationActivityFactory.CreateWaveConditionsCalculationActivity(new GrassCoverErosionOutwardsWaveConditionsCalculation(),
+                                                                                                                                  null,
+                                                                                                                                  assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -428,7 +428,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
             // Call
-            TestDelegate test = () => GrassCoverErosionOutwardsCalculationActivityFactory.CreateCalculationActivity(calculation, failureMechanism, null);
+            TestDelegate test = () => GrassCoverErosionOutwardsCalculationActivityFactory.CreateWaveConditionsCalculationActivity(calculation, failureMechanism, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -452,9 +452,9 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
             GrassCoverErosionOutwardsWaveConditionsCalculation calculation = CreateValidCalculation(hydraulicBoundaryLocation);
 
             // Call
-            CalculatableActivity activity = GrassCoverErosionOutwardsCalculationActivityFactory.CreateCalculationActivity(calculation,
-                                                                                                                          failureMechanism,
-                                                                                                                          assessmentSection);
+            CalculatableActivity activity = GrassCoverErosionOutwardsCalculationActivityFactory.CreateWaveConditionsCalculationActivity(calculation,
+                                                                                                                                        failureMechanism,
+                                                                                                                                        assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<GrassCoverErosionOutwardsWaveConditionsCalculationActivity>(activity);
