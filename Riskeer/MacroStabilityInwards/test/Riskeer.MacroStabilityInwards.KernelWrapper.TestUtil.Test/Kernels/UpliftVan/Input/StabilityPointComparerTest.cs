@@ -34,8 +34,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernels.Upli
         [Test]
         public void Constructor_ExpectedValues()
         {
-            // Setup
-
             // Call
             var comparer = new StabilityPointComparer();
 
@@ -54,11 +52,11 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernels.Upli
             var comparer = new StabilityPointComparer();
 
             // Call
-            TestDelegate call = () => comparer.Compare(firstObject, secondObject);
+            void Call() => comparer.Compare(firstObject, secondObject);
 
             // Assert
-            string message = Assert.Throws<ArgumentException>(call).Message;
-            Assert.AreEqual($"Cannot compare objects other than {typeof(Point2D)} with this comparer.", message);
+            var exception = Assert.Throws<ArgumentException>(Call);
+            Assert.AreEqual($"Cannot compare objects other than {typeof(Point2D)} with this comparer.", exception.Message);
         }
 
         [Test]
@@ -71,11 +69,11 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernels.Upli
             var comparer = new StabilityPointComparer();
 
             // Call
-            TestDelegate call = () => comparer.Compare(firstObject, secondObject);
+            void Call() => comparer.Compare(firstObject, secondObject);
 
             // Assert
-            string message = Assert.Throws<ArgumentException>(call).Message;
-            Assert.AreEqual($"Cannot compare objects other than {typeof(Point2D)} with this comparer.", message);
+            var exception = Assert.Throws<ArgumentException>(Call);
+            Assert.AreEqual($"Cannot compare objects other than {typeof(Point2D)} with this comparer.", exception.Message);
         }
 
         [Test]
