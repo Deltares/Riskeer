@@ -23,8 +23,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Components.Persistence.Stability.Data;
+using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Geometry;
+using Riskeer.Common.Data.Probabilistics;
 using Riskeer.MacroStabilityInwards.Data.SoilProfile;
 using Riskeer.MacroStabilityInwards.Primitives;
 
@@ -76,7 +78,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
                 Id = idFactory.Create(),
                 StateLines = Enumerable.Empty<PersistableStateLine>(),
                 StatePoints = MacroStabilityInwardsSoilProfile2DLayersHelper.GetLayersRecursively(soilProfile.Layers)
-                                                                            .Where(l => l.Data.UsePop)
+                                                                            .Where(l => l.Data.UsePop && HasValidPop(l.Data.Pop))
                                                                             .Select(l => CreateStatePoint(l, stageType, idFactory, registry))
                                                                             .ToArray()
             };
@@ -84,6 +86,12 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
             registry.AddState(stageType, state.Id);
 
             return state;
+        }
+
+        private static bool HasValidPop(IVariationCoefficientDistribution pop)
+        {
+            return pop.Mean != RoundedDouble.NaN
+                   && pop.CoefficientOfVariation != RoundedDouble.NaN;
         }
 
         private static PersistableStatePoint CreateStatePoint(MacroStabilityInwardsSoilLayer2D layer, MacroStabilityInwardsExportStageType stageType,

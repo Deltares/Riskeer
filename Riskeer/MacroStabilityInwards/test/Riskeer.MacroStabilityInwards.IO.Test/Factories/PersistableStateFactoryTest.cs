@@ -23,14 +23,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Components.Persistence.Stability.Data;
-using Core.Common.Base.Geometry;
-using Core.Common.Geometry;
+using Core.Common.Base.Data;
 using Core.Common.Util.Extensions;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Riskeer.Common.Data.Probabilistics;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.MacroStabilityInwards.Data;
-using Riskeer.MacroStabilityInwards.Data.SoilProfile;
 using Riskeer.MacroStabilityInwards.Data.TestUtil;
 using Riskeer.MacroStabilityInwards.IO.Factories;
 using Riskeer.MacroStabilityInwards.IO.TestUtil;
@@ -93,6 +92,11 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
             MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput(
                 new TestHydraulicBoundaryLocation());
             IMacroStabilityInwardsSoilProfileUnderSurfaceLine soilProfile = calculation.InputParameters.SoilProfileUnderSurfaceLine;
+            soilProfile.Layers.First().Data.Pop = new VariationCoefficientLogNormalDistribution
+            {
+                Mean = (RoundedDouble) 1,
+                CoefficientOfVariation = (RoundedDouble) 2
+            };
             soilProfile.Layers.ForEachElementDo(l => l.Data.UsePop = true);
 
             var idFactory = new IdFactory();

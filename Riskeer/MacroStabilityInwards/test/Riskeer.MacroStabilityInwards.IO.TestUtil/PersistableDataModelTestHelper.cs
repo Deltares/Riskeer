@@ -405,7 +405,9 @@ namespace Riskeer.MacroStabilityInwards.IO.TestUtil
             Assert.AreEqual(2, states.Count());
 
             IEnumerable<MacroStabilityInwardsSoilLayer2D> layersWithPop = MacroStabilityInwardsSoilProfile2DLayersHelper.GetLayersRecursively(soilProfile.Layers)
-                                                                                                                        .Where(l => l.Data.UsePop);
+                                                                                                                        .Where(l => l.Data.UsePop
+                                                                                                                                    && l.Data.Pop.Mean != RoundedDouble.NaN
+                                                                                                                                    && l.Data.Pop.CoefficientOfVariation != RoundedDouble.NaN);
 
             for (var i = 0; i < states.Count(); i++)
             {
