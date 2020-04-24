@@ -190,7 +190,7 @@ namespace Riskeer.Common.Data
             Point2D firstLocalPoint = LocalGeometry.First();
             Point2D lastLocalPoint = LocalGeometry.Last();
             var roundedLocalCoordinateL = new RoundedDouble(numberOfDecimalPlaces, localCoordinateL);
-            return !(firstLocalPoint.X > roundedLocalCoordinateL) && !(lastLocalPoint.X < roundedLocalCoordinateL);
+            return roundedLocalCoordinateL >= firstLocalPoint.X && roundedLocalCoordinateL <= lastLocalPoint.X;
         }
 
         public override string ToString()
