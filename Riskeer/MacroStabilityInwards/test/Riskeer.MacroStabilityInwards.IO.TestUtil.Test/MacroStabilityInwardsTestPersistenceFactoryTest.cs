@@ -20,8 +20,10 @@
 // All rights reserved.
 
 using System;
+using System.IO;
 using Components.Persistence.Stability;
 using Components.Persistence.Stability.Data;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Shared.Components.Persistence;
 
@@ -44,11 +46,11 @@ namespace Riskeer.MacroStabilityInwards.IO.TestUtil.Test
         }
 
         [Test]
-        public void CreateArchivePersister_ThrowExceptionIsFalse_SetsPropertiesAndReturnsTestPersister()
+        public void CreateArchivePersister_ThrowExceptionAndWriteFalseFalse_SetsPropertiesAndReturnsTestPersister()
         {
             // Setup
+            string filePath = TestHelper.GetScratchPadPath($"{nameof(MacroStabilityInwardsTestPersistenceFactoryTest)}.{nameof(CreateArchivePersister_ThrowExceptionAndWriteFalseFalse_SetsPropertiesAndReturnsTestPersister)}.ValidFile.stix");
             var persistableDataModel = new PersistableDataModel();
-            const string filePath = "FilePath";
 
             var persistenceFactory = new MacroStabilityInwardsTestPersistenceFactory();
 
@@ -60,10 +62,11 @@ namespace Riskeer.MacroStabilityInwards.IO.TestUtil.Test
             Assert.AreEqual(filePath, persistenceFactory.FilePath);
             Assert.IsInstanceOf<MacroStabilityInwardsTestPersister>(persister);
             Assert.AreSame(persister, persistenceFactory.CreatedPersister);
+            Assert.IsFalse(File.Exists(filePath));
         }
 
         [Test]
-        public void CreateArchivePersister_ThrowExceptionIsTrue_ThrowsException()
+        public void CreateArchivePersister_ThrowExceptionTrue_ThrowsException()
         {
             // Setup
             var persistenceFactory = new MacroStabilityInwardsTestPersistenceFactory
@@ -77,6 +80,30 @@ namespace Riskeer.MacroStabilityInwards.IO.TestUtil.Test
             // Assert
             var exception = Assert.Throws<Exception>(Call);
             Assert.AreEqual("Exception in persistor.", exception.Message);
+        }
+
+        [Test]
+        public void CreateArchivePersister_WriteFileTrue_WritesFileToSystem()
+        {
+            // Setup
+            string filePath = TestHelper.GetScratchPadPath($"{nameof(MacroStabilityInwardsTestPersistenceFactoryTest)}.{nameof(CreateArchivePersister_WriteFileTrue_WritesFileToSystem)}.ValidFile.stix");
+            var persistenceFactory = new MacroStabilityInwardsTestPersistenceFactory
+            {
+                WriteFile = true
+            };
+
+            try
+            {
+                // Call
+                persistenceFactory.CreateArchivePersister(filePath, new PersistableDataModel());
+
+                // Assert
+                Assert.IsTrue(File.Exists(filePath));
+            }
+            finally
+            {
+                File.Delete(filePath);
+            }
         }
 
         [Test]

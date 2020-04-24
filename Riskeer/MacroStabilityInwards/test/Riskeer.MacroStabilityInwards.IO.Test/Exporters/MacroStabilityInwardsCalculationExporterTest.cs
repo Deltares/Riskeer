@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.IO;
 using Components.Persistence.Stability;
 using Core.Common.Base.IO;
 using Core.Common.TestUtil;
@@ -141,30 +142,93 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
         }
 
         [Test]
-        public void Export_RunsSuccessful_SetsDataCorrectlyAndReturnsTrue()
+        public void Export_PersistenceFactoryThrowsException_NoFileWritten()
         {
             // Setup
-            const string filePath = "ValidFilePath";
+            string filePath = TestHelper.GetScratchPadPath($"{nameof(MacroStabilityInwardsCalculationExporterTest)}.{nameof(Export_PersistenceFactoryThrowsException_NoFileWritten)}.ValidFile.stix");
             MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput(new TestHydraulicBoundaryLocation());
             calculation.Output = MacroStabilityInwardsOutputTestFactory.CreateRandomOutput();
 
-            var persistenceFactory = new MacroStabilityInwardsTestPersistenceFactory();
+            var persistenceFactory = new MacroStabilityInwardsTestPersistenceFactory
+            {
+                ThrowException = true,
+                WriteFile = true
+            };
 
             var exporter = new MacroStabilityInwardsCalculationExporter(calculation, persistenceFactory, filePath, AssessmentSectionTestHelper.GetTestAssessmentLevel);
 
-            using (new MacroStabilityInwardsCalculatorFactoryConfig())
+            // Call
+            exporter.Export();
+
+            // Assert
+            Assert.IsFalse(File.Exists(filePath));
+            Assert.IsFalse(File.Exists($"{filePath}.temp"));
+        }
+
+        [Test]
+        public void Export_RunsSuccessful_SetsDataCorrectlyAndReturnsTrue()
+        {
+            // Setup
+            string filePath = TestHelper.GetScratchPadPath($"{nameof(MacroStabilityInwardsCalculationExporterTest)}.{nameof(Export_RunsSuccessful_SetsDataCorrectlyAndReturnsTrue)}.ValidFile.stix");
+            MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput(new TestHydraulicBoundaryLocation());
+            calculation.Output = MacroStabilityInwardsOutputTestFactory.CreateRandomOutput();
+
+            var persistenceFactory = new MacroStabilityInwardsTestPersistenceFactory
             {
-                // Call
-                bool exportResult = exporter.Export();
+                WriteFile = true
+            };
 
-                // Assert
-                PersistableDataModelTestHelper.AssertPersistableDataModel(calculation, filePath, persistenceFactory.PersistableDataModel);
-                Assert.AreEqual(filePath, persistenceFactory.FilePath);
+            var exporter = new MacroStabilityInwardsCalculationExporter(calculation, persistenceFactory, filePath, AssessmentSectionTestHelper.GetTestAssessmentLevel);
 
-                var persister = (MacroStabilityInwardsTestPersister) persistenceFactory.CreatedPersister;
-                Assert.IsTrue(persister.PersistCalled);
+            try
+            {
+                using (new MacroStabilityInwardsCalculatorFactoryConfig())
+                {
+                    // Call
+                    bool exportResult = exporter.Export();
 
-                Assert.IsTrue(exportResult);
+                    // Assert
+                    PersistableDataModelTestHelper.AssertPersistableDataModel(calculation, filePath, persistenceFactory.PersistableDataModel);
+                    Assert.AreEqual($"{filePath}.temp", persistenceFactory.FilePath);
+
+                    var persister = (MacroStabilityInwardsTestPersister) persistenceFactory.CreatedPersister;
+                    Assert.IsTrue(persister.PersistCalled);
+
+                    Assert.IsTrue(exportResult);
+                }
+            }
+            finally
+            {
+                File.Delete(filePath);
+            }
+        }
+
+        [Test]
+        public void Export_RunsSuccessful_WritesFileAndRemovesTempFile()
+        {
+            // Setup
+            string filePath = TestHelper.GetScratchPadPath($"{nameof(MacroStabilityInwardsCalculationExporterTest)}.{nameof(Export_RunsSuccessful_WritesFileAndRemovesTempFile)}.ValidFile.stix");
+            MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput(new TestHydraulicBoundaryLocation());
+            calculation.Output = MacroStabilityInwardsOutputTestFactory.CreateRandomOutput();
+
+            var exporter = new MacroStabilityInwardsCalculationExporter(calculation, new PersistenceFactory(), filePath, AssessmentSectionTestHelper.GetTestAssessmentLevel);
+
+            try
+            {
+                using (new MacroStabilityInwardsCalculatorFactoryConfig())
+                {
+                    // Call
+                    bool exportResult = exporter.Export();
+
+                    // Assert
+                    Assert.IsTrue(exportResult);
+                    Assert.IsTrue(File.Exists(filePath));
+                    Assert.IsFalse(File.Exists($"{filePath}.temp"));
+                }
+            }
+            finally
+            {
+                File.Delete(filePath);
             }
         }
     }

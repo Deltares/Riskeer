@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.IO;
 using Components.Persistence.Stability;
 using Components.Persistence.Stability.Data;
 using Shared.Components.Persistence;
@@ -51,6 +52,11 @@ namespace Riskeer.MacroStabilityInwards.IO.TestUtil
         /// </summary>
         public bool ThrowException { get; set; }
 
+        /// <summary>
+        /// Gets or sets whether a file should be written to the file system.
+        /// </summary>
+        public bool WriteFile { get; set; }
+
         public IPersister CreateArchivePersister(string path, PersistableDataModel dataModel)
         {
             if (ThrowException)
@@ -60,6 +66,12 @@ namespace Riskeer.MacroStabilityInwards.IO.TestUtil
 
             FilePath = path;
             PersistableDataModel = dataModel;
+
+            if (WriteFile)
+            {
+                FileStream stream = File.OpenWrite(FilePath);
+                stream.Close();
+            }
 
             return CreatedPersister ?? (CreatedPersister = new MacroStabilityInwardsTestPersister());
         }
