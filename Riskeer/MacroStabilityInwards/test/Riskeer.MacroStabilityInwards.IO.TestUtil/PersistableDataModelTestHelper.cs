@@ -456,6 +456,9 @@ namespace Riskeer.MacroStabilityInwards.IO.TestUtil
         {
             Assert.AreEqual(2, stages.Count());
 
+            Assert.AreEqual("Dagelijkse omstandigheden", stages.First().Label);
+            Assert.AreEqual("Extreme omstandigheden", stages.Last().Label);
+
             for (var i = 0; i < stages.Count(); i++)
             {
                 PersistableStage stage = stages.ElementAt(i);

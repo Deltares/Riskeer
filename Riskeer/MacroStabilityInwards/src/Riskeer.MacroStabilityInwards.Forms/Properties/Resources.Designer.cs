@@ -40,7 +40,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Resources {
@@ -163,15 +163,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dagelijkse omstandigheden.
-        /// </summary>
-        public static string Daily_DisplayName {
-            get {
-                return ResourceManager.GetString("Daily_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Dijktype van de geschematiseerde dijk..
         /// </summary>
         public static string DikeSoilScenario_Description {
@@ -222,15 +213,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.Properties {
         public static string DrainageConstructionPresent_DisplayName {
             get {
                 return ResourceManager.GetString("DrainageConstructionPresent_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Extreme omstandigheden.
-        /// </summary>
-        public static string Extreme_DisplayName {
-            get {
-                return ResourceManager.GetString("Extreme_DisplayName", resourceCulture);
             }
         }
         
