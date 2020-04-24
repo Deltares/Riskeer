@@ -103,7 +103,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
         {
             // Setup
             MacroStabilityInwardsSoilLayer2D soilLayer = MacroStabilityInwardsSoilLayer2DTestFactory.CreateMacroStabilityInwardsSoilLayer2D();
-            
+
             var registry = new MacroStabilityInwardsExportRegistry();
             const string id = "1";
 
@@ -250,7 +250,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
         {
             // Setup
             var registry = new MacroStabilityInwardsExportRegistry();
-            const MacroStabilityInwardsExportStageType stageType = (MacroStabilityInwardsExportStageType)99;
+            const MacroStabilityInwardsExportStageType stageType = (MacroStabilityInwardsExportStageType) 99;
 
             // Call
             void Call() => registry.AddSoilLayer(stageType, "1");
@@ -283,7 +283,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
         {
             // Setup
             var registry = new MacroStabilityInwardsExportRegistry();
-            const MacroStabilityInwardsExportStageType stageType = (MacroStabilityInwardsExportStageType)99;
+            const MacroStabilityInwardsExportStageType stageType = (MacroStabilityInwardsExportStageType) 99;
 
             // Call
             void Call() => registry.AddWaternet(stageType, "1");
@@ -316,7 +316,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
         {
             // Setup
             var registry = new MacroStabilityInwardsExportRegistry();
-            const MacroStabilityInwardsExportStageType stageType = (MacroStabilityInwardsExportStageType)99;
+            const MacroStabilityInwardsExportStageType stageType = (MacroStabilityInwardsExportStageType) 99;
 
             // Call
             void Call() => registry.AddWaternetCreatorSettings(stageType, "1");
@@ -349,7 +349,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
         {
             // Setup
             var registry = new MacroStabilityInwardsExportRegistry();
-            const MacroStabilityInwardsExportStageType stageType = (MacroStabilityInwardsExportStageType)99;
+            const MacroStabilityInwardsExportStageType stageType = (MacroStabilityInwardsExportStageType) 99;
 
             // Call
             void Call() => registry.AddState(stageType, "1");

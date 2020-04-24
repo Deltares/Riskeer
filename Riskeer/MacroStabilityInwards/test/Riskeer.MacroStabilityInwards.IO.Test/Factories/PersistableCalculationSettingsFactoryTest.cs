@@ -82,7 +82,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
 
             // Assert
             PersistableDataModelTestHelper.AssertCalculationSettings(slidingCurve, settingsCollection);
-            
+
             var stages = new[]
             {
                 MacroStabilityInwardsExportStageType.Daily,

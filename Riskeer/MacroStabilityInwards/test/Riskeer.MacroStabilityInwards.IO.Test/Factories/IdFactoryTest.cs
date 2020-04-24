@@ -32,7 +32,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
         {
             // Setup
             var idFactory = new IdFactory();
-            
+
             // Call
             string firstId = idFactory.Create();
             string secondId = idFactory.Create();

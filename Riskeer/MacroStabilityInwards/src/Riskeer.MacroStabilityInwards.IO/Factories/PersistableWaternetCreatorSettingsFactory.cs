@@ -151,7 +151,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
                 AquitardHeadLandSide = input.PiezometricHeadPhreaticLine2Inwards,
                 MeanWaterLevel = input.WaterLevelRiverAverage,
                 IsDrainageConstructionPresent = input.DrainageConstructionPresent,
-                DrainageConstruction = new PersistablePoint(input.XCoordinateDrainageConstruction,input.ZCoordinateDrainageConstruction),
+                DrainageConstruction = new PersistablePoint(input.XCoordinateDrainageConstruction, input.ZCoordinateDrainageConstruction),
                 IsDitchPresent = isDitchPresent,
                 DitchCharacteristics = CreateDitchCharacteristics(input.SurfaceLine, isDitchPresent),
                 EmbankmentCharacteristics = CreateEmbankmentCharacteristics(input.SurfaceLine),
@@ -160,7 +160,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
             };
 
             IEnumerable<MacroStabilityInwardsSoilLayer2D> aquiferLayers = MacroStabilityInwardsSoilProfile2DLayersHelper.GetLayersRecursively(input.SoilProfileUnderSurfaceLine.Layers)
-                                                                                                                         .Where(l => l.Data.IsAquifer);
+                                                                                                                        .Where(l => l.Data.IsAquifer);
 
             if (aquiferLayers.Count() == 1)
             {

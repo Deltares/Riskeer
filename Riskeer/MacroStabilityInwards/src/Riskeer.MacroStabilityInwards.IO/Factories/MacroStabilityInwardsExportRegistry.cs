@@ -84,12 +84,12 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
         /// Gets the waternets and their unique identifiers.
         /// </summary>
         public IReadOnlyDictionary<MacroStabilityInwardsExportStageType, string> Waternets => waternets;
-        
+
         /// <summary>
         /// Gets the waternet creator settings and their unique identifiers.
         /// </summary>
         public IReadOnlyDictionary<MacroStabilityInwardsExportStageType, string> WaternetCreatorSettings => waternetCreatorSettings;
-        
+
         /// <summary>
         /// Gets the states and their unique identifiers.
         /// </summary>

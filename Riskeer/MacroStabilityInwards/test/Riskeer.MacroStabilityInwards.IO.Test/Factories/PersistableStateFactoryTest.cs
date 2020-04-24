@@ -110,7 +110,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
             // Assert
             PersistableDataModelTestHelper.AssertStates(soilProfile, states);
 
-            AssertRegistry(registry, new []
+            AssertRegistry(registry, new[]
             {
                 MacroStabilityInwardsExportStageType.Daily,
                 MacroStabilityInwardsExportStageType.Extreme

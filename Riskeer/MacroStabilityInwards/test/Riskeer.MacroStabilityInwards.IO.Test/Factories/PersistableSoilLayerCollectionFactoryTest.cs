@@ -46,6 +46,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("soilProfile", exception.ParamName);
         }
+
         [Test]
         public void Create_IdFactoryNull_ThrowsArgumentNullException()
         {
@@ -53,7 +54,6 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
             var mocks = new MockRepository();
             var soilProfile = mocks.Stub<IMacroStabilityInwardsSoilProfileUnderSurfaceLine>();
             mocks.ReplayAll();
-
 
             // Call
             void Call() => PersistableSoilLayerCollectionFactory.Create(soilProfile, null, new MacroStabilityInwardsExportRegistry());
@@ -94,7 +94,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
                     })
                 },
                 Enumerable.Empty<IMacroStabilityInwardsPreconsolidationStress>());
-            
+
             var idFactory = new IdFactory();
             var registry = new MacroStabilityInwardsExportRegistry();
 
