@@ -20,7 +20,9 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Components.Persistence.Stability;
 using Components.Persistence.Stability.Data;
 using Core.Common.Base.Data;
@@ -28,8 +30,10 @@ using Core.Common.Base.IO;
 using Core.Common.Util;
 using log4net;
 using Riskeer.MacroStabilityInwards.Data;
+using Riskeer.MacroStabilityInwards.Data.SoilProfile;
 using Riskeer.MacroStabilityInwards.IO.Factories;
 using Riskeer.MacroStabilityInwards.IO.Properties;
+using Riskeer.MacroStabilityInwards.Primitives;
 using Shared.Components.Persistence;
 using CoreCommonUtilResources = Core.Common.Util.Properties.Resources;
 
@@ -94,6 +98,8 @@ namespace Riskeer.MacroStabilityInwards.IO.Exporters
 
         public bool Export()
         {
+            ValidateData();
+
             PersistableDataModel persistableDataModel = PersistableDataModelFactory.Create(calculation, getNormativeAssessmentLevelFunc, filePath);
 
             string tempFilePath = $"{filePath}.temp";
@@ -115,6 +121,20 @@ namespace Riskeer.MacroStabilityInwards.IO.Exporters
             }
 
             return true;
+        }
+
+        private void ValidateData()
+        {
+            if (Math.Abs(calculation.InputParameters.MaximumSliceWidth - 1) > 1e-3)
+            {
+                log.Warn(Resources.MacroStabilityInwardsCalculationExporter_ValidateData_DGeoSuite_only_supports_MaximumSliceWidth_one);
+            }
+
+            IEnumerable<MacroStabilityInwardsSoilLayer2D> layers = MacroStabilityInwardsSoilProfile2DLayersHelper.GetLayersRecursively(calculation.InputParameters.SoilProfileUnderSurfaceLine.Layers);
+            if (layers.Count(l => l.Data.IsAquifer) > 1)
+            {
+                log.Warn(Resources.MacroStabilityInwardsCalculationExporter_ValidateData_Multiple_aquifer_layers_not_supported_no_aquifer_layer_exported);
+            }
         }
 
         private void MoveTempFileToFinal(string tempFilePath)

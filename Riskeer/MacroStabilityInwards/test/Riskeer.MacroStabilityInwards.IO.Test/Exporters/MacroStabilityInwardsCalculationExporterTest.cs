@@ -22,8 +22,10 @@
 using System;
 using System.IO;
 using Components.Persistence.Stability;
+using Core.Common.Base.Data;
 using Core.Common.Base.IO;
 using Core.Common.TestUtil;
+using Core.Common.Util.Extensions;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.TestUtil;
@@ -224,6 +226,72 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
                     Assert.IsTrue(exportResult);
                     Assert.IsTrue(File.Exists(filePath));
                     Assert.IsFalse(File.Exists($"{filePath}.temp"));
+                }
+            }
+            finally
+            {
+                File.Delete(filePath);
+            }
+        }
+
+        [Test]
+        [TestCase(1.01)]
+        [TestCase(0.99)]
+        public void Export_MaximumSliceWidthNotOne_LogsWarningAndReturnsTrue(double maximumSliceWidth)
+        {
+            // Setup
+            string filePath = TestHelper.GetScratchPadPath($"{nameof(MacroStabilityInwardsCalculationExporterTest)}.{nameof(Export_MaximumSliceWidthNotOne_LogsWarningAndReturnsTrue)}.ValidFile.stix");
+            
+            MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput(new TestHydraulicBoundaryLocation());
+            calculation.InputParameters.MaximumSliceWidth = (RoundedDouble) maximumSliceWidth;
+            calculation.Output = MacroStabilityInwardsOutputTestFactory.CreateRandomOutput();
+            
+            var exporter = new MacroStabilityInwardsCalculationExporter(calculation, new PersistenceFactory(), filePath, AssessmentSectionTestHelper.GetTestAssessmentLevel);
+
+            try
+            {
+                using (new MacroStabilityInwardsCalculatorFactoryConfig())
+                {
+                    // Call
+                    var exportResult = false;
+                    void Call() => exportResult = exporter.Export();
+
+                    // Assert
+                    const string expectedMessage = "D-GEO Suite Stability ondersteunt enkel een maximale lamelbreedte van 1 meter, om hieraan te voldoen is dit aangepast in de geëxporteerde berekening.";
+                    TestHelper.AssertLogMessageWithLevelIsGenerated(Call, new Tuple<string, LogLevelConstant>(expectedMessage, LogLevelConstant.Warn));
+                    Assert.IsTrue(exportResult);
+                }
+            }
+            finally
+            {
+                File.Delete(filePath);
+            }
+        }
+
+        [Test]
+        public void Export_SoilProfileWithMultipleAquiferLayers_LogsWarningAndReturnsTrue()
+        {
+            // Setup
+            string filePath = TestHelper.GetScratchPadPath($"{nameof(MacroStabilityInwardsCalculationExporterTest)}.{nameof(Export_MaximumSliceWidthNotOne_LogsWarningAndReturnsTrue)}.ValidFile.stix");
+            
+            MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput(new TestHydraulicBoundaryLocation());
+            calculation.InputParameters.StochasticSoilProfile.SoilProfile.Layers.ForEachElementDo(layer => layer.Data.IsAquifer = true);
+            calculation.Output = MacroStabilityInwardsOutputTestFactory.CreateRandomOutput();
+            
+            var exporter = new MacroStabilityInwardsCalculationExporter(calculation, new PersistenceFactory(), filePath, AssessmentSectionTestHelper.GetTestAssessmentLevel);
+
+            try
+            {
+                using (new MacroStabilityInwardsCalculatorFactoryConfig())
+                {
+                    // Call
+                    var exportResult = false;
+                    void Call() => exportResult = exporter.Export();
+
+                    // Assert
+                    const string expectedMessage = "Het is niet mogelijk om meerdere aquifer lagen te exporteren. Er is geen aquifer laag geëxporteerd.";
+                    TestHelper.AssertLogMessageWithLevelIsGenerated(Call, new Tuple<string, LogLevelConstant>(expectedMessage, LogLevelConstant.Warn));
+                    Assert.IsTrue(exportResult);
                 }
             }
             finally

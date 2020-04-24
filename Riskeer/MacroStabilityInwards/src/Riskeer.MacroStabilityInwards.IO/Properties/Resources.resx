@@ -214,4 +214,10 @@
   <data name="PersistableProjectInfoFactory_Create_Export_from_Riskeer" xml:space="preserve">
     <value>Export from Riskeer</value>
   </data>
+  <data name="MacroStabilityInwardsCalculationExporter_ValidateData_DGeoSuite_only_supports_MaximumSliceWidth_one" xml:space="preserve">
+    <value>D-GEO Suite Stability ondersteunt enkel een maximale lamelbreedte van 1 meter, om hieraan te voldoen is dit aangepast in de geëxporteerde berekening.</value>
+  </data>
+  <data name="MacroStabilityInwardsCalculationExporter_ValidateData_Multiple_aquifer_layers_not_supported_no_aquifer_layer_exported" xml:space="preserve">
+    <value>Het is niet mogelijk om meerdere aquifer lagen te exporteren. Er is geen aquifer laag geëxporteerd.</value>
+  </data>
 </root>
