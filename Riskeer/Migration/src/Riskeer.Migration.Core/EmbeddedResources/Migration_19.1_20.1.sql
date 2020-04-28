@@ -136,6 +136,27 @@ INSERT INTO [LOGDATABASE].MigrationLogEntity (
 	[LogMessage])
 VALUES ("19.1", "20.1", "Gevolgen van de migratie van versie 19.1 naar versie 20.1:");
 
+CREATE TEMP TABLE TempLogOutputDeleted 
+(
+	'NrDeleted' INTEGER NOT NULL
+);
+
+INSERT INTO TempLogOutputDeleted SELECT COUNT() FROM [SOURCEPROJECT].MacroStabilityInwardsCalculationOutputEntity;
+
+INSERT INTO [LOGDATABASE].MigrationLogEntity (
+	[FromVersion],
+	[ToVersion],
+	[LogMessage])
+SELECT
+	"19.1",
+	"20.1",
+	"* Alle berekende resultaten van het toetsspoor 'Macrostabiliteit binnenwaarts'  zijn verwijderd."
+	FROM TempLogOutputDeleted
+	WHERE [NrDeleted] > 0
+	LIMIT 1;
+
+DROP TABLE TempLogOutputDeleted;
+
 INSERT INTO [LOGDATABASE].MigrationLogEntity (
 	[FromVersion],
 	[ToVersion],
