@@ -61,6 +61,11 @@ namespace Core.Common.Base.Geometry
                 throw new ArgumentNullException(nameof(endWorldCoordinate));
             }
 
+            if (double.IsPositiveInfinity(worldCoordinate.Y) || double.IsNegativeInfinity(worldCoordinate.Y))
+            {
+                return new Point2D(worldCoordinate.Y, worldCoordinate.Z);
+            }
+
             var worldCoordinate2D = new Point2D(worldCoordinate.X, worldCoordinate.Y);
             Vector<double> vectorToPoint = worldCoordinate2D - startWorldCoordinate;
 
