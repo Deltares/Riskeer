@@ -375,7 +375,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
             };
         }
 
-        #region ViewInfo
+        #region ViewInfos
 
         #region GrassCoverErosionInwardsFailureMechanismView ViewInfo
 
@@ -483,7 +483,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
 
         #endregion
 
-        #region TreeNodeInfo
+        #region TreeNodeInfos
 
         #region GrassCoverErosionInwardsFailureMechanismContext TreeNodeInfo
 
