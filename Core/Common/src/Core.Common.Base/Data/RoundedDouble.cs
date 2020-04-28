@@ -181,81 +181,6 @@ namespace Core.Common.Base.Data
             return Value.GetHashCode();
         }
 
-        public override string ToString()
-        {
-            return ToString(null, null);
-        }
-
-        public string ToString(string format, IFormatProvider formatProvider)
-        {
-            if (double.IsPositiveInfinity(Value))
-            {
-                return Resources.RoundedDouble_ToString_PositiveInfinity;
-            }
-
-            if (double.IsNegativeInfinity(Value))
-            {
-                return Resources.RoundedDouble_ToString_NegativeInfinity;
-            }
-
-            return Value.ToString(format ?? GetFormat(), formatProvider ?? CultureInfo.CurrentCulture);
-        }
-
-        public int CompareTo(object obj)
-        {
-            if (obj == null)
-            {
-                return 1;
-            }
-
-            if (obj is RoundedDouble)
-            {
-                return CompareTo((RoundedDouble) obj);
-            }
-
-            if (obj is double)
-            {
-                return CompareTo((double) obj);
-            }
-
-            throw new ArgumentException("Arg must be double or RoundedDouble");
-        }
-
-        public int CompareTo(double other)
-        {
-            return Value.CompareTo(other);
-        }
-
-        public int CompareTo(RoundedDouble other)
-        {
-            return Value.CompareTo(other.Value);
-        }
-
-        public bool Equals(double other)
-        {
-            return Value.Equals(other);
-        }
-
-        public bool Equals(RoundedDouble other)
-        {
-            return Value.Equals(other.Value);
-        }
-
-        public override bool Equals(object obj)
-        {
-            if (ReferenceEquals(null, obj))
-            {
-                return false;
-            }
-
-            if (obj.GetType() != GetType())
-            {
-                return false;
-            }
-
-            return Equals((RoundedDouble)obj);
-        }
-
         private static double RoundDouble(double value, int numberOfDecimalPlaces)
         {
             return IsSpecialDoubleValue(value) ? value : Math.Round(value, numberOfDecimalPlaces, MidpointRounding.AwayFromZero);
@@ -291,5 +216,92 @@ namespace Core.Common.Base.Data
         {
             return "F" + NumberOfDecimalPlaces;
         }
+
+        #region ToString
+
+        public override string ToString()
+        {
+            return ToString(null, null);
+        }
+
+        public string ToString(string format, IFormatProvider formatProvider)
+        {
+            if (double.IsPositiveInfinity(Value))
+            {
+                return Resources.RoundedDouble_ToString_PositiveInfinity;
+            }
+
+            if (double.IsNegativeInfinity(Value))
+            {
+                return Resources.RoundedDouble_ToString_NegativeInfinity;
+            }
+
+            return Value.ToString(format ?? GetFormat(), formatProvider ?? CultureInfo.CurrentCulture);
+        }
+
+        #endregion
+
+        #region CompareTo
+
+        public int CompareTo(object obj)
+        {
+            if (obj == null)
+            {
+                return 1;
+            }
+
+            if (obj is RoundedDouble)
+            {
+                return CompareTo((RoundedDouble) obj);
+            }
+
+            if (obj is double)
+            {
+                return CompareTo((double) obj);
+            }
+
+            throw new ArgumentException("Arg must be double or RoundedDouble");
+        }
+
+        public int CompareTo(double other)
+        {
+            return Value.CompareTo(other);
+        }
+
+        public int CompareTo(RoundedDouble other)
+        {
+            return Value.CompareTo(other.Value);
+        }
+
+        #endregion
+
+        #region Equals
+
+        public bool Equals(double other)
+        {
+            return Value.Equals(other);
+        }
+
+        public bool Equals(RoundedDouble other)
+        {
+            return Value.Equals(other.Value);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj))
+            {
+                return false;
+            }
+
+            if (obj.GetType() != GetType())
+            {
+                return false;
+            }
+
+            return Equals((RoundedDouble) obj);
+        }
+
+        #endregion
     }
 }
