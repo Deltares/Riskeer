@@ -43,6 +43,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
         private SurfaceLine2 surfaceLine2;
         private WtiStabilityWaternet dailyWaternet;
         private WtiStabilityWaternet extremeWaternet;
+        private bool gridAutomaticDetermined;
 
         /// <summary>
         /// Creates a new instance of <see cref="UpliftVanKernelWrapper"/>.
@@ -107,7 +108,10 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
             stabilityModel.SlipPlaneConstraints = slipPlaneConstraints;
         }
 
-        public void SetGridAutomaticDetermined(bool gridAutomaticDetermined) {}
+        public void SetGridAutomaticDetermined(bool gridAutomaticDetermined)
+        {
+            this.gridAutomaticDetermined = gridAutomaticDetermined;
+        }
 
         public void SetSoilModel(IList<Soil> soilModel)
         {
@@ -162,7 +166,13 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
             kernelModel = new KernelModel
             {
                 StabilityModel = stabilityModel,
-                PreprocessingModel = new PreprocessingModel()
+                PreprocessingModel = new PreprocessingModel
+                {
+                    SearchAreaConditions = 
+                    {
+                        AutoSearchArea = gridAutomaticDetermined
+                    }
+                }
             };
 
             AddConstructionStage(0, dailyWaternet);
