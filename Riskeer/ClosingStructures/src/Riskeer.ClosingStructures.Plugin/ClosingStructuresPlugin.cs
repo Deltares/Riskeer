@@ -758,6 +758,11 @@ namespace Riskeer.ClosingStructures.Plugin
             return EnableValidateAndCalculateMenuItem(context.AssessmentSection);
         }
 
+        private static void Validate(ClosingStructuresCalculationContext context)
+        {
+            ClosingStructuresCalculationService.Validate(context.WrappedData, context.AssessmentSection);
+        }
+
         private void Calculate(StructuresCalculation<ClosingStructuresInput> calculation, ClosingStructuresCalculationContext context)
         {
             ActivityProgressDialogRunner.Run(Gui.MainWindow,
@@ -765,12 +770,7 @@ namespace Riskeer.ClosingStructures.Plugin
                                                                                                                    context.FailureMechanism,
                                                                                                                    context.AssessmentSection));
         }
-
-        private static void Validate(ClosingStructuresCalculationContext context)
-        {
-            ClosingStructuresCalculationService.Validate(context.WrappedData, context.AssessmentSection);
-        }
-
+        
         private static void CalculationContextOnNodeRemoved(ClosingStructuresCalculationContext context, object parentData)
         {
             if (parentData is ClosingStructuresCalculationGroupContext calculationGroupContext)
@@ -864,7 +864,7 @@ namespace Riskeer.ClosingStructures.Plugin
 
         #endregion
 
-        #region ImportInfo
+        #region ImportInfos
 
         #region ClosingStructuresImporter
 
