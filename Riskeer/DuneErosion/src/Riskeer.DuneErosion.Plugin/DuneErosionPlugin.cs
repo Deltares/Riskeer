@@ -207,40 +207,73 @@ namespace Riskeer.DuneErosion.Plugin
             duneLocationCalculationGuiService = new DuneLocationCalculationGuiService(Gui.MainWindow);
         }
 
-        private static FileFilterGenerator GetFileFilterGenerator()
+        #region ViewInfos
+
+        #region DuneErosionFailureMechanismResultView ViewInfo
+
+        private static bool CloseFailureMechanismResultViewForData(DuneErosionFailureMechanismResultView view, object o)
         {
-            return new FileFilterGenerator(
-                Resources.DuneErosionPlugin_GetExportInfos_Boundary_conditions_file_filter_Extension,
-                Resources.DuneErosionPlugin_GetExportInfos_Boundary_conditions_file_filter_Description);
+            var assessmentSection = o as IAssessmentSection;
+            var failureMechanism = o as DuneErosionFailureMechanism;
+            var failureMechanismContext = o as IFailureMechanismContext<DuneErosionFailureMechanism>;
+            if (assessmentSection != null)
+            {
+                return assessmentSection
+                       .GetFailureMechanisms()
+                       .OfType<DuneErosionFailureMechanism>()
+                       .Any(fm => ReferenceEquals(view.FailureMechanism.SectionResults, fm.SectionResults));
+            }
+
+            if (failureMechanismContext != null)
+            {
+                failureMechanism = failureMechanismContext.WrappedData;
+            }
+
+            return failureMechanism != null && ReferenceEquals(view.FailureMechanism.SectionResults, failureMechanism.SectionResults);
         }
 
-        private static bool IsDuneLocationCalculationsGroupContextExportMenuItemEnabled(DuneLocationCalculationsGroupContext context)
+        #endregion
+
+        #region DuneErosionFailureMechanismView ViewInfo
+
+        private static bool CloseFailureMechanismViewForData(DuneErosionFailureMechanismView view, object data)
         {
-            return context.FailureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm.Any(calculation => calculation.Output != null)
-                   || context.FailureMechanism.CalculationsForMechanismSpecificSignalingNorm.Any(calculation => calculation.Output != null)
-                   || context.FailureMechanism.CalculationsForMechanismSpecificLowerLimitNorm.Any(calculation => calculation.Output != null)
-                   || context.FailureMechanism.CalculationsForLowerLimitNorm.Any(calculation => calculation.Output != null)
-                   || context.FailureMechanism.CalculationsForFactorizedLowerLimitNorm.Any(calculation => calculation.Output != null);
+            var assessmentSection = data as IAssessmentSection;
+            var failureMechanism = data as DuneErosionFailureMechanism;
+
+            return assessmentSection != null
+                       ? ReferenceEquals(view.AssessmentSection, assessmentSection)
+                       : ReferenceEquals(view.FailureMechanism, failureMechanism);
         }
 
-        private static IFileExporter CreateDuneLocationCalculationsGroupContextFileExporter(DuneLocationCalculationsGroupContext context, string filePath)
+        #endregion
+
+        #region DuneLocationCalculationsView ViewInfo
+
+        private static bool CloseDuneLocationCalculationsViewForData(DuneLocationCalculationsView view, object dataToCloseFor)
         {
-            return CreateDuneLocationCalculationsExporter(DuneLocationCalculationsGroupContextChildNodeObjects(context)
-                                                          .Cast<DuneLocationCalculationsContext>()
-                                                          .SelectMany(c => c.WrappedData.Select(
-                                                                          calc => new ExportableDuneLocationCalculation(
-                                                                              calc,
-                                                                              c.GetNormFunc(),
-                                                                              c.CategoryBoundaryName))), filePath);
+            var failureMechanismContext = dataToCloseFor as DuneErosionFailureMechanismContext;
+            var assessmentSection = dataToCloseFor as IAssessmentSection;
+            var failureMechanism = dataToCloseFor as DuneErosionFailureMechanism;
+
+            if (assessmentSection != null)
+            {
+                failureMechanism = ((IAssessmentSection)dataToCloseFor).GetFailureMechanisms().OfType<DuneErosionFailureMechanism>().Single();
+            }
+
+            if (failureMechanismContext != null)
+            {
+                failureMechanism = failureMechanismContext.WrappedData;
+            }
+
+            return failureMechanism != null && ReferenceEquals(failureMechanism, view.FailureMechanism);
         }
 
-        private static DuneLocationCalculationsExporter CreateDuneLocationCalculationsExporter(IEnumerable<ExportableDuneLocationCalculation> exportableCalculations,
-                                                                                               string filePath)
-        {
-            return new DuneLocationCalculationsExporter(exportableCalculations, filePath, new NoProbabilityValueDoubleConverter());
-        }
+        #endregion
 
-        #region TreeNodeInfo
+        #endregion
+
+        #region TreeNodeInfos
 
         #region FailureMechanismContext TreeNodeInfo
 
@@ -471,69 +504,40 @@ namespace Riskeer.DuneErosion.Plugin
 
         #endregion
 
-        #region ViewInfo
+        #region ExportInfos
 
-        #region DuneErosionFailureMechanismResultView ViewInfo
-
-        private static bool CloseFailureMechanismResultViewForData(DuneErosionFailureMechanismResultView view, object o)
+        private static FileFilterGenerator GetFileFilterGenerator()
         {
-            var assessmentSection = o as IAssessmentSection;
-            var failureMechanism = o as DuneErosionFailureMechanism;
-            var failureMechanismContext = o as IFailureMechanismContext<DuneErosionFailureMechanism>;
-            if (assessmentSection != null)
-            {
-                return assessmentSection
-                       .GetFailureMechanisms()
-                       .OfType<DuneErosionFailureMechanism>()
-                       .Any(fm => ReferenceEquals(view.FailureMechanism.SectionResults, fm.SectionResults));
-            }
-
-            if (failureMechanismContext != null)
-            {
-                failureMechanism = failureMechanismContext.WrappedData;
-            }
-
-            return failureMechanism != null && ReferenceEquals(view.FailureMechanism.SectionResults, failureMechanism.SectionResults);
+            return new FileFilterGenerator(
+                Resources.DuneErosionPlugin_GetExportInfos_Boundary_conditions_file_filter_Extension,
+                Resources.DuneErosionPlugin_GetExportInfos_Boundary_conditions_file_filter_Description);
         }
 
-        #endregion
-
-        #region DuneErosionFailureMechanismView ViewInfo
-
-        private static bool CloseFailureMechanismViewForData(DuneErosionFailureMechanismView view, object data)
+        private static bool IsDuneLocationCalculationsGroupContextExportMenuItemEnabled(DuneLocationCalculationsGroupContext context)
         {
-            var assessmentSection = data as IAssessmentSection;
-            var failureMechanism = data as DuneErosionFailureMechanism;
-
-            return assessmentSection != null
-                       ? ReferenceEquals(view.AssessmentSection, assessmentSection)
-                       : ReferenceEquals(view.FailureMechanism, failureMechanism);
+            return context.FailureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm.Any(calculation => calculation.Output != null)
+                   || context.FailureMechanism.CalculationsForMechanismSpecificSignalingNorm.Any(calculation => calculation.Output != null)
+                   || context.FailureMechanism.CalculationsForMechanismSpecificLowerLimitNorm.Any(calculation => calculation.Output != null)
+                   || context.FailureMechanism.CalculationsForLowerLimitNorm.Any(calculation => calculation.Output != null)
+                   || context.FailureMechanism.CalculationsForFactorizedLowerLimitNorm.Any(calculation => calculation.Output != null);
         }
 
-        #endregion
-
-        #region DuneLocationCalculationsView ViewInfo
-
-        private static bool CloseDuneLocationCalculationsViewForData(DuneLocationCalculationsView view, object dataToCloseFor)
+        private static IFileExporter CreateDuneLocationCalculationsGroupContextFileExporter(DuneLocationCalculationsGroupContext context, string filePath)
         {
-            var failureMechanismContext = dataToCloseFor as DuneErosionFailureMechanismContext;
-            var assessmentSection = dataToCloseFor as IAssessmentSection;
-            var failureMechanism = dataToCloseFor as DuneErosionFailureMechanism;
-
-            if (assessmentSection != null)
-            {
-                failureMechanism = ((IAssessmentSection) dataToCloseFor).GetFailureMechanisms().OfType<DuneErosionFailureMechanism>().Single();
-            }
-
-            if (failureMechanismContext != null)
-            {
-                failureMechanism = failureMechanismContext.WrappedData;
-            }
-
-            return failureMechanism != null && ReferenceEquals(failureMechanism, view.FailureMechanism);
+            return CreateDuneLocationCalculationsExporter(DuneLocationCalculationsGroupContextChildNodeObjects(context)
+                                                          .Cast<DuneLocationCalculationsContext>()
+                                                          .SelectMany(c => c.WrappedData.Select(
+                                                                          calc => new ExportableDuneLocationCalculation(
+                                                                              calc,
+                                                                              c.GetNormFunc(),
+                                                                              c.CategoryBoundaryName))), filePath);
         }
 
-        #endregion
+        private static DuneLocationCalculationsExporter CreateDuneLocationCalculationsExporter(IEnumerable<ExportableDuneLocationCalculation> exportableCalculations,
+                                                                                               string filePath)
+        {
+            return new DuneLocationCalculationsExporter(exportableCalculations, filePath, new NoProbabilityValueDoubleConverter());
+        }
 
         #endregion
     }

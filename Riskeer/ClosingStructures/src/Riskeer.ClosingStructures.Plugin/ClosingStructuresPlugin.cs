@@ -864,7 +864,7 @@ namespace Riskeer.ClosingStructures.Plugin
 
         #endregion
 
-        #region Importers
+        #region ImportInfo
 
         #region ClosingStructuresImporter
 

@@ -1033,7 +1033,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
 
         #endregion
 
-        #region Importers
+        #region ImportInfos
 
         #region Dike Profiles Importer
 
