@@ -33,11 +33,13 @@ namespace Riskeer.Migration.Integration.Test
         private const string newVersion = "20.1";
 
         [Test]
-        public void Given191Project_WhenUpgradedTo201_ThenProjectAsExpected()
+        [TestCase("MigrationTestProject191.risk", "* Geen aanpassingen.")]
+        [TestCase("FilledMigrationTestProject191.risk", "* Alle berekende resultaten van het toetsspoor 'Macrostabiliteit binnenwaarts' zijn verwijderd.")]
+        public void Given191Project_WhenUpgradedTo201_ThenProjectAsExpected(string filePath, string expectedMessage)
         {
             // Given
             string sourceFilePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Migration.Core,
-                                                               "MigrationTestProject191.risk");
+                                                               filePath);
             var fromVersionedFile = new ProjectVersionedFile(sourceFilePath);
 
             string targetFilePath = TestHelper.GetScratchPadPath(nameof(Given191Project_WhenUpgradedTo201_ThenProjectAsExpected));
@@ -62,7 +64,7 @@ namespace Riskeer.Migration.Integration.Test
                     AssertDatabase(reader);
                 }
 
-                AssertLogDatabase(logFilePath);
+                AssertLogDatabase(logFilePath, expectedMessage);
             }
         }
 
@@ -120,7 +122,6 @@ namespace Riskeer.Migration.Integration.Test
                 "HydraulicLocationOutputEntity",
                 "IllustrationPointResultEntity",
                 "MacroStabilityInwardsCalculationEntity",
-                "MacroStabilityInwardsCalculationOutputEntity",
                 "MacroStabilityInwardsCharacteristicPointEntity",
                 "MacroStabilityInwardsFailureMechanismMetaEntity",
                 "MacroStabilityInwardsPreconsolidationStressEntity",
@@ -197,7 +198,7 @@ namespace Riskeer.Migration.Integration.Test
             reader.AssertReturnedDataIsValid(validateForeignKeys);
         }
 
-        private static void AssertLogDatabase(string logFilePath)
+        private static void AssertLogDatabase(string logFilePath, string expectedMessage)
         {
             using (var reader = new MigrationLogDatabaseReader(logFilePath))
             {
@@ -209,7 +210,7 @@ namespace Riskeer.Migration.Integration.Test
                     new MigrationLogMessage("19.1", newVersion, "Gevolgen van de migratie van versie 19.1 naar versie 20.1:"),
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("19.1", newVersion, "* Geen aanpassingen."),
+                    new MigrationLogMessage("19.1", newVersion, expectedMessage),
                     messages[i]);
             }
         }
