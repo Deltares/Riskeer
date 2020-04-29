@@ -248,20 +248,11 @@ namespace Riskeer.Integration.Plugin
         private IHydraulicBoundaryLocationCalculationGuiService hydraulicBoundaryLocationCalculationGuiService;
         private AssessmentSectionMerger assessmentSectionMerger;
 
-        public override IRibbonCommandHandler RibbonCommandHandler
-        {
-            get
-            {
-                return ribbonCommandHandler;
-            }
-        }
+        public override IRibbonCommandHandler RibbonCommandHandler => ribbonCommandHandler;
 
         public override IGui Gui
         {
-            get
-            {
-                return base.Gui;
-            }
+            get => base.Gui;
             set
             {
                 RemoveOnOpenProjectListener(base.Gui);
@@ -464,10 +455,7 @@ namespace Riskeer.Integration.Plugin
                                                                                  context.AssessmentSection,
                                                                                  context.GetNormFunc,
                                                                                  context.CategoryBoundaryName),
-                AfterCreate = (view, context) =>
-                {
-                    view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService;
-                }
+                AfterCreate = (view, context) => { view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService; }
             };
 
             yield return new ViewInfo<WaveHeightCalculationsContext, IObservableEnumerable<HydraulicBoundaryLocationCalculation>, WaveHeightCalculationsView>
@@ -481,10 +469,7 @@ namespace Riskeer.Integration.Plugin
                                                                            context.AssessmentSection,
                                                                            context.GetNormFunc,
                                                                            context.CategoryBoundaryName),
-                AfterCreate = (view, context) =>
-                {
-                    view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService;
-                }
+                AfterCreate = (view, context) => { view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService; }
             };
 
             yield return new ViewInfo<IAssessmentSection, AssessmentSectionView>
@@ -884,8 +869,7 @@ namespace Riskeer.Integration.Plugin
         /// <returns>Sequence of child data.</returns>
         public override IEnumerable<object> GetChildDataWithViewDefinitions(object viewData)
         {
-            var project = viewData as RiskeerProject;
-            if (project != null)
+            if (viewData is RiskeerProject project)
             {
                 foreach (AssessmentSection item in project.AssessmentSections)
                 {
@@ -893,8 +877,7 @@ namespace Riskeer.Integration.Plugin
                 }
             }
 
-            var assessmentSection = viewData as IAssessmentSection;
-            if (assessmentSection != null)
+            if (viewData is IAssessmentSection assessmentSection)
             {
                 yield return assessmentSection.FailureMechanismContribution;
             }
@@ -1441,8 +1424,7 @@ namespace Riskeer.Integration.Plugin
 
         private static bool CloseFailureMechanismContributionViewForData(FailureMechanismContributionView view, object o)
         {
-            var assessmentSection = o as IAssessmentSection;
-            return assessmentSection != null && assessmentSection == view.AssessmentSection;
+            return o is IAssessmentSection assessmentSection && assessmentSection == view.AssessmentSection;
         }
 
         #endregion
@@ -1451,8 +1433,7 @@ namespace Riskeer.Integration.Plugin
 
         private static bool CloseAssessmentSectionCategoriesViewForData(AssessmentSectionAssemblyCategoriesView view, object o)
         {
-            var assessmentSection = o as IAssessmentSection;
-            return assessmentSection != null && assessmentSection.FailureMechanismContribution == view.FailureMechanismContribution;
+            return o is IAssessmentSection assessmentSection && assessmentSection.FailureMechanismContribution == view.FailureMechanismContribution;
         }
 
         #endregion
@@ -1483,10 +1464,8 @@ namespace Riskeer.Integration.Plugin
                 failureMechanism = failureMechanismContext.WrappedData;
             }
 
-            var failureMechanismWithSectionResults = failureMechanism as IHasSectionResults<FailureMechanismSectionResult>;
-
             return failureMechanism != null &&
-                   failureMechanismWithSectionResults != null &&
+                   failureMechanism is IHasSectionResults<FailureMechanismSectionResult> failureMechanismWithSectionResults &&
                    ReferenceEquals(view.FailureMechanism.SectionResults, failureMechanismWithSectionResults.SectionResults);
         }
 
@@ -1497,9 +1476,8 @@ namespace Riskeer.Integration.Plugin
         private static bool CloseHydraulicBoundaryCalculationsViewForData(HydraulicBoundaryCalculationsView view, object dataToCloseFor)
         {
             IAssessmentSection viewData = view.AssessmentSection;
-            var assessmentSection = dataToCloseFor as IAssessmentSection;
 
-            return assessmentSection != null && ReferenceEquals(viewData, assessmentSection);
+            return dataToCloseFor is IAssessmentSection assessmentSection && ReferenceEquals(viewData, assessmentSection);
         }
 
         #endregion
@@ -1508,24 +1486,21 @@ namespace Riskeer.Integration.Plugin
 
         private static bool CloseCommentViewForData(CommentView commentView, object o)
         {
-            var calculationGroupContext = o as ICalculationContext<CalculationGroup, IFailureMechanism>;
-            if (calculationGroupContext != null)
+            if (o is ICalculationContext<CalculationGroup, IFailureMechanism> calculationGroupContext)
             {
                 return GetCommentElements(calculationGroupContext.WrappedData)
                     .Any(commentElement => ReferenceEquals(commentView.Data, commentElement));
             }
 
             var calculationContext = o as ICalculationContext<ICalculationBase, IFailureMechanism>;
-            var calculation = calculationContext?.WrappedData as ICalculation;
-            if (calculation != null)
+            if (calculationContext?.WrappedData is ICalculation calculation)
             {
                 return ReferenceEquals(commentView.Data, calculation.Comments);
             }
 
             var failureMechanism = o as IFailureMechanism;
 
-            var failureMechanismContext = o as IFailureMechanismContext<IFailureMechanism>;
-            if (failureMechanismContext != null)
+            if (o is IFailureMechanismContext<IFailureMechanism> failureMechanismContext)
             {
                 failureMechanism = failureMechanismContext.WrappedData;
             }
@@ -1536,8 +1511,7 @@ namespace Riskeer.Integration.Plugin
                     .Any(commentElement => ReferenceEquals(commentView.Data, commentElement));
             }
 
-            var assessmentSection = o as IAssessmentSection;
-            if (assessmentSection != null)
+            if (o is IAssessmentSection assessmentSection)
             {
                 return GetCommentElements(assessmentSection)
                     .Any(commentElement => ReferenceEquals(commentView.Data, commentElement));
@@ -1577,8 +1551,7 @@ namespace Riskeer.Integration.Plugin
 
         private static bool CloseAssemblyResultTotalViewForData(AssemblyResultTotalView view, object o)
         {
-            var assessmentSection = o as AssessmentSection;
-            return assessmentSection != null && assessmentSection == view.AssessmentSection;
+            return o is AssessmentSection assessmentSection && assessmentSection == view.AssessmentSection;
         }
 
         #endregion
@@ -1587,18 +1560,16 @@ namespace Riskeer.Integration.Plugin
 
         private static bool CloseAssemblyResultPerSectionViewForData(AssemblyResultPerSectionView view, object o)
         {
-            var assessmentSection = o as AssessmentSection;
-            return assessmentSection != null && assessmentSection == view.AssessmentSection;
+            return o is AssessmentSection assessmentSection && assessmentSection == view.AssessmentSection;
         }
 
         #endregion
 
         #region AssemblyResultCategoriesContext ViewInfo
 
-        private bool CloseAssemblyResultCategoriesViewForData(AssemblyResultCategoriesView view, object o)
+        private static bool CloseAssemblyResultCategoriesViewForData(AssemblyResultCategoriesView view, object o)
         {
-            var assessmentSection = o as AssessmentSection;
-            return assessmentSection != null && assessmentSection == view.AssessmentSection;
+            return o is AssessmentSection assessmentSection && assessmentSection == view.AssessmentSection;
         }
 
         #endregion
@@ -1607,8 +1578,7 @@ namespace Riskeer.Integration.Plugin
 
         private static bool CloseAssemblyResultPerSectionMapViewForData(AssemblyResultPerSectionMapView view, object o)
         {
-            var assessmentSection = o as AssessmentSection;
-            return assessmentSection != null && assessmentSection == view.AssessmentSection;
+            return o is AssessmentSection assessmentSection && assessmentSection == view.AssessmentSection;
         }
 
         #endregion
@@ -1759,10 +1729,7 @@ namespace Riskeer.Integration.Plugin
                 RiskeerCommonFormsResources.Calculate_All,
                 Resources.AssessmentSection_Calculate_All_ToolTip,
                 RiskeerCommonFormsResources.CalculateAllIcon,
-                (sender, args) =>
-                {
-                    ActivityProgressDialogRunner.Run(Gui.MainWindow, AssessmentSectionCalculationActivityFactory.CreateActivities(nodeData));
-                });
+                (sender, args) => { ActivityProgressDialogRunner.Run(Gui.MainWindow, AssessmentSectionCalculationActivityFactory.CreateActivities(nodeData)); });
 
             var importItem = new StrictContextMenuItem(
                 GuiResources.Import,
@@ -1844,15 +1811,15 @@ namespace Riskeer.Integration.Plugin
             return new object[]
             {
                 new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Inputs_DisplayName,
-                                       GetInputs(nodeData.WrappedData, nodeData.Parent),
+                                       GetGrassCoverSlipOffInwardsFailureMechanismInputs(nodeData.WrappedData, nodeData.Parent),
                                        TreeFolderCategory.Input),
                 new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Outputs_DisplayName,
-                                       GetOutputs(nodeData.WrappedData),
+                                       GetGrassCoverSlipOffInwardsFailureMechanismOutputs(nodeData.WrappedData),
                                        TreeFolderCategory.Output)
             };
         }
 
-        private static IEnumerable<object> GetInputs(GrassCoverSlipOffInwardsFailureMechanism nodeData, IAssessmentSection assessmentSection)
+        private static IEnumerable<object> GetGrassCoverSlipOffInwardsFailureMechanismInputs(GrassCoverSlipOffInwardsFailureMechanism nodeData, IAssessmentSection assessmentSection)
         {
             return new object[]
             {
@@ -1861,7 +1828,7 @@ namespace Riskeer.Integration.Plugin
             };
         }
 
-        private static IEnumerable<object> GetOutputs(GrassCoverSlipOffInwardsFailureMechanism nodeData)
+        private static IEnumerable<object> GetGrassCoverSlipOffInwardsFailureMechanismOutputs(GrassCoverSlipOffInwardsFailureMechanism nodeData)
         {
             return new object[]
             {
@@ -1880,15 +1847,15 @@ namespace Riskeer.Integration.Plugin
             return new object[]
             {
                 new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Inputs_DisplayName,
-                                       GetInputs(nodeData.WrappedData, nodeData.Parent),
+                                       GetGrassCoverSlipOffOutwardsFailureMechanismInputs(nodeData.WrappedData, nodeData.Parent),
                                        TreeFolderCategory.Input),
                 new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Outputs_DisplayName,
-                                       GetOutputs(nodeData.WrappedData),
+                                       GetGrassCoverSlipOffOutwardsFailureMechanismOutputs(nodeData.WrappedData),
                                        TreeFolderCategory.Output)
             };
         }
 
-        private static IEnumerable<object> GetInputs(GrassCoverSlipOffOutwardsFailureMechanism nodeData, IAssessmentSection assessmentSection)
+        private static IEnumerable<object> GetGrassCoverSlipOffOutwardsFailureMechanismInputs(GrassCoverSlipOffOutwardsFailureMechanism nodeData, IAssessmentSection assessmentSection)
         {
             return new object[]
             {
@@ -1897,7 +1864,7 @@ namespace Riskeer.Integration.Plugin
             };
         }
 
-        private static IEnumerable<object> GetOutputs(GrassCoverSlipOffOutwardsFailureMechanism nodeData)
+        private static IEnumerable<object> GetGrassCoverSlipOffOutwardsFailureMechanismOutputs(GrassCoverSlipOffOutwardsFailureMechanism nodeData)
         {
             return new object[]
             {
@@ -1916,15 +1883,15 @@ namespace Riskeer.Integration.Plugin
             return new object[]
             {
                 new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Inputs_DisplayName,
-                                       GetInputs(nodeData.WrappedData, nodeData.Parent),
+                                       GetMacroStabilityOutwardsFailureMechanismInputs(nodeData.WrappedData, nodeData.Parent),
                                        TreeFolderCategory.Input),
                 new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Outputs_DisplayName,
-                                       GetOutputs(nodeData.WrappedData, nodeData.Parent),
+                                       GetMacroStabilityOutwardsFailureMechanismOutputs(nodeData.WrappedData, nodeData.Parent),
                                        TreeFolderCategory.Output)
             };
         }
 
-        private static IEnumerable<object> GetInputs(MacroStabilityOutwardsFailureMechanism nodeData, IAssessmentSection assessmentSection)
+        private static IEnumerable<object> GetMacroStabilityOutwardsFailureMechanismInputs(MacroStabilityOutwardsFailureMechanism nodeData, IAssessmentSection assessmentSection)
         {
             return new object[]
             {
@@ -1933,8 +1900,8 @@ namespace Riskeer.Integration.Plugin
             };
         }
 
-        private static IEnumerable<object> GetOutputs(MacroStabilityOutwardsFailureMechanism nodeData,
-                                                      IAssessmentSection assessmentSection)
+        private static IEnumerable<object> GetMacroStabilityOutwardsFailureMechanismOutputs(MacroStabilityOutwardsFailureMechanism nodeData,
+                                                                                            IAssessmentSection assessmentSection)
         {
             MacroStabilityOutwardsProbabilityAssessmentInput probabilityAssessmentInput = nodeData.MacroStabilityOutwardsProbabilityAssessmentInput;
             return new object[]
@@ -1957,15 +1924,15 @@ namespace Riskeer.Integration.Plugin
             return new object[]
             {
                 new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Inputs_DisplayName,
-                                       GetInputs(nodeData.WrappedData, nodeData.Parent),
+                                       GetMicrostabilityFailureMechanismInputs(nodeData.WrappedData, nodeData.Parent),
                                        TreeFolderCategory.Input),
                 new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Outputs_DisplayName,
-                                       GetOutputs(nodeData.WrappedData),
+                                       GetMicrostabilityFailureMechanismOutputs(nodeData.WrappedData),
                                        TreeFolderCategory.Output)
             };
         }
 
-        private static IEnumerable<object> GetInputs(MicrostabilityFailureMechanism nodeData, IAssessmentSection assessmentSection)
+        private static IEnumerable<object> GetMicrostabilityFailureMechanismInputs(MicrostabilityFailureMechanism nodeData, IAssessmentSection assessmentSection)
         {
             return new object[]
             {
@@ -1974,7 +1941,7 @@ namespace Riskeer.Integration.Plugin
             };
         }
 
-        private static IEnumerable<object> GetOutputs(MicrostabilityFailureMechanism nodeData)
+        private static IEnumerable<object> GetMicrostabilityFailureMechanismOutputs(MicrostabilityFailureMechanism nodeData)
         {
             return new object[]
             {
@@ -1993,15 +1960,15 @@ namespace Riskeer.Integration.Plugin
             return new object[]
             {
                 new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Inputs_DisplayName,
-                                       GetInputs(nodeData.WrappedData, nodeData.Parent),
+                                       GetPipingStructureFailureMechanismInputs(nodeData.WrappedData, nodeData.Parent),
                                        TreeFolderCategory.Input),
                 new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Outputs_DisplayName,
-                                       GetOutputs(nodeData.WrappedData, nodeData.Parent),
+                                       GetPipingStructureFailureMechanismOutputs(nodeData.WrappedData, nodeData.Parent),
                                        TreeFolderCategory.Output)
             };
         }
 
-        private static IEnumerable<object> GetInputs(PipingStructureFailureMechanism nodeData, IAssessmentSection assessmentSection)
+        private static IEnumerable<object> GetPipingStructureFailureMechanismInputs(PipingStructureFailureMechanism nodeData, IAssessmentSection assessmentSection)
         {
             return new object[]
             {
@@ -2010,8 +1977,8 @@ namespace Riskeer.Integration.Plugin
             };
         }
 
-        private static IEnumerable<object> GetOutputs(PipingStructureFailureMechanism nodeData,
-                                                      IAssessmentSection assessmentSection)
+        private static IEnumerable<object> GetPipingStructureFailureMechanismOutputs(PipingStructureFailureMechanism nodeData,
+                                                                                     IAssessmentSection assessmentSection)
         {
             return new object[]
             {
@@ -2034,15 +2001,15 @@ namespace Riskeer.Integration.Plugin
             return new object[]
             {
                 new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Inputs_DisplayName,
-                                       GetInputs(nodeData.WrappedData, nodeData.Parent),
+                                       GetStrengthStabilityLengthwiseConstructionFailureMechanismInputs(nodeData.WrappedData, nodeData.Parent),
                                        TreeFolderCategory.Input),
                 new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Outputs_DisplayName,
-                                       GetOutputs(nodeData.WrappedData),
+                                       GetStrengthStabilityLengthwiseConstructionFailureMechanismOutputs(nodeData.WrappedData),
                                        TreeFolderCategory.Output)
             };
         }
 
-        private static IEnumerable<object> GetInputs(StrengthStabilityLengthwiseConstructionFailureMechanism nodeData, IAssessmentSection assessmentSection)
+        private static IEnumerable<object> GetStrengthStabilityLengthwiseConstructionFailureMechanismInputs(StrengthStabilityLengthwiseConstructionFailureMechanism nodeData, IAssessmentSection assessmentSection)
         {
             return new object[]
             {
@@ -2051,7 +2018,7 @@ namespace Riskeer.Integration.Plugin
             };
         }
 
-        private static IEnumerable<object> GetOutputs(StrengthStabilityLengthwiseConstructionFailureMechanism nodeData)
+        private static IEnumerable<object> GetStrengthStabilityLengthwiseConstructionFailureMechanismOutputs(StrengthStabilityLengthwiseConstructionFailureMechanism nodeData)
         {
             return new object[]
             {
@@ -2070,15 +2037,15 @@ namespace Riskeer.Integration.Plugin
             return new object[]
             {
                 new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Inputs_DisplayName,
-                                       GetInputs(nodeData.WrappedData, nodeData.Parent),
+                                       GetTechnicalInnovationFailureMechanismInputs(nodeData.WrappedData, nodeData.Parent),
                                        TreeFolderCategory.Input),
                 new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Outputs_DisplayName,
-                                       GetOutputs(nodeData.WrappedData),
+                                       GetTechnicalInnovationFailureMechanismOutputs(nodeData.WrappedData),
                                        TreeFolderCategory.Output)
             };
         }
 
-        private static IEnumerable<object> GetInputs(TechnicalInnovationFailureMechanism nodeData, IAssessmentSection assessmentSection)
+        private static IEnumerable<object> GetTechnicalInnovationFailureMechanismInputs(TechnicalInnovationFailureMechanism nodeData, IAssessmentSection assessmentSection)
         {
             return new object[]
             {
@@ -2087,7 +2054,7 @@ namespace Riskeer.Integration.Plugin
             };
         }
 
-        private static IEnumerable<object> GetOutputs(TechnicalInnovationFailureMechanism nodeData)
+        private static IEnumerable<object> GetTechnicalInnovationFailureMechanismOutputs(TechnicalInnovationFailureMechanism nodeData)
         {
             return new object[]
             {
@@ -2106,15 +2073,15 @@ namespace Riskeer.Integration.Plugin
             return new object[]
             {
                 new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Inputs_DisplayName,
-                                       GetInputs(nodeData.WrappedData, nodeData.Parent),
+                                       GetWaterPressureAsphaltCoverFailureMechanismInputs(nodeData.WrappedData, nodeData.Parent),
                                        TreeFolderCategory.Input),
                 new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Outputs_DisplayName,
-                                       GetOutputs(nodeData.WrappedData),
+                                       GetWaterPressureAsphaltCoverFailureMechanismOutputs(nodeData.WrappedData),
                                        TreeFolderCategory.Output)
             };
         }
 
-        private static IEnumerable<object> GetInputs(WaterPressureAsphaltCoverFailureMechanism nodeData, IAssessmentSection assessmentSection)
+        private static IEnumerable<object> GetWaterPressureAsphaltCoverFailureMechanismInputs(WaterPressureAsphaltCoverFailureMechanism nodeData, IAssessmentSection assessmentSection)
         {
             return new object[]
             {
@@ -2123,7 +2090,7 @@ namespace Riskeer.Integration.Plugin
             };
         }
 
-        private static IEnumerable<object> GetOutputs(WaterPressureAsphaltCoverFailureMechanism nodeData)
+        private static IEnumerable<object> GetWaterPressureAsphaltCoverFailureMechanismOutputs(WaterPressureAsphaltCoverFailureMechanism nodeData)
         {
             return new object[]
             {
@@ -2496,14 +2463,9 @@ namespace Riskeer.Integration.Plugin
 
         #region Foreshore Profile Update and ImportInfo
 
-        private static FileFilterGenerator CreateForeshoreProfileFileFilterGenerator
-        {
-            get
-            {
-                return new FileFilterGenerator(RiskeerCommonIOResources.Shape_file_filter_Extension,
-                                               RiskeerCommonIOResources.Shape_file_filter_Description);
-            }
-        }
+        private static FileFilterGenerator CreateForeshoreProfileFileFilterGenerator =>
+            new FileFilterGenerator(RiskeerCommonIOResources.Shape_file_filter_Extension,
+                                    RiskeerCommonIOResources.Shape_file_filter_Description);
 
         private bool VerifyForeshoreProfileUpdates(ForeshoreProfilesContext context, string query)
         {
