@@ -202,11 +202,8 @@ namespace Riskeer.Common.Forms.PropertyClasses
         {
             get
             {
-                IEnumerable<TopLevelSubMechanismIllustrationPoint> topLevelIllustrationPoints =
-                    GetTopLevelIllustrationPoints();
-
+                IEnumerable<TopLevelSubMechanismIllustrationPoint> topLevelIllustrationPoints = GetTopLevelIllustrationPoints();
                 IEnumerable<string> closingSituations = topLevelIllustrationPoints.Select(s => s.ClosingSituation);
-
                 return GetTopLevelSubMechanismIllustrationPointProperties(topLevelIllustrationPoints, closingSituations);
             }
         }
