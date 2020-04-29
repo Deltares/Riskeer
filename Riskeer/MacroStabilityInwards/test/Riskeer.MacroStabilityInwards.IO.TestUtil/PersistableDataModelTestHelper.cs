@@ -25,11 +25,15 @@ using System.Linq;
 using System.Reflection;
 using Components.Persistence.Stability.Data;
 using Core.Common.Base.Data;
+using Core.Common.Base.Geometry;
+using Core.Common.Geometry;
 using Core.Common.Util.Reflection;
 using NUnit.Framework;
 using Riskeer.Common.Data.Probabilistics;
+using Riskeer.Common.Data.TestUtil;
 using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.MacroStabilityInwards.Data.SoilProfile;
+using Riskeer.MacroStabilityInwards.IO.Factories;
 using Riskeer.MacroStabilityInwards.Primitives;
 
 namespace Riskeer.MacroStabilityInwards.IO.TestUtil
@@ -63,6 +67,12 @@ namespace Riskeer.MacroStabilityInwards.IO.TestUtil
                 DerivedMacroStabilityInwardsInput.GetWaternetDaily(calculation.InputParameters),
                 DerivedMacroStabilityInwardsInput.GetWaternetExtreme(calculation.InputParameters, RoundedDouble.NaN)
             }, persistableDataModel.Waternets);
+            AssertWaternetCreatorSettings(calculation.InputParameters, persistableDataModel.WaternetCreatorSettings, AssessmentSectionTestHelper.GetTestAssessmentLevel(), new[]
+            {
+                MacroStabilityInwardsExportStageType.Daily,
+                MacroStabilityInwardsExportStageType.Extreme
+            });
+            AssertStates(calculation.InputParameters.SoilProfileUnderSurfaceLine, persistableDataModel.States);
 
             Assert.IsNull(persistableDataModel.AssessmentResults);
             Assert.IsNull(persistableDataModel.Decorations);
@@ -71,12 +81,10 @@ namespace Riskeer.MacroStabilityInwards.IO.TestUtil
             Assert.IsNull(persistableDataModel.Reinforcements);
             Assert.IsNull(persistableDataModel.SoilCorrelations);
             Assert.IsNull(persistableDataModel.SoilVisualizations);
-            Assert.IsNull(persistableDataModel.WaternetCreatorSettings);
             Assert.IsNull(persistableDataModel.StateCorrelations);
-            Assert.IsNull(persistableDataModel.States);
 
             AssertStages(persistableDataModel.Stages, persistableDataModel.CalculationSettings, persistableDataModel.Geometry, persistableDataModel.SoilLayers,
-                         persistableDataModel.Waternets);
+                         persistableDataModel.Waternets, persistableDataModel.WaternetCreatorSettings, persistableDataModel.States);
         }
 
         /// <summary>
@@ -116,22 +124,22 @@ namespace Riskeer.MacroStabilityInwards.IO.TestUtil
         public static void AssertCalculationSettings(MacroStabilityInwardsSlidingCurve slidingCurve, IEnumerable<PersistableCalculationSettings> calculationSettings)
         {
             Assert.AreEqual(2, calculationSettings.Count());
-            PersistableCalculationSettings emptyCalculationSettings = calculationSettings.First();
+            PersistableCalculationSettings dailyCalculationSettings = calculationSettings.First();
 
-            Assert.AreEqual("0", emptyCalculationSettings.Id);
-            Assert.IsNull(emptyCalculationSettings.AnalysisType);
-            Assert.IsNull(emptyCalculationSettings.CalculationType);
-            Assert.IsNull(emptyCalculationSettings.UpliftVan);
+            Assert.IsNotNull(dailyCalculationSettings.Id);
+            Assert.AreEqual(PersistableAnalysisType.UpliftVan, dailyCalculationSettings.AnalysisType);
+            Assert.IsNull(dailyCalculationSettings.CalculationType);
+            Assert.IsNull(dailyCalculationSettings.UpliftVan);
 
-            PersistableCalculationSettings actualCalculationSettings = calculationSettings.Last();
-            Assert.AreEqual("1", actualCalculationSettings.Id);
-            Assert.AreEqual(PersistableAnalysisType.UpliftVan, actualCalculationSettings.AnalysisType);
-            Assert.AreEqual(PersistableCalculationType.Deterministic, actualCalculationSettings.CalculationType);
-            Assert.AreEqual(slidingCurve.LeftCircle.Center.X, actualCalculationSettings.UpliftVan.SlipPlane.FirstCircleCenter.Value.X);
-            Assert.AreEqual(slidingCurve.LeftCircle.Center.Y, actualCalculationSettings.UpliftVan.SlipPlane.FirstCircleCenter.Value.Z);
-            Assert.AreEqual(slidingCurve.LeftCircle.Radius, actualCalculationSettings.UpliftVan.SlipPlane.FirstCircleRadius);
-            Assert.AreEqual(slidingCurve.RightCircle.Center.X, actualCalculationSettings.UpliftVan.SlipPlane.SecondCircleCenter.Value.X);
-            Assert.AreEqual(slidingCurve.RightCircle.Center.Y, actualCalculationSettings.UpliftVan.SlipPlane.SecondCircleCenter.Value.Z);
+            PersistableCalculationSettings extremeCalculationSettings = calculationSettings.Last();
+            Assert.IsNotNull(extremeCalculationSettings.Id);
+            Assert.AreEqual(PersistableAnalysisType.UpliftVan, extremeCalculationSettings.AnalysisType);
+            Assert.AreEqual(PersistableCalculationType.Deterministic, extremeCalculationSettings.CalculationType);
+            Assert.AreEqual(slidingCurve.LeftCircle.Center.X, extremeCalculationSettings.UpliftVan.SlipPlane.FirstCircleCenter.Value.X);
+            Assert.AreEqual(slidingCurve.LeftCircle.Center.Y, extremeCalculationSettings.UpliftVan.SlipPlane.FirstCircleCenter.Value.Z);
+            Assert.AreEqual(slidingCurve.LeftCircle.Radius, extremeCalculationSettings.UpliftVan.SlipPlane.FirstCircleRadius);
+            Assert.AreEqual(slidingCurve.RightCircle.Center.X, extremeCalculationSettings.UpliftVan.SlipPlane.SecondCircleCenter.Value.X);
+            Assert.AreEqual(slidingCurve.RightCircle.Center.Y, extremeCalculationSettings.UpliftVan.SlipPlane.SecondCircleCenter.Value.Z);
         }
 
         /// <summary>
@@ -327,6 +335,111 @@ namespace Riskeer.MacroStabilityInwards.IO.TestUtil
         }
 
         /// <summary>
+        /// Asserts whether the <see cref="PersistableWaternetCreatorSettings"/> contains the data
+        /// that is representative for the <paramref name="input"/>.
+        /// </summary>
+        /// <param name="input">The input that contains the original data.</param>
+        /// <param name="waternetCreatorSettingsCollection">The <see cref="PersistableWaternetCreatorSettings"/>
+        /// that needs to be asserted.</param>
+        /// <param name="normativeAssessmentLevel">The normative assessment level to use.</param>
+        /// <param name="stages">The stages to use.</param>
+        /// <exception cref="AssertionException">Thrown when the data in <paramref name="waternetCreatorSettingsCollection"/>
+        /// is not correct.</exception>
+        public static void AssertWaternetCreatorSettings(MacroStabilityInwardsInput input, IEnumerable<PersistableWaternetCreatorSettings> waternetCreatorSettingsCollection,
+                                                         RoundedDouble normativeAssessmentLevel, MacroStabilityInwardsExportStageType[] stages)
+        {
+            Assert.AreEqual(2, waternetCreatorSettingsCollection.Count());
+
+            for (var i = 0; i < waternetCreatorSettingsCollection.Count(); i++)
+            {
+                PersistableWaternetCreatorSettings waternetCreatorSettings = waternetCreatorSettingsCollection.ElementAt(i);
+
+                Assert.AreEqual(input.MinimumLevelPhreaticLineAtDikeTopPolder, waternetCreatorSettings.InitialLevelEmbankmentTopWaterSide);
+                Assert.AreEqual(input.MinimumLevelPhreaticLineAtDikeTopRiver, waternetCreatorSettings.InitialLevelEmbankmentTopLandSide);
+                Assert.AreEqual(input.AdjustPhreaticLine3And4ForUplift, waternetCreatorSettings.AdjustForUplift);
+                Assert.AreEqual(input.LeakageLengthInwardsPhreaticLine3, waternetCreatorSettings.PleistoceneLeakageLengthInwards);
+                Assert.AreEqual(input.LeakageLengthOutwardsPhreaticLine3, waternetCreatorSettings.PleistoceneLeakageLengthInwards);
+                Assert.AreEqual(input.LeakageLengthInwardsPhreaticLine4, waternetCreatorSettings.AquiferLayerInsideAquitardLeakageLengthInwards);
+                Assert.AreEqual(input.LeakageLengthOutwardsPhreaticLine4, waternetCreatorSettings.AquiferLayerInsideAquitardLeakageLengthOutwards);
+                Assert.AreEqual(input.PiezometricHeadPhreaticLine2Inwards, waternetCreatorSettings.AquitardHeadLandSide);
+                Assert.AreEqual(input.PiezometricHeadPhreaticLine2Outwards, waternetCreatorSettings.AquitardHeadWaterSide);
+                Assert.AreEqual(input.WaterLevelRiverAverage, waternetCreatorSettings.MeanWaterLevel);
+                Assert.AreEqual(input.DrainageConstructionPresent, waternetCreatorSettings.IsDrainageConstructionPresent);
+                Assert.AreEqual(input.XCoordinateDrainageConstruction, waternetCreatorSettings.DrainageConstruction.X);
+                Assert.AreEqual(input.ZCoordinateDrainageConstruction, waternetCreatorSettings.DrainageConstruction.Z);
+                Assert.AreEqual(IsDitchPresent(input.SurfaceLine), waternetCreatorSettings.IsDitchPresent);
+                AssertDitchCharacteristics(input.SurfaceLine, waternetCreatorSettings.DitchCharacteristics, IsDitchPresent(input.SurfaceLine));
+                AssertEmbankmentCharacteristics(input.SurfaceLine, waternetCreatorSettings.EmbankmentCharacteristics);
+                Assert.AreEqual(GetEmbankmentSoilScenario(input.DikeSoilScenario), waternetCreatorSettings.EmbankmentSoilScenario);
+                Assert.IsFalse(waternetCreatorSettings.IsAquiferLayerInsideAquitard);
+                Assert.IsNotNull(waternetCreatorSettings.AquiferLayerId);
+
+                if (stages[i] == MacroStabilityInwardsExportStageType.Daily)
+                {
+                    Assert.AreEqual(input.WaterLevelRiverAverage, waternetCreatorSettings.NormativeWaterLevel);
+                    Assert.AreEqual(input.LocationInputDaily.WaterLevelPolder, waternetCreatorSettings.WaterLevelHinterland);
+                    Assert.AreEqual(input.LocationInputDaily.PenetrationLength, waternetCreatorSettings.IntrusionLength);
+                    AssertOffsets(input.LocationInputDaily, waternetCreatorSettings);
+                }
+                else if (stages[i] == MacroStabilityInwardsExportStageType.Extreme)
+                {
+                    Assert.AreEqual(normativeAssessmentLevel, waternetCreatorSettings.NormativeWaterLevel);
+                    Assert.AreEqual(input.LocationInputExtreme.WaterLevelPolder, waternetCreatorSettings.WaterLevelHinterland);
+                    Assert.AreEqual(input.LocationInputExtreme.PenetrationLength, waternetCreatorSettings.IntrusionLength);
+                    AssertOffsets(input.LocationInputExtreme, waternetCreatorSettings);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Asserts whether the <see cref="PersistableState"/> contains the data
+        /// that is representative for the <paramref name="soilProfile"/>.
+        /// </summary>
+        /// <param name="soilProfile">The input that contains the original data.</param>
+        /// <param name="states">The <see cref="PersistableState"/>
+        /// that needs to be asserted.</param>
+        /// <exception cref="AssertionException">Thrown when the data in <paramref name="states"/>
+        /// is not correct.</exception>
+        public static void AssertStates(IMacroStabilityInwardsSoilProfileUnderSurfaceLine soilProfile, IEnumerable<PersistableState> states)
+        {
+            Assert.AreEqual(2, states.Count());
+
+            IEnumerable<MacroStabilityInwardsSoilLayer2D> layersWithPop = MacroStabilityInwardsSoilProfile2DLayersHelper.GetLayersRecursively(soilProfile.Layers)
+                                                                                                                        .Where(l => l.Data.UsePop
+                                                                                                                                    && l.Data.Pop.Mean != RoundedDouble.NaN
+                                                                                                                                    && l.Data.Pop.CoefficientOfVariation != RoundedDouble.NaN);
+
+            for (var i = 0; i < states.Count(); i++)
+            {
+                PersistableState state = states.ElementAt(i);
+
+                Assert.IsNotNull(state.Id);
+                CollectionAssert.IsEmpty(state.StateLines);
+
+                Assert.AreEqual(layersWithPop.Count(), state.StatePoints.Count());
+
+                for (var j = 0; j < layersWithPop.Count(); j++)
+                {
+                    MacroStabilityInwardsSoilLayer2D layerWithPop = layersWithPop.ElementAt(j);
+                    PersistableStatePoint statePoint = state.StatePoints.ElementAt(j);
+
+                    Assert.IsNotNull(statePoint.Id);
+                    Assert.IsEmpty(statePoint.Label);
+                    Assert.IsNotNull(statePoint.LayerId);
+                    Assert.IsTrue(statePoint.IsProbabilistic);
+
+                    Point2D interiorPoint = AdvancedMath2D.GetPolygonInteriorPoint(layerWithPop.OuterRing.Points, layerWithPop.NestedLayers.Select(layers => layers.OuterRing.Points));
+                    Assert.AreEqual(interiorPoint.X, statePoint.Point.X);
+                    Assert.AreEqual(interiorPoint.Y, statePoint.Point.Z);
+
+                    Assert.AreEqual(MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetPop(layerWithPop.Data).GetDesignValue(), statePoint.Stress.Pop);
+                    AssertStochasticParameter(layerWithPop.Data.Pop, statePoint.Stress.PopStochasticParameter);
+                    Assert.AreEqual(PersistableStateType.Pop, statePoint.Stress.StateType);
+                }
+            }
+        }
+
+        /// <summary>
         /// Asserts whether the <see cref="PersistableStage"/> contains the correct data.
         /// </summary>
         /// <param name="stages">The stages that needs to be asserted.</param>
@@ -334,13 +447,19 @@ namespace Riskeer.MacroStabilityInwards.IO.TestUtil
         /// <param name="geometries">The geometries that are used.</param>
         /// <param name="soilLayers">The soil layers that are used.</param>
         /// <param name="waternets">The waternets that are used.</param>
+        /// <param name="waternetCreatorSettings">The waternet creator settings that are used.</param>
+        /// <param name="states">The states that are used.</param>
         /// <exception cref="AssertionException">Thrown when the data in <paramref name="stages"/>
         /// is not correct.</exception>
         public static void AssertStages(IEnumerable<PersistableStage> stages, IEnumerable<PersistableCalculationSettings> calculationSettings,
                                         IEnumerable<PersistableGeometry> geometries, IEnumerable<PersistableSoilLayerCollection> soilLayers,
-                                        IEnumerable<PersistableWaternet> waternets)
+                                        IEnumerable<PersistableWaternet> waternets, IEnumerable<PersistableWaternetCreatorSettings> waternetCreatorSettings,
+                                        IEnumerable<PersistableState> states)
         {
             Assert.AreEqual(2, stages.Count());
+
+            Assert.AreEqual("Dagelijkse omstandigheden", stages.First().Label);
+            Assert.AreEqual("Extreme omstandigheden", stages.Last().Label);
 
             for (var i = 0; i < stages.Count(); i++)
             {
@@ -350,6 +469,75 @@ namespace Riskeer.MacroStabilityInwards.IO.TestUtil
                 Assert.AreEqual(geometries.ElementAt(i).Id, stage.GeometryId);
                 Assert.AreEqual(soilLayers.ElementAt(i).Id, stage.SoilLayersId);
                 Assert.AreEqual(waternets.ElementAt(i).Id, stage.WaternetId);
+                Assert.AreEqual(waternetCreatorSettings.ElementAt(i).Id, stage.WaternetCreatorSettingsId);
+                Assert.AreEqual(states.ElementAt(i).Id, stage.StateId);
+            }
+        }
+
+        /// <summary>
+        /// Asserts whether the <see cref="PersistableDitchCharacteristics"/> contains the correct data.
+        /// </summary>
+        /// <param name="surfaceLine">The surface line that contains the original data.</param>
+        /// <param name="ditchCharacteristics">The <see cref="PersistableDitchCharacteristics"/> to assert.</param>
+        /// <param name="isDitchPresent">Indicator whether a ditch is present.</param>
+        /// <exception cref="AssertionException">Thrown when the data in <paramref name="ditchCharacteristics"/>
+        /// is not correct.</exception>
+        public static void AssertDitchCharacteristics(MacroStabilityInwardsSurfaceLine surfaceLine, PersistableDitchCharacteristics ditchCharacteristics, bool isDitchPresent)
+        {
+            if (isDitchPresent)
+            {
+                Assert.AreEqual(surfaceLine.BottomDitchDikeSide.X, ditchCharacteristics.DitchBottomEmbankmentSide);
+                Assert.AreEqual(surfaceLine.BottomDitchPolderSide.X, ditchCharacteristics.DitchBottomLandSide);
+                Assert.AreEqual(surfaceLine.DitchDikeSide.X, ditchCharacteristics.DitchEmbankmentSide);
+                Assert.AreEqual(surfaceLine.DitchPolderSide.X, ditchCharacteristics.DitchLandSide);
+            }
+            else
+            {
+                Assert.IsNaN(ditchCharacteristics.DitchBottomEmbankmentSide);
+                Assert.IsNaN(ditchCharacteristics.DitchBottomLandSide);
+                Assert.IsNaN(ditchCharacteristics.DitchEmbankmentSide);
+                Assert.IsNaN(ditchCharacteristics.DitchLandSide);
+            }
+        }
+
+        /// <summary>
+        /// Asserts whether the <see cref="PersistableEmbankmentCharacteristics"/> contains the correct data.
+        /// </summary>
+        /// <param name="surfaceLine">The surface line that contains the original data.</param>
+        /// <param name="embankmentCharacteristics">The <see cref="PersistableEmbankmentCharacteristics"/> to assert.</param>
+        /// <exception cref="AssertionException">Thrown when the data in <paramref name="embankmentCharacteristics"/>
+        /// is not correct.</exception>
+        public static void AssertEmbankmentCharacteristics(MacroStabilityInwardsSurfaceLine surfaceLine, PersistableEmbankmentCharacteristics embankmentCharacteristics)
+        {
+            Assert.AreEqual(surfaceLine.DikeToeAtPolder.X, embankmentCharacteristics.EmbankmentToeLandSide);
+            Assert.AreEqual(surfaceLine.DikeTopAtPolder.X, embankmentCharacteristics.EmbankmentTopLandSide);
+            Assert.AreEqual(surfaceLine.DikeTopAtRiver.X, embankmentCharacteristics.EmbankmentTopWaterSide);
+            Assert.AreEqual(surfaceLine.DikeToeAtRiver.X, embankmentCharacteristics.EmbankmentToeWaterSide);
+            Assert.AreEqual(surfaceLine.ShoulderBaseInside?.X ?? double.NaN, embankmentCharacteristics.ShoulderBaseLandSide);
+        }
+
+        /// <summary>
+        /// Gets the <see cref="PersistableEmbankmentSoilScenario"/> based on the <paramref name="dikeSoilScenario"/>.
+        /// </summary>
+        /// <param name="dikeSoilScenario">The <see cref="MacroStabilityInwardsDikeSoilScenario"/>
+        /// to get the <see cref="PersistableEmbankmentSoilScenario"/> for.</param>
+        /// <returns>The <see cref="PersistableEmbankmentSoilScenario"/>.</returns>
+        /// <exception cref="NotSupportedException">Thrown when <paramref name="dikeSoilScenario"/>
+        /// has an unsupported value.</exception>
+        public static PersistableEmbankmentSoilScenario GetEmbankmentSoilScenario(MacroStabilityInwardsDikeSoilScenario dikeSoilScenario)
+        {
+            switch (dikeSoilScenario)
+            {
+                case MacroStabilityInwardsDikeSoilScenario.ClayDikeOnClay:
+                    return PersistableEmbankmentSoilScenario.ClayEmbankmentOnClay;
+                case MacroStabilityInwardsDikeSoilScenario.SandDikeOnClay:
+                    return PersistableEmbankmentSoilScenario.SandEmbankmentOnClay;
+                case MacroStabilityInwardsDikeSoilScenario.ClayDikeOnSand:
+                    return PersistableEmbankmentSoilScenario.ClayEmbankmentOnSand;
+                case MacroStabilityInwardsDikeSoilScenario.SandDikeOnSand:
+                    return PersistableEmbankmentSoilScenario.SandEmbankmentOnSand;
+                default:
+                    throw new NotSupportedException();
             }
         }
 
@@ -379,6 +567,23 @@ namespace Riskeer.MacroStabilityInwards.IO.TestUtil
                 default:
                     throw new NotSupportedException();
             }
+        }
+
+        private static void AssertOffsets(IMacroStabilityInwardsLocationInput locationInput, PersistableWaternetCreatorSettings waternetCreatorSettings)
+        {
+            Assert.AreEqual(locationInput.UseDefaultOffsets, waternetCreatorSettings.UseDefaultOffsets);
+            Assert.AreEqual(locationInput.PhreaticLineOffsetBelowDikeTopAtPolder, waternetCreatorSettings.OffsetEmbankmentTopLandSide);
+            Assert.AreEqual(locationInput.PhreaticLineOffsetBelowDikeTopAtRiver, waternetCreatorSettings.OffsetEmbankmentTopWaterSide);
+            Assert.AreEqual(locationInput.PhreaticLineOffsetBelowDikeToeAtPolder, waternetCreatorSettings.OffsetEmbankmentToeLandSide);
+            Assert.AreEqual(locationInput.PhreaticLineOffsetBelowShoulderBaseInside, waternetCreatorSettings.OffsetShoulderBaseLandSide);
+        }
+
+        private static bool IsDitchPresent(MacroStabilityInwardsSurfaceLine surfaceLine)
+        {
+            return surfaceLine.DitchDikeSide != null
+                   && surfaceLine.DitchPolderSide != null
+                   && surfaceLine.BottomDitchDikeSide != null
+                   && surfaceLine.BottomDitchPolderSide != null;
         }
     }
 }

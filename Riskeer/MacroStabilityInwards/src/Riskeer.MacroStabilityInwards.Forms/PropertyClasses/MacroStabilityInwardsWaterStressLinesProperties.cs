@@ -27,6 +27,7 @@ using Core.Common.Gui.PropertyBag;
 using Core.Common.Util.Attributes;
 using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.MacroStabilityInwards.Forms.Properties;
+using MacroStabilityInwardsDataResources = Riskeer.MacroStabilityInwards.Data.Properties.Resources;
 
 namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
 {
@@ -59,7 +60,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
 
         [PropertyOrder(waternetExtremePropertyIndex)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Waterstresses_DisplayName))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.Extreme_DisplayName))]
+        [ResourcesDisplayName(typeof(MacroStabilityInwardsDataResources), nameof(MacroStabilityInwardsDataResources.Extreme_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.WaterStressLines_Extreme_Description))]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         public MacroStabilityInwardsWaternetProperties WaternetExtreme
@@ -72,7 +73,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
 
         [PropertyOrder(waternetDailyPropertyIndex)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Waterstresses_DisplayName))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.Daily_DisplayName))]
+        [ResourcesDisplayName(typeof(MacroStabilityInwardsDataResources), nameof(MacroStabilityInwardsDataResources.Daily_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.WaterStressLines_Daily_Description))]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         public MacroStabilityInwardsWaternetProperties WaternetDaily

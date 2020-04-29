@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using Components.Persistence.Stability.Data;
+using MacroStabilityInwardsDataResources = Riskeer.MacroStabilityInwards.Data.Properties.Resources;
 
 namespace Riskeer.MacroStabilityInwards.IO.Factories
 {
@@ -52,21 +53,24 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
 
             return new[]
             {
-                Create(MacroStabilityInwardsExportStageType.Daily, idFactory, registry),
-                Create(MacroStabilityInwardsExportStageType.Extreme, idFactory, registry)
+                Create(MacroStabilityInwardsExportStageType.Daily, MacroStabilityInwardsDataResources.Daily_DisplayName, idFactory, registry),
+                Create(MacroStabilityInwardsExportStageType.Extreme, MacroStabilityInwardsDataResources.Extreme_DisplayName, idFactory, registry)
             };
         }
 
-        private static PersistableStage Create(MacroStabilityInwardsExportStageType stageType, IdFactory idFactory,
-                                               MacroStabilityInwardsExportRegistry registry)
+        private static PersistableStage Create(MacroStabilityInwardsExportStageType stageType, string label,
+                                               IdFactory idFactory, MacroStabilityInwardsExportRegistry registry)
         {
             return new PersistableStage
             {
                 Id = idFactory.Create(),
+                Label = label,
                 CalculationSettingsId = registry.Settings[stageType],
                 GeometryId = registry.Geometries[stageType],
                 SoilLayersId = registry.SoilLayers[stageType],
-                WaternetId = registry.Waternets[stageType]
+                WaternetId = registry.Waternets[stageType],
+                WaternetCreatorSettingsId = registry.WaternetCreatorSettings[stageType],
+                StateId = registry.States[stageType]
             };
         }
     }

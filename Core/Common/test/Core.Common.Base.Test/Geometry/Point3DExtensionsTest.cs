@@ -32,10 +32,10 @@ namespace Core.Common.Base.Test.Geometry
         public void ProjectIntoLocalCoordinates_WorldCoordinateNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => Point3DExtensions.ProjectIntoLocalCoordinates(null, new Point2D(1.0, 2.0), new Point2D(3.0, 4.0));
+            void Call() => Point3DExtensions.ProjectIntoLocalCoordinates(null, new Point2D(1.0, 2.0), new Point2D(3.0, 4.0));
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("worldCoordinate", exception.ParamName);
         }
 
@@ -46,10 +46,10 @@ namespace Core.Common.Base.Test.Geometry
             var point = new Point3D(1.0, 2.0, 3.0);
 
             // Call
-            TestDelegate call = () => point.ProjectIntoLocalCoordinates(null, new Point2D(3.0, 4.0));
+            void Call() => point.ProjectIntoLocalCoordinates(null, new Point2D(3.0, 4.0));
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("startWorldCoordinate", exception.ParamName);
         }
 
@@ -60,15 +60,36 @@ namespace Core.Common.Base.Test.Geometry
             var point = new Point3D(1.0, 2.0, 3.0);
 
             // Call
-            TestDelegate call = () => point.ProjectIntoLocalCoordinates(new Point2D(1.0, 2.0), null);
+            void Call() => point.ProjectIntoLocalCoordinates(new Point2D(1.0, 2.0), null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("endWorldCoordinate", exception.ParamName);
         }
 
         [Test]
-        public void ProjectIntoLocalCoordinates_WorldCoordinateSameAsStartAndEndWorldCoordinate_ThrowsArgumentException()
+        [TestCase(double.PositiveInfinity)]
+        [TestCase(double.NegativeInfinity)]
+        public void ProjectIntoLocalCoordinates_InfiniteWorldCoordinateY_ReturnsPointAtInfiniteXAndOriginalZ(double worldYCoordinate)
+        {
+            // Setup
+            double originalZ = new Random(21).NextDouble();
+
+            var pointToConvert = new Point3D(1.1, worldYCoordinate, originalZ);
+            
+            var startPoint = new Point2D(1.0, 1.0);
+            var endPoint = new Point2D(3.0, 4.0);
+
+            // Call
+            Point2D convertedPoint = pointToConvert.ProjectIntoLocalCoordinates(startPoint, endPoint);
+
+            // Assert
+            Assert.AreEqual(worldYCoordinate, convertedPoint.X);
+            Assert.AreEqual(originalZ, convertedPoint.Y);
+        }
+
+        [Test]
+        public void ProjectIntoLocalCoordinates_WorldCoordinateSameAsStartAndEndWorldCoordinate_ReturnsPointAtXZeroAndOriginalZ()
         {
             // Setup
             const double originalZ = 3.3;
@@ -85,7 +106,7 @@ namespace Core.Common.Base.Test.Geometry
         }
 
         [Test]
-        public void ProjectIntoLocalCoordinates_StartAndEndWorldCoordinateLengthSmallerThanTolerance_ThrowsArgumentException()
+        public void ProjectIntoLocalCoordinates_StartAndEndWorldCoordinateLengthSmallerThanTolerance_ReturnsPointAtXZeroAndOriginalZ()
         {
             // Setup
             const double originalZ = 3.3;
@@ -113,10 +134,10 @@ namespace Core.Common.Base.Test.Geometry
             var endPoint = new Point2D(point.X, point.Y + 1e-6);
 
             // Call
-            TestDelegate call = () => point.ProjectIntoLocalCoordinates(startPoint, endPoint);
+            void Call() => point.ProjectIntoLocalCoordinates(startPoint, endPoint);
 
             // Assert
-            Assert.DoesNotThrow(call);
+            Assert.DoesNotThrow(Call);
         }
 
         [Test]

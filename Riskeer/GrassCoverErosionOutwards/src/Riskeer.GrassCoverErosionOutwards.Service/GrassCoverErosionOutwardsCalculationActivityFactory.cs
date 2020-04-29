@@ -98,7 +98,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service
         #region Wave Conditions
 
         /// <summary>
-        /// Creates a collection of <see cref="CalculatableActivity"/> based on the calculations in
+        /// Creates a collection of <see cref="CalculatableActivity"/> based on the wave conditions calculations in
         /// <paramref name="calculationGroup"/>.
         /// </summary>
         /// <param name="calculationGroup">The calculation group to create activities for.</param>
@@ -128,7 +128,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service
 
             return calculationGroup.GetCalculations()
                                    .Cast<GrassCoverErosionOutwardsWaveConditionsCalculation>()
-                                   .Select(calc => CreateCalculationActivity(calc, failureMechanism, assessmentSection))
+                                   .Select(calc => CreateWaveConditionsCalculationActivity(calc, failureMechanism, assessmentSection))
                                    .ToArray();
         }
 
@@ -141,9 +141,9 @@ namespace Riskeer.GrassCoverErosionOutwards.Service
         /// belongs to.</param>
         /// <returns>A <see cref="CalculatableActivity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public static CalculatableActivity CreateCalculationActivity(GrassCoverErosionOutwardsWaveConditionsCalculation calculation,
-                                                                     GrassCoverErosionOutwardsFailureMechanism failureMechanism,
-                                                                     IAssessmentSection assessmentSection)
+        public static CalculatableActivity CreateWaveConditionsCalculationActivity(GrassCoverErosionOutwardsWaveConditionsCalculation calculation,
+                                                                                   GrassCoverErosionOutwardsFailureMechanism failureMechanism,
+                                                                                   IAssessmentSection assessmentSection)
         {
             if (calculation == null)
             {
@@ -219,49 +219,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Service
             return CreateDesignWaterLevelCalculationActivities(failureMechanism, assessmentSection, true);
         }
 
-        private static IEnumerable<CalculatableActivity> CreateDesignWaterLevelCalculationActivities(
-            GrassCoverErosionOutwardsFailureMechanism failureMechanism,
-            IAssessmentSection assessmentSection,
-            bool includeAssessmentSectionCalculations)
-        {
-            var activities = new List<CalculatableActivity>();
-
-            activities.AddRange(HydraulicBoundaryLocationCalculationActivityFactory.CreateDesignWaterLevelCalculationActivities(
-                                    failureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm,
-                                    assessmentSection,
-                                    failureMechanism.GetNorm(assessmentSection, FailureMechanismCategoryType.MechanismSpecificFactorizedSignalingNorm),
-                                    RiskeerCommonDataResources.FailureMechanismCategoryType_MechanismSpecificFactorizedSignalingNorm_DisplayName));
-
-            activities.AddRange(HydraulicBoundaryLocationCalculationActivityFactory.CreateDesignWaterLevelCalculationActivities(
-                                    failureMechanism.WaterLevelCalculationsForMechanismSpecificSignalingNorm,
-                                    assessmentSection,
-                                    failureMechanism.GetNorm(assessmentSection, FailureMechanismCategoryType.MechanismSpecificSignalingNorm),
-                                    RiskeerCommonDataResources.FailureMechanismCategoryType_MechanismSpecificSignalingNorm_DisplayName));
-
-            activities.AddRange(HydraulicBoundaryLocationCalculationActivityFactory.CreateDesignWaterLevelCalculationActivities(
-                                    failureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm,
-                                    assessmentSection,
-                                    failureMechanism.GetNorm(assessmentSection, FailureMechanismCategoryType.MechanismSpecificLowerLimitNorm),
-                                    RiskeerCommonDataResources.FailureMechanismCategoryType_MechanismSpecificLowerLimitNorm_DisplayName));
-
-            if (includeAssessmentSectionCalculations)
-            {
-                activities.AddRange(HydraulicBoundaryLocationCalculationActivityFactory.CreateDesignWaterLevelCalculationActivities(
-                                        assessmentSection.WaterLevelCalculationsForLowerLimitNorm,
-                                        assessmentSection,
-                                        failureMechanism.GetNorm(assessmentSection, FailureMechanismCategoryType.LowerLimitNorm),
-                                        RiskeerCommonDataResources.FailureMechanismCategoryType_LowerLimitNorm_DisplayName));
-
-                activities.AddRange(HydraulicBoundaryLocationCalculationActivityFactory.CreateDesignWaterLevelCalculationActivities(
-                                        assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm,
-                                        assessmentSection,
-                                        failureMechanism.GetNorm(assessmentSection, FailureMechanismCategoryType.FactorizedLowerLimitNorm),
-                                        RiskeerCommonDataResources.FailureMechanismCategoryType_FactorizedLowerLimitNorm_DisplayName));
-            }
-
-            return activities;
-        }
-
         private static IEnumerable<CalculatableActivity> CreateWaveHeightCalculationActivities(
             GrassCoverErosionOutwardsFailureMechanism failureMechanism,
             IAssessmentSection assessmentSection,
@@ -297,6 +254,49 @@ namespace Riskeer.GrassCoverErosionOutwards.Service
 
                 activities.AddRange(HydraulicBoundaryLocationCalculationActivityFactory.CreateWaveHeightCalculationActivities(
                                         assessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm,
+                                        assessmentSection,
+                                        failureMechanism.GetNorm(assessmentSection, FailureMechanismCategoryType.FactorizedLowerLimitNorm),
+                                        RiskeerCommonDataResources.FailureMechanismCategoryType_FactorizedLowerLimitNorm_DisplayName));
+            }
+
+            return activities;
+        }
+
+        private static IEnumerable<CalculatableActivity> CreateDesignWaterLevelCalculationActivities(
+            GrassCoverErosionOutwardsFailureMechanism failureMechanism,
+            IAssessmentSection assessmentSection,
+            bool includeAssessmentSectionCalculations)
+        {
+            var activities = new List<CalculatableActivity>();
+
+            activities.AddRange(HydraulicBoundaryLocationCalculationActivityFactory.CreateDesignWaterLevelCalculationActivities(
+                                    failureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm,
+                                    assessmentSection,
+                                    failureMechanism.GetNorm(assessmentSection, FailureMechanismCategoryType.MechanismSpecificFactorizedSignalingNorm),
+                                    RiskeerCommonDataResources.FailureMechanismCategoryType_MechanismSpecificFactorizedSignalingNorm_DisplayName));
+
+            activities.AddRange(HydraulicBoundaryLocationCalculationActivityFactory.CreateDesignWaterLevelCalculationActivities(
+                                    failureMechanism.WaterLevelCalculationsForMechanismSpecificSignalingNorm,
+                                    assessmentSection,
+                                    failureMechanism.GetNorm(assessmentSection, FailureMechanismCategoryType.MechanismSpecificSignalingNorm),
+                                    RiskeerCommonDataResources.FailureMechanismCategoryType_MechanismSpecificSignalingNorm_DisplayName));
+
+            activities.AddRange(HydraulicBoundaryLocationCalculationActivityFactory.CreateDesignWaterLevelCalculationActivities(
+                                    failureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm,
+                                    assessmentSection,
+                                    failureMechanism.GetNorm(assessmentSection, FailureMechanismCategoryType.MechanismSpecificLowerLimitNorm),
+                                    RiskeerCommonDataResources.FailureMechanismCategoryType_MechanismSpecificLowerLimitNorm_DisplayName));
+
+            if (includeAssessmentSectionCalculations)
+            {
+                activities.AddRange(HydraulicBoundaryLocationCalculationActivityFactory.CreateDesignWaterLevelCalculationActivities(
+                                        assessmentSection.WaterLevelCalculationsForLowerLimitNorm,
+                                        assessmentSection,
+                                        failureMechanism.GetNorm(assessmentSection, FailureMechanismCategoryType.LowerLimitNorm),
+                                        RiskeerCommonDataResources.FailureMechanismCategoryType_LowerLimitNorm_DisplayName));
+
+                activities.AddRange(HydraulicBoundaryLocationCalculationActivityFactory.CreateDesignWaterLevelCalculationActivities(
+                                        assessmentSection.WaterLevelCalculationsForFactorizedLowerLimitNorm,
                                         assessmentSection,
                                         failureMechanism.GetNorm(assessmentSection, FailureMechanismCategoryType.FactorizedLowerLimitNorm),
                                         RiskeerCommonDataResources.FailureMechanismCategoryType_FactorizedLowerLimitNorm_DisplayName));

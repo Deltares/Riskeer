@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2019. All rights reserved.
+// Copyright (C) Stichting Deltares 2019. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -66,7 +66,9 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
             var idFactory = new IdFactory();
             var registry = new MacroStabilityInwardsExportRegistry();
 
-            IMacroStabilityInwardsSoilProfileUnderSurfaceLine soilProfile = calculation.InputParameters.SoilProfileUnderSurfaceLine;
+            MacroStabilityInwardsInput input = calculation.InputParameters;
+            IMacroStabilityInwardsSoilProfileUnderSurfaceLine soilProfile = input.SoilProfileUnderSurfaceLine;
+
             return new PersistableDataModel
             {
                 Info = PersistableProjectInfoFactory.Create(calculation, filePath),
@@ -75,9 +77,11 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
                 Geometry = PersistableGeometryFactory.Create(soilProfile, idFactory, registry),
                 SoilLayers = PersistableSoilLayerCollectionFactory.Create(soilProfile, idFactory, registry),
                 Waternets = PersistableWaternetFactory.Create(
-                    DerivedMacroStabilityInwardsInput.GetWaternetDaily(calculation.InputParameters),
-                    DerivedMacroStabilityInwardsInput.GetWaternetExtreme(calculation.InputParameters, GetAssessmentLevel(calculation.InputParameters, getNormativeAssessmentLevelFunc)),
+                    DerivedMacroStabilityInwardsInput.GetWaternetDaily(input),
+                    DerivedMacroStabilityInwardsInput.GetWaternetExtreme(input, GetAssessmentLevel(input, getNormativeAssessmentLevelFunc)),
                     idFactory, registry),
+                WaternetCreatorSettings = PersistableWaternetCreatorSettingsFactory.Create(input, GetAssessmentLevel(input, getNormativeAssessmentLevelFunc), idFactory, registry),
+                States = PersistableStateFactory.Create(soilProfile, idFactory, registry),
                 Stages = PersistableStageFactory.Create(idFactory, registry)
             };
         }

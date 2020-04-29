@@ -58,6 +58,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
 
             PersistableCalculationSettings dailySettings = Create(idFactory, registry, MacroStabilityInwardsExportStageType.Daily);
             PersistableCalculationSettings extremeSettings = Create(idFactory, registry, MacroStabilityInwardsExportStageType.Extreme);
+            dailySettings.AnalysisType = PersistableAnalysisType.UpliftVan;
             extremeSettings.AnalysisType = PersistableAnalysisType.UpliftVan;
             extremeSettings.UpliftVan = new PersistableUpliftVanSettings
             {

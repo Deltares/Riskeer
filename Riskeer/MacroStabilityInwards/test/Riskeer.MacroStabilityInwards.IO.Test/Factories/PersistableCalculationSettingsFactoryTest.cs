@@ -82,16 +82,19 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
 
             // Assert
             PersistableDataModelTestHelper.AssertCalculationSettings(slidingCurve, settingsCollection);
-            
-            Assert.AreEqual(settingsCollection.Count(), registry.Settings.Count);
 
-            KeyValuePair<MacroStabilityInwardsExportStageType, string> firstSetting = registry.Settings.ElementAt(0);
-            Assert.AreEqual(MacroStabilityInwardsExportStageType.Daily, firstSetting.Key);
-            Assert.AreEqual(settingsCollection.ElementAt(0).Id, firstSetting.Value);
+            var stages = new[]
+            {
+                MacroStabilityInwardsExportStageType.Daily,
+                MacroStabilityInwardsExportStageType.Extreme
+            };
 
-            KeyValuePair<MacroStabilityInwardsExportStageType, string> lastSetting = registry.Settings.ElementAt(1);
-            Assert.AreEqual(MacroStabilityInwardsExportStageType.Extreme, lastSetting.Key);
-            Assert.AreEqual(settingsCollection.ElementAt(1).Id, lastSetting.Value);
+            Assert.AreEqual(2, registry.Settings.Count);
+
+            for (var i = 0; i < stages.Length; i++)
+            {
+                Assert.AreEqual(registry.Settings[stages[i]], settingsCollection.ElementAt(i).Id);
+            }
         }
     }
 }

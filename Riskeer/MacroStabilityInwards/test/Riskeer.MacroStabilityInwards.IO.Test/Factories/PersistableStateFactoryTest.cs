@@ -23,10 +23,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Components.Persistence.Stability.Data;
+using Core.Common.Base.Data;
+using Core.Common.Util.Extensions;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Riskeer.MacroStabilityInwards.Data.SoilProfile;
-using Riskeer.MacroStabilityInwards.Data.TestUtil.SoilProfile;
+using Riskeer.Common.Data.Probabilistics;
+using Riskeer.Common.Data.TestUtil;
+using Riskeer.MacroStabilityInwards.Data;
+using Riskeer.MacroStabilityInwards.Data.TestUtil;
 using Riskeer.MacroStabilityInwards.IO.Factories;
 using Riskeer.MacroStabilityInwards.IO.TestUtil;
 using Riskeer.MacroStabilityInwards.Primitives;
@@ -34,13 +38,13 @@ using Riskeer.MacroStabilityInwards.Primitives;
 namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
 {
     [TestFixture]
-    public class PersistableSoilLayerCollectionFactoryTest
+    public class PersistableStateFactoryTest
     {
         [Test]
         public void Create_SoilProfileNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => PersistableSoilLayerCollectionFactory.Create(null, new IdFactory(), new MacroStabilityInwardsExportRegistry());
+            void Call() => PersistableStateFactory.Create(null, new IdFactory(), new MacroStabilityInwardsExportRegistry());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -56,7 +60,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
             mocks.ReplayAll();
 
             // Call
-            void Call() => PersistableSoilLayerCollectionFactory.Create(soilProfile, null, new MacroStabilityInwardsExportRegistry());
+            void Call() => PersistableStateFactory.Create(soilProfile, null, new MacroStabilityInwardsExportRegistry());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -73,7 +77,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
             mocks.ReplayAll();
 
             // Call
-            void Call() => PersistableSoilLayerCollectionFactory.Create(soilProfile, new IdFactory(), null);
+            void Call() => PersistableStateFactory.Create(soilProfile, new IdFactory(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -82,42 +86,45 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
         }
 
         [Test]
-        public void Create_WithValidData_ReturnsPersistableSoilLayerCollectionCollection()
+        public void Create_WithValidData_ReturnsPersistableStates()
         {
             // Setup
-            var soilProfile = new MacroStabilityInwardsSoilProfileUnderSurfaceLine(
-                new[]
-                {
-                    MacroStabilityInwardsSoilLayer2DTestFactory.CreateMacroStabilityInwardsSoilLayer2D(new[]
-                    {
-                        MacroStabilityInwardsSoilLayer2DTestFactory.CreateMacroStabilityInwardsSoilLayer2D()
-                    })
-                },
-                Enumerable.Empty<IMacroStabilityInwardsPreconsolidationStress>());
+            MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput(
+                new TestHydraulicBoundaryLocation());
+            IMacroStabilityInwardsSoilProfileUnderSurfaceLine soilProfile = calculation.InputParameters.SoilProfileUnderSurfaceLine;
+            soilProfile.Layers.First().Data.Pop = new VariationCoefficientLogNormalDistribution
+            {
+                Mean = (RoundedDouble) 1,
+                CoefficientOfVariation = (RoundedDouble) 2
+            };
+            soilProfile.Layers.ForEachElementDo(l => l.Data.UsePop = true);
 
             var idFactory = new IdFactory();
             var registry = new MacroStabilityInwardsExportRegistry();
 
-            PersistableSoilCollection soils = PersistableSoilCollectionFactory.Create(soilProfile, idFactory, registry);
-            IEnumerable<PersistableGeometry> geometries = PersistableGeometryFactory.Create(soilProfile, idFactory, registry);
+            PersistableGeometryFactory.Create(soilProfile, idFactory, registry);
 
             // Call
-            IEnumerable<PersistableSoilLayerCollection> soilLayerCollections = PersistableSoilLayerCollectionFactory.Create(soilProfile, idFactory, registry);
+            IEnumerable<PersistableState> states = PersistableStateFactory.Create(soilProfile, idFactory, registry);
 
             // Assert
-            PersistableDataModelTestHelper.AssertPersistableSoilLayers(soilProfile.Layers, soilLayerCollections, soils.Soils, geometries);
+            PersistableDataModelTestHelper.AssertStates(soilProfile, states);
 
-            var stages = new[]
+            AssertRegistry(registry, new[]
             {
                 MacroStabilityInwardsExportStageType.Daily,
                 MacroStabilityInwardsExportStageType.Extreme
-            };
+            }, states);
+        }
 
-            Assert.AreEqual(2, registry.SoilLayers.Count);
+        private static void AssertRegistry(MacroStabilityInwardsExportRegistry registry, MacroStabilityInwardsExportStageType[] stages, IEnumerable<PersistableState> states)
+        {
+            Assert.AreEqual(stages.Length, registry.States.Count);
 
             for (var i = 0; i < stages.Length; i++)
             {
-                Assert.AreEqual(registry.SoilLayers[stages[i]], soilLayerCollections.ElementAt(i).Id);
+                PersistableState state = states.ElementAt(i);
+                Assert.AreEqual(registry.States[stages[i]], state.Id);
             }
         }
     }

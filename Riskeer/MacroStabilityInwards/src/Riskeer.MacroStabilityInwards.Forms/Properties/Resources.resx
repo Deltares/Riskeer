@@ -564,12 +564,6 @@ in het stochastische ondergrondmodel
   <data name="MacroStabilityInwardsOutput_FactorOfStability_DisplayName" xml:space="preserve">
     <value>Stabiliteitsfactor [-]</value>
   </data>
-  <data name="Daily_DisplayName" xml:space="preserve">
-    <value>Dagelijkse omstandigheden</value>
-  </data>
-  <data name="Extreme_DisplayName" xml:space="preserve">
-    <value>Extreme omstandigheden</value>
-  </data>
   <data name="Line_Geometry_DisplayName" xml:space="preserve">
     <value>Geometrie</value>
   </data>

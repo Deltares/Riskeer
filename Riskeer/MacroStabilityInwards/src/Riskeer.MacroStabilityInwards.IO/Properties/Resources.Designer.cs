@@ -285,6 +285,26 @@ namespace Riskeer.MacroStabilityInwards.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to D-GEO Suite Stability ondersteunt enkel een maximale lamelbreedte van 1 meter, om hieraan te voldoen is dit aangepast in de geëxporteerde berekening..
+        /// </summary>
+        public static string MacroStabilityInwardsCalculationExporter_ValidateData_DGeoSuite_only_supports_MaximumSliceWidth_one {
+            get {
+                return ResourceManager.GetString("MacroStabilityInwardsCalculationExporter_ValidateData_DGeoSuite_only_supports_Max" +
+                        "imumSliceWidth_one", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Het is niet mogelijk om meerdere aquifer lagen te exporteren. Er is geen aquifer laag geëxporteerd..
+        /// </summary>
+        public static string MacroStabilityInwardsCalculationExporter_ValidateData_Multiple_aquifer_layers_not_supported_no_aquifer_layer_exported {
+            get {
+                return ResourceManager.GetString("MacroStabilityInwardsCalculationExporter_ValidateData_Multiple_aquifer_layers_not" +
+                        "_supported_no_aquifer_layer_exported", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to De laag bevat een ongeldige geometrie..
         /// </summary>
         public static string MacroStabilityInwardsSoilLayerTransformer_TransformSegmentToRing_Invalid_geometry_for_Ring {

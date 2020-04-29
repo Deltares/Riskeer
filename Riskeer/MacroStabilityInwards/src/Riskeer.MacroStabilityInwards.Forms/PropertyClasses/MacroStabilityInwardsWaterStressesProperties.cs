@@ -30,6 +30,7 @@ using Riskeer.Common.Forms.PropertyClasses;
 using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.MacroStabilityInwards.Forms.Properties;
 using Riskeer.MacroStabilityInwards.Primitives;
+using MacroStabilityInwardsDataResources = Riskeer.MacroStabilityInwards.Data.Properties.Resources;
 
 namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
 {
@@ -265,7 +266,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
 
         [PropertyOrder(locationExtremePropertyIndex)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Waterstresses_DisplayName))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.Extreme_DisplayName))]
+        [ResourcesDisplayName(typeof(MacroStabilityInwardsDataResources), nameof(MacroStabilityInwardsDataResources.Extreme_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.LocationExtreme_Description))]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         public MacroStabilityInwardsLocationInputExtremeProperties LocationExtreme
@@ -278,7 +279,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
 
         [PropertyOrder(locationDailyPropertyIndex)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Waterstresses_DisplayName))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.Daily_DisplayName))]
+        [ResourcesDisplayName(typeof(MacroStabilityInwardsDataResources), nameof(MacroStabilityInwardsDataResources.Daily_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.LocationDaily_Description))]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         public MacroStabilityInwardsLocationInputDailyProperties LocationDaily

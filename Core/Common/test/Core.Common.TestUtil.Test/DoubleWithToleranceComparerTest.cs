@@ -32,8 +32,6 @@ namespace Core.Common.TestUtil.Test
         [Test]
         public void Constructor_ExpectedValues()
         {
-            // Setup
-
             // Call
             var comparer = new DoubleWithToleranceComparer(1.1);
 
@@ -49,14 +47,14 @@ namespace Core.Common.TestUtil.Test
             var firstObject = new object();
             object secondObject = 1.1;
 
-            var comparer = new DoubleWithToleranceComparer(2.2);
+            var comparer = new DoubleWithToleranceComparer(0);
 
             // Call
-            TestDelegate call = () => comparer.Compare(firstObject, secondObject);
+            void Call() => comparer.Compare(firstObject, secondObject);
 
             // Assert
-            string message = Assert.Throws<ArgumentException>(call).Message;
-            Assert.AreEqual($"Cannot compare objects other than {typeof(double)} with this comparer.", message);
+            var exception = Assert.Throws<ArgumentException>(Call);
+            Assert.AreEqual($"Cannot compare objects other than {typeof(double)} with this comparer.", exception.Message);
         }
 
         [Test]
@@ -66,14 +64,14 @@ namespace Core.Common.TestUtil.Test
             object firstObject = 2.2;
             var secondObject = new object();
 
-            var comparer = new DoubleWithToleranceComparer(2.2);
+            var comparer = new DoubleWithToleranceComparer(0);
 
             // Call
-            TestDelegate call = () => comparer.Compare(firstObject, secondObject);
+            void Call() => comparer.Compare(firstObject, secondObject);
 
             // Assert
-            string message = Assert.Throws<ArgumentException>(call).Message;
-            Assert.AreEqual($"Cannot compare objects other than {typeof(double)} with this comparer.", message);
+            var exception = Assert.Throws<ArgumentException>(Call);
+            Assert.AreEqual($"Cannot compare objects other than {typeof(double)} with this comparer.", exception.Message);
         }
 
         [Test]
