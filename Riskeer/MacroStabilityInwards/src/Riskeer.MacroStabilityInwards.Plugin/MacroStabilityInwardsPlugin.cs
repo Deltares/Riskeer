@@ -961,6 +961,9 @@ namespace Riskeer.MacroStabilityInwards.Plugin
                 RiskeerCommonFormsResources.DataTypeDisplayName_csv_file_filter_Extension,
                 $"{RiskeerCommonDataResources.SurfaceLineCollection_TypeDescriptor} {RiskeerCommonFormsResources.DataTypeDisplayName_csv_file_filter_Description}");
 
+        private static FileFilterGenerator StochasticSoilModelFileFilter =>
+            new FileFilterGenerator(Resources.Soil_file_Extension, Resources.Soil_file_Description);
+
         private bool VerifySurfaceLineUpdates(MacroStabilityInwardsSurfaceLinesContext context, string query)
         {
             var changeHandler = new FailureMechanismCalculationChangeHandler(context.FailureMechanism,
@@ -973,8 +976,6 @@ namespace Riskeer.MacroStabilityInwards.Plugin
         {
             return referenceLine.Points.Any();
         }
-
-        private static FileFilterGenerator StochasticSoilModelFileFilter => new FileFilterGenerator(Resources.Soil_file_Extension, Resources.Soil_file_Description);
 
         private bool VerifyStochasticSoilModelUpdates(MacroStabilityInwardsStochasticSoilModelCollectionContext context, string query)
         {
