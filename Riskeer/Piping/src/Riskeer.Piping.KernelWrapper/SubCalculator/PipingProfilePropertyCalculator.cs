@@ -39,6 +39,14 @@ namespace Riskeer.Piping.KernelWrapper.SubCalculator
             wrappedCalculator = new Deltares.WTIPiping.PipingProfilePropertyCalculator();
         }
 
+        public double BottomAquitardLayerAboveExitPointZ
+        {
+            get
+            {
+                return wrappedCalculator.BottomLevelAquitardAboveExitPoint;
+            }
+        }
+
         public void SetSoilProfile(PipingProfile soilProfile)
         {
             wrappedCalculator.SoilProfile = soilProfile;
@@ -52,14 +60,6 @@ namespace Riskeer.Piping.KernelWrapper.SubCalculator
         public void SetExitPointX(double exitPointX)
         {
             wrappedCalculator.ExitPointX = exitPointX;
-        }
-
-        public double BottomAquitardLayerAboveExitPointZ
-        {
-            get
-            {
-                return wrappedCalculator.BottomLevelAquitardAboveExitPoint;
-            }
         }
 
         public void Calculate()

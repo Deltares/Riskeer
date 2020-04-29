@@ -39,9 +39,7 @@ namespace Riskeer.Piping.KernelWrapper.TestUtil.SubCalculator
         /// Gets a value indicating whether <see cref="Validate"/> was called or not.
         /// </summary>
         public bool Validated { get; private set; }
-
         public double ExitPointXCoordinate { get; private set; }
-
         public double PhreaticLevel { get; private set; }
         public double VolumicWeightOfWater { get; private set; }
         public PipingProfile SoilProfile { get; private set; }

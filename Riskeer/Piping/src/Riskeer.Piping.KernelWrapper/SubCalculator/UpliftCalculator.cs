@@ -51,6 +51,22 @@ namespace Riskeer.Piping.KernelWrapper.SubCalculator
             }
         }
 
+        public double Zu
+        {
+            get
+            {
+                return wrappedCalculator.Zu;
+            }
+        }
+
+        public double FoSu
+        {
+            get
+            {
+                return wrappedCalculator.FoSu;
+            }
+        }
+
         public void SetHExit(double hExit)
         {
             wrappedCalculator.HExit = hExit;
@@ -84,22 +100,6 @@ namespace Riskeer.Piping.KernelWrapper.SubCalculator
         public void SetVolumetricWeightOfWater(double volumetricWeightOfWater)
         {
             wrappedCalculator.VolumetricWeightOfWater = volumetricWeightOfWater;
-        }
-
-        public double Zu
-        {
-            get
-            {
-                return wrappedCalculator.Zu;
-            }
-        }
-
-        public double FoSu
-        {
-            get
-            {
-                return wrappedCalculator.FoSu;
-            }
         }
 
         public void Calculate()

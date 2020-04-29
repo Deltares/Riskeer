@@ -29,6 +29,21 @@ namespace Riskeer.Piping.KernelWrapper.SubCalculator
     public interface IHeaveCalculator
     {
         /// <summary>
+        /// Gets the vertical outflow gradient.
+        /// </summary>
+        double Gradient { get; }
+
+        /// <summary>
+        /// Gets the z-value.
+        /// </summary>
+        double Zh { get; }
+
+        /// <summary>
+        /// Gets the factor of safety.
+        /// </summary>
+        double FoSh { get; }
+
+        /// <summary>
         /// Sets the total thickness of the coverage layer.
         /// </summary>
         void SetDTotal(double dTotal);
@@ -57,21 +72,6 @@ namespace Riskeer.Piping.KernelWrapper.SubCalculator
         /// Sets the damping factor at the exit point.
         /// </summary>
         void SetRExit(double rExit);
-
-        /// <summary>
-        /// Gets the vertical outflow gradient.
-        /// </summary>
-        double Gradient { get; }
-
-        /// <summary>
-        /// Gets the z-value.
-        /// </summary>
-        double Zh { get; }
-
-        /// <summary>
-        /// Gets the factor of safety.
-        /// </summary>
-        double FoSh { get; }
 
         /// <summary>
         /// Performs the heave calculation.

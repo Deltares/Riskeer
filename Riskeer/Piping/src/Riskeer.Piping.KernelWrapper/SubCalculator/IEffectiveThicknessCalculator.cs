@@ -30,6 +30,11 @@ namespace Riskeer.Piping.KernelWrapper.SubCalculator
     public interface IEffectiveThicknessCalculator
     {
         /// <summary>
+        /// Gets the effective thickness of the cover layer.
+        /// </summary>
+        double EffectiveHeight { get; }
+
+        /// <summary>
         /// Sets the exit point's x-coordinate.
         /// </summary>
         void SetExitPointXCoordinate(double exitPointXCoordinate);
@@ -53,11 +58,6 @@ namespace Riskeer.Piping.KernelWrapper.SubCalculator
         /// Sets the surface line.
         /// </summary>
         void SetSurfaceLine(PipingSurfaceLine surfaceLine);
-
-        /// <summary>
-        /// Gets the effective thickness of the cover layer.
-        /// </summary>
-        double EffectiveHeight { get; }
 
         /// <summary>
         /// Validates the input for the effective thickness calculation.

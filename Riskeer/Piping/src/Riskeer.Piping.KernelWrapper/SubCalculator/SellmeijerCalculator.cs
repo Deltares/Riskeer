@@ -38,6 +38,7 @@ namespace Riskeer.Piping.KernelWrapper.SubCalculator
         {
             wrappedCalculator = new Sellmeijer2011Calculator();
         }
+
         public double CreepCoefficient
         {
             get

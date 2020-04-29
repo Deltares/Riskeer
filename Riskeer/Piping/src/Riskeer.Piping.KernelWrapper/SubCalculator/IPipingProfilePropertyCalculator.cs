@@ -30,6 +30,11 @@ namespace Riskeer.Piping.KernelWrapper.SubCalculator
     public interface IPipingProfilePropertyCalculator
     {
         /// <summary>
+        /// Gets the bottom level of the bottommost aquitard that is above the exit point's z-coordinate.
+        /// </summary>
+        double BottomAquitardLayerAboveExitPointZ { get; }
+
+        /// <summary>
         /// Sets the soil profile.
         /// </summary>
         void SetSoilProfile(PipingProfile soilProfile);
@@ -43,11 +48,6 @@ namespace Riskeer.Piping.KernelWrapper.SubCalculator
         /// Sets the x-coordinate of the exit point.
         /// </summary>
         void SetExitPointX(double exitPointX);
-
-        /// <summary>
-        /// Gets the bottom level of the bottommost aquitard that is above the exit point's z-coordinate.
-        /// </summary>
-        double BottomAquitardLayerAboveExitPointZ { get; }
 
         /// <summary>
         /// Performs the piping profile property calculation.
