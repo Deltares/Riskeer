@@ -274,8 +274,6 @@ namespace Riskeer.HeightStructures.Plugin
 
         #region ViewInfos
 
-        #region HeightStructuresFailureMechanismView ViewInfo
-
         private static bool CloseHeightStructuresFailureMechanismViewForData(HeightStructuresFailureMechanismView view, object data)
         {
             var assessmentSection = data as IAssessmentSection;
@@ -285,10 +283,6 @@ namespace Riskeer.HeightStructures.Plugin
                        ? ReferenceEquals(view.AssessmentSection, assessmentSection)
                        : ReferenceEquals(view.FailureMechanism, failureMechanism);
         }
-
-        #endregion
-
-        #region HeightStructuresScenariosView ViewInfo
 
         private static bool CloseScenariosViewForData(HeightStructuresScenariosView view, object removedData)
         {
@@ -308,10 +302,6 @@ namespace Riskeer.HeightStructures.Plugin
 
             return failureMechanism != null && ReferenceEquals(view.Data, failureMechanism.CalculationsGroup);
         }
-
-        #endregion
-
-        #region HeightStructuresFailureMechanismResultView ViewInfo
 
         private static bool CloseFailureMechanismResultViewForData(HeightStructuresFailureMechanismResultView view, object o)
         {
@@ -333,8 +323,6 @@ namespace Riskeer.HeightStructures.Plugin
 
             return failureMechanism != null && ReferenceEquals(view.FailureMechanism.SectionResults, failureMechanism.SectionResults);
         }
-
-        #endregion
 
         #endregion
 
@@ -422,11 +410,6 @@ namespace Riskeer.HeightStructures.Plugin
                           .Build();
         }
 
-        private void RemoveAllViewsForItem(HeightStructuresFailureMechanismContext context)
-        {
-            Gui.ViewCommands.RemoveAllViewsForItem(context);
-        }
-
         private ContextMenuStrip FailureMechanismDisabledContextMenuStrip(HeightStructuresFailureMechanismContext context,
                                                                           object parentData,
                                                                           TreeViewControl treeViewControl)
@@ -440,6 +423,11 @@ namespace Riskeer.HeightStructures.Plugin
                           .AddSeparator()
                           .AddPropertiesItem()
                           .Build();
+        }
+
+        private void RemoveAllViewsForItem(HeightStructuresFailureMechanismContext context)
+        {
+            Gui.ViewCommands.RemoveAllViewsForItem(context);
         }
 
         private static string EnableValidateAndCalculateMenuItemForFailureMechanism(HeightStructuresFailureMechanismContext context)

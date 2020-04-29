@@ -411,8 +411,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
 
         #region ViewInfos
 
-        #region GrassCoverErosionOutwardsFailureMechanismView ViewInfo
-
         private static bool CloseGrassCoverErosionOutwardsFailureMechanismViewForData(GrassCoverErosionOutwardsFailureMechanismView view, object data)
         {
             var assessmentSection = data as IAssessmentSection;
@@ -422,10 +420,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                        ? ReferenceEquals(view.AssessmentSection, assessmentSection)
                        : ReferenceEquals(view.FailureMechanism, failureMechanism);
         }
-
-        #endregion
-
-        #region GrassCoverErosionOutwardsFailureMechanismResultView ViewInfo
 
         private static bool CloseFailureMechanismResultViewForData(GrassCoverErosionOutwardsFailureMechanismResultView view, object o)
         {
@@ -447,8 +441,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
 
             return failureMechanism != null && ReferenceEquals(view.FailureMechanism.SectionResults, failureMechanism.SectionResults);
         }
-
-        #endregion
 
         private static bool CloseHydraulicBoundaryCalculationsViewForData(IAssessmentSection viewAssessmentSection,
                                                                           object dataToCloseFor)
@@ -557,11 +549,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                           .Build();
         }
 
-        private void RemoveAllViewsForItem(GrassCoverErosionOutwardsFailureMechanismContext failureMechanismContext)
-        {
-            Gui.ViewCommands.RemoveAllViewsForItem(failureMechanismContext);
-        }
-
         private ContextMenuStrip FailureMechanismDisabledContextMenuStrip(GrassCoverErosionOutwardsFailureMechanismContext grassCoverErosionOutwardsFailureMechanismContext,
                                                                           object parentData,
                                                                           TreeViewControl treeViewControl)
@@ -575,6 +562,11 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                           .AddSeparator()
                           .AddPropertiesItem()
                           .Build();
+        }
+
+        private void RemoveAllViewsForItem(GrassCoverErosionOutwardsFailureMechanismContext failureMechanismContext)
+        {
+            Gui.ViewCommands.RemoveAllViewsForItem(failureMechanismContext);
         }
 
         private static object[] GetHydraulicBoundaryDatabaseContextChildNodeObjects(GrassCoverErosionOutwardsHydraulicBoundaryDatabaseContext context)

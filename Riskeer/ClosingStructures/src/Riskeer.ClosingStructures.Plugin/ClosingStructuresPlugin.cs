@@ -271,8 +271,6 @@ namespace Riskeer.ClosingStructures.Plugin
 
         #region ViewInfos
 
-        #region ClosingStructuresFailureMechanismView ViewInfo
-
         private static bool CloseClosingStructuresFailureMechanismViewForData(ClosingStructuresFailureMechanismView view, object data)
         {
             var assessmentSection = data as IAssessmentSection;
@@ -282,10 +280,6 @@ namespace Riskeer.ClosingStructures.Plugin
                        ? ReferenceEquals(view.AssessmentSection, assessmentSection)
                        : ReferenceEquals(view.FailureMechanism, failureMechanism);
         }
-
-        #endregion
-
-        #region ClosingStructuresFailureMechanismResultView ViewInfo
 
         private static bool CloseFailureMechanismResultViewForData(ClosingStructuresFailureMechanismResultView view, object o)
         {
@@ -308,10 +302,6 @@ namespace Riskeer.ClosingStructures.Plugin
             return failureMechanism != null && ReferenceEquals(view.FailureMechanism.SectionResults, failureMechanism.SectionResults);
         }
 
-        #endregion
-
-        #region ClosingStructuresScenariosView ViewInfo
-
         private static bool CloseScenariosViewForData(ClosingStructuresScenariosView view, object removedData)
         {
             var failureMechanism = removedData as ClosingStructuresFailureMechanism;
@@ -330,8 +320,6 @@ namespace Riskeer.ClosingStructures.Plugin
 
             return failureMechanism != null && ReferenceEquals(view.Data, failureMechanism.CalculationsGroup);
         }
-
-        #endregion
 
         #endregion
 
@@ -418,11 +406,6 @@ namespace Riskeer.ClosingStructures.Plugin
                           .Build();
         }
 
-        private void RemoveAllViewsForItem(ClosingStructuresFailureMechanismContext failureMechanismContext)
-        {
-            Gui.ViewCommands.RemoveAllViewsForItem(failureMechanismContext);
-        }
-
         private ContextMenuStrip FailureMechanismDisabledContextMenuStrip(ClosingStructuresFailureMechanismContext closingStructuresFailureMechanismContext,
                                                                           object parentData,
                                                                           TreeViewControl treeViewControl)
@@ -438,6 +421,11 @@ namespace Riskeer.ClosingStructures.Plugin
                           .AddSeparator()
                           .AddPropertiesItem()
                           .Build();
+        }
+
+        private void RemoveAllViewsForItem(ClosingStructuresFailureMechanismContext failureMechanismContext)
+        {
+            Gui.ViewCommands.RemoveAllViewsForItem(failureMechanismContext);
         }
 
         private static string EnableValidateAndCalculateMenuItemForFailureMechanism(ClosingStructuresFailureMechanismContext context)
@@ -667,7 +655,7 @@ namespace Riskeer.ClosingStructures.Plugin
 
         private static void CalculationGroupContextOnNodeRemoved(ClosingStructuresCalculationGroupContext context, object parentNodeData)
         {
-            var parentGroupContext = (ClosingStructuresCalculationGroupContext)parentNodeData;
+            var parentGroupContext = (ClosingStructuresCalculationGroupContext) parentNodeData;
 
             parentGroupContext.WrappedData.Children.Remove(context.WrappedData);
 
@@ -770,7 +758,7 @@ namespace Riskeer.ClosingStructures.Plugin
                                                                                                                    context.FailureMechanism,
                                                                                                                    context.AssessmentSection));
         }
-        
+
         private static void CalculationContextOnNodeRemoved(ClosingStructuresCalculationContext context, object parentData)
         {
             if (parentData is ClosingStructuresCalculationGroupContext calculationGroupContext)

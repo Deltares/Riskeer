@@ -209,8 +209,6 @@ namespace Riskeer.DuneErosion.Plugin
 
         #region ViewInfos
 
-        #region DuneErosionFailureMechanismResultView ViewInfo
-
         private static bool CloseFailureMechanismResultViewForData(DuneErosionFailureMechanismResultView view, object o)
         {
             var assessmentSection = o as IAssessmentSection;
@@ -232,10 +230,6 @@ namespace Riskeer.DuneErosion.Plugin
             return failureMechanism != null && ReferenceEquals(view.FailureMechanism.SectionResults, failureMechanism.SectionResults);
         }
 
-        #endregion
-
-        #region DuneErosionFailureMechanismView ViewInfo
-
         private static bool CloseFailureMechanismViewForData(DuneErosionFailureMechanismView view, object data)
         {
             var assessmentSection = data as IAssessmentSection;
@@ -245,10 +239,6 @@ namespace Riskeer.DuneErosion.Plugin
                        ? ReferenceEquals(view.AssessmentSection, assessmentSection)
                        : ReferenceEquals(view.FailureMechanism, failureMechanism);
         }
-
-        #endregion
-
-        #region DuneLocationCalculationsView ViewInfo
 
         private static bool CloseDuneLocationCalculationsViewForData(DuneLocationCalculationsView view, object dataToCloseFor)
         {
@@ -268,8 +258,6 @@ namespace Riskeer.DuneErosion.Plugin
 
             return failureMechanism != null && ReferenceEquals(failureMechanism, view.FailureMechanism);
         }
-
-        #endregion
 
         #endregion
 

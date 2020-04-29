@@ -377,8 +377,6 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
 
         #region ViewInfos
 
-        #region GrassCoverErosionInwardsFailureMechanismView ViewInfo
-
         private static bool CloseGrassCoverErosionInwardsFailureMechanismViewForData(GrassCoverErosionInwardsFailureMechanismView view, object o)
         {
             var assessmentSection = o as IAssessmentSection;
@@ -388,10 +386,6 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
                        ? ReferenceEquals(view.AssessmentSection, assessmentSection)
                        : ReferenceEquals(view.FailureMechanism, failureMechanism);
         }
-
-        #endregion
-
-        #region GrassCoverErosionInwardsScenariosView ViewInfo
 
         private static bool CloseScenariosViewForData(GrassCoverErosionInwardsScenariosView view, object removedData)
         {
@@ -411,10 +405,6 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
 
             return failureMechanism != null && ReferenceEquals(view.Data, failureMechanism.CalculationsGroup);
         }
-
-        #endregion
-
-        #region GrassCoverErosionInwardsFailureMechanismResultView ViewInfo
 
         private static bool CloseFailureMechanismResultViewForData(GrassCoverErosionInwardsFailureMechanismResultView view, object o)
         {
@@ -436,10 +426,6 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
 
             return failureMechanism != null && ReferenceEquals(view.FailureMechanism.SectionResults, failureMechanism.SectionResults);
         }
-
-        #endregion
-
-        #region GrassCoverErosionInwardsInputView ViewInfo
 
         private static bool CloseInputViewForData(GrassCoverErosionInwardsInputView view, object o)
         {
@@ -478,8 +464,6 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
 
             return calculations != null && calculations.Any(ci => ReferenceEquals(view.Data, ci));
         }
-
-        #endregion
 
         #endregion
 
@@ -566,11 +550,6 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
                    .Build();
         }
 
-        private void RemoveAllViewsForItem(GrassCoverErosionInwardsFailureMechanismContext failureMechanismContext)
-        {
-            Gui.ViewCommands.RemoveAllViewsForItem(failureMechanismContext);
-        }
-
         private ContextMenuStrip FailureMechanismDisabledContextMenuStrip(GrassCoverErosionInwardsFailureMechanismContext grassCoverErosionInwardsFailureMechanismContext,
                                                                           object parentData,
                                                                           TreeViewControl treeViewControl)
@@ -585,6 +564,11 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
                           .AddSeparator()
                           .AddPropertiesItem()
                           .Build();
+        }
+
+        private void RemoveAllViewsForItem(GrassCoverErosionInwardsFailureMechanismContext failureMechanismContext)
+        {
+            Gui.ViewCommands.RemoveAllViewsForItem(failureMechanismContext);
         }
 
         private static string EnableValidateAndCalculateMenuItemForFailureMechanism(GrassCoverErosionInwardsFailureMechanismContext context)
@@ -811,7 +795,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
 
         private static void CalculationGroupContextOnNodeRemoved(GrassCoverErosionInwardsCalculationGroupContext context, object parentNodeData)
         {
-            var parentGroupContext = (GrassCoverErosionInwardsCalculationGroupContext)parentNodeData;
+            var parentGroupContext = (GrassCoverErosionInwardsCalculationGroupContext) parentNodeData;
 
             parentGroupContext.WrappedData.Children.Remove(context.WrappedData);
 
