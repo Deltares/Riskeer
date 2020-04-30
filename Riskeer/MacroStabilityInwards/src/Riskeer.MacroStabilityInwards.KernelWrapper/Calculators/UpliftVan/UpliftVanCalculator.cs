@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2019. All rights reserved.
+// Copyright (C) Stichting Deltares 2019. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -128,7 +128,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan
             upliftVanKernel.SetMoveGrid(input.MoveGrid);
             upliftVanKernel.SetMaximumSliceWidth(input.MaximumSliceWidth);
             upliftVanKernel.SetSurfaceLine(surfaceLine2);
-            upliftVanKernel.SetSoilModel(SoilModelCreator.Create(layersWithSoil.Select(lws => lws.Soil).ToArray()));
+            upliftVanKernel.SetSoilModel(layersWithSoil.Select(lws => lws.Soil).ToArray());
             upliftVanKernel.SetSoilProfile(soilProfile2D);
             
             waternetDailyKernelWrapper = new WaternetDailyKernelWrapper();
