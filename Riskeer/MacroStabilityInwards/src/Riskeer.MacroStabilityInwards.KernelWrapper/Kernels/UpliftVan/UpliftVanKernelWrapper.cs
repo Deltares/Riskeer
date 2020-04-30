@@ -70,14 +70,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
             ForbiddenZonesXEntryMax = double.NaN;
         }
 
-        private void AddPreProcessingConstructionStages()
-        {
-            kernelModel.PreprocessingModel.PreProcessingConstructionStages.Add(new PreprocessingConstructionStage
-            {
-                StabilityModel = kernelModel.StabilityModel
-            });
-        }
-
         public double FactorOfStability { get; private set; }
 
         public double ZValue { get; private set; }
@@ -127,6 +119,11 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
             kernelModel.PreprocessingModel.SearchAreaConditions.AutoSearchArea = gridAutomaticDetermined;
         }
 
+        public void SetTangentLinesAutomaticDetermined(bool tangentLinesAutomaticDetermined)
+        {
+            kernelModel.PreprocessingModel.SearchAreaConditions.AutoTangentLines = tangentLinesAutomaticDetermined;
+        }
+
         public void SetSoilModel(IList<Soil> soilModel)
         {
             kernelModel.StabilityModel.Soils.AddRange(soilModel);
@@ -162,6 +159,12 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
         {
             try
             {
+                // The following lines are necessary as a workaround for the kernel.
+                // The kernel validates before generating the grid, with calling Update, this is prevented.
+                PreprocessingModel preprocessingModel = kernelModel.PreprocessingModel;
+                var preprocessor = new StabilityPreprocessor();
+                preprocessor.Update(kernelModel.StabilityModel, preprocessingModel);
+
                 IValidationResult[] validationResults = Validator.Validate(kernelModel);
                 return validationResults;
             }
@@ -169,6 +172,14 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
             {
                 throw new UpliftVanKernelWrapperException(e.Message, e);
             }
+        }
+
+        private void AddPreProcessingConstructionStages()
+        {
+            kernelModel.PreprocessingModel.PreProcessingConstructionStages.Add(new PreprocessingConstructionStage
+            {
+                StabilityModel = kernelModel.StabilityModel
+            });
         }
 
         private void ReadLogMessages(List<LogMessage> kernelCalculationLogMessages)

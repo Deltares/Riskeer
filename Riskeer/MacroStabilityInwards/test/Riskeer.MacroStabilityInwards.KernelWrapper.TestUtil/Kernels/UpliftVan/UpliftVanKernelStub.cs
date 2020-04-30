@@ -24,7 +24,6 @@ using System.Collections.Generic;
 using Deltares.MacroStability.Data;
 using Deltares.MacroStability.Geometry;
 using Deltares.MacroStability.Standard;
-using Deltares.MacroStability.WaternetCreator;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan;
 using WtiStabilityWaternet = Deltares.MacroStability.Geometry.Waternet;
 
@@ -80,6 +79,8 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan
         public SlipPlaneConstraints SlipPlaneConstraints { get; private set; }
 
         public bool GridAutomaticDetermined { get; private set; }
+
+        public bool TangentLinesAutomaticDetermined { get; private set; }
 
         public WtiStabilityWaternet WaternetDaily { get; private set; }
 
@@ -147,6 +148,11 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan
         public void SetGridAutomaticDetermined(bool gridAutomaticDetermined)
         {
             GridAutomaticDetermined = gridAutomaticDetermined;
+        }
+
+        public void SetTangentLinesAutomaticDetermined(bool slipPlaneTangentLinesAutomaticAtBoundaries)
+        {
+            TangentLinesAutomaticDetermined = slipPlaneTangentLinesAutomaticAtBoundaries;
         }
 
         public void Calculate()

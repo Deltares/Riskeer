@@ -210,13 +210,13 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
         public void Validate_InvalidInput_GeneratesValidationMessages()
         {
             // Setup
-            UpliftVanKernelWrapper kernel = CreateInvalidKernel(null);
+            UpliftVanKernelWrapper kernel = CreateInvalidKernel(new Soil());
 
             // Call
             var validationMessages = kernel.Validate();
 
             // Assert
-            Assert.AreEqual(13, validationMessages.Count());
+            Assert.AreEqual(12, validationMessages.Count());
         }
 
         private static UpliftVanKernelWrapper CreateValidKernel(Soil soil)

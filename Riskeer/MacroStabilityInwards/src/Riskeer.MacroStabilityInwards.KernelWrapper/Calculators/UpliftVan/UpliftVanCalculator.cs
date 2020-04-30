@@ -121,6 +121,10 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan
             SurfaceLine2 surfaceLine2 = SurfaceLineCreator.Create(input.SurfaceLine);
             SoilProfile2D soilProfile2D = SoilProfileCreator.Create(input.SoilProfile.PreconsolidationStresses, layersWithSoil);
 
+            upliftVanKernel.SetSlipPlaneUpliftVan(SlipPlaneUpliftVanCreator.Create(input.SlipPlane));
+            upliftVanKernel.SetSlipPlaneConstraints(SlipPlaneConstraintsCreator.Create(input.SlipPlaneConstraints));
+            upliftVanKernel.SetGridAutomaticDetermined(input.SlipPlane.GridAutomaticDetermined);
+            upliftVanKernel.SetTangentLinesAutomaticDetermined(input.SlipPlane.TangentLinesAutomaticAtBoundaries);
             upliftVanKernel.SetMoveGrid(input.MoveGrid);
             upliftVanKernel.SetMaximumSliceWidth(input.MaximumSliceWidth);
             upliftVanKernel.SetSurfaceLine(surfaceLine2);
@@ -140,11 +144,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan
             waternetExtremeKernelWrapper.SetSurfaceLine(surfaceLine2);
             waternetExtremeKernelWrapper.Calculate();
             upliftVanKernel.SetWaternetExtreme(waternetExtremeKernelWrapper.Waternet);
-
-            upliftVanKernel.SetSlipPlaneUpliftVan(SlipPlaneUpliftVanCreator.Create(input.SlipPlane));
-            upliftVanKernel.SetSlipPlaneConstraints(SlipPlaneConstraintsCreator.Create(input.SlipPlaneConstraints));
-            upliftVanKernel.SetGridAutomaticDetermined(input.SlipPlane.GridAutomaticDetermined);
-
+            
             return upliftVanKernel;
         }
     }

@@ -128,6 +128,11 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
         void SetGridAutomaticDetermined(bool gridAutomaticDetermined);
 
         /// <summary>
+        /// Sets whether the tangent lines are automatically determined or not.
+        /// </summary>
+        void SetTangentLinesAutomaticDetermined(bool slipPlaneTangentLinesAutomaticAtBoundaries);
+
+        /// <summary>
         /// Performs the Uplift Van calculation.
         /// </summary>
         /// <exception cref="UpliftVanKernelWrapperException">Thrown when
