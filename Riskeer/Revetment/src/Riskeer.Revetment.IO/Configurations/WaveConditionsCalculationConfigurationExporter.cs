@@ -47,11 +47,10 @@ namespace Riskeer.Revetment.IO.Configurations
         /// Creates a new instance of <see cref="WaveConditionsCalculationConfigurationExporter{TWaveConditionsCalculationConfigurationWriter,TWaveConditionsCalculationConfiguration,TCalculation}"/>.
         /// </summary>
         /// <param name="calculations">The hierarchy of calculations to export.</param>
-        /// <param name="filePath">The path of the XML file to export to.</param>
+        /// <param name="writer">The writer to use.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculations"/> is <c>null</c>.</exception>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is invalid.</exception>
-        protected WaveConditionsCalculationConfigurationExporter(IEnumerable<ICalculationBase> calculations, string filePath)
-            : base(calculations, filePath) {}
+        protected WaveConditionsCalculationConfigurationExporter(IEnumerable<ICalculationBase> calculations, TWaveConditionsCalculationConfigurationWriter writer)
+            : base(calculations, writer) {}
 
         /// <summary>
         /// Sets the properties of a <see cref="TCalculation"/> to a <see cref="TWaveConditionsCalculationConfiguration"/>.

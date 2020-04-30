@@ -39,16 +39,19 @@ namespace Riskeer.Common.IO.Test.Configurations.Export
             TestConfigurationItem>
     {
         [Test]
-        public void Constructor_NotSupportedCalculation_ThrowsArgumentException()
+        public void Export_NotSupportedCalculation_ThrowsArgumentException()
         {
-            // Call
-            TestDelegate test = () => new SimpleCalculationConfigurationExporter(new[]
+            // Setup
+            var exporter = new SimpleCalculationConfigurationExporter(new[]
             {
                 new NotSupportedCalculation()
             }, "test.xml");
 
+            // Call
+            void Call() => exporter.Export();
+
             // Assert
-            var exception = Assert.Throws<ArgumentException>(test);
+            var exception = Assert.Throws<ArgumentException>(Call);
             Assert.AreEqual($"Cannot export calculation of type '{typeof(NotSupportedCalculation)}' using this exporter.", exception.Message);
         }
 
@@ -66,13 +69,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Export
         {
             public string Name { get; set; }
 
-            public IEnumerable<IObserver> Observers
-            {
-                get
-                {
-                    throw new NotImplementedException();
-                }
-            }
+            public IEnumerable<IObserver> Observers => throw new NotImplementedException();
 
             public void Attach(IObserver observer)
             {
@@ -99,12 +96,8 @@ namespace Riskeer.Common.IO.Test.Configurations.Export
     public class SimpleCalculationConfigurationExporter
         : CalculationConfigurationExporter<TestCalculationConfigurationWriter, TestCalculation, TestConfigurationItem>
     {
-        public SimpleCalculationConfigurationExporter(IEnumerable<ICalculationBase> calculations, string filePath) : base(calculations, filePath) {}
-
-        protected override TestCalculationConfigurationWriter CreateWriter(string filePath)
-        {
-            return new TestCalculationConfigurationWriter(filePath);
-        }
+        public SimpleCalculationConfigurationExporter(IEnumerable<ICalculationBase> calculations, string filePath)
+            : base(calculations, new TestCalculationConfigurationWriter(filePath)) {}
 
         protected override TestConfigurationItem ToConfiguration(TestCalculation calculation)
         {

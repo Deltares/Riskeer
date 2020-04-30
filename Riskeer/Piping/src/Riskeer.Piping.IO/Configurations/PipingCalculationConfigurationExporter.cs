@@ -45,12 +45,7 @@ namespace Riskeer.Piping.IO.Configurations
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculations"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is invalid.</exception>
         public PipingCalculationConfigurationExporter(IEnumerable<ICalculationBase> calculations, string filePath)
-            : base(calculations, filePath) {}
-
-        protected override PipingCalculationConfigurationWriter CreateWriter(string filePath)
-        {
-            return new PipingCalculationConfigurationWriter(filePath);
-        }
+            : base(calculations, new PipingCalculationConfigurationWriter(filePath)) {}
 
         protected override PipingCalculationConfiguration ToConfiguration(PipingCalculationScenario calculation)
         {

@@ -48,12 +48,7 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Configurations
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculations"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is invalid.</exception>
         public GrassCoverErosionInwardsCalculationConfigurationExporter(IEnumerable<ICalculationBase> calculations, string filePath)
-            : base(calculations, filePath) {}
-
-        protected override GrassCoverErosionInwardsCalculationConfigurationWriter CreateWriter(string filePath)
-        {
-            return new GrassCoverErosionInwardsCalculationConfigurationWriter(filePath);
-        }
+            : base(calculations, new GrassCoverErosionInwardsCalculationConfigurationWriter(filePath)) {}
 
         protected override GrassCoverErosionInwardsCalculationConfiguration ToConfiguration(GrassCoverErosionInwardsCalculation calculation)
         {

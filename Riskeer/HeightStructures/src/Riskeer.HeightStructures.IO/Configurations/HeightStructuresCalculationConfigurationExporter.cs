@@ -46,7 +46,7 @@ namespace Riskeer.HeightStructures.IO.Configurations
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculations"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is invalid.</exception>
         public HeightStructuresCalculationConfigurationExporter(IEnumerable<ICalculationBase> calculations, string filePath)
-            : base(calculations, filePath) {}
+            : base(calculations, new HeightStructuresCalculationConfigurationWriter(filePath)) {}
 
         protected override HeightStructuresCalculationConfiguration ToConfiguration(StructuresCalculation<HeightStructuresInput> calculation)
         {
@@ -76,11 +76,6 @@ namespace Riskeer.HeightStructures.IO.Configurations
             }
 
             return calculationConfiguration;
-        }
-
-        protected override HeightStructuresCalculationConfigurationWriter CreateWriter(string filePath)
-        {
-            return new HeightStructuresCalculationConfigurationWriter(filePath);
         }
     }
 }

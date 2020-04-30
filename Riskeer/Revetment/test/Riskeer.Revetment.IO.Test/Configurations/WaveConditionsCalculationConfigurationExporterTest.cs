@@ -50,12 +50,7 @@ namespace Riskeer.Revetment.IO.Test.Configurations
         private class TestWaveConditionsCalculationConfigurationExporter : WaveConditionsCalculationConfigurationExporter<WaveConditionsCalculationConfigurationWriter<WaveConditionsCalculationConfiguration>, WaveConditionsCalculationConfiguration, ICalculation<WaveConditionsInput>>
         {
             public TestWaveConditionsCalculationConfigurationExporter(IEnumerable<ICalculationBase> calculations, string filePath)
-                : base(calculations, filePath) {}
-
-            protected override WaveConditionsCalculationConfigurationWriter<WaveConditionsCalculationConfiguration> CreateWriter(string filePath)
-            {
-                return new TestWaveConditionsCalculationConfigurationWriter(filePath);
-            }
+                : base(calculations, new TestWaveConditionsCalculationConfigurationWriter(filePath)) {}
 
             protected override WaveConditionsCalculationConfiguration ToConfiguration(ICalculation<WaveConditionsInput> calculation)
             {
