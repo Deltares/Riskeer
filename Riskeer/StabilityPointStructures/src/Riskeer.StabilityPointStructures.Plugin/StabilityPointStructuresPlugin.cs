@@ -525,7 +525,7 @@ namespace Riskeer.StabilityPointStructures.Plugin
 
             builder.AddUpdateForeshoreProfileOfCalculationsItem(calculations, inquiryHelper,
                                                                 SynchronizeCalculationWithForeshoreProfileHelper.UpdateForeshoreProfileDerivedCalculationInput)
-                   .AddCustomItem(CreateUpdateStructureItem(calculations))
+                   .AddCustomItem(CreateUpdateAllStructuresItem(calculations))
                    .AddSeparator()
                    .AddValidateAllCalculationsInGroupItem(
                        context,
@@ -558,7 +558,7 @@ namespace Riskeer.StabilityPointStructures.Plugin
                           .Build();
         }
 
-        private StrictContextMenuItem CreateUpdateStructureItem(
+        private StrictContextMenuItem CreateUpdateAllStructuresItem(
             IEnumerable<StructuresCalculation<StabilityPointStructuresInput>> calculations)
         {
             var contextMenuEnabled = true;

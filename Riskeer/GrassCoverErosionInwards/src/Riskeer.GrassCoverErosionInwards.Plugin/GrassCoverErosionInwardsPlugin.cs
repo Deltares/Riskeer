@@ -635,7 +635,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
                                                                         .GetCalculations()
                                                                         .OfType<GrassCoverErosionInwardsCalculation>()
                                                                         .ToArray();
-            StrictContextMenuItem updateDikeProfileItem = CreateUpdateDikeProfileItem(calculations);
+            StrictContextMenuItem updateDikeProfileItem = CreateUpdateAllDikeProfilesItem(calculations);
 
             IInquiryHelper inquiryHelper = GetInquiryHelper();
 
@@ -697,7 +697,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
                           .Build();
         }
 
-        private StrictContextMenuItem CreateUpdateDikeProfileItem(IEnumerable<GrassCoverErosionInwardsCalculation> calculations)
+        private StrictContextMenuItem CreateUpdateAllDikeProfilesItem(IEnumerable<GrassCoverErosionInwardsCalculation> calculations)
         {
             var contextMenuEnabled = true;
             string toolTipMessage = Resources.GrassCoverErosionInwardsPlugin_CreateUpdateDikeProfileItem_Update_all_calculations_with_DikeProfile_Tooltip;

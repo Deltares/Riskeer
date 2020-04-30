@@ -520,7 +520,7 @@ namespace Riskeer.ClosingStructures.Plugin
 
             builder.AddUpdateForeshoreProfileOfCalculationsItem(calculations, inquiryHelper,
                                                                 SynchronizeCalculationWithForeshoreProfileHelper.UpdateForeshoreProfileDerivedCalculationInput)
-                   .AddCustomItem(CreateUpdateStructureItem(calculations))
+                   .AddCustomItem(CreateUpdateAllStructuresItem(calculations))
                    .AddSeparator()
                    .AddValidateAllCalculationsInGroupItem(
                        context,
@@ -553,7 +553,7 @@ namespace Riskeer.ClosingStructures.Plugin
                           .Build();
         }
 
-        private StrictContextMenuItem CreateUpdateStructureItem(
+        private StrictContextMenuItem CreateUpdateAllStructuresItem(
             IEnumerable<StructuresCalculation<ClosingStructuresInput>> calculations)
         {
             var contextMenuEnabled = true;

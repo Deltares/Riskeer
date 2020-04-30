@@ -1464,8 +1464,7 @@ namespace Riskeer.Integration.Plugin
                 failureMechanism = failureMechanismContext.WrappedData;
             }
 
-            return failureMechanism != null &&
-                   failureMechanism is IHasSectionResults<FailureMechanismSectionResult> failureMechanismWithSectionResults &&
+            return failureMechanism is IHasSectionResults<FailureMechanismSectionResult> failureMechanismWithSectionResults &&
                    ReferenceEquals(view.FailureMechanism.SectionResults, failureMechanismWithSectionResults.SectionResults);
         }
 

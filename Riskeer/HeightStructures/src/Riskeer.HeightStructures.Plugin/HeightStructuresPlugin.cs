@@ -524,7 +524,7 @@ namespace Riskeer.HeightStructures.Plugin
 
             builder.AddUpdateForeshoreProfileOfCalculationsItem(calculations, inquiryHelper,
                                                                 SynchronizeCalculationWithForeshoreProfileHelper.UpdateForeshoreProfileDerivedCalculationInput)
-                   .AddCustomItem(CreateUpdateStructureItem(calculations))
+                   .AddCustomItem(CreateUpdateAllStructuresItem(calculations))
                    .AddSeparator()
                    .AddValidateAllCalculationsInGroupItem(
                        context,
@@ -557,7 +557,7 @@ namespace Riskeer.HeightStructures.Plugin
                           .Build();
         }
 
-        private StrictContextMenuItem CreateUpdateStructureItem(
+        private StrictContextMenuItem CreateUpdateAllStructuresItem(
             IEnumerable<StructuresCalculation<HeightStructuresInput>> calculations)
         {
             var contextMenuEnabled = true;
