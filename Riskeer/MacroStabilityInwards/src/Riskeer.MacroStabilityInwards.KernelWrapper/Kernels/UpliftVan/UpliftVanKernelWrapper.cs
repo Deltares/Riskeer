@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Util.Extensions;
 using Deltares.MacroStability.Data;
 using Deltares.MacroStability.Geometry;
 using Deltares.MacroStability.Kernel;
@@ -37,31 +38,44 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
     /// </summary>
     internal class UpliftVanKernelWrapper : IUpliftVanKernel
     {
-        private readonly StabilityModel stabilityModel;
-        private KernelModel kernelModel;
-        private SoilProfile2D soilProfile2D;
-        private SurfaceLine2 surfaceLine2;
-        private WtiStabilityWaternet dailyWaternet;
-        private WtiStabilityWaternet extremeWaternet;
-        private bool gridAutomaticDetermined;
+        private readonly KernelModel kernelModel;
 
         /// <summary>
         /// Creates a new instance of <see cref="UpliftVanKernelWrapper"/>.
         /// </summary>
         public UpliftVanKernelWrapper()
         {
-            stabilityModel = new StabilityModel
+            kernelModel = new KernelModel
             {
-                GridOrientation = GridOrientation.Inwards,
-                SlipCircle = new SlipCircle(),
-                SearchAlgorithm = SearchAlgorithm.Grid,
-                ModelOption = ModelOptions.UpliftVan
+                StabilityModel =
+                {
+                    GridOrientation = GridOrientation.Inwards,
+                    SlipCircle = new SlipCircle(),
+                    SearchAlgorithm = SearchAlgorithm.Grid,
+                    ModelOption = ModelOptions.UpliftVan,
+                    ConstructionStages =
+                    {
+                        new ConstructionStage(),
+                        new ConstructionStage()
+                    }
+                }
             };
+
+            AddPreProcessingConstructionStages();
+            AddPreProcessingConstructionStages();
 
             FactorOfStability = double.NaN;
             ZValue = double.NaN;
             ForbiddenZonesXEntryMin = double.NaN;
             ForbiddenZonesXEntryMax = double.NaN;
+        }
+
+        private void AddPreProcessingConstructionStages()
+        {
+            kernelModel.PreprocessingModel.PreProcessingConstructionStages.Add(new PreprocessingConstructionStage
+            {
+                StabilityModel = kernelModel.StabilityModel
+            });
         }
 
         public double FactorOfStability { get; private set; }
@@ -80,60 +94,58 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
 
         public void SetWaternetDaily(WtiStabilityWaternet waternetDaily)
         {
-            dailyWaternet = waternetDaily;
+            kernelModel.StabilityModel.ConstructionStages.First().GeotechnicsData.CurrentWaternet = waternetDaily;
         }
 
         public void SetWaternetExtreme(WtiStabilityWaternet waternetExtreme)
         {
-            extremeWaternet = waternetExtreme;
+            kernelModel.StabilityModel.ConstructionStages.ElementAt(1).GeotechnicsData.CurrentWaternet = waternetExtreme;
         }
 
         public void SetMoveGrid(bool moveGrid)
         {
-            stabilityModel.MoveGrid = moveGrid;
+            kernelModel.StabilityModel.MoveGrid = moveGrid;
         }
 
         public void SetMaximumSliceWidth(double maximumSliceWidth)
         {
-            stabilityModel.MaximumSliceWidth = maximumSliceWidth;
+            kernelModel.StabilityModel.MaximumSliceWidth = maximumSliceWidth;
         }
 
         public void SetSlipPlaneUpliftVan(SlipPlaneUpliftVan slipPlaneUpliftVan)
         {
-            stabilityModel.SlipPlaneUpliftVan = slipPlaneUpliftVan;
+            kernelModel.StabilityModel.SlipPlaneUpliftVan = slipPlaneUpliftVan;
         }
 
         public void SetSlipPlaneConstraints(SlipPlaneConstraints slipPlaneConstraints)
         {
-            stabilityModel.SlipPlaneConstraints = slipPlaneConstraints;
+            kernelModel.StabilityModel.SlipPlaneConstraints = slipPlaneConstraints;
         }
 
         public void SetGridAutomaticDetermined(bool gridAutomaticDetermined)
         {
-            this.gridAutomaticDetermined = gridAutomaticDetermined;
+            kernelModel.PreprocessingModel.SearchAreaConditions.AutoSearchArea = gridAutomaticDetermined;
         }
 
         public void SetSoilModel(IList<Soil> soilModel)
         {
-            stabilityModel.Soils.AddRange(soilModel);
+            kernelModel.StabilityModel.Soils.AddRange(soilModel);
         }
 
         public void SetSoilProfile(SoilProfile2D soilProfile)
         {
-            soilProfile2D = soilProfile;
+            kernelModel.StabilityModel.ConstructionStages.ForEachElementDo(cs => cs.SoilProfile = soilProfile);
         }
 
         public void SetSurfaceLine(SurfaceLine2 surfaceLine)
         {
-            surfaceLine2 = surfaceLine;
+            kernelModel.PreprocessingModel.LastStage.SurfaceLine = surfaceLine;
         }
 
         public void Calculate()
         {
             try
             {
-                ConfigureKernelModel();
-
                 var kernelCalculation = new KernelCalculation();
                 kernelCalculation.Run(kernelModel);
 
@@ -150,8 +162,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
         {
             try
             {
-                ConfigureKernelModel();
-
                 IValidationResult[] validationResults = Validator.Validate(kernelModel);
                 return validationResults;
             }
@@ -159,37 +169,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
             {
                 throw new UpliftVanKernelWrapperException(e.Message, e);
             }
-        }
-
-        private void ConfigureKernelModel()
-        {
-            kernelModel = new KernelModel
-            {
-                StabilityModel = stabilityModel,
-                PreprocessingModel = new PreprocessingModel
-                {
-                    SearchAreaConditions = 
-                    {
-                        AutoSearchArea = gridAutomaticDetermined
-                    }
-                }
-            };
-
-            AddConstructionStage(0, dailyWaternet);
-            AddConstructionStage(1, extremeWaternet);
-            kernelModel.PreprocessingModel.LastStage.SurfaceLine = surfaceLine2;
-        }
-
-        private void AddConstructionStage(int constructionStageIndex, WtiStabilityWaternet waternet)
-        {
-            stabilityModel.ConstructionStages.Add(new ConstructionStage());
-            kernelModel.PreprocessingModel.PreProcessingConstructionStages.Add(new PreprocessingConstructionStage
-            {
-                StabilityModel = stabilityModel
-            });
-            ConstructionStage constructionStage = stabilityModel.ConstructionStages.ElementAt(constructionStageIndex);
-            constructionStage.GeotechnicsData.CurrentWaternet = waternet;
-            constructionStage.SoilProfile = soilProfile2D;
         }
 
         private void ReadLogMessages(List<LogMessage> kernelCalculationLogMessages)

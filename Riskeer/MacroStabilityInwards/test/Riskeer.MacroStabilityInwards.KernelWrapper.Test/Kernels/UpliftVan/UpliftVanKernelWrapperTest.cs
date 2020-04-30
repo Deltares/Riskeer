@@ -23,9 +23,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.TestUtil;
+using Core.Common.Util.Extensions;
 using Core.Common.Util.Reflection;
 using Deltares.MacroStability.Data;
 using Deltares.MacroStability.Geometry;
+using Deltares.MacroStability.Kernel;
 using Deltares.MacroStability.Standard;
 using NUnit.Framework;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan;
@@ -79,9 +81,8 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
             kernel.SetWaternetExtreme(waternetExtreme);
 
             // Assert
-            var stabilityModel = TypeUtils.GetField<StabilityModel>(kernel, "stabilityModel");
-            var actualDailyWaternet = TypeUtils.GetField<WtiStabilityWaternet>(kernel, "dailyWaternet");
-            var actualExtremeWaternet = TypeUtils.GetField<WtiStabilityWaternet>(kernel, "extremeWaternet");
+            var kernelModel = TypeUtils.GetField<KernelModel>(kernel, "kernelModel");
+            StabilityModel stabilityModel = kernelModel.StabilityModel;
 
             Assert.IsNotNull(stabilityModel.SlipPlaneConstraints);
             Assert.AreEqual(GridOrientation.Inwards, stabilityModel.GridOrientation);
@@ -92,8 +93,15 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
             Assert.AreSame(slipPlaneUpliftVan, stabilityModel.SlipPlaneUpliftVan);
             Assert.AreSame(slipPlaneConstraints, stabilityModel.SlipPlaneConstraints);
             Assert.AreEqual(moveGrid, stabilityModel.MoveGrid);
-            Assert.AreEqual(waternetDaily, actualDailyWaternet);
-            Assert.AreEqual(waternetExtreme, actualExtremeWaternet);
+            Assert.AreEqual(gridAutomaticDetermined, kernelModel.PreprocessingModel.SearchAreaConditions.AutoSearchArea);
+            
+            Assert.AreEqual(2, stabilityModel.ConstructionStages.Count);
+            Assert.AreEqual(2, kernelModel.PreprocessingModel.PreProcessingConstructionStages.Count);
+            kernelModel.PreprocessingModel.PreProcessingConstructionStages.ForEachElementDo(
+                ppcs => Assert.AreSame(stabilityModel, ppcs.StabilityModel));
+
+            Assert.AreSame(waternetDaily, stabilityModel.ConstructionStages.First().GeotechnicsData.CurrentWaternet);
+            Assert.AreSame(waternetExtreme, stabilityModel.ConstructionStages.Last().GeotechnicsData.CurrentWaternet);
 
             AssertIrrelevantValues(stabilityModel);
         }
@@ -208,7 +216,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
             var validationMessages = kernel.Validate();
 
             // Assert
-            Assert.AreEqual(14, validationMessages.Count());
+            Assert.AreEqual(13, validationMessages.Count());
         }
 
         private static UpliftVanKernelWrapper CreateValidKernel(Soil soil)
