@@ -30,6 +30,7 @@ using Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Output;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Kernels;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.Waternet;
+using SoilLayer = Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Input.SoilLayer;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan
 {
@@ -114,7 +115,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan
 
         private IUpliftVanKernel CreateUpliftVanKernel()
         {
-            LayerWithSoil[] layersWithSoil = LayerWithSoilCreator.Create(input.SoilProfile);
+            LayerWithSoil[] layersWithSoil = LayerWithSoilCreator.Create(input.SoilProfile, out IDictionary<SoilLayer, LayerWithSoil> layerLookup);
 
             IUpliftVanKernel upliftVanKernel = factory.CreateUpliftVanKernel();
 

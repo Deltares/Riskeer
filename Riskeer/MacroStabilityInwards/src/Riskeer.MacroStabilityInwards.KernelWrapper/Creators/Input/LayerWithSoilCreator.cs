@@ -43,54 +43,61 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
         /// Creates <see cref="LayerWithSoil"/> objects based on <paramref name="soilProfile"/>.
         /// </summary>
         /// <param name="soilProfile">The <see cref="SoilProfile"/> to create <see cref="LayerWithSoil"/> objects for.</param>
+        /// <param name="layerLookup">The lookup to fill with the created layers.</param>
         /// <returns>An <see cref="Array"/> of <see cref="LayerWithSoil"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="soilProfile"/> is <c>null</c>.</exception>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <see cref="ShearStrengthModel"/>,
         /// <see cref="WaterPressureInterpolationModel"/> is an invalid value.</exception>
         /// <exception cref="NotSupportedException">Thrown when <see cref="ShearStrengthModel"/>,
         /// <see cref="WaterPressureInterpolationModel"/> is a valid value, but unsupported.</exception>
-        public static LayerWithSoil[] Create(SoilProfile soilProfile)
+        public static LayerWithSoil[] Create(SoilProfile soilProfile, out IDictionary<SoilLayer, LayerWithSoil> layerLookup)
         {
             if (soilProfile == null)
             {
                 throw new ArgumentNullException(nameof(soilProfile));
             }
 
-            return GetLayersWithSoilRecursively(soilProfile.Layers).ToArray();
+            layerLookup = new Dictionary<SoilLayer, LayerWithSoil>();
+            return GetLayersWithSoilRecursively(soilProfile.Layers, layerLookup).ToArray();
         }
 
         /// <summary>
         /// Gets <see cref="LayerWithSoil"/> recursively.
         /// </summary>
         /// <param name="soilLayers">The soil layers to obtain the <see cref="LayerWithSoil"/> objects from.</param>
+        /// <param name="layerLookup">The lookup to fill with the created layers.</param>
         /// <returns>An <see cref="IEnumerable{T}"/> of <see cref="LayerWithSoil"/>.</returns>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <see cref="ShearStrengthModel"/>,
         /// <see cref="WaterPressureInterpolationModel"/> is an invalid value.</exception>
         /// <exception cref="NotSupportedException">Thrown when <see cref="ShearStrengthModel"/>,
         /// <see cref="WaterPressureInterpolationModel"/> is a valid value, but unsupported.</exception>
-        private static IEnumerable<LayerWithSoil> GetLayersWithSoilRecursively(IEnumerable<SoilLayer> soilLayers)
+        private static IEnumerable<LayerWithSoil> GetLayersWithSoilRecursively(IEnumerable<SoilLayer> soilLayers, IDictionary<SoilLayer, LayerWithSoil> layerLookup)
         {
             var layersWithSoil = new List<LayerWithSoil>();
 
             foreach (SoilLayer layer in soilLayers)
             {
-                layersWithSoil.Add(new LayerWithSoil(layer.OuterRing,
-                                                     GetInnerLoopsRecursively(layer),
-                                                     new WtiStabilitySoil(layer.MaterialName)
-                                                     {
-                                                         ShearStrengthModel = ConvertShearStrengthModel(layer.ShearStrengthModel),
-                                                         AbovePhreaticLevel = layer.AbovePhreaticLevel,
-                                                         BelowPhreaticLevel = layer.BelowPhreaticLevel,
-                                                         Cohesion = layer.Cohesion,
-                                                         FrictionAngle = layer.FrictionAngle,
-                                                         RatioCuPc = layer.ShearStrengthRatio,
-                                                         StrengthIncreaseExponent = layer.StrengthIncreaseExponent,
-                                                         Dilatancy = 0.0
-                                                     },
-                                                     layer.IsAquifer,
-                                                     ConvertWaterPressureInterpolationModel(layer.WaterPressureInterpolationModel)));
+                var layerWithSoil = new LayerWithSoil(
+                    layer.OuterRing,
+                    GetInnerLoopsRecursively(layer),
+                    new WtiStabilitySoil(layer.MaterialName)
+                    {
+                        ShearStrengthModel = ConvertShearStrengthModel(layer.ShearStrengthModel),
+                        AbovePhreaticLevel = layer.AbovePhreaticLevel,
+                        BelowPhreaticLevel = layer.BelowPhreaticLevel,
+                        Cohesion = layer.Cohesion,
+                        FrictionAngle = layer.FrictionAngle,
+                        RatioCuPc = layer.ShearStrengthRatio,
+                        StrengthIncreaseExponent = layer.StrengthIncreaseExponent,
+                        Dilatancy = 0.0
+                    },
+                    layer.IsAquifer,
+                    ConvertWaterPressureInterpolationModel(layer.WaterPressureInterpolationModel));
 
-                layersWithSoil.AddRange(GetLayersWithSoilRecursively(layer.NestedLayers));
+                layersWithSoil.Add(layerWithSoil);
+                layerLookup.Add(layer, layerWithSoil);
+
+                layersWithSoil.AddRange(GetLayersWithSoilRecursively(layer.NestedLayers, layerLookup));
             }
 
             return layersWithSoil;

@@ -139,7 +139,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
                 Assert.AreEqual(input.MoveGrid, upliftVanKernel.MoveGrid);
                 Assert.AreEqual(input.MaximumSliceWidth, upliftVanKernel.MaximumSliceWidth);
 
-                LayerWithSoil[] layersWithSoil = LayerWithSoilCreator.Create(input.SoilProfile);
+                LayerWithSoil[] layersWithSoil = LayerWithSoilCreator.Create(input.SoilProfile, out IDictionary<SoilLayer, LayerWithSoil> layerLookup);
 
                 KernelInputAssert.AssertSoilModels(layersWithSoil.Select(lws => lws.Soil).ToArray(), upliftVanKernel.SoilModel);
                 KernelInputAssert.AssertSoilProfiles(SoilProfileCreator.Create(input.SoilProfile.PreconsolidationStresses, layersWithSoil), upliftVanKernel.SoilProfile);

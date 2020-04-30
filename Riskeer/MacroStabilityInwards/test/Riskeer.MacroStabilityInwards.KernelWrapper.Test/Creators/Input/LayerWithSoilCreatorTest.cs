@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using Core.Common.TestUtil;
@@ -42,11 +43,11 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
         public void Create_SoilProfileNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => LayerWithSoilCreator.Create(null);
+            void Call() => LayerWithSoilCreator.Create(null, out IDictionary<SoilLayer, LayerWithSoil> layerLookup);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("soilProfile", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("soilProfile", exception.ParamName);
         }
 
         [Test]
@@ -79,7 +80,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             );
 
             // Call
-            LayerWithSoil[] layersWithSoil = LayerWithSoilCreator.Create(soilProfile);
+            LayerWithSoil[] layersWithSoil = LayerWithSoilCreator.Create(soilProfile, out IDictionary<SoilLayer, LayerWithSoil> layerLookup);
 
             // Assert
             SoilLayer layer1 = soilProfile.Layers.ElementAt(0);
@@ -124,6 +125,23 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             Assert.AreEqual(outerRing6, layersWithSoil[5].OuterRing);
             CollectionAssert.IsEmpty(layersWithSoil[5].InnerRings);
             AssertSoilLayerProperties(layer6, layersWithSoil[5]);
+            
+            SoilLayer[] originalSoilLayers = 
+            {
+                layer1,
+                layer2,
+                layer3,
+                layer4,
+                layer5,
+                layer6
+            };
+            Assert.AreEqual(layersWithSoil.Length, layerLookup.Count);
+
+            for (var i = 0; i < layersWithSoil.Length; i++)
+            {
+                Assert.AreSame(originalSoilLayers[i], layerLookup.ElementAt(i).Key);
+                Assert.AreSame(layersWithSoil.ElementAt(i), layerLookup.ElementAt(i).Value);
+            }
         }
 
         [Test]
@@ -141,11 +159,11 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             }, Enumerable.Empty<PreconsolidationStress>());
 
             // Call
-            TestDelegate test = () => LayerWithSoilCreator.Create(profile);
+            void Call() => LayerWithSoilCreator.Create(profile, out IDictionary<SoilLayer, LayerWithSoil> layerLookup);
 
             // Assert
-            string message = $"The value of argument 'shearStrengthModel' ({99}) is invalid for Enum type '{typeof(ShearStrengthModel).Name}'.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(test, message);
+            string message = $"The value of argument 'shearStrengthModel' ({99}) is invalid for Enum type '{nameof(ShearStrengthModel)}'.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(Call, message);
         }
 
         [Test]
@@ -163,11 +181,11 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             }, Enumerable.Empty<PreconsolidationStress>());
 
             // Call
-            TestDelegate test = () => LayerWithSoilCreator.Create(profile);
+            void Call() => LayerWithSoilCreator.Create(profile, out IDictionary<SoilLayer, LayerWithSoil> layerLookup);
 
             // Assert
-            string message = $"The value of argument 'waterPressureInterpolationModel' ({99}) is invalid for Enum type '{typeof(WaterPressureInterpolationModel).Name}'.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(test, message);
+            string message = $"The value of argument 'waterPressureInterpolationModel' ({99}) is invalid for Enum type '{nameof(WaterPressureInterpolationModel)}'.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(Call, message);
         }
 
         [TestCase(ShearStrengthModel.CPhi, WtiStabilityShearStrengthModel.CPhi)]
@@ -187,7 +205,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             }, Enumerable.Empty<PreconsolidationStress>());
 
             // Call
-            LayerWithSoil[] layersWithSoil = LayerWithSoilCreator.Create(profile);
+            LayerWithSoil[] layersWithSoil = LayerWithSoilCreator.Create(profile, out IDictionary<SoilLayer, LayerWithSoil> layerLookup);
 
             // Assert
             Assert.AreEqual(expectedShearStrengthModel, layersWithSoil[0].Soil.ShearStrengthModel);
@@ -208,7 +226,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             }, Enumerable.Empty<PreconsolidationStress>());
 
             // Call
-            LayerWithSoil[] layersWithSoil = LayerWithSoilCreator.Create(profile);
+            LayerWithSoil[] layersWithSoil = LayerWithSoilCreator.Create(profile, out IDictionary<SoilLayer, LayerWithSoil> layerLookup);
 
             // Assert
             Assert.AreEqual(0.0, layersWithSoil[0].Soil.Dilatancy);
@@ -230,7 +248,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             }, Enumerable.Empty<PreconsolidationStress>());
 
             // Call
-            LayerWithSoil[] layersWithSoil = LayerWithSoilCreator.Create(profile);
+            LayerWithSoil[] layersWithSoil = LayerWithSoilCreator.Create(profile, out IDictionary<SoilLayer, LayerWithSoil> layerLookup);
 
             // Assert
             Assert.AreEqual(expectedWaterPressureInterpolationModel, layersWithSoil[0].WaterPressureInterpolationModel);
