@@ -136,6 +136,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan
             upliftVanKernel.SetSoilProfile(soilProfile2D);
             upliftVanKernel.SetWaternetDaily(waternetDailyKernelWrapper.Waternet);
             upliftVanKernel.SetWaternetExtreme(waternetExtremeKernelWrapper.Waternet);
+            upliftVanKernel.SetFixedSoilStresses(FixedSoilStressCreator.Create(layerLookup));
             return upliftVanKernel;
         }
 

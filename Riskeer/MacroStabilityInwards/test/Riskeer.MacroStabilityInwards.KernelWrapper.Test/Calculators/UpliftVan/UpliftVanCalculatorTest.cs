@@ -60,10 +60,10 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => new UpliftVanCalculator(null, factory);
+            void Call() => new UpliftVanCalculator(null, factory);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("input", exception.ParamName);
             mocks.VerifyAll();
         }
@@ -75,10 +75,10 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
             UpliftVanCalculatorInput input = CreateCompleteCalculatorInput();
 
             // Call
-            TestDelegate call = () => new UpliftVanCalculator(input, null);
+            void Call() => new UpliftVanCalculator(input, null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("factory", exception.ParamName);
         }
 
@@ -147,7 +147,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
                 UpliftVanKernelInputAssert.AssertSlipPlanesUpliftVan(SlipPlaneUpliftVanCreator.Create(input.SlipPlane), upliftVanKernel.SlipPlaneUpliftVan);
                 UpliftVanKernelInputAssert.AssertSlipPlaneConstraints(SlipPlaneConstraintsCreator.Create(input.SlipPlaneConstraints), upliftVanKernel.SlipPlaneConstraints);
                 Assert.AreEqual(input.SlipPlane.GridAutomaticDetermined, upliftVanKernel.GridAutomaticDetermined);
-                CollectionAssert.IsEmpty(upliftVanKernel.CalculationMessages);
+                CollectionAssert.AreEqual(FixedSoilStressCreator.Create(layerLookup), upliftVanKernel.SoilStresses, new FixedSoilStressComparer());
             }
         }
 
@@ -236,10 +236,10 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
                 upliftVanKernel.ThrowExceptionOnCalculate = true;
 
                 // Call
-                TestDelegate test = () => new UpliftVanCalculator(input, factory).Calculate();
+                void Call() => new UpliftVanCalculator(input, factory).Calculate();
 
                 // Assert
-                var exception = Assert.Throws<UpliftVanCalculatorException>(test);
+                var exception = Assert.Throws<UpliftVanCalculatorException>(Call);
                 Assert.IsInstanceOf<UpliftVanKernelWrapperException>(exception.InnerException);
                 Assert.AreEqual(exception.InnerException.Message, exception.Message);
             }
@@ -315,10 +315,10 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
                 upliftVanKernel.ThrowExceptionOnValidate = true;
 
                 // Call
-                TestDelegate test = () => new UpliftVanCalculator(CreateCompleteCalculatorInput(), factory).Validate();
+                void Call() => new UpliftVanCalculator(CreateCompleteCalculatorInput(), factory).Validate();
 
                 // Assert
-                var exception = Assert.Throws<UpliftVanCalculatorException>(test);
+                var exception = Assert.Throws<UpliftVanCalculatorException>(Call);
                 Assert.IsInstanceOf<UpliftVanKernelWrapperException>(exception.InnerException);
                 Assert.AreEqual(exception.InnerException.Message, exception.Message);
             }
@@ -381,7 +381,12 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
                         new Point2D(10, -5),
                         new Point2D(-10, -5)
                     },
-                    new SoilLayer.ConstructionProperties(),
+                    new SoilLayer.ConstructionProperties
+                    {
+                        MaterialName = "Material 1",
+                        UsePop = true,
+                        Pop = new Random(21).NextDouble()
+                    },
                     Enumerable.Empty<SoilLayer>()),
                 new SoilLayer(
                     new[]
