@@ -179,7 +179,12 @@ namespace Riskeer.Migration.Integration.Test
                     "DETACH SOURCEPROJECT;";
                 reader.AssertReturnedDataIsValid(validateMigratedTable);
             }
-            
+
+            AssertNotMigratedTables(reader);
+        }
+
+        private static void AssertNotMigratedTables(MigratedDatabaseReader reader)
+        {
             const string macroStabilityInwardsCalculationOutputEntityTable = "SELECT COUNT() = 0 " +
                                                                              "FROM MacroStabilityInwardsCalculationOutputEntity;" +
                                                                              "DETACH SOURCEPROJECT;";
@@ -194,6 +199,7 @@ namespace Riskeer.Migration.Integration.Test
                 "WHERE [Version] = \"20.1\";";
             reader.AssertReturnedDataIsValid(validateVersion);
         }
+
         private static void AssertDatabase(MigratedDatabaseReader reader)
         {
             const string validateForeignKeys =
