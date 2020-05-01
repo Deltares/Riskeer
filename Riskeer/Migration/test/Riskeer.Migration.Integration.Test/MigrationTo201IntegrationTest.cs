@@ -33,13 +33,11 @@ namespace Riskeer.Migration.Integration.Test
         private const string newVersion = "20.1";
 
         [Test]
-        [TestCase("MigrationTestProject191.risk", "* Geen aanpassingen.")]
-        [TestCase("FilledMigrationTestProject191.risk", "* Alle berekende resultaten van het toetsspoor 'Macrostabiliteit binnenwaarts' zijn verwijderd.")]
-        public void Given191Project_WhenUpgradedTo201_ThenProjectAsExpected(string filePath, string expectedMessage)
+        public void Given191Project_WhenUpgradedTo201_ThenProjectAsExpected()
         {
             // Given
             string sourceFilePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Migration.Core,
-                                                               filePath);
+                                                               "MigrationTestProject191.risk");
             var fromVersionedFile = new ProjectVersionedFile(sourceFilePath);
 
             string targetFilePath = TestHelper.GetScratchPadPath(nameof(Given191Project_WhenUpgradedTo201_ThenProjectAsExpected));
@@ -64,7 +62,7 @@ namespace Riskeer.Migration.Integration.Test
                     AssertDatabase(reader);
                 }
 
-                AssertLogDatabase(logFilePath, expectedMessage);
+                AssertLogDatabase(logFilePath);
             }
         }
 
@@ -181,6 +179,11 @@ namespace Riskeer.Migration.Integration.Test
                     "DETACH SOURCEPROJECT;";
                 reader.AssertReturnedDataIsValid(validateMigratedTable);
             }
+            
+            const string macroStabilityInwardsCalculationOutputEntityTable = "SELECT COUNT() = 0 " +
+                                                                             "FROM MacroStabilityInwardsCalculationOutputEntity;" +
+                                                                             "DETACH SOURCEPROJECT;";
+            reader.AssertReturnedDataIsValid(macroStabilityInwardsCalculationOutputEntityTable);
         }
 
         private static void AssertVersions(MigratedDatabaseReader reader)
@@ -198,7 +201,7 @@ namespace Riskeer.Migration.Integration.Test
             reader.AssertReturnedDataIsValid(validateForeignKeys);
         }
 
-        private static void AssertLogDatabase(string logFilePath, string expectedMessage)
+        private static void AssertLogDatabase(string logFilePath)
         {
             using (var reader = new MigrationLogDatabaseReader(logFilePath))
             {
@@ -210,7 +213,7 @@ namespace Riskeer.Migration.Integration.Test
                     new MigrationLogMessage("19.1", newVersion, "Gevolgen van de migratie van versie 19.1 naar versie 20.1:"),
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("19.1", newVersion, expectedMessage),
+                    new MigrationLogMessage("19.1", newVersion, "* Alle berekende resultaten van het toetsspoor 'Macrostabiliteit binnenwaarts' zijn verwijderd."),
                     messages[i]);
             }
         }
