@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Deltares.MacroStability.Geometry;
 using Deltares.MacroStability.Standard;
 using NUnit.Framework;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan;
@@ -41,6 +42,21 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernels.Upli
             // Assert
             Assert.IsInstanceOf<IUpliftVanKernel>(kernel);
             Assert.IsFalse(kernel.Calculated);
+            Assert.IsNull(kernel.SoilStresses);
+        }
+
+        [Test]
+        public void SetSoilStresses_Always_SetsSoilStressesOnKernel()
+        {
+            // Setup
+            IEnumerable<FixedSoilStress> soilStresses = Enumerable.Empty<FixedSoilStress>();
+            var kernel = new UpliftVanKernelStub();
+
+            // Call
+            kernel.SetFixedSoilStresses(soilStresses);
+
+            // Assert
+            Assert.AreSame(soilStresses, kernel.SoilStresses);
         }
 
         [Test]

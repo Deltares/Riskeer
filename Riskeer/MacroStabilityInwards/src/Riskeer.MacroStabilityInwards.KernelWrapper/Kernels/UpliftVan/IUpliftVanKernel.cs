@@ -133,6 +133,12 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
         void SetTangentLinesAutomaticDetermined(bool slipPlaneTangentLinesAutomaticAtBoundaries);
 
         /// <summary>
+        /// Sets the fixed soil stresses.
+        /// </summary>
+        /// <param name="soilStresses">The soil stresses to set.</param>
+        void SetFixedSoilStresses(IEnumerable<FixedSoilStress> soilStresses);
+
+        /// <summary>
         /// Performs the Uplift Van calculation.
         /// </summary>
         /// <exception cref="UpliftVanKernelWrapperException">Thrown when

@@ -86,6 +86,11 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan
 
         public WtiStabilityWaternet WaternetExtreme { get; private set; }
 
+        /// <summary>
+        /// Gets the fixed soil stresses.
+        /// </summary>
+        public IEnumerable<FixedSoilStress> SoilStresses { get; private set; }
+
         public double FactorOfStability { get; set; }
 
         public double ZValue { get; set; }
@@ -153,6 +158,11 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan
         public void SetTangentLinesAutomaticDetermined(bool slipPlaneTangentLinesAutomaticAtBoundaries)
         {
             TangentLinesAutomaticDetermined = slipPlaneTangentLinesAutomaticAtBoundaries;
+        }
+
+        public void SetFixedSoilStresses(IEnumerable<FixedSoilStress> soilStresses)
+        {
+            SoilStresses = soilStresses;
         }
 
         public void Calculate()

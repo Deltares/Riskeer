@@ -68,6 +68,10 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
             var slipPlaneConstraints = new SlipPlaneConstraints();
             var waternetDaily = new WtiStabilityWaternet();
             var waternetExtreme = new WtiStabilityWaternet();
+            var fixedSoilStresses = new[]
+            {
+                new FixedSoilStress()
+            };
 
             // Call
             var kernel = new UpliftVanKernelWrapper();
@@ -79,6 +83,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
             kernel.SetSlipPlaneConstraints(slipPlaneConstraints);
             kernel.SetWaternetDaily(waternetDaily);
             kernel.SetWaternetExtreme(waternetExtreme);
+            kernel.SetFixedSoilStresses(fixedSoilStresses);
 
             // Assert
             var kernelModel = TypeUtils.GetField<KernelModel>(kernel, "kernelModel");
@@ -96,12 +101,18 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
             Assert.AreEqual(gridAutomaticDetermined, kernelModel.PreprocessingModel.SearchAreaConditions.AutoSearchArea);
             
             Assert.AreEqual(2, stabilityModel.ConstructionStages.Count);
+            
+            Assert.AreSame(waternetDaily, stabilityModel.ConstructionStages.First().GeotechnicsData.CurrentWaternet);
+            Assert.AreSame(waternetExtreme, stabilityModel.ConstructionStages.Last().GeotechnicsData.CurrentWaternet);
+
+            foreach (ConstructionStage constructionStage in stabilityModel.ConstructionStages)
+            {
+                CollectionAssert.AreEqual(fixedSoilStresses, constructionStage.SoilStresses);
+            }
+
             Assert.AreEqual(2, kernelModel.PreprocessingModel.PreProcessingConstructionStages.Count);
             kernelModel.PreprocessingModel.PreProcessingConstructionStages.ForEachElementDo(
                 ppcs => Assert.AreSame(stabilityModel, ppcs.StabilityModel));
-
-            Assert.AreSame(waternetDaily, stabilityModel.ConstructionStages.First().GeotechnicsData.CurrentWaternet);
-            Assert.AreSame(waternetExtreme, stabilityModel.ConstructionStages.Last().GeotechnicsData.CurrentWaternet);
 
             AssertIrrelevantValues(stabilityModel);
         }
@@ -113,10 +124,10 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
             var kernel = new UpliftVanKernelWrapper();
 
             // Call
-            TestDelegate test = () => kernel.Calculate();
+            void Call() => kernel.Calculate();
 
             // Assert
-            var exception = Assert.Throws<UpliftVanKernelWrapperException>(test);
+            var exception = Assert.Throws<UpliftVanKernelWrapperException>(Call);
             Assert.IsNotNull(exception.InnerException);
             Assert.AreEqual(exception.InnerException.Message, exception.Message);
         }
@@ -128,10 +139,10 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
             var kernel = new UpliftVanKernelWrapper();
 
             // Call
-            TestDelegate test = () => kernel.Calculate();
+            void Call() => kernel.Calculate();
 
             // Assert
-            Assert.Throws<UpliftVanKernelWrapperException>(test);
+            Assert.Throws<UpliftVanKernelWrapperException>(Call);
             Assert.IsNaN(kernel.FactorOfStability);
             Assert.IsNaN(kernel.ZValue);
             Assert.IsNaN(kernel.ForbiddenZonesXEntryMax);
@@ -185,7 +196,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
             });
 
             // Call
-            var validationMessages = kernel.Validate();
+            IEnumerable<IValidationResult> validationMessages = kernel.Validate();
 
             // Assert
             Assert.IsEmpty(validationMessages.Where(vm => vm.MessageType == ValidationResultType.Error));
@@ -213,7 +224,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
             UpliftVanKernelWrapper kernel = CreateInvalidKernel(new Soil());
 
             // Call
-            var validationMessages = kernel.Validate();
+            IEnumerable<IValidationResult> validationMessages = kernel.Validate();
 
             // Assert
             Assert.AreEqual(12, validationMessages.Count());

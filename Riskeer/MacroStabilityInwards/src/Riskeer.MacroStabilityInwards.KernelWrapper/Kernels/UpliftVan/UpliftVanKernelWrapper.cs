@@ -124,6 +124,14 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
             kernelModel.PreprocessingModel.SearchAreaConditions.AutoTangentLines = tangentLinesAutomaticDetermined;
         }
 
+        public void SetFixedSoilStresses(IEnumerable<FixedSoilStress> soilStresses)
+        {
+            kernelModel.StabilityModel.ConstructionStages.ForEachElementDo(cs =>
+            {
+                cs.SoilStresses.AddRange(soilStresses);
+            });
+        }
+
         public void SetSoilModel(IList<Soil> soilModel)
         {
             kernelModel.StabilityModel.Soils.AddRange(soilModel);
