@@ -28,6 +28,7 @@ using Deltares.MacroStability.Geometry;
 using Deltares.MacroStability.Kernel;
 using Deltares.MacroStability.Preprocessing;
 using Deltares.MacroStability.Standard;
+using Deltares.MacroStability.WaternetCreator;
 using Deltares.WTIStability.Calculation.Wrapper;
 using WtiStabilityWaternet = Deltares.MacroStability.Geometry.Waternet;
 
@@ -145,6 +146,10 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
         public void SetSurfaceLine(SurfaceLine2 surfaceLine)
         {
             kernelModel.PreprocessingModel.LastStage.SurfaceLine = surfaceLine;
+            foreach (var preProcessingConstructionStage in kernelModel.PreprocessingModel.PreProcessingConstructionStages)
+            {
+                preProcessingConstructionStage.SurfaceLine = surfaceLine;
+            }
         }
 
         public void Calculate()
@@ -186,7 +191,16 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
         {
             kernelModel.PreprocessingModel.PreProcessingConstructionStages.Add(new PreprocessingConstructionStage
             {
-                StabilityModel = kernelModel.StabilityModel
+                StabilityModel = kernelModel.StabilityModel,
+                Locations =
+                {
+                    // This location is necessary to prevent a location missing warning from the kernel.
+                    // In new kernel versions the kernel itself does this action so later this can be removed.
+                    new Location
+                    {
+                        WaternetCreationMode = WaternetCreationMode.FillInWaternetValues
+                    }
+                }
             });
         }
 
