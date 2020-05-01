@@ -411,8 +411,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
 
         #region ViewInfos
 
-        #region GrassCoverErosionOutwardsFailureMechanismView ViewInfo
-
         private static bool CloseGrassCoverErosionOutwardsFailureMechanismViewForData(GrassCoverErosionOutwardsFailureMechanismView view, object data)
         {
             var assessmentSection = data as IAssessmentSection;
@@ -422,10 +420,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                        ? ReferenceEquals(view.AssessmentSection, assessmentSection)
                        : ReferenceEquals(view.FailureMechanism, failureMechanism);
         }
-
-        #endregion
-
-        #region GrassCoverErosionOutwardsFailureMechanismResultView ViewInfo
 
         private static bool CloseFailureMechanismResultViewForData(GrassCoverErosionOutwardsFailureMechanismResultView view, object o)
         {
@@ -447,8 +441,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
 
             return failureMechanism != null && ReferenceEquals(view.FailureMechanism.SectionResults, failureMechanism.SectionResults);
         }
-
-        #endregion
 
         private static bool CloseHydraulicBoundaryCalculationsViewForData(IAssessmentSection viewAssessmentSection,
                                                                           object dataToCloseFor)
@@ -557,11 +549,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                           .Build();
         }
 
-        private void RemoveAllViewsForItem(GrassCoverErosionOutwardsFailureMechanismContext failureMechanismContext)
-        {
-            Gui.ViewCommands.RemoveAllViewsForItem(failureMechanismContext);
-        }
-
         private ContextMenuStrip FailureMechanismDisabledContextMenuStrip(GrassCoverErosionOutwardsFailureMechanismContext grassCoverErosionOutwardsFailureMechanismContext,
                                                                           object parentData,
                                                                           TreeViewControl treeViewControl)
@@ -575,6 +562,11 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                           .AddSeparator()
                           .AddPropertiesItem()
                           .Build();
+        }
+
+        private void RemoveAllViewsForItem(GrassCoverErosionOutwardsFailureMechanismContext failureMechanismContext)
+        {
+            Gui.ViewCommands.RemoveAllViewsForItem(failureMechanismContext);
         }
 
         private static object[] GetHydraulicBoundaryDatabaseContextChildNodeObjects(GrassCoverErosionOutwardsHydraulicBoundaryDatabaseContext context)
@@ -775,13 +767,13 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                    .AddSeparator()
                    .AddValidateAllCalculationsInGroupItem(
                        nodeData,
-                       ValidateAll,
-                       ValidateAllDataAvailableAndGetErrorMessage)
+                       ValidateAllInCalculationGroup,
+                       EnableValidateAndCalculateMenuItemForCalculationGroup)
                    .AddPerformAllCalculationsInGroupItem(
                        group,
                        nodeData,
-                       CalculateAll,
-                       ValidateAllDataAvailableAndGetErrorMessage)
+                       CalculateAllInCalculationGroup,
+                       EnableValidateAndCalculateMenuItemForCalculationGroup)
                    .AddSeparator()
                    .AddClearAllCalculationOutputInGroupItem(group);
 
@@ -859,51 +851,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
             nodeData.WrappedData.NotifyObservers();
         }
 
-        private static void ValidateAll(IEnumerable<GrassCoverErosionOutwardsWaveConditionsCalculation> calculations,
-                                        GrassCoverErosionOutwardsFailureMechanism failureMechanism,
-                                        IAssessmentSection assessmentSection)
-        {
-            foreach (GrassCoverErosionOutwardsWaveConditionsCalculation calculation in calculations)
-            {
-                WaveConditionsCalculationServiceBase.Validate(calculation.InputParameters,
-                                                              failureMechanism.GetAssessmentLevel(assessmentSection,
-                                                                                                  calculation.InputParameters.HydraulicBoundaryLocation,
-                                                                                                  calculation.InputParameters.CategoryType),
-                                                              assessmentSection.HydraulicBoundaryDatabase,
-                                                              failureMechanism.GetNorm(assessmentSection, calculation.InputParameters.CategoryType));
-            }
-        }
-
-        private static void ValidateAll(GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext context)
-        {
-            ValidateAll(context.WrappedData.GetCalculations().OfType<GrassCoverErosionOutwardsWaveConditionsCalculation>(),
-                        context.FailureMechanism,
-                        context.AssessmentSection);
-        }
-
-        private static string ValidateAllDataAvailableAndGetErrorMessage(GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext context)
-        {
-            return ValidateAllDataAvailableAndGetErrorMessage(context.AssessmentSection);
-        }
-
-        private static string ValidateAllDataAvailableAndGetErrorMessage(GrassCoverErosionOutwardsWaveConditionsCalculationContext context)
-        {
-            return ValidateAllDataAvailableAndGetErrorMessage(context.AssessmentSection);
-        }
-
-        private static string ValidateAllDataAvailableAndGetErrorMessage(IAssessmentSection assessmentSection)
-        {
-            return HydraulicBoundaryDatabaseConnectionValidator.Validate(assessmentSection.HydraulicBoundaryDatabase);
-        }
-
-        private void CalculateAll(CalculationGroup group, GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext context)
-        {
-            ActivityProgressDialogRunner.Run(
-                Gui.MainWindow,
-                GrassCoverErosionOutwardsCalculationActivityFactory.CreateWaveConditionsCalculationActivities(
-                    group, context.FailureMechanism, context.AssessmentSection));
-        }
-
         private static void WaveConditionsCalculationGroupContextOnNodeRemoved(GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext nodeData,
                                                                                object parentNodeData)
         {
@@ -912,6 +859,36 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
             parentGroupContext.WrappedData.Children.Remove(nodeData.WrappedData);
 
             parentGroupContext.NotifyObservers();
+        }
+
+        private static string EnableValidateAndCalculateMenuItemForCalculationGroup(GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext context)
+        {
+            return EnableValidateAndCalculateMenuItem(context.AssessmentSection);
+        }
+
+        private static void ValidateAllInCalculationGroup(GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext context)
+        {
+            GrassCoverErosionOutwardsFailureMechanism failureMechanism = context.FailureMechanism;
+            CalculationGroup calculationGroup = context.WrappedData;
+
+            foreach (GrassCoverErosionOutwardsWaveConditionsCalculation calculation in calculationGroup.GetCalculations().OfType<GrassCoverErosionOutwardsWaveConditionsCalculation>())
+            {
+                WaveConditionsCalculationServiceBase.Validate(
+                    calculation.InputParameters,
+                    failureMechanism.GetAssessmentLevel(context.AssessmentSection,
+                                                        calculation.InputParameters.HydraulicBoundaryLocation,
+                                                        calculation.InputParameters.CategoryType),
+                    context.AssessmentSection.HydraulicBoundaryDatabase,
+                    failureMechanism.GetNorm(context.AssessmentSection, calculation.InputParameters.CategoryType));
+            }
+        }
+
+        private void CalculateAllInCalculationGroup(CalculationGroup group, GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext context)
+        {
+            ActivityProgressDialogRunner.Run(
+                Gui.MainWindow,
+                GrassCoverErosionOutwardsCalculationActivityFactory.CreateWaveConditionsCalculationActivities(
+                    group, context.FailureMechanism, context.AssessmentSection));
         }
 
         #endregion
@@ -949,7 +926,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
         {
             IInquiryHelper inquiryHelper = GetInquiryHelper();
             var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
-            
+
             GrassCoverErosionOutwardsWaveConditionsCalculation calculation = nodeData.WrappedData;
 
             return builder
@@ -964,12 +941,12 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                    .AddValidateCalculationItem(
                        nodeData,
                        Validate,
-                       ValidateAllDataAvailableAndGetErrorMessage)
+                       EnableValidateAndCalculateMenuItemForCalculation)
                    .AddPerformCalculationItem(
                        calculation,
                        nodeData,
-                       PerformCalculation,
-                       ValidateAllDataAvailableAndGetErrorMessage)
+                       Calculate,
+                       EnableValidateAndCalculateMenuItemForCalculation)
                    .AddSeparator()
                    .AddClearCalculationOutputItem(calculation)
                    .AddDeleteItem()
@@ -979,6 +956,11 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                    .AddSeparator()
                    .AddPropertiesItem()
                    .Build();
+        }
+
+        private static string EnableValidateAndCalculateMenuItemForCalculation(GrassCoverErosionOutwardsWaveConditionsCalculationContext context)
+        {
+            return EnableValidateAndCalculateMenuItem(context.AssessmentSection);
         }
 
         private static void Validate(GrassCoverErosionOutwardsWaveConditionsCalculationContext context)
@@ -995,20 +977,19 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                                                           failureMechanism.GetNorm(assessmentSection, calculation.InputParameters.CategoryType));
         }
 
-        private void PerformCalculation(GrassCoverErosionOutwardsWaveConditionsCalculation calculation,
-                                        GrassCoverErosionOutwardsWaveConditionsCalculationContext context)
+        private void Calculate(GrassCoverErosionOutwardsWaveConditionsCalculation calculation,
+                               GrassCoverErosionOutwardsWaveConditionsCalculationContext context)
         {
             ActivityProgressDialogRunner.Run(Gui.MainWindow,
                                              GrassCoverErosionOutwardsCalculationActivityFactory.CreateWaveConditionsCalculationActivity(calculation,
-                                                                                                                           context.FailureMechanism,
-                                                                                                                           context.AssessmentSection));
+                                                                                                                                         context.FailureMechanism,
+                                                                                                                                         context.AssessmentSection));
         }
 
         private static void WaveConditionsCalculationContextOnNodeRemoved(GrassCoverErosionOutwardsWaveConditionsCalculationContext nodeData,
                                                                           object parentNodeData)
         {
-            var calculationGroupContext = parentNodeData as GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext;
-            if (calculationGroupContext != null)
+            if (parentNodeData is GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext calculationGroupContext)
             {
                 bool successfullyRemovedData = calculationGroupContext.WrappedData.Children.Remove(nodeData.WrappedData);
                 if (successfullyRemovedData)
@@ -1254,7 +1235,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
         private static void SetHydraulicsMenuItemEnabledStateAndTooltip(IAssessmentSection assessmentSection,
                                                                         StrictContextMenuItem menuItem)
         {
-            string validationText = ValidateAllDataAvailableAndGetErrorMessage(assessmentSection);
+            string validationText = EnableValidateAndCalculateMenuItem(assessmentSection);
             if (!string.IsNullOrEmpty(validationText))
             {
                 menuItem.Enabled = false;
@@ -1277,6 +1258,11 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                 menuItem.Enabled = false;
                 menuItem.ToolTipText = logMessage;
             });
+        }
+
+        private static string EnableValidateAndCalculateMenuItem(IAssessmentSection assessmentSection)
+        {
+            return HydraulicBoundaryDatabaseConnectionValidator.Validate(assessmentSection.HydraulicBoundaryDatabase);
         }
 
         #endregion

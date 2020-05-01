@@ -29,6 +29,31 @@ namespace Riskeer.Piping.KernelWrapper.SubCalculator
     public interface ISellmeijerCalculator
     {
         /// <summary>
+        /// Gets the creep factor. 
+        /// </summary>
+        double CreepCoefficient { get; }
+
+        /// <summary>
+        /// Gets the critical fall. 
+        /// </summary>
+        double CriticalFall { get; }
+
+        /// <summary>
+        /// Gets the reduced fall. 
+        /// </summary>
+        double ReducedFall { get; }
+
+        /// <summary>
+        /// Gets the z-value.
+        /// </summary>
+        double Zp { get; }
+
+        /// <summary>
+        /// Gets the factor of safety.
+        /// </summary>
+        double FoSp { get; }
+
+        /// <summary>
         /// Sets the bedding angle.
         /// </summary>
         void SetBeddingAngle(double beddingAngle);
@@ -112,31 +137,6 @@ namespace Riskeer.Piping.KernelWrapper.SubCalculator
         /// Sets the bottom level of the bottommost aquitard that is above the exit point's z-coordinate.
         /// </summary>
         void SetBottomLevelAquitardAboveExitPointZ(double bottomLevelAquitardAboveExitPointZ);
-
-        /// <summary>
-        /// Gets the creep factor. 
-        /// </summary>
-        double CreepCoefficient { get; }
-
-        /// <summary>
-        /// Gets the critical fall. 
-        /// </summary>
-        double CriticalFall { get; }
-
-        /// <summary>
-        /// Gets the reduced fall. 
-        /// </summary>
-        double ReducedFall { get; }
-
-        /// <summary>
-        /// Gets the z-value.
-        /// </summary>
-        double Zp { get; }
-
-        /// <summary>
-        /// Gets the factor of safety.
-        /// </summary>
-        double FoSp { get; }
 
         /// <summary>
         /// Performs the Sellmeijer calculation.

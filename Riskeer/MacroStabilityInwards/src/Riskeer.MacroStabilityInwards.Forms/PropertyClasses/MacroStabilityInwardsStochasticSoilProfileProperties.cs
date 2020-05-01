@@ -92,8 +92,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
             get
             {
                 IEnumerable<MacroStabilityInwardsSoilLayer1D> macroStabilityInwardsSoilLayers1D = (data.SoilProfile as MacroStabilityInwardsSoilProfile1D)?.Layers;
-                return GetLayers1D(macroStabilityInwardsSoilLayers1D) ??
-                       new MacroStabilityInwardsSoilLayer1DProperties[0];
+                return GetLayers1D(macroStabilityInwardsSoilLayers1D) ?? new MacroStabilityInwardsSoilLayer1DProperties[0];
             }
         }
 
@@ -162,8 +161,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
             {
                 IEnumerable<MacroStabilityInwardsPreconsolidationStress> preconsolidationStresses =
                     (data.SoilProfile as MacroStabilityInwardsSoilProfile2D)?.PreconsolidationStresses;
-                return GetPreconsolidationStresses(preconsolidationStresses) ??
-                       new MacroStabilityInwardsPreconsolidationStressProperties[0];
+                return GetPreconsolidationStresses(preconsolidationStresses) ?? new MacroStabilityInwardsPreconsolidationStressProperties[0];
             }
         }
 

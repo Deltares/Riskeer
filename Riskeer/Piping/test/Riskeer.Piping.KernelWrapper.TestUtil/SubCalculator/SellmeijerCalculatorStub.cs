@@ -39,23 +39,29 @@ namespace Riskeer.Piping.KernelWrapper.TestUtil.SubCalculator
         /// </summary>
         public bool Validated { get; private set; }
 
-        public double BeddingAngle { get; set; }
-        public double D70 { get; set; }
-        public double D70Mean { get; set; }
-        public double DAquifer { get; set; }
-        public double DarcyPermeability { get; set; }
-        public double DTotal { get; set; }
-        public double GammaSubParticles { get; set; }
-        public double Gravity { get; set; }
-        public double HExit { get; set; }
-        public double HRiver { get; set; }
-        public double KinematicViscosityWater { get; set; }
-        public double ModelFactorPiping { get; set; }
-        public double Rc { get; set; }
-        public double SeepageLength { get; set; }
-        public double VolumetricWeightOfWater { get; set; }
-        public double WhitesDragCoefficient { get; set; }
-        public double BottomLevelAquitardAboveExitPointZ { get; set; }
+        public double BeddingAngle { get; private set; }
+        public double D70 { get; private set; }
+        public double D70Mean { get; private set; }
+        public double DAquifer { get; private set; }
+        public double DarcyPermeability { get; private set; }
+        public double DTotal { get; private set; }
+        public double GammaSubParticles { get; private set; }
+        public double Gravity { get; private set; }
+        public double HExit { get; private set; }
+        public double HRiver { get; private set; }
+        public double KinematicViscosityWater { get; private set; }
+        public double ModelFactorPiping { get; private set; }
+        public double Rc { get; private set; }
+        public double SeepageLength { get; private set; }
+        public double VolumetricWeightOfWater { get; private set; }
+        public double WhitesDragCoefficient { get; private set; }
+        public double BottomLevelAquitardAboveExitPointZ { get; private set; }
+        public double CreepCoefficient { get; private set; }
+        public double CriticalFall { get; private set; }
+        public double ReducedFall { get; private set; }
+        public double Zp { get; private set; }
+        public double FoSp { get; private set; }
+
         public void SetBeddingAngle(double beddingAngle)
         {
             BeddingAngle = beddingAngle;
@@ -140,12 +146,6 @@ namespace Riskeer.Piping.KernelWrapper.TestUtil.SubCalculator
         {
             BottomLevelAquitardAboveExitPointZ = bottomLevelAquitardAboveExitPointZ;
         }
-
-        public double CreepCoefficient { get; private set; }
-        public double CriticalFall { get; private set; }
-        public double ReducedFall { get; private set; }
-        public double Zp { get; private set; }
-        public double FoSp { get; private set; }
 
         public void Calculate()
         {

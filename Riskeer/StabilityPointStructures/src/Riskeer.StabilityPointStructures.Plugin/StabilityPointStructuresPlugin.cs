@@ -267,9 +267,7 @@ namespace Riskeer.StabilityPointStructures.Plugin
                 new StabilityPointStructuresFailureMechanismSectionResultUpdateStrategy());
         }
 
-        #region ViewInfo
-
-        #region StabilityPointStructuresFailureMechanismView ViewInfo
+        #region ViewInfos
 
         private static bool CloseStabilityPointStructuresFailureMechanismViewForData(StabilityPointStructuresFailureMechanismView view, object o)
         {
@@ -280,10 +278,6 @@ namespace Riskeer.StabilityPointStructures.Plugin
                        ? ReferenceEquals(view.AssessmentSection, assessmentSection)
                        : ReferenceEquals(view.FailureMechanism, failureMechanism);
         }
-
-        #endregion
-
-        #region StabilityPointStructuresFailureMechanismResultView ViewInfo
 
         private static bool CloseFailureMechanismResultViewForData(StabilityPointStructuresFailureMechanismResultView view, object viewData)
         {
@@ -306,22 +300,16 @@ namespace Riskeer.StabilityPointStructures.Plugin
             return failureMechanism != null && ReferenceEquals(view.FailureMechanism.SectionResults, failureMechanism.SectionResults);
         }
 
-        #endregion
-
-        #region StabilityPointStructuresScenariosView ViewInfo
-
         private static bool CloseScenariosViewForData(StabilityPointStructuresScenariosView view, object removedData)
         {
             var failureMechanism = removedData as StabilityPointStructuresFailureMechanism;
 
-            var failureMechanismContext = removedData as StabilityPointStructuresFailureMechanismContext;
-            if (failureMechanismContext != null)
+            if (removedData is StabilityPointStructuresFailureMechanismContext failureMechanismContext)
             {
                 failureMechanism = failureMechanismContext.WrappedData;
             }
 
-            var assessmentSection = removedData as IAssessmentSection;
-            if (assessmentSection != null)
+            if (removedData is IAssessmentSection assessmentSection)
             {
                 failureMechanism = assessmentSection.GetFailureMechanisms()
                                                     .OfType<StabilityPointStructuresFailureMechanism>()
@@ -333,67 +321,7 @@ namespace Riskeer.StabilityPointStructures.Plugin
 
         #endregion
 
-        #endregion
-
-        #region Validation and Calculation
-
-        private void CalculateAll(StabilityPointStructuresFailureMechanismContext context)
-        {
-            ActivityProgressDialogRunner.Run(Gui.MainWindow,
-                                             StabilityPointStructuresCalculationActivityFactory.CreateCalculationActivities(context.WrappedData, context.Parent));
-        }
-
-        private void CalculateAll(CalculationGroup group, StabilityPointStructuresCalculationGroupContext context)
-        {
-            ActivityProgressDialogRunner.Run(Gui.MainWindow,
-                                             StabilityPointStructuresCalculationActivityFactory.CreateCalculationActivities(group,
-                                                                                                                            context.FailureMechanism,
-                                                                                                                            context.AssessmentSection));
-        }
-
-        private static void ValidateAll(IEnumerable<StructuresCalculation<StabilityPointStructuresInput>> calculations, IAssessmentSection assessmentSection)
-        {
-            foreach (StructuresCalculation<StabilityPointStructuresInput> calculation in calculations)
-            {
-                StabilityPointStructuresCalculationService.Validate(calculation, assessmentSection);
-            }
-        }
-
-        private static void ValidateAll(StabilityPointStructuresFailureMechanismContext context)
-        {
-            ValidateAll(context.WrappedData.Calculations.OfType<StructuresCalculation<StabilityPointStructuresInput>>(),
-                        context.Parent);
-        }
-
-        private static void ValidateAll(StabilityPointStructuresCalculationGroupContext context)
-        {
-            ValidateAll(context.WrappedData.GetCalculations().OfType<StructuresCalculation<StabilityPointStructuresInput>>(),
-                        context.AssessmentSection);
-        }
-
-        private static string ValidateAllDataAvailableAndGetErrorMessage(IAssessmentSection assessmentSection)
-        {
-            return HydraulicBoundaryDatabaseConnectionValidator.Validate(assessmentSection.HydraulicBoundaryDatabase);
-        }
-
-        private static string ValidateAllDataAvailableAndGetErrorMessage(StabilityPointStructuresFailureMechanismContext context)
-        {
-            return ValidateAllDataAvailableAndGetErrorMessage(context.Parent);
-        }
-
-        private static string ValidateAllDataAvailableAndGetErrorMessage(StabilityPointStructuresCalculationGroupContext context)
-        {
-            return ValidateAllDataAvailableAndGetErrorMessage(context.AssessmentSection);
-        }
-
-        private static string ValidateAllDataAvailableAndGetErrorMessage(StabilityPointStructuresCalculationContext context)
-        {
-            return ValidateAllDataAvailableAndGetErrorMessage(context.AssessmentSection);
-        }
-
-        #endregion
-
-        #region TreeNodeInfo
+        #region TreeNodeInfos
 
         #region StabilityPointStructuresFailureMechanismContext TreeNodeInfo
 
@@ -465,12 +393,12 @@ namespace Riskeer.StabilityPointStructures.Plugin
                           .AddSeparator()
                           .AddValidateAllCalculationsInFailureMechanismItem(
                               failureMechanismContext,
-                              ValidateAll,
-                              ValidateAllDataAvailableAndGetErrorMessage)
+                              ValidateAllInFailureMechanism,
+                              EnableValidateAndCalculateMenuItemForFailureMechanism)
                           .AddPerformAllCalculationsInFailureMechanismItem(
                               failureMechanismContext,
-                              CalculateAll,
-                              ValidateAllDataAvailableAndGetErrorMessage)
+                              CalculateAllInFailureMechanism,
+                              EnableValidateAndCalculateMenuItemForFailureMechanism)
                           .AddSeparator()
                           .AddClearAllCalculationOutputInFailureMechanismItem(failureMechanismContext.WrappedData)
                           .AddClearIllustrationPointsOfCalculationsInFailureMechanismItem(() => IllustrationPointsHelper.HasIllustrationPoints(calculations),
@@ -481,11 +409,6 @@ namespace Riskeer.StabilityPointStructures.Plugin
                           .AddSeparator()
                           .AddPropertiesItem()
                           .Build();
-        }
-
-        private void RemoveAllViewsForItem(StabilityPointStructuresFailureMechanismContext failureMechanismContext)
-        {
-            Gui.ViewCommands.RemoveAllViewsForItem(failureMechanismContext);
         }
 
         private ContextMenuStrip FailureMechanismDisabledContextMenuStrip(StabilityPointStructuresFailureMechanismContext stabilityPointStructuresFailureMechanismContext,
@@ -501,6 +424,28 @@ namespace Riskeer.StabilityPointStructures.Plugin
                           .AddSeparator()
                           .AddPropertiesItem()
                           .Build();
+        }
+
+        private void RemoveAllViewsForItem(StabilityPointStructuresFailureMechanismContext failureMechanismContext)
+        {
+            Gui.ViewCommands.RemoveAllViewsForItem(failureMechanismContext);
+        }
+
+        private static string EnableValidateAndCalculateMenuItemForFailureMechanism(StabilityPointStructuresFailureMechanismContext context)
+        {
+            return EnableValidateAndCalculateMenu(context.Parent);
+        }
+
+        private static void ValidateAllInFailureMechanism(StabilityPointStructuresFailureMechanismContext context)
+        {
+            ValidateAll(context.WrappedData.Calculations.OfType<StructuresCalculation<StabilityPointStructuresInput>>(),
+                        context.Parent);
+        }
+
+        private void CalculateAllInFailureMechanism(StabilityPointStructuresFailureMechanismContext context)
+        {
+            ActivityProgressDialogRunner.Run(Gui.MainWindow,
+                                             StabilityPointStructuresCalculationActivityFactory.CreateCalculationActivities(context.WrappedData, context.Parent));
         }
 
         #endregion
@@ -580,17 +525,17 @@ namespace Riskeer.StabilityPointStructures.Plugin
 
             builder.AddUpdateForeshoreProfileOfCalculationsItem(calculations, inquiryHelper,
                                                                 SynchronizeCalculationWithForeshoreProfileHelper.UpdateForeshoreProfileDerivedCalculationInput)
-                   .AddCustomItem(CreateUpdateStructureItem(calculations))
+                   .AddCustomItem(CreateUpdateAllStructuresItem(calculations))
                    .AddSeparator()
                    .AddValidateAllCalculationsInGroupItem(
                        context,
-                       ValidateAll,
-                       ValidateAllDataAvailableAndGetErrorMessage)
+                       ValidateAllInCalculationGroup,
+                       EnableValidateAndCalculateMenuItemForCalculationGroup)
                    .AddPerformAllCalculationsInGroupItem(
                        group,
                        context,
-                       CalculateAll,
-                       ValidateAllDataAvailableAndGetErrorMessage)
+                       CalculateAllInCalculationGroup,
+                       EnableValidateAndCalculateMenuItemForCalculationGroup)
                    .AddSeparator()
                    .AddClearAllCalculationOutputInGroupItem(group)
                    .AddClearIllustrationPointsOfCalculationsInGroupItem(() => IllustrationPointsHelper.HasIllustrationPoints(calculations),
@@ -613,7 +558,7 @@ namespace Riskeer.StabilityPointStructures.Plugin
                           .Build();
         }
 
-        private StrictContextMenuItem CreateUpdateStructureItem(
+        private StrictContextMenuItem CreateUpdateAllStructuresItem(
             IEnumerable<StructuresCalculation<StabilityPointStructuresInput>> calculations)
         {
             var contextMenuEnabled = true;
@@ -634,31 +579,6 @@ namespace Riskeer.StabilityPointStructures.Plugin
                                              toolTipMessage,
                                              RiskeerCommonFormsResources.UpdateItemIcon,
                                              (o, args) => UpdateStructureDependentDataOfCalculations(calculationsToUpdate))
-            {
-                Enabled = contextMenuEnabled
-            };
-        }
-
-        private StrictContextMenuItem CreateUpdateStructureItem(StabilityPointStructuresCalculationContext context)
-        {
-            var contextMenuEnabled = true;
-            string toolTipMessage = RiskeerCommonFormsResources.Update_Calculation_with_Structure_ToolTip;
-            if (context.WrappedData.InputParameters.Structure == null)
-            {
-                contextMenuEnabled = false;
-                toolTipMessage = RiskeerCommonFormsResources.Structure_must_be_selected_ToolTip;
-            }
-            else if (context.WrappedData.InputParameters.IsStructureInputSynchronized)
-            {
-                contextMenuEnabled = false;
-                toolTipMessage = RiskeerCommonFormsResources.CalculationItem_No_changes_to_update_ToolTip;
-            }
-
-            return new StrictContextMenuItem(
-                RiskeerCommonFormsResources.Update_Structure_data,
-                toolTipMessage,
-                RiskeerCommonFormsResources.UpdateItemIcon,
-                (o, args) => UpdateStructureDependentDataOfCalculation(context.WrappedData))
             {
                 Enabled = contextMenuEnabled
             };
@@ -731,6 +651,16 @@ namespace Riskeer.StabilityPointStructures.Plugin
             StabilityPointStructuresHelper.UpdateCalculationToSectionResultAssignments(failureMechanism);
         }
 
+        private static void AddCalculation(StabilityPointStructuresCalculationGroupContext context)
+        {
+            var calculation = new StructuresCalculation<StabilityPointStructuresInput>
+            {
+                Name = NamingHelper.GetUniqueName(context.WrappedData.Children, RiskeerCommonDataResources.Calculation_DefaultName, c => c.Name)
+            };
+            context.WrappedData.Children.Add(calculation);
+            context.WrappedData.NotifyObservers();
+        }
+
         private static void CalculationGroupContextOnNodeRemoved(StabilityPointStructuresCalculationGroupContext context, object parentNodeData)
         {
             var parentGroupContext = (StabilityPointStructuresCalculationGroupContext) parentNodeData;
@@ -742,14 +672,23 @@ namespace Riskeer.StabilityPointStructures.Plugin
             parentGroupContext.NotifyObservers();
         }
 
-        private static void AddCalculation(StabilityPointStructuresCalculationGroupContext context)
+        private static string EnableValidateAndCalculateMenuItemForCalculationGroup(StabilityPointStructuresCalculationGroupContext context)
         {
-            var calculation = new StructuresCalculation<StabilityPointStructuresInput>
-            {
-                Name = NamingHelper.GetUniqueName(context.WrappedData.Children, RiskeerCommonDataResources.Calculation_DefaultName, c => c.Name)
-            };
-            context.WrappedData.Children.Add(calculation);
-            context.WrappedData.NotifyObservers();
+            return EnableValidateAndCalculateMenu(context.AssessmentSection);
+        }
+
+        private static void ValidateAllInCalculationGroup(StabilityPointStructuresCalculationGroupContext context)
+        {
+            ValidateAll(context.WrappedData.GetCalculations().OfType<StructuresCalculation<StabilityPointStructuresInput>>(),
+                        context.AssessmentSection);
+        }
+
+        private void CalculateAllInCalculationGroup(CalculationGroup group, StabilityPointStructuresCalculationGroupContext context)
+        {
+            ActivityProgressDialogRunner.Run(Gui.MainWindow,
+                                             StabilityPointStructuresCalculationActivityFactory.CreateCalculationActivities(group,
+                                                                                                                            context.FailureMechanism,
+                                                                                                                            context.AssessmentSection));
         }
 
         #endregion
@@ -792,12 +731,12 @@ namespace Riskeer.StabilityPointStructures.Plugin
                           .AddValidateCalculationItem(
                               context,
                               Validate,
-                              ValidateAllDataAvailableAndGetErrorMessage)
+                              EnableValidateAndCalculateMenuItemForCalculation)
                           .AddPerformCalculationItem(
                               calculation,
                               context,
                               Calculate,
-                              ValidateAllDataAvailableAndGetErrorMessage)
+                              EnableValidateAndCalculateMenuItemForCalculation)
                           .AddSeparator()
                           .AddClearCalculationOutputItem(calculation)
                           .AddClearIllustrationPointsOfCalculationItem(() => IllustrationPointsHelper.HasIllustrationPoints(calculation), changeHandler)
@@ -810,6 +749,16 @@ namespace Riskeer.StabilityPointStructures.Plugin
                           .Build();
         }
 
+        private static string EnableValidateAndCalculateMenuItemForCalculation(StabilityPointStructuresCalculationContext context)
+        {
+            return EnableValidateAndCalculateMenu(context.AssessmentSection);
+        }
+
+        private static void Validate(StabilityPointStructuresCalculationContext context)
+        {
+            StabilityPointStructuresCalculationService.Validate(context.WrappedData, context.AssessmentSection);
+        }
+
         private void Calculate(StructuresCalculation<StabilityPointStructuresInput> calculation, StabilityPointStructuresCalculationContext context)
         {
             ActivityProgressDialogRunner.Run(Gui.MainWindow,
@@ -818,20 +767,39 @@ namespace Riskeer.StabilityPointStructures.Plugin
                                                                                                                           context.AssessmentSection));
         }
 
-        private static void Validate(StabilityPointStructuresCalculationContext context)
-        {
-            StabilityPointStructuresCalculationService.Validate(context.WrappedData, context.AssessmentSection);
-        }
-
         private static void CalculationContextOnNodeRemoved(StabilityPointStructuresCalculationContext context, object parentData)
         {
-            var calculationGroupContext = parentData as StabilityPointStructuresCalculationGroupContext;
-            if (calculationGroupContext != null)
+            if (parentData is StabilityPointStructuresCalculationGroupContext calculationGroupContext)
             {
                 calculationGroupContext.WrappedData.Children.Remove(context.WrappedData);
                 StabilityPointStructuresHelper.UpdateCalculationToSectionResultAssignments(context.FailureMechanism);
                 calculationGroupContext.NotifyObservers();
             }
+        }
+
+        private StrictContextMenuItem CreateUpdateStructureItem(StabilityPointStructuresCalculationContext context)
+        {
+            var contextMenuEnabled = true;
+            string toolTipMessage = RiskeerCommonFormsResources.Update_Calculation_with_Structure_ToolTip;
+            if (context.WrappedData.InputParameters.Structure == null)
+            {
+                contextMenuEnabled = false;
+                toolTipMessage = RiskeerCommonFormsResources.Structure_must_be_selected_ToolTip;
+            }
+            else if (context.WrappedData.InputParameters.IsStructureInputSynchronized)
+            {
+                contextMenuEnabled = false;
+                toolTipMessage = RiskeerCommonFormsResources.CalculationItem_No_changes_to_update_ToolTip;
+            }
+
+            return new StrictContextMenuItem(
+                RiskeerCommonFormsResources.Update_Structure_data,
+                toolTipMessage,
+                RiskeerCommonFormsResources.UpdateItemIcon,
+                (o, args) => UpdateStructureDependentDataOfCalculation(context.WrappedData))
+            {
+                Enabled = contextMenuEnabled
+            };
         }
 
         private void UpdateStructureDependentDataOfCalculation(StructuresCalculation<StabilityPointStructuresInput> calculation)
@@ -871,19 +839,28 @@ namespace Riskeer.StabilityPointStructures.Plugin
 
         #endregion
 
-        #region Helpers
-
         private ClearIllustrationPointsOfStructureCalculationCollectionChangeHandler CreateChangeHandler(
             IInquiryHelper inquiryHelper, IEnumerable<StructuresCalculation<StabilityPointStructuresInput>> calculations)
         {
             return new ClearIllustrationPointsOfStructureCalculationCollectionChangeHandler(inquiryHelper, calculations);
         }
 
-        #endregion
+        private static string EnableValidateAndCalculateMenu(IAssessmentSection assessmentSection)
+        {
+            return HydraulicBoundaryDatabaseConnectionValidator.Validate(assessmentSection.HydraulicBoundaryDatabase);
+        }
+
+        private static void ValidateAll(IEnumerable<StructuresCalculation<StabilityPointStructuresInput>> calculations, IAssessmentSection assessmentSection)
+        {
+            foreach (StructuresCalculation<StabilityPointStructuresInput> calculation in calculations)
+            {
+                StabilityPointStructuresCalculationService.Validate(calculation, assessmentSection);
+            }
+        }
 
         #endregion
 
-        #region Importers
+        #region ImporterInfos
 
         private static StabilityPointStructuresImporter CreateStabilityPointStructuresImporter(StabilityPointStructuresContext context,
                                                                                                string filePath,

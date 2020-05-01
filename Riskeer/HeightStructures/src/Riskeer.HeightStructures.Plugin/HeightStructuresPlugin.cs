@@ -233,7 +233,15 @@ namespace Riskeer.HeightStructures.Plugin
                                            ? Color.FromKnownColor(KnownColor.ControlText)
                                            : Color.FromKnownColor(KnownColor.GrayText),
                 ChildNodeObjects = context => context.WrappedData.Cast<object>().ToArray(),
-                ContextMenuStrip = CreateHeightStructuresContextContextMenuStrip
+                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
+                                                                                 .AddImportItem()
+                                                                                 .AddUpdateItem()
+                                                                                 .AddSeparator()
+                                                                                 .AddCollapseAllItem()
+                                                                                 .AddExpandAllItem()
+                                                                                 .AddSeparator()
+                                                                                 .AddPropertiesItem()
+                                                                                 .Build()
             };
 
             yield return new TreeNodeInfo<HeightStructure>
@@ -264,63 +272,7 @@ namespace Riskeer.HeightStructures.Plugin
             };
         }
 
-        private static void ValidateAll(IEnumerable<StructuresCalculation<HeightStructuresInput>> heightStructuresCalculations,
-                                        IAssessmentSection assessmentSection)
-        {
-            foreach (StructuresCalculation<HeightStructuresInput> calculation in heightStructuresCalculations)
-            {
-                HeightStructuresCalculationService.Validate(calculation, assessmentSection);
-            }
-        }
-
-        private static void ValidateAll(HeightStructuresFailureMechanismContext context)
-        {
-            ValidateAll(context.WrappedData.Calculations.OfType<StructuresCalculation<HeightStructuresInput>>(),
-                        context.Parent);
-        }
-
-        private static void ValidateAll(HeightStructuresCalculationGroupContext context)
-        {
-            ValidateAll(context.WrappedData.GetCalculations().OfType<StructuresCalculation<HeightStructuresInput>>(), context.AssessmentSection);
-        }
-
-        private static string ValidateAllDataAvailableAndGetErrorMessage(IAssessmentSection assessmentSection)
-        {
-            return HydraulicBoundaryDatabaseConnectionValidator.Validate(assessmentSection.HydraulicBoundaryDatabase);
-        }
-
-        private static string ValidateAllDataAvailableAndGetErrorMessage(HeightStructuresFailureMechanismContext context)
-        {
-            return ValidateAllDataAvailableAndGetErrorMessage(context.Parent);
-        }
-
-        private static string ValidateAllDataAvailableAndGetErrorMessage(HeightStructuresCalculationContext context)
-        {
-            return ValidateAllDataAvailableAndGetErrorMessage(context.AssessmentSection);
-        }
-
-        private static string ValidateAllDataAvailableAndGetErrorMessage(HeightStructuresCalculationGroupContext context)
-        {
-            return ValidateAllDataAvailableAndGetErrorMessage(context.AssessmentSection);
-        }
-
-        private void CalculateAll(HeightStructuresFailureMechanismContext context)
-        {
-            ActivityProgressDialogRunner.Run(
-                Gui.MainWindow,
-                HeightStructuresCalculationActivityFactory.CreateCalculationActivities(context.WrappedData, context.Parent));
-        }
-
-        private void CalculateAll(CalculationGroup group, HeightStructuresCalculationGroupContext context)
-        {
-            ActivityProgressDialogRunner.Run(
-                Gui.MainWindow,
-                HeightStructuresCalculationActivityFactory.CreateCalculationActivities(group, context.FailureMechanism, context.AssessmentSection));
-        }
-
-        #region ViewInfo
-
-        #region HeightStructuresFailureMechanismView ViewInfo
+        #region ViewInfos
 
         private static bool CloseHeightStructuresFailureMechanismViewForData(HeightStructuresFailureMechanismView view, object data)
         {
@@ -332,22 +284,16 @@ namespace Riskeer.HeightStructures.Plugin
                        : ReferenceEquals(view.FailureMechanism, failureMechanism);
         }
 
-        #endregion
-
-        #region HeightStructuresScenariosView ViewInfo
-
         private static bool CloseScenariosViewForData(HeightStructuresScenariosView view, object removedData)
         {
             var failureMechanism = removedData as HeightStructuresFailureMechanism;
 
-            var failureMechanismContext = removedData as HeightStructuresFailureMechanismContext;
-            if (failureMechanismContext != null)
+            if (removedData is HeightStructuresFailureMechanismContext failureMechanismContext)
             {
                 failureMechanism = failureMechanismContext.WrappedData;
             }
 
-            var assessmentSection = removedData as IAssessmentSection;
-            if (assessmentSection != null)
+            if (removedData is IAssessmentSection assessmentSection)
             {
                 failureMechanism = assessmentSection.GetFailureMechanisms()
                                                     .OfType<HeightStructuresFailureMechanism>()
@@ -356,10 +302,6 @@ namespace Riskeer.HeightStructures.Plugin
 
             return failureMechanism != null && ReferenceEquals(view.Data, failureMechanism.CalculationsGroup);
         }
-
-        #endregion
-
-        #region HeightStructuresFailureMechanismResultView ViewInfo
 
         private static bool CloseFailureMechanismResultViewForData(HeightStructuresFailureMechanismResultView view, object o)
         {
@@ -384,27 +326,7 @@ namespace Riskeer.HeightStructures.Plugin
 
         #endregion
 
-        #endregion
-
         #region TreeNodeInfos
-
-        #region HeightStructuresContext TreeNodeInfo
-
-        private ContextMenuStrip CreateHeightStructuresContextContextMenuStrip(HeightStructuresContext nodeData,
-                                                                               object parentData, TreeViewControl treeViewControl)
-        {
-            return Gui.Get(nodeData, treeViewControl)
-                      .AddImportItem()
-                      .AddUpdateItem()
-                      .AddSeparator()
-                      .AddCollapseAllItem()
-                      .AddExpandAllItem()
-                      .AddSeparator()
-                      .AddPropertiesItem()
-                      .Build();
-        }
-
-        #endregion
 
         #region HeightStructuresFailureMechanismContext TreeNodeInfo
 
@@ -470,12 +392,12 @@ namespace Riskeer.HeightStructures.Plugin
                           .AddSeparator()
                           .AddValidateAllCalculationsInFailureMechanismItem(
                               context,
-                              ValidateAll,
-                              ValidateAllDataAvailableAndGetErrorMessage)
+                              ValidateAllInFailureMechanism,
+                              EnableValidateAndCalculateMenuItemForFailureMechanism)
                           .AddPerformAllCalculationsInFailureMechanismItem(
                               context,
-                              CalculateAll,
-                              ValidateAllDataAvailableAndGetErrorMessage)
+                              CalculateAllInFailureMechanism,
+                              EnableValidateAndCalculateMenuItemForFailureMechanism)
                           .AddSeparator()
                           .AddClearAllCalculationOutputInFailureMechanismItem(context.WrappedData)
                           .AddClearIllustrationPointsOfCalculationsInFailureMechanismItem(() => IllustrationPointsHelper.HasIllustrationPoints(calculations),
@@ -486,11 +408,6 @@ namespace Riskeer.HeightStructures.Plugin
                           .AddSeparator()
                           .AddPropertiesItem()
                           .Build();
-        }
-
-        private void RemoveAllViewsForItem(HeightStructuresFailureMechanismContext context)
-        {
-            Gui.ViewCommands.RemoveAllViewsForItem(context);
         }
 
         private ContextMenuStrip FailureMechanismDisabledContextMenuStrip(HeightStructuresFailureMechanismContext context,
@@ -506,6 +423,29 @@ namespace Riskeer.HeightStructures.Plugin
                           .AddSeparator()
                           .AddPropertiesItem()
                           .Build();
+        }
+
+        private void RemoveAllViewsForItem(HeightStructuresFailureMechanismContext context)
+        {
+            Gui.ViewCommands.RemoveAllViewsForItem(context);
+        }
+
+        private static string EnableValidateAndCalculateMenuItemForFailureMechanism(HeightStructuresFailureMechanismContext context)
+        {
+            return EnableValidateAndCalculateMenuItem(context.Parent);
+        }
+
+        private static void ValidateAllInFailureMechanism(HeightStructuresFailureMechanismContext context)
+        {
+            ValidateAll(context.WrappedData.Calculations.OfType<StructuresCalculation<HeightStructuresInput>>(),
+                        context.Parent);
+        }
+
+        private void CalculateAllInFailureMechanism(HeightStructuresFailureMechanismContext context)
+        {
+            ActivityProgressDialogRunner.Run(
+                Gui.MainWindow,
+                HeightStructuresCalculationActivityFactory.CreateCalculationActivities(context.WrappedData, context.Parent));
         }
 
         #endregion
@@ -584,17 +524,17 @@ namespace Riskeer.HeightStructures.Plugin
 
             builder.AddUpdateForeshoreProfileOfCalculationsItem(calculations, inquiryHelper,
                                                                 SynchronizeCalculationWithForeshoreProfileHelper.UpdateForeshoreProfileDerivedCalculationInput)
-                   .AddCustomItem(CreateUpdateStructureItem(calculations))
+                   .AddCustomItem(CreateUpdateAllStructuresItem(calculations))
                    .AddSeparator()
                    .AddValidateAllCalculationsInGroupItem(
                        context,
-                       ValidateAll,
-                       ValidateAllDataAvailableAndGetErrorMessage)
+                       ValidateAllInCalculationGroup,
+                       EnableValidateAndCalculateMenuItemForCalculationGroup)
                    .AddPerformAllCalculationsInGroupItem(
                        group,
                        context,
-                       CalculateAll,
-                       ValidateAllDataAvailableAndGetErrorMessage)
+                       CalculateAllInCalculationGroup,
+                       EnableValidateAndCalculateMenuItemForCalculationGroup)
                    .AddSeparator()
                    .AddClearAllCalculationOutputInGroupItem(group)
                    .AddClearIllustrationPointsOfCalculationsInGroupItem(() => IllustrationPointsHelper.HasIllustrationPoints(calculations),
@@ -615,6 +555,32 @@ namespace Riskeer.HeightStructures.Plugin
                           .AddSeparator()
                           .AddPropertiesItem()
                           .Build();
+        }
+
+        private StrictContextMenuItem CreateUpdateAllStructuresItem(
+            IEnumerable<StructuresCalculation<HeightStructuresInput>> calculations)
+        {
+            var contextMenuEnabled = true;
+            string toolTipMessage = RiskeerCommonFormsResources.StructuresPlugin_CreateUpdateStructureItem_Update_all_calculations_with_Structure_Tooltip;
+
+            StructuresCalculation<HeightStructuresInput>[] calculationsToUpdate = calculations
+                                                                                  .Where(calc => calc.InputParameters.Structure != null
+                                                                                                 && !calc.InputParameters.IsStructureInputSynchronized)
+                                                                                  .ToArray();
+
+            if (!calculationsToUpdate.Any())
+            {
+                contextMenuEnabled = false;
+                toolTipMessage = RiskeerCommonFormsResources.CreateUpdateContextMenuItem_No_calculations_to_update_ToolTip;
+            }
+
+            return new StrictContextMenuItem(RiskeerCommonFormsResources.StructuresPlugin_CreateUpdateStructureItem_Update_all_Structures,
+                                             toolTipMessage,
+                                             RiskeerCommonFormsResources.UpdateItemIcon,
+                                             (o, args) => UpdateStructureDependentDataOfCalculations(calculationsToUpdate))
+            {
+                Enabled = contextMenuEnabled
+            };
         }
 
         private void UpdateStructureDependentDataOfCalculations(IEnumerable<StructuresCalculation<HeightStructuresInput>> calculations)
@@ -682,6 +648,16 @@ namespace Riskeer.HeightStructures.Plugin
             HeightStructuresHelper.UpdateCalculationToSectionResultAssignments(failureMechanism);
         }
 
+        private static void AddCalculation(HeightStructuresCalculationGroupContext context)
+        {
+            var calculation = new StructuresCalculation<HeightStructuresInput>
+            {
+                Name = NamingHelper.GetUniqueName(context.WrappedData.Children, RiskeerCommonDataResources.Calculation_DefaultName, c => c.Name)
+            };
+            context.WrappedData.Children.Add(calculation);
+            context.WrappedData.NotifyObservers();
+        }
+
         private static void CalculationGroupContextOnNodeRemoved(HeightStructuresCalculationGroupContext context, object parentNodeData)
         {
             var parentGroupContext = (HeightStructuresCalculationGroupContext) parentNodeData;
@@ -693,14 +669,21 @@ namespace Riskeer.HeightStructures.Plugin
             parentGroupContext.NotifyObservers();
         }
 
-        private static void AddCalculation(HeightStructuresCalculationGroupContext context)
+        private static string EnableValidateAndCalculateMenuItemForCalculationGroup(HeightStructuresCalculationGroupContext context)
         {
-            var calculation = new StructuresCalculation<HeightStructuresInput>
-            {
-                Name = NamingHelper.GetUniqueName(context.WrappedData.Children, RiskeerCommonDataResources.Calculation_DefaultName, c => c.Name)
-            };
-            context.WrappedData.Children.Add(calculation);
-            context.WrappedData.NotifyObservers();
+            return EnableValidateAndCalculateMenuItem(context.AssessmentSection);
+        }
+
+        private static void ValidateAllInCalculationGroup(HeightStructuresCalculationGroupContext context)
+        {
+            ValidateAll(context.WrappedData.GetCalculations().OfType<StructuresCalculation<HeightStructuresInput>>(), context.AssessmentSection);
+        }
+
+        private void CalculateAllInCalculationGroup(CalculationGroup group, HeightStructuresCalculationGroupContext context)
+        {
+            ActivityProgressDialogRunner.Run(
+                Gui.MainWindow,
+                HeightStructuresCalculationActivityFactory.CreateCalculationActivities(group, context.FailureMechanism, context.AssessmentSection));
         }
 
         #endregion
@@ -742,12 +725,12 @@ namespace Riskeer.HeightStructures.Plugin
                           .AddValidateCalculationItem(
                               context,
                               Validate,
-                              ValidateAllDataAvailableAndGetErrorMessage)
+                              EnableValidateAndCalculateMenuItemForCalculation)
                           .AddPerformCalculationItem(
                               calculation,
                               context,
                               Calculate,
-                              ValidateAllDataAvailableAndGetErrorMessage)
+                              EnableValidateAndCalculateMenuItemForCalculation)
                           .AddSeparator()
                           .AddClearCalculationOutputItem(calculation)
                           .AddClearIllustrationPointsOfCalculationItem(() => IllustrationPointsHelper.HasIllustrationPoints(calculation), changeHandler)
@@ -758,6 +741,11 @@ namespace Riskeer.HeightStructures.Plugin
                           .AddSeparator()
                           .AddPropertiesItem()
                           .Build();
+        }
+
+        private static string EnableValidateAndCalculateMenuItemForCalculation(HeightStructuresCalculationContext context)
+        {
+            return EnableValidateAndCalculateMenuItem(context.AssessmentSection);
         }
 
         private static void Validate(HeightStructuresCalculationContext context)
@@ -774,39 +762,12 @@ namespace Riskeer.HeightStructures.Plugin
 
         private static void CalculationContextOnNodeRemoved(HeightStructuresCalculationContext context, object parentData)
         {
-            var calculationGroupContext = parentData as HeightStructuresCalculationGroupContext;
-            if (calculationGroupContext != null)
+            if (parentData is HeightStructuresCalculationGroupContext calculationGroupContext)
             {
                 calculationGroupContext.WrappedData.Children.Remove(context.WrappedData);
                 HeightStructuresHelper.UpdateCalculationToSectionResultAssignments(context.FailureMechanism);
                 calculationGroupContext.NotifyObservers();
             }
-        }
-
-        private StrictContextMenuItem CreateUpdateStructureItem(
-            IEnumerable<StructuresCalculation<HeightStructuresInput>> calculations)
-        {
-            var contextMenuEnabled = true;
-            string toolTipMessage = RiskeerCommonFormsResources.StructuresPlugin_CreateUpdateStructureItem_Update_all_calculations_with_Structure_Tooltip;
-
-            StructuresCalculation<HeightStructuresInput>[] calculationsToUpdate = calculations
-                                                                                  .Where(calc => calc.InputParameters.Structure != null
-                                                                                                 && !calc.InputParameters.IsStructureInputSynchronized)
-                                                                                  .ToArray();
-
-            if (!calculationsToUpdate.Any())
-            {
-                contextMenuEnabled = false;
-                toolTipMessage = RiskeerCommonFormsResources.CreateUpdateContextMenuItem_No_calculations_to_update_ToolTip;
-            }
-
-            return new StrictContextMenuItem(RiskeerCommonFormsResources.StructuresPlugin_CreateUpdateStructureItem_Update_all_Structures,
-                                             toolTipMessage,
-                                             RiskeerCommonFormsResources.UpdateItemIcon,
-                                             (o, args) => UpdateStructureDependentDataOfCalculations(calculationsToUpdate))
-            {
-                Enabled = contextMenuEnabled
-            };
         }
 
         private StrictContextMenuItem CreateUpdateStructureItem(HeightStructuresCalculationContext context)
@@ -869,7 +830,7 @@ namespace Riskeer.HeightStructures.Plugin
             }
         }
 
-        #region Helpers
+        #endregion
 
         private ClearIllustrationPointsOfStructureCalculationCollectionChangeHandler CreateChangeHandler(
             IInquiryHelper inquiryHelper, IEnumerable<StructuresCalculation<HeightStructuresInput>> calculations)
@@ -877,13 +838,23 @@ namespace Riskeer.HeightStructures.Plugin
             return new ClearIllustrationPointsOfStructureCalculationCollectionChangeHandler(inquiryHelper, calculations);
         }
 
-        #endregion
+        private static void ValidateAll(IEnumerable<StructuresCalculation<HeightStructuresInput>> heightStructuresCalculations,
+                                        IAssessmentSection assessmentSection)
+        {
+            foreach (StructuresCalculation<HeightStructuresInput> calculation in heightStructuresCalculations)
+            {
+                HeightStructuresCalculationService.Validate(calculation, assessmentSection);
+            }
+        }
+
+        private static string EnableValidateAndCalculateMenuItem(IAssessmentSection assessmentSection)
+        {
+            return HydraulicBoundaryDatabaseConnectionValidator.Validate(assessmentSection.HydraulicBoundaryDatabase);
+        }
 
         #endregion
 
-        #endregion
-
-        #region Importers
+        #region ImportInfos
 
         #region HeightStructuresImporter
 

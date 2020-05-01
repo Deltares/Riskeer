@@ -269,67 +269,7 @@ namespace Riskeer.ClosingStructures.Plugin
                 GetInquiryHelper());
         }
 
-        private void CalculateAll(ClosingStructuresFailureMechanismContext context)
-        {
-            ActivityProgressDialogRunner.Run(Gui.MainWindow,
-                                             ClosingStructuresCalculationActivityFactory.CreateCalculationActivities(context.WrappedData, context.Parent));
-        }
-
-        private void CalculateAll(CalculationGroup group, ClosingStructuresCalculationGroupContext context)
-        {
-            ActivityProgressDialogRunner.Run(Gui.MainWindow,
-                                             ClosingStructuresCalculationActivityFactory.CreateCalculationActivities(group,
-                                                                                                                     context.FailureMechanism,
-                                                                                                                     context.AssessmentSection));
-        }
-
-        private static void ValidateAll(IEnumerable<StructuresCalculation<ClosingStructuresInput>> closingStructuresCalculations, IAssessmentSection assessmentSection)
-        {
-            foreach (StructuresCalculation<ClosingStructuresInput> calculation in closingStructuresCalculations)
-            {
-                ClosingStructuresCalculationService.Validate(calculation, assessmentSection);
-            }
-        }
-
-        private static void ValidateAll(ClosingStructuresFailureMechanismContext context)
-        {
-            ValidateAll(context.WrappedData.Calculations.OfType<StructuresCalculation<ClosingStructuresInput>>(),
-                        context.Parent);
-        }
-
-        private static void ValidateAll(ClosingStructuresCalculationGroupContext context)
-        {
-            ValidateAll(context.WrappedData.GetCalculations().OfType<StructuresCalculation<ClosingStructuresInput>>(), context.AssessmentSection);
-        }
-
-        private static void ValidateAll(ClosingStructuresCalculationContext context)
-        {
-            ClosingStructuresCalculationService.Validate(context.WrappedData, context.AssessmentSection);
-        }
-
-        private static string ValidateAllDataAvailableAndGetErrorMessage(ClosingStructuresFailureMechanismContext context)
-        {
-            return ValidateAllDataAvailableAndGetErrorMessage(context.Parent);
-        }
-
-        private static string ValidateAllDataAvailableAndGetErrorMessage(ClosingStructuresCalculationGroupContext context)
-        {
-            return ValidateAllDataAvailableAndGetErrorMessage(context.AssessmentSection);
-        }
-
-        private static string ValidateAllDataAvailableAndGetErrorMessage(ClosingStructuresCalculationContext context)
-        {
-            return ValidateAllDataAvailableAndGetErrorMessage(context.AssessmentSection);
-        }
-
-        private static string ValidateAllDataAvailableAndGetErrorMessage(IAssessmentSection assessmentSection)
-        {
-            return HydraulicBoundaryDatabaseConnectionValidator.Validate(assessmentSection.HydraulicBoundaryDatabase);
-        }
-
-        #region ViewInfo
-
-        #region ClosingStructuresFailureMechanismView ViewInfo
+        #region ViewInfos
 
         private static bool CloseClosingStructuresFailureMechanismViewForData(ClosingStructuresFailureMechanismView view, object data)
         {
@@ -340,10 +280,6 @@ namespace Riskeer.ClosingStructures.Plugin
                        ? ReferenceEquals(view.AssessmentSection, assessmentSection)
                        : ReferenceEquals(view.FailureMechanism, failureMechanism);
         }
-
-        #endregion
-
-        #region ClosingStructuresFailureMechanismResultView ViewInfo
 
         private static bool CloseFailureMechanismResultViewForData(ClosingStructuresFailureMechanismResultView view, object o)
         {
@@ -366,22 +302,16 @@ namespace Riskeer.ClosingStructures.Plugin
             return failureMechanism != null && ReferenceEquals(view.FailureMechanism.SectionResults, failureMechanism.SectionResults);
         }
 
-        #endregion
-
-        #region ClosingStructuresScenariosView ViewInfo
-
         private static bool CloseScenariosViewForData(ClosingStructuresScenariosView view, object removedData)
         {
             var failureMechanism = removedData as ClosingStructuresFailureMechanism;
 
-            var failureMechanismContext = removedData as ClosingStructuresFailureMechanismContext;
-            if (failureMechanismContext != null)
+            if (removedData is ClosingStructuresFailureMechanismContext failureMechanismContext)
             {
                 failureMechanism = failureMechanismContext.WrappedData;
             }
 
-            var assessmentSection = removedData as IAssessmentSection;
-            if (assessmentSection != null)
+            if (removedData is IAssessmentSection assessmentSection)
             {
                 failureMechanism = assessmentSection.GetFailureMechanisms()
                                                     .OfType<ClosingStructuresFailureMechanism>()
@@ -393,9 +323,7 @@ namespace Riskeer.ClosingStructures.Plugin
 
         #endregion
 
-        #endregion
-
-        #region TreeNodeInfo
+        #region TreeNodeInfos
 
         #region ClosingStructuresFailureMechanismContext TreeNodeInfo
 
@@ -460,12 +388,12 @@ namespace Riskeer.ClosingStructures.Plugin
                           .AddSeparator()
                           .AddValidateAllCalculationsInFailureMechanismItem(
                               closingStructuresFailureMechanismContext,
-                              ValidateAll,
-                              ValidateAllDataAvailableAndGetErrorMessage)
+                              ValidateAllInFailureMechanism,
+                              EnableValidateAndCalculateMenuItemForFailureMechanism)
                           .AddPerformAllCalculationsInFailureMechanismItem(
                               closingStructuresFailureMechanismContext,
-                              CalculateAll,
-                              ValidateAllDataAvailableAndGetErrorMessage)
+                              CalculateAllInFailureMechanism,
+                              EnableValidateAndCalculateMenuItemForFailureMechanism)
                           .AddSeparator()
                           .AddClearAllCalculationOutputInFailureMechanismItem(closingStructuresFailureMechanismContext.WrappedData)
                           .AddClearIllustrationPointsOfCalculationsInFailureMechanismItem(() => IllustrationPointsHelper.HasIllustrationPoints(calculations),
@@ -476,11 +404,6 @@ namespace Riskeer.ClosingStructures.Plugin
                           .AddSeparator()
                           .AddPropertiesItem()
                           .Build();
-        }
-
-        private void RemoveAllViewsForItem(ClosingStructuresFailureMechanismContext failureMechanismContext)
-        {
-            Gui.ViewCommands.RemoveAllViewsForItem(failureMechanismContext);
         }
 
         private ContextMenuStrip FailureMechanismDisabledContextMenuStrip(ClosingStructuresFailureMechanismContext closingStructuresFailureMechanismContext,
@@ -498,6 +421,28 @@ namespace Riskeer.ClosingStructures.Plugin
                           .AddSeparator()
                           .AddPropertiesItem()
                           .Build();
+        }
+
+        private void RemoveAllViewsForItem(ClosingStructuresFailureMechanismContext failureMechanismContext)
+        {
+            Gui.ViewCommands.RemoveAllViewsForItem(failureMechanismContext);
+        }
+
+        private static string EnableValidateAndCalculateMenuItemForFailureMechanism(ClosingStructuresFailureMechanismContext context)
+        {
+            return EnableValidateAndCalculateMenuItem(context.Parent);
+        }
+
+        private static void ValidateAllInFailureMechanism(ClosingStructuresFailureMechanismContext context)
+        {
+            ValidateAll(context.WrappedData.Calculations.OfType<StructuresCalculation<ClosingStructuresInput>>(),
+                        context.Parent);
+        }
+
+        private void CalculateAllInFailureMechanism(ClosingStructuresFailureMechanismContext context)
+        {
+            ActivityProgressDialogRunner.Run(Gui.MainWindow,
+                                             ClosingStructuresCalculationActivityFactory.CreateCalculationActivities(context.WrappedData, context.Parent));
         }
 
         #endregion
@@ -575,17 +520,17 @@ namespace Riskeer.ClosingStructures.Plugin
 
             builder.AddUpdateForeshoreProfileOfCalculationsItem(calculations, inquiryHelper,
                                                                 SynchronizeCalculationWithForeshoreProfileHelper.UpdateForeshoreProfileDerivedCalculationInput)
-                   .AddCustomItem(CreateUpdateStructureItem(calculations))
+                   .AddCustomItem(CreateUpdateAllStructuresItem(calculations))
                    .AddSeparator()
                    .AddValidateAllCalculationsInGroupItem(
                        context,
-                       ValidateAll,
-                       ValidateAllDataAvailableAndGetErrorMessage)
+                       ValidateAllInCalculationGroup,
+                       EnableValidateAndCalculateMenuItemForCalculationGroup)
                    .AddPerformAllCalculationsInGroupItem(
                        group,
                        context,
-                       CalculateAll,
-                       ValidateAllDataAvailableAndGetErrorMessage)
+                       CalculateAllInCalculationGroup,
+                       EnableValidateAndCalculateMenuItemForCalculationGroup)
                    .AddSeparator()
                    .AddClearAllCalculationOutputInGroupItem(group)
                    .AddClearIllustrationPointsOfCalculationsInGroupItem(() => IllustrationPointsHelper.HasIllustrationPoints(calculations),
@@ -608,7 +553,7 @@ namespace Riskeer.ClosingStructures.Plugin
                           .Build();
         }
 
-        private StrictContextMenuItem CreateUpdateStructureItem(
+        private StrictContextMenuItem CreateUpdateAllStructuresItem(
             IEnumerable<StructuresCalculation<ClosingStructuresInput>> calculations)
         {
             var contextMenuEnabled = true;
@@ -629,31 +574,6 @@ namespace Riskeer.ClosingStructures.Plugin
                                              toolTipMessage,
                                              RiskeerCommonFormsResources.UpdateItemIcon,
                                              (o, args) => UpdateStructureDependentDataOfCalculations(calculationsToUpdate))
-            {
-                Enabled = contextMenuEnabled
-            };
-        }
-
-        private StrictContextMenuItem CreateUpdateStructureItem(ClosingStructuresCalculationContext context)
-        {
-            var contextMenuEnabled = true;
-            string toolTipMessage = RiskeerCommonFormsResources.Update_Calculation_with_Structure_ToolTip;
-            if (context.WrappedData.InputParameters.Structure == null)
-            {
-                contextMenuEnabled = false;
-                toolTipMessage = RiskeerCommonFormsResources.Structure_must_be_selected_ToolTip;
-            }
-            else if (context.WrappedData.InputParameters.IsStructureInputSynchronized)
-            {
-                contextMenuEnabled = false;
-                toolTipMessage = RiskeerCommonFormsResources.CalculationItem_No_changes_to_update_ToolTip;
-            }
-
-            return new StrictContextMenuItem(
-                RiskeerCommonFormsResources.Update_Structure_data,
-                toolTipMessage,
-                RiskeerCommonFormsResources.UpdateItemIcon,
-                (o, args) => UpdateStructureDependentDataOfCalculation(context.WrappedData))
             {
                 Enabled = contextMenuEnabled
             };
@@ -745,6 +665,24 @@ namespace Riskeer.ClosingStructures.Plugin
             parentGroupContext.NotifyObservers();
         }
 
+        private static string EnableValidateAndCalculateMenuItemForCalculationGroup(ClosingStructuresCalculationGroupContext context)
+        {
+            return EnableValidateAndCalculateMenuItem(context.AssessmentSection);
+        }
+
+        private static void ValidateAllInCalculationGroup(ClosingStructuresCalculationGroupContext context)
+        {
+            ValidateAll(context.WrappedData.GetCalculations().OfType<StructuresCalculation<ClosingStructuresInput>>(), context.AssessmentSection);
+        }
+
+        private void CalculateAllInCalculationGroup(CalculationGroup group, ClosingStructuresCalculationGroupContext context)
+        {
+            ActivityProgressDialogRunner.Run(Gui.MainWindow,
+                                             ClosingStructuresCalculationActivityFactory.CreateCalculationActivities(group,
+                                                                                                                     context.FailureMechanism,
+                                                                                                                     context.AssessmentSection));
+        }
+
         #endregion
 
         #region ClosingStructuresCalculationContext TreeNodeInfo
@@ -784,13 +722,13 @@ namespace Riskeer.ClosingStructures.Plugin
                           .AddSeparator()
                           .AddValidateCalculationItem(
                               context,
-                              ValidateAll,
-                              ValidateAllDataAvailableAndGetErrorMessage)
+                              Validate,
+                              EnableValidateAndCalculateMenuItemForCalculation)
                           .AddPerformCalculationItem(
                               calculation,
                               context,
                               Calculate,
-                              ValidateAllDataAvailableAndGetErrorMessage)
+                              EnableValidateAndCalculateMenuItemForCalculation)
                           .AddSeparator()
                           .AddClearCalculationOutputItem(calculation)
                           .AddClearIllustrationPointsOfCalculationItem(() => IllustrationPointsHelper.HasIllustrationPoints(calculation), changeHandler)
@@ -803,6 +741,16 @@ namespace Riskeer.ClosingStructures.Plugin
                           .Build();
         }
 
+        private static string EnableValidateAndCalculateMenuItemForCalculation(ClosingStructuresCalculationContext context)
+        {
+            return EnableValidateAndCalculateMenuItem(context.AssessmentSection);
+        }
+
+        private static void Validate(ClosingStructuresCalculationContext context)
+        {
+            ClosingStructuresCalculationService.Validate(context.WrappedData, context.AssessmentSection);
+        }
+
         private void Calculate(StructuresCalculation<ClosingStructuresInput> calculation, ClosingStructuresCalculationContext context)
         {
             ActivityProgressDialogRunner.Run(Gui.MainWindow,
@@ -813,13 +761,37 @@ namespace Riskeer.ClosingStructures.Plugin
 
         private static void CalculationContextOnNodeRemoved(ClosingStructuresCalculationContext context, object parentData)
         {
-            var calculationGroupContext = parentData as ClosingStructuresCalculationGroupContext;
-            if (calculationGroupContext != null)
+            if (parentData is ClosingStructuresCalculationGroupContext calculationGroupContext)
             {
                 calculationGroupContext.WrappedData.Children.Remove(context.WrappedData);
                 ClosingStructuresHelper.UpdateCalculationToSectionResultAssignments(context.FailureMechanism);
                 calculationGroupContext.NotifyObservers();
             }
+        }
+
+        private StrictContextMenuItem CreateUpdateStructureItem(ClosingStructuresCalculationContext context)
+        {
+            var contextMenuEnabled = true;
+            string toolTipMessage = RiskeerCommonFormsResources.Update_Calculation_with_Structure_ToolTip;
+            if (context.WrappedData.InputParameters.Structure == null)
+            {
+                contextMenuEnabled = false;
+                toolTipMessage = RiskeerCommonFormsResources.Structure_must_be_selected_ToolTip;
+            }
+            else if (context.WrappedData.InputParameters.IsStructureInputSynchronized)
+            {
+                contextMenuEnabled = false;
+                toolTipMessage = RiskeerCommonFormsResources.CalculationItem_No_changes_to_update_ToolTip;
+            }
+
+            return new StrictContextMenuItem(
+                RiskeerCommonFormsResources.Update_Structure_data,
+                toolTipMessage,
+                RiskeerCommonFormsResources.UpdateItemIcon,
+                (o, args) => UpdateStructureDependentDataOfCalculation(context.WrappedData))
+            {
+                Enabled = contextMenuEnabled
+            };
         }
 
         private void UpdateStructureDependentDataOfCalculation(StructuresCalculation<ClosingStructuresInput> calculation)
@@ -859,19 +831,28 @@ namespace Riskeer.ClosingStructures.Plugin
 
         #endregion
 
-        #region Helpers
-
         private ClearIllustrationPointsOfStructureCalculationCollectionChangeHandler CreateChangeHandler(
             IInquiryHelper inquiryHelper, IEnumerable<StructuresCalculation<ClosingStructuresInput>> calculations)
         {
             return new ClearIllustrationPointsOfStructureCalculationCollectionChangeHandler(inquiryHelper, calculations);
         }
 
-        #endregion
+        private static void ValidateAll(IEnumerable<StructuresCalculation<ClosingStructuresInput>> closingStructuresCalculations, IAssessmentSection assessmentSection)
+        {
+            foreach (StructuresCalculation<ClosingStructuresInput> calculation in closingStructuresCalculations)
+            {
+                ClosingStructuresCalculationService.Validate(calculation, assessmentSection);
+            }
+        }
+
+        private static string EnableValidateAndCalculateMenuItem(IAssessmentSection assessmentSection)
+        {
+            return HydraulicBoundaryDatabaseConnectionValidator.Validate(assessmentSection.HydraulicBoundaryDatabase);
+        }
 
         #endregion
 
-        #region Importers
+        #region ImportInfos
 
         #region ClosingStructuresImporter
 

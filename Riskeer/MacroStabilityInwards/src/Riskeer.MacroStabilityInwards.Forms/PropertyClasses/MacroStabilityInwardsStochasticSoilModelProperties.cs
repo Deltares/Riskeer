@@ -78,11 +78,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
             }
         }
 
-        private Point2D[] GetGeometry()
-        {
-            return data.Geometry.ToArray();
-        }
-
         [PropertyOrder(3)]
         [TypeConverter(typeof(ExpandableArrayConverter))]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
@@ -96,6 +91,11 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
                            ? GetMacroStabilityInwardsStochasticSoilProfiles()
                            : new MacroStabilityInwardsStochasticSoilProfileProperties[0];
             }
+        }
+
+        private Point2D[] GetGeometry()
+        {
+            return data.Geometry.ToArray();
         }
 
         private MacroStabilityInwardsStochasticSoilProfileProperties[] GetMacroStabilityInwardsStochasticSoilProfiles()

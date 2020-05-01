@@ -35,20 +35,13 @@ namespace Riskeer.StabilityStoneCover.IO.Configurations
     public class StabilityStoneCoverWaveConditionsCalculationConfigurationExporter : WaveConditionsCalculationConfigurationExporter<StabilityStoneCoverWaveConditionsCalculationConfigurationWriter,
         StabilityStoneCoverWaveConditionsCalculationConfiguration, ICalculation<StabilityStoneCoverWaveConditionsInput>>
     {
+        /// <inheritdoc />
         /// <summary>
         /// Creates a new instance of <see cref="StabilityStoneCoverWaveConditionsCalculationConfigurationExporter"/>.
         /// </summary>
-        /// <param name="calculations">The hierarchy of calculations to export.</param>
-        /// <param name="filePath">The path of the XML file to export to.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculations"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is invalid.</exception>
         public StabilityStoneCoverWaveConditionsCalculationConfigurationExporter(IEnumerable<ICalculationBase> calculations, string filePath)
-            : base(calculations, filePath) {}
-
-        protected override StabilityStoneCoverWaveConditionsCalculationConfigurationWriter CreateWriter(string filePath)
-        {
-            return new StabilityStoneCoverWaveConditionsCalculationConfigurationWriter(filePath);
-        }
+            : base(calculations, new StabilityStoneCoverWaveConditionsCalculationConfigurationWriter(filePath)) {}
 
         protected override StabilityStoneCoverWaveConditionsCalculationConfiguration ToConfiguration(
             ICalculation<StabilityStoneCoverWaveConditionsInput> calculation)

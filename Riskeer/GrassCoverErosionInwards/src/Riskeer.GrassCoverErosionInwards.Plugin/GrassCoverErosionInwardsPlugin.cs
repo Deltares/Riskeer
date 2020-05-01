@@ -375,7 +375,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
             };
         }
 
-        #region GrassCoverErosionInwardsFailureMechanismView ViewInfo
+        #region ViewInfos
 
         private static bool CloseGrassCoverErosionInwardsFailureMechanismViewForData(GrassCoverErosionInwardsFailureMechanismView view, object o)
         {
@@ -387,22 +387,16 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
                        : ReferenceEquals(view.FailureMechanism, failureMechanism);
         }
 
-        #endregion
-
-        #region GrassCoverErosionInwardsScenariosView ViewInfo
-
         private static bool CloseScenariosViewForData(GrassCoverErosionInwardsScenariosView view, object removedData)
         {
             var failureMechanism = removedData as GrassCoverErosionInwardsFailureMechanism;
 
-            var failureMechanismContext = removedData as GrassCoverErosionInwardsFailureMechanismContext;
-            if (failureMechanismContext != null)
+            if (removedData is GrassCoverErosionInwardsFailureMechanismContext failureMechanismContext)
             {
                 failureMechanism = failureMechanismContext.WrappedData;
             }
 
-            var assessmentSection = removedData as IAssessmentSection;
-            if (assessmentSection != null)
+            if (removedData is IAssessmentSection assessmentSection)
             {
                 failureMechanism = assessmentSection.GetFailureMechanisms()
                                                     .OfType<GrassCoverErosionInwardsFailureMechanism>()
@@ -411,10 +405,6 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
 
             return failureMechanism != null && ReferenceEquals(view.Data, failureMechanism.CalculationsGroup);
         }
-
-        #endregion
-
-        #region GrassCoverErosionInwardsFailureMechanismResultView ViewInfo
 
         private static bool CloseFailureMechanismResultViewForData(GrassCoverErosionInwardsFailureMechanismResultView view, object o)
         {
@@ -437,22 +427,16 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
             return failureMechanism != null && ReferenceEquals(view.FailureMechanism.SectionResults, failureMechanism.SectionResults);
         }
 
-        #endregion
-
-        #region GrassCoverErosionInwardsInputView ViewInfo
-
         private static bool CloseInputViewForData(GrassCoverErosionInwardsInputView view, object o)
         {
-            var calculationContext = o as GrassCoverErosionInwardsCalculationContext;
-            if (calculationContext != null)
+            if (o is GrassCoverErosionInwardsCalculationContext calculationContext)
             {
                 return ReferenceEquals(view.Data, calculationContext.WrappedData);
             }
 
             IEnumerable<GrassCoverErosionInwardsCalculation> calculations = null;
 
-            var calculationGroupContext = o as GrassCoverErosionInwardsCalculationGroupContext;
-            if (calculationGroupContext != null)
+            if (o is GrassCoverErosionInwardsCalculationGroupContext calculationGroupContext)
             {
                 calculations = calculationGroupContext.WrappedData.GetCalculations()
                                                       .OfType<GrassCoverErosionInwardsCalculation>();
@@ -460,14 +444,12 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
 
             var failureMechanism = o as GrassCoverErosionInwardsFailureMechanism;
 
-            var failureMechanismContext = o as GrassCoverErosionInwardsFailureMechanismContext;
-            if (failureMechanismContext != null)
+            if (o is GrassCoverErosionInwardsFailureMechanismContext failureMechanismContext)
             {
                 failureMechanism = failureMechanismContext.WrappedData;
             }
 
-            var assessmentSection = o as IAssessmentSection;
-            if (assessmentSection != null)
+            if (o is IAssessmentSection assessmentSection)
             {
                 failureMechanism = assessmentSection.GetFailureMechanisms()
                                                     .OfType<GrassCoverErosionInwardsFailureMechanism>()
@@ -485,89 +467,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
 
         #endregion
 
-        #region GrassCoverErosionInwardsOutputContext TreeNodeInfo
-
-        private static object[] OutputChildNodeObjects(GrassCoverErosionInwardsOutputContext context)
-        {
-            GrassCoverErosionInwardsCalculation calculation = context.WrappedData;
-
-            return new object[]
-            {
-                new OvertoppingOutputContext(calculation, context.FailureMechanism, context.AssessmentSection),
-                new DikeHeightOutputContext(calculation),
-                new OvertoppingRateOutputContext(calculation)
-            };
-        }
-
-        #endregion
-
-        #region Helpers
-
-        private static ClearIllustrationPointsOfGrassCoverErosionInwardsCalculationCollectionChangeHandler CreateChangeHandler(
-            IInquiryHelper inquiryHelper, IEnumerable<GrassCoverErosionInwardsCalculation> calculations)
-        {
-            return new ClearIllustrationPointsOfGrassCoverErosionInwardsCalculationCollectionChangeHandler(inquiryHelper, calculations);
-        }
-
-        #endregion
-
-        private static string ValidateAllDataAvailableAndGetErrorMessage(GrassCoverErosionInwardsFailureMechanismContext context)
-        {
-            return ValidateAllDataAvailableAndGetErrorMessage(context.Parent);
-        }
-
-        private static string ValidateAllDataAvailableAndGetErrorMessage(IAssessmentSection assessmentSection)
-        {
-            return HydraulicBoundaryDatabaseConnectionValidator.Validate(assessmentSection.HydraulicBoundaryDatabase);
-        }
-
-        private static string ValidateAllDataAvailableAndGetErrorMessage(GrassCoverErosionInwardsCalculationGroupContext context)
-        {
-            return ValidateAllDataAvailableAndGetErrorMessage(context.AssessmentSection);
-        }
-
-        private static string ValidateAllDataAvailableAndGetErrorMessage(GrassCoverErosionInwardsCalculationContext context)
-        {
-            return ValidateAllDataAvailableAndGetErrorMessage(context.AssessmentSection);
-        }
-
-        private static void ValidateAll(IEnumerable<GrassCoverErosionInwardsCalculation> grassCoverErosionInwardsCalculations,
-                                        GrassCoverErosionInwardsFailureMechanism failureMechanism,
-                                        IAssessmentSection assessmentSection)
-        {
-            foreach (GrassCoverErosionInwardsCalculation calculation in grassCoverErosionInwardsCalculations)
-            {
-                GrassCoverErosionInwardsCalculationService.Validate(calculation, failureMechanism, assessmentSection);
-            }
-        }
-
-        private static void ValidateAll(GrassCoverErosionInwardsFailureMechanismContext context)
-        {
-            ValidateAll(context.WrappedData.Calculations.OfType<GrassCoverErosionInwardsCalculation>(), context.WrappedData, context.Parent);
-        }
-
-        private static void ValidateAll(GrassCoverErosionInwardsCalculationGroupContext context)
-        {
-            ValidateAll(context.WrappedData.GetCalculations().OfType<GrassCoverErosionInwardsCalculation>(),
-                        context.FailureMechanism,
-                        context.AssessmentSection);
-        }
-
-        private void CalculateAll(CalculationGroup group, GrassCoverErosionInwardsCalculationGroupContext context)
-        {
-            ActivityProgressDialogRunner.Run(
-                Gui.MainWindow,
-                GrassCoverErosionInwardsCalculationActivityFactory.CreateCalculationActivities(context.WrappedData,
-                                                                                               context.FailureMechanism,
-                                                                                               context.AssessmentSection));
-        }
-
-        private void CalculateAll(GrassCoverErosionInwardsFailureMechanismContext context)
-        {
-            ActivityProgressDialogRunner.Run(
-                Gui.MainWindow,
-                GrassCoverErosionInwardsCalculationActivityFactory.CreateCalculationActivities(context.WrappedData, context.Parent));
-        }
+        #region TreeNodeInfos
 
         #region GrassCoverErosionInwardsFailureMechanismContext TreeNodeInfo
 
@@ -631,12 +531,12 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
                    .AddSeparator()
                    .AddValidateAllCalculationsInFailureMechanismItem(
                        grassCoverErosionInwardsFailureMechanismContext,
-                       ValidateAll,
-                       ValidateAllDataAvailableAndGetErrorMessage)
+                       ValidateAllInFailureMechanism,
+                       EnableValidateAndCalculateMenuItemForFailureMechanism)
                    .AddPerformAllCalculationsInFailureMechanismItem(
                        grassCoverErosionInwardsFailureMechanismContext,
-                       CalculateAll,
-                       ValidateAllDataAvailableAndGetErrorMessage)
+                       CalculateAllInFailureMechanism,
+                       EnableValidateAndCalculateMenuItemForFailureMechanism)
                    .AddSeparator()
                    .AddClearAllCalculationOutputInFailureMechanismItem(grassCoverErosionInwardsFailureMechanismContext.WrappedData)
                    .AddClearIllustrationPointsOfCalculationsInFailureMechanismItem(
@@ -648,11 +548,6 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
                    .AddSeparator()
                    .AddPropertiesItem()
                    .Build();
-        }
-
-        private void RemoveAllViewsForItem(GrassCoverErosionInwardsFailureMechanismContext failureMechanismContext)
-        {
-            Gui.ViewCommands.RemoveAllViewsForItem(failureMechanismContext);
         }
 
         private ContextMenuStrip FailureMechanismDisabledContextMenuStrip(GrassCoverErosionInwardsFailureMechanismContext grassCoverErosionInwardsFailureMechanismContext,
@@ -669,6 +564,28 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
                           .AddSeparator()
                           .AddPropertiesItem()
                           .Build();
+        }
+
+        private void RemoveAllViewsForItem(GrassCoverErosionInwardsFailureMechanismContext failureMechanismContext)
+        {
+            Gui.ViewCommands.RemoveAllViewsForItem(failureMechanismContext);
+        }
+
+        private static string EnableValidateAndCalculateMenuItemForFailureMechanism(GrassCoverErosionInwardsFailureMechanismContext context)
+        {
+            return EnableValidateAndCalculateMenuItem(context.Parent);
+        }
+
+        private static void ValidateAllInFailureMechanism(GrassCoverErosionInwardsFailureMechanismContext context)
+        {
+            ValidateAll(context.WrappedData.Calculations.OfType<GrassCoverErosionInwardsCalculation>(), context.WrappedData, context.Parent);
+        }
+
+        private void CalculateAllInFailureMechanism(GrassCoverErosionInwardsFailureMechanismContext context)
+        {
+            ActivityProgressDialogRunner.Run(
+                Gui.MainWindow,
+                GrassCoverErosionInwardsCalculationActivityFactory.CreateCalculationActivities(context.WrappedData, context.Parent));
         }
 
         #endregion
@@ -718,7 +635,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
                                                                         .GetCalculations()
                                                                         .OfType<GrassCoverErosionInwardsCalculation>()
                                                                         .ToArray();
-            StrictContextMenuItem updateDikeProfileItem = CreateUpdateDikeProfileItem(calculations);
+            StrictContextMenuItem updateDikeProfileItem = CreateUpdateAllDikeProfilesItem(calculations);
 
             IInquiryHelper inquiryHelper = GetInquiryHelper();
 
@@ -751,13 +668,13 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
                    .AddSeparator()
                    .AddValidateAllCalculationsInGroupItem(
                        context,
-                       ValidateAll,
-                       ValidateAllDataAvailableAndGetErrorMessage)
+                       ValidateAllInCalculationGroup,
+                       EnableValidateAndCalculateMenuItemForCalculationGroup)
                    .AddPerformAllCalculationsInGroupItem(
                        group,
                        context,
-                       CalculateAll,
-                       ValidateAllDataAvailableAndGetErrorMessage)
+                       CalculateAllInCalculationGroup,
+                       EnableValidateAndCalculateMenuItemForCalculationGroup)
                    .AddSeparator()
                    .AddClearAllCalculationOutputInGroupItem(group)
                    .AddClearIllustrationPointsOfCalculationsInGroupItem(() => GrassCoverErosionInwardsIllustrationPointsHelper.HasIllustrationPoints(calculations),
@@ -780,7 +697,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
                           .Build();
         }
 
-        private StrictContextMenuItem CreateUpdateDikeProfileItem(IEnumerable<GrassCoverErosionInwardsCalculation> calculations)
+        private StrictContextMenuItem CreateUpdateAllDikeProfilesItem(IEnumerable<GrassCoverErosionInwardsCalculation> calculations)
         {
             var contextMenuEnabled = true;
             string toolTipMessage = Resources.GrassCoverErosionInwardsPlugin_CreateUpdateDikeProfileItem_Update_all_calculations_with_DikeProfile_Tooltip;
@@ -800,31 +717,6 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
                                              toolTipMessage,
                                              RiskeerCommonFormsResources.UpdateItemIcon,
                                              (o, args) => UpdateDikeProfileDependentDataOfAllCalculations(calculationsToUpdate))
-            {
-                Enabled = contextMenuEnabled
-            };
-        }
-
-        private StrictContextMenuItem CreateUpdateDikeProfileItem(GrassCoverErosionInwardsCalculationContext context)
-        {
-            var contextMenuEnabled = true;
-            string toolTipMessage = Resources.GrassCoverErosionInwardsPlugin_CreateUpdateDikeProfileItem_Update_calculation_with_DikeProfile_ToolTip;
-            if (context.WrappedData.InputParameters.DikeProfile == null)
-            {
-                contextMenuEnabled = false;
-                toolTipMessage = Resources.GrassCoverErosionInwardsPlugin_CreateUpdateDikeProfileItem_Update_calculation_no_DikeProfile_ToolTip;
-            }
-            else if (context.WrappedData.InputParameters.IsDikeProfileInputSynchronized)
-            {
-                contextMenuEnabled = false;
-                toolTipMessage = RiskeerCommonFormsResources.CalculationItem_No_changes_to_update_ToolTip;
-            }
-
-            return new StrictContextMenuItem(
-                Resources.GrassCoverErosionInwardsPlugin_CreateUpdateDikeProfileItem_Update_DikeProfile_data,
-                toolTipMessage,
-                RiskeerCommonFormsResources.UpdateItemIcon,
-                (o, args) => UpdateDikeProfileDependentDataOfCalculation(context.WrappedData))
             {
                 Enabled = contextMenuEnabled
             };
@@ -891,6 +783,16 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
                 failureMechanism.Calculations.Cast<GrassCoverErosionInwardsCalculation>());
         }
 
+        private static void AddCalculation(GrassCoverErosionInwardsCalculationGroupContext context)
+        {
+            var calculation = new GrassCoverErosionInwardsCalculation
+            {
+                Name = NamingHelper.GetUniqueName(context.WrappedData.Children, RiskeerCommonDataResources.Calculation_DefaultName, c => c.Name)
+            };
+            context.WrappedData.Children.Add(calculation);
+            context.WrappedData.NotifyObservers();
+        }
+
         private static void CalculationGroupContextOnNodeRemoved(GrassCoverErosionInwardsCalculationGroupContext context, object parentNodeData)
         {
             var parentGroupContext = (GrassCoverErosionInwardsCalculationGroupContext) parentNodeData;
@@ -904,14 +806,25 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
             parentGroupContext.NotifyObservers();
         }
 
-        private static void AddCalculation(GrassCoverErosionInwardsCalculationGroupContext context)
+        private static string EnableValidateAndCalculateMenuItemForCalculationGroup(GrassCoverErosionInwardsCalculationGroupContext context)
         {
-            var calculation = new GrassCoverErosionInwardsCalculation
-            {
-                Name = NamingHelper.GetUniqueName(context.WrappedData.Children, RiskeerCommonDataResources.Calculation_DefaultName, c => c.Name)
-            };
-            context.WrappedData.Children.Add(calculation);
-            context.WrappedData.NotifyObservers();
+            return EnableValidateAndCalculateMenuItem(context.AssessmentSection);
+        }
+
+        private static void ValidateAllInCalculationGroup(GrassCoverErosionInwardsCalculationGroupContext context)
+        {
+            ValidateAll(context.WrappedData.GetCalculations().OfType<GrassCoverErosionInwardsCalculation>(),
+                        context.FailureMechanism,
+                        context.AssessmentSection);
+        }
+
+        private void CalculateAllInCalculationGroup(CalculationGroup group, GrassCoverErosionInwardsCalculationGroupContext context)
+        {
+            ActivityProgressDialogRunner.Run(
+                Gui.MainWindow,
+                GrassCoverErosionInwardsCalculationActivityFactory.CreateCalculationActivities(context.WrappedData,
+                                                                                               context.FailureMechanism,
+                                                                                               context.AssessmentSection));
         }
 
         #endregion
@@ -954,12 +867,12 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
                           .AddValidateCalculationItem(
                               context,
                               Validate,
-                              ValidateAllDataAvailableAndGetErrorMessage)
+                              EnableValidateAndCalculateMenuItemForCalculation)
                           .AddPerformCalculationItem(
                               calculation,
                               context,
                               Calculate,
-                              ValidateAllDataAvailableAndGetErrorMessage)
+                              EnableValidateAndCalculateMenuItemForCalculation)
                           .AddSeparator()
                           .AddClearCalculationOutputItem(calculation)
                           .AddClearIllustrationPointsOfCalculationItem(() => GrassCoverErosionInwardsIllustrationPointsHelper.HasIllustrationPoints(calculation),
@@ -971,6 +884,11 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
                           .AddSeparator()
                           .AddPropertiesItem()
                           .Build();
+        }
+
+        private static string EnableValidateAndCalculateMenuItemForCalculation(GrassCoverErosionInwardsCalculationContext context)
+        {
+            return EnableValidateAndCalculateMenuItem(context.AssessmentSection);
         }
 
         private static void Validate(GrassCoverErosionInwardsCalculationContext context)
@@ -988,8 +906,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
 
         private static void CalculationContextOnNodeRemoved(GrassCoverErosionInwardsCalculationContext context, object parentData)
         {
-            var calculationGroupContext = parentData as GrassCoverErosionInwardsCalculationGroupContext;
-            if (calculationGroupContext != null)
+            if (parentData is GrassCoverErosionInwardsCalculationGroupContext calculationGroupContext)
             {
                 calculationGroupContext.WrappedData.Children.Remove(context.WrappedData);
                 GrassCoverErosionInwardsHelper.UpdateCalculationToSectionResultAssignments(
@@ -997,6 +914,31 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
                     context.FailureMechanism.Calculations.OfType<GrassCoverErosionInwardsCalculation>());
                 calculationGroupContext.NotifyObservers();
             }
+        }
+
+        private StrictContextMenuItem CreateUpdateDikeProfileItem(GrassCoverErosionInwardsCalculationContext context)
+        {
+            var contextMenuEnabled = true;
+            string toolTipMessage = Resources.GrassCoverErosionInwardsPlugin_CreateUpdateDikeProfileItem_Update_calculation_with_DikeProfile_ToolTip;
+            if (context.WrappedData.InputParameters.DikeProfile == null)
+            {
+                contextMenuEnabled = false;
+                toolTipMessage = Resources.GrassCoverErosionInwardsPlugin_CreateUpdateDikeProfileItem_Update_calculation_no_DikeProfile_ToolTip;
+            }
+            else if (context.WrappedData.InputParameters.IsDikeProfileInputSynchronized)
+            {
+                contextMenuEnabled = false;
+                toolTipMessage = RiskeerCommonFormsResources.CalculationItem_No_changes_to_update_ToolTip;
+            }
+
+            return new StrictContextMenuItem(
+                Resources.GrassCoverErosionInwardsPlugin_CreateUpdateDikeProfileItem_Update_DikeProfile_data,
+                toolTipMessage,
+                RiskeerCommonFormsResources.UpdateItemIcon,
+                (o, args) => UpdateDikeProfileDependentDataOfCalculation(context.WrappedData))
+            {
+                Enabled = contextMenuEnabled
+            };
         }
 
         private void UpdateDikeProfileDependentDataOfCalculation(GrassCoverErosionInwardsCalculation calculation)
@@ -1036,6 +978,47 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
 
         #endregion
 
+        #region GrassCoverErosionInwardsOutputContext TreeNodeInfo
+
+        private static object[] OutputChildNodeObjects(GrassCoverErosionInwardsOutputContext context)
+        {
+            GrassCoverErosionInwardsCalculation calculation = context.WrappedData;
+
+            return new object[]
+            {
+                new OvertoppingOutputContext(calculation, context.FailureMechanism, context.AssessmentSection),
+                new DikeHeightOutputContext(calculation),
+                new OvertoppingRateOutputContext(calculation)
+            };
+        }
+
+        #endregion
+
+        private static ClearIllustrationPointsOfGrassCoverErosionInwardsCalculationCollectionChangeHandler CreateChangeHandler(
+            IInquiryHelper inquiryHelper, IEnumerable<GrassCoverErosionInwardsCalculation> calculations)
+        {
+            return new ClearIllustrationPointsOfGrassCoverErosionInwardsCalculationCollectionChangeHandler(inquiryHelper, calculations);
+        }
+
+        private static void ValidateAll(IEnumerable<GrassCoverErosionInwardsCalculation> grassCoverErosionInwardsCalculations,
+                                        GrassCoverErosionInwardsFailureMechanism failureMechanism,
+                                        IAssessmentSection assessmentSection)
+        {
+            foreach (GrassCoverErosionInwardsCalculation calculation in grassCoverErosionInwardsCalculations)
+            {
+                GrassCoverErosionInwardsCalculationService.Validate(calculation, failureMechanism, assessmentSection);
+            }
+        }
+
+        private static string EnableValidateAndCalculateMenuItem(IAssessmentSection assessmentSection)
+        {
+            return HydraulicBoundaryDatabaseConnectionValidator.Validate(assessmentSection.HydraulicBoundaryDatabase);
+        }
+
+        #endregion
+
+        #region ImportInfos
+
         #region Dike Profiles Importer
 
         private static FileFilterGenerator DikeProfileImporterFileFilterGenerator()
@@ -1049,6 +1032,8 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
             var changeHandler = new FailureMechanismCalculationChangeHandler(context.ParentFailureMechanism, query, GetInquiryHelper());
             return !changeHandler.RequireConfirmation() || changeHandler.InquireConfirmation();
         }
+
+        #endregion
 
         #endregion
     }

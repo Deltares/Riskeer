@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Revetment.Data;
@@ -38,13 +39,9 @@ namespace Riskeer.Revetment.IO.Configurations
         /// <summary>
         /// Creates a new instance of <see cref="AssessmentSectionCategoryWaveConditionsCalculationConfigurationExporter"/>.
         /// </summary>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is invalid.</exception>
         public AssessmentSectionCategoryWaveConditionsCalculationConfigurationExporter(IEnumerable<ICalculationBase> calculations, string filePath)
-            : base(calculations, filePath) {}
-
-        protected override AssessmentSectionCategoryWaveConditionsCalculationConfigurationWriter<AssessmentSectionCategoryWaveConditionsCalculationConfiguration> CreateWriter(string filePath)
-        {
-            return new AssessmentSectionCategoryWaveConditionsCalculationConfigurationWriter<AssessmentSectionCategoryWaveConditionsCalculationConfiguration>(filePath);
-        }
+            : base(calculations, new AssessmentSectionCategoryWaveConditionsCalculationConfigurationWriter<AssessmentSectionCategoryWaveConditionsCalculationConfiguration>(filePath)) {}
 
         protected override AssessmentSectionCategoryWaveConditionsCalculationConfiguration ToConfiguration(
             ICalculation<AssessmentSectionCategoryWaveConditionsInput> calculation)

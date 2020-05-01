@@ -26,32 +26,32 @@ namespace Riskeer.Piping.KernelWrapper.SubCalculator
     /// </summary>
     public class PiezoHeadCalculator : IPiezoHeadCalculator
     {
-        public double PhiPolder { private get; set; }
+        private double phiPolder;
 
-        public double RExit { private get; set; }
+        private double rExit;
 
-        public double HRiver { private get; set; }
+        private double hRiver;
+
+        public double PhiExit { get; private set; }
 
         public void SetPhiPolder(double phiPolder)
         {
-            PhiPolder = phiPolder;
+            this.phiPolder = phiPolder;
         }
 
         public void SetRExit(double rExit)
         {
-            RExit = rExit;
+            this.rExit = rExit;
         }
 
         public void SetHRiver(double hRiver)
         {
-            HRiver = hRiver;
+            this.hRiver = hRiver;
         }
-
-        public double PhiExit { get; private set; }
 
         public void Calculate()
         {
-            PhiExit = Deltares.WTIPiping.PiezoHeadCalculator.CalculatePhiExit(PhiPolder, RExit, HRiver);
+            PhiExit = Deltares.WTIPiping.PiezoHeadCalculator.CalculatePhiExit(phiPolder, rExit, hRiver);
         }
     }
 }

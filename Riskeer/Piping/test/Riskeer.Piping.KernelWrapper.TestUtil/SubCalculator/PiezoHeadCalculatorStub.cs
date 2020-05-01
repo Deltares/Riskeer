@@ -33,9 +33,12 @@ namespace Riskeer.Piping.KernelWrapper.TestUtil.SubCalculator
         /// </summary>
         public bool Calculated { get; private set; }
 
-        public double PhiPolder { get; set; }
-        public double RExit { get; set; }
-        public double HRiver { get; set; }
+        public double PhiPolder { get; private set; }
+        public double RExit { get; private set; }
+        public double HRiver { get; private set; }
+
+        public double PhiExit { get; private set; }
+
         public void SetPhiPolder(double phiPolder)
         {
             PhiPolder = phiPolder;
@@ -50,8 +53,6 @@ namespace Riskeer.Piping.KernelWrapper.TestUtil.SubCalculator
         {
             HRiver = hRiver;
         }
-
-        public double PhiExit { get; private set; }
 
         public void Calculate()
         {

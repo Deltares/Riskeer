@@ -47,7 +47,7 @@ namespace Riskeer.ClosingStructures.IO.Configurations
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculations"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is invalid.</exception>
         public ClosingStructuresCalculationConfigurationExporter(IEnumerable<ICalculationBase> calculations, string filePath)
-            : base(calculations, filePath) {}
+            : base(calculations, new ClosingStructuresCalculationConfigurationWriter(filePath)) {}
 
         protected override ClosingStructuresCalculationConfiguration ToConfiguration(StructuresCalculation<ClosingStructuresInput> calculation)
         {
@@ -89,11 +89,6 @@ namespace Riskeer.ClosingStructures.IO.Configurations
             }
 
             return calculationConfiguration;
-        }
-
-        protected override ClosingStructuresCalculationConfigurationWriter CreateWriter(string filePath)
-        {
-            return new ClosingStructuresCalculationConfigurationWriter(filePath);
         }
     }
 }

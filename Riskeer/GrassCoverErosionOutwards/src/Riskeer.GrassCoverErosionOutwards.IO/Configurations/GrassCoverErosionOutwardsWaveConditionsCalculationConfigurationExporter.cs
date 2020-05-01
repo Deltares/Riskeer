@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.GrassCoverErosionOutwards.Data;
@@ -39,13 +40,9 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Configurations
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionOutwardsWaveConditionsCalculationConfigurationExporter"/>.
         /// </summary>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is invalid.</exception>
         public GrassCoverErosionOutwardsWaveConditionsCalculationConfigurationExporter(IEnumerable<ICalculationBase> calculations, string filePath)
-            : base(calculations, filePath) {}
-
-        protected override GrassCoverErosionOutwardsWaveConditionsCalculationConfigurationWriter CreateWriter(string filePath)
-        {
-            return new GrassCoverErosionOutwardsWaveConditionsCalculationConfigurationWriter(filePath);
-        }
+            : base(calculations, new GrassCoverErosionOutwardsWaveConditionsCalculationConfigurationWriter(filePath)) {}
 
         protected override GrassCoverErosionOutwardsWaveConditionsCalculationConfiguration ToConfiguration(GrassCoverErosionOutwardsWaveConditionsCalculation calculation)
         {

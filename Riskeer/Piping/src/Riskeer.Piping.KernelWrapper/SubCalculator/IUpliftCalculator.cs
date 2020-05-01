@@ -34,6 +34,16 @@ namespace Riskeer.Piping.KernelWrapper.SubCalculator
         double EffectiveStress { get; set; }
 
         /// <summary>
+        /// Gets the z-value.
+        /// </summary>
+        double Zu { get; }
+
+        /// <summary>
+        /// Gets the factor of safety.
+        /// </summary>
+        double FoSu { get; }
+
+        /// <summary>
         /// Sets the phreatic level at the exit point.
         /// </summary>
         void SetHExit(double hExit);
@@ -67,16 +77,6 @@ namespace Riskeer.Piping.KernelWrapper.SubCalculator
         /// Sets the volumetric weight of water.
         /// </summary>
         void SetVolumetricWeightOfWater(double volumetricWeightOfWater);
-
-        /// <summary>
-        /// Gets the z-value.
-        /// </summary>
-        double Zu { get; }
-
-        /// <summary>
-        /// Gets the factor of safety.
-        /// </summary>
-        double FoSu { get; }
 
         /// <summary>
         /// Performs the uplift calculation.

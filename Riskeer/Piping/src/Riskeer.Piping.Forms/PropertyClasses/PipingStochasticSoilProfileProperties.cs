@@ -89,7 +89,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses
         {
             get
             {
-                return ReturnLayers();
+                return GetPipingSoilLayerProperties();
             }
         }
 
@@ -123,7 +123,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses
             return Name;
         }
 
-        private PipingSoilLayerProperties[] ReturnLayers()
+        private PipingSoilLayerProperties[] GetPipingSoilLayerProperties()
         {
             return data.SoilProfile.Layers.Select(layer => new PipingSoilLayerProperties(layer)).ToArray();
         }

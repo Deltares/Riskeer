@@ -39,11 +39,11 @@ namespace Riskeer.Piping.KernelWrapper.Test
         public void Constructor_WithoutInput_ArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new PipingCalculator(null, null);
+            void Call() => new PipingCalculator(null, null);
 
             // Assert
             const string expectedMessage = "PipingCalculatorInput required for creating a PipingCalculator.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, expectedMessage);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(Call, expectedMessage);
         }
 
         [Test]
@@ -51,11 +51,11 @@ namespace Riskeer.Piping.KernelWrapper.Test
         {
             // Call
             var input = new PipingCalculatorInput(CreateSimpleConstructionProperties());
-            TestDelegate call = () => new PipingCalculator(input, null);
+            void Call() => new PipingCalculator(input, null);
 
             // Assert
             const string expectedMessage = "IPipingSubCalculatorFactory required for creating a PipingCalculator.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, expectedMessage);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(Call, expectedMessage);
         }
 
         [Test]
@@ -128,6 +128,7 @@ namespace Riskeer.Piping.KernelWrapper.Test
             calculation.Validate();
 
             // Assert
+            Assert.IsTrue(testPipingSubCalculatorFactory.LastCreatedEffectiveThicknessCalculator.Validated);
             Assert.IsTrue(testPipingSubCalculatorFactory.LastCreatedHeaveCalculator.Validated);
             Assert.IsTrue(testPipingSubCalculatorFactory.LastCreatedSellmeijerCalculator.Validated);
             Assert.IsTrue(testPipingSubCalculatorFactory.LastCreatedUpliftCalculator.Validated);
@@ -451,10 +452,10 @@ namespace Riskeer.Piping.KernelWrapper.Test
             var calculation = new PipingCalculator(input, PipingSubCalculatorFactory.Instance);
 
             // Call
-            TestDelegate call = () => calculation.CalculateEffectiveThicknessCoverageLayer();
+            void Call() => calculation.CalculateEffectiveThicknessCoverageLayer();
 
             // Assert
-            var exception = Assert.Throws<PipingCalculatorException>(call);
+            var exception = Assert.Throws<PipingCalculatorException>(Call);
             Assert.IsInstanceOf<NullReferenceException>(exception.InnerException);
         }
 

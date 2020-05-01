@@ -27,6 +27,11 @@ namespace Riskeer.Piping.KernelWrapper.SubCalculator
     public interface IPiezoHeadCalculator
     {
         /// <summary>
+        /// Gets the piezometric head exit result.
+        /// </summary>
+        double PhiExit { get; }
+
+        /// <summary>
         /// Sets the piezometric head in the hinterland.
         /// </summary>
         void SetPhiPolder(double phiPolder);
@@ -40,11 +45,6 @@ namespace Riskeer.Piping.KernelWrapper.SubCalculator
         /// Sets the river water level.
         /// </summary>
         void SetHRiver(double hRiver);
-
-        /// <summary>
-        /// Gets the piezometric head exit result.
-        /// </summary>
-        double PhiExit { get; }
 
         /// <summary>
         /// Performs the piezometric head at exit calculation.

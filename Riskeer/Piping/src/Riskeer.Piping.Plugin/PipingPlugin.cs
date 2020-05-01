@@ -263,10 +263,7 @@ namespace Riskeer.Piping.Plugin
                 Image = RiskeerCommonFormsResources.ScenariosIcon,
                 CloseForData = ClosePipingScenariosViewForData,
                 CreateInstance = context => new PipingScenariosView(context.AssessmentSection),
-                AfterCreate = (view, context) =>
-                {
-                    view.PipingFailureMechanism = context.FailureMechanism;
-                }
+                AfterCreate = (view, context) => { view.PipingFailureMechanism = context.FailureMechanism; }
             };
 
             yield return new ViewInfo<PipingFailureMechanismSectionsContext, IEnumerable<FailureMechanismSection>, FailureMechanismSectionsProbabilityAssessmentView>
@@ -290,14 +287,14 @@ namespace Riskeer.Piping.Plugin
                 FailureMechanismDisabledContextMenuStrip);
 
             yield return RiskeerTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<PipingCalculationScenarioContext>(
-                PipingCalculationContextChildNodeObjects,
-                PipingCalculationContextContextMenuStrip,
-                PipingCalculationContextOnNodeRemoved);
+                CalculationContextChildNodeObjects,
+                CalculationContextContextMenuStrip,
+                CalculationContextOnNodeRemoved);
 
             yield return RiskeerTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<PipingCalculationGroupContext>(
-                PipingCalculationGroupContextChildNodeObjects,
-                PipingCalculationGroupContextContextMenuStrip,
-                PipingCalculationGroupContextOnNodeRemoved);
+                CalculationGroupContextChildNodeObjects,
+                CalculationGroupContextContextMenuStrip,
+                CalculationGroupContextOnNodeRemoved);
 
             yield return new TreeNodeInfo<ProbabilityFailureMechanismSectionResultContext<PipingFailureMechanismSectionResult>>
             {
@@ -402,26 +399,7 @@ namespace Riskeer.Piping.Plugin
             };
         }
 
-        private static FileFilterGenerator StochasticSoilModelFileFilter
-        {
-            get
-            {
-                return new FileFilterGenerator(Resources.Soil_file_Extension, Resources.Soil_file_Description);
-            }
-        }
-
-        private bool VerifyStochasticSoilModelUpdates(PipingStochasticSoilModelCollectionContext context, string query)
-        {
-            var changeHandler = new FailureMechanismCalculationChangeHandler(context.FailureMechanism, query, GetInquiryHelper());
-            return !changeHandler.RequireConfirmation() || changeHandler.InquireConfirmation();
-        }
-
-        private static bool HasGeometry(ReferenceLine referenceLine)
-        {
-            return referenceLine.Points.Any();
-        }
-
-        #region PipingFailureMechanismView ViewInfo
+        #region ViewInfos
 
         private static bool ClosePipingFailureMechanismViewForData(PipingFailureMechanismView view, object o)
         {
@@ -432,10 +410,6 @@ namespace Riskeer.Piping.Plugin
                        ? ReferenceEquals(view.AssessmentSection, assessmentSection)
                        : ReferenceEquals(view.FailureMechanism, pipingFailureMechanism);
         }
-
-        #endregion
-
-        #region FailureMechanismResultsView ViewInfo
 
         private static bool CloseFailureMechanismResultViewForData(PipingFailureMechanismResultView view, object o)
         {
@@ -458,17 +432,12 @@ namespace Riskeer.Piping.Plugin
             return failureMechanism != null && ReferenceEquals(view.FailureMechanism.SectionResults, failureMechanism.SectionResults);
         }
 
-        #endregion
-
-        #region PipingCalculationsView ViewInfo
-
         private static bool ClosePipingCalculationsViewForData(PipingCalculationsView view, object o)
         {
             var assessmentSection = o as IAssessmentSection;
             var pipingFailureMechanism = o as PipingFailureMechanism;
-            var pipingFailureMechanismContext = o as PipingFailureMechanismContext;
 
-            if (pipingFailureMechanismContext != null)
+            if (o is PipingFailureMechanismContext pipingFailureMechanismContext)
             {
                 pipingFailureMechanism = pipingFailureMechanismContext.WrappedData;
             }
@@ -482,18 +451,13 @@ namespace Riskeer.Piping.Plugin
 
             return pipingFailureMechanism != null && ReferenceEquals(view.Data, pipingFailureMechanism.CalculationsGroup);
         }
-
-        #endregion endregion
-
-        #region PipingScenariosView ViewInfo
 
         private static bool ClosePipingScenariosViewForData(PipingScenariosView view, object o)
         {
             var assessmentSection = o as IAssessmentSection;
             var pipingFailureMechanism = o as PipingFailureMechanism;
-            var pipingFailureMechanismContext = o as PipingFailureMechanismContext;
 
-            if (pipingFailureMechanismContext != null)
+            if (o is PipingFailureMechanismContext pipingFailureMechanismContext)
             {
                 pipingFailureMechanism = pipingFailureMechanismContext.WrappedData;
             }
@@ -508,22 +472,16 @@ namespace Riskeer.Piping.Plugin
             return pipingFailureMechanism != null && ReferenceEquals(view.Data, pipingFailureMechanism.CalculationsGroup);
         }
 
-        #endregion endregion
-
-        #region PipingInputView ViewInfo
-
         private static bool ClosePipingInputViewForData(PipingInputView view, object o)
         {
-            var pipingCalculationScenarioContext = o as PipingCalculationScenarioContext;
-            if (pipingCalculationScenarioContext != null)
+            if (o is PipingCalculationScenarioContext pipingCalculationScenarioContext)
             {
                 return ReferenceEquals(view.Data, pipingCalculationScenarioContext.WrappedData);
             }
 
             IEnumerable<PipingCalculationScenario> calculations = null;
 
-            var pipingCalculationGroupContext = o as PipingCalculationGroupContext;
-            if (pipingCalculationGroupContext != null)
+            if (o is PipingCalculationGroupContext pipingCalculationGroupContext)
             {
                 calculations = pipingCalculationGroupContext.WrappedData.GetCalculations()
                                                             .OfType<PipingCalculationScenario>();
@@ -531,14 +489,12 @@ namespace Riskeer.Piping.Plugin
 
             var failureMechanism = o as PipingFailureMechanism;
 
-            var failureMechanismContext = o as PipingFailureMechanismContext;
-            if (failureMechanismContext != null)
+            if (o is PipingFailureMechanismContext failureMechanismContext)
             {
                 failureMechanism = failureMechanismContext.WrappedData;
             }
 
-            var assessmentSection = o as IAssessmentSection;
-            if (assessmentSection != null)
+            if (o is IAssessmentSection assessmentSection)
             {
                 failureMechanism = assessmentSection.GetFailureMechanisms()
                                                     .OfType<PipingFailureMechanism>()
@@ -555,6 +511,8 @@ namespace Riskeer.Piping.Plugin
         }
 
         #endregion
+
+        #region TreeNodeInfos
 
         #region PipingSurfaceLinesContext TreeNodeInfo
 
@@ -595,83 +553,7 @@ namespace Riskeer.Piping.Plugin
             return assessmentSection.GetNormativeAssessmentLevel(calculation.InputParameters.HydraulicBoundaryLocation);
         }
 
-        private void CalculateAll(PipingFailureMechanismContext failureMechanismContext)
-        {
-            ActivityProgressDialogRunner.Run(
-                Gui.MainWindow, PipingCalculationActivityFactory.CreateCalculationActivities(failureMechanismContext.WrappedData, failureMechanismContext.Parent));
-        }
-
-        private void CalculateAll(CalculationGroup group, PipingCalculationGroupContext context)
-        {
-            ActivityProgressDialogRunner.Run(
-                Gui.MainWindow, PipingCalculationActivityFactory.CreateCalculationActivities(group, context.AssessmentSection));
-        }
-
-        private static void ValidateAll(PipingFailureMechanismContext context)
-        {
-            ValidateAll(context.WrappedData.Calculations.OfType<PipingCalculation>(), context.Parent);
-        }
-
-        private static void ValidateAll(PipingCalculationGroupContext context)
-        {
-            ValidateAll(context.WrappedData.GetCalculations().OfType<PipingCalculation>(), context.AssessmentSection);
-        }
-
-        private static void ValidateAll(IEnumerable<PipingCalculation> pipingCalculations, IAssessmentSection assessmentSection)
-        {
-            foreach (PipingCalculation calculation in pipingCalculations)
-            {
-                PipingCalculationService.Validate(calculation, GetNormativeAssessmentLevel(assessmentSection, calculation));
-            }
-        }
-
         #region PipingFailureMechanismContext TreeNodeInfo
-
-        private ContextMenuStrip FailureMechanismEnabledContextMenuStrip(PipingFailureMechanismContext pipingFailureMechanismContext,
-                                                                         object parentData,
-                                                                         TreeViewControl treeViewControl)
-        {
-            var builder = new RiskeerContextMenuBuilder(Gui.Get(pipingFailureMechanismContext, treeViewControl));
-
-            return builder.AddOpenItem()
-                          .AddSeparator()
-                          .AddToggleRelevancyOfFailureMechanismItem(pipingFailureMechanismContext, RemoveAllViewsForItem)
-                          .AddSeparator()
-                          .AddValidateAllCalculationsInFailureMechanismItem(
-                              pipingFailureMechanismContext,
-                              ValidateAll)
-                          .AddPerformAllCalculationsInFailureMechanismItem(
-                              pipingFailureMechanismContext,
-                              CalculateAll)
-                          .AddSeparator()
-                          .AddClearAllCalculationOutputInFailureMechanismItem(pipingFailureMechanismContext.WrappedData)
-                          .AddSeparator()
-                          .AddCollapseAllItem()
-                          .AddExpandAllItem()
-                          .AddSeparator()
-                          .AddPropertiesItem()
-                          .Build();
-        }
-
-        private void RemoveAllViewsForItem(PipingFailureMechanismContext failureMechanismContext)
-        {
-            Gui.ViewCommands.RemoveAllViewsForItem(failureMechanismContext);
-        }
-
-        private ContextMenuStrip FailureMechanismDisabledContextMenuStrip(PipingFailureMechanismContext pipingFailureMechanismContext,
-                                                                          object parentData,
-                                                                          TreeViewControl treeViewControl)
-        {
-            var builder = new RiskeerContextMenuBuilder(Gui.Get(pipingFailureMechanismContext, treeViewControl));
-
-            return builder.AddToggleRelevancyOfFailureMechanismItem(pipingFailureMechanismContext, RemoveAllViewsForItem)
-                          .AddSeparator()
-                          .AddCollapseAllItem()
-                          .AddExpandAllItem()
-                          .AddSeparator()
-                          .AddPropertiesItem()
-                          .Build();
-        }
 
         private static object[] FailureMechanismEnabledChildNodeObjects(PipingFailureMechanismContext context)
         {
@@ -719,35 +601,24 @@ namespace Riskeer.Piping.Plugin
             };
         }
 
-        #endregion
-
-        #region PipingCalculationScenarioContext TreeNodeInfo
-
-        private ContextMenuStrip PipingCalculationContextContextMenuStrip(PipingCalculationScenarioContext nodeData, object parentData, TreeViewControl treeViewControl)
+        private ContextMenuStrip FailureMechanismEnabledContextMenuStrip(PipingFailureMechanismContext pipingFailureMechanismContext,
+                                                                         object parentData,
+                                                                         TreeViewControl treeViewControl)
         {
-            var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
+            var builder = new RiskeerContextMenuBuilder(Gui.Get(pipingFailureMechanismContext, treeViewControl));
 
-            PipingCalculation calculation = nodeData.WrappedData;
-
-            StrictContextMenuItem updateEntryAndExitPoint = CreateUpdateEntryAndExitPointItem(nodeData);
-
-            return builder.AddExportItem()
+            return builder.AddOpenItem()
                           .AddSeparator()
-                          .AddDuplicateCalculationItem(calculation, nodeData)
+                          .AddToggleRelevancyOfFailureMechanismItem(pipingFailureMechanismContext, RemoveAllViewsForItem)
                           .AddSeparator()
-                          .AddRenameItem()
-                          .AddCustomItem(updateEntryAndExitPoint)
+                          .AddValidateAllCalculationsInFailureMechanismItem(
+                              pipingFailureMechanismContext,
+                              ValidateAllInFailureMechanism)
+                          .AddPerformAllCalculationsInFailureMechanismItem(
+                              pipingFailureMechanismContext,
+                              CalculateAllInFailureMechanism)
                           .AddSeparator()
-                          .AddValidateCalculationItem(
-                              nodeData,
-                              Validate)
-                          .AddPerformCalculationItem(
-                              calculation,
-                              nodeData,
-                              PerformCalculation)
-                          .AddSeparator()
-                          .AddClearCalculationOutputItem(calculation)
-                          .AddDeleteItem()
+                          .AddClearAllCalculationOutputInFailureMechanismItem(pipingFailureMechanismContext.WrappedData)
                           .AddSeparator()
                           .AddCollapseAllItem()
                           .AddExpandAllItem()
@@ -756,145 +627,42 @@ namespace Riskeer.Piping.Plugin
                           .Build();
         }
 
-        private static object[] PipingCalculationContextChildNodeObjects(PipingCalculationScenarioContext context)
+        private ContextMenuStrip FailureMechanismDisabledContextMenuStrip(PipingFailureMechanismContext pipingFailureMechanismContext,
+                                                                          object parentData,
+                                                                          TreeViewControl treeViewControl)
         {
-            PipingCalculationScenario pipingCalculationScenario = context.WrappedData;
+            var builder = new RiskeerContextMenuBuilder(Gui.Get(pipingFailureMechanismContext, treeViewControl));
 
-            var childNodes = new List<object>
-            {
-                pipingCalculationScenario.Comments,
-                new PipingInputContext(pipingCalculationScenario.InputParameters,
-                                       pipingCalculationScenario,
-                                       context.AvailablePipingSurfaceLines,
-                                       context.AvailableStochasticSoilModels,
-                                       context.FailureMechanism,
-                                       context.AssessmentSection)
-            };
-
-            if (pipingCalculationScenario.HasOutput)
-            {
-                childNodes.Add(new PipingOutputContext(
-                                   pipingCalculationScenario.Output,
-                                   context.FailureMechanism,
-                                   context.AssessmentSection));
-            }
-            else
-            {
-                childNodes.Add(new EmptyPipingOutput());
-            }
-
-            return childNodes.ToArray();
+            return builder.AddToggleRelevancyOfFailureMechanismItem(pipingFailureMechanismContext, RemoveAllViewsForItem)
+                          .AddSeparator()
+                          .AddCollapseAllItem()
+                          .AddExpandAllItem()
+                          .AddSeparator()
+                          .AddPropertiesItem()
+                          .Build();
         }
 
-        private static void PipingCalculationContextOnNodeRemoved(PipingCalculationScenarioContext pipingCalculationScenarioContext, object parentNodeData)
+        private void RemoveAllViewsForItem(PipingFailureMechanismContext failureMechanismContext)
         {
-            var calculationGroupContext = parentNodeData as PipingCalculationGroupContext;
-            if (calculationGroupContext != null)
-            {
-                bool successfullyRemovedData = calculationGroupContext.WrappedData.Children.Remove(pipingCalculationScenarioContext.WrappedData);
-                if (successfullyRemovedData)
-                {
-                    calculationGroupContext.NotifyObservers();
-                }
-            }
+            Gui.ViewCommands.RemoveAllViewsForItem(failureMechanismContext);
         }
 
-        private static void Validate(PipingCalculationScenarioContext context)
+        private static void ValidateAllInFailureMechanism(PipingFailureMechanismContext context)
         {
-            PipingCalculationService.Validate(context.WrappedData, GetNormativeAssessmentLevel(context.AssessmentSection, context.WrappedData));
+            ValidateAll(context.WrappedData.Calculations.OfType<PipingCalculation>(), context.Parent);
         }
 
-        private void PerformCalculation(PipingCalculation calculation, PipingCalculationScenarioContext context)
+        private void CalculateAllInFailureMechanism(PipingFailureMechanismContext failureMechanismContext)
         {
-            ActivityProgressDialogRunner.Run(Gui.MainWindow,
-                                             PipingCalculationActivityFactory.CreateCalculationActivity(calculation, context.AssessmentSection));
-        }
-
-        private StrictContextMenuItem CreateUpdateEntryAndExitPointItem(PipingCalculationScenarioContext context)
-        {
-            var contextMenuEnabled = true;
-            string toolTipMessage = Resources.PipingPlugin_CreateUpdateEntryAndExitPointItem_Update_calculation_with_characteristic_points_ToolTip;
-            if (context.WrappedData.InputParameters.SurfaceLine == null)
-            {
-                contextMenuEnabled = false;
-                toolTipMessage = Resources.PipingPlugin_CreateUpdateEntryAndExitPointItem_Update_calculation_no_surface_line_ToolTip;
-            }
-            else if (context.WrappedData.InputParameters.IsEntryAndExitPointInputSynchronized)
-            {
-                contextMenuEnabled = false;
-                toolTipMessage = RiskeerCommonFormsResources.CalculationItem_No_changes_to_update_ToolTip;
-            }
-
-            return new StrictContextMenuItem(
-                Resources.PipingPlugin_CreateUpdateEntryAndExitPointItem_Update_entry_and_exit_point,
-                toolTipMessage,
-                RiskeerCommonFormsResources.UpdateItemIcon,
-                (o, args) => UpdatedSurfaceLineDependentDataOfCalculation(context.WrappedData))
-            {
-                Enabled = contextMenuEnabled
-            };
-        }
-
-        private StrictContextMenuItem CreateUpdateEntryAndExitPointItem(IEnumerable<PipingCalculationScenario> calculations)
-        {
-            var contextMenuEnabled = true;
-            string toolTipMessage = Resources.PipingPlugin_CreateUpdateEntryAndExitPointItem_Update_all_calculations_with_surface_line_ToolTip;
-
-            PipingCalculationScenario[] calculationsToUpdate = calculations
-                                                               .Where(calc => calc.InputParameters.SurfaceLine != null
-                                                                              && !calc.InputParameters.IsEntryAndExitPointInputSynchronized)
-                                                               .ToArray();
-
-            if (!calculationsToUpdate.Any())
-            {
-                contextMenuEnabled = false;
-                toolTipMessage = RiskeerCommonFormsResources.CreateUpdateContextMenuItem_No_calculations_to_update_ToolTip;
-            }
-
-            return new StrictContextMenuItem(
-                Resources.PipingPlugin_CreateUpdateEntryAndExitPointItem_Update_all_entry_and_exit_points,
-                toolTipMessage,
-                RiskeerCommonFormsResources.UpdateItemIcon,
-                (sender, args) => UpdateEntryAndExitPointsOfAllCalculations(calculationsToUpdate))
-            {
-                Enabled = contextMenuEnabled
-            };
-        }
-
-        private void UpdatedSurfaceLineDependentDataOfCalculation(PipingCalculation scenario)
-        {
-            string message = RiskeerCommonFormsResources.VerifyUpdate_Confirm_calculation_output_cleared;
-            if (VerifyEntryAndExitPointUpdates(new[]
-            {
-                scenario
-            }, message))
-            {
-                UpdateSurfaceLineDependentData(scenario);
-            }
-        }
-
-        private static void UpdateSurfaceLineDependentData(PipingCalculation scenario)
-        {
-            scenario.InputParameters.SynchronizeEntryAndExitPointInput();
-
-            var affectedObjects = new List<IObservable>
-            {
-                scenario.InputParameters
-            };
-
-            affectedObjects.AddRange(RiskeerCommonDataSynchronizationService.ClearCalculationOutput(scenario));
-
-            foreach (IObservable affectedObject in affectedObjects)
-            {
-                affectedObject.NotifyObservers();
-            }
+            ActivityProgressDialogRunner.Run(
+                Gui.MainWindow, PipingCalculationActivityFactory.CreateCalculationActivities(failureMechanismContext.WrappedData, failureMechanismContext.Parent));
         }
 
         #endregion
 
         #region PipingCalculationGroupContext TreeNodeInfo
 
-        private static object[] PipingCalculationGroupContextChildNodeObjects(PipingCalculationGroupContext nodeData)
+        private static object[] CalculationGroupContextChildNodeObjects(PipingCalculationGroupContext nodeData)
         {
             var childNodeObjects = new List<object>();
 
@@ -930,9 +698,9 @@ namespace Riskeer.Piping.Plugin
             return childNodeObjects.ToArray();
         }
 
-        private ContextMenuStrip PipingCalculationGroupContextContextMenuStrip(PipingCalculationGroupContext nodeData,
-                                                                               object parentData,
-                                                                               TreeViewControl treeViewControl)
+        private ContextMenuStrip CalculationGroupContextContextMenuStrip(PipingCalculationGroupContext nodeData,
+                                                                         object parentData,
+                                                                         TreeViewControl treeViewControl)
         {
             CalculationGroup group = nodeData.WrappedData;
             var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
@@ -943,7 +711,7 @@ namespace Riskeer.Piping.Plugin
             PipingCalculationScenario[] calculations = nodeData.WrappedData.GetCalculations()
                                                                .OfType<PipingCalculationScenario>()
                                                                .ToArray();
-            StrictContextMenuItem updateEntryAndExitPointsItem = CreateUpdateEntryAndExitPointItem(calculations);
+            StrictContextMenuItem updateEntryAndExitPointsItem = CreateCalculationGroupUpdateEntryAndExitPointItem(calculations);
 
             if (!isNestedGroup)
             {
@@ -979,11 +747,11 @@ namespace Riskeer.Piping.Plugin
                    .AddSeparator()
                    .AddValidateAllCalculationsInGroupItem(
                        nodeData,
-                       ValidateAll)
+                       ValidateAllInCalculationGroup)
                    .AddPerformAllCalculationsInGroupItem(
                        group,
                        nodeData,
-                       CalculateAll)
+                       CalculateAllInCalculationGroup)
                    .AddSeparator()
                    .AddClearAllCalculationOutputInGroupItem(group);
 
@@ -1004,15 +772,42 @@ namespace Riskeer.Piping.Plugin
                           .Build();
         }
 
-        private static void AddCalculationScenario(PipingCalculationGroupContext nodeData)
+        private StrictContextMenuItem CreateCalculationGroupUpdateEntryAndExitPointItem(IEnumerable<PipingCalculationScenario> calculations)
         {
-            var calculation = new PipingCalculationScenario(nodeData.FailureMechanism.GeneralInput)
-            {
-                Name = NamingHelper.GetUniqueName(nodeData.WrappedData.Children, RiskeerCommonDataResources.Calculation_DefaultName, c => c.Name)
-            };
+            var contextMenuEnabled = true;
+            string toolTipMessage = Resources.PipingPlugin_CreateUpdateEntryAndExitPointItem_Update_all_calculations_with_surface_line_ToolTip;
 
-            nodeData.WrappedData.Children.Add(calculation);
-            nodeData.WrappedData.NotifyObservers();
+            PipingCalculationScenario[] calculationsToUpdate = calculations
+                                                               .Where(calc => calc.InputParameters.SurfaceLine != null
+                                                                              && !calc.InputParameters.IsEntryAndExitPointInputSynchronized)
+                                                               .ToArray();
+
+            if (!calculationsToUpdate.Any())
+            {
+                contextMenuEnabled = false;
+                toolTipMessage = RiskeerCommonFormsResources.CreateUpdateContextMenuItem_No_calculations_to_update_ToolTip;
+            }
+
+            return new StrictContextMenuItem(
+                Resources.PipingPlugin_CreateUpdateEntryAndExitPointItem_Update_all_entry_and_exit_points,
+                toolTipMessage,
+                RiskeerCommonFormsResources.UpdateItemIcon,
+                (sender, args) => UpdateEntryAndExitPointsOfAllCalculations(calculationsToUpdate))
+            {
+                Enabled = contextMenuEnabled
+            };
+        }
+
+        private void UpdateEntryAndExitPointsOfAllCalculations(IEnumerable<PipingCalculationScenario> calculations)
+        {
+            string message = RiskeerCommonFormsResources.VerifyUpdate_Confirm_calculation_outputs_cleared;
+            if (VerifyEntryAndExitPointUpdates(calculations, message))
+            {
+                foreach (PipingCalculationScenario calculation in calculations)
+                {
+                    UpdateSurfaceLineDependentData(calculation);
+                }
+            }
         }
 
         private StrictContextMenuItem CreateGeneratePipingCalculationsItem(PipingCalculationGroupContext nodeData)
@@ -1037,16 +832,16 @@ namespace Riskeer.Piping.Plugin
             using (var view = new PipingSurfaceLineSelectionDialog(Gui.MainWindow, nodeData.AvailablePipingSurfaceLines))
             {
                 view.ShowDialog();
-                GeneratePipingCalculations(nodeData.WrappedData, view.SelectedItems, nodeData.AvailableStochasticSoilModels, nodeData.FailureMechanism.GeneralInput);
+                GenerateCalculations(nodeData.WrappedData, view.SelectedItems, nodeData.AvailableStochasticSoilModels, nodeData.FailureMechanism.GeneralInput);
             }
 
             nodeData.NotifyObservers();
         }
 
-        private static void GeneratePipingCalculations(CalculationGroup target,
-                                                       IEnumerable<PipingSurfaceLine> surfaceLines,
-                                                       IEnumerable<PipingStochasticSoilModel> soilModels,
-                                                       GeneralPipingInput generalInput)
+        private static void GenerateCalculations(CalculationGroup target,
+                                                 IEnumerable<PipingSurfaceLine> surfaceLines,
+                                                 IEnumerable<PipingStochasticSoilModel> soilModels,
+                                                 GeneralPipingInput generalInput)
         {
             foreach (ICalculationBase group in PipingCalculationConfigurationHelper.GenerateCalculationItemsStructure(surfaceLines, soilModels, generalInput))
             {
@@ -1054,7 +849,18 @@ namespace Riskeer.Piping.Plugin
             }
         }
 
-        private static void PipingCalculationGroupContextOnNodeRemoved(PipingCalculationGroupContext nodeData, object parentNodeData)
+        private static void AddCalculationScenario(PipingCalculationGroupContext nodeData)
+        {
+            var calculation = new PipingCalculationScenario(nodeData.FailureMechanism.GeneralInput)
+            {
+                Name = NamingHelper.GetUniqueName(nodeData.WrappedData.Children, RiskeerCommonDataResources.Calculation_DefaultName, c => c.Name)
+            };
+
+            nodeData.WrappedData.Children.Add(calculation);
+            nodeData.WrappedData.NotifyObservers();
+        }
+
+        private static void CalculationGroupContextOnNodeRemoved(PipingCalculationGroupContext nodeData, object parentNodeData)
         {
             var parentGroupContext = (PipingCalculationGroupContext) parentNodeData;
 
@@ -1063,15 +869,152 @@ namespace Riskeer.Piping.Plugin
             parentGroupContext.NotifyObservers();
         }
 
-        private void UpdateEntryAndExitPointsOfAllCalculations(IEnumerable<PipingCalculationScenario> calculations)
+        private static void ValidateAllInCalculationGroup(PipingCalculationGroupContext context)
         {
-            string message = RiskeerCommonFormsResources.VerifyUpdate_Confirm_calculation_outputs_cleared;
-            if (VerifyEntryAndExitPointUpdates(calculations, message))
+            ValidateAll(context.WrappedData.GetCalculations().OfType<PipingCalculation>(), context.AssessmentSection);
+        }
+
+        private void CalculateAllInCalculationGroup(CalculationGroup group, PipingCalculationGroupContext context)
+        {
+            ActivityProgressDialogRunner.Run(
+                Gui.MainWindow, PipingCalculationActivityFactory.CreateCalculationActivities(group, context.AssessmentSection));
+        }
+
+        #endregion
+
+        #region PipingCalculationScenarioContext TreeNodeInfo
+
+        private static object[] CalculationContextChildNodeObjects(PipingCalculationScenarioContext context)
+        {
+            PipingCalculationScenario pipingCalculationScenario = context.WrappedData;
+
+            var childNodes = new List<object>
             {
-                foreach (PipingCalculationScenario calculation in calculations)
+                pipingCalculationScenario.Comments,
+                new PipingInputContext(pipingCalculationScenario.InputParameters,
+                                       pipingCalculationScenario,
+                                       context.AvailablePipingSurfaceLines,
+                                       context.AvailableStochasticSoilModels,
+                                       context.FailureMechanism,
+                                       context.AssessmentSection)
+            };
+
+            if (pipingCalculationScenario.HasOutput)
+            {
+                childNodes.Add(new PipingOutputContext(
+                                   pipingCalculationScenario.Output,
+                                   context.FailureMechanism,
+                                   context.AssessmentSection));
+            }
+            else
+            {
+                childNodes.Add(new EmptyPipingOutput());
+            }
+
+            return childNodes.ToArray();
+        }
+
+        private ContextMenuStrip CalculationContextContextMenuStrip(PipingCalculationScenarioContext nodeData,
+                                                                    object parentData, TreeViewControl treeViewControl)
+        {
+            var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
+
+            PipingCalculation calculation = nodeData.WrappedData;
+
+            StrictContextMenuItem updateEntryAndExitPoint = CreateUpdateEntryAndExitPointItem(nodeData);
+
+            return builder.AddExportItem()
+                          .AddSeparator()
+                          .AddDuplicateCalculationItem(calculation, nodeData)
+                          .AddSeparator()
+                          .AddRenameItem()
+                          .AddCustomItem(updateEntryAndExitPoint)
+                          .AddSeparator()
+                          .AddValidateCalculationItem(
+                              nodeData,
+                              Validate)
+                          .AddPerformCalculationItem(
+                              calculation,
+                              nodeData,
+                              Calculate)
+                          .AddSeparator()
+                          .AddClearCalculationOutputItem(calculation)
+                          .AddDeleteItem()
+                          .AddSeparator()
+                          .AddCollapseAllItem()
+                          .AddExpandAllItem()
+                          .AddSeparator()
+                          .AddPropertiesItem()
+                          .Build();
+        }
+
+        private StrictContextMenuItem CreateUpdateEntryAndExitPointItem(PipingCalculationScenarioContext context)
+        {
+            var contextMenuEnabled = true;
+            string toolTipMessage = Resources.PipingPlugin_CreateUpdateEntryAndExitPointItem_Update_calculation_with_characteristic_points_ToolTip;
+            if (context.WrappedData.InputParameters.SurfaceLine == null)
+            {
+                contextMenuEnabled = false;
+                toolTipMessage = Resources.PipingPlugin_CreateUpdateEntryAndExitPointItem_Update_calculation_no_surface_line_ToolTip;
+            }
+            else if (context.WrappedData.InputParameters.IsEntryAndExitPointInputSynchronized)
+            {
+                contextMenuEnabled = false;
+                toolTipMessage = RiskeerCommonFormsResources.CalculationItem_No_changes_to_update_ToolTip;
+            }
+
+            return new StrictContextMenuItem(
+                Resources.PipingPlugin_CreateUpdateEntryAndExitPointItem_Update_entry_and_exit_point,
+                toolTipMessage,
+                RiskeerCommonFormsResources.UpdateItemIcon,
+                (o, args) => UpdatedSurfaceLineDependentDataOfCalculation(context.WrappedData))
+            {
+                Enabled = contextMenuEnabled
+            };
+        }
+
+        private void UpdatedSurfaceLineDependentDataOfCalculation(PipingCalculation scenario)
+        {
+            string message = RiskeerCommonFormsResources.VerifyUpdate_Confirm_calculation_output_cleared;
+            if (VerifyEntryAndExitPointUpdates(new[]
+            {
+                scenario
+            }, message))
+            {
+                UpdateSurfaceLineDependentData(scenario);
+            }
+        }
+
+        private static void CalculationContextOnNodeRemoved(PipingCalculationScenarioContext pipingCalculationScenarioContext, object parentNodeData)
+        {
+            if (parentNodeData is PipingCalculationGroupContext calculationGroupContext)
+            {
+                bool successfullyRemovedData = calculationGroupContext.WrappedData.Children.Remove(pipingCalculationScenarioContext.WrappedData);
+                if (successfullyRemovedData)
                 {
-                    UpdateSurfaceLineDependentData(calculation);
+                    calculationGroupContext.NotifyObservers();
                 }
+            }
+        }
+
+        private static void Validate(PipingCalculationScenarioContext context)
+        {
+            PipingCalculationService.Validate(context.WrappedData, GetNormativeAssessmentLevel(context.AssessmentSection, context.WrappedData));
+        }
+
+        private void Calculate(PipingCalculation calculation, PipingCalculationScenarioContext context)
+        {
+            ActivityProgressDialogRunner.Run(Gui.MainWindow,
+                                             PipingCalculationActivityFactory.CreateCalculationActivity(calculation, context.AssessmentSection));
+        }
+
+        #endregion
+
+        private static void ValidateAll(IEnumerable<PipingCalculation> pipingCalculations, IAssessmentSection assessmentSection)
+        {
+            foreach (PipingCalculation calculation in pipingCalculations)
+            {
+                PipingCalculationService.Validate(calculation, GetNormativeAssessmentLevel(assessmentSection, calculation));
             }
         }
 
@@ -1081,21 +1024,47 @@ namespace Riskeer.Piping.Plugin
             return !changeHandler.RequireConfirmation() || changeHandler.InquireConfirmation();
         }
 
-        #endregion
-
-        #region Piping surface line importer
-
-        private static FileFilterGenerator PipingSurfaceLineFileFilter
+        private static void UpdateSurfaceLineDependentData(PipingCalculation scenario)
         {
-            get
+            scenario.InputParameters.SynchronizeEntryAndExitPointInput();
+
+            var affectedObjects = new List<IObservable>
             {
-                return new FileFilterGenerator(
-                    RiskeerCommonFormsResources.DataTypeDisplayName_csv_file_filter_Extension,
-                    $"{RiskeerCommonDataResources.SurfaceLineCollection_TypeDescriptor} {RiskeerCommonFormsResources.DataTypeDisplayName_csv_file_filter_Description}");
+                scenario.InputParameters
+            };
+
+            affectedObjects.AddRange(RiskeerCommonDataSynchronizationService.ClearCalculationOutput(scenario));
+
+            foreach (IObservable affectedObject in affectedObjects)
+            {
+                affectedObject.NotifyObservers();
             }
         }
 
+        #endregion
+
+        #region ImportInfos
+
+        private static FileFilterGenerator PipingSurfaceLineFileFilter =>
+            new FileFilterGenerator(
+                RiskeerCommonFormsResources.DataTypeDisplayName_csv_file_filter_Extension,
+                $"{RiskeerCommonDataResources.SurfaceLineCollection_TypeDescriptor} {RiskeerCommonFormsResources.DataTypeDisplayName_csv_file_filter_Description}");
+
+        private static FileFilterGenerator StochasticSoilModelFileFilter =>
+            new FileFilterGenerator(Resources.Soil_file_Extension, Resources.Soil_file_Description);
+
         private bool VerifyPipingSurfaceLineUpdates(PipingSurfaceLinesContext context, string query)
+        {
+            var changeHandler = new FailureMechanismCalculationChangeHandler(context.FailureMechanism, query, GetInquiryHelper());
+            return !changeHandler.RequireConfirmation() || changeHandler.InquireConfirmation();
+        }
+
+        private static bool HasGeometry(ReferenceLine referenceLine)
+        {
+            return referenceLine.Points.Any();
+        }
+
+        private bool VerifyStochasticSoilModelUpdates(PipingStochasticSoilModelCollectionContext context, string query)
         {
             var changeHandler = new FailureMechanismCalculationChangeHandler(context.FailureMechanism, query, GetInquiryHelper());
             return !changeHandler.RequireConfirmation() || changeHandler.InquireConfirmation();
