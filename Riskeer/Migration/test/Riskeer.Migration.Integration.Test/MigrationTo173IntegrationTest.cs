@@ -218,10 +218,10 @@ namespace Riskeer.Migration.Integration.Test
                 "FROM [MacroStabilityInwardsCalculationOutputEntity]";
             reader.AssertReturnedDataIsValid(validateMacroStabilityInwardsCalculationOutput);
 
-            const string validateMacroStabilityInwardsSemiProbabiliticOutput =
+            const string validateMacroStabilityInwardsSemiProbabilisticOutput =
                 "SELECT COUNT() = 0 " +
                 "FROM [MacroStabilityInwardsSemiProbabilisticOutputEntity]";
-            reader.AssertReturnedDataIsValid(validateMacroStabilityInwardsSemiProbabiliticOutput);
+            reader.AssertReturnedDataIsValid(validateMacroStabilityInwardsSemiProbabilisticOutput);
         }
     }
 }

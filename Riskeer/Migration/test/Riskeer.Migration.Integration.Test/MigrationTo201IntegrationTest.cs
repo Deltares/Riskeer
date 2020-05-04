@@ -60,6 +60,8 @@ namespace Riskeer.Migration.Integration.Test
 
                     AssertVersions(reader);
                     AssertDatabase(reader);
+
+                    AssertMacroStabilityInwardsOutput(reader);
                 }
 
                 AssertLogDatabase(logFilePath);
@@ -179,15 +181,14 @@ namespace Riskeer.Migration.Integration.Test
                     "DETACH SOURCEPROJECT;";
                 reader.AssertReturnedDataIsValid(validateMigratedTable);
             }
-
-            AssertNotMigratedTables(reader);
         }
 
-        private static void AssertNotMigratedTables(MigratedDatabaseReader reader)
+        private static void AssertMacroStabilityInwardsOutput(MigratedDatabaseReader reader)
         {
-            const string macroStabilityInwardsCalculationOutputEntityTable = "SELECT COUNT() = 0 " +
-                                                                             "FROM MacroStabilityInwardsCalculationOutputEntity;" +
-                                                                             "DETACH SOURCEPROJECT;";
+            const string macroStabilityInwardsCalculationOutputEntityTable =
+                "SELECT COUNT() = 0 " +
+                "FROM MacroStabilityInwardsCalculationOutputEntity;" +
+                "DETACH SOURCEPROJECT;";
             reader.AssertReturnedDataIsValid(macroStabilityInwardsCalculationOutputEntityTable);
         }
 
