@@ -110,20 +110,24 @@ namespace Riskeer.Common.IO.Configurations.Export
         /// isn't a <see cref="CalculationGroup"/> nor a <typeparamref name="TCalculation"/>.</exception>
         private IEnumerable<IConfigurationItem> ToConfiguration(IEnumerable<ICalculationBase> calculationsToConvert)
         {
+            var configurationItems = new List<IConfigurationItem>();
+
             foreach (ICalculationBase child in calculationsToConvert)
             {
                 switch (child)
                 {
                     case CalculationGroup innerGroup:
-                        yield return ToConfiguration(innerGroup);
+                        configurationItems.Add(ToConfiguration(innerGroup));
                         break;
                     case TCalculation calculation:
-                        yield return ToConfiguration(calculation);
+                        configurationItems.Add(ToConfiguration(calculation));
                         break;
                     default:
                         throw new ArgumentException($"Cannot export calculation of type '{child.GetType()}' using this exporter.");
                 }
             }
+
+            return configurationItems;
         }
 
         private CalculationGroupConfiguration ToConfiguration(CalculationGroup group)
