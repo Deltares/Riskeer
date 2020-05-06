@@ -19,11 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Collections.Generic;
 using Deltares.MacroStability.Geometry;
 using Deltares.MacroStability.WaternetCreator;
-using Deltares.WTIStability;
-using Deltares.MacroStability.Geometry;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Waternet;
 using WtiStabilityWaternet = Deltares.MacroStability.Geometry.Waternet;
 
@@ -42,7 +39,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.Waternet
     public interface IWaternetKernel
     {
         /// <summary>
-        /// Gets the waternet result.
+        /// Gets the Waternet result.
         /// </summary>
         WtiStabilityWaternet Waternet { get; }
 

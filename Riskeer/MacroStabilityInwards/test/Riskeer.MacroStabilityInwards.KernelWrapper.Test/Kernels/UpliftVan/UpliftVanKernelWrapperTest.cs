@@ -99,9 +99,9 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
             Assert.AreSame(slipPlaneConstraints, stabilityModel.SlipPlaneConstraints);
             Assert.AreEqual(moveGrid, stabilityModel.MoveGrid);
             Assert.AreEqual(gridAutomaticDetermined, kernelModel.PreprocessingModel.SearchAreaConditions.AutoSearchArea);
-            
+
             Assert.AreEqual(2, stabilityModel.ConstructionStages.Count);
-            
+
             Assert.AreSame(waternetDaily, stabilityModel.ConstructionStages.First().GeotechnicsData.CurrentWaternet);
             Assert.AreSame(waternetExtreme, stabilityModel.ConstructionStages.Last().GeotechnicsData.CurrentWaternet);
 

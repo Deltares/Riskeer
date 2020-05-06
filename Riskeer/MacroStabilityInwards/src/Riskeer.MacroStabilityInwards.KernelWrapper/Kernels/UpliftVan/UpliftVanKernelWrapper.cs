@@ -85,6 +85,16 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
 
         public IEnumerable<LogMessage> CalculationMessages { get; private set; }
 
+        public void SetSoilModel(IList<Soil> soilModel)
+        {
+            kernelModel.StabilityModel.Soils.AddRange(soilModel);
+        }
+
+        public void SetSoilProfile(SoilProfile2D soilProfile)
+        {
+            kernelModel.StabilityModel.ConstructionStages.ForEachElementDo(cs => cs.SoilProfile = soilProfile);
+        }
+
         public void SetWaternetDaily(WtiStabilityWaternet waternetDaily)
         {
             kernelModel.StabilityModel.ConstructionStages.First().GeotechnicsData.CurrentWaternet = waternetDaily;
@@ -110,6 +120,15 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
             kernelModel.StabilityModel.SlipPlaneUpliftVan = slipPlaneUpliftVan;
         }
 
+        public void SetSurfaceLine(SurfaceLine2 surfaceLine)
+        {
+            kernelModel.PreprocessingModel.LastStage.SurfaceLine = surfaceLine;
+            foreach (var preProcessingConstructionStage in kernelModel.PreprocessingModel.PreProcessingConstructionStages)
+            {
+                preProcessingConstructionStage.SurfaceLine = surfaceLine;
+            }
+        }
+
         public void SetSlipPlaneConstraints(SlipPlaneConstraints slipPlaneConstraints)
         {
             kernelModel.StabilityModel.SlipPlaneConstraints = slipPlaneConstraints;
@@ -131,25 +150,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
             {
                 cs.SoilStresses.AddRange(soilStresses);
             });
-        }
-
-        public void SetSoilModel(IList<Soil> soilModel)
-        {
-            kernelModel.StabilityModel.Soils.AddRange(soilModel);
-        }
-
-        public void SetSoilProfile(SoilProfile2D soilProfile)
-        {
-            kernelModel.StabilityModel.ConstructionStages.ForEachElementDo(cs => cs.SoilProfile = soilProfile);
-        }
-
-        public void SetSurfaceLine(SurfaceLine2 surfaceLine)
-        {
-            kernelModel.PreprocessingModel.LastStage.SurfaceLine = surfaceLine;
-            foreach (var preProcessingConstructionStage in kernelModel.PreprocessingModel.PreProcessingConstructionStages)
-            {
-                preProcessingConstructionStage.SurfaceLine = surfaceLine;
-            }
         }
 
         public void Calculate()
