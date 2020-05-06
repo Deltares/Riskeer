@@ -69,6 +69,11 @@ namespace Riskeer.Common.Data.AssessmentSection
         HydraulicBoundaryDatabase HydraulicBoundaryDatabase { get; }
 
         /// <summary>
+        /// Gets the hydraulic boundary databases.
+        /// </summary>
+        IObservableEnumerable<HydraulicBoundaryDatabase> HydraulicBoundaryDatabases { get; }
+
+        /// <summary>
         /// Gets the data that represents the background for all geo-referenced data.
         /// </summary>
         BackgroundData BackgroundData { get; }

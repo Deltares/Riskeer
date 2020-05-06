@@ -113,6 +113,7 @@ namespace Riskeer.Integration.Data
 
             ReferenceLine = new ReferenceLine();
             HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+            HydraulicBoundaryDatabases = new ObservableList<HydraulicBoundaryDatabase>();
 
             piping = new PipingFailureMechanism();
             grassCoverErosionInwards = new GrassCoverErosionInwardsFailureMechanism();
@@ -561,6 +562,8 @@ namespace Riskeer.Integration.Data
         public FailureMechanismContribution FailureMechanismContribution { get; }
 
         public HydraulicBoundaryDatabase HydraulicBoundaryDatabase { get; }
+
+        public IObservableEnumerable<HydraulicBoundaryDatabase> HydraulicBoundaryDatabases { get; }
 
         public BackgroundData BackgroundData { get; }
 
