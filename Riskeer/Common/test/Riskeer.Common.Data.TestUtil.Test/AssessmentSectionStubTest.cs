@@ -61,7 +61,10 @@ namespace Riskeer.Common.Data.TestUtil.Test
 
             IObservableEnumerable<HydraulicBoundaryDatabase> hydraulicBoundaryDatabases = assessmentSection.HydraulicBoundaryDatabases;
             Assert.IsNotNull(hydraulicBoundaryDatabases);
-            CollectionAssert.IsEmpty(hydraulicBoundaryDatabases);
+            CollectionAssert.AreEqual(new[]
+            {
+                hydraulicBoundaryDatabase
+            }, hydraulicBoundaryDatabases);
 
             FailureMechanismContribution contribution = assessmentSection.FailureMechanismContribution;
             Assert.AreEqual(NormType.LowerLimit, contribution.NormativeNorm);
@@ -110,7 +113,10 @@ namespace Riskeer.Common.Data.TestUtil.Test
 
             IObservableEnumerable<HydraulicBoundaryDatabase> hydraulicBoundaryDatabases = assessmentSection.HydraulicBoundaryDatabases;
             Assert.IsNotNull(hydraulicBoundaryDatabases);
-            CollectionAssert.IsEmpty(hydraulicBoundaryDatabases);
+            CollectionAssert.AreEqual(new[]
+            {
+                hydraulicBoundaryDatabase
+            }, hydraulicBoundaryDatabases);
 
             FailureMechanismContribution contribution = assessmentSection.FailureMechanismContribution;
             Assert.AreEqual(NormType.LowerLimit, contribution.NormativeNorm);

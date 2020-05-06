@@ -79,7 +79,10 @@ namespace Riskeer.Integration.Data.Test
 
             IObservableEnumerable<HydraulicBoundaryDatabase> hydraulicBoundaryDatabases = assessmentSection.HydraulicBoundaryDatabases;
             Assert.IsNotNull(hydraulicBoundaryDatabases);
-            CollectionAssert.IsEmpty(hydraulicBoundaryDatabases);
+            CollectionAssert.AreEqual(new[]
+            {
+                hydraulicBoundaryDatabase
+            }, hydraulicBoundaryDatabases);
 
             CollectionAssert.IsEmpty(assessmentSection.Piping.StochasticSoilModels);
             CollectionAssert.IsEmpty(assessmentSection.Piping.SurfaceLines);
@@ -141,10 +144,10 @@ namespace Riskeer.Integration.Data.Test
 
         [Test]
         [TestCaseSource(nameof(GetInvalidNormValues),
-            new object[]
-            {
-                "Constructor_InvalidLowerLimitNorm_ThrowsArgumentOutOfRangeException"
-            })]
+                        new object[]
+                        {
+                            "Constructor_InvalidLowerLimitNorm_ThrowsArgumentOutOfRangeException"
+                        })]
         [SetCulture("nl-NL")]
         public void Constructor_InvalidLowerLimitNorm_ThrowsArgumentOutOfRangeException(double invalidNorm)
         {
@@ -165,10 +168,10 @@ namespace Riskeer.Integration.Data.Test
 
         [Test]
         [TestCaseSource(nameof(GetInvalidNormValues),
-            new object[]
-            {
-                "Constructor_InvalidSignalingNorm_ThrowsArgumentOutOfRangeException"
-            })]
+                        new object[]
+                        {
+                            "Constructor_InvalidSignalingNorm_ThrowsArgumentOutOfRangeException"
+                        })]
         [SetCulture("nl-NL")]
         public void Constructor_InvalidSignalingNorm_ThrowsArgumentOutOfRangeException(double invalidNorm)
         {

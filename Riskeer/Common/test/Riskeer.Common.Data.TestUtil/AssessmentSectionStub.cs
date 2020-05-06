@@ -59,7 +59,10 @@ namespace Riskeer.Common.Data.TestUtil
 
             ReferenceLine = new ReferenceLine();
             HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
-            HydraulicBoundaryDatabases = new ObservableList<HydraulicBoundaryDatabase>();
+            HydraulicBoundaryDatabases = new ObservableList<HydraulicBoundaryDatabase>
+            {
+                HydraulicBoundaryDatabase
+            };
 
             waterLevelCalculationsForFactorizedSignalingNorm = new ObservableList<HydraulicBoundaryLocationCalculation>();
             waterLevelCalculationsForSignalingNorm = new ObservableList<HydraulicBoundaryLocationCalculation>();
