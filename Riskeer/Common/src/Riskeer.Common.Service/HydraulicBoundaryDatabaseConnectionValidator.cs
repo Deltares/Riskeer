@@ -20,6 +20,8 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.IO.HydraRing;
 using Riskeer.Common.Service.Properties;
@@ -27,10 +29,49 @@ using Riskeer.Common.Service.Properties;
 namespace Riskeer.Common.Service
 {
     /// <summary>
-    /// Class responsible for validating the connection of a <see cref="HydraulicBoundaryDatabase"/>.
+    /// Class responsible for validating the connection of all relevant <see cref="HydraulicBoundaryDatabase"/>
+    /// instances (as they are used within one or more calculations).
     /// </summary>
     public static class HydraulicBoundaryDatabaseConnectionValidator
     {
+        /// <summary>
+        /// Validates all relevant <paramref name="hydraulicBoundaryDatabases"/>.
+        /// </summary>
+        /// <param name="hydraulicBoundaryDatabases">The hydraulic boundary databases to validate.</param>
+        /// <param name="hydraulicBoundaryLocations">The hydraulic boundary locations to perform calculations for.</param>
+        /// <returns>An error message if a problem was found; <c>null</c> in case no problems were found.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryDatabases"/> or
+        /// <paramref name="hydraulicBoundaryLocations"/> is <c>null</c>.</exception>
+        public static string Validate(IEnumerable<HydraulicBoundaryDatabase> hydraulicBoundaryDatabases,
+                                      IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations)
+        {
+            if (hydraulicBoundaryDatabases == null)
+            {
+                throw new ArgumentNullException(nameof(hydraulicBoundaryDatabases));
+            }
+
+            if (hydraulicBoundaryLocations == null)
+            {
+                throw new ArgumentNullException(nameof(hydraulicBoundaryLocations));
+            }
+
+            if (hydraulicBoundaryDatabases.Any(hbd => !hbd.IsLinked()))
+            {
+                return Resources.HydraulicBoundaryDatabaseConnectionValidator_No_hydraulic_boundary_database_imported;
+            }
+
+            string validationProblem = HydraulicBoundaryDatabaseHelper.ValidateFilesForCalculation(hydraulicBoundaryDatabases,
+                                                                                                   hydraulicBoundaryLocations);
+
+            if (!string.IsNullOrEmpty(validationProblem))
+            {
+                return string.Format(Resources.Hydraulic_boundary_database_connection_failed_0_,
+                                     validationProblem);
+            }
+
+            return null;
+        }
+
         /// <summary>
         /// Validates the connection of the provided hydraulic boundary database.
         /// </summary>
