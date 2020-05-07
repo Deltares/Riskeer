@@ -20,8 +20,10 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using Core.Common.Base.IO;
 using Core.Common.Util;
 using Core.Common.Util.Builders;
@@ -41,6 +43,37 @@ namespace Riskeer.Common.IO.HydraRing
     {
         private const string hydraRingConfigurationDatabaseExtension = "config.sqlite";
         private const string preprocessorClosureFileName = "preprocClosure.sqlite";
+
+        /// <summary>
+        /// Attempts to connect to all relevant <paramref name="hydraulicBoundaryDatabases"/> in order to check
+        /// their validity.
+        /// </summary>
+        /// <param name="hydraulicBoundaryDatabases">The hydraulic boundary database files to take into account.</param>
+        /// <param name="hydraulicBoundaryLocations">The hydraulic boundary locations to perform calculations for.</param>
+        /// <returns>A <see cref="string"/> describing the problem when trying to connect to one of the relevant
+        /// <paramref name="hydraulicBoundaryDatabases"/> or <c>null</c> if all connections could be correctly made.</returns>
+        public static string ValidateFilesForCalculation(IEnumerable<HydraulicBoundaryDatabase> hydraulicBoundaryDatabases,
+                                                         IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations)
+        {
+            IEnumerable<HydraulicBoundaryDatabase> relevantHydraulicBoundaryDatabases =
+                hydraulicBoundaryDatabases.Where(hbd => hydraulicBoundaryLocations.Any(l => hbd.Locations.Contains(l)));
+
+            foreach (HydraulicBoundaryDatabase hydraulicBoundaryDatabase in relevantHydraulicBoundaryDatabases)
+            {
+                string validationProblem = ValidateFilesForCalculation(
+                    hydraulicBoundaryDatabase.FilePath,
+                    hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.FilePath,
+                    hydraulicBoundaryDatabase.EffectivePreprocessorDirectory(),
+                    hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.UsePreprocessorClosure);
+
+                if (!string.IsNullOrEmpty(validationProblem))
+                {
+                    return validationProblem;
+                }
+            }
+
+            return null;
+        }
 
         /// <summary>
         /// Attempts to connect to the <paramref name="filePath"/> as if it is a Hydraulic Boundary Locations 
