@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.IO;
 using Components.Persistence.Stability;
 using Core.Common.Base.Data;
 using Core.Common.Base.IO;
@@ -37,6 +38,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Exporters
         private readonly CalculationGroup calculationGroup;
         private readonly IPersistenceFactory persistenceFactory;
         private readonly string folderPath;
+        private readonly string fileExtension;
         private readonly Func<MacroStabilityInwardsCalculation, RoundedDouble> getNormativeAssessmentLevelFunc;
 
         /// <summary>
@@ -45,6 +47,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Exporters
         /// <param name="calculationGroup">The calculation group to export.</param>
         /// <param name="persistenceFactory">The persistence factory to use.</param>
         /// <param name="folderPath">The folder path to export to.</param>
+        /// <param name="fileExtension">The extension of the files.</param>
         /// <param name="getNormativeAssessmentLevelFunc"><see cref="Func{T1,TResult}"/>
         /// for obtaining the normative assessment level.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculationGroup"/>,<paramref name="persistenceFactory"/>
@@ -56,8 +59,8 @@ namespace Riskeer.MacroStabilityInwards.IO.Exporters
         /// <item>does not contain an invalid character,</item>
         /// <item>is not too long.</item>
         /// </list></remarks>
-        public MacroStabilityInwardsCalculationGroupExporter(CalculationGroup calculationGroup, IPersistenceFactory persistenceFactory,
-                                                             string folderPath, Func<MacroStabilityInwardsCalculation, RoundedDouble> getNormativeAssessmentLevelFunc)
+        public MacroStabilityInwardsCalculationGroupExporter(CalculationGroup calculationGroup, IPersistenceFactory persistenceFactory, string folderPath,
+                                                             string fileExtension, Func<MacroStabilityInwardsCalculation, RoundedDouble> getNormativeAssessmentLevelFunc)
         {
             if (calculationGroup == null)
             {
@@ -79,12 +82,31 @@ namespace Riskeer.MacroStabilityInwards.IO.Exporters
             this.calculationGroup = calculationGroup;
             this.persistenceFactory = persistenceFactory;
             this.folderPath = folderPath;
+            this.fileExtension = fileExtension;
             this.getNormativeAssessmentLevelFunc = getNormativeAssessmentLevelFunc;
         }
 
         public bool Export()
         {
-            return false;
+            var exportSucceeded = true;
+
+            foreach (ICalculationBase calculationItem in calculationGroup.Children)
+            {
+                if (calculationItem is MacroStabilityInwardsCalculation calculation)
+                {
+                    exportSucceeded = Export(calculation);
+                }
+            }
+
+            return exportSucceeded;
+        }
+
+        private bool Export(MacroStabilityInwardsCalculation calculation)
+        {
+            string fileNameWithExtension = $"{calculation.Name}.{fileExtension}";
+            var exporter = new MacroStabilityInwardsCalculationExporter(calculation, persistenceFactory, Path.Combine(folderPath, fileNameWithExtension),
+                                                                        () => getNormativeAssessmentLevelFunc(calculation));
+            return exporter.Export();
         }
     }
 }

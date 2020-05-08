@@ -183,9 +183,9 @@ namespace Riskeer.MacroStabilityInwards.Plugin
             yield return new ExportInfo<MacroStabilityInwardsCalculationGroupContext>
             {
                 Name = Resources.MacroStabilityInwardsCalculationExporter_DisplayName,
-                Extension = Resources.Stix_file_filter_extension,
-                CreateFileExporter = (context, filePath) => new MacroStabilityInwardsCalculationGroupExporter(context.WrappedData, new PersistenceFactory(), filePath,
-                    (calculation) => GetNormativeAssessmentLevel(context.AssessmentSection, calculation)),
+                Extension = StixFileFilterExtension,
+                CreateFileExporter = (context, filePath) => new MacroStabilityInwardsCalculationGroupExporter(context.WrappedData, new PersistenceFactory(), filePath, StixFileFilterExtension,
+                                                                                                              calculation => GetNormativeAssessmentLevel(context.AssessmentSection, calculation)),
                 IsEnabled = context => context.WrappedData.HasOutput(),
                 GetExportPath = () => ExportHelper.GetFolderPath(GetInquiryHelper())
             };
@@ -429,6 +429,12 @@ namespace Riskeer.MacroStabilityInwards.Plugin
                                                                                  .Build()
             };
         }
+
+        #region ExportInfos
+
+        private static string StixFileFilterExtension => Resources.Stix_file_filter_extension;
+
+        #endregion
 
         private static RoundedDouble GetNormativeAssessmentLevel(IAssessmentSection assessmentSection, MacroStabilityInwardsCalculation calculation)
         {
