@@ -23,6 +23,7 @@ using System.Collections.Generic;
 using Deltares.MacroStability.Data;
 using Deltares.MacroStability.Geometry;
 using Deltares.MacroStability.Standard;
+using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Input;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan;
 using WtiStabilityWaternet = Deltares.MacroStability.Geometry.Waternet;
 
@@ -137,6 +138,12 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
         /// </summary>
         /// <param name="soilStresses">The soil stresses to set.</param>
         void SetFixedSoilStresses(IEnumerable<FixedSoilStress> soilStresses);
+
+        /// <summary>
+        /// Sets the preconsolidation stresses.
+        /// </summary>
+        /// <param name="preConsolidationStresses">The preconsolidation stresses to set.</param>
+        void SetPreConsolidationStresses(IEnumerable<PreConsolidationStress> preConsolidationStresses);
 
         /// <summary>
         /// Performs the Uplift Van calculation.

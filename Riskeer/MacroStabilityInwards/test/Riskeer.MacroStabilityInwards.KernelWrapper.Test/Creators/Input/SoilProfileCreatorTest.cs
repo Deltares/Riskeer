@@ -21,11 +21,8 @@
 
 using System;
 using System.Linq;
-using Core.Common.Base.Data;
-using Core.Common.TestUtil;
 using Deltares.MacroStability.Geometry;
 using NUnit.Framework;
-using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Input;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input;
 using Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan.Input;
 using Point2D = Core.Common.Base.Geometry.Point2D;
@@ -37,22 +34,10 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
     public class SoilProfileCreatorTest
     {
         [Test]
-        public void Create_PreconsolidationStressesNull_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate call = () => SoilProfileCreator.Create(null, Enumerable.Empty<LayerWithSoil>());
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("preconsolidationStresses", exception.ParamName);
-        }
-
-        [Test]
         public void Create_LayersWithSoilNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => SoilProfileCreator.Create(Enumerable.Empty<PreconsolidationStress>(),
-                                                                null);
+            TestDelegate call = () => SoilProfileCreator.Create(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -81,11 +66,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
         public void Create_WithNeighbouringInnerLoops_ReturnSoilProfile2D()
         {
             // Setup
-            var random = new Random(11);
-            double preconsolidationStressXCoordinate = random.Next();
-            double preconsolidationStressZCoordinate = random.Next();
-            RoundedDouble preconsolidationStressDesignValue = random.NextRoundedDouble();
-
             var layer1Points = new[]
             {
                 new Point2D(0, 0),
@@ -171,18 +151,13 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                 WaterpressureInterpolationModel.Hydrostatic);
 
             // Call
-            SoilProfile2D profile = SoilProfileCreator.Create(
-                new[]
-                {
-                    new PreconsolidationStress(new Point2D(preconsolidationStressXCoordinate, preconsolidationStressZCoordinate), preconsolidationStressDesignValue)
-                },
-                new[]
-                {
-                    layerWithSoil1,
-                    layerWithSoil2,
-                    layerWithSoil3,
-                    layerWithSoil4
-                });
+            SoilProfile2D profile = SoilProfileCreator.Create(new[]
+            {
+                layerWithSoil1,
+                layerWithSoil2,
+                layerWithSoil3,
+                layerWithSoil4
+            });
 
             // Assert
 
@@ -373,11 +348,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
         public void Create_WithNestedInnerLoops_ReturnSoilProfile2D()
         {
             // Setup
-            var random = new Random(11);
-            double preconsolidationStressXCoordinate = random.Next();
-            double preconsolidationStressZCoordinate = random.Next();
-            RoundedDouble preconsolidationStressDesignValue = random.NextRoundedDouble();
-
             var layer1Points = new[]
             {
                 new Point2D(0, 0),
@@ -465,18 +435,13 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                 WaterpressureInterpolationModel.Hydrostatic);
 
             // Call
-            SoilProfile2D profile = SoilProfileCreator.Create(
-                new[]
-                {
-                    new PreconsolidationStress(new Point2D(preconsolidationStressXCoordinate, preconsolidationStressZCoordinate), preconsolidationStressDesignValue)
-                },
-                new[]
-                {
-                    layerWithSoil1,
-                    layerWithSoil2,
-                    layerWithSoil3,
-                    layerWithSoil4
-                });
+            SoilProfile2D profile = SoilProfileCreator.Create(new[]
+            {
+                layerWithSoil1,
+                layerWithSoil2,
+                layerWithSoil3,
+                layerWithSoil4
+            });
 
             // Assert
 

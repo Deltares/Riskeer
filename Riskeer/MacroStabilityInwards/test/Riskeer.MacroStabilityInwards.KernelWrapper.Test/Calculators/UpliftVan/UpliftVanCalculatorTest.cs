@@ -142,12 +142,13 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
                 LayerWithSoil[] layersWithSoil = LayerWithSoilCreator.Create(input.SoilProfile, out IDictionary<SoilLayer, LayerWithSoil> layerLookup);
 
                 KernelInputAssert.AssertSoilModels(layersWithSoil.Select(lws => lws.Soil).ToArray(), upliftVanKernel.SoilModel);
-                KernelInputAssert.AssertSoilProfiles(SoilProfileCreator.Create(input.SoilProfile.PreconsolidationStresses, layersWithSoil), upliftVanKernel.SoilProfile);
+                KernelInputAssert.AssertSoilProfiles(SoilProfileCreator.Create(layersWithSoil), upliftVanKernel.SoilProfile);
                 KernelInputAssert.AssertSurfaceLines(SurfaceLineCreator.Create(input.SurfaceLine), upliftVanKernel.SurfaceLine);
                 UpliftVanKernelInputAssert.AssertSlipPlanesUpliftVan(SlipPlaneUpliftVanCreator.Create(input.SlipPlane), upliftVanKernel.SlipPlaneUpliftVan);
                 UpliftVanKernelInputAssert.AssertSlipPlaneConstraints(SlipPlaneConstraintsCreator.Create(input.SlipPlaneConstraints), upliftVanKernel.SlipPlaneConstraints);
                 Assert.AreEqual(input.SlipPlane.GridAutomaticDetermined, upliftVanKernel.GridAutomaticDetermined);
                 CollectionAssert.AreEqual(FixedSoilStressCreator.Create(layerLookup), upliftVanKernel.SoilStresses, new FixedSoilStressComparer());
+                CollectionAssert.AreEqual(PreConsolidationStressCreator.Create(input.SoilProfile.PreconsolidationStresses), upliftVanKernel.PreConsolidationStresses, new PreConsolidationStressComparer());
             }
         }
 

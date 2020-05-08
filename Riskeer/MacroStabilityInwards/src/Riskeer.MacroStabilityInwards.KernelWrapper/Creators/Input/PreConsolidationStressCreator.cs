@@ -23,33 +23,36 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Deltares.MacroStability.Geometry;
+using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Input;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan;
-using SoilLayer = Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Input.SoilLayer;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
 {
     /// <summary>
-    /// Creates <see cref="FixedSoilStress"/>instances which are required by <see cref="IUpliftVanKernel"/>.
+    /// Creates <see cref="PreConsolidationStress"/> instances which are required by <see cref="IUpliftVanKernel"/>.
     /// </summary>
-    internal static class FixedSoilStressCreator
+    internal static class PreConsolidationStressCreator
     {
         /// <summary>
-        /// Creates <see cref="FixedSoilStress"/> objects based on the given layers.
+        /// Creates <see cref="PreConsolidationStress"/> objects based on the given <see cref="PreconsolidationStress"/> objects.
         /// </summary>
-        /// <param name="layerLookup">The layers to create <see cref="FixedSoilStress"/> for.</param>
-        /// <returns>An <see cref="IEnumerable{T}"/> of <see cref="FixedSoilStress"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="layerLookup"/>
+        /// <param name="preconsolidationStresses">The preconsolidation stresses to use.</param>
+        /// <returns>An <see cref="IEnumerable{T}"/> of <see cref="PreConsolidationStress"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="preconsolidationStresses"/>
         /// is <c>null</c>.</exception>
-        public static IEnumerable<FixedSoilStress> Create(IDictionary<SoilLayer, LayerWithSoil> layerLookup)
+        public static IEnumerable<PreConsolidationStress> Create(IEnumerable<PreconsolidationStress> preconsolidationStresses)
         {
-            if (layerLookup == null)
+            if (preconsolidationStresses == null)
             {
-                throw new ArgumentNullException(nameof(layerLookup));
+                throw new ArgumentNullException(nameof(preconsolidationStresses));
             }
 
-            return layerLookup.Where(ll => ll.Key.UsePop)
-                              .Select(keyValuePair => new FixedSoilStress(keyValuePair.Value.Soil, StressValueType.POP, keyValuePair.Key.Pop))
-                              .ToArray();
+            return preconsolidationStresses.Select(preconsolidationStress => new PreConsolidationStress
+            {
+                StressValue = preconsolidationStress.Stress,
+                X = preconsolidationStress.Coordinate.X,
+                Z = preconsolidationStress.Coordinate.Y
+            }).ToArray();
         }
     }
 }

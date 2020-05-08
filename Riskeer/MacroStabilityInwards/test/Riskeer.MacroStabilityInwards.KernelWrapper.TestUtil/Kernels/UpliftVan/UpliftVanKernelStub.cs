@@ -91,6 +91,11 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan
         /// </summary>
         public IEnumerable<FixedSoilStress> SoilStresses { get; private set; }
 
+        /// <summary>
+        /// Gets the preconsolidation stresses.
+        /// </summary>
+        public IEnumerable<PreConsolidationStress> PreConsolidationStresses { get; private set; }
+
         public double FactorOfStability { get; set; }
 
         public double ZValue { get; set; }
@@ -163,6 +168,11 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan
         public void SetFixedSoilStresses(IEnumerable<FixedSoilStress> soilStresses)
         {
             SoilStresses = soilStresses;
+        }
+
+        public void SetPreConsolidationStresses(IEnumerable<PreConsolidationStress> preConsolidationStresses)
+        {
+            PreConsolidationStresses = preConsolidationStresses;
         }
 
         public void Calculate()

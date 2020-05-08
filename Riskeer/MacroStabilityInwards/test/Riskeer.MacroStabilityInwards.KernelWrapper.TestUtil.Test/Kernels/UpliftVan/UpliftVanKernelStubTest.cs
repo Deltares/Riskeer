@@ -43,6 +43,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernels.Upli
             Assert.IsInstanceOf<IUpliftVanKernel>(kernel);
             Assert.IsFalse(kernel.Calculated);
             Assert.IsNull(kernel.SoilStresses);
+            Assert.IsNull(kernel.PreConsolidationStresses);
         }
 
         [Test]
@@ -57,6 +58,20 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernels.Upli
 
             // Assert
             Assert.AreSame(soilStresses, kernel.SoilStresses);
+        }
+
+        [Test]
+        public void SetPreconsolidationStresses_Always_SetsPreconsolidationStressesOnKernel()
+        {
+            // Setup
+            IEnumerable<PreConsolidationStress> preConsolidationStresses = Enumerable.Empty<PreConsolidationStress>();
+            var kernel = new UpliftVanKernelStub();
+
+            // Call
+            kernel.SetPreConsolidationStresses(preConsolidationStresses);
+
+            // Assert
+            Assert.AreSame(preConsolidationStresses, kernel.PreConsolidationStresses);
         }
 
         [Test]

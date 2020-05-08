@@ -30,6 +30,8 @@ using Deltares.MacroStability.Preprocessing;
 using Deltares.MacroStability.Standard;
 using Deltares.MacroStability.WaternetCreator;
 using Deltares.WTIStability.Calculation.Wrapper;
+using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Input;
+using WaternetCreationMode = Deltares.MacroStability.WaternetCreator.WaternetCreationMode;
 using WtiStabilityWaternet = Deltares.MacroStability.Geometry.Waternet;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
@@ -61,14 +63,14 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
                     }
                 }
             };
-
+            
             AddPreProcessingConstructionStages();
             AddPreProcessingConstructionStages();
 
-            FactorOfStability = double.NaN;
-            ZValue = double.NaN;
-            ForbiddenZonesXEntryMin = double.NaN;
-            ForbiddenZonesXEntryMax = double.NaN;
+            FactorOfStability = Double.NaN;
+            ZValue = Double.NaN;
+            ForbiddenZonesXEntryMin = Double.NaN;
+            ForbiddenZonesXEntryMax = Double.NaN;
         }
 
         public double FactorOfStability { get; private set; }
@@ -152,6 +154,14 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
             });
         }
 
+        public void SetPreConsolidationStresses(IEnumerable<PreConsolidationStress> preconsolidationStresses)
+        {
+            kernelModel.StabilityModel.ConstructionStages.ForEachElementDo(cs =>
+            {
+                cs.PreconsolidationStresses.AddRange(preconsolidationStresses);
+            });
+        }
+
         public void Calculate()
         {
             try
@@ -223,6 +233,16 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
 
             SlidingCurveResult = (SlidingDualCircle) returnedStabilityModel.MinimumSafetyCurve;
             SlipPlaneResult = returnedStabilityModel.SlipPlaneUpliftVan;
+        }
+
+        private static IEnumerable<PreConsolidationStress> CreatePreconsolidationStresses(IEnumerable<PreconsolidationStress> preconsolidationStresses)
+        {
+            return preconsolidationStresses.Select(preconsolidationStress => new PreConsolidationStress
+            {
+                StressValue = preconsolidationStress.Stress,
+                X = preconsolidationStress.Coordinate.X,
+                Z = preconsolidationStress.Coordinate.Y
+            }).ToArray();
         }
     }
 }

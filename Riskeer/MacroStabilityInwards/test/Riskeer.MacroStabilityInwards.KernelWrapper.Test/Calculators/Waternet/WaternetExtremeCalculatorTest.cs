@@ -75,7 +75,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.Waternet
                 // Assert
                 LayerWithSoil[] layersWithSoil = LayerWithSoilCreator.Create(input.SoilProfile, out IDictionary<SoilLayer, LayerWithSoil> layerLookup);
 
-                KernelInputAssert.AssertSoilProfiles(SoilProfileCreator.Create(input.SoilProfile.PreconsolidationStresses, layersWithSoil), waternetKernel.SoilProfile);
+                KernelInputAssert.AssertSoilProfiles(SoilProfileCreator.Create(layersWithSoil), waternetKernel.SoilProfile);
                 KernelInputAssert.AssertStabilityLocations(WaternetStabilityLocationCreator.Create(input), waternetKernel.Location);
                 KernelInputAssert.AssertSurfaceLines(SurfaceLineCreator.Create(input.SurfaceLine), waternetKernel.SurfaceLine);
             }

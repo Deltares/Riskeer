@@ -117,7 +117,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan
             LayerWithSoil[] layersWithSoil = LayerWithSoilCreator.Create(input.SoilProfile, out IDictionary<SoilLayer, LayerWithSoil> layerLookup);
 
             SurfaceLine2 surfaceLine = SurfaceLineCreator.Create(input.SurfaceLine);
-            SoilProfile2D soilProfile2D = SoilProfileCreator.Create(input.SoilProfile.PreconsolidationStresses, layersWithSoil);
+            SoilProfile2D soilProfile2D = SoilProfileCreator.Create(layersWithSoil);
 
             var waternetDailyKernelWrapper = CreateWaternetKernel<WaternetDailyKernelWrapper>(soilProfile2D, surfaceLine,
                                                                                               UpliftVanStabilityLocationCreator.CreateDaily(input));
@@ -137,6 +137,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan
             upliftVanKernel.SetWaternetDaily(waternetDailyKernelWrapper.Waternet);
             upliftVanKernel.SetWaternetExtreme(waternetExtremeKernelWrapper.Waternet);
             upliftVanKernel.SetFixedSoilStresses(FixedSoilStressCreator.Create(layerLookup));
+            upliftVanKernel.SetPreConsolidationStresses(PreConsolidationStressCreator.Create(input.SoilProfile.PreconsolidationStresses));
             return upliftVanKernel;
         }
 
