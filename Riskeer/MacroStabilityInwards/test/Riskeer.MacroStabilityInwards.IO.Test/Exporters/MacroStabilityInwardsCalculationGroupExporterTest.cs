@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2019. All rights reserved.
+// Copyright (C) Stichting Deltares 2019. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -20,10 +20,12 @@
 // All rights reserved.
 
 using System;
+using Components.Persistence.Stability;
 using Core.Common.Base.IO;
-using Core.Common.TestUtil;
 using NUnit.Framework;
+using Rhino.Mocks;
 using Riskeer.Common.Data.Calculation;
+using Riskeer.Common.Data.TestUtil;
 using Riskeer.MacroStabilityInwards.IO.Exporters;
 
 namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
@@ -34,22 +36,62 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
         [Test]
         public void Constructor_ExpectedValues()
         {
+            // Setup
+            var mocks = new MockRepository();
+            var persistenceFactory = mocks.Stub<IPersistenceFactory>();
+            mocks.ReplayAll();
+
             // Call
-            var exporter = new MacroStabilityInwardsCalculationGroupExporter(new CalculationGroup(), "ValidFolderPath");
+            var exporter = new MacroStabilityInwardsCalculationGroupExporter(new CalculationGroup(), persistenceFactory, "ValidFolderPath", c => AssessmentSectionTestHelper.GetTestAssessmentLevel());
 
             // Assert
             Assert.IsInstanceOf<IFileExporter>(exporter);
+            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_CalculationGroupNull_ThrowsArgumentNullException()
         {
+            // Setup
+            var mocks = new MockRepository();
+            var persistenceFactory = mocks.Stub<IPersistenceFactory>();
+            mocks.ReplayAll();
+
             // Call
-            void Call() => new MacroStabilityInwardsCalculationGroupExporter(null, string.Empty);
+            void Call() => new MacroStabilityInwardsCalculationGroupExporter(null, persistenceFactory, string.Empty, c => AssessmentSectionTestHelper.GetTestAssessmentLevel());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("calculationGroup", exception.ParamName);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Constructor_PersistenceFactoryNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => new MacroStabilityInwardsCalculationGroupExporter(new CalculationGroup(), null, string.Empty, c => AssessmentSectionTestHelper.GetTestAssessmentLevel());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("persistenceFactory", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_GetAssessmentLevelFuncNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var persistenceFactory = mocks.Stub<IPersistenceFactory>();
+            mocks.ReplayAll();
+
+            // Call
+            void Call() => new MacroStabilityInwardsCalculationGroupExporter(new CalculationGroup(), persistenceFactory, string.Empty, null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("getNormativeAssessmentLevelFunc", exception.ParamName);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -59,24 +101,35 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
         [TestCase("C:\\Not:Valid")]
         public void Constructor_InvalidFolderPath_ThrowsArgumentException(string folderPath)
         {
+            // Setup
+            var mocks = new MockRepository();
+            var persistenceFactory = mocks.Stub<IPersistenceFactory>();
+            mocks.ReplayAll();
+
             // Call
-            void Call() => new MacroStabilityInwardsCalculationGroupExporter(new CalculationGroup(), folderPath);
+            void Call() => new MacroStabilityInwardsCalculationGroupExporter(new CalculationGroup(), persistenceFactory, folderPath, c => AssessmentSectionTestHelper.GetTestAssessmentLevel());
 
             // Assert
             Assert.Throws<ArgumentException>(Call);
+            mocks.VerifyAll();
         }
 
         [Test]
         public void Export_Always_ReturnsFalse()
         {
             // Setup
-            var exporter = new MacroStabilityInwardsCalculationGroupExporter(new CalculationGroup(), "ValidFolderPath");
+            var mocks = new MockRepository();
+            var persistenceFactory = mocks.Stub<IPersistenceFactory>();
+            mocks.ReplayAll();
+
+            var exporter = new MacroStabilityInwardsCalculationGroupExporter(new CalculationGroup(), persistenceFactory, "ValidFolderPath", c => AssessmentSectionTestHelper.GetTestAssessmentLevel());
 
             // Call
             bool exportResult = exporter.Export();
 
             // Assert
             Assert.IsFalse(exportResult);
+            mocks.VerifyAll();
         }
     }
 }
