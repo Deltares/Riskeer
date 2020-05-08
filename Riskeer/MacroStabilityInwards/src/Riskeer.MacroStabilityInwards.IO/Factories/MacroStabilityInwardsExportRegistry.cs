@@ -204,8 +204,8 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
         /// Adds Waternet creator settings to the register.
         /// </summary>
         /// <param name="stageType">The <see cref="MacroStabilityInwardsExportStageType"/>
-        /// to register the waternet creator settings for.</param>
-        /// <param name="id">The id of the waternet creator settings.</param>
+        /// to register the Waternet creator settings for.</param>
+        /// <param name="id">The id of the Waternet creator settings.</param>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="stageType"/>
         /// has an invalid value.</exception>
         public void AddWaternetCreatorSettings(MacroStabilityInwardsExportStageType stageType, string id)
