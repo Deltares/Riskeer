@@ -88,23 +88,38 @@ namespace Riskeer.MacroStabilityInwards.IO.Exporters
 
         public bool Export()
         {
+            return Export(calculationGroup, folderPath);
+        }
+
+        private bool Export(CalculationGroup groupToExport, string nestedFolderPath)
+        {
+            if (!Directory.Exists(nestedFolderPath))
+            {
+                Directory.CreateDirectory(nestedFolderPath);
+            }
+
             var exportSucceeded = true;
 
-            foreach (ICalculationBase calculationItem in calculationGroup.Children)
+            foreach (ICalculationBase calculationItem in groupToExport.Children)
             {
                 if (calculationItem is MacroStabilityInwardsCalculation calculation)
                 {
-                    exportSucceeded = Export(calculation);
+                    exportSucceeded = Export(calculation, nestedFolderPath);
+                }
+
+                if (calculationItem is CalculationGroup nestedGroup)
+                {
+                    exportSucceeded = Export(nestedGroup, Path.Combine(nestedFolderPath, nestedGroup.Name));
                 }
             }
 
             return exportSucceeded;
         }
 
-        private bool Export(MacroStabilityInwardsCalculation calculation)
+        private bool Export(MacroStabilityInwardsCalculation calculation, string nestedFolderPath)
         {
             string fileNameWithExtension = $"{calculation.Name}.{fileExtension}";
-            var exporter = new MacroStabilityInwardsCalculationExporter(calculation, persistenceFactory, Path.Combine(folderPath, fileNameWithExtension),
+            var exporter = new MacroStabilityInwardsCalculationExporter(calculation, persistenceFactory, Path.Combine(nestedFolderPath, fileNameWithExtension),
                                                                         () => getNormativeAssessmentLevelFunc(calculation));
             return exporter.Export();
         }

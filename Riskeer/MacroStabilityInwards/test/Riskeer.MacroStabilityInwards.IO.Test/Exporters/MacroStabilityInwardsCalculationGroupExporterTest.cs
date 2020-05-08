@@ -129,8 +129,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
             string folderPath = TestHelper.GetScratchPadPath($"{nameof(MacroStabilityInwardsCalculationGroupExporterTest)}.{nameof(Export_CalculationExporterReturnsFalse_ReturnsFalse)}");
             Directory.CreateDirectory(folderPath);
 
-            MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput(new TestHydraulicBoundaryLocation());
-            calculation.Output = MacroStabilityInwardsOutputTestFactory.CreateRandomOutput();
+            MacroStabilityInwardsCalculationScenario calculation = CreateCalculation("calculation");
 
             var calculationGroup = new CalculationGroup();
             calculationGroup.Children.Add(calculation);
@@ -161,18 +160,14 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
         }
 
         [Test]
-        public void Export_RunsSuccessful_WritesFilesAndRemovesTempFile()
+        public void Export_CalculationGroupWithOnlyCalculations_WritesFilesAndReturnsTrue()
         {
             // Setup
-            string folderPath = TestHelper.GetScratchPadPath($"{nameof(MacroStabilityInwardsCalculationGroupExporterTest)}.{nameof(Export_RunsSuccessful_WritesFilesAndRemovesTempFile)}");
+            string folderPath = TestHelper.GetScratchPadPath($"{nameof(MacroStabilityInwardsCalculationGroupExporterTest)}.{nameof(Export_CalculationGroupWithOnlyCalculations_WritesFilesAndReturnsTrue)}");
             Directory.CreateDirectory(folderPath);
 
-            MacroStabilityInwardsCalculationScenario calculation1 = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput(new TestHydraulicBoundaryLocation());
-            calculation1.Name = "Calculation1";
-            calculation1.Output = MacroStabilityInwardsOutputTestFactory.CreateRandomOutput();
-            MacroStabilityInwardsCalculationScenario calculation2 = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput(new TestHydraulicBoundaryLocation());
-            calculation2.Name = "Calculation2";
-            calculation2.Output = MacroStabilityInwardsOutputTestFactory.CreateRandomOutput();
+            MacroStabilityInwardsCalculationScenario calculation1 = CreateCalculation("calculation1");
+            MacroStabilityInwardsCalculationScenario calculation2 = CreateCalculation("calculation2");
 
             var calculationGroup = new CalculationGroup();
             calculationGroup.Children.Add(calculation1);
@@ -189,19 +184,79 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
 
                     // Assert
                     Assert.IsTrue(exportResult);
-                    string filePath1 = Path.Combine(folderPath, $"{calculation1.Name}.{fileExtension}");
-                    Assert.IsTrue(File.Exists(filePath1));
-                    Assert.IsFalse(File.Exists($"{filePath1}.temp"));
-
-                    string filePath2 = Path.Combine(folderPath, $"{calculation2.Name}.{fileExtension}");
-                    Assert.IsTrue(File.Exists(filePath2));
-                    Assert.IsFalse(File.Exists($"{filePath2}.temp"));
+                    AssertCalculationExists(Path.Combine(folderPath, $"{calculation1.Name}.{fileExtension}"));
+                    AssertCalculationExists(Path.Combine(folderPath, $"{calculation2.Name}.{fileExtension}"));
                 }
             }
             finally
             {
                 Directory.Delete(folderPath, true);
             }
+        }
+
+        [Test]
+        public void Export_CalculationGroupWithNestedGroupsAndCalculations_WritesFilesAndReturnsTrue()
+        {
+            // Setup
+            string folderPath = TestHelper.GetScratchPadPath($"{nameof(MacroStabilityInwardsCalculationGroupExporterTest)}.{nameof(Export_CalculationGroupWithNestedGroupsAndCalculations_WritesFilesAndReturnsTrue)}");
+            Directory.CreateDirectory(folderPath);
+
+            MacroStabilityInwardsCalculationScenario calculation1 = CreateCalculation("calculation1");
+            MacroStabilityInwardsCalculationScenario calculation2 = CreateCalculation("calculation2");
+            MacroStabilityInwardsCalculationScenario calculation3 = CreateCalculation("calculation3");
+            MacroStabilityInwardsCalculationScenario calculation4 = CreateCalculation("calculation4");
+            
+            var rootCalculationGroup = new CalculationGroup();
+            var nestedGroup1 = new CalculationGroup
+            {
+                Name = "NestedGroup1"
+            };
+            var nestedGroup2 = new CalculationGroup
+            {
+                Name = "NestedGroup2"
+            };
+            nestedGroup2.Children.Add(calculation4);
+            nestedGroup1.Children.Add(calculation3);
+            nestedGroup1.Children.Add(nestedGroup2);
+            rootCalculationGroup.Children.Add(calculation1);
+            rootCalculationGroup.Children.Add(calculation2);
+            rootCalculationGroup.Children.Add(nestedGroup1);
+
+            var exporter = new MacroStabilityInwardsCalculationGroupExporter(rootCalculationGroup, new PersistenceFactory(), folderPath, fileExtension, c => AssessmentSectionTestHelper.GetTestAssessmentLevel());
+
+            try
+            {
+                using (new MacroStabilityInwardsCalculatorFactoryConfig())
+                {
+                    // Call
+                    bool exportResult = exporter.Export();
+
+                    // Assert
+                    Assert.IsTrue(exportResult);
+                    AssertCalculationExists(Path.Combine(folderPath, $"{calculation1.Name}.{fileExtension}"));
+                    AssertCalculationExists(Path.Combine(folderPath, $"{calculation2.Name}.{fileExtension}"));
+                    AssertCalculationExists(Path.Combine(folderPath, nestedGroup1.Name, $"{calculation3.Name}.{fileExtension}"));
+                    AssertCalculationExists(Path.Combine(folderPath, nestedGroup1.Name, nestedGroup2.Name, $"{calculation4.Name}.{fileExtension}"));
+                }
+            }
+            finally
+            {
+                Directory.Delete(folderPath, true);
+            }
+        }
+
+        private static void AssertCalculationExists(string calculationPath)
+        {
+            Assert.IsTrue(File.Exists(calculationPath));
+            Assert.IsFalse(File.Exists($"{calculationPath}.temp"));
+        }
+
+        private static MacroStabilityInwardsCalculationScenario CreateCalculation(string calculationName)
+        {
+            MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput(new TestHydraulicBoundaryLocation());
+            calculation.Name = calculationName;
+            calculation.Output = MacroStabilityInwardsOutputTestFactory.CreateRandomOutput();
+            return calculation;
         }
     }
 }
