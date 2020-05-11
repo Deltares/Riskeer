@@ -114,7 +114,7 @@ namespace Riskeer.ClosingStructures.Service.Test
                                                                                                            validFilePath);
             mocks.ReplayAll();
 
-            StructuresCalculation<ClosingStructuresInput> calculation = CreateValidCalculation();
+            StructuresCalculation<ClosingStructuresInput> calculation = CreateValidCalculation(assessmentSection.HydraulicBoundaryDatabases.First().Locations.First());
 
             // Call
             CalculatableActivity activity = ClosingStructuresCalculationActivityFactory.CreateCalculationActivity(calculation,
@@ -123,7 +123,7 @@ namespace Riskeer.ClosingStructures.Service.Test
 
             // Assert
             Assert.IsInstanceOf<ClosingStructuresCalculationActivity>(activity);
-            AssertClosingStructuresCalculationActivity(activity, calculation, assessmentSection.HydraulicBoundaryDatabase);
+            AssertClosingStructuresCalculationActivity(activity, calculation, assessmentSection);
             mocks.VerifyAll();
         }
 
@@ -190,8 +190,9 @@ namespace Riskeer.ClosingStructures.Service.Test
                                                                                                            validFilePath);
             mocks.ReplayAll();
 
-            StructuresCalculation<ClosingStructuresInput> calculation1 = CreateValidCalculation();
-            StructuresCalculation<ClosingStructuresInput> calculation2 = CreateValidCalculation();
+            HydraulicBoundaryLocation hydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabases.First().Locations.First();
+            StructuresCalculation<ClosingStructuresInput> calculation1 = CreateValidCalculation(hydraulicBoundaryLocation);
+            StructuresCalculation<ClosingStructuresInput> calculation2 = CreateValidCalculation(hydraulicBoundaryLocation);
 
             var calculations = new CalculationGroup
             {
@@ -211,8 +212,8 @@ namespace Riskeer.ClosingStructures.Service.Test
             Assert.AreEqual(2, activities.Count());
 
             HydraulicBoundaryDatabase hydraulicBoundaryDatabase = assessmentSection.HydraulicBoundaryDatabase;
-            AssertClosingStructuresCalculationActivity(activities.First(), calculation1, hydraulicBoundaryDatabase);
-            AssertClosingStructuresCalculationActivity(activities.ElementAt(1), calculation2, hydraulicBoundaryDatabase);
+            AssertClosingStructuresCalculationActivity(activities.First(), calculation1, assessmentSection);
+            AssertClosingStructuresCalculationActivity(activities.ElementAt(1), calculation2, assessmentSection);
             mocks.VerifyAll();
         }
 
@@ -256,8 +257,9 @@ namespace Riskeer.ClosingStructures.Service.Test
                                                                                                            validFilePath);
             mocks.ReplayAll();
 
-            StructuresCalculation<ClosingStructuresInput> calculation1 = CreateValidCalculation();
-            StructuresCalculation<ClosingStructuresInput> calculation2 = CreateValidCalculation();
+            HydraulicBoundaryLocation hydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabases.First().Locations.First();
+            StructuresCalculation<ClosingStructuresInput> calculation1 = CreateValidCalculation(hydraulicBoundaryLocation);
+            StructuresCalculation<ClosingStructuresInput> calculation2 = CreateValidCalculation(hydraulicBoundaryLocation);
 
             failureMechanism.CalculationsGroup.Children.AddRange(new[]
             {
@@ -274,18 +276,18 @@ namespace Riskeer.ClosingStructures.Service.Test
             Assert.AreEqual(2, activities.Count());
 
             HydraulicBoundaryDatabase hydraulicBoundaryDatabase = assessmentSection.HydraulicBoundaryDatabase;
-            AssertClosingStructuresCalculationActivity(activities.First(), calculation1, hydraulicBoundaryDatabase);
-            AssertClosingStructuresCalculationActivity(activities.ElementAt(1), calculation2, hydraulicBoundaryDatabase);
+            AssertClosingStructuresCalculationActivity(activities.First(), calculation1, assessmentSection);
+            AssertClosingStructuresCalculationActivity(activities.ElementAt(1), calculation2, assessmentSection);
             mocks.VerifyAll();
         }
 
-        private static StructuresCalculation<ClosingStructuresInput> CreateValidCalculation()
+        private static StructuresCalculation<ClosingStructuresInput> CreateValidCalculation(HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
             return new TestClosingStructuresCalculation
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2),
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation,
                     FailureProbabilityStructureWithErosion = new Random(39).NextDouble()
                 }
             };
@@ -293,7 +295,7 @@ namespace Riskeer.ClosingStructures.Service.Test
 
         private static void AssertClosingStructuresCalculationActivity(Activity activity,
                                                                        ICalculation<ClosingStructuresInput> calculation,
-                                                                       HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
+                                                                       IAssessmentSection assessmentSection)
         {
             var mocks = new MockRepository();
             var testCalculator = new TestStructuresCalculator<StructuresClosureCalculationInput>();
@@ -303,7 +305,7 @@ namespace Riskeer.ClosingStructures.Service.Test
                              .WhenCalled(invocation =>
                              {
                                  HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(hydraulicBoundaryDatabase),
+                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection, calculation.InputParameters.HydraulicBoundaryLocation),
                                      (HydraRingCalculationSettings) invocation.Arguments[0]);
                              })
                              .Return(testCalculator);
