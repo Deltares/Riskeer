@@ -1092,12 +1092,13 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
             var failureMechanism = new TestHeightStructuresFailureMechanism();
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
             failureMechanism.CalculationsGroup.Children.Add(new TestHeightStructuresCalculation
             {
                 Name = "A",
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation()
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
                 }
             });
             failureMechanism.CalculationsGroup.Children.Add(new TestHeightStructuresCalculation
@@ -1105,13 +1106,17 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
                 Name = "B",
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation()
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
                 }
             });
 
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
-                FilePath = Path.Combine(testDataPath, "complete.sqlite")
+                FilePath = Path.Combine(testDataPath, "complete.sqlite"),
+                Locations =
+                {
+                    hydraulicBoundaryLocation
+                }
             };
             HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(hydraulicBoundaryDatabase);
 
@@ -1138,7 +1143,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
                                  .WhenCalled(invocation =>
                                  {
                                      HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                                         HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryDatabase),
+                                         HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection, hydraulicBoundaryLocation),
                                          (HydraRingCalculationSettings) invocation.Arguments[0]);
                                  })
                                  .Repeat

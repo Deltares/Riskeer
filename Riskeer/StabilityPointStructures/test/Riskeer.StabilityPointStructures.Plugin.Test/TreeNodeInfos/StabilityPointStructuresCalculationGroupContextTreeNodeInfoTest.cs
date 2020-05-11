@@ -1468,12 +1468,13 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
             var failureMechanism = new TestStabilityPointStructuresFailureMechanism();
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
             failureMechanism.CalculationsGroup.Children.Add(new TestStabilityPointStructuresCalculation
             {
                 Name = "A",
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation(),
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation,
                     InflowModelType = StabilityPointStructureInflowModelType.LowSill,
                     LoadSchematizationType = LoadSchematizationType.Linear
                 }
@@ -1483,7 +1484,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                 Name = "B",
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation(),
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation,
                     InflowModelType = StabilityPointStructureInflowModelType.LowSill,
                     LoadSchematizationType = LoadSchematizationType.Linear
                 }
@@ -1491,7 +1492,11 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
 
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
-                FilePath = Path.Combine(testDataPath, "complete.sqlite")
+                FilePath = Path.Combine(testDataPath, "complete.sqlite"),
+                Locations =
+                {
+                    hydraulicBoundaryLocation
+                }
             };
             HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(hydraulicBoundaryDatabase);
 
@@ -1519,7 +1524,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                                  .WhenCalled(invocation =>
                                  {
                                      HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                                         HydraulicBoundaryCalculationSettingsFactory.CreateSettings(hydraulicBoundaryDatabase),
+                                         HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection, hydraulicBoundaryLocation),
                                          (HydraRingCalculationSettings) invocation.Arguments[0]);
                                  })
                                  .Return(new TestStructuresCalculator<StructuresStabilityPointCalculationInput>())

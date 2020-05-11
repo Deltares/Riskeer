@@ -966,12 +966,13 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
             var failureMechanism = new TestClosingStructuresFailureMechanism();
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
             failureMechanism.CalculationsGroup.Children.Add(new TestClosingStructuresCalculation
             {
                 Name = "A",
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation()
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
                 }
             });
             failureMechanism.CalculationsGroup.Children.Add(new TestClosingStructuresCalculation
@@ -979,13 +980,17 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
                 Name = "B",
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation()
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
                 }
             });
 
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
-                FilePath = Path.Combine(testDataPath, "complete.sqlite")
+                FilePath = Path.Combine(testDataPath, "complete.sqlite"),
+                Locations =
+                {
+                    hydraulicBoundaryLocation
+                }
             };
             HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(hydraulicBoundaryDatabase);
 
@@ -1013,7 +1018,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
                                  .WhenCalled(invocation =>
                                  {
                                      HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                                         HydraulicBoundaryCalculationSettingsFactory.CreateSettings(hydraulicBoundaryDatabase),
+                                         HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection, hydraulicBoundaryLocation),
                                          (HydraRingCalculationSettings) invocation.Arguments[0]);
                                  })
                                  .Return(new TestStructuresCalculator<StructuresClosureCalculationInput>())
