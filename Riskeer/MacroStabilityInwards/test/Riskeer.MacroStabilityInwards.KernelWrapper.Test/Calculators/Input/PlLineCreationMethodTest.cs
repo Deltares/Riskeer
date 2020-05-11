@@ -19,22 +19,30 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
+using System.Collections.Generic;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Input;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.Input
 {
     [TestFixture]
-    public class PlLineCreationMethodTest
+    public class PlLineCreationMethodTest : EnumValuesTestFixture<PlLineCreationMethod, int>
     {
-        [Test]
-        public void Values_ExpectedValues()
+        protected override IDictionary<PlLineCreationMethod, int> ExpectedValueForEnumValues
         {
-            // Assert
-            Assert.AreEqual(2, Enum.GetValues(typeof(PlLineCreationMethod)).Length);
-            Assert.AreEqual(1, (int) PlLineCreationMethod.RingtoetsWti2017);
-            Assert.AreEqual(2, (int) PlLineCreationMethod.None);
+            get
+            {
+                return new Dictionary<PlLineCreationMethod, int>
+                {
+                    {
+                        PlLineCreationMethod.RingtoetsWti2017, 1
+                    },
+                    {
+                        PlLineCreationMethod.None, 2
+                    }
+                };
+            }
         }
     }
 }
