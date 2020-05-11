@@ -123,6 +123,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Exporters
                     {
                         return false;
                     }
+
                     exportedCalculations.Add(calculation);
                 }
 
@@ -134,6 +135,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Exporters
                     {
                         return false;
                     }
+
                     exportedGroups.Add(nestedGroup);
                 }
             }

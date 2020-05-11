@@ -219,7 +219,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
                     void Call() => exportResult = exporter.Export();
 
                     // Assert
-                    TestHelper.AssertLogMessagesWithLevelAreGenerated(Call, new []
+                    TestHelper.AssertLogMessagesWithLevelAreGenerated(Call, new[]
                     {
                         new Tuple<string, LogLevelConstant>($"Berekening '{calculation1.Name}' heeft geen uitvoer. Deze berekening wordt overgeslagen.", LogLevelConstant.Warn),
                         new Tuple<string, LogLevelConstant>($"Berekening '{calculation2.Name}' heeft geen uitvoer. Deze berekening wordt overgeslagen.", LogLevelConstant.Warn)
@@ -246,7 +246,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
             MacroStabilityInwardsCalculationScenario calculation2 = CreateCalculation("calculation2");
             MacroStabilityInwardsCalculationScenario calculation3 = CreateCalculation("calculation3");
             MacroStabilityInwardsCalculationScenario calculation4 = CreateCalculation("calculation4");
-            
+
             var rootCalculationGroup = new CalculationGroup();
             var nestedGroup1 = new CalculationGroup
             {
