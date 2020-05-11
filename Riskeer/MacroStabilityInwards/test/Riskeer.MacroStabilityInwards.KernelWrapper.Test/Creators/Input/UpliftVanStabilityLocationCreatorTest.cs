@@ -44,7 +44,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
         public void CreateExtreme_InputNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => UpliftVanStabilityLocationCreator.CreateExtreme(null);
+            TestDelegate call = () => UpliftVanLocationCreator.CreateExtreme(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -68,7 +68,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                 });
 
             // Call
-            TestDelegate test = () => UpliftVanStabilityLocationCreator.CreateExtreme(input);
+            TestDelegate test = () => UpliftVanLocationCreator.CreateExtreme(input);
 
             // Assert
             string message = $"The value of argument 'dikeSoilScenario' ({99}) is invalid for Enum type '{typeof(MacroStabilityInwardsDikeSoilScenario).Name}'.";
@@ -97,7 +97,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                 });
 
             // Call
-            Location location = UpliftVanStabilityLocationCreator.CreateExtreme(input);
+            Location location = UpliftVanLocationCreator.CreateExtreme(input);
 
             // Assert
             Assert.AreEqual(expectedDikeSoilScenario, location.DikeSoilScenario);
@@ -120,7 +120,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                 });
 
             // Call
-            TestDelegate test = () => UpliftVanStabilityLocationCreator.CreateExtreme(input);
+            TestDelegate test = () => UpliftVanLocationCreator.CreateExtreme(input);
 
             // Assert
             string message = $"The value of argument 'waternetCreationMode' ({99}) is invalid for Enum type '{typeof(WaternetCreationMode).Name}'.";
@@ -147,7 +147,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                 });
 
             // Call
-            Location location = UpliftVanStabilityLocationCreator.CreateExtreme(input);
+            Location location = UpliftVanLocationCreator.CreateExtreme(input);
 
             // Assert
             Assert.AreEqual(expectedWaternetCreationMode, location.WaternetCreationMode);
@@ -170,7 +170,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                 });
 
             // Call
-            TestDelegate test = () => UpliftVanStabilityLocationCreator.CreateExtreme(input);
+            TestDelegate test = () => UpliftVanLocationCreator.CreateExtreme(input);
 
             // Assert
             string message = $"The value of argument 'plLineCreationMethod' ({99}) is invalid for Enum type '{typeof(PlLineCreationMethod).Name}'.";
@@ -197,7 +197,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                 });
 
             // Call
-            Location location = UpliftVanStabilityLocationCreator.CreateExtreme(input);
+            Location location = UpliftVanLocationCreator.CreateExtreme(input);
 
             // Assert
             Assert.AreEqual(expectedPlLineCreationMethod, location.PlLineCreationMethod);
@@ -244,7 +244,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                 });
 
             // Call
-            Location location = UpliftVanStabilityLocationCreator.CreateExtreme(input);
+            Location location = UpliftVanLocationCreator.CreateExtreme(input);
 
             // Assert
             Assert.AreEqual(input.AssessmentLevel, location.HeadInPlLine3);
@@ -266,7 +266,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
         public void CreateDaily_InputNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => UpliftVanStabilityLocationCreator.CreateDaily(null);
+            TestDelegate call = () => UpliftVanLocationCreator.CreateDaily(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -290,7 +290,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                 });
 
             // Call
-            TestDelegate test = () => UpliftVanStabilityLocationCreator.CreateDaily(input);
+            TestDelegate test = () => UpliftVanLocationCreator.CreateDaily(input);
 
             // Assert
             string message = $"The value of argument 'dikeSoilScenario' ({99}) is invalid for Enum type '{typeof(MacroStabilityInwardsDikeSoilScenario).Name}'.";
@@ -319,7 +319,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                 });
 
             // Call
-            Location location = UpliftVanStabilityLocationCreator.CreateDaily(input);
+            Location location = UpliftVanLocationCreator.CreateDaily(input);
 
             // Assert
             Assert.AreEqual(expectedDikeSoilScenario, location.DikeSoilScenario);
@@ -342,7 +342,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                 });
 
             // Call
-            TestDelegate test = () => UpliftVanStabilityLocationCreator.CreateDaily(input);
+            TestDelegate test = () => UpliftVanLocationCreator.CreateDaily(input);
 
             // Assert
             string message = $"The value of argument 'waternetCreationMode' ({99}) is invalid for Enum type '{typeof(WaternetCreationMode).Name}'.";
@@ -369,7 +369,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                 });
 
             // Call
-            Location location = UpliftVanStabilityLocationCreator.CreateDaily(input);
+            Location location = UpliftVanLocationCreator.CreateDaily(input);
 
             // Assert
             Assert.AreEqual(expectedWaternetCreationMode, location.WaternetCreationMode);
@@ -392,7 +392,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                 });
 
             // Call
-            TestDelegate test = () => UpliftVanStabilityLocationCreator.CreateDaily(input);
+            TestDelegate test = () => UpliftVanLocationCreator.CreateDaily(input);
 
             // Assert
             string message = $"The value of argument 'plLineCreationMethod' ({99}) is invalid for Enum type '{typeof(PlLineCreationMethod).Name}'.";
@@ -419,7 +419,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                 });
 
             // Call
-            Location location = UpliftVanStabilityLocationCreator.CreateDaily(input);
+            Location location = UpliftVanLocationCreator.CreateDaily(input);
 
             // Assert
             Assert.AreEqual(expectedPlLineCreationMethod, location.PlLineCreationMethod);
@@ -466,7 +466,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                 });
 
             // Call
-            Location location = UpliftVanStabilityLocationCreator.CreateDaily(input);
+            Location location = UpliftVanLocationCreator.CreateDaily(input);
 
             // Assert
             Assert.AreEqual(input.WaterLevelRiverAverage, location.HeadInPlLine3);

@@ -28,16 +28,16 @@ using Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.Waternet;
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
 {
     /// <summary>
-    /// Creates <see cref="StabilityLocation"/> instances which are required by <see cref="IWaternetKernel"/>.
+    /// Creates <see cref="Location"/> instances which are required by <see cref="IWaternetKernel"/>.
     /// </summary>
-    internal static class WaternetStabilityLocationCreator
+    internal static class WaternetLocationCreator
     {
         /// <summary>
-        /// Creates a <see cref="StabilityLocation"/> based on the given <paramref name="input"/>
+        /// Creates a <see cref="Location"/> based on the given <paramref name="input"/>
         /// which can be used by <see cref="IWaternetKernel"/>.
         /// </summary>
         /// <param name="input">The <see cref="WaternetCalculatorInput"/> to get the information from.</param>
-        /// <returns>A new <see cref="StabilityLocation"/> with the given information from <paramref name="input"/>.</returns>
+        /// <returns>A new <see cref="Location"/> with the given information from <paramref name="input"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="input"/> is <c>null</c>.</exception>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <see cref="WaternetCalculatorInput.DikeSoilScenario"/>,
         /// <see cref="WaternetCalculatorInput.WaternetCreationMode"/> or <see cref="WaternetCalculatorInput.PlLineCreationMethod"/>
@@ -54,9 +54,9 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
 
             return new Location
             {
-                DikeSoilScenario = StabilityLocationCreatorHelper.ConvertDikeSoilScenario(input.DikeSoilScenario),
-                WaternetCreationMode = StabilityLocationCreatorHelper.ConvertWaternetCreationMode(input.WaternetCreationMode),
-                PlLineCreationMethod = StabilityLocationCreatorHelper.ConvertPlLineCreationMethod(input.PlLineCreationMethod),
+                DikeSoilScenario = LocationCreatorHelper.ConvertDikeSoilScenario(input.DikeSoilScenario),
+                WaternetCreationMode = LocationCreatorHelper.ConvertWaternetCreationMode(input.WaternetCreationMode),
+                PlLineCreationMethod = LocationCreatorHelper.ConvertPlLineCreationMethod(input.PlLineCreationMethod),
                 WaterLevelRiver = input.AssessmentLevel,
                 WaterLevelRiverAverage = input.WaterLevelRiverAverage,
                 WaterLevelPolder = input.WaterLevelPolder,

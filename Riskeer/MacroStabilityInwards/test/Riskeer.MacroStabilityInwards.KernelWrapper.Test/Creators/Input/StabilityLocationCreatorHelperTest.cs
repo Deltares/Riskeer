@@ -39,7 +39,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
         public void ConvertDikeSoilScenario_InvalidDikeSoilScenario_ThrowInvalidEnumArgumentException()
         {
             // Call
-            TestDelegate test = () => StabilityLocationCreatorHelper.ConvertDikeSoilScenario((MacroStabilityInwardsDikeSoilScenario) 99);
+            TestDelegate test = () => LocationCreatorHelper.ConvertDikeSoilScenario((MacroStabilityInwardsDikeSoilScenario) 99);
 
             // Assert
             string message = $"The value of argument 'dikeSoilScenario' ({99}) is invalid for Enum type '{typeof(MacroStabilityInwardsDikeSoilScenario).Name}'.";
@@ -55,7 +55,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                                                                                                  DikeSoilScenario expectedDikeSoilScenario)
         {
             // Call
-            DikeSoilScenario convertedDikeSoilScenario = StabilityLocationCreatorHelper.ConvertDikeSoilScenario(macroStabilityInwardsDikeSoilScenario);
+            DikeSoilScenario convertedDikeSoilScenario = LocationCreatorHelper.ConvertDikeSoilScenario(macroStabilityInwardsDikeSoilScenario);
 
             // Assert
             Assert.AreEqual(expectedDikeSoilScenario, convertedDikeSoilScenario);
@@ -65,7 +65,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
         public void ConvertWaternetCreationMode_InvalidWaternetCreationMode_ThrowInvalidEnumArgumentException()
         {
             // Call
-            TestDelegate test = () => StabilityLocationCreatorHelper.ConvertWaternetCreationMode((WaternetCreationMode) 99);
+            TestDelegate test = () => LocationCreatorHelper.ConvertWaternetCreationMode((WaternetCreationMode) 99);
 
             // Assert
             string message = $"The value of argument 'waternetCreationMode' ({99}) is invalid for Enum type '{typeof(WaternetCreationMode).Name}'.";
@@ -79,7 +79,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                                                                                                                          WtiStabilityWaternetCreationMethod expectedWaternetCreationMode)
         {
             // Call
-            WtiStabilityWaternetCreationMethod convertedWaternetCreationMode = StabilityLocationCreatorHelper.ConvertWaternetCreationMode(waternetCreationMode);
+            WtiStabilityWaternetCreationMethod convertedWaternetCreationMode = LocationCreatorHelper.ConvertWaternetCreationMode(waternetCreationMode);
 
             // Assert
             Assert.AreEqual(expectedWaternetCreationMode, convertedWaternetCreationMode);
@@ -89,7 +89,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
         public void ConvertPlLineCreationMethod_InvalidPlLineCreationMethod_ThrowInvalidEnumArgumentException()
         {
             // Call
-            TestDelegate test = () => StabilityLocationCreatorHelper.ConvertPlLineCreationMethod((PlLineCreationMethod) 99);
+            TestDelegate test = () => LocationCreatorHelper.ConvertPlLineCreationMethod((PlLineCreationMethod) 99);
 
             // Assert
             string message = $"The value of argument 'plLineCreationMethod' ({99}) is invalid for Enum type '{typeof(PlLineCreationMethod).Name}'.";
@@ -103,7 +103,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                                                                                                                          WtiStabilityPlLineCreationMethod expectedPlLineCreationMethod)
         {
             // Call
-            WtiStabilityPlLineCreationMethod actualPlLineCreationMethod = StabilityLocationCreatorHelper.ConvertPlLineCreationMethod(plLineCreationMethod);
+            WtiStabilityPlLineCreationMethod actualPlLineCreationMethod = LocationCreatorHelper.ConvertPlLineCreationMethod(plLineCreationMethod);
 
             // Assert
             Assert.AreEqual(expectedPlLineCreationMethod, actualPlLineCreationMethod);

@@ -53,12 +53,12 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
                 kernelSlipPlane.SlipPlaneRightGrid = CreateGrid(slipPlane.RightGrid);
             }
 
-            kernelSlipPlane.SlipPlaneTangentLine = CreateTangentline(slipPlane);
+            kernelSlipPlane.SlipPlaneTangentLine = CreateTangentLine(slipPlane);
 
             return kernelSlipPlane;
         }
         
-        private static SlipCircleTangentLine CreateTangentline(UpliftVanSlipPlane slipPlane)
+        private static SlipCircleTangentLine CreateTangentLine(UpliftVanSlipPlane slipPlane)
         {
             var tangentLine = new SlipCircleTangentLine();
 

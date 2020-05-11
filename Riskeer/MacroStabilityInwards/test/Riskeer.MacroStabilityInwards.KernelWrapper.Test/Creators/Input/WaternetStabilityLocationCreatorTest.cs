@@ -43,7 +43,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
         public void Create_InputNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => WaternetStabilityLocationCreator.Create(null);
+            TestDelegate call = () => WaternetLocationCreator.Create(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -65,7 +65,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                 });
 
             // Call
-            TestDelegate test = () => WaternetStabilityLocationCreator.Create(input);
+            TestDelegate test = () => WaternetLocationCreator.Create(input);
 
             // Assert
             string message = $"The value of argument 'dikeSoilScenario' ({99}) is invalid for Enum type '{typeof(MacroStabilityInwardsDikeSoilScenario).Name}'.";
@@ -92,7 +92,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                 });
 
             // Call
-            Location location = WaternetStabilityLocationCreator.Create(input);
+            Location location = WaternetLocationCreator.Create(input);
 
             // Assert
             Assert.AreEqual(expectedDikeSoilScenario, location.DikeSoilScenario);
@@ -113,7 +113,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                 });
 
             // Call
-            TestDelegate test = () => WaternetStabilityLocationCreator.Create(input);
+            TestDelegate test = () => WaternetLocationCreator.Create(input);
 
             // Assert
             string message = $"The value of argument 'waternetCreationMode' ({99}) is invalid for Enum type '{typeof(WaternetCreationMode).Name}'.";
@@ -138,7 +138,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                 });
 
             // Call
-            Location location = WaternetStabilityLocationCreator.Create(input);
+            Location location = WaternetLocationCreator.Create(input);
 
             // Assert
             Assert.AreEqual(expectedWaternetCreationMode, location.WaternetCreationMode);
@@ -159,7 +159,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                 });
 
             // Call
-            TestDelegate test = () => WaternetStabilityLocationCreator.Create(input);
+            TestDelegate test = () => WaternetLocationCreator.Create(input);
 
             // Assert
             string message = $"The value of argument 'plLineCreationMethod' ({99}) is invalid for Enum type '{typeof(PlLineCreationMethod).Name}'.";
@@ -184,7 +184,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                 });
 
             // Call
-            Location location = WaternetStabilityLocationCreator.Create(input);
+            Location location = WaternetLocationCreator.Create(input);
 
             // Assert
             Assert.AreEqual(expectedPlLineCreationMethod, location.PlLineCreationMethod);
@@ -243,7 +243,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                 });
 
             // Call
-            Location location = WaternetStabilityLocationCreator.Create(input);
+            Location location = WaternetLocationCreator.Create(input);
 
             // Assert
             Assert.AreEqual(DikeSoilScenario.SandDikeOnClay, location.DikeSoilScenario);

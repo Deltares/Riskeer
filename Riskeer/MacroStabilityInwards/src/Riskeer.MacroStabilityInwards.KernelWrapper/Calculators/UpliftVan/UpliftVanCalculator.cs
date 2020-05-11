@@ -120,9 +120,9 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan
             SoilProfile2D soilProfile2D = SoilProfileCreator.Create(layersWithSoil);
 
             var waternetDailyKernelWrapper = CreateWaternetKernel<WaternetDailyKernelWrapper>(soilProfile2D, surfaceLine,
-                                                                                              UpliftVanStabilityLocationCreator.CreateDaily(input));
+                                                                                              UpliftVanLocationCreator.CreateDaily(input));
             var waternetExtremeKernelWrapper = CreateWaternetKernel<WaternetExtremeKernelWrapper>(soilProfile2D, surfaceLine,
-                                                                                                  UpliftVanStabilityLocationCreator.CreateExtreme(input));
+                                                                                                  UpliftVanLocationCreator.CreateExtreme(input));
 
             IUpliftVanKernel upliftVanKernel = factory.CreateUpliftVanKernel();
             upliftVanKernel.SetSlipPlaneUpliftVan(SlipPlaneUpliftVanCreator.Create(input.SlipPlane));

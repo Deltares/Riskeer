@@ -31,10 +31,10 @@ using WtiStabilityWaternetCreationMode = Deltares.MacroStability.WaternetCreator
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
 {
     /// <summary>
-    /// Helper class to convert properties needed in the <see cref="UpliftVanStabilityLocationCreator"/>
-    /// and <see cref="WaternetStabilityLocationCreator"/>.
+    /// Helper class to convert properties needed in the <see cref="UpliftVanLocationCreator"/>
+    /// and <see cref="WaternetLocationCreator"/>.
     /// </summary>
-    internal static class StabilityLocationCreatorHelper
+    internal static class LocationCreatorHelper
     {
         /// <summary>
         /// Converts a <see cref="MacroStabilityInwardsDikeSoilScenario"/> into a <see cref="DikeSoilScenario"/>.
