@@ -53,7 +53,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Output
 
         /// <summary>
         /// Creates an <see cref="IEnumerable{T}"/> of <see cref="UpliftVanKernelMessage"/> 
-        /// based on the <see cref="ValidationResult"/> given in the <paramref name="validationResults"/>.
+        /// based on the <see cref="IValidationResult"/> given in the <paramref name="validationResults"/>.
         /// </summary>
         /// <param name="validationResults">The validation results to create the Uplift Van kernel messages for.</param>
         /// <returns>A new <see cref="IEnumerable{T}"/> of <see cref="UpliftVanKernelMessage"/> with information

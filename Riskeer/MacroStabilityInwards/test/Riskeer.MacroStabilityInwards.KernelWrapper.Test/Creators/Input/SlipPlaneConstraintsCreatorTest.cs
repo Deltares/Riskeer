@@ -21,7 +21,6 @@
 
 using System;
 using Deltares.MacroStability.Data;
-using Deltares.WTIStability;
 using NUnit.Framework;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input;
