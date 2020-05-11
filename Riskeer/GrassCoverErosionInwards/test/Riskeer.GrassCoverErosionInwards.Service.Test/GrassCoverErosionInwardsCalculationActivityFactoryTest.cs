@@ -114,7 +114,10 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
 
             mocks.ReplayAll();
 
-            GrassCoverErosionInwardsCalculation calculation = CreateValidCalculation();
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+            assessmentSection.HydraulicBoundaryDatabases.First().Locations.Add(hydraulicBoundaryLocation);
+
+            GrassCoverErosionInwardsCalculation calculation = CreateValidCalculation(hydraulicBoundaryLocation);
 
             // Call
             CalculatableActivity activity = GrassCoverErosionInwardsCalculationActivityFactory.CreateCalculationActivity(calculation,
@@ -123,7 +126,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
 
             // Assert
             Assert.IsInstanceOf<GrassCoverErosionInwardsCalculationActivity>(activity);
-            AssertGrassCoverErosionInwardsCalculationActivity(activity, calculation, assessmentSection.HydraulicBoundaryDatabase);
+            AssertGrassCoverErosionInwardsCalculationActivity(activity, calculation, assessmentSection);
             mocks.VerifyAll();
         }
 
@@ -191,8 +194,11 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
 
             mocks.ReplayAll();
 
-            GrassCoverErosionInwardsCalculation calculation1 = CreateValidCalculation();
-            GrassCoverErosionInwardsCalculation calculation2 = CreateValidCalculation();
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+            assessmentSection.HydraulicBoundaryDatabases.First().Locations.Add(hydraulicBoundaryLocation);
+
+            GrassCoverErosionInwardsCalculation calculation1 = CreateValidCalculation(hydraulicBoundaryLocation);
+            GrassCoverErosionInwardsCalculation calculation2 = CreateValidCalculation(hydraulicBoundaryLocation);
 
             var calculations = new CalculationGroup
             {
@@ -212,8 +218,8 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
             Assert.AreEqual(2, activities.Count());
 
             HydraulicBoundaryDatabase hydraulicBoundaryDatabase = assessmentSection.HydraulicBoundaryDatabase;
-            AssertGrassCoverErosionInwardsCalculationActivity(activities.First(), calculation1, hydraulicBoundaryDatabase);
-            AssertGrassCoverErosionInwardsCalculationActivity(activities.ElementAt(1), calculation2, hydraulicBoundaryDatabase);
+            AssertGrassCoverErosionInwardsCalculationActivity(activities.First(), calculation1, assessmentSection);
+            AssertGrassCoverErosionInwardsCalculationActivity(activities.ElementAt(1), calculation2, assessmentSection);
             mocks.VerifyAll();
         }
 
@@ -258,8 +264,11 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
 
             mocks.ReplayAll();
 
-            GrassCoverErosionInwardsCalculation calculation1 = CreateValidCalculation();
-            GrassCoverErosionInwardsCalculation calculation2 = CreateValidCalculation();
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+            assessmentSection.HydraulicBoundaryDatabases.First().Locations.Add(hydraulicBoundaryLocation);
+
+            GrassCoverErosionInwardsCalculation calculation1 = CreateValidCalculation(hydraulicBoundaryLocation);
+            GrassCoverErosionInwardsCalculation calculation2 = CreateValidCalculation(hydraulicBoundaryLocation);
 
             failureMechanism.CalculationsGroup.Children.AddRange(new[]
             {
@@ -276,18 +285,18 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
             Assert.AreEqual(2, activities.Count());
 
             HydraulicBoundaryDatabase hydraulicBoundaryDatabase = assessmentSection.HydraulicBoundaryDatabase;
-            AssertGrassCoverErosionInwardsCalculationActivity(activities.First(), calculation1, hydraulicBoundaryDatabase);
-            AssertGrassCoverErosionInwardsCalculationActivity(activities.ElementAt(1), calculation2, hydraulicBoundaryDatabase);
+            AssertGrassCoverErosionInwardsCalculationActivity(activities.First(), calculation1, assessmentSection);
+            AssertGrassCoverErosionInwardsCalculationActivity(activities.ElementAt(1), calculation2, assessmentSection);
             mocks.VerifyAll();
         }
 
-        private static GrassCoverErosionInwardsCalculation CreateValidCalculation()
+        private static GrassCoverErosionInwardsCalculation CreateValidCalculation(HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
             return new GrassCoverErosionInwardsCalculation
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2),
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation,
                     DikeProfile = new DikeProfile(new Point2D(0, 0),
                                                   new RoughnessPoint[0],
                                                   new Point2D[0],
@@ -302,7 +311,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
 
         private static void AssertGrassCoverErosionInwardsCalculationActivity(Activity activity,
                                                                               GrassCoverErosionInwardsCalculation calculation,
-                                                                              HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
+                                                                              IAssessmentSection assessmentSection)
         {
             var mocks = new MockRepository();
             var testCalculator = new TestOvertoppingCalculator();
@@ -311,7 +320,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                              .WhenCalled(invocation =>
                              {
                                  HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(hydraulicBoundaryDatabase),
+                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection, calculation.InputParameters.HydraulicBoundaryLocation),
                                      (HydraRingCalculationSettings) invocation.Arguments[0]);
                              })
                              .Return(testCalculator);
