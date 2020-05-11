@@ -26,9 +26,12 @@ using Components.Persistence.Stability;
 using Core.Common.Base.Data;
 using Core.Common.Base.IO;
 using Core.Common.Util;
+using log4net;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Forms.Helpers;
 using Riskeer.MacroStabilityInwards.Data;
+using Riskeer.MacroStabilityInwards.IO.Properties;
+using CoreCommonUtilResources = Core.Common.Util.Properties.Resources;
 
 namespace Riskeer.MacroStabilityInwards.IO.Exporters
 {
@@ -37,6 +40,8 @@ namespace Riskeer.MacroStabilityInwards.IO.Exporters
     /// </summary>
     public class MacroStabilityInwardsCalculationGroupExporter : IFileExporter
     {
+        private static readonly ILog log = LogManager.GetLogger(typeof(MacroStabilityInwardsCalculationGroupExporter));
+
         private readonly CalculationGroup calculationGroup;
         private readonly IPersistenceFactory persistenceFactory;
         private readonly string folderPath;
@@ -100,8 +105,6 @@ namespace Riskeer.MacroStabilityInwards.IO.Exporters
                 Directory.CreateDirectory(nestedFolderPath);
             }
 
-            var exportSucceeded = true;
-
             var exportedCalculations = new List<MacroStabilityInwardsCalculation>();
             var exportedGroups = new List<CalculationGroup>();
 
@@ -109,34 +112,48 @@ namespace Riskeer.MacroStabilityInwards.IO.Exporters
             {
                 if (calculationItem is MacroStabilityInwardsCalculation calculation)
                 {
-                    exportSucceeded = Export(calculation, nestedFolderPath, exportedCalculations);
-                    if (exportSucceeded)
+                    bool exportSucceeded = Export(calculation, nestedFolderPath, exportedCalculations);
+                    if (!exportSucceeded)
                     {
-                        exportedCalculations.Add(calculation);
+                        return false;
                     }
+                    exportedCalculations.Add(calculation);
                 }
 
                 if (calculationItem is CalculationGroup nestedGroup)
                 {
                     string uniqueGroupName = NamingHelper.GetUniqueName(exportedGroups, nestedGroup.Name, group => group.Name);
-                    exportSucceeded = Export(nestedGroup, Path.Combine(nestedFolderPath, uniqueGroupName));
-                    if (exportSucceeded)
+                    bool exportSucceeded = Export(nestedGroup, Path.Combine(nestedFolderPath, uniqueGroupName));
+                    if (!exportSucceeded)
                     {
-                        exportedGroups.Add(nestedGroup);
+                        return false;
                     }
+                    exportedGroups.Add(nestedGroup);
                 }
+            }
+
+            return true;
+        }
+
+        private bool Export(MacroStabilityInwardsCalculation calculation, string nestedFolderPath, IEnumerable<MacroStabilityInwardsCalculation> exportedCalculations)
+        {
+            string filePath = GetCalculationFilePath(calculation, nestedFolderPath, exportedCalculations);
+            var exporter = new MacroStabilityInwardsCalculationExporter(calculation, persistenceFactory, filePath, () => getNormativeAssessmentLevelFunc(calculation));
+
+            bool exportSucceeded = exporter.Export();
+            if (!exportSucceeded)
+            {
+                log.ErrorFormat("{0} {1}", string.Format(CoreCommonUtilResources.Error_General_output_error_0, filePath), Resources.MacroStabilityInwardsCalculationExporter_Export_no_stability_project_exported);
             }
 
             return exportSucceeded;
         }
 
-        private bool Export(MacroStabilityInwardsCalculation calculation, string nestedFolderPath, IEnumerable<MacroStabilityInwardsCalculation> exportedCalculations)
+        private string GetCalculationFilePath(ICalculationBase calculation, string nestedFolderPath, IEnumerable<MacroStabilityInwardsCalculation> exportedCalculations)
         {
             string uniqueName = NamingHelper.GetUniqueName(exportedCalculations, calculation.Name, c => c.Name);
             string fileNameWithExtension = $"{uniqueName}.{fileExtension}";
-            var exporter = new MacroStabilityInwardsCalculationExporter(calculation, persistenceFactory, Path.Combine(nestedFolderPath, fileNameWithExtension),
-                                                                        () => getNormativeAssessmentLevelFunc(calculation));
-            return exporter.Export();
+            return Path.Combine(nestedFolderPath, fileNameWithExtension);
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2019. All rights reserved.
+// Copyright (C) Stichting Deltares 2019. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -326,6 +326,67 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
                     AssertCalculationExists(Path.Combine(folderPath, nestedGroup1.Name, $"{calculation1.Name}.{fileExtension}"));
                     AssertCalculationExists(Path.Combine(folderPath, nestedGroup1.Name, $"{calculation2.Name}.{fileExtension}"));
                     AssertCalculationExists(Path.Combine(folderPath, $"{nestedGroup2.Name} (1)", $"{calculation3.Name}.{fileExtension}"));
+                }
+            }
+            finally
+            {
+                Directory.Delete(folderPath, true);
+            }
+        }
+
+        [Test]
+        public void Export_ErrorDuringSingleCalculationExport_LogsErrorAndReturnsFalse()
+        {
+            // Setup
+            string folderPath = TestHelper.GetScratchPadPath($"{nameof(MacroStabilityInwardsCalculationGroupExporterTest)}.{nameof(Export_ErrorDuringSingleCalculationExport_LogsErrorAndReturnsFalse)}");
+            Directory.CreateDirectory(folderPath);
+
+            MacroStabilityInwardsCalculationScenario calculation1 = CreateCalculation("calculation1");
+            MacroStabilityInwardsCalculationScenario calculation2 = CreateCalculation("calculation2");
+            MacroStabilityInwardsCalculationScenario calculation3 = CreateCalculation("calculation3");
+            MacroStabilityInwardsCalculationScenario calculation4 = CreateCalculation("calculation4");
+
+            var rootGroup = new CalculationGroup
+            {
+                Name = "root"
+            };
+            var nestedGroup1 = new CalculationGroup
+            {
+                Name = "group1"
+            };
+            var nestedGroup2 = new CalculationGroup
+            {
+                Name = "group2"
+            };
+            nestedGroup1.Children.Add(calculation1);
+            nestedGroup1.Children.Add(calculation2);
+            nestedGroup2.Children.Add(calculation3);
+            nestedGroup2.Children.Add(calculation4);
+            rootGroup.Children.Add(nestedGroup1);
+            rootGroup.Children.Add(nestedGroup2);
+
+            var exporter = new MacroStabilityInwardsCalculationGroupExporter(rootGroup, new PersistenceFactory(), folderPath, fileExtension, c => AssessmentSectionTestHelper.GetTestAssessmentLevel());
+            Directory.CreateDirectory(Path.Combine(folderPath, nestedGroup2.Name));
+            string lockedCalculationFilePath = Path.Combine(folderPath, nestedGroup2.Name, $"{calculation3.Name}.{fileExtension}");
+
+            try
+            {
+                using (var fileDisposeHelper = new FileDisposeHelper(lockedCalculationFilePath))
+                using (new MacroStabilityInwardsCalculatorFactoryConfig())
+                {
+                    fileDisposeHelper.LockFiles();
+
+                    // Call
+                    var exportResult = false;
+                    void Call() => exportResult = exporter.Export();
+
+                    // Assert
+                    string expectedMessage = $"Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{lockedCalculationFilePath}'. Er is geen D-GEO Suite Stability Project geëxporteerd.";
+                    TestHelper.AssertLogMessageWithLevelIsGenerated(Call, new Tuple<string, LogLevelConstant>(expectedMessage, LogLevelConstant.Error));
+                    Assert.IsFalse(exportResult);
+                    AssertCalculationExists(Path.Combine(folderPath, nestedGroup1.Name, $"{calculation1.Name}.{fileExtension}"));
+                    AssertCalculationExists(Path.Combine(folderPath, nestedGroup1.Name, $"{calculation2.Name}.{fileExtension}"));
+                    Assert.IsFalse(File.Exists(Path.Combine(folderPath, nestedGroup2.Name, $"{calculation4.Name}.{fileExtension}")));
                 }
             }
             finally
