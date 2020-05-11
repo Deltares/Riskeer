@@ -300,11 +300,16 @@ namespace Riskeer.StabilityPointStructures.Integration.Test
         public void Run_HydraulicBoundaryDatabaseWithCanUsePreprocessorFalse_ExpectedPreprocessorDirectorySetToCalculator()
         {
             // Setup
+            var calculation = new TestStabilityPointStructuresCalculation();
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
                 HydraulicBoundaryDatabase =
                 {
-                    FilePath = validFilePath
+                    FilePath = validFilePath,
+                    Locations =
+                    {
+                        calculation.InputParameters.HydraulicBoundaryLocation
+                    }
                 }
             };
             HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
@@ -316,14 +321,13 @@ namespace Riskeer.StabilityPointStructures.Integration.Test
                              .WhenCalled(invocation =>
                              {
                                  HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryDatabase),
+                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection, calculation.InputParameters.HydraulicBoundaryLocation),
                                      (HydraRingCalculationSettings) invocation.Arguments[0]);
                              })
                              .Return(new TestStructuresCalculator<StructuresStabilityPointCalculationInput>());
             mockRepository.ReplayAll();
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            var calculation = new TestStabilityPointStructuresCalculation();
 
             CalculatableActivity activity = StabilityPointStructuresCalculationActivityFactory.CreateCalculationActivity(calculation,
                                                                                                                          failureMechanism,
@@ -342,11 +346,16 @@ namespace Riskeer.StabilityPointStructures.Integration.Test
         public void Run_HydraulicBoundaryDatabaseWithUsePreprocessorTrue_ExpectedPreprocessorDirectorySetToCalculator()
         {
             // Setup
+            var calculation = new TestStabilityPointStructuresCalculation();
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
                 HydraulicBoundaryDatabase =
                 {
                     FilePath = validFilePath,
+                    Locations =
+                    {
+                        calculation.InputParameters.HydraulicBoundaryLocation
+                    },
                     HydraulicLocationConfigurationSettings =
                     {
                         CanUsePreprocessor = true,
@@ -364,14 +373,13 @@ namespace Riskeer.StabilityPointStructures.Integration.Test
                              .WhenCalled(invocation =>
                              {
                                  HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryDatabase),
+                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection, calculation.InputParameters.HydraulicBoundaryLocation),
                                      (HydraRingCalculationSettings) invocation.Arguments[0]);
                              })
                              .Return(new TestStructuresCalculator<StructuresStabilityPointCalculationInput>());
             mockRepository.ReplayAll();
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            var calculation = new TestStabilityPointStructuresCalculation();
 
             CalculatableActivity activity = StabilityPointStructuresCalculationActivityFactory.CreateCalculationActivity(calculation,
                                                                                                                          failureMechanism,
@@ -390,11 +398,16 @@ namespace Riskeer.StabilityPointStructures.Integration.Test
         public void Run_HydraulicBoundaryDatabaseWithUsePreprocessorFalse_ExpectedPreprocessorDirectorySetToCalculator()
         {
             // Setup
+            var calculation = new TestStabilityPointStructuresCalculation();
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
                 HydraulicBoundaryDatabase =
                 {
                     FilePath = validFilePath,
+                    Locations =
+                    {
+                        calculation.InputParameters.HydraulicBoundaryLocation
+                    },
                     HydraulicLocationConfigurationSettings =
                     {
                         CanUsePreprocessor = true,
@@ -412,14 +425,13 @@ namespace Riskeer.StabilityPointStructures.Integration.Test
                              .WhenCalled(invocation =>
                              {
                                  HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryDatabase),
+                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection, calculation.InputParameters.HydraulicBoundaryLocation),
                                      (HydraRingCalculationSettings) invocation.Arguments[0]);
                              })
                              .Return(new TestStructuresCalculator<StructuresStabilityPointCalculationInput>());
             mockRepository.ReplayAll();
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            var calculation = new TestStabilityPointStructuresCalculation();
 
             CalculatableActivity activity = StabilityPointStructuresCalculationActivityFactory.CreateCalculationActivity(calculation,
                                                                                                                          failureMechanism,
