@@ -287,6 +287,70 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
         }
 
         [Test]
+        public void Export_CalculationGroupWithNestedGroupsAndCalculations_LogsMessages()
+        {
+            // Setup
+            string folderPath = TestHelper.GetScratchPadPath($"{nameof(MacroStabilityInwardsCalculationGroupExporterTest)}.{nameof(Export_CalculationGroupWithNestedGroupsAndCalculations_LogsMessages)}");
+            Directory.CreateDirectory(folderPath);
+
+            MacroStabilityInwardsCalculationScenario calculation1 = CreateCalculation("calculation1");
+            MacroStabilityInwardsCalculationScenario calculation2 = CreateCalculation("calculation2");
+            MacroStabilityInwardsCalculationScenario calculation3 = CreateCalculation("calculation3");
+            MacroStabilityInwardsCalculationScenario calculation4 = CreateCalculation("calculation4");
+
+            var rootCalculationGroup = new CalculationGroup();
+            var nestedGroup1 = new CalculationGroup
+            {
+                Name = "NestedGroup1"
+            };
+            var nestedGroup2 = new CalculationGroup
+            {
+                Name = "NestedGroup2"
+            };
+            nestedGroup2.Children.Add(calculation4);
+            nestedGroup1.Children.Add(calculation3);
+            nestedGroup1.Children.Add(nestedGroup2);
+            rootCalculationGroup.Children.Add(calculation1);
+            rootCalculationGroup.Children.Add(calculation2);
+            rootCalculationGroup.Children.Add(nestedGroup1);
+
+            var exporter = new MacroStabilityInwardsCalculationGroupExporter(rootCalculationGroup, new PersistenceFactory(), folderPath, fileExtension, c => AssessmentSectionTestHelper.GetTestAssessmentLevel());
+
+            try
+            {
+                using (new MacroStabilityInwardsCalculatorFactoryConfig())
+                {
+                    // Call
+                    var exportResult = false;
+                    void Call() => exportResult = exporter.Export();
+
+                    // Assert
+                    string calculation1FilePath = Path.Combine(folderPath, $"{calculation1.Name}.{fileExtension}");
+                    string calculation2FilePath = Path.Combine(folderPath, $"{calculation2.Name}.{fileExtension}");
+                    string calculation3FilePath = Path.Combine(folderPath, nestedGroup1.Name, $"{calculation3.Name}.{fileExtension}");
+                    string calculation4FilePath = Path.Combine(folderPath, nestedGroup1.Name, nestedGroup2.Name, $"{calculation4.Name}.{fileExtension}");
+
+                    TestHelper.AssertLogMessagesAreGenerated(Call, new[]
+                    {
+                        $"Gegevens van '{calculation1.Name}' zijn geëxporteerd naar bestand '{calculation1FilePath}'.",
+                        $"Gegevens van '{calculation2.Name}' zijn geëxporteerd naar bestand '{calculation2FilePath}'.",
+                        $"Gegevens van '{calculation3.Name}' zijn geëxporteerd naar bestand '{calculation3FilePath}'.",
+                        $"Gegevens van '{calculation4.Name}' zijn geëxporteerd naar bestand '{calculation4FilePath}'."
+                    });
+                    Assert.IsTrue(exportResult);
+                    AssertCalculationExists(calculation1FilePath);
+                    AssertCalculationExists(calculation2FilePath);
+                    AssertCalculationExists(calculation3FilePath);
+                    AssertCalculationExists(calculation4FilePath);
+                }
+            }
+            finally
+            {
+                Directory.Delete(folderPath, true);
+            }
+        }
+
+        [Test]
         public void Export_CalculationGroupWithCalculationsWithSameName_WritesFilesAndReturnsTrue()
         {
             // Setup

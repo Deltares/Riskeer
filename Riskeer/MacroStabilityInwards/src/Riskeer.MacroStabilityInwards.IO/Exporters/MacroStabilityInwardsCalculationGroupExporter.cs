@@ -149,7 +149,11 @@ namespace Riskeer.MacroStabilityInwards.IO.Exporters
             var exporter = new MacroStabilityInwardsCalculationExporter(calculation, persistenceFactory, filePath, () => getNormativeAssessmentLevelFunc(calculation));
 
             bool exportSucceeded = exporter.Export();
-            if (!exportSucceeded)
+            if (exportSucceeded)
+            {
+                log.InfoFormat(Resources.MacroStabilityInwardsCalculationGroupExporter_Export_Data_from_0_exported_to_file_1, calculation.Name, filePath);
+            }
+            else
             {
                 log.ErrorFormat("{0} {1}", string.Format(CoreCommonUtilResources.Error_General_output_error_0, filePath), Resources.MacroStabilityInwardsCalculationExporter_Export_no_stability_project_exported);
             }
