@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using Deltares.MacroStability.WaternetCreator;
 using NUnit.Framework;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Kernels;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan;
@@ -62,7 +63,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernels
             var factory = new TestMacroStabilityInwardsKernelFactory();
 
             // Call
-            IWaternetKernel waternetKernel = factory.CreateWaternetExtremeKernel();
+            IWaternetKernel waternetKernel = factory.CreateWaternetExtremeKernel(new Location());
 
             // Assert
             Assert.AreSame(factory.LastCreatedWaternetKernel, waternetKernel);
@@ -75,7 +76,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernels
             var factory = new TestMacroStabilityInwardsKernelFactory();
 
             // Call
-            IWaternetKernel waternetKernel = factory.CreateWaternetDailyKernel();
+            IWaternetKernel waternetKernel = factory.CreateWaternetDailyKernel(new Location());
 
             // Assert
             Assert.AreSame(factory.LastCreatedWaternetKernel, waternetKernel);

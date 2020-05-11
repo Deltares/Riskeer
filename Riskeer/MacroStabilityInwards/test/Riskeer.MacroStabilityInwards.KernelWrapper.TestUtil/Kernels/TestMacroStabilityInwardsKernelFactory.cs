@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using Deltares.MacroStability.WaternetCreator;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Kernels;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.Waternet;
@@ -56,12 +57,12 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels
             return LastCreatedUpliftVanKernel;
         }
 
-        public IWaternetKernel CreateWaternetExtremeKernel()
+        public IWaternetKernel CreateWaternetExtremeKernel(Location location)
         {
             return LastCreatedWaternetKernel;
         }
 
-        public IWaternetKernel CreateWaternetDailyKernel()
+        public IWaternetKernel CreateWaternetDailyKernel(Location location)
         {
             return LastCreatedWaternetKernel;
         }

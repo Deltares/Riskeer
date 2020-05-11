@@ -7,6 +7,9 @@
     <Reference Include="Deltares.MacroStability.Standard">
       <HintPath>..\..\..\..\lib\Plugins\Wti\Deltares.MacroStability.Standard.dll</HintPath>
     </Reference>
+    <Reference Include="Deltares.MacroStability.WaternetCreator">
+      <HintPath>..\..\..\..\lib\Plugins\Wti\Deltares.MacroStability.WaternetCreator.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
   </ItemGroup>

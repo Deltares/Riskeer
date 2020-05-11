@@ -35,14 +35,21 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.Waternet
     /// </summary>
     internal class WaternetKernelWrapper : IWaternetKernel
     {
-        private Location location;
+        private const double unitWeightWater = 9.81;
+        private readonly Location location;
+        private readonly WaternetCreator waternetCreator;
 
-        public WtiStabilityWaternet Waternet { get; protected set; }
-
-        public void SetLocation(Location stabilityLocation)
+        internal WaternetKernelWrapper(Location location, string waternetName)
         {
-            location = stabilityLocation;
+            this.location = location;
+            Waternet = new WtiStabilityWaternet
+            {
+                Name = waternetName
+            };
+            waternetCreator = new WaternetCreator(unitWeightWater);
         }
+
+        public WtiStabilityWaternet Waternet { get; }
 
         public void SetSoilProfile(SoilProfile2D soilProfile)
         {
@@ -56,13 +63,10 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.Waternet
 
         public void Calculate()
         {
+            CheckIfWaternetCanBeGenerated();
+
             try
             {
-                const double unitWeightWater = 9.81; // Taken from kernel
-                var waternetCreator = new WaternetCreator(unitWeightWater);
-
-                CheckIfWaternetCanBeGenerated(waternetCreator);
-
                 waternetCreator.UpdateWaternet(Waternet, location);
 
                 ReadLogMessages(waternetCreator.LogMessages);
@@ -76,11 +80,10 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.Waternet
         }
 
         /// <summary>
-        /// Checks if a waternet can be generated.
+        /// Checks if a Waternet can be generated.
         /// </summary>
-        /// <param name="waternetCreator">The instance of the <see cref="WaternetCreator"/>.</param>
-        /// <exception cref="WaternetKernelWrapperException">Thrown when the waternet can not be generated.</exception>
-        private void CheckIfWaternetCanBeGenerated(WaternetCreator waternetCreator)
+        /// <exception cref="WaternetKernelWrapperException">Thrown when the Waternet can not be generated.</exception>
+        private void CheckIfWaternetCanBeGenerated()
         {
             if (!waternetCreator.CanGenerateWaternet(location))
             {

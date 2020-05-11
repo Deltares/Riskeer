@@ -44,11 +44,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.Waternet
         WtiStabilityWaternet Waternet { get; }
 
         /// <summary>
-        /// Sets the location.
-        /// </summary>
-        void SetLocation(Location stabilityLocation);
-
-        /// <summary>
         /// Sets the soil profile.
         /// </summary>
         void SetSoilProfile(SoilProfile2D soilProfile);

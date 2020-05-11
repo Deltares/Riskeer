@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using Deltares.MacroStability.WaternetCreator;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Input;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Input;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Output;
@@ -75,8 +76,9 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Waternet
         /// <summary>
         /// Creates a Waternet kernel.
         /// </summary>
+        /// <param name="location">The location to create the Waternet on.</param>
         /// <returns>The created <see cref="IWaternetKernel"/>.</returns>
-        protected abstract IWaternetKernel CreateWaternetKernel();
+        protected abstract IWaternetKernel CreateWaternetKernel(Location location);
 
         private WaternetCalculatorInput Input { get; }
 
@@ -88,7 +90,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Waternet
         /// kernel throws a <see cref="WaternetKernelWrapperException"/>.</exception>
         private IWaternetKernel CalculateWaternet()
         {
-            IWaternetKernel waternetKernel = CreateWaternetKernel();
+            IWaternetKernel waternetKernel = CreateWaternetKernel(WaternetLocationCreator.Create(Input));
             SetInputOnKernel(waternetKernel);
 
             try
@@ -107,7 +109,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Waternet
         {
             LayerWithSoil[] layersWithSoil = LayerWithSoilCreator.Create(Input.SoilProfile, out IDictionary<SoilLayer, LayerWithSoil> layerLookup);
 
-            waternetKernel.SetLocation(WaternetLocationCreator.Create(Input));
             waternetKernel.SetSoilProfile(SoilProfileCreator.Create(layersWithSoil));
             waternetKernel.SetSurfaceLine(SurfaceLineCreator.Create(Input.SurfaceLine));
         }

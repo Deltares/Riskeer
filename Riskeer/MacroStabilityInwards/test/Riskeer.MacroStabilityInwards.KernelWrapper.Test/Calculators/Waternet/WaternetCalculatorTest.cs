@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Deltares.MacroStability.Geometry;
+using Deltares.MacroStability.WaternetCreator;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Waternet;
@@ -208,9 +209,9 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.Waternet
             public TestWaternetCalculator(WaternetCalculatorInput input, IMacroStabilityInwardsKernelFactory factory)
                 : base(input, factory) {}
 
-            protected override IWaternetKernel CreateWaternetKernel()
+            protected override IWaternetKernel CreateWaternetKernel(Location location)
             {
-                return Factory.CreateWaternetExtremeKernel();
+                return Factory.CreateWaternetExtremeKernel(location);
             }
         }
     }

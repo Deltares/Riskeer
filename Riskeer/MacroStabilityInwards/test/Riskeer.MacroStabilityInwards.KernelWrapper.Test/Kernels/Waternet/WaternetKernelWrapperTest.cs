@@ -34,7 +34,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.Waternet
         public void Constructor_ExpectedValues()
         {
             // Call
-            var kernel = new TestWaternetKernelWrapper();
+            var kernel = new TestWaternetKernelWrapper(new Location(), "WaternetDaily");
 
             // Assert
             Assert.IsInstanceOf<IWaternetKernel>(kernel);
@@ -44,20 +44,19 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.Waternet
         public void Constructor_CompleteInput_InputCorrectlySetToWrappedKernel()
         {
             // Setup
-            var stabilityLocation = new Location();
+            var location = new Location();
             var soilProfile2D = new SoilProfile2D();
             var surfaceLine = new SurfaceLine2();
 
             // Call
-            var kernel = new TestWaternetKernelWrapper();
-            kernel.SetLocation(stabilityLocation);
+            var kernel = new TestWaternetKernelWrapper(new Location(), "WaternetDaily");
             kernel.SetSoilProfile(soilProfile2D);
             kernel.SetSurfaceLine(surfaceLine);
 
             // Assert
-            var location = TypeUtils.GetField<Location>(kernel, "location");
+            var locationField = TypeUtils.GetField<Location>(kernel, "location");
 
-            Assert.AreSame(stabilityLocation, location);
+            Assert.AreSame(locationField, location);
             Assert.AreSame(surfaceLine, location.Surfaceline);
             Assert.AreSame(soilProfile2D, location.SoilProfile2D);
         }
@@ -66,14 +65,13 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.Waternet
         public void Calculate_WaternetCannotBeGenerated_ThrowsWaternetKernelWrapperExceptionAndWaternetNotSet()
         {
             // Setup
-            var kernel = new TestWaternetKernelWrapper();
             var location = new Location
             {
                 WaternetCreationMode = WaternetCreationMode.CreateWaternet,
                 Surfaceline = null
             };
-            kernel.SetLocation(location);
-
+            var kernel = new TestWaternetKernelWrapper(location, "WaternetDaily");
+            
             // Call
             TestDelegate test = () => kernel.Calculate();
 
@@ -86,7 +84,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.Waternet
         public void Calculate_ExceptionInWrappedKernel_ThrowsWaternetKernelWrapperExceptionAndWaternetNotSet()
         {
             // Setup
-            var kernel = new TestWaternetKernelWrapper();
+            var kernel = new TestWaternetKernelWrapper(new Location(), "WaternetDaily");
 
             // Call
             TestDelegate test = () => kernel.Calculate();
@@ -98,6 +96,9 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.Waternet
             Assert.IsNull(kernel.Waternet);
         }
 
-        private class TestWaternetKernelWrapper : WaternetKernelWrapper {}
+        private class TestWaternetKernelWrapper : WaternetKernelWrapper
+        {
+            internal TestWaternetKernelWrapper(Location location, string waternetName) : base(location, waternetName) {}
+        }
     }
 }
