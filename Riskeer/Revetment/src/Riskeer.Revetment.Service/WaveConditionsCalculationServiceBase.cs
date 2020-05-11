@@ -26,6 +26,7 @@ using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.Base.IO;
 using log4net;
+using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.IO.HydraRing;
 using Riskeer.Common.Service;
@@ -125,11 +126,12 @@ namespace Riskeer.Revetment.Service
         /// <param name="b">The 'b' factor decided on failure mechanism level.</param>
         /// <param name="c">The 'c' factor decided on failure mechanism level.</param>
         /// <param name="norm">The norm to use as the target.</param>
-        /// <param name="hydraulicBoundaryDatabase">The hydraulic boundary database to perform the calculations with.</param>
+        /// <param name="assessmentSection">The assessment section containing the hydraulic boundary database to perform
+        /// the calculations with.</param>
         /// <returns>An <see cref="IEnumerable{T}"/> of <see cref="WaveConditionsOutput"/>.</returns>
         /// <remarks>Preprocessing is disabled when the preprocessor directory equals <see cref="string.Empty"/>.</remarks>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="waveConditionsInput"/> or
-        /// <paramref name="hydraulicBoundaryDatabase"/> is <c>null</c>.</exception>
+        /// <paramref name="assessmentSection"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when the hydraulic boundary database file path
         /// contains invalid characters.</exception>
         /// <exception cref="CriticalFileReadException">Thrown when:
@@ -148,16 +150,16 @@ namespace Riskeer.Revetment.Service
                                                                             RoundedDouble b,
                                                                             RoundedDouble c,
                                                                             double norm,
-                                                                            HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
+                                                                            IAssessmentSection assessmentSection)
         {
             if (waveConditionsInput == null)
             {
                 throw new ArgumentNullException(nameof(waveConditionsInput));
             }
 
-            if (hydraulicBoundaryDatabase == null)
+            if (assessmentSection == null)
             {
-                throw new ArgumentNullException(nameof(hydraulicBoundaryDatabase));
+                throw new ArgumentNullException(nameof(assessmentSection));
             }
 
             var calculationsFailed = 0;
@@ -177,7 +179,7 @@ namespace Riskeer.Revetment.Service
                     WaveConditionsOutput output = CalculateWaterLevel(waterLevel,
                                                                       a, b, c, norm,
                                                                       waveConditionsInput,
-                                                                      HydraulicBoundaryCalculationSettingsFactory.CreateSettings(hydraulicBoundaryDatabase));
+                                                                      HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection, waveConditionsInput.HydraulicBoundaryLocation));
 
                     if (output != null)
                     {
