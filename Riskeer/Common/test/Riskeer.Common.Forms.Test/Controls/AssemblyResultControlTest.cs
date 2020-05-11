@@ -58,7 +58,7 @@ namespace Riskeer.Common.Forms.Test.Controls
                 var groupLabel = (BorderedLabel) groupPanel.GetControlFromPosition(0, 0);
                 Assert.IsTrue(groupLabel.AutoSize);
                 Assert.AreEqual(DockStyle.Fill, groupLabel.Dock);
-                Assert.AreEqual(new Padding(7, 0, 7, 0), groupLabel.Padding);
+                Assert.AreEqual(new Padding(5, 0, 5, 0), groupLabel.Padding);
 
                 ErrorProvider errorProvider = GetErrorProvider(resultControl);
                 TestHelper.AssertImagesAreEqual(Resources.ErrorIcon.ToBitmap(), errorProvider.Icon.ToBitmap());

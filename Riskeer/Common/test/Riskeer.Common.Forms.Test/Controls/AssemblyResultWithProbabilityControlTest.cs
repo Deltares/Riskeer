@@ -53,7 +53,7 @@ namespace Riskeer.Common.Forms.Test.Controls
                 var groupLabel = (BorderedLabel) groupPanel.GetControlFromPosition(0, 0);
                 Assert.IsTrue(groupLabel.AutoSize);
                 Assert.AreEqual(DockStyle.Fill, groupLabel.Dock);
-                Assert.AreEqual(new Padding(7, 0, 7, 0), groupLabel.Padding);
+                Assert.AreEqual(new Padding(5, 0, 5, 0), groupLabel.Padding);
 
                 TableLayoutPanel probabilityPanel = GetProbabilityPanel(resultControl);
                 Assert.AreEqual(1, probabilityPanel.ColumnCount);
@@ -62,7 +62,7 @@ namespace Riskeer.Common.Forms.Test.Controls
                 var probabilityLabel = (BorderedLabel) probabilityPanel.GetControlFromPosition(0, 0);
                 Assert.IsTrue(probabilityLabel.AutoSize);
                 Assert.AreEqual(DockStyle.Left, probabilityLabel.Dock);
-                Assert.AreEqual(new Padding(7, 0, 7, 0), probabilityLabel.Padding);
+                Assert.AreEqual(new Padding(5, 0, 5, 0), probabilityLabel.Padding);
                 Assert.AreEqual(Color.White, probabilityLabel.BackColor);
             }
         }
