@@ -29,20 +29,15 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
     [TestFixture]
     public class MacroStabilityInwardsExportStageTypeTest : EnumValuesTestFixture<MacroStabilityInwardsExportStageType, int>
     {
-        protected override IDictionary<MacroStabilityInwardsExportStageType, int> ExpectedValueForEnumValues
-        {
-            get
+        protected override IDictionary<MacroStabilityInwardsExportStageType, int> ExpectedValueForEnumValues =>
+            new Dictionary<MacroStabilityInwardsExportStageType, int>
             {
-                return new Dictionary<MacroStabilityInwardsExportStageType, int>
                 {
-                    {
-                        MacroStabilityInwardsExportStageType.Daily, 1
-                    },
-                    {
-                        MacroStabilityInwardsExportStageType.Extreme, 2
-                    }
-                };
-            }
-        }
+                    MacroStabilityInwardsExportStageType.Daily, 1
+                },
+                {
+                    MacroStabilityInwardsExportStageType.Extreme, 2
+                }
+            };
     }
 }

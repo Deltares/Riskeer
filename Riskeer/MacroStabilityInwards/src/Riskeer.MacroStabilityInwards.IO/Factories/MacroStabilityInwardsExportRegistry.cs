@@ -81,12 +81,12 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
         public IReadOnlyDictionary<MacroStabilityInwardsExportStageType, string> SoilLayers => soilLayers;
 
         /// <summary>
-        /// Gets the waternets and their unique identifiers.
+        /// Gets the Waternets and their unique identifiers.
         /// </summary>
         public IReadOnlyDictionary<MacroStabilityInwardsExportStageType, string> Waternets => waternets;
 
         /// <summary>
-        /// Gets the waternet creator settings and their unique identifiers.
+        /// Gets the Waternet creator settings and their unique identifiers.
         /// </summary>
         public IReadOnlyDictionary<MacroStabilityInwardsExportStageType, string> WaternetCreatorSettings => waternetCreatorSettings;
 
@@ -186,11 +186,11 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
         }
 
         /// <summary>
-        /// Adds a waternet to the register.
+        /// Adds a Waternet to the register.
         /// </summary>
         /// <param name="stageType">The <see cref="MacroStabilityInwardsExportStageType"/>
-        /// to register the waternet for.</param>
-        /// <param name="id">The id of the waternet.</param>
+        /// to register the Waternet for.</param>
+        /// <param name="id">The id of the Waternet.</param>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="stageType"/>
         /// has an invalid value.</exception>
         public void AddWaternet(MacroStabilityInwardsExportStageType stageType, string id)
@@ -201,11 +201,11 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
         }
 
         /// <summary>
-        /// Adds waternet creator settings to the register.
+        /// Adds Waternet creator settings to the register.
         /// </summary>
         /// <param name="stageType">The <see cref="MacroStabilityInwardsExportStageType"/>
-        /// to register the state for.</param>
-        /// <param name="id">The id of the state.</param>
+        /// to register the Waternet creator settings for.</param>
+        /// <param name="id">The id of the Waternet creator settings.</param>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="stageType"/>
         /// has an invalid value.</exception>
         public void AddWaternetCreatorSettings(MacroStabilityInwardsExportStageType stageType, string id)
@@ -219,8 +219,8 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
         /// Adds a state to the register.
         /// </summary>
         /// <param name="stageType">The <see cref="MacroStabilityInwardsExportStageType"/>
-        /// to register the waternet creator settings for.</param>
-        /// <param name="id">The id of the waternet creator settings.</param>
+        /// to register the state for.</param>
+        /// <param name="id">The id of the state.</param>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="stageType"/>
         /// has an invalid value.</exception>
         public void AddState(MacroStabilityInwardsExportStageType stageType, string id)

@@ -20,9 +20,13 @@
 // All rights reserved.
 
 using System;
+using System.IO;
+using Components.Persistence.Stability;
+using Core.Common.Base.Data;
 using Core.Common.Base.IO;
 using Core.Common.Util;
 using Riskeer.Common.Data.Calculation;
+using Riskeer.MacroStabilityInwards.Data;
 
 namespace Riskeer.MacroStabilityInwards.IO.Exporters
 {
@@ -32,14 +36,22 @@ namespace Riskeer.MacroStabilityInwards.IO.Exporters
     public class MacroStabilityInwardsCalculationGroupExporter : IFileExporter
     {
         private readonly CalculationGroup calculationGroup;
+        private readonly IPersistenceFactory persistenceFactory;
         private readonly string folderPath;
+        private readonly string fileExtension;
+        private readonly Func<MacroStabilityInwardsCalculation, RoundedDouble> getNormativeAssessmentLevelFunc;
 
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsCalculationGroupExporter"/>.
         /// </summary>
         /// <param name="calculationGroup">The calculation group to export.</param>
+        /// <param name="persistenceFactory">The persistence factory to use.</param>
         /// <param name="folderPath">The folder path to export to.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculationGroup"/> is <c>null</c>.</exception>
+        /// <param name="fileExtension">The extension of the files.</param>
+        /// <param name="getNormativeAssessmentLevelFunc"><see cref="Func{T1,TResult}"/>
+        /// for obtaining the normative assessment level.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculationGroup"/>,<paramref name="persistenceFactory"/>
+        /// or <paramref name="getNormativeAssessmentLevelFunc"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="folderPath"/> is invalid.</exception>
         /// <remarks>A valid path:<list type="bullet">
         /// <item>is not empty or <c>null</c>,</item>
@@ -47,22 +59,69 @@ namespace Riskeer.MacroStabilityInwards.IO.Exporters
         /// <item>does not contain an invalid character,</item>
         /// <item>is not too long.</item>
         /// </list></remarks>
-        public MacroStabilityInwardsCalculationGroupExporter(CalculationGroup calculationGroup, string folderPath)
+        public MacroStabilityInwardsCalculationGroupExporter(CalculationGroup calculationGroup, IPersistenceFactory persistenceFactory, string folderPath,
+                                                             string fileExtension, Func<MacroStabilityInwardsCalculation, RoundedDouble> getNormativeAssessmentLevelFunc)
         {
             if (calculationGroup == null)
             {
                 throw new ArgumentNullException(nameof(calculationGroup));
             }
 
+            if (persistenceFactory == null)
+            {
+                throw new ArgumentNullException(nameof(persistenceFactory));
+            }
+
+            if (getNormativeAssessmentLevelFunc == null)
+            {
+                throw new ArgumentNullException(nameof(getNormativeAssessmentLevelFunc));
+            }
+
             IOUtils.ValidateFolderPath(folderPath);
 
             this.calculationGroup = calculationGroup;
+            this.persistenceFactory = persistenceFactory;
             this.folderPath = folderPath;
+            this.fileExtension = fileExtension;
+            this.getNormativeAssessmentLevelFunc = getNormativeAssessmentLevelFunc;
         }
 
         public bool Export()
         {
-            return false;
+            return Export(calculationGroup, folderPath);
+        }
+
+        private bool Export(CalculationGroup groupToExport, string nestedFolderPath)
+        {
+            if (!Directory.Exists(nestedFolderPath))
+            {
+                Directory.CreateDirectory(nestedFolderPath);
+            }
+
+            var exportSucceeded = true;
+
+            foreach (ICalculationBase calculationItem in groupToExport.Children)
+            {
+                if (calculationItem is MacroStabilityInwardsCalculation calculation)
+                {
+                    exportSucceeded = Export(calculation, nestedFolderPath);
+                }
+
+                if (calculationItem is CalculationGroup nestedGroup)
+                {
+                    exportSucceeded = Export(nestedGroup, Path.Combine(nestedFolderPath, nestedGroup.Name));
+                }
+            }
+
+            return exportSucceeded;
+        }
+
+        private bool Export(MacroStabilityInwardsCalculation calculation, string nestedFolderPath)
+        {
+            string fileNameWithExtension = $"{calculation.Name}.{fileExtension}";
+            var exporter = new MacroStabilityInwardsCalculationExporter(calculation, persistenceFactory, Path.Combine(nestedFolderPath, fileNameWithExtension),
+                                                                        () => getNormativeAssessmentLevelFunc(calculation));
+            return exporter.Export();
         }
     }
 }

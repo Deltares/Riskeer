@@ -188,8 +188,8 @@ namespace Riskeer.MacroStabilityInwards.IO.TestUtil
 
                 var dilatancyDistribution = new VariationCoefficientNormalDistribution(2)
                 {
-                    Mean = (RoundedDouble)1,
-                    CoefficientOfVariation = (RoundedDouble)0
+                    Mean = (RoundedDouble) 1,
+                    CoefficientOfVariation = (RoundedDouble) 0
                 };
 
                 Assert.AreEqual(0, soil.Dilatancy);
