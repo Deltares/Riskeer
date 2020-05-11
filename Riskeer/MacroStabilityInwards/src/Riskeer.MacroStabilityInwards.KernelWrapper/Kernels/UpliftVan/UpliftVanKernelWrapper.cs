@@ -29,9 +29,8 @@ using Deltares.MacroStability.Kernel;
 using Deltares.MacroStability.Preprocessing;
 using Deltares.MacroStability.Standard;
 using Deltares.MacroStability.WaternetCreator;
+using Deltares.SoilStress.Data;
 using Deltares.WTIStability.Calculation.Wrapper;
-using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Input;
-using WaternetCreationMode = Deltares.MacroStability.WaternetCreator.WaternetCreationMode;
 using WtiStabilityWaternet = Deltares.MacroStability.Geometry.Waternet;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
@@ -58,12 +57,12 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
                     ModelOption = ModelOptions.UpliftVan,
                     ConstructionStages =
                     {
-                        new ConstructionStage(),
-                        new ConstructionStage()
+                        AddConstructionStage(),
+                        AddConstructionStage()
                     }
                 }
             };
-            
+
             AddPreProcessingConstructionStages();
             AddPreProcessingConstructionStages();
 
@@ -195,6 +194,21 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
             {
                 throw new UpliftVanKernelWrapperException(e.Message, e);
             }
+        }
+
+        private static ConstructionStage AddConstructionStage()
+        {
+            return new ConstructionStage
+            {
+                MultiplicationFactorsCPhiForUpliftList =
+                {
+                    new MultiplicationFactorOnCPhiForUplift
+                    {
+                        MultiplicationFactor = 0.0,
+                        UpliftFactor = 1.2
+                    }
+                }
+            };
         }
 
         private void AddPreProcessingConstructionStages()

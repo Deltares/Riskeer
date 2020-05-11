@@ -72,6 +72,10 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
             {
                 new FixedSoilStress()
             };
+            var preConsolidationStresses = new[]
+            {
+                new PreConsolidationStress()
+            };
 
             // Call
             var kernel = new UpliftVanKernelWrapper();
@@ -84,6 +88,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
             kernel.SetWaternetDaily(waternetDaily);
             kernel.SetWaternetExtreme(waternetExtreme);
             kernel.SetFixedSoilStresses(fixedSoilStresses);
+            kernel.SetPreConsolidationStresses(preConsolidationStresses);
 
             // Assert
             var kernelModel = TypeUtils.GetField<KernelModel>(kernel, "kernelModel");
@@ -105,10 +110,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
             Assert.AreSame(waternetDaily, stabilityModel.ConstructionStages.First().GeotechnicsData.CurrentWaternet);
             Assert.AreSame(waternetExtreme, stabilityModel.ConstructionStages.Last().GeotechnicsData.CurrentWaternet);
 
-            foreach (ConstructionStage constructionStage in stabilityModel.ConstructionStages)
-            {
-                CollectionAssert.AreEqual(fixedSoilStresses, constructionStage.SoilStresses);
-            }
+            AssertConstructionStages(stabilityModel.ConstructionStages, fixedSoilStresses, preConsolidationStresses);
 
             Assert.AreEqual(2, kernelModel.PreprocessingModel.PreProcessingConstructionStages.Count);
             kernelModel.PreprocessingModel.PreProcessingConstructionStages.ForEachElementDo(
@@ -228,6 +230,18 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
 
             // Assert
             Assert.AreEqual(12, validationMessages.Count());
+        }
+
+        private static void AssertConstructionStages(IList<ConstructionStage> constructionStages, FixedSoilStress[] fixedSoilStresses, PreConsolidationStress[] preConsolidationStresses)
+        {
+            foreach (ConstructionStage constructionStage in constructionStages)
+            {
+                Assert.AreEqual(1, constructionStage.MultiplicationFactorsCPhiForUpliftList.Count);
+                Assert.AreEqual(1.2, constructionStage.MultiplicationFactorsCPhiForUpliftList[0].UpliftFactor);
+                Assert.AreEqual(0.0, constructionStage.MultiplicationFactorsCPhiForUpliftList[0].MultiplicationFactor);
+                CollectionAssert.AreEqual(fixedSoilStresses, constructionStage.SoilStresses);
+                CollectionAssert.AreEqual(preConsolidationStresses, constructionStage.PreconsolidationStresses);
+            }
         }
 
         private static UpliftVanKernelWrapper CreateValidKernel(Soil soil)
