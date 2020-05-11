@@ -103,6 +103,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Exporters
             var exportSucceeded = true;
 
             var exportedCalculations = new List<MacroStabilityInwardsCalculation>();
+            var exportedGroups = new List<CalculationGroup>();
 
             foreach (ICalculationBase calculationItem in groupToExport.Children)
             {
@@ -117,7 +118,12 @@ namespace Riskeer.MacroStabilityInwards.IO.Exporters
 
                 if (calculationItem is CalculationGroup nestedGroup)
                 {
-                    exportSucceeded = Export(nestedGroup, Path.Combine(nestedFolderPath, nestedGroup.Name));
+                    string uniqueGroupName = NamingHelper.GetUniqueName(exportedGroups, nestedGroup.Name, group => group.Name);
+                    exportSucceeded = Export(nestedGroup, Path.Combine(nestedFolderPath, uniqueGroupName));
+                    if (exportSucceeded)
+                    {
+                        exportedGroups.Add(nestedGroup);
+                    }
                 }
             }
 

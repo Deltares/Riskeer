@@ -283,6 +283,57 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
             }
         }
 
+        [Test]
+        public void Export_CalculationGroupsWithSameName_WritesFilesAndReturnsTrue()
+        {
+            // Setup
+            string folderPath = TestHelper.GetScratchPadPath($"{nameof(MacroStabilityInwardsCalculationGroupExporterTest)}.{nameof(Export_CalculationGroupsWithSameName_WritesFilesAndReturnsTrue)}");
+            Directory.CreateDirectory(folderPath);
+
+            MacroStabilityInwardsCalculationScenario calculation1 = CreateCalculation("calculation1");
+            MacroStabilityInwardsCalculationScenario calculation2 = CreateCalculation("calculation2");
+            MacroStabilityInwardsCalculationScenario calculation3 = CreateCalculation("calculation1");
+
+            var rootGroup = new CalculationGroup
+            {
+                Name = "root"
+            };
+            var nestedGroup1 = new CalculationGroup
+            {
+                Name = "group1"
+            };
+            var nestedGroup2 = new CalculationGroup
+            {
+                Name = "group1"
+            };
+            nestedGroup1.Children.Add(calculation1);
+            nestedGroup1.Children.Add(calculation2);
+            nestedGroup2.Children.Add(calculation3);
+            rootGroup.Children.Add(nestedGroup1);
+            rootGroup.Children.Add(nestedGroup2);
+
+            var exporter = new MacroStabilityInwardsCalculationGroupExporter(rootGroup, new PersistenceFactory(), folderPath, fileExtension, c => AssessmentSectionTestHelper.GetTestAssessmentLevel());
+
+            try
+            {
+                using (new MacroStabilityInwardsCalculatorFactoryConfig())
+                {
+                    // Call
+                    bool exportResult = exporter.Export();
+
+                    // Assert
+                    Assert.IsTrue(exportResult);
+                    AssertCalculationExists(Path.Combine(folderPath, nestedGroup1.Name, $"{calculation1.Name}.{fileExtension}"));
+                    AssertCalculationExists(Path.Combine(folderPath, nestedGroup1.Name, $"{calculation2.Name}.{fileExtension}"));
+                    AssertCalculationExists(Path.Combine(folderPath, $"{nestedGroup2.Name} (1)", $"{calculation3.Name}.{fileExtension}"));
+                }
+            }
+            finally
+            {
+                Directory.Delete(folderPath, true);
+            }
+        }
+
         private static void AssertCalculationExists(string calculationPath)
         {
             Assert.IsTrue(File.Exists(calculationPath));
