@@ -95,10 +95,14 @@ namespace Riskeer.Common.Service.Test
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
             mocks.ReplayAll();
 
-            ConfigureAssessmentSection(assessmentSection, usePreprocessor);
-
             var hydraulicBoundaryLocation1 = new TestHydraulicBoundaryLocation("locationName1");
             var hydraulicBoundaryLocation2 = new TestHydraulicBoundaryLocation("locationName2");
+
+            ConfigureAssessmentSection(assessmentSection, usePreprocessor, new[]
+            {
+                hydraulicBoundaryLocation1,
+                hydraulicBoundaryLocation2
+            });
 
             // Call
             IEnumerable<CalculatableActivity> activities = HydraulicBoundaryLocationCalculationActivityFactory.CreateWaveHeightCalculationActivities(
@@ -115,9 +119,8 @@ namespace Riskeer.Common.Service.Test
             Assert.AreEqual(2, activities.Count());
             CollectionAssert.AllItemsAreInstancesOfType(activities, typeof(WaveHeightCalculationActivity));
 
-            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = assessmentSection.HydraulicBoundaryDatabase;
-            AssertWaveHeightCalculationActivity(activities.First(), hydraulicBoundaryLocation1, categoryBoundaryName, norm, hydraulicBoundaryDatabase);
-            AssertWaveHeightCalculationActivity(activities.ElementAt(1), hydraulicBoundaryLocation2, categoryBoundaryName, norm, hydraulicBoundaryDatabase);
+            AssertWaveHeightCalculationActivity(activities.First(), hydraulicBoundaryLocation1, categoryBoundaryName, norm, assessmentSection);
+            AssertWaveHeightCalculationActivity(activities.ElementAt(1), hydraulicBoundaryLocation2, categoryBoundaryName, norm, assessmentSection);
 
             mocks.VerifyAll();
         }
@@ -171,10 +174,14 @@ namespace Riskeer.Common.Service.Test
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
             mocks.ReplayAll();
 
-            ConfigureAssessmentSection(assessmentSection, usePreprocessor);
-
             var hydraulicBoundaryLocation1 = new TestHydraulicBoundaryLocation("locationName1");
             var hydraulicBoundaryLocation2 = new TestHydraulicBoundaryLocation("locationName2");
+
+            ConfigureAssessmentSection(assessmentSection, usePreprocessor, new[]
+            {
+                hydraulicBoundaryLocation1,
+                hydraulicBoundaryLocation2
+            });
 
             // Call
             IEnumerable<CalculatableActivity> activities = HydraulicBoundaryLocationCalculationActivityFactory.CreateDesignWaterLevelCalculationActivities(
@@ -191,9 +198,8 @@ namespace Riskeer.Common.Service.Test
             Assert.AreEqual(2, activities.Count());
             CollectionAssert.AllItemsAreInstancesOfType(activities, typeof(DesignWaterLevelCalculationActivity));
 
-            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = assessmentSection.HydraulicBoundaryDatabase;
-            AssertDesignWaterLevelCalculationActivity(activities.First(), hydraulicBoundaryLocation1, categoryBoundaryName, norm, hydraulicBoundaryDatabase);
-            AssertDesignWaterLevelCalculationActivity(activities.ElementAt(1), hydraulicBoundaryLocation2, categoryBoundaryName, norm, hydraulicBoundaryDatabase);
+            AssertDesignWaterLevelCalculationActivity(activities.First(), hydraulicBoundaryLocation1, categoryBoundaryName, norm, assessmentSection);
+            AssertDesignWaterLevelCalculationActivity(activities.ElementAt(1), hydraulicBoundaryLocation2, categoryBoundaryName, norm, assessmentSection);
 
             mocks.VerifyAll();
         }
@@ -202,7 +208,7 @@ namespace Riskeer.Common.Service.Test
                                                                 HydraulicBoundaryLocation hydraulicBoundaryLocation,
                                                                 string categoryBoundaryName,
                                                                 double norm,
-                                                                HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
+                                                                IAssessmentSection assessmentSection)
         {
             var mocks = new MockRepository();
             var calculator = new TestWaveHeightCalculator();
@@ -211,7 +217,7 @@ namespace Riskeer.Common.Service.Test
                              .WhenCalled(invocation =>
                              {
                                  HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(hydraulicBoundaryDatabase),
+                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection, hydraulicBoundaryLocation),
                                      (HydraRingCalculationSettings) invocation.Arguments[0]);
                              })
                              .Return(calculator);
@@ -236,7 +242,7 @@ namespace Riskeer.Common.Service.Test
                                                                       HydraulicBoundaryLocation hydraulicBoundaryLocation,
                                                                       string categoryBoundaryName,
                                                                       double norm,
-                                                                      HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
+                                                                      IAssessmentSection assessmentSection)
         {
             var mocks = new MockRepository();
             var calculator = new TestDesignWaterLevelCalculator();
@@ -245,7 +251,7 @@ namespace Riskeer.Common.Service.Test
                              .WhenCalled(invocation =>
                              {
                                  HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(hydraulicBoundaryDatabase),
+                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection, hydraulicBoundaryLocation),
                                      (HydraRingCalculationSettings) invocation.Arguments[0]);
                              })
                              .Return(calculator);
@@ -266,13 +272,16 @@ namespace Riskeer.Common.Service.Test
             mocks.VerifyAll();
         }
 
-        private static void ConfigureAssessmentSection(IAssessmentSection assessmentSection, bool usePreprocessor)
+        private static void ConfigureAssessmentSection(IAssessmentSection assessmentSection, bool usePreprocessor, IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations)
         {
-            assessmentSection.HydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.CanUsePreprocessor = true;
-            assessmentSection.HydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.UsePreprocessor = usePreprocessor;
-            assessmentSection.HydraulicBoundaryDatabase.FilePath = validFilePath;
-            assessmentSection.HydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.PreprocessorDirectory = validPreprocessorDirectory;
-            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
+            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = assessmentSection.HydraulicBoundaryDatabases.First();
+
+            hydraulicBoundaryDatabase.FilePath = validFilePath;
+            hydraulicBoundaryDatabase.Locations.AddRange(hydraulicBoundaryLocations);
+            hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.CanUsePreprocessor = true;
+            hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.UsePreprocessor = usePreprocessor;
+            hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.PreprocessorDirectory = validPreprocessorDirectory;
+            HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(hydraulicBoundaryDatabase);
         }
     }
 }
