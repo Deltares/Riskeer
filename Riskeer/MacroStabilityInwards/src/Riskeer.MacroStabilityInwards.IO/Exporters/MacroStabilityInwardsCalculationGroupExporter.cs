@@ -112,6 +112,12 @@ namespace Riskeer.MacroStabilityInwards.IO.Exporters
             {
                 if (calculationItem is MacroStabilityInwardsCalculation calculation)
                 {
+                    if (!calculation.HasOutput)
+                    {
+                        log.WarnFormat(Resources.MacroStabilityInwardsCalculationGroupExporter_Export_Calculation_0_has_no_output_and_is_skipped, calculation.Name);
+                        continue;
+                    }
+
                     bool exportSucceeded = Export(calculation, nestedFolderPath, exportedCalculations);
                     if (!exportSucceeded)
                     {

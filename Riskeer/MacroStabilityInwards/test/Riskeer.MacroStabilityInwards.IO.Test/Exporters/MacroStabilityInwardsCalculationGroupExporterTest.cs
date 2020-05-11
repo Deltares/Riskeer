@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2019. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2019. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -186,6 +186,47 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
                     Assert.IsTrue(exportResult);
                     AssertCalculationExists(Path.Combine(folderPath, $"{calculation1.Name}.{fileExtension}"));
                     AssertCalculationExists(Path.Combine(folderPath, $"{calculation2.Name}.{fileExtension}"));
+                }
+            }
+            finally
+            {
+                Directory.Delete(folderPath, true);
+            }
+        }
+
+        [Test]
+        public void Export_CalculationsWithoutOutput_LogWarningsAndReturnsTrue()
+        {
+            // Setup
+            string folderPath = TestHelper.GetScratchPadPath($"{nameof(MacroStabilityInwardsCalculationGroupExporterTest)}.{nameof(Export_CalculationsWithoutOutput_LogWarningsAndReturnsTrue)}");
+            Directory.CreateDirectory(folderPath);
+
+            MacroStabilityInwardsCalculationScenario calculation1 = CreateCalculation("calculation1", false);
+            MacroStabilityInwardsCalculationScenario calculation2 = CreateCalculation("calculation2", false);
+
+            var calculationGroup = new CalculationGroup();
+            calculationGroup.Children.Add(calculation1);
+            calculationGroup.Children.Add(calculation2);
+
+            var exporter = new MacroStabilityInwardsCalculationGroupExporter(calculationGroup, new PersistenceFactory(), folderPath, fileExtension, c => AssessmentSectionTestHelper.GetTestAssessmentLevel());
+
+            try
+            {
+                using (new MacroStabilityInwardsCalculatorFactoryConfig())
+                {
+                    // Call
+                    var exportResult = false;
+                    void Call() => exportResult = exporter.Export();
+
+                    // Assert
+                    TestHelper.AssertLogMessagesWithLevelAreGenerated(Call, new []
+                    {
+                        new Tuple<string, LogLevelConstant>($"Berekening '{calculation1.Name}' heeft geen uitvoer. Deze berekening wordt overgeslagen.", LogLevelConstant.Warn),
+                        new Tuple<string, LogLevelConstant>($"Berekening '{calculation2.Name}' heeft geen uitvoer. Deze berekening wordt overgeslagen.", LogLevelConstant.Warn)
+                    });
+                    Assert.IsTrue(exportResult);
+                    Assert.IsFalse(File.Exists(Path.Combine(folderPath, $"{calculation1.Name}.{fileExtension}")));
+                    Assert.IsFalse(File.Exists(Path.Combine(folderPath, $"{calculation2.Name}.{fileExtension}")));
                 }
             }
             finally
@@ -401,11 +442,15 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
             Assert.IsFalse(File.Exists($"{calculationPath}.temp"));
         }
 
-        private static MacroStabilityInwardsCalculationScenario CreateCalculation(string calculationName)
+        private static MacroStabilityInwardsCalculationScenario CreateCalculation(string calculationName, bool setOutput = true)
         {
             MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput(new TestHydraulicBoundaryLocation());
             calculation.Name = calculationName;
-            calculation.Output = MacroStabilityInwardsOutputTestFactory.CreateRandomOutput();
+            if (setOutput)
+            {
+                calculation.Output = MacroStabilityInwardsOutputTestFactory.CreateRandomOutput();
+            }
+
             return calculation;
         }
     }
