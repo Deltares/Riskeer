@@ -535,7 +535,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
 
             HydraulicBoundaryCalculationSettings expectedCalculationSettings =
-                HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryDatabase);
+                HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection, hydraulicBoundaryLocation);
             using (mocks.Ordered())
             {
                 calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
