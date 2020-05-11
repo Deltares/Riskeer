@@ -78,9 +78,11 @@ namespace Riskeer.Integration.Service.Test
         public void CreateActivities_WithValidDataAndAllFailureMechanismsRelevant_ExpectedActivitiesCreated()
         {
             // Setup
-            AssessmentSection assessmentSection = CreateAssessmentSection();
-
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+
+            AssessmentSection assessmentSection = CreateAssessmentSection();
+            assessmentSection.HydraulicBoundaryDatabases.First().Locations.Add(hydraulicBoundaryLocation);
+
             IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations = new[]
             {
                 hydraulicBoundaryLocation
@@ -103,7 +105,7 @@ namespace Riskeer.Integration.Service.Test
             var calculatorFactory = mocks.StrictMock<IHydraRingCalculatorFactory>();
 
             HydraulicBoundaryCalculationSettings expectedCalculationSettings =
-                HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryDatabase);
+                HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection, hydraulicBoundaryLocation);
             using (mocks.Ordered())
             {
                 calculatorFactory.Expect(cf => cf.CreateDesignWaterLevelCalculator(Arg<HydraRingCalculationSettings>.Is.NotNull))
