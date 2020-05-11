@@ -350,15 +350,15 @@ namespace Riskeer.ClosingStructures.Integration.Test
                 HydraulicBoundaryDatabase =
                 {
                     FilePath = validFilePath,
+                    Locations =
+                    {
+                        calculation.InputParameters.HydraulicBoundaryLocation
+                    },
                     HydraulicLocationConfigurationSettings =
                     {
                         CanUsePreprocessor = true,
                         UsePreprocessor = true,
                         PreprocessorDirectory = validPreprocessorDirectory
-                    },
-                    Locations =
-                    {
-                        calculation.InputParameters.HydraulicBoundaryLocation
                     }
                 }
             };
@@ -403,15 +403,15 @@ namespace Riskeer.ClosingStructures.Integration.Test
                 HydraulicBoundaryDatabase =
                 {
                     FilePath = validFilePath,
+                    Locations =
+                    {
+                        calculation.InputParameters.HydraulicBoundaryLocation
+                    },
                     HydraulicLocationConfigurationSettings =
                     {
                         CanUsePreprocessor = true,
                         UsePreprocessor = false,
                         PreprocessorDirectory = "NonExistingPreprocessorDirectory"
-                    },
-                    Locations =
-                    {
-                        calculation.InputParameters.HydraulicBoundaryLocation
                     }
                 }
             };
