@@ -630,7 +630,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
                     ToolStripItem contextMenuItem = contextMenu.Items[contextMenuCalculateIndex];
 
                     Assert.AreEqual("Be&rekenen", contextMenuItem.Text);
-                    StringAssert.Contains("Herstellen van de verbinding met de hydraulische belastingendatabase is mislukt.", contextMenuItem.ToolTipText);
+                    StringAssert.Contains("Herstellen van de verbinding met één van de benodigde hydraulische belastingendatabases is mislukt.", contextMenuItem.ToolTipText);
                     TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.CalculateIcon, contextMenuItem.Image);
                     Assert.IsFalse(contextMenuItem.Enabled);
                 }
@@ -737,7 +737,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
                     ToolStripItem contextMenuItem = contextMenu.Items[contextMenuValidateIndex];
 
                     Assert.AreEqual("&Valideren", contextMenuItem.Text);
-                    StringAssert.Contains("Herstellen van de verbinding met de hydraulische belastingendatabase is mislukt.", contextMenuItem.ToolTipText);
+                    StringAssert.Contains("Herstellen van de verbinding met één van de benodigde hydraulische belastingendatabases is mislukt.", contextMenuItem.ToolTipText);
                     TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.ValidateIcon, contextMenuItem.Image);
                     Assert.IsFalse(contextMenuItem.Enabled);
                 }

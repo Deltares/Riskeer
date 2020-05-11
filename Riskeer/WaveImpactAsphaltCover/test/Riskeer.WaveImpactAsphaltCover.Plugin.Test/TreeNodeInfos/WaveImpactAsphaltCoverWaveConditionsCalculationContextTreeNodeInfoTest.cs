@@ -639,7 +639,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                     TestHelper.AssertContextMenuStripContainsItem(contextMenu,
                                                                   validateMenuItemIndex,
                                                                   "&Valideren",
-                                                                  "Herstellen van de verbinding met de hydraulische belastingendatabase is mislukt. Fout bij het lezen van bestand 'invalidFilePath': het bestand bestaat niet.",
+                                                                  "Herstellen van de verbinding met één van de benodigde hydraulische belastingendatabases is mislukt. Fout bij het lezen van bestand 'invalidFilePath': het bestand bestaat niet.",
                                                                   RiskeerCommonFormsResources.ValidateIcon,
                                                                   false);
                 }
@@ -1384,7 +1384,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                     TestHelper.AssertContextMenuStripContainsItem(contextMenu,
                                                                   calculateMenuItemIndex,
                                                                   "Be&rekenen",
-                                                                  "Herstellen van de verbinding met de hydraulische belastingendatabase is mislukt. Fout bij het lezen van bestand 'invalidFilePath': het bestand bestaat niet.",
+                                                                  "Herstellen van de verbinding met één van de benodigde hydraulische belastingendatabases is mislukt. Fout bij het lezen van bestand 'invalidFilePath': het bestand bestaat niet.",
                                                                   RiskeerCommonFormsResources.CalculateIcon,
                                                                   false);
                 }

@@ -109,7 +109,7 @@ namespace Riskeer.Revetment.Service.Test
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
                 CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
-                Assert.AreEqual("Herstellen van de verbinding met de hydraulische belastingendatabase is mislukt. " +
+                Assert.AreEqual("Herstellen van de verbinding met één van de benodigde hydraulische belastingendatabases is mislukt. " +
                                 $"Fout bij het lezen van bestand '{invalidFilePath}': het bestand bestaat niet.", msgs[1]);
                 CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
             });
@@ -182,7 +182,7 @@ namespace Riskeer.Revetment.Service.Test
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
                 CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
-                StringAssert.StartsWith("Herstellen van de verbinding met de hydraulische belastingendatabase is mislukt. " +
+                StringAssert.StartsWith("Herstellen van de verbinding met één van de benodigde hydraulische belastingendatabases is mislukt. " +
                                         "Fout bij het lezen van bestand", msgs[1]);
                 CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
             });

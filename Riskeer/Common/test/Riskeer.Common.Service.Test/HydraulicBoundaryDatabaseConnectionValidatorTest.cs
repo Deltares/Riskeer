@@ -71,7 +71,7 @@ namespace Riskeer.Common.Service.Test
             string message = HydraulicBoundaryDatabaseConnectionValidator.Validate(hydraulicBoundaryDatabase);
 
             // Assert
-            const string expectedMessage = "Herstellen van de verbinding met de hydraulische belastingendatabase is mislukt. Fout bij het lezen van bestand 'I_do_not_exist.db': het bestand bestaat niet.";
+            const string expectedMessage = "Herstellen van de verbinding met één van de benodigde hydraulische belastingendatabases is mislukt. Fout bij het lezen van bestand 'I_do_not_exist.db': het bestand bestaat niet.";
             Assert.AreEqual(expectedMessage, message);
         }
 
@@ -90,7 +90,7 @@ namespace Riskeer.Common.Service.Test
             string message = HydraulicBoundaryDatabaseConnectionValidator.Validate(hydraulicBoundaryDatabase);
 
             // Assert
-            const string expectedMessage = "Herstellen van de verbinding met de hydraulische belastingendatabase is mislukt. De rekeninstellingen database heeft niet het juiste schema.";
+            const string expectedMessage = "Herstellen van de verbinding met één van de benodigde hydraulische belastingendatabases is mislukt. De rekeninstellingen database heeft niet het juiste schema.";
             Assert.AreEqual(expectedMessage, message);
         }
 
@@ -110,7 +110,7 @@ namespace Riskeer.Common.Service.Test
 
             // Assert
             string preprocessorClosureFilePath = Path.Combine(testDataPath, "withoutPreprocessorClosure", "hlcd_preprocClosure.sqlite");
-            string expectedMessage = $"Herstellen van de verbinding met de hydraulische belastingendatabase is mislukt. Fout bij het lezen van bestand '{preprocessorClosureFilePath}': het bestand bestaat niet.";
+            string expectedMessage = $"Herstellen van de verbinding met één van de benodigde hydraulische belastingendatabases is mislukt. Fout bij het lezen van bestand '{preprocessorClosureFilePath}': het bestand bestaat niet.";
             Assert.AreEqual(expectedMessage, message);
         }
 

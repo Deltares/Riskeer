@@ -554,14 +554,14 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                     ToolStripItem calculateAllContextMenuItem = contextMenu.Items[contextMenuCalculateAllIndex];
 
                     Assert.AreEqual("Alles be&rekenen", calculateAllContextMenuItem.Text);
-                    StringAssert.Contains("Herstellen van de verbinding met de hydraulische belastingendatabase is mislukt.", calculateAllContextMenuItem.ToolTipText);
+                    StringAssert.Contains("Herstellen van de verbinding met één van de benodigde hydraulische belastingendatabases is mislukt.", calculateAllContextMenuItem.ToolTipText);
                     TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.CalculateAllIcon, calculateAllContextMenuItem.Image);
                     Assert.IsFalse(calculateAllContextMenuItem.Enabled);
 
                     ToolStripItem validateAllContextMenuItem = contextMenu.Items[contextMenuValidateAllIndex];
 
                     Assert.AreEqual("Alles &valideren", validateAllContextMenuItem.Text);
-                    StringAssert.Contains("Herstellen van de verbinding met de hydraulische belastingendatabase is mislukt.", validateAllContextMenuItem.ToolTipText);
+                    StringAssert.Contains("Herstellen van de verbinding met één van de benodigde hydraulische belastingendatabases is mislukt.", validateAllContextMenuItem.ToolTipText);
                     TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.ValidateAllIcon, validateAllContextMenuItem.Image);
                     Assert.IsFalse(validateAllContextMenuItem.Enabled);
                 }

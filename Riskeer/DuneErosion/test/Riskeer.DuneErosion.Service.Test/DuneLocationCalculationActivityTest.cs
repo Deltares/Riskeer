@@ -124,7 +124,7 @@ namespace Riskeer.DuneErosion.Service.Test
                 Assert.AreEqual(4, msgs.Length);
                 Assert.AreEqual($"Hydraulische belastingen berekenen voor locatie '{locationName}' (Categoriegrens {categoryBoundaryName}) is gestart.", msgs[0]);
                 CalculationServiceTestHelper.AssertValidationStartMessage(msgs[1]);
-                StringAssert.StartsWith("Herstellen van de verbinding met de hydraulische belastingendatabase is mislukt. Fout bij het lezen van bestand", msgs[2]);
+                StringAssert.StartsWith("Herstellen van de verbinding met één van de benodigde hydraulische belastingendatabases is mislukt. Fout bij het lezen van bestand", msgs[2]);
                 CalculationServiceTestHelper.AssertValidationEndMessage(msgs[3]);
             });
             Assert.AreEqual(ActivityState.Failed, activity.State);
