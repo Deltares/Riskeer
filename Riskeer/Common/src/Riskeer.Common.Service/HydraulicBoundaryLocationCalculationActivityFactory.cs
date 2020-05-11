@@ -61,9 +61,8 @@ namespace Riskeer.Common.Service
                 throw new ArgumentNullException(nameof(calculations));
             }
 
-            HydraulicBoundaryCalculationSettings settings = HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryDatabase);
             return calculations.Select(calculation => new WaveHeightCalculationActivity(calculation,
-                                                                                        settings,
+                                                                                        HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection, calculation.HydraulicBoundaryLocation),
                                                                                         norm,
                                                                                         categoryBoundaryName)).ToArray();
         }
@@ -96,9 +95,8 @@ namespace Riskeer.Common.Service
                 throw new ArgumentNullException(nameof(calculations));
             }
 
-            HydraulicBoundaryCalculationSettings settings = HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryDatabase);
             return calculations.Select(calculation => new DesignWaterLevelCalculationActivity(calculation,
-                                                                                              settings,
+                                                                                              HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection, calculation.HydraulicBoundaryLocation),
                                                                                               norm,
                                                                                               categoryBoundaryName)).ToArray();
         }
