@@ -67,10 +67,10 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
             AddPreProcessingConstructionStages();
             AddPreProcessingConstructionStages();
 
-            FactorOfStability = Double.NaN;
-            ZValue = Double.NaN;
-            ForbiddenZonesXEntryMin = Double.NaN;
-            ForbiddenZonesXEntryMax = Double.NaN;
+            FactorOfStability = double.NaN;
+            ZValue = double.NaN;
+            ForbiddenZonesXEntryMin = double.NaN;
+            ForbiddenZonesXEntryMax = double.NaN;
         }
 
         public double FactorOfStability { get; private set; }
@@ -233,16 +233,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
 
             SlidingCurveResult = (SlidingDualCircle) returnedStabilityModel.MinimumSafetyCurve;
             SlipPlaneResult = returnedStabilityModel.SlipPlaneUpliftVan;
-        }
-
-        private static IEnumerable<PreConsolidationStress> CreatePreconsolidationStresses(IEnumerable<PreconsolidationStress> preconsolidationStresses)
-        {
-            return preconsolidationStresses.Select(preconsolidationStress => new PreConsolidationStress
-            {
-                StressValue = preconsolidationStress.Stress,
-                X = preconsolidationStress.Coordinate.X,
-                Z = preconsolidationStress.Coordinate.Y
-            }).ToArray();
         }
     }
 }
