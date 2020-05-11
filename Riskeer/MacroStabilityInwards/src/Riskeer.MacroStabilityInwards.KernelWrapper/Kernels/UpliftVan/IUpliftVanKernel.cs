@@ -47,11 +47,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
         double FactorOfStability { get; }
 
         /// <summary>
-        /// Gets the z value.
-        /// </summary>
-        double ZValue { get; }
-
-        /// <summary>
         /// Gets the forbidden zones x entry min.
         /// </summary>
         double ForbiddenZonesXEntryMin { get; }

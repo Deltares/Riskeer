@@ -62,7 +62,6 @@ namespace Riskeer.MacroStabilityInwards.Data
             SlipPlane = slipPlane;
 
             FactorOfStability = properties.FactorOfStability;
-            ZValue = properties.ZValue;
             ForbiddenZonesXEntryMin = properties.ForbiddenZonesXEntryMin;
             ForbiddenZonesXEntryMax = properties.ForbiddenZonesXEntryMax;
         }
@@ -86,7 +85,6 @@ namespace Riskeer.MacroStabilityInwards.Data
             public ConstructionProperties()
             {
                 FactorOfStability = double.NaN;
-                ZValue = double.NaN;
                 ForbiddenZonesXEntryMin = double.NaN;
                 ForbiddenZonesXEntryMax = double.NaN;
             }
@@ -95,11 +93,6 @@ namespace Riskeer.MacroStabilityInwards.Data
             /// Gets or sets the factor of stability of the Uplift Van calculation.
             /// </summary>
             public double FactorOfStability { internal get; set; }
-
-            /// <summary>
-            /// Gets or sets the z value.
-            /// </summary>
-            public double ZValue { internal get; set; }
 
             /// <summary>
             /// Gets or sets the forbidden zones x entry min.
@@ -128,11 +121,6 @@ namespace Riskeer.MacroStabilityInwards.Data
         /// Gets the factor of stability of the Uplift Van calculation.
         /// </summary>
         public double FactorOfStability { get; }
-
-        /// <summary>
-        /// Gets the z value.
-        /// </summary>
-        public double ZValue { get; }
 
         /// <summary>
         /// Gets the forbidden zones x entry min.

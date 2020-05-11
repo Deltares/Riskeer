@@ -159,7 +159,6 @@ namespace Riskeer.MacroStabilityInwards.Service
                 new MacroStabilityInwardsOutput.ConstructionProperties
                 {
                     FactorOfStability = macroStabilityInwardsResult.FactorOfStability,
-                    ZValue = macroStabilityInwardsResult.ZValue,
                     ForbiddenZonesXEntryMin = macroStabilityInwardsResult.ForbiddenZonesXEntryMin,
                     ForbiddenZonesXEntryMax = macroStabilityInwardsResult.ForbiddenZonesXEntryMax
                 });

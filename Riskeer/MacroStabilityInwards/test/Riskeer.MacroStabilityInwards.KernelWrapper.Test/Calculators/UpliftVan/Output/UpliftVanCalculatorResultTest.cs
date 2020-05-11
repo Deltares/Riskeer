@@ -132,7 +132,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
 
             // Assert
             Assert.IsNaN(result.FactorOfStability);
-            Assert.IsNaN(result.ZValue);
             Assert.IsNaN(result.ForbiddenZonesXEntryMin);
             Assert.IsNaN(result.ForbiddenZonesXEntryMax);
         }
@@ -150,7 +149,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
             var constructionProperties = new UpliftVanCalculatorResult.ConstructionProperties
             {
                 FactorOfStability = factorOfStability,
-                ZValue = zValue,
                 ForbiddenZonesXEntryMin = xEntryMin,
                 ForbiddenZonesXEntryMax = xEntryMax
             };
@@ -165,7 +163,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
 
             // Assert
             Assert.AreEqual(factorOfStability, result.FactorOfStability);
-            Assert.AreEqual(zValue, result.ZValue);
             Assert.AreEqual(xEntryMin, result.ForbiddenZonesXEntryMin);
             Assert.AreEqual(xEntryMax, result.ForbiddenZonesXEntryMax);
         }

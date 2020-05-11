@@ -90,7 +90,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan
                 new UpliftVanCalculatorResult.ConstructionProperties
                 {
                     FactorOfStability = upliftVanKernel.FactorOfStability,
-                    ZValue = upliftVanKernel.ZValue,
                     ForbiddenZonesXEntryMin = upliftVanKernel.ForbiddenZonesXEntryMin,
                     ForbiddenZonesXEntryMax = upliftVanKernel.ForbiddenZonesXEntryMax
                 });

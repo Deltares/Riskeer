@@ -47,7 +47,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
             // Assert
             Assert.IsInstanceOf<IUpliftVanKernel>(kernel);
             Assert.IsNaN(kernel.FactorOfStability);
-            Assert.IsNaN(kernel.ZValue);
             Assert.IsNaN(kernel.ForbiddenZonesXEntryMin);
             Assert.IsNaN(kernel.ForbiddenZonesXEntryMax);
             Assert.IsNull(kernel.SlidingCurveResult);
@@ -146,7 +145,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
             // Assert
             Assert.Throws<UpliftVanKernelWrapperException>(Call);
             Assert.IsNaN(kernel.FactorOfStability);
-            Assert.IsNaN(kernel.ZValue);
             Assert.IsNaN(kernel.ForbiddenZonesXEntryMax);
             Assert.IsNaN(kernel.ForbiddenZonesXEntryMin);
             Assert.IsNull(kernel.SlidingCurveResult);
@@ -176,7 +174,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
             Assert.AreEqual(0, errorMessages.Length);
 
             Assert.IsFalse(double.IsNaN(kernel.FactorOfStability));
-            Assert.IsFalse(double.IsNaN(kernel.ZValue));
             Assert.IsFalse(double.IsNaN(kernel.ForbiddenZonesXEntryMin));
             Assert.IsFalse(double.IsNaN(kernel.ForbiddenZonesXEntryMax));
             Assert.IsNotNull(kernel.SlidingCurveResult);
@@ -229,7 +226,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
             IEnumerable<IValidationResult> validationMessages = kernel.Validate();
 
             // Assert
-            Assert.AreEqual(12, validationMessages.Count());
+            Assert.AreEqual(11, validationMessages.Count());
         }
 
         private static void AssertConstructionStages(IList<ConstructionStage> constructionStages, FixedSoilStress[] fixedSoilStresses, PreConsolidationStress[] preConsolidationStresses)

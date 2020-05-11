@@ -786,7 +786,6 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
         private static void AssertOutput(UpliftVanCalculatorResult expectedOutput, MacroStabilityInwardsOutput actualOutput)
         {
             Assert.AreEqual(expectedOutput.FactorOfStability, actualOutput.FactorOfStability);
-            Assert.AreEqual(expectedOutput.ZValue, actualOutput.ZValue);
             Assert.AreEqual(expectedOutput.ForbiddenZonesXEntryMin, actualOutput.ForbiddenZonesXEntryMin);
             Assert.AreEqual(expectedOutput.ForbiddenZonesXEntryMax, actualOutput.ForbiddenZonesXEntryMax);
             AssertSlidingCurve(expectedOutput.SlidingCurveResult, actualOutput.SlidingCurve);

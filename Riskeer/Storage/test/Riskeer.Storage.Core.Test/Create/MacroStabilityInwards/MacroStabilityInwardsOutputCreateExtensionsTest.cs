@@ -77,8 +77,7 @@ namespace Riskeer.Storage.Core.Test.Create.MacroStabilityInwards
             {
                 FactorOfStability = random.NextDouble(),
                 ForbiddenZonesXEntryMax = random.NextDouble(),
-                ForbiddenZonesXEntryMin = random.NextDouble(),
-                ZValue = random.NextDouble()
+                ForbiddenZonesXEntryMin = random.NextDouble()
             });
 
             // Call

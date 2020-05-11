@@ -140,7 +140,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Uplif
                 new UpliftVanCalculatorResult.ConstructionProperties
                 {
                     FactorOfStability = 0.1,
-                    ZValue = 0.2,
                     ForbiddenZonesXEntryMin = 0.3,
                     ForbiddenZonesXEntryMax = 0.4
                 });

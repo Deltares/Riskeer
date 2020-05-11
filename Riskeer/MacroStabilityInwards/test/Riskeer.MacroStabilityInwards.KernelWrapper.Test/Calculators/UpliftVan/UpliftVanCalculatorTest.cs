@@ -170,7 +170,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
                 // Assert
                 Assert.IsNotNull(result);
                 Assert.AreEqual(upliftVanKernel.FactorOfStability, result.FactorOfStability);
-                Assert.AreEqual(upliftVanKernel.ZValue, result.ZValue);
                 Assert.AreEqual(upliftVanKernel.ForbiddenZonesXEntryMax, result.ForbiddenZonesXEntryMax);
                 Assert.AreEqual(upliftVanKernel.ForbiddenZonesXEntryMin, result.ForbiddenZonesXEntryMin);
                 UpliftVanCalculatorOutputAssert.AssertSlidingCurve(UpliftVanSlidingCurveResultCreator.Create(upliftVanKernel.SlidingCurveResult),
@@ -442,7 +441,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
             var random = new Random(11);
 
             upliftVanKernel.FactorOfStability = random.NextDouble();
-            upliftVanKernel.ZValue = random.NextDouble();
             upliftVanKernel.ForbiddenZonesXEntryMax = random.NextDouble();
             upliftVanKernel.ForbiddenZonesXEntryMin = random.NextDouble();
             SetValidKernelOutput(upliftVanKernel);

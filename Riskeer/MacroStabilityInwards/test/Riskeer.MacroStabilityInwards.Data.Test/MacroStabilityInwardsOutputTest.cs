@@ -102,7 +102,6 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
 
             // Assert
             Assert.IsNaN(output.FactorOfStability);
-            Assert.IsNaN(output.ZValue);
             Assert.IsNaN(output.ForbiddenZonesXEntryMin);
             Assert.IsNaN(output.ForbiddenZonesXEntryMax);
         }
@@ -128,7 +127,6 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
             var properties = new MacroStabilityInwardsOutput.ConstructionProperties
             {
                 FactorOfStability = factorOfStability,
-                ZValue = zValue,
                 ForbiddenZonesXEntryMin = xEntryMin,
                 ForbiddenZonesXEntryMax = xEntryMax
             };
@@ -144,7 +142,6 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
             Assert.AreSame(slipPlane, output.SlipPlane);
 
             Assert.AreEqual(factorOfStability, output.FactorOfStability);
-            Assert.AreEqual(zValue, output.ZValue);
             Assert.AreEqual(xEntryMin, output.ForbiddenZonesXEntryMin);
             Assert.AreEqual(xEntryMax, output.ForbiddenZonesXEntryMax);
         }
@@ -173,7 +170,6 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
             var properties = new MacroStabilityInwardsOutput.ConstructionProperties
             {
                 FactorOfStability = random.NextDouble(),
-                ZValue = random.NextDouble(),
                 ForbiddenZonesXEntryMin = random.NextDouble(),
                 ForbiddenZonesXEntryMax = random.NextDouble()
             };

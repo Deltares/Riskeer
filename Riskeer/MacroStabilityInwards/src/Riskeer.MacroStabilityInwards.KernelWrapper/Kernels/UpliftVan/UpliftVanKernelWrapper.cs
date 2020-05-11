@@ -67,14 +67,11 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
             AddPreProcessingConstructionStages();
 
             FactorOfStability = double.NaN;
-            ZValue = double.NaN;
             ForbiddenZonesXEntryMin = double.NaN;
             ForbiddenZonesXEntryMax = double.NaN;
         }
 
         public double FactorOfStability { get; private set; }
-
-        public double ZValue { get; private set; }
 
         public double ForbiddenZonesXEntryMin { get; private set; }
 
@@ -168,8 +165,8 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
                 var kernelCalculation = new KernelCalculation();
                 kernelCalculation.Run(kernelModel);
 
-                SetResults(kernelModel);
-                ReadLogMessages(kernelCalculation.LogMessages);
+                SetResults();
+                CalculationMessages = kernelCalculation.LogMessages ?? Enumerable.Empty<LogMessage>();
             }
             catch (Exception e) when (!(e is UpliftVanKernelWrapperException))
             {
@@ -228,20 +225,10 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
             });
         }
 
-        private void ReadLogMessages(List<LogMessage> kernelCalculationLogMessages)
+        private void SetResults()
         {
-            CalculationMessages = kernelCalculationLogMessages ?? Enumerable.Empty<LogMessage>();
-        }
-
-        /// <summary>
-        /// Reads the calculation result.
-        /// </summary>
-        /// <param name="returnedKernelModel">The returned kernel model.</param>
-        private void SetResults(KernelModel returnedKernelModel)
-        {
-            StabilityModel returnedStabilityModel = returnedKernelModel.StabilityModel;
+            StabilityModel returnedStabilityModel = kernelModel.StabilityModel;
             FactorOfStability = returnedStabilityModel.MinimumSafetyCurve.SafetyFactor;
-            ZValue = returnedStabilityModel.MinimumSafetyCurve.SafetyFactor - 1;
             ForbiddenZonesXEntryMin = returnedStabilityModel.SlipPlaneConstraints.XLeftMin;
             ForbiddenZonesXEntryMax = returnedStabilityModel.SlipPlaneConstraints.XLeftMax;
 

@@ -1647,7 +1647,6 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
             else
             {
                 Assert.AreEqual(expectedOutput.FactorOfStability, actualOutput.FactorOfStability);
-                Assert.AreEqual(expectedOutput.ZValue, actualOutput.ZValue);
                 Assert.AreEqual(expectedOutput.ForbiddenZonesXEntryMin, actualOutput.ForbiddenZonesXEntryMin);
                 Assert.AreEqual(expectedOutput.ForbiddenZonesXEntryMax, actualOutput.ForbiddenZonesXEntryMax);
 

@@ -98,8 +98,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan
 
         public double FactorOfStability { get; set; }
 
-        public double ZValue { get; set; }
-
         public double ForbiddenZonesXEntryMin { get; set; }
 
         public double ForbiddenZonesXEntryMax { get; set; }
