@@ -20,6 +20,8 @@
 // All rights reserved.
 
 using System;
+using System.Linq;
+using Riskeer.Common.Data.AssessmentSection;
 
 namespace Riskeer.Common.Data.Hydraulics
 {
@@ -29,20 +31,32 @@ namespace Riskeer.Common.Data.Hydraulics
     public static class HydraulicBoundaryCalculationSettingsFactory
     {
         /// <summary>
-        /// Creates a new instance of <see cref="HydraulicBoundaryCalculationSettings"/>
-        /// based on a <see cref="HydraulicBoundaryDatabase"/>.
+        /// Creates a new instance of <see cref="HydraulicBoundaryCalculationSettings"/> from
+        /// <paramref name="assessmentSection"/> for the provided <paramref name="hydraulicBoundaryLocation"/>.
         /// </summary>
-        /// <param name="hydraulicBoundaryDatabase">The <see cref="HydraulicBoundaryDatabase"/>
-        /// to create a <see cref="HydraulicBoundaryCalculationSettings"/> for.</param>
+        /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> to create the
+        /// <see cref="HydraulicBoundaryCalculationSettings"/> from.</param>
+        /// <param name="hydraulicBoundaryLocation">The <see cref="HydraulicBoundaryLocation"/> to create the
+        /// <see cref="HydraulicBoundaryCalculationSettings"/> for.</param>
         /// <returns>A <see cref="HydraulicBoundaryCalculationSettings"/>.</returns>
-        /// <exception cref="ArgumentException">Thrown when the hydraulic boundary database file path or
-        /// the hlcd file path is <c>null</c>, is empty or consists of whitespace.</exception>
-        public static HydraulicBoundaryCalculationSettings CreateSettings(HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/> or
+        /// <paramref name="hydraulicBoundaryLocation"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when the related hydraulic boundary database file path
+        /// or the hlcd file path is <c>null</c>, is empty or consists of whitespace.</exception>
+        public static HydraulicBoundaryCalculationSettings CreateSettings(IAssessmentSection assessmentSection,
+                                                                          HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
-            if (hydraulicBoundaryDatabase == null)
+            if (assessmentSection == null)
             {
-                throw new ArgumentNullException(nameof(hydraulicBoundaryDatabase));
+                throw new ArgumentNullException(nameof(assessmentSection));
             }
+
+            if (hydraulicBoundaryLocation == null)
+            {
+                throw new ArgumentNullException(nameof(hydraulicBoundaryLocation));
+            }
+
+            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = assessmentSection.HydraulicBoundaryDatabases.First(hbd => hbd.Locations.Contains(hydraulicBoundaryLocation));
 
             return new HydraulicBoundaryCalculationSettings(hydraulicBoundaryDatabase.FilePath,
                                                             hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.FilePath,
