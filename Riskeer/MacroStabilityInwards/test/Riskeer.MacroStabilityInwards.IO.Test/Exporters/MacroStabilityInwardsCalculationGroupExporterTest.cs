@@ -245,6 +245,44 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
             }
         }
 
+        [Test]
+        public void Export_CalculationGroupWithCalculationsWithSameName_WritesFilesAndReturnsTrue()
+        {
+            // Setup
+            string folderPath = TestHelper.GetScratchPadPath($"{nameof(MacroStabilityInwardsCalculationGroupExporterTest)}.{nameof(Export_CalculationGroupWithCalculationsWithSameName_WritesFilesAndReturnsTrue)}");
+            Directory.CreateDirectory(folderPath);
+
+            MacroStabilityInwardsCalculationScenario calculation1 = CreateCalculation("calculation1");
+            MacroStabilityInwardsCalculationScenario calculation2 = CreateCalculation("calculation2");
+            MacroStabilityInwardsCalculationScenario calculation3 = CreateCalculation("calculation1");
+
+            var calculationGroup = new CalculationGroup();
+            calculationGroup.Children.Add(calculation1);
+            calculationGroup.Children.Add(calculation2);
+            calculationGroup.Children.Add(calculation3);
+
+            var exporter = new MacroStabilityInwardsCalculationGroupExporter(calculationGroup, new PersistenceFactory(), folderPath, fileExtension, c => AssessmentSectionTestHelper.GetTestAssessmentLevel());
+
+            try
+            {
+                using (new MacroStabilityInwardsCalculatorFactoryConfig())
+                {
+                    // Call
+                    bool exportResult = exporter.Export();
+
+                    // Assert
+                    Assert.IsTrue(exportResult);
+                    AssertCalculationExists(Path.Combine(folderPath, $"{calculation1.Name}.{fileExtension}"));
+                    AssertCalculationExists(Path.Combine(folderPath, $"{calculation2.Name}.{fileExtension}"));
+                    AssertCalculationExists(Path.Combine(folderPath, $"{calculation3.Name} (1).{fileExtension}"));
+                }
+            }
+            finally
+            {
+                Directory.Delete(folderPath, true);
+            }
+        }
+
         private static void AssertCalculationExists(string calculationPath)
         {
             Assert.IsTrue(File.Exists(calculationPath));

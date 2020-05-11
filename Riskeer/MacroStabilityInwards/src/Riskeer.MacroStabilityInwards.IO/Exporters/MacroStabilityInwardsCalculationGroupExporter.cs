@@ -20,12 +20,14 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using Components.Persistence.Stability;
 using Core.Common.Base.Data;
 using Core.Common.Base.IO;
 using Core.Common.Util;
 using Riskeer.Common.Data.Calculation;
+using Riskeer.Common.Forms.Helpers;
 using Riskeer.MacroStabilityInwards.Data;
 
 namespace Riskeer.MacroStabilityInwards.IO.Exporters
@@ -100,11 +102,17 @@ namespace Riskeer.MacroStabilityInwards.IO.Exporters
 
             var exportSucceeded = true;
 
+            var exportedCalculations = new List<MacroStabilityInwardsCalculation>();
+
             foreach (ICalculationBase calculationItem in groupToExport.Children)
             {
                 if (calculationItem is MacroStabilityInwardsCalculation calculation)
                 {
-                    exportSucceeded = Export(calculation, nestedFolderPath);
+                    exportSucceeded = Export(calculation, nestedFolderPath, exportedCalculations);
+                    if (exportSucceeded)
+                    {
+                        exportedCalculations.Add(calculation);
+                    }
                 }
 
                 if (calculationItem is CalculationGroup nestedGroup)
@@ -116,9 +124,10 @@ namespace Riskeer.MacroStabilityInwards.IO.Exporters
             return exportSucceeded;
         }
 
-        private bool Export(MacroStabilityInwardsCalculation calculation, string nestedFolderPath)
+        private bool Export(MacroStabilityInwardsCalculation calculation, string nestedFolderPath, IEnumerable<MacroStabilityInwardsCalculation> exportedCalculations)
         {
-            string fileNameWithExtension = $"{calculation.Name}.{fileExtension}";
+            string uniqueName = NamingHelper.GetUniqueName(exportedCalculations, calculation.Name, c => c.Name);
+            string fileNameWithExtension = $"{uniqueName}.{fileExtension}";
             var exporter = new MacroStabilityInwardsCalculationExporter(calculation, persistenceFactory, Path.Combine(nestedFolderPath, fileNameWithExtension),
                                                                         () => getNormativeAssessmentLevelFunc(calculation));
             return exporter.Export();
