@@ -211,7 +211,6 @@ namespace Riskeer.ClosingStructures.Service.Test
             CollectionAssert.AllItemsAreInstancesOfType(activities, typeof(ClosingStructuresCalculationActivity));
             Assert.AreEqual(2, activities.Count());
 
-            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = assessmentSection.HydraulicBoundaryDatabase;
             AssertClosingStructuresCalculationActivity(activities.First(), calculation1, assessmentSection);
             AssertClosingStructuresCalculationActivity(activities.ElementAt(1), calculation2, assessmentSection);
             mocks.VerifyAll();
@@ -275,7 +274,6 @@ namespace Riskeer.ClosingStructures.Service.Test
             CollectionAssert.AllItemsAreInstancesOfType(activities, typeof(ClosingStructuresCalculationActivity));
             Assert.AreEqual(2, activities.Count());
 
-            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = assessmentSection.HydraulicBoundaryDatabase;
             AssertClosingStructuresCalculationActivity(activities.First(), calculation1, assessmentSection);
             AssertClosingStructuresCalculationActivity(activities.ElementAt(1), calculation2, assessmentSection);
             mocks.VerifyAll();
