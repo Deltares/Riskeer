@@ -208,7 +208,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
             UpliftVanKernelWrapper kernel = CreateInvalidKernel(new Soil());
 
             // Call
-            void Test() => kernel.Calculate();
+            void Test() => kernel.Validate();
 
             // Assert
             var exception = Assert.Throws<UpliftVanKernelWrapperException>(Test);

@@ -24,7 +24,6 @@ using System.Linq;
 using Deltares.MacroStability.Geometry;
 using Deltares.MacroStability.WaternetCreator;
 using NUnit.Framework;
-using WtiStabilityWaternet = Deltares.MacroStability.Geometry.Waternet;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan.Input
 {
@@ -66,11 +65,11 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan
         /// <summary>
         /// Asserts whether <paramref name="actual"/> is equal to <paramref name="expected"/>.
         /// </summary>
-        /// <param name="expected">The expected <see cref="StabilityLocation"/>.</param>
-        /// <param name="actual">The actual <see cref="StabilityLocation"/>.</param>
+        /// <param name="expected">The expected <see cref="Location"/>.</param>
+        /// <param name="actual">The actual <see cref="Location"/>.</param>
         /// <exception cref="AssertionException">Thrown when <paramref name="actual"/>
         /// is not equal to <paramref name="expected"/>.</exception>
-        public static void AssertStabilityLocations(Location expected, Location actual)
+        public static void AssertLocations(Location expected, Location actual)
         {
             Assert.AreEqual(expected.DikeSoilScenario, actual.DikeSoilScenario);
             Assert.AreEqual(expected.WaternetCreationMode, actual.WaternetCreationMode);
@@ -138,29 +137,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan
                 AssertGeometrySurfaces(expectedSoilLayer.GeometrySurface, actualSoilLayer.GeometrySurface);
                 AssertSoils(expectedSoilLayer.Soil, actualSoilLayer.Soil);
                 Assert.AreEqual(expectedSoilLayer.WaterpressureInterpolationModel, actualSoilLayer.WaterpressureInterpolationModel);
-            }
-        }
-
-        /// <summary>
-        /// Asserts whether <paramref name="actual"/> is equal to <paramref name="expected"/>.
-        /// </summary>
-        /// <param name="expected">The expected <see cref="PreConsolidationStress"/> array.</param>
-        /// <param name="actual">The actual <see cref="PreConsolidationStress"/> array.</param>
-        /// <exception cref="AssertionException">Thrown when <paramref name="actual"/>
-        /// is not equal to <paramref name="expected"/>.</exception>
-        private static void AssertPreconsolidationStresses(PreConsolidationStress[] expected, PreConsolidationStress[] actual)
-        {
-            Assert.AreEqual(expected.Length, actual.Length);
-
-            for (var i = 0; i < expected.Length; i++)
-            {
-                PreConsolidationStress expectedPreconsolidationStress = expected[i];
-                PreConsolidationStress actualPreconsolidationStress = actual[i];
-
-                Assert.AreEqual(expectedPreconsolidationStress.Name, actualPreconsolidationStress.Name);
-                Assert.AreEqual(expectedPreconsolidationStress.StressValue, actualPreconsolidationStress.StressValue);
-                Assert.AreEqual(expectedPreconsolidationStress.X, actualPreconsolidationStress.X);
-                Assert.AreEqual(expectedPreconsolidationStress.Z, actualPreconsolidationStress.Z);
             }
         }
 
@@ -295,16 +271,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan
             Assert.AreEqual(expected.Owner, actual.Owner);
             Assert.AreEqual(expected.X, actual.X);
             Assert.AreEqual(expected.Z, actual.Z);
-        }
-
-        public static void AssertWaternet(WtiStabilityWaternet expected, WtiStabilityWaternet actual)
-        {
-            Assert.AreEqual(expected.Name, actual.Name);
-            Assert.AreEqual(expected.HeadLineList, actual.HeadLineList);
-            Assert.AreEqual(expected.IsGenerated, actual.IsGenerated);
-            Assert.AreEqual(expected.PhreaticLine, actual.PhreaticLine);
-            Assert.AreEqual(expected.UnitWeight, actual.UnitWeight);
-            Assert.AreEqual(expected.WaternetLineList, actual.WaternetLineList);
         }
     }
 }

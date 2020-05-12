@@ -64,26 +64,59 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan
         /// </summary>
         public bool ReturnLogMessages { get; set; }
 
+        /// <summary>
+        /// Gets the soil model.
+        /// </summary>
         public IList<Soil> SoilModel { get; private set; }
 
+        /// <summary>
+        /// Gets the soil profile.
+        /// </summary>
         public SoilProfile2D SoilProfile { get; private set; }
 
+        /// <summary>
+        /// Indicator whether a grid should be moved.
+        /// </summary>
         public bool MoveGrid { get; private set; }
 
+        /// <summary>
+        /// Gets the maximum slice width.
+        /// </summary>
         public double MaximumSliceWidth { get; private set; }
 
+        /// <summary>
+        /// Gets the surface line.
+        /// </summary>
         public SurfaceLine2 SurfaceLine { get; private set; }
 
+        /// <summary>
+        /// Gets the slip plane uplift van object.
+        /// </summary>
         public SlipPlaneUpliftVan SlipPlaneUpliftVan { get; private set; }
 
+        /// <summary>
+        /// Gets the slip plane constraints object.
+        /// </summary>
         public SlipPlaneConstraints SlipPlaneConstraints { get; private set; }
 
+        /// <summary>
+        /// Indicator whether a grid should be automatically determined by the kernel.
+        /// </summary>
         public bool GridAutomaticDetermined { get; private set; }
 
+        /// <summary>
+        /// Indicator whether tangent lines should be automatically determined by the kernel.
+        /// </summary>
         public bool TangentLinesAutomaticDetermined { get; private set; }
 
+        /// <summary>
+        /// Gets the Waternet daily.
+        /// </summary>
         public WtiStabilityWaternet WaternetDaily { get; private set; }
 
+        /// <summary>
+        /// Gets the Waternet extreme.
+        /// </summary>
         public WtiStabilityWaternet WaternetExtreme { get; private set; }
 
         /// <summary>
@@ -106,7 +139,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan
 
         public SlipPlaneUpliftVan SlipPlaneResult { get; set; }
 
-        public IEnumerable<LogMessage> CalculationMessages { get; set; }
+        public IEnumerable<LogMessage> CalculationMessages { get; private set; }
 
         public void SetSlipPlaneUpliftVan(SlipPlaneUpliftVan slipPlaneUpliftVan)
         {
