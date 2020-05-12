@@ -468,7 +468,7 @@ namespace Riskeer.Common.Forms.Test.GuiServices
                 // Call
                 Action call = () => guiService.CalculateWaveHeights(new[]
                                                                     {
-                                                                        new HydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation(hydraulicLocationName))
+                                                                        new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation)
                                                                     },
                                                                     assessmentSection,
                                                                     0.01,
