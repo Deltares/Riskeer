@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -47,9 +48,16 @@ namespace Riskeer.Common.Data.TestUtil
         /// <returns>A stubbed <see cref="IAssessmentSection"/>.</returns>
         public static IAssessmentSection CreateAssessmentSectionStub(MockRepository mockRepository)
         {
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+            var referenceLine = new ReferenceLine();
+
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase());
-            assessmentSection.Stub(a => a.ReferenceLine).Return(new ReferenceLine());
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabases).Return(new CloneableObservableList<HydraulicBoundaryDatabase>
+            {
+                hydraulicBoundaryDatabase
+            });
+            assessmentSection.Stub(a => a.ReferenceLine).Return(referenceLine);
             assessmentSection.Replay();
 
             return assessmentSection;
@@ -68,14 +76,17 @@ namespace Riskeer.Common.Data.TestUtil
                                                                      MockRepository mockRepository,
                                                                      string filePath = null)
         {
+            var failureMechanismContribution = new FailureMechanismContribution(0.1, 1.0 / 30000);
             IFailureMechanism[] failureMechanisms = GetFailureMechanisms(failureMechanism);
+            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = GetHydraulicBoundaryDatabase(filePath);
+            var referenceLine = new ReferenceLine();
 
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             assessmentSection.Stub(a => a.Id).Return("21");
-            assessmentSection.Stub(a => a.FailureMechanismContribution).Return(new FailureMechanismContribution(0.1, 1.0 / 30000));
+            assessmentSection.Stub(a => a.FailureMechanismContribution).Return(failureMechanismContribution);
             assessmentSection.Stub(a => a.GetFailureMechanisms()).Return(failureMechanisms);
-            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(GetHydraulicBoundaryDatabase(filePath));
-            assessmentSection.Stub(a => a.ReferenceLine).Return(new ReferenceLine());
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
+            assessmentSection.Stub(a => a.ReferenceLine).Return(referenceLine);
             assessmentSection.Replay();
 
             return assessmentSection;
