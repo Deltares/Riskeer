@@ -52,6 +52,27 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
             Assert.IsNull(kernel.SlidingCurveResult);
             Assert.IsNull(kernel.SlipPlaneResult);
             Assert.IsNull(kernel.CalculationMessages);
+
+            var kernelModel = TypeUtils.GetField<KernelModel>(kernel, "kernelModel");
+            StabilityModel stabilityModel = kernelModel.StabilityModel;
+
+            Assert.IsNotNull(stabilityModel.SlipPlaneConstraints);
+            Assert.IsNotNull(stabilityModel.SlipCircle);
+            Assert.AreEqual(SearchAlgorithm.Grid, stabilityModel.SearchAlgorithm);
+            Assert.AreEqual(ModelOptions.UpliftVan, stabilityModel.ModelOption);
+            Assert.AreEqual(1.0, stabilityModel.MaximumSliceWidth);
+            Assert.IsNotNull(stabilityModel.SlipPlaneUpliftVan);
+            Assert.IsNotNull(stabilityModel.SlipPlaneConstraints);
+            Assert.IsFalse(stabilityModel.MoveGrid);
+            Assert.IsTrue(kernelModel.PreprocessingModel.SearchAreaConditions.AutoSearchArea);
+
+            Assert.AreEqual(2, stabilityModel.ConstructionStages.Count);
+
+            Assert.AreEqual(2, kernelModel.PreprocessingModel.PreProcessingConstructionStages.Count);
+            kernelModel.PreprocessingModel.PreProcessingConstructionStages.ForEachElementDo(
+                ppcs => Assert.AreSame(stabilityModel, ppcs.StabilityModel));
+
+            AssertIrrelevantValues(stabilityModel);
         }
 
         [Test]
