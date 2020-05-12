@@ -645,7 +645,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
                              .WhenCalled(invocation =>
                              {
                                  HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(hydraulicBoundaryDatabase),
+                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(new AssessmentSectionStub(), new TestHydraulicBoundaryLocation()),
                                      (HydraRingCalculationSettings) invocation.Arguments[0]);
                              })
                              .Return(dunesBoundaryConditionsCalculator);
@@ -715,7 +715,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
                              .WhenCalled(invocation =>
                              {
                                  HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(hydraulicBoundaryDatabase),
+                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(new AssessmentSectionStub(), new TestHydraulicBoundaryLocation()),
                                      (HydraRingCalculationSettings) invocation.Arguments[0]);
                              })
                              .Return(dunesBoundaryConditionsCalculator);
@@ -786,7 +786,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
                              .WhenCalled(invocation =>
                              {
                                  HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(hydraulicBoundaryDatabase),
+                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(new AssessmentSectionStub(), new TestHydraulicBoundaryLocation()),
                                      (HydraRingCalculationSettings) invocation.Arguments[0]);
                              })
                              .Return(dunesBoundaryConditionsCalculator);
