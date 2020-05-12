@@ -33,7 +33,7 @@ using WtiStabilityWaternetCreationMethod = Deltares.MacroStability.WaternetCreat
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
 {
     [TestFixture]
-    public class StabilityLocationCreatorHelperTest
+    public class LocationCreatorHelperTest
     {
         [Test]
         public void ConvertDikeSoilScenario_InvalidDikeSoilScenario_ThrowInvalidEnumArgumentException()
