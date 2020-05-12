@@ -33,11 +33,18 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.Waternet
         [Test]
         public void Constructor_ExpectedValues()
         {
+            // Setup
+            var location = new Location();
+            
             // Call
-            var kernel = new TestWaternetKernelWrapper(new Location(), "WaternetDaily");
+            var kernel = new TestWaternetKernelWrapper(location, "WaternetDaily");
 
             // Assert
             Assert.IsInstanceOf<IWaternetKernel>(kernel);
+            Assert.IsNull(location.Surfaceline);
+            Assert.IsNull(location.SoilProfile2D);
+            var locationField = TypeUtils.GetField<Location>(kernel, "location");
+            Assert.AreSame(locationField, location);
         }
 
         [Test]
@@ -49,7 +56,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.Waternet
             var surfaceLine = new SurfaceLine2();
 
             // Call
-            var kernel = new TestWaternetKernelWrapper(new Location(), "WaternetDaily");
+            var kernel = new TestWaternetKernelWrapper(location, "WaternetDaily");
             kernel.SetSoilProfile(soilProfile2D);
             kernel.SetSurfaceLine(surfaceLine);
 
@@ -62,38 +69,18 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.Waternet
         }
 
         [Test]
-        public void Calculate_WaternetCannotBeGenerated_ThrowsWaternetKernelWrapperExceptionAndWaternetNotSet()
-        {
-            // Setup
-            var location = new Location
-            {
-                WaternetCreationMode = WaternetCreationMode.CreateWaternet,
-                Surfaceline = null
-            };
-            var kernel = new TestWaternetKernelWrapper(location, "WaternetDaily");
-            
-            // Call
-            TestDelegate test = () => kernel.Calculate();
-
-            // Assert
-            Assert.Throws<WaternetKernelWrapperException>(test);
-            Assert.IsNull(kernel.Waternet);
-        }
-
-        [Test]
-        public void Calculate_ExceptionInWrappedKernel_ThrowsWaternetKernelWrapperExceptionAndWaternetNotSet()
+        public void Calculate_ExceptionInWrappedKernel_ThrowsWaternetKernelWrapperException()
         {
             // Setup
             var kernel = new TestWaternetKernelWrapper(new Location(), "WaternetDaily");
 
             // Call
-            TestDelegate test = () => kernel.Calculate();
+            void Call() => kernel.Calculate();
 
             // Assert
-            var exception = Assert.Throws<WaternetKernelWrapperException>(test);
+            var exception = Assert.Throws<WaternetKernelWrapperException>(Call);
             Assert.IsNotNull(exception.InnerException);
             Assert.AreEqual(exception.InnerException.Message, exception.Message);
-            Assert.IsNull(kernel.Waternet);
         }
 
         private class TestWaternetKernelWrapper : WaternetKernelWrapper
