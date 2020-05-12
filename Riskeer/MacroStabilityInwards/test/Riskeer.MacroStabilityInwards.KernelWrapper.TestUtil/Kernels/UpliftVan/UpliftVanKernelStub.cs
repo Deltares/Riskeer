@@ -108,6 +108,16 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan
 
         public IEnumerable<LogMessage> CalculationMessages { get; set; }
 
+        public void SetSlipPlaneUpliftVan(SlipPlaneUpliftVan slipPlaneUpliftVan)
+        {
+            SlipPlaneUpliftVan = slipPlaneUpliftVan;
+        }
+
+        public void SetSlipPlaneConstraints(SlipPlaneConstraints slipPlaneConstraints)
+        {
+            SlipPlaneConstraints = slipPlaneConstraints;
+        }
+
         public void SetSoilModel(IList<Soil> soilModel)
         {
             SoilModel = soilModel;
@@ -138,19 +148,9 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan
             MaximumSliceWidth = maximumSliceWidth;
         }
 
-        public void SetSlipPlaneUpliftVan(SlipPlaneUpliftVan slipPlaneUpliftVan)
-        {
-            SlipPlaneUpliftVan = slipPlaneUpliftVan;
-        }
-
         public void SetSurfaceLine(SurfaceLine2 surfaceLine)
         {
             SurfaceLine = surfaceLine;
-        }
-
-        public void SetSlipPlaneConstraints(SlipPlaneConstraints slipPlaneConstraints)
-        {
-            SlipPlaneConstraints = slipPlaneConstraints;
         }
 
         public void SetGridAutomaticDetermined(bool gridAutomaticDetermined)

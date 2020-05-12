@@ -130,6 +130,8 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
             {
                 var factory = (TestMacroStabilityInwardsKernelFactory) MacroStabilityInwardsKernelWrapperFactory.Instance;
                 UpliftVanKernelStub upliftVanKernel = factory.LastCreatedUpliftVanKernel;
+                upliftVanKernel.SetWaternetDaily(MacroStabilityInwardsKernelWrapperFactory.Instance.CreateWaternetDailyKernel(UpliftVanLocationCreator.CreateDaily(input)).Waternet);
+                upliftVanKernel.SetWaternetExtreme(MacroStabilityInwardsKernelWrapperFactory.Instance.CreateWaternetExtremeKernel(UpliftVanLocationCreator.CreateExtreme(input)).Waternet);
                 SetValidKernelOutput(upliftVanKernel);
 
                 // Call
@@ -141,12 +143,13 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
 
                 LayerWithSoil[] layersWithSoil = LayerWithSoilCreator.Create(input.SoilProfile, out IDictionary<SoilLayer, LayerWithSoil> layerLookup);
 
+                UpliftVanKernelInputAssert.AssertSlipPlanesUpliftVan(SlipPlaneUpliftVanCreator.Create(input.SlipPlane), upliftVanKernel.SlipPlaneUpliftVan);
+                UpliftVanKernelInputAssert.AssertSlipPlaneConstraints(SlipPlaneConstraintsCreator.Create(input.SlipPlaneConstraints), upliftVanKernel.SlipPlaneConstraints);
                 KernelInputAssert.AssertSoilModels(layersWithSoil.Select(lws => lws.Soil).ToArray(), upliftVanKernel.SoilModel);
                 KernelInputAssert.AssertSoilProfiles(SoilProfileCreator.Create(layersWithSoil), upliftVanKernel.SoilProfile);
                 KernelInputAssert.AssertSurfaceLines(SurfaceLineCreator.Create(input.SurfaceLine), upliftVanKernel.SurfaceLine);
-                UpliftVanKernelInputAssert.AssertSlipPlanesUpliftVan(SlipPlaneUpliftVanCreator.Create(input.SlipPlane), upliftVanKernel.SlipPlaneUpliftVan);
-                UpliftVanKernelInputAssert.AssertSlipPlaneConstraints(SlipPlaneConstraintsCreator.Create(input.SlipPlaneConstraints), upliftVanKernel.SlipPlaneConstraints);
                 Assert.AreEqual(input.SlipPlane.GridAutomaticDetermined, upliftVanKernel.GridAutomaticDetermined);
+                Assert.AreEqual(input.SlipPlane.TangentLinesAutomaticAtBoundaries, upliftVanKernel.TangentLinesAutomaticDetermined);
                 CollectionAssert.AreEqual(FixedSoilStressCreator.Create(layerLookup), upliftVanKernel.SoilStresses, new FixedSoilStressComparer());
                 CollectionAssert.AreEqual(PreConsolidationStressCreator.Create(input.SoilProfile.PreconsolidationStresses), upliftVanKernel.PreConsolidationStresses, new PreConsolidationStressComparer());
             }
@@ -356,7 +359,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
                 AdjustPhreaticLine3And4ForUplift = random.NextBoolean(),
                 DikeSoilScenario = random.NextEnumValue<MacroStabilityInwardsDikeSoilScenario>(),
                 MoveGrid = random.NextBoolean(),
-                MaximumSliceWidth = random.NextDouble()
+                MaximumSliceWidth = random.NextDouble(),
             });
         }
 

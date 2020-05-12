@@ -23,7 +23,6 @@ using System.Collections.Generic;
 using Deltares.MacroStability.Data;
 using Deltares.MacroStability.Geometry;
 using Deltares.MacroStability.Standard;
-using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Input;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan;
 using WtiStabilityWaternet = Deltares.MacroStability.Geometry.Waternet;
 
@@ -73,6 +72,16 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
         IEnumerable<LogMessage> CalculationMessages { get; }
 
         /// <summary>
+        /// Sets the slip plane Uplift Van.
+        /// </summary>
+        void SetSlipPlaneUpliftVan(SlipPlaneUpliftVan slipPlaneUpliftVan);
+
+        /// <summary>
+        /// Sets the slip plane constraints.
+        /// </summary>
+        void SetSlipPlaneConstraints(SlipPlaneConstraints slipPlaneConstraints);
+
+        /// <summary>
         /// Sets the soil model.
         /// </summary>
         void SetSoilModel(IList<Soil> soilModel);
@@ -104,19 +113,9 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
         void SetMaximumSliceWidth(double maximumSliceWidth);
 
         /// <summary>
-        /// Sets the slip plane Uplift Van.
-        /// </summary>
-        void SetSlipPlaneUpliftVan(SlipPlaneUpliftVan slipPlaneUpliftVan);
-
-        /// <summary>
         /// Sets the surface line.
         /// </summary>
         void SetSurfaceLine(SurfaceLine2 surfaceLine);
-
-        /// <summary>
-        /// Sets the slip plane constraints.
-        /// </summary>
-        void SetSlipPlaneConstraints(SlipPlaneConstraints slipPlaneConstraints);
 
         /// <summary>
         /// Sets whether the grid is automatically determined or not.
