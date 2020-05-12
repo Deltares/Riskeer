@@ -63,9 +63,9 @@ namespace Riskeer.DuneErosion.Service
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            HydraulicBoundaryCalculationSettings settings = HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection.HydraulicBoundaryDatabase);
             return calculations.Select(calculation => new DuneLocationCalculationActivity(calculation,
-                                                                                          settings,
+                                                                                          HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection,
+                                                                                                                                                     GetCorrespondingHydraulicBoundaryLocation(calculation, assessmentSection)),
                                                                                           norm,
                                                                                           categoryBoundaryName)).ToArray();
         }
@@ -124,6 +124,11 @@ namespace Riskeer.DuneErosion.Service
                                     RiskeerCommonDataResources.FailureMechanismCategoryType_FactorizedLowerLimitNorm_DisplayName));
 
             return activities;
+        }
+
+        private static HydraulicBoundaryLocation GetCorrespondingHydraulicBoundaryLocation(DuneLocationCalculation calculation, IAssessmentSection assessmentSection)
+        {
+            return assessmentSection.HydraulicBoundaryDatabases.SelectMany(hbd => hbd.Locations).First(hbl => hbl.Id.Equals(calculation.DuneLocation.Id));
         }
     }
 }
