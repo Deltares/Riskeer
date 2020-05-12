@@ -22,6 +22,7 @@
 using System;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
+using Riskeer.Common.Data.Hydraulics;
 
 namespace Riskeer.DuneErosion.Data
 {
@@ -33,15 +34,20 @@ namespace Riskeer.DuneErosion.Data
         /// <summary>
         /// Creates a new instance of <see cref="DuneLocation"/>.
         /// </summary>
-        /// <param name="id">Id of the <see cref="DuneLocation"/>.</param>
-        /// <param name="name">Name of the <see cref="DuneLocation"/>.</param>
+        /// <param name="hydraulicBoundaryLocation">The corresponding <see cref="HydraulicBoundaryLocation"/>.</param>
+        /// <param name="name">The name of the <see cref="DuneLocation"/>.</param>
         /// <param name="location">The coordinate of the <see cref="DuneLocation"/>.</param>
-        /// <param name="properties">The container of the properties for the
-        /// <see cref="DuneLocation"/></param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/>
-        /// or <paramref name="properties"/> is <c>null</c>.</exception>
-        public DuneLocation(long id, string name, Point2D location, ConstructionProperties properties)
+        /// <param name="properties">The container of the properties for the <see cref="DuneLocation"/>.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryLocation"/>,
+        /// <paramref name="name"/> or <paramref name="properties"/> is <c>null</c>.</exception>
+        public DuneLocation(HydraulicBoundaryLocation hydraulicBoundaryLocation, string name,
+                            Point2D location, ConstructionProperties properties)
         {
+            if (hydraulicBoundaryLocation == null)
+            {
+                throw new ArgumentNullException(nameof(hydraulicBoundaryLocation));
+            }
+
             if (name == null)
             {
                 throw new ArgumentNullException(nameof(name));
@@ -52,7 +58,7 @@ namespace Riskeer.DuneErosion.Data
                 throw new ArgumentNullException(nameof(properties));
             }
 
-            Id = id;
+            Id = hydraulicBoundaryLocation.Id;
             Name = name;
             Location = location;
             CoastalAreaId = properties.CoastalAreaId;
