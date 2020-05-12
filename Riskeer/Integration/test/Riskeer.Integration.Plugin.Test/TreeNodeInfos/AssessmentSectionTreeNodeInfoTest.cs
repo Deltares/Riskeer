@@ -514,6 +514,8 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
 
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+            assessmentSection.HydraulicBoundaryDatabases.First().Locations.Add(hydraulicBoundaryLocation);
+
             IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations = new[]
             {
                 hydraulicBoundaryLocation
