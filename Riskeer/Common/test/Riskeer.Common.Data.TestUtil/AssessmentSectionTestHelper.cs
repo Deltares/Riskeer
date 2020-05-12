@@ -86,6 +86,10 @@ namespace Riskeer.Common.Data.TestUtil
             assessmentSection.Stub(a => a.FailureMechanismContribution).Return(failureMechanismContribution);
             assessmentSection.Stub(a => a.GetFailureMechanisms()).Return(failureMechanisms);
             assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabases).Return(new CloneableObservableList<HydraulicBoundaryDatabase>
+            {
+                hydraulicBoundaryDatabase
+            });
             assessmentSection.Stub(a => a.ReferenceLine).Return(referenceLine);
             assessmentSection.Replay();
 
