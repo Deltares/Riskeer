@@ -355,12 +355,15 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
                 Assert.AreEqual(0, rows.Count);
 
                 // When
-                var duneLocation = new DuneLocation(10, "10", new Point2D(10.0, 10.0), new DuneLocation.ConstructionProperties
-                {
-                    CoastalAreaId = 3,
-                    Offset = 80,
-                    D50 = 0.000321
-                });
+                var duneLocation = new DuneLocation(new HydraulicBoundaryLocation(10, "", 0, 0),
+                                                    "10",
+                                                    new Point2D(10.0, 10.0),
+                                                    new DuneLocation.ConstructionProperties
+                                                    {
+                                                        CoastalAreaId = 3,
+                                                        Offset = 80,
+                                                        D50 = 0.000321
+                                                    });
                 var duneLocationCalculation = new DuneLocationCalculation(duneLocation)
                 {
                     Output = new DuneLocationCalculationOutput(CalculationConvergence.CalculatedConverged, new DuneLocationCalculationOutput.ConstructionProperties
@@ -856,18 +859,24 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
         {
             return new ObservableList<DuneLocationCalculation>
             {
-                new DuneLocationCalculation(new DuneLocation(1, "1", new Point2D(1.0, 1.0), new DuneLocation.ConstructionProperties
-                {
-                    CoastalAreaId = 50,
-                    Offset = 320,
-                    D50 = 0.000837
-                })),
-                new DuneLocationCalculation(new DuneLocation(2, "2", new Point2D(2.0, 2.0), new DuneLocation.ConstructionProperties
-                {
-                    CoastalAreaId = 60,
-                    Offset = 230,
-                    D50 = 0.000123
-                }))
+                new DuneLocationCalculation(new DuneLocation(new HydraulicBoundaryLocation(1, "", 0, 0),
+                                                             "1",
+                                                             new Point2D(1.0, 1.0),
+                                                             new DuneLocation.ConstructionProperties
+                                                             {
+                                                                 CoastalAreaId = 50,
+                                                                 Offset = 320,
+                                                                 D50 = 0.000837
+                                                             })),
+                new DuneLocationCalculation(new DuneLocation(new HydraulicBoundaryLocation(2, "", 0, 0),
+                                                             "2",
+                                                             new Point2D(2.0, 2.0),
+                                                             new DuneLocation.ConstructionProperties
+                                                             {
+                                                                 CoastalAreaId = 60,
+                                                                 Offset = 230,
+                                                                 D50 = 0.000123
+                                                             }))
                 {
                     Output = new DuneLocationCalculationOutput(CalculationConvergence.CalculatedConverged, new DuneLocationCalculationOutput.ConstructionProperties
                     {
