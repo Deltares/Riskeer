@@ -77,7 +77,39 @@ INSERT INTO HeightStructuresCalculationEntity SELECT * FROM [SOURCEPROJECT].Heig
 INSERT INTO HeightStructuresFailureMechanismMetaEntity SELECT * FROM [SOURCEPROJECT].HeightStructuresFailureMechanismMetaEntity;
 INSERT INTO HeightStructuresOutputEntity SELECT * FROM [SOURCEPROJECT].HeightStructuresOutputEntity;
 INSERT INTO HeightStructuresSectionResultEntity SELECT * FROM [SOURCEPROJECT].HeightStructuresSectionResultEntity;
-INSERT INTO HydraulicBoundaryDatabaseEntity SELECT * FROM [SOURCEPROJECT].HydraulicBoundaryDatabaseEntity;
+INSERT INTO HydraulicBoundaryDatabaseEntity (
+	[HydraulicBoundaryDatabaseEntityId],
+	[AssessmentSectionEntityId],
+	[Version],
+	[FilePath],
+	[HydraulicLocationConfigurationSettingsFilePath],
+	[HydraulicLocationConfigurationSettingsScenarioName],
+	[HydraulicLocationConfigurationSettingsYear],
+	[HydraulicLocationConfigurationSettingsScope],
+	[HydraulicLocationConfigurationSettingsUsePreprocessorClosure],
+	[HydraulicLocationConfigurationSettingsSeaLevel],
+	[HydraulicLocationConfigurationSettingsRiverDischarge],
+	[HydraulicLocationConfigurationSettingsLakeLevel],
+	[HydraulicLocationConfigurationSettingsWindDirection],
+	[HydraulicLocationConfigurationSettingsWindSpeed],
+	[HydraulicLocationConfigurationSettingsComment])
+SELECT 
+	[HydraulicBoundaryDatabaseEntity],
+	[AssessmentSectionEntityId],
+	[Version],
+	[FilePath],
+	[HydraulicLocationConfigurationSettingsFilePath],
+	[HydraulicLocationConfigurationSettingsScenarioName],
+	[HydraulicLocationConfigurationSettingsYear],
+	[HydraulicLocationConfigurationSettingsScope],
+	[HydraulicLocationConfigurationSettingsUsePreprocessorClosure],
+	[HydraulicLocationConfigurationSettingsSeaLevel],
+	[HydraulicLocationConfigurationSettingsRiverDischarge],
+	[HydraulicLocationConfigurationSettingsLakeLevel],
+	[HydraulicLocationConfigurationSettingsWindDirection],
+	[HydraulicLocationConfigurationSettingsWindSpeed],
+	[HydraulicLocationConfigurationSettingsComment]
+FROM [SOURCEPROJECT].HydraulicBoundaryDatabaseEntity;
 INSERT INTO HydraulicLocationCalculationCollectionEntity SELECT * FROM [SOURCEPROJECT].HydraulicLocationCalculationCollectionEntity;
 INSERT INTO HydraulicLocationCalculationEntity SELECT * FROM [SOURCEPROJECT].HydraulicLocationCalculationEntity;
 INSERT INTO HydraulicLocationEntity (
