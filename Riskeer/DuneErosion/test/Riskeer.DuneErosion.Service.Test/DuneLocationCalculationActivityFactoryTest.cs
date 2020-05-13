@@ -212,13 +212,13 @@ namespace Riskeer.DuneErosion.Service.Test
             AssertDuneLocationCalculationActivity(activities[2],
                                                   "IIv",
                                                   duneLocation1.Name,
-                                                  duneLocation1.Id,
+                                                  hydraulicBoundaryLocation1.Id,
                                                   mechanismSpecificSignalingNorm,
                                                   hydraulicBoundaryDatabase);
             AssertDuneLocationCalculationActivity(activities[3],
                                                   "IIv",
                                                   duneLocation2.Name,
-                                                  duneLocation2.Id,
+                                                  hydraulicBoundaryLocation2.Id,
                                                   mechanismSpecificSignalingNorm,
                                                   hydraulicBoundaryDatabase);
 
@@ -226,13 +226,13 @@ namespace Riskeer.DuneErosion.Service.Test
             AssertDuneLocationCalculationActivity(activities[4],
                                                   "IIIv",
                                                   duneLocation1.Name,
-                                                  duneLocation1.Id,
+                                                  hydraulicBoundaryLocation1.Id,
                                                   mechanismSpecificLowerLimitNorm,
                                                   hydraulicBoundaryDatabase);
             AssertDuneLocationCalculationActivity(activities[5],
                                                   "IIIv",
                                                   duneLocation2.Name,
-                                                  duneLocation2.Id,
+                                                  hydraulicBoundaryLocation2.Id,
                                                   mechanismSpecificLowerLimitNorm,
                                                   hydraulicBoundaryDatabase);
 
@@ -240,13 +240,13 @@ namespace Riskeer.DuneErosion.Service.Test
             AssertDuneLocationCalculationActivity(activities[6],
                                                   "IVv",
                                                   duneLocation1.Name,
-                                                  duneLocation1.Id,
+                                                  hydraulicBoundaryLocation1.Id,
                                                   lowerLimitNorm,
                                                   hydraulicBoundaryDatabase);
             AssertDuneLocationCalculationActivity(activities[7],
                                                   "IVv",
                                                   duneLocation2.Name,
-                                                  duneLocation2.Id,
+                                                  hydraulicBoundaryLocation2.Id,
                                                   lowerLimitNorm,
                                                   hydraulicBoundaryDatabase);
 
@@ -254,13 +254,13 @@ namespace Riskeer.DuneErosion.Service.Test
             AssertDuneLocationCalculationActivity(activities[8],
                                                   "Vv",
                                                   duneLocation1.Name,
-                                                  duneLocation1.Id,
+                                                  hydraulicBoundaryLocation1.Id,
                                                   factorizedLowerLimitNorm,
                                                   hydraulicBoundaryDatabase);
             AssertDuneLocationCalculationActivity(activities[9],
                                                   "Vv",
                                                   duneLocation2.Name,
-                                                  duneLocation2.Id,
+                                                  hydraulicBoundaryLocation2.Id,
                                                   factorizedLowerLimitNorm,
                                                   hydraulicBoundaryDatabase);
         }
