@@ -69,7 +69,8 @@ namespace Riskeer.DuneErosion.Forms
 
             return failureMechanism.DuneLocations
                                    .Select(location => new AggregatedDuneLocation(
-                                               location.Id, location.Name, location.Location, location.CoastalAreaId, location.Offset, location.D50,
+                                               location.HydraulicBoundaryLocation.Id, location.Name, location.Location,
+                                               location.CoastalAreaId, location.Offset, location.D50,
                                                GetWaterLevel(duneLocationCalculationsForMechanismSpecificFactorizedSignalingNormLookup[location]),
                                                GetWaterLevel(duneLocationCalculationsForMechanismSpecificSignalingNormLookup[location]),
                                                GetWaterLevel(duneLocationCalculationsForMechanismSpecificLowerLimitNormLookup[location]),

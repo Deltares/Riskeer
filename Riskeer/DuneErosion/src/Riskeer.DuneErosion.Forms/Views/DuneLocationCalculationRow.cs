@@ -56,13 +56,13 @@ namespace Riskeer.DuneErosion.Forms.Views
         }
 
         /// <summary>
-        /// Gets the <see cref="DuneLocation.Id"/>.
+        /// Gets the id of the <see cref="DuneLocation.HydraulicBoundaryLocation"/>.
         /// </summary>
         public long Id
         {
             get
             {
-                return CalculatableObject.DuneLocation.Id;
+                return CalculatableObject.DuneLocation.HydraulicBoundaryLocation.Id;
             }
         }
 

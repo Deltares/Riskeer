@@ -222,7 +222,7 @@ namespace Riskeer.DuneErosion.Service
                                                                            double norm,
                                                                            HydraulicBoundaryCalculationSettings calculationSettings)
         {
-            var dunesBoundaryConditionsCalculationInput = new DunesBoundaryConditionsCalculationInput(1, duneLocation.Id, norm);
+            var dunesBoundaryConditionsCalculationInput = new DunesBoundaryConditionsCalculationInput(1, duneLocation.HydraulicBoundaryLocation.Id, norm);
             HydraRingSettingsDatabaseHelper.AssignSettingsFromDatabase(dunesBoundaryConditionsCalculationInput,
                                                                        calculationSettings.HydraulicBoundaryDatabaseFilePath,
                                                                        !string.IsNullOrEmpty(calculationSettings.PreprocessorDirectory));

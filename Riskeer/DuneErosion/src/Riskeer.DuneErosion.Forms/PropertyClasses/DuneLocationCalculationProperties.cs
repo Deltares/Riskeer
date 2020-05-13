@@ -64,7 +64,7 @@ namespace Riskeer.DuneErosion.Forms.PropertyClasses
         {
             get
             {
-                return data.DuneLocation.Id;
+                return data.DuneLocation.HydraulicBoundaryLocation.Id;
             }
         }
 
