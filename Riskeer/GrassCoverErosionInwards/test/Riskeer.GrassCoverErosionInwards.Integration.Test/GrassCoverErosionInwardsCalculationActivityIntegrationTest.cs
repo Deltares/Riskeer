@@ -437,7 +437,7 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test", 1, 1),
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabases.First().Locations.First(),
                     DikeProfile = CreateDikeProfile()
                 }
             };
