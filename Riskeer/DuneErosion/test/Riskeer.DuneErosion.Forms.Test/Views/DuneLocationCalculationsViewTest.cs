@@ -263,7 +263,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
                 {
                     false,
                     "1",
-                    "1",
+                    "0",
                     new Point2D(1, 1).ToString(),
                     "50",
                     "320",
@@ -278,7 +278,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
                 {
                     false,
                     "2",
-                    "2",
+                    "0",
                     new Point2D(2, 2).ToString(),
                     "60",
                     "230",
@@ -403,7 +403,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            IObservableEnumerable<DuneLocationCalculation> calculations = GenerateDuneLocationCalculations();
+            IObservableEnumerable<DuneLocationCalculation> calculations = GenerateDuneLocationCalculations(new TestHydraulicBoundaryLocation());
             using (DuneLocationCalculationsView view = ShowDuneLocationCalculationsView(calculations,
                                                                                         new DuneErosionFailureMechanism(),
                                                                                         assessmentSection,
@@ -445,9 +445,14 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
         public void CalculateForSelectedButton_OneCalculationSelected_CalculateForSelectedCalculationAndKeepOriginalSelection()
         {
             // Setup
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
-                FilePath = hydraulicBoundaryDatabaseFilePath
+                FilePath = hydraulicBoundaryDatabaseFilePath,
+                Locations =
+                {
+                    hydraulicBoundaryLocation
+                }
             };
             HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(hydraulicBoundaryDatabase);
 
@@ -455,6 +460,10 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             assessmentSection.Stub(a => a.Id).Return("1");
             assessmentSection.Stub(a => a.FailureMechanismContribution).Return(FailureMechanismContributionTestFactory.CreateFailureMechanismContribution());
             assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabases).Return(new ObservableList<HydraulicBoundaryDatabase>
+            {
+                hydraulicBoundaryDatabase
+            });
             assessmentSection.Stub(a => a.Attach(null)).IgnoreArguments();
             assessmentSection.Stub(a => a.Detach(null)).IgnoreArguments();
 
@@ -466,7 +475,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
                              .Return(new TestDunesBoundaryConditionsCalculator());
             mocks.ReplayAll();
 
-            IObservableEnumerable<DuneLocationCalculation> calculations = GenerateDuneLocationCalculations();
+            IObservableEnumerable<DuneLocationCalculation> calculations = GenerateDuneLocationCalculations(hydraulicBoundaryLocation);
             var failureMechanism = new DuneErosionFailureMechanism();
 
             using (DuneLocationCalculationsView view = ShowDuneLocationCalculationsView(calculations,
@@ -506,9 +515,14 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             // Setup
             const string categoryBoundaryName = "A";
 
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
-                FilePath = hydraulicBoundaryDatabaseFilePath
+                FilePath = hydraulicBoundaryDatabaseFilePath,
+                Locations =
+                {
+                    hydraulicBoundaryLocation
+                }
             };
             HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(hydraulicBoundaryDatabase);
 
@@ -516,6 +530,10 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             assessmentSection.Stub(a => a.Id).Return("1");
             assessmentSection.Stub(a => a.FailureMechanismContribution).Return(FailureMechanismContributionTestFactory.CreateFailureMechanismContribution());
             assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabases).Return(new ObservableList<HydraulicBoundaryDatabase>
+            {
+                hydraulicBoundaryDatabase
+            });
             assessmentSection.Stub(a => a.Attach(null)).IgnoreArguments();
             assessmentSection.Stub(a => a.Detach(null)).IgnoreArguments();
 
@@ -527,7 +545,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
                              .Return(new TestDunesBoundaryConditionsCalculator());
             mocks.ReplayAll();
 
-            IObservableEnumerable<DuneLocationCalculation> calculations = GenerateDuneLocationCalculations();
+            IObservableEnumerable<DuneLocationCalculation> calculations = GenerateDuneLocationCalculations(hydraulicBoundaryLocation);
             var failureMechanism = new DuneErosionFailureMechanism();
 
             using (DuneLocationCalculationsView view = ShowDuneLocationCalculationsView(calculations,
@@ -629,9 +647,14 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
         {
             // Setup
             const double norm = 0.1;
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
-                FilePath = hydraulicBoundaryDatabaseFilePath
+                FilePath = hydraulicBoundaryDatabaseFilePath,
+                Locations =
+                {
+                    hydraulicBoundaryLocation
+                }
             };
             HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(hydraulicBoundaryDatabase);
 
@@ -639,6 +662,10 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             assessmentSection.Stub(a => a.Id).Return("1");
             assessmentSection.Stub(a => a.FailureMechanismContribution).Return(FailureMechanismContributionTestFactory.CreateFailureMechanismContribution());
             assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabases).Return(new ObservableList<HydraulicBoundaryDatabase>
+            {
+                hydraulicBoundaryDatabase
+            });
             assessmentSection.Stub(a => a.Attach(null)).IgnoreArguments();
             assessmentSection.Stub(a => a.Detach(null)).IgnoreArguments();
 
@@ -648,7 +675,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
                              .WhenCalled(invocation =>
                              {
                                  HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(new AssessmentSectionStub(), new TestHydraulicBoundaryLocation()),
+                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection, hydraulicBoundaryLocation),
                                      (HydraRingCalculationSettings) invocation.Arguments[0]);
                              })
                              .Return(dunesBoundaryConditionsCalculator);
@@ -656,7 +683,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
 
             var failureMechanism = new DuneErosionFailureMechanism();
 
-            using (var view = new DuneLocationCalculationsView(GenerateDuneLocationCalculations(),
+            using (var view = new DuneLocationCalculationsView(GenerateDuneLocationCalculations(hydraulicBoundaryLocation),
                                                                failureMechanism,
                                                                assessmentSection,
                                                                () => norm,
@@ -682,7 +709,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
                     // Assert
                     DunesBoundaryConditionsCalculationInput dunesBoundaryConditionsCalculationInput = dunesBoundaryConditionsCalculator.ReceivedInputs.First();
 
-                    Assert.AreEqual(1, dunesBoundaryConditionsCalculationInput.HydraulicBoundaryLocationId);
+                    Assert.AreEqual(0, dunesBoundaryConditionsCalculationInput.HydraulicBoundaryLocationId);
                     Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(norm), dunesBoundaryConditionsCalculationInput.Beta);
                 }
             }
@@ -693,9 +720,14 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
         {
             // Setup
             const double norm = 0.1;
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
                 FilePath = hydraulicBoundaryDatabaseFilePath,
+                Locations =
+                {
+                    hydraulicBoundaryLocation
+                },
                 HydraulicLocationConfigurationSettings =
                 {
                     CanUsePreprocessor = true,
@@ -709,6 +741,10 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             assessmentSection.Stub(a => a.Id).Return("1");
             assessmentSection.Stub(a => a.FailureMechanismContribution).Return(FailureMechanismContributionTestFactory.CreateFailureMechanismContribution());
             assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabases).Return(new ObservableList<HydraulicBoundaryDatabase>
+            {
+                hydraulicBoundaryDatabase
+            });
             assessmentSection.Stub(a => a.Attach(null)).IgnoreArguments();
             assessmentSection.Stub(a => a.Detach(null)).IgnoreArguments();
 
@@ -718,7 +754,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
                              .WhenCalled(invocation =>
                              {
                                  HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(new AssessmentSectionStub(), new TestHydraulicBoundaryLocation()),
+                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection, hydraulicBoundaryLocation),
                                      (HydraRingCalculationSettings) invocation.Arguments[0]);
                              })
                              .Return(dunesBoundaryConditionsCalculator);
@@ -726,7 +762,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
 
             var failureMechanism = new DuneErosionFailureMechanism();
 
-            using (var view = new DuneLocationCalculationsView(GenerateDuneLocationCalculations(),
+            using (var view = new DuneLocationCalculationsView(GenerateDuneLocationCalculations(hydraulicBoundaryLocation),
                                                                failureMechanism,
                                                                assessmentSection,
                                                                () => norm,
@@ -752,7 +788,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
                     // Assert
                     DunesBoundaryConditionsCalculationInput dunesBoundaryConditionsCalculationInput = dunesBoundaryConditionsCalculator.ReceivedInputs.First();
 
-                    Assert.AreEqual(1, dunesBoundaryConditionsCalculationInput.HydraulicBoundaryLocationId);
+                    Assert.AreEqual(0, dunesBoundaryConditionsCalculationInput.HydraulicBoundaryLocationId);
                     Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(norm), dunesBoundaryConditionsCalculationInput.Beta);
                 }
             }
@@ -763,9 +799,14 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
         {
             // Setup
             const double norm = 0.1;
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
                 FilePath = hydraulicBoundaryDatabaseFilePath,
+                Locations =
+                {
+                    hydraulicBoundaryLocation
+                },
                 HydraulicLocationConfigurationSettings =
                 {
                     CanUsePreprocessor = true,
@@ -780,6 +821,10 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             assessmentSection.Stub(a => a.FailureMechanismContribution)
                              .Return(FailureMechanismContributionTestFactory.CreateFailureMechanismContribution());
             assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabases).Return(new ObservableList<HydraulicBoundaryDatabase>
+            {
+                hydraulicBoundaryDatabase
+            });
             assessmentSection.Stub(a => a.Attach(null)).IgnoreArguments();
             assessmentSection.Stub(a => a.Detach(null)).IgnoreArguments();
 
@@ -789,7 +834,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
                              .WhenCalled(invocation =>
                              {
                                  HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(new AssessmentSectionStub(), new TestHydraulicBoundaryLocation()),
+                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection, hydraulicBoundaryLocation),
                                      (HydraRingCalculationSettings) invocation.Arguments[0]);
                              })
                              .Return(dunesBoundaryConditionsCalculator);
@@ -797,7 +842,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
 
             var failureMechanism = new DuneErosionFailureMechanism();
 
-            using (var view = new DuneLocationCalculationsView(GenerateDuneLocationCalculations(),
+            using (var view = new DuneLocationCalculationsView(GenerateDuneLocationCalculations(hydraulicBoundaryLocation),
                                                                failureMechanism,
                                                                assessmentSection,
                                                                () => norm,
@@ -822,7 +867,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
                     // Assert
                     DunesBoundaryConditionsCalculationInput dunesBoundaryConditionsCalculationInput = dunesBoundaryConditionsCalculator.ReceivedInputs.First();
 
-                    Assert.AreEqual(1, dunesBoundaryConditionsCalculationInput.HydraulicBoundaryLocationId);
+                    Assert.AreEqual(0, dunesBoundaryConditionsCalculationInput.HydraulicBoundaryLocationId);
                     Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(norm), dunesBoundaryConditionsCalculationInput.Beta);
                 }
             }
@@ -832,7 +877,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
         {
             var failureMechanism = new DuneErosionFailureMechanism();
 
-            return ShowDuneLocationCalculationsView(GenerateDuneLocationCalculations(),
+            return ShowDuneLocationCalculationsView(GenerateDuneLocationCalculations(new TestHydraulicBoundaryLocation()),
                                                     failureMechanism,
                                                     assessmentSection,
                                                     "A");
@@ -855,11 +900,11 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             return view;
         }
 
-        private static IObservableEnumerable<DuneLocationCalculation> GenerateDuneLocationCalculations()
+        private static IObservableEnumerable<DuneLocationCalculation> GenerateDuneLocationCalculations(HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
             return new ObservableList<DuneLocationCalculation>
             {
-                new DuneLocationCalculation(new DuneLocation(new HydraulicBoundaryLocation(1, "", 0, 0),
+                new DuneLocationCalculation(new DuneLocation(hydraulicBoundaryLocation,
                                                              "1",
                                                              new Point2D(1.0, 1.0),
                                                              new DuneLocation.ConstructionProperties
@@ -868,7 +913,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
                                                                  Offset = 320,
                                                                  D50 = 0.000837
                                                              })),
-                new DuneLocationCalculation(new DuneLocation(new HydraulicBoundaryLocation(2, "", 0, 0),
+                new DuneLocationCalculation(new DuneLocation(hydraulicBoundaryLocation,
                                                              "2",
                                                              new Point2D(2.0, 2.0),
                                                              new DuneLocation.ConstructionProperties
