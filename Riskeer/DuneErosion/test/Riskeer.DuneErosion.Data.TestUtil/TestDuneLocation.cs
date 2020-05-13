@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using Core.Common.Base.Geometry;
+using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
 
 namespace Riskeer.DuneErosion.Data.TestUtil
@@ -37,12 +38,12 @@ namespace Riskeer.DuneErosion.Data.TestUtil
             : this(string.Empty) {}
 
         /// <summary>
-        /// Creates a new instance of <see cref="TestDuneLocation"/>
-        /// with the given name.
+        /// Creates a new instance of <see cref="TestDuneLocation"/> with the given name.
         /// </summary>
         /// <param name="name">The name for the <see cref="TestDuneLocation"/>.</param>
-        public TestDuneLocation(string name)
-            : base(new TestHydraulicBoundaryLocation(), name, new Point2D(0.0, 0.0), new ConstructionProperties
+        /// <param name="hydraulicBoundaryLocation">The <see cref="HydraulicBoundaryLocation"/> corresponding to the <see cref="TestDuneLocation"/>.</param>
+        public TestDuneLocation(string name, HydraulicBoundaryLocation hydraulicBoundaryLocation = null)
+            : base(hydraulicBoundaryLocation ?? new TestHydraulicBoundaryLocation(), name, new Point2D(0.0, 0.0), new ConstructionProperties
             {
                 Offset = 0,
                 Orientation = 0,
