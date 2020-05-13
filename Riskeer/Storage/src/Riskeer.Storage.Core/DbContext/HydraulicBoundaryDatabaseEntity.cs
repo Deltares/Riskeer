@@ -41,7 +41,7 @@ namespace Riskeer.Storage.Core.DbContext
             HydraulicLocationEntities = new HashSet<HydraulicLocationEntity>();
         }
 
-        public long HydraulicBoundaryDatabaseEntity1 { get; set; }
+        public long HydraulicBoundaryDatabaseEntityId { get; set; }
         public long AssessmentSectionEntityId { get; set; }
         public string Version { get; set; }
         public string FilePath { get; set; }

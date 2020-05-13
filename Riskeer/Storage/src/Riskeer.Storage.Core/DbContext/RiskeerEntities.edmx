@@ -650,9 +650,9 @@
         </EntityType>
         <EntityType Name="HydraulicBoundaryDatabaseEntity">
           <Key>
-            <PropertyRef Name="HydraulicBoundaryDatabaseEntity" />
+            <PropertyRef Name="HydraulicBoundaryDatabaseEntityId" />
           </Key>
-          <Property Name="HydraulicBoundaryDatabaseEntity" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="HydraulicBoundaryDatabaseEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="AssessmentSectionEntityId" Type="integer" Nullable="false" />
           <Property Name="Version" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
           <Property Name="FilePath" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
@@ -2606,7 +2606,7 @@
           <End Role="HydraulicLocationEntity" Type="Self.HydraulicLocationEntity" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="HydraulicBoundaryDatabaseEntity">
-              <PropertyRef Name="HydraulicBoundaryDatabaseEntity" />
+              <PropertyRef Name="HydraulicBoundaryDatabaseEntityId" />
             </Principal>
             <Dependent Role="HydraulicLocationEntity">
               <PropertyRef Name="HydraulicBoundaryDatabaseEntityId" />
@@ -5622,9 +5622,9 @@
         </EntityType>
         <EntityType Name="HydraulicBoundaryDatabaseEntity">
           <Key>
-            <PropertyRef Name="HydraulicBoundaryDatabaseEntity1" />
+            <PropertyRef Name="HydraulicBoundaryDatabaseEntityId" />
           </Key>
-          <Property Name="HydraulicBoundaryDatabaseEntity1" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="HydraulicBoundaryDatabaseEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="AssessmentSectionEntityId" Type="Int64" Nullable="false" />
           <Property Name="Version" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="FilePath" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
@@ -7987,7 +7987,7 @@
           <End Type="RiskeerEntitiesModel.HydraulicLocationEntity" Role="HydraulicLocationEntity" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="HydraulicBoundaryDatabaseEntity">
-              <PropertyRef Name="HydraulicBoundaryDatabaseEntity1" />
+              <PropertyRef Name="HydraulicBoundaryDatabaseEntityId" />
             </Principal>
             <Dependent Role="HydraulicLocationEntity">
               <PropertyRef Name="HydraulicBoundaryDatabaseEntityId" />
@@ -9083,7 +9083,7 @@
                 <ScalarProperty Name="FilePath" ColumnName="FilePath" />
                 <ScalarProperty Name="Version" ColumnName="Version" />
                 <ScalarProperty Name="AssessmentSectionEntityId" ColumnName="AssessmentSectionEntityId" />
-                <ScalarProperty Name="HydraulicBoundaryDatabaseEntity1" ColumnName="HydraulicBoundaryDatabaseEntity" />
+                <ScalarProperty Name="HydraulicBoundaryDatabaseEntityId" ColumnName="HydraulicBoundaryDatabaseEntityId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
