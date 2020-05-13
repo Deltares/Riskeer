@@ -28,10 +28,19 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+
 namespace Riskeer.Storage.Core.DbContext
 {
     public class HydraulicBoundaryDatabaseEntity
     {
+        [SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public HydraulicBoundaryDatabaseEntity()
+        {
+            HydraulicLocationEntities = new HashSet<HydraulicLocationEntity>();
+        }
+
         public long HydraulicBoundaryDatabaseEntity1 { get; set; }
         public long AssessmentSectionEntityId { get; set; }
         public string Version { get; set; }
@@ -49,5 +58,8 @@ namespace Riskeer.Storage.Core.DbContext
         public string HydraulicLocationConfigurationSettingsComment { get; set; }
 
         public virtual AssessmentSectionEntity AssessmentSectionEntity { get; set; }
+
+        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<HydraulicLocationEntity> HydraulicLocationEntities { get; set; }
     }
 }
