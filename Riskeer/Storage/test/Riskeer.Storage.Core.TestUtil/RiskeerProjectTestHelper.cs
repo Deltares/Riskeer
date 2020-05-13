@@ -827,7 +827,9 @@ namespace Riskeer.Storage.Core.TestUtil
 
         private static void SetDuneLocations(DuneErosionFailureMechanism failureMechanism)
         {
-            var location = new DuneLocation(12, "DuneLocation", new Point2D(790, 456),
+            var location = new DuneLocation(new HydraulicBoundaryLocation(12, "", 0, 0),
+                                            "DuneLocation",
+                                            new Point2D(790, 456),
                                             new DuneLocation.ConstructionProperties());
 
             failureMechanism.SetDuneLocations(new[]

@@ -22,6 +22,7 @@
 using System;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
+using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.DuneErosion.Data;
 using Riskeer.DuneErosion.Data.TestUtil;
@@ -71,7 +72,9 @@ namespace Riskeer.Storage.Core.Test.Create.DuneErosion
             int order = random.Next();
             var registry = new PersistenceRegistry();
 
-            var location = new DuneLocation(id, testName, new Point2D(coordinateX, coordinateY),
+            var location = new DuneLocation(new HydraulicBoundaryLocation(id, "", 0, 0),
+                                            testName,
+                                            new Point2D(coordinateX, coordinateY),
                                             new DuneLocation.ConstructionProperties
                                             {
                                                 CoastalAreaId = random.Next(),
@@ -105,7 +108,9 @@ namespace Riskeer.Storage.Core.Test.Create.DuneErosion
             int order = random.Next();
             var registry = new PersistenceRegistry();
 
-            var location = new DuneLocation(id, string.Empty, new Point2D(double.NaN, double.NaN),
+            var location = new DuneLocation(new HydraulicBoundaryLocation(id, "", 0, 0),
+                                            string.Empty,
+                                            new Point2D(double.NaN, double.NaN),
                                             new DuneLocation.ConstructionProperties
                                             {
                                                 Offset = double.NaN,
@@ -133,7 +138,10 @@ namespace Riskeer.Storage.Core.Test.Create.DuneErosion
         {
             // Setup
             const string testName = "original name";
-            var location = new DuneLocation(1, testName, new Point2D(0, 0), new DuneLocation.ConstructionProperties());
+            var location = new DuneLocation(new TestHydraulicBoundaryLocation(),
+                                            testName,
+                                            new Point2D(0, 0),
+                                            new DuneLocation.ConstructionProperties());
             var registry = new PersistenceRegistry();
 
             // Call
