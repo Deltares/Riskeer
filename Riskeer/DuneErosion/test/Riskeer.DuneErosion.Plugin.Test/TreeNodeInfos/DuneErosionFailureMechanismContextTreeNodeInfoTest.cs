@@ -495,11 +495,16 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
         public void GivenValidCalculations_WhenCalculatingAllFromContextMenu_ThenAllCalculationsScheduled()
         {
             // Given
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
             var assessmentSection = new AssessmentSectionStub
             {
                 HydraulicBoundaryDatabase =
                 {
-                    FilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite")
+                    FilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite"),
+                    Locations =
+                    {
+                        hydraulicBoundaryLocation
+                    }
                 }
             };
             HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
@@ -509,7 +514,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
                 Contribution = 5
             };
 
-            var duneLocation = new TestDuneLocation("Test");
+            var duneLocation = new TestDuneLocation("Test", hydraulicBoundaryLocation);
             failureMechanism.SetDuneLocations(new[]
             {
                 duneLocation
@@ -536,7 +541,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
                                  .WhenCalled(invocation =>
                                  {
                                      HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                                         HydraulicBoundaryCalculationSettingsFactory.CreateSettings(new AssessmentSectionStub(), new TestHydraulicBoundaryLocation()),
+                                         HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection, hydraulicBoundaryLocation),
                                          (HydraRingCalculationSettings) invocation.Arguments[0]);
                                  })
                                  .Return(dunesBoundaryConditionsCalculator).Repeat.Times(5);

@@ -344,9 +344,12 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
+                var hydraulicBoundaryLocation1 = new HydraulicBoundaryLocation(1300001, "", 0, 0);
+                var hydraulicBoundaryLocation2 = new HydraulicBoundaryLocation(1300002, "", 0, 0);
+
                 var duneLocationCalculations = new ObservableList<DuneLocationCalculation>
                 {
-                    new DuneLocationCalculation(new DuneLocation(new HydraulicBoundaryLocation(1300001, "", 0, 0),
+                    new DuneLocationCalculation(new DuneLocation(hydraulicBoundaryLocation1,
                                                                  locationName1,
                                                                  new Point2D(0, 0),
                                                                  new DuneLocation.ConstructionProperties
@@ -356,7 +359,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
                                                                      Orientation = 0,
                                                                      D50 = 0.000007
                                                                  })),
-                    new DuneLocationCalculation(new DuneLocation(new HydraulicBoundaryLocation(1300002, "", 0, 0),
+                    new DuneLocationCalculation(new DuneLocation(hydraulicBoundaryLocation2,
                                                                  locationName2,
                                                                  new Point2D(0, 0),
                                                                  new DuneLocation.ConstructionProperties
@@ -375,12 +378,21 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
 
                 var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
                 {
-                    FilePath = validFilePath
+                    FilePath = validFilePath,
+                    Locations =
+                    {
+                        hydraulicBoundaryLocation1,
+                        hydraulicBoundaryLocation2
+                    }
                 };
                 HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(hydraulicBoundaryDatabase);
 
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
                 assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
+                assessmentSection.Stub(a => a.HydraulicBoundaryDatabases).Return(new ObservableList<HydraulicBoundaryDatabase>
+                {
+                    hydraulicBoundaryDatabase
+                });
                 assessmentSection.Stub(a => a.Id).Return("13-1");
                 assessmentSection.Stub(a => a.GetFailureMechanisms()).Return(new[]
                 {
@@ -479,12 +491,20 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
 
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
-                FilePath = validFilePath
+                FilePath = validFilePath,
+                Locations =
+                {
+                    hydraulicBoundaryLocation
+                }
             };
             HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(hydraulicBoundaryDatabase);
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabases).Return(new ObservableList<HydraulicBoundaryDatabase>
+            {
+                hydraulicBoundaryDatabase
+            });
             assessmentSection.Stub(a => a.Id).Return("13-1");
             assessmentSection.Stub(a => a.GetFailureMechanisms()).Return(new[]
             {
@@ -511,7 +531,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
                                  .WhenCalled(invocation =>
                                  {
                                      HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                                         HydraulicBoundaryCalculationSettingsFactory.CreateSettings(new AssessmentSectionStub(), new TestHydraulicBoundaryLocation()),
+                                         HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection, hydraulicBoundaryLocation),
                                          (HydraRingCalculationSettings) invocation.Arguments[0]);
                                  })
                                  .Return(dunesBoundaryConditionsCalculator);
@@ -565,6 +585,10 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
                 FilePath = validFilePath,
+                Locations =
+                {
+                    hydraulicBoundaryLocation
+                },
                 HydraulicLocationConfigurationSettings =
                 {
                     CanUsePreprocessor = true,
@@ -576,6 +600,10 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabases).Return(new ObservableList<HydraulicBoundaryDatabase>
+            {
+                hydraulicBoundaryDatabase
+            });
             assessmentSection.Stub(a => a.Id).Return("13-1");
             assessmentSection.Stub(a => a.GetFailureMechanisms()).Return(new[]
             {
@@ -602,7 +630,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
                                  .WhenCalled(invocation =>
                                  {
                                      HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                                         HydraulicBoundaryCalculationSettingsFactory.CreateSettings(new AssessmentSectionStub(), new TestHydraulicBoundaryLocation()),
+                                         HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection, hydraulicBoundaryLocation),
                                          (HydraRingCalculationSettings) invocation.Arguments[0]);
                                  })
                                  .Return(dunesBoundaryConditionsCalculator);
@@ -656,6 +684,10 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
                 FilePath = validFilePath,
+                Locations =
+                {
+                    hydraulicBoundaryLocation
+                },
                 HydraulicLocationConfigurationSettings =
                 {
                     CanUsePreprocessor = true,
@@ -667,6 +699,10 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabases).Return(new ObservableList<HydraulicBoundaryDatabase>
+            {
+                hydraulicBoundaryDatabase
+            });
             assessmentSection.Stub(a => a.Id).Return("13-1");
             assessmentSection.Stub(a => a.GetFailureMechanisms()).Return(new[]
             {
@@ -693,7 +729,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
                                  .WhenCalled(invocation =>
                                  {
                                      HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                                         HydraulicBoundaryCalculationSettingsFactory.CreateSettings(new AssessmentSectionStub(), new TestHydraulicBoundaryLocation()),
+                                         HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection, hydraulicBoundaryLocation),
                                          (HydraRingCalculationSettings) invocation.Arguments[0]);
                                  })
                                  .Return(dunesBoundaryConditionsCalculator);
