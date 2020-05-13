@@ -54,7 +54,24 @@ INSERT INTO HeightStructuresSectionResultEntity SELECT * FROM [SOURCEPROJECT].He
 INSERT INTO HydraulicBoundaryDatabaseEntity SELECT * FROM [SOURCEPROJECT].HydraulicBoundaryDatabaseEntity;
 INSERT INTO HydraulicLocationCalculationCollectionEntity SELECT * FROM [SOURCEPROJECT].HydraulicLocationCalculationCollectionEntity;
 INSERT INTO HydraulicLocationCalculationEntity SELECT * FROM [SOURCEPROJECT].HydraulicLocationCalculationEntity;
-INSERT INTO HydraulicLocationEntity SELECT * FROM [SOURCEPROJECT].HydraulicLocationEntity;
+INSERT INTO HydraulicLocationEntity (
+	[HydraulicLocationEntityId],
+	[HydraulicBoundaryDatabaseEntityId],
+	[LocationId],
+	[Name],
+	[LocationX],
+	[LocationY],
+	[Order])
+SELECT
+	[HydraulicLocationEntityId],
+	HBDE.HydraulicBoundaryDatabaseEntity,
+	[LocationId],
+	[Name],
+	[LocationX],
+	[LocationY],
+	[Order]
+FROM [SOURCEPROJECT].HydraulicLocationEntity
+JOIN [SOURCEPROJECT].HydraulicBoundaryDatabaseEntity HBDE USING (AssessmentSectionEntityId);
 INSERT INTO HydraulicLocationOutputEntity SELECT * FROM [SOURCEPROJECT].HydraulicLocationOutputEntity;
 INSERT INTO IllustrationPointResultEntity SELECT * FROM [SOURCEPROJECT].IllustrationPointResultEntity;
 INSERT INTO MacroStabilityInwardsCalculationEntity SELECT * FROM [SOURCEPROJECT].MacroStabilityInwardsCalculationEntity;
