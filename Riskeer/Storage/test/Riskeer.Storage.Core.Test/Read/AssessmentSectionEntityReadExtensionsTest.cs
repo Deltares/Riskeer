@@ -206,14 +206,16 @@ namespace Riskeer.Storage.Core.Test.Read
         public void Read_WithHydraulicBoundaryLocationCalculations_ReturnsNewAssessmentSectionWithHydraulicBoundaryLocationCalculationsSet()
         {
             // Setup
-            AssessmentSectionEntity entity = CreateAssessmentSectionEntity();
-            entity.HydraulicBoundaryDatabaseEntities.Add(CreateHydraulicDatabaseEntity());
-            entity.BackgroundDataEntities.Add(CreateBackgroundDataEntity());
-
             HydraulicLocationEntity hydraulicLocationEntity = HydraulicLocationEntityTestFactory.CreateHydraulicLocationEntity();
             hydraulicLocationEntity.Name = "A";
             hydraulicLocationEntity.Order = 1;
-            entity.HydraulicLocationEntities.Add(hydraulicLocationEntity);
+
+            HydraulicBoundaryDatabaseEntity hydraulicBoundaryDatabaseEntity = CreateHydraulicDatabaseEntity();
+            hydraulicBoundaryDatabaseEntity.HydraulicLocationEntities.Add(hydraulicLocationEntity);
+
+            AssessmentSectionEntity entity = CreateAssessmentSectionEntity();
+            entity.HydraulicBoundaryDatabaseEntities.Add(hydraulicBoundaryDatabaseEntity);
+            entity.BackgroundDataEntities.Add(CreateBackgroundDataEntity());
 
             entity.HydraulicLocationCalculationCollectionEntity = CreateHydraulicLocationCollectionCalculationEntity(hydraulicLocationEntity, 1);
             entity.HydraulicLocationCalculationCollectionEntity1 = CreateHydraulicLocationCollectionCalculationEntity(hydraulicLocationEntity, 2);
@@ -337,18 +339,20 @@ namespace Riskeer.Storage.Core.Test.Read
         public void Read_WithHydraulicDatabaseLocations_ReturnsNewAssessmentSectionWithLocationsSet()
         {
             // Setup
-            AssessmentSectionEntity entity = CreateAssessmentSectionEntity();
-            entity.HydraulicBoundaryDatabaseEntities.Add(CreateHydraulicDatabaseEntity());
-            entity.BackgroundDataEntities.Add(CreateBackgroundDataEntity());
-
             HydraulicLocationEntity hydraulicLocationEntityOne = HydraulicLocationEntityTestFactory.CreateHydraulicLocationEntity();
             hydraulicLocationEntityOne.Name = "A";
             hydraulicLocationEntityOne.Order = 1;
-            entity.HydraulicLocationEntities.Add(hydraulicLocationEntityOne);
             HydraulicLocationEntity hydraulicLocationEntityTwo = HydraulicLocationEntityTestFactory.CreateHydraulicLocationEntity();
             hydraulicLocationEntityOne.Name = "B";
             hydraulicLocationEntityOne.Order = 0;
-            entity.HydraulicLocationEntities.Add(hydraulicLocationEntityTwo);
+
+            HydraulicBoundaryDatabaseEntity hydraulicBoundaryDatabaseEntity = CreateHydraulicDatabaseEntity();
+            hydraulicBoundaryDatabaseEntity.HydraulicLocationEntities.Add(hydraulicLocationEntityOne);
+            hydraulicBoundaryDatabaseEntity.HydraulicLocationEntities.Add(hydraulicLocationEntityTwo);
+
+            AssessmentSectionEntity entity = CreateAssessmentSectionEntity();
+            entity.HydraulicBoundaryDatabaseEntities.Add(CreateHydraulicDatabaseEntity());
+            entity.BackgroundDataEntities.Add(CreateBackgroundDataEntity());
 
             entity.HydraulicLocationCalculationCollectionEntity = new HydraulicLocationCalculationCollectionEntity();
             entity.HydraulicLocationCalculationCollectionEntity1 = new HydraulicLocationCalculationCollectionEntity();

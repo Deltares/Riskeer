@@ -38,18 +38,24 @@ namespace Riskeer.Storage.Core.Create
         /// </summary>
         /// <param name="hydraulicBoundaryDatabase">The <see cref="HydraulicBoundaryDatabase"/> to create a
         /// <see cref="HydraulicBoundaryDatabaseEntity"/> for.</param>
+        /// <param name="registry">The object keeping track of create operations.</param>
         /// <returns>A new <see cref="HydraulicBoundaryDatabaseEntity"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryDatabase"/>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter
         /// is <c>null</c>.</exception>
-        internal static HydraulicBoundaryDatabaseEntity Create(this HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
+        internal static HydraulicBoundaryDatabaseEntity Create(this HydraulicBoundaryDatabase hydraulicBoundaryDatabase, PersistenceRegistry registry)
         {
             if (hydraulicBoundaryDatabase == null)
             {
                 throw new ArgumentNullException(nameof(hydraulicBoundaryDatabase));
             }
 
+            if (registry == null)
+            {
+                throw new ArgumentNullException(nameof(registry));
+            }
+
             HydraulicLocationConfigurationSettings settings = hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings;
-            return new HydraulicBoundaryDatabaseEntity
+            var databaseEntity = new HydraulicBoundaryDatabaseEntity
             {
                 FilePath = hydraulicBoundaryDatabase.FilePath.DeepClone(),
                 Version = hydraulicBoundaryDatabase.Version.DeepClone(),
@@ -65,6 +71,19 @@ namespace Riskeer.Storage.Core.Create
                 HydraulicLocationConfigurationSettingsWindSpeed = settings.WindSpeed.DeepClone(),
                 HydraulicLocationConfigurationSettingsComment = settings.Comment.DeepClone()
             };
+
+            CreateLocations(hydraulicBoundaryDatabase, registry, databaseEntity);
+
+            return databaseEntity;
+        }
+
+        private static void CreateLocations(HydraulicBoundaryDatabase hydraulicBoundaryDatabase, PersistenceRegistry registry, HydraulicBoundaryDatabaseEntity entity)
+        {
+            for (var i = 0; i < hydraulicBoundaryDatabase.Locations.Count; i++)
+            {
+                HydraulicBoundaryLocation hydraulicBoundaryLocation = hydraulicBoundaryDatabase.Locations[i];
+                entity.HydraulicLocationEntities.Add(hydraulicBoundaryLocation.Create(registry, i));
+            }
         }
     }
 }

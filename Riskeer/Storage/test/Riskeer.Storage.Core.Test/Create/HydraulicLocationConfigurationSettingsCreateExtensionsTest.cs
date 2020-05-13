@@ -35,10 +35,10 @@ namespace Riskeer.Storage.Core.Test.Create
         public void Create_HydraulicBoundaryDatabaseNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => ((HydraulicBoundaryDatabase) null).Create();
+            void Call() => ((HydraulicBoundaryDatabase) null).Create(new PersistenceRegistry());
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("hydraulicBoundaryDatabase", exception.ParamName);
         }
 
@@ -65,7 +65,7 @@ namespace Riskeer.Storage.Core.Test.Create
                                                                                        "Comment");
 
             // Call
-            HydraulicBoundaryDatabaseEntity entity = hydraulicBoundaryDatabase.Create();
+            HydraulicBoundaryDatabaseEntity entity = hydraulicBoundaryDatabase.Create(new PersistenceRegistry());
 
             // Assert
             TestHelper.AssertAreEqualButNotSame(hydraulicBoundaryDatabase.FilePath, entity.FilePath);

@@ -122,10 +122,10 @@ namespace Riskeer.Storage.Core.Read
                 HydraulicBoundaryDatabase hydraulicBoundaryDatabase = assessmentSection.HydraulicBoundaryDatabase;
                 hydraulicBoundaryDatabaseEntity.Read(hydraulicBoundaryDatabase);
 
-                HydraulicBoundaryLocation[] readHydraulicBoundaryLocations = entity.HydraulicLocationEntities
-                                                                                   .OrderBy(hl => hl.Order)
-                                                                                   .Select(hle => hle.Read(collector))
-                                                                                   .ToArray();
+                HydraulicBoundaryLocation[] readHydraulicBoundaryLocations = hydraulicBoundaryDatabaseEntity.HydraulicLocationEntities
+                                                                                                            .OrderBy(hl => hl.Order)
+                                                                                                            .Select(hle => hle.Read(collector))
+                                                                                                            .ToArray();
                 hydraulicBoundaryDatabase.Locations.AddRange(readHydraulicBoundaryLocations);
                 assessmentSection.SetHydraulicBoundaryLocationCalculations(readHydraulicBoundaryLocations);
                 assessmentSection.GrassCoverErosionOutwards.SetHydraulicBoundaryLocationCalculations(readHydraulicBoundaryLocations);
