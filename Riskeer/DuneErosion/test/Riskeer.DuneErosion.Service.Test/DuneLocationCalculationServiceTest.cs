@@ -550,7 +550,7 @@ namespace Riskeer.DuneErosion.Service.Test
 
         private static DunesBoundaryConditionsCalculationInput CreateInput(DuneLocation duneLocation, double norm)
         {
-            return new DunesBoundaryConditionsCalculationInput(1, duneLocation.Id, norm);
+            return new DunesBoundaryConditionsCalculationInput(1, duneLocation.HydraulicBoundaryLocation.Id, norm);
         }
     }
 }

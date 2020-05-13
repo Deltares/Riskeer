@@ -1091,7 +1091,7 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
 
         private static void AssertDuneBoundaryLocation(DuneLocation expectedLocation, DuneLocation actualLocation)
         {
-            Assert.AreEqual(expectedLocation.Id, actualLocation.Id);
+            AssertHydraulicBoundaryLocation(expectedLocation.HydraulicBoundaryLocation, actualLocation.HydraulicBoundaryLocation);
             Assert.AreEqual(expectedLocation.Name, actualLocation.Name);
             Assert.AreEqual(expectedLocation.Location, actualLocation.Location);
             Assert.AreEqual(expectedLocation.CoastalAreaId, actualLocation.CoastalAreaId);

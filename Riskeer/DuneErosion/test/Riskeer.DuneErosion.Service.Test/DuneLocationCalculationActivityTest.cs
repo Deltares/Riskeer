@@ -235,7 +235,7 @@ namespace Riskeer.DuneErosion.Service.Test
 
                 // Assert
                 DunesBoundaryConditionsCalculationInput calculationInput = calculator.ReceivedInputs.Single();
-                Assert.AreEqual(duneLocation.Id, calculationInput.HydraulicBoundaryLocationId);
+                Assert.AreEqual(duneLocation.HydraulicBoundaryLocation.Id, calculationInput.HydraulicBoundaryLocationId);
                 Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(norm), calculationInput.Beta);
             }
 
