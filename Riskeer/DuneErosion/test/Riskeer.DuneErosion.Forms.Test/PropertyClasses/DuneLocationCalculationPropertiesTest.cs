@@ -76,7 +76,7 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
             var properties = new DuneLocationCalculationProperties(duneLocationCalculation);
 
             // Assert
-            Assert.AreEqual(duneLocation.Id, properties.Id);
+            Assert.AreEqual(duneLocation.HydraulicBoundaryLocation.Id, properties.Id);
             Assert.AreEqual(duneLocation.Name, properties.Name);
             Assert.AreEqual(duneLocation.CoastalAreaId, properties.CoastalAreaId);
             Assert.AreEqual(duneLocation.Offset.ToString("0.#", CultureInfo.InvariantCulture), properties.Offset);
