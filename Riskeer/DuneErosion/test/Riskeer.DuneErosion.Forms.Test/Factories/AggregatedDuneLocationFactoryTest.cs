@@ -70,7 +70,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Factories
             {
                 DuneLocation expectedDuneLocation = duneLocations[i];
                 AggregatedDuneLocation aggregatedDuneLocation = aggregatedLocations.ElementAt(i);
-                Assert.AreEqual(expectedDuneLocation.Id, aggregatedDuneLocation.Id);
+                Assert.AreEqual(expectedDuneLocation.HydraulicBoundaryLocation.Id, aggregatedDuneLocation.Id);
                 Assert.AreEqual(expectedDuneLocation.Name, aggregatedDuneLocation.Name);
                 Assert.AreEqual(expectedDuneLocation.Location, aggregatedDuneLocation.Location);
                 Assert.AreEqual(expectedDuneLocation.CoastalAreaId, aggregatedDuneLocation.CoastalAreaId);
@@ -132,7 +132,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Factories
             {
                 DuneLocation expectedDuneLocation = duneLocations[i];
                 AggregatedDuneLocation aggregatedDuneLocation = aggregatedLocations.ElementAt(i);
-                Assert.AreEqual(expectedDuneLocation.Id, aggregatedDuneLocation.Id);
+                Assert.AreEqual(expectedDuneLocation.HydraulicBoundaryLocation.Id, aggregatedDuneLocation.Id);
                 Assert.AreEqual(expectedDuneLocation.Name, aggregatedDuneLocation.Name);
                 Assert.AreEqual(expectedDuneLocation.Location, aggregatedDuneLocation.Location);
                 Assert.AreEqual(expectedDuneLocation.CoastalAreaId, aggregatedDuneLocation.CoastalAreaId);
