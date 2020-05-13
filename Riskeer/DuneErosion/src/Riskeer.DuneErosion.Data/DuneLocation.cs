@@ -58,7 +58,7 @@ namespace Riskeer.DuneErosion.Data
                 throw new ArgumentNullException(nameof(properties));
             }
 
-            Id = hydraulicBoundaryLocation.Id;
+            HydraulicBoundaryLocation = hydraulicBoundaryLocation;
             Name = name;
             Location = location;
             CoastalAreaId = properties.CoastalAreaId;
@@ -68,9 +68,9 @@ namespace Riskeer.DuneErosion.Data
         }
 
         /// <summary>
-        /// Gets the database id of the dune location.
+        /// Gets the corresponding <see cref="HydraulicBoundaryLocation"/>.
         /// </summary>
-        public long Id { get; }
+        public HydraulicBoundaryLocation HydraulicBoundaryLocation { get; }
 
         /// <summary>
         /// Gets the name of the dune location.
