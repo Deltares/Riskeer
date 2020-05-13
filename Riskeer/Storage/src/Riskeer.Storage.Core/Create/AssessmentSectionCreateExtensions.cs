@@ -81,7 +81,7 @@ namespace Riskeer.Storage.Core.Create
                 Order = order
             };
 
-            AddEntityForHydraulicDatabase(section.HydraulicBoundaryDatabase, entity, registry);
+            AddEntityForHydraulicDatabase(section, entity, registry);
             AddHydraulicLocationCalculationEntities(section, entity, registry);
             AddEntityForReferenceLine(section, entity);
 
@@ -117,9 +117,9 @@ namespace Riskeer.Storage.Core.Create
             }
         }
 
-        private static void AddEntityForHydraulicDatabase(HydraulicBoundaryDatabase hydraulicBoundaryDatabase, AssessmentSectionEntity entity, PersistenceRegistry registry)
+        private static void AddEntityForHydraulicDatabase(AssessmentSection assessmentSection, AssessmentSectionEntity entity, PersistenceRegistry registry)
         {
-            if (hydraulicBoundaryDatabase.IsLinked())
+            foreach (HydraulicBoundaryDatabase hydraulicBoundaryDatabase in assessmentSection.HydraulicBoundaryDatabases)
             {
                 entity.HydraulicBoundaryDatabaseEntities.Add(hydraulicBoundaryDatabase.Create(registry));
             }

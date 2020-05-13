@@ -116,8 +116,7 @@ namespace Riskeer.Storage.Core.Read
 
         private static void ReadHydraulicDatabase(this AssessmentSectionEntity entity, AssessmentSection assessmentSection, ReadConversionCollector collector)
         {
-            HydraulicBoundaryDatabaseEntity hydraulicBoundaryDatabaseEntity = entity.HydraulicBoundaryDatabaseEntities.SingleOrDefault();
-            if (hydraulicBoundaryDatabaseEntity != null)
+            foreach (HydraulicBoundaryDatabaseEntity hydraulicBoundaryDatabaseEntity in entity.HydraulicBoundaryDatabaseEntities)
             {
                 HydraulicBoundaryDatabase hydraulicBoundaryDatabase = assessmentSection.HydraulicBoundaryDatabase;
                 hydraulicBoundaryDatabaseEntity.Read(hydraulicBoundaryDatabase);
