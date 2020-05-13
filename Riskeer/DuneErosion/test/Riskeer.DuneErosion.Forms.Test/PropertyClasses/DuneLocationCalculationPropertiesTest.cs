@@ -139,7 +139,9 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
                     CalculatedProbability = calculatedProbability,
                     CalculatedReliability = calculatedReliability
                 });
-            var duneLocation = new DuneLocation(id, name, new Point2D(x, y),
+            var duneLocation = new DuneLocation(new HydraulicBoundaryLocation(id, "", 0, 0),
+                                                name,
+                                                new Point2D(x, y),
                                                 new DuneLocation.ConstructionProperties
                                                 {
                                                     CoastalAreaId = coastalAreaId,
@@ -297,7 +299,9 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
         [TestCase(3.1, "3.1")]
         public void Offset_Always_FormatToString(double offset, string expectedPropertyValue)
         {
-            var duneLocation = new DuneLocation(1, "test", new Point2D(0, 0),
+            var duneLocation = new DuneLocation(new TestHydraulicBoundaryLocation(),
+                                                "test",
+                                                new Point2D(0, 0),
                                                 new DuneLocation.ConstructionProperties
                                                 {
                                                     Offset = offset
@@ -315,7 +319,10 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
         public void ToString_Always_ExpectedValue()
         {
             // Setup
-            var duneLocation = new DuneLocation(1, "Name", new Point2D(0.0, 1.1), new DuneLocation.ConstructionProperties());
+            var duneLocation = new DuneLocation(new TestHydraulicBoundaryLocation(),
+                                                "Name",
+                                                new Point2D(0.0, 1.1),
+                                                new DuneLocation.ConstructionProperties());
             var duneLocationCalculation = new DuneLocationCalculation(duneLocation);
             var properties = new DuneLocationCalculationProperties(duneLocationCalculation);
 
