@@ -148,7 +148,9 @@ namespace Riskeer.DuneErosion.Service.Test
             var calculationMessageProvider = mockRepository.StrictMock<ICalculationMessageProvider>();
             mockRepository.ReplayAll();
 
-            var duneLocation = new DuneLocation(1300001, "test", new Point2D(0, 0),
+            var duneLocation = new DuneLocation(new HydraulicBoundaryLocation(1300001, "", 0, 0),
+                                                "test",
+                                                new Point2D(0, 0),
                                                 new DuneLocation.ConstructionProperties
                                                 {
                                                     CoastalAreaId = 0,

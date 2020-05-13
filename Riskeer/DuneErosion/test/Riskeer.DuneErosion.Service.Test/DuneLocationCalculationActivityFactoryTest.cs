@@ -94,8 +94,14 @@ namespace Riskeer.DuneErosion.Service.Test
 
             AssessmentSectionStub assessmentSection = CreateAssessmentSection(usePreprocessor);
 
-            var duneLocation1 = new DuneLocation(1, "locationName1", new Point2D(1, 1), new DuneLocation.ConstructionProperties());
-            var duneLocation2 = new DuneLocation(2, "locationName2", new Point2D(2, 2), new DuneLocation.ConstructionProperties());
+            var duneLocation1 = new DuneLocation(new HydraulicBoundaryLocation(1, "", 0, 0),
+                                                 "locationName1",
+                                                 new Point2D(1, 1),
+                                                 new DuneLocation.ConstructionProperties());
+            var duneLocation2 = new DuneLocation(new HydraulicBoundaryLocation(2, "", 0, 0),
+                                                 "locationName2",
+                                                 new Point2D(2, 2),
+                                                 new DuneLocation.ConstructionProperties());
 
             // Call
             CalculatableActivity[] activities = DuneLocationCalculationActivityFactory.CreateCalculationActivities(
@@ -160,8 +166,14 @@ namespace Riskeer.DuneErosion.Service.Test
                 Contribution = 5
             };
 
-            var duneLocation1 = new DuneLocation(1, "locationName1", new Point2D(1, 1), new DuneLocation.ConstructionProperties());
-            var duneLocation2 = new DuneLocation(2, "locationName2", new Point2D(2, 2), new DuneLocation.ConstructionProperties());
+            var duneLocation1 = new DuneLocation(new HydraulicBoundaryLocation(1, "", 0, 0),
+                                                 "locationName1",
+                                                 new Point2D(1, 1),
+                                                 new DuneLocation.ConstructionProperties());
+            var duneLocation2 = new DuneLocation(new HydraulicBoundaryLocation(2, "", 0, 0),
+                                                 "locationName2",
+                                                 new Point2D(2, 2),
+                                                 new DuneLocation.ConstructionProperties());
 
             failureMechanism.SetDuneLocations(new[]
             {
