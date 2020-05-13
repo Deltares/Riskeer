@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using Core.Common.Base.Geometry;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Output;
 
@@ -52,6 +53,11 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Water
                     new Point2D(3, 3)
                 }, phreaticLine)
             });
+        }
+
+        public static WaternetCalculatorResult CreateEmptyResult()
+        {
+            return new WaternetCalculatorResult(new List<WaternetPhreaticLineResult>(), new List<WaternetLineResult>());
         }
     }
 }
