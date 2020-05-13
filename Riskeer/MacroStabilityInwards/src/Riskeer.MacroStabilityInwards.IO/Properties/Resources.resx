@@ -220,4 +220,10 @@
   <data name="MacroStabilityInwardsCalculationExporter_ValidateData_Multiple_aquifer_layers_not_supported_no_aquifer_layer_exported" xml:space="preserve">
     <value>Het is niet mogelijk om meerdere aquifer lagen te exporteren. Er is geen aquifer laag geëxporteerd.</value>
   </data>
+  <data name="MacroStabilityInwardsCalculationGroupExporter_Export_Calculation_0_has_no_output_and_is_skipped" xml:space="preserve">
+    <value>Berekening '{0}' heeft geen uitvoer. Deze berekening wordt overgeslagen.</value>
+  </data>
+  <data name="MacroStabilityInwardsCalculationGroupExporter_Export_Data_from_0_exported_to_file_1" xml:space="preserve">
+    <value>Gegevens van '{0}' zijn geëxporteerd naar bestand '{1}'.</value>
+  </data>
 </root>

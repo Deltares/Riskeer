@@ -305,6 +305,26 @@ namespace Riskeer.MacroStabilityInwards.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Berekening &apos;{0}&apos; heeft geen uitvoer. Deze berekening wordt overgeslagen..
+        /// </summary>
+        public static string MacroStabilityInwardsCalculationGroupExporter_Export_Calculation_0_has_no_output_and_is_skipped {
+            get {
+                return ResourceManager.GetString("MacroStabilityInwardsCalculationGroupExporter_Export_Calculation_0_has_no_output_" +
+                        "and_is_skipped", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gegevens van &apos;{0}&apos; zijn geëxporteerd naar bestand &apos;{1}&apos;..
+        /// </summary>
+        public static string MacroStabilityInwardsCalculationGroupExporter_Export_Data_from_0_exported_to_file_1 {
+            get {
+                return ResourceManager.GetString("MacroStabilityInwardsCalculationGroupExporter_Export_Data_from_0_exported_to_file" +
+                        "_1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to De laag bevat een ongeldige geometrie..
         /// </summary>
         public static string MacroStabilityInwardsSoilLayerTransformer_TransformSegmentToRing_Invalid_geometry_for_Ring {

@@ -39,8 +39,7 @@ namespace Riskeer.Common.IO.Configurations.Export
     /// <typeparam name="TConfiguration">The <see cref="IConfigurationItem"/> type used to convert 
     /// <typeparamref name="TCalculation"/> into before writing to XML using a <typeparamref name="TWriter"/>.
     /// </typeparam>
-    public abstract class CalculationConfigurationExporter<TWriter, TCalculation, TConfiguration>
-        : IFileExporter
+    public abstract class CalculationConfigurationExporter<TWriter, TCalculation, TConfiguration> : IFileExporter
         where TWriter : CalculationConfigurationWriter<TConfiguration>
         where TCalculation : class, ICalculation
         where TConfiguration : class, IConfigurationItem
@@ -48,7 +47,6 @@ namespace Riskeer.Common.IO.Configurations.Export
         private static readonly ILog log = LogManager.GetLogger(typeof(CalculationConfigurationExporter<TWriter, TCalculation, TConfiguration>));
         private readonly IEnumerable<ICalculationBase> calculations;
         private readonly TWriter writer;
-        private IEnumerable<IConfigurationItem> configuration;
 
         /// <summary>
         /// Creates a new instance of <see cref="CalculationConfigurationExporter{TWriter,TCalculation,TConfiguration}"/>.
@@ -77,7 +75,7 @@ namespace Riskeer.Common.IO.Configurations.Export
         /// is not a <see cref="CalculationGroup"/> nor a <typeparamref name="TCalculation"/>.</exception>
         public bool Export()
         {
-            configuration = ToConfiguration(calculations).ToArray();
+            IEnumerable<IConfigurationItem> configuration = ToConfiguration(calculations).ToArray();
 
             try
             {
