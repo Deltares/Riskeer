@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Deltares.MacroStability.Data;
 using Deltares.MacroStability.Geometry;
 using Deltares.MacroStability.Standard;
 using NUnit.Framework;
@@ -42,8 +43,71 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernels.Upli
             // Assert
             Assert.IsInstanceOf<IUpliftVanKernel>(kernel);
             Assert.IsFalse(kernel.Calculated);
+            Assert.IsNull(kernel.SoilModel);
+            Assert.IsNull(kernel.SoilProfile);
+            Assert.IsFalse(kernel.MoveGrid);
+            Assert.AreEqual(0.0, kernel.MaximumSliceWidth);
+            Assert.IsNull(kernel.SurfaceLine);
+            Assert.IsNull(kernel.SlipPlaneUpliftVan);
+            Assert.IsNull(kernel.SlipPlaneConstraints);
+            Assert.IsFalse(kernel.GridAutomaticDetermined);
+            Assert.IsFalse(kernel.TangentLinesAutomaticDetermined);
+            Assert.IsNull(kernel.WaternetDaily);
+            Assert.IsNull(kernel.WaternetExtreme);
             Assert.IsNull(kernel.SoilStresses);
             Assert.IsNull(kernel.PreConsolidationStresses);
+            Assert.AreEqual(0.0, kernel.FactorOfStability);
+            Assert.AreEqual(0.0, kernel.ForbiddenZonesXEntryMin);
+            Assert.AreEqual(0.0, kernel.ForbiddenZonesXEntryMax);
+            Assert.IsNull(kernel.SlidingCurveResult);
+            Assert.IsNull(kernel.SlipPlaneResult);
+            Assert.IsNull(kernel.CalculationMessages);
+        }
+
+        [Test]
+        public void SetMethods_Always_SetsPropertiesOnKernel()
+        {
+            // Setup
+            var slipPlaneUpliftVan = new SlipPlaneUpliftVan();
+            var slipPlaneConstraints = new SlipPlaneConstraints();
+            var soilModels = new List<Soil>();
+            var soilProfile2D = new SoilProfile2D();
+            var waternetDaily = new Deltares.MacroStability.Geometry.Waternet();
+            var waternetExtreme = new Deltares.MacroStability.Geometry.Waternet();
+            var surfaceLine = new SurfaceLine2();
+            IEnumerable<FixedSoilStress> soilStresses = Enumerable.Empty<FixedSoilStress>();
+            IEnumerable<PreConsolidationStress> preconsolidationStresses = Enumerable.Empty<PreConsolidationStress>();
+            var kernel = new UpliftVanKernelStub();
+
+            // Call
+            kernel.SetSlipPlaneUpliftVan(slipPlaneUpliftVan);
+            kernel.SetSlipPlaneConstraints(slipPlaneConstraints);
+            kernel.SetSoilModel(soilModels);
+            kernel.SetSoilProfile(soilProfile2D);
+            kernel.SetWaternetDaily(waternetDaily);
+            kernel.SetWaternetExtreme(waternetExtreme);
+            kernel.SetMoveGrid(true);
+            kernel.SetMaximumSliceWidth(2.1);
+            kernel.SetSurfaceLine(surfaceLine);
+            kernel.SetGridAutomaticDetermined(true);
+            kernel.SetTangentLinesAutomaticDetermined(true);
+            kernel.SetFixedSoilStresses(soilStresses);
+            kernel.SetPreConsolidationStresses(preconsolidationStresses);
+
+            // Assert
+            Assert.AreSame(slipPlaneUpliftVan, kernel.SlipPlaneUpliftVan);
+            Assert.AreSame(slipPlaneConstraints, kernel.SlipPlaneConstraints);
+            Assert.AreSame(soilModels, kernel.SoilModel);
+            Assert.AreSame(soilProfile2D, kernel.SoilProfile);
+            Assert.AreSame(waternetDaily, kernel.WaternetDaily);
+            Assert.AreSame(waternetExtreme, kernel.WaternetExtreme);
+            Assert.IsTrue(kernel.MoveGrid);
+            Assert.AreEqual(2.1, kernel.MaximumSliceWidth);
+            Assert.AreSame(surfaceLine, kernel.SurfaceLine);
+            Assert.IsTrue(kernel.GridAutomaticDetermined);
+            Assert.IsTrue(kernel.TangentLinesAutomaticDetermined);
+            Assert.AreSame(soilStresses, kernel.SoilStresses);
+            Assert.AreSame(preconsolidationStresses, kernel.PreConsolidationStresses);
         }
 
         [Test]
@@ -79,7 +143,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernels.Upli
         {
             // Setup
             var kernel = new UpliftVanKernelStub();
-            
+
             // Precondition
             Assert.IsFalse(kernel.Calculated);
 
@@ -103,10 +167,10 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernels.Upli
             Assert.IsFalse(kernel.Calculated);
 
             // Call
-            TestDelegate test = () => kernel.Calculate();
+            void Call() => kernel.Calculate();
 
             // Assert
-            var exception = Assert.Throws<UpliftVanKernelWrapperException>(test);
+            var exception = Assert.Throws<UpliftVanKernelWrapperException>(Call);
             Assert.AreEqual($"Message 1{Environment.NewLine}Message 2", exception.Message);
             Assert.IsNotNull(exception.InnerException);
             Assert.IsFalse(kernel.Calculated);
@@ -187,10 +251,10 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernels.Upli
             Assert.IsFalse(kernel.Validated);
 
             // Call
-            TestDelegate test = () => kernel.Validate().ToList();
+            void Call() => kernel.Validate().ToList();
 
             // Assert
-            var exception = Assert.Throws<UpliftVanKernelWrapperException>(test);
+            var exception = Assert.Throws<UpliftVanKernelWrapperException>(Call);
             Assert.AreEqual($"Message 1{Environment.NewLine}Message 2", exception.Message);
             Assert.IsNotNull(exception.InnerException);
             Assert.IsFalse(kernel.Validated);
@@ -210,7 +274,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernels.Upli
 
             // Assert
             Assert.IsTrue(calculator.Validated);
-            Assert.AreEqual(4, results.Count());
+            Assert.AreEqual(4, results.Count);
             AssertValidationResult(new ValidationResult(ValidationResultType.Warning, "Validation Warning"), results.ElementAt(0));
             AssertValidationResult(new ValidationResult(ValidationResultType.Error, "Validation Error"), results.ElementAt(1));
             AssertValidationResult(new ValidationResult(ValidationResultType.Info, "Validation Info"), results.ElementAt(2));

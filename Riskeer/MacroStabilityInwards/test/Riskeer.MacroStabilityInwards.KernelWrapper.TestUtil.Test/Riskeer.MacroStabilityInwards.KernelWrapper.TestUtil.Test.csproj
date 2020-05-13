@@ -1,6 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <Import Project="$(SolutionDir)\build\Test.targets" />
   <ItemGroup>
+    <Reference Include="Deltares.MacroStability.Data">
+      <HintPath>..\..\..\..\lib\Plugins\Wti\Deltares.MacroStability.Data.dll</HintPath>
+    </Reference>
     <Reference Include="Deltares.MacroStability.Geometry">
       <HintPath>..\..\..\..\lib\Plugins\Wti\Deltares.MacroStability.Geometry.dll</HintPath>
     </Reference>
