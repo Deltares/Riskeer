@@ -259,7 +259,7 @@
           </Key>
           <Property Name="DuneLocationEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FailureMechanismEntityId" Type="integer" Nullable="false" />
-          <Property Name="LocationId" Type="integer" Nullable="false" />
+          <Property Name="HydraulicLocationEntityId" Type="integer" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="260" Nullable="false" />
           <Property Name="LocationX" Type="real" />
           <Property Name="LocationY" Type="real" />
@@ -1954,6 +1954,18 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_DuneLocationEntity_0_0">
+          <End Role="HydraulicLocationEntity" Type="Self.HydraulicLocationEntity" Multiplicity="1" />
+          <End Role="DuneLocationEntity" Type="Self.DuneLocationEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HydraulicLocationEntity">
+              <PropertyRef Name="HydraulicLocationEntityId" />
+            </Principal>
+            <Dependent Role="DuneLocationEntity">
+              <PropertyRef Name="HydraulicLocationEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DuneLocationEntity_1_0">
           <End Role="FailureMechanismEntity" Type="Self.FailureMechanismEntity" Multiplicity="1" />
           <End Role="DuneLocationEntity" Type="Self.DuneLocationEntity" Multiplicity="*" />
           <ReferentialConstraint>
@@ -3638,6 +3650,10 @@
             <End Role="DuneLocationCalculationOutputEntity" EntitySet="DuneLocationCalculationOutputEntity" />
           </AssociationSet>
           <AssociationSet Name="FK_DuneLocationEntity_0_0" Association="Self.FK_DuneLocationEntity_0_0">
+            <End Role="HydraulicLocationEntity" EntitySet="HydraulicLocationEntity" />
+            <End Role="DuneLocationEntity" EntitySet="DuneLocationEntity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DuneLocationEntity_1_0" Association="Self.FK_DuneLocationEntity_1_0">
             <End Role="FailureMechanismEntity" EntitySet="FailureMechanismEntity" />
             <End Role="DuneLocationEntity" EntitySet="DuneLocationEntity" />
           </AssociationSet>
@@ -4402,6 +4418,10 @@
             <End Role="DuneLocationCalculationOutputEntity" EntitySet="DuneLocationCalculationOutputEntities" />
           </AssociationSet>
           <AssociationSet Name="FK_DuneLocationEntity_0_0" Association="RiskeerEntitiesModel.FK_DuneLocationEntity_0_0">
+            <End Role="HydraulicLocationEntity" EntitySet="HydraulicLocationEntities" />
+            <End Role="DuneLocationEntity" EntitySet="DuneLocationEntities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DuneLocationEntity_1_0" Association="RiskeerEntitiesModel.FK_DuneLocationEntity_1_0">
             <End Role="FailureMechanismEntity" EntitySet="FailureMechanismEntities" />
             <End Role="DuneLocationEntity" EntitySet="DuneLocationEntities" />
           </AssociationSet>
@@ -5131,7 +5151,7 @@
           </Key>
           <Property Name="DuneLocationEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FailureMechanismEntityId" Type="Int64" Nullable="false" />
-          <Property Name="LocationId" Type="Int64" Nullable="false" />
+          <Property Name="HydraulicLocationEntityId" Type="Int64" Nullable="false" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="260" FixedLength="false" Unicode="false" />
           <Property Name="LocationX" Type="Double" />
           <Property Name="LocationY" Type="Double" />
@@ -5141,7 +5161,8 @@
           <Property Name="D50" Type="Double" />
           <Property Name="Order" Type="Int32" Nullable="false" />
           <NavigationProperty Name="DuneLocationCalculationEntities" Relationship="RiskeerEntitiesModel.FK_DuneLocationCalculationEntity_0_0" FromRole="DuneLocationEntity" ToRole="DuneLocationCalculationEntity" />
-          <NavigationProperty Name="FailureMechanismEntity" Relationship="RiskeerEntitiesModel.FK_DuneLocationEntity_0_0" FromRole="DuneLocationEntity" ToRole="FailureMechanismEntity" />
+          <NavigationProperty Name="HydraulicLocationEntity" Relationship="RiskeerEntitiesModel.FK_DuneLocationEntity_0_0" FromRole="DuneLocationEntity" ToRole="HydraulicLocationEntity" />
+          <NavigationProperty Name="FailureMechanismEntity" Relationship="RiskeerEntitiesModel.FK_DuneLocationEntity_1_0" FromRole="DuneLocationEntity" ToRole="FailureMechanismEntity" />
         </EntityType>
         <EntityType Name="FailureMechanismEntity">
           <Key>
@@ -5162,7 +5183,7 @@
           <NavigationProperty Name="ClosingStructuresFailureMechanismMetaEntities" Relationship="RiskeerEntitiesModel.FK_ClosingStructuresFailureMechanismMetaEntity_0_0" FromRole="FailureMechanismEntity" ToRole="ClosingStructuresFailureMechanismMetaEntity" />
           <NavigationProperty Name="DikeProfileEntities" Relationship="RiskeerEntitiesModel.FK_DikeProfileEntity_0_0" FromRole="FailureMechanismEntity" ToRole="DikeProfileEntity" />
           <NavigationProperty Name="DuneErosionFailureMechanismMetaEntities" Relationship="RiskeerEntitiesModel.FK_DuneErosionFailureMechanismMetaEntity_0_0" FromRole="FailureMechanismEntity" ToRole="DuneErosionFailureMechanismMetaEntity" />
-          <NavigationProperty Name="DuneLocationEntities" Relationship="RiskeerEntitiesModel.FK_DuneLocationEntity_0_0" FromRole="FailureMechanismEntity" ToRole="DuneLocationEntity" />
+          <NavigationProperty Name="DuneLocationEntities" Relationship="RiskeerEntitiesModel.FK_DuneLocationEntity_1_0" FromRole="FailureMechanismEntity" ToRole="DuneLocationEntity" />
           <NavigationProperty Name="FailureMechanismSectionEntities" Relationship="RiskeerEntitiesModel.FK_FailureMechanismSectionEntity_0_0" FromRole="FailureMechanismEntity" ToRole="FailureMechanismSectionEntity" />
           <NavigationProperty Name="ForeshoreProfileEntities" Relationship="RiskeerEntitiesModel.FK_ForeshoreProfileEntity_0_0" FromRole="FailureMechanismEntity" ToRole="ForeshoreProfileEntity" />
           <NavigationProperty Name="GrassCoverErosionInwardsFailureMechanismMetaEntities" Relationship="RiskeerEntitiesModel.FK_GrassCoverErosionInwardsFailureMechanismMetaEntity_0_0" FromRole="FailureMechanismEntity" ToRole="GrassCoverErosionInwardsFailureMechanismMetaEntity" />
@@ -5666,6 +5687,7 @@
           <Property Name="LocationY" Type="Double" />
           <Property Name="Order" Type="Int32" Nullable="false" />
           <NavigationProperty Name="ClosingStructuresCalculationEntities" Relationship="RiskeerEntitiesModel.FK_ClosingStructuresCalculationEntity_0_0" FromRole="HydraulicLocationEntity" ToRole="ClosingStructuresCalculationEntity" />
+          <NavigationProperty Name="DuneLocationEntities" Relationship="RiskeerEntitiesModel.FK_DuneLocationEntity_0_0" FromRole="HydraulicLocationEntity" ToRole="DuneLocationEntity" />
           <NavigationProperty Name="GrassCoverErosionInwardsCalculationEntities" Relationship="RiskeerEntitiesModel.FK_GrassCoverErosionInwardsCalculationEntity_0_0" FromRole="HydraulicLocationEntity" ToRole="GrassCoverErosionInwardsCalculationEntity" />
           <NavigationProperty Name="GrassCoverErosionOutwardsWaveConditionsCalculationEntities" Relationship="RiskeerEntitiesModel.FK_GrassCoverErosionOutwardsWaveConditionsCalculationEntity_0_0" FromRole="HydraulicLocationEntity" ToRole="GrassCoverErosionOutwardsWaveConditionsCalculationEntity" />
           <NavigationProperty Name="HeightStructuresCalculationEntities" Relationship="RiskeerEntitiesModel.FK_HeightStructuresCalculationEntity_0_0" FromRole="HydraulicLocationEntity" ToRole="HeightStructuresCalculationEntity" />
@@ -7169,6 +7191,18 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_DuneLocationEntity_0_0">
+          <End Type="RiskeerEntitiesModel.HydraulicLocationEntity" Role="HydraulicLocationEntity" Multiplicity="1" />
+          <End Type="RiskeerEntitiesModel.DuneLocationEntity" Role="DuneLocationEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HydraulicLocationEntity">
+              <PropertyRef Name="HydraulicLocationEntityId" />
+            </Principal>
+            <Dependent Role="DuneLocationEntity">
+              <PropertyRef Name="HydraulicLocationEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DuneLocationEntity_1_0">
           <End Type="RiskeerEntitiesModel.FailureMechanismEntity" Role="FailureMechanismEntity" Multiplicity="1" />
           <End Type="RiskeerEntitiesModel.DuneLocationEntity" Role="DuneLocationEntity" Multiplicity="*" />
           <ReferentialConstraint>
@@ -8656,7 +8690,7 @@
                 <ScalarProperty Name="LocationY" ColumnName="LocationY" />
                 <ScalarProperty Name="LocationX" ColumnName="LocationX" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="LocationId" ColumnName="LocationId" />
+                <ScalarProperty Name="HydraulicLocationEntityId" ColumnName="HydraulicLocationEntityId" />
                 <ScalarProperty Name="FailureMechanismEntityId" ColumnName="FailureMechanismEntityId" />
                 <ScalarProperty Name="DuneLocationEntityId" ColumnName="DuneLocationEntityId" />
               </MappingFragment>
