@@ -89,7 +89,7 @@ namespace Riskeer.Storage.Core.Test.Read.DuneErosion
 
             // Assert
             Assert.IsNotNull(location);
-            Assert.AreEqual(locationId, location.Id);
+            Assert.AreEqual(locationId, location.HydraulicBoundaryLocation.Id);
             Assert.AreEqual(testName, location.Name);
             Assert.AreEqual(x, location.Location.X, 1e-6);
             Assert.AreEqual(y, location.Location.Y, 1e-6);
@@ -128,7 +128,7 @@ namespace Riskeer.Storage.Core.Test.Read.DuneErosion
 
             // Assert
             Assert.IsNotNull(location);
-            Assert.AreEqual(locationId, location.Id);
+            Assert.AreEqual(locationId, location.HydraulicBoundaryLocation.Id);
             Assert.AreEqual(testName, location.Name);
             Assert.IsNaN(location.Location.X);
             Assert.IsNaN(location.Location.Y);
