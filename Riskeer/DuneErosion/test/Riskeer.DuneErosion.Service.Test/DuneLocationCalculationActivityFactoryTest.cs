@@ -94,11 +94,14 @@ namespace Riskeer.DuneErosion.Service.Test
 
             AssessmentSectionStub assessmentSection = CreateAssessmentSection(usePreprocessor);
 
-            var duneLocation1 = new DuneLocation(new HydraulicBoundaryLocation(1, "", 0, 0),
+            var hydraulicBoundaryLocation1 = new HydraulicBoundaryLocation(1, "", 0, 0);
+            var duneLocation1 = new DuneLocation(hydraulicBoundaryLocation1,
                                                  "locationName1",
                                                  new Point2D(1, 1),
                                                  new DuneLocation.ConstructionProperties());
-            var duneLocation2 = new DuneLocation(new HydraulicBoundaryLocation(2, "", 0, 0),
+
+            var hydraulicBoundaryLocation2 = new HydraulicBoundaryLocation(2, "", 0, 0);
+            var duneLocation2 = new DuneLocation(hydraulicBoundaryLocation2,
                                                  "locationName2",
                                                  new Point2D(2, 2),
                                                  new DuneLocation.ConstructionProperties());
@@ -119,8 +122,8 @@ namespace Riskeer.DuneErosion.Service.Test
             Assert.AreEqual(2, activities.Length);
 
             HydraulicBoundaryDatabase hydraulicBoundaryDatabase = assessmentSection.HydraulicBoundaryDatabase;
-            AssertDuneLocationCalculationActivity(activities[0], categoryBoundaryName, duneLocation1.Name, duneLocation1.Id, norm, hydraulicBoundaryDatabase);
-            AssertDuneLocationCalculationActivity(activities[1], categoryBoundaryName, duneLocation2.Name, duneLocation2.Id, norm, hydraulicBoundaryDatabase);
+            AssertDuneLocationCalculationActivity(activities[0], categoryBoundaryName, duneLocation1.Name, hydraulicBoundaryLocation1.Id, norm, hydraulicBoundaryDatabase);
+            AssertDuneLocationCalculationActivity(activities[1], categoryBoundaryName, duneLocation2.Name, hydraulicBoundaryLocation2.Id, norm, hydraulicBoundaryDatabase);
         }
 
         [Test]
@@ -166,11 +169,14 @@ namespace Riskeer.DuneErosion.Service.Test
                 Contribution = 5
             };
 
-            var duneLocation1 = new DuneLocation(new HydraulicBoundaryLocation(1, "", 0, 0),
+            var hydraulicBoundaryLocation1 = new HydraulicBoundaryLocation(1, "", 0, 0);
+            var duneLocation1 = new DuneLocation(hydraulicBoundaryLocation1,
                                                  "locationName1",
                                                  new Point2D(1, 1),
                                                  new DuneLocation.ConstructionProperties());
-            var duneLocation2 = new DuneLocation(new HydraulicBoundaryLocation(2, "", 0, 0),
+
+            var hydraulicBoundaryLocation2 = new HydraulicBoundaryLocation(2, "", 0, 0);
+            var duneLocation2 = new DuneLocation(hydraulicBoundaryLocation2,
                                                  "locationName2",
                                                  new Point2D(2, 2),
                                                  new DuneLocation.ConstructionProperties());
@@ -192,13 +198,13 @@ namespace Riskeer.DuneErosion.Service.Test
             AssertDuneLocationCalculationActivity(activities[0],
                                                   "Iv",
                                                   duneLocation1.Name,
-                                                  duneLocation1.Id,
+                                                  hydraulicBoundaryLocation1.Id,
                                                   mechanismSpecificFactorizedSignalingNorm,
                                                   hydraulicBoundaryDatabase);
             AssertDuneLocationCalculationActivity(activities[1],
                                                   "Iv",
                                                   duneLocation2.Name,
-                                                  duneLocation2.Id,
+                                                  hydraulicBoundaryLocation2.Id,
                                                   mechanismSpecificFactorizedSignalingNorm,
                                                   hydraulicBoundaryDatabase);
 

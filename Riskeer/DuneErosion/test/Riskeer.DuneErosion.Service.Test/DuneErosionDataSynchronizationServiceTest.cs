@@ -149,7 +149,7 @@ namespace Riskeer.DuneErosion.Service.Test
             Assert.AreEqual(1, failureMechanism.DuneLocations.Count());
 
             DuneLocation duneLocation = failureMechanism.DuneLocations.First();
-            Assert.AreEqual(hydraulicBoundaryLocation.Id, duneLocation.Id);
+            Assert.AreSame(hydraulicBoundaryLocation, duneLocation.HydraulicBoundaryLocation);
             Assert.AreEqual(readDuneLocation.Name, duneLocation.Name);
             Assert.AreEqual(readDuneLocation.Location, duneLocation.Location);
             Assert.AreEqual(readDuneLocation.Offset, duneLocation.Offset);

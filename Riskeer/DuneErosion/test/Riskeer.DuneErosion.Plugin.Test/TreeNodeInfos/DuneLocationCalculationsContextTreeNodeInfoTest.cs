@@ -457,9 +457,10 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
         {
             // Setup
             const double norm = 0.01;
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1300001, "", 0, 0);
             var duneLocationCalculations = new ObservableList<DuneLocationCalculation>
             {
-                new DuneLocationCalculation(new DuneLocation(new HydraulicBoundaryLocation(1300001, "", 0, 0),
+                new DuneLocationCalculation(new DuneLocation(hydraulicBoundaryLocation,
                                                              "A",
                                                              new Point2D(0, 0),
                                                              new DuneLocation.ConstructionProperties
@@ -528,7 +529,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
                     // Assert
                     DunesBoundaryConditionsCalculationInput dunesBoundaryConditionsCalculationInput = dunesBoundaryConditionsCalculator.ReceivedInputs.First();
 
-                    Assert.AreEqual(duneLocationCalculations[0].DuneLocation.Id, dunesBoundaryConditionsCalculationInput.HydraulicBoundaryLocationId);
+                    Assert.AreEqual(hydraulicBoundaryLocation.Id, dunesBoundaryConditionsCalculationInput.HydraulicBoundaryLocationId);
                     Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(norm), dunesBoundaryConditionsCalculationInput.Beta);
                 }
             }
@@ -541,9 +542,10 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
             const double norm = 0.01;
             string preprocessorDirectory = TestHelper.GetScratchPadPath();
 
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1300001, "", 0, 0);
             var duneLocationCalculations = new ObservableList<DuneLocationCalculation>
             {
-                new DuneLocationCalculation(new DuneLocation(new HydraulicBoundaryLocation(1300001, "", 0, 0),
+                new DuneLocationCalculation(new DuneLocation(hydraulicBoundaryLocation,
                                                              "A",
                                                              new Point2D(0, 0),
                                                              new DuneLocation.ConstructionProperties
@@ -619,7 +621,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
                     // Assert
                     DunesBoundaryConditionsCalculationInput dunesBoundaryConditionsCalculationInput = dunesBoundaryConditionsCalculator.ReceivedInputs.First();
 
-                    Assert.AreEqual(duneLocationCalculations[0].DuneLocation.Id, dunesBoundaryConditionsCalculationInput.HydraulicBoundaryLocationId);
+                    Assert.AreEqual(hydraulicBoundaryLocation.Id, dunesBoundaryConditionsCalculationInput.HydraulicBoundaryLocationId);
                     Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(norm), dunesBoundaryConditionsCalculationInput.Beta);
                 }
             }
@@ -630,9 +632,11 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
         {
             // Setup
             const double norm = 0.01;
+
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1300001, "", 0, 0);
             var duneLocationCalculations = new ObservableList<DuneLocationCalculation>
             {
-                new DuneLocationCalculation(new DuneLocation(new HydraulicBoundaryLocation(1300001, "", 0, 0),
+                new DuneLocationCalculation(new DuneLocation(hydraulicBoundaryLocation,
                                                              "A",
                                                              new Point2D(0, 0),
                                                              new DuneLocation.ConstructionProperties
@@ -708,7 +712,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
                     // Assert
                     DunesBoundaryConditionsCalculationInput dunesBoundaryConditionsCalculationInput = dunesBoundaryConditionsCalculator.ReceivedInputs.First();
 
-                    Assert.AreEqual(duneLocationCalculations[0].DuneLocation.Id, dunesBoundaryConditionsCalculationInput.HydraulicBoundaryLocationId);
+                    Assert.AreEqual(hydraulicBoundaryLocation.Id, dunesBoundaryConditionsCalculationInput.HydraulicBoundaryLocationId);
                     Assert.AreEqual(StatisticsConverter.ProbabilityToReliability(norm), dunesBoundaryConditionsCalculationInput.Beta);
                 }
             }

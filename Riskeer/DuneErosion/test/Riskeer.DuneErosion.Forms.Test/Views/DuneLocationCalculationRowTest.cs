@@ -42,7 +42,8 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
         public void Constructor_DuneLocationCalculationWithOutput_ExpectedValues(double offSet)
         {
             // Setup
-            var duneLocation = new DuneLocation(new TestHydraulicBoundaryLocation(),
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+            var duneLocation = new DuneLocation(hydraulicBoundaryLocation,
                                                 "test location",
                                                 new Point2D(3.3, 4.4),
                                                 new DuneLocation.ConstructionProperties
@@ -67,7 +68,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             // Assert
             Assert.IsInstanceOf<CalculatableRow<DuneLocationCalculation>>(row);
             Assert.AreSame(duneLocationCalculation, row.CalculatableObject);
-            Assert.AreEqual(duneLocation.Id, row.Id);
+            Assert.AreEqual(hydraulicBoundaryLocation.Id, row.Id);
             Assert.AreEqual(duneLocation.Name, row.Name);
             Assert.AreSame(duneLocation.Location, row.Location);
             Assert.AreEqual(duneLocation.CoastalAreaId, row.CoastalAreaId);

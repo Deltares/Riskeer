@@ -62,7 +62,7 @@ namespace Riskeer.DuneErosion.Forms.TestUtil
                 DuneLocation expectedDuneLocation = expectedDuneLocations.ElementAt(i);
                 MapFeature mapFeature = features.ElementAt(i);
 
-                Assert.AreEqual(expectedDuneLocation.Id, mapFeature.MetaData["ID"]);
+                Assert.AreEqual(expectedDuneLocation.HydraulicBoundaryLocation.Id, mapFeature.MetaData["ID"]);
                 Assert.AreEqual(expectedDuneLocation.Name, mapFeature.MetaData["Naam"]);
                 Assert.AreEqual(expectedDuneLocation.CoastalAreaId, mapFeature.MetaData["Kustvaknummer"]);
                 Assert.AreEqual(expectedDuneLocation.Offset.ToString("0.#", CultureInfo.CurrentCulture), mapFeature.MetaData["Metrering"]);

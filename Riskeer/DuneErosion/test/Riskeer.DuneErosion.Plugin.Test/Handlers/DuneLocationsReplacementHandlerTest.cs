@@ -170,17 +170,19 @@ namespace Riskeer.DuneErosion.Plugin.Test.Handlers
             Assert.AreEqual(2, failureMechanism.CalculationsForLowerLimitNorm.Count());
             Assert.AreEqual(2, failureMechanism.CalculationsForFactorizedLowerLimitNorm.Count());
 
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test_1_100", 205354, 609735);
+
             // Call
             handler.Replace(new[]
             {
-                new HydraulicBoundaryLocation(1, "test_1_100", 205354, 609735)
+                hydraulicBoundaryLocation
             });
 
             // Assert
             Assert.AreEqual(1, failureMechanism.DuneLocations.Count());
 
             DuneLocation duneLocation = failureMechanism.DuneLocations.First();
-            Assert.AreEqual(1, duneLocation.Id);
+            Assert.AreSame(hydraulicBoundaryLocation, duneLocation.HydraulicBoundaryLocation);
             Assert.AreEqual(new Point2D(205354, 609735), duneLocation.Location);
             AssertDuneLocationCalculations(duneLocation, failureMechanism);
 
