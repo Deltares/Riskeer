@@ -1044,7 +1044,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2),
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabases.First().Locations.First(),
                     DikeProfile = DikeProfileTestFactory.CreateDikeProfile()
                 }
             };
@@ -1097,7 +1097,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2),
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabases.First().Locations.First(),
                     DikeProfile = DikeProfileTestFactory.CreateDikeProfile(),
                     DikeHeightCalculationType = dikeHeightCalculationType
                 }
@@ -1163,7 +1163,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2),
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabases.First().Locations.First(),
                     DikeProfile = DikeProfileTestFactory.CreateDikeProfile(),
                     OvertoppingRateCalculationType = overtoppingRateCalculationType
                 }
@@ -1909,7 +1909,8 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
 
             mockRepository.ReplayAll();
 
-            GrassCoverErosionInwardsCalculation calculation = GetValidCalculationWithCalculateIllustrationPointsSettings();
+            GrassCoverErosionInwardsCalculation calculation = GetValidCalculationWithCalculateIllustrationPointsSettings(
+                assessmentSection.HydraulicBoundaryDatabases.First().Locations.First());
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
@@ -1996,7 +1997,8 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
 
             mockRepository.ReplayAll();
 
-            GrassCoverErosionInwardsCalculation calculation = GetValidCalculationWithCalculateIllustrationPointsSettings();
+            GrassCoverErosionInwardsCalculation calculation = GetValidCalculationWithCalculateIllustrationPointsSettings(
+                assessmentSection.HydraulicBoundaryDatabases.First().Locations.First());
             calculation.InputParameters.ShouldOvertoppingOutputIllustrationPointsBeCalculated = false;
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
@@ -2083,7 +2085,8 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
 
             mockRepository.ReplayAll();
 
-            GrassCoverErosionInwardsCalculation calculation = GetValidCalculationWithCalculateIllustrationPointsSettings();
+            GrassCoverErosionInwardsCalculation calculation = GetValidCalculationWithCalculateIllustrationPointsSettings(
+                assessmentSection.HydraulicBoundaryDatabases.First().Locations.First());
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
@@ -2170,7 +2173,8 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
 
             mockRepository.ReplayAll();
 
-            GrassCoverErosionInwardsCalculation calculation = GetValidCalculationWithCalculateIllustrationPointsSettings();
+            GrassCoverErosionInwardsCalculation calculation = GetValidCalculationWithCalculateIllustrationPointsSettings(
+                assessmentSection.HydraulicBoundaryDatabases.First().Locations.First());
             calculation.InputParameters.ShouldOvertoppingRateIllustrationPointsBeCalculated = false;
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
@@ -2257,7 +2261,8 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
 
             mockRepository.ReplayAll();
 
-            GrassCoverErosionInwardsCalculation calculation = GetValidCalculationWithCalculateIllustrationPointsSettings();
+            GrassCoverErosionInwardsCalculation calculation = GetValidCalculationWithCalculateIllustrationPointsSettings(
+                assessmentSection.HydraulicBoundaryDatabases.First().Locations.First());
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
@@ -2344,7 +2349,8 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
 
             mockRepository.ReplayAll();
 
-            GrassCoverErosionInwardsCalculation calculation = GetValidCalculationWithCalculateIllustrationPointsSettings();
+            GrassCoverErosionInwardsCalculation calculation = GetValidCalculationWithCalculateIllustrationPointsSettings(
+                assessmentSection.HydraulicBoundaryDatabases.First().Locations.First());
             calculation.InputParameters.ShouldDikeHeightIllustrationPointsBeCalculated = false;
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
@@ -2429,7 +2435,8 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                              .Return(overtoppingRateCalculator);
             mockRepository.ReplayAll();
 
-            GrassCoverErosionInwardsCalculation calculation = GetValidCalculationWithCalculateIllustrationPointsSettings();
+            GrassCoverErosionInwardsCalculation calculation = GetValidCalculationWithCalculateIllustrationPointsSettings(
+                assessmentSection.HydraulicBoundaryDatabases.First().Locations.First());
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
@@ -2517,7 +2524,8 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                              .Return(overtoppingRateCalculator);
             mockRepository.ReplayAll();
 
-            GrassCoverErosionInwardsCalculation calculation = GetValidCalculationWithCalculateIllustrationPointsSettings();
+            GrassCoverErosionInwardsCalculation calculation = GetValidCalculationWithCalculateIllustrationPointsSettings(
+                assessmentSection.HydraulicBoundaryDatabases.First().Locations.First());
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
@@ -2607,7 +2615,8 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                              .Return(overtoppingRateCalculator);
             mockRepository.ReplayAll();
 
-            GrassCoverErosionInwardsCalculation calculation = GetValidCalculationWithCalculateIllustrationPointsSettings();
+            GrassCoverErosionInwardsCalculation calculation = GetValidCalculationWithCalculateIllustrationPointsSettings(
+                assessmentSection.HydraulicBoundaryDatabases.First().Locations.First());
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
@@ -2695,7 +2704,8 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                              .Return(overtoppingRateCalculator);
             mockRepository.ReplayAll();
 
-            GrassCoverErosionInwardsCalculation calculation = GetValidCalculationWithCalculateIllustrationPointsSettings();
+            GrassCoverErosionInwardsCalculation calculation = GetValidCalculationWithCalculateIllustrationPointsSettings(
+                assessmentSection.HydraulicBoundaryDatabases.First().Locations.First());
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
@@ -2785,7 +2795,8 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                              .Return(overtoppingRateCalculator);
             mockRepository.ReplayAll();
 
-            GrassCoverErosionInwardsCalculation calculation = GetValidCalculationWithCalculateIllustrationPointsSettings();
+            GrassCoverErosionInwardsCalculation calculation = GetValidCalculationWithCalculateIllustrationPointsSettings(
+                assessmentSection.HydraulicBoundaryDatabases.First().Locations.First());
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
@@ -2873,7 +2884,8 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
                              .Return(overtoppingRateCalculator);
             mockRepository.ReplayAll();
 
-            GrassCoverErosionInwardsCalculation calculation = GetValidCalculationWithCalculateIllustrationPointsSettings();
+            GrassCoverErosionInwardsCalculation calculation = GetValidCalculationWithCalculateIllustrationPointsSettings(
+                assessmentSection.HydraulicBoundaryDatabases.First().Locations.First());
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             {
@@ -3156,7 +3168,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2),
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabases.First().Locations.First(),
                     DikeProfile = DikeProfileTestFactory.CreateDikeProfile(),
                     DikeHeightCalculationType = DikeHeightCalculationType.CalculateByProfileSpecificRequiredProbability
                 }
@@ -3198,7 +3210,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2),
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabases.First().Locations.First(),
                     DikeProfile = DikeProfileTestFactory.CreateDikeProfile(),
                     OvertoppingRateCalculationType = OvertoppingRateCalculationType.CalculateByProfileSpecificRequiredProbability
                 }
@@ -3267,13 +3279,13 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
             };
         }
 
-        private static GrassCoverErosionInwardsCalculation GetValidCalculationWithCalculateIllustrationPointsSettings()
+        private static GrassCoverErosionInwardsCalculation GetValidCalculationWithCalculateIllustrationPointsSettings(HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
             return new GrassCoverErosionInwardsCalculation
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation(),
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation,
                     DikeProfile = GetDikeProfile(),
                     DikeHeightCalculationType = DikeHeightCalculationType.CalculateByAssessmentSectionNorm,
                     OvertoppingRateCalculationType = OvertoppingRateCalculationType.CalculateByAssessmentSectionNorm,
