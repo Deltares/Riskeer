@@ -107,8 +107,8 @@ namespace Riskeer.Storage.Core.TestUtil
             ObservableList<HydraulicBoundaryLocation> hydraulicBoundaryLocations = assessmentSection.HydraulicBoundaryDatabase.Locations;
             hydraulicBoundaryLocations.AddRange(GetHydraulicBoundaryLocations());
 
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryLocations);
-            assessmentSection.GrassCoverErosionOutwards.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryLocations);
+            assessmentSection.AddHydraulicBoundaryLocationCalculations(hydraulicBoundaryLocations);
+            assessmentSection.GrassCoverErosionOutwards.AddHydraulicBoundaryLocationCalculations(hydraulicBoundaryLocations);
             ConfigureHydraulicBoundaryLocationCalculations(assessmentSection);
 
             MacroStabilityInwardsFailureMechanism macroStabilityInwardsFailureMechanism = assessmentSection.MacroStabilityInwards;

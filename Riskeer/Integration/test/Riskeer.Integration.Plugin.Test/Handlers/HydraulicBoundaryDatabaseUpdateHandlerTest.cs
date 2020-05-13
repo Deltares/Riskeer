@@ -404,8 +404,8 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
                     new TestHydraulicBoundaryLocation("old location 3")
                 }
             };
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryDatabase.Locations);
-            assessmentSection.GrassCoverErosionOutwards.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryDatabase.Locations);
+            assessmentSection.AddHydraulicBoundaryLocationCalculations(hydraulicBoundaryDatabase.Locations);
+            assessmentSection.GrassCoverErosionOutwards.AddHydraulicBoundaryLocationCalculations(hydraulicBoundaryDatabase.Locations);
 
             HydraulicBoundaryLocation[] locations = hydraulicBoundaryDatabase.Locations.ToArray();
 
@@ -447,8 +447,8 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
                 }
             };
             HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(hydraulicBoundaryDatabase);
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryDatabase.Locations);
-            assessmentSection.GrassCoverErosionOutwards.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryDatabase.Locations);
+            assessmentSection.AddHydraulicBoundaryLocationCalculations(hydraulicBoundaryDatabase.Locations);
+            assessmentSection.GrassCoverErosionOutwards.AddHydraulicBoundaryLocationCalculations(hydraulicBoundaryDatabase.Locations);
 
             HydraulicBoundaryLocation[] locations = hydraulicBoundaryDatabase.Locations.ToArray();
 
@@ -494,8 +494,8 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             mocks.ReplayAll();
 
             AssessmentSection assessmentSection = CreateAssessmentSection();
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryDatabase.Locations);
-            assessmentSection.GrassCoverErosionOutwards.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryDatabase.Locations);
+            assessmentSection.AddHydraulicBoundaryLocationCalculations(hydraulicBoundaryDatabase.Locations);
+            assessmentSection.GrassCoverErosionOutwards.AddHydraulicBoundaryLocationCalculations(hydraulicBoundaryDatabase.Locations);
 
             var handler = new HydraulicBoundaryDatabaseUpdateHandler(assessmentSection, duneLocationsReplacementHandler);
 

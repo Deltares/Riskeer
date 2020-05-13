@@ -261,7 +261,7 @@ namespace Riskeer.Storage.Core.Test.Create.GrassCoverErosionOutwards
             // Setup
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, "A", 0, 0);
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            failureMechanism.SetHydraulicBoundaryLocationCalculations(new[]
+            failureMechanism.AddHydraulicBoundaryLocationCalculations(new[]
             {
                 hydraulicBoundaryLocation
             });

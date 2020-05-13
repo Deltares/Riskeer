@@ -500,7 +500,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             {
                 Contribution = 5
             };
-            failureMechanism.SetHydraulicBoundaryLocationCalculations(new[]
+            failureMechanism.AddHydraulicBoundaryLocationCalculations(new[]
             {
                 hydraulicBoundaryLocation
             });

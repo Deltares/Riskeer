@@ -492,7 +492,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
             var assessmentSection = new AssessmentSectionStub();
 
-            failureMechanism.SetHydraulicBoundaryLocationCalculations(new[]
+            failureMechanism.AddHydraulicBoundaryLocationCalculations(new[]
             {
                 hydraulicBoundaryLocation
             });

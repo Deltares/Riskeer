@@ -73,14 +73,14 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
                 }
             };
 
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            assessmentSection.AddHydraulicBoundaryLocationCalculations(new[]
             {
                 hydraulicBoundaryLocation1,
                 hydraulicBoundaryLocation2
             });
             SetOutputToHydraulicBoundaryLocationCalculations(assessmentSection, hydraulicBoundaryLocation1, random);
 
-            assessmentSection.GrassCoverErosionOutwards.SetHydraulicBoundaryLocationCalculations(new[]
+            assessmentSection.GrassCoverErosionOutwards.AddHydraulicBoundaryLocationCalculations(new[]
             {
                 hydraulicBoundaryLocation1,
                 hydraulicBoundaryLocation2
@@ -169,13 +169,13 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
                 }
             };
 
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            assessmentSection.AddHydraulicBoundaryLocationCalculations(new[]
             {
                 hydraulicBoundaryLocation
             });
             SetOutputToHydraulicBoundaryLocationCalculations(assessmentSection, hydraulicBoundaryLocation, random);
 
-            assessmentSection.GrassCoverErosionOutwards.SetHydraulicBoundaryLocationCalculations(new[]
+            assessmentSection.GrassCoverErosionOutwards.AddHydraulicBoundaryLocationCalculations(new[]
             {
                 hydraulicBoundaryLocation
             });
@@ -256,12 +256,12 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
                 }
             };
 
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            assessmentSection.AddHydraulicBoundaryLocationCalculations(new[]
             {
                 hydraulicBoundaryLocation
             });
 
-            assessmentSection.GrassCoverErosionOutwards.SetHydraulicBoundaryLocationCalculations(new[]
+            assessmentSection.GrassCoverErosionOutwards.AddHydraulicBoundaryLocationCalculations(new[]
             {
                 hydraulicBoundaryLocation
             });

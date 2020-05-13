@@ -1502,7 +1502,7 @@ namespace Riskeer.Storage.Core.Test.Read
             collector.Read(hydraulicLocationEntity, hydraulicBoundaryLocation);
 
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            failureMechanism.SetHydraulicBoundaryLocationCalculations(new[]
+            failureMechanism.AddHydraulicBoundaryLocationCalculations(new[]
             {
                 hydraulicBoundaryLocation
             });

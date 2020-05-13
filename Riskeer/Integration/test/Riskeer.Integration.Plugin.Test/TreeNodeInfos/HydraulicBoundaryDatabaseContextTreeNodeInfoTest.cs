@@ -341,7 +341,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation("locationName");
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            assessmentSection.AddHydraulicBoundaryLocationCalculations(new[]
             {
                 hydraulicBoundaryLocation
             });
@@ -393,7 +393,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             };
 
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation("locationName");
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            assessmentSection.AddHydraulicBoundaryLocationCalculations(new[]
             {
                 hydraulicBoundaryLocation
             });
@@ -440,7 +440,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             // Setup
             var random = new Random(21);
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            assessmentSection.AddHydraulicBoundaryLocationCalculations(new[]
             {
                 new TestHydraulicBoundaryLocation()
             });
@@ -488,7 +488,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            assessmentSection.AddHydraulicBoundaryLocationCalculations(new[]
             {
                 new TestHydraulicBoundaryLocation()
             });
@@ -544,7 +544,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             };
             HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
 
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            assessmentSection.AddHydraulicBoundaryLocationCalculations(new[]
             {
                 hydraulicBoundaryLocation
             });
@@ -776,7 +776,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         {
             var random = new Random(21);
             var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            assessmentSection.AddHydraulicBoundaryLocationCalculations(new[]
             {
                 new TestHydraulicBoundaryLocation(),
                 new TestHydraulicBoundaryLocation()

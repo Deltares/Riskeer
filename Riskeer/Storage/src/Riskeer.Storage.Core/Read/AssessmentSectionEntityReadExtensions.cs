@@ -127,8 +127,8 @@ namespace Riskeer.Storage.Core.Read
                                                                                                             .Select(hle => hle.Read(collector))
                                                                                                             .ToArray();
                 hydraulicBoundaryDatabase.Locations.AddRange(readHydraulicBoundaryLocations);
-                assessmentSection.SetHydraulicBoundaryLocationCalculations(readHydraulicBoundaryLocations);
-                assessmentSection.GrassCoverErosionOutwards.SetHydraulicBoundaryLocationCalculations(readHydraulicBoundaryLocations);
+                assessmentSection.AddHydraulicBoundaryLocationCalculations(readHydraulicBoundaryLocations);
+                assessmentSection.GrassCoverErosionOutwards.AddHydraulicBoundaryLocationCalculations(readHydraulicBoundaryLocations);
 
                 entity.ReadHydraulicBoundaryLocationCalculations(assessmentSection, collector);
             }

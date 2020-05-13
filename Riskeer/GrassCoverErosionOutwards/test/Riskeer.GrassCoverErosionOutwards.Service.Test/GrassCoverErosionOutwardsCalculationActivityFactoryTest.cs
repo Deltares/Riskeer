@@ -606,7 +606,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
             };
 
             assessmentSection.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryLocations);
-            failureMechanism.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryLocations);
+            failureMechanism.AddHydraulicBoundaryLocationCalculations(hydraulicBoundaryLocations);
 
             // Call
             IEnumerable<CalculatableActivity> activities =
@@ -729,7 +729,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
             };
 
             assessmentSection.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryLocations);
-            failureMechanism.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryLocations);
+            failureMechanism.AddHydraulicBoundaryLocationCalculations(hydraulicBoundaryLocations);
 
             // Call
             IEnumerable<CalculatableActivity> activities =

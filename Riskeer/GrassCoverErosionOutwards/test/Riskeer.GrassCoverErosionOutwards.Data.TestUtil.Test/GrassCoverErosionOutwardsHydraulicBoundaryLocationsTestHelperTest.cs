@@ -129,7 +129,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.TestUtil.Test
             };
 
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            failureMechanism.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryLocations);
+            failureMechanism.AddHydraulicBoundaryLocationCalculations(hydraulicBoundaryLocations);
 
             HydraulicBoundaryLocationCalculation calculation1 = failureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm.First();
             HydraulicBoundaryLocationCalculation calculation2 = failureMechanism.WaterLevelCalculationsForMechanismSpecificSignalingNorm.First();

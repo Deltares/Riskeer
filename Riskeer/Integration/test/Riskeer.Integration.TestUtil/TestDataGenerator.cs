@@ -80,7 +80,7 @@ namespace Riskeer.Integration.TestUtil
                 }
             };
 
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            assessmentSection.AddHydraulicBoundaryLocationCalculations(new[]
             {
                 hydraulicBoundaryLocation
             });
@@ -790,7 +790,7 @@ namespace Riskeer.Integration.TestUtil
                                                                HydraulicBoundaryLocation hydraulicBoundaryLocation,
                                                                Random random)
         {
-            failureMechanism.SetHydraulicBoundaryLocationCalculations(new[]
+            failureMechanism.AddHydraulicBoundaryLocationCalculations(new[]
             {
                 hydraulicBoundaryLocation
             });

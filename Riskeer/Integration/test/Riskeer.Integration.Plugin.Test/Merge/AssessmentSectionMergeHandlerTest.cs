@@ -543,7 +543,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
         {
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             assessmentSection.HydraulicBoundaryDatabase.Locations.AddRange(locations);
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(locations);
+            assessmentSection.AddHydraulicBoundaryLocationCalculations(locations);
             return assessmentSection;
         }
 

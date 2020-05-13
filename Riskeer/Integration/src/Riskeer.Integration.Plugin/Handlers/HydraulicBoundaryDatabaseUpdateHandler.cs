@@ -146,8 +146,8 @@ namespace Riskeer.Integration.Plugin.Handlers
                              readHydraulicLocationConfigurationDatabase.LocationIdMappings,
                              excludedLocationIds.ToArray());
 
-                assessmentSection.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryDatabase.Locations);
-                assessmentSection.GrassCoverErosionOutwards.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryDatabase.Locations);
+                assessmentSection.AddHydraulicBoundaryLocationCalculations(hydraulicBoundaryDatabase.Locations);
+                assessmentSection.GrassCoverErosionOutwards.AddHydraulicBoundaryLocationCalculations(hydraulicBoundaryDatabase.Locations);
 
                 duneLocationsReplacementHandler.Replace(hydraulicBoundaryDatabase.Locations);
 

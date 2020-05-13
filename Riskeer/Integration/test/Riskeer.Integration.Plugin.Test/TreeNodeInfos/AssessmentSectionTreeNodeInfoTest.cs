@@ -520,8 +520,8 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             {
                 hydraulicBoundaryLocation
             };
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryLocations);
-            assessmentSection.GrassCoverErosionOutwards.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryLocations);
+            assessmentSection.AddHydraulicBoundaryLocationCalculations(hydraulicBoundaryLocations);
+            assessmentSection.GrassCoverErosionOutwards.AddHydraulicBoundaryLocationCalculations(hydraulicBoundaryLocations);
 
             AddGrassCoverErosionInwardsCalculation(assessmentSection, hydraulicBoundaryLocation);
             AddPipingCalculationScenario(assessmentSection, hydraulicBoundaryLocation);

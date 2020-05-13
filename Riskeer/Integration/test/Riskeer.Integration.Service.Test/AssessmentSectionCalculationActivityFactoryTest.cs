@@ -87,8 +87,8 @@ namespace Riskeer.Integration.Service.Test
             {
                 hydraulicBoundaryLocation
             };
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryLocations);
-            assessmentSection.GrassCoverErosionOutwards.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryLocations);
+            assessmentSection.AddHydraulicBoundaryLocationCalculations(hydraulicBoundaryLocations);
+            assessmentSection.GrassCoverErosionOutwards.AddHydraulicBoundaryLocationCalculations(hydraulicBoundaryLocations);
 
             AddGrassCoverErosionInwardsCalculation(assessmentSection, hydraulicBoundaryLocation);
             AddPipingCalculationScenario(assessmentSection, hydraulicBoundaryLocation);

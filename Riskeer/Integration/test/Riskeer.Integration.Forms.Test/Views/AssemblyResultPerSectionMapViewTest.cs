@@ -141,7 +141,7 @@ namespace Riskeer.Integration.Forms.Test.Views
             var random = new Random(21);
 
             AssessmentSection assessmentSection = CreateAssessmentSectionWithReferenceLine();
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            assessmentSection.AddHydraulicBoundaryLocationCalculations(new[]
             {
                 new HydraulicBoundaryLocation(1, "test", 1.0, 2.0)
             });
@@ -191,7 +191,7 @@ namespace Riskeer.Integration.Forms.Test.Views
             // Given
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test1", 1.0, 2.0);
             AssessmentSection assessmentSection = CreateAssessmentSectionWithReferenceLine();
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            assessmentSection.AddHydraulicBoundaryLocationCalculations(new[]
             {
                 hydraulicBoundaryLocation
             });
@@ -226,7 +226,7 @@ namespace Riskeer.Integration.Forms.Test.Views
         {
             // Given
             AssessmentSection assessmentSection = CreateAssessmentSectionWithReferenceLine();
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+            assessmentSection.AddHydraulicBoundaryLocationCalculations(new[]
             {
                 new HydraulicBoundaryLocation(1, "test1", 1.0, 2.0)
             });
@@ -246,7 +246,7 @@ namespace Riskeer.Integration.Forms.Test.Views
                 MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, hydraulicBoundaryLocationsMapData);
 
                 // When
-                assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
+                assessmentSection.AddHydraulicBoundaryLocationCalculations(new[]
                 {
                     new HydraulicBoundaryLocation(2, "test2", 2.0, 3.0)
                 });

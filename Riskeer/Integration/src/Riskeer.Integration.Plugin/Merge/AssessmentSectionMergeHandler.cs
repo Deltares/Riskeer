@@ -371,7 +371,7 @@ namespace Riskeer.Integration.Plugin.Merge
             HydraulicBoundaryLocationCalculation[] oldWaveHeightForMechanismSpecificFactorizedSignalingNorm = targetFailureMechanism.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm.ToArray();
             HydraulicBoundaryLocationCalculation[] oldWaveHeightForMechanismSpecificSignalingNorm = targetFailureMechanism.WaveHeightCalculationsForMechanismSpecificSignalingNorm.ToArray();
             HydraulicBoundaryLocationCalculation[] oldWaveHeightForMechanismSpecificLowerLimitNorm = targetFailureMechanism.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm.ToArray();
-            targetFailureMechanism.SetHydraulicBoundaryLocationCalculations(locations);
+            targetFailureMechanism.AddHydraulicBoundaryLocationCalculations(locations);
 
             ReplaceHydraulicBoundaryLocationCalculationData(oldWaterLevelForMechanismSpecificFactorizedSignalingNorm, targetFailureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm);
             ReplaceHydraulicBoundaryLocationCalculationData(oldWaterLevelForMechanismSpecificSignalingNorm, targetFailureMechanism.WaterLevelCalculationsForMechanismSpecificSignalingNorm);

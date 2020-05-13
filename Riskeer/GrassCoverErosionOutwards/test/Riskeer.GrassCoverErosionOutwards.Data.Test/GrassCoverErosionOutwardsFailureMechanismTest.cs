@@ -140,52 +140,21 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.Test
         }
 
         [Test]
-        public void SetHydraulicBoundaryLocationCalculations_HydraulicBoundaryLocationsNull_ThrowsArgumentNullException()
+        public void AddHydraulicBoundaryLocationCalculations_HydraulicBoundaryLocationsNull_ThrowsArgumentNullException()
         {
             // Setup
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
             // Call
-            TestDelegate test = () => failureMechanism.SetHydraulicBoundaryLocationCalculations(null);
+            TestDelegate test = () => failureMechanism.AddHydraulicBoundaryLocationCalculations(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("hydraulicBoundaryLocations", paramName);
         }
-
+        
         [Test]
-        public void SetHydraulicBoundaryLocationCalculations_Always_PreviousCalculationsCleared()
-        {
-            // Setup
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-
-            failureMechanism.SetHydraulicBoundaryLocationCalculations(new HydraulicBoundaryLocation[]
-            {
-                new TestHydraulicBoundaryLocation()
-            });
-
-            // Precondition
-            CollectionAssert.IsNotEmpty(failureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm);
-            CollectionAssert.IsNotEmpty(failureMechanism.WaterLevelCalculationsForMechanismSpecificSignalingNorm);
-            CollectionAssert.IsNotEmpty(failureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm);
-            CollectionAssert.IsNotEmpty(failureMechanism.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm);
-            CollectionAssert.IsNotEmpty(failureMechanism.WaveHeightCalculationsForMechanismSpecificSignalingNorm);
-            CollectionAssert.IsNotEmpty(failureMechanism.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm);
-
-            // Call
-            failureMechanism.SetHydraulicBoundaryLocationCalculations(Enumerable.Empty<HydraulicBoundaryLocation>());
-
-            // Assert
-            CollectionAssert.IsEmpty(failureMechanism.WaterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm);
-            CollectionAssert.IsEmpty(failureMechanism.WaterLevelCalculationsForMechanismSpecificSignalingNorm);
-            CollectionAssert.IsEmpty(failureMechanism.WaterLevelCalculationsForMechanismSpecificLowerLimitNorm);
-            CollectionAssert.IsEmpty(failureMechanism.WaveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm);
-            CollectionAssert.IsEmpty(failureMechanism.WaveHeightCalculationsForMechanismSpecificSignalingNorm);
-            CollectionAssert.IsEmpty(failureMechanism.WaveHeightCalculationsForMechanismSpecificLowerLimitNorm);
-        }
-
-        [Test]
-        public void SetHydraulicBoundaryLocationCalculations_MultipleHydraulicBoundaryLocations_SetsExpectedCalculations()
+        public void AddHydraulicBoundaryLocationCalculations_MultipleHydraulicBoundaryLocations_SetsExpectedCalculations()
         {
             // Setup
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
@@ -198,7 +167,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.Test
             };
 
             // Call
-            failureMechanism.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryLocations);
+            failureMechanism.AddHydraulicBoundaryLocationCalculations(hydraulicBoundaryLocations);
 
             // Assert
             AssertNumberOfHydraulicBoundaryLocationCalculations(failureMechanism, 2);

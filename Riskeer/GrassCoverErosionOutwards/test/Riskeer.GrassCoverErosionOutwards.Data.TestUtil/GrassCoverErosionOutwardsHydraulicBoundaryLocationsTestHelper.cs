@@ -65,7 +65,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.TestUtil
                                                          IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations,
                                                          bool setCalculationOutput = false)
         {
-            failureMechanism.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryLocations);
+            failureMechanism.AddHydraulicBoundaryLocationCalculations(hydraulicBoundaryLocations);
 
             if (setCalculationOutput)
             {

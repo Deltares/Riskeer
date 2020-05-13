@@ -332,7 +332,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test
                 new TestHydraulicBoundaryLocation()
             };
 
-            failureMechanism.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryLocations);
+            failureMechanism.AddHydraulicBoundaryLocationCalculations(hydraulicBoundaryLocations);
         }
 
         private static void SetHydraulicBoundaryLocationCalculationOutput(GrassCoverErosionOutwardsFailureMechanism failureMechanism)

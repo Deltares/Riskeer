@@ -571,18 +571,16 @@ namespace Riskeer.Integration.Data
         public BackgroundData BackgroundData { get; }
 
         /// <summary>
-        /// Sets hydraulic boundary location calculations for <paramref name="hydraulicBoundaryLocations"/>.
+        /// Adds hydraulic boundary location calculations for <paramref name="hydraulicBoundaryLocations"/>.
         /// </summary>
         /// <param name="hydraulicBoundaryLocations">The hydraulic boundary locations to add calculations for.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryLocations"/> is <c>null</c>.</exception>
-        public void SetHydraulicBoundaryLocationCalculations(IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations)
+        public void AddHydraulicBoundaryLocationCalculations(IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations)
         {
             if (hydraulicBoundaryLocations == null)
             {
                 throw new ArgumentNullException(nameof(hydraulicBoundaryLocations));
             }
-
-            ClearHydraulicBoundaryLocationCalculations();
 
             foreach (HydraulicBoundaryLocation hydraulicBoundaryLocation in hydraulicBoundaryLocations)
             {
