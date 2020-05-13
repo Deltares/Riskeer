@@ -30,6 +30,7 @@ using Core.Common.IO.Exceptions;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.Data.Hydraulics;
+using Riskeer.Common.Data.TestUtil;
 using Riskeer.DuneErosion.Data;
 
 namespace Riskeer.DuneErosion.IO.Test
@@ -224,12 +225,15 @@ namespace Riskeer.DuneErosion.IO.Test
 
         private static DuneLocation CreateDuneLocationForExport(int coastalAreaId, double offset, double d50)
         {
-            return new DuneLocation(0, string.Empty, new Point2D(0.0, 0.0), new DuneLocation.ConstructionProperties
-            {
-                CoastalAreaId = coastalAreaId,
-                Offset = offset,
-                D50 = d50
-            });
+            return new DuneLocation(new TestHydraulicBoundaryLocation(),
+                                    string.Empty,
+                                    new Point2D(0.0, 0.0),
+                                    new DuneLocation.ConstructionProperties
+                                    {
+                                        CoastalAreaId = coastalAreaId,
+                                        Offset = offset,
+                                        D50 = d50
+                                    });
         }
 
         private class TestTypeConverter : TypeConverter

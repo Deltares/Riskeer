@@ -346,20 +346,26 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
             {
                 var duneLocationCalculations = new ObservableList<DuneLocationCalculation>
                 {
-                    new DuneLocationCalculation(new DuneLocation(1300001, locationName1, new Point2D(0, 0), new DuneLocation.ConstructionProperties
-                    {
-                        CoastalAreaId = 0,
-                        Offset = 0,
-                        Orientation = 0,
-                        D50 = 0.000007
-                    })),
-                    new DuneLocationCalculation(new DuneLocation(1300002, locationName2, new Point2D(0, 0), new DuneLocation.ConstructionProperties
-                    {
-                        CoastalAreaId = 0,
-                        Offset = 0,
-                        Orientation = 0,
-                        D50 = 0.000007
-                    }))
+                    new DuneLocationCalculation(new DuneLocation(new HydraulicBoundaryLocation(1300001, "", 0, 0),
+                                                                 locationName1,
+                                                                 new Point2D(0, 0),
+                                                                 new DuneLocation.ConstructionProperties
+                                                                 {
+                                                                     CoastalAreaId = 0,
+                                                                     Offset = 0,
+                                                                     Orientation = 0,
+                                                                     D50 = 0.000007
+                                                                 })),
+                    new DuneLocationCalculation(new DuneLocation(new HydraulicBoundaryLocation(1300002, "", 0, 0),
+                                                                 locationName2,
+                                                                 new Point2D(0, 0),
+                                                                 new DuneLocation.ConstructionProperties
+                                                                 {
+                                                                     CoastalAreaId = 0,
+                                                                     Offset = 0,
+                                                                     Orientation = 0,
+                                                                     D50 = 0.000007
+                                                                 }))
                 };
 
                 var failureMechanism = new DuneErosionFailureMechanism
@@ -453,13 +459,16 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
             const double norm = 0.01;
             var duneLocationCalculations = new ObservableList<DuneLocationCalculation>
             {
-                new DuneLocationCalculation(new DuneLocation(1300001, "A", new Point2D(0, 0), new DuneLocation.ConstructionProperties
-                {
-                    CoastalAreaId = 0,
-                    Offset = 0,
-                    Orientation = 0,
-                    D50 = 0.000007
-                }))
+                new DuneLocationCalculation(new DuneLocation(new HydraulicBoundaryLocation(1300001, "", 0, 0),
+                                                             "A",
+                                                             new Point2D(0, 0),
+                                                             new DuneLocation.ConstructionProperties
+                                                             {
+                                                                 CoastalAreaId = 0,
+                                                                 Offset = 0,
+                                                                 Orientation = 0,
+                                                                 D50 = 0.000007
+                                                             }))
             };
 
             var failureMechanism = new DuneErosionFailureMechanism
@@ -534,7 +543,10 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
 
             var duneLocationCalculations = new ObservableList<DuneLocationCalculation>
             {
-                new DuneLocationCalculation(new DuneLocation(1300001, "A", new Point2D(0, 0), new DuneLocation.ConstructionProperties
+                new DuneLocationCalculation(new DuneLocation(new HydraulicBoundaryLocation(1300001, "", 0, 0),
+                                                             "A",
+                                                             new Point2D(0, 0),
+                                                             new DuneLocation.ConstructionProperties
                 {
                     CoastalAreaId = 0,
                     Offset = 0,
@@ -620,13 +632,16 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
             const double norm = 0.01;
             var duneLocationCalculations = new ObservableList<DuneLocationCalculation>
             {
-                new DuneLocationCalculation(new DuneLocation(1300001, "A", new Point2D(0, 0), new DuneLocation.ConstructionProperties
-                {
-                    CoastalAreaId = 0,
-                    Offset = 0,
-                    Orientation = 0,
-                    D50 = 0.000007
-                }))
+                new DuneLocationCalculation(new DuneLocation(new HydraulicBoundaryLocation(1300001, "", 0, 0),
+                                                             "A",
+                                                             new Point2D(0, 0),
+                                                             new DuneLocation.ConstructionProperties
+                                                             {
+                                                                 CoastalAreaId = 0,
+                                                                 Offset = 0,
+                                                                 Orientation = 0,
+                                                                 D50 = 0.000007
+                                                             }))
             };
 
             var failureMechanism = new DuneErosionFailureMechanism
