@@ -37,12 +37,10 @@ namespace Riskeer.Storage.Core.Test.Read.DuneErosion
         public void Read_EntityNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () =>
-                ((DuneLocationCalculationCollectionEntity) null).Read(Enumerable.Empty<DuneLocationCalculation>(),
-                                                                      new ReadConversionCollector());
+            void Call() => ((DuneLocationCalculationCollectionEntity) null).Read(Enumerable.Empty<DuneLocationCalculation>(), new ReadConversionCollector());
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("entity", exception.ParamName);
         }
 
@@ -53,10 +51,10 @@ namespace Riskeer.Storage.Core.Test.Read.DuneErosion
             var entity = new DuneLocationCalculationCollectionEntity();
 
             // Call
-            TestDelegate call = () => entity.Read(null, new ReadConversionCollector());
+            void Call() => entity.Read(null, new ReadConversionCollector());
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("calculations", exception.ParamName);
         }
 
@@ -67,11 +65,10 @@ namespace Riskeer.Storage.Core.Test.Read.DuneErosion
             var entity = new DuneLocationCalculationCollectionEntity();
 
             // Call
-            TestDelegate call = () => entity.Read(Enumerable.Empty<DuneLocationCalculation>(),
-                                                  null);
+            void Call() => entity.Read(Enumerable.Empty<DuneLocationCalculation>(), null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("collector", exception.ParamName);
         }
 
@@ -129,7 +126,10 @@ namespace Riskeer.Storage.Core.Test.Read.DuneErosion
         {
             return new DuneLocationEntity
             {
-                LocationId = 1,
+                HydraulicLocationEntity = new HydraulicLocationEntity
+                {
+                    Name = "Hydraulic Location"
+                },
                 Name = "Dune Location",
                 LocationX = 1,
                 LocationY = 2

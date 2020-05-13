@@ -21,6 +21,7 @@
 
 using System;
 using NUnit.Framework;
+using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.DuneErosion.Data;
 using Riskeer.Storage.Core.DbContext;
@@ -36,11 +37,11 @@ namespace Riskeer.Storage.Core.Test.Read.DuneErosion
         public void Read_EntityIsNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate call = () => ((DuneLocationEntity) null).Read(new ReadConversionCollector());
+            void Call() => ((DuneLocationEntity) null).Read(new ReadConversionCollector());
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("entity", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("entity", exception.ParamName);
         }
 
         [Test]
@@ -50,11 +51,11 @@ namespace Riskeer.Storage.Core.Test.Read.DuneErosion
             var entity = new DuneLocationEntity();
 
             // Call
-            TestDelegate call = () => entity.Read(null);
+            void Call() => entity.Read(null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("collector", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("collector", exception.ParamName);
         }
 
         [Test]
@@ -63,16 +64,19 @@ namespace Riskeer.Storage.Core.Test.Read.DuneErosion
             // Setup
             const string testName = "testName";
             var random = new Random(21);
-            long locationId = random.Next(0, 400);
             double x = random.NextDouble();
             double y = random.NextDouble();
             int coastalAreaId = random.Next();
             double offset = random.NextDouble();
             double orientation = random.NextDouble();
             double d50 = random.NextDouble();
+
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, "A", 0, 0);
+            var hydraulicLocationEntity = new HydraulicLocationEntity();
+
             var entity = new DuneLocationEntity
             {
-                LocationId = locationId,
+                HydraulicLocationEntity = hydraulicLocationEntity,
                 Name = testName,
                 LocationX = x,
                 LocationY = y,
@@ -83,13 +87,14 @@ namespace Riskeer.Storage.Core.Test.Read.DuneErosion
             };
 
             var collector = new ReadConversionCollector();
+            collector.Read(hydraulicLocationEntity, hydraulicBoundaryLocation);
 
             // Call
             DuneLocation location = entity.Read(collector);
 
             // Assert
             Assert.IsNotNull(location);
-            Assert.AreEqual(locationId, location.HydraulicBoundaryLocation.Id);
+            Assert.AreSame(hydraulicBoundaryLocation, location.HydraulicBoundaryLocation);
             Assert.AreEqual(testName, location.Name);
             Assert.AreEqual(x, location.Location.X, 1e-6);
             Assert.AreEqual(y, location.Location.Y, 1e-6);
@@ -107,11 +112,13 @@ namespace Riskeer.Storage.Core.Test.Read.DuneErosion
             // Setup
             const string testName = "testName";
             var random = new Random(22);
-            long locationId = random.Next(0, 400);
             int coastalAreaId = random.Next();
             var entity = new DuneLocationEntity
             {
-                LocationId = locationId,
+                HydraulicLocationEntity = new HydraulicLocationEntity
+                {
+                    Name = "location"
+                },
                 Name = testName,
                 LocationX = null,
                 LocationY = null,
@@ -128,7 +135,6 @@ namespace Riskeer.Storage.Core.Test.Read.DuneErosion
 
             // Assert
             Assert.IsNotNull(location);
-            Assert.AreEqual(locationId, location.HydraulicBoundaryLocation.Id);
             Assert.AreEqual(testName, location.Name);
             Assert.IsNaN(location.Location.X);
             Assert.IsNaN(location.Location.Y);
@@ -146,7 +152,11 @@ namespace Riskeer.Storage.Core.Test.Read.DuneErosion
             // Setup
             var entity = new DuneLocationEntity
             {
-                Name = "A"
+                Name = "A",
+                HydraulicLocationEntity = new HydraulicLocationEntity
+                {
+                    Name = "location"
+                }
             };
 
             var collector = new ReadConversionCollector();

@@ -57,7 +57,7 @@ namespace Riskeer.Storage.Core.Read.DuneErosion
                 return collector.Get(entity);
             }
 
-            var duneLocation = new DuneLocation(new HydraulicBoundaryLocation(entity.LocationId, "temporary", 1, 1),
+            var duneLocation = new DuneLocation(entity.HydraulicLocationEntity.Read(collector),
                                                 entity.Name,
                                                 new Point2D(entity.LocationX.ToNullAsNaN(), entity.LocationY.ToNullAsNaN()),
                                                 new DuneLocation.ConstructionProperties
