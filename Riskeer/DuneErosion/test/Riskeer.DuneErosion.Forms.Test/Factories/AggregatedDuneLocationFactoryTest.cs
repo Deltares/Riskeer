@@ -25,6 +25,7 @@ using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
+using Riskeer.Common.Data.Hydraulics;
 using Riskeer.DuneErosion.Data;
 using Riskeer.DuneErosion.Data.TestUtil;
 using Riskeer.DuneErosion.Forms.Views;
@@ -163,12 +164,15 @@ namespace Riskeer.DuneErosion.Forms.Test.Factories
             var random = new Random(seed);
 
             int id = random.Next();
-            return new DuneLocation(id, $"Location_{id}", new Point2D(random.NextDouble(), random.NextDouble()), new DuneLocation.ConstructionProperties
-            {
-                CoastalAreaId = random.Next(),
-                D50 = random.NextDouble(),
-                Offset = random.NextDouble()
-            });
+            return new DuneLocation(new HydraulicBoundaryLocation(id, "", 0, 0),
+                                    $"Location_{id}",
+                                    new Point2D(random.NextDouble(), random.NextDouble()),
+                                    new DuneLocation.ConstructionProperties
+                                    {
+                                        CoastalAreaId = random.Next(),
+                                        D50 = random.NextDouble(),
+                                        Offset = random.NextDouble()
+                                    });
         }
 
         private static void AssertDuneLocationCalculationOutput(IEnumerable<DuneLocationCalculation> calculations,
