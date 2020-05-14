@@ -211,6 +211,16 @@ namespace Riskeer.Storage.Core.Test.Read
             // Setup
             const string locationAName = "DuneLocation A";
             const string locationBName = "DuneLocation B";
+            
+            var hydraulicBoundaryLocation1 = new HydraulicBoundaryLocation(1, "A", 2, 3);
+            var hydraulicLocationEntity1 = new HydraulicLocationEntity();
+            var hydraulicBoundaryLocation2 = new HydraulicBoundaryLocation(4, "B", 5, 6);
+            var hydraulicLocationEntity2 = new HydraulicLocationEntity();
+            
+            var collector = new ReadConversionCollector();
+            collector.Read(hydraulicLocationEntity1, hydraulicBoundaryLocation1);
+            collector.Read(hydraulicLocationEntity2, hydraulicBoundaryLocation2);
+
             var entity = new FailureMechanismEntity
             {
                 CalculationGroupEntity = new CalculationGroupEntity(),
@@ -231,16 +241,17 @@ namespace Riskeer.Storage.Core.Test.Read
                     new DuneLocationEntity
                     {
                         Order = 1,
-                        Name = locationBName
+                        Name = locationBName,
+                        HydraulicLocationEntity = hydraulicLocationEntity2
                     },
                     new DuneLocationEntity
                     {
                         Order = 0,
-                        Name = locationAName
+                        Name = locationAName,
+                        HydraulicLocationEntity = hydraulicLocationEntity1
                     }
                 }
             };
-            var collector = new ReadConversionCollector();
             var failureMechanism = new DuneErosionFailureMechanism();
 
             // Call
@@ -250,6 +261,8 @@ namespace Riskeer.Storage.Core.Test.Read
             IObservableEnumerable<DuneLocation> duneLocations = failureMechanism.DuneLocations;
             Assert.AreEqual(2, duneLocations.Count());
 
+            Assert.AreSame(hydraulicBoundaryLocation1, duneLocations.ElementAt(0).HydraulicBoundaryLocation);
+            Assert.AreSame(hydraulicBoundaryLocation2, duneLocations.ElementAt(1).HydraulicBoundaryLocation);
             Assert.AreEqual(locationAName, duneLocations.ElementAt(0).Name);
             Assert.AreEqual(locationBName, duneLocations.ElementAt(1).Name);
         }

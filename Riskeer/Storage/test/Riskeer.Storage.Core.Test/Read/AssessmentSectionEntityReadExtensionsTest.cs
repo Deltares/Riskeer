@@ -351,7 +351,7 @@ namespace Riskeer.Storage.Core.Test.Read
             hydraulicBoundaryDatabaseEntity.HydraulicLocationEntities.Add(hydraulicLocationEntityTwo);
 
             AssessmentSectionEntity entity = CreateAssessmentSectionEntity();
-            entity.HydraulicBoundaryDatabaseEntities.Add(CreateHydraulicDatabaseEntity());
+            entity.HydraulicBoundaryDatabaseEntities.Add(hydraulicBoundaryDatabaseEntity);
             entity.BackgroundDataEntities.Add(CreateBackgroundDataEntity());
 
             entity.HydraulicLocationCalculationCollectionEntity = new HydraulicLocationCalculationCollectionEntity();
