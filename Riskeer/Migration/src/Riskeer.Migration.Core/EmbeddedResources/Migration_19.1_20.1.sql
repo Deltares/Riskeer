@@ -48,8 +48,10 @@ SELECT
 	[D50],
 	DLE."Order"
 FROM [SOURCEPROJECT].DuneLocationEntity DLE
+JOIN [SOURCEPROJECT].FailureMechanismEntity FME USING (FailureMechanismEntityId)
+JOIN [SOURCEPROJECT].AssessmentSectionEntity ASE USING(AssessmentSectionEntityId)
 JOIN [SOURCEPROJECT].HydraulicLocationEntity HLE
-USING(locationId);
+ON HLE.LocationId = DLE.LocationId AND HLE.AssessmentSectionEntityId = ASE.AssessmentSectionEntityId;
 INSERT INTO FailureMechanismEntity SELECT * FROM [SOURCEPROJECT].FailureMechanismEntity;
 INSERT INTO FailureMechanismSectionEntity SELECT * FROM [SOURCEPROJECT].FailureMechanismSectionEntity;
 INSERT INTO FaultTreeIllustrationPointEntity SELECT * FROM [SOURCEPROJECT].FaultTreeIllustrationPointEntity;
