@@ -925,7 +925,7 @@ namespace Riskeer.Integration.TestUtil
 
         private static void SetFullyConfiguredFailureMechanism(DuneErosionFailureMechanism failureMechanism)
         {
-            failureMechanism.SetDuneLocations(new[]
+            failureMechanism.AddDuneLocations(new[]
             {
                 new TestDuneLocation()
             });

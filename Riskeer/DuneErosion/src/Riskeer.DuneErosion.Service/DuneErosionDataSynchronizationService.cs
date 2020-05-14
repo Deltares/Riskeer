@@ -72,7 +72,7 @@ namespace Riskeer.DuneErosion.Service
 
             if (!hydraulicBoundaryLocations.Any() || !duneLocations.Any())
             {
-                failureMechanism.SetDuneLocations(Enumerable.Empty<DuneLocation>());
+                failureMechanism.AddDuneLocations(Enumerable.Empty<DuneLocation>());
                 return;
             }
 
@@ -97,7 +97,7 @@ namespace Riskeer.DuneErosion.Service
                 }
             }
 
-            failureMechanism.SetDuneLocations(correspondingDuneLocations);
+            failureMechanism.AddDuneLocations(correspondingDuneLocations);
         }
 
         /// <summary>

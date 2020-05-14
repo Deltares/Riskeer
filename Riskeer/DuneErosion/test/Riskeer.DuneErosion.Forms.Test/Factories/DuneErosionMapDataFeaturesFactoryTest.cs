@@ -69,7 +69,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Factories
             };
 
             var failureMechanism = new DuneErosionFailureMechanism();
-            failureMechanism.SetDuneLocations(duneLocations);
+            failureMechanism.AddDuneLocations(duneLocations);
 
             if (withOutput)
             {

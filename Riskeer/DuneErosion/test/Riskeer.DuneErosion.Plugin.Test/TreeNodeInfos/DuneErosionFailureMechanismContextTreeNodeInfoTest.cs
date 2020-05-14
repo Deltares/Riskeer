@@ -416,7 +416,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
             var failureMechanism = new DuneErosionFailureMechanism();
             var assessmentSection = new AssessmentSectionStub();
 
-            failureMechanism.SetDuneLocations(new[]
+            failureMechanism.AddDuneLocations(new[]
             {
                 duneLocation
             });
@@ -515,7 +515,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
             };
 
             var duneLocation = new TestDuneLocation("Test", hydraulicBoundaryLocation);
-            failureMechanism.SetDuneLocations(new[]
+            failureMechanism.AddDuneLocations(new[]
             {
                 duneLocation
             });

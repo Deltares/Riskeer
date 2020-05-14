@@ -186,7 +186,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             };
 
             var failureMechanism = new DuneErosionFailureMechanism();
-            failureMechanism.SetDuneLocations(new[]
+            failureMechanism.AddDuneLocations(new[]
             {
                 new TestDuneLocation()
             });
@@ -248,7 +248,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             // Given
             var assessmentSection = new AssessmentSectionStub();
             var failureMechanism = new DuneErosionFailureMechanism();
-            failureMechanism.SetDuneLocations(new[]
+            failureMechanism.AddDuneLocations(new[]
             {
                 new TestDuneLocation()
             });
@@ -268,7 +268,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
                 AssertDuneLocationsMapData(failureMechanism, hydraulicBoundaryLocationsMapData);
 
                 // When
-                failureMechanism.SetDuneLocations(new[]
+                failureMechanism.AddDuneLocations(new[]
                 {
                     new TestDuneLocation()
                 });
@@ -288,7 +288,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             // Given
             var assessmentSection = new AssessmentSectionStub();
             var failureMechanism = new DuneErosionFailureMechanism();
-            failureMechanism.SetDuneLocations(new[]
+            failureMechanism.AddDuneLocations(new[]
             {
                 new TestDuneLocation()
             });

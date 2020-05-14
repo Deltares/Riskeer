@@ -57,7 +57,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Factories
             };
 
             var failureMechanism = new DuneErosionFailureMechanism();
-            failureMechanism.SetDuneLocations(duneLocations);
+            failureMechanism.AddDuneLocations(duneLocations);
             DuneLocationsTestHelper.SetDuneLocationCalculationOutput(failureMechanism);
 
             // Call
@@ -120,7 +120,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Factories
             };
 
             var failureMechanism = new DuneErosionFailureMechanism();
-            failureMechanism.SetDuneLocations(duneLocations);
+            failureMechanism.AddDuneLocations(duneLocations);
 
             // Call
             IEnumerable<AggregatedDuneLocation> aggregatedLocations = AggregatedDuneLocationFactory.CreateAggregatedDuneLocations(failureMechanism);

@@ -242,7 +242,7 @@ namespace Riskeer.DuneErosion.Forms.Test
 
         private static void ConfigureFailureMechanismWithOneDuneLocation(DuneErosionFailureMechanism failureMechanism)
         {
-            failureMechanism.SetDuneLocations(new[]
+            failureMechanism.AddDuneLocations(new[]
             {
                 new TestDuneLocation()
             });

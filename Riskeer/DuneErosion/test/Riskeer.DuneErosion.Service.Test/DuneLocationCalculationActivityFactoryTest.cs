@@ -181,7 +181,7 @@ namespace Riskeer.DuneErosion.Service.Test
                                                  new Point2D(2, 2),
                                                  new DuneLocation.ConstructionProperties());
 
-            failureMechanism.SetDuneLocations(new[]
+            failureMechanism.AddDuneLocations(new[]
             {
                 duneLocation1,
                 duneLocation2

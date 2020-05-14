@@ -429,7 +429,7 @@ namespace Riskeer.Integration.Service.Test
         private static void AddDuneLocationCalculation(AssessmentSection assessmentSection)
         {
             var duneLocation = new TestDuneLocation();
-            assessmentSection.DuneErosion.SetDuneLocations(new[]
+            assessmentSection.DuneErosion.AddDuneLocations(new[]
             {
                 duneLocation
             });

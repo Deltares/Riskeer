@@ -956,7 +956,7 @@ namespace Riskeer.Storage.Core.Read
                                               DuneErosionFailureMechanism failureMechanism,
                                               ReadConversionCollector collector)
         {
-            failureMechanism.SetDuneLocations(entity.DuneLocationEntities
+            failureMechanism.AddDuneLocations(entity.DuneLocationEntities
                                                     .OrderBy(location => location.Order)
                                                     .Select(location => location.Read(collector))
                                                     .ToArray());

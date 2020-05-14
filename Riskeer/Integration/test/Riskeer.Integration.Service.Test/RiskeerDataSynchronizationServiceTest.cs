@@ -270,7 +270,7 @@ namespace Riskeer.Integration.Service.Test
             };
 
             DuneErosionFailureMechanism duneErosionFailureMechanism = assessmentSection.DuneErosion;
-            duneErosionFailureMechanism.SetDuneLocations(new[]
+            duneErosionFailureMechanism.AddDuneLocations(new[]
             {
                 duneLocation1,
                 duneLocation2
@@ -1777,7 +1777,7 @@ namespace Riskeer.Integration.Service.Test
 
         private static void ConfigureDuneErosionFailureMechanism(DuneErosionFailureMechanism failureMechanism, bool hasOutput)
         {
-            failureMechanism.SetDuneLocations(new[]
+            failureMechanism.AddDuneLocations(new[]
             {
                 new TestDuneLocation()
             });

@@ -95,7 +95,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.ExportInfos
             mocks.ReplayAll();
 
             var failureMechanism = new DuneErosionFailureMechanism();
-            failureMechanism.SetDuneLocations(new[]
+            failureMechanism.AddDuneLocations(new[]
             {
                 new TestDuneLocation()
             });
@@ -127,7 +127,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.ExportInfos
             mocks.ReplayAll();
 
             var failureMechanism = new DuneErosionFailureMechanism();
-            failureMechanism.SetDuneLocations(new[]
+            failureMechanism.AddDuneLocations(new[]
             {
                 new TestDuneLocation()
             });

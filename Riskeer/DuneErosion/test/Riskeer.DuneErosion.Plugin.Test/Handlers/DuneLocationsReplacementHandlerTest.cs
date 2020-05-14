@@ -117,7 +117,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.Handlers
                 new TestDuneLocation()
             };
             var failureMechanism = new DuneErosionFailureMechanism();
-            failureMechanism.SetDuneLocations(duneLocations);
+            failureMechanism.AddDuneLocations(duneLocations);
 
             var handler = new DuneLocationsReplacementHandler(viewCommands, failureMechanism);
 
@@ -154,7 +154,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.Handlers
             mocks.ReplayAll();
 
             var failureMechanism = new DuneErosionFailureMechanism();
-            failureMechanism.SetDuneLocations(new[]
+            failureMechanism.AddDuneLocations(new[]
             {
                 new TestDuneLocation(),
                 new TestDuneLocation()
@@ -194,7 +194,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.Handlers
         {
             // Setup
             var failureMechanism = new DuneErosionFailureMechanism();
-            failureMechanism.SetDuneLocations(new[]
+            failureMechanism.AddDuneLocations(new[]
             {
                 new TestDuneLocation(),
                 new TestDuneLocation()
@@ -231,7 +231,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.Handlers
             mocks.ReplayAll();
 
             var failureMechanism = new DuneErosionFailureMechanism();
-            failureMechanism.SetDuneLocations(new[]
+            failureMechanism.AddDuneLocations(new[]
             {
                 new TestDuneLocation(),
                 new TestDuneLocation()

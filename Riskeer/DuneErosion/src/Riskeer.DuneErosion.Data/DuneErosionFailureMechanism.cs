@@ -140,18 +140,16 @@ namespace Riskeer.DuneErosion.Data
         }
 
         /// <summary>
-        /// Sets dune locations and calculations for the failure mechanism.
+        /// Adds dune locations and calculations for the failure mechanism.
         /// </summary>
         /// <param name="duneLocations">The dune locations to add to the failure mechanism.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="duneLocations"/> is <c>null</c>.</exception>
-        public void SetDuneLocations(IEnumerable<DuneLocation> duneLocations)
+        public void AddDuneLocations(IEnumerable<DuneLocation> duneLocations)
         {
             if (duneLocations == null)
             {
                 throw new ArgumentNullException(nameof(duneLocations));
             }
-
-            ClearDuneLocationData();
 
             duneLocationCollection.AddRange(duneLocations);
             foreach (DuneLocation duneLocation in duneLocationCollection)
@@ -170,17 +168,6 @@ namespace Riskeer.DuneErosion.Data
         protected override void ClearSectionResults()
         {
             sectionResults.Clear();
-        }
-
-        private void ClearDuneLocationData()
-        {
-            duneLocationCollection.Clear();
-
-            calculationsForMechanismSpecificFactorizedSignalingNorm.Clear();
-            calculationsForMechanismSpecificSignalingNorm.Clear();
-            calculationsForMechanismSpecificLowerLimitNorm.Clear();
-            calculationsForLowerLimitNorm.Clear();
-            calculationsForFactorizedLowerLimitNorm.Clear();
         }
 
         private void AddCalculationsForDuneLocation(DuneLocation duneLocation)

@@ -265,7 +265,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
 
                 plugin.Gui = gui;
 
-                failureMechanism.SetDuneLocations(new[]
+                failureMechanism.AddDuneLocations(new[]
                 {
                     new TestDuneLocation()
                 });

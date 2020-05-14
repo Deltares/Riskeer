@@ -102,13 +102,13 @@ namespace Riskeer.DuneErosion.Data.Test
         }
 
         [Test]
-        public void SetDuneLocations_DuneLocationsNull_ThrowsArgumentNullException()
+        public void AddDuneLocations_DuneLocationsNull_ThrowsArgumentNullException()
         {
             // Setup
             var failureMechanism = new DuneErosionFailureMechanism();
 
             // Call
-            TestDelegate test = () => failureMechanism.SetDuneLocations(null);
+            TestDelegate test = () => failureMechanism.AddDuneLocations(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -116,37 +116,7 @@ namespace Riskeer.DuneErosion.Data.Test
         }
 
         [Test]
-        public void SetDuneLocations_Always_PreviousLocationsAndCalculationsCleared()
-        {
-            // Setup
-            var failureMechanism = new DuneErosionFailureMechanism();
-            failureMechanism.SetDuneLocations(new DuneLocation[]
-            {
-                new TestDuneLocation()
-            });
-
-            // Precondition
-            CollectionAssert.IsNotEmpty(failureMechanism.DuneLocations);
-            CollectionAssert.IsNotEmpty(failureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm);
-            CollectionAssert.IsNotEmpty(failureMechanism.CalculationsForMechanismSpecificSignalingNorm);
-            CollectionAssert.IsNotEmpty(failureMechanism.CalculationsForMechanismSpecificLowerLimitNorm);
-            CollectionAssert.IsNotEmpty(failureMechanism.CalculationsForLowerLimitNorm);
-            CollectionAssert.IsNotEmpty(failureMechanism.CalculationsForFactorizedLowerLimitNorm);
-
-            // Call
-            failureMechanism.SetDuneLocations(Enumerable.Empty<DuneLocation>());
-
-            // Assert
-            CollectionAssert.IsEmpty(failureMechanism.DuneLocations);
-            CollectionAssert.IsEmpty(failureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm);
-            CollectionAssert.IsEmpty(failureMechanism.CalculationsForMechanismSpecificSignalingNorm);
-            CollectionAssert.IsEmpty(failureMechanism.CalculationsForMechanismSpecificLowerLimitNorm);
-            CollectionAssert.IsEmpty(failureMechanism.CalculationsForLowerLimitNorm);
-            CollectionAssert.IsEmpty(failureMechanism.CalculationsForFactorizedLowerLimitNorm);
-        }
-
-        [Test]
-        public void SetDuneLocations_MultipleDuneLocations_SetsExpectedLocationsAndCalculations()
+        public void AddDuneLocations_MultipleDuneLocations_SetsExpectedLocationsAndCalculations()
         {
             // Setup
             var failureMechanism = new DuneErosionFailureMechanism();
@@ -159,7 +129,7 @@ namespace Riskeer.DuneErosion.Data.Test
             };
 
             // Call
-            failureMechanism.SetDuneLocations(duneLocations);
+            failureMechanism.AddDuneLocations(duneLocations);
 
             // Assert
             CollectionAssert.AreEqual(duneLocations, failureMechanism.DuneLocations);

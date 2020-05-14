@@ -160,7 +160,7 @@ namespace Riskeer.Storage.Core.TestUtil
                               (StructuresCalculation<ClosingStructuresInput>) closingStructuresFailureMechanism.Calculations.First());
 
             DuneErosionFailureMechanism duneErosionFailureMechanism = assessmentSection.DuneErosion;
-            ConfigureDuneErosionFailureMechanism(duneErosionFailureMechanism);
+            ConfigureDuneErosionFailureMechanism(duneErosionFailureMechanism, hydraulicBoundaryLocations);
             SetSections(duneErosionFailureMechanism);
             SetSectionResults(duneErosionFailureMechanism.SectionResults);
 
@@ -802,10 +802,10 @@ namespace Riskeer.Storage.Core.TestUtil
 
         #region DuneErosion FailureMechanism
 
-        private static void ConfigureDuneErosionFailureMechanism(DuneErosionFailureMechanism failureMechanism)
+        private static void ConfigureDuneErosionFailureMechanism(DuneErosionFailureMechanism failureMechanism, IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations)
         {
             failureMechanism.GeneralInput.N = (RoundedDouble) 5.5;
-            SetDuneLocations(failureMechanism);
+            SetDuneLocations(failureMechanism, hydraulicBoundaryLocations);
         }
 
         private static void SetSectionResults(IEnumerable<DuneErosionFailureMechanismSectionResult> sectionResults)
@@ -825,24 +825,25 @@ namespace Riskeer.Storage.Core.TestUtil
             }
         }
 
-        private static void SetDuneLocations(DuneErosionFailureMechanism failureMechanism)
+        private static void SetDuneLocations(DuneErosionFailureMechanism failureMechanism, IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations)
         {
-            var location = new DuneLocation(new HydraulicBoundaryLocation(12, "", 0, 0),
-                                            "DuneLocation",
-                                            new Point2D(790, 456),
-                                            new DuneLocation.ConstructionProperties());
-
-            failureMechanism.SetDuneLocations(new[]
-            {
-                location
-            });
+            var random = new Random(21);
+            failureMechanism.AddDuneLocations(hydraulicBoundaryLocations.Select((hbl, i) => new DuneLocation(
+                                                                                    hbl,
+                                                                                    $"DuneLocation{i}",
+                                                                                    new Point2D(random.Next(0, 1000), random.Next(0, 1000)),
+                                                                                    new DuneLocation.ConstructionProperties()))
+                                                                        .ToArray());
             ConfigureDuneLocationCalculations(failureMechanism);
         }
 
         private static void ConfigureDuneLocationCalculations(DuneErosionFailureMechanism failureMechanism)
         {
-            SetCalculationOutput(failureMechanism.CalculationsForMechanismSpecificSignalingNorm.Single());
-            SetCalculationOutput(failureMechanism.CalculationsForLowerLimitNorm.Single());
+            for (var i = 0; i < failureMechanism.DuneLocations.Count(); i++)
+            {
+                SetCalculationOutput(failureMechanism.CalculationsForMechanismSpecificSignalingNorm.ElementAt(i));
+                SetCalculationOutput(failureMechanism.CalculationsForLowerLimitNorm.ElementAt(i));
+            }
         }
 
         private static void SetCalculationOutput(DuneLocationCalculation calculation)

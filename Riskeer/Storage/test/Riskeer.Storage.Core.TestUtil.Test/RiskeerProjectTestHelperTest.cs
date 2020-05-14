@@ -547,26 +547,32 @@ namespace Riskeer.Storage.Core.TestUtil.Test
 
             IEnumerable<DuneLocation> duneLocations = failureMechanism.DuneLocations;
 
-            Assert.AreEqual(1, duneLocations.Count());
-            AssertDuneLocationCalculationWithoutOutput(failureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm.Single());
-            AssertDuneLocationCalculationWithOutput(failureMechanism.CalculationsForMechanismSpecificSignalingNorm.Single());
-            AssertDuneLocationCalculationWithoutOutput(failureMechanism.CalculationsForMechanismSpecificLowerLimitNorm.Single());
-            AssertDuneLocationCalculationWithOutput(failureMechanism.CalculationsForLowerLimitNorm.Single());
-            AssertDuneLocationCalculationWithoutOutput(failureMechanism.CalculationsForFactorizedLowerLimitNorm.Single());
+            Assert.AreEqual(2, duneLocations.Count());
+            AssertDuneLocationCalculationWithoutOutput(failureMechanism.CalculationsForMechanismSpecificFactorizedSignalingNorm);
+            AssertDuneLocationCalculationWithOutput(failureMechanism.CalculationsForMechanismSpecificSignalingNorm);
+            AssertDuneLocationCalculationWithoutOutput(failureMechanism.CalculationsForMechanismSpecificLowerLimitNorm);
+            AssertDuneLocationCalculationWithOutput(failureMechanism.CalculationsForLowerLimitNorm);
+            AssertDuneLocationCalculationWithoutOutput(failureMechanism.CalculationsForFactorizedLowerLimitNorm);
 
             Assert.AreEqual(3, failureMechanism.SectionResults.Count());
         }
 
-        private static void AssertDuneLocationCalculationWithoutOutput(DuneLocationCalculation calculation)
+        private static void AssertDuneLocationCalculationWithoutOutput(IEnumerable<DuneLocationCalculation> calculations)
         {
-            Assert.IsNull(calculation.Output);
+            foreach (DuneLocationCalculation calculation in calculations)
+            {
+                Assert.IsNull(calculation.Output);
+            }
         }
 
-        private static void AssertDuneLocationCalculationWithOutput(DuneLocationCalculation calculation)
+        private static void AssertDuneLocationCalculationWithOutput(IEnumerable<DuneLocationCalculation> calculations)
         {
-            DuneLocationCalculationOutput calculationOutput = calculation.Output;
-            Assert.IsNotNull(calculationOutput);
-            Assert.AreEqual(CalculationConvergence.CalculatedConverged, calculationOutput.CalculationConvergence);
+            foreach (DuneLocationCalculation calculation in calculations)
+            {
+                DuneLocationCalculationOutput calculationOutput = calculation.Output;
+                Assert.IsNotNull(calculationOutput);
+                Assert.AreEqual(CalculationConvergence.CalculatedConverged, calculationOutput.CalculationConvergence);
+            }
         }
 
         #endregion

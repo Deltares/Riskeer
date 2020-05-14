@@ -183,7 +183,7 @@ namespace Riskeer.Storage.Core.Test.Create.DuneErosion
             // Setup
             var duneLocation = new TestDuneLocation();
             var failureMechanism = new DuneErosionFailureMechanism();
-            failureMechanism.SetDuneLocations(new[]
+            failureMechanism.AddDuneLocations(new[]
             {
                 duneLocation
             });
