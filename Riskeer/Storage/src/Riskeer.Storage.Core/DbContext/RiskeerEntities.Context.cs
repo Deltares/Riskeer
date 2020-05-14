@@ -129,7 +129,7 @@ namespace Riskeer.Storage.Core.DbContext
         public virtual DbSet<WaveImpactAsphaltCoverSectionResultEntity> WaveImpactAsphaltCoverSectionResultEntities { get; set; }
         public virtual DbSet<WaveImpactAsphaltCoverWaveConditionsCalculationEntity> WaveImpactAsphaltCoverWaveConditionsCalculationEntities { get; set; }
         public virtual DbSet<WaveImpactAsphaltCoverWaveConditionsOutputEntity> WaveImpactAsphaltCoverWaveConditionsOutputEntities { get; set; }
-
+    
         /// <summary>
         /// This method is called in a 'code first' approach when the model for a derived <see cref="DbContext"/> has been initialized,
         /// but before the model has been locked down and used to initialize the <see cref="DbContext"/>.
