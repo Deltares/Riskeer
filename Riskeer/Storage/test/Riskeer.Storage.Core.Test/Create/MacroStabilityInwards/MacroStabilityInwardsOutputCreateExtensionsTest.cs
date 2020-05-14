@@ -114,7 +114,6 @@ namespace Riskeer.Storage.Core.Test.Create.MacroStabilityInwards
             Assert.IsNull(entity.FactorOfStability);
             Assert.IsNull(entity.ForbiddenZonesXEntryMin);
             Assert.IsNull(entity.ForbiddenZonesXEntryMax);
-            Assert.IsNull(entity.ZValue);
 
             Assert.IsNull(entity.SlipPlaneLeftGridXLeft);
             Assert.IsNull(entity.SlipPlaneLeftGridXRight);

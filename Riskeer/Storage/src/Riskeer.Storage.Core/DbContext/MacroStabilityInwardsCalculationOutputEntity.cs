@@ -35,7 +35,6 @@ namespace Riskeer.Storage.Core.DbContext
         public long MacroStabilityInwardsCalculationOutputEntityId { get; set; }
         public long MacroStabilityInwardsCalculationEntityId { get; set; }
         public double? FactorOfStability { get; set; }
-        public double? ZValue { get; set; }
         public double? ForbiddenZonesXEntryMin { get; set; }
         public double? ForbiddenZonesXEntryMax { get; set; }
         public double? SlidingCurveLeftSlidingCircleCenterX { get; set; }

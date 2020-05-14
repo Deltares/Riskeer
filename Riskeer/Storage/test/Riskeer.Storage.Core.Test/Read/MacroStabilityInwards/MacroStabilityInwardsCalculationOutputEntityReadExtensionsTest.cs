@@ -64,7 +64,6 @@ namespace Riskeer.Storage.Core.Test.Read.MacroStabilityInwards
             var entity = new MacroStabilityInwardsCalculationOutputEntity
             {
                 FactorOfStability = random.NextDouble(),
-                ZValue = random.NextDouble(),
                 ForbiddenZonesXEntryMin = random.NextDouble(),
                 ForbiddenZonesXEntryMax = random.NextDouble(),
                 SlidingCurveSliceXML = new MacroStabilityInwardsSliceCollectionXmlSerializer().ToXml(slices),
