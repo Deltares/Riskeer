@@ -55,10 +55,11 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
         public void Constructor_DataNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => new MacroStabilityInwardsOutputChartControl(null, AssessmentSectionTestHelper.GetTestAssessmentLevel);
+            TestDelegate test = () => new MacroStabilityInwardsOutputChartControl(null,
+                                                                                  AssessmentSectionTestHelper.GetTestAssessmentLevel);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("data", paramName);
         }
 
@@ -66,10 +67,10 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
         public void Constructor_GetNormativeAssessmentLevelFuncNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => new MacroStabilityInwardsOutputChartControl(new MacroStabilityInwardsCalculationScenario(), null);
+            TestDelegate test = () => new MacroStabilityInwardsOutputChartControl(new MacroStabilityInwardsCalculationScenario(), null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("getNormativeAssessmentLevelFunc", paramName);
         }
 
@@ -424,7 +425,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                     calculatorStub.Output = WaternetCalculatorResultTestFactory.Create();
                     // Precondition
                     MacroStabilityInwardsOutputViewChartDataAssert.AssertInputChartData(calculation, GetChartControl(control).Data);
-                    calculatorStub.Output = WaternetCalculatorResultTestFactory.CreateEmptyResult();
 
                     // Call
                     control.UpdateChartData();
@@ -453,7 +453,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
 
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
-                var calculatorFactory = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
+                var calculatorFactory = (TestMacroStabilityInwardsCalculatorFactory)MacroStabilityInwardsCalculatorFactory.Instance;
                 WaternetCalculatorStub calculatorStub = calculatorFactory.LastCreatedWaternetCalculator;
                 calculatorStub.Output = WaternetCalculatorResultTestFactory.CreateEmptyResult();
                 using (var control = new MacroStabilityInwardsOutputChartControl(calculation,
