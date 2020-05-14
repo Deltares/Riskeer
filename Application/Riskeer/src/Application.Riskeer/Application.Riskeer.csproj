@@ -120,7 +120,4 @@
       <Version>1.0.109</Version>
     </PackageReference>
   </ItemGroup>
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="xcopy &quot;$(ProjectDir)log4net.config&quot; &quot;$(OutDir)\*&quot; /D /Y" />
-  </Target>
 </Project>
