@@ -68,6 +68,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.Waternet
                 var factory = (TestMacroStabilityInwardsKernelFactory) MacroStabilityInwardsKernelWrapperFactory.Instance;
                 WaternetKernelStub waternetKernel = factory.LastCreatedWaternetKernel;
                 SetKernelOutput(waternetKernel);
+                waternetKernel.SetLocation(WaternetLocationCreator.Create(input));
 
                 // Call
                 new WaternetExtremeCalculator(input, factory).Calculate();

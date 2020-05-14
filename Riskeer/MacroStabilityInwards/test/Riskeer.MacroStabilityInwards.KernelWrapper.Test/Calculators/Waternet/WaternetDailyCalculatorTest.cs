@@ -21,6 +21,7 @@
 
 using System.Collections.Generic;
 using Deltares.MacroStability.Geometry;
+using Deltares.MacroStability.WaternetCreator;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Waternet;
@@ -68,6 +69,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.Waternet
                 var factory = (TestMacroStabilityInwardsKernelFactory) MacroStabilityInwardsKernelWrapperFactory.Instance;
                 WaternetKernelStub waternetKernel = factory.LastCreatedWaternetKernel;
                 SetKernelOutput(waternetKernel);
+                waternetKernel.SetLocation(WaternetLocationCreator.Create(input));
 
                 // Call
                 new WaternetDailyCalculator(input, factory).Calculate();
