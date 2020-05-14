@@ -226,7 +226,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
         public void Validate_InputNotComplete_ThrowsUpliftVanKernelWrapperException()
         {
             // Setup
-            UpliftVanKernelWrapper kernel = CreateInvalidKernel(new Soil());
+            UpliftVanKernelWrapper kernel = CreateInvalidKernel(null);
 
             // Call
             void Test() => kernel.Validate();
