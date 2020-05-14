@@ -508,7 +508,7 @@ opbarsten
     <value>De locatie van het bestand waaruit de profielschematisaties zijn geïmporteerd.</value>
   </data>
   <data name="PipingCalculationsView_DampingFactorExit_DisplayName" xml:space="preserve">
-    <value>dempingsfactor bij uitredepunt
+    <value>dempingsfactor bij uittredepunt
 [-]</value>
   </data>
   <data name="PipingCalculationsView_PhreaticLevelExit_DisplayName" xml:space="preserve">
