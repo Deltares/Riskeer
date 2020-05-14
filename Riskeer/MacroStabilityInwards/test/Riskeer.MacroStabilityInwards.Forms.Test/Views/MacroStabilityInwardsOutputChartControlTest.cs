@@ -419,10 +419,10 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             {
                 var calculatorFactory = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
                 WaternetCalculatorStub calculatorStub = calculatorFactory.LastCreatedWaternetCalculator;
-                calculatorStub.Output = WaternetCalculatorResultTestFactory.Create();
                 using (var control = new MacroStabilityInwardsOutputChartControl(calculation,
                                                                                  AssessmentSectionTestHelper.GetTestAssessmentLevel))
                 {
+                    calculatorStub.Output = WaternetCalculatorResultTestFactory.Create();
                     // Precondition
                     MacroStabilityInwardsOutputViewChartDataAssert.AssertInputChartData(calculation, GetChartControl(control).Data);
 

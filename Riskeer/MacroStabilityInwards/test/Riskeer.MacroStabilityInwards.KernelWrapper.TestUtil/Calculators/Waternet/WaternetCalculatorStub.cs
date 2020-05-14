@@ -59,7 +59,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Water
 
         private static WaternetCalculatorResult CreateWaternetCalculatorResult()
         {
-            var phreaticLineResult = new WaternetPhreaticLineResult("line 1", new[]
+            var phreaticLineResult = new WaternetPhreaticLineResult("Line 1", new[]
             {
                 new Point2D(0, 0),
                 new Point2D(10, 0)
@@ -70,7 +70,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Water
                     phreaticLineResult
                 }, new[]
                 {
-                    new WaternetLineResult("line 2", new[]
+                    new WaternetLineResult("Line 2", new[]
                     {
                         new Point2D(0, 2),
                         new Point2D(10, 2)
