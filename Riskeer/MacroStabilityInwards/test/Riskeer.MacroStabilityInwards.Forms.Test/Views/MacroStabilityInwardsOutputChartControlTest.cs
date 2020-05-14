@@ -36,7 +36,10 @@ using Riskeer.MacroStabilityInwards.Data.TestUtil;
 using Riskeer.MacroStabilityInwards.Data.TestUtil.SoilProfile;
 using Riskeer.MacroStabilityInwards.Forms.TestUtil;
 using Riskeer.MacroStabilityInwards.Forms.Views;
+using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators;
 using Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators;
+using Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Waternet;
+using Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Waternet.Output;
 using Riskeer.MacroStabilityInwards.Primitives;
 
 namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
@@ -174,15 +177,21 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             };
 
             // Call
-            using (var control = new MacroStabilityInwardsOutputChartControl(calculation,
-                                                                             AssessmentSectionTestHelper.GetTestAssessmentLevel))
+            using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
-                // Assert
-                IChartControl chartControl = GetChartControl(control);
-                ChartDataCollection chartData = chartControl.Data;
-                MacroStabilityInwardsOutputViewChartDataAssert.AssertEmptyChartDataWithEmptySoilLayerAndEmptyWaternetChartData(chartData);
-                MacroStabilityInwardsOutputViewChartDataAssert.AssertEmptyOutputChartData(chartData);
-                Assert.AreEqual(calculation.Name, chartControl.ChartTitle);
+                var calculatorFactory = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
+                WaternetCalculatorStub calculatorStub = calculatorFactory.LastCreatedWaternetCalculator;
+                calculatorStub.Output = WaternetCalculatorResultTestFactory.CreateEmptyResult();
+                using (var control = new MacroStabilityInwardsOutputChartControl(calculation,
+                                                                                 AssessmentSectionTestHelper.GetTestAssessmentLevel))
+                {
+                    // Assert
+                    IChartControl chartControl = GetChartControl(control);
+                    ChartDataCollection chartData = chartControl.Data;
+                    MacroStabilityInwardsOutputViewChartDataAssert.AssertEmptyChartDataWithEmptySoilLayerAndEmptyWaternetChartData(chartData);
+                    MacroStabilityInwardsOutputViewChartDataAssert.AssertEmptyOutputChartData(chartData);
+                    Assert.AreEqual(calculation.Name, chartControl.ChartTitle);
+                }
             }
         }
 
@@ -406,20 +415,23 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                 Output = MacroStabilityInwardsOutputTestFactory.CreateOutput()
             };
 
-            using (var macroStabilityInwardsCalculatorFactoryConfig = new MacroStabilityInwardsCalculatorFactoryConfig())
-            using (var control = new MacroStabilityInwardsOutputChartControl(calculation,
-                                                                             AssessmentSectionTestHelper.GetTestAssessmentLevel))
+            using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
-                // Precondition
-                MacroStabilityInwardsOutputViewChartDataAssert.AssertInputChartData(calculation, GetChartControl(control).Data);
+                var calculatorFactory = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
+                WaternetCalculatorStub calculatorStub = calculatorFactory.LastCreatedWaternetCalculator;
+                calculatorStub.Output = WaternetCalculatorResultTestFactory.Create();
+                using (var control = new MacroStabilityInwardsOutputChartControl(calculation,
+                                                                                 AssessmentSectionTestHelper.GetTestAssessmentLevel))
+                {
+                    // Precondition
+                    MacroStabilityInwardsOutputViewChartDataAssert.AssertInputChartData(calculation, GetChartControl(control).Data);
 
-                macroStabilityInwardsCalculatorFactoryConfig.Dispose();
+                    // Call
+                    control.UpdateChartData();
 
-                // Call
-                control.UpdateChartData();
-
-                // Assert
-                MacroStabilityInwardsOutputViewChartDataAssert.AssertEmptyWaternetChartData(GetChartControl(control).Data);
+                    // Assert
+                    MacroStabilityInwardsOutputViewChartDataAssert.AssertEmptyWaternetChartData(GetChartControl(control).Data);
+                }
             }
         }
 
@@ -439,21 +451,27 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                 Output = MacroStabilityInwardsOutputTestFactory.CreateOutput()
             };
 
-            using (var control = new MacroStabilityInwardsOutputChartControl(calculation,
-                                                                             AssessmentSectionTestHelper.GetTestAssessmentLevel))
+            using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
-                ChartDataCollection chartData = GetChartControl(control).Data;
-
-                // Precondition
-                MacroStabilityInwardsOutputViewChartDataAssert.AssertEmptyWaternetChartData(chartData);
-
-                using (new MacroStabilityInwardsCalculatorFactoryConfig())
+                var calculatorFactory = (TestMacroStabilityInwardsCalculatorFactory)MacroStabilityInwardsCalculatorFactory.Instance;
+                WaternetCalculatorStub calculatorStub = calculatorFactory.LastCreatedWaternetCalculator;
+                calculatorStub.Output = WaternetCalculatorResultTestFactory.CreateEmptyResult();
+                using (var control = new MacroStabilityInwardsOutputChartControl(calculation,
+                                                                                 AssessmentSectionTestHelper.GetTestAssessmentLevel))
                 {
-                    // Call
-                    control.UpdateChartData();
+                    ChartDataCollection chartData = GetChartControl(control).Data;
 
-                    // Assert
-                    MacroStabilityInwardsOutputViewChartDataAssert.AssertInputChartData(calculation, chartData);
+                    // Precondition
+                    MacroStabilityInwardsOutputViewChartDataAssert.AssertEmptyWaternetChartData(chartData);
+
+                    using (new MacroStabilityInwardsCalculatorFactoryConfig())
+                    {
+                        // Call
+                        control.UpdateChartData();
+
+                        // Assert
+                        MacroStabilityInwardsOutputViewChartDataAssert.AssertInputChartData(calculation, chartData);
+                    }
                 }
             }
         }
