@@ -156,9 +156,9 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan
             SoilModel = soilModel;
         }
 
-        public void SetSoilProfile(SoilProfile2D soilProfile2D)
+        public void SetSoilProfile(SoilProfile2D soilProfile)
         {
-            SoilProfile = soilProfile2D;
+            SoilProfile = soilProfile;
         }
 
         public void SetWaternetDaily(WtiStabilityWaternet waternetDaily)
@@ -191,9 +191,9 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan
             GridAutomaticDetermined = gridAutomaticDetermined;
         }
 
-        public void SetTangentLinesAutomaticDetermined(bool slipPlaneTangentLinesAutomaticAtBoundaries)
+        public void SetTangentLinesAutomaticDetermined(bool tangentLinesAutomaticDetermined)
         {
-            TangentLinesAutomaticDetermined = slipPlaneTangentLinesAutomaticAtBoundaries;
+            TangentLinesAutomaticDetermined = tangentLinesAutomaticDetermined;
         }
 
         public void SetFixedSoilStresses(IEnumerable<FixedSoilStress> soilStresses)

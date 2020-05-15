@@ -150,11 +150,11 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
             });
         }
 
-        public void SetPreConsolidationStresses(IEnumerable<PreConsolidationStress> preconsolidationStresses)
+        public void SetPreConsolidationStresses(IEnumerable<PreConsolidationStress> preConsolidationStresses)
         {
             kernelModel.StabilityModel.ConstructionStages.ForEachElementDo(cs =>
             {
-                cs.PreconsolidationStresses.AddRange(preconsolidationStresses);
+                cs.PreconsolidationStresses.AddRange(preConsolidationStresses);
             });
         }
 

@@ -125,7 +125,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
         /// <summary>
         /// Sets whether the tangent lines are automatically determined or not.
         /// </summary>
-        void SetTangentLinesAutomaticDetermined(bool slipPlaneTangentLinesAutomaticAtBoundaries);
+        void SetTangentLinesAutomaticDetermined(bool tangentLinesAutomaticDetermined);
 
         /// <summary>
         /// Sets the fixed soil stresses.
