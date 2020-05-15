@@ -21,7 +21,6 @@
 
 using System;
 using System.DirectoryServices.AccountManagement;
-using System.IO;
 using System.Linq;
 using Core.Common.TestUtil;
 using Core.Common.Util.Settings;
@@ -34,24 +33,6 @@ namespace Application.Riskeer.Test
     public class AppTest
     {
         private AppDomain appDomain;
-
-        private string log4NetConfigFilePath;
-
-        [OneTimeSetUp]
-        public void OneTimeSetUp()
-        {
-            log4NetConfigFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "log4net.config");
-
-            // Ensure the log4net config file is not found by the application in order to keep log messages in memory (MemoryAppender)
-            File.Move(log4NetConfigFilePath, log4NetConfigFilePath + ".ignore");
-        }
-
-        [OneTimeTearDown]
-        public void OneTimeTearDown()
-        {
-            // Reset to original setup
-            File.Move(log4NetConfigFilePath + ".ignore", log4NetConfigFilePath);
-        }
 
         [SetUp]
         public void SetUp()
