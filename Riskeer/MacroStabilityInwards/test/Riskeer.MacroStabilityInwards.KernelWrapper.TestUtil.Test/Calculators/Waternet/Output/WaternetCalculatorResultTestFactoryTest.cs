@@ -48,7 +48,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Calculators.
             CollectionAssert.AreEqual(new[]
             {
                 new Point2D(0, 0),
-                new Point2D(1, 1)
+                new Point2D(10, 0)
             }, phreaticLine.Geometry);
 
             WaternetLineResult waternetLine = waternetLines[0];
