@@ -714,18 +714,6 @@ namespace Riskeer.Integration.Data
             }
         }
 
-        private void ClearHydraulicBoundaryLocationCalculations()
-        {
-            waterLevelCalculationsForFactorizedSignalingNorm.Clear();
-            waterLevelCalculationsForSignalingNorm.Clear();
-            waterLevelCalculationsForLowerLimitNorm.Clear();
-            waterLevelCalculationsForFactorizedLowerLimitNorm.Clear();
-            waveHeightCalculationsForFactorizedSignalingNorm.Clear();
-            waveHeightCalculationsForSignalingNorm.Clear();
-            waveHeightCalculationsForLowerLimitNorm.Clear();
-            waveHeightCalculationsForFactorizedLowerLimitNorm.Clear();
-        }
-
         private void AddHydraulicBoundaryLocationCalculations(HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
             waterLevelCalculationsForFactorizedSignalingNorm.Add(new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation));

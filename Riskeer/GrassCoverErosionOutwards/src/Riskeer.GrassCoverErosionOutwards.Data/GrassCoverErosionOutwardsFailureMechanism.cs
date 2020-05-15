@@ -188,16 +188,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Data
             sectionResults.Clear();
         }
 
-        private void ClearHydraulicBoundaryLocationCalculations()
-        {
-            waterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm.Clear();
-            waterLevelCalculationsForMechanismSpecificSignalingNorm.Clear();
-            waterLevelCalculationsForMechanismSpecificLowerLimitNorm.Clear();
-            waveHeightCalculationsForMechanismSpecificFactorizedSignalingNorm.Clear();
-            waveHeightCalculationsForMechanismSpecificSignalingNorm.Clear();
-            waveHeightCalculationsForMechanismSpecificLowerLimitNorm.Clear();
-        }
-
         private void AddHydraulicBoundaryLocationCalculations(HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
             waterLevelCalculationsForMechanismSpecificFactorizedSignalingNorm.Add(new HydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation));
