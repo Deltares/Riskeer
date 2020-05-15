@@ -426,6 +426,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                     // Precondition
                     MacroStabilityInwardsOutputViewChartDataAssert.AssertInputChartData(calculation, GetChartControl(control).Data);
 
+                    calculatorStub.Output = WaternetCalculatorResultTestFactory.CreateEmptyResult();
                     // Call
                     control.UpdateChartData();
 

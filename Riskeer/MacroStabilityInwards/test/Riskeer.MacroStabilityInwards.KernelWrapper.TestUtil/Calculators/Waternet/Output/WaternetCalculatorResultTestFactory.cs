@@ -39,7 +39,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Water
             var phreaticLine = new WaternetPhreaticLineResult("Line 1", new[]
             {
                 new Point2D(0, 0),
-                new Point2D(1, 1)
+                new Point2D(10, 0)
             });
 
             return new WaternetCalculatorResult(new[]
