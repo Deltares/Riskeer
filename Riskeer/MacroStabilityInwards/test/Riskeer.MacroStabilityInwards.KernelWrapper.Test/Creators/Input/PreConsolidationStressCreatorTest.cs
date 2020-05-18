@@ -56,7 +56,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             };
 
             // Call
-            IEnumerable<PreConsolidationStress> preConsolidationStresses = PreConsolidationStressCreator.Create(preconsolidationStresses).ToArray();
+            IEnumerable<PreConsolidationStress> preConsolidationStresses = PreConsolidationStressCreator.Create(preconsolidationStresses);
 
             // Assert
             Assert.AreEqual(preConsolidationStresses.Count(), 3);

@@ -260,6 +260,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                 var calculatorFactory = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
                 WaternetCalculatorStub calculatorStub = calculatorFactory.LastCreatedWaternetCalculator;
                 calculatorStub.Output = WaternetCalculatorResultTestFactory.CreateEmptyResult();
+
                 using (var form = new Form())
                 using (var view = new MacroStabilityInwardsOutputView(calculation,
                                                                       AssessmentSectionTestHelper.GetTestAssessmentLevel))

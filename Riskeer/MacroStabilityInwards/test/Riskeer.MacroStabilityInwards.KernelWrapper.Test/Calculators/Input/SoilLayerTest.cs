@@ -35,10 +35,10 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.Input
         public void Constructor_OuterRingNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new SoilLayer(null, new SoilLayer.ConstructionProperties(), Enumerable.Empty<SoilLayer>());
+            void Call() => new SoilLayer(null, new SoilLayer.ConstructionProperties(), Enumerable.Empty<SoilLayer>());
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("outerRing", exception.ParamName);
         }
 
@@ -46,10 +46,10 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.Input
         public void Constructor_ConstructionPropertiesNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new SoilLayer(new Point2D[0], null, Enumerable.Empty<SoilLayer>());
+            void Call() => new SoilLayer(new Point2D[0], null, Enumerable.Empty<SoilLayer>());
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("properties", exception.ParamName);
         }
 
@@ -57,10 +57,10 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.Input
         public void Constructor_NestedLayersNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new SoilLayer(new Point2D[0], new SoilLayer.ConstructionProperties(), null);
+            void Call() => new SoilLayer(new Point2D[0], new SoilLayer.ConstructionProperties(), null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("nestedLayers", exception.ParamName);
         }
 
@@ -97,6 +97,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.Input
             Assert.IsNaN(layer.ShearStrengthRatio);
             Assert.IsNaN(layer.StrengthIncreaseExponent);
             Assert.IsNaN(layer.Pop);
+            Assert.AreEqual(0.0, layer.Dilatancy);
             Assert.AreEqual(WaterPressureInterpolationModel.Automatic, layer.WaterPressureInterpolationModel);
         }
 
@@ -116,6 +117,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.Input
             double shearStrengthRatio = random.NextDouble();
             double strengthIncreaseExponent = random.NextDouble();
             double pop = random.NextDouble();
+            var dilatancy = 0.0;
             var waterPressureInterpolationModel = random.NextEnumValue<WaterPressureInterpolationModel>();
 
             // Call
@@ -133,6 +135,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.Input
                                           ShearStrengthRatio = shearStrengthRatio,
                                           StrengthIncreaseExponent = strengthIncreaseExponent,
                                           Pop = pop,
+                                          Dilatancy = dilatancy,
                                           WaterPressureInterpolationModel = waterPressureInterpolationModel
                                       },
                                       Enumerable.Empty<SoilLayer>());
@@ -149,6 +152,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.Input
             Assert.AreEqual(shearStrengthRatio, layer.ShearStrengthRatio);
             Assert.AreEqual(strengthIncreaseExponent, layer.StrengthIncreaseExponent);
             Assert.AreEqual(pop, layer.Pop);
+            Assert.AreEqual(dilatancy, layer.Dilatancy);
             Assert.AreEqual(waterPressureInterpolationModel, layer.WaterPressureInterpolationModel);
         }
     }
