@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Deltares.MacroStability.Geometry;
+using Deltares.MacroStability.WaternetCreator;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Output;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input;
@@ -118,13 +119,10 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan
             SoilProfile2D soilProfile2D = SoilProfileCreator.Create(layersWithSoil);
             
             IWaternetKernel waternetDailyKernelWrapper = factory.CreateWaternetDailyKernel(UpliftVanLocationCreator.CreateDaily(input));
-            waternetDailyKernelWrapper.SetSoilProfile(soilProfile2D);
-            waternetDailyKernelWrapper.SetSurfaceLine(surfaceLine);
-            waternetDailyKernelWrapper.Calculate();
+            CalculateWaternet(waternetDailyKernelWrapper, soilProfile2D, surfaceLine);
+
             IWaternetKernel waternetExtremeKernelWrapper = factory.CreateWaternetExtremeKernel(UpliftVanLocationCreator.CreateExtreme(input));
-            waternetExtremeKernelWrapper.SetSoilProfile(soilProfile2D);
-            waternetExtremeKernelWrapper.SetSurfaceLine(surfaceLine);
-            waternetExtremeKernelWrapper.Calculate();
+            CalculateWaternet(waternetExtremeKernelWrapper, soilProfile2D, surfaceLine);
 
             IUpliftVanKernel upliftVanKernel = factory.CreateUpliftVanKernel();
             upliftVanKernel.SetSlipPlaneUpliftVan(SlipPlaneUpliftVanCreator.Create(input.SlipPlane));
@@ -141,6 +139,13 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan
             upliftVanKernel.SetFixedSoilStresses(FixedSoilStressCreator.Create(layerLookup));
             upliftVanKernel.SetPreConsolidationStresses(PreConsolidationStressCreator.Create(input.SoilProfile.PreconsolidationStresses));
             return upliftVanKernel;
+        }
+        
+        private static void CalculateWaternet(IWaternetKernel waternetKernelWrapper, SoilProfile2D soilProfile2D, SurfaceLine2 surfaceLine)
+        {
+            waternetKernelWrapper.SetSoilProfile(soilProfile2D);
+            waternetKernelWrapper.SetSurfaceLine(surfaceLine);
+            waternetKernelWrapper.Calculate();
         }
     }
 }
