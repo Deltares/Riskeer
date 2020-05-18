@@ -89,7 +89,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
                         FrictionAngle = layer.FrictionAngle,
                         RatioCuPc = layer.ShearStrengthRatio,
                         StrengthIncreaseExponent = layer.StrengthIncreaseExponent,
-                        Dilatancy = 0.0
+                        Dilatancy = layer.Dilatancy
                     },
                     layer.IsAquifer,
                     ConvertWaterPressureInterpolationModel(layer.WaterPressureInterpolationModel));
