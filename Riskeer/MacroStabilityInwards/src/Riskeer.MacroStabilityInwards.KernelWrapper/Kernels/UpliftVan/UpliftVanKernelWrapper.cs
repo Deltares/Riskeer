@@ -244,13 +244,13 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
 
         private void SetResults()
         {
-            StabilityModel returnedStabilityModel = kernelModel.StabilityModel;
-            FactorOfStability = returnedStabilityModel.MinimumSafetyCurve.SafetyFactor;
-            ForbiddenZonesXEntryMin = returnedStabilityModel.SlipPlaneConstraints.XLeftMin;
-            ForbiddenZonesXEntryMax = returnedStabilityModel.SlipPlaneConstraints.XLeftMax;
+            StabilityModel stabilityModel = kernelModel.StabilityModel;
+            FactorOfStability = stabilityModel.MinimumSafetyCurve.SafetyFactor;
+            ForbiddenZonesXEntryMin = stabilityModel.SlipPlaneConstraints.XLeftMin;
+            ForbiddenZonesXEntryMax = stabilityModel.SlipPlaneConstraints.XLeftMax;
 
-            SlidingCurveResult = (SlidingDualCircle) returnedStabilityModel.MinimumSafetyCurve;
-            SlipPlaneResult = returnedStabilityModel.SlipPlaneUpliftVan;
+            SlidingCurveResult = (SlidingDualCircle) stabilityModel.MinimumSafetyCurve;
+            SlipPlaneResult = stabilityModel.SlipPlaneUpliftVan;
         }
     }
 }
