@@ -39,12 +39,14 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels
         /// <summary>
         /// Creates a Waternet kernel for extreme circumstances.
         /// </summary>
+        /// <param name="location">The <see cref="Location"/> to use.</param>
         /// <returns>A new <see cref="IWaternetKernel"/>.</returns>
         IWaternetKernel CreateWaternetExtremeKernel(Location location);
 
         /// <summary>
         /// Creates Waternet kernel for daily circumstances.
         /// </summary>
+        /// <param name="location">The <see cref="Location"/> to use.</param>
         /// <returns>A new <see cref="IWaternetKernel"/>.</returns>
         IWaternetKernel CreateWaternetDailyKernel(Location location);
     }
