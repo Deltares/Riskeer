@@ -39,8 +39,18 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.Waternet
         private readonly Location location;
         private readonly WaternetCreator waternetCreator;
 
-        internal WaternetKernelWrapper(Location location, string waternetName)
+        /// <summary>
+        /// Creates a new instance of <see cref="WaternetKernelWrapper"/>.
+        /// </summary>
+        /// <param name="location">The <see cref="Location"/> to use.</param>
+        /// <param name="waternetName">The name of the <see cref="Waternet"/>.</param>
+        public WaternetKernelWrapper(Location location, string waternetName)
         {
+            if (location == null)
+            {
+                throw new ArgumentNullException(nameof(location));
+            }
+
             this.location = location;
             Waternet = new WtiStabilityWaternet
             {

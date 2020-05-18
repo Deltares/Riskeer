@@ -76,7 +76,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Waternet
         /// <summary>
         /// Creates a Waternet kernel.
         /// </summary>
-        /// <param name="location">The location to create the Waternet on.</param>
+        /// <param name="location">The location to create the Waternet for.</param>
         /// <returns>The created <see cref="IWaternetKernel"/>.</returns>
         protected abstract IWaternetKernel CreateWaternetKernel(Location location);
 
@@ -90,8 +90,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Waternet
         /// kernel throws a <see cref="WaternetKernelWrapperException"/>.</exception>
         private IWaternetKernel CalculateWaternet()
         {
-            IWaternetKernel waternetKernel = CreateWaternetKernel(WaternetLocationCreator.Create(Input));
-            SetInputOnKernel(waternetKernel);
+            IWaternetKernel waternetKernel = GetWaternetKernel();
 
             try
             {
@@ -102,6 +101,13 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Waternet
                 throw new WaternetCalculatorException(e.Message, e);
             }
 
+            return waternetKernel;
+        }
+
+        private IWaternetKernel GetWaternetKernel()
+        {
+            IWaternetKernel waternetKernel = CreateWaternetKernel(WaternetLocationCreator.Create(Input));
+            SetInputOnKernel(waternetKernel);
             return waternetKernel;
         }
 
