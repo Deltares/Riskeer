@@ -80,14 +80,17 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
         {
             // Setup
             var random = new Random(21);
+            var soilModel = new List<Soil>();
             var soilProfile2D = new SoilProfile2D();
-            double maximumSliceWidth = random.NextDouble();
-            var slipPlaneUpliftVan = new SlipPlaneUpliftVan();
-            bool moveGrid = random.NextBoolean();
-            bool gridAutomaticDetermined = random.NextBoolean();
-            var slipPlaneConstraints = new SlipPlaneConstraints();
             var waternetDaily = new WtiStabilityWaternet();
             var waternetExtreme = new WtiStabilityWaternet();
+            bool moveGrid = random.NextBoolean();
+            double maximumSliceWidth = random.NextDouble();
+            var slipPlaneUpliftVan = new SlipPlaneUpliftVan();
+            var surfaceLine = new SurfaceLine2();
+            var slipPlaneConstraints = new SlipPlaneConstraints();
+            bool gridAutomaticDetermined = random.NextBoolean();
+            bool tangentLinesAutomaticDetermined = random.NextBoolean();
             var fixedSoilStresses = new[]
             {
                 new FixedSoilStress()
@@ -99,11 +102,14 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
 
             // Call
             var kernel = new UpliftVanKernelWrapper();
+            kernel.SetSoilModel(soilModel);
             kernel.SetSoilProfile(soilProfile2D);
             kernel.SetMaximumSliceWidth(maximumSliceWidth);
             kernel.SetSlipPlaneUpliftVan(slipPlaneUpliftVan);
+            kernel.SetSurfaceLine(surfaceLine);
             kernel.SetMoveGrid(moveGrid);
             kernel.SetGridAutomaticDetermined(gridAutomaticDetermined);
+            kernel.SetTangentLinesAutomaticDetermined(tangentLinesAutomaticDetermined);
             kernel.SetSlipPlaneConstraints(slipPlaneConstraints);
             kernel.SetWaternetDaily(waternetDaily);
             kernel.SetWaternetExtreme(waternetExtreme);
@@ -114,23 +120,23 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
             var kernelModel = TypeUtils.GetField<KernelModel>(kernel, "kernelModel");
             StabilityModel stabilityModel = kernelModel.StabilityModel;
 
-            Assert.IsNotNull(stabilityModel.SlipPlaneConstraints);
+            CollectionAssert.AreEqual(soilModel, kernelModel.StabilityModel.Soils);
+            Assert.AreSame(waternetDaily, stabilityModel.ConstructionStages.First().GeotechnicsData.CurrentWaternet);
+            Assert.AreSame(waternetExtreme, stabilityModel.ConstructionStages.Last().GeotechnicsData.CurrentWaternet);
+            Assert.AreEqual(moveGrid, stabilityModel.MoveGrid);
+            Assert.AreEqual(maximumSliceWidth, stabilityModel.MaximumSliceWidth);
+            Assert.AreSame(slipPlaneUpliftVan, stabilityModel.SlipPlaneUpliftVan);
+            Assert.AreSame(surfaceLine, kernelModel.PreprocessingModel.LastStage.SurfaceLine);
+            Assert.AreSame(slipPlaneConstraints, stabilityModel.SlipPlaneConstraints);
+            Assert.AreEqual(gridAutomaticDetermined, kernelModel.PreprocessingModel.SearchAreaConditions.AutoSearchArea);
+            Assert.AreEqual(tangentLinesAutomaticDetermined, kernelModel.PreprocessingModel.SearchAreaConditions.AutoTangentLines);
             Assert.AreEqual(GridOrientation.Inwards, stabilityModel.GridOrientation);
             Assert.IsNotNull(stabilityModel.SlipCircle);
             Assert.AreEqual(SearchAlgorithm.Grid, stabilityModel.SearchAlgorithm);
             Assert.AreEqual(ModelOptions.UpliftVan, stabilityModel.ModelOption);
-            Assert.AreEqual(maximumSliceWidth, stabilityModel.MaximumSliceWidth);
-            Assert.AreSame(slipPlaneUpliftVan, stabilityModel.SlipPlaneUpliftVan);
-            Assert.AreSame(slipPlaneConstraints, stabilityModel.SlipPlaneConstraints);
-            Assert.AreEqual(moveGrid, stabilityModel.MoveGrid);
-            Assert.AreEqual(gridAutomaticDetermined, kernelModel.PreprocessingModel.SearchAreaConditions.AutoSearchArea);
-
             Assert.AreEqual(2, stabilityModel.ConstructionStages.Count);
-
-            Assert.AreSame(waternetDaily, stabilityModel.ConstructionStages.First().GeotechnicsData.CurrentWaternet);
-            Assert.AreSame(waternetExtreme, stabilityModel.ConstructionStages.Last().GeotechnicsData.CurrentWaternet);
-
-            AssertConstructionStages(stabilityModel.ConstructionStages, fixedSoilStresses, preConsolidationStresses);
+            
+            AssertConstructionStages(stabilityModel.ConstructionStages, soilProfile2D, fixedSoilStresses, preConsolidationStresses);
 
             Assert.AreEqual(2, kernelModel.PreprocessingModel.PreProcessingConstructionStages.Count);
             kernelModel.PreprocessingModel.PreProcessingConstructionStages.ForEachElementDo(
@@ -250,10 +256,11 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
             Assert.AreEqual(11, validationMessages.Count());
         }
 
-        private static void AssertConstructionStages(IList<ConstructionStage> constructionStages, FixedSoilStress[] fixedSoilStresses, PreConsolidationStress[] preConsolidationStresses)
+        private static void AssertConstructionStages(IList<ConstructionStage> constructionStages,SoilProfile2D soilProfile2D,  FixedSoilStress[] fixedSoilStresses, PreConsolidationStress[] preConsolidationStresses)
         {
             foreach (ConstructionStage constructionStage in constructionStages)
             {
+                Assert.AreSame(soilProfile2D, constructionStage.SoilProfile);
                 Assert.AreEqual(1, constructionStage.MultiplicationFactorsCPhiForUpliftList.Count);
                 Assert.AreEqual(1.2, constructionStage.MultiplicationFactorsCPhiForUpliftList[0].UpliftFactor);
                 Assert.AreEqual(0.0, constructionStage.MultiplicationFactorsCPhiForUpliftList[0].MultiplicationFactor);
