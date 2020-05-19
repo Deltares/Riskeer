@@ -55,6 +55,10 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Water
             });
         }
 
+        /// <summary>
+        /// Creates a new <see cref="WaternetCalculatorResult"/>.
+        /// </summary>
+        /// <returns>The created <see cref="WaternetCalculatorResult"/>.</returns>
         public static WaternetCalculatorResult CreateEmptyResult()
         {
             return new WaternetCalculatorResult(new List<WaternetPhreaticLineResult>(), new List<WaternetLineResult>());

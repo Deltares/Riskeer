@@ -37,14 +37,12 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.Waternet
             var location = new Location();
             
             // Call
-            var kernel = new TestWaternetKernelWrapper(location, "WaternetDaily");
+            var kernel = new TestWaternetKernelWrapper(location, "Waternet");
 
             // Assert
             Assert.IsInstanceOf<IWaternetKernel>(kernel);
             Assert.IsNull(location.Surfaceline);
             Assert.IsNull(location.SoilProfile2D);
-            var locationField = TypeUtils.GetField<Location>(kernel, "location");
-            Assert.AreSame(locationField, location);
         }
 
         [Test]
@@ -56,14 +54,11 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.Waternet
             var surfaceLine = new SurfaceLine2();
 
             // Call
-            var kernel = new TestWaternetKernelWrapper(location, "WaternetDaily");
+            var kernel = new TestWaternetKernelWrapper(location, "Waternet");
             kernel.SetSoilProfile(soilProfile2D);
             kernel.SetSurfaceLine(surfaceLine);
 
             // Assert
-            var locationField = TypeUtils.GetField<Location>(kernel, "location");
-
-            Assert.AreSame(locationField, location);
             Assert.AreSame(surfaceLine, location.Surfaceline);
             Assert.AreSame(soilProfile2D, location.SoilProfile2D);
         }
@@ -72,7 +67,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.Waternet
         public void Calculate_ExceptionInWrappedKernel_ThrowsWaternetKernelWrapperException()
         {
             // Setup
-            var kernel = new TestWaternetKernelWrapper(new Location(), "WaternetDaily");
+            var kernel = new TestWaternetKernelWrapper(new Location(), "Waternet");
 
             // Call
             void Call() => kernel.Calculate();
@@ -85,7 +80,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.Waternet
 
         private class TestWaternetKernelWrapper : WaternetKernelWrapper
         {
-            internal TestWaternetKernelWrapper(Location location, string waternetName) : base(location, waternetName) {}
+            public TestWaternetKernelWrapper(Location location, string waternetName) : base(location, waternetName) {}
         }
     }
 }
