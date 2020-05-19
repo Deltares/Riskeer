@@ -175,12 +175,12 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                 }
             };
 
-            // Call
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
                 var calculatorFactory = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
                 WaternetCalculatorStub calculatorStub = calculatorFactory.LastCreatedWaternetCalculator;
                 calculatorStub.Output = WaternetCalculatorResultTestFactory.CreateEmptyResult();
+                // Call
                 using (var control = new MacroStabilityInwardsOutputChartControl(calculation,
                                                                                  AssessmentSectionTestHelper.GetTestAssessmentLevel))
                 {
@@ -416,13 +416,12 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
 
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
-                var calculatorFactory = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
-                WaternetCalculatorStub calculatorStub = calculatorFactory.LastCreatedWaternetCalculator;
                 using (var control = new MacroStabilityInwardsOutputChartControl(calculation,
                                                                                  AssessmentSectionTestHelper.GetTestAssessmentLevel))
                 {
-                    calculatorStub.Output = WaternetCalculatorResultTestFactory.Create();
                     // Precondition
+                    var calculatorFactory = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
+                    WaternetCalculatorStub calculatorStub = calculatorFactory.LastCreatedWaternetCalculator;
                     MacroStabilityInwardsOutputViewChartDataAssert.AssertInputChartData(calculation, GetChartControl(control).Data);
 
                     calculatorStub.Output = WaternetCalculatorResultTestFactory.CreateEmptyResult();
