@@ -67,14 +67,13 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.Waternet
             {
                 var factory = (TestMacroStabilityInwardsKernelFactory) MacroStabilityInwardsKernelWrapperFactory.Instance;
                 WaternetKernelStub waternetKernel = factory.LastCreatedWaternetKernel;
-                factory.LastCreatedWaternetKernel.SetLocation(WaternetLocationCreator.Create(input));
                 SetKernelOutput(waternetKernel);
 
                 // Call
                 new WaternetDailyCalculator(input, factory).Calculate();
 
                 // Assert
-                LayerWithSoil[] layersWithSoil = LayerWithSoilCreator.Create(input.SoilProfile, out IDictionary<SoilLayer, LayerWithSoil> layerLookup);
+                LayerWithSoil[] layersWithSoil = LayerWithSoilCreator.Create(input.SoilProfile, out IDictionary<SoilLayer, LayerWithSoil> _);
 
                 KernelInputAssert.AssertSoilProfiles(SoilProfileCreator.Create(layersWithSoil), waternetKernel.SoilProfile);
                 KernelInputAssert.AssertLocations(WaternetLocationCreator.Create(input), waternetKernel.Location);

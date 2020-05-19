@@ -59,11 +59,13 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels
 
         public IWaternetKernel CreateWaternetExtremeKernel(Location location)
         {
+            LastCreatedWaternetKernel.SetLocation(location);
             return LastCreatedWaternetKernel;
         }
 
         public IWaternetKernel CreateWaternetDailyKernel(Location location)
         {
+            LastCreatedWaternetKernel.SetLocation(location);
             return LastCreatedWaternetKernel;
         }
     }
