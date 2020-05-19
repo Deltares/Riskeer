@@ -997,7 +997,10 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                     // Precondition
                     ChartData[] chartData = view.Chart.Data.Collection.ToArray();
                     calculatorStub.Output = WaternetCalculatorResultTestFactory.Create();
-                    Assert.AreEqual(19, chartData.Length);
+                    MacroStabilityInwardsInputViewChartDataAssert.AssertWaternetChartData(DerivedMacroStabilityInwardsInput.GetWaternetDaily(calculation.InputParameters),
+                                                                                          (ChartDataCollection)chartData[waternetZonesDailyIndex]);
+                    MacroStabilityInwardsInputViewChartDataAssert.AssertWaternetChartData(DerivedMacroStabilityInwardsInput.GetWaternetExtreme(calculation.InputParameters, RoundedDouble.NaN),
+                                                                                          (ChartDataCollection) chartData[waternetZonesExtremeIndex]);
 
                     calculatorStub.Output = WaternetCalculatorResultTestFactory.CreateEmptyResult();
 

@@ -56,7 +56,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Water
         }
 
         /// <summary>
-        /// Creates a new <see cref="WaternetCalculatorResult"/> with an empty phreatic lines and Waternet lines collections.
+        /// Creates a new <see cref="WaternetCalculatorResult"/> with an empty phreatic lines and Waternet lines collection.
         /// </summary>
         /// <returns>The created <see cref="WaternetCalculatorResult"/>.</returns>
         public static WaternetCalculatorResult CreateEmptyResult()
