@@ -29,20 +29,15 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.Input
     [TestFixture]
     public class PlLineCreationMethodTest : EnumValuesTestFixture<PlLineCreationMethod, int>
     {
-        protected override IDictionary<PlLineCreationMethod, int> ExpectedValueForEnumValues
-        {
-            get
+        protected override IDictionary<PlLineCreationMethod, int> ExpectedValueForEnumValues =>
+            new Dictionary<PlLineCreationMethod, int>
             {
-                return new Dictionary<PlLineCreationMethod, int>
                 {
-                    {
-                        PlLineCreationMethod.RingtoetsWti2017, 1
-                    },
-                    {
-                        PlLineCreationMethod.None, 2
-                    }
-                };
-            }
-        }
+                    PlLineCreationMethod.RingtoetsWti2017, 1
+                },
+                {
+                    PlLineCreationMethod.None, 2
+                }
+            };
     }
 }
