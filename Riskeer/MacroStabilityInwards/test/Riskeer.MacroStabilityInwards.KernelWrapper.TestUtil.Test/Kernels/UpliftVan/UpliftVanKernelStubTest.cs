@@ -270,7 +270,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernels.Upli
             };
 
             // Call
-            IEnumerable<ValidationResult> results = calculator.Validate().ToList();
+            List<IValidationResult> results = calculator.Validate().ToList();
 
             // Assert
             Assert.IsTrue(calculator.Validated);
@@ -291,7 +291,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernels.Upli
             };
 
             // Call
-            IEnumerable<ValidationResult> results = calculator.Validate().ToList();
+            List<IValidationResult> results = calculator.Validate().ToList();
 
             // Assert
             Assert.IsTrue(calculator.Validated);
