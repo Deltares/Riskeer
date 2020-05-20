@@ -152,7 +152,8 @@ namespace Riskeer.DuneErosion.Data
             }
 
             duneLocationCollection.AddRange(duneLocations);
-            foreach (DuneLocation duneLocation in duneLocationCollection)
+
+            foreach (DuneLocation duneLocation in duneLocations)
             {
                 AddCalculationsForDuneLocation(duneLocation);
             }
