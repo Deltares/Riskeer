@@ -92,15 +92,19 @@ namespace Riskeer.DuneErosion.Service.Test
             const double norm = 1.0 / 30;
             const string categoryBoundaryName = "A";
 
+            var hydraulicBoundaryLocation1 = new HydraulicBoundaryLocation(1, "", 0, 0);
+            var hydraulicBoundaryLocation2 = new HydraulicBoundaryLocation(2, "", 0, 0);
             AssessmentSectionStub assessmentSection = CreateAssessmentSection(usePreprocessor);
 
-            var hydraulicBoundaryLocation1 = new HydraulicBoundaryLocation(1, "", 0, 0);
+            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = assessmentSection.HydraulicBoundaryDatabases.First();
+            hydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation1);
+            hydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation2);
+
             var duneLocation1 = new DuneLocation(hydraulicBoundaryLocation1,
                                                  "locationName1",
                                                  new Point2D(1, 1),
                                                  new DuneLocation.ConstructionProperties());
 
-            var hydraulicBoundaryLocation2 = new HydraulicBoundaryLocation(2, "", 0, 0);
             var duneLocation2 = new DuneLocation(hydraulicBoundaryLocation2,
                                                  "locationName2",
                                                  new Point2D(2, 2),
@@ -121,9 +125,8 @@ namespace Riskeer.DuneErosion.Service.Test
             CollectionAssert.AllItemsAreInstancesOfType(activities, typeof(DuneLocationCalculationActivity));
             Assert.AreEqual(2, activities.Length);
 
-            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = assessmentSection.HydraulicBoundaryDatabase;
-            AssertDuneLocationCalculationActivity(activities[0], categoryBoundaryName, duneLocation1.Name, hydraulicBoundaryLocation1.Id, norm, hydraulicBoundaryDatabase);
-            AssertDuneLocationCalculationActivity(activities[1], categoryBoundaryName, duneLocation2.Name, hydraulicBoundaryLocation2.Id, norm, hydraulicBoundaryDatabase);
+            AssertDuneLocationCalculationActivity(activities[0], categoryBoundaryName, duneLocation1.Name, hydraulicBoundaryLocation1.Id, norm, assessmentSection);
+            AssertDuneLocationCalculationActivity(activities[1], categoryBoundaryName, duneLocation2.Name, hydraulicBoundaryLocation2.Id, norm, assessmentSection);
         }
 
         [Test]
@@ -164,18 +167,23 @@ namespace Riskeer.DuneErosion.Service.Test
             // Setup
             AssessmentSectionStub assessmentSection = CreateAssessmentSection(usePreprocessor);
 
+            var hydraulicBoundaryLocation1 = new HydraulicBoundaryLocation(1, "", 0, 0);
+            var hydraulicBoundaryLocation2 = new HydraulicBoundaryLocation(2, "", 0, 0);
+
+            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = assessmentSection.HydraulicBoundaryDatabases.First();
+            hydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation1);
+            hydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation2);
+
             var failureMechanism = new DuneErosionFailureMechanism
             {
                 Contribution = 5
             };
 
-            var hydraulicBoundaryLocation1 = new HydraulicBoundaryLocation(1, "", 0, 0);
             var duneLocation1 = new DuneLocation(hydraulicBoundaryLocation1,
                                                  "locationName1",
                                                  new Point2D(1, 1),
                                                  new DuneLocation.ConstructionProperties());
 
-            var hydraulicBoundaryLocation2 = new HydraulicBoundaryLocation(2, "", 0, 0);
             var duneLocation2 = new DuneLocation(hydraulicBoundaryLocation2,
                                                  "locationName2",
                                                  new Point2D(2, 2),
@@ -193,20 +201,19 @@ namespace Riskeer.DuneErosion.Service.Test
             // Assert
             Assert.AreEqual(10, activities.Length);
 
-            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = assessmentSection.HydraulicBoundaryDatabase;
             double mechanismSpecificFactorizedSignalingNorm = failureMechanism.GetNorm(assessmentSection, FailureMechanismCategoryType.MechanismSpecificFactorizedSignalingNorm);
             AssertDuneLocationCalculationActivity(activities[0],
                                                   "Iv",
                                                   duneLocation1.Name,
                                                   hydraulicBoundaryLocation1.Id,
                                                   mechanismSpecificFactorizedSignalingNorm,
-                                                  hydraulicBoundaryDatabase);
+                                                  assessmentSection);
             AssertDuneLocationCalculationActivity(activities[1],
                                                   "Iv",
                                                   duneLocation2.Name,
                                                   hydraulicBoundaryLocation2.Id,
                                                   mechanismSpecificFactorizedSignalingNorm,
-                                                  hydraulicBoundaryDatabase);
+                                                  assessmentSection);
 
             double mechanismSpecificSignalingNorm = failureMechanism.GetNorm(assessmentSection, FailureMechanismCategoryType.MechanismSpecificSignalingNorm);
             AssertDuneLocationCalculationActivity(activities[2],
@@ -214,13 +221,13 @@ namespace Riskeer.DuneErosion.Service.Test
                                                   duneLocation1.Name,
                                                   hydraulicBoundaryLocation1.Id,
                                                   mechanismSpecificSignalingNorm,
-                                                  hydraulicBoundaryDatabase);
+                                                  assessmentSection);
             AssertDuneLocationCalculationActivity(activities[3],
                                                   "IIv",
                                                   duneLocation2.Name,
                                                   hydraulicBoundaryLocation2.Id,
                                                   mechanismSpecificSignalingNorm,
-                                                  hydraulicBoundaryDatabase);
+                                                  assessmentSection);
 
             double mechanismSpecificLowerLimitNorm = failureMechanism.GetNorm(assessmentSection, FailureMechanismCategoryType.MechanismSpecificLowerLimitNorm);
             AssertDuneLocationCalculationActivity(activities[4],
@@ -228,13 +235,13 @@ namespace Riskeer.DuneErosion.Service.Test
                                                   duneLocation1.Name,
                                                   hydraulicBoundaryLocation1.Id,
                                                   mechanismSpecificLowerLimitNorm,
-                                                  hydraulicBoundaryDatabase);
+                                                  assessmentSection);
             AssertDuneLocationCalculationActivity(activities[5],
                                                   "IIIv",
                                                   duneLocation2.Name,
                                                   hydraulicBoundaryLocation2.Id,
                                                   mechanismSpecificLowerLimitNorm,
-                                                  hydraulicBoundaryDatabase);
+                                                  assessmentSection);
 
             double lowerLimitNorm = failureMechanism.GetNorm(assessmentSection, FailureMechanismCategoryType.LowerLimitNorm);
             AssertDuneLocationCalculationActivity(activities[6],
@@ -242,13 +249,13 @@ namespace Riskeer.DuneErosion.Service.Test
                                                   duneLocation1.Name,
                                                   hydraulicBoundaryLocation1.Id,
                                                   lowerLimitNorm,
-                                                  hydraulicBoundaryDatabase);
+                                                  assessmentSection);
             AssertDuneLocationCalculationActivity(activities[7],
                                                   "IVv",
                                                   duneLocation2.Name,
                                                   hydraulicBoundaryLocation2.Id,
                                                   lowerLimitNorm,
-                                                  hydraulicBoundaryDatabase);
+                                                  assessmentSection);
 
             double factorizedLowerLimitNorm = failureMechanism.GetNorm(assessmentSection, FailureMechanismCategoryType.FactorizedLowerLimitNorm);
             AssertDuneLocationCalculationActivity(activities[8],
@@ -256,13 +263,13 @@ namespace Riskeer.DuneErosion.Service.Test
                                                   duneLocation1.Name,
                                                   hydraulicBoundaryLocation1.Id,
                                                   factorizedLowerLimitNorm,
-                                                  hydraulicBoundaryDatabase);
+                                                  assessmentSection);
             AssertDuneLocationCalculationActivity(activities[9],
                                                   "Vv",
                                                   duneLocation2.Name,
                                                   hydraulicBoundaryLocation2.Id,
                                                   factorizedLowerLimitNorm,
-                                                  hydraulicBoundaryDatabase);
+                                                  assessmentSection);
         }
 
         private static AssessmentSectionStub CreateAssessmentSection(bool usePreprocessor)
@@ -283,7 +290,7 @@ namespace Riskeer.DuneErosion.Service.Test
                                                                   string locationName,
                                                                   long locationId,
                                                                   double norm,
-                                                                  HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
+                                                                  IAssessmentSection assessmentSection)
         {
             var calculator = new TestDunesBoundaryConditionsCalculator();
 
@@ -294,7 +301,7 @@ namespace Riskeer.DuneErosion.Service.Test
                              .WhenCalled(invocation =>
                              {
                                  HydraRingCalculationSettingsTestHelper.AssertHydraRingCalculationSettings(
-                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(new AssessmentSectionStub(), new TestHydraulicBoundaryLocation()),
+                                     HydraulicBoundaryCalculationSettingsFactory.CreateSettings(assessmentSection, assessmentSection.HydraulicBoundaryDatabases.First().Locations.First(hbl => hbl.Id == locationId)),
                                      (HydraRingCalculationSettings) invocation.Arguments[0]);
                              })
                              .Return(calculator);
