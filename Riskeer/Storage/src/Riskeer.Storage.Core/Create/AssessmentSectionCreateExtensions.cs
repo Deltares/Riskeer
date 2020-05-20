@@ -119,7 +119,7 @@ namespace Riskeer.Storage.Core.Create
 
         private static void AddEntityForHydraulicDatabase(AssessmentSection assessmentSection, AssessmentSectionEntity entity, PersistenceRegistry registry)
         {
-            foreach (HydraulicBoundaryDatabase hydraulicBoundaryDatabase in assessmentSection.HydraulicBoundaryDatabases)
+            foreach (HydraulicBoundaryDatabase hydraulicBoundaryDatabase in assessmentSection.HydraulicBoundaryDatabases.Where(hbd => hbd.IsLinked()))
             {
                 entity.HydraulicBoundaryDatabaseEntities.Add(hydraulicBoundaryDatabase.Create(registry));
             }
