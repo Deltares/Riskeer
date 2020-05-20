@@ -823,13 +823,9 @@ namespace Demo.Riskeer.Commands
                 hydraulicBoundaryDatabaseImporter.Import();
             }
 
-            ObservableList<HydraulicBoundaryLocation> hydraulicBoundaryLocations = demoAssessmentSection.HydraulicBoundaryDatabase.Locations;
-
-            demoAssessmentSection.AddHydraulicBoundaryLocationCalculations(hydraulicBoundaryLocations);
             SetHydraulicBoundaryLocationDesignWaterLevelOutputValues(demoAssessmentSection);
             SetHydraulicBoundaryLocationWaveHeightOutputValues(demoAssessmentSection);
 
-            demoAssessmentSection.GrassCoverErosionOutwards.AddHydraulicBoundaryLocationCalculations(hydraulicBoundaryLocations);
             SetGrassCoverErosionOutwardsHydraulicBoundaryLocationDesignWaterLevelOutputValues(demoAssessmentSection.GrassCoverErosionOutwards);
             SetGrassCoverErosionOutwardsHydraulicBoundaryLocationWaveHeightOutputValues(demoAssessmentSection.GrassCoverErosionOutwards);
         }
