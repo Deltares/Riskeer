@@ -124,8 +124,12 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
             Assert.IsNotNull(stabilityModel.SlipCircle);
             Assert.AreEqual(SearchAlgorithm.Grid, stabilityModel.SearchAlgorithm);
             Assert.AreEqual(ModelOptions.UpliftVan, stabilityModel.ModelOption);
-            
-            AssertConstructionStages(stabilityModel.ConstructionStages, soilProfile2D, waternetDaily, waternetExtreme, fixedSoilStresses, preConsolidationStresses);
+
+            AssertConstructionStages(stabilityModel.ConstructionStages, soilProfile2D, new[]
+            {
+                waternetDaily,
+                waternetExtreme
+            }, fixedSoilStresses, preConsolidationStresses);
 
             Assert.AreEqual(2, kernelModel.PreprocessingModel.PreProcessingConstructionStages.Count);
             kernelModel.PreprocessingModel.PreProcessingConstructionStages.ForEachElementDo(
@@ -245,13 +249,16 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
             Assert.AreEqual(11, validationMessages.Count());
         }
 
-        private static void AssertConstructionStages(IList<ConstructionStage> constructionStages, SoilProfile2D soilProfile2D, WtiStabilityWaternet waternetDaily, WtiStabilityWaternet waternetExtreme, FixedSoilStress[] fixedSoilStresses, PreConsolidationStress[] preConsolidationStresses)
+        private static void AssertConstructionStages(IEnumerable<ConstructionStage> constructionStages, SoilProfile2D soilProfile2D, IEnumerable<WtiStabilityWaternet> waternets,
+                                                     IEnumerable<FixedSoilStress> fixedSoilStresses, IEnumerable<PreConsolidationStress> preConsolidationStresses)
         {
-            foreach (ConstructionStage constructionStage in constructionStages)
+            Assert.AreEqual(2, constructionStages.Count());
+            
+            for (var i = 0; i < constructionStages.Count(); i++)
             {
-                Assert.AreEqual(2, constructionStages.Count);
-                Assert.AreSame(waternetDaily, constructionStages.First().GeotechnicsData.CurrentWaternet);
-                Assert.AreSame(waternetExtreme, constructionStages.Last().GeotechnicsData.CurrentWaternet);
+                ConstructionStage constructionStage = constructionStages.ElementAt(i);
+                
+                Assert.AreSame(waternets.ElementAt(i), constructionStage.GeotechnicsData.CurrentWaternet);
                 Assert.AreSame(soilProfile2D, constructionStage.SoilProfile);
                 Assert.AreEqual(1, constructionStage.MultiplicationFactorsCPhiForUpliftList.Count);
                 Assert.AreEqual(1.2, constructionStage.MultiplicationFactorsCPhiForUpliftList[0].UpliftFactor);

@@ -168,7 +168,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Input
                 StrengthIncreaseExponent = double.NaN;
                 ShearStrengthRatio = double.NaN;
                 Pop = double.NaN;
-                Dilatancy = 0.0;
+                Dilatancy = double.NaN;
                 WaterPressureInterpolationModel = WaterPressureInterpolationModel.Automatic;
             }
 

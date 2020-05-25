@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
@@ -69,8 +68,8 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Calculators.
             WaternetCalculatorResult result = WaternetCalculatorResultTestFactory.CreateEmptyResult();
 
             // Assert
-            CollectionAssert.AreEqual(new List<WaternetPhreaticLineResult>(), result.PhreaticLines);
-            CollectionAssert.AreEqual(new List<WaternetLineResult>(), result.WaternetLines);
+            CollectionAssert.IsEmpty(result.PhreaticLines);
+            CollectionAssert.IsEmpty(result.WaternetLines);
         }
     }
 }

@@ -180,6 +180,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                 var calculatorFactory = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
                 WaternetCalculatorStub calculatorStub = calculatorFactory.LastCreatedWaternetCalculator;
                 calculatorStub.Output = WaternetCalculatorResultTestFactory.CreateEmptyResult();
+                
                 // Call
                 using (var control = new MacroStabilityInwardsOutputChartControl(calculation,
                                                                                  AssessmentSectionTestHelper.GetTestAssessmentLevel))
@@ -415,22 +416,21 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             };
 
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
+            using (var control = new MacroStabilityInwardsOutputChartControl(calculation,
+                                                                             AssessmentSectionTestHelper.GetTestAssessmentLevel))
             {
-                using (var control = new MacroStabilityInwardsOutputChartControl(calculation,
-                                                                                 AssessmentSectionTestHelper.GetTestAssessmentLevel))
-                {
-                    // Precondition
-                    var calculatorFactory = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
-                    WaternetCalculatorStub calculatorStub = calculatorFactory.LastCreatedWaternetCalculator;
-                    MacroStabilityInwardsOutputViewChartDataAssert.AssertInputChartData(calculation, GetChartControl(control).Data);
+                // Precondition
+                var calculatorFactory = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
+                WaternetCalculatorStub calculatorStub = calculatorFactory.LastCreatedWaternetCalculator;
+                MacroStabilityInwardsOutputViewChartDataAssert.AssertInputChartData(calculation, GetChartControl(control).Data);
 
-                    calculatorStub.Output = WaternetCalculatorResultTestFactory.CreateEmptyResult();
-                    // Call
-                    control.UpdateChartData();
+                calculatorStub.Output = WaternetCalculatorResultTestFactory.CreateEmptyResult();
+                
+                // Call
+                control.UpdateChartData();
 
-                    // Assert
-                    MacroStabilityInwardsOutputViewChartDataAssert.AssertEmptyWaternetChartData(GetChartControl(control).Data);
-                }
+                // Assert
+                MacroStabilityInwardsOutputViewChartDataAssert.AssertEmptyWaternetChartData(GetChartControl(control).Data);
             }
         }
 

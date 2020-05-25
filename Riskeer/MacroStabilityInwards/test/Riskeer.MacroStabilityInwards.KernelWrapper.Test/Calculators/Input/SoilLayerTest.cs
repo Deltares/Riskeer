@@ -97,7 +97,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.Input
             Assert.IsNaN(layer.ShearStrengthRatio);
             Assert.IsNaN(layer.StrengthIncreaseExponent);
             Assert.IsNaN(layer.Pop);
-            Assert.AreEqual(0.0, layer.Dilatancy);
+            Assert.IsNaN(layer.Dilatancy);
             Assert.AreEqual(WaterPressureInterpolationModel.Automatic, layer.WaterPressureInterpolationModel);
         }
 
@@ -117,7 +117,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.Input
             double shearStrengthRatio = random.NextDouble();
             double strengthIncreaseExponent = random.NextDouble();
             double pop = random.NextDouble();
-            var dilatancy = 0.0;
+            double dilatancy = random.NextDouble();
             var waterPressureInterpolationModel = random.NextEnumValue<WaterPressureInterpolationModel>();
 
             // Call

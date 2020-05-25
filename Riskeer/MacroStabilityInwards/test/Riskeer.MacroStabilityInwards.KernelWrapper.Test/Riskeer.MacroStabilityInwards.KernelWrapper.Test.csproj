@@ -1,30 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <Import Project="$(SolutionDir)\build\Test.targets" />
   <ItemGroup>
-    <Reference Include="Deltares.MacroStability.Data">
-      <HintPath>..\..\..\..\lib\Plugins\Wti\Deltares.MacroStability.Data.dll</HintPath>
-    </Reference>
-    <Reference Include="Deltares.MacroStability.Geometry">
-      <HintPath>..\..\..\..\lib\Plugins\Wti\Deltares.MacroStability.Geometry.dll</HintPath>
-    </Reference>
-    <Reference Include="Deltares.MacroStability.Kernel">
-      <HintPath>..\..\..\..\lib\Plugins\Wti\Deltares.MacroStability.Kernel.dll</HintPath>
-    </Reference>
-    <Reference Include="Deltares.MacroStability.Preprocessing">
-      <HintPath>..\..\..\..\lib\Plugins\Wti\Deltares.MacroStability.Preprocessing.dll</HintPath>
-    </Reference>
-    <Reference Include="Deltares.MacroStability.Standard">
-      <HintPath>..\..\..\..\lib\Plugins\Wti\Deltares.MacroStability.Standard.dll</HintPath>
-    </Reference>
-    <Reference Include="Deltares.MacroStability.WaternetCreator">
-      <HintPath>..\..\..\..\lib\Plugins\Wti\Deltares.MacroStability.WaternetCreator.dll</HintPath>
-    </Reference>
-    <Reference Include="Deltares.SearchAlgorithms">
-      <HintPath>..\..\..\..\lib\Plugins\Wti\Deltares.SearchAlgorithms.dll</HintPath>
-    </Reference>
-    <Reference Include="Deltares.SoilStress.Data">
-      <HintPath>..\..\..\..\lib\Plugins\Wti\Deltares.SoilStress.Data.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="WTIStability, Culture=neutral, processorArchitecture=x86">

@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Core.Common.Util.Reflection;
 using Deltares.MacroStability.Geometry;
 using Deltares.MacroStability.WaternetCreator;
 using NUnit.Framework;
@@ -80,7 +79,8 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.Waternet
 
         private class TestWaternetKernelWrapper : WaternetKernelWrapper
         {
-            public TestWaternetKernelWrapper(Location location, string waternetName) : base(location, waternetName) {}
+            public TestWaternetKernelWrapper(Location location, string waternetName) 
+                : base(location, waternetName) {}
         }
     }
 }
