@@ -102,38 +102,25 @@ namespace Riskeer.MacroStabilityInwards.IO.Exporters
         {
             CreateDirectory(nestedFolderPath);
 
-            var exportedCalculations = new List<MacroStabilityInwardsCalculation>();
+            var continueExport = true;
             var exportedGroups = new List<CalculationGroup>();
+            var exportedCalculations = new List<MacroStabilityInwardsCalculation>();
 
             foreach (ICalculationBase calculationItem in groupToExport.Children)
             {
-                if (calculationItem is MacroStabilityInwardsCalculation calculation)
-                {
-                    if (!calculation.HasOutput)
-                    {
-                        log.WarnFormat(Resources.MacroStabilityInwardsCalculationGroupExporter_Export_Calculation_0_has_no_output_and_is_skipped, calculation.Name);
-                        continue;
-                    }
-
-                    bool exportSucceeded = Export(calculation, nestedFolderPath, exportedCalculations);
-                    if (!exportSucceeded)
-                    {
-                        return false;
-                    }
-
-                    exportedCalculations.Add(calculation);
-                }
-
                 if (calculationItem is CalculationGroup nestedGroup)
                 {
-                    string uniqueGroupName = NamingHelper.GetUniqueName(exportedGroups, nestedGroup.Name, group => group.Name);
-                    bool exportSucceeded = Export(nestedGroup, Path.Combine(nestedFolderPath, uniqueGroupName));
-                    if (!exportSucceeded)
-                    {
-                        return false;
-                    }
+                    continueExport = ExportCalculationGroup(nestedGroup, nestedFolderPath, exportedGroups);
+                }
 
-                    exportedGroups.Add(nestedGroup);
+                if (calculationItem is MacroStabilityInwardsCalculation calculation)
+                {
+                    continueExport = ExportCalculation(calculation, nestedFolderPath, exportedCalculations);
+                }
+
+                if (!continueExport)
+                {
+                    return false;
                 }
             }
 
@@ -146,6 +133,41 @@ namespace Riskeer.MacroStabilityInwards.IO.Exporters
             {
                 Directory.CreateDirectory(nestedFolderPath);
             }
+        }
+
+        private bool ExportCalculationGroup(CalculationGroup nestedGroup, string nestedFolderPath, ICollection<CalculationGroup> exportedGroups)
+        {
+            string uniqueGroupName = NamingHelper.GetUniqueName(exportedGroups, nestedGroup.Name, group => group.Name);
+
+            bool exportSucceeded = Export(nestedGroup, Path.Combine(nestedFolderPath, uniqueGroupName));
+            if (!exportSucceeded)
+            {
+                return false;
+            }
+
+            exportedGroups.Add(nestedGroup);
+
+            return true;
+        }
+
+        private bool ExportCalculation(MacroStabilityInwardsCalculation calculation, string nestedFolderPath, ICollection<MacroStabilityInwardsCalculation> exportedCalculations)
+        {
+            if (!calculation.HasOutput)
+            {
+                log.WarnFormat(Resources.MacroStabilityInwardsCalculationGroupExporter_Export_Calculation_0_has_no_output_and_is_skipped, calculation.Name);
+            }
+            else
+            {
+                bool exportSucceeded = Export(calculation, nestedFolderPath, exportedCalculations);
+                if (!exportSucceeded)
+                {
+                    return false;
+                }
+
+                exportedCalculations.Add(calculation);
+            }
+
+            return true;
         }
 
         private bool Export(MacroStabilityInwardsCalculation calculation, string nestedFolderPath, IEnumerable<MacroStabilityInwardsCalculation> exportedCalculations)
