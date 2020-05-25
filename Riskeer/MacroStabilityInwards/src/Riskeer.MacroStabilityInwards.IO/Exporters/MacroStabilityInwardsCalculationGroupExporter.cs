@@ -100,10 +100,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Exporters
 
         private bool Export(CalculationGroup groupToExport, string nestedFolderPath)
         {
-            if (!Directory.Exists(nestedFolderPath))
-            {
-                Directory.CreateDirectory(nestedFolderPath);
-            }
+            CreateDirectory(nestedFolderPath);
 
             var exportedCalculations = new List<MacroStabilityInwardsCalculation>();
             var exportedGroups = new List<CalculationGroup>();
@@ -141,6 +138,14 @@ namespace Riskeer.MacroStabilityInwards.IO.Exporters
             }
 
             return true;
+        }
+
+        private static void CreateDirectory(string nestedFolderPath)
+        {
+            if (!Directory.Exists(nestedFolderPath))
+            {
+                Directory.CreateDirectory(nestedFolderPath);
+            }
         }
 
         private bool Export(MacroStabilityInwardsCalculation calculation, string nestedFolderPath, IEnumerable<MacroStabilityInwardsCalculation> exportedCalculations)
