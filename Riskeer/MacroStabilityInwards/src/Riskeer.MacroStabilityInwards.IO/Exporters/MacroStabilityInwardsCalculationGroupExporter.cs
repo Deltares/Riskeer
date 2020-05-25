@@ -95,10 +95,10 @@ namespace Riskeer.MacroStabilityInwards.IO.Exporters
 
         public bool Export()
         {
-            return Export(calculationGroup, folderPath);
+            return ExportCalculationItemsRecursively(calculationGroup, folderPath);
         }
 
-        private bool Export(CalculationGroup groupToExport, string nestedFolderPath)
+        private bool ExportCalculationItemsRecursively(CalculationGroup groupToExport, string nestedFolderPath)
         {
             CreateDirectory(nestedFolderPath);
 
@@ -115,7 +115,14 @@ namespace Riskeer.MacroStabilityInwards.IO.Exporters
 
                 if (calculationItem is MacroStabilityInwardsCalculation calculation)
                 {
-                    continueExport = ExportCalculation(calculation, nestedFolderPath, exportedCalculations);
+                    if (!calculation.HasOutput)
+                    {
+                        log.WarnFormat(Resources.MacroStabilityInwardsCalculationGroupExporter_Export_Calculation_0_has_no_output_and_is_skipped, calculation.Name);
+                    }
+                    else
+                    {
+                        continueExport = ExportCalculation(calculation, nestedFolderPath, exportedCalculations);
+                    }
                 }
 
                 if (!continueExport)
@@ -139,7 +146,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Exporters
         {
             string uniqueGroupName = NamingHelper.GetUniqueName(exportedGroups, nestedGroup.Name, group => group.Name);
 
-            bool exportSucceeded = Export(nestedGroup, Path.Combine(nestedFolderPath, uniqueGroupName));
+            bool exportSucceeded = ExportCalculationItemsRecursively(nestedGroup, Path.Combine(nestedFolderPath, uniqueGroupName));
             if (!exportSucceeded)
             {
                 return false;
@@ -152,20 +159,13 @@ namespace Riskeer.MacroStabilityInwards.IO.Exporters
 
         private bool ExportCalculation(MacroStabilityInwardsCalculation calculation, string nestedFolderPath, ICollection<MacroStabilityInwardsCalculation> exportedCalculations)
         {
-            if (!calculation.HasOutput)
+            bool exportSucceeded = Export(calculation, nestedFolderPath, exportedCalculations);
+            if (!exportSucceeded)
             {
-                log.WarnFormat(Resources.MacroStabilityInwardsCalculationGroupExporter_Export_Calculation_0_has_no_output_and_is_skipped, calculation.Name);
+                return false;
             }
-            else
-            {
-                bool exportSucceeded = Export(calculation, nestedFolderPath, exportedCalculations);
-                if (!exportSucceeded)
-                {
-                    return false;
-                }
 
-                exportedCalculations.Add(calculation);
-            }
+            exportedCalculations.Add(calculation);
 
             return true;
         }
