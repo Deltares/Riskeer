@@ -108,21 +108,17 @@ namespace Riskeer.MacroStabilityInwards.IO.Exporters
 
             foreach (ICalculationBase calculationItem in groupToExport.Children)
             {
-                if (calculationItem is CalculationGroup nestedGroup)
+                switch (calculationItem)
                 {
-                    continueExport = ExportCalculationGroup(nestedGroup, nestedFolderPath, exportedGroups);
-                }
-
-                if (calculationItem is MacroStabilityInwardsCalculation calculation)
-                {
-                    if (!calculation.HasOutput)
-                    {
+                    case CalculationGroup nestedGroup:
+                        continueExport = ExportCalculationGroup(nestedGroup, nestedFolderPath, exportedGroups);
+                        break;
+                    case MacroStabilityInwardsCalculation calculation when !calculation.HasOutput:
                         log.WarnFormat(Resources.MacroStabilityInwardsCalculationGroupExporter_Export_Calculation_0_has_no_output_and_is_skipped, calculation.Name);
-                    }
-                    else
-                    {
+                        break;
+                    case MacroStabilityInwardsCalculation calculation:
                         continueExport = ExportCalculation(calculation, nestedFolderPath, exportedCalculations);
-                    }
+                        break;
                 }
 
                 if (!continueExport)
@@ -153,39 +149,24 @@ namespace Riskeer.MacroStabilityInwards.IO.Exporters
             }
 
             exportedGroups.Add(nestedGroup);
-
             return true;
         }
 
         private bool ExportCalculation(MacroStabilityInwardsCalculation calculation, string nestedFolderPath, ICollection<MacroStabilityInwardsCalculation> exportedCalculations)
         {
-            bool exportSucceeded = Export(calculation, nestedFolderPath, exportedCalculations);
-            if (!exportSucceeded)
-            {
-                return false;
-            }
-
-            exportedCalculations.Add(calculation);
-
-            return true;
-        }
-
-        private bool Export(MacroStabilityInwardsCalculation calculation, string nestedFolderPath, IEnumerable<MacroStabilityInwardsCalculation> exportedCalculations)
-        {
             string filePath = GetCalculationFilePath(calculation, nestedFolderPath, exportedCalculations);
             var exporter = new MacroStabilityInwardsCalculationExporter(calculation, persistenceFactory, filePath, () => getNormativeAssessmentLevelFunc(calculation));
 
             bool exportSucceeded = exporter.Export();
-            if (exportSucceeded)
-            {
-                log.InfoFormat(Resources.MacroStabilityInwardsCalculationGroupExporter_Export_Data_from_0_exported_to_file_1, calculation.Name, filePath);
-            }
-            else
+            if (!exportSucceeded)
             {
                 log.ErrorFormat("{0} {1}", string.Format(CoreCommonUtilResources.Error_General_output_error_0, filePath), Resources.MacroStabilityInwardsCalculationExporter_Export_no_stability_project_exported);
+                return false;
             }
 
-            return exportSucceeded;
+            log.InfoFormat(Resources.MacroStabilityInwardsCalculationGroupExporter_Export_Data_from_0_exported_to_file_1, calculation.Name, filePath);
+            exportedCalculations.Add(calculation);
+            return true;
         }
 
         private string GetCalculationFilePath(ICalculationBase calculation, string nestedFolderPath, IEnumerable<MacroStabilityInwardsCalculation> exportedCalculations)
