@@ -84,6 +84,9 @@
     <Reference Include="WTIPiping">
       <HintPath>..\..\..\..\lib\Plugins\Wti\WTIPiping.dll</HintPath>
     </Reference>
+    <Reference Include="WTIStability">
+      <HintPath>..\..\..\..\lib\Plugins\Wti\WTIStability.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj">

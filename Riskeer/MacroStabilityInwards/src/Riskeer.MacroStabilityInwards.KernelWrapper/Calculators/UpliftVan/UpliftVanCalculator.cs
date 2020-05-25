@@ -23,7 +23,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Deltares.MacroStability.Geometry;
-using Deltares.MacroStability.WaternetCreator;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Output;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input;
