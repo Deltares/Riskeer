@@ -285,17 +285,17 @@ namespace Riskeer.MacroStabilityInwards.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to D-GEO Suite Stability ondersteunt enkel een maximale lamelbreedte van 1 meter, om hieraan te voldoen is dit aangepast in de geëxporteerde berekening..
+        ///   Looks up a localized string similar to De berekening bevat een lamelbreedte van {0} meter. D-GEO Suite Stability ondersteunt enkel een maximale lamelbreedte van 1 meter. Er wordt daarom een lamelbreedte van 1 meter geëxporteerd..
         /// </summary>
-        public static string MacroStabilityInwardsCalculationExporter_ValidateData_DGeoSuite_only_supports_MaximumSliceWidth_one {
+        public static string MacroStabilityInwardsCalculationExporter_ValidateData_DGeoSuite_only_supports_MaximumSliceWidth_one_but_calculation_has_MaximumSliceWidth_0 {
             get {
                 return ResourceManager.GetString("MacroStabilityInwardsCalculationExporter_ValidateData_DGeoSuite_only_supports_Max" +
-                        "imumSliceWidth_one", resourceCulture);
+                        "imumSliceWidth_one_but_calculation_has_MaximumSliceWidth_0", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het is niet mogelijk om meerdere aquifer lagen te exporteren. Er is geen aquifer laag geëxporteerd..
+        ///   Looks up a localized string similar to De schematisatie van de berekening bevat meerdere aquifer lagen. D-GEO Suite Stability ondersteunt slechts 1 aquifer laag. Er worden daarom geen aquifer lagen geëxporteerd..
         /// </summary>
         public static string MacroStabilityInwardsCalculationExporter_ValidateData_Multiple_aquifer_layers_not_supported_no_aquifer_layer_exported {
             get {

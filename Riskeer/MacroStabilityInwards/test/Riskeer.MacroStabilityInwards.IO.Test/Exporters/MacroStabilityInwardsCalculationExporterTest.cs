@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Globalization;
 using System.IO;
 using Components.Persistence.Stability;
 using Core.Common.Base.Data;
@@ -164,7 +165,6 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
 
             // Assert
             Assert.IsFalse(File.Exists(filePath));
-            Assert.IsFalse(File.Exists($"{filePath}.temp"));
         }
 
         [Test]
@@ -191,7 +191,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
 
                     // Assert
                     PersistableDataModelTestHelper.AssertPersistableDataModel(calculation, filePath, persistenceFactory.PersistableDataModel);
-                    Assert.AreEqual($"{filePath}.temp", persistenceFactory.FilePath);
+                    Assert.AreEqual(filePath, persistenceFactory.FilePath);
 
                     var persister = (MacroStabilityInwardsTestPersister) persistenceFactory.CreatedPersister;
                     Assert.IsTrue(persister.PersistCalled);
@@ -206,10 +206,10 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
         }
 
         [Test]
-        public void Export_RunsSuccessful_WritesFileAndRemovesTempFile()
+        public void Export_RunsSuccessful_WritesFile()
         {
             // Setup
-            string filePath = TestHelper.GetScratchPadPath($"{nameof(MacroStabilityInwardsCalculationExporterTest)}.{nameof(Export_RunsSuccessful_WritesFileAndRemovesTempFile)}.ValidFile.stix");
+            string filePath = TestHelper.GetScratchPadPath($"{nameof(MacroStabilityInwardsCalculationExporterTest)}.{nameof(Export_RunsSuccessful_WritesFile)}.ValidFile.stix");
             MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput(new TestHydraulicBoundaryLocation());
             calculation.Output = MacroStabilityInwardsOutputTestFactory.CreateRandomOutput();
 
@@ -225,7 +225,6 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
                     // Assert
                     Assert.IsTrue(exportResult);
                     Assert.IsTrue(File.Exists(filePath));
-                    Assert.IsFalse(File.Exists($"{filePath}.temp"));
                 }
             }
             finally
@@ -241,11 +240,11 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
         {
             // Setup
             string filePath = TestHelper.GetScratchPadPath($"{nameof(MacroStabilityInwardsCalculationExporterTest)}.{nameof(Export_MaximumSliceWidthNotOne_LogsWarningAndReturnsTrue)}.ValidFile.stix");
-            
+
             MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput(new TestHydraulicBoundaryLocation());
             calculation.InputParameters.MaximumSliceWidth = (RoundedDouble) maximumSliceWidth;
             calculation.Output = MacroStabilityInwardsOutputTestFactory.CreateRandomOutput();
-            
+
             var exporter = new MacroStabilityInwardsCalculationExporter(calculation, new PersistenceFactory(), filePath, AssessmentSectionTestHelper.GetTestAssessmentLevel);
 
             try
@@ -257,7 +256,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
                     void Call() => exportResult = exporter.Export();
 
                     // Assert
-                    const string expectedMessage = "D-GEO Suite Stability ondersteunt enkel een maximale lamelbreedte van 1 meter, om hieraan te voldoen is dit aangepast in de geëxporteerde berekening.";
+                    string expectedMessage = $"De berekening bevat een lamelbreedte van {calculation.InputParameters.MaximumSliceWidth.ToString(null, CultureInfo.CurrentCulture)} meter. D-GEO Suite Stability ondersteunt enkel een maximale lamelbreedte van 1 meter. Er wordt daarom een lamelbreedte van 1 meter geëxporteerd.";
                     TestHelper.AssertLogMessageWithLevelIsGenerated(Call, new Tuple<string, LogLevelConstant>(expectedMessage, LogLevelConstant.Warn));
                     Assert.IsTrue(exportResult);
                 }
@@ -273,11 +272,11 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
         {
             // Setup
             string filePath = TestHelper.GetScratchPadPath($"{nameof(MacroStabilityInwardsCalculationExporterTest)}.{nameof(Export_MaximumSliceWidthNotOne_LogsWarningAndReturnsTrue)}.ValidFile.stix");
-            
+
             MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput(new TestHydraulicBoundaryLocation());
             calculation.InputParameters.StochasticSoilProfile.SoilProfile.Layers.ForEachElementDo(layer => layer.Data.IsAquifer = true);
             calculation.Output = MacroStabilityInwardsOutputTestFactory.CreateRandomOutput();
-            
+
             var exporter = new MacroStabilityInwardsCalculationExporter(calculation, new PersistenceFactory(), filePath, AssessmentSectionTestHelper.GetTestAssessmentLevel);
 
             try
@@ -289,7 +288,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
                     void Call() => exportResult = exporter.Export();
 
                     // Assert
-                    const string expectedMessage = "Het is niet mogelijk om meerdere aquifer lagen te exporteren. Er is geen aquifer laag geëxporteerd.";
+                    const string expectedMessage = "De schematisatie van de berekening bevat meerdere aquifer lagen. D-GEO Suite Stability ondersteunt slechts 1 aquifer laag. Er worden daarom geen aquifer lagen geëxporteerd.";
                     TestHelper.AssertLogMessageWithLevelIsGenerated(Call, new Tuple<string, LogLevelConstant>(expectedMessage, LogLevelConstant.Warn));
                     Assert.IsTrue(exportResult);
                 }
@@ -297,6 +296,43 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
             finally
             {
                 File.Delete(filePath);
+            }
+        }
+
+        [Test]
+        public void Export_ErrorDuringCalculationExport_LogsErrorAndReturnsFalse()
+        {
+            // Setup
+            string folderPath = TestHelper.GetScratchPadPath($"{nameof(MacroStabilityInwardsCalculationExporterTest)}.{nameof(Export_ErrorDuringCalculationExport_LogsErrorAndReturnsFalse)}");
+            Directory.CreateDirectory(folderPath);
+
+            string filePath = Path.Combine(folderPath, "ValidFile.stix");
+
+            MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput(new TestHydraulicBoundaryLocation());
+            calculation.Output = MacroStabilityInwardsOutputTestFactory.CreateRandomOutput();
+
+            var exporter = new MacroStabilityInwardsCalculationExporter(calculation, new PersistenceFactory(), filePath, AssessmentSectionTestHelper.GetTestAssessmentLevel);
+
+            try
+            {
+                using (var fileDisposeHelper = new FileDisposeHelper(filePath))
+                using (new MacroStabilityInwardsCalculatorFactoryConfig())
+                {
+                    fileDisposeHelper.LockFiles();
+
+                    // Call
+                    var exportResult = false;
+                    void Call() => exportResult = exporter.Export();
+
+                    // Assert
+                    string expectedMessage = $"Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{filePath}'. Er is geen D-GEO Suite Stability Project geëxporteerd.";
+                    TestHelper.AssertLogMessageWithLevelIsGenerated(Call, new Tuple<string, LogLevelConstant>(expectedMessage, LogLevelConstant.Error));
+                    Assert.IsFalse(exportResult);
+                }
+            }
+            finally
+            {
+                Directory.Delete(folderPath, true);
             }
         }
     }

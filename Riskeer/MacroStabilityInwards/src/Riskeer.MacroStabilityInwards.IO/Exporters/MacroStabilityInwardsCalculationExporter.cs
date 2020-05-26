@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using Components.Persistence.Stability;
@@ -102,20 +103,17 @@ namespace Riskeer.MacroStabilityInwards.IO.Exporters
 
             PersistableDataModel persistableDataModel = PersistableDataModelFactory.Create(calculation, getNormativeAssessmentLevelFunc, filePath);
 
-            string tempFilePath = $"{filePath}.temp";
-
             try
             {
-                using (IPersister persister = persistenceFactory.CreateArchivePersister(tempFilePath, persistableDataModel))
+                using (IPersister persister = persistenceFactory.CreateArchivePersister(filePath, persistableDataModel))
                 {
                     persister.Persist();
                 }
-
-                MoveTempFileToFinal(tempFilePath);
             }
             catch (Exception)
             {
-                File.Delete(tempFilePath);
+                TryDeleteFile();
+
                 log.ErrorFormat("{0} {1}", string.Format(CoreCommonUtilResources.Error_General_output_error_0, filePath), Resources.MacroStabilityInwardsCalculationExporter_Export_no_stability_project_exported);
                 return false;
             }
@@ -123,11 +121,24 @@ namespace Riskeer.MacroStabilityInwards.IO.Exporters
             return true;
         }
 
+        private void TryDeleteFile()
+        {
+            try
+            {
+                File.Delete(filePath);
+            }
+            catch (Exception)
+            {
+                // Do nothing
+            }
+        }
+
         private void ValidateData()
         {
             if (Math.Abs(calculation.InputParameters.MaximumSliceWidth - 1) > 1e-3)
             {
-                log.Warn(Resources.MacroStabilityInwardsCalculationExporter_ValidateData_DGeoSuite_only_supports_MaximumSliceWidth_one);
+                log.WarnFormat(Resources.MacroStabilityInwardsCalculationExporter_ValidateData_DGeoSuite_only_supports_MaximumSliceWidth_one_but_calculation_has_MaximumSliceWidth_0,
+                               calculation.InputParameters.MaximumSliceWidth.ToString(null, CultureInfo.CurrentCulture));
             }
 
             IEnumerable<MacroStabilityInwardsSoilLayer2D> layers = MacroStabilityInwardsSoilProfile2DLayersHelper.GetLayersRecursively(calculation.InputParameters.SoilProfileUnderSurfaceLine.Layers);
@@ -135,16 +146,6 @@ namespace Riskeer.MacroStabilityInwards.IO.Exporters
             {
                 log.Warn(Resources.MacroStabilityInwardsCalculationExporter_ValidateData_Multiple_aquifer_layers_not_supported_no_aquifer_layer_exported);
             }
-        }
-
-        private void MoveTempFileToFinal(string tempFilePath)
-        {
-            if (File.Exists(filePath))
-            {
-                File.Delete(filePath);
-            }
-
-            File.Move(tempFilePath, filePath);
         }
     }
 }

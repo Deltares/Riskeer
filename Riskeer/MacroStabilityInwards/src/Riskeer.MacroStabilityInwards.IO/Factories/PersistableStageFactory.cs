@@ -34,7 +34,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
         /// <summary>
         /// Creates a collection of <see cref="PersistableStage"/>.
         /// </summary>
-        /// <param name="idFactory">The factory fo IDs.</param>
+        /// <param name="idFactory">The factory for creating IDs.</param>
         /// <param name="registry">The persistence registry.</param>
         /// <returns>A collection of <see cref="PersistableStage"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter

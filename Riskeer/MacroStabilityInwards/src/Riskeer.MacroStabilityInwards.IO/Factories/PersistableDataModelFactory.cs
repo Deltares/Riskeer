@@ -78,15 +78,15 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
                 SoilLayers = PersistableSoilLayerCollectionFactory.Create(soilProfile, idFactory, registry),
                 Waternets = PersistableWaternetFactory.Create(
                     DerivedMacroStabilityInwardsInput.GetWaternetDaily(input),
-                    DerivedMacroStabilityInwardsInput.GetWaternetExtreme(input, GetAssessmentLevel(input, getNormativeAssessmentLevelFunc)),
+                    DerivedMacroStabilityInwardsInput.GetWaternetExtreme(input, GetEffectiveAssessmentLevel(input, getNormativeAssessmentLevelFunc)),
                     idFactory, registry),
-                WaternetCreatorSettings = PersistableWaternetCreatorSettingsFactory.Create(input, GetAssessmentLevel(input, getNormativeAssessmentLevelFunc), idFactory, registry),
+                WaternetCreatorSettings = PersistableWaternetCreatorSettingsFactory.Create(input, GetEffectiveAssessmentLevel(input, getNormativeAssessmentLevelFunc), idFactory, registry),
                 States = PersistableStateFactory.Create(soilProfile, idFactory, registry),
                 Stages = PersistableStageFactory.Create(idFactory, registry)
             };
         }
 
-        private static RoundedDouble GetAssessmentLevel(MacroStabilityInwardsInput input, Func<RoundedDouble> getNormativeAssessmentLevelFunc)
+        private static RoundedDouble GetEffectiveAssessmentLevel(MacroStabilityInwardsInput input, Func<RoundedDouble> getNormativeAssessmentLevelFunc)
         {
             return input.UseAssessmentLevelManualInput
                        ? input.AssessmentLevel

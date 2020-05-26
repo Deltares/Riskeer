@@ -198,11 +198,11 @@ namespace Riskeer.MacroStabilityInwards.IO.TestUtil
         }
 
         /// <summary>
-        /// Assert whether the <see cref="PersistableStochasticParameter"/> contains the data
+        /// Asserts whether the <see cref="PersistableStochasticParameter"/> contains the data
         /// that is representative for the <paramref name="distribution"/>.
         /// </summary>
         /// <param name="distribution">The distribution that contains the original data.</param>
-        /// <param name="stochasticParameter">the <see cref="PersistableStochasticParameter"/>
+        /// <param name="stochasticParameter">The <see cref="PersistableStochasticParameter"/>
         /// that needs to be asserted.</param>
         /// <param name="expectedIsProbabilistic">The expected value for <see cref="PersistableStochasticParameter.IsProbabilistic"/>.</param>
         /// <exception cref="AssertionException">Thrown when the data in <paramref name="stochasticParameter"/>

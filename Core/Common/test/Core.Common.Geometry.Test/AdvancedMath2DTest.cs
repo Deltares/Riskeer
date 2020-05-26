@@ -513,7 +513,7 @@ namespace Core.Common.Geometry.Test
             };
 
             // Call
-            Point2D interiorPoint = AdvancedMath2D.GetPolygonInteriorPoint(outerRing, new []
+            Point2D interiorPoint = AdvancedMath2D.GetPolygonInteriorPoint(outerRing, new[]
             {
                 innerRing1,
                 innerRing2

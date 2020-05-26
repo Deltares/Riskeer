@@ -29,7 +29,7 @@ namespace Riskeer.MacroStabilityInwards.IO.TestUtil
     public class MacroStabilityInwardsTestPersister : IPersister
     {
         /// <summary>
-        /// Gets whether persist is called.
+        /// Gets whether <see cref="Persist"/> is called.
         /// </summary>
         public bool PersistCalled { get; private set; }
 

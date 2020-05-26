@@ -39,7 +39,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
         /// Creates a new instance of <see cref="PersistableSoilCollection"/>.
         /// </summary>
         /// <param name="soilProfile">The soil profile to use.</param>
-        /// <param name="idFactory">The factory fo IDs.</param>
+        /// <param name="idFactory">The factory for creating IDs.</param>
         /// <param name="registry">The persistence registry.</param>
         /// <returns>The created <see cref="PersistableSoilCollection"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
@@ -77,7 +77,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
         /// Creates a new instance of <see cref="PersistableSoil"/>.
         /// </summary>
         /// <param name="layer">The layer to use.</param>
-        /// <param name="idFactory">The factory fo IDs.</param>
+        /// <param name="idFactory">The factory for creating IDs.</param>
         /// <param name="registry">The persistence registry.</param>
         /// <returns>The created <see cref="PersistableSoil"/>.</returns>
         /// <exception cref="InvalidEnumArgumentException">Thrown when
