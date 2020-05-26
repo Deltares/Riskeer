@@ -295,7 +295,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De schematisatie van de berekening bevat meerdere aquifer lagen. D-GEO Suite Stability ondersteunt slechts 1 aquifer laag. Er worden daarom geen aquifer lagen geëxporteerd..
+        ///   Looks up a localized string similar to De schematisatie van de berekening bevat meerdere aquifer lagen. De volgorde van de aquifer lagen kan niet bepaald worden tijdens exporteren. Er worden daarom geen lagen als aquifer geëxporteerd..
         /// </summary>
         public static string MacroStabilityInwardsCalculationExporter_ValidateData_Multiple_aquifer_layers_not_supported_no_aquifer_layer_exported {
             get {

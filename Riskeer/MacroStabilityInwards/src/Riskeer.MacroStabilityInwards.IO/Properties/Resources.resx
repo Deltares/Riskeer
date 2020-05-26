@@ -218,7 +218,7 @@
     <value>De berekening bevat een lamelbreedte van {0} meter. D-GEO Suite Stability ondersteunt enkel een maximale lamelbreedte van 1 meter. Er wordt daarom een lamelbreedte van 1 meter geëxporteerd.</value>
   </data>
   <data name="MacroStabilityInwardsCalculationExporter_ValidateData_Multiple_aquifer_layers_not_supported_no_aquifer_layer_exported" xml:space="preserve">
-    <value>De schematisatie van de berekening bevat meerdere aquifer lagen. D-GEO Suite Stability ondersteunt slechts 1 aquifer laag. Er worden daarom geen aquifer lagen geëxporteerd.</value>
+    <value>De schematisatie van de berekening bevat meerdere aquifer lagen. De volgorde van de aquifer lagen kan niet bepaald worden tijdens exporteren. Er worden daarom geen lagen als aquifer geëxporteerd.</value>
   </data>
   <data name="MacroStabilityInwardsCalculationGroupExporter_Export_Calculation_0_has_no_output_and_is_skipped" xml:space="preserve">
     <value>Berekening '{0}' heeft geen uitvoer. Deze berekening wordt overgeslagen.</value>

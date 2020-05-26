@@ -288,7 +288,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
                     void Call() => exportResult = exporter.Export();
 
                     // Assert
-                    const string expectedMessage = "De schematisatie van de berekening bevat meerdere aquifer lagen. D-GEO Suite Stability ondersteunt slechts 1 aquifer laag. Er worden daarom geen aquifer lagen geëxporteerd.";
+                    const string expectedMessage = "De schematisatie van de berekening bevat meerdere aquifer lagen. De volgorde van de aquifer lagen kan niet bepaald worden tijdens exporteren. Er worden daarom geen lagen als aquifer geëxporteerd.";
                     TestHelper.AssertLogMessageWithLevelIsGenerated(Call, new Tuple<string, LogLevelConstant>(expectedMessage, LogLevelConstant.Warn));
                     Assert.IsTrue(exportResult);
                 }
