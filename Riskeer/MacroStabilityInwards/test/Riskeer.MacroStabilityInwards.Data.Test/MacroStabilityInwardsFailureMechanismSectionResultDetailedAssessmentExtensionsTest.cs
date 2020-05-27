@@ -27,7 +27,6 @@ using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
-using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.MacroStabilityInwards.Data.TestUtil;
@@ -46,12 +45,11 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => MacroStabilityInwardsFailureMechanismSectionResultDetailedAssessmentExtensions.GetDetailedAssessmentProbability(
-                null, Enumerable.Empty<MacroStabilityInwardsCalculationScenario>(),
-                new MacroStabilityInwardsFailureMechanism(), assessmentSection);
+            void Call() => MacroStabilityInwardsFailureMechanismSectionResultDetailedAssessmentExtensions.GetDetailedAssessmentProbability(
+                null, Enumerable.Empty<MacroStabilityInwardsCalculationScenario>(), new MacroStabilityInwardsFailureMechanism(), assessmentSection);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("sectionResult", exception.ParamName);
             mocks.VerifyAll();
         }
@@ -68,10 +66,11 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
             var failureMechanismSectionResult = new MacroStabilityInwardsFailureMechanismSectionResult(section);
 
             // Call
-            TestDelegate call = () => failureMechanismSectionResult.GetDetailedAssessmentProbability(null, new MacroStabilityInwardsFailureMechanism(), assessmentSection);
+            void Call() => failureMechanismSectionResult.GetDetailedAssessmentProbability(null, new MacroStabilityInwardsFailureMechanism(),
+                                                                                          assessmentSection);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("calculations", exception.ParamName);
             mocks.VerifyAll();
         }
@@ -88,12 +87,11 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
             var failureMechanismSectionResult = new MacroStabilityInwardsFailureMechanismSectionResult(section);
 
             // Call
-            TestDelegate call = () => failureMechanismSectionResult.GetDetailedAssessmentProbability(Enumerable.Empty<MacroStabilityInwardsCalculationScenario>(),
-                                                                                                     null,
-                                                                                                     assessmentSection);
+            void Call() => failureMechanismSectionResult.GetDetailedAssessmentProbability(Enumerable.Empty<MacroStabilityInwardsCalculationScenario>(),
+                                                                                          null, assessmentSection);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
             mocks.VerifyAll();
         }
@@ -106,12 +104,11 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
             var failureMechanismSectionResult = new MacroStabilityInwardsFailureMechanismSectionResult(section);
 
             // Call
-            TestDelegate call = () => failureMechanismSectionResult.GetDetailedAssessmentProbability(Enumerable.Empty<MacroStabilityInwardsCalculationScenario>(),
-                                                                                                     new MacroStabilityInwardsFailureMechanism(),
-                                                                                                     null);
+            void Call() => failureMechanismSectionResult.GetDetailedAssessmentProbability(Enumerable.Empty<MacroStabilityInwardsCalculationScenario>(),
+                                                                                          new MacroStabilityInwardsFailureMechanism(), null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
@@ -313,10 +310,10 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
         public void GetTotalContribution_SectionResultNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => ((MacroStabilityInwardsFailureMechanismSectionResult) null).GetTotalContribution(Enumerable.Empty<MacroStabilityInwardsCalculationScenario>());
+            void Call() => ((MacroStabilityInwardsFailureMechanismSectionResult) null).GetTotalContribution(Enumerable.Empty<MacroStabilityInwardsCalculationScenario>());
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("sectionResult", exception.ParamName);
         }
 
@@ -328,10 +325,10 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
             var sectionResult = new MacroStabilityInwardsFailureMechanismSectionResult(section);
 
             // Call
-            TestDelegate call = () => sectionResult.GetTotalContribution(null);
+            void Call() => sectionResult.GetTotalContribution(null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("calculationScenarios", exception.ParamName);
         }
 
@@ -365,135 +362,13 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
         }
 
         [Test]
-        public void GetCalculationScenarioStatus_SectionResultNull_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate call = () => ((MacroStabilityInwardsFailureMechanismSectionResult) null).GetCalculationScenarioStatus(Enumerable.Empty<MacroStabilityInwardsCalculationScenario>());
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("sectionResult", exception.ParamName);
-        }
-
-        [Test]
-        public void GetCalculationScenarioStatus_CalculationScenariosNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new MacroStabilityInwardsFailureMechanismSectionResult(section);
-
-            // Call
-            TestDelegate call = () => sectionResult.GetCalculationScenarioStatus(null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("calculationScenarios", exception.ParamName);
-        }
-
-        [Test]
-        public void GetCalculationScenarioStatus_ScenarioNotCalculated_ReturnsStatusNotCalculated()
-        {
-            // Setup
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var failureMechanismSectionResult = new MacroStabilityInwardsFailureMechanismSectionResult(section);
-
-            MacroStabilityInwardsCalculationScenario macroStabilityInwardsCalculationScenario = MacroStabilityInwardsCalculationScenarioTestFactory.CreateNotCalculatedMacroStabilityInwardsCalculationScenario(section);
-
-            // Call
-            CalculationScenarioStatus status = failureMechanismSectionResult.GetCalculationScenarioStatus(new[]
-            {
-                macroStabilityInwardsCalculationScenario
-            });
-
-            // Assert
-            Assert.AreEqual(CalculationScenarioStatus.NotCalculated, status);
-        }
-
-        [Test]
-        public void GetCalculationScenarioStatus_ScenarioNaNOutput_ReturnsStatusDone()
-        {
-            // Setup
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var failureMechanismSectionResult = new MacroStabilityInwardsFailureMechanismSectionResult(section);
-
-            MacroStabilityInwardsCalculationScenario macroStabilityInwardsCalculationScenario = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithNaNOutput(section);
-
-            // Call
-            CalculationScenarioStatus status = failureMechanismSectionResult.GetCalculationScenarioStatus(new[]
-            {
-                macroStabilityInwardsCalculationScenario
-            });
-
-            // Assert
-            Assert.AreEqual(CalculationScenarioStatus.Done, status);
-        }
-
-        [Test]
-        public void GetCalculationScenarioStatus_ScenariosWithNotCalculatedScenario_ReturnsStatusNotCalculated()
-        {
-            // Setup
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var failureMechanismSectionResult = new MacroStabilityInwardsFailureMechanismSectionResult(section);
-
-            MacroStabilityInwardsCalculationScenario macroStabilityInwardsCalculationScenario = MacroStabilityInwardsCalculationScenarioTestFactory.CreateNotCalculatedMacroStabilityInwardsCalculationScenario(section);
-            MacroStabilityInwardsCalculationScenario macroStabilityInwardsCalculationScenario2 = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithNaNOutput(section);
-
-            MacroStabilityInwardsCalculationScenario[] calculationScenarios =
-            {
-                macroStabilityInwardsCalculationScenario,
-                macroStabilityInwardsCalculationScenario2
-            };
-
-            // Call
-            CalculationScenarioStatus status = failureMechanismSectionResult.GetCalculationScenarioStatus(calculationScenarios);
-
-            // Assert
-            Assert.AreEqual(CalculationScenarioStatus.NotCalculated, status);
-        }
-
-        [Test]
-        public void GetCalculationScenarioStatus_ScenarioCalculated_ReturnsStatusDone()
-        {
-            // Setup
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var failureMechanismSectionResult = new MacroStabilityInwardsFailureMechanismSectionResult(section);
-
-            MacroStabilityInwardsCalculationScenario macroStabilityInwardsCalculationScenario = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenario(0.1, section);
-            macroStabilityInwardsCalculationScenario.Contribution = (RoundedDouble) 1.0;
-
-            // Call
-            CalculationScenarioStatus status = failureMechanismSectionResult.GetCalculationScenarioStatus(new[]
-            {
-                macroStabilityInwardsCalculationScenario
-            });
-
-            // Assert
-            Assert.AreEqual(CalculationScenarioStatus.Done, status);
-        }
-
-        [Test]
-        public void GetCalculationScenarioStatus_NoScenarios_ReturnsStatusDone()
-        {
-            // Setup
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var failureMechanismSectionResult = new MacroStabilityInwardsFailureMechanismSectionResult(section);
-
-            // Call
-            CalculationScenarioStatus status = failureMechanismSectionResult.GetCalculationScenarioStatus(Enumerable.Empty<MacroStabilityInwardsCalculationScenario>());
-
-            // Assert
-            Assert.AreEqual(CalculationScenarioStatus.Done, status);
-        }
-
-        [Test]
         public void GetCalculationScenarios_SectionResultNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => ((MacroStabilityInwardsFailureMechanismSectionResult) null).GetCalculationScenarios(
-                Enumerable.Empty<MacroStabilityInwardsCalculationScenario>());
+            void Call() => ((MacroStabilityInwardsFailureMechanismSectionResult) null).GetCalculationScenarios(Enumerable.Empty<MacroStabilityInwardsCalculationScenario>());
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("sectionResult", exception.ParamName);
         }
 
@@ -505,10 +380,10 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
             var sectionResult = new MacroStabilityInwardsFailureMechanismSectionResult(section);
 
             // Call
-            TestDelegate call = () => sectionResult.GetCalculationScenarios(null);
+            void Call() => sectionResult.GetCalculationScenarios(null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("calculationScenarios", exception.ParamName);
         }
 
