@@ -99,7 +99,7 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Configurations
 
         protected override ICalculation ParseReadCalculation(GrassCoverErosionInwardsCalculationConfiguration readCalculation)
         {
-            var calculation = new GrassCoverErosionInwardsCalculation
+            var calculation = new GrassCoverErosionInwardsCalculationScenario
             {
                 Name = readCalculation.Name
             };
@@ -123,9 +123,7 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Configurations
 
         private bool TrySetHydraulicBoundaryLocation(string locationName, GrassCoverErosionInwardsCalculation calculation)
         {
-            HydraulicBoundaryLocation location;
-
-            if (TryReadHydraulicBoundaryLocation(locationName, calculation.Name, availableHydraulicBoundaryLocations, out location))
+            if (TryReadHydraulicBoundaryLocation(locationName, calculation.Name, availableHydraulicBoundaryLocations, out HydraulicBoundaryLocation location))
             {
                 calculation.InputParameters.HydraulicBoundaryLocation = location;
                 return true;
