@@ -1055,6 +1055,44 @@ namespace Riskeer.Piping.Forms.Test.Views
         }
 
         [Test]
+        public void DetailedAssessmentProbability_CalculationContributionNotHundredPercent_ReturnNaN()
+        {
+            // Setup
+            var failureMechanism = new PipingFailureMechanism();
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
+
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var sectionResult = new PipingFailureMechanismSectionResult(section){};
+
+            PipingCalculationScenario scenario = PipingCalculationScenarioTestFactory.CreateNotCalculatedPipingCalculationScenario(section);
+            scenario.Output = PipingOutputTestFactory.Create();
+            scenario.Contribution = (RoundedDouble) 0.3;
+            
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var resultRow = new PipingFailureMechanismSectionResultRow(
+                    sectionResult,
+                    new[]
+                    {
+                        scenario
+                    },
+                    failureMechanism,
+                    assessmentSection,
+                    ConstructionProperties);
+
+                // Call
+                double detailedAssessmentProbability = resultRow.DetailedAssessmentProbability;
+
+                // Assert
+                Assert.IsNaN(detailedAssessmentProbability);
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
         public void DetailedAssessmentProbability_CalculationSuccessful_ReturnDetailedAssessmentProbability()
         {
             // Setup

@@ -1057,6 +1057,45 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
         }
 
         [Test]
+        public void DetailedAssessmentProbability_CalculationScenarioNotHundredPercent_ReturnNaN()
+        {
+            // Setup
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
+
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var sectionResult = new MacroStabilityInwardsFailureMechanismSectionResult(section);
+
+            MacroStabilityInwardsCalculationScenario scenario =
+                MacroStabilityInwardsCalculationScenarioTestFactory.CreateNotCalculatedMacroStabilityInwardsCalculationScenario(section);
+            scenario.Output = MacroStabilityInwardsOutputTestFactory.CreateRandomOutput();
+            scenario.Contribution = (RoundedDouble) 0.3;
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var resultRow = new MacroStabilityInwardsFailureMechanismSectionResultRow(
+                    sectionResult,
+                    new[]
+                    {
+                        scenario
+                    },
+                    failureMechanism,
+                    assessmentSection,
+                    ConstructionProperties);
+
+                // Call
+                double detailedAssessmentProbability = resultRow.DetailedAssessmentProbability;
+
+                // Assert
+                Assert.IsNaN(detailedAssessmentProbability);
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
         public void DetailedAssessmentProbability_CalculationSuccessful_ReturnDetailedAssessmentProbability()
         {
             // Setup
