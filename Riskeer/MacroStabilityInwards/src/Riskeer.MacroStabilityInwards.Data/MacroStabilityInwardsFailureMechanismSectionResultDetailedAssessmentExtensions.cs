@@ -21,7 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
@@ -73,13 +72,8 @@ namespace Riskeer.MacroStabilityInwards.Data
 
             MacroStabilityInwardsCalculationScenario[] relevantScenarios = sectionResult.GetCalculationScenarios(calculations).ToArray();
             bool relevantScenarioAvailable = relevantScenarios.Length != 0;
-
-            if (relevantScenarioAvailable && Math.Abs(sectionResult.GetTotalContribution(relevantScenarios) - 1.0) > 1e-6)
-            {
-                return double.NaN;
-            }
-
-            if (!relevantScenarioAvailable || sectionResult.GetCalculationScenarioStatus(relevantScenarios) != CalculationScenarioStatus.Done)
+            
+            if (!relevantScenarioAvailable || !relevantScenarios.All(s => s.HasOutput) || Math.Abs(sectionResult.GetTotalContribution(relevantScenarios) - 1.0) > 1e-6)
             {
                 return double.NaN;
             }
@@ -147,71 +141,6 @@ namespace Riskeer.MacroStabilityInwards.Data
 
             return calculationScenarios
                 .Where(pc => pc.IsRelevant && pc.IsSurfaceLineIntersectionWithReferenceLineInSection(lineSegments));
-        }
-
-        /// <summary>
-        /// Gets the status of the section result depending on the relevant calculation scenarios.
-        /// </summary>
-        /// <param name="sectionResult">The section result to get the calculation status for.</param>
-        /// <param name="calculationScenarios">The calculation scenarios to get the calculation status for.</param>
-        /// <returns>The calculation scenario status for the section result.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        /// <exception cref="InvalidEnumArgumentException">Thrown when any of the relevant calculations 
-        /// in <paramref name="sectionResult"/> has an invalid <see cref="CalculationScenarioStatus"/>.</exception>
-        /// <exception cref="NotSupportedException">Thrown when any of the relevant scenarios has an unsupported
-        /// value of <see cref="CalculationScenarioStatus"/>.</exception>
-        public static CalculationScenarioStatus GetCalculationScenarioStatus(
-            this MacroStabilityInwardsFailureMechanismSectionResult sectionResult,
-            IEnumerable<MacroStabilityInwardsCalculationScenario> calculationScenarios)
-        {
-            if (sectionResult == null)
-            {
-                throw new ArgumentNullException(nameof(sectionResult));
-            }
-
-            if (calculationScenarios == null)
-            {
-                throw new ArgumentNullException(nameof(calculationScenarios));
-            }
-
-            var failed = false;
-            var notCalculated = false;
-            foreach (MacroStabilityInwardsCalculationScenario calculationScenario in sectionResult.GetCalculationScenarios(calculationScenarios).Where(cs => cs.IsRelevant))
-            {
-                CalculationScenarioStatus calculationScenarioStatus = calculationScenario.Status;
-                if (!Enum.IsDefined(typeof(CalculationScenarioStatus), calculationScenarioStatus))
-                {
-                    throw new InvalidEnumArgumentException(nameof(sectionResult),
-                                                           (int) calculationScenarioStatus,
-                                                           typeof(CalculationScenarioStatus));
-                }
-
-                switch (calculationScenario.Status)
-                {
-                    case CalculationScenarioStatus.Failed:
-                        failed = true;
-                        break;
-                    case CalculationScenarioStatus.NotCalculated:
-                        notCalculated = true;
-                        break;
-                    case CalculationScenarioStatus.Done:
-                        continue;
-                    default:
-                        throw new NotSupportedException();
-                }
-            }
-
-            if (failed)
-            {
-                return CalculationScenarioStatus.Failed;
-            }
-
-            if (notCalculated)
-            {
-                return CalculationScenarioStatus.NotCalculated;
-            }
-
-            return CalculationScenarioStatus.Done;
         }
     }
 }

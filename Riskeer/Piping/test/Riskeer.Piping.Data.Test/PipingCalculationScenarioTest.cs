@@ -49,7 +49,6 @@ namespace Riskeer.Piping.Data.Test
             Assert.IsTrue(scenario.IsRelevant);
             Assert.AreEqual(4, scenario.Contribution.NumberOfDecimalPlaces);
             Assert.AreEqual(1.0, scenario.Contribution, scenario.Contribution.GetAccuracy());
-            Assert.AreEqual(CalculationScenarioStatus.NotCalculated, scenario.Status);
         }
 
         [Test]
@@ -82,35 +81,6 @@ namespace Riskeer.Piping.Data.Test
             // Assert
             Assert.AreEqual(4, scenario.Contribution.NumberOfDecimalPlaces);
             Assert.AreEqual(contribution, scenario.Contribution, scenario.Contribution.GetAccuracy());
-        }
-
-        [Test]
-        public void CalculationScenarioStatus_OutputNull_ReturnsStatusNotCalculated()
-        {
-            // Setup
-            var scenario = new PipingCalculationScenario(new GeneralPipingInput());
-
-            // Call
-            CalculationScenarioStatus status = scenario.Status;
-
-            // Assert
-            Assert.AreEqual(CalculationScenarioStatus.NotCalculated, status);
-        }
-
-        [Test]
-        public void CalculationScenarioStatus_PipingOutputSet_ReturnsStatusDone()
-        {
-            // Setup
-            var scenario = new PipingCalculationScenario(new GeneralPipingInput())
-            {
-                Output = PipingOutputTestFactory.Create()
-            };
-
-            // Call
-            CalculationScenarioStatus status = scenario.Status;
-
-            // Assert
-            Assert.AreEqual(CalculationScenarioStatus.Done, status);
         }
 
         [Test]

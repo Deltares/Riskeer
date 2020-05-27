@@ -43,6 +43,7 @@ namespace Riskeer.Common.Forms.Helpers
         /// <param name="detailedAssessmentProbability">The value representing the probability of the detailed assessment.</param>
         /// <param name="normativeCalculation">The <see cref="ICalculation"/> set for the 
         /// section result. May be <c>null</c> if the section result does not have a calculation set.</param>
+        /// <returns>The error message when an error is present; <see cref="string.Empty"/> otherwise.</returns>
         public static string GetDetailedAssessmentError(double detailedAssessmentProbability,
                                                         ICalculation normativeCalculation)
         {
@@ -51,14 +52,12 @@ namespace Riskeer.Common.Forms.Helpers
                 return Resources.FailureMechanismResultView_DataGridViewCellFormatting_Calculation_not_set;
             }
 
-            CalculationScenarioStatus calculationScenarioStatus = GetCalculationStatus(normativeCalculation,
-                                                                                       detailedAssessmentProbability);
-            if (calculationScenarioStatus == CalculationScenarioStatus.NotCalculated)
+            if (!normativeCalculation.HasOutput)
             {
                 return Resources.FailureMechanismResultView_DataGridViewCellFormatting_Calculation_not_calculated;
             }
 
-            if (calculationScenarioStatus == CalculationScenarioStatus.Failed)
+            if (double.IsNaN(detailedAssessmentProbability))
             {
                 return Resources.FailureMechanismResultView_DataGridViewCellFormatting_Calculation_must_have_valid_output;
             }
@@ -208,22 +207,6 @@ namespace Riskeer.Common.Forms.Helpers
 
             columnStateDefinition.ReadOnly = true;
             columnStateDefinition.Style = CellStyle.Disabled;
-        }
-
-        private static CalculationScenarioStatus GetCalculationStatus(ICalculation calculation,
-                                                                      double detailedAssessmentProbability)
-        {
-            if (!calculation.HasOutput)
-            {
-                return CalculationScenarioStatus.NotCalculated;
-            }
-
-            if (double.IsNaN(detailedAssessmentProbability))
-            {
-                return CalculationScenarioStatus.Failed;
-            }
-
-            return CalculationScenarioStatus.Done;
         }
     }
 }

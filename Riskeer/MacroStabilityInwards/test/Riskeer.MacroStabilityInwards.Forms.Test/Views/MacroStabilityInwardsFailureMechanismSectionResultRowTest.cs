@@ -34,7 +34,6 @@ using Riskeer.AssemblyTool.KernelWrapper.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
 using Riskeer.Common.Data.AssessmentSection;
-using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.Helpers;
@@ -51,26 +50,21 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
     [TestFixture]
     public class MacroStabilityInwardsFailureMechanismSectionResultRowTest
     {
-        private static MacroStabilityInwardsFailureMechanismSectionResultRow.ConstructionProperties ConstructionProperties
-        {
-            get
+        private static MacroStabilityInwardsFailureMechanismSectionResultRow.ConstructionProperties ConstructionProperties =>
+            new MacroStabilityInwardsFailureMechanismSectionResultRow.ConstructionProperties
             {
-                return new MacroStabilityInwardsFailureMechanismSectionResultRow.ConstructionProperties
-                {
-                    SimpleAssessmentResultIndex = 1,
-                    DetailedAssessmentResultIndex = 2,
-                    DetailedAssessmentProbabilityIndex = 3,
-                    TailorMadeAssessmentResultIndex = 4,
-                    TailorMadeAssessmentProbabilityIndex = 5,
-                    SimpleAssemblyCategoryGroupIndex = 6,
-                    DetailedAssemblyCategoryGroupIndex = 7,
-                    TailorMadeAssemblyCategoryGroupIndex = 8,
-                    CombinedAssemblyCategoryGroupIndex = 9,
-                    CombinedAssemblyProbabilityIndex = 10,
-                    ManualAssemblyProbabilityIndex = 11
-                };
-            }
-        }
+                SimpleAssessmentResultIndex = 1,
+                DetailedAssessmentResultIndex = 2,
+                DetailedAssessmentProbabilityIndex = 3,
+                TailorMadeAssessmentResultIndex = 4,
+                TailorMadeAssessmentProbabilityIndex = 5,
+                SimpleAssemblyCategoryGroupIndex = 6,
+                DetailedAssemblyCategoryGroupIndex = 7,
+                TailorMadeAssemblyCategoryGroupIndex = 8,
+                CombinedAssemblyCategoryGroupIndex = 9,
+                CombinedAssemblyProbabilityIndex = 10,
+                ManualAssemblyProbabilityIndex = 11
+            };
 
         [Test]
         public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
@@ -84,14 +78,11 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             var result = new MacroStabilityInwardsFailureMechanismSectionResult(section);
 
             // Call
-            TestDelegate call = () => new MacroStabilityInwardsFailureMechanismSectionResultRow(result,
-                                                                                                Enumerable.Empty<MacroStabilityInwardsCalculationScenario>(),
-                                                                                                null,
-                                                                                                assessmentSection,
-                                                                                                ConstructionProperties);
+            void Call() => new MacroStabilityInwardsFailureMechanismSectionResultRow(result, Enumerable.Empty<MacroStabilityInwardsCalculationScenario>(),
+                                                                                     null, assessmentSection, ConstructionProperties);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
             mocks.VerifyAll();
         }
@@ -104,14 +95,11 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             var result = new MacroStabilityInwardsFailureMechanismSectionResult(section);
 
             // Call
-            TestDelegate call = () => new MacroStabilityInwardsFailureMechanismSectionResultRow(result,
-                                                                                                Enumerable.Empty<MacroStabilityInwardsCalculationScenario>(),
-                                                                                                new MacroStabilityInwardsFailureMechanism(),
-                                                                                                null,
-                                                                                                ConstructionProperties);
+            void Call() => new MacroStabilityInwardsFailureMechanismSectionResultRow(result, Enumerable.Empty<MacroStabilityInwardsCalculationScenario>(),
+                                                                                     new MacroStabilityInwardsFailureMechanism(), null, ConstructionProperties);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
@@ -127,14 +115,11 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             var result = new MacroStabilityInwardsFailureMechanismSectionResult(section);
 
             // Call
-            TestDelegate call = () => new MacroStabilityInwardsFailureMechanismSectionResultRow(result,
-                                                                                                Enumerable.Empty<MacroStabilityInwardsCalculationScenario>(),
-                                                                                                new MacroStabilityInwardsFailureMechanism(),
-                                                                                                assessmentSection,
-                                                                                                null);
+            void Call() => new MacroStabilityInwardsFailureMechanismSectionResultRow(result, Enumerable.Empty<MacroStabilityInwardsCalculationScenario>(),
+                                                                                     new MacroStabilityInwardsFailureMechanism(), assessmentSection, null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("constructionProperties", exception.ParamName);
             mocks.VerifyAll();
         }
@@ -151,14 +136,11 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             var result = new MacroStabilityInwardsFailureMechanismSectionResult(section);
 
             // Call
-            TestDelegate call = () => new MacroStabilityInwardsFailureMechanismSectionResultRow(result,
-                                                                                                null,
-                                                                                                new MacroStabilityInwardsFailureMechanism(),
-                                                                                                assessmentSection,
-                                                                                                ConstructionProperties);
+            void Call() => new MacroStabilityInwardsFailureMechanismSectionResultRow(result, null, new MacroStabilityInwardsFailureMechanism(),
+                                                                                     assessmentSection, ConstructionProperties);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("calculations", exception.ParamName);
             mocks.VerifyAll();
         }
@@ -370,11 +352,11 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                     result, Enumerable.Empty<MacroStabilityInwardsCalculationScenario>(), failureMechanism, assessmentSection, ConstructionProperties);
 
                 // Call
-                TestDelegate test = () => row.ManualAssemblyProbability = value;
+                void Call() => row.ManualAssemblyProbability = value;
 
                 // Assert
                 const string expectedMessage = "De waarde voor de faalkans moet in het bereik [0,0, 1,0] liggen.";
-                TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, expectedMessage);
+                TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, expectedMessage);
                 mocks.VerifyAll();
             }
         }
@@ -1038,9 +1020,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
         }
 
         [Test]
-        [TestCase(CalculationScenarioStatus.Failed)]
-        [TestCase(CalculationScenarioStatus.NotCalculated)]
-        public void DetailedAssessmentProbability_CalculationNotDone_ReturnNaN(CalculationScenarioStatus status)
+        public void DetailedAssessmentProbability_CalculationWithoutOutput_ReturnNaN()
         {
             // Setup
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
@@ -1054,10 +1034,45 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
 
             MacroStabilityInwardsCalculationScenario scenario =
                 MacroStabilityInwardsCalculationScenarioTestFactory.CreateNotCalculatedMacroStabilityInwardsCalculationScenario(section);
-            if (status == CalculationScenarioStatus.Failed)
+
+            using (new AssemblyToolCalculatorFactoryConfig())
             {
-                scenario.Output = MacroStabilityInwardsOutputTestFactory.CreateOutput();
+                var resultRow = new MacroStabilityInwardsFailureMechanismSectionResultRow(
+                    sectionResult,
+                    new[]
+                    {
+                        scenario
+                    },
+                    failureMechanism,
+                    assessmentSection,
+                    ConstructionProperties);
+
+                // Call
+                double detailedAssessmentProbability = resultRow.DetailedAssessmentProbability;
+
+                // Assert
+                Assert.IsNaN(detailedAssessmentProbability);
+                mocks.VerifyAll();
             }
+        }
+
+        [Test]
+        public void DetailedAssessmentProbability_CalculationScenarioNotHundredPercent_ReturnNaN()
+        {
+            // Setup
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
+
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var sectionResult = new MacroStabilityInwardsFailureMechanismSectionResult(section);
+
+            MacroStabilityInwardsCalculationScenario scenario =
+                MacroStabilityInwardsCalculationScenarioTestFactory.CreateNotCalculatedMacroStabilityInwardsCalculationScenario(section);
+            scenario.Output = MacroStabilityInwardsOutputTestFactory.CreateRandomOutput();
+            scenario.Contribution = (RoundedDouble) 0.3;
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -1210,11 +1225,11 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                     result, Enumerable.Empty<MacroStabilityInwardsCalculationScenario>(), failureMechanism, assessmentSection, ConstructionProperties);
 
                 // Call
-                TestDelegate test = () => row.TailorMadeAssessmentProbability = value;
+                void Call() => row.TailorMadeAssessmentProbability = value;
 
                 // Assert
                 const string expectedMessage = "De waarde voor de faalkans moet in het bereik [0,0, 1,0] liggen.";
-                TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, expectedMessage);
+                TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, expectedMessage);
                 mocks.VerifyAll();
             }
         }

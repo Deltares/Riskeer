@@ -27,7 +27,6 @@ using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
-using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Piping.Data.TestUtil;
@@ -46,12 +45,11 @@ namespace Riskeer.Piping.Data.Test
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => PipingFailureMechanismSectionResultDetailedAssessmentExtensions.GetDetailedAssessmentProbability(
-                null, Enumerable.Empty<PipingCalculationScenario>(),
-                new PipingFailureMechanism(), assessmentSection);
+            void Call() => PipingFailureMechanismSectionResultDetailedAssessmentExtensions.GetDetailedAssessmentProbability(
+                null, Enumerable.Empty<PipingCalculationScenario>(), new PipingFailureMechanism(), assessmentSection);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("sectionResult", exception.ParamName);
             mocks.VerifyAll();
         }
@@ -68,10 +66,11 @@ namespace Riskeer.Piping.Data.Test
             var failureMechanismSectionResult = new PipingFailureMechanismSectionResult(section);
 
             // Call
-            TestDelegate call = () => failureMechanismSectionResult.GetDetailedAssessmentProbability(null, new PipingFailureMechanism(), assessmentSection);
+            void Call() => failureMechanismSectionResult.GetDetailedAssessmentProbability(null, new PipingFailureMechanism(),
+                                                                                          assessmentSection);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("calculations", exception.ParamName);
             mocks.VerifyAll();
         }
@@ -88,12 +87,11 @@ namespace Riskeer.Piping.Data.Test
             var failureMechanismSectionResult = new PipingFailureMechanismSectionResult(section);
 
             // Call
-            TestDelegate call = () => failureMechanismSectionResult.GetDetailedAssessmentProbability(Enumerable.Empty<PipingCalculationScenario>(),
-                                                                                                     null,
-                                                                                                     assessmentSection);
+            void Call() => failureMechanismSectionResult.GetDetailedAssessmentProbability(Enumerable.Empty<PipingCalculationScenario>(),
+                                                                                          null, assessmentSection);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
             mocks.VerifyAll();
         }
@@ -106,12 +104,11 @@ namespace Riskeer.Piping.Data.Test
             var failureMechanismSectionResult = new PipingFailureMechanismSectionResult(section);
 
             // Call
-            TestDelegate call = () => failureMechanismSectionResult.GetDetailedAssessmentProbability(Enumerable.Empty<PipingCalculationScenario>(),
-                                                                                                     new PipingFailureMechanism(),
-                                                                                                     null);
+            void Call() => failureMechanismSectionResult.GetDetailedAssessmentProbability(Enumerable.Empty<PipingCalculationScenario>(),
+                                                                                          new PipingFailureMechanism(), null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
@@ -312,10 +309,10 @@ namespace Riskeer.Piping.Data.Test
         public void GetTotalContribution_SectionResultNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => ((PipingFailureMechanismSectionResult) null).GetTotalContribution(Enumerable.Empty<PipingCalculationScenario>());
+            void Call() => ((PipingFailureMechanismSectionResult) null).GetTotalContribution(Enumerable.Empty<PipingCalculationScenario>());
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("sectionResult", exception.ParamName);
         }
 
@@ -327,10 +324,10 @@ namespace Riskeer.Piping.Data.Test
             var sectionResult = new PipingFailureMechanismSectionResult(section);
 
             // Call
-            TestDelegate call = () => sectionResult.GetTotalContribution(null);
+            void Call() => sectionResult.GetTotalContribution(null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("calculationScenarios", exception.ParamName);
         }
 
@@ -364,112 +361,13 @@ namespace Riskeer.Piping.Data.Test
         }
 
         [Test]
-        public void GetCalculationScenarioStatus_SectionResultNull_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate call = () => ((PipingFailureMechanismSectionResult) null).GetCalculationScenarioStatus(Enumerable.Empty<PipingCalculationScenario>());
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("sectionResult", exception.ParamName);
-        }
-
-        [Test]
-        public void GetCalculationScenarioStatus_CalculationScenariosNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new PipingFailureMechanismSectionResult(section);
-
-            // Call
-            TestDelegate call = () => sectionResult.GetCalculationScenarioStatus(null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("calculationScenarios", exception.ParamName);
-        }
-
-        [Test]
-        public void GetCalculationScenarioStatus_ScenarioNotCalculated_ReturnsStatusNotCalculated()
-        {
-            // Setup
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var failureMechanismSectionResult = new PipingFailureMechanismSectionResult(section);
-
-            PipingCalculationScenario pipingCalculationScenario = PipingCalculationScenarioTestFactory.CreateNotCalculatedPipingCalculationScenario(section);
-
-            // Call
-            CalculationScenarioStatus status = failureMechanismSectionResult.GetCalculationScenarioStatus(new[]
-            {
-                pipingCalculationScenario
-            });
-
-            // Assert
-            Assert.AreEqual(CalculationScenarioStatus.NotCalculated, status);
-        }
-
-        [Test]
-        public void GetCalculationScenarioStatus_ScenarioCalculated_ReturnsStatusDone()
-        {
-            // Setup
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var failureMechanismSectionResult = new PipingFailureMechanismSectionResult(section);
-
-            PipingCalculationScenario pipingCalculationScenario = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenario(section);
-
-            // Call
-            CalculationScenarioStatus status = failureMechanismSectionResult.GetCalculationScenarioStatus(new[]
-            {
-                pipingCalculationScenario
-            });
-
-            // Assert
-            Assert.AreEqual(CalculationScenarioStatus.Done, status);
-        }
-
-        [Test]
-        public void GetCalculationScenarioStatus_NoScenarios_ReturnsStatusDone()
-        {
-            // Setup
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var failureMechanismSectionResult = new PipingFailureMechanismSectionResult(section);
-
-            // Call
-            CalculationScenarioStatus status = failureMechanismSectionResult.GetCalculationScenarioStatus(Enumerable.Empty<PipingCalculationScenario>());
-
-            // Assert
-            Assert.AreEqual(CalculationScenarioStatus.Done, status);
-        }
-
-        [Test]
-        public void GetCalculationScenarioStatus_DifferentScenarios_ReturnsStatusNotCalculated()
-        {
-            // Setup
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var failureMechanismSectionResult = new PipingFailureMechanismSectionResult(section);
-
-            PipingCalculationScenario pipingCalculationScenario1 = PipingCalculationScenarioTestFactory.CreateNotCalculatedPipingCalculationScenario(section);
-            PipingCalculationScenario pipingCalculationScenario2 = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenario(section);
-
-            // Call
-            CalculationScenarioStatus status = failureMechanismSectionResult.GetCalculationScenarioStatus(new[]
-            {
-                pipingCalculationScenario1,
-                pipingCalculationScenario2
-            });
-
-            // Assert
-            Assert.AreEqual(CalculationScenarioStatus.NotCalculated, status);
-        }
-
-        [Test]
         public void GetCalculationScenarios_SectionResultNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => ((PipingFailureMechanismSectionResult) null).GetCalculationScenarios(Enumerable.Empty<PipingCalculationScenario>());
+            void Call() => ((PipingFailureMechanismSectionResult) null).GetCalculationScenarios(Enumerable.Empty<PipingCalculationScenario>());
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("sectionResult", exception.ParamName);
         }
 
@@ -481,10 +379,10 @@ namespace Riskeer.Piping.Data.Test
             var sectionResult = new PipingFailureMechanismSectionResult(section);
 
             // Call
-            TestDelegate call = () => sectionResult.GetCalculationScenarios(null);
+            void Call() => sectionResult.GetCalculationScenarios(null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("calculationScenarios", exception.ParamName);
         }
 
