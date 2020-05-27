@@ -26,7 +26,8 @@ using Core.Common.TestUtil;
 using Core.Components.DotSpatial.Projections;
 using DotSpatial.Data;
 using DotSpatial.Projections;
-using DotSpatial.Topology;
+using GeoAPI.Geometries;
+using NetTopologySuite.Geometries;
 using NUnit.Framework;
 
 namespace Core.Components.DotSpatial.Test.Projections
@@ -106,11 +107,10 @@ namespace Core.Components.DotSpatial.Test.Projections
             // Setup
             IEnumerable<Coordinate> coordinates = Enumerable.Range(0, numberOfPoints)
                                                             .Select(i => new Coordinate(i, i));
-            var linearRing = new LinearRing(Enumerable.Empty<Coordinate>());
-            foreach (Coordinate coordinate in coordinates)
-            {
-                linearRing.Coordinates.Add(coordinate);
-            }
+            var linearRing = new LinearRing(new Coordinate[1]);
+
+
+            linearRing.Coordinates.Concat(coordinates.ToArray());
 
             ProjectionInfo projection = KnownCoordinateSystems.Projected.NationalGrids.Rijksdriehoekstelsel;
 
@@ -147,7 +147,7 @@ namespace Core.Components.DotSpatial.Test.Projections
             // Assert
             const int numberOfEdges = 3;
             const int expectedNumberOfExtraPoints = 35;
-            Assert.AreEqual(numberOfEdges * expectedNumberOfExtraPoints + numberOfEdges + 1, reprojectedRing.Coordinates.Count);
+            Assert.AreEqual(numberOfEdges * expectedNumberOfExtraPoints + numberOfEdges + 1, reprojectedRing.Coordinates.Length);
 
             const double allowedError = 1e-6; // Allow small drift in reprojecting to same coordinate system.
 
@@ -196,7 +196,7 @@ namespace Core.Components.DotSpatial.Test.Projections
             // Assert
             const int numberOfEdges = 3;
             const int expectedNumberOfExtraPoints = 35;
-            Assert.AreEqual(numberOfEdges * expectedNumberOfExtraPoints + numberOfEdges + 1, reprojectedRing.Coordinates.Count);
+            Assert.AreEqual(numberOfEdges * expectedNumberOfExtraPoints + numberOfEdges + 1, reprojectedRing.Coordinates.Length);
 
             const double allowedError = 1e-6;
 
@@ -240,7 +240,7 @@ namespace Core.Components.DotSpatial.Test.Projections
             // Assert
             const int numberOfEdges = 3;
             const int expectedNumberOfExtraPoints = 35;
-            Assert.AreEqual(numberOfEdges * expectedNumberOfExtraPoints + numberOfEdges + 1, reprojectedRing.Coordinates.Count);
+            Assert.AreEqual(numberOfEdges * expectedNumberOfExtraPoints + numberOfEdges + 1, reprojectedRing.Coordinates.Length);
 
             const double allowedError = 1e-6; // Allow small drift in reprojecting to same coordinate system.
 

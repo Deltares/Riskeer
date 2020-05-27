@@ -31,8 +31,10 @@ using Core.Components.Gis.Features;
 using Core.Components.Gis.Geometries;
 using DotSpatial.Data;
 using DotSpatial.Topology;
+using Coordinate = GeoAPI.Geometries.Coordinate;
 using CoreCommonUtilResources = Core.Common.Util.Properties.Resources;
 using GisIOResources = Core.Components.Gis.IO.Properties.Resources;
+using IGeometry = GeoAPI.Geometries.IGeometry;
 
 namespace Core.Components.Gis.IO.Readers
 {
@@ -175,9 +177,9 @@ namespace Core.Components.Gis.IO.Readers
         {
             var geometries = new List<MapGeometry>();
 
-            for (var i = 0; i < lineFeature.BasicGeometry.NumGeometries; i++)
+            for (var i = 0; i < lineFeature.Geometry.NumGeometries; i++)
             {
-                IBasicGeometry polylineGeometry = lineFeature.BasicGeometry.GetBasicGeometryN(i);
+                IGeometry polylineGeometry = lineFeature.Geometry.GetGeometryN(i);
 
                 var mapGeometry = new MapGeometry(GetMapGeometryPointCollections(polylineGeometry.Coordinates));
                 geometries.Add(mapGeometry);
