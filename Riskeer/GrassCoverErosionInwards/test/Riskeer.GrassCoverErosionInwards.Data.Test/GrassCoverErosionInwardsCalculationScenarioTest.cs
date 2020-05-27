@@ -21,10 +21,12 @@
 
 using System;
 using Core.Common.Base.Data;
+using Core.Common.Data.TestUtil;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.TestUtil;
+using Riskeer.GrassCoverErosionInwards.Data.TestUtil;
 
 namespace Riskeer.GrassCoverErosionInwards.Data.Test
 {
@@ -76,6 +78,53 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
             // Assert
             Assert.AreEqual(4, scenario.Contribution.NumberOfDecimalPlaces);
             Assert.AreEqual(contribution, scenario.Contribution, scenario.Contribution.GetAccuracy());
+        }
+
+        [Test]
+        public void Clone_NotAllPropertiesSet_ReturnsCopiedInstanceWithPropertiesSet()
+        {
+            // Setup
+            GrassCoverErosionInwardsCalculationScenario original = CreateRandomCalculationScenarioWithoutOutput();
+
+            // Call
+            object clone = original.Clone();
+
+            // Assert
+            CoreCloneAssert.AreObjectClones(original, clone, GrassCoverErosionInwardsCloneAssert.AreClones);
+        }
+
+        [Test]
+        public void Clone_AllPropertiesSet_ReturnsCopiedInstanceWithPropertiesSet()
+        {
+            // Setup
+            GrassCoverErosionInwardsCalculationScenario original = CreateRandomCalculationScenarioWithoutOutput();
+            original.Output = GrassCoverErosionInwardsTestDataGenerator.GetRandomGrassCoverErosionInwardsOutput();
+
+            // Call
+            object clone = original.Clone();
+
+            // Assert
+            CoreCloneAssert.AreObjectClones(original, clone, GrassCoverErosionInwardsCloneAssert.AreClones);
+        }
+
+        private static GrassCoverErosionInwardsCalculationScenario CreateRandomCalculationScenarioWithoutOutput()
+        {
+            var random = new Random(21);
+
+            var calculation = new GrassCoverErosionInwardsCalculationScenario
+            {
+                Name = "A Name",
+                Comments =
+                {
+                    Body = "A comment"
+                },
+                IsRelevant = random.NextBoolean(),
+                Contribution = random.NextRoundedDouble()
+            };
+
+            GrassCoverErosionInwardsTestDataGenerator.SetRandomDataToGrassCoverErosionInwardsInput(calculation.InputParameters);
+
+            return calculation;
         }
     }
 }
