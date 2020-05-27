@@ -32,7 +32,7 @@ namespace Riskeer.MacroStabilityInwards.Data
         private RoundedDouble contribution;
 
         /// <summary>
-        /// Creates a new instance of <see cref="MacroStabilityInwardsCalculationScenario"/> with default values set for some of the parameters.
+        /// Creates a new instance of <see cref="MacroStabilityInwardsCalculationScenario"/>.
         /// </summary>
         public MacroStabilityInwardsCalculationScenario()
         {
