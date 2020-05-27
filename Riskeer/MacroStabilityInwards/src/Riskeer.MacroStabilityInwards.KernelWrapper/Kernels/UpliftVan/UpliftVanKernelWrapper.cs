@@ -204,7 +204,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
         private void WriteXmlFile()
         {
             FullInputModelType fullInputModel = FillXmlInputFromDomain.CreateStabilityInput(kernelModel);
-            string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, $"XmlFile-{DateTime.Now.Ticks}.txt");
+            string filePath = Path.Combine(Path.GetTempPath(), $"XmlFile-{DateTime.Now.Ticks}.txt");
 
             MacroStabilityXmlSerialization.SaveInputAsXmlFile(filePath, fullInputModel);
             log.Info($"Het Xml bestand is geschreven naar: {filePath}");
