@@ -33,26 +33,26 @@ using Riskeer.GrassCoverErosionInwards.Forms.PresentationObjects;
 namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PresentationObjects
 {
     [TestFixture]
-    public class GrassCoverErosionInwardsCalculationContextTest
+    public class GrassCoverErosionInwardsCalculationScenarioContextTest
     {
         [Test]
-        public void ConstructorWithData_Always_ExpectedPropertiesSet()
+        public void Constructor_ExpectedValues()
         {
             // Setup
             var mocksRepository = new MockRepository();
             var assessmentSection = mocksRepository.Stub<IAssessmentSection>();
             mocksRepository.ReplayAll();
 
-            var calculation = new GrassCoverErosionInwardsCalculation();
+            var calculation = new GrassCoverErosionInwardsCalculationScenario();
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             var parent = new CalculationGroup();
 
             // Call
-            var context = new GrassCoverErosionInwardsCalculationContext(calculation, parent, failureMechanism, assessmentSection);
+            var context = new GrassCoverErosionInwardsCalculationScenarioContext(calculation, parent, failureMechanism, assessmentSection);
 
             // Assert
-            Assert.IsInstanceOf<GrassCoverErosionInwardsContext<GrassCoverErosionInwardsCalculation>>(context);
-            Assert.IsInstanceOf<ICalculationContext<GrassCoverErosionInwardsCalculation, GrassCoverErosionInwardsFailureMechanism>>(context);
+            Assert.IsInstanceOf<GrassCoverErosionInwardsContext<GrassCoverErosionInwardsCalculationScenario>>(context);
+            Assert.IsInstanceOf<ICalculationContext<GrassCoverErosionInwardsCalculationScenario, GrassCoverErosionInwardsFailureMechanism>>(context);
             Assert.AreSame(calculation, context.WrappedData);
             Assert.AreSame(parent, context.Parent);
             Assert.AreSame(failureMechanism, context.FailureMechanism);
@@ -62,33 +62,33 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PresentationObjects
         }
 
         [Test]
-        public void ParameteredConstructor_ParentNull_ThrowsArgumentNullException()
+        public void Constructor_ParentNull_ThrowsArgumentNullException()
         {
             // Setup
             var mockRepository = new MockRepository();
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             mockRepository.ReplayAll();
 
-            var calculation = new GrassCoverErosionInwardsCalculation();
+            var calculation = new GrassCoverErosionInwardsCalculationScenario();
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
             // Call
-            TestDelegate call = () => new GrassCoverErosionInwardsCalculationContext(calculation, null, failureMechanism, assessmentSection);
+            void Call() => new GrassCoverErosionInwardsCalculationScenarioContext(calculation, null, failureMechanism, assessmentSection);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("parent", exception.ParamName);
 
             mockRepository.VerifyAll();
         }
 
         [TestFixture]
-        private class GrassCoverErosionInwardsCalculationContextEqualsTest : EqualsTestFixture<GrassCoverErosionInwardsCalculationContext, DerivedGrassCoverErosionInwardsCalculationContext>
+        private class GrassCoverErosionInwardsCalculationScenarioContextEqualsTest : EqualsTestFixture<GrassCoverErosionInwardsCalculationScenarioContext, DerivedGrassCoverErosionInwardsCalculationScenarioContext>
         {
             private static readonly MockRepository mocks = new MockRepository();
 
             private static readonly IAssessmentSection assessmentSection = mocks.Stub<IAssessmentSection>();
-            private static readonly GrassCoverErosionInwardsCalculation calculation = new GrassCoverErosionInwardsCalculation();
+            private static readonly GrassCoverErosionInwardsCalculationScenario calculation = new GrassCoverErosionInwardsCalculationScenario();
             private static readonly GrassCoverErosionInwardsFailureMechanism failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             private static readonly CalculationGroup parent = new CalculationGroup();
 
@@ -104,37 +104,37 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PresentationObjects
                 mocks.VerifyAll();
             }
 
-            protected override GrassCoverErosionInwardsCalculationContext CreateObject()
+            protected override GrassCoverErosionInwardsCalculationScenarioContext CreateObject()
             {
-                return new GrassCoverErosionInwardsCalculationContext(calculation, parent, failureMechanism, assessmentSection);
+                return new GrassCoverErosionInwardsCalculationScenarioContext(calculation, parent, failureMechanism, assessmentSection);
             }
 
-            protected override DerivedGrassCoverErosionInwardsCalculationContext CreateDerivedObject()
+            protected override DerivedGrassCoverErosionInwardsCalculationScenarioContext CreateDerivedObject()
             {
-                return new DerivedGrassCoverErosionInwardsCalculationContext(calculation, parent, failureMechanism, assessmentSection);
+                return new DerivedGrassCoverErosionInwardsCalculationScenarioContext(calculation, parent, failureMechanism, assessmentSection);
             }
 
             private static IEnumerable<TestCaseData> GetUnequalTestCases()
             {
-                yield return new TestCaseData(new GrassCoverErosionInwardsCalculationContext(new GrassCoverErosionInwardsCalculation(),
-                                                                                             parent,
-                                                                                             failureMechanism,
-                                                                                             assessmentSection))
+                yield return new TestCaseData(new GrassCoverErosionInwardsCalculationScenarioContext(new GrassCoverErosionInwardsCalculationScenario(),
+                                                                                                     parent,
+                                                                                                     failureMechanism,
+                                                                                                     assessmentSection))
                     .SetName("Calculation");
-                yield return new TestCaseData(new GrassCoverErosionInwardsCalculationContext(calculation,
-                                                                                             new CalculationGroup(),
-                                                                                             failureMechanism,
-                                                                                             assessmentSection))
+                yield return new TestCaseData(new GrassCoverErosionInwardsCalculationScenarioContext(calculation,
+                                                                                                     new CalculationGroup(),
+                                                                                                     failureMechanism,
+                                                                                                     assessmentSection))
                     .SetName("Parent");
             }
         }
 
-        private class DerivedGrassCoverErosionInwardsCalculationContext : GrassCoverErosionInwardsCalculationContext
+        private class DerivedGrassCoverErosionInwardsCalculationScenarioContext : GrassCoverErosionInwardsCalculationScenarioContext
         {
-            public DerivedGrassCoverErosionInwardsCalculationContext(GrassCoverErosionInwardsCalculation calculation,
-                                                                     CalculationGroup parent,
-                                                                     GrassCoverErosionInwardsFailureMechanism failureMechanism,
-                                                                     IAssessmentSection assessmentSection)
+            public DerivedGrassCoverErosionInwardsCalculationScenarioContext(GrassCoverErosionInwardsCalculationScenario calculation,
+                                                                             CalculationGroup parent,
+                                                                             GrassCoverErosionInwardsFailureMechanism failureMechanism,
+                                                                             IAssessmentSection assessmentSection)
                 : base(calculation, parent, failureMechanism, assessmentSection) {}
         }
     }

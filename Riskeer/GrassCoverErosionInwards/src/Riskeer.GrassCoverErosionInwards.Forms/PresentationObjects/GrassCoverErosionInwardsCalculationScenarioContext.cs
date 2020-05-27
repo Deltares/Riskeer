@@ -32,21 +32,21 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.PresentationObjects
     /// Presentation object for all data required to configure an instance of <see cref="GrassCoverErosionInwardsCalculation"/>
     /// in order to prepare it for performing a calculation.
     /// </summary>
-    public class GrassCoverErosionInwardsCalculationContext : GrassCoverErosionInwardsContext<GrassCoverErosionInwardsCalculation>,
-                                                              ICalculationContext<GrassCoverErosionInwardsCalculation, GrassCoverErosionInwardsFailureMechanism>
+    public class GrassCoverErosionInwardsCalculationScenarioContext : GrassCoverErosionInwardsContext<GrassCoverErosionInwardsCalculationScenario>,
+                                                                      ICalculationContext<GrassCoverErosionInwardsCalculationScenario, GrassCoverErosionInwardsFailureMechanism>
     {
         /// <summary>
-        /// Creates a new instance of <see cref="GrassCoverErosionInwardsCalculationContext"/>.
+        /// Creates a new instance of <see cref="GrassCoverErosionInwardsCalculationScenarioContext"/>.
         /// </summary>
         /// <param name="calculation">The <see cref="GrassCoverErosionInwardsCalculation"/> instance wrapped by this context object.</param>
         /// <param name="parent">The <see cref="CalculationGroup"/> that owns the wrapped calculation.</param>
         /// <param name="failureMechanism">The failure mechanism which the context belongs to.</param>
         /// <param name="assessmentSection">The assessment section which the calculation belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
-        public GrassCoverErosionInwardsCalculationContext(GrassCoverErosionInwardsCalculation calculation,
-                                                          CalculationGroup parent,
-                                                          GrassCoverErosionInwardsFailureMechanism failureMechanism,
-                                                          IAssessmentSection assessmentSection)
+        public GrassCoverErosionInwardsCalculationScenarioContext(GrassCoverErosionInwardsCalculationScenario calculation,
+                                                                  CalculationGroup parent,
+                                                                  GrassCoverErosionInwardsFailureMechanism failureMechanism,
+                                                                  IAssessmentSection assessmentSection)
             : base(calculation, failureMechanism, assessmentSection)
         {
             if (parent == null)
@@ -59,16 +59,16 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.PresentationObjects
 
         public CalculationGroup Parent { get; }
 
-        public override bool Equals(WrappedObjectContextBase<GrassCoverErosionInwardsCalculation> other)
+        public override bool Equals(WrappedObjectContextBase<GrassCoverErosionInwardsCalculationScenario> other)
         {
             return base.Equals(other)
-                   && other is GrassCoverErosionInwardsCalculationContext
-                   && ReferenceEquals(Parent, ((GrassCoverErosionInwardsCalculationContext) other).Parent);
+                   && other is GrassCoverErosionInwardsCalculationScenarioContext calculationScenarioContext
+                   && ReferenceEquals(Parent, calculationScenarioContext.Parent);
         }
 
         public override bool Equals(object obj)
         {
-            return Equals(obj as GrassCoverErosionInwardsCalculationContext);
+            return Equals(obj as GrassCoverErosionInwardsCalculationScenarioContext);
         }
 
         public override int GetHashCode()

@@ -101,11 +101,11 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var calculation = new GrassCoverErosionInwardsCalculation();
-            var calculationContext = new GrassCoverErosionInwardsCalculationContext(calculation,
-                                                                                    new CalculationGroup(),
-                                                                                    new GrassCoverErosionInwardsFailureMechanism(),
-                                                                                    assessmentSection);
+            var calculation = new GrassCoverErosionInwardsCalculationScenario();
+            var calculationContext = new GrassCoverErosionInwardsCalculationScenarioContext(calculation,
+                                                                                            new CalculationGroup(),
+                                                                                            new GrassCoverErosionInwardsFailureMechanism(),
+                                                                                            assessmentSection);
 
             using (var view = new GrassCoverErosionInwardsInputView
             {
@@ -128,13 +128,13 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var calculation = new GrassCoverErosionInwardsCalculation();
-            var calculationToRemove = new GrassCoverErosionInwardsCalculation();
+            var calculation = new GrassCoverErosionInwardsCalculationScenario();
+            var calculationToRemove = new GrassCoverErosionInwardsCalculationScenario();
 
-            var calculationContext = new GrassCoverErosionInwardsCalculationContext(calculationToRemove,
-                                                                                    new CalculationGroup(),
-                                                                                    new GrassCoverErosionInwardsFailureMechanism(),
-                                                                                    assessmentSection);
+            var calculationContext = new GrassCoverErosionInwardsCalculationScenarioContext(calculationToRemove,
+                                                                                            new CalculationGroup(),
+                                                                                            new GrassCoverErosionInwardsFailureMechanism(),
+                                                                                            assessmentSection);
 
             using (var view = new GrassCoverErosionInwardsInputView
             {

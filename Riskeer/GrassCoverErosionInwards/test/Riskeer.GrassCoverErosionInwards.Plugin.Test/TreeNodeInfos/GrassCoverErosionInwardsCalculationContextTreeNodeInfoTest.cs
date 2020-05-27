@@ -120,14 +120,14 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var parent = new CalculationGroup();
-            var calculation = new GrassCoverErosionInwardsCalculation
+            var calculation = new GrassCoverErosionInwardsCalculationScenario
             {
                 Output = hasOutput
                              ? new TestGrassCoverErosionInwardsOutput()
                              : null
             };
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            var calculationContext = new GrassCoverErosionInwardsCalculationContext(calculation, parent, failureMechanism, assessmentSection);
+            var calculationContext = new GrassCoverErosionInwardsCalculationScenarioContext(calculation, parent, failureMechanism, assessmentSection);
 
             // Call
             object[] children = info.ChildNodeObjects(calculationContext).ToArray();
@@ -156,8 +156,8 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             var assessmentSection = new AssessmentSectionStub();
             var parent = new CalculationGroup();
-            var calculation = new GrassCoverErosionInwardsCalculation();
-            var nodeData = new GrassCoverErosionInwardsCalculationContext(calculation, parent, failureMechanism, assessmentSection);
+            var calculation = new GrassCoverErosionInwardsCalculationScenario();
+            var nodeData = new GrassCoverErosionInwardsCalculationScenarioContext(calculation, parent, failureMechanism, assessmentSection);
 
             var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
             using (mocks.Ordered())
@@ -217,9 +217,9 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
 
             var parent = new CalculationGroup();
-            var calculation = new GrassCoverErosionInwardsCalculation();
+            var calculation = new GrassCoverErosionInwardsCalculationScenario();
             var failureMechanism = new TestGrassCoverErosionInwardsFailureMechanism();
-            var nodeData = new GrassCoverErosionInwardsCalculationContext(calculation, parent, failureMechanism, assessmentSection);
+            var nodeData = new GrassCoverErosionInwardsCalculationScenarioContext(calculation, parent, failureMechanism, assessmentSection);
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
             using (var treeViewControl = new TreeViewControl())
@@ -280,9 +280,9 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
 
             var parent = new CalculationGroup();
-            var calculation = new GrassCoverErosionInwardsCalculation();
+            var calculation = new GrassCoverErosionInwardsCalculationScenario();
             var failureMechanism = new TestGrassCoverErosionInwardsFailureMechanism();
-            var nodeData = new GrassCoverErosionInwardsCalculationContext(calculation, parent, failureMechanism, assessmentSection);
+            var nodeData = new GrassCoverErosionInwardsCalculationScenarioContext(calculation, parent, failureMechanism, assessmentSection);
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
             using (var treeViewControl = new TreeViewControl())
@@ -315,7 +315,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
 
             var parent = new CalculationGroup();
-            var calculation = new GrassCoverErosionInwardsCalculation
+            var calculation = new GrassCoverErosionInwardsCalculationScenario
             {
                 InputParameters =
                 {
@@ -323,7 +323,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                 }
             };
             var failureMechanism = new TestGrassCoverErosionInwardsFailureMechanism();
-            var nodeData = new GrassCoverErosionInwardsCalculationContext(calculation, parent, failureMechanism, assessmentSection);
+            var nodeData = new GrassCoverErosionInwardsCalculationScenarioContext(calculation, parent, failureMechanism, assessmentSection);
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
             using (var treeViewControl = new TreeViewControl())
@@ -357,7 +357,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
 
             DikeProfile dikeProfile = DikeProfileTestFactory.CreateDikeProfile();
             var parent = new CalculationGroup();
-            var calculation = new GrassCoverErosionInwardsCalculation
+            var calculation = new GrassCoverErosionInwardsCalculationScenario
             {
                 InputParameters =
                 {
@@ -365,7 +365,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                 }
             };
             var failureMechanism = new TestGrassCoverErosionInwardsFailureMechanism();
-            var nodeData = new GrassCoverErosionInwardsCalculationContext(calculation, parent, failureMechanism, assessmentSection);
+            var nodeData = new GrassCoverErosionInwardsCalculationScenarioContext(calculation, parent, failureMechanism, assessmentSection);
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
             using (var treeViewControl = new TreeViewControl())
@@ -399,7 +399,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
             DikeProfile dikeProfile = DikeProfileTestFactory.CreateDikeProfile();
             var parent = new CalculationGroup();
-            var calculation = new GrassCoverErosionInwardsCalculation
+            var calculation = new GrassCoverErosionInwardsCalculationScenario
             {
                 InputParameters =
                 {
@@ -407,7 +407,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                 }
             };
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            var nodeData = new GrassCoverErosionInwardsCalculationContext(calculation, parent, failureMechanism, assessmentSection);
+            var nodeData = new GrassCoverErosionInwardsCalculationScenarioContext(calculation, parent, failureMechanism, assessmentSection);
 
             var inputObserver = mocks.StrictMock<IObserver>();
             inputObserver.Expect(obs => obs.UpdateObserver());
@@ -448,7 +448,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
             DikeProfile dikeProfile = DikeProfileTestFactory.CreateDikeProfile();
             var parent = new CalculationGroup();
-            var calculation = new GrassCoverErosionInwardsCalculation
+            var calculation = new GrassCoverErosionInwardsCalculationScenario
             {
                 InputParameters =
                 {
@@ -458,7 +458,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             };
 
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            var nodeData = new GrassCoverErosionInwardsCalculationContext(calculation, parent, failureMechanism, assessmentSection);
+            var nodeData = new GrassCoverErosionInwardsCalculationScenarioContext(calculation, parent, failureMechanism, assessmentSection);
 
             var inputObserver = mocks.StrictMock<IObserver>();
             calculation.InputParameters.Attach(inputObserver);
@@ -512,7 +512,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
 
             DikeProfile dikeProfile = DikeProfileTestFactory.CreateDikeProfile();
             var parent = new CalculationGroup();
-            var calculation = new GrassCoverErosionInwardsCalculation
+            var calculation = new GrassCoverErosionInwardsCalculationScenario
             {
                 InputParameters =
                 {
@@ -521,7 +521,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                 Output = new TestGrassCoverErosionInwardsOutput()
             };
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            var nodeData = new GrassCoverErosionInwardsCalculationContext(calculation, parent, failureMechanism, assessmentSection);
+            var nodeData = new GrassCoverErosionInwardsCalculationScenarioContext(calculation, parent, failureMechanism, assessmentSection);
 
             var inputObserver = mocks.StrictMock<IObserver>();
             inputObserver.Expect(obs => obs.UpdateObserver());
@@ -575,9 +575,9 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             // Setup
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
             var parent = new CalculationGroup();
-            var calculation = new GrassCoverErosionInwardsCalculation();
+            var calculation = new GrassCoverErosionInwardsCalculationScenario();
             var failureMechanism = new TestGrassCoverErosionInwardsFailureMechanism();
-            var nodeData = new GrassCoverErosionInwardsCalculationContext(calculation, parent, failureMechanism, assessmentSection);
+            var nodeData = new GrassCoverErosionInwardsCalculationScenarioContext(calculation, parent, failureMechanism, assessmentSection);
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -607,9 +607,9 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             // Setup
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null, mocks, "invalidFilePath");
             var parent = new CalculationGroup();
-            var calculation = new GrassCoverErosionInwardsCalculation();
+            var calculation = new GrassCoverErosionInwardsCalculationScenario();
             var failureMechanism = new TestGrassCoverErosionInwardsFailureMechanism();
-            var nodeData = new GrassCoverErosionInwardsCalculationContext(calculation, parent, failureMechanism, assessmentSection);
+            var nodeData = new GrassCoverErosionInwardsCalculationScenarioContext(calculation, parent, failureMechanism, assessmentSection);
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -651,9 +651,9 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
 
             var parent = new CalculationGroup();
-            var calculation = new GrassCoverErosionInwardsCalculation();
+            var calculation = new GrassCoverErosionInwardsCalculationScenario();
             var failureMechanism = new TestGrassCoverErosionInwardsFailureMechanism();
-            var nodeData = new GrassCoverErosionInwardsCalculationContext(calculation, parent, failureMechanism, assessmentSection);
+            var nodeData = new GrassCoverErosionInwardsCalculationScenarioContext(calculation, parent, failureMechanism, assessmentSection);
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -682,9 +682,9 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             // Setup
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
             var parent = new CalculationGroup();
-            var calculation = new GrassCoverErosionInwardsCalculation();
+            var calculation = new GrassCoverErosionInwardsCalculationScenario();
             var failureMechanism = new TestGrassCoverErosionInwardsFailureMechanism();
-            var nodeData = new GrassCoverErosionInwardsCalculationContext(calculation, parent, failureMechanism, assessmentSection);
+            var nodeData = new GrassCoverErosionInwardsCalculationScenarioContext(calculation, parent, failureMechanism, assessmentSection);
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -714,9 +714,9 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             // Setup
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null, mocks, "invalidFilePath");
             var parent = new CalculationGroup();
-            var calculation = new GrassCoverErosionInwardsCalculation();
+            var calculation = new GrassCoverErosionInwardsCalculationScenario();
             var failureMechanism = new TestGrassCoverErosionInwardsFailureMechanism();
-            var nodeData = new GrassCoverErosionInwardsCalculationContext(calculation, parent, failureMechanism, assessmentSection);
+            var nodeData = new GrassCoverErosionInwardsCalculationScenarioContext(calculation, parent, failureMechanism, assessmentSection);
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -757,9 +757,9 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
 
             var parent = new CalculationGroup();
-            var calculation = new GrassCoverErosionInwardsCalculation();
+            var calculation = new GrassCoverErosionInwardsCalculationScenario();
             var failureMechanism = new TestGrassCoverErosionInwardsFailureMechanism();
-            var nodeData = new GrassCoverErosionInwardsCalculationContext(calculation, parent, failureMechanism, assessmentSection);
+            var nodeData = new GrassCoverErosionInwardsCalculationScenarioContext(calculation, parent, failureMechanism, assessmentSection);
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -812,7 +812,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
 
             var parent = new CalculationGroup();
-            var calculation = new GrassCoverErosionInwardsCalculation
+            var calculation = new GrassCoverErosionInwardsCalculationScenario
             {
                 InputParameters =
                 {
@@ -821,7 +821,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                 }
             };
 
-            var calculationContext = new GrassCoverErosionInwardsCalculationContext(calculation, parent, failureMechanism, assessmentSection);
+            var calculationContext = new GrassCoverErosionInwardsCalculationScenarioContext(calculation, parent, failureMechanism, assessmentSection);
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -900,7 +900,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
 
             var parent = new CalculationGroup();
-            var calculation = new GrassCoverErosionInwardsCalculation
+            var calculation = new GrassCoverErosionInwardsCalculationScenario
             {
                 InputParameters =
                 {
@@ -909,7 +909,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                 }
             };
 
-            var calculationContext = new GrassCoverErosionInwardsCalculationContext(calculation, parent, failureMechanism, assessmentSection);
+            var calculationContext = new GrassCoverErosionInwardsCalculationScenarioContext(calculation, parent, failureMechanism, assessmentSection);
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -941,14 +941,14 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
         [Test]
         [TestCaseSource(nameof(GetCalculationConfigurationsWithIllustrationPoints))]
         public void ContextMenuStrip_CalculationWithIllustrationPoints_ContextMenuItemClearIllustrationPointsEnabled(
-            GrassCoverErosionInwardsCalculation calculation)
+            GrassCoverErosionInwardsCalculationScenario calculation)
         {
             // Setup
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
 
             var parent = new CalculationGroup();
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            var nodeData = new GrassCoverErosionInwardsCalculationContext(calculation, parent, failureMechanism, assessmentSection);
+            var nodeData = new GrassCoverErosionInwardsCalculationScenarioContext(calculation, parent, failureMechanism, assessmentSection);
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
             using (var treeViewControl = new TreeViewControl())
@@ -978,12 +978,12 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
 
             var parent = new CalculationGroup();
-            var calculation = new GrassCoverErosionInwardsCalculation
+            var calculation = new GrassCoverErosionInwardsCalculationScenario
             {
                 Output = new TestGrassCoverErosionInwardsOutput()
             };
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            var nodeData = new GrassCoverErosionInwardsCalculationContext(calculation, parent, failureMechanism, assessmentSection);
+            var nodeData = new GrassCoverErosionInwardsCalculationScenarioContext(calculation, parent, failureMechanism, assessmentSection);
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
             using (var treeViewControl = new TreeViewControl())
@@ -1013,12 +1013,12 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
 
             var parent = new CalculationGroup();
-            var calculation = new GrassCoverErosionInwardsCalculation
+            var calculation = new GrassCoverErosionInwardsCalculationScenario
             {
                 Output = new TestGrassCoverErosionInwardsOutput(new TestGeneralResultFaultTreeIllustrationPoint())
             };
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            var nodeData = new GrassCoverErosionInwardsCalculationContext(calculation, parent, failureMechanism, assessmentSection);
+            var nodeData = new GrassCoverErosionInwardsCalculationScenarioContext(calculation, parent, failureMechanism, assessmentSection);
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
             var calculationObserver = mocks.StrictMock<IObserver>();
@@ -1065,12 +1065,12 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
 
             var parent = new CalculationGroup();
-            var calculation = new GrassCoverErosionInwardsCalculation
+            var calculation = new GrassCoverErosionInwardsCalculationScenario
             {
                 Output = new TestGrassCoverErosionInwardsOutput(new TestGeneralResultFaultTreeIllustrationPoint())
             };
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            var nodeData = new GrassCoverErosionInwardsCalculationContext(calculation, parent, failureMechanism, assessmentSection);
+            var nodeData = new GrassCoverErosionInwardsCalculationScenarioContext(calculation, parent, failureMechanism, assessmentSection);
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
             var calculationObserver = mocks.StrictMock<IObserver>();
@@ -1116,14 +1116,14 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var group = new CalculationGroup();
-            var elementToBeRemoved = new GrassCoverErosionInwardsCalculation();
+            var elementToBeRemoved = new GrassCoverErosionInwardsCalculationScenario();
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             var observer = mocks.StrictMock<IObserver>();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var calculationContext = new GrassCoverErosionInwardsCalculationContext(elementToBeRemoved,
-                                                                                    group,
-                                                                                    failureMechanism,
-                                                                                    assessmentSection);
+            var calculationContext = new GrassCoverErosionInwardsCalculationScenarioContext(elementToBeRemoved,
+                                                                                            group,
+                                                                                            failureMechanism,
+                                                                                            assessmentSection);
             var groupContext = new GrassCoverErosionInwardsCalculationGroupContext(group,
                                                                                    null,
                                                                                    failureMechanism,
@@ -1134,7 +1134,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             group.Children.Add(elementToBeRemoved);
-            group.Children.Add(new GrassCoverErosionInwardsCalculation());
+            group.Children.Add(new GrassCoverErosionInwardsCalculationScenario());
             group.Attach(observer);
 
             // Precondition
@@ -1172,7 +1172,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                 dikeProfile
             }, "path");
 
-            var elementToBeRemoved = new GrassCoverErosionInwardsCalculation
+            var elementToBeRemoved = new GrassCoverErosionInwardsCalculationScenario
             {
                 InputParameters =
                 {
@@ -1183,10 +1183,10 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             GrassCoverErosionInwardsFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.First();
             sectionResult.Calculation = elementToBeRemoved;
 
-            var calculationContext = new GrassCoverErosionInwardsCalculationContext(elementToBeRemoved,
-                                                                                    group,
-                                                                                    failureMechanism,
-                                                                                    assessmentSection);
+            var calculationContext = new GrassCoverErosionInwardsCalculationScenarioContext(elementToBeRemoved,
+                                                                                            group,
+                                                                                            failureMechanism,
+                                                                                            assessmentSection);
             var groupContext = new GrassCoverErosionInwardsCalculationGroupContext(group,
                                                                                    null,
                                                                                    failureMechanism,
@@ -1215,12 +1215,12 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             // Setup
             var group = new CalculationGroup();
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            var elementToBeRemoved = new GrassCoverErosionInwardsCalculation();
+            var elementToBeRemoved = new GrassCoverErosionInwardsCalculationScenario();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var calculationContext = new GrassCoverErosionInwardsCalculationContext(elementToBeRemoved,
-                                                                                    group,
-                                                                                    failureMechanism,
-                                                                                    assessmentSection);
+            var calculationContext = new GrassCoverErosionInwardsCalculationScenarioContext(elementToBeRemoved,
+                                                                                            group,
+                                                                                            failureMechanism,
+                                                                                            assessmentSection);
             var groupContext = new GrassCoverErosionInwardsCalculationGroupContext(group,
                                                                                    null,
                                                                                    failureMechanism,
@@ -1252,7 +1252,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
         {
             mocks = new MockRepository();
             plugin = new GrassCoverErosionInwardsPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(GrassCoverErosionInwardsCalculationContext));
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(GrassCoverErosionInwardsCalculationScenarioContext));
         }
 
         public override void TearDown()
@@ -1284,21 +1284,21 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
         private static IEnumerable<TestCaseData> GetCalculationConfigurationsWithIllustrationPoints()
         {
             var random = new Random(21);
-            var calculationWithOverToppingOutputWithIllustrationPoints = new GrassCoverErosionInwardsCalculation
+            var calculationWithOverToppingOutputWithIllustrationPoints = new GrassCoverErosionInwardsCalculationScenario
             {
                 Output = new GrassCoverErosionInwardsOutput(new TestOvertoppingOutput(new TestGeneralResultFaultTreeIllustrationPoint()),
                                                             null,
                                                             null)
             };
 
-            var calculationWithDikeHeightRateWithIllustrationPoints = new GrassCoverErosionInwardsCalculation
+            var calculationWithDikeHeightRateWithIllustrationPoints = new GrassCoverErosionInwardsCalculationScenario
             {
                 Output = new GrassCoverErosionInwardsOutput(new TestOvertoppingOutput(random.NextDouble()),
                                                             new TestDikeHeightOutput(new TestGeneralResultFaultTreeIllustrationPoint()),
                                                             null)
             };
 
-            var calculationWithOvertoppingRateWithIllustrationPoints = new GrassCoverErosionInwardsCalculation
+            var calculationWithOvertoppingRateWithIllustrationPoints = new GrassCoverErosionInwardsCalculationScenario
             {
                 Output = new GrassCoverErosionInwardsOutput(new TestOvertoppingOutput(random.NextDouble()),
                                                             null,
