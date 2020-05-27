@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -55,23 +56,48 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
         }
 
         [Test]
-        public void DefaultConstructor_DataGridViewCorrectlyInitialized()
+        public void Constructor_ExpectedValues()
         {
+            // Setup
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+
             // Call
-            using (GrassCoverErosionInwardsScenariosView view = ShowScenariosView())
+            using (GrassCoverErosionInwardsScenariosView view = ShowScenariosView(failureMechanism))
             {
                 // Assert
                 Assert.IsInstanceOf<UserControl>(view);
                 Assert.IsInstanceOf<IView>(view);
                 Assert.IsTrue(view.AutoScroll);
-                Assert.IsNull(view.Data);
-                Assert.IsNull(view.FailureMechanism);
+                Assert.AreSame(failureMechanism.CalculationsGroup, view.Data);
+                Assert.AreSame(failureMechanism, view.FailureMechanism);
 
                 var scenarioSelectionControl = new ControlTester("scenarioSelectionControl").TheObject as ScenarioSelectionControl;
 
                 Assert.NotNull(scenarioSelectionControl);
                 Assert.AreEqual(new Size(0, 0), scenarioSelectionControl.MinimumSize);
             }
+        }
+
+        [Test]
+        public void Constructor_CalculationGroupNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => new GrassCoverErosionInwardsScenariosView(null, new GrassCoverErosionInwardsFailureMechanism());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("calculationGroup", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => new GrassCoverErosionInwardsScenariosView(new CalculationGroup(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
         }
 
         [Test]
@@ -286,8 +312,8 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
                 view.Data = failureMechanism.CalculationsGroup;
                 view.FailureMechanism = failureMechanism;
 
-                var calculationB = (GrassCoverErosionInwardsCalculation) failureMechanism.CalculationsGroup.Children[1];
-                var calculationC = new GrassCoverErosionInwardsCalculation
+                var calculationB = (GrassCoverErosionInwardsCalculationScenario) failureMechanism.CalculationsGroup.Children[1];
+                var calculationC = new GrassCoverErosionInwardsCalculationScenario
                 {
                     Name = "CalculationC",
                     InputParameters =
@@ -354,7 +380,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             var matchingPointA = new Point2D(0, 0);
             var matchingPointB = new Point2D(20, 20);
-            var calculationA = new GrassCoverErosionInwardsCalculation
+            var calculationA = new GrassCoverErosionInwardsCalculationScenario
             {
                 Name = "CalculationA",
                 InputParameters =
@@ -362,7 +388,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
                     DikeProfile = DikeProfileTestFactory.CreateDikeProfile(matchingPointA)
                 }
             };
-            var calculationB = new GrassCoverErosionInwardsCalculation
+            var calculationB = new GrassCoverErosionInwardsCalculationScenario
             {
                 Name = "CalculationB",
                 InputParameters =
@@ -395,7 +421,12 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
 
         private GrassCoverErosionInwardsScenariosView ShowScenariosView()
         {
-            var scenariosView = new GrassCoverErosionInwardsScenariosView();
+            return ShowScenariosView(new GrassCoverErosionInwardsFailureMechanism());
+        }
+
+        private GrassCoverErosionInwardsScenariosView ShowScenariosView(GrassCoverErosionInwardsFailureMechanism failureMechanism)
+        {
+            var scenariosView = new GrassCoverErosionInwardsScenariosView(failureMechanism.CalculationsGroup, failureMechanism);
             testForm.Controls.Add(scenariosView);
             testForm.Show();
 

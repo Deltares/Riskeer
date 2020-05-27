@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2019. All rights reserved.
+// Copyright (C) Stichting Deltares 2019. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -47,18 +47,45 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionInwardsScenariosView"/>.
         /// </summary>
-        public GrassCoverErosionInwardsScenariosView()
+        /// <param name="calculationGroup">The data to show in this view.</param>
+        /// <param name="failureMechanism">The <see cref="GrassCoverErosionInwardsFailureMechanism"/>
+        /// the <paramref name="calculationGroup"/> belongs to.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter
+        /// is <c>null</c>.</exception>
+        public GrassCoverErosionInwardsScenariosView(CalculationGroup calculationGroup, GrassCoverErosionInwardsFailureMechanism failureMechanism)
         {
+            if (calculationGroup == null)
+            {
+                throw new ArgumentNullException(nameof(calculationGroup));
+            }
+
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanism));
+            }
+
             InitializeComponent();
 
-            failureMechanismObserver = new Observer(UpdateDataGridViewDataSource);
+            data = calculationGroup;
+            this.failureMechanism = failureMechanism;
+            
+            failureMechanismObserver = new Observer(UpdateDataGridViewDataSource)
+            {
+                Observable = failureMechanism
+            };
 
             // The concat is needed to observe the input of calculations in child groups.
             calculationInputObserver = new RecursiveObserver<CalculationGroup, ICalculationInput>(
                 UpdateDataGridViewDataSource, cg => cg.Children.Concat<object>(cg.Children
-                                                                                 .OfType<GrassCoverErosionInwardsCalculation>()
-                                                                                 .Select(c => c.InputParameters)));
-            calculationGroupObserver = new RecursiveObserver<CalculationGroup, ICalculationBase>(UpdateDataGridViewDataSource, c => c.Children);
+                                                                                 .OfType<GrassCoverErosionInwardsCalculationScenario>()
+                                                                                 .Select(c => c.InputParameters)))
+            {
+                Observable = calculationGroup
+            };
+            calculationGroupObserver = new RecursiveObserver<CalculationGroup, ICalculationBase>(UpdateDataGridViewDataSource, c => c.Children)
+            {
+                Observable = calculationGroup
+            };
         }
 
         /// <summary>
@@ -66,10 +93,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
         /// </summary>
         public GrassCoverErosionInwardsFailureMechanism FailureMechanism
         {
-            get
-            {
-                return failureMechanism;
-            }
+            get => failureMechanism;
             set
             {
                 failureMechanism = value;
@@ -80,10 +104,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
 
         public object Data
         {
-            get
-            {
-                return data;
-            }
+            get => data;
             set
             {
                 data = value as CalculationGroup;
@@ -128,7 +149,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
                 ICalculation[] calculations = data.GetCalculations().ToArray();
 
                 IDictionary<string, List<ICalculation>> calculationsPerSegment =
-                    GrassCoverErosionInwardsHelper.CollectCalculationsPerSection(failureMechanism.Sections, calculations.Cast<GrassCoverErosionInwardsCalculation>());
+                    GrassCoverErosionInwardsHelper.CollectCalculationsPerSection(failureMechanism.Sections, calculations.Cast<GrassCoverErosionInwardsCalculationScenario>());
 
                 List<GrassCoverErosionInwardsScenarioRow> scenarioRows =
                     failureMechanism.SectionResults.Select(sectionResult => new GrassCoverErosionInwardsScenarioRow(sectionResult)).ToList();
