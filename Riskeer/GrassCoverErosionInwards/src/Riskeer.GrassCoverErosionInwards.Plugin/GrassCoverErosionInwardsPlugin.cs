@@ -767,7 +767,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
         {
             foreach (DikeProfile profile in dikeProfiles)
             {
-                var calculation = new GrassCoverErosionInwardsCalculation
+                var calculation = new GrassCoverErosionInwardsCalculationScenario
                 {
                     Name = NamingHelper.GetUniqueName(target.Children, profile.Name, c => c.Name),
                     InputParameters =
