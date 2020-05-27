@@ -144,7 +144,7 @@ namespace Riskeer.Storage.Core.Test.Read.GrassCoverErosionInwards
         public void Read_CalculationEntitySet_ReturnGrassCoverErosionInwardsSectionResultWithCalculation()
         {
             // Setup
-            var calculation = new GrassCoverErosionInwardsCalculation();
+            var calculation = new GrassCoverErosionInwardsCalculationScenario();
 
             var failureMechanismSectionEntity = new FailureMechanismSectionEntity();
             var calculationEntity = new GrassCoverErosionInwardsCalculationEntity();

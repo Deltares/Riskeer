@@ -30,7 +30,7 @@ using Riskeer.Storage.Core.DbContext;
 namespace Riskeer.Storage.Core.Read.GrassCoverErosionInwards
 {
     /// <summary>
-    /// This class defines extension methods for read operations for a <see cref="GrassCoverErosionInwardsCalculation"/>
+    /// This class defines extension methods for read operations for a <see cref="GrassCoverErosionInwardsCalculationScenario"/>
     /// based on the <see cref="GrassCoverErosionInwardsCalculationEntity"/>.
     /// </summary>
     internal static class GrassCoverErosionInwardsCalculationEntityReadExtensions
@@ -44,7 +44,7 @@ namespace Riskeer.Storage.Core.Read.GrassCoverErosionInwards
         /// <param name="collector">The object keeping track of read operations.</param>
         /// <returns>A new <see cref="GrassCoverErosionInwardsCalculation"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="collector"/> is <c>null</c>.</exception>
-        internal static GrassCoverErosionInwardsCalculation Read(this GrassCoverErosionInwardsCalculationEntity entity, ReadConversionCollector collector)
+        internal static GrassCoverErosionInwardsCalculationScenario Read(this GrassCoverErosionInwardsCalculationEntity entity, ReadConversionCollector collector)
         {
             if (collector == null)
             {
@@ -56,7 +56,7 @@ namespace Riskeer.Storage.Core.Read.GrassCoverErosionInwards
                 return collector.Get(entity);
             }
 
-            var calculation = new GrassCoverErosionInwardsCalculation
+            var calculation = new GrassCoverErosionInwardsCalculationScenario
             {
                 Name = entity.Name,
                 Comments =

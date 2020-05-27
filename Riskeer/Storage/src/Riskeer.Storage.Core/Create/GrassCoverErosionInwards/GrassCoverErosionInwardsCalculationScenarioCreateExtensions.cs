@@ -30,19 +30,19 @@ namespace Riskeer.Storage.Core.Create.GrassCoverErosionInwards
     /// Extension methods for <see cref="GrassCoverErosionInwardsCalculation"/> related
     /// to creating a <see cref="GrassCoverErosionInwardsCalculationEntity"/>.
     /// </summary>
-    internal static class GrassCoverErosionInwardsCalculationCreateExtensions
+    internal static class GrassCoverErosionInwardsCalculationScenarioCreateExtensions
     {
         /// <summary>
         /// Creates a <see cref="GrassCoverErosionInwardsCalculationEntity"/> based
-        /// on the information of the <see cref="GrassCoverErosionInwardsCalculation"/>.
+        /// on the information of the <see cref="GrassCoverErosionInwardsCalculationScenario"/>.
         /// </summary>
-        /// <param name="calculation">The calculation to create a database entity for.</param>
+        /// <param name="calculation">The calculation scenario to create a database entity for.</param>
         /// <param name="registry">The object keeping track of create operations.</param>
         /// <param name="order">The index at where <paramref name="calculation"/> resides
         /// in its parent container.</param>
         /// <returns>A new <see cref="GrassCoverErosionInwardsCalculationEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="registry"/> is <c>null</c>.</exception>
-        internal static GrassCoverErosionInwardsCalculationEntity Create(this GrassCoverErosionInwardsCalculation calculation, PersistenceRegistry registry, int order)
+        internal static GrassCoverErosionInwardsCalculationEntity Create(this GrassCoverErosionInwardsCalculationScenario calculation, PersistenceRegistry registry, int order)
         {
             if (registry == null)
             {

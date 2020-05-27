@@ -78,62 +78,52 @@ namespace Riskeer.Storage.Core.Create
             {
                 ICalculationBase calculationBase = parentGroup.Children[i];
 
-                var childGroup = calculationBase as CalculationGroup;
-                if (childGroup != null)
+                if (calculationBase is CalculationGroup childGroup)
                 {
                     entity.CalculationGroupEntity1.Add(childGroup.Create(registry, i));
                 }
 
-                var childPipingCalculation = calculationBase as PipingCalculationScenario;
-                if (childPipingCalculation != null)
+                if (calculationBase is PipingCalculationScenario childPipingCalculation)
                 {
                     entity.PipingCalculationEntities.Add(childPipingCalculation.Create(registry, i));
                 }
 
-                var childMacroStabilityInwardsCalculation = calculationBase as MacroStabilityInwardsCalculationScenario;
-                if (childMacroStabilityInwardsCalculation != null)
+                if (calculationBase is MacroStabilityInwardsCalculationScenario childMacroStabilityInwardsCalculation)
                 {
                     entity.MacroStabilityInwardsCalculationEntities.Add(childMacroStabilityInwardsCalculation.Create(registry, i));
                 }
 
-                var childGrassCoverErosionInwardsCalculation = calculationBase as GrassCoverErosionInwardsCalculation;
-                if (childGrassCoverErosionInwardsCalculation != null)
+                if (calculationBase is GrassCoverErosionInwardsCalculationScenario childGrassCoverErosionInwardsCalculation)
                 {
                     entity.GrassCoverErosionInwardsCalculationEntities.Add(childGrassCoverErosionInwardsCalculation.Create(registry, i));
                 }
 
-                var childGrassCoverErosionOutwardsCalculation = calculationBase as GrassCoverErosionOutwardsWaveConditionsCalculation;
-                if (childGrassCoverErosionOutwardsCalculation != null)
+                if (calculationBase is GrassCoverErosionOutwardsWaveConditionsCalculation childGrassCoverErosionOutwardsCalculation)
                 {
                     entity.GrassCoverErosionOutwardsWaveConditionsCalculationEntities.Add(childGrassCoverErosionOutwardsCalculation.Create(registry, i));
                 }
 
-                var childHeightStructuresCalculation = calculationBase as StructuresCalculation<HeightStructuresInput>;
-                if (childHeightStructuresCalculation != null)
+                if (calculationBase is StructuresCalculation<HeightStructuresInput> childHeightStructuresCalculation)
                 {
                     entity.HeightStructuresCalculationEntities.Add(childHeightStructuresCalculation.CreateForHeightStructures(registry, i));
                 }
 
-                var childClosingStructuresCalculation = calculationBase as StructuresCalculation<ClosingStructuresInput>;
-                if (childClosingStructuresCalculation != null)
+                if (calculationBase is StructuresCalculation<ClosingStructuresInput> childClosingStructuresCalculation)
                 {
                     entity.ClosingStructuresCalculationEntities.Add(childClosingStructuresCalculation.CreateForClosingStructures(registry, i));
                 }
 
-                var childStabilityPointStructuresCalculation = calculationBase as StructuresCalculation<StabilityPointStructuresInput>;
-                if (childStabilityPointStructuresCalculation != null)
+                if (calculationBase is StructuresCalculation<StabilityPointStructuresInput> childStabilityPointStructuresCalculation)
                 {
                     entity.StabilityPointStructuresCalculationEntities.Add(childStabilityPointStructuresCalculation.CreateForStabilityPointStructures(registry, i));
                 }
 
-                var stabilityStoneCoverWaveConditionsCalculation = calculationBase as StabilityStoneCoverWaveConditionsCalculation;
-                if (stabilityStoneCoverWaveConditionsCalculation != null)
+                if (calculationBase is StabilityStoneCoverWaveConditionsCalculation stabilityStoneCoverWaveConditionsCalculation)
                 {
                     entity.StabilityStoneCoverWaveConditionsCalculationEntities.Add(stabilityStoneCoverWaveConditionsCalculation.Create(registry, i));
                 }
 
-                var waveImpactAsphaltCoverWaveConditionsCalculation = calculationBase as WaveImpactAsphaltCoverWaveConditionsCalculation;
-                if (waveImpactAsphaltCoverWaveConditionsCalculation != null)
+                if (calculationBase is WaveImpactAsphaltCoverWaveConditionsCalculation waveImpactAsphaltCoverWaveConditionsCalculation)
                 {
                     entity.WaveImpactAsphaltCoverWaveConditionsCalculationEntities.Add(waveImpactAsphaltCoverWaveConditionsCalculation.Create(registry, i));
                 }
