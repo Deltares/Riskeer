@@ -780,12 +780,12 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
 
             GrassCoverErosionInwardsHelper.UpdateCalculationToSectionResultAssignments(
                 failureMechanism.SectionResults,
-                failureMechanism.Calculations.Cast<GrassCoverErosionInwardsCalculation>());
+                failureMechanism.Calculations.Cast<GrassCoverErosionInwardsCalculationScenario>());
         }
 
         private static void AddCalculation(GrassCoverErosionInwardsCalculationGroupContext context)
         {
-            var calculation = new GrassCoverErosionInwardsCalculation
+            var calculation = new GrassCoverErosionInwardsCalculationScenario
             {
                 Name = NamingHelper.GetUniqueName(context.WrappedData.Children, RiskeerCommonDataResources.Calculation_DefaultName, c => c.Name)
             };
@@ -801,7 +801,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
 
             GrassCoverErosionInwardsHelper.UpdateCalculationToSectionResultAssignments(
                 context.FailureMechanism.SectionResults,
-                context.FailureMechanism.Calculations.Cast<GrassCoverErosionInwardsCalculation>().ToArray());
+                context.FailureMechanism.Calculations.Cast<GrassCoverErosionInwardsCalculationScenario>().ToArray());
 
             parentGroupContext.NotifyObservers();
         }
@@ -911,7 +911,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
                 calculationGroupContext.WrappedData.Children.Remove(context.WrappedData);
                 GrassCoverErosionInwardsHelper.UpdateCalculationToSectionResultAssignments(
                     context.FailureMechanism.SectionResults,
-                    context.FailureMechanism.Calculations.OfType<GrassCoverErosionInwardsCalculation>());
+                    context.FailureMechanism.Calculations.OfType<GrassCoverErosionInwardsCalculationScenario>());
                 calculationGroupContext.NotifyObservers();
             }
         }
