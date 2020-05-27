@@ -41,7 +41,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
         private readonly RecursiveObserver<CalculationGroup, ICalculationInput> calculationInputObserver;
         private readonly RecursiveObserver<CalculationGroup, ICalculationBase> calculationGroupObserver;
         private readonly Observer failureMechanismObserver;
-        private GrassCoverErosionInwardsFailureMechanism failureMechanism;
+        private readonly GrassCoverErosionInwardsFailureMechanism failureMechanism;
         private CalculationGroup data;
 
         /// <summary>
@@ -64,11 +64,11 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
 
-            InitializeComponent();
-
             data = calculationGroup;
             this.failureMechanism = failureMechanism;
-            
+
+            InitializeComponent();
+
             failureMechanismObserver = new Observer(UpdateDataGridViewDataSource)
             {
                 Observable = failureMechanism
@@ -86,33 +86,14 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
             {
                 Observable = calculationGroup
             };
-        }
 
-        /// <summary>
-        /// Gets or sets the failure mechanism.
-        /// </summary>
-        public GrassCoverErosionInwardsFailureMechanism FailureMechanism
-        {
-            get => failureMechanism;
-            set
-            {
-                failureMechanism = value;
-                failureMechanismObserver.Observable = failureMechanism;
-                UpdateDataGridViewDataSource();
-            }
+            UpdateDataGridViewDataSource();
         }
 
         public object Data
         {
             get => data;
-            set
-            {
-                data = value as CalculationGroup;
-
-                calculationInputObserver.Observable = data;
-                calculationGroupObserver.Observable = data;
-                UpdateDataGridViewDataSource();
-            }
+            set => data = value as CalculationGroup;
         }
 
         protected override void OnLoad(EventArgs e)
@@ -140,7 +121,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
         {
             scenarioSelectionControl.EndEdit();
 
-            if (failureMechanism?.SectionResults == null || data?.Children == null)
+            if (failureMechanism.SectionResults == null || data.Children == null)
             {
                 scenarioSelectionControl.ClearDataSource();
             }

@@ -168,9 +168,26 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void AdditionalDataCheck_Always_ReturnTrueOnlyIfFailureMechanismRelevant(bool isRelevant)
+        public void AdditionalDataCheck_FailureMechanismRelevant_ReturnTrue()
+        {
+            // Setup
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+
+            var context = new GrassCoverErosionInwardsFailureMechanismContext(failureMechanism, assessmentSection);
+
+            // Call
+            bool result = info.AdditionalDataCheck(context);
+
+            // Assert
+            Assert.IsTrue(result);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void AdditionalDataCheck_FailureMechanismNotRelevant_ReturnFalse()
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -178,7 +195,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
 
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism
             {
-                IsRelevant = isRelevant
+                IsRelevant = false
             };
 
             var context = new GrassCoverErosionInwardsFailureMechanismContext(failureMechanism, assessmentSection);
@@ -187,7 +204,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
             bool result = info.AdditionalDataCheck(context);
 
             // Assert
-            Assert.AreEqual(isRelevant, result);
+            Assert.IsFalse(result);
             mocks.VerifyAll();
         }
 

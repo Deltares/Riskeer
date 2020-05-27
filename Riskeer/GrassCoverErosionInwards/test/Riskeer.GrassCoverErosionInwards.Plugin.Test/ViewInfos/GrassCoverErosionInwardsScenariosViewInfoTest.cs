@@ -21,6 +21,7 @@
 
 using System.Drawing;
 using System.Linq;
+using Core.Common.Controls.Views;
 using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -73,7 +74,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void GetViewData_Always_ReturnWrappedData()
+        public void GetViewData_WithContext_ReturnWrappedData()
         {
             // Setup
             var calculationGroup = new CalculationGroup();
@@ -252,20 +253,19 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void AfterCreate_Always_SetsSpecificPropertiesToView()
+        public void AfterCreate_WithContext_ReturnsGrassCoverErosionInwardsScenariosView()
         {
             // Setup
-            using (var view = new GrassCoverErosionInwardsScenariosView(new CalculationGroup(), new GrassCoverErosionInwardsFailureMechanism()))
+            var group = new CalculationGroup();
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var context = new GrassCoverErosionInwardsScenariosContext(group, failureMechanism);
+
+            // Call
+            using (IView view = info.CreateInstance(context))
             {
-                var group = new CalculationGroup();
-                var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-                var context = new GrassCoverErosionInwardsScenariosContext(group, failureMechanism);
-
-                // Call
-                info.AfterCreate(view, context);
-
                 // Assert
-                Assert.AreSame(failureMechanism, view.FailureMechanism);
+                Assert.IsInstanceOf<GrassCoverErosionInwardsScenariosView>(view);
+                Assert.AreSame(group, view.Data);
             }
         }
     }
