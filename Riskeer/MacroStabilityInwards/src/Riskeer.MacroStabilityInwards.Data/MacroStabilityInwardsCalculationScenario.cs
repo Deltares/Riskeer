@@ -44,24 +44,8 @@ namespace Riskeer.MacroStabilityInwards.Data
 
         public RoundedDouble Contribution
         {
-            get
-            {
-                return contribution;
-            }
-            set
-            {
-                contribution = value.ToPrecision(contribution.NumberOfDecimalPlaces);
-            }
-        }
-
-        public CalculationScenarioStatus Status
-        {
-            get
-            {
-                return Output == null
-                           ? CalculationScenarioStatus.NotCalculated
-                           : CalculationScenarioStatus.Done;
-            }
+            get => contribution;
+            set => contribution = value.ToPrecision(contribution.NumberOfDecimalPlaces);
         }
     }
 }
