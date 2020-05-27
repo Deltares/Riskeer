@@ -21,10 +21,9 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using DotSpatial.Data;
 using DotSpatial.Projections;
-using GeoAPI.Geometries;
+using DotSpatial.Topology;
 using DotSpatialReproject = DotSpatial.Projections.Reproject;
 
 namespace Core.Components.DotSpatial.Projections
@@ -68,13 +67,13 @@ namespace Core.Components.DotSpatial.Projections
                 throw new ArgumentNullException(nameof(target));
             }
 
-            if (ring.Coordinates.Length < 3)
+            if (ring.Coordinates.Count < 3)
             {
                 throw new ArgumentException(@"Ring must contain at least 3 coordinates.",
                                             nameof(ring));
             }
 
-            Coordinate[] seq = Reproject(ring.Coordinates.Densify(36).ToArray(), source, target);
+            IList<Coordinate> seq = Reproject(ring.Coordinates.Densify(36), source, target);
             return ring.Factory.CreateLinearRing(seq);
         }
 
@@ -113,17 +112,17 @@ namespace Core.Components.DotSpatial.Projections
             return ToExtent(xy);
         }
 
-        private static Coordinate[] Reproject(this Coordinate[] coordinates, ProjectionInfo source, ProjectionInfo target)
+        private static IList<Coordinate> Reproject(this IList<Coordinate> coordinates, ProjectionInfo source, ProjectionInfo target)
         {
             if (target.Transform == null)
             {
                 return coordinates;
             }
 
-            var xy = new double[coordinates.Length * 2];
-            var z = new double[coordinates.Length];
+            var xy = new double[coordinates.Count * 2];
+            var z = new double[coordinates.Count];
             var j = 0;
-            for (var i = 0; i < coordinates.Length; i++)
+            for (var i = 0; i < coordinates.Count; i++)
             {
                 Coordinate c = coordinates[i];
                 xy[j] = c.X;
@@ -132,16 +131,16 @@ namespace Core.Components.DotSpatial.Projections
                 z[i] = double.IsNaN(c.Z) ? 0 : c.Z;
             }
 
-            DotSpatialReproject.ReprojectPoints(xy, z, source, target, 0, coordinates.Length);
+            DotSpatialReproject.ReprojectPoints(xy, z, source, target, 0, coordinates.Count);
 
-            var result = new List<Coordinate>(coordinates.Length);
+            var result = new List<Coordinate>(coordinates.Count);
             j = 0;
-            for (var i = 0; i < coordinates.Length; i++)
+            for (var i = 0; i < coordinates.Count; i++)
             {
                 result.Add(new Coordinate(xy[j++], xy[j++]));
             }
 
-            return result.ToArray();
+            return result;
         }
 
         /// <summary>

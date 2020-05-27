@@ -27,9 +27,7 @@ using Core.Components.Gis.Features;
 using Core.Components.Gis.Geometries;
 using Core.Components.Gis.IO.Properties;
 using DotSpatial.Data;
-using GeoAPI.Geometries;
-using NetTopologySuite.Geometries;
-using FeatureType = DotSpatial.Data.FeatureType;
+using DotSpatial.Topology;
 
 namespace Core.Components.Gis.IO.Writers
 {

@@ -34,7 +34,7 @@ using Core.Components.Gis.Forms;
 using DotSpatial.Controls;
 using DotSpatial.Data;
 using DotSpatial.Projections;
-using GeoAPI.Geometries;
+using DotSpatial.Topology;
 using log4net;
 using ILog = log4net.ILog;
 using Timer = System.Timers.Timer;
@@ -542,7 +542,7 @@ namespace Core.Components.DotSpatial.Forms
 
         public void ZoomToAllVisibleLayers(MapData layerData)
         {
-            Envelope envelope = CreateEnvelopeForAllVisibleLayers(layerData);
+            IEnvelope envelope = CreateEnvelopeForAllVisibleLayers(layerData);
             if (!envelope.IsNull)
             {
                 Extent extent = envelope.ToExtent();
@@ -558,7 +558,7 @@ namespace Core.Components.DotSpatial.Forms
         /// <returns>The area definition.</returns>
         /// <exception cref="ArgumentException">Thrown when <paramref name="mapData"/> is
         /// not part of the drawn map features.</exception>
-        private Envelope CreateEnvelopeForAllVisibleLayers(MapData mapData)
+        private IEnvelope CreateEnvelopeForAllVisibleLayers(MapData mapData)
         {
             var collection = mapData as MapDataCollection;
             if (collection != null)
@@ -573,7 +573,7 @@ namespace Core.Components.DotSpatial.Forms
                                             nameof(mapData));
             }
 
-            Envelope envelope = new Envelope();
+            IEnvelope envelope = new Envelope();
             if (LayerHasVisibleExtent(drawnMapData.FeatureBasedMapDataLayer))
             {
                 envelope.ExpandToInclude(drawnMapData.FeatureBasedMapDataLayer.Extent.ToEnvelope());
@@ -589,9 +589,9 @@ namespace Core.Components.DotSpatial.Forms
         /// <returns>The area definition.</returns>
         /// <exception cref="ArgumentException">Thrown when <paramref name="mapData"/> or
         /// any of its children is not part of the drawn map features.</exception>
-        private Envelope CreateEnvelopeForAllVisibleLayers(MapDataCollection mapData)
+        private IEnvelope CreateEnvelopeForAllVisibleLayers(MapDataCollection mapData)
         {
-            Envelope envelope = new Envelope();
+            IEnvelope envelope = new Envelope();
             foreach (MapData childMapData in mapData.Collection)
             {
                 envelope.ExpandToInclude(CreateEnvelopeForAllVisibleLayers(childMapData));

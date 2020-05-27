@@ -30,6 +30,7 @@ using Core.Components.Gis.Data.Removable;
 using Core.Components.Gis.IO.Properties;
 using Core.Components.Gis.IO.Readers;
 using DotSpatial.Data;
+using DotSpatial.Topology;
 
 namespace Core.Components.Gis.IO.Importers
 {

@@ -31,8 +31,7 @@ using Core.Components.Gis.Theme;
 using DotSpatial.Controls;
 using DotSpatial.Data;
 using DotSpatial.Symbology;
-using GeoAPI.Geometries;
-using NetTopologySuite.Geometries;
+using DotSpatial.Topology;
 
 namespace Core.Components.DotSpatial.Converter
 {
@@ -49,13 +48,13 @@ namespace Core.Components.DotSpatial.Converter
             {
                 IEnumerable<Point2D>[] pointCollections = mapGeometry.PointCollections.ToArray();
 
-                Coordinate[] outerRingCoordinates = ConvertPoint2DElementsToCoordinates(pointCollections[0]).ToArray();
+                IEnumerable<Coordinate> outerRingCoordinates = ConvertPoint2DElementsToCoordinates(pointCollections[0]);
                 ILinearRing outerRing = new LinearRing(outerRingCoordinates);
 
                 var innerRings = new ILinearRing[pointCollections.Length - 1];
                 for (var i = 1; i < pointCollections.Length; i++)
                 {
-                    Coordinate[] innerRingCoordinates = ConvertPoint2DElementsToCoordinates(pointCollections[i]).ToArray();
+                    IEnumerable<Coordinate> innerRingCoordinates = ConvertPoint2DElementsToCoordinates(pointCollections[i]);
                     innerRings[i - 1] = new LinearRing(innerRingCoordinates);
                 }
 
@@ -105,9 +104,9 @@ namespace Core.Components.DotSpatial.Converter
             return new PolygonCategory(style.FillColor, GetStrokeColor(style), style.StrokeThickness);
         }
 
-        private static IGeometry GetGeometry(List<IPolygon> geometryList)
+        private static IBasicGeometry GetGeometry(List<IPolygon> geometryList)
         {
-            IGeometry geometry;
+            IBasicGeometry geometry;
             var factory = new GeometryFactory();
 
             if (geometryList.Count > 1)
