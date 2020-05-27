@@ -1,34 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <Import Project="$(SolutionDir)\build\Test.targets" />
   <ItemGroup>
-    <Reference Include="DotSpatial.Controls, Version=1.8.0.0, Culture=neutral, PublicKeyToken=4d9e49339a7d240c, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\lib\DotSpatial.1.8\DotSpatial.Controls.dll</HintPath>
-    </Reference>
-    <Reference Include="DotSpatial.Data, Version=1.8.0.0, Culture=neutral, PublicKeyToken=c29dbf30e059ca9d, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\lib\DotSpatial.1.8\DotSpatial.Data.dll</HintPath>
-    </Reference>
-    <Reference Include="DotSpatial.Extensions, Version=1.8.0.0, Culture=neutral, PublicKeyToken=4d9e49339a7d240c, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\lib\DotSpatial.1.8\DotSpatial.Extensions.dll</HintPath>
-    </Reference>
-    <Reference Include="DotSpatial.Projections, Version=1.8.0.0, Culture=neutral, PublicKeyToken=272632bddd08a38b, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\lib\DotSpatial.1.8\DotSpatial.Projections.dll</HintPath>
-    </Reference>
-    <Reference Include="DotSpatial.Serialization, Version=1.8.0.0, Culture=neutral, PublicKeyToken=441f200f827611e7, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\lib\DotSpatial.1.8\DotSpatial.Serialization.dll</HintPath>
-    </Reference>
-    <Reference Include="DotSpatial.Symbology, Version=1.8.0.0, Culture=neutral, PublicKeyToken=6178c08da7998387, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\lib\DotSpatial.1.8\DotSpatial.Symbology.dll</HintPath>
-    </Reference>
-    <Reference Include="DotSpatial.Topology, Version=1.8.0.0, Culture=neutral, PublicKeyToken=a66b5e9434ca3671, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\lib\DotSpatial.1.8\DotSpatial.Topology.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
@@ -100,6 +72,18 @@
     <PackageReference Include="BruTile">
       <Version>2.1.2</Version>
     </PackageReference>
+    <PackageReference Include="DotSpatial.Controls" Version="1.9.0" />
+    <PackageReference Include="DotSpatial.Data" Version="1.9.0" />
+    <PackageReference Include="DotSpatial.Data.Forms" Version="1.9.0" />
+    <PackageReference Include="DotSpatial.Extensions" Version="1.9.0" />
+    <PackageReference Include="DotSpatial.Modeling.Forms" Version="1.9.0" />
+    <PackageReference Include="DotSpatial.Mono" Version="1.9.0" />
+    <PackageReference Include="DotSpatial.Projections" Version="1.9.0" />
+    <PackageReference Include="DotSpatial.Projections.Forms" Version="1.9.0" />
+    <PackageReference Include="DotSpatial.Serialization" Version="1.9.0" />
+    <PackageReference Include="DotSpatial.Symbology" Version="1.9.0" />
+    <PackageReference Include="DotSpatial.Symbology.Forms" Version="1.9.0" />
+    <PackageReference Include="DotSpatial.Topology" Version="1.9.0" />
     <PackageReference Include="NUnit">
       <Version>3.8.1</Version>
     </PackageReference>

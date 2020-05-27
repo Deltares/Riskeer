@@ -6,14 +6,6 @@
     <None Remove="test-data\**" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="DotSpatial.Data, Version=1.8.0.0, Culture=neutral, PublicKeyToken=c29dbf30e059ca9d, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\lib\DotSpatial.1.8\DotSpatial.Data.dll</HintPath>
-    </Reference>
-    <Reference Include="DotSpatial.Topology, Version=1.8.0.0, Culture=neutral, PublicKeyToken=a66b5e9434ca3671, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\lib\DotSpatial.1.8\DotSpatial.Topology.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml" />
@@ -32,6 +24,18 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="DotSpatial.Controls" Version="1.9.0" />
+    <PackageReference Include="DotSpatial.Data" Version="1.9.0" />
+    <PackageReference Include="DotSpatial.Data.Forms" Version="1.9.0" />
+    <PackageReference Include="DotSpatial.Extensions" Version="1.9.0" />
+    <PackageReference Include="DotSpatial.Modeling.Forms" Version="1.9.0" />
+    <PackageReference Include="DotSpatial.Mono" Version="1.9.0" />
+    <PackageReference Include="DotSpatial.Projections" Version="1.9.0" />
+    <PackageReference Include="DotSpatial.Projections.Forms" Version="1.9.0" />
+    <PackageReference Include="DotSpatial.Serialization" Version="1.9.0" />
+    <PackageReference Include="DotSpatial.Symbology" Version="1.9.0" />
+    <PackageReference Include="DotSpatial.Symbology.Forms" Version="1.9.0" />
+    <PackageReference Include="DotSpatial.Topology" Version="1.9.0" />
     <PackageReference Include="NUnit">
       <Version>3.8.1</Version>
     </PackageReference>

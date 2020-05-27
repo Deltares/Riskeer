@@ -1,22 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <Import Project="$(SolutionDir)\build\Test.targets" />
   <ItemGroup>
-    <Reference Include="DotSpatial.Controls, Version=1.8.0.0, Culture=neutral, PublicKeyToken=4d9e49339a7d240c, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\lib\DotSpatial.1.8\DotSpatial.Controls.dll</HintPath>
-    </Reference>
-    <Reference Include="DotSpatial.Data, Version=1.8.0.0, Culture=neutral, PublicKeyToken=c29dbf30e059ca9d, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\lib\DotSpatial.1.8\DotSpatial.Data.dll</HintPath>
-    </Reference>
-    <Reference Include="DotSpatial.Symbology, Version=1.8.0.0, Culture=neutral, PublicKeyToken=6178c08da7998387, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\lib\DotSpatial.1.8\DotSpatial.Symbology.dll</HintPath>
-    </Reference>
-    <Reference Include="DotSpatial.Topology, Version=1.8.0.0, Culture=neutral, PublicKeyToken=a66b5e9434ca3671, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\lib\DotSpatial.1.8\DotSpatial.Topology.dll</HintPath>
-    </Reference>
     <Reference Include="NUnitForms">
       <HintPath>..\..\..\..\lib\NUnitForms.dll</HintPath>
     </Reference>
@@ -30,20 +14,20 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Common\src\Core.Common.Base\Core.Common.Base.csproj"/>
-    <ProjectReference Include="..\..\..\Common\src\Core.Common.Controls.TreeView\Core.Common.Controls.TreeView.csproj"/>
-    <ProjectReference Include="..\..\..\Common\src\Core.Common.Controls\Core.Common.Controls.csproj"/>
-    <ProjectReference Include="..\..\..\Common\src\Core.Common.Gui\Core.Common.Gui.csproj"/>
-    <ProjectReference Include="..\..\..\Common\src\Core.Common.Util\Core.Common.Util.csproj"/>
-    <ProjectReference Include="..\..\..\Common\test\Core.Common.Gui.TestUtil\Core.Common.Gui.TestUtil.csproj"/>
-    <ProjectReference Include="..\..\..\Common\test\Core.Common.TestUtil\Core.Common.TestUtil.csproj"/>
-    <ProjectReference Include="..\..\..\Components\src\Core.Components.DotSpatial.Forms\Core.Components.DotSpatial.Forms.csproj"/>
-    <ProjectReference Include="..\..\..\Components\src\Core.Components.Gis.Forms\Core.Components.Gis.Forms.csproj"/>
-    <ProjectReference Include="..\..\..\Components\src\Core.Components.Gis.IO\Core.Components.Gis.IO.csproj"/>
-    <ProjectReference Include="..\..\..\Components\src\Core.Components.Gis\Core.Components.Gis.csproj"/>
-    <ProjectReference Include="..\..\..\Components\test\Core.Components.Gis.TestUtil\Core.Components.Gis.TestUtil.csproj"/>
-    <ProjectReference Include="..\..\src\Core.Plugins.Map\Core.Plugins.Map.csproj"/>
-    <ProjectReference Include="..\Core.Plugins.Map.TestUtil\Core.Plugins.Map.TestUtil.csproj"/>
+    <ProjectReference Include="..\..\..\Common\src\Core.Common.Base\Core.Common.Base.csproj" />
+    <ProjectReference Include="..\..\..\Common\src\Core.Common.Controls.TreeView\Core.Common.Controls.TreeView.csproj" />
+    <ProjectReference Include="..\..\..\Common\src\Core.Common.Controls\Core.Common.Controls.csproj" />
+    <ProjectReference Include="..\..\..\Common\src\Core.Common.Gui\Core.Common.Gui.csproj" />
+    <ProjectReference Include="..\..\..\Common\src\Core.Common.Util\Core.Common.Util.csproj" />
+    <ProjectReference Include="..\..\..\Common\test\Core.Common.Gui.TestUtil\Core.Common.Gui.TestUtil.csproj" />
+    <ProjectReference Include="..\..\..\Common\test\Core.Common.TestUtil\Core.Common.TestUtil.csproj" />
+    <ProjectReference Include="..\..\..\Components\src\Core.Components.DotSpatial.Forms\Core.Components.DotSpatial.Forms.csproj" />
+    <ProjectReference Include="..\..\..\Components\src\Core.Components.Gis.Forms\Core.Components.Gis.Forms.csproj" />
+    <ProjectReference Include="..\..\..\Components\src\Core.Components.Gis.IO\Core.Components.Gis.IO.csproj" />
+    <ProjectReference Include="..\..\..\Components\src\Core.Components.Gis\Core.Components.Gis.csproj" />
+    <ProjectReference Include="..\..\..\Components\test\Core.Components.Gis.TestUtil\Core.Components.Gis.TestUtil.csproj" />
+    <ProjectReference Include="..\..\src\Core.Plugins.Map\Core.Plugins.Map.csproj" />
+    <ProjectReference Include="..\Core.Plugins.Map.TestUtil\Core.Plugins.Map.TestUtil.csproj" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.Lesser.licenseheader">
@@ -51,6 +35,18 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="DotSpatial.Controls" Version="1.9.0" />
+    <PackageReference Include="DotSpatial.Data" Version="1.9.0" />
+    <PackageReference Include="DotSpatial.Data.Forms" Version="1.9.0" />
+    <PackageReference Include="DotSpatial.Extensions" Version="1.9.0" />
+    <PackageReference Include="DotSpatial.Modeling.Forms" Version="1.9.0" />
+    <PackageReference Include="DotSpatial.Mono" Version="1.9.0" />
+    <PackageReference Include="DotSpatial.Projections" Version="1.9.0" />
+    <PackageReference Include="DotSpatial.Projections.Forms" Version="1.9.0" />
+    <PackageReference Include="DotSpatial.Serialization" Version="1.9.0" />
+    <PackageReference Include="DotSpatial.Symbology" Version="1.9.0" />
+    <PackageReference Include="DotSpatial.Symbology.Forms" Version="1.9.0" />
+    <PackageReference Include="DotSpatial.Topology" Version="1.9.0" />
     <PackageReference Include="Fluent.Ribbon">
       <Version>3.4.0</Version>
     </PackageReference>
