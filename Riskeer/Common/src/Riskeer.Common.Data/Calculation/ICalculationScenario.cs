@@ -37,10 +37,5 @@ namespace Riskeer.Common.Data.Calculation
         /// Gets or sets the contribution of the scenario.
         /// </summary>
         RoundedDouble Contribution { get; set; }
-
-        /// <summary>
-        /// Gets the status of the scenario.
-        /// </summary>
-        CalculationScenarioStatus Status { get; }
     }
 }
