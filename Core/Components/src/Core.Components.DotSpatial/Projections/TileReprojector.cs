@@ -27,7 +27,8 @@ using Core.Common.Util.Drawing;
 using DotSpatial.Controls;
 using DotSpatial.Data;
 using DotSpatial.Projections;
-using GeoAPI.Geometries;
+using DotSpatial.Symbology;
+using DotSpatial.Topology;
 using DotSpatialReproject = DotSpatial.Projections.Reproject;
 using Point = System.Drawing.Point;
 

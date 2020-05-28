@@ -36,9 +36,9 @@ using DotSpatial.Controls;
 using DotSpatial.Data;
 using DotSpatial.Projections;
 using DotSpatial.Symbology;
-using GeoAPI.Geometries;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Point = DotSpatial.Topology.Point;
 
 namespace Core.Components.DotSpatial.Test.Converter
 {
@@ -193,8 +193,8 @@ namespace Core.Components.DotSpatial.Test.Converter
 
             // Assert
             Assert.AreEqual(1, mapLayer.FeatureSet.Features.Count);
-            Assert.AreEqual(1.1, mapLayer.FeatureSet.Features[0].Geometry.Coordinates[0].X);
-            Assert.AreEqual(2.2, mapLayer.FeatureSet.Features[0].Geometry.Coordinates[0].Y);
+            Assert.AreEqual(1.1, mapLayer.FeatureSet.Features[0].BasicGeometry.Coordinates[0].X);
+            Assert.AreEqual(2.2, mapLayer.FeatureSet.Features[0].BasicGeometry.Coordinates[0].Y);
             Assert.AreEqual(MapDataConstants.FeatureBasedMapDataCoordinateSystem, mapLayer.Projection);
         }
 
@@ -220,8 +220,8 @@ namespace Core.Components.DotSpatial.Test.Converter
 
             // Assert
             Assert.AreEqual(1, mapLayer.FeatureSet.Features.Count);
-            Assert.AreEqual(1.1, mapLayer.FeatureSet.Features[0].Geometry.Coordinates[0].X);
-            Assert.AreEqual(2.2, mapLayer.FeatureSet.Features[0].Geometry.Coordinates[0].Y);
+            Assert.AreEqual(1.1, mapLayer.FeatureSet.Features[0].BasicGeometry.Coordinates[0].X);
+            Assert.AreEqual(2.2, mapLayer.FeatureSet.Features[0].BasicGeometry.Coordinates[0].Y);
             Assert.AreEqual(MapDataConstants.FeatureBasedMapDataCoordinateSystem, mapLayer.Projection);
         }
 
@@ -248,8 +248,8 @@ namespace Core.Components.DotSpatial.Test.Converter
 
             // Assert
             Assert.AreEqual(1, mapLayer.FeatureSet.Features.Count);
-            Assert.AreEqual(3.3135717854013329, mapLayer.FeatureSet.Features[0].Geometry.Coordinates[0].X);
-            Assert.AreEqual(47.974786294874853, mapLayer.FeatureSet.Features[0].Geometry.Coordinates[0].Y);
+            Assert.AreEqual(3.3135717854013329, mapLayer.FeatureSet.Features[0].BasicGeometry.Coordinates[0].X);
+            Assert.AreEqual(47.974786294874853, mapLayer.FeatureSet.Features[0].BasicGeometry.Coordinates[0].Y);
             Assert.AreEqual(coordinateSystem, mapLayer.Projection);
         }
 
@@ -278,8 +278,8 @@ namespace Core.Components.DotSpatial.Test.Converter
 
             // Assert
             Assert.AreEqual(1, mapLayer.FeatureSet.Features.Count);
-            Assert.AreEqual(1.1, mapLayer.FeatureSet.Features[0].Geometry.Coordinates[0].X);
-            Assert.AreEqual(2.2, mapLayer.FeatureSet.Features[0].Geometry.Coordinates[0].Y);
+            Assert.AreEqual(1.1, mapLayer.FeatureSet.Features[0].BasicGeometry.Coordinates[0].X);
+            Assert.AreEqual(2.2, mapLayer.FeatureSet.Features[0].BasicGeometry.Coordinates[0].Y);
             Assert.AreEqual(MapDataConstants.FeatureBasedMapDataCoordinateSystem, mapLayer.Projection);
         }
 
@@ -835,7 +835,7 @@ namespace Core.Components.DotSpatial.Test.Converter
 
             protected override IEnumerable<IFeature> CreateFeatures(MapFeature mapFeature)
             {
-                yield return new Feature(new Coordinate(1.1, 2.2));
+                yield return new Feature(new Point(1.1, 2.2));
             }
         }
     }

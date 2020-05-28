@@ -22,7 +22,7 @@
 using System;
 using Core.Common.TestUtil;
 using Core.Components.DotSpatial.Projections;
-using GeoAPI.Geometries;
+using DotSpatial.Topology;
 using NUnit.Framework;
 using Point = System.Drawing.Point;
 

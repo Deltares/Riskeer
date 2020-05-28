@@ -145,10 +145,10 @@ namespace Core.Components.DotSpatial.Test.Converter
             // Assert
             IFeature feature = mapPointLayer.DataSet.Features[0];
             Assert.AreEqual(mapPointData.Features.Count(), mapPointLayer.DataSet.Features.Count);
-            Assert.IsInstanceOf<Point>(feature.Geometry);
+            Assert.IsInstanceOf<Point>(feature.BasicGeometry);
 
             IEnumerable<Coordinate> expectedCoordinates = mapFeature.MapGeometries.ElementAt(0).PointCollections.ElementAt(0).Select(p => new Coordinate(p.X, p.Y));
-            CollectionAssert.AreEqual(expectedCoordinates, feature.Geometry.Coordinates);
+            CollectionAssert.AreEqual(expectedCoordinates, feature.Coordinates);
         }
 
         [Test]

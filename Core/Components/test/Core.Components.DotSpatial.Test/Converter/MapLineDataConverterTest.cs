@@ -35,8 +35,7 @@ using Core.Components.Gis.Theme;
 using DotSpatial.Controls;
 using DotSpatial.Data;
 using DotSpatial.Symbology;
-using GeoAPI.Geometries;
-using NetTopologySuite.Geometries;
+using DotSpatial.Topology;
 using NUnit.Framework;
 using Rhino.Mocks;
 using LineStyle = Core.Components.Gis.Style.LineStyle;
@@ -113,11 +112,11 @@ namespace Core.Components.DotSpatial.Test.Converter
             // Assert
             IFeature feature = mapLineLayer.DataSet.Features[0];
             Assert.AreEqual(mapLineData.Features.Count(), mapLineLayer.DataSet.Features.Count);
-            Assert.IsInstanceOf<LineString>(feature.Geometry);
+            Assert.IsInstanceOf<LineString>(feature.BasicGeometry);
 
             IEnumerable<Coordinate> expectedCoordinates = mapFeature.MapGeometries.ElementAt(0).PointCollections.ElementAt(0)
                                                                     .Select(p => new Coordinate(p.X, p.Y));
-            CollectionAssert.AreEqual(expectedCoordinates, feature.Geometry.Coordinates);
+            CollectionAssert.AreEqual(expectedCoordinates, feature.Coordinates);
         }
 
         [Test]
@@ -163,10 +162,10 @@ namespace Core.Components.DotSpatial.Test.Converter
             // Assert
             IFeature feature = mapLineLayer.DataSet.Features[0];
             Assert.AreEqual(mapLineData.Features.Count(), mapLineLayer.DataSet.Features.Count);
-            Assert.IsInstanceOf<MultiLineString>(feature.Geometry);
+            Assert.IsInstanceOf<MultiLineString>(feature.BasicGeometry);
 
             IEnumerable<Coordinate> expectedCoordinates = mapFeature.MapGeometries.SelectMany(mg => mg.PointCollections.ElementAt(0).Select(p => new Coordinate(p.X, p.Y)));
-            CollectionAssert.AreEqual(expectedCoordinates, feature.Geometry.Coordinates);
+            CollectionAssert.AreEqual(expectedCoordinates, feature.Coordinates);
         }
 
         [Test]
