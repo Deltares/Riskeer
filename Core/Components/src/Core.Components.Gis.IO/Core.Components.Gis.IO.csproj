@@ -41,17 +41,20 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="DotSpatial.Controls" Version="1.9.0" />
-    <PackageReference Include="DotSpatial.Data" Version="1.9.0" />
-    <PackageReference Include="DotSpatial.Data.Forms" Version="1.9.0" />
-    <PackageReference Include="DotSpatial.Extensions" Version="1.9.0" />
-    <PackageReference Include="DotSpatial.Modeling.Forms" Version="1.9.0" />
+    <PackageReference Include="DotSpatial.Controls" Version="2.0.0-rc1" />
+    <PackageReference Include="DotSpatial.Data" Version="2.0.0-rc1" />
+    <PackageReference Include="DotSpatial.Data.Forms" Version="2.0.0-rc1" />
+    <PackageReference Include="DotSpatial.Extensions" Version="2.0.0-rc1" />
+    <PackageReference Include="DotSpatial.GeoAPI" Version="1.7.4.3" />
+    <PackageReference Include="DotSpatial.Modeling.Forms" Version="2.0.0-rc1" />
     <PackageReference Include="DotSpatial.Mono" Version="1.9.0" />
-    <PackageReference Include="DotSpatial.Projections" Version="1.9.0" />
-    <PackageReference Include="DotSpatial.Projections.Forms" Version="1.9.0" />
-    <PackageReference Include="DotSpatial.Serialization" Version="1.9.0" />
-    <PackageReference Include="DotSpatial.Symbology" Version="1.9.0" />
-    <PackageReference Include="DotSpatial.Symbology.Forms" Version="1.9.0" />
+    <PackageReference Include="DotSpatial.NetTopologySuite" Version="1.14.4" />
+    <PackageReference Include="DotSpatial.NTSExtension" Version="2.0.0-rc1" />
+    <PackageReference Include="DotSpatial.Projections" Version="2.0.0-rc1" />
+    <PackageReference Include="DotSpatial.Projections.Forms" Version="2.0.0-rc1" />
+    <PackageReference Include="DotSpatial.Serialization" Version="2.0.0-rc1" />
+    <PackageReference Include="DotSpatial.Symbology" Version="2.0.0-rc1" />
+    <PackageReference Include="DotSpatial.Symbology.Forms" Version="2.0.0-rc1" />
     <PackageReference Include="DotSpatial.Topology" Version="1.9.0" />
     <PackageReference Include="log4net">
       <Version>2.0.8</Version>

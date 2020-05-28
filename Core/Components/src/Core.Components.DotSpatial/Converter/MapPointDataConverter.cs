@@ -28,7 +28,7 @@ using Core.Components.Gis.Theme;
 using DotSpatial.Controls;
 using DotSpatial.Data;
 using DotSpatial.Symbology;
-using DotSpatial.Topology;
+using GeoAPI.Geometries;
 
 namespace Core.Components.DotSpatial.Converter
 {
@@ -39,7 +39,7 @@ namespace Core.Components.DotSpatial.Converter
     {
         protected override IEnumerable<IFeature> CreateFeatures(MapFeature mapFeature)
         {
-            return GetAllMapFeatureCoordinates(mapFeature).Select(c => new Feature(new Point(c.X, c.Y))).ToArray();
+            return GetAllMapFeatureCoordinates(mapFeature).Select(c => new Feature(new Coordinate(c.X, c.Y))).ToArray();
         }
 
         protected override IFeatureSymbolizer CreateSymbolizer(MapPointData mapData)

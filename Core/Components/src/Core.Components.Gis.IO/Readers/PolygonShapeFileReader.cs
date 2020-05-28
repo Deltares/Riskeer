@@ -30,7 +30,7 @@ using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
 using Core.Components.Gis.Geometries;
 using DotSpatial.Data;
-using DotSpatial.Topology;
+using GeoAPI.Geometries;
 using CoreCommonUtilResources = Core.Common.Util.Properties.Resources;
 using GisIOResources = Core.Components.Gis.IO.Properties.Resources;
 
@@ -166,9 +166,9 @@ namespace Core.Components.Gis.IO.Readers
         {
             var geometries = new List<MapGeometry>();
 
-            for (var i = 0; i < polygonFeature.BasicGeometry.NumGeometries; i++)
+            for (var i = 0; i < polygonFeature.Geometry.NumGeometries; i++)
             {
-                var basicPolygon = (IBasicPolygon) polygonFeature.BasicGeometry.GetBasicGeometryN(i);
+                var basicPolygon = (IPolygon) polygonFeature.Geometry.GetGeometryN(i);
 
                 var mapGeometry = new MapGeometry(GetMapGeometryPointCollections(basicPolygon).ToArray());
                 geometries.Add(mapGeometry);
@@ -177,10 +177,10 @@ namespace Core.Components.Gis.IO.Readers
             return new MapFeature(geometries);
         }
 
-        private static IEnumerable<IEnumerable<Point2D>> GetMapGeometryPointCollections(IBasicPolygon polygon)
+        private static IEnumerable<IEnumerable<Point2D>> GetMapGeometryPointCollections(IPolygon polygon)
         {
             yield return polygon.Shell.Coordinates.Select(c => new Point2D(c.X, c.Y));
-            foreach (IBasicLineString hole in polygon.Holes)
+            foreach (ILinearRing hole in polygon.Holes)
             {
                 yield return hole.Coordinates.Select(c => new Point2D(c.X, c.Y));
             }
