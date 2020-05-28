@@ -21,8 +21,10 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Core.Components.DotSpatial.Properties;
-using DotSpatial.Topology;
+using GeoAPI.Geometries;
+using NetTopologySuite.Geometries;
 using Point = System.Drawing.Point;
 
 namespace Core.Components.DotSpatial.Projections
@@ -181,16 +183,16 @@ namespace Core.Components.DotSpatial.Projections
         /// <returns>The ground bounding-ordinate.</returns>
         public IPolygon BoundingOrdinatesToWorldCoordinates(int width, int height)
         {
-            var ringCoordinates = new List<Coordinate>(5);
+            var ringCoordinates = new Coordinate[5];
             Coordinate leftTop = ToWorldCoordinates(0, 0);
-            ringCoordinates.AddRange(new[]
+            ringCoordinates.Concat(new[]
             {
                 leftTop,
                 ToWorldCoordinates(0, height),
                 ToWorldCoordinates(width, 0),
                 ToWorldCoordinates(width, height),
                 leftTop
-            });
+            }).ToArray();
 
             ILinearRing ring = GeometryFactory.Default.CreateLinearRing(ringCoordinates);
             return GeometryFactory.Default.CreatePolygon(ring, null);
