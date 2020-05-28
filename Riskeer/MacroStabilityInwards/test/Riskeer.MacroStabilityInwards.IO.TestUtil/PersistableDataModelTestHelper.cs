@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2019. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2019. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -29,6 +29,7 @@ using Core.Common.Base.Geometry;
 using Core.Common.Geometry;
 using Core.Common.Util.Reflection;
 using NUnit.Framework;
+using Riskeer.Common.Data;
 using Riskeer.Common.Data.Probabilistics;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.MacroStabilityInwards.Data;
@@ -486,10 +487,10 @@ namespace Riskeer.MacroStabilityInwards.IO.TestUtil
         {
             if (isDitchPresent)
             {
-                Assert.AreEqual(surfaceLine.BottomDitchDikeSide.X, ditchCharacteristics.DitchBottomEmbankmentSide);
-                Assert.AreEqual(surfaceLine.BottomDitchPolderSide.X, ditchCharacteristics.DitchBottomLandSide);
-                Assert.AreEqual(surfaceLine.DitchDikeSide.X, ditchCharacteristics.DitchEmbankmentSide);
-                Assert.AreEqual(surfaceLine.DitchPolderSide.X, ditchCharacteristics.DitchLandSide);
+                AssertCharacteristicXPoint(surfaceLine.BottomDitchDikeSide, ditchCharacteristics.DitchBottomEmbankmentSide, surfaceLine);
+                AssertCharacteristicXPoint(surfaceLine.BottomDitchPolderSide, ditchCharacteristics.DitchBottomLandSide, surfaceLine);
+                AssertCharacteristicXPoint(surfaceLine.DitchDikeSide, ditchCharacteristics.DitchEmbankmentSide, surfaceLine);
+                AssertCharacteristicXPoint(surfaceLine.DitchPolderSide, ditchCharacteristics.DitchLandSide, surfaceLine);
             }
             else
             {
@@ -509,11 +510,18 @@ namespace Riskeer.MacroStabilityInwards.IO.TestUtil
         /// is not correct.</exception>
         public static void AssertEmbankmentCharacteristics(MacroStabilityInwardsSurfaceLine surfaceLine, PersistableEmbankmentCharacteristics embankmentCharacteristics)
         {
-            Assert.AreEqual(surfaceLine.DikeToeAtPolder.X, embankmentCharacteristics.EmbankmentToeLandSide);
-            Assert.AreEqual(surfaceLine.DikeTopAtPolder.X, embankmentCharacteristics.EmbankmentTopLandSide);
-            Assert.AreEqual(surfaceLine.DikeTopAtRiver.X, embankmentCharacteristics.EmbankmentTopWaterSide);
-            Assert.AreEqual(surfaceLine.DikeToeAtRiver.X, embankmentCharacteristics.EmbankmentToeWaterSide);
-            Assert.AreEqual(surfaceLine.ShoulderBaseInside?.X ?? double.NaN, embankmentCharacteristics.ShoulderBaseLandSide);
+            AssertCharacteristicXPoint(surfaceLine.DikeToeAtPolder, embankmentCharacteristics.EmbankmentToeLandSide, surfaceLine);
+            AssertCharacteristicXPoint(surfaceLine.DikeTopAtPolder, embankmentCharacteristics.EmbankmentTopLandSide, surfaceLine);
+            AssertCharacteristicXPoint(surfaceLine.DikeTopAtRiver, embankmentCharacteristics.EmbankmentTopWaterSide, surfaceLine);
+            AssertCharacteristicXPoint(surfaceLine.DikeToeAtRiver, embankmentCharacteristics.EmbankmentToeWaterSide, surfaceLine);
+            if (surfaceLine.ShoulderBaseInside != null)
+            {
+                AssertCharacteristicXPoint(surfaceLine.ShoulderBaseInside, embankmentCharacteristics.ShoulderBaseLandSide, surfaceLine);
+            }
+            else
+            {
+                Assert.IsNaN(embankmentCharacteristics.ShoulderBaseLandSide);
+            }
         }
 
         /// <summary>
@@ -539,6 +547,11 @@ namespace Riskeer.MacroStabilityInwards.IO.TestUtil
                 default:
                     throw new NotSupportedException();
             }
+        }
+
+        private static void AssertCharacteristicXPoint(Point3D originalPoint, double actualX, MechanismSurfaceLineBase surfaceLine)
+        {
+            Assert.AreEqual(surfaceLine.GetLocalPointFromGeometry(originalPoint).X, actualX);
         }
 
         private static PersistableShearStrengthModelType GetExpectedShearStrengthModelTypeForAbovePhreaticLevel(MacroStabilityInwardsShearStrengthModel shearStrengthModel)
