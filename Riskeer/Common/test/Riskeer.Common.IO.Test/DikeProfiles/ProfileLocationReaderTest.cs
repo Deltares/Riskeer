@@ -420,7 +420,7 @@ namespace Riskeer.Common.IO.Test.DikeProfiles
                 Assert.AreEqual(582857.71500000195, dikeProfileLocations[1].Point.Y);
 
                 Assert.AreEqual(42.0, dikeProfileLocations[0].Offset);
-                Assert.AreEqual(44.419998168945312, dikeProfileLocations[1].Offset);
+                Assert.AreEqual(44.420000000000002, dikeProfileLocations[1].Offset);
             }
         }
 
