@@ -29,8 +29,7 @@ using Core.Components.Gis.Theme;
 using DotSpatial.Controls;
 using DotSpatial.Data;
 using DotSpatial.Symbology;
-using GeoAPI.Geometries;
-using NetTopologySuite.Geometries;
+using DotSpatial.Topology;
 using LineStyle = Core.Components.Gis.Style.LineStyle;
 
 namespace Core.Components.DotSpatial.Converter
@@ -78,7 +77,7 @@ namespace Core.Components.DotSpatial.Converter
                                     LineCap.Round);
         }
 
-        private static IGeometry GetGeometry(MapFeature mapFeature)
+        private static IBasicGeometry GetGeometry(MapFeature mapFeature)
         {
             var factory = new GeometryFactory();
 
@@ -98,10 +97,9 @@ namespace Core.Components.DotSpatial.Converter
             return GetLineString(factory, pointsToConvert);
         }
 
-        private static ILineString GetLineString(IGeometryFactory factory, IEnumerable<Point2D> points)
+        private static IBasicLineString GetLineString(IGeometryFactory factory, IEnumerable<Point2D> points)
         {
-            Coordinate[] coordinates = points.Select(point => new Coordinate(point.X, point.Y)).ToArray();
-            return factory.CreateLineString(coordinates);
+            return factory.CreateLineString(ConvertPoint2DElementsToCoordinates(points).ToArray());
         }
     }
 }

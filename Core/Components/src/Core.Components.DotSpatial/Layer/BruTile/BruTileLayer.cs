@@ -63,15 +63,14 @@ using Core.Components.DotSpatial.Projections;
 using Core.Components.DotSpatial.Properties;
 using Core.Components.Gis.Exceptions;
 using DotSpatial.Controls;
-using DotSpatial.Data;
 using DotSpatial.Projections;
 using DotSpatial.Projections.AuthorityCodes;
-using GeoAPI.Geometries;
+using DotSpatial.Symbology;
+using DotSpatial.Topology;
 using BruTileExtent = BruTile.Extent;
 using DotSpatialExtent = DotSpatial.Data.Extent;
 using DotSpatialLayer = DotSpatial.Symbology.Layer;
 using Point = System.Drawing.Point;
-using WorldFile = Core.Components.DotSpatial.Projections.WorldFile;
 
 namespace Core.Components.DotSpatial.Layer.BruTile
 {
@@ -357,19 +356,19 @@ namespace Core.Components.DotSpatial.Layer.BruTile
 
         private static bool TryParseProjectionProj4(string proj4, out ProjectionInfo projectionInfo)
         {
-            return TryParseString(() => ProjectionInfo.FromProj4String(proj4), out projectionInfo);
+            return TryParseString(proj4, ProjectionInfo.FromProj4String, out projectionInfo);
         }
 
         private static bool TryParseProjectionEsri(string esriWkt, out ProjectionInfo projectionInfo)
         {
-            return TryParseString(() => ProjectionInfo.FromEsriString(esriWkt), out projectionInfo);
+            return TryParseString(esriWkt, ProjectionInfo.FromEsriString, out projectionInfo);
         }
 
-        private static bool TryParseString(Func<ProjectionInfo> parseText, out ProjectionInfo projectionInfo)
+        private static bool TryParseString(string text, Func<string, ProjectionInfo> parseText, out ProjectionInfo projectionInfo)
         {
             try
             {
-                projectionInfo = parseText();
+                projectionInfo = parseText(text);
             }
             catch
             {

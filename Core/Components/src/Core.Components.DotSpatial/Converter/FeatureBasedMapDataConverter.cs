@@ -32,7 +32,7 @@ using DotSpatial.Controls;
 using DotSpatial.Data;
 using DotSpatial.Projections;
 using DotSpatial.Symbology;
-using GeoAPI.Geometries;
+using DotSpatial.Topology;
 
 namespace Core.Components.DotSpatial.Converter
 {
