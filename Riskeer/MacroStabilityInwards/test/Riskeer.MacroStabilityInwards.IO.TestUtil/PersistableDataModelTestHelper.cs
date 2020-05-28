@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2019. All rights reserved.
+// Copyright (C) Stichting Deltares 2019. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -424,7 +424,7 @@ namespace Riskeer.MacroStabilityInwards.IO.TestUtil
                     PersistableStatePoint statePoint = state.StatePoints.ElementAt(j);
 
                     Assert.IsNotNull(statePoint.Id);
-                    Assert.IsEmpty(statePoint.Label);
+                    Assert.AreEqual($"POP - {layerWithPop.Data.MaterialName}", statePoint.Label);
                     Assert.IsNotNull(statePoint.LayerId);
                     Assert.IsTrue(statePoint.IsProbabilistic);
 

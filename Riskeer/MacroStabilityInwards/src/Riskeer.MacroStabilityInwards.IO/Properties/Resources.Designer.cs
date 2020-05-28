@@ -372,6 +372,15 @@ namespace Riskeer.MacroStabilityInwards.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to POP - {0}.
+        /// </summary>
+        public static string PersistableStateFactory_CreateStatePoint_POP_LayerName_0 {
+            get {
+                return ResourceManager.GetString("PersistableStateFactory_CreateStatePoint_POP_LayerName_0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Onverzadigd gewicht.
         /// </summary>
         public static string SoilLayerData_AbovePhreaticLevelDistribution_Description {
