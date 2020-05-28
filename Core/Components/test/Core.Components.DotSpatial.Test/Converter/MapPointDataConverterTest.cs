@@ -34,10 +34,10 @@ using Core.Components.Gis.Theme;
 using DotSpatial.Controls;
 using DotSpatial.Data;
 using DotSpatial.Symbology;
-using DotSpatial.Topology;
+using GeoAPI.Geometries;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Point = DotSpatial.Topology.Point;
+using Point = NetTopologySuite.Geometries.Point;
 using PointShape = DotSpatial.Symbology.PointShape;
 
 namespace Core.Components.DotSpatial.Test.Converter

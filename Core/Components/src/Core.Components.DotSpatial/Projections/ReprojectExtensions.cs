@@ -68,12 +68,6 @@ namespace Core.Components.DotSpatial.Projections
                 throw new ArgumentNullException(nameof(target));
             }
 
-            if (ring.Coordinates.Length < 3)
-            {
-                throw new ArgumentException(@"Ring must contain at least 3 coordinates.",
-                                            nameof(ring));
-            }
-
             Coordinate[] seq = Reproject(ring.Coordinates.Densify(36).ToArray(), source, target);
             return ring.Factory.CreateLinearRing(seq);
         }

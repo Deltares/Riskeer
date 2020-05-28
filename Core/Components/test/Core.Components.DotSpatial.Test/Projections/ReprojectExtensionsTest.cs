@@ -61,6 +61,7 @@ namespace Core.Components.DotSpatial.Test.Projections
             {
                 p1,
                 p2,
+                p2,
                 p1
             });
 
@@ -85,6 +86,7 @@ namespace Core.Components.DotSpatial.Test.Projections
             {
                 p1,
                 p2,
+                p2,
                 p1
             });
 
@@ -96,31 +98,6 @@ namespace Core.Components.DotSpatial.Test.Projections
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
             Assert.AreEqual("target", paramName);
-        }
-
-        [Test]
-        [TestCase(0)]
-        [TestCase(1)]
-        [TestCase(2)]
-        public void Reproject_ForLinearRingWithTooFewCoordinates_ThrowArgumentException(int numberOfPoints)
-        {
-            // Setup
-            IEnumerable<Coordinate> coordinates = Enumerable.Range(0, numberOfPoints)
-                                                            .Select(i => new Coordinate(i, i));
-            var linearRing = new LinearRing(new Coordinate[1]);
-
-
-            linearRing.Coordinates.Concat(coordinates.ToArray());
-
-            ProjectionInfo projection = KnownCoordinateSystems.Projected.NationalGrids.Rijksdriehoekstelsel;
-
-            // Call
-            TestDelegate call = () => linearRing.Reproject(projection, projection);
-
-            // Assert
-            const string message = "Ring must contain at least 3 coordinates.";
-            string paramName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, message).ParamName;
-            Assert.AreEqual("ring", paramName);
         }
 
         [Test]

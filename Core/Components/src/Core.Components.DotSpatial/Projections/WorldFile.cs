@@ -183,16 +183,15 @@ namespace Core.Components.DotSpatial.Projections
         /// <returns>The ground bounding-ordinate.</returns>
         public IPolygon BoundingOrdinatesToWorldCoordinates(int width, int height)
         {
-            var ringCoordinates = new Coordinate[5];
             Coordinate leftTop = ToWorldCoordinates(0, 0);
-            ringCoordinates.Concat(new[]
+            Coordinate[] ringCoordinates = new[]
             {
                 leftTop,
                 ToWorldCoordinates(0, height),
                 ToWorldCoordinates(width, 0),
                 ToWorldCoordinates(width, height),
                 leftTop
-            }).ToArray();
+            };
 
             ILinearRing ring = GeometryFactory.Default.CreateLinearRing(ringCoordinates);
             return GeometryFactory.Default.CreatePolygon(ring, null);

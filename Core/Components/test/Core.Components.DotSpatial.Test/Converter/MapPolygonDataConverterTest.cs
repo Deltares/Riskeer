@@ -34,7 +34,8 @@ using Core.Components.Gis.Theme;
 using DotSpatial.Controls;
 using DotSpatial.Data;
 using DotSpatial.Symbology;
-using DotSpatial.Topology;
+using GeoAPI.Geometries;
+using NetTopologySuite.Geometries;
 using NUnit.Framework;
 using Rhino.Mocks;
 
@@ -462,14 +463,18 @@ namespace Core.Components.DotSpatial.Test.Converter
         private static MapFeature CreateMapFeatureWithMetaData(string metadataAttributeName)
         {
             var random = new Random(21);
+            var point1 = new Point2D(random.NextDouble(), random.NextDouble());
+            var point2 = new Point2D(random.NextDouble(), random.NextDouble());
             var mapFeature = new MapFeature(new[]
             {
                 new MapGeometry(new[]
                 {
                     new[]
                     {
-                        new Point2D(random.NextDouble(), random.NextDouble()),
-                        new Point2D(random.NextDouble(), random.NextDouble())
+                        point1,
+                        point2,
+                        point2,
+                        point1
                     }
                 })
             });

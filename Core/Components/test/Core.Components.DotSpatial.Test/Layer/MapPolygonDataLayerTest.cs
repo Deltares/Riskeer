@@ -198,7 +198,9 @@ namespace Core.Components.DotSpatial.Test.Layer
                     new[]
                     {
                         new Point2D(1, 2),
-                        new Point2D(2, 3)
+                        new Point2D(2, 3),
+                        new Point2D(2, 3),
+                        new Point2D(1, 2)
                     }
                 })
             })

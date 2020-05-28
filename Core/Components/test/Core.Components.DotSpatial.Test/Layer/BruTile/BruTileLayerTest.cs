@@ -64,7 +64,7 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
                                               false,
                                               0f)
                     .SetName("DrawRegions for 2 consecutive tiles at level 4.");
-
+                
                 yield return new TestCaseData(new TileInfosTestConfig(new[]
                                               {
                                                   new TileInfoConfig(new Extent(99949.76, 463000.08, 155000, 518050.32),
@@ -109,7 +109,7 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
                                               true,
                                               0f)
                     .SetName("DrawRegions for 2 loose tiles at level 9 in WGS84 without specifying region.");
-
+                
                 yield return new TestCaseData(new TileInfosTestConfig(new[]
                                               {
                                                   new TileInfoConfig(new Extent(113712.32, 509448.72, 115432.64, 511169.04),
@@ -124,7 +124,7 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
                                               false,
                                               0f)
                     .SetName("DrawRegions at level 9 for region outside viewport.");
-
+                
                 yield return new TestCaseData(new TileInfosTestConfig(new[]
                                               {
                                                   new TileInfoConfig(new Extent(99949.76, 463000.08, 155000, 518050.32),
@@ -139,7 +139,7 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
                                               false,
                                               1f)
                     .SetName("DrawRegions for 2 consecutive tiles at level 4 for fully transparent layer.");
-
+                
                 yield return new TestCaseData(new TileInfosTestConfig(new[]
                                               {
                                                   new TileInfoConfig(new Extent(99949.76, 463000.08, 155000, 518050.32),
@@ -154,7 +154,7 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
                                               false,
                                               0.5f)
                     .SetName("DrawRegions for 2 consecutive tiles at level 4 for 50% transparent layer.");
-
+                
                 yield return new TestCaseData(new TileInfosTestConfig(new[]
                                               {
                                                   new TileInfoConfig(new Extent(99949.76, 463000.08, 155000, 518050.32),
@@ -694,6 +694,7 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
 
                 // Call
                 layer.DrawRegions(mapArgs, regions);
+                //mapCanvas.Save(Path.Combine(Path.GetTempPath(), "BackgroundLayerCanvas_smallerAfterAddingTestTiles.png"));
 
                 // Assert
                 TestHelper.AssertImagesAreEqual(expectedResult, mapCanvas);

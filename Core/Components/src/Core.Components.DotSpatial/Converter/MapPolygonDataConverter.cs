@@ -49,6 +49,8 @@ namespace Core.Components.DotSpatial.Converter
             {
                 IEnumerable<Point2D>[] pointCollections = mapGeometry.PointCollections.ToArray();
 
+                CreateClosedRingIfNecessary(pointCollections);
+
                 Coordinate[] outerRingCoordinates = ConvertPoint2DElementsToCoordinates(pointCollections[0]).ToArray();
                 ILinearRing outerRing = new LinearRing(outerRingCoordinates);
 
@@ -64,6 +66,24 @@ namespace Core.Components.DotSpatial.Converter
             }
 
             yield return new Feature(GetGeometry(geometryList));
+        }
+
+        private static void CreateClosedRingIfNecessary(IEnumerable<Point2D>[] pointCollections)
+        {
+            if (!FirstPointEqualsLastPoint(pointCollections[0].ToArray()))
+            {
+                pointCollections[0] = pointCollections[0].Concat(new[]
+                {
+                    pointCollections[0].First()
+                }).ToArray();
+            }
+        }
+
+        private static bool FirstPointEqualsLastPoint(Point2D[] pointCollection)
+        {
+            return pointCollection.First().X.Equals(pointCollection.Last().X) ||
+                   pointCollection.First().Y.Equals(pointCollection.Last().Y);
+
         }
 
         protected override IFeatureSymbolizer CreateSymbolizer(MapPolygonData mapData)

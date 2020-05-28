@@ -63,9 +63,6 @@
     <None Include="Resources\BackgroundLayerCanvas_smaller.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\BackgroundLayerCanvas_smallerAfterAddingTestTiles.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\BackgroundLayerAfterAddingHalfTransparentTestTiles.png" />
   </ItemGroup>
   <ItemGroup>
