@@ -30,7 +30,7 @@ using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
 using Core.Components.Gis.Geometries;
 using DotSpatial.Data;
-using DotSpatial.Topology;
+using GeoAPI.Geometries;
 using CoreCommonUtilResources = Core.Common.Util.Properties.Resources;
 using GisIOResources = Core.Components.Gis.IO.Properties.Resources;
 
@@ -169,7 +169,7 @@ namespace Core.Components.Gis.IO.Readers
 
         private static MapFeature CreateMapFeatureForPointFeature(IFeature pointFeature)
         {
-            IEnumerable<MapGeometry> mapGeometries = pointFeature.Coordinates.Select(c => new MapGeometry(GetMapGeometryPointCollections(c))).ToArray();
+            IEnumerable<MapGeometry> mapGeometries = pointFeature.Geometry.Coordinates.Select(c => new MapGeometry(GetMapGeometryPointCollections(c))).ToArray();
             return new MapFeature(mapGeometries);
         }
 
