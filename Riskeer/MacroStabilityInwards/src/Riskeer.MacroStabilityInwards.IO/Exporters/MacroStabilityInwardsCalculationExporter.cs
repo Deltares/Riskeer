@@ -97,40 +97,37 @@ namespace Riskeer.MacroStabilityInwards.IO.Exporters
             this.getNormativeAssessmentLevelFunc = getNormativeAssessmentLevelFunc;
         }
 
+        /// <inheritdoc />
+        /// <remarks>
+        /// To avoid problems with writing to an existing file, the export is done to a temp file first.
+        /// When the export was successful the file is moved to the given <see cref="filePath"/>.
+        /// </remarks>
         public bool Export()
         {
             ValidateData();
 
             PersistableDataModel persistableDataModel = PersistableDataModelFactory.Create(calculation, getNormativeAssessmentLevelFunc, filePath);
 
+            string tempFilePath = $"{filePath}.temp";
+
             try
             {
-                using (IPersister persister = persistenceFactory.CreateArchivePersister(filePath, persistableDataModel))
+                using (IPersister persister = persistenceFactory.CreateArchivePersister(tempFilePath, persistableDataModel))
                 {
                     persister.Persist();
                 }
+
+                MoveTempFileToFinal(tempFilePath);
             }
             catch (Exception)
             {
-                TryDeleteFile();
+                File.Delete(tempFilePath);
 
                 log.ErrorFormat("{0} {1}", string.Format(CoreCommonUtilResources.Error_General_output_error_0, filePath), Resources.MacroStabilityInwardsCalculationExporter_Export_no_stability_project_exported);
                 return false;
             }
 
             return true;
-        }
-
-        private void TryDeleteFile()
-        {
-            try
-            {
-                File.Delete(filePath);
-            }
-            catch (Exception)
-            {
-                // Do nothing
-            }
         }
 
         private void ValidateData()
@@ -146,6 +143,16 @@ namespace Riskeer.MacroStabilityInwards.IO.Exporters
             {
                 log.Warn(Resources.MacroStabilityInwardsCalculationExporter_ValidateData_Multiple_aquifer_layers_not_supported_no_aquifer_layer_exported);
             }
+        }
+
+        private void MoveTempFileToFinal(string tempFilePath)
+        {
+            if (File.Exists(filePath))
+            {
+                File.Delete(filePath);
+            }
+
+            File.Move(tempFilePath, filePath);
         }
     }
 }
