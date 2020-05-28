@@ -31,7 +31,8 @@ using Core.Components.Gis.Theme;
 using DotSpatial.Controls;
 using DotSpatial.Data;
 using DotSpatial.Symbology;
-using DotSpatial.Topology;
+using GeoAPI.Geometries;
+using NetTopologySuite.Geometries;
 
 namespace Core.Components.DotSpatial.Converter
 {
@@ -48,13 +49,15 @@ namespace Core.Components.DotSpatial.Converter
             {
                 IEnumerable<Point2D>[] pointCollections = mapGeometry.PointCollections.ToArray();
 
-                IEnumerable<Coordinate> outerRingCoordinates = ConvertPoint2DElementsToCoordinates(pointCollections[0]);
+                CreateClosedRingIfNecessary(pointCollections);
+
+                Coordinate[] outerRingCoordinates = ConvertPoint2DElementsToCoordinates(pointCollections[0]).ToArray();
                 ILinearRing outerRing = new LinearRing(outerRingCoordinates);
 
                 var innerRings = new ILinearRing[pointCollections.Length - 1];
                 for (var i = 1; i < pointCollections.Length; i++)
                 {
-                    IEnumerable<Coordinate> innerRingCoordinates = ConvertPoint2DElementsToCoordinates(pointCollections[i]);
+                    Coordinate[] innerRingCoordinates = ConvertPoint2DElementsToCoordinates(pointCollections[i]).ToArray();
                     innerRings[i - 1] = new LinearRing(innerRingCoordinates);
                 }
 
@@ -63,6 +66,24 @@ namespace Core.Components.DotSpatial.Converter
             }
 
             yield return new Feature(GetGeometry(geometryList));
+        }
+
+        private static void CreateClosedRingIfNecessary(IEnumerable<Point2D>[] pointCollections)
+        {
+            if (!FirstPointEqualsLastPoint(pointCollections[0].ToArray()))
+            {
+                pointCollections[0] = pointCollections[0].Concat(new[]
+                {
+                    pointCollections[0].First()
+                }).ToArray();
+            }
+        }
+
+        private static bool FirstPointEqualsLastPoint(Point2D[] pointCollection)
+        {
+            return pointCollection.First().X.Equals(pointCollection.Last().X) ||
+                   pointCollection.First().Y.Equals(pointCollection.Last().Y);
+
         }
 
         protected override IFeatureSymbolizer CreateSymbolizer(MapPolygonData mapData)
@@ -104,9 +125,9 @@ namespace Core.Components.DotSpatial.Converter
             return new PolygonCategory(style.FillColor, GetStrokeColor(style), style.StrokeThickness);
         }
 
-        private static IBasicGeometry GetGeometry(List<IPolygon> geometryList)
+        private static IGeometry GetGeometry(List<IPolygon> geometryList)
         {
-            IBasicGeometry geometry;
+            IGeometry geometry;
             var factory = new GeometryFactory();
 
             if (geometryList.Count > 1)

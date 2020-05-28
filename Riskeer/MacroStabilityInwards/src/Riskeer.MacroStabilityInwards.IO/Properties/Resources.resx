@@ -226,4 +226,7 @@
   <data name="MacroStabilityInwardsCalculationGroupExporter_Export_Data_from_0_exported_to_file_1" xml:space="preserve">
     <value>Gegevens van '{0}' zijn geëxporteerd naar bestand '{1}'.</value>
   </data>
+  <data name="PersistableStateFactory_CreateStatePoint_POP_LayerName_0" xml:space="preserve">
+    <value>POP - {0}</value>
+  </data>
 </root>

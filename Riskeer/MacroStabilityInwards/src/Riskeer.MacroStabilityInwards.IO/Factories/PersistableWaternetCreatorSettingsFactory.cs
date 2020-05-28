@@ -25,6 +25,8 @@ using System.ComponentModel;
 using System.Linq;
 using Components.Persistence.Stability.Data;
 using Core.Common.Base.Data;
+using Core.Common.Base.Geometry;
+using Riskeer.Common.Data;
 using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.MacroStabilityInwards.Data.SoilProfile;
 using Riskeer.MacroStabilityInwards.Primitives;
@@ -184,10 +186,10 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
         {
             return new PersistableDitchCharacteristics
             {
-                DitchBottomEmbankmentSide = isDitchPresent ? surfaceLine.BottomDitchDikeSide.X : double.NaN,
-                DitchBottomLandSide = isDitchPresent ? surfaceLine.BottomDitchPolderSide.X : double.NaN,
-                DitchEmbankmentSide = isDitchPresent ? surfaceLine.DitchDikeSide.X : double.NaN,
-                DitchLandSide = isDitchPresent ? surfaceLine.DitchPolderSide.X : double.NaN
+                DitchBottomEmbankmentSide = isDitchPresent ? ToLocalXCoordinate(surfaceLine.BottomDitchDikeSide, surfaceLine) : double.NaN,
+                DitchBottomLandSide = isDitchPresent ? ToLocalXCoordinate(surfaceLine.BottomDitchPolderSide, surfaceLine) : double.NaN,
+                DitchEmbankmentSide = isDitchPresent ? ToLocalXCoordinate(surfaceLine.DitchDikeSide, surfaceLine) : double.NaN,
+                DitchLandSide = isDitchPresent ? ToLocalXCoordinate(surfaceLine.DitchPolderSide, surfaceLine) : double.NaN
             };
         }
 
@@ -195,12 +197,19 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
         {
             return new PersistableEmbankmentCharacteristics
             {
-                EmbankmentToeLandSide = surfaceLine.DikeToeAtPolder.X,
-                EmbankmentTopLandSide = surfaceLine.DikeTopAtPolder.X,
-                EmbankmentTopWaterSide = surfaceLine.DikeTopAtRiver.X,
-                EmbankmentToeWaterSide = surfaceLine.DikeToeAtRiver.X,
-                ShoulderBaseLandSide = surfaceLine.ShoulderBaseInside?.X ?? double.NaN
+                EmbankmentToeLandSide = ToLocalXCoordinate(surfaceLine.DikeToeAtPolder, surfaceLine),
+                EmbankmentTopLandSide = ToLocalXCoordinate(surfaceLine.DikeTopAtPolder, surfaceLine),
+                EmbankmentTopWaterSide = ToLocalXCoordinate(surfaceLine.DikeTopAtRiver, surfaceLine),
+                EmbankmentToeWaterSide = ToLocalXCoordinate(surfaceLine.DikeToeAtRiver, surfaceLine),
+                ShoulderBaseLandSide = surfaceLine.ShoulderBaseInside != null
+                                           ? ToLocalXCoordinate(surfaceLine.ShoulderBaseInside, surfaceLine)
+                                           : double.NaN
             };
+        }
+
+        private static double ToLocalXCoordinate(Point3D originalPoint, MechanismSurfaceLineBase surfaceLine)
+        {
+            return surfaceLine.GetLocalPointFromGeometry(originalPoint).X;
         }
 
         /// <summary>

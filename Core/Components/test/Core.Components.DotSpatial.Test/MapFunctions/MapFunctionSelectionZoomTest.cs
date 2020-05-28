@@ -27,7 +27,7 @@ using Core.Components.DotSpatial.MapFunctions;
 using DotSpatial.Controls;
 using DotSpatial.Data;
 using DotSpatial.Symbology;
-using DotSpatial.Topology;
+using GeoAPI.Geometries;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Point = System.Drawing.Point;

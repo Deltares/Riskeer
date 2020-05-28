@@ -34,10 +34,10 @@ using Core.Components.Gis.Theme;
 using DotSpatial.Controls;
 using DotSpatial.Data;
 using DotSpatial.Symbology;
-using DotSpatial.Topology;
+using GeoAPI.Geometries;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Point = DotSpatial.Topology.Point;
+using Point = NetTopologySuite.Geometries.Point;
 using PointShape = DotSpatial.Symbology.PointShape;
 
 namespace Core.Components.DotSpatial.Test.Converter
@@ -145,10 +145,10 @@ namespace Core.Components.DotSpatial.Test.Converter
             // Assert
             IFeature feature = mapPointLayer.DataSet.Features[0];
             Assert.AreEqual(mapPointData.Features.Count(), mapPointLayer.DataSet.Features.Count);
-            Assert.IsInstanceOf<Point>(feature.BasicGeometry);
+            Assert.IsInstanceOf<Point>(feature.Geometry);
 
             IEnumerable<Coordinate> expectedCoordinates = mapFeature.MapGeometries.ElementAt(0).PointCollections.ElementAt(0).Select(p => new Coordinate(p.X, p.Y));
-            CollectionAssert.AreEqual(expectedCoordinates, feature.Coordinates);
+            CollectionAssert.AreEqual(expectedCoordinates, feature.Geometry.Coordinates);
         }
 
         [Test]

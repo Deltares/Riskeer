@@ -34,7 +34,8 @@ using Core.Components.Gis.Theme;
 using DotSpatial.Controls;
 using DotSpatial.Data;
 using DotSpatial.Symbology;
-using DotSpatial.Topology;
+using GeoAPI.Geometries;
+using NetTopologySuite.Geometries;
 using NUnit.Framework;
 using Rhino.Mocks;
 
@@ -102,10 +103,10 @@ namespace Core.Components.DotSpatial.Test.Converter
             // Assert
             IFeature feature = mapPolygonLayer.DataSet.Features[0];
             Assert.AreEqual(mapPolygonData.Features.Count(), mapPolygonLayer.DataSet.Features.Count);
-            Assert.IsInstanceOf<Polygon>(feature.BasicGeometry);
+            Assert.IsInstanceOf<Polygon>(feature.Geometry);
 
             IEnumerable<Coordinate> expectedCoordinates = mapPolygonData.Features.First().MapGeometries.First().PointCollections.First().Select(p => new Coordinate(p.X, p.Y));
-            CollectionAssert.AreEqual(expectedCoordinates, mapPolygonLayer.DataSet.Features[0].Coordinates);
+            CollectionAssert.AreEqual(expectedCoordinates, mapPolygonLayer.DataSet.Features[0].Geometry.Coordinates);
         }
 
         [Test]
@@ -140,10 +141,10 @@ namespace Core.Components.DotSpatial.Test.Converter
             // Assert
             IFeature feature = mapPolygonLayer.DataSet.Features[0];
             Assert.AreEqual(mapPolygonData.Features.Count(), mapPolygonLayer.DataSet.Features.Count);
-            Assert.IsInstanceOf<MultiPolygon>(feature.BasicGeometry);
+            Assert.IsInstanceOf<MultiPolygon>(feature.Geometry);
 
             IEnumerable<Coordinate> expectedCoordinates = mapFeature.MapGeometries.SelectMany(mg => mg.PointCollections.ElementAt(0).Select(p => new Coordinate(p.X, p.Y)));
-            CollectionAssert.AreEqual(expectedCoordinates, feature.Coordinates);
+            CollectionAssert.AreEqual(expectedCoordinates, feature.Geometry.Coordinates);
         }
 
         [Test]
@@ -174,9 +175,9 @@ namespace Core.Components.DotSpatial.Test.Converter
             // Assert
             IFeature feature = mapPolygonLayer.DataSet.Features[0];
             Assert.AreEqual(mapPolygonData.Features.Count(), mapPolygonLayer.DataSet.Features.Count);
-            Assert.IsInstanceOf<Polygon>(feature.BasicGeometry);
+            Assert.IsInstanceOf<Polygon>(feature.Geometry);
 
-            var polygonGeometry = (Polygon) mapPolygonLayer.FeatureSet.Features[0].BasicGeometry;
+            var polygonGeometry = (Polygon) mapPolygonLayer.FeatureSet.Features[0].Geometry;
             Assert.AreEqual(1, polygonGeometry.NumGeometries);
             CollectionAssert.AreEqual(outerRingPoints, polygonGeometry.Shell.Coordinates.Select(c => new Point2D(c.X, c.Y)));
             CollectionAssert.IsEmpty(polygonGeometry.Holes);
@@ -214,9 +215,9 @@ namespace Core.Components.DotSpatial.Test.Converter
             // Assert
             IFeature feature = mapPolygonLayer.DataSet.Features[0];
             Assert.AreEqual(mapPolygonData.Features.Count(), mapPolygonLayer.DataSet.Features.Count);
-            Assert.IsInstanceOf<Polygon>(feature.BasicGeometry);
+            Assert.IsInstanceOf<Polygon>(feature.Geometry);
 
-            var polygonGeometry = (Polygon) mapPolygonLayer.FeatureSet.Features[0].BasicGeometry;
+            var polygonGeometry = (Polygon) mapPolygonLayer.FeatureSet.Features[0].Geometry;
             Assert.AreEqual(1, polygonGeometry.NumGeometries);
             CollectionAssert.AreEqual(outerRingPoints, polygonGeometry.Shell.Coordinates.Select(c => new Point2D(c.X, c.Y)));
             Assert.AreEqual(2, polygonGeometry.Holes.Length);
@@ -462,14 +463,18 @@ namespace Core.Components.DotSpatial.Test.Converter
         private static MapFeature CreateMapFeatureWithMetaData(string metadataAttributeName)
         {
             var random = new Random(21);
+            var point1 = new Point2D(random.NextDouble(), random.NextDouble());
+            var point2 = new Point2D(random.NextDouble(), random.NextDouble());
             var mapFeature = new MapFeature(new[]
             {
                 new MapGeometry(new[]
                 {
                     new[]
                     {
-                        new Point2D(random.NextDouble(), random.NextDouble()),
-                        new Point2D(random.NextDouble(), random.NextDouble())
+                        point1,
+                        point2,
+                        point2,
+                        point1
                     }
                 })
             });

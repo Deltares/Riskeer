@@ -96,16 +96,19 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
             set => data = value as CalculationGroup;
         }
 
+        /// <inheritdoc />
+        /// <remarks>
+        /// Necessary to correctly load the content of the dropdown lists of the comboboxes.
+        /// </remarks>
         protected override void OnLoad(EventArgs e)
         {
-            // Necessary to correctly load the content of the dropdown lists of the comboboxes...
             UpdateDataGridViewDataSource();
             base.OnLoad(e);
         }
 
         protected override void Dispose(bool disposing)
         {
-            failureMechanismObserver?.Dispose();
+            failureMechanismObserver.Dispose();
             calculationInputObserver.Dispose();
             calculationGroupObserver.Dispose();
 
@@ -121,22 +124,15 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
         {
             scenarioSelectionControl.EndEdit();
 
-            if (failureMechanism.SectionResults == null || data.Children == null)
-            {
-                scenarioSelectionControl.ClearDataSource();
-            }
-            else
-            {
-                ICalculation[] calculations = data.GetCalculations().ToArray();
+            ICalculation[] calculations = data.GetCalculations().ToArray();
 
-                IDictionary<string, List<ICalculation>> calculationsPerSegment =
-                    GrassCoverErosionInwardsHelper.CollectCalculationsPerSection(failureMechanism.Sections, calculations.Cast<GrassCoverErosionInwardsCalculationScenario>());
+            IDictionary<string, List<ICalculation>> calculationsPerSegment =
+                GrassCoverErosionInwardsHelper.CollectCalculationsPerSection(failureMechanism.Sections, calculations.Cast<GrassCoverErosionInwardsCalculationScenario>());
 
-                List<GrassCoverErosionInwardsScenarioRow> scenarioRows =
-                    failureMechanism.SectionResults.Select(sectionResult => new GrassCoverErosionInwardsScenarioRow(sectionResult)).ToList();
+            List<GrassCoverErosionInwardsScenarioRow> scenarioRows =
+                failureMechanism.SectionResults.Select(sectionResult => new GrassCoverErosionInwardsScenarioRow(sectionResult)).ToList();
 
-                scenarioSelectionControl.UpdateDataGridViewDataSource(calculations, scenarioRows, calculationsPerSegment);
-            }
+            scenarioSelectionControl.UpdateDataGridViewDataSource(calculations, scenarioRows, calculationsPerSegment);
         }
     }
 }

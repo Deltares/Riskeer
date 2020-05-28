@@ -28,6 +28,7 @@ using Core.Common.Base.Geometry;
 using Core.Common.Geometry;
 using Riskeer.Common.Data.Probabilistics;
 using Riskeer.MacroStabilityInwards.Data.SoilProfile;
+using Riskeer.MacroStabilityInwards.IO.Properties;
 using Riskeer.MacroStabilityInwards.Primitives;
 
 namespace Riskeer.MacroStabilityInwards.IO.Factories
@@ -104,7 +105,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
                 LayerId = registry.GeometryLayers[stageType][layer],
                 Point = CreatePoint(layer),
                 Stress = CreateStress(layer.Data),
-                Label = string.Empty
+                Label = string.Format(Resources.PersistableStateFactory_CreateStatePoint_POP_LayerName_0, layer.Data.MaterialName)
             };
         }
 
