@@ -43,7 +43,7 @@ namespace Core.Common.Gui.Commands
 
         private readonly IWin32Window dialogParent;
         private readonly IProjectOwner projectOwner;
-        private readonly IStoreProject projectPersistor;
+        private readonly IStoreProject projectPersister;
         private readonly IProjectFactory projectFactory;
         private readonly IMigrateProject projectMigrator;
         private readonly IInquiryHelper inquiryHelper;
@@ -64,7 +64,7 @@ namespace Core.Common.Gui.Commands
             this.dialogParent = dialogParent;
             this.projectOwner = projectOwner;
             this.inquiryHelper = inquiryHelper;
-            projectPersistor = projectStorage;
+            projectPersister = projectStorage;
             this.projectMigrator = projectMigrator;
             this.projectFactory = projectFactory;
         }
@@ -77,26 +77,26 @@ namespace Core.Common.Gui.Commands
             }
 
             IProject project = projectOwner.Project;
-            projectPersistor.StageProject(project);
+            projectPersister.StageProject(project);
             try
             {
-                if (!projectPersistor.HasStagedProjectChanges(projectOwner.ProjectFilePath))
+                if (!projectPersister.HasStagedProjectChanges(projectOwner.ProjectFilePath))
                 {
-                    projectPersistor.UnstageProject();
+                    projectPersister.UnstageProject();
                     return true;
                 }
             }
             catch (StorageException e)
             {
                 log.Error(e.Message, e);
-                projectPersistor.UnstageProject();
+                projectPersister.UnstageProject();
             }
 
             bool unsavedChangesHandled = ShowSaveUnsavedChangesDialog();
 
-            if (projectPersistor.HasStagedProject)
+            if (projectPersister.HasStagedProject)
             {
-                projectPersistor.UnstageProject();
+                projectPersister.UnstageProject();
             }
 
             return unsavedChangesHandled;
@@ -119,7 +119,7 @@ namespace Core.Common.Gui.Commands
         {
             using (var openFileDialog = new OpenFileDialog
             {
-                Filter = projectPersistor.OpenProjectFileFilter,
+                Filter = projectPersister.OpenProjectFileFilter,
                 Title = Resources.OpenFileDialog_Title
             })
             {
@@ -156,7 +156,7 @@ namespace Core.Common.Gui.Commands
                 return false;
             }
 
-            var activity = new SaveProjectActivity(project, filePath, false, projectPersistor, projectOwner);
+            var activity = new SaveProjectActivity(project, filePath, false, projectPersister, projectOwner);
             ActivityProgressDialogRunner.Run(dialogParent, activity);
             return activity.State == ActivityState.Finished;
         }
@@ -172,7 +172,7 @@ namespace Core.Common.Gui.Commands
                 return SaveProjectAs();
             }
 
-            var activity = new SaveProjectActivity(project, filePath, true, projectPersistor, projectOwner);
+            var activity = new SaveProjectActivity(project, filePath, true, projectPersister, projectOwner);
             ActivityProgressDialogRunner.Run(dialogParent, activity);
             return activity.State == ActivityState.Finished;
         }
@@ -264,7 +264,7 @@ namespace Core.Common.Gui.Commands
                 FilePath = filePath,
                 ProjectOwner = projectOwner,
                 ProjectFactory = projectFactory,
-                ProjectStorage = projectPersistor
+                ProjectStorage = projectPersister
             };
             var activity = new OpenProjectActivity(openProjectProperties, migrationProperties);
             ActivityProgressDialogRunner.Run(dialogParent, activity);
@@ -310,7 +310,7 @@ namespace Core.Common.Gui.Commands
         /// <returns>The selected project file, or <c>null</c> otherwise.</returns>
         private string OpenProjectSaveFileDialog(string projectName)
         {
-            return inquiryHelper.GetTargetFileLocation(projectPersistor.SaveProjectFileFilter, projectName);
+            return inquiryHelper.GetTargetFileLocation(projectPersister.SaveProjectFileFilter, projectName);
         }
     }
 }

@@ -35,7 +35,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
         /// Creates a collection of <see cref="PersistableCalculationSettings"/>.
         /// </summary>
         /// <param name="slidingCurve">The sliding curve to use.</param>
-        /// <param name="idFactory">The factory fo IDs.</param>
+        /// <param name="idFactory">The factory for creating IDs.</param>
         /// <param name="registry">The persistence registry.</param>
         /// <returns>A collection of <see cref="PersistableCalculationSettings"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>

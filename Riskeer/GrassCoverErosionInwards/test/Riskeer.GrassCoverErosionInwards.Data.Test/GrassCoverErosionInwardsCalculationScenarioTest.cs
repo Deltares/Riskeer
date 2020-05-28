@@ -26,21 +26,21 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.TestUtil;
-using Riskeer.MacroStabilityInwards.Data.TestUtil;
+using Riskeer.GrassCoverErosionInwards.Data.TestUtil;
 
-namespace Riskeer.MacroStabilityInwards.Data.Test
+namespace Riskeer.GrassCoverErosionInwards.Data.Test
 {
     [TestFixture]
-    public class MacroStabilityInwardsCalculationScenarioTest
+    public class GrassCoverErosionInwardsCalculationScenarioTest
     {
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Call
-            var scenario = new MacroStabilityInwardsCalculationScenario();
+            var scenario = new GrassCoverErosionInwardsCalculationScenario();
 
             // Assert
-            Assert.IsInstanceOf<MacroStabilityInwardsCalculation>(scenario);
+            Assert.IsInstanceOf<GrassCoverErosionInwardsCalculation>(scenario);
             Assert.IsInstanceOf<ICalculationScenario>(scenario);
 
             Assert.IsTrue(scenario.IsRelevant);
@@ -54,7 +54,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
         public void IsRelevant_Always_ReturnsSetValue(bool isRelevant)
         {
             // Setup
-            var scenario = new MacroStabilityInwardsCalculationScenario();
+            var scenario = new GrassCoverErosionInwardsCalculationScenario();
 
             // Call
             scenario.IsRelevant = isRelevant;
@@ -70,7 +70,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
             var random = new Random(21);
             RoundedDouble contribution = random.NextRoundedDouble();
 
-            var scenario = new MacroStabilityInwardsCalculationScenario();
+            var scenario = new GrassCoverErosionInwardsCalculationScenario();
 
             // Call
             scenario.Contribution = contribution;
@@ -84,34 +84,34 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
         public void Clone_NotAllPropertiesSet_ReturnsCopiedInstanceWithPropertiesSet()
         {
             // Setup
-            MacroStabilityInwardsCalculationScenario original = CreateRandomCalculationScenarioWithoutOutput();
+            GrassCoverErosionInwardsCalculationScenario original = CreateRandomCalculationScenarioWithoutOutput();
 
             // Call
             object clone = original.Clone();
 
             // Assert
-            CoreCloneAssert.AreObjectClones(original, clone, MacroStabilityInwardsCloneAssert.AreClones);
+            CoreCloneAssert.AreObjectClones(original, clone, GrassCoverErosionInwardsCloneAssert.AreClones);
         }
 
         [Test]
         public void Clone_AllPropertiesSet_ReturnsCopiedInstanceWithPropertiesSet()
         {
             // Setup
-            MacroStabilityInwardsCalculationScenario original = CreateRandomCalculationScenarioWithoutOutput();
-            original.Output = MacroStabilityInwardsOutputTestFactory.CreateRandomOutput();
+            GrassCoverErosionInwardsCalculationScenario original = CreateRandomCalculationScenarioWithoutOutput();
+            original.Output = GrassCoverErosionInwardsTestDataGenerator.GetRandomGrassCoverErosionInwardsOutput();
 
             // Call
             object clone = original.Clone();
 
             // Assert
-            CoreCloneAssert.AreObjectClones(original, clone, MacroStabilityInwardsCloneAssert.AreClones);
+            CoreCloneAssert.AreObjectClones(original, clone, GrassCoverErosionInwardsCloneAssert.AreClones);
         }
 
-        private static MacroStabilityInwardsCalculationScenario CreateRandomCalculationScenarioWithoutOutput()
+        private static GrassCoverErosionInwardsCalculationScenario CreateRandomCalculationScenarioWithoutOutput()
         {
             var random = new Random(21);
 
-            var calculation = new MacroStabilityInwardsCalculationScenario
+            var calculation = new GrassCoverErosionInwardsCalculationScenario
             {
                 Name = "A Name",
                 Comments =
@@ -122,7 +122,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
                 Contribution = random.NextRoundedDouble()
             };
 
-            MacroStabilityInwardsTestDataGenerator.SetRandomMacroStabilityInwardsInput(calculation.InputParameters);
+            GrassCoverErosionInwardsTestDataGenerator.SetRandomDataToGrassCoverErosionInwardsInput(calculation.InputParameters);
 
             return calculation;
         }

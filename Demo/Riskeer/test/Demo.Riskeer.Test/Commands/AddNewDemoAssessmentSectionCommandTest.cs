@@ -156,10 +156,10 @@ namespace Demo.Riskeer.Test.Commands
         private static void AssertGrassCoverErosionInwardsFailureMechanism(AssessmentSection demoAssessmentSection)
         {
             Assert.AreEqual(1, demoAssessmentSection.GrassCoverErosionInwards.CalculationsGroup.Children.Count);
-            GrassCoverErosionInwardsCalculation calculation = demoAssessmentSection.GrassCoverErosionInwards
-                                                                                   .CalculationsGroup.GetCalculations()
-                                                                                   .OfType<GrassCoverErosionInwardsCalculation>()
-                                                                                   .First();
+            GrassCoverErosionInwardsCalculationScenario calculation = demoAssessmentSection.GrassCoverErosionInwards
+                                                                                           .CalculationsGroup.GetCalculations()
+                                                                                           .OfType<GrassCoverErosionInwardsCalculationScenario>()
+                                                                                           .First();
             AssertExpectedGrassCoverErosionInwardsInput(calculation.InputParameters);
         }
 

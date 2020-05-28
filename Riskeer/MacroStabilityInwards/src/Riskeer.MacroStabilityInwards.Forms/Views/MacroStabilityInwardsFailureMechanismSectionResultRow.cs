@@ -26,7 +26,6 @@ using System.Linq;
 using Core.Common.Controls.DataGrid;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.Common.Data.AssessmentSection;
-using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.TypeConverters;
@@ -337,8 +336,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
                 return RiskeerCommonFormsResources.FailureMechanismResultView_DataGridViewCellFormatting_Scenario_contribution_for_this_section_not_100;
             }
 
-            CalculationScenarioStatus calculationScenarioStatus = SectionResult.GetCalculationScenarioStatus(relevantScenarios);
-            if (calculationScenarioStatus == CalculationScenarioStatus.NotCalculated)
+            if (!relevantScenarios.All(s => s.HasOutput))
             {
                 return RiskeerCommonFormsResources.FailureMechanismResultView_DataGridViewCellFormatting_Not_all_calculations_have_been_executed;
             }

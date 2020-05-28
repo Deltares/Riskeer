@@ -146,7 +146,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             var group = new CalculationGroup();
             var childGroup = new CalculationGroup();
-            var childCalculation = new GrassCoverErosionInwardsCalculation();
+            var childCalculation = new GrassCoverErosionInwardsCalculationScenario();
 
             group.Children.Add(childGroup);
             group.Children.Add(calculationItem);
@@ -168,7 +168,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             Assert.AreSame(failureMechanism, calculationGroupContext.FailureMechanism);
             Assert.AreSame(assessmentSection, calculationGroupContext.AssessmentSection);
             Assert.AreSame(calculationItem, children[1]);
-            var calculationContext = (GrassCoverErosionInwardsCalculationContext) children[2];
+            var calculationContext = (GrassCoverErosionInwardsCalculationScenarioContext) children[2];
             Assert.AreSame(childCalculation, calculationContext.WrappedData);
             Assert.AreSame(group, calculationContext.Parent);
             Assert.AreSame(assessmentSection, calculationContext.AssessmentSection);
@@ -1765,7 +1765,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             DikeProfile dikeProfile2 = DikeProfileTestFactory.CreateDikeProfile("Dike profile 2", "id2");
 
             var existingCalculationGroup = new CalculationGroup();
-            var existingCalculation = new GrassCoverErosionInwardsCalculation();
+            var existingCalculation = new GrassCoverErosionInwardsCalculationScenario();
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism
             {
                 CalculationsGroup =
@@ -1819,7 +1819,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                     Assert.AreEqual(3, failureMechanism.CalculationsGroup.Children.Count);
                     Assert.AreSame(existingCalculationGroup, failureMechanism.CalculationsGroup.Children[0]);
                     Assert.AreSame(existingCalculation, failureMechanism.CalculationsGroup.Children[1]);
-                    var generatedCalculation = failureMechanism.CalculationsGroup.Children[2] as GrassCoverErosionInwardsCalculation;
+                    var generatedCalculation = failureMechanism.CalculationsGroup.Children[2] as GrassCoverErosionInwardsCalculationScenario;
                     Assert.IsNotNull(generatedCalculation);
                     Assert.AreSame(dikeProfile1, generatedCalculation.InputParameters.DikeProfile);
                 }
@@ -1897,7 +1897,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                 {
                     Children =
                     {
-                        new GrassCoverErosionInwardsCalculation
+                        new GrassCoverErosionInwardsCalculationScenario
                         {
                             Name = existingCalculationName
                         }

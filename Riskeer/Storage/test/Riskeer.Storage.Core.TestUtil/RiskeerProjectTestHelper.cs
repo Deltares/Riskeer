@@ -125,7 +125,7 @@ namespace Riskeer.Storage.Core.TestUtil
             ConfigureGrassCoverErosionInwardsFailureMechanism(grassCoverErosionInwardsFailureMechanism, assessmentSection);
             SetSections(grassCoverErosionInwardsFailureMechanism);
             SetSectionResults(grassCoverErosionInwardsFailureMechanism.SectionResults,
-                              (GrassCoverErosionInwardsCalculation) grassCoverErosionInwardsFailureMechanism.Calculations.First());
+                              (GrassCoverErosionInwardsCalculationScenario) grassCoverErosionInwardsFailureMechanism.Calculations.First());
 
             GrassCoverErosionOutwardsFailureMechanism grassCoverErosionOutwardsFailureMechanism = assessmentSection.GrassCoverErosionOutwards;
             AddForeshoreProfiles(grassCoverErosionOutwardsFailureMechanism.ForeshoreProfiles);
@@ -1749,7 +1749,7 @@ namespace Riskeer.Storage.Core.TestUtil
                 Name = "GEKB A",
                 Children =
                 {
-                    new GrassCoverErosionInwardsCalculation
+                    new GrassCoverErosionInwardsCalculationScenario
                     {
                         Name = "Calculation 1",
                         Comments =
@@ -1781,7 +1781,7 @@ namespace Riskeer.Storage.Core.TestUtil
                                                                     new DikeHeightOutput(0.56, 0.05, 2, 0.06, 3, CalculationConvergence.CalculatedConverged, null),
                                                                     new OvertoppingRateOutput(0.57, 0.07, 4, 0.08, 5, CalculationConvergence.CalculatedConverged, null))
                     },
-                    new GrassCoverErosionInwardsCalculation
+                    new GrassCoverErosionInwardsCalculationScenario
                     {
                         Name = "Calculation 2",
                         Comments =
@@ -1823,7 +1823,7 @@ namespace Riskeer.Storage.Core.TestUtil
                 Name = "GEKB B"
             });
             failureMechanism.CalculationsGroup.Children.Add(
-                new GrassCoverErosionInwardsCalculation
+                new GrassCoverErosionInwardsCalculationScenario
                 {
                     Name = "Calculation 2",
                     Comments =

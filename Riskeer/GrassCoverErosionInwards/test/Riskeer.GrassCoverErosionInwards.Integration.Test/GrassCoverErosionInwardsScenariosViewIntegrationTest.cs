@@ -57,11 +57,8 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
                 var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
                 DataImportHelper.ImportReferenceLine(assessmentSection);
 
-                var view = new GrassCoverErosionInwardsScenariosView
-                {
-                    Data = assessmentSection.GrassCoverErosionInwards.CalculationsGroup,
-                    FailureMechanism = assessmentSection.GrassCoverErosionInwards
-                };
+                var view = new GrassCoverErosionInwardsScenariosView(assessmentSection.GrassCoverErosionInwards.CalculationsGroup,
+                                                                     assessmentSection.GrassCoverErosionInwards);
                 form.Controls.Add(view);
                 form.Show();
 
@@ -105,11 +102,8 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
                 DataImportHelper.ImportFailureMechanismSections(assessmentSection, failureMechanism);
 
                 CalculationGroup calculationsGroup = assessmentSection.GrassCoverErosionInwards.CalculationsGroup;
-                var view = new GrassCoverErosionInwardsScenariosView
-                {
-                    Data = calculationsGroup,
-                    FailureMechanism = assessmentSection.GrassCoverErosionInwards
-                };
+                var view = new GrassCoverErosionInwardsScenariosView(assessmentSection.GrassCoverErosionInwards.CalculationsGroup,
+                                                                     assessmentSection.GrassCoverErosionInwards);
                 form.Controls.Add(view);
                 form.Show();
 
@@ -125,7 +119,7 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
                 // Call
                 foreach (DikeProfile profile in assessmentSection.GrassCoverErosionInwards.DikeProfiles)
                 {
-                    calculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculation
+                    calculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculationScenario
                     {
                         Name = NamingHelper.GetUniqueName(((CalculationGroup) view.Data).Children, profile.Name, c => c.Name),
                         InputParameters =
@@ -163,11 +157,8 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
                 DataImportHelper.ImportFailureMechanismSections(assessmentSection, failureMechanism);
 
                 CalculationGroup calculationsGroup = assessmentSection.GrassCoverErosionInwards.CalculationsGroup;
-                var view = new GrassCoverErosionInwardsScenariosView
-                {
-                    Data = calculationsGroup,
-                    FailureMechanism = assessmentSection.GrassCoverErosionInwards
-                };
+                var view = new GrassCoverErosionInwardsScenariosView(assessmentSection.GrassCoverErosionInwards.CalculationsGroup,
+                                                                     assessmentSection.GrassCoverErosionInwards);
                 form.Controls.Add(view);
                 form.Show();
 
@@ -183,7 +174,7 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
 
                 foreach (DikeProfile profile in assessmentSection.GrassCoverErosionInwards.DikeProfiles)
                 {
-                    calculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculation
+                    calculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculationScenario
                     {
                         Name = NamingHelper.GetUniqueName(calculationsGroup.Children, profile.Name, c => c.Name),
                         InputParameters =
@@ -196,9 +187,8 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
                 calculationsGroup.NotifyObservers();
 
                 // Call
-                foreach (ICalculationBase calculationBase in calculationsGroup.Children)
+                foreach (GrassCoverErosionInwardsCalculationScenario calculation in calculationsGroup.Children.Cast<GrassCoverErosionInwardsCalculationScenario>())
                 {
-                    var calculation = (GrassCoverErosionInwardsCalculation) calculationBase;
                     calculation.Name += "_changed";
                 }
 
@@ -227,11 +217,8 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
                 IFailureMechanism failureMechanism = assessmentSection.GrassCoverErosionInwards;
                 DataImportHelper.ImportFailureMechanismSections(assessmentSection, failureMechanism);
 
-                var view = new GrassCoverErosionInwardsScenariosView
-                {
-                    Data = assessmentSection.GrassCoverErosionInwards.CalculationsGroup,
-                    FailureMechanism = assessmentSection.GrassCoverErosionInwards
-                };
+                var view = new GrassCoverErosionInwardsScenariosView(assessmentSection.GrassCoverErosionInwards.CalculationsGroup,
+                                                                     assessmentSection.GrassCoverErosionInwards);
                 form.Controls.Add(view);
                 form.Show();
 
@@ -246,7 +233,7 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
 
                 foreach (DikeProfile profile in assessmentSection.GrassCoverErosionInwards.DikeProfiles)
                 {
-                    assessmentSection.GrassCoverErosionInwards.CalculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculation
+                    assessmentSection.GrassCoverErosionInwards.CalculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculationScenario
                     {
                         Name = NamingHelper.GetUniqueName(assessmentSection.GrassCoverErosionInwards.CalculationsGroup.Children, profile.Name + "Calculation", c => c.Name),
                         InputParameters =
@@ -258,8 +245,8 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
 
                 // Call
                 CalculationGroup calculationsGroup = assessmentSection.GrassCoverErosionInwards.CalculationsGroup;
-                ((GrassCoverErosionInwardsCalculation) calculationsGroup.Children[1]).InputParameters.DikeProfile =
-                    ((GrassCoverErosionInwardsCalculation) calculationsGroup.Children[0]).InputParameters.DikeProfile;
+                ((GrassCoverErosionInwardsCalculationScenario) calculationsGroup.Children[1]).InputParameters.DikeProfile =
+                    ((GrassCoverErosionInwardsCalculationScenario) calculationsGroup.Children[0]).InputParameters.DikeProfile;
                 calculationsGroup.NotifyObservers();
 
                 // Assert

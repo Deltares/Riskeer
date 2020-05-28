@@ -219,7 +219,7 @@ namespace Riskeer.Integration.Plugin.Merge
             if (mergeData.MergeGrassCoverErosionInwards)
             {
                 targetAssessmentSection.GrassCoverErosionInwards = sourceAssessmentSection.GrassCoverErosionInwards;
-                UpdateCalculationHydraulicBoundaryLocationReferences<GrassCoverErosionInwardsFailureMechanism, GrassCoverErosionInwardsCalculation, GrassCoverErosionInwardsInput>(
+                UpdateCalculationHydraulicBoundaryLocationReferences<GrassCoverErosionInwardsFailureMechanism, GrassCoverErosionInwardsCalculationScenario, GrassCoverErosionInwardsInput>(
                     targetAssessmentSection.GrassCoverErosionInwards, hydraulicBoundaryLocations);
                 LogMergeMessage(targetAssessmentSection.GrassCoverErosionInwards);
             }

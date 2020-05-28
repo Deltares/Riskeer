@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -55,17 +56,19 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
         }
 
         [Test]
-        public void DefaultConstructor_DataGridViewCorrectlyInitialized()
+        public void Constructor_ExpectedValues()
         {
+            // Setup
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+
             // Call
-            using (GrassCoverErosionInwardsScenariosView view = ShowScenariosView())
+            using (GrassCoverErosionInwardsScenariosView view = ShowScenariosView(failureMechanism))
             {
                 // Assert
                 Assert.IsInstanceOf<UserControl>(view);
                 Assert.IsInstanceOf<IView>(view);
                 Assert.IsTrue(view.AutoScroll);
-                Assert.IsNull(view.Data);
-                Assert.IsNull(view.FailureMechanism);
+                Assert.AreSame(failureMechanism.CalculationsGroup, view.Data);
 
                 var scenarioSelectionControl = new ControlTester("scenarioSelectionControl").TheObject as ScenarioSelectionControl;
 
@@ -75,49 +78,36 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
         }
 
         [Test]
-        public void Data_ValidDataSet_ValidData()
+        public void Constructor_CalculationGroupNull_ThrowsArgumentNullException()
         {
-            // Setup
-            using (GrassCoverErosionInwardsScenariosView view = ShowScenariosView())
-            {
-                var calculationGroup = new CalculationGroup();
+            // Call
+            void Call() => new GrassCoverErosionInwardsScenariosView(null, new GrassCoverErosionInwardsFailureMechanism());
 
-                // Call
-                view.Data = calculationGroup;
-
-                // Assert
-                Assert.AreSame(calculationGroup, view.Data);
-            }
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("calculationGroup", exception.ParamName);
         }
 
         [Test]
-        public void FailureMechanism_ValidFailureMechanismSet_ValidFailureMechanism()
+        public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
         {
-            // Setup
-            using (GrassCoverErosionInwardsScenariosView view = ShowScenariosView())
-            {
-                var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            // Call
+            void Call() => new GrassCoverErosionInwardsScenariosView(new CalculationGroup(), null);
 
-                // Call
-                view.FailureMechanism = failureMechanism;
-
-                // Assert
-                Assert.AreSame(failureMechanism, view.FailureMechanism);
-            }
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
         }
 
         [Test]
-        public void Data_WithFailureMechanism_UpdateScenarioControl()
+        public void Constructor_WithValidData_UpdateScenarioControl()
         {
             // Setup
-            using (GrassCoverErosionInwardsScenariosView view = ShowScenariosView())
+            GrassCoverErosionInwardsFailureMechanism failureMechanism = CreateCompleteFailureMechanism();
+
+            // Call
+            using (ShowScenariosView(failureMechanism))
             {
-                GrassCoverErosionInwardsFailureMechanism failureMechanism = CreateCompleteFailureMechanism();
-                view.FailureMechanism = failureMechanism;
-
-                // Call
-                view.Data = failureMechanism.CalculationsGroup;
-
                 // Assert
                 AssertDataGridView(failureMechanism, false, new[]
                 {
@@ -132,71 +122,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
                         "CalculationB"
                     }
                 });
-            }
-        }
-
-        [Test]
-        public void Data_SetToNullAfterGridViewShowsData_ClearsScenarioControl()
-        {
-            // Setup
-            using (GrassCoverErosionInwardsScenariosView view = ShowScenariosView())
-            {
-                GrassCoverErosionInwardsFailureMechanism failureMechanism = CreateCompleteFailureMechanism();
-                view.FailureMechanism = failureMechanism;
-                view.Data = failureMechanism.CalculationsGroup;
-
-                // Call
-                view.Data = null;
-
-                // Assert
-                AssertDataGridView(failureMechanism, true);
-            }
-        }
-
-        [Test]
-        public void FailureMechanism_WithData_UpdateScenarioControl()
-        {
-            // Setup
-            using (GrassCoverErosionInwardsScenariosView view = ShowScenariosView())
-            {
-                GrassCoverErosionInwardsFailureMechanism failureMechanism = CreateCompleteFailureMechanism();
-                view.Data = failureMechanism.CalculationsGroup;
-
-                // Call
-                view.FailureMechanism = failureMechanism;
-
-                // Assert
-                AssertDataGridView(failureMechanism, false, new[]
-                {
-                    new[]
-                    {
-                        "<selecteer>",
-                        "CalculationA"
-                    },
-                    new[]
-                    {
-                        "<selecteer>",
-                        "CalculationB"
-                    }
-                });
-            }
-        }
-
-        [Test]
-        public void FailureMechanism_WithoutData_ClearsScenarioControl()
-        {
-            // Setup
-            using (GrassCoverErosionInwardsScenariosView view = ShowScenariosView())
-            {
-                GrassCoverErosionInwardsFailureMechanism failureMechanism = CreateCompleteFailureMechanism();
-                view.Data = failureMechanism.CalculationsGroup;
-                view.FailureMechanism = failureMechanism;
-
-                // Call
-                view.FailureMechanism = null;
-
-                // Assert
-                AssertDataGridView(failureMechanism, true);
             }
         }
 
@@ -204,16 +129,14 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
         public void NotifyFailureMechanism_SectionsUpdatedAfterFullInitialization_NewRowAddedToView()
         {
             // Setup
-            using (GrassCoverErosionInwardsScenariosView view = ShowScenariosView())
-            {
-                GrassCoverErosionInwardsFailureMechanism failureMechanism = CreateCompleteFailureMechanism();
-                view.Data = failureMechanism.CalculationsGroup;
-                view.FailureMechanism = failureMechanism;
+            GrassCoverErosionInwardsFailureMechanism failureMechanism = CreateCompleteFailureMechanism();
 
-                List<FailureMechanismSection> newSections = view.FailureMechanism.Sections.ToList();
+            using (ShowScenariosView(failureMechanism))
+            {
+                List<FailureMechanismSection> newSections = failureMechanism.Sections.ToList();
                 newSections.Add(new FailureMechanismSection("SectionC", new[]
                 {
-                    view.FailureMechanism.Sections.Last().EndPoint,
+                    failureMechanism.Sections.Last().EndPoint,
                     new Point2D(30, 30)
                 }));
 
@@ -245,12 +168,10 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
         public void NotifyCalculation_CalculationChangedDikeProfile_CalculationMovedToOtherSectionResultOptions()
         {
             // Setup
-            using (GrassCoverErosionInwardsScenariosView view = ShowScenariosView())
-            {
-                GrassCoverErosionInwardsFailureMechanism failureMechanism = CreateCompleteFailureMechanism();
-                view.Data = failureMechanism.CalculationsGroup;
-                view.FailureMechanism = failureMechanism;
+            GrassCoverErosionInwardsFailureMechanism failureMechanism = CreateCompleteFailureMechanism();
 
+            using (ShowScenariosView(failureMechanism))
+            {
                 var calculationA = (GrassCoverErosionInwardsCalculation) failureMechanism.CalculationsGroup.Children[0];
                 var calculationB = (GrassCoverErosionInwardsCalculation) failureMechanism.CalculationsGroup.Children[1];
 
@@ -280,14 +201,12 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
         public void NotifyCalculationGroup_CalculationAdded_CalculationAddedToSectionResultOptions()
         {
             // Setup
-            using (GrassCoverErosionInwardsScenariosView view = ShowScenariosView())
-            {
-                GrassCoverErosionInwardsFailureMechanism failureMechanism = CreateCompleteFailureMechanism();
-                view.Data = failureMechanism.CalculationsGroup;
-                view.FailureMechanism = failureMechanism;
+            GrassCoverErosionInwardsFailureMechanism failureMechanism = CreateCompleteFailureMechanism();
 
-                var calculationB = (GrassCoverErosionInwardsCalculation) failureMechanism.CalculationsGroup.Children[1];
-                var calculationC = new GrassCoverErosionInwardsCalculation
+            using (ShowScenariosView(failureMechanism))
+            {
+                var calculationB = (GrassCoverErosionInwardsCalculationScenario) failureMechanism.CalculationsGroup.Children[1];
+                var calculationC = new GrassCoverErosionInwardsCalculationScenario
                 {
                     Name = "CalculationC",
                     InputParameters =
@@ -320,7 +239,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             }
         }
 
-        private void AssertDataGridView(
+        private static void AssertDataGridView(
             GrassCoverErosionInwardsFailureMechanism failureMechanism,
             bool shouldBeCleared,
             string[][] expectedComboBoxItemTexts = null)
@@ -354,7 +273,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             var matchingPointA = new Point2D(0, 0);
             var matchingPointB = new Point2D(20, 20);
-            var calculationA = new GrassCoverErosionInwardsCalculation
+            var calculationA = new GrassCoverErosionInwardsCalculationScenario
             {
                 Name = "CalculationA",
                 InputParameters =
@@ -362,7 +281,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
                     DikeProfile = DikeProfileTestFactory.CreateDikeProfile(matchingPointA)
                 }
             };
-            var calculationB = new GrassCoverErosionInwardsCalculation
+            var calculationB = new GrassCoverErosionInwardsCalculationScenario
             {
                 Name = "CalculationB",
                 InputParameters =
@@ -393,9 +312,9 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             return failureMechanism;
         }
 
-        private GrassCoverErosionInwardsScenariosView ShowScenariosView()
+        private GrassCoverErosionInwardsScenariosView ShowScenariosView(GrassCoverErosionInwardsFailureMechanism failureMechanism)
         {
-            var scenariosView = new GrassCoverErosionInwardsScenariosView();
+            var scenariosView = new GrassCoverErosionInwardsScenariosView(failureMechanism.CalculationsGroup, failureMechanism);
             testForm.Controls.Add(scenariosView);
             testForm.Show();
 

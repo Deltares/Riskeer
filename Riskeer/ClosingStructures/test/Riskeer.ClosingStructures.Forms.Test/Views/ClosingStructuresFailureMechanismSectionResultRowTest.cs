@@ -35,7 +35,6 @@ using Riskeer.ClosingStructures.Data;
 using Riskeer.ClosingStructures.Data.TestUtil;
 using Riskeer.ClosingStructures.Forms.Views;
 using Riskeer.Common.Data.AssessmentSection;
-using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Data.TestUtil;
@@ -50,26 +49,21 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
     [TestFixture]
     public class ClosingStructuresFailureMechanismSectionResultRowTest
     {
-        private static ClosingStructuresFailureMechanismSectionResultRow.ConstructionProperties ConstructionProperties
-        {
-            get
+        private static ClosingStructuresFailureMechanismSectionResultRow.ConstructionProperties ConstructionProperties =>
+            new ClosingStructuresFailureMechanismSectionResultRow.ConstructionProperties
             {
-                return new ClosingStructuresFailureMechanismSectionResultRow.ConstructionProperties
-                {
-                    SimpleAssessmentResultIndex = 1,
-                    DetailedAssessmentResultIndex = 2,
-                    DetailedAssessmentProbabilityIndex = 3,
-                    TailorMadeAssessmentResultIndex = 4,
-                    TailorMadeAssessmentProbabilityIndex = 5,
-                    SimpleAssemblyCategoryGroupIndex = 6,
-                    DetailedAssemblyCategoryGroupIndex = 7,
-                    TailorMadeAssemblyCategoryGroupIndex = 8,
-                    CombinedAssemblyCategoryGroupIndex = 9,
-                    CombinedAssemblyProbabilityIndex = 10,
-                    ManualAssemblyProbabilityIndex = 11
-                };
-            }
-        }
+                SimpleAssessmentResultIndex = 1,
+                DetailedAssessmentResultIndex = 2,
+                DetailedAssessmentProbabilityIndex = 3,
+                TailorMadeAssessmentResultIndex = 4,
+                TailorMadeAssessmentProbabilityIndex = 5,
+                SimpleAssemblyCategoryGroupIndex = 6,
+                DetailedAssemblyCategoryGroupIndex = 7,
+                TailorMadeAssemblyCategoryGroupIndex = 8,
+                CombinedAssemblyCategoryGroupIndex = 9,
+                CombinedAssemblyProbabilityIndex = 10,
+                ManualAssemblyProbabilityIndex = 11
+            };
 
         [Test]
         public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
@@ -83,13 +77,10 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
             var result = new ClosingStructuresFailureMechanismSectionResult(section);
 
             // Call
-            TestDelegate call = () => new ClosingStructuresFailureMechanismSectionResultRow(result,
-                                                                                            null,
-                                                                                            assessmentSection,
-                                                                                            ConstructionProperties);
+            void Call() => new ClosingStructuresFailureMechanismSectionResultRow(result, null, assessmentSection, ConstructionProperties);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
             mocks.VerifyAll();
         }
@@ -102,13 +93,11 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
             var result = new ClosingStructuresFailureMechanismSectionResult(section);
 
             // Call
-            TestDelegate call = () => new ClosingStructuresFailureMechanismSectionResultRow(result,
-                                                                                            new ClosingStructuresFailureMechanism(),
-                                                                                            null,
-                                                                                            ConstructionProperties);
+            void Call() => new ClosingStructuresFailureMechanismSectionResultRow(result, new ClosingStructuresFailureMechanism(),
+                                                                                 null, ConstructionProperties);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
@@ -124,13 +113,11 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
             var result = new ClosingStructuresFailureMechanismSectionResult(section);
 
             // Call
-            TestDelegate call = () => new ClosingStructuresFailureMechanismSectionResultRow(result,
-                                                                                            new ClosingStructuresFailureMechanism(),
-                                                                                            assessmentSection,
-                                                                                            null);
+            void Call() => new ClosingStructuresFailureMechanismSectionResultRow(result, new ClosingStructuresFailureMechanism(),
+                                                                                 assessmentSection, null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("constructionProperties", exception.ParamName);
             mocks.VerifyAll();
         }
@@ -332,11 +319,11 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
                     result, failureMechanism, assessmentSection, ConstructionProperties);
 
                 // Call
-                TestDelegate test = () => row.ManualAssemblyProbability = value;
+                void Call() => row.ManualAssemblyProbability = value;
 
                 // Assert
                 const string expectedMessage = "De waarde voor de faalkans moet in het bereik [0,0, 1,0] liggen.";
-                TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, expectedMessage);
+                TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, expectedMessage);
                 mocks.VerifyAll();
             }
         }
@@ -1054,9 +1041,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
         }
 
         [Test]
-        [TestCase(CalculationScenarioStatus.Failed)]
-        [TestCase(CalculationScenarioStatus.NotCalculated)]
-        public void DetailedAssessmentProbability_CalculationNotDone_ReturnNaN(CalculationScenarioStatus status)
+        public void DetailedAssessmentProbability_CalculationWithoutOutput_ReturnNaN()
         {
             // Setup
             var failureMechanism = new ClosingStructuresFailureMechanism();
@@ -1066,10 +1051,40 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
             mocks.ReplayAll();
 
             var calculation = new StructuresCalculation<ClosingStructuresInput>();
-            if (status == CalculationScenarioStatus.Failed)
+
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var sectionResult = new ClosingStructuresFailureMechanismSectionResult(section)
             {
-                calculation.Output = new TestStructuresOutput(double.NaN);
+                Calculation = calculation
+            };
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var resultRow = new ClosingStructuresFailureMechanismSectionResultRow(sectionResult, failureMechanism, assessmentSection, ConstructionProperties);
+
+                // Call
+                double detailedAssessmentProbability = resultRow.DetailedAssessmentProbability;
+
+                // Assert
+                Assert.IsNaN(detailedAssessmentProbability);
+                mocks.VerifyAll();
             }
+        }
+
+        [Test]
+        public void DetailedAssessmentProbability_CalculationWithNaNOutput_ReturnNaN()
+        {
+            // Setup
+            var failureMechanism = new ClosingStructuresFailureMechanism();
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
+
+            var calculation = new StructuresCalculation<ClosingStructuresInput>
+            {
+                Output = new TestStructuresOutput(double.NaN)
+            };
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var sectionResult = new ClosingStructuresFailureMechanismSectionResult(section)
@@ -1217,11 +1232,11 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
                     result, failureMechanism, assessmentSection, ConstructionProperties);
 
                 // Call
-                TestDelegate test = () => row.TailorMadeAssessmentProbability = value;
+                void Call() => row.TailorMadeAssessmentProbability = value;
 
                 // Assert
                 const string expectedMessage = "De waarde voor de faalkans moet in het bereik [0,0, 1,0] liggen.";
-                TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, expectedMessage);
+                TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, expectedMessage);
                 mocks.VerifyAll();
             }
         }

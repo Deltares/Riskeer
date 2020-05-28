@@ -156,7 +156,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
         }
 
         /// <summary>
-        /// Adds a geometry to the register.
+        /// Adds a geometry to the registry.
         /// </summary>
         /// <param name="stageType">The <see cref="MacroStabilityInwardsExportStageType"/>
         /// to register the geometry for.</param>
@@ -171,7 +171,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
         }
 
         /// <summary>
-        /// Adds a soil layer to the register.
+        /// Adds a soil layer to the registry.
         /// </summary>
         /// <param name="stageType">The <see cref="MacroStabilityInwardsExportStageType"/>
         /// to register the soil layer for.</param>
@@ -186,7 +186,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
         }
 
         /// <summary>
-        /// Adds a Waternet to the register.
+        /// Adds a Waternet to the registry.
         /// </summary>
         /// <param name="stageType">The <see cref="MacroStabilityInwardsExportStageType"/>
         /// to register the Waternet for.</param>
@@ -201,7 +201,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
         }
 
         /// <summary>
-        /// Adds Waternet creator settings to the register.
+        /// Adds Waternet creator settings to the registry.
         /// </summary>
         /// <param name="stageType">The <see cref="MacroStabilityInwardsExportStageType"/>
         /// to register the Waternet creator settings for.</param>
@@ -216,7 +216,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
         }
 
         /// <summary>
-        /// Adds a state to the register.
+        /// Adds a state to the registry.
         /// </summary>
         /// <param name="stageType">The <see cref="MacroStabilityInwardsExportStageType"/>
         /// to register the state for.</param>

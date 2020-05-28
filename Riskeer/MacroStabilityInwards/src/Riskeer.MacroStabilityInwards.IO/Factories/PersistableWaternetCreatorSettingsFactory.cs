@@ -41,7 +41,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
         /// </summary>
         /// <param name="input">The input to use.</param>
         /// <param name="normativeAssessmentLevel">The normative assessment level to use.</param>
-        /// <param name="idFactory">The factory fo IDs.</param>
+        /// <param name="idFactory">The factory for creating IDs.</param>
         /// <param name="registry">The persistence registry.</param>
         /// <returns>A collection of <see cref="PersistableWaternetCreatorSettings"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="input"/>, <paramref name="idFactory"/>
@@ -79,7 +79,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
         /// Creates a new <see cref="PersistableWaternetCreatorSettings"/> for daily.
         /// </summary>
         /// <param name="input">The input to use.</param>
-        /// <param name="idFactory">The factory fo IDs.</param>
+        /// <param name="idFactory">The factory for creating IDs.</param>
         /// <param name="registry">The persistence registry.</param>
         /// <returns>The created <see cref="PersistableWaternetCreatorSettings"/>.</returns>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <see cref="IMacroStabilityInwardsWaternetInput.DikeSoilScenario"/>
@@ -102,7 +102,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
         /// </summary>
         /// <param name="input">The input to use.</param>
         /// <param name="normativeAssessmentLevel">The normative assessment level to use.</param>
-        /// <param name="idFactory">The factory fo IDs.</param>
+        /// <param name="idFactory">The factory for creating IDs.</param>
         /// <param name="registry">The persistence registry.</param>
         /// <returns>The created <see cref="PersistableWaternetCreatorSettings"/>.</returns>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <see cref="IMacroStabilityInwardsWaternetInput.DikeSoilScenario"/>
@@ -125,7 +125,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
         /// Creates a new <see cref="PersistableWaternetCreatorSettings"/>.
         /// </summary>
         /// <param name="input">The input to use.</param>
-        /// <param name="idFactory">The factory fo IDs.</param>
+        /// <param name="idFactory">The factory for creating IDs.</param>
         /// <param name="registry">The persistence registry.</param>
         /// <param name="stageType">The stage type.</param>
         /// <returns>The created <see cref="PersistableWaternetCreatorSettings"/>.</returns>

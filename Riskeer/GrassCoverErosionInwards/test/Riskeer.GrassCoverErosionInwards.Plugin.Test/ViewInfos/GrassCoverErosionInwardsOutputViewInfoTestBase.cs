@@ -128,10 +128,10 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
 
         protected override ICalculationContext<ICalculation, IFailureMechanism> GetCalculationContextWithCalculation()
         {
-            return new GrassCoverErosionInwardsCalculationContext(new GrassCoverErosionInwardsCalculation(),
-                                                                  new CalculationGroup(),
-                                                                  new GrassCoverErosionInwardsFailureMechanism(),
-                                                                  new AssessmentSectionStub());
+            return new GrassCoverErosionInwardsCalculationScenarioContext(new GrassCoverErosionInwardsCalculationScenario(),
+                                                                          new CalculationGroup(),
+                                                                          new GrassCoverErosionInwardsFailureMechanism(),
+                                                                          new AssessmentSectionStub());
         }
 
         protected override ICalculationContext<CalculationGroup, IFailureMechanism> GetCalculationGroupContextWithCalculation()

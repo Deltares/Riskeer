@@ -38,7 +38,7 @@ namespace Riskeer.MacroStabilityInwards.IO.TestUtil
         public PersistableDataModel PersistableDataModel { get; private set; }
 
         /// <summary>
-        /// Gets the FilePath.
+        /// Gets the file path.
         /// </summary>
         public string FilePath { get; private set; }
 
@@ -61,7 +61,7 @@ namespace Riskeer.MacroStabilityInwards.IO.TestUtil
         {
             if (ThrowException)
             {
-                throw new Exception("Exception in persistor.");
+                throw new Exception("Exception in persister.");
             }
 
             FilePath = path;

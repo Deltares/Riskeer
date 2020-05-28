@@ -340,7 +340,7 @@ namespace Riskeer.Storage.Core.Test.Read
         #region GrassCoverErosionInwards
 
         [TestFixture]
-        private class GrassCoverErosionInwardsCalculationCollectorTest : CollectorTest<GrassCoverErosionInwardsCalculation,
+        private class GrassCoverErosionInwardsCalculationCollectorTest : CollectorTest<GrassCoverErosionInwardsCalculationScenario,
             GrassCoverErosionInwardsCalculationEntity>
         {
             public GrassCoverErosionInwardsCalculationCollectorTest() : base(
@@ -348,9 +348,9 @@ namespace Riskeer.Storage.Core.Test.Read
                 (c, e) => c.Contains(e),
                 (c, e) => c.Get(e)) {}
 
-            protected override GrassCoverErosionInwardsCalculation CreateDataModel()
+            protected override GrassCoverErosionInwardsCalculationScenario CreateDataModel()
             {
-                return new GrassCoverErosionInwardsCalculation();
+                return new GrassCoverErosionInwardsCalculationScenario();
             }
         }
 

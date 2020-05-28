@@ -32,7 +32,7 @@ namespace Riskeer.MacroStabilityInwards.Data
         private RoundedDouble contribution;
 
         /// <summary>
-        /// Creates a new instance of <see cref="MacroStabilityInwardsCalculationScenario"/> with default values set for some of the parameters.
+        /// Creates a new instance of <see cref="MacroStabilityInwardsCalculationScenario"/>.
         /// </summary>
         public MacroStabilityInwardsCalculationScenario()
         {
@@ -44,24 +44,8 @@ namespace Riskeer.MacroStabilityInwards.Data
 
         public RoundedDouble Contribution
         {
-            get
-            {
-                return contribution;
-            }
-            set
-            {
-                contribution = value.ToPrecision(contribution.NumberOfDecimalPlaces);
-            }
-        }
-
-        public CalculationScenarioStatus Status
-        {
-            get
-            {
-                return Output == null
-                           ? CalculationScenarioStatus.NotCalculated
-                           : CalculationScenarioStatus.Done;
-            }
+            get => contribution;
+            set => contribution = value.ToPrecision(contribution.NumberOfDecimalPlaces);
         }
     }
 }

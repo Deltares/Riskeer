@@ -19,30 +19,25 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using Core.Common.Base.Data;
 using Riskeer.Common.Data.Calculation;
 
-namespace Riskeer.Piping.Data
+namespace Riskeer.GrassCoverErosionInwards.Data
 {
     /// <summary>
     /// This class holds the information for a calculation scenario.
     /// </summary>
-    public class PipingCalculationScenario : PipingCalculation, ICalculationScenario
+    public class GrassCoverErosionInwardsCalculationScenario : GrassCoverErosionInwardsCalculation, ICalculationScenario
     {
         private RoundedDouble contribution;
 
         /// <summary>
-        /// Creates a new instance of <see cref="PipingCalculationScenario"/>.
+        /// Creates a new instance of <see cref="GrassCoverErosionInwardsCalculationScenario"/>.
         /// </summary>
-        /// <param name="generalInputParameters">General piping calculation parameters that
-        /// are the same across all piping calculations.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="generalInputParameters"/> is <c>null</c>.</exception>
-        public PipingCalculationScenario(GeneralPipingInput generalInputParameters)
-            : base(generalInputParameters)
+        public GrassCoverErosionInwardsCalculationScenario()
         {
             IsRelevant = true;
-            contribution = new RoundedDouble(4, 1.0);
+            contribution = new RoundedDouble(4, 1);
         }
 
         public bool IsRelevant { get; set; }

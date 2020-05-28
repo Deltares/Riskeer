@@ -288,7 +288,7 @@ namespace Riskeer.Storage.Core.Test.Read.GrassCoverErosionInwards
                 }
             };
 
-            var calculation = new GrassCoverErosionInwardsCalculation();
+            var calculation = new GrassCoverErosionInwardsCalculationScenario();
 
             var collector = new ReadConversionCollector();
             collector.Read(entity, calculation);

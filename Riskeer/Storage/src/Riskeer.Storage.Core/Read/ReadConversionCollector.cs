@@ -87,8 +87,8 @@ namespace Riskeer.Storage.Core.Read
         private readonly Dictionary<ForeshoreProfileEntity, ForeshoreProfile> foreshoreProfiles =
             CreateDictionary<ForeshoreProfileEntity, ForeshoreProfile>();
 
-        private readonly Dictionary<GrassCoverErosionInwardsCalculationEntity, GrassCoverErosionInwardsCalculation> grassCoverErosionInwardsCalculations =
-            CreateDictionary<GrassCoverErosionInwardsCalculationEntity, GrassCoverErosionInwardsCalculation>();
+        private readonly Dictionary<GrassCoverErosionInwardsCalculationEntity, GrassCoverErosionInwardsCalculationScenario> grassCoverErosionInwardsCalculations =
+            CreateDictionary<GrassCoverErosionInwardsCalculationEntity, GrassCoverErosionInwardsCalculationScenario>();
 
         private readonly Dictionary<HeightStructureEntity, HeightStructure> heightStructures =
             CreateDictionary<HeightStructureEntity, HeightStructure>();
@@ -1101,15 +1101,15 @@ namespace Riskeer.Storage.Core.Read
 
         /// <summary>
         /// Registers a read operation for <see cref="GrassCoverErosionInwardsCalculationEntity"/>
-        /// and the <see cref="GrassCoverErosionInwardsCalculation"/> that was constructed
+        /// and the <see cref="GrassCoverErosionInwardsCalculationScenario"/> that was constructed
         /// with the information.
         /// </summary>
         /// <param name="entity">The <see cref="GrassCoverErosionInwardsCalculationEntity"/>
         /// that was read.</param>
-        /// <param name="model">The <see cref="GrassCoverErosionInwardsCalculation"/> that
+        /// <param name="model">The <see cref="GrassCoverErosionInwardsCalculationScenario"/> that
         /// was constructed.</param>
         /// <exception cref="ArgumentNullException">Thrown when any of the input parameters is <c>null</c>.</exception>
-        internal void Read(GrassCoverErosionInwardsCalculationEntity entity, GrassCoverErosionInwardsCalculation model)
+        internal void Read(GrassCoverErosionInwardsCalculationEntity entity, GrassCoverErosionInwardsCalculationScenario model)
         {
             if (entity == null)
             {
@@ -1141,18 +1141,18 @@ namespace Riskeer.Storage.Core.Read
         }
 
         /// <summary>
-        /// Obtains the <see cref="GrassCoverErosionInwardsCalculation"/> which was read
+        /// Obtains the <see cref="GrassCoverErosionInwardsCalculationScenario"/> which was read
         /// for the given <see cref="GrassCoverErosionInwardsCalculationEntity"/>.
         /// </summary>
         /// <param name="entity">The <see cref="GrassCoverErosionInwardsCalculationEntity"/> for which a read
         /// operation has been registered.</param>
-        /// <returns>The constructed <see cref="GrassCoverErosionInwardsCalculation"/>.</returns>
+        /// <returns>The constructed <see cref="GrassCoverErosionInwardsCalculationScenario"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/> is <c>null</c>.</exception>
         /// <exception cref="InvalidOperationException">Thrown when no read operation has
         /// been registered for <paramref name="entity"/>.</exception>
         /// <remarks>Use <see cref="Contains(GrassCoverErosionInwardsCalculationEntity)"/>
         /// to find out whether a read operation has been registered for <paramref name="entity"/>.</remarks>
-        internal GrassCoverErosionInwardsCalculation Get(GrassCoverErosionInwardsCalculationEntity entity)
+        internal GrassCoverErosionInwardsCalculationScenario Get(GrassCoverErosionInwardsCalculationEntity entity)
         {
             if (entity == null)
             {

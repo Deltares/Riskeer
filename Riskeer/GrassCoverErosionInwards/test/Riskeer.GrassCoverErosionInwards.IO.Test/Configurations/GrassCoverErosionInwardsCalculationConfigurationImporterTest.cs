@@ -66,15 +66,12 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
         public void Constructor_HydraulicBoundaryLocationsNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new GrassCoverErosionInwardsCalculationConfigurationImporter(
-                "",
-                new CalculationGroup(),
-                null,
-                Enumerable.Empty<DikeProfile>(),
-                new GrassCoverErosionInwardsFailureMechanism());
+            void Call() => new GrassCoverErosionInwardsCalculationConfigurationImporter("", new CalculationGroup(), null,
+                                                                                        Enumerable.Empty<DikeProfile>(),
+                                                                                        new GrassCoverErosionInwardsFailureMechanism());
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("hydraulicBoundaryLocations", exception.ParamName);
         }
 
@@ -82,15 +79,11 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
         public void Constructor_DikeProfilesNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new GrassCoverErosionInwardsCalculationConfigurationImporter(
-                "",
-                new CalculationGroup(),
-                Enumerable.Empty<HydraulicBoundaryLocation>(),
-                null,
-                new GrassCoverErosionInwardsFailureMechanism());
+            void Call() => new GrassCoverErosionInwardsCalculationConfigurationImporter("", new CalculationGroup(), Enumerable.Empty<HydraulicBoundaryLocation>(),
+                                                                                        null, new GrassCoverErosionInwardsFailureMechanism());
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("dikeProfiles", exception.ParamName);
         }
 
@@ -98,15 +91,11 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
         public void Constructor_FailureMechanismNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new GrassCoverErosionInwardsCalculationConfigurationImporter(
-                "",
-                new CalculationGroup(),
-                Enumerable.Empty<HydraulicBoundaryLocation>(),
-                Enumerable.Empty<DikeProfile>(),
-                null);
+            void Call() => new GrassCoverErosionInwardsCalculationConfigurationImporter("", new CalculationGroup(), Enumerable.Empty<HydraulicBoundaryLocation>(),
+                                                                                        Enumerable.Empty<DikeProfile>(), null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
         }
 
@@ -130,12 +119,12 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
 
             // Call
             var successful = false;
-            Action call = () => successful = importer.Import();
+            void Call() => successful = importer.Import();
 
             // Assert
             const string expectedMessage = "Een waarde van '380' als oriëntatie is ongeldig. De waarde voor de oriëntatie moet in het bereik [0,00, 360,00] liggen. " +
                                            "Berekening 'Berekening 1' is overgeslagen.";
-            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 2);
+            TestHelper.AssertLogMessageIsGenerated(Call, expectedMessage, 2);
             Assert.IsTrue(successful);
             CollectionAssert.IsEmpty(calculationGroup.Children);
         }
@@ -157,13 +146,13 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
 
             // Call
             var successful = false;
-            Action call = () => successful = importer.Import();
+            void Call() => successful = importer.Import();
 
             // Assert
             const string expectedMessage = "Een gemiddelde van '-1' is ongeldig voor stochast 'overslagdebiet'. " +
                                            "Gemiddelde moet groter zijn dan 0. " +
                                            "Berekening 'Berekening 1' is overgeslagen.";
-            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 2);
+            TestHelper.AssertLogMessageIsGenerated(Call, expectedMessage, 2);
             Assert.IsTrue(successful);
             CollectionAssert.IsEmpty(calculationGroup.Children);
         }
@@ -185,13 +174,13 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
 
             // Call
             var successful = false;
-            Action call = () => successful = importer.Import();
+            void Call() => successful = importer.Import();
 
             // Assert
             const string expectedMessage = "Een standaardafwijking van '-2,1' is ongeldig voor stochast 'overslagdebiet'. " +
                                            "Standaardafwijking (σ) moet groter zijn dan of gelijk zijn aan 0. " +
                                            "Berekening 'Berekening 1' is overgeslagen.";
-            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 2);
+            TestHelper.AssertLogMessageIsGenerated(Call, expectedMessage, 2);
             Assert.IsTrue(successful);
             CollectionAssert.IsEmpty(calculationGroup.Children);
         }
@@ -212,11 +201,11 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
 
             // Call
             var successful = false;
-            Action call = () => successful = importer.Import();
+            void Call() => successful = importer.Import();
 
             // Assert
             const string expectedMessage = "De hydraulische belastingenlocatie 'Locatie' bestaat niet. Berekening 'Calculation' is overgeslagen.";
-            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 2);
+            TestHelper.AssertLogMessageIsGenerated(Call, expectedMessage, 2);
             Assert.IsTrue(successful);
             CollectionAssert.IsEmpty(calculationGroup.Children);
         }
@@ -237,11 +226,11 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
 
             // Call
             var successful = false;
-            Action call = () => successful = importer.Import();
+            void Call() => successful = importer.Import();
 
             // Assert
             const string expectedMessage = "Het dijkprofiel met ID 'Dijkprofiel' bestaat niet. Berekening 'Berekening 1' is overgeslagen.";
-            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 2);
+            TestHelper.AssertLogMessageIsGenerated(Call, expectedMessage, 2);
             Assert.IsTrue(successful);
             CollectionAssert.IsEmpty(calculationGroup.Children);
         }
@@ -262,11 +251,11 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
 
             // Call
             var successful = false;
-            Action call = () => successful = importer.Import();
+            void Call() => successful = importer.Import();
 
             // Assert
             const string expectedMessage = "Er is geen dijkprofiel opgegeven om golfreductie parameters aan toe te voegen. Berekening 'Berekening 1' is overgeslagen.";
-            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 2);
+            TestHelper.AssertLogMessageIsGenerated(Call, expectedMessage, 2);
             Assert.IsTrue(successful);
             CollectionAssert.IsEmpty(calculationGroup.Children);
         }
@@ -287,11 +276,11 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
 
             // Call
             var successful = false;
-            Action call = () => successful = importer.Import();
+            void Call() => successful = importer.Import();
 
             // Assert
             const string expectedMessage = "Er is geen dijkprofiel opgegeven om de dijkhoogte aan toe te voegen. Berekening 'Berekening 1' is overgeslagen.";
-            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 2);
+            TestHelper.AssertLogMessageIsGenerated(Call, expectedMessage, 2);
             Assert.IsTrue(successful);
             CollectionAssert.IsEmpty(calculationGroup.Children);
         }
@@ -312,11 +301,11 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
 
             // Call
             var successful = false;
-            Action call = () => successful = importer.Import();
+            void Call() => successful = importer.Import();
 
             // Assert
             const string expectedMessage = "Er is geen dijkprofiel opgegeven om de oriëntatie aan toe te voegen. Berekening 'Berekening 1' is overgeslagen.";
-            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 2);
+            TestHelper.AssertLogMessageIsGenerated(Call, expectedMessage, 2);
             Assert.IsTrue(successful);
             CollectionAssert.IsEmpty(calculationGroup.Children);
         }
@@ -341,11 +330,11 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
 
             // Call
             var successful = false;
-            Action call = () => successful = importer.Import();
+            void Call() => successful = importer.Import();
 
             // Assert
             const string expectedMessage = "Het opgegeven dijkprofiel 'Dijkprofiel ID' heeft geen voorlandgeometrie en kan daarom niet gebruikt worden. Berekening 'Berekening 1' is overgeslagen.";
-            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 2);
+            TestHelper.AssertLogMessageIsGenerated(Call, expectedMessage, 2);
             Assert.IsTrue(successful);
             CollectionAssert.IsEmpty(calculationGroup.Children);
         }
@@ -379,7 +368,7 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
             // Assert
             Assert.IsTrue(successful);
 
-            var expectedCalculation = new GrassCoverErosionInwardsCalculation
+            var expectedCalculation = new GrassCoverErosionInwardsCalculationScenario
             {
                 Name = "Berekening 1",
                 InputParameters =
@@ -389,7 +378,7 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
             };
 
             Assert.AreEqual(1, calculationGroup.Children.Count);
-            AssertCalculation(expectedCalculation, (GrassCoverErosionInwardsCalculation) calculationGroup.Children[0]);
+            AssertCalculation(expectedCalculation, (GrassCoverErosionInwardsCalculationScenario) calculationGroup.Children[0]);
         }
 
         [Test]
@@ -413,7 +402,7 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
             // Assert
             Assert.IsTrue(successful);
 
-            var expectedCalculation = new GrassCoverErosionInwardsCalculation
+            var expectedCalculation = new GrassCoverErosionInwardsCalculationScenario
             {
                 Name = "Berekening 1",
                 InputParameters =
@@ -426,7 +415,7 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
             };
 
             Assert.AreEqual(1, calculationGroup.Children.Count);
-            AssertCalculation(expectedCalculation, (GrassCoverErosionInwardsCalculation) calculationGroup.Children[0]);
+            AssertCalculation(expectedCalculation, (GrassCoverErosionInwardsCalculationScenario) calculationGroup.Children[0]);
         }
 
         [Test]
@@ -450,13 +439,13 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
             // Assert
             Assert.IsTrue(successful);
 
-            var expectedCalculation = new GrassCoverErosionInwardsCalculation
+            var expectedCalculation = new GrassCoverErosionInwardsCalculationScenario
             {
                 Name = "Berekening 1"
             };
 
             Assert.AreEqual(1, calculationGroup.Children.Count);
-            AssertCalculation(expectedCalculation, (GrassCoverErosionInwardsCalculation) calculationGroup.Children[0]);
+            AssertCalculation(expectedCalculation, (GrassCoverErosionInwardsCalculationScenario) calculationGroup.Children[0]);
         }
 
         [Test]
@@ -480,7 +469,7 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
             // Assert
             Assert.IsTrue(successful);
 
-            var expectedCalculation = new GrassCoverErosionInwardsCalculation
+            var expectedCalculation = new GrassCoverErosionInwardsCalculationScenario
             {
                 Name = "Berekening 1",
                 InputParameters =
@@ -493,7 +482,7 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
             };
 
             Assert.AreEqual(1, calculationGroup.Children.Count);
-            AssertCalculation(expectedCalculation, (GrassCoverErosionInwardsCalculation) calculationGroup.Children[0]);
+            AssertCalculation(expectedCalculation, (GrassCoverErosionInwardsCalculationScenario) calculationGroup.Children[0]);
         }
 
         [Test]
@@ -536,14 +525,14 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
 
             // Call
             var successful = false;
-            Action call = () => successful = importer.Import();
+            void Call() => successful = importer.Import();
 
             // Assert
-            TestHelper.AssertLogMessageIsGenerated(call, $"Gegevens zijn geïmporteerd vanuit bestand '{filePath}'.", 1);
+            TestHelper.AssertLogMessageIsGenerated(Call, $"Gegevens zijn geïmporteerd vanuit bestand '{filePath}'.", 1);
 
             Assert.IsTrue(successful);
 
-            var expectedCalculation = new GrassCoverErosionInwardsCalculation
+            var expectedCalculation = new GrassCoverErosionInwardsCalculationScenario
             {
                 Name = "Berekening 1",
                 InputParameters =
@@ -572,7 +561,7 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
             };
 
             Assert.AreEqual(1, calculationGroup.Children.Count);
-            AssertCalculation(expectedCalculation, (GrassCoverErosionInwardsCalculation) calculationGroup.Children[0]);
+            AssertCalculation(expectedCalculation, (GrassCoverErosionInwardsCalculationScenario) calculationGroup.Children[0]);
         }
 
         [Test]
@@ -593,7 +582,7 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
                 })
             });
 
-            var calculation = new GrassCoverErosionInwardsCalculation
+            var calculation = new GrassCoverErosionInwardsCalculationScenario
             {
                 InputParameters =
                 {

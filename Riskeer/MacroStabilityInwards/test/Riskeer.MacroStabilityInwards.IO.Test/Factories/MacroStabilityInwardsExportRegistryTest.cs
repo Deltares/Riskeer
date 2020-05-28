@@ -67,7 +67,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
         }
 
         [Test]
-        public void AddSettings_WithSettings_AddsSettings()
+        public void AddSettings_ValidStageType_AddsStageTypeWithSettingsId()
         {
             // Setup
             var registry = new MacroStabilityInwardsExportRegistry();
@@ -99,7 +99,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
         }
 
         [Test]
-        public void AddSoil_WithSoilLayer_AddsSoilLayer()
+        public void AddSoil_WithSoilLayer_AddsSoilLayerWithId()
         {
             // Setup
             MacroStabilityInwardsSoilLayer2D soilLayer = MacroStabilityInwardsSoilLayer2DTestFactory.CreateMacroStabilityInwardsSoilLayer2D();
@@ -133,7 +133,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
         }
 
         [Test]
-        public void AddGeometry_WithGeometry_AddsGeometry()
+        public void AddGeometry_ValidStageType_AddsStageTypeWithGeometryId()
         {
             // Setup
             var registry = new MacroStabilityInwardsExportRegistry();
@@ -182,7 +182,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
         }
 
         [Test]
-        public void AddGeometryLayer_NewStageType_AddsStageTypeAndGeometryLayer()
+        public void AddGeometryLayer_NewStageType_AddsStageTypeAndGeometryLayerId()
         {
             // Setup
             MacroStabilityInwardsSoilLayer2D geometryLayer = MacroStabilityInwardsSoilLayer2DTestFactory.CreateMacroStabilityInwardsSoilLayer2D();
@@ -207,7 +207,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
         }
 
         [Test]
-        public void AddGeometryLayer_StageTypeAlreadyRegistered_AddsGeometryLayer()
+        public void AddGeometryLayer_StageTypeAlreadyRegistered_AddsGeometryLayerId()
         {
             // Setup
             MacroStabilityInwardsSoilLayer2D geometryLayer1 = MacroStabilityInwardsSoilLayer2DTestFactory.CreateMacroStabilityInwardsSoilLayer2D();
@@ -261,7 +261,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
         }
 
         [Test]
-        public void AddSoilLayer_WithSoilLayer_AddsSoilLayer()
+        public void AddSoilLayer_ValidStageType_AddsStageTypeWithSoilLayerId()
         {
             // Setup
             var registry = new MacroStabilityInwardsExportRegistry();
@@ -294,7 +294,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
         }
 
         [Test]
-        public void AddWaternet_WithWaternet_AddsWaternet()
+        public void AddWaternet_ValidStageType_AddsStageTypeWithWaternetId()
         {
             // Setup
             var registry = new MacroStabilityInwardsExportRegistry();
@@ -327,7 +327,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
         }
 
         [Test]
-        public void AddWaternetCreatorSettings_WithWaternetCreatorSettings_AddsWaternetCreatorSettings()
+        public void AddWaternetCreatorSettings_ValidStageType_AddsStageTypeWithWaternetCreatorSettingsId()
         {
             // Setup
             var registry = new MacroStabilityInwardsExportRegistry();
@@ -360,7 +360,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
         }
 
         [Test]
-        public void AddState_WithWaternetCreatorSettings_AddsWaternetCreatorSettings()
+        public void AddState_ValidStageType_AddsStageTypeWithStateId()
         {
             // Setup
             var registry = new MacroStabilityInwardsExportRegistry();

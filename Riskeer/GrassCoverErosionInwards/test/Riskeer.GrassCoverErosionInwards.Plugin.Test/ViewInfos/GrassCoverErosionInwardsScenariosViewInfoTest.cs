@@ -21,6 +21,7 @@
 
 using System.Drawing;
 using System.Linq;
+using Core.Common.Controls.Views;
 using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -40,14 +41,12 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
     {
         private GrassCoverErosionInwardsPlugin plugin;
         private ViewInfo info;
-        private MockRepository mocks;
 
         [SetUp]
         public void SetUp()
         {
             plugin = new GrassCoverErosionInwardsPlugin();
             info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(GrassCoverErosionInwardsScenariosView));
-            mocks = new MockRepository();
         }
 
         [TearDown]
@@ -75,7 +74,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void GetViewData_Always_ReturnWrappedData()
+        public void GetViewData_WithContext_ReturnWrappedData()
         {
             // Setup
             var calculationGroup = new CalculationGroup();
@@ -100,45 +99,21 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void CloseForData_AssessmentSectionRemovedWithoutFailureMechanism_ReturnFalse()
-        {
-            // Setup
-            using (var view = new GrassCoverErosionInwardsScenariosView
-            {
-                Data = new CalculationGroup()
-            })
-            {
-                var assessmentSection = mocks.Stub<IAssessmentSection>();
-                assessmentSection.Stub(section => section.GetFailureMechanisms()).Return(new IFailureMechanism[0]);
-                mocks.ReplayAll();
-
-                // Call
-                bool closeForData = info.CloseForData(view, assessmentSection);
-
-                // Assert
-                Assert.IsFalse(closeForData);
-                mocks.VerifyAll();
-            }
-        }
-
-        [Test]
         public void CloseForData_ViewNotCorrespondingToRemovedAssessmentSection_ReturnFalse()
         {
             // Setup
-            using (var view = new GrassCoverErosionInwardsScenariosView
-            {
-                Data = new CalculationGroup()
-            })
-            {
-                var unrelatedFailureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var unrelatedFailureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
-                var assessmentSection = mocks.Stub<IAssessmentSection>();
-                assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new[]
-                {
-                    unrelatedFailureMechanism
-                });
-                mocks.ReplayAll();
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new[]
+            {
+                unrelatedFailureMechanism
+            });
+            mocks.ReplayAll();
 
+            using (var view = new GrassCoverErosionInwardsScenariosView(new CalculationGroup(), new GrassCoverErosionInwardsFailureMechanism()))
+            {
                 // Precondition
                 Assert.AreNotSame(view.Data, unrelatedFailureMechanism.CalculationsGroup);
 
@@ -147,8 +122,9 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
 
                 // Assert
                 Assert.IsFalse(closeForData);
-                mocks.VerifyAll();
             }
+
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -157,18 +133,16 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
             // Setup
             var relatedFailureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
-            using (var view = new GrassCoverErosionInwardsScenariosView
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new[]
             {
-                Data = relatedFailureMechanism.CalculationsGroup
-            })
-            {
-                var assessmentSection = mocks.Stub<IAssessmentSection>();
-                assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new[]
-                {
-                    relatedFailureMechanism
-                });
-                mocks.ReplayAll();
+                relatedFailureMechanism
+            });
+            mocks.ReplayAll();
 
+            using (var view = new GrassCoverErosionInwardsScenariosView(relatedFailureMechanism.CalculationsGroup, relatedFailureMechanism))
+            {
                 // Precondition
                 Assert.AreSame(view.Data, relatedFailureMechanism.CalculationsGroup);
 
@@ -177,18 +151,16 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
 
                 // Assert
                 Assert.IsTrue(closeForData);
-                mocks.VerifyAll();
             }
+
+            mocks.VerifyAll();
         }
 
         [Test]
         public void CloseForData_ViewNotCorrespondingToRemovedFailureMechanism_ReturnFalse()
         {
             // Setup
-            using (var view = new GrassCoverErosionInwardsScenariosView
-            {
-                Data = new CalculationGroup()
-            })
+            using (var view = new GrassCoverErosionInwardsScenariosView(new CalculationGroup(), new GrassCoverErosionInwardsFailureMechanism()))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, new GrassCoverErosionInwardsFailureMechanism());
@@ -203,10 +175,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
         {
             // Setup
             var correspondingFailureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            using (var view = new GrassCoverErosionInwardsScenariosView
-            {
-                Data = correspondingFailureMechanism.CalculationsGroup
-            })
+            using (var view = new GrassCoverErosionInwardsScenariosView(correspondingFailureMechanism.CalculationsGroup, correspondingFailureMechanism))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, correspondingFailureMechanism);
@@ -217,168 +186,86 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void CloseForData_AssessmentSectionRemovedWithoutGrassCoverErosionInwardsFailureMechanism_ReturnsFalse()
+        public void CloseForData_AssessmentSectionRemovedWithoutGrassCoverErosionInwardsFailureMechanism_ReturnFalse()
         {
             // Setup
+            var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new IFailureMechanism[0]);
             mocks.ReplayAll();
 
-            var view = new GrassCoverErosionInwardsScenariosView
+            using (var view = new GrassCoverErosionInwardsScenariosView(new CalculationGroup(), new GrassCoverErosionInwardsFailureMechanism()))
             {
-                Data = new CalculationGroup()
-            };
+                // Call
+                bool closeForData = info.CloseForData(view, assessmentSection);
 
-            // Call
-            bool closeForData = info.CloseForData(view, assessmentSection);
+                // Assert
+                Assert.IsFalse(closeForData);
+            }
 
-            // Assert
-            Assert.IsFalse(closeForData);
             mocks.VerifyAll();
         }
 
         [Test]
-        public void CloseForData_ViewNotCorrespondingToRemovedAssessmentSection_ReturnsFalse()
+        public void CloseForData_ViewNotCorrespondingToRemovedFailureMechanismContext_ReturnFalse()
         {
             // Setup
+            var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new[]
-            {
-                new GrassCoverErosionInwardsFailureMechanism()
-            });
-
             mocks.ReplayAll();
 
-            var view = new GrassCoverErosionInwardsScenariosView
-            {
-                Data = new CalculationGroup()
-            };
-
-            // Call
-            bool closeForData = info.CloseForData(view, assessmentSection);
-
-            // Assert
-            Assert.IsFalse(closeForData);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void CloseForData_ViewCorrespondingToRemovedAssessmentSection_ReturnsTrue()
-        {
-            // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new[]
-            {
-                failureMechanism
-            });
-
-            mocks.ReplayAll();
-
-            var view = new GrassCoverErosionInwardsScenariosView
-            {
-                Data = failureMechanism.CalculationsGroup
-            };
-
-            // Call
-            bool closeForData = info.CloseForData(view, assessmentSection);
-
-            // Assert
-            Assert.IsTrue(closeForData);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void CloseForData_ViewNotCorrespondingToRemovedFailureMechanism_ReturnsFalse()
-        {
-            // Setup
-            var view = new GrassCoverErosionInwardsScenariosView();
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-
-            view.Data = new CalculationGroup();
-
-            // Call
-            bool closeForData = info.CloseForData(view, failureMechanism);
-
-            // Assert
-            Assert.IsFalse(closeForData);
-        }
-
-        [Test]
-        public void CloseForData_ViewCorrespondingToRemovedFailureMechanism_ReturnsTrue()
-        {
-            // Setup
-            var view = new GrassCoverErosionInwardsScenariosView();
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-
-            view.Data = failureMechanism.CalculationsGroup;
-
-            // Call
-            bool closeForData = info.CloseForData(view, failureMechanism);
-
-            // Assert
-            Assert.IsTrue(closeForData);
-        }
-
-        [Test]
-        public void CloseForData_ViewNotCorrespondingToRemovedFailureMechanismContext_ReturnsFalse()
-        {
-            // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-
-            mocks.ReplayAll();
-
-            var view = new GrassCoverErosionInwardsScenariosView();
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             var failureMechanismContext = new GrassCoverErosionInwardsFailureMechanismContext(new GrassCoverErosionInwardsFailureMechanism(), assessmentSection);
 
-            view.Data = failureMechanism.CalculationsGroup;
+            using (var view = new GrassCoverErosionInwardsScenariosView(failureMechanism.CalculationsGroup, failureMechanism))
+            {
+                // Call
+                bool closeForData = info.CloseForData(view, failureMechanismContext);
 
-            // Call
-            bool closeForData = info.CloseForData(view, failureMechanismContext);
+                // Assert
+                Assert.IsFalse(closeForData);
+            }
 
-            // Assert
-            Assert.IsFalse(closeForData);
             mocks.VerifyAll();
         }
 
         [Test]
-        public void CloseForData_ViewCorrespondingToRemovedFailureMechanismContext_ReturnsTrue()
+        public void CloseForData_ViewCorrespondingToRemovedFailureMechanismContext_ReturnTrue()
         {
             // Setup
+            var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-
             mocks.ReplayAll();
 
-            var view = new GrassCoverErosionInwardsScenariosView();
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             var failureMechanismContext = new GrassCoverErosionInwardsFailureMechanismContext(failureMechanism, assessmentSection);
 
-            view.Data = failureMechanism.CalculationsGroup;
+            using (var view = new GrassCoverErosionInwardsScenariosView(failureMechanism.CalculationsGroup, failureMechanism))
+            {
+                // Call
+                bool closeForData = info.CloseForData(view, failureMechanismContext);
 
-            // Call
-            bool closeForData = info.CloseForData(view, failureMechanismContext);
+                // Assert
+                Assert.IsTrue(closeForData);
+            }
 
-            // Assert
-            Assert.IsTrue(closeForData);
             mocks.VerifyAll();
         }
 
         [Test]
-        public void AfterCreate_Always_SetsSpecificPropertiesToView()
+        public void AfterCreate_WithContext_ReturnsGrassCoverErosionInwardsScenariosView()
         {
             // Setup
-            using (var view = new GrassCoverErosionInwardsScenariosView())
+            var group = new CalculationGroup();
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var context = new GrassCoverErosionInwardsScenariosContext(group, failureMechanism);
+
+            // Call
+            using (IView view = info.CreateInstance(context))
             {
-                var group = new CalculationGroup();
-                var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-                var context = new GrassCoverErosionInwardsScenariosContext(group, failureMechanism);
-
-                // Call
-                info.AfterCreate(view, context);
-
                 // Assert
-                Assert.AreSame(failureMechanism, view.FailureMechanism);
+                Assert.IsInstanceOf<GrassCoverErosionInwardsScenariosView>(view);
+                Assert.AreSame(group, view.Data);
             }
         }
     }

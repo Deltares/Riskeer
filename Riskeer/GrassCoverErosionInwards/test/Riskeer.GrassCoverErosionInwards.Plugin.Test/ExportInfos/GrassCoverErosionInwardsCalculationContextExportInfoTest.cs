@@ -58,7 +58,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ExportInfos
                 Gui = gui
             };
 
-            info = plugin.GetExportInfos().First(ei => ei.DataType == typeof(GrassCoverErosionInwardsCalculationContext));
+            info = plugin.GetExportInfos().First(ei => ei.DataType == typeof(GrassCoverErosionInwardsCalculationScenarioContext));
         }
 
         [TearDown]
@@ -88,10 +88,10 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ExportInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var context = new GrassCoverErosionInwardsCalculationContext(new GrassCoverErosionInwardsCalculation(),
-                                                                         new CalculationGroup(),
-                                                                         new GrassCoverErosionInwardsFailureMechanism(),
-                                                                         assessmentSection);
+            var context = new GrassCoverErosionInwardsCalculationScenarioContext(new GrassCoverErosionInwardsCalculationScenario(),
+                                                                                 new CalculationGroup(),
+                                                                                 new GrassCoverErosionInwardsFailureMechanism(),
+                                                                                 assessmentSection);
 
             // Call
             IFileExporter fileExporter = info.CreateFileExporter(context, "test");
@@ -107,10 +107,10 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ExportInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var context = new GrassCoverErosionInwardsCalculationContext(new GrassCoverErosionInwardsCalculation(),
-                                                                         new CalculationGroup(),
-                                                                         new GrassCoverErosionInwardsFailureMechanism(),
-                                                                         assessmentSection);
+            var context = new GrassCoverErosionInwardsCalculationScenarioContext(new GrassCoverErosionInwardsCalculationScenario(),
+                                                                                 new CalculationGroup(),
+                                                                                 new GrassCoverErosionInwardsFailureMechanism(),
+                                                                                 assessmentSection);
 
             // Call
             bool isEnabled = info.IsEnabled(context);

@@ -46,10 +46,10 @@ namespace Riskeer.MacroStabilityInwards.IO.TestUtil.Test
         }
 
         [Test]
-        public void CreateArchivePersister_ThrowExceptionAndWriteFalseFalse_SetsPropertiesAndReturnsTestPersister()
+        public void CreateArchivePersister_ThrowExceptionAndWriteFileFalse_SetsPropertiesAndReturnsTestPersister()
         {
             // Setup
-            string filePath = TestHelper.GetScratchPadPath($"{nameof(MacroStabilityInwardsTestPersistenceFactoryTest)}.{nameof(CreateArchivePersister_ThrowExceptionAndWriteFalseFalse_SetsPropertiesAndReturnsTestPersister)}.ValidFile.stix");
+            string filePath = TestHelper.GetScratchPadPath($"{nameof(MacroStabilityInwardsTestPersistenceFactoryTest)}.{nameof(CreateArchivePersister_ThrowExceptionAndWriteFileFalse_SetsPropertiesAndReturnsTestPersister)}.ValidFile.stix");
             var persistableDataModel = new PersistableDataModel();
 
             var persistenceFactory = new MacroStabilityInwardsTestPersistenceFactory();
@@ -79,7 +79,7 @@ namespace Riskeer.MacroStabilityInwards.IO.TestUtil.Test
 
             // Assert
             var exception = Assert.Throws<Exception>(Call);
-            Assert.AreEqual("Exception in persistor.", exception.Message);
+            Assert.AreEqual("Exception in persister.", exception.Message);
         }
 
         [Test]

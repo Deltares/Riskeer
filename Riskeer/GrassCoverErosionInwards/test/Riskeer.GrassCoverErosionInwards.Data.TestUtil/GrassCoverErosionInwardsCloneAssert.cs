@@ -147,5 +147,21 @@ namespace Riskeer.GrassCoverErosionInwards.Data.TestUtil
             CoreCloneAssert.AreObjectClones(original.InputParameters, clone.InputParameters, AreClones);
             CoreCloneAssert.AreObjectClones(original.Output, clone.Output, AreClones);
         }
+
+        /// <summary>
+        /// Method that asserts whether <paramref name="original"/> and <paramref name="clone"/>
+        /// are clones.
+        /// </summary>
+        /// <param name="original">The original object.</param>
+        /// <param name="clone">The cloned object.</param>
+        /// <exception cref="AssertionException">Thrown when <paramref name="original"/> and
+        /// <paramref name="clone"/> are not clones.</exception>
+        public static void AreClones(GrassCoverErosionInwardsCalculationScenario original,
+                                     GrassCoverErosionInwardsCalculationScenario clone)
+        {
+            Assert.AreEqual(original.Contribution, clone.Contribution);
+            Assert.AreEqual(original.IsRelevant, clone.IsRelevant);
+            AreClones((GrassCoverErosionInwardsCalculation) original, clone);
+        }
     }
 }

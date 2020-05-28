@@ -352,18 +352,18 @@ namespace Riskeer.Storage.Core.Test.Create
         }
 
         [Test]
-        public void Create_GroupWithChildGrassCoverErosionInwardsCalculations_CreateEntities()
+        public void Create_GroupWithChildGrassCoverErosionInwardsCalculationScenarios_CreateEntities()
         {
             // Setup
             var group = new CalculationGroup
             {
                 Children =
                 {
-                    new GrassCoverErosionInwardsCalculation
+                    new GrassCoverErosionInwardsCalculationScenario
                     {
                         Name = "A"
                     },
-                    new GrassCoverErosionInwardsCalculation
+                    new GrassCoverErosionInwardsCalculationScenario
                     {
                         Name = "B"
                     }
@@ -388,7 +388,7 @@ namespace Riskeer.Storage.Core.Test.Create
         }
 
         [Test]
-        public void Create_GroupWithChildGrassCoverErosionInwardCalculationsAndChildCalculationGroups_CreateEntities()
+        public void Create_GroupWithChildGrassCoverErosionInwardCalculationScenariosAndChildCalculationGroups_CreateEntities()
         {
             // Setup
             var group = new CalculationGroup
@@ -399,7 +399,7 @@ namespace Riskeer.Storage.Core.Test.Create
                     {
                         Name = "A"
                     },
-                    new GrassCoverErosionInwardsCalculation
+                    new GrassCoverErosionInwardsCalculationScenario
                     {
                         Name = "B"
                     },
@@ -407,7 +407,7 @@ namespace Riskeer.Storage.Core.Test.Create
                     {
                         Name = "C"
                     },
-                    new GrassCoverErosionInwardsCalculation
+                    new GrassCoverErosionInwardsCalculationScenario
                     {
                         Name = "D"
                     }

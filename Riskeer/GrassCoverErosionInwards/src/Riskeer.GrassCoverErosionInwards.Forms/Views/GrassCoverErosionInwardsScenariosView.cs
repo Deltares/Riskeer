@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2019. All rights reserved.
+// Copyright (C) Stichting Deltares 2019. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -41,57 +41,59 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
         private readonly RecursiveObserver<CalculationGroup, ICalculationInput> calculationInputObserver;
         private readonly RecursiveObserver<CalculationGroup, ICalculationBase> calculationGroupObserver;
         private readonly Observer failureMechanismObserver;
-        private GrassCoverErosionInwardsFailureMechanism failureMechanism;
+        private readonly GrassCoverErosionInwardsFailureMechanism failureMechanism;
         private CalculationGroup data;
 
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionInwardsScenariosView"/>.
         /// </summary>
-        public GrassCoverErosionInwardsScenariosView()
+        /// <param name="calculationGroup">The data to show in this view.</param>
+        /// <param name="failureMechanism">The <see cref="GrassCoverErosionInwardsFailureMechanism"/>
+        /// the <paramref name="calculationGroup"/> belongs to.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter
+        /// is <c>null</c>.</exception>
+        public GrassCoverErosionInwardsScenariosView(CalculationGroup calculationGroup, GrassCoverErosionInwardsFailureMechanism failureMechanism)
         {
+            if (calculationGroup == null)
+            {
+                throw new ArgumentNullException(nameof(calculationGroup));
+            }
+
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanism));
+            }
+
+            data = calculationGroup;
+            this.failureMechanism = failureMechanism;
+
             InitializeComponent();
 
-            failureMechanismObserver = new Observer(UpdateDataGridViewDataSource);
+            failureMechanismObserver = new Observer(UpdateDataGridViewDataSource)
+            {
+                Observable = failureMechanism
+            };
 
             // The concat is needed to observe the input of calculations in child groups.
             calculationInputObserver = new RecursiveObserver<CalculationGroup, ICalculationInput>(
                 UpdateDataGridViewDataSource, cg => cg.Children.Concat<object>(cg.Children
-                                                                                 .OfType<GrassCoverErosionInwardsCalculation>()
-                                                                                 .Select(c => c.InputParameters)));
-            calculationGroupObserver = new RecursiveObserver<CalculationGroup, ICalculationBase>(UpdateDataGridViewDataSource, c => c.Children);
-        }
+                                                                                 .OfType<GrassCoverErosionInwardsCalculationScenario>()
+                                                                                 .Select(c => c.InputParameters)))
+            {
+                Observable = calculationGroup
+            };
+            calculationGroupObserver = new RecursiveObserver<CalculationGroup, ICalculationBase>(UpdateDataGridViewDataSource, c => c.Children)
+            {
+                Observable = calculationGroup
+            };
 
-        /// <summary>
-        /// Gets or sets the failure mechanism.
-        /// </summary>
-        public GrassCoverErosionInwardsFailureMechanism FailureMechanism
-        {
-            get
-            {
-                return failureMechanism;
-            }
-            set
-            {
-                failureMechanism = value;
-                failureMechanismObserver.Observable = failureMechanism;
-                UpdateDataGridViewDataSource();
-            }
+            UpdateDataGridViewDataSource();
         }
 
         public object Data
         {
-            get
-            {
-                return data;
-            }
-            set
-            {
-                data = value as CalculationGroup;
-
-                calculationInputObserver.Observable = data;
-                calculationGroupObserver.Observable = data;
-                UpdateDataGridViewDataSource();
-            }
+            get => data;
+            set => data = value as CalculationGroup;
         }
 
         protected override void OnLoad(EventArgs e)
@@ -119,7 +121,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
         {
             scenarioSelectionControl.EndEdit();
 
-            if (failureMechanism?.SectionResults == null || data?.Children == null)
+            if (failureMechanism.SectionResults == null || data.Children == null)
             {
                 scenarioSelectionControl.ClearDataSource();
             }
@@ -128,7 +130,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
                 ICalculation[] calculations = data.GetCalculations().ToArray();
 
                 IDictionary<string, List<ICalculation>> calculationsPerSegment =
-                    GrassCoverErosionInwardsHelper.CollectCalculationsPerSection(failureMechanism.Sections, calculations.Cast<GrassCoverErosionInwardsCalculation>());
+                    GrassCoverErosionInwardsHelper.CollectCalculationsPerSection(failureMechanism.Sections, calculations.Cast<GrassCoverErosionInwardsCalculationScenario>());
 
                 List<GrassCoverErosionInwardsScenarioRow> scenarioRows =
                     failureMechanism.SectionResults.Select(sectionResult => new GrassCoverErosionInwardsScenarioRow(sectionResult)).ToList();
