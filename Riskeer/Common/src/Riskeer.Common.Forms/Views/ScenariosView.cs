@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.Views;
 using Riskeer.Common.Data.Calculation;
@@ -34,11 +36,24 @@ namespace Riskeer.Common.Forms.Views
     public abstract partial class ScenariosView<TCalculationScenario> : UserControl, IView
         where TCalculationScenario : class, ICalculationScenario
     {
+        private readonly IFailureMechanism failureMechanism;
+
         /// <summary>
         /// Creates a new instance of <see cref="ScenariosView{TCalculationScenario}"/>.
         /// </summary>
-        protected ScenariosView()
+        /// <param name="failureMechanism">The <see cref="IFailureMechanism"/>
+        /// to get the sections from.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
+        /// is <c>null</c>.</exception>
+        protected ScenariosView(IFailureMechanism failureMechanism)
         {
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanism));
+            }
+
+            this.failureMechanism = failureMechanism;
+
             InitializeComponent();
             InitializeDataGridView();
             InitializeListBox();
@@ -69,6 +84,18 @@ namespace Riskeer.Common.Forms.Views
         private void InitializeListBox()
         {
             listBox.DisplayMember = nameof(FailureMechanismSection.Name);
+            UpdateSectionsListBox();
+        }
+
+        private void UpdateSectionsListBox()
+        {
+            listBox.Items.Clear();
+
+            if (failureMechanism.Sections.Any())
+            {
+                listBox.Items.AddRange(failureMechanism.Sections.Cast<object>().ToArray());
+                listBox.SelectedItem = failureMechanism.Sections.First();
+            }
         }
     }
 }
