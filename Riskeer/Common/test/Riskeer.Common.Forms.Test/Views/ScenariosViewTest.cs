@@ -110,7 +110,7 @@ namespace Riskeer.Common.Forms.Test.Views
             ShowScenariosView(failureMechanism);
 
             // Assert
-            var listBox = (ListBox)new ControlTester("listBox").TheObject;
+            var listBox = (ListBox) new ControlTester("listBox").TheObject;
             Assert.AreEqual(nameof(FailureMechanismSection.Name), listBox.DisplayMember);
             Assert.AreEqual(3, listBox.Items.Count);
             Assert.AreSame(failureMechanismSection1, listBox.Items[0]);
@@ -133,6 +133,51 @@ namespace Riskeer.Common.Forms.Test.Views
             Assert.AreEqual("Bijdrage aan\r\nscenario\r\n[%]", dataGridView.Columns[contributionColumnIndex].HeaderText);
             Assert.AreEqual("Naam", dataGridView.Columns[nameColumnIndex].HeaderText);
             Assert.AreEqual("Faalkans\r\n[1/jaar]", dataGridView.Columns[failureProbabilityColumnIndex].HeaderText);
+        }
+
+        [Test]
+        public void GivenScenariosView_WhenUpdatingFailureMechanismSectionsAndFailureMechanismNotified_ThenSectionsListBoxCorrectlyUpdated()
+        {
+            // Given
+            var failureMechanism = new TestFailureMechanism();
+            ShowScenariosView(failureMechanism);
+
+            var listBox = (ListBox) new ControlTester("listBox").TheObject;
+
+            // Precondition
+            CollectionAssert.IsEmpty(listBox.Items);
+
+            // When
+            var failureMechanismSection1 = new FailureMechanismSection("Section 1", new[]
+            {
+                new Point2D(0.0, 0.0),
+                new Point2D(5.0, 0.0)
+            });
+            var failureMechanismSection2 = new FailureMechanismSection("Section 2", new[]
+            {
+                new Point2D(5.0, 0.0),
+                new Point2D(10.0, 0.0)
+            });
+            var failureMechanismSection3 = new FailureMechanismSection("Section 3", new[]
+            {
+                new Point2D(10.0, 0.0),
+                new Point2D(15.0, 0.0)
+            });
+
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
+            {
+                failureMechanismSection1,
+                failureMechanismSection2,
+                failureMechanismSection3
+            });
+            failureMechanism.NotifyObservers();
+
+            // Then
+            Assert.AreEqual(3, listBox.Items.Count);
+            Assert.AreSame(failureMechanismSection1, listBox.Items[0]);
+            Assert.AreSame(failureMechanismSection2, listBox.Items[1]);
+            Assert.AreSame(failureMechanismSection3, listBox.Items[2]);
+            Assert.AreSame(failureMechanismSection1, listBox.SelectedItem);
         }
 
         private TestScenariosView ShowScenariosView()

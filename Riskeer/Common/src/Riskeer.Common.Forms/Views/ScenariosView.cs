@@ -22,6 +22,7 @@
 using System;
 using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Base;
 using Core.Common.Controls.Views;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
@@ -37,6 +38,8 @@ namespace Riskeer.Common.Forms.Views
         where TCalculationScenario : class, ICalculationScenario
     {
         private readonly IFailureMechanism failureMechanism;
+
+        private readonly Observer failureMechanismObserver;
 
         /// <summary>
         /// Creates a new instance of <see cref="ScenariosView{TCalculationScenario}"/>.
@@ -54,12 +57,29 @@ namespace Riskeer.Common.Forms.Views
 
             this.failureMechanism = failureMechanism;
 
+            failureMechanismObserver = new Observer(UpdateSectionsListBox)
+            {
+                Observable = failureMechanism
+            };
+
             InitializeComponent();
             InitializeDataGridView();
             InitializeListBox();
         }
 
         public object Data { get; set; }
+
+        protected override void Dispose(bool disposing)
+        {
+            failureMechanismObserver.Dispose();
+
+            if (disposing)
+            {
+                components?.Dispose();
+            }
+
+            base.Dispose(disposing);
+        }
 
         private void InitializeDataGridView()
         {
