@@ -332,9 +332,13 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
 
                     TestHelper.AssertLogMessagesAreGenerated(Call, new[]
                     {
+                        $"Exporteren van '{calculation1.Name}' is gestart.",
                         $"Gegevens van '{calculation1.Name}' zijn geëxporteerd naar bestand '{calculation1FilePath}'.",
+                        $"Exporteren van '{calculation2.Name}' is gestart.",
                         $"Gegevens van '{calculation2.Name}' zijn geëxporteerd naar bestand '{calculation2FilePath}'.",
+                        $"Exporteren van '{calculation3.Name}' is gestart.",
                         $"Gegevens van '{calculation3.Name}' zijn geëxporteerd naar bestand '{calculation3FilePath}'.",
+                        $"Exporteren van '{calculation4.Name}' is gestart.",
                         $"Gegevens van '{calculation4.Name}' zijn geëxporteerd naar bestand '{calculation4FilePath}'."
                     });
                     Assert.IsTrue(exportResult);
