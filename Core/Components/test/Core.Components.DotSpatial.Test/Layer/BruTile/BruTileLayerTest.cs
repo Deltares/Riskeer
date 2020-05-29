@@ -694,7 +694,6 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
 
                 // Call
                 layer.DrawRegions(mapArgs, regions);
-                //mapCanvas.Save(Path.Combine(Path.GetTempPath(), "BackgroundLayerCanvas_smallerAfterAddingTestTiles.png"));
 
                 // Assert
                 TestHelper.AssertImagesAreEqual(expectedResult, mapCanvas);

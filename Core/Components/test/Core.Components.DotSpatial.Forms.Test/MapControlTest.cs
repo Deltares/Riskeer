@@ -1038,9 +1038,9 @@ namespace Core.Components.DotSpatial.Forms.Test
                 Assert.IsInstanceOf<BruTileLayer>(mapView.Layers[0]);
                 Assert.IsTrue(mapView.Projection.Equals(pointFeatureLayer.Projection));
                 Assert.IsTrue(mapView.Projection.Equals(pointFeatureLayer.Projection));
-                Assert.AreEqual(523402.42866793618, pointFeatureLayer.FeatureSet.Features[0].Geometry.Coordinates[0].X,
+                Assert.AreEqual(523402.42866793618, pointFeatureLayer.FeatureSet.Features[0].Geometry.Coordinates[0].X,1e-5,
                                 "Coordinate does not match. (Ball park expected value can be calculated from https://epsg.io/transform#s_srs=28992&t_srs=25831&x=1.1000000&y=2.2000000).");
-                Assert.AreEqual(5313545.4037142638, pointFeatureLayer.FeatureSet.Features[0].Geometry.Coordinates[0].Y,
+                Assert.AreEqual(5313545.4037142638, pointFeatureLayer.FeatureSet.Features[0].Geometry.Coordinates[0].Y,1e-5,
                                 "Coordinate does not match (Estimate of expected value can be calculated from https://epsg.io/transform#s_srs=28992&t_srs=25831&x=1.1000000&y=2.2000000).");
                 AssertReprojectedTo28992TestExtents(mapView);
             }
@@ -1090,9 +1090,9 @@ namespace Core.Components.DotSpatial.Forms.Test
                 var pointFeatureLayer = (FeatureLayer) layersBeforeUpdate[1];
                 Assert.IsTrue(mapView.Projection.Equals(pointFeatureLayer.Projection));
                 Assert.IsTrue(mapView.Projection.Equals(pointFeatureLayer.Projection));
-                Assert.AreEqual(523402.42866793618, pointFeatureLayer.FeatureSet.Features[0].Geometry.Coordinates[0].X,
+                Assert.AreEqual(523402.42866793618, pointFeatureLayer.FeatureSet.Features[0].Geometry.Coordinates[0].X,1e-5,
                                 "Coordinate does not match. (Ball park expected value can be calculated from https://epsg.io/transform#s_srs=28992&t_srs=25831&x=1.1000000&y=2.2000000).");
-                Assert.AreEqual(5313545.4037142638, pointFeatureLayer.FeatureSet.Features[0].Geometry.Coordinates[0].Y,
+                Assert.AreEqual(5313545.4037142638, pointFeatureLayer.FeatureSet.Features[0].Geometry.Coordinates[0].Y,1e-5,
                                 "Coordinate does not match (Estimate of expected value can be calculated from https://epsg.io/transform#s_srs=28992&t_srs=25831&x=1.1000000&y=2.2000000).");
 
                 // When
@@ -1158,9 +1158,9 @@ namespace Core.Components.DotSpatial.Forms.Test
                 Assert.IsInstanceOf<BruTileLayer>(mapView.Layers[0]);
                 pointFeatureLayer = (FeatureLayer) mapView.Layers[1];
                 Assert.IsTrue(mapView.Projection.Equals(pointFeatureLayer.Projection));
-                Assert.AreEqual(523402.42866793618, pointFeatureLayer.FeatureSet.Features[0].Geometry.Coordinates[0].X,
+                Assert.AreEqual(523402.42866793618, pointFeatureLayer.FeatureSet.Features[0].Geometry.Coordinates[0].X,1e-5,
                                 "Coordinate does not match. (Ball park expected value can be calculated from https://epsg.io/transform#s_srs=28992&t_srs=25831&x=1.1000000&y=2.2000000).");
-                Assert.AreEqual(5313545.4037142638, pointFeatureLayer.FeatureSet.Features[0].Geometry.Coordinates[0].Y,
+                Assert.AreEqual(5313545.4037142638, pointFeatureLayer.FeatureSet.Features[0].Geometry.Coordinates[0].Y,1e-5,
                                 "Coordinate does not match (Estimate of expected value can be calculated from https://epsg.io/transform#s_srs=28992&t_srs=25831&x=1.1000000&y=2.2000000).");
 
                 AssertReprojectedTo28992TestExtents(mapView);
@@ -1274,9 +1274,9 @@ namespace Core.Components.DotSpatial.Forms.Test
                     Assert.IsInstanceOf<BruTileLayer>(mapView.Layers[0]);
                     pointFeatureLayer = (FeatureLayer) mapView.Layers[1];
                     Assert.IsTrue(mapView.Projection.Equals(pointFeatureLayer.Projection));
-                    Assert.AreEqual(523402.42866793618, pointFeatureLayer.FeatureSet.Features[0].Geometry.Coordinates[0].X,
+                    Assert.AreEqual(523402.42866793618, pointFeatureLayer.FeatureSet.Features[0].Geometry.Coordinates[0].X,1e-5,
                                     "Coordinate does not match. (Ball park expected value can be calculated from https://epsg.io/transform#s_srs=28992&t_srs=25831&x=1.1000000&y=2.2000000).");
-                    Assert.AreEqual(5313545.4037142638, pointFeatureLayer.FeatureSet.Features[0].Geometry.Coordinates[0].Y,
+                    Assert.AreEqual(5313545.4037142638, pointFeatureLayer.FeatureSet.Features[0].Geometry.Coordinates[0].Y,1e-5,
                                     "Coordinate does not match (Estimate of expected value can be calculated from https://epsg.io/transform#s_srs=28992&t_srs=25831&x=1.1000000&y=2.2000000).");
 
                     AssertReprojectedTo28992TestExtents(mapView);
@@ -1322,9 +1322,9 @@ namespace Core.Components.DotSpatial.Forms.Test
                 Assert.IsInstanceOf<BruTileLayer>(mapView.Layers[0]);
                 var pointFeatureLayer = (FeatureLayer) mapView.Layers[1];
                 Assert.IsTrue(mapView.Projection.Equals(pointFeatureLayer.Projection));
-                Assert.AreEqual(523402.42866793618, pointFeatureLayer.FeatureSet.Features[0].Geometry.Coordinates[0].X,
+                Assert.AreEqual(523402.42866793618, pointFeatureLayer.FeatureSet.Features[0].Geometry.Coordinates[0].X,1e-5,
                                 "Coordinate does not match. (Ball park expected value can be calculated from https://epsg.io/transform#s_srs=28992&t_srs=25831&x=1.1000000&y=2.2000000).");
-                Assert.AreEqual(5313545.4037142638, pointFeatureLayer.FeatureSet.Features[0].Geometry.Coordinates[0].Y,
+                Assert.AreEqual(5313545.4037142638, pointFeatureLayer.FeatureSet.Features[0].Geometry.Coordinates[0].Y,1e-5,
                                 "Coordinate does not match (Estimate of expected value can be calculated from https://epsg.io/transform#s_srs=28992&t_srs=25831&x=1.1000000&y=2.2000000).");
 
                 // When
@@ -1371,9 +1371,9 @@ namespace Core.Components.DotSpatial.Forms.Test
                 List<FeatureLayer> featureLayers = mapView.Layers.Skip(1).Cast<FeatureLayer>().ToList();
                 Assert.AreEqual("Points", featureLayers[0].Name);
                 Assert.IsTrue(mapView.Projection.Equals(featureLayers[0].Projection));
-                Assert.AreEqual(523402.42866793618, featureLayers[0].FeatureSet.Features[0].Geometry.Coordinates[0].X,
+                Assert.AreEqual(523402.42866793618, featureLayers[0].FeatureSet.Features[0].Geometry.Coordinates[0].X,1e-5,
                                 "Coordinate does not match. (Ball park expected value can be calculated from https://epsg.io/transform#s_srs=28992&t_srs=25831&x=1.1000000&y=2.2000000).");
-                Assert.AreEqual(5313545.4037142638, featureLayers[0].FeatureSet.Features[0].Geometry.Coordinates[0].Y,
+                Assert.AreEqual(5313545.4037142638, featureLayers[0].FeatureSet.Features[0].Geometry.Coordinates[0].Y, 1e-5,
                                 "Coordinate does not match (Estimate of expected value can be calculated from https://epsg.io/transform#s_srs=28992&t_srs=25831&x=1.1000000&y=2.2000000).");
                 Assert.AreEqual("Lines", featureLayers[1].Name);
                 Assert.IsTrue(mapView.Projection.Equals(featureLayers[1].Projection));
@@ -1539,9 +1539,9 @@ namespace Core.Components.DotSpatial.Forms.Test
                 IMapLayer[] layersBeforeUpdate = mapView.Layers.ToArray();
                 var pointFeatureLayer = (FeatureLayer) layersBeforeUpdate[1];
                 Assert.IsTrue(mapView.Projection.Equals(pointFeatureLayer.Projection));
-                Assert.AreEqual(523402.42866793618, pointFeatureLayer.FeatureSet.Features[0].Geometry.Coordinates[0].X,
+                Assert.AreEqual(523402.42866793618, pointFeatureLayer.FeatureSet.Features[0].Geometry.Coordinates[0].X,1e-5,
                                 "Coordinate does not match. (Ball park expected value can be calculated from https://epsg.io/transform#s_srs=28992&t_srs=25831&x=1.1000000&y=2.2000000).");
-                Assert.AreEqual(5313545.4037142638, pointFeatureLayer.FeatureSet.Features[0].Geometry.Coordinates[0].Y,
+                Assert.AreEqual(5313545.4037142638, pointFeatureLayer.FeatureSet.Features[0].Geometry.Coordinates[0].Y,1e-5,
                                 "Coordinate does not match (Estimate of expected value can be calculated from https://epsg.io/transform#s_srs=28992&t_srs=25831&x=1.1000000&y=2.2000000).");
 
                 Action callAction = () =>
