@@ -20,8 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using Core.Components.DotSpatial.Properties;
 using GeoAPI.Geometries;
 using NetTopologySuite.Geometries;
