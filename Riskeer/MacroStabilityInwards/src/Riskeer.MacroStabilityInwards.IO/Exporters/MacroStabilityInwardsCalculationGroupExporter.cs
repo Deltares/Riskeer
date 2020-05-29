@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Components.Persistence.Stability;
 using Core.Common.Base.Data;
 using Core.Common.Base.IO;
@@ -110,7 +111,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Exporters
             {
                 switch (calculationItem)
                 {
-                    case CalculationGroup nestedGroup:
+                    case CalculationGroup nestedGroup when HasChildrenWithOutput(nestedGroup):
                         continueExport = ExportCalculationGroup(nestedGroup, currentFolderPath, exportedGroups);
                         break;
                     case MacroStabilityInwardsCalculation calculation when !calculation.HasOutput:
@@ -128,6 +129,13 @@ namespace Riskeer.MacroStabilityInwards.IO.Exporters
             }
 
             return true;
+        }
+
+        private static bool HasChildrenWithOutput(CalculationGroup nestedGroup)
+        {
+            MacroStabilityInwardsCalculation[] calculations = nestedGroup.Children.OfType<MacroStabilityInwardsCalculation>()
+                                                                         .ToArray();
+            return calculations.Any() && calculations.All(calculation => calculation.HasOutput);
         }
 
         private static void CreateDirectory(string currentFolderPath)
