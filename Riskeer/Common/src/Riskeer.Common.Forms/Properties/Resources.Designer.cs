@@ -40,7 +40,7 @@ namespace Riskeer.Common.Forms.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Resources {
@@ -667,6 +667,15 @@ namespace Riskeer.Common.Forms.Properties {
         public static string CalculationOutput_TargetReliability_DisplayName {
             get {
                 return ResourceManager.GetString("CalculationOutput_TargetReliability_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Berekeningen voor geselecteerd vak.
+        /// </summary>
+        public static string Calculations_per_FailureMechanismSection_DisplayName {
+            get {
+                return ResourceManager.GetString("Calculations_per_FailureMechanismSection_DisplayName", resourceCulture);
             }
         }
         

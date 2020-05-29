@@ -1557,4 +1557,7 @@ berekende kans
   <data name="Categories_Schematization_Storage_structure" xml:space="preserve">
     <value>Schematisering komberging</value>
   </data>
+  <data name="Calculations_per_FailureMechanismSection_DisplayName" xml:space="preserve">
+    <value>Berekeningen voor geselecteerd vak</value>
+  </data>
 </root>
