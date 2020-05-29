@@ -21,7 +21,9 @@
 
 using System.Windows.Forms;
 using Core.Common.Controls.Views;
+using NUnit.Extensions.Forms;
 using NUnit.Framework;
+using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Forms.Views;
 
 namespace Riskeer.Common.Forms.Test.Views
@@ -29,6 +31,20 @@ namespace Riskeer.Common.Forms.Test.Views
     [TestFixture]
     public class ScenariosViewTest
     {
+        private Form testForm;
+
+        [SetUp]
+        public void Setup()
+        {
+            testForm = new Form();
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            testForm.Dispose();
+        }
+
         [Test]
         public void Constructor_ExpectedValues()
         {
@@ -38,7 +54,31 @@ namespace Riskeer.Common.Forms.Test.Views
                 // Assert
                 Assert.IsInstanceOf<IView>(view);
                 Assert.IsInstanceOf<UserControl>(view);
+                Assert.IsNull(view.Data);
             }
+        }
+
+        [Test]
+        public void Constructor_ListBoxCorrectlyInitialized()
+        {
+            // Setup & Call
+            ShowScenariosView();
+
+            var listBox = (ListBox) new ControlTester("listBox").TheObject;
+
+            // Assert
+            Assert.AreEqual(0, listBox.Items.Count);
+            Assert.AreEqual(nameof(FailureMechanismSection.Name), listBox.DisplayMember);
+        }
+
+        private TestScenariosView ShowScenariosView()
+        {
+            var scenariosView = new TestScenariosView();
+
+            testForm.Controls.Add(scenariosView);
+            testForm.Show();
+
+            return scenariosView;
         }
 
         private class TestScenariosView : ScenariosView {}
