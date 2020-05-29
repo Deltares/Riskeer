@@ -23,6 +23,7 @@ using System.Windows.Forms;
 using Core.Common.Controls.Views;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
+using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Forms.Views;
 
@@ -31,6 +32,11 @@ namespace Riskeer.Common.Forms.Test.Views
     [TestFixture]
     public class ScenariosViewTest
     {
+        private const int isRelevantColumnIndex = 0;
+        private const int contributionColumnIndex = 1;
+        private const int nameColumnIndex = 2;
+        private const int failureProbabilityColumnIndex = 3;
+
         private Form testForm;
 
         [SetUp]
@@ -61,14 +67,29 @@ namespace Riskeer.Common.Forms.Test.Views
         [Test]
         public void Constructor_ListBoxCorrectlyInitialized()
         {
-            // Setup & Call
+            // Call
             ShowScenariosView();
 
-            var listBox = (ListBox) new ControlTester("listBox").TheObject;
-
             // Assert
+            var listBox = (ListBox)new ControlTester("listBox").TheObject;
             Assert.AreEqual(0, listBox.Items.Count);
             Assert.AreEqual(nameof(FailureMechanismSection.Name), listBox.DisplayMember);
+        }
+
+        [Test]
+        public void Constructor_DataGridViewCorrectlyInitialized()
+        {
+            // Call
+            ShowScenariosView();
+
+            // Assert
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+            Assert.IsFalse(dataGridView.AutoGenerateColumns);
+            Assert.AreEqual(4, dataGridView.ColumnCount);
+            Assert.AreEqual("In oordeel", dataGridView.Columns[isRelevantColumnIndex].HeaderText);
+            Assert.AreEqual("Bijdrage aan\r\nscenario\r\n[%]", dataGridView.Columns[contributionColumnIndex].HeaderText);
+            Assert.AreEqual("Naam", dataGridView.Columns[nameColumnIndex].HeaderText);
+            Assert.AreEqual("Faalkans\r\n[1/jaar]", dataGridView.Columns[failureProbabilityColumnIndex].HeaderText);
         }
 
         private TestScenariosView ShowScenariosView()
@@ -81,6 +102,6 @@ namespace Riskeer.Common.Forms.Test.Views
             return scenariosView;
         }
 
-        private class TestScenariosView : ScenariosView {}
+        private class TestScenariosView : ScenariosView<ICalculationScenario> {}
     }
 }

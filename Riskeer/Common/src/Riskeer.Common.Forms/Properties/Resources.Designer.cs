@@ -3127,6 +3127,45 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Faalkans
+        ///[1/jaar].
+        /// </summary>
+        public static string ScenarioView_FailureProbability_DisplayName {
+            get {
+                return ResourceManager.GetString("ScenarioView_FailureProbability_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bijdrage aan
+        ///scenario
+        ///[%].
+        /// </summary>
+        public static string ScenarioView_InitializeDataGridView_Contribution {
+            get {
+                return ResourceManager.GetString("ScenarioView_InitializeDataGridView_Contribution", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to In oordeel.
+        /// </summary>
+        public static string ScenarioView_InitializeDataGridView_In_final_rating {
+            get {
+                return ResourceManager.GetString("ScenarioView_InitializeDataGridView_In_final_rating", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Naam.
+        /// </summary>
+        public static string ScenarioView_Name_DisplayName {
+            get {
+                return ResourceManager.GetString("ScenarioView_Name_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Vak.
         /// </summary>
         public static string Section_DisplayName {
