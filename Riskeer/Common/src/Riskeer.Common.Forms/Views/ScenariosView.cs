@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
@@ -34,26 +35,37 @@ namespace Riskeer.Common.Forms.Views
     /// Base view for configuration calculation scenarios.
     /// </summary>
     /// <typeparam name="TCalculationScenario">The type of calculation scenario.</typeparam>
-    public abstract partial class ScenariosView<TCalculationScenario> : UserControl, IView
+    /// <typeparam name="TScenarioRow">The type of the scenario row.</typeparam>
+    public abstract partial class ScenariosView<TCalculationScenario, TScenarioRow> : UserControl, IView
         where TCalculationScenario : class, ICalculationScenario
+        where TScenarioRow : ScenarioRow<TCalculationScenario>
     {
         private readonly IFailureMechanism failureMechanism;
 
         private readonly Observer failureMechanismObserver;
 
         /// <summary>
-        /// Creates a new instance of <see cref="ScenariosView{TCalculationScenario}"/>.
+        /// Creates a new instance of <see cref="ScenariosView{TCalculationScenario, TScenarioRow}"/>.
         /// </summary>
+        /// <param name="calculationGroup">The <see cref="CalculationGroup"/>
+        /// to get the calculations from.</param>
         /// <param name="failureMechanism">The <see cref="IFailureMechanism"/>
         /// to get the sections from.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter
         /// is <c>null</c>.</exception>
-        protected ScenariosView(IFailureMechanism failureMechanism)
+        protected ScenariosView(CalculationGroup calculationGroup, IFailureMechanism failureMechanism)
         {
+            if (calculationGroup == null)
+            {
+                throw new ArgumentNullException(nameof(calculationGroup));
+            }
+
             if (failureMechanism == null)
             {
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
+
+            CalculationGroup = calculationGroup;
 
             this.failureMechanism = failureMechanism;
 
@@ -63,11 +75,25 @@ namespace Riskeer.Common.Forms.Views
             };
 
             InitializeComponent();
-            InitializeDataGridView();
+
             InitializeListBox();
+            InitializeDataGridView();
+            UpdateSectionsListBox();
+            UpdateDataGridViewDataSource();
         }
 
         public object Data { get; set; }
+
+        /// <summary>
+        /// Gets the <see cref="CalculationGroup"/>.
+        /// </summary>
+        protected CalculationGroup CalculationGroup { get; }
+
+        /// <summary>
+        /// Gets a collection of <see cref="TScenarioRow"/>.
+        /// </summary>
+        /// <returns>The collection of <see cref="TScenarioRow"/>.</returns>
+        protected abstract IEnumerable<TScenarioRow> GetScenarioRows();
 
         protected override void Dispose(bool disposing)
         {
@@ -79,6 +105,18 @@ namespace Riskeer.Common.Forms.Views
             }
 
             base.Dispose(disposing);
+        }
+
+        private void UpdateDataGridViewDataSource()
+        {
+            if (!(listBox.SelectedItem is FailureMechanismSection))
+            {
+                dataGridViewControl.SetDataSource(null);
+                return;
+            }
+
+            IEnumerable<TScenarioRow> scenarioRows = GetScenarioRows();
+            dataGridViewControl.SetDataSource(scenarioRows);
         }
 
         private void InitializeDataGridView()
@@ -104,7 +142,6 @@ namespace Riskeer.Common.Forms.Views
         private void InitializeListBox()
         {
             listBox.DisplayMember = nameof(FailureMechanismSection.Name);
-            UpdateSectionsListBox();
         }
 
         private void UpdateSectionsListBox()

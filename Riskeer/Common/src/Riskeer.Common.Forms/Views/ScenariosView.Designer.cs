@@ -21,7 +21,7 @@
 
 namespace Riskeer.Common.Forms.Views
 {
-    partial class ScenariosView<TCalculationScenario>
+    partial class ScenariosView<TCalculationScenario, TScenarioRow>
     {
         /// <summary>
         /// Required designer variable.
