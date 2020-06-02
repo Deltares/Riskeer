@@ -147,40 +147,8 @@ namespace Riskeer.Common.Forms.Test.Views
         [Test]
         public void Constructor_DataGridViewCorrectlyInitialized()
         {
-            // Setup
-            var failureMechanism = new TestFailureMechanism();
-            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
-            {
-                new FailureMechanismSection("Section 1", new[]
-                {
-                    new Point2D(0.0, 0.0),
-                    new Point2D(5.0, 0.0)
-                }),
-                new FailureMechanismSection("Section 2", new[]
-                {
-                    new Point2D(5.0, 0.0),
-                    new Point2D(10.0, 0.0)
-                })
-            });
-
-            var calculationGroup = new CalculationGroup
-            {
-                Children =
-                {
-                    new TestCalculationScenario
-                    {
-                        Name = "Calculation 1"
-                    },
-                    new TestCalculationScenario
-                    {
-                        Name = "Calculation 2",
-                        IsRelevant = false
-                    }
-                }
-            };
-
             // Call
-            ShowScenariosView(failureMechanism, calculationGroup);
+            ShowFullyConfiguredScenarioView();
 
             var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
@@ -255,6 +223,76 @@ namespace Riskeer.Common.Forms.Test.Views
             Assert.AreSame(failureMechanismSection1, listBox.SelectedItem);
         }
 
+        [Test]
+        public void ScenarioView_ContributionValueInvalid_ShowsErrorTooltip()
+        {
+            // Setup
+            ShowFullyConfiguredScenarioView();
+
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+
+            // Call
+            dataGridView.Rows[0].Cells[contributionColumnIndex].Value = "test";
+
+            // Assert
+            Assert.AreEqual("De tekst moet een getal zijn.", dataGridView.Rows[0].ErrorText);
+        }
+
+        [Test]
+        [TestCase(1)]
+        [TestCase(1e-6)]
+        [TestCase(1e+6)]
+        [TestCase(14.3)]
+        public void ScenarioView_EditValueValid_DoNotShowErrorToolTipAndEditValue(double newValue)
+        {
+            // Setup
+            ShowFullyConfiguredScenarioView();
+
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+
+            // Call
+            dataGridView.Rows[0].Cells[contributionColumnIndex].Value = (RoundedDouble) newValue;
+
+            // Assert
+            Assert.IsEmpty(dataGridView.Rows[0].ErrorText);
+        }
+
+        private TestScenariosView ShowFullyConfiguredScenarioView()
+        {
+            var failureMechanism = new TestFailureMechanism();
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
+            {
+                new FailureMechanismSection("Section 1", new[]
+                {
+                    new Point2D(0.0, 0.0),
+                    new Point2D(5.0, 0.0)
+                }),
+                new FailureMechanismSection("Section 2", new[]
+                {
+                    new Point2D(5.0, 0.0),
+                    new Point2D(10.0, 0.0)
+                })
+            });
+
+            var calculationGroup = new CalculationGroup
+            {
+                Children =
+                {
+                    new TestCalculationScenario
+                    {
+                        Name = "Calculation 1"
+                    },
+                    new TestCalculationScenario
+                    {
+                        Name = "Calculation 2",
+                        IsRelevant = false
+                    }
+                }
+            };
+
+            return ShowScenariosView(failureMechanism, calculationGroup);
+        }
+
         private TestScenariosView ShowScenariosView(IFailureMechanism failureMechanism, CalculationGroup calculationGroup = null)
         {
             var scenariosView = new TestScenariosView(calculationGroup ?? new CalculationGroup(), failureMechanism);
@@ -270,20 +308,20 @@ namespace Riskeer.Common.Forms.Test.Views
             public TestScenariosView(CalculationGroup calculationGroup, IFailureMechanism failureMechanism)
                 : base(calculationGroup, failureMechanism) {}
 
+            public CalculationGroup TestCalculationGroup => CalculationGroup;
+
             protected override IEnumerable<TestScenarioRow> GetScenarioRows()
             {
                 return CalculationGroup.Children.OfType<TestCalculationScenario>()
                                        .Select(calculationScenario => new TestScenarioRow(calculationScenario))
                                        .ToList();
             }
-
-            public CalculationGroup TestCalculationGroup => CalculationGroup;
         }
 
         private class TestScenarioRow : ScenarioRow<TestCalculationScenario>
         {
             public TestScenarioRow(TestCalculationScenario calculationScenario)
-                : base(calculationScenario) { }
+                : base(calculationScenario) {}
 
             public override string FailureProbability => "1";
         }
