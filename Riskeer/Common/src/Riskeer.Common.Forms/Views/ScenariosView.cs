@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2019. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2019. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -43,6 +43,7 @@ namespace Riskeer.Common.Forms.Views
         private readonly IFailureMechanism failureMechanism;
 
         private readonly Observer failureMechanismObserver;
+        private RecursiveObserver<CalculationGroup, CalculationGroup> calculationGroupObserver;
 
         /// <summary>
         /// Creates a new instance of <see cref="ScenariosView{TCalculationScenario, TScenarioRow}"/>.
@@ -74,6 +75,11 @@ namespace Riskeer.Common.Forms.Views
                 Observable = failureMechanism
             };
 
+            calculationGroupObserver = new RecursiveObserver<CalculationGroup, CalculationGroup>(UpdateDataGridViewDataSource, pcg => pcg.Children)
+            {
+                Observable = calculationGroup
+            };
+
             InitializeComponent();
 
             InitializeListBox();
@@ -98,6 +104,7 @@ namespace Riskeer.Common.Forms.Views
         protected override void Dispose(bool disposing)
         {
             failureMechanismObserver.Dispose();
+            calculationGroupObserver.Dispose();
 
             if (disposing)
             {

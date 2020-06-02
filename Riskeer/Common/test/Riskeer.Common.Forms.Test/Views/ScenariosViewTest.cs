@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2019. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2019. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -219,7 +219,7 @@ namespace Riskeer.Common.Forms.Test.Views
             var failureMechanism = new TestFailureMechanism();
             ShowScenariosView(new CalculationGroup(), failureMechanism);
 
-            var listBox = (ListBox)new ControlTester("listBox").TheObject;
+            var listBox = (ListBox) new ControlTester("listBox").TheObject;
 
             // Precondition
             CollectionAssert.IsEmpty(listBox.Items);
@@ -264,7 +264,7 @@ namespace Riskeer.Common.Forms.Test.Views
             var failureMechanism = new TestFailureMechanism();
             ShowFullyConfiguredScenarioView(new CalculationGroup(), failureMechanism);
 
-            var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
             TestScenarioRow[] sectionResultRows = dataGridView.Rows.Cast<DataGridViewRow>()
                                                               .Select(r => r.DataBoundItem)
@@ -283,14 +283,33 @@ namespace Riskeer.Common.Forms.Test.Views
             CollectionAssert.AreNotEquivalent(sectionResultRows, updatedRows);
         }
 
-            // Call
-            dataGridView.Rows[0].Cells[contributionColumnIndex].Value = (RoundedDouble) newValue;
+        [Test]
+        public void GivenScenarioView_WhenCalculationGroupNotifiesObserver_ThenDataGridViewUpdated()
+        {
+            // Given
+            var calculationGroup = new CalculationGroup();
+            ShowFullyConfiguredScenarioView(calculationGroup, new TestFailureMechanism());
 
-            // Assert
-            Assert.IsEmpty(dataGridView.Rows[0].ErrorText);
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+
+            TestScenarioRow[] sectionResultRows = dataGridView.Rows.Cast<DataGridViewRow>()
+                                                              .Select(r => r.DataBoundItem)
+                                                              .Cast<TestScenarioRow>()
+                                                              .ToArray();
+
+            // When
+            calculationGroup.NotifyObservers();
+
+            // Then
+            TestScenarioRow[] updatedRows = dataGridView.Rows.Cast<DataGridViewRow>()
+                                                        .Select(r => r.DataBoundItem)
+                                                        .Cast<TestScenarioRow>()
+                                                        .ToArray();
+
+            CollectionAssert.AreNotEquivalent(sectionResultRows, updatedRows);
         }
 
-        private TestScenariosView ShowFullyConfiguredScenarioView(CalculationGroup calculationGroup, IFailureMechanism failureMechanism)
+        private void ShowFullyConfiguredScenarioView(CalculationGroup calculationGroup, IFailureMechanism failureMechanism)
         {
             FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
@@ -319,17 +338,15 @@ namespace Riskeer.Common.Forms.Test.Views
                 }
             });
 
-            return ShowScenariosView(calculationGroup, failureMechanism);
+            ShowScenariosView(calculationGroup, failureMechanism);
         }
 
-        private TestScenariosView ShowScenariosView(CalculationGroup calculationGroup, IFailureMechanism failureMechanism)
+        private void ShowScenariosView(CalculationGroup calculationGroup, IFailureMechanism failureMechanism)
         {
             var scenariosView = new TestScenariosView(calculationGroup, failureMechanism);
 
             testForm.Controls.Add(scenariosView);
             testForm.Show();
-
-            return scenariosView;
         }
 
         private class TestScenariosView : ScenariosView<TestCalculationScenario, TestScenarioRow>
