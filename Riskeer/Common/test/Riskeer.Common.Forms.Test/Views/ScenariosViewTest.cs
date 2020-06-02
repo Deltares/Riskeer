@@ -213,6 +213,36 @@ namespace Riskeer.Common.Forms.Test.Views
         }
 
         [Test]
+        public void GivenScenariosView_WhenSelectingDifferentItemInSectionsListBox_ThenDataGridViewUpdated()
+        {
+            // Given
+            var failureMechanism = new TestFailureMechanism();
+            ShowFullyConfiguredScenarioView(new CalculationGroup(), failureMechanism);
+
+            var listBox = (ListBox)new ControlTester("listBox").TheObject;
+            var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+
+            // Precondition
+            Assert.AreSame(failureMechanism.Sections.First(), listBox.SelectedItem);
+
+            TestScenarioRow[] sectionResultRows = dataGridView.Rows.Cast<DataGridViewRow>()
+                                                              .Select(r => r.DataBoundItem)
+                                                              .Cast<TestScenarioRow>()
+                                                              .ToArray();
+
+            // When
+            listBox.SelectedItem = failureMechanism.Sections.Last();
+
+            // Then
+            TestScenarioRow[] updatedRows = dataGridView.Rows.Cast<DataGridViewRow>()
+                                                        .Select(r => r.DataBoundItem)
+                                                        .Cast<TestScenarioRow>()
+                                                        .ToArray();
+
+            CollectionAssert.AreNotEquivalent(sectionResultRows, updatedRows);
+        }
+
+        [Test]
         public void GivenScenariosView_WhenFailureMechanismNotifiesObserver_ThenSectionsListBoxCorrectlyUpdated()
         {
             // Given
