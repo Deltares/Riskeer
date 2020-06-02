@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2019. All rights reserved.
+// Copyright (C) Stichting Deltares 2019. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -132,7 +132,7 @@ namespace Riskeer.Common.Forms.Test.Views
             });
 
             // Call
-            ShowScenariosView(failureMechanism);
+            ShowScenariosView(new CalculationGroup(), failureMechanism);
 
             // Assert
             var listBox = (ListBox) new ControlTester("listBox").TheObject;
@@ -148,7 +148,7 @@ namespace Riskeer.Common.Forms.Test.Views
         public void Constructor_DataGridViewCorrectlyInitialized()
         {
             // Call
-            ShowFullyConfiguredScenarioView();
+            ShowFullyConfiguredScenarioView(new CalculationGroup(), new TestFailureMechanism());
 
             var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
@@ -179,13 +179,47 @@ namespace Riskeer.Common.Forms.Test.Views
         }
 
         [Test]
-        public void GivenScenariosView_WhenUpdatingFailureMechanismSectionsAndFailureMechanismNotified_ThenSectionsListBoxCorrectlyUpdated()
+        public void ScenarioView_ContributionValueInvalid_ShowsErrorTooltip()
+        {
+            // Setup
+            ShowFullyConfiguredScenarioView(new CalculationGroup(), new TestFailureMechanism());
+
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+
+            // Call
+            dataGridView.Rows[0].Cells[contributionColumnIndex].Value = "test";
+
+            // Assert
+            Assert.AreEqual("De tekst moet een getal zijn.", dataGridView.Rows[0].ErrorText);
+        }
+
+        [Test]
+        [TestCase(1)]
+        [TestCase(1e-6)]
+        [TestCase(1e+6)]
+        [TestCase(14.3)]
+        public void ScenarioView_EditValueValid_DoNotShowErrorToolTipAndEditValue(double newValue)
+        {
+            // Setup
+            ShowFullyConfiguredScenarioView(new CalculationGroup(), new TestFailureMechanism());
+
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+
+            // Call
+            dataGridView.Rows[0].Cells[contributionColumnIndex].Value = (RoundedDouble) newValue;
+
+            // Assert
+            Assert.IsEmpty(dataGridView.Rows[0].ErrorText);
+        }
+
+        [Test]
+        public void GivenScenariosView_WhenFailureMechanismNotifiesObserver_ThenSectionsListBoxCorrectlyUpdated()
         {
             // Given
             var failureMechanism = new TestFailureMechanism();
-            ShowScenariosView(failureMechanism);
+            ShowScenariosView(new CalculationGroup(), failureMechanism);
 
-            var listBox = (ListBox) new ControlTester("listBox").TheObject;
+            var listBox = (ListBox)new ControlTester("listBox").TheObject;
 
             // Precondition
             CollectionAssert.IsEmpty(listBox.Items);
@@ -224,31 +258,30 @@ namespace Riskeer.Common.Forms.Test.Views
         }
 
         [Test]
-        public void ScenarioView_ContributionValueInvalid_ShowsErrorTooltip()
+        public void GivenScenariosView_WhenFailureMechanismNotifiesObserver_ThenDataGridViewUpdated()
         {
-            // Setup
-            ShowFullyConfiguredScenarioView();
+            // Given
+            var failureMechanism = new TestFailureMechanism();
+            ShowFullyConfiguredScenarioView(new CalculationGroup(), failureMechanism);
 
-            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+            var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
 
-            // Call
-            dataGridView.Rows[0].Cells[contributionColumnIndex].Value = "test";
+            TestScenarioRow[] sectionResultRows = dataGridView.Rows.Cast<DataGridViewRow>()
+                                                              .Select(r => r.DataBoundItem)
+                                                              .Cast<TestScenarioRow>()
+                                                              .ToArray();
 
-            // Assert
-            Assert.AreEqual("De tekst moet een getal zijn.", dataGridView.Rows[0].ErrorText);
+            // When
+            failureMechanism.NotifyObservers();
+
+            // Then
+            TestScenarioRow[] updatedRows = dataGridView.Rows.Cast<DataGridViewRow>()
+                                                        .Select(r => r.DataBoundItem)
+                                                        .Cast<TestScenarioRow>()
+                                                        .ToArray();
+
+            CollectionAssert.AreNotEquivalent(sectionResultRows, updatedRows);
         }
-
-        [Test]
-        [TestCase(1)]
-        [TestCase(1e-6)]
-        [TestCase(1e+6)]
-        [TestCase(14.3)]
-        public void ScenarioView_EditValueValid_DoNotShowErrorToolTipAndEditValue(double newValue)
-        {
-            // Setup
-            ShowFullyConfiguredScenarioView();
-
-            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
             // Call
             dataGridView.Rows[0].Cells[contributionColumnIndex].Value = (RoundedDouble) newValue;
@@ -257,9 +290,8 @@ namespace Riskeer.Common.Forms.Test.Views
             Assert.IsEmpty(dataGridView.Rows[0].ErrorText);
         }
 
-        private TestScenariosView ShowFullyConfiguredScenarioView()
+        private TestScenariosView ShowFullyConfiguredScenarioView(CalculationGroup calculationGroup, IFailureMechanism failureMechanism)
         {
-            var failureMechanism = new TestFailureMechanism();
             FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
                 new FailureMechanismSection("Section 1", new[]
@@ -274,28 +306,25 @@ namespace Riskeer.Common.Forms.Test.Views
                 })
             });
 
-            var calculationGroup = new CalculationGroup
+            calculationGroup.Children.AddRange(new[]
             {
-                Children =
+                new TestCalculationScenario
                 {
-                    new TestCalculationScenario
-                    {
-                        Name = "Calculation 1"
-                    },
-                    new TestCalculationScenario
-                    {
-                        Name = "Calculation 2",
-                        IsRelevant = false
-                    }
+                    Name = "Calculation 1"
+                },
+                new TestCalculationScenario
+                {
+                    Name = "Calculation 2",
+                    IsRelevant = false
                 }
-            };
+            });
 
-            return ShowScenariosView(failureMechanism, calculationGroup);
+            return ShowScenariosView(calculationGroup, failureMechanism);
         }
 
-        private TestScenariosView ShowScenariosView(IFailureMechanism failureMechanism, CalculationGroup calculationGroup = null)
+        private TestScenariosView ShowScenariosView(CalculationGroup calculationGroup, IFailureMechanism failureMechanism)
         {
-            var scenariosView = new TestScenariosView(calculationGroup ?? new CalculationGroup(), failureMechanism);
+            var scenariosView = new TestScenariosView(calculationGroup, failureMechanism);
 
             testForm.Controls.Add(scenariosView);
             testForm.Show();

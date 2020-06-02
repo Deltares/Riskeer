@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2019. All rights reserved.
+// Copyright (C) Stichting Deltares 2019. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -142,6 +142,7 @@ namespace Riskeer.Common.Forms.Views
         private void InitializeListBox()
         {
             listBox.DisplayMember = nameof(FailureMechanismSection.Name);
+            listBox.SelectedValueChanged += ListBoxOnSelectedValueChanged;
         }
 
         private void UpdateSectionsListBox()
@@ -153,6 +154,11 @@ namespace Riskeer.Common.Forms.Views
                 listBox.Items.AddRange(failureMechanism.Sections.Cast<object>().ToArray());
                 listBox.SelectedItem = failureMechanism.Sections.First();
             }
+        }
+
+        private void ListBoxOnSelectedValueChanged(object sender, EventArgs e)
+        {
+            UpdateDataGridViewDataSource();
         }
     }
 }
