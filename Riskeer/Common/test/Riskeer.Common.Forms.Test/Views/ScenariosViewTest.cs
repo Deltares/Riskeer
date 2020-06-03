@@ -23,11 +23,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Controls.Views;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
+using Rhino.Mocks;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
@@ -203,6 +205,32 @@ namespace Riskeer.Common.Forms.Test.Views
 
             // Assert
             Assert.IsEmpty(dataGridView.Rows[0].ErrorText);
+        }
+
+        [Test]
+        [TestCase(isRelevantColumnIndex, true)]
+        [TestCase(contributionColumnIndex, 30.0)]
+        public void ScenariosView_EditingPropertyViaDataGridView_ObserversCorrectlyNotified(int cellIndex, object newValue)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var calculationObserver = mocks.StrictMock<IObserver>();
+            calculationObserver.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
+            var calculationGroup = new CalculationGroup();
+            ShowFullyConfiguredScenariosView(calculationGroup, new TestFailureMechanism());
+
+            ICalculation calculation = calculationGroup.GetCalculations().First();
+            calculation.Attach(calculationObserver);
+
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+
+            // Call
+            dataGridView.Rows[0].Cells[cellIndex].Value = newValue is double value ? (RoundedDouble) value : newValue;
+
+            // Assert
+            mocks.VerifyAll();
         }
 
         [Test]
