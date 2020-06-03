@@ -262,8 +262,7 @@ namespace Riskeer.Piping.Plugin
                 GetViewName = (view, context) => RiskeerCommonFormsResources.Scenarios_DisplayName,
                 Image = RiskeerCommonFormsResources.ScenariosIcon,
                 CloseForData = ClosePipingScenariosViewForData,
-                CreateInstance = context => new PipingScenariosView(context.AssessmentSection),
-                AfterCreate = (view, context) => { view.PipingFailureMechanism = context.FailureMechanism; }
+                CreateInstance = context => new PipingScenariosView(context.WrappedData, context.FailureMechanism, context.AssessmentSection),
             };
 
             yield return new ViewInfo<PipingFailureMechanismSectionsContext, IEnumerable<FailureMechanismSection>, FailureMechanismSectionsProbabilityAssessmentView>
@@ -469,7 +468,7 @@ namespace Riskeer.Piping.Plugin
                                                           .FirstOrDefault();
             }
 
-            return pipingFailureMechanism != null && ReferenceEquals(view.Data, pipingFailureMechanism.CalculationsGroup);
+            return pipingFailureMechanism != null && ReferenceEquals(view.CalculationGroup, pipingFailureMechanism.CalculationsGroup);
         }
 
         private static bool ClosePipingInputViewForData(PipingInputView view, object o)

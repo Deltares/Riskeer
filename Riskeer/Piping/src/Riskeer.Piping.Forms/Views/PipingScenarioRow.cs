@@ -21,19 +21,17 @@
 
 using System;
 using System.ComponentModel;
-using Core.Common.Base.Data;
 using Riskeer.Common.Data.AssessmentSection;
-using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.TypeConverters;
+using Riskeer.Common.Forms.Views;
 using Riskeer.Piping.Data;
-using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.Piping.Forms.Views
 {
     /// <summary>
     /// This class represents a row of <see cref="PipingCalculationScenario"/> in the <see cref="PipingScenariosView"/>.
     /// </summary>
-    internal class PipingScenarioRow
+    public class PipingScenarioRow : ScenarioRow<PipingCalculationScenario>
     {
         private readonly PipingFailureMechanism failureMechanism;
         private readonly IAssessmentSection assessmentSection;
@@ -42,18 +40,13 @@ namespace Riskeer.Piping.Forms.Views
         /// <summary>
         /// Creates a new instance of <see cref="PipingCalculationRow"/>.
         /// </summary>
-        /// <param name="calculation">The <see cref="PipingCalculationScenario"/> this row contains.</param>
+        /// <param name="calculationScenario">The <see cref="PipingCalculationScenario"/> this row contains.</param>
         /// <param name="failureMechanism">The failure mechanism that the calculation belongs to.</param>
         /// <param name="assessmentSection">The assessment section that the calculation belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public PipingScenarioRow(PipingCalculationScenario calculation, PipingFailureMechanism failureMechanism,
-                                 IAssessmentSection assessmentSection)
+        internal PipingScenarioRow(PipingCalculationScenario calculationScenario, PipingFailureMechanism failureMechanism,
+                                   IAssessmentSection assessmentSection) : base(calculationScenario)
         {
-            if (calculation == null)
-            {
-                throw new ArgumentNullException(nameof(calculation));
-            }
-
             if (failureMechanism == null)
             {
                 throw new ArgumentNullException(nameof(failureMechanism));
@@ -64,129 +57,41 @@ namespace Riskeer.Piping.Forms.Views
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            Calculation = calculation;
             this.failureMechanism = failureMechanism;
             this.assessmentSection = assessmentSection;
 
             CreateDerivedOutput();
         }
 
-        /// <summary>
-        /// Gets the <see cref="PipingCalculationScenario"/> this row contains.
-        /// </summary>
-        public PipingCalculationScenario Calculation { get; }
-
-        /// <summary>
-        /// Gets or sets the <see cref="PipingCalculationScenario"/> is relevant.
-        /// </summary>
-        public bool IsRelevant
-        {
-            get
-            {
-                return Calculation.IsRelevant;
-            }
-            set
-            {
-                Calculation.IsRelevant = value;
-                Calculation.NotifyObservers();
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the contribution of the <see cref="PipingCalculationScenario"/>.
-        /// </summary>
-        public RoundedDouble Contribution
-        {
-            get
-            {
-                return new RoundedDouble(2, Calculation.Contribution * 100);
-            }
-            set
-            {
-                Calculation.Contribution = (RoundedDouble) (value / 100);
-                Calculation.NotifyObservers();
-            }
-        }
-
-        /// <summary>
-        /// Gets the name of the <see cref="PipingCalculationScenario"/>.
-        /// </summary>
-        public string Name
-        {
-            get
-            {
-                return Calculation.Name;
-            }
-        }
-
-        /// <summary>
-        /// Gets the failure probability of piping of the <see cref="PipingCalculationScenario"/>.
-        /// </summary>
-        [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
-        public string FailureProbabilityPiping
-        {
-            get
-            {
-                return derivedOutput == null
-                           ? RiskeerCommonFormsResources.RoundedDouble_No_result_dash
-                           : ProbabilityFormattingHelper.Format(derivedOutput.PipingProbability);
-            }
-        }
+        public override double FailureProbability => derivedOutput?.PipingProbability ?? double.NaN;
 
         /// <summary>
         /// Gets the failure probability of uplift sub failure mechanism of the <see cref="PipingCalculationScenario"/>.
         /// </summary>
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
-        public string FailureProbabilityUplift
-        {
-            get
-            {
-                return derivedOutput == null
-                           ? RiskeerCommonFormsResources.RoundedDouble_No_result_dash
-                           : ProbabilityFormattingHelper.Format(derivedOutput.UpliftProbability);
-            }
-        }
+        public double FailureProbabilityUplift => derivedOutput?.UpliftProbability ?? double.NaN;
 
         /// <summary>
         /// Gets the failure probability of heave sub failure mechanism of the <see cref="PipingCalculationScenario"/>.
         /// </summary>
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
-        public string FailureProbabilityHeave
-        {
-            get
-            {
-                return derivedOutput == null
-                           ? RiskeerCommonFormsResources.RoundedDouble_No_result_dash
-                           : ProbabilityFormattingHelper.Format(derivedOutput.HeaveProbability);
-            }
-        }
+        public double FailureProbabilityHeave => derivedOutput?.HeaveProbability ?? double.NaN;
 
         /// <summary>
         /// Gets the failure probability of sellmeijer sub failure mechanism of the <see cref="PipingCalculationScenario"/>.
         /// </summary>
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
-        public string FailureProbabilitySellmeijer
-        {
-            get
-            {
-                return derivedOutput == null
-                           ? RiskeerCommonFormsResources.RoundedDouble_No_result_dash
-                           : ProbabilityFormattingHelper.Format(derivedOutput.SellmeijerProbability);
-            }
-        }
+        public double FailureProbabilitySellmeijer => derivedOutput?.SellmeijerProbability ?? double.NaN;
 
-        /// <summary>
-        /// Updates the row based on the current output of the calculation scenario.
-        /// </summary>
-        public void Update()
+        public override void Update()
         {
             CreateDerivedOutput();
         }
 
         private void CreateDerivedOutput()
         {
-            derivedOutput = Calculation.HasOutput
-                                ? DerivedPipingOutputFactory.Create(Calculation.Output, failureMechanism, assessmentSection)
+            derivedOutput = CalculationScenario.HasOutput
+                                ? DerivedPipingOutputFactory.Create(CalculationScenario.Output, failureMechanism, assessmentSection)
                                 : null;
         }
     }

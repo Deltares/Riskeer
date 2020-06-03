@@ -21,7 +21,7 @@
 
 namespace Riskeer.Common.Forms.Views
 {
-    partial class ScenariosView<TCalculationScenario, TCalculationInput, TScenarioRow>
+    partial class ScenariosView<TCalculationScenario, TCalculationInput, TScenarioRow, TFailureMechanism>
     {
         /// <summary>
         /// Required designer variable.
@@ -42,7 +42,7 @@ namespace Riskeer.Common.Forms.Views
             this.listBox = new System.Windows.Forms.ListBox();
             this.tableLayoutPanelDataGrid = new System.Windows.Forms.TableLayoutPanel();
             this.labelCalculations = new System.Windows.Forms.Label();
-            this.dataGridViewControl = new Core.Common.Controls.DataGrid.DataGridViewControl();
+            this.DataGridViewControl = new Core.Common.Controls.DataGrid.DataGridViewControl();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
             this.splitContainer.Panel1.SuspendLayout();
             this.splitContainer.Panel2.SuspendLayout();
@@ -107,7 +107,7 @@ namespace Riskeer.Common.Forms.Views
             this.tableLayoutPanelDataGrid.ColumnCount = 1;
             this.tableLayoutPanelDataGrid.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanelDataGrid.Controls.Add(this.labelCalculations, 0, 0);
-            this.tableLayoutPanelDataGrid.Controls.Add(this.dataGridViewControl, 0, 1);
+            this.tableLayoutPanelDataGrid.Controls.Add(this.DataGridViewControl, 0, 1);
             this.tableLayoutPanelDataGrid.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanelDataGrid.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanelDataGrid.Name = "tableLayoutPanelDataGrid";
@@ -126,15 +126,15 @@ namespace Riskeer.Common.Forms.Views
             this.labelCalculations.TabIndex = 0;
             this.labelCalculations.Text = Properties.Resources.Calculations_per_FailureMechanismSection_DisplayName;
             // 
-            // dataGridViewControl
+            // DataGridViewControl
             // 
-            this.dataGridViewControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridViewControl.Location = new System.Drawing.Point(3, 16);
-            this.dataGridViewControl.MultiSelect = true;
-            this.dataGridViewControl.Name = "dataGridViewControl";
-            this.dataGridViewControl.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.RowHeaderSelect;
-            this.dataGridViewControl.Size = new System.Drawing.Size(183, 131);
-            this.dataGridViewControl.TabIndex = 1;
+            this.DataGridViewControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.DataGridViewControl.Location = new System.Drawing.Point(3, 16);
+            this.DataGridViewControl.MultiSelect = true;
+            this.DataGridViewControl.Name = "dataGridViewControl";
+            this.DataGridViewControl.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.RowHeaderSelect;
+            this.DataGridViewControl.Size = new System.Drawing.Size(183, 131);
+            this.DataGridViewControl.TabIndex = 1;
             // 
             // ScenariosView
             // 
@@ -159,6 +159,6 @@ namespace Riskeer.Common.Forms.Views
         private System.Windows.Forms.ListBox listBox;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanelDataGrid;
         private System.Windows.Forms.Label labelCalculations;
-        private Core.Common.Controls.DataGrid.DataGridViewControl dataGridViewControl;
+        protected Core.Common.Controls.DataGrid.DataGridViewControl DataGridViewControl;
     }
 }

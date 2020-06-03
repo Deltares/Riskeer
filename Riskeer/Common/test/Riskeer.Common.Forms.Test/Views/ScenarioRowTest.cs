@@ -26,6 +26,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.TestUtil;
+using Riskeer.Common.Forms.TypeConverters;
 using Riskeer.Common.Forms.Views;
 
 namespace Riskeer.Common.Forms.Test.Views
@@ -70,6 +71,9 @@ namespace Riskeer.Common.Forms.Test.Views
             Assert.AreEqual(isRelevant, row.IsRelevant);
             Assert.AreEqual(2, row.Contribution.NumberOfDecimalPlaces);
             Assert.AreEqual(contribution * 100, row.Contribution, row.Contribution.GetAccuracy());
+            TestHelper.AssertTypeConverter<ScenarioRow<ICalculationScenario>, NoProbabilityValueDoubleConverter>(
+                nameof(ScenarioRow<ICalculationScenario>.FailureProbability));
+
             mocks.VerifyAll();
         }
 
@@ -121,7 +125,7 @@ namespace Riskeer.Common.Forms.Test.Views
             public TestScenarioRow(TCalculationScenario calculationScenario)
                 : base(calculationScenario) {}
 
-            public override string FailureProbability { get; }
+            public override double FailureProbability { get; }
 
             public override void Update() {}
         }

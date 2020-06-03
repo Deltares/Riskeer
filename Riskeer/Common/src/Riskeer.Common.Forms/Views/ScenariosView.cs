@@ -38,13 +38,13 @@ namespace Riskeer.Common.Forms.Views
     /// <typeparam name="TCalculationScenario">The type of calculation scenario.</typeparam>
     /// <typeparam name="TCalculationInput">The type of calculation input.</typeparam>
     /// <typeparam name="TScenarioRow">The type of the scenario row.</typeparam>
-    public abstract partial class ScenariosView<TCalculationScenario, TCalculationInput, TScenarioRow> : UserControl, IView
+    /// <typeparam name="TFailureMechanism">The type of the failure mechanism.</typeparam>
+    public abstract partial class ScenariosView<TCalculationScenario, TCalculationInput, TScenarioRow, TFailureMechanism> : UserControl, IView
         where TCalculationScenario : class, ICalculationScenario
         where TCalculationInput : class, ICalculationInput
         where TScenarioRow : ScenarioRow<TCalculationScenario>
+        where TFailureMechanism : IFailureMechanism
     {
-        private readonly IFailureMechanism failureMechanism;
-
         private Observer failureMechanismObserver;
         private RecursiveObserver<CalculationGroup, CalculationGroup> calculationGroupObserver;
         private RecursiveObserver<CalculationGroup, TCalculationScenario> calculationObserver;
@@ -53,15 +53,15 @@ namespace Riskeer.Common.Forms.Views
         private IEnumerable<TScenarioRow> scenarioRows;
 
         /// <summary>
-        /// Creates a new instance of <see cref="ScenariosView{TCalculationScenario, TCalculationInput, TScenarioRow}"/>.
+        /// Creates a new instance of <see cref="ScenariosView{TCalculationScenario, TCalculationInput, TScenarioRow, TFailureMechanism}"/>.
         /// </summary>
         /// <param name="calculationGroup">The <see cref="CalculationGroup"/>
         /// to get the calculations from.</param>
-        /// <param name="failureMechanism">The <see cref="IFailureMechanism"/>
+        /// <param name="failureMechanism">The <see cref="TFailureMechanism"/>
         /// to get the sections from.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter
         /// is <c>null</c>.</exception>
-        protected ScenariosView(CalculationGroup calculationGroup, IFailureMechanism failureMechanism)
+        protected ScenariosView(CalculationGroup calculationGroup, TFailureMechanism failureMechanism)
         {
             if (calculationGroup == null)
             {
@@ -74,24 +74,44 @@ namespace Riskeer.Common.Forms.Views
             }
 
             CalculationGroup = calculationGroup;
-            this.failureMechanism = failureMechanism;
+            FailureMechanism = failureMechanism;
 
             InitializeObservers();
 
             InitializeComponent();
+        }
+
+        /// <inheritdoc/>
+        /// <remarks>
+        /// Initialization is performed in <see cref="OnLoad"/> in order to
+        /// prevent errors due to virtual member calls in constructor.
+        /// </remarks>
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
 
             InitializeListBox();
             InitializeDataGridView();
+
             UpdateSectionsListBox();
             UpdateDataGridViewDataSource();
         }
 
-        public object Data { get; set; }
+        public object Data
+        {
+            get => CalculationGroup;
+            set => CalculationGroup = (CalculationGroup) value;
+        }
+
+        /// <summary>
+        /// Gets the <see cref="TFailureMechanism"/>.
+        /// </summary>
+        protected TFailureMechanism FailureMechanism { get; }
 
         /// <summary>
         /// Gets the <see cref="CalculationGroup"/>.
         /// </summary>
-        protected CalculationGroup CalculationGroup { get; }
+        public CalculationGroup CalculationGroup { get; private set; }
 
         /// <summary>
         /// Gets the input of a <see cref="TCalculationScenario"/>.
@@ -104,7 +124,7 @@ namespace Riskeer.Common.Forms.Views
         /// Gets a collection of <see cref="TScenarioRow"/>.
         /// </summary>
         /// <returns>The collection of <see cref="TScenarioRow"/>.</returns>
-        protected abstract IEnumerable<TScenarioRow> GetScenarioRows();
+        protected abstract IEnumerable<TScenarioRow> GetScenarioRows(FailureMechanismSection failureMechanismSection);
 
         protected override void Dispose(bool disposing)
         {
@@ -121,11 +141,31 @@ namespace Riskeer.Common.Forms.Views
             base.Dispose(disposing);
         }
 
+        protected virtual void InitializeDataGridView()
+        {
+            DataGridViewControl.AddCheckBoxColumn(
+                nameof(ScenarioRow<TCalculationScenario>.IsRelevant),
+                Resources.ScenarioView_InitializeDataGridView_In_final_rating
+            );
+            DataGridViewControl.AddTextBoxColumn(
+                nameof(ScenarioRow<TCalculationScenario>.Contribution),
+                Resources.ScenarioView_InitializeDataGridView_Contribution
+            );
+            DataGridViewControl.AddTextBoxColumn(
+                nameof(ScenarioRow<TCalculationScenario>.Name),
+                Resources.ScenarioView_Name_DisplayName
+            );
+            DataGridViewControl.AddTextBoxColumn(
+                nameof(ScenarioRow<TCalculationScenario>.FailureProbability),
+                Resources.ScenarioView_FailureProbability_DisplayName
+            );
+        }
+
         private void InitializeObservers()
         {
             failureMechanismObserver = new Observer(UpdateSectionsListBox)
             {
-                Observable = failureMechanism
+                Observable = FailureMechanism
             };
 
             calculationGroupObserver = new RecursiveObserver<CalculationGroup, CalculationGroup>(UpdateDataGridViewDataSource, pcg => pcg.Children)
@@ -149,34 +189,14 @@ namespace Riskeer.Common.Forms.Views
 
         private void UpdateDataGridViewDataSource()
         {
-            if (!(listBox.SelectedItem is FailureMechanismSection))
+            if (!(listBox.SelectedItem is FailureMechanismSection failureMechanismSection))
             {
-                dataGridViewControl.SetDataSource(null);
+                DataGridViewControl.SetDataSource(null);
                 return;
             }
 
-            scenarioRows = GetScenarioRows();
-            dataGridViewControl.SetDataSource(scenarioRows);
-        }
-
-        private void InitializeDataGridView()
-        {
-            dataGridViewControl.AddCheckBoxColumn(
-                nameof(ScenarioRow<TCalculationScenario>.IsRelevant),
-                Resources.ScenarioView_InitializeDataGridView_In_final_rating
-            );
-            dataGridViewControl.AddTextBoxColumn(
-                nameof(ScenarioRow<TCalculationScenario>.Contribution),
-                Resources.ScenarioView_InitializeDataGridView_Contribution
-            );
-            dataGridViewControl.AddTextBoxColumn(
-                nameof(ScenarioRow<TCalculationScenario>.Name),
-                Resources.ScenarioView_Name_DisplayName
-            );
-            dataGridViewControl.AddTextBoxColumn(
-                nameof(ScenarioRow<TCalculationScenario>.FailureProbability),
-                Resources.ScenarioView_FailureProbability_DisplayName
-            );
+            scenarioRows = GetScenarioRows(failureMechanismSection);
+            DataGridViewControl.SetDataSource(scenarioRows);
         }
 
         private void InitializeListBox()
@@ -189,10 +209,10 @@ namespace Riskeer.Common.Forms.Views
         {
             listBox.Items.Clear();
 
-            if (failureMechanism.Sections.Any())
+            if (FailureMechanism.Sections.Any())
             {
-                listBox.Items.AddRange(failureMechanism.Sections.Cast<object>().ToArray());
-                listBox.SelectedItem = failureMechanism.Sections.First();
+                listBox.Items.AddRange(FailureMechanism.Sections.Cast<object>().ToArray());
+                listBox.SelectedItem = FailureMechanism.Sections.First();
             }
         }
 
@@ -204,7 +224,7 @@ namespace Riskeer.Common.Forms.Views
         private void UpdateScenarioRows()
         {
             scenarioRows.ForEachElementDo(row => row.Update());
-            dataGridViewControl.RefreshDataGridView();
+            DataGridViewControl.RefreshDataGridView();
         }
     }
 }
