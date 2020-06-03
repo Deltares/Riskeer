@@ -369,6 +369,34 @@ namespace Riskeer.Common.Forms.Test.Views
             Assert.IsTrue(scenarioRows.All(row => row.Updated));
         }
 
+        [Test]
+        public void GivenScenarioView_WhenCalculationInputNotifiesObserver_ThenDataGridViewUpdated()
+        {
+            // Given
+            var calculationGroup = new CalculationGroup();
+            ShowFullyConfiguredScenarioView(calculationGroup, new TestFailureMechanism());
+
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+
+            TestScenarioRow[] sectionResultRows = dataGridView.Rows.Cast<DataGridViewRow>()
+                                                              .Select(r => r.DataBoundItem)
+                                                              .Cast<TestScenarioRow>()
+                                                              .ToArray();
+
+            TestCalculationScenario calculation = calculationGroup.GetCalculations().Cast<TestCalculationScenario>().First();
+
+            // When
+            calculation.InputParameters.NotifyObservers();
+
+            // Then
+            TestScenarioRow[] updatedRows = dataGridView.Rows.Cast<DataGridViewRow>()
+                                                        .Select(r => r.DataBoundItem)
+                                                        .Cast<TestScenarioRow>()
+                                                        .ToArray();
+
+            CollectionAssert.AreNotEquivalent(sectionResultRows, updatedRows);
+        }
+
         private void ShowFullyConfiguredScenarioView(CalculationGroup calculationGroup, IFailureMechanism failureMechanism)
         {
             FailureMechanismTestHelper.SetSections(failureMechanism, new[]
@@ -409,12 +437,17 @@ namespace Riskeer.Common.Forms.Test.Views
             testForm.Show();
         }
 
-        private class TestScenariosView : ScenariosView<TestCalculationScenario, TestScenarioRow>
+        private class TestScenariosView : ScenariosView<TestCalculationScenario, TestCalculationInput, TestScenarioRow>
         {
             public TestScenariosView(CalculationGroup calculationGroup, IFailureMechanism failureMechanism)
                 : base(calculationGroup, failureMechanism) {}
 
             public CalculationGroup TestCalculationGroup => CalculationGroup;
+
+            protected override TestCalculationInput GetCalculationInput(TestCalculationScenario calculationScenario)
+            {
+                return calculationScenario.InputParameters;
+            }
 
             protected override IEnumerable<TestScenarioRow> GetScenarioRows()
             {
@@ -430,7 +463,7 @@ namespace Riskeer.Common.Forms.Test.Views
                 : base(calculationScenario) {}
 
             public override string FailureProbability => "1";
-            
+
             public bool Updated { get; private set; }
 
             public override void Update()

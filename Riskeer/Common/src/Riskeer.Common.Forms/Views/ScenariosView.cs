@@ -36,9 +36,11 @@ namespace Riskeer.Common.Forms.Views
     /// Base view for configuration calculation scenarios.
     /// </summary>
     /// <typeparam name="TCalculationScenario">The type of calculation scenario.</typeparam>
+    /// <typeparam name="TCalculationInput">The type of calculation input.</typeparam>
     /// <typeparam name="TScenarioRow">The type of the scenario row.</typeparam>
-    public abstract partial class ScenariosView<TCalculationScenario, TScenarioRow> : UserControl, IView
+    public abstract partial class ScenariosView<TCalculationScenario, TCalculationInput, TScenarioRow> : UserControl, IView
         where TCalculationScenario : class, ICalculationScenario
+        where TCalculationInput : class, ICalculationInput
         where TScenarioRow : ScenarioRow<TCalculationScenario>
     {
         private readonly IFailureMechanism failureMechanism;
@@ -46,11 +48,12 @@ namespace Riskeer.Common.Forms.Views
         private readonly Observer failureMechanismObserver;
         private readonly RecursiveObserver<CalculationGroup, CalculationGroup> calculationGroupObserver;
         private readonly RecursiveObserver<CalculationGroup, TCalculationScenario> calculationObserver;
-        
+        private readonly RecursiveObserver<CalculationGroup, TCalculationInput> calculationInputObserver;
+
         private IEnumerable<TScenarioRow> scenarioRows;
 
         /// <summary>
-        /// Creates a new instance of <see cref="ScenariosView{TCalculationScenario, TScenarioRow}"/>.
+        /// Creates a new instance of <see cref="ScenariosView{TCalculationScenario, TCalculationInput, TScenarioRow}"/>.
         /// </summary>
         /// <param name="calculationGroup">The <see cref="CalculationGroup"/>
         /// to get the calculations from.</param>
@@ -89,6 +92,14 @@ namespace Riskeer.Common.Forms.Views
                 Observable = calculationGroup
             };
 
+            // The concat is needed to observe the input of calculations in child groups.
+            calculationInputObserver = new RecursiveObserver<CalculationGroup, TCalculationInput>(UpdateDataGridViewDataSource, pcg => pcg.Children.Concat<object>(
+                                                                                                      pcg.Children.OfType<TCalculationScenario>()
+                                                                                                         .Select(GetCalculationInput)))
+            {
+                Observable = calculationGroup
+            };
+
             InitializeComponent();
 
             InitializeListBox();
@@ -105,6 +116,13 @@ namespace Riskeer.Common.Forms.Views
         protected CalculationGroup CalculationGroup { get; }
 
         /// <summary>
+        /// Gets the input of a <see cref="TCalculationScenario"/>.
+        /// </summary>
+        /// <param name="calculationScenario">The <see cref="TCalculationScenario"/> to get the input from.</param>
+        /// <returns>The <see cref="TCalculationInput"/>.</returns>
+        protected abstract TCalculationInput GetCalculationInput(TCalculationScenario calculationScenario);
+
+        /// <summary>
         /// Gets a collection of <see cref="TScenarioRow"/>.
         /// </summary>
         /// <returns>The collection of <see cref="TScenarioRow"/>.</returns>
@@ -115,6 +133,7 @@ namespace Riskeer.Common.Forms.Views
             failureMechanismObserver.Dispose();
             calculationGroupObserver.Dispose();
             calculationObserver.Dispose();
+            calculationInputObserver.Dispose();
 
             if (disposing)
             {
