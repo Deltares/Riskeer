@@ -28,7 +28,7 @@ namespace Riskeer.Common.Data.TestUtil
     /// <summary>
     /// Simple calculation that can be used in tests.
     /// </summary>
-    public class TestCalculation : Observable, ICalculation
+    public class TestCalculation : Observable, ICalculation<TestCalculationInput>
     {
         /// <summary>
         /// Creates a new <see cref="TestCalculation"/>.
@@ -37,6 +37,7 @@ namespace Riskeer.Common.Data.TestUtil
         public TestCalculation(string name = "Nieuwe berekening")
         {
             Name = name;
+            InputParameters = new TestCalculationInput();
         }
 
         /// <summary>
@@ -63,6 +64,8 @@ namespace Riskeer.Common.Data.TestUtil
         }
 
         public Comment Comments { get; }
+
+        public TestCalculationInput InputParameters { get; }
 
         public void ClearOutput()
         {

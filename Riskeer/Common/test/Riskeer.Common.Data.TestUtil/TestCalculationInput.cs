@@ -22,7 +22,7 @@
 using Core.Common.Base;
 using Riskeer.Common.Data.Calculation;
 
-namespace Riskeer.Common.Forms.TestUtil
+namespace Riskeer.Common.Data.TestUtil
 {
     /// <summary>
     /// Creates a simple <see cref="ICalculationInput"/> implementation.
