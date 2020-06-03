@@ -45,10 +45,10 @@ namespace Riskeer.Common.Forms.Views
     {
         private readonly IFailureMechanism failureMechanism;
 
-        private readonly Observer failureMechanismObserver;
-        private readonly RecursiveObserver<CalculationGroup, CalculationGroup> calculationGroupObserver;
-        private readonly RecursiveObserver<CalculationGroup, TCalculationScenario> calculationObserver;
-        private readonly RecursiveObserver<CalculationGroup, TCalculationInput> calculationInputObserver;
+        private Observer failureMechanismObserver;
+        private RecursiveObserver<CalculationGroup, CalculationGroup> calculationGroupObserver;
+        private RecursiveObserver<CalculationGroup, TCalculationScenario> calculationObserver;
+        private RecursiveObserver<CalculationGroup, TCalculationInput> calculationInputObserver;
 
         private IEnumerable<TScenarioRow> scenarioRows;
 
@@ -74,31 +74,9 @@ namespace Riskeer.Common.Forms.Views
             }
 
             CalculationGroup = calculationGroup;
-
             this.failureMechanism = failureMechanism;
 
-            failureMechanismObserver = new Observer(UpdateSectionsListBox)
-            {
-                Observable = failureMechanism
-            };
-
-            calculationGroupObserver = new RecursiveObserver<CalculationGroup, CalculationGroup>(UpdateDataGridViewDataSource, pcg => pcg.Children)
-            {
-                Observable = calculationGroup
-            };
-
-            calculationObserver = new RecursiveObserver<CalculationGroup, TCalculationScenario>(UpdateScenarioRows, pcg => pcg.Children)
-            {
-                Observable = calculationGroup
-            };
-
-            // The concat is needed to observe the input of calculations in child groups.
-            calculationInputObserver = new RecursiveObserver<CalculationGroup, TCalculationInput>(UpdateDataGridViewDataSource, pcg => pcg.Children.Concat<object>(
-                                                                                                      pcg.Children.OfType<TCalculationScenario>()
-                                                                                                         .Select(GetCalculationInput)))
-            {
-                Observable = calculationGroup
-            };
+            InitializeObservers();
 
             InitializeComponent();
 
@@ -141,6 +119,32 @@ namespace Riskeer.Common.Forms.Views
             }
 
             base.Dispose(disposing);
+        }
+
+        private void InitializeObservers()
+        {
+            failureMechanismObserver = new Observer(UpdateSectionsListBox)
+            {
+                Observable = failureMechanism
+            };
+
+            calculationGroupObserver = new RecursiveObserver<CalculationGroup, CalculationGroup>(UpdateDataGridViewDataSource, pcg => pcg.Children)
+            {
+                Observable = CalculationGroup
+            };
+
+            calculationObserver = new RecursiveObserver<CalculationGroup, TCalculationScenario>(UpdateScenarioRows, pcg => pcg.Children)
+            {
+                Observable = CalculationGroup
+            };
+
+            // The concat is needed to observe the input of calculations in child groups.
+            calculationInputObserver = new RecursiveObserver<CalculationGroup, TCalculationInput>(UpdateDataGridViewDataSource, pcg => pcg.Children.Concat<object>(
+                                                                                                      pcg.Children.OfType<TCalculationScenario>()
+                                                                                                         .Select(GetCalculationInput)))
+            {
+                Observable = CalculationGroup
+            };
         }
 
         private void UpdateDataGridViewDataSource()
