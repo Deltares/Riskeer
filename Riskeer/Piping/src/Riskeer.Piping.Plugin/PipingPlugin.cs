@@ -468,7 +468,7 @@ namespace Riskeer.Piping.Plugin
                                                           .FirstOrDefault();
             }
 
-            return pipingFailureMechanism != null && ReferenceEquals(view.CalculationGroup, pipingFailureMechanism.CalculationsGroup);
+            return pipingFailureMechanism != null && ReferenceEquals(view.Data, pipingFailureMechanism.CalculationsGroup);
         }
 
         private static bool ClosePipingInputViewForData(PipingInputView view, object o)

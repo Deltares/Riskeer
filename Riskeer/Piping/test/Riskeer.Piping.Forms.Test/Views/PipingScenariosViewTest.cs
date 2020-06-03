@@ -117,7 +117,7 @@ namespace Riskeer.Piping.Forms.Test.Views
         [Test]
         public void PipingScenarioView_CalculationsWithAllDataSet_DataGridViewCorrectlyInitialized()
         {
-            // Setup & Call
+            // Call
             ShowFullyConfiguredPipingScenarioView();
 
             var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;

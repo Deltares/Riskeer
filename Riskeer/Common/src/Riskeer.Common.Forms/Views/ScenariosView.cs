@@ -111,7 +111,7 @@ namespace Riskeer.Common.Forms.Views
         /// <summary>
         /// Gets the <see cref="CalculationGroup"/>.
         /// </summary>
-        public CalculationGroup CalculationGroup { get; private set; }
+        protected CalculationGroup CalculationGroup { get; private set; }
 
         /// <summary>
         /// Gets the input of a <see cref="TCalculationScenario"/>.
