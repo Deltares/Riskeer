@@ -25,6 +25,7 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Controls.Views;
+using Core.Common.Util.Extensions;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Forms.Properties;
@@ -43,7 +44,10 @@ namespace Riskeer.Common.Forms.Views
         private readonly IFailureMechanism failureMechanism;
 
         private readonly Observer failureMechanismObserver;
-        private RecursiveObserver<CalculationGroup, CalculationGroup> calculationGroupObserver;
+        private readonly RecursiveObserver<CalculationGroup, CalculationGroup> calculationGroupObserver;
+        private readonly RecursiveObserver<CalculationGroup, TCalculationScenario> calculationObserver;
+        
+        private IEnumerable<TScenarioRow> scenarioRows;
 
         /// <summary>
         /// Creates a new instance of <see cref="ScenariosView{TCalculationScenario, TScenarioRow}"/>.
@@ -80,6 +84,11 @@ namespace Riskeer.Common.Forms.Views
                 Observable = calculationGroup
             };
 
+            calculationObserver = new RecursiveObserver<CalculationGroup, TCalculationScenario>(UpdateScenarioRows, pcg => pcg.Children)
+            {
+                Observable = calculationGroup
+            };
+
             InitializeComponent();
 
             InitializeListBox();
@@ -105,6 +114,7 @@ namespace Riskeer.Common.Forms.Views
         {
             failureMechanismObserver.Dispose();
             calculationGroupObserver.Dispose();
+            calculationObserver.Dispose();
 
             if (disposing)
             {
@@ -122,7 +132,7 @@ namespace Riskeer.Common.Forms.Views
                 return;
             }
 
-            IEnumerable<TScenarioRow> scenarioRows = GetScenarioRows();
+            scenarioRows = GetScenarioRows();
             dataGridViewControl.SetDataSource(scenarioRows);
         }
 
@@ -166,6 +176,12 @@ namespace Riskeer.Common.Forms.Views
         private void ListBoxOnSelectedValueChanged(object sender, EventArgs e)
         {
             UpdateDataGridViewDataSource();
+        }
+
+        private void UpdateScenarioRows()
+        {
+            scenarioRows.ForEachElementDo(row => row.Update());
+            dataGridViewControl.RefreshDataGridView();
         }
     }
 }

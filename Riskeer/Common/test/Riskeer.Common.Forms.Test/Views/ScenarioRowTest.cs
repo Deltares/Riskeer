@@ -122,6 +122,8 @@ namespace Riskeer.Common.Forms.Test.Views
                 : base(calculationScenario) {}
 
             public override string FailureProbability { get; }
+
+            public override void Update() {}
         }
     }
 }

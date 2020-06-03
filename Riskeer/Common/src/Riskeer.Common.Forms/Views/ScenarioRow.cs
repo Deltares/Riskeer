@@ -91,5 +91,10 @@ namespace Riskeer.Common.Forms.Views
         /// </summary>
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
         public abstract string FailureProbability { get; }
+
+        /// <summary>
+        /// Updates the row based on the current output of the <see cref="TCalculationScenario"/>.
+        /// </summary>
+        public abstract void Update();
     }
 }

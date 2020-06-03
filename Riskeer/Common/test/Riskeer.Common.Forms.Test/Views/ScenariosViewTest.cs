@@ -219,8 +219,8 @@ namespace Riskeer.Common.Forms.Test.Views
             var failureMechanism = new TestFailureMechanism();
             ShowFullyConfiguredScenarioView(new CalculationGroup(), failureMechanism);
 
-            var listBox = (ListBox)new ControlTester("listBox").TheObject;
-            var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+            var listBox = (ListBox) new ControlTester("listBox").TheObject;
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
             // Precondition
             Assert.AreSame(failureMechanism.Sections.First(), listBox.SelectedItem);
@@ -339,6 +339,36 @@ namespace Riskeer.Common.Forms.Test.Views
             CollectionAssert.AreNotEquivalent(sectionResultRows, updatedRows);
         }
 
+        [Test]
+        public void GivenScenarioView_WhenCalculationNotifiesObserver_ThenViewUpdated()
+        {
+            // Given
+            var calculationGroup = new CalculationGroup();
+            ShowFullyConfiguredScenarioView(calculationGroup, new TestFailureMechanism());
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+
+            var refreshed = 0;
+            dataGridView.Invalidated += (sender, args) => refreshed++;
+
+            var scenarioRows = new List<TestScenarioRow>();
+            foreach (DataGridViewRow row in dataGridView.Rows)
+            {
+                scenarioRows.Add((TestScenarioRow) row.DataBoundItem);
+            }
+
+            // Precondition
+            Assert.IsTrue(scenarioRows.All(row => !row.Updated));
+
+            ICalculation calculation = calculationGroup.GetCalculations().First();
+
+            // When
+            calculation.NotifyObservers();
+
+            // Then
+            Assert.AreEqual(1, refreshed);
+            Assert.IsTrue(scenarioRows.All(row => row.Updated));
+        }
+
         private void ShowFullyConfiguredScenarioView(CalculationGroup calculationGroup, IFailureMechanism failureMechanism)
         {
             FailureMechanismTestHelper.SetSections(failureMechanism, new[]
@@ -400,6 +430,13 @@ namespace Riskeer.Common.Forms.Test.Views
                 : base(calculationScenario) {}
 
             public override string FailureProbability => "1";
+            
+            public bool Updated { get; private set; }
+
+            public override void Update()
+            {
+                Updated = true;
+            }
         }
     }
 }
