@@ -100,7 +100,7 @@ namespace Riskeer.Piping.Forms.Test.Views
         public void Constructor_DataGridViewCorrectlyInitialized()
         {
             // Call
-            ShowPipingScenarioView(new CalculationGroup(), new PipingFailureMechanism());
+            ShowPipingScenariosView(new PipingFailureMechanism());
             
             // Assert
             var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
@@ -118,7 +118,7 @@ namespace Riskeer.Piping.Forms.Test.Views
         public void PipingScenarioView_CalculationsWithAllDataSet_DataGridViewCorrectlyInitialized()
         {
             // Call
-            ShowFullyConfiguredPipingScenarioView();
+            ShowFullyConfiguredPipingScenariosView();
 
             var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
@@ -147,7 +147,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             Assert.AreEqual(ProbabilityFormattingHelper.Format(0.027777778), cells[failureProbabilitySellmeijerColumnIndex].FormattedValue);
         }
 
-        private void ShowFullyConfiguredPipingScenarioView()
+        private void ShowFullyConfiguredPipingScenariosView()
         {
             var surfaceLine1 = new PipingSurfaceLine("Surface line 1")
             {
@@ -189,56 +189,53 @@ namespace Riskeer.Piping.Forms.Test.Views
                 })
             });
 
-            var calculationGroup = new CalculationGroup
+            failureMechanism.CalculationsGroup.Children.AddRange(new[]
             {
-                Children =
+                new PipingCalculationScenario(new GeneralPipingInput())
                 {
-                    new PipingCalculationScenario(new GeneralPipingInput())
+                    Name = "Calculation 1",
+                    InputParameters =
                     {
-                        Name = "Calculation 1",
-                        InputParameters =
+                        SurfaceLine = surfaceLine1,
+                        DampingFactorExit =
                         {
-                            SurfaceLine = surfaceLine1,
-                            DampingFactorExit =
-                            {
-                                Mean = (RoundedDouble) 1.1111
-                            },
-                            PhreaticLevelExit =
-                            {
-                                Mean = (RoundedDouble) 2.2222
-                            },
-                            EntryPointL = (RoundedDouble) 3.3333,
-                            ExitPointL = (RoundedDouble) 4.4444
-                        }
-                    },
-                    new PipingCalculationScenario(new GeneralPipingInput())
-                    {
-                        Name = "Calculation 2",
-                        InputParameters =
-                        {
-                            SurfaceLine = surfaceLine2,
-                            DampingFactorExit =
-                            {
-                                Mean = (RoundedDouble) 5.5555
-                            },
-                            PhreaticLevelExit =
-                            {
-                                Mean = (RoundedDouble) 6.6666
-                            },
-                            EntryPointL = (RoundedDouble) 7.7777,
-                            ExitPointL = (RoundedDouble) 8.8888
+                            Mean = (RoundedDouble) 1.1111
                         },
-                        Output = PipingOutputTestFactory.Create(0.26065, 0.81398, 0.38024)
+                        PhreaticLevelExit =
+                        {
+                            Mean = (RoundedDouble) 2.2222
+                        },
+                        EntryPointL = (RoundedDouble) 3.3333,
+                        ExitPointL = (RoundedDouble) 4.4444
                     }
+                },
+                new PipingCalculationScenario(new GeneralPipingInput())
+                {
+                    Name = "Calculation 2",
+                    InputParameters =
+                    {
+                        SurfaceLine = surfaceLine2,
+                        DampingFactorExit =
+                        {
+                            Mean = (RoundedDouble) 5.5555
+                        },
+                        PhreaticLevelExit =
+                        {
+                            Mean = (RoundedDouble) 6.6666
+                        },
+                        EntryPointL = (RoundedDouble) 7.7777,
+                        ExitPointL = (RoundedDouble) 8.8888
+                    },
+                    Output = PipingOutputTestFactory.Create(0.26065, 0.81398, 0.38024)
                 }
-            };
+            });
 
-            ShowPipingScenarioView(calculationGroup, failureMechanism);
+            ShowPipingScenariosView(failureMechanism);
         }
 
-        private void ShowPipingScenarioView(CalculationGroup calculationGroup, PipingFailureMechanism failureMechanism)
+        private void ShowPipingScenariosView(PipingFailureMechanism failureMechanism)
         {
-            var pipingScenarioView = new PipingScenariosView(calculationGroup, failureMechanism, new AssessmentSectionStub());
+            var pipingScenarioView = new PipingScenariosView(failureMechanism.CalculationsGroup, failureMechanism, new AssessmentSectionStub());
 
             testForm.Controls.Add(pipingScenarioView);
             testForm.Show();

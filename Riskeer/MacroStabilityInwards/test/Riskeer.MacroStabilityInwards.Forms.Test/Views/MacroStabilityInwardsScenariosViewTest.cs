@@ -96,7 +96,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
         public void Constructor_DataGridViewCorrectlyInitialized()
         {
             // Call
-            ShowMacroStabilityInwardsScenarioView(new CalculationGroup(), new MacroStabilityInwardsFailureMechanism());
+            ShowMacroStabilityInwardsScenariosView(new MacroStabilityInwardsFailureMechanism());
 
             // Assert
             var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
@@ -111,7 +111,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
         public void MacroStabilityInwardsScenarioView_CalculationsWithAllDataSet_DataGridViewCorrectlyInitialized()
         {
             // Call
-            ShowFullyConfiguredMacroStabilityInwardsScenarioView();
+            ShowFullyConfiguredMacroStabilityInwardsScenariosView();
 
             var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
@@ -134,7 +134,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             Assert.AreEqual(ProbabilityFormattingHelper.Format(1), cells[failureProbabilityColumnIndex].FormattedValue);
         }
 
-        private void ShowFullyConfiguredMacroStabilityInwardsScenarioView()
+        private void ShowFullyConfiguredMacroStabilityInwardsScenariosView()
         {
             var surfaceLine1 = new MacroStabilityInwardsSurfaceLine("Surface line 1")
             {
@@ -176,39 +176,36 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                 })
             });
 
-            var calculationGroup = new CalculationGroup
+            failureMechanism.CalculationsGroup.Children.AddRange(new[]
             {
-                Children =
+                new MacroStabilityInwardsCalculationScenario
                 {
-                    new MacroStabilityInwardsCalculationScenario
+                    Name = "Calculation 1",
+                    InputParameters =
                     {
-                        Name = "Calculation 1",
-                        InputParameters =
-                        {
-                            SurfaceLine = surfaceLine1
-                        }
-                    },
-                    new MacroStabilityInwardsCalculationScenario
-                    {
-                        Name = "Calculation 2",
-                        InputParameters =
-                        {
-                            SurfaceLine = surfaceLine2
-                        },
-                        Output = MacroStabilityInwardsOutputTestFactory.CreateOutput(new MacroStabilityInwardsOutput.ConstructionProperties
-                        {
-                            FactorOfStability = 0.2
-                        })
+                        SurfaceLine = surfaceLine1
                     }
+                },
+                new MacroStabilityInwardsCalculationScenario
+                {
+                    Name = "Calculation 2",
+                    InputParameters =
+                    {
+                        SurfaceLine = surfaceLine2
+                    },
+                    Output = MacroStabilityInwardsOutputTestFactory.CreateOutput(new MacroStabilityInwardsOutput.ConstructionProperties
+                    {
+                        FactorOfStability = 0.2
+                    })
                 }
-            };
+            });
 
-            ShowMacroStabilityInwardsScenarioView(calculationGroup, failureMechanism);
+            ShowMacroStabilityInwardsScenariosView(failureMechanism);
         }
 
-        private void ShowMacroStabilityInwardsScenarioView(CalculationGroup calculationGroup, MacroStabilityInwardsFailureMechanism failureMechanism)
+        private void ShowMacroStabilityInwardsScenariosView(MacroStabilityInwardsFailureMechanism failureMechanism)
         {
-            var scenarioView = new MacroStabilityInwardsScenariosView(calculationGroup, failureMechanism, new AssessmentSectionStub());
+            var scenarioView = new MacroStabilityInwardsScenariosView(failureMechanism.CalculationsGroup, failureMechanism, new AssessmentSectionStub());
 
             testForm.Controls.Add(scenarioView);
             testForm.Show();
