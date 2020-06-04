@@ -31,7 +31,6 @@ using Riskeer.Common.IO.Configurations.Helpers;
 using Riskeer.Common.IO.Configurations.Import;
 using Riskeer.GrassCoverErosionInwards.Data;
 using Riskeer.GrassCoverErosionInwards.IO.Properties;
-using Riskeer.GrassCoverErosionInwards.Util;
 
 namespace Riskeer.GrassCoverErosionInwards.IO.Configurations
 {
@@ -81,15 +80,6 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Configurations
             availableHydraulicBoundaryLocations = hydraulicBoundaryLocations;
             availableDikeProfiles = dikeProfiles;
             this.failureMechanism = failureMechanism;
-        }
-
-        protected override void DoPostImportUpdates()
-        {
-            GrassCoverErosionInwardsHelper.UpdateCalculationToSectionResultAssignments(
-                failureMechanism.SectionResults,
-                failureMechanism.Calculations.Cast<GrassCoverErosionInwardsCalculation>());
-
-            base.DoPostImportUpdates();
         }
 
         protected override GrassCoverErosionInwardsCalculationConfigurationReader CreateCalculationConfigurationReader(string xmlFilePath)

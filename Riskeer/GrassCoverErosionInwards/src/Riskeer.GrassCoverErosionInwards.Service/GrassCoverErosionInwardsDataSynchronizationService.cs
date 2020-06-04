@@ -218,7 +218,7 @@ namespace Riskeer.GrassCoverErosionInwards.Service
             {
                 dikeProfiles
             };
-            affectedObjects.AddRange(ClearDikeProfileDependentData(sectionResults, affectedCalculations, calculations));
+            affectedObjects.AddRange(ClearDikeProfileDependentData(affectedCalculations));
 
             dikeProfiles.Remove(dikeProfileToRemove);
             return affectedObjects;
@@ -262,18 +262,14 @@ namespace Riskeer.GrassCoverErosionInwards.Service
             {
                 dikeProfiles
             };
-            affectedObjects.AddRange(ClearDikeProfileDependentData(sectionResults,
-                                                                   affectedCalculations,
-                                                                   calculations));
+            affectedObjects.AddRange(ClearDikeProfileDependentData(affectedCalculations));
 
             dikeProfiles.Clear();
             return affectedObjects;
         }
 
         private static IEnumerable<IObservable> ClearDikeProfileDependentData(
-            IEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResult> sectionResults,
-            IEnumerable<GrassCoverErosionInwardsCalculation> calculationsWithRemovedDikeProfile,
-            IEnumerable<GrassCoverErosionInwardsCalculation> calculations)
+            IEnumerable<GrassCoverErosionInwardsCalculation> calculationsWithRemovedDikeProfile)
         {
             var affectedObjects = new List<IObservable>();
             foreach (GrassCoverErosionInwardsCalculation calculation in calculationsWithRemovedDikeProfile)
@@ -281,10 +277,6 @@ namespace Riskeer.GrassCoverErosionInwards.Service
                 affectedObjects.AddRange(RiskeerCommonDataSynchronizationService.ClearCalculationOutput(calculation));
                 affectedObjects.AddRange(ClearDikeProfile(calculation.InputParameters));
             }
-
-            affectedObjects.AddRange(GrassCoverErosionInwardsHelper.UpdateCalculationToSectionResultAssignments(
-                                         sectionResults,
-                                         calculations));
             return affectedObjects;
         }
 

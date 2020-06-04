@@ -786,13 +786,13 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
             using (var view = new GrassCoverErosionInwardsDikeProfileSelectionDialog(Gui.MainWindow, nodeData.AvailableDikeProfiles))
             {
                 view.ShowDialog();
-                GenerateCalculations(nodeData.WrappedData, nodeData.FailureMechanism, view.SelectedItems);
+                GenerateCalculations(nodeData.WrappedData, view.SelectedItems);
             }
 
             nodeData.NotifyObservers();
         }
 
-        private static void GenerateCalculations(CalculationGroup target, GrassCoverErosionInwardsFailureMechanism failureMechanism, IEnumerable<DikeProfile> dikeProfiles)
+        private static void GenerateCalculations(CalculationGroup target, IEnumerable<DikeProfile> dikeProfiles)
         {
             foreach (DikeProfile profile in dikeProfiles)
             {
@@ -806,10 +806,6 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
                 };
                 target.Children.Add(calculation);
             }
-
-            GrassCoverErosionInwardsHelper.UpdateCalculationToSectionResultAssignments(
-                failureMechanism.SectionResults,
-                failureMechanism.Calculations.Cast<GrassCoverErosionInwardsCalculationScenario>());
         }
 
         private static void AddCalculation(GrassCoverErosionInwardsCalculationGroupContext context)
@@ -827,11 +823,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
             var parentGroupContext = (GrassCoverErosionInwardsCalculationGroupContext) parentNodeData;
 
             parentGroupContext.WrappedData.Children.Remove(context.WrappedData);
-
-            GrassCoverErosionInwardsHelper.UpdateCalculationToSectionResultAssignments(
-                context.FailureMechanism.SectionResults,
-                context.FailureMechanism.Calculations.Cast<GrassCoverErosionInwardsCalculationScenario>().ToArray());
-
+            
             parentGroupContext.NotifyObservers();
         }
 
@@ -938,9 +930,6 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
             if (parentData is GrassCoverErosionInwardsCalculationGroupContext calculationGroupContext)
             {
                 calculationGroupContext.WrappedData.Children.Remove(context.WrappedData);
-                GrassCoverErosionInwardsHelper.UpdateCalculationToSectionResultAssignments(
-                    context.FailureMechanism.SectionResults,
-                    context.FailureMechanism.Calculations.OfType<GrassCoverErosionInwardsCalculationScenario>());
                 calculationGroupContext.NotifyObservers();
             }
         }

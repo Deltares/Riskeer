@@ -28,7 +28,6 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.DikeProfiles;
-using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.IO.Configurations.Import;
@@ -562,52 +561,6 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
 
             Assert.AreEqual(1, calculationGroup.Children.Count);
             AssertCalculation(expectedCalculation, (GrassCoverErosionInwardsCalculationScenario) calculationGroup.Children[0]);
-        }
-
-        [Test]
-        public void DoPostImport_CalculationWithDikeProfileInSection_AssignsCalculationToSectionResult()
-        {
-            // Setup
-            string filePath = Path.Combine(path, "validConfigurationFullCalculation.xml");
-            var calculationGroup = new CalculationGroup();
-
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-
-            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
-            {
-                new FailureMechanismSection("name", new[]
-                {
-                    new Point2D(0, 0),
-                    new Point2D(10, 10)
-                })
-            });
-
-            var calculation = new GrassCoverErosionInwardsCalculationScenario
-            {
-                InputParameters =
-                {
-                    DikeProfile = DikeProfileTestFactory.CreateDikeProfile(new Point2D(5, 5))
-                }
-            };
-            failureMechanism.CalculationsGroup.Children.Add(
-                calculation);
-
-            var importer = new GrassCoverErosionInwardsCalculationConfigurationImporter(
-                filePath,
-                calculationGroup,
-                Enumerable.Empty<HydraulicBoundaryLocation>(),
-                Enumerable.Empty<DikeProfile>(),
-                failureMechanism);
-
-            // Preconditions
-            Assert.AreEqual(1, failureMechanism.SectionResults.Count());
-            Assert.IsNull(failureMechanism.SectionResults.ElementAt(0).Calculation);
-
-            // Call
-            importer.DoPostImport();
-
-            // Assert
-            Assert.AreSame(calculation, failureMechanism.SectionResults.ElementAt(0).Calculation);
         }
 
         private static void AssertCalculation(GrassCoverErosionInwardsCalculation expectedCalculation, GrassCoverErosionInwardsCalculation actualCalculation)

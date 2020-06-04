@@ -115,9 +115,6 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.FileImporters
                 }
             }
 
-            affectedObjects.AddRange(GrassCoverErosionInwardsHelper.UpdateCalculationToSectionResultAssignments(
-                                         FailureMechanism.SectionResults,
-                                         FailureMechanism.Calculations.Cast<GrassCoverErosionInwardsCalculation>()));
             return affectedObjects;
         }
 

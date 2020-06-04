@@ -2024,47 +2024,6 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             CollectionAssert.DoesNotContain(parentGroup.Children, group);
         }
 
-        [Test]
-        public void OnNodeRemoved_CalculationInGroupAssignedToSection_CalculationDetachedFromSection()
-        {
-            // Setup
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var group = new CalculationGroup();
-            var parentGroup = new CalculationGroup();
-            var nodeData = new GrassCoverErosionInwardsCalculationGroupContext(group,
-                                                                               parentGroup,
-                                                                               failureMechanism,
-                                                                               assessmentSection);
-            var parentNodeData = new GrassCoverErosionInwardsCalculationGroupContext(parentGroup,
-                                                                                     null,
-                                                                                     failureMechanism,
-                                                                                     assessmentSection);
-
-            mocks.ReplayAll();
-
-            parentGroup.Children.Add(group);
-
-            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
-            {
-                new FailureMechanismSection("section", new[]
-                {
-                    new Point2D(0, 0)
-                })
-            });
-
-            var calculation = new GrassCoverErosionInwardsCalculation();
-            group.Children.Add(calculation);
-            GrassCoverErosionInwardsFailureMechanismSectionResult result = failureMechanism.SectionResults.First();
-            result.Calculation = calculation;
-
-            // Call
-            info.OnNodeRemoved(nodeData, parentNodeData);
-
-            // Assert
-            Assert.IsNull(result.Calculation);
-        }
-
         public override void Setup()
         {
             mocks = new MockRepository();
