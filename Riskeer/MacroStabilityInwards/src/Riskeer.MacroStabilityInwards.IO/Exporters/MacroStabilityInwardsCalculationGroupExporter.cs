@@ -134,9 +134,10 @@ namespace Riskeer.MacroStabilityInwards.IO.Exporters
 
         private static bool HasChildrenWithOutput(CalculationGroup nestedGroup)
         {
-            MacroStabilityInwardsCalculation[] calculations = nestedGroup.Children.OfType<MacroStabilityInwardsCalculation>()
+            MacroStabilityInwardsCalculation[] calculations = nestedGroup.GetCalculations()
+                                                                         .Cast<MacroStabilityInwardsCalculation>()
                                                                          .ToArray();
-            return calculations.Any() && calculations.All(calculation => calculation.HasOutput);
+            return calculations.Any() && calculations.Any(calculation => calculation.HasOutput);
         }
 
         private static void CreateDirectory(string currentFolderPath)
