@@ -19,13 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
-using Core.Common.Base;
-using Core.Common.Base.Geometry;
 using NUnit.Framework;
-using Rhino.Mocks;
-using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.Common.Forms;
+using Riskeer.Common.Forms.Views;
 using Riskeer.GrassCoverErosionInwards.Data;
 using Riskeer.GrassCoverErosionInwards.Forms.Views;
 
@@ -35,85 +30,17 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
     public class GrassCoverErosionInwardsScenarioRowTest
     {
         [Test]
-        public void ParameteredConstructor_ExpectedValues()
+        public void Constructor_ExpectedValues()
         {
             // Setup
-            var section = new FailureMechanismSection("testName", new[]
-            {
-                new Point2D(1.1, 2.2),
-                new Point2D(3.3, 4.4)
-            });
-            var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(section);
+            var calculation = new GrassCoverErosionInwardsCalculationScenario();
 
             // Call
-            var row = new GrassCoverErosionInwardsScenarioRow(sectionResult);
+            var row = new GrassCoverErosionInwardsScenarioRow(calculation);
 
             // Assert
-            Assert.AreSame(sectionResult.Section.Name, row.Name);
-            Assert.AreSame(sectionResult.Calculation, row.Calculation);
-            Assert.IsInstanceOf<IScenarioRow<GrassCoverErosionInwardsCalculation>>(row);
-        }
-
-        [Test]
-        public void ParameteredConstructor_SectionResultIsNull_ThrowArgumentNullException()
-        {
-            // Call
-            TestDelegate call = () => new GrassCoverErosionInwardsScenarioRow(null);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreSame("sectionResult", paramName);
-        }
-
-        [Test]
-        public void Calculation_SetNewValue_UpdatesSectionResultCalculation()
-        {
-            // Setup
-            var section = new FailureMechanismSection("haha", new[]
-            {
-                new Point2D(1.1, 2.2),
-                new Point2D(3.3, 4.4)
-            });
-            var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(section);
-
-            var row = new GrassCoverErosionInwardsScenarioRow(sectionResult);
-
-            var calculation = new GrassCoverErosionInwardsCalculation();
-
-            // Call
-            row.Calculation = calculation;
-
-            // Assert
-            Assert.AreSame(calculation, row.Calculation);
-            Assert.AreSame(calculation, sectionResult.Calculation);
-        }
-
-        [Test]
-        public void Calculation_SetNewValue_NotifyObserversOnSectionResult()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
-
-            var section = new FailureMechanismSection("testSection", new[]
-            {
-                new Point2D(1.1, 2.2),
-                new Point2D(3.3, 4.4)
-            });
-            var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(section);
-            sectionResult.Attach(observer);
-
-            var row = new GrassCoverErosionInwardsScenarioRow(sectionResult);
-
-            var calculation = new GrassCoverErosionInwardsCalculation();
-
-            // Call
-            row.Calculation = calculation;
-
-            // Assert
-            mocks.VerifyAll(); // Assert observer is notified
+            Assert.IsInstanceOf<ScenarioRow<GrassCoverErosionInwardsCalculationScenario>>(row);
+            Assert.AreSame(calculation, row.CalculationScenario);
         }
     }
 }

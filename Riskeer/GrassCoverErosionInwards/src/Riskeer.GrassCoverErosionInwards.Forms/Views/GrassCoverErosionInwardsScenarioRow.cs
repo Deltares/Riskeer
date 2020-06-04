@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using System;
-using Riskeer.Common.Forms;
+using Riskeer.Common.Forms.Views;
 using Riskeer.GrassCoverErosionInwards.Data;
 
 namespace Riskeer.GrassCoverErosionInwards.Forms.Views
@@ -29,44 +29,32 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
     /// Container of a <see cref="GrassCoverErosionInwardsFailureMechanismSectionResult"/>,
     /// which takes care of the representation of properties in a grid.
     /// </summary>
-    internal class GrassCoverErosionInwardsScenarioRow : IScenarioRow<GrassCoverErosionInwardsCalculation>
+    public class GrassCoverErosionInwardsScenarioRow : ScenarioRow<GrassCoverErosionInwardsCalculationScenario>
     {
-        private readonly GrassCoverErosionInwardsFailureMechanismSectionResult sectionResult;
-
         /// <summary>
-        /// Initializes a new instance of the <see cref="GrassCoverErosionInwardsScenarioRow"/> class.
+        /// Creates a new instance of <see cref="GrassCoverErosionInwardsScenarioRow"/>.
         /// </summary>
-        /// <param name="sectionResult">The section result.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="sectionResult"/> is <c>null</c>.</exception>
-        public GrassCoverErosionInwardsScenarioRow(GrassCoverErosionInwardsFailureMechanismSectionResult sectionResult)
-        {
-            if (sectionResult == null)
-            {
-                throw new ArgumentNullException(nameof(sectionResult));
-            }
+        /// <param name="calculationScenario">The <see cref="GrassCoverErosionInwardsCalculationScenario"/> this row contains.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculationScenario"/> is <c>null</c>.</exception>
+        internal GrassCoverErosionInwardsScenarioRow(GrassCoverErosionInwardsCalculationScenario calculationScenario)
+            : base(calculationScenario) {}
 
-            this.sectionResult = sectionResult;
-        }
-
-        public string Name
+        public override double FailureProbability
         {
             get
             {
-                return sectionResult.Section.Name;
+                if (CalculationScenario.HasOutput)
+                {
+                    return CalculationScenario.Output.OvertoppingOutput.Reliability;
+                }
+
+                return double.NaN;
             }
         }
 
-        public GrassCoverErosionInwardsCalculation Calculation
+        public override void Update()
         {
-            get
-            {
-                return sectionResult.Calculation;
-            }
-            set
-            {
-                sectionResult.Calculation = value;
-                sectionResult.NotifyObservers();
-            }
+            
         }
     }
 }

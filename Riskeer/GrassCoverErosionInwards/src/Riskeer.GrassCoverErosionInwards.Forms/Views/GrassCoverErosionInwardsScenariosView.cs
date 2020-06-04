@@ -22,28 +22,19 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Windows.Forms;
-using Core.Common.Base;
-using Core.Common.Controls.Views;
+using Core.Common.Base.Geometry;
 using Riskeer.Common.Data.Calculation;
+using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Forms.Views;
 using Riskeer.GrassCoverErosionInwards.Data;
-using Riskeer.GrassCoverErosionInwards.Util;
 
 namespace Riskeer.GrassCoverErosionInwards.Forms.Views
 {
     /// <summary>
-    /// View for configuring scenarios for the grass cover erosion inwards failure mechanism.
-    /// Shows a grid view where for each failure mechanism section, a calculation within the section
-    /// can be selected.
+    /// View for configuring grass cover erosion inwards scenarios.
     /// </summary>
-    public partial class GrassCoverErosionInwardsScenariosView : UserControl, IView
+    public partial class GrassCoverErosionInwardsScenariosView : ScenariosView<GrassCoverErosionInwardsCalculationScenario, GrassCoverErosionInwardsInput, GrassCoverErosionInwardsScenarioRow, GrassCoverErosionInwardsFailureMechanism>
     {
-        private readonly RecursiveObserver<CalculationGroup, ICalculationInput> calculationInputObserver;
-        private readonly RecursiveObserver<CalculationGroup, ICalculationBase> calculationGroupObserver;
-        private readonly Observer failureMechanismObserver;
-        private readonly GrassCoverErosionInwardsFailureMechanism failureMechanism;
-        private CalculationGroup data;
-
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionInwardsScenariosView"/>.
         /// </summary>
@@ -53,86 +44,20 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
         /// <exception cref="ArgumentNullException">Thrown when any parameter
         /// is <c>null</c>.</exception>
         public GrassCoverErosionInwardsScenariosView(CalculationGroup calculationGroup, GrassCoverErosionInwardsFailureMechanism failureMechanism)
+            : base(calculationGroup, failureMechanism) {}
+
+        protected override GrassCoverErosionInwardsInput GetCalculationInput(GrassCoverErosionInwardsCalculationScenario calculationScenario)
         {
-            if (calculationGroup == null)
-            {
-                throw new ArgumentNullException(nameof(calculationGroup));
-            }
-
-            if (failureMechanism == null)
-            {
-                throw new ArgumentNullException(nameof(failureMechanism));
-            }
-
-            data = calculationGroup;
-            this.failureMechanism = failureMechanism;
-
-            InitializeComponent();
-
-            failureMechanismObserver = new Observer(UpdateDataGridViewDataSource)
-            {
-                Observable = failureMechanism
-            };
-
-            // The concat is needed to observe the input of calculations in child groups.
-            calculationInputObserver = new RecursiveObserver<CalculationGroup, ICalculationInput>(
-                UpdateDataGridViewDataSource, cg => cg.Children.Concat<object>(cg.Children
-                                                                                 .OfType<GrassCoverErosionInwardsCalculationScenario>()
-                                                                                 .Select(c => c.InputParameters)))
-            {
-                Observable = calculationGroup
-            };
-            calculationGroupObserver = new RecursiveObserver<CalculationGroup, ICalculationBase>(UpdateDataGridViewDataSource, c => c.Children)
-            {
-                Observable = calculationGroup
-            };
-
-            UpdateDataGridViewDataSource();
+            return calculationScenario.InputParameters;
         }
 
-        public object Data
+        protected override IEnumerable<GrassCoverErosionInwardsScenarioRow> GetScenarioRows(FailureMechanismSection failureMechanismSection)
         {
-            get => data;
-            set => data = value as CalculationGroup;
-        }
+            IEnumerable<Segment2D> lineSegments = Math2D.ConvertPointsToLineSegments(failureMechanismSection.Points);
+            IEnumerable<GrassCoverErosionInwardsCalculationScenario> calculations = CalculationGroup.GetCalculations().OfType<GrassCoverErosionInwardsCalculationScenario>()
+                                                                                                    .Where(cs => cs.IsDikeProfileIntersectionWithReferenceLineInSection(lineSegments));
 
-        /// <inheritdoc />
-        /// <remarks>
-        /// Necessary to correctly load the content of the dropdown lists of the comboboxes.
-        /// </remarks>
-        protected override void OnLoad(EventArgs e)
-        {
-            UpdateDataGridViewDataSource();
-            base.OnLoad(e);
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            failureMechanismObserver.Dispose();
-            calculationInputObserver.Dispose();
-            calculationGroupObserver.Dispose();
-
-            if (disposing)
-            {
-                components?.Dispose();
-            }
-
-            base.Dispose(disposing);
-        }
-
-        private void UpdateDataGridViewDataSource()
-        {
-            scenarioSelectionControl.EndEdit();
-
-            ICalculation[] calculations = data.GetCalculations().ToArray();
-
-            IDictionary<string, List<ICalculation>> calculationsPerSegment =
-                GrassCoverErosionInwardsHelper.CollectCalculationsPerSection(failureMechanism.Sections, calculations.Cast<GrassCoverErosionInwardsCalculationScenario>());
-
-            List<GrassCoverErosionInwardsScenarioRow> scenarioRows =
-                failureMechanism.SectionResults.Select(sectionResult => new GrassCoverErosionInwardsScenarioRow(sectionResult)).ToList();
-
-            scenarioSelectionControl.UpdateDataGridViewDataSource(calculations, scenarioRows, calculationsPerSegment);
+            return calculations.Select(c => new GrassCoverErosionInwardsScenarioRow(c)).ToList();
         }
     }
 }
