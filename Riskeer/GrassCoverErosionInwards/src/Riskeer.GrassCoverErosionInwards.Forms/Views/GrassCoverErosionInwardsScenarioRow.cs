@@ -20,6 +20,8 @@
 // All rights reserved.
 
 using System;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.Probability;
 using Riskeer.Common.Forms.Views;
 using Riskeer.GrassCoverErosionInwards.Data;
 
@@ -31,30 +33,51 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
     /// </summary>
     public class GrassCoverErosionInwardsScenarioRow : ScenarioRow<GrassCoverErosionInwardsCalculationScenario>
     {
+        private readonly GrassCoverErosionInwardsFailureMechanism failureMechanism;
+        private readonly IAssessmentSection assessmentSection;
+        private ProbabilityAssessmentOutput probabilityAssessmentOutput;
+
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionInwardsScenarioRow"/>.
         /// </summary>
         /// <param name="calculationScenario">The <see cref="GrassCoverErosionInwardsCalculationScenario"/> this row contains.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculationScenario"/> is <c>null</c>.</exception>
-        internal GrassCoverErosionInwardsScenarioRow(GrassCoverErosionInwardsCalculationScenario calculationScenario)
-            : base(calculationScenario) {}
-
-        public override double FailureProbability
+        /// <param name="failureMechanism">The failure mechanism that the calculation belongs to.</param>
+        /// <param name="assessmentSection">The assessment section that the calculation belongs to.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        internal GrassCoverErosionInwardsScenarioRow(GrassCoverErosionInwardsCalculationScenario calculationScenario,
+                                                     GrassCoverErosionInwardsFailureMechanism failureMechanism,
+                                                     IAssessmentSection assessmentSection)
+            : base(calculationScenario)
         {
-            get
+            if (failureMechanism == null)
             {
-                if (CalculationScenario.HasOutput)
-                {
-                    return CalculationScenario.Output.OvertoppingOutput.Reliability;
-                }
-
-                return double.NaN;
+                throw new ArgumentNullException(nameof(failureMechanism));
             }
+
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
+            this.failureMechanism = failureMechanism;
+            this.assessmentSection = assessmentSection;
+
+            CreateProbabilityAssessmentOutput();
         }
+
+        public override double FailureProbability => probabilityAssessmentOutput?.Probability ?? double.NaN;
 
         public override void Update()
         {
-            
+            CreateProbabilityAssessmentOutput();
+        }
+
+        private void CreateProbabilityAssessmentOutput()
+        {
+            probabilityAssessmentOutput = CalculationScenario.HasOutput
+                                              ? GrassCoverErosionInwardsProbabilityAssessmentOutputFactory.Create(
+                                                  CalculationScenario.Output.OvertoppingOutput, failureMechanism, assessmentSection)
+                                              : null;
         }
     }
 }

@@ -25,6 +25,8 @@ using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
+using Rhino.Mocks;
+using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.FailureMechanism;
@@ -60,18 +62,35 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
         }
 
         [Test]
+        public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => new GrassCoverErosionInwardsScenariosView(new CalculationGroup(), new GrassCoverErosionInwardsFailureMechanism(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
+        }
+
+        [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             var calculationGroup = new CalculationGroup();
 
             // Call
-            using(var view = new GrassCoverErosionInwardsScenariosView(calculationGroup, new GrassCoverErosionInwardsFailureMechanism()))
+            using (var view = new GrassCoverErosionInwardsScenariosView(calculationGroup, new GrassCoverErosionInwardsFailureMechanism(), assessmentSection))
             {
                 // Assert
                 Assert.IsInstanceOf<ScenariosView<GrassCoverErosionInwardsCalculationScenario, GrassCoverErosionInwardsInput, GrassCoverErosionInwardsScenarioRow, GrassCoverErosionInwardsFailureMechanism>>(view);
                 Assert.AreSame(calculationGroup, view.Data);
             }
+
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -81,7 +100,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             ShowGrassCoverErosionInwardsScenariosView(new GrassCoverErosionInwardsFailureMechanism());
 
             // Assert
-            var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
             Assert.AreEqual(4, dataGridView.ColumnCount);
             Assert.AreEqual("In oordeel", dataGridView.Columns[isRelevantColumnIndex].HeaderText);
             Assert.AreEqual("Bijdrage aan\r\nscenario\r\n[%]", dataGridView.Columns[contributionColumnIndex].HeaderText);
@@ -95,7 +114,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             // Call
             ShowFullyConfiguredGrassCoverErosionInwardsScenariosView();
 
-            var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
             // Assert
             DataGridViewRowCollection rows = dataGridView.Rows;
@@ -113,7 +132,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             Assert.IsTrue(Convert.ToBoolean(cells[isRelevantColumnIndex].FormattedValue));
             Assert.AreEqual(new RoundedDouble(2, 100).ToString(), cells[contributionColumnIndex].FormattedValue);
             Assert.AreEqual("Calculation 2", cells[nameColumnIndex].FormattedValue);
-            Assert.AreEqual(ProbabilityFormattingHelper.Format(0.2), cells[failureProbabilityColumnIndex].FormattedValue);
+            Assert.AreEqual(ProbabilityFormattingHelper.Format(0.5), cells[failureProbabilityColumnIndex].FormattedValue);
         }
 
         private void ShowFullyConfiguredGrassCoverErosionInwardsScenariosView()
@@ -163,7 +182,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
 
         private void ShowGrassCoverErosionInwardsScenariosView(GrassCoverErosionInwardsFailureMechanism failureMechanism)
         {
-            var scenariosView = new GrassCoverErosionInwardsScenariosView(failureMechanism.CalculationsGroup, failureMechanism);
+            var scenariosView = new GrassCoverErosionInwardsScenariosView(failureMechanism.CalculationsGroup, failureMechanism, new AssessmentSectionStub());
             testForm.Controls.Add(scenariosView);
             testForm.Show();
         }

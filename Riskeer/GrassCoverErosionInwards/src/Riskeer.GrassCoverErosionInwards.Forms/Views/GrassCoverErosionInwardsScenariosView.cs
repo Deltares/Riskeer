@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Geometry;
+using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Forms.Views;
@@ -35,16 +36,27 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
     /// </summary>
     public partial class GrassCoverErosionInwardsScenariosView : ScenariosView<GrassCoverErosionInwardsCalculationScenario, GrassCoverErosionInwardsInput, GrassCoverErosionInwardsScenarioRow, GrassCoverErosionInwardsFailureMechanism>
     {
+        private readonly IAssessmentSection assessmentSection;
+
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionInwardsScenariosView"/>.
         /// </summary>
         /// <param name="calculationGroup">The data to show in this view.</param>
         /// <param name="failureMechanism">The <see cref="GrassCoverErosionInwardsFailureMechanism"/>
         /// the <paramref name="calculationGroup"/> belongs to.</param>
+        /// <param name="assessmentSection">The assessment section the scenarios belong to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter
         /// is <c>null</c>.</exception>
-        public GrassCoverErosionInwardsScenariosView(CalculationGroup calculationGroup, GrassCoverErosionInwardsFailureMechanism failureMechanism)
-            : base(calculationGroup, failureMechanism) {}
+        public GrassCoverErosionInwardsScenariosView(CalculationGroup calculationGroup, GrassCoverErosionInwardsFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+            : base(calculationGroup, failureMechanism)
+        {
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
+            this.assessmentSection = assessmentSection;
+        }
 
         protected override GrassCoverErosionInwardsInput GetCalculationInput(GrassCoverErosionInwardsCalculationScenario calculationScenario)
         {
@@ -57,7 +69,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
             IEnumerable<GrassCoverErosionInwardsCalculationScenario> calculations = CalculationGroup.GetCalculations().OfType<GrassCoverErosionInwardsCalculationScenario>()
                                                                                                     .Where(cs => cs.IsDikeProfileIntersectionWithReferenceLineInSection(lineSegments));
 
-            return calculations.Select(c => new GrassCoverErosionInwardsScenarioRow(c)).ToList();
+            return calculations.Select(c => new GrassCoverErosionInwardsScenarioRow(c, FailureMechanism, assessmentSection)).ToList();
         }
     }
 }

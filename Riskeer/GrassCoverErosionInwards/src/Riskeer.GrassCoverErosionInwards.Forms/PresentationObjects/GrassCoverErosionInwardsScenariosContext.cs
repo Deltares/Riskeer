@@ -21,6 +21,7 @@
 
 using System;
 using Core.Common.Controls.PresentationObjects;
+using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.GrassCoverErosionInwards.Data;
 
@@ -36,9 +37,12 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.PresentationObjects
         /// Creates a new instance of <see cref="GrassCoverErosionInwardsScenariosContext"/>.
         /// </summary>
         /// <param name="wrappedData">The wrapped <see cref="CalculationGroup"/>.</param>
-        /// <param name="failureMechanism">A <see cref="GrassCoverErosionInwardsFailureMechanism"/> forming the context.</param>
+        /// <param name="failureMechanism">A <see cref="GrassCoverErosionInwardsFailureMechanism"/>forming the context.</param>
+        /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> the <paramref name="wrappedData"/> belongs to.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public GrassCoverErosionInwardsScenariosContext(CalculationGroup wrappedData,
-                                                        GrassCoverErosionInwardsFailureMechanism failureMechanism)
+                                                        GrassCoverErosionInwardsFailureMechanism failureMechanism,
+                                                        IAssessmentSection assessmentSection)
             : base(wrappedData)
         {
             if (failureMechanism == null)
@@ -46,12 +50,23 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.PresentationObjects
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
 
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
             ParentFailureMechanism = failureMechanism;
+            AssessmentSection = assessmentSection;
         }
 
         /// <summary>
         /// Gets the parent failure mechanism of the calculation group.
         /// </summary>
         public GrassCoverErosionInwardsFailureMechanism ParentFailureMechanism { get; }
+
+        /// <summary>
+        /// Gets the <see cref="IAssessmentSection"/> of the calculation group.
+        /// </summary>
+        public IAssessmentSection AssessmentSection { get; }
     }
 }
