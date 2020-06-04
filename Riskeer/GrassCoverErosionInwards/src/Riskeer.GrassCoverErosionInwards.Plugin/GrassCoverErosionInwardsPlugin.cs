@@ -115,8 +115,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
                     filePath,
                     context.WrappedData,
                     context.AssessmentSection.HydraulicBoundaryDatabase.Locations,
-                    context.AvailableDikeProfiles,
-                    context.FailureMechanism));
+                    context.AvailableDikeProfiles));
 
             yield return new ImportInfo<DikeProfilesContext>
             {

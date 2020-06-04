@@ -298,7 +298,7 @@ namespace Riskeer.GrassCoverErosionInwards.Util.Test
         {
             // Call
             void Call() => GrassCoverErosionInwardsDataSynchronizationService.RemoveAllDikeProfiles(
-                null, new DikeProfileCollection(), Enumerable.Empty<GrassCoverErosionInwardsFailureMechanismSectionResult>());
+                null, new DikeProfileCollection());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -310,24 +310,11 @@ namespace Riskeer.GrassCoverErosionInwards.Util.Test
         {
             // Call
             void Call() => GrassCoverErosionInwardsDataSynchronizationService.RemoveAllDikeProfiles(
-                Enumerable.Empty<GrassCoverErosionInwardsCalculation>(), null,
-                Enumerable.Empty<GrassCoverErosionInwardsFailureMechanismSectionResult>());
+                Enumerable.Empty<GrassCoverErosionInwardsCalculation>(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("dikeProfiles", exception.ParamName);
-        }
-
-        [Test]
-        public void RemoveAllDikeProfile_SectionResultsNull_ThrowsArgumentNullException()
-        {
-            // Call
-            void Call() => GrassCoverErosionInwardsDataSynchronizationService.RemoveAllDikeProfiles(
-                Enumerable.Empty<GrassCoverErosionInwardsCalculation>(), new DikeProfileCollection(), null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("sectionResults", exception.ParamName);
         }
 
         [Test]
@@ -351,8 +338,7 @@ namespace Riskeer.GrassCoverErosionInwards.Util.Test
             IEnumerable<IObservable> affectedObjects =
                 GrassCoverErosionInwardsDataSynchronizationService.RemoveAllDikeProfiles(
                     failureMechanism.Calculations.Cast<GrassCoverErosionInwardsCalculation>(),
-                    failureMechanism.DikeProfiles,
-                    failureMechanism.SectionResults);
+                    failureMechanism.DikeProfiles);
 
             // Assert
             // Note: To make sure the clear is performed regardless of what is done with
@@ -379,8 +365,7 @@ namespace Riskeer.GrassCoverErosionInwards.Util.Test
         {
             // Call
             void Call() => GrassCoverErosionInwardsDataSynchronizationService.RemoveDikeProfile(
-                null, Enumerable.Empty<GrassCoverErosionInwardsCalculation>(), new DikeProfileCollection(),
-                Enumerable.Empty<GrassCoverErosionInwardsFailureMechanismSectionResult>());
+                null, Enumerable.Empty<GrassCoverErosionInwardsCalculation>(), new DikeProfileCollection());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -392,8 +377,7 @@ namespace Riskeer.GrassCoverErosionInwards.Util.Test
         {
             // Call
             void Call() => GrassCoverErosionInwardsDataSynchronizationService.RemoveDikeProfile(
-                DikeProfileTestFactory.CreateDikeProfile(), null, new DikeProfileCollection(),
-                Enumerable.Empty<GrassCoverErosionInwardsFailureMechanismSectionResult>());
+                DikeProfileTestFactory.CreateDikeProfile(), null, new DikeProfileCollection());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -405,25 +389,11 @@ namespace Riskeer.GrassCoverErosionInwards.Util.Test
         {
             // Call
             void Call() => GrassCoverErosionInwardsDataSynchronizationService.RemoveDikeProfile(
-                DikeProfileTestFactory.CreateDikeProfile(), Enumerable.Empty<GrassCoverErosionInwardsCalculation>(),
-                null, Enumerable.Empty<GrassCoverErosionInwardsFailureMechanismSectionResult>());
+                DikeProfileTestFactory.CreateDikeProfile(), Enumerable.Empty<GrassCoverErosionInwardsCalculation>(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("dikeProfiles", exception.ParamName);
-        }
-
-        [Test]
-        public void RemoveDikeProfile_SectionResultsNull_ThrowsArgumentNullException()
-        {
-            // Call
-            void Call() => GrassCoverErosionInwardsDataSynchronizationService.RemoveDikeProfile(
-                DikeProfileTestFactory.CreateDikeProfile(), Enumerable.Empty<GrassCoverErosionInwardsCalculation>(),
-                new DikeProfileCollection(), null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("sectionResults", exception.ParamName);
         }
 
         [Test]
@@ -455,8 +425,7 @@ namespace Riskeer.GrassCoverErosionInwards.Util.Test
             IEnumerable<IObservable> affectedObjects =
                 GrassCoverErosionInwardsDataSynchronizationService.RemoveDikeProfile(profileToBeCleared,
                                                                                      failureMechanism.Calculations.Cast<GrassCoverErosionInwardsCalculation>(),
-                                                                                     failureMechanism.DikeProfiles,
-                                                                                     failureMechanism.SectionResults);
+                                                                                     failureMechanism.DikeProfiles);
 
             // Assert
             CollectionAssert.DoesNotContain(failureMechanism.DikeProfiles, profileToBeCleared);

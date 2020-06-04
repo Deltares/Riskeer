@@ -40,7 +40,6 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Configurations
     {
         private readonly IEnumerable<HydraulicBoundaryLocation> availableHydraulicBoundaryLocations;
         private readonly IEnumerable<DikeProfile> availableDikeProfiles;
-        private readonly GrassCoverErosionInwardsFailureMechanism failureMechanism;
 
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionInwardsCalculationConfigurationImporter"/>.
@@ -51,15 +50,13 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Configurations
         /// used to check if the imported objects contain the right location.</param>
         /// <param name="dikeProfiles">The dike profiles used to check if
         /// the imported objects contain the right profile.</param>
-        /// <param name="failureMechanism">The failure mechanism used to propagate changes.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is
         /// <c>null</c>.</exception>
         public GrassCoverErosionInwardsCalculationConfigurationImporter(
             string xmlFilePath,
             CalculationGroup importTarget,
             IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations,
-            IEnumerable<DikeProfile> dikeProfiles,
-            GrassCoverErosionInwardsFailureMechanism failureMechanism)
+            IEnumerable<DikeProfile> dikeProfiles)
             : base(xmlFilePath, importTarget)
         {
             if (hydraulicBoundaryLocations == null)
@@ -72,14 +69,8 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Configurations
                 throw new ArgumentNullException(nameof(dikeProfiles));
             }
 
-            if (failureMechanism == null)
-            {
-                throw new ArgumentNullException(nameof(failureMechanism));
-            }
-
             availableHydraulicBoundaryLocations = hydraulicBoundaryLocations;
             availableDikeProfiles = dikeProfiles;
-            this.failureMechanism = failureMechanism;
         }
 
         protected override GrassCoverErosionInwardsCalculationConfigurationReader CreateCalculationConfigurationReader(string xmlFilePath)

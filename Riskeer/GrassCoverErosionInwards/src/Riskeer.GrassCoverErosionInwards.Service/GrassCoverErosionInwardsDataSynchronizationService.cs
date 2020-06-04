@@ -174,22 +174,18 @@ namespace Riskeer.GrassCoverErosionInwards.Service
         }
 
         /// <summary>
-        /// Removes the <see cref="DikeProfile"/>, unassigns them from the <paramref name="calculations"/>
-        /// and clears all the data that depends on it, either directly or indirectly.
+        /// Removes the <see cref="DikeProfile"/> and clears all the data that depends on it, either directly or indirectly.
         /// </summary>
         /// <param name="dikeProfileToRemove">The dike profile to remove.</param>
         /// <param name="calculations">The calculations that may have 
         /// <paramref name="dikeProfileToRemove"/> assigned.</param>
         /// <param name="dikeProfiles">The collection of <see cref="DikeProfile"/> in
         /// which <paramref name="dikeProfileToRemove"/> is contained.</param>
-        /// <param name="sectionResults">The section results that may have an assignment to a calculation 
-        /// based on the <paramref name="dikeProfileToRemove"/>.</param>
         /// <returns>An <see cref="IEnumerable{T}"/> of all affected objects by this operation.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
         public static IEnumerable<IObservable> RemoveDikeProfile(DikeProfile dikeProfileToRemove,
                                                                  IEnumerable<GrassCoverErosionInwardsCalculation> calculations,
-                                                                 DikeProfileCollection dikeProfiles,
-                                                                 IEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResult> sectionResults)
+                                                                 DikeProfileCollection dikeProfiles)
         {
             if (dikeProfileToRemove == null)
             {
@@ -206,11 +202,6 @@ namespace Riskeer.GrassCoverErosionInwards.Service
                 throw new ArgumentNullException(nameof(dikeProfiles));
             }
 
-            if (sectionResults == null)
-            {
-                throw new ArgumentNullException(nameof(sectionResults));
-            }
-
             IEnumerable<GrassCoverErosionInwardsCalculation> affectedCalculations =
                 calculations.Where(calc => ReferenceEquals(dikeProfileToRemove, calc.InputParameters.DikeProfile));
 
@@ -225,19 +216,15 @@ namespace Riskeer.GrassCoverErosionInwards.Service
         }
 
         /// <summary>
-        /// Clears <paramref name="dikeProfiles"/>, unassigns the elements from the <paramref name="calculations"/>
-        /// and clears all the data that depends on it, either directly or indirectly.
+        /// Clears <paramref name="dikeProfiles"/> and clears all the data that depends on it, either directly or indirectly.
         /// </summary>
         /// <param name="calculations">The calculations that may have 
         /// an assigned element of <see cref="dikeProfiles"/>.</param>
         /// <param name="dikeProfiles">The collection to be cleared.</param>
-        /// <param name="sectionResults">The section results that may have an assignment to a calculation 
-        /// based on the elements of <paramref name="dikeProfiles"/>.</param>
         /// <returns>An <see cref="IEnumerable{T}"/> of all affected objects by this operation.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public static IEnumerable<IObservable> RemoveAllDikeProfiles(IEnumerable<GrassCoverErosionInwardsCalculation> calculations,
-                                                                     DikeProfileCollection dikeProfiles,
-                                                                     IEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResult> sectionResults)
+                                                                     DikeProfileCollection dikeProfiles)
         {
             if (calculations == null)
             {
@@ -247,11 +234,6 @@ namespace Riskeer.GrassCoverErosionInwards.Service
             if (dikeProfiles == null)
             {
                 throw new ArgumentNullException(nameof(dikeProfiles));
-            }
-
-            if (sectionResults == null)
-            {
-                throw new ArgumentNullException(nameof(sectionResults));
             }
 
             IEnumerable<GrassCoverErosionInwardsCalculation> affectedCalculations =
