@@ -176,6 +176,21 @@ namespace Riskeer.MacroStabilityInwards.Data.TestUtil
                             Mean = (RoundedDouble) 15,
                             CoefficientOfVariation = (RoundedDouble) 0.5,
                             Shift = (RoundedDouble) 0.2
+                        },
+                        ShearStrengthRatio =
+                        {
+                            Mean = (RoundedDouble) 0.1,
+                            CoefficientOfVariation = (RoundedDouble) 0.2
+                        },
+                        Pop =
+                        {
+                            Mean = (RoundedDouble) 0.3,
+                            CoefficientOfVariation = (RoundedDouble) 0.4
+                        },
+                        StrengthIncreaseExponent =
+                        {
+                            Mean = (RoundedDouble) 0.5,
+                            CoefficientOfVariation = (RoundedDouble) 0.6
                         }
                     }
                 },
@@ -198,6 +213,21 @@ namespace Riskeer.MacroStabilityInwards.Data.TestUtil
                             Mean = (RoundedDouble) 15,
                             CoefficientOfVariation = (RoundedDouble) 0.5,
                             Shift = (RoundedDouble) 0.2
+                        },
+                        ShearStrengthRatio =
+                        {
+                            Mean = (RoundedDouble) 0.1,
+                            CoefficientOfVariation = (RoundedDouble) 0.2
+                        },
+                        Pop =
+                        {
+                            Mean = (RoundedDouble) 0.3,
+                            CoefficientOfVariation = (RoundedDouble) 0.4
+                        },
+                        StrengthIncreaseExponent =
+                        {
+                            Mean = (RoundedDouble) 0.5,
+                            CoefficientOfVariation = (RoundedDouble) 0.6
                         }
                     }
                 },
@@ -220,6 +250,21 @@ namespace Riskeer.MacroStabilityInwards.Data.TestUtil
                             Mean = (RoundedDouble) 15,
                             CoefficientOfVariation = (RoundedDouble) 0.5,
                             Shift = (RoundedDouble) 0.2
+                        },
+                        ShearStrengthRatio =
+                        {
+                            Mean = (RoundedDouble) 0.1,
+                            CoefficientOfVariation = (RoundedDouble) 0.2
+                        },
+                        Pop =
+                        {
+                            Mean = (RoundedDouble) 0.3,
+                            CoefficientOfVariation = (RoundedDouble) 0.4
+                        },
+                        StrengthIncreaseExponent = 
+                        {
+                            Mean = (RoundedDouble) 0.5,
+                            CoefficientOfVariation = (RoundedDouble) 0.6
                         }
                     }
                 }
