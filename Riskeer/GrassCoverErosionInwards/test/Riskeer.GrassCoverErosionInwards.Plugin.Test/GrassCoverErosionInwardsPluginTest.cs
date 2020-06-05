@@ -141,7 +141,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test
                 ViewInfo[] viewInfos = plugin.GetViewInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(7, viewInfos.Length);
+                Assert.AreEqual(8, viewInfos.Length);
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
@@ -183,6 +183,12 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test
                     typeof(OvertoppingRateOutputContext),
                     typeof(GrassCoverErosionInwardsCalculation),
                     typeof(OvertoppingRateOutputGeneralResultFaultTreeIllustrationPointView));
+
+                PluginTestHelper.AssertViewInfoDefined(
+                    viewInfos,
+                    typeof(GrassCoverErosionInwardsCalculationGroupContext),
+                    typeof(CalculationGroup),
+                    typeof(GrassCoverErosionInwardsCalculationsView));
             }
         }
 
