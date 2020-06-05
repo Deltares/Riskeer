@@ -249,6 +249,20 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
                 CreateInstance = context => new OvertoppingRateOutputGeneralResultFaultTreeIllustrationPointView(
                     () => context.WrappedData.Output?.OvertoppingRateOutput?.GeneralResult)
             };
+
+            yield return new ViewInfo<GrassCoverErosionInwardsCalculationGroupContext, CalculationGroup, GrassCoverErosionInwardsCalculationsView>
+            {
+                GetViewData = context => context.WrappedData,
+                GetViewName = (view, context) => context.WrappedData.Name,
+                Image = RiskeerCommonFormsResources.GeneralFolderIcon,
+                AdditionalDataCheck = context => context.WrappedData == context.FailureMechanism.CalculationsGroup,
+                CloseForData = CloseGrassCoverErosionInwardsCalculationsViewForData,
+                AfterCreate = (view, context) =>
+                {
+                    view.AssessmentSection = context.AssessmentSection;
+                    view.GrassCoverErosionInwardsFailureMechanism = context.FailureMechanism;
+                }
+            };
         }
 
         public override IEnumerable<TreeNodeInfo> GetTreeNodeInfos()
@@ -463,6 +477,21 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
             }
 
             return calculations != null && calculations.Any(ci => ReferenceEquals(view.Data, ci));
+        }
+
+        private static bool CloseGrassCoverErosionInwardsCalculationsViewForData(GrassCoverErosionInwardsCalculationsView view, object o)
+        {
+            var assessmentSection = o as IAssessmentSection;
+            var grassCoverErosionInwardsFailureMechanism = o as GrassCoverErosionInwardsFailureMechanism;
+
+            if (assessmentSection != null)
+            {
+                grassCoverErosionInwardsFailureMechanism = assessmentSection.GetFailureMechanisms()
+                                                          .OfType<GrassCoverErosionInwardsFailureMechanism>()
+                                                          .FirstOrDefault();
+            }
+
+            return grassCoverErosionInwardsFailureMechanism != null && ReferenceEquals(view.Data, grassCoverErosionInwardsFailureMechanism.CalculationsGroup);
         }
 
         #endregion
