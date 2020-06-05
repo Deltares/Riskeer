@@ -148,24 +148,24 @@ namespace Core.Components.DotSpatial.Projections
         /// <remarks>A value of 4 of <paramref name="intervals"/> means that 3 equally spaced
         /// points are introduced along the line between two <see cref="Coordinate"/> instances
         /// in <paramref name="original"/>.</remarks>
-        private static IList<Coordinate> Densify(this IList<Coordinate> original, int intervals)
+        private static Coordinate[] Densify(this IList<Coordinate> original, int intervals)
         {
             return GetDensifiedCoordinates(original, intervals - 1);
         }
 
-        private static IList<Coordinate> GetDensifiedCoordinates(IList<Coordinate> original, int numberOfAdditionalPoints)
+        private static Coordinate[] GetDensifiedCoordinates(IList<Coordinate> original, int numberOfAdditionalPoints)
         {
             int numberOfEdges = original.Count - 1;
-            var resultList = new List<Coordinate>(numberOfEdges * (numberOfAdditionalPoints + 1) + 1)
+            Coordinate[] results =
             {
                 original[0]
             };
             for (var i = 1; i <= numberOfEdges; i++)
             {
-                resultList.AddRange(GetEdgePointsExcludingStart(original[i - 1], original[i], numberOfAdditionalPoints));
+                results = results.Concat(GetEdgePointsExcludingStart(original[i - 1], original[i], numberOfAdditionalPoints)).ToArray();
             }
 
-            return resultList;
+            return results;
         }
 
         private static IEnumerable<Coordinate> GetEdgePointsExcludingStart(Coordinate start, Coordinate end, int numberOfAdditionalPoints)

@@ -57,7 +57,7 @@ namespace Core.Components.DotSpatial.Converter
                 var innerRings = new ILinearRing[pointCollections.Length - 1];
                 for (var i = 1; i < pointCollections.Length; i++)
                 {
-                    Coordinate[] innerRingCoordinates = ConvertPoint2DElementsToCoordinates(pointCollections[i]).ToArray();
+                    Coordinate[] innerRingCoordinates = ConvertPoint2DElementsToCoordinates(pointCollections[i]);
                     innerRings[i - 1] = new LinearRing(innerRingCoordinates);
                 }
 

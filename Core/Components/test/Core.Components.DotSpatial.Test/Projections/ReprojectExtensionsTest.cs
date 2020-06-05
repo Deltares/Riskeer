@@ -22,7 +22,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Core.Common.TestUtil;
 using Core.Components.DotSpatial.Projections;
 using DotSpatial.Data;
 using DotSpatial.Projections;
