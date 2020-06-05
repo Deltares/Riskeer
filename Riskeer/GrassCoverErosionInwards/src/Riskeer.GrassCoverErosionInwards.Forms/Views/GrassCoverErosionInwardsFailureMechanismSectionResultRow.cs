@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using Core.Common.Controls.DataGrid;
 using Riskeer.AssemblyTool.Data;
@@ -51,6 +52,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
         private readonly int combinedAssemblyProbabilityIndex;
         private readonly int manualAssemblyProbabilityIndex;
 
+        private readonly IEnumerable<GrassCoverErosionInwardsCalculationScenario> calculationScenarios;
         private readonly GrassCoverErosionInwardsFailureMechanism failureMechanism;
         private readonly IAssessmentSection assessmentSection;
         private FailureMechanismSectionAssemblyCategoryGroup simpleAssemblyCategoryGroup;
@@ -63,6 +65,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
         /// </summary>
         /// <param name="sectionResult">The <see cref="GrassCoverErosionInwardsFailureMechanismSectionResult"/> that is 
         /// the source of this row.</param>
+        /// <param name="calculationScenarios">All calculation scenarios in the failure mechanism.</param>
         /// <param name="failureMechanism">The failure mechanism the result belongs to.</param>
         /// <param name="assessmentSection">The assessment section the result belongs to.</param>
         /// <param name="constructionProperties">The property values required to create an instance of
@@ -71,11 +74,17 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
         /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
         /// is a valid value, but unsupported.</exception>
         internal GrassCoverErosionInwardsFailureMechanismSectionResultRow(GrassCoverErosionInwardsFailureMechanismSectionResult sectionResult,
+                                                                          IEnumerable<GrassCoverErosionInwardsCalculationScenario> calculationScenarios,
                                                                           GrassCoverErosionInwardsFailureMechanism failureMechanism,
                                                                           IAssessmentSection assessmentSection,
                                                                           ConstructionProperties constructionProperties)
             : base(sectionResult)
         {
+            if (calculationScenarios == null)
+            {
+                throw new ArgumentNullException(nameof(calculationScenarios));
+            }
+
             if (failureMechanism == null)
             {
                 throw new ArgumentNullException(nameof(failureMechanism));
@@ -91,6 +100,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
                 throw new ArgumentNullException(nameof(constructionProperties));
             }
 
+            this.calculationScenarios = calculationScenarios;
             this.failureMechanism = failureMechanism;
             this.assessmentSection = assessmentSection;
 

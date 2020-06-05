@@ -104,6 +104,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
         {
             return new GrassCoverErosionInwardsFailureMechanismSectionResultRow(
                 sectionResult,
+                FailureMechanism.Calculations.Cast<GrassCoverErosionInwardsCalculationScenario>(),
                 FailureMechanism,
                 assessmentSection,
                 new GrassCoverErosionInwardsFailureMechanismSectionResultRow.ConstructionProperties
