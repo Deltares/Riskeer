@@ -373,6 +373,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
             {
                 detailedAssemblyCategoryGroup = GrassCoverErosionInwardsFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
                     SectionResult,
+                    calculationScenarios,
                     failureMechanism,
                     assessmentSection).Group;
             }
@@ -406,6 +407,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
                 FailureMechanismSectionAssembly combinedAssembly =
                     GrassCoverErosionInwardsFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
                         SectionResult,
+                        calculationScenarios,
                         failureMechanism,
                         assessmentSection);
 

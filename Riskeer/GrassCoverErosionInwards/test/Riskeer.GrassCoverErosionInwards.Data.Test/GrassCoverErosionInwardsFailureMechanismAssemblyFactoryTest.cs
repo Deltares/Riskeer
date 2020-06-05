@@ -58,10 +58,10 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
         public void AssembleSimpleAssessment_FailureMechanismSectionResultNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => GrassCoverErosionInwardsFailureMechanismAssemblyFactory.AssembleSimpleAssessment(null);
+            void Call() => GrassCoverErosionInwardsFailureMechanismAssemblyFactory.AssembleSimpleAssessment(null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanismSectionResult", exception.ParamName);
         }
 
@@ -125,10 +125,10 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
-                TestDelegate call = () => GrassCoverErosionInwardsFailureMechanismAssemblyFactory.AssembleSimpleAssessment(sectionResult);
+                void Call() => GrassCoverErosionInwardsFailureMechanismAssemblyFactory.AssembleSimpleAssessment(sectionResult);
 
                 // Assert
-                var exception = Assert.Throws<AssemblyException>(call);
+                var exception = Assert.Throws<AssemblyException>(Call);
                 Exception innerException = exception.InnerException;
                 Assert.IsInstanceOf<FailureMechanismSectionAssemblyCalculatorException>(innerException);
                 Assert.AreEqual(innerException.Message, exception.Message);
@@ -148,13 +148,12 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => GrassCoverErosionInwardsFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
-                null,
-                new GrassCoverErosionInwardsFailureMechanism(),
-                assessmentSection);
+            void Call() => GrassCoverErosionInwardsFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
+                null, Enumerable.Empty<GrassCoverErosionInwardsCalculationScenario>(),
+                new GrassCoverErosionInwardsFailureMechanism(), assessmentSection);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanismSectionResult", exception.ParamName);
             mocks.VerifyAll();
         }
@@ -167,14 +166,14 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
+            var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+
             // Call
-            TestDelegate call = () => GrassCoverErosionInwardsFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
-                new GrassCoverErosionInwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
-                null,
-                assessmentSection);
+            void Call() => GrassCoverErosionInwardsFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
+                sectionResult, Enumerable.Empty<GrassCoverErosionInwardsCalculationScenario>(), null, assessmentSection);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
             mocks.VerifyAll();
         }
@@ -182,14 +181,16 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
         [Test]
         public void AssembleDetailedAssessment_AssessmentSectionNull_ThrowsArgumentNullException()
         {
+            // Setup
+            var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+
             // Call
-            TestDelegate call = () => GrassCoverErosionInwardsFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
-                new GrassCoverErosionInwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
-                new GrassCoverErosionInwardsFailureMechanism(),
-                null);
+            void Call() => GrassCoverErosionInwardsFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
+                sectionResult, Enumerable.Empty<GrassCoverErosionInwardsCalculationScenario>(),
+                new GrassCoverErosionInwardsFailureMechanism(), null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
@@ -215,9 +216,8 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
 
                 // Call
                 GrassCoverErosionInwardsFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
-                    sectionResult,
-                    failureMechanism,
-                    assessmentSection);
+                    sectionResult, Enumerable.Empty<GrassCoverErosionInwardsCalculationScenario>(),
+                    failureMechanism, assessmentSection);
 
                 // Assert
                 Assert.AreEqual(sectionResult.GetDetailedAssessmentProbability(failureMechanism, assessmentSection),
@@ -248,9 +248,8 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
                 // Call
                 FailureMechanismSectionAssembly actualOutput =
                     GrassCoverErosionInwardsFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
-                        sectionResult,
-                        failureMechanism,
-                        assessmentSection);
+                        sectionResult, Enumerable.Empty<GrassCoverErosionInwardsCalculationScenario>(),
+                        failureMechanism, assessmentSection);
 
                 // Assert
                 FailureMechanismSectionAssembly calculatorOutput = calculator.DetailedAssessmentAssemblyOutput;
@@ -278,13 +277,12 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
-                TestDelegate call = () => GrassCoverErosionInwardsFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
-                    sectionResult,
-                    failureMechanism,
-                    assessmentSection);
+                void Call() => GrassCoverErosionInwardsFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
+                    sectionResult, Enumerable.Empty<GrassCoverErosionInwardsCalculationScenario>(),
+                    failureMechanism, assessmentSection);
 
                 // Assert
-                var exception = Assert.Throws<AssemblyException>(call);
+                var exception = Assert.Throws<AssemblyException>(Call);
                 Exception innerException = exception.InnerException;
                 Assert.IsInstanceOf<FailureMechanismSectionAssemblyCalculatorException>(innerException);
                 Assert.AreEqual(innerException.Message, exception.Message);
@@ -305,13 +303,11 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => GrassCoverErosionInwardsFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(
-                null,
-                new GrassCoverErosionInwardsFailureMechanism(),
-                assessmentSection);
+            void Call() => GrassCoverErosionInwardsFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(
+                null, new GrassCoverErosionInwardsFailureMechanism(), assessmentSection);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanismSectionResult", exception.ParamName);
             mocks.VerifyAll();
         }
@@ -325,13 +321,12 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => GrassCoverErosionInwardsFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(
+            void Call() => GrassCoverErosionInwardsFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(
                 new GrassCoverErosionInwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
-                null,
-                assessmentSection);
+                null, assessmentSection);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
             mocks.VerifyAll();
         }
@@ -340,13 +335,12 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
         public void AssembleTailorMadeAssessment_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => GrassCoverErosionInwardsFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(
+            void Call() => GrassCoverErosionInwardsFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(
                 new GrassCoverErosionInwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
-                new GrassCoverErosionInwardsFailureMechanism(),
-                null);
+                new GrassCoverErosionInwardsFailureMechanism(), null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
@@ -369,9 +363,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
 
                 // Call
                 GrassCoverErosionInwardsFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(
-                    sectionResult,
-                    failureMechanism,
-                    assessmentSection);
+                    sectionResult, failureMechanism, assessmentSection);
 
                 // Assert
                 Assert.AreEqual(sectionResult.TailorMadeAssessmentProbability, calculator.TailorMadeAssessmentProbabilityInput);
@@ -401,9 +393,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
                 // Call
                 FailureMechanismSectionAssembly actualOutput =
                     GrassCoverErosionInwardsFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(
-                        sectionResult,
-                        failureMechanism,
-                        assessmentSection);
+                        sectionResult, failureMechanism, assessmentSection);
 
                 // Assert
                 FailureMechanismSectionAssembly calculatorOutput = calculator.TailorMadeAssessmentAssemblyOutput;
@@ -431,13 +421,11 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
-                TestDelegate call = () => GrassCoverErosionInwardsFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(
-                    sectionResult,
-                    failureMechanism,
-                    assessmentSection);
+                void Call() => GrassCoverErosionInwardsFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(
+                    sectionResult, failureMechanism, assessmentSection);
 
                 // Assert
-                var exception = Assert.Throws<AssemblyException>(call);
+                var exception = Assert.Throws<AssemblyException>(Call);
                 Exception innerException = exception.InnerException;
                 Assert.IsInstanceOf<FailureMechanismSectionAssemblyCalculatorException>(innerException);
                 Assert.AreEqual(innerException.Message, exception.Message);
@@ -458,13 +446,12 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => GrassCoverErosionInwardsFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
-                null,
-                new GrassCoverErosionInwardsFailureMechanism(),
-                assessmentSection);
+            void Call() => GrassCoverErosionInwardsFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
+                null, Enumerable.Empty<GrassCoverErosionInwardsCalculationScenario>(), 
+                new GrassCoverErosionInwardsFailureMechanism(), assessmentSection);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanismSectionResult", exception.ParamName);
             mocks.VerifyAll();
         }
@@ -478,13 +465,12 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => GrassCoverErosionInwardsFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
+            void Call() => GrassCoverErosionInwardsFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
                 new GrassCoverErosionInwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
-                null,
-                assessmentSection);
+                Enumerable.Empty<GrassCoverErosionInwardsCalculationScenario>(), null, assessmentSection);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
             mocks.VerifyAll();
         }
@@ -493,13 +479,12 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
         public void AssembleCombinedAssessment_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => GrassCoverErosionInwardsFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
+            void Call() => GrassCoverErosionInwardsFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
                 new GrassCoverErosionInwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
-                new GrassCoverErosionInwardsFailureMechanism(),
-                null);
+                Enumerable.Empty<GrassCoverErosionInwardsCalculationScenario>(), new GrassCoverErosionInwardsFailureMechanism(), null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
@@ -528,9 +513,8 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
 
                 // Call
                 GrassCoverErosionInwardsFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
-                    sectionResult,
-                    failureMechanism,
-                    assessmentSection);
+                    sectionResult, Enumerable.Empty<GrassCoverErosionInwardsCalculationScenario>(),
+                    failureMechanism, assessmentSection);
 
                 // Assert
                 AssemblyToolTestHelper.AssertAreEqual(calculator.SimpleAssessmentAssemblyOutput, calculator.CombinedSimpleAssemblyInput);
@@ -562,9 +546,8 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
 
                 // Call
                 GrassCoverErosionInwardsFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
-                    sectionResult,
-                    failureMechanism,
-                    assessmentSection);
+                    sectionResult, Enumerable.Empty<GrassCoverErosionInwardsCalculationScenario>(),
+                    failureMechanism, assessmentSection);
 
                 // Assert
                 AssemblyToolTestHelper.AssertAreEqual(calculator.SimpleAssessmentAssemblyOutput, calculator.CombinedSimpleAssemblyInput);
@@ -594,9 +577,8 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
                 // Call
                 FailureMechanismSectionAssembly actualOutput =
                     GrassCoverErosionInwardsFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
-                        sectionResult,
-                        failureMechanism,
-                        assessmentSection);
+                        sectionResult, Enumerable.Empty<GrassCoverErosionInwardsCalculationScenario>(),
+                        failureMechanism, assessmentSection);
 
                 // Assert
                 Assert.AreSame(calculator.CombinedAssemblyOutput, actualOutput);
@@ -623,13 +605,12 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
                 calculator.ThrowExceptionOnCalculateCombinedAssembly = true;
 
                 // Call
-                TestDelegate call = () => GrassCoverErosionInwardsFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
-                    sectionResult,
-                    failureMechanism,
-                    assessmentSection);
+                void Call() => GrassCoverErosionInwardsFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
+                    sectionResult, Enumerable.Empty<GrassCoverErosionInwardsCalculationScenario>(), 
+                    failureMechanism, assessmentSection);
 
                 // Assert
-                var exception = Assert.Throws<AssemblyException>(call);
+                var exception = Assert.Throws<AssemblyException>(Call);
                 Exception innerException = exception.InnerException;
                 Assert.IsInstanceOf<FailureMechanismSectionAssemblyCalculatorException>(innerException);
                 Assert.AreEqual(innerException.Message, exception.Message);
@@ -650,14 +631,11 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => GrassCoverErosionInwardsFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
-                null,
-                new GrassCoverErosionInwardsFailureMechanism(),
-                assessmentSection,
-                new Random(39).NextBoolean());
+            void Call() => GrassCoverErosionInwardsFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
+                null, new GrassCoverErosionInwardsFailureMechanism(), assessmentSection, new Random(39).NextBoolean());
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanismSectionResult", exception.ParamName);
             mocks.VerifyAll();
         }
@@ -671,14 +649,12 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => GrassCoverErosionInwardsFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
+            void Call() => GrassCoverErosionInwardsFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
                 new GrassCoverErosionInwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
-                null,
-                assessmentSection,
-                new Random(39).NextBoolean());
+                null, assessmentSection, new Random(39).NextBoolean());
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
             mocks.VerifyAll();
         }
@@ -687,14 +663,12 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
         public void GetSectionAssemblyCategoryGroup_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => GrassCoverErosionInwardsFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
+            void Call() => GrassCoverErosionInwardsFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
                 new GrassCoverErosionInwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
-                new GrassCoverErosionInwardsFailureMechanism(),
-                null,
-                new Random(39).NextBoolean());
+                new GrassCoverErosionInwardsFailureMechanism(), null, new Random(39).NextBoolean());
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
@@ -716,10 +690,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
 
                 // Call
                 GrassCoverErosionInwardsFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
-                    sectionResult,
-                    failureMechanism,
-                    assessmentSection,
-                    new Random(39).NextBoolean());
+                    sectionResult, failureMechanism, assessmentSection, new Random(39).NextBoolean());
 
                 // Assert
                 AssemblyToolTestHelper.AssertAreEqual(calculator.SimpleAssessmentAssemblyOutput, calculator.CombinedSimpleAssemblyInput);
@@ -755,10 +726,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
 
                 // Call
                 GrassCoverErosionInwardsFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
-                    sectionResult,
-                    failureMechanism,
-                    assessmentSection,
-                    true);
+                    sectionResult, failureMechanism, assessmentSection, true);
 
                 // Assert
                 Assert.AreEqual(sectionResult.ManualAssemblyProbability, calculator.ManualAssemblyProbabilityInput);
@@ -794,10 +762,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
 
                 // Call
                 GrassCoverErosionInwardsFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
-                    sectionResult,
-                    failureMechanism,
-                    assessmentSection,
-                    false);
+                    sectionResult, failureMechanism, assessmentSection, false);
 
                 // Assert
                 Assert.AreEqual(0.0, calculator.ManualAssemblyProbabilityInput);
@@ -825,10 +790,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
 
                 // Call
                 FailureMechanismSectionAssemblyCategoryGroup categoryGroup = GrassCoverErosionInwardsFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
-                    sectionResult,
-                    failureMechanism,
-                    assessmentSection,
-                    new Random(39).NextBoolean());
+                    sectionResult, failureMechanism, assessmentSection, new Random(39).NextBoolean());
 
                 // Assert
                 Assert.AreEqual(calculator.CombinedAssemblyOutput.Group, categoryGroup);
@@ -859,10 +821,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
 
                 // Call
                 FailureMechanismSectionAssemblyCategoryGroup categoryGroup = GrassCoverErosionInwardsFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
-                    sectionResult,
-                    failureMechanism,
-                    assessmentSection,
-                    true);
+                    sectionResult, failureMechanism, assessmentSection, true);
 
                 // Assert
                 Assert.AreEqual(calculator.ManualAssemblyAssemblyOutput.Group, categoryGroup);
@@ -893,10 +852,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
 
                 // Call
                 FailureMechanismSectionAssemblyCategoryGroup categoryGroup = GrassCoverErosionInwardsFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
-                    sectionResult,
-                    failureMechanism,
-                    assessmentSection,
-                    false);
+                    sectionResult, failureMechanism, assessmentSection, false);
 
                 // Assert
                 Assert.AreEqual(calculator.CombinedAssemblyOutput.Group, categoryGroup);
@@ -934,14 +890,11 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
                 }
 
                 // Call
-                TestDelegate call = () => GrassCoverErosionInwardsFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
-                    sectionResult,
-                    failureMechanism,
-                    assessmentSection,
-                    useManualAssembly);
+                void Call() => GrassCoverErosionInwardsFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
+                    sectionResult, failureMechanism, assessmentSection, useManualAssembly);
 
                 // Assert
-                var exception = Assert.Throws<AssemblyException>(call);
+                var exception = Assert.Throws<AssemblyException>(Call);
                 Exception innerException = exception.InnerException;
                 Assert.IsInstanceOf<FailureMechanismSectionAssemblyCalculatorException>(innerException);
                 Assert.AreEqual(innerException.Message, exception.Message);
@@ -962,13 +915,11 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => GrassCoverErosionInwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(
-                null,
-                assessmentSection,
-                new Random(39).NextBoolean());
+            void Call() => GrassCoverErosionInwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(
+                null, assessmentSection, new Random(39).NextBoolean());
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
             mocks.VerifyAll();
         }
@@ -977,13 +928,11 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
         public void AssembleFailureMechanism_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => GrassCoverErosionInwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(
-                new GrassCoverErosionInwardsFailureMechanism(),
-                null,
-                new Random(39).NextBoolean());
+            void Call() => GrassCoverErosionInwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(
+                new GrassCoverErosionInwardsFailureMechanism(), null, new Random(39).NextBoolean());
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
@@ -1158,13 +1107,11 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
-                TestDelegate call = () => GrassCoverErosionInwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(
-                    failureMechanism,
-                    assessmentSection,
-                    new Random(39).NextBoolean());
+                void Call() => GrassCoverErosionInwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(
+                    failureMechanism, assessmentSection, new Random(39).NextBoolean());
 
                 // Assert
-                var exception = Assert.Throws<AssemblyException>(call);
+                var exception = Assert.Throws<AssemblyException>(Call);
                 Exception innerException = exception.InnerException;
                 Assert.IsInstanceOf<FailureMechanismAssemblyCalculatorException>(innerException);
                 Assert.AreEqual(innerException.Message, exception.Message);
@@ -1193,13 +1140,11 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
                 calculator.ThrowExceptionOnCalculateCombinedAssembly = true;
 
                 // Call
-                TestDelegate call = () => GrassCoverErosionInwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(
-                    failureMechanism,
-                    assessmentSection,
-                    new Random(39).NextBoolean());
+                void Call() => GrassCoverErosionInwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(
+                    failureMechanism, assessmentSection, new Random(39).NextBoolean());
 
                 // Assert
-                var exception = Assert.Throws<AssemblyException>(call);
+                var exception = Assert.Throws<AssemblyException>(Call);
                 Exception innerException = exception.InnerException;
                 Assert.IsInstanceOf<AssemblyException>(innerException);
                 Assert.AreEqual("Voor een of meerdere vakken kan geen resultaat worden bepaald.", exception.Message);

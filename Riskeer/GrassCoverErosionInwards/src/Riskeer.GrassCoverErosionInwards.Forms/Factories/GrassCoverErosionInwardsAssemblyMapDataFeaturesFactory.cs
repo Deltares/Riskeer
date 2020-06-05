@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Core.Components.Gis.Features;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Forms.Factories;
@@ -78,6 +79,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Factories
                 failureMechanism,
                 sectionResult => GrassCoverErosionInwardsFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
                     sectionResult,
+                    failureMechanism.Calculations.Cast<GrassCoverErosionInwardsCalculationScenario>(),
                     failureMechanism,
                     assessmentSection));
         }
@@ -133,6 +135,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Factories
                 failureMechanism,
                 sectionResult => GrassCoverErosionInwardsFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
                     sectionResult,
+                    failureMechanism.Calculations.Cast<GrassCoverErosionInwardsCalculationScenario>(),
                     failureMechanism,
                     assessmentSection));
         }

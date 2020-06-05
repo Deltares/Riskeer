@@ -76,6 +76,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data
         /// </summary>
         /// <param name="failureMechanismSectionResult">The failure mechanism section result to
         /// assemble the detailed assembly for.</param>
+        /// <param name="calculationScenarios">The calculation scenarios belonging to this section.</param>
         /// <param name="failureMechanism">The failure mechanism this section belongs to.</param>
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> this section belongs to.</param>
         /// <returns>A <see cref="FailureMechanismSectionAssembly"/>.</returns>
@@ -84,12 +85,18 @@ namespace Riskeer.GrassCoverErosionInwards.Data
         /// could not be created.</exception>
         public static FailureMechanismSectionAssembly AssembleDetailedAssessment(
             GrassCoverErosionInwardsFailureMechanismSectionResult failureMechanismSectionResult,
+            IEnumerable<GrassCoverErosionInwardsCalculationScenario> calculationScenarios,
             GrassCoverErosionInwardsFailureMechanism failureMechanism,
             IAssessmentSection assessmentSection)
         {
             if (failureMechanismSectionResult == null)
             {
                 throw new ArgumentNullException(nameof(failureMechanismSectionResult));
+            }
+
+            if (calculationScenarios == null)
+            {
+                throw new ArgumentNullException(nameof(calculationScenarios));
             }
 
             if (failureMechanism == null)
@@ -172,6 +179,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data
         /// </summary>
         /// <param name="failureMechanismSectionResult">The failure mechanism section result to
         /// combine the assemblies for.</param>
+        /// <param name="calculationScenarios">The calculation scenarios belonging to this section.</param>
         /// <param name="failureMechanism">The failure mechanism this section belongs to.</param>
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> this section belongs to.</param>
         /// <returns>A <see cref="FailureMechanismSectionAssembly"/>.</returns>
@@ -180,12 +188,18 @@ namespace Riskeer.GrassCoverErosionInwards.Data
         /// could not be created.</exception>
         public static FailureMechanismSectionAssembly AssembleCombinedAssessment(
             GrassCoverErosionInwardsFailureMechanismSectionResult failureMechanismSectionResult,
+            IEnumerable<GrassCoverErosionInwardsCalculationScenario> calculationScenarios,
             GrassCoverErosionInwardsFailureMechanism failureMechanism,
             IAssessmentSection assessmentSection)
         {
             if (failureMechanismSectionResult == null)
             {
                 throw new ArgumentNullException(nameof(failureMechanismSectionResult));
+            }
+
+            if (calculationScenarios == null)
+            {
+                throw new ArgumentNullException(nameof(calculationScenarios));
             }
 
             if (failureMechanism == null)
@@ -213,7 +227,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data
 
                 return calculator.AssembleCombined(
                     simpleAssembly,
-                    AssembleDetailedAssessment(failureMechanismSectionResult, failureMechanism, assessmentSection),
+                    AssembleDetailedAssessment(failureMechanismSectionResult, calculationScenarios, failureMechanism, assessmentSection),
                     AssembleTailorMadeAssessment(failureMechanismSectionResult, failureMechanism, assessmentSection));
             }
             catch (FailureMechanismSectionAssemblyCalculatorException e)
@@ -333,6 +347,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data
             else
             {
                 sectionAssembly = AssembleCombinedAssessment(failureMechanismSectionResult,
+                                                             failureMechanism.Calculations.Cast<GrassCoverErosionInwardsCalculationScenario>(),
                                                              failureMechanism,
                                                              assessmentSection);
             }
