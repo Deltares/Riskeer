@@ -182,7 +182,8 @@ namespace Core.Components.DotSpatial.Projections
         public IPolygon BoundingOrdinatesToWorldCoordinates(int width, int height)
         {
             Coordinate leftTop = ToWorldCoordinates(0, 0);
-            Coordinate[] ringCoordinates = {
+            Coordinate[] ringCoordinates =
+            {
                 leftTop,
                 ToWorldCoordinates(0, height),
                 ToWorldCoordinates(width, 0),

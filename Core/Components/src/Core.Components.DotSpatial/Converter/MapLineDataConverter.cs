@@ -100,7 +100,7 @@ namespace Core.Components.DotSpatial.Converter
 
         private static ILineString GetLineString(IGeometryFactory factory, IEnumerable<Point2D> points)
         {
-            Coordinate[] coordinates = ConvertPoint2DElementsToCoordinates(points).ToArray();
+            Coordinate[] coordinates = ConvertPoint2DElementsToCoordinates(points);
             return factory.CreateLineString(coordinates);
         }
     }

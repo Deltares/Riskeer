@@ -156,16 +156,16 @@ namespace Core.Components.DotSpatial.Projections
         private static Coordinate[] GetDensifiedCoordinates(IList<Coordinate> original, int numberOfAdditionalPoints)
         {
             int numberOfEdges = original.Count - 1;
-            Coordinate[] results =
+            var resultList = new List<Coordinate>(numberOfEdges * (numberOfAdditionalPoints + 1) + 1)
             {
                 original[0]
             };
             for (var i = 1; i <= numberOfEdges; i++)
             {
-                results = results.Concat(GetEdgePointsExcludingStart(original[i - 1], original[i], numberOfAdditionalPoints)).ToArray();
+                resultList.AddRange(GetEdgePointsExcludingStart(original[i - 1], original[i], numberOfAdditionalPoints));
             }
 
-            return results;
+            return resultList.ToArray();
         }
 
         private static IEnumerable<Coordinate> GetEdgePointsExcludingStart(Coordinate start, Coordinate end, int numberOfAdditionalPoints)
