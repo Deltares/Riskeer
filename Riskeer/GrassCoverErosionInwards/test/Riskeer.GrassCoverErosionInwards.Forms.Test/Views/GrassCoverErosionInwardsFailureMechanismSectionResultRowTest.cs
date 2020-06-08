@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using Core.Common.Base;
+using Core.Common.Base.Data;
 using Core.Common.Controls.DataGrid;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -731,10 +732,137 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             }
         }
 
+        // [Test]
+        // [TestCase(SimpleAssessmentValidityOnlyResultType.None)]
+        // [TestCase(SimpleAssessmentValidityOnlyResultType.Applicable)]
+        // public void Constructor_SectionResultWithoutCalculation_DetailedAssessmentProbabilityHasErrorText(
+        //     SimpleAssessmentValidityOnlyResultType simpleAssessmentResult)
+        // {
+        //     // Setup
+        //     var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+        //
+        //     var mocks = new MockRepository();
+        //     IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+        //     mocks.ReplayAll();
+        //
+        //     FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+        //     var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(section)
+        //     {
+        //         SimpleAssessmentResult = simpleAssessmentResult
+        //     };
+        //
+        //     GrassCoverErosionInwardsCalculationScenario[] calculationScenarios =
+        //     {
+        //         GrassCoverErosionInwardsCalculationScenarioTestFactory.CreateGrassCoverErosionInwardsCalculationScenario(section)
+        //     };
+        //
+        //     using (new AssemblyToolCalculatorFactoryConfig())
+        //     {
+        //         // Call
+        //         var resultRow = new GrassCoverErosionInwardsFailureMechanismSectionResultRow(
+        //             sectionResult, calculationScenarios, failureMechanism, assessmentSection, ConstructionProperties);
+        //
+        //         // Assert
+        //         Assert.IsNaN(resultRow.DetailedAssessmentProbability);
+        //         Assert.AreEqual("Er moet een maatgevende berekening voor dit vak worden geselecteerd.",
+        //                         resultRow.ColumnStateDefinitions[ConstructionProperties.DetailedAssessmentProbabilityIndex].ErrorText);
+        //         mocks.VerifyAll();
+        //     }
+        // }
+        //
+        // [Test]
+        // [TestCase(SimpleAssessmentValidityOnlyResultType.None)]
+        // [TestCase(SimpleAssessmentValidityOnlyResultType.Applicable)]
+        // public void Constructor_SectionResultAndCalculationNotCalculated_DetailedAssessmentProbabilityHasErrorText(
+        //     SimpleAssessmentValidityOnlyResultType simpleAssessmentResult)
+        // {
+        //     // Setup
+        //     var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+        //
+        //     var mocks = new MockRepository();
+        //     IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+        //     mocks.ReplayAll();
+        //
+        //     FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+        //     var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(section)
+        //     {
+        //         Calculation = new GrassCoverErosionInwardsCalculation(),
+        //         SimpleAssessmentResult = simpleAssessmentResult
+        //     };
+        //
+        //     GrassCoverErosionInwardsCalculationScenario[] calculationScenarios =
+        //     {
+        //         GrassCoverErosionInwardsCalculationScenarioTestFactory.CreateNotCalculatedGrassCoverErosionInwardsCalculationScenario(section)
+        //     };
+        //
+        //     using (new AssemblyToolCalculatorFactoryConfig())
+        //     {
+        //         // Call
+        //         var resultRow = new GrassCoverErosionInwardsFailureMechanismSectionResultRow(
+        //             sectionResult, calculationScenarios, failureMechanism, assessmentSection, ConstructionProperties);
+        //
+        //         // Assert
+        //         Assert.IsNaN(resultRow.DetailedAssessmentProbability);
+        //         Assert.AreEqual("De maatgevende berekening voor dit vak moet nog worden uitgevoerd.",
+        //                         resultRow.ColumnStateDefinitions[ConstructionProperties.DetailedAssessmentProbabilityIndex].ErrorText);
+        //         mocks.VerifyAll();
+        //     }
+        // }
+        //
+        // [Test]
+        // [TestCase(SimpleAssessmentValidityOnlyResultType.None)]
+        // [TestCase(SimpleAssessmentValidityOnlyResultType.Applicable)]
+        // public void Constructor_SectionResultAndFailedCalculation_DetailedAssessmentProbabilityHasErrorText(
+        //     SimpleAssessmentValidityOnlyResultType simpleAssessmentResult)
+        // {
+        //     // Setup
+        //     var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+        //
+        //     var mocks = new MockRepository();
+        //     IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+        //     mocks.ReplayAll();
+        //
+        //     var calculation = new GrassCoverErosionInwardsCalculation
+        //     {
+        //         Output = new GrassCoverErosionInwardsOutput(new TestOvertoppingOutput(double.NaN),
+        //                                                     new TestDikeHeightOutput(double.NaN),
+        //                                                     new TestOvertoppingRateOutput(double.NaN))
+        //     };
+        //     FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+        //     var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(section)
+        //     {
+        //         Calculation = calculation,
+        //         SimpleAssessmentResult = simpleAssessmentResult
+        //     };
+        //
+        //     GrassCoverErosionInwardsCalculationScenario calculationScenario = GrassCoverErosionInwardsCalculationScenarioTestFactory.CreateNotCalculatedGrassCoverErosionInwardsCalculationScenario(section);
+        //     calculationScenario.Output = new GrassCoverErosionInwardsOutput(new TestOvertoppingOutput(double.NaN), null, null);
+        //
+        //     using (new AssemblyToolCalculatorFactoryConfig())
+        //     {
+        //         // Call
+        //         var resultRow = new GrassCoverErosionInwardsFailureMechanismSectionResultRow(
+        //             sectionResult,
+        //             new[]
+        //             {
+        //                 calculationScenario
+        //             },
+        //             failureMechanism,
+        //             assessmentSection,
+        //             ConstructionProperties);
+        //
+        //         // Assert
+        //         Assert.IsNaN(resultRow.DetailedAssessmentProbability);
+        //         Assert.AreEqual("De maatgevende berekening voor dit vak moet een geldige uitkomst hebben.",
+        //                         resultRow.ColumnStateDefinitions[ConstructionProperties.DetailedAssessmentProbabilityIndex].ErrorText);
+        //         mocks.VerifyAll();
+        //     }
+        // }
+
         [Test]
         [TestCase(SimpleAssessmentValidityOnlyResultType.None)]
         [TestCase(SimpleAssessmentValidityOnlyResultType.Applicable)]
-        public void Constructor_SectionResultWithoutCalculation_DetailedAssessmentProbabilityHasErrorText(
+        public void Constructor_TotalContributionNotHundred_DetailedAssessmentProbabilityHasErrorText(
             SimpleAssessmentValidityOnlyResultType simpleAssessmentResult)
         {
             // Setup
@@ -750,20 +878,25 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
                 SimpleAssessmentResult = simpleAssessmentResult
             };
 
-            GrassCoverErosionInwardsCalculationScenario[] calculationScenarios =
-            {
-                GrassCoverErosionInwardsCalculationScenarioTestFactory.CreateGrassCoverErosionInwardsCalculationScenario(section)
-            };
+            GrassCoverErosionInwardsCalculationScenario calculationScenario = GrassCoverErosionInwardsCalculationScenarioTestFactory.CreateGrassCoverErosionInwardsCalculationScenario(section);
+            calculationScenario.Contribution = (RoundedDouble) 0.3;
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call
                 var resultRow = new GrassCoverErosionInwardsFailureMechanismSectionResultRow(
-                    sectionResult, calculationScenarios, failureMechanism, assessmentSection, ConstructionProperties);
+                    sectionResult,
+                    new[]
+                    {
+                        calculationScenario
+                    },
+                    failureMechanism,
+                    assessmentSection,
+                    ConstructionProperties);
 
                 // Assert
                 Assert.IsNaN(resultRow.DetailedAssessmentProbability);
-                Assert.AreEqual("Er moet een maatgevende berekening voor dit vak worden geselecteerd.",
+                Assert.AreEqual("Bijdrage van de geselecteerde scenario's voor dit vak moet opgeteld gelijk zijn aan 100%.",
                                 resultRow.ColumnStateDefinitions[ConstructionProperties.DetailedAssessmentProbabilityIndex].ErrorText);
                 mocks.VerifyAll();
             }
@@ -772,7 +905,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
         [Test]
         [TestCase(SimpleAssessmentValidityOnlyResultType.None)]
         [TestCase(SimpleAssessmentValidityOnlyResultType.Applicable)]
-        public void Constructor_SectionResultAndCalculationNotCalculated_DetailedAssessmentProbabilityHasErrorText(
+        public void Constructor_NoCalculatedScenario_DetailedAssessmentProbabilityHasErrorText(
             SimpleAssessmentValidityOnlyResultType simpleAssessmentResult)
         {
             // Setup
@@ -785,24 +918,25 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(section)
             {
-                Calculation = new GrassCoverErosionInwardsCalculation(),
                 SimpleAssessmentResult = simpleAssessmentResult
-            };
-
-            GrassCoverErosionInwardsCalculationScenario[] calculationScenarios =
-            {
-                GrassCoverErosionInwardsCalculationScenarioTestFactory.CreateNotCalculatedGrassCoverErosionInwardsCalculationScenario(section)
             };
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call
                 var resultRow = new GrassCoverErosionInwardsFailureMechanismSectionResultRow(
-                    sectionResult, calculationScenarios, failureMechanism, assessmentSection, ConstructionProperties);
+                    sectionResult,
+                    new[]
+                    {
+                        GrassCoverErosionInwardsCalculationScenarioTestFactory.CreateNotCalculatedGrassCoverErosionInwardsCalculationScenario(section)
+                    },
+                    failureMechanism,
+                    assessmentSection,
+                    ConstructionProperties);
 
                 // Assert
                 Assert.IsNaN(resultRow.DetailedAssessmentProbability);
-                Assert.AreEqual("De maatgevende berekening voor dit vak moet nog worden uitgevoerd.",
+                Assert.AreEqual("Alle berekeningen voor dit vak moeten uitgevoerd zijn.",
                                 resultRow.ColumnStateDefinitions[ConstructionProperties.DetailedAssessmentProbabilityIndex].ErrorText);
                 mocks.VerifyAll();
             }
@@ -811,7 +945,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
         [Test]
         [TestCase(SimpleAssessmentValidityOnlyResultType.None)]
         [TestCase(SimpleAssessmentValidityOnlyResultType.Applicable)]
-        public void Constructor_SectionResultAndFailedCalculation_DetailedAssessmentProbabilityHasErrorText(
+        public void Constructor_DetailedAssessmentProbabilityNaN_DetailedAssessmentProbabilityHasErrorText(
             SimpleAssessmentValidityOnlyResultType simpleAssessmentResult)
         {
             // Setup
@@ -821,20 +955,14 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
-            var calculation = new GrassCoverErosionInwardsCalculation
-            {
-                Output = new GrassCoverErosionInwardsOutput(new TestOvertoppingOutput(double.NaN),
-                                                            new TestDikeHeightOutput(double.NaN),
-                                                            new TestOvertoppingRateOutput(double.NaN))
-            };
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(section)
             {
-                Calculation = calculation,
                 SimpleAssessmentResult = simpleAssessmentResult
             };
 
-            GrassCoverErosionInwardsCalculationScenario calculationScenario = GrassCoverErosionInwardsCalculationScenarioTestFactory.CreateNotCalculatedGrassCoverErosionInwardsCalculationScenario(section);
+            GrassCoverErosionInwardsCalculationScenario calculationScenario = GrassCoverErosionInwardsCalculationScenarioTestFactory.CreateNotCalculatedGrassCoverErosionInwardsCalculationScenario(
+                section);
             calculationScenario.Output = new GrassCoverErosionInwardsOutput(new TestOvertoppingOutput(double.NaN), null, null);
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -844,15 +972,95 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
                     sectionResult,
                     new[]
                     {
-                        calculationScenario  
-                    }, 
+                        calculationScenario
+                    },
                     failureMechanism,
                     assessmentSection,
                     ConstructionProperties);
 
                 // Assert
                 Assert.IsNaN(resultRow.DetailedAssessmentProbability);
-                Assert.AreEqual("De maatgevende berekening voor dit vak moet een geldige uitkomst hebben.",
+                Assert.AreEqual("Alle berekeningen voor dit vak moeten een geldige uitkomst hebben.",
+                                resultRow.ColumnStateDefinitions[ConstructionProperties.DetailedAssessmentProbabilityIndex].ErrorText);
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        [TestCase(SimpleAssessmentValidityOnlyResultType.None)]
+        [TestCase(SimpleAssessmentValidityOnlyResultType.Applicable)]
+        public void Constructor_NoCalculationScenarios_DetailedAssessmentProbabilityHasErrorText(
+            SimpleAssessmentValidityOnlyResultType simpleAssessmentResult)
+        {
+            // Setup
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
+
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(section)
+            {
+                SimpleAssessmentResult = simpleAssessmentResult
+            };
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                // Call
+                var resultRow = new GrassCoverErosionInwardsFailureMechanismSectionResultRow(
+                    sectionResult,
+                    Enumerable.Empty<GrassCoverErosionInwardsCalculationScenario>(),
+                    failureMechanism,
+                    assessmentSection,
+                    ConstructionProperties);
+
+                // Assert
+                Assert.IsNaN(resultRow.DetailedAssessmentProbability);
+                Assert.AreEqual("Er moet minimaal één maatgevende berekening voor dit vak worden geselecteerd.",
+                                resultRow.ColumnStateDefinitions[ConstructionProperties.DetailedAssessmentProbabilityIndex].ErrorText);
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        [TestCase(SimpleAssessmentValidityOnlyResultType.None)]
+        [TestCase(SimpleAssessmentValidityOnlyResultType.Applicable)]
+        public void Constructor_NoCalculationScenariosRelevant_DetailedAssessmentProbabilityHasErrorText(
+            SimpleAssessmentValidityOnlyResultType simpleAssessmentResult)
+        {
+            // Setup
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
+
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(section)
+            {
+                SimpleAssessmentResult = simpleAssessmentResult
+            };
+
+            GrassCoverErosionInwardsCalculationScenario calculationScenario = GrassCoverErosionInwardsCalculationScenarioTestFactory.CreateNotCalculatedGrassCoverErosionInwardsCalculationScenario(section);
+            calculationScenario.IsRelevant = false;
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                // Call
+                var resultRow = new GrassCoverErosionInwardsFailureMechanismSectionResultRow(
+                    sectionResult,
+                    new[]
+                    {
+                        calculationScenario
+                    },
+                    failureMechanism,
+                    assessmentSection,
+                    ConstructionProperties);
+
+                // Assert
+                Assert.IsNaN(resultRow.DetailedAssessmentProbability);
+                Assert.AreEqual("Er moet minimaal één maatgevende berekening voor dit vak worden geselecteerd.",
                                 resultRow.ColumnStateDefinitions[ConstructionProperties.DetailedAssessmentProbabilityIndex].ErrorText);
                 mocks.VerifyAll();
             }
@@ -1243,7 +1451,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
                 double detailedAssessmentProbability = resultRow.DetailedAssessmentProbability;
 
                 // Assert
-                Assert.AreEqual(0.17105612630848185, detailedAssessmentProbability);
+                Assert.AreEqual(0.5, detailedAssessmentProbability);
                 mocks.VerifyAll();
             }
         }
