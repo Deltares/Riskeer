@@ -71,9 +71,8 @@ namespace Riskeer.MacroStabilityInwards.Data
             }
 
             MacroStabilityInwardsCalculationScenario[] relevantScenarios = sectionResult.GetCalculationScenarios(calculationScenarios).ToArray();
-            bool relevantScenarioAvailable = relevantScenarios.Length != 0;
-            
-            if (!relevantScenarioAvailable || !relevantScenarios.All(s => s.HasOutput) || Math.Abs(sectionResult.GetTotalContribution(relevantScenarios) - 1.0) > 1e-6)
+
+            if (relevantScenarios.Length == 0 || !relevantScenarios.All(s => s.HasOutput) || Math.Abs(sectionResult.GetTotalContribution(relevantScenarios) - 1.0) > 1e-6)
             {
                 return double.NaN;
             }
