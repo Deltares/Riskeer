@@ -220,7 +220,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
                     failureMechanism, assessmentSection);
 
                 // Assert
-                Assert.AreEqual(sectionResult.GetDetailedAssessmentProbability(failureMechanism, assessmentSection),
+                Assert.AreEqual(sectionResult.GetDetailedAssessmentProbability(Enumerable.Empty<GrassCoverErosionInwardsCalculationScenario>(), failureMechanism, assessmentSection),
                                 calculator.DetailedAssessmentProbabilityInput);
                 Assert.AreEqual(sectionResult.DetailedAssessmentResult, calculator.DetailedAssessmentProbabilityOnlyResultInput);
                 AssertAssemblyCategoriesInput(assessmentSection, failureMechanism, calculator.DetailedAssessmentAssemblyCategoriesInput);

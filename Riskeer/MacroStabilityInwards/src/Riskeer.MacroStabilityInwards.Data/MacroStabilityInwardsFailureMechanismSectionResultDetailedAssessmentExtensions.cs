@@ -39,14 +39,14 @@ namespace Riskeer.MacroStabilityInwards.Data
         /// Gets the value for the detailed assessment of safety per failure mechanism section as a probability.
         /// </summary>
         /// <param name="sectionResult">The section result to get the detailed assessment probability for.</param>
-        /// <param name="calculations">All calculations in the failure mechanism.</param>
+        /// <param name="calculationScenarios">All calculation scenarios in the failure mechanism.</param>
         /// <param name="failureMechanism">The failure mechanism the calculations belong to.</param>
         /// <param name="assessmentSection">The assessment section the calculations belong to.</param>
         /// <returns>The calculated detailed assessment probability; or <see cref="double.NaN"/> when there are no
         /// performed or relevant calculations.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public static double GetDetailedAssessmentProbability(this MacroStabilityInwardsFailureMechanismSectionResult sectionResult,
-                                                              IEnumerable<MacroStabilityInwardsCalculationScenario> calculations,
+                                                              IEnumerable<MacroStabilityInwardsCalculationScenario> calculationScenarios,
                                                               MacroStabilityInwardsFailureMechanism failureMechanism,
                                                               IAssessmentSection assessmentSection)
         {
@@ -55,9 +55,9 @@ namespace Riskeer.MacroStabilityInwards.Data
                 throw new ArgumentNullException(nameof(sectionResult));
             }
 
-            if (calculations == null)
+            if (calculationScenarios == null)
             {
-                throw new ArgumentNullException(nameof(calculations));
+                throw new ArgumentNullException(nameof(calculationScenarios));
             }
 
             if (failureMechanism == null)
@@ -70,7 +70,7 @@ namespace Riskeer.MacroStabilityInwards.Data
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            MacroStabilityInwardsCalculationScenario[] relevantScenarios = sectionResult.GetCalculationScenarios(calculations).ToArray();
+            MacroStabilityInwardsCalculationScenario[] relevantScenarios = sectionResult.GetCalculationScenarios(calculationScenarios).ToArray();
             bool relevantScenarioAvailable = relevantScenarios.Length != 0;
             
             if (!relevantScenarioAvailable || !relevantScenarios.All(s => s.HasOutput) || Math.Abs(sectionResult.GetTotalContribution(relevantScenarios) - 1.0) > 1e-6)
