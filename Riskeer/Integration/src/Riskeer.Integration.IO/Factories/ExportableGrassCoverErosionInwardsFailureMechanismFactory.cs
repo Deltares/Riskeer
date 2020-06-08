@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Exceptions;
@@ -99,6 +100,8 @@ namespace Riskeer.Integration.IO.Factories
             IDictionary<GrassCoverErosionInwardsFailureMechanismSectionResult, ExportableFailureMechanismSection> failureMechanismSectionsLookup =
                 ExportableFailureMechanismSectionHelper.CreateFailureMechanismSectionResultLookup(failureMechanism.SectionResults);
 
+            IEnumerable<GrassCoverErosionInwardsCalculationScenario> calculationScenarios = failureMechanism.Calculations.Cast<GrassCoverErosionInwardsCalculationScenario>();
+
             var exportableResults = new List<ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbability>();
             foreach (KeyValuePair<GrassCoverErosionInwardsFailureMechanismSectionResult, ExportableFailureMechanismSection> failureMechanismSectionPair in failureMechanismSectionsLookup)
             {
@@ -108,6 +111,7 @@ namespace Riskeer.Integration.IO.Factories
                     GrassCoverErosionInwardsFailureMechanismAssemblyFactory.AssembleSimpleAssessment(failureMechanismSectionResult);
                 FailureMechanismSectionAssembly detailedAssembly =
                     GrassCoverErosionInwardsFailureMechanismAssemblyFactory.AssembleDetailedAssessment(failureMechanismSectionResult,
+                                                                                                       calculationScenarios,
                                                                                                        failureMechanism,
                                                                                                        assessmentSection);
                 FailureMechanismSectionAssembly tailorMadeAssembly =
@@ -116,6 +120,7 @@ namespace Riskeer.Integration.IO.Factories
                                                                                                          assessmentSection);
                 FailureMechanismSectionAssembly combinedAssembly =
                     GrassCoverErosionInwardsFailureMechanismAssemblyFactory.AssembleCombinedAssessment(failureMechanismSectionResult,
+                                                                                                       calculationScenarios,
                                                                                                        failureMechanism,
                                                                                                        assessmentSection);
 

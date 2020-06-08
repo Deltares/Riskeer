@@ -32,14 +32,41 @@ namespace Riskeer.Piping.Data.TestUtil.Test
     public class PipingCalculationScenarioTestFactoryTest
     {
         [Test]
-        public void CreateIrrelevantPipingCalculationScenario_WithNoSection_ThrowsArgumentNullException()
+        public void CreatePipingCalculationScenario_SectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => PipingCalculationScenarioTestFactory.CreateIrrelevantPipingCalculationScenario(null);
+            void Call() => PipingCalculationScenarioTestFactory.CreatePipingCalculationScenario(null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("section", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("section", exception.ParamName);
+        }
+
+        [Test]
+        public void CreatePipingCalculationScenario_WithSection_CreatesRelevantCalculationWithOutput()
+        {
+            // Setup
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+
+            // Call
+            PipingCalculationScenario scenario = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenario(section);
+
+            // Assert
+            Assert.IsNotNull(scenario.Output);
+            Assert.IsTrue(scenario.IsRelevant);
+            Assert.IsNotNull(scenario.InputParameters.SurfaceLine);
+            Assert.AreSame(section.StartPoint, scenario.InputParameters.SurfaceLine.ReferenceLineIntersectionWorldPoint);
+        }
+
+        [Test]
+        public void CreateIrrelevantPipingCalculationScenario_SectionNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => PipingCalculationScenarioTestFactory.CreateIrrelevantPipingCalculationScenario(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("section", exception.ParamName);
         }
 
         [Test]
@@ -56,14 +83,14 @@ namespace Riskeer.Piping.Data.TestUtil.Test
         }
 
         [Test]
-        public void CreateNotCalculatedPipingCalculationScenario_WithNoSection_ThrowsArgumentNullException()
+        public void CreateNotCalculatedPipingCalculationScenario_SectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => PipingCalculationScenarioTestFactory.CreateNotCalculatedPipingCalculationScenario(null);
+            void Call() => PipingCalculationScenarioTestFactory.CreateNotCalculatedPipingCalculationScenario(null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("section", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("section", exception.ParamName);
         }
 
         [Test]
@@ -78,6 +105,8 @@ namespace Riskeer.Piping.Data.TestUtil.Test
             // Assert
             Assert.IsNull(scenario.Output);
             Assert.IsTrue(scenario.IsRelevant);
+            Assert.IsNotNull(scenario.InputParameters.SurfaceLine);
+            Assert.AreSame(section.StartPoint, scenario.InputParameters.SurfaceLine.ReferenceLineIntersectionWorldPoint);
         }
 
         [Test]
@@ -94,11 +123,11 @@ namespace Riskeer.Piping.Data.TestUtil.Test
         public void CreatePipingCalculationScenarioWithValidInput_HydraulicBoundaryLocationNull_ThrowsArgumentnullException()
         {
             // Call
-            TestDelegate test = () => PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput(null);
+            void Call() => PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput(null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("hydraulicBoundaryLocation", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("hydraulicBoundaryLocation", exception.ParamName);
         }
 
         [Test]

@@ -66,11 +66,6 @@ namespace Riskeer.Storage.Core.Read.GrassCoverErosionInwards
             sectionResult.TailorMadeAssessmentProbability = entity.TailorMadeAssessmentProbability.ToNullAsNaN();
             sectionResult.UseManualAssembly = Convert.ToBoolean(entity.UseManualAssembly);
             sectionResult.ManualAssemblyProbability = entity.ManualAssemblyProbability.ToNullAsNaN();
-
-            if (entity.GrassCoverErosionInwardsCalculationEntity != null)
-            {
-                sectionResult.Calculation = entity.GrassCoverErosionInwardsCalculationEntity.Read(collector);
-            }
         }
     }
 }

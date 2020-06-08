@@ -1557,4 +1557,22 @@ berekende kans
   <data name="Categories_Schematization_Storage_structure" xml:space="preserve">
     <value>Schematisering komberging</value>
   </data>
+  <data name="Calculations_per_FailureMechanismSection_DisplayName" xml:space="preserve">
+    <value>Berekeningen voor geselecteerd vak</value>
+  </data>
+  <data name="ScenarioView_FailureProbability_DisplayName" xml:space="preserve">
+    <value>Faalkans
+[1/jaar]</value>
+  </data>
+  <data name="ScenarioView_InitializeDataGridView_Contribution" xml:space="preserve">
+    <value>Bijdrage aan
+scenario
+[%]</value>
+  </data>
+  <data name="ScenarioView_InitializeDataGridView_In_final_rating" xml:space="preserve">
+    <value>In oordeel</value>
+  </data>
+  <data name="ScenarioView_Name_DisplayName" xml:space="preserve">
+    <value>Naam</value>
+  </data>
 </root>

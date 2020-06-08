@@ -23,7 +23,7 @@ using Core.Common.Base;
 using NUnit.Framework;
 using Riskeer.Common.Data.Calculation;
 
-namespace Riskeer.Common.Forms.TestUtil.Test
+namespace Riskeer.Common.Data.TestUtil.Test
 {
     [TestFixture]
     public class TestCalculationInputTest

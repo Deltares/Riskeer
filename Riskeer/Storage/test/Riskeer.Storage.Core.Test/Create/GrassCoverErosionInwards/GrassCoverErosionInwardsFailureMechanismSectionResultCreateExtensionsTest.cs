@@ -112,26 +112,5 @@ namespace Riskeer.Storage.Core.Test.Create.GrassCoverErosionInwards
             Assert.IsNull(entity.TailorMadeAssessmentProbability);
             Assert.IsNull(entity.ManualAssemblyProbability);
         }
-
-        [Test]
-        public void Create_CalculationSet_ReturnEntityWithCalculationEntity()
-        {
-            // Setup
-            var calculation = new GrassCoverErosionInwardsCalculation();
-            var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
-            {
-                Calculation = calculation
-            };
-
-            var registry = new PersistenceRegistry();
-            var calculationEntity = new GrassCoverErosionInwardsCalculationEntity();
-            registry.Register(calculationEntity, calculation);
-
-            // Call
-            GrassCoverErosionInwardsSectionResultEntity entity = sectionResult.Create(registry);
-
-            // Assert
-            Assert.AreSame(calculationEntity, entity.GrassCoverErosionInwardsCalculationEntity);
-        }
     }
 }

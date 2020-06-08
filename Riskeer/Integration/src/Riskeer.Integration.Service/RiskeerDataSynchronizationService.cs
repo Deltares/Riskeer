@@ -35,7 +35,6 @@ using Riskeer.DuneErosion.Data;
 using Riskeer.DuneErosion.Service;
 using Riskeer.GrassCoverErosionInwards.Data;
 using Riskeer.GrassCoverErosionInwards.Service;
-using Riskeer.GrassCoverErosionInwards.Util;
 using Riskeer.GrassCoverErosionOutwards.Data;
 using Riskeer.GrassCoverErosionOutwards.Service;
 using Riskeer.HeightStructures.Data;
@@ -645,13 +644,6 @@ namespace Riskeer.Integration.Service
 
                 calculation.InputParameters.DikeProfile = null;
                 changedObservables.Add(calculation.InputParameters);
-            }
-
-            IEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResult> changedSectionResults =
-                GrassCoverErosionInwardsHelper.UpdateCalculationToSectionResultAssignments(failureMechanism.SectionResults, calculations);
-            foreach (GrassCoverErosionInwardsFailureMechanismSectionResult result in changedSectionResults)
-            {
-                changedObservables.Add(result);
             }
 
             failureMechanism.DikeProfiles.Remove(profile);

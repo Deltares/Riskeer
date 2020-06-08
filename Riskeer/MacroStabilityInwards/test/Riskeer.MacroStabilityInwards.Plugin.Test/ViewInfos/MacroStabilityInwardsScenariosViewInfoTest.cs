@@ -105,10 +105,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
 
             mocks.ReplayAll();
 
-            using (var view = new MacroStabilityInwardsScenariosView(assessmentSection)
-            {
-                Data = calculationsGroup
-            })
+            using (var view = new MacroStabilityInwardsScenariosView(calculationsGroup, new MacroStabilityInwardsFailureMechanism(), assessmentSection))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -135,10 +132,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
 
             mocks.ReplayAll();
 
-            using (var view = new MacroStabilityInwardsScenariosView(assessmentSection)
-            {
-                Data = calculationsGroup
-            })
+            using (var view = new MacroStabilityInwardsScenariosView(calculationsGroup, failureMechanism, assessmentSection))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -164,10 +158,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
 
             mocks.ReplayAll();
 
-            using (var view = new MacroStabilityInwardsScenariosView(assessmentSection)
-            {
-                Data = failureMechanism.CalculationsGroup
-            })
+            using (var view = new MacroStabilityInwardsScenariosView(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -186,10 +177,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            using (var view = new MacroStabilityInwardsScenariosView(assessmentSection)
-            {
-                Data = new CalculationGroup()
-            })
+            using (var view = new MacroStabilityInwardsScenariosView(new CalculationGroup(), new MacroStabilityInwardsFailureMechanism(), assessmentSection))
             {
                 var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
@@ -212,10 +200,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
-            using (var view = new MacroStabilityInwardsScenariosView(assessmentSection)
-            {
-                Data = failureMechanism.CalculationsGroup
-            })
+            using (var view = new MacroStabilityInwardsScenariosView(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, failureMechanism);
@@ -237,10 +222,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             var failureMechanismContext = new MacroStabilityInwardsFailureMechanismContext(new MacroStabilityInwardsFailureMechanism(), assessmentSection);
 
-            using (var view = new MacroStabilityInwardsScenariosView(assessmentSection)
-            {
-                Data = failureMechanism.CalculationsGroup
-            })
+            using (var view = new MacroStabilityInwardsScenariosView(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, failureMechanismContext);
@@ -262,39 +244,13 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             var failureMechanismContext = new MacroStabilityInwardsFailureMechanismContext(failureMechanism, assessmentSection);
 
-            using (var view = new MacroStabilityInwardsScenariosView(assessmentSection)
-            {
-                Data = failureMechanism.CalculationsGroup
-            })
+            using (var view = new MacroStabilityInwardsScenariosView(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, failureMechanismContext);
 
                 // Assert
                 Assert.IsTrue(closeForData);
-            }
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void AfterCreate_Always_SetsSpecificPropertiesToView()
-        {
-            // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-            var calculationsGroup = new CalculationGroup();
-            var scenariosContext = new MacroStabilityInwardsScenariosContext(calculationsGroup, failureMechanism, assessmentSection);
-
-            using (var view = new MacroStabilityInwardsScenariosView(assessmentSection))
-            {
-                // Call
-                info.AfterCreate(view, scenariosContext);
-
-                // Assert
-                Assert.AreSame(failureMechanism, view.MacroStabilityInwardsFailureMechanism);
             }
 
             mocks.VerifyAll();

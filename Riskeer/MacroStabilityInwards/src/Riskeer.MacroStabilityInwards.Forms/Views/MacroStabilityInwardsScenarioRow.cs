@@ -20,20 +20,16 @@
 // All rights reserved.
 
 using System;
-using System.ComponentModel;
-using Core.Common.Base.Data;
 using Riskeer.Common.Data.AssessmentSection;
-using Riskeer.Common.Forms.Helpers;
-using Riskeer.Common.Forms.TypeConverters;
+using Riskeer.Common.Forms.Views;
 using Riskeer.MacroStabilityInwards.Data;
-using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.MacroStabilityInwards.Forms.Views
 {
     /// <summary>
     /// This class represents a row of <see cref="MacroStabilityInwardsCalculationScenario"/> in the <see cref="MacroStabilityInwardsScenariosView"/>.
     /// </summary>
-    internal class MacroStabilityInwardsScenarioRow
+    public class MacroStabilityInwardsScenarioRow : ScenarioRow<MacroStabilityInwardsCalculationScenario>
     {
         private readonly MacroStabilityInwardsFailureMechanism failureMechanism;
         private readonly IAssessmentSection assessmentSection;
@@ -42,19 +38,15 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsCalculationRow"/>.
         /// </summary>
-        /// <param name="calculation">The <see cref="MacroStabilityInwardsCalculationScenario"/> this row contains.</param>
+        /// <param name="calculationScenario">The <see cref="MacroStabilityInwardsCalculationScenario"/> this row contains.</param>
         /// <param name="failureMechanism">The failure mechanism that the calculation belongs to.</param>
         /// <param name="assessmentSection">The assessment section that the calculation belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public MacroStabilityInwardsScenarioRow(MacroStabilityInwardsCalculationScenario calculation,
+        internal MacroStabilityInwardsScenarioRow(MacroStabilityInwardsCalculationScenario calculationScenario,
                                                 MacroStabilityInwardsFailureMechanism failureMechanism,
                                                 IAssessmentSection assessmentSection)
+            : base(calculationScenario)
         {
-            if (calculation == null)
-            {
-                throw new ArgumentNullException(nameof(calculation));
-            }
-
             if (failureMechanism == null)
             {
                 throw new ArgumentNullException(nameof(failureMechanism));
@@ -65,87 +57,26 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            Calculation = calculation;
             this.failureMechanism = failureMechanism;
             this.assessmentSection = assessmentSection;
 
             CreateDerivedOutput();
         }
 
-        /// <summary>
-        /// Gets the <see cref="MacroStabilityInwardsCalculationScenario"/> this row contains.
-        /// </summary>
-        public MacroStabilityInwardsCalculationScenario Calculation { get; }
-
-        /// <summary>
-        /// Gets or sets the <see cref="MacroStabilityInwardsCalculationScenario"/> is relevant.
-        /// </summary>
-        public bool IsRelevant
-        {
-            get
-            {
-                return Calculation.IsRelevant;
-            }
-            set
-            {
-                Calculation.IsRelevant = value;
-                Calculation.NotifyObservers();
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the contribution of the <see cref="MacroStabilityInwardsCalculationScenario"/>.
-        /// </summary>
-        public RoundedDouble Contribution
-        {
-            get
-            {
-                return new RoundedDouble(2, Calculation.Contribution * 100);
-            }
-            set
-            {
-                Calculation.Contribution = (RoundedDouble) (value / 100);
-                Calculation.NotifyObservers();
-            }
-        }
-
-        /// <summary>
-        /// Gets the name of the <see cref="MacroStabilityInwardsCalculationScenario"/>.
-        /// </summary>
-        public string Name
-        {
-            get
-            {
-                return Calculation.Name;
-            }
-        }
-
-        /// <summary>
-        /// Gets the failure probability of macro stability inwards of the <see cref="MacroStabilityInwardsCalculationScenario"/>.
-        /// </summary>
-        [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
-        public string FailureProbabilityMacroStabilityInwards
-        {
-            get
-            {
-                return derivedOutput == null
-                           ? RiskeerCommonFormsResources.RoundedDouble_No_result_dash
-                           : ProbabilityFormattingHelper.Format(derivedOutput.MacroStabilityInwardsProbability);
-            }
-        }
+        public override double FailureProbability => derivedOutput?.MacroStabilityInwardsProbability ?? double.NaN;
 
         /// <summary>
         /// Updates the row based on the current output of the calculation scenario.
         /// </summary>
-        public void Update()
+        public override void Update()
         {
             CreateDerivedOutput();
         }
 
         private void CreateDerivedOutput()
         {
-            derivedOutput = Calculation.HasOutput
-                                ? DerivedMacroStabilityInwardsOutputFactory.Create(Calculation.Output, failureMechanism, assessmentSection)
+            derivedOutput = CalculationScenario.HasOutput
+                                ? DerivedMacroStabilityInwardsOutputFactory.Create(CalculationScenario.Output, failureMechanism, assessmentSection)
                                 : null;
         }
     }

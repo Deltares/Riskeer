@@ -140,12 +140,11 @@ namespace Core.Components.DotSpatial.Converter
         protected abstract IFeatureCategory CreateDefaultCategory(TFeatureBasedMapData mapData);
 
         /// <summary>
-        /// Converts an <see cref="IEnumerable{T}"/> of <see cref="Point2D"/> to an <see cref="IEnumerable{T}"/>
-        /// of <see cref="Coordinate"/>.
+        /// Converts an <see cref="IEnumerable{T}"/> of <see cref="Point2D"/> to a <see cref="Coordinate"/> array.
         /// </summary>
         /// <param name="points">The <see cref="IEnumerable{T}"/> of <see cref="Point2D"/> to convert.</param>
-        /// <returns>The converted <see cref="IEnumerable{T}"/> of <see cref="Coordinate"/>.</returns>
-        protected static IEnumerable<Coordinate> ConvertPoint2DElementsToCoordinates(IEnumerable<Point2D> points)
+        /// <returns>The converted <see cref="Coordinate"/> array.</returns>
+        protected static Coordinate[] ConvertPoint2DElementsToCoordinates(IEnumerable<Point2D> points)
         {
             return points.Select(point => new Coordinate(point.X, point.Y)).ToArray();
         }

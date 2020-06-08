@@ -113,7 +113,6 @@ namespace Riskeer.Storage.Core.Test.Read.GrassCoverErosionInwards
             Assert.AreEqual(tailorMadeAssessmentProbability, sectionResult.TailorMadeAssessmentProbability, 1e-6);
             Assert.AreEqual(useManualAssembly, sectionResult.UseManualAssembly);
             Assert.AreEqual(manualAssemblyProbability, sectionResult.ManualAssemblyProbability, 1e-6);
-            Assert.IsNull(sectionResult.Calculation);
         }
 
         [Test]
@@ -137,34 +136,6 @@ namespace Riskeer.Storage.Core.Test.Read.GrassCoverErosionInwards
             // Assert
             Assert.IsNaN(sectionResult.TailorMadeAssessmentProbability);
             Assert.IsNaN(sectionResult.ManualAssemblyProbability);
-            Assert.IsNull(sectionResult.Calculation);
-        }
-
-        [Test]
-        public void Read_CalculationEntitySet_ReturnGrassCoverErosionInwardsSectionResultWithCalculation()
-        {
-            // Setup
-            var calculation = new GrassCoverErosionInwardsCalculationScenario();
-
-            var failureMechanismSectionEntity = new FailureMechanismSectionEntity();
-            var calculationEntity = new GrassCoverErosionInwardsCalculationEntity();
-
-            var collector = new ReadConversionCollector();
-            collector.Read(failureMechanismSectionEntity, FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
-            collector.Read(calculationEntity, calculation);
-
-            var entity = new GrassCoverErosionInwardsSectionResultEntity
-            {
-                FailureMechanismSectionEntity = failureMechanismSectionEntity,
-                GrassCoverErosionInwardsCalculationEntity = calculationEntity
-            };
-            var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
-
-            // Call
-            entity.Read(sectionResult, collector);
-
-            // Assert
-            Assert.AreSame(calculation, sectionResult.Calculation);
         }
     }
 }

@@ -89,10 +89,10 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => new GrassCoverErosionInwardsFailureMechanismView(null, assessmentSection);
+            void Call() => new GrassCoverErosionInwardsFailureMechanismView(null, assessmentSection);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
             mocks.VerifyAll();
         }
@@ -101,10 +101,10 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new GrassCoverErosionInwardsFailureMechanismView(new GrassCoverErosionInwardsFailureMechanism(), null);
+            void Call() => new GrassCoverErosionInwardsFailureMechanismView(new GrassCoverErosionInwardsFailureMechanism(), null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
@@ -153,7 +153,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             // Setup
             var random = new Random(39);
 
-            var calculationA = new GrassCoverErosionInwardsCalculation
+            var calculationA = new GrassCoverErosionInwardsCalculationScenario
             {
                 InputParameters =
                 {
@@ -161,7 +161,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
                     HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation()
                 }
             };
-            var calculationB = new GrassCoverErosionInwardsCalculation
+            var calculationB = new GrassCoverErosionInwardsCalculationScenario
             {
                 InputParameters =
                 {
@@ -794,10 +794,10 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
         {
             // Given
             var random = new Random(39);
-            var calculationA = new GrassCoverErosionInwardsCalculation();
+            var calculation = new GrassCoverErosionInwardsCalculationScenario();
 
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            failureMechanism.CalculationsGroup.Children.Add(calculationA);
+            failureMechanism.CalculationsGroup.Children.Add(calculation);
             FailureMechanismTestHelper.AddSections(failureMechanism, random.Next(1, 10));
 
             var originalSimpleAssembly = new FailureMechanismSectionAssembly(random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
@@ -846,7 +846,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
                     calculator.DetailedAssessmentAssemblyOutput = updatedDetailedAssembly;
                     calculator.TailorMadeAssessmentAssemblyOutput = updatedTailorMadeAssembly;
                     calculator.CombinedAssemblyOutput = updatedCombinedAssembly;
-                    calculationA.NotifyObservers();
+                    calculation.NotifyObservers();
 
                     // Then
                     MapDataTestHelper.AssertAssemblyMapDataCollection(updatedSimpleAssembly,

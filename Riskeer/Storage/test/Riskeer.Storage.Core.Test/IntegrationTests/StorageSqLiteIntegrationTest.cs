@@ -1753,15 +1753,6 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
                                          Assert.AreEqual(expectedItem.TailorMadeAssessmentProbability, actualItem.TailorMadeAssessmentProbability, 1e-6);
                                          Assert.AreEqual(expectedItem.UseManualAssembly, actualItem.UseManualAssembly);
                                          Assert.AreEqual(expectedItem.ManualAssemblyProbability, actualItem.ManualAssemblyProbability, 1e-6);
-
-                                         if (expectedItem.Calculation == null)
-                                         {
-                                             Assert.IsNull(expectedItem.Calculation);
-                                         }
-                                         else
-                                         {
-                                             AssertGrassCoverErosionInwardsCalculation(expectedItem.Calculation, actualItem.Calculation);
-                                         }
                                      });
         }
 

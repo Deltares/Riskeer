@@ -19,10 +19,11 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Collections.Generic;
+using System;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
@@ -45,6 +46,11 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
     [TestFixture]
     public class GrassCoverErosionInwardsScenariosViewIntegrationTest
     {
+        private const int isRelevantColumnIndex = 0;
+        private const int contributionColumnIndex = 1;
+        private const int nameColumnIndex = 2;
+        private const int failureProbabilityColumnIndex = 3;
+
         private readonly string filePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.GrassCoverErosionInwards.Integration,
                                                                       Path.Combine("DikeProfiles", "Voorlanden 6-3.shp"));
 
@@ -58,14 +64,15 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
                 DataImportHelper.ImportReferenceLine(assessmentSection);
 
                 var view = new GrassCoverErosionInwardsScenariosView(assessmentSection.GrassCoverErosionInwards.CalculationsGroup,
-                                                                     assessmentSection.GrassCoverErosionInwards);
+                                                                     assessmentSection.GrassCoverErosionInwards,
+                                                                     assessmentSection);
                 form.Controls.Add(view);
                 form.Show();
 
-                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+                var listBox = (ListBox) new ControlTester("listBox").TheObject;
 
                 // Precondition
-                Assert.AreEqual(0, dataGridView.RowCount);
+                CollectionAssert.IsEmpty(listBox.Items);
 
                 // Call
                 IFailureMechanism failureMechanism = assessmentSection.GrassCoverErosionInwards;
@@ -73,16 +80,7 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
                 assessmentSection.GrassCoverErosionInwards.NotifyObservers();
 
                 // Assert
-                Assert.AreEqual(283, dataGridView.RowCount);
-
-                IEnumerable<string> expectedValues = assessmentSection.GrassCoverErosionInwards.SectionResults.Select(sr => sr.Section.Name);
-                var foundValues = new List<string>();
-                foreach (DataGridViewRow row in dataGridView.Rows)
-                {
-                    foundValues.Add(row.Cells[0].FormattedValue.ToString());
-                }
-
-                CollectionAssert.AreEqual(expectedValues, foundValues);
+                CollectionAssert.AreEqual(assessmentSection.GrassCoverErosionInwards.Sections, listBox.Items);
             }
         }
 
@@ -103,11 +101,10 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
 
                 CalculationGroup calculationsGroup = assessmentSection.GrassCoverErosionInwards.CalculationsGroup;
                 var view = new GrassCoverErosionInwardsScenariosView(assessmentSection.GrassCoverErosionInwards.CalculationsGroup,
-                                                                     assessmentSection.GrassCoverErosionInwards);
+                                                                     assessmentSection.GrassCoverErosionInwards,
+                                                                     assessmentSection);
                 form.Controls.Add(view);
                 form.Show();
-
-                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
                 var dikeProfilesImporter = new DikeProfilesImporter(assessmentSection.GrassCoverErosionInwards.DikeProfiles,
                                                                     assessmentSection.ReferenceLine,
@@ -115,6 +112,15 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
                                                                         (GrassCoverErosionInwardsFailureMechanism) failureMechanism),
                                                                     messageProvider);
                 dikeProfilesImporter.Import();
+
+                var listBox = (ListBox) new ControlTester("listBox").TheObject;
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+
+                listBox.SelectedItem = failureMechanism.Sections.ElementAt(13);
+
+                // Precondition
+                DataGridViewRowCollection rows = dataGridView.Rows;
+                CollectionAssert.IsEmpty(rows);
 
                 // Call
                 foreach (DikeProfile profile in assessmentSection.GrassCoverErosionInwards.DikeProfiles)
@@ -132,10 +138,14 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
                 calculationsGroup.NotifyObservers();
 
                 // Assert
-                DataGridViewCell dataGridViewCell = dataGridView.Rows[13].Cells[1];
-                Assert.AreEqual(2, ((DataGridViewComboBoxCell) dataGridViewCell).Items.Count);
-                Assert.AreEqual("<selecteer>", ((DataGridViewComboBoxCell) dataGridViewCell).Items[0].ToString());
-                Assert.AreEqual("profiel63p1Naam", ((DataGridViewComboBoxCell) dataGridViewCell).Items[1].ToString());
+                Assert.AreEqual(1, rows.Count);
+
+                DataGridViewCellCollection cells = rows[0].Cells;
+                Assert.AreEqual(4, cells.Count);
+                Assert.IsTrue(Convert.ToBoolean(cells[isRelevantColumnIndex].FormattedValue));
+                Assert.AreEqual(new RoundedDouble(2, 100).ToString(), cells[contributionColumnIndex].FormattedValue);
+                Assert.AreEqual("profiel63p1Naam", cells[nameColumnIndex].FormattedValue);
+                Assert.AreEqual("-", cells[failureProbabilityColumnIndex].FormattedValue);
 
                 mocks.VerifyAll();
             }
@@ -158,11 +168,10 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
 
                 CalculationGroup calculationsGroup = assessmentSection.GrassCoverErosionInwards.CalculationsGroup;
                 var view = new GrassCoverErosionInwardsScenariosView(assessmentSection.GrassCoverErosionInwards.CalculationsGroup,
-                                                                     assessmentSection.GrassCoverErosionInwards);
+                                                                     assessmentSection.GrassCoverErosionInwards,
+                                                                     assessmentSection);
                 form.Controls.Add(view);
                 form.Show();
-
-                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
                 var dikeProfilesImporter = new DikeProfilesImporter(assessmentSection.GrassCoverErosionInwards.DikeProfiles,
                                                                     assessmentSection.ReferenceLine,
@@ -186,6 +195,18 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
 
                 calculationsGroup.NotifyObservers();
 
+                var listBox = (ListBox)new ControlTester("listBox").TheObject;
+                var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+
+                listBox.SelectedItem = failureMechanism.Sections.ElementAt(13);
+
+                // Precondition
+                DataGridViewRowCollection rows = dataGridView.Rows;
+                Assert.AreEqual(1, rows.Count);
+
+                DataGridViewCellCollection cells = rows[0].Cells;
+                Assert.AreEqual("profiel63p1Naam", cells[nameColumnIndex].FormattedValue);
+
                 // Call
                 foreach (GrassCoverErosionInwardsCalculationScenario calculation in calculationsGroup.Children.Cast<GrassCoverErosionInwardsCalculationScenario>())
                 {
@@ -193,10 +214,7 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
                 }
 
                 // Assert
-                DataGridViewCell dataGridViewCell = dataGridView.Rows[13].Cells[1];
-                Assert.AreEqual(2, ((DataGridViewComboBoxCell) dataGridViewCell).Items.Count);
-                Assert.AreEqual("<selecteer>", ((DataGridViewComboBoxCell) dataGridViewCell).Items[0].ToString());
-                Assert.AreEqual("profiel63p1Naam_changed", ((DataGridViewComboBoxCell) dataGridViewCell).Items[1].ToString());
+                Assert.AreEqual("profiel63p1Naam_changed", cells[nameColumnIndex].FormattedValue);
 
                 mocks.VerifyAll();
             }
@@ -218,11 +236,10 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
                 DataImportHelper.ImportFailureMechanismSections(assessmentSection, failureMechanism);
 
                 var view = new GrassCoverErosionInwardsScenariosView(assessmentSection.GrassCoverErosionInwards.CalculationsGroup,
-                                                                     assessmentSection.GrassCoverErosionInwards);
+                                                                     assessmentSection.GrassCoverErosionInwards,
+                                                                     assessmentSection);
                 form.Controls.Add(view);
                 form.Show();
-
-                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
                 var dikeProfilesImporter = new DikeProfilesImporter(assessmentSection.GrassCoverErosionInwards.DikeProfiles,
                                                                     assessmentSection.ReferenceLine,
@@ -242,6 +259,16 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
                         }
                     });
                 }
+                
+                var listBox = (ListBox)new ControlTester("listBox").TheObject;
+                var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+
+                listBox.SelectedItem = failureMechanism.Sections.ElementAt(13);
+
+                // Precondition
+                DataGridViewRowCollection rows = dataGridView.Rows;
+                Assert.AreEqual(1, rows.Count);
+                Assert.AreEqual("profiel63p1NaamCalculation", rows[0].Cells[nameColumnIndex].FormattedValue);
 
                 // Call
                 CalculationGroup calculationsGroup = assessmentSection.GrassCoverErosionInwards.CalculationsGroup;
@@ -250,15 +277,9 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
                 calculationsGroup.NotifyObservers();
 
                 // Assert
-                DataGridViewCell dataGridViewCell = dataGridView.Rows[13].Cells[1];
-                Assert.AreEqual(3, ((DataGridViewComboBoxCell) dataGridViewCell).Items.Count);
-                Assert.AreEqual("<selecteer>", ((DataGridViewComboBoxCell) dataGridViewCell).Items[0].ToString());
-                Assert.AreEqual("profiel63p1NaamCalculation", ((DataGridViewComboBoxCell) dataGridViewCell).Items[1].ToString());
-                Assert.AreEqual("profiel63p2NaamCalculation", ((DataGridViewComboBoxCell) dataGridViewCell).Items[2].ToString());
-
-                DataGridViewCell dataGridViewCellWithRemovedCalculation = dataGridView.Rows[56].Cells[1];
-                Assert.AreEqual(1, ((DataGridViewComboBoxCell) dataGridViewCellWithRemovedCalculation).Items.Count);
-                Assert.AreEqual("<selecteer>", ((DataGridViewComboBoxCell) dataGridViewCellWithRemovedCalculation).Items[0].ToString());
+                Assert.AreEqual(2, rows.Count);
+                Assert.AreEqual("profiel63p1NaamCalculation", rows[0].Cells[nameColumnIndex].FormattedValue);
+                Assert.AreEqual("profiel63p2NaamCalculation", rows[1].Cells[nameColumnIndex].FormattedValue);
 
                 mocks.VerifyAll();
             }

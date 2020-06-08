@@ -20,14 +20,11 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Base;
-using Core.Common.Base.Data;
-using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.TestUtil;
-using Riskeer.Common.Forms.Helpers;
+using Riskeer.Common.Forms.Views;
 using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.MacroStabilityInwards.Data.TestUtil;
 using Riskeer.MacroStabilityInwards.Forms.Views;
@@ -38,44 +35,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
     public class MacroStabilityInwardsScenarioRowTest
     {
         [Test]
-        public void Constructor_CalculationNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-
-            // Call
-            TestDelegate test = () => new MacroStabilityInwardsScenarioRow(null, failureMechanism, assessmentSection);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("calculation", exception.ParamName);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var calculation = new MacroStabilityInwardsCalculationScenario();
-
-            // Call
-            TestDelegate test = () => new MacroStabilityInwardsScenarioRow(calculation, null, assessmentSection);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("failureMechanism", exception.ParamName);
-            mocks.VerifyAll();
-        }
-
-        [Test]
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Setup
@@ -83,11 +42,31 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
             // Call
-            TestDelegate test = () => new MacroStabilityInwardsScenarioRow(calculation, failureMechanism, null);
+            void Call() => new MacroStabilityInwardsScenarioRow(calculation, failureMechanism, null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_ExpectedValues()
+        {
+            // Setup
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
+
+            var calculation = new MacroStabilityInwardsCalculationScenario();
+
+            // Call
+            var row = new MacroStabilityInwardsScenarioRow(calculation, failureMechanism, assessmentSection);
+
+            // Assert
+            Assert.IsInstanceOf<ScenarioRow<MacroStabilityInwardsCalculationScenario>>(row);
+            Assert.AreSame(calculation, row.CalculationScenario);
         }
 
         [Test]
@@ -100,16 +79,8 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
-            const string name = "Test";
-            var random = new Random(21);
-            bool isRelevant = random.NextBoolean();
-            RoundedDouble contribution = random.NextRoundedDouble();
-
             var calculation = new MacroStabilityInwardsCalculationScenario
             {
-                Name = name,
-                IsRelevant = isRelevant,
-                Contribution = contribution,
                 Output = MacroStabilityInwardsOutputTestFactory.CreateOutput()
             };
 
@@ -117,14 +88,9 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             var row = new MacroStabilityInwardsScenarioRow(calculation, failureMechanism, assessmentSection);
 
             // Assert
-            Assert.AreSame(calculation, row.Calculation);
-            Assert.AreEqual(name, row.Name);
-            Assert.AreEqual(isRelevant, row.IsRelevant);
-            Assert.AreEqual(2, row.Contribution.NumberOfDecimalPlaces);
-            Assert.AreEqual(contribution * 100, row.Contribution, row.Contribution.GetAccuracy());
             DerivedMacroStabilityInwardsOutput expectedDerivedOutput = DerivedMacroStabilityInwardsOutputFactory.Create(
                 calculation.Output, failureMechanism, assessmentSection);
-            Assert.AreEqual(ProbabilityFormattingHelper.Format(expectedDerivedOutput.MacroStabilityInwardsProbability), row.FailureProbabilityMacroStabilityInwards);
+            Assert.AreEqual(expectedDerivedOutput.MacroStabilityInwardsProbability, row.FailureProbability);
             mocks.VerifyAll();
         }
 
@@ -138,82 +104,13 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
-            const string name = "Test";
-            var random = new Random(21);
-            bool isRelevant = random.NextBoolean();
-            RoundedDouble contribution = random.NextRoundedDouble();
-
-            var calculation = new MacroStabilityInwardsCalculationScenario
-            {
-                Name = name,
-                IsRelevant = isRelevant,
-                Contribution = contribution
-            };
-
-            // Call
-            var row = new MacroStabilityInwardsScenarioRow(calculation, failureMechanism, assessmentSection);
-
-            // Assert
-            Assert.AreSame(calculation, row.Calculation);
-            Assert.AreEqual(name, row.Name);
-            Assert.AreEqual(isRelevant, row.IsRelevant);
-            Assert.AreEqual(2, row.Contribution.NumberOfDecimalPlaces);
-            Assert.AreEqual(contribution * 100, row.Contribution, row.Contribution.GetAccuracy());
-            Assert.AreEqual("-", row.FailureProbabilityMacroStabilityInwards);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        [TestCase(false)]
-        [TestCase(true)]
-        public void IsRelevant_AlwaysOnChange_NotifyObserversAndCalculationPropertyChanged(bool newValue)
-        {
-            // Setup
             var calculation = new MacroStabilityInwardsCalculationScenario();
-            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-
-            var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
-
-            calculation.Attach(observer);
-
-            var row = new MacroStabilityInwardsScenarioRow(calculation, failureMechanism, assessmentSection);
 
             // Call
-            row.IsRelevant = newValue;
-
-            // Assert
-            Assert.AreEqual(newValue, calculation.IsRelevant);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Contribution_AlwaysOnChange_NotifyObserverAndCalculationPropertyChanged()
-        {
-            // Setup
-            var calculation = new MacroStabilityInwardsCalculationScenario();
-            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-
-            var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
-
-            calculation.Attach(observer);
-
             var row = new MacroStabilityInwardsScenarioRow(calculation, failureMechanism, assessmentSection);
 
-            double newValue = new Random(21).NextDouble(0, 100);
-
-            // Call
-            row.Contribution = (RoundedDouble) newValue;
-
             // Assert
-            Assert.AreEqual(newValue / 100, calculation.Contribution, calculation.Contribution.GetAccuracy());
+            Assert.IsNaN(row.FailureProbability);
             mocks.VerifyAll();
         }
 
@@ -232,7 +129,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             var row = new MacroStabilityInwardsScenarioRow(calculation, failureMechanism, assessmentSection);
 
             // Precondition
-            Assert.AreEqual("-", row.FailureProbabilityMacroStabilityInwards);
+            Assert.IsNaN(row.FailureProbability);
 
             // When
             calculation.Output = MacroStabilityInwardsOutputTestFactory.CreateRandomOutput();
@@ -241,7 +138,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             // Then
             DerivedMacroStabilityInwardsOutput expectedDerivedOutput = DerivedMacroStabilityInwardsOutputFactory.Create(
                 calculation.Output, failureMechanism, assessmentSection);
-            Assert.AreEqual(ProbabilityFormattingHelper.Format(expectedDerivedOutput.MacroStabilityInwardsProbability), row.FailureProbabilityMacroStabilityInwards);
+            Assert.AreEqual(expectedDerivedOutput.MacroStabilityInwardsProbability, row.FailureProbability);
             mocks.VerifyAll();
         }
 
@@ -265,14 +162,14 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             // Precondition
             DerivedMacroStabilityInwardsOutput expectedDerivedOutput = DerivedMacroStabilityInwardsOutputFactory.Create(
                 calculation.Output, failureMechanism, assessmentSection);
-            Assert.AreEqual(ProbabilityFormattingHelper.Format(expectedDerivedOutput.MacroStabilityInwardsProbability), row.FailureProbabilityMacroStabilityInwards);
+            Assert.AreEqual(expectedDerivedOutput.MacroStabilityInwardsProbability, row.FailureProbability);
 
             // When
             calculation.Output = null;
             row.Update();
 
             // Then
-            Assert.AreEqual("-", row.FailureProbabilityMacroStabilityInwards);
+            Assert.IsNaN(row.FailureProbability);
             mocks.VerifyAll();
         }
 
@@ -296,7 +193,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             // Precondition
             DerivedMacroStabilityInwardsOutput expectedDerivedOutput = DerivedMacroStabilityInwardsOutputFactory.Create(
                 calculation.Output, failureMechanism, assessmentSection);
-            Assert.AreEqual(ProbabilityFormattingHelper.Format(expectedDerivedOutput.MacroStabilityInwardsProbability), row.FailureProbabilityMacroStabilityInwards);
+            Assert.AreEqual(expectedDerivedOutput.MacroStabilityInwardsProbability, row.FailureProbability);
 
             var random = new Random(11);
 
@@ -310,7 +207,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             // Then
             DerivedMacroStabilityInwardsOutput newExpectedDerivedOutput = DerivedMacroStabilityInwardsOutputFactory.Create(
                 calculation.Output, failureMechanism, assessmentSection);
-            Assert.AreEqual(ProbabilityFormattingHelper.Format(newExpectedDerivedOutput.MacroStabilityInwardsProbability), row.FailureProbabilityMacroStabilityInwards);
+            Assert.AreEqual(newExpectedDerivedOutput.MacroStabilityInwardsProbability, row.FailureProbability);
             mocks.VerifyAll();
         }
     }

@@ -52,21 +52,6 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
         }
 
         [Test]
-        public void Calculation_SetNewValue_GetNewlySetValue()
-        {
-            // Setup
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new GrassCoverErosionInwardsFailureMechanismSectionResult(section);
-            var calculation = new GrassCoverErosionInwardsCalculation();
-
-            // Call
-            result.Calculation = calculation;
-
-            // Assert
-            Assert.AreSame(calculation, result.Calculation);
-        }
-
-        [Test]
         [SetCulture("nl-NL")]
         [TestCase(-20)]
         [TestCase(-1e-6)]
@@ -79,11 +64,11 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
             var result = new GrassCoverErosionInwardsFailureMechanismSectionResult(section);
 
             // Call
-            TestDelegate test = () => result.TailorMadeAssessmentProbability = newValue;
+            void Call() => result.TailorMadeAssessmentProbability = newValue;
 
             // Assert
             const string message = "De waarde voor de faalkans moet in het bereik [0,0, 1,0] liggen.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, message);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, message);
         }
 
         [Test]
@@ -119,11 +104,11 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
             var result = new GrassCoverErosionInwardsFailureMechanismSectionResult(section);
 
             // Call
-            TestDelegate test = () => result.ManualAssemblyProbability = newValue;
+            void Call() => result.ManualAssemblyProbability = newValue;
 
             // Assert
             const string message = "De waarde voor de faalkans moet in het bereik [0,0, 1,0] liggen.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, message);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, message);
         }
 
         [Test]

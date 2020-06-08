@@ -32,7 +32,6 @@ using Riskeer.Common.Forms.TypeConverters;
 using Riskeer.Common.Forms.Views;
 using Riskeer.Common.Primitives;
 using Riskeer.Piping.Data;
-using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.Piping.Forms.Views
 {
@@ -129,10 +128,7 @@ namespace Riskeer.Piping.Forms.Views
         /// is a valid value, but unsupported.</exception>
         public SimpleAssessmentResultType SimpleAssessmentResult
         {
-            get
-            {
-                return SectionResult.SimpleAssessmentResult;
-            }
+            get => SectionResult.SimpleAssessmentResult;
             set
             {
                 SectionResult.SimpleAssessmentResult = value;
@@ -147,10 +143,7 @@ namespace Riskeer.Piping.Forms.Views
         /// is a valid value, but unsupported.</exception>
         public DetailedAssessmentProbabilityOnlyResultType DetailedAssessmentResult
         {
-            get
-            {
-                return SectionResult.DetailedAssessmentResult;
-            }
+            get => SectionResult.DetailedAssessmentResult;
             set
             {
                 SectionResult.DetailedAssessmentResult = value;
@@ -162,13 +155,7 @@ namespace Riskeer.Piping.Forms.Views
         /// Gets the detailed assessment probability a of the <see cref="PipingFailureMechanismSectionResult"/>.
         /// </summary>
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
-        public double DetailedAssessmentProbability
-        {
-            get
-            {
-                return SectionResult.GetDetailedAssessmentProbability(calculations, failureMechanism, assessmentSection);
-            }
-        }
+        public double DetailedAssessmentProbability => SectionResult.GetDetailedAssessmentProbability(calculations, failureMechanism, assessmentSection);
 
         /// <summary>
         /// Gets or sets the value representing the tailor made assessment result.
@@ -177,10 +164,7 @@ namespace Riskeer.Piping.Forms.Views
         /// is a valid value, but unsupported.</exception>
         public TailorMadeAssessmentProbabilityCalculationResultType TailorMadeAssessmentResult
         {
-            get
-            {
-                return SectionResult.TailorMadeAssessmentResult;
-            }
+            get => SectionResult.TailorMadeAssessmentResult;
             set
             {
                 SectionResult.TailorMadeAssessmentResult = value;
@@ -198,10 +182,7 @@ namespace Riskeer.Piping.Forms.Views
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
         public double TailorMadeAssessmentProbability
         {
-            get
-            {
-                return SectionResult.TailorMadeAssessmentProbability;
-            }
+            get => SectionResult.TailorMadeAssessmentProbability;
             set
             {
                 SectionResult.TailorMadeAssessmentProbability = value;
@@ -212,46 +193,22 @@ namespace Riskeer.Piping.Forms.Views
         /// <summary>
         /// Gets the simple assembly category group.
         /// </summary>
-        public string SimpleAssemblyCategoryGroup
-        {
-            get
-            {
-                return FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayName(simpleAssemblyCategoryGroup);
-            }
-        }
+        public string SimpleAssemblyCategoryGroup => FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayName(simpleAssemblyCategoryGroup);
 
         /// <summary>
         /// Gets the detailed assembly category group.
         /// </summary>
-        public string DetailedAssemblyCategoryGroup
-        {
-            get
-            {
-                return FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayName(detailedAssemblyCategoryGroup);
-            }
-        }
+        public string DetailedAssemblyCategoryGroup => FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayName(detailedAssemblyCategoryGroup);
 
         /// <summary>
         /// Gets the tailor made assembly category group.
         /// </summary>
-        public string TailorMadeAssemblyCategoryGroup
-        {
-            get
-            {
-                return FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayName(tailorMadeAssemblyCategoryGroup);
-            }
-        }
+        public string TailorMadeAssemblyCategoryGroup => FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayName(tailorMadeAssemblyCategoryGroup);
 
         /// <summary>
         /// Gets the combined assembly category group.
         /// </summary>
-        public string CombinedAssemblyCategoryGroup
-        {
-            get
-            {
-                return FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayName(combinedAssemblyCategoryGroup);
-            }
-        }
+        public string CombinedAssemblyCategoryGroup => FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayName(combinedAssemblyCategoryGroup);
 
         /// <summary>
         /// Gets the combined assembly probability.
@@ -267,10 +224,7 @@ namespace Riskeer.Piping.Forms.Views
         /// is a valid value, but unsupported.</exception>
         public bool UseManualAssembly
         {
-            get
-            {
-                return SectionResult.UseManualAssembly;
-            }
+            get => SectionResult.UseManualAssembly;
             set
             {
                 SectionResult.UseManualAssembly = value;
@@ -288,10 +242,7 @@ namespace Riskeer.Piping.Forms.Views
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
         public double ManualAssemblyProbability
         {
-            get
-            {
-                return SectionResult.ManualAssemblyProbability;
-            }
+            get => SectionResult.ManualAssemblyProbability;
             set
             {
                 SectionResult.ManualAssemblyProbability = value;
@@ -316,36 +267,11 @@ namespace Riskeer.Piping.Forms.Views
             }
             else
             {
-                ColumnStateDefinitions[detailedAssessmentProbabilityIndex].ErrorText = GetDetailedAssessmentProbabilityError();
+                ColumnStateDefinitions[detailedAssessmentProbabilityIndex].ErrorText = FailureMechanismSectionResultRowHelper.GetDetailedAssessmentProbabilityError(
+                    SectionResult.GetCalculationScenarios(calculations).ToArray(),
+                    scenarios => SectionResult.GetTotalContribution(scenarios),
+                    scenarios => SectionResult.GetDetailedAssessmentProbability(scenarios, failureMechanism, assessmentSection));
             }
-        }
-
-        private string GetDetailedAssessmentProbabilityError()
-        {
-            PipingCalculationScenario[] relevantScenarios = SectionResult.GetCalculationScenarios(calculations).ToArray();
-            bool relevantScenarioAvailable = relevantScenarios.Length != 0;
-
-            if (!relevantScenarioAvailable)
-            {
-                return RiskeerCommonFormsResources.FailureMechanismResultView_DataGridViewCellFormatting_Not_any_calculation_set;
-            }
-
-            if (Math.Abs(SectionResult.GetTotalContribution(relevantScenarios) - 1.0) > 1e-6)
-            {
-                return RiskeerCommonFormsResources.FailureMechanismResultView_DataGridViewCellFormatting_Scenario_contribution_for_this_section_not_100;
-            }
-
-            if (!relevantScenarios.All(s => s.HasOutput))
-            {
-                return RiskeerCommonFormsResources.FailureMechanismResultView_DataGridViewCellFormatting_Not_all_calculations_have_been_executed;
-            }
-
-            if (double.IsNaN(SectionResult.GetDetailedAssessmentProbability(calculations, failureMechanism, assessmentSection)))
-            {
-                return RiskeerCommonFormsResources.FailureMechanismResultView_DataGridViewCellFormatting_All_calculations_must_have_valid_output;
-            }
-
-            return string.Empty;
         }
 
         private void CreateColumnStateDefinitions()

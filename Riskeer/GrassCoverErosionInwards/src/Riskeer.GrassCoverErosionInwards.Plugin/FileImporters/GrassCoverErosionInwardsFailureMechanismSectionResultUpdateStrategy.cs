@@ -43,7 +43,6 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.FileImporters
                 throw new ArgumentNullException(nameof(target));
             }
 
-            target.Calculation = origin.Calculation;
             target.SimpleAssessmentResult = origin.SimpleAssessmentResult;
             target.DetailedAssessmentResult = origin.DetailedAssessmentResult;
             target.TailorMadeAssessmentResult = origin.TailorMadeAssessmentResult;

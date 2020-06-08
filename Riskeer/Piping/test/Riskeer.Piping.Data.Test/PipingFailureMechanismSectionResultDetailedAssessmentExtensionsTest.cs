@@ -55,7 +55,7 @@ namespace Riskeer.Piping.Data.Test
         }
 
         [Test]
-        public void GetDetailedAssessmentProbability_CalculationsNull_ThrowsArgumentNullException()
+        public void GetDetailedAssessmentProbability_CalculationScenariosNull_ThrowsArgumentNullException()
         {
             // Setup
             var mocks = new MockRepository();
@@ -71,7 +71,7 @@ namespace Riskeer.Piping.Data.Test
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("calculations", exception.ParamName);
+            Assert.AreEqual("calculationScenarios", exception.ParamName);
             mocks.VerifyAll();
         }
 

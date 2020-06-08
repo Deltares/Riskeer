@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Components.Persistence.Stability;
 using Core.Common.Base.Data;
 using Core.Common.Base.IO;
@@ -32,6 +33,7 @@ using Riskeer.Common.Forms.Helpers;
 using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.MacroStabilityInwards.IO.Properties;
 using CoreCommonUtilResources = Core.Common.Util.Properties.Resources;
+using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 
 namespace Riskeer.MacroStabilityInwards.IO.Exporters
 {
@@ -110,7 +112,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Exporters
             {
                 switch (calculationItem)
                 {
-                    case CalculationGroup nestedGroup:
+                    case CalculationGroup nestedGroup when HasChildrenWithOutput(nestedGroup):
                         continueExport = ExportCalculationGroup(nestedGroup, currentFolderPath, exportedGroups);
                         break;
                     case MacroStabilityInwardsCalculation calculation when !calculation.HasOutput:
@@ -128,6 +130,14 @@ namespace Riskeer.MacroStabilityInwards.IO.Exporters
             }
 
             return true;
+        }
+
+        private static bool HasChildrenWithOutput(CalculationGroup nestedGroup)
+        {
+            MacroStabilityInwardsCalculation[] calculations = nestedGroup.GetCalculations()
+                                                                         .Cast<MacroStabilityInwardsCalculation>()
+                                                                         .ToArray();
+            return calculations.Any() && calculations.Any(calculation => calculation.HasOutput);
         }
 
         private static void CreateDirectory(string currentFolderPath)
@@ -154,6 +164,8 @@ namespace Riskeer.MacroStabilityInwards.IO.Exporters
 
         private bool ExportCalculation(MacroStabilityInwardsCalculation calculation, string currentFolderPath, ICollection<MacroStabilityInwardsCalculation> exportedCalculations)
         {
+            log.InfoFormat(CoreCommonGuiResources.GuiExportHandler_ExportItemUsingDialog_Start_exporting_DataType_0_, calculation.Name);
+
             string filePath = GetCalculationFilePath(calculation, currentFolderPath, exportedCalculations);
             var exporter = new MacroStabilityInwardsCalculationExporter(calculation, persistenceFactory, filePath, () => getNormativeAssessmentLevelFunc(calculation));
 

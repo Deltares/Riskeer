@@ -23,7 +23,6 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing.Design;
-using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Gui.Attributes;
@@ -40,7 +39,6 @@ using Riskeer.GrassCoverErosionInwards.Data;
 using Riskeer.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Riskeer.GrassCoverErosionInwards.Forms.Properties;
 using Riskeer.GrassCoverErosionInwards.Forms.UITypeEditors;
-using Riskeer.GrassCoverErosionInwards.Util;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses
@@ -101,13 +99,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses
             }
             set
             {
-                PropertyChangeHelper.ChangePropertyAndNotify(() =>
-                {
-                    data.WrappedData.DikeProfile = value;
-                    GrassCoverErosionInwardsHelper.UpdateCalculationToSectionResultAssignments(
-                        data.FailureMechanism.SectionResults,
-                        data.FailureMechanism.Calculations.Cast<GrassCoverErosionInwardsCalculation>());
-                }, propertyChangeHandler);
+                PropertyChangeHelper.ChangePropertyAndNotify(() => data.WrappedData.DikeProfile = value, propertyChangeHandler);
             }
         }
 

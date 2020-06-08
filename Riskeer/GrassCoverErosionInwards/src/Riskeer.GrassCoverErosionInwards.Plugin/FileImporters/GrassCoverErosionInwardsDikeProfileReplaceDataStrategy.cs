@@ -57,8 +57,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.FileImporters
         {
             return GrassCoverErosionInwardsDataSynchronizationService.RemoveAllDikeProfiles(
                 FailureMechanism.Calculations.Cast<GrassCoverErosionInwardsCalculation>(),
-                FailureMechanism.DikeProfiles,
-                FailureMechanism.SectionResults);
+                FailureMechanism.DikeProfiles);
         }
     }
 }

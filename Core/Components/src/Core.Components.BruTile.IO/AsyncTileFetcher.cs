@@ -47,6 +47,7 @@ namespace Core.Components.BruTile.IO
         private MemoryCache<byte[]> volatileCache;
         private ITileCache<byte[]> persistentCache;
         private SmartThreadPool threadPool;
+        private static object syncLock = new object();
 
         public event EventHandler<TileReceivedEventArgs> TileReceived;
 
@@ -299,11 +300,14 @@ namespace Core.Components.BruTile.IO
 
         private void OnTileReceived(TileReceivedEventArgs tileReceivedEventArgs)
         {
-            TileReceived?.Invoke(this, tileReceivedEventArgs);
-
-            if (IsReady())
+            lock (syncLock)
             {
-                OnQueueEmpty(EventArgs.Empty);
+                TileReceived?.Invoke(this, tileReceivedEventArgs);
+                
+                if (IsReady())
+                {
+                    OnQueueEmpty(EventArgs.Empty);
+                }
             }
         }
 

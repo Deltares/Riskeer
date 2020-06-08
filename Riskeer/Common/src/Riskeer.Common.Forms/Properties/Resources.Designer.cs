@@ -40,7 +40,7 @@ namespace Riskeer.Common.Forms.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Resources {
@@ -667,6 +667,15 @@ namespace Riskeer.Common.Forms.Properties {
         public static string CalculationOutput_TargetReliability_DisplayName {
             get {
                 return ResourceManager.GetString("CalculationOutput_TargetReliability_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Berekeningen voor geselecteerd vak.
+        /// </summary>
+        public static string Calculations_per_FailureMechanismSection_DisplayName {
+            get {
+                return ResourceManager.GetString("Calculations_per_FailureMechanismSection_DisplayName", resourceCulture);
             }
         }
         
@@ -3114,6 +3123,45 @@ namespace Riskeer.Common.Forms.Properties {
             get {
                 object obj = ResourceManager.GetObject("ScenariosIcon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Faalkans
+        ///[1/jaar].
+        /// </summary>
+        public static string ScenarioView_FailureProbability_DisplayName {
+            get {
+                return ResourceManager.GetString("ScenarioView_FailureProbability_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bijdrage aan
+        ///scenario
+        ///[%].
+        /// </summary>
+        public static string ScenarioView_InitializeDataGridView_Contribution {
+            get {
+                return ResourceManager.GetString("ScenarioView_InitializeDataGridView_Contribution", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to In oordeel.
+        /// </summary>
+        public static string ScenarioView_InitializeDataGridView_In_final_rating {
+            get {
+                return ResourceManager.GetString("ScenarioView_InitializeDataGridView_In_final_rating", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Naam.
+        /// </summary>
+        public static string ScenarioView_Name_DisplayName {
+            get {
+                return ResourceManager.GetString("ScenarioView_Name_DisplayName", resourceCulture);
             }
         }
         

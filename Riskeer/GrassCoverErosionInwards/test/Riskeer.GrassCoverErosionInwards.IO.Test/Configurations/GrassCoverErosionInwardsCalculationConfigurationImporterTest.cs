@@ -28,7 +28,6 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.DikeProfiles;
-using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.IO.Configurations.Import;
@@ -52,8 +51,7 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
                 "",
                 new CalculationGroup(),
                 Enumerable.Empty<HydraulicBoundaryLocation>(),
-                Enumerable.Empty<DikeProfile>(),
-                new GrassCoverErosionInwardsFailureMechanism());
+                Enumerable.Empty<DikeProfile>());
 
             // Assert
             Assert.IsInstanceOf<
@@ -66,9 +64,8 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
         public void Constructor_HydraulicBoundaryLocationsNull_ThrowArgumentNullException()
         {
             // Call
-            void Call() => new GrassCoverErosionInwardsCalculationConfigurationImporter("", new CalculationGroup(), null,
-                                                                                        Enumerable.Empty<DikeProfile>(),
-                                                                                        new GrassCoverErosionInwardsFailureMechanism());
+            void Call() => new GrassCoverErosionInwardsCalculationConfigurationImporter(
+                "", new CalculationGroup(), null, Enumerable.Empty<DikeProfile>());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -79,24 +76,12 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
         public void Constructor_DikeProfilesNull_ThrowArgumentNullException()
         {
             // Call
-            void Call() => new GrassCoverErosionInwardsCalculationConfigurationImporter("", new CalculationGroup(), Enumerable.Empty<HydraulicBoundaryLocation>(),
-                                                                                        null, new GrassCoverErosionInwardsFailureMechanism());
+            void Call() => new GrassCoverErosionInwardsCalculationConfigurationImporter(
+                "", new CalculationGroup(), Enumerable.Empty<HydraulicBoundaryLocation>(),  null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("dikeProfiles", exception.ParamName);
-        }
-
-        [Test]
-        public void Constructor_FailureMechanismNull_ThrowArgumentNullException()
-        {
-            // Call
-            void Call() => new GrassCoverErosionInwardsCalculationConfigurationImporter("", new CalculationGroup(), Enumerable.Empty<HydraulicBoundaryLocation>(),
-                                                                                        Enumerable.Empty<DikeProfile>(), null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("failureMechanism", exception.ParamName);
         }
 
         [Test]
@@ -114,8 +99,7 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
                 new[]
                 {
                     DikeProfileTestFactory.CreateDikeProfile("Dijkprofiel", "Dijkprofiel ID")
-                },
-                new GrassCoverErosionInwardsFailureMechanism());
+                });
 
             // Call
             var successful = false;
@@ -141,8 +125,7 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
                 filePath,
                 calculationGroup,
                 Enumerable.Empty<HydraulicBoundaryLocation>(),
-                Enumerable.Empty<DikeProfile>(),
-                new GrassCoverErosionInwardsFailureMechanism());
+                Enumerable.Empty<DikeProfile>());
 
             // Call
             var successful = false;
@@ -169,8 +152,7 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
                 filePath,
                 calculationGroup,
                 Enumerable.Empty<HydraulicBoundaryLocation>(),
-                Enumerable.Empty<DikeProfile>(),
-                new GrassCoverErosionInwardsFailureMechanism());
+                Enumerable.Empty<DikeProfile>());
 
             // Call
             var successful = false;
@@ -196,8 +178,7 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
                 filePath,
                 calculationGroup,
                 Enumerable.Empty<HydraulicBoundaryLocation>(),
-                Enumerable.Empty<DikeProfile>(),
-                new GrassCoverErosionInwardsFailureMechanism());
+                Enumerable.Empty<DikeProfile>());
 
             // Call
             var successful = false;
@@ -221,8 +202,7 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
                 filePath,
                 calculationGroup,
                 Enumerable.Empty<HydraulicBoundaryLocation>(),
-                Enumerable.Empty<DikeProfile>(),
-                new GrassCoverErosionInwardsFailureMechanism());
+                Enumerable.Empty<DikeProfile>());
 
             // Call
             var successful = false;
@@ -246,8 +226,7 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
                 filePath,
                 calculationGroup,
                 Enumerable.Empty<HydraulicBoundaryLocation>(),
-                Enumerable.Empty<DikeProfile>(),
-                new GrassCoverErosionInwardsFailureMechanism());
+                Enumerable.Empty<DikeProfile>());
 
             // Call
             var successful = false;
@@ -271,8 +250,7 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
                 filePath,
                 calculationGroup,
                 Enumerable.Empty<HydraulicBoundaryLocation>(),
-                Enumerable.Empty<DikeProfile>(),
-                new GrassCoverErosionInwardsFailureMechanism());
+                Enumerable.Empty<DikeProfile>());
 
             // Call
             var successful = false;
@@ -296,8 +274,7 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
                 filePath,
                 calculationGroup,
                 Enumerable.Empty<HydraulicBoundaryLocation>(),
-                Enumerable.Empty<DikeProfile>(),
-                new GrassCoverErosionInwardsFailureMechanism());
+                Enumerable.Empty<DikeProfile>());
 
             // Call
             var successful = false;
@@ -325,8 +302,7 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
                 new[]
                 {
                     dikeProfile
-                },
-                new GrassCoverErosionInwardsFailureMechanism());
+                });
 
             // Call
             var successful = false;
@@ -359,8 +335,7 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
                 new[]
                 {
                     dikeProfile
-                },
-                new GrassCoverErosionInwardsFailureMechanism());
+                });
 
             // Call
             bool successful = importer.Import();
@@ -393,8 +368,7 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
                 filePath,
                 calculationGroup,
                 Enumerable.Empty<HydraulicBoundaryLocation>(),
-                Enumerable.Empty<DikeProfile>(),
-                new GrassCoverErosionInwardsFailureMechanism());
+                Enumerable.Empty<DikeProfile>());
 
             // Call
             bool successful = importer.Import();
@@ -430,8 +404,7 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
                 filePath,
                 calculationGroup,
                 Enumerable.Empty<HydraulicBoundaryLocation>(),
-                Enumerable.Empty<DikeProfile>(),
-                new GrassCoverErosionInwardsFailureMechanism());
+                Enumerable.Empty<DikeProfile>());
 
             // Call
             bool successful = importer.Import();
@@ -460,8 +433,7 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
                 filePath,
                 calculationGroup,
                 Enumerable.Empty<HydraulicBoundaryLocation>(),
-                Enumerable.Empty<DikeProfile>(),
-                new GrassCoverErosionInwardsFailureMechanism());
+                Enumerable.Empty<DikeProfile>());
 
             // Call
             bool successful = importer.Import();
@@ -520,8 +492,7 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
                 new[]
                 {
                     dikeProfile
-                },
-                new GrassCoverErosionInwardsFailureMechanism());
+                });
 
             // Call
             var successful = false;
@@ -562,52 +533,6 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
 
             Assert.AreEqual(1, calculationGroup.Children.Count);
             AssertCalculation(expectedCalculation, (GrassCoverErosionInwardsCalculationScenario) calculationGroup.Children[0]);
-        }
-
-        [Test]
-        public void DoPostImport_CalculationWithDikeProfileInSection_AssignsCalculationToSectionResult()
-        {
-            // Setup
-            string filePath = Path.Combine(path, "validConfigurationFullCalculation.xml");
-            var calculationGroup = new CalculationGroup();
-
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-
-            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
-            {
-                new FailureMechanismSection("name", new[]
-                {
-                    new Point2D(0, 0),
-                    new Point2D(10, 10)
-                })
-            });
-
-            var calculation = new GrassCoverErosionInwardsCalculationScenario
-            {
-                InputParameters =
-                {
-                    DikeProfile = DikeProfileTestFactory.CreateDikeProfile(new Point2D(5, 5))
-                }
-            };
-            failureMechanism.CalculationsGroup.Children.Add(
-                calculation);
-
-            var importer = new GrassCoverErosionInwardsCalculationConfigurationImporter(
-                filePath,
-                calculationGroup,
-                Enumerable.Empty<HydraulicBoundaryLocation>(),
-                Enumerable.Empty<DikeProfile>(),
-                failureMechanism);
-
-            // Preconditions
-            Assert.AreEqual(1, failureMechanism.SectionResults.Count());
-            Assert.IsNull(failureMechanism.SectionResults.ElementAt(0).Calculation);
-
-            // Call
-            importer.DoPostImport();
-
-            // Assert
-            Assert.AreSame(calculation, failureMechanism.SectionResults.ElementAt(0).Calculation);
         }
 
         private static void AssertCalculation(GrassCoverErosionInwardsCalculation expectedCalculation, GrassCoverErosionInwardsCalculation actualCalculation)

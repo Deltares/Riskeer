@@ -20,7 +20,9 @@
 // All rights reserved.
 
 using System;
-using Riskeer.Common.Forms;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.Probability;
+using Riskeer.Common.Forms.Views;
 using Riskeer.GrassCoverErosionInwards.Data;
 
 namespace Riskeer.GrassCoverErosionInwards.Forms.Views
@@ -29,44 +31,53 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
     /// Container of a <see cref="GrassCoverErosionInwardsFailureMechanismSectionResult"/>,
     /// which takes care of the representation of properties in a grid.
     /// </summary>
-    internal class GrassCoverErosionInwardsScenarioRow : IScenarioRow<GrassCoverErosionInwardsCalculation>
+    public class GrassCoverErosionInwardsScenarioRow : ScenarioRow<GrassCoverErosionInwardsCalculationScenario>
     {
-        private readonly GrassCoverErosionInwardsFailureMechanismSectionResult sectionResult;
+        private readonly GrassCoverErosionInwardsFailureMechanism failureMechanism;
+        private readonly IAssessmentSection assessmentSection;
+        private ProbabilityAssessmentOutput probabilityAssessmentOutput;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="GrassCoverErosionInwardsScenarioRow"/> class.
+        /// Creates a new instance of <see cref="GrassCoverErosionInwardsScenarioRow"/>.
         /// </summary>
-        /// <param name="sectionResult">The section result.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="sectionResult"/> is <c>null</c>.</exception>
-        public GrassCoverErosionInwardsScenarioRow(GrassCoverErosionInwardsFailureMechanismSectionResult sectionResult)
+        /// <param name="calculationScenario">The <see cref="GrassCoverErosionInwardsCalculationScenario"/> this row contains.</param>
+        /// <param name="failureMechanism">The failure mechanism that the calculation belongs to.</param>
+        /// <param name="assessmentSection">The assessment section that the calculation belongs to.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        internal GrassCoverErosionInwardsScenarioRow(GrassCoverErosionInwardsCalculationScenario calculationScenario,
+                                                     GrassCoverErosionInwardsFailureMechanism failureMechanism,
+                                                     IAssessmentSection assessmentSection)
+            : base(calculationScenario)
         {
-            if (sectionResult == null)
+            if (failureMechanism == null)
             {
-                throw new ArgumentNullException(nameof(sectionResult));
+                throw new ArgumentNullException(nameof(failureMechanism));
             }
 
-            this.sectionResult = sectionResult;
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
+            this.failureMechanism = failureMechanism;
+            this.assessmentSection = assessmentSection;
+
+            CreateProbabilityAssessmentOutput();
         }
 
-        public string Name
+        public override double FailureProbability => probabilityAssessmentOutput?.Probability ?? double.NaN;
+
+        public override void Update()
         {
-            get
-            {
-                return sectionResult.Section.Name;
-            }
+            CreateProbabilityAssessmentOutput();
         }
 
-        public GrassCoverErosionInwardsCalculation Calculation
+        private void CreateProbabilityAssessmentOutput()
         {
-            get
-            {
-                return sectionResult.Calculation;
-            }
-            set
-            {
-                sectionResult.Calculation = value;
-                sectionResult.NotifyObservers();
-            }
+            probabilityAssessmentOutput = CalculationScenario.HasOutput
+                                              ? GrassCoverErosionInwardsProbabilityAssessmentOutputFactory.Create(
+                                                  CalculationScenario.Output.OvertoppingOutput, failureMechanism, assessmentSection)
+                                              : null;
         }
     }
 }

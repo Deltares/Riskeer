@@ -43,7 +43,6 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.FileImporters
             var random = new Random(39);
             return new GrassCoverErosionInwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
-                Calculation = new GrassCoverErosionInwardsCalculation(),
                 SimpleAssessmentResult = SimpleAssessmentValidityOnlyResultType.NotApplicable,
                 DetailedAssessmentResult = DetailedAssessmentProbabilityOnlyResultType.NotAssessed,
                 TailorMadeAssessmentResult = TailorMadeAssessmentProbabilityCalculationResultType.Probability,
@@ -56,7 +55,6 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.FileImporters
         protected override void AssertSectionResult(GrassCoverErosionInwardsFailureMechanismSectionResult originResult,
                                                     GrassCoverErosionInwardsFailureMechanismSectionResult targetResult)
         {
-            Assert.AreSame(originResult.Calculation, targetResult.Calculation);
             Assert.AreEqual(originResult.SimpleAssessmentResult, targetResult.SimpleAssessmentResult);
             Assert.AreEqual(originResult.DetailedAssessmentResult, targetResult.DetailedAssessmentResult);
             Assert.AreEqual(originResult.TailorMadeAssessmentResult, targetResult.TailorMadeAssessmentResult);

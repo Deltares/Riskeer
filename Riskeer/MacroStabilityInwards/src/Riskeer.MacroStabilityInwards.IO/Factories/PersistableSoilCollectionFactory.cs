@@ -100,7 +100,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
                 ShearStrengthRatio = MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetShearStrengthRatio(layerData).GetDesignValue(),
                 ShearStrengthRatioStochasticParameter = PersistableStochasticParameterFactory.Create(layerData.ShearStrengthRatio),
                 StrengthIncreaseExponent = MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetStrengthIncreaseExponent(layerData).GetDesignValue(),
-                StrengthIncreaseExponentStochasticParameter = PersistableStochasticParameterFactory.Create(layerData.ShearStrengthRatio),
+                StrengthIncreaseExponentStochasticParameter = PersistableStochasticParameterFactory.Create(layerData.StrengthIncreaseExponent),
                 CohesionAndFrictionAngleCorrelated = false,
                 ShearStrengthRatioAndShearStrengthExponentCorrelated = false,
                 ShearStrengthModelTypeAbovePhreaticLevel = GetShearStrengthModelTypeForAbovePhreaticLevel(layerData.ShearStrengthModel),

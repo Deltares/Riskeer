@@ -36,7 +36,6 @@ using Riskeer.Common.IO.FileImporters;
 using Riskeer.GrassCoverErosionInwards.Data;
 using Riskeer.GrassCoverErosionInwards.Data.TestUtil;
 using Riskeer.GrassCoverErosionInwards.Plugin.FileImporters;
-using Riskeer.GrassCoverErosionInwards.Util;
 
 namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.FileImporters
 {
@@ -49,10 +48,10 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.FileImporters
         public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new GrassCoverErosionInwardsDikeProfileUpdateDataStrategy(null);
+            void Call() => new GrassCoverErosionInwardsDikeProfileUpdateDataStrategy(null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
         }
 
@@ -74,11 +73,10 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.FileImporters
             var strategy = new GrassCoverErosionInwardsDikeProfileUpdateDataStrategy(new GrassCoverErosionInwardsFailureMechanism());
 
             // Call
-            TestDelegate call = () => strategy.UpdateDikeProfilesWithImportedData(null,
-                                                                                  string.Empty);
+            void Call() => strategy.UpdateDikeProfilesWithImportedData(null, string.Empty);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("importedDataCollection", exception.ParamName);
         }
 
@@ -89,11 +87,10 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.FileImporters
             var strategy = new GrassCoverErosionInwardsDikeProfileUpdateDataStrategy(new GrassCoverErosionInwardsFailureMechanism());
 
             // Call
-            TestDelegate call = () => strategy.UpdateDikeProfilesWithImportedData(Enumerable.Empty<DikeProfile>(),
-                                                                                  null);
+            void Call() => strategy.UpdateDikeProfilesWithImportedData(Enumerable.Empty<DikeProfile>(), null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("sourceFilePath", exception.ParamName);
         }
 
@@ -136,14 +133,14 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.FileImporters
             var strategy = new GrassCoverErosionInwardsDikeProfileUpdateDataStrategy(new GrassCoverErosionInwardsFailureMechanism());
 
             // Call
-            TestDelegate call = () => strategy.UpdateDikeProfilesWithImportedData(new[]
+            void Call() => strategy.UpdateDikeProfilesWithImportedData(new[]
             {
                 dikeProfileOne,
                 dikeProfileTwo
             }, sourceFilePath);
 
             // Assert
-            var exception = Assert.Throws<UpdateDataException>(call);
+            var exception = Assert.Throws<UpdateDataException>(Call);
 
             const string expectedMessage = "Geïmporteerde data moet unieke elementen bevatten.";
             Assert.AreEqual(expectedMessage, exception.Message);
@@ -174,11 +171,10 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.FileImporters
             var strategy = new GrassCoverErosionInwardsDikeProfileUpdateDataStrategy(new GrassCoverErosionInwardsFailureMechanism());
 
             // Call
-            TestDelegate call = () => strategy.UpdateDikeProfilesWithImportedData(importedTargetCollection,
-                                                                                  sourceFilePath);
+            void Call() => strategy.UpdateDikeProfilesWithImportedData(importedTargetCollection, sourceFilePath);
 
             // Assert
-            var exception = Assert.Throws<UpdateDataException>(call);
+            var exception = Assert.Throws<UpdateDataException>(Call);
             const string expectedMessage = "Geïmporteerde data moet unieke elementen bevatten.";
             Assert.AreEqual(expectedMessage, exception.Message);
 
@@ -528,147 +524,6 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.FileImporters
                 affectedCalculation.InputParameters,
                 affectedProfile
             }, affectedObjects);
-        }
-
-        [Test]
-        public void UpdateDikeProfilesWithImportedData_CalculationWithDikeProfileUpdatedToOtherSegment_UpdatesSectionResults()
-        {
-            // Setup
-            const string dikeProfileId = "ID of updated profile";
-
-            var originalMatchingPoint = new Point2D(0, 0);
-            var updatedMatchingPoint = new Point2D(20, 20);
-            DikeProfile affectedProfile = DikeProfileTestFactory.CreateDikeProfile(originalMatchingPoint, dikeProfileId);
-            var affectedCalculation = new GrassCoverErosionInwardsCalculation
-            {
-                InputParameters =
-                {
-                    DikeProfile = affectedProfile
-                }
-            };
-
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            failureMechanism.CalculationsGroup.Children.Add(affectedCalculation);
-
-            var intersectionPoint = new Point2D(10, 10);
-            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
-            {
-                new FailureMechanismSection("OldSection", new[]
-                {
-                    originalMatchingPoint,
-                    intersectionPoint
-                }),
-                new FailureMechanismSection("NewSection", new[]
-                {
-                    intersectionPoint,
-                    updatedMatchingPoint
-                })
-            });
-
-            GrassCoverErosionInwardsHelper.UpdateCalculationToSectionResultAssignments(
-                failureMechanism.SectionResults,
-                failureMechanism.Calculations
-                                .Cast<GrassCoverErosionInwardsCalculation>());
-
-            DikeProfileCollection dikeProfiles = failureMechanism.DikeProfiles;
-            dikeProfiles.AddRange(new[]
-            {
-                affectedProfile
-            }, sourceFilePath);
-
-            // Precondition
-            GrassCoverErosionInwardsFailureMechanismSectionResult[] sectionResults = failureMechanism.SectionResults
-                                                                                                     .ToArray();
-            Assert.AreEqual(2, sectionResults.Length);
-            Assert.AreSame(affectedCalculation, sectionResults[0].Calculation);
-            Assert.IsNull(sectionResults[1].Calculation);
-
-            DikeProfile profileToUpdateFrom = DikeProfileTestFactory.CreateDikeProfile(updatedMatchingPoint, dikeProfileId);
-
-            var strategy = new GrassCoverErosionInwardsDikeProfileUpdateDataStrategy(failureMechanism);
-
-            // Call
-            IEnumerable<IObservable> affectedObjects = strategy.UpdateDikeProfilesWithImportedData(new[]
-            {
-                profileToUpdateFrom
-            }, sourceFilePath);
-            // Assert
-            CollectionAssert.AreEquivalent(new IObservable[]
-            {
-                dikeProfiles,
-                affectedCalculation.InputParameters,
-                affectedProfile,
-                sectionResults[0],
-                sectionResults[1]
-            }, affectedObjects);
-
-            sectionResults = failureMechanism.SectionResults.ToArray();
-            Assert.AreEqual(2, sectionResults.Length);
-            Assert.IsNull(sectionResults[0].Calculation);
-            Assert.AreSame(affectedCalculation, sectionResults[1].Calculation);
-        }
-
-        [Test]
-        public void UpdateDikeProfilesWithImportedData_CalculationWithToBeRemovedDikeProfile_UpdatesSectionResults()
-        {
-            // Setup
-            const string dikeProfileId = "ID of removed profile";
-
-            var matchingPoint = new Point2D(0, 0);
-            DikeProfile removedProfile = DikeProfileTestFactory.CreateDikeProfile(matchingPoint, dikeProfileId);
-            var affectedCalculation = new GrassCoverErosionInwardsCalculation
-            {
-                InputParameters =
-                {
-                    DikeProfile = removedProfile
-                }
-            };
-
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            failureMechanism.CalculationsGroup.Children.Add(affectedCalculation);
-
-            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
-            {
-                new FailureMechanismSection("Section", new[]
-                {
-                    matchingPoint,
-                    new Point2D(10, 10)
-                })
-            });
-
-            GrassCoverErosionInwardsHelper.UpdateCalculationToSectionResultAssignments(
-                failureMechanism.SectionResults,
-                failureMechanism.Calculations
-                                .Cast<GrassCoverErosionInwardsCalculation>());
-
-            DikeProfileCollection dikeProfiles = failureMechanism.DikeProfiles;
-            dikeProfiles.AddRange(new[]
-            {
-                removedProfile
-            }, sourceFilePath);
-
-            // Precondition
-            GrassCoverErosionInwardsFailureMechanismSectionResult[] sectionResults = failureMechanism.SectionResults
-                                                                                                     .ToArray();
-            Assert.AreEqual(1, sectionResults.Length);
-            Assert.AreSame(affectedCalculation, sectionResults[0].Calculation);
-
-            var strategy = new GrassCoverErosionInwardsDikeProfileUpdateDataStrategy(failureMechanism);
-
-            // Call
-            IEnumerable<IObservable> affectedObjects = strategy.UpdateDikeProfilesWithImportedData(Enumerable.Empty<DikeProfile>(),
-                                                                                                   sourceFilePath);
-            // Assert
-            CollectionAssert.AreEquivalent(new IObservable[]
-            {
-                dikeProfiles,
-                affectedCalculation.InputParameters,
-                sectionResults[0]
-            }, affectedObjects);
-
-            sectionResults = failureMechanism.SectionResults.ToArray();
-            Assert.AreEqual(1, sectionResults.Length);
-            Assert.IsNull(sectionResults[0].Calculation);
         }
 
         [Test]

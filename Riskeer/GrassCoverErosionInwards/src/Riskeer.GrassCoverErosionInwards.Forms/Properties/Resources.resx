@@ -261,4 +261,28 @@
     <value>Illustratiepunten inlezen   </value>
     <comment>Spaces are added to make this value unique to prevent jumping from the selected property after editing.</comment>
   </data>
+  <data name="GrassCoverErosionInwardsCalculation_Name_DisplayName" xml:space="preserve">
+    <value>Naam</value>
+  </data>
+  <data name="GrassCoverErosionInwardsCalculation_Use_Dam" xml:space="preserve">
+    <value>Gebruik dam</value>
+  </data>
+  <data name="GrassCoverErosionInwardsCalculation_Damtype" xml:space="preserve">
+    <value>Damtype</value>
+  </data>
+  <data name="GrassCoverErosionInwardsCalculation_Damheight" xml:space="preserve">
+    <value>Damhoogte [m+NAP]</value>
+  </data>
+  <data name="GrassCoverErosionInwardsCalculation_Use_ForeShoreGeometry" xml:space="preserve">
+    <value>Gebruik voorlandgeometrie</value>
+  </data>
+  <data name="GrassCoverErosionInwardsCalculation_Expected_Critical_OvertoppingRate" xml:space="preserve">
+    <value>Verwachtingswaarde kritiek overslagdebiet [m3/m/s]</value>
+  </data>
+  <data name="GrassCoverErosionInwardsCalculation_StandardDeviation_Critical_OvertoppingRate" xml:space="preserve">
+    <value>Standaardafwijking kritiek overslagdebiet [m3/m/s]</value>
+  </data>
+  <data name="GrassCoverErosionInwardsCalculation_Dikeheight" xml:space="preserve">
+    <value>Dijkhoogte [m+NAP]</value>
+  </data>
 </root>

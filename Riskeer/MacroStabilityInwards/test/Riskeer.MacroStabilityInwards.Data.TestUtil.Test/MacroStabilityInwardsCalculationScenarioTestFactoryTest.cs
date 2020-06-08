@@ -32,14 +32,14 @@ namespace Riskeer.MacroStabilityInwards.Data.TestUtil.Test
     public class MacroStabilityInwardsCalculationScenarioTestFactoryTest
     {
         [Test]
-        public void CreateMacroStabilityInwardsCalculationScenariot_SectionNull_ThrowsArgumentNullException()
+        public void CreateMacroStabilityInwardsCalculationScenario_SectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenario(null);
+            void Call() => MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenario(null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("section", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("section", exception.ParamName);
         }
 
         [Test]
@@ -64,14 +64,14 @@ namespace Riskeer.MacroStabilityInwards.Data.TestUtil.Test
         }
 
         [Test]
-        public void CreateMacroStabilityInwardsCalculationScenario_SectionNull_ThrowsArgumentNullException()
+        public void CreateMacroStabilityInwardsCalculationScenarioWithFactorOfStability_SectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenario(double.NaN, null);
+            void Call() => MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenario(double.NaN, null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("section", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("section", exception.ParamName);
         }
 
         [Test]
@@ -97,11 +97,11 @@ namespace Riskeer.MacroStabilityInwards.Data.TestUtil.Test
         public void CreateMacroStabilityInwardsCalculationScenarioWithNaNOutput_SectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithNaNOutput(null);
+            void Call() => MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithNaNOutput(null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("section", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("section", exception.ParamName);
         }
 
         [Test]
@@ -123,11 +123,11 @@ namespace Riskeer.MacroStabilityInwards.Data.TestUtil.Test
         public void CreateIrrelevantMacroStabilityInwardsCalculationScenario_SectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => MacroStabilityInwardsCalculationScenarioTestFactory.CreateIrrelevantMacroStabilityInwardsCalculationScenario(null);
+            void Call() => MacroStabilityInwardsCalculationScenarioTestFactory.CreateIrrelevantMacroStabilityInwardsCalculationScenario(null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("section", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("section", exception.ParamName);
         }
 
         [Test]
@@ -149,11 +149,11 @@ namespace Riskeer.MacroStabilityInwards.Data.TestUtil.Test
         public void CreateNotCalculatedMacroStabilityInwardsCalculationScenario_SectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => MacroStabilityInwardsCalculationScenarioTestFactory.CreateNotCalculatedMacroStabilityInwardsCalculationScenario(null);
+            void Call() => MacroStabilityInwardsCalculationScenarioTestFactory.CreateNotCalculatedMacroStabilityInwardsCalculationScenario(null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("section", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("section", exception.ParamName);
         }
 
         [Test]
@@ -181,14 +181,14 @@ namespace Riskeer.MacroStabilityInwards.Data.TestUtil.Test
         }
 
         [Test]
-        public void CreateMacroStabilityInwardsCalculationScenarioWithValidInput_HydraulicBoundaryLocationNull_ThrowsArgumentnullException()
+        public void CreateMacroStabilityInwardsCalculationScenarioWithValidInput_HydraulicBoundaryLocationNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput(null);
+            void Call() => MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput(null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("hydraulicBoundaryLocation", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("hydraulicBoundaryLocation", exception.ParamName);
         }
 
         [Test]

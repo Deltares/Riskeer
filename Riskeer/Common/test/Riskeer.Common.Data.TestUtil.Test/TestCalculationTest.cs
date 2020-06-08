@@ -29,17 +29,18 @@ namespace Riskeer.Common.Data.TestUtil.Test
     public class TestCalculationTest
     {
         [Test]
-        public void DefaultConstructor_DefaultValues()
+        public void DefaultConstructor_ExpectedValues()
         {
             // Call
             var calculation = new TestCalculation();
 
             // Assert
-            Assert.IsInstanceOf<ICalculation>(calculation);
+            Assert.IsInstanceOf<ICalculation<TestCalculationInput>>(calculation);
             Assert.IsInstanceOf<Observable>(calculation);
             Assert.AreEqual("Nieuwe berekening", calculation.Name);
             Assert.IsNull(calculation.Output);
             Assert.IsNull(calculation.Comments);
+            Assert.IsNotNull(calculation.InputParameters);
         }
 
         [Test]

@@ -115,8 +115,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
                     filePath,
                     context.WrappedData,
                     context.AssessmentSection.HydraulicBoundaryDatabase.Locations,
-                    context.AvailableDikeProfiles,
-                    context.FailureMechanism));
+                    context.AvailableDikeProfiles));
 
             yield return new ImportInfo<DikeProfilesContext>
             {
@@ -192,7 +191,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
             {
                 GetViewData = context => context.WrappedData,
                 GetViewName = (view, context) => RiskeerCommonFormsResources.Scenarios_DisplayName,
-                CreateInstance = context => new GrassCoverErosionInwardsScenariosView(context.WrappedData, context.ParentFailureMechanism),
+                CreateInstance = context => new GrassCoverErosionInwardsScenariosView(context.WrappedData, context.ParentFailureMechanism, context.AssessmentSection),
                 CloseForData = CloseScenariosViewForData,
                 Image = RiskeerCommonFormsResources.ScenariosIcon
             };
@@ -248,6 +247,20 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
                 CloseForData = RiskeerPluginHelper.ShouldCloseViewWithCalculationData,
                 CreateInstance = context => new OvertoppingRateOutputGeneralResultFaultTreeIllustrationPointView(
                     () => context.WrappedData.Output?.OvertoppingRateOutput?.GeneralResult)
+            };
+
+            yield return new ViewInfo<GrassCoverErosionInwardsCalculationGroupContext, CalculationGroup, GrassCoverErosionInwardsCalculationsView>
+            {
+                GetViewData = context => context.WrappedData,
+                GetViewName = (view, context) => context.WrappedData.Name,
+                Image = RiskeerCommonFormsResources.GeneralFolderIcon,
+                AdditionalDataCheck = context => context.WrappedData == context.FailureMechanism.CalculationsGroup,
+                CloseForData = CloseGrassCoverErosionInwardsCalculationsViewForData,
+                AfterCreate = (view, context) =>
+                {
+                    view.AssessmentSection = context.AssessmentSection;
+                    view.GrassCoverErosionInwardsFailureMechanism = context.FailureMechanism;
+                }
             };
         }
 
@@ -465,6 +478,21 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
             return calculations != null && calculations.Any(ci => ReferenceEquals(view.Data, ci));
         }
 
+        private static bool CloseGrassCoverErosionInwardsCalculationsViewForData(GrassCoverErosionInwardsCalculationsView view, object o)
+        {
+            var assessmentSection = o as IAssessmentSection;
+            var grassCoverErosionInwardsFailureMechanism = o as GrassCoverErosionInwardsFailureMechanism;
+
+            if (assessmentSection != null)
+            {
+                grassCoverErosionInwardsFailureMechanism = assessmentSection.GetFailureMechanisms()
+                                                          .OfType<GrassCoverErosionInwardsFailureMechanism>()
+                                                          .FirstOrDefault();
+            }
+
+            return grassCoverErosionInwardsFailureMechanism != null && ReferenceEquals(view.Data, grassCoverErosionInwardsFailureMechanism.CalculationsGroup);
+        }
+
         #endregion
 
         #region TreeNodeInfos
@@ -507,7 +535,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
             return new object[]
             {
                 new FailureMechanismAssemblyCategoriesContext(failureMechanism, assessmentSection, () => failureMechanism.GeneralInput.N),
-                new GrassCoverErosionInwardsScenariosContext(failureMechanism.CalculationsGroup, failureMechanism),
+                new GrassCoverErosionInwardsScenariosContext(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection),
                 new ProbabilityFailureMechanismSectionResultContext<GrassCoverErosionInwardsFailureMechanismSectionResult>(
                     failureMechanism.SectionResults, failureMechanism, assessmentSection),
                 failureMechanism.OutputComments
@@ -757,13 +785,13 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
             using (var view = new GrassCoverErosionInwardsDikeProfileSelectionDialog(Gui.MainWindow, nodeData.AvailableDikeProfiles))
             {
                 view.ShowDialog();
-                GenerateCalculations(nodeData.WrappedData, nodeData.FailureMechanism, view.SelectedItems);
+                GenerateCalculations(nodeData.WrappedData, view.SelectedItems);
             }
 
             nodeData.NotifyObservers();
         }
 
-        private static void GenerateCalculations(CalculationGroup target, GrassCoverErosionInwardsFailureMechanism failureMechanism, IEnumerable<DikeProfile> dikeProfiles)
+        private static void GenerateCalculations(CalculationGroup target, IEnumerable<DikeProfile> dikeProfiles)
         {
             foreach (DikeProfile profile in dikeProfiles)
             {
@@ -777,10 +805,6 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
                 };
                 target.Children.Add(calculation);
             }
-
-            GrassCoverErosionInwardsHelper.UpdateCalculationToSectionResultAssignments(
-                failureMechanism.SectionResults,
-                failureMechanism.Calculations.Cast<GrassCoverErosionInwardsCalculationScenario>());
         }
 
         private static void AddCalculation(GrassCoverErosionInwardsCalculationGroupContext context)
@@ -798,11 +822,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
             var parentGroupContext = (GrassCoverErosionInwardsCalculationGroupContext) parentNodeData;
 
             parentGroupContext.WrappedData.Children.Remove(context.WrappedData);
-
-            GrassCoverErosionInwardsHelper.UpdateCalculationToSectionResultAssignments(
-                context.FailureMechanism.SectionResults,
-                context.FailureMechanism.Calculations.Cast<GrassCoverErosionInwardsCalculationScenario>().ToArray());
-
+            
             parentGroupContext.NotifyObservers();
         }
 
@@ -909,9 +929,6 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
             if (parentData is GrassCoverErosionInwardsCalculationGroupContext calculationGroupContext)
             {
                 calculationGroupContext.WrappedData.Children.Remove(context.WrappedData);
-                GrassCoverErosionInwardsHelper.UpdateCalculationToSectionResultAssignments(
-                    context.FailureMechanism.SectionResults,
-                    context.FailureMechanism.Calculations.OfType<GrassCoverErosionInwardsCalculationScenario>());
                 calculationGroupContext.NotifyObservers();
             }
         }

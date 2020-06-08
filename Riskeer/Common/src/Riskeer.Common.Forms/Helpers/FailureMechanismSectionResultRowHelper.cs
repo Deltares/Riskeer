@@ -20,8 +20,10 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.Linq;
 using Core.Common.Controls.DataGrid;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.Common.Data.Calculation;
@@ -60,6 +62,60 @@ namespace Riskeer.Common.Forms.Helpers
             if (double.IsNaN(detailedAssessmentProbability))
             {
                 return Resources.FailureMechanismResultView_DataGridViewCellFormatting_Calculation_must_have_valid_output;
+            }
+
+            return string.Empty;
+        }
+
+        /// <summary>
+        /// Gets the error text to display when the detailed assessment probability fails.
+        /// </summary>
+        /// <typeparam name="TCalculationScenario">The type of <see cref="ICalculationScenario"/>.</typeparam>
+        /// <param name="relevantScenarios">All relevant scenario's to use.</param>
+        /// <param name="getTotalContributionFunc">The <see cref="Func{T1,TResult}"/> to get
+        /// the total contribution.</param>
+        /// <param name="getDetailedAssessmentProbabilityFunc">The <see cref="Func{T1,TResult}"/>
+        /// to get the detailed assessment probability.</param>
+        /// <returns>The error message when an error is present; <see cref="string.Empty"/> otherwise.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public static string GetDetailedAssessmentProbabilityError<TCalculationScenario>(
+            TCalculationScenario[] relevantScenarios, Func<IEnumerable<TCalculationScenario>, double> getTotalContributionFunc,
+            Func<IEnumerable<TCalculationScenario>, double> getDetailedAssessmentProbabilityFunc)
+            where TCalculationScenario : ICalculationScenario
+        {
+            if (relevantScenarios == null)
+            {
+                throw new ArgumentNullException(nameof(relevantScenarios));
+            }
+
+            if (getTotalContributionFunc == null)
+            {
+                throw new ArgumentNullException(nameof(getTotalContributionFunc));
+            }
+
+            if (getDetailedAssessmentProbabilityFunc == null)
+            {
+                throw new ArgumentNullException(nameof(getDetailedAssessmentProbabilityFunc));
+            }
+
+            if (relevantScenarios.Length == 0)
+            {
+                return Resources.FailureMechanismResultView_DataGridViewCellFormatting_Not_any_calculation_set;
+            }
+
+            if (Math.Abs(getTotalContributionFunc(relevantScenarios) - 1.0) > 1e-6)
+            {
+                return Resources.FailureMechanismResultView_DataGridViewCellFormatting_Scenario_contribution_for_this_section_not_100;
+            }
+
+            if (!relevantScenarios.All(s => s.HasOutput))
+            {
+                return Resources.FailureMechanismResultView_DataGridViewCellFormatting_Not_all_calculations_have_been_executed;
+            }
+
+            if (double.IsNaN(getDetailedAssessmentProbabilityFunc(relevantScenarios)))
+            {
+                return Resources.FailureMechanismResultView_DataGridViewCellFormatting_All_calculations_must_have_valid_output;
             }
 
             return string.Empty;

@@ -29,7 +29,6 @@ using Riskeer.Common.IO.FileImporters;
 using Riskeer.Common.Service;
 using Riskeer.GrassCoverErosionInwards.Data;
 using Riskeer.GrassCoverErosionInwards.Service;
-using Riskeer.GrassCoverErosionInwards.Util;
 
 namespace Riskeer.GrassCoverErosionInwards.Plugin.FileImporters
 {
@@ -60,8 +59,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.FileImporters
             return GrassCoverErosionInwardsDataSynchronizationService.RemoveDikeProfile(
                 removedObject,
                 FailureMechanism.Calculations.Cast<GrassCoverErosionInwardsCalculation>(),
-                FailureMechanism.DikeProfiles,
-                FailureMechanism.SectionResults);
+                FailureMechanism.DikeProfiles);
         }
 
         private IEnumerable<GrassCoverErosionInwardsCalculation> GetAffectedCalculationsWithDikeProfile(DikeProfile objectToUpdate)
@@ -115,9 +113,6 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.FileImporters
                 }
             }
 
-            affectedObjects.AddRange(GrassCoverErosionInwardsHelper.UpdateCalculationToSectionResultAssignments(
-                                         FailureMechanism.SectionResults,
-                                         FailureMechanism.Calculations.Cast<GrassCoverErosionInwardsCalculation>()));
             return affectedObjects;
         }
 

@@ -332,9 +332,13 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
 
                     TestHelper.AssertLogMessagesAreGenerated(Call, new[]
                     {
+                        $"Exporteren van '{calculation1.Name}' is gestart.",
                         $"Gegevens van '{calculation1.Name}' zijn geëxporteerd naar bestand '{calculation1FilePath}'.",
+                        $"Exporteren van '{calculation2.Name}' is gestart.",
                         $"Gegevens van '{calculation2.Name}' zijn geëxporteerd naar bestand '{calculation2FilePath}'.",
+                        $"Exporteren van '{calculation3.Name}' is gestart.",
                         $"Gegevens van '{calculation3.Name}' zijn geëxporteerd naar bestand '{calculation3FilePath}'.",
+                        $"Exporteren van '{calculation4.Name}' is gestart.",
                         $"Gegevens van '{calculation4.Name}' zijn geëxporteerd naar bestand '{calculation4FilePath}'."
                     });
                     Assert.IsTrue(exportResult);
@@ -431,6 +435,222 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
                     AssertCalculationExists(Path.Combine(folderPath, nestedGroup1.Name, $"{calculation1.Name}.{fileExtension}"));
                     AssertCalculationExists(Path.Combine(folderPath, nestedGroup1.Name, $"{calculation2.Name}.{fileExtension}"));
                     AssertCalculationExists(Path.Combine(folderPath, $"{nestedGroup2.Name} (1)", $"{calculation3.Name}.{fileExtension}"));
+                }
+            }
+            finally
+            {
+                Directory.Delete(folderPath, true);
+            }
+        }
+
+        [Test]
+        public void Export_NestedCalculationGroupWithoutCalculations_FolderNotExportedAndReturnsTrue()
+        {
+            // Setup
+            string folderPath = TestHelper.GetScratchPadPath($"{nameof(MacroStabilityInwardsCalculationGroupExporterTest)}.{nameof(Export_CalculationGroupsWithSameName_WritesFilesAndReturnsTrue)}");
+            Directory.CreateDirectory(folderPath);
+
+            var rootGroup = new CalculationGroup
+            {
+                Name = "root"
+            };
+            var nestedGroup1 = new CalculationGroup
+            {
+                Name = "group1"
+            };
+            rootGroup.Children.Add(nestedGroup1);
+
+            var exporter = new MacroStabilityInwardsCalculationGroupExporter(rootGroup, new PersistenceFactory(), folderPath, fileExtension, c => AssessmentSectionTestHelper.GetTestAssessmentLevel());
+
+            try
+            {
+                using (new MacroStabilityInwardsCalculatorFactoryConfig())
+                {
+                    // Call
+                    bool exportResult = exporter.Export();
+
+                    // Assert
+                    Assert.IsTrue(exportResult);
+                    Assert.IsFalse(Directory.Exists(Path.Combine(folderPath, nestedGroup1.Name)));
+                }
+            }
+            finally
+            {
+                Directory.Delete(folderPath, true);
+            }
+        }
+
+        [Test]
+        public void Export_NestedCalculationGroupWithEmptyCalculationGroups_FolderNotExportedAndReturnsTrue()
+        {
+            // Setup
+            string folderPath = TestHelper.GetScratchPadPath($"{nameof(MacroStabilityInwardsCalculationGroupExporterTest)}.{nameof(Export_NestedCalculationGroupWithEmptyCalculationGroups_FolderNotExportedAndReturnsTrue)}");
+            Directory.CreateDirectory(folderPath);
+
+            var rootGroup = new CalculationGroup
+            {
+                Name = "root"
+            };
+            var nestedGroup1 = new CalculationGroup
+            {
+                Name = "group1"
+            };
+            var nestedGroup2 = new CalculationGroup
+            {
+                Name = "group2"
+            };
+            nestedGroup1.Children.Add(nestedGroup2);
+            rootGroup.Children.Add(nestedGroup1);
+
+            var exporter = new MacroStabilityInwardsCalculationGroupExporter(rootGroup, new PersistenceFactory(), folderPath, fileExtension, c => AssessmentSectionTestHelper.GetTestAssessmentLevel());
+
+            try
+            {
+                using (new MacroStabilityInwardsCalculatorFactoryConfig())
+                {
+                    // Call
+                    bool exportResult = exporter.Export();
+
+                    // Assert
+                    Assert.IsTrue(exportResult);
+                    Assert.IsFalse(Directory.Exists(Path.Combine(folderPath, nestedGroup1.Name, nestedGroup2.Name)));
+                    Assert.IsFalse(Directory.Exists(Path.Combine(folderPath, nestedGroup1.Name)));
+                }
+            }
+            finally
+            {
+                Directory.Delete(folderPath, true);
+            }
+        }
+
+        [Test]
+        public void Export_NestedCalculationGroupWithCalculationsWithoutOutput_FolderNotExportedAndReturnsTrue()
+        {
+            // Setup
+            string folderPath = TestHelper.GetScratchPadPath($"{nameof(MacroStabilityInwardsCalculationGroupExporterTest)}.{nameof(Export_NestedCalculationGroupWithCalculationsWithoutOutput_FolderNotExportedAndReturnsTrue)}");
+            Directory.CreateDirectory(folderPath);
+
+            MacroStabilityInwardsCalculationScenario calculation1 = CreateCalculation("calculation1", false);
+
+            var rootGroup = new CalculationGroup
+            {
+                Name = "root"
+            };
+            var nestedGroup1 = new CalculationGroup
+            {
+                Name = "group1"
+            };
+            nestedGroup1.Children.Add(calculation1);
+            rootGroup.Children.Add(nestedGroup1);
+
+            var exporter = new MacroStabilityInwardsCalculationGroupExporter(rootGroup, new PersistenceFactory(), folderPath, fileExtension, c => AssessmentSectionTestHelper.GetTestAssessmentLevel());
+
+            try
+            {
+                using (new MacroStabilityInwardsCalculatorFactoryConfig())
+                {
+                    // Call
+                    bool exportResult = exporter.Export();
+
+                    // Assert
+                    Assert.IsTrue(exportResult);
+                    Assert.IsFalse(Directory.Exists(Path.Combine(folderPath, nestedGroup1.Name)));
+                }
+            }
+            finally
+            {
+                Directory.Delete(folderPath, true);
+            }
+        }
+
+        [Test]
+        public void Export_NestedCalculationGroupWithGroupsWithCalculationsWithoutOutput_FolderNotExportedAndReturnsTrue()
+        {
+            // Setup
+            string folderPath = TestHelper.GetScratchPadPath($"{nameof(MacroStabilityInwardsCalculationGroupExporterTest)}.{nameof(Export_NestedCalculationGroupWithGroupsWithCalculationsWithoutOutput_FolderNotExportedAndReturnsTrue)}");
+            Directory.CreateDirectory(folderPath);
+
+            MacroStabilityInwardsCalculationScenario calculation1 = CreateCalculation("calculation1", false);
+            MacroStabilityInwardsCalculationScenario calculation2 = CreateCalculation("calculation2", false);
+
+            var rootGroup = new CalculationGroup
+            {
+                Name = "root"
+            };
+            var nestedGroup1 = new CalculationGroup
+            {
+                Name = "group1"
+            };
+            var nestedGroup2 = new CalculationGroup
+            {
+                Name = "group2"
+            };
+            nestedGroup2.Children.Add(calculation2);
+            nestedGroup1.Children.Add(calculation1);
+            nestedGroup1.Children.Add(nestedGroup2);
+            rootGroup.Children.Add(nestedGroup1);
+
+            var exporter = new MacroStabilityInwardsCalculationGroupExporter(rootGroup, new PersistenceFactory(), folderPath, fileExtension, c => AssessmentSectionTestHelper.GetTestAssessmentLevel());
+
+            try
+            {
+                using (new MacroStabilityInwardsCalculatorFactoryConfig())
+                {
+                    // Call
+                    bool exportResult = exporter.Export();
+
+                    // Assert
+                    Assert.IsTrue(exportResult);
+                    Assert.IsFalse(Directory.Exists(Path.Combine(folderPath, nestedGroup1.Name, nestedGroup2.Name)));
+                    Assert.IsFalse(Directory.Exists(Path.Combine(folderPath, nestedGroup1.Name)));
+                }
+            }
+            finally
+            {
+                Directory.Delete(folderPath, true);
+            }
+        }
+
+        [Test]
+        public void Export_NestedCalculationGroupWithGroupsWithCalculationsWithAndWithoutOutput_FolderNotExportedAndReturnsTrue()
+        {
+            // Setup
+            string folderPath = TestHelper.GetScratchPadPath($"{nameof(MacroStabilityInwardsCalculationGroupExporterTest)}.{nameof(Export_NestedCalculationGroupWithGroupsWithCalculationsWithAndWithoutOutput_FolderNotExportedAndReturnsTrue)}");
+            Directory.CreateDirectory(folderPath);
+
+            MacroStabilityInwardsCalculationScenario calculation1 = CreateCalculation("calculation1", false);
+            MacroStabilityInwardsCalculationScenario calculation2 = CreateCalculation("calculation2");
+
+            var rootGroup = new CalculationGroup
+            {
+                Name = "root"
+            };
+            var nestedGroup1 = new CalculationGroup
+            {
+                Name = "group1"
+            };
+            var nestedGroup2 = new CalculationGroup
+            {
+                Name = "group2"
+            };
+            nestedGroup2.Children.Add(calculation2);
+            nestedGroup2.Children.Add(calculation1);
+            nestedGroup1.Children.Add(nestedGroup2);
+            rootGroup.Children.Add(nestedGroup1);
+
+            var exporter = new MacroStabilityInwardsCalculationGroupExporter(rootGroup, new PersistenceFactory(), folderPath, fileExtension, c => AssessmentSectionTestHelper.GetTestAssessmentLevel());
+
+            try
+            {
+                using (new MacroStabilityInwardsCalculatorFactoryConfig())
+                {
+                    // Call
+                    bool exportResult = exporter.Export();
+
+                    // Assert
+                    Assert.IsTrue(exportResult);
+                    Assert.IsFalse(File.Exists(Path.Combine(folderPath, nestedGroup1.Name, nestedGroup2.Name, $"{calculation1.Name}.{fileExtension}")));
+                    AssertCalculationExists(Path.Combine(folderPath, nestedGroup1.Name, nestedGroup2.Name, $"{calculation2.Name}.{fileExtension}"));
                 }
             }
             finally
