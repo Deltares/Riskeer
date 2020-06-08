@@ -1368,12 +1368,9 @@ namespace Riskeer.Integration.Service.Test
             GrassCoverErosionInwardsCalculation[] calculations = failureMechanism.Calculations.Cast<GrassCoverErosionInwardsCalculation>()
                                                                                  .Where(c => ReferenceEquals(c.InputParameters.DikeProfile, profile))
                                                                                  .ToArray();
-            GrassCoverErosionInwardsFailureMechanismSectionResult[] sectionResults = failureMechanism.SectionResults
-                                                                                                     .ToArray();
 
             // Precondition
             CollectionAssert.IsNotEmpty(calculations);
-            CollectionAssert.IsNotEmpty(sectionResults);
 
             // Call
             IEnumerable<IObservable> observables = RiskeerDataSynchronizationService.RemoveDikeProfile(failureMechanism, profile);
@@ -1388,18 +1385,13 @@ namespace Riskeer.Integration.Service.Test
             }
 
             IObservable[] array = observables.ToArray();
-            Assert.AreEqual(1 + (calculations.Length * 2) + sectionResults.Length, array.Length);
+            Assert.AreEqual(1 + (calculations.Length * 2), array.Length);
             CollectionAssert.Contains(array, failureMechanism.DikeProfiles);
             foreach (GrassCoverErosionInwardsCalculation calculation in calculations)
             {
                 CollectionAssert.Contains(array, calculation);
                 CollectionAssert.Contains(array, calculation.InputParameters);
                 Assert.IsFalse(calculation.HasOutput);
-            }
-
-            foreach (GrassCoverErosionInwardsFailureMechanismSectionResult sectionResult in sectionResults)
-            {
-                CollectionAssert.Contains(array, sectionResult);
             }
         }
 
