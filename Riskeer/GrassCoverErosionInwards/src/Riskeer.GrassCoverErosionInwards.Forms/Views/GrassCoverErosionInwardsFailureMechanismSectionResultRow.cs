@@ -32,7 +32,6 @@ using Riskeer.Common.Forms.TypeConverters;
 using Riskeer.Common.Forms.Views;
 using Riskeer.Common.Primitives;
 using Riskeer.GrassCoverErosionInwards.Data;
-using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.GrassCoverErosionInwards.Forms.Views
 {
@@ -269,35 +268,11 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
             }
             else
             {
-                ColumnStateDefinitions[detailedAssessmentProbabilityIndex].ErrorText = GetDetailedAssessmentProbabilityError();
+                ColumnStateDefinitions[detailedAssessmentProbabilityIndex].ErrorText = FailureMechanismSectionResultRowHelper.GetDetailedAssessmentProbabilityError(
+                    SectionResult.GetCalculationScenarios(calculationScenarios).ToArray(),
+                    scenarios => SectionResult.GetTotalContribution(scenarios),
+                    scenarios => SectionResult.GetDetailedAssessmentProbability(scenarios, failureMechanism, assessmentSection));
             }
-        }
-
-        private string GetDetailedAssessmentProbabilityError()
-        {
-            GrassCoverErosionInwardsCalculationScenario[] relevantScenarios = SectionResult.GetCalculationScenarios(calculationScenarios).ToArray();
-
-            if (relevantScenarios.Length == 0)
-            {
-                return RiskeerCommonFormsResources.FailureMechanismResultView_DataGridViewCellFormatting_Not_any_calculation_set;
-            }
-
-            if (Math.Abs(SectionResult.GetTotalContribution(relevantScenarios) - 1.0) > 1e-6)
-            {
-                return RiskeerCommonFormsResources.FailureMechanismResultView_DataGridViewCellFormatting_Scenario_contribution_for_this_section_not_100;
-            }
-
-            if (!relevantScenarios.All(s => s.HasOutput))
-            {
-                return RiskeerCommonFormsResources.FailureMechanismResultView_DataGridViewCellFormatting_Not_all_calculations_have_been_executed;
-            }
-
-            if (double.IsNaN(SectionResult.GetDetailedAssessmentProbability(calculationScenarios, failureMechanism, assessmentSection)))
-            {
-                return RiskeerCommonFormsResources.FailureMechanismResultView_DataGridViewCellFormatting_All_calculations_must_have_valid_output;
-            }
-
-            return string.Empty;
         }
 
         private void CreateColumnStateDefinitions()

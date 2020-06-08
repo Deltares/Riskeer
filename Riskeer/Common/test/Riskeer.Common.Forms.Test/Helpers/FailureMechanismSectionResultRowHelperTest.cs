@@ -26,6 +26,7 @@ using System.Drawing;
 using Core.Common.Controls.DataGrid;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Rhino.Mocks;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.TestUtil;
@@ -52,6 +53,148 @@ namespace Riskeer.Common.Forms.Test.Helpers
 
             // Assert
             Assert.AreEqual(expectedErrorText, errorText);
+        }
+
+        [Test]
+        public void GetDetailedAssessmentProbabilityError_RelevantScenariosNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => FailureMechanismSectionResultRowHelper.GetDetailedAssessmentProbabilityError<ICalculationScenario>(
+                null, scenarios => double.NaN, scenarios => double.NaN);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("relevantScenarios", exception.ParamName);
+        }
+
+        [Test]
+        public void GetDetailedAssessmentProbabilityError_GetTotalContributionFuncNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => FailureMechanismSectionResultRowHelper.GetDetailedAssessmentProbabilityError(
+                new ICalculationScenario[0], null, scenarios => double.NaN);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("getTotalContributionFunc", exception.ParamName);
+        }
+
+        [Test]
+        public void GetDetailedAssessmentProbabilityError_GetDetailedAssessmentProbabilityFuncNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => FailureMechanismSectionResultRowHelper.GetDetailedAssessmentProbabilityError(
+                new ICalculationScenario[0], scenarios => double.NaN, null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("getDetailedAssessmentProbabilityFunc", exception.ParamName);
+        }
+
+        [Test]
+        public void GetDetailedAssessmentProbabilityError_RelevantScenariosEmpty_ReturnsErrorMessage()
+        {
+            // Setup
+            var random = new Random(21);
+
+            // Call
+            string errorMessage = FailureMechanismSectionResultRowHelper.GetDetailedAssessmentProbabilityError(
+                new ICalculationScenario[0], scenarios => random.NextDouble(), scenarios => random.NextDouble());
+
+            // Assert
+            Assert.AreEqual("Er moet minimaal één maatgevende berekening voor dit vak worden geselecteerd.", errorMessage);
+        }
+
+        [Test]
+        public void GetDetailedAssessmentProbabilityError_TotalContributionNotHundred_ReturnsErrorMessage()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var calculationScenario = mocks.Stub<ICalculationScenario>();
+            mocks.ReplayAll();
+
+            var random = new Random(21);
+            ICalculationScenario[] calculationScenarios = 
+            {
+                calculationScenario
+            };
+
+            // Call
+            string errorMessage = FailureMechanismSectionResultRowHelper.GetDetailedAssessmentProbabilityError(
+                calculationScenarios, scenarios => random.NextDouble(0, 0.99), scenarios => random.NextDouble());
+
+            // Assert
+            Assert.AreEqual("Bijdrage van de geselecteerde scenario's voor dit vak moet opgeteld gelijk zijn aan 100%.", errorMessage);
+        }
+
+        [Test]
+        public void GetDetailedAssessmentProbabilityError_CalculationScenariosWithoutOutput_ReturnsErrorMessage()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var calculationScenario1 = mocks.Stub<ICalculationScenario>();
+            calculationScenario1.Stub(cs => cs.HasOutput).Return(true);
+            var calculationScenario2 = mocks.Stub<ICalculationScenario>();
+            mocks.ReplayAll();
+
+            var random = new Random(21);
+            ICalculationScenario[] calculationScenarios = 
+            {
+                calculationScenario1,
+                calculationScenario2
+            };
+
+            // Call
+            string errorMessage = FailureMechanismSectionResultRowHelper.GetDetailedAssessmentProbabilityError(
+                calculationScenarios, scenarios => 1, scenarios => random.NextDouble());
+
+            // Assert
+            Assert.AreEqual("Alle berekeningen voor dit vak moeten uitgevoerd zijn.", errorMessage);
+        }
+
+        [Test]
+        public void GetDetailedAssessmentProbabilityError_DetailedAssessmentProbabilityNaN_ReturnsErrorMessage()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var calculationScenario = mocks.Stub<ICalculationScenario>();
+            calculationScenario.Stub(cs => cs.HasOutput).Return(true);
+            mocks.ReplayAll();
+
+            ICalculationScenario[] calculationScenarios = 
+            {
+                calculationScenario
+            };
+
+            // Call
+            string errorMessage = FailureMechanismSectionResultRowHelper.GetDetailedAssessmentProbabilityError(
+                calculationScenarios, scenarios => 1, scenarios => double.NaN);
+
+            // Assert
+            Assert.AreEqual("Alle berekeningen voor dit vak moeten een geldige uitkomst hebben.", errorMessage);
+        }
+
+        [Test]
+        public void GetDetailedAssessmentProbabilityError_ValidData_ReturnsEmptyMessage()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var calculationScenario = mocks.Stub<ICalculationScenario>();
+            calculationScenario.Stub(cs => cs.HasOutput).Return(true);
+            mocks.ReplayAll();
+
+            var random = new Random(21);
+            ICalculationScenario[] calculationScenarios = 
+            {
+                calculationScenario
+            };
+
+            // Call
+            string errorMessage = FailureMechanismSectionResultRowHelper.GetDetailedAssessmentProbabilityError(
+                calculationScenarios, scenarios => 1, scenarios => random.NextDouble());
+
+            // Assert
+            Assert.IsEmpty(errorMessage);
         }
 
         [Test]
