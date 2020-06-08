@@ -50,12 +50,6 @@ namespace Riskeer.GrassCoverErosionInwards.Data
         }
 
         /// <summary>
-        /// Gets or sets the <see cref="GrassCoverErosionInwardsCalculation"/>, which is chosen 
-        /// to be representative for the whole section.
-        /// </summary>
-        public GrassCoverErosionInwardsCalculation Calculation { get; set; }
-
-        /// <summary>
         /// Gets or sets the simple assessment result.
         /// </summary>
         public SimpleAssessmentValidityOnlyResultType SimpleAssessmentResult { get; set; }
@@ -76,10 +70,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data
         /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="value"/> is not in range [0,1].</exception>
         public double TailorMadeAssessmentProbability
         {
-            get
-            {
-                return tailorMadeAssessmentProbability;
-            }
+            get => tailorMadeAssessmentProbability;
             set
             {
                 ProbabilityHelper.ValidateProbability(value, null,
@@ -95,10 +86,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data
         /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="value"/> is not in range [0,1].</exception>
         public double ManualAssemblyProbability
         {
-            get
-            {
-                return manualAssemblyProbability;
-            }
+            get => manualAssemblyProbability;
             set
             {
                 ProbabilityHelper.ValidateProbability(value, null,

@@ -61,10 +61,6 @@ namespace Riskeer.Storage.Core.Create.GrassCoverErosionInwards
                 UseManualAssembly = Convert.ToByte(result.UseManualAssembly),
                 ManualAssemblyProbability = result.ManualAssemblyProbability.ToNaNAsNull()
             };
-            if (result.Calculation != null)
-            {
-                sectionResultEntity.GrassCoverErosionInwardsCalculationEntity = registry.Get(result.Calculation);
-            }
 
             return sectionResultEntity;
         }

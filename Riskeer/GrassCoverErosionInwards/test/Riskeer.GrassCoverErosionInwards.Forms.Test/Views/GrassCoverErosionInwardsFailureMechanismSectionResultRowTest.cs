@@ -162,10 +162,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new GrassCoverErosionInwardsFailureMechanismSectionResult(section)
-            {
-                Calculation = CreateCalculationWithOutput()
-            };
+            var result = new GrassCoverErosionInwardsFailureMechanismSectionResult(section);
 
             GrassCoverErosionInwardsCalculationScenario[] calculationScenarios =
             {
@@ -508,7 +505,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             var result = new GrassCoverErosionInwardsFailureMechanismSectionResult(section)
             {
                 SimpleAssessmentResult = simpleAssessmentResult,
-                Calculation = CreateCalculationWithOutput(),
                 TailorMadeAssessmentResult = TailorMadeAssessmentProbabilityCalculationResultType.Probability
             };
 
@@ -558,7 +554,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             var result = new GrassCoverErosionInwardsFailureMechanismSectionResult(section)
             {
                 DetailedAssessmentResult = detailedAssessmentResult,
-                Calculation = CreateCalculationWithOutput()
             };
 
             GrassCoverErosionInwardsCalculationScenario[] calculationScenarios =
@@ -633,7 +628,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new GrassCoverErosionInwardsFailureMechanismSectionResult(section)
             {
-                Calculation = CreateCalculationWithOutput(),
                 TailorMadeAssessmentResult = TailorMadeAssessmentProbabilityCalculationResultType.Probability,
                 UseManualAssembly = useManualAssembly
             };
@@ -950,10 +944,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(section)
-            {
-                Calculation = CreateCalculationWithOutput()
-            };
+            var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(section);
 
             GrassCoverErosionInwardsCalculationScenario[] calculationScenarios =
             {
@@ -986,7 +977,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(section)
             {
-                Calculation = new GrassCoverErosionInwardsCalculation(),
                 UseManualAssembly = true
             };
 
@@ -1021,7 +1011,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(section)
             {
-                Calculation = new GrassCoverErosionInwardsCalculation(),
                 DetailedAssessmentResult = DetailedAssessmentProbabilityOnlyResultType.NotAssessed
             };
 
@@ -1046,7 +1035,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
         [Test]
         [TestCaseSource(nameof(SimpleAssessmentResultIsSufficientVariousSectionResults))]
         public void Constructor_SectionResultAndAssessmentSimpleAssessmentSufficient_DetailedAssessmentProbabilityNoError(
-            GrassCoverErosionInwardsFailureMechanismSectionResult sectionResult)
+            Func<FailureMechanismSection, IEnumerable<GrassCoverErosionInwardsCalculationScenario>> getCalculationScenariosFunc)
         {
             // Setup
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
@@ -1055,15 +1044,23 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(section)
+            {
+                SimpleAssessmentResult = SimpleAssessmentValidityOnlyResultType.NotApplicable,
+            };
+
+            GrassCoverErosionInwardsCalculationScenario[] calculationScenarios = getCalculationScenariosFunc(section).ToArray();
+
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call
                 var resultRow = new GrassCoverErosionInwardsFailureMechanismSectionResultRow(
-                    sectionResult, Enumerable.Empty<GrassCoverErosionInwardsCalculationScenario>(),
+                    sectionResult, calculationScenarios,
                     failureMechanism, assessmentSection, ConstructionProperties);
 
                 // Assert
-                Assert.AreEqual(sectionResult.GetDetailedAssessmentProbability(Enumerable.Empty<GrassCoverErosionInwardsCalculationScenario>(), failureMechanism, assessmentSection),
+                Assert.AreEqual(sectionResult.GetDetailedAssessmentProbability(calculationScenarios, failureMechanism, assessmentSection),
                                 resultRow.DetailedAssessmentProbability);
                 Assert.IsEmpty(resultRow.ColumnStateDefinitions[ConstructionProperties.DetailedAssessmentProbabilityIndex].ErrorText);
                 mocks.VerifyAll();
@@ -1072,32 +1069,23 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
 
         private static IEnumerable<TestCaseData> SimpleAssessmentResultIsSufficientVariousSectionResults()
         {
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-
-            yield return new TestCaseData(new GrassCoverErosionInwardsFailureMechanismSectionResult(section)
+            yield return new TestCaseData(new Func<FailureMechanismSection, IEnumerable<GrassCoverErosionInwardsCalculationScenario>>(section => Enumerable.Empty<GrassCoverErosionInwardsCalculationScenario>()));
+            yield return new TestCaseData(new Func<FailureMechanismSection, IEnumerable<GrassCoverErosionInwardsCalculationScenario>>(section => new []
             {
-                SimpleAssessmentResult = SimpleAssessmentValidityOnlyResultType.NotApplicable
-            }).SetName("SectionWithoutCalculation");
-            yield return new TestCaseData(new GrassCoverErosionInwardsFailureMechanismSectionResult(section)
+                GrassCoverErosionInwardsCalculationScenarioTestFactory.CreateNotCalculatedGrassCoverErosionInwardsCalculationScenario(section)
+            }));
+            yield return new TestCaseData(new Func<FailureMechanismSection, IEnumerable<GrassCoverErosionInwardsCalculationScenario>>(section =>
             {
-                SimpleAssessmentResult = SimpleAssessmentValidityOnlyResultType.NotApplicable,
-                Calculation = new GrassCoverErosionInwardsCalculation()
-            }).SetName("SectionWithCalculationNoOutput");
-            yield return new TestCaseData(new GrassCoverErosionInwardsFailureMechanismSectionResult(section)
-            {
-                SimpleAssessmentResult = SimpleAssessmentValidityOnlyResultType.NotApplicable,
-                Calculation = new GrassCoverErosionInwardsCalculation
+                GrassCoverErosionInwardsCalculationScenario calculation = GrassCoverErosionInwardsCalculationScenarioTestFactory.CreateNotCalculatedGrassCoverErosionInwardsCalculationScenario(section);
+                return new[]
                 {
-                    Output = new GrassCoverErosionInwardsOutput(new TestOvertoppingOutput(double.NaN),
-                                                                new TestDikeHeightOutput(double.NaN),
-                                                                new TestOvertoppingRateOutput(double.NaN))
-                }
-            }).SetName("SectionWithInvalidCalculationOutput");
-            yield return new TestCaseData(new GrassCoverErosionInwardsFailureMechanismSectionResult(section)
+                    calculation
+                };
+            }));
+            yield return new TestCaseData(new Func<FailureMechanismSection, IEnumerable<GrassCoverErosionInwardsCalculationScenario>>(section => new[]
             {
-                SimpleAssessmentResult = SimpleAssessmentValidityOnlyResultType.NotApplicable,
-                Calculation = CreateCalculationWithOutput()
-            }).SetName("SectionWithValidCalculationOutput");
+                GrassCoverErosionInwardsCalculationScenarioTestFactory.CreateGrassCoverErosionInwardsCalculationScenario(section)
+            }));
         }
 
         #endregion
@@ -1185,9 +1173,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(section);
 
-            // Precondition
-            Assert.IsNull(sectionResult.Calculation);
-
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var resultRow = new GrassCoverErosionInwardsFailureMechanismSectionResultRow(
@@ -1213,13 +1198,8 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
-            var calculation = new GrassCoverErosionInwardsCalculation();
-
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(section)
-            {
-                Calculation = calculation
-            };
+            var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(section);
 
             GrassCoverErosionInwardsCalculationScenario[] calculationScenarios =
             {
@@ -1250,18 +1230,8 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
-            var calculation = new GrassCoverErosionInwardsCalculation
-            {
-                Output = new GrassCoverErosionInwardsOutput(new TestOvertoppingOutput(double.NaN),
-                                                            new TestDikeHeightOutput(double.NaN),
-                                                            new TestOvertoppingRateOutput(double.NaN))
-            };
-
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(section)
-            {
-                Calculation = calculation
-            };
+            var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(section);
 
             GrassCoverErosionInwardsCalculationScenario calculationScenario = GrassCoverErosionInwardsCalculationScenarioTestFactory.CreateNotCalculatedGrassCoverErosionInwardsCalculationScenario(section);
             calculationScenario.Output = new GrassCoverErosionInwardsOutput(new TestOvertoppingOutput(double.NaN), null, null);
@@ -1296,19 +1266,9 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
-
-            var calculation = new GrassCoverErosionInwardsCalculation
-            {
-                Output = new GrassCoverErosionInwardsOutput(new TestOvertoppingOutput(0.95),
-                                                            new TestDikeHeightOutput(0),
-                                                            new TestOvertoppingRateOutput(0))
-            };
-
+            
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(section)
-            {
-                Calculation = calculation
-            };
+            var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(section);
 
             GrassCoverErosionInwardsCalculationScenario[] calculationScenarios =
             {

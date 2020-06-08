@@ -124,8 +124,7 @@ namespace Riskeer.Storage.Core.TestUtil
             GrassCoverErosionInwardsFailureMechanism grassCoverErosionInwardsFailureMechanism = assessmentSection.GrassCoverErosionInwards;
             ConfigureGrassCoverErosionInwardsFailureMechanism(grassCoverErosionInwardsFailureMechanism, assessmentSection);
             SetSections(grassCoverErosionInwardsFailureMechanism);
-            SetSectionResults(grassCoverErosionInwardsFailureMechanism.SectionResults,
-                              (GrassCoverErosionInwardsCalculationScenario) grassCoverErosionInwardsFailureMechanism.Calculations.First());
+            SetSectionResults(grassCoverErosionInwardsFailureMechanism.SectionResults);
 
             GrassCoverErosionOutwardsFailureMechanism grassCoverErosionOutwardsFailureMechanism = assessmentSection.GrassCoverErosionOutwards;
             AddForeshoreProfiles(grassCoverErosionOutwardsFailureMechanism.ForeshoreProfiles);
@@ -1833,8 +1832,7 @@ namespace Riskeer.Storage.Core.TestUtil
                 });
         }
 
-        private static void SetSectionResults(IEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResult> sectionResults,
-                                              GrassCoverErosionInwardsCalculation calculation)
+        private static void SetSectionResults(IEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResult> sectionResults)
         {
             var random = new Random(21);
             var firstSectionResultHasCalculation = false;
@@ -1849,7 +1847,6 @@ namespace Riskeer.Storage.Core.TestUtil
 
                 if (!firstSectionResultHasCalculation)
                 {
-                    sectionResult.Calculation = calculation;
                     firstSectionResultHasCalculation = true;
                 }
             }

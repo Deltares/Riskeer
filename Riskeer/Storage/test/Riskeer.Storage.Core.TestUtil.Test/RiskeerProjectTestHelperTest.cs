@@ -283,9 +283,6 @@ namespace Riskeer.Storage.Core.TestUtil.Test
 
             var calculationWithoutOutput = (GrassCoverErosionInwardsCalculation) failureMechanism.CalculationsGroup.Children[2];
             Assert.IsFalse(calculationWithoutOutput.HasOutput);
-
-            GrassCoverErosionInwardsFailureMechanismSectionResult firstSectionResult = failureMechanism.SectionResults.First();
-            Assert.AreSame(calculationWithOutput, firstSectionResult.Calculation);
         }
 
         private static void AssertGrassCoverErosionOutwardsFailureMechanism(AssessmentSection assessmentSection)

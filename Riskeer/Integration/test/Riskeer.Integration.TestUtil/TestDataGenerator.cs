@@ -411,9 +411,6 @@ namespace Riskeer.Integration.TestUtil
             });
 
             AddFailureMechanismSections(failureMechanism);
-
-            failureMechanism.SectionResults.ElementAt(0).Calculation = calculationWithOutputAndDikeProfileAndHydraulicBoundaryLocation;
-            failureMechanism.SectionResults.ElementAt(1).Calculation = subCalculationWithOutputAndDikeProfileAndHydraulicBoundaryLocation;
         }
 
         private static void SetFullyConfiguredFailureMechanism(HeightStructuresFailureMechanism failureMechanism,

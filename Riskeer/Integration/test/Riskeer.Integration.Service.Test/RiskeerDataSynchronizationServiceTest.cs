@@ -1368,9 +1368,7 @@ namespace Riskeer.Integration.Service.Test
             GrassCoverErosionInwardsCalculation[] calculations = failureMechanism.Calculations.Cast<GrassCoverErosionInwardsCalculation>()
                                                                                  .Where(c => ReferenceEquals(c.InputParameters.DikeProfile, profile))
                                                                                  .ToArray();
-            int originalNumberOfSectionResultAssignments = failureMechanism.SectionResults.Count(sr => sr.Calculation != null);
             GrassCoverErosionInwardsFailureMechanismSectionResult[] sectionResults = failureMechanism.SectionResults
-                                                                                                     .Where(sr => calculations.Contains(sr.Calculation))
                                                                                                      .ToArray();
 
             // Precondition
@@ -1389,11 +1387,6 @@ namespace Riskeer.Integration.Service.Test
                 Assert.IsNull(calculation.InputParameters.DikeProfile);
             }
 
-            foreach (GrassCoverErosionInwardsFailureMechanismSectionResult sectionResult in sectionResults)
-            {
-                Assert.IsNull(sectionResult.Calculation);
-            }
-
             IObservable[] array = observables.ToArray();
             Assert.AreEqual(1 + (calculations.Length * 2) + sectionResults.Length, array.Length);
             CollectionAssert.Contains(array, failureMechanism.DikeProfiles);
@@ -1408,9 +1401,6 @@ namespace Riskeer.Integration.Service.Test
             {
                 CollectionAssert.Contains(array, sectionResult);
             }
-
-            Assert.AreEqual(originalNumberOfSectionResultAssignments - sectionResults.Length, failureMechanism.SectionResults.Count(sr => sr.Calculation != null),
-                            "Other section results with a different calculation/dikeprofile should still have their association.");
         }
 
         private static IEnumerable<HydraulicBoundaryLocationCalculation> GetAllDesignWaterLevelCalculationsWithOutput(IAssessmentSection assessmentSection)
