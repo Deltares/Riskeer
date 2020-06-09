@@ -68,6 +68,8 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
                     }
                 }
             };
+            kernelModel.PreprocessingModel.SearchAreaConditions.MaxSpacingBetweenBoundaries = 0.8;
+            kernelModel.PreprocessingModel.SearchAreaConditions.OnlyAbovePleistoceen = true;
 
             AddPreProcessingConstructionStages();
             AddPreProcessingConstructionStages();
