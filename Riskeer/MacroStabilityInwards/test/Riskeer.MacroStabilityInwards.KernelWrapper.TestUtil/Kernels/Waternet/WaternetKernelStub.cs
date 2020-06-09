@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using Deltares.MacroStability.Geometry;
 using Deltares.MacroStability.WaternetCreator;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.Waternet;
@@ -63,6 +64,11 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.Waternet
         public void SetSurfaceLine(SurfaceLine2 surfaceLine)
         {
             SurfaceLine = surfaceLine;
+        }
+
+        public void SetSoilModel(IList<Soil> soilModel)
+        {
+            
         }
 
         public void Calculate()

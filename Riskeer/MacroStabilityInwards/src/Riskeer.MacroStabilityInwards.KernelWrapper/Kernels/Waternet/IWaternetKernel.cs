@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using Deltares.MacroStability.Geometry;
 using Deltares.MacroStability.WaternetCreator;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Waternet;
@@ -52,6 +53,8 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.Waternet
         /// Sets the surface line.
         /// </summary>
         void SetSurfaceLine(SurfaceLine2 surfaceLine);
+
+        void SetSoilModel(IList<Soil> soilModel);
 
         /// <summary>
         /// Performs the Waternet calculation.

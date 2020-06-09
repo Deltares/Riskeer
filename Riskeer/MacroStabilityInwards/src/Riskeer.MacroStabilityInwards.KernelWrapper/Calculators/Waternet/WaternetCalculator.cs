@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Deltares.MacroStability.WaternetCreator;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Input;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Input;
@@ -111,6 +112,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Waternet
             LayerWithSoil[] layersWithSoil = LayerWithSoilCreator.Create(Input.SoilProfile, out IDictionary<SoilLayer, LayerWithSoil> _);
             waternetKernel.SetSoilProfile(SoilProfileCreator.Create(layersWithSoil));
             waternetKernel.SetSurfaceLine(SurfaceLineCreator.Create(Input.SurfaceLine));
+            waternetKernel.SetSoilModel(layersWithSoil.Select(lws => lws.Soil).ToArray());
             
             return waternetKernel;
         }
