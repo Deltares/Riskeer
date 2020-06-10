@@ -140,6 +140,12 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
         void SetPreConsolidationStresses(IEnumerable<PreConsolidationStress> preConsolidationStresses);
 
         /// <summary>
+        /// Sets whether the forbidden zones are automatically determined or not.
+        /// </summary>
+        /// <param name="automaticForbiddenZones">The automatic forbidden zones to set.</param>
+        void SetAutomaticForbiddenZones(bool automaticForbiddenZones);
+
+        /// <summary>
         /// Performs the Uplift Van calculation.
         /// </summary>
         /// <exception cref="UpliftVanKernelWrapperException">Thrown when

@@ -91,6 +91,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
             {
                 new PreConsolidationStress()
             };
+            bool automaticForbiddenZones = random.NextBoolean();
 
             // Call
             var kernel = new UpliftVanKernelWrapper();
@@ -107,6 +108,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
             kernel.SetWaternetExtreme(waternetExtreme);
             kernel.SetFixedSoilStresses(fixedSoilStresses);
             kernel.SetPreConsolidationStresses(preConsolidationStresses);
+            kernel.SetAutomaticForbiddenZones(automaticForbiddenZones);
 
             // Assert
             var kernelModel = TypeUtils.GetField<KernelModel>(kernel, "kernelModel");
@@ -124,6 +126,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
             Assert.IsNotNull(stabilityModel.SlipCircle);
             Assert.AreEqual(SearchAlgorithm.Grid, stabilityModel.SearchAlgorithm);
             Assert.AreEqual(ModelOptions.UpliftVan, stabilityModel.ModelOption);
+            Assert.AreEqual(automaticForbiddenZones, kernelModel.PreprocessingModel.SearchAreaConditions.AutomaticForbiddenZones);
 
             AssertConstructionStages(stabilityModel.ConstructionStages, soilProfile2D, new[]
             {
@@ -253,11 +256,11 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
                                                      IEnumerable<FixedSoilStress> fixedSoilStresses, IEnumerable<PreConsolidationStress> preConsolidationStresses)
         {
             Assert.AreEqual(2, constructionStages.Count());
-            
+
             for (var i = 0; i < constructionStages.Count(); i++)
             {
                 ConstructionStage constructionStage = constructionStages.ElementAt(i);
-                
+
                 Assert.AreSame(waternets.ElementAt(i), constructionStage.GeotechnicsData.CurrentWaternet);
                 Assert.AreSame(soilProfile2D, constructionStage.SoilProfile);
                 Assert.AreEqual(1, constructionStage.MultiplicationFactorsCPhiForUpliftList.Count);

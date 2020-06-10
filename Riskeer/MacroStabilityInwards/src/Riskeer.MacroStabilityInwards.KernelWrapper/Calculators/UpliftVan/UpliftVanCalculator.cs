@@ -116,12 +116,12 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan
 
             SurfaceLine2 surfaceLine = SurfaceLineCreator.Create(input.SurfaceLine);
             SoilProfile2D soilProfile2D = SoilProfileCreator.Create(layersWithSoil);
-            
+
             IWaternetKernel waternetDailyKernelWrapper = factory.CreateWaternetDailyKernel(UpliftVanLocationCreator.CreateDaily(input));
-            CalculateWaternet(waternetDailyKernelWrapper, soilProfile2D, surfaceLine, layersWithSoil);
+            CalculateWaternet(waternetDailyKernelWrapper, soilProfile2D, surfaceLine);
 
             IWaternetKernel waternetExtremeKernelWrapper = factory.CreateWaternetExtremeKernel(UpliftVanLocationCreator.CreateExtreme(input));
-            CalculateWaternet(waternetExtremeKernelWrapper, soilProfile2D, surfaceLine, layersWithSoil);
+            CalculateWaternet(waternetExtremeKernelWrapper, soilProfile2D, surfaceLine);
 
             IUpliftVanKernel upliftVanKernel = factory.CreateUpliftVanKernel();
             upliftVanKernel.SetSlipPlaneUpliftVan(SlipPlaneUpliftVanCreator.Create(input.SlipPlane));
@@ -137,14 +137,15 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan
             upliftVanKernel.SetTangentLinesAutomaticDetermined(input.SlipPlane.TangentLinesAutomaticAtBoundaries);
             upliftVanKernel.SetFixedSoilStresses(FixedSoilStressCreator.Create(layerLookup));
             upliftVanKernel.SetPreConsolidationStresses(PreConsolidationStressCreator.Create(input.SoilProfile.PreconsolidationStresses));
+            upliftVanKernel.SetAutomaticForbiddenZones(input.SlipPlaneConstraints.AutomaticForbiddenZones);
+
             return upliftVanKernel;
         }
-        
-        private static void CalculateWaternet(IWaternetKernel waternetKernelWrapper, SoilProfile2D soilProfile2D, SurfaceLine2 surfaceLine, LayerWithSoil[] layersWithSoil)
+
+        private static void CalculateWaternet(IWaternetKernel waternetKernelWrapper, SoilProfile2D soilProfile2D, SurfaceLine2 surfaceLine)
         {
             waternetKernelWrapper.SetSoilProfile(soilProfile2D);
             waternetKernelWrapper.SetSurfaceLine(surfaceLine);
-            waternetKernelWrapper.SetSoilModel(layersWithSoil.Select(lws => lws.Soil).ToArray());
             waternetKernelWrapper.Calculate();
         }
     }

@@ -129,6 +129,11 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan
         /// </summary>
         public IEnumerable<PreConsolidationStress> PreConsolidationStresses { get; private set; }
 
+        /// <summary>
+        /// Indicator whether forbidden zones should be automatically determined by the kernel.
+        /// </summary>
+        public bool AutomaticForbiddenZones { get; private set; }
+
         public double FactorOfStability { get; set; }
 
         public double ForbiddenZonesXEntryMin { get; set; }
@@ -204,6 +209,11 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan
         public void SetPreConsolidationStresses(IEnumerable<PreConsolidationStress> preConsolidationStresses)
         {
             PreConsolidationStresses = preConsolidationStresses;
+        }
+
+        public void SetAutomaticForbiddenZones(bool automaticForbiddenZones)
+        {
+            AutomaticForbiddenZones = automaticForbiddenZones;
         }
 
         public void Calculate()

@@ -166,6 +166,11 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
             });
         }
 
+        public void SetAutomaticForbiddenZones(bool automaticForbiddenZones)
+        {
+            kernelModel.PreprocessingModel.SearchAreaConditions.AutomaticForbiddenZones = automaticForbiddenZones;
+        }
+
         public void Calculate()
         {
             try
