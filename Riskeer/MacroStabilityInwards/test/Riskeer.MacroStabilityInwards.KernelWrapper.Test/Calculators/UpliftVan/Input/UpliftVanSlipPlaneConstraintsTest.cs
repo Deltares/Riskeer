@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input;
 
@@ -34,15 +33,13 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
         {
             // Setup
             var random = new Random(39);
-            bool createZones = random.NextBoolean();
             double slipPlaneMinimumLength = random.NextDouble();
             double slipPlaneMinimumDepth = random.NextDouble();
 
             // Call
-            var slipPlaneConstraints = new UpliftVanSlipPlaneConstraints(slipPlaneMinimumDepth, slipPlaneMinimumLength, createZones);
+            var slipPlaneConstraints = new UpliftVanSlipPlaneConstraints(slipPlaneMinimumDepth, slipPlaneMinimumLength);
 
             // Assert
-            Assert.AreEqual(createZones, slipPlaneConstraints.CreateZones);
             Assert.IsTrue(slipPlaneConstraints.AutomaticForbiddenZones);
             Assert.AreEqual(slipPlaneMinimumLength, slipPlaneConstraints.SlipPlaneMinimumLength);
             Assert.AreEqual(slipPlaneMinimumDepth, slipPlaneConstraints.SlipPlaneMinimumDepth);
@@ -65,7 +62,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
                                                                 slipPlaneMinimumLength, zoneBoundaryLeft, zoneBoundaryRight);
 
             // Assert
-            Assert.IsTrue(constraints.CreateZones);
             Assert.IsFalse(constraints.AutomaticForbiddenZones);
             Assert.AreEqual(slipPlaneMinimumDepth, constraints.SlipPlaneMinimumDepth);
             Assert.AreEqual(slipPlaneMinimumLength, constraints.SlipPlaneMinimumLength);

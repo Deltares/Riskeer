@@ -430,7 +430,6 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
                 UpliftVanCalculatorInput actualInput = ((TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance)
                                                        .LastCreatedUpliftVanCalculator.Input;
                 Assert.IsTrue(actualInput.SlipPlaneConstraints.AutomaticForbiddenZones);
-                Assert.AreEqual(createZones, actualInput.SlipPlaneConstraints.CreateZones);
                 Assert.IsNaN(actualInput.SlipPlaneConstraints.ZoneBoundaryLeft);
                 Assert.IsNaN(actualInput.SlipPlaneConstraints.ZoneBoundaryRight);
                 Assert.AreEqual(inputParameters.SlipPlaneMinimumDepth, actualInput.SlipPlaneConstraints.SlipPlaneMinimumDepth);
@@ -754,7 +753,6 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
 
         private static void AssertSlipPlaneConstraints(MacroStabilityInwardsInput originalInput, UpliftVanSlipPlaneConstraints actualConstraints)
         {
-            Assert.AreEqual(originalInput.CreateZones, actualConstraints.CreateZones);
             Assert.AreEqual(originalInput.ZoningBoundariesDeterminationType == MacroStabilityInwardsZoningBoundariesDeterminationType.Automatic, actualConstraints.AutomaticForbiddenZones);
             Assert.AreEqual(originalInput.ZoneBoundaryLeft, actualConstraints.ZoneBoundaryLeft);
             Assert.AreEqual(originalInput.ZoneBoundaryRight, actualConstraints.ZoneBoundaryRight);

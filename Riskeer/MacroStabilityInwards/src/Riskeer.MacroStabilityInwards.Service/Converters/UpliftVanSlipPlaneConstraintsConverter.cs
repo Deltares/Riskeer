@@ -49,8 +49,7 @@ namespace Riskeer.MacroStabilityInwards.Service.Converters
             return input.CreateZones && input.ZoningBoundariesDeterminationType == MacroStabilityInwardsZoningBoundariesDeterminationType.Manual
                        ? new UpliftVanSlipPlaneConstraints(input.SlipPlaneMinimumDepth, input.SlipPlaneMinimumLength,
                                                            input.ZoneBoundaryLeft, input.ZoneBoundaryRight)
-                       : new UpliftVanSlipPlaneConstraints(input.SlipPlaneMinimumDepth, input.SlipPlaneMinimumLength,
-                                                           input.CreateZones);
+                       : new UpliftVanSlipPlaneConstraints(input.SlipPlaneMinimumDepth, input.SlipPlaneMinimumLength);
         }
     }
 }
