@@ -45,6 +45,11 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
             Assert.AreEqual(slipPlaneMinimumDepth, slipPlaneConstraints.SlipPlaneMinimumDepth);
             Assert.IsNaN(slipPlaneConstraints.ZoneBoundaryLeft);
             Assert.IsNaN(slipPlaneConstraints.ZoneBoundaryRight);
+            Assert.IsTrue(slipPlaneConstraints.AllowLeftToRight);
+            Assert.IsFalse(slipPlaneConstraints.AllowRightToLeft);
+            Assert.IsFalse(slipPlaneConstraints.AllowSwapLeftRight);
+            Assert.IsNaN(slipPlaneConstraints.XRightMin);
+            Assert.IsNaN(slipPlaneConstraints.XRightMax);
         }
 
         [Test]
@@ -58,15 +63,20 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
             double zoneBoundaryRight = random.NextDouble();
 
             // Call
-            var constraints = new UpliftVanSlipPlaneConstraints(slipPlaneMinimumDepth,
-                                                                slipPlaneMinimumLength, zoneBoundaryLeft, zoneBoundaryRight);
+            var slipPlaneConstraints = new UpliftVanSlipPlaneConstraints(slipPlaneMinimumDepth,
+                                                                         slipPlaneMinimumLength, zoneBoundaryLeft, zoneBoundaryRight);
 
             // Assert
-            Assert.IsFalse(constraints.AutomaticForbiddenZones);
-            Assert.AreEqual(slipPlaneMinimumDepth, constraints.SlipPlaneMinimumDepth);
-            Assert.AreEqual(slipPlaneMinimumLength, constraints.SlipPlaneMinimumLength);
-            Assert.AreEqual(zoneBoundaryLeft, constraints.ZoneBoundaryLeft);
-            Assert.AreEqual(zoneBoundaryRight, constraints.ZoneBoundaryRight);
+            Assert.IsFalse(slipPlaneConstraints.AutomaticForbiddenZones);
+            Assert.AreEqual(zoneBoundaryLeft, slipPlaneConstraints.ZoneBoundaryLeft);
+            Assert.AreEqual(zoneBoundaryRight, slipPlaneConstraints.ZoneBoundaryRight);
+            Assert.AreEqual(slipPlaneMinimumDepth, slipPlaneConstraints.SlipPlaneMinimumDepth);
+            Assert.AreEqual(slipPlaneMinimumLength, slipPlaneConstraints.SlipPlaneMinimumLength);
+            Assert.IsTrue(slipPlaneConstraints.AllowLeftToRight);
+            Assert.IsFalse(slipPlaneConstraints.AllowRightToLeft);
+            Assert.IsFalse(slipPlaneConstraints.AllowSwapLeftRight);
+            Assert.IsNaN(slipPlaneConstraints.XRightMin);
+            Assert.IsNaN(slipPlaneConstraints.XRightMax);
         }
     }
 }
