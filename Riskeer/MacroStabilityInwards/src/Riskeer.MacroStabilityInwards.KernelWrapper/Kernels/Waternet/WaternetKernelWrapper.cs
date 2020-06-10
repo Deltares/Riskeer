@@ -49,6 +49,8 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.Waternet
         private readonly Location location;
         private readonly WaternetCreator waternetCreator;
         private IList<Soil> soilModel;
+        private SurfaceLine2 surfaceLine;
+        private SoilProfile2D soilProfile;
 
         /// <summary>
         /// Creates a new instance of <see cref="WaternetKernelWrapper"/>.
@@ -74,11 +76,13 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.Waternet
 
         public void SetSoilProfile(SoilProfile2D soilProfile)
         {
+            this.soilProfile = soilProfile;
             location.SoilProfile2D = soilProfile;
         }
 
         public void SetSurfaceLine(SurfaceLine2 surfaceLine)
         {
+            this.surfaceLine = surfaceLine;
             location.Surfaceline = surfaceLine;
         }
 
@@ -93,13 +97,13 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.Waternet
 
             try
             {
-                WriteXmlFile();
-
                 waternetCreator.UpdateWaternet(Waternet, location);
 
                 ReadLogMessages(waternetCreator.LogMessages);
 
                 SynchronizeWaternetLinePoints();
+
+                WriteXmlFile();
             }
             catch (Exception e) when (!(e is WaternetKernelWrapperException))
             {
@@ -131,11 +135,13 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.Waternet
                             {
                                 location
                             },
-                            SurfaceLine = location.Surfaceline
+                            SurfaceLine = surfaceLine
                         }
                     }
                 }
             };
+            location.Surfaceline = surfaceLine;
+            location.SoilProfile2D = soilProfile;
             model.StabilityModel.Soils.AddRange(soilModel);
 
             FullInputModelType fullInputModel = FillXmlInputFromDomain.CreateStabilityInput(model);
