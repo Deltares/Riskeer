@@ -129,7 +129,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
         public void SetSurfaceLine(SurfaceLine2 surfaceLine)
         {
             kernelModel.PreprocessingModel.LastStage.SurfaceLine = surfaceLine;
-            foreach (var preProcessingConstructionStage in kernelModel.PreprocessingModel.PreProcessingConstructionStages)
+            foreach (PreprocessingConstructionStage preProcessingConstructionStage in kernelModel.PreprocessingModel.PreProcessingConstructionStages)
             {
                 preProcessingConstructionStage.SurfaceLine = surfaceLine;
             }
@@ -152,18 +152,12 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
 
         public void SetFixedSoilStresses(IEnumerable<FixedSoilStress> soilStresses)
         {
-            kernelModel.StabilityModel.ConstructionStages.ForEachElementDo(cs =>
-            {
-                cs.SoilStresses.AddRange(soilStresses);
-            });
+            kernelModel.StabilityModel.ConstructionStages.ForEachElementDo(cs => { cs.SoilStresses.AddRange(soilStresses); });
         }
 
         public void SetPreConsolidationStresses(IEnumerable<PreConsolidationStress> preConsolidationStresses)
         {
-            kernelModel.StabilityModel.ConstructionStages.ForEachElementDo(cs =>
-            {
-                cs.PreconsolidationStresses.AddRange(preConsolidationStresses);
-            });
+            kernelModel.StabilityModel.ConstructionStages.ForEachElementDo(cs => { cs.PreconsolidationStresses.AddRange(preConsolidationStresses); });
         }
 
         public void SetAutomaticForbiddenZones(bool automaticForbiddenZones)
@@ -193,11 +187,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
         {
             try
             {
-                // The following lines are necessary as a workaround for the kernel.
-                // The kernel validates before generating the grid, with calling Update, this is prevented.
-                PreprocessingModel preprocessingModel = kernelModel.PreprocessingModel;
-                var preprocessor = new StabilityPreprocessor();
-                preprocessor.Update(kernelModel.StabilityModel, preprocessingModel);
+                PreprocessModel();
 
                 IValidationResult[] validationResults = Validator.Validate(kernelModel);
                 return validationResults;
@@ -206,6 +196,21 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
             {
                 throw new UpliftVanKernelWrapperException(e.Message, e);
             }
+        }
+
+        /// <summary>
+        /// Pre processes the <see cref="StabilityModel"/>.
+        /// </summary>
+        /// <remarks>
+        /// Workaround for the kernel: The kernel validates before generating the grid.
+        /// This is prevented by calling update on the <see cref="StabilityPreprocessor"/>.
+        /// Should be fixed in a new kernel version.
+        /// </remarks>
+        private void PreprocessModel()
+        {
+            PreprocessingModel preprocessingModel = kernelModel.PreprocessingModel;
+            var preprocessor = new StabilityPreprocessor();
+            preprocessor.Update(kernelModel.StabilityModel, preprocessingModel);
         }
 
         private void WriteXmlFile()
@@ -234,18 +239,28 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
 
         private void AddPreProcessingConstructionStages()
         {
-            kernelModel.PreprocessingModel.PreProcessingConstructionStages.Add(new PreprocessingConstructionStage
+            var preprocessingConstructionStage = new PreprocessingConstructionStage
             {
-                StabilityModel = kernelModel.StabilityModel,
-                Locations =
-                {
-                    // This location is necessary to prevent a location missing warning from the kernel.
-                    // In new kernel versions the kernel itself does this action so later this can be removed.
-                    new Location
-                    {
-                        WaternetCreationMode = WaternetCreationMode.FillInWaternetValues
-                    }
-                }
+                StabilityModel = kernelModel.StabilityModel
+            };
+            AddPreprocessingConstructionStageLocation(preprocessingConstructionStage);
+            kernelModel.PreprocessingModel.PreProcessingConstructionStages.Add(preprocessingConstructionStage);
+        }
+
+        /// <summary>
+        /// Add a default location to the <see cref="PreprocessingConstructionStage"/>.
+        /// </summary>
+        /// <param name="preprocessingConstructionStage">The <see cref="PreprocessingConstructionStage"/>
+        /// to add the <see cref="Location"/> to.</param>
+        /// <remarks>
+        /// This is a workaround to prevent a location missing warning from the kernel.
+        /// Should be fixed in a new kernel version.
+        /// </remarks>
+        private static void AddPreprocessingConstructionStageLocation(PreprocessingConstructionStage preprocessingConstructionStage)
+        {
+            preprocessingConstructionStage.Locations.Add(new Location
+            {
+                WaternetCreationMode = WaternetCreationMode.FillInWaternetValues
             });
         }
 
