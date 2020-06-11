@@ -211,30 +211,10 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             Assert.AreEqual(expectedShearStrengthModel, layersWithSoil[0].Soil.ShearStrengthModel);
         }
 
-        [Test]
-        public void Create_ValidDilatancy_ExpectedDilatancy()
-        {
-            // Setup
-            var profile = new SoilProfile(new[]
-            {
-                new SoilLayer(new Point2D[0],
-                              new SoilLayer.ConstructionProperties
-                              {
-                                  Dilatancy = 0.0
-                              },
-                              Enumerable.Empty<SoilLayer>())
-            }, Enumerable.Empty<PreconsolidationStress>());
-
-            // Call
-            LayerWithSoil[] layersWithSoil = LayerWithSoilCreator.Create(profile, out IDictionary<SoilLayer, LayerWithSoil> layerLookup);
-
-            // Assert
-            Assert.AreEqual(0.0, layersWithSoil[0].Soil.Dilatancy);
-        }
-
         [TestCase(WaterPressureInterpolationModel.Automatic, WaterpressureInterpolationModel.Automatic)]
         [TestCase(WaterPressureInterpolationModel.Hydrostatic, WaterpressureInterpolationModel.Hydrostatic)]
-        public void Create_ValidWaterPressureInterpolationModel_ExpectedWaterPressureInterpolationModel(WaterPressureInterpolationModel waterPressureInterpolationModel, WaterpressureInterpolationModel expectedWaterPressureInterpolationModel)
+        public void Create_ValidWaterPressureInterpolationModel_ExpectedWaterPressureInterpolationModel(
+            WaterPressureInterpolationModel waterPressureInterpolationModel, WaterpressureInterpolationModel expectedWaterPressureInterpolationModel)
         {
             // Setup
             var profile = new SoilProfile(new[]
@@ -269,6 +249,11 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             Assert.AreEqual(soilLayer.ShearStrengthRatio, layerWithSoil.Soil.RatioCuPc);
             Assert.AreEqual(soilLayer.StrengthIncreaseExponent, layerWithSoil.Soil.StrengthIncreaseExponent);
             Assert.AreEqual(soilLayer.Dilatancy, layerWithSoil.Soil.Dilatancy);
+            Assert.IsNaN(layerWithSoil.Soil.RRatio); //Irrelevant
+            Assert.IsNaN(layerWithSoil.Soil.RheologicalCoefficient); //Irrelevant
+            Assert.IsNotNull(layerWithSoil.Soil.BondStressCurve); //Irrelevant
+            Assert.AreEqual(SoilType.Sand, layerWithSoil.Soil.SoilType); //Irrelevant
+            Assert.IsFalse(layerWithSoil.Soil.UseSoilType); //Irrelevant
         }
 
         private static SoilLayer.ConstructionProperties CreateRandomConstructionProperties(int seed, string materialName)
@@ -288,7 +273,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                 ShearStrengthRatio = random.NextDouble(),
                 StrengthIncreaseExponent = random.NextDouble(),
                 Pop = random.NextDouble(),
-                Dilatancy = 0.0,
+                Dilatancy = random.NextDouble(),
                 WaterPressureInterpolationModel = WaterPressureInterpolationModel.Hydrostatic
             };
         }
