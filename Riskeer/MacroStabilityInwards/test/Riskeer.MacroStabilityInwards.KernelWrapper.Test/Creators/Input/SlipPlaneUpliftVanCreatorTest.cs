@@ -36,10 +36,10 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
         public void Create_SlipPlaneNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => SlipPlaneUpliftVanCreator.Create(null);
+            void Call() => SlipPlaneUpliftVanCreator.Create(null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("slipPlane", exception.ParamName);
         }
 
@@ -88,6 +88,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             Assert.AreEqual(tangentLineZBottom, slipPlaneUpliftVan.SlipPlaneTangentLine.TangentLineZBottom);
             Assert.AreEqual(tangentLineNumber, slipPlaneUpliftVan.SlipPlaneTangentLine.TangentLineNumber);
             Assert.AreSame(slipPlaneUpliftVan, slipPlaneUpliftVan.SlipCircleTangentLine.TangentLinesBoundaries); // Automatically synced
+            Assert.AreSame(slipPlaneUpliftVan, slipPlaneUpliftVan.SlipPlaneTangentLine.TangentLinesBoundaries); // Automatically synced
         }
 
         [Test]
@@ -162,6 +163,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             Assert.AreEqual(0, slipPlaneUpliftVan.SlipPlaneTangentLine.TangentLineZBottom);
             Assert.AreEqual(1, slipPlaneUpliftVan.SlipPlaneTangentLine.TangentLineNumber);
             Assert.AreSame(slipPlaneUpliftVan, slipPlaneUpliftVan.SlipCircleTangentLine.TangentLinesBoundaries); // Automatically synced
+            Assert.AreSame(slipPlaneUpliftVan, slipPlaneUpliftVan.SlipPlaneTangentLine.TangentLinesBoundaries); // Automatically synced
         }
     }
 }
