@@ -37,10 +37,10 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
         public void Create_LayersWithSoilNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => SoilProfileCreator.Create(null);
+            void Call() => SoilProfileCreator.Create(null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("layersWithSoil", exception.ParamName);
         }
 

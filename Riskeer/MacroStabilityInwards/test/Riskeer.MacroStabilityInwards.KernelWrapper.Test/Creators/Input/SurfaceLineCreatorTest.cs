@@ -37,10 +37,10 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
         public void Create_SurfaceLineNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => SurfaceLineCreator.Create(null);
+            void Call() => SurfaceLineCreator.Create(null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("surfaceLine", exception.ParamName);
         }
 

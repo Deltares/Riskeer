@@ -43,10 +43,10 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
         public void CreateExtreme_InputNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => UpliftVanLocationCreator.CreateExtreme(null);
+            void Call() => UpliftVanLocationCreator.CreateExtreme(null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("input", exception.ParamName);
         }
 
@@ -67,11 +67,11 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                 });
 
             // Call
-            TestDelegate test = () => UpliftVanLocationCreator.CreateExtreme(input);
+            void Call() => UpliftVanLocationCreator.CreateExtreme(input);
 
             // Assert
             string message = $"The value of argument 'dikeSoilScenario' ({99}) is invalid for Enum type '{nameof(MacroStabilityInwardsDikeSoilScenario)}'.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(test, message);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(Call, message);
         }
 
         [Test]
@@ -119,11 +119,11 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                 });
 
             // Call
-            TestDelegate test = () => UpliftVanLocationCreator.CreateExtreme(input);
+            void Call() => UpliftVanLocationCreator.CreateExtreme(input);
 
             // Assert
             string message = $"The value of argument 'waternetCreationMode' ({99}) is invalid for Enum type '{nameof(WaternetCreationMode)}'.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(test, message);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(Call, message);
         }
 
         [Test]
@@ -169,11 +169,11 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                 });
 
             // Call
-            TestDelegate test = () => UpliftVanLocationCreator.CreateExtreme(input);
+            void Call() => UpliftVanLocationCreator.CreateExtreme(input);
 
             // Assert
             string message = $"The value of argument 'plLineCreationMethod' ({99}) is invalid for Enum type '{nameof(PlLineCreationMethod)}'.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(test, message);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(Call, message);
         }
 
         [Test]
@@ -265,10 +265,10 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
         public void CreateDaily_InputNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => UpliftVanLocationCreator.CreateDaily(null);
+            void Call() => UpliftVanLocationCreator.CreateDaily(null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("input", exception.ParamName);
         }
 
@@ -289,11 +289,11 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                 });
 
             // Call
-            TestDelegate test = () => UpliftVanLocationCreator.CreateDaily(input);
+            void Call() => UpliftVanLocationCreator.CreateDaily(input);
 
             // Assert
             string message = $"The value of argument 'dikeSoilScenario' ({99}) is invalid for Enum type '{nameof(MacroStabilityInwardsDikeSoilScenario)}'.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(test, message);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(Call, message);
         }
 
         [Test]
@@ -341,11 +341,11 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                 });
 
             // Call
-            TestDelegate test = () => UpliftVanLocationCreator.CreateDaily(input);
+            void Call() => UpliftVanLocationCreator.CreateDaily(input);
 
             // Assert
             string message = $"The value of argument 'waternetCreationMode' ({99}) is invalid for Enum type '{nameof(WaternetCreationMode)}'.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(test, message);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(Call, message);
         }
 
         [Test]
@@ -391,11 +391,11 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                 });
 
             // Call
-            TestDelegate test = () => UpliftVanLocationCreator.CreateDaily(input);
+            void Call() => UpliftVanLocationCreator.CreateDaily(input);
 
             // Assert
             string message = $"The value of argument 'plLineCreationMethod' ({99}) is invalid for Enum type '{nameof(PlLineCreationMethod)}'.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(test, message);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(Call, message);
         }
 
         [Test]
@@ -501,6 +501,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             Assert.AreEqual(input.LeakageLengthInwardsPhreaticLine4, location.LeakageLengthInwardsPl4);
             Assert.AreEqual(input.PiezometricHeadPhreaticLine2Outwards, location.HeadInPlLine2Outwards);
             Assert.AreEqual(input.PiezometricHeadPhreaticLine2Inwards, location.HeadInPlLine2Inwards);
+            Assert.IsTrue(location.Inwards);
         }
 
         private static void AssertIrrelevantValues(Location location)
