@@ -82,6 +82,14 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                 
                 Assert.AreEqual(keyValuePair.Value.Soil, fixedSoilStress.Soil);
                 Assert.AreEqual(keyValuePair.Key.Pop, fixedSoilStress.CenterStressValue.POP);
+                
+                Assert.AreEqual(FixedStressPosition.Center, fixedSoilStress.CenterStressValue.FixedStressPosition); // Automatically synced
+                Assert.AreEqual(FixedStressPosition.Center, fixedSoilStress.BottomStressValue.FixedStressPosition); // Automatically synced
+                Assert.AreEqual(FixedStressPosition.Center, fixedSoilStress.TopStressValue.FixedStressPosition); // Automatically synced
+                Assert.IsNull(fixedSoilStress.CenterStressValue.FixedSoilStress); // Irrelevant
+                Assert.IsNull(fixedSoilStress.BottomStressValue.FixedSoilStress); // Irrelevant
+                Assert.IsNull(fixedSoilStress.TopStressValue.FixedSoilStress); // Irrelevant
+                Assert.IsFalse(fixedSoilStress.TopBottom); // Irrelevant
             }
         }
 
