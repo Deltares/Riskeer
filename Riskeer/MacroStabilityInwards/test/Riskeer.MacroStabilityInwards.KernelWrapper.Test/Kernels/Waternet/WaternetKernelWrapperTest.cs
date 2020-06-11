@@ -19,10 +19,13 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using Core.Common.Util.Reflection;
 using Deltares.MacroStability.Geometry;
+using Deltares.MacroStability.Standard;
 using Deltares.MacroStability.WaternetCreator;
 using NUnit.Framework;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.Waternet;
+using WtiStabilityWaternet = Deltares.MacroStability.Geometry.Waternet;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.Waternet
 {
@@ -34,7 +37,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.Waternet
         {
             // Setup
             var location = new Location();
-            
+
             // Call
             var kernel = new TestWaternetKernelWrapper(location, "Waternet");
 
@@ -58,8 +61,12 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.Waternet
             kernel.SetSurfaceLine(surfaceLine);
 
             // Assert
+            var waternetCreator = TypeUtils.GetProperty<WaternetCreator>(kernel, "waternetCreator");
+
             Assert.AreSame(surfaceLine, location.Surfaceline);
             Assert.AreSame(soilProfile2D, location.SoilProfile2D);
+
+            AssertIrrelevantValues(kernel.Waternet, waternetCreator);
         }
 
         [Test]
@@ -77,9 +84,19 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.Waternet
             Assert.AreEqual(exception.InnerException.Message, exception.Message);
         }
 
+        private static void AssertIrrelevantValues(WtiStabilityWaternet waternet, WaternetCreator waternetCreator)
+        {
+            Assert.AreEqual("Waternet", waternet.Name);
+            Assert.AreEqual(9.81, waternet.UnitWeight);
+            Assert.IsTrue(waternet.IsGenerated);
+
+            Assert.AreEqual(0, waternetCreator.LogMessages);
+            Assert.AreEqual(LanguageType.English, waternetCreator.Language);
+        }
+
         private class TestWaternetKernelWrapper : WaternetKernelWrapper
         {
-            public TestWaternetKernelWrapper(Location location, string waternetName) 
+            public TestWaternetKernelWrapper(Location location, string waternetName)
                 : base(location, waternetName) {}
         }
     }
