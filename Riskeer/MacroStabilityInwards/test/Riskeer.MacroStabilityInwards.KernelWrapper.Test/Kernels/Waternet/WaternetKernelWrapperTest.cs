@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Linq;
 using Core.Common.Util.Reflection;
 using Deltares.MacroStability.Geometry;
 using Deltares.MacroStability.Standard;
@@ -61,7 +62,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.Waternet
             kernel.SetSurfaceLine(surfaceLine);
 
             // Assert
-            var waternetCreator = TypeUtils.GetProperty<WaternetCreator>(kernel, "waternetCreator");
+            var waternetCreator = TypeUtils.GetField<WaternetCreator>(kernel, "waternetCreator");
 
             Assert.AreSame(surfaceLine, location.Surfaceline);
             Assert.AreSame(soilProfile2D, location.SoilProfile2D);
@@ -88,10 +89,10 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.Waternet
         {
             Assert.AreEqual("Waternet", waternet.Name);
             Assert.AreEqual(9.81, waternet.UnitWeight);
-            Assert.IsTrue(waternet.IsGenerated);
+            Assert.IsFalse(waternet.IsGenerated);
 
-            Assert.AreEqual(0, waternetCreator.LogMessages);
-            Assert.AreEqual(LanguageType.English, waternetCreator.Language);
+            Assert.AreEqual(Enumerable.Empty<LogMessage>(), waternetCreator.LogMessages);
+            Assert.AreEqual(LanguageType.Dutch, waternetCreator.Language);
         }
 
         private class TestWaternetKernelWrapper : WaternetKernelWrapper

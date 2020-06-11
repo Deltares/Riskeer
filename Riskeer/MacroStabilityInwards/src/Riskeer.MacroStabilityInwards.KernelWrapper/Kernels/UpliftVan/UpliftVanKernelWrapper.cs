@@ -267,6 +267,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
         private void SetResults()
         {
             StabilityModel stabilityModel = kernelModel.StabilityModel;
+            StabilityOutputModel stabilityOutputModel = kernelModel.StabilityOutputModel;
             FactorOfStability = stabilityModel.MinimumSafetyCurve.SafetyFactor;
             ForbiddenZonesXEntryMin = stabilityModel.SlipPlaneConstraints.XLeftMin;
             ForbiddenZonesXEntryMax = stabilityModel.SlipPlaneConstraints.XLeftMax;

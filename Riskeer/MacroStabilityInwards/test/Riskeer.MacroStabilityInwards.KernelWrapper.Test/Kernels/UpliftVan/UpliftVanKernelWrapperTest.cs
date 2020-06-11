@@ -28,6 +28,7 @@ using Core.Common.Util.Reflection;
 using Deltares.MacroStability.Data;
 using Deltares.MacroStability.Geometry;
 using Deltares.MacroStability.Kernel;
+using Deltares.MacroStability.Preprocessing;
 using Deltares.MacroStability.Standard;
 using NUnit.Framework;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan;
@@ -112,8 +113,11 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
 
             // Assert
             var kernelModel = TypeUtils.GetField<KernelModel>(kernel, "kernelModel");
-            StabilityModel stabilityModel = kernelModel.StabilityModel;
+            
+            AssertStabilityOutputModel(kernelModel.StabilityOutputModel);
+            AssertPreProcessingModel(kernelModel.PreprocessingModel);
 
+            StabilityModel stabilityModel = kernelModel.StabilityModel;
             CollectionAssert.AreEqual(soilModel, kernelModel.StabilityModel.Soils);
             Assert.AreEqual(moveGrid, stabilityModel.MoveGrid);
             Assert.AreEqual(maximumSliceWidth, stabilityModel.MaximumSliceWidth);
@@ -492,11 +496,38 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
 
         private static void AssertIrrelevantValues(StabilityModel stabilityModel)
         {
+            Assert.IsNotNull(stabilityModel.BeeswarmOptions);
+            Assert.IsNotNull(stabilityModel.SpencerSlipPlanes);
+            Assert.IsNotNull(stabilityModel.LevenbergMarquardtOptions);
             Assert.IsNull(stabilityModel.MinimumSafetyCurve); // Output
             Assert.AreEqual(0.8, stabilityModel.RequiredForcePointsInSlices); // Only for Spencer
             Assert.AreEqual(60.0, stabilityModel.MaxAllowedAngleBetweenSlices); // Only for Spencer
+            Assert.AreEqual(9.81, stabilityModel.UnitWeightWater);
+            Assert.AreEqual(2, stabilityModel.TraversalGridPoints);
+            Assert.AreEqual(50, stabilityModel.MaxGridMoves);
+            Assert.IsNotNull(stabilityModel.Validator);
+            Assert.AreEqual(0, stabilityModel.TraversalRefinements);
+            Assert.IsFalse(stabilityModel.FinalizeWithLevenbergMarquardt);
             Assert.IsNotNull(stabilityModel.GeneticAlgorithmOptions); // Only for genetic search algorithm
             Assert.IsNotNull(stabilityModel.LevenbergMarquardtOptions); // Only for Levenberg Marquardt search algorithm
+        }
+
+        private static void AssertPreProcessingModel(PreprocessingModel preProcessingModel)
+        {
+            Assert.AreEqual(Enumerable.Empty<LogMessage>(), preProcessingModel.LogMessages);
+            Assert.AreEqual(preProcessingModel.StabilityModel, preProcessingModel.StabilityModel);
+        }
+
+        private static void AssertStabilityOutputModel(StabilityOutputModel stabilityOutputModel)
+        {
+            Assert.AreEqual(Enumerable.Empty<LogMessage>(), stabilityOutputModel.LogMessages);
+            Assert.AreEqual(ModelOptions.Bishop, stabilityOutputModel.ModelOption);
+            Assert.IsFalse(stabilityOutputModel.Succeeded);
+            Assert.AreEqual(0.0, stabilityOutputModel.SafetyFactor);
+            Assert.AreEqual(0.0, stabilityOutputModel.ZValue);
+            Assert.IsNull(stabilityOutputModel.MinimumSlidingCurve);
+            Assert.IsNotNull(stabilityOutputModel.VersionInfo);
+            Assert.IsNotNull(stabilityOutputModel.PreProcessingOutput);
         }
     }
 }
