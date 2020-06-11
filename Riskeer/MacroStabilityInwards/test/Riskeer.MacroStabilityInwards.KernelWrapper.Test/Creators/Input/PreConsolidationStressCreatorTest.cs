@@ -59,19 +59,18 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             IEnumerable<PreConsolidationStress> preConsolidationStresses = PreConsolidationStressCreator.Create(preconsolidationStresses);
 
             // Assert
-            Assert.AreEqual(preConsolidationStresses.Count(), 3);
+            Assert.AreEqual(preconsolidationStresses.Length, preConsolidationStresses.Count());
 
-            Assert.AreEqual(preConsolidationStresses.First().X, 3.2);
-            Assert.AreEqual(preConsolidationStresses.First().Z, 4.8);
-            Assert.AreEqual(preConsolidationStresses.First().StressValue, 1.5);
+            for (var i = 0; i < preconsolidationStresses.Length; i++)
+            {
+                PreconsolidationStress riskeerPreConsolidationStress = preconsolidationStresses[i];
+                PreConsolidationStress stabilityPreConsolidationStress = preConsolidationStresses.ElementAt(i);
 
-            Assert.AreEqual(preConsolidationStresses.ElementAt(1).X, 1.2);
-            Assert.AreEqual(preConsolidationStresses.ElementAt(1).Z, 0.5);
-            Assert.AreEqual(preConsolidationStresses.ElementAt(1).StressValue, 17.9);
-
-            Assert.AreEqual(preConsolidationStresses.Last().X, 50.8);
-            Assert.AreEqual(preConsolidationStresses.Last().Z, 9.9);
-            Assert.AreEqual(preConsolidationStresses.Last().StressValue, 3.8);
+                Assert.AreEqual(riskeerPreConsolidationStress.Coordinate.X, stabilityPreConsolidationStress.X);
+                Assert.AreEqual(riskeerPreConsolidationStress.Coordinate.Y, stabilityPreConsolidationStress.Z);
+                Assert.AreEqual(riskeerPreConsolidationStress.Stress, stabilityPreConsolidationStress.StressValue);
+                Assert.IsNull(stabilityPreConsolidationStress.Name); // Irrelevant
+            }
         }
     }
 }
