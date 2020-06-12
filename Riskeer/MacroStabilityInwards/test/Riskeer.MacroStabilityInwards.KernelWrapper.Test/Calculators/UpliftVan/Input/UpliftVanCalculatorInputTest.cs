@@ -194,15 +194,14 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
         public void Constructor_SurfaceLineNull_ThrowsArgumentException()
         {
             // Call
-            void Call() =>
-                new UpliftVanCalculatorInput(new UpliftVanCalculatorInput.ConstructionProperties
-                {
-                    SoilProfile = new TestSoilProfile(),
-                    PhreaticLineOffsetsExtreme = new PhreaticLineOffsets(),
-                    PhreaticLineOffsetsDaily = new PhreaticLineOffsets(),
-                    DrainageConstruction = new DrainageConstruction(),
-                    SlipPlane = new UpliftVanSlipPlane()
-                });
+            void Call() => new UpliftVanCalculatorInput(new UpliftVanCalculatorInput.ConstructionProperties
+            {
+                SoilProfile = new TestSoilProfile(),
+                PhreaticLineOffsetsExtreme = new PhreaticLineOffsets(),
+                PhreaticLineOffsetsDaily = new PhreaticLineOffsets(),
+                DrainageConstruction = new DrainageConstruction(),
+                SlipPlane = new UpliftVanSlipPlane()
+            });
 
             // Assert
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(Call, "SurfaceLine must be set.");
@@ -212,15 +211,14 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
         public void Constructor_SoilProfileNull_ThrowsArgumentException()
         {
             // Call
-            void Call() =>
-                new UpliftVanCalculatorInput(new UpliftVanCalculatorInput.ConstructionProperties
-                {
-                    SurfaceLine = new MacroStabilityInwardsSurfaceLine("test"),
-                    PhreaticLineOffsetsExtreme = new PhreaticLineOffsets(),
-                    PhreaticLineOffsetsDaily = new PhreaticLineOffsets(),
-                    DrainageConstruction = new DrainageConstruction(),
-                    SlipPlane = new UpliftVanSlipPlane()
-                });
+            void Call() => new UpliftVanCalculatorInput(new UpliftVanCalculatorInput.ConstructionProperties
+            {
+                SurfaceLine = new MacroStabilityInwardsSurfaceLine("test"),
+                PhreaticLineOffsetsExtreme = new PhreaticLineOffsets(),
+                PhreaticLineOffsetsDaily = new PhreaticLineOffsets(),
+                DrainageConstruction = new DrainageConstruction(),
+                SlipPlane = new UpliftVanSlipPlane()
+            });
 
             // Assert
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(Call, "SoilProfile must be set.");
@@ -230,15 +228,14 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
         public void Constructor_DrainageConstructionNull_ThrowsArgumentException()
         {
             // Call
-            void Call() =>
-                new UpliftVanCalculatorInput(new UpliftVanCalculatorInput.ConstructionProperties
-                {
-                    SoilProfile = new TestSoilProfile(),
-                    SurfaceLine = new MacroStabilityInwardsSurfaceLine("test"),
-                    PhreaticLineOffsetsDaily = new PhreaticLineOffsets(),
-                    PhreaticLineOffsetsExtreme = new PhreaticLineOffsets(),
-                    SlipPlane = new UpliftVanSlipPlane()
-                });
+            void Call() => new UpliftVanCalculatorInput(new UpliftVanCalculatorInput.ConstructionProperties
+            {
+                SoilProfile = new TestSoilProfile(),
+                SurfaceLine = new MacroStabilityInwardsSurfaceLine("test"),
+                PhreaticLineOffsetsDaily = new PhreaticLineOffsets(),
+                PhreaticLineOffsetsExtreme = new PhreaticLineOffsets(),
+                SlipPlane = new UpliftVanSlipPlane()
+            });
 
             // Assert
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(Call, "DrainageConstruction must be set.");
@@ -248,15 +245,14 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
         public void Constructor_PhreaticLineOffsetsExtremeNull_ThrowsArgumentException()
         {
             // Call
-            void Call() =>
-                new UpliftVanCalculatorInput(new UpliftVanCalculatorInput.ConstructionProperties
-                {
-                    SoilProfile = new TestSoilProfile(),
-                    SurfaceLine = new MacroStabilityInwardsSurfaceLine("test"),
-                    DrainageConstruction = new DrainageConstruction(),
-                    SlipPlane = new UpliftVanSlipPlane(),
-                    PhreaticLineOffsetsDaily = new PhreaticLineOffsets()
-                });
+            void Call() => new UpliftVanCalculatorInput(new UpliftVanCalculatorInput.ConstructionProperties
+            {
+                SoilProfile = new TestSoilProfile(),
+                SurfaceLine = new MacroStabilityInwardsSurfaceLine("test"),
+                DrainageConstruction = new DrainageConstruction(),
+                SlipPlane = new UpliftVanSlipPlane(),
+                PhreaticLineOffsetsDaily = new PhreaticLineOffsets()
+            });
 
             // Assert
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(Call, "PhreaticLineOffsetsExtreme must be set.");
@@ -266,15 +262,14 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
         public void Constructor_PhreaticLineOffsetsDailyNull_ThrowsArgumentException()
         {
             // Call
-            void Call() =>
-                new UpliftVanCalculatorInput(new UpliftVanCalculatorInput.ConstructionProperties
-                {
-                    SoilProfile = new TestSoilProfile(),
-                    SurfaceLine = new MacroStabilityInwardsSurfaceLine("test"),
-                    DrainageConstruction = new DrainageConstruction(),
-                    SlipPlane = new UpliftVanSlipPlane(),
-                    PhreaticLineOffsetsExtreme = new PhreaticLineOffsets()
-                });
+            void Call() => new UpliftVanCalculatorInput(new UpliftVanCalculatorInput.ConstructionProperties
+            {
+                SoilProfile = new TestSoilProfile(),
+                SurfaceLine = new MacroStabilityInwardsSurfaceLine("test"),
+                DrainageConstruction = new DrainageConstruction(),
+                SlipPlane = new UpliftVanSlipPlane(),
+                PhreaticLineOffsetsExtreme = new PhreaticLineOffsets()
+            });
 
             // Assert
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(Call, "PhreaticLineOffsetsDaily must be set.");
@@ -284,15 +279,14 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
         public void Constructor_SlipPlaneNull_ThrowsArgumentException()
         {
             // Call
-            void Call() =>
-                new UpliftVanCalculatorInput(new UpliftVanCalculatorInput.ConstructionProperties
-                {
-                    SoilProfile = new TestSoilProfile(),
-                    SurfaceLine = new MacroStabilityInwardsSurfaceLine("test"),
-                    DrainageConstruction = new DrainageConstruction(),
-                    PhreaticLineOffsetsExtreme = new PhreaticLineOffsets(),
-                    PhreaticLineOffsetsDaily = new PhreaticLineOffsets()
-                });
+            void Call() => new UpliftVanCalculatorInput(new UpliftVanCalculatorInput.ConstructionProperties
+            {
+                SoilProfile = new TestSoilProfile(),
+                SurfaceLine = new MacroStabilityInwardsSurfaceLine("test"),
+                DrainageConstruction = new DrainageConstruction(),
+                PhreaticLineOffsetsExtreme = new PhreaticLineOffsets(),
+                PhreaticLineOffsetsDaily = new PhreaticLineOffsets()
+            });
 
             // Assert
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(Call, "SlipPlane must be set.");

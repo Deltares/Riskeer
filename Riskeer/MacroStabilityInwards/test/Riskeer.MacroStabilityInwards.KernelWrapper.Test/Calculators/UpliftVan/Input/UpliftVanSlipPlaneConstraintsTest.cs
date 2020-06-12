@@ -48,8 +48,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
             Assert.IsTrue(slipPlaneConstraints.AllowLeftToRight);
             Assert.IsFalse(slipPlaneConstraints.AllowRightToLeft);
             Assert.IsFalse(slipPlaneConstraints.AllowSwapLeftRight);
-            Assert.IsNaN(slipPlaneConstraints.XRightMin);
-            Assert.IsNaN(slipPlaneConstraints.XRightMax);
         }
 
         [Test]
@@ -63,8 +61,8 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
             double zoneBoundaryRight = random.NextDouble();
 
             // Call
-            var slipPlaneConstraints = new UpliftVanSlipPlaneConstraints(slipPlaneMinimumDepth,
-                                                                         slipPlaneMinimumLength, zoneBoundaryLeft, zoneBoundaryRight);
+            var slipPlaneConstraints = new UpliftVanSlipPlaneConstraints(slipPlaneMinimumDepth, slipPlaneMinimumLength,
+                                                                         zoneBoundaryLeft, zoneBoundaryRight);
 
             // Assert
             Assert.IsFalse(slipPlaneConstraints.AutomaticForbiddenZones);
@@ -75,8 +73,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
             Assert.IsTrue(slipPlaneConstraints.AllowLeftToRight);
             Assert.IsFalse(slipPlaneConstraints.AllowRightToLeft);
             Assert.IsFalse(slipPlaneConstraints.AllowSwapLeftRight);
-            Assert.IsNaN(slipPlaneConstraints.XRightMin);
-            Assert.IsNaN(slipPlaneConstraints.XRightMax);
         }
     }
 }

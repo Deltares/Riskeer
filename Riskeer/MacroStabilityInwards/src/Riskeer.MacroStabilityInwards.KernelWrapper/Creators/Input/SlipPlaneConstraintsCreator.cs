@@ -53,9 +53,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
                 XLeftMax = input.ZoneBoundaryRight,
                 AllowLeftToRight = input.AllowLeftToRight,
                 AllowRightToLeft = input.AllowRightToLeft,
-                AllowSwapLeftRight = input.AllowSwapLeftRight,
-                XRightMin = input.XRightMin,
-                XRightMax = input.XRightMax
+                AllowSwapLeftRight = input.AllowSwapLeftRight
             };
         }
     }

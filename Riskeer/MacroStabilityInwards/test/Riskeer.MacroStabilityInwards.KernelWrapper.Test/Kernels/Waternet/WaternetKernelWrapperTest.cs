@@ -66,6 +66,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.Waternet
 
             Assert.AreSame(surfaceLine, location.Surfaceline);
             Assert.AreSame(soilProfile2D, location.SoilProfile2D);
+            Assert.AreEqual(9.81, kernel.Waternet.UnitWeight);
 
             AssertIrrelevantValues(kernel.Waternet, waternetCreator);
         }
@@ -88,7 +89,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.Waternet
         private static void AssertIrrelevantValues(WtiStabilityWaternet waternet, WaternetCreator waternetCreator)
         {
             Assert.AreEqual("Waternet", waternet.Name);
-            Assert.AreEqual(9.81, waternet.UnitWeight);
             Assert.IsFalse(waternet.IsGenerated);
 
             Assert.AreEqual(Enumerable.Empty<LogMessage>(), waternetCreator.LogMessages);

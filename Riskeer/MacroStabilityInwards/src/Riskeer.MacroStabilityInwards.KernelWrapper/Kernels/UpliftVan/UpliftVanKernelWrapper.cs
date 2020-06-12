@@ -152,12 +152,18 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
 
         public void SetFixedSoilStresses(IEnumerable<FixedSoilStress> soilStresses)
         {
-            kernelModel.StabilityModel.ConstructionStages.ForEachElementDo(cs => { cs.SoilStresses.AddRange(soilStresses); });
+            kernelModel.StabilityModel.ConstructionStages.ForEachElementDo(cs =>
+            {
+                cs.SoilStresses.AddRange(soilStresses);
+            });
         }
 
         public void SetPreConsolidationStresses(IEnumerable<PreConsolidationStress> preConsolidationStresses)
         {
-            kernelModel.StabilityModel.ConstructionStages.ForEachElementDo(cs => { cs.PreconsolidationStresses.AddRange(preConsolidationStresses); });
+            kernelModel.StabilityModel.ConstructionStages.ForEachElementDo(cs =>
+            {
+                cs.PreconsolidationStresses.AddRange(preConsolidationStresses);
+            });
         }
 
         public void SetAutomaticForbiddenZones(bool automaticForbiddenZones)

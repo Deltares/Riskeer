@@ -50,7 +50,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Inpu
         /// <param name="slipPlaneMinimumLength">The slip plane minimum length.</param>
         /// <param name="zoneBoundaryLeft">The left zone boundary.</param>
         /// <param name="zoneBoundaryRight">The right zone boundary.</param>
-        /// <remarks><see cref="AutomaticForbiddenZones"/> will be set to <c>false</c></remarks>. 
+        /// <remarks><see cref="AutomaticForbiddenZones"/> is set to <c>false</c></remarks>. 
         public UpliftVanSlipPlaneConstraints(double slipPlaneMinimumDepth, double slipPlaneMinimumLength,
                                              double zoneBoundaryLeft, double zoneBoundaryRight)
             : this(slipPlaneMinimumDepth, slipPlaneMinimumLength, zoneBoundaryLeft,
@@ -67,8 +67,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Inpu
             AllowLeftToRight = true;
             AllowRightToLeft = false;
             AllowSwapLeftRight = false;
-            XRightMin = double.NaN;
-            XRightMax = double.NaN;
         }
 
         /// <summary>
@@ -114,15 +112,5 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Inpu
         /// Gets whether the slip plane constraints are to be swapped.
         /// </summary>
         public bool AllowSwapLeftRight { get; }
-
-        /// <summary>
-        /// Gets the minimal X coordinate of the right side of the slip plane constraint.
-        /// </summary>
-        public double XRightMin { get; }
-
-        /// <summary>
-        /// Gets the maximal X coordinate of the right side of the slip plane constraint.
-        /// </summary>
-        public double XRightMax { get; }
     }
 }
