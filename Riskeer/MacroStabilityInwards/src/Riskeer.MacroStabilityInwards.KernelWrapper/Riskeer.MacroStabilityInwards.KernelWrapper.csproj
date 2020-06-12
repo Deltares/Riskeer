@@ -3,9 +3,6 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="WTIPiping">
-      <HintPath>..\..\..\..\lib\Plugins\Wti\WTIPiping.dll</HintPath>
-    </Reference>
     <Reference Include="WTIStability">
       <HintPath>..\..\..\..\lib\Plugins\Wti\WTIStability.dll</HintPath>
     </Reference>

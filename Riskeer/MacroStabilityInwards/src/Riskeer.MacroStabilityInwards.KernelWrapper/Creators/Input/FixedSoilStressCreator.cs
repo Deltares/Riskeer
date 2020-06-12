@@ -29,7 +29,7 @@ using SoilLayer = Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Input.
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
 {
     /// <summary>
-    /// Creates <see cref="FixedSoilStress"/>instances which are required by <see cref="IUpliftVanKernel"/>.
+    /// Creates <see cref="FixedSoilStress"/> instances which are required by <see cref="IUpliftVanKernel"/>.
     /// </summary>
     internal static class FixedSoilStressCreator
     {
