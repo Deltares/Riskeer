@@ -57,15 +57,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
             var kernelModel = TypeUtils.GetField<KernelModel>(kernel, "kernelModel");
             StabilityModel stabilityModel = kernelModel.StabilityModel;
 
-            Assert.AreEqual(GridOrientation.Inwards, stabilityModel.GridOrientation);
-            Assert.IsNotNull(stabilityModel.SlipCircle);
-            Assert.AreEqual(SearchAlgorithm.Grid, stabilityModel.SearchAlgorithm);
-            Assert.AreEqual(ModelOptions.UpliftVan, stabilityModel.ModelOption);
-            Assert.AreEqual(2, stabilityModel.ConstructionStages.Count);
-
-            Assert.AreEqual(2, kernelModel.PreprocessingModel.PreProcessingConstructionStages.Count);
-            kernelModel.PreprocessingModel.PreProcessingConstructionStages.ForEachElementDo(
-                ppcs => Assert.AreSame(stabilityModel, ppcs.StabilityModel));
+            AssertConstructorValues(stabilityModel, kernelModel);
         }
 
         [Test]
@@ -113,7 +105,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
 
             // Assert
             var kernelModel = TypeUtils.GetField<KernelModel>(kernel, "kernelModel");
-            
+
             AssertStabilityOutputModel(kernelModel.StabilityOutputModel);
             AssertPreProcessingModel(kernelModel.PreprocessingModel);
 
@@ -126,21 +118,15 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
             Assert.AreSame(slipPlaneConstraints, stabilityModel.SlipPlaneConstraints);
             Assert.AreEqual(gridAutomaticDetermined, kernelModel.PreprocessingModel.SearchAreaConditions.AutoSearchArea);
             Assert.AreEqual(tangentLinesAutomaticDetermined, kernelModel.PreprocessingModel.SearchAreaConditions.AutoTangentLines);
-            Assert.AreEqual(GridOrientation.Inwards, stabilityModel.GridOrientation);
-            Assert.IsNotNull(stabilityModel.SlipCircle);
-            Assert.AreEqual(SearchAlgorithm.Grid, stabilityModel.SearchAlgorithm);
-            Assert.AreEqual(ModelOptions.UpliftVan, stabilityModel.ModelOption);
             Assert.AreEqual(automaticForbiddenZones, kernelModel.PreprocessingModel.SearchAreaConditions.AutomaticForbiddenZones);
+
+            AssertConstructorValues(stabilityModel, kernelModel);
 
             AssertConstructionStages(stabilityModel.ConstructionStages, soilProfile2D, new[]
             {
                 waternetDaily,
                 waternetExtreme
             }, fixedSoilStresses, preConsolidationStresses);
-
-            Assert.AreEqual(2, kernelModel.PreprocessingModel.PreProcessingConstructionStages.Count);
-            kernelModel.PreprocessingModel.PreProcessingConstructionStages.ForEachElementDo(
-                ppcs => Assert.AreSame(stabilityModel, ppcs.StabilityModel));
 
             AssertIrrelevantValues(stabilityModel);
         }
@@ -254,6 +240,21 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
 
             // Assert
             Assert.AreEqual(11, validationMessages.Count());
+        }
+
+        private static void AssertConstructorValues(StabilityModel stabilityModel, KernelModel kernelModel)
+        {
+            Assert.AreEqual(GridOrientation.Inwards, stabilityModel.GridOrientation);
+            Assert.IsNotNull(stabilityModel.SlipCircle);
+            Assert.AreEqual(SearchAlgorithm.Grid, stabilityModel.SearchAlgorithm);
+            Assert.AreEqual(ModelOptions.UpliftVan, stabilityModel.ModelOption);
+            
+            Assert.AreEqual(0.8, kernelModel.PreprocessingModel.SearchAreaConditions.MaxSpacingBetweenBoundaries);
+            Assert.IsTrue(kernelModel.PreprocessingModel.SearchAreaConditions.OnlyAbovePleistoceen);
+
+            Assert.AreEqual(2, kernelModel.PreprocessingModel.PreProcessingConstructionStages.Count);
+            kernelModel.PreprocessingModel.PreProcessingConstructionStages.ForEachElementDo(
+                ppcs => Assert.AreSame(stabilityModel, ppcs.StabilityModel));
         }
 
         private static void AssertConstructionStages(IEnumerable<ConstructionStage> constructionStages, SoilProfile2D soilProfile2D, IEnumerable<WtiStabilityWaternet> waternets,
