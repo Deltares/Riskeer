@@ -74,57 +74,68 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
         /// <summary>
         /// Sets the slip plane Uplift Van.
         /// </summary>
+        /// <param name="slipPlaneUpliftVan">The slip plane Uplift Van to set.</param>
         void SetSlipPlaneUpliftVan(SlipPlaneUpliftVan slipPlaneUpliftVan);
 
         /// <summary>
         /// Sets the slip plane constraints.
         /// </summary>
+        /// <param name="slipPlaneConstraints">The slip plane constraints to set.</param>
         void SetSlipPlaneConstraints(SlipPlaneConstraints slipPlaneConstraints);
 
         /// <summary>
         /// Sets the soil model.
         /// </summary>
+        /// <param name="soilModel">The soil model to set.</param>
         void SetSoilModel(IList<Soil> soilModel);
 
         /// <summary>
         /// Sets the soil profile.
         /// </summary>
+        /// <param name="soilProfile">The soil profile to set.</param>
         void SetSoilProfile(SoilProfile2D soilProfile);
 
         /// <summary>
-        /// Sets the location under daily circumstances.
+        /// Sets the Waternet under daily circumstances.
         /// </summary>
+        /// <param name="waternetDaily">The daily Waternet to set.</param>
         void SetWaternetDaily(WtiStabilityWaternet waternetDaily);
 
         /// <summary>
-        /// Sets the location under extreme circumstances.
+        /// Sets the Waternet under extreme circumstances.
         /// </summary>
+        /// <param name="waternetExtreme">The extreme Waternet to set.</param>
         void SetWaternetExtreme(WtiStabilityWaternet waternetExtreme);
 
         /// <summary>
         /// Sets the move grid property.
         /// </summary>
+        /// <param name="moveGrid">The move grid value to set.</param>
         void SetMoveGrid(bool moveGrid);
 
         /// <summary>
         /// Sets the maximum slice width.
         /// [m]
         /// </summary>
+        /// <param name="maximumSliceWidth">The maximum slice width to set.</param>
         void SetMaximumSliceWidth(double maximumSliceWidth);
 
         /// <summary>
         /// Sets the surface line.
         /// </summary>
+        /// <param name="surfaceLine">The surface line to set.</param>
         void SetSurfaceLine(SurfaceLine2 surfaceLine);
 
         /// <summary>
         /// Sets whether the grid is automatically determined or not.
         /// </summary>
+        /// <param name="gridAutomaticDetermined">The grid automatic determined value to set.</param>
         void SetGridAutomaticDetermined(bool gridAutomaticDetermined);
 
         /// <summary>
         /// Sets whether the tangent lines are automatically determined or not.
         /// </summary>
+        /// <param name="tangentLinesAutomaticDetermined">The tangent automatic lines determined value to set.</param>
         void SetTangentLinesAutomaticDetermined(bool tangentLinesAutomaticDetermined);
 
         /// <summary>
@@ -155,7 +166,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
         /// <summary>
         /// Validates the input for the Uplift Van calculation.
         /// </summary>
-        /// <returns>An <see cref="IEnumerable{T}"/> of <see cref="ValidationResult"/> objects.</returns>
+        /// <returns>An <see cref="IEnumerable{T}"/> of <see cref="IValidationResult"/> objects.</returns>
         /// <exception cref="UpliftVanKernelWrapperException">Thrown when 
         /// an error occurs when performing the validation.</exception>
         IEnumerable<IValidationResult> Validate();

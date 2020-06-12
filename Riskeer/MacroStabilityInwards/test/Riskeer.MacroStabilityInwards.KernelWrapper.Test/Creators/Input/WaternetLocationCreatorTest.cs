@@ -77,7 +77,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
         [TestCase(MacroStabilityInwardsDikeSoilScenario.ClayDikeOnSand, DikeSoilScenario.ClayDikeOnSand)]
         [TestCase(MacroStabilityInwardsDikeSoilScenario.SandDikeOnClay, DikeSoilScenario.SandDikeOnClay)]
         [TestCase(MacroStabilityInwardsDikeSoilScenario.SandDikeOnSand, DikeSoilScenario.SandDikeOnSand)]
-        public void Create_ValidDikeSoilScenario_ReturnStabilityLocationWithDikeSoilScenario(MacroStabilityInwardsDikeSoilScenario macroStabilityInwardsDikeSoilScenario,
+        public void Create_ValidDikeSoilScenario_ReturnLocationWithDikeSoilScenario(MacroStabilityInwardsDikeSoilScenario macroStabilityInwardsDikeSoilScenario,
                                                                                              DikeSoilScenario expectedDikeSoilScenario)
         {
             // Setup
@@ -123,7 +123,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
         [Test]
         [TestCase(WaternetCreationMode.CreateWaternet, WtiStabilityWaternetCreationMethod.CreateWaternet)]
         [TestCase(WaternetCreationMode.FillInWaternetValues, WtiStabilityWaternetCreationMethod.FillInWaternetValues)]
-        public void Create_ValidWaternetCreationMode_ReturnStabilityLocationWithWaternetCreationMode(WaternetCreationMode waternetCreationMode,
+        public void Create_ValidWaternetCreationMode_ReturnLocationWithWaternetCreationMode(WaternetCreationMode waternetCreationMode,
                                                                                                      WtiStabilityWaternetCreationMethod expectedWaternetCreationMode)
         {
             // Setup
@@ -169,7 +169,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
         [Test]
         [TestCase(PlLineCreationMethod.RingtoetsWti2017, WtiStabilityPlLineCreationMethod.RingtoetsWti2017)]
         [TestCase(PlLineCreationMethod.None, WtiStabilityPlLineCreationMethod.None)]
-        public void Create_ValidPlLineCreationMethod_ReturnStabilityLocationWithWaternetCreationMode(PlLineCreationMethod plLineCreationMethod,
+        public void Create_ValidPlLineCreationMethod_ReturnLocationWithWaternetCreationMode(PlLineCreationMethod plLineCreationMethod,
                                                                                                      WtiStabilityPlLineCreationMethod expectedPlLineCreationMethod)
         {
             // Setup
@@ -192,7 +192,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
 
         [Test]
         [Combinatorial]
-        public void Create_WithInput_ReturnStabilityLocation([Values(true, false)] bool drainageConstructionPresent,
+        public void Create_WithInput_ReturnLocation([Values(true, false)] bool drainageConstructionPresent,
                                                              [Values(true, false)] bool useDefaultOffsets)
         {
             // Setup

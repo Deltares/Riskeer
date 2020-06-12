@@ -21,7 +21,6 @@
 
 using System.Collections.Generic;
 using Deltares.MacroStability.Geometry;
-using Deltares.MacroStability.WaternetCreator;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Waternet;
 using WtiStabilityWaternet = Deltares.MacroStability.Geometry.Waternet;
 
@@ -54,6 +53,9 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.Waternet
         /// </summary>
         void SetSurfaceLine(SurfaceLine2 surfaceLine);
 
+        /// <summary>
+        /// Sets the soil model.
+        /// </summary>
         void SetSoilModel(IList<Soil> soilModel);
 
         /// <summary>
