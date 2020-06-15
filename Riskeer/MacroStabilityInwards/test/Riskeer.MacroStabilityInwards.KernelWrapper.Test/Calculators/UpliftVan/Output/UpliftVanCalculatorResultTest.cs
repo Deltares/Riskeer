@@ -22,7 +22,7 @@
 using System;
 using System.Collections.Generic;
 using NUnit.Framework;
-using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan;
+using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Output;
 using Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.UpliftVan;
 using Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.UpliftVan.Output;
@@ -36,13 +36,11 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
         public void Constructor_SlidingCurveResultNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new UpliftVanCalculatorResult(null,
-                                                                    CreateGridResult(),
-                                                                    new MacroStabilityInwardsKernelMessage[0],
-                                                                    new UpliftVanCalculatorResult.ConstructionProperties());
+            void Call() => new UpliftVanCalculatorResult(null, CreateGridResult(), new MacroStabilityInwardsKernelMessage[0],
+                                                         new UpliftVanCalculatorResult.ConstructionProperties());
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("slidingCurveResult", exception.ParamName);
         }
 
@@ -53,13 +51,11 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
             UpliftVanSlidingCurveResult slidingCurveResult = UpliftVanSlidingCurveResultTestFactory.Create();
 
             // Call
-            TestDelegate call = () => new UpliftVanCalculatorResult(slidingCurveResult,
-                                                                    null,
-                                                                    new MacroStabilityInwardsKernelMessage[0],
-                                                                    new UpliftVanCalculatorResult.ConstructionProperties());
+            void Call() => new UpliftVanCalculatorResult(slidingCurveResult, null, new MacroStabilityInwardsKernelMessage[0],
+                                                         new UpliftVanCalculatorResult.ConstructionProperties());
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("calculationGridResult", exception.ParamName);
         }
 
@@ -70,13 +66,11 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
             UpliftVanSlidingCurveResult slidingCurveResult = UpliftVanSlidingCurveResultTestFactory.Create();
 
             // Call
-            TestDelegate call = () => new UpliftVanCalculatorResult(slidingCurveResult,
-                                                                    CreateGridResult(),
-                                                                    null,
-                                                                    new UpliftVanCalculatorResult.ConstructionProperties());
+            void Call() => new UpliftVanCalculatorResult(slidingCurveResult, CreateGridResult(), null,
+                                                         new UpliftVanCalculatorResult.ConstructionProperties());
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("calculationMessages", exception.ParamName);
         }
 
@@ -87,13 +81,10 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
             UpliftVanSlidingCurveResult slidingCurveResult = UpliftVanSlidingCurveResultTestFactory.Create();
 
             // Call
-            TestDelegate call = () => new UpliftVanCalculatorResult(slidingCurveResult,
-                                                                    CreateGridResult(),
-                                                                    new MacroStabilityInwardsKernelMessage[0],
-                                                                    null);
+            void Call() => new UpliftVanCalculatorResult(slidingCurveResult, CreateGridResult(), new MacroStabilityInwardsKernelMessage[0], null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("properties", exception.ParamName);
         }
 
@@ -137,12 +128,11 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
         }
 
         [Test]
-        public void Constructor_ConstructionPropertiesWithData_ExcpectedValues()
+        public void Constructor_ConstructionPropertiesWithData_ExpectedValues()
         {
             // Setup
             var random = new Random(21);
             double factorOfStability = random.NextDouble();
-            double zValue = random.NextDouble();
             double xEntryMin = random.NextDouble();
             double xEntryMax = random.NextDouble();
 

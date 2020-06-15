@@ -50,6 +50,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan
         /// <returns>The validation issues found by the kernel validator, if any.</returns>
         /// <exception cref="UpliftVanCalculatorException">Thrown when an error 
         /// occurs during the validation.</exception>
-        IEnumerable<UpliftVanKernelMessage> Validate();
+        IEnumerable<MacroStabilityInwardsKernelMessage> Validate();
     }
 }

@@ -74,7 +74,7 @@ namespace Riskeer.MacroStabilityInwards.Service
             UpliftVanCalculatorInput upliftVanCalculatorInput = CreateInputFromData(calculation.InputParameters, normativeAssessmentLevel);
             IUpliftVanCalculator calculator = MacroStabilityInwardsCalculatorFactory.Instance.CreateUpliftVanCalculator(upliftVanCalculatorInput, MacroStabilityInwardsKernelWrapperFactory.Instance);
 
-            UpliftVanKernelMessage[] kernelMessages;
+            MacroStabilityInwardsKernelMessage[] kernelMessages;
             try
             {
                 kernelMessages = calculator.Validate().ToArray();
@@ -87,13 +87,13 @@ namespace Riskeer.MacroStabilityInwards.Service
                 return false;
             }
 
-            CalculationServiceHelper.LogMessagesAsError(kernelMessages.Where(msg => msg.ResultType == UpliftVanKernelMessageType.Error)
+            CalculationServiceHelper.LogMessagesAsError(kernelMessages.Where(msg => msg.ResultType == MacroStabilityInwardsKernelMessageType.Error)
                                                                       .Select(msg => msg.Message).ToArray());
-            CalculationServiceHelper.LogMessagesAsWarning(kernelMessages.Where(msg => msg.ResultType == UpliftVanKernelMessageType.Warning)
+            CalculationServiceHelper.LogMessagesAsWarning(kernelMessages.Where(msg => msg.ResultType == MacroStabilityInwardsKernelMessageType.Warning)
                                                                         .Select(msg => msg.Message).ToArray());
             CalculationServiceHelper.LogValidationEnd();
 
-            return kernelMessages.All(r => r.ResultType != UpliftVanKernelMessageType.Error);
+            return kernelMessages.All(r => r.ResultType != MacroStabilityInwardsKernelMessageType.Error);
         }
 
         /// <summary>
@@ -133,7 +133,7 @@ namespace Riskeer.MacroStabilityInwards.Service
                 throw;
             }
 
-            if (macroStabilityInwardsResult.CalculationMessages.Any(cm => cm.ResultType == UpliftVanKernelMessageType.Error))
+            if (macroStabilityInwardsResult.CalculationMessages.Any(cm => cm.ResultType == MacroStabilityInwardsKernelMessageType.Error))
             {
                 CalculationServiceHelper.LogMessagesAsError(new[]
                 {

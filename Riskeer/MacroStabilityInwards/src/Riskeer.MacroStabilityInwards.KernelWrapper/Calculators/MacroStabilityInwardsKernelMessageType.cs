@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan
+namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators
 {
     /// <summary>
     /// Indicates what log level a macro stability inwards kernel message represents.

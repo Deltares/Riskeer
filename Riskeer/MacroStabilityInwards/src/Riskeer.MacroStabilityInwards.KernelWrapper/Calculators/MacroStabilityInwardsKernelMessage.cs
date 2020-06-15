@@ -21,7 +21,7 @@
 
 using System;
 
-namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan
+namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators
 {
     /// <summary>
     /// Class representing a message returned by the macro stability inwards kernel.

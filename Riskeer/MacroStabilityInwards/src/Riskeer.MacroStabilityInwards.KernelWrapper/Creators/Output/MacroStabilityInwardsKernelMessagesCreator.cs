@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using Deltares.MacroStability.Standard;
+using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Properties;
 

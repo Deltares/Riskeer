@@ -22,9 +22,9 @@
 using System;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan;
+using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators;
 
-namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
+namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators
 {
     [TestFixture]
     public class MacroStabilityInwardsKernelMessageTest

@@ -29,6 +29,7 @@ using Deltares.MacroStability.Geometry;
 using Deltares.MacroStability.Standard;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Input;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input;

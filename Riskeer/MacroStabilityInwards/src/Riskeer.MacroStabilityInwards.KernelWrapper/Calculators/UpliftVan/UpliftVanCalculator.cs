@@ -65,12 +65,12 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan
             this.factory = factory;
         }
 
-        public IEnumerable<UpliftVanKernelMessage> Validate()
+        public IEnumerable<MacroStabilityInwardsKernelMessage> Validate()
         {
             try
             {
                 IUpliftVanKernel upliftVanKernel = CreateUpliftVanKernel();
-                return UpliftVanKernelMessagesCreator.CreateFromValidationResults(upliftVanKernel.Validate().ToArray());
+                return MacroStabilityInwardsKernelMessagesCreator.CreateFromValidationResults(upliftVanKernel.Validate().ToArray());
             }
             catch (UpliftVanKernelWrapperException e)
             {
@@ -85,7 +85,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan
             return new UpliftVanCalculatorResult(
                 UpliftVanSlidingCurveResultCreator.Create(upliftVanKernel.SlidingCurveResult),
                 UpliftVanCalculationGridResultCreator.Create(upliftVanKernel.SlipPlaneResult),
-                UpliftVanKernelMessagesCreator.CreateFromLogMessages(upliftVanKernel.CalculationMessages),
+                MacroStabilityInwardsKernelMessagesCreator.CreateFromLogMessages(upliftVanKernel.CalculationMessages),
                 new UpliftVanCalculatorResult.ConstructionProperties
                 {
                     FactorOfStability = upliftVanKernel.FactorOfStability,
