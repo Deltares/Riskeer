@@ -50,7 +50,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Inpu
         /// <param name="slipPlaneMinimumLength">The slip plane minimum length.</param>
         /// <param name="zoneBoundaryLeft">The left zone boundary.</param>
         /// <param name="zoneBoundaryRight">The right zone boundary.</param>
-        /// <remarks><see cref="AutomaticForbiddenZones"/> is set to <c>false</c></remarks>. 
+        /// <remarks><see cref="AutomaticForbiddenZones"/> is set to <c>false</c>.</remarks>
         public UpliftVanSlipPlaneConstraints(double slipPlaneMinimumDepth, double slipPlaneMinimumLength,
                                              double zoneBoundaryLeft, double zoneBoundaryRight)
             : this(slipPlaneMinimumDepth, slipPlaneMinimumLength, zoneBoundaryLeft,

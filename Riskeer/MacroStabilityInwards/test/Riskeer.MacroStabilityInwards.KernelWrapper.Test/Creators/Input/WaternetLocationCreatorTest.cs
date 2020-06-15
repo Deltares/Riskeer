@@ -78,7 +78,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
         [TestCase(MacroStabilityInwardsDikeSoilScenario.SandDikeOnClay, DikeSoilScenario.SandDikeOnClay)]
         [TestCase(MacroStabilityInwardsDikeSoilScenario.SandDikeOnSand, DikeSoilScenario.SandDikeOnSand)]
         public void Create_ValidDikeSoilScenario_ReturnLocationWithDikeSoilScenario(MacroStabilityInwardsDikeSoilScenario macroStabilityInwardsDikeSoilScenario,
-                                                                                             DikeSoilScenario expectedDikeSoilScenario)
+                                                                                    DikeSoilScenario expectedDikeSoilScenario)
         {
             // Setup
             var input = new WaternetCalculatorInput(
@@ -124,7 +124,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
         [TestCase(WaternetCreationMode.CreateWaternet, WtiStabilityWaternetCreationMethod.CreateWaternet)]
         [TestCase(WaternetCreationMode.FillInWaternetValues, WtiStabilityWaternetCreationMethod.FillInWaternetValues)]
         public void Create_ValidWaternetCreationMode_ReturnLocationWithWaternetCreationMode(WaternetCreationMode waternetCreationMode,
-                                                                                                     WtiStabilityWaternetCreationMethod expectedWaternetCreationMode)
+                                                                                            WtiStabilityWaternetCreationMethod expectedWaternetCreationMode)
         {
             // Setup
             var input = new WaternetCalculatorInput(
@@ -170,7 +170,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
         [TestCase(PlLineCreationMethod.RingtoetsWti2017, WtiStabilityPlLineCreationMethod.RingtoetsWti2017)]
         [TestCase(PlLineCreationMethod.None, WtiStabilityPlLineCreationMethod.None)]
         public void Create_ValidPlLineCreationMethod_ReturnLocationWithWaternetCreationMode(PlLineCreationMethod plLineCreationMethod,
-                                                                                                     WtiStabilityPlLineCreationMethod expectedPlLineCreationMethod)
+                                                                                            WtiStabilityPlLineCreationMethod expectedPlLineCreationMethod)
         {
             // Setup
             var input = new WaternetCalculatorInput(
@@ -193,7 +193,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
         [Test]
         [Combinatorial]
         public void Create_WithInput_ReturnLocation([Values(true, false)] bool drainageConstructionPresent,
-                                                             [Values(true, false)] bool useDefaultOffsets)
+                                                    [Values(true, false)] bool useDefaultOffsets)
         {
             // Setup
             var random = new Random(21);

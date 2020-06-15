@@ -80,7 +80,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
         [TestCase(MacroStabilityInwardsDikeSoilScenario.SandDikeOnClay, DikeSoilScenario.SandDikeOnClay)]
         [TestCase(MacroStabilityInwardsDikeSoilScenario.SandDikeOnSand, DikeSoilScenario.SandDikeOnSand)]
         public void CreateExtreme_ValidDikeSoilScenario_ReturnLocationWithDikeSoilScenario(MacroStabilityInwardsDikeSoilScenario macroStabilityInwardsDikeSoilScenario,
-                                                                                                    DikeSoilScenario expectedDikeSoilScenario)
+                                                                                           DikeSoilScenario expectedDikeSoilScenario)
         {
             // Setup
             var input = new UpliftVanCalculatorInput(
@@ -130,7 +130,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
         [TestCase(WaternetCreationMode.CreateWaternet, WtiStabilityWaternetCreationMethod.CreateWaternet)]
         [TestCase(WaternetCreationMode.FillInWaternetValues, WtiStabilityWaternetCreationMethod.FillInWaternetValues)]
         public void CreateExtreme_ValidWaternetCreationMode_ReturnLocationWithWaternetCreationMode(WaternetCreationMode waternetCreationMode,
-                                                                                                            WtiStabilityWaternetCreationMethod expectedWaternetCreationMode)
+                                                                                                   WtiStabilityWaternetCreationMethod expectedWaternetCreationMode)
         {
             // Setup
             var input = new UpliftVanCalculatorInput(
@@ -180,7 +180,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
         [TestCase(PlLineCreationMethod.RingtoetsWti2017, WtiStabilityPlLineCreationMethod.RingtoetsWti2017)]
         [TestCase(PlLineCreationMethod.None, WtiStabilityPlLineCreationMethod.None)]
         public void CreateExtreme_ValidPlLineCreationMethod_ReturnLocationWithWaternetCreationMode(PlLineCreationMethod plLineCreationMethod,
-                                                                                                            WtiStabilityPlLineCreationMethod expectedPlLineCreationMethod)
+                                                                                                   WtiStabilityPlLineCreationMethod expectedPlLineCreationMethod)
         {
             // Setup
             var input = new UpliftVanCalculatorInput(
@@ -205,7 +205,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
         [Test]
         [Combinatorial]
         public void CreateExtreme_WithInput_ReturnLocation([Values(true, false)] bool drainageConstructionPresent,
-                                                                    [Values(true, false)] bool useDefaultOffsets)
+                                                           [Values(true, false)] bool useDefaultOffsets)
         {
             // Setup
             var random = new Random(21);
@@ -302,7 +302,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
         [TestCase(MacroStabilityInwardsDikeSoilScenario.SandDikeOnClay, DikeSoilScenario.SandDikeOnClay)]
         [TestCase(MacroStabilityInwardsDikeSoilScenario.SandDikeOnSand, DikeSoilScenario.SandDikeOnSand)]
         public void CreateDaily_ValidDikeSoilScenario_ReturnLocationWithDikeSoilScenario(MacroStabilityInwardsDikeSoilScenario macroStabilityInwardsDikeSoilScenario,
-                                                                                                  DikeSoilScenario expectedDikeSoilScenario)
+                                                                                         DikeSoilScenario expectedDikeSoilScenario)
         {
             // Setup
             var input = new UpliftVanCalculatorInput(
@@ -352,7 +352,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
         [TestCase(WaternetCreationMode.CreateWaternet, WtiStabilityWaternetCreationMethod.CreateWaternet)]
         [TestCase(WaternetCreationMode.FillInWaternetValues, WtiStabilityWaternetCreationMethod.FillInWaternetValues)]
         public void CreateDaily_ValidWaternetCreationMode_ReturnLocationWithWaternetCreationMode(WaternetCreationMode waternetCreationMode,
-                                                                                                          WtiStabilityWaternetCreationMethod expectedWaternetCreationMode)
+                                                                                                 WtiStabilityWaternetCreationMethod expectedWaternetCreationMode)
         {
             // Setup
             var input = new UpliftVanCalculatorInput(
@@ -402,7 +402,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
         [TestCase(PlLineCreationMethod.RingtoetsWti2017, WtiStabilityPlLineCreationMethod.RingtoetsWti2017)]
         [TestCase(PlLineCreationMethod.None, WtiStabilityPlLineCreationMethod.None)]
         public void CreateDaily_ValidPlLineCreationMethod_ReturnLocationWithWaternetCreationMode(PlLineCreationMethod plLineCreationMethod,
-                                                                                                          WtiStabilityPlLineCreationMethod expectedPlLineCreationMethod)
+                                                                                                 WtiStabilityPlLineCreationMethod expectedPlLineCreationMethod)
         {
             // Setup
             var input = new UpliftVanCalculatorInput(
@@ -427,7 +427,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
         [Test]
         [Combinatorial]
         public void CreateDaily_WithInput_ReturnLocation([Values(true, false)] bool drainageConstructionPresent,
-                                                                  [Values(true, false)] bool useDefaultOffsets)
+                                                         [Values(true, false)] bool useDefaultOffsets)
         {
             // Setup
             var random = new Random(21);
