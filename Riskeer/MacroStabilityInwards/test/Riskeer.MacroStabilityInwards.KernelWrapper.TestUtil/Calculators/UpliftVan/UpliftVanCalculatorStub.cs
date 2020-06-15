@@ -80,32 +80,32 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Uplif
                 throw new UpliftVanCalculatorException($"Message 1{Environment.NewLine}Message 2");
             }
 
-            var calculationMessages = new List<UpliftVanKernelMessage>();
+            var calculationMessages = new List<MacroStabilityInwardsKernelMessage>();
 
             if (ReturnCalculationError)
             {
-                calculationMessages.Add(new UpliftVanKernelMessage(UpliftVanKernelMessageType.Error, "Calculation Error 1"));
+                calculationMessages.Add(new MacroStabilityInwardsKernelMessage(MacroStabilityInwardsKernelMessageType.Error, "Calculation Error 1"));
             }
 
             if (ReturnCalculationWarning)
             {
-                calculationMessages.Add(new UpliftVanKernelMessage(UpliftVanKernelMessageType.Warning, "Calculation Warning 1"));
+                calculationMessages.Add(new MacroStabilityInwardsKernelMessage(MacroStabilityInwardsKernelMessageType.Warning, "Calculation Warning 1"));
             }
 
             if (ReturnCalculationError)
             {
-                calculationMessages.Add(new UpliftVanKernelMessage(UpliftVanKernelMessageType.Error, "Calculation Error 2"));
+                calculationMessages.Add(new MacroStabilityInwardsKernelMessage(MacroStabilityInwardsKernelMessageType.Error, "Calculation Error 2"));
             }
 
             if (ReturnCalculationWarning)
             {
-                calculationMessages.Add(new UpliftVanKernelMessage(UpliftVanKernelMessageType.Warning, "Calculation Warning 2"));
+                calculationMessages.Add(new MacroStabilityInwardsKernelMessage(MacroStabilityInwardsKernelMessageType.Warning, "Calculation Warning 2"));
             }
 
             return Output ?? (Output = CreateUpliftVanCalculatorResult(calculationMessages));
         }
 
-        public IEnumerable<UpliftVanKernelMessage> Validate()
+        public IEnumerable<MacroStabilityInwardsKernelMessage> Validate()
         {
             if (ThrowExceptionOnValidate)
             {
@@ -114,16 +114,16 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Uplif
 
             if (ReturnValidationError)
             {
-                yield return new UpliftVanKernelMessage(UpliftVanKernelMessageType.Error, "Validation Error");
+                yield return new MacroStabilityInwardsKernelMessage(MacroStabilityInwardsKernelMessageType.Error, "Validation Error");
             }
 
             if (ReturnValidationWarning)
             {
-                yield return new UpliftVanKernelMessage(UpliftVanKernelMessageType.Warning, "Validation Warning");
+                yield return new MacroStabilityInwardsKernelMessage(MacroStabilityInwardsKernelMessageType.Warning, "Validation Warning");
             }
         }
 
-        private static UpliftVanCalculatorResult CreateUpliftVanCalculatorResult(IEnumerable<UpliftVanKernelMessage> calculationMessages)
+        private static UpliftVanCalculatorResult CreateUpliftVanCalculatorResult(IEnumerable<MacroStabilityInwardsKernelMessage> calculationMessages)
         {
             return new UpliftVanCalculatorResult(
                 UpliftVanSlidingCurveResultTestFactory.Create(),

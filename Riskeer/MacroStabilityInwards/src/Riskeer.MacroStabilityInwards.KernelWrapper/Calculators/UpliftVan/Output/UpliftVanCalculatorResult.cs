@@ -39,7 +39,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Outp
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         internal UpliftVanCalculatorResult(UpliftVanSlidingCurveResult slidingCurveResult,
                                            UpliftVanCalculationGridResult calculationGridResult,
-                                           IEnumerable<UpliftVanKernelMessage> calculationMessages,
+                                           IEnumerable<MacroStabilityInwardsKernelMessage> calculationMessages,
                                            ConstructionProperties properties)
         {
             if (slidingCurveResult == null)
@@ -134,7 +134,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Outp
         /// Gets the messages returned by the kernel during
         /// the calculation, if any.
         /// </summary>
-        public IEnumerable<UpliftVanKernelMessage> CalculationMessages { get; }
+        public IEnumerable<MacroStabilityInwardsKernelMessage> CalculationMessages { get; }
 
         #endregion
     }

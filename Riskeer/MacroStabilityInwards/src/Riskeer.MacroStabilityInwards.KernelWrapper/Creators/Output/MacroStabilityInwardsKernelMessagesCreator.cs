@@ -28,20 +28,20 @@ using Riskeer.MacroStabilityInwards.KernelWrapper.Properties;
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Output
 {
     /// <summary>
-    /// Creates an <see cref="IEnumerable{T}"/> of <see cref="UpliftVanKernelMessage"/> instances.
+    /// Creates an <see cref="IEnumerable{T}"/> of <see cref="MacroStabilityInwardsKernelMessage"/> instances.
     /// </summary>
-    internal static class UpliftVanKernelMessagesCreator
+    internal static class MacroStabilityInwardsKernelMessagesCreator
     {
         /// <summary>
-        /// Creates an <see cref="IEnumerable{T}"/> of <see cref="UpliftVanKernelMessage"/> 
+        /// Creates an <see cref="IEnumerable{T}"/> of <see cref="MacroStabilityInwardsKernelMessage"/> 
         /// based on the <see cref="LogMessage"/> given in the <paramref name="logMessages"/>.
         /// </summary>
         /// <param name="logMessages">The log messages to create the Uplift Van kernel messages for.</param>
-        /// <returns>A new <see cref="IEnumerable{T}"/> of <see cref="UpliftVanKernelMessage"/> with information
+        /// <returns>A new <see cref="IEnumerable{T}"/> of <see cref="MacroStabilityInwardsKernelMessage"/> with information
         /// taken from the <paramref name="logMessages"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="logMessages"/>
         /// is <c>null</c>.</exception>
-        public static IEnumerable<UpliftVanKernelMessage> CreateFromLogMessages(IEnumerable<LogMessage> logMessages)
+        public static IEnumerable<MacroStabilityInwardsKernelMessage> CreateFromLogMessages(IEnumerable<LogMessage> logMessages)
         {
             if (logMessages == null)
             {
@@ -52,15 +52,15 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Output
         }
 
         /// <summary>
-        /// Creates an <see cref="IEnumerable{T}"/> of <see cref="UpliftVanKernelMessage"/> 
+        /// Creates an <see cref="IEnumerable{T}"/> of <see cref="MacroStabilityInwardsKernelMessage"/> 
         /// based on the <see cref="IValidationResult"/> given in the <paramref name="validationResults"/>.
         /// </summary>
         /// <param name="validationResults">The validation results to create the Uplift Van kernel messages for.</param>
-        /// <returns>A new <see cref="IEnumerable{T}"/> of <see cref="UpliftVanKernelMessage"/> with information
+        /// <returns>A new <see cref="IEnumerable{T}"/> of <see cref="MacroStabilityInwardsKernelMessage"/> with information
         /// taken from the <paramref name="validationResults"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="validationResults"/>
         /// is <c>null</c>.</exception>
-        public static IEnumerable<UpliftVanKernelMessage> CreateFromValidationResults(IEnumerable<IValidationResult> validationResults)
+        public static IEnumerable<MacroStabilityInwardsKernelMessage> CreateFromValidationResults(IEnumerable<IValidationResult> validationResults)
         {
             if (validationResults == null)
             {
@@ -70,19 +70,19 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Output
             return CreateValidationMessages(validationResults);
         }
 
-        private static IEnumerable<UpliftVanKernelMessage> CreateLogMessages(IEnumerable<LogMessage> logMessages)
+        private static IEnumerable<MacroStabilityInwardsKernelMessage> CreateLogMessages(IEnumerable<LogMessage> logMessages)
         {
             foreach (LogMessage logMessage in logMessages)
             {
-                UpliftVanKernelMessageType type;
+                MacroStabilityInwardsKernelMessageType type;
                 switch (logMessage.MessageType)
                 {
                     case LogMessageType.Error:
                     case LogMessageType.FatalError:
-                        type = UpliftVanKernelMessageType.Error;
+                        type = MacroStabilityInwardsKernelMessageType.Error;
                         break;
                     case LogMessageType.Warning:
-                        type = UpliftVanKernelMessageType.Warning;
+                        type = MacroStabilityInwardsKernelMessageType.Warning;
                         break;
                     default:
                         continue;
@@ -92,18 +92,18 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Output
             }
         }
 
-        private static IEnumerable<UpliftVanKernelMessage> CreateValidationMessages(IEnumerable<IValidationResult> validationResults)
+        private static IEnumerable<MacroStabilityInwardsKernelMessage> CreateValidationMessages(IEnumerable<IValidationResult> validationResults)
         {
             foreach (IValidationResult logMessage in validationResults)
             {
-                UpliftVanKernelMessageType type;
+                MacroStabilityInwardsKernelMessageType type;
                 switch (logMessage.MessageType)
                 {
                     case ValidationResultType.Error:
-                        type = UpliftVanKernelMessageType.Error;
+                        type = MacroStabilityInwardsKernelMessageType.Error;
                         break;
                     case ValidationResultType.Warning:
-                        type = UpliftVanKernelMessageType.Warning;
+                        type = MacroStabilityInwardsKernelMessageType.Warning;
                         break;
                     default:
                         continue;
@@ -113,9 +113,9 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Output
             }
         }
 
-        private static UpliftVanKernelMessage CreateMessage(UpliftVanKernelMessageType type, string message)
+        private static MacroStabilityInwardsKernelMessage CreateMessage(MacroStabilityInwardsKernelMessageType type, string message)
         {
-            return new UpliftVanKernelMessage(type, message ?? Resources.UpliftVanKernelMessagesCreator_Create_Unknown);
+            return new MacroStabilityInwardsKernelMessage(type, message ?? Resources.UpliftVanKernelMessagesCreator_Create_Unknown);
         }
     }
 }

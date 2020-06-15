@@ -276,7 +276,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
                 var factory = (TestMacroStabilityInwardsKernelFactory) MacroStabilityInwardsKernelWrapperFactory.Instance;
 
                 // Call
-                IEnumerable<UpliftVanKernelMessage> kernelMessages = new UpliftVanCalculator(input, factory).Validate();
+                IEnumerable<MacroStabilityInwardsKernelMessage> kernelMessages = new UpliftVanCalculator(input, factory).Validate();
 
                 // Assert
                 CollectionAssert.IsEmpty(kernelMessages);
@@ -294,17 +294,17 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
                 upliftVanKernel.ReturnValidationResults = true;
 
                 // Call
-                IEnumerable<UpliftVanKernelMessage> kernelMessages = new UpliftVanCalculator(CreateCompleteCalculatorInput(),
+                IEnumerable<MacroStabilityInwardsKernelMessage> kernelMessages = new UpliftVanCalculator(CreateCompleteCalculatorInput(),
                                                                                              factory).Validate().ToList();
 
                 // Assert
                 Assert.AreEqual(2, kernelMessages.Count());
-                UpliftVanKernelMessage firstMessage = kernelMessages.ElementAt(0);
+                MacroStabilityInwardsKernelMessage firstMessage = kernelMessages.ElementAt(0);
                 Assert.AreEqual("Validation Warning", firstMessage.Message);
-                Assert.AreEqual(UpliftVanKernelMessageType.Warning, firstMessage.ResultType);
-                UpliftVanKernelMessage secondMessage = kernelMessages.ElementAt(1);
+                Assert.AreEqual(MacroStabilityInwardsKernelMessageType.Warning, firstMessage.ResultType);
+                MacroStabilityInwardsKernelMessage secondMessage = kernelMessages.ElementAt(1);
                 Assert.AreEqual("Validation Error", secondMessage.Message);
-                Assert.AreEqual(UpliftVanKernelMessageType.Error, secondMessage.ResultType);
+                Assert.AreEqual(MacroStabilityInwardsKernelMessageType.Error, secondMessage.ResultType);
             }
         }
 

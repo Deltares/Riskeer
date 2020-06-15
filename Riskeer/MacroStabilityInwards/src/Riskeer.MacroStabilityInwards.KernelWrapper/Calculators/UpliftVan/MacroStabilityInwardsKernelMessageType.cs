@@ -22,9 +22,9 @@
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan
 {
     /// <summary>
-    /// Indicates what log level an Uplift Van kernel message represents.
+    /// Indicates what log level a macro stability inwards kernel message represents.
     /// </summary>
-    public enum UpliftVanKernelMessageType
+    public enum MacroStabilityInwardsKernelMessageType
     {
         Warning = 1,
         Error = 2

@@ -27,16 +27,16 @@ using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan;
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
 {
     [TestFixture]
-    public class UpliftVanKernelMessageTest
+    public class MacroStabilityInwardsKernelMessageTest
     {
         [Test]
         public void Constructor_MessageNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new UpliftVanKernelMessage(UpliftVanKernelMessageType.Error, null);
+            void Call() => new MacroStabilityInwardsKernelMessage(MacroStabilityInwardsKernelMessageType.Error, null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("message", exception.ParamName);
         }
 
@@ -45,11 +45,11 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
         {
             // Setup
             var random = new Random(39);
-            var resultType = random.NextEnumValue<UpliftVanKernelMessageType>();
+            var resultType = random.NextEnumValue<MacroStabilityInwardsKernelMessageType>();
             const string message = "Error in validation";
 
             // Call
-            var kernelMessage = new UpliftVanKernelMessage(resultType, message);
+            var kernelMessage = new MacroStabilityInwardsKernelMessage(resultType, message);
 
             // Assert
             Assert.AreEqual(message, kernelMessage.Message);

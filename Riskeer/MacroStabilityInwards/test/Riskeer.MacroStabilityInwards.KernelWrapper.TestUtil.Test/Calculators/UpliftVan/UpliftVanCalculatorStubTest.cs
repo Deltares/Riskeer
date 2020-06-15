@@ -77,24 +77,24 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Calculators.
             calculator.Calculate();
 
             // Assert
-            IEnumerable<UpliftVanKernelMessage> messages = calculator.Output.CalculationMessages.ToList();
+            IEnumerable<MacroStabilityInwardsKernelMessage> messages = calculator.Output.CalculationMessages.ToList();
             Assert.AreEqual(4, messages.Count());
 
-            UpliftVanKernelMessage firstMessage = messages.ElementAt(0);
+            MacroStabilityInwardsKernelMessage firstMessage = messages.ElementAt(0);
             Assert.AreEqual("Calculation Error 1", firstMessage.Message);
-            Assert.AreEqual(UpliftVanKernelMessageType.Error, firstMessage.ResultType);
+            Assert.AreEqual(MacroStabilityInwardsKernelMessageType.Error, firstMessage.ResultType);
 
-            UpliftVanKernelMessage secondMessage = messages.ElementAt(1);
+            MacroStabilityInwardsKernelMessage secondMessage = messages.ElementAt(1);
             Assert.AreEqual("Calculation Warning 1", secondMessage.Message);
-            Assert.AreEqual(UpliftVanKernelMessageType.Warning, secondMessage.ResultType);
+            Assert.AreEqual(MacroStabilityInwardsKernelMessageType.Warning, secondMessage.ResultType);
 
-            UpliftVanKernelMessage thirdMessage = messages.ElementAt(2);
+            MacroStabilityInwardsKernelMessage thirdMessage = messages.ElementAt(2);
             Assert.AreEqual("Calculation Error 2", thirdMessage.Message);
-            Assert.AreEqual(UpliftVanKernelMessageType.Error, thirdMessage.ResultType);
+            Assert.AreEqual(MacroStabilityInwardsKernelMessageType.Error, thirdMessage.ResultType);
 
-            UpliftVanKernelMessage fourthMessage = messages.ElementAt(3);
+            MacroStabilityInwardsKernelMessage fourthMessage = messages.ElementAt(3);
             Assert.AreEqual("Calculation Warning 2", fourthMessage.Message);
-            Assert.AreEqual(UpliftVanKernelMessageType.Warning, fourthMessage.ResultType);
+            Assert.AreEqual(MacroStabilityInwardsKernelMessageType.Warning, fourthMessage.ResultType);
         }
 
         [Test]
@@ -140,7 +140,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Calculators.
             var calculator = new UpliftVanCalculatorStub();
 
             // Call
-            IEnumerable<UpliftVanKernelMessage> messages = calculator.Validate();
+            IEnumerable<MacroStabilityInwardsKernelMessage> messages = calculator.Validate();
 
             // Assert
             CollectionAssert.IsEmpty(messages);
@@ -157,18 +157,18 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Calculators.
             };
 
             // Call
-            IEnumerable<UpliftVanKernelMessage> messages = calculator.Validate().ToList();
+            IEnumerable<MacroStabilityInwardsKernelMessage> messages = calculator.Validate().ToList();
 
             // Assert
             Assert.AreEqual(2, messages.Count());
 
-            UpliftVanKernelMessage firstMessage = messages.ElementAt(0);
+            MacroStabilityInwardsKernelMessage firstMessage = messages.ElementAt(0);
             Assert.AreEqual("Validation Error", firstMessage.Message);
-            Assert.AreEqual(UpliftVanKernelMessageType.Error, firstMessage.ResultType);
+            Assert.AreEqual(MacroStabilityInwardsKernelMessageType.Error, firstMessage.ResultType);
 
-            UpliftVanKernelMessage secondMessage = messages.ElementAt(1);
+            MacroStabilityInwardsKernelMessage secondMessage = messages.ElementAt(1);
             Assert.AreEqual("Validation Warning", secondMessage.Message);
-            Assert.AreEqual(UpliftVanKernelMessageType.Warning, secondMessage.ResultType);
+            Assert.AreEqual(MacroStabilityInwardsKernelMessageType.Warning, secondMessage.ResultType);
         }
 
         [Test]
