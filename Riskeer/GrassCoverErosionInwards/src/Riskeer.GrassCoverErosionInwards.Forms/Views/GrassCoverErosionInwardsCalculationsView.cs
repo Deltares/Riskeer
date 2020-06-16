@@ -37,6 +37,7 @@ using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.IO.DikeProfiles;
 using Riskeer.GrassCoverErosionInwards.Data;
+using Riskeer.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Riskeer.GrassCoverErosionInwards.Forms.Properties;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
@@ -112,10 +113,18 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
                 assessmentSection = value;
 
                 hydraulicBoundaryLocationsObserver.Observable = assessmentSection?.HydraulicBoundaryDatabase.Locations;
+
+                UpdateSelectableHydraulicBoundaryLocationsColumn();
             }
         }
 
-        public object Selection { get; }
+        public object Selection
+        {
+            get
+            {
+                return CreateSelectedItemFromCurrentRow();
+            }
+        }
 
         public object Data
         {
@@ -142,6 +151,13 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
                     grassCoverErosionInwardsCalculationGroupObserver.Observable = null;
                 }
             }
+        }
+
+        protected override void OnLoad(EventArgs e)
+        {
+            // Necessary to correctly load the content of the dropdown lists of the comboboxes...
+            UpdateDataGridViewDataSource();
+            base.OnLoad(e);
         }
 
         private void InitializeListBox()
@@ -201,6 +217,25 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
         private void UpdateGenerateCalculationsButtonState()
         {
             buttonGenerateCalculations.Enabled = grassCoverErosionInwardsFailureMechanism != null;
+        }
+
+        private GrassCoverErosionInwardsInputContext CreateSelectedItemFromCurrentRow()
+        {
+            DataGridViewRow currentRow = dataGridViewControl.CurrentRow;
+
+            var grassCoverErosionInwardsCalculationRow = (GrassCoverErosionInwardsCalculationRow) currentRow?.DataBoundItem;
+
+            GrassCoverErosionInwardsInputContext selection = null;
+            if (grassCoverErosionInwardsCalculationRow != null)
+            {
+                selection = new GrassCoverErosionInwardsInputContext(
+                    grassCoverErosionInwardsCalculationRow.GrassCoverErosionInwardsCalculationScenario.InputParameters,
+                    grassCoverErosionInwardsCalculationRow.GrassCoverErosionInwardsCalculationScenario,
+                    grassCoverErosionInwardsFailureMechanism,
+                    assessmentSection);
+            }
+
+            return selection;
         }
 
         private void UpdateSelectableHydraulicBoundaryLocationsColumn()

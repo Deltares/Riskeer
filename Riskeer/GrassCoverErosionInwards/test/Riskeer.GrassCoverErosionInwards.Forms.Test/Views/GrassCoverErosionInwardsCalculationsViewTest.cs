@@ -256,34 +256,34 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             }
         }
 
-        // [Test]
-        // [TestCase(0)]
-        // [TestCase(1)]
-        // public void Selection_Always_ReturnsTheSelectedRowObject(int selectedRow)
-        // {
-        //     // Setup
-        //     var mocks = new MockRepository();
-        //     var assessmentSection = mocks.Stub<IAssessmentSection>();
-        //     mocks.ReplayAll();
-        //
-        //     using (GrassCoverErosionInwardsCalculationsView grassCoverErosionInwardsCalculationsView = ShowFullyConfiguredGrassCoverErosionInwardsCalculationsView(
-        //         assessmentSection))
-        //     {
-        //         var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-        //
-        //         dataGridView.CurrentCell = dataGridView.Rows[selectedRow].Cells[0];
-        //
-        //         // Call
-        //         object selection = grassCoverErosionInwardsCalculationsView.Selection;
-        //
-        //         // Assert
-        //         Assert.IsInstanceOf<GrassCoverErosionInwardsInputContext>(selection);
-        //         var dataRow = (GrassCoverErosionInwardsCalculationRow) dataGridView.Rows[selectedRow].DataBoundItem;
-        //         Assert.AreSame(dataRow.GrassCoverErosionInwardsCalculationScenario, ((GrassCoverErosionInwardsInputContext) selection).Calculation);
-        //     }
-        //
-        //     mocks.VerifyAll();
-        // }
+        [Test]
+        [TestCase(0)]
+        [TestCase(1)]
+        public void Selection_Always_ReturnsTheSelectedRowObject(int selectedRow)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+        
+            using (GrassCoverErosionInwardsCalculationsView grassCoverErosionInwardsCalculationsView = ShowFullyConfiguredGrassCoverErosionInwardsCalculationsView(
+                assessmentSection))
+            {
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+        
+                dataGridView.CurrentCell = dataGridView.Rows[selectedRow].Cells[0];
+        
+                // Call
+                object selection = grassCoverErosionInwardsCalculationsView.Selection;
+        
+                // Assert
+                Assert.IsInstanceOf<GrassCoverErosionInwardsInputContext>(selection);
+                var dataRow = (GrassCoverErosionInwardsCalculationRow) dataGridView.Rows[selectedRow].DataBoundItem;
+                Assert.AreSame(dataRow.GrassCoverErosionInwardsCalculationScenario, ((GrassCoverErosionInwardsInputContext) selection).Calculation);
+            }
+        
+            mocks.VerifyAll();
+        }
 
         [Test]
         [TestCase(true)]
