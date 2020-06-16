@@ -20,6 +20,10 @@
 // All rights reserved.
 
 using System;
+using System.Linq;
+using Deltares.MacroStability.Geometry;
+using Deltares.MacroStability.Standard;
+using Deltares.MacroStability.WaternetCreator;
 using NUnit.Framework;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.Waternet;
 using Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.Waternet;
@@ -38,6 +42,36 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernels.Wate
             // Assert
             Assert.IsInstanceOf<IWaternetKernel>(kernel);
             Assert.IsFalse(kernel.Calculated);
+            Assert.IsFalse(kernel.Validated);
+            Assert.IsFalse(kernel.ThrowExceptionOnCalculate);
+            Assert.IsFalse(kernel.ThrowExceptionOnValidate);
+            Assert.IsFalse(kernel.ReturnValidationResults);
+
+            Assert.IsNull(kernel.Location);
+            Assert.IsNull(kernel.SoilProfile);
+            Assert.IsNull(kernel.SurfaceLine);
+            Assert.IsNull(kernel.Waternet);
+        }
+
+        [Test]
+        public void SetMethods_Always_SetsPropertiesOnKernel()
+        {
+            // Setup
+            var soilProfile2D = new SoilProfile2D();
+            var surfaceLine = new SurfaceLine2();
+            var location = new Location();
+
+            var kernel = new WaternetKernelStub();
+
+            // Call
+            kernel.SetLocation(location);
+            kernel.SetSoilProfile(soilProfile2D);
+            kernel.SetSurfaceLine(surfaceLine);
+
+            // Assert
+            Assert.AreSame(location, kernel.Location);
+            Assert.AreSame(soilProfile2D, kernel.SoilProfile);
+            Assert.AreSame(surfaceLine, kernel.SurfaceLine);
         }
 
         [Test]
@@ -57,7 +91,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernels.Wate
         }
 
         [Test]
-        public void Calculate_ThrowExceptionOnCalculateTrue_ThrowsUpliftVanKernelWrapperException()
+        public void Calculate_ThrowExceptionOnCalculateTrue_ThrowsWaternetKernelWrapperException()
         {
             // Setup
             var kernel = new WaternetKernelStub
@@ -69,13 +103,95 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernels.Wate
             Assert.IsFalse(kernel.Calculated);
 
             // Call
-            TestDelegate test = () => kernel.Calculate();
+            void Call() => kernel.Calculate();
 
             // Assert
-            var exception = Assert.Throws<WaternetKernelWrapperException>(test);
+            var exception = Assert.Throws<WaternetKernelWrapperException>(Call);
             Assert.AreEqual($"Message 1{Environment.NewLine}Message 2", exception.Message);
             Assert.IsNotNull(exception.InnerException);
             Assert.IsFalse(kernel.Calculated);
+        }
+
+        [Test]
+        public void Validate_ThrowExceptionOnValidateFalse_SetValidatedTrue()
+        {
+            // Setup
+            var kernel = new WaternetKernelStub();
+
+            // Precondition
+            Assert.IsFalse(kernel.Validated);
+
+            // Call
+            kernel.Validate().ToArray();
+
+            // Assert
+            Assert.IsTrue(kernel.Validated);
+        }
+
+        [Test]
+        public void Validate_ThrowExceptionOnValidateTrue_ThrowsWaternetKernelWrapperException()
+        {
+            // Setup
+            var kernel = new WaternetKernelStub
+            {
+                ThrowExceptionOnValidate = true
+            };
+
+            // Precondition
+            Assert.IsFalse(kernel.Validated);
+
+            // Call
+            void Call() => kernel.Validate().ToArray();
+
+            // Assert
+            var exception = Assert.Throws<WaternetKernelWrapperException>(Call);
+            Assert.AreEqual($"Message 1{Environment.NewLine}Message 2", exception.Message);
+            Assert.IsNotNull(exception.InnerException);
+            Assert.IsFalse(kernel.Validated);
+        }
+
+        [Test]
+        public void Validate_ReturnValidationResultsTrue_ReturnsValidationResults()
+        {
+            // Setup
+            var kernel = new WaternetKernelStub
+            {
+                ReturnValidationResults = true
+            };
+
+            // Call
+            IValidationResult[] results = kernel.Validate().ToArray();
+
+            // Assert
+            Assert.IsTrue(kernel.Validated);
+            Assert.AreEqual(4, results.Length);
+            AssertValidationResult(new ValidationResult(ValidationResultType.Warning, "Validation Warning"), results[0]);
+            AssertValidationResult(new ValidationResult(ValidationResultType.Error, "Validation Error"), results[1]);
+            AssertValidationResult(new ValidationResult(ValidationResultType.Info, "Validation Info"), results[2]);
+            AssertValidationResult(new ValidationResult(ValidationResultType.Debug, "Validation Debug"), results[3]);
+        }
+
+        [Test]
+        public void Validate_ReturnValidationResultsFalse_ReturnsNoValidationResults()
+        {
+            // Setup
+            var kernel = new WaternetKernelStub
+            {
+                ReturnValidationResults = false
+            };
+
+            // Call
+            IValidationResult[] results = kernel.Validate().ToArray();
+
+            // Assert
+            Assert.IsTrue(kernel.Validated);
+            CollectionAssert.IsEmpty(results);
+        }
+
+        private static void AssertValidationResult(IValidationResult expected, IValidationResult actual)
+        {
+            Assert.AreEqual(expected.MessageType, actual.MessageType);
+            Assert.AreEqual(expected.Text, actual.Text);
         }
     }
 }

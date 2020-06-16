@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2019. All rights reserved.
+// Copyright (C) Stichting Deltares 2019. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -106,6 +106,18 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.Waternet
                 WriteXmlFile();
             }
             catch (Exception e) when (!(e is WaternetKernelWrapperException))
+            {
+                throw new WaternetKernelWrapperException(e.Message, e);
+            }
+        }
+
+        public IEnumerable<IValidationResult> Validate()
+        {
+            try
+            {
+                return location.Validate();
+            }
+            catch (Exception e)
             {
                 throw new WaternetKernelWrapperException(e.Message, e);
             }

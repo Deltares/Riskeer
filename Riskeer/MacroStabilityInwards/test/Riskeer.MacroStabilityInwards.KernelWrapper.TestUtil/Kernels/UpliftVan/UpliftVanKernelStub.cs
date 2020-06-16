@@ -45,22 +45,22 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan
         public bool Validated { get; private set; }
 
         /// <summary>
-        /// Indicator whether an exception must be thrown when performing the calculation.
+        /// Gets or sets an indicator whether an exception must be thrown when performing the calculation.
         /// </summary>
         public bool ThrowExceptionOnCalculate { get; set; }
 
         /// <summary>
-        /// Indicator whether an exception must be thrown when performing the validation.
+        /// Gets or sets an indicator whether an exception must be thrown when performing the validation.
         /// </summary>
         public bool ThrowExceptionOnValidate { get; set; }
 
         /// <summary>
-        /// Indicator whether a validation result must be returned when performing the validation.
+        /// Gets or sets an indicator whether a validation result must be returned when performing the validation.
         /// </summary>
         public bool ReturnValidationResults { get; set; }
 
         /// <summary>
-        /// Indicator whether a log message must be returned when performing the calculation.
+        /// Gets or sets an indicator whether a log message must be returned when performing the calculation.
         /// </summary>
         public bool ReturnLogMessages { get; set; }
 
@@ -75,7 +75,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan
         public SoilProfile2D SoilProfile { get; private set; }
 
         /// <summary>
-        /// Indicator whether a grid should be moved.
+        /// Gets an indicator whether a grid should be moved.
         /// </summary>
         public bool MoveGrid { get; private set; }
 
@@ -100,12 +100,12 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan
         public SlipPlaneConstraints SlipPlaneConstraints { get; private set; }
 
         /// <summary>
-        /// Indicator whether a grid should be automatically determined by the kernel.
+        /// Gets an indicator whether a grid should be automatically determined by the kernel.
         /// </summary>
         public bool GridAutomaticDetermined { get; private set; }
 
         /// <summary>
-        /// Indicator whether tangent lines should be automatically determined by the kernel.
+        /// Gets an indicator whether tangent lines should be automatically determined by the kernel.
         /// </summary>
         public bool TangentLinesAutomaticDetermined { get; private set; }
 
@@ -130,7 +130,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan
         public IEnumerable<PreConsolidationStress> PreConsolidationStresses { get; private set; }
 
         /// <summary>
-        /// Indicator whether forbidden zones should be automatically determined by the kernel.
+        /// Gets an indicator whether forbidden zones should be automatically determined by the kernel.
         /// </summary>
         public bool AutomaticForbiddenZones { get; private set; }
 

@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2019. All rights reserved.
+// Copyright (C) Stichting Deltares 2019. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -195,8 +195,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
             {
                 PreprocessModel();
 
-                IValidationResult[] validationResults = Validator.Validate(kernelModel);
-                return validationResults;
+                return Validator.Validate(kernelModel);
             }
             catch (Exception e)
             {

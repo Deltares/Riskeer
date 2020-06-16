@@ -43,6 +43,12 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernels.Upli
             // Assert
             Assert.IsInstanceOf<IUpliftVanKernel>(kernel);
             Assert.IsFalse(kernel.Calculated);
+            Assert.IsFalse(kernel.Validated);
+            Assert.IsFalse(kernel.ThrowExceptionOnCalculate);
+            Assert.IsFalse(kernel.ThrowExceptionOnValidate);
+            Assert.IsFalse(kernel.ReturnValidationResults);
+            Assert.IsFalse(kernel.ReturnLogMessages);
+
             Assert.IsNull(kernel.SoilModel);
             Assert.IsNull(kernel.SoilProfile);
             Assert.IsFalse(kernel.MoveGrid);
@@ -232,7 +238,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernels.Upli
             Assert.IsFalse(kernel.Validated);
 
             // Call
-            kernel.Validate().ToList();
+            kernel.Validate().ToArray();
 
             // Assert
             Assert.IsTrue(kernel.Validated);
@@ -251,7 +257,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernels.Upli
             Assert.IsFalse(kernel.Validated);
 
             // Call
-            void Call() => kernel.Validate().ToList();
+            void Call() => kernel.Validate().ToArray();
 
             // Assert
             var exception = Assert.Throws<UpliftVanKernelWrapperException>(Call);
@@ -264,37 +270,37 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernels.Upli
         public void Validate_ReturnValidationResultsTrue_ReturnsValidationResults()
         {
             // Setup
-            var calculator = new UpliftVanKernelStub
+            var kernel = new UpliftVanKernelStub
             {
                 ReturnValidationResults = true
             };
 
             // Call
-            List<IValidationResult> results = calculator.Validate().ToList();
+            IValidationResult[] results = kernel.Validate().ToArray();
 
             // Assert
-            Assert.IsTrue(calculator.Validated);
-            Assert.AreEqual(4, results.Count);
-            AssertValidationResult(new ValidationResult(ValidationResultType.Warning, "Validation Warning"), results.ElementAt(0));
-            AssertValidationResult(new ValidationResult(ValidationResultType.Error, "Validation Error"), results.ElementAt(1));
-            AssertValidationResult(new ValidationResult(ValidationResultType.Info, "Validation Info"), results.ElementAt(2));
-            AssertValidationResult(new ValidationResult(ValidationResultType.Debug, "Validation Debug"), results.ElementAt(3));
+            Assert.IsTrue(kernel.Validated);
+            Assert.AreEqual(4, results.Length);
+            AssertValidationResult(new ValidationResult(ValidationResultType.Warning, "Validation Warning"), results[0]);
+            AssertValidationResult(new ValidationResult(ValidationResultType.Error, "Validation Error"), results[1]);
+            AssertValidationResult(new ValidationResult(ValidationResultType.Info, "Validation Info"), results[2]);
+            AssertValidationResult(new ValidationResult(ValidationResultType.Debug, "Validation Debug"), results[3]);
         }
 
         [Test]
         public void Validate_ReturnValidationResultsFalse_ReturnsNoValidationResults()
         {
             // Setup
-            var calculator = new UpliftVanKernelStub
+            var kernel = new UpliftVanKernelStub
             {
                 ReturnValidationResults = false
             };
 
             // Call
-            List<IValidationResult> results = calculator.Validate().ToList();
+            IValidationResult[] results = kernel.Validate().ToArray();
 
             // Assert
-            Assert.IsTrue(calculator.Validated);
+            Assert.IsTrue(kernel.Validated);
             CollectionAssert.IsEmpty(results);
         }
 

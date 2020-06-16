@@ -211,7 +211,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
             IEnumerable<IValidationResult> validationMessages = kernel.Validate();
 
             // Assert
-            Assert.IsEmpty(validationMessages.Where(vm => vm.MessageType == ValidationResultType.Error));
+            Assert.IsEmpty(validationMessages);
         }
 
         [Test]
