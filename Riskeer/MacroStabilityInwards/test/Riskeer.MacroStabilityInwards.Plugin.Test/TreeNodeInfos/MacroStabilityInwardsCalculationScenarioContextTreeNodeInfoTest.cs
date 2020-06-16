@@ -580,6 +580,10 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                             Assert.IsTrue(msgs.MoveNext());
                             CalculationServiceTestHelper.AssertValidationStartMessage(msgs.Current);
                             Assert.IsTrue(msgs.MoveNext());
+                            Assert.AreEqual("Validatie van waterspanningen in extreme omstandigheden is gestart.", msgs.Current);
+                            Assert.IsTrue(msgs.MoveNext());
+                            Assert.AreEqual("Validatie van waterspanningen in dagelijkse omstandigheden is gestart.", msgs.Current);
+                            Assert.IsTrue(msgs.MoveNext());
                             CalculationServiceTestHelper.AssertValidationEndMessage(msgs.Current);
                             Assert.IsTrue(msgs.MoveNext());
                             CalculationServiceTestHelper.AssertCalculationStartMessage(msgs.Current);
