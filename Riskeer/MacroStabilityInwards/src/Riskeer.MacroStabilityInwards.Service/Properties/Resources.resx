@@ -148,9 +148,9 @@
     <value>Het aantal tangentlijnen moet 1 zijn wanneer tangentlijn Z-boven gelijk is aan tangentlijn Z-onder.</value>
   </data>
   <data name="MacroStabilityInwardsCalculationService_Validate_Waternet_extreme_validation_started" xml:space="preserve">
-    <value>Validatie van waterspanning in extreme omstandigheden is gestart.</value>
+    <value>Validatie van waterspanningen in extreme omstandigheden is gestart.</value>
   </data>
   <data name="MacroStabilityInwardsCalculationService_Validate_Waternet_daily_validation_started" xml:space="preserve">
-    <value>Validatie van waterspanning in dagelijkse omstandigheden is gestart.</value>
+    <value>Validatie van waterspanningen in dagelijkse omstandigheden is gestart.</value>
   </data>
 </root>

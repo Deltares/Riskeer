@@ -112,7 +112,7 @@ namespace Riskeer.MacroStabilityInwards.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Validatie van waterspanning in dagelijkse omstandigheden is gestart..
+        ///   Looks up a localized string similar to Validatie van waterspanningen in dagelijkse omstandigheden is gestart..
         /// </summary>
         internal static string MacroStabilityInwardsCalculationService_Validate_Waternet_daily_validation_started {
             get {
@@ -122,7 +122,7 @@ namespace Riskeer.MacroStabilityInwards.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Validatie van waterspanning in extreme omstandigheden is gestart..
+        ///   Looks up a localized string similar to Validatie van waterspanningen in extreme omstandigheden is gestart..
         /// </summary>
         internal static string MacroStabilityInwardsCalculationService_Validate_Waternet_extreme_validation_started {
             get {

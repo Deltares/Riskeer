@@ -77,8 +77,8 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
                 {
                     string[] msgs = messages.ToArray();
                     CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
-                    Assert.AreEqual("Validatie van waterspanning in extreme omstandigheden is gestart.", msgs[1]);
-                    Assert.AreEqual("Validatie van waterspanning in dagelijkse omstandigheden is gestart.", msgs[2]);
+                    Assert.AreEqual("Validatie van waterspanningen in extreme omstandigheden is gestart.", msgs[1]);
+                    Assert.AreEqual("Validatie van waterspanningen in dagelijkse omstandigheden is gestart.", msgs[2]);
                     CalculationServiceTestHelper.AssertValidationEndMessage(msgs[3]);
                 });
             }
@@ -144,8 +144,8 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(5, msgs.Length);
                     CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
-                    Assert.AreEqual("Validatie van waterspanning in extreme omstandigheden is gestart.", msgs[1]);
-                    Assert.AreEqual("Validatie van waterspanning in dagelijkse omstandigheden is gestart.", msgs[2]);
+                    Assert.AreEqual("Validatie van waterspanningen in extreme omstandigheden is gestart.", msgs[1]);
+                    Assert.AreEqual("Validatie van waterspanningen in dagelijkse omstandigheden is gestart.", msgs[2]);
                     Assert.AreEqual("Validation Error", msgs[3]);
                     CalculationServiceTestHelper.AssertValidationEndMessage(msgs[4]);
                 });
@@ -172,8 +172,8 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(5, msgs.Length);
                     CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
-                    Assert.AreEqual("Validatie van waterspanning in extreme omstandigheden is gestart.", msgs[1]);
-                    Assert.AreEqual("Validatie van waterspanning in dagelijkse omstandigheden is gestart.", msgs[2]);
+                    Assert.AreEqual("Validatie van waterspanningen in extreme omstandigheden is gestart.", msgs[1]);
+                    Assert.AreEqual("Validatie van waterspanningen in dagelijkse omstandigheden is gestart.", msgs[2]);
                     Assert.AreEqual("Validation Warning", msgs[3]);
                     CalculationServiceTestHelper.AssertValidationEndMessage(msgs[4]);
                 });
@@ -201,8 +201,8 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(6, msgs.Length);
                     CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
-                    Assert.AreEqual("Validatie van waterspanning in extreme omstandigheden is gestart.", msgs[1]);
-                    Assert.AreEqual("Validatie van waterspanning in dagelijkse omstandigheden is gestart.", msgs[2]);
+                    Assert.AreEqual("Validatie van waterspanningen in extreme omstandigheden is gestart.", msgs[1]);
+                    Assert.AreEqual("Validatie van waterspanningen in dagelijkse omstandigheden is gestart.", msgs[2]);
                     Assert.AreEqual("Validation Error", msgs[3]);
                     Assert.AreEqual("Validation Warning", msgs[4]);
                     CalculationServiceTestHelper.AssertValidationEndMessage(msgs[5]);
@@ -230,9 +230,9 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(6, msgs.Length);
                     CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
-                    Assert.AreEqual("Validatie van waterspanning in extreme omstandigheden is gestart.", msgs[1]);
+                    Assert.AreEqual("Validatie van waterspanningen in extreme omstandigheden is gestart.", msgs[1]);
                     Assert.AreEqual("Validation Error", msgs[2]);
-                    Assert.AreEqual("Validatie van waterspanning in dagelijkse omstandigheden is gestart.", msgs[3]);
+                    Assert.AreEqual("Validatie van waterspanningen in dagelijkse omstandigheden is gestart.", msgs[3]);
                     Assert.AreEqual("Validation Error", msgs[4]);
                     CalculationServiceTestHelper.AssertValidationEndMessage(msgs[5]);
                 });
@@ -259,9 +259,9 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(6, msgs.Length);
                     CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
-                    Assert.AreEqual("Validatie van waterspanning in extreme omstandigheden is gestart.", msgs[1]);
+                    Assert.AreEqual("Validatie van waterspanningen in extreme omstandigheden is gestart.", msgs[1]);
                     Assert.AreEqual("Validation Warning", msgs[2]);
-                    Assert.AreEqual("Validatie van waterspanning in dagelijkse omstandigheden is gestart.", msgs[3]);
+                    Assert.AreEqual("Validatie van waterspanningen in dagelijkse omstandigheden is gestart.", msgs[3]);
                     Assert.AreEqual("Validation Warning", msgs[4]);
                     CalculationServiceTestHelper.AssertValidationEndMessage(msgs[5]);
                 });
@@ -289,10 +289,10 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(8, msgs.Length);
                     CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
-                    Assert.AreEqual("Validatie van waterspanning in extreme omstandigheden is gestart.", msgs[1]);
+                    Assert.AreEqual("Validatie van waterspanningen in extreme omstandigheden is gestart.", msgs[1]);
                     Assert.AreEqual("Validation Error", msgs[2]);
                     Assert.AreEqual("Validation Warning", msgs[3]);
-                    Assert.AreEqual("Validatie van waterspanning in dagelijkse omstandigheden is gestart.", msgs[4]);
+                    Assert.AreEqual("Validatie van waterspanningen in dagelijkse omstandigheden is gestart.", msgs[4]);
                     Assert.AreEqual("Validation Error", msgs[5]);
                     Assert.AreEqual("Validation Warning", msgs[6]);
                     CalculationServiceTestHelper.AssertValidationEndMessage(msgs[7]);
@@ -357,8 +357,8 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
                 {
                     string[] msgs = messages.ToArray();
                     CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
-                    Assert.AreEqual("Validatie van waterspanning in extreme omstandigheden is gestart.", msgs[1]);
-                    Assert.AreEqual("Validatie van waterspanning in dagelijkse omstandigheden is gestart.", msgs[2]);
+                    Assert.AreEqual("Validatie van waterspanningen in extreme omstandigheden is gestart.", msgs[1]);
+                    Assert.AreEqual("Validatie van waterspanningen in dagelijkse omstandigheden is gestart.", msgs[2]);
                     CalculationServiceTestHelper.AssertValidationEndMessage(msgs[3]);
                     CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[4]);
                     CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[5]);
