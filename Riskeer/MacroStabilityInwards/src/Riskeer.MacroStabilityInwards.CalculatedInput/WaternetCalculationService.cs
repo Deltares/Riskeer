@@ -20,6 +20,8 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Core.Common.Base.Data;
 using Riskeer.MacroStabilityInwards.CalculatedInput.Converters;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators;
@@ -38,6 +40,72 @@ namespace Riskeer.MacroStabilityInwards.CalculatedInput
     /// </summary>
     public static class WaternetCalculationService
     {
+        /// <summary>
+        /// Validates the Waternet with extreme circumstances based on the values 
+        /// of the <see cref="IMacroStabilityInwardsWaternetInput"/>.
+        /// </summary>
+        /// <param name="input">The input to get the values from.</param>
+        /// <param name="assessmentLevel">The assessment level to use.</param>
+        /// <returns>The validation issues found, if any.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="input"/>
+        /// is <c>null</c>.</exception>
+        /// <exception cref="WaternetCalculationException">Thrown when an error occurs
+        /// during the validation.</exception>
+        public static IEnumerable<MacroStabilityInwardsKernelMessage> ValidateExtreme(IMacroStabilityInwardsWaternetInput input,
+                                                                                      RoundedDouble assessmentLevel)
+        {
+            if (input == null)
+            {
+                throw new ArgumentNullException(nameof(input));
+            }
+
+            IWaternetCalculator calculator = MacroStabilityInwardsCalculatorFactory.Instance
+                                                                                   .CreateWaternetExtremeCalculator(
+                                                                                       CreateExtremeCalculatorInput(input, assessmentLevel),
+                                                                                       MacroStabilityInwardsKernelWrapperFactory.Instance);
+
+            try
+            {
+                return calculator.Validate().ToArray();
+            }
+            catch (WaternetCalculatorException e)
+            {
+                throw new WaternetCalculationException(e.Message, e);
+            }
+        }
+
+        /// <summary>
+        /// Validates the Waternet with daily circumstances based on the values 
+        /// of the <see cref="IMacroStabilityInwardsWaternetInput"/>.
+        /// </summary>
+        /// <param name="input">The input to get the values from.</param>
+        /// <returns>The validation issues found, if any.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="input"/>
+        /// is <c>null</c>.</exception>
+        /// <exception cref="WaternetCalculationException">Thrown when an error occurs
+        /// during the validation.</exception>
+        public static IEnumerable<MacroStabilityInwardsKernelMessage> ValidateDaily(IMacroStabilityInwardsWaternetInput input)
+        {
+            if (input == null)
+            {
+                throw new ArgumentNullException(nameof(input));
+            }
+
+            IWaternetCalculator calculator = MacroStabilityInwardsCalculatorFactory.Instance
+                                                                                   .CreateWaternetDailyCalculator(
+                                                                                       CreateDailyCalculatorInput(input),
+                                                                                       MacroStabilityInwardsKernelWrapperFactory.Instance);
+
+            try
+            {
+                return calculator.Validate().ToArray();
+            }
+            catch (WaternetCalculatorException e)
+            {
+                throw new WaternetCalculationException(e.Message, e);
+            }
+        }
+
         /// <summary>
         /// Calculates the Waternet with extreme circumstances based on the values 
         /// of the <see cref="IMacroStabilityInwardsWaternetInput"/>.
