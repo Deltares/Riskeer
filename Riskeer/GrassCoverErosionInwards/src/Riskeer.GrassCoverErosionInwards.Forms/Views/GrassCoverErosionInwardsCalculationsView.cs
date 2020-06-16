@@ -28,8 +28,11 @@ using Core.Common.Base.Geometry;
 using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.Views;
 using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.DikeProfiles;
+using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Hydraulics;
+using Riskeer.Common.Forms.ChangeHandlers;
 using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.IO.DikeProfiles;
@@ -45,9 +48,15 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
     public partial class GrassCoverErosionInwardsCalculationsView : UserControl, ISelectionProvider, IView
     {
         private const int selectableHydraulicBoundaryLocationColumnIndex = 1;
-
+        private readonly Observer grassCoverErosionInwardsFailureMechanismObserver;
         private readonly Observer hydraulicBoundaryLocationsObserver;
+        private readonly RecursiveObserver<CalculationGroup, GrassCoverErosionInwardsInput> grassCoverErosionInwardsInputObserver;
+        private readonly RecursiveObserver<CalculationGroup, GrassCoverErosionInwardsCalculationScenario> grassCoverErosionInwardsCalculationScenarioObserver;
+        private readonly RecursiveObserver<CalculationGroup, CalculationGroup> grassCoverErosionInwardsCalculationGroupObserver;
+
+        private CalculationGroup calculationGroup;
         private IAssessmentSection assessmentSection;
+        private GrassCoverErosionInwardsFailureMechanism grassCoverErosionInwardsFailureMechanism;
 
         public event EventHandler<EventArgs> SelectionChanged;
 
@@ -58,8 +67,35 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
         {
             InitializeComponent();
             InitializeDataGridView();
+            InitializeListBox();
 
+            grassCoverErosionInwardsFailureMechanismObserver = new Observer(OnGrassCoverErosionInwardsFailureMechanismUpdate);
             hydraulicBoundaryLocationsObserver = new Observer(UpdateSelectableHydraulicBoundaryLocationsColumn);
+
+            // The concat is needed to observe the input of calculations in child groups.
+            grassCoverErosionInwardsInputObserver = new RecursiveObserver<CalculationGroup, GrassCoverErosionInwardsInput>(UpdateDataGridViewDataSource, pcg => pcg.Children.Concat<object>(pcg.Children.OfType<GrassCoverErosionInwardsCalculationScenario>().Select(pc => pc.InputParameters)));
+            grassCoverErosionInwardsCalculationScenarioObserver = new RecursiveObserver<CalculationGroup, GrassCoverErosionInwardsCalculationScenario>(() => dataGridViewControl.RefreshDataGridView(), pcg => pcg.Children);
+            grassCoverErosionInwardsCalculationGroupObserver = new RecursiveObserver<CalculationGroup, CalculationGroup>(UpdateDataGridViewDataSource, pcg => pcg.Children);
+        }
+
+        /// <summary>
+        /// Gets or sets the grass cover erosion inwards failure mechanism.
+        /// </summary>
+        public GrassCoverErosionInwardsFailureMechanism GrassCoverErosionInwardsFailureMechanism
+        {
+            get
+            {
+                return grassCoverErosionInwardsFailureMechanism;
+            }
+            set
+            {
+                grassCoverErosionInwardsFailureMechanism = value;
+                grassCoverErosionInwardsFailureMechanismObserver.Observable = grassCoverErosionInwardsFailureMechanism;
+
+                UpdateSectionsListBox();
+
+                UpdateGenerateCalculationsButtonState();
+            }
         }
 
         /// <summary>
@@ -79,11 +115,40 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
             }
         }
 
-        public GrassCoverErosionInwardsFailureMechanism GrassCoverErosionInwardsFailureMechanism { get; set; }
-
         public object Selection { get; }
 
-        public object Data { get; set; }
+        public object Data
+        {
+            get
+            {
+                return calculationGroup;
+            }
+            set
+            {
+                calculationGroup = value as CalculationGroup;
+
+                if (calculationGroup != null)
+                {
+                    UpdateDataGridViewDataSource();
+                    grassCoverErosionInwardsInputObserver.Observable = calculationGroup;
+                    grassCoverErosionInwardsCalculationScenarioObserver.Observable = calculationGroup;
+                    grassCoverErosionInwardsCalculationGroupObserver.Observable = calculationGroup;
+                }
+                else
+                {
+                    dataGridViewControl.SetDataSource(null);
+                    grassCoverErosionInwardsInputObserver.Observable = null;
+                    grassCoverErosionInwardsCalculationScenarioObserver.Observable = null;
+                    grassCoverErosionInwardsCalculationGroupObserver.Observable = null;
+                }
+            }
+        }
+
+        private void InitializeListBox()
+        {
+            listBox.DisplayMember = nameof(FailureMechanismSection.Name);
+            listBox.SelectedValueChanged += ListBoxOnSelectedValueChanged;
+        }
 
         private void InitializeDataGridView()
         {
@@ -131,6 +196,11 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
             dataGridViewControl.AddTextBoxColumn(
                 nameof(GrassCoverErosionInwardsCalculationRow.StandardDeviationCriticalOvertoppingRate),
                 Resources.GrassCoverErosionInwardsCalculation_StandardDeviation_Critical_OvertoppingRate);
+        }
+
+        private void UpdateGenerateCalculationsButtonState()
+        {
+            buttonGenerateCalculations.Enabled = grassCoverErosionInwardsFailureMechanism != null;
         }
 
         private void UpdateSelectableHydraulicBoundaryLocationsColumn()
@@ -191,5 +261,89 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
 
             return dataGridViewComboBoxItemWrappers;
         }
+
+        #region Data sources
+
+        private void UpdateDataGridViewDataSource()
+        {
+            // Skip changes coming from the view itself
+            if (dataGridViewControl.IsCurrentCellInEditMode)
+            {
+                dataGridViewControl.AutoResizeColumns();
+            }
+
+            var failureMechanismSection = listBox.SelectedItem as FailureMechanismSection;
+            if (failureMechanismSection == null || calculationGroup == null)
+            {
+                dataGridViewControl.SetDataSource(null);
+                return;
+            }
+
+            IEnumerable<GrassCoverErosionInwardsCalculationScenario> grassCoverErosionInwardsCalculationScenarios = calculationGroup
+                                                                                                                    .GetCalculations()
+                                                                                                                    .OfType<GrassCoverErosionInwardsCalculationScenario>();
+
+            PrefillComboBoxListItemsAtColumnLevel();
+
+            List<GrassCoverErosionInwardsCalculationRow> dataSource = grassCoverErosionInwardsCalculationScenarios.Select(pc => new GrassCoverErosionInwardsCalculationRow(pc, new ObservablePropertyChangeHandler(pc, pc.InputParameters))).ToList();
+            dataGridViewControl.SetDataSource(dataSource);
+            dataGridViewControl.ClearCurrentCell();
+
+            UpdateSelectableHydraulicBoundaryLocationsColumn();
+        }
+
+        #endregion
+
+        #region Prefill combo box list items
+
+        private void PrefillComboBoxListItemsAtColumnLevel()
+        {
+            var selectableHydraulicBoundaryLocationColumn = (DataGridViewComboBoxColumn) dataGridViewControl.GetColumnFromIndex(selectableHydraulicBoundaryLocationColumnIndex);
+
+            using (new SuspendDataGridViewColumnResizes(selectableHydraulicBoundaryLocationColumn))
+            {
+                SetItemsOnObjectCollection(selectableHydraulicBoundaryLocationColumn.Items,
+                                           GetSelectableHydraulicBoundaryLocationsDataSource(GetSelectableHydraulicBoundaryLocationsFromFailureMechanism()).ToArray());
+            }
+        }
+
+        private IEnumerable<SelectableHydraulicBoundaryLocation> GetSelectableHydraulicBoundaryLocationsFromFailureMechanism()
+        {
+            if (assessmentSection == null)
+            {
+                return null;
+            }
+
+            List<HydraulicBoundaryLocation> hydraulicBoundaryLocations = assessmentSection.HydraulicBoundaryDatabase.Locations;
+
+            return hydraulicBoundaryLocations.Select(hbl => new SelectableHydraulicBoundaryLocation(hbl, null)).ToList();
+        }
+
+        #endregion
+
+        #region Event handling
+
+        private void ListBoxOnSelectedValueChanged(object sender, EventArgs e)
+        {
+            UpdateDataGridViewDataSource();
+        }
+
+        private void OnGrassCoverErosionInwardsFailureMechanismUpdate()
+        {
+            UpdateSectionsListBox();
+        }
+
+        private void UpdateSectionsListBox()
+        {
+            listBox.Items.Clear();
+
+            if (grassCoverErosionInwardsFailureMechanism != null && grassCoverErosionInwardsFailureMechanism.Sections.Any())
+            {
+                listBox.Items.AddRange(grassCoverErosionInwardsFailureMechanism.Sections.Cast<object>().ToArray());
+                listBox.SelectedItem = grassCoverErosionInwardsFailureMechanism.Sections.First();
+            }
+        }
+
+        #endregion
     }
 }

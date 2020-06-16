@@ -378,43 +378,43 @@
   <data name="&gt;&gt;splitContainer.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="buttonGenerateScenarios.AutoSize" type="System.Boolean, mscorlib">
+  <data name="buttonGenerateCalculations.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="buttonGenerateScenarios.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+  <data name="buttonGenerateCalculations.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Left</value>
   </data>
-  <data name="buttonGenerateScenarios.Enabled" type="System.Boolean, mscorlib">
+  <data name="buttonGenerateCalculations.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
-  <data name="buttonGenerateScenarios.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="buttonGenerateCalculations.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="buttonGenerateScenarios.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="buttonGenerateCalculations.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 271</value>
   </data>
-  <data name="buttonGenerateScenarios.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="buttonGenerateCalculations.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 4, 4, 4</value>
   </data>
-  <data name="buttonGenerateScenarios.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="buttonGenerateCalculations.Size" type="System.Drawing.Size, System.Drawing">
     <value>212, 33</value>
   </data>
-  <data name="buttonGenerateScenarios.TabIndex" type="System.Int32, mscorlib">
+  <data name="buttonGenerateCalculations.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
-  <data name="buttonGenerateScenarios.Text" xml:space="preserve">
+  <data name="buttonGenerateCalculations.Text" xml:space="preserve">
     <value>Genereer &amp;berekeningen...</value>
   </data>
-  <data name="&gt;&gt;buttonGenerateScenarios.Name" xml:space="preserve">
-    <value>buttonGenerateScenarios</value>
+  <data name="&gt;&gt;buttonGenerateCalculations.Name" xml:space="preserve">
+    <value>buttonGenerateCalculations</value>
   </data>
-  <data name="&gt;&gt;buttonGenerateScenarios.Type" xml:space="preserve">
+  <data name="&gt;&gt;buttonGenerateCalculations.Type" xml:space="preserve">
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;buttonGenerateScenarios.Parent" xml:space="preserve">
+  <data name="&gt;&gt;buttonGenerateCalculations.Parent" xml:space="preserve">
     <value>tableLayoutPanelUserControl</value>
   </data>
-  <data name="&gt;&gt;buttonGenerateScenarios.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;buttonGenerateCalculations.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
   <data name="tableLayoutPanelUserControl.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">

@@ -45,7 +45,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
             this.tableLayoutPanelDataGrid = new System.Windows.Forms.TableLayoutPanel();
             this.labelCalculations = new System.Windows.Forms.Label();
             this.dataGridViewControl = new Core.Common.Controls.DataGrid.DataGridViewControl();
-            this.buttonGenerateScenarios = new System.Windows.Forms.Button();
+            this.buttonGenerateCalculations = new System.Windows.Forms.Button();
             this.tableLayoutPanelUserControl.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
             this.splitContainer.Panel1.SuspendLayout();
@@ -59,7 +59,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
             // 
             resources.ApplyResources(this.tableLayoutPanelUserControl, "tableLayoutPanelUserControl");
             this.tableLayoutPanelUserControl.Controls.Add(this.splitContainer, 0, 0);
-            this.tableLayoutPanelUserControl.Controls.Add(this.buttonGenerateScenarios, 0, 1);
+            this.tableLayoutPanelUserControl.Controls.Add(this.buttonGenerateCalculations, 0, 1);
             this.tableLayoutPanelUserControl.Name = "tableLayoutPanelUserControl";
             // 
             // splitContainer
@@ -113,11 +113,11 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
             this.dataGridViewControl.Name = "dataGridViewControl";
             this.dataGridViewControl.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.RowHeaderSelect;
             // 
-            // buttonGenerateScenarios
+            // buttonGenerateCalculations
             // 
-            resources.ApplyResources(this.buttonGenerateScenarios, "buttonGenerateScenarios");
-            this.buttonGenerateScenarios.Name = "buttonGenerateScenarios";
-            this.buttonGenerateScenarios.UseVisualStyleBackColor = true;
+            resources.ApplyResources(this.buttonGenerateCalculations, "buttonGenerateCalculations");
+            this.buttonGenerateCalculations.Name = "buttonGenerateCalculations";
+            this.buttonGenerateCalculations.UseVisualStyleBackColor = true;
             // 
             // GrassCoverErosionInwardsCalculationsView
             // 
@@ -149,6 +149,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanelDataGrid;
         private System.Windows.Forms.Label labelCalculations;
         private Core.Common.Controls.DataGrid.DataGridViewControl dataGridViewControl;
-        private System.Windows.Forms.Button buttonGenerateScenarios;
+        private System.Windows.Forms.Button buttonGenerateCalculations;
     }
 }

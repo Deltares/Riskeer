@@ -21,9 +21,13 @@
 
 using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Base.Geometry;
 using Core.Common.Controls.Views;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
+using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.TestUtil;
+using Riskeer.GrassCoverErosionInwards.Data;
 using Riskeer.GrassCoverErosionInwards.Forms.Views;
 
 namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
@@ -97,6 +101,113 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
                 Assert.AreEqual("Dijkhoogte [m+NAP]", dataGridView.Columns[dikeHeightColumnIndex].HeaderText);
                 Assert.AreEqual("Verwachtingswaarde kritiek overslagdebiet [m3/m/s]", dataGridView.Columns[expectedCriticalOvertoppingRateColumnIndex].HeaderText);
                 Assert.AreEqual("Standaardafwijking kritiek overslagdebiet [m3/m/s]", dataGridView.Columns[standardDeviationCriticalOvertoppingRateColumnIndex].HeaderText);
+            }
+        }
+
+        [Test]
+        public void Constructor_ListBoxCorrectlyInitialized()
+        {
+            // Call
+            using (ShowGrassCoverErosionInwardsCalculationsView())
+            {
+                var listBox = (ListBox) new ControlTester("listBox").TheObject;
+
+                // Assert
+                Assert.AreEqual(0, listBox.Items.Count);
+            }
+        }
+
+        [Test]
+        public void Data_SetToNull_DoesNotThrow()
+        {
+            // Setup
+            using (GrassCoverErosionInwardsCalculationsView grassCoverErosionInwardsCalculationsView = ShowGrassCoverErosionInwardsCalculationsView())
+            {
+                // Call
+                var testDelegate = new TestDelegate(() => grassCoverErosionInwardsCalculationsView.Data = null);
+
+                // Assert
+                Assert.DoesNotThrow(testDelegate);
+            }
+        }
+
+        [Test]
+        public void GrassCoverErosionInwardsFailureMechanism_FailureMechanismWithSections_SectionsListBoxCorrectlyInitialized()
+        {
+            // Setup
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var failureMechanismSection1 = new FailureMechanismSection("Section 1", new[]
+            {
+                new Point2D(0.0, 0.0),
+                new Point2D(5.0, 0.0)
+            });
+            var failureMechanismSection2 = new FailureMechanismSection("Section 2", new[]
+            {
+                new Point2D(5.0, 0.0),
+                new Point2D(10.0, 0.0)
+            });
+            var failureMechanismSection3 = new FailureMechanismSection("Section 3", new[]
+            {
+                new Point2D(10.0, 0.0),
+                new Point2D(15.0, 0.0)
+            });
+
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
+            {
+                failureMechanismSection1,
+                failureMechanismSection2,
+                failureMechanismSection3
+            });
+
+            using (GrassCoverErosionInwardsCalculationsView pipingCalculationsView = ShowGrassCoverErosionInwardsCalculationsView())
+            {
+                // Call
+                pipingCalculationsView.GrassCoverErosionInwardsFailureMechanism = failureMechanism;
+
+                // Assert
+                var listBox = (ListBox) new ControlTester("listBox").TheObject;
+                Assert.AreEqual(3, listBox.Items.Count);
+                Assert.AreSame(failureMechanismSection1, listBox.Items[0]);
+                Assert.AreSame(failureMechanismSection2, listBox.Items[1]);
+                Assert.AreSame(failureMechanismSection3, listBox.Items[2]);
+            }
+        }
+
+        [Test]
+        public void ButtonGenerateCalculations_WithoutGrassCoverErosionInwardsFailureMechanism_ButtonDisabled()
+        {
+            // Setup
+            GrassCoverErosionInwardsFailureMechanism grassCoverErosionInwardsFailureMechanism = null;
+
+            using (GrassCoverErosionInwardsCalculationsView grassCoverErosionInwardsCalculationsView = ShowGrassCoverErosionInwardsCalculationsView())
+            {
+                grassCoverErosionInwardsCalculationsView.GrassCoverErosionInwardsFailureMechanism = grassCoverErosionInwardsFailureMechanism;
+                var button = (Button) grassCoverErosionInwardsCalculationsView.Controls.Find("buttonGenerateCalculations", true)[0];
+
+                // Call
+                bool state = button.Enabled;
+
+                // Assert
+                Assert.IsFalse(state);
+            }
+        }
+
+        [Test]
+        public void ButtonGenerateCalculations_WithGrassCoverErosionInwardsFailureMechanism_ButtonDisabled()
+        {
+            // Setup
+            var grassCoverErosionInwardsFailureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+
+            using (GrassCoverErosionInwardsCalculationsView grassCoverErosionInwardsCalculationsView = ShowGrassCoverErosionInwardsCalculationsView())
+            {
+                grassCoverErosionInwardsCalculationsView.GrassCoverErosionInwardsFailureMechanism = grassCoverErosionInwardsFailureMechanism;
+                var button = (Button) grassCoverErosionInwardsCalculationsView.Controls.Find("buttonGenerateCalculations", true)[0];
+
+                // Call
+                bool state = button.Enabled;
+
+                // Assert
+                Assert.IsTrue(state);
             }
         }
 
