@@ -45,32 +45,32 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Uplif
         public UpliftVanCalculatorResult Output { get; private set; }
 
         /// <summary>
-        /// Indicator whether an error message must be returned when performing the calculation.
+        /// Gets or sets an indicator whether an error message must be returned when performing the calculation.
         /// </summary>
         public bool ReturnCalculationError { get; set; }
 
         /// <summary>
-        /// Indicator whether a warning message must be returned when performing the calculation.
+        /// Gets or sets an indicator whether a warning message must be returned when performing the calculation.
         /// </summary>
         public bool ReturnCalculationWarning { get; set; }
 
         /// <summary>
-        /// Indicator whether an exception must be thrown when performing the calculation.
+        /// Gets or sets an indicator whether an exception must be thrown when performing the calculation.
         /// </summary>
         public bool ThrowExceptionOnCalculate { get; set; }
 
         /// <summary>
-        /// Indicator whether an exception must be thrown when performing the validation.
+        /// Gets or sets an indicator whether an exception must be thrown when performing the validation.
         /// </summary>
         public bool ThrowExceptionOnValidate { get; set; }
 
         /// <summary>
-        /// Indicator whether an error message must be returned when performing the validation.
+        /// Gets or sets an indicator whether an error message must be returned when performing the validation.
         /// </summary>
         public bool ReturnValidationError { get; set; }
 
         /// <summary>
-        /// Indicator whether a warning message must be returned when performing the validation.
+        /// Gets or sets an indicator whether a warning message must be returned when performing the validation.
         /// </summary>
         public bool ReturnValidationWarning { get; set; }
 

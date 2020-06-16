@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Output;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Waternet
@@ -42,5 +43,13 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Waternet
         /// <exception cref="WaternetCalculatorException">Thrown when an error
         /// occurs during the calculation.</exception>
         WaternetCalculatorResult Calculate();
+
+        /// <summary>
+        /// Performs the validation.
+        /// </summary>
+        /// <returns>The validation issues found by the kernel validator, if any.</returns>
+        /// <exception cref="WaternetCalculatorException">Thrown when an error 
+        /// occurs during the validation.</exception>
+        IEnumerable<MacroStabilityInwardsKernelMessage> Validate();
     }
 }

@@ -69,6 +69,20 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Waternet
             return WaternetCalculatorResultCreator.Create(waternetKernel.Waternet);
         }
 
+        public IEnumerable<MacroStabilityInwardsKernelMessage> Validate()
+        {
+            IWaternetKernel waternetKernel = GetWaternetKernel();
+
+            try
+            {
+                return MacroStabilityInwardsKernelMessagesCreator.CreateFromValidationResults(waternetKernel.Validate().ToArray());
+            }
+            catch (WaternetKernelWrapperException e)
+            {
+                throw new WaternetCalculatorException(e.Message, e);
+            }
+        }
+
         /// <summary>
         /// Gets the factory responsible for creating the Waternet kernel.
         /// </summary>
@@ -108,12 +122,12 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Waternet
         private IWaternetKernel GetWaternetKernel()
         {
             IWaternetKernel waternetKernel = CreateWaternetKernel(WaternetLocationCreator.Create(Input));
-            
+
             LayerWithSoil[] layersWithSoil = LayerWithSoilCreator.Create(Input.SoilProfile, out IDictionary<SoilLayer, LayerWithSoil> _);
             waternetKernel.SetSoilProfile(SoilProfileCreator.Create(layersWithSoil));
             waternetKernel.SetSurfaceLine(SurfaceLineCreator.Create(Input.SurfaceLine));
             waternetKernel.SetSoilModel(layersWithSoil.Select(lws => lws.Soil).ToArray());
-            
+
             return waternetKernel;
         }
     }
