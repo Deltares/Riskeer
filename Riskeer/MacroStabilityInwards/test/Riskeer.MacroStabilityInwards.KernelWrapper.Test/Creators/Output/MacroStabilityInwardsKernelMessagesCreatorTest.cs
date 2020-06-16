@@ -30,13 +30,13 @@ using Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Output;
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Output
 {
     [TestFixture]
-    public class MacroStabilityInwardsMessagesCreatorTest
+    public class MacroStabilityInwardsKernelMessagesCreatorTest
     {
         [Test]
         public void CreateFromLogMessages_LogMessagesNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => MacroStabilityInwardsKernelMessagesCreator.CreateFromLogMessages(null).ToList();
+            void Call() => MacroStabilityInwardsKernelMessagesCreator.CreateFromLogMessages(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -58,7 +58,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Output
             };
 
             // Call
-            IEnumerable<MacroStabilityInwardsKernelMessage> kernelMessages = MacroStabilityInwardsKernelMessagesCreator.CreateFromLogMessages(logMessages).ToList();
+            IEnumerable<MacroStabilityInwardsKernelMessage> kernelMessages = MacroStabilityInwardsKernelMessagesCreator.CreateFromLogMessages(logMessages);
 
             // Assert
             Assert.AreEqual(3, kernelMessages.Count());
@@ -85,7 +85,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Output
             };
 
             // Call
-            IEnumerable<MacroStabilityInwardsKernelMessage> kernelMessages = MacroStabilityInwardsKernelMessagesCreator.CreateFromLogMessages(logMessages).ToList();
+            IEnumerable<MacroStabilityInwardsKernelMessage> kernelMessages = MacroStabilityInwardsKernelMessagesCreator.CreateFromLogMessages(logMessages);
 
             // Assert
             MacroStabilityInwardsKernelMessage kernelMessage = kernelMessages.Single();
@@ -97,7 +97,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Output
         public void CreateFromValidationResults_ValidationResultsNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => MacroStabilityInwardsKernelMessagesCreator.CreateFromValidationResults(null).ToList();
+            void Call() => MacroStabilityInwardsKernelMessagesCreator.CreateFromValidationResults(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -117,7 +117,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Output
             };
 
             // Call
-            IEnumerable<MacroStabilityInwardsKernelMessage> kernelMessages = MacroStabilityInwardsKernelMessagesCreator.CreateFromValidationResults(validationResults).ToList();
+            IEnumerable<MacroStabilityInwardsKernelMessage> kernelMessages = MacroStabilityInwardsKernelMessagesCreator.CreateFromValidationResults(validationResults);
 
             // Assert
             Assert.AreEqual(2, kernelMessages.Count());
@@ -140,7 +140,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Output
             };
 
             // Call
-            IEnumerable<MacroStabilityInwardsKernelMessage> kernelMessages = MacroStabilityInwardsKernelMessagesCreator.CreateFromValidationResults(validationResults).ToList();
+            IEnumerable<MacroStabilityInwardsKernelMessage> kernelMessages = MacroStabilityInwardsKernelMessagesCreator.CreateFromValidationResults(validationResults);
 
             // Assert
             MacroStabilityInwardsKernelMessage kernelMessage = kernelMessages.Single();

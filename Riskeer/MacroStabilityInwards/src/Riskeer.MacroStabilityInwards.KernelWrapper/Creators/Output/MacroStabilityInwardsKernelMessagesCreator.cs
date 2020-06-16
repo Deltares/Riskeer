@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Deltares.MacroStability.Standard;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan;
@@ -68,7 +69,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Output
                 throw new ArgumentNullException(nameof(validationResults));
             }
 
-            return CreateValidationMessages(validationResults);
+            return CreateValidationMessages(validationResults).ToArray();
         }
 
         private static IEnumerable<MacroStabilityInwardsKernelMessage> CreateLogMessages(IEnumerable<LogMessage> logMessages)
