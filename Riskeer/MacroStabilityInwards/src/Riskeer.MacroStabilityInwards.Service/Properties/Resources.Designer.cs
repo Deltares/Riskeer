@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2019. All rights reserved.
+// Copyright (C) Stichting Deltares 2019. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -40,7 +40,7 @@ namespace Riskeer.MacroStabilityInwards.Service.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
@@ -108,6 +108,26 @@ namespace Riskeer.MacroStabilityInwards.Service.Properties {
             get {
                 return ResourceManager.GetString("MacroStabilityInwardsCalculationService_Validate_Error_in_MacroStabilityInwards_v" +
                         "alidation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Validatie van waterspanning in dagelijkse omstandigheden is gestart..
+        /// </summary>
+        internal static string MacroStabilityInwardsCalculationService_Validate_Waternet_daily_validation_started {
+            get {
+                return ResourceManager.GetString("MacroStabilityInwardsCalculationService_Validate_Waternet_daily_validation_starte" +
+                        "d", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Validatie van waterspanning in extreme omstandigheden is gestart..
+        /// </summary>
+        internal static string MacroStabilityInwardsCalculationService_Validate_Waternet_extreme_validation_started {
+            get {
+                return ResourceManager.GetString("MacroStabilityInwardsCalculationService_Validate_Waternet_extreme_validation_star" +
+                        "ted", resourceCulture);
             }
         }
         

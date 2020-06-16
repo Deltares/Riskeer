@@ -147,4 +147,10 @@
   <data name="MacroStabilityInwardsInputValidator_ValidateTangentLines_TangentLineNumber_must_be_one_when_TangentLineTop_equals_TangentLineBottom" xml:space="preserve">
     <value>Het aantal tangentlijnen moet 1 zijn wanneer tangentlijn Z-boven gelijk is aan tangentlijn Z-onder.</value>
   </data>
+  <data name="MacroStabilityInwardsCalculationService_Validate_Waternet_extreme_validation_started" xml:space="preserve">
+    <value>Validatie van waterspanning in extreme omstandigheden is gestart.</value>
+  </data>
+  <data name="MacroStabilityInwardsCalculationService_Validate_Waternet_daily_validation_started" xml:space="preserve">
+    <value>Validatie van waterspanning in dagelijkse omstandigheden is gestart.</value>
+  </data>
 </root>

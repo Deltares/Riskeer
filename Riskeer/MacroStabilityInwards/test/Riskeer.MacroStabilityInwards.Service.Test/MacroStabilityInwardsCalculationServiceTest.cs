@@ -56,10 +56,10 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
         public void Validate_CalculationNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => MacroStabilityInwardsCalculationService.Validate(null, RoundedDouble.NaN);
+            void Call() => MacroStabilityInwardsCalculationService.Validate(null, RoundedDouble.NaN);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("calculation", exception.ParamName);
         }
 
@@ -70,15 +70,16 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
                 // Call
-                Action call = () => MacroStabilityInwardsCalculationService.Validate(testCalculation,
-                                                                                     AssessmentSectionTestHelper.GetTestAssessmentLevel());
+                void Call() => MacroStabilityInwardsCalculationService.Validate(testCalculation, AssessmentSectionTestHelper.GetTestAssessmentLevel());
 
                 // Assert
-                TestHelper.AssertLogMessages(call, messages =>
+                TestHelper.AssertLogMessages(Call, messages =>
                 {
                     string[] msgs = messages.ToArray();
                     CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
-                    CalculationServiceTestHelper.AssertValidationEndMessage(msgs[1]);
+                    Assert.AreEqual("Validatie van waterspanning in extreme omstandigheden is gestart.", msgs[1]);
+                    Assert.AreEqual("Validatie van waterspanning in dagelijkse omstandigheden is gestart.", msgs[2]);
+                    CalculationServiceTestHelper.AssertValidationEndMessage(msgs[3]);
                 });
             }
         }
@@ -108,11 +109,10 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
             var isValid = true;
 
             // Call
-            Action call = () => isValid = MacroStabilityInwardsCalculationService.Validate(calculation,
-                                                                                           AssessmentSectionTestHelper.GetTestAssessmentLevel());
+            void Call() => isValid = MacroStabilityInwardsCalculationService.Validate(calculation, AssessmentSectionTestHelper.GetTestAssessmentLevel());
 
             // Assert
-            TestHelper.AssertLogMessages(call, messages =>
+            TestHelper.AssertLogMessages(Call, messages =>
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(5, msgs.Length);
@@ -126,7 +126,7 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
         }
 
         [Test]
-        public void Validate_KernelReturnsValidationError_LogsErrorAndReturnsFalse()
+        public void Validate_UpliftVanKernelReturnsValidationError_LogsErrorAndReturnsFalse()
         {
             // Setup
             var isValid = true;
@@ -136,24 +136,25 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
                 calculator.LastCreatedUpliftVanCalculator.ReturnValidationError = true;
 
                 // Call
-                Action call = () => isValid = MacroStabilityInwardsCalculationService.Validate(testCalculation,
-                                                                                               AssessmentSectionTestHelper.GetTestAssessmentLevel());
+                void Call() => isValid = MacroStabilityInwardsCalculationService.Validate(testCalculation, AssessmentSectionTestHelper.GetTestAssessmentLevel());
 
                 // Assert
-                TestHelper.AssertLogMessages(call, messages =>
+                TestHelper.AssertLogMessages(Call, messages =>
                 {
                     string[] msgs = messages.ToArray();
-                    Assert.AreEqual(3, msgs.Length);
+                    Assert.AreEqual(5, msgs.Length);
                     CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
-                    Assert.AreEqual("Validation Error", msgs[1]);
-                    CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
+                    Assert.AreEqual("Validatie van waterspanning in extreme omstandigheden is gestart.", msgs[1]);
+                    Assert.AreEqual("Validatie van waterspanning in dagelijkse omstandigheden is gestart.", msgs[2]);
+                    Assert.AreEqual("Validation Error", msgs[3]);
+                    CalculationServiceTestHelper.AssertValidationEndMessage(msgs[4]);
                 });
                 Assert.IsFalse(isValid);
             }
         }
 
         [Test]
-        public void Validate_KernelReturnsValidationWarning_LogsWarningAndReturnsTrue()
+        public void Validate_UpliftVanKernelReturnsValidationWarning_LogsWarningAndReturnsTrue()
         {
             // Setup
             var isValid = false;
@@ -163,24 +164,25 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
                 calculator.LastCreatedUpliftVanCalculator.ReturnValidationWarning = true;
 
                 // Call
-                Action call = () => isValid = MacroStabilityInwardsCalculationService.Validate(testCalculation,
-                                                                                               AssessmentSectionTestHelper.GetTestAssessmentLevel());
+                void Call() => isValid = MacroStabilityInwardsCalculationService.Validate(testCalculation, AssessmentSectionTestHelper.GetTestAssessmentLevel());
 
                 // Assert
-                TestHelper.AssertLogMessages(call, messages =>
+                TestHelper.AssertLogMessages(Call, messages =>
                 {
                     string[] msgs = messages.ToArray();
-                    Assert.AreEqual(3, msgs.Length);
+                    Assert.AreEqual(5, msgs.Length);
                     CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
-                    Assert.AreEqual("Validation Warning", msgs[1]);
-                    CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
+                    Assert.AreEqual("Validatie van waterspanning in extreme omstandigheden is gestart.", msgs[1]);
+                    Assert.AreEqual("Validatie van waterspanning in dagelijkse omstandigheden is gestart.", msgs[2]);
+                    Assert.AreEqual("Validation Warning", msgs[3]);
+                    CalculationServiceTestHelper.AssertValidationEndMessage(msgs[4]);
                 });
                 Assert.IsTrue(isValid);
             }
         }
 
         [Test]
-        public void Validate_KernelReturnsValidationErrorAndWarning_LogsErrorAndWarningAndReturnsFalse()
+        public void Validate_UpliftVanKernelReturnsValidationErrorAndWarning_LogsErrorAndWarningAndReturnsFalse()
         {
             // Setup
             var isValid = true;
@@ -191,18 +193,109 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
                 calculator.LastCreatedUpliftVanCalculator.ReturnValidationError = true;
 
                 // Call
-                Action call = () => isValid = MacroStabilityInwardsCalculationService.Validate(testCalculation,
-                                                                                               AssessmentSectionTestHelper.GetTestAssessmentLevel());
+                void Call() => isValid = MacroStabilityInwardsCalculationService.Validate(testCalculation, AssessmentSectionTestHelper.GetTestAssessmentLevel());
 
                 // Assert
-                TestHelper.AssertLogMessages(call, messages =>
+                TestHelper.AssertLogMessages(Call, messages =>
                 {
                     string[] msgs = messages.ToArray();
-                    Assert.AreEqual(4, msgs.Length);
+                    Assert.AreEqual(6, msgs.Length);
                     CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
-                    Assert.AreEqual("Validation Error", msgs[1]);
+                    Assert.AreEqual("Validatie van waterspanning in extreme omstandigheden is gestart.", msgs[1]);
+                    Assert.AreEqual("Validatie van waterspanning in dagelijkse omstandigheden is gestart.", msgs[2]);
+                    Assert.AreEqual("Validation Error", msgs[3]);
+                    Assert.AreEqual("Validation Warning", msgs[4]);
+                    CalculationServiceTestHelper.AssertValidationEndMessage(msgs[5]);
+                });
+                Assert.IsFalse(isValid);
+            }
+        }
+
+        [Test]
+        public void Validate_WaternetKernelReturnsValidationError_LogsErrorAndReturnsFalse()
+        {
+            // Setup
+            var isValid = true;
+            using (new MacroStabilityInwardsCalculatorFactoryConfig())
+            {
+                var calculator = (TestMacroStabilityInwardsCalculatorFactory)MacroStabilityInwardsCalculatorFactory.Instance;
+                calculator.LastCreatedWaternetCalculator.ReturnValidationError = true;
+
+                // Call
+                void Call() => isValid = MacroStabilityInwardsCalculationService.Validate(testCalculation, AssessmentSectionTestHelper.GetTestAssessmentLevel());
+
+                // Assert
+                TestHelper.AssertLogMessages(Call, messages =>
+                {
+                    string[] msgs = messages.ToArray();
+                    Assert.AreEqual(6, msgs.Length);
+                    CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
+                    Assert.AreEqual("Validatie van waterspanning in extreme omstandigheden is gestart.", msgs[1]);
+                    Assert.AreEqual("Validation Error", msgs[2]);
+                    Assert.AreEqual("Validatie van waterspanning in dagelijkse omstandigheden is gestart.", msgs[3]);
+                    Assert.AreEqual("Validation Error", msgs[4]);
+                    CalculationServiceTestHelper.AssertValidationEndMessage(msgs[5]);
+                });
+                Assert.IsFalse(isValid);
+            }
+        }
+
+        [Test]
+        public void Validate_WaternetKernelReturnsValidationWarning_LogsWarningAndReturnsTrue()
+        {
+            // Setup
+            var isValid = false;
+            using (new MacroStabilityInwardsCalculatorFactoryConfig())
+            {
+                var calculator = (TestMacroStabilityInwardsCalculatorFactory)MacroStabilityInwardsCalculatorFactory.Instance;
+                calculator.LastCreatedWaternetCalculator.ReturnValidationWarning = true;
+
+                // Call
+                void Call() => isValid = MacroStabilityInwardsCalculationService.Validate(testCalculation, AssessmentSectionTestHelper.GetTestAssessmentLevel());
+
+                // Assert
+                TestHelper.AssertLogMessages(Call, messages =>
+                {
+                    string[] msgs = messages.ToArray();
+                    Assert.AreEqual(6, msgs.Length);
+                    CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
+                    Assert.AreEqual("Validatie van waterspanning in extreme omstandigheden is gestart.", msgs[1]);
                     Assert.AreEqual("Validation Warning", msgs[2]);
-                    CalculationServiceTestHelper.AssertValidationEndMessage(msgs[3]);
+                    Assert.AreEqual("Validatie van waterspanning in dagelijkse omstandigheden is gestart.", msgs[3]);
+                    Assert.AreEqual("Validation Warning", msgs[4]);
+                    CalculationServiceTestHelper.AssertValidationEndMessage(msgs[5]);
+                });
+                Assert.IsTrue(isValid);
+            }
+        }
+
+        [Test]
+        public void Validate_WaternetKernelReturnsValidationErrorAndWarning_LogsErrorAndWarningAndReturnsFalse()
+        {
+            // Setup
+            var isValid = true;
+            using (new MacroStabilityInwardsCalculatorFactoryConfig())
+            {
+                var calculator = (TestMacroStabilityInwardsCalculatorFactory)MacroStabilityInwardsCalculatorFactory.Instance;
+                calculator.LastCreatedWaternetCalculator.ReturnValidationWarning = true;
+                calculator.LastCreatedWaternetCalculator.ReturnValidationError = true;
+
+                // Call
+                void Call() => isValid = MacroStabilityInwardsCalculationService.Validate(testCalculation, AssessmentSectionTestHelper.GetTestAssessmentLevel());
+
+                // Assert
+                TestHelper.AssertLogMessages(Call, messages =>
+                {
+                    string[] msgs = messages.ToArray();
+                    Assert.AreEqual(8, msgs.Length);
+                    CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
+                    Assert.AreEqual("Validatie van waterspanning in extreme omstandigheden is gestart.", msgs[1]);
+                    Assert.AreEqual("Validation Error", msgs[2]);
+                    Assert.AreEqual("Validation Warning", msgs[3]);
+                    Assert.AreEqual("Validatie van waterspanning in dagelijkse omstandigheden is gestart.", msgs[4]);
+                    Assert.AreEqual("Validation Error", msgs[5]);
+                    Assert.AreEqual("Validation Warning", msgs[6]);
+                    CalculationServiceTestHelper.AssertValidationEndMessage(msgs[7]);
                 });
                 Assert.IsFalse(isValid);
             }
@@ -218,13 +311,12 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
                 calculatorFactory.LastCreatedUpliftVanCalculator.ThrowExceptionOnValidate = true;
 
                 // Call
-                Action call = () => MacroStabilityInwardsCalculationService.Validate(testCalculation,
-                                                                                     AssessmentSectionTestHelper.GetTestAssessmentLevel());
+                void Call() => MacroStabilityInwardsCalculationService.Validate(testCalculation, AssessmentSectionTestHelper.GetTestAssessmentLevel());
 
                 // Assert
-                TestHelper.AssertLogMessagesWithLevelAndLoggedExceptions(call, tuples =>
+                TestHelper.AssertLogMessagesWithLevelAndLoggedExceptions(Call, tuples =>
                 {
-                    Tuple<string, Level, Exception> tuple = tuples.ElementAt(1);
+                    Tuple<string, Level, Exception> tuple = tuples.ElementAt(3);
                     Assert.AreEqual("Macrostabiliteit binnenwaarts validatie mislukt.", tuple.Item1);
                     Assert.AreEqual(Level.Error, tuple.Item2);
                     Assert.IsInstanceOf<UpliftVanCalculatorException>(tuple.Item3);
@@ -236,10 +328,10 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
         public void Calculate_CalculationNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => MacroStabilityInwardsCalculationService.Calculate(null, RoundedDouble.NaN);
+            void Call() => MacroStabilityInwardsCalculationService.Calculate(null, RoundedDouble.NaN);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("calculation", exception.ParamName);
         }
 
@@ -251,23 +343,25 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
 
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
-                Action call = () =>
+                void Call()
                 {
                     // Precondition
                     Assert.IsTrue(MacroStabilityInwardsCalculationService.Validate(testCalculation, normativeAssessmentLevel));
 
                     // Call
                     MacroStabilityInwardsCalculationService.Calculate(testCalculation, normativeAssessmentLevel);
-                };
+                }
 
                 // Assert
-                TestHelper.AssertLogMessages(call, messages =>
+                TestHelper.AssertLogMessages(Call, messages =>
                 {
                     string[] msgs = messages.ToArray();
                     CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
-                    CalculationServiceTestHelper.AssertValidationEndMessage(msgs[1]);
-                    CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[2]);
-                    CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[3]);
+                    Assert.AreEqual("Validatie van waterspanning in extreme omstandigheden is gestart.", msgs[1]);
+                    Assert.AreEqual("Validatie van waterspanning in dagelijkse omstandigheden is gestart.", msgs[2]);
+                    CalculationServiceTestHelper.AssertValidationEndMessage(msgs[3]);
+                    CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[4]);
+                    CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[5]);
                 });
             }
         }
@@ -538,7 +632,7 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
                 var exceptionThrown = false;
 
                 // Call
-                Action call = () =>
+                void Call()
                 {
                     try
                     {
@@ -548,10 +642,10 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
                     {
                         exceptionThrown = true;
                     }
-                };
+                }
 
                 // Assert
-                TestHelper.AssertLogMessagesWithLevelAndLoggedExceptions(call, tuples =>
+                TestHelper.AssertLogMessagesWithLevelAndLoggedExceptions(Call, tuples =>
                 {
                     Tuple<string, Level, Exception>[] messages = tuples as Tuple<string, Level, Exception>[] ?? tuples.ToArray();
                     Assert.AreEqual(3, messages.Length);
@@ -583,21 +677,20 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
                 var exceptionThrown = false;
 
                 // Call
-                Action call = () =>
+                void Call()
                 {
                     try
                     {
-                        MacroStabilityInwardsCalculationService.Calculate(testCalculation,
-                                                                          AssessmentSectionTestHelper.GetTestAssessmentLevel());
+                        MacroStabilityInwardsCalculationService.Calculate(testCalculation, AssessmentSectionTestHelper.GetTestAssessmentLevel());
                     }
                     catch (UpliftVanCalculatorException)
                     {
                         exceptionThrown = true;
                     }
-                };
+                }
 
                 // Assert
-                TestHelper.AssertLogMessagesWithLevelAndLoggedExceptions(call, messages =>
+                TestHelper.AssertLogMessagesWithLevelAndLoggedExceptions(Call, messages =>
                 {
                     Tuple<string, Level, Exception>[] tupleArray = messages.ToArray();
                     string[] msgs = tupleArray.Select(tuple => tuple.Item1).ToArray();
@@ -632,11 +725,10 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
                 calculator.LastCreatedUpliftVanCalculator.ReturnCalculationWarning = true;
 
                 // Call
-                Action call = () => MacroStabilityInwardsCalculationService.Calculate(testCalculation,
-                                                                                      AssessmentSectionTestHelper.GetTestAssessmentLevel());
+                void Call() => MacroStabilityInwardsCalculationService.Calculate(testCalculation, AssessmentSectionTestHelper.GetTestAssessmentLevel());
 
                 // Assert
-                TestHelper.AssertLogMessagesWithLevelAndLoggedExceptions(call, messages =>
+                TestHelper.AssertLogMessagesWithLevelAndLoggedExceptions(Call, messages =>
                 {
                     Tuple<string, Level, Exception>[] tupleArray = messages.ToArray();
                     string[] msgs = tupleArray.Select(tuple => tuple.Item1).ToArray();
@@ -673,21 +765,20 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
                 var exceptionThrown = false;
 
                 // Call
-                Action call = () =>
+                void Call()
                 {
                     try
                     {
-                        MacroStabilityInwardsCalculationService.Calculate(testCalculation,
-                                                                          AssessmentSectionTestHelper.GetTestAssessmentLevel());
+                        MacroStabilityInwardsCalculationService.Calculate(testCalculation, AssessmentSectionTestHelper.GetTestAssessmentLevel());
                     }
                     catch (UpliftVanCalculatorException)
                     {
                         exceptionThrown = true;
                     }
-                };
+                }
 
                 // Assert
-                TestHelper.AssertLogMessagesWithLevelAndLoggedExceptions(call, messages =>
+                TestHelper.AssertLogMessagesWithLevelAndLoggedExceptions(Call, messages =>
                 {
                     Tuple<string, Level, Exception>[] tupleArray = messages.ToArray();
                     string[] msgs = tupleArray.Select(tuple => tuple.Item1).ToArray();
