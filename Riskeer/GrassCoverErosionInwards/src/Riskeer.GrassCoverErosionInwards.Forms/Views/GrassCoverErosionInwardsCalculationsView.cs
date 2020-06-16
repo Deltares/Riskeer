@@ -168,6 +168,8 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
 
         private void InitializeDataGridView()
         {
+            dataGridViewControl.CurrentRowChanged += DataGridViewOnCurrentRowChangedHandler;
+
             dataGridViewControl.AddTextBoxColumn(
                 nameof(GrassCoverErosionInwardsCalculationRow.Name),
                 Resources.GrassCoverErosionInwardsCalculation_Name_DisplayName);
@@ -358,10 +360,36 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
 
         #region Event handling
 
+        private void DataGridViewOnCurrentRowChangedHandler(object sender, EventArgs e)
+        {
+            OnSelectionChanged();
+        }
+
         private void ListBoxOnSelectedValueChanged(object sender, EventArgs e)
         {
             UpdateDataGridViewDataSource();
         }
+
+        // private void OnGenerateCalculationsButtonClick(object sender, EventArgs e)
+        // {
+        //     if (calculationGroup == null)
+        //     {
+        //         return;
+        //     }
+        //
+        //     var dialog = new PipingSurfaceLineSelectionDialog(Parent, pipingFailureMechanism.SurfaceLines);
+        //     dialog.ShowDialog();
+        //     IEnumerable<ICalculationBase> calculationsStructure = PipingCalculationConfigurationHelper.GenerateCalculationItemsStructure(
+        //         dialog.SelectedItems,
+        //         pipingFailureMechanism.StochasticSoilModels,
+        //         pipingFailureMechanism.GeneralInput);
+        //     foreach (ICalculationBase item in calculationsStructure)
+        //     {
+        //         calculationGroup.Children.Add(item);
+        //     }
+        //
+        //     calculationGroup.NotifyObservers();
+        // }
 
         private void OnGrassCoverErosionInwardsFailureMechanismUpdate()
         {
@@ -377,6 +405,11 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
                 listBox.Items.AddRange(grassCoverErosionInwardsFailureMechanism.Sections.Cast<object>().ToArray());
                 listBox.SelectedItem = grassCoverErosionInwardsFailureMechanism.Sections.First();
             }
+        }
+
+        private void OnSelectionChanged()
+        {
+            SelectionChanged?.Invoke(this, new EventArgs());
         }
 
         #endregion

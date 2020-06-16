@@ -347,11 +347,11 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
         {
             ConfigureHydraulicBoundaryDatabase(assessmentSection);
 
-            GrassCoverErosionInwardsFailureMechanism failureMechanism = ConfigureFailuremechanism();
+            GrassCoverErosionInwardsFailureMechanism failureMechanism = ConfigureFailureMechanism();
 
             return ShowFullyConfiguredGrassCoverErosionInwardsCalculationsView(assessmentSection,
                                                              failureMechanism,
-                                                             ConfigureCalculationGroup(assessmentSection, failureMechanism));
+                                                             ConfigureCalculationGroup());
         }
 
         private static void ConfigureHydraulicBoundaryDatabase(IAssessmentSection assessmentSection)
@@ -378,7 +378,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             return view;
         }
 
-        private static CalculationGroup ConfigureCalculationGroup(IAssessmentSection assessmentSection, GrassCoverErosionInwardsFailureMechanism failureMechanism)
+        private static CalculationGroup ConfigureCalculationGroup()
         {
             var random = new Random(12);
             return new CalculationGroup
@@ -454,7 +454,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             };
         }
 
-        private static GrassCoverErosionInwardsFailureMechanism ConfigureFailuremechanism()
+        private static GrassCoverErosionInwardsFailureMechanism ConfigureFailureMechanism()
         {
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 

@@ -392,7 +392,7 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             ConfigureHydraulicBoundaryDatabase(assessmentSection);
 
-            PipingFailureMechanism failureMechanism = ConfigureFailuremechanism();
+            PipingFailureMechanism failureMechanism = ConfigureFailureMechanism();
             using (var calculationsView = new PipingCalculationsView
             {
                 AssessmentSection = assessmentSection,
@@ -507,7 +507,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             mocks.ReplayAll();
 
             ConfigureHydraulicBoundaryDatabase(assessmentSection);
-            PipingFailureMechanism failureMechanism = ConfigureFailuremechanism();
+            PipingFailureMechanism failureMechanism = ConfigureFailureMechanism();
             CalculationGroup calculationGroup = ConfigureCalculationGroup(assessmentSection, failureMechanism);
 
             var newRoundedvalue = (RoundedDouble) newValue;
@@ -991,7 +991,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             mocks.ReplayAll();
 
             ConfigureHydraulicBoundaryDatabase(assessmentSection);
-            PipingFailureMechanism failureMechanism = ConfigureFailuremechanism();
+            PipingFailureMechanism failureMechanism = ConfigureFailureMechanism();
             CalculationGroup calculationGroup = ConfigureCalculationGroup(assessmentSection, failureMechanism);
 
             var value = (RoundedDouble) newValue;
@@ -1033,7 +1033,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             mocks.ReplayAll();
 
             ConfigureHydraulicBoundaryDatabase(assessmentSection);
-            PipingFailureMechanism failureMechanism = ConfigureFailuremechanism();
+            PipingFailureMechanism failureMechanism = ConfigureFailureMechanism();
             CalculationGroup calculationGroup = ConfigureCalculationGroup(assessmentSection, failureMechanism);
 
             using (PipingCalculationsView pipingCalculationsView = ShowFullyConfiguredPipingCalculationsView(
@@ -1170,7 +1170,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             assessmentSection.Stub(a => a.Detach(null)).IgnoreArguments();
             assessmentSection.Replay();
 
-            PipingFailureMechanism failureMechanism = ConfigureFailuremechanism();
+            PipingFailureMechanism failureMechanism = ConfigureFailureMechanism();
             CalculationGroup calculationGroup = ConfigureCalculationGroup(assessmentSection, failureMechanism);
 
             using (PipingCalculationsView pipingCalculationsView = ShowFullyConfiguredPipingCalculationsView(
@@ -1347,7 +1347,7 @@ namespace Riskeer.Piping.Forms.Test.Views
         {
             ConfigureHydraulicBoundaryDatabase(assessmentSection);
 
-            PipingFailureMechanism failureMechanism = ConfigureFailuremechanism();
+            PipingFailureMechanism failureMechanism = ConfigureFailureMechanism();
 
             return ShowFullyConfiguredPipingCalculationsView(assessmentSection,
                                                              failureMechanism,
@@ -1627,7 +1627,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             };
         }
 
-        private static PipingFailureMechanism ConfigureFailuremechanism()
+        private static PipingFailureMechanism ConfigureFailureMechanism()
         {
             var surfaceLine1 = new PipingSurfaceLine("Surface line 1")
             {
