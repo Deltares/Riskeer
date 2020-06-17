@@ -49,6 +49,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
     public partial class GrassCoverErosionInwardsCalculationsView : UserControl, ISelectionProvider, IView
     {
         private const int selectableHydraulicBoundaryLocationColumnIndex = 1;
+        private const int selectableDikeProfileColumnIndex = 2;
         private readonly Observer grassCoverErosionInwardsFailureMechanismObserver;
         private readonly Observer hydraulicBoundaryLocationsObserver;
         private readonly RecursiveObserver<CalculationGroup, GrassCoverErosionInwardsInput> grassCoverErosionInwardsInputObserver;
@@ -188,17 +189,17 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
                 nameof(DataGridViewComboBoxItemWrapper<DikeProfile>.This),
                 nameof(DataGridViewComboBoxItemWrapper<SelectableHydraulicBoundaryLocation>.DisplayName));
 
-            dataGridViewControl.AddCheckBoxColumn(nameof(GrassCoverErosionInwardsCalculationRow.UseDam), Resources.GrassCoverErosionInwardsCalculation_Use_Dam);
+            dataGridViewControl.AddCheckBoxColumn(nameof(GrassCoverErosionInwardsCalculationRow.UseBreakWater), Resources.GrassCoverErosionInwardsCalculation_Use_Dam);
 
             dataGridViewControl.AddComboBoxColumn<DataGridViewComboBoxItemWrapper<DamType>>(
-                nameof(GrassCoverErosionInwardsCalculationRow.DamType),
+                nameof(GrassCoverErosionInwardsCalculationRow.BreakWaterType),
                 Resources.GrassCoverErosionInwardsCalculation_Damtype,
                 null,
                 nameof(DataGridViewComboBoxItemWrapper<DikeProfile>.This),
                 nameof(DataGridViewComboBoxItemWrapper<DamType>.DisplayName));
 
             dataGridViewControl.AddTextBoxColumn(
-                nameof(GrassCoverErosionInwardsCalculationRow.Damheight),
+                nameof(GrassCoverErosionInwardsCalculationRow.BreakWaterHeight),
                 Resources.GrassCoverErosionInwardsCalculation_Damheight);
 
             dataGridViewControl.AddCheckBoxColumn(nameof(GrassCoverErosionInwardsCalculationRow.UseForeShoreGeometry), Resources.GrassCoverErosionInwardsCalculation_Use_ForeShoreGeometry);
@@ -335,13 +336,23 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
 
         private void PrefillComboBoxListItemsAtColumnLevel()
         {
-            var selectableHydraulicBoundaryLocationColumn = (DataGridViewComboBoxColumn) dataGridViewControl.GetColumnFromIndex(selectableHydraulicBoundaryLocationColumnIndex);
+            var selectableHydraulicBoundaryLocationColumn = (DataGridViewComboBoxColumn)dataGridViewControl.GetColumnFromIndex(selectableHydraulicBoundaryLocationColumnIndex);
 
+            // Need to prefill for all possible data in order to guarantee 'combo box' columns
+            // do not generate errors when their cell value is not present in the list of available
+            // items.
             using (new SuspendDataGridViewColumnResizes(selectableHydraulicBoundaryLocationColumn))
             {
                 SetItemsOnObjectCollection(selectableHydraulicBoundaryLocationColumn.Items,
                                            GetSelectableHydraulicBoundaryLocationsDataSource(GetSelectableHydraulicBoundaryLocationsFromFailureMechanism()).ToArray());
             }
+
+            // var selectableDikeProfileColumn = (DataGridViewComboBoxColumn)dataGridViewControl.GetColumnFromIndex(selectableDikeProfileColumnIndex);
+            //
+            // using (new SuspendDataGridViewColumnResizes(selectableDikeProfileColumn))
+            // {
+            //     SetItemsOnObjectCollection(selectableDikeProfileColumn.Items,  )
+            // }
         }
 
         private IEnumerable<SelectableHydraulicBoundaryLocation> GetSelectableHydraulicBoundaryLocationsFromFailureMechanism()

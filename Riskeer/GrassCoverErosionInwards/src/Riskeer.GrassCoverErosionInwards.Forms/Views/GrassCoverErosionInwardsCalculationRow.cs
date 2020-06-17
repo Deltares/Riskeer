@@ -110,11 +110,11 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
 
         public DataGridViewComboBoxItemWrapper<DikeProfile> DikeProfile { get; set; }
 
-        public bool UseDam { get; set; }
+        public bool UseBreakWater { get; set; }
 
-        public DataGridViewComboBoxItemWrapper<DamType> DamType { get; set; }
+        public DataGridViewComboBoxItemWrapper<BreakWaterType> BreakWaterType { get; set; }
 
-        public double Damheight { get; set; }
+        public double BreakWaterHeight { get; set; }
 
         public bool UseForeShoreGeometry { get; set; }
 
