@@ -53,7 +53,8 @@ namespace Core.Common.IO
                 ReadOnly = readOnly,
                 ForeignKeys = true,
                 Version = 3,
-                Pooling = false
+                Pooling = false,
+                JournalMode = SQLiteJournalModeEnum.Off
             }.ConnectionString;
         }
     }

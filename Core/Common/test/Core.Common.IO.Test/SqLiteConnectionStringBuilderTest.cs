@@ -37,10 +37,10 @@ namespace Core.Common.IO.Test
         public void BuildSqLiteConnectionString_InvalidPath_ThrowsArgumentNullException(string invalidPath)
         {
             // Call
-            TestDelegate test = () => SqLiteConnectionStringBuilder.BuildSqLiteConnectionString(invalidPath, true);
+            void Call() => SqLiteConnectionStringBuilder.BuildSqLiteConnectionString(invalidPath, true);
 
             // Assert
-            Assert.Throws<ArgumentNullException>(test);
+            Assert.Throws<ArgumentNullException>(Call);
         }
 
         [Test]
@@ -61,6 +61,7 @@ namespace Core.Common.IO.Test
             StringAssert.Contains("foreign keys=True", connectionString);
             StringAssert.Contains("version=3", connectionString);
             StringAssert.Contains("pooling=False", connectionString);
+            StringAssert.Contains("journal mode=Off", connectionString);
         }
 
         [Test]
@@ -83,6 +84,7 @@ namespace Core.Common.IO.Test
             StringAssert.Contains("foreign keys=True", connectionString);
             StringAssert.Contains("version=3", connectionString);
             StringAssert.Contains("pooling=False", connectionString);
+            StringAssert.Contains("journal mode=Off", connectionString);
         }
     }
 }
