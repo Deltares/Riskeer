@@ -317,13 +317,15 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
                 return;
             }
 
+            IEnumerable<Segment2D> lineSegments = Math2D.ConvertPointsToLineSegments(failureMechanismSection.Points);
             IEnumerable<GrassCoverErosionInwardsCalculationScenario> grassCoverErosionInwardsCalculationScenarios = calculationGroup
                                                                                                                     .GetCalculations()
-                                                                                                                    .OfType<GrassCoverErosionInwardsCalculationScenario>();
+                                                                                                                    .OfType<GrassCoverErosionInwardsCalculationScenario>()
+                                                                                                                    .Where(cs => cs.IsDikeProfileIntersectionWithReferenceLineInSection(lineSegments));
 
             PrefillComboBoxListItemsAtColumnLevel();
 
-            List<GrassCoverErosionInwardsCalculationRow> dataSource = grassCoverErosionInwardsCalculationScenarios.Select(pc => new GrassCoverErosionInwardsCalculationRow(pc, new ObservablePropertyChangeHandler(pc, pc.InputParameters))).ToList();
+            List<GrassCoverErosionInwardsCalculationRow> dataSource = grassCoverErosionInwardsCalculationScenarios.Select(cs => new GrassCoverErosionInwardsCalculationRow(cs, new ObservablePropertyChangeHandler(cs, cs.InputParameters))).ToList();
             dataGridViewControl.SetDataSource(dataSource);
             dataGridViewControl.ClearCurrentCell();
 
@@ -336,7 +338,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
 
         private void PrefillComboBoxListItemsAtColumnLevel()
         {
-            var selectableHydraulicBoundaryLocationColumn = (DataGridViewComboBoxColumn)dataGridViewControl.GetColumnFromIndex(selectableHydraulicBoundaryLocationColumnIndex);
+            var selectableHydraulicBoundaryLocationColumn = (DataGridViewComboBoxColumn) dataGridViewControl.GetColumnFromIndex(selectableHydraulicBoundaryLocationColumnIndex);
 
             // Need to prefill for all possible data in order to guarantee 'combo box' columns
             // do not generate errors when their cell value is not present in the list of available
@@ -347,12 +349,14 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
                                            GetSelectableHydraulicBoundaryLocationsDataSource(GetSelectableHydraulicBoundaryLocationsFromFailureMechanism()).ToArray());
             }
 
-            // var selectableDikeProfileColumn = (DataGridViewComboBoxColumn)dataGridViewControl.GetColumnFromIndex(selectableDikeProfileColumnIndex);
-            //
-            // using (new SuspendDataGridViewColumnResizes(selectableDikeProfileColumn))
-            // {
-            //     SetItemsOnObjectCollection(selectableDikeProfileColumn.Items,  )
-            // }
+            var selectableDikeProfileColumn = (DataGridViewComboBoxColumn) dataGridViewControl.GetColumnFromIndex(selectableDikeProfileColumnIndex);
+
+            using (new SuspendDataGridViewColumnResizes(selectableDikeProfileColumn))
+            {
+                SetItemsOnObjectCollection(selectableDikeProfileColumn.Items, grassCoverErosionInwardsFailureMechanism.DikeProfiles.ToArray());
+            }
+
+            // Enum van damtypes.
         }
 
         private IEnumerable<SelectableHydraulicBoundaryLocation> GetSelectableHydraulicBoundaryLocationsFromFailureMechanism()
