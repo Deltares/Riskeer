@@ -66,8 +66,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
 
             return new[]
             {
-                Create(soilProfile, MacroStabilityInwardsExportStageType.Daily, idFactory, registry),
-                Create(soilProfile, MacroStabilityInwardsExportStageType.Extreme, idFactory, registry)
+                Create(soilProfile, MacroStabilityInwardsExportStageType.Daily, idFactory, registry)
             };
         }
 

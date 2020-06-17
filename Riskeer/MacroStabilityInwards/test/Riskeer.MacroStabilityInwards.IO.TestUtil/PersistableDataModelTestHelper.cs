@@ -403,7 +403,7 @@ namespace Riskeer.MacroStabilityInwards.IO.TestUtil
         /// is not correct.</exception>
         public static void AssertStates(IMacroStabilityInwardsSoilProfileUnderSurfaceLine soilProfile, IEnumerable<PersistableState> states)
         {
-            Assert.AreEqual(2, states.Count());
+            Assert.AreEqual(1, states.Count());
 
             IEnumerable<MacroStabilityInwardsSoilLayer2D> layersWithPop = MacroStabilityInwardsSoilProfile2DLayersHelper.GetLayersRecursively(soilProfile.Layers)
                                                                                                                         .Where(l => l.Data.UsePop
@@ -471,8 +471,10 @@ namespace Riskeer.MacroStabilityInwards.IO.TestUtil
                 Assert.AreEqual(soilLayers.ElementAt(i).Id, stage.SoilLayersId);
                 Assert.AreEqual(waternets.ElementAt(i).Id, stage.WaternetId);
                 Assert.AreEqual(waternetCreatorSettings.ElementAt(i).Id, stage.WaternetCreatorSettingsId);
-                Assert.AreEqual(states.ElementAt(i).Id, stage.StateId);
             }
+
+            Assert.AreEqual(states.First().Id, stages.First().StateId);
+            Assert.IsNull(stages.Last().StateId);
         }
 
         /// <summary>

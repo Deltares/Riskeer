@@ -110,22 +110,8 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
             // Assert
             PersistableDataModelTestHelper.AssertStates(soilProfile, states);
 
-            AssertRegistry(registry, new[]
-            {
-                MacroStabilityInwardsExportStageType.Daily,
-                MacroStabilityInwardsExportStageType.Extreme
-            }, states);
-        }
-
-        private static void AssertRegistry(MacroStabilityInwardsExportRegistry registry, MacroStabilityInwardsExportStageType[] stages, IEnumerable<PersistableState> states)
-        {
-            Assert.AreEqual(stages.Length, registry.States.Count);
-
-            for (var i = 0; i < stages.Length; i++)
-            {
-                PersistableState state = states.ElementAt(i);
-                Assert.AreEqual(registry.States[stages[i]], state.Id);
-            }
+            PersistableState state = states.First();
+            Assert.AreEqual(registry.States[MacroStabilityInwardsExportStageType.Daily], state.Id);
         }
     }
 }
