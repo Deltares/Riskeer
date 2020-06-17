@@ -50,6 +50,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
     {
         private const int selectableHydraulicBoundaryLocationColumnIndex = 1;
         private const int selectableDikeProfileColumnIndex = 2;
+        private int selectableBreakWaterTypesColumnIndex = 4;
         private readonly Observer grassCoverErosionInwardsFailureMechanismObserver;
         private readonly Observer hydraulicBoundaryLocationsObserver;
         private readonly RecursiveObserver<CalculationGroup, GrassCoverErosionInwardsInput> grassCoverErosionInwardsInputObserver;
@@ -59,7 +60,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
         private CalculationGroup calculationGroup;
         private IAssessmentSection assessmentSection;
         private GrassCoverErosionInwardsFailureMechanism grassCoverErosionInwardsFailureMechanism;
-
+        
         public event EventHandler<EventArgs> SelectionChanged;
 
         /// <summary>
@@ -320,8 +321,8 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
             IEnumerable<Segment2D> lineSegments = Math2D.ConvertPointsToLineSegments(failureMechanismSection.Points);
             IEnumerable<GrassCoverErosionInwardsCalculationScenario> grassCoverErosionInwardsCalculationScenarios = calculationGroup
                                                                                                                     .GetCalculations()
-                                                                                                                    .OfType<GrassCoverErosionInwardsCalculationScenario>()
-                                                                                                                    .Where(cs => cs.IsDikeProfileIntersectionWithReferenceLineInSection(lineSegments));
+                                                                                                                    .OfType<GrassCoverErosionInwardsCalculationScenario>();
+                                                                                                                    //.Where(cs => cs.IsDikeProfileIntersectionWithReferenceLineInSection(lineSegments));
 
             PrefillComboBoxListItemsAtColumnLevel();
 
@@ -357,6 +358,18 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
             }
 
             // Enum van damtypes.
+            var selectableBreakWaterTypesColumn = (DataGridViewComboBoxColumn)dataGridViewControl.GetColumnFromIndex(selectableBreakWaterTypesColumnIndex);
+            var breakWaterTypes = new object[]
+            {
+                BreakWaterType.Wall,
+                BreakWaterType.Caisson,
+                BreakWaterType.Dam
+            };
+
+            using (new SuspendDataGridViewColumnResizes(selectableBreakWaterTypesColumn))
+            {
+                SetItemsOnObjectCollection(selectableDikeProfileColumn.Items, breakWaterTypes);
+            }
         }
 
         private IEnumerable<SelectableHydraulicBoundaryLocation> GetSelectableHydraulicBoundaryLocationsFromFailureMechanism()
