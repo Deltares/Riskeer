@@ -64,9 +64,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Inpu
             ZoneBoundaryRight = zoneBoundaryRight;
             SlipPlaneMinimumDepth = slipPlaneMinimumDepth;
             SlipPlaneMinimumLength = slipPlaneMinimumLength;
-            AllowLeftToRight = true;
-            AllowRightToLeft = false;
-            AllowSwapLeftRight = false;
         }
 
         /// <summary>
@@ -97,20 +94,5 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Inpu
         /// [m]
         /// </summary>
         public double SlipPlaneMinimumLength { get; }
-
-        /// <summary>
-        /// Gets whether the slip plane constraints are allowed from left to right.
-        /// </summary>
-        public bool AllowLeftToRight { get; }
-
-        /// <summary>
-        /// Gets whether the slip plane constraints are allowed from right to left.
-        /// </summary>
-        public bool AllowRightToLeft { get; }
-
-        /// <summary>
-        /// Gets whether the slip plane constraints are to be swapped.
-        /// </summary>
-        public bool AllowSwapLeftRight { get; }
     }
 }

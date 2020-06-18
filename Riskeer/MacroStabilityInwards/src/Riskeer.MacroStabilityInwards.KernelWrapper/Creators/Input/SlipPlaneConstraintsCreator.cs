@@ -50,10 +50,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
                 SlipPlaneMinDepth = input.SlipPlaneMinimumDepth,
                 SlipPlaneMinLength = input.SlipPlaneMinimumLength,
                 XLeftMin = input.ZoneBoundaryLeft,
-                XLeftMax = input.ZoneBoundaryRight,
-                AllowLeftToRight = input.AllowLeftToRight,
-                AllowRightToLeft = input.AllowRightToLeft,
-                AllowSwapLeftRight = input.AllowSwapLeftRight
+                XLeftMax = input.ZoneBoundaryRight
             };
         }
     }

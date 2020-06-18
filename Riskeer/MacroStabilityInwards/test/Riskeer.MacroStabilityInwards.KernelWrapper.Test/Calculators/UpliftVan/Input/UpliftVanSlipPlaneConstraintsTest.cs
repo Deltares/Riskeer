@@ -45,9 +45,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
             Assert.AreEqual(slipPlaneMinimumDepth, slipPlaneConstraints.SlipPlaneMinimumDepth);
             Assert.IsNaN(slipPlaneConstraints.ZoneBoundaryLeft);
             Assert.IsNaN(slipPlaneConstraints.ZoneBoundaryRight);
-            Assert.IsTrue(slipPlaneConstraints.AllowLeftToRight);
-            Assert.IsFalse(slipPlaneConstraints.AllowRightToLeft);
-            Assert.IsFalse(slipPlaneConstraints.AllowSwapLeftRight);
         }
 
         [Test]
@@ -70,9 +67,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
             Assert.AreEqual(zoneBoundaryRight, slipPlaneConstraints.ZoneBoundaryRight);
             Assert.AreEqual(slipPlaneMinimumDepth, slipPlaneConstraints.SlipPlaneMinimumDepth);
             Assert.AreEqual(slipPlaneMinimumLength, slipPlaneConstraints.SlipPlaneMinimumLength);
-            Assert.IsTrue(slipPlaneConstraints.AllowLeftToRight);
-            Assert.IsFalse(slipPlaneConstraints.AllowRightToLeft);
-            Assert.IsFalse(slipPlaneConstraints.AllowSwapLeftRight);
         }
     }
 }
