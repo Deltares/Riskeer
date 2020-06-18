@@ -538,10 +538,10 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
         }
 
         [Test]
-        public void Export_NestedCalculationGroupWithCalculationsWithoutOutput_FolderNotExportedAndReturnsTrue()
+        public void Export_NestedCalculationGroupWithCalculationsWithoutOutput_FolderNotExportedAndMessageLoggedAndReturnsTrue()
         {
             // Setup
-            string folderPath = TestHelper.GetScratchPadPath($"{nameof(MacroStabilityInwardsCalculationGroupExporterTest)}.{nameof(Export_NestedCalculationGroupWithCalculationsWithoutOutput_FolderNotExportedAndReturnsTrue)}");
+            string folderPath = TestHelper.GetScratchPadPath($"{nameof(MacroStabilityInwardsCalculationGroupExporterTest)}.{nameof(Export_NestedCalculationGroupWithCalculationsWithoutOutput_FolderNotExportedAndMessageLoggedAndReturnsTrue)}");
             Directory.CreateDirectory(folderPath);
 
             MacroStabilityInwardsCalculationScenario calculation1 = CreateCalculation("calculation1", false);
@@ -564,9 +564,14 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
                 using (new MacroStabilityInwardsCalculatorFactoryConfig())
                 {
                     // Call
-                    bool exportResult = exporter.Export();
+                    var exportResult = false;
+                    void Call() => exportResult = exporter.Export();
 
                     // Assert
+                    TestHelper.AssertLogMessagesWithLevelAreGenerated(Call, new[]
+                    {
+                        new Tuple<string, LogLevelConstant>($"Berekening '{calculation1.Name}' heeft geen uitvoer. Deze berekening wordt overgeslagen.", LogLevelConstant.Warn),
+                    });
                     Assert.IsTrue(exportResult);
                     Assert.IsFalse(Directory.Exists(Path.Combine(folderPath, nestedGroup1.Name)));
                 }
@@ -578,10 +583,10 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
         }
 
         [Test]
-        public void Export_NestedCalculationGroupWithGroupsWithCalculationsWithoutOutput_FolderNotExportedAndReturnsTrue()
+        public void Export_NestedCalculationGroupWithGroupsWithCalculationsWithoutOutput_FolderNotExportedAndMessageLoggedAndReturnsTrue()
         {
             // Setup
-            string folderPath = TestHelper.GetScratchPadPath($"{nameof(MacroStabilityInwardsCalculationGroupExporterTest)}.{nameof(Export_NestedCalculationGroupWithGroupsWithCalculationsWithoutOutput_FolderNotExportedAndReturnsTrue)}");
+            string folderPath = TestHelper.GetScratchPadPath($"{nameof(MacroStabilityInwardsCalculationGroupExporterTest)}.{nameof(Export_NestedCalculationGroupWithGroupsWithCalculationsWithoutOutput_FolderNotExportedAndMessageLoggedAndReturnsTrue)}");
             Directory.CreateDirectory(folderPath);
 
             MacroStabilityInwardsCalculationScenario calculation1 = CreateCalculation("calculation1", false);
@@ -611,10 +616,15 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
                 using (new MacroStabilityInwardsCalculatorFactoryConfig())
                 {
                     // Call
-                    bool exportResult = exporter.Export();
+                    var exportResult = false;
+                    void Call() => exportResult = exporter.Export();
 
                     // Assert
-                    Assert.IsTrue(exportResult);
+                    TestHelper.AssertLogMessagesWithLevelAreGenerated(Call, new[]
+                    {
+                        new Tuple<string, LogLevelConstant>($"Berekening '{calculation1.Name}' heeft geen uitvoer. Deze berekening wordt overgeslagen.", LogLevelConstant.Warn),
+                        new Tuple<string, LogLevelConstant>($"Berekening '{calculation2.Name}' heeft geen uitvoer. Deze berekening wordt overgeslagen.", LogLevelConstant.Warn),
+                    });
                     Assert.IsFalse(Directory.Exists(Path.Combine(folderPath, nestedGroup1.Name, nestedGroup2.Name)));
                     Assert.IsFalse(Directory.Exists(Path.Combine(folderPath, nestedGroup1.Name)));
                 }
@@ -659,9 +669,14 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
                 using (new MacroStabilityInwardsCalculatorFactoryConfig())
                 {
                     // Call
-                    bool exportResult = exporter.Export();
+                    var exportResult = false;
+                    void Call() => exportResult = exporter.Export();
 
                     // Assert
+                    TestHelper.AssertLogMessagesWithLevelAreGenerated(Call, new[]
+                    {
+                        new Tuple<string, LogLevelConstant>($"Berekening '{calculation1.Name}' heeft geen uitvoer. Deze berekening wordt overgeslagen.", LogLevelConstant.Warn),
+                    });
                     Assert.IsTrue(exportResult);
                     Assert.IsFalse(File.Exists(Path.Combine(folderPath, nestedGroup1.Name, nestedGroup2.Name, $"{calculation1.Name}.{fileExtension}")));
                     AssertCalculationExists(Path.Combine(folderPath, nestedGroup1.Name, nestedGroup2.Name, $"{calculation2.Name}.{fileExtension}"));

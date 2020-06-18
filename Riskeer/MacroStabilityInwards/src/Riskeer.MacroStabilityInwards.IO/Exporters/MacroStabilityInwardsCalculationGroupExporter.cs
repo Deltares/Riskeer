@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2019. All rights reserved.
+// Copyright (C) Stichting Deltares 2019. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -102,7 +102,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Exporters
 
         private bool ExportCalculationItemsRecursively(CalculationGroup groupToExport, string currentFolderPath)
         {
-            CreateDirectory(currentFolderPath);
+            CreateDirectoryWhenNeeded(groupToExport, currentFolderPath);
 
             var continueExport = true;
             var exportedGroups = new Dictionary<CalculationGroup, string>();
@@ -112,7 +112,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Exporters
             {
                 switch (calculationItem)
                 {
-                    case CalculationGroup nestedGroup when HasChildrenWithOutput(nestedGroup):
+                    case CalculationGroup nestedGroup when HasChildren(nestedGroup):
                         continueExport = ExportCalculationGroup(nestedGroup, currentFolderPath, exportedGroups);
                         break;
                     case MacroStabilityInwardsCalculation calculation when !calculation.HasOutput:
@@ -132,17 +132,16 @@ namespace Riskeer.MacroStabilityInwards.IO.Exporters
             return true;
         }
 
-        private static bool HasChildrenWithOutput(CalculationGroup nestedGroup)
+        private static bool HasChildren(CalculationGroup nestedGroup)
         {
-            MacroStabilityInwardsCalculation[] calculations = nestedGroup.GetCalculations()
-                                                                         .Cast<MacroStabilityInwardsCalculation>()
-                                                                         .ToArray();
-            return calculations.Any() && calculations.Any(calculation => calculation.HasOutput);
+            return nestedGroup.GetCalculations()
+                              .Cast<MacroStabilityInwardsCalculation>()
+                              .Any();
         }
 
-        private static void CreateDirectory(string currentFolderPath)
+        private static void CreateDirectoryWhenNeeded(CalculationGroup nestedGroup, string currentFolderPath)
         {
-            if (!Directory.Exists(currentFolderPath))
+            if (nestedGroup.HasOutput() && !Directory.Exists(currentFolderPath))
             {
                 Directory.CreateDirectory(currentFolderPath);
             }
