@@ -54,8 +54,7 @@ namespace Core.Common.IO
                 ForeignKeys = true,
                 Version = 3,
                 Pooling = false,
-                JournalMode = SQLiteJournalModeEnum.Off,
-                SyncMode = SynchronizationModes.Full
+                JournalMode = SQLiteJournalModeEnum.Off
             }.ConnectionString;
         }
     }
