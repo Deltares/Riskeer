@@ -120,6 +120,7 @@ namespace Core.Common.Gui
             }
 
             MainWindow = mainWindow;
+            ProjectStore = projectStore;
             FixedSettings = fixedSettings;
 
             isAlreadyRunningInstanceOfIGui = true;
@@ -147,6 +148,8 @@ namespace Core.Common.Gui
         }
 
         public IPropertyResolver PropertyResolver { get; private set; }
+
+        public IStoreProject ProjectStore { get; }
 
         #region Implementation: ISettingsOwner
 

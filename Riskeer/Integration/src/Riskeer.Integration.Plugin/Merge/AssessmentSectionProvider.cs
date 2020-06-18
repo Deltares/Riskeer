@@ -22,11 +22,11 @@
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using Core.Common.Base.Storage;
 using Core.Common.Gui.Forms.ProgressDialog;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Data.Merge;
 using Riskeer.Integration.Service.Merge;
-using Riskeer.Storage.Core;
 
 namespace Riskeer.Integration.Plugin.Merge
 {
@@ -36,21 +36,29 @@ namespace Riskeer.Integration.Plugin.Merge
     public class AssessmentSectionProvider : IAssessmentSectionProvider
     {
         private readonly IWin32Window viewParent;
+        private readonly IStoreProject projectStorage;
 
         /// <summary>
         /// Initializes a new instance of <see cref="AssessmentSectionProvider"/>.
         /// </summary>
         /// <param name="viewParent">The parent of the view.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="viewParent"/>
+        /// /// <param name="projectStorage">Class responsible for loading the project.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter
         /// is <c>null</c>.</exception>
-        public AssessmentSectionProvider(IWin32Window viewParent)
+        public AssessmentSectionProvider(IWin32Window viewParent, IStoreProject projectStorage)
         {
             if (viewParent == null)
             {
                 throw new ArgumentNullException(nameof(viewParent));
             }
 
+            if (projectStorage == null)
+            {
+                throw new ArgumentNullException(nameof(projectStorage));
+            }
+
             this.viewParent = viewParent;
+            this.projectStorage = projectStorage;
         }
 
         public IEnumerable<AssessmentSection> GetAssessmentSections(string filePath)
@@ -64,7 +72,7 @@ namespace Riskeer.Integration.Plugin.Merge
 
             ActivityProgressDialogRunner.Run(viewParent,
                                              LoadAssessmentSectionsActivityFactory.CreateLoadAssessmentSectionsActivity(
-                                                 assessmentSectionsOwner, new LoadAssessmentSectionService(new StorageSqLite()),
+                                                 assessmentSectionsOwner, new LoadAssessmentSectionService(projectStorage),
                                                  filePath));
 
             if (assessmentSectionsOwner.AssessmentSections == null)

@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Base.Storage;
 using Core.Common.Gui.Commands;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms.PropertyGridView;
@@ -41,6 +42,11 @@ namespace Core.Common.Gui
         /// instance for a given data object for the application to use.
         /// </summary>
         IPropertyResolver PropertyResolver { get; }
+
+        /// <summary>
+        /// Gets the object responsible for perform storage actions.
+        /// </summary>
+        IStoreProject ProjectStore { get; }
 
         /// <summary>
         /// Terminates the application.

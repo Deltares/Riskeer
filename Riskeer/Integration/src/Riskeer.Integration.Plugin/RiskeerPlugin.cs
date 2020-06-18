@@ -273,7 +273,7 @@ namespace Riskeer.Integration.Plugin
             assessmentSectionFromFileCommandHandler = new AssessmentSectionFromFileCommandHandler(Gui.MainWindow, Gui, Gui.DocumentViewController);
             hydraulicBoundaryLocationCalculationGuiService = new HydraulicBoundaryLocationCalculationGuiService(Gui.MainWindow);
             assessmentSectionMerger = new AssessmentSectionMerger(new AssessmentSectionMergeFilePathProvider(GetInquiryHelper()),
-                                                                  new AssessmentSectionProvider(Gui.MainWindow),
+                                                                  new AssessmentSectionProvider(Gui.MainWindow, Gui.ProjectStore),
                                                                   new AssessmentSectionMergeComparer(),
                                                                   new AssessmentSectionMergeDataProviderDialog(Gui.MainWindow),
                                                                   new AssessmentSectionMergeHandler(Gui.ViewCommands));

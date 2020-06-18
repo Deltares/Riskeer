@@ -24,12 +24,14 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Base.Storage;
 using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Plugin.Merge;
+using Riskeer.Storage.Core;
 
 namespace Riskeer.Integration.Plugin.Test.Merge
 {
@@ -44,10 +46,11 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             // Setup
             var mocks = new MockRepository();
             var viewParent = mocks.Stub<IWin32Window>();
+            var projectStorage = mocks.Stub<IStoreProject>();
             mocks.ReplayAll();
 
             // Call
-            var provider = new AssessmentSectionProvider(viewParent);
+            var provider = new AssessmentSectionProvider(viewParent, projectStorage);
 
             // Assert
             Assert.IsInstanceOf<IAssessmentSectionProvider>(provider);
@@ -57,12 +60,33 @@ namespace Riskeer.Integration.Plugin.Test.Merge
         [Test]
         public void Constructor_ViewParentNull_ThrowsArgumentNullException()
         {
+            // Setup
+            var mocks = new MockRepository();
+            var projectStorage = mocks.Stub<IStoreProject>();
+            mocks.ReplayAll();
+
             // Call
-            TestDelegate call = () => new AssessmentSectionProvider(null);
+            void Call() => new AssessmentSectionProvider(null, projectStorage);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("viewParent", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_ProjectStorageNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var viewParent = mocks.Stub<IWin32Window>();
+            mocks.ReplayAll();
+
+            // Call
+            void Call() => new AssessmentSectionProvider(viewParent, null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("projectStorage", exception.ParamName);
         }
 
         [Test]
@@ -71,15 +95,16 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             // Setup
             var mocks = new MockRepository();
             var viewParent = mocks.Stub<IWin32Window>();
+            var projectStorage = mocks.Stub<IStoreProject>();
             mocks.ReplayAll();
 
-            var provider = new AssessmentSectionProvider(viewParent);
+            var provider = new AssessmentSectionProvider(viewParent, projectStorage);
 
             // Call
-            TestDelegate call = () => provider.GetAssessmentSections(null);
+            void Call() => provider.GetAssessmentSections(null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("filePath", exception.ParamName);
             mocks.VerifyAll();
         }
@@ -90,9 +115,10 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             // Setup
             var mocks = new MockRepository();
             var viewParent = mocks.Stub<IWin32Window>();
+            var projectStorage = mocks.Stub<IStoreProject>();
             mocks.ReplayAll();
 
-            var provider = new AssessmentSectionProvider(viewParent);
+            var provider = new AssessmentSectionProvider(viewParent, projectStorage);
 
             DialogBoxHandler = (name, wnd) =>
             {
@@ -100,10 +126,10 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             };
 
             // Call
-            TestDelegate call = () => provider.GetAssessmentSections("filePath");
+            void Call() => provider.GetAssessmentSections("filePath");
 
             // Assert
-            Assert.Throws<AssessmentSectionProviderException>(call);
+            Assert.Throws<AssessmentSectionProviderException>(Call);
             mocks.VerifyAll();
         }
 
@@ -115,7 +141,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             var viewParent = mocks.Stub<IWin32Window>();
             mocks.ReplayAll();
 
-            var provider = new AssessmentSectionProvider(viewParent);
+            var provider = new AssessmentSectionProvider(viewParent, new StorageSqLite());
             string filePath = Path.Combine(testDataPath, "project.risk");
 
             DialogBoxHandler = (name, wnd) =>
