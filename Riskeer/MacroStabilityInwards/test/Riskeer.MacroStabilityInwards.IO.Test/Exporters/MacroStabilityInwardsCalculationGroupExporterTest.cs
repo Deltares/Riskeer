@@ -364,11 +364,13 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
             MacroStabilityInwardsCalculationScenario calculation1 = CreateCalculation("calculation1");
             MacroStabilityInwardsCalculationScenario calculation2 = CreateCalculation("calculation2");
             MacroStabilityInwardsCalculationScenario calculation3 = CreateCalculation("calculation1");
+            MacroStabilityInwardsCalculationScenario calculation4 = CreateCalculation("calculation1");
 
             var calculationGroup = new CalculationGroup();
             calculationGroup.Children.Add(calculation1);
             calculationGroup.Children.Add(calculation2);
             calculationGroup.Children.Add(calculation3);
+            calculationGroup.Children.Add(calculation4);
 
             var exporter = new MacroStabilityInwardsCalculationGroupExporter(calculationGroup, new PersistenceFactory(), folderPath, fileExtension, c => AssessmentSectionTestHelper.GetTestAssessmentLevel());
 
@@ -384,6 +386,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
                     AssertCalculationExists(Path.Combine(folderPath, $"{calculation1.Name}.{fileExtension}"));
                     AssertCalculationExists(Path.Combine(folderPath, $"{calculation2.Name}.{fileExtension}"));
                     AssertCalculationExists(Path.Combine(folderPath, $"{calculation3.Name} (1).{fileExtension}"));
+                    AssertCalculationExists(Path.Combine(folderPath, $"{calculation4.Name} (2).{fileExtension}"));
                 }
             }
             finally
@@ -402,6 +405,8 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
             MacroStabilityInwardsCalculationScenario calculation1 = CreateCalculation("calculation1");
             MacroStabilityInwardsCalculationScenario calculation2 = CreateCalculation("calculation2");
             MacroStabilityInwardsCalculationScenario calculation3 = CreateCalculation("calculation1");
+            MacroStabilityInwardsCalculationScenario calculation4 = CreateCalculation("calculation1");
+            MacroStabilityInwardsCalculationScenario calculation5 = CreateCalculation("calculation1");
 
             var rootGroup = new CalculationGroup
             {
@@ -415,11 +420,18 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
             {
                 Name = "group1"
             };
+            var nestedGroup3 = new CalculationGroup
+            {
+                Name = "group1"
+            };
             nestedGroup1.Children.Add(calculation1);
             nestedGroup1.Children.Add(calculation2);
             nestedGroup2.Children.Add(calculation3);
+            nestedGroup2.Children.Add(calculation4);
+            nestedGroup3.Children.Add(calculation5);
             rootGroup.Children.Add(nestedGroup1);
             rootGroup.Children.Add(nestedGroup2);
+            rootGroup.Children.Add(nestedGroup3);
 
             var exporter = new MacroStabilityInwardsCalculationGroupExporter(rootGroup, new PersistenceFactory(), folderPath, fileExtension, c => AssessmentSectionTestHelper.GetTestAssessmentLevel());
 
@@ -435,6 +447,8 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
                     AssertCalculationExists(Path.Combine(folderPath, nestedGroup1.Name, $"{calculation1.Name}.{fileExtension}"));
                     AssertCalculationExists(Path.Combine(folderPath, nestedGroup1.Name, $"{calculation2.Name}.{fileExtension}"));
                     AssertCalculationExists(Path.Combine(folderPath, $"{nestedGroup2.Name} (1)", $"{calculation3.Name}.{fileExtension}"));
+                    AssertCalculationExists(Path.Combine(folderPath, $"{nestedGroup2.Name} (1)", $"{calculation4.Name} (1).{fileExtension}"));
+                    AssertCalculationExists(Path.Combine(folderPath, $"{nestedGroup3.Name} (2)", $"{calculation5.Name}.{fileExtension}"));
                 }
             }
             finally

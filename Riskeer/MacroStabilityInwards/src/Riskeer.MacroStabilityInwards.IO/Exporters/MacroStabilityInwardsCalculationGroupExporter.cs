@@ -105,8 +105,8 @@ namespace Riskeer.MacroStabilityInwards.IO.Exporters
             CreateDirectory(currentFolderPath);
 
             var continueExport = true;
-            var exportedGroups = new List<CalculationGroup>();
-            var exportedCalculations = new List<MacroStabilityInwardsCalculation>();
+            var exportedGroups = new Dictionary<CalculationGroup, string>();
+            var exportedCalculations = new Dictionary<MacroStabilityInwardsCalculation, string>();
 
             foreach (ICalculationBase calculationItem in groupToExport.Children)
             {
@@ -148,9 +148,9 @@ namespace Riskeer.MacroStabilityInwards.IO.Exporters
             }
         }
 
-        private bool ExportCalculationGroup(CalculationGroup nestedGroup, string currentFolderPath, ICollection<CalculationGroup> exportedGroups)
+        private bool ExportCalculationGroup(CalculationGroup nestedGroup, string currentFolderPath, IDictionary<CalculationGroup, string> exportedGroups)
         {
-            string uniqueGroupName = NamingHelper.GetUniqueName(exportedGroups, nestedGroup.Name, group => group.Name);
+            string uniqueGroupName = NamingHelper.GetUniqueName(exportedGroups, nestedGroup.Name, group => group.Value);
 
             bool exportSucceeded = ExportCalculationItemsRecursively(nestedGroup, Path.Combine(currentFolderPath, uniqueGroupName));
             if (!exportSucceeded)
@@ -158,15 +158,17 @@ namespace Riskeer.MacroStabilityInwards.IO.Exporters
                 return false;
             }
 
-            exportedGroups.Add(nestedGroup);
+            exportedGroups.Add(nestedGroup, uniqueGroupName);
             return true;
         }
 
-        private bool ExportCalculation(MacroStabilityInwardsCalculation calculation, string currentFolderPath, ICollection<MacroStabilityInwardsCalculation> exportedCalculations)
+        private bool ExportCalculation(MacroStabilityInwardsCalculation calculation, string currentFolderPath, IDictionary<MacroStabilityInwardsCalculation, string> exportedCalculations)
         {
             log.InfoFormat(CoreCommonGuiResources.GuiExportHandler_ExportItemUsingDialog_Start_exporting_DataType_0_, calculation.Name);
 
-            string filePath = GetCalculationFilePath(calculation, currentFolderPath, exportedCalculations);
+            string uniqueName = NamingHelper.GetUniqueName(exportedCalculations, ((ICalculationBase)calculation).Name, c => c.Value);
+            string filePath = GetCalculationFilePath(currentFolderPath, uniqueName);
+
             var exporter = new MacroStabilityInwardsCalculationExporter(calculation, persistenceFactory, filePath, () => getNormativeAssessmentLevelFunc(calculation));
 
             bool exportSucceeded = exporter.Export();
@@ -177,14 +179,13 @@ namespace Riskeer.MacroStabilityInwards.IO.Exporters
             }
 
             log.InfoFormat(Resources.MacroStabilityInwardsCalculationGroupExporter_Export_Data_from_0_exported_to_file_1, calculation.Name, filePath);
-            exportedCalculations.Add(calculation);
+            exportedCalculations.Add(calculation, uniqueName);
             return true;
         }
 
-        private string GetCalculationFilePath(ICalculationBase calculation, string currentFolderPath, IEnumerable<MacroStabilityInwardsCalculation> exportedCalculations)
+        private string GetCalculationFilePath(string currentFolderPath, string fileName)
         {
-            string uniqueName = NamingHelper.GetUniqueName(exportedCalculations, calculation.Name, c => c.Name);
-            string fileNameWithExtension = $"{uniqueName}.{fileExtension}";
+            string fileNameWithExtension = $"{fileName}.{fileExtension}";
             return Path.Combine(currentFolderPath, fileNameWithExtension);
         }
     }
