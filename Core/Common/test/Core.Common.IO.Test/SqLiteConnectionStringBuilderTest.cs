@@ -62,6 +62,7 @@ namespace Core.Common.IO.Test
             StringAssert.Contains("version=3", connectionString);
             StringAssert.Contains("pooling=False", connectionString);
             StringAssert.Contains("journal mode=Off", connectionString);
+            StringAssert.Contains("synchronous=Full", connectionString);
         }
 
         [Test]
@@ -85,6 +86,7 @@ namespace Core.Common.IO.Test
             StringAssert.Contains("version=3", connectionString);
             StringAssert.Contains("pooling=False", connectionString);
             StringAssert.Contains("journal mode=Off", connectionString);
+            StringAssert.Contains("synchronous=Full", connectionString);
         }
     }
 }
