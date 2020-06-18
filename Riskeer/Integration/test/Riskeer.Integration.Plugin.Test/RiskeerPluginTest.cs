@@ -757,11 +757,13 @@ namespace Riskeer.Integration.Plugin.Test
             var documentViewController = mockRepository.StrictMock<IDocumentViewController>();
             var viewCommands = mockRepository.StrictMock<IViewCommands>();
             var gui = mockRepository.StrictMock<IGui>();
+            var storeProject = mockRepository.Stub<IStoreProject>();
             gui.Expect(g => g.MainWindow).Return(mainWindow).Repeat.AtLeastOnce();
             gui.Expect(g => g.DocumentViewController).Return(documentViewController);
             gui.Expect(g => g.ProjectOpened += null).IgnoreArguments();
             gui.Expect(g => g.ProjectOpened -= null).IgnoreArguments();
             gui.Expect(g => g.ViewCommands).Return(viewCommands);
+            gui.Expect(g => g.ProjectStore).Return(storeProject);
             mockRepository.ReplayAll();
 
             using (var plugin = new RiskeerPlugin())

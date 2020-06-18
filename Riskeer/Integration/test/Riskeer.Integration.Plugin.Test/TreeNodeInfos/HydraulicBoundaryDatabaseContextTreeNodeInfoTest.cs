@@ -27,6 +27,7 @@ using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
 using Core.Common.Base;
+using Core.Common.Base.Storage;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.Commands;
@@ -557,6 +558,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
                 gui.Stub(g => g.DocumentViewController).Return(mocks.Stub<IDocumentViewController>());
                 gui.Stub(g => g.ViewCommands).Return(mocks.Stub<IViewCommands>());
+                gui.Stub(g => g.ProjectStore).Return(mocks.Stub<IStoreProject>());
 
                 var calculatorFactory = mocks.Stub<IHydraRingCalculatorFactory>();
                 var designWaterLevelCalculator = new TestDesignWaterLevelCalculator

@@ -114,6 +114,8 @@ namespace Core.Common.Gui.Test
                 Assert.AreEqual(mainWindow, gui.MainWindow);
 
                 Assert.AreSame(ViewPropertyEditor.ViewCommands, gui.ViewCommands);
+
+                Assert.AreSame(projectStore, gui.ProjectStore);
             }
 
             mocks.VerifyAll();

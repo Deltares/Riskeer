@@ -26,6 +26,7 @@ using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
 using Core.Common.Base;
+using Core.Common.Base.Storage;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.Commands;
@@ -515,6 +516,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 gui.Stub(g => g.MainWindow).Return(mockRepository.Stub<IMainWindow>());
                 gui.Stub(g => g.DocumentViewController).Return(mockRepository.Stub<IDocumentViewController>());
                 gui.Stub(g => g.ViewCommands).Return(mockRepository.Stub<IViewCommands>());
+                gui.Stub(g => g.ProjectStore).Return(mockRepository.Stub<IStoreProject>());
 
                 var waveHeightCalculator = new TestWaveHeightCalculator();
                 var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
@@ -600,6 +602,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 gui.Stub(g => g.MainWindow).Return(mockRepository.Stub<IMainWindow>());
                 gui.Stub(g => g.DocumentViewController).Return(mockRepository.Stub<IDocumentViewController>());
                 gui.Stub(g => g.ViewCommands).Return(mockRepository.Stub<IViewCommands>());
+                gui.Stub(g => g.ProjectStore).Return(mockRepository.Stub<IStoreProject>());
 
                 var waveHeightCalculator = new TestWaveHeightCalculator();
                 var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
@@ -684,6 +687,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 gui.Stub(g => g.MainWindow).Return(mockRepository.Stub<IMainWindow>());
                 gui.Stub(g => g.DocumentViewController).Return(mockRepository.Stub<IDocumentViewController>());
                 gui.Stub(g => g.ViewCommands).Return(mockRepository.Stub<IViewCommands>());
+                gui.Stub(g => g.ProjectStore).Return(mockRepository.Stub<IStoreProject>());
 
                 var waveHeightCalculator = new TestWaveHeightCalculator();
                 var calculatorFactory = mockRepository.Stub<IHydraRingCalculatorFactory>();
@@ -764,6 +768,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 gui.Stub(g => g.MainWindow).Return(mockRepository.Stub<IMainWindow>());
                 gui.Stub(g => g.DocumentViewController).Return(mockRepository.Stub<IDocumentViewController>());
                 gui.Stub(g => g.ViewCommands).Return(mockRepository.Stub<IViewCommands>());
+                gui.Stub(g => g.ProjectStore).Return(mockRepository.Stub<IStoreProject>());
 
                 var calculator = new TestWaveHeightCalculator
                 {

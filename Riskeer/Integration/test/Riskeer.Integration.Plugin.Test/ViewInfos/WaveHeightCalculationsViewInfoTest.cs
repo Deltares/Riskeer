@@ -26,6 +26,7 @@ using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
 using Core.Common.Base;
+using Core.Common.Base.Storage;
 using Core.Common.Gui;
 using Core.Common.Gui.Commands;
 using Core.Common.Gui.Forms.MainWindow;
@@ -285,6 +286,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             gui.Stub(g => g.ViewCommands).Return(mocks.Stub<IViewCommands>());
             gui.Stub(g => g.MainWindow).Return(mocks.Stub<IMainWindow>());
             gui.Stub(g => g.DocumentViewController).Return(mocks.Stub<IDocumentViewController>());
+            gui.Stub(g => g.ProjectStore).Return(mocks.Stub<IStoreProject>());
 
             mocks.ReplayAll();
 
