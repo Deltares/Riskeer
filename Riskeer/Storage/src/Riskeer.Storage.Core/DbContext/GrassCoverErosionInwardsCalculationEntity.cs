@@ -39,7 +39,6 @@ namespace Riskeer.Storage.Core.DbContext
         public GrassCoverErosionInwardsCalculationEntity()
         {
             GrassCoverErosionInwardsOutputEntities = new HashSet<GrassCoverErosionInwardsOutputEntity>();
-            GrassCoverErosionInwardsSectionResultEntities = new HashSet<GrassCoverErosionInwardsSectionResultEntity>();
         }
 
         public long GrassCoverErosionInwardsCalculationEntityId { get; set; }
@@ -62,6 +61,8 @@ namespace Riskeer.Storage.Core.DbContext
         public byte ShouldDikeHeightIllustrationPointsBeCalculated { get; set; }
         public byte ShouldOvertoppingRateIllustrationPointsBeCalculated { get; set; }
         public byte ShouldOvertoppingOutputIllustrationPointsBeCalculated { get; set; }
+        public byte RelevantForScenario { get; set; }
+        public double? ScenarioContribution { get; set; }
 
         public virtual CalculationGroupEntity CalculationGroupEntity { get; set; }
         public virtual DikeProfileEntity DikeProfileEntity { get; set; }
@@ -69,8 +70,5 @@ namespace Riskeer.Storage.Core.DbContext
 
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<GrassCoverErosionInwardsOutputEntity> GrassCoverErosionInwardsOutputEntities { get; set; }
-
-        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<GrassCoverErosionInwardsSectionResultEntity> GrassCoverErosionInwardsSectionResultEntities { get; set; }
     }
 }

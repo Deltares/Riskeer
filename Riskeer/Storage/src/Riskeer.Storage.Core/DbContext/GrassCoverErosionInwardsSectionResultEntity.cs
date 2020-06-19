@@ -34,7 +34,6 @@ namespace Riskeer.Storage.Core.DbContext
     {
         public long GrassCoverErosionInwardsSectionResultEntityId { get; set; }
         public long FailureMechanismSectionEntityId { get; set; }
-        public long? GrassCoverErosionInwardsCalculationEntityId { get; set; }
         public byte SimpleAssessmentResult { get; set; }
         public byte DetailedAssessmentResult { get; set; }
         public byte TailorMadeAssessmentResult { get; set; }
@@ -43,6 +42,5 @@ namespace Riskeer.Storage.Core.DbContext
         public double? ManualAssemblyProbability { get; set; }
 
         public virtual FailureMechanismSectionEntity FailureMechanismSectionEntity { get; set; }
-        public virtual GrassCoverErosionInwardsCalculationEntity GrassCoverErosionInwardsCalculationEntity { get; set; }
     }
 }
