@@ -36,20 +36,13 @@ namespace Riskeer.Storage.Core.Create.GrassCoverErosionInwards
         /// based on the information of the <see cref="GrassCoverErosionInwardsFailureMechanismSectionResult"/>.
         /// </summary>
         /// <param name="result">The result to create a database entity for.</param>
-        /// <param name="registry">The object keeping track of create operations.</param>
         /// <returns>A new <see cref="GrassCoverErosionInwardsSectionResultEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        internal static GrassCoverErosionInwardsSectionResultEntity Create(this GrassCoverErosionInwardsFailureMechanismSectionResult result,
-                                                                           PersistenceRegistry registry)
+        internal static GrassCoverErosionInwardsSectionResultEntity Create(this GrassCoverErosionInwardsFailureMechanismSectionResult result)
         {
             if (result == null)
             {
                 throw new ArgumentNullException(nameof(result));
-            }
-
-            if (registry == null)
-            {
-                throw new ArgumentNullException(nameof(registry));
             }
 
             var sectionResultEntity = new GrassCoverErosionInwardsSectionResultEntity

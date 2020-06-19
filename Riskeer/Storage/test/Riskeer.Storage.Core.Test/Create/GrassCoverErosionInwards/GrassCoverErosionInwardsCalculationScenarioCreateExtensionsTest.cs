@@ -35,7 +35,7 @@ using Riskeer.Storage.Core.DbContext;
 namespace Riskeer.Storage.Core.Test.Create.GrassCoverErosionInwards
 {
     [TestFixture]
-    public class GrassCoverErosionInwardsCalculationCreateExtensionsTest
+    public class GrassCoverErosionInwardsCalculationScenarioCreateExtensionsTest
     {
         [Test]
         public void Create_PersistenceRegistryNull_ThrowArgumentNullException()
@@ -67,6 +67,8 @@ namespace Riskeer.Storage.Core.Test.Create.GrassCoverErosionInwards
                 {
                     Body = comment
                 },
+                IsRelevant = random.NextBoolean(),
+                Contribution = random.NextRoundedDouble(),
                 InputParameters =
                 {
                     DikeProfile = null,
@@ -102,6 +104,9 @@ namespace Riskeer.Storage.Core.Test.Create.GrassCoverErosionInwards
             // Assert
             Assert.AreEqual(name, entity.Name);
             Assert.AreEqual(comment, entity.Comments);
+            Assert.AreEqual(Convert.ToByte(calculation.IsRelevant), entity.RelevantForScenario);
+            Assert.AreEqual(calculation.Contribution, entity.ScenarioContribution);
+
             Assert.AreEqual(order, entity.Order);
 
             Assert.IsNull(entity.DikeProfileEntity);

@@ -45,11 +45,11 @@ namespace Riskeer.Storage.Core.Test.Read.GrassCoverErosionInwards
             var entity = new GrassCoverErosionInwardsCalculationEntity();
 
             // Call
-            TestDelegate call = () => entity.Read(null);
+            void Call() => entity.Read(null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("collector", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("collector", exception.ParamName);
         }
 
         [Test]
@@ -78,17 +78,21 @@ namespace Riskeer.Storage.Core.Test.Read.GrassCoverErosionInwards
                 OvertoppingRateCalculationType = Convert.ToByte(overtoppingRateCalculationType),
                 ShouldOvertoppingOutputIllustrationPointsBeCalculated = Convert.ToByte(random.NextBoolean()),
                 ShouldDikeHeightIllustrationPointsBeCalculated = Convert.ToByte(random.NextBoolean()),
-                ShouldOvertoppingRateIllustrationPointsBeCalculated = Convert.ToByte(random.NextBoolean())
+                ShouldOvertoppingRateIllustrationPointsBeCalculated = Convert.ToByte(random.NextBoolean()),
+                RelevantForScenario = Convert.ToByte(random.NextBoolean()),
+                ScenarioContribution = 4.5
             };
 
             var collector = new ReadConversionCollector();
 
             // Call
-            GrassCoverErosionInwardsCalculation calculation = entity.Read(collector);
+            GrassCoverErosionInwardsCalculationScenario calculation = entity.Read(collector);
 
             // Assert
             Assert.AreEqual(entity.Name, calculation.Name);
             Assert.AreEqual(entity.Comments, calculation.Comments.Body);
+            AssertBoolean(entity.RelevantForScenario, calculation.IsRelevant);
+            Assert.AreEqual(entity.ScenarioContribution, calculation.Contribution);
 
             GrassCoverErosionInwardsInput input = calculation.InputParameters;
             Assert.AreEqual(entity.Orientation, input.Orientation.Value);

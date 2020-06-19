@@ -25,7 +25,6 @@ using NUnit.Framework;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Primitives;
 using Riskeer.GrassCoverErosionInwards.Data;
-using Riskeer.Storage.Core.Create;
 using Riskeer.Storage.Core.Create.GrassCoverErosionInwards;
 using Riskeer.Storage.Core.DbContext;
 
@@ -38,25 +37,11 @@ namespace Riskeer.Storage.Core.Test.Create.GrassCoverErosionInwards
         public void Create_FailureMechanismSectionResultNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => ((GrassCoverErosionInwardsFailureMechanismSectionResult) null).Create(new PersistenceRegistry());
+            void Call() => ((GrassCoverErosionInwardsFailureMechanismSectionResult) null).Create();
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("result", exception.ParamName);
-        }
-
-        [Test]
-        public void Create_PersistencyRegistryNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
-
-            // Call
-            TestDelegate test = () => sectionResult.Create(null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("registry", exception.ParamName);
         }
 
         [Test]
@@ -82,7 +67,7 @@ namespace Riskeer.Storage.Core.Test.Create.GrassCoverErosionInwards
             };
 
             // Call
-            GrassCoverErosionInwardsSectionResultEntity entity = sectionResult.Create(new PersistenceRegistry());
+            GrassCoverErosionInwardsSectionResultEntity entity = sectionResult.Create();
 
             // Assert
             Assert.AreEqual(Convert.ToByte(simpleAssessmentResult), entity.SimpleAssessmentResult);
@@ -91,8 +76,6 @@ namespace Riskeer.Storage.Core.Test.Create.GrassCoverErosionInwards
             Assert.AreEqual(tailorMadeAssessmentProbability, entity.TailorMadeAssessmentProbability);
             Assert.AreEqual(Convert.ToByte(useManualAssembly), entity.UseManualAssembly);
             Assert.AreEqual(manualAssemblyProbability, entity.ManualAssemblyProbability);
-
-            Assert.IsNull(entity.GrassCoverErosionInwardsCalculationEntity);
         }
 
         [Test]
@@ -106,7 +89,7 @@ namespace Riskeer.Storage.Core.Test.Create.GrassCoverErosionInwards
             };
 
             // Call
-            GrassCoverErosionInwardsSectionResultEntity entity = sectionResult.Create(new PersistenceRegistry());
+            GrassCoverErosionInwardsSectionResultEntity entity = sectionResult.Create();
 
             // Assert
             Assert.IsNull(entity.TailorMadeAssessmentProbability);

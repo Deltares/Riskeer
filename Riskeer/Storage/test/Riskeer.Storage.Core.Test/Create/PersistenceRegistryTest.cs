@@ -33,7 +33,6 @@ using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.DuneErosion.Data;
 using Riskeer.DuneErosion.Data.TestUtil;
-using Riskeer.GrassCoverErosionInwards.Data;
 using Riskeer.HeightStructures.Data;
 using Riskeer.HeightStructures.Data.TestUtil;
 using Riskeer.MacroStabilityInwards.Data.SoilProfile;
@@ -337,26 +336,7 @@ namespace Riskeer.Storage.Core.Test.Create
         }
 
         #endregion
-
-        #region GrassCoverErosionInwards
-
-        [TestFixture]
-        private class GrassCoverErosionInwardsCalculationRegistryTest : RegistryTest<
-            GrassCoverErosionInwardsCalculation, GrassCoverErosionInwardsCalculationEntity>
-        {
-            public GrassCoverErosionInwardsCalculationRegistryTest() : base(
-                (r, e, m) => r.Register(e, m),
-                (r, m) => r.Contains(m),
-                (r, m) => r.Get(m)) {}
-
-            protected override GrassCoverErosionInwardsCalculation CreateDataModel()
-            {
-                return new GrassCoverErosionInwardsCalculation();
-            }
-        }
-
-        #endregion
-
+        
         #region Piping
 
         [TestFixture]

@@ -217,7 +217,7 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
             using (var gui = new GuiCore(new MainWindow(), projectStore, projectMigrator, new RiskeerProjectFactory(), new GuiCoreSettings()))
             {
                 // When
-                Action action = () => gui.Run(projectFilePath);
+                void Action() => gui.Run(projectFilePath);
 
                 // Then
                 Tuple<string, LogLevelConstant>[] expectedMessages =
@@ -225,7 +225,7 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
                     Tuple.Create("Openen van project is gestart.", LogLevelConstant.Info),
                     Tuple.Create("Openen van project is gelukt.", LogLevelConstant.Info)
                 };
-                TestHelper.AssertLogMessagesWithLevelAreGenerated(action, expectedMessages, 3);
+                TestHelper.AssertLogMessagesWithLevelAreGenerated(Action, expectedMessages, 3);
                 Assert.AreEqual(projectFilePath, gui.ProjectFilePath);
                 Assert.NotNull(gui.Project);
                 Assert.AreEqual(expectedProjectName, gui.Project.Name);
@@ -510,62 +510,52 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
 
                 Assert.AreEqual(expectedChild.GetType(), actualChild.GetType());
 
-                var expectedChildGroup = expectedChild as CalculationGroup;
-                if (expectedChildGroup != null)
+                if (expectedChild is CalculationGroup expectedChildGroup)
                 {
                     AssertCalculationGroup(expectedChildGroup, (CalculationGroup) actualChild);
                 }
 
-                var expectedPipingCalculation = expectedChild as PipingCalculationScenario;
-                if (expectedPipingCalculation != null)
+                if (expectedChild is PipingCalculationScenario expectedPipingCalculation)
                 {
                     AssertPipingCalculationScenario(expectedPipingCalculation, (PipingCalculationScenario) actualChild);
                 }
 
-                var expectedMacroStabilityInwardsCalculation = expectedChild as MacroStabilityInwardsCalculationScenario;
-                if (expectedMacroStabilityInwardsCalculation != null)
+                if (expectedChild is MacroStabilityInwardsCalculationScenario expectedMacroStabilityInwardsCalculation)
                 {
                     AssertMacroStabilityInwardsCalculationScenario(expectedMacroStabilityInwardsCalculation, (MacroStabilityInwardsCalculationScenario) actualChild);
                 }
 
-                var expectedGrassCoverErosionInwardsCalculation = expectedChild as GrassCoverErosionInwardsCalculation;
-                if (expectedGrassCoverErosionInwardsCalculation != null)
+                if (expectedChild is GrassCoverErosionInwardsCalculationScenario expectedGrassCoverErosionInwardsCalculation)
                 {
-                    AssertGrassCoverErosionInwardsCalculation(expectedGrassCoverErosionInwardsCalculation, (GrassCoverErosionInwardsCalculation) actualChild);
+                    AssertGrassCoverErosionInwardsCalculationScenario(expectedGrassCoverErosionInwardsCalculation, (GrassCoverErosionInwardsCalculationScenario) actualChild);
                 }
 
-                var expectedGrassCoverErosionOutwardsCalculation = expectedChild as GrassCoverErosionOutwardsWaveConditionsCalculation;
-                if (expectedGrassCoverErosionOutwardsCalculation != null)
+                if (expectedChild is GrassCoverErosionOutwardsWaveConditionsCalculation expectedGrassCoverErosionOutwardsCalculation)
                 {
                     AssertGrassCoverErosionOutwardsWaveConditionsCalculation(expectedGrassCoverErosionOutwardsCalculation, (GrassCoverErosionOutwardsWaveConditionsCalculation) actualChild);
                 }
 
-                var expectedHeightStructuresCalculation = expectedChild as StructuresCalculation<HeightStructuresInput>;
-                if (expectedHeightStructuresCalculation != null)
+                if (expectedChild is StructuresCalculation<HeightStructuresInput> expectedHeightStructuresCalculation)
                 {
                     AssertStructuresCalculation(expectedHeightStructuresCalculation, (StructuresCalculation<HeightStructuresInput>) actualChild);
                 }
 
-                var expectedClosingStructuresCalculation = expectedChild as StructuresCalculation<ClosingStructuresInput>;
-                if (expectedClosingStructuresCalculation != null)
+                if (expectedChild is StructuresCalculation<ClosingStructuresInput> expectedClosingStructuresCalculation)
                 {
                     AssertStructuresCalculation(expectedClosingStructuresCalculation, (StructuresCalculation<ClosingStructuresInput>) actualChild);
                 }
 
-                var expectedStabilityPointStructuresCalculation = expectedChild as StructuresCalculation<StabilityPointStructuresInput>;
-                if (expectedStabilityPointStructuresCalculation != null)
+                if (expectedChild is StructuresCalculation<StabilityPointStructuresInput> expectedStabilityPointStructuresCalculation)
                 {
                     AssertStructuresCalculation(expectedStabilityPointStructuresCalculation, (StructuresCalculation<StabilityPointStructuresInput>) actualChild);
                 }
 
-                var expectedStabilityStoneCoverWaveConditionsCalculation = expectedChild as StabilityStoneCoverWaveConditionsCalculation;
-                if (expectedStabilityStoneCoverWaveConditionsCalculation != null)
+                if (expectedChild is StabilityStoneCoverWaveConditionsCalculation expectedStabilityStoneCoverWaveConditionsCalculation)
                 {
                     AssertStabilityStoneCoverWaveConditionsCalculation(expectedStabilityStoneCoverWaveConditionsCalculation, (StabilityStoneCoverWaveConditionsCalculation) actualChild);
                 }
 
-                var expectedWaveImpactAsphaltCoverWaveConditionsCalculation = expectedChild as WaveImpactAsphaltCoverWaveConditionsCalculation;
-                if (expectedWaveImpactAsphaltCoverWaveConditionsCalculation != null)
+                if (expectedChild is WaveImpactAsphaltCoverWaveConditionsCalculation expectedWaveImpactAsphaltCoverWaveConditionsCalculation)
                 {
                     AssertWaveImpactAsphaltCoverWaveConditionsCalculation(expectedWaveImpactAsphaltCoverWaveConditionsCalculation, (WaveImpactAsphaltCoverWaveConditionsCalculation) actualChild);
                 }
@@ -1448,16 +1438,14 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
         {
             Assert.AreEqual(expectedProfile.Probability, actualProfile.Probability);
 
-            var expectedSoilProfile1D = expectedProfile.SoilProfile as MacroStabilityInwardsSoilProfile1D;
-            if (expectedSoilProfile1D != null)
+            if (expectedProfile.SoilProfile is MacroStabilityInwardsSoilProfile1D expectedSoilProfile1D)
             {
                 var actualSoilProfile1D = actualProfile.SoilProfile as MacroStabilityInwardsSoilProfile1D;
                 Assert.IsNotNull(actualSoilProfile1D);
                 AssertMacroStabilityInwardsSoilProfile(expectedSoilProfile1D, actualSoilProfile1D);
             }
 
-            var expectedSoilProfile2D = expectedProfile.SoilProfile as MacroStabilityInwardsSoilProfile2D;
-            if (expectedSoilProfile2D != null)
+            if (expectedProfile.SoilProfile is MacroStabilityInwardsSoilProfile2D expectedSoilProfile2D)
             {
                 var actualSoilProfile2D = actualProfile.SoilProfile as MacroStabilityInwardsSoilProfile2D;
                 Assert.IsNotNull(actualSoilProfile2D);
@@ -1584,7 +1572,7 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
             Assert.AreEqual(expectedInput.MinimumLevelPhreaticLineAtDikeTopRiver, actualInput.MinimumLevelPhreaticLineAtDikeTopRiver);
             Assert.AreEqual(expectedInput.MinimumLevelPhreaticLineAtDikeTopPolder, actualInput.MinimumLevelPhreaticLineAtDikeTopPolder);
 
-            AsssertMacroStabilityInwardsLocationInputBase(expectedInput.LocationInputDaily, actualInput.LocationInputDaily);
+            AssertMacroStabilityInwardsLocationInputBase(expectedInput.LocationInputDaily, actualInput.LocationInputDaily);
             AssertMacroStabilityInwardsLocationInput(expectedInput.LocationInputExtreme, actualInput.LocationInputExtreme);
 
             Assert.AreEqual(expectedInput.AdjustPhreaticLine3And4ForUplift, actualInput.AdjustPhreaticLine3And4ForUplift);
@@ -1619,21 +1607,21 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
             Assert.AreEqual(expectedGrid.NumberOfVerticalPoints, actualGrid.NumberOfVerticalPoints);
         }
 
-        private static void AsssertMacroStabilityInwardsLocationInputBase(IMacroStabilityInwardsLocationInput expectedLocationInput,
-                                                                          IMacroStabilityInwardsLocationInput actuaLocationInput)
+        private static void AssertMacroStabilityInwardsLocationInputBase(IMacroStabilityInwardsLocationInput expectedLocationInput,
+                                                                         IMacroStabilityInwardsLocationInput actualLocationInput)
         {
-            Assert.AreEqual(expectedLocationInput.WaterLevelPolder, actuaLocationInput.WaterLevelPolder);
-            Assert.AreEqual(expectedLocationInput.UseDefaultOffsets, actuaLocationInput.UseDefaultOffsets);
-            Assert.AreEqual(expectedLocationInput.PhreaticLineOffsetBelowDikeTopAtRiver, actuaLocationInput.PhreaticLineOffsetBelowDikeTopAtRiver);
-            Assert.AreEqual(expectedLocationInput.PhreaticLineOffsetBelowDikeTopAtPolder, actuaLocationInput.PhreaticLineOffsetBelowDikeTopAtPolder);
-            Assert.AreEqual(expectedLocationInput.PhreaticLineOffsetBelowShoulderBaseInside, actuaLocationInput.PhreaticLineOffsetBelowShoulderBaseInside);
-            Assert.AreEqual(expectedLocationInput.PhreaticLineOffsetBelowDikeToeAtPolder, actuaLocationInput.PhreaticLineOffsetBelowDikeToeAtPolder);
+            Assert.AreEqual(expectedLocationInput.WaterLevelPolder, actualLocationInput.WaterLevelPolder);
+            Assert.AreEqual(expectedLocationInput.UseDefaultOffsets, actualLocationInput.UseDefaultOffsets);
+            Assert.AreEqual(expectedLocationInput.PhreaticLineOffsetBelowDikeTopAtRiver, actualLocationInput.PhreaticLineOffsetBelowDikeTopAtRiver);
+            Assert.AreEqual(expectedLocationInput.PhreaticLineOffsetBelowDikeTopAtPolder, actualLocationInput.PhreaticLineOffsetBelowDikeTopAtPolder);
+            Assert.AreEqual(expectedLocationInput.PhreaticLineOffsetBelowShoulderBaseInside, actualLocationInput.PhreaticLineOffsetBelowShoulderBaseInside);
+            Assert.AreEqual(expectedLocationInput.PhreaticLineOffsetBelowDikeToeAtPolder, actualLocationInput.PhreaticLineOffsetBelowDikeToeAtPolder);
         }
 
         private static void AssertMacroStabilityInwardsLocationInput(IMacroStabilityInwardsLocationInputExtreme expectedLocationInput,
                                                                      IMacroStabilityInwardsLocationInputExtreme actualLocationInput)
         {
-            AsssertMacroStabilityInwardsLocationInputBase(expectedLocationInput, actualLocationInput);
+            AssertMacroStabilityInwardsLocationInputBase(expectedLocationInput, actualLocationInput);
             Assert.AreEqual(expectedLocationInput.PenetrationLength, actualLocationInput.PenetrationLength);
         }
 
@@ -1757,9 +1745,11 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
                                      });
         }
 
-        private static void AssertGrassCoverErosionInwardsCalculation(GrassCoverErosionInwardsCalculation expectedCalculation,
-                                                                      GrassCoverErosionInwardsCalculation actualCalculation)
+        private static void AssertGrassCoverErosionInwardsCalculationScenario(GrassCoverErosionInwardsCalculationScenario expectedCalculation,
+                                                                              GrassCoverErosionInwardsCalculationScenario actualCalculation)
         {
+            Assert.AreEqual(expectedCalculation.IsRelevant, actualCalculation.IsRelevant);
+            Assert.AreEqual(expectedCalculation.Contribution, actualCalculation.Contribution);
             Assert.AreEqual(expectedCalculation.Name, actualCalculation.Name);
             AssertComments(expectedCalculation.Comments, actualCalculation.Comments);
 
@@ -2232,8 +2222,7 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
         private static void AssertIllustrationPointNode(IllustrationPointNode expected,
                                                         IllustrationPointNode actual)
         {
-            var expectedFaultTreeIllustrationPoint = expected.Data as FaultTreeIllustrationPoint;
-            if (expectedFaultTreeIllustrationPoint != null)
+            if (expected.Data is FaultTreeIllustrationPoint expectedFaultTreeIllustrationPoint)
             {
                 var actualFaultTreeIllustrationPoint = actual.Data as FaultTreeIllustrationPoint;
                 Assert.IsNotNull(actualFaultTreeIllustrationPoint);
@@ -2247,8 +2236,7 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
                 return;
             }
 
-            var expectedSubMechanismIllustrationPoint = expected.Data as SubMechanismIllustrationPoint;
-            if (expectedSubMechanismIllustrationPoint != null)
+            if (expected.Data is SubMechanismIllustrationPoint expectedSubMechanismIllustrationPoint)
             {
                 var actualSubMechanismIllustrationPoint = actual.Data as SubMechanismIllustrationPoint;
                 Assert.IsNotNull(actualSubMechanismIllustrationPoint);

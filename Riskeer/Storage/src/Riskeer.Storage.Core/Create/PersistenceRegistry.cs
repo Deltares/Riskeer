@@ -29,7 +29,6 @@ using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.Structures;
 using Riskeer.DuneErosion.Data;
-using Riskeer.GrassCoverErosionInwards.Data;
 using Riskeer.HeightStructures.Data;
 using Riskeer.MacroStabilityInwards.Data.SoilProfile;
 using Riskeer.MacroStabilityInwards.Primitives;
@@ -56,9 +55,6 @@ namespace Riskeer.Storage.Core.Create
 
         private readonly Dictionary<ForeshoreProfileEntity, ForeshoreProfile> foreshoreProfiles =
             CreateDictionary<ForeshoreProfileEntity, ForeshoreProfile>();
-
-        private readonly Dictionary<GrassCoverErosionInwardsCalculationEntity, GrassCoverErosionInwardsCalculation> grassCoverErosionInwardsCalculations =
-            CreateDictionary<GrassCoverErosionInwardsCalculationEntity, GrassCoverErosionInwardsCalculation>();
 
         private readonly Dictionary<StochasticSoilModelEntity, PipingStochasticSoilModel> pipingStochasticSoilModels =
             CreateDictionary<StochasticSoilModelEntity, PipingStochasticSoilModel>();
@@ -152,20 +148,6 @@ namespace Riskeer.Storage.Core.Create
         }
 
         #region Register Methods
-
-        /// <summary>
-        /// Registers a create operation for <paramref name="model"/> and the <paramref name="entity"/>
-        /// that was constructed with the information.
-        /// </summary>
-        /// <param name="entity">The <see cref="GrassCoverErosionInwardsCalculationEntity"/>
-        /// to be registered.</param>
-        /// <param name="model">The <see cref="GrassCoverErosionInwardsCalculation"/> to
-        /// be registered.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any of the input parameters is <c>null</c>.</exception>
-        internal void Register(GrassCoverErosionInwardsCalculationEntity entity, GrassCoverErosionInwardsCalculation model)
-        {
-            Register(grassCoverErosionInwardsCalculations, entity, model);
-        }
 
         /// <summary>
         /// Registers a create operation for <paramref name="model"/> and the <paramref name="entity"/>
@@ -585,17 +567,6 @@ namespace Riskeer.Storage.Core.Create
         /// <summary>
         /// Checks whether a create operations has been registered for the given <paramref name="model"/>.
         /// </summary>
-        /// <param name="model">The <see cref="GrassCoverErosionInwardsCalculation"/> to check for.</param>
-        /// <returns><c>true</c> if the <see cref="model"/> was registered before, <c>false</c> otherwise.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="model"/> is <c>null</c>.</exception>
-        internal bool Contains(GrassCoverErosionInwardsCalculation model)
-        {
-            return ContainsValue(grassCoverErosionInwardsCalculations, model);
-        }
-
-        /// <summary>
-        /// Checks whether a create operations has been registered for the given <paramref name="model"/>.
-        /// </summary>
         /// <param name="model">The <see cref="ClosingStructure"/> to check for.</param>
         /// <returns><c>true</c> if the <see cref="model"/> was registered before, <c>false</c> otherwise.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="model"/> is <c>null</c>.</exception>
@@ -888,23 +859,6 @@ namespace Riskeer.Storage.Core.Create
         internal DikeProfileEntity Get(DikeProfile model)
         {
             return Get(dikeProfiles, model);
-        }
-
-        /// <summary>
-        /// Obtains the <see cref="GrassCoverErosionInwardsCalculationEntity"/> which was
-        /// registered for the given <paramref name="model"/>.
-        /// </summary>
-        /// <param name="model">The <see cref="GrassCoverErosionInwardsCalculation"/> for
-        /// which a read operation has been registered.</param>
-        /// <returns>The constructed <see cref="GrassCoverErosionInwardsCalculationEntity"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="model"/> is <c>null</c>.</exception>
-        /// <exception cref="InvalidOperationException">Thrown when no create operation 
-        /// has been registered for <paramref name="model"/>.</exception>
-        /// <remarks>Use <see cref="Contains(GrassCoverErosionInwardsCalculation)"/> to find out
-        /// whether a create operation has been registered for <paramref name="model"/>.</remarks>
-        internal GrassCoverErosionInwardsCalculationEntity Get(GrassCoverErosionInwardsCalculation model)
-        {
-            return Get(grassCoverErosionInwardsCalculations, model);
         }
 
         /// <summary>

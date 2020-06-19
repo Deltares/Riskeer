@@ -76,7 +76,7 @@ namespace Riskeer.Storage.Core.Create.GrassCoverErosionInwards
         {
             foreach (GrassCoverErosionInwardsFailureMechanismSectionResult failureMechanismSectionResult in sectionResults)
             {
-                GrassCoverErosionInwardsSectionResultEntity sectionResultEntity = failureMechanismSectionResult.Create(registry);
+                GrassCoverErosionInwardsSectionResultEntity sectionResultEntity = failureMechanismSectionResult.Create();
                 FailureMechanismSectionEntity section = registry.Get(failureMechanismSectionResult.Section);
                 section.GrassCoverErosionInwardsSectionResultEntities.Add(sectionResultEntity);
             }
