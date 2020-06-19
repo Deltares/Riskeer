@@ -34,12 +34,94 @@ INSERT INTO GeneralResultFaultTreeIllustrationPointEntity SELECT * FROM [SOURCEP
 INSERT INTO GeneralResultFaultTreeIllustrationPointStochastEntity SELECT * FROM [SOURCEPROJECT].GeneralResultFaultTreeIllustrationPointStochastEntity;
 INSERT INTO GeneralResultSubMechanismIllustrationPointEntity SELECT * FROM [SOURCEPROJECT].GeneralResultSubMechanismIllustrationPointEntity;
 INSERT INTO GeneralResultSubMechanismIllustrationPointStochastEntity SELECT * FROM [SOURCEPROJECT].GeneralResultSubMechanismIllustrationPointStochastEntity;
-INSERT INTO GrassCoverErosionInwardsCalculationEntity SELECT * FROM [SOURCEPROJECT].GrassCoverErosionInwardsCalculationEntity;
+INSERT INTO GrassCoverErosionInwardsCalculationEntity(
+	[GrassCoverErosionInwardsCalculationEntityId],
+	[CalculationGroupEntityId],
+	[HydraulicLocationEntityId],
+	[DikeProfileEntityId],
+	[Order],
+	[Name],
+	[Comments],
+	[Orientation],
+	[CriticalFlowRateMean],
+	[CriticalFlowRateStandardDeviation],
+	[UseForeshore],
+	[DikeHeightCalculationType],
+	[DikeHeight],
+	[UseBreakWater],
+	[BreakWaterType],
+	[BreakWaterHeight],
+	[OvertoppingRateCalculationType],
+	[ShouldDikeHeightIllustrationPointsBeCalculated],
+	[ShouldOvertoppingRateIllustrationPointsBeCalculated],
+	[ShouldOvertoppingOutputIllustrationPointsBeCalculated],
+	[RelevantForScenario],
+	[ScenarioContribution])
+SELECT 
+	[GrassCoverErosionInwardsCalculationEntityId],
+	[CalculationGroupEntityId],
+	[HydraulicLocationEntityId],
+	[DikeProfileEntityId],
+	[Order],
+	[Name],
+	[Comments],
+	[Orientation],
+	[CriticalFlowRateMean],
+	[CriticalFlowRateStandardDeviation],
+	[UseForeshore],
+	[DikeHeightCalculationType],
+	[DikeHeight],
+	[UseBreakWater],
+	[BreakWaterType],
+	[BreakWaterHeight],
+	[OvertoppingRateCalculationType],
+	[ShouldDikeHeightIllustrationPointsBeCalculated],
+	[ShouldOvertoppingRateIllustrationPointsBeCalculated],
+	[ShouldOvertoppingOutputIllustrationPointsBeCalculated],
+	CASE
+		WHEN IsLinkedToSectionResult IS NOT NULL
+			THEN 1
+		ELSE 0
+	END,
+	CASE
+		WHEN IsLinkedToSectionResult IS NOT NULL
+			THEN 1
+		ELSE 0
+	END
+FROM [SOURCEPROJECT].GrassCoverErosionInwardsCalculationEntity
+LEFT JOIN(
+	SELECT 
+		GrassCoverErosionInwardsCalculationEntityId,
+		CASE
+			WHEN GrassCoverErosionInwardsSectionResultEntityId IS NOT NULL
+				THEN 1
+			ELSE 0
+		END AS IsLinkedToSectionResult
+	FROM [SOURCEPROJECT].GrassCoverErosionInwardsSectionResultEntity)
+USING(GrassCoverErosionInwardsCalculationEntityId);
 INSERT INTO GrassCoverErosionInwardsDikeHeightOutputEntity SELECT * FROM [SOURCEPROJECT].GrassCoverErosionInwardsDikeHeightOutputEntity;
 INSERT INTO GrassCoverErosionInwardsFailureMechanismMetaEntity SELECT * FROM [SOURCEPROJECT].GrassCoverErosionInwardsFailureMechanismMetaEntity;
 INSERT INTO GrassCoverErosionInwardsOutputEntity SELECT * FROM [SOURCEPROJECT].GrassCoverErosionInwardsOutputEntity;
 INSERT INTO GrassCoverErosionInwardsOvertoppingRateOutputEntity SELECT * FROM [SOURCEPROJECT].GrassCoverErosionInwardsOvertoppingRateOutputEntity;
-INSERT INTO GrassCoverErosionInwardsSectionResultEntity SELECT * FROM [SOURCEPROJECT].GrassCoverErosionInwardsSectionResultEntity;
+INSERT INTO GrassCoverErosionInwardsSectionResultEntity (
+	[GrassCoverErosionInwardsSectionResultEntityId],
+	[FailureMechanismSectionEntityId],
+	[SimpleAssessmentResult],
+	[DetailedAssessmentResult],
+	[TailorMadeAssessmentResult],
+	[TailorMadeAssessmentProbability],
+	[UseManualAssembly],
+	[ManualAssemblyProbability])
+SELECT 
+	[GrassCoverErosionInwardsSectionResultEntityId],
+	[FailureMechanismSectionEntityId],
+	[SimpleAssessmentResult],
+	[DetailedAssessmentResult],
+	[TailorMadeAssessmentResult],
+	[TailorMadeAssessmentProbability],
+	[UseManualAssembly],
+	[ManualAssemblyProbability]
+FROM [SOURCEPROJECT].GrassCoverErosionInwardsSectionResultEntity;
 INSERT INTO GrassCoverErosionOutwardsFailureMechanismMetaEntity SELECT * FROM [SOURCEPROJECT].GrassCoverErosionOutwardsFailureMechanismMetaEntity;
 INSERT INTO GrassCoverErosionOutwardsSectionResultEntity SELECT * FROM [SOURCEPROJECT].GrassCoverErosionOutwardsSectionResultEntity;
 INSERT INTO GrassCoverErosionOutwardsWaveConditionsCalculationEntity SELECT * FROM [SOURCEPROJECT].GrassCoverErosionOutwardsWaveConditionsCalculationEntity;

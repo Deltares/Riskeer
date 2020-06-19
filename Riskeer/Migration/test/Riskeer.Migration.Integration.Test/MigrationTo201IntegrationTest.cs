@@ -33,15 +33,15 @@ namespace Riskeer.Migration.Integration.Test
         private const string newVersion = "20.1";
 
         [Test]
-        public void Given181Project_WhenUpgradedTo191_ThenProjectAsExpected()
+        public void Given191Project_WhenUpgradedTo201_ThenProjectAsExpected()
         {
             // Given
             string sourceFilePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Migration.Core,
                                                                "MigrationTestProject191.risk");
             var fromVersionedFile = new ProjectVersionedFile(sourceFilePath);
 
-            string targetFilePath = TestHelper.GetScratchPadPath(nameof(Given181Project_WhenUpgradedTo191_ThenProjectAsExpected));
-            string logFilePath = TestHelper.GetScratchPadPath(string.Concat(nameof(Given181Project_WhenUpgradedTo191_ThenProjectAsExpected), ".log"));
+            string targetFilePath = TestHelper.GetScratchPadPath(nameof(Given191Project_WhenUpgradedTo201_ThenProjectAsExpected));
+            string logFilePath = TestHelper.GetScratchPadPath(string.Concat(nameof(Given191Project_WhenUpgradedTo201_ThenProjectAsExpected), ".log"));
             var migrator = new ProjectFileMigrator
             {
                 LogPath = logFilePath
@@ -60,10 +60,109 @@ namespace Riskeer.Migration.Integration.Test
 
                     AssertVersions(reader);
                     AssertDatabase(reader);
+
+                    AssertGrassCoverErosionInwardsCalculation(reader, sourceFilePath);
+                    AssertGrassCoverErosionInwardsSectionResult(reader, sourceFilePath);
                 }
 
                 AssertLogDatabase(logFilePath);
             }
+        }
+
+        private static void AssertGrassCoverErosionInwardsCalculation(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            string validateCalculationLinkedToSectionResult =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT COUNT() = " +
+                "(" +
+                "SELECT COUNT() " +
+                "FROM SOURCEPROJECT.GrassCoverErosionInwardsCalculationEntity " +
+                "JOIN SOURCEPROJECT.GrassCoverErosionInwardsSectionResultEntity USING(GrassCoverErosionInwardsCalculationEntityId) " +
+                ") " +
+                "FROM GrassCoverErosionInwardsCalculationEntity NEW " +
+                "JOIN SOURCEPROJECT.GrassCoverErosionInwardsCalculationEntity OLD USING(GrassCoverErosionInwardsCalculationEntityId) " +
+                "WHERE NEW.[CalculationGroupEntityId] = OLD.[CalculationGroupEntityId] " +
+                "AND NEW.[HydraulicLocationEntityId] IS OLD.[HydraulicLocationEntityId] " +
+                "AND NEW.[DikeProfileEntityId] IS OLD.[DikeProfileEntityId]" +
+                "AND NEW.\"Order\" = OLD.\"Order\" " +
+                "AND NEW.[Name] IS OLD.[Name] " +
+                "AND NEW.[Comments] IS OLD.[Comments] " +
+                "AND NEW.[Orientation] IS OLD.[Orientation] " +
+                "AND NEW.[CriticalFlowRateMean] IS OLD.[CriticalFlowRateMean] " +
+                "AND NEW.[CriticalFlowRateStandardDeviation] IS OLD.[CriticalFlowRateStandardDeviation] " +
+                "AND NEW.[UseForeshore] = OLD.[UseForeshore] " +
+                "AND NEW.[DikeHeightCalculationType] = OLD.[DikeHeightCalculationType] " +
+                "AND NEW.[DikeHeight] IS OLD.[DikeHeight] " +
+                "AND NEW.[UseBreakWater] = OLD.[UseBreakWater] " +
+                "AND NEW.[BreakWaterType] IS OLD.[BreakWaterType] " +
+                "AND NEW.[BreakWaterHeight] IS OLD.[BreakWaterHeight] " +
+                "AND NEW.[OvertoppingRateCalculationType] = OLD.[OvertoppingRateCalculationType] " +
+                "AND NEW.[ShouldDikeHeightIllustrationPointsBeCalculated] = OLD.[ShouldDikeHeightIllustrationPointsBeCalculated] " +
+                "AND NEW.[ShouldOvertoppingRateIllustrationPointsBeCalculated] = OLD.[ShouldOvertoppingRateIllustrationPointsBeCalculated] " +
+                "AND NEW.[ShouldOvertoppingOutputIllustrationPointsBeCalculated] = OLD.[ShouldOvertoppingOutputIllustrationPointsBeCalculated] " +
+                "AND NEW.[RelevantForScenario] = 1 " +
+                "AND NEW.[ScenarioContribution] = 1; " +
+                "DETACH SOURCEPROJECT;";
+            reader.AssertReturnedDataIsValid(validateCalculationLinkedToSectionResult);
+
+            string validateCalculationNotLinkedToSectionResult =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT COUNT() = " +
+                "(" +
+                "SELECT COUNT() " +
+                "FROM SOURCEPROJECT.GrassCoverErosionInwardsCalculationEntity " +
+                "LEFT JOIN SOURCEPROJECT.GrassCoverErosionInwardsSectionResultEntity " +
+                "USING(GrassCoverErosionInwardsCalculationEntityId) " +
+                "WHERE GrassCoverErosionInwardsSectionResultEntityId IS NULL" +
+                ") " +
+                "FROM GrassCoverErosionInwardsCalculationEntity NEW " +
+                "JOIN SOURCEPROJECT.GrassCoverErosionInwardsCalculationEntity OLD USING(GrassCoverErosionInwardsCalculationEntityId) " +
+                "WHERE NEW.[CalculationGroupEntityId] = OLD.[CalculationGroupEntityId] " +
+                "AND NEW.[HydraulicLocationEntityId] IS OLD.[HydraulicLocationEntityId] " +
+                "AND NEW.[DikeProfileEntityId] IS OLD.[DikeProfileEntityId]" +
+                "AND NEW.\"Order\" = OLD.\"Order\" " +
+                "AND NEW.[Name] IS OLD.[Name] " +
+                "AND NEW.[Comments] IS OLD.[Comments] " +
+                "AND NEW.[Orientation] IS OLD.[Orientation] " +
+                "AND NEW.[CriticalFlowRateMean] IS OLD.[CriticalFlowRateMean] " +
+                "AND NEW.[CriticalFlowRateStandardDeviation] IS OLD.[CriticalFlowRateStandardDeviation] " +
+                "AND NEW.[UseForeshore] = OLD.[UseForeshore] " +
+                "AND NEW.[DikeHeightCalculationType] = OLD.[DikeHeightCalculationType] " +
+                "AND NEW.[DikeHeight] IS OLD.[DikeHeight] " +
+                "AND NEW.[UseBreakWater] = OLD.[UseBreakWater] " +
+                "AND NEW.[BreakWaterType] IS OLD.[BreakWaterType] " +
+                "AND NEW.[BreakWaterHeight] IS OLD.[BreakWaterHeight] " +
+                "AND NEW.[OvertoppingRateCalculationType] = OLD.[OvertoppingRateCalculationType] " +
+                "AND NEW.[ShouldDikeHeightIllustrationPointsBeCalculated] = OLD.[ShouldDikeHeightIllustrationPointsBeCalculated] " +
+                "AND NEW.[ShouldOvertoppingRateIllustrationPointsBeCalculated] = OLD.[ShouldOvertoppingRateIllustrationPointsBeCalculated] " +
+                "AND NEW.[ShouldOvertoppingOutputIllustrationPointsBeCalculated] = OLD.[ShouldOvertoppingOutputIllustrationPointsBeCalculated] " +
+                "AND NEW.[RelevantForScenario] = 0 " +
+                "AND NEW.[ScenarioContribution] = 0; " +
+                "DETACH SOURCEPROJECT;";
+            reader.AssertReturnedDataIsValid(validateCalculationNotLinkedToSectionResult);
+
+        }
+
+        private static void AssertGrassCoverErosionInwardsSectionResult(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            string validateSectionResults =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT COUNT() = " +
+                "(" +
+                "SELECT COUNT() " +
+                "FROM SOURCEPROJECT.GrassCoverErosionInwardsSectionResultEntity" +
+                ") " +
+                "FROM GrassCoverErosionInwardsSectionResultEntity NEW " +
+                "JOIN SOURCEPROJECT.GrassCoverErosionInwardsSectionResultEntity OLD USING(GrassCoverErosionInwardsSectionResultEntityId) " +
+                "WHERE NEW.[FailureMechanismSectionEntityId] = OLD.[FailureMechanismSectionEntityId] " +
+                "AND NEW.[SimpleAssessmentResult] = OLD.[SimpleAssessmentResult] " +
+                "AND NEW.[DetailedAssessmentResult] = OLD.[DetailedAssessmentResult] " +
+                "AND NEW.[TailorMadeAssessmentResult] = OLD.[TailorMadeAssessmentResult] " +
+                "AND NEW.[TailorMadeAssessmentProbability] IS OLD.[TailorMadeAssessmentProbability] " +
+                "AND NEW.[UseManualAssembly] = OLD.[UseManualAssembly] " +
+                "AND NEW.[ManualAssemblyProbability] IS OLD.[ManualAssemblyProbability]; " +
+                "DETACH SOURCEPROJECT;";
+            reader.AssertReturnedDataIsValid(validateSectionResults);
         }
 
         private static void AssertTablesContentMigrated(MigratedDatabaseReader reader, string sourceFilePath)
@@ -96,12 +195,10 @@ namespace Riskeer.Migration.Integration.Test
                 "GeneralResultFaultTreeIllustrationPointStochastEntity",
                 "GeneralResultSubMechanismIllustrationPointEntity",
                 "GeneralResultSubMechanismIllustrationPointStochastEntity",
-                "GrassCoverErosionInwardsCalculationEntity",
                 "GrassCoverErosionInwardsDikeHeightOutputEntity",
                 "GrassCoverErosionInwardsFailureMechanismMetaEntity",
                 "GrassCoverErosionInwardsOutputEntity",
                 "GrassCoverErosionInwardsOvertoppingRateOutputEntity",
-                "GrassCoverErosionInwardsSectionResultEntity",
                 "GrassCoverErosionOutwardsFailureMechanismMetaEntity",
                 "GrassCoverErosionOutwardsSectionResultEntity",
                 "GrassCoverErosionOutwardsWaveConditionsCalculationEntity",
