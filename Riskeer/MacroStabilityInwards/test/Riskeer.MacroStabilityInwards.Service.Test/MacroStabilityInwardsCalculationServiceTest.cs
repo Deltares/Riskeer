@@ -218,7 +218,7 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
             var isValid = true;
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
-                var calculator = (TestMacroStabilityInwardsCalculatorFactory)MacroStabilityInwardsCalculatorFactory.Instance;
+                var calculator = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
                 calculator.LastCreatedWaternetCalculator.ReturnValidationError = true;
 
                 // Call
@@ -247,7 +247,7 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
             var isValid = false;
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
-                var calculator = (TestMacroStabilityInwardsCalculatorFactory)MacroStabilityInwardsCalculatorFactory.Instance;
+                var calculator = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
                 calculator.LastCreatedWaternetCalculator.ReturnValidationWarning = true;
 
                 // Call
@@ -276,7 +276,7 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
             var isValid = true;
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
-                var calculator = (TestMacroStabilityInwardsCalculatorFactory)MacroStabilityInwardsCalculatorFactory.Instance;
+                var calculator = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
                 calculator.LastCreatedWaternetCalculator.ReturnValidationWarning = true;
                 calculator.LastCreatedWaternetCalculator.ReturnValidationError = true;
 

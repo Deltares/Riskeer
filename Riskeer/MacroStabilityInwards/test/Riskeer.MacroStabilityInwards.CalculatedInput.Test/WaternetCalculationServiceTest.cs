@@ -161,7 +161,7 @@ namespace Riskeer.MacroStabilityInwards.CalculatedInput.Test
                 WaternetCalculationService.ValidateDaily(input);
 
                 // Assert
-                var factory = (TestMacroStabilityInwardsCalculatorFactory)MacroStabilityInwardsCalculatorFactory.Instance;
+                var factory = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
                 WaternetCalculatorInput actualInput = factory.LastCreatedWaternetCalculator.Input;
 
                 CalculatorInputAssert.AssertPhreaticLineOffsets(input.LocationInputDaily, actualInput.PhreaticLineOffsets);
@@ -179,7 +179,7 @@ namespace Riskeer.MacroStabilityInwards.CalculatedInput.Test
             // Setup
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
-                var calculatorFactory = (TestMacroStabilityInwardsCalculatorFactory)MacroStabilityInwardsCalculatorFactory.Instance;
+                var calculatorFactory = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
                 WaternetCalculatorStub calculator = calculatorFactory.LastCreatedWaternetCalculator;
                 calculator.ReturnValidationError = true;
                 calculator.ReturnValidationWarning = true;
@@ -212,7 +212,7 @@ namespace Riskeer.MacroStabilityInwards.CalculatedInput.Test
             // Setup
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
-                var calculatorFactory = (TestMacroStabilityInwardsCalculatorFactory)MacroStabilityInwardsCalculatorFactory.Instance;
+                var calculatorFactory = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
                 calculatorFactory.LastCreatedWaternetCalculator.ThrowExceptionOnValidate = true;
 
                 // Call
