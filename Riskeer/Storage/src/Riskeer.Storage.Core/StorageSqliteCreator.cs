@@ -63,10 +63,13 @@ namespace Riskeer.Storage.Core
                 using (var dbContext = new SQLiteConnection(connectionString, true))
                 {
                     dbContext.Open();
+                    using (SQLiteTransaction transaction = dbContext.BeginTransaction())
                     using (SQLiteCommand command = dbContext.CreateCommand())
                     {
                         command.CommandText = Resources.DatabaseStructure;
                         command.ExecuteNonQuery();
+
+                        transaction.Commit();
                     }
                 }
             }
