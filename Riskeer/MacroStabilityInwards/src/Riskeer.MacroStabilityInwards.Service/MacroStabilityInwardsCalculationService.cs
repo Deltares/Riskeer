@@ -123,7 +123,7 @@ namespace Riskeer.MacroStabilityInwards.Service
 
             return kernelMessages.Concat(waternetDailyKernelMessages)
                                  .Concat(waternetExtremeKernelMessages)
-                                 .All(r => r.ResultType != MacroStabilityInwardsKernelMessageType.Error);
+                                 .All(r => r.Type != MacroStabilityInwardsKernelMessageType.Error);
         }
 
         /// <summary>
@@ -163,7 +163,7 @@ namespace Riskeer.MacroStabilityInwards.Service
                 throw;
             }
 
-            if (macroStabilityInwardsResult.CalculationMessages.Any(cm => cm.ResultType == MacroStabilityInwardsKernelMessageType.Error))
+            if (macroStabilityInwardsResult.CalculationMessages.Any(cm => cm.Type == MacroStabilityInwardsKernelMessageType.Error))
             {
                 CalculationServiceHelper.LogMessagesAsError(new[]
                 {
@@ -198,9 +198,9 @@ namespace Riskeer.MacroStabilityInwards.Service
 
         private static void LogKernelMessages(MacroStabilityInwardsKernelMessage[] kernelMessages)
         {
-            CalculationServiceHelper.LogMessagesAsError(kernelMessages.Where(msg => msg.ResultType == MacroStabilityInwardsKernelMessageType.Error)
+            CalculationServiceHelper.LogMessagesAsError(kernelMessages.Where(msg => msg.Type == MacroStabilityInwardsKernelMessageType.Error)
                                                                       .Select(msg => msg.Message).ToArray());
-            CalculationServiceHelper.LogMessagesAsWarning(kernelMessages.Where(msg => msg.ResultType == MacroStabilityInwardsKernelMessageType.Warning)
+            CalculationServiceHelper.LogMessagesAsWarning(kernelMessages.Where(msg => msg.Type == MacroStabilityInwardsKernelMessageType.Warning)
                                                                         .Select(msg => msg.Message).ToArray());
         }
 

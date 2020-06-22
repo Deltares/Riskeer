@@ -375,7 +375,7 @@ namespace Riskeer.MacroStabilityInwards.CalculatedInput.Test
 
             public int Compare(MacroStabilityInwardsKernelMessage x, MacroStabilityInwardsKernelMessage y)
             {
-                return x.Message == y.Message && x.ResultType == y.ResultType ? 0 : 1;
+                return x.Message == y.Message && x.Type == y.Type ? 0 : 1;
             }
         }
 

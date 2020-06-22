@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.ComponentModel;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators
 {
@@ -35,6 +36,8 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators
         /// <param name="message">The text of the message.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="message"/>
         /// is <c>null</c>.</exception>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="type"/>
+        /// contains an invalid value for <see cref="MacroStabilityInwardsKernelMessageType"/>.</exception>
         public MacroStabilityInwardsKernelMessage(MacroStabilityInwardsKernelMessageType type, string message)
         {
             if (message == null)
@@ -42,14 +45,20 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators
                 throw new ArgumentNullException(nameof(message));
             }
 
-            ResultType = type;
+            if (!Enum.IsDefined(typeof(MacroStabilityInwardsKernelMessageType), type))
+            {
+                throw new InvalidEnumArgumentException(nameof(type), (int) type,
+                                                       typeof(MacroStabilityInwardsKernelMessageType));
+            }
+
+            Type = type;
             Message = message;
         }
 
         /// <summary>
         /// Gets the type of the message.
         /// </summary>
-        public MacroStabilityInwardsKernelMessageType ResultType { get; }
+        public MacroStabilityInwardsKernelMessageType Type { get; }
 
         /// <summary>
         /// Gets the text of the message.

@@ -64,15 +64,15 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Output
             Assert.AreEqual(3, kernelMessages.Count());
             MacroStabilityInwardsKernelMessage firstMessage = kernelMessages.ElementAt(0);
             Assert.AreEqual("Calculation Warning", firstMessage.Message);
-            Assert.AreEqual(MacroStabilityInwardsKernelMessageType.Warning, firstMessage.ResultType);
+            Assert.AreEqual(MacroStabilityInwardsKernelMessageType.Warning, firstMessage.Type);
 
             MacroStabilityInwardsKernelMessage secondMessage = kernelMessages.ElementAt(1);
             Assert.AreEqual("Calculation Error", secondMessage.Message);
-            Assert.AreEqual(MacroStabilityInwardsKernelMessageType.Error, secondMessage.ResultType);
+            Assert.AreEqual(MacroStabilityInwardsKernelMessageType.Error, secondMessage.Type);
 
             MacroStabilityInwardsKernelMessage thirdMessage = kernelMessages.ElementAt(2);
             Assert.AreEqual("Calculation Fatal Error", thirdMessage.Message);
-            Assert.AreEqual(MacroStabilityInwardsKernelMessageType.Error, thirdMessage.ResultType);
+            Assert.AreEqual(MacroStabilityInwardsKernelMessageType.Error, thirdMessage.Type);
         }
 
         [Test]
@@ -90,7 +90,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Output
             // Assert
             MacroStabilityInwardsKernelMessage kernelMessage = kernelMessages.Single();
             Assert.AreEqual("Onbekend", kernelMessage.Message);
-            Assert.AreEqual(MacroStabilityInwardsKernelMessageType.Error, kernelMessage.ResultType);
+            Assert.AreEqual(MacroStabilityInwardsKernelMessageType.Error, kernelMessage.Type);
         }
 
         [Test]
@@ -123,11 +123,11 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Output
             Assert.AreEqual(2, kernelMessages.Count());
             MacroStabilityInwardsKernelMessage firstMessage = kernelMessages.ElementAt(0);
             Assert.AreEqual("Validation Warning", firstMessage.Message);
-            Assert.AreEqual(MacroStabilityInwardsKernelMessageType.Warning, firstMessage.ResultType);
+            Assert.AreEqual(MacroStabilityInwardsKernelMessageType.Warning, firstMessage.Type);
 
             MacroStabilityInwardsKernelMessage secondMessage = kernelMessages.ElementAt(1);
             Assert.AreEqual("Validation Error", secondMessage.Message);
-            Assert.AreEqual(MacroStabilityInwardsKernelMessageType.Error, secondMessage.ResultType);
+            Assert.AreEqual(MacroStabilityInwardsKernelMessageType.Error, secondMessage.Type);
         }
 
         [Test]
@@ -145,7 +145,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Output
             // Assert
             MacroStabilityInwardsKernelMessage kernelMessage = kernelMessages.Single();
             Assert.AreEqual("Onbekend", kernelMessage.Message);
-            Assert.AreEqual(MacroStabilityInwardsKernelMessageType.Error, kernelMessage.ResultType);
+            Assert.AreEqual(MacroStabilityInwardsKernelMessageType.Error, kernelMessage.Type);
         }
     }
 }

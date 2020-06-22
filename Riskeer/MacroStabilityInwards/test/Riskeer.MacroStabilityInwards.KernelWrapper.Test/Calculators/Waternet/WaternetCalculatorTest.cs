@@ -220,10 +220,10 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.Waternet
                 Assert.AreEqual(2, kernelMessages.Count());
                 MacroStabilityInwardsKernelMessage firstMessage = kernelMessages.ElementAt(0);
                 Assert.AreEqual("Validation Warning", firstMessage.Message);
-                Assert.AreEqual(MacroStabilityInwardsKernelMessageType.Warning, firstMessage.ResultType);
+                Assert.AreEqual(MacroStabilityInwardsKernelMessageType.Warning, firstMessage.Type);
                 MacroStabilityInwardsKernelMessage secondMessage = kernelMessages.ElementAt(1);
                 Assert.AreEqual("Validation Error", secondMessage.Message);
-                Assert.AreEqual(MacroStabilityInwardsKernelMessageType.Error, secondMessage.ResultType);
+                Assert.AreEqual(MacroStabilityInwardsKernelMessageType.Error, secondMessage.Type);
             }
         }
 

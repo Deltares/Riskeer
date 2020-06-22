@@ -112,11 +112,11 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Calculators.
 
             MacroStabilityInwardsKernelMessage firstMessage = messages[0];
             Assert.AreEqual("Validation Error", firstMessage.Message);
-            Assert.AreEqual(MacroStabilityInwardsKernelMessageType.Error, firstMessage.ResultType);
+            Assert.AreEqual(MacroStabilityInwardsKernelMessageType.Error, firstMessage.Type);
 
             MacroStabilityInwardsKernelMessage secondMessage = messages[1];
             Assert.AreEqual("Validation Warning", secondMessage.Message);
-            Assert.AreEqual(MacroStabilityInwardsKernelMessageType.Warning, secondMessage.ResultType);
+            Assert.AreEqual(MacroStabilityInwardsKernelMessageType.Warning, secondMessage.Type);
         }
 
         [Test]

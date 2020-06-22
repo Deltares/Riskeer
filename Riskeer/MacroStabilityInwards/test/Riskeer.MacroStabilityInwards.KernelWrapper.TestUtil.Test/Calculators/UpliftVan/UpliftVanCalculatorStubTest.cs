@@ -82,19 +82,19 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Calculators.
 
             MacroStabilityInwardsKernelMessage firstMessage = messages[0];
             Assert.AreEqual("Calculation Error 1", firstMessage.Message);
-            Assert.AreEqual(MacroStabilityInwardsKernelMessageType.Error, firstMessage.ResultType);
+            Assert.AreEqual(MacroStabilityInwardsKernelMessageType.Error, firstMessage.Type);
 
             MacroStabilityInwardsKernelMessage secondMessage = messages[1];
             Assert.AreEqual("Calculation Warning 1", secondMessage.Message);
-            Assert.AreEqual(MacroStabilityInwardsKernelMessageType.Warning, secondMessage.ResultType);
+            Assert.AreEqual(MacroStabilityInwardsKernelMessageType.Warning, secondMessage.Type);
 
             MacroStabilityInwardsKernelMessage thirdMessage = messages[2];
             Assert.AreEqual("Calculation Error 2", thirdMessage.Message);
-            Assert.AreEqual(MacroStabilityInwardsKernelMessageType.Error, thirdMessage.ResultType);
+            Assert.AreEqual(MacroStabilityInwardsKernelMessageType.Error, thirdMessage.Type);
 
             MacroStabilityInwardsKernelMessage fourthMessage = messages[3];
             Assert.AreEqual("Calculation Warning 2", fourthMessage.Message);
-            Assert.AreEqual(MacroStabilityInwardsKernelMessageType.Warning, fourthMessage.ResultType);
+            Assert.AreEqual(MacroStabilityInwardsKernelMessageType.Warning, fourthMessage.Type);
         }
 
         [Test]
@@ -164,11 +164,11 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Calculators.
 
             MacroStabilityInwardsKernelMessage firstMessage = messages[0];
             Assert.AreEqual("Validation Error", firstMessage.Message);
-            Assert.AreEqual(MacroStabilityInwardsKernelMessageType.Error, firstMessage.ResultType);
+            Assert.AreEqual(MacroStabilityInwardsKernelMessageType.Error, firstMessage.Type);
 
             MacroStabilityInwardsKernelMessage secondMessage = messages[1];
             Assert.AreEqual("Validation Warning", secondMessage.Message);
-            Assert.AreEqual(MacroStabilityInwardsKernelMessageType.Warning, secondMessage.ResultType);
+            Assert.AreEqual(MacroStabilityInwardsKernelMessageType.Warning, secondMessage.Type);
         }
 
         [Test]
