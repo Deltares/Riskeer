@@ -59,11 +59,11 @@ namespace Riskeer.Storage.Core.Test.Create
             var calculation = new StructuresCalculation<HeightStructuresInput>();
 
             // Call
-            TestDelegate call = () => calculation.CreateForHeightStructures(null, 0);
+            void Call() => calculation.CreateForHeightStructures(null, 0);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("registry", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("registry", exception.ParamName);
         }
 
         [Test]
@@ -361,7 +361,7 @@ namespace Riskeer.Storage.Core.Test.Create
         public void CreateForClosingStructures_RegistryIsNull_ThrowArgumentNullException()
         {
             // Setup
-            var calculation = new StructuresCalculation<ClosingStructuresInput>();
+            var calculation = new StructuresCalculationScenario<ClosingStructuresInput>();
 
             // Call
             TestDelegate call = () => calculation.CreateForClosingStructures(null, 0);
@@ -376,7 +376,7 @@ namespace Riskeer.Storage.Core.Test.Create
         {
             // Setup
             var random = new Random(45);
-            var calculation = new StructuresCalculation<ClosingStructuresInput>
+            var calculation = new StructuresCalculationScenario<ClosingStructuresInput>
             {
                 Name = "A",
                 Comments =
@@ -521,7 +521,7 @@ namespace Riskeer.Storage.Core.Test.Create
         public void CreateForClosingStructures_CalculationWithParametersNaN_ReturnEntityWithNullParameters()
         {
             // Setup
-            var calculation = new StructuresCalculation<ClosingStructuresInput>
+            var calculation = new StructuresCalculationScenario<ClosingStructuresInput>
             {
                 InputParameters =
                 {
@@ -632,7 +632,7 @@ namespace Riskeer.Storage.Core.Test.Create
         {
             // Setup
             ClosingStructure alreadyRegisteredStructure = new TestClosingStructure();
-            var calculation = new StructuresCalculation<ClosingStructuresInput>
+            var calculation = new StructuresCalculationScenario<ClosingStructuresInput>
             {
                 InputParameters =
                 {
@@ -655,7 +655,7 @@ namespace Riskeer.Storage.Core.Test.Create
         {
             // Setup
             var alreadyRegisteredHydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "A", 2, 3);
-            var calculation = new StructuresCalculation<ClosingStructuresInput>
+            var calculation = new StructuresCalculationScenario<ClosingStructuresInput>
             {
                 InputParameters =
                 {
@@ -678,7 +678,7 @@ namespace Riskeer.Storage.Core.Test.Create
         {
             // Setup
             var alreadyRegisteredForeshoreProfile = new TestForeshoreProfile();
-            var calculation = new StructuresCalculation<ClosingStructuresInput>
+            var calculation = new StructuresCalculationScenario<ClosingStructuresInput>
             {
                 InputParameters =
                 {
@@ -700,7 +700,7 @@ namespace Riskeer.Storage.Core.Test.Create
         public void CreateForClosingStructures_CalculationWithOutput_ReturnEntity()
         {
             // Setup
-            var calculation = new StructuresCalculation<ClosingStructuresInput>
+            var calculation = new StructuresCalculationScenario<ClosingStructuresInput>
             {
                 Output = new TestStructuresOutput()
             };

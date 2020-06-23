@@ -108,7 +108,7 @@ namespace Riskeer.Storage.Core.Create
                     entity.HeightStructuresCalculationEntities.Add(childHeightStructuresCalculation.CreateForHeightStructures(registry, i));
                 }
 
-                if (calculationBase is StructuresCalculation<ClosingStructuresInput> childClosingStructuresCalculation)
+                if (calculationBase is StructuresCalculationScenario<ClosingStructuresInput> childClosingStructuresCalculation)
                 {
                     entity.ClosingStructuresCalculationEntities.Add(childClosingStructuresCalculation.CreateForClosingStructures(registry, i));
                 }

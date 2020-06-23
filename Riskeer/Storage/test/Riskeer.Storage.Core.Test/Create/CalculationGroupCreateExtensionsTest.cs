@@ -48,11 +48,11 @@ namespace Riskeer.Storage.Core.Test.Create
             var group = new CalculationGroup();
 
             // Call
-            TestDelegate call = () => group.Create(null, 0);
+            void Call() => @group.Create(null, 0);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("registry", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("registry", exception.ParamName);
         }
 
         [Test]
@@ -824,11 +824,11 @@ namespace Riskeer.Storage.Core.Test.Create
             {
                 Children =
                 {
-                    new StructuresCalculation<ClosingStructuresInput>
+                    new StructuresCalculationScenario<ClosingStructuresInput>
                     {
                         Name = "A"
                     },
-                    new StructuresCalculation<ClosingStructuresInput>
+                    new StructuresCalculationScenario<ClosingStructuresInput>
                     {
                         Name = "B"
                     }
@@ -864,7 +864,7 @@ namespace Riskeer.Storage.Core.Test.Create
                     {
                         Name = "A"
                     },
-                    new StructuresCalculation<ClosingStructuresInput>
+                    new StructuresCalculationScenario<ClosingStructuresInput>
                     {
                         Name = "B"
                     },
@@ -872,7 +872,7 @@ namespace Riskeer.Storage.Core.Test.Create
                     {
                         Name = "C"
                     },
-                    new StructuresCalculation<ClosingStructuresInput>
+                    new StructuresCalculationScenario<ClosingStructuresInput>
                     {
                         Name = "D"
                     }

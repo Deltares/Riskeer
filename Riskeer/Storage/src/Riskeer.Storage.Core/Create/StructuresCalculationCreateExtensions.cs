@@ -92,7 +92,7 @@ namespace Riskeer.Storage.Core.Create
 
         /// <summary>
         /// Creates a <see cref="ClosingStructuresCalculationEntity"/> based
-        /// on the information of the <see cref="StructuresCalculation{T}"/>.
+        /// on the information of the <see cref="StructuresCalculationScenario{T}"/>.
         /// </summary>
         /// <param name="calculation">The calculation to create a database entity for.</param>
         /// <param name="registry">The object keeping track of create operations.</param>
@@ -100,7 +100,7 @@ namespace Riskeer.Storage.Core.Create
         /// in its parent container.</param>
         /// <returns>A new <see cref="ClosingStructuresCalculationEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="registry"/> is <c>null</c>.</exception>
-        internal static ClosingStructuresCalculationEntity CreateForClosingStructures(this StructuresCalculation<ClosingStructuresInput> calculation,
+        internal static ClosingStructuresCalculationEntity CreateForClosingStructures(this StructuresCalculationScenario<ClosingStructuresInput> calculation,
                                                                                       PersistenceRegistry registry, int order)
         {
             if (registry == null)
