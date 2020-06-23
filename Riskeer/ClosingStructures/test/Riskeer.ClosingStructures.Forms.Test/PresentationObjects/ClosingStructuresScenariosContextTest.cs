@@ -22,8 +22,10 @@
 using System;
 using Core.Common.Controls.PresentationObjects;
 using NUnit.Framework;
+using Rhino.Mocks;
 using Riskeer.ClosingStructures.Data;
 using Riskeer.ClosingStructures.Forms.PresentationObjects;
+using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 
 namespace Riskeer.ClosingStructures.Forms.Test.PresentationObjects
@@ -35,30 +37,52 @@ namespace Riskeer.ClosingStructures.Forms.Test.PresentationObjects
         public void Constructor_FailureMechanismNull_ThrowArgumentNullException()
         {
             // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             var calculationGroup = new CalculationGroup();
 
             // Call
-            TestDelegate test = () => new ClosingStructuresScenariosContext(calculationGroup, null);
+            void Call() => new ClosingStructuresScenariosContext(calculationGroup, null, assessmentSection);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => new ClosingStructuresScenariosContext(new CalculationGroup(), new ClosingStructuresFailureMechanism(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             var calculationGroup = new CalculationGroup();
             var failureMechanism = new ClosingStructuresFailureMechanism();
 
             // Call
-            var context = new ClosingStructuresScenariosContext(calculationGroup, failureMechanism);
+            var context = new ClosingStructuresScenariosContext(calculationGroup, failureMechanism, assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<WrappedObjectContextBase<CalculationGroup>>(context);
             Assert.AreSame(calculationGroup, context.WrappedData);
             Assert.AreSame(failureMechanism, context.ParentFailureMechanism);
+            Assert.AreSame(assessmentSection, context.AssessmentSection);
+            mocks.VerifyAll();
         }
     }
 }

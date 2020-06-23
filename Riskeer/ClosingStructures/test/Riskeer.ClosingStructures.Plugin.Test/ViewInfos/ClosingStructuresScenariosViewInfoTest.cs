@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2019. All rights reserved.
+// Copyright (C) Stichting Deltares 2019. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -78,15 +78,20 @@ namespace Riskeer.ClosingStructures.Plugin.Test.ViewInfos
         public void GetViewData_Always_ReturnWrappedData()
         {
             // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             var calculationGroup = new CalculationGroup();
             var failureMechanism = new ClosingStructuresFailureMechanism();
-            var context = new ClosingStructuresScenariosContext(calculationGroup, failureMechanism);
+            var context = new ClosingStructuresScenariosContext(calculationGroup, failureMechanism, assessmentSection);
 
             // Call
             object viewData = info.GetViewData(context);
 
             // Assert
             Assert.AreSame(calculationGroup, viewData);
+            mocks.VerifyAll();
         }
 
         [Test]
