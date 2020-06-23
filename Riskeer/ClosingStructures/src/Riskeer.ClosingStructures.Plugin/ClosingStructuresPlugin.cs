@@ -141,7 +141,7 @@ namespace Riskeer.ClosingStructures.Plugin
                 CalculationGroupContextContextMenuStrip,
                 CalculationGroupContextOnNodeRemoved);
 
-            yield return RiskeerTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<ClosingStructuresCalculationContext>(
+            yield return RiskeerTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<ClosingStructuresCalculationScenarioContext>(
                 CalculationContextChildNodeObjects,
                 CalculationContextContextMenuStrip,
                 CalculationContextOnNodeRemoved);
@@ -261,7 +261,7 @@ namespace Riskeer.ClosingStructures.Plugin
                 context => context.WrappedData.Children.Any(),
                 GetInquiryHelper());
 
-            yield return RiskeerExportInfoFactory.CreateCalculationConfigurationExportInfo<ClosingStructuresCalculationContext>(
+            yield return RiskeerExportInfoFactory.CreateCalculationConfigurationExportInfo<ClosingStructuresCalculationScenarioContext>(
                 (context, filePath) => new ClosingStructuresCalculationConfigurationExporter(new[]
                 {
                     context.WrappedData
@@ -460,7 +460,7 @@ namespace Riskeer.ClosingStructures.Plugin
 
                 if (calculation != null)
                 {
-                    childNodeObjects.Add(new ClosingStructuresCalculationContext(calculation,
+                    childNodeObjects.Add(new ClosingStructuresCalculationScenarioContext(calculation,
                                                                                  context.WrappedData,
                                                                                  context.FailureMechanism,
                                                                                  context.AssessmentSection));
@@ -687,7 +687,7 @@ namespace Riskeer.ClosingStructures.Plugin
 
         #region ClosingStructuresCalculationContext TreeNodeInfo
 
-        private static object[] CalculationContextChildNodeObjects(ClosingStructuresCalculationContext context)
+        private static object[] CalculationContextChildNodeObjects(ClosingStructuresCalculationScenarioContext context)
         {
             StructuresCalculation<ClosingStructuresInput> calculation = context.WrappedData;
 
@@ -702,7 +702,7 @@ namespace Riskeer.ClosingStructures.Plugin
             };
         }
 
-        private ContextMenuStrip CalculationContextContextMenuStrip(ClosingStructuresCalculationContext context,
+        private ContextMenuStrip CalculationContextContextMenuStrip(ClosingStructuresCalculationScenarioContext context,
                                                                     object parentData,
                                                                     TreeViewControl treeViewControl)
         {
@@ -741,17 +741,17 @@ namespace Riskeer.ClosingStructures.Plugin
                           .Build();
         }
 
-        private static string EnableValidateAndCalculateMenuItemForCalculation(ClosingStructuresCalculationContext context)
+        private static string EnableValidateAndCalculateMenuItemForCalculation(ClosingStructuresCalculationScenarioContext context)
         {
             return EnableValidateAndCalculateMenuItem(context.AssessmentSection);
         }
 
-        private static void Validate(ClosingStructuresCalculationContext context)
+        private static void Validate(ClosingStructuresCalculationScenarioContext context)
         {
             ClosingStructuresCalculationService.Validate(context.WrappedData, context.AssessmentSection);
         }
 
-        private void Calculate(StructuresCalculation<ClosingStructuresInput> calculation, ClosingStructuresCalculationContext context)
+        private void Calculate(StructuresCalculation<ClosingStructuresInput> calculation, ClosingStructuresCalculationScenarioContext context)
         {
             ActivityProgressDialogRunner.Run(Gui.MainWindow,
                                              ClosingStructuresCalculationActivityFactory.CreateCalculationActivity(calculation,
@@ -759,7 +759,7 @@ namespace Riskeer.ClosingStructures.Plugin
                                                                                                                    context.AssessmentSection));
         }
 
-        private static void CalculationContextOnNodeRemoved(ClosingStructuresCalculationContext context, object parentData)
+        private static void CalculationContextOnNodeRemoved(ClosingStructuresCalculationScenarioContext context, object parentData)
         {
             if (parentData is ClosingStructuresCalculationGroupContext calculationGroupContext)
             {
@@ -769,7 +769,7 @@ namespace Riskeer.ClosingStructures.Plugin
             }
         }
 
-        private StrictContextMenuItem CreateUpdateStructureItem(ClosingStructuresCalculationContext context)
+        private StrictContextMenuItem CreateUpdateStructureItem(ClosingStructuresCalculationScenarioContext context)
         {
             var contextMenuEnabled = true;
             string toolTipMessage = RiskeerCommonFormsResources.Update_Calculation_with_Structure_ToolTip;
