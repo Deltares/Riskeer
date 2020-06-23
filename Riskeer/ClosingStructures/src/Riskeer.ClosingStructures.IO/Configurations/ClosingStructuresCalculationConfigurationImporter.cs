@@ -110,7 +110,7 @@ namespace Riskeer.ClosingStructures.IO.Configurations
 
         protected override ICalculation ParseReadCalculation(ClosingStructuresCalculationConfiguration readCalculation)
         {
-            var calculation = new StructuresCalculation<ClosingStructuresInput>
+            var calculation = new StructuresCalculationScenario<ClosingStructuresInput>
             {
                 Name = readCalculation.Name
             };
@@ -436,9 +436,7 @@ namespace Riskeer.ClosingStructures.IO.Configurations
 
         private bool TrySetHydraulicBoundaryLocation(string locationName, StructuresCalculation<ClosingStructuresInput> calculation)
         {
-            HydraulicBoundaryLocation location;
-
-            if (TryReadHydraulicBoundaryLocation(locationName, calculation.Name, availableHydraulicBoundaryLocations, out location))
+            if (TryReadHydraulicBoundaryLocation(locationName, calculation.Name, availableHydraulicBoundaryLocations, out HydraulicBoundaryLocation location))
             {
                 calculation.InputParameters.HydraulicBoundaryLocation = location;
                 return true;
@@ -449,9 +447,7 @@ namespace Riskeer.ClosingStructures.IO.Configurations
 
         private bool TrySetStructure(string structureId, StructuresCalculation<ClosingStructuresInput> calculation)
         {
-            ClosingStructure structure;
-
-            if (TryReadStructure(structureId, calculation.Name, availableStructures, out structure))
+            if (TryReadStructure(structureId, calculation.Name, availableStructures, out ClosingStructure structure))
             {
                 calculation.InputParameters.Structure = structure;
                 return true;
@@ -462,9 +458,7 @@ namespace Riskeer.ClosingStructures.IO.Configurations
 
         private bool TrySetForeshoreProfile(string foreshoreProfileName, StructuresCalculation<ClosingStructuresInput> calculation)
         {
-            ForeshoreProfile foreshoreProfile;
-
-            if (TryReadForeshoreProfile(foreshoreProfileName, calculation.Name, availableForeshoreProfiles, out foreshoreProfile))
+            if (TryReadForeshoreProfile(foreshoreProfileName, calculation.Name, availableForeshoreProfiles, out ForeshoreProfile foreshoreProfile))
             {
                 calculation.InputParameters.ForeshoreProfile = foreshoreProfile;
                 return true;

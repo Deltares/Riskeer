@@ -298,7 +298,7 @@ namespace Riskeer.Integration.Plugin.Merge
             if (mergeData.MergeClosingStructures)
             {
                 targetAssessmentSection.ClosingStructures = sourceAssessmentSection.ClosingStructures;
-                UpdateCalculationHydraulicBoundaryLocationReferences<ClosingStructuresFailureMechanism, StructuresCalculation<ClosingStructuresInput>, ClosingStructuresInput>(
+                UpdateCalculationHydraulicBoundaryLocationReferences<ClosingStructuresFailureMechanism, StructuresCalculationScenario<ClosingStructuresInput>, ClosingStructuresInput>(
                     targetAssessmentSection.ClosingStructures, hydraulicBoundaryLocations);
                 LogMergeMessage(targetAssessmentSection.ClosingStructures);
             }

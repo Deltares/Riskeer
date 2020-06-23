@@ -56,10 +56,10 @@ namespace Riskeer.Integration.Plugin.Test.Merge
         public void Constructor_ViewCommandsNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new AssessmentSectionMergeHandler(null);
+            void Call() => new AssessmentSectionMergeHandler(null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("viewCommands", exception.ParamName);
         }
 
@@ -90,12 +90,11 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             var handler = new AssessmentSectionMergeHandler(viewCommands);
 
             // Call
-            TestDelegate call = () => handler.PerformMerge(null, new AssessmentSectionMergeData(
-                                                               new AssessmentSection(AssessmentSectionComposition.Dike),
-                                                               new AssessmentSectionMergeData.ConstructionProperties()));
+            void Call() => handler.PerformMerge(null, new AssessmentSectionMergeData(new AssessmentSection(AssessmentSectionComposition.Dike),
+                                                                                     new AssessmentSectionMergeData.ConstructionProperties()));
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("targetAssessmentSection", exception.ParamName);
             mocks.VerifyAll();
         }
@@ -111,10 +110,10 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             var handler = new AssessmentSectionMergeHandler(viewCommands);
 
             // Call
-            TestDelegate call = () => handler.PerformMerge(new AssessmentSection(AssessmentSectionComposition.Dike), null);
+            void Call() => handler.PerformMerge(new AssessmentSection(AssessmentSectionComposition.Dike), null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("mergeData", exception.ParamName);
         }
 
@@ -412,7 +411,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
                     HydraulicBoundaryLocation = sourceLocations[1]
                 }
             });
-            sourceAssessmentSection.ClosingStructures.CalculationsGroup.Children.Add(new StructuresCalculation<ClosingStructuresInput>
+            sourceAssessmentSection.ClosingStructures.CalculationsGroup.Children.Add(new StructuresCalculationScenario<ClosingStructuresInput>
             {
                 InputParameters =
                 {
@@ -476,7 +475,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             var pipingCalculation = (PipingCalculationScenario) targetAssessmentSection.Piping.Calculations.Single();
             Assert.AreSame(targetLocations[0], pipingCalculation.InputParameters.HydraulicBoundaryLocation);
 
-            var grassInwardsCalculation = (GrassCoverErosionInwardsCalculation) targetAssessmentSection.GrassCoverErosionInwards.Calculations.Single();
+            var grassInwardsCalculation = (GrassCoverErosionInwardsCalculationScenario) targetAssessmentSection.GrassCoverErosionInwards.Calculations.Single();
             Assert.AreSame(targetLocations[1], grassInwardsCalculation.InputParameters.HydraulicBoundaryLocation);
 
             var macroStabilityInwardsCalculation = (MacroStabilityInwardsCalculation) targetAssessmentSection.MacroStabilityInwards.Calculations.Single();
@@ -485,7 +484,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             var heightStructuresCalculation = (StructuresCalculation<HeightStructuresInput>) targetAssessmentSection.HeightStructures.Calculations.Single();
             Assert.AreSame(targetLocations[1], heightStructuresCalculation.InputParameters.HydraulicBoundaryLocation);
 
-            var closingStructuresCalculation = (StructuresCalculation<ClosingStructuresInput>) targetAssessmentSection.ClosingStructures.Calculations.Single();
+            var closingStructuresCalculation = (StructuresCalculationScenario<ClosingStructuresInput>) targetAssessmentSection.ClosingStructures.Calculations.Single();
             Assert.AreSame(targetLocations[0], closingStructuresCalculation.InputParameters.HydraulicBoundaryLocation);
 
             var stabilityPointStructuresCalculation = (StructuresCalculation<StabilityPointStructuresInput>) targetAssessmentSection.StabilityPointStructures.Calculations.Single();

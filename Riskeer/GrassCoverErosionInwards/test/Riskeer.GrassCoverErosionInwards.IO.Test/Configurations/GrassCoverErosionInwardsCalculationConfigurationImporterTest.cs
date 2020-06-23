@@ -535,9 +535,12 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
             AssertCalculation(expectedCalculation, (GrassCoverErosionInwardsCalculationScenario) calculationGroup.Children[0]);
         }
 
-        private static void AssertCalculation(GrassCoverErosionInwardsCalculation expectedCalculation, GrassCoverErosionInwardsCalculation actualCalculation)
+        private static void AssertCalculation(GrassCoverErosionInwardsCalculationScenario expectedCalculation, GrassCoverErosionInwardsCalculationScenario actualCalculation)
         {
             Assert.AreEqual(expectedCalculation.Name, actualCalculation.Name);
+            Assert.AreEqual(expectedCalculation.IsRelevant, actualCalculation.IsRelevant);
+            Assert.AreEqual(expectedCalculation.Contribution, actualCalculation.Contribution);
+
             Assert.AreSame(expectedCalculation.InputParameters.HydraulicBoundaryLocation, actualCalculation.InputParameters.HydraulicBoundaryLocation);
             Assert.AreEqual(expectedCalculation.InputParameters.Orientation, actualCalculation.InputParameters.Orientation);
             Assert.AreEqual(expectedCalculation.InputParameters.DikeProfile, actualCalculation.InputParameters.DikeProfile);
