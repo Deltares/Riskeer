@@ -37,15 +37,15 @@ namespace Riskeer.Storage.Core.Read.ClosingStructures
     {
         /// <summary>
         /// Reads the <see cref="ClosingStructuresCalculationEntity"/> and use the
-        /// information to update a <see cref="StructuresCalculation{T}"/>.
+        /// information to update a <see cref="StructuresCalculationScenario{T}"/>.
         /// </summary>
         /// <param name="entity">The <see cref="ClosingStructuresCalculationEntity"/>
-        /// to create <see cref="StructuresCalculation{T}"/> for.</param>
+        /// to create <see cref="StructuresCalculationScenario{T}"/> for.</param>
         /// <param name="collector">The object keeping track of read operations.</param>
-        /// <returns>A new <see cref="StructuresCalculation{T}"/>.</returns>
+        /// <returns>A new <see cref="StructuresCalculationScenario{T}"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="collector"/> is <c>null</c>.</exception>
-        internal static StructuresCalculation<ClosingStructuresInput> Read(this ClosingStructuresCalculationEntity entity,
-                                                                           ReadConversionCollector collector)
+        internal static StructuresCalculationScenario<ClosingStructuresInput> Read(this ClosingStructuresCalculationEntity entity,
+                                                                                   ReadConversionCollector collector)
         {
             if (collector == null)
             {
@@ -57,7 +57,7 @@ namespace Riskeer.Storage.Core.Read.ClosingStructures
                 return collector.Get(entity);
             }
 
-            var calculation = new StructuresCalculation<ClosingStructuresInput>
+            var calculation = new StructuresCalculationScenario<ClosingStructuresInput>
             {
                 Name = entity.Name,
                 Comments =

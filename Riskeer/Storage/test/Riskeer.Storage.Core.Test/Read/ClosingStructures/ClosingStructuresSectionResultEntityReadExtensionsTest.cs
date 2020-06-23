@@ -145,7 +145,7 @@ namespace Riskeer.Storage.Core.Test.Read.ClosingStructures
         public void Read_CalculationEntitySet_ReturnClosingStructuresSectionResultWithCalculation()
         {
             // Setup
-            var calculation = new StructuresCalculation<ClosingStructuresInput>();
+            var calculation = new StructuresCalculationScenario<ClosingStructuresInput>();
 
             var calculationEntity = new ClosingStructuresCalculationEntity();
 

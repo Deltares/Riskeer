@@ -540,9 +540,9 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
                     AssertStructuresCalculation(expectedHeightStructuresCalculation, (StructuresCalculation<HeightStructuresInput>) actualChild);
                 }
 
-                if (expectedChild is StructuresCalculation<ClosingStructuresInput> expectedClosingStructuresCalculation)
+                if (expectedChild is StructuresCalculationScenario<ClosingStructuresInput> expectedClosingStructuresCalculation)
                 {
-                    AssertStructuresCalculation(expectedClosingStructuresCalculation, (StructuresCalculation<ClosingStructuresInput>) actualChild);
+                    AssertStructuresCalculation(expectedClosingStructuresCalculation, (StructuresCalculationScenario<ClosingStructuresInput>) actualChild);
                 }
 
                 if (expectedChild is StructuresCalculation<StabilityPointStructuresInput> expectedStabilityPointStructuresCalculation)
@@ -918,15 +918,6 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
                                          Assert.AreEqual(expectedItem.TailorMadeAssessmentProbability, actualItem.TailorMadeAssessmentProbability, 1e-6);
                                          Assert.AreEqual(expectedItem.UseManualAssembly, actualItem.UseManualAssembly);
                                          Assert.AreEqual(expectedItem.ManualAssemblyProbability, actualItem.ManualAssemblyProbability, 1e-6);
-
-                                         if (expectedItem.Calculation == null)
-                                         {
-                                             Assert.IsNull(actualItem.Calculation);
-                                         }
-                                         else
-                                         {
-                                             AssertStructuresCalculation(expectedItem.Calculation, actualItem.Calculation);
-                                         }
                                      });
         }
 
@@ -963,8 +954,8 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
             Assert.AreEqual(expectedClosingStructure.InflowModelType, actualClosingStructure.InflowModelType);
         }
 
-        private static void AssertStructuresCalculation(StructuresCalculation<ClosingStructuresInput> expectedCalculation,
-                                                        StructuresCalculation<ClosingStructuresInput> actualCalculation)
+        private static void AssertStructuresCalculation(StructuresCalculationScenario<ClosingStructuresInput> expectedCalculation,
+                                                        StructuresCalculationScenario<ClosingStructuresInput> actualCalculation)
         {
             Assert.AreEqual(expectedCalculation.Name, actualCalculation.Name);
             AssertComments(expectedCalculation.Comments, actualCalculation.Comments);

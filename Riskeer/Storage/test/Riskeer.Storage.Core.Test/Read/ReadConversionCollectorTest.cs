@@ -406,7 +406,7 @@ namespace Riskeer.Storage.Core.Test.Read
         }
 
         [TestFixture]
-        private class ClosingStructureCalculationCollectorTest : CollectorTest<StructuresCalculation<ClosingStructuresInput>,
+        private class ClosingStructureCalculationCollectorTest : CollectorTest<StructuresCalculationScenario<ClosingStructuresInput>,
             ClosingStructuresCalculationEntity>
         {
             public ClosingStructureCalculationCollectorTest() : base(
@@ -414,9 +414,9 @@ namespace Riskeer.Storage.Core.Test.Read
                 (c, e) => c.Contains(e),
                 (c, e) => c.Get(e)) {}
 
-            protected override StructuresCalculation<ClosingStructuresInput> CreateDataModel()
+            protected override StructuresCalculationScenario<ClosingStructuresInput> CreateDataModel()
             {
-                return new StructuresCalculation<ClosingStructuresInput>();
+                return new StructuresCalculationScenario<ClosingStructuresInput>();
             }
         }
 

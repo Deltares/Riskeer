@@ -43,10 +43,10 @@ namespace Riskeer.Storage.Core.Test.Read.ClosingStructures
             var entity = new ClosingStructuresCalculationEntity();
 
             // Call
-            TestDelegate call = () => entity.Read(null);
+            void Call() => entity.Read(null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("collector", paramName);
         }
 
@@ -65,14 +65,14 @@ namespace Riskeer.Storage.Core.Test.Read.ClosingStructures
             Assert.IsFalse(collector.Contains(entity));
 
             // Call
-            StructuresCalculation<ClosingStructuresInput> calculation = entity.Read(collector);
+            StructuresCalculationScenario<ClosingStructuresInput> calculation = entity.Read(collector);
 
             // Assert
             Assert.IsTrue(collector.Contains(entity));
             Assert.AreSame(calculation, collector.Get(entity));
         }
 
-        [Test]
+        [Test]  
         public void Read_ValidEntity_ReturnClosingStructuresCalculation()
         {
             // Setup
@@ -118,7 +118,7 @@ namespace Riskeer.Storage.Core.Test.Read.ClosingStructures
             var collector = new ReadConversionCollector();
 
             // Call
-            StructuresCalculation<ClosingStructuresInput> calculation = entity.Read(collector);
+            StructuresCalculationScenario<ClosingStructuresInput> calculation = entity.Read(collector);
 
             // Assert
             Assert.AreEqual(entity.Name, calculation.Name);
@@ -202,7 +202,7 @@ namespace Riskeer.Storage.Core.Test.Read.ClosingStructures
             var collector = new ReadConversionCollector();
 
             // Call
-            StructuresCalculation<ClosingStructuresInput> calculation = entity.Read(collector);
+            StructuresCalculationScenario<ClosingStructuresInput> calculation = entity.Read(collector);
 
             // Assert
             ClosingStructuresInput inputParameters = calculation.InputParameters;
@@ -249,7 +249,7 @@ namespace Riskeer.Storage.Core.Test.Read.ClosingStructures
             collector.Read(structureEntity, structure);
 
             // Call
-            StructuresCalculation<ClosingStructuresInput> calculation = entity.Read(collector);
+            StructuresCalculationScenario<ClosingStructuresInput> calculation = entity.Read(collector);
 
             // Assert
             Assert.AreSame(structure, calculation.InputParameters.Structure);
@@ -271,7 +271,7 @@ namespace Riskeer.Storage.Core.Test.Read.ClosingStructures
             collector.Read(hydraulicLocationEntity, hydraulicBoundaryLocation);
 
             // Call
-            StructuresCalculation<ClosingStructuresInput> calculation = entity.Read(collector);
+            StructuresCalculationScenario<ClosingStructuresInput> calculation = entity.Read(collector);
 
             // Assert
             Assert.AreSame(hydraulicBoundaryLocation, calculation.InputParameters.HydraulicBoundaryLocation);
@@ -293,7 +293,7 @@ namespace Riskeer.Storage.Core.Test.Read.ClosingStructures
             collector.Read(profileEntity, profile);
 
             // Call
-            StructuresCalculation<ClosingStructuresInput> calculation = entity.Read(collector);
+            StructuresCalculationScenario<ClosingStructuresInput> calculation = entity.Read(collector);
 
             // Assert
             Assert.AreSame(profile, calculation.InputParameters.ForeshoreProfile);
@@ -315,7 +315,7 @@ namespace Riskeer.Storage.Core.Test.Read.ClosingStructures
             var collector = new ReadConversionCollector();
 
             // Call
-            StructuresCalculation<ClosingStructuresInput> calculation = entity.Read(collector);
+            StructuresCalculationScenario<ClosingStructuresInput> calculation = entity.Read(collector);
 
             // Assert
             StructuresOutput calculationOutput = calculation.Output;
@@ -335,7 +335,7 @@ namespace Riskeer.Storage.Core.Test.Read.ClosingStructures
                 }
             };
 
-            var calculation = new StructuresCalculation<ClosingStructuresInput>();
+            var calculation = new StructuresCalculationScenario<ClosingStructuresInput>();
 
             var collector = new ReadConversionCollector();
             collector.Read(entity, calculation);

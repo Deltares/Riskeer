@@ -700,7 +700,7 @@ namespace Riskeer.Storage.Core.TestUtil
                 Name = "Closing structures A",
                 Children =
                 {
-                    new StructuresCalculation<ClosingStructuresInput>
+                    new StructuresCalculationScenario<ClosingStructuresInput>
                     {
                         InputParameters =
                         {
@@ -733,7 +733,7 @@ namespace Riskeer.Storage.Core.TestUtil
                         },
                         Output = new StructuresOutput(0.11, null)
                     },
-                    new StructuresCalculation<ClosingStructuresInput>
+                    new StructuresCalculationScenario<ClosingStructuresInput>
                     {
                         InputParameters =
                         {
@@ -772,7 +772,7 @@ namespace Riskeer.Storage.Core.TestUtil
             {
                 Name = "Closing structures B"
             });
-            failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<ClosingStructuresInput>());
+            failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculationScenario<ClosingStructuresInput>());
         }
 
         private static void SetSectionResults(IEnumerable<ClosingStructuresFailureMechanismSectionResult> sectionResults,
