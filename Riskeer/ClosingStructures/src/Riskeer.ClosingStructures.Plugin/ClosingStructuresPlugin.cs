@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2019. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2019. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -123,7 +123,7 @@ namespace Riskeer.ClosingStructures.Plugin
                 GetViewData = context => context.WrappedData,
                 GetViewName = (view, context) => RiskeerCommonFormsResources.Scenarios_DisplayName,
                 Image = RiskeerCommonFormsResources.ScenariosIcon,
-                AfterCreate = (view, context) => view.FailureMechanism = context.ParentFailureMechanism,
+                CreateInstance = context => new ClosingStructuresScenariosView(context.WrappedData, context.ParentFailureMechanism, context.AssessmentSection),
                 CloseForData = CloseScenariosViewForData
             };
         }

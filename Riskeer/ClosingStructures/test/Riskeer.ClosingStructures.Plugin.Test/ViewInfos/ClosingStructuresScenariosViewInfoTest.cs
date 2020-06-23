@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2019. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2019. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -21,6 +21,7 @@
 
 using System.Drawing;
 using System.Linq;
+using Core.Common.Controls.Views;
 using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -40,14 +41,12 @@ namespace Riskeer.ClosingStructures.Plugin.Test.ViewInfos
     {
         private ClosingStructuresPlugin plugin;
         private ViewInfo info;
-        private MockRepository mocks;
 
         [SetUp]
         public void SetUp()
         {
             plugin = new ClosingStructuresPlugin();
             info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(ClosingStructuresScenariosView));
-            mocks = new MockRepository();
         }
 
         [TearDown]
@@ -105,63 +104,21 @@ namespace Riskeer.ClosingStructures.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void AfterCreate_Always_SetsSpecificPropertiesToView()
-        {
-            // Setup
-            using (var view = new ClosingStructuresScenariosView())
-            {
-                var group = new CalculationGroup();
-                var failureMechanism = new ClosingStructuresFailureMechanism();
-                var context = new ClosingStructuresScenariosContext(group, failureMechanism);
-
-                // Call
-                info.AfterCreate(view, context);
-
-                // Assert
-                Assert.AreSame(failureMechanism, view.FailureMechanism);
-            }
-        }
-
-        [Test]
-        public void CloseForData_AssessmentSectionRemovedWithoutFailureMechanism_ReturnFalse()
-        {
-            // Setup
-            using (var view = new ClosingStructuresScenariosView
-            {
-                Data = new CalculationGroup()
-            })
-            {
-                var assessmentSection = mocks.Stub<IAssessmentSection>();
-                assessmentSection.Stub(section => section.GetFailureMechanisms()).Return(new IFailureMechanism[0]);
-                mocks.ReplayAll();
-
-                // Call
-                bool closeForData = info.CloseForData(view, assessmentSection);
-
-                // Assert
-                Assert.IsFalse(closeForData);
-                mocks.VerifyAll();
-            }
-        }
-
-        [Test]
         public void CloseForData_ViewNotCorrespondingToRemovedAssessmentSection_ReturnFalse()
         {
             // Setup
-            using (var view = new ClosingStructuresScenariosView
-            {
-                Data = new CalculationGroup()
-            })
-            {
-                var unrelatedFailureMechanism = new ClosingStructuresFailureMechanism();
+            var unrelatedFailureMechanism = new ClosingStructuresFailureMechanism();
 
-                var assessmentSection = mocks.Stub<IAssessmentSection>();
-                assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new[]
-                {
-                    unrelatedFailureMechanism
-                });
-                mocks.ReplayAll();
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new[]
+            {
+                unrelatedFailureMechanism
+            });
+            mocks.ReplayAll();
 
+            using (var view = new ClosingStructuresScenariosView(new CalculationGroup(), new ClosingStructuresFailureMechanism(), assessmentSection))
+            {
                 // Precondition
                 Assert.AreNotSame(view.Data, unrelatedFailureMechanism.CalculationsGroup);
 
@@ -170,8 +127,9 @@ namespace Riskeer.ClosingStructures.Plugin.Test.ViewInfos
 
                 // Assert
                 Assert.IsFalse(closeForData);
-                mocks.VerifyAll();
             }
+
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -180,18 +138,16 @@ namespace Riskeer.ClosingStructures.Plugin.Test.ViewInfos
             // Setup
             var relatedFailureMechanism = new ClosingStructuresFailureMechanism();
 
-            using (var view = new ClosingStructuresScenariosView
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new[]
             {
-                Data = relatedFailureMechanism.CalculationsGroup
-            })
-            {
-                var assessmentSection = mocks.Stub<IAssessmentSection>();
-                assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new[]
-                {
-                    relatedFailureMechanism
-                });
-                mocks.ReplayAll();
+                relatedFailureMechanism
+            });
+            mocks.ReplayAll();
 
+            using (var view = new ClosingStructuresScenariosView(relatedFailureMechanism.CalculationsGroup, relatedFailureMechanism, assessmentSection))
+            {
                 // Precondition
                 Assert.AreSame(view.Data, relatedFailureMechanism.CalculationsGroup);
 
@@ -200,18 +156,20 @@ namespace Riskeer.ClosingStructures.Plugin.Test.ViewInfos
 
                 // Assert
                 Assert.IsTrue(closeForData);
-                mocks.VerifyAll();
             }
+
+            mocks.VerifyAll();
         }
 
         [Test]
         public void CloseForData_ViewNotCorrespondingToRemovedFailureMechanism_ReturnFalse()
         {
             // Setup
-            using (var view = new ClosingStructuresScenariosView
-            {
-                Data = new CalculationGroup()
-            })
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            using (var view = new ClosingStructuresScenariosView(new CalculationGroup(), new ClosingStructuresFailureMechanism(), assessmentSection))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, new ClosingStructuresFailureMechanism());
@@ -219,17 +177,20 @@ namespace Riskeer.ClosingStructures.Plugin.Test.ViewInfos
                 // Assert
                 Assert.IsFalse(closeForData);
             }
+
+            mocks.VerifyAll();
         }
 
         [Test]
         public void CloseForData_ViewCorrespondingToRemovedFailureMechanism_ReturnTrue()
         {
             // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             var correspondingFailureMechanism = new ClosingStructuresFailureMechanism();
-            using (var view = new ClosingStructuresScenariosView
-            {
-                Data = correspondingFailureMechanism.CalculationsGroup
-            })
+            using (var view = new ClosingStructuresScenariosView(correspondingFailureMechanism.CalculationsGroup, correspondingFailureMechanism, assessmentSection))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, correspondingFailureMechanism);
@@ -237,153 +198,96 @@ namespace Riskeer.ClosingStructures.Plugin.Test.ViewInfos
                 // Assert
                 Assert.IsTrue(closeForData);
             }
+
+            mocks.VerifyAll();
         }
 
         [Test]
-        public void CloseForData_AssessmentSectionRemovedWithoutClosingStructuresFailureMechanism_ReturnsFalse()
+        public void CloseForData_AssessmentSectionRemovedWithoutClosingStructuresFailureMechanism_ReturnFalse()
         {
             // Setup
+            var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new IFailureMechanism[0]);
             mocks.ReplayAll();
 
-            var view = new ClosingStructuresScenariosView
+            using (var view = new ClosingStructuresScenariosView(new CalculationGroup(), new ClosingStructuresFailureMechanism(), assessmentSection))
             {
-                Data = new CalculationGroup()
-            };
+                // Call
+                bool closeForData = info.CloseForData(view, assessmentSection);
 
-            // Call
-            bool closeForData = info.CloseForData(view, assessmentSection);
+                // Assert
+                Assert.IsFalse(closeForData);
+            }
 
-            // Assert
-            Assert.IsFalse(closeForData);
             mocks.VerifyAll();
         }
 
         [Test]
-        public void CloseForData_ViewNotCorrespondingToRemovedAssessmentSection_ReturnsFalse()
+        public void CloseForData_ViewNotCorrespondingToRemovedFailureMechanismContext_ReturnFalse()
         {
             // Setup
+            var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new[]
-            {
-                new ClosingStructuresFailureMechanism()
-            });
-
             mocks.ReplayAll();
 
-            var view = new ClosingStructuresScenariosView
-            {
-                Data = new CalculationGroup()
-            };
-
-            // Call
-            bool closeForData = info.CloseForData(view, assessmentSection);
-
-            // Assert
-            Assert.IsFalse(closeForData);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void CloseForData_ViewCorrespondingToRemovedAssessmentSection_ReturnsTrue()
-        {
-            // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var failureMechanism = new ClosingStructuresFailureMechanism();
-            assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new[]
-            {
-                failureMechanism
-            });
-
-            mocks.ReplayAll();
-
-            var view = new ClosingStructuresScenariosView
-            {
-                Data = failureMechanism.CalculationsGroup
-            };
-
-            // Call
-            bool closeForData = info.CloseForData(view, assessmentSection);
-
-            // Assert
-            Assert.IsTrue(closeForData);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void CloseForData_ViewNotCorrespondingToRemovedFailureMechanism_ReturnsFalse()
-        {
-            // Setup
-            var view = new ClosingStructuresScenariosView();
-            var failureMechanism = new ClosingStructuresFailureMechanism();
-
-            view.Data = new CalculationGroup();
-
-            // Call
-            bool closeForData = info.CloseForData(view, failureMechanism);
-
-            // Assert
-            Assert.IsFalse(closeForData);
-        }
-
-        [Test]
-        public void CloseForData_ViewCorrespondingToRemovedFailureMechanism_ReturnsTrue()
-        {
-            // Setup
-            var view = new ClosingStructuresScenariosView();
-            var failureMechanism = new ClosingStructuresFailureMechanism();
-
-            view.Data = failureMechanism.CalculationsGroup;
-
-            // Call
-            bool closeForData = info.CloseForData(view, failureMechanism);
-
-            // Assert
-            Assert.IsTrue(closeForData);
-        }
-
-        [Test]
-        public void CloseForData_ViewNotCorrespondingToRemovedFailureMechanismContext_ReturnsFalse()
-        {
-            // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-
-            mocks.ReplayAll();
-
-            var view = new ClosingStructuresScenariosView();
             var failureMechanism = new ClosingStructuresFailureMechanism();
             var failureMechanismContext = new ClosingStructuresFailureMechanismContext(new ClosingStructuresFailureMechanism(), assessmentSection);
 
-            view.Data = failureMechanism.CalculationsGroup;
+            using (var view = new ClosingStructuresScenariosView(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection))
+            {
+                // Call
+                bool closeForData = info.CloseForData(view, failureMechanismContext);
 
-            // Call
-            bool closeForData = info.CloseForData(view, failureMechanismContext);
+                // Assert
+                Assert.IsFalse(closeForData);
+            }
 
-            // Assert
-            Assert.IsFalse(closeForData);
             mocks.VerifyAll();
         }
 
         [Test]
-        public void CloseForData_ViewCorrespondingToRemovedFailureMechanismContext_ReturnsTrue()
+        public void CloseForData_ViewCorrespondingToRemovedFailureMechanismContext_ReturnTrue()
         {
             // Setup
+            var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-
             mocks.ReplayAll();
 
-            var view = new ClosingStructuresScenariosView();
             var failureMechanism = new ClosingStructuresFailureMechanism();
             var failureMechanismContext = new ClosingStructuresFailureMechanismContext(failureMechanism, assessmentSection);
 
-            view.Data = failureMechanism.CalculationsGroup;
+            using (var view = new ClosingStructuresScenariosView(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection))
+            {
+                // Call
+                bool closeForData = info.CloseForData(view, failureMechanismContext);
+
+                // Assert
+                Assert.IsTrue(closeForData);
+            }
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CreateInstance_WithContext_ReturnsClosingStructuresScenariosView()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var group = new CalculationGroup();
+            var context = new ClosingStructuresScenariosContext(group, new ClosingStructuresFailureMechanism(), assessmentSection);
 
             // Call
-            bool closeForData = info.CloseForData(view, failureMechanismContext);
+            using (IView view = info.CreateInstance(context))
+            {
+                // Assert
+                Assert.IsInstanceOf<ClosingStructuresScenariosView>(view);
+                Assert.AreSame(group, view.Data);
+            }
 
-            // Assert
-            Assert.IsTrue(closeForData);
             mocks.VerifyAll();
         }
     }

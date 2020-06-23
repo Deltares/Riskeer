@@ -22,120 +22,67 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Windows.Forms;
-using Core.Common.Base;
-using Core.Common.Controls.Views;
+using Core.Common.Base.Geometry;
 using Riskeer.ClosingStructures.Data;
+using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
+using Riskeer.Common.Data.DikeProfiles;
+using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Structures;
-using Riskeer.Common.Util;
+using Riskeer.Common.Forms.Views;
 
 namespace Riskeer.ClosingStructures.Forms.Views
 {
     /// <summary>
-    /// View for configuring scenarios for the closing structures failure mechanism.
-    /// Shows a grid view where for each failure mechanism section, a calculation within the section
-    /// can be selected.
+    /// View for configuring closing structures scenarios.
     /// </summary>
-    public partial class ClosingStructuresScenariosView : UserControl, IView
+    public partial class ClosingStructuresScenariosView : ScenariosView<StructuresCalculationScenario<ClosingStructuresInput>, ClosingStructuresInput, ClosingStructuresScenarioRow, ClosingStructuresFailureMechanism>
     {
-        private readonly RecursiveObserver<CalculationGroup, ICalculationInput> calculationInputObserver;
-        private readonly RecursiveObserver<CalculationGroup, ICalculationBase> calculationGroupObserver;
-        private readonly Observer failureMechanismObserver;
-        private ClosingStructuresFailureMechanism failureMechanism;
-        private CalculationGroup data;
+        private readonly IAssessmentSection assessmentSection;
 
         /// <summary>
         /// Creates a new instance of <see cref="ClosingStructuresScenariosView"/>.
         /// </summary>
-        public ClosingStructuresScenariosView()
+        /// <param name="calculationGroup">The data to show in this view.</param>
+        /// <param name="failureMechanism">The <see cref="ClosingStructuresFailureMechanism"/>
+        /// the <paramref name="calculationGroup"/> belongs to.</param>
+        /// <param name="assessmentSection">The assessment section the scenarios belong to.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter
+        /// is <c>null</c>.</exception>
+        public ClosingStructuresScenariosView(CalculationGroup calculationGroup, ClosingStructuresFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+            : base(calculationGroup, failureMechanism)
         {
-            InitializeComponent();
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
 
-            failureMechanismObserver = new Observer(UpdateDataGridViewDataSource);
-
-            // The concat is needed to observe the input of calculations in child groups.
-            calculationInputObserver = new RecursiveObserver<CalculationGroup, ICalculationInput>(
-                UpdateDataGridViewDataSource, cg => cg.Children.Concat<object>(cg.Children
-                                                                                 .OfType<StructuresCalculation<ClosingStructuresInput>>()
-                                                                                 .Select(c => c.InputParameters)));
-            calculationGroupObserver = new RecursiveObserver<CalculationGroup, ICalculationBase>(UpdateDataGridViewDataSource, c => c.Children);
+            this.assessmentSection = assessmentSection;
         }
 
-        /// <summary>
-        /// Gets or sets the failure mechanism.
-        /// </summary>
-        public ClosingStructuresFailureMechanism FailureMechanism
+        protected override ClosingStructuresInput GetCalculationInput(StructuresCalculationScenario<ClosingStructuresInput> calculationScenario)
         {
-            get
-            {
-                return failureMechanism;
-            }
-            set
-            {
-                failureMechanism = value;
-                failureMechanismObserver.Observable = failureMechanism;
-                UpdateDataGridViewDataSource();
-            }
+            return calculationScenario.InputParameters;
         }
 
-        public object Data
+        protected override IEnumerable<ClosingStructuresScenarioRow> GetScenarioRows(FailureMechanismSection failureMechanismSection)
         {
-            get
-            {
-                return data;
-            }
-            set
-            {
-                data = value as CalculationGroup;
+            IEnumerable<Segment2D> lineSegments = Math2D.ConvertPointsToLineSegments(failureMechanismSection.Points);
+            IEnumerable<StructuresCalculationScenario<ClosingStructuresInput>> calculations = CalculationGroup.GetCalculations().OfType<StructuresCalculationScenario<ClosingStructuresInput>>()
+                                                                                                    .Where(cs => IsForeshoreProfileIntersectionWithReferenceLineInSection(cs, lineSegments));
 
-                calculationInputObserver.Observable = data;
-                calculationGroupObserver.Observable = data;
-
-                UpdateDataGridViewDataSource();
-            }
+            return calculations.Select(c => new ClosingStructuresScenarioRow(c, FailureMechanism, assessmentSection)).ToList();
         }
 
-        protected override void OnLoad(EventArgs e)
+        private static bool IsForeshoreProfileIntersectionWithReferenceLineInSection(ICalculation<ClosingStructuresInput> calculationScenario, IEnumerable<Segment2D> lineSegments)
         {
-            UpdateDataGridViewDataSource();
-            base.OnLoad(e);
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            failureMechanismObserver?.Dispose();
-            calculationInputObserver.Dispose();
-            calculationGroupObserver.Dispose();
-
-            if (disposing)
+            ForeshoreProfile foreshoreProfile = calculationScenario.InputParameters.ForeshoreProfile;
+            if (foreshoreProfile == null)
             {
-                components?.Dispose();
+                return false;
             }
 
-            base.Dispose(disposing);
-        }
-
-        private void UpdateDataGridViewDataSource()
-        {
-            scenarioSelectionControl.EndEdit();
-
-            if (failureMechanism?.SectionResults == null || data?.Children == null)
-            {
-                scenarioSelectionControl.ClearDataSource();
-            }
-            else
-            {
-                ICalculation[] calculations = data.GetCalculations().ToArray();
-
-                IDictionary<string, List<ICalculation>> calculationsPerSegment =
-                    StructuresHelper.CollectCalculationsPerSection(failureMechanism.Sections,
-                                                                   calculations.Cast<StructuresCalculation<ClosingStructuresInput>>());
-
-                List<ClosingStructuresScenarioRow> scenarioRows = failureMechanism.SectionResults.Select(sr => new ClosingStructuresScenarioRow(sr)).ToList();
-
-                scenarioSelectionControl.UpdateDataGridViewDataSource(calculations, scenarioRows, calculationsPerSegment);
-            }
+            return lineSegments.Min(segment => segment.GetEuclideanDistanceToPoint(foreshoreProfile.WorldReferencePoint)) <= 1;
         }
     }
 }

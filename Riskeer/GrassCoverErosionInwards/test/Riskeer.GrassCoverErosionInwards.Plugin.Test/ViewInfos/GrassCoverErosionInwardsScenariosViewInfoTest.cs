@@ -268,7 +268,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void AfterCreate_WithContext_ReturnsGrassCoverErosionInwardsScenariosView()
+        public void CreateInstance_WithContext_ReturnsGrassCoverErosionInwardsScenariosView()
         {
             // Setup
             var mocks = new MockRepository();

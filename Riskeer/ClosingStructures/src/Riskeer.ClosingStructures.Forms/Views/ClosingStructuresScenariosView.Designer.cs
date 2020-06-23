@@ -36,31 +36,9 @@ namespace Riskeer.ClosingStructures.Forms.Views
         /// </summary>
         private void InitializeComponent()
         {
-            this.scenarioSelectionControl = new Riskeer.Common.Forms.ScenarioSelectionControl();
-            this.SuspendLayout();
-            // 
-            // scenarioSelectionControl
-            // 
-            this.scenarioSelectionControl.AutoScroll = true;
-            this.scenarioSelectionControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.scenarioSelectionControl.Location = new System.Drawing.Point(0, 0);
-            this.scenarioSelectionControl.Name = "scenarioSelectionControl";
-            this.scenarioSelectionControl.Size = new System.Drawing.Size(150, 150);
-            this.scenarioSelectionControl.TabIndex = 0;
-            // 
-            // ClosingStructuresScenariosView
-            // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.scenarioSelectionControl);
-            this.Name = "ClosingStructuresScenariosView";
-            this.ResumeLayout(false);
-            this.AutoScroll = true;
-
+            
         }
 
         #endregion
-
-        private Common.Forms.ScenarioSelectionControl scenarioSelectionControl;
     }
 }
