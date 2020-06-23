@@ -198,7 +198,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
 
             protected override ICalculationContext<ICalculation, IFailureMechanism> GetCalculationContextWithCalculation()
             {
-                return new ClosingStructuresCalculationContext(
+                return new ClosingStructuresCalculationScenarioContext(
                     new StructuresCalculation<ClosingStructuresInput>(),
                     new CalculationGroup(),
                     new ClosingStructuresFailureMechanism(),

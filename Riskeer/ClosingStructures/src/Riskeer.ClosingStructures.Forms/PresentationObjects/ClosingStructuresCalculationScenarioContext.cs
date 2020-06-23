@@ -31,20 +31,20 @@ namespace Riskeer.ClosingStructures.Forms.PresentationObjects
     /// <summary>
     /// Presentation object for all data required to configure a closing structures calculation.
     /// </summary>
-    public class ClosingStructuresCalculationContext : StructuresCalculationContext<ClosingStructuresInput, ClosingStructuresFailureMechanism>
+    public class ClosingStructuresCalculationScenarioContext : StructuresCalculationContext<ClosingStructuresInput, ClosingStructuresFailureMechanism>
     {
         /// <summary>
-        /// Creates a new instance of <see cref="ClosingStructuresCalculationContext"/>.
+        /// Creates a new instance of <see cref="ClosingStructuresCalculationScenarioContext"/>.
         /// </summary>
         /// <param name="wrappedData">The calculation instance wrapped by this context object.</param>
         /// <param name="parent">The <see cref="CalculationGroup"/> that owns the wrapped calculation.</param>
         /// <param name="failureMechanism">The failure mechanism which the calculation belongs to.</param>
         /// <param name="assessmentSection">The assessment section which the calculation belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
-        public ClosingStructuresCalculationContext(StructuresCalculation<ClosingStructuresInput> wrappedData,
-                                                   CalculationGroup parent,
-                                                   ClosingStructuresFailureMechanism failureMechanism,
-                                                   IAssessmentSection assessmentSection)
+        public ClosingStructuresCalculationScenarioContext(StructuresCalculation<ClosingStructuresInput> wrappedData,
+                                                           CalculationGroup parent,
+                                                           ClosingStructuresFailureMechanism failureMechanism,
+                                                           IAssessmentSection assessmentSection)
             : base(wrappedData, parent, failureMechanism, assessmentSection) {}
     }
 }

@@ -455,7 +455,7 @@ namespace Riskeer.ClosingStructures.Plugin
 
             foreach (ICalculationBase calculationItem in context.WrappedData.Children)
             {
-                var calculation = calculationItem as StructuresCalculation<ClosingStructuresInput>;
+                var calculation = calculationItem as StructuresCalculationScenario<ClosingStructuresInput>;
                 var group = calculationItem as CalculationGroup;
 
                 if (calculation != null)

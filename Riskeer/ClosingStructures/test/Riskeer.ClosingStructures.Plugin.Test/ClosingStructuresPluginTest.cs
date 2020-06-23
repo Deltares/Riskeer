@@ -107,7 +107,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(ClosingStructuresContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(ClosingStructure)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(ClosingStructuresCalculationGroupContext)));
-                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(ClosingStructuresCalculationContext)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(ClosingStructuresCalculationScenarioContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(ClosingStructuresInputContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(ClosingStructuresScenariosContext)));
             }
@@ -196,7 +196,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test
                 // Assert
                 Assert.AreEqual(2, exportInfos.Length);
                 Assert.IsTrue(exportInfos.Any(tni => tni.DataType == typeof(ClosingStructuresCalculationGroupContext)));
-                Assert.IsTrue(exportInfos.Any(tni => tni.DataType == typeof(ClosingStructuresCalculationContext)));
+                Assert.IsTrue(exportInfos.Any(tni => tni.DataType == typeof(ClosingStructuresCalculationScenarioContext)));
             }
 
             mocks.VerifyAll();

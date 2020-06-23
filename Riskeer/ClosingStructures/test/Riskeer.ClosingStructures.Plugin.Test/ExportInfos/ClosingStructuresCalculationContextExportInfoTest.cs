@@ -59,7 +59,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.ExportInfos
                 Gui = gui
             };
 
-            info = plugin.GetExportInfos().First(ei => ei.DataType == typeof(ClosingStructuresCalculationContext));
+            info = plugin.GetExportInfos().First(ei => ei.DataType == typeof(ClosingStructuresCalculationScenarioContext));
         }
 
         [TearDown]
@@ -89,10 +89,10 @@ namespace Riskeer.ClosingStructures.Plugin.Test.ExportInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var context = new ClosingStructuresCalculationContext(new TestClosingStructuresCalculation(),
-                                                                  new CalculationGroup(),
-                                                                  new ClosingStructuresFailureMechanism(),
-                                                                  assessmentSection);
+            var context = new ClosingStructuresCalculationScenarioContext(new TestClosingStructuresCalculation(),
+                                                                          new CalculationGroup(),
+                                                                          new ClosingStructuresFailureMechanism(),
+                                                                          assessmentSection);
 
             // Call
             IFileExporter fileExporter = info.CreateFileExporter(context, "test");
@@ -108,10 +108,10 @@ namespace Riskeer.ClosingStructures.Plugin.Test.ExportInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var context = new ClosingStructuresCalculationContext(new TestClosingStructuresCalculation(),
-                                                                  new CalculationGroup(),
-                                                                  new ClosingStructuresFailureMechanism(),
-                                                                  assessmentSection);
+            var context = new ClosingStructuresCalculationScenarioContext(new TestClosingStructuresCalculation(),
+                                                                          new CalculationGroup(),
+                                                                          new ClosingStructuresFailureMechanism(),
+                                                                          assessmentSection);
 
             // Call
             bool isEnabled = info.IsEnabled(context);

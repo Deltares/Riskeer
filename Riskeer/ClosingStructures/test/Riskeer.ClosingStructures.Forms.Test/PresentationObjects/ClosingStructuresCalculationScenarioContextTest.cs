@@ -31,7 +31,7 @@ using Riskeer.Common.Forms.PresentationObjects;
 namespace Riskeer.ClosingStructures.Forms.Test.PresentationObjects
 {
     [TestFixture]
-    public class ClosingStructuresCalculationContextTest
+    public class ClosingStructuresCalculationScenarioContextTest
     {
         [Test]
         public void ConstructorWithData_Always_ExpectedPropertiesSet()
@@ -46,7 +46,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.PresentationObjects
             var parent = new CalculationGroup();
 
             // Call
-            var context = new ClosingStructuresCalculationContext(calculation, parent, failureMechanism, assessmentSection);
+            var context = new ClosingStructuresCalculationScenarioContext(calculation, parent, failureMechanism, assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<StructuresCalculationContext<ClosingStructuresInput, ClosingStructuresFailureMechanism>>(context);
@@ -68,8 +68,8 @@ namespace Riskeer.ClosingStructures.Forms.Test.PresentationObjects
             var calculation = new StructuresCalculation<ClosingStructuresInput>();
             var failureMechanism = new ClosingStructuresFailureMechanism();
             var parent = new CalculationGroup();
-            var context = new ClosingStructuresCalculationContext(calculation, parent, failureMechanism, assessmentSection);
-            var derivedContext = new DerivedClosingStructuresCalculationContext(calculation, parent, failureMechanism, assessmentSection);
+            var context = new ClosingStructuresCalculationScenarioContext(calculation, parent, failureMechanism, assessmentSection);
+            var derivedContext = new DerivedClosingStructuresCalculationScenarioContext(calculation, parent, failureMechanism, assessmentSection);
 
             // Call
             bool isEqual = context.Equals(derivedContext);
@@ -79,9 +79,9 @@ namespace Riskeer.ClosingStructures.Forms.Test.PresentationObjects
             mocksRepository.VerifyAll();
         }
 
-        private class DerivedClosingStructuresCalculationContext : ClosingStructuresCalculationContext
+        private class DerivedClosingStructuresCalculationScenarioContext : ClosingStructuresCalculationScenarioContext
         {
-            public DerivedClosingStructuresCalculationContext(StructuresCalculation<ClosingStructuresInput> calculation,
+            public DerivedClosingStructuresCalculationScenarioContext(StructuresCalculation<ClosingStructuresInput> calculation,
                                                               CalculationGroup parent,
                                                               ClosingStructuresFailureMechanism failureMechanism,
                                                               IAssessmentSection assessmentSection)
