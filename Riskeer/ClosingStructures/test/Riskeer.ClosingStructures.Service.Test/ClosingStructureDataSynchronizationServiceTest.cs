@@ -83,18 +83,18 @@ namespace Riskeer.ClosingStructures.Service.Test
                 structureToKeep
             }, "path/to/structures");
 
-            var calculationWithOutput = new TestClosingStructuresCalculation
+            var calculationWithOutput = new TestClosingStructuresCalculationScenario
             {
                 Output = new TestStructuresOutput()
             };
-            var calculationWithStructureToRemove = new TestClosingStructuresCalculation
+            var calculationWithStructureToRemove = new TestClosingStructuresCalculationScenario
             {
                 InputParameters =
                 {
                     Structure = structureToRemove
                 }
             };
-            var calculationWithStructureToKeepAndOutput = new TestClosingStructuresCalculation
+            var calculationWithStructureToKeepAndOutput = new TestClosingStructuresCalculationScenario
             {
                 InputParameters =
                 {
@@ -102,7 +102,7 @@ namespace Riskeer.ClosingStructures.Service.Test
                 },
                 Output = new TestStructuresOutput()
             };
-            var calculationWithStructureToRemoveAndOutput = new TestClosingStructuresCalculation
+            var calculationWithStructureToRemoveAndOutput = new TestClosingStructuresCalculationScenario
             {
                 InputParameters =
                 {
@@ -561,7 +561,7 @@ namespace Riskeer.ClosingStructures.Service.Test
             var structure1 = new TestClosingStructure(new Point2D(1, 0), "structure1");
             var structure2 = new TestClosingStructure(new Point2D(3, 0), "structure2");
             var profile = new TestForeshoreProfile();
-            StructuresCalculation<ClosingStructuresInput> calculation1 = new TestClosingStructuresCalculation
+            StructuresCalculation<ClosingStructuresInput> calculation1 = new TestClosingStructuresCalculationScenario
             {
                 InputParameters =
                 {
@@ -570,7 +570,7 @@ namespace Riskeer.ClosingStructures.Service.Test
                 },
                 Output = new TestStructuresOutput()
             };
-            StructuresCalculation<ClosingStructuresInput> calculation2 = new TestClosingStructuresCalculation
+            StructuresCalculation<ClosingStructuresInput> calculation2 = new TestClosingStructuresCalculationScenario
             {
                 InputParameters =
                 {
@@ -578,7 +578,7 @@ namespace Riskeer.ClosingStructures.Service.Test
                     Structure = structure2
                 }
             };
-            StructuresCalculation<ClosingStructuresInput> calculation3 = new TestClosingStructuresCalculation
+            StructuresCalculation<ClosingStructuresInput> calculation3 = new TestClosingStructuresCalculationScenario
             {
                 InputParameters =
                 {

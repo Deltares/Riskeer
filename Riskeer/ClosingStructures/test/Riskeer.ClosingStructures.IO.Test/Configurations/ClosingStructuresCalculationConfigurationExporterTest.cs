@@ -121,7 +121,7 @@ namespace Riskeer.ClosingStructures.IO.Test.Configurations
 
         private static StructuresCalculation<ClosingStructuresInput> CreateFullCalculation()
         {
-            return new TestClosingStructuresCalculation
+            return new TestClosingStructuresCalculationScenario
             {
                 Name = "full config",
                 InputParameters =
@@ -255,7 +255,7 @@ namespace Riskeer.ClosingStructures.IO.Test.Configurations
 
         protected override StructuresCalculation<ClosingStructuresInput> CreateCalculation()
         {
-            return new TestClosingStructuresCalculation();
+            return new TestClosingStructuresCalculationScenario();
         }
 
         protected override ClosingStructuresCalculationConfigurationExporter CallConfigurationFilePathConstructor(IEnumerable<ICalculationBase> calculations, string filePath)

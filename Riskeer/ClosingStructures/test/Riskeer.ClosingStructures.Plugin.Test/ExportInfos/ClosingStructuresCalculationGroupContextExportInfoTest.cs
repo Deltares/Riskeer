@@ -138,7 +138,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.ExportInfos
 
             if (hasCalculation)
             {
-                calculationGroup.Children.Add(new TestClosingStructuresCalculation());
+                calculationGroup.Children.Add(new TestClosingStructuresCalculationScenario());
             }
 
             var context = new ClosingStructuresCalculationGroupContext(calculationGroup,

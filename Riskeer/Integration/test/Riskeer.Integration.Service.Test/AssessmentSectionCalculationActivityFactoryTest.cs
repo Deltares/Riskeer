@@ -403,7 +403,7 @@ namespace Riskeer.Integration.Service.Test
         private static void AddClosingStructuresCalculation(AssessmentSection assessmentSection,
                                                             HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
-            assessmentSection.ClosingStructures.CalculationsGroup.Children.Add(new TestClosingStructuresCalculation
+            assessmentSection.ClosingStructures.CalculationsGroup.Children.Add(new TestClosingStructuresCalculationScenario
             {
                 InputParameters =
                 {

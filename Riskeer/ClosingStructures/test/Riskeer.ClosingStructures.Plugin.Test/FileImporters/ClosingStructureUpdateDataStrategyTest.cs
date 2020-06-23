@@ -320,7 +320,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.FileImporters
             ClosingStructure readStructure = new TestClosingStructure(sameId, "new structure");
             ClosingStructure structure = new TestClosingStructure(sameId, "original structure");
 
-            var calculation = new TestClosingStructuresCalculation
+            var calculation = new TestClosingStructuresCalculationScenario
             {
                 InputParameters =
                 {
@@ -373,7 +373,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.FileImporters
             var affectedStructure = new TestClosingStructure(affectedId, "Old name");
             var unaffectedStructure = new TestClosingStructure(unaffectedId, unaffectedStructureName);
 
-            var affectedCalculation = new TestClosingStructuresCalculation
+            var affectedCalculation = new TestClosingStructuresCalculationScenario
             {
                 InputParameters =
                 {
@@ -382,7 +382,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.FileImporters
                 Output = new TestStructuresOutput()
             };
 
-            var unaffectedCalculation = new TestClosingStructuresCalculation
+            var unaffectedCalculation = new TestClosingStructuresCalculationScenario
             {
                 InputParameters =
                 {
@@ -446,7 +446,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.FileImporters
             const string sameId = "sameId";
             ClosingStructure structure = new TestClosingStructure(sameId, "original structure");
 
-            var calculation = new TestClosingStructuresCalculation
+            var calculation = new TestClosingStructuresCalculationScenario
             {
                 InputParameters =
                 {
@@ -500,7 +500,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.FileImporters
             var removedStructure = new TestClosingStructure(removedId, "Old name");
             var unaffectedStructure = new TestClosingStructure(unaffectedId, unaffectedStructureName);
 
-            var affectedCalculation = new TestClosingStructuresCalculation
+            var affectedCalculation = new TestClosingStructuresCalculationScenario
             {
                 InputParameters =
                 {
@@ -509,7 +509,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.FileImporters
                 Output = new TestStructuresOutput()
             };
 
-            var unaffectedCalculation = new TestClosingStructuresCalculation
+            var unaffectedCalculation = new TestClosingStructuresCalculationScenario
             {
                 InputParameters =
                 {
@@ -569,7 +569,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.FileImporters
             // Setup
             const string affectedId = "affectedId";
             var affectedStructure = new TestClosingStructure(affectedId, "Old name");
-            var affectedCalculation = new TestClosingStructuresCalculation
+            var affectedCalculation = new TestClosingStructuresCalculationScenario
             {
                 InputParameters =
                 {
@@ -624,7 +624,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.FileImporters
             ClosingStructure readStructure = new TestClosingStructure(updatedMatchingPoint, sameId);
             ClosingStructure structure = new TestClosingStructure(originalMatchingPoint, sameId);
 
-            var calculation = new TestClosingStructuresCalculation
+            var calculation = new TestClosingStructuresCalculationScenario
             {
                 InputParameters =
                 {
@@ -704,7 +704,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.FileImporters
             var originalMatchingPoint = new Point2D(0, 0);
             ClosingStructure removedStructure = new TestClosingStructure(originalMatchingPoint, sameId);
 
-            var calculation = new TestClosingStructuresCalculation
+            var calculation = new TestClosingStructuresCalculationScenario
             {
                 InputParameters =
                 {

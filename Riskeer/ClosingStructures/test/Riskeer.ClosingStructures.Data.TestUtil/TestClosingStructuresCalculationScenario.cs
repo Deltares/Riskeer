@@ -26,14 +26,14 @@ using Riskeer.Common.Data.Structures;
 namespace Riskeer.ClosingStructures.Data.TestUtil
 {
     /// <summary>
-    /// Closing structures calculation used for testing purposes.
+    /// Closing structures calculation scenario used for testing purposes.
     /// </summary>
-    public class TestClosingStructuresCalculation : StructuresCalculation<ClosingStructuresInput>
+    public class TestClosingStructuresCalculationScenario : StructuresCalculationScenario<ClosingStructuresInput>
     {
         /// <summary>
-        /// Creates a new instance of <see cref="TestClosingStructuresCalculation"/>.
+        /// Creates a new instance of <see cref="TestClosingStructuresCalculationScenario"/>.
         /// </summary>
-        public TestClosingStructuresCalculation()
+        public TestClosingStructuresCalculationScenario()
         {
             InputParameters.Structure = new TestClosingStructure();
             InputParameters.HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "location", 1, 1);

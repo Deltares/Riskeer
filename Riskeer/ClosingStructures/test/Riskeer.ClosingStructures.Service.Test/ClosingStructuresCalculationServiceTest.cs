@@ -77,7 +77,7 @@ namespace Riskeer.ClosingStructures.Service.Test
                                                                                                            Path.Combine(testDataPath, "HRD dutch coast south.sqlite"));
             mockRepository.ReplayAll();
 
-            var calculation = new TestClosingStructuresCalculation();
+            var calculation = new TestClosingStructuresCalculationScenario();
 
             SetInvalidInputParameters(calculation.InputParameters, (RoundedDouble) value);
 
@@ -130,7 +130,7 @@ namespace Riskeer.ClosingStructures.Service.Test
                                                                                                            Path.Combine(testDataPath, "HRD dutch coast south.sqlite"));
             mockRepository.ReplayAll();
 
-            var calculation = new TestClosingStructuresCalculation
+            var calculation = new TestClosingStructuresCalculationScenario
             {
                 InputParameters =
                 {
@@ -189,7 +189,7 @@ namespace Riskeer.ClosingStructures.Service.Test
                                                                                                            Path.Combine(testDataPath, "HRD dutch coast south.sqlite"));
             mockRepository.ReplayAll();
 
-            var calculation = new TestClosingStructuresCalculation
+            var calculation = new TestClosingStructuresCalculationScenario
             {
                 InputParameters =
                 {
@@ -243,7 +243,7 @@ namespace Riskeer.ClosingStructures.Service.Test
                                                                                                            Path.Combine(testDataPath, "HRD dutch coast south.sqlite"));
             mockRepository.ReplayAll();
 
-            var calculation = new TestClosingStructuresCalculation
+            var calculation = new TestClosingStructuresCalculationScenario
             {
                 InputParameters =
                 {
@@ -279,7 +279,7 @@ namespace Riskeer.ClosingStructures.Service.Test
                                                                                                            Path.Combine(testDataPath, "HRD dutch coast south.sqlite"));
             mockRepository.ReplayAll();
 
-            var calculation = new TestClosingStructuresCalculation
+            var calculation = new TestClosingStructuresCalculationScenario
             {
                 InputParameters =
                 {
@@ -318,7 +318,7 @@ namespace Riskeer.ClosingStructures.Service.Test
             mockRepository.ReplayAll();
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
-            var calculation = new TestClosingStructuresCalculation
+            var calculation = new TestClosingStructuresCalculationScenario
             {
                 InputParameters =
                 {
@@ -363,7 +363,7 @@ namespace Riskeer.ClosingStructures.Service.Test
                              .Return(calculator);
             mockRepository.ReplayAll();
 
-            var calculation = new TestClosingStructuresCalculation
+            var calculation = new TestClosingStructuresCalculationScenario
             {
                 InputParameters =
                 {
@@ -443,7 +443,7 @@ namespace Riskeer.ClosingStructures.Service.Test
                              .Return(calculator);
             mockRepository.ReplayAll();
 
-            var calculation = new TestClosingStructuresCalculation
+            var calculation = new TestClosingStructuresCalculationScenario
             {
                 InputParameters =
                 {
@@ -524,7 +524,7 @@ namespace Riskeer.ClosingStructures.Service.Test
                              .Return(calculator);
             mockRepository.ReplayAll();
 
-            var calculation = new TestClosingStructuresCalculation
+            var calculation = new TestClosingStructuresCalculationScenario
             {
                 InputParameters =
                 {
@@ -603,7 +603,7 @@ namespace Riskeer.ClosingStructures.Service.Test
                              .Return(calculator);
             mockRepository.ReplayAll();
 
-            var calculation = new TestClosingStructuresCalculation
+            var calculation = new TestClosingStructuresCalculationScenario
             {
                 InputParameters =
                 {
@@ -682,7 +682,7 @@ namespace Riskeer.ClosingStructures.Service.Test
                              .Return(calculator);
             mockRepository.ReplayAll();
 
-            var calculation = new TestClosingStructuresCalculation
+            var calculation = new TestClosingStructuresCalculationScenario
             {
                 InputParameters =
                 {
@@ -759,7 +759,7 @@ namespace Riskeer.ClosingStructures.Service.Test
                              .Return(calculator);
             mockRepository.ReplayAll();
 
-            var calculation = new TestClosingStructuresCalculation
+            var calculation = new TestClosingStructuresCalculationScenario
             {
                 InputParameters =
                 {
@@ -850,7 +850,7 @@ namespace Riskeer.ClosingStructures.Service.Test
                              .Return(calculator);
             mockRepository.ReplayAll();
 
-            var calculation = new TestClosingStructuresCalculation
+            var calculation = new TestClosingStructuresCalculationScenario
             {
                 InputParameters =
                 {
@@ -896,7 +896,7 @@ namespace Riskeer.ClosingStructures.Service.Test
                              .Return(new TestStructuresCalculator<StructuresClosureCalculationInput>());
             mockRepository.ReplayAll();
 
-            var calculation = new TestClosingStructuresCalculation
+            var calculation = new TestClosingStructuresCalculationScenario
             {
                 InputParameters =
                 {
@@ -965,7 +965,7 @@ namespace Riskeer.ClosingStructures.Service.Test
                              .Return(calculator);
             mockRepository.ReplayAll();
 
-            var calculation = new TestClosingStructuresCalculation
+            var calculation = new TestClosingStructuresCalculationScenario
             {
                 InputParameters =
                 {
@@ -1028,7 +1028,7 @@ namespace Riskeer.ClosingStructures.Service.Test
                              .Return(calculator);
             mockRepository.ReplayAll();
 
-            var calculation = new TestClosingStructuresCalculation
+            var calculation = new TestClosingStructuresCalculationScenario
             {
                 InputParameters =
                 {
@@ -1092,7 +1092,7 @@ namespace Riskeer.ClosingStructures.Service.Test
                              .Return(calculator);
             mockRepository.ReplayAll();
 
-            var calculation = new TestClosingStructuresCalculation
+            var calculation = new TestClosingStructuresCalculationScenario
             {
                 InputParameters =
                 {

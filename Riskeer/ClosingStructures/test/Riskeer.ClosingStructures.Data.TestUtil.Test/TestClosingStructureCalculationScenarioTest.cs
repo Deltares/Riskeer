@@ -26,19 +26,19 @@ using Riskeer.Common.Data.TestUtil;
 namespace Riskeer.ClosingStructures.Data.TestUtil.Test
 {
     [TestFixture]
-    public class TestClosingStructureCalculationTest
+    public class TestClosingStructureCalculationScenarioTest
     {
         [Test]
-        public void Constructor_DefaultPropertyValuesAreSet()
+        public void Constructor_ExpectedValues()
         {
             // Setup
             var referenceStructure = new TestClosingStructure();
 
             // Call 
-            var calculation = new TestClosingStructuresCalculation();
+            var calculation = new TestClosingStructuresCalculationScenario();
 
             // Assert
-            Assert.IsInstanceOf<StructuresCalculation<ClosingStructuresInput>>(calculation);
+            Assert.IsInstanceOf<StructuresCalculationScenario<ClosingStructuresInput>>(calculation);
             Assert.AreEqual("Nieuwe berekening", calculation.Name);
             Assert.IsNotNull(calculation.InputParameters);
             Assert.IsNull(calculation.Comments.Body);

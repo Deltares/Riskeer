@@ -34,14 +34,14 @@ namespace Riskeer.ClosingStructures.Forms.Test.PresentationObjects
     public class ClosingStructuresCalculationScenarioContextTest
     {
         [Test]
-        public void ConstructorWithData_Always_ExpectedPropertiesSet()
+        public void Constructor_ExpectedValues()
         {
             // Setup
             var mocksRepository = new MockRepository();
             var assessmentSection = mocksRepository.Stub<IAssessmentSection>();
             mocksRepository.ReplayAll();
 
-            var calculation = new StructuresCalculation<ClosingStructuresInput>();
+            var calculation = new StructuresCalculationScenario<ClosingStructuresInput>();
             var failureMechanism = new ClosingStructuresFailureMechanism();
             var parent = new CalculationGroup();
 
@@ -49,7 +49,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.PresentationObjects
             var context = new ClosingStructuresCalculationScenarioContext(calculation, parent, failureMechanism, assessmentSection);
 
             // Assert
-            Assert.IsInstanceOf<StructuresCalculationContext<ClosingStructuresInput, ClosingStructuresFailureMechanism>>(context);
+            Assert.IsInstanceOf<StructuresCalculationScenarioContext<ClosingStructuresInput, ClosingStructuresFailureMechanism>>(context);
             Assert.AreSame(calculation, context.WrappedData);
             Assert.AreSame(parent, context.Parent);
             Assert.AreSame(failureMechanism, context.FailureMechanism);
@@ -65,7 +65,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.PresentationObjects
             var assessmentSection = mocksRepository.Stub<IAssessmentSection>();
             mocksRepository.ReplayAll();
 
-            var calculation = new StructuresCalculation<ClosingStructuresInput>();
+            var calculation = new StructuresCalculationScenario<ClosingStructuresInput>();
             var failureMechanism = new ClosingStructuresFailureMechanism();
             var parent = new CalculationGroup();
             var context = new ClosingStructuresCalculationScenarioContext(calculation, parent, failureMechanism, assessmentSection);
@@ -81,10 +81,10 @@ namespace Riskeer.ClosingStructures.Forms.Test.PresentationObjects
 
         private class DerivedClosingStructuresCalculationScenarioContext : ClosingStructuresCalculationScenarioContext
         {
-            public DerivedClosingStructuresCalculationScenarioContext(StructuresCalculation<ClosingStructuresInput> calculation,
-                                                              CalculationGroup parent,
-                                                              ClosingStructuresFailureMechanism failureMechanism,
-                                                              IAssessmentSection assessmentSection)
+            public DerivedClosingStructuresCalculationScenarioContext(StructuresCalculationScenario<ClosingStructuresInput> calculation,
+                                                                      CalculationGroup parent,
+                                                                      ClosingStructuresFailureMechanism failureMechanism,
+                                                                      IAssessmentSection assessmentSection)
                 : base(calculation, parent, failureMechanism, assessmentSection) {}
         }
     }

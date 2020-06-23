@@ -145,7 +145,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
             var failureMechanism = new ClosingStructuresFailureMechanism();
             var group = new CalculationGroup();
             var childGroup = new CalculationGroup();
-            var childCalculation = new StructuresCalculation<ClosingStructuresInput>();
+            var childCalculation = new StructuresCalculationScenario<ClosingStructuresInput>();
 
             group.Children.Add(childGroup);
             group.Children.Add(calculationItem);
@@ -743,12 +743,12 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
             var failureMechanism = new ClosingStructuresFailureMechanism();
 
-            var calculationWithIllustrationPoints = new TestClosingStructuresCalculation
+            var calculationWithIllustrationPoints = new TestClosingStructuresCalculationScenario
             {
                 Output = new TestStructuresOutput(new TestGeneralResultFaultTreeIllustrationPoint())
             };
 
-            var calculationWithOutput = new TestClosingStructuresCalculation
+            var calculationWithOutput = new TestClosingStructuresCalculationScenario
             {
                 Output = new TestStructuresOutput()
             };
@@ -759,7 +759,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
                 {
                     calculationWithIllustrationPoints,
                     calculationWithOutput,
-                    new TestClosingStructuresCalculation()
+                    new TestClosingStructuresCalculationScenario()
                 }
             };
 
@@ -792,7 +792,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
             var failureMechanism = new ClosingStructuresFailureMechanism();
 
-            var calculationWithOutput = new TestClosingStructuresCalculation
+            var calculationWithOutput = new TestClosingStructuresCalculationScenario
             {
                 Output = new TestStructuresOutput()
             };
@@ -802,7 +802,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
                 Children =
                 {
                     calculationWithOutput,
-                    new TestClosingStructuresCalculation()
+                    new TestClosingStructuresCalculationScenario()
                 }
             };
 
@@ -832,12 +832,12 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
         public void GivenCalculationsWithIllustrationPoints_WhenClearIllustrationPointsClickedAndAborted_ThenInquiryAndIllustrationPointsNotCleared()
         {
             // Given
-            var calculationWithIllustrationPoints = new TestClosingStructuresCalculation
+            var calculationWithIllustrationPoints = new TestClosingStructuresCalculationScenario
             {
                 Output = new TestStructuresOutput(new TestGeneralResultFaultTreeIllustrationPoint())
             };
 
-            var calculationWithOutput = new TestClosingStructuresCalculation
+            var calculationWithOutput = new TestClosingStructuresCalculationScenario
             {
                 Output = new TestStructuresOutput()
             };
@@ -848,7 +848,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
                 {
                     calculationWithIllustrationPoints,
                     calculationWithOutput,
-                    new TestClosingStructuresCalculation()
+                    new TestClosingStructuresCalculationScenario()
                 }
             };
 
@@ -895,12 +895,12 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
         public void GivenCalculationsWithIllustrationPoints_WhenClearIllustrationPointsClickedAndContinued_ThenInquiryAndIllustrationPointsCleared()
         {
             // Given
-            var calculationWithIllustrationPoints = new TestClosingStructuresCalculation
+            var calculationWithIllustrationPoints = new TestClosingStructuresCalculationScenario
             {
                 Output = new TestStructuresOutput(new TestGeneralResultFaultTreeIllustrationPoint())
             };
 
-            var calculationWithOutput = new TestClosingStructuresCalculation
+            var calculationWithOutput = new TestClosingStructuresCalculationScenario
             {
                 Output = new TestStructuresOutput()
             };
@@ -911,7 +911,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
                 {
                     calculationWithIllustrationPoints,
                     calculationWithOutput,
-                    new TestClosingStructuresCalculation()
+                    new TestClosingStructuresCalculationScenario()
                 }
             };
 
@@ -966,7 +966,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
             var failureMechanism = new TestClosingStructuresFailureMechanism();
-            failureMechanism.CalculationsGroup.Children.Add(new TestClosingStructuresCalculation
+            failureMechanism.CalculationsGroup.Children.Add(new TestClosingStructuresCalculationScenario
             {
                 Name = "A",
                 InputParameters =
@@ -974,7 +974,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
                     HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation()
                 }
             });
-            failureMechanism.CalculationsGroup.Children.Add(new TestClosingStructuresCalculation
+            failureMechanism.CalculationsGroup.Children.Add(new TestClosingStructuresCalculationScenario
             {
                 Name = "B",
                 InputParameters =
@@ -1063,7 +1063,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
             var failureMechanism = new TestClosingStructuresFailureMechanism();
-            failureMechanism.CalculationsGroup.Children.Add(new TestClosingStructuresCalculation
+            failureMechanism.CalculationsGroup.Children.Add(new TestClosingStructuresCalculationScenario
             {
                 Name = "A",
                 InputParameters =
@@ -1071,7 +1071,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
                     HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation()
                 }
             });
-            failureMechanism.CalculationsGroup.Children.Add(new TestClosingStructuresCalculation
+            failureMechanism.CalculationsGroup.Children.Add(new TestClosingStructuresCalculationScenario
             {
                 Name = "B",
                 InputParameters =

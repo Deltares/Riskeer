@@ -435,9 +435,9 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
             }
         }
 
-        private static TestClosingStructuresCalculation CreateCalculationWithOutput()
+        private static TestClosingStructuresCalculationScenario CreateCalculationWithOutput()
         {
-            return new TestClosingStructuresCalculation
+            return new TestClosingStructuresCalculationScenario
             {
                 Output = new TestStructuresOutput()
             };
@@ -721,7 +721,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
 
             var sectionResult = new ClosingStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
-                Calculation = new TestClosingStructuresCalculation(),
+                Calculation = new TestClosingStructuresCalculationScenario(),
                 SimpleAssessmentResult = simpleAssessmentResult
             };
 
@@ -752,7 +752,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
-            var calculation = new TestClosingStructuresCalculation
+            var calculation = new TestClosingStructuresCalculationScenario
             {
                 Output = new TestStructuresOutput(double.NaN)
             };
@@ -817,7 +817,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
 
             var sectionResult = new ClosingStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
-                Calculation = new TestClosingStructuresCalculation(),
+                Calculation = new TestClosingStructuresCalculationScenario(),
                 UseManualAssembly = true
             };
 
@@ -846,7 +846,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
 
             var sectionResult = new ClosingStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
-                Calculation = new TestClosingStructuresCalculation(),
+                Calculation = new TestClosingStructuresCalculationScenario(),
                 DetailedAssessmentResult = DetailedAssessmentProbabilityOnlyResultType.NotAssessed
             };
 

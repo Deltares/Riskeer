@@ -333,7 +333,7 @@ namespace Riskeer.Integration.Test.FileImporters
             {
                 unaffectedForeshoreProfile
             }, sourceFilePath);
-            var unaffectedCalculation = new TestClosingStructuresCalculation
+            var unaffectedCalculation = new TestClosingStructuresCalculationScenario
             {
                 InputParameters =
                 {

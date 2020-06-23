@@ -89,7 +89,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.ExportInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var context = new ClosingStructuresCalculationScenarioContext(new TestClosingStructuresCalculation(),
+            var context = new ClosingStructuresCalculationScenarioContext(new TestClosingStructuresCalculationScenario(),
                                                                           new CalculationGroup(),
                                                                           new ClosingStructuresFailureMechanism(),
                                                                           assessmentSection);
@@ -108,7 +108,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.ExportInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var context = new ClosingStructuresCalculationScenarioContext(new TestClosingStructuresCalculation(),
+            var context = new ClosingStructuresCalculationScenarioContext(new TestClosingStructuresCalculationScenario(),
                                                                           new CalculationGroup(),
                                                                           new ClosingStructuresFailureMechanism(),
                                                                           assessmentSection);

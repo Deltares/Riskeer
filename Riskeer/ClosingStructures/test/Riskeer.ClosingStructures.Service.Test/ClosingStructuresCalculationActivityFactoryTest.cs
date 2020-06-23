@@ -281,7 +281,7 @@ namespace Riskeer.ClosingStructures.Service.Test
 
         private static StructuresCalculation<ClosingStructuresInput> CreateValidCalculation()
         {
-            return new TestClosingStructuresCalculation
+            return new TestClosingStructuresCalculationScenario
             {
                 InputParameters =
                 {

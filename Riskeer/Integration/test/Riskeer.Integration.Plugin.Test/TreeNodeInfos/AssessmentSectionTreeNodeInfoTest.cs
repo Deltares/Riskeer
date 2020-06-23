@@ -784,7 +784,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         private static void AddClosingStructuresCalculation(AssessmentSection assessmentSection,
                                                             HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
-            assessmentSection.ClosingStructures.CalculationsGroup.Children.Add(new TestClosingStructuresCalculation
+            assessmentSection.ClosingStructures.CalculationsGroup.Children.Add(new TestClosingStructuresCalculationScenario
             {
                 InputParameters =
                 {

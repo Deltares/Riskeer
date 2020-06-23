@@ -41,7 +41,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.PresentationObjects
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var calculation = new TestClosingStructuresCalculation();
+            var calculation = new TestClosingStructuresCalculationScenario();
             var failureMechanism = new ClosingStructuresFailureMechanism();
 
             // Call
@@ -63,7 +63,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.PresentationObjects
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var calculation = new TestClosingStructuresCalculation();
+            var calculation = new TestClosingStructuresCalculationScenario();
 
             // Call
             TestDelegate call = () => new ClosingStructuresOutputContext(calculation, null, assessmentSection);

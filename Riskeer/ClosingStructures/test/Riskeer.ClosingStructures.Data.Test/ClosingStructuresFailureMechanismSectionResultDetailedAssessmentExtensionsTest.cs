@@ -118,7 +118,7 @@ namespace Riskeer.ClosingStructures.Data.Test
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var failureMechanismSectionResult = new ClosingStructuresFailureMechanismSectionResult(section)
             {
-                Calculation = new TestClosingStructuresCalculation()
+                Calculation = new TestClosingStructuresCalculationScenario()
             };
 
             // Call
@@ -143,7 +143,7 @@ namespace Riskeer.ClosingStructures.Data.Test
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var failureMechanismSectionResult = new ClosingStructuresFailureMechanismSectionResult(section)
             {
-                Calculation = new TestClosingStructuresCalculation
+                Calculation = new TestClosingStructuresCalculationScenario
                 {
                     Output = new TestStructuresOutput(0.45)
                 }

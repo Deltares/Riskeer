@@ -69,7 +69,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.PropertyInfos
             mocks.ReplayAll();
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
-            var calculation = new TestClosingStructuresCalculation
+            var calculation = new TestClosingStructuresCalculationScenario
             {
                 Output = new StructuresOutput(0, null)
             };

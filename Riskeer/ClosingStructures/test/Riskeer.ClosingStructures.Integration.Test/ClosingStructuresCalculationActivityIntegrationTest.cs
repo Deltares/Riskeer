@@ -104,7 +104,7 @@ namespace Riskeer.ClosingStructures.Integration.Test
             DataImportHelper.ImportHydraulicBoundaryDatabase(assessmentSection, validFilePath);
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
-            var calculation = new TestClosingStructuresCalculation
+            var calculation = new TestClosingStructuresCalculationScenario
             {
                 InputParameters =
                 {
@@ -166,7 +166,7 @@ namespace Riskeer.ClosingStructures.Integration.Test
             DataImportHelper.ImportHydraulicBoundaryDatabase(assessmentSection, validFilePath);
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
-            var calculation = new TestClosingStructuresCalculation
+            var calculation = new TestClosingStructuresCalculationScenario
             {
                 InputParameters =
                 {
@@ -209,7 +209,7 @@ namespace Riskeer.ClosingStructures.Integration.Test
             DataImportHelper.ImportHydraulicBoundaryDatabase(assessmentSection, validFilePath);
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
-            var calculation = new TestClosingStructuresCalculation
+            var calculation = new TestClosingStructuresCalculationScenario
             {
                 InputParameters =
                 {
@@ -320,7 +320,7 @@ namespace Riskeer.ClosingStructures.Integration.Test
             mockRepository.ReplayAll();
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
-            var calculation = new TestClosingStructuresCalculation();
+            var calculation = new TestClosingStructuresCalculationScenario();
 
             CalculatableActivity activity = ClosingStructuresCalculationActivityFactory.CreateCalculationActivity(calculation,
                                                                                                                   failureMechanism,
@@ -369,7 +369,7 @@ namespace Riskeer.ClosingStructures.Integration.Test
             mockRepository.ReplayAll();
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
-            var calculation = new TestClosingStructuresCalculation();
+            var calculation = new TestClosingStructuresCalculationScenario();
 
             CalculatableActivity activity = ClosingStructuresCalculationActivityFactory.CreateCalculationActivity(calculation,
                                                                                                                   failureMechanism,
@@ -418,7 +418,7 @@ namespace Riskeer.ClosingStructures.Integration.Test
             mockRepository.ReplayAll();
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
-            var calculation = new TestClosingStructuresCalculation();
+            var calculation = new TestClosingStructuresCalculationScenario();
 
             CalculatableActivity activity = ClosingStructuresCalculationActivityFactory.CreateCalculationActivity(calculation,
                                                                                                                   failureMechanism,

@@ -182,7 +182,7 @@ namespace Riskeer.Integration.Forms.Test.Observers
         {
             // Given
             AssessmentSection assessmentSection = CreateAssessmentSection();
-            var calculation = new TestClosingStructuresCalculation();
+            var calculation = new TestClosingStructuresCalculationScenario();
             assessmentSection.ClosingStructures.CalculationsGroup.Children.Add(calculation);
 
             using (var resultObserver = new AssessmentSectionResultObserver(assessmentSection))
