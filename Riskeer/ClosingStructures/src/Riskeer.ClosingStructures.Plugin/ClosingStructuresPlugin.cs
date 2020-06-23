@@ -629,7 +629,7 @@ namespace Riskeer.ClosingStructures.Plugin
         {
             foreach (ClosingStructure structure in structures)
             {
-                var calculation = new StructuresCalculation<ClosingStructuresInput>
+                var calculation = new StructuresCalculationScenario<ClosingStructuresInput>
                 {
                     Name = NamingHelper.GetUniqueName(calculations, structure.Name, c => c.Name),
                     InputParameters =
@@ -645,7 +645,7 @@ namespace Riskeer.ClosingStructures.Plugin
 
         private static void AddCalculation(ClosingStructuresCalculationGroupContext context)
         {
-            var calculation = new StructuresCalculation<ClosingStructuresInput>
+            var calculation = new StructuresCalculationScenario<ClosingStructuresInput>
             {
                 Name = NamingHelper.GetUniqueName(context.WrappedData.Children, RiskeerCommonDataResources.Calculation_DefaultName, c => c.Name)
             };
