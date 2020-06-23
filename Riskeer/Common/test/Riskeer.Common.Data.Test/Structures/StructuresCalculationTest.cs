@@ -222,21 +222,6 @@ namespace Riskeer.Common.Data.Test.Structures
             return calculation;
         }
 
-        public class TestStructuresCalculation : StructuresCalculation<TestStructuresInput> {}
-
-        public class TestStructuresInput : StructuresInputBase<TestStructure>
-        {
-            public override bool IsStructureInputSynchronized
-            {
-                get
-                {
-                    return true;
-                }
-            }
-
-            public override void SynchronizeStructureInput() {}
-        }
-
         private static IEnumerable<TestCaseData> GetCalculations()
         {
             var outputWithoutGeneralResult = new TestStructuresOutput();

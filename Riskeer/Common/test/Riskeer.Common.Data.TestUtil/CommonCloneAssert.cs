@@ -318,6 +318,23 @@ namespace Riskeer.Common.Data.TestUtil
         /// <param name="clone">The cloned object.</param>
         /// <exception cref="AssertionException">Thrown when <paramref name="original"/> and
         /// <paramref name="clone"/> are not clones.</exception>
+        public static void AreClones<TInput, TStructure>(StructuresCalculationScenario<TInput> original, StructuresCalculationScenario<TInput> clone)
+            where TInput : StructuresInputBase<TStructure>, new()
+            where TStructure : StructureBase, new()
+        {
+            Assert.AreEqual(original.Contribution, clone.Contribution);
+            Assert.AreEqual(original.IsRelevant, clone.IsRelevant);
+            AreClones<TInput, TStructure>((StructuresCalculation<TInput>) original, clone);
+        }
+
+        /// <summary>
+        /// Method that asserts whether <paramref name="original"/> and <paramref name="clone"/>
+        /// are clones.
+        /// </summary>
+        /// <param name="original">The original object.</param>
+        /// <param name="clone">The cloned object.</param>
+        /// <exception cref="AssertionException">Thrown when <paramref name="original"/> and
+        /// <paramref name="clone"/> are not clones.</exception>
         public static void AreClones(CalculationGroup original, CalculationGroup clone)
         {
             AreClones((ICalculationBase) original, clone);
