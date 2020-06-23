@@ -298,10 +298,10 @@ namespace Demo.Riskeer.Test.Commands
             AssertExpectedClosingStructureValues(demoAssessmentSection.ClosingStructures.ClosingStructures[0]);
 
             Assert.AreEqual(1, demoAssessmentSection.ClosingStructures.CalculationsGroup.Children.Count);
-            StructuresCalculation<ClosingStructuresInput> calculation = demoAssessmentSection.ClosingStructures
-                                                                                             .Calculations
-                                                                                             .OfType<StructuresCalculation<ClosingStructuresInput>>()
-                                                                                             .First();
+            StructuresCalculationScenario<ClosingStructuresInput> calculation = demoAssessmentSection.ClosingStructures
+                                                                                                     .Calculations
+                                                                                                     .OfType<StructuresCalculationScenario<ClosingStructuresInput>>()
+                                                                                                     .First();
             AssertExpectedClosingStructuresInput(calculation.InputParameters);
         }
 

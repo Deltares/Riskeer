@@ -70,13 +70,7 @@ namespace Demo.Riskeer.Commands
             this.viewCommands = viewCommands;
         }
 
-        public bool Checked
-        {
-            get
-            {
-                return false;
-            }
-        }
+        public bool Checked => false;
 
         public void Execute()
         {
@@ -507,7 +501,7 @@ namespace Demo.Riskeer.Commands
                 closingStructure
             }, "closingStructurePath");
 
-            var calculation = new StructuresCalculation<ClosingStructuresInput>();
+            var calculation = new StructuresCalculationScenario<ClosingStructuresInput>();
             failureMechanism.CalculationsGroup.Children.Add(calculation);
             calculation.InputParameters.HydraulicBoundaryLocation = demoAssessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001);
             calculation.InputParameters.Structure = closingStructure;
