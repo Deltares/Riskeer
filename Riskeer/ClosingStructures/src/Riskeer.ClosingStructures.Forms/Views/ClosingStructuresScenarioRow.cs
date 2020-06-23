@@ -21,8 +21,10 @@
 
 using System;
 using Riskeer.ClosingStructures.Data;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.Probability;
 using Riskeer.Common.Data.Structures;
-using Riskeer.Common.Forms;
+using Riskeer.Common.Forms.Views;
 
 namespace Riskeer.ClosingStructures.Forms.Views
 {
@@ -30,44 +32,53 @@ namespace Riskeer.ClosingStructures.Forms.Views
     /// Container of a <see cref="ClosingStructuresFailureMechanismSectionResult"/>,
     /// which takes care of the representation of properties in a grid.
     /// </summary>
-    public class ClosingStructuresScenarioRow : IScenarioRow<StructuresCalculation<ClosingStructuresInput>>
+    public class ClosingStructuresScenarioRow : ScenarioRow<StructuresCalculationScenario<ClosingStructuresInput>>
     {
-        private readonly ClosingStructuresFailureMechanismSectionResult sectionResult;
+        private readonly ClosingStructuresFailureMechanism failureMechanism;
+        private readonly IAssessmentSection assessmentSection;
+        private ProbabilityAssessmentOutput probabilityAssessmentOutput;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ClosingStructuresScenarioRow"/> class.
+        /// Creates a new instance of <see cref="ClosingStructuresScenarioRow"/>.
+        /// <param name="calculationScenario">The <see cref="StructuresCalculationScenario{ClosingStructuresInput}"/> this row contains.</param>
+        /// <param name="failureMechanism">The failure mechanism that the calculation belongs to.</param>
+        /// <param name="assessmentSection">The assessment section that the calculation belongs to.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         /// </summary>
-        /// <param name="sectionResult">The section result.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="sectionResult"/> is <c>null</c>.</exception>
-        public ClosingStructuresScenarioRow(ClosingStructuresFailureMechanismSectionResult sectionResult)
+        public ClosingStructuresScenarioRow(StructuresCalculationScenario<ClosingStructuresInput> calculationScenario,
+                                            ClosingStructuresFailureMechanism failureMechanism,
+                                            IAssessmentSection assessmentSection)
+            : base(calculationScenario)
         {
-            if (sectionResult == null)
+            if (failureMechanism == null)
             {
-                throw new ArgumentNullException(nameof(sectionResult));
+                throw new ArgumentNullException(nameof(failureMechanism));
             }
 
-            this.sectionResult = sectionResult;
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
+            this.failureMechanism = failureMechanism;
+            this.assessmentSection = assessmentSection;
+
+            CreateProbabilityAssessmentOutput();
         }
 
-        public string Name
+        public override double FailureProbability => probabilityAssessmentOutput?.Probability ?? double.NaN;
+
+        public override void Update()
         {
-            get
-            {
-                return sectionResult.Section.Name;
-            }
+            CreateProbabilityAssessmentOutput();
         }
 
-        public StructuresCalculation<ClosingStructuresInput> Calculation
+        private void CreateProbabilityAssessmentOutput()
         {
-            get
-            {
-                return sectionResult.Calculation;
-            }
-            set
-            {
-                sectionResult.Calculation = value;
-                sectionResult.NotifyObservers();
-            }
+            probabilityAssessmentOutput = CalculationScenario.HasOutput
+                                              ? ClosingStructuresProbabilityAssessmentOutputFactory.Create(
+                                                  CalculationScenario.Output, failureMechanism, assessmentSection)
+                                              : null;
         }
     }
 }
