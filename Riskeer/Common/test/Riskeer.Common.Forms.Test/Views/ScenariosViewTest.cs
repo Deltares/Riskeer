@@ -462,7 +462,7 @@ namespace Riskeer.Common.Forms.Test.Views
         {
             public TestScenariosView(CalculationGroup calculationGroup, TestFailureMechanism failureMechanism)
                 : base(calculationGroup, failureMechanism) {}
-            
+
             protected override TestCalculationInput GetCalculationInput(TestCalculationScenario calculationScenario)
             {
                 return calculationScenario.InputParameters;

@@ -141,6 +141,9 @@ namespace Riskeer.Common.Forms.Views
             base.Dispose(disposing);
         }
 
+        /// <summary>
+        /// Initializes the data grid view columns.
+        /// </summary>
         protected virtual void InitializeDataGridView()
         {
             DataGridViewControl.AddCheckBoxColumn(
