@@ -27,10 +27,10 @@ using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.ClosingStructures.Data;
+using Riskeer.ClosingStructures.Data.TestUtil;
 using Riskeer.ClosingStructures.Forms.Views;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
-using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Data.TestUtil;
@@ -137,8 +137,8 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
 
         private void ShowFullyConfiguredClosingStructuresScenariosView()
         {
-            ForeshoreProfile foreshoreProfile1 = new TestForeshoreProfile(new Point2D(0.0, 0.0));
-            ForeshoreProfile foreshoreProfile2 = new TestForeshoreProfile(new Point2D(5.0, 0.0));
+            var structure1 = new TestClosingStructure(new Point2D(0.0, 0.0));
+            var structure2 = new TestClosingStructure(new Point2D(5.0, 0.0));
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
 
@@ -163,7 +163,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
                     Name = "Calculation 1",
                     InputParameters =
                     {
-                        ForeshoreProfile = foreshoreProfile1
+                        Structure = structure1
                     }
                 },
                 new StructuresCalculationScenario<ClosingStructuresInput>
@@ -171,7 +171,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
                     Name = "Calculation 2",
                     InputParameters =
                     {
-                        ForeshoreProfile = foreshoreProfile2
+                        Structure = structure2
                     },
                     Output = new TestStructuresOutput(0.2)
                 }

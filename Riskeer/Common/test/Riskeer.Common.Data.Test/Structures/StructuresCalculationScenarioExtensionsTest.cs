@@ -25,19 +25,19 @@ using System.Linq;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Riskeer.Common.Data.AssessmentSection;
-using Riskeer.Common.Data.DikeProfiles;
+using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Data.TestUtil;
 
-namespace Riskeer.GrassCoverErosionInwards.Data.Test
+namespace Riskeer.Common.Data.Test.Structures
 {
     [TestFixture]
-    public class GrassCoverErosionInwardsCalculationScenarioExtensionsTest
+    public class StructuresCalculationScenarioExtensionsTest
     {
         [Test]
-        public void IsDikeProfileIntersectionWithReferenceLineInSection_CalculationScenarioNull_ThrowsArgumentNullException()
+        public void IsStructureIntersectionWithReferenceLineInSection_CalculationScenarioNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => GrassCoverErosionInwardsCalculationScenarioExtensions.IsDikeProfileIntersectionWithReferenceLineInSection(null, Enumerable.Empty<Segment2D>());
+            void Call() => StructuresCalculationScenarioExtensions.IsStructureIntersectionWithReferenceLineInSection<TestStructuresInput>(null, Enumerable.Empty<Segment2D>());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -45,13 +45,13 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
         }
 
         [Test]
-        public void IsDikeProfileIntersectionWithReferenceLineInSection_LineSegmentsNull_ThrowsArgumentNullException()
+        public void IsStructureIntersectionWithReferenceLineInSection_LineSegmentsNull_ThrowsArgumentNullException()
         {
             // Setup
-            var calculation = new GrassCoverErosionInwardsCalculationScenario();
+            var calculation = new TestStructuresCalculationScenario();
 
             // Call
-            void Call() => calculation.IsDikeProfileIntersectionWithReferenceLineInSection(null);
+            void Call() => calculation.IsStructureIntersectionWithReferenceLineInSection(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -59,23 +59,23 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
         }
 
         [Test]
-        public void IsDikeProfileIntersectionWithReferenceLineInSection_CalculationWithoutDikeProfile_ReturnsFalse()
+        public void IsStructureIntersectionWithReferenceLineInSection_CalculationWithoutStructure_ReturnsFalse()
         {
             // Setup
-            var calculation = new GrassCoverErosionInwardsCalculationScenario();
+            var calculation = new TestStructuresCalculationScenario();
 
             // Call
-            bool intersects = calculation.IsDikeProfileIntersectionWithReferenceLineInSection(Enumerable.Empty<Segment2D>());
+            bool intersects = calculation.IsStructureIntersectionWithReferenceLineInSection(Enumerable.Empty<Segment2D>());
 
             // Assert
             Assert.IsFalse(intersects);
         }
 
         [Test]
-        public void IsDikeProfileIntersectionWithReferenceLineInSection_EmptySegmentCollection_ThrowsInvalidOperationException()
+        public void IsStructureIntersectionWithReferenceLineInSection_EmptySegmentCollection_ThrowsInvalidOperationException()
         {
             // Setup
-            DikeProfile dikeProfile = DikeProfileTestFactory.CreateDikeProfile(new Point2D(0.0, 0.0));
+            var structure = new TestStructure(new Point2D(0.0, 0.0));
             var referenceLine = new ReferenceLine();
             referenceLine.SetGeometry(new[]
             {
@@ -83,26 +83,26 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
                 new Point2D(10.0, 0.0)
             });
 
-            var calculation = new GrassCoverErosionInwardsCalculationScenario
+            var calculation = new TestStructuresCalculationScenario
             {
                 InputParameters =
                 {
-                    DikeProfile = dikeProfile
+                    Structure = structure
                 }
             };
 
             // Call
-            void Call() => calculation.IsDikeProfileIntersectionWithReferenceLineInSection(Enumerable.Empty<Segment2D>());
+            void Call() => calculation.IsStructureIntersectionWithReferenceLineInSection(Enumerable.Empty<Segment2D>());
 
             // Assert
             Assert.Throws<InvalidOperationException>(Call);
         }
 
         [Test]
-        public void IsDikeProfileIntersectionWithReferenceLineInSection_DikeProfileIntersectsReferenceLine_ReturnsTrue()
+        public void IsStructureIntersectionWithReferenceLineInSection_StructureIntersectsReferenceLine_ReturnsTrue()
         {
             // Setup
-            DikeProfile dikeProfile = DikeProfileTestFactory.CreateDikeProfile(new Point2D(0.0, 0.0));
+            var structure = new TestStructure(new Point2D(0.0, 0.0));
             var referenceLine = new ReferenceLine();
             referenceLine.SetGeometry(new[]
             {
@@ -110,28 +110,28 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
                 new Point2D(10.0, 0.0)
             });
 
-            var calculation = new GrassCoverErosionInwardsCalculationScenario
+            var calculation = new TestStructuresCalculationScenario
             {
                 InputParameters =
                 {
-                    DikeProfile = dikeProfile
+                    Structure = structure
                 }
             };
 
             IEnumerable<Segment2D> lineSegments = Math2D.ConvertPointsToLineSegments(referenceLine.Points);
 
             // Call
-            bool intersects = calculation.IsDikeProfileIntersectionWithReferenceLineInSection(lineSegments);
+            bool intersects = calculation.IsStructureIntersectionWithReferenceLineInSection(lineSegments);
 
             // Assert
             Assert.IsTrue(intersects);
         }
 
         [Test]
-        public void IsDikeProfileIntersectionWithReferenceLineInSection_DikeProfileDoesNotIntersectsReferenceLine_ReturnsFalse()
+        public void IsStructureIntersectionWithReferenceLineInSection_StructureDoesNotIntersectsReferenceLine_ReturnsFalse()
         {
             // Setup
-            DikeProfile dikeProfile = DikeProfileTestFactory.CreateDikeProfile(new Point2D(0.0, 0.0));
+            var structure = new TestStructure(new Point2D(0.0, 0.0));
             var referenceLine = new ReferenceLine();
             referenceLine.SetGeometry(new[]
             {
@@ -139,18 +139,18 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
                 new Point2D(20.0, 0.0)
             });
 
-            var calculation = new GrassCoverErosionInwardsCalculationScenario
+            var calculation = new TestStructuresCalculationScenario
             {
                 InputParameters =
                 {
-                    DikeProfile = dikeProfile
+                    Structure = structure
                 }
             };
 
             IEnumerable<Segment2D> lineSegments = Math2D.ConvertPointsToLineSegments(referenceLine.Points);
 
             // Call
-            bool intersects = calculation.IsDikeProfileIntersectionWithReferenceLineInSection(lineSegments);
+            bool intersects = calculation.IsStructureIntersectionWithReferenceLineInSection(lineSegments);
 
             // Assert
             Assert.IsFalse(intersects);

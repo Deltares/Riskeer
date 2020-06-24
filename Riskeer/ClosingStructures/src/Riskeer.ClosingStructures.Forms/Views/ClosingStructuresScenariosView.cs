@@ -26,7 +26,6 @@ using Core.Common.Base.Geometry;
 using Riskeer.ClosingStructures.Data;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
-using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Forms.Views;
@@ -68,21 +67,11 @@ namespace Riskeer.ClosingStructures.Forms.Views
         protected override IEnumerable<ClosingStructuresScenarioRow> GetScenarioRows(FailureMechanismSection failureMechanismSection)
         {
             IEnumerable<Segment2D> lineSegments = Math2D.ConvertPointsToLineSegments(failureMechanismSection.Points);
-            IEnumerable<StructuresCalculationScenario<ClosingStructuresInput>> calculations = CalculationGroup.GetCalculations().OfType<StructuresCalculationScenario<ClosingStructuresInput>>()
-                                                                                                    .Where(cs => IsForeshoreProfileIntersectionWithReferenceLineInSection(cs, lineSegments));
+            IEnumerable<StructuresCalculationScenario<ClosingStructuresInput>> calculations = CalculationGroup.GetCalculations()
+                                                                                                              .OfType<StructuresCalculationScenario<ClosingStructuresInput>>()
+                                                                                                              .Where(cs => cs.IsStructureIntersectionWithReferenceLineInSection(lineSegments));
 
             return calculations.Select(c => new ClosingStructuresScenarioRow(c, FailureMechanism, assessmentSection)).ToList();
-        }
-
-        private static bool IsForeshoreProfileIntersectionWithReferenceLineInSection(ICalculation<ClosingStructuresInput> calculationScenario, IEnumerable<Segment2D> lineSegments)
-        {
-            ForeshoreProfile foreshoreProfile = calculationScenario.InputParameters.ForeshoreProfile;
-            if (foreshoreProfile == null)
-            {
-                return false;
-            }
-
-            return lineSegments.Min(segment => segment.GetEuclideanDistanceToPoint(foreshoreProfile.WorldReferencePoint)) <= 1;
         }
     }
 }
