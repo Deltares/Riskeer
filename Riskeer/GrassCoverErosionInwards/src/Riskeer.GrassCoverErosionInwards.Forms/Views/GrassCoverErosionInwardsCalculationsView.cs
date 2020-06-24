@@ -50,7 +50,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
     {
         private const int selectableHydraulicBoundaryLocationColumnIndex = 1;
         private const int selectableDikeProfileColumnIndex = 2;
-        private int selectableBreakWaterTypesColumnIndex = 4;
+        private const int selectableBreakWaterTypesColumnIndex = 4;
         private readonly Observer grassCoverErosionInwardsFailureMechanismObserver;
         private readonly Observer hydraulicBoundaryLocationsObserver;
         private readonly RecursiveObserver<CalculationGroup, GrassCoverErosionInwardsInput> grassCoverErosionInwardsInputObserver;
@@ -60,7 +60,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
         private CalculationGroup calculationGroup;
         private IAssessmentSection assessmentSection;
         private GrassCoverErosionInwardsFailureMechanism grassCoverErosionInwardsFailureMechanism;
-        
+
         public event EventHandler<EventArgs> SelectionChanged;
 
         /// <summary>
@@ -279,6 +279,29 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
                 hydraulicBoundaryLocations, referencePoint);
         }
 
+        private void UpdateDikeProfilesColumn()
+        {
+            var column = (DataGridViewComboBoxColumn)dataGridViewControl.GetColumnFromIndex(selectableDikeProfileColumnIndex);
+
+            using (new SuspendDataGridViewColumnResizes(column))
+            {
+                foreach (DataGridViewRow dataGridViewRow in dataGridViewControl.Rows)
+                {
+                    FillAvailableDikeProfilesList(dataGridViewRow);
+                }
+            }
+        }
+
+        private void FillAvailableDikeProfilesList(DataGridViewRow dataGridViewRow)
+        {
+            var rowData = (GrassCoverErosionInwardsCalculationRow) dataGridViewRow.DataBoundItem;
+            IEnumerable<DikeProfile> locations = GetSelectableHydraulicBoundaryLocationsForCalculation(rowData.GrassCoverErosionInwardsCalculationScenario.InputParameters.);
+
+            var cell = (DataGridViewComboBoxCell)dataGridViewRow.Cells[selectableHydraulicBoundaryLocationColumnIndex];
+            DataGridViewComboBoxItemWrapper<SelectableHydraulicBoundaryLocation>[] dataGridViewComboBoxItemWrappers = GetSelectableHydraulicBoundaryLocationsDataSource(locations).ToArray();
+            SetItemsOnObjectCollection(cell.Items, dataGridViewComboBoxItemWrappers);
+        }
+
         private static void SetItemsOnObjectCollection(DataGridViewComboBoxCell.ObjectCollection objectCollection, object[] comboBoxItems)
         {
             objectCollection.Clear();
@@ -321,8 +344,8 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
             IEnumerable<Segment2D> lineSegments = Math2D.ConvertPointsToLineSegments(failureMechanismSection.Points);
             IEnumerable<GrassCoverErosionInwardsCalculationScenario> grassCoverErosionInwardsCalculationScenarios = calculationGroup
                                                                                                                     .GetCalculations()
-                                                                                                                    .OfType<GrassCoverErosionInwardsCalculationScenario>();
-                                                                                                                    //.Where(cs => cs.IsDikeProfileIntersectionWithReferenceLineInSection(lineSegments));
+                                                                                                                    .OfType<GrassCoverErosionInwardsCalculationScenario>()
+                                                                                                                    .Where(cs => cs.IsDikeProfileIntersectionWithReferenceLineInSection(lineSegments));
 
             PrefillComboBoxListItemsAtColumnLevel();
 
@@ -331,6 +354,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
             dataGridViewControl.ClearCurrentCell();
 
             UpdateSelectableHydraulicBoundaryLocationsColumn();
+            UpdateDikeProfilesColumn();
         }
 
         #endregion
@@ -357,8 +381,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
                 SetItemsOnObjectCollection(selectableDikeProfileColumn.Items, grassCoverErosionInwardsFailureMechanism.DikeProfiles.ToArray());
             }
 
-            // Enum van damtypes.
-            var selectableBreakWaterTypesColumn = (DataGridViewComboBoxColumn)dataGridViewControl.GetColumnFromIndex(selectableBreakWaterTypesColumnIndex);
+            var selectableBreakWaterTypesColumn = (DataGridViewComboBoxColumn) dataGridViewControl.GetColumnFromIndex(selectableBreakWaterTypesColumnIndex);
             var breakWaterTypes = new object[]
             {
                 BreakWaterType.Wall,
