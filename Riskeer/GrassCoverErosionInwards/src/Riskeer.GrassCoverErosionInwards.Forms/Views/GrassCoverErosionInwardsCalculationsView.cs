@@ -35,7 +35,6 @@ using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Forms.ChangeHandlers;
 using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.PresentationObjects;
-using Riskeer.Common.IO.DikeProfiles;
 using Riskeer.GrassCoverErosionInwards.Data;
 using Riskeer.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Riskeer.GrassCoverErosionInwards.Forms.Properties;
@@ -188,16 +187,16 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
                 Resources.DikeProfile_DisplayName,
                 null,
                 nameof(DataGridViewComboBoxItemWrapper<DikeProfile>.This),
-                nameof(DataGridViewComboBoxItemWrapper<SelectableHydraulicBoundaryLocation>.DisplayName));
+                nameof(DataGridViewComboBoxItemWrapper<DikeProfile>.DisplayName));
 
             dataGridViewControl.AddCheckBoxColumn(nameof(GrassCoverErosionInwardsCalculationRow.UseBreakWater), Resources.GrassCoverErosionInwardsCalculation_Use_Dam);
 
-            dataGridViewControl.AddComboBoxColumn<DataGridViewComboBoxItemWrapper<DamType>>(
+            dataGridViewControl.AddComboBoxColumn<DataGridViewComboBoxItemWrapper<BreakWaterType>>(
                 nameof(GrassCoverErosionInwardsCalculationRow.BreakWaterType),
                 Resources.GrassCoverErosionInwardsCalculation_Damtype,
                 null,
-                nameof(DataGridViewComboBoxItemWrapper<DikeProfile>.This),
-                nameof(DataGridViewComboBoxItemWrapper<DamType>.DisplayName));
+                nameof(DataGridViewComboBoxItemWrapper<BreakWaterType>.This),
+                nameof(DataGridViewComboBoxItemWrapper<BreakWaterType>.DisplayName));
 
             dataGridViewControl.AddTextBoxColumn(
                 nameof(GrassCoverErosionInwardsCalculationRow.BreakWaterHeight),
@@ -281,7 +280,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
 
         private void UpdateDikeProfilesColumn()
         {
-            var column = (DataGridViewComboBoxColumn)dataGridViewControl.GetColumnFromIndex(selectableDikeProfileColumnIndex);
+            var column = (DataGridViewComboBoxColumn) dataGridViewControl.GetColumnFromIndex(selectableDikeProfileColumnIndex);
 
             using (new SuspendDataGridViewColumnResizes(column))
             {
@@ -294,12 +293,24 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
 
         private void FillAvailableDikeProfilesList(DataGridViewRow dataGridViewRow)
         {
-            var rowData = (GrassCoverErosionInwardsCalculationRow) dataGridViewRow.DataBoundItem;
-            IEnumerable<DikeProfile> locations = GetSelectableHydraulicBoundaryLocationsForCalculation(rowData.GrassCoverErosionInwardsCalculationScenario.InputParameters.);
-
-            var cell = (DataGridViewComboBoxCell)dataGridViewRow.Cells[selectableHydraulicBoundaryLocationColumnIndex];
-            DataGridViewComboBoxItemWrapper<SelectableHydraulicBoundaryLocation>[] dataGridViewComboBoxItemWrappers = GetSelectableHydraulicBoundaryLocationsDataSource(locations).ToArray();
+            var cell = (DataGridViewComboBoxCell) dataGridViewRow.Cells[selectableHydraulicBoundaryLocationColumnIndex];
+            DataGridViewComboBoxItemWrapper<DikeProfile>[] dataGridViewComboBoxItemWrappers = GetSelectableDikeProfileDataSource(grassCoverErosionInwardsFailureMechanism.DikeProfiles).ToArray();
             SetItemsOnObjectCollection(cell.Items, dataGridViewComboBoxItemWrappers);
+        }
+
+        private List<DataGridViewComboBoxItemWrapper<DikeProfile>> GetSelectableDikeProfileDataSource(IEnumerable<DikeProfile> selectableDikeProfiles = null)
+        {
+            var dataGridViewComboBoxItemWrappers = new List<DataGridViewComboBoxItemWrapper<DikeProfile>>
+            {
+                new DataGridViewComboBoxItemWrapper<DikeProfile>(null)
+            };
+
+            if (selectableDikeProfiles != null)
+            {
+                dataGridViewComboBoxItemWrappers.AddRange(selectableDikeProfiles.Select(dp => new DataGridViewComboBoxItemWrapper<DikeProfile>(dp)));
+            }
+
+            return dataGridViewComboBoxItemWrappers;
         }
 
         private static void SetItemsOnObjectCollection(DataGridViewComboBoxCell.ObjectCollection objectCollection, object[] comboBoxItems)
@@ -391,7 +402,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
 
             using (new SuspendDataGridViewColumnResizes(selectableBreakWaterTypesColumn))
             {
-                SetItemsOnObjectCollection(selectableDikeProfileColumn.Items, breakWaterTypes);
+                SetItemsOnObjectCollection(selectableBreakWaterTypesColumn.Items, breakWaterTypes);
             }
         }
 
