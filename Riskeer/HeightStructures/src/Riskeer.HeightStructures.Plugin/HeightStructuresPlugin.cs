@@ -634,7 +634,7 @@ namespace Riskeer.HeightStructures.Plugin
         {
             foreach (HeightStructure structure in structures)
             {
-                var calculation = new StructuresCalculation<HeightStructuresInput>
+                var calculation = new StructuresCalculationScenario<HeightStructuresInput>
                 {
                     Name = NamingHelper.GetUniqueName(calculations, structure.Name, c => c.Name),
                     InputParameters =
@@ -650,7 +650,7 @@ namespace Riskeer.HeightStructures.Plugin
 
         private static void AddCalculation(HeightStructuresCalculationGroupContext context)
         {
-            var calculation = new StructuresCalculation<HeightStructuresInput>
+            var calculation = new StructuresCalculationScenario<HeightStructuresInput>
             {
                 Name = NamingHelper.GetUniqueName(context.WrappedData.Children, RiskeerCommonDataResources.Calculation_DefaultName, c => c.Name)
             };
