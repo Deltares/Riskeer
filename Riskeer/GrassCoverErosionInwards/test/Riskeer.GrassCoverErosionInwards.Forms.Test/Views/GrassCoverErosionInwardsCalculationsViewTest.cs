@@ -284,7 +284,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
         
             mocks.VerifyAll();
         }
-
+        
         [Test]
         [TestCase(true)]
         [TestCase(false)]
@@ -294,37 +294,37 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             var mocks = new MockRepository();
             var grassCoverErosionInwardsCalculationObserver = mocks.StrictMock<IObserver>();
             var grassCoverErosionInwardsCalculationInputObserver = mocks.StrictMock<IObserver>();
-
+        
             grassCoverErosionInwardsCalculationObserver.Expect(o => o.UpdateObserver());
-
+        
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
-
+        
             using (GrassCoverErosionInwardsCalculationsView grassCoverErosionInwardsCalculationsView = ShowFullyConfiguredGrassCoverErosionInwardsCalculationsView(
                 assessmentSection))
             {
                 var data = (CalculationGroup) grassCoverErosionInwardsCalculationsView.Data;
                 var grassCoverErosionInwardsCalculation = (GrassCoverErosionInwardsCalculationScenario) data.Children.First();
-
+        
                 if (useCalculationWithOutput)
                 {
                     grassCoverErosionInwardsCalculation.Output = new GrassCoverErosionInwardsOutput(new TestOvertoppingOutput(2.4),
                                                                                                     new TestDikeHeightOutput(4.2),
                                                                                                     new TestOvertoppingRateOutput(1.0));
                 }
-
+        
                 grassCoverErosionInwardsCalculation.Attach(grassCoverErosionInwardsCalculationObserver);
                 grassCoverErosionInwardsCalculation.InputParameters.Attach(grassCoverErosionInwardsCalculationInputObserver);
-
+        
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-
+        
                 // Call
                 dataGridView.Rows[0].Cells[nameColumnIndex].Value = "New name";
-
+        
                 // Assert
                 grassCoverErosionInwardsCalculation.Output = null;
             }
-
+        
             mocks.VerifyAll();
         }
 

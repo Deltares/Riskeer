@@ -20,13 +20,13 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Base.Data;
 using Core.Common.Controls.DataGrid;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Forms.ChangeHandlers;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Forms.PropertyClasses;
-using Riskeer.Common.IO.DikeProfiles;
 using Riskeer.GrassCoverErosionInwards.Data;
 
 namespace Riskeer.GrassCoverErosionInwards.Forms.Views
@@ -96,7 +96,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
                 }
 
                 return new DataGridViewComboBoxItemWrapper<SelectableHydraulicBoundaryLocation>(
-                    new SelectableHydraulicBoundaryLocation(GrassCoverErosionInwardsCalculationScenario.InputParameters.HydraulicBoundaryLocation,null));
+                    new SelectableHydraulicBoundaryLocation(GrassCoverErosionInwardsCalculationScenario.InputParameters.HydraulicBoundaryLocation, null));
             }
             set
             {
@@ -108,20 +108,102 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
             }
         }
 
-        public DataGridViewComboBoxItemWrapper<DikeProfile> DikeProfile { get; set; }
+        public DataGridViewComboBoxItemWrapper<DikeProfile> DikeProfile
+        {
+            get
+            {
+                return new DataGridViewComboBoxItemWrapper<DikeProfile>(GrassCoverErosionInwardsCalculationScenario.InputParameters.DikeProfile);
+            }
+            set
+            {
+                DikeProfile valueToSet = value?.WrappedObject;
+                GrassCoverErosionInwardsCalculationScenario.InputParameters.DikeProfile = valueToSet;
+            }
+        }
 
-        public bool UseBreakWater { get; set; }
+        public bool UseBreakWater
+        {
+            get
+            {
+                return GrassCoverErosionInwardsCalculationScenario.InputParameters.UseBreakWater;
+            }
+            set
+            {
+                GrassCoverErosionInwardsCalculationScenario.InputParameters.UseBreakWater = value;
+            }
+        }
 
-        public DataGridViewComboBoxItemWrapper<BreakWaterType> BreakWaterType { get; set; }
+        public DataGridViewComboBoxItemWrapper<BreakWaterType> BreakWaterType
+        {
+            get
+            {
+                return new DataGridViewComboBoxItemWrapper<BreakWaterType>(GrassCoverErosionInwardsCalculationScenario.InputParameters.BreakWater.Type);
+            }
+            set
+            {
+                BreakWaterType valueToSet = value.WrappedObject;
+                GrassCoverErosionInwardsCalculationScenario.InputParameters.BreakWater.Type = valueToSet;
+            }
+        }
 
-        public double BreakWaterHeight { get; set; }
+        public RoundedDouble BreakWaterHeight
+        {
+            get
+            {
+                return GrassCoverErosionInwardsCalculationScenario.InputParameters.BreakWater.Height;
+            }
+            set
+            {
+                GrassCoverErosionInwardsCalculationScenario.InputParameters.BreakWater.Height = value;
+            }
+        }
 
-        public bool UseForeShoreGeometry { get; set; }
+        public bool UseForeShoreGeometry
+        {
+            get
+            {
+                return GrassCoverErosionInwardsCalculationScenario.InputParameters.UseForeshore;
+            }
+            set
+            {
+                GrassCoverErosionInwardsCalculationScenario.InputParameters.UseForeshore = value;
+            }
+        }
 
-        public double DikeHeight { get; set; }
+        public RoundedDouble DikeHeight
+        {
+            get
+            {
+                return GrassCoverErosionInwardsCalculationScenario.InputParameters.DikeHeight;
+            }
+            set
+            {
+                GrassCoverErosionInwardsCalculationScenario.InputParameters.DikeHeight = value;
+            }
+        }
 
-        public double ExpectedCriticalOvertoppingRate { get; set; }
+        public RoundedDouble MeanCriticalFlowRate
+        {
+            get
+            {
+                return GrassCoverErosionInwardsCalculationScenario.InputParameters.CriticalFlowRate.Mean;
+            }
+            set
+            {
+                GrassCoverErosionInwardsCalculationScenario.InputParameters.CriticalFlowRate.Mean = value;
+            }
+        }
 
-        public double StandardDeviationCriticalOvertoppingRate { get; set; }
+        public RoundedDouble StandardDeviationCriticalFlowRate
+        {
+            get
+            {
+                return GrassCoverErosionInwardsCalculationScenario.InputParameters.CriticalFlowRate.StandardDeviation;
+            }
+            set
+            {
+                GrassCoverErosionInwardsCalculationScenario.InputParameters.CriticalFlowRate.StandardDeviation = value;
+            }
+        }
     }
 }
