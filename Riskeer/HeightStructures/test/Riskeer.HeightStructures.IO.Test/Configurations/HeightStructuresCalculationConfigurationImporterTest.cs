@@ -170,15 +170,12 @@ namespace Riskeer.HeightStructures.IO.Test.Configurations
         public void Constructor_HydraulicBoundaryLocationsNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new HeightStructuresCalculationConfigurationImporter("",
-                                                                                           new CalculationGroup(),
-                                                                                           null,
-                                                                                           Enumerable.Empty<ForeshoreProfile>(),
-                                                                                           Enumerable.Empty<HeightStructure>(),
-                                                                                           new HeightStructuresFailureMechanism());
+            void Call() => new HeightStructuresCalculationConfigurationImporter(
+                "", new CalculationGroup(), null, Enumerable.Empty<ForeshoreProfile>(),
+                Enumerable.Empty<HeightStructure>(), new HeightStructuresFailureMechanism());
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("hydraulicBoundaryLocations", exception.ParamName);
         }
 
@@ -186,15 +183,12 @@ namespace Riskeer.HeightStructures.IO.Test.Configurations
         public void Constructor_ForeshoreProfilesNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new HeightStructuresCalculationConfigurationImporter("",
-                                                                                           new CalculationGroup(),
-                                                                                           Enumerable.Empty<HydraulicBoundaryLocation>(),
-                                                                                           null,
-                                                                                           Enumerable.Empty<HeightStructure>(),
-                                                                                           new HeightStructuresFailureMechanism());
+            void Call() => new HeightStructuresCalculationConfigurationImporter(
+                "", new CalculationGroup(), Enumerable.Empty<HydraulicBoundaryLocation>(), null,
+                Enumerable.Empty<HeightStructure>(), new HeightStructuresFailureMechanism());
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("foreshoreProfiles", exception.ParamName);
         }
 
@@ -202,15 +196,12 @@ namespace Riskeer.HeightStructures.IO.Test.Configurations
         public void Constructor_StructuresNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new HeightStructuresCalculationConfigurationImporter("",
-                                                                                           new CalculationGroup(),
-                                                                                           Enumerable.Empty<HydraulicBoundaryLocation>(),
-                                                                                           Enumerable.Empty<ForeshoreProfile>(),
-                                                                                           null,
-                                                                                           new HeightStructuresFailureMechanism());
+            void Call() => new HeightStructuresCalculationConfigurationImporter(
+                "", new CalculationGroup(), Enumerable.Empty<HydraulicBoundaryLocation>(), Enumerable.Empty<ForeshoreProfile>(),
+                null, new HeightStructuresFailureMechanism());
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("structures", exception.ParamName);
         }
 
@@ -218,15 +209,12 @@ namespace Riskeer.HeightStructures.IO.Test.Configurations
         public void Constructor_FailureMechanismNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new HeightStructuresCalculationConfigurationImporter("",
-                                                                                           new CalculationGroup(),
-                                                                                           Enumerable.Empty<HydraulicBoundaryLocation>(),
-                                                                                           Enumerable.Empty<ForeshoreProfile>(),
-                                                                                           Enumerable.Empty<HeightStructure>(),
-                                                                                           null);
+            void Call() => new HeightStructuresCalculationConfigurationImporter(
+                "", new CalculationGroup(), Enumerable.Empty<HydraulicBoundaryLocation>(),
+                Enumerable.Empty<ForeshoreProfile>(), Enumerable.Empty<HeightStructure>(), null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
         }
 
@@ -257,11 +245,11 @@ namespace Riskeer.HeightStructures.IO.Test.Configurations
             var successful = false;
 
             // Call
-            Action call = () => successful = importer.Import();
+            void Call() => successful = importer.Import();
 
             // Assert
             string expectedMessage = $"{expectedErrorMessage} Berekening 'Berekening 1' is overgeslagen.";
-            TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Error), 2);
+            TestHelper.AssertLogMessageWithLevelIsGenerated(Call, Tuple.Create(expectedMessage, LogLevelConstant.Error), 2);
             Assert.IsTrue(successful);
             CollectionAssert.IsEmpty(calculationGroup.Children);
         }
@@ -288,11 +276,11 @@ namespace Riskeer.HeightStructures.IO.Test.Configurations
             var successful = false;
 
             // Call
-            Action call = () => successful = importer.Import();
+            void Call() => successful = importer.Import();
 
             // Assert
             const string expectedMessage = "Het opgegeven voorlandprofiel 'Voorlandprofiel' heeft geen voorlandgeometrie en kan daarom niet gebruikt worden. Berekening 'Berekening 1' is overgeslagen.";
-            TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Error), 2);
+            TestHelper.AssertLogMessageWithLevelIsGenerated(Call, Tuple.Create(expectedMessage, LogLevelConstant.Error), 2);
             Assert.IsTrue(successful);
             CollectionAssert.IsEmpty(calculationGroup.Children);
         }
@@ -329,13 +317,13 @@ namespace Riskeer.HeightStructures.IO.Test.Configurations
 
             // Call
             var successful = false;
-            Action call = () => successful = importer.Import();
+            void Call() => successful = importer.Import();
 
             // Assert
-            TestHelper.AssertLogMessageIsGenerated(call, $"Gegevens zijn geïmporteerd vanuit bestand '{filePath}'.", 1);
+            TestHelper.AssertLogMessageIsGenerated(Call, $"Gegevens zijn geïmporteerd vanuit bestand '{filePath}'.", 1);
 
             Assert.IsTrue(successful);
-            var expectedCalculation = new StructuresCalculation<HeightStructuresInput>
+            var expectedCalculation = new StructuresCalculationScenario<HeightStructuresInput>
             {
                 Name = "Berekening 1",
                 InputParameters =
@@ -395,7 +383,7 @@ namespace Riskeer.HeightStructures.IO.Test.Configurations
             };
 
             Assert.AreEqual(1, calculationGroup.Children.Count);
-            AssertCalculation(expectedCalculation, (StructuresCalculation<HeightStructuresInput>) calculationGroup.Children[0]);
+            AssertCalculation(expectedCalculation, (StructuresCalculationScenario<HeightStructuresInput>) calculationGroup.Children[0]);
         }
 
         [Test]
@@ -417,7 +405,7 @@ namespace Riskeer.HeightStructures.IO.Test.Configurations
                 },
                 new HeightStructuresFailureMechanism());
 
-            var expectedCalculation = new StructuresCalculation<HeightStructuresInput>
+            var expectedCalculation = new StructuresCalculationScenario<HeightStructuresInput>
             {
                 Name = "Berekening 1",
                 InputParameters =
@@ -464,7 +452,7 @@ namespace Riskeer.HeightStructures.IO.Test.Configurations
             // Assert
             Assert.IsTrue(successful);
             Assert.AreEqual(1, calculationGroup.Children.Count);
-            AssertCalculation(expectedCalculation, (StructuresCalculation<HeightStructuresInput>) calculationGroup.Children[0]);
+            AssertCalculation(expectedCalculation, (StructuresCalculationScenario<HeightStructuresInput>) calculationGroup.Children[0]);
         }
 
         [Test]
@@ -486,7 +474,7 @@ namespace Riskeer.HeightStructures.IO.Test.Configurations
                 },
                 new HeightStructuresFailureMechanism());
 
-            var expectedCalculation = new StructuresCalculation<HeightStructuresInput>
+            var expectedCalculation = new StructuresCalculationScenario<HeightStructuresInput>
             {
                 Name = "Berekening 1",
                 InputParameters =
@@ -525,7 +513,7 @@ namespace Riskeer.HeightStructures.IO.Test.Configurations
             // Assert
             Assert.IsTrue(successful);
             Assert.AreEqual(1, calculationGroup.Children.Count);
-            AssertCalculation(expectedCalculation, (StructuresCalculation<HeightStructuresInput>) calculationGroup.Children[0]);
+            AssertCalculation(expectedCalculation, (StructuresCalculationScenario<HeightStructuresInput>) calculationGroup.Children[0]);
         }
 
         [Test]
@@ -551,7 +539,7 @@ namespace Riskeer.HeightStructures.IO.Test.Configurations
                 },
                 new HeightStructuresFailureMechanism());
 
-            var expectedCalculation = new StructuresCalculation<HeightStructuresInput>
+            var expectedCalculation = new StructuresCalculationScenario<HeightStructuresInput>
             {
                 Name = "Berekening 1"
             };
@@ -562,7 +550,7 @@ namespace Riskeer.HeightStructures.IO.Test.Configurations
             // Assert
             Assert.IsTrue(successful);
             Assert.AreEqual(1, calculationGroup.Children.Count);
-            AssertCalculation(expectedCalculation, (StructuresCalculation<HeightStructuresInput>) calculationGroup.Children[0]);
+            AssertCalculation(expectedCalculation, (StructuresCalculationScenario<HeightStructuresInput>) calculationGroup.Children[0]);
         }
 
         [Test]
@@ -614,11 +602,11 @@ namespace Riskeer.HeightStructures.IO.Test.Configurations
         }
 
         [TestCase("validConfigurationUnknownForeshoreProfile.xml",
-            "Het voorlandprofiel met ID 'unknown' bestaat niet.")]
+                  "Het voorlandprofiel met ID 'unknown' bestaat niet.")]
         [TestCase("validConfigurationUnknownHydraulicBoundaryLocation.xml",
-            "De hydraulische belastingenlocatie 'unknown' bestaat niet.")]
+                  "De hydraulische belastingenlocatie 'unknown' bestaat niet.")]
         [TestCase("validConfigurationUnknownStructure.xml",
-            "Het kunstwerk met ID 'unknown' bestaat niet.")]
+                  "Het kunstwerk met ID 'unknown' bestaat niet.")]
         public void Import_ValidConfigurationUnknownData_LogMessageAndContinueImport(string file, string expectedErrorMessage)
         {
             // Setup
@@ -635,18 +623,20 @@ namespace Riskeer.HeightStructures.IO.Test.Configurations
             var successful = false;
 
             // Call
-            Action call = () => successful = importer.Import();
+            void Call() => successful = importer.Import();
 
             // Assert
             string expectedMessage = $"{expectedErrorMessage} Berekening 'Berekening 1' is overgeslagen.";
-            TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Error), 2);
+            TestHelper.AssertLogMessageWithLevelIsGenerated(Call, Tuple.Create(expectedMessage, LogLevelConstant.Error), 2);
             Assert.IsTrue(successful);
             CollectionAssert.IsEmpty(calculationGroup.Children);
         }
 
-        private static void AssertCalculation(StructuresCalculation<HeightStructuresInput> expectedCalculation, StructuresCalculation<HeightStructuresInput> actualCalculation)
+        private static void AssertCalculation(StructuresCalculationScenario<HeightStructuresInput> expectedCalculation, StructuresCalculationScenario<HeightStructuresInput> actualCalculation)
         {
             Assert.AreEqual(expectedCalculation.Name, actualCalculation.Name);
+            Assert.AreEqual(expectedCalculation.IsRelevant, actualCalculation.IsRelevant);
+            Assert.AreEqual(expectedCalculation.Contribution, actualCalculation.Contribution);
             Assert.AreSame(expectedCalculation.InputParameters.HydraulicBoundaryLocation, actualCalculation.InputParameters.HydraulicBoundaryLocation);
             Assert.AreEqual(expectedCalculation.InputParameters.StructureNormalOrientation, actualCalculation.InputParameters.StructureNormalOrientation);
             Assert.AreSame(expectedCalculation.InputParameters.ForeshoreProfile, actualCalculation.InputParameters.ForeshoreProfile);

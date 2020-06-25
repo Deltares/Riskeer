@@ -109,7 +109,7 @@ namespace Riskeer.HeightStructures.IO.Configurations
 
         protected override ICalculation ParseReadCalculation(HeightStructuresCalculationConfiguration readCalculation)
         {
-            var calculation = new StructuresCalculation<HeightStructuresInput>
+            var calculation = new StructuresCalculationScenario<HeightStructuresInput>
             {
                 Name = readCalculation.Name
             };
