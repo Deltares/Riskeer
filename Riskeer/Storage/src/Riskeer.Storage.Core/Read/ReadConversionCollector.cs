@@ -99,8 +99,8 @@ namespace Riskeer.Storage.Core.Read
         private readonly Dictionary<StabilityPointStructureEntity, StabilityPointStructure> stabilityPointStructures =
             CreateDictionary<StabilityPointStructureEntity, StabilityPointStructure>();
 
-        private readonly Dictionary<HeightStructuresCalculationEntity, StructuresCalculation<HeightStructuresInput>> heightStructuresCalculations =
-            CreateDictionary<HeightStructuresCalculationEntity, StructuresCalculation<HeightStructuresInput>>();
+        private readonly Dictionary<HeightStructuresCalculationEntity, StructuresCalculationScenario<HeightStructuresInput>> heightStructuresCalculations =
+            CreateDictionary<HeightStructuresCalculationEntity, StructuresCalculationScenario<HeightStructuresInput>>();
 
         private readonly Dictionary<ClosingStructuresCalculationEntity, StructuresCalculationScenario<ClosingStructuresInput>> closingStructuresCalculations =
             CreateDictionary<ClosingStructuresCalculationEntity, StructuresCalculationScenario<ClosingStructuresInput>>();
@@ -1254,7 +1254,7 @@ namespace Riskeer.Storage.Core.Read
         /// <param name="model">The <see cref="StructuresCalculation{T}"/> that
         /// was constructed.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
-        internal void Read(HeightStructuresCalculationEntity entity, StructuresCalculation<HeightStructuresInput> model)
+        internal void Read(HeightStructuresCalculationEntity entity, StructuresCalculationScenario<HeightStructuresInput> model)
         {
             if (entity == null)
             {
@@ -1297,7 +1297,7 @@ namespace Riskeer.Storage.Core.Read
         /// been registered for <paramref name="entity"/>.</exception>
         /// <remarks>Use <see cref="Contains(HeightStructuresCalculationEntity)"/>
         /// to find out whether a read operation has been registered for <paramref name="entity"/>.</remarks>
-        internal StructuresCalculation<HeightStructuresInput> Get(HeightStructuresCalculationEntity entity)
+        internal StructuresCalculationScenario<HeightStructuresInput> Get(HeightStructuresCalculationEntity entity)
         {
             if (entity == null)
             {

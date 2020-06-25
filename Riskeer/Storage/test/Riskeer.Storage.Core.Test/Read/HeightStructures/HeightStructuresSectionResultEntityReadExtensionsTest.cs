@@ -146,7 +146,7 @@ namespace Riskeer.Storage.Core.Test.Read.HeightStructures
         public void Read_CalculationEntitySet_ReturnHeightStructuresSectionResultWithCalculation()
         {
             // Setup
-            var calculation = new StructuresCalculation<HeightStructuresInput>();
+            var calculation = new StructuresCalculationScenario<HeightStructuresInput>();
 
             var calculationEntity = new HeightStructuresCalculationEntity();
 

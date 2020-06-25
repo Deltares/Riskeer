@@ -44,8 +44,8 @@ namespace Riskeer.Storage.Core.Read.HeightStructures
         /// <param name="collector">The object keeping track of read operations.</param>
         /// <returns>A new <see cref="StructuresCalculation{T}"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="collector"/> is <c>null</c>.</exception>
-        internal static StructuresCalculation<HeightStructuresInput> Read(this HeightStructuresCalculationEntity entity,
-                                                                          ReadConversionCollector collector)
+        internal static StructuresCalculationScenario<HeightStructuresInput> Read(this HeightStructuresCalculationEntity entity,
+                                                                                  ReadConversionCollector collector)
         {
             if (collector == null)
             {
@@ -57,7 +57,7 @@ namespace Riskeer.Storage.Core.Read.HeightStructures
                 return collector.Get(entity);
             }
 
-            var calculation = new StructuresCalculation<HeightStructuresInput>
+            var calculation = new StructuresCalculationScenario<HeightStructuresInput>
             {
                 Name = entity.Name,
                 Comments =

@@ -535,9 +535,9 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
                     AssertGrassCoverErosionOutwardsWaveConditionsCalculation(expectedGrassCoverErosionOutwardsCalculation, (GrassCoverErosionOutwardsWaveConditionsCalculation) actualChild);
                 }
 
-                if (expectedChild is StructuresCalculation<HeightStructuresInput> expectedHeightStructuresCalculation)
+                if (expectedChild is StructuresCalculationScenario<HeightStructuresInput> expectedHeightStructuresCalculation)
                 {
-                    AssertStructuresCalculation(expectedHeightStructuresCalculation, (StructuresCalculation<HeightStructuresInput>) actualChild);
+                    AssertStructuresCalculation(expectedHeightStructuresCalculation, (StructuresCalculationScenario<HeightStructuresInput>) actualChild);
                 }
 
                 if (expectedChild is StructuresCalculationScenario<ClosingStructuresInput> expectedClosingStructuresCalculation)
@@ -958,6 +958,8 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
                                                         StructuresCalculationScenario<ClosingStructuresInput> actualCalculation)
         {
             Assert.AreEqual(expectedCalculation.Name, actualCalculation.Name);
+            Assert.AreEqual(expectedCalculation.IsRelevant, actualCalculation.IsRelevant);
+            Assert.AreEqual(expectedCalculation.Contribution, actualCalculation.Contribution);
             AssertComments(expectedCalculation.Comments, actualCalculation.Comments);
 
             AssertClosingStructuresInput(expectedCalculation.InputParameters, actualCalculation.InputParameters);
@@ -1132,15 +1134,6 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
                                          Assert.AreEqual(expectedItem.TailorMadeAssessmentProbability, actualItem.TailorMadeAssessmentProbability, 1e-6);
                                          Assert.AreEqual(expectedItem.UseManualAssembly, actualItem.UseManualAssembly);
                                          Assert.AreEqual(expectedItem.ManualAssemblyProbability, actualItem.ManualAssemblyProbability, 1e-6);
-
-                                         if (expectedItem.Calculation == null)
-                                         {
-                                             Assert.IsNull(actualItem.Calculation);
-                                         }
-                                         else
-                                         {
-                                             AssertStructuresCalculation(expectedItem.Calculation, actualItem.Calculation);
-                                         }
                                      });
         }
 
@@ -1170,10 +1163,12 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
             DistributionAssert.AreEqual(expectedHeightStructure.AllowedLevelIncreaseStorage, actualHeightStructure.AllowedLevelIncreaseStorage);
         }
 
-        private static void AssertStructuresCalculation(StructuresCalculation<HeightStructuresInput> expectedCalculation,
-                                                        StructuresCalculation<HeightStructuresInput> actualCalculation)
+        private static void AssertStructuresCalculation(StructuresCalculationScenario<HeightStructuresInput> expectedCalculation,
+                                                        StructuresCalculationScenario<HeightStructuresInput> actualCalculation)
         {
             Assert.AreEqual(expectedCalculation.Name, actualCalculation.Name);
+            Assert.AreEqual(expectedCalculation.IsRelevant, actualCalculation.IsRelevant);
+            Assert.AreEqual(expectedCalculation.Contribution, actualCalculation.Contribution);
             AssertComments(expectedCalculation.Comments, actualCalculation.Comments);
 
             AssertHeightStructuresInput(expectedCalculation.InputParameters, actualCalculation.InputParameters);

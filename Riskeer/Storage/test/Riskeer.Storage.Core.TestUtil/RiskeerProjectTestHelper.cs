@@ -881,7 +881,7 @@ namespace Riskeer.Storage.Core.TestUtil
                 Name = "Height structures A",
                 Children =
                 {
-                    new StructuresCalculation<HeightStructuresInput>
+                    new StructuresCalculationScenario<HeightStructuresInput>
                     {
                         InputParameters =
                         {
@@ -900,7 +900,7 @@ namespace Riskeer.Storage.Core.TestUtil
                         },
                         Output = new StructuresOutput(0.11, null)
                     },
-                    new StructuresCalculation<HeightStructuresInput>
+                    new StructuresCalculationScenario<HeightStructuresInput>
                     {
                         InputParameters =
                         {
@@ -925,7 +925,7 @@ namespace Riskeer.Storage.Core.TestUtil
             {
                 Name = "Height structures B"
             });
-            failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<HeightStructuresInput>());
+            failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculationScenario<HeightStructuresInput>());
         }
 
         private static void SetSectionResults(IEnumerable<HeightStructuresFailureMechanismSectionResult> sectionResults,

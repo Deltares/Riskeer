@@ -218,7 +218,7 @@ namespace Riskeer.Storage.Core.Test.Read.HeightStructures
                 }
             };
 
-            var calculation = new StructuresCalculation<HeightStructuresInput>();
+            var calculation = new StructuresCalculationScenario<HeightStructuresInput>();
 
             var collector = new ReadConversionCollector();
             collector.Read(entity, calculation);
