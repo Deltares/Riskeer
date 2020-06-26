@@ -94,8 +94,10 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
                 grassCoverErosionInwardsFailureMechanism = value;
                 grassCoverErosionInwardsFailureMechanismObserver.Observable = grassCoverErosionInwardsFailureMechanism;
 
+                
+                UpdateDikeProfilesColumn();
+                UpdateSelectableHydraulicBoundaryLocationsColumn();
                 UpdateSectionsListBox();
-
                 UpdateGenerateCalculationsButtonState();
             }
         }
@@ -209,11 +211,11 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
                 Resources.GrassCoverErosionInwardsCalculation_Dikeheight);
 
             dataGridViewControl.AddTextBoxColumn(
-                nameof(GrassCoverErosionInwardsCalculationRow.ExpectedCriticalOvertoppingRate),
+                nameof(GrassCoverErosionInwardsCalculationRow.MeanCriticalFlowRate),
                 Resources.GrassCoverErosionInwardsCalculation_Expected_Critical_OvertoppingRate);
 
             dataGridViewControl.AddTextBoxColumn(
-                nameof(GrassCoverErosionInwardsCalculationRow.StandardDeviationCriticalOvertoppingRate),
+                nameof(GrassCoverErosionInwardsCalculationRow.StandardDeviationCriticalFlowRate),
                 Resources.GrassCoverErosionInwardsCalculation_StandardDeviation_Critical_OvertoppingRate);
         }
 
@@ -298,7 +300,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
             SetItemsOnObjectCollection(cell.Items, dataGridViewComboBoxItemWrappers);
         }
 
-        private List<DataGridViewComboBoxItemWrapper<DikeProfile>> GetSelectableDikeProfileDataSource(IEnumerable<DikeProfile> selectableDikeProfiles = null)
+        private static List<DataGridViewComboBoxItemWrapper<DikeProfile>> GetSelectableDikeProfileDataSource(IEnumerable<DikeProfile> selectableDikeProfiles = null)
         {
             var dataGridViewComboBoxItemWrappers = new List<DataGridViewComboBoxItemWrapper<DikeProfile>>
             {

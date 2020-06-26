@@ -108,6 +108,9 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
             }
         }
 
+        /// <summary>
+        /// Gets or sets the dike profile of the <see cref="GrassCoverErosionInwardsCalculationScenario"/>.
+        /// </summary>
         public DataGridViewComboBoxItemWrapper<DikeProfile> DikeProfile
         {
             get
@@ -117,10 +120,16 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
             set
             {
                 DikeProfile valueToSet = value?.WrappedObject;
-                GrassCoverErosionInwardsCalculationScenario.InputParameters.DikeProfile = valueToSet;
+                if (!ReferenceEquals(GrassCoverErosionInwardsCalculationScenario.InputParameters.DikeProfile, valueToSet))
+                {
+                    PropertyChangeHelper.ChangePropertyAndNotify(() => GrassCoverErosionInwardsCalculationScenario.InputParameters.DikeProfile = valueToSet, propertyChangeHandler);
+                }
             }
         }
 
+        /// <summary>
+        /// Gets or sets whether break water of the <see cref="GrassCoverErosionInwardsCalculationScenario"/> should be used.
+        /// </summary>
         public bool UseBreakWater
         {
             get
@@ -129,10 +138,16 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
             }
             set
             {
-                GrassCoverErosionInwardsCalculationScenario.InputParameters.UseBreakWater = value;
+                if (!GrassCoverErosionInwardsCalculationScenario.InputParameters.UseBreakWater.Equals(value))
+                {
+                    PropertyChangeHelper.ChangePropertyAndNotify(() => GrassCoverErosionInwardsCalculationScenario.InputParameters.UseBreakWater = value, propertyChangeHandler);
+                }
             }
         }
 
+        /// <summary>
+        /// Gets or sets the break water type of the <see cref="GrassCoverErosionInwardsCalculationScenario"/>.
+        /// </summary>
         public DataGridViewComboBoxItemWrapper<BreakWaterType> BreakWaterType
         {
             get
@@ -142,10 +157,16 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
             set
             {
                 BreakWaterType valueToSet = value.WrappedObject;
-                GrassCoverErosionInwardsCalculationScenario.InputParameters.BreakWater.Type = valueToSet;
+                if (!GrassCoverErosionInwardsCalculationScenario.InputParameters.BreakWater.Type.Equals(valueToSet))
+                {
+                    PropertyChangeHelper.ChangePropertyAndNotify(() => GrassCoverErosionInwardsCalculationScenario.InputParameters.BreakWater.Type = valueToSet, propertyChangeHandler);
+                }
             }
         }
 
+        /// <summary>
+        /// Gets or sets the break water height of the <see cref="GrassCoverErosionInwardsCalculationScenario"/>.
+        /// </summary>
         public RoundedDouble BreakWaterHeight
         {
             get
@@ -155,9 +176,16 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
             set
             {
                 GrassCoverErosionInwardsCalculationScenario.InputParameters.BreakWater.Height = value;
+                if (!GrassCoverErosionInwardsCalculationScenario.InputParameters.BreakWater.Height.Equals(value))
+                {
+                    PropertyChangeHelper.ChangePropertyAndNotify(() => GrassCoverErosionInwardsCalculationScenario.InputParameters.BreakWater.Height = value, propertyChangeHandler);
+                }
             }
         }
 
+        /// <summary>
+        /// Gets or sets whether foreshore geometry of the <see cref="GrassCoverErosionInwardsCalculationScenario"/> should be used.
+        /// </summary>
         public bool UseForeShoreGeometry
         {
             get
@@ -166,10 +194,16 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
             }
             set
             {
-                GrassCoverErosionInwardsCalculationScenario.InputParameters.UseForeshore = value;
+                if (!GrassCoverErosionInwardsCalculationScenario.InputParameters.UseForeshore.Equals(value))
+                {
+                    PropertyChangeHelper.ChangePropertyAndNotify(() => GrassCoverErosionInwardsCalculationScenario.InputParameters.UseForeshore = value, propertyChangeHandler);
+                }
             }
         }
 
+        /// <summary>
+        /// Gets or sets the dike height of the <see cref="GrassCoverErosionInwardsCalculationScenario"/>.
+        /// </summary>
         public RoundedDouble DikeHeight
         {
             get
@@ -178,10 +212,16 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
             }
             set
             {
-                GrassCoverErosionInwardsCalculationScenario.InputParameters.DikeHeight = value;
+                if (!GrassCoverErosionInwardsCalculationScenario.InputParameters.DikeHeight.Equals(value))
+                {
+                    PropertyChangeHelper.ChangePropertyAndNotify(() => GrassCoverErosionInwardsCalculationScenario.InputParameters.DikeHeight = value, propertyChangeHandler);
+                }
             }
         }
 
+        /// <summary>
+        /// Gets or sets the mean critical flow rate of the <see cref="GrassCoverErosionInwardsCalculationScenario"/>.
+        /// </summary>
         public RoundedDouble MeanCriticalFlowRate
         {
             get
@@ -190,10 +230,16 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
             }
             set
             {
-                GrassCoverErosionInwardsCalculationScenario.InputParameters.CriticalFlowRate.Mean = value;
+                if (!GrassCoverErosionInwardsCalculationScenario.InputParameters.CriticalFlowRate.Mean.Equals(value))
+                {
+                    PropertyChangeHelper.ChangePropertyAndNotify(() => GrassCoverErosionInwardsCalculationScenario.InputParameters.CriticalFlowRate.Mean = value, propertyChangeHandler);
+                }
             }
         }
 
+        /// <summary>
+        /// Gets or sets the standard deviation critical flow rate of the <see cref="GrassCoverErosionInwardsCalculationScenario"/>.
+        /// </summary>
         public RoundedDouble StandardDeviationCriticalFlowRate
         {
             get
@@ -202,7 +248,10 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
             }
             set
             {
-                GrassCoverErosionInwardsCalculationScenario.InputParameters.CriticalFlowRate.StandardDeviation = value;
+                if (!GrassCoverErosionInwardsCalculationScenario.InputParameters.CriticalFlowRate.StandardDeviation.Equals(value))
+                {
+                    PropertyChangeHelper.ChangePropertyAndNotify(() => GrassCoverErosionInwardsCalculationScenario.InputParameters.CriticalFlowRate.StandardDeviation = value, propertyChangeHandler);
+                }
             }
         }
     }
