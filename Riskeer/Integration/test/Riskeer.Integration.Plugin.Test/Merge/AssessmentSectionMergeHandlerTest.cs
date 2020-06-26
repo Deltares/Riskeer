@@ -404,7 +404,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
                     HydraulicBoundaryLocation = sourceLocations[0]
                 }
             });
-            sourceAssessmentSection.HeightStructures.CalculationsGroup.Children.Add(new StructuresCalculation<HeightStructuresInput>
+            sourceAssessmentSection.HeightStructures.CalculationsGroup.Children.Add(new StructuresCalculationScenario<HeightStructuresInput>
             {
                 InputParameters =
                 {
@@ -863,13 +863,12 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             var handler = new AssessmentSectionMergeHandler(viewCommands);
 
             // Call
-            Action call = () => handler.PerformMerge(targetAssessmentSection,
-                                                     new AssessmentSectionMergeData(
-                                                         sourceAssessmentSection,
-                                                         new AssessmentSectionMergeData.ConstructionProperties()));
+            void Call() => handler.PerformMerge(targetAssessmentSection, new AssessmentSectionMergeData(
+                                                    sourceAssessmentSection,
+                                                    new AssessmentSectionMergeData.ConstructionProperties()));
 
             // Assert
-            TestHelper.AssertLogMessageWithLevelIsGenerated(call, new Tuple<string, LogLevelConstant>("Hydraulische belastingen zijn samengevoegd.", LogLevelConstant.Info));
+            TestHelper.AssertLogMessageWithLevelIsGenerated(Call, new Tuple<string, LogLevelConstant>("Hydraulische belastingen zijn samengevoegd.", LogLevelConstant.Info));
             mocks.VerifyAll();
         }
 
@@ -904,13 +903,12 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             var handler = new AssessmentSectionMergeHandler(viewCommands);
 
             // Call
-            Action call = () => handler.PerformMerge(targetAssessmentSection,
-                                                     new AssessmentSectionMergeData(
-                                                         sourceAssessmentSection,
-                                                         new AssessmentSectionMergeData.ConstructionProperties()));
+            void Call() => handler.PerformMerge(targetAssessmentSection, new AssessmentSectionMergeData(
+                                                    sourceAssessmentSection,
+                                                    new AssessmentSectionMergeData.ConstructionProperties()));
 
             // Assert
-            TestHelper.AssertLogMessageWithLevelIsGenerated(call, new Tuple<string, LogLevelConstant>("Hydraulische belastingen zijn niet samengevoegd omdat het huidige traject meer gegevens bevat.", LogLevelConstant.Info));
+            TestHelper.AssertLogMessageWithLevelIsGenerated(Call, new Tuple<string, LogLevelConstant>("Hydraulische belastingen zijn niet samengevoegd omdat het huidige traject meer gegevens bevat.", LogLevelConstant.Info));
             mocks.VerifyAll();
         }
 

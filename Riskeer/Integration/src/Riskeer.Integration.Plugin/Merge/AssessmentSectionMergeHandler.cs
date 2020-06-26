@@ -290,7 +290,7 @@ namespace Riskeer.Integration.Plugin.Merge
             if (mergeData.MergeHeightStructures)
             {
                 targetAssessmentSection.HeightStructures = sourceAssessmentSection.HeightStructures;
-                UpdateCalculationHydraulicBoundaryLocationReferences<HeightStructuresFailureMechanism, StructuresCalculation<HeightStructuresInput>, HeightStructuresInput>(
+                UpdateCalculationHydraulicBoundaryLocationReferences<HeightStructuresFailureMechanism, StructuresCalculationScenario<HeightStructuresInput>, HeightStructuresInput>(
                     targetAssessmentSection.HeightStructures, hydraulicBoundaryLocations);
                 LogMergeMessage(targetAssessmentSection.HeightStructures);
             }
