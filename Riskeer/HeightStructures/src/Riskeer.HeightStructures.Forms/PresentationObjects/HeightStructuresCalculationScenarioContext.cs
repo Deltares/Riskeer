@@ -31,20 +31,20 @@ namespace Riskeer.HeightStructures.Forms.PresentationObjects
     /// <summary>
     /// Presentation object for all data required to configure a height structures calculation.
     /// </summary>
-    public class HeightStructuresCalculationContext : StructuresCalculationContext<HeightStructuresInput, HeightStructuresFailureMechanism>
+    public class HeightStructuresCalculationScenarioContext : StructuresCalculationContext<HeightStructuresInput, HeightStructuresFailureMechanism>
     {
         /// <summary>
-        /// Creates a new instance of <see cref="HeightStructuresCalculationContext"/>.
+        /// Creates a new instance of <see cref="HeightStructuresCalculationScenarioContext"/>.
         /// </summary>
         /// <param name="calculation">The calculation instance wrapped by this context object.</param>
         /// <param name="parent">The <see cref="CalculationGroup"/> that owns the wrapped calculation.</param>
         /// <param name="failureMechanism">The failure mechanism which the context belongs to.</param>
         /// <param name="assessmentSection">The assessment section which the calculation belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
-        public HeightStructuresCalculationContext(StructuresCalculation<HeightStructuresInput> calculation,
-                                                  CalculationGroup parent,
-                                                  HeightStructuresFailureMechanism failureMechanism,
-                                                  IAssessmentSection assessmentSection)
+        public HeightStructuresCalculationScenarioContext(StructuresCalculation<HeightStructuresInput> calculation,
+                                                          CalculationGroup parent,
+                                                          HeightStructuresFailureMechanism failureMechanism,
+                                                          IAssessmentSection assessmentSection)
             : base(calculation, parent, failureMechanism, assessmentSection) {}
     }
 }

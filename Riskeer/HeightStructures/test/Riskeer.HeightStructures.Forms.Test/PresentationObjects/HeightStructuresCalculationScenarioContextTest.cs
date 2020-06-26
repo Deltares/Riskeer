@@ -31,7 +31,7 @@ using Riskeer.HeightStructures.Forms.PresentationObjects;
 namespace Riskeer.HeightStructures.Forms.Test.PresentationObjects
 {
     [TestFixture]
-    public class HeightStructuresCalculationContextTest
+    public class HeightStructuresCalculationScenarioContextTest
     {
         [Test]
         public void ConstructorWithData_Always_ExpectedPropertiesSet()
@@ -46,7 +46,7 @@ namespace Riskeer.HeightStructures.Forms.Test.PresentationObjects
             var parent = new CalculationGroup();
 
             // Call
-            var context = new HeightStructuresCalculationContext(calculation, parent, failureMechanism, assessmentSection);
+            var context = new HeightStructuresCalculationScenarioContext(calculation, parent, failureMechanism, assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<StructuresCalculationContext<HeightStructuresInput, HeightStructuresFailureMechanism>>(context);
@@ -68,8 +68,8 @@ namespace Riskeer.HeightStructures.Forms.Test.PresentationObjects
             var calculation = new StructuresCalculation<HeightStructuresInput>();
             var failureMechanism = new HeightStructuresFailureMechanism();
             var parent = new CalculationGroup();
-            var context = new HeightStructuresCalculationContext(calculation, parent, failureMechanism, assessmentSection);
-            var derivedContext = new DerivedHeightStructuresCalculationContext(calculation, parent, failureMechanism, assessmentSection);
+            var context = new HeightStructuresCalculationScenarioContext(calculation, parent, failureMechanism, assessmentSection);
+            var derivedContext = new DerivedHeightStructuresCalculationScenarioContext(calculation, parent, failureMechanism, assessmentSection);
 
             // Call
             bool isEqual = context.Equals(derivedContext);
@@ -79,12 +79,12 @@ namespace Riskeer.HeightStructures.Forms.Test.PresentationObjects
             mocksRepository.VerifyAll();
         }
 
-        private class DerivedHeightStructuresCalculationContext : HeightStructuresCalculationContext
+        private class DerivedHeightStructuresCalculationScenarioContext : HeightStructuresCalculationScenarioContext
         {
-            public DerivedHeightStructuresCalculationContext(StructuresCalculation<HeightStructuresInput> calculation,
-                                                             CalculationGroup parent,
-                                                             HeightStructuresFailureMechanism failureMechanism,
-                                                             IAssessmentSection assessmentSection)
+            public DerivedHeightStructuresCalculationScenarioContext(StructuresCalculation<HeightStructuresInput> calculation,
+                                                                     CalculationGroup parent,
+                                                                     HeightStructuresFailureMechanism failureMechanism,
+                                                                     IAssessmentSection assessmentSection)
                 : base(calculation, parent, failureMechanism, assessmentSection) {}
         }
     }

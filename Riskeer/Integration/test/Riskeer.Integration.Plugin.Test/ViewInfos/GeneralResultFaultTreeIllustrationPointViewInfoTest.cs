@@ -149,7 +149,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
 
             protected override ICalculationContext<ICalculation, IFailureMechanism> GetCalculationContextWithCalculation()
             {
-                return new HeightStructuresCalculationContext(
+                return new HeightStructuresCalculationScenarioContext(
                     new StructuresCalculation<HeightStructuresInput>(),
                     new CalculationGroup(),
                     new HeightStructuresFailureMechanism(),

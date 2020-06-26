@@ -38,7 +38,7 @@ using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 namespace Riskeer.HeightStructures.Plugin.Test.ExportInfos
 {
     [TestFixture]
-    public class HeightStructuresCalculationContextExportInfoTest
+    public class HeightStructuresCalculationScenarioContextExportInfoTest
     {
         private HeightStructuresPlugin plugin;
         private ExportInfo info;
@@ -59,7 +59,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.ExportInfos
                 Gui = gui
             };
 
-            info = plugin.GetExportInfos().First(ei => ei.DataType == typeof(HeightStructuresCalculationContext));
+            info = plugin.GetExportInfos().First(ei => ei.DataType == typeof(HeightStructuresCalculationScenarioContext));
         }
 
         [TearDown]
@@ -89,10 +89,10 @@ namespace Riskeer.HeightStructures.Plugin.Test.ExportInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var context = new HeightStructuresCalculationContext(new TestHeightStructuresCalculation(),
-                                                                 new CalculationGroup(),
-                                                                 new HeightStructuresFailureMechanism(),
-                                                                 assessmentSection);
+            var context = new HeightStructuresCalculationScenarioContext(new TestHeightStructuresCalculation(),
+                                                                         new CalculationGroup(),
+                                                                         new HeightStructuresFailureMechanism(),
+                                                                         assessmentSection);
 
             // Call
             IFileExporter fileExporter = info.CreateFileExporter(context, "test");
@@ -108,10 +108,10 @@ namespace Riskeer.HeightStructures.Plugin.Test.ExportInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var context = new HeightStructuresCalculationContext(new TestHeightStructuresCalculation(),
-                                                                 new CalculationGroup(),
-                                                                 new HeightStructuresFailureMechanism(),
-                                                                 assessmentSection);
+            var context = new HeightStructuresCalculationScenarioContext(new TestHeightStructuresCalculation(),
+                                                                         new CalculationGroup(),
+                                                                         new HeightStructuresFailureMechanism(),
+                                                                         assessmentSection);
 
             // Call
             bool isEnabled = info.IsEnabled(context);

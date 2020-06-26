@@ -151,7 +151,7 @@ namespace Riskeer.HeightStructures.Plugin
                 context => context.WrappedData.Children.Any(),
                 GetInquiryHelper());
 
-            yield return RiskeerExportInfoFactory.CreateCalculationConfigurationExportInfo<HeightStructuresCalculationContext>(
+            yield return RiskeerExportInfoFactory.CreateCalculationConfigurationExportInfo<HeightStructuresCalculationScenarioContext>(
                 (context, filePath) => new HeightStructuresCalculationConfigurationExporter(new[]
                 {
                     context.WrappedData
@@ -211,7 +211,7 @@ namespace Riskeer.HeightStructures.Plugin
                 CalculationGroupContextContextMenuStrip,
                 CalculationGroupContextOnNodeRemoved);
 
-            yield return RiskeerTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<HeightStructuresCalculationContext>(
+            yield return RiskeerTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<HeightStructuresCalculationScenarioContext>(
                 CalculationContextChildNodeObjects,
                 CalculationContextContextMenuStrip,
                 CalculationContextOnNodeRemoved);
@@ -463,10 +463,10 @@ namespace Riskeer.HeightStructures.Plugin
 
                 if (calculation != null)
                 {
-                    childNodeObjects.Add(new HeightStructuresCalculationContext(calculation,
-                                                                                context.WrappedData,
-                                                                                context.FailureMechanism,
-                                                                                context.AssessmentSection));
+                    childNodeObjects.Add(new HeightStructuresCalculationScenarioContext(calculation,
+                                                                                        context.WrappedData,
+                                                                                        context.FailureMechanism,
+                                                                                        context.AssessmentSection));
                 }
                 else if (group != null)
                 {
@@ -690,7 +690,7 @@ namespace Riskeer.HeightStructures.Plugin
 
         #region HeightStructuresCalculationContext TreeNodeInfo
 
-        private static object[] CalculationContextChildNodeObjects(HeightStructuresCalculationContext context)
+        private static object[] CalculationContextChildNodeObjects(HeightStructuresCalculationScenarioContext context)
         {
             StructuresCalculation<HeightStructuresInput> calculation = context.WrappedData;
 
@@ -705,7 +705,7 @@ namespace Riskeer.HeightStructures.Plugin
             };
         }
 
-        private ContextMenuStrip CalculationContextContextMenuStrip(HeightStructuresCalculationContext context,
+        private ContextMenuStrip CalculationContextContextMenuStrip(HeightStructuresCalculationScenarioContext context,
                                                                     object parentData,
                                                                     TreeViewControl treeViewControl)
         {
@@ -743,24 +743,24 @@ namespace Riskeer.HeightStructures.Plugin
                           .Build();
         }
 
-        private static string EnableValidateAndCalculateMenuItemForCalculation(HeightStructuresCalculationContext context)
+        private static string EnableValidateAndCalculateMenuItemForCalculation(HeightStructuresCalculationScenarioContext context)
         {
             return EnableValidateAndCalculateMenuItem(context.AssessmentSection);
         }
 
-        private static void Validate(HeightStructuresCalculationContext context)
+        private static void Validate(HeightStructuresCalculationScenarioContext context)
         {
             HeightStructuresCalculationService.Validate(context.WrappedData, context.AssessmentSection);
         }
 
-        private void Calculate(StructuresCalculation<HeightStructuresInput> calculation, HeightStructuresCalculationContext context)
+        private void Calculate(StructuresCalculation<HeightStructuresInput> calculation, HeightStructuresCalculationScenarioContext context)
         {
             ActivityProgressDialogRunner.Run(
                 Gui.MainWindow,
                 HeightStructuresCalculationActivityFactory.CreateCalculationActivity(calculation, context.FailureMechanism, context.AssessmentSection));
         }
 
-        private static void CalculationContextOnNodeRemoved(HeightStructuresCalculationContext context, object parentData)
+        private static void CalculationContextOnNodeRemoved(HeightStructuresCalculationScenarioContext context, object parentData)
         {
             if (parentData is HeightStructuresCalculationGroupContext calculationGroupContext)
             {
@@ -770,7 +770,7 @@ namespace Riskeer.HeightStructures.Plugin
             }
         }
 
-        private StrictContextMenuItem CreateUpdateStructureItem(HeightStructuresCalculationContext context)
+        private StrictContextMenuItem CreateUpdateStructureItem(HeightStructuresCalculationScenarioContext context)
         {
             var contextMenuEnabled = true;
             string toolTipMessage = RiskeerCommonFormsResources.Update_Calculation_with_Structure_ToolTip;

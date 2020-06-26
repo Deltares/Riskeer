@@ -104,7 +104,7 @@ namespace Riskeer.HeightStructures.Plugin.Test
                 Assert.AreEqual(8, treeNodeInfos.Length);
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(HeightStructuresFailureMechanismContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(HeightStructuresCalculationGroupContext)));
-                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(HeightStructuresCalculationContext)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(HeightStructuresCalculationScenarioContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(HeightStructuresInputContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(HeightStructuresContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(HeightStructure)));
@@ -196,7 +196,7 @@ namespace Riskeer.HeightStructures.Plugin.Test
                 // Assert
                 Assert.AreEqual(2, exportInfos.Length);
                 Assert.IsTrue(exportInfos.Any(tni => tni.DataType == typeof(HeightStructuresCalculationGroupContext)));
-                Assert.IsTrue(exportInfos.Any(tni => tni.DataType == typeof(HeightStructuresCalculationContext)));
+                Assert.IsTrue(exportInfos.Any(tni => tni.DataType == typeof(HeightStructuresCalculationScenarioContext)));
             }
 
             mocks.VerifyAll();
