@@ -38,7 +38,7 @@ using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 namespace Riskeer.ClosingStructures.Plugin.Test.ExportInfos
 {
     [TestFixture]
-    public class ClosingStructuresCalculationContextExportInfoTest
+    public class ClosingStructuresCalculationScenarioContextExportInfoTest
     {
         private ClosingStructuresPlugin plugin;
         private ExportInfo info;
