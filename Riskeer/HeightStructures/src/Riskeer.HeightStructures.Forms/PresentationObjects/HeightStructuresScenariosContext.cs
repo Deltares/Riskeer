@@ -21,6 +21,7 @@
 
 using System;
 using Core.Common.Controls.PresentationObjects;
+using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.HeightStructures.Data;
 
@@ -37,8 +38,10 @@ namespace Riskeer.HeightStructures.Forms.PresentationObjects
         /// </summary>
         /// <param name="wrappedData">The wrapped <see cref="CalculationGroup"/>.</param>
         /// <param name="failureMechanism">A <see cref="HeightStructuresFailureMechanism"/> forming the context.</param>
+        /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> the <paramref name="wrappedData"/> belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public HeightStructuresScenariosContext(CalculationGroup wrappedData, HeightStructuresFailureMechanism failureMechanism)
+        public HeightStructuresScenariosContext(CalculationGroup wrappedData, HeightStructuresFailureMechanism failureMechanism,
+                                                IAssessmentSection assessmentSection)
             : base(wrappedData)
         {
             if (failureMechanism == null)
@@ -46,12 +49,23 @@ namespace Riskeer.HeightStructures.Forms.PresentationObjects
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
 
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
             ParentFailureMechanism = failureMechanism;
+            AssessmentSection = assessmentSection;
         }
 
         /// <summary>
         /// The parent failure mechanism of the calculation group.
         /// </summary>
         public HeightStructuresFailureMechanism ParentFailureMechanism { get; }
+
+        /// <summary>
+        /// Gets the <see cref="IAssessmentSection"/> of the calculation group.
+        /// </summary>
+        public IAssessmentSection AssessmentSection { get; }
     }
 }

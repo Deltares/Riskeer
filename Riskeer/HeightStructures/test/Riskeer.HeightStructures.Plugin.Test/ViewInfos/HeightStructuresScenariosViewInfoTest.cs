@@ -78,15 +78,19 @@ namespace Riskeer.HeightStructures.Plugin.Test.ViewInfos
         public void GetViewData_Always_ReturnWrappedData()
         {
             // Setup
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             var calculationGroup = new CalculationGroup();
             var failureMechanism = new HeightStructuresFailureMechanism();
-            var context = new HeightStructuresScenariosContext(calculationGroup, failureMechanism);
+            var context = new HeightStructuresScenariosContext(calculationGroup, failureMechanism, assessmentSection);
 
             // Call
             object viewData = info.GetViewData(context);
 
             // Assert
             Assert.AreSame(calculationGroup, viewData);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -366,11 +370,14 @@ namespace Riskeer.HeightStructures.Plugin.Test.ViewInfos
         public void AfterCreate_Always_SetsSpecificPropertiesToView()
         {
             // Setup
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             using (var view = new HeightStructuresScenariosView())
             {
                 var group = new CalculationGroup();
                 var failureMechanism = new HeightStructuresFailureMechanism();
-                var context = new HeightStructuresScenariosContext(group, failureMechanism);
+                var context = new HeightStructuresScenariosContext(group, failureMechanism, assessmentSection);
 
                 // Call
                 info.AfterCreate(view, context);
@@ -378,6 +385,8 @@ namespace Riskeer.HeightStructures.Plugin.Test.ViewInfos
                 // Assert
                 Assert.AreSame(failureMechanism, view.FailureMechanism);
             }
+
+            mocks.VerifyAll();
         }
     }
 }

@@ -27,8 +27,6 @@ using Core.Common.Gui.ContextMenu;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Riskeer.Common.Data.Calculation;
-using Riskeer.HeightStructures.Data;
 using Riskeer.HeightStructures.Forms.PresentationObjects;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
@@ -80,13 +78,8 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
         [Test]
         public void Text_Always_ReturnScenarios()
         {
-            // Setup
-            var group = new CalculationGroup();
-            var failureMechanism = new HeightStructuresFailureMechanism();
-            var context = new HeightStructuresScenariosContext(group, failureMechanism);
-
             // Call
-            string text = info.Text(context);
+            string text = info.Text(null);
 
             // Assert
             Assert.AreEqual("Scenario's", text);
@@ -95,13 +88,8 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
         [Test]
         public void Image_Always_ReturnExpectedImage()
         {
-            // Setup
-            var group = new CalculationGroup();
-            var failureMechanism = new HeightStructuresFailureMechanism();
-            var context = new HeightStructuresScenariosContext(group, failureMechanism);
-
             // Call
-            Image image = info.Image(context);
+            Image image = info.Image(null);
 
             // Assert
             TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.ScenariosIcon, image);
@@ -113,10 +101,6 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
             // Setup
             using (var treeViewControl = new TreeViewControl())
             {
-                var group = new CalculationGroup();
-                var failureMechanism = new HeightStructuresFailureMechanism();
-                var context = new HeightStructuresScenariosContext(group, failureMechanism);
-
                 var mocks = new MockRepository();
 
                 var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
@@ -127,14 +111,14 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
                 }
 
                 var gui = mocks.Stub<IGui>();
-                gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilder);
+                gui.Stub(g => g.Get(null, treeViewControl)).Return(menuBuilder);
 
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;
 
                 // Call
-                info.ContextMenuStrip(context, null, treeViewControl);
+                info.ContextMenuStrip(null, null, treeViewControl);
 
                 // Assert
                 mocks.VerifyAll();
