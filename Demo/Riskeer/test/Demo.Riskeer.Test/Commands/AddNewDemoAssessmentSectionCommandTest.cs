@@ -254,10 +254,10 @@ namespace Demo.Riskeer.Test.Commands
             AssertExpectedHeightStructureValues(demoAssessmentSection.HeightStructures.HeightStructures[0]);
 
             Assert.AreEqual(1, demoAssessmentSection.HeightStructures.CalculationsGroup.Children.Count);
-            StructuresCalculation<HeightStructuresInput> calculation = demoAssessmentSection.HeightStructures
-                                                                                            .Calculations
-                                                                                            .OfType<StructuresCalculation<HeightStructuresInput>>()
-                                                                                            .First();
+            StructuresCalculationScenario<HeightStructuresInput> calculation = demoAssessmentSection.HeightStructures
+                                                                                                    .Calculations
+                                                                                                    .OfType<StructuresCalculationScenario<HeightStructuresInput>>()
+                                                                                                    .First();
             AssertExpectedHeightStructuresInput(calculation.InputParameters);
         }
 

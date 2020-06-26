@@ -438,7 +438,7 @@ namespace Demo.Riskeer.Commands
                 heightStructure
             }, "heightStructurePath");
 
-            var calculation = new StructuresCalculation<HeightStructuresInput>();
+            var calculation = new StructuresCalculationScenario<HeightStructuresInput>();
             failureMechanism.CalculationsGroup.Children.Add(calculation);
             calculation.InputParameters.HydraulicBoundaryLocation = demoAssessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001);
             calculation.InputParameters.Structure = heightStructure;
