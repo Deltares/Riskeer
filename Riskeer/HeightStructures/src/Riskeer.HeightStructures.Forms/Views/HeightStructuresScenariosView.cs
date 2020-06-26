@@ -131,10 +131,10 @@ namespace Riskeer.HeightStructures.Forms.Views
                 IDictionary<string, List<ICalculation>> calculationsPerSegment =
                     StructuresHelper.CollectCalculationsPerSection(failureMechanism.Sections, calculations.Cast<StructuresCalculation<HeightStructuresInput>>());
 
-                List<HeightStructuresScenarioRow> scenarioRows =
-                    FailureMechanism.SectionResults.Select(sectionResult => new HeightStructuresScenarioRow(sectionResult)).ToList();
-
-                scenarioSelectionControl.UpdateDataGridViewDataSource(calculations, scenarioRows, calculationsPerSegment);
+                // List<HeightStructuresScenarioRow> scenarioRows =
+                //     FailureMechanism.SectionResults.Select(sectionResult => new HeightStructuresScenarioRow(sectionResult)).ToList();
+                //
+                // scenarioSelectionControl.UpdateDataGridViewDataSource(calculations, scenarioRows, calculationsPerSegment);
             }
         }
     }
