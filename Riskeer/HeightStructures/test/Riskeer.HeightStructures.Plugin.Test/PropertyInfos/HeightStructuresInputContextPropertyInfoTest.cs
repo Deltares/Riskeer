@@ -67,7 +67,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.PropertyInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var calculation = new TestHeightStructuresCalculation();
+            var calculation = new TestHeightStructuresCalculationScenario();
             var failureMechanism = new HeightStructuresFailureMechanism();
             var context = new HeightStructuresInputContext(calculation.InputParameters, calculation, failureMechanism, assessmentSection);
 

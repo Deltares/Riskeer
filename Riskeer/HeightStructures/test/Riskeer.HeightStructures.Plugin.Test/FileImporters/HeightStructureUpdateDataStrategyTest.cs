@@ -320,7 +320,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.FileImporters
             HeightStructure readStructure = new TestHeightStructure(sameId, "new structure");
             HeightStructure structure = new TestHeightStructure(sameId, "original structure");
 
-            var calculation = new TestHeightStructuresCalculation
+            var calculation = new TestHeightStructuresCalculationScenario
             {
                 InputParameters =
                 {
@@ -373,7 +373,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.FileImporters
             var affectedStructure = new TestHeightStructure(affectedId, "Old name");
             var unaffectedStructure = new TestHeightStructure(unaffectedId, unaffectedStructureName);
 
-            var affectedCalculation = new TestHeightStructuresCalculation
+            var affectedCalculation = new TestHeightStructuresCalculationScenario
             {
                 InputParameters =
                 {
@@ -382,7 +382,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.FileImporters
                 Output = new TestStructuresOutput()
             };
 
-            var unaffectedCalculation = new TestHeightStructuresCalculation
+            var unaffectedCalculation = new TestHeightStructuresCalculationScenario
             {
                 InputParameters =
                 {
@@ -446,7 +446,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.FileImporters
             const string removedId = "sameId";
             HeightStructure structure = new TestHeightStructure(removedId, "original structure");
 
-            var calculation = new TestHeightStructuresCalculation
+            var calculation = new TestHeightStructuresCalculationScenario
             {
                 InputParameters =
                 {
@@ -500,7 +500,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.FileImporters
             var removedStructure = new TestHeightStructure(removedId, "Old name");
             var unaffectedStructure = new TestHeightStructure(unaffectedId, unaffectedStructureName);
 
-            var affectedCalculation = new TestHeightStructuresCalculation
+            var affectedCalculation = new TestHeightStructuresCalculationScenario
             {
                 InputParameters =
                 {
@@ -509,7 +509,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.FileImporters
                 Output = new TestStructuresOutput()
             };
 
-            var unaffectedCalculation = new TestHeightStructuresCalculation
+            var unaffectedCalculation = new TestHeightStructuresCalculationScenario
             {
                 InputParameters =
                 {
@@ -572,7 +572,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.FileImporters
             HeightStructure readStructure = new TestHeightStructure(updatedMatchingPoint, sameId);
             HeightStructure structure = new TestHeightStructure(originalMatchingPoint, sameId);
 
-            var calculation = new TestHeightStructuresCalculation
+            var calculation = new TestHeightStructuresCalculationScenario
             {
                 InputParameters =
                 {
@@ -651,7 +651,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.FileImporters
             var originalMatchingPoint = new Point2D(0, 0);
             HeightStructure removedStructure = new TestHeightStructure(originalMatchingPoint, sameId);
 
-            var calculation = new TestHeightStructuresCalculation
+            var calculation = new TestHeightStructuresCalculationScenario
             {
                 InputParameters =
                 {

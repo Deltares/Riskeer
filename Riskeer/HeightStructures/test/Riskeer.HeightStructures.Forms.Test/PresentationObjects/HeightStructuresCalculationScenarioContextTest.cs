@@ -41,7 +41,7 @@ namespace Riskeer.HeightStructures.Forms.Test.PresentationObjects
             var assessmentSection = mocksRepository.Stub<IAssessmentSection>();
             mocksRepository.ReplayAll();
 
-            var calculation = new StructuresCalculation<HeightStructuresInput>();
+            var calculation = new StructuresCalculationScenario<HeightStructuresInput>();
             var failureMechanism = new HeightStructuresFailureMechanism();
             var parent = new CalculationGroup();
 
@@ -49,7 +49,7 @@ namespace Riskeer.HeightStructures.Forms.Test.PresentationObjects
             var context = new HeightStructuresCalculationScenarioContext(calculation, parent, failureMechanism, assessmentSection);
 
             // Assert
-            Assert.IsInstanceOf<StructuresCalculationContext<HeightStructuresInput, HeightStructuresFailureMechanism>>(context);
+            Assert.IsInstanceOf<StructuresCalculationScenarioContext<HeightStructuresInput, HeightStructuresFailureMechanism>>(context);
             Assert.AreSame(calculation, context.WrappedData);
             Assert.AreSame(parent, context.Parent);
             Assert.AreSame(failureMechanism, context.FailureMechanism);
@@ -65,7 +65,7 @@ namespace Riskeer.HeightStructures.Forms.Test.PresentationObjects
             var assessmentSection = mocksRepository.Stub<IAssessmentSection>();
             mocksRepository.ReplayAll();
 
-            var calculation = new StructuresCalculation<HeightStructuresInput>();
+            var calculation = new StructuresCalculationScenario<HeightStructuresInput>();
             var failureMechanism = new HeightStructuresFailureMechanism();
             var parent = new CalculationGroup();
             var context = new HeightStructuresCalculationScenarioContext(calculation, parent, failureMechanism, assessmentSection);
@@ -81,7 +81,7 @@ namespace Riskeer.HeightStructures.Forms.Test.PresentationObjects
 
         private class DerivedHeightStructuresCalculationScenarioContext : HeightStructuresCalculationScenarioContext
         {
-            public DerivedHeightStructuresCalculationScenarioContext(StructuresCalculation<HeightStructuresInput> calculation,
+            public DerivedHeightStructuresCalculationScenarioContext(StructuresCalculationScenario<HeightStructuresInput> calculation,
                                                                      CalculationGroup parent,
                                                                      HeightStructuresFailureMechanism failureMechanism,
                                                                      IAssessmentSection assessmentSection)

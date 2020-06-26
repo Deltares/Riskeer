@@ -121,7 +121,7 @@ namespace Riskeer.HeightStructures.IO.Test.Configurations
 
         private static StructuresCalculation<HeightStructuresInput> CreateFullCalculation()
         {
-            return new TestHeightStructuresCalculation
+            return new TestHeightStructuresCalculationScenario
             {
                 Name = "full config",
                 InputParameters =
@@ -229,7 +229,7 @@ namespace Riskeer.HeightStructures.IO.Test.Configurations
 
         protected override StructuresCalculation<HeightStructuresInput> CreateCalculation()
         {
-            return new TestHeightStructuresCalculation();
+            return new TestHeightStructuresCalculationScenario();
         }
 
         protected override HeightStructuresCalculationConfigurationExporter CallConfigurationFilePathConstructor(IEnumerable<ICalculationBase> calculations, string filePath)

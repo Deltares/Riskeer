@@ -41,7 +41,7 @@ namespace Riskeer.HeightStructures.Forms.Test.PresentationObjects
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var calculation = new TestHeightStructuresCalculation();
+            var calculation = new TestHeightStructuresCalculationScenario();
             var failureMechanism = new HeightStructuresFailureMechanism();
 
             // Call
@@ -63,7 +63,7 @@ namespace Riskeer.HeightStructures.Forms.Test.PresentationObjects
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var calculation = new TestHeightStructuresCalculation();
+            var calculation = new TestHeightStructuresCalculationScenario();
 
             // Call
             TestDelegate call = () => new HeightStructuresOutputContext(calculation, null, assessmentSection);

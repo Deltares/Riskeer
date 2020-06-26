@@ -25,14 +25,14 @@ using Riskeer.Common.Data.Structures;
 namespace Riskeer.HeightStructures.Data.TestUtil
 {
     /// <summary>
-    /// Height structures calculation for testing purposes.
+    /// Height structures calculation scenario for testing purposes.
     /// </summary>
-    public class TestHeightStructuresCalculation : StructuresCalculation<HeightStructuresInput>
+    public class TestHeightStructuresCalculationScenario : StructuresCalculationScenario<HeightStructuresInput>
     {
         /// <summary>
-        /// Creates a new instance of <see cref="TestHeightStructuresCalculation"/>.
+        /// Creates a new instance of <see cref="TestHeightStructuresCalculationScenario"/>.
         /// </summary>
-        public TestHeightStructuresCalculation()
+        public TestHeightStructuresCalculationScenario()
         {
             InputParameters.Structure = new TestHeightStructure();
             InputParameters.LevelCrestStructure.Mean = (RoundedDouble) 5.74;

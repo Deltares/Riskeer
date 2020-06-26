@@ -342,7 +342,7 @@ namespace Riskeer.Integration.Forms.Test.Views
             // Given
             AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllFailureMechanismSectionsAndResults(
                 new Random(21).NextEnumValue<AssessmentSectionComposition>());
-            var calculation = new TestHeightStructuresCalculation();
+            var calculation = new TestHeightStructuresCalculationScenario();
             assessmentSection.HeightStructures.CalculationsGroup.Children.Add(calculation);
 
             using (new AssemblyToolCalculatorFactoryConfig())

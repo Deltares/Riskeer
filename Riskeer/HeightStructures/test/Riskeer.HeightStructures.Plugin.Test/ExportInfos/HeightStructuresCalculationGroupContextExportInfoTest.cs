@@ -138,7 +138,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.ExportInfos
 
             if (hasCalculation)
             {
-                calculationGroup.Children.Add(new TestHeightStructuresCalculation());
+                calculationGroup.Children.Add(new TestHeightStructuresCalculationScenario());
             }
 
             var context = new HeightStructuresCalculationGroupContext(calculationGroup,

@@ -21,21 +21,24 @@
 
 using NUnit.Framework;
 using Riskeer.Common.Data.Structures;
+using Riskeer.Common.Data.TestUtil;
 
 namespace Riskeer.HeightStructures.Data.TestUtil.Test
 {
     [TestFixture]
-    public class TestHeightStructuresCalculationTest
+    public class TestHeightStructuresCalculationScenarioTest
     {
         [Test]
         public void Constructor_DefaultPropertyValuesAreSet()
         {
             // Call
-            var calculation = new TestHeightStructuresCalculation();
+            var calculation = new TestHeightStructuresCalculationScenario();
 
             // Assert
-            Assert.IsInstanceOf<StructuresCalculation<HeightStructuresInput>>(calculation);
+            Assert.IsInstanceOf<StructuresCalculationScenario<HeightStructuresInput>>(calculation);
             Assert.AreEqual("Nieuwe berekening", calculation.Name);
+            Assert.AreEqual(1, calculation.Contribution, calculation.Contribution.GetAccuracy());
+            Assert.IsTrue(calculation.IsRelevant);
             Assert.IsNotNull(calculation.InputParameters);
             Assert.IsNull(calculation.Comments.Body);
             Assert.IsFalse(calculation.HasOutput);

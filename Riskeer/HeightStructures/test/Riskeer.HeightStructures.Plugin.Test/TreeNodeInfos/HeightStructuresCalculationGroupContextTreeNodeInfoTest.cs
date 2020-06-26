@@ -144,7 +144,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
             var failureMechanism = new HeightStructuresFailureMechanism();
             var group = new CalculationGroup();
             var childGroup = new CalculationGroup();
-            var childCalculation = new StructuresCalculation<HeightStructuresInput>();
+            var childCalculation = new StructuresCalculationScenario<HeightStructuresInput>();
 
             group.Children.Add(childGroup);
             group.Children.Add(calculationItem);
@@ -869,12 +869,12 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
             var failureMechanism = new HeightStructuresFailureMechanism();
 
-            var calculationWithIllustrationPoints = new TestHeightStructuresCalculation
+            var calculationWithIllustrationPoints = new TestHeightStructuresCalculationScenario
             {
                 Output = new TestStructuresOutput(new TestGeneralResultFaultTreeIllustrationPoint())
             };
 
-            var calculationWithOutput = new TestHeightStructuresCalculation
+            var calculationWithOutput = new TestHeightStructuresCalculationScenario
             {
                 Output = new TestStructuresOutput()
             };
@@ -885,7 +885,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
                 {
                     calculationWithIllustrationPoints,
                     calculationWithOutput,
-                    new TestHeightStructuresCalculation()
+                    new TestHeightStructuresCalculationScenario()
                 }
             };
 
@@ -918,7 +918,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
             var failureMechanism = new HeightStructuresFailureMechanism();
 
-            var calculationWithOutput = new TestHeightStructuresCalculation
+            var calculationWithOutput = new TestHeightStructuresCalculationScenario
             {
                 Output = new TestStructuresOutput()
             };
@@ -928,7 +928,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
                 Children =
                 {
                     calculationWithOutput,
-                    new TestHeightStructuresCalculation()
+                    new TestHeightStructuresCalculationScenario()
                 }
             };
 
@@ -958,12 +958,12 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
         public void GivenCalculationsWithIllustrationPoints_WhenClearIllustrationPointsClickedAndAborted_ThenInquiryAndIllustrationPointsNotCleared()
         {
             // Given
-            var calculationWithIllustrationPoints = new TestHeightStructuresCalculation
+            var calculationWithIllustrationPoints = new TestHeightStructuresCalculationScenario
             {
                 Output = new TestStructuresOutput(new TestGeneralResultFaultTreeIllustrationPoint())
             };
 
-            var calculationWithOutput = new TestHeightStructuresCalculation
+            var calculationWithOutput = new TestHeightStructuresCalculationScenario
             {
                 Output = new TestStructuresOutput()
             };
@@ -974,7 +974,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
                 {
                     calculationWithIllustrationPoints,
                     calculationWithOutput,
-                    new TestHeightStructuresCalculation()
+                    new TestHeightStructuresCalculationScenario()
                 }
             };
 
@@ -1021,12 +1021,12 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
         public void GivenCalculationsWithIllustrationPoints_WhenClearIllustrationPointsClickedAndContinued_ThenInquiryAndIllustrationPointsCleared()
         {
             // Given
-            var calculationWithIllustrationPoints = new TestHeightStructuresCalculation
+            var calculationWithIllustrationPoints = new TestHeightStructuresCalculationScenario
             {
                 Output = new TestStructuresOutput(new TestGeneralResultFaultTreeIllustrationPoint())
             };
 
-            var calculationWithOutput = new TestHeightStructuresCalculation
+            var calculationWithOutput = new TestHeightStructuresCalculationScenario
             {
                 Output = new TestStructuresOutput()
             };
@@ -1037,7 +1037,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
                 {
                     calculationWithIllustrationPoints,
                     calculationWithOutput,
-                    new TestHeightStructuresCalculation()
+                    new TestHeightStructuresCalculationScenario()
                 }
             };
 
@@ -1092,7 +1092,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
             var failureMechanism = new TestHeightStructuresFailureMechanism();
-            failureMechanism.CalculationsGroup.Children.Add(new TestHeightStructuresCalculation
+            failureMechanism.CalculationsGroup.Children.Add(new TestHeightStructuresCalculationScenario
             {
                 Name = "A",
                 InputParameters =
@@ -1100,7 +1100,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
                     HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation()
                 }
             });
-            failureMechanism.CalculationsGroup.Children.Add(new TestHeightStructuresCalculation
+            failureMechanism.CalculationsGroup.Children.Add(new TestHeightStructuresCalculationScenario
             {
                 Name = "B",
                 InputParameters =
@@ -1187,7 +1187,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
             var failureMechanism = new TestHeightStructuresFailureMechanism();
-            failureMechanism.CalculationsGroup.Children.Add(new TestHeightStructuresCalculation
+            failureMechanism.CalculationsGroup.Children.Add(new TestHeightStructuresCalculationScenario
             {
                 Name = "A",
                 InputParameters =
@@ -1195,7 +1195,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
                     HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation()
                 }
             });
-            failureMechanism.CalculationsGroup.Children.Add(new TestHeightStructuresCalculation
+            failureMechanism.CalculationsGroup.Children.Add(new TestHeightStructuresCalculationScenario
             {
                 Name = "B",
                 InputParameters =

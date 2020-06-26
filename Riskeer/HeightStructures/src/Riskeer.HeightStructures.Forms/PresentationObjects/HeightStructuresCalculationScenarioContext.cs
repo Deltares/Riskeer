@@ -31,7 +31,7 @@ namespace Riskeer.HeightStructures.Forms.PresentationObjects
     /// <summary>
     /// Presentation object for all data required to configure a height structures calculation.
     /// </summary>
-    public class HeightStructuresCalculationScenarioContext : StructuresCalculationContext<HeightStructuresInput, HeightStructuresFailureMechanism>
+    public class HeightStructuresCalculationScenarioContext : StructuresCalculationScenarioContext<HeightStructuresInput, HeightStructuresFailureMechanism>
     {
         /// <summary>
         /// Creates a new instance of <see cref="HeightStructuresCalculationScenarioContext"/>.
@@ -41,7 +41,7 @@ namespace Riskeer.HeightStructures.Forms.PresentationObjects
         /// <param name="failureMechanism">The failure mechanism which the context belongs to.</param>
         /// <param name="assessmentSection">The assessment section which the calculation belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
-        public HeightStructuresCalculationScenarioContext(StructuresCalculation<HeightStructuresInput> calculation,
+        public HeightStructuresCalculationScenarioContext(StructuresCalculationScenario<HeightStructuresInput> calculation,
                                                           CalculationGroup parent,
                                                           HeightStructuresFailureMechanism failureMechanism,
                                                           IAssessmentSection assessmentSection)

@@ -493,7 +493,7 @@ namespace Riskeer.Integration.Forms.Test.Views
         {
             // Given
             var assessmentSection = new AssessmentSection(new Random(21).NextEnumValue<AssessmentSectionComposition>());
-            var calculation = new TestHeightStructuresCalculation();
+            var calculation = new TestHeightStructuresCalculationScenario();
             assessmentSection.HeightStructures.CalculationsGroup.Children.Add(calculation);
 
             using (AssemblyResultTotalView view = ShowAssemblyResultTotalView(assessmentSection))

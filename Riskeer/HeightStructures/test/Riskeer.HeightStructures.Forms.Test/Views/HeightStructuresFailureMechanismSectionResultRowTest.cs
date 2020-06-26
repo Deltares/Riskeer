@@ -391,9 +391,9 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
             }
         }
 
-        private static TestHeightStructuresCalculation CreateCalculationWithOutput()
+        private static TestHeightStructuresCalculationScenario CreateCalculationWithOutput()
         {
-            return new TestHeightStructuresCalculation
+            return new TestHeightStructuresCalculationScenario
             {
                 Output = new TestStructuresOutput()
             };
@@ -675,7 +675,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
 
             var sectionResult = new HeightStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
-                Calculation = new TestHeightStructuresCalculation(),
+                Calculation = new TestHeightStructuresCalculationScenario(),
                 SimpleAssessmentResult = simpleAssessmentResult
             };
 
@@ -706,7 +706,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
-            var calculation = new TestHeightStructuresCalculation
+            var calculation = new TestHeightStructuresCalculationScenario
             {
                 Output = new TestStructuresOutput(double.NaN)
             };
@@ -771,7 +771,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
 
             var sectionResult = new HeightStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
-                Calculation = new TestHeightStructuresCalculation(),
+                Calculation = new TestHeightStructuresCalculationScenario(),
                 UseManualAssembly = true
             };
 
@@ -800,7 +800,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
 
             var sectionResult = new HeightStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
-                Calculation = new TestHeightStructuresCalculation(),
+                Calculation = new TestHeightStructuresCalculationScenario(),
                 DetailedAssessmentResult = DetailedAssessmentProbabilityOnlyResultType.NotAssessed
             };
 

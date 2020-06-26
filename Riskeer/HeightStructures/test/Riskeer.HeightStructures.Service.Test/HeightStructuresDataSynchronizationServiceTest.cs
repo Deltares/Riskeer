@@ -83,18 +83,18 @@ namespace Riskeer.HeightStructures.Service.Test
                 structureToKeep
             }, "path/to/structures");
 
-            var calculationWithOutput = new TestHeightStructuresCalculation
+            var calculationWithOutput = new TestHeightStructuresCalculationScenario
             {
                 Output = new TestStructuresOutput()
             };
-            var calculationWithStructureToRemove = new TestHeightStructuresCalculation
+            var calculationWithStructureToRemove = new TestHeightStructuresCalculationScenario
             {
                 InputParameters =
                 {
                     Structure = structureToRemove
                 }
             };
-            var calculationWithStructureToKeepAndOutput = new TestHeightStructuresCalculation
+            var calculationWithStructureToKeepAndOutput = new TestHeightStructuresCalculationScenario
             {
                 InputParameters =
                 {
@@ -102,7 +102,7 @@ namespace Riskeer.HeightStructures.Service.Test
                 },
                 Output = new TestStructuresOutput()
             };
-            var calculationWithStructureToRemoveAndOutput = new TestHeightStructuresCalculation
+            var calculationWithStructureToRemoveAndOutput = new TestHeightStructuresCalculationScenario
             {
                 InputParameters =
                 {
@@ -561,7 +561,7 @@ namespace Riskeer.HeightStructures.Service.Test
             var structure1 = new TestHeightStructure(new Point2D(1, 0), "Id 1,0");
             var structure2 = new TestHeightStructure(new Point2D(3, 0), "Id 3,0");
             var profile = new TestForeshoreProfile();
-            StructuresCalculation<HeightStructuresInput> calculation1 = new TestHeightStructuresCalculation
+            StructuresCalculation<HeightStructuresInput> calculation1 = new TestHeightStructuresCalculationScenario
             {
                 InputParameters =
                 {
@@ -570,7 +570,7 @@ namespace Riskeer.HeightStructures.Service.Test
                 },
                 Output = new TestStructuresOutput()
             };
-            StructuresCalculation<HeightStructuresInput> calculation2 = new TestHeightStructuresCalculation
+            StructuresCalculation<HeightStructuresInput> calculation2 = new TestHeightStructuresCalculationScenario
             {
                 InputParameters =
                 {
@@ -578,7 +578,7 @@ namespace Riskeer.HeightStructures.Service.Test
                     Structure = structure2
                 }
             };
-            StructuresCalculation<HeightStructuresInput> calculation3 = new TestHeightStructuresCalculation
+            StructuresCalculation<HeightStructuresInput> calculation3 = new TestHeightStructuresCalculationScenario
             {
                 InputParameters =
                 {

@@ -458,17 +458,14 @@ namespace Riskeer.HeightStructures.Plugin
 
             foreach (ICalculationBase calculationItem in context.WrappedData.Children)
             {
-                var calculation = calculationItem as StructuresCalculation<HeightStructuresInput>;
-                var group = calculationItem as CalculationGroup;
-
-                if (calculation != null)
+                if (calculationItem is StructuresCalculationScenario<HeightStructuresInput> calculation)
                 {
                     childNodeObjects.Add(new HeightStructuresCalculationScenarioContext(calculation,
                                                                                         context.WrappedData,
                                                                                         context.FailureMechanism,
                                                                                         context.AssessmentSection));
                 }
-                else if (group != null)
+                else if (calculationItem is CalculationGroup group)
                 {
                     childNodeObjects.Add(new HeightStructuresCalculationGroupContext(group,
                                                                                      context.WrappedData,

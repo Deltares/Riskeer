@@ -89,7 +89,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.ExportInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var context = new HeightStructuresCalculationScenarioContext(new TestHeightStructuresCalculation(),
+            var context = new HeightStructuresCalculationScenarioContext(new TestHeightStructuresCalculationScenario(),
                                                                          new CalculationGroup(),
                                                                          new HeightStructuresFailureMechanism(),
                                                                          assessmentSection);
@@ -108,7 +108,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.ExportInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var context = new HeightStructuresCalculationScenarioContext(new TestHeightStructuresCalculation(),
+            var context = new HeightStructuresCalculationScenarioContext(new TestHeightStructuresCalculationScenario(),
                                                                          new CalculationGroup(),
                                                                          new HeightStructuresFailureMechanism(),
                                                                          assessmentSection);

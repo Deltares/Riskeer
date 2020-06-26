@@ -391,7 +391,7 @@ namespace Riskeer.Integration.Service.Test
         private static void AddHeightStructuresCalculation(AssessmentSection assessmentSection,
                                                            HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
-            assessmentSection.HeightStructures.CalculationsGroup.Children.Add(new TestHeightStructuresCalculation
+            assessmentSection.HeightStructures.CalculationsGroup.Children.Add(new TestHeightStructuresCalculationScenario
             {
                 InputParameters =
                 {

@@ -76,7 +76,7 @@ namespace Riskeer.HeightStructures.Service.Test
 
             const string expectedValidationMessage = "De waarde voor 'Oriëntatie' moet een concreet getal zijn.";
 
-            var calculation = new TestHeightStructuresCalculation
+            var calculation = new TestHeightStructuresCalculationScenario
             {
                 InputParameters =
                 {
@@ -118,7 +118,7 @@ namespace Riskeer.HeightStructures.Service.Test
 
             string expectedValidationMessage = $"De verwachtingswaarde voor '{parameterName}' moet een concreet getal zijn.";
 
-            var calculation = new TestHeightStructuresCalculation
+            var calculation = new TestHeightStructuresCalculationScenario
             {
                 InputParameters =
                 {
@@ -162,7 +162,7 @@ namespace Riskeer.HeightStructures.Service.Test
 
             string expectedValidationMessage = $"De verwachtingswaarde voor '{parameterName}' moet een positief getal zijn.";
 
-            var calculation = new TestHeightStructuresCalculation
+            var calculation = new TestHeightStructuresCalculationScenario
             {
                 InputParameters =
                 {
@@ -209,7 +209,7 @@ namespace Riskeer.HeightStructures.Service.Test
 
             string expectedValidationMessage = $"De standaardafwijking voor '{parameterName}' moet groter zijn dan of gelijk zijn aan 0.";
 
-            var calculation = new TestHeightStructuresCalculation
+            var calculation = new TestHeightStructuresCalculationScenario
             {
                 InputParameters =
                 {
@@ -255,7 +255,7 @@ namespace Riskeer.HeightStructures.Service.Test
 
             string expectedValidationMessage = $"De variatiecoëfficiënt voor '{parameterName}' moet groter zijn dan of gelijk zijn aan 0.";
 
-            var calculation = new TestHeightStructuresCalculation
+            var calculation = new TestHeightStructuresCalculationScenario
             {
                 InputParameters =
                 {
@@ -298,7 +298,7 @@ namespace Riskeer.HeightStructures.Service.Test
                                                                                                            validHydraulicBoundaryDatabaseFilePath);
             mockRepository.ReplayAll();
 
-            var calculation = new TestHeightStructuresCalculation
+            var calculation = new TestHeightStructuresCalculationScenario
             {
                 InputParameters =
                 {
@@ -336,7 +336,7 @@ namespace Riskeer.HeightStructures.Service.Test
                                                                                                            validHydraulicBoundaryDatabaseFilePath);
             mockRepository.ReplayAll();
 
-            var calculation = new TestHeightStructuresCalculation
+            var calculation = new TestHeightStructuresCalculationScenario
             {
                 InputParameters =
                 {
@@ -379,7 +379,7 @@ namespace Riskeer.HeightStructures.Service.Test
                              .Return(new TestStructuresCalculator<StructuresOvertoppingCalculationInput>());
             mockRepository.ReplayAll();
 
-            var calculation = new TestHeightStructuresCalculation
+            var calculation = new TestHeightStructuresCalculationScenario
             {
                 InputParameters =
                 {
@@ -447,7 +447,7 @@ namespace Riskeer.HeightStructures.Service.Test
                              .Return(new TestStructuresCalculator<StructuresOvertoppingCalculationInput>());
             mockRepository.ReplayAll();
 
-            var calculation = new TestHeightStructuresCalculation
+            var calculation = new TestHeightStructuresCalculationScenario
             {
                 InputParameters =
                 {
@@ -498,7 +498,7 @@ namespace Riskeer.HeightStructures.Service.Test
                              .Return(calculator);
             mockRepository.ReplayAll();
 
-            var calculation = new TestHeightStructuresCalculation
+            var calculation = new TestHeightStructuresCalculationScenario
             {
                 InputParameters =
                 {
@@ -572,7 +572,7 @@ namespace Riskeer.HeightStructures.Service.Test
                              .Return(calculator);
             mockRepository.ReplayAll();
 
-            var calculation = new TestHeightStructuresCalculation
+            var calculation = new TestHeightStructuresCalculationScenario
             {
                 InputParameters =
                 {
@@ -650,7 +650,7 @@ namespace Riskeer.HeightStructures.Service.Test
                              .Return(calculator);
             mockRepository.ReplayAll();
 
-            var calculation = new TestHeightStructuresCalculation
+            var calculation = new TestHeightStructuresCalculationScenario
             {
                 InputParameters =
                 {
@@ -714,7 +714,7 @@ namespace Riskeer.HeightStructures.Service.Test
                              .Return(calculator);
             mockRepository.ReplayAll();
 
-            var calculation = new TestHeightStructuresCalculation
+            var calculation = new TestHeightStructuresCalculationScenario
             {
                 InputParameters =
                 {
@@ -778,7 +778,7 @@ namespace Riskeer.HeightStructures.Service.Test
                              .Return(calculator);
             mockRepository.ReplayAll();
 
-            var calculation = new TestHeightStructuresCalculation
+            var calculation = new TestHeightStructuresCalculationScenario
             {
                 InputParameters =
                 {
@@ -856,7 +856,7 @@ namespace Riskeer.HeightStructures.Service.Test
                              .Return(calculator);
             mockRepository.ReplayAll();
 
-            var calculation = new TestHeightStructuresCalculation
+            var calculation = new TestHeightStructuresCalculationScenario
             {
                 InputParameters =
                 {

@@ -69,7 +69,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.PropertyInfos
             mocks.ReplayAll();
 
             var failureMechanism = new HeightStructuresFailureMechanism();
-            var calculation = new TestHeightStructuresCalculation
+            var calculation = new TestHeightStructuresCalculationScenario
             {
                 Output = new StructuresOutput(0, null)
             };

@@ -118,7 +118,7 @@ namespace Riskeer.HeightStructures.Data.Test
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var failureMechanismSectionResult = new HeightStructuresFailureMechanismSectionResult(section)
             {
-                Calculation = new TestHeightStructuresCalculation()
+                Calculation = new TestHeightStructuresCalculationScenario()
             };
 
             // Call
@@ -143,7 +143,7 @@ namespace Riskeer.HeightStructures.Data.Test
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var failureMechanismSectionResult = new HeightStructuresFailureMechanismSectionResult(section)
             {
-                Calculation = new TestHeightStructuresCalculation
+                Calculation = new TestHeightStructuresCalculationScenario
                 {
                     Output = new TestStructuresOutput(0.8)
                 }

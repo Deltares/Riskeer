@@ -772,7 +772,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         private static void AddHeightStructuresCalculation(AssessmentSection assessmentSection,
                                                            HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
-            assessmentSection.HeightStructures.CalculationsGroup.Children.Add(new TestHeightStructuresCalculation
+            assessmentSection.HeightStructures.CalculationsGroup.Children.Add(new TestHeightStructuresCalculationScenario
             {
                 InputParameters =
                 {

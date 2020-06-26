@@ -104,7 +104,7 @@ namespace Riskeer.HeightStructures.Integration.Test
             DataImportHelper.ImportHydraulicBoundaryDatabase(assessmentSection, validFilePath);
 
             var failureMechanism = new HeightStructuresFailureMechanism();
-            var calculation = new TestHeightStructuresCalculation
+            var calculation = new TestHeightStructuresCalculationScenario
             {
                 InputParameters =
                 {
@@ -165,7 +165,7 @@ namespace Riskeer.HeightStructures.Integration.Test
             DataImportHelper.ImportHydraulicBoundaryDatabase(assessmentSection, validFilePath);
 
             var failureMechanism = new HeightStructuresFailureMechanism();
-            var calculation = new TestHeightStructuresCalculation
+            var calculation = new TestHeightStructuresCalculationScenario
             {
                 InputParameters =
                 {
@@ -207,7 +207,7 @@ namespace Riskeer.HeightStructures.Integration.Test
             DataImportHelper.ImportHydraulicBoundaryDatabase(assessmentSection, validFilePath);
 
             var failureMechanism = new HeightStructuresFailureMechanism();
-            var calculation = new TestHeightStructuresCalculation
+            var calculation = new TestHeightStructuresCalculationScenario
             {
                 InputParameters =
                 {
@@ -319,7 +319,7 @@ namespace Riskeer.HeightStructures.Integration.Test
             mockRepository.ReplayAll();
 
             var failureMechanism = new HeightStructuresFailureMechanism();
-            var calculation = new TestHeightStructuresCalculation
+            var calculation = new TestHeightStructuresCalculationScenario
             {
                 InputParameters =
                 {
@@ -378,7 +378,7 @@ namespace Riskeer.HeightStructures.Integration.Test
             mockRepository.ReplayAll();
 
             var failureMechanism = new HeightStructuresFailureMechanism();
-            var calculation = new TestHeightStructuresCalculation
+            var calculation = new TestHeightStructuresCalculationScenario
             {
                 InputParameters =
                 {
@@ -437,7 +437,7 @@ namespace Riskeer.HeightStructures.Integration.Test
             mockRepository.ReplayAll();
 
             var failureMechanism = new HeightStructuresFailureMechanism();
-            var calculation = new TestHeightStructuresCalculation
+            var calculation = new TestHeightStructuresCalculationScenario
             {
                 InputParameters =
                 {

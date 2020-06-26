@@ -281,7 +281,7 @@ namespace Riskeer.HeightStructures.Service.Test
 
         private static StructuresCalculation<HeightStructuresInput> CreateValidCalculation()
         {
-            return new TestHeightStructuresCalculation
+            return new TestHeightStructuresCalculationScenario
             {
                 InputParameters =
                 {
