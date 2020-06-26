@@ -40,7 +40,7 @@ namespace Riskeer.ClosingStructures.Data.TestUtil.Test
             // Assert
             Assert.IsInstanceOf<StructuresCalculationScenario<ClosingStructuresInput>>(calculation);
             Assert.AreEqual("Nieuwe berekening", calculation.Name);
-            Assert.AreEqual(1, calculation.Contribution);
+            Assert.AreEqual(1, calculation.Contribution, calculation.Contribution.GetAccuracy());
             Assert.IsTrue(calculation.IsRelevant);
             Assert.IsNotNull(calculation.InputParameters);
             Assert.IsNull(calculation.Comments.Body);
