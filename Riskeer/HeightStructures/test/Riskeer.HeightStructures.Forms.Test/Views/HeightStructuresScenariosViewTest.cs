@@ -19,20 +19,20 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
+using System;
 using System.Windows.Forms;
+using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
-using Core.Common.Controls.DataGrid;
-using Core.Common.Controls.Views;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
+using Rhino.Mocks;
+using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Data.TestUtil;
-using Riskeer.Common.Forms;
+using Riskeer.Common.Forms.Helpers;
+using Riskeer.Common.Forms.Views;
 using Riskeer.HeightStructures.Data;
 using Riskeer.HeightStructures.Data.TestUtil;
 using Riskeer.HeightStructures.Forms.Views;
@@ -42,6 +42,11 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
     [TestFixture]
     public class HeightStructuresScenariosViewTest
     {
+        private const int isRelevantColumnIndex = 0;
+        private const int contributionColumnIndex = 1;
+        private const int nameColumnIndex = 2;
+        private const int failureProbabilityColumnIndex = 3;
+
         private Form testForm;
 
         [SetUp]
@@ -57,347 +62,129 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
         }
 
         [Test]
-        public void DefaultConstructor_DataGridViewCorrectlyInitialized()
+        public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            using (HeightStructuresScenariosView view = ShowScenariosView())
-            {
-                // Assert
-                Assert.IsInstanceOf<UserControl>(view);
-                Assert.IsInstanceOf<IView>(view);
-                Assert.IsTrue(view.AutoScroll);
-                Assert.IsNull(view.Data);
-                Assert.IsNull(view.FailureMechanism);
+            void Call() => new HeightStructuresScenariosView(new CalculationGroup(), new HeightStructuresFailureMechanism(), null);
 
-                var scenarioSelectionControl = new ControlTester("scenarioSelectionControl").TheObject as ScenarioSelectionControl;
-
-                Assert.NotNull(scenarioSelectionControl);
-                Assert.AreEqual(new Size(0, 0), scenarioSelectionControl.MinimumSize);
-            }
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
         [Test]
-        public void Data_ValidDataSet_ValidData()
+        public void Constructor_ExpectedValues()
         {
             // Setup
-            using (HeightStructuresScenariosView view = ShowScenariosView())
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var calculationGroup = new CalculationGroup();
+
+            // Call
+            using (var view = new HeightStructuresScenariosView(calculationGroup, new HeightStructuresFailureMechanism(), assessmentSection))
             {
-                var calculationGroup = new CalculationGroup();
-
-                // Call
-                view.Data = calculationGroup;
-
                 // Assert
+                Assert.IsInstanceOf<ScenariosView<StructuresCalculationScenario<HeightStructuresInput>, HeightStructuresInput, HeightStructuresScenarioRow, HeightStructuresFailureMechanism>>(view);
                 Assert.AreSame(calculationGroup, view.Data);
             }
+
+            mocks.VerifyAll();
         }
 
         [Test]
-        public void FailureMechanism_ValidFailureMechanismSet_ValidFailureMechanism()
+        public void Constructor_DataGridViewCorrectlyInitialized()
         {
-            // Setup
-            using (HeightStructuresScenariosView view = ShowScenariosView())
-            {
-                var failureMechanism = new HeightStructuresFailureMechanism();
+            // Call
+            ShowHeightStructuresScenariosView(new HeightStructuresFailureMechanism());
 
-                // Call
-                view.FailureMechanism = failureMechanism;
-
-                // Assert
-                Assert.AreSame(failureMechanism, view.FailureMechanism);
-            }
-        }
-
-        [Test]
-        public void Data_WithFailureMechanism_UpdateScenarioControl()
-        {
-            // Setup
-            using (HeightStructuresScenariosView view = ShowScenariosView())
-            {
-                HeightStructuresFailureMechanism failureMechanism = CreateCompleteFailureMechanism();
-                view.FailureMechanism = failureMechanism;
-
-                // Call
-                view.Data = failureMechanism.CalculationsGroup;
-
-                // Assert
-                AssertDataGridView(failureMechanism, false, new[]
-                {
-                    new[]
-                    {
-                        "<selecteer>",
-                        "CalculationA"
-                    },
-                    new[]
-                    {
-                        "<selecteer>",
-                        "CalculationB"
-                    }
-                });
-            }
-        }
-
-        [Test]
-        public void Data_SetToNullAfterGridViewShowsData_ClearsScenarioControl()
-        {
-            // Setup
-            using (HeightStructuresScenariosView view = ShowScenariosView())
-            {
-                HeightStructuresFailureMechanism failureMechanism = CreateCompleteFailureMechanism();
-                view.FailureMechanism = failureMechanism;
-                view.Data = failureMechanism.CalculationsGroup;
-
-                // Call
-                view.Data = null;
-
-                // Assert
-                AssertDataGridView(failureMechanism, true);
-            }
-        }
-
-        [Test]
-        public void FailureMechanism_FailureMechanismSetToNull_UpdateScenarioControl()
-        {
-            // Setup
-            using (HeightStructuresScenariosView view = ShowScenariosView())
-            {
-                HeightStructuresFailureMechanism failureMechanism = CreateCompleteFailureMechanism();
-                view.Data = failureMechanism.CalculationsGroup;
-
-                // Call
-                view.FailureMechanism = failureMechanism;
-
-                // Assert
-                AssertDataGridView(failureMechanism, false, new[]
-                {
-                    new[]
-                    {
-                        "<selecteer>",
-                        "CalculationA"
-                    },
-                    new[]
-                    {
-                        "<selecteer>",
-                        "CalculationB"
-                    }
-                });
-            }
-        }
-
-        [Test]
-        public void FailureMechanism_WithoutData_ClearsScenarioControl()
-        {
-            // Setup
-            using (HeightStructuresScenariosView view = ShowScenariosView())
-            {
-                HeightStructuresFailureMechanism failureMechanism = CreateCompleteFailureMechanism();
-                view.Data = failureMechanism.CalculationsGroup;
-                view.FailureMechanism = failureMechanism;
-
-                // Call
-                view.FailureMechanism = null;
-
-                // Assert
-                AssertDataGridView(failureMechanism, true);
-            }
-        }
-
-        [Test]
-        public void NotifyFailureMechanism_SectionsUpdatedAfterFullInitialization_NewRowAddedToView()
-        {
-            // Setup
-            using (HeightStructuresScenariosView view = ShowScenariosView())
-            {
-                HeightStructuresFailureMechanism failureMechanism = CreateCompleteFailureMechanism();
-                view.Data = failureMechanism.CalculationsGroup;
-                view.FailureMechanism = failureMechanism;
-
-                List<FailureMechanismSection> newSections = view.FailureMechanism.Sections.ToList();
-                newSections.Add(new FailureMechanismSection("SectionC", new[]
-                {
-                    view.FailureMechanism.Sections.Last().EndPoint,
-                    new Point2D(30, 30)
-                }));
-
-                // Call
-                failureMechanism.NotifyObservers();
-
-                // Assert
-                AssertDataGridView(failureMechanism, false, new[]
-                {
-                    new[]
-                    {
-                        "<selecteer>",
-                        "CalculationA"
-                    },
-                    new[]
-                    {
-                        "<selecteer>",
-                        "CalculationB"
-                    },
-                    new[]
-                    {
-                        "<selecteer>"
-                    }
-                });
-            }
-        }
-
-        [Test]
-        public void NotifyCalculation_CalculationChangedStructure_CalculationMovedToOtherSectionResultOptions()
-        {
-            // Setup
-            using (HeightStructuresScenariosView view = ShowScenariosView())
-            {
-                HeightStructuresFailureMechanism failureMechanism = CreateCompleteFailureMechanism();
-                view.Data = failureMechanism.CalculationsGroup;
-                view.FailureMechanism = failureMechanism;
-
-                var calculationA = (StructuresCalculation<HeightStructuresInput>) failureMechanism.CalculationsGroup.Children[0];
-                var calculationB = (StructuresCalculation<HeightStructuresInput>) failureMechanism.CalculationsGroup.Children[1];
-
-                calculationA.InputParameters.Structure = calculationB.InputParameters.Structure;
-
-                // Call
-                calculationA.NotifyObservers();
-
-                // Assert
-                AssertDataGridView(failureMechanism, false, new[]
-                {
-                    new[]
-                    {
-                        "<selecteer>"
-                    },
-                    new[]
-                    {
-                        "<selecteer>",
-                        "CalculationA",
-                        "CalculationB"
-                    }
-                });
-            }
-        }
-
-        [Test]
-        public void NotifyCalculationGroup_CalculationAdded_CalculationAddedToSectionResultOptions()
-        {
-            // Setup
-            using (HeightStructuresScenariosView view = ShowScenariosView())
-            {
-                HeightStructuresFailureMechanism failureMechanism = CreateCompleteFailureMechanism();
-                view.Data = failureMechanism.CalculationsGroup;
-                view.FailureMechanism = failureMechanism;
-
-                var calculationB = (StructuresCalculation<HeightStructuresInput>) failureMechanism.CalculationsGroup.Children[1];
-                var calculationC = new StructuresCalculation<HeightStructuresInput>
-                {
-                    Name = "CalculationC"
-                };
-                failureMechanism.CalculationsGroup.Children.Add(calculationC);
-
-                calculationC.InputParameters.Structure = calculationB.InputParameters.Structure;
-
-                // Call
-                failureMechanism.CalculationsGroup.NotifyObservers();
-
-                // Assert
-                AssertDataGridView(failureMechanism, false, new[]
-                {
-                    new[]
-                    {
-                        "<selecteer>",
-                        "CalculationA"
-                    },
-                    new[]
-                    {
-                        "<selecteer>",
-                        "CalculationB",
-                        "CalculationC"
-                    }
-                });
-            }
-        }
-
-        private static void AssertDataGridView(
-            HeightStructuresFailureMechanism failureMechanism,
-            bool shouldBeCleared,
-            string[][] expectedComboBoxItemTexts = null)
-        {
+            // Assert
             var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-            int rowCount = dataGridView.RowCount;
-
-            if (shouldBeCleared)
-            {
-                Assert.AreEqual(0, rowCount);
-            }
-            else
-            {
-                Assert.NotNull(expectedComboBoxItemTexts);
-                var dataGridViewColumn = (DataGridViewComboBoxColumn) dataGridView.Columns[1];
-
-                Assert.AreEqual(failureMechanism.SectionResults.Count(), rowCount);
-                Assert.AreEqual(failureMechanism.Calculations.Count(), dataGridViewColumn.Items.Count);
-
-                for (var i = 0; i < rowCount; i++)
-                {
-                    var cell = (DataGridViewComboBoxCell) dataGridView[1, i];
-                    IEnumerable<DataGridViewComboBoxItemWrapper<ICalculation>> items = cell.Items.OfType<DataGridViewComboBoxItemWrapper<ICalculation>>();
-                    Assert.AreEqual(expectedComboBoxItemTexts[i], items.Select(r => r.DisplayName));
-                }
-            }
+            Assert.AreEqual(4, dataGridView.ColumnCount);
+            Assert.AreEqual("In oordeel", dataGridView.Columns[isRelevantColumnIndex].HeaderText);
+            Assert.AreEqual("Bijdrage aan\r\nscenario\r\n[%]", dataGridView.Columns[contributionColumnIndex].HeaderText);
+            Assert.AreEqual("Naam", dataGridView.Columns[nameColumnIndex].HeaderText);
+            Assert.AreEqual("Faalkans\r\n[1/jaar]", dataGridView.Columns[failureProbabilityColumnIndex].HeaderText);
         }
 
-        private HeightStructuresFailureMechanism CreateCompleteFailureMechanism()
+        [Test]
+        public void HeightStructuresScenarioView_CalculationsWithAllDataSet_DataGridViewCorrectlyInitialized()
         {
-            var failureMechanism = new HeightStructuresFailureMechanism();
-            var matchingPointA = new Point2D(0, 0);
-            var matchingPointB = new Point2D(20, 20);
-            var calculationA = new StructuresCalculation<HeightStructuresInput>
-            {
-                Name = "CalculationA",
-                InputParameters =
-                {
-                    Structure = new TestHeightStructure(matchingPointA)
-                }
-            };
-            var calculationB = new StructuresCalculation<HeightStructuresInput>
-            {
-                Name = "CalculationB",
-                InputParameters =
-                {
-                    Structure = new TestHeightStructure(matchingPointB)
-                }
-            };
-            var connectionPoint = new Point2D(10, 10);
-            var failureMechanismSectionA = new FailureMechanismSection("sectionA", new[]
-            {
-                matchingPointA,
-                connectionPoint
-            });
-            var failureMechanismSectionB = new FailureMechanismSection("sectionB", new[]
-            {
-                connectionPoint,
-                matchingPointB
-            });
+            // Call
+            ShowFullyConfiguredHeightStructuresScenariosView();
 
-            failureMechanism.CalculationsGroup.Children.Add(calculationA);
-            failureMechanism.CalculationsGroup.Children.Add(calculationB);
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+
+            // Assert
+            DataGridViewRowCollection rows = dataGridView.Rows;
+            Assert.AreEqual(2, rows.Count);
+
+            DataGridViewCellCollection cells = rows[0].Cells;
+            Assert.AreEqual(4, cells.Count);
+            Assert.IsTrue(Convert.ToBoolean(cells[isRelevantColumnIndex].FormattedValue));
+            Assert.AreEqual(new RoundedDouble(2, 100).ToString(), cells[contributionColumnIndex].FormattedValue);
+            Assert.AreEqual("Calculation 1", cells[nameColumnIndex].FormattedValue);
+            Assert.AreEqual("-", cells[failureProbabilityColumnIndex].FormattedValue);
+
+            cells = rows[1].Cells;
+            Assert.AreEqual(4, cells.Count);
+            Assert.IsTrue(Convert.ToBoolean(cells[isRelevantColumnIndex].FormattedValue));
+            Assert.AreEqual(new RoundedDouble(2, 100).ToString(), cells[contributionColumnIndex].FormattedValue);
+            Assert.AreEqual("Calculation 2", cells[nameColumnIndex].FormattedValue);
+            Assert.AreEqual(ProbabilityFormattingHelper.Format(0.5), cells[failureProbabilityColumnIndex].FormattedValue);
+        }
+
+        private void ShowFullyConfiguredHeightStructuresScenariosView()
+        {
+            var structure1 = new TestHeightStructure(new Point2D(0.0, 0.0));
+            var structure2 = new TestHeightStructure(new Point2D(5.0, 0.0));
+
+            var failureMechanism = new HeightStructuresFailureMechanism();
+
             FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
-                failureMechanismSectionA,
-                failureMechanismSectionB
+                new FailureMechanismSection("Section 1", new[]
+                {
+                    new Point2D(0.0, 0.0),
+                    new Point2D(5.0, 0.0)
+                }),
+                new FailureMechanismSection("Section 2", new[]
+                {
+                    new Point2D(5.0, 0.0),
+                    new Point2D(10.0, 0.0)
+                })
             });
 
-            return failureMechanism;
+            failureMechanism.CalculationsGroup.Children.AddRange(new[]
+            {
+                new StructuresCalculationScenario<HeightStructuresInput>
+                {
+                    Name = "Calculation 1",
+                    InputParameters =
+                    {
+                        Structure = structure1
+                    }
+                },
+                new StructuresCalculationScenario<HeightStructuresInput>
+                {
+                    Name = "Calculation 2",
+                    InputParameters =
+                    {
+                        Structure = structure2
+                    },
+                    Output = new TestStructuresOutput(0.2)
+                }
+            });
+
+            ShowHeightStructuresScenariosView(failureMechanism);
         }
 
-        private HeightStructuresScenariosView ShowScenariosView()
+        private void ShowHeightStructuresScenariosView(HeightStructuresFailureMechanism failureMechanism)
         {
-            var scenariosView = new HeightStructuresScenariosView();
+            var scenariosView = new HeightStructuresScenariosView(failureMechanism.CalculationsGroup, failureMechanism, new AssessmentSectionStub());
             testForm.Controls.Add(scenariosView);
             testForm.Show();
-
-            return scenariosView;
         }
     }
 }

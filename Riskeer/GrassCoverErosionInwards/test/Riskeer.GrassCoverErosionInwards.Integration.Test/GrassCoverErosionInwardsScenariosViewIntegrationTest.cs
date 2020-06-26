@@ -55,7 +55,7 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
                                                                       Path.Combine("DikeProfiles", "Voorlanden 6-3.shp"));
 
         [Test]
-        public void ScenariosView_ImportDikeSection_ChangesCorrectlyObservedAndSynced()
+        public void ScenariosView_ImportFailureMechanismSections_ChangesCorrectlyObservedAndSynced()
         {
             // Setup
             using (var form = new Form())

@@ -32,7 +32,7 @@ namespace Riskeer.HeightStructures.Forms.Views
     /// Container of a <see cref="HeightStructuresFailureMechanismSectionResult"/>,
     /// which takes care of the representation of properties in a grid.
     /// </summary>
-    internal class HeightStructuresScenarioRow : ScenarioRow<StructuresCalculationScenario<HeightStructuresInput>>
+    public class HeightStructuresScenarioRow : ScenarioRow<StructuresCalculationScenario<HeightStructuresInput>>
     {
         private readonly HeightStructuresFailureMechanism failureMechanism;
         private readonly IAssessmentSection assessmentSection;

@@ -22,12 +22,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Windows.Forms;
-using Core.Common.Base;
-using Core.Common.Controls.Views;
+using Core.Common.Base.Geometry;
+using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
+using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Structures;
-using Riskeer.Common.Util;
+using Riskeer.Common.Forms.Views;
 using Riskeer.HeightStructures.Data;
 
 namespace Riskeer.HeightStructures.Forms.Views
@@ -37,105 +37,43 @@ namespace Riskeer.HeightStructures.Forms.Views
     /// Shows a grid view where for each failure mechanism section, a calculation within the section
     /// can be selected.
     /// </summary>
-    public partial class HeightStructuresScenariosView : UserControl, IView
+    public partial class HeightStructuresScenariosView : ScenariosView<StructuresCalculationScenario<HeightStructuresInput>, HeightStructuresInput, HeightStructuresScenarioRow, HeightStructuresFailureMechanism>
     {
-        private readonly RecursiveObserver<CalculationGroup, ICalculationInput> calculationInputObserver;
-        private readonly RecursiveObserver<CalculationGroup, ICalculationBase> calculationGroupObserver;
-        private readonly Observer failureMechanismObserver;
-        private HeightStructuresFailureMechanism failureMechanism;
-        private CalculationGroup data;
+        private readonly IAssessmentSection assessmentSection;
 
         /// <summary>
         /// Creates a new instance of <see cref="HeightStructuresScenariosView"/>.
         /// </summary>
-        public HeightStructuresScenariosView()
+        /// <param name="calculationGroup">The data to show in this view.</param>
+        /// <param name="failureMechanism">The <see cref="HeightStructuresFailureMechanism"/>
+        /// the <paramref name="calculationGroup"/> belongs to.</param>
+        /// <param name="assessmentSection">The assessment section the scenarios belong to.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter
+        /// is <c>null</c>.</exception>
+        public HeightStructuresScenariosView(CalculationGroup calculationGroup, HeightStructuresFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+            : base(calculationGroup, failureMechanism)
         {
-            InitializeComponent();
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
 
-            failureMechanismObserver = new Observer(UpdateDataGridViewDataSource);
-
-            // The concat is needed to observe the input of calculations in child groups.
-            calculationInputObserver = new RecursiveObserver<CalculationGroup, ICalculationInput>(
-                UpdateDataGridViewDataSource, cg => cg.Children.Concat<object>(cg.Children
-                                                                                 .OfType<StructuresCalculation<HeightStructuresInput>>()
-                                                                                 .Select(c => c.InputParameters)));
-            calculationGroupObserver = new RecursiveObserver<CalculationGroup, ICalculationBase>(UpdateDataGridViewDataSource, c => c.Children);
+            this.assessmentSection = assessmentSection;
         }
 
-        /// <summary>
-        /// Gets or sets the failure mechanism.
-        /// </summary>
-        public HeightStructuresFailureMechanism FailureMechanism
+        protected override HeightStructuresInput GetCalculationInput(StructuresCalculationScenario<HeightStructuresInput> calculationScenario)
         {
-            get
-            {
-                return failureMechanism;
-            }
-            set
-            {
-                failureMechanism = value;
-                failureMechanismObserver.Observable = failureMechanism;
-                UpdateDataGridViewDataSource();
-            }
+            return calculationScenario.InputParameters;
         }
 
-        public object Data
+        protected override IEnumerable<HeightStructuresScenarioRow> GetScenarioRows(FailureMechanismSection failureMechanismSection)
         {
-            get
-            {
-                return data;
-            }
-            set
-            {
-                data = value as CalculationGroup;
+            IEnumerable<Segment2D> lineSegments = Math2D.ConvertPointsToLineSegments(failureMechanismSection.Points);
+            IEnumerable<StructuresCalculationScenario<HeightStructuresInput>> calculations = CalculationGroup.GetCalculations()
+                                                                                                             .OfType<StructuresCalculationScenario<HeightStructuresInput>>()
+                                                                                                             .Where(cs => cs.IsStructureIntersectionWithReferenceLineInSection(lineSegments));
 
-                calculationInputObserver.Observable = data;
-                calculationGroupObserver.Observable = data;
-                UpdateDataGridViewDataSource();
-            }
-        }
-
-        protected override void OnLoad(EventArgs e)
-        {
-            // Necessary to correctly load the content of the dropdown lists of the comboboxes...
-            UpdateDataGridViewDataSource();
-            base.OnLoad(e);
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            failureMechanismObserver?.Dispose();
-            calculationInputObserver.Dispose();
-            calculationGroupObserver.Dispose();
-
-            if (disposing)
-            {
-                components?.Dispose();
-            }
-
-            base.Dispose(disposing);
-        }
-
-        private void UpdateDataGridViewDataSource()
-        {
-            scenarioSelectionControl.EndEdit();
-
-            if (FailureMechanism?.SectionResults == null || data?.Children == null)
-            {
-                scenarioSelectionControl.ClearDataSource();
-            }
-            else
-            {
-                ICalculation[] calculations = data.GetCalculations().ToArray();
-
-                IDictionary<string, List<ICalculation>> calculationsPerSegment =
-                    StructuresHelper.CollectCalculationsPerSection(failureMechanism.Sections, calculations.Cast<StructuresCalculation<HeightStructuresInput>>());
-
-                // List<HeightStructuresScenarioRow> scenarioRows =
-                //     FailureMechanism.SectionResults.Select(sectionResult => new HeightStructuresScenarioRow(sectionResult)).ToList();
-                //
-                // scenarioSelectionControl.UpdateDataGridViewDataSource(calculations, scenarioRows, calculationsPerSegment);
-            }
+            return calculations.Select(c => new HeightStructuresScenarioRow(c, FailureMechanism, assessmentSection)).ToList();
         }
     }
 }
