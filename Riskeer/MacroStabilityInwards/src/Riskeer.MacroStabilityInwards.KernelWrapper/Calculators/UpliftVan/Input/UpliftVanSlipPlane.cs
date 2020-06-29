@@ -92,6 +92,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Inpu
             TangentZTop = tangentZTop;
             TangentZBottom = tangentZBottom;
             TangentLineNumber = tangentLineNumber;
+            TangentLineNumberOfRefinements = 4;
         }
 
         /// <summary>
@@ -130,6 +131,11 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Inpu
         /// Gets the number of tangent lines.
         /// </summary>
         public int TangentLineNumber { get; }
+
+        /// <summary>
+        /// Gets the number of tangent line refinements.
+        /// </summary>
+        public int TangentLineNumberOfRefinements { get; }
 
         private void SetGrids(UpliftVanGrid leftGrid, UpliftVanGrid rightGrid)
         {

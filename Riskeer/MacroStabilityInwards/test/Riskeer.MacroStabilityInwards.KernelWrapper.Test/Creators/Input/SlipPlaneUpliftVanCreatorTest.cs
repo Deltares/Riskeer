@@ -87,6 +87,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             Assert.AreEqual(tangentLineZTop, slipPlaneUpliftVan.SlipPlaneTangentLine.TangentLineZTop);
             Assert.AreEqual(tangentLineZBottom, slipPlaneUpliftVan.SlipPlaneTangentLine.TangentLineZBottom);
             Assert.AreEqual(tangentLineNumber, slipPlaneUpliftVan.SlipPlaneTangentLine.TangentLineNumber);
+            Assert.AreEqual(slipPlane.TangentLineNumberOfRefinements, slipPlaneUpliftVan.SlipPlaneTangentLine.NumberOfRefinements);
             Assert.AreSame(slipPlaneUpliftVan, slipPlaneUpliftVan.SlipCircleTangentLine.TangentLinesBoundaries); // Automatically synced
             Assert.AreSame(slipPlaneUpliftVan, slipPlaneUpliftVan.SlipPlaneTangentLine.TangentLinesBoundaries); // Automatically synced
         }
@@ -119,6 +120,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             Assert.AreEqual(0, slipPlaneUpliftVan.SlipPlaneTangentLine.TangentLineZTop);
             Assert.AreEqual(0, slipPlaneUpliftVan.SlipPlaneTangentLine.TangentLineZBottom);
             Assert.AreEqual(1, slipPlaneUpliftVan.SlipPlaneTangentLine.TangentLineNumber);
+            Assert.AreEqual(slipPlane.TangentLineNumberOfRefinements, slipPlaneUpliftVan.SlipPlaneTangentLine.NumberOfRefinements);
         }
 
         [Test]
@@ -162,6 +164,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             Assert.AreEqual(0, slipPlaneUpliftVan.SlipPlaneTangentLine.TangentLineZTop);
             Assert.AreEqual(0, slipPlaneUpliftVan.SlipPlaneTangentLine.TangentLineZBottom);
             Assert.AreEqual(1, slipPlaneUpliftVan.SlipPlaneTangentLine.TangentLineNumber);
+            Assert.AreEqual(slipPlane.TangentLineNumberOfRefinements, slipPlaneUpliftVan.SlipPlaneTangentLine.NumberOfRefinements);
             Assert.AreSame(slipPlaneUpliftVan, slipPlaneUpliftVan.SlipCircleTangentLine.TangentLinesBoundaries); // Automatically synced
             Assert.AreSame(slipPlaneUpliftVan, slipPlaneUpliftVan.SlipPlaneTangentLine.TangentLinesBoundaries); // Automatically synced
         }

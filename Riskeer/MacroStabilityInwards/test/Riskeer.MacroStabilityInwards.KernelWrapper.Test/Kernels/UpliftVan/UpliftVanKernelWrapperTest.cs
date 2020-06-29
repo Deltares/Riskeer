@@ -114,6 +114,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
             Assert.AreEqual(moveGrid, stabilityModel.MoveGrid);
             Assert.AreEqual(maximumSliceWidth, stabilityModel.MaximumSliceWidth);
             Assert.AreSame(slipPlaneUpliftVan, stabilityModel.SlipPlaneUpliftVan);
+            Assert.AreEqual(slipPlaneUpliftVan.SlipPlaneTangentLine.NumberOfRefinements, stabilityModel.NumberOfRefinementsTangentLines);
             Assert.AreSame(surfaceLine, kernelModel.PreprocessingModel.LastStage.SurfaceLine);
             Assert.AreSame(slipPlaneConstraints, stabilityModel.SlipPlaneConstraints);
             Assert.AreEqual(gridAutomaticDetermined, kernelModel.PreprocessingModel.SearchAreaConditions.AutoSearchArea);
