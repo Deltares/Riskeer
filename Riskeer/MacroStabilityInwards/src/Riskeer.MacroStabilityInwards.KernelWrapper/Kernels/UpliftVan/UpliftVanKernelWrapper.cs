@@ -98,17 +98,18 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
 
         public void SetSoilProfile(SoilProfile2D soilProfile)
         {
-            kernelModel.StabilityModel.ConstructionStages.ForEachElementDo(cs => cs.SoilProfile = soilProfile);
+            GetDailyConstructionStage().SoilProfile = soilProfile;
+            GetExtremeConstructionStage().SoilProfile = soilProfile;
         }
 
         public void SetWaternetDaily(WtiStabilityWaternet waternetDaily)
         {
-            kernelModel.StabilityModel.ConstructionStages.First().GeotechnicsData.CurrentWaternet = waternetDaily;
+            GetDailyConstructionStage().GeotechnicsData.CurrentWaternet = waternetDaily;
         }
 
         public void SetWaternetExtreme(WtiStabilityWaternet waternetExtreme)
         {
-            kernelModel.StabilityModel.ConstructionStages.ElementAt(1).GeotechnicsData.CurrentWaternet = waternetExtreme;
+            GetExtremeConstructionStage().GeotechnicsData.CurrentWaternet = waternetExtreme;
         }
 
         public void SetMoveGrid(bool moveGrid)
@@ -152,18 +153,12 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
 
         public void SetFixedSoilStresses(IEnumerable<FixedSoilStress> soilStresses)
         {
-            kernelModel.StabilityModel.ConstructionStages.ForEachElementDo(cs =>
-            {
-                cs.SoilStresses.AddRange(soilStresses);
-            });
+            GetDailyConstructionStage().SoilStresses.AddRange(soilStresses);
         }
 
         public void SetPreConsolidationStresses(IEnumerable<PreConsolidationStress> preConsolidationStresses)
         {
-            kernelModel.StabilityModel.ConstructionStages.ForEachElementDo(cs =>
-            {
-                cs.PreconsolidationStresses.AddRange(preConsolidationStresses);
-            });
+            GetDailyConstructionStage().PreconsolidationStresses.AddRange(preConsolidationStresses);
         }
 
         public void SetAutomaticForbiddenZones(bool automaticForbiddenZones)
@@ -201,6 +196,16 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
             {
                 throw new UpliftVanKernelWrapperException(e.Message, e);
             }
+        }
+
+        private ConstructionStage GetDailyConstructionStage()
+        {
+            return kernelModel.StabilityModel.ConstructionStages.First();
+        }
+
+        private ConstructionStage GetExtremeConstructionStage()
+        {
+            return kernelModel.StabilityModel.ConstructionStages.ElementAt(1);
         }
 
         /// <summary>

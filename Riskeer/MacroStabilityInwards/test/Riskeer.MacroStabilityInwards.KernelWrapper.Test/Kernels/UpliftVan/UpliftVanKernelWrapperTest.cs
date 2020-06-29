@@ -272,9 +272,12 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
                 Assert.AreEqual(1, constructionStage.MultiplicationFactorsCPhiForUpliftList.Count);
                 Assert.AreEqual(1.2, constructionStage.MultiplicationFactorsCPhiForUpliftList[0].UpliftFactor);
                 Assert.AreEqual(0.0, constructionStage.MultiplicationFactorsCPhiForUpliftList[0].MultiplicationFactor);
-                CollectionAssert.AreEqual(fixedSoilStresses, constructionStage.SoilStresses);
-                CollectionAssert.AreEqual(preConsolidationStresses, constructionStage.PreconsolidationStresses);
             }
+
+            CollectionAssert.AreEqual(fixedSoilStresses, constructionStages.First().SoilStresses);
+            CollectionAssert.AreEqual(preConsolidationStresses, constructionStages.First().PreconsolidationStresses);
+            CollectionAssert.IsEmpty(constructionStages.Last().SoilStresses);
+            CollectionAssert.IsEmpty(constructionStages.Last().PreconsolidationStresses);
         }
 
         private static UpliftVanKernelWrapper CreateValidKernel(Soil soil)
