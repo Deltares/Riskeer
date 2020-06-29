@@ -76,11 +76,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Uplif
 
         public UpliftVanCalculatorResult Calculate()
         {
-            if (ThrowExceptionOnCalculate)
-            {
-                throw new UpliftVanCalculatorException($"Message 1{Environment.NewLine}Message 2");
-            }
-
             var calculationMessages = new List<MacroStabilityInwardsKernelMessage>();
 
             if (ReturnCalculationError)
@@ -101,6 +96,11 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Uplif
             if (ReturnCalculationWarning)
             {
                 calculationMessages.Add(new MacroStabilityInwardsKernelMessage(MacroStabilityInwardsKernelMessageType.Warning, "Calculation Warning 2"));
+            }
+
+            if (ThrowExceptionOnCalculate)
+            {
+                throw new UpliftVanCalculatorException($"Message 1{Environment.NewLine}Message 2", null, calculationMessages);
             }
 
             return Output ?? (Output = CreateUpliftVanCalculatorResult(calculationMessages));

@@ -625,6 +625,7 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
             {
                 var calculatorFactory = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
                 calculatorFactory.LastCreatedUpliftVanCalculator.ThrowExceptionOnCalculate = true;
+                calculatorFactory.LastCreatedUpliftVanCalculator.ReturnCalculationError = true;
 
                 // Precondition
                 Assert.IsTrue(MacroStabilityInwardsCalculationService.Validate(testCalculation, normativeAssessmentLevel));
@@ -652,8 +653,12 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
 
                     CalculationServiceTestHelper.AssertCalculationStartMessage(messages[0].Item1);
 
+                    string expectedMessage = "Er is een onverwachte fout opgetreden tijdens het uitvoeren van de berekening. De kernel geeft de volgende meldingen:" + Environment.NewLine +
+                                             "[Error] Calculation Error 1" + Environment.NewLine +
+                                             "[Error] Calculation Error 2" + Environment.NewLine;
+
                     Tuple<string, Level, Exception> tuple1 = messages[1];
-                    Assert.AreEqual("Er is een onverwachte fout opgetreden tijdens het uitvoeren van de berekening.", tuple1.Item1);
+                    Assert.AreEqual(expectedMessage, tuple1.Item1);
                     Assert.AreEqual(Level.Error, tuple1.Item2);
                     Assert.IsInstanceOf<UpliftVanCalculatorException>(tuple1.Item3);
 

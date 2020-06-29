@@ -104,7 +104,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan
             }
             catch (UpliftVanKernelWrapperException e)
             {
-                throw new UpliftVanCalculatorException(e.Message, e);
+                throw new UpliftVanCalculatorException(e.Message, e, MacroStabilityInwardsKernelMessagesCreator.CreateFromLogMessages(e.LogMessages));
             }
 
             return upliftVanKernel;

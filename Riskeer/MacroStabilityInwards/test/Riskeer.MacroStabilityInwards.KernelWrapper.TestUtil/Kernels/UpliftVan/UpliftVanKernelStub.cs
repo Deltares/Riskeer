@@ -218,11 +218,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan
 
         public void Calculate()
         {
-            if (ThrowExceptionOnCalculate)
-            {
-                throw new UpliftVanKernelWrapperException($"Message 1{Environment.NewLine}Message 2", new Exception());
-            }
-
             if (ReturnLogMessages)
             {
                 CalculationMessages = new[]
@@ -238,6 +233,11 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan
             else
             {
                 CalculationMessages = new LogMessage[0];
+            }
+
+            if (ThrowExceptionOnCalculate)
+            {
+                throw new UpliftVanKernelWrapperException($"Message 1{Environment.NewLine}Message 2", new Exception(), CalculationMessages);
             }
 
             Calculated = true;

@@ -247,6 +247,42 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
                 var exception = Assert.Throws<UpliftVanCalculatorException>(Call);
                 Assert.IsInstanceOf<UpliftVanKernelWrapperException>(exception.InnerException);
                 Assert.AreEqual(exception.InnerException.Message, exception.Message);
+                CollectionAssert.IsEmpty(exception.KernelMessages);
+            }
+        }
+
+        [Test]
+        public void Calculate_KernelThrowsUpliftVanKernelWrapperExceptionWithLogMessages_ThrowUpliftVanCalculatorException()
+        {
+            // Setup
+            UpliftVanCalculatorInput input = CreateCompleteCalculatorInput();
+
+            using (new MacroStabilityInwardsKernelFactoryConfig())
+            {
+                var factory = (TestMacroStabilityInwardsKernelFactory) MacroStabilityInwardsKernelWrapperFactory.Instance;
+                UpliftVanKernelStub upliftVanKernel = factory.LastCreatedUpliftVanKernel;
+                upliftVanKernel.ThrowExceptionOnCalculate = true;
+                upliftVanKernel.ReturnLogMessages = true;
+
+                // Call
+                void Call() => new UpliftVanCalculator(input, factory).Calculate();
+
+                // Assert
+                var exception = Assert.Throws<UpliftVanCalculatorException>(Call);
+                Assert.IsInstanceOf<UpliftVanKernelWrapperException>(exception.InnerException);
+                Assert.AreEqual(exception.InnerException.Message, exception.Message);
+
+                IEnumerable<LogMessage> expectedMessages = GetSupportLogMessages(upliftVanKernel.CalculationMessages);
+                Assert.AreEqual(expectedMessages.Count(), exception.KernelMessages.Count());
+
+                for (var i = 0; i < expectedMessages.Count(); i++)
+                {
+                    LogMessage upliftVanKernelCalculationMessage = expectedMessages.ElementAt(i);
+                    MacroStabilityInwardsKernelMessage exceptionKernelMessage = exception.KernelMessages.ElementAt(i);
+
+                    Assert.AreEqual(upliftVanKernelCalculationMessage.Message, exceptionKernelMessage.Message);
+                    Assert.AreEqual(GetMessageType(upliftVanKernelCalculationMessage.MessageType), exceptionKernelMessage.Type);
+                }
             }
         }
 
@@ -296,7 +332,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
 
                 // Call
                 IEnumerable<MacroStabilityInwardsKernelMessage> kernelMessages = new UpliftVanCalculator(CreateCompleteCalculatorInput(),
-                                                                                             factory).Validate().ToList();
+                                                                                                         factory).Validate().ToList();
 
                 // Assert
                 Assert.AreEqual(2, kernelMessages.Count());
@@ -326,6 +362,25 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
                 var exception = Assert.Throws<UpliftVanCalculatorException>(Call);
                 Assert.IsInstanceOf<UpliftVanKernelWrapperException>(exception.InnerException);
                 Assert.AreEqual(exception.InnerException.Message, exception.Message);
+            }
+        }
+
+        private static IEnumerable<LogMessage> GetSupportLogMessages(IEnumerable<LogMessage> messages)
+        {
+            return messages.Where(lm => lm.MessageType == LogMessageType.Error || lm.MessageType == LogMessageType.FatalError || lm.MessageType == LogMessageType.Warning);
+        }
+
+        private MacroStabilityInwardsKernelMessageType GetMessageType(LogMessageType logMessageType)
+        {
+            switch (logMessageType)
+            {
+                case LogMessageType.Error:
+                case LogMessageType.FatalError:
+                    return MacroStabilityInwardsKernelMessageType.Error;
+                case LogMessageType.Warning:
+                    return MacroStabilityInwardsKernelMessageType.Warning;
+                default:
+                    throw new NotSupportedException();
             }
         }
 

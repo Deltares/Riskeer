@@ -23,7 +23,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Core.Common.Util.Extensions;
 using Deltares.MacroStability.Data;
 using Deltares.MacroStability.Geometry;
 using Deltares.MacroStability.Interface;
@@ -168,19 +167,20 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
 
         public void Calculate()
         {
+            var kernelCalculation = new KernelCalculation();
+
             try
             {
-                var kernelCalculation = new KernelCalculation();
                 kernelCalculation.Run(kernelModel);
 
                 WriteXmlFile();
 
-                SetResults();
                 CalculationMessages = kernelCalculation.LogMessages ?? Enumerable.Empty<LogMessage>();
+                SetResults();
             }
             catch (Exception e) when (!(e is UpliftVanKernelWrapperException))
             {
-                throw new UpliftVanKernelWrapperException(e.Message, e);
+                throw new UpliftVanKernelWrapperException(e.Message, e, CalculationMessages.Where(lm => lm.MessageType == LogMessageType.Error || lm.MessageType == LogMessageType.FatalError));
             }
         }
 

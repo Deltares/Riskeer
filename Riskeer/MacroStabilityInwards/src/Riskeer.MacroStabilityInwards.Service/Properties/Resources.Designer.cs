@@ -92,6 +92,24 @@ namespace Riskeer.MacroStabilityInwards.Service.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to De kernel geeft de volgende meldingen:.
+        /// </summary>
+        internal static string MacroStabilityInwardsCalculationService_Calculate_Kernel_provides_messages {
+            get {
+                return ResourceManager.GetString("MacroStabilityInwardsCalculationService_Calculate_Kernel_provides_messages", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to [{0}] {1}.
+        /// </summary>
+        internal static string MacroStabilityInwardsCalculationService_Calculate_LogMessageType_0_LogMessage_1 {
+            get {
+                return ResourceManager.GetString("MacroStabilityInwardsCalculationService_Calculate_LogMessageType_0_LogMessage_1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Er zijn een of meerdere waarschuwingsberichten. Klik op details voor meer informatie..
         /// </summary>
         internal static string MacroStabilityInwardsCalculationService_Calculate_Warnings_in_MacroStabilityInwards_calculation {

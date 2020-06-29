@@ -153,4 +153,10 @@
   <data name="MacroStabilityInwardsCalculationService_Validate_Waternet_daily_validation_started" xml:space="preserve">
     <value>Validatie van waterspanningen in dagelijkse omstandigheden is gestart.</value>
   </data>
+  <data name="MacroStabilityInwardsCalculationService_Calculate_Kernel_provides_messages" xml:space="preserve">
+    <value>De kernel geeft de volgende meldingen:</value>
+  </data>
+  <data name="MacroStabilityInwardsCalculationService_Calculate_LogMessageType_0_LogMessage_1" xml:space="preserve">
+    <value>[{0}] {1}</value>
+  </data>
 </root>

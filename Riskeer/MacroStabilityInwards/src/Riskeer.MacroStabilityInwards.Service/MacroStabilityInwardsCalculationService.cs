@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using Core.Common.Base.Data;
 using log4net;
 using Riskeer.Common.Service;
@@ -149,7 +150,15 @@ namespace Riskeer.MacroStabilityInwards.Service
             }
             catch (UpliftVanCalculatorException e)
             {
-                CalculationServiceHelper.LogExceptionAsError(RiskeerCommonServiceResources.CalculationService_Calculate_unexpected_error, e);
+                var stringBuilder = new StringBuilder();
+                stringBuilder.AppendLine(Resources.MacroStabilityInwardsCalculationService_Calculate_Kernel_provides_messages);
+                
+                foreach (MacroStabilityInwardsKernelMessage kernelMessage in e.KernelMessages)
+                {
+                    stringBuilder.AppendLine(string.Format(Resources.MacroStabilityInwardsCalculationService_Calculate_LogMessageType_0_LogMessage_1, kernelMessage.Type, kernelMessage.Message));
+                }
+
+                CalculationServiceHelper.LogExceptionAsError($"{RiskeerCommonServiceResources.CalculationService_Calculate_unexpected_error} {stringBuilder}", e);
                 CalculationServiceHelper.LogCalculationEnd();
 
                 throw;

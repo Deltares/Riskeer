@@ -20,12 +20,39 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
 {
     [TestFixture]
-    public class UpliftVanCalculatorExceptionTest : CustomExceptionDesignGuidelinesTestFixture<UpliftVanCalculatorException, Exception> {}
+    public class UpliftVanCalculatorExceptionTest : CustomExceptionDesignGuidelinesTestFixture<UpliftVanCalculatorException, Exception>
+    {
+        [Test]
+        public void MessageAndInnerExceptionAndKernelMessagesConstructor_ExpectedValues()
+        {
+            // Setup
+            const string messageText = "Message";
+            var innerException = new Exception();
+            IEnumerable<MacroStabilityInwardsKernelMessage> kernelMessages = Enumerable.Empty<MacroStabilityInwardsKernelMessage>();
+
+            // Call
+            var exception = new UpliftVanCalculatorException(messageText, innerException, kernelMessages);
+
+            // Assert
+            Assert.IsInstanceOf<Exception>(exception);
+            Assert.AreEqual(messageText, exception.Message);
+            Assert.IsNull(exception.HelpLink);
+            Assert.AreEqual(innerException, exception.InnerException);
+            Assert.IsNull(exception.Source);
+            Assert.IsNull(exception.StackTrace);
+            Assert.IsNull(exception.TargetSite);
+            CollectionAssert.IsEmpty(exception.Data);
+            Assert.AreSame(kernelMessages, exception.KernelMessages);
+        }
+    }
 }
