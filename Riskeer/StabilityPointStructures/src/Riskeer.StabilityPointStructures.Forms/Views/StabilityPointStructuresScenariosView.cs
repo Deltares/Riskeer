@@ -118,24 +118,24 @@ namespace Riskeer.StabilityPointStructures.Forms.Views
 
         private void UpdateDataGridViewDataSource()
         {
-            scenarioSelectionControl.EndEdit();
-
-            if (failureMechanism?.SectionResults == null || data?.Children == null)
-            {
-                scenarioSelectionControl.ClearDataSource();
-            }
-            else
-            {
-                ICalculation[] calculations = data.GetCalculations().ToArray();
-
-                IDictionary<string, List<ICalculation>> calculationsPerSegment =
-                    StructuresHelper.CollectCalculationsPerSection(failureMechanism.Sections,
-                                                                   calculations.Cast<StructuresCalculation<StabilityPointStructuresInput>>());
-
-                List<StabilityPointStructuresScenarioRow> scenarioRows = failureMechanism.SectionResults.Select(sr => new StabilityPointStructuresScenarioRow(sr)).ToList();
-
-                scenarioSelectionControl.UpdateDataGridViewDataSource(calculations, scenarioRows, calculationsPerSegment);
-            }
+            // scenarioSelectionControl.EndEdit();
+            //
+            // if (failureMechanism?.SectionResults == null || data?.Children == null)
+            // {
+            //     scenarioSelectionControl.ClearDataSource();
+            // }
+            // else
+            // {
+            //     ICalculation[] calculations = data.GetCalculations().ToArray();
+            //
+            //     IDictionary<string, List<ICalculation>> calculationsPerSegment =
+            //         StructuresHelper.CollectCalculationsPerSection(failureMechanism.Sections,
+            //                                                        calculations.Cast<StructuresCalculation<StabilityPointStructuresInput>>());
+            //
+            //     List<StabilityPointStructuresScenarioRow> scenarioRows = failureMechanism.SectionResults.Select(sr => new StabilityPointStructuresScenarioRow(sr)).ToList();
+            //
+            //     scenarioSelectionControl.UpdateDataGridViewDataSource(calculations, scenarioRows, calculationsPerSegment);
+            // }
         }
     }
 }

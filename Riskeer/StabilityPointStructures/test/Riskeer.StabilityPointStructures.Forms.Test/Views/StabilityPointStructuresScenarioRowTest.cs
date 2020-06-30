@@ -20,13 +20,13 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Base;
-using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.Probability;
 using Riskeer.Common.Data.Structures;
-using Riskeer.Common.Forms;
+using Riskeer.Common.Data.TestUtil;
+using Riskeer.Common.Forms.Views;
 using Riskeer.StabilityPointStructures.Data;
 using Riskeer.StabilityPointStructures.Forms.Views;
 
@@ -36,85 +36,189 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
     public class StabilityPointStructuresScenarioRowTest
     {
         [Test]
-        public void Constructor_ExpectedValues()
-        {
-            // Setup
-            var section = new FailureMechanismSection("testName", new[]
-            {
-                new Point2D(1.1, 2.2),
-                new Point2D(3.3, 4.4)
-            });
-            var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(section);
-
-            // Call
-            var row = new StabilityPointStructuresScenarioRow(sectionResult);
-
-            // Assert
-            Assert.AreSame(sectionResult.Section.Name, row.Name);
-            Assert.AreSame(sectionResult.Calculation, row.Calculation);
-            Assert.IsInstanceOf<IScenarioRow<StructuresCalculation<StabilityPointStructuresInput>>>(row);
-        }
-
-        [Test]
-        public void Constructor_SectionResultIsNull_ThrowArgumentNullException()
-        {
-            // Call
-            TestDelegate call = () => new StabilityPointStructuresScenarioRow(null);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreSame("sectionResult", paramName);
-        }
-
-        [Test]
-        public void Calculation_SetNewValue_UpdatesSectionResultCalculation()
-        {
-            // Setup
-            var section = new FailureMechanismSection("haha", new[]
-            {
-                new Point2D(1.1, 2.2),
-                new Point2D(3.3, 4.4)
-            });
-            var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(section);
-
-            var row = new StabilityPointStructuresScenarioRow(sectionResult);
-
-            var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
-
-            // Call
-            row.Calculation = calculation;
-
-            // Assert
-            Assert.AreSame(calculation, row.Calculation);
-            Assert.AreSame(calculation, sectionResult.Calculation);
-        }
-
-        [Test]
-        public void Calculation_SetNewValue_NotifyObserversOnSectionResult()
+        public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Setup
             var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var section = new FailureMechanismSection("testSection", new[]
-            {
-                new Point2D(1.1, 2.2),
-                new Point2D(3.3, 4.4)
-            });
-            var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(section);
-            sectionResult.Attach(observer);
-
-            var row = new StabilityPointStructuresScenarioRow(sectionResult);
-
-            var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
-
             // Call
-            row.Calculation = calculation;
+            void Call() => new StabilityPointStructuresScenarioRow(new StructuresCalculationScenario<StabilityPointStructuresInput>(), null, assessmentSection);
 
             // Assert
-            mocks.VerifyAll(); // Assert observer is notified
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => new StabilityPointStructuresScenarioRow(new StructuresCalculationScenario<StabilityPointStructuresInput>(), new StabilityPointStructuresFailureMechanism(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_ExpectedValues()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var calculation = new StructuresCalculationScenario<StabilityPointStructuresInput>();
+
+            // Call
+            var row = new StabilityPointStructuresScenarioRow(calculation, new StabilityPointStructuresFailureMechanism(), assessmentSection);
+
+            // Assert
+            Assert.IsInstanceOf<ScenarioRow<StructuresCalculationScenario<StabilityPointStructuresInput>>>(row);
+            Assert.AreSame(calculation, row.CalculationScenario);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Constructor_WithCalculationWithOutput_PropertiesFromCalculation()
+        {
+            // Setup
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
+
+            var calculation = new StructuresCalculationScenario<StabilityPointStructuresInput>
+            {
+                Output = new TestStructuresOutput()
+            };
+
+            // Call
+            var row = new StabilityPointStructuresScenarioRow(calculation, failureMechanism, assessmentSection);
+
+            // Assert
+            ProbabilityAssessmentOutput expectedDerivedOutput = StabilityPointStructuresProbabilityAssessmentOutputFactory.Create(
+                calculation.Output, failureMechanism, assessmentSection);
+            Assert.AreEqual(expectedDerivedOutput.Probability, row.FailureProbability);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Constructor_WithCalculationWithoutOutput_PropertiesFromCalculation()
+        {
+            // Setup
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
+
+            var calculation = new StructuresCalculationScenario<StabilityPointStructuresInput>();
+
+            // Call
+            var row = new StabilityPointStructuresScenarioRow(calculation, failureMechanism, assessmentSection);
+
+            // Assert
+            Assert.IsNaN(row.FailureProbability);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GivenScenarioRow_WhenOutputSetAndUpdate_ThenDerivedOutputUpdated()
+        {
+            // Given
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
+
+            var calculation = new StructuresCalculationScenario<StabilityPointStructuresInput>();
+
+            var row = new StabilityPointStructuresScenarioRow(calculation, failureMechanism, assessmentSection);
+
+            // Precondition
+            Assert.IsNaN(row.FailureProbability);
+
+            // When
+            calculation.Output = new TestStructuresOutput();
+            row.Update();
+
+            // Then
+            ProbabilityAssessmentOutput expectedDerivedOutput = StabilityPointStructuresProbabilityAssessmentOutputFactory.Create(
+                calculation.Output, failureMechanism, assessmentSection);
+            Assert.AreEqual(expectedDerivedOutput.Probability, row.FailureProbability);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GivenScenarioRow_WhenOutputSetToNullAndUpdate_ThenDerivedOutputUpdated()
+        {
+            // Given
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
+
+            var calculation = new StructuresCalculationScenario<StabilityPointStructuresInput>
+            {
+                Output = new TestStructuresOutput()
+            };
+
+            var row = new StabilityPointStructuresScenarioRow(calculation, failureMechanism, assessmentSection);
+
+            // Precondition
+            ProbabilityAssessmentOutput expectedDerivedOutput = StabilityPointStructuresProbabilityAssessmentOutputFactory.Create(
+                calculation.Output, failureMechanism, assessmentSection);
+            Assert.AreEqual(expectedDerivedOutput.Probability, row.FailureProbability);
+
+            // When
+            calculation.Output = null;
+            row.Update();
+
+            // Then
+            Assert.IsNaN(row.FailureProbability);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GivenScenarioRow_WhenOutputChangedAndUpdate_ThenDerivedOutputUpdated()
+        {
+            // Given
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
+
+            var calculation = new StructuresCalculationScenario<StabilityPointStructuresInput>
+            {
+                Output = new TestStructuresOutput()
+            };
+
+            var row = new StabilityPointStructuresScenarioRow(calculation, failureMechanism, assessmentSection);
+
+            // Precondition
+            ProbabilityAssessmentOutput expectedDerivedOutput = StabilityPointStructuresProbabilityAssessmentOutputFactory.Create(
+                calculation.Output, failureMechanism, assessmentSection);
+            Assert.AreEqual(expectedDerivedOutput.Probability, row.FailureProbability);
+
+            var random = new Random(11);
+
+            // When
+            calculation.Output = new TestStructuresOutput(random.NextDouble());
+            row.Update();
+
+            // Then
+            ProbabilityAssessmentOutput newExpectedDerivedOutput = StabilityPointStructuresProbabilityAssessmentOutputFactory.Create(
+                calculation.Output, failureMechanism, assessmentSection);
+            Assert.AreEqual(newExpectedDerivedOutput.Probability, row.FailureProbability);
+            mocks.VerifyAll();
         }
     }
 }

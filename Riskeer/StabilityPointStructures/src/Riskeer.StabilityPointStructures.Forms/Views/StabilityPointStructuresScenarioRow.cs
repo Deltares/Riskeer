@@ -20,54 +20,65 @@
 // All rights reserved.
 
 using System;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.Probability;
 using Riskeer.Common.Data.Structures;
-using Riskeer.Common.Forms;
+using Riskeer.Common.Forms.Views;
 using Riskeer.StabilityPointStructures.Data;
 
 namespace Riskeer.StabilityPointStructures.Forms.Views
 {
     /// <summary>
-    /// Container of a <see cref="StabilityPointStructuresFailureMechanismSectionResult"/>,
+    /// Representation of a <see cref="StructuresCalculationScenario{T}"/>
     /// which takes care of the representation of properties in a grid.
     /// </summary>
-    public class StabilityPointStructuresScenarioRow : IScenarioRow<StructuresCalculation<StabilityPointStructuresInput>>
+    public class StabilityPointStructuresScenarioRow : ScenarioRow<StructuresCalculationScenario<StabilityPointStructuresInput>>
     {
-        private readonly StabilityPointStructuresFailureMechanismSectionResult sectionResult;
+        private readonly StabilityPointStructuresFailureMechanism failureMechanism;
+        private readonly IAssessmentSection assessmentSection;
+        private ProbabilityAssessmentOutput probabilityAssessmentOutput;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="StabilityPointStructuresScenarioRow"/> class.
+        /// Creates a new instance of <see cref="StabilityPointStructuresScenarioRow"/>.
+        /// <param name="calculationScenario">The <see cref="StructuresCalculationScenario{StabilityPointStructuresInput}"/> this row contains.</param>
+        /// <param name="failureMechanism">The failure mechanism that the calculation belongs to.</param>
+        /// <param name="assessmentSection">The assessment section that the calculation belongs to.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         /// </summary>
-        /// <param name="sectionResult">The section result.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="sectionResult"/> is <c>null</c>.</exception>
-        public StabilityPointStructuresScenarioRow(StabilityPointStructuresFailureMechanismSectionResult sectionResult)
+        public StabilityPointStructuresScenarioRow(StructuresCalculationScenario<StabilityPointStructuresInput> calculationScenario,
+                                                   StabilityPointStructuresFailureMechanism failureMechanism,
+                                                   IAssessmentSection assessmentSection)
+            : base(calculationScenario)
         {
-            if (sectionResult == null)
+            if (failureMechanism == null)
             {
-                throw new ArgumentNullException(nameof(sectionResult));
+                throw new ArgumentNullException(nameof(failureMechanism));
             }
 
-            this.sectionResult = sectionResult;
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
+            this.failureMechanism = failureMechanism;
+            this.assessmentSection = assessmentSection;
+
+            CreateProbabilityAssessmentOutput();
         }
 
-        public string Name
+        public override double FailureProbability => probabilityAssessmentOutput?.Probability ?? double.NaN;
+
+        public override void Update()
         {
-            get
-            {
-                return sectionResult.Section.Name;
-            }
+            CreateProbabilityAssessmentOutput();
         }
 
-        public StructuresCalculation<StabilityPointStructuresInput> Calculation
+        private void CreateProbabilityAssessmentOutput()
         {
-            get
-            {
-                return sectionResult.Calculation;
-            }
-            set
-            {
-                sectionResult.Calculation = value;
-                sectionResult.NotifyObservers();
-            }
+            probabilityAssessmentOutput = CalculationScenario.HasOutput
+                                              ? StabilityPointStructuresProbabilityAssessmentOutputFactory.Create(
+                                                  CalculationScenario.Output, failureMechanism, assessmentSection)
+                                              : null;
         }
     }
 }
