@@ -174,7 +174,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
             }
             set
             {
-                GrassCoverErosionInwardsCalculationScenario.InputParameters.BreakWater.Height = value;
                 if (!GrassCoverErosionInwardsCalculationScenario.InputParameters.BreakWater.Height.Equals(value))
                 {
                     PropertyChangeHelper.ChangePropertyAndNotify(() => GrassCoverErosionInwardsCalculationScenario.InputParameters.BreakWater.Height = value, propertyChangeHandler);
@@ -183,7 +182,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
         }
 
         /// <summary>
-        /// Gets or sets whether foreshore geometry of the <see cref="GrassCoverErosionInwardsCalculationScenario"/> should be used.
+        /// Gets or sets whether foreshore profile of the <see cref="GrassCoverErosionInwardsCalculationScenario"/> should be used.
         /// </summary>
         public bool UseForeShoreGeometry
         {

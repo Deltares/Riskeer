@@ -22,10 +22,12 @@
 using System;
 using System.Collections.Generic;
 using Core.Common.Base;
+using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Controls.DataGrid;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.PresentationObjects;
@@ -143,6 +145,276 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
                     // Assert
                     Assert.NotNull(oldValue);
                     Assert.AreEqual(oldValue.WrappedObject.HydraulicBoundaryLocation, calculation.InputParameters.HydraulicBoundaryLocation);
+                });
+        }
+
+        [Test]
+        public void DikeProfile_AlwaysOnChange_NotifyObserverAndCalculationPropertyChanged()
+        {
+            // Setup
+            DikeProfile newProfile = DikeProfileTestFactory.CreateDikeProfile(new Point2D(0.0, 0.0));
+            var newValue = new DataGridViewComboBoxItemWrapper<DikeProfile>(newProfile);
+
+            var calculation = new GrassCoverErosionInwardsCalculationScenario();
+
+            // Call & Assert
+            SetPropertyAndVerifyNotificationsAndOutputForCalculation(row => row.DikeProfile = newValue, calculation);
+        }
+
+        [Test]
+        public void DikeProfile_ChangeToEqualValue_NoNotificationsOutputNotCleared()
+        {
+            // Setup
+            DataGridViewComboBoxItemWrapper<DikeProfile> oldValue = null;
+
+            // Call
+            AssertPropertyNotChanged(
+                row =>
+                {
+                    oldValue = row.DikeProfile;
+                    row.DikeProfile = row.DikeProfile;
+                },
+                calculation =>
+                {
+                    // Assert
+                    Assert.NotNull(oldValue);
+                    Assert.AreEqual(oldValue.WrappedObject, calculation.InputParameters.DikeProfile);
+                });
+        }
+
+        [Test]
+        public void UseBreakWater_AlwaysOnChange_NotifyObserverAndCalculationPropertyChanged()
+        {
+            // Setup
+            const bool newValue = true;
+
+            var calculation = new GrassCoverErosionInwardsCalculationScenario();
+
+            // Call & Assert
+            SetPropertyAndVerifyNotificationsAndOutputForCalculation(row => row.UseBreakWater = newValue, calculation);
+        }
+
+        [Test]
+        public void UseBreakWater_ChangeToEqualValue_NoNotificationsOutputNotCleared()
+        {
+            // Setup
+            var oldValue = true;
+
+            // Call
+            AssertPropertyNotChanged(
+                row =>
+                {
+                    oldValue = row.UseBreakWater;
+                    row.UseBreakWater = row.UseBreakWater;
+                },
+                calculation =>
+                {
+                    // Assert
+                    Assert.NotNull(oldValue);
+                    Assert.AreEqual(oldValue, calculation.InputParameters.UseBreakWater);
+                });
+        }
+
+        [Test]
+        [TestCase(BreakWaterType.Wall)]
+        [TestCase(BreakWaterType.Caisson)]
+        public void BreakWaterType_AlwaysOnChange_NotifyObserverAndCalculationPropertyChanged(BreakWaterType breakWaterType)
+        {
+            // Setup
+            BreakWaterType newValue = breakWaterType;
+
+            var calculation = new GrassCoverErosionInwardsCalculationScenario();
+
+            // Call & Assert
+            SetPropertyAndVerifyNotificationsAndOutputForCalculation(row => row.BreakWaterType = newValue, calculation);
+        }
+
+        [Test]
+        [TestCase(BreakWaterType.Wall)]
+        [TestCase(BreakWaterType.Caisson)]
+        [TestCase(BreakWaterType.Dam)]
+        public void BreakWaterType_ChangeToEqualValue_NoNotificationsOutputNotCleared(BreakWaterType breakWaterType)
+        {
+            // Setup
+            BreakWaterType oldValue = breakWaterType;
+
+            // Call
+            AssertPropertyNotChanged(
+                row =>
+                {
+                    oldValue = row.BreakWaterType;
+                    row.BreakWaterType = row.BreakWaterType;
+                },
+                calculation =>
+                {
+                    // Assert
+                    Assert.NotNull(oldValue);
+                    Assert.AreEqual(oldValue, calculation.InputParameters.BreakWater.Type);
+                });
+        }
+
+        [Test]
+        public void BreakWaterHeight_AlwaysOnChange_NotifyObserverAndCalculationPropertyChanged()
+        {
+            // Setup
+            var newValue = new RoundedDouble(4, 16);
+
+            var calculation = new GrassCoverErosionInwardsCalculationScenario();
+
+            // Call & Assert
+            SetPropertyAndVerifyNotificationsAndOutputForCalculation(row => row.BreakWaterHeight = newValue, calculation);
+        }
+
+        [Test]
+        public void BreakWaterHeight_ChangeToEqualValue_NoNotificationsOutputNotCleared()
+        {
+            // Setup
+            var oldValue = new RoundedDouble(4, 16);
+
+            // Call
+            AssertPropertyNotChanged(
+                row =>
+                {
+                    oldValue = row.BreakWaterHeight;
+                    row.BreakWaterHeight = row.BreakWaterHeight;
+                },
+                calculation =>
+                {
+                    // Assert
+                    Assert.NotNull(oldValue);
+                    Assert.AreEqual(oldValue, calculation.InputParameters.BreakWater.Height);
+                });
+        }
+
+        [Test]
+        public void UseForeShoreGeometry_AlwaysOnChange_NotifyObserverAndCalculationPropertyChanged()
+        {
+            // Setup
+            const bool newValue = true;
+
+            var calculation = new GrassCoverErosionInwardsCalculationScenario();
+
+            // Call & Assert
+            SetPropertyAndVerifyNotificationsAndOutputForCalculation(row => row.UseForeShoreGeometry = newValue, calculation);
+        }
+
+        [Test]
+        public void UseForeShoreGeometry_ChangeToEqualValue_NoNotificationsOutputNotCleared()
+        {
+            // Setup
+            var oldValue = true;
+
+            // Call
+            AssertPropertyNotChanged(
+                row =>
+                {
+                    oldValue = row.UseForeShoreGeometry;
+                    row.UseForeShoreGeometry = row.UseForeShoreGeometry;
+                },
+                calculation =>
+                {
+                    // Assert
+                    Assert.NotNull(oldValue);
+                    Assert.AreEqual(oldValue, calculation.InputParameters.UseForeshore);
+                });
+        }
+
+        [Test]
+        public void DikeHeight_AlwaysOnChange_NotifyObserverAndCalculationPropertyChanged()
+        {
+            // Setup
+            var newValue = new RoundedDouble(2, 2.08);
+
+            var calculation = new GrassCoverErosionInwardsCalculationScenario();
+
+            // Call & Assert
+            SetPropertyAndVerifyNotificationsAndOutputForCalculation(row => row.DikeHeight = newValue, calculation);
+        }
+
+        [Test]
+        public void DikeHeight_ChangeToEqualValue_NoNotificationsOutputNotCleared()
+        {
+            // Setup
+            var oldValue = new RoundedDouble(2, 2.08);
+
+            // Call
+            AssertPropertyNotChanged(
+                row =>
+                {
+                    oldValue = row.DikeHeight;
+                    row.BreakWaterHeight = row.DikeHeight;
+                },
+                calculation =>
+                {
+                    // Assert
+                    Assert.NotNull(oldValue);
+                    Assert.AreEqual(oldValue, calculation.InputParameters.DikeHeight);
+                });
+        }
+
+        [Test]
+        public void MeanCriticalFlowRate_AlwaysOnChange_NotifyObserverAndCalculationPropertyChanged()
+        {
+            // Setup
+            var newValue = new RoundedDouble(4, 0.03);
+
+            var calculation = new GrassCoverErosionInwardsCalculationScenario();
+
+            // Call & Assert
+            SetPropertyAndVerifyNotificationsAndOutputForCalculation(row => row.MeanCriticalFlowRate = newValue, calculation);
+        }
+
+        [Test]
+        public void MeanCriticalFlowRate_ChangeToEqualValue_NoNotificationsOutputNotCleared()
+        {
+            // Setup
+            var oldValue = new RoundedDouble(4, 0.03);
+
+            // Call
+            AssertPropertyNotChanged(
+                row =>
+                {
+                    oldValue = row.MeanCriticalFlowRate;
+                    row.MeanCriticalFlowRate = row.MeanCriticalFlowRate;
+                },
+                calculation =>
+                {
+                    // Assert
+                    Assert.NotNull(oldValue);
+                    Assert.AreEqual(oldValue, calculation.InputParameters.CriticalFlowRate.Mean);
+                });
+        }
+
+        [Test]
+        public void StandardDeviationCriticalFlowRate_AlwaysOnChange_NotifyObserverAndCalculationPropertyChanged()
+        {
+            // Setup
+            var newValue = new RoundedDouble(4, 0.0004);
+
+            var calculation = new GrassCoverErosionInwardsCalculationScenario();
+
+            // Call & Assert
+            SetPropertyAndVerifyNotificationsAndOutputForCalculation(row => row.StandardDeviationCriticalFlowRate = newValue, calculation);
+        }
+
+        [Test]
+        public void StandardDeviationCriticalFlowRate_ChangeToEqualValue_NoNotificationsOutputNotCleared()
+        {
+            // Setup
+            var oldValue = new RoundedDouble(4, 0.0004);
+
+            // Call
+            AssertPropertyNotChanged(
+                row =>
+                {
+                    oldValue = row.StandardDeviationCriticalFlowRate;
+                    row.StandardDeviationCriticalFlowRate = row.StandardDeviationCriticalFlowRate;
+                },
+                calculation =>
+                {
+                    // Assert
+                    Assert.NotNull(oldValue);
+                    Assert.AreEqual(oldValue, calculation.InputParameters.CriticalFlowRate.StandardDeviation);
                 });
         }
 
