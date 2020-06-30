@@ -637,7 +637,7 @@ namespace Riskeer.StabilityPointStructures.Plugin
         {
             foreach (StabilityPointStructure structure in structures)
             {
-                var calculation = new StructuresCalculation<StabilityPointStructuresInput>
+                var calculation = new StructuresCalculationScenario<StabilityPointStructuresInput>
                 {
                     Name = NamingHelper.GetUniqueName(calculations, structure.Name, c => c.Name),
                     InputParameters =
@@ -653,7 +653,7 @@ namespace Riskeer.StabilityPointStructures.Plugin
 
         private static void AddCalculation(StabilityPointStructuresCalculationGroupContext context)
         {
-            var calculation = new StructuresCalculation<StabilityPointStructuresInput>
+            var calculation = new StructuresCalculationScenario<StabilityPointStructuresInput>
             {
                 Name = NamingHelper.GetUniqueName(context.WrappedData.Children, RiskeerCommonDataResources.Calculation_DefaultName, c => c.Name)
             };

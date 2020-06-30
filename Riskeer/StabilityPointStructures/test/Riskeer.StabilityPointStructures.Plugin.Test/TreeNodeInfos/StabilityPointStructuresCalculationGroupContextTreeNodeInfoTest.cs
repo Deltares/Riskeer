@@ -144,7 +144,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
             var group = new CalculationGroup();
             var childGroup = new CalculationGroup();
-            var childCalculation = new StructuresCalculation<StabilityPointStructuresInput>();
+            var childCalculation = new StructuresCalculationScenario<StabilityPointStructuresInput>();
 
             group.Children.Add(childGroup);
             group.Children.Add(childCalculation);
@@ -342,12 +342,12 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             {
                 Children =
                 {
-                    new StructuresCalculation<StabilityPointStructuresInput>()
+                    new StructuresCalculationScenario<StabilityPointStructuresInput>()
                 }
             };
 
             var failureMechanism = new TestStabilityPointStructuresFailureMechanism();
-            failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<StabilityPointStructuresInput>());
+            failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculationScenario<StabilityPointStructuresInput>());
 
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
 
@@ -392,12 +392,12 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             {
                 Children =
                 {
-                    new StructuresCalculation<StabilityPointStructuresInput>()
+                    new StructuresCalculationScenario<StabilityPointStructuresInput>()
                 }
             };
 
             var failureMechanism = new TestStabilityPointStructuresFailureMechanism();
-            failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<StabilityPointStructuresInput>());
+            failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculationScenario<StabilityPointStructuresInput>());
 
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null, mocks, "invalidFilePath");
 
@@ -444,14 +444,14 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             {
                 Children =
                 {
-                    new StructuresCalculation<StabilityPointStructuresInput>()
+                    new StructuresCalculationScenario<StabilityPointStructuresInput>()
                 }
             };
 
             string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
 
             var failureMechanism = new TestStabilityPointStructuresFailureMechanism();
-            failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<StabilityPointStructuresInput>());
+            failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculationScenario<StabilityPointStructuresInput>());
 
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
@@ -664,7 +664,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_CalculationGroupWithCalculationsWithoutStructure_ContextMenuItemUpdateStructuresDisabledAndToolTipSet()
         {
             // Setup
-            var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
+            var calculation = new StructuresCalculationScenario<StabilityPointStructuresInput>();
             var group = new CalculationGroup
             {
                 Children =
@@ -792,7 +792,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             calculation1InputObserver.Expect(obs => obs.UpdateObserver());
             calculation2InputObserver.Expect(obs => obs.UpdateObserver());
 
-            var calculation1 = new StructuresCalculation<StabilityPointStructuresInput>
+            var calculation1 = new StructuresCalculationScenario<StabilityPointStructuresInput>
             {
                 InputParameters =
                 {
@@ -802,7 +802,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             calculation1.Attach(calculation1Observer);
             calculation1.InputParameters.Attach(calculation1InputObserver);
 
-            var calculation2 = new StructuresCalculation<StabilityPointStructuresInput>
+            var calculation2 = new StructuresCalculationScenario<StabilityPointStructuresInput>
             {
                 InputParameters =
                 {
@@ -871,7 +871,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             var calculation2Observer = mocks.StrictMock<IObserver>();
             var calculation2InputObserver = mocks.StrictMock<IObserver>();
 
-            var calculation1 = new StructuresCalculation<StabilityPointStructuresInput>
+            var calculation1 = new StructuresCalculationScenario<StabilityPointStructuresInput>
             {
                 InputParameters =
                 {
@@ -882,7 +882,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             calculation1.Attach(calculation1Observer);
             calculation1.InputParameters.Attach(calculation1InputObserver);
 
-            var calculation2 = new StructuresCalculation<StabilityPointStructuresInput>
+            var calculation2 = new StructuresCalculationScenario<StabilityPointStructuresInput>
             {
                 InputParameters =
                 {
@@ -964,7 +964,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             calculation2Observer.Expect(obs => obs.UpdateObserver());
             calculation2InputObserver.Expect(obs => obs.UpdateObserver());
 
-            var calculation1 = new StructuresCalculation<StabilityPointStructuresInput>
+            var calculation1 = new StructuresCalculationScenario<StabilityPointStructuresInput>
             {
                 InputParameters =
                 {
@@ -975,7 +975,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             calculation1.Attach(calculation1Observer);
             calculation1.InputParameters.Attach(calculation1InputObserver);
 
-            var calculation2 = new StructuresCalculation<StabilityPointStructuresInput>
+            var calculation2 = new StructuresCalculationScenario<StabilityPointStructuresInput>
             {
                 InputParameters =
                 {
@@ -1046,7 +1046,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             // Setup
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            var calculation = new StructuresCalculation<StabilityPointStructuresInput>
+            var calculation = new StructuresCalculationScenario<StabilityPointStructuresInput>
             {
                 InputParameters =
                 {
@@ -1100,7 +1100,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
-            var calculation = new StructuresCalculation<StabilityPointStructuresInput>
+            var calculation = new StructuresCalculationScenario<StabilityPointStructuresInput>
             {
                 InputParameters =
                 {
@@ -1425,7 +1425,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                                                                                null,
                                                                                failureMechanism,
                                                                                assessmentSection);
-            var calculationItem = new StructuresCalculation<StabilityPointStructuresInput>
+            var calculationItem = new StructuresCalculationScenario<StabilityPointStructuresInput>
             {
                 Name = "Nieuwe berekening"
             };
@@ -1453,7 +1453,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                     // Assert
                     Assert.AreEqual(2, group.Children.Count);
                     ICalculationBase newlyAddedItem = group.Children.Last();
-                    Assert.IsInstanceOf<StructuresCalculation<StabilityPointStructuresInput>>(newlyAddedItem);
+                    Assert.IsInstanceOf<StructuresCalculationScenario<StabilityPointStructuresInput>>(newlyAddedItem);
                     Assert.AreEqual("Nieuwe berekening (1)", newlyAddedItem.Name,
                                     "An item with the same name default name already exists, therefore '(1)' needs to be appended.");
                 }
@@ -1646,7 +1646,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                 StabilityPointStructure structure2 = new TestStabilityPointStructure("id structure2");
 
                 var existingCalculationGroup = new CalculationGroup();
-                var existingCalculation = new StructuresCalculation<StabilityPointStructuresInput>();
+                var existingCalculation = new StructuresCalculationScenario<StabilityPointStructuresInput>();
                 var failureMechanism = new StabilityPointStructuresFailureMechanism
                 {
                     CalculationsGroup =
@@ -1699,7 +1699,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                     Assert.AreEqual(3, failureMechanism.CalculationsGroup.Children.Count);
                     Assert.AreSame(existingCalculationGroup, failureMechanism.CalculationsGroup.Children[0]);
                     Assert.AreSame(existingCalculation, failureMechanism.CalculationsGroup.Children[1]);
-                    var generatedCalculation = failureMechanism.CalculationsGroup.Children[2] as StructuresCalculation<StabilityPointStructuresInput>;
+                    var generatedCalculation = failureMechanism.CalculationsGroup.Children[2] as StructuresCalculationScenario<StabilityPointStructuresInput>;
                     Assert.IsNotNull(generatedCalculation);
                     Assert.AreSame(structure1, generatedCalculation.InputParameters.Structure);
                 }
@@ -1756,7 +1756,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                     contextMenu.Items[contextMenuGenerateCalculationsIndexRootGroup].PerformClick();
 
                     // Then
-                    Assert.AreEqual(0, failureMechanism.Calculations.OfType<StructuresCalculation<StabilityPointStructuresInput>>().Count());
+                    Assert.AreEqual(0, failureMechanism.Calculations.OfType<StructuresCalculationScenario<StabilityPointStructuresInput>>().Count());
                 }
             }
         }
@@ -1778,7 +1778,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                     {
                         Children =
                         {
-                            new StructuresCalculation<StabilityPointStructuresInput>
+                            new StructuresCalculationScenario<StabilityPointStructuresInput>
                             {
                                 Name = existingCalculationName
                             }
@@ -1824,7 +1824,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                     contextMenu.Items[contextMenuGenerateCalculationsIndexRootGroup].PerformClick();
 
                     // Then
-                    StructuresCalculation<StabilityPointStructuresInput>[] stabilityPointStructuresCalculations = failureMechanism.Calculations.OfType<StructuresCalculation<StabilityPointStructuresInput>>().ToArray();
+                    StructuresCalculationScenario<StabilityPointStructuresInput>[] stabilityPointStructuresCalculations = failureMechanism.Calculations.OfType<StructuresCalculationScenario<StabilityPointStructuresInput>>().ToArray();
                     Assert.AreEqual(2, stabilityPointStructuresCalculations.Length);
                     Assert.AreEqual(expectedNewName, stabilityPointStructuresCalculations[1].Name);
                 }
@@ -1891,7 +1891,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             });
 
-            var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
+            var calculation = new StructuresCalculationScenario<StabilityPointStructuresInput>();
             group.Children.Add(calculation);
 
             StabilityPointStructuresFailureMechanismSectionResult result = failureMechanism.SectionResults.First();
@@ -1921,7 +1921,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                                                                                      null,
                                                                                      failureMechanism,
                                                                                      assessmentSection);
-            var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
+            var calculation = new StructuresCalculationScenario<StabilityPointStructuresInput>();
 
             observer.Expect(o => o.UpdateObserver());
 
