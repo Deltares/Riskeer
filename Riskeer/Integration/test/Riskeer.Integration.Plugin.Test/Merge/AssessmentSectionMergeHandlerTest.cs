@@ -418,7 +418,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
                     HydraulicBoundaryLocation = sourceLocations[0]
                 }
             });
-            sourceAssessmentSection.StabilityPointStructures.CalculationsGroup.Children.Add(new StructuresCalculation<StabilityPointStructuresInput>
+            sourceAssessmentSection.StabilityPointStructures.CalculationsGroup.Children.Add(new StructuresCalculationScenario<StabilityPointStructuresInput>
             {
                 InputParameters =
                 {
@@ -487,7 +487,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             var closingStructuresCalculation = (StructuresCalculationScenario<ClosingStructuresInput>) targetAssessmentSection.ClosingStructures.Calculations.Single();
             Assert.AreSame(targetLocations[0], closingStructuresCalculation.InputParameters.HydraulicBoundaryLocation);
 
-            var stabilityPointStructuresCalculation = (StructuresCalculation<StabilityPointStructuresInput>) targetAssessmentSection.StabilityPointStructures.Calculations.Single();
+            var stabilityPointStructuresCalculation = (StructuresCalculationScenario<StabilityPointStructuresInput>) targetAssessmentSection.StabilityPointStructures.Calculations.Single();
             Assert.AreSame(targetLocations[1], stabilityPointStructuresCalculation.InputParameters.HydraulicBoundaryLocation);
 
             var stabilityStoneCoverCalculation = (StabilityStoneCoverWaveConditionsCalculation) targetAssessmentSection.StabilityStoneCover.Calculations.Single();

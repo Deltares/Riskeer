@@ -312,7 +312,7 @@ namespace Riskeer.Integration.Plugin.Merge
             if (mergeData.MergeStabilityPointStructures)
             {
                 targetAssessmentSection.StabilityPointStructures = sourceAssessmentSection.StabilityPointStructures;
-                UpdateCalculationHydraulicBoundaryLocationReferences<StabilityPointStructuresFailureMechanism, StructuresCalculation<StabilityPointStructuresInput>, StabilityPointStructuresInput>(
+                UpdateCalculationHydraulicBoundaryLocationReferences<StabilityPointStructuresFailureMechanism, StructuresCalculationScenario<StabilityPointStructuresInput>, StabilityPointStructuresInput>(
                     targetAssessmentSection.StabilityPointStructures, hydraulicBoundaryLocations);
                 LogMergeMessage(targetAssessmentSection.StabilityPointStructures);
             }
