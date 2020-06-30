@@ -44,8 +44,8 @@ namespace Riskeer.Storage.Core.Read.StabilityPointStructures
         /// <param name="collector">The object keeping track of read operations.</param>
         /// <returns>A new <see cref="StructuresCalculation{T}"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="collector"/> is <c>null</c>.</exception>
-        internal static StructuresCalculation<StabilityPointStructuresInput> Read(this StabilityPointStructuresCalculationEntity entity,
-                                                                                  ReadConversionCollector collector)
+        internal static StructuresCalculationScenario<StabilityPointStructuresInput> Read(this StabilityPointStructuresCalculationEntity entity,
+                                                                                          ReadConversionCollector collector)
         {
             if (collector == null)
             {
@@ -57,7 +57,7 @@ namespace Riskeer.Storage.Core.Read.StabilityPointStructures
                 return collector.Get(entity);
             }
 
-            var calculation = new StructuresCalculation<StabilityPointStructuresInput>
+            var calculation = new StructuresCalculationScenario<StabilityPointStructuresInput>
             {
                 Name = entity.Name,
                 Comments =

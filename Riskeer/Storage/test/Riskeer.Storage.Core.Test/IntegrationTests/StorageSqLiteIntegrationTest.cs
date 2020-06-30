@@ -545,9 +545,9 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
                     AssertStructuresCalculation(expectedClosingStructuresCalculation, (StructuresCalculationScenario<ClosingStructuresInput>) actualChild);
                 }
 
-                if (expectedChild is StructuresCalculation<StabilityPointStructuresInput> expectedStabilityPointStructuresCalculation)
+                if (expectedChild is StructuresCalculationScenario<StabilityPointStructuresInput> expectedStabilityPointStructuresCalculation)
                 {
-                    AssertStructuresCalculation(expectedStabilityPointStructuresCalculation, (StructuresCalculation<StabilityPointStructuresInput>) actualChild);
+                    AssertStructuresCalculation(expectedStabilityPointStructuresCalculation, (StructuresCalculationScenario<StabilityPointStructuresInput>) actualChild);
                 }
 
                 if (expectedChild is StabilityStoneCoverWaveConditionsCalculation expectedStabilityStoneCoverWaveConditionsCalculation)

@@ -43,11 +43,11 @@ namespace Riskeer.Storage.Core.Test.Read.StabilityPointStructures
             var entity = new StabilityPointStructuresCalculationEntity();
 
             // Call
-            TestDelegate call = () => entity.Read(null);
+            void Call() => entity.Read(null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("collector", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("collector", exception.ParamName);
         }
 
         [Test]
@@ -407,13 +407,13 @@ namespace Riskeer.Storage.Core.Test.Read.StabilityPointStructures
                 }
             };
 
-            var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
+            var calculation = new StructuresCalculationScenario<StabilityPointStructuresInput>();
 
             var collector = new ReadConversionCollector();
             collector.Read(entity, calculation);
 
             // Call
-            StructuresCalculation<StabilityPointStructuresInput> returnedCalculation = entity.Read(collector);
+            StructuresCalculationScenario<StabilityPointStructuresInput> returnedCalculation = entity.Read(collector);
 
             // Assert
             Assert.AreSame(calculation, returnedCalculation);

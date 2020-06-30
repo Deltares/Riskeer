@@ -576,7 +576,7 @@ namespace Riskeer.Storage.Core.TestUtil
                 Name = "StabilityPoint structures A",
                 Children =
                 {
-                    new StructuresCalculation<StabilityPointStructuresInput>
+                    new StructuresCalculationScenario<StabilityPointStructuresInput>
                     {
                         Name = "Calculation 1",
                         Comments =
@@ -611,7 +611,7 @@ namespace Riskeer.Storage.Core.TestUtil
                         },
                         Output = new StructuresOutput(0.11, null)
                     },
-                    new StructuresCalculation<StabilityPointStructuresInput>
+                    new StructuresCalculationScenario<StabilityPointStructuresInput>
                     {
                         Name = "Calculation 2",
                         Comments =
@@ -652,7 +652,7 @@ namespace Riskeer.Storage.Core.TestUtil
             {
                 Name = "StabilityPoint structures B"
             });
-            failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<StabilityPointStructuresInput>());
+            failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculationScenario<StabilityPointStructuresInput>());
         }
 
         private static void SetSectionResults(IEnumerable<StabilityPointStructuresFailureMechanismSectionResult> sectionResults,

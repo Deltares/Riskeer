@@ -105,8 +105,8 @@ namespace Riskeer.Storage.Core.Read
         private readonly Dictionary<ClosingStructuresCalculationEntity, StructuresCalculationScenario<ClosingStructuresInput>> closingStructuresCalculations =
             CreateDictionary<ClosingStructuresCalculationEntity, StructuresCalculationScenario<ClosingStructuresInput>>();
 
-        private readonly Dictionary<StabilityPointStructuresCalculationEntity, StructuresCalculation<StabilityPointStructuresInput>> stabilityPointStructuresCalculations =
-            CreateDictionary<StabilityPointStructuresCalculationEntity, StructuresCalculation<StabilityPointStructuresInput>>();
+        private readonly Dictionary<StabilityPointStructuresCalculationEntity, StructuresCalculationScenario<StabilityPointStructuresInput>> stabilityPointStructuresCalculations =
+            CreateDictionary<StabilityPointStructuresCalculationEntity, StructuresCalculationScenario<StabilityPointStructuresInput>>();
 
         private static Dictionary<TEntity, TModel> CreateDictionary<TEntity, TModel>()
         {
@@ -1536,15 +1536,15 @@ namespace Riskeer.Storage.Core.Read
 
         /// <summary>
         /// Registers a read operation for <see cref="StabilityPointStructuresCalculationEntity"/>
-        /// and the <see cref="StructuresCalculation{T}"/> that was constructed
+        /// and the <see cref="StructuresCalculationScenario{T}"/> that was constructed
         /// with the information.
         /// </summary>
         /// <param name="entity">The <see cref="StabilityPointStructuresCalculationEntity"/>
         /// that was read.</param>
-        /// <param name="model">The <see cref="StructuresCalculation{T}"/> that
+        /// <param name="model">The <see cref="StructuresCalculationScenario{T}"/> that
         /// was constructed.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
-        internal void Read(StabilityPointStructuresCalculationEntity entity, StructuresCalculation<StabilityPointStructuresInput> model)
+        internal void Read(StabilityPointStructuresCalculationEntity entity, StructuresCalculationScenario<StabilityPointStructuresInput> model)
         {
             if (entity == null)
             {
@@ -1576,18 +1576,18 @@ namespace Riskeer.Storage.Core.Read
         }
 
         /// <summary>
-        /// Obtains the <see cref="StructuresCalculation{T}"/> which was read
+        /// Obtains the <see cref="StructuresCalculationScenario{T}"/> which was read
         /// for the given <see cref="StabilityPointStructuresCalculationEntity"/>.
         /// </summary>
         /// <param name="entity">The <see cref="StabilityPointStructuresCalculationEntity"/> for which a read
         /// operation has been registered.</param>
-        /// <returns>The constructed <see cref="StructuresCalculation{T}"/>.</returns>
+        /// <returns>The constructed <see cref="StructuresCalculationScenario{T}"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/> is <c>null</c>.</exception>
         /// <exception cref="InvalidOperationException">Thrown when no read operation has
         /// been registered for <paramref name="entity"/>.</exception>
         /// <remarks>Use <see cref="Contains(StabilityPointStructuresCalculationEntity)"/>
         /// to find out whether a read operation has been registered for <paramref name="entity"/>.</remarks>
-        internal StructuresCalculation<StabilityPointStructuresInput> Get(StabilityPointStructuresCalculationEntity entity)
+        internal StructuresCalculationScenario<StabilityPointStructuresInput> Get(StabilityPointStructuresCalculationEntity entity)
         {
             if (entity == null)
             {

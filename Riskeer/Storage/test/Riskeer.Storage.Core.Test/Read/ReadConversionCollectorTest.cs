@@ -440,7 +440,7 @@ namespace Riskeer.Storage.Core.Test.Read
         }
 
         [TestFixture]
-        private class StabilityPointStructureCalculationCollectorTest : CollectorTest<StructuresCalculation<StabilityPointStructuresInput>,
+        private class StabilityPointStructureCalculationCollectorTest : CollectorTest<StructuresCalculationScenario<StabilityPointStructuresInput>,
             StabilityPointStructuresCalculationEntity>
         {
             public StabilityPointStructureCalculationCollectorTest() : base(
@@ -448,9 +448,9 @@ namespace Riskeer.Storage.Core.Test.Read
                 (c, e) => c.Contains(e),
                 (c, e) => c.Get(e)) {}
 
-            protected override StructuresCalculation<StabilityPointStructuresInput> CreateDataModel()
+            protected override StructuresCalculationScenario<StabilityPointStructuresInput> CreateDataModel()
             {
-                return new StructuresCalculation<StabilityPointStructuresInput>();
+                return new StructuresCalculationScenario<StabilityPointStructuresInput>();
             }
         }
 

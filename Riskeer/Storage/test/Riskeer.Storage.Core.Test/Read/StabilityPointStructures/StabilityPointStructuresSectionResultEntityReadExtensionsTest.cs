@@ -39,12 +39,12 @@ namespace Riskeer.Storage.Core.Test.Read.StabilityPointStructures
         public void Read_EntityNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => ((StabilityPointStructuresSectionResultEntity) null).Read(
-                new StabilityPointStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
-                new ReadConversionCollector());
+            void Call() => ((StabilityPointStructuresSectionResultEntity) null).Read(new StabilityPointStructuresFailureMechanismSectionResult(
+                                                                                         FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
+                                                                                     new ReadConversionCollector());
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("entity", exception.ParamName);
         }
 
@@ -55,11 +55,11 @@ namespace Riskeer.Storage.Core.Test.Read.StabilityPointStructures
             var entity = new StabilityPointStructuresSectionResultEntity();
 
             // Call
-            TestDelegate call = () => entity.Read(null, new ReadConversionCollector());
+            void Call() => entity.Read(null, new ReadConversionCollector());
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("sectionResult", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("sectionResult", exception.ParamName);
         }
 
         [Test]
@@ -69,12 +69,12 @@ namespace Riskeer.Storage.Core.Test.Read.StabilityPointStructures
             var entity = new StabilityPointStructuresSectionResultEntity();
 
             // Call
-            TestDelegate call = () => entity.Read(new StabilityPointStructuresFailureMechanismSectionResult(
-                                                      FailureMechanismSectionTestFactory.CreateFailureMechanismSection()), null);
+            void Call() => entity.Read(new StabilityPointStructuresFailureMechanismSectionResult(
+                                           FailureMechanismSectionTestFactory.CreateFailureMechanismSection()), null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("collector", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("collector", exception.ParamName);
         }
 
         [Test]
@@ -145,7 +145,7 @@ namespace Riskeer.Storage.Core.Test.Read.StabilityPointStructures
         public void Read_CalculationEntitySet_ReturnStabilityPointStructuresSectionResultWithCalculation()
         {
             // Setup
-            var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
+            var calculation = new StructuresCalculationScenario<StabilityPointStructuresInput>();
             var calculationEntity = new StabilityPointStructuresCalculationEntity();
 
             var collector = new ReadConversionCollector();
