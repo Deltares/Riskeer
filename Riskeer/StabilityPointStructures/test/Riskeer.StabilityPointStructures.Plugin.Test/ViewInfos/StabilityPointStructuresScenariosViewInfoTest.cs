@@ -78,15 +78,19 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.ViewInfos
         public void GetViewData_Always_ReturnWrappedData()
         {
             // Setup
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             var calculationGroup = new CalculationGroup();
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            var context = new StabilityPointStructuresScenariosContext(calculationGroup, failureMechanism);
+            var context = new StabilityPointStructuresScenariosContext(calculationGroup, failureMechanism, assessmentSection);
 
             // Call
             object viewData = info.GetViewData(context);
 
             // Assert
             Assert.AreSame(calculationGroup, viewData);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -103,11 +107,14 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.ViewInfos
         public void AfterCreate_Always_SetsSpecificPropertiesToView()
         {
             // Setup
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             using (var view = new StabilityPointStructuresScenariosView())
             {
                 var group = new CalculationGroup();
                 var failureMechanism = new StabilityPointStructuresFailureMechanism();
-                var context = new StabilityPointStructuresScenariosContext(group, failureMechanism);
+                var context = new StabilityPointStructuresScenariosContext(group, failureMechanism, assessmentSection);
 
                 // Call
                 info.AfterCreate(view, context);
@@ -115,6 +122,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.ViewInfos
                 // Assert
                 Assert.AreSame(failureMechanism, view.FailureMechanism);
             }
+            mocks.VerifyAll();
         }
 
         [Test]
