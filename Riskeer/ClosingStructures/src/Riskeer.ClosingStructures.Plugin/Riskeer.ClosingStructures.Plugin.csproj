@@ -63,8 +63,5 @@
     <ProjectReference Include="..\Riskeer.ClosingStructures.Service\Riskeer.ClosingStructures.Service.csproj">
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\Riskeer.ClosingStructures.Util\Riskeer.ClosingStructures.Util.csproj">
-      <Private>False</Private>
-    </ProjectReference>
   </ItemGroup>
 </Project>

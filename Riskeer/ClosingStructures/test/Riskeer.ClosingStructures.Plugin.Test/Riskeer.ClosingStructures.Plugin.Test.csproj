@@ -39,7 +39,6 @@
     <ProjectReference Include="..\..\src\Riskeer.ClosingStructures.Forms\Riskeer.ClosingStructures.Forms.csproj" />
     <ProjectReference Include="..\..\src\Riskeer.ClosingStructures.IO\Riskeer.ClosingStructures.IO.csproj" />
     <ProjectReference Include="..\..\src\Riskeer.ClosingStructures.Plugin\Riskeer.ClosingStructures.Plugin.csproj" />
-    <ProjectReference Include="..\..\src\Riskeer.ClosingStructures.Util\Riskeer.ClosingStructures.Util.csproj" />
     <ProjectReference Include="..\Riskeer.ClosingStructures.Data.TestUtil\Riskeer.ClosingStructures.Data.TestUtil.csproj" />
   </ItemGroup>
   <ItemGroup>
