@@ -854,77 +854,6 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
                 properties => properties.StormDuration.Mean = newMean);
         }
 
-        [Test]
-        public void Structure_NullValue_AfterSettingStructureCalled()
-        {
-            // Setup
-            mockRepository.ReplayAll();
-
-            var calculation = new StructuresCalculation<SimpleStructureInput>();
-            var inputContext = new SimpleInputContext(calculation.InputParameters,
-                                                      calculation,
-                                                      failureMechanism,
-                                                      assessmentSection);
-
-            SetPropertyValueAfterConfirmationParameterTester customHandler =
-                CreateCustomHandlerForCalculationReturningNoObservables();
-
-            var properties = new SimpleStructuresInputProperties(
-                inputContext,
-                new StructuresInputBaseProperties<
-                    TestStructure, 
-                    SimpleStructureInput, 
-                    StructuresCalculation<SimpleStructureInput>, 
-                    IFailureMechanism>
-                    .ConstructionProperties(),
-                customHandler);
-
-            // Precondition
-            Assert.IsFalse(properties.AfterSettingStructureCalled);
-
-            // Call
-            properties.Structure = null;
-
-            // Assert
-            Assert.IsTrue(properties.AfterSettingStructureCalled);
-        }
-
-        [Test]
-        public void Structure_ValidValue_AfterSettingStructureCalled()
-        {
-            // Setup
-            mockRepository.ReplayAll();
-
-            var calculation = new StructuresCalculation<SimpleStructureInput>();
-            var inputContext = new SimpleInputContext(calculation.InputParameters,
-                                                      calculation,
-                                                      failureMechanism,
-                                                      assessmentSection);
-
-            var newStructure = new TestStructure();
-            SetPropertyValueAfterConfirmationParameterTester customHandler =
-                CreateCustomHandlerForCalculationReturningNoObservables();
-
-            var properties = new SimpleStructuresInputProperties(
-                inputContext,
-                new StructuresInputBaseProperties<
-                    TestStructure, 
-                    SimpleStructureInput, 
-                    StructuresCalculation<SimpleStructureInput>, 
-                    IFailureMechanism>
-                    .ConstructionProperties(),
-                customHandler);
-
-            // Precondition
-            Assert.IsFalse(properties.AfterSettingStructureCalled);
-
-            // Call
-            properties.Structure = newStructure;
-
-            // Assert
-            Assert.IsTrue(properties.AfterSettingStructureCalled);
-        }
-
         private static SetPropertyValueAfterConfirmationParameterTester CreateCustomHandlerForCalculationReturningNoObservables()
         {
             return new SetPropertyValueAfterConfirmationParameterTester(Enumerable.Empty<IObservable>());
@@ -1025,9 +954,6 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
                                                    ConstructionProperties constructionProperties,
                                                    IObservablePropertyChangeHandler handler)
                 : base(context, constructionProperties, handler) {}
-
-            [Browsable(false)]
-            public bool AfterSettingStructureCalled { get; private set; }
 
             public override IEnumerable<ForeshoreProfile> GetAvailableForeshoreProfiles()
             {
