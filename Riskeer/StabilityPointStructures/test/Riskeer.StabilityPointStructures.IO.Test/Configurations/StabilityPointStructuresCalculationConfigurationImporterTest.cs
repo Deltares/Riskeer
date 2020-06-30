@@ -490,15 +490,11 @@ namespace Riskeer.StabilityPointStructures.IO.Test.Configurations
         public void Constructor_HydraulicBoundaryLocationsNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new StabilityPointStructuresCalculationConfigurationImporter("",
-                                                                                                   new CalculationGroup(),
-                                                                                                   null,
-                                                                                                   Enumerable.Empty<ForeshoreProfile>(),
-                                                                                                   Enumerable.Empty<StabilityPointStructure>(),
-                                                                                                   new StabilityPointStructuresFailureMechanism());
+            void Call() => new StabilityPointStructuresCalculationConfigurationImporter("", new CalculationGroup(), null, Enumerable.Empty<ForeshoreProfile>(),
+                                                                                        Enumerable.Empty<StabilityPointStructure>(), new StabilityPointStructuresFailureMechanism());
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("hydraulicBoundaryLocations", exception.ParamName);
         }
 
@@ -506,15 +502,11 @@ namespace Riskeer.StabilityPointStructures.IO.Test.Configurations
         public void Constructor_ForeshoreProfilesNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new StabilityPointStructuresCalculationConfigurationImporter("",
-                                                                                                   new CalculationGroup(),
-                                                                                                   Enumerable.Empty<HydraulicBoundaryLocation>(),
-                                                                                                   null,
-                                                                                                   Enumerable.Empty<StabilityPointStructure>(),
-                                                                                                   new StabilityPointStructuresFailureMechanism());
+            void Call() => new StabilityPointStructuresCalculationConfigurationImporter("", new CalculationGroup(), Enumerable.Empty<HydraulicBoundaryLocation>(), null,
+                                                                                        Enumerable.Empty<StabilityPointStructure>(), new StabilityPointStructuresFailureMechanism());
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("foreshoreProfiles", exception.ParamName);
         }
 
@@ -522,15 +514,11 @@ namespace Riskeer.StabilityPointStructures.IO.Test.Configurations
         public void Constructor_StructuresNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new StabilityPointStructuresCalculationConfigurationImporter("",
-                                                                                                   new CalculationGroup(),
-                                                                                                   Enumerable.Empty<HydraulicBoundaryLocation>(),
-                                                                                                   Enumerable.Empty<ForeshoreProfile>(),
-                                                                                                   null,
-                                                                                                   new StabilityPointStructuresFailureMechanism());
+            void Call() => new StabilityPointStructuresCalculationConfigurationImporter("", new CalculationGroup(), Enumerable.Empty<HydraulicBoundaryLocation>(), Enumerable.Empty<ForeshoreProfile>(),
+                                                                                        null, new StabilityPointStructuresFailureMechanism());
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("structures", exception.ParamName);
         }
 
@@ -538,15 +526,11 @@ namespace Riskeer.StabilityPointStructures.IO.Test.Configurations
         public void Constructor_FailureMechanismNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new StabilityPointStructuresCalculationConfigurationImporter("",
-                                                                                                   new CalculationGroup(),
-                                                                                                   Enumerable.Empty<HydraulicBoundaryLocation>(),
-                                                                                                   Enumerable.Empty<ForeshoreProfile>(),
-                                                                                                   Enumerable.Empty<StabilityPointStructure>(),
-                                                                                                   null);
+            void Call() => new StabilityPointStructuresCalculationConfigurationImporter("", new CalculationGroup(), Enumerable.Empty<HydraulicBoundaryLocation>(),
+                                                                                        Enumerable.Empty<ForeshoreProfile>(), Enumerable.Empty<StabilityPointStructure>(), null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
         }
 
@@ -578,11 +562,11 @@ namespace Riskeer.StabilityPointStructures.IO.Test.Configurations
             var successful = false;
 
             // Call
-            Action call = () => successful = importer.Import();
+            void Call() => successful = importer.Import();
 
             // Assert
             string expectedMessage = $"{expectedErrorMessage} Berekening 'Berekening 1' is overgeslagen.";
-            TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Error), 2);
+            TestHelper.AssertLogMessageWithLevelIsGenerated(Call, Tuple.Create(expectedMessage, LogLevelConstant.Error), 2);
             Assert.IsTrue(successful);
             CollectionAssert.IsEmpty(calculationGroup.Children);
         }
@@ -609,12 +593,12 @@ namespace Riskeer.StabilityPointStructures.IO.Test.Configurations
             var successful = false;
 
             // Call
-            Action call = () => successful = importer.Import();
+            void Call() => successful = importer.Import();
 
             // Assert
             const string expectedMessage = "Het opgegeven voorlandprofiel 'Voorlandprofiel' heeft geen voorlandgeometrie en kan daarom niet gebruikt worden. " +
                                            "Berekening 'Berekening 1' is overgeslagen.";
-            TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Error), 2);
+            TestHelper.AssertLogMessageWithLevelIsGenerated(Call, Tuple.Create(expectedMessage, LogLevelConstant.Error), 2);
             Assert.IsTrue(successful);
             CollectionAssert.IsEmpty(calculationGroup.Children);
         }
@@ -644,7 +628,7 @@ namespace Riskeer.StabilityPointStructures.IO.Test.Configurations
 
             // Assert
             Assert.IsTrue(successful);
-            var expectedCalculation = new StructuresCalculation<StabilityPointStructuresInput>
+            var expectedCalculation = new StructuresCalculationScenario<StabilityPointStructuresInput>
             {
                 Name = "Berekening 1",
                 InputParameters =
@@ -738,7 +722,7 @@ namespace Riskeer.StabilityPointStructures.IO.Test.Configurations
             };
 
             Assert.AreEqual(1, calculationGroup.Children.Count);
-            AssertCalculation(expectedCalculation, (StructuresCalculation<StabilityPointStructuresInput>) calculationGroup.Children[0]);
+            AssertCalculation(expectedCalculation, (StructuresCalculationScenario<StabilityPointStructuresInput>) calculationGroup.Children[0]);
         }
 
         [Test]
@@ -766,7 +750,7 @@ namespace Riskeer.StabilityPointStructures.IO.Test.Configurations
 
             // Assert
             Assert.IsTrue(successful);
-            var expectedCalculation = new StructuresCalculation<StabilityPointStructuresInput>
+            var expectedCalculation = new StructuresCalculationScenario<StabilityPointStructuresInput>
             {
                 Name = "Berekening 1",
                 InputParameters =
@@ -848,7 +832,7 @@ namespace Riskeer.StabilityPointStructures.IO.Test.Configurations
             };
 
             Assert.AreEqual(1, calculationGroup.Children.Count);
-            AssertCalculation(expectedCalculation, (StructuresCalculation<StabilityPointStructuresInput>) calculationGroup.Children[0]);
+            AssertCalculation(expectedCalculation, (StructuresCalculationScenario<StabilityPointStructuresInput>) calculationGroup.Children[0]);
         }
 
         [Test]
@@ -874,7 +858,7 @@ namespace Riskeer.StabilityPointStructures.IO.Test.Configurations
                 },
                 new StabilityPointStructuresFailureMechanism());
 
-            var expectedCalculation = new StructuresCalculation<StabilityPointStructuresInput>
+            var expectedCalculation = new StructuresCalculationScenario<StabilityPointStructuresInput>
             {
                 Name = "Berekening 1"
             };
@@ -885,7 +869,7 @@ namespace Riskeer.StabilityPointStructures.IO.Test.Configurations
             // Assert
             Assert.IsTrue(successful);
             Assert.AreEqual(1, calculationGroup.Children.Count);
-            AssertCalculation(expectedCalculation, (StructuresCalculation<StabilityPointStructuresInput>) calculationGroup.Children[0]);
+            AssertCalculation(expectedCalculation, (StructuresCalculationScenario<StabilityPointStructuresInput>) calculationGroup.Children[0]);
         }
 
         [Test]
@@ -928,7 +912,7 @@ namespace Riskeer.StabilityPointStructures.IO.Test.Configurations
             // Assert
             TestHelper.AssertLogMessageIsGenerated(call, $"Gegevens zijn geïmporteerd vanuit bestand '{filePath}'.", 1);
             Assert.IsTrue(successful);
-            var expectedCalculation = new StructuresCalculation<StabilityPointStructuresInput>
+            var expectedCalculation = new StructuresCalculationScenario<StabilityPointStructuresInput>
             {
                 Name = "Berekening 1",
                 InputParameters =
@@ -1061,7 +1045,7 @@ namespace Riskeer.StabilityPointStructures.IO.Test.Configurations
             };
 
             Assert.AreEqual(1, calculationGroup.Children.Count);
-            AssertCalculation(expectedCalculation, (StructuresCalculation<StabilityPointStructuresInput>) calculationGroup.Children[0]);
+            AssertCalculation(expectedCalculation, (StructuresCalculationScenario<StabilityPointStructuresInput>) calculationGroup.Children[0]);
         }
 
         [Test]
@@ -1143,14 +1127,14 @@ namespace Riskeer.StabilityPointStructures.IO.Test.Configurations
         }
 
         [TestCase("validConfigurationUnknownForeshoreProfile.xml",
-            "Het voorlandprofiel met ID 'unknown' bestaat niet.",
-            TestName = "Import_UnknownData({0:80})")]
+                  "Het voorlandprofiel met ID 'unknown' bestaat niet.",
+                  TestName = "Import_UnknownData({0:80})")]
         [TestCase("validConfigurationUnknownHydraulicBoundaryLocation.xml",
-            "De hydraulische belastingenlocatie 'unknown' bestaat niet.",
-            TestName = "Import_UnknownData({0:80})")]
+                  "De hydraulische belastingenlocatie 'unknown' bestaat niet.",
+                  TestName = "Import_UnknownData({0:80})")]
         [TestCase("validConfigurationUnknownStructure.xml",
-            "Het kunstwerk met ID 'unknown' bestaat niet.",
-            TestName = "Import_UnknownData({0:80})")]
+                  "Het kunstwerk met ID 'unknown' bestaat niet.",
+                  TestName = "Import_UnknownData({0:80})")]
         public void Import_ValidConfigurationUnknownData_LogMessageAndContinueImport(string file, string expectedErrorMessage)
         {
             // Setup
@@ -1176,10 +1160,12 @@ namespace Riskeer.StabilityPointStructures.IO.Test.Configurations
             CollectionAssert.IsEmpty(calculationGroup.Children);
         }
 
-        private static void AssertCalculation(StructuresCalculation<StabilityPointStructuresInput> expectedCalculation,
-                                              StructuresCalculation<StabilityPointStructuresInput> actualCalculation)
+        private static void AssertCalculation(StructuresCalculationScenario<StabilityPointStructuresInput> expectedCalculation,
+                                              StructuresCalculationScenario<StabilityPointStructuresInput> actualCalculation)
         {
             Assert.AreEqual(expectedCalculation.Name, actualCalculation.Name);
+            Assert.AreEqual(expectedCalculation.IsRelevant, actualCalculation.IsRelevant);
+            Assert.AreEqual(expectedCalculation.Contribution, actualCalculation.Contribution);
             Assert.AreEqual(expectedCalculation.InputParameters.BreakWater.Height, actualCalculation.InputParameters.BreakWater.Height);
             Assert.AreEqual(expectedCalculation.InputParameters.BreakWater.Type, actualCalculation.InputParameters.BreakWater.Type);
             Assert.AreEqual(expectedCalculation.InputParameters.EvaluationLevel, actualCalculation.InputParameters.EvaluationLevel);

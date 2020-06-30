@@ -114,7 +114,7 @@ namespace Riskeer.StabilityPointStructures.IO.Configurations
 
         protected override ICalculation ParseReadCalculation(StabilityPointStructuresCalculationConfiguration readCalculation)
         {
-            var calculation = new StructuresCalculation<StabilityPointStructuresInput>
+            var calculation = new StructuresCalculationScenario<StabilityPointStructuresInput>
             {
                 Name = readCalculation.Name
             };
