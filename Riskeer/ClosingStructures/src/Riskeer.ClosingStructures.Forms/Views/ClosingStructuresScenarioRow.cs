@@ -29,7 +29,7 @@ using Riskeer.Common.Forms.Views;
 namespace Riskeer.ClosingStructures.Forms.Views
 {
     /// <summary>
-    /// Container of a <see cref="ClosingStructuresFailureMechanismSectionResult"/>,
+    /// Representation of a <see cref="StructuresCalculationScenario{ClosingStructuresInput}"/>
     /// which takes care of the representation of properties in a grid.
     /// </summary>
     public class ClosingStructuresScenarioRow : ScenarioRow<StructuresCalculationScenario<ClosingStructuresInput>>
