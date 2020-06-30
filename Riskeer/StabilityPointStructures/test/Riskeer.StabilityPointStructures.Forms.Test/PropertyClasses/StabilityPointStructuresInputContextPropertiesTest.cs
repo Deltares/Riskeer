@@ -1642,41 +1642,6 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void SetStructure_StructureInSection_UpdateSectionResults()
-        {
-            // Setup
-            mockRepository.ReplayAll();
-
-            var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
-            var inputContext = new StabilityPointStructuresInputContext(calculation.InputParameters,
-                                                                        calculation,
-                                                                        failureMechanism,
-                                                                        assessmentSection);
-
-            var newStructure = new TestStabilityPointStructure();
-            var handler = new SetPropertyValueAfterConfirmationParameterTester(Enumerable.Empty<IObservable>());
-            var properties = new StabilityPointStructuresInputContextProperties(inputContext, handler);
-
-            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
-            {
-                FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
-                {
-                    new Point2D(-10.0, -10.0),
-                    new Point2D(10.0, 10.0)
-                })
-            });
-            failureMechanism.CalculationsGroup.Children.Add(calculation);
-
-            // Call
-            properties.Structure = newStructure;
-
-            // Assert
-            Assert.AreSame(calculation, failureMechanism.SectionResults.ElementAt(0).Calculation);
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
         public void DynamicVisibleValidationMethod_StructureTypeUnknown_ReturnExpectedValues()
         {
             // Setup

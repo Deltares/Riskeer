@@ -425,43 +425,6 @@ namespace Riskeer.HeightStructures.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void SetStructure_StructureInSection_UpdateSectionResults()
-        {
-            // Setup
-            mockRepository.ReplayAll();
-
-            var failureMechanism = new HeightStructuresFailureMechanism();
-            var calculation = new StructuresCalculation<HeightStructuresInput>();
-            var inputContext = new HeightStructuresInputContext(calculation.InputParameters,
-                                                                calculation,
-                                                                failureMechanism,
-                                                                assessmentSection);
-
-            var newStructure = new TestHeightStructure();
-            var handler = new SetPropertyValueAfterConfirmationParameterTester(Enumerable.Empty<IObservable>());
-            var properties = new HeightStructuresInputContextProperties(inputContext, handler);
-
-            FailureMechanismSection failureMechanismSection =
-                FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
-                {
-                    new Point2D(-10.0, -10.0),
-                    new Point2D(10.0, 10.0)
-                });
-            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
-            {
-                failureMechanismSection
-            });
-            failureMechanism.CalculationsGroup.Children.Add(calculation);
-
-            // Call
-            properties.Structure = newStructure;
-
-            // Assert
-            Assert.AreSame(calculation, failureMechanism.SectionResults.ElementAt(0).Calculation);
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
         public void SetShouldIllustrationPointsBeCalculated_ValueChanged_UpdateDataAndNotifyObservers()
         {
             // Setup
