@@ -148,18 +148,17 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
         /// <summary>
         /// Gets or sets the break water type of the <see cref="GrassCoverErosionInwardsCalculationScenario"/>.
         /// </summary>
-        public DataGridViewComboBoxItemWrapper<BreakWaterType> BreakWaterType
+        public BreakWaterType BreakWaterType
         {
             get
             {
-                return new DataGridViewComboBoxItemWrapper<BreakWaterType>(GrassCoverErosionInwardsCalculationScenario.InputParameters.BreakWater.Type);
+                return GrassCoverErosionInwardsCalculationScenario.InputParameters.BreakWater.Type;
             }
             set
             {
-                BreakWaterType valueToSet = value.WrappedObject;
-                if (!GrassCoverErosionInwardsCalculationScenario.InputParameters.BreakWater.Type.Equals(valueToSet))
+                if (!GrassCoverErosionInwardsCalculationScenario.InputParameters.BreakWater.Type.Equals(value))
                 {
-                    PropertyChangeHelper.ChangePropertyAndNotify(() => GrassCoverErosionInwardsCalculationScenario.InputParameters.BreakWater.Type = valueToSet, propertyChangeHandler);
+                    PropertyChangeHelper.ChangePropertyAndNotify(() => GrassCoverErosionInwardsCalculationScenario.InputParameters.BreakWater.Type = value, propertyChangeHandler);
                 }
             }
         }

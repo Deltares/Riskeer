@@ -27,6 +27,7 @@ using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.Views;
+using Core.Common.Util;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.DikeProfiles;
@@ -35,6 +36,7 @@ using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Forms.ChangeHandlers;
 using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.PresentationObjects;
+using Riskeer.Common.Primitives;
 using Riskeer.GrassCoverErosionInwards.Data;
 using Riskeer.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Riskeer.GrassCoverErosionInwards.Forms.Properties;
@@ -94,7 +96,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
                 grassCoverErosionInwardsFailureMechanism = value;
                 grassCoverErosionInwardsFailureMechanismObserver.Observable = grassCoverErosionInwardsFailureMechanism;
 
-                
                 UpdateDikeProfilesColumn();
                 UpdateSelectableHydraulicBoundaryLocationsColumn();
                 UpdateSectionsListBox();
@@ -193,12 +194,14 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
 
             dataGridViewControl.AddCheckBoxColumn(nameof(GrassCoverErosionInwardsCalculationRow.UseBreakWater), Resources.GrassCoverErosionInwardsCalculation_Use_Dam);
 
-            dataGridViewControl.AddComboBoxColumn<DataGridViewComboBoxItemWrapper<BreakWaterType>>(
-                nameof(GrassCoverErosionInwardsCalculationRow.BreakWaterType),
-                Resources.GrassCoverErosionInwardsCalculation_Damtype,
-                null,
-                nameof(DataGridViewComboBoxItemWrapper<BreakWaterType>.This),
-                nameof(DataGridViewComboBoxItemWrapper<BreakWaterType>.DisplayName));
+            dataGridViewControl.AddComboBoxColumn(nameof(GrassCoverErosionInwardsCalculationRow.BreakWaterType),
+                                                  Resources.GrassCoverErosionInwardsCalculation_Damtype,
+                                                  Enum.GetValues(typeof(BreakWaterType))
+                                                      .OfType<BreakWaterType>()
+                                                      .Select(bwt => new EnumDisplayWrapper<BreakWaterType>(bwt))
+                                                      .ToArray(),
+                                                  nameof(EnumDisplayWrapper<SimpleAssessmentValidityOnlyResultType>.Value),
+                                                  nameof(EnumDisplayWrapper<SimpleAssessmentValidityOnlyResultType>.DisplayName));
 
             dataGridViewControl.AddTextBoxColumn(
                 nameof(GrassCoverErosionInwardsCalculationRow.BreakWaterHeight),
@@ -217,6 +220,9 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
             dataGridViewControl.AddTextBoxColumn(
                 nameof(GrassCoverErosionInwardsCalculationRow.StandardDeviationCriticalFlowRate),
                 Resources.GrassCoverErosionInwardsCalculation_StandardDeviation_Critical_OvertoppingRate);
+
+            UpdateDikeProfilesColumn();
+            UpdateSelectableHydraulicBoundaryLocationsColumn();
         }
 
         private void UpdateGenerateCalculationsButtonState()
@@ -295,7 +301,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
 
         private void FillAvailableDikeProfilesList(DataGridViewRow dataGridViewRow)
         {
-            var cell = (DataGridViewComboBoxCell) dataGridViewRow.Cells[selectableHydraulicBoundaryLocationColumnIndex];
+            var cell = (DataGridViewComboBoxCell) dataGridViewRow.Cells[selectableDikeProfileColumnIndex];
             DataGridViewComboBoxItemWrapper<DikeProfile>[] dataGridViewComboBoxItemWrappers = GetSelectableDikeProfileDataSource(grassCoverErosionInwardsFailureMechanism.DikeProfiles).ToArray();
             SetItemsOnObjectCollection(cell.Items, dataGridViewComboBoxItemWrappers);
         }
@@ -393,19 +399,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
             {
                 SetItemsOnObjectCollection(selectableDikeProfileColumn.Items, grassCoverErosionInwardsFailureMechanism.DikeProfiles.ToArray());
             }
-
-            var selectableBreakWaterTypesColumn = (DataGridViewComboBoxColumn) dataGridViewControl.GetColumnFromIndex(selectableBreakWaterTypesColumnIndex);
-            var breakWaterTypes = new object[]
-            {
-                BreakWaterType.Wall,
-                BreakWaterType.Caisson,
-                BreakWaterType.Dam
-            };
-
-            using (new SuspendDataGridViewColumnResizes(selectableBreakWaterTypesColumn))
-            {
-                SetItemsOnObjectCollection(selectableBreakWaterTypesColumn.Items, breakWaterTypes);
-            }
         }
 
         private IEnumerable<SelectableHydraulicBoundaryLocation> GetSelectableHydraulicBoundaryLocationsFromFailureMechanism()
@@ -434,26 +427,37 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
             UpdateDataGridViewDataSource();
         }
 
-        // private void OnGenerateCalculationsButtonClick(object sender, EventArgs e)
-        // {
-        //     if (calculationGroup == null)
-        //     {
-        //         return;
-        //     }
-        //
-        //     var dialog = new PipingSurfaceLineSelectionDialog(Parent, pipingFailureMechanism.SurfaceLines);
-        //     dialog.ShowDialog();
-        //     IEnumerable<ICalculationBase> calculationsStructure = PipingCalculationConfigurationHelper.GenerateCalculationItemsStructure(
-        //         dialog.SelectedItems,
-        //         pipingFailureMechanism.StochasticSoilModels,
-        //         pipingFailureMechanism.GeneralInput);
-        //     foreach (ICalculationBase item in calculationsStructure)
-        //     {
-        //         calculationGroup.Children.Add(item);
-        //     }
-        //
-        //     calculationGroup.NotifyObservers();
-        // }
+        private void OnGenerateCalculationsButtonClick(object sender, EventArgs e)
+        {
+            if (calculationGroup == null)
+            {
+                return;
+            }
+
+            using (var dialog = new GrassCoverErosionInwardsDikeProfileSelectionDialog(Parent, grassCoverErosionInwardsFailureMechanism.DikeProfiles))
+            {
+                dialog.ShowDialog();
+                GenerateCalculations(calculationGroup, dialog.SelectedItems);
+            }
+
+            calculationGroup.NotifyObservers();
+        }
+
+        private static void GenerateCalculations(CalculationGroup calculationGroup, IEnumerable<DikeProfile> dikeProfiles)
+        {
+            foreach (DikeProfile profile in dikeProfiles)
+            {
+                var calculation = new GrassCoverErosionInwardsCalculationScenario
+                {
+                    Name = NamingHelper.GetUniqueName(calculationGroup.Children, profile.Name, c => c.Name),
+                    InputParameters =
+                    {
+                        DikeProfile = profile
+                    }
+                };
+                calculationGroup.Children.Add(calculation);
+            }
+        }
 
         private void OnGrassCoverErosionInwardsFailureMechanismUpdate()
         {

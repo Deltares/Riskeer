@@ -118,6 +118,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
             resources.ApplyResources(this.buttonGenerateCalculations, "buttonGenerateCalculations");
             this.buttonGenerateCalculations.Name = "buttonGenerateCalculations";
             this.buttonGenerateCalculations.UseVisualStyleBackColor = true;
+            this.buttonGenerateCalculations.MouseClick += new System.Windows.Forms.MouseEventHandler(this.OnGenerateCalculationsButtonClick);
             // 
             // GrassCoverErosionInwardsCalculationsView
             // 
