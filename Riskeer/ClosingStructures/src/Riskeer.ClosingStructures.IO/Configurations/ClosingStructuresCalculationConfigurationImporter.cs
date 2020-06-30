@@ -24,7 +24,6 @@ using System.Collections.Generic;
 using Core.Common.Base.Data;
 using Riskeer.ClosingStructures.Data;
 using Riskeer.ClosingStructures.IO.Configurations.Helpers;
-using Riskeer.ClosingStructures.Util;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.Hydraulics;
@@ -46,7 +45,6 @@ namespace Riskeer.ClosingStructures.IO.Configurations
         private readonly IEnumerable<HydraulicBoundaryLocation> availableHydraulicBoundaryLocations;
         private readonly IEnumerable<ForeshoreProfile> availableForeshoreProfiles;
         private readonly IEnumerable<ClosingStructure> availableStructures;
-        private readonly ClosingStructuresFailureMechanism failureMechanism;
 
         /// <summary>
         /// Create new instance of <see cref="ClosingStructuresCalculationConfigurationImporter"/>
@@ -59,15 +57,13 @@ namespace Riskeer.ClosingStructures.IO.Configurations
         /// the imported objects contain the right foreshore profile.</param>
         /// <param name="structures">The structures used to check if
         /// the imported objects contain the right structure.</param>
-        /// <param name="failureMechanism">The failure mechanism used to propagate changes.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public ClosingStructuresCalculationConfigurationImporter(
             string xmlFilePath,
             CalculationGroup importTarget,
             IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations,
             IEnumerable<ForeshoreProfile> foreshoreProfiles,
-            IEnumerable<ClosingStructure> structures,
-            ClosingStructuresFailureMechanism failureMechanism)
+            IEnumerable<ClosingStructure> structures)
             : base(xmlFilePath, importTarget)
         {
             if (hydraulicBoundaryLocations == null)
@@ -85,22 +81,9 @@ namespace Riskeer.ClosingStructures.IO.Configurations
                 throw new ArgumentNullException(nameof(structures));
             }
 
-            if (failureMechanism == null)
-            {
-                throw new ArgumentNullException(nameof(failureMechanism));
-            }
-
             availableHydraulicBoundaryLocations = hydraulicBoundaryLocations;
             availableForeshoreProfiles = foreshoreProfiles;
             availableStructures = structures;
-            this.failureMechanism = failureMechanism;
-        }
-
-        protected override void DoPostImportUpdates()
-        {
-            ClosingStructuresHelper.UpdateCalculationToSectionResultAssignments(failureMechanism);
-
-            base.DoPostImportUpdates();
         }
 
         protected override ClosingStructuresCalculationConfigurationReader CreateCalculationConfigurationReader(string xmlFilePath)

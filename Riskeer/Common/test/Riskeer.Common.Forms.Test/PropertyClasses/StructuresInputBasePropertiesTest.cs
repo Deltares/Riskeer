@@ -1038,11 +1038,6 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             {
                 yield return new TestStructure();
             }
-
-            protected override void AfterSettingStructure()
-            {
-                AfterSettingStructureCalled = true;
-            }
         }
 
         private class SimpleInputContext

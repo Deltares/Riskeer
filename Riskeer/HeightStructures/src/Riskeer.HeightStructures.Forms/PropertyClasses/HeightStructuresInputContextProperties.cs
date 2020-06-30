@@ -157,11 +157,6 @@ namespace Riskeer.HeightStructures.Forms.PropertyClasses
                    || base.ShouldPropertyBeReadOnlyInAbsenseOfStructure(property);
         }
 
-        protected override void AfterSettingStructure()
-        {
-            HeightStructuresHelper.UpdateCalculationToSectionResultAssignments(data.FailureMechanism);
-        }
-
         #region General data
 
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General),

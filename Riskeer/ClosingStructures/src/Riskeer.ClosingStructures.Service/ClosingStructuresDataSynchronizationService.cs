@@ -25,7 +25,6 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using Core.Common.Base;
 using Riskeer.ClosingStructures.Data;
-using Riskeer.ClosingStructures.Util;
 using Riskeer.Common.Data;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.Hydraulics;
@@ -221,10 +220,6 @@ namespace Riskeer.ClosingStructures.Service
                 changedObservables.Add(calculation.InputParameters);
             }
 
-            IEnumerable<ClosingStructuresFailureMechanismSectionResult> affectedSectionResults =
-                ClosingStructuresHelper.UpdateCalculationToSectionResultAssignments(failureMechanism);
-
-            changedObservables.AddRange(affectedSectionResults);
             return changedObservables;
         }
     }

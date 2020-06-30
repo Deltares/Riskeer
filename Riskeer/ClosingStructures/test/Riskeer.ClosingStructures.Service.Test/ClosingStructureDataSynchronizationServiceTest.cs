@@ -132,12 +132,6 @@ namespace Riskeer.ClosingStructures.Service.Test
                 })
             });
 
-            ClosingStructuresFailureMechanismSectionResult sectionWithCalculationAtStructureToRemove = failureMechanism.SectionResults.ElementAt(0);
-            sectionWithCalculationAtStructureToRemove.Calculation = calculationWithStructureToRemove;
-
-            ClosingStructuresFailureMechanismSectionResult sectionWithCalculationAtStructureToKeep = failureMechanism.SectionResults.ElementAt(1);
-            sectionWithCalculationAtStructureToKeep.Calculation = calculationWithStructureToKeepAndOutput;
-
             // Call
             IEnumerable<IObservable> affectedObjects = ClosingStructuresDataSynchronizationService.RemoveStructure(
                 structureToRemove, failureMechanism);
@@ -149,18 +143,15 @@ namespace Riskeer.ClosingStructures.Service.Test
             Assert.IsNull(calculationWithStructureToRemove.InputParameters.Structure);
             Assert.IsNull(calculationWithStructureToRemoveAndOutput.InputParameters.Structure);
             Assert.IsNull(calculationWithStructureToRemoveAndOutput.Output);
-            Assert.IsNull(sectionWithCalculationAtStructureToRemove.Calculation);
             Assert.IsNotNull(calculationWithOutput.Output);
             Assert.IsNotNull(calculationWithStructureToKeepAndOutput.Output);
             Assert.IsNotNull(calculationWithStructureToKeepAndOutput.InputParameters.Structure);
-            Assert.AreSame(sectionWithCalculationAtStructureToKeep.Calculation, calculationWithStructureToKeepAndOutput);
 
             IObservable[] expectedAffectedObjects =
             {
                 calculationWithStructureToRemove.InputParameters,
                 calculationWithStructureToRemoveAndOutput,
                 calculationWithStructureToRemoveAndOutput.InputParameters,
-                sectionWithCalculationAtStructureToRemove,
                 failureMechanism.ClosingStructures
             };
             CollectionAssert.AreEquivalent(expectedAffectedObjects, affectedObjects);
@@ -244,11 +235,6 @@ namespace Riskeer.ClosingStructures.Service.Test
                 })
             });
 
-            ClosingStructuresFailureMechanismSectionResult sectionWithCalculationAtStructureA = failureMechanism.SectionResults.ElementAt(0);
-            sectionWithCalculationAtStructureA.Calculation = calculationWithStructureA;
-
-            ClosingStructuresFailureMechanismSectionResult sectionWithCalculationAtStructureB = failureMechanism.SectionResults.ElementAt(1);
-            sectionWithCalculationAtStructureB.Calculation = calculationWithStructureBAndOutput;
 
             // Call
             IEnumerable<IObservable> affectedObjects = ClosingStructuresDataSynchronizationService.RemoveAllStructures(failureMechanism);
@@ -262,8 +248,6 @@ namespace Riskeer.ClosingStructures.Service.Test
             Assert.IsNull(calculationWithStructureBAndOutput.InputParameters.Structure);
             Assert.IsNull(calculationWithStructureAAndOutput.Output);
             Assert.IsNull(calculationWithStructureBAndOutput.Output);
-            Assert.IsNull(sectionWithCalculationAtStructureA.Calculation);
-            Assert.IsNull(sectionWithCalculationAtStructureB.Calculation);
             Assert.IsNotNull(calculationWithOutput.Output);
 
             IObservable[] expectedAffectedObjects =
@@ -273,8 +257,6 @@ namespace Riskeer.ClosingStructures.Service.Test
                 calculationWithStructureAAndOutput.InputParameters,
                 calculationWithStructureBAndOutput,
                 calculationWithStructureBAndOutput.InputParameters,
-                sectionWithCalculationAtStructureA,
-                sectionWithCalculationAtStructureB,
                 failureMechanism.ClosingStructures
             };
             CollectionAssert.AreEquivalent(expectedAffectedObjects, affectedObjects);

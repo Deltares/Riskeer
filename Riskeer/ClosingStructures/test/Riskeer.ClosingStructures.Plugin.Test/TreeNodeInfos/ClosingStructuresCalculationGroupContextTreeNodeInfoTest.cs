@@ -1773,45 +1773,6 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void OnNodeRemoved_CalculationInGroupAssignedToSection_CalculationDetachedFromSection()
-        {
-            // Setup
-            var failureMechanism = new ClosingStructuresFailureMechanism();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var group = new CalculationGroup();
-            var parentGroup = new CalculationGroup();
-            var nodeData = new ClosingStructuresCalculationGroupContext(group,
-                                                                        parentGroup,
-                                                                        failureMechanism,
-                                                                        assessmentSection);
-            var parentNodeData = new ClosingStructuresCalculationGroupContext(parentGroup,
-                                                                              null,
-                                                                              failureMechanism,
-                                                                              assessmentSection);
-
-            mocks.ReplayAll();
-
-            parentGroup.Children.Add(group);
-
-            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
-            {
-                FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
-            });
-
-            var calculation = new StructuresCalculationScenario<ClosingStructuresInput>();
-            group.Children.Add(calculation);
-
-            ClosingStructuresFailureMechanismSectionResult result = failureMechanism.SectionResults.First();
-            result.Calculation = calculation;
-
-            // Call
-            info.OnNodeRemoved(nodeData, parentNodeData);
-
-            // Assert
-            Assert.IsNull(result.Calculation);
-        }
-
-        [Test]
         public void OnNodeRemoved_NestedCalculationGroupContainingCalculations_RemoveGroupAndCalculationsAndNotifyObservers()
         {
             // Setup

@@ -215,8 +215,7 @@ namespace Riskeer.ClosingStructures.IO.Test.Configurations
                                                                                  new CalculationGroup(),
                                                                                  Enumerable.Empty<HydraulicBoundaryLocation>(),
                                                                                  Enumerable.Empty<ForeshoreProfile>(),
-                                                                                 Enumerable.Empty<ClosingStructure>(),
-                                                                                 new ClosingStructuresFailureMechanism());
+                                                                                 Enumerable.Empty<ClosingStructure>());
 
             // AssertTC
             Assert.IsInstanceOf<CalculationConfigurationImporter<ClosingStructuresCalculationConfigurationReader, ClosingStructuresCalculationConfiguration>>(importer);
@@ -227,7 +226,7 @@ namespace Riskeer.ClosingStructures.IO.Test.Configurations
         {
             // Call
             void Call() => new ClosingStructuresCalculationConfigurationImporter("", new CalculationGroup(), null, Enumerable.Empty<ForeshoreProfile>(),
-                                                                                 Enumerable.Empty<ClosingStructure>(), new ClosingStructuresFailureMechanism());
+                                                                                 Enumerable.Empty<ClosingStructure>());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -239,7 +238,7 @@ namespace Riskeer.ClosingStructures.IO.Test.Configurations
         {
             // Call
             void Call() => new ClosingStructuresCalculationConfigurationImporter("", new CalculationGroup(), Enumerable.Empty<HydraulicBoundaryLocation>(),
-                                                                                 null, Enumerable.Empty<ClosingStructure>(), new ClosingStructuresFailureMechanism());
+                                                                                 null, Enumerable.Empty<ClosingStructure>());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -251,23 +250,11 @@ namespace Riskeer.ClosingStructures.IO.Test.Configurations
         {
             // Call
             void Call() => new ClosingStructuresCalculationConfigurationImporter("", new CalculationGroup(), Enumerable.Empty<HydraulicBoundaryLocation>(),
-                                                                                 Enumerable.Empty<ForeshoreProfile>(), null, new ClosingStructuresFailureMechanism());
+                                                                                 Enumerable.Empty<ForeshoreProfile>(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("structures", exception.ParamName);
-        }
-
-        [Test]
-        public void Constructor_FailureMechanismNull_ThrowArgumentNullException()
-        {
-            // Call
-            void Call() => new ClosingStructuresCalculationConfigurationImporter("", new CalculationGroup(), Enumerable.Empty<HydraulicBoundaryLocation>(),
-                                                                                 Enumerable.Empty<ForeshoreProfile>(), Enumerable.Empty<ClosingStructure>(), null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("failureMechanism", exception.ParamName);
         }
 
         [Test]
@@ -292,8 +279,7 @@ namespace Riskeer.ClosingStructures.IO.Test.Configurations
                                                                                  new ClosingStructure[]
                                                                                  {
                                                                                      structure
-                                                                                 },
-                                                                                 new ClosingStructuresFailureMechanism());
+                                                                                 });
             var successful = false;
 
             // Call
@@ -322,8 +308,7 @@ namespace Riskeer.ClosingStructures.IO.Test.Configurations
                 {
                     foreshoreProfile
                 },
-                Enumerable.Empty<ClosingStructure>(),
-                new ClosingStructuresFailureMechanism());
+                Enumerable.Empty<ClosingStructure>());
 
             var successful = false;
 
@@ -364,8 +349,7 @@ namespace Riskeer.ClosingStructures.IO.Test.Configurations
                 new[]
                 {
                     structure
-                },
-                new ClosingStructuresFailureMechanism());
+                });
 
             // Call
             var successful = false;
@@ -479,8 +463,7 @@ namespace Riskeer.ClosingStructures.IO.Test.Configurations
                 new[]
                 {
                     structure
-                },
-                new ClosingStructuresFailureMechanism());
+                });
 
             var expectedCalculation = new StructuresCalculationScenario<ClosingStructuresInput>
             {
@@ -564,8 +547,7 @@ namespace Riskeer.ClosingStructures.IO.Test.Configurations
                 new[]
                 {
                     structure
-                },
-                new ClosingStructuresFailureMechanism());
+                });
 
             var expectedCalculation = new StructuresCalculationScenario<ClosingStructuresInput>
             {
@@ -641,8 +623,7 @@ namespace Riskeer.ClosingStructures.IO.Test.Configurations
                 new[]
                 {
                     structure
-                },
-                new ClosingStructuresFailureMechanism());
+                });
 
             var expectedCalculation = new StructuresCalculationScenario<ClosingStructuresInput>
             {
@@ -656,53 +637,6 @@ namespace Riskeer.ClosingStructures.IO.Test.Configurations
             Assert.IsTrue(successful);
             Assert.AreEqual(1, calculationGroup.Children.Count);
             AssertCalculation(expectedCalculation, (StructuresCalculationScenario<ClosingStructuresInput>) calculationGroup.Children[0]);
-        }
-
-        [Test]
-        public void DoPostImport_CalculationWithStructureInSection_AssignsCalculationToSectionResult()
-        {
-            // Setup
-            string filePath = Path.Combine(importerPath, "validConfigurationFullCalculation.xml");
-            var calculationGroup = new CalculationGroup();
-
-            var failureMechanism = new ClosingStructuresFailureMechanism();
-
-            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
-            {
-                FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
-                {
-                    new Point2D(0, 0),
-                    new Point2D(10, 10)
-                })
-            });
-
-            var calculation = new StructuresCalculation<ClosingStructuresInput>
-            {
-                InputParameters =
-                {
-                    Structure = new TestClosingStructure(new Point2D(5, 5))
-                }
-            };
-            failureMechanism.CalculationsGroup.Children.Add(
-                calculation);
-
-            var importer = new ClosingStructuresCalculationConfigurationImporter(
-                filePath,
-                calculationGroup,
-                Enumerable.Empty<HydraulicBoundaryLocation>(),
-                Enumerable.Empty<ForeshoreProfile>(),
-                Enumerable.Empty<ClosingStructure>(),
-                failureMechanism);
-
-            // Preconditions
-            Assert.AreEqual(1, failureMechanism.SectionResults.Count());
-            Assert.IsNull(failureMechanism.SectionResults.ElementAt(0).Calculation);
-
-            // Call
-            importer.DoPostImport();
-
-            // Assert
-            Assert.AreSame(calculation, failureMechanism.SectionResults.ElementAt(0).Calculation);
         }
 
         [TestCase("validConfigurationUnknownForeshoreProfile.xml",
@@ -722,16 +656,15 @@ namespace Riskeer.ClosingStructures.IO.Test.Configurations
                                                                                  calculationGroup,
                                                                                  Enumerable.Empty<HydraulicBoundaryLocation>(),
                                                                                  Enumerable.Empty<ForeshoreProfile>(),
-                                                                                 Enumerable.Empty<ClosingStructure>(),
-                                                                                 new ClosingStructuresFailureMechanism());
+                                                                                 Enumerable.Empty<ClosingStructure>());
             var successful = false;
 
             // Call
-            Action call = () => successful = importer.Import();
+            void Call() => successful = importer.Import();
 
             // Assert
             string expectedMessage = $"{expectedErrorMessage} Berekening 'Berekening 1' is overgeslagen.";
-            TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Error), 2);
+            TestHelper.AssertLogMessageWithLevelIsGenerated(Call, Tuple.Create(expectedMessage, LogLevelConstant.Error), 2);
             Assert.IsTrue(successful);
             CollectionAssert.IsEmpty(calculationGroup.Children);
         }

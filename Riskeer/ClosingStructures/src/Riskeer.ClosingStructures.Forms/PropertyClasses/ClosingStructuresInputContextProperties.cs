@@ -30,7 +30,6 @@ using Core.Common.Util.Attributes;
 using Riskeer.ClosingStructures.Data;
 using Riskeer.ClosingStructures.Forms.PresentationObjects;
 using Riskeer.ClosingStructures.Forms.Properties;
-using Riskeer.ClosingStructures.Util;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Forms.ChangeHandlers;
@@ -218,12 +217,6 @@ namespace Riskeer.ClosingStructures.Forms.PropertyClasses
         public override IEnumerable<ClosingStructure> GetAvailableStructures()
         {
             return data.FailureMechanism.ClosingStructures;
-        }
-
-        protected override void AfterSettingStructure()
-        {
-            ClosingStructuresHelper.UpdateCalculationToSectionResultAssignments(
-                data.FailureMechanism);
         }
 
         protected override bool ShouldPropertyBeReadOnlyInAbsenseOfStructure(string property)

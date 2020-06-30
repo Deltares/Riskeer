@@ -902,41 +902,6 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void Structure_StructureInSection_UpdateSectionResults()
-        {
-            // Setup
-            mockRepository.ReplayAll();
-
-            var failureMechanism = new ClosingStructuresFailureMechanism();
-            var calculation = new StructuresCalculation<ClosingStructuresInput>();
-            var inputContext = new ClosingStructuresInputContext(calculation.InputParameters,
-                                                                 calculation,
-                                                                 failureMechanism,
-                                                                 assessmentSection);
-
-            var newStructure = new TestClosingStructure();
-            var handler = new SetPropertyValueAfterConfirmationParameterTester(Enumerable.Empty<IObservable>());
-            var properties = new ClosingStructuresInputContextProperties(inputContext, handler);
-
-            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
-            {
-                new FailureMechanismSection("Section", new[]
-                {
-                    new Point2D(-10.0, -10.0),
-                    new Point2D(10.0, 10.0)
-                })
-            });
-            failureMechanism.CalculationsGroup.Children.Add(calculation);
-
-            // Call
-            properties.Structure = newStructure;
-
-            // Assert
-            Assert.AreSame(calculation, failureMechanism.SectionResults.ElementAt(0).Calculation);
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
         public void DynamicVisibleValidationMethod_StructureIsVerticalWall_ReturnExpectedVisibility()
         {
             // Setup

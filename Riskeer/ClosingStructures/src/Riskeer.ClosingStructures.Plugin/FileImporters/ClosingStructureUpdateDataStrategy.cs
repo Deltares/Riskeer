@@ -25,7 +25,6 @@ using System.Linq;
 using Core.Common.Base;
 using Riskeer.ClosingStructures.Data;
 using Riskeer.ClosingStructures.Service;
-using Riskeer.ClosingStructures.Util;
 using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Data.UpdateDataStrategies;
 using Riskeer.Common.Forms;
@@ -74,8 +73,6 @@ namespace Riskeer.ClosingStructures.Plugin.FileImporters
 
             affectedObjects.AddRange(GetAffectedCalculationsWithClosingStructure(structure)
                                          .Select(affectedCalculation => affectedCalculation.InputParameters));
-
-            affectedObjects.AddRange(ClosingStructuresHelper.UpdateCalculationToSectionResultAssignments(FailureMechanism));
 
             return affectedObjects;
         }

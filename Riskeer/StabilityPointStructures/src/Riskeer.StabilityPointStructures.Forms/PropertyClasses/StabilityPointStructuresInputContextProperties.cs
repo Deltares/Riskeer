@@ -213,11 +213,6 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
             return data.FailureMechanism.StabilityPointStructures;
         }
 
-        protected override void AfterSettingStructure()
-        {
-            StabilityPointStructuresHelper.UpdateCalculationToSectionResultAssignments(data.FailureMechanism);
-        }
-
         protected override bool ShouldPropertyBeReadOnlyInAbsenseOfStructure(string property)
         {
             return nameof(InflowModelType).Equals(property)

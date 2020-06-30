@@ -174,11 +174,6 @@ namespace Riskeer.Common.Forms.PropertyClasses
         /// </summary>
         protected IObservablePropertyChangeHandler PropertyChangeHandler { get; }
 
-        /// <summary>
-        /// The action to perform after setting the <see cref="Structure"/> property.
-        /// </summary>
-        protected abstract void AfterSettingStructure();
-
         protected bool HasStructure()
         {
             return data.WrappedData.Structure != null;
@@ -329,11 +324,7 @@ namespace Riskeer.Common.Forms.PropertyClasses
             }
             set
             {
-                PropertyChangeHelper.ChangePropertyAndNotify(() =>
-                {
-                    data.WrappedData.Structure = value;
-                    AfterSettingStructure();
-                }, PropertyChangeHandler);
+                PropertyChangeHelper.ChangePropertyAndNotify(() => data.WrappedData.Structure = value, PropertyChangeHandler);
             }
         }
 

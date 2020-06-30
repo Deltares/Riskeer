@@ -39,7 +39,6 @@ using Riskeer.ClosingStructures.IO;
 using Riskeer.ClosingStructures.IO.Configurations;
 using Riskeer.ClosingStructures.Plugin.FileImporters;
 using Riskeer.ClosingStructures.Service;
-using Riskeer.ClosingStructures.Util;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
@@ -225,8 +224,7 @@ namespace Riskeer.ClosingStructures.Plugin
                     context.WrappedData,
                     context.AssessmentSection.HydraulicBoundaryDatabase.Locations,
                     context.AvailableForeshoreProfiles,
-                    context.AvailableStructures,
-                    context.FailureMechanism));
+                    context.AvailableStructures));
         }
 
         public override IEnumerable<UpdateInfo> GetUpdateInfos()
@@ -639,8 +637,6 @@ namespace Riskeer.ClosingStructures.Plugin
                 };
                 calculations.Add(calculation);
             }
-
-            ClosingStructuresHelper.UpdateCalculationToSectionResultAssignments(failureMechanism);
         }
 
         private static void AddCalculation(ClosingStructuresCalculationGroupContext context)
@@ -656,10 +652,6 @@ namespace Riskeer.ClosingStructures.Plugin
         private static void CalculationGroupContextOnNodeRemoved(ClosingStructuresCalculationGroupContext context, object parentNodeData)
         {
             var parentGroupContext = (ClosingStructuresCalculationGroupContext) parentNodeData;
-
-            parentGroupContext.WrappedData.Children.Remove(context.WrappedData);
-
-            ClosingStructuresHelper.UpdateCalculationToSectionResultAssignments(context.FailureMechanism);
 
             parentGroupContext.WrappedData.Children.Remove(context.WrappedData);
             parentGroupContext.NotifyObservers();
@@ -764,7 +756,6 @@ namespace Riskeer.ClosingStructures.Plugin
             if (parentData is ClosingStructuresCalculationGroupContext calculationGroupContext)
             {
                 calculationGroupContext.WrappedData.Children.Remove(context.WrappedData);
-                ClosingStructuresHelper.UpdateCalculationToSectionResultAssignments(context.FailureMechanism);
                 calculationGroupContext.NotifyObservers();
             }
         }

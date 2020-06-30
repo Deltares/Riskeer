@@ -1263,42 +1263,6 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
             CollectionAssert.DoesNotContain(group.Children, elementToBeRemoved);
         }
 
-        [Test]
-        public void OnNodeRemoved_CalculationInGroupAssignedToSection_CalculationDetachedFromSection()
-        {
-            // Setup
-            var group = new CalculationGroup();
-            var failureMechanism = new ClosingStructuresFailureMechanism();
-            var elementToBeRemoved = new StructuresCalculationScenario<ClosingStructuresInput>();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var calculationContext = new ClosingStructuresCalculationScenarioContext(elementToBeRemoved,
-                                                                                     group,
-                                                                                     failureMechanism,
-                                                                                     assessmentSection);
-            var groupContext = new ClosingStructuresCalculationGroupContext(group,
-                                                                            null,
-                                                                            failureMechanism,
-                                                                            assessmentSection);
-
-            mocks.ReplayAll();
-
-            group.Children.Add(elementToBeRemoved);
-
-            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
-            {
-                FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
-            });
-
-            ClosingStructuresFailureMechanismSectionResult result = failureMechanism.SectionResults.First();
-            result.Calculation = elementToBeRemoved;
-
-            // Call
-            info.OnNodeRemoved(calculationContext, groupContext);
-
-            // Assert
-            Assert.IsNull(result.Calculation);
-        }
-
         public override void Setup()
         {
             mocks = new MockRepository();

@@ -292,64 +292,6 @@ namespace Riskeer.ClosingStructures.Plugin.Test.FileImporters
         }
 
         [Test]
-        public void UpdateStructuresWithImportedData_CalculationWithSectionResultAndStructure_DataUpdatedAndReturnsAffectedObject()
-        {
-            // Setup
-            var location = new Point2D(1, 1);
-            var structure = new TestClosingStructure(location);
-
-            var calculation = new StructuresCalculation<ClosingStructuresInput>
-            {
-                InputParameters =
-                {
-                    Structure = structure
-                }
-            };
-
-            var failureMechanism = new ClosingStructuresFailureMechanism
-            {
-                CalculationsGroup =
-                {
-                    Children =
-                    {
-                        calculation
-                    }
-                }
-            };
-
-            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
-            {
-                FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
-                {
-                    location
-                })
-            });
-            ClosingStructuresFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.First();
-            sectionResult.Calculation = calculation;
-
-            failureMechanism.ClosingStructures.AddRange(new[]
-            {
-                structure
-            }, sourceFilePath);
-
-            var strategy = new ClosingStructureReplaceDataStrategy(failureMechanism);
-
-            // Call
-            IEnumerable<IObservable> affectedObjects = strategy.UpdateStructuresWithImportedData(Enumerable.Empty<ClosingStructure>(),
-                                                                                                 sourceFilePath).ToArray();
-
-            // Assert
-            Assert.IsNull(sectionResult.Calculation);
-            Assert.IsNull(calculation.InputParameters.Structure);
-            CollectionAssert.AreEquivalent(new IObservable[]
-            {
-                calculation.InputParameters,
-                sectionResult,
-                failureMechanism.ClosingStructures
-            }, affectedObjects);
-        }
-
-        [Test]
         public void UpdateStructuresWithImportedData_ImportedDataContainsDuplicateIds_ThrowsUpdateDataException()
         {
             // Setup
