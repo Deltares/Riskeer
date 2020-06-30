@@ -480,12 +480,12 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
             {
                 Children =
                 {
-                    new StructuresCalculation<ClosingStructuresInput>()
+                    new StructuresCalculationScenario<ClosingStructuresInput>()
                 }
             };
 
             var failureMechanism = new TestClosingStructuresFailureMechanism();
-            failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<ClosingStructuresInput>());
+            failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculationScenario<ClosingStructuresInput>());
 
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
 
@@ -530,12 +530,12 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
             {
                 Children =
                 {
-                    new StructuresCalculation<ClosingStructuresInput>()
+                    new StructuresCalculationScenario<ClosingStructuresInput>()
                 }
             };
 
             var failureMechanism = new TestClosingStructuresFailureMechanism();
-            failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<ClosingStructuresInput>());
+            failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculationScenario<ClosingStructuresInput>());
 
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null, mocks, "invalidFilePath");
 
@@ -582,14 +582,14 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
             {
                 Children =
                 {
-                    new StructuresCalculation<ClosingStructuresInput>()
+                    new StructuresCalculationScenario<ClosingStructuresInput>()
                 }
             };
 
             string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
 
             var failureMechanism = new TestClosingStructuresFailureMechanism();
-            failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<ClosingStructuresInput>());
+            failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculationScenario<ClosingStructuresInput>());
 
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
@@ -638,7 +638,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
             // Setup
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
             var failureMechanism = new TestClosingStructuresFailureMechanism();
-            var calculation = new StructuresCalculation<ClosingStructuresInput>
+            var calculation = new StructuresCalculationScenario<ClosingStructuresInput>
             {
                 InputParameters =
                 {
@@ -692,7 +692,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
             var failureMechanism = new TestClosingStructuresFailureMechanism();
 
-            var calculation = new StructuresCalculation<ClosingStructuresInput>
+            var calculation = new StructuresCalculationScenario<ClosingStructuresInput>
             {
                 InputParameters =
                 {
@@ -1181,7 +1181,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
                                                                         null,
                                                                         failureMechanism,
                                                                         assessmentSection);
-            var calculation = new StructuresCalculation<ClosingStructuresInput>
+            var calculation = new StructuresCalculationScenario<ClosingStructuresInput>
             {
                 Name = "Nieuwe berekening"
             };
@@ -1209,7 +1209,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
                     // Assert
                     Assert.AreEqual(2, group.Children.Count);
                     ICalculationBase newlyAddedItem = group.Children.Last();
-                    Assert.IsInstanceOf<StructuresCalculation<ClosingStructuresInput>>(newlyAddedItem);
+                    Assert.IsInstanceOf<StructuresCalculationScenario<ClosingStructuresInput>>(newlyAddedItem);
                     Assert.AreEqual("Nieuwe berekening (1)", newlyAddedItem.Name,
                                     "An item with the same name default name already exists, therefore '(1)' needs to be appended.");
                 }
@@ -1256,7 +1256,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
             {
                 Children =
                 {
-                    new StructuresCalculation<ClosingStructuresInput>()
+                    new StructuresCalculationScenario<ClosingStructuresInput>()
                 }
             };
 
@@ -1294,7 +1294,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
             {
                 Children =
                 {
-                    new StructuresCalculation<ClosingStructuresInput>
+                    new StructuresCalculationScenario<ClosingStructuresInput>
                     {
                         InputParameters =
                         {
@@ -1339,7 +1339,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
             {
                 Children =
                 {
-                    new StructuresCalculation<ClosingStructuresInput>
+                    new StructuresCalculationScenario<ClosingStructuresInput>
                     {
                         InputParameters =
                         {
@@ -1382,7 +1382,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
             // Given
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
             var structure = new TestClosingStructure();
-            var calculation = new StructuresCalculation<ClosingStructuresInput>
+            var calculation = new StructuresCalculationScenario<ClosingStructuresInput>
             {
                 InputParameters =
                 {
@@ -1429,7 +1429,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
             // Given
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
             var structure = new TestClosingStructure();
-            var calculation = new StructuresCalculation<ClosingStructuresInput>
+            var calculation = new StructuresCalculationScenario<ClosingStructuresInput>
             {
                 InputParameters =
                 {
@@ -1490,7 +1490,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
             // Given
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
             var structure = new TestClosingStructure();
-            var calculation = new StructuresCalculation<ClosingStructuresInput>
+            var calculation = new StructuresCalculationScenario<ClosingStructuresInput>
             {
                 InputParameters =
                 {
@@ -1558,7 +1558,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
                 ClosingStructure structure2 = new TestClosingStructure("Structure 2");
 
                 var existingCalculationGroup = new CalculationGroup();
-                var existingCalculation = new StructuresCalculation<ClosingStructuresInput>();
+                var existingCalculation = new StructuresCalculationScenario<ClosingStructuresInput>();
                 var failureMechanism = new ClosingStructuresFailureMechanism
                 {
                     CalculationsGroup =
@@ -1609,7 +1609,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
                     Assert.AreEqual(3, failureMechanism.CalculationsGroup.Children.Count);
                     Assert.AreSame(existingCalculationGroup, failureMechanism.CalculationsGroup.Children[0]);
                     Assert.AreSame(existingCalculation, failureMechanism.CalculationsGroup.Children[1]);
-                    var generatedCalculation = failureMechanism.CalculationsGroup.Children[2] as StructuresCalculation<ClosingStructuresInput>;
+                    var generatedCalculation = failureMechanism.CalculationsGroup.Children[2] as StructuresCalculationScenario<ClosingStructuresInput>;
                     Assert.IsNotNull(generatedCalculation);
                     Assert.AreSame(structure1, generatedCalculation.InputParameters.Structure);
                 }
@@ -1664,7 +1664,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
                     contextMenu.Items[contextMenuGenerateCalculationsIndexRootGroup].PerformClick();
 
                     // Then
-                    Assert.AreEqual(0, failureMechanism.Calculations.OfType<StructuresCalculation<ClosingStructuresInput>>().Count());
+                    Assert.AreEqual(0, failureMechanism.Calculations.OfType<StructuresCalculationScenario<ClosingStructuresInput>>().Count());
                 }
             }
         }
@@ -1686,7 +1686,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
                     {
                         Children =
                         {
-                            new StructuresCalculation<ClosingStructuresInput>
+                            new StructuresCalculationScenario<ClosingStructuresInput>
                             {
                                 Name = existingCalculationName
                             }
@@ -1730,7 +1730,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
                     contextMenu.Items[contextMenuGenerateCalculationsIndexRootGroup].PerformClick();
 
                     // Then
-                    StructuresCalculation<ClosingStructuresInput>[] closingStructuresCalculations = failureMechanism.Calculations.OfType<StructuresCalculation<ClosingStructuresInput>>().ToArray();
+                    StructuresCalculationScenario<ClosingStructuresInput>[] closingStructuresCalculations = failureMechanism.Calculations.OfType<StructuresCalculationScenario<ClosingStructuresInput>>().ToArray();
                     Assert.AreEqual(2, closingStructuresCalculations.Length);
                     Assert.AreEqual(expectedNewName, closingStructuresCalculations[1].Name);
                 }
@@ -1798,7 +1798,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             });
 
-            var calculation = new StructuresCalculation<ClosingStructuresInput>();
+            var calculation = new StructuresCalculationScenario<ClosingStructuresInput>();
             group.Children.Add(calculation);
 
             ClosingStructuresFailureMechanismSectionResult result = failureMechanism.SectionResults.First();
@@ -1828,7 +1828,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
                                                                               null,
                                                                               failureMechanism,
                                                                               assessmentSection);
-            var calculation = new StructuresCalculation<ClosingStructuresInput>();
+            var calculation = new StructuresCalculationScenario<ClosingStructuresInput>();
 
             observer.Expect(o => o.UpdateObserver());
 
