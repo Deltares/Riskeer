@@ -479,10 +479,10 @@ namespace Demo.Riskeer.Test.Commands
         {
             Assert.AreEqual(1, demoAssessmentSection.StabilityPointStructures.CalculationsGroup.Children.Count);
             AssertExpectedStabilityPointStructureValues(demoAssessmentSection.StabilityPointStructures.StabilityPointStructures[0]);
-            StructuresCalculation<StabilityPointStructuresInput> calculation = demoAssessmentSection.StabilityPointStructures
-                                                                                                    .Calculations
-                                                                                                    .OfType<StructuresCalculation<StabilityPointStructuresInput>>()
-                                                                                                    .First();
+            StructuresCalculationScenario<StabilityPointStructuresInput> calculation = demoAssessmentSection.StabilityPointStructures
+                                                                                                            .Calculations
+                                                                                                            .OfType<StructuresCalculationScenario<StabilityPointStructuresInput>>()
+                                                                                                            .First();
             AssertExpectedStabilityPointStructuresInput(calculation.InputParameters);
         }
 

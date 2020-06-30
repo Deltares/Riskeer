@@ -633,7 +633,7 @@ namespace Demo.Riskeer.Commands
                 CreateDemoStabilityPointStructure()
             }, "stabilityPointStructurePath");
 
-            var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
+            var calculation = new StructuresCalculationScenario<StabilityPointStructuresInput>();
             failureMechanism.CalculationsGroup.Children.Add(calculation);
             calculation.InputParameters.HydraulicBoundaryLocation = demoAssessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001);
             calculation.InputParameters.NotifyObservers();
