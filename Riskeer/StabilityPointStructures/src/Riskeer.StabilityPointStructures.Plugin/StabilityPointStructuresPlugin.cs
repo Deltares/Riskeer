@@ -121,7 +121,7 @@ namespace Riskeer.StabilityPointStructures.Plugin
                 GetViewData = context => context.WrappedData,
                 GetViewName = (view, context) => RiskeerCommonFormsResources.Scenarios_DisplayName,
                 Image = RiskeerCommonFormsResources.ScenariosIcon,
-                AfterCreate = (view, context) => view.FailureMechanism = context.ParentFailureMechanism,
+                CreateInstance = context => new StabilityPointStructuresScenariosView(context.WrappedData, context.ParentFailureMechanism, context.AssessmentSection),
                 CloseForData = CloseScenariosViewForData
             };
         }

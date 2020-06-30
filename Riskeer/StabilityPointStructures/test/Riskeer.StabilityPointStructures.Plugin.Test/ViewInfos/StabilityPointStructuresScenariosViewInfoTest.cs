@@ -21,6 +21,7 @@
 
 using System.Drawing;
 using System.Linq;
+using Core.Common.Controls.Views;
 using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -40,14 +41,12 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.ViewInfos
     {
         private StabilityPointStructuresPlugin plugin;
         private ViewInfo info;
-        private MockRepository mocks;
 
         [SetUp]
         public void SetUp()
         {
             plugin = new StabilityPointStructuresPlugin();
             info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(StabilityPointStructuresScenariosView));
-            mocks = new MockRepository();
         }
 
         [TearDown]
@@ -78,6 +77,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.ViewInfos
         public void GetViewData_Always_ReturnWrappedData()
         {
             // Setup
+            var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
@@ -104,67 +104,21 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void AfterCreate_Always_SetsSpecificPropertiesToView()
-        {
-            // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            using (var view = new StabilityPointStructuresScenariosView())
-            {
-                var group = new CalculationGroup();
-                var failureMechanism = new StabilityPointStructuresFailureMechanism();
-                var context = new StabilityPointStructuresScenariosContext(group, failureMechanism, assessmentSection);
-
-                // Call
-                info.AfterCreate(view, context);
-
-                // Assert
-                Assert.AreSame(failureMechanism, view.FailureMechanism);
-            }
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void CloseForData_AssessmentSectionRemovedWithoutFailureMechanism_ReturnFalse()
-        {
-            // Setup
-            using (var view = new StabilityPointStructuresScenariosView
-            {
-                Data = new CalculationGroup()
-            })
-            {
-                var assessmentSection = mocks.Stub<IAssessmentSection>();
-                assessmentSection.Stub(section => section.GetFailureMechanisms()).Return(new IFailureMechanism[0]);
-                mocks.ReplayAll();
-
-                // Call
-                bool closeForData = info.CloseForData(view, assessmentSection);
-
-                // Assert
-                Assert.IsFalse(closeForData);
-                mocks.VerifyAll();
-            }
-        }
-
-        [Test]
         public void CloseForData_ViewNotCorrespondingToRemovedAssessmentSection_ReturnFalse()
         {
             // Setup
-            using (var view = new StabilityPointStructuresScenariosView
-            {
-                Data = new CalculationGroup()
-            })
-            {
-                var unrelatedFailureMechanism = new StabilityPointStructuresFailureMechanism();
+            var unrelatedFailureMechanism = new StabilityPointStructuresFailureMechanism();
 
-                var assessmentSection = mocks.Stub<IAssessmentSection>();
-                assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new[]
-                {
-                    unrelatedFailureMechanism
-                });
-                mocks.ReplayAll();
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new[]
+            {
+                unrelatedFailureMechanism
+            });
+            mocks.ReplayAll();
 
+            using (var view = new StabilityPointStructuresScenariosView(new CalculationGroup(), new StabilityPointStructuresFailureMechanism(), assessmentSection))
+            {
                 // Precondition
                 Assert.AreNotSame(view.Data, unrelatedFailureMechanism.CalculationsGroup);
 
@@ -173,8 +127,9 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.ViewInfos
 
                 // Assert
                 Assert.IsFalse(closeForData);
-                mocks.VerifyAll();
             }
+
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -183,18 +138,16 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.ViewInfos
             // Setup
             var relatedFailureMechanism = new StabilityPointStructuresFailureMechanism();
 
-            using (var view = new StabilityPointStructuresScenariosView
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new[]
             {
-                Data = relatedFailureMechanism.CalculationsGroup
-            })
-            {
-                var assessmentSection = mocks.Stub<IAssessmentSection>();
-                assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new[]
-                {
-                    relatedFailureMechanism
-                });
-                mocks.ReplayAll();
+                relatedFailureMechanism
+            });
+            mocks.ReplayAll();
 
+            using (var view = new StabilityPointStructuresScenariosView(relatedFailureMechanism.CalculationsGroup, relatedFailureMechanism, assessmentSection))
+            {
                 // Precondition
                 Assert.AreSame(view.Data, relatedFailureMechanism.CalculationsGroup);
 
@@ -203,18 +156,20 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.ViewInfos
 
                 // Assert
                 Assert.IsTrue(closeForData);
-                mocks.VerifyAll();
             }
+
+            mocks.VerifyAll();
         }
 
         [Test]
         public void CloseForData_ViewNotCorrespondingToRemovedFailureMechanism_ReturnFalse()
         {
             // Setup
-            using (var view = new StabilityPointStructuresScenariosView
-            {
-                Data = new CalculationGroup()
-            })
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            using (var view = new StabilityPointStructuresScenariosView(new CalculationGroup(), new StabilityPointStructuresFailureMechanism(), assessmentSection))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, new StabilityPointStructuresFailureMechanism());
@@ -222,17 +177,20 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.ViewInfos
                 // Assert
                 Assert.IsFalse(closeForData);
             }
+
+            mocks.VerifyAll();
         }
 
         [Test]
         public void CloseForData_ViewCorrespondingToRemovedFailureMechanism_ReturnTrue()
         {
             // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             var correspondingFailureMechanism = new StabilityPointStructuresFailureMechanism();
-            using (var view = new StabilityPointStructuresScenariosView
-            {
-                Data = correspondingFailureMechanism.CalculationsGroup
-            })
+            using (var view = new StabilityPointStructuresScenariosView(correspondingFailureMechanism.CalculationsGroup, correspondingFailureMechanism, assessmentSection))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, correspondingFailureMechanism);
@@ -240,153 +198,96 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.ViewInfos
                 // Assert
                 Assert.IsTrue(closeForData);
             }
+
+            mocks.VerifyAll();
         }
 
         [Test]
-        public void CloseForData_AssessmentSectionRemovedWithoutStabilityPointStructuresFailureMechanism_ReturnsFalse()
+        public void CloseForData_AssessmentSectionRemovedWithoutStabilityPointStructuresFailureMechanism_ReturnFalse()
         {
             // Setup
+            var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new IFailureMechanism[0]);
             mocks.ReplayAll();
 
-            var view = new StabilityPointStructuresScenariosView
+            using (var view = new StabilityPointStructuresScenariosView(new CalculationGroup(), new StabilityPointStructuresFailureMechanism(), assessmentSection))
             {
-                Data = new CalculationGroup()
-            };
+                // Call
+                bool closeForData = info.CloseForData(view, assessmentSection);
 
-            // Call
-            bool closeForData = info.CloseForData(view, assessmentSection);
+                // Assert
+                Assert.IsFalse(closeForData);
+            }
 
-            // Assert
-            Assert.IsFalse(closeForData);
             mocks.VerifyAll();
         }
 
         [Test]
-        public void CloseForData_ViewNotCorrespondingToRemovedAssessmentSection_ReturnsFalse()
+        public void CloseForData_ViewNotCorrespondingToRemovedFailureMechanismContext_ReturnFalse()
         {
             // Setup
+            var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new[]
-            {
-                new StabilityPointStructuresFailureMechanism()
-            });
-
             mocks.ReplayAll();
 
-            var view = new StabilityPointStructuresScenariosView
-            {
-                Data = new CalculationGroup()
-            };
-
-            // Call
-            bool closeForData = info.CloseForData(view, assessmentSection);
-
-            // Assert
-            Assert.IsFalse(closeForData);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void CloseForData_ViewCorrespondingToRemovedAssessmentSection_ReturnsTrue()
-        {
-            // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new[]
-            {
-                failureMechanism
-            });
-
-            mocks.ReplayAll();
-
-            var view = new StabilityPointStructuresScenariosView
-            {
-                Data = failureMechanism.CalculationsGroup
-            };
-
-            // Call
-            bool closeForData = info.CloseForData(view, assessmentSection);
-
-            // Assert
-            Assert.IsTrue(closeForData);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void CloseForData_ViewNotCorrespondingToRemovedFailureMechanism_ReturnsFalse()
-        {
-            // Setup
-            var view = new StabilityPointStructuresScenariosView();
-            var failureMechanism = new StabilityPointStructuresFailureMechanism();
-
-            view.Data = new CalculationGroup();
-
-            // Call
-            bool closeForData = info.CloseForData(view, failureMechanism);
-
-            // Assert
-            Assert.IsFalse(closeForData);
-        }
-
-        [Test]
-        public void CloseForData_ViewCorrespondingToRemovedFailureMechanism_ReturnsTrue()
-        {
-            // Setup
-            var view = new StabilityPointStructuresScenariosView();
-            var failureMechanism = new StabilityPointStructuresFailureMechanism();
-
-            view.Data = failureMechanism.CalculationsGroup;
-
-            // Call
-            bool closeForData = info.CloseForData(view, failureMechanism);
-
-            // Assert
-            Assert.IsTrue(closeForData);
-        }
-
-        [Test]
-        public void CloseForData_ViewNotCorrespondingToRemovedFailureMechanismContext_ReturnsFalse()
-        {
-            // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-
-            mocks.ReplayAll();
-
-            var view = new StabilityPointStructuresScenariosView();
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
             var failureMechanismContext = new StabilityPointStructuresFailureMechanismContext(new StabilityPointStructuresFailureMechanism(), assessmentSection);
 
-            view.Data = failureMechanism.CalculationsGroup;
+            using (var view = new StabilityPointStructuresScenariosView(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection))
+            {
+                // Call
+                bool closeForData = info.CloseForData(view, failureMechanismContext);
 
-            // Call
-            bool closeForData = info.CloseForData(view, failureMechanismContext);
+                // Assert
+                Assert.IsFalse(closeForData);
+            }
 
-            // Assert
-            Assert.IsFalse(closeForData);
             mocks.VerifyAll();
         }
 
         [Test]
-        public void CloseForData_ViewCorrespondingToRemovedFailureMechanismContext_ReturnsTrue()
+        public void CloseForData_ViewCorrespondingToRemovedFailureMechanismContext_ReturnTrue()
         {
             // Setup
+            var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-
             mocks.ReplayAll();
 
-            var view = new StabilityPointStructuresScenariosView();
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
             var failureMechanismContext = new StabilityPointStructuresFailureMechanismContext(failureMechanism, assessmentSection);
 
-            view.Data = failureMechanism.CalculationsGroup;
+            using (var view = new StabilityPointStructuresScenariosView(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection))
+            {
+                // Call
+                bool closeForData = info.CloseForData(view, failureMechanismContext);
+
+                // Assert
+                Assert.IsTrue(closeForData);
+            }
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CreateInstance_WithContext_ReturnsStabilityPointStructuresScenariosView()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var group = new CalculationGroup();
+            var context = new StabilityPointStructuresScenariosContext(group, new StabilityPointStructuresFailureMechanism(), assessmentSection);
 
             // Call
-            bool closeForData = info.CloseForData(view, failureMechanismContext);
+            using (IView view = info.CreateInstance(context))
+            {
+                // Assert
+                Assert.IsInstanceOf<StabilityPointStructuresScenariosView>(view);
+                Assert.AreSame(group, view.Data);
+            }
 
-            // Assert
-            Assert.IsTrue(closeForData);
             mocks.VerifyAll();
         }
     }

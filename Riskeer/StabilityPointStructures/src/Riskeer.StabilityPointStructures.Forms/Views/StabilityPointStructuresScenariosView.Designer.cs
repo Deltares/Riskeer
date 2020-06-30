@@ -36,31 +36,8 @@ namespace Riskeer.StabilityPointStructures.Forms.Views
         /// </summary>
         private void InitializeComponent()
         {
-            this.scenarioSelectionControl = new Riskeer.Common.Forms.ScenarioSelectionControl();
-            this.SuspendLayout();
-            // 
-            // scenarioSelectionControl
-            // 
-            this.scenarioSelectionControl.AutoScroll = true;
-            this.scenarioSelectionControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.scenarioSelectionControl.Location = new System.Drawing.Point(0, 0);
-            this.scenarioSelectionControl.Name = "scenarioSelectionControl";
-            this.scenarioSelectionControl.Size = new System.Drawing.Size(150, 150);
-            this.scenarioSelectionControl.TabIndex = 0;
-            // 
-            // StabilityPointStructuresScenariosView
-            // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.AutoScroll = true;
-            this.Controls.Add(this.scenarioSelectionControl);
-            this.Name = "StabilityPointStructuresScenariosView";
-            this.ResumeLayout(false);
-
         }
 
         #endregion
-
-        private Common.Forms.ScenarioSelectionControl scenarioSelectionControl;
     }
 }

@@ -22,120 +22,58 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Windows.Forms;
-using Core.Common.Base;
-using Core.Common.Controls.Views;
+using Core.Common.Base.Geometry;
+using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
+using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Structures;
-using Riskeer.Common.Util;
+using Riskeer.Common.Forms.Views;
 using Riskeer.StabilityPointStructures.Data;
 
 namespace Riskeer.StabilityPointStructures.Forms.Views
 {
     /// <summary>
-    /// View for configuring scenarios for the stability point structures failure mechanism.
-    /// Shows a grid view where for each failure mechanism section, a calculation within the section
-    /// can be selected.
+    /// View for configuring stability point structures scenarios.
     /// </summary>
-    public partial class StabilityPointStructuresScenariosView : UserControl, IView
+    public partial class StabilityPointStructuresScenariosView : ScenariosView<StructuresCalculationScenario<StabilityPointStructuresInput>, StabilityPointStructuresInput,
+        StabilityPointStructuresScenarioRow, StabilityPointStructuresFailureMechanism>
     {
-        private readonly RecursiveObserver<CalculationGroup, ICalculationInput> calculationInputObserver;
-        private readonly RecursiveObserver<CalculationGroup, ICalculationBase> calculationGroupObserver;
-        private readonly Observer failureMechanismObserver;
-        private StabilityPointStructuresFailureMechanism failureMechanism;
-        private CalculationGroup data;
+        private readonly IAssessmentSection assessmentSection;
 
         /// <summary>
         /// Creates a new instance of <see cref="StabilityPointStructuresScenariosView"/>.
         /// </summary>
-        public StabilityPointStructuresScenariosView()
+        /// <param name="calculationGroup">The data to show in this view.</param>
+        /// <param name="failureMechanism">The <see cref="StabilityPointStructuresFailureMechanism"/>
+        /// the <paramref name="calculationGroup"/> belongs to.</param>
+        /// <param name="assessmentSection">The assessment section the scenarios belong to.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter
+        /// is <c>null</c>.</exception>
+        public StabilityPointStructuresScenariosView(CalculationGroup calculationGroup, StabilityPointStructuresFailureMechanism failureMechanism,
+                                                     IAssessmentSection assessmentSection)
+            : base(calculationGroup, failureMechanism)
         {
-            InitializeComponent();
-
-            failureMechanismObserver = new Observer(UpdateDataGridViewDataSource);
-
-            // The concat is needed to observe the input of calculations in child groups.
-            calculationInputObserver = new RecursiveObserver<CalculationGroup, ICalculationInput>(
-                UpdateDataGridViewDataSource, cg => cg.Children.Concat<object>(cg.Children
-                                                                                 .OfType<StructuresCalculation<StabilityPointStructuresInput>>()
-                                                                                 .Select(c => c.InputParameters)));
-            calculationGroupObserver = new RecursiveObserver<CalculationGroup, ICalculationBase>(UpdateDataGridViewDataSource, c => c.Children);
-        }
-
-        /// <summary>
-        /// Gets or sets the failure mechanism.
-        /// </summary>
-        public StabilityPointStructuresFailureMechanism FailureMechanism
-        {
-            get
+            if (assessmentSection == null)
             {
-                return failureMechanism;
-            }
-            set
-            {
-                failureMechanism = value;
-                failureMechanismObserver.Observable = failureMechanism;
-                UpdateDataGridViewDataSource();
-            }
-        }
-
-        public object Data
-        {
-            get
-            {
-                return data;
-            }
-            set
-            {
-                data = value as CalculationGroup;
-
-                calculationInputObserver.Observable = data;
-                calculationGroupObserver.Observable = data;
-
-                UpdateDataGridViewDataSource();
-            }
-        }
-
-        protected override void OnLoad(EventArgs e)
-        {
-            UpdateDataGridViewDataSource();
-            base.OnLoad(e);
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            failureMechanismObserver?.Dispose();
-            calculationInputObserver.Dispose();
-            calculationGroupObserver.Dispose();
-
-            if (disposing)
-            {
-                components?.Dispose();
+                throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            base.Dispose(disposing);
+            this.assessmentSection = assessmentSection;
         }
 
-        private void UpdateDataGridViewDataSource()
+        protected override StabilityPointStructuresInput GetCalculationInput(StructuresCalculationScenario<StabilityPointStructuresInput> calculationScenario)
         {
-            // scenarioSelectionControl.EndEdit();
-            //
-            // if (failureMechanism?.SectionResults == null || data?.Children == null)
-            // {
-            //     scenarioSelectionControl.ClearDataSource();
-            // }
-            // else
-            // {
-            //     ICalculation[] calculations = data.GetCalculations().ToArray();
-            //
-            //     IDictionary<string, List<ICalculation>> calculationsPerSegment =
-            //         StructuresHelper.CollectCalculationsPerSection(failureMechanism.Sections,
-            //                                                        calculations.Cast<StructuresCalculation<StabilityPointStructuresInput>>());
-            //
-            //     List<StabilityPointStructuresScenarioRow> scenarioRows = failureMechanism.SectionResults.Select(sr => new StabilityPointStructuresScenarioRow(sr)).ToList();
-            //
-            //     scenarioSelectionControl.UpdateDataGridViewDataSource(calculations, scenarioRows, calculationsPerSegment);
-            // }
+            return calculationScenario.InputParameters;
+        }
+
+        protected override IEnumerable<StabilityPointStructuresScenarioRow> GetScenarioRows(FailureMechanismSection failureMechanismSection)
+        {
+            IEnumerable<Segment2D> lineSegments = Math2D.ConvertPointsToLineSegments(failureMechanismSection.Points);
+            IEnumerable<StructuresCalculationScenario<StabilityPointStructuresInput>> calculations = CalculationGroup.GetCalculations()
+                                                                                                                     .OfType<StructuresCalculationScenario<StabilityPointStructuresInput>>()
+                                                                                                                     .Where(cs => cs.IsStructureIntersectionWithReferenceLineInSection(lineSegments));
+
+            return calculations.Select(c => new StabilityPointStructuresScenarioRow(c, FailureMechanism, assessmentSection)).ToList();
         }
     }
 }
