@@ -164,7 +164,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             Assert.AreSame(group, calculationGroupContext.Parent);
             Assert.AreSame(failureMechanism, calculationGroupContext.FailureMechanism);
             Assert.AreSame(assessmentSection, calculationGroupContext.AssessmentSection);
-            var calculationContext = (StabilityPointStructuresCalculationContext) children[1];
+            var calculationContext = (StabilityPointStructuresCalculationScenarioContext) children[1];
             Assert.AreSame(childCalculation, calculationContext.WrappedData);
             Assert.AreSame(group, calculationContext.Parent);
             Assert.AreSame(assessmentSection, calculationContext.AssessmentSection);

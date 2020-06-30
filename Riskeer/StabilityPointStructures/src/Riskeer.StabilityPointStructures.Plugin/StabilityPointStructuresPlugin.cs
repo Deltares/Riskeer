@@ -183,7 +183,7 @@ namespace Riskeer.StabilityPointStructures.Plugin
                 CalculationGroupContextContextMenuStrip,
                 CalculationGroupContextOnNodeRemoved);
 
-            yield return RiskeerTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<StabilityPointStructuresCalculationContext>(
+            yield return RiskeerTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<StabilityPointStructuresCalculationScenarioContext>(
                 CalculationContextChildNodeObjects,
                 CalculationContextContextMenuStrip,
                 CalculationContextOnNodeRemoved);
@@ -234,7 +234,7 @@ namespace Riskeer.StabilityPointStructures.Plugin
                 context => context.WrappedData.Children.Any(),
                 GetInquiryHelper());
 
-            yield return RiskeerExportInfoFactory.CreateCalculationConfigurationExportInfo<StabilityPointStructuresCalculationContext>(
+            yield return RiskeerExportInfoFactory.CreateCalculationConfigurationExportInfo<StabilityPointStructuresCalculationScenarioContext>(
                 (context, filePath) => new StabilityPointStructuresCalculationConfigurationExporter(new[]
                 {
                     context.WrappedData
@@ -463,10 +463,10 @@ namespace Riskeer.StabilityPointStructures.Plugin
 
                 if (calculation != null)
                 {
-                    childNodeObjects.Add(new StabilityPointStructuresCalculationContext(calculation,
-                                                                                        context.WrappedData,
-                                                                                        context.FailureMechanism,
-                                                                                        context.AssessmentSection));
+                    childNodeObjects.Add(new StabilityPointStructuresCalculationScenarioContext(calculation,
+                                                                                                context.WrappedData,
+                                                                                                context.FailureMechanism,
+                                                                                                context.AssessmentSection));
                 }
                 else if (group != null)
                 {
@@ -695,7 +695,7 @@ namespace Riskeer.StabilityPointStructures.Plugin
 
         #region StabilityPointStructuresCalculationContext TreeNodeInfo
 
-        private static object[] CalculationContextChildNodeObjects(StabilityPointStructuresCalculationContext context)
+        private static object[] CalculationContextChildNodeObjects(StabilityPointStructuresCalculationScenarioContext context)
         {
             StructuresCalculation<StabilityPointStructuresInput> calculation = context.WrappedData;
 
@@ -710,7 +710,7 @@ namespace Riskeer.StabilityPointStructures.Plugin
             };
         }
 
-        private ContextMenuStrip CalculationContextContextMenuStrip(StabilityPointStructuresCalculationContext context,
+        private ContextMenuStrip CalculationContextContextMenuStrip(StabilityPointStructuresCalculationScenarioContext context,
                                                                     object parentData,
                                                                     TreeViewControl treeViewControl)
         {
@@ -749,17 +749,17 @@ namespace Riskeer.StabilityPointStructures.Plugin
                           .Build();
         }
 
-        private static string EnableValidateAndCalculateMenuItemForCalculation(StabilityPointStructuresCalculationContext context)
+        private static string EnableValidateAndCalculateMenuItemForCalculation(StabilityPointStructuresCalculationScenarioContext context)
         {
             return EnableValidateAndCalculateMenu(context.AssessmentSection);
         }
 
-        private static void Validate(StabilityPointStructuresCalculationContext context)
+        private static void Validate(StabilityPointStructuresCalculationScenarioContext context)
         {
             StabilityPointStructuresCalculationService.Validate(context.WrappedData, context.AssessmentSection);
         }
 
-        private void Calculate(StructuresCalculation<StabilityPointStructuresInput> calculation, StabilityPointStructuresCalculationContext context)
+        private void Calculate(StructuresCalculation<StabilityPointStructuresInput> calculation, StabilityPointStructuresCalculationScenarioContext context)
         {
             ActivityProgressDialogRunner.Run(Gui.MainWindow,
                                              StabilityPointStructuresCalculationActivityFactory.CreateCalculationActivity(calculation,
@@ -767,7 +767,7 @@ namespace Riskeer.StabilityPointStructures.Plugin
                                                                                                                           context.AssessmentSection));
         }
 
-        private static void CalculationContextOnNodeRemoved(StabilityPointStructuresCalculationContext context, object parentData)
+        private static void CalculationContextOnNodeRemoved(StabilityPointStructuresCalculationScenarioContext context, object parentData)
         {
             if (parentData is StabilityPointStructuresCalculationGroupContext calculationGroupContext)
             {
@@ -777,7 +777,7 @@ namespace Riskeer.StabilityPointStructures.Plugin
             }
         }
 
-        private StrictContextMenuItem CreateUpdateStructureItem(StabilityPointStructuresCalculationContext context)
+        private StrictContextMenuItem CreateUpdateStructureItem(StabilityPointStructuresCalculationScenarioContext context)
         {
             var contextMenuEnabled = true;
             string toolTipMessage = RiskeerCommonFormsResources.Update_Calculation_with_Structure_ToolTip;

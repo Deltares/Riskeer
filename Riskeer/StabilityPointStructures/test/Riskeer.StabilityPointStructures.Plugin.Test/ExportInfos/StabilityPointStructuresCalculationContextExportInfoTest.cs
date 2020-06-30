@@ -38,7 +38,7 @@ using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 namespace Riskeer.StabilityPointStructures.Plugin.Test.ExportInfos
 {
     [TestFixture]
-    public class StabilityPointStructuresCalculationContextExportInfoTest
+    public class StabilityPointStructuresCalculationScenarioContextExportInfoTest
     {
         private StabilityPointStructuresPlugin plugin;
         private ExportInfo info;
@@ -59,7 +59,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.ExportInfos
                 Gui = gui
             };
 
-            info = plugin.GetExportInfos().First(ei => ei.DataType == typeof(StabilityPointStructuresCalculationContext));
+            info = plugin.GetExportInfos().First(ei => ei.DataType == typeof(StabilityPointStructuresCalculationScenarioContext));
         }
 
         [TearDown]
@@ -89,10 +89,10 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.ExportInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var context = new StabilityPointStructuresCalculationContext(new TestStabilityPointStructuresCalculation(),
-                                                                         new CalculationGroup(),
-                                                                         new StabilityPointStructuresFailureMechanism(),
-                                                                         assessmentSection);
+            var context = new StabilityPointStructuresCalculationScenarioContext(new TestStabilityPointStructuresCalculation(),
+                                                                                 new CalculationGroup(),
+                                                                                 new StabilityPointStructuresFailureMechanism(),
+                                                                                 assessmentSection);
 
             // Call
             IFileExporter fileExporter = info.CreateFileExporter(context, "test");
@@ -108,10 +108,10 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.ExportInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var context = new StabilityPointStructuresCalculationContext(new TestStabilityPointStructuresCalculation(),
-                                                                         new CalculationGroup(),
-                                                                         new StabilityPointStructuresFailureMechanism(),
-                                                                         assessmentSection);
+            var context = new StabilityPointStructuresCalculationScenarioContext(new TestStabilityPointStructuresCalculation(),
+                                                                                 new CalculationGroup(),
+                                                                                 new StabilityPointStructuresFailureMechanism(),
+                                                                                 assessmentSection);
 
             // Call
             bool isEnabled = info.IsEnabled(context);

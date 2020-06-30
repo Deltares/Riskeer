@@ -108,7 +108,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(StabilityPointStructure)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(StabilityPointStructuresScenariosContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(StabilityPointStructuresCalculationGroupContext)));
-                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(StabilityPointStructuresCalculationContext)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(StabilityPointStructuresCalculationScenarioContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(StabilityPointStructuresInputContext)));
             }
         }
@@ -196,7 +196,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test
                 // Assert
                 Assert.AreEqual(2, exportInfos.Length);
                 Assert.IsTrue(exportInfos.Any(tni => tni.DataType == typeof(StabilityPointStructuresCalculationGroupContext)));
-                Assert.IsTrue(exportInfos.Any(tni => tni.DataType == typeof(StabilityPointStructuresCalculationContext)));
+                Assert.IsTrue(exportInfos.Any(tni => tni.DataType == typeof(StabilityPointStructuresCalculationScenarioContext)));
             }
 
             mocks.VerifyAll();

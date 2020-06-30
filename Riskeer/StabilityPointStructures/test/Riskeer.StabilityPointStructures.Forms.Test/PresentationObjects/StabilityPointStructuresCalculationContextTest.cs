@@ -31,7 +31,7 @@ using Riskeer.StabilityPointStructures.Forms.PresentationObjects;
 namespace Riskeer.StabilityPointStructures.Forms.Test.PresentationObjects
 {
     [TestFixture]
-    public class StabilityPointStructuresCalculationContextTest
+    public class StabilityPointStructuresCalculationScenarioContextTest
     {
         [Test]
         public void ConstructorWithData_Always_ExpectedPropertiesSet()
@@ -46,7 +46,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PresentationObjects
             var parent = new CalculationGroup();
 
             // Call
-            var context = new StabilityPointStructuresCalculationContext(calculation, parent, failureMechanism, assessmentSection);
+            var context = new StabilityPointStructuresCalculationScenarioContext(calculation, parent, failureMechanism, assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<StructuresCalculationContext<StabilityPointStructuresInput, StabilityPointStructuresFailureMechanism>>(context);
@@ -68,8 +68,8 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PresentationObjects
             var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
             var parent = new CalculationGroup();
-            var context = new StabilityPointStructuresCalculationContext(calculation, parent, failureMechanism, assessmentSection);
-            var derivedContext = new DerivedStabilityPointStructuresCalculationContext(calculation, parent, failureMechanism, assessmentSection);
+            var context = new StabilityPointStructuresCalculationScenarioContext(calculation, parent, failureMechanism, assessmentSection);
+            var derivedContext = new DerivedStabilityPointStructuresCalculationScenarioContext(calculation, parent, failureMechanism, assessmentSection);
 
             // Call
             bool isEqual = context.Equals(derivedContext);
@@ -79,12 +79,12 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PresentationObjects
             mocksRepository.VerifyAll();
         }
 
-        private class DerivedStabilityPointStructuresCalculationContext : StabilityPointStructuresCalculationContext
+        private class DerivedStabilityPointStructuresCalculationScenarioContext : StabilityPointStructuresCalculationScenarioContext
         {
-            public DerivedStabilityPointStructuresCalculationContext(StructuresCalculation<StabilityPointStructuresInput> calculation,
-                                                                     CalculationGroup parent,
-                                                                     StabilityPointStructuresFailureMechanism failureMechanism,
-                                                                     IAssessmentSection assessmentSection)
+            public DerivedStabilityPointStructuresCalculationScenarioContext(StructuresCalculation<StabilityPointStructuresInput> calculation,
+                                                                             CalculationGroup parent,
+                                                                             StabilityPointStructuresFailureMechanism failureMechanism,
+                                                                             IAssessmentSection assessmentSection)
                 : base(calculation, parent, failureMechanism, assessmentSection) {}
         }
     }
