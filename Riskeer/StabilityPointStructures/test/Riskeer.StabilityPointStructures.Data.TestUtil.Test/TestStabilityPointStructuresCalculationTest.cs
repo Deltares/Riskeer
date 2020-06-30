@@ -26,7 +26,7 @@ using Riskeer.Common.Data.TestUtil;
 namespace Riskeer.StabilityPointStructures.Data.TestUtil.Test
 {
     [TestFixture]
-    public class TestStabilityPointStructuresCalculationTest
+    public class TestStabilityPointStructuresCalculationScenarioTest
     {
         [Test]
         public void Constructor_DefaultPropertyValuesAreSet()
@@ -35,11 +35,13 @@ namespace Riskeer.StabilityPointStructures.Data.TestUtil.Test
             var referenceStructure = new TestStabilityPointStructure();
 
             // Call 
-            var calculation = new TestStabilityPointStructuresCalculation();
+            var calculation = new TestStabilityPointStructuresCalculationScenario();
 
             // Assert
-            Assert.IsInstanceOf<StructuresCalculation<StabilityPointStructuresInput>>(calculation);
+            Assert.IsInstanceOf<StructuresCalculationScenario<StabilityPointStructuresInput>>(calculation);
             Assert.AreEqual("Nieuwe berekening", calculation.Name);
+            Assert.AreEqual(1, calculation.Contribution, calculation.Contribution.GetAccuracy());
+            Assert.IsTrue(calculation.IsRelevant);
             Assert.IsNotNull(calculation.InputParameters);
             Assert.IsNull(calculation.Comments.Body);
             Assert.IsFalse(calculation.HasOutput);

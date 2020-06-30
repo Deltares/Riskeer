@@ -118,7 +118,7 @@ namespace Riskeer.StabilityPointStructures.Data.Test
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var failureMechanismSectionResult = new StabilityPointStructuresFailureMechanismSectionResult(section)
             {
-                Calculation = new TestStabilityPointStructuresCalculation()
+                Calculation = new TestStabilityPointStructuresCalculationScenario()
             };
 
             // Call
@@ -143,7 +143,7 @@ namespace Riskeer.StabilityPointStructures.Data.Test
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var failureMechanismSectionResult = new StabilityPointStructuresFailureMechanismSectionResult(section)
             {
-                Calculation = new TestStabilityPointStructuresCalculation
+                Calculation = new TestStabilityPointStructuresCalculationScenario
                 {
                     Output = new TestStructuresOutput(0.75)
                 }

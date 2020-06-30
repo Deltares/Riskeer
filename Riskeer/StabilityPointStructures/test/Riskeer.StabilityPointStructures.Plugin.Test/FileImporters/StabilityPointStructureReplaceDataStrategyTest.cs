@@ -261,7 +261,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.FileImporters
         {
             // Setup
             var structure = new TestStabilityPointStructure();
-            var calculation = new TestStabilityPointStructuresCalculation
+            var calculation = new TestStabilityPointStructuresCalculationScenario
             {
                 InputParameters =
                 {
@@ -301,7 +301,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.FileImporters
         {
             // Setup
             var structure = new TestStabilityPointStructure();
-            var calculation = new TestStabilityPointStructuresCalculation
+            var calculation = new TestStabilityPointStructuresCalculationScenario
             {
                 InputParameters =
                 {
@@ -344,7 +344,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.FileImporters
             // Setup
             var location = new Point2D(12, 34);
             var structure = new TestStabilityPointStructure(location);
-            var calculation = new TestStabilityPointStructuresCalculation
+            var calculation = new TestStabilityPointStructuresCalculationScenario
             {
                 InputParameters =
                 {

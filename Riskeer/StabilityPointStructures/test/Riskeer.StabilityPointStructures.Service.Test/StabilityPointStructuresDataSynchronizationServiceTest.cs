@@ -377,7 +377,7 @@ namespace Riskeer.StabilityPointStructures.Service.Test
             var structure1 = new TestStabilityPointStructure(new Point2D(1, 0), "id structure1");
             var structure2 = new TestStabilityPointStructure(new Point2D(3, 0), "id structure2");
             var profile = new TestForeshoreProfile();
-            StructuresCalculation<StabilityPointStructuresInput> calculation1 = new TestStabilityPointStructuresCalculation
+            StructuresCalculation<StabilityPointStructuresInput> calculation1 = new TestStabilityPointStructuresCalculationScenario
             {
                 InputParameters =
                 {
@@ -386,7 +386,7 @@ namespace Riskeer.StabilityPointStructures.Service.Test
                 },
                 Output = new TestStructuresOutput()
             };
-            StructuresCalculation<StabilityPointStructuresInput> calculation2 = new TestStabilityPointStructuresCalculation
+            StructuresCalculation<StabilityPointStructuresInput> calculation2 = new TestStabilityPointStructuresCalculationScenario
             {
                 InputParameters =
                 {
@@ -394,7 +394,7 @@ namespace Riskeer.StabilityPointStructures.Service.Test
                     Structure = structure2
                 }
             };
-            StructuresCalculation<StabilityPointStructuresInput> calculation3 = new TestStabilityPointStructuresCalculation
+            StructuresCalculation<StabilityPointStructuresInput> calculation3 = new TestStabilityPointStructuresCalculationScenario
             {
                 InputParameters =
                 {

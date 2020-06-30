@@ -286,7 +286,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.FileImporters
             StabilityPointStructure readStructure = new TestStabilityPointStructure(sameId, "new structure");
             StabilityPointStructure structure = new TestStabilityPointStructure(sameId, "original structure");
 
-            var calculation = new TestStabilityPointStructuresCalculation
+            var calculation = new TestStabilityPointStructuresCalculationScenario
             {
                 InputParameters =
                 {
@@ -343,7 +343,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.FileImporters
             var affectedStructure = new TestStabilityPointStructure(affectedId, "Old name");
             var unaffectedStructure = new TestStabilityPointStructure(unaffectedId, unaffectedStructureName);
 
-            var affectedCalculation = new TestStabilityPointStructuresCalculation
+            var affectedCalculation = new TestStabilityPointStructuresCalculationScenario
             {
                 InputParameters =
                 {
@@ -352,7 +352,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.FileImporters
                 Output = new TestStructuresOutput()
             };
 
-            var unaffectedCalculation = new TestStabilityPointStructuresCalculation
+            var unaffectedCalculation = new TestStabilityPointStructuresCalculationScenario
             {
                 InputParameters =
                 {
@@ -417,7 +417,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.FileImporters
             const string removedId = "sameId";
             StabilityPointStructure structure = new TestStabilityPointStructure(removedId, "original structure");
 
-            var calculation = new TestStabilityPointStructuresCalculation
+            var calculation = new TestStabilityPointStructuresCalculationScenario
             {
                 InputParameters =
                 {
@@ -471,7 +471,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.FileImporters
             var removedStructure = new TestStabilityPointStructure(removedId, "Old name");
             var unaffectedStructure = new TestStabilityPointStructure(unaffectedId, unaffectedStructureName);
 
-            var affectedCalculation = new TestStabilityPointStructuresCalculation
+            var affectedCalculation = new TestStabilityPointStructuresCalculationScenario
             {
                 InputParameters =
                 {
@@ -480,7 +480,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.FileImporters
                 Output = new TestStructuresOutput()
             };
 
-            var unaffectedCalculation = new TestStabilityPointStructuresCalculation
+            var unaffectedCalculation = new TestStabilityPointStructuresCalculationScenario
             {
                 InputParameters =
                 {
@@ -540,7 +540,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.FileImporters
             // Setup
             const string affectedId = "affectedId";
             var affectedStructure = new TestStabilityPointStructure(affectedId, "Old name");
-            var affectedCalculation = new TestStabilityPointStructuresCalculation
+            var affectedCalculation = new TestStabilityPointStructuresCalculationScenario
             {
                 InputParameters =
                 {
@@ -595,7 +595,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.FileImporters
             StabilityPointStructure readStructure = new TestStabilityPointStructure(updatedMatchingPoint, sameId);
             StabilityPointStructure structure = new TestStabilityPointStructure(originalMatchingPoint, sameId);
 
-            var calculation = new TestStabilityPointStructuresCalculation
+            var calculation = new TestStabilityPointStructuresCalculationScenario
             {
                 InputParameters =
                 {
@@ -674,7 +674,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.FileImporters
             var originalMatchingPoint = new Point2D(0, 0);
             StabilityPointStructure removedStructure = new TestStabilityPointStructure(originalMatchingPoint, sameId);
 
-            var calculation = new TestStabilityPointStructuresCalculation
+            var calculation = new TestStabilityPointStructuresCalculationScenario
             {
                 InputParameters =
                 {

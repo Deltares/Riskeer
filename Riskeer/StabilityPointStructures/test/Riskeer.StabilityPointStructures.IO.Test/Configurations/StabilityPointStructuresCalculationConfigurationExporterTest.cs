@@ -338,7 +338,7 @@ namespace Riskeer.StabilityPointStructures.IO.Test.Configurations
 
         protected override StructuresCalculation<StabilityPointStructuresInput> CreateCalculation()
         {
-            return new TestStabilityPointStructuresCalculation();
+            return new TestStabilityPointStructuresCalculationScenario();
         }
 
         protected override StabilityPointStructuresCalculationConfigurationExporter CallConfigurationFilePathConstructor(

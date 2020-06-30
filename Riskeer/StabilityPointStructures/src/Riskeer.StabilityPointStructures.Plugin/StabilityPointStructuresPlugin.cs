@@ -458,7 +458,7 @@ namespace Riskeer.StabilityPointStructures.Plugin
 
             foreach (ICalculationBase calculationItem in context.WrappedData.Children)
             {
-                var calculation = calculationItem as StructuresCalculation<StabilityPointStructuresInput>;
+                var calculation = calculationItem as StructuresCalculationScenario<StabilityPointStructuresInput>;
                 var group = calculationItem as CalculationGroup;
 
                 if (calculation != null)

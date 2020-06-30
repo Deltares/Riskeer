@@ -255,7 +255,7 @@ namespace Riskeer.Storage.Core.Test.Create.StabilityPointStructures
         public void Create_WithCalculationGroup_ReturnFailureMechanismEntityWithCalculationGroupEntities()
         {
             // Setup
-            StructuresCalculation<StabilityPointStructuresInput> calculation = new TestStabilityPointStructuresCalculation();
+            StructuresCalculation<StabilityPointStructuresInput> calculation = new TestStabilityPointStructuresCalculationScenario();
             calculation.InputParameters.Structure = null;
             calculation.InputParameters.HydraulicBoundaryLocation = null;
 

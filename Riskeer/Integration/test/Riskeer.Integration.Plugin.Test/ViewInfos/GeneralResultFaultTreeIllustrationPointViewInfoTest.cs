@@ -248,7 +248,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             protected override ICalculationContext<ICalculation, IFailureMechanism> GetCalculationContextWithCalculation()
             {
                 return new StabilityPointStructuresCalculationScenarioContext(
-                    new StructuresCalculation<StabilityPointStructuresInput>(),
+                    new StructuresCalculationScenario<StabilityPointStructuresInput>(),
                     new CalculationGroup(),
                     new StabilityPointStructuresFailureMechanism(),
                     new AssessmentSection(AssessmentSectionComposition.Dike));

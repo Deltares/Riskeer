@@ -69,7 +69,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.PropertyInfos
             mocks.ReplayAll();
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            var calculation = new TestStabilityPointStructuresCalculation
+            var calculation = new TestStabilityPointStructuresCalculationScenario
             {
                 Output = new StructuresOutput(0, null)
             };

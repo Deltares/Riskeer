@@ -26,14 +26,14 @@ using Riskeer.Common.Data.Structures;
 namespace Riskeer.StabilityPointStructures.Data.TestUtil
 {
     /// <summary>
-    /// Stability point structures calculation used for testing purposes.
+    /// Stability point structures calculation scenario used for testing purposes.
     /// </summary>
-    public class TestStabilityPointStructuresCalculation : StructuresCalculation<StabilityPointStructuresInput>
+    public class TestStabilityPointStructuresCalculationScenario : StructuresCalculationScenario<StabilityPointStructuresInput>
     {
         /// <summary>
-        /// Creates a new instance of <see cref="TestStabilityPointStructuresCalculation"/>.
+        /// Creates a new instance of <see cref="TestStabilityPointStructuresCalculationScenario"/>.
         /// </summary>
-        public TestStabilityPointStructuresCalculation()
+        public TestStabilityPointStructuresCalculationScenario()
         {
             InputParameters.Structure = new TestStabilityPointStructure();
             InputParameters.HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "location", 1, 1);

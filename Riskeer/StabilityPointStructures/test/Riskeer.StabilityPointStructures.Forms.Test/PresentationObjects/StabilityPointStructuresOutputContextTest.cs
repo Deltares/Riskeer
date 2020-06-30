@@ -41,7 +41,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PresentationObjects
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var calculation = new TestStabilityPointStructuresCalculation();
+            var calculation = new TestStabilityPointStructuresCalculationScenario();
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
             // Call
@@ -63,7 +63,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PresentationObjects
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var calculation = new TestStabilityPointStructuresCalculation();
+            var calculation = new TestStabilityPointStructuresCalculationScenario();
 
             // Call
             TestDelegate call = () => new StabilityPointStructuresOutputContext(calculation, null, assessmentSection);

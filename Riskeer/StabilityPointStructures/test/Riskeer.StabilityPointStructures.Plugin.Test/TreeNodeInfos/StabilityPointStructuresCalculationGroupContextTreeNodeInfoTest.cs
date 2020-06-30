@@ -703,7 +703,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_CalculationGroupWithCalculationWithStructureAndInputInSync_ContextMenuItemUpdateStructuresDisabledAndToolTipSet()
         {
             // Setup
-            var calculation = new TestStabilityPointStructuresCalculation();
+            var calculation = new TestStabilityPointStructuresCalculationScenario();
             var group = new CalculationGroup
             {
                 Children =
@@ -742,7 +742,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_CalculationGroupWithCalculationWithStructureAndInputOutOfSync_ContextMenuItemUpdateStructuresEnabledAndToolTipSet()
         {
             // Setup
-            var calculation = new TestStabilityPointStructuresCalculation();
+            var calculation = new TestStabilityPointStructuresCalculationScenario();
             ChangeStructure(calculation.InputParameters.Structure);
             var group = new CalculationGroup
             {
@@ -1151,12 +1151,12 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
-            var calculationWithIllustrationPoints = new TestStabilityPointStructuresCalculation
+            var calculationWithIllustrationPoints = new TestStabilityPointStructuresCalculationScenario
             {
                 Output = new TestStructuresOutput(new TestGeneralResultFaultTreeIllustrationPoint())
             };
 
-            var calculationWithOutput = new TestStabilityPointStructuresCalculation
+            var calculationWithOutput = new TestStabilityPointStructuresCalculationScenario
             {
                 Output = new TestStructuresOutput()
             };
@@ -1167,7 +1167,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                 {
                     calculationWithIllustrationPoints,
                     calculationWithOutput,
-                    new TestStabilityPointStructuresCalculation()
+                    new TestStabilityPointStructuresCalculationScenario()
                 }
             };
 
@@ -1200,7 +1200,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
-            var calculationWithOutput = new TestStabilityPointStructuresCalculation
+            var calculationWithOutput = new TestStabilityPointStructuresCalculationScenario
             {
                 Output = new TestStructuresOutput()
             };
@@ -1210,7 +1210,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                 Children =
                 {
                     calculationWithOutput,
-                    new TestStabilityPointStructuresCalculation()
+                    new TestStabilityPointStructuresCalculationScenario()
                 }
             };
 
@@ -1240,12 +1240,12 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
         public void GivenCalculationsWithIllustrationPoints_WhenClearIllustrationPointsClickedAndAborted_ThenInquiryAndIllustrationPointsNotCleared()
         {
             // Given
-            var calculationWithIllustrationPoints = new TestStabilityPointStructuresCalculation
+            var calculationWithIllustrationPoints = new TestStabilityPointStructuresCalculationScenario
             {
                 Output = new TestStructuresOutput(new TestGeneralResultFaultTreeIllustrationPoint())
             };
 
-            var calculationWithOutput = new TestStabilityPointStructuresCalculation
+            var calculationWithOutput = new TestStabilityPointStructuresCalculationScenario
             {
                 Output = new TestStructuresOutput()
             };
@@ -1256,7 +1256,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                 {
                     calculationWithIllustrationPoints,
                     calculationWithOutput,
-                    new TestStabilityPointStructuresCalculation()
+                    new TestStabilityPointStructuresCalculationScenario()
                 }
             };
 
@@ -1303,12 +1303,12 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
         public void GivenCalculationsWithIllustrationPoints_WhenClearIllustrationPointsClickedAndContinued_ThenInquiryAndIllustrationPointsCleared()
         {
             // Given
-            var calculationWithIllustrationPoints = new TestStabilityPointStructuresCalculation
+            var calculationWithIllustrationPoints = new TestStabilityPointStructuresCalculationScenario
             {
                 Output = new TestStructuresOutput(new TestGeneralResultFaultTreeIllustrationPoint())
             };
 
-            var calculationWithOutput = new TestStabilityPointStructuresCalculation
+            var calculationWithOutput = new TestStabilityPointStructuresCalculationScenario
             {
                 Output = new TestStructuresOutput()
             };
@@ -1319,7 +1319,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                 {
                     calculationWithIllustrationPoints,
                     calculationWithOutput,
-                    new TestStabilityPointStructuresCalculation()
+                    new TestStabilityPointStructuresCalculationScenario()
                 }
             };
 
@@ -1468,7 +1468,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
             var failureMechanism = new TestStabilityPointStructuresFailureMechanism();
-            failureMechanism.CalculationsGroup.Children.Add(new TestStabilityPointStructuresCalculation
+            failureMechanism.CalculationsGroup.Children.Add(new TestStabilityPointStructuresCalculationScenario
             {
                 Name = "A",
                 InputParameters =
@@ -1478,7 +1478,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                     LoadSchematizationType = LoadSchematizationType.Linear
                 }
             });
-            failureMechanism.CalculationsGroup.Children.Add(new TestStabilityPointStructuresCalculation
+            failureMechanism.CalculationsGroup.Children.Add(new TestStabilityPointStructuresCalculationScenario
             {
                 Name = "B",
                 InputParameters =
@@ -1571,7 +1571,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
             var failureMechanism = new TestStabilityPointStructuresFailureMechanism();
-            failureMechanism.CalculationsGroup.Children.Add(new TestStabilityPointStructuresCalculation
+            failureMechanism.CalculationsGroup.Children.Add(new TestStabilityPointStructuresCalculationScenario
             {
                 Name = "A",
                 InputParameters =
@@ -1581,7 +1581,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                     LoadSchematizationType = LoadSchematizationType.Linear
                 }
             });
-            failureMechanism.CalculationsGroup.Children.Add(new TestStabilityPointStructuresCalculation
+            failureMechanism.CalculationsGroup.Children.Add(new TestStabilityPointStructuresCalculationScenario
             {
                 Name = "B",
                 InputParameters =

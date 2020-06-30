@@ -433,9 +433,9 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
             }
         }
 
-        private static TestStabilityPointStructuresCalculation CreateCalculationWithOutput()
+        private static TestStabilityPointStructuresCalculationScenario CreateCalculationWithOutput()
         {
-            return new TestStabilityPointStructuresCalculation
+            return new TestStabilityPointStructuresCalculationScenario
             {
                 Output = new TestStructuresOutput()
             };
@@ -718,7 +718,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
 
             var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
-                Calculation = new TestStabilityPointStructuresCalculation(),
+                Calculation = new TestStabilityPointStructuresCalculationScenario(),
                 SimpleAssessmentResult = simpleAssessmentResult
             };
 
@@ -749,7 +749,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
-            var calculation = new TestStabilityPointStructuresCalculation
+            var calculation = new TestStabilityPointStructuresCalculationScenario
             {
                 Output = new TestStructuresOutput(double.NaN)
             };
@@ -814,7 +814,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
 
             var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
-                Calculation = new TestStabilityPointStructuresCalculation(),
+                Calculation = new TestStabilityPointStructuresCalculationScenario(),
                 UseManualAssembly = true
             };
 
@@ -843,7 +843,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
 
             var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
-                Calculation = new TestStabilityPointStructuresCalculation(),
+                Calculation = new TestStabilityPointStructuresCalculationScenario(),
                 DetailedAssessmentResult = DetailedAssessmentProbabilityOnlyResultType.NotAssessed
             };
 

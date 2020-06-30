@@ -103,7 +103,7 @@ namespace Riskeer.StabilityPointStructures.Integration.Test
             DataImportHelper.ImportHydraulicBoundaryDatabase(assessmentSection, validFilePath);
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            var calculation = new TestStabilityPointStructuresCalculation
+            var calculation = new TestStabilityPointStructuresCalculationScenario
             {
                 InputParameters =
                 {
@@ -166,7 +166,7 @@ namespace Riskeer.StabilityPointStructures.Integration.Test
             DataImportHelper.ImportHydraulicBoundaryDatabase(assessmentSection, validFilePath);
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            var calculation = new TestStabilityPointStructuresCalculation
+            var calculation = new TestStabilityPointStructuresCalculationScenario
             {
                 InputParameters =
                 {
@@ -211,7 +211,7 @@ namespace Riskeer.StabilityPointStructures.Integration.Test
             DataImportHelper.ImportHydraulicBoundaryDatabase(assessmentSection, validFilePath);
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            var calculation = new TestStabilityPointStructuresCalculation
+            var calculation = new TestStabilityPointStructuresCalculationScenario
             {
                 InputParameters =
                 {
@@ -323,7 +323,7 @@ namespace Riskeer.StabilityPointStructures.Integration.Test
             mockRepository.ReplayAll();
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            var calculation = new TestStabilityPointStructuresCalculation();
+            var calculation = new TestStabilityPointStructuresCalculationScenario();
 
             CalculatableActivity activity = StabilityPointStructuresCalculationActivityFactory.CreateCalculationActivity(calculation,
                                                                                                                          failureMechanism,
@@ -371,7 +371,7 @@ namespace Riskeer.StabilityPointStructures.Integration.Test
             mockRepository.ReplayAll();
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            var calculation = new TestStabilityPointStructuresCalculation();
+            var calculation = new TestStabilityPointStructuresCalculationScenario();
 
             CalculatableActivity activity = StabilityPointStructuresCalculationActivityFactory.CreateCalculationActivity(calculation,
                                                                                                                          failureMechanism,
@@ -419,7 +419,7 @@ namespace Riskeer.StabilityPointStructures.Integration.Test
             mockRepository.ReplayAll();
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            var calculation = new TestStabilityPointStructuresCalculation();
+            var calculation = new TestStabilityPointStructuresCalculationScenario();
 
             CalculatableActivity activity = StabilityPointStructuresCalculationActivityFactory.CreateCalculationActivity(calculation,
                                                                                                                          failureMechanism,

@@ -118,7 +118,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var parent = new CalculationGroup();
-            var calculation = new StructuresCalculation<StabilityPointStructuresInput>
+            var calculation = new StructuresCalculationScenario<StabilityPointStructuresInput>
             {
                 Output = hasOutput ? new TestStructuresOutput() : null
             };
@@ -152,7 +152,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
             var assessmentSection = new AssessmentSectionStub();
             var parent = new CalculationGroup();
-            var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
+            var calculation = new StructuresCalculationScenario<StabilityPointStructuresInput>();
             var nodeData = new StabilityPointStructuresCalculationScenarioContext(calculation, parent, failureMechanism, assessmentSection);
 
             var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
@@ -215,7 +215,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
 
             var failureMechanism = new TestStabilityPointStructuresFailureMechanism();
             var parent = new CalculationGroup();
-            var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
+            var calculation = new StructuresCalculationScenario<StabilityPointStructuresInput>();
             var nodeData = new StabilityPointStructuresCalculationScenarioContext(calculation, parent, failureMechanism, assessmentSection);
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
@@ -283,7 +283,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
 
             var parent = new CalculationGroup();
-            var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
+            var calculation = new StructuresCalculationScenario<StabilityPointStructuresInput>();
             var failureMechanism = new TestStabilityPointStructuresFailureMechanism();
             var nodeData = new StabilityPointStructuresCalculationScenarioContext(calculation, parent, failureMechanism, assessmentSection);
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
@@ -318,7 +318,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
 
             var parent = new CalculationGroup();
-            var calculation = new StructuresCalculation<StabilityPointStructuresInput>
+            var calculation = new StructuresCalculationScenario<StabilityPointStructuresInput>
             {
                 InputParameters =
                 {
@@ -359,7 +359,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
 
             var parent = new CalculationGroup();
-            var calculation = new StructuresCalculation<StabilityPointStructuresInput>
+            var calculation = new StructuresCalculationScenario<StabilityPointStructuresInput>
             {
                 InputParameters =
                 {
@@ -406,7 +406,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             var failureMechanism = new TestStabilityPointStructuresFailureMechanism();
 
             var parent = new CalculationGroup();
-            var calculation = new StructuresCalculation<StabilityPointStructuresInput>
+            var calculation = new StructuresCalculationScenario<StabilityPointStructuresInput>
             {
                 InputParameters =
                 {
@@ -455,7 +455,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             var failureMechanism = new TestStabilityPointStructuresFailureMechanism();
 
             var parent = new CalculationGroup();
-            var calculation = new StructuresCalculation<StabilityPointStructuresInput>
+            var calculation = new StructuresCalculationScenario<StabilityPointStructuresInput>
             {
                 InputParameters =
                 {
@@ -529,7 +529,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             var failureMechanism = new TestStabilityPointStructuresFailureMechanism();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
             var parent = new CalculationGroup();
-            var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
+            var calculation = new StructuresCalculationScenario<StabilityPointStructuresInput>();
             var nodeData = new StabilityPointStructuresCalculationScenarioContext(calculation, parent, failureMechanism, assessmentSection);
 
             using (var treeViewControl = new TreeViewControl())
@@ -567,7 +567,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             var failureMechanism = new TestStabilityPointStructuresFailureMechanism();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null, mocks, "invalidFilePath");
             var parent = new CalculationGroup();
-            var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
+            var calculation = new StructuresCalculationScenario<StabilityPointStructuresInput>();
             var nodeData = new StabilityPointStructuresCalculationScenarioContext(calculation, parent, failureMechanism, assessmentSection);
 
             using (var treeViewControl = new TreeViewControl())
@@ -618,7 +618,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
 
             var failureMechanism = new TestStabilityPointStructuresFailureMechanism();
             var parent = new CalculationGroup();
-            var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
+            var calculation = new StructuresCalculationScenario<StabilityPointStructuresInput>();
             var nodeData = new StabilityPointStructuresCalculationScenarioContext(calculation, parent, failureMechanism, assessmentSection);
 
             using (var treeViewControl = new TreeViewControl())
@@ -654,7 +654,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
             var failureMechanism = new TestStabilityPointStructuresFailureMechanism();
             var parent = new CalculationGroup();
-            var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
+            var calculation = new StructuresCalculationScenario<StabilityPointStructuresInput>();
 
             var nodeData = new StabilityPointStructuresCalculationScenarioContext(calculation,
                                                                                   parent,
@@ -692,7 +692,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
             var failureMechanism = new TestStabilityPointStructuresFailureMechanism();
             var parent = new CalculationGroup();
-            var calculation = new StructuresCalculation<StabilityPointStructuresInput>
+            var calculation = new StructuresCalculationScenario<StabilityPointStructuresInput>
             {
                 InputParameters =
                 {
@@ -738,7 +738,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
 
             var foreshoreProfileInput = new TestForeshoreProfile();
             var parent = new CalculationGroup();
-            var calculation = new StructuresCalculation<StabilityPointStructuresInput>
+            var calculation = new StructuresCalculationScenario<StabilityPointStructuresInput>
             {
                 InputParameters =
                 {
@@ -788,7 +788,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
 
             var foreshoreProfileInput = new TestForeshoreProfile(true);
             var parent = new CalculationGroup();
-            var calculation = new StructuresCalculation<StabilityPointStructuresInput>
+            var calculation = new StructuresCalculationScenario<StabilityPointStructuresInput>
             {
                 InputParameters =
                 {
@@ -841,7 +841,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
 
             var foreshoreProfileInput = new TestForeshoreProfile(true);
             var parent = new CalculationGroup();
-            var calculation = new StructuresCalculation<StabilityPointStructuresInput>
+            var calculation = new StructuresCalculationScenario<StabilityPointStructuresInput>
             {
                 InputParameters =
                 {
@@ -937,7 +937,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
 
             var parent = new CalculationGroup();
-            var calculation = new TestStabilityPointStructuresCalculation
+            var calculation = new TestStabilityPointStructuresCalculationScenario
             {
                 InputParameters =
                 {
@@ -1025,7 +1025,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
 
             var parent = new CalculationGroup();
-            var calculation = new TestStabilityPointStructuresCalculation
+            var calculation = new TestStabilityPointStructuresCalculationScenario
             {
                 InputParameters =
                 {
@@ -1072,7 +1072,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
 
             var parent = new CalculationGroup();
-            var calculation = new StructuresCalculation<StabilityPointStructuresInput>
+            var calculation = new StructuresCalculationScenario<StabilityPointStructuresInput>
             {
                 Output = new TestStructuresOutput(new TestGeneralResultFaultTreeIllustrationPoint())
             };
@@ -1107,7 +1107,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
 
             var parent = new CalculationGroup();
-            var calculation = new StructuresCalculation<StabilityPointStructuresInput>
+            var calculation = new StructuresCalculationScenario<StabilityPointStructuresInput>
             {
                 Output = new TestStructuresOutput()
             };
@@ -1142,7 +1142,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
 
             var parent = new CalculationGroup();
-            var calculation = new StructuresCalculation<StabilityPointStructuresInput>
+            var calculation = new StructuresCalculationScenario<StabilityPointStructuresInput>
             {
                 Output = new TestStructuresOutput(new TestGeneralResultFaultTreeIllustrationPoint())
             };
@@ -1190,7 +1190,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
 
             var parent = new CalculationGroup();
-            var calculation = new StructuresCalculation<StabilityPointStructuresInput>
+            var calculation = new StructuresCalculationScenario<StabilityPointStructuresInput>
             {
                 Output = new TestStructuresOutput(new TestGeneralResultFaultTreeIllustrationPoint())
             };
@@ -1237,7 +1237,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var group = new CalculationGroup();
-            var elementToBeRemoved = new StructuresCalculation<StabilityPointStructuresInput>();
+            var elementToBeRemoved = new StructuresCalculationScenario<StabilityPointStructuresInput>();
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
             var observer = mocks.StrictMock<IObserver>();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -1255,7 +1255,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             group.Children.Add(elementToBeRemoved);
-            group.Children.Add(new StructuresCalculation<StabilityPointStructuresInput>());
+            group.Children.Add(new StructuresCalculationScenario<StabilityPointStructuresInput>());
             group.Attach(observer);
 
             // Precondition
@@ -1276,7 +1276,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             // Setup
             var group = new CalculationGroup();
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            var elementToBeRemoved = new StructuresCalculation<StabilityPointStructuresInput>();
+            var elementToBeRemoved = new StructuresCalculationScenario<StabilityPointStructuresInput>();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var calculationContext = new StabilityPointStructuresCalculationScenarioContext(elementToBeRemoved,
                                                                                             group,

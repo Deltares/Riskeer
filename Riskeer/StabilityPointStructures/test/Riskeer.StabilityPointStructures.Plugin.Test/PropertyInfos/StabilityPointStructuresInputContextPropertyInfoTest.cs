@@ -67,7 +67,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.PropertyInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var calculation = new TestStabilityPointStructuresCalculation();
+            var calculation = new TestStabilityPointStructuresCalculationScenario();
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
             var context = new StabilityPointStructuresInputContext(calculation.InputParameters, calculation, failureMechanism, assessmentSection);
 

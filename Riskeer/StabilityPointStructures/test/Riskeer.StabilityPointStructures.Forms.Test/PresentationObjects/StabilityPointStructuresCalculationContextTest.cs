@@ -41,7 +41,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PresentationObjects
             var assessmentSection = mocksRepository.Stub<IAssessmentSection>();
             mocksRepository.ReplayAll();
 
-            var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
+            var calculation = new StructuresCalculationScenario<StabilityPointStructuresInput>();
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
             var parent = new CalculationGroup();
 
@@ -49,7 +49,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PresentationObjects
             var context = new StabilityPointStructuresCalculationScenarioContext(calculation, parent, failureMechanism, assessmentSection);
 
             // Assert
-            Assert.IsInstanceOf<StructuresCalculationContext<StabilityPointStructuresInput, StabilityPointStructuresFailureMechanism>>(context);
+            Assert.IsInstanceOf<StructuresCalculationScenarioContext<StabilityPointStructuresInput, StabilityPointStructuresFailureMechanism>>(context);
             Assert.AreSame(calculation, context.WrappedData);
             Assert.AreSame(parent, context.Parent);
             Assert.AreSame(failureMechanism, context.FailureMechanism);
@@ -65,7 +65,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PresentationObjects
             var assessmentSection = mocksRepository.Stub<IAssessmentSection>();
             mocksRepository.ReplayAll();
 
-            var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
+            var calculation = new StructuresCalculationScenario<StabilityPointStructuresInput>();
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
             var parent = new CalculationGroup();
             var context = new StabilityPointStructuresCalculationScenarioContext(calculation, parent, failureMechanism, assessmentSection);
@@ -81,7 +81,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PresentationObjects
 
         private class DerivedStabilityPointStructuresCalculationScenarioContext : StabilityPointStructuresCalculationScenarioContext
         {
-            public DerivedStabilityPointStructuresCalculationScenarioContext(StructuresCalculation<StabilityPointStructuresInput> calculation,
+            public DerivedStabilityPointStructuresCalculationScenarioContext(StructuresCalculationScenario<StabilityPointStructuresInput> calculation,
                                                                              CalculationGroup parent,
                                                                              StabilityPointStructuresFailureMechanism failureMechanism,
                                                                              IAssessmentSection assessmentSection)

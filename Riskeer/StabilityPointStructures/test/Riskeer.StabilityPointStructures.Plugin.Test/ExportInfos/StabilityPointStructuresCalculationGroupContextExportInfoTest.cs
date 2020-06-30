@@ -138,7 +138,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.ExportInfos
 
             if (hasCalculation)
             {
-                calculationGroup.Children.Add(new TestStabilityPointStructuresCalculation());
+                calculationGroup.Children.Add(new TestStabilityPointStructuresCalculationScenario());
             }
 
             var context = new StabilityPointStructuresCalculationGroupContext(calculationGroup,

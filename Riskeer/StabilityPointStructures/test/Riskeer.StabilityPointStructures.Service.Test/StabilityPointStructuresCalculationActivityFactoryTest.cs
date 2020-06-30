@@ -281,7 +281,7 @@ namespace Riskeer.StabilityPointStructures.Service.Test
 
         private static StructuresCalculation<StabilityPointStructuresInput> CreateValidCalculation()
         {
-            return new TestStabilityPointStructuresCalculation
+            return new TestStabilityPointStructuresCalculationScenario
             {
                 InputParameters =
                 {

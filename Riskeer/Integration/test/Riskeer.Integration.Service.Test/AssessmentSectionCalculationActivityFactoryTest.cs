@@ -415,7 +415,7 @@ namespace Riskeer.Integration.Service.Test
         private static void AddStabilityPointStructuresCalculation(AssessmentSection assessmentSection,
                                                                    HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
-            assessmentSection.StabilityPointStructures.CalculationsGroup.Children.Add(new TestStabilityPointStructuresCalculation
+            assessmentSection.StabilityPointStructures.CalculationsGroup.Children.Add(new TestStabilityPointStructuresCalculationScenario
             {
                 InputParameters =
                 {

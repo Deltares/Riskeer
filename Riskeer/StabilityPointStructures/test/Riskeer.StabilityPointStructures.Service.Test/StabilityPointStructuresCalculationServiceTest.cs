@@ -84,7 +84,7 @@ namespace Riskeer.StabilityPointStructures.Service.Test
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mockRepository, validHydraulicBoundaryDatabaseFilePath);
             mockRepository.ReplayAll();
 
-            var calculation = new TestStabilityPointStructuresCalculation
+            var calculation = new TestStabilityPointStructuresCalculationScenario
             {
                 InputParameters =
                 {
@@ -128,7 +128,7 @@ namespace Riskeer.StabilityPointStructures.Service.Test
                                                                                                            validHydraulicBoundaryDatabaseFilePath);
             mockRepository.ReplayAll();
 
-            var calculation = new TestStabilityPointStructuresCalculation
+            var calculation = new TestStabilityPointStructuresCalculationScenario
             {
                 InputParameters =
                 {
@@ -207,7 +207,7 @@ namespace Riskeer.StabilityPointStructures.Service.Test
                                                                                                            validHydraulicBoundaryDatabaseFilePath);
             mockRepository.ReplayAll();
 
-            var calculation = new TestStabilityPointStructuresCalculation
+            var calculation = new TestStabilityPointStructuresCalculationScenario
             {
                 InputParameters =
                 {
@@ -286,7 +286,7 @@ namespace Riskeer.StabilityPointStructures.Service.Test
                                                                                                            validHydraulicBoundaryDatabaseFilePath);
             mockRepository.ReplayAll();
 
-            var calculation = new TestStabilityPointStructuresCalculation
+            var calculation = new TestStabilityPointStructuresCalculationScenario
             {
                 InputParameters =
                 {
@@ -367,7 +367,7 @@ namespace Riskeer.StabilityPointStructures.Service.Test
                                                                                                            validHydraulicBoundaryDatabaseFilePath);
             mockRepository.ReplayAll();
 
-            var calculation = new TestStabilityPointStructuresCalculation
+            var calculation = new TestStabilityPointStructuresCalculationScenario
             {
                 InputParameters =
                 {
@@ -445,7 +445,7 @@ namespace Riskeer.StabilityPointStructures.Service.Test
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mockRepository, validHydraulicBoundaryDatabaseFilePath);
             mockRepository.ReplayAll();
 
-            var calculation = new TestStabilityPointStructuresCalculation
+            var calculation = new TestStabilityPointStructuresCalculationScenario
             {
                 InputParameters =
                 {
@@ -476,7 +476,7 @@ namespace Riskeer.StabilityPointStructures.Service.Test
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mockRepository, validHydraulicBoundaryDatabaseFilePath);
             mockRepository.ReplayAll();
 
-            var calculation = new TestStabilityPointStructuresCalculation
+            var calculation = new TestStabilityPointStructuresCalculationScenario
             {
                 InputParameters =
                 {
@@ -505,7 +505,7 @@ namespace Riskeer.StabilityPointStructures.Service.Test
             mockRepository.ReplayAll();
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            var calculation = new TestStabilityPointStructuresCalculation
+            var calculation = new TestStabilityPointStructuresCalculationScenario
             {
                 InputParameters =
                 {
@@ -545,7 +545,7 @@ namespace Riskeer.StabilityPointStructures.Service.Test
             var calculatorFactory = mockRepository.StrictMock<IHydraRingCalculatorFactory>();
             mockRepository.ReplayAll();
 
-            var calculation = new TestStabilityPointStructuresCalculation
+            var calculation = new TestStabilityPointStructuresCalculationScenario
             {
                 InputParameters =
                 {
@@ -591,7 +591,7 @@ namespace Riskeer.StabilityPointStructures.Service.Test
                              .Return(calculator);
             mockRepository.ReplayAll();
 
-            var calculation = new TestStabilityPointStructuresCalculation
+            var calculation = new TestStabilityPointStructuresCalculationScenario
             {
                 InputParameters =
                 {
@@ -709,7 +709,7 @@ namespace Riskeer.StabilityPointStructures.Service.Test
                              .Return(calculator);
             mockRepository.ReplayAll();
 
-            var calculation = new TestStabilityPointStructuresCalculation
+            var calculation = new TestStabilityPointStructuresCalculationScenario
             {
                 InputParameters =
                 {
@@ -828,7 +828,7 @@ namespace Riskeer.StabilityPointStructures.Service.Test
                              .Return(calculator);
             mockRepository.ReplayAll();
 
-            var calculation = new TestStabilityPointStructuresCalculation
+            var calculation = new TestStabilityPointStructuresCalculationScenario
             {
                 InputParameters =
                 {
@@ -946,7 +946,7 @@ namespace Riskeer.StabilityPointStructures.Service.Test
                              .Return(calculator);
             mockRepository.ReplayAll();
 
-            var calculation = new TestStabilityPointStructuresCalculation
+            var calculation = new TestStabilityPointStructuresCalculationScenario
             {
                 InputParameters =
                 {
@@ -1065,7 +1065,7 @@ namespace Riskeer.StabilityPointStructures.Service.Test
                              .Return(calculator);
             mockRepository.ReplayAll();
 
-            var calculation = new TestStabilityPointStructuresCalculation
+            var calculation = new TestStabilityPointStructuresCalculationScenario
             {
                 InputParameters =
                 {
@@ -1185,7 +1185,7 @@ namespace Riskeer.StabilityPointStructures.Service.Test
                              .Return(calculator);
             mockRepository.ReplayAll();
 
-            var calculation = new TestStabilityPointStructuresCalculation
+            var calculation = new TestStabilityPointStructuresCalculationScenario
             {
                 InputParameters =
                 {
@@ -1306,7 +1306,7 @@ namespace Riskeer.StabilityPointStructures.Service.Test
                              .Return(calculator);
             mockRepository.ReplayAll();
 
-            var calculation = new TestStabilityPointStructuresCalculation
+            var calculation = new TestStabilityPointStructuresCalculationScenario
             {
                 InputParameters =
                 {
@@ -1426,7 +1426,7 @@ namespace Riskeer.StabilityPointStructures.Service.Test
                              .Return(calculator);
             mockRepository.ReplayAll();
 
-            var calculation = new TestStabilityPointStructuresCalculation
+            var calculation = new TestStabilityPointStructuresCalculationScenario
             {
                 InputParameters =
                 {
@@ -1560,7 +1560,7 @@ namespace Riskeer.StabilityPointStructures.Service.Test
                              .Return(calculator);
             mockRepository.ReplayAll();
 
-            var calculation = new TestStabilityPointStructuresCalculation
+            var calculation = new TestStabilityPointStructuresCalculationScenario
             {
                 InputParameters =
                 {
@@ -1608,7 +1608,7 @@ namespace Riskeer.StabilityPointStructures.Service.Test
                              .Return(new TestStructuresCalculator<StructuresStabilityPointCalculationInput>());
             mockRepository.ReplayAll();
 
-            var calculation = new TestStabilityPointStructuresCalculation
+            var calculation = new TestStabilityPointStructuresCalculationScenario
             {
                 InputParameters =
                 {
@@ -1678,7 +1678,7 @@ namespace Riskeer.StabilityPointStructures.Service.Test
                              .Return(calculator);
             mockRepository.ReplayAll();
 
-            var calculation = new TestStabilityPointStructuresCalculation
+            var calculation = new TestStabilityPointStructuresCalculationScenario
             {
                 InputParameters =
                 {
@@ -1741,7 +1741,7 @@ namespace Riskeer.StabilityPointStructures.Service.Test
                              .Return(calculator);
             mockRepository.ReplayAll();
 
-            var calculation = new TestStabilityPointStructuresCalculation
+            var calculation = new TestStabilityPointStructuresCalculationScenario
             {
                 InputParameters =
                 {
@@ -1804,7 +1804,7 @@ namespace Riskeer.StabilityPointStructures.Service.Test
                              .Return(calculator);
             mockRepository.ReplayAll();
 
-            var calculation = new TestStabilityPointStructuresCalculation
+            var calculation = new TestStabilityPointStructuresCalculationScenario
             {
                 InputParameters =
                 {

@@ -89,7 +89,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.ExportInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var context = new StabilityPointStructuresCalculationScenarioContext(new TestStabilityPointStructuresCalculation(),
+            var context = new StabilityPointStructuresCalculationScenarioContext(new TestStabilityPointStructuresCalculationScenario(),
                                                                                  new CalculationGroup(),
                                                                                  new StabilityPointStructuresFailureMechanism(),
                                                                                  assessmentSection);
@@ -108,7 +108,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.ExportInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var context = new StabilityPointStructuresCalculationScenarioContext(new TestStabilityPointStructuresCalculation(),
+            var context = new StabilityPointStructuresCalculationScenarioContext(new TestStabilityPointStructuresCalculationScenario(),
                                                                                  new CalculationGroup(),
                                                                                  new StabilityPointStructuresFailureMechanism(),
                                                                                  assessmentSection);

@@ -354,7 +354,7 @@ namespace Riskeer.Integration.Test.FileImporters
             {
                 unaffectedForeshoreProfile
             }, sourceFilePath);
-            var unaffectedCalculation = new TestStabilityPointStructuresCalculation
+            var unaffectedCalculation = new TestStabilityPointStructuresCalculationScenario
             {
                 InputParameters =
                 {

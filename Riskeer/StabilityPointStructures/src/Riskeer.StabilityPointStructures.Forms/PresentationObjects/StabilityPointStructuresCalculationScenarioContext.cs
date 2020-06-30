@@ -31,7 +31,7 @@ namespace Riskeer.StabilityPointStructures.Forms.PresentationObjects
     /// <summary>
     /// Presentation object for all data required to configure a stability point structures calculation.
     /// </summary>
-    public class StabilityPointStructuresCalculationScenarioContext : StructuresCalculationContext<StabilityPointStructuresInput, StabilityPointStructuresFailureMechanism>
+    public class StabilityPointStructuresCalculationScenarioContext : StructuresCalculationScenarioContext<StabilityPointStructuresInput, StabilityPointStructuresFailureMechanism>
     {
         /// <summary>
         /// Creates a new instance of <see cref="StabilityPointStructuresCalculationScenarioContext"/>.
@@ -41,7 +41,7 @@ namespace Riskeer.StabilityPointStructures.Forms.PresentationObjects
         /// <param name="failureMechanism">The failure mechanism which the context belongs to.</param>
         /// <param name="assessmentSection">The assessment section which the calculation belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
-        public StabilityPointStructuresCalculationScenarioContext(StructuresCalculation<StabilityPointStructuresInput> calculation,
+        public StabilityPointStructuresCalculationScenarioContext(StructuresCalculationScenario<StabilityPointStructuresInput> calculation,
                                                                   CalculationGroup parent,
                                                                   StabilityPointStructuresFailureMechanism failureMechanism,
                                                                   IAssessmentSection assessmentSection)

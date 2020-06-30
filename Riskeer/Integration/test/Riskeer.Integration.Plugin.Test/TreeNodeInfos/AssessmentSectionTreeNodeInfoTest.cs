@@ -796,7 +796,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         private static void AddStabilityPointStructuresCalculation(AssessmentSection assessmentSection,
                                                                    HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
-            assessmentSection.StabilityPointStructures.CalculationsGroup.Children.Add(new TestStabilityPointStructuresCalculation
+            assessmentSection.StabilityPointStructures.CalculationsGroup.Children.Add(new TestStabilityPointStructuresCalculationScenario
             {
                 InputParameters =
                 {
