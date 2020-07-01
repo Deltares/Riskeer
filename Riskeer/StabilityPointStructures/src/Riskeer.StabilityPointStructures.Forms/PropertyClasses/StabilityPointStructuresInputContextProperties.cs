@@ -36,7 +36,6 @@ using Riskeer.Common.Forms.TypeConverters;
 using Riskeer.StabilityPointStructures.Data;
 using Riskeer.StabilityPointStructures.Forms.PresentationObjects;
 using Riskeer.StabilityPointStructures.Forms.Properties;
-using Riskeer.StabilityPointStructures.Util;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses

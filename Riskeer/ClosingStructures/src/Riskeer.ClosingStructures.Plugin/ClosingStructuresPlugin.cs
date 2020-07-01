@@ -614,16 +614,14 @@ namespace Riskeer.ClosingStructures.Plugin
 
                 if (dialog.SelectedItems.Any())
                 {
-                    GenerateClosingStructuresCalculations(
-                        nodeData.FailureMechanism,
-                        dialog.SelectedItems.Cast<ClosingStructure>(),
-                        nodeData.WrappedData.Children);
+                    GenerateClosingStructuresCalculations(dialog.SelectedItems.Cast<ClosingStructure>(),
+                                                          nodeData.WrappedData.Children);
                     nodeData.NotifyObservers();
                 }
             }
         }
 
-        private static void GenerateClosingStructuresCalculations(ClosingStructuresFailureMechanism failureMechanism, IEnumerable<ClosingStructure> structures, List<ICalculationBase> calculations)
+        private static void GenerateClosingStructuresCalculations(IEnumerable<ClosingStructure> structures, List<ICalculationBase> calculations)
         {
             foreach (ClosingStructure structure in structures)
             {

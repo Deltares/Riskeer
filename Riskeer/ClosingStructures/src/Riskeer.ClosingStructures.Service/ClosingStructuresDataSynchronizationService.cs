@@ -67,8 +67,7 @@ namespace Riskeer.ClosingStructures.Service
                                                                                               .Where(c => ReferenceEquals(c.InputParameters.Structure, structure))
                                                                                               .ToArray();
 
-            List<IObservable> changedObservables = ClearStructureDependentData(failureMechanism,
-                                                                               calculationWithRemovedStructure);
+            List<IObservable> changedObservables = ClearStructureDependentData(calculationWithRemovedStructure);
 
             StructureCollection<ClosingStructure> structures = failureMechanism.ClosingStructures;
             structures.Remove(structure);
@@ -98,8 +97,7 @@ namespace Riskeer.ClosingStructures.Service
                                                                                               .Where(c => c.InputParameters.Structure != null)
                                                                                               .ToArray();
 
-            List<IObservable> changedObservables = ClearStructureDependentData(failureMechanism,
-                                                                               calculationWithRemovedStructure);
+            List<IObservable> changedObservables = ClearStructureDependentData(calculationWithRemovedStructure);
 
             StructureCollection<ClosingStructure> structures = failureMechanism.ClosingStructures;
             structures.Clear();
@@ -208,8 +206,7 @@ namespace Riskeer.ClosingStructures.Service
             return Enumerable.Empty<IObservable>();
         }
 
-        private static List<IObservable> ClearStructureDependentData(ClosingStructuresFailureMechanism failureMechanism,
-                                                                     IEnumerable<StructuresCalculation<ClosingStructuresInput>> calculationWithRemovedStructure)
+        private static List<IObservable> ClearStructureDependentData(IEnumerable<StructuresCalculation<ClosingStructuresInput>> calculationWithRemovedStructure)
         {
             var changedObservables = new List<IObservable>();
             foreach (StructuresCalculation<ClosingStructuresInput> calculation in calculationWithRemovedStructure)
