@@ -188,40 +188,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
         }
 
         [Test]
-        public void GrassCoverErosionInwardsCalculationsView_ChangingListBoxSelection_DataGridViewCorrectlySyncedAndSelectionChangedFired()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            using (GrassCoverErosionInwardsCalculationsView grassCoverErosionInwardsCalculationsView = ShowFullyConfiguredGrassCoverErosionInwardsCalculationsView(
-                assessmentSection))
-            {
-                var selectionChangedCount = 0;
-                grassCoverErosionInwardsCalculationsView.SelectionChanged += (sender, args) => selectionChangedCount++;
-
-                var listBox = (ListBox) new ControlTester("listBox").TheObject;
-                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-
-                // Precondition
-                Assert.AreEqual(2, dataGridView.Rows.Count);
-                Assert.AreEqual("Calculation 1", dataGridView.Rows[0].Cells[nameColumnIndex].FormattedValue);
-                Assert.AreEqual("Calculation 2", dataGridView.Rows[1].Cells[nameColumnIndex].FormattedValue);
-
-                // Call
-                listBox.SelectedIndex = 1;
-
-                // Assert
-                Assert.AreEqual(1, dataGridView.Rows.Count);
-                Assert.AreEqual("Calculation 2", dataGridView.Rows[0].Cells[nameColumnIndex].FormattedValue);
-                Assert.AreEqual(2, selectionChangedCount);
-            }
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
         public void AssessmentSection_WithHydraulicBoundaryDatabaseSurfaceLinesNull_SelectableHydraulicBoundaryLocationsComboboxCorrectlyInitialized()
         {
             // Setup
@@ -452,6 +418,70 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             }
 
             WindowsFormsTestHelper.CloseAll();
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GrassCoverErosionInwardsCalculationsView_ChangingListBoxSelection_DataGridViewCorrectlySyncedAndSelectionChangedFired()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            using (GrassCoverErosionInwardsCalculationsView pipingCalculationsView = ShowFullyConfiguredGrassCoverErosionInwardsCalculationsView(
+                assessmentSection))
+            {
+                var selectionChangedCount = 0;
+                pipingCalculationsView.SelectionChanged += (sender, args) => selectionChangedCount++;
+
+                var listBox = (ListBox) new ControlTester("listBox").TheObject;
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+
+                // Precondition
+                Assert.AreEqual(2, dataGridView.Rows.Count);
+                Assert.AreEqual("Calculation 1", dataGridView.Rows[0].Cells[nameColumnIndex].FormattedValue);
+                Assert.AreEqual("Calculation 2", dataGridView.Rows[1].Cells[nameColumnIndex].FormattedValue);
+
+                // Call
+                listBox.SelectedIndex = 1;
+
+                // Assert
+                Assert.AreEqual(1, dataGridView.Rows.Count);
+                Assert.AreEqual("Calculation 2", dataGridView.Rows[0].Cells[nameColumnIndex].FormattedValue);
+                Assert.AreEqual(2, selectionChangedCount);
+            }
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [TestCase("test", damHeightColumnIndex)]
+        [TestCase("test", dikeHeightColumnIndex)]
+        [TestCase("test", meanCriticalFlowRateColumnIndex)]
+        [TestCase("test", standardDeviationCriticalFlowRateColumnIndex)]
+        [TestCase(";/[].,~!@#$%^&*()_-+={}|?", damHeightColumnIndex)]
+        [TestCase(";/[].,~!@#$%^&*()_-+={}|?", dikeHeightColumnIndex)]
+        [TestCase(";/[].,~!@#$%^&*()_-+={}|?", meanCriticalFlowRateColumnIndex)]
+        [TestCase(";/[].,~!@#$%^&*()_-+={}|?", standardDeviationCriticalFlowRateColumnIndex)]
+        public void GrassCoverErosionInwardsCalculationsView_EditValueInvalid_ShowsErrorTooltip(string newValue, int cellIndex)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            using (ShowFullyConfiguredGrassCoverErosionInwardsCalculationsView(assessmentSection))
+            {
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+
+                // Call
+                dataGridView.Rows[0].Cells[cellIndex].Value = newValue;
+
+                // Assert
+                Assert.AreEqual("De tekst moet een getal zijn.", dataGridView.Rows[0].ErrorText);
+            }
+
             mocks.VerifyAll();
         }
 
