@@ -51,7 +51,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
     {
         private const int selectableHydraulicBoundaryLocationColumnIndex = 1;
         private const int selectableDikeProfileColumnIndex = 2;
-        private const int selectableBreakWaterTypesColumnIndex = 4;
         private readonly Observer grassCoverErosionInwardsFailureMechanismObserver;
         private readonly Observer hydraulicBoundaryLocationsObserver;
         private readonly RecursiveObserver<CalculationGroup, GrassCoverErosionInwardsInput> grassCoverErosionInwardsInputObserver;

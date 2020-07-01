@@ -20,13 +20,17 @@
 // All rights reserved.
 
 using System;
+using System.Globalization;
 using System.Linq;
+using System.Threading;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
+using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.Views;
 using Core.Common.TestUtil;
+using Core.Common.Util.Reflection;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -93,7 +97,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
         }
 
         [Test]
-        public void Constructor_DataGridViewControlColumnHeadersCorrectlyInitialized_()
+        public void Constructor_DataGridViewControlColumnHeadersCorrectlyInitialized()
         {
             // Call
             using (ShowGrassCoverErosionInwardsCalculationsView())
@@ -218,6 +222,85 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
         }
 
         [Test]
+        public void AssessmentSection_WithHydraulicBoundaryDatabaseSurfaceLinesNull_SelectableHydraulicBoundaryLocationsComboboxCorrectlyInitialized()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            using (GrassCoverErosionInwardsCalculationsView grassCoverErosionInwardsCalculationsView = ShowFullyConfiguredGrassCoverErosionInwardsCalculationsView(assessmentSection))
+            {
+                // Call
+                grassCoverErosionInwardsCalculationsView.AssessmentSection = assessmentSection;
+
+                // Assert
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+                var hydraulicBoundaryLocationCombobox = (DataGridViewComboBoxColumn) dataGridView.Columns[selectableHydraulicBoundaryLocationsColumnIndex];
+                DataGridViewComboBoxCell.ObjectCollection hydraulicBoundaryLocationComboboxItems = hydraulicBoundaryLocationCombobox.Items;
+                Assert.AreEqual(3, hydraulicBoundaryLocationComboboxItems.Count);
+                Assert.AreEqual("<selecteer>", hydraulicBoundaryLocationComboboxItems[0].ToString());
+                Assert.AreEqual("Location 1", hydraulicBoundaryLocationComboboxItems[1].ToString());
+                Assert.AreEqual("Location 2", hydraulicBoundaryLocationComboboxItems[2].ToString());
+            }
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void AssessmentSection_WithSurfaceLinesHydraulicBoundaryDatabaseNotLinked_SelectableHydraulicBoundaryLocationsComboboxCorrectlyInitialized()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
+            assessmentSection.Stub(a => a.Attach(null)).IgnoreArguments();
+            assessmentSection.Stub(a => a.Detach(null)).IgnoreArguments();
+            mocks.ReplayAll();
+
+            using (GrassCoverErosionInwardsCalculationsView grassCoverErosionInwardsCalculationsView = ShowFullyConfiguredGrassCoverErosionInwardsCalculationsView(assessmentSection))
+            {
+                // Call
+                grassCoverErosionInwardsCalculationsView.AssessmentSection = assessmentSection;
+
+                // Assert
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+                var hydraulicBoundaryLocationCombobox = (DataGridViewComboBoxColumn) dataGridView.Columns[selectableHydraulicBoundaryLocationsColumnIndex];
+                DataGridViewComboBoxCell.ObjectCollection hydraulicBoundaryLocationComboboxItems = hydraulicBoundaryLocationCombobox.Items;
+                Assert.AreEqual(1, hydraulicBoundaryLocationComboboxItems.Count);
+                Assert.AreEqual("<selecteer>", hydraulicBoundaryLocationComboboxItems[0].ToString());
+            }
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void AssessmentSection_HydraulicBoundaryDatabaseWithLocationsAndSurfaceLines_SelectableHydraulicBoundaryLocationsComboboxCorrectlyInitialized()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            using (GrassCoverErosionInwardsCalculationsView grassCoverErosionInwardsCalculationsView = ShowFullyConfiguredGrassCoverErosionInwardsCalculationsView(
+                assessmentSection))
+            {
+                // Call
+                grassCoverErosionInwardsCalculationsView.AssessmentSection = assessmentSection;
+
+                // Assert
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+                var hydraulicBoundaryLocationCombobox = (DataGridViewComboBoxColumn) dataGridView.Columns[selectableHydraulicBoundaryLocationsColumnIndex];
+                DataGridViewComboBoxCell.ObjectCollection hydraulicBoundaryLocationComboboxItems = hydraulicBoundaryLocationCombobox.Items;
+                Assert.AreEqual(3, hydraulicBoundaryLocationComboboxItems.Count);
+                Assert.AreEqual("<selecteer>", hydraulicBoundaryLocationComboboxItems[0].ToString());
+                Assert.AreEqual("Location 1", hydraulicBoundaryLocationComboboxItems[1].ToString());
+                Assert.AreEqual("Location 2", hydraulicBoundaryLocationComboboxItems[2].ToString());
+            }
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
         public void ButtonGenerateCalculations_WithoutGrassCoverErosionInwardsFailureMechanism_ButtonDisabled()
         {
             // Setup
@@ -253,6 +336,123 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
                 // Assert
                 Assert.IsTrue(state);
             }
+        }
+
+        [Test]
+        public void GrassCoverErosionInwardsFailureMechanism_GrassCoverErosionInwardsFailureMechanismWithSections_SectionsListBoxCorrectlyInitialized()
+        {
+            // Setup
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var failureMechanismSection1 = new FailureMechanismSection("Section 1", new[]
+            {
+                new Point2D(0.0, 0.0),
+                new Point2D(5.0, 0.0)
+            });
+            var failureMechanismSection2 = new FailureMechanismSection("Section 2", new[]
+            {
+                new Point2D(5.0, 0.0),
+                new Point2D(10.0, 0.0)
+            });
+            var failureMechanismSection3 = new FailureMechanismSection("Section 3", new[]
+            {
+                new Point2D(10.0, 0.0),
+                new Point2D(15.0, 0.0)
+            });
+
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
+            {
+                failureMechanismSection1,
+                failureMechanismSection2,
+                failureMechanismSection3
+            });
+
+            using (GrassCoverErosionInwardsCalculationsView grassCoverErosionInwardsCalculationsView = ShowGrassCoverErosionInwardsCalculationsView())
+            {
+                // Call
+                grassCoverErosionInwardsCalculationsView.GrassCoverErosionInwardsFailureMechanism = failureMechanism;
+
+                // Assert
+                var listBox = (ListBox) new ControlTester("listBox").TheObject;
+                Assert.AreEqual(3, listBox.Items.Count);
+                Assert.AreSame(failureMechanismSection1, listBox.Items[0]);
+                Assert.AreSame(failureMechanismSection2, listBox.Items[1]);
+                Assert.AreSame(failureMechanismSection3, listBox.Items[2]);
+            }
+        }
+
+        [Test]
+        public void GrassCoverErosionInwardsCalculationsView_CalculationsWithAllDataSet_DataGridViewCorrectlyInitialized()
+        {
+            // Setup & Call
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            using (ShowFullyConfiguredGrassCoverErosionInwardsCalculationsView(assessmentSection))
+            {
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+
+                // Assert
+                DataGridViewRowCollection rows = dataGridView.Rows;
+                Assert.AreEqual(2, rows.Count);
+
+                DataGridViewCellCollection cells = rows[0].Cells;
+                Assert.AreEqual(10, cells.Count);
+                Assert.AreEqual("Calculation 1", cells[nameColumnIndex].FormattedValue);
+                Assert.AreEqual("<selecteer>", cells[selectableHydraulicBoundaryLocationsColumnIndex].FormattedValue);
+                Assert.AreEqual(string.Empty, cells[dikeProfileColumnIndex].FormattedValue);
+                Assert.AreEqual(true, cells[useDamColumnIndex].FormattedValue);
+                Assert.AreEqual("Havendam", cells[damTypeColumnIndex].FormattedValue);
+                Assert.AreEqual(3.30.ToString("0.00", CultureInfo.CurrentCulture), cells[damHeightColumnIndex].FormattedValue);
+                Assert.AreEqual(false, cells[useForeShoreGeometryColumnIndex].FormattedValue);
+                Assert.AreEqual(1.10.ToString("0.00", CultureInfo.CurrentCulture), cells[dikeHeightColumnIndex].FormattedValue);
+                Assert.AreEqual(4.4000.ToString("0.0000", CultureInfo.CurrentCulture), cells[meanCriticalFlowRateColumnIndex].FormattedValue);
+                Assert.AreEqual(5.5000.ToString("0.0000", CultureInfo.CurrentCulture), cells[standardDeviationCriticalFlowRateColumnIndex].FormattedValue);
+
+                cells = rows[1].Cells;
+                Assert.AreEqual(10, cells.Count);
+            }
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [Apartment(ApartmentState.STA)]
+        public void GrassCoverErosionInwardsCalculationsView_SelectingCellInRow_SelectionChangedFired()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            ConfigureHydraulicBoundaryDatabase(assessmentSection);
+
+            GrassCoverErosionInwardsFailureMechanism failureMechanism = ConfigureFailureMechanism();
+            using (var calculationsView = new GrassCoverErosionInwardsCalculationsView
+            {
+                AssessmentSection = assessmentSection,
+                GrassCoverErosionInwardsFailureMechanism = failureMechanism,
+                Data = ConfigureCalculationGroup()
+            })
+            {
+                var selectionChangedCount = 0;
+                calculationsView.SelectionChanged += (sender, args) => selectionChangedCount++;
+
+                var control = TypeUtils.GetField<DataGridViewControl>(calculationsView, "dataGridViewControl");
+                WindowsFormsTestHelper.Show(control);
+
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+                dataGridView.CurrentCell = dataGridView.Rows[0].Cells[0];
+
+                // Call                
+                EventHelper.RaiseEvent(dataGridView, "CellClick", new DataGridViewCellEventArgs(1, 0));
+
+                // Assert
+                Assert.AreEqual(1, selectionChangedCount);
+            }
+
+            WindowsFormsTestHelper.CloseAll();
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -393,7 +593,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
                         },
                         InputParameters =
                         {
-                            DikeProfile = DikeProfileTestFactory.CreateDikeProfile(new Point2D(0.0, 0.0)),
+                            DikeProfile = DikeProfileTestFactory.CreateDikeProfile("profiel 1", new Point2D(0.0, 0.0)),
                             HydraulicBoundaryLocation = null,
                             DikeHeight = (RoundedDouble) 1.1,
                             Orientation = (RoundedDouble) 2.2,
@@ -426,7 +626,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
                         },
                         InputParameters =
                         {
-                            DikeProfile = DikeProfileTestFactory.CreateDikeProfile(new Point2D(5.0, 0.0)),
+                            DikeProfile = DikeProfileTestFactory.CreateDikeProfile("profiel 2", new Point2D(5.0, 0.0)),
                             HydraulicBoundaryLocation = null,
                             DikeHeight = (RoundedDouble) 1.1,
                             Orientation = (RoundedDouble) 2.2,
