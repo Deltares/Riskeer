@@ -20,11 +20,13 @@
 // All rights reserved.
 
 using System;
+using System.Linq;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.ClosingStructures.Data.TestUtil;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Data.TestUtil;
 
 namespace Riskeer.ClosingStructures.Data.Test
@@ -41,14 +43,34 @@ namespace Riskeer.ClosingStructures.Data.Test
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => ClosingStructuresFailureMechanismSectionResultDetailedAssessmentExtensions.GetDetailedAssessmentProbability(
-                null,
-                new ClosingStructuresFailureMechanism(),
-                assessmentSection);
+            void Call() => ClosingStructuresFailureMechanismSectionResultDetailedAssessmentExtensions.GetDetailedAssessmentProbability(
+                null, Enumerable.Empty<StructuresCalculationScenario<ClosingStructuresInput>>(),
+                new ClosingStructuresFailureMechanism(), assessmentSection);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("sectionResult", exception.ParamName);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GetDetailedAssessmentProbability_CalculationScenariosNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var failureMechanismSectionResult = new ClosingStructuresFailureMechanismSectionResult(section);
+
+            // Call
+            void Call() => failureMechanismSectionResult.GetDetailedAssessmentProbability(
+                null, new ClosingStructuresFailureMechanism(), assessmentSection);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("calculationScenarios", exception.ParamName);
             mocks.VerifyAll();
         }
 
@@ -64,10 +86,11 @@ namespace Riskeer.ClosingStructures.Data.Test
             var failureMechanismSectionResult = new ClosingStructuresFailureMechanismSectionResult(section);
 
             // Call
-            TestDelegate call = () => failureMechanismSectionResult.GetDetailedAssessmentProbability(null, assessmentSection);
+            void Call() => failureMechanismSectionResult.GetDetailedAssessmentProbability(
+                Enumerable.Empty<StructuresCalculationScenario<ClosingStructuresInput>>(), null, assessmentSection);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
             mocks.VerifyAll();
         }
@@ -80,10 +103,12 @@ namespace Riskeer.ClosingStructures.Data.Test
             var failureMechanismSectionResult = new ClosingStructuresFailureMechanismSectionResult(section);
 
             // Call
-            TestDelegate call = () => failureMechanismSectionResult.GetDetailedAssessmentProbability(new ClosingStructuresFailureMechanism(), null);
+            void Call() => failureMechanismSectionResult.GetDetailedAssessmentProbability(
+                Enumerable.Empty<StructuresCalculationScenario<ClosingStructuresInput>>(),
+                new ClosingStructuresFailureMechanism(), null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
@@ -99,8 +124,9 @@ namespace Riskeer.ClosingStructures.Data.Test
             var failureMechanismSectionResult = new ClosingStructuresFailureMechanismSectionResult(section);
 
             // Call
-            double detailedAssessmentProbability = failureMechanismSectionResult.GetDetailedAssessmentProbability(new ClosingStructuresFailureMechanism(),
-                                                                                                                  assessmentSection);
+            double detailedAssessmentProbability = failureMechanismSectionResult.GetDetailedAssessmentProbability(
+                Enumerable.Empty<StructuresCalculationScenario<ClosingStructuresInput>>(), 
+                new ClosingStructuresFailureMechanism(), assessmentSection);
 
             // Assert
             Assert.IsNaN(detailedAssessmentProbability);
@@ -122,8 +148,9 @@ namespace Riskeer.ClosingStructures.Data.Test
             };
 
             // Call
-            double detailedAssessmentProbability = failureMechanismSectionResult.GetDetailedAssessmentProbability(new ClosingStructuresFailureMechanism(),
-                                                                                                                  assessmentSection);
+            double detailedAssessmentProbability = failureMechanismSectionResult.GetDetailedAssessmentProbability(
+                Enumerable.Empty<StructuresCalculationScenario<ClosingStructuresInput>>(),
+                new ClosingStructuresFailureMechanism(), assessmentSection);
 
             // Assert
             Assert.IsNaN(detailedAssessmentProbability);
@@ -150,8 +177,9 @@ namespace Riskeer.ClosingStructures.Data.Test
             };
 
             // Call
-            double detailedAssessmentProbability = failureMechanismSectionResult.GetDetailedAssessmentProbability(new ClosingStructuresFailureMechanism(),
-                                                                                                                  assessmentSection);
+            double detailedAssessmentProbability = failureMechanismSectionResult.GetDetailedAssessmentProbability(
+                Enumerable.Empty<StructuresCalculationScenario<ClosingStructuresInput>>(),
+                new ClosingStructuresFailureMechanism(), assessmentSection);
 
             // Assert
             Assert.AreEqual(0.32635522028792008, detailedAssessmentProbability);
