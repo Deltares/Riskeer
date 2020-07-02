@@ -154,7 +154,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
             // Setup
             var random = new Random(39);
 
-            var calculationA = new StructuresCalculation<ClosingStructuresInput>
+            var calculationA = new StructuresCalculationScenario<ClosingStructuresInput>
             {
                 InputParameters =
                 {
@@ -163,7 +163,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
                 }
             };
 
-            var calculationB = new StructuresCalculation<ClosingStructuresInput>
+            var calculationB = new StructuresCalculationScenario<ClosingStructuresInput>
             {
                 InputParameters =
                 {
@@ -813,7 +813,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
         {
             // Given
             var random = new Random(39);
-            var calculationA = new StructuresCalculation<ClosingStructuresInput>();
+            var calculationA = new StructuresCalculationScenario<ClosingStructuresInput>();
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculationA);
