@@ -20,7 +20,10 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Base.Data;
+using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.ClosingStructures.Data.TestUtil;
@@ -125,7 +128,7 @@ namespace Riskeer.ClosingStructures.Data.Test
 
             // Call
             double detailedAssessmentProbability = failureMechanismSectionResult.GetDetailedAssessmentProbability(
-                Enumerable.Empty<StructuresCalculationScenario<ClosingStructuresInput>>(), 
+                Enumerable.Empty<StructuresCalculationScenario<ClosingStructuresInput>>(),
                 new ClosingStructuresFailureMechanism(), assessmentSection);
 
             // Assert
@@ -184,6 +187,132 @@ namespace Riskeer.ClosingStructures.Data.Test
             // Assert
             Assert.AreEqual(0.32635522028792008, detailedAssessmentProbability);
             mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GetTotalContribution_SectionResultNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => ((ClosingStructuresFailureMechanismSectionResult) null).GetTotalContribution(Enumerable.Empty<StructuresCalculationScenario<ClosingStructuresInput>>());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("sectionResult", exception.ParamName);
+        }
+
+        [Test]
+        public void GetTotalContribution_CalculationScenariosNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var sectionResult = new ClosingStructuresFailureMechanismSectionResult(section);
+
+            // Call
+            void Call() => sectionResult.GetTotalContribution(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("calculationScenarios", exception.ParamName);
+        }
+
+        [Test]
+        public void GetTotalContribution_WithScenarios_ReturnsTotalRelevantScenarioContribution()
+        {
+            // Setup
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var failureMechanismSectionResult = new ClosingStructuresFailureMechanismSectionResult(section);
+
+            StructuresCalculationScenario<ClosingStructuresInput> calculationScenario = ClosingStructuresCalculationScenarioTestFactory.CreateNotCalculatedClosingStructuresCalculationScenario(section);
+            calculationScenario.Contribution = (RoundedDouble) 0.3211;
+
+            StructuresCalculationScenario<ClosingStructuresInput> calculationScenario2 = ClosingStructuresCalculationScenarioTestFactory.CreateNotCalculatedClosingStructuresCalculationScenario(section);
+            calculationScenario2.Contribution = (RoundedDouble) 0.5435;
+
+            StructuresCalculationScenario<ClosingStructuresInput> calculationScenario3 = ClosingStructuresCalculationScenarioTestFactory.CreateNotCalculatedClosingStructuresCalculationScenario(section);
+            calculationScenario3.IsRelevant = false;
+
+            StructuresCalculationScenario<ClosingStructuresInput>[] calculationScenarios =
+            {
+                calculationScenario,
+                calculationScenario2,
+                calculationScenario3
+            };
+
+            // Call
+            RoundedDouble totalContribution = failureMechanismSectionResult.GetTotalContribution(calculationScenarios);
+
+            // Assert
+            Assert.AreEqual((RoundedDouble) 0.8646, totalContribution);
+        }
+
+        [Test]
+        public void GetCalculationScenarios_SectionResultNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => ((ClosingStructuresFailureMechanismSectionResult) null).GetCalculationScenarios(Enumerable.Empty<StructuresCalculationScenario<ClosingStructuresInput>>());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("sectionResult", exception.ParamName);
+        }
+
+        [Test]
+        public void GetCalculationScenarios_CalculationScenariosNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var sectionResult = new ClosingStructuresFailureMechanismSectionResult(section);
+
+            // Call
+            void Call() => sectionResult.GetCalculationScenarios(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("calculationScenarios", exception.ParamName);
+        }
+
+        [Test]
+        public void GetCalculationScenarios_WithRelevantAndIrrelevantScenarios_ReturnsRelevantCalculationScenarios()
+        {
+            // Setup
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var sectionResult = new ClosingStructuresFailureMechanismSectionResult(section);
+            StructuresCalculationScenario<ClosingStructuresInput> calculationScenario = ClosingStructuresCalculationScenarioTestFactory.CreateNotCalculatedClosingStructuresCalculationScenario(section);
+            StructuresCalculationScenario<ClosingStructuresInput> calculationScenario2 = ClosingStructuresCalculationScenarioTestFactory.CreateNotCalculatedClosingStructuresCalculationScenario(section);
+            calculationScenario2.IsRelevant = false;
+
+            // Call
+            IEnumerable<StructuresCalculationScenario<ClosingStructuresInput>> relevantScenarios = sectionResult.GetCalculationScenarios(new[]
+            {
+                calculationScenario,
+                calculationScenario2
+            });
+
+            // Assert
+            Assert.AreEqual(calculationScenario, relevantScenarios.Single());
+        }
+
+        [Test]
+        public void GetCalculationScenarios_WithoutScenarioIntersectingSection_ReturnsNoCalculationScenarios()
+        {
+            // Setup
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
+            {
+                new Point2D(999, 999),
+                new Point2D(998, 998)
+            });
+            var sectionResult = new ClosingStructuresFailureMechanismSectionResult(section);
+            StructuresCalculationScenario<ClosingStructuresInput> calculationScenario = ClosingStructuresCalculationScenarioTestFactory.CreateNotCalculatedClosingStructuresCalculationScenario(
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+
+            // Call
+            IEnumerable<StructuresCalculationScenario<ClosingStructuresInput>> relevantScenarios = sectionResult.GetCalculationScenarios(new[]
+            {
+                calculationScenario
+            });
+
+            // Assert
+            CollectionAssert.IsEmpty(relevantScenarios);
         }
     }
 }
