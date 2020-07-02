@@ -22,7 +22,6 @@
 using System;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Probability;
-using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Primitives;
 using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
 
@@ -49,12 +48,6 @@ namespace Riskeer.ClosingStructures.Data
             TailorMadeAssessmentProbability = double.NaN;
             ManualAssemblyProbability = double.NaN;
         }
-
-        /// <summary>
-        /// Gets or sets the <see cref="StructuresCalculation{T}"/>, which is chosen 
-        /// to be representative for the whole section.
-        /// </summary>
-        public StructuresCalculation<ClosingStructuresInput> Calculation { get; set; }
 
         /// <summary>
         /// Gets or sets the simple assessment result.

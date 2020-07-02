@@ -66,11 +66,6 @@ namespace Riskeer.Storage.Core.Read.ClosingStructures
             sectionResult.TailorMadeAssessmentProbability = entity.TailorMadeAssessmentProbability.ToNullAsNaN();
             sectionResult.UseManualAssembly = Convert.ToBoolean(entity.UseManualAssembly);
             sectionResult.ManualAssemblyProbability = entity.ManualAssemblyProbability.ToNullAsNaN();
-
-            if (entity.ClosingStructuresCalculationEntity != null)
-            {
-                sectionResult.Calculation = entity.ClosingStructuresCalculationEntity.Read(collector);
-            }
         }
     }
 }

@@ -23,10 +23,8 @@ using System;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.ClosingStructures.Data;
-using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Primitives;
-using Riskeer.Storage.Core.Create;
 using Riskeer.Storage.Core.Create.ClosingStructures;
 using Riskeer.Storage.Core.DbContext;
 
@@ -39,25 +37,11 @@ namespace Riskeer.Storage.Core.Test.Create.ClosingStructures
         public void Create_FailureMechanismSectionResultNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => ((ClosingStructuresFailureMechanismSectionResult) null).Create(new PersistenceRegistry());
+            void Call() => ((ClosingStructuresFailureMechanismSectionResult) null).Create();
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("result", exception.ParamName);
-        }
-
-        [Test]
-        public void Create_PersistencyRegistryNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var sectionResult = new ClosingStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
-
-            // Call
-            TestDelegate test = () => sectionResult.Create(null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("registry", exception.ParamName);
         }
 
         [Test]
@@ -83,7 +67,7 @@ namespace Riskeer.Storage.Core.Test.Create.ClosingStructures
             };
 
             // Call
-            ClosingStructuresSectionResultEntity entity = sectionResult.Create(new PersistenceRegistry());
+            ClosingStructuresSectionResultEntity entity = sectionResult.Create();
 
             // Assert
             Assert.AreEqual(Convert.ToByte(simpleAssessmentResult), entity.SimpleAssessmentResult);
@@ -106,32 +90,11 @@ namespace Riskeer.Storage.Core.Test.Create.ClosingStructures
             };
 
             // Call
-            ClosingStructuresSectionResultEntity entity = sectionResult.Create(new PersistenceRegistry());
+            ClosingStructuresSectionResultEntity entity = sectionResult.Create();
 
             // Assert
             Assert.IsNull(entity.TailorMadeAssessmentProbability);
             Assert.IsNull(entity.ManualAssemblyProbability);
-        }
-
-        [Test]
-        public void Create_CalculationSet_ReturnEntityWithCalculationEntity()
-        {
-            // Setup
-            var calculation = new StructuresCalculation<ClosingStructuresInput>();
-            var sectionResult = new ClosingStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
-            {
-                Calculation = calculation
-            };
-
-            var registry = new PersistenceRegistry();
-            var calculationEntity = new ClosingStructuresCalculationEntity();
-            registry.Register(calculationEntity, calculation);
-
-            // Call
-            ClosingStructuresSectionResultEntity entity = sectionResult.Create(registry);
-
-            // Assert
-            Assert.AreSame(calculationEntity, entity.ClosingStructuresCalculationEntity);
         }
     }
 }

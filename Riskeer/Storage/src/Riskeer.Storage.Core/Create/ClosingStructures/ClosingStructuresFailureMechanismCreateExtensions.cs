@@ -59,7 +59,7 @@ namespace Riskeer.Storage.Core.Create.ClosingStructures
         {
             foreach (ClosingStructuresFailureMechanismSectionResult failureMechanismSectionResult in sectionResults)
             {
-                ClosingStructuresSectionResultEntity sectionResultEntity = failureMechanismSectionResult.Create(registry);
+                ClosingStructuresSectionResultEntity sectionResultEntity = failureMechanismSectionResult.Create();
                 FailureMechanismSectionEntity section = registry.Get(failureMechanismSectionResult.Section);
                 section.ClosingStructuresSectionResultEntities.Add(sectionResultEntity);
             }

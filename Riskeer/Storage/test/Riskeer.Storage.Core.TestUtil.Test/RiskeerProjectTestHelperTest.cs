@@ -416,9 +416,6 @@ namespace Riskeer.Storage.Core.TestUtil.Test
             Assert.IsTrue(calculationWithOutputAndGeneralResult.Output.HasGeneralResult);
             AssertGeneralResultTopLevelFaultTreeIllustrationPoint(calculationWithOutputAndGeneralResult.Output.GeneralResult);
 
-            ClosingStructuresFailureMechanismSectionResult firstSectionResult = failureMechanism.SectionResults.First();
-            Assert.AreSame(calculationWithOutput, firstSectionResult.Calculation);
-
             var secondCalculationGroup = (CalculationGroup) failureMechanism.CalculationsGroup.Children[1];
             Assert.AreEqual(0, secondCalculationGroup.Children.Count);
             var calculationWithoutOutput = (StructuresCalculation<ClosingStructuresInput>) failureMechanism.CalculationsGroup.Children[2];

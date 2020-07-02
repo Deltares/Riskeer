@@ -23,7 +23,6 @@ using System;
 using NUnit.Framework;
 using Riskeer.ClosingStructures.Data;
 using Riskeer.ClosingStructures.Plugin.FileImporters;
-using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Plugin.TestUtil.FileImporters;
 using Riskeer.Common.Primitives;
@@ -44,7 +43,6 @@ namespace Riskeer.ClosingStructures.Plugin.Test.FileImporters
             var random = new Random(39);
             return new ClosingStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
-                Calculation = new StructuresCalculation<ClosingStructuresInput>(),
                 SimpleAssessmentResult = SimpleAssessmentResultType.AssessFurther,
                 DetailedAssessmentResult = DetailedAssessmentProbabilityOnlyResultType.NotAssessed,
                 TailorMadeAssessmentResult = TailorMadeAssessmentProbabilityCalculationResultType.Probability,
@@ -57,7 +55,6 @@ namespace Riskeer.ClosingStructures.Plugin.Test.FileImporters
         protected override void AssertSectionResult(ClosingStructuresFailureMechanismSectionResult originResult,
                                                     ClosingStructuresFailureMechanismSectionResult targetResult)
         {
-            Assert.AreSame(originResult.Calculation, targetResult.Calculation);
             Assert.AreEqual(originResult.SimpleAssessmentResult, targetResult.SimpleAssessmentResult);
             Assert.AreEqual(originResult.DetailedAssessmentResult, targetResult.DetailedAssessmentResult);
             Assert.AreEqual(originResult.TailorMadeAssessmentResult, targetResult.TailorMadeAssessmentResult);
