@@ -20,12 +20,14 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using Core.Common.Controls.DataGrid;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.ClosingStructures.Data;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Exceptions;
+using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.TypeConverters;
 using Riskeer.Common.Forms.Views;
@@ -50,6 +52,7 @@ namespace Riskeer.ClosingStructures.Forms.Views
         private readonly int combinedAssemblyProbabilityIndex;
         private readonly int manualAssemblyProbabilityIndex;
 
+        private readonly IEnumerable<StructuresCalculationScenario<ClosingStructuresInput>> calculationScenarios;
         private readonly ClosingStructuresFailureMechanism failureMechanism;
         private readonly IAssessmentSection assessmentSection;
         private FailureMechanismSectionAssemblyCategoryGroup simpleAssemblyCategoryGroup;
@@ -62,6 +65,7 @@ namespace Riskeer.ClosingStructures.Forms.Views
         /// </summary>
         /// <param name="sectionResult">The <see cref="ClosingStructuresFailureMechanismSectionResult"/> to wrap
         /// so that it can be displayed as a row.</param>
+        /// <param name="calculationScenarios">All calculation scenarios in the failure mechanism.</param>
         /// <param name="failureMechanism">The failure mechanism the result belongs to.</param>
         /// <param name="assessmentSection">The assessment section the result belongs to.</param>
         /// <param name="constructionProperties">The property values required to create an instance of
@@ -70,11 +74,17 @@ namespace Riskeer.ClosingStructures.Forms.Views
         /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
         /// is a valid value, but unsupported.</exception>
         internal ClosingStructuresFailureMechanismSectionResultRow(ClosingStructuresFailureMechanismSectionResult sectionResult,
+                                                                   IEnumerable<StructuresCalculationScenario<ClosingStructuresInput>> calculationScenarios,
                                                                    ClosingStructuresFailureMechanism failureMechanism,
                                                                    IAssessmentSection assessmentSection,
                                                                    ConstructionProperties constructionProperties)
             : base(sectionResult)
         {
+            if (calculationScenarios == null)
+            {
+                throw new ArgumentNullException(nameof(calculationScenarios));
+            }
+
             if (failureMechanism == null)
             {
                 throw new ArgumentNullException(nameof(failureMechanism));
@@ -90,6 +100,7 @@ namespace Riskeer.ClosingStructures.Forms.Views
                 throw new ArgumentNullException(nameof(constructionProperties));
             }
 
+            this.calculationScenarios = calculationScenarios;
             this.failureMechanism = failureMechanism;
             this.assessmentSection = assessmentSection;
 
@@ -117,10 +128,7 @@ namespace Riskeer.ClosingStructures.Forms.Views
         /// is a valid value, but unsupported.</exception>
         public SimpleAssessmentResultType SimpleAssessmentResult
         {
-            get
-            {
-                return SectionResult.SimpleAssessmentResult;
-            }
+            get => SectionResult.SimpleAssessmentResult;
             set
             {
                 SectionResult.SimpleAssessmentResult = value;
@@ -135,10 +143,7 @@ namespace Riskeer.ClosingStructures.Forms.Views
         /// is a valid value, but unsupported.</exception>
         public DetailedAssessmentProbabilityOnlyResultType DetailedAssessmentResult
         {
-            get
-            {
-                return SectionResult.DetailedAssessmentResult;
-            }
+            get => SectionResult.DetailedAssessmentResult;
             set
             {
                 SectionResult.DetailedAssessmentResult = value;
@@ -150,13 +155,7 @@ namespace Riskeer.ClosingStructures.Forms.Views
         /// Gets the value representing the detailed assessment probability.
         /// </summary>
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
-        public double DetailedAssessmentProbability
-        {
-            get
-            {
-                return SectionResult.GetDetailedAssessmentProbability(failureMechanism, assessmentSection);
-            }
-        }
+        public double DetailedAssessmentProbability => SectionResult.GetDetailedAssessmentProbability(failureMechanism, assessmentSection);
 
         /// <summary>
         /// Gets or sets the value representing the tailor made assessment result.
@@ -165,10 +164,7 @@ namespace Riskeer.ClosingStructures.Forms.Views
         /// is a valid value, but unsupported.</exception>
         public TailorMadeAssessmentProbabilityCalculationResultType TailorMadeAssessmentResult
         {
-            get
-            {
-                return SectionResult.TailorMadeAssessmentResult;
-            }
+            get => SectionResult.TailorMadeAssessmentResult;
             set
             {
                 SectionResult.TailorMadeAssessmentResult = value;
@@ -186,10 +182,7 @@ namespace Riskeer.ClosingStructures.Forms.Views
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
         public double TailorMadeAssessmentProbability
         {
-            get
-            {
-                return SectionResult.TailorMadeAssessmentProbability;
-            }
+            get => SectionResult.TailorMadeAssessmentProbability;
             set
             {
                 SectionResult.TailorMadeAssessmentProbability = value;
@@ -200,46 +193,22 @@ namespace Riskeer.ClosingStructures.Forms.Views
         /// <summary>
         /// Gets the simple assembly category group.
         /// </summary>
-        public string SimpleAssemblyCategoryGroup
-        {
-            get
-            {
-                return FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayName(simpleAssemblyCategoryGroup);
-            }
-        }
+        public string SimpleAssemblyCategoryGroup => FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayName(simpleAssemblyCategoryGroup);
 
         /// <summary>
         /// Gets the detailed assembly category group.
         /// </summary>
-        public string DetailedAssemblyCategoryGroup
-        {
-            get
-            {
-                return FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayName(detailedAssemblyCategoryGroup);
-            }
-        }
+        public string DetailedAssemblyCategoryGroup => FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayName(detailedAssemblyCategoryGroup);
 
         /// <summary>
         /// Gets the tailor made assembly category group.
         /// </summary>
-        public string TailorMadeAssemblyCategoryGroup
-        {
-            get
-            {
-                return FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayName(tailorMadeAssemblyCategoryGroup);
-            }
-        }
+        public string TailorMadeAssemblyCategoryGroup => FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayName(tailorMadeAssemblyCategoryGroup);
 
         /// <summary>
         /// Gets the combined assembly category group.
         /// </summary>
-        public string CombinedAssemblyCategoryGroup
-        {
-            get
-            {
-                return FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayName(combinedAssemblyCategoryGroup);
-            }
-        }
+        public string CombinedAssemblyCategoryGroup => FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayName(combinedAssemblyCategoryGroup);
 
         /// <summary>
         /// Gets the combined assembly probability.
@@ -255,10 +224,7 @@ namespace Riskeer.ClosingStructures.Forms.Views
         /// is a valid value, but unsupported.</exception>
         public bool UseManualAssembly
         {
-            get
-            {
-                return SectionResult.UseManualAssembly;
-            }
+            get => SectionResult.UseManualAssembly;
             set
             {
                 SectionResult.UseManualAssembly = value;
@@ -276,10 +242,7 @@ namespace Riskeer.ClosingStructures.Forms.Views
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
         public double ManualAssemblyProbability
         {
-            get
-            {
-                return SectionResult.ManualAssemblyProbability;
-            }
+            get => SectionResult.ManualAssemblyProbability;
             set
             {
                 SectionResult.ManualAssemblyProbability = value;

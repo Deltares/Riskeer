@@ -475,15 +475,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             }
         }
 
-        private static GrassCoverErosionInwardsCalculation CreateCalculationWithOutput()
-        {
-            return new GrassCoverErosionInwardsCalculation
-            {
-                Output = new GrassCoverErosionInwardsOutput(new TestOvertoppingOutput(0.56789),
-                                                            new TestDikeHeightOutput(0),
-                                                            new TestOvertoppingRateOutput(0))
-            };
-        }
 
         #region Column States
 
@@ -1047,7 +1038,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(section)
             {
-                SimpleAssessmentResult = SimpleAssessmentValidityOnlyResultType.NotApplicable,
+                SimpleAssessmentResult = SimpleAssessmentValidityOnlyResultType.NotApplicable
             };
 
             GrassCoverErosionInwardsCalculationScenario[] calculationScenarios = getCalculationScenariosFunc(section).ToArray();
@@ -1069,23 +1060,32 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
 
         private static IEnumerable<TestCaseData> SimpleAssessmentResultIsSufficientVariousSectionResults()
         {
-            yield return new TestCaseData(new Func<FailureMechanismSection, IEnumerable<GrassCoverErosionInwardsCalculationScenario>>(section => Enumerable.Empty<GrassCoverErosionInwardsCalculationScenario>()));
-            yield return new TestCaseData(new Func<FailureMechanismSection, IEnumerable<GrassCoverErosionInwardsCalculationScenario>>(section => new []
-            {
-                GrassCoverErosionInwardsCalculationScenarioTestFactory.CreateNotCalculatedGrassCoverErosionInwardsCalculationScenario(section)
-            }));
-            yield return new TestCaseData(new Func<FailureMechanismSection, IEnumerable<GrassCoverErosionInwardsCalculationScenario>>(section =>
-            {
-                GrassCoverErosionInwardsCalculationScenario calculation = GrassCoverErosionInwardsCalculationScenarioTestFactory.CreateNotCalculatedGrassCoverErosionInwardsCalculationScenario(section);
-                return new[]
-                {
-                    calculation
-                };
-            }));
-            yield return new TestCaseData(new Func<FailureMechanismSection, IEnumerable<GrassCoverErosionInwardsCalculationScenario>>(section => new[]
-            {
-                GrassCoverErosionInwardsCalculationScenarioTestFactory.CreateGrassCoverErosionInwardsCalculationScenario(section)
-            }));
+            yield return new TestCaseData(
+                new Func<FailureMechanismSection, IEnumerable<GrassCoverErosionInwardsCalculationScenario>>(
+                    section => Enumerable.Empty<GrassCoverErosionInwardsCalculationScenario>()));
+            yield return new TestCaseData(
+                new Func<FailureMechanismSection, IEnumerable<GrassCoverErosionInwardsCalculationScenario>>(
+                    section => new[]
+                    {
+                        GrassCoverErosionInwardsCalculationScenarioTestFactory.CreateNotCalculatedGrassCoverErosionInwardsCalculationScenario(section)
+                    }));
+            yield return new TestCaseData(
+                new Func<FailureMechanismSection, IEnumerable<GrassCoverErosionInwardsCalculationScenario>>(
+                    section =>
+                    {
+                        GrassCoverErosionInwardsCalculationScenario calculation = GrassCoverErosionInwardsCalculationScenarioTestFactory.CreateNotCalculatedGrassCoverErosionInwardsCalculationScenario(section);
+                        calculation.Output = new GrassCoverErosionInwardsOutput(new TestOvertoppingOutput(double.NaN), null, null);
+                        return new[]
+                        {
+                            calculation
+                        };
+                    }));
+            yield return new TestCaseData(
+                new Func<FailureMechanismSection, IEnumerable<GrassCoverErosionInwardsCalculationScenario>>(
+                    section => new[]
+                    {
+                        GrassCoverErosionInwardsCalculationScenarioTestFactory.CreateGrassCoverErosionInwardsCalculationScenario(section)
+                    }));
         }
 
         #endregion

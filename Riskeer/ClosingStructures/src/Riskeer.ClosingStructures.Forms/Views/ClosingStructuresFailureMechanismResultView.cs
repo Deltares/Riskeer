@@ -96,6 +96,7 @@ namespace Riskeer.ClosingStructures.Forms.Views
         {
             return new ClosingStructuresFailureMechanismSectionResultRow(
                 sectionResult,
+                FailureMechanism.Calculations.Cast<StructuresCalculationScenario<ClosingStructuresInput>>(),
                 FailureMechanism,
                 assessmentSection,
                 new ClosingStructuresFailureMechanismSectionResultRow.ConstructionProperties
