@@ -21,9 +21,11 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Core.Components.Gis.Features;
 using Riskeer.ClosingStructures.Data;
 using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Forms.Factories;
 
 namespace Riskeer.ClosingStructures.Forms.Factories
@@ -78,6 +80,7 @@ namespace Riskeer.ClosingStructures.Forms.Factories
                 failureMechanism,
                 sectionResult => ClosingStructuresFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
                     sectionResult,
+                    failureMechanism.Calculations.Cast<StructuresCalculationScenario<ClosingStructuresInput>>(),
                     failureMechanism,
                     assessmentSection));
         }
@@ -133,6 +136,7 @@ namespace Riskeer.ClosingStructures.Forms.Factories
                 failureMechanism,
                 sectionResult => ClosingStructuresFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
                     sectionResult,
+                    failureMechanism.Calculations.Cast<StructuresCalculationScenario<ClosingStructuresInput>>(),
                     failureMechanism,
                     assessmentSection));
         }

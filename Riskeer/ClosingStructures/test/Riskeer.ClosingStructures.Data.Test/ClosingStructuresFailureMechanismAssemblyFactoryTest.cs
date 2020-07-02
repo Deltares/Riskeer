@@ -34,6 +34,7 @@ using Riskeer.Common.Data.AssemblyTool;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Primitives;
 
@@ -148,14 +149,32 @@ namespace Riskeer.ClosingStructures.Data.Test
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => ClosingStructuresFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
-                null,
-                new ClosingStructuresFailureMechanism(),
-                assessmentSection);
+            void Call() => ClosingStructuresFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
+                null, Enumerable.Empty<StructuresCalculationScenario<ClosingStructuresInput>>(),
+                new ClosingStructuresFailureMechanism(), assessmentSection);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanismSectionResult", exception.ParamName);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void AssembleDetailedAssessment_CalculationScenariosNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            // Call
+            void Call() => ClosingStructuresFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
+                new ClosingStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
+                null, new ClosingStructuresFailureMechanism(), assessmentSection);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("calculationScenarios", exception.ParamName);
             mocks.VerifyAll();
         }
 
@@ -168,13 +187,12 @@ namespace Riskeer.ClosingStructures.Data.Test
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => ClosingStructuresFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
+            void Call() => ClosingStructuresFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
                 new ClosingStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
-                null,
-                assessmentSection);
+                Enumerable.Empty<StructuresCalculationScenario<ClosingStructuresInput>>(), null, assessmentSection);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
             mocks.VerifyAll();
         }
@@ -183,13 +201,12 @@ namespace Riskeer.ClosingStructures.Data.Test
         public void AssembleDetailedAssessment_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => ClosingStructuresFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
+            void Call() => ClosingStructuresFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
                 new ClosingStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
-                new ClosingStructuresFailureMechanism(),
-                null);
+                Enumerable.Empty<StructuresCalculationScenario<ClosingStructuresInput>>(), new ClosingStructuresFailureMechanism(), null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
@@ -215,9 +232,8 @@ namespace Riskeer.ClosingStructures.Data.Test
 
                 // Call
                 ClosingStructuresFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
-                    sectionResult,
-                    failureMechanism,
-                    assessmentSection);
+                    sectionResult, Enumerable.Empty<StructuresCalculationScenario<ClosingStructuresInput>>(),
+                    failureMechanism, assessmentSection);
 
                 // Assert
                 Assert.AreEqual(sectionResult.GetDetailedAssessmentProbability(failureMechanism, assessmentSection),
@@ -248,9 +264,8 @@ namespace Riskeer.ClosingStructures.Data.Test
                 // Call
                 FailureMechanismSectionAssembly actualOutput =
                     ClosingStructuresFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
-                        sectionResult,
-                        failureMechanism,
-                        assessmentSection);
+                        sectionResult, Enumerable.Empty<StructuresCalculationScenario<ClosingStructuresInput>>(),
+                        failureMechanism, assessmentSection);
 
                 // Assert
                 FailureMechanismSectionAssembly calculatorOutput = calculator.DetailedAssessmentAssemblyOutput;
@@ -278,13 +293,12 @@ namespace Riskeer.ClosingStructures.Data.Test
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
-                TestDelegate call = () => ClosingStructuresFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
-                    sectionResult,
-                    failureMechanism,
-                    assessmentSection);
+                void Call() => ClosingStructuresFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
+                    sectionResult, Enumerable.Empty<StructuresCalculationScenario<ClosingStructuresInput>>(),
+                    failureMechanism, assessmentSection);
 
                 // Assert
-                var exception = Assert.Throws<AssemblyException>(call);
+                var exception = Assert.Throws<AssemblyException>(Call);
                 Exception innerException = exception.InnerException;
                 Assert.IsInstanceOf<FailureMechanismSectionAssemblyCalculatorException>(innerException);
                 Assert.AreEqual(innerException.Message, exception.Message);
@@ -458,14 +472,32 @@ namespace Riskeer.ClosingStructures.Data.Test
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => ClosingStructuresFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
-                null,
-                new ClosingStructuresFailureMechanism(),
-                assessmentSection);
+            void Call() => ClosingStructuresFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
+                null, Enumerable.Empty<StructuresCalculationScenario<ClosingStructuresInput>>(),
+                new ClosingStructuresFailureMechanism(), assessmentSection);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanismSectionResult", exception.ParamName);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void AssembleCombinedAssessment_CalculationScenariosNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            // Call
+            void Call() => ClosingStructuresFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
+                new ClosingStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
+                null, new ClosingStructuresFailureMechanism(), assessmentSection);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("calculationScenarios", exception.ParamName);
             mocks.VerifyAll();
         }
 
@@ -478,13 +510,12 @@ namespace Riskeer.ClosingStructures.Data.Test
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => ClosingStructuresFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
+            void Call() => ClosingStructuresFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
                 new ClosingStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
-                null,
-                assessmentSection);
+                Enumerable.Empty<StructuresCalculationScenario<ClosingStructuresInput>>(), null, assessmentSection);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
             mocks.VerifyAll();
         }
@@ -493,13 +524,12 @@ namespace Riskeer.ClosingStructures.Data.Test
         public void AssembleCombinedAssessment_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => ClosingStructuresFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
+            void Call() => ClosingStructuresFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
                 new ClosingStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
-                new ClosingStructuresFailureMechanism(),
-                null);
+                Enumerable.Empty<StructuresCalculationScenario<ClosingStructuresInput>>(), new ClosingStructuresFailureMechanism(), null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
@@ -527,9 +557,8 @@ namespace Riskeer.ClosingStructures.Data.Test
 
                 // Call
                 ClosingStructuresFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
-                    sectionResult,
-                    failureMechanism,
-                    assessmentSection);
+                    sectionResult, Enumerable.Empty<StructuresCalculationScenario<ClosingStructuresInput>>(),
+                    failureMechanism, assessmentSection);
 
                 // Assert
                 AssemblyToolTestHelper.AssertAreEqual(calculator.SimpleAssessmentAssemblyOutput, calculator.CombinedSimpleAssemblyInput);
@@ -564,9 +593,8 @@ namespace Riskeer.ClosingStructures.Data.Test
 
                 // Call
                 ClosingStructuresFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
-                    sectionResult,
-                    failureMechanism,
-                    assessmentSection);
+                    sectionResult, Enumerable.Empty<StructuresCalculationScenario<ClosingStructuresInput>>(),
+                    failureMechanism, assessmentSection);
 
                 // Assert
                 AssemblyToolTestHelper.AssertAreEqual(calculator.SimpleAssessmentAssemblyOutput, calculator.CombinedSimpleAssemblyInput);
@@ -596,9 +624,8 @@ namespace Riskeer.ClosingStructures.Data.Test
                 // Call
                 FailureMechanismSectionAssembly actualOutput =
                     ClosingStructuresFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
-                        sectionResult,
-                        failureMechanism,
-                        assessmentSection);
+                        sectionResult, Enumerable.Empty<StructuresCalculationScenario<ClosingStructuresInput>>(),
+                        failureMechanism, assessmentSection);
 
                 // Assert
                 Assert.AreSame(calculator.CombinedAssemblyOutput, actualOutput);
@@ -625,13 +652,12 @@ namespace Riskeer.ClosingStructures.Data.Test
                 calculator.ThrowExceptionOnCalculateCombinedAssembly = true;
 
                 // Call
-                TestDelegate call = () => ClosingStructuresFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
-                    sectionResult,
-                    failureMechanism,
-                    assessmentSection);
+                void Call() => ClosingStructuresFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
+                    sectionResult, Enumerable.Empty<StructuresCalculationScenario<ClosingStructuresInput>>(),
+                    failureMechanism, assessmentSection);
 
                 // Assert
-                var exception = Assert.Throws<AssemblyException>(call);
+                var exception = Assert.Throws<AssemblyException>(Call);
                 Exception innerException = exception.InnerException;
                 Assert.IsInstanceOf<FailureMechanismSectionAssemblyCalculatorException>(innerException);
                 Assert.AreEqual(innerException.Message, exception.Message);

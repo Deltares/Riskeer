@@ -29,6 +29,7 @@ using Riskeer.AssemblyTool.KernelWrapper.Kernels;
 using Riskeer.Common.Data.AssemblyTool;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Exceptions;
+using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Primitives;
 using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
 
@@ -76,6 +77,7 @@ namespace Riskeer.ClosingStructures.Data
         /// </summary>
         /// <param name="failureMechanismSectionResult">The failure mechanism section result to
         /// assemble the detailed assembly for.</param>
+        /// <param name="calculationScenarios">The calculation scenarios belonging to this section.</param>
         /// <param name="failureMechanism">The failure mechanism this section belongs to.</param>
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> this section belongs to.</param>
         /// <returns>A <see cref="FailureMechanismSectionAssembly"/>.</returns>
@@ -84,12 +86,18 @@ namespace Riskeer.ClosingStructures.Data
         /// could not be created.</exception>
         public static FailureMechanismSectionAssembly AssembleDetailedAssessment(
             ClosingStructuresFailureMechanismSectionResult failureMechanismSectionResult,
+            IEnumerable<StructuresCalculationScenario<ClosingStructuresInput>> calculationScenarios,
             ClosingStructuresFailureMechanism failureMechanism,
             IAssessmentSection assessmentSection)
         {
             if (failureMechanismSectionResult == null)
             {
                 throw new ArgumentNullException(nameof(failureMechanismSectionResult));
+            }
+
+            if (calculationScenarios == null)
+            {
+                throw new ArgumentNullException(nameof(calculationScenarios));
             }
 
             if (failureMechanism == null)
@@ -172,6 +180,7 @@ namespace Riskeer.ClosingStructures.Data
         /// </summary>
         /// <param name="failureMechanismSectionResult">The failure mechanism section result to
         /// combine the assemblies for.</param>
+        /// <param name="calculationScenarios">The calculation scenarios belonging to this section.</param>
         /// <param name="failureMechanism">The failure mechanism this section belongs to.</param>
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> this section belongs to.</param>
         /// <returns>A <see cref="FailureMechanismSectionAssembly"/>.</returns>
@@ -180,12 +189,18 @@ namespace Riskeer.ClosingStructures.Data
         /// could not be created.</exception>
         public static FailureMechanismSectionAssembly AssembleCombinedAssessment(
             ClosingStructuresFailureMechanismSectionResult failureMechanismSectionResult,
+            IEnumerable<StructuresCalculationScenario<ClosingStructuresInput>> calculationScenarios,
             ClosingStructuresFailureMechanism failureMechanism,
             IAssessmentSection assessmentSection)
         {
             if (failureMechanismSectionResult == null)
             {
                 throw new ArgumentNullException(nameof(failureMechanismSectionResult));
+            }
+
+            if (calculationScenarios == null)
+            {
+                throw new ArgumentNullException(nameof(calculationScenarios));
             }
 
             if (failureMechanism == null)
@@ -214,7 +229,7 @@ namespace Riskeer.ClosingStructures.Data
 
                 return calculator.AssembleCombined(
                     simpleAssembly,
-                    AssembleDetailedAssessment(failureMechanismSectionResult, failureMechanism, assessmentSection),
+                    AssembleDetailedAssessment(failureMechanismSectionResult, calculationScenarios, failureMechanism, assessmentSection),
                     AssembleTailorMadeAssessment(failureMechanismSectionResult, failureMechanism, assessmentSection));
             }
             catch (FailureMechanismSectionAssemblyCalculatorException e)
@@ -334,6 +349,7 @@ namespace Riskeer.ClosingStructures.Data
             else
             {
                 sectionAssembly = AssembleCombinedAssessment(failureMechanismSectionResult,
+                                                             failureMechanism.Calculations.Cast<StructuresCalculationScenario<ClosingStructuresInput>>(),
                                                              failureMechanism,
                                                              assessmentSection);
             }

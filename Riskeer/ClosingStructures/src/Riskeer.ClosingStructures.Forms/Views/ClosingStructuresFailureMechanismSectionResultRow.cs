@@ -325,6 +325,7 @@ namespace Riskeer.ClosingStructures.Forms.Views
             {
                 detailedAssemblyCategoryGroup = ClosingStructuresFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
                     SectionResult,
+                    calculationScenarios,
                     failureMechanism,
                     assessmentSection).Group;
             }
@@ -358,6 +359,7 @@ namespace Riskeer.ClosingStructures.Forms.Views
                 FailureMechanismSectionAssembly combinedAssembly =
                     ClosingStructuresFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
                         SectionResult,
+                        calculationScenarios,
                         failureMechanism,
                         assessmentSection);
 

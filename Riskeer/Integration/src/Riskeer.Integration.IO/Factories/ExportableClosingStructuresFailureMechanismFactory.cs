@@ -21,10 +21,12 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.ClosingStructures.Data;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Exceptions;
+using Riskeer.Common.Data.Structures;
 using Riskeer.Integration.IO.Assembly;
 using Riskeer.Integration.IO.Helpers;
 
@@ -99,6 +101,8 @@ namespace Riskeer.Integration.IO.Factories
             IDictionary<ClosingStructuresFailureMechanismSectionResult, ExportableFailureMechanismSection> failureMechanismSectionsLookup =
                 ExportableFailureMechanismSectionHelper.CreateFailureMechanismSectionResultLookup(failureMechanism.SectionResults);
 
+            IEnumerable<StructuresCalculationScenario<ClosingStructuresInput>> calculationScenarios = failureMechanism.Calculations.Cast<StructuresCalculationScenario<ClosingStructuresInput>>();
+
             var exportableResults = new List<ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbability>();
             foreach (KeyValuePair<ClosingStructuresFailureMechanismSectionResult, ExportableFailureMechanismSection> failureMechanismSectionPair in failureMechanismSectionsLookup)
             {
@@ -108,6 +112,7 @@ namespace Riskeer.Integration.IO.Factories
                     ClosingStructuresFailureMechanismAssemblyFactory.AssembleSimpleAssessment(failureMechanismSectionResult);
                 FailureMechanismSectionAssembly detailedAssembly =
                     ClosingStructuresFailureMechanismAssemblyFactory.AssembleDetailedAssessment(failureMechanismSectionResult,
+                                                                                                calculationScenarios,
                                                                                                 failureMechanism,
                                                                                                 assessmentSection);
                 FailureMechanismSectionAssembly tailorMadeAssembly =
@@ -116,6 +121,7 @@ namespace Riskeer.Integration.IO.Factories
                                                                                                   assessmentSection);
                 FailureMechanismSectionAssembly combinedAssembly =
                     ClosingStructuresFailureMechanismAssemblyFactory.AssembleCombinedAssessment(failureMechanismSectionResult,
+                                                                                                calculationScenarios,
                                                                                                 failureMechanism,
                                                                                                 assessmentSection);
 
