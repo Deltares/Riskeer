@@ -45,6 +45,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
             Assert.IsNaN(slipPlane.TangentZBottom);
             Assert.AreEqual(0, slipPlane.TangentLineNumber);
             Assert.AreEqual(4, slipPlane.TangentLineNumberOfRefinements);
+            Assert.AreEqual(1, slipPlane.GridNumberOfRefinements);
         }
 
         [Test]
@@ -94,6 +95,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
             Assert.IsNaN(slipPlane.TangentZBottom);
             Assert.AreEqual(0, slipPlane.TangentLineNumber);
             Assert.AreEqual(4, slipPlane.TangentLineNumberOfRefinements);
+            Assert.AreEqual(0, slipPlane.GridNumberOfRefinements);
         }
 
         [Test]
@@ -103,10 +105,10 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
             UpliftVanGrid grid = UpliftVanGridTestFactory.Create();
 
             // Call
-            TestDelegate test = () => new UpliftVanSlipPlane(null, grid, 0, 0, 0);
+            void Call() => new UpliftVanSlipPlane(null, grid, 0, 0, 0);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("leftGrid", exception.ParamName);
         }
 
@@ -148,6 +150,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
             Assert.AreEqual(tangentZBottom, slipPlane.TangentZBottom);
             Assert.AreEqual(tangentLineNumber, slipPlane.TangentLineNumber);
             Assert.AreEqual(4, slipPlane.TangentLineNumberOfRefinements);
+            Assert.AreEqual(0, slipPlane.GridNumberOfRefinements);
         }
     }
 }

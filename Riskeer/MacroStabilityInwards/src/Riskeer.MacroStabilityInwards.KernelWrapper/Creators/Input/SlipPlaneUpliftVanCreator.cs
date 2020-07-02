@@ -46,18 +46,36 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
                 throw new ArgumentNullException(nameof(slipPlane));
             }
 
-            var kernelSlipPlane = new SlipPlaneUpliftVan();
-            if (!slipPlane.GridAutomaticDetermined)
+            var kernelSlipPlane = new SlipPlaneUpliftVan
             {
-                kernelSlipPlane.SlipPlaneLeftGrid = CreateGrid(slipPlane.LeftGrid);
-                kernelSlipPlane.SlipPlaneRightGrid = CreateGrid(slipPlane.RightGrid);
-            }
-
-            kernelSlipPlane.SlipPlaneTangentLine = CreateTangentLine(slipPlane);
+                SlipPlaneLeftGrid = CreateGrid(slipPlane, slipPlane.LeftGrid),
+                SlipPlaneRightGrid = CreateGrid(slipPlane, slipPlane.RightGrid),
+                SlipPlaneTangentLine = CreateTangentLine(slipPlane)
+            };
 
             return kernelSlipPlane;
         }
-        
+
+        private static SlipCircleGrid CreateGrid(UpliftVanSlipPlane slipPlane, UpliftVanGrid grid)
+        {
+            var slipCircleGrid = new SlipCircleGrid
+            {
+                NumberOfRefinements = slipPlane.GridNumberOfRefinements
+            };
+
+            if (!slipPlane.GridAutomaticDetermined)
+            {
+                slipCircleGrid.GridXLeft = grid.XLeft;
+                slipCircleGrid.GridXRight = grid.XRight;
+                slipCircleGrid.GridZTop = grid.ZTop;
+                slipCircleGrid.GridZBottom = grid.ZBottom;
+                slipCircleGrid.GridXNumber = grid.NumberOfHorizontalPoints;
+                slipCircleGrid.GridZNumber = grid.NumberOfVerticalPoints;
+            }
+
+            return slipCircleGrid;
+        }
+
         private static SlipCircleTangentLine CreateTangentLine(UpliftVanSlipPlane slipPlane)
         {
             var tangentLine = new SlipCircleTangentLine
@@ -73,19 +91,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
             }
 
             return tangentLine;
-        }
-
-        private static SlipCircleGrid CreateGrid(UpliftVanGrid grid)
-        {
-            return new SlipCircleGrid
-            {
-                GridXLeft = grid.XLeft,
-                GridXRight = grid.XRight,
-                GridZTop = grid.ZTop,
-                GridZBottom = grid.ZBottom,
-                GridXNumber = grid.NumberOfHorizontalPoints,
-                GridZNumber = grid.NumberOfVerticalPoints
-            };
         }
     }
 }

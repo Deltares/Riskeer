@@ -78,12 +78,14 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             Assert.AreEqual(leftGridZBottom, slipPlaneUpliftVan.SlipPlaneLeftGrid.GridZBottom);
             Assert.AreEqual(leftGridXNumber, slipPlaneUpliftVan.SlipPlaneLeftGrid.GridXNumber);
             Assert.AreEqual(leftGridZNumber, slipPlaneUpliftVan.SlipPlaneLeftGrid.GridZNumber);
+            Assert.AreEqual(slipPlane.GridNumberOfRefinements, slipPlaneUpliftVan.SlipPlaneLeftGrid.NumberOfRefinements);
             Assert.AreEqual(rightGridXLeft, slipPlaneUpliftVan.SlipPlaneRightGrid.GridXLeft);
             Assert.AreEqual(rightGridXRight, slipPlaneUpliftVan.SlipPlaneRightGrid.GridXRight);
             Assert.AreEqual(rightGridZTop, slipPlaneUpliftVan.SlipPlaneRightGrid.GridZTop);
             Assert.AreEqual(rightGridZBottom, slipPlaneUpliftVan.SlipPlaneRightGrid.GridZBottom);
             Assert.AreEqual(rightGridXNumber, slipPlaneUpliftVan.SlipPlaneRightGrid.GridXNumber);
             Assert.AreEqual(rightGridZNumber, slipPlaneUpliftVan.SlipPlaneRightGrid.GridZNumber);
+            Assert.AreEqual(slipPlane.GridNumberOfRefinements, slipPlaneUpliftVan.SlipPlaneRightGrid.NumberOfRefinements);
             Assert.AreEqual(tangentLineZTop, slipPlaneUpliftVan.SlipPlaneTangentLine.TangentLineZTop);
             Assert.AreEqual(tangentLineZBottom, slipPlaneUpliftVan.SlipPlaneTangentLine.TangentLineZBottom);
             Assert.AreEqual(tangentLineNumber, slipPlaneUpliftVan.SlipPlaneTangentLine.TangentLineNumber);
@@ -109,6 +111,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             Assert.AreEqual(0, slipPlaneUpliftVan.SlipPlaneLeftGrid.GridZBottom);
             Assert.AreEqual(0, slipPlaneUpliftVan.SlipPlaneLeftGrid.GridXNumber);
             Assert.AreEqual(0, slipPlaneUpliftVan.SlipPlaneLeftGrid.GridZNumber);
+            Assert.AreEqual(slipPlane.GridNumberOfRefinements, slipPlaneUpliftVan.SlipPlaneLeftGrid.NumberOfRefinements);
             Assert.IsNotNull(slipPlaneUpliftVan.SlipPlaneRightGrid);
             Assert.AreEqual(0, slipPlaneUpliftVan.SlipPlaneRightGrid.GridXLeft);
             Assert.AreEqual(0, slipPlaneUpliftVan.SlipPlaneRightGrid.GridXRight);
@@ -116,6 +119,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             Assert.AreEqual(0, slipPlaneUpliftVan.SlipPlaneRightGrid.GridZBottom);
             Assert.AreEqual(0, slipPlaneUpliftVan.SlipPlaneRightGrid.GridXNumber);
             Assert.AreEqual(0, slipPlaneUpliftVan.SlipPlaneRightGrid.GridZNumber);
+            Assert.AreEqual(slipPlane.GridNumberOfRefinements, slipPlaneUpliftVan.SlipPlaneRightGrid.NumberOfRefinements);
             Assert.IsNotNull(slipPlaneUpliftVan.SlipPlaneTangentLine);
             Assert.AreEqual(0, slipPlaneUpliftVan.SlipPlaneTangentLine.TangentLineZTop);
             Assert.AreEqual(0, slipPlaneUpliftVan.SlipPlaneTangentLine.TangentLineZBottom);
@@ -155,12 +159,14 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             Assert.AreEqual(leftGridZBottom, slipPlaneUpliftVan.SlipPlaneLeftGrid.GridZBottom);
             Assert.AreEqual(leftGridXNumber, slipPlaneUpliftVan.SlipPlaneLeftGrid.GridXNumber);
             Assert.AreEqual(leftGridZNumber, slipPlaneUpliftVan.SlipPlaneLeftGrid.GridZNumber);
+            Assert.AreEqual(slipPlane.GridNumberOfRefinements, slipPlaneUpliftVan.SlipPlaneLeftGrid.NumberOfRefinements);
             Assert.AreEqual(rightGridXLeft, slipPlaneUpliftVan.SlipPlaneRightGrid.GridXLeft);
             Assert.AreEqual(rightGridXRight, slipPlaneUpliftVan.SlipPlaneRightGrid.GridXRight);
             Assert.AreEqual(rightGridZTop, slipPlaneUpliftVan.SlipPlaneRightGrid.GridZTop);
             Assert.AreEqual(rightGridZBottom, slipPlaneUpliftVan.SlipPlaneRightGrid.GridZBottom);
             Assert.AreEqual(rightGridXNumber, slipPlaneUpliftVan.SlipPlaneRightGrid.GridXNumber);
             Assert.AreEqual(rightGridZNumber, slipPlaneUpliftVan.SlipPlaneRightGrid.GridZNumber);
+            Assert.AreEqual(slipPlane.GridNumberOfRefinements, slipPlaneUpliftVan.SlipPlaneRightGrid.NumberOfRefinements);
             Assert.AreEqual(0, slipPlaneUpliftVan.SlipPlaneTangentLine.TangentLineZTop);
             Assert.AreEqual(0, slipPlaneUpliftVan.SlipPlaneTangentLine.TangentLineZBottom);
             Assert.AreEqual(1, slipPlaneUpliftVan.SlipPlaneTangentLine.TangentLineNumber);
