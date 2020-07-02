@@ -116,12 +116,14 @@ namespace Riskeer.ClosingStructures.Data.Test
         }
 
         [Test]
-        public void GetDetailedAssessmentProbability_SectionResultWithoutCalculation_ReturnsNaN()
+        public void GetDetailedAssessmentProbability_NoScenarios_ReturnsNaN()
         {
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
+
+            var failureMechanism = new ClosingStructuresFailureMechanism();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var failureMechanismSectionResult = new ClosingStructuresFailureMechanismSectionResult(section);
@@ -129,7 +131,8 @@ namespace Riskeer.ClosingStructures.Data.Test
             // Call
             double detailedAssessmentProbability = failureMechanismSectionResult.GetDetailedAssessmentProbability(
                 Enumerable.Empty<StructuresCalculationScenario<ClosingStructuresInput>>(),
-                new ClosingStructuresFailureMechanism(), assessmentSection);
+                failureMechanism,
+                assessmentSection);
 
             // Assert
             Assert.IsNaN(detailedAssessmentProbability);
@@ -137,23 +140,29 @@ namespace Riskeer.ClosingStructures.Data.Test
         }
 
         [Test]
-        public void GetDetailedAssessmentProbability_CalculationWithoutOutput_ReturnsNaN()
+        public void GetDetailedAssessmentProbability_NoRelevantScenarios_ReturnsNaN()
         {
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
+            var failureMechanism = new ClosingStructuresFailureMechanism();
+
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var failureMechanismSectionResult = new ClosingStructuresFailureMechanismSectionResult(section)
-            {
-                Calculation = new TestClosingStructuresCalculationScenario()
-            };
+            var failureMechanismSectionResult = new ClosingStructuresFailureMechanismSectionResult(section);
+
+            StructuresCalculationScenario<ClosingStructuresInput> calculationScenario = ClosingStructuresCalculationScenarioTestFactory.CreateClosingStructuresCalculationScenario(section);
+            calculationScenario.IsRelevant = false;
 
             // Call
             double detailedAssessmentProbability = failureMechanismSectionResult.GetDetailedAssessmentProbability(
-                Enumerable.Empty<StructuresCalculationScenario<ClosingStructuresInput>>(),
-                new ClosingStructuresFailureMechanism(), assessmentSection);
+                new[]
+                {
+                    calculationScenario
+                },
+                failureMechanism,
+                assessmentSection);
 
             // Assert
             Assert.IsNaN(detailedAssessmentProbability);
@@ -161,7 +170,33 @@ namespace Riskeer.ClosingStructures.Data.Test
         }
 
         [Test]
-        public void GetDetailedAssessmentProbability_CalculationWithOutput_ReturnsDerivedProbability()
+        public void GetDetailedAssessmentProbability_ScenarioNotCalculated_ReturnsNaN()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var failureMechanism = new ClosingStructuresFailureMechanism();
+
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var failureMechanismSectionResult = new ClosingStructuresFailureMechanismSectionResult(section);
+
+            StructuresCalculationScenario<ClosingStructuresInput> calculationScenario = ClosingStructuresCalculationScenarioTestFactory.CreateNotCalculatedClosingStructuresCalculationScenario(section);
+
+            // Call
+            double detailedAssessmentProbability = failureMechanismSectionResult.GetDetailedAssessmentProbability(new[]
+            {
+                calculationScenario
+            }, failureMechanism, assessmentSection);
+
+            // Assert
+            Assert.IsNaN(detailedAssessmentProbability);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GetDetailedAssessmentProbability_ScenarioWithNanResults_ReturnsNaN()
         {
             // Setup
             var failureMechanism = new ClosingStructuresFailureMechanism();
@@ -171,21 +206,66 @@ namespace Riskeer.ClosingStructures.Data.Test
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var failureMechanismSectionResult = new ClosingStructuresFailureMechanismSectionResult(section)
+            var failureMechanismSectionResult = new ClosingStructuresFailureMechanismSectionResult(section);
+
+            const double contribution1 = 0.2;
+            const double contribution2 = 0.8;
+
+            StructuresCalculationScenario<ClosingStructuresInput> calculationScenario1 = ClosingStructuresCalculationScenarioTestFactory.CreateClosingStructuresCalculationScenario(section);
+            StructuresCalculationScenario<ClosingStructuresInput> calculationScenario2 = ClosingStructuresCalculationScenarioTestFactory.CreateNotCalculatedClosingStructuresCalculationScenario(section);
+
+            calculationScenario1.IsRelevant = true;
+            calculationScenario1.Contribution = (RoundedDouble) contribution1;
+
+            calculationScenario2.IsRelevant = true;
+            calculationScenario2.Contribution = (RoundedDouble) contribution2;
+            calculationScenario2.Output = new TestStructuresOutput(double.NaN);
+
+            StructuresCalculationScenario<ClosingStructuresInput>[] calculations =
             {
-                Calculation = new TestClosingStructuresCalculationScenario
-                {
-                    Output = new TestStructuresOutput(0.45)
-                }
+                calculationScenario1,
+                calculationScenario2
             };
 
             // Call
-            double detailedAssessmentProbability = failureMechanismSectionResult.GetDetailedAssessmentProbability(
-                Enumerable.Empty<StructuresCalculationScenario<ClosingStructuresInput>>(),
-                new ClosingStructuresFailureMechanism(), assessmentSection);
+            double detailedAssessmentProbability = failureMechanismSectionResult.GetDetailedAssessmentProbability(calculations, failureMechanism, assessmentSection);
 
             // Assert
-            Assert.AreEqual(0.32635522028792008, detailedAssessmentProbability);
+            Assert.IsNaN(detailedAssessmentProbability);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [TestCase(0.2, 0.8 - 1e5)]
+        [TestCase(0.0, 0.5)]
+        [TestCase(0.3, 0.7 + 1e-5)]
+        [TestCase(-5, -8)]
+        [TestCase(13, 2)]
+        public void GetDetailedAssessmentProbability_RelevantScenarioContributionDoNotAddUpTo1_ReturnNaN(double contributionA, double contributionB)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var failureMechanism = new ClosingStructuresFailureMechanism();
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            StructuresCalculationScenario<ClosingStructuresInput> scenarioA = ClosingStructuresCalculationScenarioTestFactory.CreateNotCalculatedClosingStructuresCalculationScenario(section);
+            StructuresCalculationScenario<ClosingStructuresInput> scenarioB = ClosingStructuresCalculationScenarioTestFactory.CreateNotCalculatedClosingStructuresCalculationScenario(section);
+            scenarioA.Contribution = (RoundedDouble) contributionA;
+            scenarioB.Contribution = (RoundedDouble) contributionB;
+
+            var result = new ClosingStructuresFailureMechanismSectionResult(section);
+
+            // Call
+            double detailedAssessmentProbability = result.GetDetailedAssessmentProbability(new[]
+            {
+                scenarioA,
+                scenarioB
+            }, failureMechanism, assessmentSection);
+
+            // Assert
+            Assert.IsNaN(detailedAssessmentProbability);
             mocks.VerifyAll();
         }
 

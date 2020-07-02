@@ -44,8 +44,8 @@ namespace Riskeer.ClosingStructures.Data
         /// <param name="calculationScenarios">All calculation scenarios in the failure mechanism.</param>
         /// <param name="failureMechanism">The failure mechanism the section result belongs to.</param>
         /// <param name="assessmentSection">The assessment section the section result belongs to.</param>
-        /// <returns>The calculated detailed assessment probability; or <see cref="double.NaN"/> when there is no
-        /// calculation assigned to the section result or the calculation is not performed.</returns>
+        /// <returns>The calculated detailed assessment probability; or <see cref="double.NaN"/> when there are no
+        /// performed or relevant calculations.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public static double GetDetailedAssessmentProbability(this ClosingStructuresFailureMechanismSectionResult sectionResult,
                                                               IEnumerable<StructuresCalculationScenario<ClosingStructuresInput>> calculationScenarios,
@@ -72,15 +72,23 @@ namespace Riskeer.ClosingStructures.Data
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            if (sectionResult.Calculation == null || !sectionResult.Calculation.HasOutput)
+            StructuresCalculationScenario<ClosingStructuresInput>[] relevantScenarios = sectionResult.GetCalculationScenarios(calculationScenarios).ToArray();
+
+            if (relevantScenarios.Length == 0 || !relevantScenarios.All(s => s.HasOutput) || Math.Abs(sectionResult.GetTotalContribution(relevantScenarios) - 1.0) > 1e-6)
             {
                 return double.NaN;
             }
 
-            ProbabilityAssessmentOutput derivedOutput = ClosingStructuresProbabilityAssessmentOutputFactory.Create(sectionResult.Calculation.Output,
-                                                                                                                   failureMechanism, assessmentSection);
+            double totalDetailedAssessmentProbability = 0;
+            foreach (StructuresCalculationScenario<ClosingStructuresInput> scenario in relevantScenarios)
+            {
+                ProbabilityAssessmentOutput derivedOutput = ClosingStructuresProbabilityAssessmentOutputFactory.Create(
+                    scenario.Output, failureMechanism, assessmentSection);
 
-            return derivedOutput.Probability;
+                totalDetailedAssessmentProbability += derivedOutput.Probability * (double) scenario.Contribution;
+            }
+
+            return totalDetailedAssessmentProbability;
         }
 
         /// <summary>
@@ -103,7 +111,7 @@ namespace Riskeer.ClosingStructures.Data
                 throw new ArgumentNullException(nameof(calculationScenarios));
             }
 
-            return (RoundedDouble)sectionResult
+            return (RoundedDouble) sectionResult
                                    .GetCalculationScenarios(calculationScenarios)
                                    .Aggregate<ICalculationScenario, double>(0, (current, calculationScenario) => current + calculationScenario.Contribution);
         }

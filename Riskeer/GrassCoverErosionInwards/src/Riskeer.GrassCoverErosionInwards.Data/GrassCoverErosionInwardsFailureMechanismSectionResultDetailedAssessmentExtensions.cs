@@ -43,8 +43,8 @@ namespace Riskeer.GrassCoverErosionInwards.Data
         /// <param name="calculationScenarios">All calculation scenarios in the failure mechanism.</param>
         /// <param name="failureMechanism">The failure mechanism the section result belongs to.</param>
         /// <param name="assessmentSection">The assessment section the section result belongs to.</param>
-        /// <returns>The calculated detailed assessment probability or <see cref="double.NaN"/> when there is no
-        /// calculation assigned to the section result or the calculation is not performed.</returns>
+        /// <returns>The calculated detailed assessment probability; or <see cref="double.NaN"/> when there are no
+        /// performed or relevant calculations.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public static double GetDetailedAssessmentProbability(this GrassCoverErosionInwardsFailureMechanismSectionResult sectionResult,
                                                               IEnumerable<GrassCoverErosionInwardsCalculationScenario> calculationScenarios,
@@ -77,7 +77,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data
             {
                 return double.NaN;
             }
-
+            
             double totalDetailedAssessmentProbability = 0;
             foreach (GrassCoverErosionInwardsCalculationScenario scenario in relevantScenarios)
             {

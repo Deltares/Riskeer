@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using Core.Common.Base;
+using Core.Common.Base.Data;
 using Core.Common.Controls.DataGrid;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -119,7 +120,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
 
             // Call
             void Call() => new ClosingStructuresFailureMechanismSectionResultRow(
-                result, Enumerable.Empty<StructuresCalculationScenario<ClosingStructuresInput>>(), 
+                result, Enumerable.Empty<StructuresCalculationScenario<ClosingStructuresInput>>(),
                 new ClosingStructuresFailureMechanism(), null, ConstructionProperties);
 
             // Assert
@@ -140,7 +141,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
 
             // Call
             void Call() => new ClosingStructuresFailureMechanismSectionResultRow(
-                result, Enumerable.Empty<StructuresCalculationScenario<ClosingStructuresInput>>(), 
+                result, Enumerable.Empty<StructuresCalculationScenario<ClosingStructuresInput>>(),
                 new ClosingStructuresFailureMechanism(), assessmentSection, null);
 
             // Assert
@@ -162,7 +163,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new ClosingStructuresFailureMechanismSectionResult(section);
 
-            StructuresCalculationScenario<ClosingStructuresInput>[] calculationScenarios = 
+            StructuresCalculationScenario<ClosingStructuresInput>[] calculationScenarios =
             {
                 ClosingStructuresCalculationScenarioTestFactory.CreateClosingStructuresCalculationScenario(section)
             };
@@ -726,7 +727,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
         [Test]
         [TestCase(SimpleAssessmentResultType.None)]
         [TestCase(SimpleAssessmentResultType.AssessFurther)]
-        public void Constructor_SectionResultWithoutCalculation_DetailedAssessmentProbabilityHasErrorText(
+        public void Constructor_TotalContributionNotHundred_DetailedAssessmentProbabilityHasErrorText(
             SimpleAssessmentResultType simpleAssessmentResult)
         {
             // Setup
@@ -742,97 +743,15 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
                 SimpleAssessmentResult = simpleAssessmentResult
             };
 
-            StructuresCalculationScenario<ClosingStructuresInput>[] calculationScenarios =
-            {
-                ClosingStructuresCalculationScenarioTestFactory.CreateClosingStructuresCalculationScenario(section)
-            };
+            StructuresCalculationScenario<ClosingStructuresInput> calculation = ClosingStructuresCalculationScenarioTestFactory.CreateClosingStructuresCalculationScenario(section);
+            calculation.Contribution = (RoundedDouble) 0.3;
 
-            using (new AssemblyToolCalculatorFactoryConfig())
-            {
-                // Call
-                var resultRow = new ClosingStructuresFailureMechanismSectionResultRow(
-                    sectionResult, calculationScenarios, failureMechanism, assessmentSection, ConstructionProperties);
-
-                // Assert
-                Assert.IsNaN(resultRow.DetailedAssessmentProbability);
-                Assert.AreEqual("Er moet een maatgevende berekening voor dit vak worden geselecteerd.",
-                                resultRow.ColumnStateDefinitions[ConstructionProperties.DetailedAssessmentProbabilityIndex].ErrorText);
-                mocks.VerifyAll();
-            }
-        }
-
-        [Test]
-        [TestCase(SimpleAssessmentResultType.None)]
-        [TestCase(SimpleAssessmentResultType.AssessFurther)]
-        public void Constructor_SectionResultAndCalculationNotCalculated_DetailedAssessmentProbabilityHasErrorText(
-            SimpleAssessmentResultType simpleAssessmentResult)
-        {
-            // Setup
-            var failureMechanism = new ClosingStructuresFailureMechanism();
-
-            var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
-            mocks.ReplayAll();
-
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new ClosingStructuresFailureMechanismSectionResult(section)
-            {
-                Calculation = new TestClosingStructuresCalculationScenario(),
-                SimpleAssessmentResult = simpleAssessmentResult
-            };
-
-            StructuresCalculationScenario<ClosingStructuresInput>[] calculationScenarios =
-            {
-                ClosingStructuresCalculationScenarioTestFactory.CreateNotCalculatedClosingStructuresCalculationScenario(section)
-            };
-
-            using (new AssemblyToolCalculatorFactoryConfig())
-            {
-                // Call
-                var resultRow = new ClosingStructuresFailureMechanismSectionResultRow(
-                    sectionResult, calculationScenarios, failureMechanism, assessmentSection, ConstructionProperties);
-
-                // Assert
-                Assert.IsNaN(resultRow.DetailedAssessmentProbability);
-                Assert.AreEqual("De maatgevende berekening voor dit vak moet nog worden uitgevoerd.",
-                                resultRow.ColumnStateDefinitions[ConstructionProperties.DetailedAssessmentProbabilityIndex].ErrorText);
-                mocks.VerifyAll();
-            }
-        }
-
-        [Test]
-        [TestCase(SimpleAssessmentResultType.None)]
-        [TestCase(SimpleAssessmentResultType.AssessFurther)]
-        public void Constructor_SectionResultAndFailedCalculation_DetailedAssessmentProbabilityHasErrorText(
-            SimpleAssessmentResultType simpleAssessmentResult)
-        {
-            // Setup
-            var failureMechanism = new ClosingStructuresFailureMechanism();
-
-            var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
-            mocks.ReplayAll();
-
-
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new ClosingStructuresFailureMechanismSectionResult(section)
-            {
-                Calculation = new TestClosingStructuresCalculationScenario
-                {
-                    Output = new TestStructuresOutput(double.NaN)
-                },
-                SimpleAssessmentResult = simpleAssessmentResult
-            };
-
-            StructuresCalculationScenario<ClosingStructuresInput> calculation = ClosingStructuresCalculationScenarioTestFactory.CreateNotCalculatedClosingStructuresCalculationScenario(section);
-            calculation.Output = new TestStructuresOutput(double.NaN);
-            
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call
                 var resultRow = new ClosingStructuresFailureMechanismSectionResultRow(
                     sectionResult,
-                    new []
+                    new[]
                     {
                         calculation
                     },
@@ -842,7 +761,172 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
 
                 // Assert
                 Assert.IsNaN(resultRow.DetailedAssessmentProbability);
-                Assert.AreEqual("De maatgevende berekening voor dit vak moet een geldige uitkomst hebben.",
+                Assert.AreEqual("Bijdrage van de geselecteerde scenario's voor dit vak moet opgeteld gelijk zijn aan 100%.",
+                                resultRow.ColumnStateDefinitions[ConstructionProperties.DetailedAssessmentProbabilityIndex].ErrorText);
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        [TestCase(SimpleAssessmentResultType.None)]
+        [TestCase(SimpleAssessmentResultType.AssessFurther)]
+        public void Constructor_NoCalculatedScenario_DetailedAssessmentProbabilityHasErrorText(
+            SimpleAssessmentResultType simpleAssessmentResult)
+        {
+            // Setup
+            var failureMechanism = new ClosingStructuresFailureMechanism();
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
+
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var sectionResult = new ClosingStructuresFailureMechanismSectionResult(section)
+            {
+                SimpleAssessmentResult = simpleAssessmentResult
+            };
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                // Call
+                var resultRow = new ClosingStructuresFailureMechanismSectionResultRow(
+                    sectionResult,
+                    new[]
+                    {
+                        ClosingStructuresCalculationScenarioTestFactory.CreateNotCalculatedClosingStructuresCalculationScenario(section)
+                    },
+                    failureMechanism,
+                    assessmentSection,
+                    ConstructionProperties);
+
+                // Assert
+                Assert.IsNaN(resultRow.DetailedAssessmentProbability);
+                Assert.AreEqual("Alle berekeningen voor dit vak moeten uitgevoerd zijn.",
+                                resultRow.ColumnStateDefinitions[ConstructionProperties.DetailedAssessmentProbabilityIndex].ErrorText);
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        [TestCase(SimpleAssessmentResultType.None)]
+        [TestCase(SimpleAssessmentResultType.AssessFurther)]
+        public void Constructor_DetailedAssessmentProbabilityNaN_DetailedAssessmentProbabilityHasErrorText(
+            SimpleAssessmentResultType simpleAssessmentResult)
+        {
+            // Setup
+            var failureMechanism = new ClosingStructuresFailureMechanism();
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
+
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var sectionResult = new ClosingStructuresFailureMechanismSectionResult(section)
+            {
+                SimpleAssessmentResult = simpleAssessmentResult
+            };
+
+            StructuresCalculationScenario<ClosingStructuresInput> calculationScenario =
+                ClosingStructuresCalculationScenarioTestFactory.CreateNotCalculatedClosingStructuresCalculationScenario(section);
+            calculationScenario.Output = new TestStructuresOutput(double.NaN);
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                // Call
+                var resultRow = new ClosingStructuresFailureMechanismSectionResultRow(
+                    sectionResult,
+                    new[]
+                    {
+                        calculationScenario
+                    },
+                    failureMechanism,
+                    assessmentSection,
+                    ConstructionProperties);
+
+                // Assert
+                Assert.IsNaN(resultRow.DetailedAssessmentProbability);
+                Assert.AreEqual("Alle berekeningen voor dit vak moeten een geldige uitkomst hebben.",
+                                resultRow.ColumnStateDefinitions[ConstructionProperties.DetailedAssessmentProbabilityIndex].ErrorText);
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        [TestCase(SimpleAssessmentResultType.None)]
+        [TestCase(SimpleAssessmentResultType.AssessFurther)]
+        public void Constructor_NoCalculationScenarios_DetailedAssessmentProbabilityHasErrorText(
+            SimpleAssessmentResultType simpleAssessmentResult)
+        {
+            // Setup
+            var failureMechanism = new ClosingStructuresFailureMechanism();
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
+
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var sectionResult = new ClosingStructuresFailureMechanismSectionResult(section)
+            {
+                SimpleAssessmentResult = simpleAssessmentResult
+            };
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                // Call
+                var resultRow = new ClosingStructuresFailureMechanismSectionResultRow(
+                    sectionResult,
+                    Enumerable.Empty<StructuresCalculationScenario<ClosingStructuresInput>>(),
+                    failureMechanism,
+                    assessmentSection,
+                    ConstructionProperties);
+
+                // Assert
+                Assert.IsNaN(resultRow.DetailedAssessmentProbability);
+                Assert.AreEqual("Er moet minimaal één maatgevende berekening voor dit vak worden geselecteerd.",
+                                resultRow.ColumnStateDefinitions[ConstructionProperties.DetailedAssessmentProbabilityIndex].ErrorText);
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        [TestCase(SimpleAssessmentResultType.None)]
+        [TestCase(SimpleAssessmentResultType.AssessFurther)]
+        public void Constructor_NoCalculationScenariosRelevant_DetailedAssessmentProbabilityHasErrorText(
+            SimpleAssessmentResultType simpleAssessmentResult)
+        {
+            // Setup
+            var failureMechanism = new ClosingStructuresFailureMechanism();
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
+
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var sectionResult = new ClosingStructuresFailureMechanismSectionResult(section)
+            {
+                SimpleAssessmentResult = simpleAssessmentResult
+            };
+
+            StructuresCalculationScenario<ClosingStructuresInput> calculationScenario =
+                ClosingStructuresCalculationScenarioTestFactory.CreateNotCalculatedClosingStructuresCalculationScenario(section);
+            calculationScenario.IsRelevant = false;
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                // Call
+                var resultRow = new ClosingStructuresFailureMechanismSectionResultRow(
+                    sectionResult,
+                    new[]
+                    {
+                        calculationScenario
+                    },
+                    failureMechanism,
+                    assessmentSection,
+                    ConstructionProperties);
+
+                // Assert
+                Assert.IsNaN(resultRow.DetailedAssessmentProbability);
+                Assert.AreEqual("Er moet minimaal één maatgevende berekening voor dit vak worden geselecteerd.",
                                 resultRow.ColumnStateDefinitions[ConstructionProperties.DetailedAssessmentProbabilityIndex].ErrorText);
                 mocks.VerifyAll();
             }
@@ -1217,7 +1301,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
             {
                 var resultRow = new ClosingStructuresFailureMechanismSectionResultRow(
                     sectionResult,
-                    new []
+                    new[]
                     {
                         calculation
                     },
@@ -1270,7 +1354,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
                 double detailedAssessmentProbability = resultRow.DetailedAssessmentProbability;
 
                 // Assert
-                Assert.AreEqual(0.2786727127146118, detailedAssessmentProbability);
+                Assert.AreEqual(0.5, detailedAssessmentProbability);
                 mocks.VerifyAll();
             }
         }
