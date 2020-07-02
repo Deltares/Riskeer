@@ -1322,7 +1322,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
                 double detailedAssessmentProbability = resultRow.DetailedAssessmentProbability;
 
                 // Assert
-                Assert.AreEqual(0.5, detailedAssessmentProbability);
+                Assert.AreEqual(0.2786727127146118, detailedAssessmentProbability);
                 mocks.VerifyAll();
             }
         }
