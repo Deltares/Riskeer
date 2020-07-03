@@ -21,20 +21,15 @@
 
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using Deltares.MacroStability.Data;
 using Deltares.MacroStability.Geometry;
-using Deltares.MacroStability.Interface;
-using Deltares.MacroStability.Io;
-using Deltares.MacroStability.Io.XmlInput;
 using Deltares.MacroStability.Kernel;
 using Deltares.MacroStability.Preprocessing;
 using Deltares.MacroStability.Standard;
 using Deltares.MacroStability.WaternetCreator;
 using Deltares.SoilStress.Data;
 using Deltares.WTIStability.Calculation.Wrapper;
-using log4net;
 using WtiStabilityWaternet = Deltares.MacroStability.Geometry.Waternet;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
@@ -45,7 +40,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
     internal class UpliftVanKernelWrapper : IUpliftVanKernel
     {
         private readonly KernelModel kernelModel;
-        private readonly ILog log = LogManager.GetLogger(typeof(UpliftVanKernelWrapper));
 
         /// <summary>
         /// Creates a new instance of <see cref="UpliftVanKernelWrapper"/>.
@@ -173,8 +167,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
             {
                 kernelCalculation.Run(kernelModel);
 
-                WriteXmlFile();
-
                 CalculationMessages = kernelCalculation.LogMessages ?? Enumerable.Empty<LogMessage>();
                 SetResults();
             }
@@ -221,15 +213,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
             PreprocessingModel preprocessingModel = kernelModel.PreprocessingModel;
             var preprocessor = new StabilityPreprocessor();
             preprocessor.Update(kernelModel.StabilityModel, preprocessingModel);
-        }
-
-        private void WriteXmlFile()
-        {
-            FullInputModelType fullInputModel = FillXmlInputFromDomain.CreateStabilityInput(kernelModel);
-            string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, $"XmlFile-{DateTime.Now.Ticks}.txt");
-
-            MacroStabilityXmlSerialization.SaveInputAsXmlFile(filePath, fullInputModel);
-            log.Info($"Het Xml bestand is geschreven naar: {filePath}");
         }
 
         private static ConstructionStage AddConstructionStage()
