@@ -30,7 +30,7 @@ namespace Riskeer.ClosingStructures.Data.TestUtil
     /// Helper class for creating different instances of <see cref="StructuresCalculationScenario{T}"/>
     /// for testing purposes.
     /// </summary>
-    public class ClosingStructuresCalculationScenarioTestFactory
+    public static class ClosingStructuresCalculationScenarioTestFactory
     {
         /// <summary>
         /// Creates a calculated scenario for which the surface line on the input intersects with <paramref name="section"/>.
