@@ -792,11 +792,13 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                     TestHelper.AssertLogMessages(call, messages =>
                     {
                         string[] msgs = messages.ToArray();
-                        Assert.AreEqual(7, msgs.Length);
+                        Assert.AreEqual(9, msgs.Length);
                         CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
-                        CalculationServiceTestHelper.AssertValidationEndMessage(msgs[1]);
-                        CalculationServiceTestHelper.AssertValidationStartMessage(msgs[2]);
-                        CalculationServiceTestHelper.AssertValidationEndMessage(msgs[6]);
+                        Assert.AreEqual("Validatie van waterspanningen in extreme omstandigheden is gestart.", msgs[1]);
+                        Assert.AreEqual("Validatie van waterspanningen in dagelijkse omstandigheden is gestart.", msgs[2]);
+                        CalculationServiceTestHelper.AssertValidationEndMessage(msgs[3]);
+                        CalculationServiceTestHelper.AssertValidationStartMessage(msgs[4]);
+                        CalculationServiceTestHelper.AssertValidationEndMessage(msgs[8]);
                     });
                 }
             }
@@ -873,20 +875,24 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                     TestHelper.AssertLogMessages(call, messages =>
                     {
                         string[] msgs = messages.ToArray();
-                        Assert.AreEqual(12, msgs.Length);
+                        Assert.AreEqual(16, msgs.Length);
                         Assert.AreEqual("Uitvoeren van berekening 'A' is gestart.", msgs[0]);
                         CalculationServiceTestHelper.AssertValidationStartMessage(msgs[1]);
-                        CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
-                        CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[3]);
-                        CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[4]);
-                        Assert.AreEqual("Uitvoeren van berekening 'A' is gelukt.", msgs[5]);
+                        Assert.AreEqual("Validatie van waterspanningen in extreme omstandigheden is gestart.", msgs[2]);
+                        Assert.AreEqual("Validatie van waterspanningen in dagelijkse omstandigheden is gestart.", msgs[3]);
+                        CalculationServiceTestHelper.AssertValidationEndMessage(msgs[4]);
+                        CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[5]);
+                        CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[6]);
+                        Assert.AreEqual("Uitvoeren van berekening 'A' is gelukt.", msgs[7]);
 
-                        Assert.AreEqual("Uitvoeren van berekening 'B' is gestart.", msgs[6]);
-                        CalculationServiceTestHelper.AssertValidationStartMessage(msgs[7]);
-                        CalculationServiceTestHelper.AssertValidationEndMessage(msgs[8]);
-                        CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[9]);
-                        CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[10]);
-                        Assert.AreEqual("Uitvoeren van berekening 'B' is gelukt.", msgs[11]);
+                        Assert.AreEqual("Uitvoeren van berekening 'B' is gestart.", msgs[8]);
+                        CalculationServiceTestHelper.AssertValidationStartMessage(msgs[9]);
+                        Assert.AreEqual("Validatie van waterspanningen in extreme omstandigheden is gestart.", msgs[10]);
+                        Assert.AreEqual("Validatie van waterspanningen in dagelijkse omstandigheden is gestart.", msgs[11]);
+                        CalculationServiceTestHelper.AssertValidationEndMessage(msgs[12]);
+                        CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[13]);
+                        CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[14]);
+                        Assert.AreEqual("Uitvoeren van berekening 'B' is gelukt.", msgs[15]);
                     });
                 }
             }

@@ -19,27 +19,25 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
+using System.Collections.Generic;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Input;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.Input
 {
     [TestFixture]
-    public class PlLineCreationMethodTest
+    public class PlLineCreationMethodTest : EnumValuesTestFixture<PlLineCreationMethod, int>
     {
-        [Test]
-        public void Values_ExpectedValues()
-        {
-            // Assert
-            Assert.AreEqual(7, Enum.GetValues(typeof(PlLineCreationMethod)).Length);
-            Assert.AreEqual(1, (int) PlLineCreationMethod.ExpertKnowledgeRrd);
-            Assert.AreEqual(2, (int) PlLineCreationMethod.ExpertKnowledgeLinearInDike);
-            Assert.AreEqual(3, (int) PlLineCreationMethod.RingtoetsWti2017);
-            Assert.AreEqual(4, (int) PlLineCreationMethod.DupuitStatic);
-            Assert.AreEqual(5, (int) PlLineCreationMethod.DupuitDynamic);
-            Assert.AreEqual(6, (int) PlLineCreationMethod.Sensors);
-            Assert.AreEqual(7, (int) PlLineCreationMethod.None);
-        }
+        protected override IDictionary<PlLineCreationMethod, int> ExpectedValueForEnumValues =>
+            new Dictionary<PlLineCreationMethod, int>
+            {
+                {
+                    PlLineCreationMethod.RingtoetsWti2017, 1
+                },
+                {
+                    PlLineCreationMethod.None, 2
+                }
+            };
     }
 }

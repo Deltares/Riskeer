@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Deltares.MacroStability.WaternetCreator;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Input;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Kernels;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.Waternet;
@@ -42,9 +43,9 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Waternet
         public WaternetExtremeCalculator(WaternetCalculatorInput input, IMacroStabilityInwardsKernelFactory factory)
             : base(input, factory) {}
 
-        protected override IWaternetKernel CreateWaternetKernel()
+        protected override IWaternetKernel CreateWaternetKernel(Location location)
         {
-            return Factory.CreateWaternetExtremeKernel();
+            return Factory.CreateWaternetExtremeKernel(location);
         }
     }
 }

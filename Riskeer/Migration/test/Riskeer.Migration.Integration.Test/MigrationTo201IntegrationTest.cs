@@ -63,6 +63,8 @@ namespace Riskeer.Migration.Integration.Test
 
                     AssertGrassCoverErosionInwardsCalculation(reader, sourceFilePath);
                     AssertGrassCoverErosionInwardsSectionResult(reader, sourceFilePath);
+
+                    AssertMacroStabilityInwardsOutput(reader);
                 }
 
                 AssertLogDatabase(logFilePath);
@@ -217,7 +219,6 @@ namespace Riskeer.Migration.Integration.Test
                 "HydraulicLocationOutputEntity",
                 "IllustrationPointResultEntity",
                 "MacroStabilityInwardsCalculationEntity",
-                "MacroStabilityInwardsCalculationOutputEntity",
                 "MacroStabilityInwardsCharacteristicPointEntity",
                 "MacroStabilityInwardsFailureMechanismMetaEntity",
                 "MacroStabilityInwardsPreconsolidationStressEntity",
@@ -279,6 +280,15 @@ namespace Riskeer.Migration.Integration.Test
             }
         }
 
+        private static void AssertMacroStabilityInwardsOutput(MigratedDatabaseReader reader)
+        {
+            const string macroStabilityInwardsCalculationOutputEntityTable =
+                "SELECT COUNT() = 0 " +
+                "FROM MacroStabilityInwardsCalculationOutputEntity;" +
+                "DETACH SOURCEPROJECT;";
+            reader.AssertReturnedDataIsValid(macroStabilityInwardsCalculationOutputEntityTable);
+        }
+
         private static void AssertVersions(MigratedDatabaseReader reader)
         {
             const string validateVersion =
@@ -287,6 +297,7 @@ namespace Riskeer.Migration.Integration.Test
                 "WHERE [Version] = \"20.1\";";
             reader.AssertReturnedDataIsValid(validateVersion);
         }
+
         private static void AssertDatabase(MigratedDatabaseReader reader)
         {
             const string validateForeignKeys =
@@ -306,7 +317,7 @@ namespace Riskeer.Migration.Integration.Test
                     new MigrationLogMessage("19.1", newVersion, "Gevolgen van de migratie van versie 19.1 naar versie 20.1:"),
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("19.1", newVersion, "* Geen aanpassingen."),
+                    new MigrationLogMessage("19.1", newVersion, "* Alle berekende resultaten van het toetsspoor 'Macrostabiliteit binnenwaarts' zijn verwijderd."),
                     messages[i]);
             }
         }

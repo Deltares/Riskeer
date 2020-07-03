@@ -21,23 +21,23 @@
 
 using System;
 using System.ComponentModel;
-using Deltares.WTIStability;
+using Deltares.MacroStability.WaternetCreator;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
 {
     /// <summary>
-    /// Creates <see cref="StabilityLocation"/> instances which are required by <see cref="IUpliftVanKernel"/>.
+    /// Creates <see cref="Location"/> instances which are required by <see cref="IUpliftVanKernel"/>.
     /// </summary>
-    internal static class UpliftVanStabilityLocationCreator
+    internal static class UpliftVanLocationCreator
     {
         /// <summary>
-        /// Creates a <see cref="StabilityLocation"/> based on the given <paramref name="input"/> under extreme circumstances,
+        /// Creates a <see cref="Location"/> based on the given <paramref name="input"/> under extreme circumstances,
         /// which can be used by <see cref="IUpliftVanKernel"/>.
         /// </summary>
         /// <param name="input">The <see cref="UpliftVanCalculatorInput"/> to get the information from.</param>
-        /// <returns>A new <see cref="StabilityLocation"/> with the given information from <paramref name="input"/>.</returns>
+        /// <returns>A new <see cref="Location"/> with the given information from <paramref name="input"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="input"/> is <c>null</c>.</exception>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <see cref="UpliftVanCalculatorInput.DikeSoilScenario"/>,
         /// <see cref="UpliftVanCalculatorInput.WaternetCreationMode"/> or <see cref="UpliftVanCalculatorInput.PlLineCreationMethod"/>
@@ -45,14 +45,14 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
         /// <exception cref="NotSupportedException">Thrown when <see cref="UpliftVanCalculatorInput.DikeSoilScenario"/>,
         /// <see cref="UpliftVanCalculatorInput.WaternetCreationMode"/> or <see cref="UpliftVanCalculatorInput.PlLineCreationMethod"/>
         /// is a valid value, but unsupported.</exception>
-        public static StabilityLocation CreateExtreme(UpliftVanCalculatorInput input)
+        public static Location CreateExtreme(UpliftVanCalculatorInput input)
         {
             if (input == null)
             {
                 throw new ArgumentNullException(nameof(input));
             }
 
-            StabilityLocation location = CreateBaseLocation(input);
+            Location location = CreateBaseLocation(input);
             location.WaterLevelRiver = input.AssessmentLevel;
             location.WaterLevelPolder = input.WaterLevelPolderExtreme;
             location.UseDefaultOffsets = input.PhreaticLineOffsetsExtreme.UseDefaults;
@@ -65,11 +65,11 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
         }
 
         /// <summary>
-        /// Creates a <see cref="StabilityLocation"/> based on the given <paramref name="input"/> under daily circumstances,
+        /// Creates a <see cref="Location"/> based on the given <paramref name="input"/> under daily circumstances,
         /// which can be used by <see cref="IUpliftVanKernel"/>.
         /// </summary>
         /// <param name="input">The <see cref="UpliftVanCalculatorInput"/> to get the information from.</param>
-        /// <returns>A new <see cref="StabilityLocation"/> with the given information from <paramref name="input"/>.</returns>
+        /// <returns>A new <see cref="Location"/> with the given information from <paramref name="input"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="input"/> is <c>null</c>.</exception>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <see cref="UpliftVanCalculatorInput.DikeSoilScenario"/>,
         /// <see cref="UpliftVanCalculatorInput.WaternetCreationMode"/> or <see cref="UpliftVanCalculatorInput.PlLineCreationMethod"/>
@@ -77,14 +77,14 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
         /// <exception cref="NotSupportedException">Thrown when <see cref="UpliftVanCalculatorInput.DikeSoilScenario"/>,
         /// <see cref="UpliftVanCalculatorInput.WaternetCreationMode"/> or <see cref="UpliftVanCalculatorInput.PlLineCreationMethod"/>
         /// is a valid value, but unsupported.</exception>
-        public static StabilityLocation CreateDaily(UpliftVanCalculatorInput input)
+        public static Location CreateDaily(UpliftVanCalculatorInput input)
         {
             if (input == null)
             {
                 throw new ArgumentNullException(nameof(input));
             }
 
-            StabilityLocation location = CreateBaseLocation(input);
+            Location location = CreateBaseLocation(input);
             location.WaterLevelRiver = input.WaterLevelRiverAverage;
             location.WaterLevelPolder = input.WaterLevelPolderDaily;
             location.UseDefaultOffsets = input.PhreaticLineOffsetsDaily.UseDefaults;
@@ -96,13 +96,13 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
             return location;
         }
 
-        private static StabilityLocation CreateBaseLocation(UpliftVanCalculatorInput input)
+        private static Location CreateBaseLocation(UpliftVanCalculatorInput input)
         {
-            return new StabilityLocation
+            return new Location
             {
-                DikeSoilScenario = StabilityLocationCreatorHelper.ConvertDikeSoilScenario(input.DikeSoilScenario),
-                WaternetCreationMode = StabilityLocationCreatorHelper.ConvertWaternetCreationMode(input.WaternetCreationMode),
-                PlLineCreationMethod = StabilityLocationCreatorHelper.ConvertPlLineCreationMethod(input.PlLineCreationMethod),
+                DikeSoilScenario = LocationCreatorHelper.ConvertDikeSoilScenario(input.DikeSoilScenario),
+                WaternetCreationMode = LocationCreatorHelper.ConvertWaternetCreationMode(input.WaternetCreationMode),
+                PlLineCreationMethod = LocationCreatorHelper.ConvertPlLineCreationMethod(input.PlLineCreationMethod),
                 WaterLevelRiverAverage = input.WaterLevelRiverAverage,
                 DrainageConstructionPresent = input.DrainageConstruction.IsPresent,
                 XCoordMiddleDrainageConstruction = input.DrainageConstruction.XCoordinate,

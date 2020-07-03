@@ -34,7 +34,10 @@ using Riskeer.MacroStabilityInwards.Data.TestUtil;
 using Riskeer.MacroStabilityInwards.Data.TestUtil.SoilProfile;
 using Riskeer.MacroStabilityInwards.Forms.TestUtil;
 using Riskeer.MacroStabilityInwards.Forms.Views;
+using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators;
 using Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators;
+using Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Waternet;
+using Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Waternet.Output;
 using Riskeer.MacroStabilityInwards.Primitives;
 
 namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
@@ -252,27 +255,34 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                 }
             };
 
-            using (var form = new Form())
-            using (var view = new MacroStabilityInwardsOutputView(calculation,
-                                                                  AssessmentSectionTestHelper.GetTestAssessmentLevel))
+            using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
-                form.Controls.Add(view);
-                form.Show();
+                var calculatorFactory = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
+                WaternetCalculatorStub calculatorStub = calculatorFactory.LastCreatedWaternetCalculator;
+                calculatorStub.Output = WaternetCalculatorResultTestFactory.CreateEmptyResult();
 
-                MacroStabilityInwardsOutputChartControl chartControl = GetChartControl(form);
+                using (var form = new Form())
+                using (var view = new MacroStabilityInwardsOutputView(calculation,
+                                                                      AssessmentSectionTestHelper.GetTestAssessmentLevel))
+                {
+                    form.Controls.Add(view);
+                    form.Show();
 
-                ChartDataCollection chartData = GetChartControl(chartControl).Data;
+                    MacroStabilityInwardsOutputChartControl chartControl = GetChartControl(form);
 
-                // Precondition
-                MacroStabilityInwardsOutputViewChartDataAssert.AssertEmptyChartDataWithEmptySoilLayerAndEmptyWaternetChartData(chartData);
+                    ChartDataCollection chartData = GetChartControl(chartControl).Data;
 
-                // When
-                MacroStabilityInwardsStochasticSoilProfile newSoilProfile = MacroStabilityInwardsStochasticSoilProfileTestFactory.CreateMacroStabilityInwardsStochasticSoilProfile2D();
-                calculation.InputParameters.StochasticSoilProfile = newSoilProfile;
-                calculation.InputParameters.NotifyObservers();
+                    // Precondition
+                    MacroStabilityInwardsOutputViewChartDataAssert.AssertEmptyChartDataWithEmptySoilLayerAndEmptyWaternetChartData(chartData);
 
-                // Then
-                MacroStabilityInwardsOutputViewChartDataAssert.AssertEmptyChartDataWithEmptySoilLayerAndEmptyWaternetChartData(chartData);
+                    // When
+                    MacroStabilityInwardsStochasticSoilProfile newSoilProfile = MacroStabilityInwardsStochasticSoilProfileTestFactory.CreateMacroStabilityInwardsStochasticSoilProfile2D();
+                    calculation.InputParameters.StochasticSoilProfile = newSoilProfile;
+                    calculation.InputParameters.NotifyObservers();
+
+                    // Then
+                    MacroStabilityInwardsOutputViewChartDataAssert.AssertEmptyChartDataWithEmptySoilLayerAndEmptyWaternetChartData(chartData);
+                }
             }
         }
 

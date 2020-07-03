@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Output;
@@ -44,68 +45,68 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Uplif
         public UpliftVanCalculatorResult Output { get; private set; }
 
         /// <summary>
-        /// Indicator whether an error message must be returned when performing the calculation.
+        /// Gets or sets an indicator whether an error message must be returned when performing the calculation.
         /// </summary>
         public bool ReturnCalculationError { get; set; }
 
         /// <summary>
-        /// Indicator whether a warning message must be returned when performing the calculation.
+        /// Gets or sets an indicator whether a warning message must be returned when performing the calculation.
         /// </summary>
         public bool ReturnCalculationWarning { get; set; }
 
         /// <summary>
-        /// Indicator whether an exception must be thrown when performing the calculation.
+        /// Gets or sets an indicator whether an exception must be thrown when performing the calculation.
         /// </summary>
         public bool ThrowExceptionOnCalculate { get; set; }
 
         /// <summary>
-        /// Indicator whether an exception must be thrown when performing the validation.
+        /// Gets or sets an indicator whether an exception must be thrown when performing the validation.
         /// </summary>
         public bool ThrowExceptionOnValidate { get; set; }
 
         /// <summary>
-        /// Indicator whether an error message must be returned when performing the validation.
+        /// Gets or sets an indicator whether an error message must be returned when performing the validation.
         /// </summary>
         public bool ReturnValidationError { get; set; }
 
         /// <summary>
-        /// Indicator whether a warning message must be returned when performing the validation.
+        /// Gets or sets an indicator whether a warning message must be returned when performing the validation.
         /// </summary>
         public bool ReturnValidationWarning { get; set; }
 
         public UpliftVanCalculatorResult Calculate()
         {
+            var calculationMessages = new List<MacroStabilityInwardsKernelMessage>();
+
+            if (ReturnCalculationError)
+            {
+                calculationMessages.Add(new MacroStabilityInwardsKernelMessage(MacroStabilityInwardsKernelMessageType.Error, "Calculation Error 1"));
+            }
+
+            if (ReturnCalculationWarning)
+            {
+                calculationMessages.Add(new MacroStabilityInwardsKernelMessage(MacroStabilityInwardsKernelMessageType.Warning, "Calculation Warning 1"));
+            }
+
+            if (ReturnCalculationError)
+            {
+                calculationMessages.Add(new MacroStabilityInwardsKernelMessage(MacroStabilityInwardsKernelMessageType.Error, "Calculation Error 2"));
+            }
+
+            if (ReturnCalculationWarning)
+            {
+                calculationMessages.Add(new MacroStabilityInwardsKernelMessage(MacroStabilityInwardsKernelMessageType.Warning, "Calculation Warning 2"));
+            }
+
             if (ThrowExceptionOnCalculate)
             {
-                throw new UpliftVanCalculatorException($"Message 1{Environment.NewLine}Message 2");
-            }
-
-            var calculationMessages = new List<UpliftVanKernelMessage>();
-
-            if (ReturnCalculationError)
-            {
-                calculationMessages.Add(new UpliftVanKernelMessage(UpliftVanKernelMessageType.Error, "Calculation Error 1"));
-            }
-
-            if (ReturnCalculationWarning)
-            {
-                calculationMessages.Add(new UpliftVanKernelMessage(UpliftVanKernelMessageType.Warning, "Calculation Warning 1"));
-            }
-
-            if (ReturnCalculationError)
-            {
-                calculationMessages.Add(new UpliftVanKernelMessage(UpliftVanKernelMessageType.Error, "Calculation Error 2"));
-            }
-
-            if (ReturnCalculationWarning)
-            {
-                calculationMessages.Add(new UpliftVanKernelMessage(UpliftVanKernelMessageType.Warning, "Calculation Warning 2"));
+                throw new UpliftVanCalculatorException($"Message 1{Environment.NewLine}Message 2", null, calculationMessages);
             }
 
             return Output ?? (Output = CreateUpliftVanCalculatorResult(calculationMessages));
         }
 
-        public IEnumerable<UpliftVanKernelMessage> Validate()
+        public IEnumerable<MacroStabilityInwardsKernelMessage> Validate()
         {
             if (ThrowExceptionOnValidate)
             {
@@ -114,16 +115,16 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Uplif
 
             if (ReturnValidationError)
             {
-                yield return new UpliftVanKernelMessage(UpliftVanKernelMessageType.Error, "Validation Error");
+                yield return new MacroStabilityInwardsKernelMessage(MacroStabilityInwardsKernelMessageType.Error, "Validation Error");
             }
 
             if (ReturnValidationWarning)
             {
-                yield return new UpliftVanKernelMessage(UpliftVanKernelMessageType.Warning, "Validation Warning");
+                yield return new MacroStabilityInwardsKernelMessage(MacroStabilityInwardsKernelMessageType.Warning, "Validation Warning");
             }
         }
 
-        private static UpliftVanCalculatorResult CreateUpliftVanCalculatorResult(IEnumerable<UpliftVanKernelMessage> calculationMessages)
+        private static UpliftVanCalculatorResult CreateUpliftVanCalculatorResult(IEnumerable<MacroStabilityInwardsKernelMessage> calculationMessages)
         {
             return new UpliftVanCalculatorResult(
                 UpliftVanSlidingCurveResultTestFactory.Create(),
@@ -140,7 +141,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Uplif
                 new UpliftVanCalculatorResult.ConstructionProperties
                 {
                     FactorOfStability = 0.1,
-                    ZValue = 0.2,
                     ForbiddenZonesXEntryMin = 0.3,
                     ForbiddenZonesXEntryMax = 0.4
                 });

@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2019. All rights reserved.
+// Copyright (C) Stichting Deltares 2019. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -40,7 +40,7 @@ namespace Riskeer.MacroStabilityInwards.Service.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
@@ -92,6 +92,24 @@ namespace Riskeer.MacroStabilityInwards.Service.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to De kernel geeft de volgende meldingen:.
+        /// </summary>
+        internal static string MacroStabilityInwardsCalculationService_Calculate_Kernel_provides_messages {
+            get {
+                return ResourceManager.GetString("MacroStabilityInwardsCalculationService_Calculate_Kernel_provides_messages", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to [{0}] {1}.
+        /// </summary>
+        internal static string MacroStabilityInwardsCalculationService_Calculate_LogMessageType_0_LogMessage_1 {
+            get {
+                return ResourceManager.GetString("MacroStabilityInwardsCalculationService_Calculate_LogMessageType_0_LogMessage_1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Er zijn een of meerdere waarschuwingsberichten. Klik op details voor meer informatie..
         /// </summary>
         internal static string MacroStabilityInwardsCalculationService_Calculate_Warnings_in_MacroStabilityInwards_calculation {
@@ -108,6 +126,26 @@ namespace Riskeer.MacroStabilityInwards.Service.Properties {
             get {
                 return ResourceManager.GetString("MacroStabilityInwardsCalculationService_Validate_Error_in_MacroStabilityInwards_v" +
                         "alidation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Validatie van waterspanningen in dagelijkse omstandigheden is gestart..
+        /// </summary>
+        internal static string MacroStabilityInwardsCalculationService_Validate_Waternet_daily_validation_started {
+            get {
+                return ResourceManager.GetString("MacroStabilityInwardsCalculationService_Validate_Waternet_daily_validation_starte" +
+                        "d", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Validatie van waterspanningen in extreme omstandigheden is gestart..
+        /// </summary>
+        internal static string MacroStabilityInwardsCalculationService_Validate_Waternet_extreme_validation_started {
+            get {
+                return ResourceManager.GetString("MacroStabilityInwardsCalculationService_Validate_Waternet_extreme_validation_star" +
+                        "ted", resourceCulture);
             }
         }
         

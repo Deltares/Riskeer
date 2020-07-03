@@ -103,12 +103,14 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
                 TestHelper.AssertLogMessages(call, messages =>
                 {
                     string[] msgs = messages.ToArray();
-                    Assert.AreEqual(5, msgs.Length);
+                    Assert.AreEqual(7, msgs.Length);
                     Assert.AreEqual($"Uitvoeren van berekening '{validMacroStabilityInwardsCalculation.Name}' is gestart.", msgs[0]);
                     CalculationServiceTestHelper.AssertValidationStartMessage(msgs[1]);
-                    CalculationServiceTestHelper.AssertValidationEndMessage(msgs[2]);
-                    CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[3]);
-                    CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[4]);
+                    Assert.AreEqual("Validatie van waterspanningen in extreme omstandigheden is gestart.", msgs[2]);
+                    Assert.AreEqual("Validatie van waterspanningen in dagelijkse omstandigheden is gestart.", msgs[3]);
+                    CalculationServiceTestHelper.AssertValidationEndMessage(msgs[4]);
+                    CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[5]);
+                    CalculationServiceTestHelper.AssertCalculationEndMessage(msgs[6]);
                 });
                 Assert.AreEqual(ActivityState.Executed, activity.State);
                 Assert.IsNotNull(validMacroStabilityInwardsCalculation.Output);

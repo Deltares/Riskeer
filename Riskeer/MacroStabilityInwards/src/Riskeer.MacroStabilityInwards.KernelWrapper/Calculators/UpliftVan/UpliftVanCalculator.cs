@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2019. All rights reserved.
+// Copyright (C) Stichting Deltares 2019. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -22,12 +22,15 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Deltares.MacroStability.Geometry;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Output;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Output;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Kernels;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan;
+using Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.Waternet;
+using SoilLayer = Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Input.SoilLayer;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan
 {
@@ -62,12 +65,12 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan
             this.factory = factory;
         }
 
-        public IEnumerable<UpliftVanKernelMessage> Validate()
+        public IEnumerable<MacroStabilityInwardsKernelMessage> Validate()
         {
             try
             {
                 IUpliftVanKernel upliftVanKernel = CreateUpliftVanKernel();
-                return UpliftVanKernelMessagesCreator.CreateFromValidationResults(upliftVanKernel.Validate().ToArray());
+                return MacroStabilityInwardsKernelMessagesCreator.CreateFromValidationResults(upliftVanKernel.Validate().ToArray());
             }
             catch (UpliftVanKernelWrapperException e)
             {
@@ -82,11 +85,10 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan
             return new UpliftVanCalculatorResult(
                 UpliftVanSlidingCurveResultCreator.Create(upliftVanKernel.SlidingCurveResult),
                 UpliftVanCalculationGridResultCreator.Create(upliftVanKernel.SlipPlaneResult),
-                UpliftVanKernelMessagesCreator.CreateFromLogMessages(upliftVanKernel.CalculationMessages),
+                MacroStabilityInwardsKernelMessagesCreator.CreateFromLogMessages(upliftVanKernel.CalculationMessages),
                 new UpliftVanCalculatorResult.ConstructionProperties
                 {
                     FactorOfStability = upliftVanKernel.FactorOfStability,
-                    ZValue = upliftVanKernel.ZValue,
                     ForbiddenZonesXEntryMin = upliftVanKernel.ForbiddenZonesXEntryMin,
                     ForbiddenZonesXEntryMax = upliftVanKernel.ForbiddenZonesXEntryMax
                 });
@@ -102,7 +104,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan
             }
             catch (UpliftVanKernelWrapperException e)
             {
-                throw new UpliftVanCalculatorException(e.Message, e);
+                throw new UpliftVanCalculatorException(e.Message, e, MacroStabilityInwardsKernelMessagesCreator.CreateFromLogMessages(e.LogMessages));
             }
 
             return upliftVanKernel;
@@ -110,22 +112,41 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan
 
         private IUpliftVanKernel CreateUpliftVanKernel()
         {
-            LayerWithSoil[] layersWithSoil = LayerWithSoilCreator.Create(input.SoilProfile);
+            LayerWithSoil[] layersWithSoil = LayerWithSoilCreator.Create(input.SoilProfile, out IDictionary<SoilLayer, LayerWithSoil> layerLookup);
+
+            SurfaceLine2 surfaceLine = SurfaceLineCreator.Create(input.SurfaceLine);
+            SoilProfile2D soilProfile2D = SoilProfileCreator.Create(layersWithSoil);
+
+            IWaternetKernel waternetDailyKernelWrapper = factory.CreateWaternetDailyKernel(UpliftVanLocationCreator.CreateDaily(input));
+            CalculateWaternet(waternetDailyKernelWrapper, soilProfile2D, surfaceLine);
+
+            IWaternetKernel waternetExtremeKernelWrapper = factory.CreateWaternetExtremeKernel(UpliftVanLocationCreator.CreateExtreme(input));
+            CalculateWaternet(waternetExtremeKernelWrapper, soilProfile2D, surfaceLine);
 
             IUpliftVanKernel upliftVanKernel = factory.CreateUpliftVanKernel();
-
-            upliftVanKernel.SetMoveGrid(input.MoveGrid);
-            upliftVanKernel.SetMaximumSliceWidth(input.MaximumSliceWidth);
-            upliftVanKernel.SetSoilModel(SoilModelCreator.Create(layersWithSoil.Select(lws => lws.Soil).ToArray()));
-            upliftVanKernel.SetSoilProfile(SoilProfileCreator.Create(input.SoilProfile.PreconsolidationStresses, layersWithSoil));
-            upliftVanKernel.SetLocationExtreme(UpliftVanStabilityLocationCreator.CreateExtreme(input));
-            upliftVanKernel.SetLocationDaily(UpliftVanStabilityLocationCreator.CreateDaily(input));
-            upliftVanKernel.SetSurfaceLine(SurfaceLineCreator.Create(input.SurfaceLine, input.LandwardDirection));
             upliftVanKernel.SetSlipPlaneUpliftVan(SlipPlaneUpliftVanCreator.Create(input.SlipPlane));
             upliftVanKernel.SetSlipPlaneConstraints(SlipPlaneConstraintsCreator.Create(input.SlipPlaneConstraints));
+            upliftVanKernel.SetSoilModel(layersWithSoil.Select(lws => lws.Soil).ToArray());
+            upliftVanKernel.SetSoilProfile(soilProfile2D);
+            upliftVanKernel.SetWaternetDaily(waternetDailyKernelWrapper.Waternet);
+            upliftVanKernel.SetWaternetExtreme(waternetExtremeKernelWrapper.Waternet);
+            upliftVanKernel.SetMoveGrid(input.MoveGrid);
+            upliftVanKernel.SetMaximumSliceWidth(input.MaximumSliceWidth);
+            upliftVanKernel.SetSurfaceLine(surfaceLine);
             upliftVanKernel.SetGridAutomaticDetermined(input.SlipPlane.GridAutomaticDetermined);
+            upliftVanKernel.SetTangentLinesAutomaticDetermined(input.SlipPlane.TangentLinesAutomaticAtBoundaries);
+            upliftVanKernel.SetFixedSoilStresses(FixedSoilStressCreator.Create(layerLookup));
+            upliftVanKernel.SetPreConsolidationStresses(PreConsolidationStressCreator.Create(input.SoilProfile.PreconsolidationStresses));
+            upliftVanKernel.SetAutomaticForbiddenZones(input.SlipPlaneConstraints.AutomaticForbiddenZones);
 
             return upliftVanKernel;
+        }
+        
+        private static void CalculateWaternet(IWaternetKernel waternetKernelWrapper, SoilProfile2D soilProfile2D, SurfaceLine2 surfaceLine)
+        {
+            waternetKernelWrapper.SetSoilProfile(soilProfile2D);
+            waternetKernelWrapper.SetSurfaceLine(surfaceLine);
+            waternetKernelWrapper.Calculate();
         }
     }
 }

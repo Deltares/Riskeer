@@ -20,6 +20,8 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.Serialization;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan
@@ -53,6 +55,21 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan
         public UpliftVanCalculatorException(string message, Exception inner) : base(message, inner) {}
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="UpliftVanCalculatorException"/> class
+        /// with a specified error message and a reference to the inner exception that is
+        /// the cause of this exception.
+        /// </summary>
+        /// <param name="message">The error message that explains the reason for the exception.</param>
+        /// <param name="inner">The exception that is the cause of the current exception, 
+        /// or a null reference if no inner exception is specified.</param>
+        /// <param name="kernelMessages">The messages provided by the kernel.</param>
+        public UpliftVanCalculatorException(string message, Exception inner, IEnumerable<MacroStabilityInwardsKernelMessage> kernelMessages)
+            : base(message, inner)
+        {
+            KernelMessages = kernelMessages;
+        }
+
+        /// <summary>
         /// Initializes a new instance of <see cref="UpliftVanCalculatorException"/> with
         /// serialized data.</summary>
         /// <param name="info">The <see cref="SerializationInfo"/> that holds the serialized
@@ -64,5 +81,10 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan
         /// <exception cref="SerializationException">The class name is <c>null</c> or
         /// <see cref="Exception.HResult" /> is zero (0).</exception>
         protected UpliftVanCalculatorException(SerializationInfo info, StreamingContext context) : base(info, context) {}
+
+        /// <summary>
+        /// Gets the kernel messages.
+        /// </summary>
+        public IEnumerable<MacroStabilityInwardsKernelMessage> KernelMessages { get; } = Enumerable.Empty<MacroStabilityInwardsKernelMessage>();
     }
 }

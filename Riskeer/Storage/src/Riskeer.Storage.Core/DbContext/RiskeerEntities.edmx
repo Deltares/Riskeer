@@ -796,7 +796,6 @@
           <Property Name="MacroStabilityInwardsCalculationOutputEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="MacroStabilityInwardsCalculationEntityId" Type="integer" Nullable="false" />
           <Property Name="FactorOfStability" Type="real" />
-          <Property Name="ZValue" Type="real" />
           <Property Name="ForbiddenZonesXEntryMin" Type="real" />
           <Property Name="ForbiddenZonesXEntryMax" Type="real" />
           <Property Name="SlidingCurveLeftSlidingCircleCenterX" Type="real" />
@@ -5765,7 +5764,6 @@
           <Property Name="MacroStabilityInwardsCalculationOutputEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="MacroStabilityInwardsCalculationEntityId" Type="Int64" Nullable="false" />
           <Property Name="FactorOfStability" Type="Double" />
-          <Property Name="ZValue" Type="Double" />
           <Property Name="ForbiddenZonesXEntryMin" Type="Double" />
           <Property Name="ForbiddenZonesXEntryMax" Type="Double" />
           <Property Name="SlidingCurveLeftSlidingCircleCenterX" Type="Double" />
@@ -9185,7 +9183,6 @@
                 <ScalarProperty Name="SlidingCurveLeftSlidingCircleCenterX" ColumnName="SlidingCurveLeftSlidingCircleCenterX" />
                 <ScalarProperty Name="ForbiddenZonesXEntryMax" ColumnName="ForbiddenZonesXEntryMax" />
                 <ScalarProperty Name="ForbiddenZonesXEntryMin" ColumnName="ForbiddenZonesXEntryMin" />
-                <ScalarProperty Name="ZValue" ColumnName="ZValue" />
                 <ScalarProperty Name="FactorOfStability" ColumnName="FactorOfStability" />
                 <ScalarProperty Name="MacroStabilityInwardsCalculationEntityId" ColumnName="MacroStabilityInwardsCalculationEntityId" />
                 <ScalarProperty Name="MacroStabilityInwardsCalculationOutputEntityId" ColumnName="MacroStabilityInwardsCalculationOutputEntityId" />

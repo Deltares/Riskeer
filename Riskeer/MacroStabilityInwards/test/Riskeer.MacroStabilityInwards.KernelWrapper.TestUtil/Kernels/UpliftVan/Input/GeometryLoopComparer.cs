@@ -22,7 +22,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Deltares.WTIStability.Data.Geo;
+using Deltares.MacroStability.Geometry;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan.Input
 {

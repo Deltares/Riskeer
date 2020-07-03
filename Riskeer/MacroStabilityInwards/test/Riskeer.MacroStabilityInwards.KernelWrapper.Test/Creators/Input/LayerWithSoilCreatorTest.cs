@@ -20,20 +20,19 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using Core.Common.TestUtil;
-using Deltares.WTIStability.Data.Geo;
+using Deltares.MacroStability.Geometry;
 using NUnit.Framework;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Input;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input;
-using DilatancyType = Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Input.DilatancyType;
 using Point2D = Core.Common.Base.Geometry.Point2D;
 using ShearStrengthModel = Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Input.ShearStrengthModel;
 using SoilLayer = Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Input.SoilLayer;
 using SoilProfile = Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Input.SoilProfile;
-using WtiStabilityDilatancyType = Deltares.WTIStability.Data.Geo.DilatancyType;
-using WtiStabilityShearStrengthModel = Deltares.WTIStability.Data.Geo.ShearStrengthModel;
+using WtiStabilityShearStrengthModel = Deltares.MacroStability.Geometry.ShearStrengthModel;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
 {
@@ -44,11 +43,11 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
         public void Create_SoilProfileNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => LayerWithSoilCreator.Create(null);
+            void Call() => LayerWithSoilCreator.Create(null, out IDictionary<SoilLayer, LayerWithSoil> layerLookup);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("soilProfile", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("soilProfile", exception.ParamName);
         }
 
         [Test]
@@ -81,7 +80,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             );
 
             // Call
-            LayerWithSoil[] layersWithSoil = LayerWithSoilCreator.Create(soilProfile);
+            LayerWithSoil[] layersWithSoil = LayerWithSoilCreator.Create(soilProfile, out IDictionary<SoilLayer, LayerWithSoil> layerLookup);
 
             // Assert
             SoilLayer layer1 = soilProfile.Layers.ElementAt(0);
@@ -126,6 +125,23 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             Assert.AreEqual(outerRing6, layersWithSoil[5].OuterRing);
             CollectionAssert.IsEmpty(layersWithSoil[5].InnerRings);
             AssertSoilLayerProperties(layer6, layersWithSoil[5]);
+            
+            SoilLayer[] originalSoilLayers = 
+            {
+                layer1,
+                layer2,
+                layer3,
+                layer4,
+                layer5,
+                layer6
+            };
+            Assert.AreEqual(layersWithSoil.Length, layerLookup.Count);
+
+            for (var i = 0; i < layersWithSoil.Length; i++)
+            {
+                Assert.AreSame(originalSoilLayers[i], layerLookup.ElementAt(i).Key);
+                Assert.AreSame(layersWithSoil.ElementAt(i), layerLookup.ElementAt(i).Value);
+            }
         }
 
         [Test]
@@ -143,33 +159,11 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             }, Enumerable.Empty<PreconsolidationStress>());
 
             // Call
-            TestDelegate test = () => LayerWithSoilCreator.Create(profile);
+            void Call() => LayerWithSoilCreator.Create(profile, out IDictionary<SoilLayer, LayerWithSoil> layerLookup);
 
             // Assert
-            string message = $"The value of argument 'shearStrengthModel' ({99}) is invalid for Enum type '{typeof(ShearStrengthModel).Name}'.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(test, message);
-        }
-
-        [Test]
-        public void Create_InvalidDilatancyType_ThrowInvalidEnumArgumentException()
-        {
-            // Setup
-            var profile = new SoilProfile(new[]
-            {
-                new SoilLayer(new Point2D[0],
-                              new SoilLayer.ConstructionProperties
-                              {
-                                  DilatancyType = (DilatancyType) 99
-                              },
-                              Enumerable.Empty<SoilLayer>())
-            }, Enumerable.Empty<PreconsolidationStress>());
-
-            // Call
-            TestDelegate test = () => LayerWithSoilCreator.Create(profile);
-
-            // Assert
-            string message = $"The value of argument 'dilatancyType' ({99}) is invalid for Enum type '{typeof(DilatancyType).Name}'.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(test, message);
+            string message = $"The value of argument 'shearStrengthModel' ({99}) is invalid for Enum type '{nameof(ShearStrengthModel)}'.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(Call, message);
         }
 
         [Test]
@@ -187,11 +181,11 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             }, Enumerable.Empty<PreconsolidationStress>());
 
             // Call
-            TestDelegate test = () => LayerWithSoilCreator.Create(profile);
+            void Call() => LayerWithSoilCreator.Create(profile, out IDictionary<SoilLayer, LayerWithSoil> layerLookup);
 
             // Assert
-            string message = $"The value of argument 'waterPressureInterpolationModel' ({99}) is invalid for Enum type '{typeof(WaterPressureInterpolationModel).Name}'.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(test, message);
+            string message = $"The value of argument 'waterPressureInterpolationModel' ({99}) is invalid for Enum type '{nameof(WaterPressureInterpolationModel)}'.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(Call, message);
         }
 
         [TestCase(ShearStrengthModel.CPhi, WtiStabilityShearStrengthModel.CPhi)]
@@ -211,38 +205,16 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             }, Enumerable.Empty<PreconsolidationStress>());
 
             // Call
-            LayerWithSoil[] layersWithSoil = LayerWithSoilCreator.Create(profile);
+            LayerWithSoil[] layersWithSoil = LayerWithSoilCreator.Create(profile, out IDictionary<SoilLayer, LayerWithSoil> layerLookup);
 
             // Assert
             Assert.AreEqual(expectedShearStrengthModel, layersWithSoil[0].Soil.ShearStrengthModel);
         }
 
-        [TestCase(DilatancyType.MinusPhi, WtiStabilityDilatancyType.MinusPhi)]
-        [TestCase(DilatancyType.Phi, WtiStabilityDilatancyType.Phi)]
-        [TestCase(DilatancyType.Zero, WtiStabilityDilatancyType.Zero)]
-        public void Create_ValidDilatancyType_ExpectedDilatancyType(DilatancyType dilatancyType, WtiStabilityDilatancyType expectedDilatancyType)
-        {
-            // Setup
-            var profile = new SoilProfile(new[]
-            {
-                new SoilLayer(new Point2D[0],
-                              new SoilLayer.ConstructionProperties
-                              {
-                                  DilatancyType = dilatancyType
-                              },
-                              Enumerable.Empty<SoilLayer>())
-            }, Enumerable.Empty<PreconsolidationStress>());
-
-            // Call
-            LayerWithSoil[] layersWithSoil = LayerWithSoilCreator.Create(profile);
-
-            // Assert
-            Assert.AreEqual(expectedDilatancyType, layersWithSoil[0].Soil.DilatancyType);
-        }
-
         [TestCase(WaterPressureInterpolationModel.Automatic, WaterpressureInterpolationModel.Automatic)]
         [TestCase(WaterPressureInterpolationModel.Hydrostatic, WaterpressureInterpolationModel.Hydrostatic)]
-        public void Create_ValidWaterPressureInterpolationModel_ExpectedWaterPressureInterpolationModel(WaterPressureInterpolationModel waterPressureInterpolationModel, WaterpressureInterpolationModel expectedWaterPressureInterpolationModel)
+        public void Create_ValidWaterPressureInterpolationModel_ExpectedWaterPressureInterpolationModel(
+            WaterPressureInterpolationModel waterPressureInterpolationModel, WaterpressureInterpolationModel expectedWaterPressureInterpolationModel)
         {
             // Setup
             var profile = new SoilProfile(new[]
@@ -256,7 +228,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             }, Enumerable.Empty<PreconsolidationStress>());
 
             // Call
-            LayerWithSoil[] layersWithSoil = LayerWithSoilCreator.Create(profile);
+            LayerWithSoil[] layersWithSoil = LayerWithSoilCreator.Create(profile, out IDictionary<SoilLayer, LayerWithSoil> layerLookup);
 
             // Assert
             Assert.AreEqual(expectedWaterPressureInterpolationModel, layersWithSoil[0].WaterPressureInterpolationModel);
@@ -268,7 +240,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             Assert.AreEqual(WaterpressureInterpolationModel.Hydrostatic, layerWithSoil.WaterPressureInterpolationModel);
 
             Assert.IsNotNull(layerWithSoil.Soil);
-            Assert.AreEqual(soilLayer.UsePop, layerWithSoil.Soil.UsePop);
             Assert.AreEqual(WtiStabilityShearStrengthModel.CuCalculated, layerWithSoil.Soil.ShearStrengthModel);
             Assert.AreEqual(soilLayer.MaterialName, layerWithSoil.Soil.Name);
             Assert.AreEqual(soilLayer.AbovePhreaticLevel, layerWithSoil.Soil.AbovePhreaticLevel);
@@ -277,12 +248,12 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             Assert.AreEqual(soilLayer.FrictionAngle, layerWithSoil.Soil.FrictionAngle);
             Assert.AreEqual(soilLayer.ShearStrengthRatio, layerWithSoil.Soil.RatioCuPc);
             Assert.AreEqual(soilLayer.StrengthIncreaseExponent, layerWithSoil.Soil.StrengthIncreaseExponent);
-            Assert.AreEqual(soilLayer.Pop, layerWithSoil.Soil.PoP);
-            Assert.AreEqual(WtiStabilityDilatancyType.MinusPhi, layerWithSoil.Soil.DilatancyType);
-
-            Assert.IsNaN(layerWithSoil.Soil.Ocr); // OCR is only used as output
-            Assert.IsNaN(layerWithSoil.Soil.CuBottom); // Only for CuMeasured
-            Assert.IsNaN(layerWithSoil.Soil.CuTop); // Only for CuMeasured
+            Assert.AreEqual(soilLayer.Dilatancy, layerWithSoil.Soil.Dilatancy);
+            Assert.IsNaN(layerWithSoil.Soil.RRatio); //Irrelevant
+            Assert.IsNaN(layerWithSoil.Soil.RheologicalCoefficient); //Irrelevant
+            Assert.IsNotNull(layerWithSoil.Soil.BondStressCurve); //Irrelevant
+            Assert.AreEqual(SoilType.Sand, layerWithSoil.Soil.SoilType); //Irrelevant
+            Assert.IsFalse(layerWithSoil.Soil.UseSoilType); //Irrelevant
         }
 
         private static SoilLayer.ConstructionProperties CreateRandomConstructionProperties(int seed, string materialName)
@@ -302,7 +273,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                 ShearStrengthRatio = random.NextDouble(),
                 StrengthIncreaseExponent = random.NextDouble(),
                 Pop = random.NextDouble(),
-                DilatancyType = DilatancyType.MinusPhi,
+                Dilatancy = random.NextDouble(),
                 WaterPressureInterpolationModel = WaterPressureInterpolationModel.Hydrostatic
             };
         }

@@ -21,13 +21,10 @@
 
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using Core.Common.Base.Geometry;
-using Deltares.WTIStability.Data.Geo;
+using Deltares.MacroStability.Geometry;
 using Riskeer.MacroStabilityInwards.Primitives;
-using LandwardDirection = Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Input.LandwardDirection;
-using WtiStabilityLandwardDirection = Deltares.WTIStability.Data.Geo.LandwardDirection;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
 {
@@ -42,14 +39,9 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
         /// </summary>
         /// <param name="surfaceLine">The <see cref="MacroStabilityInwardsSurfaceLine"/> from
         /// which to take the information.</param>
-        /// <param name="landwardDirection">The landward direction of the surface line.</param>
         /// <returns>A new <see cref="SurfaceLine2"/> with information taken from the <see cref="surfaceLine"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="surfaceLine"/> is <c>null</c>.</exception>
-        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="landwardDirection"/>
-        /// is an invalid value.</exception>
-        /// <exception cref="NotSupportedException">Thrown when <paramref name="landwardDirection"/>
-        /// is a valid value, but unsupported.</exception>
-        public static SurfaceLine2 Create(MacroStabilityInwardsSurfaceLine surfaceLine, LandwardDirection landwardDirection)
+        public static SurfaceLine2 Create(MacroStabilityInwardsSurfaceLine surfaceLine)
         {
             if (surfaceLine == null)
             {
@@ -58,8 +50,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
 
             var wtiSurfaceLine = new SurfaceLine2
             {
-                Name = surfaceLine.Name,
-                LandwardDirection = ConvertLandwardDirection(landwardDirection)
+                Name = surfaceLine.Name
             };
 
             if (surfaceLine.Points.Any())
@@ -76,36 +67,9 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
                 }
             }
 
+            wtiSurfaceLine.Geometry.SyncCalcPoints();
+
             return wtiSurfaceLine;
-        }
-
-        /// <summary>
-        /// Converts a <see cref="LandwardDirection"/> into a <see cref="WtiStabilityLandwardDirection"/>.
-        /// </summary>
-        /// <param name="landwardDirection">The <see cref="LandwardDirection"/> to convert.</param>
-        /// <returns>A <see cref="WtiStabilityLandwardDirection"/> based on <paramref name="landwardDirection"/>.</returns>
-        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="landwardDirection"/>
-        /// is an invalid value.</exception>
-        /// <exception cref="NotSupportedException">Thrown when <paramref name="landwardDirection"/>
-        /// is a valid value, but unsupported.</exception>
-        private static WtiStabilityLandwardDirection ConvertLandwardDirection(LandwardDirection landwardDirection)
-        {
-            if (!Enum.IsDefined(typeof(LandwardDirection), landwardDirection))
-            {
-                throw new InvalidEnumArgumentException(nameof(landwardDirection),
-                                                       (int) landwardDirection,
-                                                       typeof(LandwardDirection));
-            }
-
-            switch (landwardDirection)
-            {
-                case LandwardDirection.PositiveX:
-                    return WtiStabilityLandwardDirection.PositiveX;
-                case LandwardDirection.NegativeX:
-                    return WtiStabilityLandwardDirection.NegativeX;
-                default:
-                    throw new NotSupportedException();
-            }
         }
 
         private static IEnumerable<CharacteristicPoint> CreateCharacteristicPoints(MacroStabilityInwardsSurfaceLine surfaceLine, GeometryPoint[] geometryPoints)

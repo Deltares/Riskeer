@@ -20,36 +20,45 @@
 // All rights reserved.
 
 using System;
+using System.ComponentModel;
 
-namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan
+namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators
 {
     /// <summary>
-    /// Class representing a message returned by the Uplift Van kernel.
+    /// Class representing a message returned by the macro stability inwards kernel.
     /// </summary>
-    public class UpliftVanKernelMessage
+    public class MacroStabilityInwardsKernelMessage
     {
         /// <summary>
-        /// Creates a new instance of <see cref="UpliftVanKernelMessage"/>.
+        /// Creates a new instance of <see cref="MacroStabilityInwardsKernelMessage"/>.
         /// </summary>
         /// <param name="type">The type of the message.</param>
         /// <param name="message">The text of the message.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="message"/>
         /// is <c>null</c>.</exception>
-        public UpliftVanKernelMessage(UpliftVanKernelMessageType type, string message)
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="type"/>
+        /// contains an invalid value for <see cref="MacroStabilityInwardsKernelMessageType"/>.</exception>
+        public MacroStabilityInwardsKernelMessage(MacroStabilityInwardsKernelMessageType type, string message)
         {
             if (message == null)
             {
                 throw new ArgumentNullException(nameof(message));
             }
 
-            ResultType = type;
+            if (!Enum.IsDefined(typeof(MacroStabilityInwardsKernelMessageType), type))
+            {
+                throw new InvalidEnumArgumentException(nameof(type), (int) type,
+                                                       typeof(MacroStabilityInwardsKernelMessageType));
+            }
+
+            Type = type;
             Message = message;
         }
 
         /// <summary>
         /// Gets the type of the message.
         /// </summary>
-        public UpliftVanKernelMessageType ResultType { get; }
+        public MacroStabilityInwardsKernelMessageType Type { get; }
 
         /// <summary>
         /// Gets the text of the message.

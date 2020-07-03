@@ -3,7 +3,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="WTIStability, Culture=neutral, processorArchitecture=x86">
+    <Reference Include="WTIStability">
       <HintPath>..\..\..\..\lib\Plugins\Wti\WTIStability.dll</HintPath>
     </Reference>
   </ItemGroup>

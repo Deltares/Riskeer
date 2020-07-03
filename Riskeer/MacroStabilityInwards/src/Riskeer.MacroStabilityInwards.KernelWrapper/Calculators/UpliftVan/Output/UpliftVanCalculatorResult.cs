@@ -39,7 +39,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Outp
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         internal UpliftVanCalculatorResult(UpliftVanSlidingCurveResult slidingCurveResult,
                                            UpliftVanCalculationGridResult calculationGridResult,
-                                           IEnumerable<UpliftVanKernelMessage> calculationMessages,
+                                           IEnumerable<MacroStabilityInwardsKernelMessage> calculationMessages,
                                            ConstructionProperties properties)
         {
             if (slidingCurveResult == null)
@@ -66,7 +66,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Outp
             CalculationGridResult = calculationGridResult;
 
             FactorOfStability = properties.FactorOfStability;
-            ZValue = properties.ZValue;
             ForbiddenZonesXEntryMin = properties.ForbiddenZonesXEntryMin;
             ForbiddenZonesXEntryMax = properties.ForbiddenZonesXEntryMax;
 
@@ -84,7 +83,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Outp
             public ConstructionProperties()
             {
                 FactorOfStability = double.NaN;
-                ZValue = double.NaN;
                 ForbiddenZonesXEntryMin = double.NaN;
                 ForbiddenZonesXEntryMax = double.NaN;
             }
@@ -93,11 +91,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Outp
             /// Gets or sets the factor of stability.
             /// </summary>
             public double FactorOfStability { internal get; set; }
-
-            /// <summary>
-            /// Gets or sets the z value.
-            /// </summary>
-            public double ZValue { internal get; set; }
 
             /// <summary>
             /// Gets or sets the forbidden zones x entry min.
@@ -128,11 +121,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Outp
         public double FactorOfStability { get; }
 
         /// <summary>
-        /// Gets the z value.
-        /// </summary>
-        public double ZValue { get; }
-
-        /// <summary>
         /// Gets the forbidden zones x entry min.
         /// </summary>
         public double ForbiddenZonesXEntryMin { get; }
@@ -146,7 +134,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Outp
         /// Gets the messages returned by the kernel during
         /// the calculation, if any.
         /// </summary>
-        public IEnumerable<UpliftVanKernelMessage> CalculationMessages { get; }
+        public IEnumerable<MacroStabilityInwardsKernelMessage> CalculationMessages { get; }
 
         #endregion
     }

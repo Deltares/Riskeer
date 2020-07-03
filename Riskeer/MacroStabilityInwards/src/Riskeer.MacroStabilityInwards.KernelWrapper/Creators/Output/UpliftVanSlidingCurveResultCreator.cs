@@ -23,7 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Geometry;
-using Deltares.WTIStability;
+using Deltares.MacroStability.Data;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Output;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Output
@@ -49,8 +49,9 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Output
                 throw new ArgumentNullException(nameof(slidingCurve));
             }
 
-            UpliftVanSlidingCircleResult leftCircle = slidingCurve.LeftCircleIsActive ? CreateActiveCircle(slidingCurve) : CreatePassiveCircle(slidingCurve);
-            UpliftVanSlidingCircleResult rightCircle = slidingCurve.LeftCircleIsActive ? CreatePassiveCircle(slidingCurve) : CreateActiveCircle(slidingCurve);
+            bool leftCircleIsActive = slidingCurve.ActiveCircle.X <= slidingCurve.PassiveCircle.X;
+            UpliftVanSlidingCircleResult leftCircle = leftCircleIsActive ? CreateActiveCircle(slidingCurve) : CreatePassiveCircle(slidingCurve);
+            UpliftVanSlidingCircleResult rightCircle = leftCircleIsActive ? CreatePassiveCircle(slidingCurve) : CreateActiveCircle(slidingCurve);
 
             return new UpliftVanSlidingCurveResult(leftCircle, rightCircle, CreateSlices(slidingCurve.Slices),
                                                    slidingCurve.HorizontalForce0, slidingCurve.HorizontalForce);

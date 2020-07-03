@@ -20,24 +20,40 @@
 // All rights reserved.
 
 using System;
+using System.ComponentModel;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan;
+using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators;
 
-namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
+namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators
 {
     [TestFixture]
-    public class UpliftVanKernelMessageTest
+    public class MacroStabilityInwardsKernelMessageTest
     {
         [Test]
         public void Constructor_MessageNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new UpliftVanKernelMessage(UpliftVanKernelMessageType.Error, null);
+            void Call() => new MacroStabilityInwardsKernelMessage(MacroStabilityInwardsKernelMessageType.Error, null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("message", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_InvalidType_ThrowsInvalidEnumArgumentException()
+        {
+            // Setup
+            const MacroStabilityInwardsKernelMessageType type = (MacroStabilityInwardsKernelMessageType) 99;
+
+            // Call
+            void Call() => new MacroStabilityInwardsKernelMessage(type, "test");
+
+            // Assert
+            string expectedMessage = $"The value of argument 'type' ({type}) is invalid for Enum type '{nameof(MacroStabilityInwardsKernelMessageType)}'.";
+            var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(Call, expectedMessage);
+            Assert.AreEqual("type", exception.ParamName);
         }
 
         [Test]
@@ -45,15 +61,15 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
         {
             // Setup
             var random = new Random(39);
-            var resultType = random.NextEnumValue<UpliftVanKernelMessageType>();
+            var type = random.NextEnumValue<MacroStabilityInwardsKernelMessageType>();
             const string message = "Error in validation";
 
             // Call
-            var kernelMessage = new UpliftVanKernelMessage(resultType, message);
+            var kernelMessage = new MacroStabilityInwardsKernelMessage(type, message);
 
             // Assert
             Assert.AreEqual(message, kernelMessage.Message);
-            Assert.AreEqual(resultType, kernelMessage.ResultType);
+            Assert.AreEqual(type, kernelMessage.Type);
         }
     }
 }

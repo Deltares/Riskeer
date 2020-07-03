@@ -22,9 +22,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Deltares.WTIStability.Data.Geo;
+using Deltares.MacroStability.Geometry;
+using Deltares.MacroStability.WaternetCreator;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Waternet;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Input;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Output;
@@ -34,7 +36,7 @@ using Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Waternet.
 using Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Waternet.Output;
 using Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels;
 using Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.Waternet;
-using WtiStabilityWaternet = Deltares.WTIStability.Data.Geo.Waternet;
+using WtiStabilityWaternet = Deltares.MacroStability.Geometry.Waternet;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.Waternet
 {
@@ -50,10 +52,10 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.Waternet
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => new TestWaternetCalculator(null, factory);
+            void Call() => new TestWaternetCalculator(null, factory);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("input", exception.ParamName);
             mocks.VerifyAll();
         }
@@ -65,10 +67,10 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.Waternet
             WaternetCalculatorInput input = WaternetCalculatorInputTestFactory.CreateValidCalculatorInput();
 
             // Call
-            TestDelegate call = () => new TestWaternetCalculator(input, null);
+            void Call() => new TestWaternetCalculator(input, null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("factory", exception.ParamName);
         }
 
@@ -123,10 +125,10 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.Waternet
                 waternetKernel.ThrowExceptionOnCalculate = true;
 
                 // Call
-                TestDelegate test = () => new TestWaternetCalculator(input, factory).Calculate();
+                void Call() => new TestWaternetCalculator(input, factory).Calculate();
 
                 // Assert
-                var exception = Assert.Throws<WaternetCalculatorException>(test);
+                var exception = Assert.Throws<WaternetCalculatorException>(Call);
                 Assert.IsInstanceOf<WaternetKernelWrapperException>(exception.InnerException);
                 Assert.AreEqual(exception.InnerException.Message, exception.Message);
             }
@@ -157,6 +159,94 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.Waternet
 
                 WaternetCalculatorOutputAssert.AssertPhreaticLines(expectedPhreaticLines.ToArray(), result.PhreaticLines.ToArray());
                 WaternetCalculatorOutputAssert.AssertWaternetLines(kernel.Waternet.WaternetLineList.ToArray(), result.WaternetLines.ToArray());
+            }
+        }
+
+        [Test]
+        public void Validate_CalculatorWithValidInput_KernelValidateMethodCalled()
+        {
+            // Setup
+            using (new MacroStabilityInwardsKernelFactoryConfig())
+            {
+                var factory = (TestMacroStabilityInwardsKernelFactory) MacroStabilityInwardsKernelWrapperFactory.Instance;
+
+                WaternetCalculatorInput input = WaternetCalculatorInputTestFactory.CreateValidCalculatorInput();
+                var calculator = new TestWaternetCalculator(input, factory);
+
+                // Call
+                calculator.Validate();
+
+                // Assert
+                Assert.IsTrue(factory.LastCreatedWaternetKernel.Validated);
+            }
+        }
+
+        [Test]
+        public void Validate_CalculatorWithValidInput_ReturnEmptyEnumerable()
+        {
+            // Setup
+            using (new MacroStabilityInwardsKernelFactoryConfig())
+            {
+                var factory = (TestMacroStabilityInwardsKernelFactory) MacroStabilityInwardsKernelWrapperFactory.Instance;
+
+                WaternetCalculatorInput input = WaternetCalculatorInputTestFactory.CreateValidCalculatorInput();
+                var calculator = new TestWaternetCalculator(input, factory);
+
+                // Call
+                IEnumerable<MacroStabilityInwardsKernelMessage> kernelMessages = calculator.Validate();
+
+                // Assert
+                CollectionAssert.IsEmpty(kernelMessages);
+            }
+        }
+
+        [Test]
+        public void Validate_KernelReturnsValidationResults_ReturnsEnumerableWithOnlyErrorsAndWarnings()
+        {
+            // Setup
+            using (new MacroStabilityInwardsKernelFactoryConfig())
+            {
+                var factory = (TestMacroStabilityInwardsKernelFactory) MacroStabilityInwardsKernelWrapperFactory.Instance;
+                WaternetKernelStub WaternetKernel = factory.LastCreatedWaternetKernel;
+                WaternetKernel.ReturnValidationResults = true;
+
+                WaternetCalculatorInput input = WaternetCalculatorInputTestFactory.CreateValidCalculatorInput();
+                var calculator = new TestWaternetCalculator(input, factory);
+
+                // Call
+                IEnumerable<MacroStabilityInwardsKernelMessage> kernelMessages = calculator.Validate();
+
+                // Assert
+                Assert.AreEqual(2, kernelMessages.Count());
+                MacroStabilityInwardsKernelMessage firstMessage = kernelMessages.ElementAt(0);
+                Assert.AreEqual("Validation Warning", firstMessage.Message);
+                Assert.AreEqual(MacroStabilityInwardsKernelMessageType.Warning, firstMessage.Type);
+                MacroStabilityInwardsKernelMessage secondMessage = kernelMessages.ElementAt(1);
+                Assert.AreEqual("Validation Error", secondMessage.Message);
+                Assert.AreEqual(MacroStabilityInwardsKernelMessageType.Error, secondMessage.Type);
+            }
+        }
+
+        [Test]
+        public void Validate_KernelThrowsWaternetKernelWrapperException_ThrowWaternetCalculatorException()
+        {
+            // Setup
+            using (new MacroStabilityInwardsKernelFactoryConfig())
+            {
+                var factory = (TestMacroStabilityInwardsKernelFactory) MacroStabilityInwardsKernelWrapperFactory.Instance;
+                WaternetKernelStub WaternetKernel = factory.LastCreatedWaternetKernel;
+                WaternetKernel.ThrowExceptionOnValidate = true;
+
+                WaternetCalculatorInput input = WaternetCalculatorInputTestFactory.CreateValidCalculatorInput();
+                var calculator = new TestWaternetCalculator(input, factory);
+
+                // Call
+                void Call() => calculator.Validate();
+
+                // Assert
+                var exception = Assert.Throws<WaternetCalculatorException>(Call);
+                Assert.IsInstanceOf<WaternetKernelWrapperException>(exception.InnerException);
+                Assert.AreEqual(exception.InnerException.Message, exception.Message);
             }
         }
 
@@ -208,9 +298,9 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.Waternet
             public TestWaternetCalculator(WaternetCalculatorInput input, IMacroStabilityInwardsKernelFactory factory)
                 : base(input, factory) {}
 
-            protected override IWaternetKernel CreateWaternetKernel()
+            protected override IWaternetKernel CreateWaternetKernel(Location location)
             {
-                return Factory.CreateWaternetExtremeKernel();
+                return Factory.CreateWaternetExtremeKernel(location);
             }
         }
     }

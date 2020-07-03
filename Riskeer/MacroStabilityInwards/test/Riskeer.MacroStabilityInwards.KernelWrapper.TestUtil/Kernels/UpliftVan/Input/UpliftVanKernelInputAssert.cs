@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Deltares.WTIStability;
+using Deltares.MacroStability.Data;
 using NUnit.Framework;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan.Input
@@ -52,12 +52,10 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan
         /// is not equal to <paramref name="expected"/>.</exception>
         public static void AssertSlipPlaneConstraints(SlipPlaneConstraints expected, SlipPlaneConstraints actual)
         {
-            Assert.AreEqual(expected.CreateZones, actual.CreateZones);
-            Assert.AreEqual(expected.AutomaticForbiddenZones, actual.AutomaticForbiddenZones);
             Assert.AreEqual(expected.SlipPlaneMinDepth, actual.SlipPlaneMinDepth);
             Assert.AreEqual(expected.SlipPlaneMinLength, actual.SlipPlaneMinLength);
-            Assert.AreEqual(expected.XEntryMin, actual.XEntryMin);
-            Assert.AreEqual(expected.XEntryMax, actual.XEntryMax);
+            Assert.AreEqual(expected.XLeftMin, actual.XLeftMin);
+            Assert.AreEqual(expected.XLeftMax, actual.XLeftMax);
         }
 
         /// <summary>
@@ -86,11 +84,9 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan
         /// is not equal to <paramref name="expected"/>.</exception>
         private static void AssertSlipCircleTangentLine(SlipCircleTangentLine expected, SlipCircleTangentLine actual)
         {
-            Assert.AreEqual(expected.AutomaticAtBoundaries, actual.AutomaticAtBoundaries);
             Assert.AreEqual(expected.TangentLineZTop, actual.TangentLineZTop);
             Assert.AreEqual(expected.TangentLineZBottom, actual.TangentLineZBottom);
             Assert.AreEqual(expected.TangentLineNumber, actual.TangentLineNumber);
-            Assert.AreEqual(expected.MaxSpacingBetweenBoundaries, actual.MaxSpacingBetweenBoundaries);
         }
     }
 }

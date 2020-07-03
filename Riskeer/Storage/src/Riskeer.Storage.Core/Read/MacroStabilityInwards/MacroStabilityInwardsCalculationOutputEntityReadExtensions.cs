@@ -56,8 +56,7 @@ namespace Riskeer.Storage.Core.Read.MacroStabilityInwards
             {
                 FactorOfStability = entity.FactorOfStability.ToNullAsNaN(),
                 ForbiddenZonesXEntryMax = entity.ForbiddenZonesXEntryMax.ToNullAsNaN(),
-                ForbiddenZonesXEntryMin = entity.ForbiddenZonesXEntryMin.ToNullAsNaN(),
-                ZValue = entity.ZValue.ToNullAsNaN()
+                ForbiddenZonesXEntryMin = entity.ForbiddenZonesXEntryMin.ToNullAsNaN()
             });
         }
 

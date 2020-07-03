@@ -21,20 +21,20 @@
 
 using System;
 using System.ComponentModel;
-using Deltares.WaternetCreator;
+using Deltares.MacroStability.WaternetCreator;
 using Riskeer.MacroStabilityInwards.Primitives;
 using PlLineCreationMethod = Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Input.PlLineCreationMethod;
 using WaternetCreationMode = Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Input.WaternetCreationMode;
-using WtiStabilityPlLineCreationMethod = Deltares.WaternetCreator.PlLineCreationMethod;
-using WtiStabilityWaternetCreationMode = Deltares.WaternetCreator.WaternetCreationMode;
+using WtiStabilityPlLineCreationMethod = Deltares.MacroStability.WaternetCreator.PlLineCreationMethod;
+using WtiStabilityWaternetCreationMode = Deltares.MacroStability.WaternetCreator.WaternetCreationMode;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
 {
     /// <summary>
-    /// Helper class to convert properties needed in the <see cref="UpliftVanStabilityLocationCreator"/>
-    /// and <see cref="WaternetStabilityLocationCreator"/>.
+    /// Helper class to convert properties needed in the <see cref="UpliftVanLocationCreator"/>
+    /// and <see cref="WaternetLocationCreator"/>.
     /// </summary>
-    internal static class StabilityLocationCreatorHelper
+    internal static class LocationCreatorHelper
     {
         /// <summary>
         /// Converts a <see cref="MacroStabilityInwardsDikeSoilScenario"/> into a <see cref="DikeSoilScenario"/>.
@@ -118,18 +118,8 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
 
             switch (plLineCreationMethod)
             {
-                case PlLineCreationMethod.ExpertKnowledgeRrd:
-                    return WtiStabilityPlLineCreationMethod.ExpertKnowledgeRrd;
-                case PlLineCreationMethod.ExpertKnowledgeLinearInDike:
-                    return WtiStabilityPlLineCreationMethod.ExpertKnowledgeLinearInDike;
                 case PlLineCreationMethod.RingtoetsWti2017:
                     return WtiStabilityPlLineCreationMethod.RingtoetsWti2017;
-                case PlLineCreationMethod.DupuitStatic:
-                    return WtiStabilityPlLineCreationMethod.DupuitStatic;
-                case PlLineCreationMethod.DupuitDynamic:
-                    return WtiStabilityPlLineCreationMethod.DupuitDynamic;
-                case PlLineCreationMethod.Sensors:
-                    return WtiStabilityPlLineCreationMethod.Sensors;
                 case PlLineCreationMethod.None:
                     return WtiStabilityPlLineCreationMethod.None;
                 default:

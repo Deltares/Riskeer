@@ -22,6 +22,7 @@
 using System;
 using System.Linq;
 using NUnit.Framework;
+using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Waternet;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Output;
 using Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Waternet;
@@ -41,6 +42,10 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Calculators.
             Assert.IsInstanceOf<IWaternetCalculator>(calculator);
             Assert.IsNull(calculator.Input);
             Assert.IsNull(calculator.Output);
+            Assert.IsFalse(calculator.ThrowExceptionOnCalculate);
+            Assert.IsFalse(calculator.ThrowExceptionOnValidate);
+            Assert.IsFalse(calculator.ReturnValidationWarning);
+            Assert.IsFalse(calculator.ReturnValidationError);
         }
 
         [Test]
@@ -67,13 +72,69 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Calculators.
             };
 
             // Call
-            TestDelegate test = () => calculator.Calculate();
+            void Call() => calculator.Calculate();
 
             // Assert
-            var exception = Assert.Throws<WaternetCalculatorException>(test);
+            var exception = Assert.Throws<WaternetCalculatorException>(Call);
             Assert.IsNull(exception.InnerException);
             Assert.AreEqual($"Message 1{Environment.NewLine}Message 2", exception.Message);
             Assert.IsNull(calculator.Output);
+        }
+
+        [Test]
+        public void Validate_ReturnValidationErrorAndWarningFalse_ReturnsEmptyEnumerable()
+        {
+            // Setup
+            var calculator = new WaternetCalculatorStub();
+
+            // Call
+            MacroStabilityInwardsKernelMessage[] messages = calculator.Validate().ToArray();
+
+            // Assert
+            CollectionAssert.IsEmpty(messages);
+        }
+
+        [Test]
+        public void Validate_ReturnValidationErrorAndWarningTrue_ReturnsKernelMessages()
+        {
+            // Setup
+            var calculator = new WaternetCalculatorStub
+            {
+                ReturnValidationError = true,
+                ReturnValidationWarning = true
+            };
+
+            // Call
+            MacroStabilityInwardsKernelMessage[] messages = calculator.Validate().ToArray();
+
+            // Assert
+            Assert.AreEqual(2, messages.Length);
+
+            MacroStabilityInwardsKernelMessage firstMessage = messages[0];
+            Assert.AreEqual("Validation Error", firstMessage.Message);
+            Assert.AreEqual(MacroStabilityInwardsKernelMessageType.Error, firstMessage.Type);
+
+            MacroStabilityInwardsKernelMessage secondMessage = messages[1];
+            Assert.AreEqual("Validation Warning", secondMessage.Message);
+            Assert.AreEqual(MacroStabilityInwardsKernelMessageType.Warning, secondMessage.Type);
+        }
+
+        [Test]
+        public void Validate_ThrowExceptionOnValidateTrue_ThrowWaternetCalculatorException()
+        {
+            // Setup
+            var calculator = new WaternetCalculatorStub
+            {
+                ThrowExceptionOnValidate = true
+            };
+
+            // Call
+            void Call() => calculator.Validate().ToArray();
+
+            // Assert
+            var exception = Assert.Throws<WaternetCalculatorException>(Call);
+            Assert.IsNull(exception.InnerException);
+            Assert.AreEqual($"Message 1{Environment.NewLine}Message 2", exception.Message);
         }
     }
 }

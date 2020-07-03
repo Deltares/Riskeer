@@ -46,6 +46,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Inpu
         {
             GridAutomaticDetermined = true;
             TangentLinesAutomaticAtBoundaries = true;
+            GridNumberOfRefinements = 1;
         }
 
         /// <summary>
@@ -67,6 +68,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Inpu
         {
             SetGrids(leftGrid, rightGrid);
             TangentLinesAutomaticAtBoundaries = true;
+            GridNumberOfRefinements = 0;
         }
 
         /// <summary>
@@ -85,6 +87,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Inpu
             : this(tangentZTop, tangentZBottom, tangentLineNumber)
         {
             SetGrids(leftGrid, rightGrid);
+            GridNumberOfRefinements = 0;
         }
 
         private UpliftVanSlipPlane(double tangentZTop, double tangentZBottom, int tangentLineNumber)
@@ -92,6 +95,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Inpu
             TangentZTop = tangentZTop;
             TangentZBottom = tangentZBottom;
             TangentLineNumber = tangentLineNumber;
+            TangentLineNumberOfRefinements = 4;
         }
 
         /// <summary>
@@ -108,6 +112,11 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Inpu
         /// Gets the right grid.
         /// </summary>
         public UpliftVanGrid RightGrid { get; private set; }
+
+        /// <summary>
+        /// Gets the number of grid refinements.
+        /// </summary>
+        public int GridNumberOfRefinements { get; }
 
         /// <summary>
         /// Gets whether the tangent line boundaries should be determined automatically.
@@ -130,6 +139,11 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Inpu
         /// Gets the number of tangent lines.
         /// </summary>
         public int TangentLineNumber { get; }
+
+        /// <summary>
+        /// Gets the number of tangent line refinements.
+        /// </summary>
+        public int TangentLineNumberOfRefinements { get; }
 
         private void SetGrids(UpliftVanGrid leftGrid, UpliftVanGrid rightGrid)
         {

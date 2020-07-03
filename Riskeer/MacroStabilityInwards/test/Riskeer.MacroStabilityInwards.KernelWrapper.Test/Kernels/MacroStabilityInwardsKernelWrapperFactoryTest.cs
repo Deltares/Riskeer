@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using Deltares.MacroStability.WaternetCreator;
 using NUnit.Framework;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Kernels;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan;
@@ -82,29 +83,29 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels
         }
 
         [Test]
-        public void CreateWaternetExtremeKernel_Always_ReturnsWaternetExtremeKernelWrapper()
+        public void CreateWaternetExtremeKernel_Always_ReturnsWaternetKernelWrapper()
         {
             // Setup
             IMacroStabilityInwardsKernelFactory factory = MacroStabilityInwardsKernelWrapperFactory.Instance;
 
             // Call
-            IWaternetKernel waternetKernel = factory.CreateWaternetExtremeKernel();
+            IWaternetKernel waternetKernel = factory.CreateWaternetExtremeKernel(new Location());
 
             // Assert
-            Assert.IsInstanceOf<WaternetExtremeKernelWrapper>(waternetKernel);
+            Assert.IsInstanceOf<WaternetKernelWrapper> (waternetKernel);
         }
 
         [Test]
-        public void CreateWaternetDailyKernel_Always_ReturnsWaternetDailyKernelWrapper()
+        public void CreateWaternetDailyKernel_Always_ReturnsWaternetKernelWrapper()
         {
             // Setup
             IMacroStabilityInwardsKernelFactory factory = MacroStabilityInwardsKernelWrapperFactory.Instance;
 
             // Call
-            IWaternetKernel waternetKernel = factory.CreateWaternetDailyKernel();
+            IWaternetKernel waternetKernel = factory.CreateWaternetDailyKernel(new Location());
 
             // Assert
-            Assert.IsInstanceOf<WaternetDailyKernelWrapper>(waternetKernel);
+            Assert.IsInstanceOf<WaternetKernelWrapper>(waternetKernel);
         }
     }
 }

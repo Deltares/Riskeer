@@ -68,7 +68,6 @@ namespace Riskeer.MacroStabilityInwards.Data.TestUtil.Test
             var properties = new MacroStabilityInwardsOutput.ConstructionProperties
             {
                 FactorOfStability = factorOfStability,
-                ZValue = zValue,
                 ForbiddenZonesXEntryMax = forbiddenZonesXEntryMax,
                 ForbiddenZonesXEntryMin = forbiddenZonesXEntryMin
             };
@@ -79,7 +78,6 @@ namespace Riskeer.MacroStabilityInwards.Data.TestUtil.Test
             // Assert
             Assert.IsNotNull(output);
             Assert.AreEqual(factorOfStability, output.FactorOfStability);
-            Assert.AreEqual(zValue, output.ZValue);
             Assert.AreEqual(forbiddenZonesXEntryMax, output.ForbiddenZonesXEntryMax);
             Assert.AreEqual(forbiddenZonesXEntryMin, output.ForbiddenZonesXEntryMin);
             Assert.IsNotNull(output.SlidingCurve);
@@ -102,7 +100,6 @@ namespace Riskeer.MacroStabilityInwards.Data.TestUtil.Test
             // Assert
             Assert.IsNotNull(output);
             Assert.IsTrue(IsValidDouble(output.FactorOfStability));
-            Assert.IsTrue(IsValidDouble(output.ZValue));
             Assert.IsTrue(IsValidDouble(output.ForbiddenZonesXEntryMax));
             Assert.IsTrue(IsValidDouble(output.ForbiddenZonesXEntryMin));
             Assert.IsNotNull(output.SlidingCurve);

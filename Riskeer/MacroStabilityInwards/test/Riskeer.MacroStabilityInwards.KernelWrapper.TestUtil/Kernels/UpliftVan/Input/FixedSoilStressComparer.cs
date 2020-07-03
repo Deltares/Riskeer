@@ -20,33 +20,33 @@
 // All rights reserved.
 
 using System;
-using Deltares.WTIStability.Data.Geo;
-using Deltares.WTIStability.Data.Standard;
+using System.Collections;
+using System.Collections.Generic;
+using Deltares.MacroStability.Geometry;
 
-namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
+namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan.Input
 {
     /// <summary>
-    /// Creates <see cref="SoilModel"/> instances which are required in a calculation.
+    /// This class compares the coordinates of two <see cref="FixedSoilStress"/> 
+    /// instances to determine whether they're equal to each other or not.
     /// </summary>
-    internal static class SoilModelCreator
+    public class FixedSoilStressComparer : IComparer<FixedSoilStress>, IComparer
     {
-        /// <summary>
-        /// Creates a <see cref="SoilModel"/> with the given <paramref name="soils"/>
-        /// which can be used in a calculation.
-        /// </summary>
-        /// <param name="soils">The array of <see cref="Soil"/> to use in the <see cref="SoilModel"/>.</param>
-        /// <returns>A new <see cref="SoilModel"/> with the <paramref name="soils"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="soils"/> is <c>null</c>.</exception>
-        public static SoilModel Create(Soil[] soils)
+        public int Compare(object x, object y)
         {
-            if (soils == null)
+            if (!(x is FixedSoilStress) || !(y is FixedSoilStress))
             {
-                throw new ArgumentNullException(nameof(soils));
+                throw new ArgumentException($"Cannot compare objects other than {typeof(FixedSoilStress)} with this comparer.");
             }
 
-            var soilModel = new SoilModel();
-            soilModel.Soils.AddRange(soils);
-            return soilModel;
+            return Compare((FixedSoilStress) x, (FixedSoilStress) y);
+        }
+
+        public int Compare(FixedSoilStress x, FixedSoilStress y)
+        {
+            return x.ToString() == y.ToString() && Math.Abs(x.CenterStressValue.POP - y.CenterStressValue.POP) < 1e-6
+                       ? 0
+                       : 1;
         }
     }
 }

@@ -32,11 +32,9 @@ namespace Riskeer.Piping.KernelWrapper.TestUtil.SubCalculator
         /// Gets a value indicating whether <see cref="Calculate"/> was called or not.
         /// </summary>
         public bool Calculated { get; private set; }
-
         public double PhiPolder { get; private set; }
         public double RExit { get; private set; }
         public double HRiver { get; private set; }
-
         public double PhiExit { get; private set; }
 
         public void SetPhiPolder(double phiPolder)

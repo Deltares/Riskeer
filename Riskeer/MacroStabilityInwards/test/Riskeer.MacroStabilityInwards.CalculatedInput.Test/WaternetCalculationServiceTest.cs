@@ -20,6 +20,8 @@
 // All rights reserved.
 
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -29,8 +31,10 @@ using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.MacroStabilityInwards.Data.TestUtil;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Input;
+using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Waternet;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Input;
 using Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators;
+using Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Waternet;
 using Riskeer.MacroStabilityInwards.Primitives;
 
 namespace Riskeer.MacroStabilityInwards.CalculatedInput.Test
@@ -47,13 +51,188 @@ namespace Riskeer.MacroStabilityInwards.CalculatedInput.Test
         }
 
         [Test]
+        public void ValidateExtreme_InputNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => WaternetCalculationService.ValidateExtreme(null, RoundedDouble.NaN);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("input", exception.ParamName);
+        }
+
+        [Test]
+        public void ValidateExtreme_WithInput_SetsInputOnCalculator()
+        {
+            // Setup
+            RoundedDouble assessmentLevel = new Random(21).NextRoundedDouble();
+            MacroStabilityInwardsInput input = testCalculation.InputParameters;
+
+            using (new MacroStabilityInwardsCalculatorFactoryConfig())
+            {
+                // Call
+                WaternetCalculationService.ValidateExtreme(input, assessmentLevel);
+
+                // Assert
+                var factory = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
+                WaternetCalculatorInput actualInput = factory.LastCreatedWaternetCalculator.Input;
+
+                CalculatorInputAssert.AssertPhreaticLineOffsets(input.LocationInputExtreme, actualInput.PhreaticLineOffsets);
+                Assert.AreEqual(input.LocationInputExtreme.WaterLevelPolder, actualInput.WaterLevelPolder);
+                Assert.AreEqual(input.LocationInputExtreme.PenetrationLength, actualInput.PenetrationLength);
+                Assert.AreEqual(assessmentLevel, actualInput.AssessmentLevel);
+
+                AssertGenericInput(input, actualInput);
+            }
+        }
+
+        [Test]
+        public void ValidateExtreme_MessagesInValidation_ReturnValidationMessages()
+        {
+            // Setup
+            using (new MacroStabilityInwardsCalculatorFactoryConfig())
+            {
+                var calculatorFactory = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
+                WaternetCalculatorStub calculator = calculatorFactory.LastCreatedWaternetCalculator;
+                calculator.ReturnValidationError = true;
+                calculator.ReturnValidationWarning = true;
+
+                // Call
+                IEnumerable<MacroStabilityInwardsKernelMessage> messages = WaternetCalculationService.ValidateExtreme(testCalculation.InputParameters, RoundedDouble.NaN);
+
+                // Assert
+                CollectionAssert.AreEqual(calculator.Validate(), messages, new MacroStabilityInwardsKernelMessageComparer());
+            }
+        }
+
+        [Test]
+        public void ValidateExtreme_NoMessagesInValidation_ReturnEmptyCollection()
+        {
+            // Setup
+            using (new MacroStabilityInwardsCalculatorFactoryConfig())
+            {
+                // Call
+                IEnumerable<MacroStabilityInwardsKernelMessage> messages = WaternetCalculationService.ValidateExtreme(testCalculation.InputParameters, RoundedDouble.NaN);
+
+                // Assert
+                CollectionAssert.IsEmpty(messages);
+            }
+        }
+
+        [Test]
+        public void ValidateExtreme_ErrorInValidation_ThrowsWaternetCalculationException()
+        {
+            // Setup
+            using (new MacroStabilityInwardsCalculatorFactoryConfig())
+            {
+                var calculatorFactory = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
+                calculatorFactory.LastCreatedWaternetCalculator.ThrowExceptionOnValidate = true;
+
+                // Call
+                void Call() => WaternetCalculationService.ValidateExtreme(testCalculation.InputParameters, RoundedDouble.NaN);
+
+                // Assert
+                var exception = Assert.Throws<WaternetCalculationException>(Call);
+                Assert.IsInstanceOf<WaternetCalculatorException>(exception.InnerException);
+                Assert.AreEqual(exception.InnerException.Message, exception.Message);
+            }
+        }
+
+        [Test]
+        public void ValidateDaily_InputNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => WaternetCalculationService.ValidateDaily(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("input", exception.ParamName);
+        }
+
+        [Test]
+        public void ValidateDaily_WithInput_SetsInputOnCalculator()
+        {
+            // Setup
+            MacroStabilityInwardsInput input = testCalculation.InputParameters;
+
+            using (new MacroStabilityInwardsCalculatorFactoryConfig())
+            {
+                // Call
+                WaternetCalculationService.ValidateDaily(input);
+
+                // Assert
+                var factory = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
+                WaternetCalculatorInput actualInput = factory.LastCreatedWaternetCalculator.Input;
+
+                CalculatorInputAssert.AssertPhreaticLineOffsets(input.LocationInputDaily, actualInput.PhreaticLineOffsets);
+                Assert.AreEqual(input.LocationInputDaily.WaterLevelPolder, actualInput.WaterLevelPolder);
+                Assert.AreEqual(input.LocationInputDaily.PenetrationLength, actualInput.PenetrationLength);
+                Assert.AreEqual(input.WaterLevelRiverAverage, actualInput.AssessmentLevel);
+
+                AssertGenericInput(input, actualInput);
+            }
+        }
+
+        [Test]
+        public void ValidateDaily_MessagesInValidation_ReturnValidationMessages()
+        {
+            // Setup
+            using (new MacroStabilityInwardsCalculatorFactoryConfig())
+            {
+                var calculatorFactory = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
+                WaternetCalculatorStub calculator = calculatorFactory.LastCreatedWaternetCalculator;
+                calculator.ReturnValidationError = true;
+                calculator.ReturnValidationWarning = true;
+
+                // Call
+                IEnumerable<MacroStabilityInwardsKernelMessage> messages = WaternetCalculationService.ValidateDaily(testCalculation.InputParameters);
+
+                // Assert
+                CollectionAssert.AreEqual(calculator.Validate(), messages, new MacroStabilityInwardsKernelMessageComparer());
+            }
+        }
+
+        [Test]
+        public void ValidateDaily_NoMessagesInValidation_ReturnEmptyCollection()
+        {
+            // Setup
+            using (new MacroStabilityInwardsCalculatorFactoryConfig())
+            {
+                // Call
+                IEnumerable<MacroStabilityInwardsKernelMessage> messages = WaternetCalculationService.ValidateDaily(testCalculation.InputParameters);
+
+                // Assert
+                CollectionAssert.IsEmpty(messages);
+            }
+        }
+
+        [Test]
+        public void ValidateDaily_ErrorInValidation_ThrowsWaternetCalculationException()
+        {
+            // Setup
+            using (new MacroStabilityInwardsCalculatorFactoryConfig())
+            {
+                var calculatorFactory = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
+                calculatorFactory.LastCreatedWaternetCalculator.ThrowExceptionOnValidate = true;
+
+                // Call
+                void Call() => WaternetCalculationService.ValidateDaily(testCalculation.InputParameters);
+
+                // Assert
+                var exception = Assert.Throws<WaternetCalculationException>(Call);
+                Assert.IsInstanceOf<WaternetCalculatorException>(exception.InnerException);
+                Assert.AreEqual(exception.InnerException.Message, exception.Message);
+            }
+        }
+
+        [Test]
         public void CalculateExtreme_InputNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => WaternetCalculationService.CalculateExtreme(null, RoundedDouble.NaN);
+            void Call() => WaternetCalculationService.CalculateExtreme(null, RoundedDouble.NaN);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("input", exception.ParamName);
         }
 
@@ -121,10 +300,10 @@ namespace Riskeer.MacroStabilityInwards.CalculatedInput.Test
         public void CalculateDaily_InputNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => WaternetCalculationService.CalculateDaily(null);
+            void Call() => WaternetCalculationService.CalculateDaily(null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("input", exception.ParamName);
         }
 
@@ -187,13 +366,25 @@ namespace Riskeer.MacroStabilityInwards.CalculatedInput.Test
             }
         }
 
+        private class MacroStabilityInwardsKernelMessageComparer : IComparer<MacroStabilityInwardsKernelMessage>, IComparer
+        {
+            public int Compare(object x, object y)
+            {
+                return Compare((MacroStabilityInwardsKernelMessage) x, (MacroStabilityInwardsKernelMessage) y);
+            }
+
+            public int Compare(MacroStabilityInwardsKernelMessage x, MacroStabilityInwardsKernelMessage y)
+            {
+                return x.Message == y.Message && x.Type == y.Type ? 0 : 1;
+            }
+        }
+
         private static void AssertGenericInput(IMacroStabilityInwardsWaternetInput originalInput, WaternetCalculatorInput actualInput)
         {
             CalculatorInputAssert.AssertSoilProfile(originalInput.SoilProfileUnderSurfaceLine, actualInput.SoilProfile);
             CalculatorInputAssert.AssertDrainageConstruction(originalInput, actualInput.DrainageConstruction);
             Assert.AreEqual(WaternetCreationMode.CreateWaternet, actualInput.WaternetCreationMode);
             Assert.AreEqual(PlLineCreationMethod.RingtoetsWti2017, actualInput.PlLineCreationMethod);
-            Assert.AreEqual(LandwardDirection.PositiveX, actualInput.LandwardDirection);
             Assert.AreSame(originalInput.SurfaceLine, actualInput.SurfaceLine);
             Assert.AreEqual(originalInput.DikeSoilScenario, actualInput.DikeSoilScenario);
             Assert.AreEqual(originalInput.WaterLevelRiverAverage, actualInput.WaterLevelRiverAverage);

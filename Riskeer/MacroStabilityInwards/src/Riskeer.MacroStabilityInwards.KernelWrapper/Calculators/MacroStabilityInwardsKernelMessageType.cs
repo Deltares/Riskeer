@@ -19,22 +19,14 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
-using NUnit.Framework;
-using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan;
-
-namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
+namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators
 {
-    [TestFixture]
-    public class UpliftVanKernelMessageTypeTest
+    /// <summary>
+    /// Indicates what log level a macro stability inwards kernel message represents.
+    /// </summary>
+    public enum MacroStabilityInwardsKernelMessageType
     {
-        [Test]
-        public void Values_ExpectedValues()
-        {
-            // Assert
-            Assert.AreEqual(2, Enum.GetValues(typeof(UpliftVanKernelMessageType)).Length);
-            Assert.AreEqual(1, (int) UpliftVanKernelMessageType.Warning);
-            Assert.AreEqual(2, (int) UpliftVanKernelMessageType.Error);
-        }
+        Warning = 1,
+        Error = 2
     }
 }

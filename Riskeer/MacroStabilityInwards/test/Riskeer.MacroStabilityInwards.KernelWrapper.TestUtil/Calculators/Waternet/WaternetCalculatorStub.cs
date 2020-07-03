@@ -20,7 +20,9 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using Core.Common.Base.Geometry;
+using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Waternet;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Input;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Output;
@@ -43,9 +45,24 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Water
         public WaternetCalculatorResult Output { get; set; }
 
         /// <summary>
-        /// Indicator whether an exception must be thrown when performing the calculation.
+        /// Gets or sets an indicator whether an exception must be thrown when performing the calculation.
         /// </summary>
         public bool ThrowExceptionOnCalculate { get; set; }
+
+        /// <summary>
+        /// Gets or sets an indicator whether an exception must be thrown when performing the validation.
+        /// </summary>
+        public bool ThrowExceptionOnValidate { get; set; }
+
+        /// <summary>
+        /// Gets or sets an indicator whether an error message must be returned when performing the validation.
+        /// </summary>
+        public bool ReturnValidationError { get; set; }
+
+        /// <summary>
+        /// Gets or sets an indicator whether a warning message must be returned when performing the validation.
+        /// </summary>
+        public bool ReturnValidationWarning { get; set; }
 
         public WaternetCalculatorResult Calculate()
         {
@@ -57,9 +74,27 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Water
             return Output ?? (Output = CreateWaternetCalculatorResult());
         }
 
+        public IEnumerable<MacroStabilityInwardsKernelMessage> Validate()
+        {
+            if (ThrowExceptionOnValidate)
+            {
+                throw new WaternetCalculatorException($"Message 1{Environment.NewLine}Message 2");
+            }
+
+            if (ReturnValidationError)
+            {
+                yield return new MacroStabilityInwardsKernelMessage(MacroStabilityInwardsKernelMessageType.Error, "Validation Error");
+            }
+
+            if (ReturnValidationWarning)
+            {
+                yield return new MacroStabilityInwardsKernelMessage(MacroStabilityInwardsKernelMessageType.Warning, "Validation Warning");
+            }
+        }
+
         private static WaternetCalculatorResult CreateWaternetCalculatorResult()
         {
-            var phreaticLineResult = new WaternetPhreaticLineResult("line 1", new[]
+            var phreaticLineResult = new WaternetPhreaticLineResult("Line 1", new[]
             {
                 new Point2D(0, 0),
                 new Point2D(10, 0)
@@ -70,7 +105,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Water
                     phreaticLineResult
                 }, new[]
                 {
-                    new WaternetLineResult("line 2", new[]
+                    new WaternetLineResult("Line 2", new[]
                     {
                         new Point2D(0, 2),
                         new Point2D(10, 2)

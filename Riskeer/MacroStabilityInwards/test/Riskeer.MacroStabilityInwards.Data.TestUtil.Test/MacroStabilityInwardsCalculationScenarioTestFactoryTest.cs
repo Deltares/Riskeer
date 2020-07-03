@@ -57,7 +57,6 @@ namespace Riskeer.MacroStabilityInwards.Data.TestUtil.Test
             MacroStabilityInwardsOutput output = scenario.Output;
             Assert.IsNotNull(output);
             Assert.IsTrue(IsValidDouble(output.FactorOfStability));
-            Assert.IsTrue(IsValidDouble(output.ZValue));
             Assert.IsTrue(IsValidDouble(output.ForbiddenZonesXEntryMax));
             Assert.IsTrue(IsValidDouble(output.ForbiddenZonesXEntryMin));
             Assert.IsNotNull(output.SlidingCurve);

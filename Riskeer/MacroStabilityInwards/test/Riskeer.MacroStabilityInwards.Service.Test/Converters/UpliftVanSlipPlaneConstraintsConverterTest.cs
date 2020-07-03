@@ -64,7 +64,6 @@ namespace Riskeer.MacroStabilityInwards.Service.Test.Converters
             UpliftVanSlipPlaneConstraints constraints = UpliftVanSlipPlaneConstraintsConverter.Convert(input);
 
             // Assert
-            Assert.AreEqual(createZones, constraints.CreateZones);
             Assert.IsTrue(constraints.AutomaticForbiddenZones);
             Assert.AreEqual(input.SlipPlaneMinimumDepth, constraints.SlipPlaneMinimumDepth, input.SlipPlaneMinimumDepth.GetAccuracy());
             Assert.AreEqual(input.SlipPlaneMinimumLength, constraints.SlipPlaneMinimumLength, input.SlipPlaneMinimumLength.GetAccuracy());
@@ -91,7 +90,6 @@ namespace Riskeer.MacroStabilityInwards.Service.Test.Converters
             UpliftVanSlipPlaneConstraints constraints = UpliftVanSlipPlaneConstraintsConverter.Convert(input);
 
             // Assert
-            Assert.IsTrue(constraints.CreateZones);
             Assert.IsFalse(constraints.AutomaticForbiddenZones);
             Assert.AreEqual(input.SlipPlaneMinimumDepth, constraints.SlipPlaneMinimumDepth, input.SlipPlaneMinimumDepth.GetAccuracy());
             Assert.AreEqual(input.SlipPlaneMinimumLength, constraints.SlipPlaneMinimumLength, input.SlipPlaneMinimumLength.GetAccuracy());

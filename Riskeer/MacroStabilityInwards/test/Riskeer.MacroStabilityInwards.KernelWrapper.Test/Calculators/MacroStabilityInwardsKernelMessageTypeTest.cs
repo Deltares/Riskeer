@@ -19,14 +19,25 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Input
+using System.Collections.Generic;
+using Core.Common.TestUtil;
+using NUnit.Framework;
+using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators;
+
+namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators
 {
-    /// <summary>
-    /// All landward direction types.
-    /// </summary>
-    public enum LandwardDirection
+    [TestFixture]
+    public class MacroStabilityInwardsKernelMessageTypeTest : EnumValuesTestFixture<MacroStabilityInwardsKernelMessageType, int>
     {
-        PositiveX = 1,
-        NegativeX = 2
+        protected override IDictionary<MacroStabilityInwardsKernelMessageType, int> ExpectedValueForEnumValues =>
+            new Dictionary<MacroStabilityInwardsKernelMessageType, int>
+            {
+                {
+                    MacroStabilityInwardsKernelMessageType.Warning, 1
+                },
+                {
+                    MacroStabilityInwardsKernelMessageType.Error, 2
+                }
+            };
     }
 }

@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using System;
-using Deltares.WTIStability;
+using Deltares.MacroStability.Data;
 using NUnit.Framework;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input;
@@ -33,10 +33,10 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
         public void Create_UpliftVanSlipPlaneConstraintsNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => SlipPlaneConstraintsCreator.Create(null);
+            void Call() => SlipPlaneConstraintsCreator.Create(null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("input", paramName);
         }
 
@@ -49,15 +49,18 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                                                                                   random.NextDouble(), random.NextDouble());
 
             // Call
-            SlipPlaneConstraints constraints = SlipPlaneConstraintsCreator.Create(upliftVanSlipPlaneConstraints);
+            SlipPlaneConstraints slipPlaneConstraints = SlipPlaneConstraintsCreator.Create(upliftVanSlipPlaneConstraints);
 
             // Assert
-            Assert.AreEqual(upliftVanSlipPlaneConstraints.CreateZones, constraints.CreateZones);
-            Assert.AreEqual(upliftVanSlipPlaneConstraints.AutomaticForbiddenZones, constraints.AutomaticForbiddenZones);
-            Assert.AreEqual(upliftVanSlipPlaneConstraints.SlipPlaneMinimumLength, constraints.SlipPlaneMinLength);
-            Assert.AreEqual(upliftVanSlipPlaneConstraints.SlipPlaneMinimumDepth, constraints.SlipPlaneMinDepth);
-            Assert.AreEqual(upliftVanSlipPlaneConstraints.ZoneBoundaryLeft, constraints.XEntryMin);
-            Assert.AreEqual(upliftVanSlipPlaneConstraints.ZoneBoundaryRight, constraints.XEntryMax);
+            Assert.AreEqual(upliftVanSlipPlaneConstraints.SlipPlaneMinimumDepth, slipPlaneConstraints.SlipPlaneMinDepth);
+            Assert.AreEqual(upliftVanSlipPlaneConstraints.SlipPlaneMinimumLength, slipPlaneConstraints.SlipPlaneMinLength);
+            Assert.AreEqual(upliftVanSlipPlaneConstraints.ZoneBoundaryLeft, slipPlaneConstraints.XLeftMin);
+            Assert.AreEqual(upliftVanSlipPlaneConstraints.ZoneBoundaryRight, slipPlaneConstraints.XLeftMax);
+            Assert.IsTrue(slipPlaneConstraints.AllowLeftToRight); // Irrelevant
+            Assert.IsTrue(slipPlaneConstraints.AllowRightToLeft); // Irrelevant
+            Assert.IsTrue(slipPlaneConstraints.AllowSwapLeftRight); // Irrelevant
+            Assert.IsNaN(slipPlaneConstraints.XRightMin); // Irrelevant
+            Assert.IsNaN(slipPlaneConstraints.XRightMax); // Irrelevant
         }
     }
 }

@@ -52,8 +52,7 @@ namespace Riskeer.Storage.Core.Create.MacroStabilityInwards
             {
                 FactorOfStability = output.FactorOfStability.ToNaNAsNull(),
                 ForbiddenZonesXEntryMin = output.ForbiddenZonesXEntryMin.ToNaNAsNull(),
-                ForbiddenZonesXEntryMax = output.ForbiddenZonesXEntryMax.ToNaNAsNull(),
-                ZValue = output.ZValue.ToNaNAsNull()
+                ForbiddenZonesXEntryMax = output.ForbiddenZonesXEntryMax.ToNaNAsNull()
             };
             SetSlidingCurveParametersToEntity(entity, output.SlidingCurve);
             SetSlipPlaneParametersToEntity(entity, output.SlipPlane);

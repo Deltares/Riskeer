@@ -19,15 +19,13 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Input
+using System;
+using Core.Common.TestUtil;
+using NUnit.Framework;
+
+namespace Riskeer.MacroStabilityInwards.CalculatedInput.Test
 {
-    /// <summary>
-    /// All dilatancy types.
-    /// </summary>
-    public enum DilatancyType
-    {
-        Phi = 1,
-        Zero = 2,
-        MinusPhi = 3
-    }
+    [TestFixture]
+    public class WaternetCalculationExceptionTest :
+        CustomExceptionDesignGuidelinesTestFixture<WaternetCalculationException, Exception> {}
 }

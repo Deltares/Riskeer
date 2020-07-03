@@ -22,11 +22,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Deltares.WTIStability.Data.Geo;
-using Deltares.WTIStability.Data.Standard;
-using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Input;
+using Deltares.MacroStability.Geometry;
+using Deltares.MacroStability.Standard;
 using Point2D = Core.Common.Base.Geometry.Point2D;
-using WtiStabilityPoint2D = Deltares.WTIStability.Data.Geo.Point2D;
+using WtiStabilityPoint2D = Deltares.MacroStability.Geometry.Point2D;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
 {
@@ -36,28 +35,19 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
     internal static class SoilProfileCreator
     {
         /// <summary>
-        /// Creates a <see cref="SoilProfile2D"/> based on <paramref name="preconsolidationStresses"/> and
-        /// <paramref name="layersWithSoil"/>.
+        /// Creates a <see cref="SoilProfile2D"/> based on <paramref name="layersWithSoil"/>.
         /// </summary>
-        /// <param name="preconsolidationStresses">The preconsolidation stresses to use in the <see cref="SoilProfile2D"/>.</param>
         /// <param name="layersWithSoil">The layer data to use in the <see cref="SoilProfile2D"/>.</param>
         /// <returns>A new <see cref="SoilProfile2D"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public static SoilProfile2D Create(IEnumerable<PreconsolidationStress> preconsolidationStresses,
-                                           IEnumerable<LayerWithSoil> layersWithSoil)
+        public static SoilProfile2D Create(IEnumerable<LayerWithSoil> layersWithSoil)
         {
-            if (preconsolidationStresses == null)
-            {
-                throw new ArgumentNullException(nameof(preconsolidationStresses));
-            }
-
             if (layersWithSoil == null)
             {
                 throw new ArgumentNullException(nameof(layersWithSoil));
             }
 
             var profile = new SoilProfile2D();
-            profile.PreconsolidationStresses.AddRange(CreatePreconsolidationStresses(preconsolidationStresses));
 
             var alreadyCreatedPoints = new List<WtiStabilityPoint2D>();
             var alreadyCreatedCurves = new List<GeometryCurve>();
@@ -77,16 +67,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
             profile.Geometry = CreateGeometryData(profile);
 
             return profile;
-        }
-
-        private static IEnumerable<PreConsolidationStress> CreatePreconsolidationStresses(IEnumerable<PreconsolidationStress> preconsolidationStresses)
-        {
-            return preconsolidationStresses.Select(preconsolidationStress => new PreConsolidationStress
-            {
-                StressValue = preconsolidationStress.Stress,
-                X = preconsolidationStress.Coordinate.X,
-                Z = preconsolidationStress.Coordinate.Y
-            }).ToArray();
         }
 
         private static GeometrySurface CreateGeometrySurface(LayerWithSoil layer, List<WtiStabilityPoint2D> alreadyCreatedPoints, List<GeometryCurve> alreadyCreatedCurves, List<GeometryLoop> alreadyCreatedLoops)

@@ -20,7 +20,10 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Core.Common.TestUtil;
+using Deltares.MacroStability.Standard;
 using NUnit.Framework;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan;
 
@@ -28,5 +31,29 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
 {
     [TestFixture]
     public class UpliftVanKernelWrapperExceptionTest
-        : CustomExceptionDesignGuidelinesTestFixture<UpliftVanKernelWrapperException, Exception> {}
+        : CustomExceptionDesignGuidelinesTestFixture<UpliftVanKernelWrapperException, Exception>
+    {
+        [Test]
+        public void MessageAndInnerExceptionAndKernelMessagesConstructor_ExpectedValues()
+        {
+            // Setup
+            const string messageText = "Message";
+            var innerException = new Exception();
+            IEnumerable<LogMessage> logMessages = Enumerable.Empty<LogMessage>();
+
+            // Call
+            var exception = new UpliftVanKernelWrapperException(messageText, innerException, logMessages);
+
+            // Assert
+            Assert.IsInstanceOf<Exception>(exception);
+            Assert.AreEqual(messageText, exception.Message);
+            Assert.IsNull(exception.HelpLink);
+            Assert.AreEqual(innerException, exception.InnerException);
+            Assert.IsNull(exception.Source);
+            Assert.IsNull(exception.StackTrace);
+            Assert.IsNull(exception.TargetSite);
+            CollectionAssert.IsEmpty(exception.Data);
+            Assert.AreSame(logMessages, exception.LogMessages);
+        }
+    }
 }

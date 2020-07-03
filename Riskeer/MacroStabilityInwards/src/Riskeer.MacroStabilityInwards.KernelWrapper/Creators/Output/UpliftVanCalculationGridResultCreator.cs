@@ -21,7 +21,7 @@
 
 using System;
 using System.Linq;
-using Deltares.WTIStability;
+using Deltares.MacroStability.Data;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Output;
 

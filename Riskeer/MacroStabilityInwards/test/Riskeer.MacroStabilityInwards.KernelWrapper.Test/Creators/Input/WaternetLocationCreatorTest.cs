@@ -22,8 +22,7 @@
 using System;
 using System.ComponentModel;
 using Core.Common.TestUtil;
-using Deltares.WaternetCreator;
-using Deltares.WTIStability;
+using Deltares.MacroStability.WaternetCreator;
 using NUnit.Framework;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Input;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Input;
@@ -32,22 +31,22 @@ using Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Input;
 using Riskeer.MacroStabilityInwards.Primitives;
 using PlLineCreationMethod = Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Input.PlLineCreationMethod;
 using WaternetCreationMode = Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Input.WaternetCreationMode;
-using WtiStabilityPlLineCreationMethod = Deltares.WaternetCreator.PlLineCreationMethod;
-using WtiStabilityWaternetCreationMethod = Deltares.WaternetCreator.WaternetCreationMode;
+using WtiStabilityPlLineCreationMethod = Deltares.MacroStability.WaternetCreator.PlLineCreationMethod;
+using WtiStabilityWaternetCreationMethod = Deltares.MacroStability.WaternetCreator.WaternetCreationMode;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
 {
     [TestFixture]
-    public class WaternetStabilityLocationCreatorTest
+    public class WaternetLocationCreatorTest
     {
         [Test]
         public void Create_InputNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => WaternetStabilityLocationCreator.Create(null);
+            void Call() => WaternetLocationCreator.Create(null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("input", exception.ParamName);
         }
 
@@ -66,11 +65,11 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                 });
 
             // Call
-            TestDelegate test = () => WaternetStabilityLocationCreator.Create(input);
+            void Call() => WaternetLocationCreator.Create(input);
 
             // Assert
-            string message = $"The value of argument 'dikeSoilScenario' ({99}) is invalid for Enum type '{typeof(MacroStabilityInwardsDikeSoilScenario).Name}'.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(test, message);
+            string message = $"The value of argument 'dikeSoilScenario' ({99}) is invalid for Enum type '{nameof(MacroStabilityInwardsDikeSoilScenario)}'.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(Call, message);
         }
 
         [Test]
@@ -78,8 +77,8 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
         [TestCase(MacroStabilityInwardsDikeSoilScenario.ClayDikeOnSand, DikeSoilScenario.ClayDikeOnSand)]
         [TestCase(MacroStabilityInwardsDikeSoilScenario.SandDikeOnClay, DikeSoilScenario.SandDikeOnClay)]
         [TestCase(MacroStabilityInwardsDikeSoilScenario.SandDikeOnSand, DikeSoilScenario.SandDikeOnSand)]
-        public void Create_ValidDikeSoilScenario_ReturnStabilityLocationWithDikeSoilScenario(MacroStabilityInwardsDikeSoilScenario macroStabilityInwardsDikeSoilScenario,
-                                                                                             DikeSoilScenario expectedDikeSoilScenario)
+        public void Create_ValidDikeSoilScenario_ReturnLocationWithDikeSoilScenario(MacroStabilityInwardsDikeSoilScenario macroStabilityInwardsDikeSoilScenario,
+                                                                                    DikeSoilScenario expectedDikeSoilScenario)
         {
             // Setup
             var input = new WaternetCalculatorInput(
@@ -93,7 +92,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                 });
 
             // Call
-            StabilityLocation location = WaternetStabilityLocationCreator.Create(input);
+            Location location = WaternetLocationCreator.Create(input);
 
             // Assert
             Assert.AreEqual(expectedDikeSoilScenario, location.DikeSoilScenario);
@@ -114,18 +113,18 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                 });
 
             // Call
-            TestDelegate test = () => WaternetStabilityLocationCreator.Create(input);
+            void Call() => WaternetLocationCreator.Create(input);
 
             // Assert
-            string message = $"The value of argument 'waternetCreationMode' ({99}) is invalid for Enum type '{typeof(WaternetCreationMode).Name}'.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(test, message);
+            string message = $"The value of argument 'waternetCreationMode' ({99}) is invalid for Enum type '{nameof(WaternetCreationMode)}'.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(Call, message);
         }
 
         [Test]
         [TestCase(WaternetCreationMode.CreateWaternet, WtiStabilityWaternetCreationMethod.CreateWaternet)]
         [TestCase(WaternetCreationMode.FillInWaternetValues, WtiStabilityWaternetCreationMethod.FillInWaternetValues)]
-        public void Create_ValidWaternetCreationMode_ReturnStabilityLocationWithWaternetCreationMode(WaternetCreationMode waternetCreationMode,
-                                                                                                     WtiStabilityWaternetCreationMethod expectedWaternetCreationMode)
+        public void Create_ValidWaternetCreationMode_ReturnLocationWithWaternetCreationMode(WaternetCreationMode waternetCreationMode,
+                                                                                            WtiStabilityWaternetCreationMethod expectedWaternetCreationMode)
         {
             // Setup
             var input = new WaternetCalculatorInput(
@@ -139,7 +138,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                 });
 
             // Call
-            StabilityLocation location = WaternetStabilityLocationCreator.Create(input);
+            Location location = WaternetLocationCreator.Create(input);
 
             // Assert
             Assert.AreEqual(expectedWaternetCreationMode, location.WaternetCreationMode);
@@ -160,23 +159,18 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                 });
 
             // Call
-            TestDelegate test = () => WaternetStabilityLocationCreator.Create(input);
+            void Call() => WaternetLocationCreator.Create(input);
 
             // Assert
-            string message = $"The value of argument 'plLineCreationMethod' ({99}) is invalid for Enum type '{typeof(PlLineCreationMethod).Name}'.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(test, message);
+            string message = $"The value of argument 'plLineCreationMethod' ({99}) is invalid for Enum type '{nameof(PlLineCreationMethod)}'.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(Call, message);
         }
 
         [Test]
-        [TestCase(PlLineCreationMethod.ExpertKnowledgeRrd, WtiStabilityPlLineCreationMethod.ExpertKnowledgeRrd)]
-        [TestCase(PlLineCreationMethod.ExpertKnowledgeLinearInDike, WtiStabilityPlLineCreationMethod.ExpertKnowledgeLinearInDike)]
         [TestCase(PlLineCreationMethod.RingtoetsWti2017, WtiStabilityPlLineCreationMethod.RingtoetsWti2017)]
-        [TestCase(PlLineCreationMethod.DupuitStatic, WtiStabilityPlLineCreationMethod.DupuitStatic)]
-        [TestCase(PlLineCreationMethod.DupuitDynamic, WtiStabilityPlLineCreationMethod.DupuitDynamic)]
-        [TestCase(PlLineCreationMethod.Sensors, WtiStabilityPlLineCreationMethod.Sensors)]
         [TestCase(PlLineCreationMethod.None, WtiStabilityPlLineCreationMethod.None)]
-        public void Create_ValidPlLineCreationMethod_ReturnStabilityLocationWithWaternetCreationMode(PlLineCreationMethod plLineCreationMethod,
-                                                                                                     WtiStabilityPlLineCreationMethod expectedPlLineCreationMethod)
+        public void Create_ValidPlLineCreationMethod_ReturnLocationWithWaternetCreationMode(PlLineCreationMethod plLineCreationMethod,
+                                                                                            WtiStabilityPlLineCreationMethod expectedPlLineCreationMethod)
         {
             // Setup
             var input = new WaternetCalculatorInput(
@@ -190,7 +184,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                 });
 
             // Call
-            StabilityLocation location = WaternetStabilityLocationCreator.Create(input);
+            Location location = WaternetLocationCreator.Create(input);
 
             // Assert
             Assert.AreEqual(expectedPlLineCreationMethod, location.PlLineCreationMethod);
@@ -198,8 +192,8 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
 
         [Test]
         [Combinatorial]
-        public void Create_WithInput_ReturnStabilityLocation([Values(true, false)] bool drainageConstructionPresent,
-                                                             [Values(true, false)] bool useDefaultOffsets)
+        public void Create_WithInput_ReturnLocation([Values(true, false)] bool drainageConstructionPresent,
+                                                    [Values(true, false)] bool useDefaultOffsets)
         {
             // Setup
             var random = new Random(21);
@@ -245,11 +239,11 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                     LeakageLengthInwardsPhreaticLine4 = leakageLengthInwardsPhreaticLine4,
                     PiezometricHeadPhreaticLine2Outwards = piezometricHeadPhreaticLine2Outwards,
                     PiezometricHeadPhreaticLine2Inwards = piezometricHeadPhreaticLine2Inwards,
-                    PenetrationLength = penetrationLength
+                    PenetrationLength = penetrationLength,
                 });
 
             // Call
-            StabilityLocation location = WaternetStabilityLocationCreator.Create(input);
+            Location location = WaternetLocationCreator.Create(input);
 
             // Assert
             Assert.AreEqual(DikeSoilScenario.SandDikeOnClay, location.DikeSoilScenario);
@@ -278,20 +272,16 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             Assert.AreEqual(piezometricHeadPhreaticLine2Outwards, location.HeadInPlLine2Outwards);
             Assert.AreEqual(piezometricHeadPhreaticLine2Inwards, location.HeadInPlLine2Inwards);
             Assert.AreEqual(penetrationLength, location.PenetrationLength);
+            Assert.IsTrue(location.Inwards);
 
             AssertIrrelevantValues(location);
         }
 
-        private static void AssertIrrelevantValues(StabilityLocation location)
+        private static void AssertIrrelevantValues(Location location)
         {
             Assert.IsNaN(location.WaterLevelRiverLow); // Only for macro stability outwards
             Assert.AreEqual(0.0, location.X); // Unused property
             Assert.AreEqual(0.0, location.Y); // Unused property
-            Assert.IsTrue(string.IsNullOrEmpty(location.PiezometricHeads.Name)); // Unused property
-            Assert.IsNaN(location.PiezometricHeads.HeadPl3); // Unused property
-            Assert.AreEqual(0.30, location.PiezometricHeads.DampingFactorPl3); // Unused property
-            Assert.IsNaN(location.PiezometricHeads.HeadPl4); // Unused property
-            Assert.AreEqual(0.30, location.PiezometricHeads.DampingFactorPl4); // Unused property
         }
     }
 }

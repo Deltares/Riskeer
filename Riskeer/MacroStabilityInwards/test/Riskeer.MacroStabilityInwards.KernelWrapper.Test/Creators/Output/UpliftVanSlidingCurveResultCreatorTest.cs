@@ -21,8 +21,8 @@
 
 using System;
 using System.Linq;
-using Deltares.WTIStability;
-using Deltares.WTIStability.Data.Geo;
+using Deltares.MacroStability.Data;
+using Deltares.MacroStability.Geometry;
 using NUnit.Framework;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Output;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Output;
@@ -45,12 +45,10 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Output
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void Create_WithSlidingCurve_ReturnSlidingCurveResult(bool leftCircleIsActive)
+        public void Create_WithSlidingCurve_ReturnSlidingCurveResult()
         {
             // Setup
-            var random = new Random(21);
+            var random = new Random();
             double activeCircleX = random.Next();
             double activeCircleZ = random.Next();
 
@@ -73,7 +71,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Output
 
             var slidingCurve = new SlidingDualCircle
             {
-                LeftCircleIsActive = leftCircleIsActive,
                 ActiveCircle = new GeometryPoint(activeCircleX, activeCircleZ),
                 ActiveForce = activeCircleIteratedForce,
                 ActiveForce0 = activeCircleNonIteratedForce,
@@ -94,6 +91,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Output
             UpliftVanSlidingCurveResult result = UpliftVanSlidingCurveResultCreator.Create(slidingCurve);
 
             // Assert
+            bool leftCircleIsActive = slidingCurve.ActiveCircle.X <= slidingCurve.PassiveCircle.X;
             AssertActiveCircle(leftCircleIsActive ? result.LeftCircle : result.RightCircle,
                                activeCircleX, activeCircleZ, activeCircleIteratedForce,
                                activeCircleNonIteratedForce, activeCircleRadius,

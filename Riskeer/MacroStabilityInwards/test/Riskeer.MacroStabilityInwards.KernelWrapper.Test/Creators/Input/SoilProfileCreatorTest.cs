@@ -21,15 +21,12 @@
 
 using System;
 using System.Linq;
-using Core.Common.Base.Data;
-using Core.Common.TestUtil;
-using Deltares.WTIStability.Data.Geo;
+using Deltares.MacroStability.Geometry;
 using NUnit.Framework;
-using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Input;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input;
 using Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan.Input;
 using Point2D = Core.Common.Base.Geometry.Point2D;
-using WtiStabilityPoint2D = Deltares.WTIStability.Data.Geo.Point2D;
+using WtiStabilityPoint2D = Deltares.MacroStability.Geometry.Point2D;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
 {
@@ -37,25 +34,13 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
     public class SoilProfileCreatorTest
     {
         [Test]
-        public void Create_PreconsolidationStressesNull_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate call = () => SoilProfileCreator.Create(null, Enumerable.Empty<LayerWithSoil>());
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("preconsolidationStresses", exception.ParamName);
-        }
-
-        [Test]
         public void Create_LayersWithSoilNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => SoilProfileCreator.Create(Enumerable.Empty<PreconsolidationStress>(),
-                                                                null);
+            void Call() => SoilProfileCreator.Create(null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("layersWithSoil", exception.ParamName);
         }
 
@@ -81,11 +66,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
         public void Create_WithNeighbouringInnerLoops_ReturnSoilProfile2D()
         {
             // Setup
-            var random = new Random(11);
-            double preconsolidationStressXCoordinate = random.Next();
-            double preconsolidationStressZCoordinate = random.Next();
-            RoundedDouble preconsolidationStressDesignValue = random.NextRoundedDouble();
-
             var layer1Points = new[]
             {
                 new Point2D(0, 0),
@@ -171,31 +151,15 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                 WaterpressureInterpolationModel.Hydrostatic);
 
             // Call
-            SoilProfile2D profile = SoilProfileCreator.Create(
-                new[]
-                {
-                    new PreconsolidationStress(new Point2D(preconsolidationStressXCoordinate, preconsolidationStressZCoordinate), preconsolidationStressDesignValue)
-                },
-                new[]
-                {
-                    layerWithSoil1,
-                    layerWithSoil2,
-                    layerWithSoil3,
-                    layerWithSoil4
-                });
+            SoilProfile2D profile = SoilProfileCreator.Create(new[]
+            {
+                layerWithSoil1,
+                layerWithSoil2,
+                layerWithSoil3,
+                layerWithSoil4
+            });
 
             // Assert
-
-            #region Preconsolidation stresses
-
-            Assert.AreEqual(1, profile.PreconsolidationStresses.Count);
-            PreConsolidationStress preconsolidationStress = profile.PreconsolidationStresses.First();
-            Assert.IsTrue(string.IsNullOrEmpty(preconsolidationStress.Name)); // Unused property
-            Assert.AreEqual(preconsolidationStressDesignValue, preconsolidationStress.StressValue);
-            Assert.AreEqual(preconsolidationStressXCoordinate, preconsolidationStress.X);
-            Assert.AreEqual(preconsolidationStressZCoordinate, preconsolidationStress.Z);
-
-            #endregion
 
             #region Geometry
 
@@ -384,11 +348,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
         public void Create_WithNestedInnerLoops_ReturnSoilProfile2D()
         {
             // Setup
-            var random = new Random(11);
-            double preconsolidationStressXCoordinate = random.Next();
-            double preconsolidationStressZCoordinate = random.Next();
-            RoundedDouble preconsolidationStressDesignValue = random.NextRoundedDouble();
-
             var layer1Points = new[]
             {
                 new Point2D(0, 0),
@@ -476,31 +435,15 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                 WaterpressureInterpolationModel.Hydrostatic);
 
             // Call
-            SoilProfile2D profile = SoilProfileCreator.Create(
-                new[]
-                {
-                    new PreconsolidationStress(new Point2D(preconsolidationStressXCoordinate, preconsolidationStressZCoordinate), preconsolidationStressDesignValue)
-                },
-                new[]
-                {
-                    layerWithSoil1,
-                    layerWithSoil2,
-                    layerWithSoil3,
-                    layerWithSoil4
-                });
+            SoilProfile2D profile = SoilProfileCreator.Create(new[]
+            {
+                layerWithSoil1,
+                layerWithSoil2,
+                layerWithSoil3,
+                layerWithSoil4
+            });
 
             // Assert
-
-            #region Preconsolidation stresses
-
-            Assert.AreEqual(1, profile.PreconsolidationStresses.Count);
-            PreConsolidationStress preconsolidationStress = profile.PreconsolidationStresses.First();
-            Assert.IsTrue(string.IsNullOrEmpty(preconsolidationStress.Name)); // Unused property
-            Assert.AreEqual(preconsolidationStressDesignValue, preconsolidationStress.StressValue);
-            Assert.AreEqual(preconsolidationStressXCoordinate, preconsolidationStress.X);
-            Assert.AreEqual(preconsolidationStressZCoordinate, preconsolidationStress.Z);
-
-            #endregion
 
             #region Geometry
 

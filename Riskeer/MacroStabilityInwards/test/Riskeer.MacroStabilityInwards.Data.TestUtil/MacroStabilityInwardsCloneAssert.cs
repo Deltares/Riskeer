@@ -213,7 +213,6 @@ namespace Riskeer.MacroStabilityInwards.Data.TestUtil
             CoreCloneAssert.AreObjectClones(original.SlipPlane, clone.SlipPlane, AreClones);
 
             Assert.AreEqual(original.FactorOfStability, clone.FactorOfStability);
-            Assert.AreEqual(original.ZValue, clone.ZValue);
             Assert.AreEqual(original.ForbiddenZonesXEntryMin, clone.ForbiddenZonesXEntryMin);
             Assert.AreEqual(original.ForbiddenZonesXEntryMax, clone.ForbiddenZonesXEntryMax);
         }

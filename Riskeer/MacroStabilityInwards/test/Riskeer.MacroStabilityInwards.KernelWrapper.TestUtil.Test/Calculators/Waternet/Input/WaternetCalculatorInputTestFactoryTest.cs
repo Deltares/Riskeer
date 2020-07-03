@@ -60,7 +60,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Calculators.
 
             Assert.AreEqual(WaternetCreationMode.CreateWaternet, input.WaternetCreationMode);
             Assert.AreEqual(PlLineCreationMethod.RingtoetsWti2017, input.PlLineCreationMethod);
-            Assert.AreEqual(LandwardDirection.PositiveX, input.LandwardDirection);
             Assert.IsTrue(Enum.IsDefined(typeof(MacroStabilityInwardsDikeSoilScenario), input.DikeSoilScenario));
         }
 
@@ -91,7 +90,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Calculators.
 
             Assert.AreEqual(WaternetCreationMode.CreateWaternet, input.WaternetCreationMode);
             Assert.AreEqual(PlLineCreationMethod.RingtoetsWti2017, input.PlLineCreationMethod);
-            Assert.AreEqual(LandwardDirection.PositiveX, input.LandwardDirection);
             Assert.IsTrue(Enum.IsDefined(typeof(MacroStabilityInwardsDikeSoilScenario), input.DikeSoilScenario));
         }
 

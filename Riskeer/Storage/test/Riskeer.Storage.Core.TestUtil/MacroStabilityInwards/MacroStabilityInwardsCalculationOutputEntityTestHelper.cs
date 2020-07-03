@@ -61,7 +61,6 @@ namespace Riskeer.Storage.Core.TestUtil.MacroStabilityInwards
             AssertAreEqual(output.FactorOfStability, entity.FactorOfStability);
             AssertAreEqual(output.ForbiddenZonesXEntryMin, entity.ForbiddenZonesXEntryMin);
             AssertAreEqual(output.ForbiddenZonesXEntryMax, entity.ForbiddenZonesXEntryMax);
-            AssertAreEqual(output.ZValue, entity.ZValue);
 
             AssertSlidingCurveProperties(output.SlidingCurve, entity);
             AssertSlipPlaneProperties(output.SlipPlane, entity);

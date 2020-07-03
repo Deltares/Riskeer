@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using System;
-using Deltares.WTIStability;
+using Deltares.MacroStability.Data;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan;
@@ -48,25 +48,39 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
 
             var kernelSlipPlane = new SlipPlaneUpliftVan
             {
-                ActiveSide = ActiveSideType.Left
+                SlipPlaneLeftGrid = CreateGrid(slipPlane, slipPlane.LeftGrid),
+                SlipPlaneRightGrid = CreateGrid(slipPlane, slipPlane.RightGrid),
+                SlipPlaneTangentLine = CreateTangentLine(slipPlane)
             };
-
-            if (!slipPlane.GridAutomaticDetermined)
-            {
-                kernelSlipPlane.SlipPlaneLeftGrid = CreateGrid(slipPlane.LeftGrid);
-                kernelSlipPlane.SlipPlaneRightGrid = CreateGrid(slipPlane.RightGrid);
-            }
-
-            kernelSlipPlane.SlipPlaneTangentLine = CreateTangentline(slipPlane);
 
             return kernelSlipPlane;
         }
 
-        private static SlipCircleTangentLine CreateTangentline(UpliftVanSlipPlane slipPlane)
+        private static SlipCircleGrid CreateGrid(UpliftVanSlipPlane slipPlane, UpliftVanGrid grid)
+        {
+            var slipCircleGrid = new SlipCircleGrid
+            {
+                NumberOfRefinements = slipPlane.GridNumberOfRefinements
+            };
+
+            if (!slipPlane.GridAutomaticDetermined)
+            {
+                slipCircleGrid.GridXLeft = grid.XLeft;
+                slipCircleGrid.GridXRight = grid.XRight;
+                slipCircleGrid.GridZTop = grid.ZTop;
+                slipCircleGrid.GridZBottom = grid.ZBottom;
+                slipCircleGrid.GridXNumber = grid.NumberOfHorizontalPoints;
+                slipCircleGrid.GridZNumber = grid.NumberOfVerticalPoints;
+            }
+
+            return slipCircleGrid;
+        }
+
+        private static SlipCircleTangentLine CreateTangentLine(UpliftVanSlipPlane slipPlane)
         {
             var tangentLine = new SlipCircleTangentLine
             {
-                AutomaticAtBoundaries = slipPlane.TangentLinesAutomaticAtBoundaries
+                NumberOfRefinements = slipPlane.TangentLineNumberOfRefinements
             };
 
             if (!slipPlane.TangentLinesAutomaticAtBoundaries)
@@ -77,19 +91,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
             }
 
             return tangentLine;
-        }
-
-        private static SlipCircleGrid CreateGrid(UpliftVanGrid grid)
-        {
-            return new SlipCircleGrid
-            {
-                GridXLeft = grid.XLeft,
-                GridXRight = grid.XRight,
-                GridZTop = grid.ZTop,
-                GridZBottom = grid.ZBottom,
-                GridXNumber = grid.NumberOfHorizontalPoints,
-                GridZNumber = grid.NumberOfVerticalPoints
-            };
         }
     }
 }

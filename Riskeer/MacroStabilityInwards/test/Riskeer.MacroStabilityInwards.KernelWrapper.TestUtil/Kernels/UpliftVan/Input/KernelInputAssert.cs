@@ -19,9 +19,10 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using System.Linq;
-using Deltares.WTIStability;
-using Deltares.WTIStability.Data.Geo;
+using Deltares.MacroStability.Geometry;
+using Deltares.MacroStability.WaternetCreator;
 using NUnit.Framework;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan.Input
@@ -34,17 +35,17 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan
         /// <summary>
         /// Asserts whether <paramref name="actual"/> is equal to <paramref name="expected"/>.
         /// </summary>
-        /// <param name="expected">The expected <see cref="SoilModel"/>.</param>
-        /// <param name="actual">The actual <see cref="SoilModel"/>.</param>
+        /// <param name="expected">The expected collection of <see cref="Soil"/>.</param>
+        /// <param name="actual">The actual collection of <see cref="Soil"/>.</param>
         /// <exception cref="AssertionException">Thrown when <paramref name="actual"/>
         /// is not equal to <paramref name="expected"/>.</exception>
-        public static void AssertSoilModels(SoilModel expected, SoilModel actual)
+        public static void AssertSoilModels(IList<Soil> expected, IList<Soil> actual)
         {
-            Assert.AreEqual(expected.Soils.Count, actual.Soils.Count);
+            Assert.AreEqual(expected.Count, actual.Count);
 
-            for (var i = 0; i < expected.Soils.Count; i++)
+            for (var i = 0; i < expected.Count; i++)
             {
-                AssertSoils(expected.Soils[i], actual.Soils[i]);
+                AssertSoils(expected[i], actual[i]);
             }
         }
 
@@ -58,20 +59,18 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan
         public static void AssertSoilProfiles(SoilProfile2D expected, SoilProfile2D actual)
         {
             AssertSoilLayers(expected.Surfaces.ToArray(), actual.Surfaces.ToArray());
-            AssertPreconsolidationStresses(expected.PreconsolidationStresses.ToArray(), actual.PreconsolidationStresses.ToArray());
             AssertGeometryDatas(expected.Geometry, actual.Geometry);
         }
 
         /// <summary>
         /// Asserts whether <paramref name="actual"/> is equal to <paramref name="expected"/>.
         /// </summary>
-        /// <param name="expected">The expected <see cref="StabilityLocation"/>.</param>
-        /// <param name="actual">The actual <see cref="StabilityLocation"/>.</param>
+        /// <param name="expected">The expected <see cref="Location"/>.</param>
+        /// <param name="actual">The actual <see cref="Location"/>.</param>
         /// <exception cref="AssertionException">Thrown when <paramref name="actual"/>
         /// is not equal to <paramref name="expected"/>.</exception>
-        public static void AssertStabilityLocations(StabilityLocation expected, StabilityLocation actual)
+        public static void AssertLocations(Location expected, Location actual)
         {
-            Assert.AreEqual(expected.StabilityModel, actual.StabilityModel);
             Assert.AreEqual(expected.DikeSoilScenario, actual.DikeSoilScenario);
             Assert.AreEqual(expected.WaternetCreationMode, actual.WaternetCreationMode);
             Assert.AreEqual(expected.PlLineCreationMethod, actual.PlLineCreationMethod);
@@ -101,13 +100,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan
             Assert.AreEqual(expected.HeadInPlLine4, actual.HeadInPlLine4);
             Assert.AreEqual(expected.X, actual.X);
             Assert.AreEqual(expected.Y, actual.Y);
-            Assert.AreEqual(expected.PiezometricHeads.Name, actual.PiezometricHeads.Name);
-            Assert.AreEqual(expected.PiezometricHeads.HeadPl1, actual.PiezometricHeads.HeadPl1);
-            Assert.AreEqual(expected.PiezometricHeads.HeadPl2, actual.PiezometricHeads.HeadPl2);
-            Assert.AreEqual(expected.PiezometricHeads.HeadPl3, actual.PiezometricHeads.HeadPl3);
-            Assert.AreEqual(expected.PiezometricHeads.HeadPl4, actual.PiezometricHeads.HeadPl4);
-            Assert.AreEqual(expected.PiezometricHeads.DampingFactorPl3, actual.PiezometricHeads.DampingFactorPl3);
-            Assert.AreEqual(expected.PiezometricHeads.DampingFactorPl4, actual.PiezometricHeads.DampingFactorPl4);
         }
 
         /// <summary>
@@ -120,7 +112,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan
         public static void AssertSurfaceLines(SurfaceLine2 expected, SurfaceLine2 actual)
         {
             Assert.AreEqual(expected.Name, actual.Name);
-            Assert.AreEqual(expected.LandwardDirection, actual.LandwardDirection);
             AssertGeometryPointStrings(expected.Geometry, actual.Geometry);
             AssertCharacteristicPointSets(expected.CharacteristicPoints, actual.CharacteristicPoints);
         }
@@ -146,29 +137,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan
                 AssertGeometrySurfaces(expectedSoilLayer.GeometrySurface, actualSoilLayer.GeometrySurface);
                 AssertSoils(expectedSoilLayer.Soil, actualSoilLayer.Soil);
                 Assert.AreEqual(expectedSoilLayer.WaterpressureInterpolationModel, actualSoilLayer.WaterpressureInterpolationModel);
-            }
-        }
-
-        /// <summary>
-        /// Asserts whether <paramref name="actual"/> is equal to <paramref name="expected"/>.
-        /// </summary>
-        /// <param name="expected">The expected <see cref="PreConsolidationStress"/> array.</param>
-        /// <param name="actual">The actual <see cref="PreConsolidationStress"/> array.</param>
-        /// <exception cref="AssertionException">Thrown when <paramref name="actual"/>
-        /// is not equal to <paramref name="expected"/>.</exception>
-        private static void AssertPreconsolidationStresses(PreConsolidationStress[] expected, PreConsolidationStress[] actual)
-        {
-            Assert.AreEqual(expected.Length, actual.Length);
-
-            for (var i = 0; i < expected.Length; i++)
-            {
-                PreConsolidationStress expectedPreconsolidationStress = expected[i];
-                PreConsolidationStress actualPreconsolidationStress = actual[i];
-
-                Assert.AreEqual(expectedPreconsolidationStress.Name, actualPreconsolidationStress.Name);
-                Assert.AreEqual(expectedPreconsolidationStress.StressValue, actualPreconsolidationStress.StressValue);
-                Assert.AreEqual(expectedPreconsolidationStress.X, actualPreconsolidationStress.X);
-                Assert.AreEqual(expectedPreconsolidationStress.Z, actualPreconsolidationStress.Z);
             }
         }
 
@@ -219,7 +187,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan
         private static void AssertSoils(Soil expected, Soil actual)
         {
             Assert.AreEqual(expected.Name, actual.Name);
-            Assert.AreEqual(expected.UsePop, actual.UsePop);
             Assert.AreEqual(expected.ShearStrengthModel, actual.ShearStrengthModel);
             Assert.AreEqual(expected.AbovePhreaticLevel, actual.AbovePhreaticLevel);
             Assert.AreEqual(expected.BelowPhreaticLevel, actual.BelowPhreaticLevel);
@@ -227,11 +194,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan
             Assert.AreEqual(expected.FrictionAngle, actual.FrictionAngle);
             Assert.AreEqual(expected.RatioCuPc, actual.RatioCuPc);
             Assert.AreEqual(expected.StrengthIncreaseExponent, actual.StrengthIncreaseExponent);
-            Assert.AreEqual(expected.PoP, actual.PoP);
-            Assert.AreEqual(expected.DilatancyType, actual.DilatancyType);
-            Assert.AreEqual(expected.CuBottom, actual.CuBottom);
-            Assert.AreEqual(expected.CuTop, actual.CuTop);
-            Assert.AreEqual(expected.Ocr, actual.Ocr);
+            Assert.AreEqual(expected.Dilatancy, actual.Dilatancy);
             Assert.AreEqual(expected.RatioCuPc, actual.RatioCuPc);
         }
 

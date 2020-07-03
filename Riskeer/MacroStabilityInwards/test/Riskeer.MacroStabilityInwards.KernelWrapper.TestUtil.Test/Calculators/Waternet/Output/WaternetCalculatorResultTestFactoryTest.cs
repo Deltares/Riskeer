@@ -48,7 +48,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Calculators.
             CollectionAssert.AreEqual(new[]
             {
                 new Point2D(0, 0),
-                new Point2D(1, 1)
+                new Point2D(10, 0)
             }, phreaticLine.Geometry);
 
             WaternetLineResult waternetLine = waternetLines[0];
@@ -59,6 +59,17 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Calculators.
                 new Point2D(3, 3)
             }, waternetLine.Geometry);
             Assert.AreSame(phreaticLine, waternetLine.PhreaticLine);
+        }
+
+        [Test]
+        public void CreateEmptyResult_Always_ReturnEmptyCalculatorResult()
+        {
+            // Call
+            WaternetCalculatorResult result = WaternetCalculatorResultTestFactory.CreateEmptyResult();
+
+            // Assert
+            CollectionAssert.IsEmpty(result.PhreaticLines);
+            CollectionAssert.IsEmpty(result.WaternetLines);
         }
     }
 }

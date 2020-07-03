@@ -21,29 +21,29 @@
 
 using System.ComponentModel;
 using Core.Common.TestUtil;
-using Deltares.WaternetCreator;
+using Deltares.MacroStability.WaternetCreator;
 using NUnit.Framework;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input;
 using Riskeer.MacroStabilityInwards.Primitives;
 using PlLineCreationMethod = Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Input.PlLineCreationMethod;
 using WaternetCreationMode = Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Input.WaternetCreationMode;
-using WtiStabilityPlLineCreationMethod = Deltares.WaternetCreator.PlLineCreationMethod;
-using WtiStabilityWaternetCreationMethod = Deltares.WaternetCreator.WaternetCreationMode;
+using WtiStabilityPlLineCreationMethod = Deltares.MacroStability.WaternetCreator.PlLineCreationMethod;
+using WtiStabilityWaternetCreationMethod = Deltares.MacroStability.WaternetCreator.WaternetCreationMode;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
 {
     [TestFixture]
-    public class StabilityLocationCreatorHelperTest
+    public class LocationCreatorHelperTest
     {
         [Test]
         public void ConvertDikeSoilScenario_InvalidDikeSoilScenario_ThrowInvalidEnumArgumentException()
         {
             // Call
-            TestDelegate test = () => StabilityLocationCreatorHelper.ConvertDikeSoilScenario((MacroStabilityInwardsDikeSoilScenario) 99);
+            void Call() => LocationCreatorHelper.ConvertDikeSoilScenario((MacroStabilityInwardsDikeSoilScenario) 99);
 
             // Assert
-            string message = $"The value of argument 'dikeSoilScenario' ({99}) is invalid for Enum type '{typeof(MacroStabilityInwardsDikeSoilScenario).Name}'.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(test, message);
+            string message = $"The value of argument 'dikeSoilScenario' ({99}) is invalid for Enum type '{nameof(MacroStabilityInwardsDikeSoilScenario)}'.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(Call, message);
         }
 
         [Test]
@@ -55,7 +55,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                                                                                                  DikeSoilScenario expectedDikeSoilScenario)
         {
             // Call
-            DikeSoilScenario convertedDikeSoilScenario = StabilityLocationCreatorHelper.ConvertDikeSoilScenario(macroStabilityInwardsDikeSoilScenario);
+            DikeSoilScenario convertedDikeSoilScenario = LocationCreatorHelper.ConvertDikeSoilScenario(macroStabilityInwardsDikeSoilScenario);
 
             // Assert
             Assert.AreEqual(expectedDikeSoilScenario, convertedDikeSoilScenario);
@@ -65,11 +65,11 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
         public void ConvertWaternetCreationMode_InvalidWaternetCreationMode_ThrowInvalidEnumArgumentException()
         {
             // Call
-            TestDelegate test = () => StabilityLocationCreatorHelper.ConvertWaternetCreationMode((WaternetCreationMode) 99);
+            void Call() => LocationCreatorHelper.ConvertWaternetCreationMode((WaternetCreationMode) 99);
 
             // Assert
-            string message = $"The value of argument 'waternetCreationMode' ({99}) is invalid for Enum type '{typeof(WaternetCreationMode).Name}'.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(test, message);
+            string message = $"The value of argument 'waternetCreationMode' ({99}) is invalid for Enum type '{nameof(WaternetCreationMode)}'.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(Call, message);
         }
 
         [Test]
@@ -79,7 +79,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                                                                                                                          WtiStabilityWaternetCreationMethod expectedWaternetCreationMode)
         {
             // Call
-            WtiStabilityWaternetCreationMethod convertedWaternetCreationMode = StabilityLocationCreatorHelper.ConvertWaternetCreationMode(waternetCreationMode);
+            WtiStabilityWaternetCreationMethod convertedWaternetCreationMode = LocationCreatorHelper.ConvertWaternetCreationMode(waternetCreationMode);
 
             // Assert
             Assert.AreEqual(expectedWaternetCreationMode, convertedWaternetCreationMode);
@@ -89,26 +89,21 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
         public void ConvertPlLineCreationMethod_InvalidPlLineCreationMethod_ThrowInvalidEnumArgumentException()
         {
             // Call
-            TestDelegate test = () => StabilityLocationCreatorHelper.ConvertPlLineCreationMethod((PlLineCreationMethod) 99);
+            void Call() => LocationCreatorHelper.ConvertPlLineCreationMethod((PlLineCreationMethod) 99);
 
             // Assert
-            string message = $"The value of argument 'plLineCreationMethod' ({99}) is invalid for Enum type '{typeof(PlLineCreationMethod).Name}'.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(test, message);
+            string message = $"The value of argument 'plLineCreationMethod' ({99}) is invalid for Enum type '{nameof(PlLineCreationMethod)}'.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(Call, message);
         }
 
         [Test]
-        [TestCase(PlLineCreationMethod.ExpertKnowledgeRrd, WtiStabilityPlLineCreationMethod.ExpertKnowledgeRrd)]
-        [TestCase(PlLineCreationMethod.ExpertKnowledgeLinearInDike, WtiStabilityPlLineCreationMethod.ExpertKnowledgeLinearInDike)]
         [TestCase(PlLineCreationMethod.RingtoetsWti2017, WtiStabilityPlLineCreationMethod.RingtoetsWti2017)]
-        [TestCase(PlLineCreationMethod.DupuitStatic, WtiStabilityPlLineCreationMethod.DupuitStatic)]
-        [TestCase(PlLineCreationMethod.DupuitDynamic, WtiStabilityPlLineCreationMethod.DupuitDynamic)]
-        [TestCase(PlLineCreationMethod.Sensors, WtiStabilityPlLineCreationMethod.Sensors)]
         [TestCase(PlLineCreationMethod.None, WtiStabilityPlLineCreationMethod.None)]
         public void ConvertPlLineCreationMethod_ValidPlLineCreationMethod_ReturnExpectedWtiStabilityPlLineCreationMethod(PlLineCreationMethod plLineCreationMethod,
                                                                                                                          WtiStabilityPlLineCreationMethod expectedPlLineCreationMethod)
         {
             // Call
-            WtiStabilityPlLineCreationMethod actualPlLineCreationMethod = StabilityLocationCreatorHelper.ConvertPlLineCreationMethod(plLineCreationMethod);
+            WtiStabilityPlLineCreationMethod actualPlLineCreationMethod = LocationCreatorHelper.ConvertPlLineCreationMethod(plLineCreationMethod);
 
             // Assert
             Assert.AreEqual(expectedPlLineCreationMethod, actualPlLineCreationMethod);

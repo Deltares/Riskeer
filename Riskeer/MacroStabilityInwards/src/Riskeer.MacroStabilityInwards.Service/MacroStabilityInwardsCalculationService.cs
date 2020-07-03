@@ -20,9 +20,13 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using Core.Common.Base.Data;
+using log4net;
 using Riskeer.Common.Service;
+using Riskeer.MacroStabilityInwards.CalculatedInput;
 using Riskeer.MacroStabilityInwards.CalculatedInput.Converters;
 using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators;
@@ -44,6 +48,8 @@ namespace Riskeer.MacroStabilityInwards.Service
     /// </summary>
     public static class MacroStabilityInwardsCalculationService
     {
+        private static readonly ILog log = LogManager.GetLogger(typeof(MacroStabilityInwardsCalculationService));
+
         /// <summary>
         /// Performs validation over the values on the given <paramref name="calculation"/>. Error and status information is logged during
         /// the execution of the operation.
@@ -71,29 +77,48 @@ namespace Riskeer.MacroStabilityInwards.Service
                 return false;
             }
 
-            UpliftVanCalculatorInput upliftVanCalculatorInput = CreateInputFromData(calculation.InputParameters, normativeAssessmentLevel);
-            IUpliftVanCalculator calculator = MacroStabilityInwardsCalculatorFactory.Instance.CreateUpliftVanCalculator(upliftVanCalculatorInput, MacroStabilityInwardsKernelWrapperFactory.Instance);
+            IEnumerable<MacroStabilityInwardsKernelMessage> waternetExtremeKernelMessages;
+            IEnumerable<MacroStabilityInwardsKernelMessage> waternetDailyKernelMessages;
 
-            UpliftVanKernelMessage[] kernelMessages;
             try
             {
-                kernelMessages = calculator.Validate().ToArray();
+                waternetExtremeKernelMessages = ValidateWaternet(() => WaternetCalculationService.ValidateExtreme(calculation.InputParameters, normativeAssessmentLevel),
+                                                                 Resources.MacroStabilityInwardsCalculationService_Validate_Waternet_extreme_validation_started);
+                waternetDailyKernelMessages = ValidateWaternet(() => WaternetCalculationService.ValidateDaily(calculation.InputParameters),
+                                                               Resources.MacroStabilityInwardsCalculationService_Validate_Waternet_daily_validation_started);
             }
-            catch (UpliftVanCalculatorException e)
+            catch (WaternetCalculationException e)
             {
-                CalculationServiceHelper.LogExceptionAsError(Resources.MacroStabilityInwardsCalculationService_Validate_Error_in_MacroStabilityInwards_validation, e);
-                CalculationServiceHelper.LogValidationEnd();
+                HandleExceptionOnValidation(e);
 
                 return false;
             }
 
-            CalculationServiceHelper.LogMessagesAsError(kernelMessages.Where(msg => msg.ResultType == UpliftVanKernelMessageType.Error)
-                                                                      .Select(msg => msg.Message).ToArray());
-            CalculationServiceHelper.LogMessagesAsWarning(kernelMessages.Where(msg => msg.ResultType == UpliftVanKernelMessageType.Warning)
-                                                                        .Select(msg => msg.Message).ToArray());
+            IEnumerable<MacroStabilityInwardsKernelMessage> kernelMessages = Enumerable.Empty<MacroStabilityInwardsKernelMessage>();
+
+            if (!waternetExtremeKernelMessages.Any() && !waternetDailyKernelMessages.Any())
+            {
+                IUpliftVanCalculator calculator = GetCalculator(calculation, normativeAssessmentLevel);
+
+                try
+                {
+                    kernelMessages = calculator.Validate().ToArray();
+                }
+                catch (UpliftVanCalculatorException e)
+                {
+                    HandleExceptionOnValidation(e);
+
+                    return false;
+                }
+
+                LogKernelMessages(kernelMessages);
+            }
+
             CalculationServiceHelper.LogValidationEnd();
 
-            return kernelMessages.All(r => r.ResultType != UpliftVanKernelMessageType.Error);
+            return kernelMessages.Concat(waternetDailyKernelMessages)
+                                 .Concat(waternetExtremeKernelMessages)
+                                 .All(r => r.Type != MacroStabilityInwardsKernelMessageType.Error);
         }
 
         /// <summary>
@@ -119,21 +144,27 @@ namespace Riskeer.MacroStabilityInwards.Service
 
             try
             {
-                IUpliftVanCalculator calculator = MacroStabilityInwardsCalculatorFactory.Instance.CreateUpliftVanCalculator(
-                    CreateInputFromData(calculation.InputParameters, normativeAssessmentLevel),
-                    MacroStabilityInwardsKernelWrapperFactory.Instance);
+                IUpliftVanCalculator calculator = GetCalculator(calculation, normativeAssessmentLevel);
 
                 macroStabilityInwardsResult = calculator.Calculate();
             }
             catch (UpliftVanCalculatorException e)
             {
-                CalculationServiceHelper.LogExceptionAsError(RiskeerCommonServiceResources.CalculationService_Calculate_unexpected_error, e);
+                var stringBuilder = new StringBuilder();
+                stringBuilder.AppendLine(Resources.MacroStabilityInwardsCalculationService_Calculate_Kernel_provides_messages);
+                
+                foreach (MacroStabilityInwardsKernelMessage kernelMessage in e.KernelMessages)
+                {
+                    stringBuilder.AppendLine(string.Format(Resources.MacroStabilityInwardsCalculationService_Calculate_LogMessageType_0_LogMessage_1, kernelMessage.Type, kernelMessage.Message));
+                }
+
+                CalculationServiceHelper.LogExceptionAsError($"{RiskeerCommonServiceResources.CalculationService_Calculate_unexpected_error} {stringBuilder}", e);
                 CalculationServiceHelper.LogCalculationEnd();
 
                 throw;
             }
 
-            if (macroStabilityInwardsResult.CalculationMessages.Any(cm => cm.ResultType == UpliftVanKernelMessageType.Error))
+            if (macroStabilityInwardsResult.CalculationMessages.Any(cm => cm.Type == MacroStabilityInwardsKernelMessageType.Error))
             {
                 CalculationServiceHelper.LogMessagesAsError(new[]
                 {
@@ -159,12 +190,40 @@ namespace Riskeer.MacroStabilityInwards.Service
                 new MacroStabilityInwardsOutput.ConstructionProperties
                 {
                     FactorOfStability = macroStabilityInwardsResult.FactorOfStability,
-                    ZValue = macroStabilityInwardsResult.ZValue,
                     ForbiddenZonesXEntryMin = macroStabilityInwardsResult.ForbiddenZonesXEntryMin,
                     ForbiddenZonesXEntryMax = macroStabilityInwardsResult.ForbiddenZonesXEntryMax
                 });
 
             CalculationServiceHelper.LogCalculationEnd();
+        }
+
+        private static IUpliftVanCalculator GetCalculator(MacroStabilityInwardsCalculation calculation, RoundedDouble normativeAssessmentLevel)
+        {
+            UpliftVanCalculatorInput upliftVanCalculatorInput = CreateInputFromData(calculation.InputParameters, normativeAssessmentLevel);
+            IUpliftVanCalculator calculator = MacroStabilityInwardsCalculatorFactory.Instance.CreateUpliftVanCalculator(upliftVanCalculatorInput, MacroStabilityInwardsKernelWrapperFactory.Instance);
+            return calculator;
+        }
+
+        private static IEnumerable<MacroStabilityInwardsKernelMessage> ValidateWaternet(Func<IEnumerable<MacroStabilityInwardsKernelMessage>> validateWaternetFunc, string logMessage)
+        {
+            log.Info(logMessage);
+            IEnumerable<MacroStabilityInwardsKernelMessage> waternetKernelMessages = validateWaternetFunc();
+            LogKernelMessages(waternetKernelMessages);
+            return waternetKernelMessages;
+        }
+
+        private static void LogKernelMessages(IEnumerable<MacroStabilityInwardsKernelMessage> kernelMessages)
+        {
+            CalculationServiceHelper.LogMessagesAsError(kernelMessages.Where(msg => msg.Type == MacroStabilityInwardsKernelMessageType.Error)
+                                                                      .Select(msg => msg.Message).ToArray());
+            CalculationServiceHelper.LogMessagesAsWarning(kernelMessages.Where(msg => msg.Type == MacroStabilityInwardsKernelMessageType.Warning)
+                                                                        .Select(msg => msg.Message).ToArray());
+        }
+
+        private static void HandleExceptionOnValidation(Exception e)
+        {
+            CalculationServiceHelper.LogExceptionAsError(Resources.MacroStabilityInwardsCalculationService_Validate_Error_in_MacroStabilityInwards_validation, e);
+            CalculationServiceHelper.LogValidationEnd();
         }
 
         private static UpliftVanCalculatorInput CreateInputFromData(MacroStabilityInwardsInput inputParameters, RoundedDouble normativeAssessmentLevel)
@@ -179,7 +238,6 @@ namespace Riskeer.MacroStabilityInwards.Service
                     WaternetCreationMode = WaternetCreationMode.CreateWaternet,
                     PlLineCreationMethod = PlLineCreationMethod.RingtoetsWti2017,
                     AssessmentLevel = effectiveAssessmentLevel,
-                    LandwardDirection = LandwardDirection.PositiveX,
                     SurfaceLine = inputParameters.SurfaceLine,
                     SoilProfile = SoilProfileConverter.Convert(inputParameters.SoilProfileUnderSurfaceLine),
                     DrainageConstruction = DrainageConstructionConverter.Convert(inputParameters),

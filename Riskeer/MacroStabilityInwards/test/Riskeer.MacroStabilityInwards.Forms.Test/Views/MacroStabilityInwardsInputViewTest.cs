@@ -39,7 +39,10 @@ using Riskeer.MacroStabilityInwards.Data.SoilProfile;
 using Riskeer.MacroStabilityInwards.Data.TestUtil.SoilProfile;
 using Riskeer.MacroStabilityInwards.Forms.TestUtil;
 using Riskeer.MacroStabilityInwards.Forms.Views;
+using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators;
 using Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators;
+using Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Waternet;
+using Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Waternet.Output;
 using Riskeer.MacroStabilityInwards.Primitives;
 
 namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
@@ -222,12 +225,18 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             };
 
             // Call
-            using (var view = new MacroStabilityInwardsInputView(calculation,
-                                                                 assessmentSection,
-                                                                 GetHydraulicBoundaryLocationCalculation))
+            using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
-                // Assert
-                MacroStabilityInwardsInputViewChartDataAssert.AssertEmptyWaternetChartData(view.Chart.Data);
+                var calculatorFactory = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
+                WaternetCalculatorStub calculatorStub = calculatorFactory.LastCreatedWaternetCalculator;
+                calculatorStub.Output = WaternetCalculatorResultTestFactory.CreateEmptyResult();
+                using (var view = new MacroStabilityInwardsInputView(calculation,
+                                                                     assessmentSection,
+                                                                     GetHydraulicBoundaryLocationCalculation))
+                {
+                    // Assert
+                    MacroStabilityInwardsInputViewChartDataAssert.AssertEmptyWaternetChartData(view.Chart.Data);
+                }
             }
 
             mocks.VerifyAll();
@@ -346,12 +355,18 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             };
 
             // Call
-            using (var view = new MacroStabilityInwardsInputView(calculation,
-                                                                 assessmentSection,
-                                                                 GetHydraulicBoundaryLocationCalculation))
+            using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
-                // Assert
-                MacroStabilityInwardsInputViewChartDataAssert.AssertChartData(calculation, view.Chart.Data);
+                var calculatorFactory = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
+                WaternetCalculatorStub calculatorStub = calculatorFactory.LastCreatedWaternetCalculator;
+                calculatorStub.Output = WaternetCalculatorResultTestFactory.CreateEmptyResult();
+                using (var view = new MacroStabilityInwardsInputView(calculation,
+                                                                     assessmentSection,
+                                                                     GetHydraulicBoundaryLocationCalculation))
+                {
+                    // Assert
+                    MacroStabilityInwardsInputViewChartDataAssert.AssertChartData(calculation, view.Chart.Data);
+                }
             }
 
             mocks.VerifyAll();
@@ -457,33 +472,38 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                     SurfaceLine = surfaceLine
                 }
             };
-
-            using (var view = new MacroStabilityInwardsInputView(calculation,
-                                                                 assessmentSection,
-                                                                 GetHydraulicBoundaryLocationCalculation))
+            using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
-                List<ChartData> chartDataList = view.Chart.Data.Collection.ToList();
-                var surfaceLineChartData = (ChartDataCollection) chartDataList[soilProfileIndex];
+                var calculatorFactory = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
+                WaternetCalculatorStub calculatorStub = calculatorFactory.LastCreatedWaternetCalculator;
+                calculatorStub.Output = WaternetCalculatorResultTestFactory.CreateEmptyResult();
+                using (var view = new MacroStabilityInwardsInputView(calculation,
+                                                                     assessmentSection,
+                                                                     GetHydraulicBoundaryLocationCalculation))
+                {
+                    List<ChartData> chartDataList = view.Chart.Data.Collection.ToList();
+                    var surfaceLineChartData = (ChartDataCollection) chartDataList[soilProfileIndex];
 
-                surfaceLineChartData.Attach(observer);
+                    surfaceLineChartData.Attach(observer);
 
-                MacroStabilityInwardsStochasticSoilProfile newSoilProfile = MacroStabilityInwardsStochasticSoilProfileTestFactory.CreateMacroStabilityInwardsStochasticSoilProfile2D();
+                    MacroStabilityInwardsStochasticSoilProfile newSoilProfile = MacroStabilityInwardsStochasticSoilProfileTestFactory.CreateMacroStabilityInwardsStochasticSoilProfile2D();
 
-                // When
-                calculation.InputParameters.StochasticSoilProfile = newSoilProfile;
-                calculation.InputParameters.NotifyObservers();
+                    // When
+                    calculation.InputParameters.StochasticSoilProfile = newSoilProfile;
+                    calculation.InputParameters.NotifyObservers();
 
-                // Then
-                chartDataList = view.Chart.Data.Collection.ToList();
+                    // Then
+                    chartDataList = view.Chart.Data.Collection.ToList();
 
-                Assert.AreSame(surfaceLineChartData, (ChartDataCollection) chartDataList[soilProfileIndex]);
+                    Assert.AreSame(surfaceLineChartData, (ChartDataCollection) chartDataList[soilProfileIndex]);
 
-                MacroStabilityInwardsViewChartDataAssert.AssertSoilProfileChartData(calculation.InputParameters.SoilProfileUnderSurfaceLine,
-                                                                                    newSoilProfile.SoilProfile.Name,
-                                                                                    true,
-                                                                                    surfaceLineChartData);
+                    MacroStabilityInwardsViewChartDataAssert.AssertSoilProfileChartData(calculation.InputParameters.SoilProfileUnderSurfaceLine,
+                                                                                        newSoilProfile.SoilProfile.Name,
+                                                                                        true,
+                                                                                        surfaceLineChartData);
 
-                mocks.VerifyAll();
+                    mocks.VerifyAll();
+                }
             }
         }
 
@@ -743,31 +763,37 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                 }
             };
 
-            using (var view = new MacroStabilityInwardsInputView(calculation,
-                                                                 assessmentSection,
-                                                                 GetHydraulicBoundaryLocationCalculation))
+            using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
-                MacroStabilityInwardsSoilLayerDataTable soilLayerDataTable = GetSoilLayerTable(view);
+                var calculatorFactory = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
+                WaternetCalculatorStub calculatorStub = calculatorFactory.LastCreatedWaternetCalculator;
+                calculatorStub.Output = WaternetCalculatorResultTestFactory.CreateEmptyResult();
+                using (var view = new MacroStabilityInwardsInputView(calculation,
+                                                                     assessmentSection,
+                                                                     GetHydraulicBoundaryLocationCalculation))
+                {
+                    MacroStabilityInwardsSoilLayerDataTable soilLayerDataTable = GetSoilLayerTable(view);
 
-                // Precondition
-                Assert.AreEqual(1, soilLayerDataTable.Rows.Count);
+                    // Precondition
+                    Assert.AreEqual(1, soilLayerDataTable.Rows.Count);
 
-                // When
-                calculation.InputParameters.Attach(observer);
-                calculation.InputParameters.StochasticSoilProfile = new MacroStabilityInwardsStochasticSoilProfile(0.5,
-                                                                                                                   new MacroStabilityInwardsSoilProfile1D(
-                                                                                                                       "new profile 1D",
-                                                                                                                       -1,
-                                                                                                                       new[]
-                                                                                                                       {
-                                                                                                                           MacroStabilityInwardsSoilLayer1DTestFactory.CreateMacroStabilityInwardsSoilLayer1D(3),
-                                                                                                                           MacroStabilityInwardsSoilLayer1DTestFactory.CreateMacroStabilityInwardsSoilLayer1D(4)
-                                                                                                                       }));
-                calculation.InputParameters.NotifyObservers();
+                    // When
+                    calculation.InputParameters.Attach(observer);
+                    calculation.InputParameters.StochasticSoilProfile = new MacroStabilityInwardsStochasticSoilProfile(0.5,
+                                                                                                                       new MacroStabilityInwardsSoilProfile1D(
+                                                                                                                           "new profile 1D",
+                                                                                                                           -1,
+                                                                                                                           new[]
+                                                                                                                           {
+                                                                                                                               MacroStabilityInwardsSoilLayer1DTestFactory.CreateMacroStabilityInwardsSoilLayer1D(3),
+                                                                                                                               MacroStabilityInwardsSoilLayer1DTestFactory.CreateMacroStabilityInwardsSoilLayer1D(4)
+                                                                                                                           }));
+                    calculation.InputParameters.NotifyObservers();
 
-                // Then
-                Assert.AreEqual(2, soilLayerDataTable.Rows.Count);
-                mocks.VerifyAll();
+                    // Then
+                    Assert.AreEqual(2, soilLayerDataTable.Rows.Count);
+                    mocks.VerifyAll();
+                }
             }
         }
 
@@ -785,29 +811,35 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             SetGridValues(input.LeftGrid);
             SetGridValues(input.RightGrid);
 
-            using (var view = new MacroStabilityInwardsInputView(calculation,
-                                                                 assessmentSection,
-                                                                 GetHydraulicBoundaryLocationCalculation))
+            using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
-                // Precondition
-                ChartDataCollection chartData = view.Chart.Data;
-                List<ChartData> chartDataList = chartData.Collection.ToList();
-                var leftGridData = (ChartPointData) chartDataList[leftGridIndex];
-                var rightGridData = (ChartPointData) chartDataList[rightGridIndex];
+                var calculatorFactory = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
+                WaternetCalculatorStub calculatorStub = calculatorFactory.LastCreatedWaternetCalculator;
+                calculatorStub.Output = WaternetCalculatorResultTestFactory.CreateEmptyResult();
+                using (var view = new MacroStabilityInwardsInputView(calculation,
+                                                                     assessmentSection,
+                                                                     GetHydraulicBoundaryLocationCalculation))
+                {
+                    // Precondition
+                    ChartDataCollection chartData = view.Chart.Data;
+                    List<ChartData> chartDataList = chartData.Collection.ToList();
+                    var leftGridData = (ChartPointData) chartDataList[leftGridIndex];
+                    var rightGridData = (ChartPointData) chartDataList[rightGridIndex];
 
-                MacroStabilityInwardsViewChartDataAssert.AssertGridChartData(input.LeftGrid, leftGridData);
-                MacroStabilityInwardsViewChartDataAssert.AssertGridChartData(input.RightGrid, rightGridData);
+                    MacroStabilityInwardsViewChartDataAssert.AssertGridChartData(input.LeftGrid, leftGridData);
+                    MacroStabilityInwardsViewChartDataAssert.AssertGridChartData(input.RightGrid, rightGridData);
 
-                // When
-                input.GridDeterminationType = MacroStabilityInwardsGridDeterminationType.Automatic;
-                input.NotifyObservers();
+                    // When
+                    input.GridDeterminationType = MacroStabilityInwardsGridDeterminationType.Automatic;
+                    input.NotifyObservers();
 
-                // Then
-                chartDataList = chartData.Collection.ToList();
-                var updatedLeftGridData = (ChartPointData) chartDataList[leftGridIndex];
-                var updatedRightGridData = (ChartPointData) chartDataList[rightGridIndex];
-                CollectionAssert.IsEmpty(updatedLeftGridData.Points);
-                CollectionAssert.IsEmpty(updatedRightGridData.Points);
+                    // Then
+                    chartDataList = chartData.Collection.ToList();
+                    var updatedLeftGridData = (ChartPointData) chartDataList[leftGridIndex];
+                    var updatedRightGridData = (ChartPointData) chartDataList[rightGridIndex];
+                    CollectionAssert.IsEmpty(updatedLeftGridData.Points);
+                    CollectionAssert.IsEmpty(updatedRightGridData.Points);
+                }
             }
 
             mocks.VerifyAll();
@@ -840,35 +872,41 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             };
             MacroStabilityInwardsInput input = calculation.InputParameters;
 
-            using (var view = new MacroStabilityInwardsInputView(calculation,
-                                                                 assessmentSection,
-                                                                 GetHydraulicBoundaryLocationCalculation))
+            using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
-                // Precondition
-                ChartDataCollection chartData = view.Chart.Data;
-                List<ChartData> chartDataList = chartData.Collection.ToList();
-                var tangentLinesData = (ChartMultipleLineData) chartDataList[tangentLinesIndex];
-                CollectionAssert.AreEqual(new[]
+                var calculatorFactory = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
+                WaternetCalculatorStub calculatorStub = calculatorFactory.LastCreatedWaternetCalculator;
+                calculatorStub.Output = WaternetCalculatorResultTestFactory.CreateEmptyResult();
+                using (var view = new MacroStabilityInwardsInputView(calculation,
+                                                                     assessmentSection,
+                                                                     GetHydraulicBoundaryLocationCalculation))
                 {
-                    new[]
+                    // Precondition
+                    ChartDataCollection chartData = view.Chart.Data;
+                    List<ChartData> chartDataList = chartData.Collection.ToList();
+                    var tangentLinesData = (ChartMultipleLineData) chartDataList[tangentLinesIndex];
+                    CollectionAssert.AreEqual(new[]
                     {
-                        new Point2D(0.0, 10.0),
-                        new Point2D(1.58, 10.0)
-                    },
-                    new[]
-                    {
-                        new Point2D(0.0, 5.0),
-                        new Point2D(1.58, 5.0)
-                    }
-                }, tangentLinesData.Lines);
+                        new[]
+                        {
+                            new Point2D(0.0, 10.0),
+                            new Point2D(1.58, 10.0)
+                        },
+                        new[]
+                        {
+                            new Point2D(0.0, 5.0),
+                            new Point2D(1.58, 5.0)
+                        }
+                    }, tangentLinesData.Lines);
 
-                // When
-                input.GridDeterminationType = gridDeterminationType;
-                input.TangentLineDeterminationType = tangentLineDeterminationType;
-                input.NotifyObservers();
+                    // When
+                    input.GridDeterminationType = gridDeterminationType;
+                    input.TangentLineDeterminationType = tangentLineDeterminationType;
+                    input.NotifyObservers();
 
-                // Then
-                CollectionAssert.IsEmpty(tangentLinesData.Lines);
+                    // Then
+                    CollectionAssert.IsEmpty(tangentLinesData.Lines);
+                }
             }
 
             mocks.VerifyAll();
@@ -894,29 +932,35 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                 }
             };
 
-            using (var view = new MacroStabilityInwardsInputView(calculation,
-                                                                 assessmentSection,
-                                                                 GetHydraulicBoundaryLocationCalculation))
+            using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
-                ChartDataCollection chartData = view.Chart.Data;
+                var calculatorFactory = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
+                WaternetCalculatorStub calculatorStub = calculatorFactory.LastCreatedWaternetCalculator;
+                calculatorStub.Output = WaternetCalculatorResultTestFactory.CreateEmptyResult();
+                using (var view = new MacroStabilityInwardsInputView(calculation,
+                                                                     assessmentSection,
+                                                                     GetHydraulicBoundaryLocationCalculation))
+                {
+                    ChartDataCollection chartData = view.Chart.Data;
 
-                // Precondition
-                Assert.IsNotNull(chartData);
-                Assert.AreEqual(nrOfChartData, chartData.Collection.Count());
-                MacroStabilityInwardsViewChartDataAssert.AssertSoilProfileChartData(calculation.InputParameters.SoilProfileUnderSurfaceLine,
-                                                                                    stochasticSoilProfile.SoilProfile.Name,
-                                                                                    true,
-                                                                                    chartData.Collection.ElementAt(soilProfileIndex));
+                    // Precondition
+                    Assert.IsNotNull(chartData);
+                    Assert.AreEqual(nrOfChartData, chartData.Collection.Count());
+                    MacroStabilityInwardsViewChartDataAssert.AssertSoilProfileChartData(calculation.InputParameters.SoilProfileUnderSurfaceLine,
+                                                                                        stochasticSoilProfile.SoilProfile.Name,
+                                                                                        true,
+                                                                                        chartData.Collection.ElementAt(soilProfileIndex));
 
-                // When
-                calculation.InputParameters.SurfaceLine = null;
-                calculation.InputParameters.NotifyObservers();
+                    // When
+                    calculation.InputParameters.SurfaceLine = null;
+                    calculation.InputParameters.NotifyObservers();
 
-                // Then
-                MacroStabilityInwardsViewChartDataAssert.AssertSoilProfileChartData(calculation.InputParameters.SoilProfileUnderSurfaceLine,
-                                                                                    stochasticSoilProfile.SoilProfile.Name,
-                                                                                    true,
-                                                                                    chartData.Collection.ElementAt(soilProfileIndex));
+                    // Then
+                    MacroStabilityInwardsViewChartDataAssert.AssertSoilProfileChartData(calculation.InputParameters.SoilProfileUnderSurfaceLine,
+                                                                                        stochasticSoilProfile.SoilProfile.Name,
+                                                                                        true,
+                                                                                        chartData.Collection.ElementAt(soilProfileIndex));
+                }
             }
 
             mocks.VerifyAll();
@@ -942,26 +986,30 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                 }
             };
 
-            var macroStabilityInwardsCalculatorFactoryConfig = new MacroStabilityInwardsCalculatorFactoryConfig();
-
-            using (var view = new MacroStabilityInwardsInputView(calculation,
-                                                                 assessmentSection,
-                                                                 GetHydraulicBoundaryLocationCalculation))
+            using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
-                // Precondition
-                ChartData[] chartData = view.Chart.Data.Collection.ToArray();
-                MacroStabilityInwardsInputViewChartDataAssert.AssertWaternetChartData(DerivedMacroStabilityInwardsInput.GetWaternetDaily(calculation.InputParameters),
-                                                                                      (ChartDataCollection) chartData[waternetZonesDailyIndex]);
-                MacroStabilityInwardsInputViewChartDataAssert.AssertWaternetChartData(DerivedMacroStabilityInwardsInput.GetWaternetExtreme(calculation.InputParameters, RoundedDouble.NaN),
-                                                                                      (ChartDataCollection) chartData[waternetZonesExtremeIndex]);
+                var calculatorFactory = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
+                WaternetCalculatorStub calculatorStub = calculatorFactory.LastCreatedWaternetCalculator;
+                using (var view = new MacroStabilityInwardsInputView(calculation,
+                                                                     assessmentSection,
+                                                                     GetHydraulicBoundaryLocationCalculation))
+                {
+                    // Precondition
+                    ChartData[] chartData = view.Chart.Data.Collection.ToArray();
+                    calculatorStub.Output = WaternetCalculatorResultTestFactory.Create();
+                    MacroStabilityInwardsInputViewChartDataAssert.AssertWaternetChartData(DerivedMacroStabilityInwardsInput.GetWaternetDaily(calculation.InputParameters),
+                                                                                          (ChartDataCollection) chartData[waternetZonesDailyIndex]);
+                    MacroStabilityInwardsInputViewChartDataAssert.AssertWaternetChartData(DerivedMacroStabilityInwardsInput.GetWaternetExtreme(calculation.InputParameters, RoundedDouble.NaN),
+                                                                                          (ChartDataCollection) chartData[waternetZonesExtremeIndex]);
 
-                macroStabilityInwardsCalculatorFactoryConfig.Dispose();
+                    calculatorStub.Output = WaternetCalculatorResultTestFactory.CreateEmptyResult();
 
-                // When
-                calculation.InputParameters.NotifyObservers();
+                    // When
+                    calculation.InputParameters.NotifyObservers();
 
-                // Then
-                MacroStabilityInwardsInputViewChartDataAssert.AssertEmptyWaternetChartData(view.Chart.Data);
+                    // Then
+                    MacroStabilityInwardsInputViewChartDataAssert.AssertEmptyWaternetChartData(view.Chart.Data);
+                }
             }
 
             mocks.VerifyAll();
@@ -987,24 +1035,30 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                 }
             };
 
-            using (var view = new MacroStabilityInwardsInputView(calculation,
-                                                                 assessmentSection,
-                                                                 GetHydraulicBoundaryLocationCalculation))
+            using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
-                // Precondition
-                MacroStabilityInwardsInputViewChartDataAssert.AssertEmptyWaternetChartData(view.Chart.Data);
-
-                using (new MacroStabilityInwardsCalculatorFactoryConfig())
+                var calculatorFactory = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
+                WaternetCalculatorStub calculatorStub = calculatorFactory.LastCreatedWaternetCalculator;
+                calculatorStub.Output = WaternetCalculatorResultTestFactory.CreateEmptyResult();
+                using (var view = new MacroStabilityInwardsInputView(calculation,
+                                                                     assessmentSection,
+                                                                     GetHydraulicBoundaryLocationCalculation))
                 {
-                    // When
-                    calculation.InputParameters.NotifyObservers();
+                    // Precondition
+                    MacroStabilityInwardsInputViewChartDataAssert.AssertEmptyWaternetChartData(view.Chart.Data);
 
-                    // Then
-                    ChartData[] chartData = view.Chart.Data.Collection.ToArray();
-                    MacroStabilityInwardsInputViewChartDataAssert.AssertWaternetChartData(DerivedMacroStabilityInwardsInput.GetWaternetDaily(calculation.InputParameters),
-                                                                                          (ChartDataCollection) chartData[waternetZonesDailyIndex]);
-                    MacroStabilityInwardsInputViewChartDataAssert.AssertWaternetChartData(DerivedMacroStabilityInwardsInput.GetWaternetExtreme(calculation.InputParameters, RoundedDouble.NaN),
-                                                                                          (ChartDataCollection) chartData[waternetZonesExtremeIndex]);
+                    using (new MacroStabilityInwardsCalculatorFactoryConfig())
+                    {
+                        // When
+                        calculation.InputParameters.NotifyObservers();
+
+                        // Then
+                        ChartData[] chartData = view.Chart.Data.Collection.ToArray();
+                        MacroStabilityInwardsInputViewChartDataAssert.AssertWaternetChartData(DerivedMacroStabilityInwardsInput.GetWaternetDaily(calculation.InputParameters),
+                                                                                              (ChartDataCollection) chartData[waternetZonesDailyIndex]);
+                        MacroStabilityInwardsInputViewChartDataAssert.AssertWaternetChartData(DerivedMacroStabilityInwardsInput.GetWaternetExtreme(calculation.InputParameters, RoundedDouble.NaN),
+                                                                                              (ChartDataCollection) chartData[waternetZonesExtremeIndex]);
+                    }
                 }
             }
 
@@ -1032,24 +1086,31 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             };
 
             HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation = GetHydraulicBoundaryLocationCalculation();
-            using (var view = new MacroStabilityInwardsInputView(calculation,
-                                                                 assessmentSection,
-                                                                 () => hydraulicBoundaryLocationCalculation))
+
+            using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
-                // Precondition
-                MacroStabilityInwardsInputViewChartDataAssert.AssertEmptyWaternetChartData(view.Chart.Data);
-
-                using (new MacroStabilityInwardsCalculatorFactoryConfig())
+                var calculatorFactory = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
+                WaternetCalculatorStub calculatorStub = calculatorFactory.LastCreatedWaternetCalculator;
+                calculatorStub.Output = WaternetCalculatorResultTestFactory.CreateEmptyResult();
+                using (var view = new MacroStabilityInwardsInputView(calculation,
+                                                                     assessmentSection,
+                                                                     () => hydraulicBoundaryLocationCalculation))
                 {
-                    // When
-                    hydraulicBoundaryLocationCalculation.NotifyObservers();
+                    // Precondition
+                    MacroStabilityInwardsInputViewChartDataAssert.AssertEmptyWaternetChartData(view.Chart.Data);
 
-                    // Then
-                    ChartData[] chartData = view.Chart.Data.Collection.ToArray();
-                    MacroStabilityInwardsInputViewChartDataAssert.AssertWaternetChartData(DerivedMacroStabilityInwardsInput.GetWaternetDaily(calculation.InputParameters),
-                                                                                          (ChartDataCollection) chartData[waternetZonesDailyIndex]);
-                    MacroStabilityInwardsInputViewChartDataAssert.AssertWaternetChartData(DerivedMacroStabilityInwardsInput.GetWaternetExtreme(calculation.InputParameters, RoundedDouble.NaN),
-                                                                                          (ChartDataCollection) chartData[waternetZonesExtremeIndex]);
+                    using (new MacroStabilityInwardsCalculatorFactoryConfig())
+                    {
+                        // When
+                        hydraulicBoundaryLocationCalculation.NotifyObservers();
+
+                        // Then
+                        ChartData[] chartData = view.Chart.Data.Collection.ToArray();
+                        MacroStabilityInwardsInputViewChartDataAssert.AssertWaternetChartData(DerivedMacroStabilityInwardsInput.GetWaternetDaily(calculation.InputParameters),
+                                                                                              (ChartDataCollection) chartData[waternetZonesDailyIndex]);
+                        MacroStabilityInwardsInputViewChartDataAssert.AssertWaternetChartData(DerivedMacroStabilityInwardsInput.GetWaternetExtreme(calculation.InputParameters, RoundedDouble.NaN),
+                                                                                              (ChartDataCollection) chartData[waternetZonesExtremeIndex]);
+                    }
                 }
             }
 
@@ -1075,24 +1136,30 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             };
 
             HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation = GetHydraulicBoundaryLocationCalculation();
-            using (var view = new MacroStabilityInwardsInputView(calculation,
-                                                                 assessmentSection,
-                                                                 () => hydraulicBoundaryLocationCalculation))
+            using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
-                // Precondition
-                MacroStabilityInwardsInputViewChartDataAssert.AssertEmptyWaternetChartData(view.Chart.Data);
-
-                using (new MacroStabilityInwardsCalculatorFactoryConfig())
+                var calculatorFactory = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
+                WaternetCalculatorStub calculatorStub = calculatorFactory.LastCreatedWaternetCalculator;
+                calculatorStub.Output = WaternetCalculatorResultTestFactory.CreateEmptyResult();
+                using (var view = new MacroStabilityInwardsInputView(calculation,
+                                                                     assessmentSection,
+                                                                     () => hydraulicBoundaryLocationCalculation))
                 {
-                    // When
-                    assessmentSection.FailureMechanismContribution.NotifyObservers();
+                    // Precondition
+                    MacroStabilityInwardsInputViewChartDataAssert.AssertEmptyWaternetChartData(view.Chart.Data);
 
-                    // Then
-                    ChartData[] chartData = view.Chart.Data.Collection.ToArray();
-                    MacroStabilityInwardsInputViewChartDataAssert.AssertWaternetChartData(DerivedMacroStabilityInwardsInput.GetWaternetDaily(calculation.InputParameters),
-                                                                                          (ChartDataCollection) chartData[waternetZonesDailyIndex]);
-                    MacroStabilityInwardsInputViewChartDataAssert.AssertWaternetChartData(DerivedMacroStabilityInwardsInput.GetWaternetExtreme(calculation.InputParameters, RoundedDouble.NaN),
-                                                                                          (ChartDataCollection) chartData[waternetZonesExtremeIndex]);
+                    using (new MacroStabilityInwardsCalculatorFactoryConfig())
+                    {
+                        // When
+                        assessmentSection.FailureMechanismContribution.NotifyObservers();
+
+                        // Then
+                        ChartData[] chartData = view.Chart.Data.Collection.ToArray();
+                        MacroStabilityInwardsInputViewChartDataAssert.AssertWaternetChartData(DerivedMacroStabilityInwardsInput.GetWaternetDaily(calculation.InputParameters),
+                                                                                              (ChartDataCollection) chartData[waternetZonesDailyIndex]);
+                        MacroStabilityInwardsInputViewChartDataAssert.AssertWaternetChartData(DerivedMacroStabilityInwardsInput.GetWaternetExtreme(calculation.InputParameters, RoundedDouble.NaN),
+                                                                                              (ChartDataCollection) chartData[waternetZonesExtremeIndex]);
+                    }
                 }
             }
         }
@@ -1116,25 +1183,30 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                     StochasticSoilProfile = stochasticSoilProfile
                 }
             };
-
-            using (var view = new MacroStabilityInwardsInputView(calculation,
-                                                                 assessmentSection,
-                                                                 () => null))
+            using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
-                // Precondition
-                MacroStabilityInwardsInputViewChartDataAssert.AssertEmptyWaternetChartData(view.Chart.Data);
-
-                using (new MacroStabilityInwardsCalculatorFactoryConfig())
+                var calculatorFactory = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
+                WaternetCalculatorStub calculatorStub = calculatorFactory.LastCreatedWaternetCalculator;
+                calculatorStub.Output = WaternetCalculatorResultTestFactory.CreateEmptyResult();
+                using (var view = new MacroStabilityInwardsInputView(calculation,
+                                                                     assessmentSection,
+                                                                     () => null))
                 {
-                    // When
-                    calculation.InputParameters.NotifyObservers();
+                    // Precondition
+                    MacroStabilityInwardsInputViewChartDataAssert.AssertEmptyWaternetChartData(view.Chart.Data);
 
-                    // Then
-                    ChartData[] chartData = view.Chart.Data.Collection.ToArray();
-                    MacroStabilityInwardsInputViewChartDataAssert.AssertWaternetChartData(DerivedMacroStabilityInwardsInput.GetWaternetDaily(calculation.InputParameters),
-                                                                                          (ChartDataCollection) chartData[waternetZonesDailyIndex]);
-                    MacroStabilityInwardsInputViewChartDataAssert.AssertWaternetChartData(DerivedMacroStabilityInwardsInput.GetWaternetExtreme(calculation.InputParameters, RoundedDouble.NaN),
-                                                                                          (ChartDataCollection) chartData[waternetZonesExtremeIndex]);
+                    using (new MacroStabilityInwardsCalculatorFactoryConfig())
+                    {
+                        // When
+                        calculation.InputParameters.NotifyObservers();
+
+                        // Then
+                        ChartData[] chartData = view.Chart.Data.Collection.ToArray();
+                        MacroStabilityInwardsInputViewChartDataAssert.AssertWaternetChartData(DerivedMacroStabilityInwardsInput.GetWaternetDaily(calculation.InputParameters),
+                                                                                              (ChartDataCollection) chartData[waternetZonesDailyIndex]);
+                        MacroStabilityInwardsInputViewChartDataAssert.AssertWaternetChartData(DerivedMacroStabilityInwardsInput.GetWaternetExtreme(calculation.InputParameters, RoundedDouble.NaN),
+                                                                                              (ChartDataCollection) chartData[waternetZonesExtremeIndex]);
+                    }
                 }
             }
 

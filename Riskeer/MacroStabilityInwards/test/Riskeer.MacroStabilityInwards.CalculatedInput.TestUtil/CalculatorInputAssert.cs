@@ -129,7 +129,7 @@ namespace Riskeer.MacroStabilityInwards.CalculatedInput.TestUtil
                 Assert.AreEqual(expectedData.MaterialName, actual[i].MaterialName);
                 Assert.AreEqual(expectedData.UsePop, actual[i].UsePop);
                 Assert.AreEqual(expectedData.IsAquifer, actual[i].IsAquifer);
-                Assert.AreEqual(DilatancyType.Zero, actual[i].DilatancyType);
+                Assert.AreEqual(0.0, actual[i].Dilatancy);
                 Assert.AreEqual(WaterPressureInterpolationModel.Automatic, actual[i].WaterPressureInterpolationModel);
                 Assert.AreEqual(ConvertShearStrengthModel(expectedData.ShearStrengthModel), actual[i].ShearStrengthModel);
 

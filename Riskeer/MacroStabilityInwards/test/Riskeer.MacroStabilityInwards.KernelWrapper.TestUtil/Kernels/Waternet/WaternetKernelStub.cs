@@ -20,10 +20,12 @@
 // All rights reserved.
 
 using System;
-using Deltares.WTIStability;
-using Deltares.WTIStability.Data.Geo;
+using System.Collections.Generic;
+using Deltares.MacroStability.Geometry;
+using Deltares.MacroStability.Standard;
+using Deltares.MacroStability.WaternetCreator;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.Waternet;
-using WtiStabilityWaternet = Deltares.WTIStability.Data.Geo.Waternet;
+using WtiStabilityWaternet = Deltares.MacroStability.Geometry.Waternet;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.Waternet
 {
@@ -38,28 +40,49 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.Waternet
         public bool Calculated { get; private set; }
 
         /// <summary>
-        /// Indicator whether an exception must be thrown when performing the calculation.
+        /// Gets a value indicating whether <see cref="Validate"/> was called or not.
+        /// </summary>
+        public bool Validated { get; private set; }
+
+        /// <summary>
+        /// Gets or sets an indicator whether an exception must be thrown when performing the calculation.
         /// </summary>
         public bool ThrowExceptionOnCalculate { get; set; }
 
-        public StabilityLocation Location { get; set; }
+        /// <summary>
+        /// Gets or sets an indicator whether an exception must be thrown when performing the validation.
+        /// </summary>
+        public bool ThrowExceptionOnValidate { get; set; }
 
-        public SoilModel SoilModel { get; set; }
+        /// <summary>
+        /// Gets or sets an indicator whether a validation result must be returned when performing the validation.
+        /// </summary>
+        public bool ReturnValidationResults { get; set; }
 
-        public SoilProfile2D SoilProfile { get; set; }
+        /// <summary>
+        /// Gets the location.
+        /// </summary>
+        public Location Location { get; private set; }
 
-        public SurfaceLine2 SurfaceLine { get; set; }
+        /// <summary>
+        /// Gets the soil profile.
+        /// </summary>
+        public SoilProfile2D SoilProfile { get; private set; }
+
+        /// <summary>
+        /// Gets the surface line.
+        /// </summary>
+        public SurfaceLine2 SurfaceLine { get; private set; }
 
         public WtiStabilityWaternet Waternet { get; set; }
 
-        public void SetLocation(StabilityLocation stabilityLocation)
+        /// <summary>
+        /// Sets the location.
+        /// </summary>
+        /// <param name="location">The <see cref="Location"/> to set.</param>
+        public void SetLocation(Location location)
         {
-            Location = stabilityLocation;
-        }
-
-        public void SetSoilModel(SoilModel soilModel)
-        {
-            SoilModel = soilModel;
+            Location = location;
         }
 
         public void SetSoilProfile(SoilProfile2D soilProfile)
@@ -80,6 +103,24 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.Waternet
             }
 
             Calculated = true;
+        }
+
+        public IEnumerable<IValidationResult> Validate()
+        {
+            if (ThrowExceptionOnValidate)
+            {
+                throw new WaternetKernelWrapperException($"Message 1{Environment.NewLine}Message 2", new Exception());
+            }
+
+            if (ReturnValidationResults)
+            {
+                yield return new ValidationResult(ValidationResultType.Warning, "Validation Warning");
+                yield return new ValidationResult(ValidationResultType.Error, "Validation Error");
+                yield return new ValidationResult(ValidationResultType.Info, "Validation Info");
+                yield return new ValidationResult(ValidationResultType.Debug, "Validation Debug");
+            }
+
+            Validated = true;
         }
     }
 }

@@ -1344,7 +1344,6 @@ CREATE TABLE 'MacroStabilityInwardsCalculationOutputEntity'
 	'MacroStabilityInwardsCalculationOutputEntityId' INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
 	'MacroStabilityInwardsCalculationEntityId' INTEGER NOT NULL,
 	'FactorOfStability' REAL NULL,
-	'ZValue' REAL NULL,
 	'ForbiddenZonesXEntryMin' REAL NULL,
 	'ForbiddenZonesXEntryMax' REAL NULL,
 	'SlidingCurveLeftSlidingCircleCenterX' REAL NULL,

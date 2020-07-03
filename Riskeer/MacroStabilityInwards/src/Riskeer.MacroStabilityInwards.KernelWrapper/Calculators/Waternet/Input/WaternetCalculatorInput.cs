@@ -74,7 +74,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Input
             WaternetCreationMode = properties.WaternetCreationMode;
             PlLineCreationMethod = properties.PlLineCreationMethod;
             AssessmentLevel = properties.AssessmentLevel;
-            LandwardDirection = properties.LandwardDirection;
             SurfaceLine = properties.SurfaceLine;
             SoilProfile = properties.SoilProfile;
             DrainageConstruction = properties.DrainageConstruction;
@@ -107,7 +106,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Input
                 WaternetCreationMode = WaternetCreationMode.CreateWaternet;
                 PlLineCreationMethod = PlLineCreationMethod.RingtoetsWti2017;
                 AssessmentLevel = double.NaN;
-                LandwardDirection = LandwardDirection.PositiveX;
                 WaterLevelRiverAverage = double.NaN;
                 WaterLevelPolder = double.NaN;
                 MinimumLevelPhreaticLineAtDikeTopRiver = double.NaN;
@@ -139,11 +137,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Input
             /// [m+NAP]
             /// </summary>
             public double AssessmentLevel { internal get; set; }
-
-            /// <summary>
-            /// Gets or sets the landward direction of <see cref="SurfaceLine"/>.
-            /// </summary>
-            public LandwardDirection LandwardDirection { internal get; set; }
 
             /// <summary>
             /// Gets or sets the surface line.
@@ -261,11 +254,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Input
         /// [m+NAP]
         /// </summary>
         public double AssessmentLevel { get; }
-
-        /// <summary>
-        /// Gets the landward direction of <see cref="SurfaceLine"/>.
-        /// </summary>
-        public LandwardDirection LandwardDirection { get; }
 
         /// <summary>
         /// Gets the surface line.
