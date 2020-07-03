@@ -252,18 +252,18 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Damhoogte [m+NAP].
         /// </summary>
-        public static string GrassCoverErosionInwardsCalculation_Damheight {
+        public static string GrassCoverErosionInwardsCalculation_BreakWaterHeight {
             get {
-                return ResourceManager.GetString("GrassCoverErosionInwardsCalculation_Damheight", resourceCulture);
+                return ResourceManager.GetString("GrassCoverErosionInwardsCalculation_BreakWaterHeight", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Damtype.
         /// </summary>
-        public static string GrassCoverErosionInwardsCalculation_Damtype {
+        public static string GrassCoverErosionInwardsCalculation_BreakWaterType {
             get {
-                return ResourceManager.GetString("GrassCoverErosionInwardsCalculation_Damtype", resourceCulture);
+                return ResourceManager.GetString("GrassCoverErosionInwardsCalculation_BreakWaterType", resourceCulture);
             }
         }
         
@@ -279,9 +279,9 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Verwachtingswaarde kritiek overslagdebiet [m3/m/s].
         /// </summary>
-        public static string GrassCoverErosionInwardsCalculation_Expected_Critical_OvertoppingRate {
+        public static string GrassCoverErosionInwardsCalculation_Mean_Critical_FlowRate {
             get {
-                return ResourceManager.GetString("GrassCoverErosionInwardsCalculation_Expected_Critical_OvertoppingRate", resourceCulture);
+                return ResourceManager.GetString("GrassCoverErosionInwardsCalculation_Mean_Critical_FlowRate", resourceCulture);
             }
         }
         
@@ -297,18 +297,18 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Standaardafwijking kritiek overslagdebiet [m3/m/s].
         /// </summary>
-        public static string GrassCoverErosionInwardsCalculation_StandardDeviation_Critical_OvertoppingRate {
+        public static string GrassCoverErosionInwardsCalculation_StandardDeviation_Critical_FlowRate {
             get {
-                return ResourceManager.GetString("GrassCoverErosionInwardsCalculation_StandardDeviation_Critical_OvertoppingRate", resourceCulture);
+                return ResourceManager.GetString("GrassCoverErosionInwardsCalculation_StandardDeviation_Critical_FlowRate", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Gebruik dam.
         /// </summary>
-        public static string GrassCoverErosionInwardsCalculation_Use_Dam {
+        public static string GrassCoverErosionInwardsCalculation_Use_BreakWater {
             get {
-                return ResourceManager.GetString("GrassCoverErosionInwardsCalculation_Use_Dam", resourceCulture);
+                return ResourceManager.GetString("GrassCoverErosionInwardsCalculation_Use_BreakWater", resourceCulture);
             }
         }
         

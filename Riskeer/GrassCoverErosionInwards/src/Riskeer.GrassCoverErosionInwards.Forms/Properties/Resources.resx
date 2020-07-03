@@ -264,22 +264,22 @@
   <data name="GrassCoverErosionInwardsCalculation_Name_DisplayName" xml:space="preserve">
     <value>Naam</value>
   </data>
-  <data name="GrassCoverErosionInwardsCalculation_Use_Dam" xml:space="preserve">
+  <data name="GrassCoverErosionInwardsCalculation_Use_BreakWater" xml:space="preserve">
     <value>Gebruik dam</value>
   </data>
-  <data name="GrassCoverErosionInwardsCalculation_Damtype" xml:space="preserve">
+  <data name="GrassCoverErosionInwardsCalculation_BreakWaterType" xml:space="preserve">
     <value>Damtype</value>
   </data>
-  <data name="GrassCoverErosionInwardsCalculation_Damheight" xml:space="preserve">
+  <data name="GrassCoverErosionInwardsCalculation_BreakWaterHeight" xml:space="preserve">
     <value>Damhoogte [m+NAP]</value>
   </data>
   <data name="GrassCoverErosionInwardsCalculation_Use_ForeShoreGeometry" xml:space="preserve">
     <value>Gebruik voorlandgeometrie</value>
   </data>
-  <data name="GrassCoverErosionInwardsCalculation_Expected_Critical_OvertoppingRate" xml:space="preserve">
+  <data name="GrassCoverErosionInwardsCalculation_Mean_Critical_FlowRate" xml:space="preserve">
     <value>Verwachtingswaarde kritiek overslagdebiet [m3/m/s]</value>
   </data>
-  <data name="GrassCoverErosionInwardsCalculation_StandardDeviation_Critical_OvertoppingRate" xml:space="preserve">
+  <data name="GrassCoverErosionInwardsCalculation_StandardDeviation_Critical_FlowRate" xml:space="preserve">
     <value>Standaardafwijking kritiek overslagdebiet [m3/m/s]</value>
   </data>
   <data name="GrassCoverErosionInwardsCalculation_Dikeheight" xml:space="preserve">

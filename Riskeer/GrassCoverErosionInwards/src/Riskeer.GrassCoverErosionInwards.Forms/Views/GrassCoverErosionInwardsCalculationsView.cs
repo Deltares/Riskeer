@@ -207,19 +207,19 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
                 nameof(DataGridViewComboBoxItemWrapper<DikeProfile>.DisplayName));
 
             dataGridViewControl.AddCheckBoxColumn(nameof(GrassCoverErosionInwardsCalculationRow.UseBreakWater),
-                                                  Resources.GrassCoverErosionInwardsCalculation_Use_Dam);
+                                                  Resources.GrassCoverErosionInwardsCalculation_Use_BreakWater);
 
             IEnumerable<EnumDisplayWrapper<BreakWaterType>> dataSource = GetBreakWaterTypes().ToArray();
 
             dataGridViewControl.AddComboBoxColumn(nameof(GrassCoverErosionInwardsCalculationRow.BreakWaterType),
-                                                  Resources.GrassCoverErosionInwardsCalculation_Damtype,
+                                                  Resources.GrassCoverErosionInwardsCalculation_BreakWaterType,
                                                   dataSource,
                                                   nameof(EnumDisplayWrapper<BreakWaterType>.Value),
                                                   nameof(EnumDisplayWrapper<BreakWaterType>.DisplayName));
 
             dataGridViewControl.AddTextBoxColumn(
                 nameof(GrassCoverErosionInwardsCalculationRow.BreakWaterHeight),
-                Resources.GrassCoverErosionInwardsCalculation_Damheight);
+                Resources.GrassCoverErosionInwardsCalculation_BreakWaterHeight);
 
             dataGridViewControl.AddCheckBoxColumn(nameof(GrassCoverErosionInwardsCalculationRow.UseForeShoreGeometry),
                                                   Resources.GrassCoverErosionInwardsCalculation_Use_ForeShoreGeometry);
@@ -230,11 +230,11 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
 
             dataGridViewControl.AddTextBoxColumn(
                 nameof(GrassCoverErosionInwardsCalculationRow.MeanCriticalFlowRate),
-                Resources.GrassCoverErosionInwardsCalculation_Expected_Critical_OvertoppingRate);
+                Resources.GrassCoverErosionInwardsCalculation_Mean_Critical_FlowRate);
 
             dataGridViewControl.AddTextBoxColumn(
                 nameof(GrassCoverErosionInwardsCalculationRow.StandardDeviationCriticalFlowRate),
-                Resources.GrassCoverErosionInwardsCalculation_StandardDeviation_Critical_OvertoppingRate);
+                Resources.GrassCoverErosionInwardsCalculation_StandardDeviation_Critical_FlowRate);
 
             UpdateSelectableHydraulicBoundaryLocationsColumn();
             UpdateDikeProfilesColumn();
