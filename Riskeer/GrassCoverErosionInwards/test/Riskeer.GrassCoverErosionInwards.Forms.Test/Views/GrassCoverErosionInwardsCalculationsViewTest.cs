@@ -554,8 +554,10 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
         }
 
         [Test]
-        [TestCase(1e-6, meanCriticalFlowRateColumnIndex)]
-        public void GrassCoverErosionInwardsCalculationsView_InvalidEntryOrExitPoint_ShowsErrorTooltip(double newValue, int cellIndex)
+        [TestCase(0)]
+        [TestCase(-123.45)]
+        [TestCase(1e-5)]
+        public void GrassCoverErosionInwardsCalculationsView_InvalidMeanCriticalFlowRate_ShowsErrorTooltip(double newValue)
         {
             // Setup
             var mocks = new MockRepository();
@@ -578,10 +580,43 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
                 // Call
-                dataGridView.Rows[0].Cells[cellIndex].Value = newRoundedvalue;
+                dataGridView.Rows[0].Cells[meanCriticalFlowRateColumnIndex].Value = newRoundedvalue;
 
                 // Assert
                 Assert.AreEqual("Gemiddelde moet groter zijn dan 0.", dataGridView.Rows[0].ErrorText);
+            }
+
+            mocks.VerifyAll(); // No observer notified
+        }
+
+        [Test]
+        public void GrassCoverErosionInwardsCalculationsView_InvalidStandardDeviationCriticalFlowRate_ShowsErrorTooltip()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var grassCoverErosionInwardsCalculationObserver = mocks.StrictMock<IObserver>();
+            var grassCoverErosionInwardsInputObserver = mocks.StrictMock<IObserver>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var newRoundedvalue = (RoundedDouble) (-123.45);
+
+            using (GrassCoverErosionInwardsCalculationsView grassCoverErosionInwardsCalculationsView = ShowFullyConfiguredGrassCoverErosionInwardsCalculationsView(
+                assessmentSection))
+            {
+                var data = (CalculationGroup)grassCoverErosionInwardsCalculationsView.Data;
+                var grassCoverErosionInwardsCalculation = (GrassCoverErosionInwardsCalculationScenario)data.Children.First();
+
+                grassCoverErosionInwardsCalculation.Attach(grassCoverErosionInwardsCalculationObserver);
+                grassCoverErosionInwardsCalculation.InputParameters.Attach(grassCoverErosionInwardsInputObserver);
+
+                var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+
+                // Call
+                dataGridView.Rows[0].Cells[standardDeviationCriticalFlowRateColumnIndex].Value = newRoundedvalue;
+
+                // Assert
+                Assert.AreEqual("Standaardafwijking (σ) moet groter zijn dan of gelijk zijn aan 0.", dataGridView.Rows[0].ErrorText);
             }
 
             mocks.VerifyAll(); // No observer notified
