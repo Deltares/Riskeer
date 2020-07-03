@@ -54,9 +54,9 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
         private const int nameColumnIndex = 0;
         private const int selectableHydraulicBoundaryLocationsColumnIndex = 1;
         private const int dikeProfileColumnIndex = 2;
-        private const int useDamColumnIndex = 3;
-        private const int damTypeColumnIndex = 4;
-        private const int damHeightColumnIndex = 5;
+        private const int useBreakWaterColumnIndex = 3;
+        private const int breakWaterTypeColumnIndex = 4;
+        private const int breakWaterHeightColumnIndex = 5;
         private const int useForeShoreGeometryColumnIndex = 6;
         private const int dikeHeightColumnIndex = 7;
         private const int meanCriticalFlowRateColumnIndex = 8;
@@ -109,9 +109,9 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
                 Assert.AreEqual("Naam", dataGridView.Columns[nameColumnIndex].HeaderText);
                 Assert.AreEqual("Hydraulische belastingenlocatie", dataGridView.Columns[selectableHydraulicBoundaryLocationsColumnIndex].HeaderText);
                 Assert.AreEqual("Dijkprofiel", dataGridView.Columns[dikeProfileColumnIndex].HeaderText);
-                Assert.AreEqual("Gebruik dam", dataGridView.Columns[useDamColumnIndex].HeaderText);
-                Assert.AreEqual("Damtype", dataGridView.Columns[damTypeColumnIndex].HeaderText);
-                Assert.AreEqual("Damhoogte [m+NAP]", dataGridView.Columns[damHeightColumnIndex].HeaderText);
+                Assert.AreEqual("Gebruik dam", dataGridView.Columns[useBreakWaterColumnIndex].HeaderText);
+                Assert.AreEqual("Damtype", dataGridView.Columns[breakWaterTypeColumnIndex].HeaderText);
+                Assert.AreEqual("Damhoogte [m+NAP]", dataGridView.Columns[breakWaterHeightColumnIndex].HeaderText);
                 Assert.AreEqual("Gebruik voorlandgeometrie", dataGridView.Columns[useForeShoreGeometryColumnIndex].HeaderText);
                 Assert.AreEqual("Dijkhoogte [m+NAP]", dataGridView.Columns[dikeHeightColumnIndex].HeaderText);
                 Assert.AreEqual("Verwachtingswaarde kritiek overslagdebiet [m3/m/s]", dataGridView.Columns[meanCriticalFlowRateColumnIndex].HeaderText);
@@ -342,9 +342,9 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
                 Assert.AreEqual("Calculation 1", cells[nameColumnIndex].FormattedValue);
                 Assert.AreEqual("<selecteer>", cells[selectableHydraulicBoundaryLocationsColumnIndex].FormattedValue);
                 Assert.AreEqual("name", cells[dikeProfileColumnIndex].FormattedValue);
-                Assert.AreEqual(true, cells[useDamColumnIndex].FormattedValue);
-                Assert.AreEqual("Havendam", cells[damTypeColumnIndex].FormattedValue);
-                Assert.AreEqual(3.30.ToString("0.00", CultureInfo.CurrentCulture), cells[damHeightColumnIndex].FormattedValue);
+                Assert.AreEqual(true, cells[useBreakWaterColumnIndex].FormattedValue);
+                Assert.AreEqual("Havendam", cells[breakWaterTypeColumnIndex].FormattedValue);
+                Assert.AreEqual(3.30.ToString("0.00", CultureInfo.CurrentCulture), cells[breakWaterHeightColumnIndex].FormattedValue);
                 Assert.AreEqual(false, cells[useForeShoreGeometryColumnIndex].FormattedValue);
                 Assert.AreEqual(1.10.ToString("0.00", CultureInfo.CurrentCulture), cells[dikeHeightColumnIndex].FormattedValue);
                 Assert.AreEqual(4.4000.ToString("0.0000", CultureInfo.CurrentCulture), cells[meanCriticalFlowRateColumnIndex].FormattedValue);
@@ -431,11 +431,11 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
         }
 
         [Test]
-        [TestCase("test", damHeightColumnIndex)]
+        [TestCase("test", breakWaterHeightColumnIndex)]
         [TestCase("test", dikeHeightColumnIndex)]
         [TestCase("test", meanCriticalFlowRateColumnIndex)]
         [TestCase("test", standardDeviationCriticalFlowRateColumnIndex)]
-        [TestCase(";/[].,~!@#$%^&*()_-+={}|?", damHeightColumnIndex)]
+        [TestCase(";/[].,~!@#$%^&*()_-+={}|?", breakWaterHeightColumnIndex)]
         [TestCase(";/[].,~!@#$%^&*()_-+={}|?", dikeHeightColumnIndex)]
         [TestCase(";/[].,~!@#$%^&*()_-+={}|?", meanCriticalFlowRateColumnIndex)]
         [TestCase(";/[].,~!@#$%^&*()_-+={}|?", standardDeviationCriticalFlowRateColumnIndex)]
@@ -461,10 +461,10 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
         }
 
         [Test]
-        [TestCase(1, damHeightColumnIndex)]
-        [TestCase(1e-2, damHeightColumnIndex)]
-        [TestCase(1e+6, damHeightColumnIndex)]
-        [TestCase(14.3, damHeightColumnIndex)]
+        [TestCase(1, breakWaterHeightColumnIndex)]
+        [TestCase(1e-2, breakWaterHeightColumnIndex)]
+        [TestCase(1e+6, breakWaterHeightColumnIndex)]
+        [TestCase(14.3, breakWaterHeightColumnIndex)]
         [TestCase(1, dikeHeightColumnIndex)]
         [TestCase(1e-6, dikeHeightColumnIndex)]
         [TestCase(1e+6, dikeHeightColumnIndex)]
@@ -623,18 +623,14 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
         }
 
         [Test]
-        // [TestCase(stochasticSoilProfilesColumnIndex, null, true)]
-        // [TestCase(stochasticSoilProfilesColumnIndex, null, false)]
-        [TestCase(selectableHydraulicBoundaryLocationsColumnIndex, null, true)]
-        [TestCase(selectableHydraulicBoundaryLocationsColumnIndex, null, false)]
-        // [TestCase(dampingFactorExitMeanColumnIndex, 1.1, true)]
-        // [TestCase(dampingFactorExitMeanColumnIndex, 1.1, false)]
-        // [TestCase(phreaticLevelExitMeanColumnIndex, 1.1, true)]
-        // [TestCase(phreaticLevelExitMeanColumnIndex, 1.1, false)]
-        // [TestCase(entryPointLColumnIndex, 1.1, true)]
-        // [TestCase(entryPointLColumnIndex, 1.1, false)]
-        // [TestCase(exitPointLColumnIndex, 8.0, true)]
-        // [TestCase(exitPointLColumnIndex, 8.0, false)]
+        [TestCase(breakWaterHeightColumnIndex, 8.0, true)]
+        [TestCase(breakWaterHeightColumnIndex, 8.0, false)]
+        [TestCase(dikeHeightColumnIndex, 8.0, true)]
+        [TestCase(dikeHeightColumnIndex, 8.0, false)]
+        [TestCase(meanCriticalFlowRateColumnIndex, 8.0, true)]
+        [TestCase(meanCriticalFlowRateColumnIndex, 8.0, false)]
+        [TestCase(standardDeviationCriticalFlowRateColumnIndex, 8.0, true)]
+        [TestCase(standardDeviationCriticalFlowRateColumnIndex, 8.0, false)]
         public void GrassCoverErosionInwardsCalculationsView_EditingPropertyViaDataGridView_ObserversCorrectlyNotified(
     int cellIndex,
     object newValue,
