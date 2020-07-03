@@ -21,19 +21,11 @@
 
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using Deltares.MacroStability.Data;
 using Deltares.MacroStability.Geometry;
-using Deltares.MacroStability.Interface;
-using Deltares.MacroStability.Io;
-using Deltares.MacroStability.Io.XmlInput;
-using Deltares.MacroStability.Kernel;
-using Deltares.MacroStability.Preprocessing;
 using Deltares.MacroStability.Standard;
 using Deltares.MacroStability.WaternetCreator;
 using Deltares.WTIStability.Calculation.Wrapper;
-using log4net;
 using WtiStabilityWaternet = Deltares.MacroStability.Geometry.Waternet;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.Waternet
@@ -43,12 +35,9 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.Waternet
     /// </summary>
     internal class WaternetKernelWrapper : IWaternetKernel
     {
-        private readonly ILog log = LogManager.GetLogger(typeof(WaternetKernelWrapper));
-
         private const double unitWeightWater = 9.81;
         private readonly Location location;
         private readonly WaternetCreator waternetCreator;
-        private IList<Soil> soilModel;
 
         /// <summary>
         /// Creates a new instance of <see cref="WaternetKernelWrapper"/>.
@@ -82,19 +71,12 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.Waternet
             location.Surfaceline = surfaceLine;
         }
 
-        public void SetSoilModel(IList<Soil> soilModel)
-        {
-            this.soilModel = soilModel;
-        }
-
         public void Calculate()
         {
             CheckIfWaternetCanBeGenerated();
 
             try
             {
-                WriteXmlFile();
-
                 waternetCreator.UpdateWaternet(Waternet, location);
 
                 ReadLogMessages(waternetCreator.LogMessages);
@@ -117,44 +99,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.Waternet
             {
                 throw new WaternetKernelWrapperException(e.Message, e);
             }
-        }
-
-        private void WriteXmlFile()
-        {
-            var model = new KernelModel
-            {
-                StabilityModel =
-                {
-                    ConstructionStages =
-                    {
-                        new ConstructionStage
-                        {
-                            SoilProfile = location.SoilProfile2D
-                        }
-                    }
-                },
-                PreprocessingModel =
-                {
-                    PreProcessingConstructionStages =
-                    {
-                        new PreprocessingConstructionStage
-                        {
-                            Locations =
-                            {
-                                location
-                            },
-                            SurfaceLine = location.Surfaceline
-                        }
-                    }
-                }
-            };
-            model.StabilityModel.Soils.AddRange(soilModel);
-
-            FullInputModelType fullInputModel = FillXmlInputFromDomain.CreateStabilityInput(model);
-            string filePath = Path.Combine(Path.GetTempPath(), $"XmlFileWaternet-{DateTime.Now.Ticks}.txt");
-
-            MacroStabilityXmlSerialization.SaveInputAsXmlFile(filePath, fullInputModel);
-            log.Info($"Het Xml bestand is geschreven naar: {filePath}");
         }
 
         /// <summary>

@@ -55,11 +55,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.Waternet
         void SetSurfaceLine(SurfaceLine2 surfaceLine);
 
         /// <summary>
-        /// Sets the soil model.
-        /// </summary>
-        void SetSoilModel(IList<Soil> soilModel);
-
-        /// <summary>
         /// Performs the Waternet calculation.
         /// </summary>
         /// <exception cref="WaternetKernelWrapperException">Thrown when

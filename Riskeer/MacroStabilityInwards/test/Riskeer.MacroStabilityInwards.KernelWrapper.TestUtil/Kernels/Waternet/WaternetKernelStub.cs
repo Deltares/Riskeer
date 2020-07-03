@@ -95,8 +95,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.Waternet
             SurfaceLine = surfaceLine;
         }
 
-        public void SetSoilModel(IList<Soil> soilModel) {}
-
         public void Calculate()
         {
             if (ThrowExceptionOnCalculate)
