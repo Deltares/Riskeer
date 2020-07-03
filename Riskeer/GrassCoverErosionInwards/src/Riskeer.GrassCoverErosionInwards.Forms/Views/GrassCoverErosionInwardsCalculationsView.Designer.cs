@@ -38,6 +38,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GrassCoverErosionInwardsCalculationsView));
             this.tableLayoutPanelUserControl = new System.Windows.Forms.TableLayoutPanel();
+            this.label1 = new System.Windows.Forms.Label();
             this.splitContainer = new System.Windows.Forms.SplitContainer();
             this.tableLayoutPanelListBox = new System.Windows.Forms.TableLayoutPanel();
             this.listBox = new System.Windows.Forms.ListBox();
@@ -58,9 +59,15 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
             // tableLayoutPanelUserControl
             // 
             resources.ApplyResources(this.tableLayoutPanelUserControl, "tableLayoutPanelUserControl");
+            this.tableLayoutPanelUserControl.Controls.Add(this.label1, 0, 2);
             this.tableLayoutPanelUserControl.Controls.Add(this.splitContainer, 0, 0);
             this.tableLayoutPanelUserControl.Controls.Add(this.buttonGenerateCalculations, 0, 1);
             this.tableLayoutPanelUserControl.Name = "tableLayoutPanelUserControl";
+            // 
+            // label1
+            // 
+            resources.ApplyResources(this.label1, "label1");
+            this.label1.Name = "label1";
             // 
             // splitContainer
             // 
@@ -151,5 +158,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
         private System.Windows.Forms.Label labelCalculations;
         private Core.Common.Controls.DataGrid.DataGridViewControl dataGridViewControl;
         private System.Windows.Forms.Button buttonGenerateCalculations;
+        private System.Windows.Forms.Label label1;
     }
 }
