@@ -343,7 +343,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
                 Assert.AreEqual("Calculation 1", cells[nameColumnIndex].FormattedValue);
                 Assert.AreEqual("<selecteer>", cells[selectableHydraulicBoundaryLocationsColumnIndex].FormattedValue);
                 Assert.AreEqual("name", cells[dikeProfileColumnIndex].FormattedValue);
-                Assert.AreEqual(true, cells[useBreakWaterColumnIndex].FormattedValue);
+                Assert.AreEqual(false, cells[useBreakWaterColumnIndex].FormattedValue);
                 Assert.AreEqual("Havendam", cells[breakWaterTypeColumnIndex].FormattedValue);
                 Assert.AreEqual(3.30.ToString("0.00", CultureInfo.CurrentCulture), cells[breakWaterHeightColumnIndex].FormattedValue);
                 Assert.AreEqual(false, cells[useForeShoreGeometryColumnIndex].FormattedValue);
