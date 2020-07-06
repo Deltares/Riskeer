@@ -486,8 +486,8 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
             if (assessmentSection != null)
             {
                 grassCoverErosionInwardsFailureMechanism = assessmentSection.GetFailureMechanisms()
-                                                          .OfType<GrassCoverErosionInwardsFailureMechanism>()
-                                                          .FirstOrDefault();
+                                                                            .OfType<GrassCoverErosionInwardsFailureMechanism>()
+                                                                            .FirstOrDefault();
             }
 
             return grassCoverErosionInwardsFailureMechanism != null && ReferenceEquals(view.Data, grassCoverErosionInwardsFailureMechanism.CalculationsGroup);
@@ -668,7 +668,8 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
             IInquiryHelper inquiryHelper = GetInquiryHelper();
 
             var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
-            builder.AddImportItem()
+            builder.AddOpenItem()
+                   .AddImportItem()
                    .AddExportItem()
                    .AddSeparator();
 
@@ -822,7 +823,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
             var parentGroupContext = (GrassCoverErosionInwardsCalculationGroupContext) parentNodeData;
 
             parentGroupContext.WrappedData.Children.Remove(context.WrappedData);
-            
+
             parentGroupContext.NotifyObservers();
         }
 
