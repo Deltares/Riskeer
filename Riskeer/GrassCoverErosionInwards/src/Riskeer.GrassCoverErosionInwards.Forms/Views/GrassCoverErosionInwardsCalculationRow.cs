@@ -20,11 +20,13 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using Core.Common.Base.Data;
 using Core.Common.Controls.DataGrid;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Forms.ChangeHandlers;
+using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Forms.PropertyClasses;
 using Riskeer.GrassCoverErosionInwards.Data;
@@ -34,8 +36,10 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
     /// <summary>
     /// This class represents a row in the <see cref="GrassCoverErosionInwardsCalculationsView"/>.
     /// </summary>
-    internal class GrassCoverErosionInwardsCalculationRow
+    internal class GrassCoverErosionInwardsCalculationRow : IHasColumnStateDefinitions
     {
+        private const int breakWaterTypeColumnIndex = 4;
+        private const int breakWaterHeightColumnIndex = 5;
         private readonly IObservablePropertyChangeHandler propertyChangeHandler;
 
         /// <summary>
@@ -59,6 +63,9 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
 
             GrassCoverErosionInwardsCalculationScenario = grassCoverErosionInwardsCalculationScenario;
             propertyChangeHandler = handler;
+            ColumnStateDefinitions = new Dictionary<int, DataGridViewColumnStateDefinition>();
+            CreateColumnStateDefinitions();
+            UpdateColumnStateDefinitions();
         }
 
         /// <summary>
@@ -141,6 +148,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
                 if (!GrassCoverErosionInwardsCalculationScenario.InputParameters.UseBreakWater.Equals(value))
                 {
                     PropertyChangeHelper.ChangePropertyAndNotify(() => GrassCoverErosionInwardsCalculationScenario.InputParameters.UseBreakWater = value, propertyChangeHandler);
+                    UpdateColumnStateDefinitions();
                 }
             }
         }
@@ -250,6 +258,28 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
                 {
                     PropertyChangeHelper.ChangePropertyAndNotify(() => GrassCoverErosionInwardsCalculationScenario.InputParameters.CriticalFlowRate.StandardDeviation = value, propertyChangeHandler);
                 }
+            }
+        }
+
+        public IDictionary<int, DataGridViewColumnStateDefinition> ColumnStateDefinitions { get; }
+
+        private void CreateColumnStateDefinitions()
+        {
+            ColumnStateDefinitions.Add(breakWaterTypeColumnIndex, new DataGridViewColumnStateDefinition());
+            ColumnStateDefinitions.Add(breakWaterHeightColumnIndex, new DataGridViewColumnStateDefinition());
+        }
+
+        private void UpdateColumnStateDefinitions()
+        {
+            if (!UseBreakWater)
+            {
+                FailureMechanismSectionResultRowHelper.DisableColumn(ColumnStateDefinitions[breakWaterTypeColumnIndex]);
+                FailureMechanismSectionResultRowHelper.DisableColumn(ColumnStateDefinitions[breakWaterHeightColumnIndex]);
+            }
+            else
+            {
+                FailureMechanismSectionResultRowHelper.EnableColumn(ColumnStateDefinitions[breakWaterTypeColumnIndex]);
+                FailureMechanismSectionResultRowHelper.EnableColumn(ColumnStateDefinitions[breakWaterHeightColumnIndex]);
             }
         }
     }

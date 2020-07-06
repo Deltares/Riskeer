@@ -41,6 +41,7 @@ using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
+using Riskeer.Common.Forms.TestUtil;
 using Riskeer.GrassCoverErosionInwards.Data;
 using Riskeer.GrassCoverErosionInwards.Data.TestUtil;
 using Riskeer.GrassCoverErosionInwards.Forms.PresentationObjects;
@@ -694,6 +695,32 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
         }
 
         [Test]
+        [TestCase(true, false)]
+        [TestCase(false, true)]
+        public void GrassCoverErosionInwardsCalculationsView_UseBreakWaterState_HasCorrespondingColumnState(bool newValue, bool expectedState)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            using (ShowFullyConfiguredGrassCoverErosionInwardsCalculationsView(
+                assessmentSection))
+            {
+                var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+
+                // Call
+                dataGridView.Rows[0].Cells[useBreakWaterColumnIndex].Value = newValue;
+
+                // Assert
+                Assert.AreEqual(expectedState,dataGridView.Rows[0].Cells[breakWaterTypeColumnIndex].ReadOnly);
+                Assert.AreEqual(expectedState,dataGridView.Rows[0].Cells[breakWaterHeightColumnIndex].ReadOnly);
+            }
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
         [TestCase(0)]
         [TestCase(1)]
         public void Selection_Always_ReturnsTheSelectedRowObject(int selectedRow)
@@ -847,7 +874,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
                                 Mean = (RoundedDouble) 4.4,
                                 StandardDeviation = (RoundedDouble) 5.5
                             },
-                            UseBreakWater = true,
+                            UseBreakWater = false,
                             UseForeshore = false,
                             ShouldDikeHeightIllustrationPointsBeCalculated = random.NextBoolean(),
                             ShouldOvertoppingOutputIllustrationPointsBeCalculated = random.NextBoolean(),
@@ -880,7 +907,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
                                 Mean = (RoundedDouble) 4.4,
                                 StandardDeviation = (RoundedDouble) 5.5
                             },
-                            UseBreakWater = true,
+                            UseBreakWater = false,
                             UseForeshore = false,
                             ShouldDikeHeightIllustrationPointsBeCalculated = random.NextBoolean(),
                             ShouldOvertoppingOutputIllustrationPointsBeCalculated = random.NextBoolean(),

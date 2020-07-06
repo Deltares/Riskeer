@@ -162,6 +162,13 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
             // Necessary to correctly load the content of the dropdown lists of the comboboxes...
             UpdateDataGridViewDataSource();
             base.OnLoad(e);
+
+            dataGridViewControl.CellFormatting += HandleCellStyling;
+        }
+
+        private void HandleCellStyling(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            dataGridViewControl.FormatCellWithColumnStateDefinition(e.RowIndex, e.ColumnIndex);
         }
 
         protected override void Dispose(bool disposing)
@@ -412,7 +419,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
         #endregion
 
         #region Prefill combo box list items
-
+        
         private void PrefillComboBoxListItemsAtColumnLevel()
         {
             var selectableHydraulicBoundaryLocationColumn = (DataGridViewComboBoxColumn) dataGridViewControl.GetColumnFromIndex(selectableHydraulicBoundaryLocationColumnIndex);
@@ -448,7 +455,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
             {
                 return null;
             }
-
+            
             List<HydraulicBoundaryLocation> hydraulicBoundaryLocations = assessmentSection.HydraulicBoundaryDatabase.Locations;
 
             return hydraulicBoundaryLocations.Select(hbl => new SelectableHydraulicBoundaryLocation(hbl, null)).ToList();
