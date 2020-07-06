@@ -76,7 +76,6 @@ namespace Riskeer.Storage.Core.Test.Create.ClosingStructures
             Assert.AreEqual(tailorMadeAssessmentProbability, entity.TailorMadeAssessmentProbability);
             Assert.AreEqual(Convert.ToByte(useManualAssembly), entity.UseManualAssembly);
             Assert.AreEqual(manualAssemblyProbability, entity.ManualAssemblyProbability);
-            Assert.IsNull(entity.ClosingStructuresCalculationEntityId);
         }
 
         [Test]

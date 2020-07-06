@@ -34,7 +34,6 @@ namespace Riskeer.Storage.Core.DbContext
     {
         public long ClosingStructuresSectionResultEntityId { get; set; }
         public long FailureMechanismSectionEntityId { get; set; }
-        public long? ClosingStructuresCalculationEntityId { get; set; }
         public byte SimpleAssessmentResult { get; set; }
         public byte DetailedAssessmentResult { get; set; }
         public byte TailorMadeAssessmentResult { get; set; }
@@ -42,7 +41,6 @@ namespace Riskeer.Storage.Core.DbContext
         public byte UseManualAssembly { get; set; }
         public double? ManualAssemblyProbability { get; set; }
 
-        public virtual ClosingStructuresCalculationEntity ClosingStructuresCalculationEntity { get; set; }
         public virtual FailureMechanismSectionEntity FailureMechanismSectionEntity { get; set; }
     }
 }

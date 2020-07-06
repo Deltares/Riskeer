@@ -142,6 +142,8 @@
           <Property Name="StormDurationMean" Type="real" />
           <Property Name="FactorStormDurationOpenStructure" Type="real" />
           <Property Name="ShouldIllustrationPointsBeCalculated" Type="tinyint" Nullable="false" />
+          <Property Name="RelevantForScenario" Type="tinyint" Nullable="false" />
+          <Property Name="ScenarioContribution" Type="real" />
         </EntityType>
         <EntityType Name="ClosingStructuresFailureMechanismMetaEntity">
           <Key>
@@ -168,7 +170,6 @@
           </Key>
           <Property Name="ClosingStructuresSectionResultEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FailureMechanismSectionEntityId" Type="integer" Nullable="false" />
-          <Property Name="ClosingStructuresCalculationEntityId" Type="integer" />
           <Property Name="SimpleAssessmentResult" Type="tinyint" Nullable="false" />
           <Property Name="DetailedAssessmentResult" Type="tinyint" Nullable="false" />
           <Property Name="TailorMadeAssessmentResult" Type="tinyint" Nullable="false" />
@@ -1806,18 +1807,6 @@
             </Principal>
             <Dependent Role="ClosingStructuresSectionResultEntity">
               <PropertyRef Name="FailureMechanismSectionEntityId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ClosingStructuresSectionResultEntity_1_0">
-          <End Role="ClosingStructuresCalculationEntity" Type="Self.ClosingStructuresCalculationEntity" Multiplicity="0..1" />
-          <End Role="ClosingStructuresSectionResultEntity" Type="Self.ClosingStructuresSectionResultEntity" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ClosingStructuresCalculationEntity">
-              <PropertyRef Name="ClosingStructuresCalculationEntityId" />
-            </Principal>
-            <Dependent Role="ClosingStructuresSectionResultEntity">
-              <PropertyRef Name="ClosingStructuresCalculationEntityId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -3577,10 +3566,6 @@
             <End Role="FailureMechanismSectionEntity" EntitySet="FailureMechanismSectionEntity" />
             <End Role="ClosingStructuresSectionResultEntity" EntitySet="ClosingStructuresSectionResultEntity" />
           </AssociationSet>
-          <AssociationSet Name="FK_ClosingStructuresSectionResultEntity_1_0" Association="Self.FK_ClosingStructuresSectionResultEntity_1_0">
-            <End Role="ClosingStructuresCalculationEntity" EntitySet="ClosingStructuresCalculationEntity" />
-            <End Role="ClosingStructuresSectionResultEntity" EntitySet="ClosingStructuresSectionResultEntity" />
-          </AssociationSet>
           <AssociationSet Name="FK_DikeProfileEntity_0_0" Association="Self.FK_DikeProfileEntity_0_0">
             <End Role="FailureMechanismEntity" EntitySet="FailureMechanismEntity" />
             <End Role="DikeProfileEntity" EntitySet="DikeProfileEntity" />
@@ -4325,10 +4310,6 @@
             <End Role="ClosingStructuresCalculationEntity" EntitySet="ClosingStructuresCalculationEntities" />
             <End Role="ClosingStructuresOutputEntity" EntitySet="ClosingStructuresOutputEntities" />
           </AssociationSet>
-          <AssociationSet Name="FK_ClosingStructuresSectionResultEntity_1_0" Association="RiskeerEntitiesModel.FK_ClosingStructuresSectionResultEntity_1_0">
-            <End Role="ClosingStructuresCalculationEntity" EntitySet="ClosingStructuresCalculationEntities" />
-            <End Role="ClosingStructuresSectionResultEntity" EntitySet="ClosingStructuresSectionResultEntities" />
-          </AssociationSet>
           <AssociationSet Name="FK_ClosingStructuresFailureMechanismMetaEntity_0_0" Association="RiskeerEntitiesModel.FK_ClosingStructuresFailureMechanismMetaEntity_0_0">
             <End Role="FailureMechanismEntity" EntitySet="FailureMechanismEntities" />
             <End Role="ClosingStructuresFailureMechanismMetaEntity" EntitySet="ClosingStructuresFailureMechanismMetaEntities" />
@@ -4965,12 +4946,13 @@
           <Property Name="StormDurationMean" Type="Double" />
           <Property Name="FactorStormDurationOpenStructure" Type="Double" />
           <Property Name="ShouldIllustrationPointsBeCalculated" Type="Byte" Nullable="false" />
+          <Property Name="RelevantForScenario" Type="Byte" Nullable="false" />
+          <Property Name="ScenarioContribution" Type="Double" />
           <NavigationProperty Name="CalculationGroupEntity" Relationship="RiskeerEntitiesModel.FK_ClosingStructuresCalculationEntity_3_0" FromRole="ClosingStructuresCalculationEntity" ToRole="CalculationGroupEntity" />
           <NavigationProperty Name="ClosingStructureEntity" Relationship="RiskeerEntitiesModel.FK_ClosingStructuresCalculationEntity_2_0" FromRole="ClosingStructuresCalculationEntity" ToRole="ClosingStructureEntity" />
           <NavigationProperty Name="HydraulicLocationEntity" Relationship="RiskeerEntitiesModel.FK_ClosingStructuresCalculationEntity_0_0" FromRole="ClosingStructuresCalculationEntity" ToRole="HydraulicLocationEntity" />
           <NavigationProperty Name="ForeshoreProfileEntity" Relationship="RiskeerEntitiesModel.FK_ClosingStructuresCalculationEntity_1_0" FromRole="ClosingStructuresCalculationEntity" ToRole="ForeshoreProfileEntity" />
           <NavigationProperty Name="ClosingStructuresOutputEntities" Relationship="RiskeerEntitiesModel.FK_ClosingStructuresOutputEntity_1_0" FromRole="ClosingStructuresCalculationEntity" ToRole="ClosingStructuresOutputEntity" />
-          <NavigationProperty Name="ClosingStructuresSectionResultEntities" Relationship="RiskeerEntitiesModel.FK_ClosingStructuresSectionResultEntity_1_0" FromRole="ClosingStructuresCalculationEntity" ToRole="ClosingStructuresSectionResultEntity" />
         </EntityType>
         <EntityType Name="ClosingStructuresFailureMechanismMetaEntity">
           <Key>
@@ -5000,14 +4982,12 @@
           </Key>
           <Property Name="ClosingStructuresSectionResultEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FailureMechanismSectionEntityId" Type="Int64" Nullable="false" />
-          <Property Name="ClosingStructuresCalculationEntityId" Type="Int64" />
           <Property Name="SimpleAssessmentResult" Type="Byte" Nullable="false" />
           <Property Name="DetailedAssessmentResult" Type="Byte" Nullable="false" />
           <Property Name="TailorMadeAssessmentResult" Type="Byte" Nullable="false" />
           <Property Name="TailorMadeAssessmentProbability" Type="Double" />
           <Property Name="UseManualAssembly" Type="Byte" Nullable="false" />
           <Property Name="ManualAssemblyProbability" Type="Double" />
-          <NavigationProperty Name="ClosingStructuresCalculationEntity" Relationship="RiskeerEntitiesModel.FK_ClosingStructuresSectionResultEntity_1_0" FromRole="ClosingStructuresSectionResultEntity" ToRole="ClosingStructuresCalculationEntity" />
           <NavigationProperty Name="FailureMechanismSectionEntity" Relationship="RiskeerEntitiesModel.FK_ClosingStructuresSectionResultEntity_0_0" FromRole="ClosingStructuresSectionResultEntity" ToRole="FailureMechanismSectionEntity" />
         </EntityType>
         <EntityType Name="DikeProfileEntity">
@@ -6966,18 +6946,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ClosingStructuresSectionResultEntity_1_0">
-          <End Type="RiskeerEntitiesModel.ClosingStructuresCalculationEntity" Role="ClosingStructuresCalculationEntity" Multiplicity="0..1" />
-          <End Type="RiskeerEntitiesModel.ClosingStructuresSectionResultEntity" Role="ClosingStructuresSectionResultEntity" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ClosingStructuresCalculationEntity">
-              <PropertyRef Name="ClosingStructuresCalculationEntityId" />
-            </Principal>
-            <Dependent Role="ClosingStructuresSectionResultEntity">
-              <PropertyRef Name="ClosingStructuresCalculationEntityId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_ClosingStructuresFailureMechanismMetaEntity_0_0">
           <End Type="RiskeerEntitiesModel.FailureMechanismEntity" Role="FailureMechanismEntity" Multiplicity="1" />
           <End Type="RiskeerEntitiesModel.ClosingStructuresFailureMechanismMetaEntity" Role="ClosingStructuresFailureMechanismMetaEntity" Multiplicity="*" />
@@ -8445,6 +8413,8 @@
           <EntitySetMapping Name="ClosingStructuresCalculationEntities">
             <EntityTypeMapping TypeName="RiskeerEntitiesModel.ClosingStructuresCalculationEntity">
               <MappingFragment StoreEntitySet="ClosingStructuresCalculationEntity">
+                <ScalarProperty Name="ScenarioContribution" ColumnName="ScenarioContribution" />
+                <ScalarProperty Name="RelevantForScenario" ColumnName="RelevantForScenario" />
                 <ScalarProperty Name="ShouldIllustrationPointsBeCalculated" ColumnName="ShouldIllustrationPointsBeCalculated" />
                 <ScalarProperty Name="FactorStormDurationOpenStructure" ColumnName="FactorStormDurationOpenStructure" />
                 <ScalarProperty Name="StormDurationMean" ColumnName="StormDurationMean" />
@@ -8522,7 +8492,6 @@
                 <ScalarProperty Name="TailorMadeAssessmentResult" ColumnName="TailorMadeAssessmentResult" />
                 <ScalarProperty Name="DetailedAssessmentResult" ColumnName="DetailedAssessmentResult" />
                 <ScalarProperty Name="SimpleAssessmentResult" ColumnName="SimpleAssessmentResult" />
-                <ScalarProperty Name="ClosingStructuresCalculationEntityId" ColumnName="ClosingStructuresCalculationEntityId" />
                 <ScalarProperty Name="FailureMechanismSectionEntityId" ColumnName="FailureMechanismSectionEntityId" />
                 <ScalarProperty Name="ClosingStructuresSectionResultEntityId" ColumnName="ClosingStructuresSectionResultEntityId" />
               </MappingFragment>

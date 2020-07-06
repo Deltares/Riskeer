@@ -39,7 +39,6 @@ namespace Riskeer.Storage.Core.DbContext
         public ClosingStructuresCalculationEntity()
         {
             ClosingStructuresOutputEntities = new HashSet<ClosingStructuresOutputEntity>();
-            ClosingStructuresSectionResultEntities = new HashSet<ClosingStructuresSectionResultEntity>();
         }
 
         public long ClosingStructuresCalculationEntityId { get; set; }
@@ -68,15 +67,14 @@ namespace Riskeer.Storage.Core.DbContext
         public double? DrainCoefficientMean { get; set; }
         public double? ModelFactorSuperCriticalFlowMean { get; set; }
         public double? FactorStormDurationOpenStructure { get; set; }
+        public byte RelevantForScenario { get; set; }
+        public double? ScenarioContribution { get; set; }
 
         public virtual CalculationGroupEntity CalculationGroupEntity { get; set; }
         public virtual ClosingStructureEntity ClosingStructureEntity { get; set; }
 
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ClosingStructuresOutputEntity> ClosingStructuresOutputEntities { get; set; }
-
-        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ClosingStructuresSectionResultEntity> ClosingStructuresSectionResultEntities { get; set; }
 
         public byte UseBreakWater { get; set; }
         public byte BreakWaterType { get; set; }
