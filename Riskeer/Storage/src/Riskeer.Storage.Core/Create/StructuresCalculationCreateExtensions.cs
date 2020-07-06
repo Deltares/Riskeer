@@ -111,6 +111,8 @@ namespace Riskeer.Storage.Core.Create
             var entity = new ClosingStructuresCalculationEntity
             {
                 Name = calculation.Name.DeepClone(),
+                RelevantForScenario = Convert.ToByte(calculation.IsRelevant),
+                ScenarioContribution = calculation.Contribution.ToNaNAsNull(),
                 Comments = calculation.Comments.Body.DeepClone(),
                 Order = order
             };

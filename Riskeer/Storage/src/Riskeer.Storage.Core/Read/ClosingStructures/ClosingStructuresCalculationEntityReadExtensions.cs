@@ -60,6 +60,8 @@ namespace Riskeer.Storage.Core.Read.ClosingStructures
             var calculation = new StructuresCalculationScenario<ClosingStructuresInput>
             {
                 Name = entity.Name,
+                IsRelevant = Convert.ToBoolean(entity.RelevantForScenario),
+                Contribution = (RoundedDouble) entity.ScenarioContribution.ToNullAsNaN(),
                 Comments =
                 {
                     Body = entity.Comments

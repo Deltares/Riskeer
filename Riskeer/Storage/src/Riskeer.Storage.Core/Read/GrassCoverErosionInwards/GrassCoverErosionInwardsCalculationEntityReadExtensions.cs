@@ -64,7 +64,7 @@ namespace Riskeer.Storage.Core.Read.GrassCoverErosionInwards
                     Body = entity.Comments
                 },
                 IsRelevant = Convert.ToBoolean(entity.RelevantForScenario),
-                Contribution = (RoundedDouble) entity.ScenarioContribution.ToNullAsNaN(),
+                Contribution = (RoundedDouble) entity.ScenarioContribution.ToNullAsNaN()
             };
             ReadInput(calculation.InputParameters, entity, collector);
             ReadOutput(calculation, entity);

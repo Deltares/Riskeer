@@ -79,6 +79,8 @@ namespace Riskeer.Storage.Core.Test.Read.ClosingStructures
             var entity = new ClosingStructuresCalculationEntity
             {
                 Name = "name",
+                RelevantForScenario = Convert.ToByte(true),
+                ScenarioContribution = 0.0,
                 Comments = "comments",
                 StructureNormalOrientation = 1.1,
                 ModelFactorSuperCriticalFlowMean = 2.2,
@@ -122,6 +124,8 @@ namespace Riskeer.Storage.Core.Test.Read.ClosingStructures
 
             // Assert
             Assert.AreEqual(entity.Name, calculation.Name);
+            Assert.AreEqual(Convert.ToBoolean(entity.RelevantForScenario), calculation.IsRelevant);
+            Assert.AreEqual(entity.ScenarioContribution, calculation.Contribution);
             Assert.AreEqual(entity.Comments, calculation.Comments.Body);
 
             ClosingStructuresInput inputParameters = calculation.InputParameters;
@@ -172,6 +176,7 @@ namespace Riskeer.Storage.Core.Test.Read.ClosingStructures
             // Setup
             var entity = new ClosingStructuresCalculationEntity
             {
+                ScenarioContribution = null,
                 StructureNormalOrientation = null,
                 ModelFactorSuperCriticalFlowMean = null,
                 AllowedLevelIncreaseStorageMean = null,
@@ -205,6 +210,8 @@ namespace Riskeer.Storage.Core.Test.Read.ClosingStructures
             StructuresCalculationScenario<ClosingStructuresInput> calculation = entity.Read(collector);
 
             // Assert
+            Assert.IsNaN(calculation.Contribution);
+
             ClosingStructuresInput inputParameters = calculation.InputParameters;
             Assert.IsNaN(inputParameters.StructureNormalOrientation);
             Assert.IsNaN(inputParameters.ModelFactorSuperCriticalFlow.Mean);

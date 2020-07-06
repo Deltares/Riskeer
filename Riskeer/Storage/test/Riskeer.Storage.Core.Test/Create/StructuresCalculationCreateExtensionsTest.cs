@@ -364,11 +364,11 @@ namespace Riskeer.Storage.Core.Test.Create
             var calculation = new StructuresCalculationScenario<ClosingStructuresInput>();
 
             // Call
-            TestDelegate call = () => calculation.CreateForClosingStructures(null, 0);
+            void Call() => calculation.CreateForClosingStructures(null, 0);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("registry", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("registry", exception.ParamName);
         }
 
         [Test]
@@ -379,6 +379,8 @@ namespace Riskeer.Storage.Core.Test.Create
             var calculation = new StructuresCalculationScenario<ClosingStructuresInput>
             {
                 Name = "A",
+                IsRelevant = random.NextBoolean(),
+                Contribution = random.NextRoundedDouble(0, 1),
                 Comments =
                 {
                     Body = "B"
@@ -472,6 +474,8 @@ namespace Riskeer.Storage.Core.Test.Create
             // Assert
             TestHelper.AssertAreEqualButNotSame(calculation.Name, entity.Name);
             TestHelper.AssertAreEqualButNotSame(calculation.Comments.Body, entity.Comments);
+            Assert.AreEqual(Convert.ToByte(calculation.IsRelevant), entity.RelevantForScenario);
+            Assert.AreEqual(calculation.Contribution, entity.ScenarioContribution);
 
             ClosingStructuresInput inputParameters = calculation.InputParameters;
             Assert.AreEqual(inputParameters.StormDuration.Mean.Value, entity.StormDurationMean);
@@ -523,6 +527,7 @@ namespace Riskeer.Storage.Core.Test.Create
             // Setup
             var calculation = new StructuresCalculationScenario<ClosingStructuresInput>
             {
+                Contribution = RoundedDouble.NaN,
                 InputParameters =
                 {
                     StormDuration =
@@ -600,6 +605,7 @@ namespace Riskeer.Storage.Core.Test.Create
             ClosingStructuresCalculationEntity entity = calculation.CreateForClosingStructures(registry, order);
 
             // Assert
+            Assert.IsNull(entity.ScenarioContribution);
             Assert.IsNull(entity.StormDurationMean);
             Assert.IsNull(entity.StructureNormalOrientation);
             Assert.IsNull(entity.BreakWaterHeight);
@@ -725,11 +731,11 @@ namespace Riskeer.Storage.Core.Test.Create
             var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
 
             // Call
-            TestDelegate call = () => calculation.CreateForStabilityPointStructures(null, 0);
+            void Call() => calculation.CreateForStabilityPointStructures(null, 0);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("registry", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("registry", exception.ParamName);
         }
 
         [Test]
