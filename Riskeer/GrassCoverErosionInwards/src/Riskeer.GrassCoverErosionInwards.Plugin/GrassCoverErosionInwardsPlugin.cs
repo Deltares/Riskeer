@@ -483,6 +483,11 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
             var assessmentSection = o as IAssessmentSection;
             var grassCoverErosionInwardsFailureMechanism = o as GrassCoverErosionInwardsFailureMechanism;
 
+            if (o is GrassCoverErosionInwardsFailureMechanismContext grassCoverErosionInwardsFailureMechanismContext)
+            {
+                grassCoverErosionInwardsFailureMechanism = grassCoverErosionInwardsFailureMechanismContext.WrappedData;
+            }
+
             if (assessmentSection != null)
             {
                 grassCoverErosionInwardsFailureMechanism = assessmentSection.GetFailureMechanisms()
