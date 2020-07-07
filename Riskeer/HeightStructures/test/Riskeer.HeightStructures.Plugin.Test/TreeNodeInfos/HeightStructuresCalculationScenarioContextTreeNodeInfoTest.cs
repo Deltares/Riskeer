@@ -1405,42 +1405,6 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
             CollectionAssert.DoesNotContain(group.Children, elementToBeRemoved);
         }
 
-        [Test]
-        public void OnNodeRemoved_CalculationInGroupAssignedToSection_CalculationDetachedFromSection()
-        {
-            // Setup
-            var group = new CalculationGroup();
-            var failureMechanism = new HeightStructuresFailureMechanism();
-            var elementToBeRemoved = new StructuresCalculationScenario<HeightStructuresInput>();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var calculationContext = new HeightStructuresCalculationScenarioContext(elementToBeRemoved,
-                                                                                    group,
-                                                                                    failureMechanism,
-                                                                                    assessmentSection);
-            var groupContext = new HeightStructuresCalculationGroupContext(group,
-                                                                           null,
-                                                                           failureMechanism,
-                                                                           assessmentSection);
-
-            mocks.ReplayAll();
-
-            group.Children.Add(elementToBeRemoved);
-
-            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
-            {
-                FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
-            });
-
-            HeightStructuresFailureMechanismSectionResult result = failureMechanism.SectionResults.First();
-            result.Calculation = elementToBeRemoved;
-
-            // Call
-            info.OnNodeRemoved(calculationContext, groupContext);
-
-            // Assert
-            Assert.IsNull(result.Calculation);
-        }
-
         public override void Setup()
         {
             mocks = new MockRepository();

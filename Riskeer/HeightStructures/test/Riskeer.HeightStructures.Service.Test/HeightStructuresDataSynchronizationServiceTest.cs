@@ -43,12 +43,10 @@ namespace Riskeer.HeightStructures.Service.Test
         public void RemoveStructure_StructureNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => HeightStructuresDataSynchronizationService.RemoveStructure(
-                null,
-                new HeightStructuresFailureMechanism());
+            void Call() => HeightStructuresDataSynchronizationService.RemoveStructure(null, new HeightStructuresFailureMechanism());
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("structure", exception.ParamName);
         }
 
@@ -56,12 +54,10 @@ namespace Riskeer.HeightStructures.Service.Test
         public void RemoveStructure_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => HeightStructuresDataSynchronizationService.RemoveStructure(
-                new TestHeightStructure(),
-                null);
+            void Call() => HeightStructuresDataSynchronizationService.RemoveStructure(new TestHeightStructure(), null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
         }
 
@@ -71,11 +67,8 @@ namespace Riskeer.HeightStructures.Service.Test
             // Setup
             var failureMechanism = new HeightStructuresFailureMechanism();
 
-            var locationStructureToRemove = new Point2D(0, 0);
-            var structureToRemove = new TestHeightStructure(locationStructureToRemove, "id1");
-
-            var locationStructureToKeep = new Point2D(2, 2);
-            var structureToKeep = new TestHeightStructure(locationStructureToKeep, "id2");
+            var structureToRemove = new TestHeightStructure(new Point2D(0, 0), "id1");
+            var structureToKeep = new TestHeightStructure(new Point2D(2, 2), "id2");
 
             failureMechanism.HeightStructures.AddRange(new[]
             {
@@ -118,25 +111,6 @@ namespace Riskeer.HeightStructures.Service.Test
                 calculationWithStructureToRemoveAndOutput
             });
 
-            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
-            {
-                FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
-                {
-                    locationStructureToRemove,
-                    new Point2D(1, 1)
-                }),
-                FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
-                {
-                    new Point2D(1, 1),
-                    locationStructureToKeep
-                })
-            });
-            HeightStructuresFailureMechanismSectionResult sectionWithCalculationAtStructureToRemove = failureMechanism.SectionResults.ElementAt(0);
-            sectionWithCalculationAtStructureToRemove.Calculation = calculationWithStructureToRemove;
-
-            HeightStructuresFailureMechanismSectionResult sectionWithCalculationAtStructureToKeep = failureMechanism.SectionResults.ElementAt(1);
-            sectionWithCalculationAtStructureToKeep.Calculation = calculationWithStructureToKeepAndOutput;
-
             // Call
             IEnumerable<IObservable> affectedObjects = HeightStructuresDataSynchronizationService.RemoveStructure(
                 structureToRemove, failureMechanism);
@@ -148,18 +122,15 @@ namespace Riskeer.HeightStructures.Service.Test
             Assert.IsNull(calculationWithStructureToRemove.InputParameters.Structure);
             Assert.IsNull(calculationWithStructureToRemoveAndOutput.InputParameters.Structure);
             Assert.IsNull(calculationWithStructureToRemoveAndOutput.Output);
-            Assert.IsNull(sectionWithCalculationAtStructureToRemove.Calculation);
             Assert.IsNotNull(calculationWithOutput.Output);
             Assert.IsNotNull(calculationWithStructureToKeepAndOutput.Output);
             Assert.IsNotNull(calculationWithStructureToKeepAndOutput.InputParameters.Structure);
-            Assert.AreSame(sectionWithCalculationAtStructureToKeep.Calculation, calculationWithStructureToKeepAndOutput);
 
             IObservable[] expectedAffectedObjects =
             {
                 calculationWithStructureToRemove.InputParameters,
                 calculationWithStructureToRemoveAndOutput,
                 calculationWithStructureToRemoveAndOutput.InputParameters,
-                sectionWithCalculationAtStructureToRemove,
                 failureMechanism.HeightStructures
             };
             CollectionAssert.AreEquivalent(expectedAffectedObjects, affectedObjects);
@@ -169,11 +140,11 @@ namespace Riskeer.HeightStructures.Service.Test
         public void RemoveAllStructures_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => HeightStructuresDataSynchronizationService.RemoveAllStructures(null);
+            void Call() => HeightStructuresDataSynchronizationService.RemoveAllStructures(null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("failureMechanism", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
         }
 
         [Test]
@@ -182,11 +153,8 @@ namespace Riskeer.HeightStructures.Service.Test
             // Setup
             var failureMechanism = new HeightStructuresFailureMechanism();
 
-            var locationStructureA = new Point2D(0, 0);
-            var structureA = new TestHeightStructure(locationStructureA, "A");
-
-            var locationStructureB = new Point2D(2, 2);
-            var structureB = new TestHeightStructure(locationStructureB, "B");
+            var structureA = new TestHeightStructure(new Point2D(0, 0), "A");
+            var structureB = new TestHeightStructure(new Point2D(2, 2), "B");
 
             failureMechanism.HeightStructures.AddRange(new[]
             {
@@ -229,25 +197,6 @@ namespace Riskeer.HeightStructures.Service.Test
                 calculationWithStructureAAndOutput
             });
 
-            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
-            {
-                FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
-                {
-                    locationStructureA,
-                    new Point2D(1, 1)
-                }),
-                FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
-                {
-                    new Point2D(1, 1),
-                    locationStructureB
-                })
-            });
-            HeightStructuresFailureMechanismSectionResult sectionWithCalculationAtStructureA = failureMechanism.SectionResults.ElementAt(0);
-            sectionWithCalculationAtStructureA.Calculation = calculationWithStructureA;
-
-            HeightStructuresFailureMechanismSectionResult sectionWithCalculationAtStructureB = failureMechanism.SectionResults.ElementAt(1);
-            sectionWithCalculationAtStructureB.Calculation = calculationWithStructureBAndOutput;
-
             // Call
             IEnumerable<IObservable> affectedObjects = HeightStructuresDataSynchronizationService.RemoveAllStructures(failureMechanism);
 
@@ -260,8 +209,6 @@ namespace Riskeer.HeightStructures.Service.Test
             Assert.IsNull(calculationWithStructureBAndOutput.InputParameters.Structure);
             Assert.IsNull(calculationWithStructureAAndOutput.Output);
             Assert.IsNull(calculationWithStructureBAndOutput.Output);
-            Assert.IsNull(sectionWithCalculationAtStructureA.Calculation);
-            Assert.IsNull(sectionWithCalculationAtStructureB.Calculation);
             Assert.IsNotNull(calculationWithOutput.Output);
 
             IObservable[] expectedAffectedObjects =
@@ -271,8 +218,6 @@ namespace Riskeer.HeightStructures.Service.Test
                 calculationWithStructureAAndOutput.InputParameters,
                 calculationWithStructureBAndOutput,
                 calculationWithStructureBAndOutput.InputParameters,
-                sectionWithCalculationAtStructureA,
-                sectionWithCalculationAtStructureB,
                 failureMechanism.HeightStructures
             };
             CollectionAssert.AreEquivalent(expectedAffectedObjects, affectedObjects);
@@ -282,10 +227,10 @@ namespace Riskeer.HeightStructures.Service.Test
         public void ClearAllCalculationOutput_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => HeightStructuresDataSynchronizationService.ClearAllCalculationOutput(null);
+            void Call() => HeightStructuresDataSynchronizationService.ClearAllCalculationOutput(null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
         }
 
@@ -332,10 +277,10 @@ namespace Riskeer.HeightStructures.Service.Test
         public void ClearAllCalculationOutputAndHydraulicBoundaryLocations_WithoutFailureMechanism_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => HeightStructuresDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(null);
+            void Call() => HeightStructuresDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
         }
 
@@ -503,11 +448,11 @@ namespace Riskeer.HeightStructures.Service.Test
         public void ClearReferenceLineDependentData_FailureMechanismNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate call = () => HeightStructuresDataSynchronizationService.ClearReferenceLineDependentData(null);
+            void Call() => HeightStructuresDataSynchronizationService.ClearReferenceLineDependentData(null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("failureMechanism", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
         }
 
         [Test]

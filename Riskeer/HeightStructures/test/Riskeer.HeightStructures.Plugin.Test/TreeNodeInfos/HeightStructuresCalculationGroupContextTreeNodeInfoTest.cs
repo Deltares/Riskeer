@@ -1896,45 +1896,6 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void OnNodeRemoved_CalculationInGroupAssignedToSection_CalculationDetachedFromSection()
-        {
-            // Setup
-            var failureMechanism = new HeightStructuresFailureMechanism();
-            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
-            {
-                FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
-            });
-
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var group = new CalculationGroup();
-            var parentGroup = new CalculationGroup();
-            var nodeData = new HeightStructuresCalculationGroupContext(group,
-                                                                       parentGroup,
-                                                                       failureMechanism,
-                                                                       assessmentSection);
-            var parentNodeData = new HeightStructuresCalculationGroupContext(parentGroup,
-                                                                             null,
-                                                                             failureMechanism,
-                                                                             assessmentSection);
-
-            mocks.ReplayAll();
-
-            parentGroup.Children.Add(group);
-
-            var calculation = new StructuresCalculationScenario<HeightStructuresInput>();
-            group.Children.Add(calculation);
-
-            HeightStructuresFailureMechanismSectionResult result = failureMechanism.SectionResults.First();
-            result.Calculation = calculation;
-
-            // Call
-            info.OnNodeRemoved(nodeData, parentNodeData);
-
-            // Assert
-            Assert.IsNull(result.Calculation);
-        }
-
-        [Test]
         public void OnNodeRemoved_NestedCalculationGroupContainingCalculations_RemoveGroupAndCalculationsAndNotifyObservers()
         {
             // Setup

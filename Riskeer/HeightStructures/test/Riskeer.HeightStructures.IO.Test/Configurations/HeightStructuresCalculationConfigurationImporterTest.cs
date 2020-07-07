@@ -553,54 +553,6 @@ namespace Riskeer.HeightStructures.IO.Test.Configurations
             AssertCalculation(expectedCalculation, (StructuresCalculationScenario<HeightStructuresInput>) calculationGroup.Children[0]);
         }
 
-        [Test]
-        public void DoPostImport_CalculationWithStructureInSection_AssignsCalculationToSectionResult()
-        {
-            // Setup
-            string filePath = Path.Combine(importerPath, "validConfigurationFullCalculation.xml");
-            var calculationGroup = new CalculationGroup();
-
-            var failureMechanism = new HeightStructuresFailureMechanism();
-
-            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
-                {
-                    FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
-                    {
-                        new Point2D(0, 0),
-                        new Point2D(10, 10)
-                    })
-                }
-            );
-
-            var calculation = new StructuresCalculation<HeightStructuresInput>
-            {
-                InputParameters =
-                {
-                    Structure = new TestHeightStructure(new Point2D(5, 5))
-                }
-            };
-            failureMechanism.CalculationsGroup.Children.Add(
-                calculation);
-
-            var importer = new HeightStructuresCalculationConfigurationImporter(
-                filePath,
-                calculationGroup,
-                Enumerable.Empty<HydraulicBoundaryLocation>(),
-                Enumerable.Empty<ForeshoreProfile>(),
-                Enumerable.Empty<HeightStructure>(),
-                failureMechanism);
-
-            // Preconditions
-            Assert.AreEqual(1, failureMechanism.SectionResults.Count());
-            Assert.IsNull(failureMechanism.SectionResults.ElementAt(0).Calculation);
-
-            // Call
-            importer.DoPostImport();
-
-            // Assert
-            Assert.AreSame(calculation, failureMechanism.SectionResults.ElementAt(0).Calculation);
-        }
-
         [TestCase("validConfigurationUnknownForeshoreProfile.xml",
                   "Het voorlandprofiel met ID 'unknown' bestaat niet.")]
         [TestCase("validConfigurationUnknownHydraulicBoundaryLocation.xml",

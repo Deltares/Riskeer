@@ -292,64 +292,6 @@ namespace Riskeer.HeightStructures.Plugin.Test.FileImporters
         }
 
         [Test]
-        public void UpdateStructuresWithImportedData_CalculationWithSectionResultAndStructure_DataUpdatedAndReturnsAffectedObject()
-        {
-            // Setup
-            var location = new Point2D(1, 1);
-            var structure = new TestHeightStructure(location);
-
-            var calculation = new StructuresCalculation<HeightStructuresInput>
-            {
-                InputParameters =
-                {
-                    Structure = structure
-                }
-            };
-
-            var failureMechanism = new HeightStructuresFailureMechanism
-            {
-                CalculationsGroup =
-                {
-                    Children =
-                    {
-                        calculation
-                    }
-                }
-            };
-
-            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
-            {
-                FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
-                {
-                    location
-                })
-            });
-            HeightStructuresFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.First();
-            sectionResult.Calculation = calculation;
-
-            failureMechanism.HeightStructures.AddRange(new[]
-            {
-                structure
-            }, sourceFilePath);
-
-            var strategy = new HeightStructureReplaceDataStrategy(failureMechanism);
-
-            // Call
-            IEnumerable<IObservable> affectedObjects = strategy.UpdateStructuresWithImportedData(Enumerable.Empty<HeightStructure>(),
-                                                                                                 sourceFilePath).ToArray();
-
-            // Assert
-            Assert.IsNull(sectionResult.Calculation);
-            Assert.IsNull(calculation.InputParameters.Structure);
-            CollectionAssert.AreEquivalent(new IObservable[]
-            {
-                calculation.InputParameters,
-                sectionResult,
-                failureMechanism.HeightStructures
-            }, affectedObjects);
-        }
-
-        [Test]
         public void UpdateStructuresWithImportedData_ImportedDataContainsDuplicateIds_ThrowsUpdateDataException()
         {
             // Setup
