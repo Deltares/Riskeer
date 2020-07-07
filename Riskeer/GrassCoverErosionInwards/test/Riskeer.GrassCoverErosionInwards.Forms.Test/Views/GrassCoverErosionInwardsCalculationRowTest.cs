@@ -27,8 +27,6 @@ using Core.Common.Base.Geometry;
 using Core.Common.Controls.DataGrid;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
-using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
@@ -36,7 +34,6 @@ using Riskeer.Common.Forms.ChangeHandlers;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Forms.PropertyClasses;
 using Riskeer.Common.Forms.TestUtil;
-using Riskeer.Common.Primitives;
 using Riskeer.GrassCoverErosionInwards.Data;
 using Riskeer.GrassCoverErosionInwards.Data.TestUtil;
 using Riskeer.GrassCoverErosionInwards.Forms.Views;
@@ -48,6 +45,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
     {
         private const int breakWaterTypeColumnIndex = 4;
         private const int breakWaterHeightColumnIndex = 5;
+        private const int useForeshoreColumnIndex = 6;
 
         [Test]
         public void Constructor_WithoutCalculation_ThrowsArgumentNullException()
@@ -93,10 +91,11 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             Assert.AreSame(grassCoverErosionInwardsCalculationScenario, grassCoverErosionInwardsCalculationRow.GrassCoverErosionInwardsCalculationScenario);
 
             IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = grassCoverErosionInwardsCalculationRow.ColumnStateDefinitions;
-            Assert.AreEqual(2, columnStateDefinitions.Count);
+            Assert.AreEqual(3, columnStateDefinitions.Count);
 
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, breakWaterTypeColumnIndex);
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, breakWaterHeightColumnIndex);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, useForeshoreColumnIndex);
 
             mocks.VerifyAll();
         }
@@ -243,10 +242,10 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             {
                 UseBreakWater = useBreakWaterState
             };
-            
+
             // Asserts
             IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
-            Assert.AreEqual(2, columnStateDefinitions.Count);
+            Assert.AreEqual(3, columnStateDefinitions.Count);
 
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[breakWaterTypeColumnIndex], expectedColumnState, isReadOnly);
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[breakWaterHeightColumnIndex], expectedColumnState, isReadOnly);
@@ -356,6 +355,74 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
                     Assert.NotNull(oldValue);
                     Assert.AreEqual(oldValue, calculation.InputParameters.UseForeshore);
                 });
+        }
+
+        [Test]
+        public void UseForeshoreState_DikeProfilePresent_CorrectColumnState()
+        {
+            // Setup
+            var mockRepository = new MockRepository();
+            mockRepository.ReplayAll();
+
+            var calculation = new GrassCoverErosionInwardsCalculationScenario
+            {
+                InputParameters =
+                {
+                    DikeProfile = new DikeProfile(new Point2D(2.0, 0.0),
+                                                  new[]
+                                                  {
+                                                      new RoughnessPoint(new Point2D(2.0, 0.0), 1.1d),
+                                                      new RoughnessPoint(new Point2D(2.0, 0.0), 1.1d)
+                                                  },
+                                                  new[]
+                                                  {
+                                                      new Point2D(2.0, 0.0),
+                                                      new Point2D(2.0, 0.0)
+                                                  },
+                                                  new BreakWater(BreakWaterType.Dam, 1.0), new DikeProfile.ConstructionProperties
+                                                  {
+                                                      Id = "testProperty",
+                                                      Name = "testName",
+                                                      Orientation = 2.0,
+                                                      X0 = 1.0
+                                                  })
+                }
+            };
+
+            // Call
+            var row = new GrassCoverErosionInwardsCalculationRow(calculation, new ObservablePropertyChangeHandler(calculation, new GrassCoverErosionInwardsInput()))
+            {
+                UseForeShoreGeometry = true
+            };
+
+            // Asserts
+            IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
+            Assert.AreEqual(3, columnStateDefinitions.Count);
+
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[useForeshoreColumnIndex], true);
+
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void UseForeshoreState_DikeProfileNotPresent_CorrectColumnState()
+        {
+            // Setup
+            var mockRepository = new MockRepository();
+            mockRepository.ReplayAll();
+
+            var calculation = new GrassCoverErosionInwardsCalculationScenario();
+
+            // Call
+            var row = new GrassCoverErosionInwardsCalculationRow(calculation, new ObservablePropertyChangeHandler(calculation, new GrassCoverErosionInwardsInput()));
+
+            // Asserts
+            IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
+            Assert.AreEqual(3, columnStateDefinitions.Count);
+
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateIsDisabled(columnStateDefinitions[useForeshoreColumnIndex]);
+
+            mockRepository.VerifyAll();
         }
 
         [Test]
