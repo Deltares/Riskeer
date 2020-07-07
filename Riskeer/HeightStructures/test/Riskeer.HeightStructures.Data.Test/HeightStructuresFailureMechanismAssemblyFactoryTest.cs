@@ -34,6 +34,7 @@ using Riskeer.Common.Data.AssemblyTool;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Primitives;
 
@@ -148,14 +149,32 @@ namespace Riskeer.HeightStructures.Data.Test
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => HeightStructuresFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
-                null,
-                new HeightStructuresFailureMechanism(),
-                assessmentSection);
+            void Call() => HeightStructuresFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
+                null, Enumerable.Empty<StructuresCalculationScenario<HeightStructuresInput>>(),
+                new HeightStructuresFailureMechanism(), assessmentSection);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanismSectionResult", exception.ParamName);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void AssembleDetailedAssessment_CalculationScenariosNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            // Call
+            void Call() => HeightStructuresFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
+                new HeightStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
+                null, new HeightStructuresFailureMechanism(), assessmentSection);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("calculationScenarios", exception.ParamName);
             mocks.VerifyAll();
         }
 
@@ -168,13 +187,12 @@ namespace Riskeer.HeightStructures.Data.Test
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => HeightStructuresFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
+            void Call() => HeightStructuresFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
                 new HeightStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
-                null,
-                assessmentSection);
+                Enumerable.Empty<StructuresCalculationScenario<HeightStructuresInput>>(), null, assessmentSection);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
             mocks.VerifyAll();
         }
@@ -183,13 +201,12 @@ namespace Riskeer.HeightStructures.Data.Test
         public void AssembleDetailedAssessment_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => HeightStructuresFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
+            void Call() => HeightStructuresFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
                 new HeightStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
-                new HeightStructuresFailureMechanism(),
-                null);
+                Enumerable.Empty<StructuresCalculationScenario<HeightStructuresInput>>(), new HeightStructuresFailureMechanism(), null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
@@ -215,9 +232,8 @@ namespace Riskeer.HeightStructures.Data.Test
 
                 // Call
                 HeightStructuresFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
-                    sectionResult,
-                    failureMechanism,
-                    assessmentSection);
+                    sectionResult, Enumerable.Empty<StructuresCalculationScenario<HeightStructuresInput>>(),
+                    failureMechanism, assessmentSection);
 
                 // Assert
                 Assert.AreEqual(sectionResult.GetDetailedAssessmentProbability(failureMechanism, assessmentSection),
@@ -248,9 +264,8 @@ namespace Riskeer.HeightStructures.Data.Test
                 // Call
                 FailureMechanismSectionAssembly actualOutput =
                     HeightStructuresFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
-                        sectionResult,
-                        failureMechanism,
-                        assessmentSection);
+                        sectionResult, Enumerable.Empty<StructuresCalculationScenario<HeightStructuresInput>>(),
+                        failureMechanism, assessmentSection);
 
                 // Assert
                 FailureMechanismSectionAssembly calculatorOutput = calculator.DetailedAssessmentAssemblyOutput;
@@ -278,13 +293,12 @@ namespace Riskeer.HeightStructures.Data.Test
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
-                TestDelegate call = () => HeightStructuresFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
-                    sectionResult,
-                    failureMechanism,
-                    assessmentSection);
+                void Call() => HeightStructuresFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
+                    sectionResult, Enumerable.Empty<StructuresCalculationScenario<HeightStructuresInput>>(), 
+                    failureMechanism, assessmentSection);
 
                 // Assert
-                var exception = Assert.Throws<AssemblyException>(call);
+                var exception = Assert.Throws<AssemblyException>(Call);
                 Exception innerException = exception.InnerException;
                 Assert.IsInstanceOf<FailureMechanismSectionAssemblyCalculatorException>(innerException);
                 Assert.AreEqual(innerException.Message, exception.Message);
@@ -458,14 +472,32 @@ namespace Riskeer.HeightStructures.Data.Test
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => HeightStructuresFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
-                null,
-                new HeightStructuresFailureMechanism(),
-                assessmentSection);
+            void Call() => HeightStructuresFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
+                null, Enumerable.Empty<StructuresCalculationScenario<HeightStructuresInput>>(), 
+                new HeightStructuresFailureMechanism(), assessmentSection);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanismSectionResult", exception.ParamName);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void AssembleCombinedAssessment_CalculationScenariosNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            // Call
+            void Call() => HeightStructuresFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
+                new HeightStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
+                null, new HeightStructuresFailureMechanism(), assessmentSection);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("calculationScenarios", exception.ParamName);
             mocks.VerifyAll();
         }
 
@@ -478,13 +510,12 @@ namespace Riskeer.HeightStructures.Data.Test
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => HeightStructuresFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
+            void Call() => HeightStructuresFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
                 new HeightStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
-                null,
-                assessmentSection);
+                Enumerable.Empty<StructuresCalculationScenario<HeightStructuresInput>>(), null, assessmentSection);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
             mocks.VerifyAll();
         }
@@ -493,13 +524,12 @@ namespace Riskeer.HeightStructures.Data.Test
         public void AssembleCombinedAssessment_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => HeightStructuresFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
+            void Call() => HeightStructuresFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
                 new HeightStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
-                new HeightStructuresFailureMechanism(),
-                null);
+                Enumerable.Empty<StructuresCalculationScenario<HeightStructuresInput>>(), new HeightStructuresFailureMechanism(), null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
@@ -527,9 +557,8 @@ namespace Riskeer.HeightStructures.Data.Test
 
                 // Call
                 HeightStructuresFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
-                    sectionResult,
-                    failureMechanism,
-                    assessmentSection);
+                    sectionResult, Enumerable.Empty<StructuresCalculationScenario<HeightStructuresInput>>(),
+                    failureMechanism, assessmentSection);
 
                 // Assert
                 AssemblyToolTestHelper.AssertAreEqual(calculator.SimpleAssessmentAssemblyOutput, calculator.CombinedSimpleAssemblyInput);
@@ -564,9 +593,8 @@ namespace Riskeer.HeightStructures.Data.Test
 
                 // Call
                 HeightStructuresFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
-                    sectionResult,
-                    failureMechanism,
-                    assessmentSection);
+                    sectionResult, Enumerable.Empty<StructuresCalculationScenario<HeightStructuresInput>>(),
+                    failureMechanism, assessmentSection);
 
                 // Assert
                 AssemblyToolTestHelper.AssertAreEqual(calculator.SimpleAssessmentAssemblyOutput, calculator.CombinedSimpleAssemblyInput);
@@ -596,9 +624,8 @@ namespace Riskeer.HeightStructures.Data.Test
                 // Call
                 FailureMechanismSectionAssembly actualOutput =
                     HeightStructuresFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
-                        sectionResult,
-                        failureMechanism,
-                        assessmentSection);
+                        sectionResult, Enumerable.Empty<StructuresCalculationScenario<HeightStructuresInput>>(),
+                        failureMechanism, assessmentSection);
 
                 // Assert
                 Assert.AreSame(calculator.CombinedAssemblyOutput, actualOutput);
@@ -625,13 +652,12 @@ namespace Riskeer.HeightStructures.Data.Test
                 calculator.ThrowExceptionOnCalculateCombinedAssembly = true;
 
                 // Call
-                TestDelegate call = () => HeightStructuresFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
-                    sectionResult,
-                    failureMechanism,
-                    assessmentSection);
+                void Call() => HeightStructuresFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
+                    sectionResult, Enumerable.Empty<StructuresCalculationScenario<HeightStructuresInput>>(), 
+                    failureMechanism, assessmentSection);
 
                 // Assert
-                var exception = Assert.Throws<AssemblyException>(call);
+                var exception = Assert.Throws<AssemblyException>(Call);
                 Exception innerException = exception.InnerException;
                 Assert.IsInstanceOf<FailureMechanismSectionAssemblyCalculatorException>(innerException);
                 Assert.AreEqual(innerException.Message, exception.Message);

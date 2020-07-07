@@ -21,9 +21,11 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Exceptions;
+using Riskeer.Common.Data.Structures;
 using Riskeer.HeightStructures.Data;
 using Riskeer.Integration.IO.Assembly;
 using Riskeer.Integration.IO.Helpers;
@@ -108,6 +110,7 @@ namespace Riskeer.Integration.IO.Factories
                     HeightStructuresFailureMechanismAssemblyFactory.AssembleSimpleAssessment(failureMechanismSectionResult);
                 FailureMechanismSectionAssembly detailedAssembly =
                     HeightStructuresFailureMechanismAssemblyFactory.AssembleDetailedAssessment(failureMechanismSectionResult,
+                                                                                               failureMechanism.Calculations.Cast<StructuresCalculationScenario<HeightStructuresInput>>(),
                                                                                                failureMechanism,
                                                                                                assessmentSection);
                 FailureMechanismSectionAssembly tailorMadeAssembly =
@@ -116,6 +119,7 @@ namespace Riskeer.Integration.IO.Factories
                                                                                                  assessmentSection);
                 FailureMechanismSectionAssembly combinedAssembly =
                     HeightStructuresFailureMechanismAssemblyFactory.AssembleCombinedAssessment(failureMechanismSectionResult,
+                                                                                               failureMechanism.Calculations.Cast<StructuresCalculationScenario<HeightStructuresInput>>(),
                                                                                                failureMechanism,
                                                                                                assessmentSection);
 

@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using Core.Common.Controls.DataGrid;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.Common.Data.AssessmentSection;
@@ -324,6 +325,7 @@ namespace Riskeer.HeightStructures.Forms.Views
             {
                 detailedAssemblyCategoryGroup = HeightStructuresFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
                     SectionResult,
+                    failureMechanism.Calculations.Cast<StructuresCalculationScenario<HeightStructuresInput>>(),
                     failureMechanism,
                     assessmentSection).Group;
             }
@@ -357,6 +359,7 @@ namespace Riskeer.HeightStructures.Forms.Views
                 FailureMechanismSectionAssembly combinedAssembly =
                     HeightStructuresFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
                         SectionResult,
+                        failureMechanism.Calculations.Cast<StructuresCalculationScenario<HeightStructuresInput>>(),
                         failureMechanism,
                         assessmentSection);
 
