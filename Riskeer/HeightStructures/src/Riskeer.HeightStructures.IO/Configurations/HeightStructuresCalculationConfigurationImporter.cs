@@ -30,7 +30,6 @@ using Riskeer.Common.IO.Configurations;
 using Riskeer.Common.IO.Configurations.Helpers;
 using Riskeer.Common.IO.Configurations.Import;
 using Riskeer.HeightStructures.Data;
-using Riskeer.HeightStructures.Util;
 using RiskeerCommonIOResources = Riskeer.Common.IO.Properties.Resources;
 
 namespace Riskeer.HeightStructures.IO.Configurations
@@ -93,13 +92,6 @@ namespace Riskeer.HeightStructures.IO.Configurations
             availableForeshoreProfiles = foreshoreProfiles;
             availableStructures = structures;
             this.failureMechanism = failureMechanism;
-        }
-
-        protected override void DoPostImportUpdates()
-        {
-            HeightStructuresHelper.UpdateCalculationToSectionResultAssignments(failureMechanism);
-
-            base.DoPostImportUpdates();
         }
 
         protected override HeightStructuresCalculationConfigurationReader CreateCalculationConfigurationReader(string xmlFilePath)

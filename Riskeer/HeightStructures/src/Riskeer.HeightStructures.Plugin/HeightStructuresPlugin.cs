@@ -57,7 +57,6 @@ using Riskeer.HeightStructures.IO;
 using Riskeer.HeightStructures.IO.Configurations;
 using Riskeer.HeightStructures.Plugin.FileImporters;
 using Riskeer.HeightStructures.Service;
-using Riskeer.HeightStructures.Util;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
 using RiskeerCommonIOResources = Riskeer.Common.IO.Properties.Resources;
@@ -618,16 +617,14 @@ namespace Riskeer.HeightStructures.Plugin
 
                 if (dialog.SelectedItems.Any())
                 {
-                    GenerateHeightStructuresCalculations(
-                        nodeData.FailureMechanism,
-                        dialog.SelectedItems.Cast<HeightStructure>(),
-                        nodeData.WrappedData.Children);
+                    GenerateHeightStructuresCalculations(dialog.SelectedItems.Cast<HeightStructure>(),
+                                                         nodeData.WrappedData.Children);
                     nodeData.NotifyObservers();
                 }
             }
         }
 
-        private static void GenerateHeightStructuresCalculations(HeightStructuresFailureMechanism failureMechanism, IEnumerable<HeightStructure> structures, List<ICalculationBase> calculations)
+        private static void GenerateHeightStructuresCalculations(IEnumerable<HeightStructure> structures, List<ICalculationBase> calculations)
         {
             foreach (HeightStructure structure in structures)
             {
@@ -641,8 +638,6 @@ namespace Riskeer.HeightStructures.Plugin
                 };
                 calculations.Add(calculation);
             }
-
-            HeightStructuresHelper.UpdateCalculationToSectionResultAssignments(failureMechanism);
         }
 
         private static void AddCalculation(HeightStructuresCalculationGroupContext context)
@@ -660,8 +655,6 @@ namespace Riskeer.HeightStructures.Plugin
             var parentGroupContext = (HeightStructuresCalculationGroupContext) parentNodeData;
 
             parentGroupContext.WrappedData.Children.Remove(context.WrappedData);
-
-            HeightStructuresHelper.UpdateCalculationToSectionResultAssignments(context.FailureMechanism);
 
             parentGroupContext.NotifyObservers();
         }
@@ -762,7 +755,6 @@ namespace Riskeer.HeightStructures.Plugin
             if (parentData is HeightStructuresCalculationGroupContext calculationGroupContext)
             {
                 calculationGroupContext.WrappedData.Children.Remove(context.WrappedData);
-                HeightStructuresHelper.UpdateCalculationToSectionResultAssignments(context.FailureMechanism);
                 calculationGroupContext.NotifyObservers();
             }
         }

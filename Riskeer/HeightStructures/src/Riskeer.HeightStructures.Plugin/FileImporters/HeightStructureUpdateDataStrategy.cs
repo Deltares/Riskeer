@@ -29,7 +29,6 @@ using Riskeer.Common.Forms;
 using Riskeer.Common.IO.Structures;
 using Riskeer.HeightStructures.Data;
 using Riskeer.HeightStructures.Service;
-using Riskeer.HeightStructures.Util;
 
 namespace Riskeer.HeightStructures.Plugin.FileImporters
 {
@@ -74,8 +73,6 @@ namespace Riskeer.HeightStructures.Plugin.FileImporters
 
             affectedObjects.AddRange(GetAffectedCalculationsWithHeightStructure(structure)
                                          .Select(c => c.InputParameters));
-
-            affectedObjects.AddRange(HeightStructuresHelper.UpdateCalculationToSectionResultAssignments(FailureMechanism));
 
             return affectedObjects;
         }

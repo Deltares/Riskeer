@@ -34,7 +34,6 @@ using Riskeer.Common.IO.Structures;
 using Riskeer.HeightStructures.Data;
 using Riskeer.HeightStructures.Data.TestUtil;
 using Riskeer.HeightStructures.Plugin.FileImporters;
-using Riskeer.HeightStructures.Util;
 
 namespace Riskeer.HeightStructures.Plugin.Test.FileImporters
 {
@@ -609,7 +608,6 @@ namespace Riskeer.HeightStructures.Plugin.Test.FileImporters
                 })
             });
 
-            HeightStructuresHelper.UpdateCalculationToSectionResultAssignments(failureMechanism);
             HeightStructuresFailureMechanismSectionResult[] sectionResults = failureMechanism.SectionResults.ToArray();
 
             var strategy = new HeightStructureUpdateDataStrategy(failureMechanism);
@@ -682,7 +680,6 @@ namespace Riskeer.HeightStructures.Plugin.Test.FileImporters
                 })
             });
 
-            HeightStructuresHelper.UpdateCalculationToSectionResultAssignments(failureMechanism);
             HeightStructuresFailureMechanismSectionResult[] sectionResults = failureMechanism.SectionResults.ToArray();
 
             var strategy = new HeightStructureUpdateDataStrategy(failureMechanism);

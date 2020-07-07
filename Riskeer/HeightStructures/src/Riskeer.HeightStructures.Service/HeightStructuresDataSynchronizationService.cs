@@ -29,7 +29,6 @@ using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Service;
 using Riskeer.HeightStructures.Data;
-using Riskeer.HeightStructures.Util;
 
 namespace Riskeer.HeightStructures.Service
 {
@@ -39,8 +38,7 @@ namespace Riskeer.HeightStructures.Service
     public static class HeightStructuresDataSynchronizationService
     {
         /// <summary>
-        /// Removes the <paramref name="structure"/>, unassigns it from the calculations in
-        /// <paramref name="failureMechanism"/> and clears all dependent data, either directly or indirectly.
+        /// Removes the <paramref name="structure"/> and clears all dependent data, either directly or indirectly.
         /// </summary>
         /// <param name="structure">The structure to be removed.</param>
         /// <param name="failureMechanism">The <see cref="HeightStructuresFailureMechanism"/>
@@ -67,8 +65,7 @@ namespace Riskeer.HeightStructures.Service
                                                                                              .Where(c => ReferenceEquals(c.InputParameters.Structure, structure))
                                                                                              .ToArray();
 
-            List<IObservable> changedObservables = ClearStructureDependentData(failureMechanism,
-                                                                               calculationWithRemovedStructure);
+            List<IObservable> changedObservables = ClearStructureDependentData(calculationWithRemovedStructure);
 
             StructureCollection<HeightStructure> structures = failureMechanism.HeightStructures;
             structures.Remove(structure);
@@ -78,8 +75,7 @@ namespace Riskeer.HeightStructures.Service
         }
 
         /// <summary>
-        /// Clears all structures, unassigns them from the calculations in the <paramref name="failureMechanism"/>
-        /// and clears all data that depends on it, either directly or indirectly.
+        /// Clears all structures and clears all data that depends on it, either directly or indirectly.
         /// </summary>
         /// <param name="failureMechanism">The <see cref="HeightStructuresFailureMechanism"/> to 
         /// clear the structures from.</param>
@@ -98,8 +94,7 @@ namespace Riskeer.HeightStructures.Service
                                                                                              .Where(c => c.InputParameters.Structure != null)
                                                                                              .ToArray();
 
-            List<IObservable> changedObservables = ClearStructureDependentData(failureMechanism,
-                                                                               calculationWithRemovedStructure);
+            List<IObservable> changedObservables = ClearStructureDependentData(calculationWithRemovedStructure);
 
             StructureCollection<HeightStructure> structures = failureMechanism.HeightStructures;
             structures.Clear();
@@ -208,8 +203,7 @@ namespace Riskeer.HeightStructures.Service
             return Enumerable.Empty<IObservable>();
         }
 
-        private static List<IObservable> ClearStructureDependentData(HeightStructuresFailureMechanism failureMechanism,
-                                                                     IEnumerable<StructuresCalculation<HeightStructuresInput>> calculationWithRemovedStructure)
+        private static List<IObservable> ClearStructureDependentData(IEnumerable<StructuresCalculation<HeightStructuresInput>> calculationWithRemovedStructure)
         {
             var changedObservables = new List<IObservable>();
             foreach (StructuresCalculation<HeightStructuresInput> calculation in calculationWithRemovedStructure)
@@ -219,11 +213,6 @@ namespace Riskeer.HeightStructures.Service
                 calculation.InputParameters.ClearStructure();
                 changedObservables.Add(calculation.InputParameters);
             }
-
-            IEnumerable<HeightStructuresFailureMechanismSectionResult> affectedSectionResults =
-                HeightStructuresHelper.UpdateCalculationToSectionResultAssignments(failureMechanism);
-
-            changedObservables.AddRange(affectedSectionResults);
             return changedObservables;
         }
     }
