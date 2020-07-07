@@ -831,7 +831,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
                     sectionResult, calculationScenarios, failureMechanism, assessmentSection, ConstructionProperties);
 
                 // Assert
-                Assert.AreEqual(sectionResult.GetDetailedAssessmentProbability(failureMechanism, assessmentSection), resultRow.DetailedAssessmentProbability);
+                Assert.AreEqual(sectionResult.GetDetailedAssessmentProbability(calculationScenarios, failureMechanism, assessmentSection), resultRow.DetailedAssessmentProbability);
                 Assert.IsEmpty(resultRow.ColumnStateDefinitions[ConstructionProperties.DetailedAssessmentProbabilityIndex].ErrorText);
                 mocks.VerifyAll();
             }
@@ -927,7 +927,10 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
                     failureMechanism, assessmentSection, ConstructionProperties);
 
                 // Assert
-                Assert.AreEqual(sectionResult.GetDetailedAssessmentProbability(failureMechanism, assessmentSection), resultRow.DetailedAssessmentProbability);
+                Assert.AreEqual(sectionResult.GetDetailedAssessmentProbability(
+                                    Enumerable.Empty<StructuresCalculationScenario<HeightStructuresInput>>(),
+                                    failureMechanism, assessmentSection),
+                                resultRow.DetailedAssessmentProbability);
                 Assert.IsEmpty(resultRow.ColumnStateDefinitions[ConstructionProperties.DetailedAssessmentProbabilityIndex].ErrorText);
                 mocks.VerifyAll();
             }
@@ -1204,7 +1207,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
                 double detailedAssessmentProbability = resultRow.DetailedAssessmentProbability;
 
                 // Assert
-                Assert.AreEqual(sectionResult.GetDetailedAssessmentProbability(failureMechanism, assessmentSection), detailedAssessmentProbability);
+                Assert.AreEqual(sectionResult.GetDetailedAssessmentProbability(calculationScenarios, failureMechanism, assessmentSection), detailedAssessmentProbability);
                 mocks.VerifyAll();
             }
         }

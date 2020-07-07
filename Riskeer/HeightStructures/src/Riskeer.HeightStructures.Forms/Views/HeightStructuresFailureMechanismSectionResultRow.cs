@@ -155,7 +155,7 @@ namespace Riskeer.HeightStructures.Forms.Views
         /// Gets the value representing the result of the detailed assessment.
         /// </summary>
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
-        public double DetailedAssessmentProbability => SectionResult.GetDetailedAssessmentProbability(failureMechanism, assessmentSection);
+        public double DetailedAssessmentProbability => SectionResult.GetDetailedAssessmentProbability(calculationScenarios, failureMechanism, assessmentSection);
 
         /// <summary>
         /// Gets or sets the value representing the tailor made assessment result.
