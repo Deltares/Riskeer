@@ -1808,16 +1808,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Riskeer.StabilityPointStruc
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Riskeer.HeightStructures.Util", "Riskeer\HeightStructures\src\Riskeer.HeightStructures.Util\Riskeer.HeightStructures.Util.csproj", "{B60FC9A2-22B5-4E4C-986E-40766B843AB5}"
-	ProjectSection(ProjectDependencies) = postProject
-		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
-	EndProjectSection
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Riskeer.HeightStructures.Util.Test", "Riskeer\HeightStructures\test\Riskeer.HeightStructures.Util.Test\Riskeer.HeightStructures.Util.Test.csproj", "{A0CC3B88-0CCE-4AEE-9166-D0F3859CD0D4}"
-	ProjectSection(ProjectDependencies) = postProject
-		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
-	EndProjectSection
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Riskeer.AssemblyTool.Data.TestUtil", "Riskeer\AssemblyTool\test\Riskeer.AssemblyTool.Data.TestUtil\Riskeer.AssemblyTool.Data.TestUtil.csproj", "{C6EE9E6A-6578-49DF-914F-CDB531E61891}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
@@ -4770,24 +4760,6 @@ Global
 		{9AADA1BD-E47C-429A-B455-A13522645F76}.Release|x86.Build.0 = Release|x86
 		{9AADA1BD-E47C-429A-B455-A13522645F76}.ReleaseForCodeCoverage|x86.ActiveCfg = ReleaseForCodeCoverage|x86
 		{9AADA1BD-E47C-429A-B455-A13522645F76}.ReleaseForCodeCoverage|x86.Build.0 = ReleaseForCodeCoverage|x86
-		{B60FC9A2-22B5-4E4C-986E-40766B843AB5}.CreateInstaller|x86.ActiveCfg = CreateInstaller|x86
-		{B60FC9A2-22B5-4E4C-986E-40766B843AB5}.CreateInstaller|x86.Build.0 = CreateInstaller|x86
-		{B60FC9A2-22B5-4E4C-986E-40766B843AB5}.CreateInstallerWithDemoProject|x86.ActiveCfg = CreateInstallerWithDemoProject|x86
-		{B60FC9A2-22B5-4E4C-986E-40766B843AB5}.CreateInstallerWithDemoProject|x86.Build.0 = CreateInstallerWithDemoProject|x86
-		{B60FC9A2-22B5-4E4C-986E-40766B843AB5}.Debug|x86.ActiveCfg = Debug|x86
-		{B60FC9A2-22B5-4E4C-986E-40766B843AB5}.Debug|x86.Build.0 = Debug|x86
-		{B60FC9A2-22B5-4E4C-986E-40766B843AB5}.Release|x86.ActiveCfg = Release|x86
-		{B60FC9A2-22B5-4E4C-986E-40766B843AB5}.Release|x86.Build.0 = Release|x86
-		{B60FC9A2-22B5-4E4C-986E-40766B843AB5}.ReleaseForCodeCoverage|x86.ActiveCfg = ReleaseForCodeCoverage|x86
-		{B60FC9A2-22B5-4E4C-986E-40766B843AB5}.ReleaseForCodeCoverage|x86.Build.0 = ReleaseForCodeCoverage|x86
-		{A0CC3B88-0CCE-4AEE-9166-D0F3859CD0D4}.CreateInstaller|x86.ActiveCfg = CreateInstaller|x86
-		{A0CC3B88-0CCE-4AEE-9166-D0F3859CD0D4}.CreateInstallerWithDemoProject|x86.ActiveCfg = CreateInstallerWithDemoProject|x86
-		{A0CC3B88-0CCE-4AEE-9166-D0F3859CD0D4}.Debug|x86.ActiveCfg = Debug|x86
-		{A0CC3B88-0CCE-4AEE-9166-D0F3859CD0D4}.Debug|x86.Build.0 = Debug|x86
-		{A0CC3B88-0CCE-4AEE-9166-D0F3859CD0D4}.Release|x86.ActiveCfg = Release|x86
-		{A0CC3B88-0CCE-4AEE-9166-D0F3859CD0D4}.Release|x86.Build.0 = Release|x86
-		{A0CC3B88-0CCE-4AEE-9166-D0F3859CD0D4}.ReleaseForCodeCoverage|x86.ActiveCfg = ReleaseForCodeCoverage|x86
-		{A0CC3B88-0CCE-4AEE-9166-D0F3859CD0D4}.ReleaseForCodeCoverage|x86.Build.0 = ReleaseForCodeCoverage|x86
 		{C6EE9E6A-6578-49DF-914F-CDB531E61891}.CreateInstaller|x86.ActiveCfg = CreateInstaller|x86
 		{C6EE9E6A-6578-49DF-914F-CDB531E61891}.CreateInstallerWithDemoProject|x86.ActiveCfg = CreateInstallerWithDemoProject|x86
 		{C6EE9E6A-6578-49DF-914F-CDB531E61891}.Debug|x86.ActiveCfg = Debug|x86
@@ -5511,8 +5483,6 @@ Global
 		{1EB0FA74-14AA-4863-95DD-B48CFE907BD9} = {B5F4F5A5-FD36-405D-ABA1-56C270207C8F}
 		{C8832E89-8543-4F2B-9952-8D6C03118392} = {EDE2D56C-504D-45BA-B55C-99C791204E05}
 		{9AADA1BD-E47C-429A-B455-A13522645F76} = {91119B0B-C26B-4ADF-BE4A-B4228331786E}
-		{B60FC9A2-22B5-4E4C-986E-40766B843AB5} = {2A2E6519-A2B8-4A6B-8849-4873578D7C8C}
-		{A0CC3B88-0CCE-4AEE-9166-D0F3859CD0D4} = {E550D725-9C80-4242-8A3F-C1A3E020DEA2}
 		{C6EE9E6A-6578-49DF-914F-CDB531E61891} = {614D79BC-9919-4AC8-A2B1-9DD89BCB0653}
 		{22C5DDB8-2491-4BC6-BDC6-2A7B7EBF40C1} = {22080BD7-677C-48FA-AD1A-8CCF7457B984}
 		{F6A1570F-AF1E-44BC-AD49-BAC419FE6D38} = {614D79BC-9919-4AC8-A2B1-9DD89BCB0653}

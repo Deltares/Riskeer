@@ -43,9 +43,6 @@
     <ProjectReference Include="..\Riskeer.HeightStructures.Data\Riskeer.HeightStructures.Data.csproj">
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\Riskeer.HeightStructures.Util\Riskeer.HeightStructures.Util.csproj">
-      <Private>False</Private>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.licenseheader">

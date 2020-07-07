@@ -39,7 +39,6 @@
     <ProjectReference Include="..\..\src\Riskeer.HeightStructures.Forms\Riskeer.HeightStructures.Forms.csproj" />
     <ProjectReference Include="..\..\src\Riskeer.HeightStructures.IO\Riskeer.HeightStructures.IO.csproj" />
     <ProjectReference Include="..\..\src\Riskeer.HeightStructures.Plugin\Riskeer.HeightStructures.Plugin.csproj" />
-    <ProjectReference Include="..\..\src\Riskeer.HeightStructures.Util\Riskeer.HeightStructures.Util.csproj" />
     <ProjectReference Include="..\Riskeer.HeightStructures.Data.TestUtil\Riskeer.HeightStructures.Data.TestUtil.csproj" />
   </ItemGroup>
   <ItemGroup>
