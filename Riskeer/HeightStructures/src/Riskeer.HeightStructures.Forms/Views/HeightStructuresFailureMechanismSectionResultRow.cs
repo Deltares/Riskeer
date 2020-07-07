@@ -116,10 +116,7 @@ namespace Riskeer.HeightStructures.Forms.Views
         /// is a valid value, but unsupported.</exception>
         public SimpleAssessmentResultType SimpleAssessmentResult
         {
-            get
-            {
-                return SectionResult.SimpleAssessmentResult;
-            }
+            get => SectionResult.SimpleAssessmentResult;
             set
             {
                 SectionResult.SimpleAssessmentResult = value;
@@ -134,10 +131,7 @@ namespace Riskeer.HeightStructures.Forms.Views
         /// is a valid value, but unsupported.</exception>
         public DetailedAssessmentProbabilityOnlyResultType DetailedAssessmentResult
         {
-            get
-            {
-                return SectionResult.DetailedAssessmentResult;
-            }
+            get => SectionResult.DetailedAssessmentResult;
             set
             {
                 SectionResult.DetailedAssessmentResult = value;
@@ -149,13 +143,7 @@ namespace Riskeer.HeightStructures.Forms.Views
         /// Gets the value representing the result of the detailed assessment.
         /// </summary>
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
-        public double DetailedAssessmentProbability
-        {
-            get
-            {
-                return SectionResult.GetDetailedAssessmentProbability(failureMechanism, assessmentSection);
-            }
-        }
+        public double DetailedAssessmentProbability => SectionResult.GetDetailedAssessmentProbability(failureMechanism, assessmentSection);
 
         /// <summary>
         /// Gets or sets the value representing the tailor made assessment result.
@@ -164,10 +152,7 @@ namespace Riskeer.HeightStructures.Forms.Views
         /// is a valid value, but unsupported.</exception>
         public TailorMadeAssessmentProbabilityCalculationResultType TailorMadeAssessmentResult
         {
-            get
-            {
-                return SectionResult.TailorMadeAssessmentResult;
-            }
+            get => SectionResult.TailorMadeAssessmentResult;
             set
             {
                 SectionResult.TailorMadeAssessmentResult = value;
@@ -185,10 +170,7 @@ namespace Riskeer.HeightStructures.Forms.Views
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
         public double TailorMadeAssessmentProbability
         {
-            get
-            {
-                return SectionResult.TailorMadeAssessmentProbability;
-            }
+            get => SectionResult.TailorMadeAssessmentProbability;
             set
             {
                 SectionResult.TailorMadeAssessmentProbability = value;
@@ -199,46 +181,22 @@ namespace Riskeer.HeightStructures.Forms.Views
         /// <summary>
         /// Gets the simple assembly category group.
         /// </summary>
-        public string SimpleAssemblyCategoryGroup
-        {
-            get
-            {
-                return FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayName(simpleAssemblyCategoryGroup);
-            }
-        }
+        public string SimpleAssemblyCategoryGroup => FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayName(simpleAssemblyCategoryGroup);
 
         /// <summary>
         /// Gets the detailed assembly category group.
         /// </summary>
-        public string DetailedAssemblyCategoryGroup
-        {
-            get
-            {
-                return FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayName(detailedAssemblyCategoryGroup);
-            }
-        }
+        public string DetailedAssemblyCategoryGroup => FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayName(detailedAssemblyCategoryGroup);
 
         /// <summary>
         /// Gets the tailor made assembly category group.
         /// </summary>
-        public string TailorMadeAssemblyCategoryGroup
-        {
-            get
-            {
-                return FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayName(tailorMadeAssemblyCategoryGroup);
-            }
-        }
+        public string TailorMadeAssemblyCategoryGroup => FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayName(tailorMadeAssemblyCategoryGroup);
 
         /// <summary>
         /// Gets the combined assembly category group.
         /// </summary>
-        public string CombinedAssemblyCategoryGroup
-        {
-            get
-            {
-                return FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayName(combinedAssemblyCategoryGroup);
-            }
-        }
+        public string CombinedAssemblyCategoryGroup => FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayName(combinedAssemblyCategoryGroup);
 
         /// <summary>
         /// Gets the combined assembly probability.
@@ -254,10 +212,7 @@ namespace Riskeer.HeightStructures.Forms.Views
         /// is a valid value, but unsupported.</exception>
         public bool UseManualAssembly
         {
-            get
-            {
-                return SectionResult.UseManualAssembly;
-            }
+            get => SectionResult.UseManualAssembly;
             set
             {
                 SectionResult.UseManualAssembly = value;
@@ -275,10 +230,7 @@ namespace Riskeer.HeightStructures.Forms.Views
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
         public double ManualAssemblyProbability
         {
-            get
-            {
-                return SectionResult.ManualAssemblyProbability;
-            }
+            get => SectionResult.ManualAssemblyProbability;
             set
             {
                 SectionResult.ManualAssemblyProbability = value;
