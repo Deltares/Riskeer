@@ -13,10 +13,140 @@ INSERT INTO BackgroundDataEntity SELECT * FROM [SOURCEPROJECT].BackgroundDataEnt
 INSERT INTO BackgroundDataMetaEntity SELECT * FROM [SOURCEPROJECT].BackgroundDataMetaEntity;
 INSERT INTO CalculationGroupEntity SELECT * FROM [SOURCEPROJECT].CalculationGroupEntity;
 INSERT INTO ClosingStructureEntity SELECT * FROM [SOURCEPROJECT].ClosingStructureEntity;
-INSERT INTO ClosingStructuresCalculationEntity SELECT * FROM [SOURCEPROJECT].ClosingStructuresCalculationEntity;
+INSERT INTO ClosingStructuresCalculationEntity(
+	[ClosingStructuresCalculationEntityId],
+	[CalculationGroupEntityId],
+	[ForeshoreProfileEntityId],
+	[HydraulicLocationEntityId],
+	[ClosingStructureEntityId],
+	[Order],
+	[Name],
+	[Comments],
+	[UseBreakWater], 
+	[BreakWaterType], 
+	[BreakWaterHeight],
+	[UseForeshore], 
+	[Orientation],
+	[StructureNormalOrientation],
+	[StorageStructureAreaMean],
+	[StorageStructureAreaCoefficientOfVariation],
+	[AllowedLevelIncreaseStorageMean],
+	[AllowedLevelIncreaseStorageStandardDeviation],
+	[WidthFlowAperturesMean],
+	[WidthFlowAperturesStandardDeviation],
+	[LevelCrestStructureNotClosingMean],
+	[LevelCrestStructureNotClosingStandardDeviation],
+	[InsideWaterLevelMean],
+	[InsideWaterLevelStandardDeviation],
+	[ThresholdHeightOpenWeirMean],
+	[ThresholdHeightOpenWeirStandardDeviation],
+	[AreaFlowAperturesMean],
+	[AreaFlowAperturesStandardDeviation],
+	[CriticalOvertoppingDischargeMean],
+	[CriticalOvertoppingDischargeCoefficientOfVariation],
+	[FlowWidthAtBottomProtectionMean],
+	[FlowWidthAtBottomProtectionStandardDeviation],
+	[ProbabilityOpenStructureBeforeFlooding],
+	[FailureProbabilityOpenStructure],
+	[IdenticalApertures],
+	[FailureProbabilityReparation],
+	[InflowModelType], 
+	[FailureProbabilityStructureWithErosion],
+	[DeviationWaveDirection],
+	[DrainCoefficientMean],
+	[ModelFactorSuperCriticalFlowMean],
+	[StormDurationMean],
+	[FactorStormDurationOpenStructure],
+	[ShouldIllustrationPointsBeCalculated],
+	[RelevantForScenario],
+	[ScenarioContribution])
+SELECT 
+	[ClosingStructuresCalculationEntityId],
+	[CalculationGroupEntityId],
+	[ForeshoreProfileEntityId],
+	[HydraulicLocationEntityId],
+	[ClosingStructureEntityId],
+	[Order],
+	[Name],
+	[Comments],
+	[UseBreakWater], 
+	[BreakWaterType], 
+	[BreakWaterHeight],
+	[UseForeshore], 
+	[Orientation],
+	[StructureNormalOrientation],
+	[StorageStructureAreaMean],
+	[StorageStructureAreaCoefficientOfVariation],
+	[AllowedLevelIncreaseStorageMean],
+	[AllowedLevelIncreaseStorageStandardDeviation],
+	[WidthFlowAperturesMean],
+	[WidthFlowAperturesStandardDeviation],
+	[LevelCrestStructureNotClosingMean],
+	[LevelCrestStructureNotClosingStandardDeviation],
+	[InsideWaterLevelMean],
+	[InsideWaterLevelStandardDeviation],
+	[ThresholdHeightOpenWeirMean],
+	[ThresholdHeightOpenWeirStandardDeviation],
+	[AreaFlowAperturesMean],
+	[AreaFlowAperturesStandardDeviation],
+	[CriticalOvertoppingDischargeMean],
+	[CriticalOvertoppingDischargeCoefficientOfVariation],
+	[FlowWidthAtBottomProtectionMean],
+	[FlowWidthAtBottomProtectionStandardDeviation],
+	[ProbabilityOpenStructureBeforeFlooding],
+	[FailureProbabilityOpenStructure],
+	[IdenticalApertures],
+	[FailureProbabilityReparation],
+	[InflowModelType], 
+	[FailureProbabilityStructureWithErosion],
+	[DeviationWaveDirection],
+	[DrainCoefficientMean],
+	[ModelFactorSuperCriticalFlowMean],
+	[StormDurationMean],
+	[FactorStormDurationOpenStructure],
+	[ShouldIllustrationPointsBeCalculated],
+	CASE
+		WHEN IsLinkedToSectionResult IS NOT NULL
+			THEN 1
+		ELSE 0
+	END,
+	CASE
+		WHEN IsLinkedToSectionResult IS NOT NULL
+			THEN 1
+		ELSE 0
+	END
+FROM [SOURCEPROJECT].ClosingStructuresCalculationEntity
+LEFT JOIN(
+	SELECT 
+		ClosingStructuresCalculationEntityId,
+		CASE
+			WHEN ClosingStructuresSectionResultEntityId IS NOT NULL
+				THEN 1
+			ELSE 0
+		END AS IsLinkedToSectionResult
+	FROM [SOURCEPROJECT].ClosingStructuresSectionResultEntity)
+USING(ClosingStructuresCalculationEntityId);
 INSERT INTO ClosingStructuresFailureMechanismMetaEntity SELECT * FROM [SOURCEPROJECT].ClosingStructuresFailureMechanismMetaEntity;
 INSERT INTO ClosingStructuresOutputEntity SELECT * FROM [SOURCEPROJECT].ClosingStructuresOutputEntity;
-INSERT INTO ClosingStructuresSectionResultEntity SELECT * FROM [SOURCEPROJECT].ClosingStructuresSectionResultEntity;
+INSERT INTO ClosingStructuresSectionResultEntity (
+	[ClosingStructuresSectionResultEntityId],
+	[FailureMechanismSectionEntityId],
+	[SimpleAssessmentResult],
+	[DetailedAssessmentResult],
+	[TailorMadeAssessmentResult],
+	[TailorMadeAssessmentProbability],
+	[UseManualAssembly],
+	[ManualAssemblyProbability])
+SELECT 
+	[ClosingStructuresSectionResultEntityId],
+	[FailureMechanismSectionEntityId],
+	[SimpleAssessmentResult],
+	[DetailedAssessmentResult],
+	[TailorMadeAssessmentResult],
+	[TailorMadeAssessmentProbability],
+	[UseManualAssembly],
+	[ManualAssemblyProbability]
+FROM [SOURCEPROJECT].ClosingStructuresSectionResultEntity;
 INSERT INTO DikeProfileEntity SELECT * FROM [SOURCEPROJECT].DikeProfileEntity;
 INSERT INTO DuneErosionFailureMechanismMetaEntity SELECT * FROM [SOURCEPROJECT].DuneErosionFailureMechanismMetaEntity;
 INSERT INTO DuneErosionSectionResultEntity SELECT * FROM [SOURCEPROJECT].DuneErosionSectionResultEntity;

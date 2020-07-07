@@ -64,6 +64,9 @@ namespace Riskeer.Migration.Integration.Test
                     AssertGrassCoverErosionInwardsCalculation(reader, sourceFilePath);
                     AssertGrassCoverErosionInwardsSectionResult(reader, sourceFilePath);
 
+                    AssertClosingStructuresCalculation(reader, sourceFilePath);
+                    AssertClosingStructuresSectionResult(reader, sourceFilePath);
+
                     AssertMacroStabilityInwardsOutput(reader);
                 }
 
@@ -142,7 +145,6 @@ namespace Riskeer.Migration.Integration.Test
                 "AND NEW.[ScenarioContribution] = 0; " +
                 "DETACH SOURCEPROJECT;";
             reader.AssertReturnedDataIsValid(validateCalculationNotLinkedToSectionResult);
-
         }
 
         private static void AssertGrassCoverErosionInwardsSectionResult(MigratedDatabaseReader reader, string sourceFilePath)
@@ -156,6 +158,149 @@ namespace Riskeer.Migration.Integration.Test
                 ") " +
                 "FROM GrassCoverErosionInwardsSectionResultEntity NEW " +
                 "JOIN SOURCEPROJECT.GrassCoverErosionInwardsSectionResultEntity OLD USING(GrassCoverErosionInwardsSectionResultEntityId) " +
+                "WHERE NEW.[FailureMechanismSectionEntityId] = OLD.[FailureMechanismSectionEntityId] " +
+                "AND NEW.[SimpleAssessmentResult] = OLD.[SimpleAssessmentResult] " +
+                "AND NEW.[DetailedAssessmentResult] = OLD.[DetailedAssessmentResult] " +
+                "AND NEW.[TailorMadeAssessmentResult] = OLD.[TailorMadeAssessmentResult] " +
+                "AND NEW.[TailorMadeAssessmentProbability] IS OLD.[TailorMadeAssessmentProbability] " +
+                "AND NEW.[UseManualAssembly] = OLD.[UseManualAssembly] " +
+                "AND NEW.[ManualAssemblyProbability] IS OLD.[ManualAssemblyProbability]; " +
+                "DETACH SOURCEPROJECT;";
+            reader.AssertReturnedDataIsValid(validateSectionResults);
+        }
+
+        private static void AssertClosingStructuresCalculation(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            string validateCalculationLinkedToSectionResult =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT COUNT() = " +
+                "(" +
+                "SELECT COUNT() " +
+                "FROM SOURCEPROJECT.ClosingStructuresCalculationEntity " +
+                "JOIN SOURCEPROJECT.ClosingStructuresSectionResultEntity USING(ClosingStructuresCalculationEntityId) " +
+                ") " +
+                "FROM ClosingStructuresCalculationEntity NEW " +
+                "JOIN SOURCEPROJECT.ClosingStructuresCalculationEntity OLD USING(ClosingStructuresCalculationEntityId) " +
+                "WHERE NEW.[CalculationGroupEntityId] = OLD.[CalculationGroupEntityId] " +
+                "AND NEW.[ForeshoreProfileEntityId] IS OLD.[ForeshoreProfileEntityId] " +
+                "AND NEW.[HydraulicLocationEntityId] IS OLD.[HydraulicLocationEntityId] " +
+                "AND NEW.[ClosingStructureEntityId] IS OLD.[ClosingStructureEntityId]" +
+                "AND NEW.\"Order\" = OLD.\"Order\" " +
+                "AND NEW.[Name] IS OLD.[Name] " +
+                "AND NEW.[Comments] IS OLD.[Comments] " +
+                "AND NEW.[UseBreakWater] = OLD.[UseBreakWater] " +
+                "AND NEW.[BreakWaterType] IS OLD.[BreakWaterType] " +
+                "AND NEW.[BreakWaterHeight] IS OLD.[BreakWaterHeight] " +
+                "AND NEW.[UseForeshore] = OLD.[UseForeshore] " +
+                "AND NEW.[Orientation] IS OLD.[Orientation] " +
+                "AND NEW.[StructureNormalOrientation] IS OLD.[StructureNormalOrientation] " +
+                "AND NEW.[StorageStructureAreaMean] IS OLD.[StorageStructureAreaMean] " +
+                "AND NEW.[StorageStructureAreaCoefficientOfVariation] IS OLD.[StorageStructureAreaCoefficientOfVariation] " +
+                "AND NEW.[AllowedLevelIncreaseStorageMean] IS OLD.[AllowedLevelIncreaseStorageMean] " +
+                "AND NEW.[AllowedLevelIncreaseStorageStandardDeviation] IS OLD.[AllowedLevelIncreaseStorageStandardDeviation] " +
+                "AND NEW.[WidthFlowAperturesMean] IS OLD.[WidthFlowAperturesMean] " +
+                "AND NEW.[WidthFlowAperturesStandardDeviation] IS OLD.[WidthFlowAperturesStandardDeviation] " +
+                "AND NEW.[LevelCrestStructureNotClosingMean] IS OLD.[LevelCrestStructureNotClosingMean] " +
+                "AND NEW.[LevelCrestStructureNotClosingStandardDeviation] IS OLD.[LevelCrestStructureNotClosingStandardDeviation] " +
+                "AND NEW.[InsideWaterLevelMean] IS OLD.[InsideWaterLevelMean] " +
+                "AND NEW.[InsideWaterLevelStandardDeviation] IS OLD.[InsideWaterLevelStandardDeviation] " +
+                "AND NEW.[ThresholdHeightOpenWeirMean] IS OLD.[ThresholdHeightOpenWeirMean] " +
+                "AND NEW.[ThresholdHeightOpenWeirStandardDeviation] IS OLD.[ThresholdHeightOpenWeirStandardDeviation] " +
+                "AND NEW.[AreaFlowAperturesMean] IS OLD.[AreaFlowAperturesMean] " +
+                "AND NEW.[AreaFlowAperturesStandardDeviation] IS OLD.[AreaFlowAperturesStandardDeviation] " +
+                "AND NEW.[CriticalOvertoppingDischargeMean] IS OLD.[CriticalOvertoppingDischargeMean] " +
+                "AND NEW.[CriticalOvertoppingDischargeCoefficientOfVariation] IS OLD.[CriticalOvertoppingDischargeCoefficientOfVariation] " +
+                "AND NEW.[FlowWidthAtBottomProtectionMean] IS OLD.[FlowWidthAtBottomProtectionMean] " +
+                "AND NEW.[FlowWidthAtBottomProtectionStandardDeviation] IS OLD.[FlowWidthAtBottomProtectionStandardDeviation] " +
+                "AND NEW.[ProbabilityOpenStructureBeforeFlooding] = OLD.[ProbabilityOpenStructureBeforeFlooding] " +
+                "AND NEW.[FailureProbabilityOpenStructure] = OLD.[FailureProbabilityOpenStructure] " +
+                "AND NEW.[IdenticalApertures] = OLD.[IdenticalApertures] " +
+                "AND NEW.[FailureProbabilityReparation] = OLD.[FailureProbabilityReparation] " +
+                "AND NEW.[InflowModelType] = OLD.[InflowModelType] " +
+                "AND NEW.[FailureProbabilityStructureWithErosion] = OLD.[FailureProbabilityStructureWithErosion] " +
+                "AND NEW.[DeviationWaveDirection] IS OLD.[DeviationWaveDirection] " +
+                "AND NEW.[DrainCoefficientMean] IS OLD.[DrainCoefficientMean] " +
+                "AND NEW.[ModelFactorSuperCriticalFlowMean] IS OLD.[ModelFactorSuperCriticalFlowMean] " +
+                "AND NEW.[StormDurationMean] IS OLD.[StormDurationMean] " +
+                "AND NEW.[FactorStormDurationOpenStructure] IS OLD.[FactorStormDurationOpenStructure] " +
+                "AND NEW.[ShouldIllustrationPointsBeCalculated] = OLD.[ShouldIllustrationPointsBeCalculated] " +
+                "AND NEW.[RelevantForScenario] = 1 " +
+                "AND NEW.[ScenarioContribution] = 1; " +
+                "DETACH SOURCEPROJECT;";
+            reader.AssertReturnedDataIsValid(validateCalculationLinkedToSectionResult);
+
+            string validateCalculationNotLinkedToSectionResult =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT COUNT() = " +
+                "(" +
+                "SELECT COUNT() " +
+                "FROM SOURCEPROJECT.ClosingStructuresCalculationEntity " +
+                "LEFT JOIN SOURCEPROJECT.ClosingStructuresSectionResultEntity " +
+                "USING(ClosingStructuresCalculationEntityId) " +
+                "WHERE ClosingStructuresSectionResultEntityId IS NULL" +
+                ") " +
+                "FROM ClosingStructuresCalculationEntity NEW " +
+                "JOIN SOURCEPROJECT.ClosingStructuresCalculationEntity OLD USING(ClosingStructuresCalculationEntityId) " +
+                "WHERE NEW.[CalculationGroupEntityId] = OLD.[CalculationGroupEntityId] " +
+                "AND NEW.[ForeshoreProfileEntityId] IS OLD.[ForeshoreProfileEntityId] " +
+                "AND NEW.[HydraulicLocationEntityId] IS OLD.[HydraulicLocationEntityId] " +
+                "AND NEW.[ClosingStructureEntityId] IS OLD.[ClosingStructureEntityId]" +
+                "AND NEW.\"Order\" = OLD.\"Order\" " +
+                "AND NEW.[Name] IS OLD.[Name] " +
+                "AND NEW.[Comments] IS OLD.[Comments] " +
+                "AND NEW.[UseBreakWater] = OLD.[UseBreakWater] " +
+                "AND NEW.[BreakWaterType] IS OLD.[BreakWaterType] " +
+                "AND NEW.[BreakWaterHeight] IS OLD.[BreakWaterHeight] " +
+                "AND NEW.[UseForeshore] = OLD.[UseForeshore] " +
+                "AND NEW.[Orientation] IS OLD.[Orientation] " +
+                "AND NEW.[StructureNormalOrientation] IS OLD.[StructureNormalOrientation] " +
+                "AND NEW.[StorageStructureAreaMean] IS OLD.[StorageStructureAreaMean] " +
+                "AND NEW.[StorageStructureAreaCoefficientOfVariation] IS OLD.[StorageStructureAreaCoefficientOfVariation] " +
+                "AND NEW.[AllowedLevelIncreaseStorageMean] IS OLD.[AllowedLevelIncreaseStorageMean] " +
+                "AND NEW.[AllowedLevelIncreaseStorageStandardDeviation] IS OLD.[AllowedLevelIncreaseStorageStandardDeviation] " +
+                "AND NEW.[WidthFlowAperturesMean] IS OLD.[WidthFlowAperturesMean] " +
+                "AND NEW.[WidthFlowAperturesStandardDeviation] IS OLD.[WidthFlowAperturesStandardDeviation] " +
+                "AND NEW.[LevelCrestStructureNotClosingMean] IS OLD.[LevelCrestStructureNotClosingMean] " +
+                "AND NEW.[LevelCrestStructureNotClosingStandardDeviation] IS OLD.[LevelCrestStructureNotClosingStandardDeviation] " +
+                "AND NEW.[InsideWaterLevelMean] IS OLD.[InsideWaterLevelMean] " +
+                "AND NEW.[InsideWaterLevelStandardDeviation] IS OLD.[InsideWaterLevelStandardDeviation] " +
+                "AND NEW.[ThresholdHeightOpenWeirMean] IS OLD.[ThresholdHeightOpenWeirMean] " +
+                "AND NEW.[ThresholdHeightOpenWeirStandardDeviation] IS OLD.[ThresholdHeightOpenWeirStandardDeviation] " +
+                "AND NEW.[AreaFlowAperturesMean] IS OLD.[AreaFlowAperturesMean] " +
+                "AND NEW.[AreaFlowAperturesStandardDeviation] IS OLD.[AreaFlowAperturesStandardDeviation] " +
+                "AND NEW.[CriticalOvertoppingDischargeMean] IS OLD.[CriticalOvertoppingDischargeMean] " +
+                "AND NEW.[CriticalOvertoppingDischargeCoefficientOfVariation] IS OLD.[CriticalOvertoppingDischargeCoefficientOfVariation] " +
+                "AND NEW.[FlowWidthAtBottomProtectionMean] IS OLD.[FlowWidthAtBottomProtectionMean] " +
+                "AND NEW.[FlowWidthAtBottomProtectionStandardDeviation] IS OLD.[FlowWidthAtBottomProtectionStandardDeviation] " +
+                "AND NEW.[ProbabilityOpenStructureBeforeFlooding] = OLD.[ProbabilityOpenStructureBeforeFlooding] " +
+                "AND NEW.[FailureProbabilityOpenStructure] = OLD.[FailureProbabilityOpenStructure] " +
+                "AND NEW.[IdenticalApertures] = OLD.[IdenticalApertures] " +
+                "AND NEW.[FailureProbabilityReparation] = OLD.[FailureProbabilityReparation] " +
+                "AND NEW.[InflowModelType] = OLD.[InflowModelType] " +
+                "AND NEW.[FailureProbabilityStructureWithErosion] = OLD.[FailureProbabilityStructureWithErosion] " +
+                "AND NEW.[DeviationWaveDirection] IS OLD.[DeviationWaveDirection] " +
+                "AND NEW.[DrainCoefficientMean] IS OLD.[DrainCoefficientMean] " +
+                "AND NEW.[ModelFactorSuperCriticalFlowMean] IS OLD.[ModelFactorSuperCriticalFlowMean] " +
+                "AND NEW.[StormDurationMean] IS OLD.[StormDurationMean] " +
+                "AND NEW.[FactorStormDurationOpenStructure] IS OLD.[FactorStormDurationOpenStructure] " +
+                "AND NEW.[ShouldIllustrationPointsBeCalculated] = OLD.[ShouldIllustrationPointsBeCalculated] " +
+                "AND NEW.[RelevantForScenario] = 0 " +
+                "AND NEW.[ScenarioContribution] = 0; " +
+                "DETACH SOURCEPROJECT;";
+            reader.AssertReturnedDataIsValid(validateCalculationNotLinkedToSectionResult);
+        }
+
+        private static void AssertClosingStructuresSectionResult(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            string validateSectionResults =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT COUNT() = " +
+                "(" +
+                "SELECT COUNT() " +
+                "FROM SOURCEPROJECT.ClosingStructuresSectionResultEntity" +
+                ") " +
+                "FROM ClosingStructuresSectionResultEntity NEW " +
+                "JOIN SOURCEPROJECT.ClosingStructuresSectionResultEntity OLD USING(ClosingStructuresSectionResultEntityId) " +
                 "WHERE NEW.[FailureMechanismSectionEntityId] = OLD.[FailureMechanismSectionEntityId] " +
                 "AND NEW.[SimpleAssessmentResult] = OLD.[SimpleAssessmentResult] " +
                 "AND NEW.[DetailedAssessmentResult] = OLD.[DetailedAssessmentResult] " +
