@@ -43,12 +43,10 @@ namespace Riskeer.ClosingStructures.Service.Test
         public void RemoveStructure_StructureNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => ClosingStructuresDataSynchronizationService.RemoveStructure(
-                null,
-                new ClosingStructuresFailureMechanism());
+            void Call() => ClosingStructuresDataSynchronizationService.RemoveStructure(null, new ClosingStructuresFailureMechanism());
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("structure", exception.ParamName);
         }
 
@@ -56,12 +54,10 @@ namespace Riskeer.ClosingStructures.Service.Test
         public void RemoveStructure_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => ClosingStructuresDataSynchronizationService.RemoveStructure(
-                new TestClosingStructure(),
-                null);
+            void Call() => ClosingStructuresDataSynchronizationService.RemoveStructure(new TestClosingStructure(), null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
         }
 
@@ -71,11 +67,8 @@ namespace Riskeer.ClosingStructures.Service.Test
             // Setup
             var failureMechanism = new ClosingStructuresFailureMechanism();
 
-            var locationStructureToRemove = new Point2D(0, 0);
-            var structureToRemove = new TestClosingStructure(locationStructureToRemove, "id1");
-
-            var locationStructureToKeep = new Point2D(2, 2);
-            var structureToKeep = new TestClosingStructure(locationStructureToKeep, "id2");
+            var structureToRemove = new TestClosingStructure(new Point2D(0, 0), "id1");
+            var structureToKeep = new TestClosingStructure(new Point2D(2, 2), "id2");
 
             failureMechanism.ClosingStructures.AddRange(new[]
             {
@@ -118,20 +111,6 @@ namespace Riskeer.ClosingStructures.Service.Test
                 calculationWithStructureToRemoveAndOutput
             });
 
-            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
-            {
-                FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
-                {
-                    locationStructureToRemove,
-                    new Point2D(1, 1)
-                }),
-                FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
-                {
-                    new Point2D(1, 1),
-                    locationStructureToKeep
-                })
-            });
-
             // Call
             IEnumerable<IObservable> affectedObjects = ClosingStructuresDataSynchronizationService.RemoveStructure(
                 structureToRemove, failureMechanism);
@@ -161,11 +140,11 @@ namespace Riskeer.ClosingStructures.Service.Test
         public void RemoveAllStructures_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => ClosingStructuresDataSynchronizationService.RemoveAllStructures(null);
+            void Call() => ClosingStructuresDataSynchronizationService.RemoveAllStructures(null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("failureMechanism", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
         }
 
         [Test]
@@ -174,11 +153,8 @@ namespace Riskeer.ClosingStructures.Service.Test
             // Setup
             var failureMechanism = new ClosingStructuresFailureMechanism();
 
-            var locationStructureA = new Point2D(0, 0);
-            var structureA = new TestClosingStructure(locationStructureA, "A");
-
-            var locationStructureB = new Point2D(2, 2);
-            var structureB = new TestClosingStructure(locationStructureB, "B");
+            var structureA = new TestClosingStructure(new Point2D(0, 0), "A");
+            var structureB = new TestClosingStructure(new Point2D(2, 2), "B");
 
             failureMechanism.ClosingStructures.AddRange(new[]
             {
@@ -221,21 +197,6 @@ namespace Riskeer.ClosingStructures.Service.Test
                 calculationWithStructureAAndOutput
             });
 
-            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
-            {
-                FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
-                {
-                    locationStructureA,
-                    new Point2D(1, 1)
-                }),
-                FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
-                {
-                    new Point2D(1, 1),
-                    locationStructureB
-                })
-            });
-
-
             // Call
             IEnumerable<IObservable> affectedObjects = ClosingStructuresDataSynchronizationService.RemoveAllStructures(failureMechanism);
 
@@ -266,10 +227,10 @@ namespace Riskeer.ClosingStructures.Service.Test
         public void ClearAllCalculationOutput_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => ClosingStructuresDataSynchronizationService.ClearAllCalculationOutput(null);
+            void Call() => ClosingStructuresDataSynchronizationService.ClearAllCalculationOutput(null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
         }
 
@@ -316,10 +277,10 @@ namespace Riskeer.ClosingStructures.Service.Test
         public void ClearAllCalculationOutputAndHydraulicBoundaryLocations_WithoutFailureMechanism_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => ClosingStructuresDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(null);
+            void Call() => ClosingStructuresDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
         }
 
@@ -487,11 +448,11 @@ namespace Riskeer.ClosingStructures.Service.Test
         public void ClearReferenceLineDependentData_FailureMechanismNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate call = () => ClosingStructuresDataSynchronizationService.ClearReferenceLineDependentData(null);
+            void Call() => ClosingStructuresDataSynchronizationService.ClearReferenceLineDependentData(null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("failureMechanism", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
         }
 
         [Test]
