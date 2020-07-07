@@ -319,7 +319,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
                                                                                   grassCoverErosionInwardsFailureMechanism, assessmentSection);
 
             view.Expect(v => v.AssessmentSection = assessmentSection);
-            view.Expect(v => v.GrassCoverErosionInwardsFailureMechanism = grassCoverErosionInwardsFailureMechanism);
+            view.Expect(v => v.FailureMechanism = grassCoverErosionInwardsFailureMechanism);
 
             mocks.ReplayAll();
 

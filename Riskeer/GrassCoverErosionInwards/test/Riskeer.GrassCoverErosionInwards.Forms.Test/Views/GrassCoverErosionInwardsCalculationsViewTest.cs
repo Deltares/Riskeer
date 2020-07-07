@@ -178,7 +178,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             using (GrassCoverErosionInwardsCalculationsView grassCoverErosionInwardsCalculationsView = ShowGrassCoverErosionInwardsCalculationsView())
             {
                 // Call
-                grassCoverErosionInwardsCalculationsView.GrassCoverErosionInwardsFailureMechanism = failureMechanism;
+                grassCoverErosionInwardsCalculationsView.FailureMechanism = failureMechanism;
 
                 // Assert
                 var listBox = (ListBox) new ControlTester("listBox").TheObject;
@@ -250,7 +250,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
 
             using (GrassCoverErosionInwardsCalculationsView grassCoverErosionInwardsCalculationsView = ShowGrassCoverErosionInwardsCalculationsView())
             {
-                grassCoverErosionInwardsCalculationsView.GrassCoverErosionInwardsFailureMechanism = grassCoverErosionInwardsFailureMechanism;
+                grassCoverErosionInwardsCalculationsView.FailureMechanism = grassCoverErosionInwardsFailureMechanism;
                 var button = (Button) grassCoverErosionInwardsCalculationsView.Controls.Find("buttonGenerateCalculations", true)[0];
 
                 // Call
@@ -269,7 +269,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
 
             using (GrassCoverErosionInwardsCalculationsView grassCoverErosionInwardsCalculationsView = ShowGrassCoverErosionInwardsCalculationsView())
             {
-                grassCoverErosionInwardsCalculationsView.GrassCoverErosionInwardsFailureMechanism = grassCoverErosionInwardsFailureMechanism;
+                grassCoverErosionInwardsCalculationsView.FailureMechanism = grassCoverErosionInwardsFailureMechanism;
                 var button = (Button) grassCoverErosionInwardsCalculationsView.Controls.Find("buttonGenerateCalculations", true)[0];
 
                 // Call
@@ -311,7 +311,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             using (GrassCoverErosionInwardsCalculationsView grassCoverErosionInwardsCalculationsView = ShowGrassCoverErosionInwardsCalculationsView())
             {
                 // Call
-                grassCoverErosionInwardsCalculationsView.GrassCoverErosionInwardsFailureMechanism = failureMechanism;
+                grassCoverErosionInwardsCalculationsView.FailureMechanism = failureMechanism;
 
                 // Assert
                 var listBox = (ListBox) new ControlTester("listBox").TheObject;
@@ -373,7 +373,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             using (var calculationsView = new GrassCoverErosionInwardsCalculationsView
             {
                 AssessmentSection = assessmentSection,
-                GrassCoverErosionInwardsFailureMechanism = failureMechanism,
+                FailureMechanism = failureMechanism,
                 Data = ConfigureCalculationGroup(assessmentSection, failureMechanism)
             })
             {
@@ -529,7 +529,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
 
             using (GrassCoverErosionInwardsCalculationsView grassCoverErosionInwardsCalculationsView = ShowGrassCoverErosionInwardsCalculationsView())
             {
-                grassCoverErosionInwardsCalculationsView.GrassCoverErosionInwardsFailureMechanism = failureMechanism;
+                grassCoverErosionInwardsCalculationsView.FailureMechanism = failureMechanism;
 
                 var listBox = (ListBox) new ControlTester("listBox").TheObject;
 
@@ -837,7 +837,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             GrassCoverErosionInwardsCalculationsView view = ShowGrassCoverErosionInwardsCalculationsView();
             view.Data = calculationGroup;
             view.AssessmentSection = assessmentSection;
-            view.GrassCoverErosionInwardsFailureMechanism = failureMechanism;
+            view.FailureMechanism = failureMechanism;
 
             return view;
         }

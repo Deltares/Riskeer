@@ -38,7 +38,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GrassCoverErosionInwardsCalculationsView));
             this.tableLayoutPanelUserControl = new System.Windows.Forms.TableLayoutPanel();
-            this.label1 = new System.Windows.Forms.Label();
+            this.warningMessageLabel = new System.Windows.Forms.Label();
             this.splitContainer = new System.Windows.Forms.SplitContainer();
             this.tableLayoutPanelListBox = new System.Windows.Forms.TableLayoutPanel();
             this.listBox = new System.Windows.Forms.ListBox();
@@ -59,15 +59,14 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
             // tableLayoutPanelUserControl
             // 
             resources.ApplyResources(this.tableLayoutPanelUserControl, "tableLayoutPanelUserControl");
-            this.tableLayoutPanelUserControl.Controls.Add(this.label1, 0, 2);
             this.tableLayoutPanelUserControl.Controls.Add(this.splitContainer, 0, 0);
             this.tableLayoutPanelUserControl.Controls.Add(this.buttonGenerateCalculations, 0, 1);
             this.tableLayoutPanelUserControl.Name = "tableLayoutPanelUserControl";
             // 
-            // label1
+            // warningMessageLabel
             // 
-            resources.ApplyResources(this.label1, "label1");
-            this.label1.Name = "label1";
+            resources.ApplyResources(this.warningMessageLabel, "warningMessageLabel");
+            this.warningMessageLabel.Name = "warningMessageLabel";
             // 
             // splitContainer
             // 
@@ -104,6 +103,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
             // tableLayoutPanelDataGrid
             // 
             resources.ApplyResources(this.tableLayoutPanelDataGrid, "tableLayoutPanelDataGrid");
+            this.tableLayoutPanelDataGrid.Controls.Add(this.warningMessageLabel, 0, 2);
             this.tableLayoutPanelDataGrid.Controls.Add(this.labelCalculations, 0, 0);
             this.tableLayoutPanelDataGrid.Controls.Add(this.dataGridViewControl, 0, 1);
             this.tableLayoutPanelDataGrid.Name = "tableLayoutPanelDataGrid";
@@ -158,6 +158,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
         private System.Windows.Forms.Label labelCalculations;
         private Core.Common.Controls.DataGrid.DataGridViewControl dataGridViewControl;
         private System.Windows.Forms.Button buttonGenerateCalculations;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label warningMessageLabel;
     }
 }

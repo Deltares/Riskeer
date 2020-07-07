@@ -259,7 +259,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
                 AfterCreate = (view, context) =>
                 {
                     view.AssessmentSection = context.AssessmentSection;
-                    view.GrassCoverErosionInwardsFailureMechanism = context.FailureMechanism;
+                    view.FailureMechanism = context.FailureMechanism;
                 }
             };
         }
