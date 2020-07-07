@@ -20,11 +20,13 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using Core.Common.Controls.DataGrid;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Exceptions;
+using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.TypeConverters;
 using Riskeer.Common.Forms.Views;
@@ -50,6 +52,7 @@ namespace Riskeer.HeightStructures.Forms.Views
         private readonly int combinedAssemblyProbabilityIndex;
         private readonly int manualAssemblyProbabilityIndex;
 
+        private IEnumerable<StructuresCalculationScenario<HeightStructuresInput>> calculationScenarios;
         private readonly HeightStructuresFailureMechanism failureMechanism;
         private readonly IAssessmentSection assessmentSection;
         private FailureMechanismSectionAssemblyCategoryGroup simpleAssemblyCategoryGroup;
@@ -61,6 +64,7 @@ namespace Riskeer.HeightStructures.Forms.Views
         /// Creates a new instance of <see cref="HeightStructuresFailureMechanismSectionResultRow"/>.
         /// </summary>
         /// <param name="sectionResult">The <see cref="HeightStructuresFailureMechanismSectionResult"/> this row contains.</param>
+        /// <param name="calculationScenarios">All calculation scenarios in the failure mechanism.</param>
         /// <param name="failureMechanism">The failure mechanism the result belongs to.</param>
         /// <param name="assessmentSection">The assessment section the result belongs to.</param>
         /// <param name="constructionProperties">The property values required to create an instance of
@@ -69,11 +73,17 @@ namespace Riskeer.HeightStructures.Forms.Views
         /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
         /// is a valid value, but unsupported.</exception>
         internal HeightStructuresFailureMechanismSectionResultRow(HeightStructuresFailureMechanismSectionResult sectionResult,
+                                                                  IEnumerable<StructuresCalculationScenario<HeightStructuresInput>> calculationScenarios,
                                                                   HeightStructuresFailureMechanism failureMechanism,
                                                                   IAssessmentSection assessmentSection,
                                                                   ConstructionProperties constructionProperties)
             : base(sectionResult)
         {
+            if (calculationScenarios == null)
+            {
+                throw new ArgumentNullException(nameof(calculationScenarios));
+            }
+
             if (failureMechanism == null)
             {
                 throw new ArgumentNullException(nameof(failureMechanism));
@@ -89,6 +99,7 @@ namespace Riskeer.HeightStructures.Forms.Views
                 throw new ArgumentNullException(nameof(constructionProperties));
             }
 
+            this.calculationScenarios = calculationScenarios;
             this.failureMechanism = failureMechanism;
             this.assessmentSection = assessmentSection;
 

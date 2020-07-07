@@ -106,6 +106,7 @@ namespace Riskeer.HeightStructures.Forms.Views
         {
             return new HeightStructuresFailureMechanismSectionResultRow(
                 sectionResult,
+                FailureMechanism.Calculations.Cast<StructuresCalculationScenario<HeightStructuresInput>>(),
                 FailureMechanism,
                 assessmentSection,
                 new HeightStructuresFailureMechanismSectionResultRow.ConstructionProperties
