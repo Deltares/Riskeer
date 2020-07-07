@@ -155,7 +155,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
         {
             if (disposing)
             {
-                dataGridViewControl.CurrentRowChanged -= DataGridViewOnCurrentRowChangedHandler;
                 failureMechanismObserver.Dispose();
 
                 inputObserver.Dispose();
@@ -169,11 +168,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
             }
 
             base.Dispose(disposing);
-        }
-
-        private void HandleCellStyling(object sender, DataGridViewCellFormattingEventArgs e)
-        {
-            dataGridViewControl.FormatCellWithColumnStateDefinition(e.RowIndex, e.ColumnIndex);
         }
 
         private void InitializeDataGridView()
@@ -201,11 +195,9 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
             dataGridViewControl.AddCheckBoxColumn(nameof(GrassCoverErosionInwardsCalculationRow.UseBreakWater),
                                                   Resources.GrassCoverErosionInwardsCalculation_Use_BreakWater);
 
-            IEnumerable<EnumDisplayWrapper<BreakWaterType>> dataSource = GetBreakWaterTypes().ToArray();
-
             dataGridViewControl.AddComboBoxColumn(nameof(GrassCoverErosionInwardsCalculationRow.BreakWaterType),
                                                   Resources.GrassCoverErosionInwardsCalculation_BreakWaterType,
-                                                  dataSource,
+                                                  GetBreakWaterTypes(),
                                                   nameof(EnumDisplayWrapper<BreakWaterType>.Value),
                                                   nameof(EnumDisplayWrapper<BreakWaterType>.DisplayName));
 
@@ -431,7 +423,8 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
         {
             return Enum.GetValues(typeof(BreakWaterType))
                        .OfType<BreakWaterType>()
-                       .Select(bwt => new EnumDisplayWrapper<BreakWaterType>(bwt));
+                       .Select(bwt => new EnumDisplayWrapper<BreakWaterType>(bwt))
+                       .ToArray();
         }
 
         private IEnumerable<SelectableHydraulicBoundaryLocation> GetSelectableHydraulicBoundaryLocationsFromFailureMechanism()
@@ -511,6 +504,11 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
         private void OnSelectionChanged()
         {
             SelectionChanged?.Invoke(this, new EventArgs());
+        }
+
+        private void HandleCellStyling(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            dataGridViewControl.FormatCellWithColumnStateDefinition(e.RowIndex, e.ColumnIndex);
         }
 
         #endregion
