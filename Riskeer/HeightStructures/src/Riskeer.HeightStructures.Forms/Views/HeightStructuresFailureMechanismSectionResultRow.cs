@@ -52,10 +52,10 @@ namespace Riskeer.HeightStructures.Forms.Views
         private readonly int combinedAssemblyCategoryGroupIndex;
         private readonly int combinedAssemblyProbabilityIndex;
         private readonly int manualAssemblyProbabilityIndex;
-
-        private IEnumerable<StructuresCalculationScenario<HeightStructuresInput>> calculationScenarios;
         private readonly HeightStructuresFailureMechanism failureMechanism;
         private readonly IAssessmentSection assessmentSection;
+
+        private readonly IEnumerable<StructuresCalculationScenario<HeightStructuresInput>> calculationScenarios;
         private FailureMechanismSectionAssemblyCategoryGroup simpleAssemblyCategoryGroup;
         private FailureMechanismSectionAssemblyCategoryGroup detailedAssemblyCategoryGroup;
         private FailureMechanismSectionAssemblyCategoryGroup tailorMadeAssemblyCategoryGroup;
@@ -267,9 +267,10 @@ namespace Riskeer.HeightStructures.Forms.Views
             }
             else
             {
-                ColumnStateDefinitions[detailedAssessmentProbabilityIndex].ErrorText = FailureMechanismSectionResultRowHelper.GetDetailedAssessmentError(
-                    DetailedAssessmentProbability,
-                    SectionResult.Calculation);
+                ColumnStateDefinitions[detailedAssessmentProbabilityIndex].ErrorText = FailureMechanismSectionResultRowHelper.GetDetailedAssessmentProbabilityError(
+                    SectionResult.GetCalculationScenarios(calculationScenarios).ToArray(),
+                    scenarios => SectionResult.GetTotalContribution(scenarios),
+                    scenarios => SectionResult.GetDetailedAssessmentProbability(scenarios, failureMechanism, assessmentSection));
             }
         }
 

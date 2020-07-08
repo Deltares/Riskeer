@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using Core.Common.Base;
+using Core.Common.Base.Data;
 using Core.Common.Controls.DataGrid;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -686,40 +687,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
         [Test]
         [TestCase(SimpleAssessmentResultType.None)]
         [TestCase(SimpleAssessmentResultType.AssessFurther)]
-        public void Constructor_SectionResultWithoutCalculation_DetailedAssessmentProbabilityHasErrorText(
-            SimpleAssessmentResultType simpleAssessmentResult)
-        {
-            // Setup
-            var failureMechanism = new HeightStructuresFailureMechanism();
-
-            var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
-            mocks.ReplayAll();
-
-            var sectionResult = new HeightStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
-            {
-                SimpleAssessmentResult = simpleAssessmentResult
-            };
-
-            using (new AssemblyToolCalculatorFactoryConfig())
-            {
-                // Call
-                var resultRow = new HeightStructuresFailureMechanismSectionResultRow(
-                    sectionResult, Enumerable.Empty<StructuresCalculationScenario<HeightStructuresInput>>(),
-                    failureMechanism, assessmentSection, ConstructionProperties);
-
-                // Assert
-                Assert.IsNaN(resultRow.DetailedAssessmentProbability);
-                Assert.AreEqual("Er moet een maatgevende berekening voor dit vak worden geselecteerd.",
-                                resultRow.ColumnStateDefinitions[ConstructionProperties.DetailedAssessmentProbabilityIndex].ErrorText);
-                mocks.VerifyAll();
-            }
-        }
-
-        [Test]
-        [TestCase(SimpleAssessmentResultType.None)]
-        [TestCase(SimpleAssessmentResultType.AssessFurther)]
-        public void Constructor_SectionResultAndCalculationNotCalculated_DetailedAssessmentProbabilityHasErrorText(
+        public void Constructor_TotalContributionNotHundred_DetailedAssessmentProbabilityHasErrorText(
             SimpleAssessmentResultType simpleAssessmentResult)
         {
             // Setup
@@ -732,24 +700,28 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var sectionResult = new HeightStructuresFailureMechanismSectionResult(section)
             {
-                Calculation = new TestHeightStructuresCalculationScenario(),
                 SimpleAssessmentResult = simpleAssessmentResult
             };
 
-            StructuresCalculationScenario<HeightStructuresInput>[] calculationScenarios =
-            {
-                HeightStructuresCalculationScenarioTestFactory.CreateNotCalculatedHeightStructuresCalculationScenario(section)
-            };
+            StructuresCalculationScenario<HeightStructuresInput> calculation = HeightStructuresCalculationScenarioTestFactory.CreateHeightStructuresCalculationScenario(section);
+            calculation.Contribution = (RoundedDouble) 0.3;
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call
                 var resultRow = new HeightStructuresFailureMechanismSectionResultRow(
-                    sectionResult, calculationScenarios, failureMechanism, assessmentSection, ConstructionProperties);
+                    sectionResult,
+                    new[]
+                    {
+                        calculation
+                    },
+                    failureMechanism,
+                    assessmentSection,
+                    ConstructionProperties);
 
                 // Assert
                 Assert.IsNaN(resultRow.DetailedAssessmentProbability);
-                Assert.AreEqual("De maatgevende berekening voor dit vak moet nog worden uitgevoerd.",
+                Assert.AreEqual("Bijdrage van de geselecteerde scenario's voor dit vak moet opgeteld gelijk zijn aan 100%.",
                                 resultRow.ColumnStateDefinitions[ConstructionProperties.DetailedAssessmentProbabilityIndex].ErrorText);
                 mocks.VerifyAll();
             }
@@ -758,7 +730,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
         [Test]
         [TestCase(SimpleAssessmentResultType.None)]
         [TestCase(SimpleAssessmentResultType.AssessFurther)]
-        public void Constructor_SectionResultAndFailedCalculation_DetailedAssessmentProbabilityHasErrorText(
+        public void Constructor_NoCalculatedScenario_DetailedAssessmentProbabilityHasErrorText(
             SimpleAssessmentResultType simpleAssessmentResult)
         {
             // Setup
@@ -768,18 +740,54 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
-            var calculation = new TestHeightStructuresCalculationScenario
-            {
-                Output = new TestStructuresOutput(double.NaN)
-            };
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var sectionResult = new HeightStructuresFailureMechanismSectionResult(section)
             {
-                Calculation = calculation,
                 SimpleAssessmentResult = simpleAssessmentResult
             };
 
-            StructuresCalculationScenario<HeightStructuresInput> calculationScenario = HeightStructuresCalculationScenarioTestFactory.CreateHeightStructuresCalculationScenario(section);
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                // Call
+                var resultRow = new HeightStructuresFailureMechanismSectionResultRow(
+                    sectionResult,
+                    new[]
+                    {
+                        HeightStructuresCalculationScenarioTestFactory.CreateNotCalculatedHeightStructuresCalculationScenario(section)
+                    },
+                    failureMechanism,
+                    assessmentSection,
+                    ConstructionProperties);
+
+                // Assert
+                Assert.IsNaN(resultRow.DetailedAssessmentProbability);
+                Assert.AreEqual("Alle berekeningen voor dit vak moeten uitgevoerd zijn.",
+                                resultRow.ColumnStateDefinitions[ConstructionProperties.DetailedAssessmentProbabilityIndex].ErrorText);
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        [TestCase(SimpleAssessmentResultType.None)]
+        [TestCase(SimpleAssessmentResultType.AssessFurther)]
+        public void Constructor_DetailedAssessmentProbabilityNaN_DetailedAssessmentProbabilityHasErrorText(
+            SimpleAssessmentResultType simpleAssessmentResult)
+        {
+            // Setup
+            var failureMechanism = new HeightStructuresFailureMechanism();
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
+
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var sectionResult = new HeightStructuresFailureMechanismSectionResult(section)
+            {
+                SimpleAssessmentResult = simpleAssessmentResult
+            };
+
+            StructuresCalculationScenario<HeightStructuresInput> calculationScenario =
+                HeightStructuresCalculationScenarioTestFactory.CreateNotCalculatedHeightStructuresCalculationScenario(section);
             calculationScenario.Output = new TestStructuresOutput(double.NaN);
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -797,7 +805,88 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
 
                 // Assert
                 Assert.IsNaN(resultRow.DetailedAssessmentProbability);
-                Assert.AreEqual("De maatgevende berekening voor dit vak moet een geldige uitkomst hebben.",
+                Assert.AreEqual("Alle berekeningen voor dit vak moeten een geldige uitkomst hebben.",
+                                resultRow.ColumnStateDefinitions[ConstructionProperties.DetailedAssessmentProbabilityIndex].ErrorText);
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        [TestCase(SimpleAssessmentResultType.None)]
+        [TestCase(SimpleAssessmentResultType.AssessFurther)]
+        public void Constructor_NoCalculationScenarios_DetailedAssessmentProbabilityHasErrorText(
+            SimpleAssessmentResultType simpleAssessmentResult)
+        {
+            // Setup
+            var failureMechanism = new HeightStructuresFailureMechanism();
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
+
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var sectionResult = new HeightStructuresFailureMechanismSectionResult(section)
+            {
+                SimpleAssessmentResult = simpleAssessmentResult
+            };
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                // Call
+                var resultRow = new HeightStructuresFailureMechanismSectionResultRow(
+                    sectionResult,
+                    Enumerable.Empty<StructuresCalculationScenario<HeightStructuresInput>>(),
+                    failureMechanism,
+                    assessmentSection,
+                    ConstructionProperties);
+
+                // Assert
+                Assert.IsNaN(resultRow.DetailedAssessmentProbability);
+                Assert.AreEqual("Er moet minimaal één maatgevende berekening voor dit vak worden geselecteerd.",
+                                resultRow.ColumnStateDefinitions[ConstructionProperties.DetailedAssessmentProbabilityIndex].ErrorText);
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        [TestCase(SimpleAssessmentResultType.None)]
+        [TestCase(SimpleAssessmentResultType.AssessFurther)]
+        public void Constructor_NoCalculationScenariosRelevant_DetailedAssessmentProbabilityHasErrorText(
+            SimpleAssessmentResultType simpleAssessmentResult)
+        {
+            // Setup
+            var failureMechanism = new HeightStructuresFailureMechanism();
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
+
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var sectionResult = new HeightStructuresFailureMechanismSectionResult(section)
+            {
+                SimpleAssessmentResult = simpleAssessmentResult
+            };
+
+            StructuresCalculationScenario<HeightStructuresInput> calculationScenario =
+                HeightStructuresCalculationScenarioTestFactory.CreateNotCalculatedHeightStructuresCalculationScenario(section);
+            calculationScenario.IsRelevant = false;
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                // Call
+                var resultRow = new HeightStructuresFailureMechanismSectionResultRow(
+                    sectionResult,
+                    new[]
+                    {
+                        calculationScenario
+                    },
+                    failureMechanism,
+                    assessmentSection,
+                    ConstructionProperties);
+
+                // Assert
+                Assert.IsNaN(resultRow.DetailedAssessmentProbability);
+                Assert.AreEqual("Er moet minimaal één maatgevende berekening voor dit vak worden geselecteerd.",
                                 resultRow.ColumnStateDefinitions[ConstructionProperties.DetailedAssessmentProbabilityIndex].ErrorText);
                 mocks.VerifyAll();
             }
@@ -814,10 +903,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new HeightStructuresFailureMechanismSectionResult(section)
-            {
-                Calculation = CreateCalculationWithOutput()
-            };
+            var sectionResult = new HeightStructuresFailureMechanismSectionResult(section);
 
             StructuresCalculationScenario<HeightStructuresInput>[] calculationScenarios =
             {
@@ -850,7 +936,6 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var sectionResult = new HeightStructuresFailureMechanismSectionResult(section)
             {
-                Calculation = new TestHeightStructuresCalculationScenario(),
                 UseManualAssembly = true
             };
 
@@ -885,7 +970,6 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var sectionResult = new HeightStructuresFailureMechanismSectionResult(section)
             {
-                Calculation = new TestHeightStructuresCalculationScenario(),
                 DetailedAssessmentResult = DetailedAssessmentProbabilityOnlyResultType.NotAssessed
             };
 
