@@ -159,8 +159,7 @@ namespace Riskeer.HeightStructures.IO.Test.Configurations
                                                                                 new CalculationGroup(),
                                                                                 Enumerable.Empty<HydraulicBoundaryLocation>(),
                                                                                 Enumerable.Empty<ForeshoreProfile>(),
-                                                                                Enumerable.Empty<HeightStructure>(),
-                                                                                new HeightStructuresFailureMechanism());
+                                                                                Enumerable.Empty<HeightStructure>());
 
             // Assert
             Assert.IsInstanceOf<CalculationConfigurationImporter<HeightStructuresCalculationConfigurationReader, HeightStructuresCalculationConfiguration>>(importer);
@@ -172,7 +171,7 @@ namespace Riskeer.HeightStructures.IO.Test.Configurations
             // Call
             void Call() => new HeightStructuresCalculationConfigurationImporter(
                 "", new CalculationGroup(), null, Enumerable.Empty<ForeshoreProfile>(),
-                Enumerable.Empty<HeightStructure>(), new HeightStructuresFailureMechanism());
+                Enumerable.Empty<HeightStructure>());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -185,7 +184,7 @@ namespace Riskeer.HeightStructures.IO.Test.Configurations
             // Call
             void Call() => new HeightStructuresCalculationConfigurationImporter(
                 "", new CalculationGroup(), Enumerable.Empty<HydraulicBoundaryLocation>(), null,
-                Enumerable.Empty<HeightStructure>(), new HeightStructuresFailureMechanism());
+                Enumerable.Empty<HeightStructure>());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -197,25 +196,12 @@ namespace Riskeer.HeightStructures.IO.Test.Configurations
         {
             // Call
             void Call() => new HeightStructuresCalculationConfigurationImporter(
-                "", new CalculationGroup(), Enumerable.Empty<HydraulicBoundaryLocation>(), Enumerable.Empty<ForeshoreProfile>(),
-                null, new HeightStructuresFailureMechanism());
+                "", new CalculationGroup(), Enumerable.Empty<HydraulicBoundaryLocation>(),
+                Enumerable.Empty<ForeshoreProfile>(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("structures", exception.ParamName);
-        }
-
-        [Test]
-        public void Constructor_FailureMechanismNull_ThrowArgumentNullException()
-        {
-            // Call
-            void Call() => new HeightStructuresCalculationConfigurationImporter(
-                "", new CalculationGroup(), Enumerable.Empty<HydraulicBoundaryLocation>(),
-                Enumerable.Empty<ForeshoreProfile>(), Enumerable.Empty<HeightStructure>(), null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("failureMechanism", exception.ParamName);
         }
 
         [Test]
@@ -240,8 +226,7 @@ namespace Riskeer.HeightStructures.IO.Test.Configurations
                                                                                 new HeightStructure[]
                                                                                 {
                                                                                     structure
-                                                                                },
-                                                                                new HeightStructuresFailureMechanism());
+                                                                                });
             var successful = false;
 
             // Call
@@ -270,8 +255,7 @@ namespace Riskeer.HeightStructures.IO.Test.Configurations
                 {
                     foreshoreProfile
                 },
-                Enumerable.Empty<HeightStructure>(),
-                new HeightStructuresFailureMechanism());
+                Enumerable.Empty<HeightStructure>());
 
             var successful = false;
 
@@ -312,8 +296,7 @@ namespace Riskeer.HeightStructures.IO.Test.Configurations
                 new[]
                 {
                     structure
-                },
-                new HeightStructuresFailureMechanism());
+                });
 
             // Call
             var successful = false;
@@ -402,8 +385,7 @@ namespace Riskeer.HeightStructures.IO.Test.Configurations
                 new[]
                 {
                     structure
-                },
-                new HeightStructuresFailureMechanism());
+                });
 
             var expectedCalculation = new StructuresCalculationScenario<HeightStructuresInput>
             {
@@ -471,8 +453,7 @@ namespace Riskeer.HeightStructures.IO.Test.Configurations
                 new[]
                 {
                     structure
-                },
-                new HeightStructuresFailureMechanism());
+                });
 
             var expectedCalculation = new StructuresCalculationScenario<HeightStructuresInput>
             {
@@ -536,8 +517,7 @@ namespace Riskeer.HeightStructures.IO.Test.Configurations
                 new[]
                 {
                     structure
-                },
-                new HeightStructuresFailureMechanism());
+                });
 
             var expectedCalculation = new StructuresCalculationScenario<HeightStructuresInput>
             {
@@ -570,8 +550,7 @@ namespace Riskeer.HeightStructures.IO.Test.Configurations
                                                                                 calculationGroup,
                                                                                 Enumerable.Empty<HydraulicBoundaryLocation>(),
                                                                                 Enumerable.Empty<ForeshoreProfile>(),
-                                                                                Enumerable.Empty<HeightStructure>(),
-                                                                                new HeightStructuresFailureMechanism());
+                                                                                Enumerable.Empty<HeightStructure>());
             var successful = false;
 
             // Call

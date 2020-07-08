@@ -116,8 +116,7 @@ namespace Riskeer.HeightStructures.Plugin
                     context.WrappedData,
                     context.AssessmentSection.HydraulicBoundaryDatabase.Locations,
                     context.AvailableForeshoreProfiles,
-                    context.AvailableStructures,
-                    context.FailureMechanism));
+                    context.AvailableStructures));
         }
 
         public override IEnumerable<UpdateInfo> GetUpdateInfos()

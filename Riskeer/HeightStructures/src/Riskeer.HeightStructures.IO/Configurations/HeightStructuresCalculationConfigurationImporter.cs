@@ -44,7 +44,6 @@ namespace Riskeer.HeightStructures.IO.Configurations
         private readonly IEnumerable<HydraulicBoundaryLocation> availableHydraulicBoundaryLocations;
         private readonly IEnumerable<ForeshoreProfile> availableForeshoreProfiles;
         private readonly IEnumerable<HeightStructure> availableStructures;
-        private readonly HeightStructuresFailureMechanism failureMechanism;
 
         /// <summary>
         /// Create new instance of <see cref="HeightStructuresCalculationConfigurationImporter"/>
@@ -57,15 +56,13 @@ namespace Riskeer.HeightStructures.IO.Configurations
         /// the imported objects contain the right foreshore profile.</param>
         /// <param name="structures">The structures used to check if
         /// the imported objects contain the right structure.</param>
-        /// <param name="failureMechanism">The failure mechanism used to propagate changes.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public HeightStructuresCalculationConfigurationImporter(
             string xmlFilePath,
             CalculationGroup importTarget,
             IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations,
             IEnumerable<ForeshoreProfile> foreshoreProfiles,
-            IEnumerable<HeightStructure> structures,
-            HeightStructuresFailureMechanism failureMechanism)
+            IEnumerable<HeightStructure> structures)
             : base(xmlFilePath, importTarget)
         {
             if (hydraulicBoundaryLocations == null)
@@ -83,15 +80,9 @@ namespace Riskeer.HeightStructures.IO.Configurations
                 throw new ArgumentNullException(nameof(structures));
             }
 
-            if (failureMechanism == null)
-            {
-                throw new ArgumentNullException(nameof(failureMechanism));
-            }
-
             availableHydraulicBoundaryLocations = hydraulicBoundaryLocations;
             availableForeshoreProfiles = foreshoreProfiles;
             availableStructures = structures;
-            this.failureMechanism = failureMechanism;
         }
 
         protected override HeightStructuresCalculationConfigurationReader CreateCalculationConfigurationReader(string xmlFilePath)
