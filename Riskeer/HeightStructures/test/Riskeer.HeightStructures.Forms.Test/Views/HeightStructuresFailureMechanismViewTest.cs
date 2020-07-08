@@ -154,7 +154,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
             // Setup
             var random = new Random(39);
 
-            var calculationA = new StructuresCalculation<HeightStructuresInput>
+            var calculationA = new StructuresCalculationScenario<HeightStructuresInput>
             {
                 InputParameters =
                 {
@@ -163,7 +163,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
                 }
             };
 
-            var calculationB = new StructuresCalculation<HeightStructuresInput>
+            var calculationB = new StructuresCalculationScenario<HeightStructuresInput>
             {
                 InputParameters =
                 {
@@ -811,7 +811,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
         {
             // Given
             var random = new Random(39);
-            var calculationA = new StructuresCalculation<HeightStructuresInput>();
+            var calculationA = new StructuresCalculationScenario<HeightStructuresInput>();
 
             var failureMechanism = new HeightStructuresFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculationA);
