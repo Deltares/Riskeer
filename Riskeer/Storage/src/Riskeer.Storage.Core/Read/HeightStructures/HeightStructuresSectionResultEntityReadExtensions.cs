@@ -67,11 +67,6 @@ namespace Riskeer.Storage.Core.Read.HeightStructures
             sectionResult.TailorMadeAssessmentProbability = entity.TailorMadeAssessmentProbability.ToNullAsNaN();
             sectionResult.UseManualAssembly = Convert.ToBoolean(entity.UseManualAssembly);
             sectionResult.ManualAssemblyProbability = entity.ManualAssemblyProbability.ToNullAsNaN();
-
-            if (entity.HeightStructuresCalculationEntity != null)
-            {
-                sectionResult.Calculation = entity.HeightStructuresCalculationEntity.Read(collector);
-            }
         }
     }
 }

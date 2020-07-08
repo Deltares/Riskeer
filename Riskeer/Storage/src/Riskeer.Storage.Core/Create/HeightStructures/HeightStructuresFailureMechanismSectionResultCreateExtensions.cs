@@ -52,7 +52,7 @@ namespace Riskeer.Storage.Core.Create.HeightStructures
                 throw new ArgumentNullException(nameof(registry));
             }
 
-            var sectionResultEntity = new HeightStructuresSectionResultEntity
+            return new HeightStructuresSectionResultEntity
             {
                 SimpleAssessmentResult = Convert.ToByte(result.SimpleAssessmentResult),
                 DetailedAssessmentResult = Convert.ToByte(result.DetailedAssessmentResult),
@@ -61,12 +61,6 @@ namespace Riskeer.Storage.Core.Create.HeightStructures
                 UseManualAssembly = Convert.ToByte(result.UseManualAssembly),
                 ManualAssemblyProbability = result.ManualAssemblyProbability.ToNaNAsNull()
             };
-            if (result.Calculation != null)
-            {
-                sectionResultEntity.HeightStructuresCalculationEntity = registry.Get(result.Calculation);
-            }
-
-            return sectionResultEntity;
         }
     }
 }

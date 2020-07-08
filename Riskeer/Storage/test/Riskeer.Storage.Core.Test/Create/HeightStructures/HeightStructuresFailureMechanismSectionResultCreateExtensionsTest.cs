@@ -22,7 +22,6 @@
 using System;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Primitives;
 using Riskeer.HeightStructures.Data;
@@ -111,27 +110,6 @@ namespace Riskeer.Storage.Core.Test.Create.HeightStructures
             // Assert
             Assert.IsNull(entity.TailorMadeAssessmentProbability);
             Assert.IsNull(entity.ManualAssemblyProbability);
-        }
-
-        [Test]
-        public void Create_CalculationSet_ReturnEntityWithCalculationEntity()
-        {
-            // Setup
-            var calculation = new StructuresCalculation<HeightStructuresInput>();
-            var sectionResult = new HeightStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
-            {
-                Calculation = calculation
-            };
-
-            var registry = new PersistenceRegistry();
-            var calculationEntity = new HeightStructuresCalculationEntity();
-            registry.Register(calculationEntity, calculation);
-
-            // Call
-            HeightStructuresSectionResultEntity entity = sectionResult.Create(registry);
-
-            // Assert
-            Assert.AreSame(calculationEntity, entity.HeightStructuresCalculationEntity);
         }
     }
 }

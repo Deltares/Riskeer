@@ -565,12 +565,6 @@ namespace Riskeer.HeightStructures.Service.Test
                 section1,
                 section2
             });
-            HeightStructuresFailureMechanismSectionResult result1 = failureMechanism.SectionResults
-                                                                                    .First(sr => ReferenceEquals(sr.Section, section1));
-            HeightStructuresFailureMechanismSectionResult result2 = failureMechanism.SectionResults
-                                                                                    .First(sr => ReferenceEquals(sr.Section, section2));
-            result1.Calculation = calculation1;
-            result2.Calculation = calculation2;
 
             return failureMechanism;
         }

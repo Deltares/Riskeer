@@ -22,7 +22,6 @@
 using System;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Primitives;
 using Riskeer.HeightStructures.Data;
@@ -116,7 +115,6 @@ namespace Riskeer.Storage.Core.Test.Read.HeightStructures
             Assert.AreEqual(tailorMadeAssessmentProbability, sectionResult.TailorMadeAssessmentProbability, 1e-6);
             Assert.AreEqual(useManualAssembly, sectionResult.UseManualAssembly);
             Assert.AreEqual(manualAssemblyProbability, sectionResult.ManualAssemblyProbability, 1e-6);
-            Assert.IsNull(sectionResult.Calculation);
         }
 
         [Test]
@@ -139,31 +137,6 @@ namespace Riskeer.Storage.Core.Test.Read.HeightStructures
             // Assert
             Assert.IsNaN(sectionResult.TailorMadeAssessmentProbability);
             Assert.IsNaN(sectionResult.ManualAssemblyProbability);
-            Assert.IsNull(sectionResult.Calculation);
-        }
-
-        [Test]
-        public void Read_CalculationEntitySet_ReturnHeightStructuresSectionResultWithCalculation()
-        {
-            // Setup
-            var calculation = new StructuresCalculationScenario<HeightStructuresInput>();
-
-            var calculationEntity = new HeightStructuresCalculationEntity();
-
-            var collector = new ReadConversionCollector();
-            collector.Read(calculationEntity, calculation);
-
-            var entity = new HeightStructuresSectionResultEntity
-            {
-                HeightStructuresCalculationEntity = calculationEntity
-            };
-            var sectionResult = new HeightStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
-
-            // Call
-            entity.Read(sectionResult, collector);
-
-            // Assert
-            Assert.AreSame(calculation, sectionResult.Calculation);
         }
     }
 }

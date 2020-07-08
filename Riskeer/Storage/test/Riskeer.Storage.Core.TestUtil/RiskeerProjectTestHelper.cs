@@ -148,8 +148,7 @@ namespace Riskeer.Storage.Core.TestUtil
             AddForeshoreProfiles(heightStructuresFailureMechanism.ForeshoreProfiles);
             ConfigureHeightStructuresFailureMechanism(heightStructuresFailureMechanism, assessmentSection);
             SetSections(heightStructuresFailureMechanism);
-            SetSectionResults(heightStructuresFailureMechanism.SectionResults,
-                              (StructuresCalculation<HeightStructuresInput>) heightStructuresFailureMechanism.Calculations.First());
+            SetSectionResults(heightStructuresFailureMechanism.SectionResults);
 
             ClosingStructuresFailureMechanism closingStructuresFailureMechanism = assessmentSection.ClosingStructures;
             AddForeshoreProfiles(closingStructuresFailureMechanism.ForeshoreProfiles);
@@ -919,11 +918,9 @@ namespace Riskeer.Storage.Core.TestUtil
             failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculationScenario<HeightStructuresInput>());
         }
 
-        private static void SetSectionResults(IEnumerable<HeightStructuresFailureMechanismSectionResult> sectionResults,
-                                              StructuresCalculation<HeightStructuresInput> calculation)
+        private static void SetSectionResults(IEnumerable<HeightStructuresFailureMechanismSectionResult> sectionResults)
         {
             var random = new Random(21);
-            var firstSectionResultHasCalculation = false;
             foreach (HeightStructuresFailureMechanismSectionResult sectionResult in sectionResults)
             {
                 sectionResult.SimpleAssessmentResult = random.NextEnumValue<SimpleAssessmentResultType>();
@@ -932,12 +929,6 @@ namespace Riskeer.Storage.Core.TestUtil
                 sectionResult.TailorMadeAssessmentProbability = random.NextDouble();
                 sectionResult.UseManualAssembly = random.NextBoolean();
                 sectionResult.ManualAssemblyProbability = random.NextDouble();
-
-                if (!firstSectionResultHasCalculation)
-                {
-                    sectionResult.Calculation = calculation;
-                    firstSectionResultHasCalculation = true;
-                }
             }
         }
 

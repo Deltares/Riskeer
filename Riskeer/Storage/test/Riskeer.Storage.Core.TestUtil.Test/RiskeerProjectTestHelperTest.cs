@@ -388,9 +388,6 @@ namespace Riskeer.Storage.Core.TestUtil.Test
             Assert.AreEqual(0, secondCalculationGroup.Children.Count);
             var calculationWithoutOutput = (StructuresCalculation<HeightStructuresInput>) failureMechanism.CalculationsGroup.Children[2];
             Assert.IsFalse(calculationWithoutOutput.HasOutput);
-
-            HeightStructuresFailureMechanismSectionResult firstSectionResult = failureMechanism.SectionResults.First();
-            Assert.AreSame(calculationWithOutput, firstSectionResult.Calculation);
         }
 
         private static void AssertClosingStructuresFailureMechanism(AssessmentSection assessmentSection)

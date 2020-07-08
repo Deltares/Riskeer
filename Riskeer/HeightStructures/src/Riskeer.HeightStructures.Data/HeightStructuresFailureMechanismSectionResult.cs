@@ -51,12 +51,6 @@ namespace Riskeer.HeightStructures.Data
         }
 
         /// <summary>
-        /// Gets or sets the <see cref="StructuresCalculation{T}"/>, which is chosen 
-        /// to be representative for the whole section.
-        /// </summary>
-        public StructuresCalculation<HeightStructuresInput> Calculation { get; set; }
-
-        /// <summary>
         /// Gets or sets the simple assessment result.
         /// </summary>
         public SimpleAssessmentResultType SimpleAssessmentResult { get; set; }

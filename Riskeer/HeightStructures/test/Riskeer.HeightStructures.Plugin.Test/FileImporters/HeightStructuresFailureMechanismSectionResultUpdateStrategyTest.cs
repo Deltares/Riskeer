@@ -21,7 +21,6 @@
 
 using System;
 using NUnit.Framework;
-using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Plugin.TestUtil.FileImporters;
 using Riskeer.Common.Primitives;
@@ -44,7 +43,6 @@ namespace Riskeer.HeightStructures.Plugin.Test.FileImporters
             var random = new Random(39);
             return new HeightStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
-                Calculation = new StructuresCalculation<HeightStructuresInput>(),
                 SimpleAssessmentResult = SimpleAssessmentResultType.AssessFurther,
                 DetailedAssessmentResult = DetailedAssessmentProbabilityOnlyResultType.NotAssessed,
                 TailorMadeAssessmentResult = TailorMadeAssessmentProbabilityCalculationResultType.Probability,
@@ -57,7 +55,6 @@ namespace Riskeer.HeightStructures.Plugin.Test.FileImporters
         protected override void AssertSectionResult(HeightStructuresFailureMechanismSectionResult originResult,
                                                     HeightStructuresFailureMechanismSectionResult targetResult)
         {
-            Assert.AreSame(originResult.Calculation, targetResult.Calculation);
             Assert.AreEqual(originResult.SimpleAssessmentResult, targetResult.SimpleAssessmentResult);
             Assert.AreEqual(originResult.DetailedAssessmentResult, targetResult.DetailedAssessmentResult);
             Assert.AreEqual(originResult.TailorMadeAssessmentResult, targetResult.TailorMadeAssessmentResult);

@@ -161,10 +161,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new HeightStructuresFailureMechanismSectionResult(section)
-            {
-                Calculation = CreateCalculationWithOutput()
-            };
+            var result = new HeightStructuresFailureMechanismSectionResult(section);
 
             StructuresCalculationScenario<HeightStructuresInput>[] calculationScenarios =
             {
@@ -430,14 +427,6 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
             }
         }
 
-        private static TestHeightStructuresCalculationScenario CreateCalculationWithOutput()
-        {
-            return new TestHeightStructuresCalculationScenario
-            {
-                Output = new TestStructuresOutput()
-            };
-        }
-
         #region Column States
 
         [Test]
@@ -459,7 +448,6 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
             var result = new HeightStructuresFailureMechanismSectionResult(section)
             {
                 SimpleAssessmentResult = simpleAssessmentResult,
-                Calculation = CreateCalculationWithOutput(),
                 TailorMadeAssessmentResult = TailorMadeAssessmentProbabilityCalculationResultType.Probability
             };
 
@@ -508,8 +496,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new HeightStructuresFailureMechanismSectionResult(section)
             {
-                DetailedAssessmentResult = detailedAssessmentResult,
-                Calculation = CreateCalculationWithOutput()
+                DetailedAssessmentResult = detailedAssessmentResult
             };
 
             StructuresCalculationScenario<HeightStructuresInput>[] calculationScenarios =
@@ -584,7 +571,6 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new HeightStructuresFailureMechanismSectionResult(section)
             {
-                Calculation = CreateCalculationWithOutput(),
                 TailorMadeAssessmentResult = TailorMadeAssessmentProbabilityCalculationResultType.Probability,
                 UseManualAssembly = useManualAssembly
             };
@@ -994,7 +980,8 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
         [Test]
         [TestCaseSource(nameof(SimpleAssessmentResultIsSufficientVariousSectionResults))]
         public void Constructor_SectionResultAndAssessmentSimpleAssessmentSufficient_DetailedAssessmentProbabilityNoError(
-            HeightStructuresFailureMechanismSectionResult sectionResult)
+            SimpleAssessmentResultType simpleAssessmentResultType,
+            Func<FailureMechanismSection, IEnumerable<StructuresCalculationScenario<HeightStructuresInput>>> getCalculationScenariosFunc)
         {
             // Setup
             var failureMechanism = new HeightStructuresFailureMechanism();
@@ -1003,17 +990,23 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var sectionResult = new HeightStructuresFailureMechanismSectionResult(section)
+            {
+                SimpleAssessmentResult = simpleAssessmentResultType
+            };
+
+            StructuresCalculationScenario<HeightStructuresInput>[] calculationScenarios = getCalculationScenariosFunc(section).ToArray();
+
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call
                 var resultRow = new HeightStructuresFailureMechanismSectionResultRow(
-                    sectionResult, Enumerable.Empty<StructuresCalculationScenario<HeightStructuresInput>>(),
-                    failureMechanism, assessmentSection, ConstructionProperties);
+                    sectionResult, calculationScenarios, failureMechanism, assessmentSection, ConstructionProperties);
 
                 // Assert
                 Assert.AreEqual(sectionResult.GetDetailedAssessmentProbability(
-                                    Enumerable.Empty<StructuresCalculationScenario<HeightStructuresInput>>(),
-                                    failureMechanism, assessmentSection),
+                                    calculationScenarios, failureMechanism, assessmentSection),
                                 resultRow.DetailedAssessmentProbability);
                 Assert.IsEmpty(resultRow.ColumnStateDefinitions[ConstructionProperties.DetailedAssessmentProbabilityIndex].ErrorText);
                 mocks.VerifyAll();
@@ -1022,53 +1015,67 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
 
         private static IEnumerable<TestCaseData> SimpleAssessmentResultIsSufficientVariousSectionResults()
         {
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            yield return new TestCaseData(
+               SimpleAssessmentResultType.ProbabilityNegligible,
+               new Func<FailureMechanismSection, IEnumerable<StructuresCalculationScenario<HeightStructuresInput>>>(
+                   section => Enumerable.Empty<StructuresCalculationScenario<HeightStructuresInput>>()));
+            yield return new TestCaseData(
+                SimpleAssessmentResultType.ProbabilityNegligible,
+                new Func<FailureMechanismSection, IEnumerable<StructuresCalculationScenario<HeightStructuresInput>>>(
+                    section => new[]
+                    {
+                        HeightStructuresCalculationScenarioTestFactory.CreateNotCalculatedHeightStructuresCalculationScenario(section)
+                    }));
+            yield return new TestCaseData(
+                SimpleAssessmentResultType.ProbabilityNegligible,
+                new Func<FailureMechanismSection, IEnumerable<StructuresCalculationScenario<HeightStructuresInput>>>(
+                    section =>
+                    {
+                        StructuresCalculationScenario<HeightStructuresInput> calculation = HeightStructuresCalculationScenarioTestFactory.CreateNotCalculatedHeightStructuresCalculationScenario(section);
+                        calculation.Output = new TestStructuresOutput(double.NaN);
+                        return new[]
+                        {
+                            calculation
+                        };
+                    }));
+            yield return new TestCaseData(
+                SimpleAssessmentResultType.ProbabilityNegligible,
+                new Func<FailureMechanismSection, IEnumerable<StructuresCalculationScenario<HeightStructuresInput>>>(
+                    section => new[]
+                    {
+                        HeightStructuresCalculationScenarioTestFactory.CreateHeightStructuresCalculationScenario(section)
+                    }));
 
-            yield return new TestCaseData(new HeightStructuresFailureMechanismSectionResult(section)
-            {
-                SimpleAssessmentResult = SimpleAssessmentResultType.ProbabilityNegligible
-            }).SetName("SectionWithoutCalculationAndSimpleAssessmentResultProbabilityNegligible");
-            yield return new TestCaseData(new HeightStructuresFailureMechanismSectionResult(section)
-            {
-                SimpleAssessmentResult = SimpleAssessmentResultType.ProbabilityNegligible,
-                Calculation = new StructuresCalculation<HeightStructuresInput>()
-            }).SetName("SectionWithCalculationNoOutputAndSimpleAssessmentResultProbabilityNegligible");
-            yield return new TestCaseData(new HeightStructuresFailureMechanismSectionResult(section)
-            {
-                SimpleAssessmentResult = SimpleAssessmentResultType.ProbabilityNegligible,
-                Calculation = new StructuresCalculation<HeightStructuresInput>
-                {
-                    Output = new TestStructuresOutput(double.NaN)
-                }
-            }).SetName("SectionWithInvalidCalculationOutputAndSimpleAssessmentResultProbabilityNegligible");
-            yield return new TestCaseData(new HeightStructuresFailureMechanismSectionResult(section)
-            {
-                SimpleAssessmentResult = SimpleAssessmentResultType.ProbabilityNegligible,
-                Calculation = CreateCalculationWithOutput()
-            }).SetName("SectionWithValidCalculationOutputAndSimpleAssessmentResultProbabilityNegligible");
-
-            yield return new TestCaseData(new HeightStructuresFailureMechanismSectionResult(section)
-            {
-                SimpleAssessmentResult = SimpleAssessmentResultType.NotApplicable
-            }).SetName("SectionWithoutCalculationAndSimpleAssessmentResultNotApplicable");
-            yield return new TestCaseData(new HeightStructuresFailureMechanismSectionResult(section)
-            {
-                SimpleAssessmentResult = SimpleAssessmentResultType.NotApplicable,
-                Calculation = new StructuresCalculation<HeightStructuresInput>()
-            }).SetName("SectionWithCalculationNoOutputAndSimpleAssessmentResultNotApplicable");
-            yield return new TestCaseData(new HeightStructuresFailureMechanismSectionResult(section)
-            {
-                SimpleAssessmentResult = SimpleAssessmentResultType.NotApplicable,
-                Calculation = new StructuresCalculation<HeightStructuresInput>
-                {
-                    Output = new TestStructuresOutput(double.NaN)
-                }
-            }).SetName("SectionWithInvalidCalculationOutputAndSimpleAssessmentResultNotApplicable");
-            yield return new TestCaseData(new HeightStructuresFailureMechanismSectionResult(section)
-            {
-                SimpleAssessmentResult = SimpleAssessmentResultType.NotApplicable,
-                Calculation = CreateCalculationWithOutput()
-            }).SetName("SectionWithValidCalculationOutputAndSimpleAssessmentResultNotApplicable");
+            yield return new TestCaseData(
+                SimpleAssessmentResultType.NotApplicable,
+                new Func<FailureMechanismSection, IEnumerable<StructuresCalculationScenario<HeightStructuresInput>>>(
+                    section => Enumerable.Empty<StructuresCalculationScenario<HeightStructuresInput>>()));
+            yield return new TestCaseData(
+                SimpleAssessmentResultType.NotApplicable,
+                new Func<FailureMechanismSection, IEnumerable<StructuresCalculationScenario<HeightStructuresInput>>>(
+                    section => new[]
+                    {
+                        HeightStructuresCalculationScenarioTestFactory.CreateNotCalculatedHeightStructuresCalculationScenario(section)
+                    }));
+            yield return new TestCaseData(
+                SimpleAssessmentResultType.NotApplicable,
+                new Func<FailureMechanismSection, IEnumerable<StructuresCalculationScenario<HeightStructuresInput>>>(
+                    section =>
+                    {
+                        StructuresCalculationScenario<HeightStructuresInput> calculation = HeightStructuresCalculationScenarioTestFactory.CreateNotCalculatedHeightStructuresCalculationScenario(section);
+                        calculation.Output = new TestStructuresOutput(double.NaN);
+                        return new[]
+                        {
+                            calculation
+                        };
+                    }));
+            yield return new TestCaseData(
+                SimpleAssessmentResultType.NotApplicable,
+                new Func<FailureMechanismSection, IEnumerable<StructuresCalculationScenario<HeightStructuresInput>>>(
+                    section => new[]
+                    {
+                        HeightStructuresCalculationScenarioTestFactory.CreateHeightStructuresCalculationScenario(section)
+                    }));
         }
 
         #endregion
@@ -1144,7 +1151,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
         }
 
         [Test]
-        public void DetailedAssessmentProbability_NoCalculationSet_ReturnNaN()
+        public void DetailedAssessmentProbability_CalculationWithoutOutput_ReturnNaN()
         {
             // Setup
             var failureMechanism = new HeightStructuresFailureMechanism();
@@ -1155,42 +1162,6 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var sectionResult = new HeightStructuresFailureMechanismSectionResult(section);
-
-            // Precondition
-            Assert.IsNull(sectionResult.Calculation);
-
-            using (new AssemblyToolCalculatorFactoryConfig())
-            {
-                var resultRow = new HeightStructuresFailureMechanismSectionResultRow(
-                    sectionResult, Enumerable.Empty<StructuresCalculationScenario<HeightStructuresInput>>(),
-                    failureMechanism, assessmentSection, ConstructionProperties);
-
-                // Call
-                double detailedAssessmentProbability = resultRow.DetailedAssessmentProbability;
-
-                // Assert
-                Assert.IsNaN(detailedAssessmentProbability);
-                mocks.VerifyAll();
-            }
-        }
-
-        [Test]
-        public void DetailedAssessmentProbability_CalculationWithoutOutput_ReturnNaN()
-        {
-            // Setup
-            var failureMechanism = new HeightStructuresFailureMechanism();
-
-            var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
-            mocks.ReplayAll();
-
-            var calculation = new StructuresCalculation<HeightStructuresInput>();
-
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new HeightStructuresFailureMechanismSectionResult(section)
-            {
-                Calculation = calculation
-            };
 
             StructuresCalculationScenario<HeightStructuresInput>[] calculationScenarios =
             {
@@ -1221,16 +1192,8 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
-            var calculation = new StructuresCalculation<HeightStructuresInput>
-            {
-                Output = new TestStructuresOutput(double.NaN)
-            };
-
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new HeightStructuresFailureMechanismSectionResult(section)
-            {
-                Calculation = calculation
-            };
+            var sectionResult = new HeightStructuresFailureMechanismSectionResult(section);
 
             StructuresCalculationScenario<HeightStructuresInput> calculationScenario = HeightStructuresCalculationScenarioTestFactory.CreateHeightStructuresCalculationScenario(section);
             calculationScenario.Output = new TestStructuresOutput(double.NaN);
@@ -1265,17 +1228,9 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
-
-            var calculation = new StructuresCalculation<HeightStructuresInput>
-            {
-                Output = new TestStructuresOutput(new Random(39).NextDouble())
-            };
-
+            
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new HeightStructuresFailureMechanismSectionResult(section)
-            {
-                Calculation = calculation
-            };
+            var sectionResult = new HeightStructuresFailureMechanismSectionResult(section);
 
             StructuresCalculationScenario<HeightStructuresInput>[] calculationScenarios =
             {
