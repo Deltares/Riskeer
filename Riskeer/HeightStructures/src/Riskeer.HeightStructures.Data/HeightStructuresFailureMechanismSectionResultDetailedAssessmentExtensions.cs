@@ -72,15 +72,23 @@ namespace Riskeer.HeightStructures.Data
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            if (sectionResult.Calculation == null || !sectionResult.Calculation.HasOutput)
+            StructuresCalculationScenario<HeightStructuresInput>[] relevantScenarios = sectionResult.GetCalculationScenarios(calculationScenarios).ToArray();
+
+            if (relevantScenarios.Length == 0 || !relevantScenarios.All(s => s.HasOutput) || Math.Abs(sectionResult.GetTotalContribution(relevantScenarios) - 1.0) > 1e-6)
             {
                 return double.NaN;
             }
 
-            ProbabilityAssessmentOutput derivedOutput = HeightStructuresProbabilityAssessmentOutputFactory.Create(sectionResult.Calculation.Output,
-                                                                                                                  failureMechanism, assessmentSection);
+            double totalDetailedAssessmentProbability = 0;
+            foreach (StructuresCalculationScenario<HeightStructuresInput> scenario in relevantScenarios)
+            {
+                ProbabilityAssessmentOutput derivedOutput = HeightStructuresProbabilityAssessmentOutputFactory.Create(
+                    scenario.Output, failureMechanism, assessmentSection);
 
-            return derivedOutput.Probability;
+                totalDetailedAssessmentProbability += derivedOutput.Probability * (double) scenario.Contribution;
+            }
+
+            return totalDetailedAssessmentProbability;
         }
 
         /// <summary>
