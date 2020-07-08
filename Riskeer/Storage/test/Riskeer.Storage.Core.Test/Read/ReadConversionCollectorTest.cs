@@ -352,21 +352,6 @@ namespace Riskeer.Storage.Core.Test.Read
             }
         }
 
-        [TestFixture]
-        private class HeightStructureCalculationCollectorTest : CollectorTest<StructuresCalculationScenario<HeightStructuresInput>,
-            HeightStructuresCalculationEntity>
-        {
-            public HeightStructureCalculationCollectorTest() : base(
-                (c, e, m) => c.Read(e, m),
-                (c, e) => c.Contains(e),
-                (c, e) => c.Get(e)) {}
-
-            protected override StructuresCalculationScenario<HeightStructuresInput> CreateDataModel()
-            {
-                return new StructuresCalculationScenario<HeightStructuresInput>();
-            }
-        }
-
         #endregion
 
         #region ClosingStructure

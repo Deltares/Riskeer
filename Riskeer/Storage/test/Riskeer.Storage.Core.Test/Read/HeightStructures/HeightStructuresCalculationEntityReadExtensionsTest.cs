@@ -45,30 +45,11 @@ namespace Riskeer.Storage.Core.Test.Read.HeightStructures
             var entity = new HeightStructuresCalculationEntity();
 
             // Call
-            TestDelegate call = () => entity.Read(null);
+            void Call() => entity.Read(null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("collector", paramName);
-        }
-
-        [Test]
-        public void Read_EntityNotReadBefore_RegisterEntity()
-        {
-            // Setup
-            var entity = new HeightStructuresCalculationEntity();
-
-            var collector = new ReadConversionCollector();
-
-            // Precondition
-            Assert.IsFalse(collector.Contains(entity));
-
-            // Call
-            StructuresCalculation<HeightStructuresInput> calculation = entity.Read(collector);
-
-            // Assert
-            Assert.IsTrue(collector.Contains(entity));
-            Assert.AreSame(calculation, collector.Get(entity));
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("collector", exception.ParamName);
         }
 
         [Test]
@@ -204,30 +185,6 @@ namespace Riskeer.Storage.Core.Test.Read.HeightStructures
             StructuresOutput calculationOutput = calculation.Output;
             Assert.IsNaN(calculationOutput.Reliability);
             Assert.IsFalse(calculationOutput.HasGeneralResult);
-        }
-
-        [Test]
-        public void Read_CalculationEntityAlreadyRead_ReturnReadCalculation()
-        {
-            // Setup
-            var entity = new HeightStructuresCalculationEntity
-            {
-                HeightStructuresOutputEntities =
-                {
-                    new HeightStructuresOutputEntity()
-                }
-            };
-
-            var calculation = new StructuresCalculationScenario<HeightStructuresInput>();
-
-            var collector = new ReadConversionCollector();
-            collector.Read(entity, calculation);
-
-            // Call
-            StructuresCalculation<HeightStructuresInput> returnedCalculation = entity.Read(collector);
-
-            // Assert
-            Assert.AreSame(calculation, returnedCalculation);
         }
 
         private static void AssertRoundedDouble(double? entityValue, RoundedDouble roundedDouble)
