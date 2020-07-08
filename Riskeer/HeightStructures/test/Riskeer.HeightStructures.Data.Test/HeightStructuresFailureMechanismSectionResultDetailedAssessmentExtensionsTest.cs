@@ -20,7 +20,10 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Base.Data;
+using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
@@ -184,6 +187,133 @@ namespace Riskeer.HeightStructures.Data.Test
             // Assert
             Assert.AreEqual(0.21185539858339669, detailedAssessmentProbability);
             mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GetTotalContribution_SectionResultNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => ((HeightStructuresFailureMechanismSectionResult) null).GetTotalContribution(Enumerable.Empty<StructuresCalculationScenario<HeightStructuresInput>>());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("sectionResult", exception.ParamName);
+        }
+
+        [Test]
+        public void GetTotalContribution_CalculationScenariosNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var sectionResult = new HeightStructuresFailureMechanismSectionResult(section);
+
+            // Call
+            void Call() => sectionResult.GetTotalContribution(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("calculationScenarios", exception.ParamName);
+        }
+
+        [Test]
+        public void GetTotalContribution_WithScenarios_ReturnsTotalRelevantScenarioContribution()
+        {
+            // Setup
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var failureMechanismSectionResult = new HeightStructuresFailureMechanismSectionResult(section);
+
+            StructuresCalculationScenario<HeightStructuresInput> calculationScenario = HeightStructuresCalculationScenarioTestFactory.CreateNotCalculatedHeightStructuresCalculationScenario(section);
+            calculationScenario.Contribution = (RoundedDouble) 0.3211;
+
+            StructuresCalculationScenario<HeightStructuresInput> calculationScenario2 = HeightStructuresCalculationScenarioTestFactory.CreateNotCalculatedHeightStructuresCalculationScenario(section);
+            calculationScenario2.Contribution = (RoundedDouble) 0.5435;
+
+            StructuresCalculationScenario<HeightStructuresInput> calculationScenario3 = HeightStructuresCalculationScenarioTestFactory.CreateNotCalculatedHeightStructuresCalculationScenario(section);
+            calculationScenario3.IsRelevant = false;
+
+            StructuresCalculationScenario<HeightStructuresInput>[] calculationScenarios =
+            {
+                calculationScenario,
+                calculationScenario2,
+                calculationScenario3
+            };
+
+            // Call
+            RoundedDouble totalContribution = failureMechanismSectionResult.GetTotalContribution(calculationScenarios);
+
+            // Assert
+            Assert.AreEqual((RoundedDouble) 0.8646, totalContribution);
+        }
+
+        [Test]
+        public void GetCalculationScenarios_SectionResultNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => ((HeightStructuresFailureMechanismSectionResult) null).GetCalculationScenarios(Enumerable.Empty<StructuresCalculationScenario<HeightStructuresInput>>());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("sectionResult", exception.ParamName);
+        }
+
+        [Test]
+        public void GetCalculationScenarios_CalculationScenariosNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var sectionResult = new HeightStructuresFailureMechanismSectionResult(section);
+
+            // Call
+            void Call() => sectionResult.GetCalculationScenarios(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("calculationScenarios", exception.ParamName);
+        }
+
+        [Test]
+        public void GetCalculationScenarios_WithRelevantAndIrrelevantScenarios_ReturnsRelevantCalculationScenarios()
+        {
+            // Setup
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var sectionResult = new HeightStructuresFailureMechanismSectionResult(section);
+            StructuresCalculationScenario<HeightStructuresInput> calculationScenario = HeightStructuresCalculationScenarioTestFactory.CreateNotCalculatedHeightStructuresCalculationScenario(section);
+            StructuresCalculationScenario<HeightStructuresInput> calculationScenario2 = HeightStructuresCalculationScenarioTestFactory.CreateNotCalculatedHeightStructuresCalculationScenario(section);
+            calculationScenario2.IsRelevant = false;
+
+            // Call
+            IEnumerable<StructuresCalculationScenario<HeightStructuresInput>> relevantScenarios = sectionResult.GetCalculationScenarios(new[]
+            {
+                calculationScenario,
+                calculationScenario2
+            });
+
+            // AssertJep
+
+            Assert.AreEqual(calculationScenario, relevantScenarios.Single());
+        }
+
+        [Test]
+        public void GetCalculationScenarios_WithoutScenarioIntersectingSection_ReturnsNoCalculationScenarios()
+        {
+            // Setup
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
+            {
+                new Point2D(999, 999),
+                new Point2D(998, 998)
+            });
+            var sectionResult = new HeightStructuresFailureMechanismSectionResult(section);
+            StructuresCalculationScenario<HeightStructuresInput> calculationScenario = HeightStructuresCalculationScenarioTestFactory.CreateNotCalculatedHeightStructuresCalculationScenario(
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+
+            // Call
+            IEnumerable<StructuresCalculationScenario<HeightStructuresInput>> relevantScenarios = sectionResult.GetCalculationScenarios(new[]
+            {
+                calculationScenario
+            });
+
+            // Assert
+            CollectionAssert.IsEmpty(relevantScenarios);
         }
     }
 }

@@ -21,7 +21,11 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using Core.Common.Base.Data;
+using Core.Common.Base.Geometry;
 using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.Probability;
 using Riskeer.Common.Data.Structures;
 
@@ -77,6 +81,58 @@ namespace Riskeer.HeightStructures.Data
                                                                                                                   failureMechanism, assessmentSection);
 
             return derivedOutput.Probability;
+        }
+
+        /// <summary>
+        /// Gets the total contribution of all relevant calculation scenarios.
+        /// </summary>
+        /// <param name="sectionResult">The section result to get the total contribution for.</param>
+        /// <param name="calculationScenarios">The calculation scenarios to get the total contribution for.</param>
+        /// <returns>The total contribution of all relevant calculation scenarios.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public static RoundedDouble GetTotalContribution(this HeightStructuresFailureMechanismSectionResult sectionResult,
+                                                         IEnumerable<StructuresCalculationScenario<HeightStructuresInput>> calculationScenarios)
+        {
+            if (sectionResult == null)
+            {
+                throw new ArgumentNullException(nameof(sectionResult));
+            }
+
+            if (calculationScenarios == null)
+            {
+                throw new ArgumentNullException(nameof(calculationScenarios));
+            }
+
+            return (RoundedDouble) sectionResult
+                                   .GetCalculationScenarios(calculationScenarios)
+                                   .Aggregate<ICalculationScenario, double>(0, (current, calculationScenario) => current + calculationScenario.Contribution);
+        }
+
+        /// <summary>
+        /// Gets a collection of the relevant <see cref="StructuresCalculationScenario{T}"/>.
+        /// </summary>
+        /// <param name="sectionResult">The section result to get the relevant scenarios for.</param>
+        /// <param name="calculationScenarios">The calculation scenarios to get the relevant scenarios from.</param>
+        /// <returns>A collection of relevant calculation scenarios.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public static IEnumerable<StructuresCalculationScenario<HeightStructuresInput>> GetCalculationScenarios(
+            this HeightStructuresFailureMechanismSectionResult sectionResult,
+            IEnumerable<StructuresCalculationScenario<HeightStructuresInput>> calculationScenarios)
+        {
+            if (sectionResult == null)
+            {
+                throw new ArgumentNullException(nameof(sectionResult));
+            }
+
+            if (calculationScenarios == null)
+            {
+                throw new ArgumentNullException(nameof(calculationScenarios));
+            }
+
+            IEnumerable<Segment2D> lineSegments = Math2D.ConvertPointsToLineSegments(sectionResult.Section.Points);
+
+            return calculationScenarios
+                .Where(cs => cs.IsRelevant && cs.IsStructureIntersectionWithReferenceLineInSection(lineSegments));
         }
     }
 }
