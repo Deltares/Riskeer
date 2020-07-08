@@ -52,11 +52,6 @@ namespace Riskeer.Storage.Core.Read.ClosingStructures
                 throw new ArgumentNullException(nameof(collector));
             }
 
-            if (collector.Contains(entity))
-            {
-                return collector.Get(entity);
-            }
-
             var calculation = new StructuresCalculationScenario<ClosingStructuresInput>
             {
                 Name = entity.Name,
@@ -69,8 +64,6 @@ namespace Riskeer.Storage.Core.Read.ClosingStructures
             };
             ReadInputParameters(calculation.InputParameters, entity, collector);
             ReadOutput(calculation, entity);
-
-            collector.Read(entity, calculation);
 
             return calculation;
         }

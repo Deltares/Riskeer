@@ -118,25 +118,6 @@ namespace Riskeer.Storage.Core.Test.Read.GrassCoverErosionInwards
         }
 
         [Test]
-        public void Read_EntityNotReadBefore_RegisterEntity()
-        {
-            // Setup
-            var entity = new GrassCoverErosionInwardsCalculationEntity();
-
-            var collector = new ReadConversionCollector();
-
-            // Precondition
-            Assert.IsFalse(collector.Contains(entity));
-
-            // Call
-            GrassCoverErosionInwardsCalculation calculation = entity.Read(collector);
-
-            // Assert
-            Assert.IsTrue(collector.Contains(entity));
-            Assert.AreSame(calculation, collector.Get(entity));
-        }
-
-        [Test]
         public void Read_EntityWithNullValues_ReturnCalculationWithNaNOrNull()
         {
             // Setup
@@ -278,30 +259,6 @@ namespace Riskeer.Storage.Core.Test.Read.GrassCoverErosionInwards
 
             // Assert
             Assert.IsTrue(calculation.HasOutput);
-        }
-
-        [Test]
-        public void Read_CalculationEntityAlreadyRead_ReturnReadCalculation()
-        {
-            // Setup
-            var entity = new GrassCoverErosionInwardsCalculationEntity
-            {
-                GrassCoverErosionInwardsOutputEntities =
-                {
-                    new GrassCoverErosionInwardsOutputEntity()
-                }
-            };
-
-            var calculation = new GrassCoverErosionInwardsCalculationScenario();
-
-            var collector = new ReadConversionCollector();
-            collector.Read(entity, calculation);
-
-            // Call
-            GrassCoverErosionInwardsCalculation returnedCalculation = entity.Read(collector);
-
-            // Assert
-            Assert.AreSame(calculation, returnedCalculation);
         }
 
         private static void AssertBoolean(byte expectedByte, bool actual)

@@ -28,7 +28,6 @@ using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.Structures;
 using Riskeer.DuneErosion.Data;
-using Riskeer.GrassCoverErosionInwards.Data;
 using Riskeer.HeightStructures.Data;
 using Riskeer.MacroStabilityInwards.Data.SoilProfile;
 using Riskeer.MacroStabilityInwards.Primitives;
@@ -87,9 +86,6 @@ namespace Riskeer.Storage.Core.Read
         private readonly Dictionary<ForeshoreProfileEntity, ForeshoreProfile> foreshoreProfiles =
             CreateDictionary<ForeshoreProfileEntity, ForeshoreProfile>();
 
-        private readonly Dictionary<GrassCoverErosionInwardsCalculationEntity, GrassCoverErosionInwardsCalculationScenario> grassCoverErosionInwardsCalculations =
-            CreateDictionary<GrassCoverErosionInwardsCalculationEntity, GrassCoverErosionInwardsCalculationScenario>();
-
         private readonly Dictionary<HeightStructureEntity, HeightStructure> heightStructures =
             CreateDictionary<HeightStructureEntity, HeightStructure>();
 
@@ -101,9 +97,6 @@ namespace Riskeer.Storage.Core.Read
 
         private readonly Dictionary<HeightStructuresCalculationEntity, StructuresCalculationScenario<HeightStructuresInput>> heightStructuresCalculations =
             CreateDictionary<HeightStructuresCalculationEntity, StructuresCalculationScenario<HeightStructuresInput>>();
-
-        private readonly Dictionary<ClosingStructuresCalculationEntity, StructuresCalculationScenario<ClosingStructuresInput>> closingStructuresCalculations =
-            CreateDictionary<ClosingStructuresCalculationEntity, StructuresCalculationScenario<ClosingStructuresInput>>();
 
         private readonly Dictionary<StabilityPointStructuresCalculationEntity, StructuresCalculationScenario<StabilityPointStructuresInput>> stabilityPointStructuresCalculations =
             CreateDictionary<StabilityPointStructuresCalculationEntity, StructuresCalculationScenario<StabilityPointStructuresInput>>();
@@ -1097,80 +1090,6 @@ namespace Riskeer.Storage.Core.Read
 
         #endregion
 
-        #region GrassCoverErosionInwardsCalculationEntity: Read, Contains, Get
-
-        /// <summary>
-        /// Registers a read operation for <see cref="GrassCoverErosionInwardsCalculationEntity"/>
-        /// and the <see cref="GrassCoverErosionInwardsCalculationScenario"/> that was constructed
-        /// with the information.
-        /// </summary>
-        /// <param name="entity">The <see cref="GrassCoverErosionInwardsCalculationEntity"/>
-        /// that was read.</param>
-        /// <param name="model">The <see cref="GrassCoverErosionInwardsCalculationScenario"/> that
-        /// was constructed.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any of the input parameters is <c>null</c>.</exception>
-        internal void Read(GrassCoverErosionInwardsCalculationEntity entity, GrassCoverErosionInwardsCalculationScenario model)
-        {
-            if (entity == null)
-            {
-                throw new ArgumentNullException(nameof(entity));
-            }
-
-            if (model == null)
-            {
-                throw new ArgumentNullException(nameof(model));
-            }
-
-            grassCoverErosionInwardsCalculations[entity] = model;
-        }
-
-        /// <summary>
-        /// Checks whether a read operation has been registered for a given <see cref="GrassCoverErosionInwardsCalculationEntity"/>.
-        /// </summary>
-        /// <param name="entity">The <see cref="GrassCoverErosionInwardsCalculationEntity"/> to check for.</param>
-        /// <returns><c>true</c> if the <paramref cref="entity"/> was read before, <c>false</c> otherwise.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/> is <c>null</c>.</exception>
-        internal bool Contains(GrassCoverErosionInwardsCalculationEntity entity)
-        {
-            if (entity == null)
-            {
-                throw new ArgumentNullException(nameof(entity));
-            }
-
-            return grassCoverErosionInwardsCalculations.ContainsKey(entity);
-        }
-
-        /// <summary>
-        /// Obtains the <see cref="GrassCoverErosionInwardsCalculationScenario"/> which was read
-        /// for the given <see cref="GrassCoverErosionInwardsCalculationEntity"/>.
-        /// </summary>
-        /// <param name="entity">The <see cref="GrassCoverErosionInwardsCalculationEntity"/> for which a read
-        /// operation has been registered.</param>
-        /// <returns>The constructed <see cref="GrassCoverErosionInwardsCalculationScenario"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/> is <c>null</c>.</exception>
-        /// <exception cref="InvalidOperationException">Thrown when no read operation has
-        /// been registered for <paramref name="entity"/>.</exception>
-        /// <remarks>Use <see cref="Contains(GrassCoverErosionInwardsCalculationEntity)"/>
-        /// to find out whether a read operation has been registered for <paramref name="entity"/>.</remarks>
-        internal GrassCoverErosionInwardsCalculationScenario Get(GrassCoverErosionInwardsCalculationEntity entity)
-        {
-            if (entity == null)
-            {
-                throw new ArgumentNullException(nameof(entity));
-            }
-
-            try
-            {
-                return grassCoverErosionInwardsCalculations[entity];
-            }
-            catch (KeyNotFoundException e)
-            {
-                throw new InvalidOperationException(e.Message, e);
-            }
-        }
-
-        #endregion
-
         #region HeightStructureEntity: Read, Contains, Get
 
         /// <summary>
@@ -1378,80 +1297,6 @@ namespace Riskeer.Storage.Core.Read
             try
             {
                 return closingStructures[entity];
-            }
-            catch (KeyNotFoundException e)
-            {
-                throw new InvalidOperationException(e.Message, e);
-            }
-        }
-
-        #endregion
-
-        #region ClosingStructuresCalculationEntity: Read, Contains, Get
-
-        /// <summary>
-        /// Registers a read operation for <see cref="ClosingStructuresCalculationEntity"/>
-        /// and the <see cref="StructuresCalculationScenario{T}"/> that was constructed
-        /// with the information.
-        /// </summary>
-        /// <param name="entity">The <see cref="ClosingStructuresCalculationEntity"/>
-        /// that was read.</param>
-        /// <param name="model">The <see cref="StructuresCalculation{T}"/> that
-        /// was constructed.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
-        internal void Read(ClosingStructuresCalculationEntity entity, StructuresCalculationScenario<ClosingStructuresInput> model)
-        {
-            if (entity == null)
-            {
-                throw new ArgumentNullException(nameof(entity));
-            }
-
-            if (model == null)
-            {
-                throw new ArgumentNullException(nameof(model));
-            }
-
-            closingStructuresCalculations[entity] = model;
-        }
-
-        /// <summary>
-        /// Checks whether a read operation has been registered for a given <see cref="ClosingStructuresCalculationEntity"/>.
-        /// </summary>
-        /// <param name="entity">The <see cref="ClosingStructuresCalculationEntity"/> to check for.</param>
-        /// <returns><c>true</c> if the <paramref cref="entity"/> was read before, <c>false</c> otherwise.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/> is <c>null</c>.</exception>
-        internal bool Contains(ClosingStructuresCalculationEntity entity)
-        {
-            if (entity == null)
-            {
-                throw new ArgumentNullException(nameof(entity));
-            }
-
-            return closingStructuresCalculations.ContainsKey(entity);
-        }
-
-        /// <summary>
-        /// Obtains the <see cref="StructuresCalculationScenario{T}"/> which was read
-        /// for the given <see cref="ClosingStructuresCalculationEntity"/>.
-        /// </summary>
-        /// <param name="entity">The <see cref="ClosingStructuresCalculationEntity"/> for which a read
-        /// operation has been registered.</param>
-        /// <returns>The constructed <see cref="StructuresCalculationScenario{T}"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/> is <c>null</c>.</exception>
-        /// <exception cref="InvalidOperationException">Thrown when no read operation has
-        /// been registered for <paramref name="entity"/>.</exception>
-        /// <remarks>Use <see cref="Contains(ClosingStructuresCalculationEntity)"/>
-        /// to find out whether a read operation has been registered for <paramref name="entity"/>.</remarks>
-        internal StructuresCalculationScenario<ClosingStructuresInput> Get(ClosingStructuresCalculationEntity entity)
-        {
-            if (entity == null)
-            {
-                throw new ArgumentNullException(nameof(entity));
-            }
-
-            try
-            {
-                return closingStructuresCalculations[entity];
             }
             catch (KeyNotFoundException e)
             {

@@ -50,28 +50,6 @@ namespace Riskeer.Storage.Core.Test.Read.ClosingStructures
             Assert.AreEqual("collector", paramName);
         }
 
-        [Test]
-        public void Read_EntityNotReadBefore_RegisterEntity()
-        {
-            // Setup
-            var entity = new ClosingStructuresCalculationEntity
-            {
-                IdenticalApertures = 1
-            };
-
-            var collector = new ReadConversionCollector();
-
-            // Precondition
-            Assert.IsFalse(collector.Contains(entity));
-
-            // Call
-            StructuresCalculationScenario<ClosingStructuresInput> calculation = entity.Read(collector);
-
-            // Assert
-            Assert.IsTrue(collector.Contains(entity));
-            Assert.AreSame(calculation, collector.Get(entity));
-        }
-
         [Test]  
         public void Read_ValidEntity_ReturnClosingStructuresCalculation()
         {
@@ -328,30 +306,6 @@ namespace Riskeer.Storage.Core.Test.Read.ClosingStructures
             StructuresOutput calculationOutput = calculation.Output;
             Assert.IsNaN(calculationOutput.Reliability);
             Assert.IsFalse(calculationOutput.HasGeneralResult);
-        }
-
-        [Test]
-        public void Read_CalculationEntityAlreadyRead_ReturnReadCalculation()
-        {
-            // Setup
-            var entity = new ClosingStructuresCalculationEntity
-            {
-                ClosingStructuresOutputEntities =
-                {
-                    new ClosingStructuresOutputEntity()
-                }
-            };
-
-            var calculation = new StructuresCalculationScenario<ClosingStructuresInput>();
-
-            var collector = new ReadConversionCollector();
-            collector.Read(entity, calculation);
-
-            // Call
-            StructuresCalculation<ClosingStructuresInput> returnedCalculation = entity.Read(collector);
-
-            // Assert
-            Assert.AreSame(calculation, returnedCalculation);
         }
     }
 }

@@ -24,8 +24,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
-using Riskeer.ClosingStructures.Data;
-using Riskeer.ClosingStructures.Data.TestUtil;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Hydraulics;
@@ -33,7 +31,6 @@ using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.DuneErosion.Data;
 using Riskeer.DuneErosion.Data.TestUtil;
-using Riskeer.GrassCoverErosionInwards.Data;
 using Riskeer.HeightStructures.Data;
 using Riskeer.HeightStructures.Data.TestUtil;
 using Riskeer.MacroStabilityInwards.Data.SoilProfile;
@@ -337,25 +334,6 @@ namespace Riskeer.Storage.Core.Test.Read
             }
         }
 
-        #region GrassCoverErosionInwards
-
-        [TestFixture]
-        private class GrassCoverErosionInwardsCalculationCollectorTest : CollectorTest<GrassCoverErosionInwardsCalculationScenario,
-            GrassCoverErosionInwardsCalculationEntity>
-        {
-            public GrassCoverErosionInwardsCalculationCollectorTest() : base(
-                (c, e, m) => c.Read(e, m),
-                (c, e) => c.Contains(e),
-                (c, e) => c.Get(e)) {}
-
-            protected override GrassCoverErosionInwardsCalculationScenario CreateDataModel()
-            {
-                return new GrassCoverErosionInwardsCalculationScenario();
-            }
-        }
-
-        #endregion
-
         #region HeightStructure
 
         [TestFixture]
@@ -384,39 +362,6 @@ namespace Riskeer.Storage.Core.Test.Read
             protected override StructuresCalculationScenario<HeightStructuresInput> CreateDataModel()
             {
                 return new StructuresCalculationScenario<HeightStructuresInput>();
-            }
-        }
-
-        #endregion
-
-        #region ClosingStructure
-
-        [TestFixture]
-        private class ClosingStructureCollectorTest : CollectorTest<ClosingStructure, ClosingStructureEntity>
-        {
-            public ClosingStructureCollectorTest() : base(
-                (c, e, m) => c.Read(e, m),
-                (c, e) => c.Contains(e),
-                (c, e) => c.Get(e)) {}
-
-            protected override ClosingStructure CreateDataModel()
-            {
-                return new TestClosingStructure();
-            }
-        }
-
-        [TestFixture]
-        private class ClosingStructureCalculationCollectorTest : CollectorTest<StructuresCalculationScenario<ClosingStructuresInput>,
-            ClosingStructuresCalculationEntity>
-        {
-            public ClosingStructureCalculationCollectorTest() : base(
-                (c, e, m) => c.Read(e, m),
-                (c, e) => c.Contains(e),
-                (c, e) => c.Get(e)) {}
-
-            protected override StructuresCalculationScenario<ClosingStructuresInput> CreateDataModel()
-            {
-                return new StructuresCalculationScenario<ClosingStructuresInput>();
             }
         }
 

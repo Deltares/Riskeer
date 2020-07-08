@@ -51,11 +51,6 @@ namespace Riskeer.Storage.Core.Read.GrassCoverErosionInwards
                 throw new ArgumentNullException(nameof(collector));
             }
 
-            if (collector.Contains(entity))
-            {
-                return collector.Get(entity);
-            }
-
             var calculation = new GrassCoverErosionInwardsCalculationScenario
             {
                 Name = entity.Name,
@@ -68,8 +63,6 @@ namespace Riskeer.Storage.Core.Read.GrassCoverErosionInwards
             };
             ReadInput(calculation.InputParameters, entity, collector);
             ReadOutput(calculation, entity);
-
-            collector.Read(entity, calculation);
 
             return calculation;
         }
