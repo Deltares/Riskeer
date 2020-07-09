@@ -41,14 +41,12 @@ namespace Riskeer.HeightStructures.Plugin.Test.ViewInfos
     {
         private HeightStructuresPlugin plugin;
         private ViewInfo info;
-        private MockRepository mocks;
 
         [SetUp]
         public void SetUp()
         {
             plugin = new HeightStructuresPlugin();
             info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(HeightStructuresScenariosView));
-            mocks = new MockRepository();
         }
 
         [TearDown]
@@ -79,6 +77,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.ViewInfos
         public void GetViewData_Always_ReturnWrappedData()
         {
             // Setup
+            var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 

@@ -23,11 +23,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
-using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Riskeer.Common.Data;
 using Riskeer.Common.Data.Exceptions;
-using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Data.UpdateDataStrategies;
 using Riskeer.Common.IO.Structures;
@@ -42,14 +40,14 @@ namespace Riskeer.HeightStructures.Plugin.Test.FileImporters
         private const string sourceFilePath = "path";
 
         [Test]
-        public void Constructure_NullFailureMechanism_ThrowsArgumentNullException()
+        public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new HeightStructureReplaceDataStrategy(null);
+            void Call() => new HeightStructureReplaceDataStrategy(null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("failureMechanism", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
         }
 
         [Test]
@@ -88,12 +86,11 @@ namespace Riskeer.HeightStructures.Plugin.Test.FileImporters
             var strategy = new HeightStructureReplaceDataStrategy(new HeightStructuresFailureMechanism());
 
             // Call
-            TestDelegate test = () => strategy.UpdateStructuresWithImportedData(Enumerable.Empty<HeightStructure>(),
-                                                                                null);
+            void Call() => strategy.UpdateStructuresWithImportedData(Enumerable.Empty<HeightStructure>(), null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("sourceFilePath", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("sourceFilePath", exception.ParamName);
         }
 
         [Test]
@@ -206,7 +203,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.FileImporters
             // Setup
             var structure = new TestHeightStructure();
 
-            var calculation = new StructuresCalculation<HeightStructuresInput>
+            var calculation = new TestHeightStructuresCalculationScenario
             {
                 InputParameters =
                 {
@@ -250,7 +247,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.FileImporters
             // Setup
             var structure = new TestHeightStructure();
 
-            var calculation = new StructuresCalculation<HeightStructuresInput>
+            var calculation = new TestHeightStructuresCalculationScenario
             {
                 InputParameters =
                 {

@@ -203,7 +203,7 @@ namespace Riskeer.StabilityPointStructures.IO.Test.Configurations
 
         private static ICalculationBase CreateFullCalculation()
         {
-            return new StructuresCalculation<StabilityPointStructuresInput>
+            return new TestStabilityPointStructuresCalculationScenario
             {
                 Name = "full config",
                 InputParameters =

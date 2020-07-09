@@ -23,14 +23,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
-using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Riskeer.ClosingStructures.Data;
 using Riskeer.ClosingStructures.Data.TestUtil;
 using Riskeer.ClosingStructures.Plugin.FileImporters;
 using Riskeer.Common.Data;
 using Riskeer.Common.Data.Exceptions;
-using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Data.UpdateDataStrategies;
 using Riskeer.Common.IO.Structures;
@@ -42,14 +40,14 @@ namespace Riskeer.ClosingStructures.Plugin.Test.FileImporters
         private const string sourceFilePath = "path";
 
         [Test]
-        public void Constructure_NullFailureMechanism_ThrowsArgumentNullException()
+        public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new ClosingStructureReplaceDataStrategy(null);
+            void Call() => new ClosingStructureReplaceDataStrategy(null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("failureMechanism", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
         }
 
         [Test]
@@ -73,12 +71,11 @@ namespace Riskeer.ClosingStructures.Plugin.Test.FileImporters
             var strategy = new ClosingStructureReplaceDataStrategy(new ClosingStructuresFailureMechanism());
 
             // Call
-            TestDelegate test = () => strategy.UpdateStructuresWithImportedData(null,
-                                                                                string.Empty);
+            void Call() => strategy.UpdateStructuresWithImportedData(null, string.Empty);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("importedDataCollection", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("importedDataCollection", exception.ParamName);
         }
 
         [Test]
@@ -88,12 +85,11 @@ namespace Riskeer.ClosingStructures.Plugin.Test.FileImporters
             var strategy = new ClosingStructureReplaceDataStrategy(new ClosingStructuresFailureMechanism());
 
             // Call
-            TestDelegate test = () => strategy.UpdateStructuresWithImportedData(Enumerable.Empty<ClosingStructure>(),
-                                                                                null);
+            void Call() => strategy.UpdateStructuresWithImportedData(Enumerable.Empty<ClosingStructure>(), null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("sourceFilePath", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("sourceFilePath", exception.ParamName);
         }
 
         [Test]
@@ -206,7 +202,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.FileImporters
             // Setup
             var structure = new TestClosingStructure();
 
-            var calculation = new StructuresCalculation<ClosingStructuresInput>
+            var calculation = new TestClosingStructuresCalculationScenario
             {
                 InputParameters =
                 {
@@ -250,7 +246,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.FileImporters
             // Setup
             var structure = new TestClosingStructure();
 
-            var calculation = new StructuresCalculation<ClosingStructuresInput>
+            var calculation = new TestClosingStructuresCalculationScenario
             {
                 InputParameters =
                 {
@@ -305,11 +301,10 @@ namespace Riskeer.ClosingStructures.Plugin.Test.FileImporters
             var strategy = new ClosingStructureReplaceDataStrategy(new ClosingStructuresFailureMechanism());
 
             // Call
-            TestDelegate call = () => strategy.UpdateStructuresWithImportedData(importedClosingStructures,
-                                                                                sourceFilePath);
+            void Call() => strategy.UpdateStructuresWithImportedData(importedClosingStructures, sourceFilePath);
 
             // Assert
-            var exception = Assert.Throws<UpdateDataException>(call);
+            var exception = Assert.Throws<UpdateDataException>(Call);
             string expectedMessage = "Kunstwerken moeten een unieke id hebben. " +
                                      $"Gevonden dubbele elementen: {duplicateId}.";
             Assert.AreEqual(expectedMessage, exception.Message);

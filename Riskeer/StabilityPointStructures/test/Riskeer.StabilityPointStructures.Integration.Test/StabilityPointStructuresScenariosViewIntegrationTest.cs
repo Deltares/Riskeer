@@ -239,7 +239,7 @@ namespace Riskeer.StabilityPointStructures.Integration.Test
                 {
                     assessmentSection.StabilityPointStructures.CalculationsGroup.Children.Add(new StructuresCalculationScenario<StabilityPointStructuresInput>
                     {
-                        Name = NamingHelper.GetUniqueName(assessmentSection.StabilityPointStructures.CalculationsGroup.Children, structure.Name + "Calculation", c => c.Name),
+                        Name = NamingHelper.GetUniqueName(assessmentSection.StabilityPointStructures.CalculationsGroup.Children, structure.Name + " Calculation", c => c.Name),
                         InputParameters =
                         {
                             Structure = structure
@@ -255,7 +255,7 @@ namespace Riskeer.StabilityPointStructures.Integration.Test
                 // Precondition
                 DataGridViewRowCollection rows = dataGridView.Rows;
                 Assert.AreEqual(1, rows.Count);
-                Assert.AreEqual("Eerste kunstwerk punt 6-3Calculation", rows[0].Cells[nameColumnIndex].FormattedValue);
+                Assert.AreEqual("Eerste kunstwerk punt 6-3 Calculation", rows[0].Cells[nameColumnIndex].FormattedValue);
 
                 // Call
                 CalculationGroup calculationsGroup = assessmentSection.StabilityPointStructures.CalculationsGroup;
@@ -265,8 +265,8 @@ namespace Riskeer.StabilityPointStructures.Integration.Test
 
                 // Assert
                 Assert.AreEqual(2, rows.Count);
-                Assert.AreEqual("Eerste kunstwerk punt 6-3Calculation", rows[0].Cells[nameColumnIndex].FormattedValue);
-                Assert.AreEqual("Tweede kunstwerk punt 6-3Calculation", rows[1].Cells[nameColumnIndex].FormattedValue);
+                Assert.AreEqual("Eerste kunstwerk punt 6-3 Calculation", rows[0].Cells[nameColumnIndex].FormattedValue);
+                Assert.AreEqual("Tweede kunstwerk punt 6-3 Calculation", rows[1].Cells[nameColumnIndex].FormattedValue);
             }
 
             mocks.VerifyAll();

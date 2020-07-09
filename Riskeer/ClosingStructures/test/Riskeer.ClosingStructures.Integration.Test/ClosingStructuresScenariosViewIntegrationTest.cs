@@ -239,7 +239,7 @@ namespace Riskeer.ClosingStructures.Integration.Test
                 {
                     assessmentSection.ClosingStructures.CalculationsGroup.Children.Add(new StructuresCalculationScenario<ClosingStructuresInput>
                     {
-                        Name = NamingHelper.GetUniqueName(assessmentSection.ClosingStructures.CalculationsGroup.Children, structure.Name + "Calculation", c => c.Name),
+                        Name = NamingHelper.GetUniqueName(assessmentSection.ClosingStructures.CalculationsGroup.Children, structure.Name + " Calculation", c => c.Name),
                         InputParameters =
                         {
                             Structure = structure
@@ -255,7 +255,7 @@ namespace Riskeer.ClosingStructures.Integration.Test
                 // Precondition
                 DataGridViewRowCollection rows = dataGridView.Rows;
                 Assert.AreEqual(1, rows.Count);
-                Assert.AreEqual("Eerste kunstwerk sluiting 6-3Calculation", rows[0].Cells[nameColumnIndex].FormattedValue);
+                Assert.AreEqual("Eerste kunstwerk sluiting 6-3 Calculation", rows[0].Cells[nameColumnIndex].FormattedValue);
 
                 // Call
                 CalculationGroup calculationsGroup = assessmentSection.ClosingStructures.CalculationsGroup;
@@ -265,8 +265,8 @@ namespace Riskeer.ClosingStructures.Integration.Test
 
                 // Assert
                 Assert.AreEqual(2, rows.Count);
-                Assert.AreEqual("Eerste kunstwerk sluiting 6-3Calculation", rows[0].Cells[nameColumnIndex].FormattedValue);
-                Assert.AreEqual("Tweede kunstwerk sluiting 6-3Calculation", rows[1].Cells[nameColumnIndex].FormattedValue);
+                Assert.AreEqual("Eerste kunstwerk sluiting 6-3 Calculation", rows[0].Cells[nameColumnIndex].FormattedValue);
+                Assert.AreEqual("Tweede kunstwerk sluiting 6-3 Calculation", rows[1].Cells[nameColumnIndex].FormattedValue);
             }
 
             mocks.VerifyAll();

@@ -42,13 +42,13 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.FileImporters
         private const string sourcePath = "some/path/to/structures";
 
         [Test]
-        public void Constructor_WithFailureMechanismNull_ThrowsArgumentNullException()
+        public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new StabilityPointStructureReplaceDataStrategy(null);
+            void Call() => new StabilityPointStructureReplaceDataStrategy(null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
         }
 
@@ -75,11 +75,10 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.FileImporters
             var strategy = new StabilityPointStructureReplaceDataStrategy(failureMechanism);
 
             // Call
-            TestDelegate call = () => strategy.UpdateStructuresWithImportedData(null,
-                                                                                sourcePath);
+            void Call() => strategy.UpdateStructuresWithImportedData(null, sourcePath);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("importedDataCollection", exception.ParamName);
         }
 
@@ -91,11 +90,10 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.FileImporters
             var strategy = new StabilityPointStructureReplaceDataStrategy(failureMechanism);
 
             // Call
-            TestDelegate call = () => strategy.UpdateStructuresWithImportedData(Enumerable.Empty<StabilityPointStructure>(),
-                                                                                null);
+            void Call() => strategy.UpdateStructuresWithImportedData(Enumerable.Empty<StabilityPointStructure>(), null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("sourceFilePath", exception.ParamName);
         }
 
