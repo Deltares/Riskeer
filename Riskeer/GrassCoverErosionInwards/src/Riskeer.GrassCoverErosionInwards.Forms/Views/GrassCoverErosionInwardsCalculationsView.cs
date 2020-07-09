@@ -415,7 +415,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
         {
             List<HydraulicBoundaryLocation> hydraulicBoundaryLocations = assessmentSection.HydraulicBoundaryDatabase.Locations;
 
-            return hydraulicBoundaryLocations.Select(hbl => new SelectableHydraulicBoundaryLocation(hbl, null)).ToList();
+            return hydraulicBoundaryLocations.Select(hbl => new SelectableHydraulicBoundaryLocation(hbl, hbl.Location)).ToList();
         }
 
         #endregion
