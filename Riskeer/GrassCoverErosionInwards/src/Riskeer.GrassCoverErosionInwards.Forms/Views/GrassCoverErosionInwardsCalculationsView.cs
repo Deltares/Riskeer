@@ -197,7 +197,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
 
             dataGridViewControl.AddTextBoxColumn(
                 nameof(GrassCoverErosionInwardsCalculationRow.DikeHeight),
-                Resources.DikeHeight_DisplayName);
+                Resources.GrassCoverErosionInwardsCalculation_Dikeheight_DisplayName);
 
             dataGridViewControl.AddTextBoxColumn(
                 nameof(GrassCoverErosionInwardsCalculationRow.MeanCriticalFlowRate),

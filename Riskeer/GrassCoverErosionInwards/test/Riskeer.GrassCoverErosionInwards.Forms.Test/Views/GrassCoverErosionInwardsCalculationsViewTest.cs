@@ -162,16 +162,23 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
                 Assert.IsFalse(dataGridView.AutoGenerateColumns);
                 Assert.AreEqual(10, dataGridView.ColumnCount);
 
-                foreach (DataGridViewComboBoxColumn column in dataGridView.Columns.OfType<DataGridViewComboBoxColumn>())
-                {
-                    Assert.AreEqual("This", column.ValueMember);
-                    Assert.AreEqual("DisplayName", column.DisplayMember);
-                }
+                AssertColumnMembers(dataGridView.Columns.OfType<DataGridViewComboBoxColumn>().ToArray());
 
                 AssertDataGridViewControlColumnHeaders(dataGridView);
             }
 
             mocks.VerifyAll();
+        }
+
+        private static void AssertColumnMembers(IReadOnlyList<DataGridViewComboBoxColumn> dataGridViewColumns)
+        {
+            foreach (DataGridViewComboBoxColumn column in dataGridViewColumns)
+            {
+                Assert.AreEqual("DisplayName", column.DisplayMember);
+            }
+            Assert.AreEqual("This", dataGridViewColumns[0].ValueMember);
+            Assert.AreEqual("This", dataGridViewColumns[1].ValueMember);
+            Assert.AreEqual("Value", dataGridViewColumns[2].ValueMember);
         }
 
         [Test]
@@ -214,8 +221,8 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
                 DataGridViewComboBoxCell.ObjectCollection hydraulicBoundaryLocationComboboxItems = hydraulicBoundaryLocationCombobox.Items;
                 Assert.AreEqual(3, hydraulicBoundaryLocationComboboxItems.Count);
                 Assert.AreEqual("<selecteer>", hydraulicBoundaryLocationComboboxItems[0].ToString());
-                Assert.AreEqual("Location 1", hydraulicBoundaryLocationComboboxItems[1].ToString());
-                Assert.AreEqual("Location 2", hydraulicBoundaryLocationComboboxItems[2].ToString());
+                Assert.AreEqual("Location 1 (0 m)", hydraulicBoundaryLocationComboboxItems[1].ToString());
+                Assert.AreEqual("Location 2 (0 m)", hydraulicBoundaryLocationComboboxItems[2].ToString());
             }
 
             mocks.VerifyAll();
@@ -239,8 +246,8 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
                 DataGridViewComboBoxCell.ObjectCollection hydraulicBoundaryLocationComboboxItems = hydraulicBoundaryLocationCombobox.Items;
                 Assert.AreEqual(3, hydraulicBoundaryLocationComboboxItems.Count);
                 Assert.AreEqual("<selecteer>", hydraulicBoundaryLocationComboboxItems[0].ToString());
-                Assert.AreEqual("Location 1", hydraulicBoundaryLocationComboboxItems[1].ToString());
-                Assert.AreEqual("Location 2", hydraulicBoundaryLocationComboboxItems[2].ToString());
+                Assert.AreEqual("Location 1 (0 m)", hydraulicBoundaryLocationComboboxItems[1].ToString());
+                Assert.AreEqual("Location 2 (0 m)", hydraulicBoundaryLocationComboboxItems[2].ToString());
             }
 
             mocks.VerifyAll();

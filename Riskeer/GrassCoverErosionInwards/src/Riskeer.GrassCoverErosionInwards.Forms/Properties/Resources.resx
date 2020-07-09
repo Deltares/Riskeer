@@ -282,4 +282,7 @@
   <data name="StandardDeviation_Critical_FlowRate_DisplayName" xml:space="preserve">
     <value>Standaardafwijking kritiek overslagdebiet [m3/m/s]</value>
   </data>
+  <data name="GrassCoverErosionInwardsCalculation_Dikeheight_DisplayName" xml:space="preserve">
+    <value>Dijkhoogte [m+NAP]</value>
+  </data>
 </root>
