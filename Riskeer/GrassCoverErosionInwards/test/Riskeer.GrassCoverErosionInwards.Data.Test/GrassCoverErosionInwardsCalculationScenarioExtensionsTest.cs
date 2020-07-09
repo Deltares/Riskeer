@@ -128,7 +128,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
         }
 
         [Test]
-        public void IsDikeProfileIntersectionWithReferenceLineInSection_DikeProfileDoesNotIntersectsReferenceLine_ReturnsFalse()
+        public void IsDikeProfileIntersectionWithReferenceLineInSection_DikeProfileDoesNotIntersectReferenceLine_ReturnsFalse()
         {
             // Setup
             DikeProfile dikeProfile = DikeProfileTestFactory.CreateDikeProfile(new Point2D(0.0, 0.0));

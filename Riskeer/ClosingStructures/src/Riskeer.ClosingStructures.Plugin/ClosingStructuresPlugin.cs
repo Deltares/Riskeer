@@ -453,17 +453,14 @@ namespace Riskeer.ClosingStructures.Plugin
 
             foreach (ICalculationBase calculationItem in context.WrappedData.Children)
             {
-                var calculation = calculationItem as StructuresCalculationScenario<ClosingStructuresInput>;
-                var group = calculationItem as CalculationGroup;
-
-                if (calculation != null)
+                if (calculationItem is StructuresCalculationScenario<ClosingStructuresInput> calculation)
                 {
                     childNodeObjects.Add(new ClosingStructuresCalculationScenarioContext(calculation,
-                                                                                 context.WrappedData,
-                                                                                 context.FailureMechanism,
-                                                                                 context.AssessmentSection));
+                                                                                         context.WrappedData,
+                                                                                         context.FailureMechanism,
+                                                                                         context.AssessmentSection));
                 }
-                else if (group != null)
+                else if (calculationItem is CalculationGroup group)
                 {
                     childNodeObjects.Add(new ClosingStructuresCalculationGroupContext(group,
                                                                                       context.WrappedData,
@@ -675,7 +672,7 @@ namespace Riskeer.ClosingStructures.Plugin
 
         #endregion
 
-        #region ClosingStructuresCalculationContext TreeNodeInfo
+        #region ClosingStructuresCalculationScenarioContext TreeNodeInfo
 
         private static object[] CalculationContextChildNodeObjects(ClosingStructuresCalculationScenarioContext context)
         {

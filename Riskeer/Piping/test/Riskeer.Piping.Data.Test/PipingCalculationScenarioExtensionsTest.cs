@@ -120,7 +120,7 @@ namespace Riskeer.Piping.Data.Test
         }
 
         [Test]
-        public void IsSurfaceLineIntersectionWithReferenceLineInSection_SurfaceLineDoesNotIntersectsReferenceline_ReturnsFalse()
+        public void IsSurfaceLineIntersectionWithReferenceLineInSection_SurfaceLineDoesNotIntersectReferenceline_ReturnsFalse()
         {
             // Setup
             var surfaceLine = new PipingSurfaceLine(string.Empty)

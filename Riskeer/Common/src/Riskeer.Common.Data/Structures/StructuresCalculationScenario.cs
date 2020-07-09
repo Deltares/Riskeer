@@ -25,7 +25,7 @@ using Riskeer.Common.Data.Calculation;
 namespace Riskeer.Common.Data.Structures
 {
     /// <summary>
-    /// This class holds the information for a calculation scenario.
+    /// This class holds the information for a structures calculation scenario.
     /// </summary>
     public class StructuresCalculationScenario<T> : StructuresCalculation<T>, ICalculationScenario
         where T : IStructuresCalculationInput, new()

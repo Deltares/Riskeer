@@ -34,9 +34,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
     /// <summary>
     /// View for configuring grass cover erosion inwards scenarios.
     /// </summary>
-    public partial class GrassCoverErosionInwardsScenariosView : ScenariosView<
-        GrassCoverErosionInwardsCalculationScenario, GrassCoverErosionInwardsInput,
-        GrassCoverErosionInwardsScenarioRow, GrassCoverErosionInwardsFailureMechanism>
+    public partial class GrassCoverErosionInwardsScenariosView : ScenariosView<GrassCoverErosionInwardsCalculationScenario, GrassCoverErosionInwardsInput, GrassCoverErosionInwardsScenarioRow, GrassCoverErosionInwardsFailureMechanism>
     {
         private readonly IAssessmentSection assessmentSection;
 

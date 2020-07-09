@@ -128,7 +128,7 @@ namespace Riskeer.Common.Data.Test.Structures
         }
 
         [Test]
-        public void IsStructureIntersectionWithReferenceLineInSection_StructureDoesNotIntersectsReferenceLine_ReturnsFalse()
+        public void IsStructureIntersectionWithReferenceLineInSection_StructureDoesNotIntersectReferenceLine_ReturnsFalse()
         {
             // Setup
             var structure = new TestStructure(new Point2D(0.0, 0.0));

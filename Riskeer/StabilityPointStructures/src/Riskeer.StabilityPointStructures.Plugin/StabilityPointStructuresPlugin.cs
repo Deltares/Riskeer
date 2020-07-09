@@ -458,17 +458,14 @@ namespace Riskeer.StabilityPointStructures.Plugin
 
             foreach (ICalculationBase calculationItem in context.WrappedData.Children)
             {
-                var calculation = calculationItem as StructuresCalculationScenario<StabilityPointStructuresInput>;
-                var group = calculationItem as CalculationGroup;
-
-                if (calculation != null)
+                if (calculationItem is StructuresCalculationScenario<StabilityPointStructuresInput> calculation)
                 {
                     childNodeObjects.Add(new StabilityPointStructuresCalculationScenarioContext(calculation,
                                                                                                 context.WrappedData,
                                                                                                 context.FailureMechanism,
                                                                                                 context.AssessmentSection));
                 }
-                else if (group != null)
+                else if (calculationItem is CalculationGroup group)
                 {
                     childNodeObjects.Add(new StabilityPointStructuresCalculationGroupContext(group,
                                                                                              context.WrappedData,
@@ -693,7 +690,7 @@ namespace Riskeer.StabilityPointStructures.Plugin
 
         #endregion
 
-        #region StabilityPointStructuresCalculationContext TreeNodeInfo
+        #region StabilityPointStructuresCalculationScenarioContext TreeNodeInfo
 
         private static object[] CalculationContextChildNodeObjects(StabilityPointStructuresCalculationScenarioContext context)
         {

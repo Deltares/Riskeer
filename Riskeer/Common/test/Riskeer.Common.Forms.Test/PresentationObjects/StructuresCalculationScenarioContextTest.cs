@@ -81,7 +81,7 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
         }
 
         [TestFixture]
-        private class StructuresCalculationContextEqualsTest : EqualsTestFixture<TestStructuresCalculationScenarioContext, DerivedTestStructuresCalculationScenarioContext>
+        private class StructuresCalculationScenarioContextEqualsTest : EqualsTestFixture<TestStructuresCalculationScenarioContext, DerivedTestStructuresCalculationScenarioContext>
         {
             private static readonly MockRepository mocks = new MockRepository();
 

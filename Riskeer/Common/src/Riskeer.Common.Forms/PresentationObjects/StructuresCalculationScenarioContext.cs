@@ -29,7 +29,7 @@ using Riskeer.Common.Data.Structures;
 namespace Riskeer.Common.Forms.PresentationObjects
 {
     /// <summary>
-    /// Presentation object for all data required to configure a structures calculation.
+    /// Presentation object for all data required to configure a structures calculation scenario.
     /// </summary>
     /// <typeparam name="TInput">The type of calculation wrapped by this context.</typeparam>
     /// <typeparam name="TFailureMechanism">The type of failure mechanism which the context belongs to.</typeparam>
@@ -39,9 +39,9 @@ namespace Riskeer.Common.Forms.PresentationObjects
         where TFailureMechanism : IFailureMechanism
     {
         /// <summary>
-        /// Creates a new instance of <see cref="StructuresCalculationContext{TInput, TFailureMechanism}"/>.
+        /// Creates a new instance of <see cref="StructuresCalculationScenarioContext{TInput, TFailureMechanism}"/>.
         /// </summary>
-        /// <param name="calculation">The <see cref="StructuresCalculation{TInput}"/> instance wrapped by this context object.</param>
+        /// <param name="calculation">The <see cref="StructuresCalculationScenario{TInput}"/> instance wrapped by this context object.</param>
         /// <param name="parent">The <see cref="CalculationGroup"/> that owns the wrapped calculation.</param>
         /// <param name="failureMechanism">The failure mechanism which the context belongs to.</param>
         /// <param name="assessmentSection">The assessment section which the calculation belongs to.</param>
