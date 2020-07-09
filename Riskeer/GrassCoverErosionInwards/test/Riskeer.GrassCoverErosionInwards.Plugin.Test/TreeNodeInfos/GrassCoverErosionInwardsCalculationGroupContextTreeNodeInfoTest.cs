@@ -60,23 +60,23 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
     [TestFixture]
     public class GrassCoverErosionInwardsCalculationGroupContextTreeNodeInfoTest : NUnitFormTest
     {
-        private const int contextMenuGenerateCalculationsIndexRootGroup = 4;
-        private const int contextMenuAddCalculationGroupIndexRootGroup = 6;
-        private const int contextMenuAddCalculationIndexRootGroup = 7;
-        private const int contextMenuUpdateDikeProfileAllIndexRootGroup = 9;
-        private const int contextMenuValidateAllIndexRootGroup = 11;
-        private const int contextMenuCalculateAllIndexRootGroup = 12;
-        private const int contextMenuClearAllIndexRootGroup = 14;
-        private const int contextMenuClearIllustrationPointsIndexRootGroup = 15;
+        private const int contextMenuGenerateCalculationsIndexRootGroup = 5;
+        private const int contextMenuAddCalculationGroupIndexRootGroup = 7;
+        private const int contextMenuAddCalculationIndexRootGroup = 8;
+        private const int contextMenuUpdateDikeProfileAllIndexRootGroup = 10;
+        private const int contextMenuValidateAllIndexRootGroup = 12;
+        private const int contextMenuCalculateAllIndexRootGroup = 13;
+        private const int contextMenuClearAllIndexRootGroup = 15;
+        private const int contextMenuClearIllustrationPointsIndexRootGroup = 16;
 
-        private const int contextMenuDuplicateIndexNestedGroup = 4;
-        private const int contextMenuAddCalculationGroupIndexNestedGroup = 6;
-        private const int contextMenuAddCalculationIndexNestedGroup = 7;
-        private const int contextMenuUpdateDikeProfileAllIndexNestedGroup = 10;
-        private const int contextMenuValidateAllIndexNestedGroup = 12;
-        private const int contextMenuCalculateAllIndexNestedGroup = 13;
-        private const int contextMenuClearAllIndexNestedGroup = 15;
-        private const int contextMenuClearIllustrationPointsIndexNestedGroup = 16;
+        private const int contextMenuDuplicateIndexNestedGroup = 3;
+        private const int contextMenuAddCalculationGroupIndexNestedGroup = 5;
+        private const int contextMenuAddCalculationIndexNestedGroup = 6;
+        private const int contextMenuUpdateDikeProfileAllIndexNestedGroup = 9;
+        private const int contextMenuValidateAllIndexNestedGroup = 11;
+        private const int contextMenuCalculateAllIndexNestedGroup = 12;
+        private const int contextMenuClearAllIndexNestedGroup = 14;
+        private const int contextMenuClearIllustrationPointsIndexNestedGroup = 15;
 
         private const string dikeProfileCollectionPath = "some/arbitrary/path";
         private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, nameof(HydraulicBoundaryDatabase));
@@ -189,6 +189,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
             using (mocks.Ordered())
             {
                 menuBuilder.Expect(mb => mb.AddOpenItem()).IgnoreArguments().Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.AddImportItem()).IgnoreArguments().Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.AddExportItem()).IgnoreArguments().Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
@@ -252,7 +253,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                 using (ContextMenuStrip menu = info.ContextMenuStrip(groupContext, null, treeViewControl))
                 {
                     // Assert
-                    Assert.AreEqual(22, menu.Items.Count);
+                    Assert.AreEqual(23, menu.Items.Count);
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationGroupIndexRootGroup,
                                                                   "&Map toevoegen",
                                                                   "Voeg een nieuwe map toe aan deze map met berekeningen.",
@@ -313,7 +314,6 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                 var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
                 using (mocks.Ordered())
                 {
-                    menuBuilder.Expect(mb => mb.AddOpenItem()).IgnoreArguments().Return(menuBuilder);
                     menuBuilder.Expect(mb => mb.AddImportItem()).IgnoreArguments().Return(menuBuilder);
                     menuBuilder.Expect(mb => mb.AddExportItem()).IgnoreArguments().Return(menuBuilder);
                     menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
@@ -378,7 +378,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                 using (ContextMenuStrip menu = info.ContextMenuStrip(groupContext, parentGroupContext, treeViewControl))
                 {
                     // Assert
-                    Assert.AreEqual(23, menu.Items.Count);
+                    Assert.AreEqual(22, menu.Items.Count);
 
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuDuplicateIndexNestedGroup,
                                                                   "D&upliceren",

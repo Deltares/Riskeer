@@ -251,16 +251,12 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
 
             yield return new ViewInfo<GrassCoverErosionInwardsCalculationGroupContext, CalculationGroup, GrassCoverErosionInwardsCalculationsView>
             {
+                CreateInstance = context => new GrassCoverErosionInwardsCalculationsView(context.WrappedData,context.FailureMechanism, context.AssessmentSection),
                 GetViewData = context => context.WrappedData,
                 GetViewName = (view, context) => context.WrappedData.Name,
                 Image = RiskeerCommonFormsResources.GeneralFolderIcon,
                 AdditionalDataCheck = context => context.WrappedData == context.FailureMechanism.CalculationsGroup,
                 CloseForData = CloseGrassCoverErosionInwardsCalculationsViewForData,
-                AfterCreate = (view, context) =>
-                {
-                    view.AssessmentSection = context.AssessmentSection;
-                    view.FailureMechanism = context.FailureMechanism;
-                }
             };
         }
 
@@ -673,8 +669,14 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
             IInquiryHelper inquiryHelper = GetInquiryHelper();
 
             var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
-            builder.AddOpenItem()
-                   .AddImportItem()
+
+            if (!isNestedGroup)
+            {
+                builder.AddOpenItem()
+                       .AddSeparator();
+            }
+
+            builder.AddImportItem()
                    .AddExportItem()
                    .AddSeparator();
 

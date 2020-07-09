@@ -44,6 +44,9 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
         private const int useForeshoreColumnIndex = 6;
         private readonly IObservablePropertyChangeHandler propertyChangeHandler;
 
+        public event EventHandler RowUpdated;
+        public event EventHandler RowUpdateDone;
+
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionInwardsCalculationRow"/>.
         /// </summary>
@@ -139,11 +142,8 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
             get => GrassCoverErosionInwardsCalculationScenario.InputParameters.UseBreakWater;
             set
             {
-                if (!GrassCoverErosionInwardsCalculationScenario.InputParameters.UseBreakWater.Equals(value))
-                {
-                    PropertyChangeHelper.ChangePropertyAndNotify(() => GrassCoverErosionInwardsCalculationScenario.InputParameters.UseBreakWater = value, propertyChangeHandler);
-                    UpdateUseBreakWaterColumnStateDefinitions();
-                }
+                PropertyChangeHelper.ChangePropertyAndNotify(() => GrassCoverErosionInwardsCalculationScenario.InputParameters.UseBreakWater = value, propertyChangeHandler);
+                UpdateUseBreakWaterColumnStateDefinitions();
             }
         }
 

@@ -60,7 +60,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
-            Assert.AreEqual("grassCoverErosionInwardsCalculationScenario", paramName);
+            Assert.AreEqual("calculationScenario", paramName);
             mocks.VerifyAll();
         }
 
@@ -82,15 +82,15 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             var mocks = new MockRepository();
             var handler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
-            var grassCoverErosionInwardsCalculationScenario = new GrassCoverErosionInwardsCalculationScenario();
+            var calculationScenario = new GrassCoverErosionInwardsCalculationScenario();
 
             // Call
-            var grassCoverErosionInwardsCalculationRow = new GrassCoverErosionInwardsCalculationRow(grassCoverErosionInwardsCalculationScenario, handler);
+            var calculationRow = new GrassCoverErosionInwardsCalculationRow(calculationScenario, handler);
 
             // Asserts
-            Assert.AreSame(grassCoverErosionInwardsCalculationScenario, grassCoverErosionInwardsCalculationRow.GrassCoverErosionInwardsCalculationScenario);
+            Assert.AreSame(calculationScenario, calculationRow.GrassCoverErosionInwardsCalculationScenario);
 
-            IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = grassCoverErosionInwardsCalculationRow.ColumnStateDefinitions;
+            IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = calculationRow.ColumnStateDefinitions;
             Assert.AreEqual(3, columnStateDefinitions.Count);
 
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, breakWaterTypeColumnIndex);
@@ -204,27 +204,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
 
             // Call & Assert
             SetPropertyAndVerifyNotificationsAndOutputForCalculation(row => row.UseBreakWater = newValue, calculation);
-        }
-
-        [Test]
-        public void UseBreakWater_ChangeToEqualValue_NoNotificationsOutputNotCleared()
-        {
-            // Setup
-            var oldValue = true;
-
-            // Call
-            AssertPropertyNotChanged(
-                row =>
-                {
-                    oldValue = row.UseBreakWater;
-                    row.UseBreakWater = row.UseBreakWater;
-                },
-                calculation =>
-                {
-                    // Assert
-                    Assert.NotNull(oldValue);
-                    Assert.AreEqual(oldValue, calculation.InputParameters.UseBreakWater);
-                });
         }
 
         [Test]
