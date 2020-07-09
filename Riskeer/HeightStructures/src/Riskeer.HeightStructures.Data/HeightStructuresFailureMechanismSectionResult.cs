@@ -22,7 +22,6 @@
 using System;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Probability;
-using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Primitives;
 using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
 
