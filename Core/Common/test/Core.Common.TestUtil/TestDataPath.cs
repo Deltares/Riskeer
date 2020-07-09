@@ -63,6 +63,7 @@ namespace Core.Common.TestUtil
             public static class ClosingStructures
             {
                 public static readonly TestDataPath IO = "Riskeer.ClosingStructures.IO.Test";
+                public static readonly TestDataPath Integration = "Riskeer.ClosingStructures.Integration.Test";
             }
 
             public static class Common

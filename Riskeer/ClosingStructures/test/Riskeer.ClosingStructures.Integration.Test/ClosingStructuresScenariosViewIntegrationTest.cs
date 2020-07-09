@@ -28,31 +28,31 @@ using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Riskeer.ClosingStructures.Data;
+using Riskeer.ClosingStructures.Forms.Views;
+using Riskeer.ClosingStructures.IO;
+using Riskeer.ClosingStructures.Plugin.FileImporters;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.IO.FileImporters.MessageProviders;
-using Riskeer.HeightStructures.Data;
-using Riskeer.HeightStructures.Forms.Views;
-using Riskeer.HeightStructures.IO;
-using Riskeer.HeightStructures.Plugin.FileImporters;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.TestUtil;
 
-namespace Riskeer.HeightStructures.Integration.Test
+namespace Riskeer.ClosingStructures.Integration.Test
 {
     [TestFixture]
-    public class HeightStructuresScenariosViewIntegrationTest
+    public class ClosingStructuresScenariosViewIntegrationTest
     {
         private const int isRelevantColumnIndex = 0;
         private const int contributionColumnIndex = 1;
         private const int nameColumnIndex = 2;
         private const int failureProbabilityColumnIndex = 3;
 
-        private readonly string filePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.HeightStructures.Integration,
-                                                                      Path.Combine("HeightStructures", "kunstwerken_6_3.shp"));
+        private readonly string filePath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.ClosingStructures.Integration,
+                                                                      Path.Combine("ClosingStructures", "kunstwerken_6_3.shp"));
 
         [Test]
         public void ScenariosView_ImportFailureMechanismSections_ChangesCorrectlyObservedAndSynced()
@@ -63,7 +63,7 @@ namespace Riskeer.HeightStructures.Integration.Test
                 var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
                 DataImportHelper.ImportReferenceLine(assessmentSection);
 
-                var view = new HeightStructuresScenariosView(assessmentSection.HeightStructures.CalculationsGroup, assessmentSection.HeightStructures, assessmentSection);
+                var view = new ClosingStructuresScenariosView(assessmentSection.ClosingStructures.CalculationsGroup, assessmentSection.ClosingStructures, assessmentSection);
                 form.Controls.Add(view);
                 form.Show();
 
@@ -73,12 +73,12 @@ namespace Riskeer.HeightStructures.Integration.Test
                 CollectionAssert.IsEmpty(listBox.Items);
 
                 // Call
-                IFailureMechanism failureMechanism = assessmentSection.HeightStructures;
+                IFailureMechanism failureMechanism = assessmentSection.ClosingStructures;
                 DataImportHelper.ImportFailureMechanismSections(assessmentSection, failureMechanism);
-                assessmentSection.HeightStructures.NotifyObservers();
+                assessmentSection.ClosingStructures.NotifyObservers();
 
                 // Assert
-                CollectionAssert.AreEqual(assessmentSection.HeightStructures.Sections, listBox.Items);
+                CollectionAssert.AreEqual(assessmentSection.ClosingStructures.Sections, listBox.Items);
             }
         }
 
@@ -94,33 +94,33 @@ namespace Riskeer.HeightStructures.Integration.Test
             {
                 var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
                 DataImportHelper.ImportReferenceLine(assessmentSection);
-                HeightStructuresFailureMechanism failureMechanism = assessmentSection.HeightStructures;
+                ClosingStructuresFailureMechanism failureMechanism = assessmentSection.ClosingStructures;
                 DataImportHelper.ImportFailureMechanismSections(assessmentSection, failureMechanism);
 
-                CalculationGroup calculationsGroup = assessmentSection.HeightStructures.CalculationsGroup;
-                var view = new HeightStructuresScenariosView(calculationsGroup, assessmentSection.HeightStructures, assessmentSection);
+                CalculationGroup calculationsGroup = assessmentSection.ClosingStructures.CalculationsGroup;
+                var view = new ClosingStructuresScenariosView(calculationsGroup, assessmentSection.ClosingStructures, assessmentSection);
 
                 form.Controls.Add(view);
                 form.Show();
 
-                var structuresImporter = new HeightStructuresImporter(assessmentSection.HeightStructures.HeightStructures,
-                                                                      assessmentSection.ReferenceLine, filePath, messageProvider,
-                                                                      new HeightStructureReplaceDataStrategy(failureMechanism));
+                var structuresImporter = new ClosingStructuresImporter(assessmentSection.ClosingStructures.ClosingStructures,
+                                                                       assessmentSection.ReferenceLine, filePath, messageProvider,
+                                                                       new ClosingStructureReplaceDataStrategy(failureMechanism));
                 structuresImporter.Import();
 
                 var listBox = (ListBox) new ControlTester("listBox").TheObject;
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
-                listBox.SelectedItem = failureMechanism.Sections.ElementAt(13);
+                listBox.SelectedItem = failureMechanism.Sections.ElementAt(32);
 
                 // Precondition
                 DataGridViewRowCollection rows = dataGridView.Rows;
                 CollectionAssert.IsEmpty(rows);
 
                 // Call
-                foreach (HeightStructure structure in assessmentSection.HeightStructures.HeightStructures)
+                foreach (ClosingStructure structure in assessmentSection.ClosingStructures.ClosingStructures)
                 {
-                    calculationsGroup.Children.Add(new StructuresCalculationScenario<HeightStructuresInput>
+                    calculationsGroup.Children.Add(new StructuresCalculationScenario<ClosingStructuresInput>
                     {
                         Name = NamingHelper.GetUniqueName(((CalculationGroup) view.Data).Children, structure.Name, c => c.Name),
                         InputParameters =
@@ -139,7 +139,7 @@ namespace Riskeer.HeightStructures.Integration.Test
                 Assert.AreEqual(4, cells.Count);
                 Assert.IsTrue(Convert.ToBoolean(cells[isRelevantColumnIndex].FormattedValue));
                 Assert.AreEqual(new RoundedDouble(2, 100).ToString(), cells[contributionColumnIndex].FormattedValue);
-                Assert.AreEqual("Eerste kunstwerk 6-3", cells[nameColumnIndex].FormattedValue);
+                Assert.AreEqual("Eerste kunstwerk sluiting 6-3", cells[nameColumnIndex].FormattedValue);
                 Assert.AreEqual("-", cells[failureProbabilityColumnIndex].FormattedValue);
             }
 
@@ -158,23 +158,23 @@ namespace Riskeer.HeightStructures.Integration.Test
             {
                 var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
                 DataImportHelper.ImportReferenceLine(assessmentSection);
-                HeightStructuresFailureMechanism failureMechanism = assessmentSection.HeightStructures;
+                ClosingStructuresFailureMechanism failureMechanism = assessmentSection.ClosingStructures;
                 DataImportHelper.ImportFailureMechanismSections(assessmentSection, failureMechanism);
 
-                CalculationGroup calculationsGroup = assessmentSection.HeightStructures.CalculationsGroup;
-                var view = new HeightStructuresScenariosView(calculationsGroup, assessmentSection.HeightStructures, assessmentSection);
+                CalculationGroup calculationsGroup = assessmentSection.ClosingStructures.CalculationsGroup;
+                var view = new ClosingStructuresScenariosView(calculationsGroup, assessmentSection.ClosingStructures, assessmentSection);
 
                 form.Controls.Add(view);
                 form.Show();
 
-                var structuresImporter = new HeightStructuresImporter(assessmentSection.HeightStructures.HeightStructures,
-                                                                      assessmentSection.ReferenceLine, filePath, messageProvider,
-                                                                      new HeightStructureReplaceDataStrategy(failureMechanism));
+                var structuresImporter = new ClosingStructuresImporter(assessmentSection.ClosingStructures.ClosingStructures,
+                                                                       assessmentSection.ReferenceLine, filePath, messageProvider,
+                                                                       new ClosingStructureReplaceDataStrategy(failureMechanism));
                 structuresImporter.Import();
 
-                foreach (HeightStructure structure in assessmentSection.HeightStructures.HeightStructures)
+                foreach (ClosingStructure structure in assessmentSection.ClosingStructures.ClosingStructures)
                 {
-                    calculationsGroup.Children.Add(new StructuresCalculationScenario<HeightStructuresInput>
+                    calculationsGroup.Children.Add(new StructuresCalculationScenario<ClosingStructuresInput>
                     {
                         Name = NamingHelper.GetUniqueName(calculationsGroup.Children, structure.Name, c => c.Name),
                         InputParameters =
@@ -189,23 +189,23 @@ namespace Riskeer.HeightStructures.Integration.Test
                 var listBox = (ListBox) new ControlTester("listBox").TheObject;
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
-                listBox.SelectedItem = failureMechanism.Sections.ElementAt(13);
+                listBox.SelectedItem = failureMechanism.Sections.ElementAt(32);
 
                 // Precondition
                 DataGridViewRowCollection rows = dataGridView.Rows;
                 Assert.AreEqual(1, rows.Count);
 
                 DataGridViewCellCollection cells = rows[0].Cells;
-                Assert.AreEqual("Eerste kunstwerk 6-3", cells[nameColumnIndex].FormattedValue);
+                Assert.AreEqual("Eerste kunstwerk sluiting 6-3", cells[nameColumnIndex].FormattedValue);
 
                 // Call
-                foreach (StructuresCalculationScenario<HeightStructuresInput> calculation in calculationsGroup.Children.Cast<StructuresCalculationScenario<HeightStructuresInput>>())
+                foreach (StructuresCalculationScenario<ClosingStructuresInput> calculation in calculationsGroup.Children.Cast<StructuresCalculationScenario<ClosingStructuresInput>>())
                 {
                     calculation.Name += "_changed";
                 }
 
                 // Assert
-                Assert.AreEqual("Eerste kunstwerk 6-3_changed", cells[nameColumnIndex].FormattedValue);
+                Assert.AreEqual("Eerste kunstwerk sluiting 6-3_changed", cells[nameColumnIndex].FormattedValue);
             }
 
             mocks.VerifyAll();
@@ -223,23 +223,23 @@ namespace Riskeer.HeightStructures.Integration.Test
             {
                 var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
                 DataImportHelper.ImportReferenceLine(assessmentSection);
-                HeightStructuresFailureMechanism failureMechanism = assessmentSection.HeightStructures;
+                ClosingStructuresFailureMechanism failureMechanism = assessmentSection.ClosingStructures;
                 DataImportHelper.ImportFailureMechanismSections(assessmentSection, failureMechanism);
 
-                var view = new HeightStructuresScenariosView(assessmentSection.HeightStructures.CalculationsGroup, assessmentSection.HeightStructures, assessmentSection);
+                var view = new ClosingStructuresScenariosView(assessmentSection.ClosingStructures.CalculationsGroup, assessmentSection.ClosingStructures, assessmentSection);
                 form.Controls.Add(view);
                 form.Show();
 
-                var structuresImporter = new HeightStructuresImporter(assessmentSection.HeightStructures.HeightStructures,
-                                                                      assessmentSection.ReferenceLine, filePath, messageProvider,
-                                                                      new HeightStructureReplaceDataStrategy(failureMechanism));
+                var structuresImporter = new ClosingStructuresImporter(assessmentSection.ClosingStructures.ClosingStructures,
+                                                                       assessmentSection.ReferenceLine, filePath, messageProvider,
+                                                                       new ClosingStructureReplaceDataStrategy(failureMechanism));
                 structuresImporter.Import();
 
-                foreach (HeightStructure structure in assessmentSection.HeightStructures.HeightStructures)
+                foreach (ClosingStructure structure in assessmentSection.ClosingStructures.ClosingStructures)
                 {
-                    assessmentSection.HeightStructures.CalculationsGroup.Children.Add(new StructuresCalculationScenario<HeightStructuresInput>
+                    assessmentSection.ClosingStructures.CalculationsGroup.Children.Add(new StructuresCalculationScenario<ClosingStructuresInput>
                     {
-                        Name = NamingHelper.GetUniqueName(assessmentSection.HeightStructures.CalculationsGroup.Children, structure.Name + "Calculation", c => c.Name),
+                        Name = NamingHelper.GetUniqueName(assessmentSection.ClosingStructures.CalculationsGroup.Children, structure.Name + "Calculation", c => c.Name),
                         InputParameters =
                         {
                             Structure = structure
@@ -250,23 +250,23 @@ namespace Riskeer.HeightStructures.Integration.Test
                 var listBox = (ListBox) new ControlTester("listBox").TheObject;
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
-                listBox.SelectedItem = failureMechanism.Sections.ElementAt(13);
+                listBox.SelectedItem = failureMechanism.Sections.ElementAt(32);
 
                 // Precondition
                 DataGridViewRowCollection rows = dataGridView.Rows;
                 Assert.AreEqual(1, rows.Count);
-                Assert.AreEqual("Eerste kunstwerk 6-3Calculation", rows[0].Cells[nameColumnIndex].FormattedValue);
+                Assert.AreEqual("Eerste kunstwerk sluiting 6-3Calculation", rows[0].Cells[nameColumnIndex].FormattedValue);
 
                 // Call
-                CalculationGroup calculationsGroup = assessmentSection.HeightStructures.CalculationsGroup;
-                ((StructuresCalculation<HeightStructuresInput>) calculationsGroup.Children[1]).InputParameters.Structure =
-                    ((StructuresCalculation<HeightStructuresInput>) calculationsGroup.Children[0]).InputParameters.Structure;
+                CalculationGroup calculationsGroup = assessmentSection.ClosingStructures.CalculationsGroup;
+                ((StructuresCalculation<ClosingStructuresInput>) calculationsGroup.Children[1]).InputParameters.Structure =
+                    ((StructuresCalculation<ClosingStructuresInput>) calculationsGroup.Children[0]).InputParameters.Structure;
                 calculationsGroup.NotifyObservers();
 
                 // Assert
                 Assert.AreEqual(2, rows.Count);
-                Assert.AreEqual("Eerste kunstwerk 6-3Calculation", rows[0].Cells[nameColumnIndex].FormattedValue);
-                Assert.AreEqual("Tweede kunstwerk 6-3Calculation", rows[1].Cells[nameColumnIndex].FormattedValue);
+                Assert.AreEqual("Eerste kunstwerk sluiting 6-3Calculation", rows[0].Cells[nameColumnIndex].FormattedValue);
+                Assert.AreEqual("Tweede kunstwerk sluiting 6-3Calculation", rows[1].Cells[nameColumnIndex].FormattedValue);
             }
 
             mocks.VerifyAll();

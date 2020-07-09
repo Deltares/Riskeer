@@ -217,6 +217,8 @@ namespace Core.Common.TestUtil.Test
 
             path = TestHelper.GetTestDataPath(TestDataPath.Riskeer.ClosingStructures.IO);
             Assert.IsTrue(Directory.Exists(path));
+            path = TestHelper.GetTestDataPath(TestDataPath.Riskeer.ClosingStructures.Integration);
+            Assert.IsTrue(Directory.Exists(path));
 
             path = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO);
             Assert.IsTrue(Directory.Exists(path));

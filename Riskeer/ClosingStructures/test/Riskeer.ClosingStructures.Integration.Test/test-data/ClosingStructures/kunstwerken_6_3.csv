@@ -1,0 +1,61 @@
+Identificatie;Kunstwerken.identificatie;AlfanumeriekeWaarde;NumeriekeWaarde;Standaardafwijking.variatie;Boolean
+KWK_1;KW_BETSLUIT1;;        20000.11;  0.1;0
+KWK_1;KW_BETSLUIT2;;            0.21;  0.1;1
+KWK_1;KW_BETSLUIT3;;           11.11;    0;0
+KWK_1;KW_BETSLUIT4;;           21.11; 0.05;0
+KWK_1;KW_BETSLUIT5;;            4.91; 0.05;1
+KWK_1;KW_BETSLUIT6;;            0.51;  0.1;1
+KWK_1;KW_BETSLUIT7;;            4.11;  0.1;1
+KWK_1;KW_BETSLUIT8;;           31.51; 0.01;1
+KWK_1;KW_BETSLUIT9;;            1.11; 0.15;0
+KWK_1;KW_BETSLUIT10;;          25.11; 0.05;1
+KWK_1;KW_BETSLUIT11;;         0.0909;    0;0
+KWK_1;KW_BETSLUIT12;;            0.1;    0;0
+KWK_1;KW_BETSLUIT13;;             11;    0;1
+KWK_1;KW_BETSLUIT14;;       0.009009;    0;1
+KWK_1;KW_BETSLUIT15;VerdronkenKoker;;     ;
+KWK_2;KW_BETSLUIT1;;        20000.22;  0.1;0
+KWK_2;KW_BETSLUIT2;;            0.22;  0.1;1
+KWK_2;KW_BETSLUIT3;;           11.22;    0;0
+KWK_2;KW_BETSLUIT4;;           21.22; 0.05;0
+KWK_2;KW_BETSLUIT5;;            4.92; 0.05;1
+KWK_2;KW_BETSLUIT6;;            0.52;  0.1;1
+KWK_2;KW_BETSLUIT7;;            4.22;  0.1;1
+KWK_2;KW_BETSLUIT8;;           31.52; 0.01;1
+KWK_2;KW_BETSLUIT9;;            1.22; 0.15;0
+KWK_2;KW_BETSLUIT10;;          25.22; 0.05;1
+KWK_2;KW_BETSLUIT11;;        0.04545;    0;0
+KWK_2;KW_BETSLUIT12;;           0.05;    0;0
+KWK_2;KW_BETSLUIT13;;             22;    0;1
+KWK_2;KW_BETSLUIT14;;      0.0045045;    0;1
+KWK_2;KW_BETSLUIT15;verticalewand;;     ;
+KWK_3;KW_BETSLUIT1;;        20000.33;  0.1;0
+KWK_3;KW_BETSLUIT2;;            0.23;  0.1;1
+KWK_3;KW_BETSLUIT3;;           11.33;    0;0
+KWK_3;KW_BETSLUIT4;;           21.33; 0.05;0
+KWK_3;KW_BETSLUIT5;;            4.93; 0.05;1
+KWK_3;KW_BETSLUIT6;;            0.53;  0.1;1
+KWK_3;KW_BETSLUIT7;;            4.13;  0.1;1
+KWK_3;KW_BETSLUIT8;;           31.53; 0.01;1
+KWK_3;KW_BETSLUIT9;;            1.33; 0.15;0
+KWK_3;KW_BETSLUIT10;;          25.33; 0.05;1
+KWK_3;KW_BETSLUIT11;;       0.030303;    0;0
+KWK_3;KW_BETSLUIT12;;        0.03333;    0;0
+KWK_3;KW_BETSLUIT13;;             33;    0;1
+KWK_3;KW_BETSLUIT14;;       0.003003;    0;1
+KWK_3;KW_BETSLUIT15;LageDrempel;;     ;
+KWK_4;KW_BETSLUIT1;;        20000.44;  0.1;0
+KWK_4;KW_BETSLUIT2;;            0.24;  0.1;1
+KWK_4;KW_BETSLUIT3;;           11.44;    0;0
+KWK_4;KW_BETSLUIT4;;           21.44; 0.05;0
+KWK_4;KW_BETSLUIT5;;            4.94; 0.05;1
+KWK_4;KW_BETSLUIT6;;            0.54;  0.1;1
+KWK_4;KW_BETSLUIT7;;            4.14;  0.1;1
+KWK_4;KW_BETSLUIT8;;           31.54; 0.01;1
+KWK_4;KW_BETSLUIT9;;            1.44; 0.15;0
+KWK_4;KW_BETSLUIT10;;          25.44; 0.05;1
+KWK_4;KW_BETSLUIT11;;       0.022727;    0;0
+KWK_4;KW_BETSLUIT12;;          0.025;    0;0
+KWK_4;KW_BETSLUIT13;;             44;    0;1
+KWK_4;KW_BETSLUIT14;;     0.00225225;    0;1
+KWK_4;KW_BETSLUIT15;verticalewand;;     ;

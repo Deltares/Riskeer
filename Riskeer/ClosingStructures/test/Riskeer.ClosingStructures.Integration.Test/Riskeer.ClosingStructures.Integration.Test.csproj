@@ -1,8 +1,17 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <Import Project="$(SolutionDir)\build\Test.targets" />
   <ItemGroup>
+    <Compile Remove="test-data\**" />
+    <EmbeddedResource Remove="test-data\**" />
+    <None Remove="test-data\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="NUnitForms">
+      <HintPath>..\..\..\..\lib\NUnitForms.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.licenseheader">
@@ -21,6 +30,8 @@
     <ProjectReference Include="..\..\..\Integration\src\Riskeer.Integration.Data\Riskeer.Integration.Data.csproj" />
     <ProjectReference Include="..\..\..\Integration\test\Riskeer.Integration.TestUtil\Riskeer.Integration.TestUtil.csproj" />
     <ProjectReference Include="..\..\src\Riskeer.ClosingStructures.Data\Riskeer.ClosingStructures.Data.csproj" />
+    <ProjectReference Include="..\..\src\Riskeer.ClosingStructures.IO\Riskeer.ClosingStructures.IO.csproj" />
+    <ProjectReference Include="..\..\src\Riskeer.ClosingStructures.Plugin\Riskeer.ClosingStructures.Plugin.csproj" />
     <ProjectReference Include="..\..\src\Riskeer.ClosingStructures.Service\Riskeer.ClosingStructures.Service.csproj" />
     <ProjectReference Include="..\Riskeer.ClosingStructures.Data.TestUtil\Riskeer.ClosingStructures.Data.TestUtil.csproj" />
   </ItemGroup>
