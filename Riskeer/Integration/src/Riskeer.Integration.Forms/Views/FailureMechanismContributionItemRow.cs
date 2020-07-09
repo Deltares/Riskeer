@@ -179,17 +179,17 @@ namespace Riskeer.Integration.Forms.Views
         {
             if (!IsRelevant)
             {
-                FailureMechanismSectionResultRowHelper.DisableColumn(ColumnStateDefinitions[nameColumnIndex]);
-                FailureMechanismSectionResultRowHelper.DisableColumn(ColumnStateDefinitions[codeColumnIndex]);
-                FailureMechanismSectionResultRowHelper.DisableColumn(ColumnStateDefinitions[contributionColumnIndex]);
-                FailureMechanismSectionResultRowHelper.DisableColumn(ColumnStateDefinitions[probabilitySpaceColumnIndex]);
+                ColumnStateHelper.DisableColumn(ColumnStateDefinitions[nameColumnIndex]);
+                ColumnStateHelper.DisableColumn(ColumnStateDefinitions[codeColumnIndex]);
+                ColumnStateHelper.DisableColumn(ColumnStateDefinitions[contributionColumnIndex]);
+                ColumnStateHelper.DisableColumn(ColumnStateDefinitions[probabilitySpaceColumnIndex]);
             }
             else
             {
-                FailureMechanismSectionResultRowHelper.EnableColumn(ColumnStateDefinitions[nameColumnIndex], true);
-                FailureMechanismSectionResultRowHelper.EnableColumn(ColumnStateDefinitions[codeColumnIndex], true);
-                FailureMechanismSectionResultRowHelper.EnableColumn(ColumnStateDefinitions[contributionColumnIndex], true);
-                FailureMechanismSectionResultRowHelper.EnableColumn(ColumnStateDefinitions[probabilitySpaceColumnIndex], true);
+                ColumnStateHelper.EnableColumn(ColumnStateDefinitions[nameColumnIndex], true);
+                ColumnStateHelper.EnableColumn(ColumnStateDefinitions[codeColumnIndex], true);
+                ColumnStateHelper.EnableColumn(ColumnStateDefinitions[contributionColumnIndex], true);
+                ColumnStateHelper.EnableColumn(ColumnStateDefinitions[probabilitySpaceColumnIndex], true);
             }
         }
 

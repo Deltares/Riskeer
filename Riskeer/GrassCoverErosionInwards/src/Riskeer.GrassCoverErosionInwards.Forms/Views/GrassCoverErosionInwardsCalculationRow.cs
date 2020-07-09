@@ -245,13 +245,13 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
         {
             if (!UseBreakWater)
             {
-                FailureMechanismSectionResultRowHelper.DisableColumn(ColumnStateDefinitions[breakWaterTypeColumnIndex]);
-                FailureMechanismSectionResultRowHelper.DisableColumn(ColumnStateDefinitions[breakWaterHeightColumnIndex]);
+                ColumnStateHelper.DisableColumn(ColumnStateDefinitions[breakWaterTypeColumnIndex]);
+                ColumnStateHelper.DisableColumn(ColumnStateDefinitions[breakWaterHeightColumnIndex]);
             }
             else
             {
-                FailureMechanismSectionResultRowHelper.EnableColumn(ColumnStateDefinitions[breakWaterTypeColumnIndex]);
-                FailureMechanismSectionResultRowHelper.EnableColumn(ColumnStateDefinitions[breakWaterHeightColumnIndex]);
+                ColumnStateHelper.EnableColumn(ColumnStateDefinitions[breakWaterTypeColumnIndex]);
+                ColumnStateHelper.EnableColumn(ColumnStateDefinitions[breakWaterHeightColumnIndex]);
             }
         }
 
@@ -260,11 +260,11 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
             DikeProfile dikeProfileForeshoreGeometry = GrassCoverErosionInwardsCalculationScenario.InputParameters.DikeProfile;
             if (dikeProfileForeshoreGeometry == null || !dikeProfileForeshoreGeometry.ForeshoreGeometry.Any())
             {
-                FailureMechanismSectionResultRowHelper.DisableColumn(ColumnStateDefinitions[useForeshoreColumnIndex]);
+                ColumnStateHelper.DisableColumn(ColumnStateDefinitions[useForeshoreColumnIndex]);
             }
             else
             {
-                FailureMechanismSectionResultRowHelper.EnableColumn(ColumnStateDefinitions[useForeshoreColumnIndex]);
+                ColumnStateHelper.EnableColumn(ColumnStateDefinitions[useForeshoreColumnIndex]);
             }
         }
     }
