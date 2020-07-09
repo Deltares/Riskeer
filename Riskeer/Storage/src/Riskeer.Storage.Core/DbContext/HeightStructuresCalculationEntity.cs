@@ -39,7 +39,6 @@ namespace Riskeer.Storage.Core.DbContext
         public HeightStructuresCalculationEntity()
         {
             HeightStructuresOutputEntities = new HashSet<HeightStructuresOutputEntity>();
-            HeightStructuresSectionResultEntities = new HashSet<HeightStructuresSectionResultEntity>();
         }
 
         public long HeightStructuresCalculationEntityId { get; set; }
@@ -54,15 +53,14 @@ namespace Riskeer.Storage.Core.DbContext
         public double? LevelCrestStructureMean { get; set; }
         public double? LevelCrestStructureStandardDeviation { get; set; }
         public double? DeviationWaveDirection { get; set; }
+        public byte RelevantForScenario { get; set; }
+        public double? ScenarioContribution { get; set; }
 
         public virtual CalculationGroupEntity CalculationGroupEntity { get; set; }
         public virtual HeightStructureEntity HeightStructureEntity { get; set; }
 
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HeightStructuresOutputEntity> HeightStructuresOutputEntities { get; set; }
-
-        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<HeightStructuresSectionResultEntity> HeightStructuresSectionResultEntities { get; set; }
 
         public double? StructureNormalOrientation { get; set; }
         public double? AllowedLevelIncreaseStorageMean { get; set; }
