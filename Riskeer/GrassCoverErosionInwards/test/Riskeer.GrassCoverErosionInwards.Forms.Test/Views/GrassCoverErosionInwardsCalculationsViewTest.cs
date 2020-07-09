@@ -76,8 +76,8 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             void Call() => new GrassCoverErosionInwardsCalculationsView(null, failureMechanism, assessmentSection);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
-            Assert.AreEqual("data", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("data", exception.ParamName);
 
             mocks.VerifyAll();
         }
@@ -95,8 +95,8 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             void Call() => new GrassCoverErosionInwardsCalculationsView(ConfigureCalculationGroup(failureMechanism, assessmentSection), null, assessmentSection);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
-            Assert.AreEqual("failureMechanism", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
 
             mocks.VerifyAll();
         }
@@ -114,8 +114,8 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             void Call() => new GrassCoverErosionInwardsCalculationsView(ConfigureCalculationGroup(failureMechanism, assessmentSection), failureMechanism, null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
-            Assert.AreEqual("assessmentSection", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
 
             mocks.VerifyAll();
         }
@@ -609,8 +609,8 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
         {
             // Setup
             var mocks = new MockRepository();
-            var grassCoverErosionInwardsCalculationObserver = mocks.StrictMock<IObserver>();
-            var grassCoverErosionInwardsInputObserver = mocks.StrictMock<IObserver>();
+            var calculationObserver = mocks.StrictMock<IObserver>();
+            var inputObserver = mocks.StrictMock<IObserver>();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
@@ -620,10 +620,10 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
                 assessmentSection))
             {
                 var data = (CalculationGroup) calculationsView.Data;
-                var grassCoverErosionInwardsCalculation = (GrassCoverErosionInwardsCalculationScenario) data.Children.First();
+                var calculation = (GrassCoverErosionInwardsCalculationScenario) data.Children.First();
 
-                grassCoverErosionInwardsCalculation.Attach(grassCoverErosionInwardsCalculationObserver);
-                grassCoverErosionInwardsCalculation.InputParameters.Attach(grassCoverErosionInwardsInputObserver);
+                calculation.Attach(calculationObserver);
+                calculation.InputParameters.Attach(inputObserver);
 
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
@@ -642,8 +642,8 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
         {
             // Setup
             var mocks = new MockRepository();
-            var grassCoverErosionInwardsCalculationObserver = mocks.StrictMock<IObserver>();
-            var grassCoverErosionInwardsInputObserver = mocks.StrictMock<IObserver>();
+            var calculationObserver = mocks.StrictMock<IObserver>();
+            var inputObserver = mocks.StrictMock<IObserver>();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
@@ -653,10 +653,10 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
                 assessmentSection))
             {
                 var data = (CalculationGroup) calculationsView.Data;
-                var grassCoverErosionInwardsCalculation = (GrassCoverErosionInwardsCalculationScenario) data.Children.First();
+                var calculation = (GrassCoverErosionInwardsCalculationScenario) data.Children.First();
 
-                grassCoverErosionInwardsCalculation.Attach(grassCoverErosionInwardsCalculationObserver);
-                grassCoverErosionInwardsCalculation.InputParameters.Attach(grassCoverErosionInwardsInputObserver);
+                calculation.Attach(calculationObserver);
+                calculation.InputParameters.Attach(inputObserver);
 
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
@@ -686,8 +686,8 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
         {
             // Setup
             var mocks = new MockRepository();
-            var grassCoverErosionInwardsCalculationObserver = mocks.StrictMock<IObserver>();
-            var grassCoverErosionInwardsInputObserver = mocks.StrictMock<IObserver>();
+            var calculationObserver = mocks.StrictMock<IObserver>();
+            var inputObserver = mocks.StrictMock<IObserver>();
 
             if (useCalculationWithOutput)
             {
@@ -697,10 +697,10 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
                     tester.ClickOk();
                 };
 
-                grassCoverErosionInwardsCalculationObserver.Expect(o => o.UpdateObserver());
+                calculationObserver.Expect(o => o.UpdateObserver());
             }
 
-            grassCoverErosionInwardsInputObserver.Expect(o => o.UpdateObserver());
+            inputObserver.Expect(o => o.UpdateObserver());
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             ConfigureHydraulicBoundaryDatabase(assessmentSection);
@@ -715,17 +715,17 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
                 mocks.ReplayAll();
 
                 var data = (CalculationGroup) calculationsView.Data;
-                var grassCoverErosionInwardsCalculationScenario = (GrassCoverErosionInwardsCalculationScenario) data.Children[1];
+                var calculationScenario = (GrassCoverErosionInwardsCalculationScenario) data.Children[1];
 
                 if (useCalculationWithOutput)
                 {
-                    grassCoverErosionInwardsCalculationScenario.Output = new GrassCoverErosionInwardsOutput(new TestOvertoppingOutput(2.4),
+                    calculationScenario.Output = new GrassCoverErosionInwardsOutput(new TestOvertoppingOutput(2.4),
                                                                                                             new TestDikeHeightOutput(4.2),
                                                                                                             new TestOvertoppingRateOutput(1.0));
                 }
 
-                grassCoverErosionInwardsCalculationScenario.Attach(grassCoverErosionInwardsCalculationObserver);
-                grassCoverErosionInwardsCalculationScenario.InputParameters.Attach(grassCoverErosionInwardsInputObserver);
+                calculationScenario.Attach(calculationObserver);
+                calculationScenario.InputParameters.Attach(inputObserver);
 
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
@@ -733,7 +733,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
                 dataGridView.Rows[1].Cells[cellIndex].Value = newValue is double ? (RoundedDouble) (double) newValue : newValue;
 
                 // Assert
-                grassCoverErosionInwardsCalculationScenario.Output = null;
+                calculationScenario.Output = null;
             }
 
             mocks.VerifyAll();
@@ -801,10 +801,10 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
         {
             // Setup
             var mocks = new MockRepository();
-            var grassCoverErosionInwardsCalculationObserver = mocks.StrictMock<IObserver>();
-            var grassCoverErosionInwardsCalculationInputObserver = mocks.StrictMock<IObserver>();
+            var calculationObserver = mocks.StrictMock<IObserver>();
+            var calculationInputObserver = mocks.StrictMock<IObserver>();
 
-            grassCoverErosionInwardsCalculationObserver.Expect(o => o.UpdateObserver());
+            calculationObserver.Expect(o => o.UpdateObserver());
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
@@ -813,17 +813,17 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
                 assessmentSection))
             {
                 var data = (CalculationGroup) calculationsView.Data;
-                var grassCoverErosionInwardsCalculation = (GrassCoverErosionInwardsCalculationScenario) data.Children.First();
+                var calculation = (GrassCoverErosionInwardsCalculationScenario) data.Children.First();
 
                 if (useCalculationWithOutput)
                 {
-                    grassCoverErosionInwardsCalculation.Output = new GrassCoverErosionInwardsOutput(new TestOvertoppingOutput(2.4),
+                    calculation.Output = new GrassCoverErosionInwardsOutput(new TestOvertoppingOutput(2.4),
                                                                                                     new TestDikeHeightOutput(4.2),
                                                                                                     new TestOvertoppingRateOutput(1.0));
                 }
 
-                grassCoverErosionInwardsCalculation.Attach(grassCoverErosionInwardsCalculationObserver);
-                grassCoverErosionInwardsCalculation.InputParameters.Attach(grassCoverErosionInwardsCalculationInputObserver);
+                calculation.Attach(calculationObserver);
+                calculation.InputParameters.Attach(calculationInputObserver);
 
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
@@ -831,7 +831,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
                 dataGridView.Rows[0].Cells[nameColumnIndex].Value = "New name";
 
                 // Assert
-                grassCoverErosionInwardsCalculation.Output = null;
+                calculation.Output = null;
             }
 
             mocks.VerifyAll();
