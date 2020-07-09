@@ -487,9 +487,7 @@ namespace Riskeer.StabilityPointStructures.IO.Configurations
 
         private bool TrySetHydraulicBoundaryLocation(string locationName, StructuresCalculation<StabilityPointStructuresInput> calculation)
         {
-            HydraulicBoundaryLocation location;
-
-            if (TryReadHydraulicBoundaryLocation(locationName, calculation.Name, availableHydraulicBoundaryLocations, out location))
+            if (TryReadHydraulicBoundaryLocation(locationName, calculation.Name, availableHydraulicBoundaryLocations, out HydraulicBoundaryLocation location))
             {
                 calculation.InputParameters.HydraulicBoundaryLocation = location;
                 return true;
@@ -500,9 +498,7 @@ namespace Riskeer.StabilityPointStructures.IO.Configurations
 
         private bool TrySetStructure(string structureId, StructuresCalculation<StabilityPointStructuresInput> calculation)
         {
-            StabilityPointStructure structure;
-
-            if (TryReadStructure(structureId, calculation.Name, availableStructures, out structure))
+            if (TryReadStructure(structureId, calculation.Name, availableStructures, out StabilityPointStructure structure))
             {
                 calculation.InputParameters.Structure = structure;
                 return true;
@@ -513,9 +509,7 @@ namespace Riskeer.StabilityPointStructures.IO.Configurations
 
         private bool TrySetForeshoreProfile(string foreshoreProfileName, StructuresCalculation<StabilityPointStructuresInput> calculation)
         {
-            ForeshoreProfile foreshoreProfile;
-
-            if (TryReadForeshoreProfile(foreshoreProfileName, calculation.Name, availableForeshoreProfiles, out foreshoreProfile))
+            if (TryReadForeshoreProfile(foreshoreProfileName, calculation.Name, availableForeshoreProfiles, out ForeshoreProfile foreshoreProfile))
             {
                 calculation.InputParameters.ForeshoreProfile = foreshoreProfile;
                 return true;

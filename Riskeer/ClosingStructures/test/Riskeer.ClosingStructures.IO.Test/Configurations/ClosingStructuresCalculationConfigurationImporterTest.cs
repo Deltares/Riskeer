@@ -211,11 +211,9 @@ namespace Riskeer.ClosingStructures.IO.Test.Configurations
         public void Constructor_ExpectedValues()
         {
             // Call
-            var importer = new ClosingStructuresCalculationConfigurationImporter("",
-                                                                                 new CalculationGroup(),
-                                                                                 Enumerable.Empty<HydraulicBoundaryLocation>(),
-                                                                                 Enumerable.Empty<ForeshoreProfile>(),
-                                                                                 Enumerable.Empty<ClosingStructure>());
+            var importer = new ClosingStructuresCalculationConfigurationImporter(
+                "", new CalculationGroup(), Enumerable.Empty<HydraulicBoundaryLocation>(),
+                Enumerable.Empty<ForeshoreProfile>(), Enumerable.Empty<ClosingStructure>());
 
             // AssertTC
             Assert.IsInstanceOf<CalculationConfigurationImporter<ClosingStructuresCalculationConfigurationReader, ClosingStructuresCalculationConfiguration>>(importer);
@@ -225,8 +223,9 @@ namespace Riskeer.ClosingStructures.IO.Test.Configurations
         public void Constructor_HydraulicBoundaryLocationsNull_ThrowArgumentNullException()
         {
             // Call
-            void Call() => new ClosingStructuresCalculationConfigurationImporter("", new CalculationGroup(), null, Enumerable.Empty<ForeshoreProfile>(),
-                                                                                 Enumerable.Empty<ClosingStructure>());
+            void Call() => new ClosingStructuresCalculationConfigurationImporter(
+                "", new CalculationGroup(), null, Enumerable.Empty<ForeshoreProfile>(),
+                Enumerable.Empty<ClosingStructure>());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -237,8 +236,9 @@ namespace Riskeer.ClosingStructures.IO.Test.Configurations
         public void Constructor_ForeshoreProfilesNull_ThrowArgumentNullException()
         {
             // Call
-            void Call() => new ClosingStructuresCalculationConfigurationImporter("", new CalculationGroup(), Enumerable.Empty<HydraulicBoundaryLocation>(),
-                                                                                 null, Enumerable.Empty<ClosingStructure>());
+            void Call() => new ClosingStructuresCalculationConfigurationImporter(
+                "", new CalculationGroup(), Enumerable.Empty<HydraulicBoundaryLocation>(),
+                null, Enumerable.Empty<ClosingStructure>());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -249,8 +249,9 @@ namespace Riskeer.ClosingStructures.IO.Test.Configurations
         public void Constructor_StructuresNull_ThrowArgumentNullException()
         {
             // Call
-            void Call() => new ClosingStructuresCalculationConfigurationImporter("", new CalculationGroup(), Enumerable.Empty<HydraulicBoundaryLocation>(),
-                                                                                 Enumerable.Empty<ForeshoreProfile>(), null);
+            void Call() => new ClosingStructuresCalculationConfigurationImporter(
+                "", new CalculationGroup(), Enumerable.Empty<HydraulicBoundaryLocation>(),
+                Enumerable.Empty<ForeshoreProfile>(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);

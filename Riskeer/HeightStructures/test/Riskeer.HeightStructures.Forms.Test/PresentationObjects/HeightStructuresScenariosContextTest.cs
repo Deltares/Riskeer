@@ -81,6 +81,7 @@ namespace Riskeer.HeightStructures.Forms.Test.PresentationObjects
             Assert.IsInstanceOf<WrappedObjectContextBase<CalculationGroup>>(context);
             Assert.AreSame(calculationGroup, context.WrappedData);
             Assert.AreSame(failureMechanism, context.ParentFailureMechanism);
+            Assert.AreSame(assessmentSection, context.AssessmentSection);
             mocks.VerifyAll();
         }
     }

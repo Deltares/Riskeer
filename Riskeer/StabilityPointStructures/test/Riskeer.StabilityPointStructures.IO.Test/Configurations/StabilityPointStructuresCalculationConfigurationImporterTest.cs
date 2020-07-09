@@ -474,12 +474,9 @@ namespace Riskeer.StabilityPointStructures.IO.Test.Configurations
         public void Constructor_ExpectedValues()
         {
             // Call
-            var importer = new StabilityPointStructuresCalculationConfigurationImporter("",
-                                                                                        new CalculationGroup(),
-                                                                                        Enumerable.Empty<HydraulicBoundaryLocation>(),
-                                                                                        Enumerable.Empty<ForeshoreProfile>(),
-                                                                                        Enumerable.Empty<StabilityPointStructure>(),
-                                                                                        new StabilityPointStructuresFailureMechanism());
+            var importer = new StabilityPointStructuresCalculationConfigurationImporter(
+                "", new CalculationGroup(), Enumerable.Empty<HydraulicBoundaryLocation>(), Enumerable.Empty<ForeshoreProfile>(),
+                Enumerable.Empty<StabilityPointStructure>(), new StabilityPointStructuresFailureMechanism());
 
             // Assert
             Assert.IsInstanceOf<CalculationConfigurationImporter<StabilityPointStructuresCalculationConfigurationReader,
@@ -490,8 +487,9 @@ namespace Riskeer.StabilityPointStructures.IO.Test.Configurations
         public void Constructor_HydraulicBoundaryLocationsNull_ThrowArgumentNullException()
         {
             // Call
-            void Call() => new StabilityPointStructuresCalculationConfigurationImporter("", new CalculationGroup(), null, Enumerable.Empty<ForeshoreProfile>(),
-                                                                                        Enumerable.Empty<StabilityPointStructure>(), new StabilityPointStructuresFailureMechanism());
+            void Call() => new StabilityPointStructuresCalculationConfigurationImporter(
+                "", new CalculationGroup(), null, Enumerable.Empty<ForeshoreProfile>(),
+                Enumerable.Empty<StabilityPointStructure>(), new StabilityPointStructuresFailureMechanism());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -502,8 +500,9 @@ namespace Riskeer.StabilityPointStructures.IO.Test.Configurations
         public void Constructor_ForeshoreProfilesNull_ThrowArgumentNullException()
         {
             // Call
-            void Call() => new StabilityPointStructuresCalculationConfigurationImporter("", new CalculationGroup(), Enumerable.Empty<HydraulicBoundaryLocation>(), null,
-                                                                                        Enumerable.Empty<StabilityPointStructure>(), new StabilityPointStructuresFailureMechanism());
+            void Call() => new StabilityPointStructuresCalculationConfigurationImporter(
+                "", new CalculationGroup(), Enumerable.Empty<HydraulicBoundaryLocation>(), null,
+                Enumerable.Empty<StabilityPointStructure>(), new StabilityPointStructuresFailureMechanism());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -514,8 +513,9 @@ namespace Riskeer.StabilityPointStructures.IO.Test.Configurations
         public void Constructor_StructuresNull_ThrowArgumentNullException()
         {
             // Call
-            void Call() => new StabilityPointStructuresCalculationConfigurationImporter("", new CalculationGroup(), Enumerable.Empty<HydraulicBoundaryLocation>(), Enumerable.Empty<ForeshoreProfile>(),
-                                                                                        null, new StabilityPointStructuresFailureMechanism());
+            void Call() => new StabilityPointStructuresCalculationConfigurationImporter(
+                "", new CalculationGroup(), Enumerable.Empty<HydraulicBoundaryLocation>(),
+                Enumerable.Empty<ForeshoreProfile>(), null, new StabilityPointStructuresFailureMechanism());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -526,8 +526,9 @@ namespace Riskeer.StabilityPointStructures.IO.Test.Configurations
         public void Constructor_FailureMechanismNull_ThrowArgumentNullException()
         {
             // Call
-            void Call() => new StabilityPointStructuresCalculationConfigurationImporter("", new CalculationGroup(), Enumerable.Empty<HydraulicBoundaryLocation>(),
-                                                                                        Enumerable.Empty<ForeshoreProfile>(), Enumerable.Empty<StabilityPointStructure>(), null);
+            void Call() => new StabilityPointStructuresCalculationConfigurationImporter(
+                "", new CalculationGroup(), Enumerable.Empty<HydraulicBoundaryLocation>(), 
+                Enumerable.Empty<ForeshoreProfile>(), Enumerable.Empty<StabilityPointStructure>(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);

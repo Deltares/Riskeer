@@ -214,9 +214,7 @@ namespace Riskeer.HeightStructures.IO.Configurations
 
         private bool TrySetHydraulicBoundaryLocation(string locationName, StructuresCalculation<HeightStructuresInput> calculation)
         {
-            HydraulicBoundaryLocation location;
-
-            if (TryReadHydraulicBoundaryLocation(locationName, calculation.Name, availableHydraulicBoundaryLocations, out location))
+            if (TryReadHydraulicBoundaryLocation(locationName, calculation.Name, availableHydraulicBoundaryLocations, out HydraulicBoundaryLocation location))
             {
                 calculation.InputParameters.HydraulicBoundaryLocation = location;
                 return true;
@@ -227,9 +225,7 @@ namespace Riskeer.HeightStructures.IO.Configurations
 
         private bool TrySetStructure(string structureId, StructuresCalculation<HeightStructuresInput> calculation)
         {
-            HeightStructure structure;
-
-            if (TryReadStructure(structureId, calculation.Name, availableStructures, out structure))
+            if (TryReadStructure(structureId, calculation.Name, availableStructures, out HeightStructure structure))
             {
                 calculation.InputParameters.Structure = structure;
                 return true;
@@ -240,9 +236,7 @@ namespace Riskeer.HeightStructures.IO.Configurations
 
         private bool TrySetForeshoreProfile(string foreshoreProfileId, StructuresCalculation<HeightStructuresInput> calculation)
         {
-            ForeshoreProfile foreshoreProfile;
-
-            if (TryReadForeshoreProfile(foreshoreProfileId, calculation.Name, availableForeshoreProfiles, out foreshoreProfile))
+            if (TryReadForeshoreProfile(foreshoreProfileId, calculation.Name, availableForeshoreProfiles, out ForeshoreProfile foreshoreProfile))
             {
                 calculation.InputParameters.ForeshoreProfile = foreshoreProfile;
                 return true;

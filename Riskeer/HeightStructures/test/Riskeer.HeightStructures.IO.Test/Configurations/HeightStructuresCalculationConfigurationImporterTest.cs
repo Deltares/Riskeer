@@ -183,8 +183,8 @@ namespace Riskeer.HeightStructures.IO.Test.Configurations
         {
             // Call
             void Call() => new HeightStructuresCalculationConfigurationImporter(
-                "", new CalculationGroup(), Enumerable.Empty<HydraulicBoundaryLocation>(), null,
-                Enumerable.Empty<HeightStructure>());
+                "", new CalculationGroup(), Enumerable.Empty<HydraulicBoundaryLocation>(),
+                null, Enumerable.Empty<HeightStructure>());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);

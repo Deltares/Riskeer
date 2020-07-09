@@ -33,9 +33,7 @@ using Riskeer.HeightStructures.Data;
 namespace Riskeer.HeightStructures.Forms.Views
 {
     /// <summary>
-    /// View for configuring scenarios for the height structures failure mechanism.
-    /// Shows a grid view where for each failure mechanism section, a calculation within the section
-    /// can be selected.
+    /// View for configuring height structures scenarios.
     /// </summary>
     public partial class HeightStructuresScenariosView : ScenariosView<StructuresCalculationScenario<HeightStructuresInput>, HeightStructuresInput, HeightStructuresScenarioRow, HeightStructuresFailureMechanism>
     {
