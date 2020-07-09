@@ -44,10 +44,10 @@ namespace Riskeer.MacroStabilityInwards.CalculatedInput.Test.Converters
         public void Convert_SoilProfileNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => SoilProfileConverter.Convert(null);
+            void Call() => SoilProfileConverter.Convert(null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("soilProfile", exception.ParamName);
         }
 

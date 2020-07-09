@@ -178,8 +178,8 @@ namespace Riskeer.MacroStabilityInwards.IO.TestUtil
                 Assert.AreEqual(MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetStrengthIncreaseExponent(layerData).GetDesignValue(), soil.StrengthIncreaseExponent);
                 AssertStochasticParameter(layerData.StrengthIncreaseExponent, soil.StrengthIncreaseExponentStochasticParameter);
 
-                Assert.AreEqual(MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetAbovePhreaticLevel(layerData).GetDesignValue(), soil.VolumetricWeightAbovePhreaticLevel);
-                Assert.AreEqual(MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetBelowPhreaticLevel(layerData).GetDesignValue(), soil.VolumetricWeightBelowPhreaticLevel);
+                Assert.AreEqual(layerData.AbovePhreaticLevel.Mean, soil.VolumetricWeightAbovePhreaticLevel);
+                Assert.AreEqual(layerData.BelowPhreaticLevel.Mean, soil.VolumetricWeightBelowPhreaticLevel);
 
                 Assert.IsFalse(soil.CohesionAndFrictionAngleCorrelated);
                 Assert.IsFalse(soil.ShearStrengthRatioAndShearStrengthExponentCorrelated);

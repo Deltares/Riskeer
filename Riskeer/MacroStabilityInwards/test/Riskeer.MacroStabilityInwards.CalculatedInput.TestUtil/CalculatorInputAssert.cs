@@ -133,8 +133,8 @@ namespace Riskeer.MacroStabilityInwards.CalculatedInput.TestUtil
                 Assert.AreEqual(WaterPressureInterpolationModel.Automatic, actual[i].WaterPressureInterpolationModel);
                 Assert.AreEqual(ConvertShearStrengthModel(expectedData.ShearStrengthModel), actual[i].ShearStrengthModel);
 
-                Assert.AreEqual(MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetAbovePhreaticLevel(expectedData).GetDesignValue(), actual[i].AbovePhreaticLevel);
-                Assert.AreEqual(MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetBelowPhreaticLevel(expectedData).GetDesignValue(), actual[i].BelowPhreaticLevel);
+                Assert.AreEqual(expectedData.AbovePhreaticLevel.Mean, actual[i].AbovePhreaticLevel);
+                Assert.AreEqual(expectedData.BelowPhreaticLevel.Mean, actual[i].BelowPhreaticLevel);
                 Assert.AreEqual(MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetCohesion(expectedData).GetDesignValue(), actual[i].Cohesion);
                 Assert.AreEqual(MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetFrictionAngle(expectedData).GetDesignValue(), actual[i].FrictionAngle);
                 Assert.AreEqual(MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetStrengthIncreaseExponent(expectedData).GetDesignValue(), actual[i].StrengthIncreaseExponent);

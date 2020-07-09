@@ -105,8 +105,8 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
                 ShearStrengthRatioAndShearStrengthExponentCorrelated = false,
                 ShearStrengthModelTypeAbovePhreaticLevel = GetShearStrengthModelTypeForAbovePhreaticLevel(layerData.ShearStrengthModel),
                 ShearStrengthModelTypeBelowPhreaticLevel = GetShearStrengthModelTypeForBelowPhreaticLevel(layerData.ShearStrengthModel),
-                VolumetricWeightAbovePhreaticLevel = MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetAbovePhreaticLevel(layerData).GetDesignValue(),
-                VolumetricWeightBelowPhreaticLevel = MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetBelowPhreaticLevel(layerData).GetDesignValue(),
+                VolumetricWeightAbovePhreaticLevel = layerData.AbovePhreaticLevel.Mean,
+                VolumetricWeightBelowPhreaticLevel = layerData.BelowPhreaticLevel.Mean,
                 Dilatancy = 0,
                 DilatancyStochasticParameter = PersistableStochasticParameterFactory.Create(new VariationCoefficientNormalDistribution(2)
                 {
