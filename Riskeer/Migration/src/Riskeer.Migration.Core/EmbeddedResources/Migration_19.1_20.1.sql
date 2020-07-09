@@ -259,10 +259,112 @@ INSERT INTO GrassCoverErosionOutwardsWaveConditionsOutputEntity SELECT * FROM [S
 INSERT INTO GrassCoverSlipOffInwardsSectionResultEntity SELECT * FROM [SOURCEPROJECT].GrassCoverSlipOffInwardsSectionResultEntity;
 INSERT INTO GrassCoverSlipOffOutwardsSectionResultEntity SELECT * FROM [SOURCEPROJECT].GrassCoverSlipOffOutwardsSectionResultEntity;
 INSERT INTO HeightStructureEntity SELECT * FROM [SOURCEPROJECT].HeightStructureEntity;
-INSERT INTO HeightStructuresCalculationEntity SELECT * FROM [SOURCEPROJECT].HeightStructuresCalculationEntity;
+INSERT INTO HeightStructuresCalculationEntity (
+	[HeightStructuresCalculationEntityId],
+	[CalculationGroupEntityId],
+	[HydraulicLocationEntityId],
+	[HeightStructureEntityId],
+	[ForeshoreProfileEntityId],
+	[Order],
+	[Name],
+	[Comments],
+	[ModelFactorSuperCriticalFlowMean],
+	[StructureNormalOrientation],
+	[AllowedLevelIncreaseStorageMean],
+	[AllowedLevelIncreaseStorageStandardDeviation],
+	[StorageStructureAreaMean],
+	[StorageStructureAreaCoefficientOfVariation],
+	[FlowWidthAtBottomProtectionMean],
+	[FlowWidthAtBottomProtectionStandardDeviation],
+	[CriticalOvertoppingDischargeMean],
+	[CriticalOvertoppingDischargeCoefficientOfVariation],
+	[FailureProbabilityStructureWithErosion],
+	[WidthFlowAperturesMean],
+	[WidthFlowAperturesStandardDeviation],
+	[StormDurationMean],
+	[LevelCrestStructureMean],
+	[LevelCrestStructureStandardDeviation],
+	[DeviationWaveDirection],
+	[UseBreakWater], 
+	[UseForeshore],
+	[BreakWaterType],
+	[BreakWaterHeight],
+	[ShouldIllustrationPointsBeCalculated],
+	[RelevantForScenario],
+	[ScenarioContribution]) 
+SELECT 
+	[HeightStructuresCalculationEntityId],
+	[CalculationGroupEntityId],
+	[HydraulicLocationEntityId],
+	[HeightStructureEntityId],
+	[ForeshoreProfileEntityId],
+	[Order],
+	[Name],
+	[Comments],
+	[ModelFactorSuperCriticalFlowMean],
+	[StructureNormalOrientation],
+	[AllowedLevelIncreaseStorageMean],
+	[AllowedLevelIncreaseStorageStandardDeviation],
+	[StorageStructureAreaMean],
+	[StorageStructureAreaCoefficientOfVariation],
+	[FlowWidthAtBottomProtectionMean],
+	[FlowWidthAtBottomProtectionStandardDeviation],
+	[CriticalOvertoppingDischargeMean],
+	[CriticalOvertoppingDischargeCoefficientOfVariation],
+	[FailureProbabilityStructureWithErosion],
+	[WidthFlowAperturesMean],
+	[WidthFlowAperturesStandardDeviation],
+	[StormDurationMean],
+	[LevelCrestStructureMean],
+	[LevelCrestStructureStandardDeviation],
+	[DeviationWaveDirection],
+	[UseBreakWater], 
+	[UseForeshore],
+	[BreakWaterType],
+	[BreakWaterHeight],
+	[ShouldIllustrationPointsBeCalculated],
+	CASE
+		WHEN IsLinkedToSectionResult IS NOT NULL
+			THEN 1
+		ELSE 0
+	END,
+	CASE
+		WHEN IsLinkedToSectionResult IS NOT NULL
+			THEN 1
+		ELSE 0
+	END
+FROM [SOURCEPROJECT].HeightStructuresCalculationEntity
+LEFT JOIN(
+	SELECT 
+		HeightStructuresCalculationEntityId,
+		CASE
+			WHEN HeightStructuresSectionResultEntityId IS NOT NULL
+				THEN 1
+			ELSE 0
+		END AS IsLinkedToSectionResult
+	FROM [SOURCEPROJECT].HeightStructuresSectionResultEntity)
+USING(HeightStructuresCalculationEntityId);
 INSERT INTO HeightStructuresFailureMechanismMetaEntity SELECT * FROM [SOURCEPROJECT].HeightStructuresFailureMechanismMetaEntity;
 INSERT INTO HeightStructuresOutputEntity SELECT * FROM [SOURCEPROJECT].HeightStructuresOutputEntity;
-INSERT INTO HeightStructuresSectionResultEntity SELECT * FROM [SOURCEPROJECT].HeightStructuresSectionResultEntity;
+INSERT INTO HeightStructuresSectionResultEntity (
+	[HeightStructuresSectionResultEntityId],
+	[FailureMechanismSectionEntityId],
+	[SimpleAssessmentResult],
+	[DetailedAssessmentResult],
+	[TailorMadeAssessmentResult],
+	[TailorMadeAssessmentProbability],
+	[UseManualAssembly],
+	[ManualAssemblyProbability])
+SELECT 
+	[HeightStructuresSectionResultEntityId],
+	[FailureMechanismSectionEntityId],
+	[SimpleAssessmentResult],
+	[DetailedAssessmentResult],
+	[TailorMadeAssessmentResult],
+	[TailorMadeAssessmentProbability],
+	[UseManualAssembly],
+	[ManualAssemblyProbability]
+FROM [SOURCEPROJECT].HeightStructuresSectionResultEntity;
 INSERT INTO HydraulicBoundaryDatabaseEntity SELECT * FROM [SOURCEPROJECT].HydraulicBoundaryDatabaseEntity;
 INSERT INTO HydraulicLocationCalculationCollectionEntity SELECT * FROM [SOURCEPROJECT].HydraulicLocationCalculationCollectionEntity;
 INSERT INTO HydraulicLocationCalculationEntity SELECT * FROM [SOURCEPROJECT].HydraulicLocationCalculationEntity;
