@@ -58,8 +58,8 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
         private readonly RecursiveObserver<CalculationGroup, CalculationGroup> calculationGroupObserver;
 
         private CalculationGroup calculationGroup;
-        private IAssessmentSection assessmentSection;
-        private GrassCoverErosionInwardsFailureMechanism failureMechanism;
+        private readonly IAssessmentSection assessmentSection;
+        private readonly GrassCoverErosionInwardsFailureMechanism failureMechanism;
 
         public event EventHandler<EventArgs> SelectionChanged;
 
@@ -163,7 +163,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
 
             dataGridViewControl.AddTextBoxColumn(
                 nameof(GrassCoverErosionInwardsCalculationRow.Name),
-                Resources.GrassCoverErosionInwardsCalculation_Name_DisplayName);
+                Resources.Name_DisplayName);
 
             dataGridViewControl.AddComboBoxColumn<DataGridViewComboBoxItemWrapper<SelectableHydraulicBoundaryLocation>>(
                 nameof(GrassCoverErosionInwardsCalculationRow.SelectableHydraulicBoundaryLocation),
@@ -180,32 +180,32 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
                 nameof(DataGridViewComboBoxItemWrapper<DikeProfile>.DisplayName));
 
             dataGridViewControl.AddCheckBoxColumn(nameof(GrassCoverErosionInwardsCalculationRow.UseBreakWater),
-                                                  Resources.GrassCoverErosionInwardsCalculation_Use_BreakWater);
+                                                  Resources.Use_BreakWater_DisplayName);
 
             dataGridViewControl.AddComboBoxColumn(nameof(GrassCoverErosionInwardsCalculationRow.BreakWaterType),
-                                                  Resources.GrassCoverErosionInwardsCalculation_BreakWaterType,
+                                                  Resources.BreakWaterType_DisplayName,
                                                   GetBreakWaterTypes(),
                                                   nameof(EnumDisplayWrapper<BreakWaterType>.Value),
                                                   nameof(EnumDisplayWrapper<BreakWaterType>.DisplayName));
 
             dataGridViewControl.AddTextBoxColumn(
                 nameof(GrassCoverErosionInwardsCalculationRow.BreakWaterHeight),
-                Resources.GrassCoverErosionInwardsCalculation_BreakWaterHeight);
+                Resources.BreakWaterHeight_DisplayName);
 
             dataGridViewControl.AddCheckBoxColumn(nameof(GrassCoverErosionInwardsCalculationRow.UseForeShoreGeometry),
-                                                  Resources.GrassCoverErosionInwardsCalculation_Use_ForeShoreGeometry);
+                                                  Resources.Use_ForeShore_DisplayName);
 
             dataGridViewControl.AddTextBoxColumn(
                 nameof(GrassCoverErosionInwardsCalculationRow.DikeHeight),
-                Resources.GrassCoverErosionInwardsCalculation_Dikeheight);
+                Resources.DikeHeight_DisplayName);
 
             dataGridViewControl.AddTextBoxColumn(
                 nameof(GrassCoverErosionInwardsCalculationRow.MeanCriticalFlowRate),
-                Resources.GrassCoverErosionInwardsCalculation_Mean_Critical_FlowRate);
+                Resources.Mean_Critical_FlowRate_DisplayName);
 
             dataGridViewControl.AddTextBoxColumn(
                 nameof(GrassCoverErosionInwardsCalculationRow.StandardDeviationCriticalFlowRate),
-                Resources.GrassCoverErosionInwardsCalculation_StandardDeviation_Critical_FlowRate);
+                Resources.StandardDeviation_Critical_FlowRate_DisplayName);
         }
 
         private void InitializeListBox()
