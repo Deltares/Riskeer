@@ -121,7 +121,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
         }
 
         [Test]
-        public void Constructor_DefaultValues()
+        public void Constructor_ExpectedValues()
         {
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -154,7 +154,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             GrassCoverErosionInwardsFailureMechanism failureMechanism = ConfigureFailureMechanism();
 
             // Call
-            using (ShowGrassCoverErosionInwardsCalculationsView(ConfigureCalculationGroup(failureMechanism, assessmentSection), failureMechanism, assessmentSection))
+            using (ShowCalculationsView(ConfigureCalculationGroup(failureMechanism, assessmentSection), failureMechanism, assessmentSection))
             {
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
@@ -164,40 +164,11 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
 
                 foreach (DataGridViewComboBoxColumn column in dataGridView.Columns.OfType<DataGridViewComboBoxColumn>())
                 {
+                    Assert.AreEqual("This", column.ValueMember);
                     Assert.AreEqual("DisplayName", column.DisplayMember);
                 }
-            }
 
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Constructor_DataGridViewControlColumnHeadersCorrectlyInitialized()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            ConfigureHydraulicBoundaryDatabase(assessmentSection);
-            GrassCoverErosionInwardsFailureMechanism failureMechanism = ConfigureFailureMechanism();
-
-            // Call
-            using (ShowGrassCoverErosionInwardsCalculationsView(ConfigureCalculationGroup(failureMechanism, assessmentSection), failureMechanism, assessmentSection))
-            {
-                // Assert
-                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-                Assert.AreEqual(10, dataGridView.ColumnCount);
-                Assert.AreEqual("Naam", dataGridView.Columns[nameColumnIndex].HeaderText);
-                Assert.AreEqual("Hydraulische belastingenlocatie", dataGridView.Columns[selectableHydraulicBoundaryLocationsColumnIndex].HeaderText);
-                Assert.AreEqual("Dijkprofiel", dataGridView.Columns[dikeProfileColumnIndex].HeaderText);
-                Assert.AreEqual("Gebruik dam", dataGridView.Columns[useBreakWaterColumnIndex].HeaderText);
-                Assert.AreEqual("Damtype", dataGridView.Columns[breakWaterTypeColumnIndex].HeaderText);
-                Assert.AreEqual("Damhoogte [m+NAP]", dataGridView.Columns[breakWaterHeightColumnIndex].HeaderText);
-                Assert.AreEqual("Gebruik voorlandgeometrie", dataGridView.Columns[useForeShoreGeometryColumnIndex].HeaderText);
-                Assert.AreEqual("Dijkhoogte [m+NAP]", dataGridView.Columns[dikeHeightColumnIndex].HeaderText);
-                Assert.AreEqual("Verwachtingswaarde kritiek overslagdebiet [m3/m/s]", dataGridView.Columns[meanCriticalFlowRateColumnIndex].HeaderText);
-                Assert.AreEqual("Standaardafwijking kritiek overslagdebiet [m3/m/s]", dataGridView.Columns[standardDeviationCriticalFlowRateColumnIndex].HeaderText);
+                AssertDataGridViewControlColumnHeaders(dataGridView);
             }
 
             mocks.VerifyAll();
@@ -215,7 +186,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             GrassCoverErosionInwardsFailureMechanism failureMechanism = ConfigureFailureMechanism();
 
             // Call
-            using (ShowGrassCoverErosionInwardsCalculationsView(ConfigureCalculationGroup(failureMechanism, assessmentSection), failureMechanism, assessmentSection))
+            using (ShowCalculationsView(ConfigureCalculationGroup(failureMechanism, assessmentSection), failureMechanism, assessmentSection))
             {
                 var listBox = (ListBox) new ControlTester("listBox").TheObject;
 
@@ -227,7 +198,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
         }
 
         [Test]
-        public void AssessmentSection_WithHydraulicBoundaryDatabaseSurfaceLinesNull_SelectableHydraulicBoundaryLocationsComboboxCorrectlyInitialized()
+        public void AssessmentSection_WithHydraulicBoundaryDatabase_SelectableHydraulicBoundaryLocationsComboboxCorrectlyInitialized()
         {
             // Setup
             var mocks = new MockRepository();
@@ -235,7 +206,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             mocks.ReplayAll();
 
             // Call
-            using (ShowFullyConfiguredGrassCoverErosionInwardsCalculationsView(assessmentSection))
+            using (ShowFullyConfiguredCalculationsView(assessmentSection))
             {
                 // Assert
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
@@ -251,7 +222,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
         }
 
         [Test]
-        public void AssessmentSection_HydraulicBoundaryDatabaseWithLocationsAndSurfaceLines_SelectableHydraulicBoundaryLocationsComboboxCorrectlyInitialized()
+        public void AssessmentSection_HydraulicBoundaryDatabaseWithLocations_SelectableHydraulicBoundaryLocationsComboboxCorrectlyInitialized()
         {
             // Setup
             var mocks = new MockRepository();
@@ -259,7 +230,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             mocks.ReplayAll();
 
             // Call
-            using (ShowFullyConfiguredGrassCoverErosionInwardsCalculationsView(
+            using (ShowFullyConfiguredCalculationsView(
                 assessmentSection))
             {
                 // Assert
@@ -284,8 +255,8 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             mocks.ReplayAll();
 
             ConfigureHydraulicBoundaryDatabase(assessmentSection);
-            
-            using (GrassCoverErosionInwardsCalculationsView calculationsView = ShowFullyConfiguredGrassCoverErosionInwardsCalculationsView(assessmentSection))
+
+            using (GrassCoverErosionInwardsCalculationsView calculationsView = ShowFullyConfiguredCalculationsView(assessmentSection))
             {
                 var button = (Button) calculationsView.Controls.Find("buttonGenerateCalculations", true)[0];
 
@@ -300,7 +271,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
         }
 
         [Test]
-        public void GrassCoverErosionInwardsFailureMechanism_FailureMechanismWithSections_SectionsListBoxCorrectlyInitialized()
+        public void FailureMechanism_FailureMechanismWithSections_SectionsListBoxCorrectlyInitialized()
         {
             // Setup
             var mocks = new MockRepository();
@@ -339,7 +310,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             }, string.Empty);
 
             // Call
-            using (ShowGrassCoverErosionInwardsCalculationsView(ConfigureCalculationGroup(failureMechanism, assessmentSection), failureMechanism, assessmentSection))
+            using (ShowCalculationsView(ConfigureCalculationGroup(failureMechanism, assessmentSection), failureMechanism, assessmentSection))
             {
                 // Assert
                 var listBox = (ListBox) new ControlTester("listBox").TheObject;
@@ -353,14 +324,15 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
         }
 
         [Test]
-        public void GrassCoverErosionInwardsCalculationsView_CalculationsWithAllDataSet_DataGridViewCorrectlyInitialized()
+        public void CalculationsView_CalculationsWithAllDataSet_DataGridViewCorrectlyInitialized()
         {
-            // Setup & Call
+            // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            using (ShowFullyConfiguredGrassCoverErosionInwardsCalculationsView(assessmentSection))
+            // Call
+            using (ShowFullyConfiguredCalculationsView(assessmentSection))
             {
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
@@ -390,7 +362,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void GrassCoverErosionInwardsCalculationsView_SelectingCellInRow_SelectionChangedFired()
+        public void CalculationsView_SelectingCellInRow_SelectionChangedFired()
         {
             // Setup
             var mocks = new MockRepository();
@@ -423,14 +395,14 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
         }
 
         [Test]
-        public void GrassCoverErosionInwardsCalculationsView_ChangingListBoxSelection_DataGridViewCorrectlySyncedAndSelectionChangedFired()
+        public void CalculationsView_ChangingListBoxSelection_DataGridViewCorrectlySyncedAndSelectionChangedFired()
         {
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            using (GrassCoverErosionInwardsCalculationsView pipingCalculationsView = ShowFullyConfiguredGrassCoverErosionInwardsCalculationsView(
+            using (GrassCoverErosionInwardsCalculationsView pipingCalculationsView = ShowFullyConfiguredCalculationsView(
                 assessmentSection))
             {
                 var selectionChangedCount = 0;
@@ -465,14 +437,14 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
         [TestCase(";/[].,~!@#$%^&*()_-+={}|?", dikeHeightColumnIndex)]
         [TestCase(";/[].,~!@#$%^&*()_-+={}|?", meanCriticalFlowRateColumnIndex)]
         [TestCase(";/[].,~!@#$%^&*()_-+={}|?", standardDeviationCriticalFlowRateColumnIndex)]
-        public void GrassCoverErosionInwardsCalculationsView_EditValueInvalid_ShowsErrorTooltip(string newValue, int cellIndex)
+        public void CalculationsView_EditValueInvalid_ShowsErrorTooltip(string newValue, int cellIndex)
         {
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            using (ShowFullyConfiguredGrassCoverErosionInwardsCalculationsView(assessmentSection))
+            using (ShowFullyConfiguredCalculationsView(assessmentSection))
             {
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
@@ -515,7 +487,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
 
             var newRoundedValue = (RoundedDouble) newValue;
 
-            using (ShowGrassCoverErosionInwardsCalculationsView(calculationGroup, failureMechanism, assessmentSection))
+            using (ShowCalculationsView(calculationGroup, failureMechanism, assessmentSection))
             {
                 mocks.ReplayAll();
 
@@ -532,7 +504,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
         }
 
         [Test]
-        public void GivenGrassCoverErosionInwardsCalculationsViewWithGrassCoverErosionInwardsFailureMechanism_WhenSectionsAddedAndGrassCoverErosionInwardsFailureMechanismNotified_ThenSectionsListBoxCorrectlyUpdated()
+        public void CalculationsViewWithFailureMechanism_WhenSectionsAddedAndFailureMechanismNotified_ThenSectionsListBoxCorrectlyUpdated()
         {
             // Given
             var mocks = new MockRepository();
@@ -569,7 +541,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
                 DikeProfileTestFactory.CreateDikeProfile(new Point2D(5.0, 0.0), "profiel 2"),
             }, string.Empty);
 
-            using (ShowGrassCoverErosionInwardsCalculationsView(ConfigureCalculationGroup(failureMechanism, assessmentSection), failureMechanism, assessmentSection))
+            using (ShowCalculationsView(ConfigureCalculationGroup(failureMechanism, assessmentSection), failureMechanism, assessmentSection))
             {
                 var listBox = (ListBox) new ControlTester("listBox").TheObject;
 
@@ -605,7 +577,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
         [TestCase(0)]
         [TestCase(-123.45)]
         [TestCase(1e-5)]
-        public void GrassCoverErosionInwardsCalculationsView_InvalidMeanCriticalFlowRate_ShowsErrorTooltip(double newValue)
+        public void CalculationsView_InvalidMeanCriticalFlowRate_ShowsErrorTooltip(double newValue)
         {
             // Setup
             var mocks = new MockRepository();
@@ -616,7 +588,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
 
             var newRoundedValue = (RoundedDouble) newValue;
 
-            using (GrassCoverErosionInwardsCalculationsView calculationsView = ShowFullyConfiguredGrassCoverErosionInwardsCalculationsView(
+            using (GrassCoverErosionInwardsCalculationsView calculationsView = ShowFullyConfiguredCalculationsView(
                 assessmentSection))
             {
                 var data = (CalculationGroup) calculationsView.Data;
@@ -638,7 +610,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
         }
 
         [Test]
-        public void GrassCoverErosionInwardsCalculationsView_InvalidStandardDeviationCriticalFlowRate_ShowsErrorTooltip()
+        public void CalculationsView_InvalidStandardDeviationCriticalFlowRate_ShowsErrorTooltip()
         {
             // Setup
             var mocks = new MockRepository();
@@ -649,7 +621,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
 
             var newRoundedValue = (RoundedDouble) (-123.45);
 
-            using (GrassCoverErosionInwardsCalculationsView calculationsView = ShowFullyConfiguredGrassCoverErosionInwardsCalculationsView(
+            using (GrassCoverErosionInwardsCalculationsView calculationsView = ShowFullyConfiguredCalculationsView(
                 assessmentSection))
             {
                 var data = (CalculationGroup) calculationsView.Data;
@@ -679,7 +651,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
         [TestCase(meanCriticalFlowRateColumnIndex, 8.0, false)]
         [TestCase(standardDeviationCriticalFlowRateColumnIndex, 8.0, true)]
         [TestCase(standardDeviationCriticalFlowRateColumnIndex, 8.0, false)]
-        public void GrassCoverErosionInwardsCalculationsView_EditingPropertyViaDataGridView_ObserversCorrectlyNotified(
+        public void CalculationsView_EditingPropertyViaDataGridView_ObserversCorrectlyNotified(
             int cellIndex,
             object newValue,
             bool useCalculationWithOutput)
@@ -710,7 +682,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
 
             GrassCoverErosionInwardsFailureMechanism failureMechanism = ConfigureFailureMechanism();
 
-            using (GrassCoverErosionInwardsCalculationsView calculationsView = ShowGrassCoverErosionInwardsCalculationsView(ConfigureCalculationGroup(failureMechanism, assessmentSection), failureMechanism, assessmentSection))
+            using (GrassCoverErosionInwardsCalculationsView calculationsView = ShowCalculationsView(ConfigureCalculationGroup(failureMechanism, assessmentSection), failureMechanism, assessmentSection))
             {
                 mocks.ReplayAll();
 
@@ -720,8 +692,8 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
                 if (useCalculationWithOutput)
                 {
                     calculationScenario.Output = new GrassCoverErosionInwardsOutput(new TestOvertoppingOutput(2.4),
-                                                                                                            new TestDikeHeightOutput(4.2),
-                                                                                                            new TestOvertoppingRateOutput(1.0));
+                                                                                    new TestDikeHeightOutput(4.2),
+                                                                                    new TestOvertoppingRateOutput(1.0));
                 }
 
                 calculationScenario.Attach(calculationObserver);
@@ -742,14 +714,14 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
         [Test]
         [TestCase(true, false)]
         [TestCase(false, true)]
-        public void GrassCoverErosionInwardsCalculationsView_UseBreakWaterState_HasCorrespondingColumnState(bool newValue, bool expectedState)
+        public void CalculationsView_UseBreakWaterState_HasCorrespondingColumnState(bool newValue, bool expectedState)
         {
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            using (ShowFullyConfiguredGrassCoverErosionInwardsCalculationsView(
+            using (ShowFullyConfiguredCalculationsView(
                 assessmentSection))
             {
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
@@ -775,7 +747,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            using (GrassCoverErosionInwardsCalculationsView calculationsView = ShowFullyConfiguredGrassCoverErosionInwardsCalculationsView(
+            using (GrassCoverErosionInwardsCalculationsView calculationsView = ShowFullyConfiguredCalculationsView(
                 assessmentSection))
             {
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
@@ -797,7 +769,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void GrassCoverErosionInwardsCalculationsViewCalculationsView_EditingNameViaDataGridView_ObserversCorrectlyNotified(bool useCalculationWithOutput)
+        public void CalculationsView_EditingNameViaDataGridView_ObserversCorrectlyNotified(bool useCalculationWithOutput)
         {
             // Setup
             var mocks = new MockRepository();
@@ -809,7 +781,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            using (GrassCoverErosionInwardsCalculationsView calculationsView = ShowFullyConfiguredGrassCoverErosionInwardsCalculationsView(
+            using (GrassCoverErosionInwardsCalculationsView calculationsView = ShowFullyConfiguredCalculationsView(
                 assessmentSection))
             {
                 var data = (CalculationGroup) calculationsView.Data;
@@ -818,8 +790,8 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
                 if (useCalculationWithOutput)
                 {
                     calculation.Output = new GrassCoverErosionInwardsOutput(new TestOvertoppingOutput(2.4),
-                                                                                                    new TestDikeHeightOutput(4.2),
-                                                                                                    new TestOvertoppingRateOutput(1.0));
+                                                                            new TestDikeHeightOutput(4.2),
+                                                                            new TestOvertoppingRateOutput(1.0));
                 }
 
                 calculation.Attach(calculationObserver);
@@ -851,14 +823,14 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             testForm.Dispose();
         }
 
-        private GrassCoverErosionInwardsCalculationsView ShowFullyConfiguredGrassCoverErosionInwardsCalculationsView(
+        private GrassCoverErosionInwardsCalculationsView ShowFullyConfiguredCalculationsView(
             IAssessmentSection assessmentSection)
         {
             ConfigureHydraulicBoundaryDatabase(assessmentSection);
 
             GrassCoverErosionInwardsFailureMechanism failureMechanism = ConfigureFailureMechanism();
 
-            return ShowGrassCoverErosionInwardsCalculationsView(ConfigureCalculationGroup(failureMechanism, assessmentSection), failureMechanism, assessmentSection);
+            return ShowCalculationsView(ConfigureCalculationGroup(failureMechanism, assessmentSection), failureMechanism, assessmentSection);
         }
 
         private static void ConfigureHydraulicBoundaryDatabase(IAssessmentSection assessmentSection)
@@ -873,7 +845,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             });
         }
 
-        private static CalculationGroup ConfigureCalculationGroup(GrassCoverErosionInwardsFailureMechanism grassCoverErosionInwardsFailureMechanism, IAssessmentSection assessmentSection)
+        private static CalculationGroup ConfigureCalculationGroup(GrassCoverErosionInwardsFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
         {
             var random = new Random(12);
             return new CalculationGroup
@@ -889,7 +861,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
                         },
                         InputParameters =
                         {
-                            DikeProfile = grassCoverErosionInwardsFailureMechanism.DikeProfiles.First(),
+                            DikeProfile = failureMechanism.DikeProfiles.First(),
                             HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(),
                             DikeHeight = (RoundedDouble) 1.1,
                             Orientation = (RoundedDouble) 2.2,
@@ -922,7 +894,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
                         },
                         InputParameters =
                         {
-                            DikeProfile = grassCoverErosionInwardsFailureMechanism.DikeProfiles.Last(),
+                            DikeProfile = failureMechanism.DikeProfiles.Last(),
                             HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.Last(),
                             DikeHeight = (RoundedDouble) 1.1,
                             Orientation = (RoundedDouble) 2.2,
@@ -976,7 +948,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             return failureMechanism;
         }
 
-        private GrassCoverErosionInwardsCalculationsView ShowGrassCoverErosionInwardsCalculationsView(CalculationGroup calculationGroup, GrassCoverErosionInwardsFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+        private GrassCoverErosionInwardsCalculationsView ShowCalculationsView(CalculationGroup calculationGroup, GrassCoverErosionInwardsFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
         {
             var calculationsView = new GrassCoverErosionInwardsCalculationsView(calculationGroup, failureMechanism, assessmentSection);
 
@@ -984,6 +956,21 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             testForm.Show();
 
             return calculationsView;
+        }
+
+        private static void AssertDataGridViewControlColumnHeaders(DataGridView dataGridView)
+        {
+            Assert.AreEqual(10, dataGridView.ColumnCount);
+            Assert.AreEqual("Naam", dataGridView.Columns[nameColumnIndex].HeaderText);
+            Assert.AreEqual("Hydraulische belastingenlocatie", dataGridView.Columns[selectableHydraulicBoundaryLocationsColumnIndex].HeaderText);
+            Assert.AreEqual("Dijkprofiel", dataGridView.Columns[dikeProfileColumnIndex].HeaderText);
+            Assert.AreEqual("Gebruik dam", dataGridView.Columns[useBreakWaterColumnIndex].HeaderText);
+            Assert.AreEqual("Damtype", dataGridView.Columns[breakWaterTypeColumnIndex].HeaderText);
+            Assert.AreEqual("Damhoogte [m+NAP]", dataGridView.Columns[breakWaterHeightColumnIndex].HeaderText);
+            Assert.AreEqual("Gebruik voorlandgeometrie", dataGridView.Columns[useForeShoreGeometryColumnIndex].HeaderText);
+            Assert.AreEqual("Dijkhoogte [m+NAP]", dataGridView.Columns[dikeHeightColumnIndex].HeaderText);
+            Assert.AreEqual("Verwachtingswaarde kritiek overslagdebiet [m3/m/s]", dataGridView.Columns[meanCriticalFlowRateColumnIndex].HeaderText);
+            Assert.AreEqual("Standaardafwijking kritiek overslagdebiet [m3/m/s]", dataGridView.Columns[standardDeviationCriticalFlowRateColumnIndex].HeaderText);
         }
     }
 }

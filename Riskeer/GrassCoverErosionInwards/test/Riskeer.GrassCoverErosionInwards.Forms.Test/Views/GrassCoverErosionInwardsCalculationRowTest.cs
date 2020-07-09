@@ -82,7 +82,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             var mocks = new MockRepository();
             var handler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
-            
+
             var calculationScenario = new GrassCoverErosionInwardsCalculationScenario();
 
             // Call
@@ -323,7 +323,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
                 {
                     DikeProfile = DikeProfileTestFactory.CreateDikeProfile(new[]
                     {
-                        new Point2D(2.0,0.0)
+                        new Point2D(2.0, 0.0)
                     }, "testProfile")
                 }
             };
@@ -361,7 +361,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             var mockRepository = new MockRepository();
             mockRepository.ReplayAll();
 
-            var calculation = new GrassCoverErosionInwardsCalculationScenario()
+            var calculation = new GrassCoverErosionInwardsCalculationScenario
             {
                 InputParameters =
                 {

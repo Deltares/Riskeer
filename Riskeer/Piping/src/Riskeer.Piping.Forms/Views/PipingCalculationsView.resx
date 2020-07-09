@@ -127,10 +127,7 @@
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="splitContainer.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 4</value>
-  </data>
-  <data name="splitContainer.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>3, 3</value>
   </data>
   <data name="tableLayoutPanelListBox.ColumnCount" type="System.Int32, mscorlib">
     <value>1</value>
@@ -141,17 +138,14 @@
   <data name="listBox.IntegralHeight" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
-  <data name="listBox.ItemHeight" type="System.Int32, mscorlib">
-    <value>16</value>
-  </data>
   <data name="listBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 25</value>
+    <value>3, 20</value>
   </data>
   <data name="listBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 0, 4, 0</value>
+    <value>3, 0, 3, 0</value>
   </data>
   <data name="listBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>204, 234</value>
+    <value>153, 195</value>
   </data>
   <data name="listBox.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -172,13 +166,10 @@
     <value>True</value>
   </data>
   <data name="labelFailureMechanismSections.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 0</value>
-  </data>
-  <data name="labelFailureMechanismSections.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 0, 4, 0</value>
+    <value>3, 0</value>
   </data>
   <data name="labelFailureMechanismSections.Size" type="System.Drawing.Size, System.Drawing">
-    <value>32, 17</value>
+    <value>26, 13</value>
   </data>
   <data name="labelFailureMechanismSections.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -204,14 +195,11 @@
   <data name="tableLayoutPanelListBox.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
   </data>
-  <data name="tableLayoutPanelListBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
-  </data>
   <data name="tableLayoutPanelListBox.RowCount" type="System.Int32, mscorlib">
     <value>2</value>
   </data>
   <data name="tableLayoutPanelListBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>212, 259</value>
+    <value>159, 215</value>
   </data>
   <data name="tableLayoutPanelListBox.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -229,7 +217,7 @@
     <value>0</value>
   </data>
   <data name="tableLayoutPanelListBox.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
-    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="listBox" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="labelFailureMechanismSections" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,100" /&gt;&lt;Rows Styles="Absolute,25,Percent,100" /&gt;&lt;/TableLayoutSettings&gt;</value>
+    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="listBox" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="labelFailureMechanismSections" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,100" /&gt;&lt;Rows Styles="Absolute,20,Percent,100" /&gt;&lt;/TableLayoutSettings&gt;</value>
   </data>
   <data name="&gt;&gt;splitContainer.Panel1.Name" xml:space="preserve">
     <value>splitContainer.Panel1</value>
@@ -253,13 +241,10 @@
     <value>True</value>
   </data>
   <data name="labelCalculations.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 0</value>
-  </data>
-  <data name="labelCalculations.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 0, 4, 0</value>
+    <value>3, 0</value>
   </data>
   <data name="labelCalculations.Size" type="System.Drawing.Size, System.Drawing">
-    <value>240, 17</value>
+    <value>182, 13</value>
   </data>
   <data name="labelCalculations.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -283,13 +268,10 @@
     <value>Top, Bottom, Left, Right</value>
   </data>
   <data name="dataGridViewControl.Location" type="System.Drawing.Point, System.Drawing">
-    <value>5, 30</value>
-  </data>
-  <data name="dataGridViewControl.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 5, 5, 5</value>
+    <value>3, 23</value>
   </data>
   <data name="dataGridViewControl.Size" type="System.Drawing.Size, System.Drawing">
-    <value>432, 224</value>
+    <value>325, 189</value>
   </data>
   <data name="dataGridViewControl.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -298,7 +280,7 @@
     <value>dataGridViewControl</value>
   </data>
   <data name="&gt;&gt;dataGridViewControl.Type" xml:space="preserve">
-    <value>Core.Common.Controls.DataGrid.DataGridViewControl, Core.Common.Controls, Version=20.1.1.1, Culture=neutral, PublicKeyToken=null</value>
+    <value>Core.Common.Controls.DataGrid.DataGridViewControl, Core.Common.Controls, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;dataGridViewControl.Parent" xml:space="preserve">
     <value>tableLayoutPanelDataGrid</value>
@@ -312,14 +294,11 @@
   <data name="tableLayoutPanelDataGrid.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
   </data>
-  <data name="tableLayoutPanelDataGrid.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
-  </data>
   <data name="tableLayoutPanelDataGrid.RowCount" type="System.Int32, mscorlib">
     <value>2</value>
   </data>
   <data name="tableLayoutPanelDataGrid.Size" type="System.Drawing.Size, System.Drawing">
-    <value>442, 259</value>
+    <value>331, 215</value>
   </data>
   <data name="tableLayoutPanelDataGrid.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -337,7 +316,7 @@
     <value>0</value>
   </data>
   <data name="tableLayoutPanelDataGrid.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
-    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="labelCalculations" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="dataGridViewControl" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,100" /&gt;&lt;Rows Styles="Absolute,25,Percent,100" /&gt;&lt;/TableLayoutSettings&gt;</value>
+    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="labelCalculations" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="dataGridViewControl" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,100" /&gt;&lt;Rows Styles="Absolute,20,Percent,100" /&gt;&lt;/TableLayoutSettings&gt;</value>
   </data>
   <data name="&gt;&gt;splitContainer.Panel2.Name" xml:space="preserve">
     <value>splitContainer.Panel2</value>
@@ -355,13 +334,10 @@
     <value>0</value>
   </data>
   <data name="splitContainer.Size" type="System.Drawing.Size, System.Drawing">
-    <value>659, 259</value>
+    <value>494, 215</value>
   </data>
   <data name="splitContainer.SplitterDistance" type="System.Int32, mscorlib">
-    <value>212</value>
-  </data>
-  <data name="splitContainer.SplitterWidth" type="System.Int32, mscorlib">
-    <value>5</value>
+    <value>159</value>
   </data>
   <data name="splitContainer.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -391,13 +367,10 @@
     <value>NoControl</value>
   </data>
   <data name="buttonGenerateScenarios.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 271</value>
-  </data>
-  <data name="buttonGenerateScenarios.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>3, 224</value>
   </data>
   <data name="buttonGenerateScenarios.Size" type="System.Drawing.Size, System.Drawing">
-    <value>212, 33</value>
+    <value>137, 23</value>
   </data>
   <data name="buttonGenerateScenarios.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -423,14 +396,11 @@
   <data name="tableLayoutPanelUserControl.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
   </data>
-  <data name="tableLayoutPanelUserControl.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
-  </data>
   <data name="tableLayoutPanelUserControl.RowCount" type="System.Int32, mscorlib">
     <value>2</value>
   </data>
   <data name="tableLayoutPanelUserControl.Size" type="System.Drawing.Size, System.Drawing">
-    <value>667, 308</value>
+    <value>500, 250</value>
   </data>
   <data name="tableLayoutPanelUserControl.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -448,13 +418,13 @@
     <value>0</value>
   </data>
   <data name="tableLayoutPanelUserControl.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
-    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="splitContainer" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="buttonGenerateScenarios" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,100" /&gt;&lt;Rows Styles="Percent,100,AutoSize,0,Absolute,25" /&gt;&lt;/TableLayoutSettings&gt;</value>
+    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="splitContainer" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="buttonGenerateScenarios" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,100" /&gt;&lt;Rows Styles="Percent,100,AutoSize,0,Absolute,20" /&gt;&lt;/TableLayoutSettings&gt;</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
   <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>8, 16</value>
+    <value>6, 13</value>
   </data>
   <data name="$this.AutoScroll" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -462,11 +432,8 @@
   <data name="$this.AutoScrollMinSize" type="System.Drawing.Size, System.Drawing">
     <value>500, 250</value>
   </data>
-  <data name="$this.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
-  </data>
   <data name="$this.Size" type="System.Drawing.Size, System.Drawing">
-    <value>667, 308</value>
+    <value>500, 250</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>PipingCalculationsView</value>
