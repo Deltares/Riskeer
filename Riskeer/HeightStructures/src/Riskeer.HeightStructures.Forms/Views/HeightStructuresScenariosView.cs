@@ -35,7 +35,7 @@ namespace Riskeer.HeightStructures.Forms.Views
     /// <summary>
     /// View for configuring height structures scenarios.
     /// </summary>
-    public partial class HeightStructuresScenariosView : ScenariosView<StructuresCalculationScenario<HeightStructuresInput>, HeightStructuresInput, HeightStructuresScenarioRow, HeightStructuresFailureMechanism>
+    public class HeightStructuresScenariosView : ScenariosView<StructuresCalculationScenario<HeightStructuresInput>, HeightStructuresInput, HeightStructuresScenarioRow, HeightStructuresFailureMechanism>
     {
         private readonly IAssessmentSection assessmentSection;
 

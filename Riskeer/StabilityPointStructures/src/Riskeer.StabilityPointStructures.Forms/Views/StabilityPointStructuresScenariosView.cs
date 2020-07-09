@@ -35,8 +35,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Views
     /// <summary>
     /// View for configuring stability point structures scenarios.
     /// </summary>
-    public partial class StabilityPointStructuresScenariosView : ScenariosView<StructuresCalculationScenario<StabilityPointStructuresInput>, StabilityPointStructuresInput,
-        StabilityPointStructuresScenarioRow, StabilityPointStructuresFailureMechanism>
+    public class StabilityPointStructuresScenariosView : ScenariosView<StructuresCalculationScenario<StabilityPointStructuresInput>, StabilityPointStructuresInput, StabilityPointStructuresScenarioRow, StabilityPointStructuresFailureMechanism>
     {
         private readonly IAssessmentSection assessmentSection;
 

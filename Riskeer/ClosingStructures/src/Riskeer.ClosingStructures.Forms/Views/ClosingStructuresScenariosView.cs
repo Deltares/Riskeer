@@ -35,7 +35,7 @@ namespace Riskeer.ClosingStructures.Forms.Views
     /// <summary>
     /// View for configuring closing structures scenarios.
     /// </summary>
-    public partial class ClosingStructuresScenariosView : ScenariosView<StructuresCalculationScenario<ClosingStructuresInput>, ClosingStructuresInput, ClosingStructuresScenarioRow, ClosingStructuresFailureMechanism>
+    public class ClosingStructuresScenariosView : ScenariosView<StructuresCalculationScenario<ClosingStructuresInput>, ClosingStructuresInput, ClosingStructuresScenarioRow, ClosingStructuresFailureMechanism>
     {
         private readonly IAssessmentSection assessmentSection;
 

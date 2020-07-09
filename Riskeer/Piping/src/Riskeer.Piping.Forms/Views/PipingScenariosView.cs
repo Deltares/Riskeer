@@ -35,7 +35,7 @@ namespace Riskeer.Piping.Forms.Views
     /// <summary>
     /// View for configuring piping calculation scenarios.
     /// </summary>
-    public partial class PipingScenariosView : ScenariosView<PipingCalculationScenario, PipingInput, PipingScenarioRow, PipingFailureMechanism>
+    public class PipingScenariosView : ScenariosView<PipingCalculationScenario, PipingInput, PipingScenarioRow, PipingFailureMechanism>
     {
         private readonly IAssessmentSection assessmentSection;
 

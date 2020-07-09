@@ -34,7 +34,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
     /// <summary>
     /// View for configuring macrostability inwards calculation scenarios.
     /// </summary>
-    public partial class MacroStabilityInwardsScenariosView : ScenariosView<MacroStabilityInwardsCalculationScenario, MacroStabilityInwardsInput, MacroStabilityInwardsScenarioRow, MacroStabilityInwardsFailureMechanism>
+    public class MacroStabilityInwardsScenariosView : ScenariosView<MacroStabilityInwardsCalculationScenario, MacroStabilityInwardsInput, MacroStabilityInwardsScenarioRow, MacroStabilityInwardsFailureMechanism>
     {
         private readonly IAssessmentSection assessmentSection;
 
