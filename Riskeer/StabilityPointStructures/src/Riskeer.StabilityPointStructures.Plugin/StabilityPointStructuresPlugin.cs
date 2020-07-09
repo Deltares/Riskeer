@@ -206,7 +206,7 @@ namespace Riskeer.StabilityPointStructures.Plugin
                     context,
                     filePath,
                     new ImportMessageProvider(),
-                    new StabilityPointStructureReplaceStrategy(context.FailureMechanism)),
+                    new StabilityPointStructureReplaceDataStrategy(context.FailureMechanism)),
                 Name = RiskeerCommonFormsResources.StructuresImporter_DisplayName,
                 Category = RiskeerCommonFormsResources.Riskeer_Category,
                 Image = RiskeerCommonFormsResources.StructuresIcon,

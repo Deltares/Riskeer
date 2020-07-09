@@ -45,7 +45,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.FileImporters
         public void Constructor_WithFailureMechanismNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new StabilityPointStructureReplaceStrategy(null);
+            TestDelegate call = () => new StabilityPointStructureReplaceDataStrategy(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -59,7 +59,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.FileImporters
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
             // Call
-            var strategy = new StabilityPointStructureReplaceStrategy(failureMechanism);
+            var strategy = new StabilityPointStructureReplaceDataStrategy(failureMechanism);
 
             // Assert
             Assert.IsInstanceOf<ReplaceDataStrategyBase<StabilityPointStructure,
@@ -72,7 +72,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.FileImporters
         {
             // Setup
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            var strategy = new StabilityPointStructureReplaceStrategy(failureMechanism);
+            var strategy = new StabilityPointStructureReplaceDataStrategy(failureMechanism);
 
             // Call
             TestDelegate call = () => strategy.UpdateStructuresWithImportedData(null,
@@ -88,7 +88,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.FileImporters
         {
             // Setup
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            var strategy = new StabilityPointStructureReplaceStrategy(failureMechanism);
+            var strategy = new StabilityPointStructureReplaceDataStrategy(failureMechanism);
 
             // Call
             TestDelegate call = () => strategy.UpdateStructuresWithImportedData(Enumerable.Empty<StabilityPointStructure>(),
@@ -106,7 +106,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.FileImporters
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
             StructureCollection<StabilityPointStructure> targetCollection = failureMechanism.StabilityPointStructures;
 
-            var strategy = new StabilityPointStructureReplaceStrategy(failureMechanism);
+            var strategy = new StabilityPointStructureReplaceDataStrategy(failureMechanism);
 
             var newSourcePath = "some/other/path/toStructures";
 
@@ -129,7 +129,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.FileImporters
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
             StructureCollection<StabilityPointStructure> targetCollection = failureMechanism.StabilityPointStructures;
 
-            var strategy = new StabilityPointStructureReplaceStrategy(failureMechanism);
+            var strategy = new StabilityPointStructureReplaceDataStrategy(failureMechanism);
 
             // Call
             IEnumerable<IObservable> affectedObjects = strategy.UpdateStructuresWithImportedData(Enumerable.Empty<StabilityPointStructure>(),
@@ -155,7 +155,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.FileImporters
                 new TestStabilityPointStructure(duplicateId, "Other name")
             };
 
-            var strategy = new StabilityPointStructureReplaceStrategy(new StabilityPointStructuresFailureMechanism());
+            var strategy = new StabilityPointStructureReplaceDataStrategy(new StabilityPointStructuresFailureMechanism());
 
             // Call
             TestDelegate call = () => strategy.UpdateStructuresWithImportedData(importedClosingStructures,
@@ -175,7 +175,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.FileImporters
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
             StructureCollection<StabilityPointStructure> targetCollection = failureMechanism.StabilityPointStructures;
 
-            var strategy = new StabilityPointStructureReplaceStrategy(failureMechanism);
+            var strategy = new StabilityPointStructureReplaceDataStrategy(failureMechanism);
 
             var importedCollection = new[]
             {
@@ -206,7 +206,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.FileImporters
                 new TestStabilityPointStructure()
             }, sourcePath);
 
-            var strategy = new StabilityPointStructureReplaceStrategy(failureMechanism);
+            var strategy = new StabilityPointStructureReplaceDataStrategy(failureMechanism);
 
             // Call
             IEnumerable<IObservable> affectedObjects = strategy.UpdateStructuresWithImportedData(Enumerable.Empty<StabilityPointStructure>(),
@@ -234,7 +234,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.FileImporters
 
             var importedStructure = new TestStabilityPointStructure("a different id");
 
-            var strategy = new StabilityPointStructureReplaceStrategy(failureMechanism);
+            var strategy = new StabilityPointStructureReplaceDataStrategy(failureMechanism);
 
             // Call
             IEnumerable<IObservable> affectedObjects = strategy.UpdateStructuresWithImportedData(new[]
@@ -277,7 +277,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.FileImporters
                 structure
             }, sourcePath);
 
-            var strategy = new StabilityPointStructureReplaceStrategy(failureMechanism);
+            var strategy = new StabilityPointStructureReplaceDataStrategy(failureMechanism);
 
             // Call
             IEnumerable<IObservable> affectedObjects = strategy.UpdateStructuresWithImportedData(Enumerable.Empty<StabilityPointStructure>(),
@@ -318,7 +318,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.FileImporters
                 structure
             }, sourcePath);
 
-            var strategy = new StabilityPointStructureReplaceStrategy(failureMechanism);
+            var strategy = new StabilityPointStructureReplaceDataStrategy(failureMechanism);
 
             // Call
             IEnumerable<IObservable> affectedObjects = strategy.UpdateStructuresWithImportedData(Enumerable.Empty<StabilityPointStructure>(),
@@ -370,7 +370,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.FileImporters
                 structure
             }, sourcePath);
 
-            var strategy = new StabilityPointStructureReplaceStrategy(failureMechanism);
+            var strategy = new StabilityPointStructureReplaceDataStrategy(failureMechanism);
 
             // Call
             IEnumerable<IObservable> affectedObjects = strategy.UpdateStructuresWithImportedData(Enumerable.Empty<StabilityPointStructure>(),

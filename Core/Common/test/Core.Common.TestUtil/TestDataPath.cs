@@ -127,6 +127,7 @@ namespace Core.Common.TestUtil
             public static class StabilityPointStructures
             {
                 public static readonly TestDataPath IO = "Riskeer.StabilityPointStructures.IO.Test";
+                public static readonly TestDataPath Integration = "Riskeer.StabilityPointStructures.Integration.Test";
             }
 
             public static class StabilityStoneCover

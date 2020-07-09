@@ -268,6 +268,8 @@ namespace Core.Common.TestUtil.Test
 
             path = TestHelper.GetTestDataPath(TestDataPath.Riskeer.StabilityPointStructures.IO);
             Assert.IsTrue(Directory.Exists(path));
+            path = TestHelper.GetTestDataPath(TestDataPath.Riskeer.StabilityPointStructures.Integration);
+            Assert.IsTrue(Directory.Exists(path));
 
             path = TestHelper.GetTestDataPath(TestDataPath.Riskeer.StabilityStoneCover.IO);
             Assert.IsTrue(Directory.Exists(path));
@@ -283,10 +285,10 @@ namespace Core.Common.TestUtil.Test
         public void ToUncPath_InvalidPath_ThrowArgumentException(string invalidPath)
         {
             // Call
-            TestDelegate call = () => TestHelper.ToUncPath(invalidPath);
+            void Call() => TestHelper.ToUncPath(invalidPath);
 
             // Assert
-            Assert.Throws<ArgumentException>(call);
+            Assert.Throws<ArgumentException>(Call);
         }
 
         [Test]
@@ -296,12 +298,12 @@ namespace Core.Common.TestUtil.Test
             string unrootedPath = Path.Combine("a", "b.c");
 
             // Call
-            TestDelegate call = () => TestHelper.ToUncPath(unrootedPath);
+            void Call() => TestHelper.ToUncPath(unrootedPath);
 
             // Assert
             const string expectedMessage = "Must be a rooted path.";
-            string paramName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage).ParamName;
-            Assert.AreEqual("rootedPath", paramName);
+            var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(Call, expectedMessage);
+            Assert.AreEqual("rootedPath", exception.ParamName);
         }
 
         [Test]

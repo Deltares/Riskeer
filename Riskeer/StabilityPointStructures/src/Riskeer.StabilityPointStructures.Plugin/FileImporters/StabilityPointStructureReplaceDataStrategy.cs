@@ -33,17 +33,17 @@ namespace Riskeer.StabilityPointStructures.Plugin.FileImporters
     /// An <see cref="ReplaceDataStrategyBase{TTargetData,TFailureMechanism}"/> 
     /// to replace stability point structures with the imported stability point structures
     /// </summary>
-    public class StabilityPointStructureReplaceStrategy : ReplaceDataStrategyBase<StabilityPointStructure, StabilityPointStructuresFailureMechanism>,
-                                                          IStructureUpdateStrategy<StabilityPointStructure>
+    public class StabilityPointStructureReplaceDataStrategy : ReplaceDataStrategyBase<StabilityPointStructure, StabilityPointStructuresFailureMechanism>,
+                                                              IStructureUpdateStrategy<StabilityPointStructure>
     {
         /// <summary>
-        /// Creates a new instance of <see cref="StabilityPointStructureReplaceStrategy"/>.
+        /// Creates a new instance of <see cref="StabilityPointStructureReplaceDataStrategy"/>.
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism in which the 
         /// structures are updated.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
         /// is <c>null</c>.</exception>
-        public StabilityPointStructureReplaceStrategy(StabilityPointStructuresFailureMechanism failureMechanism)
+        public StabilityPointStructureReplaceDataStrategy(StabilityPointStructuresFailureMechanism failureMechanism)
             : base(failureMechanism, failureMechanism?.StabilityPointStructures) {}
 
         public IEnumerable<IObservable> UpdateStructuresWithImportedData(IEnumerable<StabilityPointStructure> readStructures, string sourceFilePath)
