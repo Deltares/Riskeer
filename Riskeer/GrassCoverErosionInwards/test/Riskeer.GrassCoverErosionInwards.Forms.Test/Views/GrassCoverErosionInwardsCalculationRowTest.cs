@@ -248,30 +248,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
         }
 
         [Test]
-        [TestCase(BreakWaterType.Wall)]
-        [TestCase(BreakWaterType.Caisson)]
-        [TestCase(BreakWaterType.Dam)]
-        public void BreakWaterType_ChangeToEqualValue_NoNotificationsOutputNotCleared(BreakWaterType breakWaterType)
-        {
-            // Setup
-            BreakWaterType oldValue = breakWaterType;
-
-            // Call
-            AssertPropertyNotChanged(
-                row =>
-                {
-                    oldValue = row.BreakWaterType;
-                    row.BreakWaterType = row.BreakWaterType;
-                },
-                calculation =>
-                {
-                    // Assert
-                    Assert.NotNull(oldValue);
-                    Assert.AreEqual(oldValue, calculation.InputParameters.BreakWater.Type);
-                });
-        }
-
-        [Test]
         public void BreakWaterHeight_AlwaysOnChange_NotifyObserverAndCalculationPropertyChanged()
         {
             // Setup
