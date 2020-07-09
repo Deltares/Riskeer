@@ -103,7 +103,7 @@ namespace Riskeer.Storage.Core.Create
                     entity.GrassCoverErosionOutwardsWaveConditionsCalculationEntities.Add(childGrassCoverErosionOutwardsCalculation.Create(registry, i));
                 }
 
-                if (calculationBase is StructuresCalculation<HeightStructuresInput> childHeightStructuresCalculation)
+                if (calculationBase is StructuresCalculationScenario<HeightStructuresInput> childHeightStructuresCalculation)
                 {
                     entity.HeightStructuresCalculationEntities.Add(childHeightStructuresCalculation.CreateForHeightStructures(registry, i));
                 }

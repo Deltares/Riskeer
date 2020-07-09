@@ -38,10 +38,10 @@ namespace Riskeer.Storage.Core.Test.Create.HeightStructures
         public void Create_FailureMechanismSectionResultNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => HeightStructuresFailureMechanismSectionResultCreateExtensions.Create(null, new PersistenceRegistry());
+            void Call() => HeightStructuresFailureMechanismSectionResultCreateExtensions.Create(null, new PersistenceRegistry());
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("result", exception.ParamName);
         }
 
@@ -52,10 +52,10 @@ namespace Riskeer.Storage.Core.Test.Create.HeightStructures
             var sectionResult = new HeightStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             // Call
-            TestDelegate test = () => sectionResult.Create(null);
+            void Call() => sectionResult.Create(null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("registry", exception.ParamName);
         }
 
@@ -91,7 +91,6 @@ namespace Riskeer.Storage.Core.Test.Create.HeightStructures
             Assert.AreEqual(tailorMadeAssessmentProbability, entity.TailorMadeAssessmentProbability);
             Assert.AreEqual(Convert.ToByte(useManualAssembly), entity.UseManualAssembly);
             Assert.AreEqual(manualAssemblyProbability, entity.ManualAssemblyProbability);
-            Assert.IsNull(entity.HeightStructuresCalculationEntityId);
         }
 
         [Test]

@@ -62,6 +62,8 @@ namespace Riskeer.Storage.Core.Test.Read.HeightStructures
             var entity = new HeightStructuresCalculationEntity
             {
                 Name = name,
+                RelevantForScenario = Convert.ToByte(true),
+                ScenarioContribution = random.NextDouble(),
                 Comments = comments,
                 UseForeshore = Convert.ToByte(false),
                 UseBreakWater = Convert.ToByte(false),
@@ -85,10 +87,12 @@ namespace Riskeer.Storage.Core.Test.Read.HeightStructures
             var collector = new ReadConversionCollector();
 
             // Call
-            StructuresCalculation<HeightStructuresInput> calculation = entity.Read(collector);
+            StructuresCalculationScenario<HeightStructuresInput> calculation = entity.Read(collector);
 
             // Assert
             Assert.AreEqual(name, calculation.Name);
+            Assert.AreEqual(Convert.ToBoolean(entity.RelevantForScenario), calculation.IsRelevant);
+            AssertRoundedDouble(entity.ScenarioContribution, calculation.Contribution);
             Assert.AreEqual(comments, calculation.Comments.Body);
 
             HeightStructuresInput input = calculation.InputParameters;

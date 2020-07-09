@@ -56,7 +56,7 @@ namespace Riskeer.Storage.Core.Test.Create
         public void CreateForHeightStructures_PersistenceRegistryNull_ThrowArgumentNullException()
         {
             // Setup
-            var calculation = new StructuresCalculation<HeightStructuresInput>();
+            var calculation = new StructuresCalculationScenario<HeightStructuresInput>();
 
             // Call
             void Call() => calculation.CreateForHeightStructures(null, 0);
@@ -74,9 +74,11 @@ namespace Riskeer.Storage.Core.Test.Create
             // Setup
             var random = new Random(randomSeed);
 
-            var calculation = new StructuresCalculation<HeightStructuresInput>
+            var calculation = new StructuresCalculationScenario<HeightStructuresInput>
             {
                 Name = name,
+                IsRelevant = random.NextBoolean(),
+                Contribution = random.NextRoundedDouble(0, 1),
                 Comments =
                 {
                     Body = comments
@@ -145,7 +147,8 @@ namespace Riskeer.Storage.Core.Test.Create
             Assert.AreEqual(0, entity.HeightStructuresCalculationEntityId);
             TestHelper.AssertAreEqualButNotSame(name, entity.Name);
             TestHelper.AssertAreEqualButNotSame(comments, entity.Comments);
-            Assert.AreEqual(order, entity.Order);
+            Assert.AreEqual(Convert.ToByte(calculation.IsRelevant), entity.RelevantForScenario);
+            Assert.AreEqual(calculation.Contribution, entity.ScenarioContribution);
 
             HeightStructuresInput input = calculation.InputParameters;
             Assert.AreEqual(input.StructureNormalOrientation.Value, entity.StructureNormalOrientation);
@@ -176,8 +179,8 @@ namespace Riskeer.Storage.Core.Test.Create
             Assert.AreEqual((short) input.BreakWater.Type, entity.BreakWaterType);
             Assert.AreEqual(Convert.ToByte(input.UseBreakWater), entity.UseBreakWater);
             Assert.AreEqual(Convert.ToByte(input.UseForeshore), entity.UseForeshore);
-
             Assert.AreEqual(Convert.ToByte(input.ShouldIllustrationPointsBeCalculated), entity.ShouldIllustrationPointsBeCalculated);
+            Assert.AreEqual(order, entity.Order);
 
             CollectionAssert.IsEmpty(entity.HeightStructuresOutputEntities);
         }
@@ -186,8 +189,9 @@ namespace Riskeer.Storage.Core.Test.Create
         public void CreateForHeightStructures_NaNParameters_EntityWithNullFields()
         {
             // Setup
-            var calculation = new StructuresCalculation<HeightStructuresInput>
+            var calculation = new StructuresCalculationScenario<HeightStructuresInput>
             {
+                Contribution = RoundedDouble.NaN,
                 InputParameters =
                 {
                     StructureNormalOrientation = RoundedDouble.NaN,
@@ -243,6 +247,7 @@ namespace Riskeer.Storage.Core.Test.Create
             HeightStructuresCalculationEntity entity = calculation.CreateForHeightStructures(registry, 0);
 
             // Assert
+            Assert.IsNull(entity.ScenarioContribution);
             Assert.IsNull(entity.StructureNormalOrientation);
             Assert.IsNull(entity.ModelFactorSuperCriticalFlowMean);
             Assert.IsNull(entity.AllowedLevelIncreaseStorageMean);
@@ -268,7 +273,7 @@ namespace Riskeer.Storage.Core.Test.Create
         {
             // Setup
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "A", 1, 1);
-            var calculation = new StructuresCalculation<HeightStructuresInput>
+            var calculation = new StructuresCalculationScenario<HeightStructuresInput>
             {
                 InputParameters =
                 {
@@ -292,7 +297,7 @@ namespace Riskeer.Storage.Core.Test.Create
         {
             // Setup
             var heightStructure = new TestHeightStructure();
-            var calculation = new StructuresCalculation<HeightStructuresInput>
+            var calculation = new StructuresCalculationScenario<HeightStructuresInput>
             {
                 InputParameters =
                 {
@@ -316,7 +321,7 @@ namespace Riskeer.Storage.Core.Test.Create
         {
             // Setup
             var foreshoreProfile = new TestForeshoreProfile();
-            var calculation = new StructuresCalculation<HeightStructuresInput>
+            var calculation = new StructuresCalculationScenario<HeightStructuresInput>
             {
                 InputParameters =
                 {
@@ -339,7 +344,7 @@ namespace Riskeer.Storage.Core.Test.Create
         public void CreateForHeightStructures_CalculationWithOutput_ReturnEntity()
         {
             // Setup
-            var calculation = new StructuresCalculation<HeightStructuresInput>
+            var calculation = new StructuresCalculationScenario<HeightStructuresInput>
             {
                 Output = new TestStructuresOutput()
             };

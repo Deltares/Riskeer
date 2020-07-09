@@ -545,11 +545,11 @@ namespace Riskeer.Storage.Core.Test.Create
             {
                 Children =
                 {
-                    new StructuresCalculation<HeightStructuresInput>
+                    new StructuresCalculationScenario<HeightStructuresInput>
                     {
                         Name = "A"
                     },
-                    new StructuresCalculation<HeightStructuresInput>
+                    new StructuresCalculationScenario<HeightStructuresInput>
                     {
                         Name = "B"
                     }
@@ -585,7 +585,7 @@ namespace Riskeer.Storage.Core.Test.Create
                     {
                         Name = "A"
                     },
-                    new StructuresCalculation<HeightStructuresInput>
+                    new StructuresCalculationScenario<HeightStructuresInput>
                     {
                         Name = "B"
                     },
@@ -593,7 +593,7 @@ namespace Riskeer.Storage.Core.Test.Create
                     {
                         Name = "C"
                     },
-                    new StructuresCalculation<HeightStructuresInput>
+                    new StructuresCalculationScenario<HeightStructuresInput>
                     {
                         Name = "D"
                     }

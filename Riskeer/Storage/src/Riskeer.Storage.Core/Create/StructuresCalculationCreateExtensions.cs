@@ -182,7 +182,7 @@ namespace Riskeer.Storage.Core.Create
 
         /// <summary>
         /// Creates a <see cref="HeightStructuresCalculationEntity"/> based
-        /// on the information of the <see cref="StructuresCalculation{T}"/>.
+        /// on the information of the <see cref="StructuresCalculationScenario{T}"/>.
         /// </summary>
         /// <param name="calculation">The calculation to create a database entity for.</param>
         /// <param name="registry">The object keeping track of create operations.</param>
@@ -190,7 +190,7 @@ namespace Riskeer.Storage.Core.Create
         /// in its parent container.</param>
         /// <returns>A new <see cref="HeightStructuresCalculationEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="registry"/> is <c>null</c>.</exception>
-        internal static HeightStructuresCalculationEntity CreateForHeightStructures(this StructuresCalculation<HeightStructuresInput> calculation,
+        internal static HeightStructuresCalculationEntity CreateForHeightStructures(this StructuresCalculationScenario<HeightStructuresInput> calculation,
                                                                                     PersistenceRegistry registry, int order)
         {
             if (registry == null)
@@ -201,6 +201,8 @@ namespace Riskeer.Storage.Core.Create
             var entity = new HeightStructuresCalculationEntity
             {
                 Name = calculation.Name.DeepClone(),
+                RelevantForScenario = Convert.ToByte(calculation.IsRelevant),
+                ScenarioContribution = calculation.Contribution.ToNaNAsNull(),
                 Comments = calculation.Comments.Body.DeepClone(),
                 Order = order
             };

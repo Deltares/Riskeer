@@ -37,12 +37,12 @@ namespace Riskeer.Storage.Core.Read.HeightStructures
     {
         /// <summary>
         /// Reads the <see cref="HeightStructuresCalculationEntity"/> and use the
-        /// information to update a <see cref="StructuresCalculation{T}"/>.
+        /// information to update a <see cref="StructuresCalculationScenario{T}"/>.
         /// </summary>
         /// <param name="entity">The <see cref="HeightStructuresCalculationEntity"/>
-        /// to create <see cref="StructuresCalculation{T}"/> for.</param>
+        /// to create <see cref="StructuresCalculationScenario{T}"/> for.</param>
         /// <param name="collector">The object keeping track of read operations.</param>
-        /// <returns>A new <see cref="StructuresCalculation{T}"/>.</returns>
+        /// <returns>A new <see cref="StructuresCalculationScenario{T}"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="collector"/> is <c>null</c>.</exception>
         internal static StructuresCalculationScenario<HeightStructuresInput> Read(this HeightStructuresCalculationEntity entity,
                                                                                   ReadConversionCollector collector)
@@ -55,6 +55,8 @@ namespace Riskeer.Storage.Core.Read.HeightStructures
             var calculation = new StructuresCalculationScenario<HeightStructuresInput>
             {
                 Name = entity.Name,
+                IsRelevant = Convert.ToBoolean(entity.RelevantForScenario),
+                Contribution = (RoundedDouble) entity.ScenarioContribution.ToNullAsNaN(),
                 Comments =
                 {
                     Body = entity.Comments
