@@ -229,8 +229,8 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
             if (calculationRow != null)
             {
                 selection = new GrassCoverErosionInwardsInputContext(
-                    calculationRow.GrassCoverErosionInwardsCalculationScenario.InputParameters,
-                    calculationRow.GrassCoverErosionInwardsCalculationScenario,
+                    calculationRow.CalculationScenario.InputParameters,
+                    calculationRow.CalculationScenario,
                     failureMechanism,
                     assessmentSection);
             }
@@ -315,7 +315,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
         private void FillAvailableSelectableHydraulicBoundaryLocationsList(DataGridViewRow dataGridViewRow)
         {
             var rowData = (GrassCoverErosionInwardsCalculationRow) dataGridViewRow.DataBoundItem;
-            IEnumerable<SelectableHydraulicBoundaryLocation> locations = GetSelectableHydraulicBoundaryLocationsForCalculation(rowData.GrassCoverErosionInwardsCalculationScenario);
+            IEnumerable<SelectableHydraulicBoundaryLocation> locations = GetSelectableHydraulicBoundaryLocationsForCalculation(rowData.CalculationScenario);
 
             var cell = (DataGridViewComboBoxCell) dataGridViewRow.Cells[selectableHydraulicBoundaryLocationColumnIndex];
             DataGridViewComboBoxItemWrapper<SelectableHydraulicBoundaryLocation>[] dataGridViewComboBoxItemWrappers = GetSelectableHydraulicBoundaryLocationsDataSource(locations);

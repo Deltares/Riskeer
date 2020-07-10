@@ -767,7 +767,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
                 // Assert
                 Assert.IsInstanceOf<GrassCoverErosionInwardsInputContext>(selection);
                 var dataRow = (GrassCoverErosionInwardsCalculationRow) dataGridView.Rows[selectedRow].DataBoundItem;
-                Assert.AreSame(dataRow.GrassCoverErosionInwardsCalculationScenario, ((GrassCoverErosionInwardsInputContext) selection).Calculation);
+                Assert.AreSame(dataRow.CalculationScenario, ((GrassCoverErosionInwardsInputContext) selection).Calculation);
             }
 
             mocks.VerifyAll();

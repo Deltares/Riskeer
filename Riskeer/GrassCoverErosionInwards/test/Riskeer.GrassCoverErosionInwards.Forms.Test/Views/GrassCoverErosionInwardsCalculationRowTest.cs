@@ -89,7 +89,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             var calculationRow = new GrassCoverErosionInwardsCalculationRow(calculationScenario, handler);
 
             // Asserts
-            Assert.AreSame(calculationScenario, calculationRow.GrassCoverErosionInwardsCalculationScenario);
+            Assert.AreSame(calculationScenario, calculationRow.CalculationScenario);
 
             IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = calculationRow.ColumnStateDefinitions;
             Assert.AreEqual(3, columnStateDefinitions.Count);
