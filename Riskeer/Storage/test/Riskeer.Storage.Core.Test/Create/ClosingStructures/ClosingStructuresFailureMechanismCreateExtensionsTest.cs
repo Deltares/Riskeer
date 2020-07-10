@@ -223,7 +223,7 @@ namespace Riskeer.Storage.Core.Test.Create.ClosingStructures
         public void Create_WithCalculationGroup_ReturnFailureMechanismEntityWithCalculationGroupEntities()
         {
             // Setup
-            StructuresCalculation<ClosingStructuresInput> calculation = new TestClosingStructuresCalculationScenario();
+            StructuresCalculationScenario<ClosingStructuresInput> calculation = new TestClosingStructuresCalculationScenario();
             calculation.InputParameters.Structure = null;
             calculation.InputParameters.HydraulicBoundaryLocation = null;
 

@@ -30,19 +30,19 @@ using Riskeer.Storage.Core.Read.IllustrationPoints;
 namespace Riskeer.Storage.Core.Read.StabilityPointStructures
 {
     /// <summary>
-    /// This class defines extension methods for read operations for a <see cref="StructuresCalculation{T}"/>
+    /// This class defines extension methods for read operations for a <see cref="StructuresCalculationScenario{T}"/>
     /// based on the <see cref="StabilityPointStructuresCalculationEntity"/>.
     /// </summary>
     internal static class StabilityPointStructuresCalculationEntityReadExtensions
     {
         /// <summary>
         /// Reads the <see cref="StabilityPointStructuresCalculationEntity"/> and use the
-        /// information to update a <see cref="StructuresCalculation{T}"/>.
+        /// information to update a <see cref="StructuresCalculationScenario{T}"/>.
         /// </summary>
         /// <param name="entity">The <see cref="StabilityPointStructuresCalculationEntity"/>
-        /// to create <see cref="StructuresCalculation{T}"/> for.</param>
+        /// to create <see cref="StructuresCalculationScenario{T}"/> for.</param>
         /// <param name="collector">The object keeping track of read operations.</param>
-        /// <returns>A new <see cref="StructuresCalculation{T}"/>.</returns>
+        /// <returns>A new <see cref="StructuresCalculationScenario{T}"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="collector"/> is <c>null</c>.</exception>
         internal static StructuresCalculationScenario<StabilityPointStructuresInput> Read(this StabilityPointStructuresCalculationEntity entity,
                                                                                           ReadConversionCollector collector)

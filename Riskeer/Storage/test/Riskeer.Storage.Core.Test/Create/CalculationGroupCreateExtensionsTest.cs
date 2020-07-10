@@ -917,11 +917,11 @@ namespace Riskeer.Storage.Core.Test.Create
             {
                 Children =
                 {
-                    new StructuresCalculation<StabilityPointStructuresInput>
+                    new StructuresCalculationScenario<StabilityPointStructuresInput>
                     {
                         Name = "A"
                     },
-                    new StructuresCalculation<StabilityPointStructuresInput>
+                    new StructuresCalculationScenario<StabilityPointStructuresInput>
                     {
                         Name = "B"
                     }
@@ -957,7 +957,7 @@ namespace Riskeer.Storage.Core.Test.Create
                     {
                         Name = "A"
                     },
-                    new StructuresCalculation<StabilityPointStructuresInput>
+                    new StructuresCalculationScenario<StabilityPointStructuresInput>
                     {
                         Name = "B"
                     },
@@ -965,7 +965,7 @@ namespace Riskeer.Storage.Core.Test.Create
                     {
                         Name = "C"
                     },
-                    new StructuresCalculation<StabilityPointStructuresInput>
+                    new StructuresCalculationScenario<StabilityPointStructuresInput>
                     {
                         Name = "D"
                     }

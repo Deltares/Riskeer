@@ -30,7 +30,7 @@ using Riskeer.Storage.Core.Read.IllustrationPoints;
 namespace Riskeer.Storage.Core.Read.HeightStructures
 {
     /// <summary>
-    /// This class defines extension methods for read operations for a <see cref="StructuresCalculation{T}"/>
+    /// This class defines extension methods for read operations for a <see cref="StructuresCalculationScenario{T}"/>
     /// based on the <see cref="HeightStructuresCalculationEntity"/>.
     /// </summary>
     internal static class HeightStructuresCalculationEntityReadExtensions

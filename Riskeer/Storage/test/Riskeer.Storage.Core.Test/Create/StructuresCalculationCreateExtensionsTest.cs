@@ -733,7 +733,7 @@ namespace Riskeer.Storage.Core.Test.Create
         public void CreateForStabilityPointStructures_RegistryIsNull_ThrowArgumentNullException()
         {
             // Setup
-            var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
+            var calculation = new StructuresCalculationScenario<StabilityPointStructuresInput>();
 
             // Call
             void Call() => calculation.CreateForStabilityPointStructures(null, 0);
@@ -748,7 +748,7 @@ namespace Riskeer.Storage.Core.Test.Create
         {
             // Setup
             var random = new Random(45);
-            var calculation = new StructuresCalculation<StabilityPointStructuresInput>
+            var calculation = new StructuresCalculationScenario<StabilityPointStructuresInput>
             {
                 Name = "A",
                 Comments =
@@ -962,7 +962,7 @@ namespace Riskeer.Storage.Core.Test.Create
         public void CreateForStabilityPointStructures_CalculationWithParametersNaN_ReturnEntityWithNullParameters()
         {
             // Setup
-            var calculation = new StructuresCalculation<StabilityPointStructuresInput>
+            var calculation = new StructuresCalculationScenario<StabilityPointStructuresInput>
             {
                 InputParameters =
                 {
@@ -1143,7 +1143,7 @@ namespace Riskeer.Storage.Core.Test.Create
         {
             // Setup
             StabilityPointStructure alreadyRegisteredStructure = new TestStabilityPointStructure();
-            var calculation = new StructuresCalculation<StabilityPointStructuresInput>
+            var calculation = new StructuresCalculationScenario<StabilityPointStructuresInput>
             {
                 InputParameters =
                 {
@@ -1166,7 +1166,7 @@ namespace Riskeer.Storage.Core.Test.Create
         {
             // Setup
             var alreadyRegisteredHydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "A", 2, 3);
-            var calculation = new StructuresCalculation<StabilityPointStructuresInput>
+            var calculation = new StructuresCalculationScenario<StabilityPointStructuresInput>
             {
                 InputParameters =
                 {
@@ -1189,7 +1189,7 @@ namespace Riskeer.Storage.Core.Test.Create
         {
             // Setup
             var alreadyRegisteredForeshoreProfile = new TestForeshoreProfile();
-            var calculation = new StructuresCalculation<StabilityPointStructuresInput>
+            var calculation = new StructuresCalculationScenario<StabilityPointStructuresInput>
             {
                 InputParameters =
                 {
@@ -1211,7 +1211,7 @@ namespace Riskeer.Storage.Core.Test.Create
         public void CreateForStabilityPointStructures_CalculationWithOutput_ReturnEntity()
         {
             // Setup
-            var calculation = new StructuresCalculation<StabilityPointStructuresInput>
+            var calculation = new StructuresCalculationScenario<StabilityPointStructuresInput>
             {
                 Output = new TestStructuresOutput()
             };

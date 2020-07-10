@@ -24,6 +24,7 @@ using System.Linq;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.Data.Calculation;
+using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.HeightStructures.Data;
 using Riskeer.HeightStructures.Data.TestUtil;
@@ -242,15 +243,16 @@ namespace Riskeer.Storage.Core.Test.Create.HeightStructures
         public void Create_WithCalculationGroup_ReturnFailureMechanismEntityWithCalculationGroupEntities()
         {
             // Setup
+            StructuresCalculationScenario<HeightStructuresInput> calculation = new TestHeightStructuresCalculationScenario();
+            calculation.InputParameters.Structure = null;
+            calculation.InputParameters.HydraulicBoundaryLocation = null;
+
             var failureMechanism = new HeightStructuresFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(new CalculationGroup
             {
                 Name = "A"
             });
-            failureMechanism.CalculationsGroup.Children.Add(new CalculationGroup
-            {
-                Name = "B"
-            });
+            failureMechanism.CalculationsGroup.Children.Add(calculation);
 
             var registry = new PersistenceRegistry();
 
@@ -265,13 +267,17 @@ namespace Riskeer.Storage.Core.Test.Create.HeightStructures
             CalculationGroupEntity[] childGroupEntities = entity.CalculationGroupEntity.CalculationGroupEntity1
                                                                 .OrderBy(cge => cge.Order)
                                                                 .ToArray();
-            Assert.AreEqual(2, childGroupEntities.Length);
-            CalculationGroupEntity childGroupEntity1 = childGroupEntities[0];
-            Assert.AreEqual("A", childGroupEntity1.Name);
-            Assert.AreEqual(0, childGroupEntity1.Order);
-            CalculationGroupEntity childGroupEntity2 = childGroupEntities[1];
-            Assert.AreEqual("B", childGroupEntity2.Name);
-            Assert.AreEqual(1, childGroupEntity2.Order);
+            Assert.AreEqual(1, childGroupEntities.Length);
+            CalculationGroupEntity childGroupEntity = childGroupEntities[0];
+            Assert.AreEqual("A", childGroupEntity.Name);
+            Assert.AreEqual(0, childGroupEntity.Order);
+
+            HeightStructuresCalculationEntity[] calculationEntities = entity.CalculationGroupEntity.HeightStructuresCalculationEntities
+                                                                             .OrderBy(ce => ce.Order)
+                                                                             .ToArray();
+            HeightStructuresCalculationEntity calculationEntity = calculationEntities[0];
+            Assert.AreEqual("Nieuwe berekening", calculationEntity.Name);
+            Assert.AreEqual(1, calculationEntity.Order);
         }
     }
 }

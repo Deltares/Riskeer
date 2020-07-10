@@ -257,7 +257,7 @@ namespace Riskeer.Storage.Core.Create
         /// in its parent container.</param>
         /// <returns>A new <see cref="StabilityPointStructuresCalculationEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="registry"/> is <c>null</c>.</exception>
-        internal static StabilityPointStructuresCalculationEntity CreateForStabilityPointStructures(this StructuresCalculation<StabilityPointStructuresInput> calculation,
+        internal static StabilityPointStructuresCalculationEntity CreateForStabilityPointStructures(this StructuresCalculationScenario<StabilityPointStructuresInput> calculation,
                                                                                                     PersistenceRegistry registry, int order)
         {
             if (registry == null)

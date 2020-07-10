@@ -113,7 +113,7 @@ namespace Riskeer.Storage.Core.Create
                     entity.ClosingStructuresCalculationEntities.Add(childClosingStructuresCalculation.CreateForClosingStructures(registry, i));
                 }
 
-                if (calculationBase is StructuresCalculation<StabilityPointStructuresInput> childStabilityPointStructuresCalculation)
+                if (calculationBase is StructuresCalculationScenario<StabilityPointStructuresInput> childStabilityPointStructuresCalculation)
                 {
                     entity.StabilityPointStructuresCalculationEntities.Add(childStabilityPointStructuresCalculation.CreateForStabilityPointStructures(registry, i));
                 }
