@@ -405,17 +405,17 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Views
 
             ColumnStateHelper.SetColumnState(ColumnStateDefinitions[simpleAssessmentResultIndex], UseManualAssembly);
             ColumnStateHelper.SetColumnState(ColumnStateDefinitions[detailedAssessmentResultForFactorizedSignalingNormIndex],
-                                                                  simpleAssessmentSufficient || UseManualAssembly);
+                                             simpleAssessmentSufficient || UseManualAssembly);
             ColumnStateHelper.SetColumnState(ColumnStateDefinitions[detailedAssessmentResultForSignalingNormIndex],
-                                                                  simpleAssessmentSufficient || UseManualAssembly);
+                                             simpleAssessmentSufficient || UseManualAssembly);
             ColumnStateHelper.SetColumnState(ColumnStateDefinitions[detailedAssessmentResultForMechanismSpecificLowerLimitNormIndex],
-                                                                  simpleAssessmentSufficient || UseManualAssembly);
+                                             simpleAssessmentSufficient || UseManualAssembly);
             ColumnStateHelper.SetColumnState(ColumnStateDefinitions[detailedAssessmentResultForLowerLimitNormIndex],
-                                                                  simpleAssessmentSufficient || UseManualAssembly);
+                                             simpleAssessmentSufficient || UseManualAssembly);
             ColumnStateHelper.SetColumnState(ColumnStateDefinitions[detailedAssessmentResultForFactorizedLowerLimitNormIndex],
-                                                                  simpleAssessmentSufficient || UseManualAssembly);
+                                             simpleAssessmentSufficient || UseManualAssembly);
             ColumnStateHelper.SetColumnState(ColumnStateDefinitions[tailorMadeAssessmentResultIndex],
-                                                                  simpleAssessmentSufficient || UseManualAssembly);
+                                             simpleAssessmentSufficient || UseManualAssembly);
 
             if (UseManualAssembly)
             {

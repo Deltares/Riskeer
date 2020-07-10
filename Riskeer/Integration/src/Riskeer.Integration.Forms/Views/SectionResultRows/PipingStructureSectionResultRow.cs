@@ -315,9 +315,9 @@ namespace Riskeer.Integration.Forms.Views.SectionResultRows
 
             ColumnStateHelper.SetColumnState(ColumnStateDefinitions[simpleAssessmentResultIndex], UseManualAssembly);
             ColumnStateHelper.SetColumnState(ColumnStateDefinitions[detailedAssessmentResultIndex],
-                                                                  simpleAssessmentSufficient || UseManualAssembly);
+                                             simpleAssessmentSufficient || UseManualAssembly);
             ColumnStateHelper.SetColumnState(ColumnStateDefinitions[tailorMadeAssessmentResultIndex],
-                                                                  simpleAssessmentSufficient || UseManualAssembly);
+                                             simpleAssessmentSufficient || UseManualAssembly);
 
             if (UseManualAssembly)
             {
