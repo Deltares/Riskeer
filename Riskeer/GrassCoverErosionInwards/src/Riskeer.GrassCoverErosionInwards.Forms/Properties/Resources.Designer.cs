@@ -268,15 +268,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dijkhoogte [m+NAP].
-        /// </summary>
-        public static string GrassCoverErosionInwardsCalculation_Dikeheight_DisplayName {
-            get {
-                return ResourceManager.GetString("GrassCoverErosionInwardsCalculation_Dikeheight_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Selecteer dijkprofielen.
         /// </summary>
         public static string GrassCoverErosionInwardsDikeProfileSelectionDialog_Select_DikeProfiles {
@@ -435,15 +426,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Properties {
         public static string Mean_Critical_FlowRate_DisplayName {
             get {
                 return ResourceManager.GetString("Mean_Critical_FlowRate_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Naam.
-        /// </summary>
-        public static string Name_DisplayName {
-            get {
-                return ResourceManager.GetString("Name_DisplayName", resourceCulture);
             }
         }
         

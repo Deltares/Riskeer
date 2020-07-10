@@ -163,7 +163,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
 
             dataGridViewControl.AddTextBoxColumn(
                 nameof(GrassCoverErosionInwardsCalculationRow.Name),
-                Resources.Name_DisplayName);
+                RiskeerCommonFormsResources.FailureMechanism_Name_DisplayName);
 
             dataGridViewControl.AddComboBoxColumn<DataGridViewComboBoxItemWrapper<SelectableHydraulicBoundaryLocation>>(
                 nameof(GrassCoverErosionInwardsCalculationRow.SelectableHydraulicBoundaryLocation),
@@ -197,7 +197,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
 
             dataGridViewControl.AddTextBoxColumn(
                 nameof(GrassCoverErosionInwardsCalculationRow.DikeHeight),
-                Resources.GrassCoverErosionInwardsCalculation_Dikeheight_DisplayName);
+                RiskeerCommonFormsResources.DikeHeight_DisplayName);
 
             dataGridViewControl.AddTextBoxColumn(
                 nameof(GrassCoverErosionInwardsCalculationRow.MeanCriticalFlowRate),
