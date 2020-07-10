@@ -261,18 +261,6 @@
     <value>Illustratiepunten inlezen   </value>
     <comment>Spaces are added to make this value unique to prevent jumping from the selected property after editing.</comment>
   </data>
-  <data name="Use_BreakWater_DisplayName" xml:space="preserve">
-    <value>Gebruik dam</value>
-  </data>
-  <data name="BreakWaterType_DisplayName" xml:space="preserve">
-    <value>Damtype</value>
-  </data>
-  <data name="BreakWaterHeight_DisplayName" xml:space="preserve">
-    <value>Damhoogte [m+NAP]</value>
-  </data>
-  <data name="Use_ForeShore_DisplayName" xml:space="preserve">
-    <value>Gebruik voorlandgeometrie</value>
-  </data>
   <data name="Mean_Critical_FlowRate_DisplayName" xml:space="preserve">
     <value>Verwachtingswaarde kritiek overslagdebiet [m3/m/s]</value>
   </data>

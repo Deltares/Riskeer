@@ -61,24 +61,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Damhoogte [m+NAP].
-        /// </summary>
-        public static string BreakWaterHeight_DisplayName {
-            get {
-                return ResourceManager.GetString("BreakWaterHeight_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Damtype.
-        /// </summary>
-        public static string BreakWaterType_DisplayName {
-            get {
-                return ResourceManager.GetString("BreakWaterType_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Toetseisen.
         /// </summary>
         public static string Categories_CriticalValues {
@@ -507,24 +489,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Properties {
         public static string StandardDeviation_Critical_FlowRate_DisplayName {
             get {
                 return ResourceManager.GetString("StandardDeviation_Critical_FlowRate_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Gebruik dam.
-        /// </summary>
-        public static string Use_BreakWater_DisplayName {
-            get {
-                return ResourceManager.GetString("Use_BreakWater_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Gebruik voorlandgeometrie.
-        /// </summary>
-        public static string Use_ForeShore_DisplayName {
-            get {
-                return ResourceManager.GetString("Use_ForeShore_DisplayName", resourceCulture);
             }
         }
         

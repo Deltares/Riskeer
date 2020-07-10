@@ -28,45 +28,47 @@ using Core.Common.Base.Geometry;
 using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.Views;
 using Core.Common.Util;
+using Riskeer.ClosingStructures.Data;
+using Riskeer.ClosingStructures.Forms.PresentationObjects;
+using Riskeer.ClosingStructures.Forms.Properties;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Hydraulics;
+using Riskeer.Common.Data.Structures;
+using Riskeer.Common.Forms;
 using Riskeer.Common.Forms.ChangeHandlers;
 using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.PresentationObjects;
-using Riskeer.GrassCoverErosionInwards.Data;
-using Riskeer.GrassCoverErosionInwards.Forms.PresentationObjects;
-using Riskeer.GrassCoverErosionInwards.Forms.Properties;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
-namespace Riskeer.GrassCoverErosionInwards.Forms.Views
+namespace Riskeer.ClosingStructures.Forms.Views
 {
     /// <summary>
-    /// This class is a view for configuring grass cover erosion inwards calculations.
+    /// This class is a view for configuring closing structures calculations.
     /// </summary>
-    public partial class GrassCoverErosionInwardsCalculationsView : UserControl, ISelectionProvider, IView
+    public partial class ClosingStructuresCalculationsView : UserControl, ISelectionProvider, IView
     {
         private const int selectableHydraulicBoundaryLocationColumnIndex = 1;
-        private const int selectableDikeProfileColumnIndex = 2;
+        private const int selectableForeshoreProfileColumnIndex = 2;
         private readonly Observer failureMechanismObserver;
         private readonly Observer hydraulicBoundaryLocationsObserver;
-        private readonly Observer dikeProfilesObserver;
-        private readonly RecursiveObserver<CalculationGroup, GrassCoverErosionInwardsInput> inputObserver;
-        private readonly RecursiveObserver<CalculationGroup, GrassCoverErosionInwardsCalculationScenario> calculationScenarioObserver;
+        private readonly Observer foreShoreProfilesObserver;
+        private readonly RecursiveObserver<CalculationGroup, ClosingStructuresInput> inputObserver;
+        private readonly RecursiveObserver<CalculationGroup, StructuresCalculationScenario<ClosingStructuresInput>> calculationScenarioObserver;
         private readonly RecursiveObserver<CalculationGroup, CalculationGroup> calculationGroupObserver;
 
         private CalculationGroup calculationGroup;
         private readonly IAssessmentSection assessmentSection;
-        private readonly GrassCoverErosionInwardsFailureMechanism failureMechanism;
+        private readonly ClosingStructuresFailureMechanism failureMechanism;
 
         public event EventHandler<EventArgs> SelectionChanged;
 
         /// <summary>
-        /// Creates a new instance of <see cref="GrassCoverErosionInwardsCalculationsView"/>.
+        /// Creates a new instance of <see cref="ClosingStructuresCalculationsView"/>.
         /// </summary>
-        public GrassCoverErosionInwardsCalculationsView(CalculationGroup data, GrassCoverErosionInwardsFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+        public ClosingStructuresCalculationsView(CalculationGroup data, ClosingStructuresFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
         {
             InitializeComponent();
             InitializeDataGridView();
@@ -97,17 +99,17 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
             {
                 Observable = assessmentSection.HydraulicBoundaryDatabase.Locations
             };
-            dikeProfilesObserver = new Observer(UpdateDikeProfilesColumn)
+            foreShoreProfilesObserver = new Observer(UpdateDikeProfilesColumn)
             {
-                Observable = failureMechanism.DikeProfiles
+                Observable = failureMechanism.ForeshoreProfiles
             };
 
             // The concat is needed to observe the input of calculations in child groups.
-            inputObserver = new RecursiveObserver<CalculationGroup, GrassCoverErosionInwardsInput>(UpdateDataGridViewDataSource, pcg => pcg.Children.Concat<object>(pcg.Children.OfType<GrassCoverErosionInwardsCalculationScenario>().Select(pc => pc.InputParameters)))
+            inputObserver = new RecursiveObserver<CalculationGroup, ClosingStructuresInput>(UpdateDataGridViewDataSource, pcg => pcg.Children.Concat<object>(pcg.Children.OfType<StructuresCalculationScenario<ClosingStructuresInput>>().Select(pc => pc.InputParameters)))
             {
                 Observable = calculationGroup
             };
-            calculationScenarioObserver = new RecursiveObserver<CalculationGroup, GrassCoverErosionInwardsCalculationScenario>(() => dataGridViewControl.RefreshDataGridView(), pcg => pcg.Children)
+            calculationScenarioObserver = new RecursiveObserver<CalculationGroup, StructuresCalculationScenario<ClosingStructuresInput>>(() => dataGridViewControl.RefreshDataGridView(), pcg => pcg.Children)
             {
                 Observable = calculationGroup
             };
@@ -149,7 +151,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
                 calculationGroupObserver.Dispose();
 
                 hydraulicBoundaryLocationsObserver.Dispose();
-                dikeProfilesObserver.Dispose();
+                foreShoreProfilesObserver.Dispose();
 
                 components?.Dispose();
             }
@@ -162,50 +164,57 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
             dataGridViewControl.CurrentRowChanged += DataGridViewOnCurrentRowChangedHandler;
 
             dataGridViewControl.AddTextBoxColumn(
-                nameof(GrassCoverErosionInwardsCalculationRow.Name),
+                nameof(ClosingStructuresCalculationRow.Name),
                 RiskeerCommonFormsResources.FailureMechanism_Name_DisplayName);
 
             dataGridViewControl.AddComboBoxColumn<DataGridViewComboBoxItemWrapper<SelectableHydraulicBoundaryLocation>>(
-                nameof(GrassCoverErosionInwardsCalculationRow.SelectableHydraulicBoundaryLocation),
+                nameof(ClosingStructuresCalculationRow.SelectableHydraulicBoundaryLocation),
                 RiskeerCommonFormsResources.HydraulicBoundaryLocation_DisplayName,
                 null,
                 nameof(DataGridViewComboBoxItemWrapper<SelectableHydraulicBoundaryLocation>.This),
                 nameof(DataGridViewComboBoxItemWrapper<SelectableHydraulicBoundaryLocation>.DisplayName));
 
-            dataGridViewControl.AddComboBoxColumn<DataGridViewComboBoxItemWrapper<DikeProfile>>(
-                nameof(GrassCoverErosionInwardsCalculationRow.DikeProfile),
-                Resources.DikeProfile_DisplayName,
+            dataGridViewControl.AddComboBoxColumn<DataGridViewComboBoxItemWrapper<ForeshoreProfile>>(
+                nameof(ClosingStructuresCalculationRow.ForeshoreProfile),
+                RiskeerCommonFormsResources.ForeshoreProfile_Name_Description,
                 null,
-                nameof(DataGridViewComboBoxItemWrapper<DikeProfile>.This),
-                nameof(DataGridViewComboBoxItemWrapper<DikeProfile>.DisplayName));
+                nameof(DataGridViewComboBoxItemWrapper<ForeshoreProfile>.This),
+                nameof(DataGridViewComboBoxItemWrapper<ForeshoreProfile>.DisplayName));
 
-            dataGridViewControl.AddCheckBoxColumn(nameof(GrassCoverErosionInwardsCalculationRow.UseBreakWater),
+            dataGridViewControl.AddCheckBoxColumn(nameof(ClosingStructuresCalculationRow.UseBreakWater),
                                                   RiskeerCommonFormsResources.Use_BreakWater_DisplayName);
 
-            dataGridViewControl.AddComboBoxColumn(nameof(GrassCoverErosionInwardsCalculationRow.BreakWaterType),
+            dataGridViewControl.AddComboBoxColumn(nameof(ClosingStructuresCalculationRow.BreakWaterType),
                                                   RiskeerCommonFormsResources.BreakWaterType_DisplayName1,
                                                   GetBreakWaterTypes(),
                                                   nameof(EnumDisplayWrapper<BreakWaterType>.Value),
                                                   nameof(EnumDisplayWrapper<BreakWaterType>.DisplayName));
 
             dataGridViewControl.AddTextBoxColumn(
-                nameof(GrassCoverErosionInwardsCalculationRow.BreakWaterHeight),
+                nameof(ClosingStructuresCalculationRow.BreakWaterHeight),
                 RiskeerCommonFormsResources.BreakWaterHeight_DisplayName1);
 
-            dataGridViewControl.AddCheckBoxColumn(nameof(GrassCoverErosionInwardsCalculationRow.UseForeShoreGeometry),
+            dataGridViewControl.AddCheckBoxColumn(nameof(ClosingStructuresCalculationRow.UseForeShoreGeometry),
                                                   RiskeerCommonFormsResources.Use_ForeShore_DisplayName);
 
-            dataGridViewControl.AddTextBoxColumn(
-                nameof(GrassCoverErosionInwardsCalculationRow.DikeHeight),
-                RiskeerCommonFormsResources.DikeHeight_DisplayName);
+            dataGridViewControl.AddComboBoxColumn<DataGridViewComboBoxItemWrapper<SelectableHydraulicBoundaryLocation>>(
+                nameof(ClosingStructuresCalculationRow.InflowModelType),
+                RiskeerCommonFormsResources.Structure_InflowModelType_DisplayName,
+                null,
+                nameof(DataGridViewComboBoxItemWrapper<ClosingStructureInflowModelType>.This),
+                nameof(DataGridViewComboBoxItemWrapper<ClosingStructureInflowModelType>.DisplayName));
 
             dataGridViewControl.AddTextBoxColumn(
-                nameof(GrassCoverErosionInwardsCalculationRow.MeanCriticalFlowRate),
-                Resources.Mean_Critical_FlowRate_DisplayName);
+                nameof(ClosingStructuresCalculationRow.MeanInsideWaterLevel),
+                RiskeerCommonFormsResources.Structure_InsideWaterLevel_DisplayName);
 
             dataGridViewControl.AddTextBoxColumn(
-                nameof(GrassCoverErosionInwardsCalculationRow.StandardDeviationCriticalFlowRate),
-                Resources.StandardDeviation_Critical_FlowRate_DisplayName);
+                nameof(ClosingStructuresCalculationRow.CriticalOvertoppingDischarge),
+                RiskeerCommonFormsResources.Structure_CriticalOvertoppingDischarge_DisplayName);
+
+            dataGridViewControl.AddTextBoxColumn(
+                nameof(ClosingStructuresCalculationRow.AllowedLevelIncreaseStorage),
+                RiskeerCommonFormsResources.Structure_AllowedLevelIncreaseStorage_DisplayName);
         }
 
         private void InitializeListBox()
@@ -216,21 +225,21 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
 
         private void UpdateGenerateCalculationsButtonState()
         {
-            buttonGenerateCalculations.Enabled = failureMechanism.DikeProfiles.Any();
+            buttonGenerateCalculations.Enabled = failureMechanism.ForeshoreProfiles.Any();
         }
 
-        private GrassCoverErosionInwardsInputContext CreateSelectedItemFromCurrentRow()
+        private ClosingStructuresInputContext CreateSelectedItemFromCurrentRow()
         {
             DataGridViewRow currentRow = dataGridViewControl.CurrentRow;
 
-            var calculationRow = (GrassCoverErosionInwardsCalculationRow) currentRow?.DataBoundItem;
+            var calculationRow = (ClosingStructuresCalculationRow) currentRow?.DataBoundItem;
 
-            GrassCoverErosionInwardsInputContext selection = null;
+            ClosingStructuresInputContext selection = null;
             if (calculationRow != null)
             {
-                selection = new GrassCoverErosionInwardsInputContext(
-                    calculationRow.GrassCoverErosionInwardsCalculationScenario.InputParameters,
-                    calculationRow.GrassCoverErosionInwardsCalculationScenario,
+                selection = new ClosingStructuresInputContext(
+                    calculationRow.ClosingStructuresCalculationScenario.InputParameters,
+                    calculationRow.ClosingStructuresCalculationScenario,
                     failureMechanism,
                     assessmentSection);
             }
@@ -278,14 +287,14 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
             }
 
             IEnumerable<Segment2D> lineSegments = Math2D.ConvertPointsToLineSegments(failureMechanismSection.Points);
-            IEnumerable<GrassCoverErosionInwardsCalculationScenario> calculationScenarios = calculationGroup
-                                                                                            .GetCalculations()
-                                                                                            .OfType<GrassCoverErosionInwardsCalculationScenario>()
-                                                                                            .Where(cs => cs.IsDikeProfileIntersectionWithReferenceLineInSection(lineSegments));
+            IEnumerable<StructuresCalculationScenario<ClosingStructuresInput>> calculationScenarios = calculationGroup
+                                                                                                      .GetCalculations()
+                                                                                                      .OfType<StructuresCalculationScenario<ClosingStructuresInput>>();
+                                                                                                      //.Where(cs => cs.IsDikeProfileIntersectionWithReferenceLineInSection(lineSegments));
 
             PrefillComboBoxListItemsAtColumnLevel();
 
-            List<GrassCoverErosionInwardsCalculationRow> dataSource = calculationScenarios.Select(cs => new GrassCoverErosionInwardsCalculationRow(cs, new ObservablePropertyChangeHandler(cs, cs.InputParameters))).ToList();
+            List<ClosingStructuresCalculationRow> dataSource = calculationScenarios.Select(cs => new ClosingStructuresCalculationRow(cs, new ObservablePropertyChangeHandler(cs, cs.InputParameters))).ToList();
             dataGridViewControl.SetDataSource(dataSource);
             dataGridViewControl.ClearCurrentCell();
 
@@ -314,24 +323,24 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
 
         private void FillAvailableSelectableHydraulicBoundaryLocationsList(DataGridViewRow dataGridViewRow)
         {
-            var rowData = (GrassCoverErosionInwardsCalculationRow) dataGridViewRow.DataBoundItem;
-            IEnumerable<SelectableHydraulicBoundaryLocation> locations = GetSelectableHydraulicBoundaryLocationsForCalculation(rowData.GrassCoverErosionInwardsCalculationScenario);
+            var rowData = (ClosingStructuresCalculationRow) dataGridViewRow.DataBoundItem;
+            IEnumerable<SelectableHydraulicBoundaryLocation> locations = GetSelectableHydraulicBoundaryLocationsForCalculation(rowData.ClosingStructuresCalculationScenario);
 
             var cell = (DataGridViewComboBoxCell) dataGridViewRow.Cells[selectableHydraulicBoundaryLocationColumnIndex];
             DataGridViewComboBoxItemWrapper<SelectableHydraulicBoundaryLocation>[] dataGridViewComboBoxItemWrappers = GetSelectableHydraulicBoundaryLocationsDataSource(locations);
             SetItemsOnObjectCollection(cell.Items, dataGridViewComboBoxItemWrappers);
         }
 
-        private IEnumerable<SelectableHydraulicBoundaryLocation> GetSelectableHydraulicBoundaryLocationsForCalculation(GrassCoverErosionInwardsCalculationScenario calculationScenario)
+        private IEnumerable<SelectableHydraulicBoundaryLocation> GetSelectableHydraulicBoundaryLocationsForCalculation(StructuresCalculationScenario<ClosingStructuresInput> calculationScenario)
         {
             return GetSelectableHydraulicBoundaryLocations(assessmentSection?.HydraulicBoundaryDatabase.Locations,
-                                                           calculationScenario.InputParameters.DikeProfile);
+                                                           calculationScenario.InputParameters.ForeshoreProfile);
         }
 
         private static IEnumerable<SelectableHydraulicBoundaryLocation> GetSelectableHydraulicBoundaryLocations(
-            IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations, DikeProfile dikeProfile)
+            IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations, ForeshoreProfile foreshoreProfile)
         {
-            Point2D referencePoint = dikeProfile?.WorldReferencePoint;
+            Point2D referencePoint = foreshoreProfile?.WorldReferencePoint;
             return SelectableHydraulicBoundaryLocationHelper.GetSortedSelectableHydraulicBoundaryLocations(
                 hydraulicBoundaryLocations, referencePoint);
         }
@@ -342,7 +351,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
 
         private void UpdateDikeProfilesColumn()
         {
-            var column = (DataGridViewComboBoxColumn) dataGridViewControl.GetColumnFromIndex(selectableDikeProfileColumnIndex);
+            var column = (DataGridViewComboBoxColumn) dataGridViewControl.GetColumnFromIndex(selectableForeshoreProfileColumnIndex);
 
             using (new SuspendDataGridViewColumnResizes(column))
             {
@@ -355,21 +364,21 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
 
         private void FillAvailableDikeProfilesList(DataGridViewRow dataGridViewRow)
         {
-            var cell = (DataGridViewComboBoxCell) dataGridViewRow.Cells[selectableDikeProfileColumnIndex];
-            DataGridViewComboBoxItemWrapper<DikeProfile>[] dataGridViewComboBoxItemWrappers = GetSelectableDikeProfileDataSource(failureMechanism.DikeProfiles);
+            var cell = (DataGridViewComboBoxCell) dataGridViewRow.Cells[selectableForeshoreProfileColumnIndex];
+            DataGridViewComboBoxItemWrapper<ForeshoreProfile>[] dataGridViewComboBoxItemWrappers = GetSelectableForeshoreProfileDataSource(failureMechanism.ForeshoreProfiles);
             SetItemsOnObjectCollection(cell.Items, dataGridViewComboBoxItemWrappers);
         }
 
-        private static DataGridViewComboBoxItemWrapper<DikeProfile>[] GetSelectableDikeProfileDataSource(IEnumerable<DikeProfile> selectableDikeProfiles = null)
+        private static DataGridViewComboBoxItemWrapper<ForeshoreProfile>[] GetSelectableForeshoreProfileDataSource(IEnumerable<ForeshoreProfile> selectableForeshorePofiles = null)
         {
-            var dataGridViewComboBoxItemWrappers = new List<DataGridViewComboBoxItemWrapper<DikeProfile>>
+            var dataGridViewComboBoxItemWrappers = new List<DataGridViewComboBoxItemWrapper<ForeshoreProfile>>
             {
-                new DataGridViewComboBoxItemWrapper<DikeProfile>(null)
+                new DataGridViewComboBoxItemWrapper<ForeshoreProfile>(null)
             };
 
-            if (selectableDikeProfiles != null)
+            if (selectableForeshorePofiles != null)
             {
-                dataGridViewComboBoxItemWrappers.AddRange(selectableDikeProfiles.Select(dp => new DataGridViewComboBoxItemWrapper<DikeProfile>(dp)));
+                dataGridViewComboBoxItemWrappers.AddRange(selectableForeshorePofiles.Select(fp => new DataGridViewComboBoxItemWrapper<ForeshoreProfile>(fp)));
             }
 
             return dataGridViewComboBoxItemWrappers.ToArray();
@@ -394,12 +403,12 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
                                            GetSelectableHydraulicBoundaryLocationsDataSource(GetSelectableHydraulicBoundaryLocationsFromFailureMechanism()));
             }
 
-            var selectableDikeProfileColumn = (DataGridViewComboBoxColumn) dataGridViewControl.GetColumnFromIndex(selectableDikeProfileColumnIndex);
+            var selectableDikeProfileColumn = (DataGridViewComboBoxColumn) dataGridViewControl.GetColumnFromIndex(selectableForeshoreProfileColumnIndex);
 
             using (new SuspendDataGridViewColumnResizes(selectableDikeProfileColumn))
             {
                 SetItemsOnObjectCollection(selectableDikeProfileColumn.Items,
-                                           GetSelectableDikeProfileDataSource(failureMechanism.DikeProfiles));
+                                           GetSelectableForeshoreProfileDataSource(failureMechanism.ForeshoreProfiles));
             }
         }
 
@@ -434,25 +443,25 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
 
         private void OnGenerateCalculationsButtonClick(object sender, EventArgs e)
         {
-            using (var dialog = new GrassCoverErosionInwardsDikeProfileSelectionDialog(Parent, failureMechanism.DikeProfiles))
+            using (var dialog = new StructureSelectionDialog(Parent, failureMechanism.ClosingStructures))
             {
                 dialog.ShowDialog();
-                GenerateCalculations(calculationGroup, dialog.SelectedItems);
+                //GenerateCalculations(calculationGroup, dialog.SelectedItems);
             }
 
             calculationGroup.NotifyObservers();
         }
 
-        private static void GenerateCalculations(CalculationGroup calculationGroup, IEnumerable<DikeProfile> dikeProfiles)
+        private static void GenerateCalculations(CalculationGroup calculationGroup, IEnumerable<ForeshoreProfile> foreshoreProfiles)
         {
-            foreach (DikeProfile profile in dikeProfiles)
+            foreach (ForeshoreProfile profile in foreshoreProfiles)
             {
-                var calculation = new GrassCoverErosionInwardsCalculationScenario
+                var calculation = new StructuresCalculationScenario<ClosingStructuresInput>
                 {
                     Name = NamingHelper.GetUniqueName(calculationGroup.Children, profile.Name, c => c.Name),
                     InputParameters =
                     {
-                        DikeProfile = profile
+                        ForeshoreProfile = profile
                     }
                 };
                 calculationGroup.Children.Add(calculation);
