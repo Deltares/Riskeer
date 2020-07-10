@@ -66,12 +66,12 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionInwardsCalculationsView"/>.
         /// </summary>
+        /// <param name="data">The data.</param>
+        /// <param name="failureMechanism">The failure mechanism.</param>
+        /// <param name="assessmentSection">The assessment section.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public GrassCoverErosionInwardsCalculationsView(CalculationGroup data, GrassCoverErosionInwardsFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
         {
-            InitializeComponent();
-            InitializeDataGridView();
-            InitializeListBox();
-
             if (data == null)
             {
                 throw new ArgumentNullException(nameof(data));
@@ -86,6 +86,8 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
             {
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
+
+            InitializeComponent();
 
             this.failureMechanism = failureMechanism;
             this.assessmentSection = assessmentSection;
@@ -137,6 +139,8 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
             // Necessary to correctly load the content of the dropdown lists of the comboboxes...
             UpdateDataGridViewDataSource();
             base.OnLoad(e);
+            InitializeDataGridView();
+            InitializeListBox();
 
             dataGridViewControl.CellFormatting += HandleCellStyling;
         }
