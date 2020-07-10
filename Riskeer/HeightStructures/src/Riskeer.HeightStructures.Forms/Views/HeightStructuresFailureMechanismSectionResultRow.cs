@@ -387,7 +387,7 @@ namespace Riskeer.HeightStructures.Forms.Views
 
             ColumnStateHelper.SetColumnState(ColumnStateDefinitions[simpleAssessmentResultIndex], UseManualAssembly);
             ColumnStateHelper.SetColumnState(ColumnStateDefinitions[detailedAssessmentResultIndex],
-                                                                  simpleAssessmentSufficient || UseManualAssembly);
+                                             simpleAssessmentSufficient || UseManualAssembly);
             if (simpleAssessmentSufficient
                 || !FailureMechanismSectionResultRowHelper.DetailedAssessmentResultIsProbability(DetailedAssessmentResult)
                 || UseManualAssembly)
@@ -400,11 +400,11 @@ namespace Riskeer.HeightStructures.Forms.Views
             }
 
             ColumnStateHelper.SetColumnState(ColumnStateDefinitions[tailorMadeAssessmentResultIndex],
-                                                                  simpleAssessmentSufficient || UseManualAssembly);
+                                             simpleAssessmentSufficient || UseManualAssembly);
             ColumnStateHelper.SetColumnState(ColumnStateDefinitions[tailorMadeAssessmentProbabilityIndex],
-                                                                  simpleAssessmentSufficient
-                                                                  || !FailureMechanismSectionResultRowHelper.TailorMadeAssessmentResultIsProbability(TailorMadeAssessmentResult)
-                                                                  || UseManualAssembly);
+                                             simpleAssessmentSufficient
+                                             || !FailureMechanismSectionResultRowHelper.TailorMadeAssessmentResultIsProbability(TailorMadeAssessmentResult)
+                                             || UseManualAssembly);
 
             if (UseManualAssembly)
             {
