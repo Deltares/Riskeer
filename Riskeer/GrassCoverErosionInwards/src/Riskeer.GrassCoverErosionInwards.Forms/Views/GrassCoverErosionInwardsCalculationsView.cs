@@ -119,11 +119,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
             {
                 Observable = calculationGroup
             };
-
-            UpdateSelectableHydraulicBoundaryLocationsColumn();
-            UpdateDikeProfilesColumn();
-            UpdateSectionsListBox();
-            UpdateGenerateCalculationsButtonState();
         }
 
         public object Selection => CreateSelectedItemFromCurrentRow();
@@ -141,6 +136,10 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
             base.OnLoad(e);
             InitializeDataGridView();
             InitializeListBox();
+            UpdateSelectableHydraulicBoundaryLocationsColumn();
+            UpdateDikeProfilesColumn();
+            UpdateSectionsListBox();
+            UpdateGenerateCalculationsButtonState();
 
             dataGridViewControl.CellFormatting += HandleCellStyling;
         }
