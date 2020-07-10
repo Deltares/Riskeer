@@ -249,7 +249,7 @@ namespace Riskeer.Storage.Core.Create
 
         /// <summary>
         /// Creates a <see cref="StabilityPointStructuresCalculationEntity"/> based
-        /// on the information of the <see cref="StructuresCalculation{T}"/>.
+        /// on the information of the <see cref="StructuresCalculationScenario{T}"/>.
         /// </summary>
         /// <param name="calculation">The calculation to create a database entity for.</param>
         /// <param name="registry">The object keeping track of create operations.</param>

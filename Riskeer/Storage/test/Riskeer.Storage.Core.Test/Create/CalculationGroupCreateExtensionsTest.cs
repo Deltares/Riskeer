@@ -48,7 +48,7 @@ namespace Riskeer.Storage.Core.Test.Create
             var group = new CalculationGroup();
 
             // Call
-            void Call() => @group.Create(null, 0);
+            void Call() => group.Create(null, 0);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);

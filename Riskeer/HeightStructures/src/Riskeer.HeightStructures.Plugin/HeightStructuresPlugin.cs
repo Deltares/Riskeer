@@ -463,7 +463,7 @@ namespace Riskeer.HeightStructures.Plugin
                                                                                         context.FailureMechanism,
                                                                                         context.AssessmentSection));
                 }
-                else if (calculationItem is CalculationGroup @group)
+                else if (calculationItem is CalculationGroup group)
                 {
                     childNodeObjects.Add(new HeightStructuresCalculationGroupContext(group,
                                                                                      context.WrappedData,

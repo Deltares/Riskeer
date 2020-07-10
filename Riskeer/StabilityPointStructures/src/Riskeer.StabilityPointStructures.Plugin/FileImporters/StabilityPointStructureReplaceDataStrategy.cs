@@ -31,7 +31,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.FileImporters
 {
     /// <summary>
     /// An <see cref="ReplaceDataStrategyBase{TTargetData,TFailureMechanism}"/> 
-    /// to replace stability point structures with the imported stability point structures
+    /// to replace stability point structures with the imported stability point structures.
     /// </summary>
     public class StabilityPointStructureReplaceDataStrategy : ReplaceDataStrategyBase<StabilityPointStructure, StabilityPointStructuresFailureMechanism>,
                                                               IStructureUpdateStrategy<StabilityPointStructure>
