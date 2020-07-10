@@ -56,10 +56,10 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
         private readonly RecursiveObserver<CalculationGroup, GrassCoverErosionInwardsInput> inputObserver;
         private readonly RecursiveObserver<CalculationGroup, GrassCoverErosionInwardsCalculationScenario> calculationScenarioObserver;
         private readonly RecursiveObserver<CalculationGroup, CalculationGroup> calculationGroupObserver;
-
-        private CalculationGroup calculationGroup;
         private readonly IAssessmentSection assessmentSection;
         private readonly GrassCoverErosionInwardsFailureMechanism failureMechanism;
+
+        private CalculationGroup calculationGroup;
 
         public event EventHandler<EventArgs> SelectionChanged;
 
@@ -76,10 +76,12 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
             {
                 throw new ArgumentNullException(nameof(data));
             }
+
             if (failureMechanism == null)
             {
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
+
             if (assessmentSection == null)
             {
                 throw new ArgumentNullException(nameof(assessmentSection));
@@ -135,7 +137,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
             // Necessary to correctly load the content of the dropdown lists of the comboboxes...
             UpdateDataGridViewDataSource();
             base.OnLoad(e);
-            
+
             dataGridViewControl.CellFormatting += HandleCellStyling;
         }
 

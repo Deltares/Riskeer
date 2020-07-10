@@ -170,17 +170,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             mocks.VerifyAll();
         }
 
-        private static void AssertColumnMembers(IReadOnlyList<DataGridViewComboBoxColumn> dataGridViewColumns)
-        {
-            foreach (DataGridViewComboBoxColumn column in dataGridViewColumns)
-            {
-                Assert.AreEqual("DisplayName", column.DisplayMember);
-            }
-            Assert.AreEqual("This", dataGridViewColumns[0].ValueMember);
-            Assert.AreEqual("This", dataGridViewColumns[1].ValueMember);
-            Assert.AreEqual("Value", dataGridViewColumns[2].ValueMember);
-        }
-
         [Test]
         public void Constructor_ListBoxCorrectlyInitialized()
         {
@@ -814,6 +803,18 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             }
 
             mocks.VerifyAll();
+        }
+
+        private static void AssertColumnMembers(IReadOnlyList<DataGridViewComboBoxColumn> dataGridViewColumns)
+        {
+            foreach (DataGridViewComboBoxColumn column in dataGridViewColumns)
+            {
+                Assert.AreEqual("DisplayName", column.DisplayMember);
+            }
+
+            Assert.AreEqual("This", dataGridViewColumns[0].ValueMember);
+            Assert.AreEqual("This", dataGridViewColumns[1].ValueMember);
+            Assert.AreEqual("Value", dataGridViewColumns[2].ValueMember);
         }
 
         public override void Setup()
