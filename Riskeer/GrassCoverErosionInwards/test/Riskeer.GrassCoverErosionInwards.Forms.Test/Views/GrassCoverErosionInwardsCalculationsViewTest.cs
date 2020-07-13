@@ -147,18 +147,17 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             GrassCoverErosionInwardsFailureMechanism failureMechanism = ConfigureFailureMechanism();
 
             // Call
-            using (ShowCalculationsView(ConfigureCalculationGroup(failureMechanism, assessmentSection), failureMechanism, assessmentSection))
-            {
-                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+            ShowCalculationsView(ConfigureCalculationGroup(failureMechanism, assessmentSection), failureMechanism, assessmentSection);
 
-                // Assert
-                Assert.IsFalse(dataGridView.AutoGenerateColumns);
-                Assert.AreEqual(10, dataGridView.ColumnCount);
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
-                AssertColumnMembers(dataGridView.Columns.OfType<DataGridViewComboBoxColumn>().ToArray());
+            // Assert
+            Assert.IsFalse(dataGridView.AutoGenerateColumns);
+            Assert.AreEqual(10, dataGridView.ColumnCount);
 
-                AssertDataGridViewControlColumnHeaders(dataGridView);
-            }
+            AssertColumnMembers(dataGridView.Columns.OfType<DataGridViewComboBoxColumn>().ToArray());
+
+            AssertDataGridViewControlColumnHeaders(dataGridView);
 
             mocks.VerifyAll();
         }
@@ -175,37 +174,12 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             GrassCoverErosionInwardsFailureMechanism failureMechanism = ConfigureFailureMechanism();
 
             // Call
-            using (ShowCalculationsView(ConfigureCalculationGroup(failureMechanism, assessmentSection), failureMechanism, assessmentSection))
-            {
-                var listBox = (ListBox) new ControlTester("listBox").TheObject;
+            ShowCalculationsView(ConfigureCalculationGroup(failureMechanism, assessmentSection), failureMechanism, assessmentSection);
 
-                // Assert
-                Assert.AreEqual(2, listBox.Items.Count);
-            }
+            var listBox = (ListBox) new ControlTester("listBox").TheObject;
 
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void AssessmentSection_WithHydraulicBoundaryDatabase_SelectableHydraulicBoundaryLocationsComboboxCorrectlyInitialized()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            // Call
-            using (ShowFullyConfiguredCalculationsView(assessmentSection))
-            {
-                // Assert
-                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-                var hydraulicBoundaryLocationCombobox = (DataGridViewComboBoxColumn) dataGridView.Columns[selectableHydraulicBoundaryLocationsColumnIndex];
-                DataGridViewComboBoxCell.ObjectCollection hydraulicBoundaryLocationComboboxItems = hydraulicBoundaryLocationCombobox.Items;
-                Assert.AreEqual(3, hydraulicBoundaryLocationComboboxItems.Count);
-                Assert.AreEqual("<selecteer>", hydraulicBoundaryLocationComboboxItems[0].ToString());
-                Assert.AreEqual("Location 1 (0 m)", hydraulicBoundaryLocationComboboxItems[1].ToString());
-                Assert.AreEqual("Location 2 (0 m)", hydraulicBoundaryLocationComboboxItems[2].ToString());
-            }
+            // Assert
+            Assert.AreEqual(2, listBox.Items.Count);
 
             mocks.VerifyAll();
         }
@@ -226,10 +200,14 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
                 var hydraulicBoundaryLocationCombobox = (DataGridViewComboBoxColumn) dataGridView.Columns[selectableHydraulicBoundaryLocationsColumnIndex];
                 DataGridViewComboBoxCell.ObjectCollection hydraulicBoundaryLocationComboboxItems = hydraulicBoundaryLocationCombobox.Items;
-                Assert.AreEqual(3, hydraulicBoundaryLocationComboboxItems.Count);
+                Assert.AreEqual(7, hydraulicBoundaryLocationComboboxItems.Count);
                 Assert.AreEqual("<selecteer>", hydraulicBoundaryLocationComboboxItems[0].ToString());
-                Assert.AreEqual("Location 1 (0 m)", hydraulicBoundaryLocationComboboxItems[1].ToString());
-                Assert.AreEqual("Location 2 (0 m)", hydraulicBoundaryLocationComboboxItems[2].ToString());
+                Assert.AreEqual("Location 1", hydraulicBoundaryLocationComboboxItems[1].ToString());
+                Assert.AreEqual("Location 2", hydraulicBoundaryLocationComboboxItems[2].ToString());
+                Assert.AreEqual("Location 1 (2 m)", hydraulicBoundaryLocationComboboxItems[3].ToString());
+                Assert.AreEqual("Location 2 (6 m)", hydraulicBoundaryLocationComboboxItems[4].ToString());
+                Assert.AreEqual("Location 1 (4 m)", hydraulicBoundaryLocationComboboxItems[5].ToString());
+                Assert.AreEqual("Location 2 (5 m)", hydraulicBoundaryLocationComboboxItems[6].ToString());
             }
 
             mocks.VerifyAll();
@@ -299,15 +277,14 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             }, string.Empty);
 
             // Call
-            using (ShowCalculationsView(ConfigureCalculationGroup(failureMechanism, assessmentSection), failureMechanism, assessmentSection))
-            {
-                // Assert
-                var listBox = (ListBox) new ControlTester("listBox").TheObject;
-                Assert.AreEqual(3, listBox.Items.Count);
-                Assert.AreSame(failureMechanismSection1, listBox.Items[0]);
-                Assert.AreSame(failureMechanismSection2, listBox.Items[1]);
-                Assert.AreSame(failureMechanismSection3, listBox.Items[2]);
-            }
+            ShowCalculationsView(ConfigureCalculationGroup(failureMechanism, assessmentSection), failureMechanism, assessmentSection);
+
+            // Assert
+            var listBox = (ListBox) new ControlTester("listBox").TheObject;
+            Assert.AreEqual(3, listBox.Items.Count);
+            Assert.AreSame(failureMechanismSection1, listBox.Items[0]);
+            Assert.AreSame(failureMechanismSection2, listBox.Items[1]);
+            Assert.AreSame(failureMechanismSection3, listBox.Items[2]);
 
             mocks.VerifyAll();
         }
@@ -332,7 +309,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
                 DataGridViewCellCollection cells = rows[0].Cells;
                 Assert.AreEqual(10, cells.Count);
                 Assert.AreEqual("Calculation 1", cells[nameColumnIndex].FormattedValue);
-                Assert.AreEqual("Location 1 (0 m)", cells[selectableHydraulicBoundaryLocationsColumnIndex].FormattedValue);
+                Assert.AreEqual("Location 1 (2 m)", cells[selectableHydraulicBoundaryLocationsColumnIndex].FormattedValue);
                 Assert.AreEqual("name", cells[dikeProfileColumnIndex].FormattedValue);
                 Assert.AreEqual(false, cells[useBreakWaterColumnIndex].FormattedValue);
                 Assert.AreEqual("Havendam", cells[breakWaterTypeColumnIndex].FormattedValue);
@@ -476,18 +453,17 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
 
             var newRoundedValue = (RoundedDouble) newValue;
 
-            using (ShowCalculationsView(calculationGroup, failureMechanism, assessmentSection))
-            {
-                mocks.ReplayAll();
+            ShowCalculationsView(calculationGroup, failureMechanism, assessmentSection);
 
-                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+            mocks.ReplayAll();
 
-                // Call
-                dataGridView.Rows[0].Cells[cellIndex].Value = newRoundedValue;
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
-                // Assert
-                Assert.IsEmpty(dataGridView.Rows[0].ErrorText);
-            }
+            // Call
+            dataGridView.Rows[0].Cells[cellIndex].Value = newRoundedValue;
+
+            // Assert
+            Assert.IsEmpty(dataGridView.Rows[0].ErrorText);
 
             mocks.VerifyAll();
         }
@@ -530,34 +506,33 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
                 DikeProfileTestFactory.CreateDikeProfile(new Point2D(5.0, 0.0), "profiel 2"),
             }, string.Empty);
 
-            using (ShowCalculationsView(ConfigureCalculationGroup(failureMechanism, assessmentSection), failureMechanism, assessmentSection))
+            ShowCalculationsView(ConfigureCalculationGroup(failureMechanism, assessmentSection), failureMechanism, assessmentSection);
+
+            var listBox = (ListBox) new ControlTester("listBox").TheObject;
+
+            // Precondition
+            Assert.AreEqual(2, listBox.Items.Count);
+
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
-                var listBox = (ListBox) new ControlTester("listBox").TheObject;
+                failureMechanismSection1,
+                failureMechanismSection2,
+                failureMechanismSection3
+            });
 
-                // Precondition
-                Assert.AreEqual(2, listBox.Items.Count);
+            failureMechanism.DikeProfiles.AddRange(new List<DikeProfile>
+            {
+                DikeProfileTestFactory.CreateDikeProfile(new Point2D(10.0, 0.0), "profiel 3")
+            }, string.Empty);
 
-                FailureMechanismTestHelper.SetSections(failureMechanism, new[]
-                {
-                    failureMechanismSection1,
-                    failureMechanismSection2,
-                    failureMechanismSection3
-                });
+            // When
+            failureMechanism.NotifyObservers();
 
-                failureMechanism.DikeProfiles.AddRange(new List<DikeProfile>
-                {
-                    DikeProfileTestFactory.CreateDikeProfile(new Point2D(10.0, 0.0), "profiel 3")
-                }, string.Empty);
-
-                // When
-                failureMechanism.NotifyObservers();
-
-                // Then
-                Assert.AreEqual(3, listBox.Items.Count);
-                Assert.AreSame(failureMechanismSection1, listBox.Items[0]);
-                Assert.AreSame(failureMechanismSection2, listBox.Items[1]);
-                Assert.AreSame(failureMechanismSection3, listBox.Items[2]);
-            }
+            // Then
+            Assert.AreEqual(3, listBox.Items.Count);
+            Assert.AreSame(failureMechanismSection1, listBox.Items[0]);
+            Assert.AreSame(failureMechanismSection2, listBox.Items[1]);
+            Assert.AreSame(failureMechanismSection3, listBox.Items[2]);
 
             mocks.VerifyAll();
         }
@@ -670,32 +645,30 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             assessmentSection.Replay();
 
             GrassCoverErosionInwardsFailureMechanism failureMechanism = ConfigureFailureMechanism();
+            GrassCoverErosionInwardsCalculationsView calculationsView = ShowCalculationsView(ConfigureCalculationGroup(failureMechanism, assessmentSection), failureMechanism, assessmentSection);
 
-            using (GrassCoverErosionInwardsCalculationsView calculationsView = ShowCalculationsView(ConfigureCalculationGroup(failureMechanism, assessmentSection), failureMechanism, assessmentSection))
+            mocks.ReplayAll();
+
+            var data = (CalculationGroup) calculationsView.Data;
+            var calculationScenario = (GrassCoverErosionInwardsCalculationScenario) data.Children[1];
+
+            if (useCalculationWithOutput)
             {
-                mocks.ReplayAll();
-
-                var data = (CalculationGroup) calculationsView.Data;
-                var calculationScenario = (GrassCoverErosionInwardsCalculationScenario) data.Children[1];
-
-                if (useCalculationWithOutput)
-                {
-                    calculationScenario.Output = new GrassCoverErosionInwardsOutput(new TestOvertoppingOutput(2.4),
-                                                                                    new TestDikeHeightOutput(4.2),
-                                                                                    new TestOvertoppingRateOutput(1.0));
-                }
-
-                calculationScenario.Attach(calculationObserver);
-                calculationScenario.InputParameters.Attach(inputObserver);
-
-                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-
-                // Call
-                dataGridView.Rows[1].Cells[cellIndex].Value = newValue is double ? (RoundedDouble) (double) newValue : newValue;
-
-                // Assert
-                calculationScenario.Output = null;
+                calculationScenario.Output = new GrassCoverErosionInwardsOutput(new TestOvertoppingOutput(2.4),
+                                                                                new TestDikeHeightOutput(4.2),
+                                                                                new TestOvertoppingRateOutput(1.0));
             }
+
+            calculationScenario.Attach(calculationObserver);
+            calculationScenario.InputParameters.Attach(inputObserver);
+
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+
+            // Call
+            dataGridView.Rows[1].Cells[cellIndex].Value = newValue is double value ? (RoundedDouble) value : newValue;
+
+            // Assert
+            calculationScenario.Output = null;
 
             mocks.VerifyAll();
         }

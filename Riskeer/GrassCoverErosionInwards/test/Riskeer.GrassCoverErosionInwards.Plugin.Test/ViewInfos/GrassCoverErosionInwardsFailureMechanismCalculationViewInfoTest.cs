@@ -67,7 +67,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void GetViewData_ContextNull_ReturnsWrappedCalculationGroup()
+        public void GetViewData_ContextNotNull_ReturnsWrappedCalculationGroup()
         {
             // Setup
             var assessmentSection = new AssessmentSectionStub();
@@ -78,7 +78,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
                                                                                               null,
                                                                                               failureMechanism,
                                                                                               assessmentSection);
-            
+
             // Call
             object viewData = info.GetViewData(calculationGroupContext);
 
@@ -98,16 +98,15 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
                 Name = calculationGroupName
             };
 
-                var calculationGroupContext = new GrassCoverErosionInwardsCalculationGroupContext(calculationGroup,
-                                                                                                                          null,
-                                                                                                                          new GrassCoverErosionInwardsFailureMechanism(),
-                                                                                                                          assessmentSection);
-                // Call
-                string name = info.GetViewName(null, calculationGroupContext);
+            var calculationGroupContext = new GrassCoverErosionInwardsCalculationGroupContext(calculationGroup,
+                                                                                              null,
+                                                                                              new GrassCoverErosionInwardsFailureMechanism(),
+                                                                                              assessmentSection);
+            // Call
+            string name = info.GetViewName(null, calculationGroupContext);
 
-                // Assert
-                Assert.AreEqual(calculationGroupName, name);
-            
+            // Assert
+            Assert.AreEqual(calculationGroupName, name);
         }
 
         [Test]
@@ -118,9 +117,9 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
 
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             var calculationGroupContext = new GrassCoverErosionInwardsCalculationGroupContext(failureMechanism.CalculationsGroup,
-                                                                                                                      null,
-                                                                                                                      failureMechanism,
-                                                                                                                      assessmentSection);
+                                                                                              null,
+                                                                                              failureMechanism,
+                                                                                              assessmentSection);
 
             // Call
             bool additionalDataCheck = info.AdditionalDataCheck(calculationGroupContext);
@@ -138,9 +137,9 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             var calculationGroup = new CalculationGroup();
             var calculationGroupContext = new GrassCoverErosionInwardsCalculationGroupContext(calculationGroup,
-                                                                                                                      null,
-                                                                                                                      failureMechanism,
-                                                                                                                      assessmentSection);
+                                                                                              null,
+                                                                                              failureMechanism,
+                                                                                              assessmentSection);
 
             // Call
             bool additionalDataCheck = info.AdditionalDataCheck(calculationGroupContext);
@@ -232,7 +231,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
 
                 // Call
                 bool closeForData = info.CloseForData(calculationsView, failureMechanism);
-                
+
                 // Assert
                 Assert.IsFalse(closeForData);
             }
@@ -278,7 +277,6 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
                 // Assert
                 Assert.IsFalse(closeForData);
             }
-
         }
 
         [Test]

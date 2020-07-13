@@ -71,9 +71,7 @@ namespace Riskeer.ClosingStructures.Forms.Views
         public ClosingStructuresCalculationsView(CalculationGroup data, ClosingStructuresFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
         {
             InitializeComponent();
-            InitializeDataGridView();
-            InitializeListBox();
-
+            
             if (data == null)
             {
                 throw new ArgumentNullException(nameof(data));
@@ -117,11 +115,6 @@ namespace Riskeer.ClosingStructures.Forms.Views
             {
                 Observable = calculationGroup
             };
-
-            UpdateSelectableHydraulicBoundaryLocationsColumn();
-            UpdateDikeProfilesColumn();
-            UpdateSectionsListBox();
-            UpdateGenerateCalculationsButtonState();
         }
 
         public object Selection => CreateSelectedItemFromCurrentRow();
@@ -135,9 +128,18 @@ namespace Riskeer.ClosingStructures.Forms.Views
         protected override void OnLoad(EventArgs e)
         {
             // Necessary to correctly load the content of the dropdown lists of the comboboxes...
-            UpdateDataGridViewDataSource();
             base.OnLoad(e);
-            
+
+            InitializeListBox();
+            InitializeDataGridView();
+
+            UpdateSectionsListBox();
+            UpdateDataGridViewDataSource();
+            UpdateSelectableHydraulicBoundaryLocationsColumn();
+            UpdateDikeProfilesColumn();
+            UpdateSectionsListBox();
+            UpdateGenerateCalculationsButtonState();
+
             dataGridViewControl.CellFormatting += HandleCellStyling;
         }
 
