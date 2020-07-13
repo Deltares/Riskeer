@@ -66,10 +66,12 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
         [Test]
         public void Constructor_CalculationGroupNull_ThrowsArgumentNullException()
         {
+            // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
+            // Call
             void Call() => new GrassCoverErosionInwardsCalculationsView(null, new TestGrassCoverErosionInwardsFailureMechanism(), assessmentSection);
 
             // Assert
@@ -98,12 +100,13 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
         [Test]
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
+            // Setup
             var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
-
+            
             GrassCoverErosionInwardsFailureMechanism failureMechanism = new TestGrassCoverErosionInwardsFailureMechanism();
 
+            // Call
             void Call() => new GrassCoverErosionInwardsCalculationsView(new CalculationGroup(), failureMechanism, null);
 
             // Assert
