@@ -106,8 +106,8 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             Assert.AreEqual(soilLayerData.MaterialName, formattedSoilLayerDataRow.MaterialName);
             Assert.AreEqual(soilLayerData.Color, formattedSoilLayerDataRow.Color);
             Assert.AreEqual(soilLayerData.IsAquifer, formattedSoilLayerDataRow.IsAquifer);
-            Assert.AreEqual("0,85 (Verwachtingswaarde = 1,00, Variatiecoëfficiënt = 1,00, Verschuiving = 0,50)", formattedSoilLayerDataRow.AbovePhreaticLevel);
-            Assert.AreEqual("1,45 (Verwachtingswaarde = 2,00, Variatiecoëfficiënt = 2,00, Verschuiving = 1,00)", formattedSoilLayerDataRow.BelowPhreaticLevel);
+            Assert.AreEqual("1,00 (Verwachtingswaarde = 1,00, Variatiecoëfficiënt = 1,00, Verschuiving = 0,50)", formattedSoilLayerDataRow.AbovePhreaticLevel);
+            Assert.AreEqual("2,00 (Verwachtingswaarde = 2,00, Variatiecoëfficiënt = 2,00, Verschuiving = 1,00)", formattedSoilLayerDataRow.BelowPhreaticLevel);
             Assert.AreEqual(soilLayerData.ShearStrengthModel, formattedSoilLayerDataRow.ShearStrengthModel);
             Assert.AreEqual("0,08 (Verwachtingswaarde = 3,00, Variatiecoëfficiënt = 3,00)", formattedSoilLayerDataRow.ShearStrengthRatio);
             Assert.AreEqual("0,06 (Verwachtingswaarde = 4,00, Variatiecoëfficiënt = 4,00)", formattedSoilLayerDataRow.Cohesion);

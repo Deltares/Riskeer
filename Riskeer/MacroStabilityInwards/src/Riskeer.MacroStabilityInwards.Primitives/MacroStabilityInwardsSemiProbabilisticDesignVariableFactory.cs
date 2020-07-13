@@ -31,12 +31,9 @@ namespace Riskeer.MacroStabilityInwards.Primitives
         /// <summary>
         /// Creates the design variable for the volumic weight of the layer above the phreatic level.
         /// </summary>
-        public static VariationCoefficientDesignVariable<VariationCoefficientLogNormalDistribution> GetAbovePhreaticLevel(MacroStabilityInwardsSoilLayerData data)
+        public static VariationCoefficientDeterministicDesignVariable<VariationCoefficientLogNormalDistribution> GetAbovePhreaticLevel(MacroStabilityInwardsSoilLayerData data)
         {
-            return new VariationCoefficientLogNormalDistributionDesignVariable(data.AbovePhreaticLevel)
-            {
-                Percentile = 0.5
-            };
+            return new VariationCoefficientDeterministicDesignVariable<VariationCoefficientLogNormalDistribution>(data.AbovePhreaticLevel, data.AbovePhreaticLevel.Mean);
         }
 
         /// <summary>
@@ -44,10 +41,7 @@ namespace Riskeer.MacroStabilityInwards.Primitives
         /// </summary>
         public static VariationCoefficientDesignVariable<VariationCoefficientLogNormalDistribution> GetBelowPhreaticLevel(MacroStabilityInwardsSoilLayerData data)
         {
-            return new VariationCoefficientLogNormalDistributionDesignVariable(data.BelowPhreaticLevel)
-            {
-                Percentile = 0.5
-            };
+            return new VariationCoefficientDeterministicDesignVariable<VariationCoefficientLogNormalDistribution>(data.BelowPhreaticLevel, data.BelowPhreaticLevel.Mean);
         }
 
         /// <summary>
