@@ -56,6 +56,7 @@ namespace Riskeer.ClosingStructures.Forms.Views
         private readonly IEnumerable<StructuresCalculationScenario<ClosingStructuresInput>> calculationScenarios;
         private readonly ClosingStructuresFailureMechanism failureMechanism;
         private readonly IAssessmentSection assessmentSection;
+
         private FailureMechanismSectionAssemblyCategoryGroup simpleAssemblyCategoryGroup;
         private FailureMechanismSectionAssemblyCategoryGroup detailedAssemblyCategoryGroup;
         private FailureMechanismSectionAssemblyCategoryGroup tailorMadeAssemblyCategoryGroup;

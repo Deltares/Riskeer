@@ -98,6 +98,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Views
         {
             return new StabilityPointStructuresFailureMechanismSectionResultRow(
                 sectionResult,
+                FailureMechanism.Calculations.Cast<StructuresCalculationScenario<StabilityPointStructuresInput>>(),
                 FailureMechanism,
                 assessmentSection,
                 new StabilityPointStructuresFailureMechanismSectionResultRow.ConstructionProperties
