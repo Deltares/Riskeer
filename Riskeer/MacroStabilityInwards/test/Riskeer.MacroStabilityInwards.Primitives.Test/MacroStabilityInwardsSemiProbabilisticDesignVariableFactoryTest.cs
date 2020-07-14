@@ -81,7 +81,7 @@ namespace Riskeer.MacroStabilityInwards.Primitives.Test
             };
 
             // Call
-            VariationCoefficientDesignVariable<VariationCoefficientLogNormalDistribution> belowPhreaticLevel = MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetBelowPhreaticLevel(data);
+            VariationCoefficientDeterministicDesignVariable<VariationCoefficientLogNormalDistribution> belowPhreaticLevel = MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetBelowPhreaticLevel(data);
 
             // Assert
             DistributionAssert.AreEqual(data.BelowPhreaticLevel, belowPhreaticLevel.Distribution);
