@@ -52,100 +52,100 @@
         <AssociationConnector Association="RingtoetsEntitiesModel.FK_HydraulicLocationEntity_7_0" />
         <AssociationConnector Association="RingtoetsEntitiesModel.FK_MacroStabilityInwardsSemiProbabilisticOutputEntity_0_0" />
         <AssociationConnector Association="RingtoetsEntitiesModel.FK_PipingSemiProbabilisticOutputEntity_0_0" />
-        <EntityTypeShape EntityType="RiskeerEntitiesModel.AssessmentSectionEntity" Width="1.5" PointX="3" PointY="121.375" />
-        <EntityTypeShape EntityType="RiskeerEntitiesModel.BackgroundDataEntity" Width="1.5" PointX="5.25" PointY="267.25" />
-        <EntityTypeShape EntityType="RiskeerEntitiesModel.BackgroundDataMetaEntity" Width="1.5" PointX="7.5" PointY="267.5" />
-        <EntityTypeShape EntityType="RiskeerEntitiesModel.CalculationGroupEntity" Width="1.5" PointX="3" PointY="129.875" />
-        <EntityTypeShape EntityType="RiskeerEntitiesModel.ClosingStructureEntity" Width="1.5" PointX="7.5" PointY="105.875" />
-        <EntityTypeShape EntityType="RiskeerEntitiesModel.ClosingStructuresCalculationEntity" Width="1.5" PointX="9.75" PointY="180.75" />
-        <EntityTypeShape EntityType="RiskeerEntitiesModel.ClosingStructuresFailureMechanismMetaEntity" Width="1.5" PointX="7.5" PointY="97.125" />
-        <EntityTypeShape EntityType="RiskeerEntitiesModel.ClosingStructuresOutputEntity" Width="1.5" PointX="15" PointY="185.125" />
-        <EntityTypeShape EntityType="RiskeerEntitiesModel.ClosingStructuresSectionResultEntity" Width="1.5" PointX="9.75" PointY="246.25" />
-        <EntityTypeShape EntityType="RiskeerEntitiesModel.DikeProfileEntity" Width="1.5" PointX="7.5" PointY="70.375" />
-        <EntityTypeShape EntityType="RiskeerEntitiesModel.DuneErosionFailureMechanismMetaEntity" Width="1.5" PointX="10.5" PointY="126.125" />
-        <EntityTypeShape EntityType="RiskeerEntitiesModel.DuneErosionSectionResultEntity" Width="1.5" PointX="9.75" PointY="216.75" />
-        <EntityTypeShape EntityType="RiskeerEntitiesModel.DuneLocationCalculationCollectionEntity" Width="1.5" PointX="8.25" PointY="143.75" />
-        <EntityTypeShape EntityType="RiskeerEntitiesModel.DuneLocationCalculationEntity" Width="1.5" PointX="15.75" PointY="208.5" />
-        <EntityTypeShape EntityType="RiskeerEntitiesModel.DuneLocationCalculationOutputEntity" Width="1.5" PointX="18" PointY="208" />
-        <EntityTypeShape EntityType="RiskeerEntitiesModel.DuneLocationEntity" Width="1.5" PointX="7.5" PointY="202.75" />
-        <EntityTypeShape EntityType="RiskeerEntitiesModel.FailureMechanismEntity" Width="1.5" PointX="5.25" PointY="124.375" />
-        <EntityTypeShape EntityType="RiskeerEntitiesModel.FailureMechanismSectionEntity" Width="1.5" PointX="7.5" PointY="223.625" />
-        <EntityTypeShape EntityType="RiskeerEntitiesModel.FaultTreeIllustrationPointEntity" Width="1.5" PointX="12.75" PointY="83.625" />
-        <EntityTypeShape EntityType="RiskeerEntitiesModel.ForeshoreProfileEntity" Width="1.5" PointX="7.5" PointY="134" />
-        <EntityTypeShape EntityType="RiskeerEntitiesModel.GeneralResultFaultTreeIllustrationPointEntity" Width="1.5" PointX="12.75" PointY="160.875" />
-        <EntityTypeShape EntityType="RiskeerEntitiesModel.GeneralResultSubMechanismIllustrationPointEntity" Width="1.5" PointX="13.5" PointY="217.625" />
-        <EntityTypeShape EntityType="RiskeerEntitiesModel.GrassCoverErosionInwardsCalculationEntity" Width="1.5" PointX="9.75" PointY="165.375" />
-        <EntityTypeShape EntityType="RiskeerEntitiesModel.GrassCoverErosionInwardsDikeHeightOutputEntity" Width="1.5" PointX="17.25" PointY="161.875" />
-        <EntityTypeShape EntityType="RiskeerEntitiesModel.GrassCoverErosionInwardsFailureMechanismMetaEntity" Width="1.5" PointX="7.5" PointY="128.75" />
-        <EntityTypeShape EntityType="RiskeerEntitiesModel.GrassCoverErosionInwardsOutputEntity" Width="1.5" PointX="15" PointY="166.875" />
-        <EntityTypeShape EntityType="RiskeerEntitiesModel.GrassCoverErosionInwardsOvertoppingRateOutputEntity" Width="1.5" PointX="20.25" PointY="164.875" />
-        <EntityTypeShape EntityType="RiskeerEntitiesModel.GrassCoverErosionInwardsSectionResultEntity" Width="1.5" PointX="9.75" PointY="199.875" />
-        <EntityTypeShape EntityType="RiskeerEntitiesModel.GrassCoverErosionOutwardsFailureMechanismMetaEntity" Width="1.5" PointX="10.5" PointY="121.125" />
-        <EntityTypeShape EntityType="RiskeerEntitiesModel.GrassCoverErosionOutwardsSectionResultEntity" Width="1.5" PointX="9.75" PointY="224.375" />
-        <EntityTypeShape EntityType="RiskeerEntitiesModel.GrassCoverErosionOutwardsWaveConditionsCalculationEntity" Width="1.5" PointX="12.75" PointY="204.5" />
-        <EntityTypeShape EntityType="RiskeerEntitiesModel.GrassCoverErosionOutwardsWaveConditionsOutputEntity" Width="1.5" PointX="15" PointY="212.25" />
-        <EntityTypeShape EntityType="RiskeerEntitiesModel.GrassCoverSlipOffInwardsSectionResultEntity" Width="1.5" PointX="9.75" PointY="228.375" />
-        <EntityTypeShape EntityType="RiskeerEntitiesModel.GrassCoverSlipOffOutwardsSectionResultEntity" Width="1.5" PointX="9.75" PointY="209.75" />
-        <EntityTypeShape EntityType="RiskeerEntitiesModel.HeightStructureEntity" Width="1.5" PointX="7.5" PointY="79.75" />
-        <EntityTypeShape EntityType="RiskeerEntitiesModel.HeightStructuresCalculationEntity" Width="1.5" PointX="12.75" PointY="166" />
-        <EntityTypeShape EntityType="RiskeerEntitiesModel.HeightStructuresFailureMechanismMetaEntity" Width="1.5" PointX="7.5" PointY="103" />
-        <EntityTypeShape EntityType="RiskeerEntitiesModel.HeightStructuresOutputEntity" Width="1.5" PointX="15" PointY="171" />
-        <EntityTypeShape EntityType="RiskeerEntitiesModel.HeightStructuresSectionResultEntity" Width="1.5" PointX="9.75" PointY="253.125" />
-        <EntityTypeShape EntityType="RiskeerEntitiesModel.HydraulicBoundaryDatabaseEntity" Width="1.5" PointX="5.25" PointY="118.625" />
-        <EntityTypeShape EntityType="RiskeerEntitiesModel.HydraulicLocationCalculationCollectionEntity" Width="1.5" PointX="0.75" PointY="122.875" />
-        <EntityTypeShape EntityType="RiskeerEntitiesModel.HydraulicLocationCalculationEntity" Width="1.5" PointX="7.5" PointY="193.5" />
-        <EntityTypeShape EntityType="RiskeerEntitiesModel.HydraulicLocationEntity" Width="1.5" PointX="5.25" PointY="262" />
-        <EntityTypeShape EntityType="RiskeerEntitiesModel.HydraulicLocationOutputEntity" Width="1.5" PointX="15.75" PointY="193.125" />
-        <EntityTypeShape EntityType="RiskeerEntitiesModel.IllustrationPointResultEntity" Width="1.5" PointX="3" PointY="8.5" />
-        <EntityTypeShape EntityType="RiskeerEntitiesModel.MacroStabilityInwardsCalculationEntity" Width="1.5" PointX="18" PointY="166.125" />
-        <EntityTypeShape EntityType="RiskeerEntitiesModel.MacroStabilityInwardsCalculationOutputEntity" Width="1.5" PointX="20.25" PointY="169" />
-        <EntityTypeShape EntityType="RiskeerEntitiesModel.MacroStabilityInwardsCharacteristicPointEntity" Width="1.5" PointX="9.75" PointY="90.875" />
-        <EntityTypeShape EntityType="RiskeerEntitiesModel.MacroStabilityInwardsFailureMechanismMetaEntity" Width="1.5" PointX="7.5" PointY="64.875" />
-        <EntityTypeShape EntityType="RiskeerEntitiesModel.MacroStabilityInwardsPreconsolidationStressEntity" Width="1.5" PointX="9.75" PointY="147.5" />
-        <EntityTypeShape EntityType="RiskeerEntitiesModel.MacroStabilityInwardsSectionResultEntity" Width="1.5" PointX="9.75" PointY="220.875" />
-        <EntityTypeShape EntityType="RiskeerEntitiesModel.MacroStabilityInwardsSoilLayerOneDEntity" Width="1.5" PointX="9.75" PointY="173" />
-        <EntityTypeShape EntityType="RiskeerEntitiesModel.MacroStabilityInwardsSoilLayerTwoDEntity" Width="1.5" PointX="9.75" PointY="150.75" />
-        <EntityTypeShape EntityType="RiskeerEntitiesModel.MacroStabilityInwardsSoilProfileOneDEntity" Width="1.5" PointX="7.5" PointY="150.125" />
-        <EntityTypeShape EntityType="RiskeerEntitiesModel.MacroStabilityInwardsSoilProfileTwoDEntity" Width="1.5" PointX="7.5" PointY="147.375" />
-        <EntityTypeShape EntityType="RiskeerEntitiesModel.MacroStabilityInwardsStochasticSoilProfileEntity" Width="1.5" PointX="9.75" PointY="139.25" />
-        <EntityTypeShape EntityType="RiskeerEntitiesModel.MacroStabilityOutwardsFailureMechanismMetaEntity" Width="1.5" PointX="7.5" PointY="131.5" />
-        <EntityTypeShape EntityType="RiskeerEntitiesModel.MacroStabilityOutwardsSectionResultEntity" Width="1.5" PointX="9.75" PointY="213.125" />
-        <EntityTypeShape EntityType="RiskeerEntitiesModel.MicrostabilitySectionResultEntity" Width="1.5" PointX="9.75" PointY="249.75" />
-        <EntityTypeShape EntityType="RiskeerEntitiesModel.PipingCalculationEntity" Width="1.5" PointX="15" PointY="176.5" />
-        <EntityTypeShape EntityType="RiskeerEntitiesModel.PipingCalculationOutputEntity" Width="1.5" PointX="17.25" PointY="181.25" />
-        <EntityTypeShape EntityType="RiskeerEntitiesModel.PipingCharacteristicPointEntity" Width="1.5" PointX="9.75" PointY="94" />
-        <EntityTypeShape EntityType="RiskeerEntitiesModel.PipingFailureMechanismMetaEntity" Width="1.5" PointX="7.5" PointY="59.125" />
-        <EntityTypeShape EntityType="RiskeerEntitiesModel.PipingSectionResultEntity" Width="1.5" PointX="9.75" PointY="231.75" />
-        <EntityTypeShape EntityType="RiskeerEntitiesModel.PipingSoilLayerEntity" Width="1.5" PointX="12.75" PointY="134.75" />
-        <EntityTypeShape EntityType="RiskeerEntitiesModel.PipingSoilProfileEntity" Width="1.5" PointX="10.5" PointY="135.625" />
-        <EntityTypeShape EntityType="RiskeerEntitiesModel.PipingStochasticSoilProfileEntity" Width="1.5" PointX="12.75" PointY="139.375" />
-        <EntityTypeShape EntityType="RiskeerEntitiesModel.PipingStructureFailureMechanismMetaEntity" Width="1.5" PointX="7.5" PointY="67.875" />
-        <EntityTypeShape EntityType="RiskeerEntitiesModel.PipingStructureSectionResultEntity" Width="1.5" PointX="9.75" PointY="206.5" />
-        <EntityTypeShape EntityType="RiskeerEntitiesModel.ProjectEntity" Width="1.5" PointX="0.75" PointY="120.125" />
-        <EntityTypeShape EntityType="RiskeerEntitiesModel.StabilityPointStructureEntity" Width="1.5" PointX="7.5" PointY="116.75" />
-        <EntityTypeShape EntityType="RiskeerEntitiesModel.StabilityPointStructuresCalculationEntity" Width="1.5" PointX="12.75" PointY="181.5" />
-        <EntityTypeShape EntityType="RiskeerEntitiesModel.StabilityPointStructuresFailureMechanismMetaEntity" Width="1.5" PointX="7.5" PointY="100.125" />
-        <EntityTypeShape EntityType="RiskeerEntitiesModel.StabilityPointStructuresOutputEntity" Width="1.5" PointX="18" PointY="187.5" />
-        <EntityTypeShape EntityType="RiskeerEntitiesModel.StabilityPointStructuresSectionResultEntity" Width="1.5" PointX="15" PointY="203.75" />
-        <EntityTypeShape EntityType="RiskeerEntitiesModel.StabilityStoneCoverFailureMechanismMetaEntity" Width="1.5" PointX="7.5" PointY="62.25" />
-        <EntityTypeShape EntityType="RiskeerEntitiesModel.StabilityStoneCoverSectionResultEntity" Width="1.5" PointX="9.75" PointY="256.625" />
-        <EntityTypeShape EntityType="RiskeerEntitiesModel.StabilityStoneCoverWaveConditionsCalculationEntity" Width="1.5" PointX="12.75" PointY="197.5" />
-        <EntityTypeShape EntityType="RiskeerEntitiesModel.StabilityStoneCoverWaveConditionsOutputEntity" Width="1.5" PointX="15" PointY="188.25" />
-        <EntityTypeShape EntityType="RiskeerEntitiesModel.StochastEntity" Width="1.5" PointX="10.5" PointY="161.125" />
-        <EntityTypeShape EntityType="RiskeerEntitiesModel.StochasticSoilModelEntity" Width="1.5" PointX="7.5" PointY="139.375" />
-        <EntityTypeShape EntityType="RiskeerEntitiesModel.StrengthStabilityLengthwiseConstructionSectionResultEntity" Width="1.5" PointX="9.75" PointY="239.125" />
+        <EntityTypeShape EntityType="RiskeerEntitiesModel.AssessmentSectionEntity" Width="1.5" PointX="3" PointY="121.25" />
+        <EntityTypeShape EntityType="RiskeerEntitiesModel.BackgroundDataEntity" Width="1.5" PointX="5.25" PointY="128.625" />
+        <EntityTypeShape EntityType="RiskeerEntitiesModel.BackgroundDataMetaEntity" Width="1.5" PointX="7.5" PointY="128.875" />
+        <EntityTypeShape EntityType="RiskeerEntitiesModel.CalculationGroupEntity" Width="1.5" PointX="8" PointY="131.75" />
+        <EntityTypeShape EntityType="RiskeerEntitiesModel.ClosingStructureEntity" Width="1.5" PointX="12.5" PointY="59.75" />
+        <EntityTypeShape EntityType="RiskeerEntitiesModel.ClosingStructuresCalculationEntity" Width="1.5" PointX="17.75" PointY="120.875" />
+        <EntityTypeShape EntityType="RiskeerEntitiesModel.ClosingStructuresFailureMechanismMetaEntity" Width="1.5" PointX="12.5" PointY="77.125" />
+        <EntityTypeShape EntityType="RiskeerEntitiesModel.ClosingStructuresOutputEntity" Width="1.5" PointX="20" PointY="125.125" />
+        <EntityTypeShape EntityType="RiskeerEntitiesModel.ClosingStructuresSectionResultEntity" Width="1.5" PointX="14.75" PointY="113.375" />
+        <EntityTypeShape EntityType="RiskeerEntitiesModel.DikeProfileEntity" Width="1.5" PointX="12.5" PointY="171.375" />
+        <EntityTypeShape EntityType="RiskeerEntitiesModel.DuneErosionFailureMechanismMetaEntity" Width="1.5" PointX="12.5" PointY="118" />
+        <EntityTypeShape EntityType="RiskeerEntitiesModel.DuneErosionSectionResultEntity" Width="1.5" PointX="14.75" PointY="159.625" />
+        <EntityTypeShape EntityType="RiskeerEntitiesModel.DuneLocationCalculationCollectionEntity" Width="1.5" PointX="10.25" PointY="113.625" />
+        <EntityTypeShape EntityType="RiskeerEntitiesModel.DuneLocationCalculationEntity" Width="1.5" PointX="14.75" PointY="167.75" />
+        <EntityTypeShape EntityType="RiskeerEntitiesModel.DuneLocationCalculationOutputEntity" Width="1.5" PointX="17" PointY="167.25" />
+        <EntityTypeShape EntityType="RiskeerEntitiesModel.DuneLocationEntity" Width="1.5" PointX="12.5" PointY="167" />
+        <EntityTypeShape EntityType="RiskeerEntitiesModel.FailureMechanismEntity" Width="1.5" PointX="10.25" PointY="121.25" />
+        <EntityTypeShape EntityType="RiskeerEntitiesModel.FailureMechanismSectionEntity" Width="1.5" PointX="12.5" PointY="128.875" />
+        <EntityTypeShape EntityType="RiskeerEntitiesModel.FaultTreeIllustrationPointEntity" Width="1.5" PointX="7.5" PointY="60.25" />
+        <EntityTypeShape EntityType="RiskeerEntitiesModel.ForeshoreProfileEntity" Width="1.5" PointX="12.5" PointY="190.125" />
+        <EntityTypeShape EntityType="RiskeerEntitiesModel.GeneralResultFaultTreeIllustrationPointEntity" Width="1.5" PointX="17.75" PointY="116.75" />
+        <EntityTypeShape EntityType="RiskeerEntitiesModel.GeneralResultSubMechanismIllustrationPointEntity" Width="1.5" PointX="7.5" PointY="114.625" />
+        <EntityTypeShape EntityType="RiskeerEntitiesModel.GrassCoverErosionInwardsCalculationEntity" Width="1.5" PointX="17.75" PointY="144" />
+        <EntityTypeShape EntityType="RiskeerEntitiesModel.GrassCoverErosionInwardsDikeHeightOutputEntity" Width="1.5" PointX="31.25" PointY="142.375" />
+        <EntityTypeShape EntityType="RiskeerEntitiesModel.GrassCoverErosionInwardsFailureMechanismMetaEntity" Width="1.5" PointX="12.5" PointY="176.125" />
+        <EntityTypeShape EntityType="RiskeerEntitiesModel.GrassCoverErosionInwardsOutputEntity" Width="1.5" PointX="26" PointY="142.375" />
+        <EntityTypeShape EntityType="RiskeerEntitiesModel.GrassCoverErosionInwardsOvertoppingRateOutputEntity" Width="1.5" PointX="28.25" PointY="142.375" />
+        <EntityTypeShape EntityType="RiskeerEntitiesModel.GrassCoverErosionInwardsSectionResultEntity" Width="1.5" PointX="14.75" PointY="100.125" />
+        <EntityTypeShape EntityType="RiskeerEntitiesModel.GrassCoverErosionOutwardsFailureMechanismMetaEntity" Width="1.5" PointX="12.5" PointY="122.75" />
+        <EntityTypeShape EntityType="RiskeerEntitiesModel.GrassCoverErosionOutwardsSectionResultEntity" Width="1.5" PointX="14.75" PointY="120.25" />
+        <EntityTypeShape EntityType="RiskeerEntitiesModel.GrassCoverErosionOutwardsWaveConditionsCalculationEntity" Width="1.5" PointX="17.75" PointY="154" />
+        <EntityTypeShape EntityType="RiskeerEntitiesModel.GrassCoverErosionOutwardsWaveConditionsOutputEntity" Width="1.5" PointX="20" PointY="160.75" />
+        <EntityTypeShape EntityType="RiskeerEntitiesModel.GrassCoverSlipOffInwardsSectionResultEntity" Width="1.5" PointX="14.75" PointY="134.625" />
+        <EntityTypeShape EntityType="RiskeerEntitiesModel.GrassCoverSlipOffOutwardsSectionResultEntity" Width="1.5" PointX="14.75" PointY="137.875" />
+        <EntityTypeShape EntityType="RiskeerEntitiesModel.HeightStructureEntity" Width="1.5" PointX="12.5" PointY="67.75" />
+        <EntityTypeShape EntityType="RiskeerEntitiesModel.HeightStructuresCalculationEntity" Width="1.5" PointX="17.75" PointY="133.25" />
+        <EntityTypeShape EntityType="RiskeerEntitiesModel.HeightStructuresFailureMechanismMetaEntity" Width="1.5" PointX="12.5" PointY="202.75" />
+        <EntityTypeShape EntityType="RiskeerEntitiesModel.HeightStructuresOutputEntity" Width="1.5" PointX="23" PointY="138.25" />
+        <EntityTypeShape EntityType="RiskeerEntitiesModel.HeightStructuresSectionResultEntity" Width="1.5" PointX="14.75" PointY="144.375" />
+        <EntityTypeShape EntityType="RiskeerEntitiesModel.HydraulicBoundaryDatabaseEntity" Width="1.5" PointX="5.25" PointY="123.75" />
+        <EntityTypeShape EntityType="RiskeerEntitiesModel.HydraulicLocationCalculationCollectionEntity" Width="1.5" PointX="0.75" PointY="122.75" />
+        <EntityTypeShape EntityType="RiskeerEntitiesModel.HydraulicLocationCalculationEntity" Width="1.5" PointX="7.5" PointY="121.5" />
+        <EntityTypeShape EntityType="RiskeerEntitiesModel.HydraulicLocationEntity" Width="1.5" PointX="5.25" PointY="118.5" />
+        <EntityTypeShape EntityType="RiskeerEntitiesModel.HydraulicLocationOutputEntity" Width="1.5" PointX="9.75" PointY="117.125" />
+        <EntityTypeShape EntityType="RiskeerEntitiesModel.IllustrationPointResultEntity" Width="1.5" PointX="3" PointY="12" />
+        <EntityTypeShape EntityType="RiskeerEntitiesModel.MacroStabilityInwardsCalculationEntity" Width="1.5" PointX="26" PointY="146.75" />
+        <EntityTypeShape EntityType="RiskeerEntitiesModel.MacroStabilityInwardsCalculationOutputEntity" Width="1.5" PointX="28.25" PointY="149.75" />
+        <EntityTypeShape EntityType="RiskeerEntitiesModel.MacroStabilityInwardsCharacteristicPointEntity" Width="1.5" PointX="14.75" PointY="178.875" />
+        <EntityTypeShape EntityType="RiskeerEntitiesModel.MacroStabilityInwardsFailureMechanismMetaEntity" Width="1.5" PointX="12.5" PointY="82.625" />
+        <EntityTypeShape EntityType="RiskeerEntitiesModel.MacroStabilityInwardsPreconsolidationStressEntity" Width="1.5" PointX="17.75" PointY="171.875" />
+        <EntityTypeShape EntityType="RiskeerEntitiesModel.MacroStabilityInwardsSectionResultEntity" Width="1.5" PointX="14.75" PointY="127.625" />
+        <EntityTypeShape EntityType="RiskeerEntitiesModel.MacroStabilityInwardsSoilLayerOneDEntity" Width="1.5" PointX="17.75" PointY="182.375" />
+        <EntityTypeShape EntityType="RiskeerEntitiesModel.MacroStabilityInwardsSoilLayerTwoDEntity" Width="1.5" PointX="17.75" PointY="175.125" />
+        <EntityTypeShape EntityType="RiskeerEntitiesModel.MacroStabilityInwardsSoilProfileOneDEntity" Width="1.5" PointX="15.5" PointY="174.375" />
+        <EntityTypeShape EntityType="RiskeerEntitiesModel.MacroStabilityInwardsSoilProfileTwoDEntity" Width="1.5" PointX="15.5" PointY="171.625" />
+        <EntityTypeShape EntityType="RiskeerEntitiesModel.MacroStabilityInwardsStochasticSoilProfileEntity" Width="1.5" PointX="17.75" PointY="163.5" />
+        <EntityTypeShape EntityType="RiskeerEntitiesModel.MacroStabilityOutwardsFailureMechanismMetaEntity" Width="1.5" PointX="12.5" PointY="80" />
+        <EntityTypeShape EntityType="RiskeerEntitiesModel.MacroStabilityOutwardsSectionResultEntity" Width="1.5" PointX="14.75" PointY="156" />
+        <EntityTypeShape EntityType="RiskeerEntitiesModel.MicrostabilitySectionResultEntity" Width="1.5" PointX="14.75" PointY="124.25" />
+        <EntityTypeShape EntityType="RiskeerEntitiesModel.PipingCalculationEntity" Width="1.5" PointX="23" PointY="141.25" />
+        <EntityTypeShape EntityType="RiskeerEntitiesModel.PipingCalculationOutputEntity" Width="1.5" PointX="25.25" PointY="137" />
+        <EntityTypeShape EntityType="RiskeerEntitiesModel.PipingCharacteristicPointEntity" Width="1.5" PointX="14.75" PointY="182" />
+        <EntityTypeShape EntityType="RiskeerEntitiesModel.PipingFailureMechanismMetaEntity" Width="1.5" PointX="12.5" PointY="74" />
+        <EntityTypeShape EntityType="RiskeerEntitiesModel.PipingSectionResultEntity" Width="1.5" PointX="14.75" PointY="109.875" />
+        <EntityTypeShape EntityType="RiskeerEntitiesModel.PipingSoilLayerEntity" Width="1.5" PointX="14.75" PointY="186.125" />
+        <EntityTypeShape EntityType="RiskeerEntitiesModel.PipingSoilProfileEntity" Width="1.5" PointX="12.5" PointY="160" />
+        <EntityTypeShape EntityType="RiskeerEntitiesModel.PipingStochasticSoilProfileEntity" Width="1.5" PointX="14.75" PointY="163.75" />
+        <EntityTypeShape EntityType="RiskeerEntitiesModel.PipingStructureFailureMechanismMetaEntity" Width="1.5" PointX="12.5" PointY="54.25" />
+        <EntityTypeShape EntityType="RiskeerEntitiesModel.PipingStructureSectionResultEntity" Width="1.5" PointX="14.75" PointY="116.875" />
+        <EntityTypeShape EntityType="RiskeerEntitiesModel.ProjectEntity" Width="1.5" PointX="0.75" PointY="120" />
+        <EntityTypeShape EntityType="RiskeerEntitiesModel.StabilityPointStructureEntity" Width="1.5" PointX="12.5" PointY="85.5" />
+        <EntityTypeShape EntityType="RiskeerEntitiesModel.StabilityPointStructuresCalculationEntity" Width="1.5" PointX="20.75" PointY="128.875" />
+        <EntityTypeShape EntityType="RiskeerEntitiesModel.StabilityPointStructuresFailureMechanismMetaEntity" Width="1.5" PointX="12.5" PointY="56.75" />
+        <EntityTypeShape EntityType="RiskeerEntitiesModel.StabilityPointStructuresOutputEntity" Width="1.5" PointX="23" PointY="135.125" />
+        <EntityTypeShape EntityType="RiskeerEntitiesModel.StabilityPointStructuresSectionResultEntity" Width="1.5" PointX="14.75" PointY="131.125" />
+        <EntityTypeShape EntityType="RiskeerEntitiesModel.StabilityStoneCoverFailureMechanismMetaEntity" Width="1.5" PointX="12.5" PointY="97.5" />
+        <EntityTypeShape EntityType="RiskeerEntitiesModel.StabilityStoneCoverSectionResultEntity" Width="1.5" PointX="14.75" PointY="147.875" />
+        <EntityTypeShape EntityType="RiskeerEntitiesModel.StabilityStoneCoverWaveConditionsCalculationEntity" Width="1.5" PointX="20.75" PointY="154" />
+        <EntityTypeShape EntityType="RiskeerEntitiesModel.StabilityStoneCoverWaveConditionsOutputEntity" Width="1.5" PointX="23" PointY="154.75" />
+        <EntityTypeShape EntityType="RiskeerEntitiesModel.StochastEntity" Width="1.5" PointX="5.25" PointY="114.375" />
+        <EntityTypeShape EntityType="RiskeerEntitiesModel.StochasticSoilModelEntity" Width="1.5" PointX="12.5" PointY="163.75" />
+        <EntityTypeShape EntityType="RiskeerEntitiesModel.StrengthStabilityLengthwiseConstructionSectionResultEntity" Width="1.5" PointX="14.75" PointY="106.75" />
         <EntityTypeShape EntityType="RiskeerEntitiesModel.SubMechanismIllustrationPointEntity" Width="1.5" PointX="0.75" PointY="6.625" />
-        <EntityTypeShape EntityType="RiskeerEntitiesModel.SubMechanismIllustrationPointStochastEntity" Width="1.5" PointX="3" PointY="5.125" />
-        <EntityTypeShape EntityType="RiskeerEntitiesModel.SurfaceLineEntity" Width="1.5" PointX="7.5" PointY="92" />
-        <EntityTypeShape EntityType="RiskeerEntitiesModel.TechnicalInnovationSectionResultEntity" Width="1.5" PointX="9.75" PointY="203.375" />
-        <EntityTypeShape EntityType="RiskeerEntitiesModel.TopLevelFaultTreeIllustrationPointEntity" Width="1.5" PointX="15" PointY="122.375" />
-        <EntityTypeShape EntityType="RiskeerEntitiesModel.TopLevelSubMechanismIllustrationPointEntity" Width="1.5" PointX="15.75" PointY="111.875" />
+        <EntityTypeShape EntityType="RiskeerEntitiesModel.SubMechanismIllustrationPointStochastEntity" Width="1.5" PointX="3" PointY="8.625" />
+        <EntityTypeShape EntityType="RiskeerEntitiesModel.SurfaceLineEntity" Width="1.5" PointX="12.5" PointY="180" />
+        <EntityTypeShape EntityType="RiskeerEntitiesModel.TechnicalInnovationSectionResultEntity" Width="1.5" PointX="14.75" PointY="141.25" />
+        <EntityTypeShape EntityType="RiskeerEntitiesModel.TopLevelFaultTreeIllustrationPointEntity" Width="1.5" PointX="20" PointY="88.625" />
+        <EntityTypeShape EntityType="RiskeerEntitiesModel.TopLevelSubMechanismIllustrationPointEntity" Width="1.5" PointX="9.75" PointY="60.375" />
         <EntityTypeShape EntityType="RiskeerEntitiesModel.VersionEntity" Width="1.5" PointX="0.75" PointY="0.75" />
-        <EntityTypeShape EntityType="RiskeerEntitiesModel.WaterPressureAsphaltCoverSectionResultEntity" Width="1.5" PointX="9.75" PointY="196.75" />
-        <EntityTypeShape EntityType="RiskeerEntitiesModel.WaveImpactAsphaltCoverFailureMechanismMetaEntity" Width="1.5" PointX="7.5" PointY="114" />
-        <EntityTypeShape EntityType="RiskeerEntitiesModel.WaveImpactAsphaltCoverSectionResultEntity" Width="1.5" PointX="9.75" PointY="242.25" />
-        <EntityTypeShape EntityType="RiskeerEntitiesModel.WaveImpactAsphaltCoverWaveConditionsCalculationEntity" Width="1.5" PointX="15.75" PointY="197.625" />
-        <EntityTypeShape EntityType="RiskeerEntitiesModel.WaveImpactAsphaltCoverWaveConditionsOutputEntity" Width="1.5" PointX="18" PointY="198.375" />
+        <EntityTypeShape EntityType="RiskeerEntitiesModel.WaterPressureAsphaltCoverSectionResultEntity" Width="1.5" PointX="14.75" PointY="103.625" />
+        <EntityTypeShape EntityType="RiskeerEntitiesModel.WaveImpactAsphaltCoverFailureMechanismMetaEntity" Width="1.5" PointX="12.5" PointY="200" />
+        <EntityTypeShape EntityType="RiskeerEntitiesModel.WaveImpactAsphaltCoverSectionResultEntity" Width="1.5" PointX="14.75" PointY="151.875" />
+        <EntityTypeShape EntityType="RiskeerEntitiesModel.WaveImpactAsphaltCoverWaveConditionsCalculationEntity" Width="1.5" PointX="20.75" PointY="147.125" />
+        <EntityTypeShape EntityType="RiskeerEntitiesModel.WaveImpactAsphaltCoverWaveConditionsOutputEntity" Width="1.5" PointX="23" PointY="147.875" />
         <AssociationConnector Association="RiskeerEntitiesModel.FK_AssessmentSectionEntity_0_0" />
         <AssociationConnector Association="RiskeerEntitiesModel.FK_AssessmentSectionEntity_1_0" />
         <AssociationConnector Association="RiskeerEntitiesModel.FK_AssessmentSectionEntity_2_0" />
@@ -218,7 +218,7 @@
         <AssociationConnector Association="RiskeerEntitiesModel.FK_MicrostabilitySectionResultEntity_0_0" />
         <AssociationConnector Association="RiskeerEntitiesModel.FK_PipingSectionResultEntity_0_0" />
         <AssociationConnector Association="RiskeerEntitiesModel.FK_PipingStructureSectionResultEntity_0_0" />
-        <AssociationConnector Association="RiskeerEntitiesModel.FK_StabilityPointStructuresSectionResultEntity_1_0" />
+        <AssociationConnector Association="RiskeerEntitiesModel.FK_StabilityPointStructuresSectionResultEntity_0_0" />
         <AssociationConnector Association="RiskeerEntitiesModel.FK_StabilityStoneCoverSectionResultEntity_0_0" />
         <AssociationConnector Association="RiskeerEntitiesModel.FK_StrengthStabilityLengthwiseConstructionSectionResultEntity_0_0" />
         <AssociationConnector Association="RiskeerEntitiesModel.FK_TechnicalInnovationSectionResultEntity_0_0" />
@@ -282,7 +282,6 @@
         <AssociationConnector Association="RiskeerEntitiesModel.FK_PipingStochasticSoilProfileEntity_0_0" />
         <AssociationConnector Association="RiskeerEntitiesModel.FK_StabilityPointStructuresCalculationEntity_0_0" />
         <AssociationConnector Association="RiskeerEntitiesModel.FK_StabilityPointStructuresOutputEntity_0_0" />
-        <AssociationConnector Association="RiskeerEntitiesModel.FK_StabilityPointStructuresSectionResultEntity_0_0" />
         <AssociationConnector Association="RiskeerEntitiesModel.FK_StabilityStoneCoverWaveConditionsOutputEntity_0_0" />
         <AssociationConnector Association="RiskeerEntitiesModel.FK_SubMechanismIllustrationPointStochastEntity_0_0" />
         <AssociationConnector Association="RiskeerEntitiesModel.FK_TopLevelSubMechanismIllustrationPointEntity_0_0" />

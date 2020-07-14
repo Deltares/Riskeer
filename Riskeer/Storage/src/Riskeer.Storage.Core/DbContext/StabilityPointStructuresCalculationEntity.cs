@@ -39,7 +39,6 @@ namespace Riskeer.Storage.Core.DbContext
         public StabilityPointStructuresCalculationEntity()
         {
             StabilityPointStructuresOutputEntities = new HashSet<StabilityPointStructuresOutputEntity>();
-            StabilityPointStructuresSectionResultEntities = new HashSet<StabilityPointStructuresSectionResultEntity>();
         }
 
         public long StabilityPointStructuresCalculationEntityId { get; set; }
@@ -87,15 +86,14 @@ namespace Riskeer.Storage.Core.DbContext
         public double? VolumicWeightWater { get; set; }
         public double? FactorStormDurationOpenStructure { get; set; }
         public double? DrainCoefficientMean { get; set; }
+        public byte RelevantForScenario { get; set; }
+        public double? ScenarioContribution { get; set; }
 
         public virtual CalculationGroupEntity CalculationGroupEntity { get; set; }
         public virtual StabilityPointStructureEntity StabilityPointStructureEntity { get; set; }
 
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<StabilityPointStructuresOutputEntity> StabilityPointStructuresOutputEntities { get; set; }
-
-        [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<StabilityPointStructuresSectionResultEntity> StabilityPointStructuresSectionResultEntities { get; set; }
 
         public byte UseBreakWater { get; set; }
         public byte BreakWaterType { get; set; }

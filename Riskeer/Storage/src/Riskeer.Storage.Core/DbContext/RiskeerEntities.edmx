@@ -1272,6 +1272,8 @@
           <Property Name="DrainCoefficientMean" Type="real" />
           <Property Name="FailureProbabilityStructureWithErosion" Type="real" Nullable="false" />
           <Property Name="ShouldIllustrationPointsBeCalculated" Type="tinyint" Nullable="false" />
+          <Property Name="RelevantForScenario" Type="tinyint" Nullable="false" />
+          <Property Name="ScenarioContribution" Type="real" />
         </EntityType>
         <EntityType Name="StabilityPointStructuresFailureMechanismMetaEntity">
           <Key>
@@ -1298,7 +1300,6 @@
           </Key>
           <Property Name="StabilityPointStructuresSectionResultEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FailureMechanismSectionEntityId" Type="integer" Nullable="false" />
-          <Property Name="StabilityPointStructuresCalculationEntityId" Type="integer" />
           <Property Name="SimpleAssessmentResult" Type="tinyint" Nullable="false" />
           <Property Name="DetailedAssessmentResult" Type="tinyint" Nullable="false" />
           <Property Name="TailorMadeAssessmentResult" Type="tinyint" Nullable="false" />
@@ -3084,18 +3085,6 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_StabilityPointStructuresSectionResultEntity_0_0">
-          <End Role="StabilityPointStructuresCalculationEntity" Type="Self.StabilityPointStructuresCalculationEntity" Multiplicity="0..1" />
-          <End Role="StabilityPointStructuresSectionResultEntity" Type="Self.StabilityPointStructuresSectionResultEntity" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="StabilityPointStructuresCalculationEntity">
-              <PropertyRef Name="StabilityPointStructuresCalculationEntityId" />
-            </Principal>
-            <Dependent Role="StabilityPointStructuresSectionResultEntity">
-              <PropertyRef Name="StabilityPointStructuresCalculationEntityId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_StabilityPointStructuresSectionResultEntity_1_0">
           <End Role="FailureMechanismSectionEntity" Type="Self.FailureMechanismSectionEntity" Multiplicity="1" />
           <End Role="StabilityPointStructuresSectionResultEntity" Type="Self.StabilityPointStructuresSectionResultEntity" Multiplicity="*" />
           <ReferentialConstraint>
@@ -3980,10 +3969,6 @@
             <End Role="StabilityPointStructuresOutputEntity" EntitySet="StabilityPointStructuresOutputEntity" />
           </AssociationSet>
           <AssociationSet Name="FK_StabilityPointStructuresSectionResultEntity_0_0" Association="Self.FK_StabilityPointStructuresSectionResultEntity_0_0">
-            <End Role="StabilityPointStructuresCalculationEntity" EntitySet="StabilityPointStructuresCalculationEntity" />
-            <End Role="StabilityPointStructuresSectionResultEntity" EntitySet="StabilityPointStructuresSectionResultEntity" />
-          </AssociationSet>
-          <AssociationSet Name="FK_StabilityPointStructuresSectionResultEntity_1_0" Association="Self.FK_StabilityPointStructuresSectionResultEntity_1_0">
             <End Role="FailureMechanismSectionEntity" EntitySet="FailureMechanismSectionEntity" />
             <End Role="StabilityPointStructuresSectionResultEntity" EntitySet="StabilityPointStructuresSectionResultEntity" />
           </AssociationSet>
@@ -4463,7 +4448,7 @@
             <End Role="FailureMechanismSectionEntity" EntitySet="FailureMechanismSectionEntities" />
             <End Role="PipingStructureSectionResultEntity" EntitySet="PipingStructureSectionResultEntities" />
           </AssociationSet>
-          <AssociationSet Name="FK_StabilityPointStructuresSectionResultEntity_1_0" Association="RiskeerEntitiesModel.FK_StabilityPointStructuresSectionResultEntity_1_0">
+          <AssociationSet Name="FK_StabilityPointStructuresSectionResultEntity_0_0" Association="RiskeerEntitiesModel.FK_StabilityPointStructuresSectionResultEntity_0_0">
             <End Role="FailureMechanismSectionEntity" EntitySet="FailureMechanismSectionEntities" />
             <End Role="StabilityPointStructuresSectionResultEntity" EntitySet="StabilityPointStructuresSectionResultEntities" />
           </AssociationSet>
@@ -4718,10 +4703,6 @@
           <AssociationSet Name="FK_StabilityPointStructuresOutputEntity_0_0" Association="RiskeerEntitiesModel.FK_StabilityPointStructuresOutputEntity_0_0">
             <End Role="StabilityPointStructuresCalculationEntity" EntitySet="StabilityPointStructuresCalculationEntities" />
             <End Role="StabilityPointStructuresOutputEntity" EntitySet="StabilityPointStructuresOutputEntities" />
-          </AssociationSet>
-          <AssociationSet Name="FK_StabilityPointStructuresSectionResultEntity_0_0" Association="RiskeerEntitiesModel.FK_StabilityPointStructuresSectionResultEntity_0_0">
-            <End Role="StabilityPointStructuresCalculationEntity" EntitySet="StabilityPointStructuresCalculationEntities" />
-            <End Role="StabilityPointStructuresSectionResultEntity" EntitySet="StabilityPointStructuresSectionResultEntities" />
           </AssociationSet>
           <AssociationSet Name="FK_StabilityStoneCoverWaveConditionsOutputEntity_0_0" Association="RiskeerEntitiesModel.FK_StabilityStoneCoverWaveConditionsOutputEntity_0_0">
             <End Role="StabilityStoneCoverWaveConditionsCalculationEntity" EntitySet="StabilityStoneCoverWaveConditionsCalculationEntities" />
@@ -5143,7 +5124,7 @@
           <NavigationProperty Name="MicrostabilitySectionResultEntities" Relationship="RiskeerEntitiesModel.FK_MicrostabilitySectionResultEntity_0_0" FromRole="FailureMechanismSectionEntity" ToRole="MicrostabilitySectionResultEntity" />
           <NavigationProperty Name="PipingSectionResultEntities" Relationship="RiskeerEntitiesModel.FK_PipingSectionResultEntity_0_0" FromRole="FailureMechanismSectionEntity" ToRole="PipingSectionResultEntity" />
           <NavigationProperty Name="PipingStructureSectionResultEntities" Relationship="RiskeerEntitiesModel.FK_PipingStructureSectionResultEntity_0_0" FromRole="FailureMechanismSectionEntity" ToRole="PipingStructureSectionResultEntity" />
-          <NavigationProperty Name="StabilityPointStructuresSectionResultEntities" Relationship="RiskeerEntitiesModel.FK_StabilityPointStructuresSectionResultEntity_1_0" FromRole="FailureMechanismSectionEntity" ToRole="StabilityPointStructuresSectionResultEntity" />
+          <NavigationProperty Name="StabilityPointStructuresSectionResultEntities" Relationship="RiskeerEntitiesModel.FK_StabilityPointStructuresSectionResultEntity_0_0" FromRole="FailureMechanismSectionEntity" ToRole="StabilityPointStructuresSectionResultEntity" />
           <NavigationProperty Name="StabilityStoneCoverSectionResultEntities" Relationship="RiskeerEntitiesModel.FK_StabilityStoneCoverSectionResultEntity_0_0" FromRole="FailureMechanismSectionEntity" ToRole="StabilityStoneCoverSectionResultEntity" />
           <NavigationProperty Name="StrengthStabilityLengthwiseConstructionSectionResultEntities" Relationship="RiskeerEntitiesModel.FK_StrengthStabilityLengthwiseConstructionSectionResultEntity_0_0" FromRole="FailureMechanismSectionEntity" ToRole="StrengthStabilityLengthwiseConstructionSectionResultEntity" />
           <NavigationProperty Name="TechnicalInnovationSectionResultEntities" Relationship="RiskeerEntitiesModel.FK_TechnicalInnovationSectionResultEntity_0_0" FromRole="FailureMechanismSectionEntity" ToRole="TechnicalInnovationSectionResultEntity" />
@@ -6231,12 +6212,13 @@
           <Property Name="DrainCoefficientMean" Type="Double" />
           <Property Name="FailureProbabilityStructureWithErosion" Type="Double" Nullable="false" />
           <Property Name="ShouldIllustrationPointsBeCalculated" Type="Byte" Nullable="false" />
+          <Property Name="RelevantForScenario" Type="Byte" Nullable="false" />
+          <Property Name="ScenarioContribution" Type="Double" />
           <NavigationProperty Name="CalculationGroupEntity" Relationship="RiskeerEntitiesModel.FK_StabilityPointStructuresCalculationEntity_3_0" FromRole="StabilityPointStructuresCalculationEntity" ToRole="CalculationGroupEntity" />
           <NavigationProperty Name="ForeshoreProfileEntity" Relationship="RiskeerEntitiesModel.FK_StabilityPointStructuresCalculationEntity_2_0" FromRole="StabilityPointStructuresCalculationEntity" ToRole="ForeshoreProfileEntity" />
           <NavigationProperty Name="HydraulicLocationEntity" Relationship="RiskeerEntitiesModel.FK_StabilityPointStructuresCalculationEntity_1_0" FromRole="StabilityPointStructuresCalculationEntity" ToRole="HydraulicLocationEntity" />
           <NavigationProperty Name="StabilityPointStructureEntity" Relationship="RiskeerEntitiesModel.FK_StabilityPointStructuresCalculationEntity_0_0" FromRole="StabilityPointStructuresCalculationEntity" ToRole="StabilityPointStructureEntity" />
           <NavigationProperty Name="StabilityPointStructuresOutputEntities" Relationship="RiskeerEntitiesModel.FK_StabilityPointStructuresOutputEntity_0_0" FromRole="StabilityPointStructuresCalculationEntity" ToRole="StabilityPointStructuresOutputEntity" />
-          <NavigationProperty Name="StabilityPointStructuresSectionResultEntities" Relationship="RiskeerEntitiesModel.FK_StabilityPointStructuresSectionResultEntity_0_0" FromRole="StabilityPointStructuresCalculationEntity" ToRole="StabilityPointStructuresSectionResultEntity" />
         </EntityType>
         <EntityType Name="StabilityPointStructuresFailureMechanismMetaEntity">
           <Key>
@@ -6266,15 +6248,13 @@
           </Key>
           <Property Name="StabilityPointStructuresSectionResultEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FailureMechanismSectionEntityId" Type="Int64" Nullable="false" />
-          <Property Name="StabilityPointStructuresCalculationEntityId" Type="Int64" />
           <Property Name="SimpleAssessmentResult" Type="Byte" Nullable="false" />
           <Property Name="DetailedAssessmentResult" Type="Byte" Nullable="false" />
           <Property Name="TailorMadeAssessmentResult" Type="Byte" Nullable="false" />
           <Property Name="TailorMadeAssessmentProbability" Type="Double" />
           <Property Name="UseManualAssembly" Type="Byte" Nullable="false" />
           <Property Name="ManualAssemblyProbability" Type="Double" />
-          <NavigationProperty Name="FailureMechanismSectionEntity" Relationship="RiskeerEntitiesModel.FK_StabilityPointStructuresSectionResultEntity_1_0" FromRole="StabilityPointStructuresSectionResultEntity" ToRole="FailureMechanismSectionEntity" />
-          <NavigationProperty Name="StabilityPointStructuresCalculationEntity" Relationship="RiskeerEntitiesModel.FK_StabilityPointStructuresSectionResultEntity_0_0" FromRole="StabilityPointStructuresSectionResultEntity" ToRole="StabilityPointStructuresCalculationEntity" />
+          <NavigationProperty Name="FailureMechanismSectionEntity" Relationship="RiskeerEntitiesModel.FK_StabilityPointStructuresSectionResultEntity_0_0" FromRole="StabilityPointStructuresSectionResultEntity" ToRole="FailureMechanismSectionEntity" />
         </EntityType>
         <EntityType Name="StabilityStoneCoverFailureMechanismMetaEntity">
           <Key>
@@ -7430,7 +7410,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_StabilityPointStructuresSectionResultEntity_1_0">
+        <Association Name="FK_StabilityPointStructuresSectionResultEntity_0_0">
           <End Type="RiskeerEntitiesModel.FailureMechanismSectionEntity" Role="FailureMechanismSectionEntity" Multiplicity="1" />
           <End Type="RiskeerEntitiesModel.StabilityPointStructuresSectionResultEntity" Role="StabilityPointStructuresSectionResultEntity" Multiplicity="*" />
           <ReferentialConstraint>
@@ -8194,18 +8174,6 @@
               <PropertyRef Name="StabilityPointStructuresCalculationEntityId" />
             </Principal>
             <Dependent Role="StabilityPointStructuresOutputEntity">
-              <PropertyRef Name="StabilityPointStructuresCalculationEntityId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_StabilityPointStructuresSectionResultEntity_0_0">
-          <End Type="RiskeerEntitiesModel.StabilityPointStructuresCalculationEntity" Role="StabilityPointStructuresCalculationEntity" Multiplicity="0..1" />
-          <End Type="RiskeerEntitiesModel.StabilityPointStructuresSectionResultEntity" Role="StabilityPointStructuresSectionResultEntity" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="StabilityPointStructuresCalculationEntity">
-              <PropertyRef Name="StabilityPointStructuresCalculationEntityId" />
-            </Principal>
-            <Dependent Role="StabilityPointStructuresSectionResultEntity">
               <PropertyRef Name="StabilityPointStructuresCalculationEntityId" />
             </Dependent>
           </ReferentialConstraint>
@@ -9518,6 +9486,8 @@
           <EntitySetMapping Name="StabilityPointStructuresCalculationEntities">
             <EntityTypeMapping TypeName="RiskeerEntitiesModel.StabilityPointStructuresCalculationEntity">
               <MappingFragment StoreEntitySet="StabilityPointStructuresCalculationEntity">
+                <ScalarProperty Name="ScenarioContribution" ColumnName="ScenarioContribution" />
+                <ScalarProperty Name="RelevantForScenario" ColumnName="RelevantForScenario" />
                 <ScalarProperty Name="ShouldIllustrationPointsBeCalculated" ColumnName="ShouldIllustrationPointsBeCalculated" />
                 <ScalarProperty Name="FailureProbabilityStructureWithErosion" ColumnName="FailureProbabilityStructureWithErosion" />
                 <ScalarProperty Name="DrainCoefficientMean" ColumnName="DrainCoefficientMean" />
@@ -9614,7 +9584,6 @@
                 <ScalarProperty Name="TailorMadeAssessmentResult" ColumnName="TailorMadeAssessmentResult" />
                 <ScalarProperty Name="DetailedAssessmentResult" ColumnName="DetailedAssessmentResult" />
                 <ScalarProperty Name="SimpleAssessmentResult" ColumnName="SimpleAssessmentResult" />
-                <ScalarProperty Name="StabilityPointStructuresCalculationEntityId" ColumnName="StabilityPointStructuresCalculationEntityId" />
                 <ScalarProperty Name="FailureMechanismSectionEntityId" ColumnName="FailureMechanismSectionEntityId" />
                 <ScalarProperty Name="StabilityPointStructuresSectionResultEntityId" ColumnName="StabilityPointStructuresSectionResultEntityId" />
               </MappingFragment>
