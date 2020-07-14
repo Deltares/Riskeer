@@ -171,6 +171,9 @@
   <data name="labelFailureMechanismSections.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="labelFailureMechanismSections.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="labelFailureMechanismSections.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 0</value>
   </data>
@@ -211,7 +214,7 @@
     <value>2</value>
   </data>
   <data name="tableLayoutPanelListBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>153, 195</value>
+    <value>211, 259</value>
   </data>
   <data name="tableLayoutPanelListBox.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -246,44 +249,130 @@
   <data name="splitContainer.Panel1MinSize" type="System.Int32, mscorlib">
     <value>100</value>
   </data>
+  <data name="tableLayoutPanelDataGrid.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
   <data name="tableLayoutPanelDataGrid.ColumnCount" type="System.Int32, mscorlib">
     <value>1</value>
   </data>
-  <data name="warningMessageLabel.AutoSize" type="System.Boolean, mscorlib">
+  <data name="warningPanel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="warningMessageLabel.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="warningText.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="warningText.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="warningMessageLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 239</value>
+  <data name="warningText.Location" type="System.Drawing.Point, System.Drawing">
+    <value>29, -1</value>
   </data>
-  <data name="warningMessageLabel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="warningText.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 0, 4, 0</value>
   </data>
-  <data name="warningMessageLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>396, 20</value>
+  <data name="warningText.Size" type="System.Drawing.Size, System.Drawing">
+    <value>638, 17</value>
   </data>
-  <data name="warningMessageLabel.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
+  <data name="warningText.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
   </data>
-  <data name="warningMessageLabel.Text" xml:space="preserve">
-    <value>Let op: als u het dijkprofiel van een berekening wijzigt kan de berekening in een ander vak komen te liggen.</value>
+  <data name="warningText.Text" xml:space="preserve">
+    <value>Als u het dijkprofiel van een berekening wijzigt kan de berekening in een ander vak komen te liggen.</value>
   </data>
-  <data name="&gt;&gt;warningMessageLabel.Name" xml:space="preserve">
-    <value>warningMessageLabel</value>
+  <data name="&gt;&gt;warningText.Name" xml:space="preserve">
+    <value>warningText</value>
   </data>
-  <data name="&gt;&gt;warningMessageLabel.Type" xml:space="preserve">
+  <data name="&gt;&gt;warningText.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;warningMessageLabel.Parent" xml:space="preserve">
+  <data name="&gt;&gt;warningText.Parent" xml:space="preserve">
+    <value>warningPanel</value>
+  </data>
+  <data name="&gt;&gt;warningText.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="warningIcon.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Left</value>
+  </data>
+  <data name="warningIcon.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAS
+        dAAAEnQB3mYfeAAAAe5JREFUOE+1kktoU1EQhgOC4ELBjS5EEFREipRCLVK0K8GdqFQTNLqQLrpw05W4
+        0IVQFCy6aBaKWGgrSH2A9YH4wFQK2qL4aPNu2qghN03S2OTm3pjHzf2c3AaLWDQVHPjhnOH83zAzx/Zf
+        I/ViN8lnrdSuy4uqOevpJvPp/L8BElK5UspSmveiPNi5PEjiaStqwIVp5DBLcTKTV4jebaofMvtkF1SK
+        FBMuSqk+gczxZaixPkDVrEWGxJ/GN9hmydA9ZP0DzAw2/B2SHusCs4gWPoF3oM2SFnRiltPEnnf+GaA8
+        auF7ckyGp6CFjuPt32NJ9dsxcm/QoiMEr21ZGqI8bCEz0SOVkhQUlwCcTA/vqwGOoE85qRRmiI+cxXN5
+        4++Q2HCzmHOU1VHyYacFyEc6SL21o/oOowfbKcRdlLUoHy+s/xUQu98sQ7ohg4tTiF0iP3VUAMcWW/C1
+        owcOofkOYOQDxNwXGT+zZhEy6z4pO9fk0zxGDzks5QJS2e8Qs0OGaBfAQTT/fvIheSttTvTuXQBE7zWh
+        R19aALM8L/q2IEPOVf3MpWuak7xK6v0dXnWuwPb1diOfb+0gcrOB6f7thPu2Ebq+leDVzfh6NzHZs4EP
+        3et4d24t46dX87prFaOnVlpmd4dt6Y3UHzbbD32bn/MdP7m6AAAAAElFTkSuQmCC
+</value>
+  </data>
+  <data name="warningIcon.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="warningIcon.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="warningIcon.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 0</value>
+  </data>
+  <data name="warningIcon.MaximumSize" type="System.Drawing.Size, System.Drawing">
+    <value>25, 25</value>
+  </data>
+  <data name="warningIcon.Size" type="System.Drawing.Size, System.Drawing">
+    <value>25, 16</value>
+  </data>
+  <data name="warningIcon.SizeMode" type="System.Windows.Forms.PictureBoxSizeMode, System.Windows.Forms">
+    <value>Zoom</value>
+  </data>
+  <data name="warningIcon.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;warningIcon.Name" xml:space="preserve">
+    <value>warningIcon</value>
+  </data>
+  <data name="&gt;&gt;warningIcon.Type" xml:space="preserve">
+    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;warningIcon.Parent" xml:space="preserve">
+    <value>warningPanel</value>
+  </data>
+  <data name="&gt;&gt;warningIcon.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="warningPanel.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="warningPanel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 243</value>
+  </data>
+  <data name="warningPanel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 4, 4, 4</value>
+  </data>
+  <data name="warningPanel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>671, 16</value>
+  </data>
+  <data name="warningPanel.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;warningPanel.Name" xml:space="preserve">
+    <value>warningPanel</value>
+  </data>
+  <data name="&gt;&gt;warningPanel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;warningPanel.Parent" xml:space="preserve">
     <value>tableLayoutPanelDataGrid</value>
   </data>
-  <data name="&gt;&gt;warningMessageLabel.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;warningPanel.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <data name="labelCalculations.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="labelCalculations.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="labelCalculations.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 0</value>
@@ -322,7 +411,7 @@
     <value>5, 5, 5, 5</value>
   </data>
   <data name="dataGridViewControl.Size" type="System.Drawing.Size, System.Drawing">
-    <value>433, 204</value>
+    <value>669, 204</value>
   </data>
   <data name="dataGridViewControl.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -339,9 +428,6 @@
   <data name="&gt;&gt;dataGridViewControl.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <data name="tableLayoutPanelDataGrid.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
   <data name="tableLayoutPanelDataGrid.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
   </data>
@@ -349,10 +435,10 @@
     <value>4, 4, 4, 4</value>
   </data>
   <data name="tableLayoutPanelDataGrid.RowCount" type="System.Int32, mscorlib">
-    <value>3</value>
+    <value>5</value>
   </data>
   <data name="tableLayoutPanelDataGrid.Size" type="System.Drawing.Size, System.Drawing">
-    <value>443, 259</value>
+    <value>679, 384</value>
   </data>
   <data name="tableLayoutPanelDataGrid.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -370,7 +456,7 @@
     <value>0</value>
   </data>
   <data name="tableLayoutPanelDataGrid.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
-    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="warningMessageLabel" Row="2" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="labelCalculations" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="dataGridViewControl" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,100" /&gt;&lt;Rows Styles="Absolute,25,Percent,100,Absolute,20" /&gt;&lt;/TableLayoutSettings&gt;</value>
+    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="warningPanel" Row="2" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="labelCalculations" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="dataGridViewControl" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,100" /&gt;&lt;Rows Styles="Absolute,25,Percent,100,Absolute,25,Absolute,100,Absolute,20" /&gt;&lt;/TableLayoutSettings&gt;</value>
   </data>
   <data name="&gt;&gt;splitContainer.Panel2.Name" xml:space="preserve">
     <value>splitContainer.Panel2</value>

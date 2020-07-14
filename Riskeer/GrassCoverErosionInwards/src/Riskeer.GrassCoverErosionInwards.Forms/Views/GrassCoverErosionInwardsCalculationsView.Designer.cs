@@ -38,12 +38,14 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GrassCoverErosionInwardsCalculationsView));
             this.tableLayoutPanelUserControl = new System.Windows.Forms.TableLayoutPanel();
-            this.warningMessageLabel = new System.Windows.Forms.Label();
             this.splitContainer = new System.Windows.Forms.SplitContainer();
             this.tableLayoutPanelListBox = new System.Windows.Forms.TableLayoutPanel();
             this.listBox = new System.Windows.Forms.ListBox();
             this.labelFailureMechanismSections = new System.Windows.Forms.Label();
             this.tableLayoutPanelDataGrid = new System.Windows.Forms.TableLayoutPanel();
+            this.warningPanel = new System.Windows.Forms.Panel();
+            this.warningText = new System.Windows.Forms.Label();
+            this.warningIcon = new System.Windows.Forms.PictureBox();
             this.labelCalculations = new System.Windows.Forms.Label();
             this.dataGridViewControl = new Core.Common.Controls.DataGrid.DataGridViewControl();
             this.buttonGenerateCalculations = new System.Windows.Forms.Button();
@@ -54,6 +56,8 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
             this.splitContainer.SuspendLayout();
             this.tableLayoutPanelListBox.SuspendLayout();
             this.tableLayoutPanelDataGrid.SuspendLayout();
+            this.warningPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.warningIcon)).BeginInit();
             this.SuspendLayout();
             // 
             // tableLayoutPanelUserControl
@@ -62,11 +66,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
             this.tableLayoutPanelUserControl.Controls.Add(this.splitContainer, 0, 0);
             this.tableLayoutPanelUserControl.Controls.Add(this.buttonGenerateCalculations, 0, 1);
             this.tableLayoutPanelUserControl.Name = "tableLayoutPanelUserControl";
-            // 
-            // warningMessageLabel
-            // 
-            resources.ApplyResources(this.warningMessageLabel, "warningMessageLabel");
-            this.warningMessageLabel.Name = "warningMessageLabel";
             // 
             // splitContainer
             // 
@@ -103,10 +102,30 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
             // tableLayoutPanelDataGrid
             // 
             resources.ApplyResources(this.tableLayoutPanelDataGrid, "tableLayoutPanelDataGrid");
-            this.tableLayoutPanelDataGrid.Controls.Add(this.warningMessageLabel, 0, 2);
+            this.tableLayoutPanelDataGrid.Controls.Add(this.warningPanel, 0, 2);
             this.tableLayoutPanelDataGrid.Controls.Add(this.labelCalculations, 0, 0);
             this.tableLayoutPanelDataGrid.Controls.Add(this.dataGridViewControl, 0, 1);
             this.tableLayoutPanelDataGrid.Name = "tableLayoutPanelDataGrid";
+            // 
+            // warningPanel
+            // 
+            resources.ApplyResources(this.warningPanel, "warningPanel");
+            this.warningPanel.BackColor = System.Drawing.SystemColors.Window;
+            this.warningPanel.Controls.Add(this.warningText);
+            this.warningPanel.Controls.Add(this.warningIcon);
+            this.warningPanel.Name = "warningPanel";
+            // 
+            // warningText
+            // 
+            resources.ApplyResources(this.warningText, "warningText");
+            this.warningText.Name = "warningText";
+            // 
+            // warningIcon
+            // 
+            this.warningIcon.BackColor = System.Drawing.SystemColors.Window;
+            resources.ApplyResources(this.warningIcon, "warningIcon");
+            this.warningIcon.Name = "warningIcon";
+            this.warningIcon.TabStop = false;
             // 
             // labelCalculations
             // 
@@ -137,12 +156,16 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
             this.tableLayoutPanelUserControl.PerformLayout();
             this.splitContainer.Panel1.ResumeLayout(false);
             this.splitContainer.Panel2.ResumeLayout(false);
+            this.splitContainer.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).EndInit();
             this.splitContainer.ResumeLayout(false);
             this.tableLayoutPanelListBox.ResumeLayout(false);
             this.tableLayoutPanelListBox.PerformLayout();
             this.tableLayoutPanelDataGrid.ResumeLayout(false);
             this.tableLayoutPanelDataGrid.PerformLayout();
+            this.warningPanel.ResumeLayout(false);
+            this.warningPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.warningIcon)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -158,6 +181,8 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
         private System.Windows.Forms.Label labelCalculations;
         private Core.Common.Controls.DataGrid.DataGridViewControl dataGridViewControl;
         private System.Windows.Forms.Button buttonGenerateCalculations;
-        private System.Windows.Forms.Label warningMessageLabel;
+        private System.Windows.Forms.Panel warningPanel;
+        private System.Windows.Forms.Label warningText;
+        private System.Windows.Forms.PictureBox warningIcon;
     }
 }
