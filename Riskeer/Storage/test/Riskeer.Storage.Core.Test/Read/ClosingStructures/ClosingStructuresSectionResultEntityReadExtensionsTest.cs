@@ -39,8 +39,7 @@ namespace Riskeer.Storage.Core.Test.Read.ClosingStructures
         {
             // Call
             void Call() => ((ClosingStructuresSectionResultEntity) null).Read(new ClosingStructuresFailureMechanismSectionResult(
-                                                                                  FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
-                                                                              new ReadConversionCollector());
+                                                                                  FailureMechanismSectionTestFactory.CreateFailureMechanismSection()));
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -54,25 +53,11 @@ namespace Riskeer.Storage.Core.Test.Read.ClosingStructures
             var entity = new ClosingStructuresSectionResultEntity();
 
             // Call
-            void Call() => entity.Read(null, new ReadConversionCollector());
+            void Call() => entity.Read(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("sectionResult", exception.ParamName);
-        }
-
-        [Test]
-        public void Read_CollectorNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var entity = new ClosingStructuresSectionResultEntity();
-
-            // Call
-            void Call() => entity.Read(new ClosingStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()), null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("collector", exception.ParamName);
         }
 
         [Test]
@@ -104,7 +89,7 @@ namespace Riskeer.Storage.Core.Test.Read.ClosingStructures
             var sectionResult = new ClosingStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             // Call
-            entity.Read(sectionResult, collector);
+            entity.Read(sectionResult);
 
             // Assert
             Assert.AreEqual(simpleAssessmentResult, sectionResult.SimpleAssessmentResult);
@@ -130,7 +115,7 @@ namespace Riskeer.Storage.Core.Test.Read.ClosingStructures
             var sectionResult = new ClosingStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             // Call
-            entity.Read(sectionResult, collector);
+            entity.Read(sectionResult);
 
             // Assert
             Assert.IsNaN(sectionResult.TailorMadeAssessmentProbability);

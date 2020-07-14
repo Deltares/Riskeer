@@ -33,7 +33,7 @@ namespace Riskeer.ClosingStructures.Data.TestUtil
     public static class ClosingStructuresCalculationScenarioTestFactory
     {
         /// <summary>
-        /// Creates a calculated scenario for which the surface line on the input intersects with <paramref name="section"/>.
+        /// Creates a calculated scenario for which the structure on the input intersects with <paramref name="section"/>.
         /// </summary>
         /// <param name="section">The section for which an intersection will be created.</param>
         /// <returns>A new <see cref="StructuresCalculationScenario{T}"/>.</returns>

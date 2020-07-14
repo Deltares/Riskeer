@@ -325,10 +325,7 @@ namespace Riskeer.HeightStructures.Forms.Views
             try
             {
                 detailedAssemblyCategoryGroup = HeightStructuresFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
-                    SectionResult,
-                    failureMechanism.Calculations.Cast<StructuresCalculationScenario<HeightStructuresInput>>(),
-                    failureMechanism,
-                    assessmentSection).Group;
+                    SectionResult, calculationScenarios, failureMechanism, assessmentSection).Group;
             }
             catch (AssemblyException e)
             {
@@ -342,9 +339,7 @@ namespace Riskeer.HeightStructures.Forms.Views
             try
             {
                 tailorMadeAssemblyCategoryGroup = HeightStructuresFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(
-                    SectionResult,
-                    failureMechanism,
-                    assessmentSection).Group;
+                    SectionResult, failureMechanism, assessmentSection).Group;
             }
             catch (AssemblyException e)
             {
@@ -359,10 +354,7 @@ namespace Riskeer.HeightStructures.Forms.Views
             {
                 FailureMechanismSectionAssembly combinedAssembly =
                     HeightStructuresFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
-                        SectionResult,
-                        failureMechanism.Calculations.Cast<StructuresCalculationScenario<HeightStructuresInput>>(),
-                        failureMechanism,
-                        assessmentSection);
+                        SectionResult, calculationScenarios, failureMechanism, assessmentSection);
 
                 combinedAssemblyCategoryGroup = combinedAssembly.Group;
                 CombinedAssemblyProbability = combinedAssembly.Probability;

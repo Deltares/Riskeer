@@ -718,7 +718,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
         [Test]
         [TestCase(SimpleAssessmentResultType.None)]
         [TestCase(SimpleAssessmentResultType.AssessFurther)]
-        public void Constructor_TotalContributionNotHundred_DetailedAssessmentProbabilityHasErrorText(
+        public void Constructor_TotalContributionNotOne_DetailedAssessmentProbabilityHasErrorText(
             SimpleAssessmentResultType simpleAssessmentResult)
         {
             // Setup

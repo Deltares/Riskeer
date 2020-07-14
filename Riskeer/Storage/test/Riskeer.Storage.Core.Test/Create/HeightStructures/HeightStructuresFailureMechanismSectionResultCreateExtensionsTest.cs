@@ -25,7 +25,6 @@ using NUnit.Framework;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Primitives;
 using Riskeer.HeightStructures.Data;
-using Riskeer.Storage.Core.Create;
 using Riskeer.Storage.Core.Create.HeightStructures;
 using Riskeer.Storage.Core.DbContext;
 
@@ -38,25 +37,11 @@ namespace Riskeer.Storage.Core.Test.Create.HeightStructures
         public void Create_FailureMechanismSectionResultNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => HeightStructuresFailureMechanismSectionResultCreateExtensions.Create(null, new PersistenceRegistry());
+            void Call() => HeightStructuresFailureMechanismSectionResultCreateExtensions.Create(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("result", exception.ParamName);
-        }
-
-        [Test]
-        public void Create_PersistenceRegistryNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var sectionResult = new HeightStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
-
-            // Call
-            void Call() => sectionResult.Create(null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("registry", exception.ParamName);
         }
 
         [Test]
@@ -82,7 +67,7 @@ namespace Riskeer.Storage.Core.Test.Create.HeightStructures
             };
 
             // Call
-            HeightStructuresSectionResultEntity entity = sectionResult.Create(new PersistenceRegistry());
+            HeightStructuresSectionResultEntity entity = sectionResult.Create();
 
             // Assert
             Assert.AreEqual(Convert.ToByte(simpleAssessmentResult), entity.SimpleAssessmentResult);
@@ -104,7 +89,7 @@ namespace Riskeer.Storage.Core.Test.Create.HeightStructures
             };
 
             // Call
-            HeightStructuresSectionResultEntity entity = sectionResult.Create(new PersistenceRegistry());
+            HeightStructuresSectionResultEntity entity = sectionResult.Create();
 
             // Assert
             Assert.IsNull(entity.TailorMadeAssessmentProbability);

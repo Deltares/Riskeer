@@ -106,7 +106,7 @@ namespace Riskeer.Common.Forms.Test.Helpers
         }
 
         [Test]
-        public void GetDetailedAssessmentProbabilityError_TotalContributionNotHundred_ReturnsErrorMessage()
+        public void GetDetailedAssessmentProbabilityError_TotalContributionNotOne_ReturnsErrorMessage()
         {
             // Setup
             var mocks = new MockRepository();

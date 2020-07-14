@@ -293,7 +293,7 @@ namespace Riskeer.Storage.Core.Read
                 FailureMechanismSection failureMechanismSection = collector.Get(sectionResultEntity.FailureMechanismSectionEntity);
                 HeightStructuresFailureMechanismSectionResult result = failureMechanism.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
 
-                sectionResultEntity.Read(result, collector);
+                sectionResultEntity.Read(result);
             }
         }
 
@@ -461,7 +461,7 @@ namespace Riskeer.Storage.Core.Read
                 FailureMechanismSection failureMechanismSection = collector.Get(sectionResultEntity.FailureMechanismSectionEntity);
                 ClosingStructuresFailureMechanismSectionResult result = failureMechanism.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
 
-                sectionResultEntity.Read(result, collector);
+                sectionResultEntity.Read(result);
             }
         }
 

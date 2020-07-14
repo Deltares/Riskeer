@@ -38,12 +38,11 @@ namespace Riskeer.Storage.Core.Test.Read.HeightStructures
         public void Read_EntityNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => ((HeightStructuresSectionResultEntity) null).Read(
-                new HeightStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
-                new ReadConversionCollector());
+            void Call() => ((HeightStructuresSectionResultEntity) null).Read(new HeightStructuresFailureMechanismSectionResult(
+                                                                                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()));
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("entity", exception.ParamName);
         }
 
@@ -54,26 +53,11 @@ namespace Riskeer.Storage.Core.Test.Read.HeightStructures
             var entity = new HeightStructuresSectionResultEntity();
 
             // Call
-            TestDelegate call = () => entity.Read(null, new ReadConversionCollector());
+            void Call() => entity.Read(null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("sectionResult", paramName);
-        }
-
-        [Test]
-        public void Read_CollectorNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var entity = new HeightStructuresSectionResultEntity();
-
-            // Call
-            TestDelegate call = () => entity.Read(new HeightStructuresFailureMechanismSectionResult(
-                                                      FailureMechanismSectionTestFactory.CreateFailureMechanismSection()), null);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("collector", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("sectionResult", exception.ParamName);
         }
 
         [Test]
@@ -105,7 +89,7 @@ namespace Riskeer.Storage.Core.Test.Read.HeightStructures
             var sectionResult = new HeightStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             // Call
-            entity.Read(sectionResult, collector);
+            entity.Read(sectionResult);
 
             // Assert
             Assert.AreEqual(simpleAssessmentResult, sectionResult.SimpleAssessmentResult);
@@ -132,7 +116,7 @@ namespace Riskeer.Storage.Core.Test.Read.HeightStructures
             var sectionResult = new HeightStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             // Call
-            entity.Read(sectionResult, collector);
+            entity.Read(sectionResult);
 
             // Assert
             Assert.IsNaN(sectionResult.TailorMadeAssessmentProbability);

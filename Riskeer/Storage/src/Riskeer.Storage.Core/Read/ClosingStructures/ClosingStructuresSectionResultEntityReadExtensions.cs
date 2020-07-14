@@ -39,11 +39,9 @@ namespace Riskeer.Storage.Core.Read.ClosingStructures
         /// <param name="entity">The <see cref="ClosingStructuresSectionResultEntity"/> used to update 
         /// the <paramref name="sectionResult"/>.</param>
         /// <param name="sectionResult">The target of the read operation.</param>
-        /// <param name="collector">The object keeping track of read operations.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         internal static void Read(this ClosingStructuresSectionResultEntity entity,
-                                  ClosingStructuresFailureMechanismSectionResult sectionResult,
-                                  ReadConversionCollector collector)
+                                  ClosingStructuresFailureMechanismSectionResult sectionResult)
         {
             if (entity == null)
             {
@@ -53,11 +51,6 @@ namespace Riskeer.Storage.Core.Read.ClosingStructures
             if (sectionResult == null)
             {
                 throw new ArgumentNullException(nameof(sectionResult));
-            }
-
-            if (collector == null)
-            {
-                throw new ArgumentNullException(nameof(collector));
             }
 
             sectionResult.SimpleAssessmentResult = (SimpleAssessmentResultType) entity.SimpleAssessmentResult;

@@ -39,12 +39,10 @@ namespace Riskeer.Storage.Core.Read.HeightStructures
         /// <param name="entity">The <see cref="HeightStructuresSectionResultEntity"/> used to 
         /// update the <paramref name="sectionResult"/>.</param>
         /// <param name="sectionResult">The target of the read operation.</param>
-        /// <param name="collector">The object keeping track of read operations.</param>
         /// <returns>A new <see cref="HeightStructuresFailureMechanismSectionResult"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         internal static void Read(this HeightStructuresSectionResultEntity entity,
-                                  HeightStructuresFailureMechanismSectionResult sectionResult,
-                                  ReadConversionCollector collector)
+                                  HeightStructuresFailureMechanismSectionResult sectionResult)
         {
             if (entity == null)
             {
@@ -54,11 +52,6 @@ namespace Riskeer.Storage.Core.Read.HeightStructures
             if (sectionResult == null)
             {
                 throw new ArgumentNullException(nameof(sectionResult));
-            }
-
-            if (collector == null)
-            {
-                throw new ArgumentNullException(nameof(collector));
             }
 
             sectionResult.SimpleAssessmentResult = (SimpleAssessmentResultType) entity.SimpleAssessmentResult;

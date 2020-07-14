@@ -673,7 +673,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
         [Test]
         [TestCase(SimpleAssessmentResultType.None)]
         [TestCase(SimpleAssessmentResultType.AssessFurther)]
-        public void Constructor_TotalContributionNotHundred_DetailedAssessmentProbabilityHasErrorText(
+        public void Constructor_TotalContributionNotOne_DetailedAssessmentProbabilityHasErrorText(
             SimpleAssessmentResultType simpleAssessmentResult)
         {
             // Setup
@@ -1151,7 +1151,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
         }
 
         [Test]
-        public void DetailedAssessmentProbability_CalculationWithoutOutput_ReturnNaN()
+        public void DetailedAssessmentProbability_CalculationScenarioWithoutOutput_ReturnNaN()
         {
             // Setup
             var failureMechanism = new HeightStructuresFailureMechanism();
@@ -1183,7 +1183,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
         }
 
         [Test]
-        public void DetailedAssessmentProbability_CalculationWithNaNOutput_ReturnNaN()
+        public void DetailedAssessmentProbability_CalculationScenarioWithNaNOutput_ReturnNaN()
         {
             // Setup
             var failureMechanism = new HeightStructuresFailureMechanism();
@@ -1220,7 +1220,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
         }
 
         [Test]
-        public void DetailedAssessmentProbability_CalculationSuccessful_ReturnDetailedAssessmentProbability()
+        public void DetailedAssessmentProbability_CalculationScenarioSuccessful_ReturnDetailedAssessmentProbability()
         {
             // Setup
             var failureMechanism = new HeightStructuresFailureMechanism();

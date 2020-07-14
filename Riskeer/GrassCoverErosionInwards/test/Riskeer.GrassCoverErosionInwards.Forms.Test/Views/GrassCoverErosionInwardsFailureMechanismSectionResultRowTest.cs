@@ -720,7 +720,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
         [Test]
         [TestCase(SimpleAssessmentValidityOnlyResultType.None)]
         [TestCase(SimpleAssessmentValidityOnlyResultType.Applicable)]
-        public void Constructor_TotalContributionNotHundred_DetailedAssessmentProbabilityHasErrorText(
+        public void Constructor_TotalContributionNotOne_DetailedAssessmentProbabilityHasErrorText(
             SimpleAssessmentValidityOnlyResultType simpleAssessmentResult)
         {
             // Setup
