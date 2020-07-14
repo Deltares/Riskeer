@@ -971,7 +971,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
 
             StructuresCalculationScenario<StabilityPointStructuresInput>[] calculationScenarios =
             {
-                StabilityPointStructuresCalculationScenarioTestFactory.CreateStabilityPointStructuresCalculationScenario(section)
+                StabilityPointStructuresCalculationScenarioTestFactory.CreateNotCalculatedStabilityPointStructuresCalculationScenario(section)
             };
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -1005,7 +1005,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
 
             StructuresCalculationScenario<StabilityPointStructuresInput>[] calculationScenarios =
             {
-                StabilityPointStructuresCalculationScenarioTestFactory.CreateStabilityPointStructuresCalculationScenario(section)
+                StabilityPointStructuresCalculationScenarioTestFactory.CreateNotCalculatedStabilityPointStructuresCalculationScenario(section)
             };
 
             using (new AssemblyToolCalculatorFactoryConfig())
