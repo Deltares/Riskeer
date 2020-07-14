@@ -189,9 +189,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
             dataGridViewControl.AddTextBoxColumn(
                 nameof(GrassCoverErosionInwardsCalculationRow.StandardDeviationCriticalFlowRate),
                 Resources.StandardDeviation_Critical_FlowRate_DisplayName);
-
-            UpdateSelectableHydraulicBoundaryLocationsColumn();
-            UpdateDikeProfilesColumn();
         }
 
         private void InitializeListBox()
@@ -484,6 +481,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
         private void OnFailureMechanismUpdate()
         {
             UpdateSectionsListBox();
+            UpdateGenerateCalculationsButtonState();
         }
 
         private void UpdateSectionsListBox()

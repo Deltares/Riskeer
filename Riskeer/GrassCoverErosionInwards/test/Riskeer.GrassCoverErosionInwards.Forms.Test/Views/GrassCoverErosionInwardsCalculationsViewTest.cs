@@ -101,9 +101,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            mocks.ReplayAll();
-
             GrassCoverErosionInwardsFailureMechanism failureMechanism = new TestGrassCoverErosionInwardsFailureMechanism();
 
             // Call
@@ -112,8 +109,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -128,13 +123,12 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             GrassCoverErosionInwardsFailureMechanism failureMechanism = ConfigureFailureMechanism();
 
             // Call
-            using (var calculationsView = new GrassCoverErosionInwardsCalculationsView(ConfigureCalculationGroup(failureMechanism, assessmentSection), failureMechanism, assessmentSection))
-            {
-                // Assert
-                Assert.IsInstanceOf<UserControl>(calculationsView);
-                Assert.IsInstanceOf<IView>(calculationsView);
-                Assert.IsInstanceOf<ISelectionProvider>(calculationsView);
-            }
+            var calculationsView = new GrassCoverErosionInwardsCalculationsView(ConfigureCalculationGroup(failureMechanism, assessmentSection), failureMechanism, assessmentSection);
+
+            // Assert
+            Assert.IsInstanceOf<UserControl>(calculationsView);
+            Assert.IsInstanceOf<IView>(calculationsView);
+            Assert.IsInstanceOf<ISelectionProvider>(calculationsView);
 
             mocks.VerifyAll();
         }
@@ -197,22 +191,20 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             mocks.ReplayAll();
 
             // Call
-            using (ShowFullyConfiguredCalculationsView(
-                assessmentSection))
-            {
-                // Assert
-                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-                var hydraulicBoundaryLocationCombobox = (DataGridViewComboBoxColumn) dataGridView.Columns[selectableHydraulicBoundaryLocationsColumnIndex];
-                DataGridViewComboBoxCell.ObjectCollection hydraulicBoundaryLocationComboboxItems = hydraulicBoundaryLocationCombobox.Items;
-                Assert.AreEqual(7, hydraulicBoundaryLocationComboboxItems.Count);
-                Assert.AreEqual("<selecteer>", hydraulicBoundaryLocationComboboxItems[0].ToString());
-                Assert.AreEqual("Location 1", hydraulicBoundaryLocationComboboxItems[1].ToString());
-                Assert.AreEqual("Location 2", hydraulicBoundaryLocationComboboxItems[2].ToString());
-                Assert.AreEqual("Location 1 (2 m)", hydraulicBoundaryLocationComboboxItems[3].ToString());
-                Assert.AreEqual("Location 2 (6 m)", hydraulicBoundaryLocationComboboxItems[4].ToString());
-                Assert.AreEqual("Location 1 (4 m)", hydraulicBoundaryLocationComboboxItems[5].ToString());
-                Assert.AreEqual("Location 2 (5 m)", hydraulicBoundaryLocationComboboxItems[6].ToString());
-            }
+            ShowFullyConfiguredCalculationsView(assessmentSection);
+
+            // Assert
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+            var hydraulicBoundaryLocationCombobox = (DataGridViewComboBoxColumn) dataGridView.Columns[selectableHydraulicBoundaryLocationsColumnIndex];
+            DataGridViewComboBoxCell.ObjectCollection hydraulicBoundaryLocationComboboxItems = hydraulicBoundaryLocationCombobox.Items;
+            Assert.AreEqual(7, hydraulicBoundaryLocationComboboxItems.Count);
+            Assert.AreEqual("<selecteer>", hydraulicBoundaryLocationComboboxItems[0].ToString());
+            Assert.AreEqual("Location 1", hydraulicBoundaryLocationComboboxItems[1].ToString());
+            Assert.AreEqual("Location 2", hydraulicBoundaryLocationComboboxItems[2].ToString());
+            Assert.AreEqual("Location 1 (2 m)", hydraulicBoundaryLocationComboboxItems[3].ToString());
+            Assert.AreEqual("Location 2 (6 m)", hydraulicBoundaryLocationComboboxItems[4].ToString());
+            Assert.AreEqual("Location 1 (4 m)", hydraulicBoundaryLocationComboboxItems[5].ToString());
+            Assert.AreEqual("Location 2 (5 m)", hydraulicBoundaryLocationComboboxItems[6].ToString());
 
             mocks.VerifyAll();
         }
@@ -227,16 +219,15 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
 
             ConfigureHydraulicBoundaryDatabase(assessmentSection);
 
-            using (GrassCoverErosionInwardsCalculationsView calculationsView = ShowFullyConfiguredCalculationsView(assessmentSection))
-            {
-                var button = (Button) calculationsView.Controls.Find("buttonGenerateCalculations", true)[0];
+            GrassCoverErosionInwardsCalculationsView calculationsView = ShowFullyConfiguredCalculationsView(assessmentSection);
 
-                // Call
-                bool state = button.Enabled;
+            var button = (Button) calculationsView.Controls.Find("buttonGenerateCalculations", true)[0];
 
-                // Assert
-                Assert.IsTrue(state);
-            }
+            // Call
+            bool state = button.Enabled;
+
+            // Assert
+            Assert.IsTrue(state);
 
             mocks.VerifyAll();
         }
@@ -302,30 +293,29 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             mocks.ReplayAll();
 
             // Call
-            using (ShowFullyConfiguredCalculationsView(assessmentSection))
-            {
-                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+            ShowFullyConfiguredCalculationsView(assessmentSection);
 
-                // Assert
-                DataGridViewRowCollection rows = dataGridView.Rows;
-                Assert.AreEqual(2, rows.Count);
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
-                DataGridViewCellCollection cells = rows[0].Cells;
-                Assert.AreEqual(10, cells.Count);
-                Assert.AreEqual("Calculation 1", cells[nameColumnIndex].FormattedValue);
-                Assert.AreEqual("Location 1 (2 m)", cells[selectableHydraulicBoundaryLocationsColumnIndex].FormattedValue);
-                Assert.AreEqual("name", cells[dikeProfileColumnIndex].FormattedValue);
-                Assert.AreEqual(false, cells[useBreakWaterColumnIndex].FormattedValue);
-                Assert.AreEqual("Havendam", cells[breakWaterTypeColumnIndex].FormattedValue);
-                Assert.AreEqual(3.30.ToString("0.00", CultureInfo.CurrentCulture), cells[breakWaterHeightColumnIndex].FormattedValue);
-                Assert.AreEqual(false, cells[useForeShoreGeometryColumnIndex].FormattedValue);
-                Assert.AreEqual(1.10.ToString("0.00", CultureInfo.CurrentCulture), cells[dikeHeightColumnIndex].FormattedValue);
-                Assert.AreEqual(4.4000.ToString("0.0000", CultureInfo.CurrentCulture), cells[meanCriticalFlowRateColumnIndex].FormattedValue);
-                Assert.AreEqual(5.5000.ToString("0.0000", CultureInfo.CurrentCulture), cells[standardDeviationCriticalFlowRateColumnIndex].FormattedValue);
+            // Assert
+            DataGridViewRowCollection rows = dataGridView.Rows;
+            Assert.AreEqual(2, rows.Count);
 
-                cells = rows[1].Cells;
-                Assert.AreEqual(10, cells.Count);
-            }
+            DataGridViewCellCollection cells = rows[0].Cells;
+            Assert.AreEqual(10, cells.Count);
+            Assert.AreEqual("Calculation 1", cells[nameColumnIndex].FormattedValue);
+            Assert.AreEqual("Location 1 (2 m)", cells[selectableHydraulicBoundaryLocationsColumnIndex].FormattedValue);
+            Assert.AreEqual("name", cells[dikeProfileColumnIndex].FormattedValue);
+            Assert.AreEqual(false, cells[useBreakWaterColumnIndex].FormattedValue);
+            Assert.AreEqual("Havendam", cells[breakWaterTypeColumnIndex].FormattedValue);
+            Assert.AreEqual(3.30.ToString("0.00", CultureInfo.CurrentCulture), cells[breakWaterHeightColumnIndex].FormattedValue);
+            Assert.AreEqual(false, cells[useForeShoreGeometryColumnIndex].FormattedValue);
+            Assert.AreEqual(1.10.ToString("0.00", CultureInfo.CurrentCulture), cells[dikeHeightColumnIndex].FormattedValue);
+            Assert.AreEqual(4.4000.ToString("0.0000", CultureInfo.CurrentCulture), cells[meanCriticalFlowRateColumnIndex].FormattedValue);
+            Assert.AreEqual(5.5000.ToString("0.0000", CultureInfo.CurrentCulture), cells[standardDeviationCriticalFlowRateColumnIndex].FormattedValue);
+
+            cells = rows[1].Cells;
+            Assert.AreEqual(10, cells.Count);
 
             mocks.VerifyAll();
         }
@@ -372,28 +362,26 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            using (GrassCoverErosionInwardsCalculationsView calculationsView = ShowFullyConfiguredCalculationsView(
-                assessmentSection))
-            {
-                var selectionChangedCount = 0;
-                calculationsView.SelectionChanged += (sender, args) => selectionChangedCount++;
+            GrassCoverErosionInwardsCalculationsView calculationsView = ShowFullyConfiguredCalculationsView(assessmentSection);
 
-                var listBox = (ListBox) new ControlTester("listBox").TheObject;
-                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+            var selectionChangedCount = 0;
+            calculationsView.SelectionChanged += (sender, args) => selectionChangedCount++;
 
-                // Precondition
-                Assert.AreEqual(2, dataGridView.Rows.Count);
-                Assert.AreEqual("Calculation 1", dataGridView.Rows[0].Cells[nameColumnIndex].FormattedValue);
-                Assert.AreEqual("Calculation 2", dataGridView.Rows[1].Cells[nameColumnIndex].FormattedValue);
+            var listBox = (ListBox) new ControlTester("listBox").TheObject;
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
-                // Call
-                listBox.SelectedIndex = 1;
+            // Precondition
+            Assert.AreEqual(2, dataGridView.Rows.Count);
+            Assert.AreEqual("Calculation 1", dataGridView.Rows[0].Cells[nameColumnIndex].FormattedValue);
+            Assert.AreEqual("Calculation 2", dataGridView.Rows[1].Cells[nameColumnIndex].FormattedValue);
 
-                // Assert
-                Assert.AreEqual(1, dataGridView.Rows.Count);
-                Assert.AreEqual("Calculation 2", dataGridView.Rows[0].Cells[nameColumnIndex].FormattedValue);
-                Assert.AreEqual(2, selectionChangedCount);
-            }
+            // Call
+            listBox.SelectedIndex = 1;
+
+            // Assert
+            Assert.AreEqual(1, dataGridView.Rows.Count);
+            Assert.AreEqual("Calculation 2", dataGridView.Rows[0].Cells[nameColumnIndex].FormattedValue);
+            Assert.AreEqual(2, selectionChangedCount);
 
             mocks.VerifyAll();
         }
@@ -414,16 +402,15 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            using (ShowFullyConfiguredCalculationsView(assessmentSection))
-            {
-                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+            ShowFullyConfiguredCalculationsView(assessmentSection);
 
-                // Call
-                dataGridView.Rows[0].Cells[cellIndex].Value = newValue;
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
-                // Assert
-                Assert.AreEqual("De tekst moet een getal zijn.", dataGridView.Rows[0].ErrorText);
-            }
+            // Call
+            dataGridView.Rows[0].Cells[cellIndex].Value = newValue;
+
+            // Assert
+            Assert.AreEqual("De tekst moet een getal zijn.", dataGridView.Rows[0].ErrorText);
 
             mocks.VerifyAll();
         }
@@ -556,23 +543,21 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
 
             var newRoundedValue = (RoundedDouble) newValue;
 
-            using (GrassCoverErosionInwardsCalculationsView calculationsView = ShowFullyConfiguredCalculationsView(
-                assessmentSection))
-            {
-                var data = (CalculationGroup) calculationsView.Data;
-                var calculation = (GrassCoverErosionInwardsCalculationScenario) data.Children.First();
+            GrassCoverErosionInwardsCalculationsView calculationsView = ShowFullyConfiguredCalculationsView(assessmentSection);
 
-                calculation.Attach(calculationObserver);
-                calculation.InputParameters.Attach(inputObserver);
+            var data = (CalculationGroup) calculationsView.Data;
+            var calculation = (GrassCoverErosionInwardsCalculationScenario) data.Children.First();
 
-                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+            calculation.Attach(calculationObserver);
+            calculation.InputParameters.Attach(inputObserver);
 
-                // Call
-                dataGridView.Rows[0].Cells[meanCriticalFlowRateColumnIndex].Value = newRoundedValue;
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
-                // Assert
-                Assert.AreEqual("Gemiddelde moet groter zijn dan 0.", dataGridView.Rows[0].ErrorText);
-            }
+            // Call
+            dataGridView.Rows[0].Cells[meanCriticalFlowRateColumnIndex].Value = newRoundedValue;
+
+            // Assert
+            Assert.AreEqual("Gemiddelde moet groter zijn dan 0.", dataGridView.Rows[0].ErrorText);
 
             mocks.VerifyAll(); // No observer notified
         }
@@ -589,23 +574,21 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
 
             var newRoundedValue = (RoundedDouble) (-123.45);
 
-            using (GrassCoverErosionInwardsCalculationsView calculationsView = ShowFullyConfiguredCalculationsView(
-                assessmentSection))
-            {
-                var data = (CalculationGroup) calculationsView.Data;
-                var calculation = (GrassCoverErosionInwardsCalculationScenario) data.Children.First();
+            GrassCoverErosionInwardsCalculationsView calculationsView = ShowFullyConfiguredCalculationsView(assessmentSection);
 
-                calculation.Attach(calculationObserver);
-                calculation.InputParameters.Attach(inputObserver);
+            var data = (CalculationGroup) calculationsView.Data;
+            var calculation = (GrassCoverErosionInwardsCalculationScenario) data.Children.First();
 
-                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+            calculation.Attach(calculationObserver);
+            calculation.InputParameters.Attach(inputObserver);
 
-                // Call
-                dataGridView.Rows[0].Cells[standardDeviationCriticalFlowRateColumnIndex].Value = newRoundedValue;
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
-                // Assert
-                Assert.AreEqual("Standaardafwijking (σ) moet groter zijn dan of gelijk zijn aan 0.", dataGridView.Rows[0].ErrorText);
-            }
+            // Call
+            dataGridView.Rows[0].Cells[standardDeviationCriticalFlowRateColumnIndex].Value = newRoundedValue;
+
+            // Assert
+            Assert.AreEqual("Standaardafwijking (σ) moet groter zijn dan of gelijk zijn aan 0.", dataGridView.Rows[0].ErrorText);
 
             mocks.VerifyAll(); // No observer notified
         }
@@ -687,23 +670,21 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            using (GrassCoverErosionInwardsCalculationsView view = ShowFullyConfiguredCalculationsView(
-                assessmentSection))
-            {
-                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-                
-                // This step is necessary because setting the same value would not change the view state.
-                var calculationGroup = (CalculationGroup) view.Data;
-                var calculation = (GrassCoverErosionInwardsCalculationScenario) calculationGroup.GetCalculations().First();
-                calculation.InputParameters.UseBreakWater = !newValue;
+            GrassCoverErosionInwardsCalculationsView view = ShowFullyConfiguredCalculationsView(assessmentSection);
 
-                // Call
-                dataGridView.Rows[0].Cells[useBreakWaterColumnIndex].Value = newValue;
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
-                // Assert
-                Assert.AreEqual(expectedState, dataGridView.Rows[0].Cells[breakWaterTypeColumnIndex].ReadOnly);
-                Assert.AreEqual(expectedState, dataGridView.Rows[0].Cells[breakWaterHeightColumnIndex].ReadOnly);
-            }
+            // This step is necessary because setting the same value would not change the view state.
+            var calculationGroup = (CalculationGroup) view.Data;
+            var calculation = (GrassCoverErosionInwardsCalculationScenario) calculationGroup.GetCalculations().First();
+            calculation.InputParameters.UseBreakWater = !newValue;
+
+            // Call
+            dataGridView.Rows[0].Cells[useBreakWaterColumnIndex].Value = newValue;
+
+            // Assert
+            Assert.AreEqual(expectedState, dataGridView.Rows[0].Cells[breakWaterTypeColumnIndex].ReadOnly);
+            Assert.AreEqual(expectedState, dataGridView.Rows[0].Cells[breakWaterHeightColumnIndex].ReadOnly);
 
             mocks.VerifyAll();
         }
@@ -718,21 +699,19 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            using (GrassCoverErosionInwardsCalculationsView calculationsView = ShowFullyConfiguredCalculationsView(
-                assessmentSection))
-            {
-                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+            GrassCoverErosionInwardsCalculationsView calculationsView = ShowFullyConfiguredCalculationsView(assessmentSection);
 
-                dataGridView.CurrentCell = dataGridView.Rows[selectedRow].Cells[0];
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
-                // Call
-                object selection = calculationsView.Selection;
+            dataGridView.CurrentCell = dataGridView.Rows[selectedRow].Cells[0];
 
-                // Assert
-                Assert.IsInstanceOf<GrassCoverErosionInwardsInputContext>(selection);
-                var dataRow = (GrassCoverErosionInwardsCalculationRow) dataGridView.Rows[selectedRow].DataBoundItem;
-                Assert.AreSame(dataRow.CalculationScenario, ((GrassCoverErosionInwardsInputContext) selection).Calculation);
-            }
+            // Call
+            object selection = calculationsView.Selection;
+
+            // Assert
+            Assert.IsInstanceOf<GrassCoverErosionInwardsInputContext>(selection);
+            var dataRow = (GrassCoverErosionInwardsCalculationRow) dataGridView.Rows[selectedRow].DataBoundItem;
+            Assert.AreSame(dataRow.CalculationScenario, ((GrassCoverErosionInwardsInputContext) selection).Calculation);
 
             mocks.VerifyAll();
         }
@@ -752,30 +731,28 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            using (GrassCoverErosionInwardsCalculationsView calculationsView = ShowFullyConfiguredCalculationsView(
-                assessmentSection))
+            GrassCoverErosionInwardsCalculationsView calculationsView = ShowFullyConfiguredCalculationsView(assessmentSection);
+
+            var data = (CalculationGroup) calculationsView.Data;
+            var calculation = (GrassCoverErosionInwardsCalculationScenario) data.Children.First();
+
+            if (useCalculationWithOutput)
             {
-                var data = (CalculationGroup) calculationsView.Data;
-                var calculation = (GrassCoverErosionInwardsCalculationScenario) data.Children.First();
-
-                if (useCalculationWithOutput)
-                {
-                    calculation.Output = new GrassCoverErosionInwardsOutput(new TestOvertoppingOutput(2.4),
-                                                                            new TestDikeHeightOutput(4.2),
-                                                                            new TestOvertoppingRateOutput(1.0));
-                }
-
-                calculation.Attach(calculationObserver);
-                calculation.InputParameters.Attach(calculationInputObserver);
-
-                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-
-                // Call
-                dataGridView.Rows[0].Cells[nameColumnIndex].Value = "New name";
-
-                // Assert
-                calculation.Output = null;
+                calculation.Output = new GrassCoverErosionInwardsOutput(new TestOvertoppingOutput(2.4),
+                                                                        new TestDikeHeightOutput(4.2),
+                                                                        new TestOvertoppingRateOutput(1.0));
             }
+
+            calculation.Attach(calculationObserver);
+            calculation.InputParameters.Attach(calculationInputObserver);
+
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+
+            // Call
+            dataGridView.Rows[0].Cells[nameColumnIndex].Value = "New name";
+
+            // Assert
+            calculation.Output = null;
 
             mocks.VerifyAll();
         }
@@ -806,8 +783,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             testForm.Dispose();
         }
 
-        private GrassCoverErosionInwardsCalculationsView ShowFullyConfiguredCalculationsView(
-            IAssessmentSection assessmentSection)
+        private GrassCoverErosionInwardsCalculationsView ShowFullyConfiguredCalculationsView(IAssessmentSection assessmentSection)
         {
             ConfigureHydraulicBoundaryDatabase(assessmentSection);
 
