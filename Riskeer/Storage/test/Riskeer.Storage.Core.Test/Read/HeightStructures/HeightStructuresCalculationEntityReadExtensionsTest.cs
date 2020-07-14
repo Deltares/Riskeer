@@ -25,9 +25,11 @@ using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.Data.DikeProfiles;
+using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.HeightStructures.Data;
+using Riskeer.HeightStructures.Data.TestUtil;
 using Riskeer.Storage.Core.DbContext;
 using Riskeer.Storage.Core.Read;
 using Riskeer.Storage.Core.Read.HeightStructures;
@@ -120,6 +122,94 @@ namespace Riskeer.Storage.Core.Test.Read.HeightStructures
             Assert.IsNull(input.HydraulicBoundaryLocation);
             Assert.IsNull(input.Structure);
             Assert.IsFalse(calculation.HasOutput);
+        }
+
+        [Test]
+        public void Read_EntityWithNullParameters_ReturnHeightStructuresCalculationWithInputParametersNaN()
+        {
+            // Setup
+            var entity = new HeightStructuresCalculationEntity
+            {
+                ScenarioContribution = null,
+                StructureNormalOrientation = null,
+                ModelFactorSuperCriticalFlowMean = null,
+                AllowedLevelIncreaseStorageMean = null,
+                AllowedLevelIncreaseStorageStandardDeviation = null,
+                FlowWidthAtBottomProtectionMean = null,
+                FlowWidthAtBottomProtectionStandardDeviation = null,
+                CriticalOvertoppingDischargeMean = null,
+                CriticalOvertoppingDischargeCoefficientOfVariation = null,
+                WidthFlowAperturesMean = null,
+                WidthFlowAperturesStandardDeviation = null,
+                StormDurationMean = null,
+                LevelCrestStructureMean = null,
+                LevelCrestStructureStandardDeviation = null,
+                DeviationWaveDirection = null
+            };
+            var collector = new ReadConversionCollector();
+
+            // Call
+            StructuresCalculationScenario<HeightStructuresInput> calculation = entity.Read(collector);
+
+            // Assert
+            Assert.IsNaN(calculation.Contribution);
+
+            HeightStructuresInput inputParameters = calculation.InputParameters;
+            Assert.IsNaN(inputParameters.StructureNormalOrientation);
+            Assert.IsNaN(inputParameters.ModelFactorSuperCriticalFlow.Mean);
+            Assert.IsNaN(inputParameters.AllowedLevelIncreaseStorage.Mean);
+            Assert.IsNaN(inputParameters.AllowedLevelIncreaseStorage.StandardDeviation);
+            Assert.IsNaN(inputParameters.FlowWidthAtBottomProtection.Mean);
+            Assert.IsNaN(inputParameters.FlowWidthAtBottomProtection.StandardDeviation);
+            Assert.IsNaN(inputParameters.CriticalOvertoppingDischarge.Mean);
+            Assert.IsNaN(inputParameters.CriticalOvertoppingDischarge.CoefficientOfVariation);
+            Assert.IsNaN(inputParameters.WidthFlowApertures.Mean);
+            Assert.IsNaN(inputParameters.WidthFlowApertures.StandardDeviation);
+            Assert.IsNaN(inputParameters.StormDuration.Mean);
+            Assert.IsNaN(inputParameters.LevelCrestStructure.Mean);
+            Assert.IsNaN(inputParameters.LevelCrestStructure.StandardDeviation);
+            Assert.IsNaN(inputParameters.DeviationWaveDirection);
+        }
+
+        [Test]
+        public void Read_EntityWithStructureEntity_ReturnCalculationWithStructure()
+        {
+            // Setup
+            HeightStructure structure = new TestHeightStructure();
+            var structureEntity = new HeightStructureEntity();
+            var entity = new HeightStructuresCalculationEntity
+            {
+                HeightStructureEntity = structureEntity,
+            };
+            var collector = new ReadConversionCollector();
+            collector.Read(structureEntity, structure);
+
+            // Call
+            StructuresCalculationScenario<HeightStructuresInput> calculation = entity.Read(collector);
+
+            // Assert
+            Assert.AreSame(structure, calculation.InputParameters.Structure);
+        }
+
+        [Test]
+        public void Read_EntityWithHydraulicLocationEntity_ReturnCalculationWithHydraulicBoundaryLocation()
+        {
+            // Setup
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "A", 2, 3);
+            var hydraulicLocationEntity = new HydraulicLocationEntity();
+            var entity = new HeightStructuresCalculationEntity
+            {
+                HydraulicLocationEntity = hydraulicLocationEntity,
+            };
+
+            var collector = new ReadConversionCollector();
+            collector.Read(hydraulicLocationEntity, hydraulicBoundaryLocation);
+
+            // Call
+            StructuresCalculationScenario<HeightStructuresInput> calculation = entity.Read(collector);
+
+            // Assert
+            Assert.AreSame(hydraulicBoundaryLocation, calculation.InputParameters.HydraulicBoundaryLocation);
         }
 
         [Test]

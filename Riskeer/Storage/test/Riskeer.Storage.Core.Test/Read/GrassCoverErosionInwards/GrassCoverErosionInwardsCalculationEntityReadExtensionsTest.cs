@@ -124,6 +124,7 @@ namespace Riskeer.Storage.Core.Test.Read.GrassCoverErosionInwards
             var entity = new GrassCoverErosionInwardsCalculationEntity
             {
                 Name = null,
+                ScenarioContribution = null,
                 Comments = null,
                 Orientation = null,
                 CriticalFlowRateMean = null,
@@ -135,10 +136,11 @@ namespace Riskeer.Storage.Core.Test.Read.GrassCoverErosionInwards
             var collector = new ReadConversionCollector();
 
             // Call
-            GrassCoverErosionInwardsCalculation calculation = entity.Read(collector);
+            GrassCoverErosionInwardsCalculationScenario calculation = entity.Read(collector);
 
             // Assert
             Assert.IsNull(calculation.Name);
+            Assert.IsNaN(calculation.Contribution);
             Assert.IsNull(calculation.Comments.Body);
 
             GrassCoverErosionInwardsInput input = calculation.InputParameters;

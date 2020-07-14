@@ -98,12 +98,6 @@ namespace Riskeer.Storage.Core.Create
         private readonly Dictionary<StabilityPointStructureEntity, StabilityPointStructure> stabilityPointStructures =
             CreateDictionary<StabilityPointStructureEntity, StabilityPointStructure>();
 
-        private readonly Dictionary<HeightStructuresCalculationEntity, StructuresCalculation<HeightStructuresInput>> heightStructuresCalculations =
-            CreateDictionary<HeightStructuresCalculationEntity, StructuresCalculation<HeightStructuresInput>>();
-
-        private readonly Dictionary<ClosingStructuresCalculationEntity, StructuresCalculation<ClosingStructuresInput>> closingStructuresCalculations =
-            CreateDictionary<ClosingStructuresCalculationEntity, StructuresCalculation<ClosingStructuresInput>>();
-
         private readonly Dictionary<StabilityPointStructuresCalculationEntity, StructuresCalculation<StabilityPointStructuresInput>> stabilityPointStructuresCalculations =
             CreateDictionary<StabilityPointStructuresCalculationEntity, StructuresCalculation<StabilityPointStructuresInput>>();
 
@@ -357,34 +351,6 @@ namespace Riskeer.Storage.Core.Create
         /// Registers a create operation for <paramref name="model"/> and the <paramref name="entity"/>
         /// that was constructed with the information.
         /// </summary>
-        /// <param name="entity">The <see cref="HeightStructuresCalculationEntity"/>
-        /// to be registered.</param>
-        /// <param name="model">The <see cref="StructuresCalculation{T}"/> to
-        /// be registered.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
-        internal void Register(HeightStructuresCalculationEntity entity, StructuresCalculation<HeightStructuresInput> model)
-        {
-            Register(heightStructuresCalculations, entity, model);
-        }
-
-        /// <summary>
-        /// Registers a create operation for <paramref name="model"/> and the <paramref name="entity"/>
-        /// that was constructed with the information.
-        /// </summary>
-        /// <param name="entity">The <see cref="ClosingStructuresCalculationEntity"/>
-        /// to be registered.</param>
-        /// <param name="model">The <see cref="StructuresCalculation{T}"/> to
-        /// be registered.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
-        internal void Register(ClosingStructuresCalculationEntity entity, StructuresCalculation<ClosingStructuresInput> model)
-        {
-            Register(closingStructuresCalculations, entity, model);
-        }
-
-        /// <summary>
-        /// Registers a create operation for <paramref name="model"/> and the <paramref name="entity"/>
-        /// that was constructed with the information.
-        /// </summary>
         /// <param name="entity">The <see cref="StabilityPointStructuresCalculationEntity"/>
         /// to be registered.</param>
         /// <param name="model">The <see cref="StructuresCalculation{T}"/> to
@@ -584,28 +550,6 @@ namespace Riskeer.Storage.Core.Create
         internal bool Contains(StabilityPointStructure model)
         {
             return ContainsValue(stabilityPointStructures, model);
-        }
-
-        /// <summary>
-        /// Checks whether a create operations has been registered for the given <paramref name="model"/>.
-        /// </summary>
-        /// <param name="model">The <see cref="StructuresCalculation{T}"/> to check for.</param>
-        /// <returns><c>true</c> if the <see cref="model"/> was registered before, <c>false</c> otherwise.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="model"/> is <c>null</c>.</exception>
-        internal bool Contains(StructuresCalculation<HeightStructuresInput> model)
-        {
-            return ContainsValue(heightStructuresCalculations, model);
-        }
-
-        /// <summary>
-        /// Checks whether a create operations has been registered for the given <paramref name="model"/>.
-        /// </summary>
-        /// <param name="model">The <see cref="StructuresCalculation{T}"/> to check for.</param>
-        /// <returns><c>true</c> if the <see cref="model"/> was registered before, <c>false</c> otherwise.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="model"/> is <c>null</c>.</exception>
-        internal bool Contains(StructuresCalculation<ClosingStructuresInput> model)
-        {
-            return ContainsValue(closingStructuresCalculations, model);
         }
 
         /// <summary>
@@ -907,40 +851,6 @@ namespace Riskeer.Storage.Core.Create
         internal StabilityPointStructureEntity Get(StabilityPointStructure model)
         {
             return Get(stabilityPointStructures, model);
-        }
-
-        /// <summary>
-        /// Obtains the <see cref="HeightStructuresCalculationEntity"/> which was
-        /// registered for the given <paramref name="model"/>.
-        /// </summary>
-        /// <param name="model">The <see cref="StructuresCalculation{T}"/> for
-        /// which a read operation has been registered.</param>
-        /// <returns>The constructed <see cref="HeightStructuresCalculationEntity"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="model"/> is <c>null</c>.</exception>
-        /// <exception cref="InvalidOperationException">Thrown when no create operation 
-        /// has been registered for <paramref name="model"/>.</exception>
-        /// <remarks>Use <see cref="Contains(StructuresCalculation{HeightStructuresInput})"/> to find out
-        /// whether a create operation has been registered for <paramref name="model"/>.</remarks>
-        internal HeightStructuresCalculationEntity Get(StructuresCalculation<HeightStructuresInput> model)
-        {
-            return Get(heightStructuresCalculations, model);
-        }
-
-        /// <summary>
-        /// Obtains the <see cref="ClosingStructuresCalculationEntity"/> which was
-        /// registered for the given <paramref name="model"/>.
-        /// </summary>
-        /// <param name="model">The <see cref="StructuresCalculation{T}"/> for
-        /// which a read operation has been registered.</param>
-        /// <returns>The constructed <see cref="ClosingStructuresCalculationEntity"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="model"/> is <c>null</c>.</exception>
-        /// <exception cref="InvalidOperationException">Thrown when no create operation 
-        /// has been registered for <paramref name="model"/>.</exception>
-        /// <remarks>Use <see cref="Contains(StructuresCalculation{ClosingStructuresInput})"/> to find out
-        /// whether a create operation has been registered for <paramref name="model"/>.</remarks>
-        internal ClosingStructuresCalculationEntity Get(StructuresCalculation<ClosingStructuresInput> model)
-        {
-            return Get(closingStructuresCalculations, model);
         }
 
         /// <summary>

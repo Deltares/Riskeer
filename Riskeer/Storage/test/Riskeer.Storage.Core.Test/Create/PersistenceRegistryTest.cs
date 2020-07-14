@@ -555,21 +555,6 @@ namespace Riskeer.Storage.Core.Test.Create
             }
         }
 
-        [TestFixture]
-        private class HeightStructuresCalculationRegistryTest : RegistryTest<
-            StructuresCalculation<HeightStructuresInput>, HeightStructuresCalculationEntity>
-        {
-            public HeightStructuresCalculationRegistryTest() : base(
-                (r, e, m) => r.Register(e, m),
-                (r, m) => r.Contains(m),
-                (r, m) => r.Get(m)) {}
-
-            protected override StructuresCalculation<HeightStructuresInput> CreateDataModel()
-            {
-                return new StructuresCalculation<HeightStructuresInput>();
-            }
-        }
-
         #endregion
 
         #region ClosingStructures
@@ -586,21 +571,6 @@ namespace Riskeer.Storage.Core.Test.Create
             protected override ClosingStructure CreateDataModel()
             {
                 return new TestClosingStructure();
-            }
-        }
-
-        [TestFixture]
-        private class ClosingStructuresCalculationRegistryTest : RegistryTest<
-            StructuresCalculation<ClosingStructuresInput>, ClosingStructuresCalculationEntity>
-        {
-            public ClosingStructuresCalculationRegistryTest() : base(
-                (r, e, m) => r.Register(e, m),
-                (r, m) => r.Contains(m),
-                (r, m) => r.Get(m)) {}
-
-            protected override StructuresCalculation<ClosingStructuresInput> CreateDataModel()
-            {
-                return new StructuresCalculation<ClosingStructuresInput>();
             }
         }
 
