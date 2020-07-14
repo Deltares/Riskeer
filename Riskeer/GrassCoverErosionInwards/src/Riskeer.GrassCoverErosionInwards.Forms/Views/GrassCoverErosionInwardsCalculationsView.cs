@@ -56,8 +56,8 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
         private RecursiveObserver<CalculationGroup, GrassCoverErosionInwardsInput> inputObserver;
         private RecursiveObserver<CalculationGroup, GrassCoverErosionInwardsCalculationScenario> calculationScenarioObserver;
         private RecursiveObserver<CalculationGroup, CalculationGroup> calculationGroupObserver;
-        private IAssessmentSection assessmentSection;
-        private GrassCoverErosionInwardsFailureMechanism failureMechanism;
+        private readonly IAssessmentSection assessmentSection;
+        private readonly GrassCoverErosionInwardsFailureMechanism failureMechanism;
 
         private CalculationGroup calculationGroup;
 
@@ -86,8 +86,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
             {
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
-
-
 
             this.failureMechanism = failureMechanism;
             this.assessmentSection = assessmentSection;
@@ -120,7 +118,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
             UpdateDataGridViewDataSource();
 
             base.OnLoad(e);
-            
+
             dataGridViewControl.CellFormatting += HandleCellStyling;
         }
 
@@ -431,13 +429,14 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
         private IEnumerable<SelectableHydraulicBoundaryLocation> GetSelectableHydraulicBoundaryLocationsFromFailureMechanism()
         {
             List<HydraulicBoundaryLocation> hydraulicBoundaryLocations = assessmentSection.HydraulicBoundaryDatabase.Locations;
-            
+
             List<SelectableHydraulicBoundaryLocation> selectableHydraulicBoundaryLocations = hydraulicBoundaryLocations.Select(hbl => new SelectableHydraulicBoundaryLocation(hbl, null)).ToList();
-            
+
             foreach (DikeProfile dikeProfile in failureMechanism.DikeProfiles)
             {
                 selectableHydraulicBoundaryLocations.AddRange(GetSelectableHydraulicBoundaryLocations(hydraulicBoundaryLocations, dikeProfile));
             }
+
             return selectableHydraulicBoundaryLocations;
         }
 

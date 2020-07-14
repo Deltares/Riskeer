@@ -139,7 +139,12 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
             get => CalculationScenario.InputParameters.UseBreakWater;
             set
             {
-                PropertyChangeHelper.ChangePropertyAndNotify(() => CalculationScenario.InputParameters.UseBreakWater = value, propertyChangeHandler);
+
+                if (!CalculationScenario.InputParameters.UseBreakWater.Equals(value))
+                {
+                    PropertyChangeHelper.ChangePropertyAndNotify(() => CalculationScenario.InputParameters.UseBreakWater = value, propertyChangeHandler);
+                }
+
                 UpdateUseBreakWaterColumnStateDefinitions();
             }
         }
@@ -152,7 +157,10 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
             get => CalculationScenario.InputParameters.BreakWater.Type;
             set
             {
-                PropertyChangeHelper.ChangePropertyAndNotify(() => CalculationScenario.InputParameters.BreakWater.Type = value, propertyChangeHandler);
+                if (!CalculationScenario.InputParameters.BreakWater.Type.Equals(value))
+                {
+                    PropertyChangeHelper.ChangePropertyAndNotify(() => CalculationScenario.InputParameters.BreakWater.Type = value, propertyChangeHandler);
+                }
             }
         }
 

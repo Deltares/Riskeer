@@ -208,6 +208,29 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
         }
 
         [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void UseBreakWater_ChangeToEqualValue_NoNotificationsOutputNotCleared(bool useBreakWater)
+        {
+            // Setup
+            bool oldValue = useBreakWater;
+
+            // Call
+            AssertPropertyNotChanged(
+                row =>
+                {
+                    oldValue = row.UseBreakWater;
+                    row.UseBreakWater = row.UseBreakWater;
+                },
+                calculation =>
+                {
+                    // Assert
+                    Assert.NotNull(oldValue);
+                    Assert.AreEqual(oldValue, calculation.InputParameters.UseBreakWater);
+                });
+        }
+
+        [Test]
         [TestCase(true, true)]
         [TestCase(false, false)]
         public void UseBreakWaterState_AlwaysOnChange_CorrectColumnStates(bool useBreakWaterState, bool columnIsEnabled)
@@ -243,8 +266,35 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
 
             var calculation = new GrassCoverErosionInwardsCalculationScenario();
 
+            // Precondition - necessary to make all types testable.
+            calculation.InputParameters.BreakWater.Type = (BreakWaterType) 4;
+
             // Call & Assert
             SetPropertyAndVerifyNotificationsAndOutputForCalculation(row => row.BreakWaterType = newValue, calculation);
+        }
+
+        [Test]
+        [TestCase(BreakWaterType.Wall)]
+        [TestCase(BreakWaterType.Caisson)]
+        [TestCase(BreakWaterType.Dam)]
+        public void BreakWaterType_ChangeToEqualValue_NoNotificationsOutputNotCleared(BreakWaterType breakWaterType)
+        {
+            // Setup
+            var oldValue = breakWaterType;
+
+            // Call
+            AssertPropertyNotChanged(
+                row =>
+                {
+                    oldValue = row.BreakWaterType;
+                    row.BreakWaterType = row.BreakWaterType;
+                },
+                calculation =>
+                {
+                    // Assert
+                    Assert.NotNull(oldValue);
+                    Assert.AreEqual(oldValue, calculation.InputParameters.BreakWater.Type);
+                });
         }
 
         [Test]
