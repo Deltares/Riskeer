@@ -154,7 +154,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
             // Setup
             var random = new Random(39);
 
-            var calculationA = new StructuresCalculation<StabilityPointStructuresInput>
+            var calculationA = new StructuresCalculationScenario<StabilityPointStructuresInput>
             {
                 InputParameters =
                 {
@@ -163,7 +163,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
                 }
             };
 
-            var calculationB = new StructuresCalculation<StabilityPointStructuresInput>
+            var calculationB = new StructuresCalculationScenario<StabilityPointStructuresInput>
             {
                 InputParameters =
                 {
@@ -811,7 +811,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
         {
             // Given
             var random = new Random(39);
-            var calculationA = new StructuresCalculation<StabilityPointStructuresInput>();
+            var calculationA = new StructuresCalculationScenario<StabilityPointStructuresInput>();
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculationA);
