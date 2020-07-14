@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using Core.Common.Base;
 using Core.Common.Controls.DataGrid;
 using Core.Common.TestUtil;
@@ -66,6 +67,28 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
             };
 
         [Test]
+        public void Constructor_CalculationScenariosNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new StabilityPointStructuresFailureMechanismSectionResult(section);
+
+            // Call
+            void Call() => new StabilityPointStructuresFailureMechanismSectionResultRow(
+                result, null, new StabilityPointStructuresFailureMechanism(),
+                assessmentSection, ConstructionProperties);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("calculationScenarios", exception.ParamName);
+            mocks.VerifyAll();
+        }
+
+        [Test]
         public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Setup
@@ -77,7 +100,9 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
             var result = new StabilityPointStructuresFailureMechanismSectionResult(section);
 
             // Call
-            void Call() => new StabilityPointStructuresFailureMechanismSectionResultRow(result, null, assessmentSection, ConstructionProperties);
+            void Call() => new StabilityPointStructuresFailureMechanismSectionResultRow(
+                result, Enumerable.Empty<StructuresCalculationScenario<StabilityPointStructuresInput>>(),
+                null, assessmentSection, ConstructionProperties);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -93,8 +118,9 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
             var result = new StabilityPointStructuresFailureMechanismSectionResult(section);
 
             // Call
-            void Call() => new StabilityPointStructuresFailureMechanismSectionResultRow(result, new StabilityPointStructuresFailureMechanism(),
-                                                                                        null, ConstructionProperties);
+            void Call() => new StabilityPointStructuresFailureMechanismSectionResultRow(
+                result, Enumerable.Empty<StructuresCalculationScenario<StabilityPointStructuresInput>>(),
+                new StabilityPointStructuresFailureMechanism(), null, ConstructionProperties);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -113,8 +139,9 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
             var result = new StabilityPointStructuresFailureMechanismSectionResult(section);
 
             // Call
-            void Call() => new StabilityPointStructuresFailureMechanismSectionResultRow(result, new StabilityPointStructuresFailureMechanism(),
-                                                                                        assessmentSection, null);
+            void Call() => new StabilityPointStructuresFailureMechanismSectionResultRow(
+                result, Enumerable.Empty<StructuresCalculationScenario<StabilityPointStructuresInput>>(),
+                new StabilityPointStructuresFailureMechanism(), assessmentSection, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -135,11 +162,16 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new StabilityPointStructuresFailureMechanismSectionResult(section);
 
+            StructuresCalculationScenario<StabilityPointStructuresInput>[] calculationScenarios =
+            {
+                StabilityPointStructuresCalculationScenarioTestFactory.CreateStabilityPointStructuresCalculationScenario(section)
+            };
+
             // Call
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new StabilityPointStructuresFailureMechanismSectionResultRow(result, failureMechanism, assessmentSection,
-                                                                                       ConstructionProperties);
+                var row = new StabilityPointStructuresFailureMechanismSectionResultRow(
+                    result, calculationScenarios, failureMechanism, assessmentSection, ConstructionProperties);
 
                 // Assert
                 Assert.IsInstanceOf<FailureMechanismSectionResultRow<StabilityPointStructuresFailureMechanismSectionResult>>(row);
@@ -161,7 +193,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
 
                 Assert.AreEqual(result.SimpleAssessmentResult, row.SimpleAssessmentResult);
                 Assert.AreEqual(result.DetailedAssessmentResult, row.DetailedAssessmentResult);
-                Assert.AreEqual(result.GetDetailedAssessmentProbability(failureMechanism, assessmentSection), row.DetailedAssessmentProbability);
+                Assert.AreEqual(result.GetDetailedAssessmentProbability(calculationScenarios, failureMechanism, assessmentSection), row.DetailedAssessmentProbability);
                 Assert.AreEqual(result.TailorMadeAssessmentResult, row.TailorMadeAssessmentResult);
                 Assert.AreEqual(row.TailorMadeAssessmentProbability, result.TailorMadeAssessmentProbability);
                 Assert.AreEqual(result.UseManualAssembly, row.UseManualAssembly);
@@ -209,8 +241,9 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
                     random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
 
                 // Call
-                var row = new StabilityPointStructuresFailureMechanismSectionResultRow(result, failureMechanism, assessmentSection,
-                                                                                       ConstructionProperties);
+                var row = new StabilityPointStructuresFailureMechanismSectionResultRow(
+                    result, Enumerable.Empty<StructuresCalculationScenario<StabilityPointStructuresInput>>(),
+                    failureMechanism, assessmentSection, ConstructionProperties);
 
                 // Assert
                 Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayName(calculator.SimpleAssessmentAssemblyOutput.Group),
@@ -256,8 +289,9 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
                 calculator.CombinedAssemblyOutput = new FailureMechanismSectionAssembly(
                     random.NextDouble(),
                     random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
-                var row = new StabilityPointStructuresFailureMechanismSectionResultRow(result, failureMechanism, assessmentSection,
-                                                                                       ConstructionProperties);
+                var row = new StabilityPointStructuresFailureMechanismSectionResultRow(
+                    result, Enumerable.Empty<StructuresCalculationScenario<StabilityPointStructuresInput>>(),
+                    failureMechanism, assessmentSection, ConstructionProperties);
 
                 // Precondition
                 Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayName(calculator.SimpleAssessmentAssemblyOutput.Group),
@@ -305,8 +339,9 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
                 FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
                 calculator.ThrowExceptionOnCalculate = true;
 
-                var row = new StabilityPointStructuresFailureMechanismSectionResultRow(result, failureMechanism, assessmentSection,
-                                                                                       ConstructionProperties);
+                var row = new StabilityPointStructuresFailureMechanismSectionResultRow(
+                    result, Enumerable.Empty<StructuresCalculationScenario<StabilityPointStructuresInput>>(),
+                    failureMechanism, assessmentSection, ConstructionProperties);
 
                 // Precondition
                 IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
@@ -352,7 +387,8 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var row = new StabilityPointStructuresFailureMechanismSectionResultRow(
-                    result, failureMechanism, assessmentSection, ConstructionProperties);
+                    result, Enumerable.Empty<StructuresCalculationScenario<StabilityPointStructuresInput>>(),
+                    failureMechanism, assessmentSection, ConstructionProperties);
                 bool originalValue = result.UseManualAssembly;
                 bool newValue = !originalValue;
 
@@ -389,7 +425,8 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var row = new StabilityPointStructuresFailureMechanismSectionResultRow(
-                    result, failureMechanism, assessmentSection, ConstructionProperties);
+                    result, Enumerable.Empty<StructuresCalculationScenario<StabilityPointStructuresInput>>(),
+                    failureMechanism, assessmentSection, ConstructionProperties);
 
                 // Call
                 row.ManualAssemblyProbability = value;
@@ -421,7 +458,8 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var row = new StabilityPointStructuresFailureMechanismSectionResultRow(
-                    result, failureMechanism, assessmentSection, ConstructionProperties);
+                    result, Enumerable.Empty<StructuresCalculationScenario<StabilityPointStructuresInput>>(),
+                    failureMechanism, assessmentSection, ConstructionProperties);
 
                 // Call
                 void Call() => row.ManualAssemblyProbability = value;
@@ -431,14 +469,6 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
                 TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, expectedMessage);
                 mocks.VerifyAll();
             }
-        }
-
-        private static TestStabilityPointStructuresCalculationScenario CreateCalculationWithOutput()
-        {
-            return new TestStabilityPointStructuresCalculationScenario
-            {
-                Output = new TestStructuresOutput()
-            };
         }
 
         #region Column States
