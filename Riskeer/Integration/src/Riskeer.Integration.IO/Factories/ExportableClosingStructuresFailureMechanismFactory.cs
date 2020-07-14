@@ -101,7 +101,7 @@ namespace Riskeer.Integration.IO.Factories
             IDictionary<ClosingStructuresFailureMechanismSectionResult, ExportableFailureMechanismSection> failureMechanismSectionsLookup =
                 ExportableFailureMechanismSectionHelper.CreateFailureMechanismSectionResultLookup(failureMechanism.SectionResults);
 
-            IEnumerable<StructuresCalculationScenario<ClosingStructuresInput>> calculationScenarios = failureMechanism.Calculations.Cast<StructuresCalculationScenario<ClosingStructuresInput>>();
+            IEnumerable<StructuresCalculationScenario<ClosingStructuresInput>> calculationScenarios = failureMechanism.Calculations.Cast<StructuresCalculationScenario<ClosingStructuresInput>>().ToArray();
 
             var exportableResults = new List<ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbability>();
             foreach (KeyValuePair<ClosingStructuresFailureMechanismSectionResult, ExportableFailureMechanismSection> failureMechanismSectionPair in failureMechanismSectionsLookup)

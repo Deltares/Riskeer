@@ -101,6 +101,8 @@ namespace Riskeer.Integration.IO.Factories
             IDictionary<HeightStructuresFailureMechanismSectionResult, ExportableFailureMechanismSection> failureMechanismSectionsLookup =
                 ExportableFailureMechanismSectionHelper.CreateFailureMechanismSectionResultLookup(failureMechanism.SectionResults);
 
+            IEnumerable<StructuresCalculationScenario<HeightStructuresInput>> structuresCalculationScenarios = failureMechanism.Calculations.Cast<StructuresCalculationScenario<HeightStructuresInput>>().ToArray();
+
             var exportableResults = new List<ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbability>();
             foreach (KeyValuePair<HeightStructuresFailureMechanismSectionResult, ExportableFailureMechanismSection> failureMechanismSectionPair in failureMechanismSectionsLookup)
             {
@@ -110,7 +112,7 @@ namespace Riskeer.Integration.IO.Factories
                     HeightStructuresFailureMechanismAssemblyFactory.AssembleSimpleAssessment(failureMechanismSectionResult);
                 FailureMechanismSectionAssembly detailedAssembly =
                     HeightStructuresFailureMechanismAssemblyFactory.AssembleDetailedAssessment(failureMechanismSectionResult,
-                                                                                               failureMechanism.Calculations.Cast<StructuresCalculationScenario<HeightStructuresInput>>(),
+                                                                                               structuresCalculationScenarios,
                                                                                                failureMechanism,
                                                                                                assessmentSection);
                 FailureMechanismSectionAssembly tailorMadeAssembly =
@@ -119,7 +121,7 @@ namespace Riskeer.Integration.IO.Factories
                                                                                                  assessmentSection);
                 FailureMechanismSectionAssembly combinedAssembly =
                     HeightStructuresFailureMechanismAssemblyFactory.AssembleCombinedAssessment(failureMechanismSectionResult,
-                                                                                               failureMechanism.Calculations.Cast<StructuresCalculationScenario<HeightStructuresInput>>(),
+                                                                                               structuresCalculationScenarios,
                                                                                                failureMechanism,
                                                                                                assessmentSection);
 
