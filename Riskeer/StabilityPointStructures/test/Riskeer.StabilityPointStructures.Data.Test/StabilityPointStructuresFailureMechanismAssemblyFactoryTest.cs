@@ -34,6 +34,7 @@ using Riskeer.Common.Data.AssemblyTool;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Primitives;
 
@@ -58,10 +59,10 @@ namespace Riskeer.StabilityPointStructures.Data.Test
         public void AssembleSimpleAssessment_FailureMechanismSectionResultNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleSimpleAssessment(null);
+            void Call() => StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleSimpleAssessment(null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanismSectionResult", exception.ParamName);
         }
 
@@ -125,10 +126,10 @@ namespace Riskeer.StabilityPointStructures.Data.Test
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
-                TestDelegate call = () => StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleSimpleAssessment(sectionResult);
+                void Call() => StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleSimpleAssessment(sectionResult);
 
                 // Assert
-                var exception = Assert.Throws<AssemblyException>(call);
+                var exception = Assert.Throws<AssemblyException>(Call);
                 Exception innerException = exception.InnerException;
                 Assert.IsInstanceOf<FailureMechanismSectionAssemblyCalculatorException>(innerException);
                 Assert.AreEqual(innerException.Message, exception.Message);
@@ -148,14 +149,32 @@ namespace Riskeer.StabilityPointStructures.Data.Test
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
-                null,
-                new StabilityPointStructuresFailureMechanism(),
-                assessmentSection);
+            void Call() => StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
+                null, Enumerable.Empty<StructuresCalculationScenario<StabilityPointStructuresInput>>(),
+                new StabilityPointStructuresFailureMechanism(), assessmentSection);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanismSectionResult", exception.ParamName);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void AssembleDetailedAssessment_CalculationScenariosNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            // Call
+            void Call() => StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
+                new StabilityPointStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
+                null, new StabilityPointStructuresFailureMechanism(), assessmentSection);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("calculationScenarios", exception.ParamName);
             mocks.VerifyAll();
         }
 
@@ -168,13 +187,12 @@ namespace Riskeer.StabilityPointStructures.Data.Test
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
+            void Call() => StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
                 new StabilityPointStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
-                null,
-                assessmentSection);
+                Enumerable.Empty<StructuresCalculationScenario<StabilityPointStructuresInput>>(), null, assessmentSection);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
             mocks.VerifyAll();
         }
@@ -183,13 +201,12 @@ namespace Riskeer.StabilityPointStructures.Data.Test
         public void AssembleDetailedAssessment_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
+            void Call() => StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
                 new StabilityPointStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
-                new StabilityPointStructuresFailureMechanism(),
-                null);
+                Enumerable.Empty<StructuresCalculationScenario<StabilityPointStructuresInput>>(), new StabilityPointStructuresFailureMechanism(), null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
@@ -215,12 +232,13 @@ namespace Riskeer.StabilityPointStructures.Data.Test
 
                 // Call
                 StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
-                    sectionResult,
-                    failureMechanism,
-                    assessmentSection);
+                    sectionResult, Enumerable.Empty<StructuresCalculationScenario<StabilityPointStructuresInput>>(),
+                    failureMechanism, assessmentSection);
 
                 // Assert
-                Assert.AreEqual(sectionResult.GetDetailedAssessmentProbability(failureMechanism, assessmentSection),
+                Assert.AreEqual(sectionResult.GetDetailedAssessmentProbability(
+                                    Enumerable.Empty<StructuresCalculationScenario<StabilityPointStructuresInput>>(),
+                                    failureMechanism, assessmentSection),
                                 calculator.DetailedAssessmentProbabilityInput);
                 Assert.AreEqual(sectionResult.DetailedAssessmentResult, calculator.DetailedAssessmentProbabilityOnlyResultInput);
                 AssertAssemblyCategoriesInput(assessmentSection, failureMechanism, calculator.DetailedAssessmentAssemblyCategoriesInput);
@@ -248,9 +266,8 @@ namespace Riskeer.StabilityPointStructures.Data.Test
                 // Call
                 FailureMechanismSectionAssembly actualOutput =
                     StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
-                        sectionResult,
-                        failureMechanism,
-                        assessmentSection);
+                        sectionResult, Enumerable.Empty<StructuresCalculationScenario<StabilityPointStructuresInput>>(),
+                        failureMechanism, assessmentSection);
 
                 // Assert
                 FailureMechanismSectionAssembly calculatorOutput = calculator.DetailedAssessmentAssemblyOutput;
@@ -278,13 +295,12 @@ namespace Riskeer.StabilityPointStructures.Data.Test
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
-                TestDelegate call = () => StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
-                    sectionResult,
-                    failureMechanism,
-                    assessmentSection);
+                void Call() => StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
+                    sectionResult, Enumerable.Empty<StructuresCalculationScenario<StabilityPointStructuresInput>>(),
+                    failureMechanism, assessmentSection);
 
                 // Assert
-                var exception = Assert.Throws<AssemblyException>(call);
+                var exception = Assert.Throws<AssemblyException>(Call);
                 Exception innerException = exception.InnerException;
                 Assert.IsInstanceOf<FailureMechanismSectionAssemblyCalculatorException>(innerException);
                 Assert.AreEqual(innerException.Message, exception.Message);
@@ -305,13 +321,11 @@ namespace Riskeer.StabilityPointStructures.Data.Test
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(
-                null,
-                new StabilityPointStructuresFailureMechanism(),
-                assessmentSection);
+            void Call() => StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(
+                null, new StabilityPointStructuresFailureMechanism(), assessmentSection);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanismSectionResult", exception.ParamName);
             mocks.VerifyAll();
         }
@@ -325,13 +339,12 @@ namespace Riskeer.StabilityPointStructures.Data.Test
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(
+            void Call() => StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(
                 new StabilityPointStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
-                null,
-                assessmentSection);
+                null, assessmentSection);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
             mocks.VerifyAll();
         }
@@ -340,13 +353,12 @@ namespace Riskeer.StabilityPointStructures.Data.Test
         public void AssembleTailorMadeAssessment_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(
+            void Call() => StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(
                 new StabilityPointStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
-                new StabilityPointStructuresFailureMechanism(),
-                null);
+                new StabilityPointStructuresFailureMechanism(), null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
@@ -431,13 +443,11 @@ namespace Riskeer.StabilityPointStructures.Data.Test
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
-                TestDelegate call = () => StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(
-                    sectionResult,
-                    failureMechanism,
-                    assessmentSection);
+                void Call() => StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(
+                    sectionResult, failureMechanism, assessmentSection);
 
                 // Assert
-                var exception = Assert.Throws<AssemblyException>(call);
+                var exception = Assert.Throws<AssemblyException>(Call);
                 Exception innerException = exception.InnerException;
                 Assert.IsInstanceOf<FailureMechanismSectionAssemblyCalculatorException>(innerException);
                 Assert.AreEqual(innerException.Message, exception.Message);
@@ -458,14 +468,32 @@ namespace Riskeer.StabilityPointStructures.Data.Test
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
-                null,
-                new StabilityPointStructuresFailureMechanism(),
-                assessmentSection);
+            void Call() => StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
+                null, Enumerable.Empty<StructuresCalculationScenario<StabilityPointStructuresInput>>(),
+                new StabilityPointStructuresFailureMechanism(), assessmentSection);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanismSectionResult", exception.ParamName);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void AssembleCombinedAssessment_CalculationScenariosNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            // Call
+            void Call() => StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
+                new StabilityPointStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
+                null, new StabilityPointStructuresFailureMechanism(), assessmentSection);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("calculationScenarios", exception.ParamName);
             mocks.VerifyAll();
         }
 
@@ -478,13 +506,12 @@ namespace Riskeer.StabilityPointStructures.Data.Test
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
+            void Call() => StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
                 new StabilityPointStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
-                null,
-                assessmentSection);
+                Enumerable.Empty<StructuresCalculationScenario<StabilityPointStructuresInput>>(), null, assessmentSection);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
             mocks.VerifyAll();
         }
@@ -493,13 +520,12 @@ namespace Riskeer.StabilityPointStructures.Data.Test
         public void AssembleCombinedAssessment_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
+            void Call() => StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
                 new StabilityPointStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
-                new StabilityPointStructuresFailureMechanism(),
-                null);
+                Enumerable.Empty<StructuresCalculationScenario<StabilityPointStructuresInput>>(), new StabilityPointStructuresFailureMechanism(), null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
@@ -528,9 +554,8 @@ namespace Riskeer.StabilityPointStructures.Data.Test
 
                 // Call
                 StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
-                    sectionResult,
-                    failureMechanism,
-                    assessmentSection);
+                    sectionResult, Enumerable.Empty<StructuresCalculationScenario<StabilityPointStructuresInput>>(),
+                    failureMechanism, assessmentSection);
 
                 // Assert
                 AssemblyToolTestHelper.AssertAreEqual(calculator.SimpleAssessmentAssemblyOutput, calculator.CombinedSimpleAssemblyInput);
@@ -562,9 +587,8 @@ namespace Riskeer.StabilityPointStructures.Data.Test
 
                 // Call
                 StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
-                    sectionResult,
-                    failureMechanism,
-                    assessmentSection);
+                    sectionResult, Enumerable.Empty<StructuresCalculationScenario<StabilityPointStructuresInput>>(),
+                    failureMechanism, assessmentSection);
 
                 // Assert
                 AssemblyToolTestHelper.AssertAreEqual(calculator.SimpleAssessmentAssemblyOutput, calculator.CombinedSimpleAssemblyInput);
@@ -594,9 +618,8 @@ namespace Riskeer.StabilityPointStructures.Data.Test
                 // Call
                 FailureMechanismSectionAssembly actualOutput =
                     StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
-                        sectionResult,
-                        failureMechanism,
-                        assessmentSection);
+                        sectionResult, Enumerable.Empty<StructuresCalculationScenario<StabilityPointStructuresInput>>(),
+                        failureMechanism, assessmentSection);
 
                 // Assert
                 Assert.AreSame(calculator.CombinedAssemblyOutput, actualOutput);
@@ -623,13 +646,12 @@ namespace Riskeer.StabilityPointStructures.Data.Test
                 calculator.ThrowExceptionOnCalculateCombinedAssembly = true;
 
                 // Call
-                TestDelegate call = () => StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
-                    sectionResult,
-                    failureMechanism,
-                    assessmentSection);
+                void Call() => StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
+                    sectionResult, Enumerable.Empty<StructuresCalculationScenario<StabilityPointStructuresInput>>(),
+                    failureMechanism, assessmentSection);
 
                 // Assert
-                var exception = Assert.Throws<AssemblyException>(call);
+                var exception = Assert.Throws<AssemblyException>(Call);
                 Exception innerException = exception.InnerException;
                 Assert.IsInstanceOf<FailureMechanismSectionAssemblyCalculatorException>(innerException);
                 Assert.AreEqual(innerException.Message, exception.Message);
@@ -650,14 +672,12 @@ namespace Riskeer.StabilityPointStructures.Data.Test
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => StabilityPointStructuresFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
-                null,
-                new StabilityPointStructuresFailureMechanism(),
-                assessmentSection,
-                new Random(39).NextBoolean());
+            void Call() => StabilityPointStructuresFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
+                null, new StabilityPointStructuresFailureMechanism(),
+                assessmentSection, new Random(39).NextBoolean());
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanismSectionResult", exception.ParamName);
             mocks.VerifyAll();
         }
@@ -671,14 +691,12 @@ namespace Riskeer.StabilityPointStructures.Data.Test
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => StabilityPointStructuresFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
+            void Call() => StabilityPointStructuresFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
                 new StabilityPointStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
-                null,
-                assessmentSection,
-                new Random(39).NextBoolean());
+                null, assessmentSection, new Random(39).NextBoolean());
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
             mocks.VerifyAll();
         }
@@ -687,14 +705,12 @@ namespace Riskeer.StabilityPointStructures.Data.Test
         public void GetSectionAssemblyCategoryGroup_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => StabilityPointStructuresFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
+            void Call() => StabilityPointStructuresFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
                 new StabilityPointStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
-                new StabilityPointStructuresFailureMechanism(),
-                null,
-                new Random(39).NextBoolean());
+                new StabilityPointStructuresFailureMechanism(), null, new Random(39).NextBoolean());
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
@@ -934,14 +950,11 @@ namespace Riskeer.StabilityPointStructures.Data.Test
                 }
 
                 // Call
-                TestDelegate call = () => StabilityPointStructuresFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
-                    sectionResult,
-                    failureMechanism,
-                    assessmentSection,
-                    useManualAssembly);
+                void Call() => StabilityPointStructuresFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
+                    sectionResult, failureMechanism, assessmentSection, useManualAssembly);
 
                 // Assert
-                var exception = Assert.Throws<AssemblyException>(call);
+                var exception = Assert.Throws<AssemblyException>(Call);
                 Exception innerException = exception.InnerException;
                 Assert.IsInstanceOf<FailureMechanismSectionAssemblyCalculatorException>(innerException);
                 Assert.AreEqual(innerException.Message, exception.Message);
@@ -962,13 +975,11 @@ namespace Riskeer.StabilityPointStructures.Data.Test
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleFailureMechanism(
-                null,
-                assessmentSection,
-                new Random(39).NextBoolean());
+            void Call() => StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleFailureMechanism(
+                null, assessmentSection, new Random(39).NextBoolean());
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
             mocks.VerifyAll();
         }
@@ -977,13 +988,11 @@ namespace Riskeer.StabilityPointStructures.Data.Test
         public void AssembleFailureMechanism_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleFailureMechanism(
-                new StabilityPointStructuresFailureMechanism(),
-                null,
-                new Random(39).NextBoolean());
+            void Call() => StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleFailureMechanism(
+                new StabilityPointStructuresFailureMechanism(), null, new Random(39).NextBoolean());
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
@@ -1158,13 +1167,11 @@ namespace Riskeer.StabilityPointStructures.Data.Test
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
-                TestDelegate call = () => StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleFailureMechanism(
-                    failureMechanism,
-                    assessmentSection,
-                    new Random(39).NextBoolean());
+                void Call() => StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleFailureMechanism(
+                    failureMechanism, assessmentSection, new Random(39).NextBoolean());
 
                 // Assert
-                var exception = Assert.Throws<AssemblyException>(call);
+                var exception = Assert.Throws<AssemblyException>(Call);
                 Exception innerException = exception.InnerException;
                 Assert.IsInstanceOf<FailureMechanismAssemblyCalculatorException>(innerException);
                 Assert.AreEqual(innerException.Message, exception.Message);
@@ -1193,13 +1200,11 @@ namespace Riskeer.StabilityPointStructures.Data.Test
                 calculator.ThrowExceptionOnCalculateCombinedAssembly = true;
 
                 // Call
-                TestDelegate call = () => StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleFailureMechanism(
-                    failureMechanism,
-                    assessmentSection,
-                    new Random(39).NextBoolean());
+                void Call() => StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleFailureMechanism(
+                    failureMechanism, assessmentSection, new Random(39).NextBoolean());
 
                 // Assert
-                var exception = Assert.Throws<AssemblyException>(call);
+                var exception = Assert.Throws<AssemblyException>(Call);
                 Exception innerException = exception.InnerException;
                 Assert.IsInstanceOf<AssemblyException>(innerException);
                 Assert.AreEqual("Voor een of meerdere vakken kan geen resultaat worden bepaald.", exception.Message);
