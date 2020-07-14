@@ -77,7 +77,7 @@ namespace Riskeer.HeightStructures.Data
         /// </summary>
         /// <param name="failureMechanismSectionResult">The failure mechanism section result to
         /// assemble the detailed assembly for.</param>
-        /// <param name="calculationScenarios">The calculation scenarios belonging to this section.</param>
+        /// <param name="calculationScenarios">All calculation scenarios in the failure mechanism.</param>
         /// <param name="failureMechanism">The failure mechanism this section belongs to.</param>
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> this section belongs to.</param>
         /// <returns>A <see cref="FailureMechanismSectionAssembly"/>.</returns>
@@ -180,7 +180,7 @@ namespace Riskeer.HeightStructures.Data
         /// </summary>
         /// <param name="failureMechanismSectionResult">The failure mechanism section result to
         /// combine the assemblies for.</param>
-        /// <param name="calculationScenarios">The calculation scenarios belonging to this section.</param>
+        /// <param name="calculationScenarios">All calculation scenarios in the failure mechanism.</param>
         /// <param name="failureMechanism">The failure mechanism this section belongs to.</param>
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> this section belongs to.</param>
         /// <returns>A <see cref="FailureMechanismSectionAssembly"/>.</returns>

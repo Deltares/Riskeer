@@ -44,8 +44,9 @@ namespace Riskeer.ClosingStructures.Data
         /// <param name="calculationScenarios">All calculation scenarios in the failure mechanism.</param>
         /// <param name="failureMechanism">The failure mechanism the section result belongs to.</param>
         /// <param name="assessmentSection">The assessment section the section result belongs to.</param>
-        /// <returns>The calculated detailed assessment probability; or <see cref="double.NaN"/> when there are no
-        /// performed or relevant calculations.</returns>
+        /// <returns>The calculated detailed assessment probability; or <see cref="double.NaN"/> when there
+        /// are no relevant calculations, when not all relevant calculations are performed or when the
+        /// contribution of the relevant calculations don't add up to 1.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public static double GetDetailedAssessmentProbability(this ClosingStructuresFailureMechanismSectionResult sectionResult,
                                                               IEnumerable<StructuresCalculationScenario<ClosingStructuresInput>> calculationScenarios,

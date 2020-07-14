@@ -234,10 +234,6 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
             }, true);
 
             var sectionResult = new MacroStabilityInwardsFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
-            MacroStabilityInwardsCalculationScenario[] calculationScenarios =
-            {
-                MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput(hydraulicBoundaryLocation)
-            };
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -247,14 +243,14 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
                 // Call
                 MacroStabilityInwardsFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
                     sectionResult,
-                    calculationScenarios,
+                    Enumerable.Empty<MacroStabilityInwardsCalculationScenario>(),
                     failureMechanism,
                     assessmentSection);
 
                 // Assert
                 Assert.AreEqual(sectionResult.DetailedAssessmentResult, calculator.DetailedAssessmentProbabilityOnlyResultInput);
                 Assert.AreEqual(sectionResult.GetDetailedAssessmentProbability(
-                                    calculationScenarios,
+                                    Enumerable.Empty<MacroStabilityInwardsCalculationScenario>(),
                                     failureMechanism,
                                     assessmentSection),
                                 calculator.DetailedAssessmentProbabilityInput);

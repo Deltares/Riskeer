@@ -116,6 +116,48 @@ namespace Riskeer.HeightStructures.Data.Test
         }
 
         [Test]
+        public void GetDetailedAssessmentProbability_MultipleScenarios_ReturnsValueBasedOnRelevantScenarios()
+        {
+            // Setup
+            var failureMechanism = new HeightStructuresFailureMechanism();
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
+
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var failureMechanismSectionResult = new HeightStructuresFailureMechanismSectionResult(section);
+
+            StructuresCalculationScenario<HeightStructuresInput> calculationScenario1 = HeightStructuresCalculationScenarioTestFactory.CreateHeightStructuresCalculationScenario(section);
+            StructuresCalculationScenario<HeightStructuresInput> calculationScenario2 = HeightStructuresCalculationScenarioTestFactory.CreateHeightStructuresCalculationScenario(section);
+            StructuresCalculationScenario<HeightStructuresInput> calculationScenario3 = HeightStructuresCalculationScenarioTestFactory.CreateHeightStructuresCalculationScenario(section);
+
+            calculationScenario1.IsRelevant = true;
+            calculationScenario1.Contribution = (RoundedDouble) 0.2111;
+            calculationScenario1.Output = new TestStructuresOutput(1.1);
+
+            calculationScenario2.IsRelevant = true;
+            calculationScenario2.Contribution = (RoundedDouble) 0.7889;
+            calculationScenario1.Output = new TestStructuresOutput(2.2);
+
+            calculationScenario3.IsRelevant = false;
+
+            StructuresCalculationScenario<HeightStructuresInput>[] calculations =
+            {
+                calculationScenario1,
+                calculationScenario2,
+                calculationScenario3
+            };
+
+            // Call
+            double detailedAssessmentProbability = failureMechanismSectionResult.GetDetailedAssessmentProbability(calculations, failureMechanism, assessmentSection);
+
+            // Assert
+            Assert.AreEqual(0.3973850177700996, detailedAssessmentProbability);
+            mocks.VerifyAll();
+        }
+
+        [Test]
         public void GetDetailedAssessmentProbability_NoScenarios_ReturnsNaN()
         {
             // Setup
@@ -196,7 +238,7 @@ namespace Riskeer.HeightStructures.Data.Test
         }
 
         [Test]
-        public void GetDetailedAssessmentProbability_ScenarioWithNanResults_ReturnsNaN()
+        public void GetDetailedAssessmentProbability_ScenarioWithNaNResults_ReturnsNaN()
         {
             // Setup
             var failureMechanism = new HeightStructuresFailureMechanism();
@@ -215,10 +257,10 @@ namespace Riskeer.HeightStructures.Data.Test
             StructuresCalculationScenario<HeightStructuresInput> calculationScenario2 = HeightStructuresCalculationScenarioTestFactory.CreateNotCalculatedHeightStructuresCalculationScenario(section);
 
             calculationScenario1.IsRelevant = true;
-            calculationScenario1.Contribution = (RoundedDouble)contribution1;
+            calculationScenario1.Contribution = (RoundedDouble) contribution1;
 
             calculationScenario2.IsRelevant = true;
-            calculationScenario2.Contribution = (RoundedDouble)contribution2;
+            calculationScenario2.Contribution = (RoundedDouble) contribution2;
             calculationScenario2.Output = new TestStructuresOutput(double.NaN);
 
             StructuresCalculationScenario<HeightStructuresInput>[] calculations =
@@ -252,8 +294,8 @@ namespace Riskeer.HeightStructures.Data.Test
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             StructuresCalculationScenario<HeightStructuresInput> scenarioA = HeightStructuresCalculationScenarioTestFactory.CreateNotCalculatedHeightStructuresCalculationScenario(section);
             StructuresCalculationScenario<HeightStructuresInput> scenarioB = HeightStructuresCalculationScenarioTestFactory.CreateNotCalculatedHeightStructuresCalculationScenario(section);
-            scenarioA.Contribution = (RoundedDouble)contributionA;
-            scenarioB.Contribution = (RoundedDouble)contributionB;
+            scenarioA.Contribution = (RoundedDouble) contributionA;
+            scenarioB.Contribution = (RoundedDouble) contributionB;
 
             var result = new HeightStructuresFailureMechanismSectionResult(section);
 
@@ -311,11 +353,19 @@ namespace Riskeer.HeightStructures.Data.Test
             StructuresCalculationScenario<HeightStructuresInput> calculationScenario3 = HeightStructuresCalculationScenarioTestFactory.CreateNotCalculatedHeightStructuresCalculationScenario(section);
             calculationScenario3.IsRelevant = false;
 
+            StructuresCalculationScenario<HeightStructuresInput> calculationScenario4 = HeightStructuresCalculationScenarioTestFactory.CreateNotCalculatedHeightStructuresCalculationScenario(
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new []
+                {
+                    new Point2D(5.0, 0.0),
+                    new Point2D(10.0, 0.0)
+                }));
+
             StructuresCalculationScenario<HeightStructuresInput>[] calculationScenarios =
             {
                 calculationScenario,
                 calculationScenario2,
-                calculationScenario3
+                calculationScenario3,
+                calculationScenario4
             };
 
             // Call

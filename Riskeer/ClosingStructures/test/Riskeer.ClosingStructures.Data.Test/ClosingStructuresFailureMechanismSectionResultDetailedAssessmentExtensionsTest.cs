@@ -116,6 +116,48 @@ namespace Riskeer.ClosingStructures.Data.Test
         }
 
         [Test]
+        public void GetDetailedAssessmentProbability_MultipleScenarios_ReturnsValueBasedOnRelevantScenarios()
+        {
+            // Setup
+            var failureMechanism = new ClosingStructuresFailureMechanism();
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
+
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var failureMechanismSectionResult = new ClosingStructuresFailureMechanismSectionResult(section);
+
+            StructuresCalculationScenario<ClosingStructuresInput> calculationScenario1 = ClosingStructuresCalculationScenarioTestFactory.CreateClosingStructuresCalculationScenario(section);
+            StructuresCalculationScenario<ClosingStructuresInput> calculationScenario2 = ClosingStructuresCalculationScenarioTestFactory.CreateClosingStructuresCalculationScenario(section);
+            StructuresCalculationScenario<ClosingStructuresInput> calculationScenario3 = ClosingStructuresCalculationScenarioTestFactory.CreateClosingStructuresCalculationScenario(section);
+
+            calculationScenario1.IsRelevant = true;
+            calculationScenario1.Contribution = (RoundedDouble) 0.2111;
+            calculationScenario1.Output = new TestStructuresOutput(1.1);
+
+            calculationScenario2.IsRelevant = true;
+            calculationScenario2.Contribution = (RoundedDouble) 0.7889;
+            calculationScenario1.Output = new TestStructuresOutput(2.2);
+
+            calculationScenario3.IsRelevant = false;
+
+            StructuresCalculationScenario<ClosingStructuresInput>[] calculations =
+            {
+                calculationScenario1,
+                calculationScenario2,
+                calculationScenario3
+            };
+
+            // Call
+            double detailedAssessmentProbability = failureMechanismSectionResult.GetDetailedAssessmentProbability(calculations, failureMechanism, assessmentSection);
+
+            // Assert
+            Assert.AreEqual(0.3973850177700996, detailedAssessmentProbability);
+            mocks.VerifyAll();
+        }
+
+        [Test]
         public void GetDetailedAssessmentProbability_NoScenarios_ReturnsNaN()
         {
             // Setup
@@ -196,7 +238,7 @@ namespace Riskeer.ClosingStructures.Data.Test
         }
 
         [Test]
-        public void GetDetailedAssessmentProbability_ScenarioWithNanResults_ReturnsNaN()
+        public void GetDetailedAssessmentProbability_ScenarioWithNaNResults_ReturnsNaN()
         {
             // Setup
             var failureMechanism = new ClosingStructuresFailureMechanism();
@@ -311,11 +353,19 @@ namespace Riskeer.ClosingStructures.Data.Test
             StructuresCalculationScenario<ClosingStructuresInput> calculationScenario3 = ClosingStructuresCalculationScenarioTestFactory.CreateNotCalculatedClosingStructuresCalculationScenario(section);
             calculationScenario3.IsRelevant = false;
 
+            StructuresCalculationScenario<ClosingStructuresInput> calculationScenario4 = ClosingStructuresCalculationScenarioTestFactory.CreateNotCalculatedClosingStructuresCalculationScenario(
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
+                {
+                    new Point2D(5.0, 0.0),
+                    new Point2D(10.0, 0.0)
+                }));
+
             StructuresCalculationScenario<ClosingStructuresInput>[] calculationScenarios =
             {
                 calculationScenario,
                 calculationScenario2,
-                calculationScenario3
+                calculationScenario3,
+                calculationScenario4
             };
 
             // Call

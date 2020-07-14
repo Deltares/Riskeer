@@ -39,8 +39,7 @@ namespace Riskeer.ClosingStructures.Service
     public static class ClosingStructuresDataSynchronizationService
     {
         /// <summary>
-        /// Removes the <paramref name="structure"/>, unassigns it from the calculations in
-        /// <paramref name="failureMechanism"/> and clears all dependent data, either directly or indirectly.
+        /// Removes the <paramref name="structure"/> and clears all dependent data, either directly or indirectly.
         /// </summary>
         /// <param name="structure">The structure to be removed.</param>
         /// <param name="failureMechanism">The <see cref="ClosingStructuresFailureMechanism"/>
@@ -77,8 +76,7 @@ namespace Riskeer.ClosingStructures.Service
         }
 
         /// <summary>
-        /// Clears all structures, unassigns them from the calculations in the <paramref name="failureMechanism"/>
-        /// and clears all data that depends on it, either directly or indirectly.
+        /// Clears all structures and clears all data that depends on it, either directly or indirectly.
         /// </summary>
         /// <param name="failureMechanism">The <see cref="ClosingStructuresFailureMechanism"/> to 
         /// clear the structures from.</param>
