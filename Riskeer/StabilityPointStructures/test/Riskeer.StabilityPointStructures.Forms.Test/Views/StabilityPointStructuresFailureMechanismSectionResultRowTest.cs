@@ -932,7 +932,8 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
-            var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(section);
 
             StructuresCalculationScenario<StabilityPointStructuresInput>[] calculationScenarios =
             {
@@ -1173,13 +1174,11 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(section);
 
-            // Precondition
-            Assert.IsNull(sectionResult.Calculation);
-
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var resultRow = new StabilityPointStructuresFailureMechanismSectionResultRow(sectionResult, failureMechanism, assessmentSection,
-                                                                                             ConstructionProperties);
+                var resultRow = new StabilityPointStructuresFailureMechanismSectionResultRow(
+                    sectionResult, Enumerable.Empty<StructuresCalculationScenario<StabilityPointStructuresInput>>(),
+                    failureMechanism, assessmentSection, ConstructionProperties);
 
                 // Call
                 double detailedAssessmentProbability = resultRow.DetailedAssessmentProbability;
@@ -1200,18 +1199,18 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
-            var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
-
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(section)
+            var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(section);
+
+            StructuresCalculationScenario<StabilityPointStructuresInput>[] calculationScenarios =
             {
-                Calculation = calculation
+                StabilityPointStructuresCalculationScenarioTestFactory.CreateNotCalculatedStabilityPointStructuresCalculationScenario(section)
             };
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var resultRow = new StabilityPointStructuresFailureMechanismSectionResultRow(sectionResult, failureMechanism, assessmentSection,
-                                                                                             ConstructionProperties);
+                var resultRow = new StabilityPointStructuresFailureMechanismSectionResultRow(
+                    sectionResult, calculationScenarios, failureMechanism, assessmentSection, ConstructionProperties);
 
                 // Call
                 double detailedAssessmentProbability = resultRow.DetailedAssessmentProbability;
@@ -1232,21 +1231,23 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
-            var calculation = new StructuresCalculation<StabilityPointStructuresInput>
-            {
-                Output = new TestStructuresOutput(double.NaN)
-            };
-
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(section)
-            {
-                Calculation = calculation
-            };
+            var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(section);
+
+            StructuresCalculationScenario<StabilityPointStructuresInput> calculation = StabilityPointStructuresCalculationScenarioTestFactory.CreateNotCalculatedStabilityPointStructuresCalculationScenario(section);
+            calculation.Output = new TestStructuresOutput(double.NaN);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var resultRow = new StabilityPointStructuresFailureMechanismSectionResultRow(sectionResult, failureMechanism, assessmentSection,
-                                                                                             ConstructionProperties);
+                var resultRow = new StabilityPointStructuresFailureMechanismSectionResultRow(
+                    sectionResult,
+                    new[]
+                    {
+                        calculation
+                    },
+                    failureMechanism,
+                    assessmentSection,
+                    ConstructionProperties);
 
                 // Call
                 double detailedAssessmentProbability = resultRow.DetailedAssessmentProbability;
@@ -1267,21 +1268,25 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
-            var calculation = new StructuresCalculation<StabilityPointStructuresInput>
-            {
-                Output = new TestStructuresOutput(0.95)
-            };
+            const double reliability = 0.95;
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(section)
-            {
-                Calculation = calculation
-            };
+            var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(section);
+
+            StructuresCalculationScenario<StabilityPointStructuresInput> calculation = StabilityPointStructuresCalculationScenarioTestFactory.CreateNotCalculatedStabilityPointStructuresCalculationScenario(section);
+            calculation.Output = new TestStructuresOutput(reliability);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var resultRow = new StabilityPointStructuresFailureMechanismSectionResultRow(sectionResult, failureMechanism, assessmentSection,
-                                                                                             ConstructionProperties);
+                var resultRow = new StabilityPointStructuresFailureMechanismSectionResultRow(
+                    sectionResult,
+                    new[]
+                    {
+                        calculation
+                    },
+                    failureMechanism,
+                    assessmentSection,
+                    ConstructionProperties);
 
                 // Call
                 double detailedAssessmentProbability = resultRow.DetailedAssessmentProbability;
@@ -1314,7 +1319,8 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var row = new StabilityPointStructuresFailureMechanismSectionResultRow(
-                    result, failureMechanism, assessmentSection, ConstructionProperties);
+                    result, Enumerable.Empty<StructuresCalculationScenario<StabilityPointStructuresInput>>(),
+                    failureMechanism, assessmentSection, ConstructionProperties);
 
                 // Call
                 row.TailorMadeAssessmentResult = newValue;
@@ -1349,7 +1355,8 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var row = new StabilityPointStructuresFailureMechanismSectionResultRow(
-                    result, new StabilityPointStructuresFailureMechanism(), assessmentSection, ConstructionProperties);
+                    result, Enumerable.Empty<StructuresCalculationScenario<StabilityPointStructuresInput>>(),
+                    new StabilityPointStructuresFailureMechanism(), assessmentSection, ConstructionProperties);
 
                 // Call
                 row.TailorMadeAssessmentProbability = value;
@@ -1381,7 +1388,8 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var row = new StabilityPointStructuresFailureMechanismSectionResultRow(
-                    result, new StabilityPointStructuresFailureMechanism(), assessmentSection, ConstructionProperties);
+                    result, Enumerable.Empty<StructuresCalculationScenario<StabilityPointStructuresInput>>(),
+                    new StabilityPointStructuresFailureMechanism(), assessmentSection, ConstructionProperties);
 
                 // Call
                 void Call() => row.TailorMadeAssessmentProbability = value;
