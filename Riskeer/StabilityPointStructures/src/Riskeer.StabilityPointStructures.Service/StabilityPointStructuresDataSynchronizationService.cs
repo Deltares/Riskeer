@@ -29,7 +29,6 @@ using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Service;
 using Riskeer.StabilityPointStructures.Data;
-using Riskeer.StabilityPointStructures.Util;
 
 namespace Riskeer.StabilityPointStructures.Service
 {
@@ -39,8 +38,7 @@ namespace Riskeer.StabilityPointStructures.Service
     public static class StabilityPointStructuresDataSynchronizationService
     {
         /// <summary>
-        /// Clears all structures, unassigns them from the calculations in the <paramref name="failureMechanism"/>
-        /// and clears all data that depends on it, either directly or indirectly.
+        /// Removes all structures and clears all data that depends on it, either directly or indirectly.
         /// </summary>
         /// <param name="failureMechanism">The <see cref="StabilityPointStructuresFailureMechanism"/> to 
         /// clear the structures from.</param>
@@ -59,8 +57,7 @@ namespace Riskeer.StabilityPointStructures.Service
                                                                                                      .Where(c => c.InputParameters.Structure != null)
                                                                                                      .ToArray();
 
-            List<IObservable> changedObservables = ClearStructureDependentData(failureMechanism,
-                                                                               calculationWithRemovedStructure);
+            List<IObservable> changedObservables = ClearStructureDependentData(calculationWithRemovedStructure);
 
             StructureCollection<StabilityPointStructure> structures = failureMechanism.StabilityPointStructures;
             structures.Clear();
@@ -70,8 +67,7 @@ namespace Riskeer.StabilityPointStructures.Service
         }
 
         /// <summary>
-        /// Removes the given stability point structure and all dependent data, either
-        /// directly or indirectly, from the failure mechanism.
+        /// Removes the <paramref name="structure"/> and clears all dependent data, either directly or indirectly.
         /// </summary>
         /// <param name="structure">The structure to be removed.</param>
         /// <param name="failureMechanism">The failure mechanism containing <paramref name="structure"/>.</param>
@@ -97,7 +93,7 @@ namespace Riskeer.StabilityPointStructures.Service
                     .Where(c => ReferenceEquals(c.InputParameters.Structure, structure))
                     .ToArray();
 
-            List<IObservable> changedObservables = ClearStructureDependentData(failureMechanism, calculationWithRemovedStabilityPointStructure);
+            List<IObservable> changedObservables = ClearStructureDependentData(calculationWithRemovedStabilityPointStructure);
 
             failureMechanism.StabilityPointStructures.Remove(structure);
             changedObservables.Add(failureMechanism.StabilityPointStructures);
@@ -207,8 +203,7 @@ namespace Riskeer.StabilityPointStructures.Service
             return Enumerable.Empty<IObservable>();
         }
 
-        private static List<IObservable> ClearStructureDependentData(StabilityPointStructuresFailureMechanism failureMechanism,
-                                                                     IEnumerable<StructuresCalculation<StabilityPointStructuresInput>> calculationWithRemovedStructure)
+        private static List<IObservable> ClearStructureDependentData(IEnumerable<StructuresCalculation<StabilityPointStructuresInput>> calculationWithRemovedStructure)
         {
             var changedObservables = new List<IObservable>();
             foreach (StructuresCalculation<StabilityPointStructuresInput> calculation in calculationWithRemovedStructure)
@@ -219,10 +214,6 @@ namespace Riskeer.StabilityPointStructures.Service
                 changedObservables.Add(calculation.InputParameters);
             }
 
-            IEnumerable<StabilityPointStructuresFailureMechanismSectionResult> affectedSectionResults =
-                StabilityPointStructuresHelper.UpdateCalculationToSectionResultAssignments(failureMechanism);
-
-            changedObservables.AddRange(affectedSectionResults);
             return changedObservables;
         }
     }

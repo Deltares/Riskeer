@@ -32,7 +32,6 @@ using Riskeer.Common.IO.Configurations.Import;
 using Riskeer.StabilityPointStructures.Data;
 using Riskeer.StabilityPointStructures.IO.Configurations.Helpers;
 using Riskeer.StabilityPointStructures.IO.Properties;
-using Riskeer.StabilityPointStructures.Util;
 using RiskeerCommonIOResources = Riskeer.Common.IO.Properties.Resources;
 
 namespace Riskeer.StabilityPointStructures.IO.Configurations
@@ -49,7 +48,6 @@ namespace Riskeer.StabilityPointStructures.IO.Configurations
         private readonly IEnumerable<HydraulicBoundaryLocation> availableHydraulicBoundaryLocations;
         private readonly IEnumerable<ForeshoreProfile> availableForeshoreProfiles;
         private readonly IEnumerable<StabilityPointStructure> availableStructures;
-        private readonly StabilityPointStructuresFailureMechanism failureMechanism;
 
         /// <summary>
         /// Create new instance of <see cref="StabilityPointStructuresCalculationConfigurationImporter"/>
@@ -62,15 +60,13 @@ namespace Riskeer.StabilityPointStructures.IO.Configurations
         /// the imported objects contain the right foreshore profile.</param>
         /// <param name="structures">The structures used to check if
         /// the imported objects contain the right structure.</param>
-        /// <param name="failureMechanism">The failure mechanism used to propagate changes.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         public StabilityPointStructuresCalculationConfigurationImporter(
             string xmlFilePath,
             CalculationGroup importTarget,
             IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations,
             IEnumerable<ForeshoreProfile> foreshoreProfiles,
-            IEnumerable<StabilityPointStructure> structures,
-            StabilityPointStructuresFailureMechanism failureMechanism)
+            IEnumerable<StabilityPointStructure> structures)
             : base(xmlFilePath, importTarget)
         {
             if (hydraulicBoundaryLocations == null)
@@ -88,22 +84,9 @@ namespace Riskeer.StabilityPointStructures.IO.Configurations
                 throw new ArgumentNullException(nameof(structures));
             }
 
-            if (failureMechanism == null)
-            {
-                throw new ArgumentNullException(nameof(failureMechanism));
-            }
-
             availableHydraulicBoundaryLocations = hydraulicBoundaryLocations;
             availableForeshoreProfiles = foreshoreProfiles;
             availableStructures = structures;
-            this.failureMechanism = failureMechanism;
-        }
-
-        protected override void DoPostImportUpdates()
-        {
-            StabilityPointStructuresHelper.UpdateCalculationToSectionResultAssignments(failureMechanism);
-
-            base.DoPostImportUpdates();
         }
 
         protected override StabilityPointStructuresCalculationConfigurationReader CreateCalculationConfigurationReader(

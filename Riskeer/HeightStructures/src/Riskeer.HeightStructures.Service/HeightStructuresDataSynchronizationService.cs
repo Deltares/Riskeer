@@ -75,7 +75,7 @@ namespace Riskeer.HeightStructures.Service
         }
 
         /// <summary>
-        /// Clears all structures and clears all data that depends on it, either directly or indirectly.
+        /// Removes all structures and clears all data that depends on it, either directly or indirectly.
         /// </summary>
         /// <param name="failureMechanism">The <see cref="HeightStructuresFailureMechanism"/> to 
         /// clear the structures from.</param>

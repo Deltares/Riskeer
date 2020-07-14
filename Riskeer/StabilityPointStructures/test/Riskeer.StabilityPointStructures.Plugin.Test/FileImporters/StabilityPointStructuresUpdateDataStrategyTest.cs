@@ -34,7 +34,6 @@ using Riskeer.Common.IO.Structures;
 using Riskeer.StabilityPointStructures.Data;
 using Riskeer.StabilityPointStructures.Data.TestUtil;
 using Riskeer.StabilityPointStructures.Plugin.FileImporters;
-using Riskeer.StabilityPointStructures.Util;
 
 namespace Riskeer.StabilityPointStructures.Plugin.Test.FileImporters
 {
@@ -47,10 +46,10 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.FileImporters
         public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new StabilityPointStructureUpdateDataStrategy(null);
+            void Call() => new StabilityPointStructureUpdateDataStrategy(null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
         }
 
@@ -76,12 +75,11 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.FileImporters
             var strategy = new StabilityPointStructureUpdateDataStrategy(new StabilityPointStructuresFailureMechanism());
 
             // Call
-            TestDelegate test = () => strategy.UpdateStructuresWithImportedData(null,
-                                                                                string.Empty);
+            void Call() => strategy.UpdateStructuresWithImportedData(null, string.Empty);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("importedDataCollection", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("importedDataCollection", exception.ParamName);
         }
 
         [Test]
@@ -91,12 +89,11 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.FileImporters
             var strategy = new StabilityPointStructureUpdateDataStrategy(new StabilityPointStructuresFailureMechanism());
 
             // Call
-            TestDelegate test = () => strategy.UpdateStructuresWithImportedData(Enumerable.Empty<StabilityPointStructure>(),
-                                                                                null);
+            void Call() => strategy.UpdateStructuresWithImportedData(Enumerable.Empty<StabilityPointStructure>(), null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("sourceFilePath", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("sourceFilePath", exception.ParamName);
         }
 
         [Test]
@@ -114,11 +111,10 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.FileImporters
             var strategy = new StabilityPointStructureUpdateDataStrategy(new StabilityPointStructuresFailureMechanism());
 
             // Call
-            TestDelegate call = () => strategy.UpdateStructuresWithImportedData(readStructures,
-                                                                                sourceFilePath);
+            void Call() => strategy.UpdateStructuresWithImportedData(readStructures, sourceFilePath);
 
             // Assert
-            var exception = Assert.Throws<UpdateDataException>(call);
+            var exception = Assert.Throws<UpdateDataException>(Call);
 
             const string expectedMessage = "Geïmporteerde data moet unieke elementen bevatten.";
             Assert.AreEqual(expectedMessage, exception.Message);
@@ -632,14 +628,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.FileImporters
                 })
             });
 
-            StabilityPointStructuresHelper.UpdateCalculationToSectionResultAssignments(failureMechanism);
-            StabilityPointStructuresFailureMechanismSectionResult[] sectionResults = failureMechanism.SectionResults.ToArray();
-
             var strategy = new StabilityPointStructureUpdateDataStrategy(failureMechanism);
-
-            // Precondition
-            Assert.AreSame(calculation, sectionResults[0].Calculation);
-            Assert.IsNull(sectionResults[1].Calculation);
 
             // Call
             IEnumerable<IObservable> affectedObjects = strategy.UpdateStructuresWithImportedData(new[]
@@ -655,15 +644,8 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.FileImporters
             {
                 failureMechanism.StabilityPointStructures,
                 structure,
-                calculation.InputParameters,
-                sectionResults[0],
-                sectionResults[1]
+                calculation.InputParameters
             }, affectedObjects);
-
-            sectionResults = failureMechanism.SectionResults.ToArray();
-            Assert.AreEqual(2, sectionResults.Length);
-            Assert.IsNull(sectionResults[0].Calculation);
-            Assert.AreSame(calculation, sectionResults[1].Calculation);
         }
 
         [Test]
@@ -705,14 +687,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.FileImporters
                 })
             });
 
-            StabilityPointStructuresHelper.UpdateCalculationToSectionResultAssignments(failureMechanism);
-            StabilityPointStructuresFailureMechanismSectionResult[] sectionResults = failureMechanism.SectionResults.ToArray();
-
             var strategy = new StabilityPointStructureUpdateDataStrategy(failureMechanism);
-
-            // Precondition
-            Assert.AreEqual(1, sectionResults.Length);
-            Assert.AreSame(calculation, sectionResults[0].Calculation);
 
             // Call
             IEnumerable<IObservable> affectedObjects = strategy.UpdateStructuresWithImportedData(Enumerable.Empty<StabilityPointStructure>(),
@@ -723,12 +698,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.FileImporters
             {
                 failureMechanism.StabilityPointStructures,
                 calculation.InputParameters,
-                sectionResults[0]
             }, affectedObjects);
-
-            sectionResults = failureMechanism.SectionResults.ToArray();
-            Assert.AreEqual(1, sectionResults.Length);
-            Assert.IsNull(sectionResults[0].Calculation);
         }
 
         private static void AssertStabilityPointStructure(StabilityPointStructure expectedStabilityPointStructure,

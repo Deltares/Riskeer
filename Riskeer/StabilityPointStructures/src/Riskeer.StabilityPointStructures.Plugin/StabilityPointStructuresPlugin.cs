@@ -56,7 +56,6 @@ using Riskeer.StabilityPointStructures.IO;
 using Riskeer.StabilityPointStructures.IO.Configurations;
 using Riskeer.StabilityPointStructures.Plugin.FileImporters;
 using Riskeer.StabilityPointStructures.Service;
-using Riskeer.StabilityPointStructures.Util;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
 using RiskeerCommonIOResources = Riskeer.Common.IO.Properties.Resources;
@@ -223,8 +222,7 @@ namespace Riskeer.StabilityPointStructures.Plugin
                     context.WrappedData,
                     context.AssessmentSection.HydraulicBoundaryDatabase.Locations,
                     context.AvailableForeshoreProfiles,
-                    context.AvailableStructures,
-                    context.FailureMechanism));
+                    context.AvailableStructures));
         }
 
         public override IEnumerable<ExportInfo> GetExportInfos()
@@ -619,17 +617,14 @@ namespace Riskeer.StabilityPointStructures.Plugin
 
                 if (dialog.SelectedItems.Any())
                 {
-                    GenerateStabilityPointStructuresCalculations(
-                        nodeData.FailureMechanism,
-                        dialog.SelectedItems.Cast<StabilityPointStructure>(),
-                        nodeData.WrappedData.Children);
+                    GenerateStabilityPointStructuresCalculations(dialog.SelectedItems.Cast<StabilityPointStructure>(),
+                                                                 nodeData.WrappedData.Children);
                     nodeData.NotifyObservers();
                 }
             }
         }
 
-        private static void GenerateStabilityPointStructuresCalculations(StabilityPointStructuresFailureMechanism failureMechanism,
-                                                                         IEnumerable<StabilityPointStructure> structures,
+        private static void GenerateStabilityPointStructuresCalculations(IEnumerable<StabilityPointStructure> structures,
                                                                          List<ICalculationBase> calculations)
         {
             foreach (StabilityPointStructure structure in structures)
@@ -644,8 +639,6 @@ namespace Riskeer.StabilityPointStructures.Plugin
                 };
                 calculations.Add(calculation);
             }
-
-            StabilityPointStructuresHelper.UpdateCalculationToSectionResultAssignments(failureMechanism);
         }
 
         private static void AddCalculation(StabilityPointStructuresCalculationGroupContext context)
@@ -663,8 +656,6 @@ namespace Riskeer.StabilityPointStructures.Plugin
             var parentGroupContext = (StabilityPointStructuresCalculationGroupContext) parentNodeData;
 
             parentGroupContext.WrappedData.Children.Remove(context.WrappedData);
-
-            StabilityPointStructuresHelper.UpdateCalculationToSectionResultAssignments(context.FailureMechanism);
 
             parentGroupContext.NotifyObservers();
         }
@@ -769,7 +760,6 @@ namespace Riskeer.StabilityPointStructures.Plugin
             if (parentData is StabilityPointStructuresCalculationGroupContext calculationGroupContext)
             {
                 calculationGroupContext.WrappedData.Children.Remove(context.WrappedData);
-                StabilityPointStructuresHelper.UpdateCalculationToSectionResultAssignments(context.FailureMechanism);
                 calculationGroupContext.NotifyObservers();
             }
         }

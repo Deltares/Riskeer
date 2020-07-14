@@ -29,7 +29,6 @@ using Riskeer.Common.Forms;
 using Riskeer.Common.IO.Structures;
 using Riskeer.StabilityPointStructures.Data;
 using Riskeer.StabilityPointStructures.Service;
-using Riskeer.StabilityPointStructures.Util;
 
 namespace Riskeer.StabilityPointStructures.Plugin.FileImporters
 {
@@ -80,8 +79,6 @@ namespace Riskeer.StabilityPointStructures.Plugin.FileImporters
 
             affectedObjects.AddRange(GetAffectedCalculationsWithStabilityPointStructure(structure)
                                          .Select(affectedCalculation => affectedCalculation.InputParameters));
-
-            affectedObjects.AddRange(StabilityPointStructuresHelper.UpdateCalculationToSectionResultAssignments(FailureMechanism));
 
             return affectedObjects;
         }

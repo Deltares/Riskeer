@@ -476,7 +476,7 @@ namespace Riskeer.StabilityPointStructures.IO.Test.Configurations
             // Call
             var importer = new StabilityPointStructuresCalculationConfigurationImporter(
                 "", new CalculationGroup(), Enumerable.Empty<HydraulicBoundaryLocation>(), Enumerable.Empty<ForeshoreProfile>(),
-                Enumerable.Empty<StabilityPointStructure>(), new StabilityPointStructuresFailureMechanism());
+                Enumerable.Empty<StabilityPointStructure>());
 
             // Assert
             Assert.IsInstanceOf<CalculationConfigurationImporter<StabilityPointStructuresCalculationConfigurationReader,
@@ -489,7 +489,7 @@ namespace Riskeer.StabilityPointStructures.IO.Test.Configurations
             // Call
             void Call() => new StabilityPointStructuresCalculationConfigurationImporter(
                 "", new CalculationGroup(), null, Enumerable.Empty<ForeshoreProfile>(),
-                Enumerable.Empty<StabilityPointStructure>(), new StabilityPointStructuresFailureMechanism());
+                Enumerable.Empty<StabilityPointStructure>());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -502,7 +502,7 @@ namespace Riskeer.StabilityPointStructures.IO.Test.Configurations
             // Call
             void Call() => new StabilityPointStructuresCalculationConfigurationImporter(
                 "", new CalculationGroup(), Enumerable.Empty<HydraulicBoundaryLocation>(), null,
-                Enumerable.Empty<StabilityPointStructure>(), new StabilityPointStructuresFailureMechanism());
+                Enumerable.Empty<StabilityPointStructure>());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -515,24 +515,11 @@ namespace Riskeer.StabilityPointStructures.IO.Test.Configurations
             // Call
             void Call() => new StabilityPointStructuresCalculationConfigurationImporter(
                 "", new CalculationGroup(), Enumerable.Empty<HydraulicBoundaryLocation>(),
-                Enumerable.Empty<ForeshoreProfile>(), null, new StabilityPointStructuresFailureMechanism());
+                Enumerable.Empty<ForeshoreProfile>(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("structures", exception.ParamName);
-        }
-
-        [Test]
-        public void Constructor_FailureMechanismNull_ThrowArgumentNullException()
-        {
-            // Call
-            void Call() => new StabilityPointStructuresCalculationConfigurationImporter(
-                "", new CalculationGroup(), Enumerable.Empty<HydraulicBoundaryLocation>(), 
-                Enumerable.Empty<ForeshoreProfile>(), Enumerable.Empty<StabilityPointStructure>(), null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("failureMechanism", exception.ParamName);
         }
 
         [Test]
@@ -558,8 +545,7 @@ namespace Riskeer.StabilityPointStructures.IO.Test.Configurations
                 new StabilityPointStructure[]
                 {
                     structure
-                },
-                new StabilityPointStructuresFailureMechanism());
+                });
             var successful = false;
 
             // Call
@@ -588,8 +574,7 @@ namespace Riskeer.StabilityPointStructures.IO.Test.Configurations
                 {
                     foreshoreProfile
                 },
-                Enumerable.Empty<StabilityPointStructure>(),
-                new StabilityPointStructuresFailureMechanism());
+                Enumerable.Empty<StabilityPointStructure>());
 
             var successful = false;
 
@@ -621,8 +606,7 @@ namespace Riskeer.StabilityPointStructures.IO.Test.Configurations
                 {
                     structure,
                     new TestStabilityPointStructure("other structure")
-                },
-                new StabilityPointStructuresFailureMechanism());
+                });
 
             // Call
             bool successful = importer.Import();
@@ -743,8 +727,7 @@ namespace Riskeer.StabilityPointStructures.IO.Test.Configurations
                 {
                     structure,
                     new TestStabilityPointStructure("other structure")
-                },
-                new StabilityPointStructuresFailureMechanism());
+                });
 
             // Call
             bool successful = importer.Import();
@@ -856,8 +839,7 @@ namespace Riskeer.StabilityPointStructures.IO.Test.Configurations
                 new[]
                 {
                     structure
-                },
-                new StabilityPointStructuresFailureMechanism());
+                });
 
             var expectedCalculation = new StructuresCalculationScenario<StabilityPointStructuresInput>
             {
@@ -903,15 +885,14 @@ namespace Riskeer.StabilityPointStructures.IO.Test.Configurations
                 {
                     structure,
                     new TestStabilityPointStructure("other structure")
-                },
-                new StabilityPointStructuresFailureMechanism());
+                });
 
             // Call
             var successful = false;
-            Action call = () => successful = importer.Import();
+            void Call() => successful = importer.Import();
 
             // Assert
-            TestHelper.AssertLogMessageIsGenerated(call, $"Gegevens zijn geïmporteerd vanuit bestand '{filePath}'.", 1);
+            TestHelper.AssertLogMessageIsGenerated(Call, $"Gegevens zijn geïmporteerd vanuit bestand '{filePath}'.", 1);
             Assert.IsTrue(successful);
             var expectedCalculation = new StructuresCalculationScenario<StabilityPointStructuresInput>
             {
@@ -1065,8 +1046,7 @@ namespace Riskeer.StabilityPointStructures.IO.Test.Configurations
                 new[]
                 {
                     structure
-                },
-                new StabilityPointStructuresFailureMechanism());
+                });
 
             // Call
             bool successful = importer.Import();
@@ -1078,53 +1058,6 @@ namespace Riskeer.StabilityPointStructures.IO.Test.Configurations
             double expectedValue = (RoundedDouble) 1.2e-108;
             Assert.AreEqual(expectedValue, calculation.InputParameters.FailureProbabilityStructureWithErosion);
             Assert.AreEqual(expectedValue, calculation.InputParameters.ProbabilityCollisionSecondaryStructure);
-        }
-
-        [Test]
-        public void DoPostImport_CalculationWithStructureInSection_AssignsCalculationToSectionResult()
-        {
-            // Setup
-            string filePath = Path.Combine(importerPath, "validConfigurationFullCalculation.xml");
-            var calculationGroup = new CalculationGroup();
-
-            var failureMechanism = new StabilityPointStructuresFailureMechanism();
-
-            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
-            {
-                FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
-                {
-                    new Point2D(0, 0),
-                    new Point2D(10, 10)
-                })
-            });
-
-            var calculation = new StructuresCalculation<StabilityPointStructuresInput>
-            {
-                InputParameters =
-                {
-                    Structure = new TestStabilityPointStructure(new Point2D(5, 5))
-                }
-            };
-            failureMechanism.CalculationsGroup.Children.Add(
-                calculation);
-
-            var importer = new StabilityPointStructuresCalculationConfigurationImporter(
-                filePath,
-                calculationGroup,
-                Enumerable.Empty<HydraulicBoundaryLocation>(),
-                Enumerable.Empty<ForeshoreProfile>(),
-                Enumerable.Empty<StabilityPointStructure>(),
-                failureMechanism);
-
-            // Preconditions
-            Assert.AreEqual(1, failureMechanism.SectionResults.Count());
-            Assert.IsNull(failureMechanism.SectionResults.ElementAt(0).Calculation);
-
-            // Call
-            importer.DoPostImport();
-
-            // Assert
-            Assert.AreSame(calculation, failureMechanism.SectionResults.ElementAt(0).Calculation);
         }
 
         [TestCase("validConfigurationUnknownForeshoreProfile.xml",
@@ -1147,16 +1080,15 @@ namespace Riskeer.StabilityPointStructures.IO.Test.Configurations
                                                                                         calculationGroup,
                                                                                         Enumerable.Empty<HydraulicBoundaryLocation>(),
                                                                                         Enumerable.Empty<ForeshoreProfile>(),
-                                                                                        Enumerable.Empty<StabilityPointStructure>(),
-                                                                                        new StabilityPointStructuresFailureMechanism());
+                                                                                        Enumerable.Empty<StabilityPointStructure>());
             var successful = false;
 
             // Call
-            Action call = () => successful = importer.Import();
+            void Call() => successful = importer.Import();
 
             // Assert
             string expectedMessage = $"{expectedErrorMessage} Berekening 'Berekening 1' is overgeslagen.";
-            TestHelper.AssertLogMessageWithLevelIsGenerated(call, Tuple.Create(expectedMessage, LogLevelConstant.Error), 2);
+            TestHelper.AssertLogMessageWithLevelIsGenerated(Call, Tuple.Create(expectedMessage, LogLevelConstant.Error), 2);
             Assert.IsTrue(successful);
             CollectionAssert.IsEmpty(calculationGroup.Children);
         }
