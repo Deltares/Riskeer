@@ -166,8 +166,7 @@ namespace Riskeer.Storage.Core.TestUtil
             ConfigureStabilityPointStructuresFailureMechanism(stabilityPointStructuresFailureMechanism,
                                                               assessmentSection);
             SetSections(stabilityPointStructuresFailureMechanism);
-            SetSectionResults(stabilityPointStructuresFailureMechanism.SectionResults,
-                              (StructuresCalculation<StabilityPointStructuresInput>) stabilityPointStructuresFailureMechanism.Calculations.First());
+            SetSectionResults(stabilityPointStructuresFailureMechanism.SectionResults);
 
             MacroStabilityOutwardsFailureMechanism macroStabilityOutwardsFailureMechanism = assessmentSection.MacroStabilityOutwards;
             ConfigureMacroStabilityOutwardsFailureMechanism(macroStabilityOutwardsFailureMechanism);
@@ -653,11 +652,9 @@ namespace Riskeer.Storage.Core.TestUtil
             failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculationScenario<StabilityPointStructuresInput>());
         }
 
-        private static void SetSectionResults(IEnumerable<StabilityPointStructuresFailureMechanismSectionResult> sectionResults,
-                                              StructuresCalculation<StabilityPointStructuresInput> calculation)
+        private static void SetSectionResults(IEnumerable<StabilityPointStructuresFailureMechanismSectionResult> sectionResults)
         {
             var random = new Random(21);
-            var firstSectionResultHasCalculation = false;
             foreach (StabilityPointStructuresFailureMechanismSectionResult sectionResult in sectionResults)
             {
                 sectionResult.SimpleAssessmentResult = random.NextEnumValue<SimpleAssessmentValidityOnlyResultType>();
@@ -666,12 +663,6 @@ namespace Riskeer.Storage.Core.TestUtil
                 sectionResult.TailorMadeAssessmentProbability = random.NextDouble();
                 sectionResult.UseManualAssembly = random.NextBoolean();
                 sectionResult.ManualAssemblyProbability = random.NextDouble();
-
-                if (!firstSectionResultHasCalculation)
-                {
-                    sectionResult.Calculation = calculation;
-                    firstSectionResultHasCalculation = true;
-                }
             }
         }
 

@@ -446,9 +446,6 @@ namespace Riskeer.Storage.Core.TestUtil.Test
             Assert.AreEqual(0, secondCalculationGroup.Children.Count);
             var calculationWithoutOutput = (StructuresCalculation<StabilityPointStructuresInput>) failureMechanism.CalculationsGroup.Children[2];
             Assert.IsFalse(calculationWithoutOutput.HasOutput);
-
-            StabilityPointStructuresFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.First();
-            Assert.AreSame(calculationWithOutput, sectionResult.Calculation);
         }
 
         private static void AssertPipingStructureFailureMechanism(AssessmentSection assessmentSection)

@@ -1082,7 +1082,7 @@ namespace Riskeer.Storage.Core.Read
                 StabilityPointStructuresFailureMechanismSectionResult result = failureMechanism.SectionResults
                                                                                                .Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
 
-                sectionResultEntity.Read(result, collector);
+                sectionResultEntity.Read(result);
             }
         }
 
