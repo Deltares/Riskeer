@@ -296,16 +296,17 @@
   </data>
   <data name="warningIcon.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAS
-        dAAAEnQB3mYfeAAAAe5JREFUOE+1kktoU1EQhgOC4ELBjS5EEFREipRCLVK0K8GdqFQTNLqQLrpw05W4
-        0IVQFCy6aBaKWGgrSH2A9YH4wFQK2qL4aPNu2qghN03S2OTm3pjHzf2c3AaLWDQVHPjhnOH83zAzx/Zf
-        I/ViN8lnrdSuy4uqOevpJvPp/L8BElK5UspSmveiPNi5PEjiaStqwIVp5DBLcTKTV4jebaofMvtkF1SK
-        FBMuSqk+gczxZaixPkDVrEWGxJ/GN9hmydA9ZP0DzAw2/B2SHusCs4gWPoF3oM2SFnRiltPEnnf+GaA8
-        auF7ckyGp6CFjuPt32NJ9dsxcm/QoiMEr21ZGqI8bCEz0SOVkhQUlwCcTA/vqwGOoE85qRRmiI+cxXN5
-        4++Q2HCzmHOU1VHyYacFyEc6SL21o/oOowfbKcRdlLUoHy+s/xUQu98sQ7ohg4tTiF0iP3VUAMcWW/C1
-        owcOofkOYOQDxNwXGT+zZhEy6z4pO9fk0zxGDzks5QJS2e8Qs0OGaBfAQTT/fvIheSttTvTuXQBE7zWh
-        R19aALM8L/q2IEPOVf3MpWuak7xK6v0dXnWuwPb1diOfb+0gcrOB6f7thPu2Ebq+leDVzfh6NzHZs4EP
-        3et4d24t46dX87prFaOnVlpmd4dt6Y3UHzbbD32bn/MdP7m6AAAAAElFTkSuQmCC
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAAHuSURBVDhPtZJLaFNREIYDguBCwY0uRBBURIqUQi1StCvB
+        nahUEzS6kC66cNOVuNCFUBQsumgWilhoK0h9gPWB+MBUCtqi+GjzbtqoITdN0tjk5t6Yx839nNwGi1g0
+        FRz44Zzh/N8wM8f2XyP1YjfJZ63UrsuLqjnr6Sbz6fy/ARJSuVLKUpr3ojzYuTxI4mkrasCFaeQwS3Ey
+        k1eI3m2qHzL7ZBdUihQTLkqpPoHM8WWosT5A1axFhsSfxjfYZsnQPWT9A8wMNvwdkh7rArOIFj6Bd6DN
+        khZ0YpbTxJ53/hmgPGrhe3JMhqeghY7j7d9jSfXbMXJv0KIjBK9tWRqiPGwhM9EjlZIUFJcAnEwP76sB
+        jqBPOakUZoiPnMVzeePvkNhws5hzlNVR8mGnBchHOki9taP6DqMH2ynEXZS1KB8vrP8VELvfLEO6IYOL
+        U4hdIj91VADHFlvwtaMHDqH5DmDkA8TcFxk/s2YRMus+KTvX5NM8Rg85LOUCUtnvELNDhmgXwEE0/37y
+        IXkrbU707l0ARO81oUdfWgCzPC/6tiBDzlX9zKVrmpO8Sur9HV51rsD29XYjn2/tIHKzgen+7YT7thG6
+        vpXg1c34ejcx2bOBD93reHduLeOnV/O6axWjp1ZaZneHbemN1B822w99m5/zHT+5ugAAAABJRU5ErkJg
+        gg==
 </value>
   </data>
   <data name="warningIcon.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
