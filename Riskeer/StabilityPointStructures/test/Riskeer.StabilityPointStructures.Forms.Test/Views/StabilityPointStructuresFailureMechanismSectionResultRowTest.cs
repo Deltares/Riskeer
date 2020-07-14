@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using Core.Common.Base;
+using Core.Common.Base.Data;
 using Core.Common.Controls.DataGrid;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -491,15 +492,19 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
             var result = new StabilityPointStructuresFailureMechanismSectionResult(section)
             {
                 SimpleAssessmentResult = simpleAssessmentResult,
-                Calculation = CreateCalculationWithOutput(),
                 TailorMadeAssessmentResult = TailorMadeAssessmentProbabilityCalculationResultType.Probability
+            };
+
+            StructuresCalculationScenario<StabilityPointStructuresInput>[] calculationScenarios =
+            {
+                StabilityPointStructuresCalculationScenarioTestFactory.CreateStabilityPointStructuresCalculationScenario(section)
             };
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call
                 var row = new StabilityPointStructuresFailureMechanismSectionResultRow(
-                    result, failureMechanism, assessmentSection, ConstructionProperties);
+                    result, calculationScenarios, failureMechanism, assessmentSection, ConstructionProperties);
 
                 // Assert
                 IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
@@ -535,15 +540,19 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new StabilityPointStructuresFailureMechanismSectionResult(section)
             {
-                DetailedAssessmentResult = detailedAssessmentResult,
-                Calculation = CreateCalculationWithOutput()
+                DetailedAssessmentResult = detailedAssessmentResult
+            };
+
+            StructuresCalculationScenario<StabilityPointStructuresInput>[] calculationScenarios =
+            {
+                StabilityPointStructuresCalculationScenarioTestFactory.CreateStabilityPointStructuresCalculationScenario(section)
             };
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call
                 var row = new StabilityPointStructuresFailureMechanismSectionResultRow(
-                    result, failureMechanism, assessmentSection, ConstructionProperties);
+                    result, calculationScenarios, failureMechanism, assessmentSection, ConstructionProperties);
 
                 // Assert
                 IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
@@ -580,7 +589,8 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
             {
                 // Call
                 var row = new StabilityPointStructuresFailureMechanismSectionResultRow(
-                    result, failureMechanism, assessmentSection, ConstructionProperties);
+                    result, Enumerable.Empty<StructuresCalculationScenario<StabilityPointStructuresInput>>(),
+                    failureMechanism, assessmentSection, ConstructionProperties);
 
                 // Assert
                 IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
@@ -605,16 +615,20 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new StabilityPointStructuresFailureMechanismSectionResult(section)
             {
-                Calculation = CreateCalculationWithOutput(),
                 TailorMadeAssessmentResult = TailorMadeAssessmentProbabilityCalculationResultType.Probability,
                 UseManualAssembly = useManualAssembly
+            };
+
+            StructuresCalculationScenario<StabilityPointStructuresInput>[] calculationScenarios =
+            {
+                StabilityPointStructuresCalculationScenarioTestFactory.CreateStabilityPointStructuresCalculationScenario(section)
             };
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call
                 var row = new StabilityPointStructuresFailureMechanismSectionResultRow(
-                    result, failureMechanism, assessmentSection, ConstructionProperties);
+                    result, calculationScenarios, failureMechanism, assessmentSection, ConstructionProperties);
 
                 // Assert
                 IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
@@ -680,10 +694,9 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
                 calculator.CombinedAssemblyCategoryOutput = assemblyCategoryGroup;
 
                 // Call
-                var row = new StabilityPointStructuresFailureMechanismSectionResultRow(result,
-                                                                                       failureMechanism,
-                                                                                       assessmentSection,
-                                                                                       ConstructionProperties);
+                var row = new StabilityPointStructuresFailureMechanismSectionResultRow(
+                    result, Enumerable.Empty<StructuresCalculationScenario<StabilityPointStructuresInput>>(),
+                    failureMechanism, assessmentSection, ConstructionProperties);
 
                 // Assert
                 IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
@@ -704,7 +717,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
         [Test]
         [TestCase(SimpleAssessmentValidityOnlyResultType.None)]
         [TestCase(SimpleAssessmentValidityOnlyResultType.Applicable)]
-        public void Constructor_SectionResultWithoutCalculation_DetailedAssessmentProbabilityHasErrorText(
+        public void Constructor_TotalContributionNotOne_DetailedAssessmentProbabilityHasErrorText(
             SimpleAssessmentValidityOnlyResultType simpleAssessmentResult)
         {
             // Setup
@@ -714,79 +727,52 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
-            var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
-            {
-                SimpleAssessmentResult = simpleAssessmentResult
-            };
-
-            using (new AssemblyToolCalculatorFactoryConfig())
-            {
-                // Call
-                var resultRow = new StabilityPointStructuresFailureMechanismSectionResultRow(
-                    sectionResult, failureMechanism, assessmentSection, ConstructionProperties);
-
-                // Assert
-                Assert.IsNaN(resultRow.DetailedAssessmentProbability);
-                Assert.AreEqual("Er moet een maatgevende berekening voor dit vak worden geselecteerd.",
-                                resultRow.ColumnStateDefinitions[ConstructionProperties.DetailedAssessmentProbabilityIndex].ErrorText);
-                mocks.VerifyAll();
-            }
-        }
-
-        [Test]
-        [TestCase(SimpleAssessmentValidityOnlyResultType.None)]
-        [TestCase(SimpleAssessmentValidityOnlyResultType.Applicable)]
-        public void Constructor_SectionResultAndCalculationNotCalculated_DetailedAssessmentProbabilityHasErrorText(
-            SimpleAssessmentValidityOnlyResultType simpleAssessmentResult)
-        {
-            // Setup
-            var failureMechanism = new StabilityPointStructuresFailureMechanism();
-
-            var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
-            mocks.ReplayAll();
-
-            var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
-            {
-                Calculation = new TestStabilityPointStructuresCalculationScenario(),
-                SimpleAssessmentResult = simpleAssessmentResult
-            };
-
-            using (new AssemblyToolCalculatorFactoryConfig())
-            {
-                // Call
-                var resultRow = new StabilityPointStructuresFailureMechanismSectionResultRow(
-                    sectionResult, failureMechanism, assessmentSection, ConstructionProperties);
-
-                // Assert
-                Assert.IsNaN(resultRow.DetailedAssessmentProbability);
-                Assert.AreEqual("De maatgevende berekening voor dit vak moet nog worden uitgevoerd.",
-                                resultRow.ColumnStateDefinitions[ConstructionProperties.DetailedAssessmentProbabilityIndex].ErrorText);
-                mocks.VerifyAll();
-            }
-        }
-
-        [Test]
-        [TestCase(SimpleAssessmentValidityOnlyResultType.None)]
-        [TestCase(SimpleAssessmentValidityOnlyResultType.Applicable)]
-        public void Constructor_SectionResultAndFailedCalculation_DetailedAssessmentProbabilityHasErrorText(
-            SimpleAssessmentValidityOnlyResultType simpleAssessmentResult)
-        {
-            // Setup
-            var failureMechanism = new StabilityPointStructuresFailureMechanism();
-
-            var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
-            mocks.ReplayAll();
-
-            var calculation = new TestStabilityPointStructuresCalculationScenario
-            {
-                Output = new TestStructuresOutput(double.NaN)
-            };
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(section)
             {
-                Calculation = calculation,
+                SimpleAssessmentResult = simpleAssessmentResult
+            };
+
+            StructuresCalculationScenario<StabilityPointStructuresInput> calculation = StabilityPointStructuresCalculationScenarioTestFactory.CreateStabilityPointStructuresCalculationScenario(section);
+            calculation.Contribution = (RoundedDouble) 0.3;
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                // Call
+                var resultRow = new StabilityPointStructuresFailureMechanismSectionResultRow(
+                    sectionResult,
+                    new[]
+                    {
+                        calculation
+                    },
+                    failureMechanism,
+                    assessmentSection,
+                    ConstructionProperties);
+
+                // Assert
+                Assert.IsNaN(resultRow.DetailedAssessmentProbability);
+                Assert.AreEqual("Bijdrage van de geselecteerde scenario's voor dit vak moet opgeteld gelijk zijn aan 100%.",
+                                resultRow.ColumnStateDefinitions[ConstructionProperties.DetailedAssessmentProbabilityIndex].ErrorText);
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        [TestCase(SimpleAssessmentValidityOnlyResultType.None)]
+        [TestCase(SimpleAssessmentValidityOnlyResultType.Applicable)]
+        public void Constructor_NoCalculatedScenario_DetailedAssessmentProbabilityHasErrorText(
+            SimpleAssessmentValidityOnlyResultType simpleAssessmentResult)
+        {
+            // Setup
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
+
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(section)
+            {
                 SimpleAssessmentResult = simpleAssessmentResult
             };
 
@@ -794,11 +780,143 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
             {
                 // Call
                 var resultRow = new StabilityPointStructuresFailureMechanismSectionResultRow(
-                    sectionResult, failureMechanism, assessmentSection, ConstructionProperties);
+                    sectionResult,
+                    new[]
+                    {
+                        StabilityPointStructuresCalculationScenarioTestFactory.CreateNotCalculatedStabilityPointStructuresCalculationScenario(section)
+                    },
+                    failureMechanism,
+                    assessmentSection,
+                    ConstructionProperties);
 
                 // Assert
                 Assert.IsNaN(resultRow.DetailedAssessmentProbability);
-                Assert.AreEqual("De maatgevende berekening voor dit vak moet een geldige uitkomst hebben.",
+                Assert.AreEqual("Alle berekeningen voor dit vak moeten uitgevoerd zijn.",
+                                resultRow.ColumnStateDefinitions[ConstructionProperties.DetailedAssessmentProbabilityIndex].ErrorText);
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        [TestCase(SimpleAssessmentValidityOnlyResultType.None)]
+        [TestCase(SimpleAssessmentValidityOnlyResultType.Applicable)]
+        public void Constructor_DetailedAssessmentProbabilityNaN_DetailedAssessmentProbabilityHasErrorText(
+            SimpleAssessmentValidityOnlyResultType simpleAssessmentResult)
+        {
+            // Setup
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
+
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(section)
+            {
+                SimpleAssessmentResult = simpleAssessmentResult
+            };
+
+            StructuresCalculationScenario<StabilityPointStructuresInput> calculationScenario =
+                StabilityPointStructuresCalculationScenarioTestFactory.CreateNotCalculatedStabilityPointStructuresCalculationScenario(section);
+            calculationScenario.Output = new TestStructuresOutput(double.NaN);
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                // Call
+                var resultRow = new StabilityPointStructuresFailureMechanismSectionResultRow(
+                    sectionResult,
+                    new[]
+                    {
+                        calculationScenario
+                    },
+                    failureMechanism,
+                    assessmentSection,
+                    ConstructionProperties);
+
+                // Assert
+                Assert.IsNaN(resultRow.DetailedAssessmentProbability);
+                Assert.AreEqual("Alle berekeningen voor dit vak moeten een geldige uitkomst hebben.",
+                                resultRow.ColumnStateDefinitions[ConstructionProperties.DetailedAssessmentProbabilityIndex].ErrorText);
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        [TestCase(SimpleAssessmentValidityOnlyResultType.None)]
+        [TestCase(SimpleAssessmentValidityOnlyResultType.Applicable)]
+        public void Constructor_NoCalculationScenarios_DetailedAssessmentProbabilityHasErrorText(
+            SimpleAssessmentValidityOnlyResultType simpleAssessmentResult)
+        {
+            // Setup
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
+
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(section)
+            {
+                SimpleAssessmentResult = simpleAssessmentResult
+            };
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                // Call
+                var resultRow = new StabilityPointStructuresFailureMechanismSectionResultRow(
+                    sectionResult,
+                    Enumerable.Empty<StructuresCalculationScenario<StabilityPointStructuresInput>>(),
+                    failureMechanism,
+                    assessmentSection,
+                    ConstructionProperties);
+
+                // Assert
+                Assert.IsNaN(resultRow.DetailedAssessmentProbability);
+                Assert.AreEqual("Er moet minimaal één maatgevende berekening voor dit vak worden geselecteerd.",
+                                resultRow.ColumnStateDefinitions[ConstructionProperties.DetailedAssessmentProbabilityIndex].ErrorText);
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        [TestCase(SimpleAssessmentValidityOnlyResultType.None)]
+        [TestCase(SimpleAssessmentValidityOnlyResultType.Applicable)]
+        public void Constructor_NoCalculationScenariosRelevant_DetailedAssessmentProbabilityHasErrorText(
+            SimpleAssessmentValidityOnlyResultType simpleAssessmentResult)
+        {
+            // Setup
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
+
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(section)
+            {
+                SimpleAssessmentResult = simpleAssessmentResult
+            };
+
+            StructuresCalculationScenario<StabilityPointStructuresInput> calculationScenario =
+                StabilityPointStructuresCalculationScenarioTestFactory.CreateNotCalculatedStabilityPointStructuresCalculationScenario(section);
+            calculationScenario.IsRelevant = false;
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                // Call
+                var resultRow = new StabilityPointStructuresFailureMechanismSectionResultRow(
+                    sectionResult,
+                    new[]
+                    {
+                        calculationScenario
+                    },
+                    failureMechanism,
+                    assessmentSection,
+                    ConstructionProperties);
+
+                // Assert
+                Assert.IsNaN(resultRow.DetailedAssessmentProbability);
+                Assert.AreEqual("Er moet minimaal één maatgevende berekening voor dit vak worden geselecteerd.",
                                 resultRow.ColumnStateDefinitions[ConstructionProperties.DetailedAssessmentProbabilityIndex].ErrorText);
                 mocks.VerifyAll();
             }
@@ -814,19 +932,21 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
-            var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+
+            StructuresCalculationScenario<StabilityPointStructuresInput>[] calculationScenarios =
             {
-                Calculation = CreateCalculationWithOutput()
+                StabilityPointStructuresCalculationScenarioTestFactory.CreateStabilityPointStructuresCalculationScenario(section)
             };
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call
                 var resultRow = new StabilityPointStructuresFailureMechanismSectionResultRow(
-                    sectionResult, failureMechanism, assessmentSection, ConstructionProperties);
+                    sectionResult, calculationScenarios, failureMechanism, assessmentSection, ConstructionProperties);
 
                 // Assert
-                Assert.AreEqual(sectionResult.GetDetailedAssessmentProbability(failureMechanism, assessmentSection), resultRow.DetailedAssessmentProbability);
+                Assert.AreEqual(sectionResult.GetDetailedAssessmentProbability(calculationScenarios, failureMechanism, assessmentSection), resultRow.DetailedAssessmentProbability);
                 Assert.IsEmpty(resultRow.ColumnStateDefinitions[ConstructionProperties.DetailedAssessmentProbabilityIndex].ErrorText);
                 mocks.VerifyAll();
             }
@@ -842,17 +962,22 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
-            var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(section)
             {
-                Calculation = new TestStabilityPointStructuresCalculationScenario(),
                 UseManualAssembly = true
+            };
+
+            StructuresCalculationScenario<StabilityPointStructuresInput>[] calculationScenarios =
+            {
+                StabilityPointStructuresCalculationScenarioTestFactory.CreateStabilityPointStructuresCalculationScenario(section)
             };
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call 
                 var resultRow = new StabilityPointStructuresFailureMechanismSectionResultRow(
-                    sectionResult, failureMechanism, assessmentSection, ConstructionProperties);
+                    sectionResult, calculationScenarios, failureMechanism, assessmentSection, ConstructionProperties);
 
                 // Assert
                 Assert.IsNaN(resultRow.DetailedAssessmentProbability);
@@ -871,17 +996,22 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
-            var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(section)
             {
-                Calculation = new TestStabilityPointStructuresCalculationScenario(),
                 DetailedAssessmentResult = DetailedAssessmentProbabilityOnlyResultType.NotAssessed
+            };
+
+            StructuresCalculationScenario<StabilityPointStructuresInput>[] calculationScenarios =
+            {
+                StabilityPointStructuresCalculationScenarioTestFactory.CreateStabilityPointStructuresCalculationScenario(section)
             };
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call
                 var resultRow = new StabilityPointStructuresFailureMechanismSectionResultRow(
-                    sectionResult, failureMechanism, assessmentSection, ConstructionProperties);
+                    sectionResult, calculationScenarios, failureMechanism, assessmentSection, ConstructionProperties);
 
                 // Assert
                 Assert.IsNaN(resultRow.DetailedAssessmentProbability);
