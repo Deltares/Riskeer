@@ -1023,7 +1023,8 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
         [Test]
         [TestCaseSource(nameof(SimpleAssessmentResultIsSufficientVariousSectionResults))]
         public void Constructor_SectionResultAndAssessmentSimpleAssessmentSufficient_DetailedAssessmentProbabilityNoError(
-            StabilityPointStructuresFailureMechanismSectionResult sectionResult)
+            SimpleAssessmentValidityOnlyResultType simpleAssessmentResultType,
+            Func<FailureMechanismSection, IEnumerable<StructuresCalculationScenario<StabilityPointStructuresInput>>> getCalculationScenariosFunc)
         {
             // Setup
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
@@ -1032,14 +1033,22 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(section)
+            {
+                SimpleAssessmentResult = simpleAssessmentResultType
+            };
+
+            StructuresCalculationScenario<StabilityPointStructuresInput>[] calculationScenarios = getCalculationScenariosFunc(section).ToArray();
+
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call
                 var resultRow = new StabilityPointStructuresFailureMechanismSectionResultRow(
-                    sectionResult, failureMechanism, assessmentSection, ConstructionProperties);
+                    sectionResult, calculationScenarios, failureMechanism, assessmentSection, ConstructionProperties);
 
                 // Assert
-                Assert.AreEqual(sectionResult.GetDetailedAssessmentProbability(failureMechanism, assessmentSection), resultRow.DetailedAssessmentProbability);
+                Assert.AreEqual(sectionResult.GetDetailedAssessmentProbability(calculationScenarios, failureMechanism, assessmentSection), resultRow.DetailedAssessmentProbability);
                 Assert.IsEmpty(resultRow.ColumnStateDefinitions[ConstructionProperties.DetailedAssessmentProbabilityIndex].ErrorText);
                 mocks.VerifyAll();
             }
@@ -1047,30 +1056,36 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
 
         private static IEnumerable<TestCaseData> SimpleAssessmentResultIsSufficientVariousSectionResults()
         {
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-
-            yield return new TestCaseData(new StabilityPointStructuresFailureMechanismSectionResult(section)
-            {
-                SimpleAssessmentResult = SimpleAssessmentValidityOnlyResultType.NotApplicable
-            }).SetName("SectionWithoutCalculationAndSimpleAssessmentResultNotApplicable");
-            yield return new TestCaseData(new StabilityPointStructuresFailureMechanismSectionResult(section)
-            {
-                SimpleAssessmentResult = SimpleAssessmentValidityOnlyResultType.NotApplicable,
-                Calculation = new StructuresCalculation<StabilityPointStructuresInput>()
-            }).SetName("SectionWithCalculationNoOutputAndSimpleAssessmentResultNotApplicable");
-            yield return new TestCaseData(new StabilityPointStructuresFailureMechanismSectionResult(section)
-            {
-                SimpleAssessmentResult = SimpleAssessmentValidityOnlyResultType.NotApplicable,
-                Calculation = new StructuresCalculation<StabilityPointStructuresInput>
-                {
-                    Output = new TestStructuresOutput(double.NaN)
-                }
-            }).SetName("SectionWithInvalidCalculationOutputAndSimpleAssessmentResultNotApplicable");
-            yield return new TestCaseData(new StabilityPointStructuresFailureMechanismSectionResult(section)
-            {
-                SimpleAssessmentResult = SimpleAssessmentValidityOnlyResultType.NotApplicable,
-                Calculation = CreateCalculationWithOutput()
-            }).SetName("SectionWithValidCalculationOutputAndSimpleAssessmentResultNotApplicable");
+            yield return new TestCaseData(
+                SimpleAssessmentValidityOnlyResultType.NotApplicable,
+                new Func<FailureMechanismSection, IEnumerable<StructuresCalculationScenario<StabilityPointStructuresInput>>>(
+                    section => Enumerable.Empty<StructuresCalculationScenario<StabilityPointStructuresInput>>()));
+            yield return new TestCaseData(
+                SimpleAssessmentValidityOnlyResultType.NotApplicable,
+                new Func<FailureMechanismSection, IEnumerable<StructuresCalculationScenario<StabilityPointStructuresInput>>>(
+                    section => new[]
+                    {
+                        StabilityPointStructuresCalculationScenarioTestFactory.CreateNotCalculatedStabilityPointStructuresCalculationScenario(section)
+                    }));
+            yield return new TestCaseData(
+                SimpleAssessmentValidityOnlyResultType.NotApplicable,
+                new Func<FailureMechanismSection, IEnumerable<StructuresCalculationScenario<StabilityPointStructuresInput>>>(
+                    section =>
+                    {
+                        StructuresCalculationScenario<StabilityPointStructuresInput> calculation = StabilityPointStructuresCalculationScenarioTestFactory.CreateNotCalculatedStabilityPointStructuresCalculationScenario(section);
+                        calculation.Output = new TestStructuresOutput(double.NaN);
+                        return new[]
+                        {
+                            calculation
+                        };
+                    }));
+            yield return new TestCaseData(
+                SimpleAssessmentValidityOnlyResultType.NotApplicable,
+                new Func<FailureMechanismSection, IEnumerable<StructuresCalculationScenario<StabilityPointStructuresInput>>>(
+                    section => new[]
+                    {
+                        StabilityPointStructuresCalculationScenarioTestFactory.CreateStabilityPointStructuresCalculationScenario(section)
+                    }));
         }
 
         #endregion
@@ -1098,10 +1113,9 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var row = new StabilityPointStructuresFailureMechanismSectionResultRow(result,
-                                                                                       failureMechanism,
-                                                                                       assessmentSection,
-                                                                                       ConstructionProperties);
+                var row = new StabilityPointStructuresFailureMechanismSectionResultRow(
+                    result, Enumerable.Empty<StructuresCalculationScenario<StabilityPointStructuresInput>>(), 
+                    failureMechanism, assessmentSection, ConstructionProperties);
 
                 // Call
                 row.SimpleAssessmentResult = newValue;
@@ -1134,7 +1148,8 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var row = new StabilityPointStructuresFailureMechanismSectionResultRow(
-                    result, failureMechanism, assessmentSection, ConstructionProperties);
+                    result, Enumerable.Empty<StructuresCalculationScenario<StabilityPointStructuresInput>>(),
+                    failureMechanism, assessmentSection, ConstructionProperties);
 
                 // Call
                 row.DetailedAssessmentResult = newValue;
