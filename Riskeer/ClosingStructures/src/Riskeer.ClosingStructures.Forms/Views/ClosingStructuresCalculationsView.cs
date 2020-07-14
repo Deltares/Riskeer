@@ -30,7 +30,6 @@ using Core.Common.Controls.Views;
 using Core.Common.Util;
 using Riskeer.ClosingStructures.Data;
 using Riskeer.ClosingStructures.Forms.PresentationObjects;
-using Riskeer.ClosingStructures.Forms.Properties;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.DikeProfiles;
@@ -52,16 +51,16 @@ namespace Riskeer.ClosingStructures.Forms.Views
     {
         private const int selectableHydraulicBoundaryLocationColumnIndex = 1;
         private const int selectableForeshoreProfileColumnIndex = 2;
-        private readonly Observer failureMechanismObserver;
-        private readonly Observer hydraulicBoundaryLocationsObserver;
-        private readonly Observer foreShoreProfilesObserver;
-        private readonly RecursiveObserver<CalculationGroup, ClosingStructuresInput> inputObserver;
-        private readonly RecursiveObserver<CalculationGroup, StructuresCalculationScenario<ClosingStructuresInput>> calculationScenarioObserver;
-        private readonly RecursiveObserver<CalculationGroup, CalculationGroup> calculationGroupObserver;
-
-        private CalculationGroup calculationGroup;
         private readonly IAssessmentSection assessmentSection;
         private readonly ClosingStructuresFailureMechanism failureMechanism;
+        private Observer failureMechanismObserver;
+        private Observer hydraulicBoundaryLocationsObserver;
+        private Observer foreShoreProfilesObserver;
+        private RecursiveObserver<CalculationGroup, ClosingStructuresInput> inputObserver;
+        private RecursiveObserver<CalculationGroup, StructuresCalculationScenario<ClosingStructuresInput>> calculationScenarioObserver;
+        private RecursiveObserver<CalculationGroup, CalculationGroup> calculationGroupObserver;
+
+        private CalculationGroup calculationGroup;
 
         public event EventHandler<EventArgs> SelectionChanged;
 
@@ -70,16 +69,16 @@ namespace Riskeer.ClosingStructures.Forms.Views
         /// </summary>
         public ClosingStructuresCalculationsView(CalculationGroup data, ClosingStructuresFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
         {
-            InitializeComponent();
-            
             if (data == null)
             {
                 throw new ArgumentNullException(nameof(data));
             }
+
             if (failureMechanism == null)
             {
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
+
             if (assessmentSection == null)
             {
                 throw new ArgumentNullException(nameof(assessmentSection));
@@ -89,32 +88,17 @@ namespace Riskeer.ClosingStructures.Forms.Views
             this.assessmentSection = assessmentSection;
             Data = data;
 
-            failureMechanismObserver = new Observer(OnFailureMechanismUpdate)
-            {
-                Observable = failureMechanism
-            };
-            hydraulicBoundaryLocationsObserver = new Observer(UpdateSelectableHydraulicBoundaryLocationsColumn)
-            {
-                Observable = assessmentSection.HydraulicBoundaryDatabase.Locations
-            };
-            foreShoreProfilesObserver = new Observer(UpdateDikeProfilesColumn)
-            {
-                Observable = failureMechanism.ForeshoreProfiles
-            };
+            InitializeObservers();
 
-            // The concat is needed to observe the input of calculations in child groups.
-            inputObserver = new RecursiveObserver<CalculationGroup, ClosingStructuresInput>(UpdateDataGridViewDataSource, pcg => pcg.Children.Concat<object>(pcg.Children.OfType<StructuresCalculationScenario<ClosingStructuresInput>>().Select(pc => pc.InputParameters)))
-            {
-                Observable = calculationGroup
-            };
-            calculationScenarioObserver = new RecursiveObserver<CalculationGroup, StructuresCalculationScenario<ClosingStructuresInput>>(() => dataGridViewControl.RefreshDataGridView(), pcg => pcg.Children)
-            {
-                Observable = calculationGroup
-            };
-            calculationGroupObserver = new RecursiveObserver<CalculationGroup, CalculationGroup>(UpdateDataGridViewDataSource, pcg => pcg.Children)
-            {
-                Observable = calculationGroup
-            };
+            InitializeComponent();
+            InitializeListBox();
+            InitializeDataGridView();
+
+            UpdateSectionsListBox();
+            UpdateDataGridViewDataSource();
+            UpdateSelectableHydraulicBoundaryLocationsColumn();
+            UpdateForeshoreProfilesColumn();
+            UpdateGenerateCalculationsButtonState();
         }
 
         public object Selection => CreateSelectedItemFromCurrentRow();
@@ -128,17 +112,9 @@ namespace Riskeer.ClosingStructures.Forms.Views
         protected override void OnLoad(EventArgs e)
         {
             // Necessary to correctly load the content of the dropdown lists of the comboboxes...
-            base.OnLoad(e);
-
-            InitializeListBox();
-            InitializeDataGridView();
-
-            UpdateSectionsListBox();
             UpdateDataGridViewDataSource();
-            UpdateSelectableHydraulicBoundaryLocationsColumn();
-            UpdateDikeProfilesColumn();
-            UpdateSectionsListBox();
-            UpdateGenerateCalculationsButtonState();
+
+            base.OnLoad(e);
 
             dataGridViewControl.CellFormatting += HandleCellStyling;
         }
@@ -271,6 +247,36 @@ namespace Riskeer.ClosingStructures.Forms.Views
             return dataGridViewComboBoxItemWrappers.ToArray();
         }
 
+        private void InitializeObservers()
+        {
+            failureMechanismObserver = new Observer(OnFailureMechanismUpdate)
+            {
+                Observable = failureMechanism
+            };
+            hydraulicBoundaryLocationsObserver = new Observer(UpdateSelectableHydraulicBoundaryLocationsColumn)
+            {
+                Observable = assessmentSection.HydraulicBoundaryDatabase.Locations
+            };
+            foreShoreProfilesObserver = new Observer(UpdateForeshoreProfilesColumn)
+            {
+                Observable = failureMechanism.ForeshoreProfiles
+            };
+
+            // The concat is needed to observe the input of calculations in child groups.
+            inputObserver = new RecursiveObserver<CalculationGroup, ClosingStructuresInput>(UpdateDataGridViewDataSource, pcg => pcg.Children.Concat<object>(pcg.Children.OfType<StructuresCalculationScenario<ClosingStructuresInput>>().Select(pc => pc.InputParameters)))
+            {
+                Observable = calculationGroup
+            };
+            calculationScenarioObserver = new RecursiveObserver<CalculationGroup, StructuresCalculationScenario<ClosingStructuresInput>>(() => dataGridViewControl.RefreshDataGridView(), pcg => pcg.Children)
+            {
+                Observable = calculationGroup
+            };
+            calculationGroupObserver = new RecursiveObserver<CalculationGroup, CalculationGroup>(UpdateDataGridViewDataSource, pcg => pcg.Children)
+            {
+                Observable = calculationGroup
+            };
+        }
+
         #region Data sources
 
         private void UpdateDataGridViewDataSource()
@@ -292,7 +298,7 @@ namespace Riskeer.ClosingStructures.Forms.Views
             IEnumerable<StructuresCalculationScenario<ClosingStructuresInput>> calculationScenarios = calculationGroup
                                                                                                       .GetCalculations()
                                                                                                       .OfType<StructuresCalculationScenario<ClosingStructuresInput>>();
-                                                                                                      //.Where(cs => cs.IsDikeProfileIntersectionWithReferenceLineInSection(lineSegments));
+            //.Where(cs => cs.IsDikeProfileIntersectionWithReferenceLineInSection(lineSegments));
 
             PrefillComboBoxListItemsAtColumnLevel();
 
@@ -301,7 +307,7 @@ namespace Riskeer.ClosingStructures.Forms.Views
             dataGridViewControl.ClearCurrentCell();
 
             UpdateSelectableHydraulicBoundaryLocationsColumn();
-            UpdateDikeProfilesColumn();
+            UpdateForeshoreProfilesColumn();
         }
 
         #endregion
@@ -349,9 +355,9 @@ namespace Riskeer.ClosingStructures.Forms.Views
 
         #endregion
 
-        #region Update DikeProfiles
+        #region Update ForeshoreProfiles
 
-        private void UpdateDikeProfilesColumn()
+        private void UpdateForeshoreProfilesColumn()
         {
             var column = (DataGridViewComboBoxColumn) dataGridViewControl.GetColumnFromIndex(selectableForeshoreProfileColumnIndex);
 
@@ -359,12 +365,12 @@ namespace Riskeer.ClosingStructures.Forms.Views
             {
                 foreach (DataGridViewRow dataGridViewRow in dataGridViewControl.Rows)
                 {
-                    FillAvailableDikeProfilesList(dataGridViewRow);
+                    FillAvailableForeshoreProfilesList(dataGridViewRow);
                 }
             }
         }
 
-        private void FillAvailableDikeProfilesList(DataGridViewRow dataGridViewRow)
+        private void FillAvailableForeshoreProfilesList(DataGridViewRow dataGridViewRow)
         {
             var cell = (DataGridViewComboBoxCell) dataGridViewRow.Cells[selectableForeshoreProfileColumnIndex];
             DataGridViewComboBoxItemWrapper<ForeshoreProfile>[] dataGridViewComboBoxItemWrappers = GetSelectableForeshoreProfileDataSource(failureMechanism.ForeshoreProfiles);
@@ -405,11 +411,11 @@ namespace Riskeer.ClosingStructures.Forms.Views
                                            GetSelectableHydraulicBoundaryLocationsDataSource(GetSelectableHydraulicBoundaryLocationsFromFailureMechanism()));
             }
 
-            var selectableDikeProfileColumn = (DataGridViewComboBoxColumn) dataGridViewControl.GetColumnFromIndex(selectableForeshoreProfileColumnIndex);
+            var selectableForeshoreProfiles = (DataGridViewComboBoxColumn) dataGridViewControl.GetColumnFromIndex(selectableForeshoreProfileColumnIndex);
 
-            using (new SuspendDataGridViewColumnResizes(selectableDikeProfileColumn))
+            using (new SuspendDataGridViewColumnResizes(selectableForeshoreProfiles))
             {
-                SetItemsOnObjectCollection(selectableDikeProfileColumn.Items,
+                SetItemsOnObjectCollection(selectableForeshoreProfiles.Items,
                                            GetSelectableForeshoreProfileDataSource(failureMechanism.ForeshoreProfiles));
             }
         }
