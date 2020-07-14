@@ -1866,45 +1866,6 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void OnNodeRemoved_CalculationInGroupAssignedToSection_CalculationDetachedFromSection()
-        {
-            // Setup
-            var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
-            var group = new CalculationGroup();
-            var parentGroup = new CalculationGroup();
-            var nodeData = new StabilityPointStructuresCalculationGroupContext(group,
-                                                                               parentGroup,
-                                                                               failureMechanism,
-                                                                               assessmentSection);
-            var parentNodeData = new StabilityPointStructuresCalculationGroupContext(parentGroup,
-                                                                                     null,
-                                                                                     failureMechanism,
-                                                                                     assessmentSection);
-
-            mocks.ReplayAll();
-
-            parentGroup.Children.Add(group);
-
-            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
-            {
-                FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
-            });
-
-            var calculation = new StructuresCalculationScenario<StabilityPointStructuresInput>();
-            group.Children.Add(calculation);
-
-            StabilityPointStructuresFailureMechanismSectionResult result = failureMechanism.SectionResults.First();
-            result.Calculation = calculation;
-
-            // Call
-            info.OnNodeRemoved(nodeData, parentNodeData);
-
-            // Assert
-            Assert.IsNull(result.Calculation);
-        }
-
-        [Test]
         public void OnNodeRemoved_NestedCalculationGroupContainingCalculations_RemoveGroupAndCalculationsAndNotifyObservers()
         {
             // Setup

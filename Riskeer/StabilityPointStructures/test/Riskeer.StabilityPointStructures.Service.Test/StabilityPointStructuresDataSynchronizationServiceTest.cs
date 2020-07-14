@@ -42,10 +42,10 @@ namespace Riskeer.StabilityPointStructures.Service.Test
         public void RemoveAllStructures_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => StabilityPointStructuresDataSynchronizationService.RemoveAllStructures(null);
+            void Call() => StabilityPointStructuresDataSynchronizationService.RemoveAllStructures(null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("failureMechanism", paramName);
         }
 
@@ -55,11 +55,8 @@ namespace Riskeer.StabilityPointStructures.Service.Test
             // Setup
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
-            var locationStructureA = new Point2D(0, 0);
-            var structureA = new TestStabilityPointStructure(locationStructureA, "A");
-
-            var locationStructureB = new Point2D(2, 2);
-            var structureB = new TestStabilityPointStructure(locationStructureB, "B");
+            var structureA = new TestStabilityPointStructure(new Point2D(0, 0), "A");
+            var structureB = new TestStabilityPointStructure(new Point2D(2, 2), "B");
 
             failureMechanism.StabilityPointStructures.AddRange(new[]
             {
@@ -102,26 +99,6 @@ namespace Riskeer.StabilityPointStructures.Service.Test
                 calculationWithStructureAAndOutput
             });
 
-            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
-            {
-                FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
-                {
-                    locationStructureA,
-                    new Point2D(1, 1)
-                }),
-                FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
-                {
-                    new Point2D(1, 1),
-                    locationStructureB
-                })
-            });
-
-            StabilityPointStructuresFailureMechanismSectionResult sectionWithCalculationAtStructureA = failureMechanism.SectionResults.ElementAt(0);
-            sectionWithCalculationAtStructureA.Calculation = calculationWithStructureA;
-
-            StabilityPointStructuresFailureMechanismSectionResult sectionWithCalculationAtStructureB = failureMechanism.SectionResults.ElementAt(1);
-            sectionWithCalculationAtStructureB.Calculation = calculationWithStructureBAndOutput;
-
             // Call
             IEnumerable<IObservable> affectedObjects = StabilityPointStructuresDataSynchronizationService.RemoveAllStructures(failureMechanism);
 
@@ -134,8 +111,6 @@ namespace Riskeer.StabilityPointStructures.Service.Test
             Assert.IsNull(calculationWithStructureBAndOutput.InputParameters.Structure);
             Assert.IsNull(calculationWithStructureAAndOutput.Output);
             Assert.IsNull(calculationWithStructureBAndOutput.Output);
-            Assert.IsNull(sectionWithCalculationAtStructureA.Calculation);
-            Assert.IsNull(sectionWithCalculationAtStructureB.Calculation);
             Assert.IsNotNull(calculationWithOutput.Output);
 
             IObservable[] expectedAffectedObjects =
@@ -145,8 +120,6 @@ namespace Riskeer.StabilityPointStructures.Service.Test
                 calculationWithStructureAAndOutput.InputParameters,
                 calculationWithStructureBAndOutput,
                 calculationWithStructureBAndOutput.InputParameters,
-                sectionWithCalculationAtStructureA,
-                sectionWithCalculationAtStructureB,
                 failureMechanism.StabilityPointStructures
             };
             CollectionAssert.AreEquivalent(expectedAffectedObjects, affectedObjects);
@@ -156,10 +129,10 @@ namespace Riskeer.StabilityPointStructures.Service.Test
         public void ClearAllCalculationOutput_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => StabilityPointStructuresDataSynchronizationService.ClearAllCalculationOutput(null);
+            void Call() => StabilityPointStructuresDataSynchronizationService.ClearAllCalculationOutput(null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
         }
 
@@ -187,10 +160,10 @@ namespace Riskeer.StabilityPointStructures.Service.Test
         public void ClearAllCalculationOutputAndHydraulicBoundaryLocations_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => StabilityPointStructuresDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(null);
+            void Call() => StabilityPointStructuresDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
         }
 
@@ -226,10 +199,10 @@ namespace Riskeer.StabilityPointStructures.Service.Test
         public void ClearReferenceLineDependentData_FailureMechanismNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate call = () => StabilityPointStructuresDataSynchronizationService.ClearReferenceLineDependentData(null);
+            void Call() => StabilityPointStructuresDataSynchronizationService.ClearReferenceLineDependentData(null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("failureMechanism", paramName);
         }
 
@@ -273,10 +246,10 @@ namespace Riskeer.StabilityPointStructures.Service.Test
         public void RemoveStructure_StructureNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => StabilityPointStructuresDataSynchronizationService.RemoveStructure(null, new StabilityPointStructuresFailureMechanism());
+            void Call() => StabilityPointStructuresDataSynchronizationService.RemoveStructure(null, new StabilityPointStructuresFailureMechanism());
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("structure", exception.ParamName);
         }
 
@@ -284,10 +257,10 @@ namespace Riskeer.StabilityPointStructures.Service.Test
         public void RemoveStructure_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => StabilityPointStructuresDataSynchronizationService.RemoveStructure(new TestStabilityPointStructure(), null);
+            void Call() => StabilityPointStructuresDataSynchronizationService.RemoveStructure(new TestStabilityPointStructure(), null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
         }
 
@@ -301,21 +274,12 @@ namespace Riskeer.StabilityPointStructures.Service.Test
                                                                                                                .Cast<StructuresCalculation<StabilityPointStructuresInput>>()
                                                                                                                .Where(c => ReferenceEquals(c.InputParameters.Structure, structure))
                                                                                                                .ToArray();
-            StabilityPointStructuresFailureMechanismSectionResult[] sectionResultsWithStructure = failureMechanism.SectionResults
-                                                                                                                  .Where(sr => calculationsWithStructure.Contains(sr.Calculation))
-                                                                                                                  .ToArray();
             StructuresCalculation<StabilityPointStructuresInput>[] calculationsWithOutput = calculationsWithStructure.Where(c => c.HasOutput)
                                                                                                                      .ToArray();
-
-            int originalNumberOfSectionResultAssignments = failureMechanism.SectionResults.Count(sr => sr.Calculation != null);
-            StabilityPointStructuresFailureMechanismSectionResult[] sectionResults = failureMechanism.SectionResults
-                                                                                                     .Where(sr => calculationsWithStructure.Contains(sr.Calculation))
-                                                                                                     .ToArray();
 
             // Precondition
             CollectionAssert.IsNotEmpty(calculationsWithOutput);
             CollectionAssert.IsNotEmpty(calculationsWithStructure);
-            CollectionAssert.IsNotEmpty(sectionResultsWithStructure);
 
             // Call
             IEnumerable<IObservable> affectedObjects = StabilityPointStructuresDataSynchronizationService.RemoveStructure(structure, failureMechanism);
@@ -334,14 +298,8 @@ namespace Riskeer.StabilityPointStructures.Service.Test
                 Assert.IsFalse(calculation.HasOutput);
             }
 
-            foreach (StabilityPointStructuresFailureMechanismSectionResult sectionResult in sectionResultsWithStructure)
-            {
-                Assert.IsNull(sectionResult.Calculation);
-            }
-
             IObservable[] array = affectedObjects.ToArray();
-            Assert.AreEqual(1 + calculationsWithOutput.Length + calculationsWithStructure.Length + sectionResultsWithStructure.Length,
-                            array.Length);
+            Assert.AreEqual(1 + calculationsWithOutput.Length + calculationsWithStructure.Length, array.Length);
             CollectionAssert.Contains(array, failureMechanism.StabilityPointStructures);
             foreach (StructuresCalculation<StabilityPointStructuresInput> calculation in calculationsWithStructure)
             {
@@ -352,14 +310,6 @@ namespace Riskeer.StabilityPointStructures.Service.Test
             {
                 CollectionAssert.Contains(array, calculation);
             }
-
-            foreach (StabilityPointStructuresFailureMechanismSectionResult result in sectionResultsWithStructure)
-            {
-                CollectionAssert.Contains(array, result);
-            }
-
-            Assert.AreEqual(originalNumberOfSectionResultAssignments - sectionResults.Length, failureMechanism.SectionResults.Count(sr => sr.Calculation != null),
-                            "Other section results with a different calculation/structure should still have their association.");
         }
 
         private StabilityPointStructuresFailureMechanism CreateFullyConfiguredFailureMechanism()
@@ -436,12 +386,6 @@ namespace Riskeer.StabilityPointStructures.Service.Test
                 section1,
                 section2
             });
-            StabilityPointStructuresFailureMechanismSectionResult result1 = failureMechanism.SectionResults
-                                                                                            .First(sr => ReferenceEquals(sr.Section, section1));
-            StabilityPointStructuresFailureMechanismSectionResult result2 = failureMechanism.SectionResults
-                                                                                            .First(sr => ReferenceEquals(sr.Section, section2));
-            result1.Calculation = calculation1;
-            result2.Calculation = calculation2;
 
             return failureMechanism;
         }

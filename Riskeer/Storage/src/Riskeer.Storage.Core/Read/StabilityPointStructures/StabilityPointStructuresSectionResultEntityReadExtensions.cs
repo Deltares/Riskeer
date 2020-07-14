@@ -39,11 +39,9 @@ namespace Riskeer.Storage.Core.Read.StabilityPointStructures
         /// <param name="entity">The <see cref="StabilityPointStructuresSectionResultEntity"/> used
         /// to update the <paramref name="sectionResult"/>.</param>
         /// <param name="sectionResult">The target of the read operation.</param>
-        /// <param name="collector">The object keeping track of read operations.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         internal static void Read(this StabilityPointStructuresSectionResultEntity entity,
-                                  StabilityPointStructuresFailureMechanismSectionResult sectionResult,
-                                  ReadConversionCollector collector)
+                                  StabilityPointStructuresFailureMechanismSectionResult sectionResult)
         {
             if (entity == null)
             {
@@ -55,22 +53,12 @@ namespace Riskeer.Storage.Core.Read.StabilityPointStructures
                 throw new ArgumentNullException(nameof(sectionResult));
             }
 
-            if (collector == null)
-            {
-                throw new ArgumentNullException(nameof(collector));
-            }
-
             sectionResult.SimpleAssessmentResult = (SimpleAssessmentValidityOnlyResultType) entity.SimpleAssessmentResult;
             sectionResult.DetailedAssessmentResult = (DetailedAssessmentProbabilityOnlyResultType) entity.DetailedAssessmentResult;
             sectionResult.TailorMadeAssessmentResult = (TailorMadeAssessmentProbabilityCalculationResultType) entity.TailorMadeAssessmentResult;
             sectionResult.TailorMadeAssessmentProbability = entity.TailorMadeAssessmentProbability.ToNullAsNaN();
             sectionResult.UseManualAssembly = Convert.ToBoolean(entity.UseManualAssembly);
             sectionResult.ManualAssemblyProbability = entity.ManualAssemblyProbability.ToNullAsNaN();
-
-            if (entity.StabilityPointStructuresCalculationEntity != null)
-            {
-                sectionResult.Calculation = entity.StabilityPointStructuresCalculationEntity.Read(collector);
-            }
         }
     }
 }

@@ -22,11 +22,9 @@
 using System;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Primitives;
 using Riskeer.StabilityPointStructures.Data;
-using Riskeer.Storage.Core.Create;
 using Riskeer.Storage.Core.Create.StabilityPointStructures;
 using Riskeer.Storage.Core.DbContext;
 
@@ -39,25 +37,11 @@ namespace Riskeer.Storage.Core.Test.Create.StabilityPointStructures
         public void Create_FailureMechanismSectionResultNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => ((StabilityPointStructuresFailureMechanismSectionResult) null).Create(new PersistenceRegistry());
+            void Call() => ((StabilityPointStructuresFailureMechanismSectionResult) null).Create();
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("result", exception.ParamName);
-        }
-
-        [Test]
-        public void Create_PersistencyRegistryNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
-
-            // Call
-            TestDelegate test = () => sectionResult.Create(null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("registry", exception.ParamName);
         }
 
         [Test]
@@ -83,7 +67,7 @@ namespace Riskeer.Storage.Core.Test.Create.StabilityPointStructures
             };
 
             // Call
-            StabilityPointStructuresSectionResultEntity entity = sectionResult.Create(new PersistenceRegistry());
+            StabilityPointStructuresSectionResultEntity entity = sectionResult.Create();
 
             // Assert
             Assert.AreEqual(Convert.ToByte(simpleAssessmentResult), entity.SimpleAssessmentResult);
@@ -107,32 +91,11 @@ namespace Riskeer.Storage.Core.Test.Create.StabilityPointStructures
             };
 
             // Call
-            StabilityPointStructuresSectionResultEntity entity = sectionResult.Create(new PersistenceRegistry());
+            StabilityPointStructuresSectionResultEntity entity = sectionResult.Create();
 
             // Assert
             Assert.IsNull(entity.TailorMadeAssessmentProbability);
             Assert.IsNull(entity.ManualAssemblyProbability);
-        }
-
-        [Test]
-        public void Create_CalculationSet_ReturnEntityWithCalculationEntity()
-        {
-            // Setup
-            var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
-            var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
-            {
-                Calculation = calculation
-            };
-
-            var registry = new PersistenceRegistry();
-            var calculationEntity = new StabilityPointStructuresCalculationEntity();
-            registry.Register(calculationEntity, calculation);
-
-            // Call
-            StabilityPointStructuresSectionResultEntity entity = sectionResult.Create(registry);
-
-            // Assert
-            Assert.AreSame(calculationEntity, entity.StabilityPointStructuresCalculationEntity);
         }
     }
 }

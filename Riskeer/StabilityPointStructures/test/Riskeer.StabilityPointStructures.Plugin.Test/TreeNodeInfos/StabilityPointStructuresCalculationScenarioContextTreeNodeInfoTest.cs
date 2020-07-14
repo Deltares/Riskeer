@@ -1270,42 +1270,6 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             CollectionAssert.DoesNotContain(group.Children, elementToBeRemoved);
         }
 
-        [Test]
-        public void OnNodeRemoved_CalculationInGroupAssignedToSection_CalculationDetachedFromSection()
-        {
-            // Setup
-            var group = new CalculationGroup();
-            var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            var elementToBeRemoved = new StructuresCalculationScenario<StabilityPointStructuresInput>();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var calculationContext = new StabilityPointStructuresCalculationScenarioContext(elementToBeRemoved,
-                                                                                            group,
-                                                                                            failureMechanism,
-                                                                                            assessmentSection);
-            var groupContext = new StabilityPointStructuresCalculationGroupContext(group,
-                                                                                   null,
-                                                                                   failureMechanism,
-                                                                                   assessmentSection);
-
-            mocks.ReplayAll();
-
-            group.Children.Add(elementToBeRemoved);
-
-            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
-            {
-                FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
-            });
-
-            StabilityPointStructuresFailureMechanismSectionResult result = failureMechanism.SectionResults.First();
-            result.Calculation = elementToBeRemoved;
-
-            // Call
-            info.OnNodeRemoved(calculationContext, groupContext);
-
-            // Assert
-            Assert.IsNull(result.Calculation);
-        }
-
         public override void Setup()
         {
             mocks = new MockRepository();

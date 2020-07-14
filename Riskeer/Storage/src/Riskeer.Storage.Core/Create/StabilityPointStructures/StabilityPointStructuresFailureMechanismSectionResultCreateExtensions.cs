@@ -35,24 +35,16 @@ namespace Riskeer.Storage.Core.Create.StabilityPointStructures
         /// Creates a <see cref="StabilityPointStructuresSectionResultEntity"/> based on the information of the <see cref="StabilityPointStructuresFailureMechanismSectionResult"/>.
         /// </summary>
         /// <param name="result">The result to create a database entity for.</param>
-        /// <param name="registry">The object keeping track of create operations.</param>
         /// <returns>A new <see cref="StabilityPointStructuresSectionResultEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        internal static StabilityPointStructuresSectionResultEntity Create(
-            this StabilityPointStructuresFailureMechanismSectionResult result,
-            PersistenceRegistry registry)
+        internal static StabilityPointStructuresSectionResultEntity Create(this StabilityPointStructuresFailureMechanismSectionResult result)
         {
             if (result == null)
             {
                 throw new ArgumentNullException(nameof(result));
             }
 
-            if (registry == null)
-            {
-                throw new ArgumentNullException(nameof(registry));
-            }
-
-            var sectionResultEntity = new StabilityPointStructuresSectionResultEntity
+            return new StabilityPointStructuresSectionResultEntity
             {
                 SimpleAssessmentResult = Convert.ToByte(result.SimpleAssessmentResult),
                 DetailedAssessmentResult = Convert.ToByte(result.DetailedAssessmentResult),
@@ -61,12 +53,6 @@ namespace Riskeer.Storage.Core.Create.StabilityPointStructures
                 UseManualAssembly = Convert.ToByte(result.UseManualAssembly),
                 ManualAssemblyProbability = result.ManualAssemblyProbability.ToNaNAsNull()
             };
-            if (result.Calculation != null)
-            {
-                sectionResultEntity.StabilityPointStructuresCalculationEntity = registry.Get(result.Calculation);
-            }
-
-            return sectionResultEntity;
         }
     }
 }
