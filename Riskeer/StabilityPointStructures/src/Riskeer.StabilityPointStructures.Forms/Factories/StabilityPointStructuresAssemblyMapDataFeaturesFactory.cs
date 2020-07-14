@@ -21,8 +21,10 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Core.Components.Gis.Features;
 using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Forms.Factories;
 using Riskeer.StabilityPointStructures.Data;
 
@@ -78,6 +80,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Factories
                 failureMechanism,
                 sectionResult => StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
                     sectionResult,
+                    failureMechanism.Calculations.Cast<StructuresCalculationScenario<StabilityPointStructuresInput>>(),
                     failureMechanism,
                     assessmentSection));
         }
@@ -133,6 +136,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Factories
                 failureMechanism,
                 sectionResult => StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
                     sectionResult,
+                    failureMechanism.Calculations.Cast<StructuresCalculationScenario<StabilityPointStructuresInput>>(),
                     failureMechanism,
                     assessmentSection));
         }
