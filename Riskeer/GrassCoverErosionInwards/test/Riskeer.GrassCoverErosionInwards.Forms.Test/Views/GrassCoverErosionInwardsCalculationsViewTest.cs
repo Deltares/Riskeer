@@ -687,10 +687,15 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            using (ShowFullyConfiguredCalculationsView(
+            using (GrassCoverErosionInwardsCalculationsView view = ShowFullyConfiguredCalculationsView(
                 assessmentSection))
             {
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+                
+                // This step is necessary because setting the same value would not change the view state.
+                var calculationGroup = (CalculationGroup) view.Data;
+                var calculation = (GrassCoverErosionInwardsCalculationScenario) calculationGroup.GetCalculations().First();
+                calculation.InputParameters.UseBreakWater = !newValue;
 
                 // Call
                 dataGridView.Rows[0].Cells[useBreakWaterColumnIndex].Value = newValue;

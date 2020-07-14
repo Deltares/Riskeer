@@ -266,7 +266,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
 
             var calculation = new GrassCoverErosionInwardsCalculationScenario();
 
-            // Precondition - necessary to make all types testable.
+            // This step is necessary because setting the same value would not change the row state.
             calculation.InputParameters.BreakWater.Type = (BreakWaterType) 4;
 
             // Call & Assert

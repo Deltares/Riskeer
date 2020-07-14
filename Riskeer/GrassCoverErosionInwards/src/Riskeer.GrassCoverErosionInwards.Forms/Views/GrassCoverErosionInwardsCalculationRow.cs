@@ -139,7 +139,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
             get => CalculationScenario.InputParameters.UseBreakWater;
             set
             {
-
                 if (!CalculationScenario.InputParameters.UseBreakWater.Equals(value))
                 {
                     PropertyChangeHelper.ChangePropertyAndNotify(() => CalculationScenario.InputParameters.UseBreakWater = value, propertyChangeHandler);
