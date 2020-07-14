@@ -359,8 +359,6 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.FileImporters
                     location
                 })
             });
-            StabilityPointStructuresFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.First();
-            sectionResult.Calculation = calculation;
 
             StructureCollection<StabilityPointStructure> targetCollection = failureMechanism.StabilityPointStructures;
             targetCollection.AddRange(new[]
@@ -376,12 +374,10 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.FileImporters
 
             // Assert
             Assert.IsNull(calculation.InputParameters.Structure);
-            Assert.IsNull(sectionResult.Calculation);
 
             CollectionAssert.IsEmpty(targetCollection);
             CollectionAssert.AreEquivalent(new IObservable[]
             {
-                sectionResult,
                 calculation.InputParameters,
                 targetCollection
             }, affectedObjects);

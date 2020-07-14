@@ -42,7 +42,6 @@ namespace Riskeer.StabilityPointStructures.Data.Test
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismSectionResult>(sectionResult);
-            Assert.IsNull(sectionResult.Calculation);
             Assert.AreEqual(SimpleAssessmentValidityOnlyResultType.None, sectionResult.SimpleAssessmentResult);
             Assert.AreEqual(DetailedAssessmentProbabilityOnlyResultType.Probability, sectionResult.DetailedAssessmentResult);
             Assert.AreEqual(TailorMadeAssessmentProbabilityCalculationResultType.None, sectionResult.TailorMadeAssessmentResult);
@@ -65,11 +64,11 @@ namespace Riskeer.StabilityPointStructures.Data.Test
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             // Call
-            TestDelegate call = () => sectionResult.TailorMadeAssessmentProbability = invalidValue;
+            void Call() => sectionResult.TailorMadeAssessmentProbability = invalidValue;
 
             // Assert
             const string expectedMessage = "De waarde voor de faalkans moet in het bereik [0,0, 1,0] liggen.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, expectedMessage);
         }
 
         [Test]
@@ -103,11 +102,11 @@ namespace Riskeer.StabilityPointStructures.Data.Test
             var result = new StabilityPointStructuresFailureMechanismSectionResult(section);
 
             // Call
-            TestDelegate test = () => result.ManualAssemblyProbability = newValue;
+            void Call() => result.ManualAssemblyProbability = newValue;
 
             // Assert
             const string message = "De waarde voor de faalkans moet in het bereik [0,0, 1,0] liggen.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, message);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, message);
         }
 
         [Test]
