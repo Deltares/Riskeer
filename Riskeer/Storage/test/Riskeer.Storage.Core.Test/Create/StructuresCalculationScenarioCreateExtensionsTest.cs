@@ -40,7 +40,7 @@ using Riskeer.Storage.Core.DbContext;
 namespace Riskeer.Storage.Core.Test.Create
 {
     [TestFixture]
-    public class StructuresCalculationCreateExtensionsTest
+    public class StructuresCalculationScenarioCreateExtensionsTest
     {
         private static void AssertStructuresOutputEntity<T>(StructuresOutput output, T outputEntity)
             where T : IHasGeneralResultFaultTreeIllustrationPointEntity, IStructuresOutputEntity

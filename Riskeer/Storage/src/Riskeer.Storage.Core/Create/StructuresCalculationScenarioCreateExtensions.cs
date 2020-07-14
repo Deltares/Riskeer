@@ -31,10 +31,10 @@ using Riskeer.Storage.Core.DbContext;
 namespace Riskeer.Storage.Core.Create
 {
     /// <summary>
-    /// Extension methods for <see cref="StructuresCalculation{T}"/> related
+    /// Extension methods for <see cref="StructuresCalculationScenario{T}"/> related
     /// to creating structures calculation entities.
     /// </summary>
-    internal static class StructuresCalculationCreateExtensions
+    internal static class StructuresCalculationScenarioCreateExtensions
     {
         private static void Create<T>(this StructuresInputBase<T> input, IStructuresCalculationEntity entityToUpdate,
                                       PersistenceRegistry registry)
