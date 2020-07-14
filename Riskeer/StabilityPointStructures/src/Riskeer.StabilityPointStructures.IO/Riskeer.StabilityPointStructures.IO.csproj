@@ -15,11 +15,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj"/>
-    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Data\Riskeer.Common.Data.csproj"/>
-    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.IO\Riskeer.Common.IO.csproj"/>
-    <ProjectReference Include="..\Riskeer.StabilityPointStructures.Data\Riskeer.StabilityPointStructures.Data.csproj"/>
-    <ProjectReference Include="..\Riskeer.StabilityPointStructures.Util\Riskeer.StabilityPointStructures.Util.csproj"/>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj" />
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Data\Riskeer.Common.Data.csproj" />
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.IO\Riskeer.Common.IO.csproj" />
+    <ProjectReference Include="..\Riskeer.StabilityPointStructures.Data\Riskeer.StabilityPointStructures.Data.csproj" />
   </ItemGroup>
 <ItemGroup>
     <Compile Update="Properties\Resources.Designer.cs">

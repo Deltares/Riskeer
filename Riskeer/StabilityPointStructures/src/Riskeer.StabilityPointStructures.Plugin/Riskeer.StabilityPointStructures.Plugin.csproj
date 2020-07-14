@@ -12,23 +12,22 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj"/>
-    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Controls.TreeView\Core.Common.Controls.TreeView.csproj"/>
-    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Controls\Core.Common.Controls.csproj"/>
-    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Gui\Core.Common.Gui.csproj"/>
-    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Util\Core.Common.Util.csproj"/>
-    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Gis.Forms\Core.Components.Gis.Forms.csproj"/>
-    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Data\Riskeer.Common.Data.csproj"/>
-    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Forms\Riskeer.Common.Forms.csproj"/>
-    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.IO\Riskeer.Common.IO.csproj"/>
-    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Primitives\Riskeer.Common.Primitives.csproj"/>
-    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Service\Riskeer.Common.Service.csproj"/>
-    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Util\Riskeer.Common.Util.csproj"/>
-    <ProjectReference Include="..\..\..\HydraRing\src\Riskeer.HydraRing.Calculation\Riskeer.HydraRing.Calculation.csproj"/>
-    <ProjectReference Include="..\Riskeer.StabilityPointStructures.Data\Riskeer.StabilityPointStructures.Data.csproj"/>
-    <ProjectReference Include="..\Riskeer.StabilityPointStructures.Forms\Riskeer.StabilityPointStructures.Forms.csproj"/>
-    <ProjectReference Include="..\Riskeer.StabilityPointStructures.IO\Riskeer.StabilityPointStructures.IO.csproj"/>
-    <ProjectReference Include="..\Riskeer.StabilityPointStructures.Service\Riskeer.StabilityPointStructures.Service.csproj"/>
-    <ProjectReference Include="..\Riskeer.StabilityPointStructures.Util\Riskeer.StabilityPointStructures.Util.csproj"/>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj" />
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Controls.TreeView\Core.Common.Controls.TreeView.csproj" />
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Controls\Core.Common.Controls.csproj" />
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Gui\Core.Common.Gui.csproj" />
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Util\Core.Common.Util.csproj" />
+    <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Gis.Forms\Core.Components.Gis.Forms.csproj" />
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Data\Riskeer.Common.Data.csproj" />
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Forms\Riskeer.Common.Forms.csproj" />
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.IO\Riskeer.Common.IO.csproj" />
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Primitives\Riskeer.Common.Primitives.csproj" />
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Service\Riskeer.Common.Service.csproj" />
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Util\Riskeer.Common.Util.csproj" />
+    <ProjectReference Include="..\..\..\HydraRing\src\Riskeer.HydraRing.Calculation\Riskeer.HydraRing.Calculation.csproj" />
+    <ProjectReference Include="..\Riskeer.StabilityPointStructures.Data\Riskeer.StabilityPointStructures.Data.csproj" />
+    <ProjectReference Include="..\Riskeer.StabilityPointStructures.Forms\Riskeer.StabilityPointStructures.Forms.csproj" />
+    <ProjectReference Include="..\Riskeer.StabilityPointStructures.IO\Riskeer.StabilityPointStructures.IO.csproj" />
+    <ProjectReference Include="..\Riskeer.StabilityPointStructures.Service\Riskeer.StabilityPointStructures.Service.csproj" />
   </ItemGroup>
 </Project>

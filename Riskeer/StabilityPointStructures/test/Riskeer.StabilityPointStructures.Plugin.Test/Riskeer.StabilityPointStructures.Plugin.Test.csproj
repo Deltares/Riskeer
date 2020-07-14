@@ -43,7 +43,6 @@
     <ProjectReference Include="..\..\src\Riskeer.StabilityPointStructures.Forms\Riskeer.StabilityPointStructures.Forms.csproj" />
     <ProjectReference Include="..\..\src\Riskeer.StabilityPointStructures.IO\Riskeer.StabilityPointStructures.IO.csproj" />
     <ProjectReference Include="..\..\src\Riskeer.StabilityPointStructures.Plugin\Riskeer.StabilityPointStructures.Plugin.csproj" />
-    <ProjectReference Include="..\..\src\Riskeer.StabilityPointStructures.Util\Riskeer.StabilityPointStructures.Util.csproj" />
     <ProjectReference Include="..\Riskeer.StabilityPointStructures.Data.TestUtil\Riskeer.StabilityPointStructures.Data.TestUtil.csproj" />
   </ItemGroup>
   <ItemGroup>
