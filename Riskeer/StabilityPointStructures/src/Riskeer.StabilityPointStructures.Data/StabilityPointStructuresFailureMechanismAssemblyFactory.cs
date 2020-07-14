@@ -29,6 +29,7 @@ using Riskeer.AssemblyTool.KernelWrapper.Kernels;
 using Riskeer.Common.Data.AssemblyTool;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Exceptions;
+using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Primitives;
 using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
 
@@ -76,6 +77,7 @@ namespace Riskeer.StabilityPointStructures.Data
         /// </summary>
         /// <param name="failureMechanismSectionResult">The failure mechanism section result to
         /// assemble the detailed assembly for.</param>
+        /// <param name="calculationScenarios">All calculation scenarios in the failure mechanism.</param>
         /// <param name="failureMechanism">The failure mechanism this section belongs to.</param>
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> this section belongs to.</param>
         /// <returns>A <see cref="FailureMechanismSectionAssembly"/>.</returns>
@@ -84,12 +86,18 @@ namespace Riskeer.StabilityPointStructures.Data
         /// could not be created.</exception>
         public static FailureMechanismSectionAssembly AssembleDetailedAssessment(
             StabilityPointStructuresFailureMechanismSectionResult failureMechanismSectionResult,
+            IEnumerable<StructuresCalculationScenario<StabilityPointStructuresInput>> calculationScenarios,
             StabilityPointStructuresFailureMechanism failureMechanism,
             IAssessmentSection assessmentSection)
         {
             if (failureMechanismSectionResult == null)
             {
                 throw new ArgumentNullException(nameof(failureMechanismSectionResult));
+            }
+
+            if (calculationScenarios == null)
+            {
+                throw new ArgumentNullException(nameof(calculationScenarios));
             }
 
             if (failureMechanism == null)
@@ -110,7 +118,7 @@ namespace Riskeer.StabilityPointStructures.Data
             {
                 return calculator.AssembleDetailedAssessment(
                     failureMechanismSectionResult.DetailedAssessmentResult,
-                    failureMechanismSectionResult.GetDetailedAssessmentProbability(failureMechanism, assessmentSection),
+                    failureMechanismSectionResult.GetDetailedAssessmentProbability(calculationScenarios, failureMechanism, assessmentSection),
                     CreateAssemblyCategoriesInput(failureMechanism, assessmentSection));
             }
             catch (FailureMechanismSectionAssemblyCalculatorException e)
@@ -172,6 +180,7 @@ namespace Riskeer.StabilityPointStructures.Data
         /// </summary>
         /// <param name="failureMechanismSectionResult">The failure mechanism section result to
         /// combine the assemblies for.</param>
+        /// <param name="calculationScenarios">All calculation scenarios in the failure mechanism.</param>
         /// <param name="failureMechanism">The failure mechanism this section belongs to.</param>
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> this section belongs to.</param>
         /// <returns>A <see cref="FailureMechanismSectionAssembly"/>.</returns>
@@ -180,12 +189,18 @@ namespace Riskeer.StabilityPointStructures.Data
         /// could not be created.</exception>
         public static FailureMechanismSectionAssembly AssembleCombinedAssessment(
             StabilityPointStructuresFailureMechanismSectionResult failureMechanismSectionResult,
+            IEnumerable<StructuresCalculationScenario<StabilityPointStructuresInput>> calculationScenarios,
             StabilityPointStructuresFailureMechanism failureMechanism,
             IAssessmentSection assessmentSection)
         {
             if (failureMechanismSectionResult == null)
             {
                 throw new ArgumentNullException(nameof(failureMechanismSectionResult));
+            }
+
+            if (calculationScenarios == null)
+            {
+                throw new ArgumentNullException(nameof(calculationScenarios));
             }
 
             if (failureMechanism == null)
@@ -213,7 +228,7 @@ namespace Riskeer.StabilityPointStructures.Data
 
                 return calculator.AssembleCombined(
                     simpleAssembly,
-                    AssembleDetailedAssessment(failureMechanismSectionResult, failureMechanism, assessmentSection),
+                    AssembleDetailedAssessment(failureMechanismSectionResult, calculationScenarios, failureMechanism, assessmentSection),
                     AssembleTailorMadeAssessment(failureMechanismSectionResult, failureMechanism, assessmentSection));
             }
             catch (FailureMechanismSectionAssemblyCalculatorException e)
@@ -333,6 +348,7 @@ namespace Riskeer.StabilityPointStructures.Data
             else
             {
                 sectionAssembly = AssembleCombinedAssessment(failureMechanismSectionResult,
+                                                             failureMechanism.Calculations.Cast<StructuresCalculationScenario<StabilityPointStructuresInput>>(),
                                                              failureMechanism,
                                                              assessmentSection);
             }
