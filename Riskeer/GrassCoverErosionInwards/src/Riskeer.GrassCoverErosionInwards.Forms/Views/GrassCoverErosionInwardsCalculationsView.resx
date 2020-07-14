@@ -151,7 +151,7 @@
     <value>4, 0, 4, 0</value>
   </data>
   <data name="listBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>203, 234</value>
+    <value>153, 195</value>
   </data>
   <data name="listBox.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -214,7 +214,7 @@
     <value>2</value>
   </data>
   <data name="tableLayoutPanelListBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>211, 259</value>
+    <value>153, 195</value>
   </data>
   <data name="tableLayoutPanelListBox.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -271,7 +271,7 @@
     <value>4, 0, 4, 0</value>
   </data>
   <data name="warningText.Size" type="System.Drawing.Size, System.Drawing">
-    <value>638, 17</value>
+    <value>153, 195</value>
   </data>
   <data name="warningText.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
