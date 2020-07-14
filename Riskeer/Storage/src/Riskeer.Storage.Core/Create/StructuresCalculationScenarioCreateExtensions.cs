@@ -32,7 +32,7 @@ namespace Riskeer.Storage.Core.Create
 {
     /// <summary>
     /// Extension methods for <see cref="StructuresCalculationScenario{T}"/> related
-    /// to create structures calculation entities.
+    /// to creating structures calculation entities.
     /// </summary>
     internal static class StructuresCalculationScenarioCreateExtensions
     {

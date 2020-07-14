@@ -506,40 +506,6 @@ namespace Riskeer.Storage.Core.Test.Create
 
         #region HeightStructures
 
-        #region StabilityPointStructures
-
-        [TestFixture]
-        private class StabilityPointStructureStructureRegistryTest : RegistryTest<
-            StabilityPointStructure, StabilityPointStructureEntity>
-        {
-            public StabilityPointStructureStructureRegistryTest() : base(
-                (r, e, m) => r.Register(e, m),
-                (r, m) => r.Contains(m),
-                (r, m) => r.Get(m)) {}
-
-            protected override StabilityPointStructure CreateDataModel()
-            {
-                return new TestStabilityPointStructure();
-            }
-        }
-
-        [TestFixture]
-        private class StabilityPointStructuresCalculationRegistryTest : RegistryTest<
-            StructuresCalculation<StabilityPointStructuresInput>, StabilityPointStructuresCalculationEntity>
-        {
-            public StabilityPointStructuresCalculationRegistryTest() : base(
-                (r, e, m) => r.Register(e, m),
-                (r, m) => r.Contains(m),
-                (r, m) => r.Get(m)) {}
-
-            protected override StructuresCalculation<StabilityPointStructuresInput> CreateDataModel()
-            {
-                return new StructuresCalculation<StabilityPointStructuresInput>();
-            }
-        }
-
-        #endregion
-
         [TestFixture]
         private class HeightStructureRegistryTest : RegistryTest<
             HeightStructure, HeightStructureEntity>
@@ -571,6 +537,42 @@ namespace Riskeer.Storage.Core.Test.Create
             protected override ClosingStructure CreateDataModel()
             {
                 return new TestClosingStructure();
+            }
+        }
+
+        #endregion
+
+        #region StabilityPointStructures
+
+        [TestFixture]
+        private class StabilityPointStructureStructureRegistryTest : RegistryTest<
+            StabilityPointStructure, StabilityPointStructureEntity>
+        {
+            public StabilityPointStructureStructureRegistryTest() : base(
+                (r, e, m) => r.Register(e, m),
+                (r, m) => r.Contains(m),
+                (r, m) => r.Get(m))
+            { }
+
+            protected override StabilityPointStructure CreateDataModel()
+            {
+                return new TestStabilityPointStructure();
+            }
+        }
+
+        [TestFixture]
+        private class StabilityPointStructuresCalculationRegistryTest : RegistryTest<
+            StructuresCalculation<StabilityPointStructuresInput>, StabilityPointStructuresCalculationEntity>
+        {
+            public StabilityPointStructuresCalculationRegistryTest() : base(
+                (r, e, m) => r.Register(e, m),
+                (r, m) => r.Contains(m),
+                (r, m) => r.Get(m))
+            { }
+
+            protected override StructuresCalculation<StabilityPointStructuresInput> CreateDataModel()
+            {
+                return new StructuresCalculation<StabilityPointStructuresInput>();
             }
         }
 
