@@ -47,7 +47,7 @@ namespace Riskeer.ClosingStructures.Forms.Views
         /// <summary>
         /// Creates a new instance of <see cref="ClosingStructuresCalculationRow"/>.
         /// </summary>
-        /// <param name="calculationScenario">The <see cref="ClosingStructuresCalculationScenario"/> this row contains.</param>
+        /// <param name="calculationScenario">The <see cref="CalculationScenario"/> this row contains.</param>
         /// <param name="handler">The handler responsible for handling effects of a property change.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public ClosingStructuresCalculationRow(StructuresCalculationScenario<ClosingStructuresInput> calculationScenario,
@@ -63,7 +63,7 @@ namespace Riskeer.ClosingStructures.Forms.Views
                 throw new ArgumentNullException(nameof(handler));
             }
 
-            ClosingStructuresCalculationScenario = calculationScenario;
+            CalculationScenario = calculationScenario;
             propertyChangeHandler = handler;
             ColumnStateDefinitions = new Dictionary<int, DataGridViewColumnStateDefinition>();
             CreateColumnStateDefinitions();
@@ -71,173 +71,173 @@ namespace Riskeer.ClosingStructures.Forms.Views
         }
 
         /// <summary>
-        /// Gets the <see cref="ClosingStructuresCalculationScenario"/> this row contains.
+        /// Gets the <see cref="CalculationScenario"/> this row contains.
         /// </summary>
-        public StructuresCalculationScenario<ClosingStructuresInput> ClosingStructuresCalculationScenario { get; }
+        public StructuresCalculationScenario<ClosingStructuresInput> CalculationScenario { get; }
 
         /// <summary>
-        /// Gets or sets the name of the <see cref="ClosingStructuresCalculationScenario"/>.
+        /// Gets or sets the name of the <see cref="CalculationScenario"/>.
         /// </summary>
         public string Name
         {
-            get => ClosingStructuresCalculationScenario.Name;
+            get => CalculationScenario.Name;
             set
             {
-                ClosingStructuresCalculationScenario.Name = value;
+                CalculationScenario.Name = value;
 
-                ClosingStructuresCalculationScenario.NotifyObservers();
+                CalculationScenario.NotifyObservers();
             }
         }
 
         /// <summary>
-        /// Gets or sets the hydraulic boundary location of the <see cref="ClosingStructuresCalculationScenario"/>.
+        /// Gets or sets the hydraulic boundary location of the <see cref="CalculationScenario"/>.
         /// </summary>
         public DataGridViewComboBoxItemWrapper<SelectableHydraulicBoundaryLocation> SelectableHydraulicBoundaryLocation
         {
             get
             {
-                if (ClosingStructuresCalculationScenario.InputParameters.HydraulicBoundaryLocation == null)
+                if (CalculationScenario.InputParameters.HydraulicBoundaryLocation == null)
                 {
                     return new DataGridViewComboBoxItemWrapper<SelectableHydraulicBoundaryLocation>(null);
                 }
 
                 return new DataGridViewComboBoxItemWrapper<SelectableHydraulicBoundaryLocation>(
-                    new SelectableHydraulicBoundaryLocation(ClosingStructuresCalculationScenario.InputParameters.HydraulicBoundaryLocation, null));
+                    new SelectableHydraulicBoundaryLocation(CalculationScenario.InputParameters.HydraulicBoundaryLocation, null));
             }
             set
             {
                 HydraulicBoundaryLocation valueToSet = value?.WrappedObject?.HydraulicBoundaryLocation;
-                if (!ReferenceEquals(ClosingStructuresCalculationScenario.InputParameters.HydraulicBoundaryLocation, valueToSet))
+                if (!ReferenceEquals(CalculationScenario.InputParameters.HydraulicBoundaryLocation, valueToSet))
                 {
-                    PropertyChangeHelper.ChangePropertyAndNotify(() => ClosingStructuresCalculationScenario.InputParameters.HydraulicBoundaryLocation = valueToSet, propertyChangeHandler);
+                    PropertyChangeHelper.ChangePropertyAndNotify(() => CalculationScenario.InputParameters.HydraulicBoundaryLocation = valueToSet, propertyChangeHandler);
                 }
             }
         }
 
         /// <summary>
-        /// Gets or sets the foreshore profile of the <see cref="ClosingStructuresCalculationScenario"/>.
+        /// Gets or sets the foreshore profile of the <see cref="CalculationScenario"/>.
         /// </summary>
         public DataGridViewComboBoxItemWrapper<ForeshoreProfile> ForeshoreProfile
         {
-            get => new DataGridViewComboBoxItemWrapper<ForeshoreProfile>(ClosingStructuresCalculationScenario.InputParameters.ForeshoreProfile);
+            get => new DataGridViewComboBoxItemWrapper<ForeshoreProfile>(CalculationScenario.InputParameters.ForeshoreProfile);
             set
             {
                 ForeshoreProfile valueToSet = value?.WrappedObject;
-                if (!ReferenceEquals(ClosingStructuresCalculationScenario.InputParameters.ForeshoreProfile, valueToSet))
+                if (!ReferenceEquals(CalculationScenario.InputParameters.ForeshoreProfile, valueToSet))
                 {
-                    PropertyChangeHelper.ChangePropertyAndNotify(() => ClosingStructuresCalculationScenario.InputParameters.ForeshoreProfile = valueToSet, propertyChangeHandler);
+                    PropertyChangeHelper.ChangePropertyAndNotify(() => CalculationScenario.InputParameters.ForeshoreProfile = valueToSet, propertyChangeHandler);
                 }
             }
         }
 
         /// <summary>
-        /// Gets or sets whether break water of the <see cref="ClosingStructuresCalculationScenario"/> should be used.
+        /// Gets or sets whether break water of the <see cref="CalculationScenario"/> should be used.
         /// </summary>
         public bool UseBreakWater
         {
-            get => ClosingStructuresCalculationScenario.InputParameters.UseBreakWater;
+            get => CalculationScenario.InputParameters.UseBreakWater;
             set
             {
-                PropertyChangeHelper.ChangePropertyAndNotify(() => ClosingStructuresCalculationScenario.InputParameters.UseBreakWater = value, propertyChangeHandler);
+                PropertyChangeHelper.ChangePropertyAndNotify(() => CalculationScenario.InputParameters.UseBreakWater = value, propertyChangeHandler);
                 UpdateUseBreakWaterColumnStateDefinitions();
             }
         }
 
         /// <summary>
-        /// Gets or sets the break water type of the <see cref="ClosingStructuresCalculationScenario"/>.
+        /// Gets or sets the break water type of the <see cref="CalculationScenario"/>.
         /// </summary>
         public BreakWaterType BreakWaterType
         {
-            get => ClosingStructuresCalculationScenario.InputParameters.BreakWater.Type;
+            get => CalculationScenario.InputParameters.BreakWater.Type;
             set
             {
-                PropertyChangeHelper.ChangePropertyAndNotify(() => ClosingStructuresCalculationScenario.InputParameters.BreakWater.Type = value, propertyChangeHandler);
+                PropertyChangeHelper.ChangePropertyAndNotify(() => CalculationScenario.InputParameters.BreakWater.Type = value, propertyChangeHandler);
             }
         }
 
         /// <summary>
-        /// Gets or sets the break water height of the <see cref="ClosingStructuresCalculationScenario"/>.
+        /// Gets or sets the break water height of the <see cref="CalculationScenario"/>.
         /// </summary>
         public RoundedDouble BreakWaterHeight
         {
-            get => ClosingStructuresCalculationScenario.InputParameters.BreakWater.Height;
+            get => CalculationScenario.InputParameters.BreakWater.Height;
             set
             {
-                if (!ClosingStructuresCalculationScenario.InputParameters.BreakWater.Height.Equals(value))
+                if (!CalculationScenario.InputParameters.BreakWater.Height.Equals(value))
                 {
-                    PropertyChangeHelper.ChangePropertyAndNotify(() => ClosingStructuresCalculationScenario.InputParameters.BreakWater.Height = value, propertyChangeHandler);
+                    PropertyChangeHelper.ChangePropertyAndNotify(() => CalculationScenario.InputParameters.BreakWater.Height = value, propertyChangeHandler);
                 }
             }
         }
 
         /// <summary>
-        /// Gets or sets whether foreshore profile of the <see cref="ClosingStructuresCalculationScenario"/> should be used.
+        /// Gets or sets whether foreshore profile of the <see cref="CalculationScenario"/> should be used.
         /// </summary>
         public bool UseForeShoreGeometry
         {
-            get => ClosingStructuresCalculationScenario.InputParameters.UseForeshore;
+            get => CalculationScenario.InputParameters.UseForeshore;
             set
             {
-                if (!ClosingStructuresCalculationScenario.InputParameters.UseForeshore.Equals(value))
+                if (!CalculationScenario.InputParameters.UseForeshore.Equals(value))
                 {
-                    PropertyChangeHelper.ChangePropertyAndNotify(() => ClosingStructuresCalculationScenario.InputParameters.UseForeshore = value, propertyChangeHandler);
+                    PropertyChangeHelper.ChangePropertyAndNotify(() => CalculationScenario.InputParameters.UseForeshore = value, propertyChangeHandler);
                 }
             }
         }
 
         /// <summary>
-        /// Gets or sets the break water type of the <see cref="ClosingStructuresCalculationScenario"/>.
+        /// Gets or sets the break water type of the <see cref="CalculationScenario"/>.
         /// </summary>
         public ClosingStructureInflowModelType InflowModelType
         {
-            get => ClosingStructuresCalculationScenario.InputParameters.InflowModelType;
+            get => CalculationScenario.InputParameters.InflowModelType;
             set
             {
-                PropertyChangeHelper.ChangePropertyAndNotify(() => ClosingStructuresCalculationScenario.InputParameters.InflowModelType = value, propertyChangeHandler);
+                PropertyChangeHelper.ChangePropertyAndNotify(() => CalculationScenario.InputParameters.InflowModelType = value, propertyChangeHandler);
             }
         }
 
         /// <summary>
-        /// Gets or sets the mean inside water level of the <see cref="ClosingStructuresCalculationScenario"/>.
+        /// Gets or sets the mean inside water level of the <see cref="CalculationScenario"/>.
         /// </summary>
         public RoundedDouble MeanInsideWaterLevel
         {
-            get => ClosingStructuresCalculationScenario.InputParameters.InsideWaterLevel.Mean;
+            get => CalculationScenario.InputParameters.InsideWaterLevel.Mean;
             set
             {
-                if (!ClosingStructuresCalculationScenario.InputParameters.InsideWaterLevel.Mean.Equals(value))
+                if (!CalculationScenario.InputParameters.InsideWaterLevel.Mean.Equals(value))
                 {
-                    PropertyChangeHelper.ChangePropertyAndNotify(() => ClosingStructuresCalculationScenario.InputParameters.InsideWaterLevel.Mean = value, propertyChangeHandler);
+                    PropertyChangeHelper.ChangePropertyAndNotify(() => CalculationScenario.InputParameters.InsideWaterLevel.Mean = value, propertyChangeHandler);
                 }
             }
         }
 
         /// <summary>
-        /// Gets or sets the critial overtopping discharge of the <see cref="ClosingStructuresCalculationScenario"/>.
+        /// Gets or sets the critial overtopping discharge of the <see cref="CalculationScenario"/>.
         /// </summary>
         public RoundedDouble CriticalOvertoppingDischarge
         {
-            get => ClosingStructuresCalculationScenario.InputParameters.CriticalOvertoppingDischarge.Mean;
+            get => CalculationScenario.InputParameters.CriticalOvertoppingDischarge.Mean;
             set
             {
-                if (!ClosingStructuresCalculationScenario.InputParameters.CriticalOvertoppingDischarge.Mean.Equals(value))
+                if (!CalculationScenario.InputParameters.CriticalOvertoppingDischarge.Mean.Equals(value))
                 {
-                    PropertyChangeHelper.ChangePropertyAndNotify(() => ClosingStructuresCalculationScenario.InputParameters.CriticalOvertoppingDischarge.Mean = value, propertyChangeHandler);
+                    PropertyChangeHelper.ChangePropertyAndNotify(() => CalculationScenario.InputParameters.CriticalOvertoppingDischarge.Mean = value, propertyChangeHandler);
                 }
             }
         }
 
         /// <summary>
-        /// Gets or sets the allowed level of storage increase of the <see cref="ClosingStructuresCalculationScenario"/>.
+        /// Gets or sets the allowed level of storage increase of the <see cref="CalculationScenario"/>.
         /// </summary>
         public RoundedDouble AllowedLevelIncreaseStorage
         {
-            get => ClosingStructuresCalculationScenario.InputParameters.AllowedLevelIncreaseStorage.Mean;
+            get => CalculationScenario.InputParameters.AllowedLevelIncreaseStorage.Mean;
             set
             {
-                if (!ClosingStructuresCalculationScenario.InputParameters.AllowedLevelIncreaseStorage.Mean.Equals(value))
+                if (!CalculationScenario.InputParameters.AllowedLevelIncreaseStorage.Mean.Equals(value))
                 {
-                    PropertyChangeHelper.ChangePropertyAndNotify(() => ClosingStructuresCalculationScenario.InputParameters.AllowedLevelIncreaseStorage.Mean = value, propertyChangeHandler);
+                    PropertyChangeHelper.ChangePropertyAndNotify(() => CalculationScenario.InputParameters.AllowedLevelIncreaseStorage.Mean = value, propertyChangeHandler);
                 }
             }
         }

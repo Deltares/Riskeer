@@ -216,8 +216,8 @@ namespace Riskeer.ClosingStructures.Forms.Views
             if (calculationRow != null)
             {
                 selection = new ClosingStructuresInputContext(
-                    calculationRow.ClosingStructuresCalculationScenario.InputParameters,
-                    calculationRow.ClosingStructuresCalculationScenario,
+                    calculationRow.CalculationScenario.InputParameters,
+                    calculationRow.CalculationScenario,
                     failureMechanism,
                     assessmentSection);
             }
@@ -297,8 +297,8 @@ namespace Riskeer.ClosingStructures.Forms.Views
             IEnumerable<Segment2D> lineSegments = Math2D.ConvertPointsToLineSegments(failureMechanismSection.Points);
             IEnumerable<StructuresCalculationScenario<ClosingStructuresInput>> calculationScenarios = calculationGroup
                                                                                                       .GetCalculations()
-                                                                                                      .OfType<StructuresCalculationScenario<ClosingStructuresInput>>();
-            //.Where(cs => cs.IsDikeProfileIntersectionWithReferenceLineInSection(lineSegments));
+                                                                                                      .OfType<StructuresCalculationScenario<ClosingStructuresInput>>()
+                                                                                                      .Where(cs => cs.IsStructureIntersectionWithReferenceLineInSection(lineSegments));
 
             PrefillComboBoxListItemsAtColumnLevel();
 
@@ -332,7 +332,7 @@ namespace Riskeer.ClosingStructures.Forms.Views
         private void FillAvailableSelectableHydraulicBoundaryLocationsList(DataGridViewRow dataGridViewRow)
         {
             var rowData = (ClosingStructuresCalculationRow) dataGridViewRow.DataBoundItem;
-            IEnumerable<SelectableHydraulicBoundaryLocation> locations = GetSelectableHydraulicBoundaryLocationsForCalculation(rowData.ClosingStructuresCalculationScenario);
+            IEnumerable<SelectableHydraulicBoundaryLocation> locations = GetSelectableHydraulicBoundaryLocationsForCalculation(rowData.CalculationScenario);
 
             var cell = (DataGridViewComboBoxCell) dataGridViewRow.Cells[selectableHydraulicBoundaryLocationColumnIndex];
             DataGridViewComboBoxItemWrapper<SelectableHydraulicBoundaryLocation>[] dataGridViewComboBoxItemWrappers = GetSelectableHydraulicBoundaryLocationsDataSource(locations);
