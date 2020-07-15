@@ -287,10 +287,10 @@ handmatig</value>
   <data name="FailureMechanismResultView_DataGridViewCellFormatting_Scenario_contribution_for_this_section_not_100" xml:space="preserve">
     <value>De bijdragen van de maatgevende scenario's voor dit vak moeten opgeteld gelijk zijn aan 100%.</value>
   </data>
-  <data name="FailureMechanismResultView_DataGridViewCellFormatting_Not_all_calculations_have_been_executed" xml:space="preserve">
+  <data name="FailureMechanismResultView_DataGridViewCellFormatting_Not_all_relevant_calculation_scenarios_have_been_executed" xml:space="preserve">
     <value>Alle maatgevende berekeningen voor dit vak moeten uitgevoerd zijn.</value>
   </data>
-  <data name="FailureMechanismResultView_DataGridViewCellFormatting_All_calculations_must_have_valid_output" xml:space="preserve">
+  <data name="FailureMechanismResultView_DataGridViewCellFormatting_All_relevant_calculation_scenarios_must_have_valid_output" xml:space="preserve">
     <value>Alle maatgevende berekeningen voor dit vak moeten een geldige uitkomst hebben.</value>
   </data>
   <data name="RoundedDouble_No_result_dash" xml:space="preserve">
@@ -866,7 +866,7 @@ handmatig</value>
   <data name="FailureMechanismResultView_DataGridViewCellFormatting_Calculation_must_have_valid_output" xml:space="preserve">
     <value>De maatgevende berekening voor dit vak moet een geldige uitkomst hebben.</value>
   </data>
-  <data name="FailureMechanismResultView_DataGridViewCellFormatting_Not_any_calculation_set" xml:space="preserve">
+  <data name="FailureMechanismResultView_DataGridViewCellFormatting_No_relevant_calculation_scenarios_present" xml:space="preserve">
     <value>Er moet minimaal één maatgevende berekening voor dit vak worden gedefinieerd.</value>
   </data>
   <data name="MetaData_Couple_distance" xml:space="preserve">

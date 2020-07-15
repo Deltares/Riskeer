@@ -1738,10 +1738,10 @@ namespace Riskeer.Common.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Alle maatgevende berekeningen voor dit vak moeten een geldige uitkomst hebben..
         /// </summary>
-        public static string FailureMechanismResultView_DataGridViewCellFormatting_All_calculations_must_have_valid_output {
+        public static string FailureMechanismResultView_DataGridViewCellFormatting_All_relevant_calculation_scenarios_must_have_valid_output {
             get {
-                return ResourceManager.GetString("FailureMechanismResultView_DataGridViewCellFormatting_All_calculations_must_have_" +
-                        "valid_output", resourceCulture);
+                return ResourceManager.GetString("FailureMechanismResultView_DataGridViewCellFormatting_All_relevant_calculation_sc" +
+                        "enarios_must_have_valid_output", resourceCulture);
             }
         }
         
@@ -1756,21 +1756,22 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Alle maatgevende berekeningen voor dit vak moeten uitgevoerd zijn..
+        ///   Looks up a localized string similar to Er moet minimaal één maatgevende berekening voor dit vak worden gedefinieerd..
         /// </summary>
-        public static string FailureMechanismResultView_DataGridViewCellFormatting_Not_all_calculations_have_been_executed {
+        public static string FailureMechanismResultView_DataGridViewCellFormatting_No_relevant_calculation_scenarios_present {
             get {
-                return ResourceManager.GetString("FailureMechanismResultView_DataGridViewCellFormatting_Not_all_calculations_have_b" +
-                        "een_executed", resourceCulture);
+                return ResourceManager.GetString("FailureMechanismResultView_DataGridViewCellFormatting_No_relevant_calculation_sce" +
+                        "narios_present", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Er moet minimaal één maatgevende berekening voor dit vak worden gedefinieerd..
+        ///   Looks up a localized string similar to Alle maatgevende berekeningen voor dit vak moeten uitgevoerd zijn..
         /// </summary>
-        public static string FailureMechanismResultView_DataGridViewCellFormatting_Not_any_calculation_set {
+        public static string FailureMechanismResultView_DataGridViewCellFormatting_Not_all_relevant_calculation_scenarios_have_been_executed {
             get {
-                return ResourceManager.GetString("FailureMechanismResultView_DataGridViewCellFormatting_Not_any_calculation_set", resourceCulture);
+                return ResourceManager.GetString("FailureMechanismResultView_DataGridViewCellFormatting_Not_all_relevant_calculatio" +
+                        "n_scenarios_have_been_executed", resourceCulture);
             }
         }
         
