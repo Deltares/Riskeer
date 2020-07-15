@@ -86,7 +86,7 @@ namespace Riskeer.ClosingStructures.Forms.Views
 
             this.failureMechanism = failureMechanism;
             this.assessmentSection = assessmentSection;
-            Data = data;
+            calculationGroup = data;
 
             InitializeObservers();
 
@@ -257,7 +257,11 @@ namespace Riskeer.ClosingStructures.Forms.Views
             {
                 Observable = assessmentSection.HydraulicBoundaryDatabase.Locations
             };
-            foreShoreProfilesObserver = new Observer(UpdateForeshoreProfilesColumn)
+            foreShoreProfilesObserver = new Observer(() =>
+            {
+                UpdateForeshoreProfilesColumn();
+                UpdateGenerateCalculationsButtonState();
+            })
             {
                 Observable = failureMechanism.ForeshoreProfiles
             };
@@ -377,16 +381,16 @@ namespace Riskeer.ClosingStructures.Forms.Views
             SetItemsOnObjectCollection(cell.Items, dataGridViewComboBoxItemWrappers);
         }
 
-        private static DataGridViewComboBoxItemWrapper<ForeshoreProfile>[] GetSelectableForeshoreProfileDataSource(IEnumerable<ForeshoreProfile> selectableForeshorePofiles = null)
+        private static DataGridViewComboBoxItemWrapper<ForeshoreProfile>[] GetSelectableForeshoreProfileDataSource(IEnumerable<ForeshoreProfile> selectableForeshoreProfiles = null)
         {
             var dataGridViewComboBoxItemWrappers = new List<DataGridViewComboBoxItemWrapper<ForeshoreProfile>>
             {
                 new DataGridViewComboBoxItemWrapper<ForeshoreProfile>(null)
             };
 
-            if (selectableForeshorePofiles != null)
+            if (selectableForeshoreProfiles != null)
             {
-                dataGridViewComboBoxItemWrappers.AddRange(selectableForeshorePofiles.Select(fp => new DataGridViewComboBoxItemWrapper<ForeshoreProfile>(fp)));
+                dataGridViewComboBoxItemWrappers.AddRange(selectableForeshoreProfiles.Select(fp => new DataGridViewComboBoxItemWrapper<ForeshoreProfile>(fp)));
             }
 
             return dataGridViewComboBoxItemWrappers.ToArray();
