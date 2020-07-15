@@ -65,7 +65,7 @@ namespace Riskeer.MacroStabilityInwards.Integration.Test
                 DataImportHelper.ImportFailureMechanismSections(assessmentSection, failureMechanism);
                 Assert.AreEqual(283, dataGridView.Rows.Count);
                 Assert.AreEqual("-", dataGridView.Rows[22].Cells[detailedAssessmentIndex].FormattedValue);
-                Assert.AreEqual("Er moet minimaal één maatgevende berekening voor dit vak worden geselecteerd.",
+                Assert.AreEqual("Er moet minimaal één maatgevende berekening voor dit vak worden gedefinieerd.",
                                 dataGridView.Rows[22].Cells[detailedAssessmentIndex].ErrorText);
 
                 // Import surface lines
@@ -93,7 +93,7 @@ namespace Riskeer.MacroStabilityInwards.Integration.Test
                 assessmentSection.MacroStabilityInwards.CalculationsGroup.Children.Add(calculation1);
                 assessmentSection.MacroStabilityInwards.CalculationsGroup.NotifyObservers();
                 Assert.AreEqual("-", dataGridView.Rows[22].Cells[detailedAssessmentIndex].FormattedValue);
-                Assert.AreEqual("Alle berekeningen voor dit vak moeten uitgevoerd zijn.",
+                Assert.AreEqual("Alle maatgevende berekeningen voor dit vak moeten uitgevoerd zijn.",
                                 dataGridView.Rows[22].Cells[detailedAssessmentIndex].ErrorText);
 
                 // Add group and ensure the data grid view is not changed
@@ -101,21 +101,21 @@ namespace Riskeer.MacroStabilityInwards.Integration.Test
                 assessmentSection.MacroStabilityInwards.CalculationsGroup.Children.Add(nestedCalculationGroup);
                 assessmentSection.MacroStabilityInwards.CalculationsGroup.NotifyObservers();
                 Assert.AreEqual("-", dataGridView.Rows[22].Cells[detailedAssessmentIndex].FormattedValue);
-                Assert.AreEqual("Alle berekeningen voor dit vak moeten uitgevoerd zijn.",
+                Assert.AreEqual("Alle maatgevende berekeningen voor dit vak moeten uitgevoerd zijn.",
                                 dataGridView.Rows[22].Cells[detailedAssessmentIndex].ErrorText);
 
                 // Add another, nested calculation and ensure the data grid view is updated
                 nestedCalculationGroup.Children.Add(calculation2);
                 nestedCalculationGroup.NotifyObservers();
                 Assert.AreEqual("-", dataGridView.Rows[22].Cells[detailedAssessmentIndex].FormattedValue);
-                Assert.AreEqual("Bijdrage van de geselecteerde scenario's voor dit vak moet opgeteld gelijk zijn aan 100%.",
+                Assert.AreEqual("De bijdragen van de maatgevende scenario's voor dit vak moeten opgeteld gelijk zijn aan 100%.",
                                 dataGridView.Rows[22].Cells[detailedAssessmentIndex].ErrorText);
 
                 // Set the second calculation to not relevant and ensure the data grid view is updated
                 calculation2.IsRelevant = false;
                 calculation2.NotifyObservers();
                 Assert.AreEqual("-", dataGridView.Rows[22].Cells[detailedAssessmentIndex].FormattedValue);
-                Assert.AreEqual("Alle berekeningen voor dit vak moeten uitgevoerd zijn.",
+                Assert.AreEqual("Alle maatgevende berekeningen voor dit vak moeten uitgevoerd zijn.",
                                 dataGridView.Rows[22].Cells[detailedAssessmentIndex].ErrorText);
 
                 // Execute the first calculation and ensure the data grid view is updated
@@ -144,27 +144,27 @@ namespace Riskeer.MacroStabilityInwards.Integration.Test
                     sl => sl.Name == "PK001_0001");
                 calculation3.InputParameters.NotifyObservers();
                 Assert.AreEqual("-", dataGridView.Rows[22].Cells[detailedAssessmentIndex].FormattedValue);
-                Assert.AreEqual("Bijdrage van de geselecteerde scenario's voor dit vak moet opgeteld gelijk zijn aan 100%.",
+                Assert.AreEqual("De bijdragen van de maatgevende scenario's voor dit vak moeten opgeteld gelijk zijn aan 100%.",
                                 dataGridView.Rows[22].Cells[detailedAssessmentIndex].ErrorText);
 
                 // Change the contribution of the calculation and make sure the data grid view is updated
                 calculation3.Contribution = (RoundedDouble) 0.3;
                 calculation3.NotifyObservers();
                 Assert.AreEqual("-", dataGridView.Rows[22].Cells[detailedAssessmentIndex].FormattedValue);
-                Assert.AreEqual("Bijdrage van de geselecteerde scenario's voor dit vak moet opgeteld gelijk zijn aan 100%.",
+                Assert.AreEqual("De bijdragen van de maatgevende scenario's voor dit vak moeten opgeteld gelijk zijn aan 100%.",
                                 dataGridView.Rows[22].Cells[detailedAssessmentIndex].ErrorText);
 
                 calculation1.Contribution = (RoundedDouble) 0.7;
                 calculation1.NotifyObservers();
                 Assert.AreEqual("-", dataGridView.Rows[22].Cells[detailedAssessmentIndex].FormattedValue);
-                Assert.AreEqual("Alle berekeningen voor dit vak moeten uitgevoerd zijn.",
+                Assert.AreEqual("Alle maatgevende berekeningen voor dit vak moeten uitgevoerd zijn.",
                                 dataGridView.Rows[22].Cells[detailedAssessmentIndex].ErrorText);
 
                 // Remove a calculation and make sure the data grid view is updated
                 nestedCalculationGroup.Children.Remove(calculation3);
                 nestedCalculationGroup.NotifyObservers();
                 Assert.AreEqual("-", dataGridView.Rows[22].Cells[detailedAssessmentIndex].FormattedValue);
-                Assert.AreEqual("Bijdrage van de geselecteerde scenario's voor dit vak moet opgeteld gelijk zijn aan 100%.",
+                Assert.AreEqual("De bijdragen van de maatgevende scenario's voor dit vak moeten opgeteld gelijk zijn aan 100%.",
                                 dataGridView.Rows[22].Cells[detailedAssessmentIndex].ErrorText);
 
                 // Set contribution again so we have a probability.
@@ -178,7 +178,7 @@ namespace Riskeer.MacroStabilityInwards.Integration.Test
                 MacroStabilityInwardsDataSynchronizationService.ClearCalculationOutput(calculation1);
                 calculation1.NotifyObservers();
                 Assert.AreEqual("-", dataGridView.Rows[22].Cells[detailedAssessmentIndex].FormattedValue);
-                Assert.AreEqual("Alle berekeningen voor dit vak moeten uitgevoerd zijn.",
+                Assert.AreEqual("Alle maatgevende berekeningen voor dit vak moeten uitgevoerd zijn.",
                                 dataGridView.Rows[22].Cells[detailedAssessmentIndex].ErrorText);
             }
         }

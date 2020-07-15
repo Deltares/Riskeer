@@ -1736,7 +1736,7 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Alle berekeningen voor dit vak moeten een geldige uitkomst hebben..
+        ///   Looks up a localized string similar to Alle maatgevende berekeningen voor dit vak moeten een geldige uitkomst hebben..
         /// </summary>
         public static string FailureMechanismResultView_DataGridViewCellFormatting_All_calculations_must_have_valid_output {
             get {
@@ -1756,25 +1756,7 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De maatgevende berekening voor dit vak moet nog worden uitgevoerd..
-        /// </summary>
-        public static string FailureMechanismResultView_DataGridViewCellFormatting_Calculation_not_calculated {
-            get {
-                return ResourceManager.GetString("FailureMechanismResultView_DataGridViewCellFormatting_Calculation_not_calculated", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Er moet een maatgevende berekening voor dit vak worden geselecteerd..
-        /// </summary>
-        public static string FailureMechanismResultView_DataGridViewCellFormatting_Calculation_not_set {
-            get {
-                return ResourceManager.GetString("FailureMechanismResultView_DataGridViewCellFormatting_Calculation_not_set", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Alle berekeningen voor dit vak moeten uitgevoerd zijn..
+        ///   Looks up a localized string similar to Alle maatgevende berekeningen voor dit vak moeten uitgevoerd zijn..
         /// </summary>
         public static string FailureMechanismResultView_DataGridViewCellFormatting_Not_all_calculations_have_been_executed {
             get {
@@ -1784,7 +1766,7 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Er moet minimaal één maatgevende berekening voor dit vak worden geselecteerd..
+        ///   Looks up a localized string similar to Er moet minimaal één maatgevende berekening voor dit vak worden gedefinieerd..
         /// </summary>
         public static string FailureMechanismResultView_DataGridViewCellFormatting_Not_any_calculation_set {
             get {
@@ -1793,7 +1775,7 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Bijdrage van de geselecteerde scenario&apos;s voor dit vak moet opgeteld gelijk zijn aan 100%..
+        ///   Looks up a localized string similar to De bijdragen van de maatgevende scenario&apos;s voor dit vak moeten opgeteld gelijk zijn aan 100%..
         /// </summary>
         public static string FailureMechanismResultView_DataGridViewCellFormatting_Scenario_contribution_for_this_section_not_100 {
             get {

@@ -40,34 +40,6 @@ namespace Riskeer.Common.Forms.Helpers
     public static class FailureMechanismSectionResultRowHelper
     {
         /// <summary>
-        /// Gets the error text to display when the detailed assessment fails.
-        /// </summary>
-        /// <param name="detailedAssessmentProbability">The value representing the probability of the detailed assessment.</param>
-        /// <param name="normativeCalculation">The <see cref="ICalculation"/> set for the 
-        /// section result. May be <c>null</c> if the section result does not have a calculation set.</param>
-        /// <returns>The error message when an error is present; <see cref="string.Empty"/> otherwise.</returns>
-        public static string GetDetailedAssessmentError(double detailedAssessmentProbability,
-                                                        ICalculation normativeCalculation)
-        {
-            if (normativeCalculation == null)
-            {
-                return Resources.FailureMechanismResultView_DataGridViewCellFormatting_Calculation_not_set;
-            }
-
-            if (!normativeCalculation.HasOutput)
-            {
-                return Resources.FailureMechanismResultView_DataGridViewCellFormatting_Calculation_not_calculated;
-            }
-
-            if (double.IsNaN(detailedAssessmentProbability))
-            {
-                return Resources.FailureMechanismResultView_DataGridViewCellFormatting_Calculation_must_have_valid_output;
-            }
-
-            return string.Empty;
-        }
-
-        /// <summary>
         /// Gets the error text to display when the detailed assessment probability fails.
         /// </summary>
         /// <typeparam name="TCalculationScenario">The type of <see cref="ICalculationScenario"/>.</typeparam>

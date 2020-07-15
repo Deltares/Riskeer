@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using Core.Common.Controls.DataGrid;
@@ -29,7 +28,6 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.Common.Data.Calculation;
-using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.TestUtil;
 using Riskeer.Common.Primitives;
@@ -39,22 +37,6 @@ namespace Riskeer.Common.Forms.Test.Helpers
     [TestFixture]
     public class FailureMechanismSectionResultRowHelperTest
     {
-        [Test]
-        [TestCaseSource(nameof(GetCalculationNullConfigurations))]
-        [TestCaseSource(nameof(GetCalculationWithoutOutputConfigurations))]
-        [TestCaseSource(nameof(GetCalculationWithOutputConfigurations))]
-        public void GetAssessmentDetailedAssessmentError_WithVariousConfigurations_GetsExpectedErrorText(double detailedAssessmentResult,
-                                                                                                         ICalculation normativeCalculation,
-                                                                                                         string expectedErrorText)
-        {
-            // Call
-            string errorText = FailureMechanismSectionResultRowHelper.GetDetailedAssessmentError(detailedAssessmentResult,
-                                                                                                 normativeCalculation);
-
-            // Assert
-            Assert.AreEqual(expectedErrorText, errorText);
-        }
-
         [Test]
         public void GetDetailedAssessmentProbabilityError_RelevantScenariosNull_ThrowsArgumentNullException()
         {
@@ -102,7 +84,7 @@ namespace Riskeer.Common.Forms.Test.Helpers
                 new ICalculationScenario[0], scenarios => random.NextDouble(), scenarios => random.NextDouble());
 
             // Assert
-            Assert.AreEqual("Er moet minimaal één maatgevende berekening voor dit vak worden geselecteerd.", errorMessage);
+            Assert.AreEqual("Er moet minimaal één maatgevende berekening voor dit vak worden gedefinieerd.", errorMessage);
         }
 
         [Test]
@@ -124,7 +106,7 @@ namespace Riskeer.Common.Forms.Test.Helpers
                 calculationScenarios, scenarios => random.NextDouble(0, 0.99), scenarios => random.NextDouble());
 
             // Assert
-            Assert.AreEqual("Bijdrage van de geselecteerde scenario's voor dit vak moet opgeteld gelijk zijn aan 100%.", errorMessage);
+            Assert.AreEqual("De bijdragen van de maatgevende scenario's voor dit vak moeten opgeteld gelijk zijn aan 100%.", errorMessage);
         }
 
         [Test]
@@ -149,7 +131,7 @@ namespace Riskeer.Common.Forms.Test.Helpers
                 calculationScenarios, scenarios => 1, scenarios => random.NextDouble());
 
             // Assert
-            Assert.AreEqual("Alle berekeningen voor dit vak moeten uitgevoerd zijn.", errorMessage);
+            Assert.AreEqual("Alle maatgevende berekeningen voor dit vak moeten uitgevoerd zijn.", errorMessage);
         }
 
         [Test]
@@ -171,7 +153,7 @@ namespace Riskeer.Common.Forms.Test.Helpers
                 calculationScenarios, scenarios => 1, scenarios => double.NaN);
 
             // Assert
-            Assert.AreEqual("Alle berekeningen voor dit vak moeten een geldige uitkomst hebben.", errorMessage);
+            Assert.AreEqual("Alle maatgevende berekeningen voor dit vak moeten een geldige uitkomst hebben.", errorMessage);
         }
 
         [Test]
@@ -275,12 +257,11 @@ namespace Riskeer.Common.Forms.Test.Helpers
         public void SetAssemblyCategoryGroupStyle_DataGridViewColumnStateDefinitionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => FailureMechanismSectionResultRowHelper.SetAssemblyCategoryGroupStyle(
-                null,
-                new Random(39).NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
+            void Call() => FailureMechanismSectionResultRowHelper.SetAssemblyCategoryGroupStyle(
+                null, new Random(39).NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("columnStateDefinition", exception.ParamName);
         }
 
@@ -294,12 +275,12 @@ namespace Riskeer.Common.Forms.Test.Helpers
             };
 
             // Call
-            TestDelegate test = () => FailureMechanismSectionResultRowHelper.SetAssemblyCategoryGroupStyle(columnStateDefinition,
-                                                                                                           (FailureMechanismSectionAssemblyCategoryGroup) 99);
+            void Call() => FailureMechanismSectionResultRowHelper.SetAssemblyCategoryGroupStyle(
+                columnStateDefinition, (FailureMechanismSectionAssemblyCategoryGroup) 99);
 
             // Assert
             const string expectedMessage = "The value of argument 'assemblyCategoryGroup' (99) is invalid for Enum type 'FailureMechanismSectionAssemblyCategoryGroup'.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(test, expectedMessage);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(Call, expectedMessage);
         }
 
         [Test]
@@ -317,51 +298,5 @@ namespace Riskeer.Common.Forms.Test.Helpers
             Assert.AreEqual(expectedColor, columnStateDefinition.Style.BackgroundColor);
             Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), columnStateDefinition.Style.TextColor);
         }
-
-        #region Test cases
-
-        private static IEnumerable<TestCaseData> GetCalculationNullConfigurations()
-        {
-            const string expectedErrorMessage = "Er moet een maatgevende berekening voor dit vak worden geselecteerd.";
-
-            yield return new TestCaseData(double.NaN, null,
-                                          expectedErrorMessage)
-                .SetName("InvalidDetailedAssessmentAndNoCalculation");
-            yield return new TestCaseData(0.0, null,
-                                          expectedErrorMessage)
-                .SetName("ValidDetailedAssessmentAndNoCalculation");
-        }
-
-        private static IEnumerable<TestCaseData> GetCalculationWithoutOutputConfigurations()
-        {
-            const string expectedErrorMessage = "De maatgevende berekening voor dit vak moet nog worden uitgevoerd.";
-
-            yield return new TestCaseData(double.NaN,
-                                          CalculationTestDataFactory.CreateCalculationWithoutOutput(),
-                                          expectedErrorMessage)
-                .SetName("InvalidDetailedAssessmentAndCalculationWithoutOutput");
-            yield return new TestCaseData(0.0,
-                                          CalculationTestDataFactory.CreateCalculationWithoutOutput(),
-                                          expectedErrorMessage)
-                .SetName("ValidDetailedAssessmentAndCalculationWithoutOutput");
-        }
-
-        private static IEnumerable<TestCaseData> GetCalculationWithOutputConfigurations()
-        {
-            const string expectedErrorMessageOutputInvalid = "De maatgevende berekening voor dit vak moet een geldige uitkomst hebben.";
-            string expectedEmptyErrorMessage = string.Empty;
-
-            yield return new TestCaseData(double.NaN,
-                                          CalculationTestDataFactory.CreateCalculationWithOutput(),
-                                          expectedErrorMessageOutputInvalid)
-                .SetName("InvalidDetailedAssessmentAndCalculationWithOutput");
-
-            yield return new TestCaseData(0.0,
-                                          CalculationTestDataFactory.CreateCalculationWithOutput(),
-                                          expectedEmptyErrorMessage)
-                .SetName("ValidDetailedAssessmentAndCalculationWithOutput");
-        }
-
-        #endregion
     }
 }

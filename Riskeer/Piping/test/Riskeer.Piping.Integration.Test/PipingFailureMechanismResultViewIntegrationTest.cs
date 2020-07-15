@@ -67,7 +67,7 @@ namespace Riskeer.Piping.Integration.Test
                 DataImportHelper.ImportFailureMechanismSections(assessmentSection, failureMechanism);
                 Assert.AreEqual(283, dataGridView.Rows.Count);
                 Assert.AreEqual("-", dataGridView.Rows[22].Cells[detailedAssessmentIndex].FormattedValue);
-                Assert.AreEqual("Er moet minimaal één maatgevende berekening voor dit vak worden geselecteerd.",
+                Assert.AreEqual("Er moet minimaal één maatgevende berekening voor dit vak worden gedefinieerd.",
                                 dataGridView.Rows[22].Cells[detailedAssessmentIndex].ErrorText);
 
                 // Import surface lines
@@ -95,7 +95,7 @@ namespace Riskeer.Piping.Integration.Test
                 assessmentSection.Piping.CalculationsGroup.Children.Add(pipingCalculation1);
                 assessmentSection.Piping.CalculationsGroup.NotifyObservers();
                 Assert.AreEqual("-", dataGridView.Rows[22].Cells[detailedAssessmentIndex].FormattedValue);
-                Assert.AreEqual("Alle berekeningen voor dit vak moeten uitgevoerd zijn.",
+                Assert.AreEqual("Alle maatgevende berekeningen voor dit vak moeten uitgevoerd zijn.",
                                 dataGridView.Rows[22].Cells[detailedAssessmentIndex].ErrorText);
 
                 // Add group and ensure the data grid view is not changed
@@ -103,21 +103,21 @@ namespace Riskeer.Piping.Integration.Test
                 assessmentSection.Piping.CalculationsGroup.Children.Add(nestedPipingCalculationGroup);
                 assessmentSection.Piping.CalculationsGroup.NotifyObservers();
                 Assert.AreEqual("-", dataGridView.Rows[22].Cells[detailedAssessmentIndex].FormattedValue);
-                Assert.AreEqual("Alle berekeningen voor dit vak moeten uitgevoerd zijn.",
+                Assert.AreEqual("Alle maatgevende berekeningen voor dit vak moeten uitgevoerd zijn.",
                                 dataGridView.Rows[22].Cells[detailedAssessmentIndex].ErrorText);
 
                 // Add another, nested calculation and ensure the data grid view is updated
                 nestedPipingCalculationGroup.Children.Add(pipingCalculation2);
                 nestedPipingCalculationGroup.NotifyObservers();
                 Assert.AreEqual("-", dataGridView.Rows[22].Cells[detailedAssessmentIndex].FormattedValue);
-                Assert.AreEqual("Bijdrage van de geselecteerde scenario's voor dit vak moet opgeteld gelijk zijn aan 100%.",
+                Assert.AreEqual("De bijdragen van de maatgevende scenario's voor dit vak moeten opgeteld gelijk zijn aan 100%.",
                                 dataGridView.Rows[22].Cells[detailedAssessmentIndex].ErrorText);
 
                 // Set the second calculation to not relevant and ensure the data grid view is updated
                 pipingCalculation2.IsRelevant = false;
                 pipingCalculation2.NotifyObservers();
                 Assert.AreEqual("-", dataGridView.Rows[22].Cells[detailedAssessmentIndex].FormattedValue);
-                Assert.AreEqual("Alle berekeningen voor dit vak moeten uitgevoerd zijn.",
+                Assert.AreEqual("Alle maatgevende berekeningen voor dit vak moeten uitgevoerd zijn.",
                                 dataGridView.Rows[22].Cells[detailedAssessmentIndex].ErrorText);
 
                 // Execute the first calculation and ensure the data grid view is updated
@@ -139,27 +139,27 @@ namespace Riskeer.Piping.Integration.Test
                     sl => sl.Name == "PK001_0001");
                 pipingCalculation3.InputParameters.NotifyObservers();
                 Assert.AreEqual("-", dataGridView.Rows[22].Cells[detailedAssessmentIndex].FormattedValue);
-                Assert.AreEqual("Bijdrage van de geselecteerde scenario's voor dit vak moet opgeteld gelijk zijn aan 100%.",
+                Assert.AreEqual("De bijdragen van de maatgevende scenario's voor dit vak moeten opgeteld gelijk zijn aan 100%.",
                                 dataGridView.Rows[22].Cells[detailedAssessmentIndex].ErrorText);
 
                 // Change the contribution of the calculation and make sure the data grid view is updated
                 pipingCalculation3.Contribution = (RoundedDouble) 0.3;
                 pipingCalculation3.NotifyObservers();
                 Assert.AreEqual("-", dataGridView.Rows[22].Cells[detailedAssessmentIndex].FormattedValue);
-                Assert.AreEqual("Bijdrage van de geselecteerde scenario's voor dit vak moet opgeteld gelijk zijn aan 100%.",
+                Assert.AreEqual("De bijdragen van de maatgevende scenario's voor dit vak moeten opgeteld gelijk zijn aan 100%.",
                                 dataGridView.Rows[22].Cells[detailedAssessmentIndex].ErrorText);
 
                 pipingCalculation1.Contribution = (RoundedDouble) 0.7;
                 pipingCalculation1.NotifyObservers();
                 Assert.AreEqual("-", dataGridView.Rows[22].Cells[detailedAssessmentIndex].FormattedValue);
-                Assert.AreEqual("Alle berekeningen voor dit vak moeten uitgevoerd zijn.",
+                Assert.AreEqual("Alle maatgevende berekeningen voor dit vak moeten uitgevoerd zijn.",
                                 dataGridView.Rows[22].Cells[detailedAssessmentIndex].ErrorText);
 
                 // Remove a calculation and make sure the data grid view is updated
                 nestedPipingCalculationGroup.Children.Remove(pipingCalculation3);
                 nestedPipingCalculationGroup.NotifyObservers();
                 Assert.AreEqual("-", dataGridView.Rows[22].Cells[detailedAssessmentIndex].FormattedValue);
-                Assert.AreEqual("Bijdrage van de geselecteerde scenario's voor dit vak moet opgeteld gelijk zijn aan 100%.",
+                Assert.AreEqual("De bijdragen van de maatgevende scenario's voor dit vak moeten opgeteld gelijk zijn aan 100%.",
                                 dataGridView.Rows[22].Cells[detailedAssessmentIndex].ErrorText);
 
                 // Set contribution again so we have a probability.
@@ -173,7 +173,7 @@ namespace Riskeer.Piping.Integration.Test
                 PipingDataSynchronizationService.ClearCalculationOutput(pipingCalculation1);
                 pipingCalculation1.NotifyObservers();
                 Assert.AreEqual("-", dataGridView.Rows[22].Cells[detailedAssessmentIndex].FormattedValue);
-                Assert.AreEqual("Alle berekeningen voor dit vak moeten uitgevoerd zijn.",
+                Assert.AreEqual("Alle maatgevende berekeningen voor dit vak moeten uitgevoerd zijn.",
                                 dataGridView.Rows[22].Cells[detailedAssessmentIndex].ErrorText);
             }
         }

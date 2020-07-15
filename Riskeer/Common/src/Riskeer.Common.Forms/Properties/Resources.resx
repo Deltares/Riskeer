@@ -285,13 +285,13 @@ handmatig</value>
     <value>..\Resources\document-task.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="FailureMechanismResultView_DataGridViewCellFormatting_Scenario_contribution_for_this_section_not_100" xml:space="preserve">
-    <value>Bijdrage van de geselecteerde scenario's voor dit vak moet opgeteld gelijk zijn aan 100%.</value>
+    <value>De bijdragen van de maatgevende scenario's voor dit vak moeten opgeteld gelijk zijn aan 100%.</value>
   </data>
   <data name="FailureMechanismResultView_DataGridViewCellFormatting_Not_all_calculations_have_been_executed" xml:space="preserve">
-    <value>Alle berekeningen voor dit vak moeten uitgevoerd zijn.</value>
+    <value>Alle maatgevende berekeningen voor dit vak moeten uitgevoerd zijn.</value>
   </data>
   <data name="FailureMechanismResultView_DataGridViewCellFormatting_All_calculations_must_have_valid_output" xml:space="preserve">
-    <value>Alle berekeningen voor dit vak moeten een geldige uitkomst hebben.</value>
+    <value>Alle maatgevende berekeningen voor dit vak moeten een geldige uitkomst hebben.</value>
   </data>
   <data name="RoundedDouble_No_result_dash" xml:space="preserve">
     <value>-</value>
@@ -863,17 +863,11 @@ handmatig</value>
   <data name="DikeProfiles_DisplayName" xml:space="preserve">
     <value>Dijkprofielen</value>
   </data>
-  <data name="FailureMechanismResultView_DataGridViewCellFormatting_Calculation_not_calculated" xml:space="preserve">
-    <value>De maatgevende berekening voor dit vak moet nog worden uitgevoerd.</value>
-  </data>
-  <data name="FailureMechanismResultView_DataGridViewCellFormatting_Calculation_not_set" xml:space="preserve">
-    <value>Er moet een maatgevende berekening voor dit vak worden geselecteerd.</value>
-  </data>
   <data name="FailureMechanismResultView_DataGridViewCellFormatting_Calculation_must_have_valid_output" xml:space="preserve">
     <value>De maatgevende berekening voor dit vak moet een geldige uitkomst hebben.</value>
   </data>
   <data name="FailureMechanismResultView_DataGridViewCellFormatting_Not_any_calculation_set" xml:space="preserve">
-    <value>Er moet minimaal één maatgevende berekening voor dit vak worden geselecteerd.</value>
+    <value>Er moet minimaal één maatgevende berekening voor dit vak worden gedefinieerd.</value>
   </data>
   <data name="MetaData_Couple_distance" xml:space="preserve">
     <value>Koppelingsafstand</value>
