@@ -256,10 +256,10 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
         }
 
         [Test]
-        [TestCase(BreakWaterType.Wall)]
-        [TestCase(BreakWaterType.Caisson)]
-        [TestCase(BreakWaterType.Dam)]
-        public void BreakWaterType_AlwaysOnChange_NotifyObserverAndCalculationPropertyChanged(BreakWaterType breakWaterType)
+        [TestCase(BreakWaterType.Wall, BreakWaterType.Dam)]
+        [TestCase(BreakWaterType.Caisson, BreakWaterType.Wall)]
+        [TestCase(BreakWaterType.Dam, BreakWaterType.Caisson)]
+        public void BreakWaterType_AlwaysOnChange_NotifyObserverAndCalculationPropertyChanged(BreakWaterType breakWaterType, BreakWaterType oldBreakWaterType)
         {
             // Setup
             BreakWaterType newValue = breakWaterType;
@@ -267,7 +267,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             var calculation = new GrassCoverErosionInwardsCalculationScenario();
 
             // This step is necessary because setting the same value would not change the row state.
-            calculation.InputParameters.BreakWater.Type = (BreakWaterType) 4;
+            calculation.InputParameters.BreakWater.Type = oldBreakWaterType;
 
             // Call & Assert
             SetPropertyAndVerifyNotificationsAndOutputForCalculation(row => row.BreakWaterType = newValue, calculation);
@@ -280,7 +280,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
         public void BreakWaterType_ChangeToEqualValue_NoNotificationsOutputNotCleared(BreakWaterType breakWaterType)
         {
             // Setup
-            var oldValue = breakWaterType;
+            BreakWaterType oldValue = breakWaterType;
 
             // Call
             AssertPropertyNotChanged(

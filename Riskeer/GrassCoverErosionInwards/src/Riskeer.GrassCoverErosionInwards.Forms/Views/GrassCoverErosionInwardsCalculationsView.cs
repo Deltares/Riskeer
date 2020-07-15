@@ -50,14 +50,14 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
     {
         private const int selectableHydraulicBoundaryLocationColumnIndex = 1;
         private const int selectableDikeProfileColumnIndex = 2;
+        private readonly IAssessmentSection assessmentSection;
+        private readonly GrassCoverErosionInwardsFailureMechanism failureMechanism;
         private Observer failureMechanismObserver;
         private Observer hydraulicBoundaryLocationsObserver;
         private Observer dikeProfilesObserver;
         private RecursiveObserver<CalculationGroup, GrassCoverErosionInwardsInput> inputObserver;
         private RecursiveObserver<CalculationGroup, GrassCoverErosionInwardsCalculationScenario> calculationScenarioObserver;
         private RecursiveObserver<CalculationGroup, CalculationGroup> calculationGroupObserver;
-        private readonly IAssessmentSection assessmentSection;
-        private readonly GrassCoverErosionInwardsFailureMechanism failureMechanism;
 
         private CalculationGroup calculationGroup;
 
@@ -253,7 +253,11 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
             {
                 Observable = assessmentSection.HydraulicBoundaryDatabase.Locations
             };
-            dikeProfilesObserver = new Observer(UpdateDikeProfilesColumn)
+            dikeProfilesObserver = new Observer(() =>
+            {
+                UpdateDikeProfilesColumn();
+                UpdateGenerateCalculationsButtonState();
+            })
             {
                 Observable = failureMechanism.DikeProfiles
             };
@@ -481,7 +485,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
         private void OnFailureMechanismUpdate()
         {
             UpdateSectionsListBox();
-            UpdateGenerateCalculationsButtonState();
         }
 
         private void UpdateSectionsListBox()

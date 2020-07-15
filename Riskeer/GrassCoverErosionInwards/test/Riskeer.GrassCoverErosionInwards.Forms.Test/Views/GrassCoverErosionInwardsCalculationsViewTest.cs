@@ -232,6 +232,50 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             mocks.VerifyAll();
         }
 
+
+        [Test]
+        public void CalculationsView_ChangingDikeProfiles_ButtonCorrectState()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+
+            mocks.ReplayAll();
+
+            ConfigureHydraulicBoundaryDatabase(assessmentSection);
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+
+            var calculationsView = ShowCalculationsView(ConfigureCalculationGroup(failureMechanism, assessmentSection), failureMechanism, assessmentSection);
+
+            // Precondition
+            var button = (Button) calculationsView.Controls.Find("buttonGenerateCalculations", true)[0];
+            Assert.IsFalse(button.Enabled);
+
+            var failureMechanismSection1 = new FailureMechanismSection("Section 1", new[]
+            {
+                new Point2D(0.0, 0.0),
+                new Point2D(5.0, 0.0)
+            });
+
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
+            {
+                failureMechanismSection1
+            });
+
+            failureMechanism.DikeProfiles.AddRange(new List<DikeProfile>
+            {
+                DikeProfileTestFactory.CreateDikeProfile(new Point2D(0.0, 0.0), "profiel 1")
+            }, string.Empty);
+
+            // Call
+            failureMechanism.DikeProfiles.NotifyObservers();
+
+            // Assert
+            Assert.IsTrue(button.Enabled);
+
+            mocks.VerifyAll();
+        }
+
         [Test]
         public void FailureMechanism_FailureMechanismWithSections_SectionsListBoxCorrectlyInitialized()
         {
@@ -820,7 +864,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
                         },
                         InputParameters =
                         {
-                            DikeProfile = failureMechanism.DikeProfiles.First(),
+                            DikeProfile = failureMechanism.DikeProfiles.FirstOrDefault(),
                             HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(),
                             DikeHeight = (RoundedDouble) 1.1,
                             Orientation = (RoundedDouble) 2.2,
@@ -853,7 +897,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
                         },
                         InputParameters =
                         {
-                            DikeProfile = failureMechanism.DikeProfiles.Last(),
+                            DikeProfile = failureMechanism.DikeProfiles.LastOrDefault(),
                             HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.Last(),
                             DikeHeight = (RoundedDouble) 1.1,
                             Orientation = (RoundedDouble) 2.2,
