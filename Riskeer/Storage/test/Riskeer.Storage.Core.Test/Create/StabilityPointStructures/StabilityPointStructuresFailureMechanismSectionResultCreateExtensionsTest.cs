@@ -76,8 +76,6 @@ namespace Riskeer.Storage.Core.Test.Create.StabilityPointStructures
             Assert.AreEqual(tailorMadeAssessmentProbability, entity.TailorMadeAssessmentProbability);
             Assert.AreEqual(Convert.ToByte(useManualAssembly), entity.UseManualAssembly);
             Assert.AreEqual(manualAssemblyProbability, entity.ManualAssemblyProbability);
-
-            Assert.IsNull(entity.StabilityPointStructuresCalculationEntityId);
         }
 
         [Test]
