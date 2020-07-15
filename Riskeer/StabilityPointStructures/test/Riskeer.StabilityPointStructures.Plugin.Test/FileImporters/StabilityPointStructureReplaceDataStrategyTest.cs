@@ -23,7 +23,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
-using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Riskeer.Common.Data;
 using Riskeer.Common.Data.Exceptions;
@@ -331,53 +330,6 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.FileImporters
             CollectionAssert.AreEquivalent(new IObservable[]
             {
                 calculation,
-                calculation.InputParameters,
-                targetCollection
-            }, affectedObjects);
-        }
-
-        [Test]
-        public void UpdateStructuresWithImportedData_CalculationWithSectionResultAndStructure_CalculationUpdatedAndReturnsAffectedObject()
-        {
-            // Setup
-            var location = new Point2D(12, 34);
-            var structure = new TestStabilityPointStructure(location);
-            var calculation = new TestStabilityPointStructuresCalculationScenario
-            {
-                InputParameters =
-                {
-                    Structure = structure
-                }
-            };
-
-            var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            failureMechanism.CalculationsGroup.Children.Add(calculation);
-            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
-            {
-                FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
-                {
-                    location
-                })
-            });
-
-            StructureCollection<StabilityPointStructure> targetCollection = failureMechanism.StabilityPointStructures;
-            targetCollection.AddRange(new[]
-            {
-                structure
-            }, sourcePath);
-
-            var strategy = new StabilityPointStructureReplaceDataStrategy(failureMechanism);
-
-            // Call
-            IEnumerable<IObservable> affectedObjects = strategy.UpdateStructuresWithImportedData(Enumerable.Empty<StabilityPointStructure>(),
-                                                                                                 sourcePath);
-
-            // Assert
-            Assert.IsNull(calculation.InputParameters.Structure);
-
-            CollectionAssert.IsEmpty(targetCollection);
-            CollectionAssert.AreEquivalent(new IObservable[]
-            {
                 calculation.InputParameters,
                 targetCollection
             }, affectedObjects);
