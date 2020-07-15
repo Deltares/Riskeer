@@ -125,6 +125,16 @@ namespace Riskeer.ClosingStructures.Plugin
                 CreateInstance = context => new ClosingStructuresScenariosView(context.WrappedData, context.ParentFailureMechanism, context.AssessmentSection),
                 CloseForData = CloseScenariosViewForData
             };
+
+            yield return new ViewInfo<ClosingStructuresCalculationGroupContext, CalculationGroup, ClosingStructuresCalculationsView>
+            {
+                CreateInstance = context => new ClosingStructuresCalculationsView(context.WrappedData, context.FailureMechanism, context.AssessmentSection),
+                GetViewData = context => context.WrappedData,
+                GetViewName = (view, context) => context.WrappedData.Name,
+                Image = RiskeerCommonFormsResources.GeneralFolderIcon,
+                AdditionalDataCheck = context => context.WrappedData == context.FailureMechanism.CalculationsGroup,
+                CloseForData = CloseCalculationsViewForData,
+            };
         }
 
         public override IEnumerable<TreeNodeInfo> GetTreeNodeInfos()
@@ -314,6 +324,26 @@ namespace Riskeer.ClosingStructures.Plugin
                 failureMechanism = assessmentSection.GetFailureMechanisms()
                                                     .OfType<ClosingStructuresFailureMechanism>()
                                                     .FirstOrDefault();
+            }
+
+            return failureMechanism != null && ReferenceEquals(view.Data, failureMechanism.CalculationsGroup);
+        }
+
+        private static bool CloseCalculationsViewForData(ClosingStructuresCalculationsView view, object o)
+        {
+            var assessmentSection = o as IAssessmentSection;
+            var failureMechanism = o as ClosingStructuresFailureMechanism;
+
+            if (o is ClosingStructuresFailureMechanismContext failureMechanismContext)
+            {
+                failureMechanism = failureMechanismContext.WrappedData;
+            }
+
+            if (assessmentSection != null)
+            {
+                failureMechanism = assessmentSection.GetFailureMechanisms()
+                                                                            .OfType<ClosingStructuresFailureMechanism>()
+                                                                            .FirstOrDefault();
             }
 
             return failureMechanism != null && ReferenceEquals(view.Data, failureMechanism.CalculationsGroup);
