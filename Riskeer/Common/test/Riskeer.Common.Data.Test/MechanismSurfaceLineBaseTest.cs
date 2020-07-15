@@ -333,7 +333,7 @@ namespace Riskeer.Common.Data.Test
         }
 
         [Test]
-        public void GetLocalPointFromGeometry_NoPointsOnSurfaceLine_ReturnsPointWithNanValues()
+        public void GetLocalPointFromGeometry_NoPointsOnSurfaceLine_ReturnsPointWithNaNValues()
         {
             // Setup
             var surfaceLine = new TestMechanismSurfaceLine();
@@ -346,7 +346,7 @@ namespace Riskeer.Common.Data.Test
         }
 
         [Test]
-        public void GetLocalPointFromGeometry_OnePointOnSurfaceLine_ReturnsPointWithNanValues()
+        public void GetLocalPointFromGeometry_OnePointOnSurfaceLine_ReturnsPointWithNaNValues()
         {
             // Setup
             const double testX = 1.0;

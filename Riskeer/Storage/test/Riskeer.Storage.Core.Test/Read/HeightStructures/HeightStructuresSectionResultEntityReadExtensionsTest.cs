@@ -26,7 +26,6 @@ using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Primitives;
 using Riskeer.HeightStructures.Data;
 using Riskeer.Storage.Core.DbContext;
-using Riskeer.Storage.Core.Read;
 using Riskeer.Storage.Core.Read.HeightStructures;
 
 namespace Riskeer.Storage.Core.Test.Read.HeightStructures
@@ -72,10 +71,7 @@ namespace Riskeer.Storage.Core.Test.Read.HeightStructures
             bool useManualAssembly = random.NextBoolean();
             double manualAssemblyProbability = random.NextDouble();
 
-            var collector = new ReadConversionCollector();
-
             var failureMechanismSectionEntity = new FailureMechanismSectionEntity();
-            collector.Read(failureMechanismSectionEntity, FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
             var entity = new HeightStructuresSectionResultEntity
             {
                 FailureMechanismSectionEntity = failureMechanismSectionEntity,
@@ -105,10 +101,7 @@ namespace Riskeer.Storage.Core.Test.Read.HeightStructures
         public void Read_EntityWithNullValues_SectionResultWithExpectedValuesValues()
         {
             // Setup
-            var collector = new ReadConversionCollector();
-
             var failureMechanismSectionEntity = new FailureMechanismSectionEntity();
-            collector.Read(failureMechanismSectionEntity, FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
             var entity = new HeightStructuresSectionResultEntity
             {
                 FailureMechanismSectionEntity = failureMechanismSectionEntity

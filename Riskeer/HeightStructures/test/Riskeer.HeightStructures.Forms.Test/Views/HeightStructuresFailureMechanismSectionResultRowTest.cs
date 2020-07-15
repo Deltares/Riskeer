@@ -1151,6 +1151,34 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
         }
 
         [Test]
+        public void DetailedAssessmentProbability_NoCalculationScenarios_ReturnNaN()
+        {
+            // Setup
+            var failureMechanism = new HeightStructuresFailureMechanism();
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
+
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var sectionResult = new HeightStructuresFailureMechanismSectionResult(section);
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var resultRow = new HeightStructuresFailureMechanismSectionResultRow(
+                    sectionResult, Enumerable.Empty<StructuresCalculationScenario<HeightStructuresInput>>(),
+                    failureMechanism, assessmentSection, ConstructionProperties);
+
+                // Call
+                double detailedAssessmentProbability = resultRow.DetailedAssessmentProbability;
+
+                // Assert
+                Assert.IsNaN(detailedAssessmentProbability);
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
         public void DetailedAssessmentProbability_CalculationScenarioWithoutOutput_ReturnNaN()
         {
             // Setup

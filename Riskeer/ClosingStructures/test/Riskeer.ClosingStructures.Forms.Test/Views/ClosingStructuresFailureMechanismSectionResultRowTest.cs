@@ -1192,6 +1192,34 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
         }
 
         [Test]
+        public void DetailedAssessmentProbability_NoCalculationScenarios_ReturnNaN()
+        {
+            // Setup
+            var failureMechanism = new ClosingStructuresFailureMechanism();
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
+
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var sectionResult = new ClosingStructuresFailureMechanismSectionResult(section);
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var resultRow = new ClosingStructuresFailureMechanismSectionResultRow(
+                    sectionResult, Enumerable.Empty<StructuresCalculationScenario<ClosingStructuresInput>>(),
+                    failureMechanism, assessmentSection, ConstructionProperties);
+
+                // Call
+                double detailedAssessmentProbability = resultRow.DetailedAssessmentProbability;
+
+                // Assert
+                Assert.IsNaN(detailedAssessmentProbability);
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
         public void DetailedAssessmentProbability_CalculationScenarioWithoutOutput_ReturnNaN()
         {
             // Setup

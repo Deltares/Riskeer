@@ -43,7 +43,7 @@ namespace Riskeer.Common.Data.Test.Probability
         }
 
         [Test]
-        public void IsValidProbability_NanIsValid_ReturnTrue()
+        public void IsValidProbability_NaNIsValid_ReturnTrue()
         {
             // Call
             bool isValid = ProbabilityHelper.IsValidProbability(double.NaN, true);

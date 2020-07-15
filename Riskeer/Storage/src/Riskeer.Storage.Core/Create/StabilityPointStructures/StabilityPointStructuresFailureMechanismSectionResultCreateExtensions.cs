@@ -36,7 +36,7 @@ namespace Riskeer.Storage.Core.Create.StabilityPointStructures
         /// </summary>
         /// <param name="result">The result to create a database entity for.</param>
         /// <returns>A new <see cref="StabilityPointStructuresSectionResultEntity"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="result"/> is <c>null</c>.</exception>
         internal static StabilityPointStructuresSectionResultEntity Create(this StabilityPointStructuresFailureMechanismSectionResult result)
         {
             if (result == null)

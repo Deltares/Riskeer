@@ -993,7 +993,7 @@ namespace Riskeer.Piping.Forms.Test.Views
         }
 
         [Test]
-        public void DetailedAssessmentProbability_NoCalculationSet_ReturnNaN()
+        public void DetailedAssessmentProbability_NoCalculationScenarios_ReturnNaN()
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
@@ -1019,7 +1019,7 @@ namespace Riskeer.Piping.Forms.Test.Views
         }
 
         [Test]
-        public void DetailedAssessmentProbability_CalculationWithoutOutput_ReturnNaN()
+        public void DetailedAssessmentProbability_CalculationScenarioWithoutOutput_ReturnNaN()
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
@@ -1055,7 +1055,7 @@ namespace Riskeer.Piping.Forms.Test.Views
         }
 
         [Test]
-        public void DetailedAssessmentProbability_CalculationContributionNotHundredPercent_ReturnNaN()
+        public void DetailedAssessmentProbability_TotalContributionNotOne_ReturnNaN()
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
@@ -1093,7 +1093,7 @@ namespace Riskeer.Piping.Forms.Test.Views
         }
 
         [Test]
-        public void DetailedAssessmentProbability_CalculationSuccessful_ReturnDetailedAssessmentProbability()
+        public void DetailedAssessmentProbability_CalculationScenarioSuccessful_ReturnDetailedAssessmentProbability()
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();

@@ -234,7 +234,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
         }
 
         [Test]
-        public void GetDetailedAssessmentProbability_ScenarioWithNanResults_ReturnsNaN()
+        public void GetDetailedAssessmentProbability_ScenarioWithNaNResults_ReturnsNaN()
         {
             // Setup
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();

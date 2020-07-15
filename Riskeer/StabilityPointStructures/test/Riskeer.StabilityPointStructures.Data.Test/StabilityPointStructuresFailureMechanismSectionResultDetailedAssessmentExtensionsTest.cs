@@ -26,11 +26,11 @@ using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Riskeer.StabilityPointStructures.Data.TestUtil;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Data.TestUtil;
+using Riskeer.StabilityPointStructures.Data.TestUtil;
 
 namespace Riskeer.StabilityPointStructures.Data.Test
 {
@@ -113,6 +113,48 @@ namespace Riskeer.StabilityPointStructures.Data.Test
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
+        }
+
+        [Test]
+        public void GetDetailedAssessmentProbability_MultipleScenarios_ReturnsValueBasedOnRelevantScenarios()
+        {
+            // Setup
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
+
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var failureMechanismSectionResult = new StabilityPointStructuresFailureMechanismSectionResult(section);
+
+            StructuresCalculationScenario<StabilityPointStructuresInput> calculationScenario1 = StabilityPointStructuresCalculationScenarioTestFactory.CreateStabilityPointStructuresCalculationScenario(section);
+            StructuresCalculationScenario<StabilityPointStructuresInput> calculationScenario2 = StabilityPointStructuresCalculationScenarioTestFactory.CreateStabilityPointStructuresCalculationScenario(section);
+            StructuresCalculationScenario<StabilityPointStructuresInput> calculationScenario3 = StabilityPointStructuresCalculationScenarioTestFactory.CreateStabilityPointStructuresCalculationScenario(section);
+
+            calculationScenario1.IsRelevant = true;
+            calculationScenario1.Contribution = (RoundedDouble) 0.2111;
+            calculationScenario1.Output = new TestStructuresOutput(1.1);
+
+            calculationScenario2.IsRelevant = true;
+            calculationScenario2.Contribution = (RoundedDouble) 0.7889;
+            calculationScenario1.Output = new TestStructuresOutput(2.2);
+
+            calculationScenario3.IsRelevant = false;
+
+            StructuresCalculationScenario<StabilityPointStructuresInput>[] calculations =
+            {
+                calculationScenario1,
+                calculationScenario2,
+                calculationScenario3
+            };
+
+            // Call
+            double detailedAssessmentProbability = failureMechanismSectionResult.GetDetailedAssessmentProbability(calculations, failureMechanism, assessmentSection);
+
+            // Assert
+            Assert.AreEqual(0.3973850177700996, detailedAssessmentProbability);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -215,10 +257,10 @@ namespace Riskeer.StabilityPointStructures.Data.Test
             StructuresCalculationScenario<StabilityPointStructuresInput> calculationScenario2 = StabilityPointStructuresCalculationScenarioTestFactory.CreateNotCalculatedStabilityPointStructuresCalculationScenario(section);
 
             calculationScenario1.IsRelevant = true;
-            calculationScenario1.Contribution = (RoundedDouble)contribution1;
+            calculationScenario1.Contribution = (RoundedDouble) contribution1;
 
             calculationScenario2.IsRelevant = true;
-            calculationScenario2.Contribution = (RoundedDouble)contribution2;
+            calculationScenario2.Contribution = (RoundedDouble) contribution2;
             calculationScenario2.Output = new TestStructuresOutput(double.NaN);
 
             StructuresCalculationScenario<StabilityPointStructuresInput>[] calculations =
@@ -252,8 +294,8 @@ namespace Riskeer.StabilityPointStructures.Data.Test
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             StructuresCalculationScenario<StabilityPointStructuresInput> scenarioA = StabilityPointStructuresCalculationScenarioTestFactory.CreateNotCalculatedStabilityPointStructuresCalculationScenario(section);
             StructuresCalculationScenario<StabilityPointStructuresInput> scenarioB = StabilityPointStructuresCalculationScenarioTestFactory.CreateNotCalculatedStabilityPointStructuresCalculationScenario(section);
-            scenarioA.Contribution = (RoundedDouble)contributionA;
-            scenarioB.Contribution = (RoundedDouble)contributionB;
+            scenarioA.Contribution = (RoundedDouble) contributionA;
+            scenarioB.Contribution = (RoundedDouble) contributionB;
 
             var result = new StabilityPointStructuresFailureMechanismSectionResult(section);
 
@@ -273,7 +315,7 @@ namespace Riskeer.StabilityPointStructures.Data.Test
         public void GetTotalContribution_SectionResultNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => ((StabilityPointStructuresFailureMechanismSectionResult)null).GetTotalContribution(Enumerable.Empty<StructuresCalculationScenario<StabilityPointStructuresInput>>());
+            void Call() => ((StabilityPointStructuresFailureMechanismSectionResult) null).GetTotalContribution(Enumerable.Empty<StructuresCalculationScenario<StabilityPointStructuresInput>>());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -303,33 +345,41 @@ namespace Riskeer.StabilityPointStructures.Data.Test
             var failureMechanismSectionResult = new StabilityPointStructuresFailureMechanismSectionResult(section);
 
             StructuresCalculationScenario<StabilityPointStructuresInput> calculationScenario = StabilityPointStructuresCalculationScenarioTestFactory.CreateNotCalculatedStabilityPointStructuresCalculationScenario(section);
-            calculationScenario.Contribution = (RoundedDouble)0.3211;
+            calculationScenario.Contribution = (RoundedDouble) 0.3211;
 
             StructuresCalculationScenario<StabilityPointStructuresInput> calculationScenario2 = StabilityPointStructuresCalculationScenarioTestFactory.CreateNotCalculatedStabilityPointStructuresCalculationScenario(section);
-            calculationScenario2.Contribution = (RoundedDouble)0.5435;
+            calculationScenario2.Contribution = (RoundedDouble) 0.5435;
 
             StructuresCalculationScenario<StabilityPointStructuresInput> calculationScenario3 = StabilityPointStructuresCalculationScenarioTestFactory.CreateNotCalculatedStabilityPointStructuresCalculationScenario(section);
             calculationScenario3.IsRelevant = false;
+
+            StructuresCalculationScenario<StabilityPointStructuresInput> calculationScenario4 = StabilityPointStructuresCalculationScenarioTestFactory.CreateNotCalculatedStabilityPointStructuresCalculationScenario(
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
+                {
+                    new Point2D(5.0, 0.0),
+                    new Point2D(10.0, 0.0)
+                }));
 
             StructuresCalculationScenario<StabilityPointStructuresInput>[] calculationScenarios =
             {
                 calculationScenario,
                 calculationScenario2,
-                calculationScenario3
+                calculationScenario3,
+                calculationScenario4
             };
 
             // Call
             RoundedDouble totalContribution = failureMechanismSectionResult.GetTotalContribution(calculationScenarios);
 
             // Assert
-            Assert.AreEqual((RoundedDouble)0.8646, totalContribution);
+            Assert.AreEqual((RoundedDouble) 0.8646, totalContribution);
         }
 
         [Test]
         public void GetCalculationScenarios_SectionResultNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => ((StabilityPointStructuresFailureMechanismSectionResult)null).GetCalculationScenarios(Enumerable.Empty<StructuresCalculationScenario<StabilityPointStructuresInput>>());
+            void Call() => ((StabilityPointStructuresFailureMechanismSectionResult) null).GetCalculationScenarios(Enumerable.Empty<StructuresCalculationScenario<StabilityPointStructuresInput>>());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);

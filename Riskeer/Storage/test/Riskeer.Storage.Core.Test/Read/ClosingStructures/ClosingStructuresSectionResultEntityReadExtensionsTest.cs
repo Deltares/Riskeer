@@ -26,7 +26,6 @@ using Riskeer.ClosingStructures.Data;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Primitives;
 using Riskeer.Storage.Core.DbContext;
-using Riskeer.Storage.Core.Read;
 using Riskeer.Storage.Core.Read.ClosingStructures;
 
 namespace Riskeer.Storage.Core.Test.Read.ClosingStructures
@@ -72,10 +71,7 @@ namespace Riskeer.Storage.Core.Test.Read.ClosingStructures
             bool useManualAssembly = random.NextBoolean();
             double manualAssemblyProbability = random.NextDouble();
 
-            var collector = new ReadConversionCollector();
-
             var failureMechanismSectionEntity = new FailureMechanismSectionEntity();
-            collector.Read(failureMechanismSectionEntity, FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
             var entity = new ClosingStructuresSectionResultEntity
             {
                 FailureMechanismSectionEntity = failureMechanismSectionEntity,
@@ -104,10 +100,7 @@ namespace Riskeer.Storage.Core.Test.Read.ClosingStructures
         public void Read_EntityWithNullValues_SectionResultWithNaNValues()
         {
             // Setup
-            var collector = new ReadConversionCollector();
-
             var failureMechanismSectionEntity = new FailureMechanismSectionEntity();
-            collector.Read(failureMechanismSectionEntity, FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
             var entity = new ClosingStructuresSectionResultEntity
             {
                 FailureMechanismSectionEntity = failureMechanismSectionEntity
