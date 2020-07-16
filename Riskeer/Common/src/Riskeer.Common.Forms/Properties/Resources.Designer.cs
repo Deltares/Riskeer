@@ -215,15 +215,6 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Damhoogte [m+NAP].
-        /// </summary>
-        public static string BreakWaterHeight_DisplayName1 {
-            get {
-                return ResourceManager.GetString("BreakWaterHeight_DisplayName1", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Eigenschappen van de dam..
         /// </summary>
         public static string BreakWaterProperties_Description {
@@ -256,15 +247,6 @@ namespace Riskeer.Common.Forms.Properties {
         public static string BreakWaterType_DisplayName {
             get {
                 return ResourceManager.GetString("BreakWaterType_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Damtype.
-        /// </summary>
-        public static string BreakWaterType_DisplayName1 {
-            get {
-                return ResourceManager.GetString("BreakWaterType_DisplayName1", resourceCulture);
             }
         }
         
@@ -673,6 +655,24 @@ namespace Riskeer.Common.Forms.Properties {
         public static string Calculations_per_FailureMechanismSection_DisplayName {
             get {
                 return ResourceManager.GetString("Calculations_per_FailureMechanismSection_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Damhoogte [m+NAP].
+        /// </summary>
+        public static string CalculationsView_BreakWaterHeight_DisplayName {
+            get {
+                return ResourceManager.GetString("CalculationsView_BreakWaterHeight_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Damtype.
+        /// </summary>
+        public static string CalculationsView_BreakWaterType_DisplayName {
+            get {
+                return ResourceManager.GetString("CalculationsView_BreakWaterType_DisplayName", resourceCulture);
             }
         }
         
@@ -4171,9 +4171,9 @@ namespace Riskeer.Common.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Gebruik voorlandgeometrie.
         /// </summary>
-        public static string Use_ForeShore_DisplayName {
+        public static string Use_Foreshore_DisplayName {
             get {
-                return ResourceManager.GetString("Use_ForeShore_DisplayName", resourceCulture);
+                return ResourceManager.GetString("Use_Foreshore_DisplayName", resourceCulture);
             }
         }
         

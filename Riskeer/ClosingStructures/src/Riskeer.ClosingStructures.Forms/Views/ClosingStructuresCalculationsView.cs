@@ -163,14 +163,14 @@ namespace Riskeer.ClosingStructures.Forms.Views
                                                   RiskeerCommonFormsResources.Use_BreakWater_DisplayName);
 
             dataGridViewControl.AddComboBoxColumn(nameof(ClosingStructuresCalculationRow.BreakWaterType),
-                                                  RiskeerCommonFormsResources.BreakWaterType_DisplayName1,
+                                                  RiskeerCommonFormsResources.CalculationsView_BreakWaterType_DisplayName,
                                                   GetBreakWaterTypes(),
                                                   nameof(EnumDisplayWrapper<BreakWaterType>.Value),
                                                   nameof(EnumDisplayWrapper<BreakWaterType>.DisplayName));
 
             dataGridViewControl.AddTextBoxColumn(
                 nameof(ClosingStructuresCalculationRow.BreakWaterHeight),
-                RiskeerCommonFormsResources.BreakWaterHeight_DisplayName1);
+                RiskeerCommonFormsResources.CalculationsView_BreakWaterHeight_DisplayName);
 
             dataGridViewControl.AddCheckBoxColumn(nameof(ClosingStructuresCalculationRow.UseForeShoreGeometry),
                                                   RiskeerCommonFormsResources.Use_ForeShore_DisplayName);
@@ -183,15 +183,21 @@ namespace Riskeer.ClosingStructures.Forms.Views
 
             dataGridViewControl.AddTextBoxColumn(
                 nameof(ClosingStructuresCalculationRow.MeanInsideWaterLevel),
-                string.Concat(RiskeerCommonFormsResources.NormalDistribution_Mean_DisplayName, " ", RiskeerCommonFormsResources.Structure_InsideWaterLevel_DisplayName));
+                string.Concat(RiskeerCommonFormsResources.NormalDistribution_Mean_DisplayName,
+                              " ",
+                              RiskeerCommonFormsResources.Structure_InsideWaterLevel_DisplayName));
 
             dataGridViewControl.AddTextBoxColumn(
                 nameof(ClosingStructuresCalculationRow.CriticalOvertoppingDischarge),
-                string.Concat(RiskeerCommonFormsResources.NormalDistribution_Mean_DisplayName, " ", RiskeerCommonFormsResources.Structure_CriticalOvertoppingDischarge_DisplayName));
+                string.Concat(RiskeerCommonFormsResources.NormalDistribution_Mean_DisplayName,
+                              " ",
+                              RiskeerCommonFormsResources.Structure_CriticalOvertoppingDischarge_DisplayName));
 
             dataGridViewControl.AddTextBoxColumn(
                 nameof(ClosingStructuresCalculationRow.AllowedLevelIncreaseStorage),
-                string.Concat(RiskeerCommonFormsResources.NormalDistribution_Mean_DisplayName, " ", RiskeerCommonFormsResources.Structure_AllowedLevelIncreaseStorage_DisplayName));
+                string.Concat(RiskeerCommonFormsResources.NormalDistribution_Mean_DisplayName,
+                              " ",
+                              RiskeerCommonFormsResources.Structure_AllowedLevelIncreaseStorage_DisplayName));
         }
 
         private void InitializeListBox()

@@ -166,17 +166,17 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
                                                   RiskeerCommonFormsResources.Use_BreakWater_DisplayName);
 
             dataGridViewControl.AddComboBoxColumn(nameof(GrassCoverErosionInwardsCalculationRow.BreakWaterType),
-                                                  RiskeerCommonFormsResources.BreakWaterType_DisplayName1,
+                                                  RiskeerCommonFormsResources.CalculationsView_BreakWaterType_DisplayName,
                                                   GetBreakWaterTypes(),
                                                   nameof(EnumDisplayWrapper<BreakWaterType>.Value),
                                                   nameof(EnumDisplayWrapper<BreakWaterType>.DisplayName));
 
             dataGridViewControl.AddTextBoxColumn(
                 nameof(GrassCoverErosionInwardsCalculationRow.BreakWaterHeight),
-                RiskeerCommonFormsResources.BreakWaterHeight_DisplayName1);
+                RiskeerCommonFormsResources.CalculationsView_BreakWaterHeight_DisplayName);
 
-            dataGridViewControl.AddCheckBoxColumn(nameof(GrassCoverErosionInwardsCalculationRow.UseForeShoreGeometry),
-                                                  RiskeerCommonFormsResources.Use_ForeShore_DisplayName);
+            dataGridViewControl.AddCheckBoxColumn(nameof(GrassCoverErosionInwardsCalculationRow.UseForeshoreGeometry),
+                                                  RiskeerCommonFormsResources.Use_Foreshore_DisplayName);
 
             dataGridViewControl.AddTextBoxColumn(
                 nameof(GrassCoverErosionInwardsCalculationRow.DikeHeight),

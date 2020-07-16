@@ -181,7 +181,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
         /// <summary>
         /// Gets or sets whether foreshore profile of the <see cref="CalculationScenario"/> should be used.
         /// </summary>
-        public bool UseForeShoreGeometry
+        public bool UseForeshoreGeometry
         {
             get => CalculationScenario.InputParameters.UseForeshore;
             set

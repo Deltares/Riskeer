@@ -339,7 +339,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             var calculation = new GrassCoverErosionInwardsCalculationScenario();
 
             // Call & Assert
-            SetPropertyAndVerifyNotificationsAndOutputForCalculation(row => row.UseForeShoreGeometry = newValue, calculation);
+            SetPropertyAndVerifyNotificationsAndOutputForCalculation(row => row.UseForeshoreGeometry = newValue, calculation);
         }
 
         [Test]
@@ -352,8 +352,8 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             AssertPropertyNotChanged(
                 row =>
                 {
-                    oldValue = row.UseForeShoreGeometry;
-                    row.UseForeShoreGeometry = row.UseForeShoreGeometry;
+                    oldValue = row.UseForeshoreGeometry;
+                    row.UseForeshoreGeometry = row.UseForeshoreGeometry;
                 },
                 calculation =>
                 {
@@ -381,7 +381,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             // Call
             var row = new GrassCoverErosionInwardsCalculationRow(calculation, new ObservablePropertyChangeHandler(calculation, new GrassCoverErosionInwardsInput()))
             {
-                UseForeShoreGeometry = true
+                UseForeshoreGeometry = true
             };
 
             // Asserts
