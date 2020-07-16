@@ -167,7 +167,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
 
             dataGridViewControl.AddComboBoxColumn(nameof(GrassCoverErosionInwardsCalculationRow.BreakWaterType),
                                                   RiskeerCommonFormsResources.CalculationsView_BreakWaterType_DisplayName,
-                                                  GetBreakWaterTypes(),
+                                                  GetEnumTypes<BreakWaterType>(),
                                                   nameof(EnumDisplayWrapper<BreakWaterType>.Value),
                                                   nameof(EnumDisplayWrapper<BreakWaterType>.DisplayName));
 
@@ -419,11 +419,11 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
             }
         }
 
-        private static IEnumerable<EnumDisplayWrapper<BreakWaterType>> GetBreakWaterTypes()
+        private static IEnumerable<EnumDisplayWrapper<T>> GetEnumTypes<T>()
         {
-            return Enum.GetValues(typeof(BreakWaterType))
-                       .OfType<BreakWaterType>()
-                       .Select(bwt => new EnumDisplayWrapper<BreakWaterType>(bwt))
+            return Enum.GetValues(typeof(T))
+                       .OfType<T>()
+                       .Select(et => new EnumDisplayWrapper<T>(et))
                        .ToArray();
         }
 

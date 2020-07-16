@@ -67,6 +67,10 @@ namespace Riskeer.ClosingStructures.Forms.Views
         /// <summary>
         /// Creates a new instance of <see cref="ClosingStructuresCalculationsView"/>.
         /// </summary>
+        /// <param name="data">The data.</param>
+        /// <param name="failureMechanism">The failure mechanism.</param>
+        /// <param name="assessmentSection">The assessment section.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public ClosingStructuresCalculationsView(CalculationGroup data, ClosingStructuresFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
         {
             if (data == null)
@@ -164,7 +168,7 @@ namespace Riskeer.ClosingStructures.Forms.Views
 
             dataGridViewControl.AddComboBoxColumn(nameof(ClosingStructuresCalculationRow.BreakWaterType),
                                                   RiskeerCommonFormsResources.CalculationsView_BreakWaterType_DisplayName,
-                                                  GetBreakWaterTypes(),
+                                                  GetEnumTypes<BreakWaterType>(),
                                                   nameof(EnumDisplayWrapper<BreakWaterType>.Value),
                                                   nameof(EnumDisplayWrapper<BreakWaterType>.DisplayName));
 
@@ -177,7 +181,7 @@ namespace Riskeer.ClosingStructures.Forms.Views
 
             dataGridViewControl.AddComboBoxColumn(nameof(ClosingStructuresCalculationRow.InflowModelType),
                                                   RiskeerCommonFormsResources.Structure_InflowModelType_DisplayName,
-                                                  GetInflowModelTypes(),
+                                                  GetEnumTypes<ClosingStructureInflowModelType>(),
                                                   nameof(EnumDisplayWrapper<ClosingStructureInflowModelType>.Value),
                                                   nameof(EnumDisplayWrapper<ClosingStructureInflowModelType>.DisplayName));
 
@@ -296,8 +300,7 @@ namespace Riskeer.ClosingStructures.Forms.Views
                 dataGridViewControl.AutoResizeColumns();
             }
 
-            var failureMechanismSection = listBox.SelectedItem as FailureMechanismSection;
-            if (failureMechanismSection == null || calculationGroup == null)
+            if (!(listBox.SelectedItem is FailureMechanismSection failureMechanismSection))
             {
                 dataGridViewControl.SetDataSource(null);
                 return;
@@ -429,19 +432,11 @@ namespace Riskeer.ClosingStructures.Forms.Views
             }
         }
 
-        private static IEnumerable<EnumDisplayWrapper<BreakWaterType>> GetBreakWaterTypes()
+        private static IEnumerable<EnumDisplayWrapper<T>> GetEnumTypes<T>()
         {
-            return Enum.GetValues(typeof(BreakWaterType))
-                       .OfType<BreakWaterType>()
-                       .Select(bwt => new EnumDisplayWrapper<BreakWaterType>(bwt))
-                       .ToArray();
-        }
-
-        private static IEnumerable<EnumDisplayWrapper<ClosingStructureInflowModelType>> GetInflowModelTypes()
-        {
-            return Enum.GetValues(typeof(ClosingStructureInflowModelType))
-                       .OfType<ClosingStructureInflowModelType>()
-                       .Select(imt => new EnumDisplayWrapper<ClosingStructureInflowModelType>(imt))
+            return Enum.GetValues(typeof(T))
+                       .OfType<T>()
+                       .Select(et => new EnumDisplayWrapper<T>(et))
                        .ToArray();
         }
 
@@ -509,7 +504,7 @@ namespace Riskeer.ClosingStructures.Forms.Views
         {
             listBox.Items.Clear();
 
-            if (failureMechanism != null && failureMechanism.Sections.Any())
+            if (failureMechanism.Sections.Any())
             {
                 listBox.Items.AddRange(failureMechanism.Sections.Cast<object>().ToArray());
                 listBox.SelectedItem = failureMechanism.Sections.First();
