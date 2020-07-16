@@ -120,49 +120,11 @@ namespace Demo.Riskeer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Demo traject.
-        /// </summary>
-        public static string DemoAssessmentSection {
-            get {
-                return ResourceManager.GetString("DemoAssessmentSection", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Voorbeeld data.
-        /// </summary>
-        public static string ExampleData {
-            get {
-                return ResourceManager.GetString("ExampleData", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap FaultTreeIcon {
             get {
                 object obj = ResourceManager.GetObject("FaultTreeIcon", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap FolderIcon {
-            get {
-                object obj = ResourceManager.GetObject("FolderIcon", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap FolderIconLarge {
-            get {
-                object obj = ResourceManager.GetObject("FolderIconLarge", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
