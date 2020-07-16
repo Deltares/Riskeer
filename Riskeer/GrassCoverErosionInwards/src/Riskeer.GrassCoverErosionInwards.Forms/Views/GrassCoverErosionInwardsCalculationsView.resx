@@ -127,10 +127,7 @@
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="splitContainer.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 4</value>
-  </data>
-  <data name="splitContainer.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>3, 3</value>
   </data>
   <data name="tableLayoutPanelListBox.ColumnCount" type="System.Int32, mscorlib">
     <value>1</value>
@@ -141,17 +138,14 @@
   <data name="listBox.IntegralHeight" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
-  <data name="listBox.ItemHeight" type="System.Int32, mscorlib">
-    <value>16</value>
-  </data>
   <data name="listBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 25</value>
+    <value>3, 20</value>
   </data>
   <data name="listBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 0, 4, 0</value>
+    <value>3, 0, 3, 0</value>
   </data>
   <data name="listBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>153, 195</value>
+    <value>453, 548</value>
   </data>
   <data name="listBox.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -175,13 +169,10 @@
     <value>NoControl</value>
   </data>
   <data name="labelFailureMechanismSections.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 0</value>
-  </data>
-  <data name="labelFailureMechanismSections.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 0, 4, 0</value>
+    <value>3, 0</value>
   </data>
   <data name="labelFailureMechanismSections.Size" type="System.Drawing.Size, System.Drawing">
-    <value>32, 17</value>
+    <value>26, 13</value>
   </data>
   <data name="labelFailureMechanismSections.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -207,14 +198,11 @@
   <data name="tableLayoutPanelListBox.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
   </data>
-  <data name="tableLayoutPanelListBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
-  </data>
   <data name="tableLayoutPanelListBox.RowCount" type="System.Int32, mscorlib">
     <value>2</value>
   </data>
   <data name="tableLayoutPanelListBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>153, 195</value>
+    <value>459, 568</value>
   </data>
   <data name="tableLayoutPanelListBox.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -232,7 +220,7 @@
     <value>0</value>
   </data>
   <data name="tableLayoutPanelListBox.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
-    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="listBox" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="labelFailureMechanismSections" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,100" /&gt;&lt;Rows Styles="Absolute,25,Percent,100,Absolute,20" /&gt;&lt;/TableLayoutSettings&gt;</value>
+    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="listBox" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="labelFailureMechanismSections" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,100" /&gt;&lt;Rows Styles="Absolute,20,Percent,100,Absolute,16" /&gt;&lt;/TableLayoutSettings&gt;</value>
   </data>
   <data name="&gt;&gt;splitContainer.Panel1.Name" xml:space="preserve">
     <value>splitContainer.Panel1</value>
@@ -265,13 +253,10 @@
     <value>NoControl</value>
   </data>
   <data name="warningText.Location" type="System.Drawing.Point, System.Drawing">
-    <value>29, -1</value>
-  </data>
-  <data name="warningText.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 0, 4, 0</value>
+    <value>22, -1</value>
   </data>
   <data name="warningText.Size" type="System.Drawing.Size, System.Drawing">
-    <value>153, 195</value>
+    <value>480, 13</value>
   </data>
   <data name="warningText.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -296,17 +281,16 @@
   </data>
   <data name="warningIcon.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAAHuSURBVDhPtZJLaFNREIYDguBCwY0uRBBURIqUQi1StCvB
-        nahUEzS6kC66cNOVuNCFUBQsumgWilhoK0h9gPWB+MBUCtqi+GjzbtqoITdN0tjk5t6Yx839nNwGi1g0
-        FRz44Zzh/N8wM8f2XyP1YjfJZ63UrsuLqjnr6Sbz6fy/ARJSuVLKUpr3ojzYuTxI4mkrasCFaeQwS3Ey
-        k1eI3m2qHzL7ZBdUihQTLkqpPoHM8WWosT5A1axFhsSfxjfYZsnQPWT9A8wMNvwdkh7rArOIFj6Bd6DN
-        khZ0YpbTxJ53/hmgPGrhe3JMhqeghY7j7d9jSfXbMXJv0KIjBK9tWRqiPGwhM9EjlZIUFJcAnEwP76sB
-        jqBPOakUZoiPnMVzeePvkNhws5hzlNVR8mGnBchHOki9taP6DqMH2ynEXZS1KB8vrP8VELvfLEO6IYOL
-        U4hdIj91VADHFlvwtaMHDqH5DmDkA8TcFxk/s2YRMus+KTvX5NM8Rg85LOUCUtnvELNDhmgXwEE0/37y
-        IXkrbU707l0ARO81oUdfWgCzPC/6tiBDzlX9zKVrmpO8Sur9HV51rsD29XYjn2/tIHKzgen+7YT7thG6
-        vpXg1c34ejcx2bOBD93reHduLeOnV/O6axWjp1ZaZneHbemN1B822w99m5/zHT+5ugAAAABJRU5ErkJg
-        gg==
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAS
+        dAAAEnQB3mYfeAAAAe5JREFUOE+1kktoU1EQhgOC4ELBjS5EEFREipRCLVK0K8GdqFQTNLqQLrpw05W4
+        0IVQFCy6aBaKWGgrSH2A9YH4wFQK2qL4aPNu2qghN03S2OTm3pjHzf2c3AaLWDQVHPjhnOH83zAzx/Zf
+        I/ViN8lnrdSuy4uqOevpJvPp/L8BElK5UspSmveiPNi5PEjiaStqwIVp5DBLcTKTV4jebaofMvtkF1SK
+        FBMuSqk+gczxZaixPkDVrEWGxJ/GN9hmydA9ZP0DzAw2/B2SHusCs4gWPoF3oM2SFnRiltPEnnf+GaA8
+        auF7ckyGp6CFjuPt32NJ9dsxcm/QoiMEr21ZGqI8bCEz0SOVkhQUlwCcTA/vqwGOoE85qRRmiI+cxXN5
+        4++Q2HCzmHOU1VHyYacFyEc6SL21o/oOowfbKcRdlLUoHy+s/xUQu98sQ7ohg4tTiF0iP3VUAMcWW/C1
+        owcOofkOYOQDxNwXGT+zZhEy6z4pO9fk0zxGDzks5QJS2e8Qs0OGaBfAQTT/fvIheSttTvTuXQBE7zWh
+        R19aALM8L/q2IEPOVf3MpWuak7xK6v0dXnWuwPb1diOfb+0gcrOB6f7thPu2Ebq+leDVzfh6NzHZs4EP
+        3et4d24t46dX87prFaOnVlpmd4dt6Y3UHzbbD32bn/MdP7m6AAAAAElFTkSuQmCC
 </value>
   </data>
   <data name="warningIcon.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
@@ -319,10 +303,10 @@
     <value>0, 0, 0, 0</value>
   </data>
   <data name="warningIcon.MaximumSize" type="System.Drawing.Size, System.Drawing">
-    <value>25, 25</value>
+    <value>19, 20</value>
   </data>
   <data name="warningIcon.Size" type="System.Drawing.Size, System.Drawing">
-    <value>25, 16</value>
+    <value>19, 12</value>
   </data>
   <data name="warningIcon.SizeMode" type="System.Windows.Forms.PictureBoxSizeMode, System.Windows.Forms">
     <value>Zoom</value>
@@ -346,13 +330,10 @@
     <value>Top</value>
   </data>
   <data name="warningPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 243</value>
-  </data>
-  <data name="warningPanel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>3, 551</value>
   </data>
   <data name="warningPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>671, 16</value>
+    <value>965, 12</value>
   </data>
   <data name="warningPanel.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -376,13 +357,10 @@
     <value>NoControl</value>
   </data>
   <data name="labelCalculations.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 0</value>
-  </data>
-  <data name="labelCalculations.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 0, 4, 0</value>
+    <value>3, 0</value>
   </data>
   <data name="labelCalculations.Size" type="System.Drawing.Size, System.Drawing">
-    <value>240, 17</value>
+    <value>182, 13</value>
   </data>
   <data name="labelCalculations.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -406,13 +384,13 @@
     <value>Top, Bottom, Left, Right</value>
   </data>
   <data name="dataGridViewControl.Location" type="System.Drawing.Point, System.Drawing">
-    <value>5, 30</value>
+    <value>4, 24</value>
   </data>
   <data name="dataGridViewControl.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>5, 5, 5, 5</value>
+    <value>4, 4, 4, 4</value>
   </data>
   <data name="dataGridViewControl.Size" type="System.Drawing.Size, System.Drawing">
-    <value>669, 204</value>
+    <value>963, 520</value>
   </data>
   <data name="dataGridViewControl.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -429,17 +407,17 @@
   <data name="&gt;&gt;dataGridViewControl.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
+  <data name="tableLayoutPanelDataGrid.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
   <data name="tableLayoutPanelDataGrid.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
   </data>
-  <data name="tableLayoutPanelDataGrid.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
-  </data>
   <data name="tableLayoutPanelDataGrid.RowCount" type="System.Int32, mscorlib">
-    <value>5</value>
+    <value>3</value>
   </data>
   <data name="tableLayoutPanelDataGrid.Size" type="System.Drawing.Size, System.Drawing">
-    <value>679, 384</value>
+    <value>971, 568</value>
   </data>
   <data name="tableLayoutPanelDataGrid.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -457,7 +435,7 @@
     <value>0</value>
   </data>
   <data name="tableLayoutPanelDataGrid.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
-    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="warningPanel" Row="2" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="labelCalculations" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="dataGridViewControl" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,100" /&gt;&lt;Rows Styles="Absolute,25,Percent,100,Absolute,25,Absolute,100,Absolute,20" /&gt;&lt;/TableLayoutSettings&gt;</value>
+    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="warningPanel" Row="2" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="labelCalculations" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="dataGridViewControl" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,100" /&gt;&lt;Rows Styles="Absolute,20,Percent,100,Absolute,20,Absolute,20,Absolute,20" /&gt;&lt;/TableLayoutSettings&gt;</value>
   </data>
   <data name="&gt;&gt;splitContainer.Panel2.Name" xml:space="preserve">
     <value>splitContainer.Panel2</value>
@@ -475,13 +453,10 @@
     <value>0</value>
   </data>
   <data name="splitContainer.Size" type="System.Drawing.Size, System.Drawing">
-    <value>659, 259</value>
+    <value>1434, 568</value>
   </data>
   <data name="splitContainer.SplitterDistance" type="System.Int32, mscorlib">
-    <value>211</value>
-  </data>
-  <data name="splitContainer.SplitterWidth" type="System.Int32, mscorlib">
-    <value>5</value>
+    <value>459</value>
   </data>
   <data name="splitContainer.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -511,13 +486,10 @@
     <value>NoControl</value>
   </data>
   <data name="buttonGenerateCalculations.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 271</value>
-  </data>
-  <data name="buttonGenerateCalculations.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+    <value>3, 577</value>
   </data>
   <data name="buttonGenerateCalculations.Size" type="System.Drawing.Size, System.Drawing">
-    <value>212, 33</value>
+    <value>159, 27</value>
   </data>
   <data name="buttonGenerateCalculations.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -543,14 +515,11 @@
   <data name="tableLayoutPanelUserControl.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
   </data>
-  <data name="tableLayoutPanelUserControl.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
-  </data>
   <data name="tableLayoutPanelUserControl.RowCount" type="System.Int32, mscorlib">
     <value>2</value>
   </data>
   <data name="tableLayoutPanelUserControl.Size" type="System.Drawing.Size, System.Drawing">
-    <value>667, 308</value>
+    <value>1440, 607</value>
   </data>
   <data name="tableLayoutPanelUserControl.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -568,13 +537,13 @@
     <value>0</value>
   </data>
   <data name="tableLayoutPanelUserControl.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
-    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="splitContainer" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="buttonGenerateCalculations" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,100" /&gt;&lt;Rows Styles="Percent,100,AutoSize,0,Absolute,25" /&gt;&lt;/TableLayoutSettings&gt;</value>
+    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="splitContainer" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="buttonGenerateCalculations" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,100" /&gt;&lt;Rows Styles="Percent,100,AutoSize,0,Absolute,20" /&gt;&lt;/TableLayoutSettings&gt;</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
   <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>8, 16</value>
+    <value>6, 13</value>
   </data>
   <data name="$this.AutoScroll" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -582,11 +551,8 @@
   <data name="$this.AutoScrollMinSize" type="System.Drawing.Size, System.Drawing">
     <value>500, 250</value>
   </data>
-  <data name="$this.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
-  </data>
   <data name="$this.Size" type="System.Drawing.Size, System.Drawing">
-    <value>667, 308</value>
+    <value>1440, 607</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>GrassCoverErosionInwardsCalculationsView</value>
