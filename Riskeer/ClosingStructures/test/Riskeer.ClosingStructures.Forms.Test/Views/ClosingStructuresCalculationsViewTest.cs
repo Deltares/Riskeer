@@ -157,7 +157,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
 
             AssertColumnMembers(dataGridView.Columns.OfType<DataGridViewComboBoxColumn>().ToArray());
 
-            // AssertDataGridViewControlColumnHeaders(dataGridView);
+            //AssertDataGridViewControlColumnHeaders(dataGridView);
 
             mocks.VerifyAll();
         }
@@ -355,7 +355,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
             Assert.AreEqual("Havendam", cells[breakWaterTypeColumnIndex].FormattedValue);
             Assert.AreEqual(3.30.ToString("0.00", CultureInfo.CurrentCulture), cells[breakWaterHeightColumnIndex].FormattedValue);
             Assert.AreEqual(false, cells[useForeShoreGeometryColumnIndex].FormattedValue);
-            Assert.AreEqual("", cells[inflowModelTypeColumnIndex].FormattedValue);
+            Assert.AreEqual("Verdronken koker", cells[inflowModelTypeColumnIndex].FormattedValue);
             Assert.AreEqual(0.30.ToString("0.00", CultureInfo.CurrentCulture), cells[meanInsideWaterLevelColumnIndex].FormattedValue);
             Assert.AreEqual(0.01.ToString("0.00", CultureInfo.CurrentCulture), cells[criticalOvertoppingDischargeColumnIndex].FormattedValue);
             Assert.AreEqual(100.0.ToString("0.00", CultureInfo.CurrentCulture), cells[allowedLevelIncreaseStorageColumnIndex].FormattedValue);
@@ -461,49 +461,47 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
             mocks.VerifyAll();
         }
 
-        // [Test]
-        // [TestCase(1, breakWaterHeightColumnIndex)]
-        // [TestCase(1e-2, breakWaterHeightColumnIndex)]
-        // [TestCase(1e+6, breakWaterHeightColumnIndex)]
-        // [TestCase(14.3, breakWaterHeightColumnIndex)]
-        // [TestCase(1, meanInsideWaterLevelColumnIndex)]
-        // [TestCase(1e+6, meanInsideWaterLevelColumnIndex)]
-        // [TestCase(14.3, meanInsideWaterLevelColumnIndex)]
-        // [TestCase(1, criticalOvertoppingDischargeColumnIndex)]
-        // [TestCase(1e-6, criticalOvertoppingDischargeColumnIndex)]
-        // [TestCase(1e+6, criticalOvertoppingDischargeColumnIndex)]
-        // [TestCase(14.3, criticalOvertoppingDischargeColumnIndex)]
-        // [TestCase(1, allowedLevelIncreaseStorageColumnIndex)]
-        // [TestCase(1e-6, allowedLevelIncreaseStorageColumnIndex)]
-        // [TestCase(1e+6, allowedLevelIncreaseStorageColumnIndex)]
-        // [TestCase(14.3, allowedLevelIncreaseStorageColumnIndex)]
-        // public void FailureMechanismResultView_EditValueValid_DoNotShowErrorToolTipAndEditValue(double newValue, int cellIndex)
-        // {
-        //     // Setup
-        //     var mocks = new MockRepository();
-        //     var assessmentSection = mocks.Stub<IAssessmentSection>();
-        //     mocks.ReplayAll();
-        //
-        //     ConfigureHydraulicBoundaryDatabase(assessmentSection);
-        //     ClosingStructuresFailureMechanism failureMechanism = ConfigureFailureMechanism();
-        //     CalculationGroup calculationGroup = ConfigureCalculationGroup(failureMechanism, assessmentSection);
-        //
-        //     var newRoundedValue = (RoundedDouble) newValue;
-        //
-        //     ShowCalculationsView(calculationGroup, failureMechanism, assessmentSection);
-        //
-        //     mocks.ReplayAll();
-        //
-        //     var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-        //
-        //     // Call
-        //     dataGridView.Rows[0].Cells[cellIndex].Value = newRoundedValue;
-        //
-        //     // Assert
-        //     Assert.IsEmpty(dataGridView.Rows[0].ErrorText);
-        //
-        //     mocks.VerifyAll();
-        // }
+        [Test]
+        [TestCase(1, breakWaterHeightColumnIndex)]
+        [TestCase(1e-2, breakWaterHeightColumnIndex)]
+        [TestCase(1e+6, breakWaterHeightColumnIndex)]
+        [TestCase(14.3, breakWaterHeightColumnIndex)]
+        [TestCase(1, meanInsideWaterLevelColumnIndex)]
+        [TestCase(1e+6, meanInsideWaterLevelColumnIndex)]
+        [TestCase(14.3, meanInsideWaterLevelColumnIndex)]
+        [TestCase(1, criticalOvertoppingDischargeColumnIndex)]
+        [TestCase(1e+6, criticalOvertoppingDischargeColumnIndex)]
+        [TestCase(14.3, criticalOvertoppingDischargeColumnIndex)]
+        [TestCase(1, allowedLevelIncreaseStorageColumnIndex)]
+        [TestCase(1e+6, allowedLevelIncreaseStorageColumnIndex)]
+        [TestCase(14.3, allowedLevelIncreaseStorageColumnIndex)]
+        public void FailureMechanismResultView_EditValueValid_DoNotShowErrorToolTipAndEditValue(double newValue, int cellIndex)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+        
+            ConfigureHydraulicBoundaryDatabase(assessmentSection);
+            ClosingStructuresFailureMechanism failureMechanism = ConfigureFailureMechanism();
+            CalculationGroup calculationGroup = ConfigureCalculationGroup(failureMechanism, assessmentSection);
+        
+            var newRoundedValue = (RoundedDouble) newValue;
+        
+            ShowCalculationsView(calculationGroup, failureMechanism, assessmentSection);
+        
+            mocks.ReplayAll();
+        
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+        
+            // Call
+            dataGridView.Rows[0].Cells[cellIndex].Value = newRoundedValue;
+        
+            // Assert
+            Assert.IsEmpty(dataGridView.Rows[0].ErrorText);
+        
+            mocks.VerifyAll();
+        }
 
         [Test]
         public void CalculationsViewWithFailureMechanism_WhenSectionsAddedAndFailureMechanismNotified_ThenSectionsListBoxCorrectlyUpdated()

@@ -175,12 +175,11 @@ namespace Riskeer.ClosingStructures.Forms.Views
             dataGridViewControl.AddCheckBoxColumn(nameof(ClosingStructuresCalculationRow.UseForeShoreGeometry),
                                                   RiskeerCommonFormsResources.Use_ForeShore_DisplayName);
 
-            dataGridViewControl.AddComboBoxColumn<DataGridViewComboBoxItemWrapper<SelectableHydraulicBoundaryLocation>>(
-                nameof(ClosingStructuresCalculationRow.InflowModelType),
-                RiskeerCommonFormsResources.Structure_InflowModelType_DisplayName,
-                null,
-                nameof(DataGridViewComboBoxItemWrapper<ClosingStructureInflowModelType>.This),
-                nameof(DataGridViewComboBoxItemWrapper<ClosingStructureInflowModelType>.DisplayName));
+            dataGridViewControl.AddComboBoxColumn(nameof(ClosingStructuresCalculationRow.InflowModelType),
+                                                  RiskeerCommonFormsResources.Structure_InflowModelType_DisplayName,
+                                                  GetInflowModelTypes(),
+                                                  nameof(EnumDisplayWrapper<ClosingStructureInflowModelType>.Value),
+                                                  nameof(EnumDisplayWrapper<ClosingStructureInflowModelType>.DisplayName));
 
             dataGridViewControl.AddTextBoxColumn(
                 nameof(ClosingStructuresCalculationRow.MeanInsideWaterLevel),
@@ -432,6 +431,14 @@ namespace Riskeer.ClosingStructures.Forms.Views
                        .ToArray();
         }
 
+        private static IEnumerable<EnumDisplayWrapper<ClosingStructureInflowModelType>> GetInflowModelTypes()
+        {
+            return Enum.GetValues(typeof(ClosingStructureInflowModelType))
+                       .OfType<ClosingStructureInflowModelType>()
+                       .Select(imt => new EnumDisplayWrapper<ClosingStructureInflowModelType>(imt))
+                       .ToArray();
+        }
+
         private IEnumerable<SelectableHydraulicBoundaryLocation> GetSelectableHydraulicBoundaryLocationsFromFailureMechanism()
         {
             List<HydraulicBoundaryLocation> hydraulicBoundaryLocations = assessmentSection.HydraulicBoundaryDatabase.Locations;
@@ -458,22 +465,22 @@ namespace Riskeer.ClosingStructures.Forms.Views
             using (var dialog = new StructureSelectionDialog(Parent, failureMechanism.ClosingStructures))
             {
                 dialog.ShowDialog();
-                //GenerateCalculations(calculationGroup, dialog.SelectedItems);
+                GenerateCalculations(calculationGroup, dialog.SelectedItems.Cast<ClosingStructure>());
             }
 
             calculationGroup.NotifyObservers();
         }
 
-        private static void GenerateCalculations(CalculationGroup calculationGroup, IEnumerable<ForeshoreProfile> foreshoreProfiles)
+        private static void GenerateCalculations(CalculationGroup calculationGroup, IEnumerable<ClosingStructure> structures)
         {
-            foreach (ForeshoreProfile profile in foreshoreProfiles)
+            foreach (ClosingStructure structure in structures)
             {
                 var calculation = new StructuresCalculationScenario<ClosingStructuresInput>
                 {
-                    Name = NamingHelper.GetUniqueName(calculationGroup.Children, profile.Name, c => c.Name),
+                    Name = NamingHelper.GetUniqueName(calculationGroup.Children, structure.Name, c => c.Name),
                     InputParameters =
                     {
-                        ForeshoreProfile = profile
+                        Structure = structure
                     }
                 };
                 calculationGroup.Children.Add(calculation);

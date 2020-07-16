@@ -123,7 +123,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test
                 ViewInfo[] viewInfos = plugin.GetViewInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(3, viewInfos.Length);
+                Assert.AreEqual(4, viewInfos.Length);
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
@@ -141,6 +141,12 @@ namespace Riskeer.ClosingStructures.Plugin.Test
                     typeof(ClosingStructuresScenariosContext),
                     typeof(CalculationGroup),
                     typeof(ClosingStructuresScenariosView));
+
+                PluginTestHelper.AssertViewInfoDefined(
+                    viewInfos,
+                    typeof(ClosingStructuresCalculationGroupContext),
+                    typeof(CalculationGroup),
+                    typeof(ClosingStructuresCalculationsView));
             }
         }
 
