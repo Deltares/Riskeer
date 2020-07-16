@@ -79,7 +79,6 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("data", exception.ParamName);
-
             mocks.VerifyAll();
         }
 
@@ -95,7 +94,6 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
-
             mocks.VerifyAll();
         }
 
@@ -131,7 +129,6 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
             Assert.IsInstanceOf<UserControl>(calculationsView);
             Assert.IsInstanceOf<IView>(calculationsView);
             Assert.IsInstanceOf<ISelectionProvider>(calculationsView);
-
             mocks.VerifyAll();
         }
 
@@ -156,9 +153,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
             Assert.AreEqual(11, dataGridView.ColumnCount);
 
             AssertColumnMembers(dataGridView.Columns.OfType<DataGridViewComboBoxColumn>().ToArray());
-
             AssertDataGridViewControlColumnHeaders(dataGridView);
-
             mocks.VerifyAll();
         }
 
@@ -180,7 +175,6 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
 
             // Assert
             Assert.AreEqual(2, listBox.Items.Count);
-
             mocks.VerifyAll();
         }
 
@@ -207,7 +201,6 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
             Assert.AreEqual("Location 2 (6 m)", hydraulicBoundaryLocationComboboxItems[4].ToString());
             Assert.AreEqual("Location 1 (2 m)", hydraulicBoundaryLocationComboboxItems[5].ToString());
             Assert.AreEqual("Location 2 (6 m)", hydraulicBoundaryLocationComboboxItems[6].ToString());
-
             mocks.VerifyAll();
         }
 
@@ -230,7 +223,6 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
 
             // Assert
             Assert.IsTrue(state);
-
             mocks.VerifyAll();
         }
 
@@ -273,7 +265,6 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
 
             // Assert
             Assert.IsTrue(button.Enabled);
-
             mocks.VerifyAll();
         }
 
@@ -325,7 +316,6 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
             Assert.AreSame(failureMechanismSection1, listBox.Items[0]);
             Assert.AreSame(failureMechanismSection2, listBox.Items[1]);
             Assert.AreSame(failureMechanismSection3, listBox.Items[2]);
-
             mocks.VerifyAll();
         }
 
@@ -362,7 +352,6 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
 
             cells = rows[1].Cells;
             Assert.AreEqual(11, cells.Count);
-
             mocks.VerifyAll();
         }
 
@@ -428,7 +417,6 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
             Assert.AreEqual(1, dataGridView.Rows.Count);
             Assert.AreEqual("Calculation 2", dataGridView.Rows[0].Cells[nameColumnIndex].FormattedValue);
             Assert.AreEqual(2, selectionChangedCount);
-
             mocks.VerifyAll();
         }
 
@@ -457,7 +445,6 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
 
             // Assert
             Assert.AreEqual("De tekst moet een getal zijn.", dataGridView.Rows[0].ErrorText);
-
             mocks.VerifyAll();
         }
 
@@ -499,7 +486,6 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
 
             // Assert
             Assert.IsEmpty(dataGridView.Rows[0].ErrorText);
-
             mocks.VerifyAll();
         }
 
@@ -568,7 +554,6 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
             Assert.AreSame(failureMechanismSection1, listBox.Items[0]);
             Assert.AreSame(failureMechanismSection2, listBox.Items[1]);
             Assert.AreSame(failureMechanismSection3, listBox.Items[2]);
-
             mocks.VerifyAll();
         }
 
@@ -605,7 +590,6 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
 
             // Assert
             Assert.AreEqual("Gemiddelde moet groter zijn dan 0.", dataGridView.Rows[0].ErrorText);
-
             mocks.VerifyAll(); // No observer notified
         }
 
@@ -670,7 +654,6 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
 
             // Assert
             calculationScenario.Output = null;
-
             mocks.VerifyAll();
         }
 
@@ -699,7 +682,6 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
             // Assert
             Assert.AreEqual(expectedState, dataGridView.Rows[0].Cells[breakWaterTypeColumnIndex].ReadOnly);
             Assert.AreEqual(expectedState, dataGridView.Rows[0].Cells[breakWaterHeightColumnIndex].ReadOnly);
-
             mocks.VerifyAll();
         }
 
@@ -726,7 +708,6 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
             Assert.IsInstanceOf<ClosingStructuresInputContext>(selection);
             var dataRow = (ClosingStructuresCalculationRow) dataGridView.Rows[selectedRow].DataBoundItem;
             Assert.AreSame(dataRow.CalculationScenario, ((ClosingStructuresInputContext) selection).Calculation);
-
             mocks.VerifyAll();
         }
 
@@ -765,7 +746,6 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
 
             // Assert
             calculation.Output = null;
-
             mocks.VerifyAll();
         }
 
