@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.Controls.DataGrid;
 using Riskeer.ClosingStructures.Data;
@@ -68,6 +69,7 @@ namespace Riskeer.ClosingStructures.Forms.Views
             ColumnStateDefinitions = new Dictionary<int, DataGridViewColumnStateDefinition>();
             CreateColumnStateDefinitions();
             UpdateUseBreakWaterColumnStateDefinitions();
+            UpdateUseForeshoreColumnStateDefinitions();
         }
 
         /// <summary>
@@ -141,9 +143,8 @@ namespace Riskeer.ClosingStructures.Forms.Views
                 if (!CalculationScenario.InputParameters.UseBreakWater.Equals(value))
                 {
                     PropertyChangeHelper.ChangePropertyAndNotify(() => CalculationScenario.InputParameters.UseBreakWater = value, propertyChangeHandler);
+                    UpdateUseBreakWaterColumnStateDefinitions();
                 }
-
-                UpdateUseBreakWaterColumnStateDefinitions();
             }
         }
 
@@ -188,6 +189,7 @@ namespace Riskeer.ClosingStructures.Forms.Views
                 if (!CalculationScenario.InputParameters.UseForeshore.Equals(value))
                 {
                     PropertyChangeHelper.ChangePropertyAndNotify(() => CalculationScenario.InputParameters.UseForeshore = value, propertyChangeHandler);
+                    UpdateUseForeshoreColumnStateDefinitions();
                 }
             }
         }
@@ -272,6 +274,19 @@ namespace Riskeer.ClosingStructures.Forms.Views
             {
                 ColumnStateHelper.EnableColumn(ColumnStateDefinitions[breakWaterTypeColumnIndex]);
                 ColumnStateHelper.EnableColumn(ColumnStateDefinitions[breakWaterHeightColumnIndex]);
+            }
+        }
+
+        private void UpdateUseForeshoreColumnStateDefinitions()
+        {
+            ForeshoreProfile foreShoreProfileGeometry = CalculationScenario.InputParameters.ForeshoreProfile;
+            if (foreShoreProfileGeometry == null || !foreShoreProfileGeometry.Geometry.Any())
+            {
+                ColumnStateHelper.DisableColumn(ColumnStateDefinitions[useForeshoreColumnIndex]);
+            }
+            else
+            {
+                ColumnStateHelper.EnableColumn(ColumnStateDefinitions[useForeshoreColumnIndex]);
             }
         }
     }
