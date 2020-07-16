@@ -236,10 +236,8 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
         public void UseBreakWaterState_AlwaysOnChange_CorrectColumnStates(bool useBreakWaterState, bool columnIsEnabled)
         {
             // Setup
-            var mockRepository = new MockRepository();
-            mockRepository.ReplayAll();
-
             var calculation = new GrassCoverErosionInwardsCalculationScenario();
+            
             // Call
             var row = new GrassCoverErosionInwardsCalculationRow(calculation, new ObservablePropertyChangeHandler(calculation, new GrassCoverErosionInwardsInput()))
             {
@@ -251,26 +249,28 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
 
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[breakWaterTypeColumnIndex], columnIsEnabled);
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[breakWaterHeightColumnIndex], columnIsEnabled);
-
-            mockRepository.VerifyAll();
         }
 
         [Test]
         [TestCase(BreakWaterType.Wall, BreakWaterType.Dam)]
         [TestCase(BreakWaterType.Caisson, BreakWaterType.Wall)]
         [TestCase(BreakWaterType.Dam, BreakWaterType.Caisson)]
-        public void BreakWaterType_AlwaysOnChange_NotifyObserverAndCalculationPropertyChanged(BreakWaterType breakWaterType, BreakWaterType oldBreakWaterType)
+        public void BreakWaterType_AlwaysOnChange_NotifyObserverAndCalculationPropertyChanged(BreakWaterType breakWaterType, BreakWaterType newBreakWaterType)
         {
             // Setup
-            BreakWaterType newValue = breakWaterType;
-
-            var calculation = new GrassCoverErosionInwardsCalculationScenario();
-
-            // This step is necessary because setting the same value would not change the row state.
-            calculation.InputParameters.BreakWater.Type = oldBreakWaterType;
+            var calculation = new GrassCoverErosionInwardsCalculationScenario
+            {
+                InputParameters =
+                {
+                    BreakWater =
+                    {
+                        Type = breakWaterType
+                    }
+                }
+            };
 
             // Call & Assert
-            SetPropertyAndVerifyNotificationsAndOutputForCalculation(row => row.BreakWaterType = newValue, calculation);
+            SetPropertyAndVerifyNotificationsAndOutputForCalculation(row => row.BreakWaterType = newBreakWaterType, calculation);
         }
 
         [Test]
@@ -279,21 +279,18 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
         [TestCase(BreakWaterType.Dam)]
         public void BreakWaterType_ChangeToEqualValue_NoNotificationsOutputNotCleared(BreakWaterType breakWaterType)
         {
-            // Setup
-            BreakWaterType oldValue = breakWaterType;
-
             // Call
             AssertPropertyNotChanged(
                 row =>
                 {
-                    oldValue = row.BreakWaterType;
+                    breakWaterType = row.BreakWaterType;
                     row.BreakWaterType = row.BreakWaterType;
                 },
                 calculation =>
                 {
                     // Assert
-                    Assert.NotNull(oldValue);
-                    Assert.AreEqual(oldValue, calculation.InputParameters.BreakWater.Type);
+                    Assert.NotNull(breakWaterType);
+                    Assert.AreEqual(breakWaterType, calculation.InputParameters.BreakWater.Type);
                 });
         }
 
@@ -408,9 +405,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
         public void UseForeshoreState_CalculationWithDikeProfileWithoutForeshoreGeometry_CorrectColumnState()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            mockRepository.ReplayAll();
-
             var calculation = new GrassCoverErosionInwardsCalculationScenario
             {
                 InputParameters =
@@ -426,8 +420,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
 
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateIsDisabled(columnStateDefinitions[useForeshoreColumnIndex]);
-
-            mockRepository.VerifyAll();
         }
 
         [Test]

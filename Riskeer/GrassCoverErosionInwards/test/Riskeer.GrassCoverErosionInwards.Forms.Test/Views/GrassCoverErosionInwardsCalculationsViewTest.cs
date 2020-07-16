@@ -77,7 +77,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("data", exception.ParamName);
-
             mocks.VerifyAll();
         }
 
@@ -93,7 +92,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
-
             mocks.VerifyAll();
         }
 
@@ -129,7 +127,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             Assert.IsInstanceOf<UserControl>(calculationsView);
             Assert.IsInstanceOf<IView>(calculationsView);
             Assert.IsInstanceOf<ISelectionProvider>(calculationsView);
-
             mocks.VerifyAll();
         }
 
@@ -154,9 +151,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             Assert.AreEqual(10, dataGridView.ColumnCount);
 
             AssertColumnMembers(dataGridView.Columns.OfType<DataGridViewComboBoxColumn>().ToArray());
-
             AssertDataGridViewControlColumnHeaders(dataGridView);
-
             mocks.VerifyAll();
         }
 
@@ -178,7 +173,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
 
             // Assert
             Assert.AreEqual(2, listBox.Items.Count);
-
             mocks.VerifyAll();
         }
 
@@ -205,7 +199,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             Assert.AreEqual("Location 2 (6 m)", hydraulicBoundaryLocationComboboxItems[4].ToString());
             Assert.AreEqual("Location 1 (4 m)", hydraulicBoundaryLocationComboboxItems[5].ToString());
             Assert.AreEqual("Location 2 (5 m)", hydraulicBoundaryLocationComboboxItems[6].ToString());
-
             mocks.VerifyAll();
         }
 
@@ -228,7 +221,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
 
             // Assert
             Assert.IsTrue(state);
-
             mocks.VerifyAll();
         }
 
@@ -239,13 +231,12 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-
             mocks.ReplayAll();
 
             ConfigureHydraulicBoundaryDatabase(assessmentSection);
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
-            var calculationsView = ShowCalculationsView(ConfigureCalculationGroup(failureMechanism, assessmentSection), failureMechanism, assessmentSection);
+            GrassCoverErosionInwardsCalculationsView calculationsView = ShowCalculationsView(ConfigureCalculationGroup(failureMechanism, assessmentSection), failureMechanism, assessmentSection);
 
             // Precondition
             var button = (Button) calculationsView.Controls.Find("buttonGenerateCalculations", true)[0];
@@ -272,7 +263,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
 
             // Assert
             Assert.IsTrue(button.Enabled);
-
             mocks.VerifyAll();
         }
 
@@ -324,7 +314,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             Assert.AreSame(failureMechanismSection1, listBox.Items[0]);
             Assert.AreSame(failureMechanismSection2, listBox.Items[1]);
             Assert.AreSame(failureMechanismSection3, listBox.Items[2]);
-
             mocks.VerifyAll();
         }
 
@@ -360,7 +349,16 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
 
             cells = rows[1].Cells;
             Assert.AreEqual(10, cells.Count);
-
+            Assert.AreEqual("Calculation 2", cells[nameColumnIndex].FormattedValue);
+            Assert.AreEqual("Location 2 (5 m)", cells[selectableHydraulicBoundaryLocationsColumnIndex].FormattedValue);
+            Assert.AreEqual("name", cells[dikeProfileColumnIndex].FormattedValue);
+            Assert.AreEqual(false, cells[useBreakWaterColumnIndex].FormattedValue);
+            Assert.AreEqual("Havendam", cells[breakWaterTypeColumnIndex].FormattedValue);
+            Assert.AreEqual(3.30.ToString("0.00", CultureInfo.CurrentCulture), cells[breakWaterHeightColumnIndex].FormattedValue);
+            Assert.AreEqual(false, cells[useForeShoreGeometryColumnIndex].FormattedValue);
+            Assert.AreEqual(1.10.ToString("0.00", CultureInfo.CurrentCulture), cells[dikeHeightColumnIndex].FormattedValue);
+            Assert.AreEqual(4.4000.ToString("0.0000", CultureInfo.CurrentCulture), cells[meanCriticalFlowRateColumnIndex].FormattedValue);
+            Assert.AreEqual(5.5000.ToString("0.0000", CultureInfo.CurrentCulture), cells[standardDeviationCriticalFlowRateColumnIndex].FormattedValue);
             mocks.VerifyAll();
         }
 
@@ -426,7 +424,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             Assert.AreEqual(1, dataGridView.Rows.Count);
             Assert.AreEqual("Calculation 2", dataGridView.Rows[0].Cells[nameColumnIndex].FormattedValue);
             Assert.AreEqual(2, selectionChangedCount);
-
             mocks.VerifyAll();
         }
 
@@ -455,7 +452,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
 
             // Assert
             Assert.AreEqual("De tekst moet een getal zijn.", dataGridView.Rows[0].ErrorText);
-
             mocks.VerifyAll();
         }
 
@@ -499,7 +495,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
 
             // Assert
             Assert.IsEmpty(dataGridView.Rows[0].ErrorText);
-
             mocks.VerifyAll();
         }
 
@@ -568,7 +563,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             Assert.AreSame(failureMechanismSection1, listBox.Items[0]);
             Assert.AreSame(failureMechanismSection2, listBox.Items[1]);
             Assert.AreSame(failureMechanismSection3, listBox.Items[2]);
-
             mocks.VerifyAll();
         }
 
@@ -602,7 +596,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
 
             // Assert
             Assert.AreEqual("Gemiddelde moet groter zijn dan 0.", dataGridView.Rows[0].ErrorText);
-
             mocks.VerifyAll(); // No observer notified
         }
 
@@ -633,7 +626,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
 
             // Assert
             Assert.AreEqual("Standaardafwijking (σ) moet groter zijn dan of gelijk zijn aan 0.", dataGridView.Rows[0].ErrorText);
-
             mocks.VerifyAll(); // No observer notified
         }
 
@@ -700,7 +692,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
 
             // Assert
             calculationScenario.Output = null;
-
             mocks.VerifyAll();
         }
 
@@ -729,7 +720,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             // Assert
             Assert.AreEqual(expectedState, dataGridView.Rows[0].Cells[breakWaterTypeColumnIndex].ReadOnly);
             Assert.AreEqual(expectedState, dataGridView.Rows[0].Cells[breakWaterHeightColumnIndex].ReadOnly);
-
             mocks.VerifyAll();
         }
 
@@ -756,7 +746,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             Assert.IsInstanceOf<GrassCoverErosionInwardsInputContext>(selection);
             var dataRow = (GrassCoverErosionInwardsCalculationRow) dataGridView.Rows[selectedRow].DataBoundItem;
             Assert.AreSame(dataRow.CalculationScenario, ((GrassCoverErosionInwardsInputContext) selection).Calculation);
-
             mocks.VerifyAll();
         }
 
@@ -797,7 +786,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
 
             // Assert
             calculation.Output = null;
-
             mocks.VerifyAll();
         }
 
