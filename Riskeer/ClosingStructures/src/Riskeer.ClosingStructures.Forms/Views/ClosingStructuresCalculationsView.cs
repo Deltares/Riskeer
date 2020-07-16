@@ -176,7 +176,7 @@ namespace Riskeer.ClosingStructures.Forms.Views
                 nameof(ClosingStructuresCalculationRow.BreakWaterHeight),
                 RiskeerCommonFormsResources.CalculationsView_BreakWaterHeight_DisplayName);
 
-            dataGridViewControl.AddCheckBoxColumn(nameof(ClosingStructuresCalculationRow.UseForeShoreGeometry),
+            dataGridViewControl.AddCheckBoxColumn(nameof(ClosingStructuresCalculationRow.UseForeshoreGeometry),
                                                   RiskeerCommonFormsResources.Use_Foreshore_DisplayName);
 
             dataGridViewControl.AddComboBoxColumn(nameof(ClosingStructuresCalculationRow.InflowModelType),
