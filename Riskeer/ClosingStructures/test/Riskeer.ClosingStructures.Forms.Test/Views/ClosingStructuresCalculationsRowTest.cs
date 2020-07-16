@@ -426,39 +426,39 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
         [TestCase(ClosingStructureInflowModelType.FloodedCulvert, ClosingStructureInflowModelType.LowSill)]
         [TestCase(ClosingStructureInflowModelType.LowSill, ClosingStructureInflowModelType.VerticalWall)]
         [TestCase(ClosingStructureInflowModelType.VerticalWall, ClosingStructureInflowModelType.FloodedCulvert)]
-        public void ClosingStructureInflowModelType_AlwaysOnChange_NotifyObserverAndCalculationPropertyChanged(ClosingStructureInflowModelType breakWaterType, ClosingStructureInflowModelType newClosingStructureInflowModelType)
+        public void InflowModelType_AlwaysOnChange_NotifyObserverAndCalculationPropertyChanged(ClosingStructureInflowModelType inflowModelType, ClosingStructureInflowModelType newInflowModelType)
         {
             // Setup
             var calculation = new StructuresCalculationScenario<ClosingStructuresInput>
             {
                 InputParameters =
                 {
-                    InflowModelType = breakWaterType
+                    InflowModelType = inflowModelType
                 }
             };
 
             // Call & Assert
-            SetPropertyAndVerifyNotificationsAndOutputForCalculation(row => row.InflowModelType = newClosingStructureInflowModelType, calculation);
+            SetPropertyAndVerifyNotificationsAndOutputForCalculation(row => row.InflowModelType = newInflowModelType, calculation);
         }
 
         [Test]
         [TestCase(ClosingStructureInflowModelType.FloodedCulvert)]
         [TestCase(ClosingStructureInflowModelType.LowSill)]
         [TestCase(ClosingStructureInflowModelType.VerticalWall)]
-        public void ClosingStructureInflowModelType_ChangeToEqualValue_NoNotificationsOutputNotCleared(ClosingStructureInflowModelType breakWaterType)
+        public void InflowModelType_ChangeToEqualValue_NoNotificationsOutputNotCleared(ClosingStructureInflowModelType inflowModelType)
         {
             // Call
             AssertPropertyNotChanged(
                 row =>
                 {
-                    breakWaterType = row.InflowModelType;
+                    inflowModelType = row.InflowModelType;
                     row.InflowModelType = row.InflowModelType;
                 },
                 calculation =>
                 {
                     // Assert
-                    Assert.NotNull(breakWaterType);
-                    Assert.AreEqual(breakWaterType, calculation.InputParameters.InflowModelType);
+                    Assert.NotNull(inflowModelType);
+                    Assert.AreEqual(inflowModelType, calculation.InputParameters.InflowModelType);
                 });
         }
 
