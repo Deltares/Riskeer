@@ -177,7 +177,7 @@ namespace Application.Riskeer
                     new MapPlugin()
 #if DEVELOPMENT
                     ,
-                    new DemoProjectPlugin()
+                    new DemoPlugin()
 #endif
                 }
             };

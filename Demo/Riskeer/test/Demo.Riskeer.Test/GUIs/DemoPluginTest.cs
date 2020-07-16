@@ -36,7 +36,7 @@ using Rhino.Mocks;
 namespace Demo.Riskeer.Test.GUIs
 {
     [TestFixture]
-    public class DemoProjectPluginTest
+    public class DemoPluginTest
     {
         [Test]
         [Apartment(ApartmentState.STA)]
@@ -48,7 +48,7 @@ namespace Demo.Riskeer.Test.GUIs
             mocks.ReplayAll();
 
             // Call
-            using (var plugin = new DemoProjectPlugin
+            using (var plugin = new DemoPlugin
             {
                 Gui = gui
             })
@@ -65,7 +65,7 @@ namespace Demo.Riskeer.Test.GUIs
         public void GetViewInfos_ReturnsSupportedViewInfos()
         {
             // Setup
-            using (var plugin = new DemoProjectPlugin())
+            using (var plugin = new DemoPlugin())
             {
                 // Call
                 ViewInfo[] views = plugin.GetViewInfos().ToArray();
