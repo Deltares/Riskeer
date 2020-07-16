@@ -51,31 +51,14 @@ namespace Riskeer.Storage.Core.Test.Read.StabilityPointStructures
         }
 
         [Test]
-        public void Read_EntityNotReadBefore_RegisterEntity()
-        {
-            // Setup
-            var entity = new StabilityPointStructuresCalculationEntity();
-
-            var collector = new ReadConversionCollector();
-
-            // Precondition
-            Assert.IsFalse(collector.Contains(entity));
-
-            // Call
-            StructuresCalculation<StabilityPointStructuresInput> calculation = entity.Read(collector);
-
-            // Assert
-            Assert.IsTrue(collector.Contains(entity));
-            Assert.AreSame(calculation, collector.Get(entity));
-        }
-
-        [Test]
         public void Read_ValidEntity_ReturnStabilityPointStructuresCalculation()
         {
             // Setup
             var entity = new StabilityPointStructuresCalculationEntity
             {
                 Name = "name",
+                RelevantForScenario = Convert.ToByte(true),
+                ScenarioContribution = 0.0,
                 Comments = "comments",
                 StructureNormalOrientation = 1.1,
                 AllowedLevelIncreaseStorageMean = 2.2,
@@ -135,10 +118,12 @@ namespace Riskeer.Storage.Core.Test.Read.StabilityPointStructures
             var collector = new ReadConversionCollector();
 
             // Call
-            StructuresCalculation<StabilityPointStructuresInput> calculation = entity.Read(collector);
+            StructuresCalculationScenario<StabilityPointStructuresInput> calculation = entity.Read(collector);
 
             // Assert
             Assert.AreEqual(entity.Name, calculation.Name);
+            Assert.AreEqual(Convert.ToBoolean(entity.RelevantForScenario), calculation.IsRelevant);
+            Assert.AreEqual(entity.ScenarioContribution, calculation.Contribution);
             Assert.AreEqual(entity.Comments, calculation.Comments.Body);
 
             StabilityPointStructuresInput inputParameters = calculation.InputParameters;
@@ -209,6 +194,7 @@ namespace Riskeer.Storage.Core.Test.Read.StabilityPointStructures
             // Setup
             var entity = new StabilityPointStructuresCalculationEntity
             {
+                ScenarioContribution = null,
                 StructureNormalOrientation = null,
                 AllowedLevelIncreaseStorageMean = null,
                 AllowedLevelIncreaseStorageStandardDeviation = null,
@@ -258,9 +244,11 @@ namespace Riskeer.Storage.Core.Test.Read.StabilityPointStructures
             var collector = new ReadConversionCollector();
 
             // Call
-            StructuresCalculation<StabilityPointStructuresInput> calculation = entity.Read(collector);
+            StructuresCalculationScenario<StabilityPointStructuresInput> calculation = entity.Read(collector);
 
             // Assert
+            Assert.IsNaN(calculation.Contribution);
+
             StabilityPointStructuresInput inputParameters = calculation.InputParameters;
             Assert.IsNaN(inputParameters.StructureNormalOrientation);
             Assert.IsNaN(inputParameters.AllowedLevelIncreaseStorage.Mean);
@@ -324,7 +312,7 @@ namespace Riskeer.Storage.Core.Test.Read.StabilityPointStructures
             collector.Read(structureEntity, structure);
 
             // Call
-            StructuresCalculation<StabilityPointStructuresInput> calculation = entity.Read(collector);
+            StructuresCalculationScenario<StabilityPointStructuresInput> calculation = entity.Read(collector);
 
             // Assert
             Assert.AreSame(structure, calculation.InputParameters.Structure);
@@ -345,7 +333,7 @@ namespace Riskeer.Storage.Core.Test.Read.StabilityPointStructures
             collector.Read(hydraulicLocationEntity, hydraulicBoundaryLocation);
 
             // Call
-            StructuresCalculation<StabilityPointStructuresInput> calculation = entity.Read(collector);
+            StructuresCalculationScenario<StabilityPointStructuresInput> calculation = entity.Read(collector);
 
             // Assert
             Assert.AreSame(hydraulicBoundaryLocation, calculation.InputParameters.HydraulicBoundaryLocation);
@@ -366,7 +354,7 @@ namespace Riskeer.Storage.Core.Test.Read.StabilityPointStructures
             collector.Read(profileEntity, profile);
 
             // Call
-            StructuresCalculation<StabilityPointStructuresInput> calculation = entity.Read(collector);
+            StructuresCalculationScenario<StabilityPointStructuresInput> calculation = entity.Read(collector);
 
             // Assert
             Assert.AreSame(profile, calculation.InputParameters.ForeshoreProfile);
@@ -387,36 +375,12 @@ namespace Riskeer.Storage.Core.Test.Read.StabilityPointStructures
             var collector = new ReadConversionCollector();
 
             // Call
-            StructuresCalculation<StabilityPointStructuresInput> calculation = entity.Read(collector);
+            StructuresCalculationScenario<StabilityPointStructuresInput> calculation = entity.Read(collector);
 
             // Assert
             StructuresOutput calculationOutput = calculation.Output;
             Assert.IsNaN(calculationOutput.Reliability);
             Assert.IsFalse(calculationOutput.HasGeneralResult);
-        }
-
-        [Test]
-        public void Read_CalculationEntityAlreadyRead_ReturnReadCalculation()
-        {
-            // Setup
-            var entity = new StabilityPointStructuresCalculationEntity
-            {
-                StabilityPointStructuresOutputEntities =
-                {
-                    new StabilityPointStructuresOutputEntity()
-                }
-            };
-
-            var calculation = new StructuresCalculationScenario<StabilityPointStructuresInput>();
-
-            var collector = new ReadConversionCollector();
-            collector.Read(entity, calculation);
-
-            // Call
-            StructuresCalculationScenario<StabilityPointStructuresInput> returnedCalculation = entity.Read(collector);
-
-            // Assert
-            Assert.AreSame(calculation, returnedCalculation);
         }
     }
 }

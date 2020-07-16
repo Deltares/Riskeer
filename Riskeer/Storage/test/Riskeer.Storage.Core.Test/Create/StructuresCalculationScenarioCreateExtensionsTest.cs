@@ -751,6 +751,8 @@ namespace Riskeer.Storage.Core.Test.Create
             var calculation = new StructuresCalculationScenario<StabilityPointStructuresInput>
             {
                 Name = "A",
+                IsRelevant = random.NextBoolean(),
+                Contribution = random.NextRoundedDouble(0, 1),
                 Comments =
                 {
                     Body = "B"
@@ -891,6 +893,8 @@ namespace Riskeer.Storage.Core.Test.Create
 
             // Assert
             TestHelper.AssertAreEqualButNotSame(calculation.Name, entity.Name);
+            Assert.AreEqual(Convert.ToByte(calculation.IsRelevant), entity.RelevantForScenario);
+            Assert.AreEqual(calculation.Contribution, entity.ScenarioContribution);
             TestHelper.AssertAreEqualButNotSame(calculation.Comments.Body, entity.Comments);
 
             StabilityPointStructuresInput inputParameters = calculation.InputParameters;
@@ -964,6 +968,7 @@ namespace Riskeer.Storage.Core.Test.Create
             // Setup
             var calculation = new StructuresCalculationScenario<StabilityPointStructuresInput>
             {
+                Contribution = RoundedDouble.NaN,
                 InputParameters =
                 {
                     StormDuration =
@@ -1090,6 +1095,7 @@ namespace Riskeer.Storage.Core.Test.Create
             StabilityPointStructuresCalculationEntity entity = calculation.CreateForStabilityPointStructures(registry, order);
 
             // Assert
+            Assert.IsNull(entity.ScenarioContribution);
             Assert.IsNull(entity.StormDurationMean);
             Assert.IsNull(entity.StructureNormalOrientation);
             Assert.IsNull(entity.BreakWaterHeight);

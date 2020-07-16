@@ -27,7 +27,6 @@ using Riskeer.ClosingStructures.Data;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Hydraulics;
-using Riskeer.Common.Data.Structures;
 using Riskeer.DuneErosion.Data;
 using Riskeer.HeightStructures.Data;
 using Riskeer.MacroStabilityInwards.Data.SoilProfile;
@@ -97,9 +96,6 @@ namespace Riskeer.Storage.Core.Create
 
         private readonly Dictionary<StabilityPointStructureEntity, StabilityPointStructure> stabilityPointStructures =
             CreateDictionary<StabilityPointStructureEntity, StabilityPointStructure>();
-
-        private readonly Dictionary<StabilityPointStructuresCalculationEntity, StructuresCalculation<StabilityPointStructuresInput>> stabilityPointStructuresCalculations =
-            CreateDictionary<StabilityPointStructuresCalculationEntity, StructuresCalculation<StabilityPointStructuresInput>>();
 
         private static Dictionary<TEntity, TModel> CreateDictionary<TEntity, TModel>()
         {
@@ -347,20 +343,6 @@ namespace Riskeer.Storage.Core.Create
             Register(stabilityPointStructures, entity, model);
         }
 
-        /// <summary>
-        /// Registers a create operation for <paramref name="model"/> and the <paramref name="entity"/>
-        /// that was constructed with the information.
-        /// </summary>
-        /// <param name="entity">The <see cref="StabilityPointStructuresCalculationEntity"/>
-        /// to be registered.</param>
-        /// <param name="model">The <see cref="StructuresCalculation{T}"/> to
-        /// be registered.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
-        internal void Register(StabilityPointStructuresCalculationEntity entity, StructuresCalculation<StabilityPointStructuresInput> model)
-        {
-            Register(stabilityPointStructuresCalculations, entity, model);
-        }
-
         #endregion
 
         #region Contains Methods
@@ -550,17 +532,6 @@ namespace Riskeer.Storage.Core.Create
         internal bool Contains(StabilityPointStructure model)
         {
             return ContainsValue(stabilityPointStructures, model);
-        }
-
-        /// <summary>
-        /// Checks whether a create operations has been registered for the given <paramref name="model"/>.
-        /// </summary>
-        /// <param name="model">The <see cref="StructuresCalculation{T}"/> to check for.</param>
-        /// <returns><c>true</c> if the <see cref="model"/> was registered before, <c>false</c> otherwise.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="model"/> is <c>null</c>.</exception>
-        internal bool Contains(StructuresCalculation<StabilityPointStructuresInput> model)
-        {
-            return ContainsValue(stabilityPointStructuresCalculations, model);
         }
 
         #endregion
@@ -851,23 +822,6 @@ namespace Riskeer.Storage.Core.Create
         internal StabilityPointStructureEntity Get(StabilityPointStructure model)
         {
             return Get(stabilityPointStructures, model);
-        }
-
-        /// <summary>
-        /// Obtains the <see cref="StabilityPointStructuresCalculationEntity"/> which was
-        /// registered for the given <paramref name="model"/>.
-        /// </summary>
-        /// <param name="model">The <see cref="StructuresCalculation{T}"/> for
-        /// which a read operation has been registered.</param>
-        /// <returns>The constructed <see cref="StabilityPointStructuresCalculationEntity"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="model"/> is <c>null</c>.</exception>
-        /// <exception cref="InvalidOperationException">Thrown when no create operation 
-        /// has been registered for <paramref name="model"/>.</exception>
-        /// <remarks>Use <see cref="Contains(StructuresCalculation{StabilityPointStructuresInput})"/> to find out
-        /// whether a create operation has been registered for <paramref name="model"/>.</remarks>
-        internal StabilityPointStructuresCalculationEntity Get(StructuresCalculation<StabilityPointStructuresInput> model)
-        {
-            return Get(stabilityPointStructuresCalculations, model);
         }
 
         #endregion

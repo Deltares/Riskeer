@@ -264,13 +264,13 @@ namespace Riskeer.Storage.Core.Create
             var entity = new StabilityPointStructuresCalculationEntity
             {
                 Name = calculation.Name.DeepClone(),
+                RelevantForScenario = Convert.ToByte(calculation.IsRelevant),
+                ScenarioContribution = calculation.Contribution.ToNaNAsNull(),
                 Comments = calculation.Comments.Body.DeepClone(),
                 Order = order
             };
             SetStabilityPointStructuresInputValues(entity, calculation.InputParameters, registry);
             SetStabilityPointStructuresOutputEntity(calculation, entity);
-
-            registry.Register(entity, calculation);
 
             return entity;
         }

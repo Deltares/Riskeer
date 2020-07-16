@@ -52,14 +52,11 @@ namespace Riskeer.Storage.Core.Read.StabilityPointStructures
                 throw new ArgumentNullException(nameof(collector));
             }
 
-            if (collector.Contains(entity))
-            {
-                return collector.Get(entity);
-            }
-
             var calculation = new StructuresCalculationScenario<StabilityPointStructuresInput>
             {
                 Name = entity.Name,
+                IsRelevant = Convert.ToBoolean(entity.RelevantForScenario),
+                Contribution = (RoundedDouble)entity.ScenarioContribution.ToNullAsNaN(),
                 Comments =
                 {
                     Body = entity.Comments
@@ -67,8 +64,6 @@ namespace Riskeer.Storage.Core.Read.StabilityPointStructures
             };
             ReadInputParameters(calculation.InputParameters, entity, collector);
             ReadOutput(calculation, entity);
-
-            collector.Read(entity, calculation);
 
             return calculation;
         }

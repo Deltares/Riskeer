@@ -29,7 +29,6 @@ using Riskeer.ClosingStructures.Data.TestUtil;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Hydraulics;
-using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.DuneErosion.Data;
 using Riskeer.DuneErosion.Data.TestUtil;
@@ -387,21 +386,6 @@ namespace Riskeer.Storage.Core.Test.Read
             protected override StabilityPointStructure CreateDataModel()
             {
                 return new TestStabilityPointStructure();
-            }
-        }
-
-        [TestFixture]
-        private class StabilityPointStructureCalculationCollectorTest : CollectorTest<StructuresCalculationScenario<StabilityPointStructuresInput>,
-            StabilityPointStructuresCalculationEntity>
-        {
-            public StabilityPointStructureCalculationCollectorTest() : base(
-                (c, e, m) => c.Read(e, m),
-                (c, e) => c.Contains(e),
-                (c, e) => c.Get(e)) {}
-
-            protected override StructuresCalculationScenario<StabilityPointStructuresInput> CreateDataModel()
-            {
-                return new StructuresCalculationScenario<StabilityPointStructuresInput>();
             }
         }
 
