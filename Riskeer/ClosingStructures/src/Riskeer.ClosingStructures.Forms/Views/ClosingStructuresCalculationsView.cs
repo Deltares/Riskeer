@@ -173,7 +173,7 @@ namespace Riskeer.ClosingStructures.Forms.Views
                 RiskeerCommonFormsResources.CalculationsView_BreakWaterHeight_DisplayName);
 
             dataGridViewControl.AddCheckBoxColumn(nameof(ClosingStructuresCalculationRow.UseForeShoreGeometry),
-                                                  RiskeerCommonFormsResources.Use_ForeShore_DisplayName);
+                                                  RiskeerCommonFormsResources.Use_Foreshore_DisplayName);
 
             dataGridViewControl.AddComboBoxColumn(nameof(ClosingStructuresCalculationRow.InflowModelType),
                                                   RiskeerCommonFormsResources.Structure_InflowModelType_DisplayName,
