@@ -157,7 +157,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
 
             AssertColumnMembers(dataGridView.Columns.OfType<DataGridViewComboBoxColumn>().ToArray());
 
-            //AssertDataGridViewControlColumnHeaders(dataGridView);
+            AssertDataGridViewControlColumnHeaders(dataGridView);
 
             mocks.VerifyAll();
         }
@@ -184,32 +184,32 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
             mocks.VerifyAll();
         }
 
-        // [Test]
-        // public void AssessmentSection_HydraulicBoundaryDatabaseWithLocations_SelectableHydraulicBoundaryLocationsComboboxCorrectlyInitialized()
-        // {
-        //     // Setup
-        //     var mocks = new MockRepository();
-        //     var assessmentSection = mocks.Stub<IAssessmentSection>();
-        //     mocks.ReplayAll();
-        //
-        //     // Call
-        //     ShowFullyConfiguredCalculationsView(assessmentSection);
-        //
-        //     // Assert
-        //     var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-        //     var hydraulicBoundaryLocationCombobox = (DataGridViewComboBoxColumn) dataGridView.Columns[selectableHydraulicBoundaryLocationsColumnIndex];
-        //     DataGridViewComboBoxCell.ObjectCollection hydraulicBoundaryLocationComboboxItems = hydraulicBoundaryLocationCombobox.Items;
-        //     Assert.AreEqual(7, hydraulicBoundaryLocationComboboxItems.Count);
-        //     Assert.AreEqual("<selecteer>", hydraulicBoundaryLocationComboboxItems[0].ToString());
-        //     Assert.AreEqual("Location 1", hydraulicBoundaryLocationComboboxItems[1].ToString());
-        //     Assert.AreEqual("Location 2", hydraulicBoundaryLocationComboboxItems[2].ToString());
-        //     Assert.AreEqual("Location 1 (2 m)", hydraulicBoundaryLocationComboboxItems[3].ToString());
-        //     Assert.AreEqual("Location 2 (6 m)", hydraulicBoundaryLocationComboboxItems[4].ToString());
-        //     Assert.AreEqual("Location 1 (4 m)", hydraulicBoundaryLocationComboboxItems[5].ToString());
-        //     Assert.AreEqual("Location 2 (5 m)", hydraulicBoundaryLocationComboboxItems[6].ToString());
-        //
-        //     mocks.VerifyAll();
-        // }
+        [Test]
+        public void AssessmentSection_HydraulicBoundaryDatabaseWithLocations_SelectableHydraulicBoundaryLocationsComboboxCorrectlyInitialized()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            // Call
+            ShowFullyConfiguredCalculationsView(assessmentSection);
+
+            // Assert
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+            var hydraulicBoundaryLocationCombobox = (DataGridViewComboBoxColumn) dataGridView.Columns[selectableHydraulicBoundaryLocationsColumnIndex];
+            DataGridViewComboBoxCell.ObjectCollection hydraulicBoundaryLocationComboboxItems = hydraulicBoundaryLocationCombobox.Items;
+            Assert.AreEqual(7, hydraulicBoundaryLocationComboboxItems.Count);
+            Assert.AreEqual("<selecteer>", hydraulicBoundaryLocationComboboxItems[0].ToString());
+            Assert.AreEqual("Location 1", hydraulicBoundaryLocationComboboxItems[1].ToString());
+            Assert.AreEqual("Location 2", hydraulicBoundaryLocationComboboxItems[2].ToString());
+            Assert.AreEqual("Location 1 (2 m)", hydraulicBoundaryLocationComboboxItems[3].ToString());
+            Assert.AreEqual("Location 2 (6 m)", hydraulicBoundaryLocationComboboxItems[4].ToString());
+            Assert.AreEqual("Location 1 (2 m)", hydraulicBoundaryLocationComboboxItems[5].ToString());
+            Assert.AreEqual("Location 2 (6 m)", hydraulicBoundaryLocationComboboxItems[6].ToString());
+
+            mocks.VerifyAll();
+        }
 
         [Test]
         public void ButtonGenerateCalculations_ForeshoreProfilesPresent_ButtonEnabled()
@@ -481,25 +481,25 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
-        
+
             ConfigureHydraulicBoundaryDatabase(assessmentSection);
             ClosingStructuresFailureMechanism failureMechanism = ConfigureFailureMechanism();
             CalculationGroup calculationGroup = ConfigureCalculationGroup(failureMechanism, assessmentSection);
-        
+
             var newRoundedValue = (RoundedDouble) newValue;
-        
+
             ShowCalculationsView(calculationGroup, failureMechanism, assessmentSection);
-        
+
             mocks.ReplayAll();
-        
+
             var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-        
+
             // Call
             dataGridView.Rows[0].Cells[cellIndex].Value = newRoundedValue;
-        
+
             // Assert
             Assert.IsEmpty(dataGridView.Rows[0].ErrorText);
-        
+
             mocks.VerifyAll();
         }
 
@@ -963,9 +963,10 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
             Assert.AreEqual("Damtype", dataGridView.Columns[breakWaterTypeColumnIndex].HeaderText);
             Assert.AreEqual("Damhoogte [m+NAP]", dataGridView.Columns[breakWaterHeightColumnIndex].HeaderText);
             Assert.AreEqual("Gebruik voorlandgeometrie", dataGridView.Columns[useForeShoreGeometryColumnIndex].HeaderText);
-            Assert.AreEqual("Verwachtingswaarde binnenwaterstand [m+NAP]", dataGridView.Columns[inflowModelTypeColumnIndex].HeaderText);
-            Assert.AreEqual("Verwachtingswaarde kritiek instromend debiet [m3/m/s]", dataGridView.Columns[meanInsideWaterLevelColumnIndex].HeaderText);
-            Assert.AreEqual("Verwachtingswaarde toegestane peilverhoging komberging [m]", dataGridView.Columns[criticalOvertoppingDischargeColumnIndex].HeaderText);
+            Assert.AreEqual("Instroommodel", dataGridView.Columns[inflowModelTypeColumnIndex].HeaderText);
+            Assert.AreEqual("Verwachtingswaarde Binnenwaterstand [m+NAP]", dataGridView.Columns[meanInsideWaterLevelColumnIndex].HeaderText);
+            Assert.AreEqual("Verwachtingswaarde Kritiek instromend debiet [m³/s/m]", dataGridView.Columns[criticalOvertoppingDischargeColumnIndex].HeaderText);
+            Assert.AreEqual("Verwachtingswaarde Toegestane peilverhoging komberging [m]", dataGridView.Columns[allowedLevelIncreaseStorageColumnIndex].HeaderText);
         }
     }
 }

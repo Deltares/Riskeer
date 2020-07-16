@@ -154,7 +154,7 @@ namespace Riskeer.ClosingStructures.Forms.Views
 
             dataGridViewControl.AddComboBoxColumn<DataGridViewComboBoxItemWrapper<ForeshoreProfile>>(
                 nameof(ClosingStructuresCalculationRow.ForeshoreProfile),
-                RiskeerCommonFormsResources.ForeshoreProfile_Name_Description,
+                RiskeerCommonFormsResources.Structure_ForeshoreProfile_DisplayName,
                 null,
                 nameof(DataGridViewComboBoxItemWrapper<ForeshoreProfile>.This),
                 nameof(DataGridViewComboBoxItemWrapper<ForeshoreProfile>.DisplayName));
@@ -183,15 +183,15 @@ namespace Riskeer.ClosingStructures.Forms.Views
 
             dataGridViewControl.AddTextBoxColumn(
                 nameof(ClosingStructuresCalculationRow.MeanInsideWaterLevel),
-                RiskeerCommonFormsResources.Structure_InsideWaterLevel_DisplayName);
+                string.Concat(RiskeerCommonFormsResources.NormalDistribution_Mean_DisplayName, " ", RiskeerCommonFormsResources.Structure_InsideWaterLevel_DisplayName));
 
             dataGridViewControl.AddTextBoxColumn(
                 nameof(ClosingStructuresCalculationRow.CriticalOvertoppingDischarge),
-                RiskeerCommonFormsResources.Structure_CriticalOvertoppingDischarge_DisplayName);
+                string.Concat(RiskeerCommonFormsResources.NormalDistribution_Mean_DisplayName, " ", RiskeerCommonFormsResources.Structure_CriticalOvertoppingDischarge_DisplayName));
 
             dataGridViewControl.AddTextBoxColumn(
                 nameof(ClosingStructuresCalculationRow.AllowedLevelIncreaseStorage),
-                RiskeerCommonFormsResources.Structure_AllowedLevelIncreaseStorage_DisplayName);
+                string.Concat(RiskeerCommonFormsResources.NormalDistribution_Mean_DisplayName, " ", RiskeerCommonFormsResources.Structure_AllowedLevelIncreaseStorage_DisplayName));
         }
 
         private void InitializeListBox()
@@ -443,7 +443,14 @@ namespace Riskeer.ClosingStructures.Forms.Views
         {
             List<HydraulicBoundaryLocation> hydraulicBoundaryLocations = assessmentSection.HydraulicBoundaryDatabase.Locations;
 
-            return hydraulicBoundaryLocations.Select(hbl => new SelectableHydraulicBoundaryLocation(hbl, hbl.Location)).ToList();
+            List<SelectableHydraulicBoundaryLocation> selectableHydraulicBoundaryLocations = hydraulicBoundaryLocations.Select(hbl => new SelectableHydraulicBoundaryLocation(hbl, null)).ToList();
+
+            foreach (ForeshoreProfile foreshoreProfile in failureMechanism.ForeshoreProfiles)
+            {
+                selectableHydraulicBoundaryLocations.AddRange(GetSelectableHydraulicBoundaryLocations(hydraulicBoundaryLocations, foreshoreProfile));
+            }
+
+            return selectableHydraulicBoundaryLocations;
         }
 
         #endregion
