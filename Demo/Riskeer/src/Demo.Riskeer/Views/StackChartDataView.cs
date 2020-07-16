@@ -40,14 +40,8 @@ namespace Demo.Riskeer.Views
 
         public object Data
         {
-            get
-            {
-                return stackChartControl.Data;
-            }
-            set
-            {
-                stackChartControl.Data = value as StackChartData;
-            }
+            get => stackChartControl.Data;
+            set => stackChartControl.Data = value as StackChartData;
         }
     }
 }

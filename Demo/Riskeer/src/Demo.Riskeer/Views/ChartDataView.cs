@@ -40,22 +40,10 @@ namespace Demo.Riskeer.Views
 
         public object Data
         {
-            get
-            {
-                return Chart.Data;
-            }
-            set
-            {
-                Chart.Data = value as ChartDataCollection;
-            }
+            get => Chart.Data;
+            set => Chart.Data = value as ChartDataCollection;
         }
 
-        public IChartControl Chart
-        {
-            get
-            {
-                return chartControl;
-            }
-        }
+        public IChartControl Chart => chartControl;
     }
 }

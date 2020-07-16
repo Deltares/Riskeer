@@ -42,13 +42,7 @@ namespace Demo.Riskeer.Commands
             this.viewCommands = viewCommands;
         }
 
-        public bool Checked
-        {
-            get
-            {
-                return false;
-            }
-        }
+        public bool Checked => false;
 
         public void Execute()
         {

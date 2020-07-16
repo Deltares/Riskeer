@@ -39,13 +39,7 @@ namespace Demo.Riskeer.GUIs
     /// </summary>
     public class DemoPlugin : PluginBase
     {
-        public override IRibbonCommandHandler RibbonCommandHandler
-        {
-            get
-            {
-                return new RiskeerDemoRibbon(Gui.ViewCommands);
-            }
-        }
+        public override IRibbonCommandHandler RibbonCommandHandler => new RiskeerDemoRibbon(Gui.ViewCommands);
 
         public override IEnumerable<ViewInfo> GetViewInfos()
         {

@@ -40,14 +40,8 @@ namespace Demo.Riskeer.Views
 
         public object Data
         {
-            get
-            {
-                return pointedTreeGraphControl.Data;
-            }
-            set
-            {
-                pointedTreeGraphControl.Data = value as GraphNode;
-            }
+            get => pointedTreeGraphControl.Data;
+            set => pointedTreeGraphControl.Data = value as GraphNode;
         }
     }
 }

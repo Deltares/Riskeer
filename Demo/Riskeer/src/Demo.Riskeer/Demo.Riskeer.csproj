@@ -121,8 +121,6 @@
     <None Include="Resources\chart_bar.png" />
     <None Include="Resources\chart_line.png" />
     <None Include="Resources\chart_organisation.png" />
-    <None Include="Resources\folder-horizontal.png" />
-    <None Include="Resources\folder-horizontal_large.png" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="Properties\Resources.Designer.cs">

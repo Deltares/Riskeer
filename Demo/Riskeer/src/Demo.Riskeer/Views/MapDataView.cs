@@ -40,22 +40,10 @@ namespace Demo.Riskeer.Views
 
         public object Data
         {
-            get
-            {
-                return Map.Data;
-            }
-            set
-            {
-                mapControl.Data = value as MapDataCollection;
-            }
+            get => Map.Data;
+            set => mapControl.Data = value as MapDataCollection;
         }
 
-        public IMapControl Map
-        {
-            get
-            {
-                return mapControl;
-            }
-        }
+        public IMapControl Map => mapControl;
     }
 }
