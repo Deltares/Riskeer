@@ -98,7 +98,6 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, breakWaterTypeColumnIndex);
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, breakWaterHeightColumnIndex);
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, useForeshoreColumnIndex);
-
             mocks.VerifyAll();
         }
 
@@ -589,13 +588,13 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
         }
 
         /// <summary>
-        /// Asserts that the output of a <see cref="StructuresCalculationScenario<ClosingStructuresInput>"/> remains
+        /// Asserts that the output of a <see cref="StructuresCalculationScenario{ClosingStructuresInput}"/> remains
         /// unaffected (and therefore no change notification occurring) when the input for
         /// that calculation has been changed using an instance of <see cref="ClosingStructuresCalculationRow"/>.
         /// </summary>
         /// <param name="setProperty">The function that changes a property of the <see cref="ClosingStructuresCalculationRow"/>
         /// instance. This function should not throw exceptions.</param>
-        /// <param name="assertions">The additional assertions to be performed on the <see cref="StructuresCalculationScenario<ClosingStructuresInput>"/>
+        /// <param name="assertions">The additional assertions to be performed on the <see cref="StructuresCalculationScenario{ClosingStructuresInput}"/>
         /// whose input has been changed.</param>
         private static void AssertPropertyNotChanged(
             Action<ClosingStructuresCalculationRow> setProperty,
