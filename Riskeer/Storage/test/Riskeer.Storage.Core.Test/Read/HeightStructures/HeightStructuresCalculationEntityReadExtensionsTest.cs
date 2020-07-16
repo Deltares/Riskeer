@@ -246,7 +246,7 @@ namespace Riskeer.Storage.Core.Test.Read.HeightStructures
             var collector = new ReadConversionCollector();
 
             // Call
-            StructuresCalculation<HeightStructuresInput> calculation = entity.Read(collector);
+            StructuresCalculationScenario<HeightStructuresInput> calculation = entity.Read(collector);
 
             // Assert
             HeightStructuresInput input = calculation.InputParameters;
@@ -273,7 +273,7 @@ namespace Riskeer.Storage.Core.Test.Read.HeightStructures
             var collector = new ReadConversionCollector();
 
             // Call
-            StructuresCalculation<HeightStructuresInput> calculation = entity.Read(collector);
+            StructuresCalculationScenario<HeightStructuresInput> calculation = entity.Read(collector);
 
             // Assert
             StructuresOutput calculationOutput = calculation.Output;

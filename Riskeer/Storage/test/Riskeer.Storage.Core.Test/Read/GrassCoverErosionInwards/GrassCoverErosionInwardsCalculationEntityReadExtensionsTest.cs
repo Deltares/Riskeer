@@ -170,7 +170,7 @@ namespace Riskeer.Storage.Core.Test.Read.GrassCoverErosionInwards
             collector.Read(dikeProfileEntity, dikeProfile);
 
             // Call
-            GrassCoverErosionInwardsCalculation calculation = entity.Read(collector);
+            GrassCoverErosionInwardsCalculationScenario calculation = entity.Read(collector);
 
             // Assert
             Assert.AreSame(dikeProfile, calculation.InputParameters.DikeProfile);
@@ -194,7 +194,7 @@ namespace Riskeer.Storage.Core.Test.Read.GrassCoverErosionInwards
             var collector = new ReadConversionCollector();
 
             // Call
-            GrassCoverErosionInwardsCalculation calculation = entity.Read(collector);
+            GrassCoverErosionInwardsCalculationScenario calculation = entity.Read(collector);
 
             // Assert
             Assert.IsNotNull(calculation.InputParameters.DikeProfile);
@@ -216,7 +216,7 @@ namespace Riskeer.Storage.Core.Test.Read.GrassCoverErosionInwards
             collector.Read(hydraulicLocationEntity, hydraulicBoundaryLocation);
 
             // Call
-            GrassCoverErosionInwardsCalculation calculation = entity.Read(collector);
+            GrassCoverErosionInwardsCalculationScenario calculation = entity.Read(collector);
 
             // Assert
             Assert.AreSame(hydraulicBoundaryLocation, calculation.InputParameters.HydraulicBoundaryLocation);
@@ -235,7 +235,7 @@ namespace Riskeer.Storage.Core.Test.Read.GrassCoverErosionInwards
             var collector = new ReadConversionCollector();
 
             // Call
-            GrassCoverErosionInwardsCalculation calculation = entity.Read(collector);
+            GrassCoverErosionInwardsCalculationScenario calculation = entity.Read(collector);
 
             // Assert
             Assert.IsNotNull(calculation.InputParameters.HydraulicBoundaryLocation);
@@ -257,7 +257,7 @@ namespace Riskeer.Storage.Core.Test.Read.GrassCoverErosionInwards
             var collector = new ReadConversionCollector();
 
             // Call
-            GrassCoverErosionInwardsCalculation calculation = entity.Read(collector);
+            GrassCoverErosionInwardsCalculationScenario calculation = entity.Read(collector);
 
             // Assert
             Assert.IsTrue(calculation.HasOutput);

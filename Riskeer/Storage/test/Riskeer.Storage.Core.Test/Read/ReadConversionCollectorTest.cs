@@ -361,8 +361,7 @@ namespace Riskeer.Storage.Core.Test.Read
             public ClosingStructureCollectorTest() : base(
                 (c, e, m) => c.Read(e, m),
                 (c, e) => c.Contains(e),
-                (c, e) => c.Get(e))
-            { }
+                (c, e) => c.Get(e)) {}
 
             protected override ClosingStructure CreateDataModel()
             {
