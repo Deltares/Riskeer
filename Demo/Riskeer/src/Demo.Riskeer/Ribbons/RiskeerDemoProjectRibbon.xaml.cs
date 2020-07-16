@@ -21,7 +21,6 @@
 
 using System.Windows;
 using Core.Common.Controls.Commands;
-using Core.Common.Gui;
 using Core.Common.Gui.Commands;
 using Core.Common.Gui.Forms;
 using Demo.Riskeer.Commands;
@@ -40,7 +39,7 @@ namespace Demo.Riskeer.Ribbons
                                   openStackChartViewCommand,
                                   openPointedTreeGraphViewCommand;
 
-        public RiskeerDemoProjectRibbon(IProjectOwner projectOwner, IViewCommands viewCommands)
+        public RiskeerDemoProjectRibbon(IViewCommands viewCommands)
         {
             InitializeComponent();
 

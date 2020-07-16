@@ -23,7 +23,6 @@ using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
-using Core.Common.Gui;
 using Core.Common.Gui.Commands;
 using Demo.Riskeer.Ribbons;
 using NUnit.Framework;
@@ -40,12 +39,11 @@ namespace Demo.Riskeer.Test.Ribbons
         {
             // Setup
             var mocks = new MockRepository();
-            var projectOwner = mocks.Stub<IProjectOwner>();
             var viewCommands = mocks.Stub<IViewCommands>();
             mocks.ReplayAll();
 
             // Call
-            var ribbon = new RiskeerDemoProjectRibbon(projectOwner, viewCommands);
+            var ribbon = new RiskeerDemoProjectRibbon(viewCommands);
 
             // Assert
             Assert.IsNotNull(ribbon);
@@ -59,13 +57,12 @@ namespace Demo.Riskeer.Test.Ribbons
         {
             // Setup
             var mocks = new MockRepository();
-            var projectOwner = mocks.Stub<IProjectOwner>();
             var viewCommands = mocks.Stub<IViewCommands>();
             viewCommands.Expect(vc => vc.OpenView(null)).IgnoreArguments();
 
             mocks.ReplayAll();
 
-            var ribbon = new RiskeerDemoProjectRibbon(projectOwner, viewCommands);
+            var ribbon = new RiskeerDemoProjectRibbon(viewCommands);
             var button = ribbon.GetRibbonControl().FindName("OpenChartViewButton") as Button;
 
             // Precondition
@@ -84,13 +81,12 @@ namespace Demo.Riskeer.Test.Ribbons
         {
             // Setup
             var mocks = new MockRepository();
-            var projectOwner = mocks.Stub<IProjectOwner>();
             var viewCommands = mocks.Stub<IViewCommands>();
             viewCommands.Expect(vc => vc.OpenView(null)).IgnoreArguments();
 
             mocks.ReplayAll();
 
-            var ribbon = new RiskeerDemoProjectRibbon(projectOwner, viewCommands);
+            var ribbon = new RiskeerDemoProjectRibbon(viewCommands);
 
             var button = ribbon.GetRibbonControl().FindName("OpenMapViewButton") as Button;
 
@@ -110,13 +106,12 @@ namespace Demo.Riskeer.Test.Ribbons
         {
             // Setup
             var mocks = new MockRepository();
-            var projectOwner = mocks.Stub<IProjectOwner>();
             var viewCommands = mocks.Stub<IViewCommands>();
             viewCommands.Expect(vc => vc.OpenView(null)).IgnoreArguments();
 
             mocks.ReplayAll();
 
-            var ribbon = new RiskeerDemoProjectRibbon(projectOwner, viewCommands);
+            var ribbon = new RiskeerDemoProjectRibbon(viewCommands);
 
             var button = ribbon.GetRibbonControl().FindName("OpenThematicMapViewButton") as Button;
 
@@ -136,13 +131,12 @@ namespace Demo.Riskeer.Test.Ribbons
         {
             // Setup
             var mocks = new MockRepository();
-            var projectOwner = mocks.Stub<IProjectOwner>();
             var viewCommands = mocks.Stub<IViewCommands>();
             viewCommands.Expect(vc => vc.OpenView(null)).IgnoreArguments();
 
             mocks.ReplayAll();
 
-            var ribbon = new RiskeerDemoProjectRibbon(projectOwner, viewCommands);
+            var ribbon = new RiskeerDemoProjectRibbon(viewCommands);
             var button = ribbon.GetRibbonControl().FindName("OpenStackChartViewButton") as Button;
 
             // Precondition
@@ -161,13 +155,12 @@ namespace Demo.Riskeer.Test.Ribbons
         {
             // Setup
             var mocks = new MockRepository();
-            var projectOwner = mocks.Stub<IProjectOwner>();
             var viewCommands = mocks.Stub<IViewCommands>();
             viewCommands.Expect(vc => vc.OpenView(null)).IgnoreArguments();
 
             mocks.ReplayAll();
 
-            var ribbon = new RiskeerDemoProjectRibbon(projectOwner, viewCommands);
+            var ribbon = new RiskeerDemoProjectRibbon(viewCommands);
             var button = ribbon.GetRibbonControl().FindName("OpenPointedTreeGraphViewButton") as Button;
 
             // Precondition
