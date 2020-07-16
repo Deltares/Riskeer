@@ -86,7 +86,7 @@ namespace Riskeer.StabilityPointStructures.Data
                 ProbabilityAssessmentOutput derivedOutput = StabilityPointStructuresProbabilityAssessmentOutputFactory.Create(
                     scenario.Output, failureMechanism, assessmentSection);
 
-                totalDetailedAssessmentProbability += derivedOutput.Probability * (double)scenario.Contribution;
+                totalDetailedAssessmentProbability += derivedOutput.Probability * (double) scenario.Contribution;
             }
 
             return totalDetailedAssessmentProbability;
@@ -112,7 +112,7 @@ namespace Riskeer.StabilityPointStructures.Data
                 throw new ArgumentNullException(nameof(calculationScenarios));
             }
 
-            return (RoundedDouble)sectionResult
+            return (RoundedDouble) sectionResult
                                    .GetCalculationScenarios(calculationScenarios)
                                    .Aggregate<ICalculationScenario, double>(0, (current, calculationScenario) => current + calculationScenario.Contribution);
         }

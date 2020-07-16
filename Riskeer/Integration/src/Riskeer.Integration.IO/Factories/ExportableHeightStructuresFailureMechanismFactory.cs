@@ -101,7 +101,7 @@ namespace Riskeer.Integration.IO.Factories
             IDictionary<HeightStructuresFailureMechanismSectionResult, ExportableFailureMechanismSection> failureMechanismSectionsLookup =
                 ExportableFailureMechanismSectionHelper.CreateFailureMechanismSectionResultLookup(failureMechanism.SectionResults);
 
-            IEnumerable<StructuresCalculationScenario<HeightStructuresInput>> structuresCalculationScenarios = failureMechanism.Calculations.Cast<StructuresCalculationScenario<HeightStructuresInput>>().ToArray();
+            StructuresCalculationScenario<HeightStructuresInput>[] structuresCalculationScenarios = failureMechanism.Calculations.Cast<StructuresCalculationScenario<HeightStructuresInput>>().ToArray();
 
             var exportableResults = new List<ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbability>();
             foreach (KeyValuePair<HeightStructuresFailureMechanismSectionResult, ExportableFailureMechanismSection> failureMechanismSectionPair in failureMechanismSectionsLookup)
