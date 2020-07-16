@@ -109,20 +109,6 @@
     <None Include="..\..\..\..\build\Copying.licenseheader">
       <Link>Copying.licenseheader</Link>
     </None>
-    <EmbeddedResource Include="EmbeddedResources\DR6.soil" />
-    <EmbeddedResource Include="EmbeddedResources\DR6_surfacelines.csv" />
-    <EmbeddedResource Include="EmbeddedResources\DR6_surfacelines.krp.csv" />
-    <EmbeddedResource Include="EmbeddedResources\HLCD.sqlite" />
-    <EmbeddedResource Include="EmbeddedResources\HRD dutch coast south.config.sqlite" />
-    <EmbeddedResource Include="EmbeddedResources\HRD dutch coast south.sqlite" />
-    <EmbeddedResource Include="EmbeddedResources\traject_6-3.dbf" />
-    <EmbeddedResource Include="EmbeddedResources\traject_6-3.prj" />
-    <EmbeddedResource Include="EmbeddedResources\traject_6-3.shp" />
-    <EmbeddedResource Include="EmbeddedResources\traject_6-3.shx" />
-    <EmbeddedResource Include="EmbeddedResources\traject_6-3_vakken.dbf" />
-    <EmbeddedResource Include="EmbeddedResources\traject_6-3_vakken.prj" />
-    <EmbeddedResource Include="EmbeddedResources\traject_6-3_vakken.shp" />
-    <EmbeddedResource Include="EmbeddedResources\traject_6-3_vakken.shx" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="Ribbons\RiskeerDemoProjectRibbon.xaml">

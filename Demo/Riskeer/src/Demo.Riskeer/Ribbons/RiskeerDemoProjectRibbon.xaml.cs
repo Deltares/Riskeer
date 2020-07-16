@@ -34,8 +34,7 @@ namespace Demo.Riskeer.Ribbons
     /// </summary>
     public partial class RiskeerDemoProjectRibbon : IRibbonCommandHandler
     {
-        private readonly ICommand addNewAssessmentSection,
-                                  openMapViewCommand,
+        private readonly ICommand openMapViewCommand,
                                   openThematicMapViewCommand,
                                   openChartViewCommand,
                                   openStackChartViewCommand,
@@ -45,7 +44,6 @@ namespace Demo.Riskeer.Ribbons
         {
             InitializeComponent();
 
-            addNewAssessmentSection = new AddNewDemoAssessmentSectionCommand(projectOwner, viewCommands);
             openChartViewCommand = new OpenChartViewCommand(viewCommands);
             openMapViewCommand = new OpenMapViewCommand(viewCommands);
             openThematicMapViewCommand = new OpenThematicalMapViewCommand(viewCommands);
@@ -61,11 +59,6 @@ namespace Demo.Riskeer.Ribbons
         public void ValidateItems()
         {
             // Nothing to validate.
-        }
-
-        private void AddNewDemoAssessmentSectionButton_Click(object sender, RoutedEventArgs e)
-        {
-            addNewAssessmentSection.Execute();
         }
 
         private void ButtonOpenChartView_Click(object sender, RoutedEventArgs e)
