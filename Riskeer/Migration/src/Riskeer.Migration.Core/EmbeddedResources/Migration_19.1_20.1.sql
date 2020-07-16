@@ -397,10 +397,178 @@ INSERT INTO PipingStructureFailureMechanismMetaEntity SELECT * FROM [SOURCEPROJE
 INSERT INTO PipingStructureSectionResultEntity SELECT * FROM [SOURCEPROJECT].PipingStructureSectionResultEntity;
 INSERT INTO ProjectEntity SELECT * FROM [SOURCEPROJECT].ProjectEntity;
 INSERT INTO StabilityPointStructureEntity SELECT * FROM [SOURCEPROJECT].StabilityPointStructureEntity;
-INSERT INTO StabilityPointStructuresCalculationEntity SELECT * FROM [SOURCEPROJECT].StabilityPointStructuresCalculationEntity;
+INSERT INTO StabilityPointStructuresCalculationEntity(
+	[StabilityPointStructuresCalculationEntityId],
+	[CalculationGroupEntityId],
+	[ForeshoreProfileEntityId],
+	[HydraulicLocationEntityId],
+	[StabilityPointStructureEntityId],
+	[Order],
+	[Name],
+	[Comments],
+	[UseBreakWater], 
+	[BreakWaterType], 
+	[BreakWaterHeight],
+	[UseForeshore], 
+	[StructureNormalOrientation],
+	[StorageStructureAreaMean],
+	[StorageStructureAreaCoefficientOfVariation],
+	[AllowedLevelIncreaseStorageMean],
+	[AllowedLevelIncreaseStorageStandardDeviation],
+	[WidthFlowAperturesMean],
+	[WidthFlowAperturesStandardDeviation],
+	[InsideWaterLevelMean],
+	[InsideWaterLevelStandardDeviation],
+	[ThresholdHeightOpenWeirMean],
+	[ThresholdHeightOpenWeirStandardDeviation],
+	[CriticalOvertoppingDischargeMean],
+	[CriticalOvertoppingDischargeCoefficientOfVariation],
+	[FlowWidthAtBottomProtectionMean],
+	[FlowWidthAtBottomProtectionStandardDeviation],
+	[ConstructiveStrengthLinearLoadModelMean],
+	[ConstructiveStrengthLinearLoadModelCoefficientOfVariation],
+	[ConstructiveStrengthQuadraticLoadModelMean],
+	[ConstructiveStrengthQuadraticLoadModelCoefficientOfVariation],
+	[BankWidthMean],
+	[BankWidthStandardDeviation],
+	[InsideWaterLevelFailureConstructionMean],
+	[InsideWaterLevelFailureConstructionStandardDeviation],
+	[EvaluationLevel],
+	[LevelCrestStructureMean],
+	[LevelCrestStructureStandardDeviation],
+	[VerticalDistance],
+	[FailureProbabilityRepairClosure],
+	[FailureCollisionEnergyMean],
+	[FailureCollisionEnergyCoefficientOfVariation],
+	[ShipMassMean],
+	[ShipMassCoefficientOfVariation],
+	[ShipVelocityMean],
+	[ShipVelocityCoefficientOfVariation],
+	[LevellingCount],
+	[ProbabilityCollisionSecondaryStructure],
+	[FlowVelocityStructureClosableMean],
+	[StabilityLinearLoadModelMean],
+	[StabilityLinearLoadModelCoefficientOfVariation],
+	[StabilityQuadraticLoadModelMean],
+	[StabilityQuadraticLoadModelCoefficientOfVariation],
+	[AreaFlowAperturesMean],
+	[AreaFlowAperturesStandardDeviation],
+	[InflowModelType], 
+	[LoadSchematizationType], 
+	[VolumicWeightWater],
+	[StormDurationMean],
+	[FactorStormDurationOpenStructure],
+	[DrainCoefficientMean],
+	[FailureProbabilityStructureWithErosion],
+	[ShouldIllustrationPointsBeCalculated],
+	[RelevantForScenario],
+	[ScenarioContribution])
+SELECT 
+	[StabilityPointStructuresCalculationEntityId],
+	[CalculationGroupEntityId],
+	[ForeshoreProfileEntityId],
+	[HydraulicLocationEntityId],
+	[StabilityPointStructureEntityId],
+	[Order],
+	[Name],
+	[Comments],
+	[UseBreakWater], 
+	[BreakWaterType], 
+	[BreakWaterHeight],
+	[UseForeshore], 
+	[StructureNormalOrientation],
+	[StorageStructureAreaMean],
+	[StorageStructureAreaCoefficientOfVariation],
+	[AllowedLevelIncreaseStorageMean],
+	[AllowedLevelIncreaseStorageStandardDeviation],
+	[WidthFlowAperturesMean],
+	[WidthFlowAperturesStandardDeviation],
+	[InsideWaterLevelMean],
+	[InsideWaterLevelStandardDeviation],
+	[ThresholdHeightOpenWeirMean],
+	[ThresholdHeightOpenWeirStandardDeviation],
+	[CriticalOvertoppingDischargeMean],
+	[CriticalOvertoppingDischargeCoefficientOfVariation],
+	[FlowWidthAtBottomProtectionMean],
+	[FlowWidthAtBottomProtectionStandardDeviation],
+	[ConstructiveStrengthLinearLoadModelMean],
+	[ConstructiveStrengthLinearLoadModelCoefficientOfVariation],
+	[ConstructiveStrengthQuadraticLoadModelMean],
+	[ConstructiveStrengthQuadraticLoadModelCoefficientOfVariation],
+	[BankWidthMean],
+	[BankWidthStandardDeviation],
+	[InsideWaterLevelFailureConstructionMean],
+	[InsideWaterLevelFailureConstructionStandardDeviation],
+	[EvaluationLevel],
+	[LevelCrestStructureMean],
+	[LevelCrestStructureStandardDeviation],
+	[VerticalDistance],
+	[FailureProbabilityRepairClosure],
+	[FailureCollisionEnergyMean],
+	[FailureCollisionEnergyCoefficientOfVariation],
+	[ShipMassMean],
+	[ShipMassCoefficientOfVariation],
+	[ShipVelocityMean],
+	[ShipVelocityCoefficientOfVariation],
+	[LevellingCount],
+	[ProbabilityCollisionSecondaryStructure],
+	[FlowVelocityStructureClosableMean],
+	[StabilityLinearLoadModelMean],
+	[StabilityLinearLoadModelCoefficientOfVariation],
+	[StabilityQuadraticLoadModelMean],
+	[StabilityQuadraticLoadModelCoefficientOfVariation],
+	[AreaFlowAperturesMean],
+	[AreaFlowAperturesStandardDeviation],
+	[InflowModelType], 
+	[LoadSchematizationType], 
+	[VolumicWeightWater],
+	[StormDurationMean],
+	[FactorStormDurationOpenStructure],
+	[DrainCoefficientMean],
+	[FailureProbabilityStructureWithErosion],
+	[ShouldIllustrationPointsBeCalculated],
+	CASE
+		WHEN IsLinkedToSectionResult IS NOT NULL
+			THEN 1
+		ELSE 0
+	END,
+	CASE
+		WHEN IsLinkedToSectionResult IS NOT NULL
+			THEN 1
+		ELSE 0
+	END
+FROM [SOURCEPROJECT].StabilityPointStructuresCalculationEntity
+LEFT JOIN(
+	SELECT 
+		StabilityPointStructuresCalculationEntityId,
+		CASE
+			WHEN StabilityPointStructuresSectionResultEntityId IS NOT NULL
+				THEN 1
+			ELSE 0
+		END AS IsLinkedToSectionResult
+	FROM [SOURCEPROJECT].StabilityPointStructuresSectionResultEntity)
+USING(StabilityPointStructuresCalculationEntityId);
 INSERT INTO StabilityPointStructuresFailureMechanismMetaEntity SELECT * FROM [SOURCEPROJECT].StabilityPointStructuresFailureMechanismMetaEntity;
 INSERT INTO StabilityPointStructuresOutputEntity SELECT * FROM [SOURCEPROJECT].StabilityPointStructuresOutputEntity;
-INSERT INTO StabilityPointStructuresSectionResultEntity SELECT * FROM [SOURCEPROJECT].StabilityPointStructuresSectionResultEntity;
+INSERT INTO StabilityPointStructuresSectionResultEntity (
+	[StabilityPointStructuresSectionResultEntityId],
+	[FailureMechanismSectionEntityId],
+	[SimpleAssessmentResult],
+	[DetailedAssessmentResult],
+	[TailorMadeAssessmentResult],
+	[TailorMadeAssessmentProbability],
+	[UseManualAssembly],
+	[ManualAssemblyProbability])
+SELECT 
+	[StabilityPointStructuresSectionResultEntityId],
+	[FailureMechanismSectionEntityId],
+	[SimpleAssessmentResult],
+	[DetailedAssessmentResult],
+	[TailorMadeAssessmentResult],
+	[TailorMadeAssessmentProbability],
+	[UseManualAssembly],
+	[ManualAssemblyProbability]
+FROM [SOURCEPROJECT].StabilityPointStructuresSectionResultEntity;
 INSERT INTO StabilityStoneCoverFailureMechanismMetaEntity SELECT * FROM [SOURCEPROJECT].StabilityStoneCoverFailureMechanismMetaEntity;
 INSERT INTO StabilityStoneCoverSectionResultEntity SELECT * FROM [SOURCEPROJECT].StabilityStoneCoverSectionResultEntity;
 INSERT INTO StabilityStoneCoverWaveConditionsCalculationEntity SELECT * FROM [SOURCEPROJECT].StabilityStoneCoverWaveConditionsCalculationEntity;

@@ -70,6 +70,9 @@ namespace Riskeer.Migration.Integration.Test
                     AssertHeightStructuresCalculation(reader, sourceFilePath);
                     AssertHeightStructuresSectionResult(reader, sourceFilePath);
 
+                    AssertStabilityPointStructuresCalculation(reader, sourceFilePath);
+                    AssertStabilityPointStructuresSectionResult(reader, sourceFilePath);
+
                     AssertMacroStabilityInwardsOutput(reader);
                 }
 
@@ -419,6 +422,187 @@ namespace Riskeer.Migration.Integration.Test
                 ") " +
                 "FROM HeightStructuresSectionResultEntity NEW " +
                 "JOIN SOURCEPROJECT.HeightStructuresSectionResultEntity OLD USING(HeightStructuresSectionResultEntityId) " +
+                "WHERE NEW.[FailureMechanismSectionEntityId] = OLD.[FailureMechanismSectionEntityId] " +
+                "AND NEW.[SimpleAssessmentResult] = OLD.[SimpleAssessmentResult] " +
+                "AND NEW.[DetailedAssessmentResult] = OLD.[DetailedAssessmentResult] " +
+                "AND NEW.[TailorMadeAssessmentResult] = OLD.[TailorMadeAssessmentResult] " +
+                "AND NEW.[TailorMadeAssessmentProbability] IS OLD.[TailorMadeAssessmentProbability] " +
+                "AND NEW.[UseManualAssembly] = OLD.[UseManualAssembly] " +
+                "AND NEW.[ManualAssemblyProbability] IS OLD.[ManualAssemblyProbability]; " +
+                "DETACH SOURCEPROJECT;";
+            reader.AssertReturnedDataIsValid(validateSectionResults);
+        }
+
+        private static void AssertStabilityPointStructuresCalculation(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            string validateCalculationLinkedToSectionResult =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT COUNT() = " +
+                "(" +
+                "SELECT COUNT() " +
+                "FROM SOURCEPROJECT.StabilityPointStructuresCalculationEntity " +
+                "JOIN SOURCEPROJECT.StabilityPointStructuresSectionResultEntity USING(StabilityPointStructuresCalculationEntityId) " +
+                ") " +
+                "FROM StabilityPointStructuresCalculationEntity NEW " +
+                "JOIN SOURCEPROJECT.StabilityPointStructuresCalculationEntity OLD USING(StabilityPointStructuresCalculationEntityId) " +
+                "WHERE NEW.[CalculationGroupEntityId] = OLD.[CalculationGroupEntityId] " +
+                "AND NEW.[ForeshoreProfileEntityId] IS OLD.[ForeshoreProfileEntityId] " +
+                "AND NEW.[HydraulicLocationEntityId] IS OLD.[HydraulicLocationEntityId] " +
+                "AND NEW.[StabilityPointStructureEntityId] IS OLD.[StabilityPointStructureEntityId] " +
+                "AND NEW.\"Order\" = OLD.\"Order\" " +
+                "AND NEW.[Name] IS OLD.[Name] " +
+                "AND NEW.[Comments] IS OLD.[Comments] " +
+                "AND NEW.[UseBreakWater] = OLD.[UseBreakWater] " +
+                "AND NEW.[UseForeshore] = OLD.[UseForeshore] " +
+                "AND NEW.[BreakWaterType] IS OLD.[BreakWaterType] " +
+                "AND NEW.[BreakWaterHeight] IS OLD.[BreakWaterHeight] " +
+                "AND NEW.[StructureNormalOrientation] IS OLD.[StructureNormalOrientation] " +
+                "AND NEW.[StorageStructureAreaMean] IS OLD.[StorageStructureAreaMean] " +
+                "AND NEW.[StorageStructureAreaCoefficientOfVariation] IS OLD.[StorageStructureAreaCoefficientOfVariation] " +
+                "AND NEW.[AllowedLevelIncreaseStorageMean] IS OLD.[AllowedLevelIncreaseStorageMean] " +
+                "AND NEW.[AllowedLevelIncreaseStorageStandardDeviation] IS OLD.[AllowedLevelIncreaseStorageStandardDeviation] " +
+                "AND NEW.[WidthFlowAperturesMean] IS OLD.[WidthFlowAperturesMean] " +
+                "AND NEW.[WidthFlowAperturesStandardDeviation] IS OLD.[WidthFlowAperturesStandardDeviation] " +
+                "AND NEW.[InsideWaterLevelMean] IS OLD.[InsideWaterLevelMean] " +
+                "AND NEW.[InsideWaterLevelStandardDeviation] IS OLD.[InsideWaterLevelStandardDeviation] " +
+                "AND NEW.[ThresholdHeightOpenWeirMean] IS OLD.[ThresholdHeightOpenWeirMean] " +
+                "AND NEW.[ThresholdHeightOpenWeirStandardDeviation] IS OLD.[ThresholdHeightOpenWeirStandardDeviation] " +
+                "AND NEW.[CriticalOvertoppingDischargeMean] IS OLD.[CriticalOvertoppingDischargeMean] " +
+                "AND NEW.[CriticalOvertoppingDischargeCoefficientOfVariation] IS OLD.[CriticalOvertoppingDischargeCoefficientOfVariation] " +
+                "AND NEW.[FlowWidthAtBottomProtectionMean] IS OLD.[FlowWidthAtBottomProtectionMean] " +
+                "AND NEW.[FlowWidthAtBottomProtectionStandardDeviation] IS OLD.[FlowWidthAtBottomProtectionStandardDeviation] " +
+                "AND NEW.[ConstructiveStrengthLinearLoadModelMean] IS OLD.[ConstructiveStrengthLinearLoadModelMean] " +
+                "AND NEW.[ConstructiveStrengthLinearLoadModelCoefficientOfVariation] IS OLD.[ConstructiveStrengthLinearLoadModelCoefficientOfVariation] " +
+                "AND NEW.[ConstructiveStrengthQuadraticLoadModelMean] IS OLD.[ConstructiveStrengthQuadraticLoadModelMean] " +
+                "AND NEW.[ConstructiveStrengthQuadraticLoadModelCoefficientOfVariation] IS OLD.[ConstructiveStrengthQuadraticLoadModelCoefficientOfVariation] " +
+                "AND NEW.[BankWidthMean] IS OLD.[BankWidthMean] " +
+                "AND NEW.[BankWidthStandardDeviation] IS OLD.[BankWidthStandardDeviation] " +
+                "AND NEW.[InsideWaterLevelFailureConstructionMean] IS OLD.[InsideWaterLevelFailureConstructionMean] " +
+                "AND NEW.[InsideWaterLevelFailureConstructionStandardDeviation] IS OLD.[InsideWaterLevelFailureConstructionStandardDeviation] " +
+                "AND NEW.[EvaluationLevel] IS OLD.[EvaluationLevel] " +
+                "AND NEW.[LevelCrestStructureMean] IS OLD.[LevelCrestStructureMean] " +
+                "AND NEW.[LevelCrestStructureStandardDeviation] IS OLD.[LevelCrestStructureStandardDeviation] " +
+                "AND NEW.[VerticalDistance] IS OLD.[VerticalDistance] " +
+                "AND NEW.[FailureProbabilityRepairClosure] = OLD.[FailureProbabilityRepairClosure] " +
+                "AND NEW.[FailureCollisionEnergyMean] IS OLD.[FailureCollisionEnergyMean] " +
+                "AND NEW.[FailureCollisionEnergyCoefficientOfVariation] IS OLD.[FailureCollisionEnergyCoefficientOfVariation] " +
+                "AND NEW.[ShipMassMean] IS OLD.[ShipMassMean] " +
+                "AND NEW.[ShipMassCoefficientOfVariation] IS OLD.[ShipMassCoefficientOfVariation] " +
+                "AND NEW.[ShipVelocityMean] IS OLD.[ShipVelocityMean] " +
+                "AND NEW.[ShipVelocityCoefficientOfVariation] IS OLD.[ShipVelocityCoefficientOfVariation] " +
+                "AND NEW.[LevellingCount] = OLD.[LevellingCount] " +
+                "AND NEW.[ProbabilityCollisionSecondaryStructure] = OLD.[ProbabilityCollisionSecondaryStructure] " +
+                "AND NEW.[FlowVelocityStructureClosableMean] IS OLD.[FlowVelocityStructureClosableMean] " +
+                "AND NEW.[StabilityLinearLoadModelMean] IS OLD.[StabilityLinearLoadModelMean] " +
+                "AND NEW.[StabilityLinearLoadModelCoefficientOfVariation] IS OLD.[StabilityLinearLoadModelCoefficientOfVariation] " +
+                "AND NEW.[StabilityQuadraticLoadModelMean] IS OLD.[StabilityQuadraticLoadModelMean] " +
+                "AND NEW.[StabilityQuadraticLoadModelCoefficientOfVariation] IS OLD.[StabilityQuadraticLoadModelCoefficientOfVariation] " +
+                "AND NEW.[AreaFlowAperturesMean] IS OLD.[AreaFlowAperturesMean] " +
+                "AND NEW.[AreaFlowAperturesStandardDeviation] IS OLD.[AreaFlowAperturesStandardDeviation] " +
+                "AND NEW.[InflowModelType] = OLD.[InflowModelType] " +
+                "AND NEW.[LoadSchematizationType] = OLD.[LoadSchematizationType] " +
+                "AND NEW.[VolumicWeightWater] IS OLD.[VolumicWeightWater] " +
+                "AND NEW.[StormDurationMean] IS OLD.[StormDurationMean] " +
+                "AND NEW.[FactorStormDurationOpenStructure] IS OLD.[FactorStormDurationOpenStructure] " +
+                "AND NEW.[DrainCoefficientMean] IS OLD.[DrainCoefficientMean] " +
+                "AND NEW.[FailureProbabilityStructureWithErosion] IS OLD.[FailureProbabilityStructureWithErosion] " +
+                "AND NEW.[ShouldIllustrationPointsBeCalculated] = OLD.[ShouldIllustrationPointsBeCalculated] " +
+                "AND NEW.[RelevantForScenario] = 1 " +
+                "AND NEW.[ScenarioContribution] = 1; " +
+                "DETACH SOURCEPROJECT;";
+            reader.AssertReturnedDataIsValid(validateCalculationLinkedToSectionResult);
+
+            string validateCalculationNotLinkedToSectionResult =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT COUNT() = " +
+                "(" +
+                "SELECT COUNT() " +
+                "FROM SOURCEPROJECT.StabilityPointStructuresCalculationEntity " +
+                "LEFT JOIN SOURCEPROJECT.StabilityPointStructuresSectionResultEntity " +
+                "USING(StabilityPointStructuresCalculationEntityId) " +
+                "WHERE StabilityPointStructuresSectionResultEntityId IS NULL" +
+                ") " +
+                "FROM StabilityPointStructuresCalculationEntity NEW " +
+                "JOIN SOURCEPROJECT.StabilityPointStructuresCalculationEntity OLD USING(StabilityPointStructuresCalculationEntityId) " +
+                "WHERE NEW.[CalculationGroupEntityId] = OLD.[CalculationGroupEntityId] " +
+                "AND NEW.[ForeshoreProfileEntityId] IS OLD.[ForeshoreProfileEntityId] " +
+                "AND NEW.[HydraulicLocationEntityId] IS OLD.[HydraulicLocationEntityId] " +
+                "AND NEW.[StabilityPointStructureEntityId] IS OLD.[StabilityPointStructureEntityId] " +
+                "AND NEW.\"Order\" = OLD.\"Order\" " +
+                "AND NEW.[Name] IS OLD.[Name] " +
+                "AND NEW.[Comments] IS OLD.[Comments] " +
+                "AND NEW.[UseBreakWater] = OLD.[UseBreakWater] " +
+                "AND NEW.[UseForeshore] = OLD.[UseForeshore] " +
+                "AND NEW.[BreakWaterType] IS OLD.[BreakWaterType] " +
+                "AND NEW.[BreakWaterHeight] IS OLD.[BreakWaterHeight] " +
+                "AND NEW.[StructureNormalOrientation] IS OLD.[StructureNormalOrientation] " +
+                "AND NEW.[StorageStructureAreaMean] IS OLD.[StorageStructureAreaMean] " +
+                "AND NEW.[StorageStructureAreaCoefficientOfVariation] IS OLD.[StorageStructureAreaCoefficientOfVariation] " +
+                "AND NEW.[AllowedLevelIncreaseStorageMean] IS OLD.[AllowedLevelIncreaseStorageMean] " +
+                "AND NEW.[AllowedLevelIncreaseStorageStandardDeviation] IS OLD.[AllowedLevelIncreaseStorageStandardDeviation] " +
+                "AND NEW.[WidthFlowAperturesMean] IS OLD.[WidthFlowAperturesMean] " +
+                "AND NEW.[WidthFlowAperturesStandardDeviation] IS OLD.[WidthFlowAperturesStandardDeviation] " +
+                "AND NEW.[InsideWaterLevelMean] IS OLD.[InsideWaterLevelMean] " +
+                "AND NEW.[InsideWaterLevelStandardDeviation] IS OLD.[InsideWaterLevelStandardDeviation] " +
+                "AND NEW.[ThresholdHeightOpenWeirMean] IS OLD.[ThresholdHeightOpenWeirMean] " +
+                "AND NEW.[ThresholdHeightOpenWeirStandardDeviation] IS OLD.[ThresholdHeightOpenWeirStandardDeviation] " +
+                "AND NEW.[CriticalOvertoppingDischargeMean] IS OLD.[CriticalOvertoppingDischargeMean] " +
+                "AND NEW.[CriticalOvertoppingDischargeCoefficientOfVariation] IS OLD.[CriticalOvertoppingDischargeCoefficientOfVariation] " +
+                "AND NEW.[FlowWidthAtBottomProtectionMean] IS OLD.[FlowWidthAtBottomProtectionMean] " +
+                "AND NEW.[FlowWidthAtBottomProtectionStandardDeviation] IS OLD.[FlowWidthAtBottomProtectionStandardDeviation] " +
+                "AND NEW.[ConstructiveStrengthLinearLoadModelMean] IS OLD.[ConstructiveStrengthLinearLoadModelMean] " +
+                "AND NEW.[ConstructiveStrengthLinearLoadModelCoefficientOfVariation] IS OLD.[ConstructiveStrengthLinearLoadModelCoefficientOfVariation] " +
+                "AND NEW.[ConstructiveStrengthQuadraticLoadModelMean] IS OLD.[ConstructiveStrengthQuadraticLoadModelMean] " +
+                "AND NEW.[ConstructiveStrengthQuadraticLoadModelCoefficientOfVariation] IS OLD.[ConstructiveStrengthQuadraticLoadModelCoefficientOfVariation] " +
+                "AND NEW.[BankWidthMean] IS OLD.[BankWidthMean] " +
+                "AND NEW.[BankWidthStandardDeviation] IS OLD.[BankWidthStandardDeviation] " +
+                "AND NEW.[InsideWaterLevelFailureConstructionMean] IS OLD.[InsideWaterLevelFailureConstructionMean] " +
+                "AND NEW.[InsideWaterLevelFailureConstructionStandardDeviation] IS OLD.[InsideWaterLevelFailureConstructionStandardDeviation] " +
+                "AND NEW.[EvaluationLevel] IS OLD.[EvaluationLevel] " +
+                "AND NEW.[LevelCrestStructureMean] IS OLD.[LevelCrestStructureMean] " +
+                "AND NEW.[LevelCrestStructureStandardDeviation] IS OLD.[LevelCrestStructureStandardDeviation] " +
+                "AND NEW.[VerticalDistance] IS OLD.[VerticalDistance] " +
+                "AND NEW.[FailureProbabilityRepairClosure] = OLD.[FailureProbabilityRepairClosure] " +
+                "AND NEW.[FailureCollisionEnergyMean] IS OLD.[FailureCollisionEnergyMean] " +
+                "AND NEW.[FailureCollisionEnergyCoefficientOfVariation] IS OLD.[FailureCollisionEnergyCoefficientOfVariation] " +
+                "AND NEW.[ShipMassMean] IS OLD.[ShipMassMean] " +
+                "AND NEW.[ShipMassCoefficientOfVariation] IS OLD.[ShipMassCoefficientOfVariation] " +
+                "AND NEW.[ShipVelocityMean] IS OLD.[ShipVelocityMean] " +
+                "AND NEW.[ShipVelocityCoefficientOfVariation] IS OLD.[ShipVelocityCoefficientOfVariation] " +
+                "AND NEW.[LevellingCount] = OLD.[LevellingCount] " +
+                "AND NEW.[ProbabilityCollisionSecondaryStructure] = OLD.[ProbabilityCollisionSecondaryStructure] " +
+                "AND NEW.[FlowVelocityStructureClosableMean] IS OLD.[FlowVelocityStructureClosableMean] " +
+                "AND NEW.[StabilityLinearLoadModelMean] IS OLD.[StabilityLinearLoadModelMean] " +
+                "AND NEW.[StabilityLinearLoadModelCoefficientOfVariation] IS OLD.[StabilityLinearLoadModelCoefficientOfVariation] " +
+                "AND NEW.[StabilityQuadraticLoadModelMean] IS OLD.[StabilityQuadraticLoadModelMean] " +
+                "AND NEW.[StabilityQuadraticLoadModelCoefficientOfVariation] IS OLD.[StabilityQuadraticLoadModelCoefficientOfVariation] " +
+                "AND NEW.[AreaFlowAperturesMean] IS OLD.[AreaFlowAperturesMean] " +
+                "AND NEW.[AreaFlowAperturesStandardDeviation] IS OLD.[AreaFlowAperturesStandardDeviation] " +
+                "AND NEW.[InflowModelType] = OLD.[InflowModelType] " +
+                "AND NEW.[LoadSchematizationType] = OLD.[LoadSchematizationType] " +
+                "AND NEW.[VolumicWeightWater] IS OLD.[VolumicWeightWater] " +
+                "AND NEW.[StormDurationMean] IS OLD.[StormDurationMean] " +
+                "AND NEW.[FactorStormDurationOpenStructure] IS OLD.[FactorStormDurationOpenStructure] " +
+                "AND NEW.[DrainCoefficientMean] IS OLD.[DrainCoefficientMean] " +
+                "AND NEW.[FailureProbabilityStructureWithErosion] IS OLD.[FailureProbabilityStructureWithErosion] " +
+                "AND NEW.[ShouldIllustrationPointsBeCalculated] = OLD.[ShouldIllustrationPointsBeCalculated] " +
+                "AND NEW.[RelevantForScenario] = 0 " +
+                "AND NEW.[ScenarioContribution] = 0; " +
+                "DETACH SOURCEPROJECT;";
+            reader.AssertReturnedDataIsValid(validateCalculationNotLinkedToSectionResult);
+        }
+
+        private static void AssertStabilityPointStructuresSectionResult(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            string validateSectionResults =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT COUNT() = " +
+                "(" +
+                "SELECT COUNT() " +
+                "FROM SOURCEPROJECT.StabilityPointStructuresSectionResultEntity" +
+                ") " +
+                "FROM StabilityPointStructuresSectionResultEntity NEW " +
+                "JOIN SOURCEPROJECT.StabilityPointStructuresSectionResultEntity OLD USING(StabilityPointStructuresSectionResultEntityId) " +
                 "WHERE NEW.[FailureMechanismSectionEntityId] = OLD.[FailureMechanismSectionEntityId] " +
                 "AND NEW.[SimpleAssessmentResult] = OLD.[SimpleAssessmentResult] " +
                 "AND NEW.[DetailedAssessmentResult] = OLD.[DetailedAssessmentResult] " +
