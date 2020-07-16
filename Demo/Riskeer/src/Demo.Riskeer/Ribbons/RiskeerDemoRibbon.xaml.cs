@@ -29,9 +29,9 @@ using Fluent;
 namespace Demo.Riskeer.Ribbons
 {
     /// <summary>
-    /// Interaction logic for RiskeerDemoProjectRibbon.xaml
+    /// Interaction logic for RiskeerDemoRibbon.xaml
     /// </summary>
-    public partial class RiskeerDemoProjectRibbon : IRibbonCommandHandler
+    public partial class RiskeerDemoRibbon : IRibbonCommandHandler
     {
         private readonly ICommand openMapViewCommand,
                                   openThematicMapViewCommand,
@@ -39,7 +39,7 @@ namespace Demo.Riskeer.Ribbons
                                   openStackChartViewCommand,
                                   openPointedTreeGraphViewCommand;
 
-        public RiskeerDemoProjectRibbon(IViewCommands viewCommands)
+        public RiskeerDemoRibbon(IViewCommands viewCommands)
         {
             InitializeComponent();
 
@@ -52,7 +52,7 @@ namespace Demo.Riskeer.Ribbons
 
         public Ribbon GetRibbonControl()
         {
-            return RiskeerDemoProjectRibbonControl;
+            return RiskeerDemoRibbonControl;
         }
 
         public void ValidateItems()

@@ -20,7 +20,7 @@ All names, logos, and references to "Deltares" are registered trademarks of
 Stichting Deltares and remain full property of Stichting Deltares at all times.
 All rights reserved.
 -->
-<UserControl x:Class="Demo.Riskeer.Ribbons.RiskeerDemoProjectRibbon"
+<UserControl x:Class="Demo.Riskeer.Ribbons.RiskeerDemoRibbon"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -40,7 +40,7 @@ All rights reserved.
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <fluent:Ribbon x:Name="RiskeerDemoProjectRibbonControl" x:FieldModifier="private">
+    <fluent:Ribbon x:Name="RiskeerDemoRibbonControl" x:FieldModifier="private">
         <fluent:RibbonTabItem Header="{x:Static resx:Resources.Demo}" fluent:KeyTip.Keys="D">
             <fluent:RibbonGroupBox Header="{x:Static resx:Resources.General_Map}" fluent:KeyTip.Keys="M" Height="Auto">
                 <fluent:Button x:Name="OpenMapViewButton" Header="{x:Static resx:Resources.General_Map}" ToolTip="{x:Static resx:Resources.OpenMapView_ToolTip}" LargeIcon="{Binding Source={x:Static resx:Resources.map}, Converter={StaticResource IconConverter}}" SizeDefinition="Large" Click="ButtonOpenMapView_Click" fluent:KeyTip.Keys="K"/>

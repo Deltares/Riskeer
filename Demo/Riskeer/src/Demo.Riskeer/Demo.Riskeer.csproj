@@ -111,7 +111,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Ribbons\RiskeerDemoProjectRibbon.xaml">
+    <Page Include="Ribbons\RiskeerDemoRibbon.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

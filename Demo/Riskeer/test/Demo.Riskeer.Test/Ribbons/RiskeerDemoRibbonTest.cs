@@ -31,7 +31,7 @@ using Rhino.Mocks;
 namespace Demo.Riskeer.Test.Ribbons
 {
     [TestFixture]
-    public class RiskeerDemoProjectRibbonTest
+    public class RiskeerDemoRibbonTest
     {
         [Test]
         [Apartment(ApartmentState.STA)]
@@ -43,7 +43,7 @@ namespace Demo.Riskeer.Test.Ribbons
             mocks.ReplayAll();
 
             // Call
-            var ribbon = new RiskeerDemoProjectRibbon(viewCommands);
+            var ribbon = new RiskeerDemoRibbon(viewCommands);
 
             // Assert
             Assert.IsNotNull(ribbon);
@@ -62,7 +62,7 @@ namespace Demo.Riskeer.Test.Ribbons
 
             mocks.ReplayAll();
 
-            var ribbon = new RiskeerDemoProjectRibbon(viewCommands);
+            var ribbon = new RiskeerDemoRibbon(viewCommands);
             var button = ribbon.GetRibbonControl().FindName("OpenChartViewButton") as Button;
 
             // Precondition
@@ -86,7 +86,7 @@ namespace Demo.Riskeer.Test.Ribbons
 
             mocks.ReplayAll();
 
-            var ribbon = new RiskeerDemoProjectRibbon(viewCommands);
+            var ribbon = new RiskeerDemoRibbon(viewCommands);
 
             var button = ribbon.GetRibbonControl().FindName("OpenMapViewButton") as Button;
 
@@ -111,7 +111,7 @@ namespace Demo.Riskeer.Test.Ribbons
 
             mocks.ReplayAll();
 
-            var ribbon = new RiskeerDemoProjectRibbon(viewCommands);
+            var ribbon = new RiskeerDemoRibbon(viewCommands);
 
             var button = ribbon.GetRibbonControl().FindName("OpenThematicMapViewButton") as Button;
 
@@ -136,7 +136,7 @@ namespace Demo.Riskeer.Test.Ribbons
 
             mocks.ReplayAll();
 
-            var ribbon = new RiskeerDemoProjectRibbon(viewCommands);
+            var ribbon = new RiskeerDemoRibbon(viewCommands);
             var button = ribbon.GetRibbonControl().FindName("OpenStackChartViewButton") as Button;
 
             // Precondition
@@ -160,7 +160,7 @@ namespace Demo.Riskeer.Test.Ribbons
 
             mocks.ReplayAll();
 
-            var ribbon = new RiskeerDemoProjectRibbon(viewCommands);
+            var ribbon = new RiskeerDemoRibbon(viewCommands);
             var button = ribbon.GetRibbonControl().FindName("OpenPointedTreeGraphViewButton") as Button;
 
             // Precondition

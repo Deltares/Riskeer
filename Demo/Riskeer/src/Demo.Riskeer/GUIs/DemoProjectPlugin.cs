@@ -43,7 +43,7 @@ namespace Demo.Riskeer.GUIs
         {
             get
             {
-                return new RiskeerDemoProjectRibbon(Gui.ViewCommands);
+                return new RiskeerDemoRibbon(Gui.ViewCommands);
             }
         }
 
