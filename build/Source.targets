@@ -11,7 +11,7 @@
     <Company>Deltares</Company>
     <Copyright>Copyright © Deltares 2020</Copyright>
     <Version>20.1.1</Version>
-    <Configurations>Debug;Release;CreateInstaller;CreateInstallerWithDemoProject;ReleaseForCodeCoverage</Configurations>
+    <Configurations>Debug;Release;CreateInstaller;CreateInstallerWithDemoPlugin;ReleaseForCodeCoverage</Configurations>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
@@ -37,7 +37,7 @@
     <AllowedReferenceRelatedFileExtensions>none</AllowedReferenceRelatedFileExtensions>
     <IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'CreateInstallerWithDemoProject|x86'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'CreateInstallerWithDemoPlugin|x86'">
     <ConfigurationGroup>Release</ConfigurationGroup>
     <DebugType>none</DebugType>
     <Optimize>true</Optimize>

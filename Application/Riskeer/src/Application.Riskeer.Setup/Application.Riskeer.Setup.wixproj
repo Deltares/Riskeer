@@ -37,7 +37,7 @@
     <SuppressAllWarnings>True</SuppressAllWarnings>
     <Pedantic>False</Pedantic>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'CreateInstallerWithDemoProject|x86' ">
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'CreateInstallerWithDemoPlugin|x86' ">
     <SuppressPdbOutput>True</SuppressPdbOutput>
     <Cultures>nl-NL</Cultures>
     <SuppressAllWarnings>True</SuppressAllWarnings>
