@@ -342,8 +342,8 @@ namespace Riskeer.ClosingStructures.Plugin
             if (assessmentSection != null)
             {
                 failureMechanism = assessmentSection.GetFailureMechanisms()
-                                                                            .OfType<ClosingStructuresFailureMechanism>()
-                                                                            .FirstOrDefault();
+                                                    .OfType<ClosingStructuresFailureMechanism>()
+                                                    .FirstOrDefault();
             }
 
             return failureMechanism != null && ReferenceEquals(view.Data, failureMechanism.CalculationsGroup);
@@ -518,6 +518,12 @@ namespace Riskeer.ClosingStructures.Plugin
             StructuresCalculation<ClosingStructuresInput>[] calculations = group
                                                                            .GetCalculations()
                                                                            .Cast<StructuresCalculation<ClosingStructuresInput>>().ToArray();
+
+            if (!isNestedGroup)
+            {
+                builder.AddOpenItem()
+                       .AddSeparator();
+            }
 
             builder.AddImportItem()
                    .AddExportItem()
