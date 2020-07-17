@@ -1,5 +1,4 @@
-﻿
-// Copyright (C) Stichting Deltares 2019. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2019. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -523,6 +522,12 @@ namespace Riskeer.HeightStructures.Plugin
                                                                           .GetCalculations()
                                                                           .OfType<StructuresCalculation<HeightStructuresInput>>()
                                                                           .ToArray();
+
+            if (!isNestedGroup)
+            {
+                builder.AddOpenItem()
+                       .AddSeparator();
+            }
 
             builder.AddImportItem()
                    .AddExportItem()
