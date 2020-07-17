@@ -59,15 +59,15 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
     [TestFixture]
     public class StabilityPointStructuresCalculationGroupContextTreeNodeInfoTest : NUnitFormTest
     {
-        private const int contextMenuGenerateCalculationsIndexRootGroup = 3;
-        private const int contextMenuAddCalculationGroupIndexRootGroup = 5;
-        private const int contextMenuAddCalculationIndexRootGroup = 6;
-        private const int contextMenuUpdateForeshoreProfileIndexRootGroup = 8;
-        private const int contextMenuUpdateStructureAllIndexRootGroup = 9;
-        private const int contextMenuValidateAllIndexRootGroup = 11;
-        private const int contextMenuCalculateAllIndexRootGroup = 12;
-        private const int contextMenuClearAllIndexRootGroup = 14;
-        private const int contextMenuClearIllustrationPointsIndexRootGroup = 15;
+        private const int contextMenuGenerateCalculationsIndexRootGroup = 5;
+        private const int contextMenuAddCalculationGroupIndexRootGroup = 7;
+        private const int contextMenuAddCalculationIndexRootGroup = 8;
+        private const int contextMenuUpdateForeshoreProfileIndexRootGroup = 10;
+        private const int contextMenuUpdateStructureAllIndexRootGroup = 11;
+        private const int contextMenuValidateAllIndexRootGroup = 13;
+        private const int contextMenuCalculateAllIndexRootGroup = 14;
+        private const int contextMenuClearAllIndexRootGroup = 16;
+        private const int contextMenuClearIllustrationPointsIndexRootGroup = 17;
 
         private const int contextMenuDuplicateIndexNestedGroup = 3;
         private const int contextMenuAddCalculationGroupIndexNestedGroup = 5;
@@ -185,6 +185,8 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
             using (mocks.Ordered())
             {
+                menuBuilder.Expect(mb => mb.AddOpenItem()).Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.AddImportItem()).Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.AddExportItem()).Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
@@ -249,7 +251,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                 using (ContextMenuStrip menu = info.ContextMenuStrip(groupContext, null, treeViewControl))
                 {
                     // Assert
-                    Assert.AreEqual(22, menu.Items.Count);
+                    Assert.AreEqual(24, menu.Items.Count);
 
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuGenerateCalculationsIndexRootGroup,
                                                                   "Genereer &berekeningen...",

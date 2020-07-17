@@ -123,6 +123,16 @@ namespace Riskeer.StabilityPointStructures.Plugin
                 CreateInstance = context => new StabilityPointStructuresScenariosView(context.WrappedData, context.ParentFailureMechanism, context.AssessmentSection),
                 CloseForData = CloseScenariosViewForData
             };
+
+            yield return new ViewInfo<StabilityPointStructuresCalculationGroupContext, CalculationGroup, StabilityPointStructuresCalculationsView>
+            {
+                CreateInstance = context => new StabilityPointStructuresCalculationsView(context.WrappedData, context.FailureMechanism, context.AssessmentSection),
+                GetViewData = context => context.WrappedData,
+                GetViewName = (view, context) => context.WrappedData.Name,
+                Image = RiskeerCommonFormsResources.GeneralFolderIcon,
+                AdditionalDataCheck = context => context.WrappedData == context.FailureMechanism.CalculationsGroup,
+                CloseForData = CloseCalculationsViewForData,
+            };
         }
 
         public override IEnumerable<TreeNodeInfo> GetTreeNodeInfos()
@@ -317,6 +327,26 @@ namespace Riskeer.StabilityPointStructures.Plugin
             return failureMechanism != null && ReferenceEquals(view.Data, failureMechanism.CalculationsGroup);
         }
 
+        private static bool CloseCalculationsViewForData(StabilityPointStructuresCalculationsView view, object o)
+        {
+            var assessmentSection = o as IAssessmentSection;
+            var failureMechanism = o as StabilityPointStructuresFailureMechanism;
+
+            if (o is StabilityPointStructuresFailureMechanismContext failureMechanismContext)
+            {
+                failureMechanism = failureMechanismContext.WrappedData;
+            }
+
+            if (assessmentSection != null)
+            {
+                failureMechanism = assessmentSection.GetFailureMechanisms()
+                                                    .OfType<StabilityPointStructuresFailureMechanism>()
+                                                    .FirstOrDefault();
+            }
+
+            return failureMechanism != null && ReferenceEquals(view.Data, failureMechanism.CalculationsGroup);
+        }
+
         #endregion
 
         #region TreeNodeInfos
@@ -493,6 +523,12 @@ namespace Riskeer.StabilityPointStructures.Plugin
                                                                                   .GetCalculations()
                                                                                   .OfType<StructuresCalculation<StabilityPointStructuresInput>>()
                                                                                   .ToArray();
+
+            if (!isNestedGroup)
+            {
+                builder.AddOpenItem()
+                       .AddSeparator();
+            }
 
             builder.AddImportItem()
                    .AddExportItem()
