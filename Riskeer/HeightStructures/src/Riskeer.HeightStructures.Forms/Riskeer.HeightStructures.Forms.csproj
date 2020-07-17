@@ -49,4 +49,9 @@
       <Link>Copying.licenseheader</Link>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Views\HeightStructuresCalculationsView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+  </ItemGroup>
 </Project>

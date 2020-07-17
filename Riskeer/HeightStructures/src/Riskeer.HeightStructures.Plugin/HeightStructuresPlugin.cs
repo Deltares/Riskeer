@@ -1,4 +1,5 @@
-﻿// Copyright (C) Stichting Deltares 2019. All rights reserved.
+﻿
+// Copyright (C) Stichting Deltares 2019. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -194,6 +195,16 @@ namespace Riskeer.HeightStructures.Plugin
                     (HeightStructuresFailureMechanism) context.FailureMechanism,
                     context.AssessmentSection)
             };
+
+            yield return new ViewInfo<HeightStructuresCalculationGroupContext, CalculationGroup, HeightStructuresCalculationsView>
+            {
+                CreateInstance = context => new HeightStructuresCalculationsView(context.WrappedData, context.FailureMechanism, context.AssessmentSection),
+                GetViewData = context => context.WrappedData,
+                GetViewName = (view, context) => context.WrappedData.Name,
+                Image = RiskeerCommonFormsResources.GeneralFolderIcon,
+                AdditionalDataCheck = context => context.WrappedData == context.FailureMechanism.CalculationsGroup,
+                CloseForData = CloseCalculationsViewForData,
+            };
         }
 
         public override IEnumerable<TreeNodeInfo> GetTreeNodeInfos()
@@ -320,6 +331,26 @@ namespace Riskeer.HeightStructures.Plugin
             }
 
             return failureMechanism != null && ReferenceEquals(view.FailureMechanism.SectionResults, failureMechanism.SectionResults);
+        }
+
+        private static bool CloseCalculationsViewForData(HeightStructuresCalculationsView view, object o)
+        {
+            var assessmentSection = o as IAssessmentSection;
+            var failureMechanism = o as HeightStructuresFailureMechanism;
+
+            if (o is HeightStructuresFailureMechanismContext failureMechanismContext)
+            {
+                failureMechanism = failureMechanismContext.WrappedData;
+            }
+
+            if (assessmentSection != null)
+            {
+                failureMechanism = assessmentSection.GetFailureMechanisms()
+                                                    .OfType<HeightStructuresFailureMechanism>()
+                                                    .FirstOrDefault();
+            }
+
+            return failureMechanism != null && ReferenceEquals(view.Data, failureMechanism.CalculationsGroup);
         }
 
         #endregion
