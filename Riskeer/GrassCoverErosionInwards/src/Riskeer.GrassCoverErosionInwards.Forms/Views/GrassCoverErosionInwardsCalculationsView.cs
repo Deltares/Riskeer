@@ -452,26 +452,10 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
             using (var dialog = new GrassCoverErosionInwardsDikeProfileSelectionDialog(Parent, failureMechanism.DikeProfiles))
             {
                 dialog.ShowDialog();
-                GenerateCalculations(calculationGroup, dialog.SelectedItems);
+                GrassCoverErosionInwardsCalculationConfigurationHelper.GenerateCalculations(calculationGroup, dialog.SelectedItems);
             }
 
             calculationGroup.NotifyObservers();
-        }
-
-        private static void GenerateCalculations(CalculationGroup calculationGroup, IEnumerable<DikeProfile> dikeProfiles)
-        {
-            foreach (DikeProfile profile in dikeProfiles)
-            {
-                var calculation = new GrassCoverErosionInwardsCalculationScenario
-                {
-                    Name = NamingHelper.GetUniqueName(calculationGroup.Children, profile.Name, c => c.Name),
-                    InputParameters =
-                    {
-                        DikeProfile = profile
-                    }
-                };
-                calculationGroup.Children.Add(calculation);
-            }
         }
 
         private void OnFailureMechanismUpdate()
