@@ -653,27 +653,9 @@ namespace Riskeer.StabilityPointStructures.Plugin
 
                 if (dialog.SelectedItems.Any())
                 {
-                    GenerateStabilityPointStructuresCalculations(dialog.SelectedItems.Cast<StabilityPointStructure>(),
-                                                                 nodeData.WrappedData.Children);
+                    StructureCalculationConfigurationHelper.GenerateCalculations<StabilityPointStructure, StabilityPointStructuresInput>(nodeData.WrappedData, dialog.SelectedItems.Cast<StabilityPointStructure>());
                     nodeData.NotifyObservers();
                 }
-            }
-        }
-
-        private static void GenerateStabilityPointStructuresCalculations(IEnumerable<StabilityPointStructure> structures,
-                                                                         List<ICalculationBase> calculations)
-        {
-            foreach (StabilityPointStructure structure in structures)
-            {
-                var calculation = new StructuresCalculationScenario<StabilityPointStructuresInput>
-                {
-                    Name = NamingHelper.GetUniqueName(calculations, structure.Name, c => c.Name),
-                    InputParameters =
-                    {
-                        Structure = structure
-                    }
-                };
-                calculations.Add(calculation);
             }
         }
 

@@ -476,26 +476,10 @@ namespace Riskeer.StabilityPointStructures.Forms.Views
             using (var dialog = new StructureSelectionDialog(Parent, failureMechanism.StabilityPointStructures))
             {
                 dialog.ShowDialog();
-                GenerateCalculations(calculationGroup, dialog.SelectedItems.Cast<StabilityPointStructure>());
+                StructureCalculationConfigurationHelper.GenerateCalculations<StabilityPointStructure, StabilityPointStructuresInput>(calculationGroup, dialog.SelectedItems.Cast<StabilityPointStructure>());
             }
 
             calculationGroup.NotifyObservers();
-        }
-
-        private static void GenerateCalculations(CalculationGroup calculationGroup, IEnumerable<StabilityPointStructure> structures)
-        {
-            foreach (StabilityPointStructure structure in structures)
-            {
-                var calculation = new StructuresCalculationScenario<StabilityPointStructuresInput>
-                {
-                    Name = NamingHelper.GetUniqueName(calculationGroup.Children, structure.Name, c => c.Name),
-                    InputParameters =
-                    {
-                        Structure = structure
-                    }
-                };
-                calculationGroup.Children.Add(calculation);
-            }
         }
 
         private void OnFailureMechanismUpdate()
