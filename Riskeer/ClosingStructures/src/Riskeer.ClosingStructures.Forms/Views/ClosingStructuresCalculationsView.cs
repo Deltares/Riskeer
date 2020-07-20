@@ -55,7 +55,7 @@ namespace Riskeer.ClosingStructures.Forms.Views
         private readonly ClosingStructuresFailureMechanism failureMechanism;
         private Observer failureMechanismObserver;
         private Observer hydraulicBoundaryLocationsObserver;
-        private Observer foreShoreProfilesObserver;
+        private Observer ClosingStructuresObserver;
         private RecursiveObserver<CalculationGroup, ClosingStructuresInput> inputObserver;
         private RecursiveObserver<CalculationGroup, StructuresCalculationScenario<ClosingStructuresInput>> calculationScenarioObserver;
         private RecursiveObserver<CalculationGroup, CalculationGroup> calculationGroupObserver;
@@ -133,7 +133,7 @@ namespace Riskeer.ClosingStructures.Forms.Views
                 calculationGroupObserver.Dispose();
 
                 hydraulicBoundaryLocationsObserver.Dispose();
-                foreShoreProfilesObserver.Dispose();
+                ClosingStructuresObserver.Dispose();
 
                 components?.Dispose();
             }
@@ -260,13 +260,9 @@ namespace Riskeer.ClosingStructures.Forms.Views
             {
                 Observable = assessmentSection.HydraulicBoundaryDatabase.Locations
             };
-            foreShoreProfilesObserver = new Observer(() =>
+            ClosingStructuresObserver = new Observer(UpdateGenerateCalculationsButtonState)
             {
-                UpdateForeshoreProfilesColumn();
-                UpdateGenerateCalculationsButtonState();
-            })
-            {
-                Observable = failureMechanism.ForeshoreProfiles
+                Observable = failureMechanism.ClosingStructures
             };
 
             // The concat is needed to observe the input of calculations in child groups.
@@ -440,9 +436,9 @@ namespace Riskeer.ClosingStructures.Forms.Views
 
             List<SelectableHydraulicBoundaryLocation> selectableHydraulicBoundaryLocations = hydraulicBoundaryLocations.Select(hbl => new SelectableHydraulicBoundaryLocation(hbl, null)).ToList();
 
-            foreach (ForeshoreProfile foreshoreProfile in failureMechanism.ForeshoreProfiles)
+            foreach (ClosingStructure closingStructure in failureMechanism.ClosingStructures)
             {
-                selectableHydraulicBoundaryLocations.AddRange(GetSelectableHydraulicBoundaryLocations(hydraulicBoundaryLocations, foreshoreProfile));
+                selectableHydraulicBoundaryLocations.AddRange(GetSelectableHydraulicBoundaryLocations(hydraulicBoundaryLocations, closingStructure));
             }
 
             return selectableHydraulicBoundaryLocations;

@@ -205,7 +205,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
         }
 
         [Test]
-        public void ButtonGenerateCalculations_ForeshoreProfilesPresent_ButtonEnabled()
+        public void ButtonGenerateCalculations_StructuresPresent_ButtonEnabled()
         {
             // Setup
             var mocks = new MockRepository();
@@ -227,12 +227,11 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
         }
 
         [Test]
-        public void CalculationsView_ChangingForeshoreProfiles_ButtonCorrectState()
+        public void CalculationsView_ChangingStructures_ButtonCorrectState()
         {
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-
             mocks.ReplayAll();
 
             ConfigureHydraulicBoundaryDatabase(assessmentSection);
@@ -255,13 +254,14 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
                 failureMechanismSection1
             });
 
-            failureMechanism.ForeshoreProfiles.AddRange(new List<ForeshoreProfile>
+            failureMechanism.ClosingStructures.AddRange(new List<ClosingStructure>
             {
-                new TestForeshoreProfile(new Point2D(0.0, 0.0))
+                new TestClosingStructure(new Point2D(0.0, 0.0), "Structure 1"),
+                new TestClosingStructure(new Point2D(0.0, 0.0), "Structure 2")
             }, string.Empty);
 
             // Call
-            failureMechanism.ForeshoreProfiles.NotifyObservers();
+            failureMechanism.ClosingStructures.NotifyObservers();
 
             // Assert
             Assert.IsTrue(button.Enabled);
@@ -353,7 +353,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
             cells = rows[1].Cells;
             Assert.AreEqual(11, cells.Count);
             Assert.AreEqual("Calculation 2", cells[nameColumnIndex].FormattedValue);
-            Assert.AreEqual("Location 1 (2 m)", cells[selectableHydraulicBoundaryLocationsColumnIndex].FormattedValue);
+            Assert.AreEqual("Location 1 (4 m)", cells[selectableHydraulicBoundaryLocationsColumnIndex].FormattedValue);
             Assert.AreEqual("name", cells[foreshoreProfileColumnIndex].FormattedValue);
             Assert.AreEqual(false, cells[useBreakWaterColumnIndex].FormattedValue);
             Assert.AreEqual("Havendam", cells[breakWaterTypeColumnIndex].FormattedValue);
@@ -806,6 +806,11 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
                 })
             });
 
+            failureMechanism.ClosingStructures.AddRange(new List<ClosingStructure>
+            {
+                new TestClosingStructure(new Point2D(0.0, 0.0), "Structure 1"),
+                new TestClosingStructure(new Point2D(0.0, 0.0), "Structure 2")
+            },string.Empty );
             failureMechanism.ForeshoreProfiles.AddRange(new List<ForeshoreProfile>
             {
                 new TestForeshoreProfile("profiel 1"),
@@ -955,9 +960,9 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
             Assert.AreEqual("Damhoogte [m+NAP]", dataGridView.Columns[breakWaterHeightColumnIndex].HeaderText);
             Assert.AreEqual("Gebruik voorlandgeometrie", dataGridView.Columns[useForeShoreGeometryColumnIndex].HeaderText);
             Assert.AreEqual("Instroommodel", dataGridView.Columns[inflowModelTypeColumnIndex].HeaderText);
-            Assert.AreEqual("Verwachtingswaarde Binnenwaterstand [m+NAP]", dataGridView.Columns[meanInsideWaterLevelColumnIndex].HeaderText);
-            Assert.AreEqual("Verwachtingswaarde Kritiek instromend debiet [m³/s/m]", dataGridView.Columns[criticalOvertoppingDischargeColumnIndex].HeaderText);
-            Assert.AreEqual("Verwachtingswaarde Toegestane peilverhoging komberging [m]", dataGridView.Columns[allowedLevelIncreaseStorageColumnIndex].HeaderText);
+            Assert.AreEqual("Verwachtingswaarde\r\nBinnenwaterstand [m+NAP]", dataGridView.Columns[meanInsideWaterLevelColumnIndex].HeaderText);
+            Assert.AreEqual("Verwachtingswaarde\r\nKritiek instromend debiet [m³/s/m]", dataGridView.Columns[criticalOvertoppingDischargeColumnIndex].HeaderText);
+            Assert.AreEqual("Verwachtingswaarde\r\nToegestane peilverhoging komberging [m]", dataGridView.Columns[allowedLevelIncreaseStorageColumnIndex].HeaderText);
         }
     }
 }

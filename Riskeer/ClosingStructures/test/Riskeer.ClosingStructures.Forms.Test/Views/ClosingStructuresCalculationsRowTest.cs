@@ -364,6 +364,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
             {
                 InputParameters =
                 {
+                    UseForeshore = true,
                     ForeshoreProfile = new TestForeshoreProfile(new[]
                     {
                         new Point2D(0.0, 0.0)
@@ -372,10 +373,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
             };
 
             // Call
-            var row = new ClosingStructuresCalculationRow(calculation, new ObservablePropertyChangeHandler(calculation, new ClosingStructuresInput()))
-            {
-                UseForeshoreGeometry = true
-            };
+            var row = new ClosingStructuresCalculationRow(calculation, new ObservablePropertyChangeHandler(calculation, new ClosingStructuresInput()));
 
             // Asserts
             IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
