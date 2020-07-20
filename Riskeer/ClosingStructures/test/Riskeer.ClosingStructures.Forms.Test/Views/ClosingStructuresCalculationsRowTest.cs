@@ -199,12 +199,10 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
         public void UseBreakWater_AlwaysOnChange_NotifyObserverAndCalculationPropertyChanged()
         {
             // Setup
-            const bool newValue = true;
-
             var calculation = new StructuresCalculationScenario<ClosingStructuresInput>();
 
             // Call & Assert
-            SetPropertyAndVerifyNotificationsAndOutputForCalculation(row => row.UseBreakWater = newValue, calculation);
+            SetPropertyAndVerifyNotificationsAndOutputForCalculation(row => row.UseBreakWater = true, calculation);
         }
 
         [Test]
@@ -331,12 +329,10 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
         public void UseForeShoreGeometry_AlwaysOnChange_NotifyObserverAndCalculationPropertyChanged()
         {
             // Setup
-            const bool newValue = true;
-
             var calculation = new StructuresCalculationScenario<ClosingStructuresInput>();
 
             // Call & Assert
-            SetPropertyAndVerifyNotificationsAndOutputForCalculation(row => row.UseForeshoreGeometry = newValue, calculation);
+            SetPropertyAndVerifyNotificationsAndOutputForCalculation(row => row.UseForeshoreGeometry = true, calculation);
         }
 
         [Test]
