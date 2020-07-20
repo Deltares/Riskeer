@@ -133,7 +133,7 @@ namespace Riskeer.ClosingStructures.Plugin
                 GetViewName = (view, context) => context.WrappedData.Name,
                 Image = RiskeerCommonFormsResources.GeneralFolderIcon,
                 AdditionalDataCheck = context => context.WrappedData == context.FailureMechanism.CalculationsGroup,
-                CloseForData = CloseCalculationsViewForData,
+                CloseForData = CloseCalculationsViewForData
             };
         }
 
@@ -331,7 +331,7 @@ namespace Riskeer.ClosingStructures.Plugin
 
         private static bool CloseCalculationsViewForData(ClosingStructuresCalculationsView view, object o)
         {
-            var assessmentSection = o as IAssessmentSection;
+            
             var failureMechanism = o as ClosingStructuresFailureMechanism;
 
             if (o is ClosingStructuresFailureMechanismContext failureMechanismContext)
@@ -339,7 +339,7 @@ namespace Riskeer.ClosingStructures.Plugin
                 failureMechanism = failureMechanismContext.WrappedData;
             }
 
-            if (assessmentSection != null)
+            if (o is IAssessmentSection assessmentSection)
             {
                 failureMechanism = assessmentSection.GetFailureMechanisms()
                                                     .OfType<ClosingStructuresFailureMechanism>()
