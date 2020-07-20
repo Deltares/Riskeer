@@ -652,26 +652,9 @@ namespace Riskeer.HeightStructures.Plugin
 
                 if (dialog.SelectedItems.Any())
                 {
-                    GenerateHeightStructuresCalculations(dialog.SelectedItems.Cast<HeightStructure>(),
-                                                         nodeData.WrappedData.Children);
+                    StructureCalculationConfigurationHelper.GenerateCalculations<HeightStructure, HeightStructuresInput>(nodeData.WrappedData, dialog.SelectedItems.Cast<HeightStructure>());
                     nodeData.NotifyObservers();
                 }
-            }
-        }
-
-        private static void GenerateHeightStructuresCalculations(IEnumerable<HeightStructure> structures, List<ICalculationBase> calculations)
-        {
-            foreach (HeightStructure structure in structures)
-            {
-                var calculation = new StructuresCalculationScenario<HeightStructuresInput>
-                {
-                    Name = NamingHelper.GetUniqueName(calculations, structure.Name, c => c.Name),
-                    InputParameters =
-                    {
-                        Structure = structure
-                    }
-                };
-                calculations.Add(calculation);
             }
         }
 
