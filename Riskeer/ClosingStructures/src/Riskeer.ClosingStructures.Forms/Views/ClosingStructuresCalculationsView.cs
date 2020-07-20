@@ -455,26 +455,10 @@ namespace Riskeer.ClosingStructures.Forms.Views
             using (var dialog = new StructureSelectionDialog(Parent, failureMechanism.ClosingStructures))
             {
                 dialog.ShowDialog();
-                GenerateCalculations(calculationGroup, dialog.SelectedItems.Cast<ClosingStructure>());
+                StructureCalculationConfigurationHelper.GenerateCalculations<ClosingStructure, ClosingStructuresInput>(calculationGroup, dialog.SelectedItems.Cast<ClosingStructure>());
             }
 
             calculationGroup.NotifyObservers();
-        }
-
-        private static void GenerateCalculations(CalculationGroup calculationGroup, IEnumerable<ClosingStructure> structures)
-        {
-            foreach (ClosingStructure structure in structures)
-            {
-                var calculation = new StructuresCalculationScenario<ClosingStructuresInput>
-                {
-                    Name = NamingHelper.GetUniqueName(calculationGroup.Children, structure.Name, c => c.Name),
-                    InputParameters =
-                    {
-                        Structure = structure
-                    }
-                };
-                calculationGroup.Children.Add(calculation);
-            }
         }
 
         private void OnFailureMechanismUpdate()

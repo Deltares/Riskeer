@@ -331,7 +331,6 @@ namespace Riskeer.ClosingStructures.Plugin
 
         private static bool CloseCalculationsViewForData(ClosingStructuresCalculationsView view, object o)
         {
-            
             var failureMechanism = o as ClosingStructuresFailureMechanism;
 
             if (o is ClosingStructuresFailureMechanismContext failureMechanismContext)
@@ -647,26 +646,9 @@ namespace Riskeer.ClosingStructures.Plugin
 
                 if (dialog.SelectedItems.Any())
                 {
-                    GenerateClosingStructuresCalculations(dialog.SelectedItems.Cast<ClosingStructure>(),
-                                                          nodeData.WrappedData.Children);
+                    StructureCalculationConfigurationHelper.GenerateCalculations<ClosingStructure, ClosingStructuresInput>(nodeData.WrappedData, dialog.SelectedItems.Cast<ClosingStructure>());
                     nodeData.NotifyObservers();
                 }
-            }
-        }
-
-        private static void GenerateClosingStructuresCalculations(IEnumerable<ClosingStructure> structures, List<ICalculationBase> calculations)
-        {
-            foreach (ClosingStructure structure in structures)
-            {
-                var calculation = new StructuresCalculationScenario<ClosingStructuresInput>
-                {
-                    Name = NamingHelper.GetUniqueName(calculations, structure.Name, c => c.Name),
-                    InputParameters =
-                    {
-                        Structure = structure
-                    }
-                };
-                calculations.Add(calculation);
             }
         }
 
