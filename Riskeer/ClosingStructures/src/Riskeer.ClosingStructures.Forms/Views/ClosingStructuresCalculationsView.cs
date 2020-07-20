@@ -187,21 +187,15 @@ namespace Riskeer.ClosingStructures.Forms.Views
 
             dataGridViewControl.AddTextBoxColumn(
                 nameof(ClosingStructuresCalculationRow.MeanInsideWaterLevel),
-                string.Concat(RiskeerCommonFormsResources.NormalDistribution_Mean_DisplayName,
-                              " ",
-                              RiskeerCommonFormsResources.Structure_InsideWaterLevel_DisplayName));
+                $"{RiskeerCommonFormsResources.NormalDistribution_Mean_DisplayName}\r\n{RiskeerCommonFormsResources.Structure_InsideWaterLevel_DisplayName}");
 
             dataGridViewControl.AddTextBoxColumn(
                 nameof(ClosingStructuresCalculationRow.CriticalOvertoppingDischarge),
-                string.Concat(RiskeerCommonFormsResources.NormalDistribution_Mean_DisplayName,
-                              " ",
-                              RiskeerCommonFormsResources.Structure_CriticalOvertoppingDischarge_DisplayName));
+                $"{RiskeerCommonFormsResources.NormalDistribution_Mean_DisplayName}\r\n{RiskeerCommonFormsResources.Structure_CriticalOvertoppingDischarge_DisplayName}");
 
             dataGridViewControl.AddTextBoxColumn(
                 nameof(ClosingStructuresCalculationRow.AllowedLevelIncreaseStorage),
-                string.Concat(RiskeerCommonFormsResources.NormalDistribution_Mean_DisplayName,
-                              " ",
-                              RiskeerCommonFormsResources.Structure_AllowedLevelIncreaseStorage_DisplayName));
+                $"{RiskeerCommonFormsResources.NormalDistribution_Mean_DisplayName}\r\n{RiskeerCommonFormsResources.Structure_AllowedLevelIncreaseStorage_DisplayName}");
         }
 
         private void InitializeListBox()
@@ -212,7 +206,7 @@ namespace Riskeer.ClosingStructures.Forms.Views
 
         private void UpdateGenerateCalculationsButtonState()
         {
-            buttonGenerateCalculations.Enabled = failureMechanism.ForeshoreProfiles.Any();
+            buttonGenerateCalculations.Enabled = failureMechanism.ClosingStructures.Any();
         }
 
         private ClosingStructuresInputContext CreateSelectedItemFromCurrentRow()
@@ -354,13 +348,13 @@ namespace Riskeer.ClosingStructures.Forms.Views
         private IEnumerable<SelectableHydraulicBoundaryLocation> GetSelectableHydraulicBoundaryLocationsForCalculation(StructuresCalculationScenario<ClosingStructuresInput> calculationScenario)
         {
             return GetSelectableHydraulicBoundaryLocations(assessmentSection?.HydraulicBoundaryDatabase.Locations,
-                                                           calculationScenario.InputParameters.ForeshoreProfile);
+                                                           calculationScenario.InputParameters.Structure);
         }
 
         private static IEnumerable<SelectableHydraulicBoundaryLocation> GetSelectableHydraulicBoundaryLocations(
-            IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations, ForeshoreProfile foreshoreProfile)
+            IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations, ClosingStructure closingStructure)
         {
-            Point2D referencePoint = foreshoreProfile?.WorldReferencePoint;
+            Point2D referencePoint = closingStructure?.Location;
             return SelectableHydraulicBoundaryLocationHelper.GetSortedSelectableHydraulicBoundaryLocations(
                 hydraulicBoundaryLocations, referencePoint);
         }
