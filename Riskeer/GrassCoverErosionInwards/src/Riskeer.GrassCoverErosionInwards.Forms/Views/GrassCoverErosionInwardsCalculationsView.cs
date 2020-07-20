@@ -167,7 +167,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
 
             dataGridViewControl.AddComboBoxColumn(nameof(GrassCoverErosionInwardsCalculationRow.BreakWaterType),
                                                   RiskeerCommonFormsResources.CalculationsView_BreakWaterType_DisplayName,
-                                                  GetEnumTypes<BreakWaterType>(),
+                                                  EnumDisplayWrapperHelper.GetEnumTypes<BreakWaterType>(),
                                                   nameof(EnumDisplayWrapper<BreakWaterType>.Value),
                                                   nameof(EnumDisplayWrapper<BreakWaterType>.DisplayName));
 
@@ -417,14 +417,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
                 SetItemsOnObjectCollection(selectableDikeProfileColumn.Items,
                                            GetSelectableDikeProfileDataSource(failureMechanism.DikeProfiles));
             }
-        }
-
-        private static IEnumerable<EnumDisplayWrapper<T>> GetEnumTypes<T>()
-        {
-            return Enum.GetValues(typeof(T))
-                       .OfType<T>()
-                       .Select(et => new EnumDisplayWrapper<T>(et))
-                       .ToArray();
         }
 
         private IEnumerable<SelectableHydraulicBoundaryLocation> GetSelectableHydraulicBoundaryLocationsFromFailureMechanism()

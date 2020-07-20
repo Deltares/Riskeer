@@ -55,7 +55,7 @@ namespace Riskeer.ClosingStructures.Forms.Views
         private readonly ClosingStructuresFailureMechanism failureMechanism;
         private Observer failureMechanismObserver;
         private Observer hydraulicBoundaryLocationsObserver;
-        private Observer ClosingStructuresObserver;
+        private Observer closingStructuresObserver;
         private RecursiveObserver<CalculationGroup, ClosingStructuresInput> inputObserver;
         private RecursiveObserver<CalculationGroup, StructuresCalculationScenario<ClosingStructuresInput>> calculationScenarioObserver;
         private RecursiveObserver<CalculationGroup, CalculationGroup> calculationGroupObserver;
@@ -133,7 +133,7 @@ namespace Riskeer.ClosingStructures.Forms.Views
                 calculationGroupObserver.Dispose();
 
                 hydraulicBoundaryLocationsObserver.Dispose();
-                ClosingStructuresObserver.Dispose();
+                closingStructuresObserver.Dispose();
 
                 components?.Dispose();
             }
@@ -168,7 +168,7 @@ namespace Riskeer.ClosingStructures.Forms.Views
 
             dataGridViewControl.AddComboBoxColumn(nameof(ClosingStructuresCalculationRow.BreakWaterType),
                                                   RiskeerCommonFormsResources.CalculationsView_BreakWaterType_DisplayName,
-                                                  GetEnumTypes<BreakWaterType>(),
+                                                  EnumDisplayWrapperHelper.GetEnumTypes<BreakWaterType>(),
                                                   nameof(EnumDisplayWrapper<BreakWaterType>.Value),
                                                   nameof(EnumDisplayWrapper<BreakWaterType>.DisplayName));
 
@@ -181,7 +181,7 @@ namespace Riskeer.ClosingStructures.Forms.Views
 
             dataGridViewControl.AddComboBoxColumn(nameof(ClosingStructuresCalculationRow.InflowModelType),
                                                   RiskeerCommonFormsResources.Structure_InflowModelType_DisplayName,
-                                                  GetEnumTypes<ClosingStructureInflowModelType>(),
+                                                  EnumDisplayWrapperHelper.GetEnumTypes<ClosingStructureInflowModelType>(),
                                                   nameof(EnumDisplayWrapper<ClosingStructureInflowModelType>.Value),
                                                   nameof(EnumDisplayWrapper<ClosingStructureInflowModelType>.DisplayName));
 
@@ -260,7 +260,7 @@ namespace Riskeer.ClosingStructures.Forms.Views
             {
                 Observable = assessmentSection.HydraulicBoundaryDatabase.Locations
             };
-            ClosingStructuresObserver = new Observer(UpdateGenerateCalculationsButtonState)
+            closingStructuresObserver = new Observer(UpdateGenerateCalculationsButtonState)
             {
                 Observable = failureMechanism.ClosingStructures
             };
@@ -420,14 +420,6 @@ namespace Riskeer.ClosingStructures.Forms.Views
                 SetItemsOnObjectCollection(selectableForeshoreProfiles.Items,
                                            GetSelectableForeshoreProfileDataSource(failureMechanism.ForeshoreProfiles));
             }
-        }
-
-        private static IEnumerable<EnumDisplayWrapper<T>> GetEnumTypes<T>()
-        {
-            return Enum.GetValues(typeof(T))
-                       .OfType<T>()
-                       .Select(et => new EnumDisplayWrapper<T>(et))
-                       .ToArray();
         }
 
         private IEnumerable<SelectableHydraulicBoundaryLocation> GetSelectableHydraulicBoundaryLocationsFromFailureMechanism()
