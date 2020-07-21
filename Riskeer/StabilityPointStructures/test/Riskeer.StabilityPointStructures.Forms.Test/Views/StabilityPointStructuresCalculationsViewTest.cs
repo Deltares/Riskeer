@@ -207,7 +207,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
         }
 
         [Test]
-        public void ButtonGenerateCalculations_ForeshoreProfilesPresent_ButtonEnabled()
+        public void ButtonGenerateCalculations_StructuresPresent_ButtonEnabled()
         {
             // Setup
             var mocks = new MockRepository();
@@ -229,12 +229,11 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
         }
 
         [Test]
-        public void CalculationsView_ChangingForeshoreProfiles_ButtonCorrectState()
+        public void CalculationsView_ChangingStructures_ButtonCorrectState()
         {
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-
             mocks.ReplayAll();
 
             ConfigureHydraulicBoundaryDatabase(assessmentSection);
@@ -243,7 +242,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
             StabilityPointStructuresCalculationsView calculationsView = ShowCalculationsView(ConfigureCalculationGroup(failureMechanism, assessmentSection), failureMechanism, assessmentSection);
 
             // Precondition
-            var button = (Button) calculationsView.Controls.Find("buttonGenerateCalculations", true)[0];
+            var button = (Button)calculationsView.Controls.Find("buttonGenerateCalculations", true)[0];
             Assert.IsFalse(button.Enabled);
 
             var failureMechanismSection1 = new FailureMechanismSection("Section 1", new[]
@@ -257,13 +256,14 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
                 failureMechanismSection1
             });
 
-            failureMechanism.ForeshoreProfiles.AddRange(new List<ForeshoreProfile>
+            failureMechanism.StabilityPointStructures.AddRange(new List<StabilityPointStructure>
             {
-                new TestForeshoreProfile(new Point2D(0.0, 0.0))
+                new TestStabilityPointStructure(new Point2D(0.0, 0.0), "Structure 1"),
+                new TestStabilityPointStructure(new Point2D(0.0, 0.0), "Structure 2")
             }, string.Empty);
 
             // Call
-            failureMechanism.ForeshoreProfiles.NotifyObservers();
+            failureMechanism.StabilityPointStructures.NotifyObservers();
 
             // Assert
             Assert.IsTrue(button.Enabled);
@@ -357,7 +357,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
             cells = rows[1].Cells;
             Assert.AreEqual(13, cells.Count);
             Assert.AreEqual("Calculation 2", cells[nameColumnIndex].FormattedValue);
-            Assert.AreEqual("Location 1 (2 m)", cells[selectableHydraulicBoundaryLocationsColumnIndex].FormattedValue);
+            Assert.AreEqual("Location 1 (4 m)", cells[selectableHydraulicBoundaryLocationsColumnIndex].FormattedValue);
             Assert.AreEqual("name", cells[foreshoreProfileColumnIndex].FormattedValue);
             Assert.AreEqual(false, cells[useBreakWaterColumnIndex].FormattedValue);
             Assert.AreEqual("Havendam", cells[breakWaterTypeColumnIndex].FormattedValue);
@@ -856,6 +856,11 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
                 })
             });
 
+            failureMechanism.StabilityPointStructures.AddRange(new List<StabilityPointStructure>
+            {
+                new TestStabilityPointStructure(new Point2D(0.0, 0.0), "Structure 1"),
+                new TestStabilityPointStructure(new Point2D(0.0, 0.0), "Structure 2")
+            }, string.Empty);
             failureMechanism.ForeshoreProfiles.AddRange(new List<ForeshoreProfile>
             {
                 new TestForeshoreProfile("profiel 1"),
@@ -1015,10 +1020,10 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
             Assert.AreEqual("Damhoogte [m+NAP]", dataGridView.Columns[breakWaterHeightColumnIndex].HeaderText);
             Assert.AreEqual("Gebruik voorlandgeometrie", dataGridView.Columns[useForeShoreGeometryColumnIndex].HeaderText);
             Assert.AreEqual("Belastingschematisering", dataGridView.Columns[loadSchematizationTypeColumnIndex].HeaderText);
-            Assert.AreEqual("Verwachtingswaarde Lineaire belastingschematisering constructieve sterkte [kN/m]", dataGridView.Columns[constructiveStrengthLinearLoadModelColumnIndex].HeaderText);
-            Assert.AreEqual("Verwachtingswaarde Kwadratische belastingschematisering constructieve sterkte [kN/m]", dataGridView.Columns[constructiveStrengthQuadraticLoadModelColumnIndex].HeaderText);
-            Assert.AreEqual("Verwachtingswaarde Lineaire belastingschematisering stabiliteit [kN/m²]", dataGridView.Columns[stabilityLinearLoadModelColumnIndex].HeaderText);
-            Assert.AreEqual("Verwachtingswaarde Kwadratische belastingschematisering stabiliteit [kN/m²]", dataGridView.Columns[stabilityQuadraticLoadModelColumnIndex].HeaderText);
+            Assert.AreEqual("Verwachtingswaarde\r\nLineaire belastingschematisering constructieve sterkte [kN/m]", dataGridView.Columns[constructiveStrengthLinearLoadModelColumnIndex].HeaderText);
+            Assert.AreEqual("Verwachtingswaarde\r\nKwadratische belastingschematisering constructieve sterkte [kN/m]", dataGridView.Columns[constructiveStrengthQuadraticLoadModelColumnIndex].HeaderText);
+            Assert.AreEqual("Verwachtingswaarde\r\nLineaire belastingschematisering stabiliteit [kN/m²]", dataGridView.Columns[stabilityLinearLoadModelColumnIndex].HeaderText);
+            Assert.AreEqual("Verwachtingswaarde\r\nKwadratische belastingschematisering stabiliteit [kN/m²]", dataGridView.Columns[stabilityQuadraticLoadModelColumnIndex].HeaderText);
             Assert.AreEqual("Analysehoogte [m+NAP]", dataGridView.Columns[evaluationLevelModelColumnIndex].HeaderText);
         }
     }
