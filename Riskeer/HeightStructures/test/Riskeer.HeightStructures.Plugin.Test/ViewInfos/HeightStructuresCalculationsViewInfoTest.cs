@@ -46,7 +46,6 @@ namespace Riskeer.HeightStructures.Plugin.Test.ViewInfos
         [SetUp]
         public void SetUp()
         {
-            mocks = new MockRepository();
             plugin = new HeightStructuresPlugin();
             info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(HeightStructuresCalculationsView));
         }
@@ -161,8 +160,6 @@ namespace Riskeer.HeightStructures.Plugin.Test.ViewInfos
                 // Assert
                 Assert.IsFalse(closeForData);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -178,15 +175,13 @@ namespace Riskeer.HeightStructures.Plugin.Test.ViewInfos
                 // Assert
                 Assert.IsFalse(closeForData);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void CloseForData_ViewCorrespondingToRemovedAssessmentSection_ReturnsTrue()
         {
             // Setup
-            var calculationGroup = new CalculationGroup();
+            mocks = new MockRepository();
             var failureMechanism = new HeightStructuresFailureMechanism();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new IFailureMechanism[]
@@ -204,9 +199,8 @@ namespace Riskeer.HeightStructures.Plugin.Test.ViewInfos
             });
             mocks.ReplayAll();
 
-            using (var view = new HeightStructuresCalculationsView(calculationGroup, failureMechanism, assessmentSection))
+            using (var view = new HeightStructuresCalculationsView(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection))
             {
-                view.Data = failureMechanism.CalculationsGroup;
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
 
@@ -222,15 +216,12 @@ namespace Riskeer.HeightStructures.Plugin.Test.ViewInfos
         {
             // Setup
             var assessmentSection = new AssessmentSectionStub();
+            var failureMechanism = new HeightStructuresFailureMechanism();
 
-            using (var calculationsView = new HeightStructuresCalculationsView(new CalculationGroup(), new HeightStructuresFailureMechanism(), assessmentSection))
+            using (var view = new HeightStructuresCalculationsView(new CalculationGroup(), failureMechanism, assessmentSection))
             {
-                var failureMechanism = new HeightStructuresFailureMechanism();
-
-                calculationsView.Data = new CalculationGroup();
-
                 // Call
-                bool closeForData = info.CloseForData(calculationsView, failureMechanism);
+                bool closeForData = info.CloseForData(view, failureMechanism);
 
                 // Assert
                 Assert.IsFalse(closeForData);
@@ -242,15 +233,12 @@ namespace Riskeer.HeightStructures.Plugin.Test.ViewInfos
         {
             // Setup
             var assessmentSection = new AssessmentSectionStub();
+            var failureMechanism = new HeightStructuresFailureMechanism();
 
-            using (var calculationsView = new HeightStructuresCalculationsView(new CalculationGroup(), new HeightStructuresFailureMechanism(), assessmentSection))
+            using (var view = new HeightStructuresCalculationsView(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection))
             {
-                var failureMechanism = new HeightStructuresFailureMechanism();
-
-                calculationsView.Data = failureMechanism.CalculationsGroup;
-
                 // Call
-                bool closeForData = info.CloseForData(calculationsView, failureMechanism);
+                bool closeForData = info.CloseForData(view, failureMechanism);
 
                 // Assert
                 Assert.IsTrue(closeForData);
@@ -261,15 +249,14 @@ namespace Riskeer.HeightStructures.Plugin.Test.ViewInfos
         public void CloseForData_ViewNotCorrespondingToRemovedFailureMechanismContext_ReturnsFalse()
         {
             // Setup
+            mocks = new MockRepository();
             var assessmentSection = new AssessmentSectionStub();
+            var failureMechanism = new HeightStructuresFailureMechanism();
             mocks.ReplayAll();
 
-            using (var calculationsView = new HeightStructuresCalculationsView(new CalculationGroup(), new HeightStructuresFailureMechanism(), assessmentSection))
+            using (var calculationsView = new HeightStructuresCalculationsView(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection))
             {
-                var failureMechanism = new HeightStructuresFailureMechanism();
                 var failureMechanismContext = new HeightStructuresFailureMechanismContext(new HeightStructuresFailureMechanism(), assessmentSection);
-
-                calculationsView.Data = failureMechanism.CalculationsGroup;
 
                 // Call
                 bool closeForData = info.CloseForData(calculationsView, failureMechanismContext);
@@ -284,13 +271,11 @@ namespace Riskeer.HeightStructures.Plugin.Test.ViewInfos
         {
             // Setup
             var assessmentSection = new AssessmentSectionStub();
+            var failureMechanism = new HeightStructuresFailureMechanism();
 
-            using (var calculationsView = new HeightStructuresCalculationsView(new CalculationGroup(), new HeightStructuresFailureMechanism(), assessmentSection))
+            using (var calculationsView = new HeightStructuresCalculationsView(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection))
             {
-                var failureMechanism = new HeightStructuresFailureMechanism();
                 var failureMechanismContext = new HeightStructuresFailureMechanismContext(failureMechanism, assessmentSection);
-
-                calculationsView.Data = failureMechanism.CalculationsGroup;
 
                 // Call
                 bool closeForData = info.CloseForData(calculationsView, failureMechanismContext);

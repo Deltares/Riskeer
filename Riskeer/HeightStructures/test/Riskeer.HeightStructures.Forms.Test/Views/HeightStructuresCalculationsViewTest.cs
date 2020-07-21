@@ -35,10 +35,6 @@ using Core.Common.Util.Reflection;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Riskeer.HeightStructures.Data;
-using Riskeer.HeightStructures.Data.TestUtil;
-using Riskeer.HeightStructures.Forms.PresentationObjects;
-using Riskeer.HeightStructures.Forms.Views;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.DikeProfiles;
@@ -46,6 +42,10 @@ using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Data.TestUtil;
+using Riskeer.HeightStructures.Data;
+using Riskeer.HeightStructures.Data.TestUtil;
+using Riskeer.HeightStructures.Forms.PresentationObjects;
+using Riskeer.HeightStructures.Forms.Views;
 
 namespace Riskeer.HeightStructures.Forms.Test.Views
 {
@@ -145,7 +145,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
             // Call
             ShowCalculationsView(ConfigureCalculationGroup(failureMechanism, assessmentSection), failureMechanism, assessmentSection);
 
-            var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
             // Assert
             Assert.IsFalse(dataGridView.AutoGenerateColumns);
@@ -170,7 +170,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
             // Call
             ShowCalculationsView(ConfigureCalculationGroup(failureMechanism, assessmentSection), failureMechanism, assessmentSection);
 
-            var listBox = (ListBox)new ControlTester("listBox").TheObject;
+            var listBox = (ListBox) new ControlTester("listBox").TheObject;
 
             // Assert
             Assert.AreEqual(2, listBox.Items.Count);
@@ -189,8 +189,8 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
             ShowFullyConfiguredCalculationsView(assessmentSection);
 
             // Assert
-            var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
-            var hydraulicBoundaryLocationCombobox = (DataGridViewComboBoxColumn)dataGridView.Columns[selectableHydraulicBoundaryLocationsColumnIndex];
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+            var hydraulicBoundaryLocationCombobox = (DataGridViewComboBoxColumn) dataGridView.Columns[selectableHydraulicBoundaryLocationsColumnIndex];
             DataGridViewComboBoxCell.ObjectCollection hydraulicBoundaryLocationComboboxItems = hydraulicBoundaryLocationCombobox.Items;
             Assert.AreEqual(7, hydraulicBoundaryLocationComboboxItems.Count);
             Assert.AreEqual("<selecteer>", hydraulicBoundaryLocationComboboxItems[0].ToString());
@@ -215,7 +215,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
 
             HeightStructuresCalculationsView calculationsView = ShowFullyConfiguredCalculationsView(assessmentSection);
 
-            var button = (Button)calculationsView.Controls.Find("buttonGenerateCalculations", true)[0];
+            var button = (Button) calculationsView.Controls.Find("buttonGenerateCalculations", true)[0];
 
             // Call
             bool state = button.Enabled;
@@ -226,12 +226,11 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
         }
 
         [Test]
-        public void CalculationsView_ChangingForeshoreProfiles_ButtonCorrectState()
+        public void CalculationsView_ChangingStructures_ButtonCorrectState()
         {
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-
             mocks.ReplayAll();
 
             ConfigureHydraulicBoundaryDatabase(assessmentSection);
@@ -254,13 +253,14 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
                 failureMechanismSection1
             });
 
-            failureMechanism.ForeshoreProfiles.AddRange(new List<ForeshoreProfile>
+            failureMechanism.HeightStructures.AddRange(new List<HeightStructure>
             {
-                new TestForeshoreProfile(new Point2D(0.0, 0.0))
+                new TestHeightStructure(new Point2D(0.0, 0.0), "Structure 1"),
+                new TestHeightStructure(new Point2D(0.0, 0.0), "Structure 2")
             }, string.Empty);
 
             // Call
-            failureMechanism.ForeshoreProfiles.NotifyObservers();
+            failureMechanism.HeightStructures.NotifyObservers();
 
             // Assert
             Assert.IsTrue(button.Enabled);
@@ -310,7 +310,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
             ShowCalculationsView(ConfigureCalculationGroup(failureMechanism, assessmentSection), failureMechanism, assessmentSection);
 
             // Assert
-            var listBox = (ListBox)new ControlTester("listBox").TheObject;
+            var listBox = (ListBox) new ControlTester("listBox").TheObject;
             Assert.AreEqual(3, listBox.Items.Count);
             Assert.AreSame(failureMechanismSection1, listBox.Items[0]);
             Assert.AreSame(failureMechanismSection2, listBox.Items[1]);
@@ -329,7 +329,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
             // Call
             ShowFullyConfiguredCalculationsView(assessmentSection);
 
-            var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
             // Assert
             DataGridViewRowCollection rows = dataGridView.Rows;
@@ -351,7 +351,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
             cells = rows[1].Cells;
             Assert.AreEqual(10, cells.Count);
             Assert.AreEqual("Calculation 2", cells[nameColumnIndex].FormattedValue);
-            Assert.AreEqual("Location 1 (2 m)", cells[selectableHydraulicBoundaryLocationsColumnIndex].FormattedValue);
+            Assert.AreEqual("Location 1 (4 m)", cells[selectableHydraulicBoundaryLocationsColumnIndex].FormattedValue);
             Assert.AreEqual("name", cells[foreshoreProfileColumnIndex].FormattedValue);
             Assert.AreEqual(false, cells[useBreakWaterColumnIndex].FormattedValue);
             Assert.AreEqual("Havendam", cells[breakWaterTypeColumnIndex].FormattedValue);
@@ -383,7 +383,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
                 var control = TypeUtils.GetField<DataGridViewControl>(calculationsView, "dataGridViewControl");
                 WindowsFormsTestHelper.Show(control);
 
-                var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
                 dataGridView.CurrentCell = dataGridView.Rows[0].Cells[0];
 
                 // Call                
@@ -410,8 +410,8 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
             var selectionChangedCount = 0;
             calculationsView.SelectionChanged += (sender, args) => selectionChangedCount++;
 
-            var listBox = (ListBox)new ControlTester("listBox").TheObject;
-            var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+            var listBox = (ListBox) new ControlTester("listBox").TheObject;
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
             // Precondition
             Assert.AreEqual(2, dataGridView.Rows.Count);
@@ -446,7 +446,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
 
             ShowFullyConfiguredCalculationsView(assessmentSection);
 
-            var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
             // Call
             dataGridView.Rows[0].Cells[cellIndex].Value = newValue;
@@ -481,13 +481,13 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
             HeightStructuresFailureMechanism failureMechanism = ConfigureFailureMechanism();
             CalculationGroup calculationGroup = ConfigureCalculationGroup(failureMechanism, assessmentSection);
 
-            var newRoundedValue = (RoundedDouble)newValue;
+            var newRoundedValue = (RoundedDouble) newValue;
 
             ShowCalculationsView(calculationGroup, failureMechanism, assessmentSection);
 
             mocks.ReplayAll();
 
-            var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
             // Call
             dataGridView.Rows[0].Cells[cellIndex].Value = newRoundedValue;
@@ -537,7 +537,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
 
             ShowCalculationsView(ConfigureCalculationGroup(failureMechanism, assessmentSection), failureMechanism, assessmentSection);
 
-            var listBox = (ListBox)new ControlTester("listBox").TheObject;
+            var listBox = (ListBox) new ControlTester("listBox").TheObject;
 
             // Precondition
             Assert.AreEqual(2, listBox.Items.Count);
@@ -581,17 +581,17 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var newRoundedValue = (RoundedDouble)newValue;
+            var newRoundedValue = (RoundedDouble) newValue;
 
             HeightStructuresCalculationsView calculationsView = ShowFullyConfiguredCalculationsView(assessmentSection);
 
-            var data = (CalculationGroup)calculationsView.Data;
-            var calculation = (StructuresCalculationScenario<HeightStructuresInput>)data.Children.First();
+            var data = (CalculationGroup) calculationsView.Data;
+            var calculation = (StructuresCalculationScenario<HeightStructuresInput>) data.Children.First();
 
             calculation.Attach(calculationObserver);
             calculation.InputParameters.Attach(inputObserver);
 
-            var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
             // Call
             dataGridView.Rows[0].Cells[index].Value = newRoundedValue;
@@ -644,8 +644,8 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
 
             mocks.ReplayAll();
 
-            var data = (CalculationGroup)calculationsView.Data;
-            var calculationScenario = (StructuresCalculationScenario<HeightStructuresInput>)data.Children[1];
+            var data = (CalculationGroup) calculationsView.Data;
+            var calculationScenario = (StructuresCalculationScenario<HeightStructuresInput>) data.Children[1];
 
             if (useCalculationWithOutput)
             {
@@ -655,10 +655,10 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
             calculationScenario.Attach(calculationObserver);
             calculationScenario.InputParameters.Attach(inputObserver);
 
-            var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
             // Call
-            dataGridView.Rows[1].Cells[cellIndex].Value = newValue is double value ? (RoundedDouble)value : newValue;
+            dataGridView.Rows[1].Cells[cellIndex].Value = newValue is double value ? (RoundedDouble) value : newValue;
 
             // Assert
             calculationScenario.Output = null;
@@ -677,11 +677,11 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
 
             HeightStructuresCalculationsView view = ShowFullyConfiguredCalculationsView(assessmentSection);
 
-            var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
             // This step is necessary because setting the same value would not change the view state.
-            var calculationGroup = (CalculationGroup)view.Data;
-            var calculation = (StructuresCalculationScenario<HeightStructuresInput>)calculationGroup.GetCalculations().First();
+            var calculationGroup = (CalculationGroup) view.Data;
+            var calculation = (StructuresCalculationScenario<HeightStructuresInput>) calculationGroup.GetCalculations().First();
             calculation.InputParameters.UseBreakWater = !newValue;
 
             // Call
@@ -705,7 +705,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
 
             HeightStructuresCalculationsView calculationsView = ShowFullyConfiguredCalculationsView(assessmentSection);
 
-            var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
             dataGridView.CurrentCell = dataGridView.Rows[selectedRow].Cells[0];
 
@@ -714,8 +714,8 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
 
             // Assert
             Assert.IsInstanceOf<HeightStructuresInputContext>(selection);
-            var dataRow = (HeightStructuresCalculationRow)dataGridView.Rows[selectedRow].DataBoundItem;
-            Assert.AreSame(dataRow.CalculationScenario, ((HeightStructuresInputContext)selection).Calculation);
+            var dataRow = (HeightStructuresCalculationRow) dataGridView.Rows[selectedRow].DataBoundItem;
+            Assert.AreSame(dataRow.CalculationScenario, ((HeightStructuresInputContext) selection).Calculation);
             mocks.VerifyAll();
         }
 
@@ -736,8 +736,8 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
 
             HeightStructuresCalculationsView calculationsView = ShowFullyConfiguredCalculationsView(assessmentSection);
 
-            var data = (CalculationGroup)calculationsView.Data;
-            var calculation = (StructuresCalculationScenario<HeightStructuresInput>)data.Children.First();
+            var data = (CalculationGroup) calculationsView.Data;
+            var calculation = (StructuresCalculationScenario<HeightStructuresInput>) data.Children.First();
 
             if (useCalculationWithOutput)
             {
@@ -747,7 +747,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
             calculation.Attach(calculationObserver);
             calculation.InputParameters.Attach(calculationInputObserver);
 
-            var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
             // Call
             dataGridView.Rows[0].Cells[nameColumnIndex].Value = "New name";
@@ -803,6 +803,11 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
                 })
             });
 
+            failureMechanism.HeightStructures.AddRange(new List<HeightStructure>
+            {
+                new TestHeightStructure(new Point2D(0.0, 0.0), "Structure 1"),
+                new TestHeightStructure(new Point2D(0.0, 0.0), "Structure 2")
+            }, string.Empty);
             failureMechanism.ForeshoreProfiles.AddRange(new List<ForeshoreProfile>
             {
                 new TestForeshoreProfile("profiel 1"),
@@ -850,7 +855,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
                         InputParameters =
                         {
                             Structure = new TestHeightStructure(new Point2D(0.0, 0.0)),
-                            LevelCrestStructure = 
+                            LevelCrestStructure =
                             {
                                 Mean = (RoundedDouble) 10.00
                             },
@@ -884,7 +889,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
                         InputParameters =
                         {
                             Structure = new TestHeightStructure(new Point2D(5.0, 0.0)),
-                            LevelCrestStructure = 
+                            LevelCrestStructure =
                             {
                                 Mean = (RoundedDouble) 10.00
                             },
@@ -949,9 +954,9 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
             Assert.AreEqual("Damtype", dataGridView.Columns[breakWaterTypeColumnIndex].HeaderText);
             Assert.AreEqual("Damhoogte [m+NAP]", dataGridView.Columns[breakWaterHeightColumnIndex].HeaderText);
             Assert.AreEqual("Gebruik voorlandgeometrie", dataGridView.Columns[useForeShoreGeometryColumnIndex].HeaderText);
-            Assert.AreEqual("Verwachtingswaarde Kerende hoogte [m+NAP]", dataGridView.Columns[meanLevelCrestStructureColumnIndex].HeaderText);
-            Assert.AreEqual("Verwachtingswaarde Kritiek instromend debiet [m³/s/m]", dataGridView.Columns[criticalOvertoppingDischargeColumnIndex].HeaderText);
-            Assert.AreEqual("Verwachtingswaarde Toegestane peilverhoging komberging [m]", dataGridView.Columns[allowedLevelIncreaseStorageColumnIndex].HeaderText);
+            Assert.AreEqual("Verwachtingswaarde\r\nKerende hoogte [m+NAP]", dataGridView.Columns[meanLevelCrestStructureColumnIndex].HeaderText);
+            Assert.AreEqual("Verwachtingswaarde\r\nKritiek instromend debiet [m³/s/m]", dataGridView.Columns[criticalOvertoppingDischargeColumnIndex].HeaderText);
+            Assert.AreEqual("Verwachtingswaarde\r\nToegestane peilverhoging komberging [m]", dataGridView.Columns[allowedLevelIncreaseStorageColumnIndex].HeaderText);
         }
     }
 }

@@ -55,7 +55,7 @@ namespace Riskeer.HeightStructures.Forms.Views
         private readonly HeightStructuresFailureMechanism failureMechanism;
         private Observer failureMechanismObserver;
         private Observer hydraulicBoundaryLocationsObserver;
-        private Observer foreShoreProfilesObserver;
+        private Observer heightStructuresObserver;
         private RecursiveObserver<CalculationGroup, HeightStructuresInput> inputObserver;
         private RecursiveObserver<CalculationGroup, StructuresCalculationScenario<HeightStructuresInput>> calculationScenarioObserver;
         private RecursiveObserver<CalculationGroup, CalculationGroup> calculationGroupObserver;
@@ -133,7 +133,7 @@ namespace Riskeer.HeightStructures.Forms.Views
                 calculationGroupObserver.Dispose();
 
                 hydraulicBoundaryLocationsObserver.Dispose();
-                foreShoreProfilesObserver.Dispose();
+                heightStructuresObserver.Dispose();
 
                 components?.Dispose();
             }
@@ -181,21 +181,15 @@ namespace Riskeer.HeightStructures.Forms.Views
 
             dataGridViewControl.AddTextBoxColumn(
                 nameof(HeightStructuresCalculationRow.LevelCrestStructure),
-                string.Concat(RiskeerCommonFormsResources.NormalDistribution_Mean_DisplayName,
-                              " ",
-                              RiskeerCommonFormsResources.Structure_LevelCrestStructure_DisplayName));
+                $"{RiskeerCommonFormsResources.NormalDistribution_Mean_DisplayName}\r\n{RiskeerCommonFormsResources.Structure_LevelCrestStructure_DisplayName}");
 
             dataGridViewControl.AddTextBoxColumn(
                 nameof(HeightStructuresCalculationRow.CriticalOvertoppingDischarge),
-                string.Concat(RiskeerCommonFormsResources.NormalDistribution_Mean_DisplayName,
-                              " ",
-                              RiskeerCommonFormsResources.Structure_CriticalOvertoppingDischarge_DisplayName));
+                $"{RiskeerCommonFormsResources.NormalDistribution_Mean_DisplayName}\r\n{RiskeerCommonFormsResources.Structure_CriticalOvertoppingDischarge_DisplayName}");
 
             dataGridViewControl.AddTextBoxColumn(
                 nameof(HeightStructuresCalculationRow.AllowedLevelIncreaseStorage),
-                string.Concat(RiskeerCommonFormsResources.NormalDistribution_Mean_DisplayName,
-                              " ",
-                              RiskeerCommonFormsResources.Structure_AllowedLevelIncreaseStorage_DisplayName));
+                $"{RiskeerCommonFormsResources.NormalDistribution_Mean_DisplayName}\r\n{RiskeerCommonFormsResources.Structure_AllowedLevelIncreaseStorage_DisplayName}");
         }
 
         private void InitializeListBox()
@@ -206,7 +200,7 @@ namespace Riskeer.HeightStructures.Forms.Views
 
         private void UpdateGenerateCalculationsButtonState()
         {
-            buttonGenerateCalculations.Enabled = failureMechanism.ForeshoreProfiles.Any();
+            buttonGenerateCalculations.Enabled = failureMechanism.HeightStructures.Any();
         }
 
         private HeightStructuresInputContext CreateSelectedItemFromCurrentRow()
@@ -260,13 +254,9 @@ namespace Riskeer.HeightStructures.Forms.Views
             {
                 Observable = assessmentSection.HydraulicBoundaryDatabase.Locations
             };
-            foreShoreProfilesObserver = new Observer(() =>
+            heightStructuresObserver = new Observer(UpdateGenerateCalculationsButtonState)
             {
-                UpdateForeshoreProfilesColumn();
-                UpdateGenerateCalculationsButtonState();
-            })
-            {
-                Observable = failureMechanism.ForeshoreProfiles
+                Observable = failureMechanism.HeightStructures
             };
 
             // The concat is needed to observe the input of calculations in child groups.
@@ -348,13 +338,13 @@ namespace Riskeer.HeightStructures.Forms.Views
         private IEnumerable<SelectableHydraulicBoundaryLocation> GetSelectableHydraulicBoundaryLocationsForCalculation(StructuresCalculationScenario<HeightStructuresInput> calculationScenario)
         {
             return GetSelectableHydraulicBoundaryLocations(assessmentSection?.HydraulicBoundaryDatabase.Locations,
-                                                           calculationScenario.InputParameters.ForeshoreProfile);
+                                                           calculationScenario.InputParameters.Structure);
         }
 
         private static IEnumerable<SelectableHydraulicBoundaryLocation> GetSelectableHydraulicBoundaryLocations(
-            IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations, ForeshoreProfile foreshoreProfile)
+            IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations, HeightStructure heightStructure)
         {
-            Point2D referencePoint = foreshoreProfile?.WorldReferencePoint;
+            Point2D referencePoint = heightStructure?.Location;
             return SelectableHydraulicBoundaryLocationHelper.GetSortedSelectableHydraulicBoundaryLocations(
                 hydraulicBoundaryLocations, referencePoint);
         }
@@ -432,9 +422,9 @@ namespace Riskeer.HeightStructures.Forms.Views
 
             List<SelectableHydraulicBoundaryLocation> selectableHydraulicBoundaryLocations = hydraulicBoundaryLocations.Select(hbl => new SelectableHydraulicBoundaryLocation(hbl, null)).ToList();
 
-            foreach (ForeshoreProfile foreshoreProfile in failureMechanism.ForeshoreProfiles)
+            foreach (HeightStructure heightStructure in failureMechanism.HeightStructures)
             {
-                selectableHydraulicBoundaryLocations.AddRange(GetSelectableHydraulicBoundaryLocations(hydraulicBoundaryLocations, foreshoreProfile));
+                selectableHydraulicBoundaryLocations.AddRange(GetSelectableHydraulicBoundaryLocations(hydraulicBoundaryLocations, heightStructure));
             }
 
             return selectableHydraulicBoundaryLocations;

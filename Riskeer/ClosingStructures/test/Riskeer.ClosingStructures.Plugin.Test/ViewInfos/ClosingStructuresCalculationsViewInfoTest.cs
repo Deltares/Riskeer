@@ -39,6 +39,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.ViewInfos
     [TestFixture]
     public class ClosingStructuresCalculationsViewInfoTest
     {
+        private MockRepository mocks;
         private ClosingStructuresPlugin plugin;
         private ViewInfo info;
 
@@ -179,7 +180,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.ViewInfos
         public void CloseForData_ViewCorrespondingToRemovedAssessmentSection_ReturnsTrue()
         {
             // Setup
-            var mocks = new MockRepository();
+            mocks = new MockRepository();
             var calculationGroup = new CalculationGroup();
             var failureMechanism = new ClosingStructuresFailureMechanism();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -222,7 +223,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.ViewInfos
             using (var view = new ClosingStructuresCalculationsView(new CalculationGroup(), new ClosingStructuresFailureMechanism(), assessmentSection))
             {
                 var failureMechanism = new ClosingStructuresFailureMechanism();
-                
+
                 // Call
                 bool closeForData = info.CloseForData(view, failureMechanism);
 
@@ -256,7 +257,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.ViewInfos
             // Setup
             var assessmentSection = new AssessmentSectionStub();
             var failureMechanism = new ClosingStructuresFailureMechanism();
-            
+
             using (var calculationsView = new ClosingStructuresCalculationsView(new CalculationGroup(), failureMechanism, assessmentSection))
             {
                 var failureMechanismContext = new ClosingStructuresFailureMechanismContext(failureMechanism, assessmentSection);
@@ -279,7 +280,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.ViewInfos
             using (var calculationsView = new ClosingStructuresCalculationsView(failureMechanism.CalculationsGroup, new ClosingStructuresFailureMechanism(), assessmentSection))
             {
                 var failureMechanismContext = new ClosingStructuresFailureMechanismContext(failureMechanism, assessmentSection);
-                
+
                 // Call
                 bool closeForData = info.CloseForData(calculationsView, failureMechanismContext);
 

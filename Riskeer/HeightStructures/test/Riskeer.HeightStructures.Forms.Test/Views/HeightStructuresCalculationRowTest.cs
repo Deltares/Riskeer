@@ -27,9 +27,6 @@ using Core.Common.Base.Geometry;
 using Core.Common.Controls.DataGrid;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Riskeer.HeightStructures.Data;
-using Riskeer.HeightStructures.Data.TestUtil;
-using Riskeer.HeightStructures.Forms.Views;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Structures;
@@ -38,6 +35,9 @@ using Riskeer.Common.Forms.ChangeHandlers;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Forms.PropertyClasses;
 using Riskeer.Common.Forms.TestUtil;
+using Riskeer.HeightStructures.Data;
+using Riskeer.HeightStructures.Data.TestUtil;
+using Riskeer.HeightStructures.Forms.Views;
 
 namespace Riskeer.HeightStructures.Forms.Test.Views
 {
@@ -199,12 +199,10 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
         public void UseBreakWater_AlwaysOnChange_NotifyObserverAndCalculationPropertyChanged()
         {
             // Setup
-            const bool newValue = true;
-
             var calculation = new StructuresCalculationScenario<HeightStructuresInput>();
 
             // Call & Assert
-            SetPropertyAndVerifyNotificationsAndOutputForCalculation(row => row.UseBreakWater = newValue, calculation);
+            SetPropertyAndVerifyNotificationsAndOutputForCalculation(row => row.UseBreakWater = true, calculation);
         }
 
         [Test]
@@ -331,12 +329,10 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
         public void UseForeShoreGeometry_AlwaysOnChange_NotifyObserverAndCalculationPropertyChanged()
         {
             // Setup
-            const bool newValue = true;
-
             var calculation = new StructuresCalculationScenario<HeightStructuresInput>();
 
             // Call & Assert
-            SetPropertyAndVerifyNotificationsAndOutputForCalculation(row => row.UseForeshoreGeometry = newValue, calculation);
+            SetPropertyAndVerifyNotificationsAndOutputForCalculation(row => row.UseForeshoreGeometry = true, calculation);
         }
 
         [Test]

@@ -202,7 +202,7 @@ namespace Riskeer.HeightStructures.Plugin
                 GetViewName = (view, context) => context.WrappedData.Name,
                 Image = RiskeerCommonFormsResources.GeneralFolderIcon,
                 AdditionalDataCheck = context => context.WrappedData == context.FailureMechanism.CalculationsGroup,
-                CloseForData = CloseCalculationsViewForData,
+                CloseForData = CloseCalculationsViewForData
             };
         }
 
@@ -334,7 +334,7 @@ namespace Riskeer.HeightStructures.Plugin
 
         private static bool CloseCalculationsViewForData(HeightStructuresCalculationsView view, object o)
         {
-            var assessmentSection = o as IAssessmentSection;
+            
             var failureMechanism = o as HeightStructuresFailureMechanism;
 
             if (o is HeightStructuresFailureMechanismContext failureMechanismContext)
@@ -342,7 +342,7 @@ namespace Riskeer.HeightStructures.Plugin
                 failureMechanism = failureMechanismContext.WrappedData;
             }
 
-            if (assessmentSection != null)
+            if (o is IAssessmentSection assessmentSection)
             {
                 failureMechanism = assessmentSection.GetFailureMechanisms()
                                                     .OfType<HeightStructuresFailureMechanism>()
