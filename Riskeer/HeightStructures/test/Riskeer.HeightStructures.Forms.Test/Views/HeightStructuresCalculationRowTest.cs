@@ -364,6 +364,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
             {
                 InputParameters =
                 {
+                    UseForeshore = true,
                     ForeshoreProfile = new TestForeshoreProfile(new[]
                     {
                         new Point2D(0.0, 0.0)
@@ -372,10 +373,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
             };
 
             // Call
-            var row = new HeightStructuresCalculationRow(calculation, new ObservablePropertyChangeHandler(calculation, new HeightStructuresInput()))
-            {
-                UseForeshoreGeometry = true
-            };
+            var row = new HeightStructuresCalculationRow(calculation, new ObservablePropertyChangeHandler(calculation, new HeightStructuresInput()));
 
             // Asserts
             IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;

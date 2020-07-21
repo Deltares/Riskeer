@@ -239,7 +239,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
             HeightStructuresCalculationsView calculationsView = ShowCalculationsView(ConfigureCalculationGroup(failureMechanism, assessmentSection), failureMechanism, assessmentSection);
 
             // Precondition
-            var button = (Button)calculationsView.Controls.Find("buttonGenerateCalculations", true)[0];
+            var button = (Button) calculationsView.Controls.Find("buttonGenerateCalculations", true)[0];
             Assert.IsFalse(button.Enabled);
 
             var failureMechanismSection1 = new FailureMechanismSection("Section 1", new[]
