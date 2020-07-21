@@ -68,10 +68,10 @@ namespace Core.Common.Geometry.Test
             };
 
             // Call
-            TestDelegate test = () => AdvancedMath2D.PolygonIntersectionWithPolygon(polyB, polyA);
+            void Call() => AdvancedMath2D.PolygonIntersectionWithPolygon(polyB, polyA);
 
             // Assert
-            Assert.Throws<InvalidPolygonException>(test);
+            Assert.Throws<InvalidPolygonException>(Call);
         }
 
         [Test]
@@ -259,26 +259,24 @@ namespace Core.Common.Geometry.Test
         public void FromXToXY_WithoutPoints_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => AdvancedMath2D.FromXToXY(null, new Point2D(0, 0), 3, 2);
+            void Call() => AdvancedMath2D.FromXToXY(null, new Point2D(0, 0), 3, 2);
 
             // Assert
-            string paramName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(
-                test,
-                "Cannot transform to coordinates without a source.").ParamName;
-            Assert.AreEqual("xCoordinates", paramName);
+            var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(
+                Call, "Cannot transform to coordinates without a source.");
+            Assert.AreEqual("xCoordinates", exception.ParamName);
         }
 
         [Test]
         public void FromXToXY_WithoutReferencePoint_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => AdvancedMath2D.FromXToXY(new double[0], null, 3, 2);
+            void Call() => AdvancedMath2D.FromXToXY(new double[0], null, 3, 2);
 
             // Assert
-            string paramName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(
-                test,
-                "Cannot transform to coordinates without a reference point.").ParamName;
-            Assert.AreEqual("referencePoint", paramName);
+            var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(
+                Call, "Cannot transform to coordinates without a reference point.");
+            Assert.AreEqual("referencePoint", exception.ParamName);
         }
 
         [Test]
@@ -380,10 +378,10 @@ namespace Core.Common.Geometry.Test
         public void CompleteLineToPolygon_WithoutLine_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => AdvancedMath2D.CompleteLineToPolygon(null, double.NaN).ToArray();
+            void Call() => AdvancedMath2D.CompleteLineToPolygon(null, double.NaN).ToArray();
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("line", exception.ParamName);
         }
 
@@ -394,11 +392,11 @@ namespace Core.Common.Geometry.Test
             IEnumerable<Point2D> points = Enumerable.Repeat(new Point2D(3, 2), pointCount);
 
             // Call
-            TestDelegate test = () => AdvancedMath2D.CompleteLineToPolygon(points, double.NaN).ToArray();
+            void Call() => AdvancedMath2D.CompleteLineToPolygon(points, double.NaN).ToArray();
 
             // Assert
             const string message = "The line needs to have at least two points to be able to create a complete polygon.";
-            var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, message);
+            var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(Call, message);
             Assert.AreEqual("line", exception.ParamName);
         }
 
@@ -468,12 +466,7 @@ namespace Core.Common.Geometry.Test
         public void GetPolygonInteriorPoint_TrianglePolygon_ReturnsInteriorPoint()
         {
             // Setup
-            var outerRing = new[]
-            {
-                new Point2D(0, 0),
-                new Point2D(3, 4),
-                new Point2D(6, 0)
-            };
+            Point2D[] outerRing = CreateTrianglePolygon();
 
             // Call
             Point2D interiorPoint = AdvancedMath2D.GetPolygonInteriorPoint(outerRing, new IEnumerable<Point2D>[0]);
@@ -486,41 +479,98 @@ namespace Core.Common.Geometry.Test
         public void GetPolygonInteriorPoint_PolygonWithHoles_ReturnsInteriorPoint()
         {
             // Setup
-            var outerRing = new[]
-            {
-                new Point2D(0, 0),
-                new Point2D(0, 4),
-                new Point2D(2, 6),
-                new Point2D(4, 4),
-                new Point2D(4, 0),
-                new Point2D(2, -2)
-            };
-
-            var innerRing1 = new[]
-            {
-                new Point2D(1, 3),
-                new Point2D(2, 4),
-                new Point2D(3, 3),
-                new Point2D(2, 2)
-            };
-
-            var innerRing2 = new[]
-            {
-                new Point2D(1, 1),
-                new Point2D(2, 2),
-                new Point2D(3, 1),
-                new Point2D(2, 0)
-            };
-
+            Point2D[] outerRing = CreateCustomPolygon();
+            Point2D[][] innerRings = CreateInnerRings();
+            
             // Call
-            Point2D interiorPoint = AdvancedMath2D.GetPolygonInteriorPoint(outerRing, new[]
-            {
-                innerRing1,
-                innerRing2
-            });
+            Point2D interiorPoint = AdvancedMath2D.GetPolygonInteriorPoint(outerRing, innerRings);
 
             // Assert
             Assert.AreEqual(new Point2D(0.75, 2.5), interiorPoint);
+        }
+
+        [Test]
+        public void PointInPolygon_PointNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => AdvancedMath2D.PointInPolygon(null, Enumerable.Empty<Point2D>(), Enumerable.Empty<IEnumerable<Point2D>>());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("point", exception.ParamName);
+        }
+
+        [Test]
+        public void PointInPolygon_OuterRingNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => AdvancedMath2D.PointInPolygon(new Point2D(0, 0), null, Enumerable.Empty<IEnumerable<Point2D>>());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("outerRing", exception.ParamName);
+        }
+
+        [Test]
+        public void PointInPolygon_InnerRingsNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => AdvancedMath2D.PointInPolygon(new Point2D(0, 0), Enumerable.Empty<Point2D>(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("innerRings", exception.ParamName);
+        }
+
+        [Test]
+        [TestCaseSource(nameof(GetPolygons))]
+        public void PointInPolygon_PointInPolygon_ReturnsTrue(IEnumerable<Point2D> outerRing, IEnumerable<IEnumerable<Point2D>> innerRings)
+        {
+            // Setup
+            var point = new Point2D(1, 1);
+
+            // Call
+            bool pointInPolygon = AdvancedMath2D.PointInPolygon(point, outerRing, innerRings);
+
+            // Assert
+            Assert.IsTrue(pointInPolygon);
+        }
+
+        [Test]
+        [TestCaseSource(nameof(GetPolygons))]
+        public void PointInPolygon_PointOutsidePolygon_ReturnsFalse(IEnumerable<Point2D> outerRing, IEnumerable<IEnumerable<Point2D>> innerRings)
+        {
+            // Setup
+            var point = new Point2D(-1, -1);
+
+            // Call
+            bool pointInPolygon = AdvancedMath2D.PointInPolygon(point, outerRing, innerRings);
+
+            // Assert
+            Assert.IsFalse(pointInPolygon);
+        }
+
+        [Test]
+        public void PointInPolygon_PointInHole_ReturnsFalse()
+        {
+            // Setup
+            Point2D[] outerRing = CreateCustomPolygon();
+            Point2D[][] innerRings = CreateInnerRings();
+
+            var point = new Point2D(2, 3);
+
+            // Call
+            bool pointInPolygon = AdvancedMath2D.PointInPolygon(point, outerRing, innerRings);
+
+            // Assert
+            Assert.IsFalse(pointInPolygon);
+        }
+
+        private static IEnumerable<TestCaseData> GetPolygons()
+        {
+            yield return new TestCaseData(CreateBasePolygon(), Enumerable.Empty<IEnumerable<Point2D>>());
+            yield return new TestCaseData(CreateTrianglePolygon(), Enumerable.Empty<IEnumerable<Point2D>>());
+            yield return new TestCaseData(CreateCustomPolygon(), CreateInnerRings());
         }
 
         private static double[] ThreeRandomXCoordinates()
@@ -557,6 +607,50 @@ namespace Core.Common.Geometry.Test
                 new Point2D(0, 4),
                 new Point2D(4, 4),
                 new Point2D(4, 0)
+            };
+        }
+
+        private static Point2D[] CreateTrianglePolygon()
+        {
+            return new[]
+            {
+                new Point2D(0, 0),
+                new Point2D(3, 4),
+                new Point2D(6, 0)
+            };
+        }
+
+        private static Point2D[] CreateCustomPolygon()
+        {
+            return new[]
+            {
+                new Point2D(0, 0),
+                new Point2D(0, 4),
+                new Point2D(2, 6),
+                new Point2D(4, 4),
+                new Point2D(4, 0),
+                new Point2D(2, -2)
+            };
+        }
+
+        private static Point2D[][] CreateInnerRings()
+        {
+            return new[]
+            {
+                new[]
+                {
+                    new Point2D(1, 3),
+                    new Point2D(2, 4),
+                    new Point2D(3, 3),
+                    new Point2D(2, 2)
+                },
+                new[]
+                {
+                    new Point2D(1, 1),
+                    new Point2D(2, 2),
+                    new Point2D(3, 1),
+                    new Point2D(2, 0)
+                }
             };
         }
     }

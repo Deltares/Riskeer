@@ -149,6 +149,39 @@ namespace Core.Common.Geometry
             return new Point2D(interiorPoint.X, interiorPoint.Y);
         }
 
+        /// <summary>
+        /// Gets an indicator whether the given <paramref name="point"/> lies in the polygon.
+        /// </summary>
+        /// <param name="point">The point to check.</param>
+        /// <param name="outerRing">The outer ring of the polygon.</param>
+        /// <param name="innerRings">The inner rings of the polygon.</param>
+        /// <returns><c>true</c> when the <paramref name="point"/> lies in the polygon; <c>false</c> otherwise.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public static bool PointInPolygon(Point2D point, IEnumerable<Point2D> outerRing, IEnumerable<IEnumerable<Point2D>> innerRings)
+        {
+            if (point == null)
+            {
+                throw new ArgumentNullException(nameof(point));
+            }
+
+            if (outerRing == null)
+            {
+                throw new ArgumentNullException(nameof(outerRing));
+            }
+
+            if (innerRings == null)
+            {
+                throw new ArgumentNullException(nameof(innerRings));
+            }
+
+            Polygon outerPolygon = PointsToPolygon(outerRing);
+            IEnumerable<Polygon> innerPolygons = innerRings.Select(PointsToPolygon).ToArray();
+
+            var polygon = new Polygon(outerPolygon.Shell, innerPolygons.Select(p => p.Shell).ToArray());
+
+            return polygon.Covers(new Point(point.X, point.Y));
+        }
+
         private static IEnumerable<Point2D> GetPointsFromLine(IEnumerable<Point2D> line, double completingPointsLevel)
         {
             foreach (Point2D point in line)
