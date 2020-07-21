@@ -208,12 +208,10 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
         public void UseBreakWater_AlwaysOnChange_NotifyObserverAndCalculationPropertyChanged()
         {
             // Setup
-            const bool newValue = true;
-
             var calculation = new StructuresCalculationScenario<StabilityPointStructuresInput>();
 
             // Call & Assert
-            SetPropertyAndVerifyNotificationsAndOutputForCalculation(row => row.UseBreakWater = newValue, calculation);
+            SetPropertyAndVerifyNotificationsAndOutputForCalculation(row => row.UseBreakWater = true, calculation);
         }
 
         [Test]
@@ -340,12 +338,10 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
         public void UseForeShoreGeometry_AlwaysOnChange_NotifyObserverAndCalculationPropertyChanged()
         {
             // Setup
-            const bool newValue = true;
-
             var calculation = new StructuresCalculationScenario<StabilityPointStructuresInput>();
 
             // Call & Assert
-            SetPropertyAndVerifyNotificationsAndOutputForCalculation(row => row.UseForeshoreGeometry = newValue, calculation);
+            SetPropertyAndVerifyNotificationsAndOutputForCalculation(row => row.UseForeshoreGeometry = true, calculation);
         }
 
         [Test]
@@ -377,6 +373,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
             {
                 InputParameters =
                 {
+                    UseForeshore = true,
                     ForeshoreProfile = new TestForeshoreProfile(new[]
                     {
                         new Point2D(0.0, 0.0)
@@ -385,11 +382,8 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
             };
 
             // Call
-            var row = new StabilityPointStructuresCalculationRow(calculation, new ObservablePropertyChangeHandler(calculation, new StabilityPointStructuresInput()))
-            {
-                UseForeshoreGeometry = true
-            };
-
+            var row = new StabilityPointStructuresCalculationRow(calculation, new ObservablePropertyChangeHandler(calculation, new StabilityPointStructuresInput()));
+            
             // Asserts
             IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[useForeshoreColumnIndex], true);

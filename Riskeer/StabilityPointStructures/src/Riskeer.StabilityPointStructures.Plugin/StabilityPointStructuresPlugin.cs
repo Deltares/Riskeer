@@ -131,7 +131,7 @@ namespace Riskeer.StabilityPointStructures.Plugin
                 GetViewName = (view, context) => context.WrappedData.Name,
                 Image = RiskeerCommonFormsResources.GeneralFolderIcon,
                 AdditionalDataCheck = context => context.WrappedData == context.FailureMechanism.CalculationsGroup,
-                CloseForData = CloseCalculationsViewForData,
+                CloseForData = CloseCalculationsViewForData
             };
         }
 
@@ -329,7 +329,7 @@ namespace Riskeer.StabilityPointStructures.Plugin
 
         private static bool CloseCalculationsViewForData(StabilityPointStructuresCalculationsView view, object o)
         {
-            var assessmentSection = o as IAssessmentSection;
+            
             var failureMechanism = o as StabilityPointStructuresFailureMechanism;
 
             if (o is StabilityPointStructuresFailureMechanismContext failureMechanismContext)
@@ -337,7 +337,7 @@ namespace Riskeer.StabilityPointStructures.Plugin
                 failureMechanism = failureMechanismContext.WrappedData;
             }
 
-            if (assessmentSection != null)
+            if (o is IAssessmentSection assessmentSection)
             {
                 failureMechanism = assessmentSection.GetFailureMechanisms()
                                                     .OfType<StabilityPointStructuresFailureMechanism>()

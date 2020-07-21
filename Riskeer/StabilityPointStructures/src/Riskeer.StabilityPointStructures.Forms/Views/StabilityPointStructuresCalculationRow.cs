@@ -56,7 +56,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Views
         /// <param name="handler">The handler responsible for handling effects of a property change.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public StabilityPointStructuresCalculationRow(StructuresCalculationScenario<StabilityPointStructuresInput> calculationScenario,
-                                              IObservablePropertyChangeHandler handler)
+                                                      IObservablePropertyChangeHandler handler)
         {
             if (calculationScenario == null)
             {

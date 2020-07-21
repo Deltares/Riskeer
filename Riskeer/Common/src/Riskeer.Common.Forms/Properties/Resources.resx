@@ -1581,4 +1581,22 @@ scenario
   <data name="Use_Foreshore_DisplayName" xml:space="preserve">
     <value>Gebruik voorlandgeometrie</value>
   </data>
+  <data name="LoadSchematizationType_DisplayName" xml:space="preserve">
+    <value>Belastingschematisering</value>
+  </data>
+  <data name="ConstructiveStrength_Linear_LoadModel_DisplayName" xml:space="preserve">
+    <value>Lineaire belastingschematisering constructieve sterkte [kN/m]</value>
+  </data>
+  <data name="ConstructiveStrength_Quadratic_LoadModel_DisplayName" xml:space="preserve">
+    <value>Kwadratische belastingschematisering constructieve sterkte [kN/m]</value>
+  </data>
+  <data name="Stability_Linear_LoadModel_DisplayName" xml:space="preserve">
+    <value>Lineaire belastingschematisering stabiliteit [kN/m²]</value>
+  </data>
+  <data name="Stability_Quadratic_LoadModel_DisplayName" xml:space="preserve">
+    <value>Kwadratische belastingschematisering stabiliteit [kN/m²]</value>
+  </data>
+  <data name="Evaluation_Level_DisplayName" xml:space="preserve">
+    <value>Analysehoogte [m+NAP]</value>
+  </data>
 </root>

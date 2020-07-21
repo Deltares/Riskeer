@@ -25,7 +25,6 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
-using Core.Common.Base.Properties;
 using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.Views;
 using Core.Common.Util;
@@ -56,7 +55,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Views
         private readonly StabilityPointStructuresFailureMechanism failureMechanism;
         private Observer failureMechanismObserver;
         private Observer hydraulicBoundaryLocationsObserver;
-        private Observer foreShoreProfilesObserver;
+        private Observer stabilityPointStructuresObserver;
         private RecursiveObserver<CalculationGroup, StabilityPointStructuresInput> inputObserver;
         private RecursiveObserver<CalculationGroup, StructuresCalculationScenario<StabilityPointStructuresInput>> calculationScenarioObserver;
         private RecursiveObserver<CalculationGroup, CalculationGroup> calculationGroupObserver;
@@ -134,7 +133,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Views
                 calculationGroupObserver.Dispose();
 
                 hydraulicBoundaryLocationsObserver.Dispose();
-                foreShoreProfilesObserver.Dispose();
+                stabilityPointStructuresObserver.Dispose();
 
                 components?.Dispose();
             }
@@ -181,38 +180,30 @@ namespace Riskeer.StabilityPointStructures.Forms.Views
                                                   RiskeerCommonFormsResources.Use_Foreshore_DisplayName);
 
             dataGridViewControl.AddComboBoxColumn(nameof(StabilityPointStructuresCalculationRow.LoadSchematizationType),
-                                                  "Belastingschematisering",
+                                                  RiskeerCommonFormsResources.LoadSchematizationType_DisplayName,
                                                   EnumDisplayWrapperHelper.GetEnumTypes<LoadSchematizationType>(),
                                                   nameof(EnumDisplayWrapper<LoadSchematizationType>.Value),
                                                   nameof(EnumDisplayWrapper<LoadSchematizationType>.DisplayName));
 
             dataGridViewControl.AddTextBoxColumn(
                 nameof(StabilityPointStructuresCalculationRow.ConstructiveStrengthLinearLoadModel),
-                string.Concat(RiskeerCommonFormsResources.NormalDistribution_Mean_DisplayName,
-                              " ",
-                              "Lineaire belastingschematisering constructieve sterkte [kN/m]"));
+                $"{RiskeerCommonFormsResources.NormalDistribution_Mean_DisplayName}\r\n{RiskeerCommonFormsResources.ConstructiveStrength_Linear_LoadModel_DisplayName}");
 
             dataGridViewControl.AddTextBoxColumn(
                 nameof(StabilityPointStructuresCalculationRow.ConstructiveStrengthQuadraticLoadModel),
-                string.Concat(RiskeerCommonFormsResources.NormalDistribution_Mean_DisplayName,
-                              " ",
-                              "Kwadratische belastingschematisering constructieve sterkte [kN/m]"));
+                $"{RiskeerCommonFormsResources.NormalDistribution_Mean_DisplayName}\r\n{RiskeerCommonFormsResources.ConstructiveStrength_Quadratic_LoadModel_DisplayName}");
 
             dataGridViewControl.AddTextBoxColumn(
                 nameof(StabilityPointStructuresCalculationRow.StabilityLinearLoadModel),
-                string.Concat(RiskeerCommonFormsResources.NormalDistribution_Mean_DisplayName,
-                              " ",
-                              "Lineaire belastingschematisering stabiliteit [kN/m²]"));
+                $"{RiskeerCommonFormsResources.NormalDistribution_Mean_DisplayName}\r\n{RiskeerCommonFormsResources.Stability_Linear_LoadModel_DisplayName}");
 
             dataGridViewControl.AddTextBoxColumn(
                 nameof(StabilityPointStructuresCalculationRow.StabilityQuadraticLoadModel),
-                string.Concat(RiskeerCommonFormsResources.NormalDistribution_Mean_DisplayName,
-                              " ",
-                              "Kwadratische belastingschematisering stabiliteit [kN/m²]"));
+                $"{RiskeerCommonFormsResources.NormalDistribution_Mean_DisplayName}\r\n{RiskeerCommonFormsResources.Stability_Quadratic_LoadModel_DisplayName}");
 
             dataGridViewControl.AddTextBoxColumn(
                 nameof(StabilityPointStructuresCalculationRow.EvaluationLevel),
-                "Analysehoogte [m+NAP]");
+                RiskeerCommonFormsResources.Evaluation_Level_DisplayName);
         }
 
         private void InitializeListBox()
@@ -223,7 +214,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Views
 
         private void UpdateGenerateCalculationsButtonState()
         {
-            buttonGenerateCalculations.Enabled = failureMechanism.ForeshoreProfiles.Any();
+            buttonGenerateCalculations.Enabled = failureMechanism.StabilityPointStructures.Any();
         }
 
         private StabilityPointStructuresInputContext CreateSelectedItemFromCurrentRow()
@@ -277,13 +268,9 @@ namespace Riskeer.StabilityPointStructures.Forms.Views
             {
                 Observable = assessmentSection.HydraulicBoundaryDatabase.Locations
             };
-            foreShoreProfilesObserver = new Observer(() =>
+            stabilityPointStructuresObserver = new Observer(UpdateGenerateCalculationsButtonState)
             {
-                UpdateForeshoreProfilesColumn();
-                UpdateGenerateCalculationsButtonState();
-            })
-            {
-                Observable = failureMechanism.ForeshoreProfiles
+                Observable = failureMechanism.StabilityPointStructures
             };
 
             // The concat is needed to observe the input of calculations in child groups.
@@ -365,13 +352,13 @@ namespace Riskeer.StabilityPointStructures.Forms.Views
         private IEnumerable<SelectableHydraulicBoundaryLocation> GetSelectableHydraulicBoundaryLocationsForCalculation(StructuresCalculationScenario<StabilityPointStructuresInput> calculationScenario)
         {
             return GetSelectableHydraulicBoundaryLocations(assessmentSection?.HydraulicBoundaryDatabase.Locations,
-                                                           calculationScenario.InputParameters.ForeshoreProfile);
+                                                           calculationScenario.InputParameters.Structure);
         }
 
         private static IEnumerable<SelectableHydraulicBoundaryLocation> GetSelectableHydraulicBoundaryLocations(
-            IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations, ForeshoreProfile foreshoreProfile)
+            IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations, StabilityPointStructure stabilityPointStructure)
         {
-            Point2D referencePoint = foreshoreProfile?.WorldReferencePoint;
+            Point2D referencePoint = stabilityPointStructure?.Location;
             return SelectableHydraulicBoundaryLocationHelper.GetSortedSelectableHydraulicBoundaryLocations(
                 hydraulicBoundaryLocations, referencePoint);
         }
@@ -449,9 +436,9 @@ namespace Riskeer.StabilityPointStructures.Forms.Views
 
             List<SelectableHydraulicBoundaryLocation> selectableHydraulicBoundaryLocations = hydraulicBoundaryLocations.Select(hbl => new SelectableHydraulicBoundaryLocation(hbl, null)).ToList();
 
-            foreach (ForeshoreProfile foreshoreProfile in failureMechanism.ForeshoreProfiles)
+            foreach (StabilityPointStructure stabilityPointStructure in failureMechanism.StabilityPointStructures)
             {
-                selectableHydraulicBoundaryLocations.AddRange(GetSelectableHydraulicBoundaryLocations(hydraulicBoundaryLocations, foreshoreProfile));
+                selectableHydraulicBoundaryLocations.AddRange(GetSelectableHydraulicBoundaryLocations(hydraulicBoundaryLocations, stabilityPointStructure));
             }
 
             return selectableHydraulicBoundaryLocations;

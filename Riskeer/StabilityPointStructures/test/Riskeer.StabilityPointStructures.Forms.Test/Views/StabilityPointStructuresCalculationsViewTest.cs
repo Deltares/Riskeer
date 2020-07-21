@@ -717,8 +717,8 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
         }
 
         [Test]
-        [TestCase(LoadSchematizationType.Linear, LoadSchematizationType.Quadratic ,false)]
-        [TestCase(LoadSchematizationType.Quadratic,LoadSchematizationType.Linear, true)]
+        [TestCase(LoadSchematizationType.Linear, LoadSchematizationType.Quadratic, false)]
+        [TestCase(LoadSchematizationType.Quadratic, LoadSchematizationType.Linear, true)]
         public void CalculationsView_LoadSchematizationType_HasCorrespondingColumnState(LoadSchematizationType newValue, LoadSchematizationType controlValue, bool expectedState)
         {
             // Setup
@@ -728,11 +728,11 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
 
             StabilityPointStructuresCalculationsView view = ShowFullyConfiguredCalculationsView(assessmentSection);
 
-            var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
             // This step is necessary because setting the same value would not change the view state.
-            var calculationGroup = (CalculationGroup)view.Data;
-            var calculation = (StructuresCalculationScenario<StabilityPointStructuresInput>)calculationGroup.GetCalculations().First();
+            var calculationGroup = (CalculationGroup) view.Data;
+            var calculation = (StructuresCalculationScenario<StabilityPointStructuresInput>) calculationGroup.GetCalculations().First();
             calculation.InputParameters.LoadSchematizationType = controlValue;
 
             // Call
