@@ -204,7 +204,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
         }
 
         [Test]
-        public void ButtonGenerateCalculations_ForeshoreProfilesPresent_ButtonEnabled()
+        public void ButtonGenerateCalculations_StructuresPresent_ButtonEnabled()
         {
             // Setup
             var mocks = new MockRepository();
