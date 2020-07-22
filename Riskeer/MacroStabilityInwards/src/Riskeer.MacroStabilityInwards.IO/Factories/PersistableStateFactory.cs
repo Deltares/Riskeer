@@ -73,14 +73,27 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
         private static PersistableState Create(IMacroStabilityInwardsSoilProfileUnderSurfaceLine soilProfile, MacroStabilityInwardsExportStageType stageType,
                                                IdFactory idFactory, MacroStabilityInwardsExportRegistry registry)
         {
+            MacroStabilityInwardsSoilLayer2D[] layers = MacroStabilityInwardsSoilProfile2DLayersHelper.GetLayersRecursively(soilProfile.Layers).ToArray();
+            IDictionary<MacroStabilityInwardsSoilLayer2D, List<IMacroStabilityInwardsPreconsolidationStress>> layersWithStresses =
+                GetLayersWithPreconsolidationStresses(layers, soilProfile.PreconsolidationStresses);
+
+            var statePoints = new List<PersistableStatePoint>();
+
+            if (!layersWithStresses.Any(lws => lws.Value.Count > 1 || lws.Value.Count == 1 && lws.Key.Data.UsePop && HasValidPop(lws.Key.Data.Pop)))
+            {
+                statePoints.AddRange(layers.Where(l => l.Data.UsePop && HasValidPop(l.Data.Pop))
+                                           .Select(l => CreatePOPStatePoint(l, stageType, idFactory, registry))
+                                           .ToArray());
+
+                statePoints.AddRange(layersWithStresses.Select(kvp => CreateYieldStressStatePoint(kvp.Key, kvp.Value.Single(), stageType, idFactory, registry))
+                                                       .ToArray());
+            }
+
             var state = new PersistableState
             {
                 Id = idFactory.Create(),
                 StateLines = Enumerable.Empty<PersistableStateLine>(),
-                StatePoints = MacroStabilityInwardsSoilProfile2DLayersHelper.GetLayersRecursively(soilProfile.Layers)
-                                                                            .Where(l => l.Data.UsePop && HasValidPop(l.Data.Pop))
-                                                                            .Select(l => CreateStatePoint(l, stageType, idFactory, registry))
-                                                                            .ToArray()
+                StatePoints = statePoints
             };
 
             registry.AddState(stageType, state.Id);
@@ -94,8 +107,22 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
                    && pop.CoefficientOfVariation != RoundedDouble.NaN;
         }
 
-        private static PersistableStatePoint CreateStatePoint(MacroStabilityInwardsSoilLayer2D layer, MacroStabilityInwardsExportStageType stageType,
-                                                              IdFactory idFactory, MacroStabilityInwardsExportRegistry registry)
+        private static PersistableStatePoint CreateYieldStressStatePoint(MacroStabilityInwardsSoilLayer2D layer, IMacroStabilityInwardsPreconsolidationStress preconsolidationStress,
+                                                                         MacroStabilityInwardsExportStageType stageType, IdFactory idFactory, MacroStabilityInwardsExportRegistry registry)
+        {
+            return new PersistableStatePoint
+            {
+                Id = idFactory.Create(),
+                IsProbabilistic = true,
+                LayerId = registry.GeometryLayers[stageType][layer],
+                Point = new PersistablePoint(preconsolidationStress.Location.X, preconsolidationStress.Location.Y),
+                Stress = CreateYieldStress(preconsolidationStress),
+                Label = string.Format(Resources.PersistableStateFactory_CreateStatePoint_PreconsolidationStress_LayerName_0, layer.Data.MaterialName)
+            };
+        }
+
+        private static PersistableStatePoint CreatePOPStatePoint(MacroStabilityInwardsSoilLayer2D layer, MacroStabilityInwardsExportStageType stageType,
+                                                                 IdFactory idFactory, MacroStabilityInwardsExportRegistry registry)
         {
             return new PersistableStatePoint
             {
@@ -103,7 +130,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
                 IsProbabilistic = true,
                 LayerId = registry.GeometryLayers[stageType][layer],
                 Point = CreatePoint(layer),
-                Stress = CreateStress(layer.Data),
+                Stress = CreatePOPStress(layer.Data),
                 Label = string.Format(Resources.PersistableStateFactory_CreateStatePoint_POP_LayerName_0, layer.Data.MaterialName)
             };
         }
@@ -115,7 +142,16 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
             return new PersistablePoint(interiorPoint.X, interiorPoint.Y);
         }
 
-        private static PersistableStress CreateStress(MacroStabilityInwardsSoilLayerData layerData)
+        private static PersistableStress CreateYieldStress(IMacroStabilityInwardsPreconsolidationStress preconsolidationStress)
+        {
+            return new PersistableStress
+            {
+                YieldStress = MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetPreconsolidationStress(preconsolidationStress).GetDesignValue(),
+                StateType = PersistableStateType.YieldStress
+            };
+        }
+
+        private static PersistableStress CreatePOPStress(MacroStabilityInwardsSoilLayerData layerData)
         {
             return new PersistableStress
             {
@@ -123,6 +159,36 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
                 PopStochasticParameter = PersistableStochasticParameterFactory.Create(layerData.Pop),
                 StateType = PersistableStateType.Pop
             };
+        }
+
+        private static IDictionary<MacroStabilityInwardsSoilLayer2D, List<IMacroStabilityInwardsPreconsolidationStress>> GetLayersWithPreconsolidationStresses(
+            IEnumerable<MacroStabilityInwardsSoilLayer2D> layers, IEnumerable<IMacroStabilityInwardsPreconsolidationStress> preconsolidationStresses)
+        {
+            var dictionary = new Dictionary<MacroStabilityInwardsSoilLayer2D, List<IMacroStabilityInwardsPreconsolidationStress>>();
+
+            foreach (MacroStabilityInwardsSoilLayer2D layer in layers)
+            {
+                foreach (IMacroStabilityInwardsPreconsolidationStress preconsolidationStress in preconsolidationStresses)
+                {
+                    if (AdvancedMath2D.PointInPolygon(preconsolidationStress.Location, layer.OuterRing.Points, layer.NestedLayers.Select(l => l.OuterRing.Points)))
+                    {
+                        AddToDictionary(dictionary, layer, preconsolidationStress);
+                    }
+                }
+            }
+
+            return dictionary;
+        }
+
+        private static void AddToDictionary(IDictionary<MacroStabilityInwardsSoilLayer2D, List<IMacroStabilityInwardsPreconsolidationStress>> dictionary,
+                                            MacroStabilityInwardsSoilLayer2D layer, IMacroStabilityInwardsPreconsolidationStress preconsolidationStress)
+        {
+            if (!dictionary.ContainsKey(layer))
+            {
+                dictionary.Add(layer, new List<IMacroStabilityInwardsPreconsolidationStress>());
+            }
+
+            dictionary[layer].Add(preconsolidationStress);
         }
     }
 }

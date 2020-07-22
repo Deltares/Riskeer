@@ -232,4 +232,7 @@
   <data name="MacroStabilityInwardsCalculationExporter_ValidateData_Multiple_stress_points_not_supported_no_stress_points_exported" xml:space="preserve">
     <value>De schematisatie van de berekening bevat meerdere stresspunten binnen binnen één laag of stresspunten die niet aan een laag gekoppeld kunnen worden. Er worden daarom geen POP en grensspanningen geëxporteerd.</value>
   </data>
+  <data name="PersistableStateFactory_CreateStatePoint_PreconsolidationStress_LayerName_0" xml:space="preserve">
+    <value>Grensspanning - {0}</value>
+  </data>
 </root>

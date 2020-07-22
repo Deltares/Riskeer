@@ -24,13 +24,15 @@ using System.Collections.Generic;
 using System.Linq;
 using Components.Persistence.Stability.Data;
 using Core.Common.Base.Data;
-using Core.Common.Util.Extensions;
+using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.Probabilistics;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.MacroStabilityInwards.Data;
+using Riskeer.MacroStabilityInwards.Data.SoilProfile;
 using Riskeer.MacroStabilityInwards.Data.TestUtil;
+using Riskeer.MacroStabilityInwards.Data.TestUtil.SoilProfile;
 using Riskeer.MacroStabilityInwards.IO.Factories;
 using Riskeer.MacroStabilityInwards.IO.TestUtil;
 using Riskeer.MacroStabilityInwards.Primitives;
@@ -86,18 +88,18 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
         }
 
         [Test]
-        public void Create_WithValidData_ReturnsPersistableStates()
+        public void Create_SoilProfileWithMultiplePreconsolidationStressesOnOneLayer_ReturnsPersistableStates()
         {
             // Setup
             MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput(
                 new TestHydraulicBoundaryLocation());
-            IMacroStabilityInwardsSoilProfileUnderSurfaceLine soilProfile = calculation.InputParameters.SoilProfileUnderSurfaceLine;
-            soilProfile.Layers.First().Data.Pop = new VariationCoefficientLogNormalDistribution
+            calculation.InputParameters.StochasticSoilProfile = MacroStabilityInwardsStochasticSoilProfileTestFactory.CreateMacroStabilityInwardsStochasticSoilProfile2D(new[]
             {
-                Mean = (RoundedDouble) 1,
-                CoefficientOfVariation = (RoundedDouble) 2
-            };
-            soilProfile.Layers.ForEachElementDo(l => l.Data.UsePop = true);
+                MacroStabilityInwardsPreconsolidationStressTestFactory.CreateMacroStabilityInwardsPreconsolidationStress(new Point2D(2, 1)),
+                MacroStabilityInwardsPreconsolidationStressTestFactory.CreateMacroStabilityInwardsPreconsolidationStress(new Point2D(2, 2))
+            });
+
+            IMacroStabilityInwardsSoilProfileUnderSurfaceLine soilProfile = calculation.InputParameters.SoilProfileUnderSurfaceLine;
 
             var idFactory = new IdFactory();
             var registry = new MacroStabilityInwardsExportRegistry();
@@ -108,8 +110,84 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
             IEnumerable<PersistableState> states = PersistableStateFactory.Create(soilProfile, idFactory, registry);
 
             // Assert
-            PersistableDataModelTestHelper.AssertStates(soilProfile, states);
+            Assert.AreEqual(1, states.Count());
 
+            PersistableState state = states.First();
+
+            Assert.IsNotNull(state.Id);
+            CollectionAssert.IsEmpty(state.StateLines);
+            CollectionAssert.IsEmpty(state.StatePoints);
+        }
+
+        [Test]
+        public void Create_SoilProfileWithPOPAndPreconsolidationStressOnOneLayer_ReturnsPersistableStates()
+        {
+            // Setup
+            MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput(new TestHydraulicBoundaryLocation());
+            MacroStabilityInwardsStochasticSoilProfile stochasticSoilProfile = MacroStabilityInwardsStochasticSoilProfileTestFactory.CreateMacroStabilityInwardsStochasticSoilProfile2D(new[]
+            {
+                MacroStabilityInwardsPreconsolidationStressTestFactory.CreateMacroStabilityInwardsPreconsolidationStress(new Point2D(2, 1))
+            });
+
+            IMacroStabilityInwardsSoilLayer firstLayer = stochasticSoilProfile.SoilProfile.Layers.First();
+            firstLayer.Data.UsePop = true;
+            firstLayer.Data.Pop = new VariationCoefficientLogNormalDistribution
+            {
+                Mean = (RoundedDouble) 1,
+                CoefficientOfVariation = (RoundedDouble) 2
+            };
+            calculation.InputParameters.StochasticSoilProfile = stochasticSoilProfile;
+
+            IMacroStabilityInwardsSoilProfileUnderSurfaceLine soilProfile = calculation.InputParameters.SoilProfileUnderSurfaceLine;
+
+            var idFactory = new IdFactory();
+            var registry = new MacroStabilityInwardsExportRegistry();
+
+            PersistableGeometryFactory.Create(soilProfile, idFactory, registry);
+
+            // Call
+            IEnumerable<PersistableState> states = PersistableStateFactory.Create(soilProfile, idFactory, registry);
+
+            // Assert
+            Assert.AreEqual(1, states.Count());
+
+            PersistableState state = states.First();
+
+            Assert.IsNotNull(state.Id);
+            CollectionAssert.IsEmpty(state.StateLines);
+            CollectionAssert.IsEmpty(state.StatePoints);
+        }
+
+        [Test]
+        public void Create_WithValidData_ReturnsPersistableStates()
+        {
+            // Setup
+            MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput(new TestHydraulicBoundaryLocation());
+            MacroStabilityInwardsStochasticSoilProfile stochasticSoilProfile = MacroStabilityInwardsStochasticSoilProfileTestFactory.CreateMacroStabilityInwardsStochasticSoilProfile2D(new[]
+            {
+                MacroStabilityInwardsPreconsolidationStressTestFactory.CreateMacroStabilityInwardsPreconsolidationStress(new Point2D(2, 1))
+            });
+
+            IMacroStabilityInwardsSoilLayer lastLayer = stochasticSoilProfile.SoilProfile.Layers.Last();
+            lastLayer.Data.UsePop = true;
+            lastLayer.Data.Pop = new VariationCoefficientLogNormalDistribution
+            {
+                Mean = (RoundedDouble) 1,
+                CoefficientOfVariation = (RoundedDouble) 2
+            };
+            calculation.InputParameters.StochasticSoilProfile = stochasticSoilProfile;
+
+            IMacroStabilityInwardsSoilProfileUnderSurfaceLine soilProfile = calculation.InputParameters.SoilProfileUnderSurfaceLine;
+
+            var idFactory = new IdFactory();
+            var registry = new MacroStabilityInwardsExportRegistry();
+            PersistableGeometryFactory.Create(soilProfile, idFactory, registry);
+
+            // Call
+            IEnumerable<PersistableState> states = PersistableStateFactory.Create(soilProfile, idFactory, registry);
+
+            // Assert
+            PersistableDataModelTestHelper.AssertStates(soilProfile, states);
             PersistableState state = states.First();
             Assert.AreEqual(registry.States[MacroStabilityInwardsExportStageType.Daily], state.Id);
         }

@@ -83,7 +83,7 @@ namespace Riskeer.MacroStabilityInwards.Data.TestUtil.Test.SoilProfile
                     }),
                     new MacroStabilityInwardsSoilLayerData
                     {
-                        MaterialName = "Sand1"
+                        MaterialName = "Sand"
                     },
                     Enumerable.Empty<MacroStabilityInwardsSoilLayer2D>()),
                 new MacroStabilityInwardsSoilLayer2D(
@@ -96,7 +96,7 @@ namespace Riskeer.MacroStabilityInwards.Data.TestUtil.Test.SoilProfile
                     }),
                     new MacroStabilityInwardsSoilLayerData
                     {
-                        MaterialName = "Sand2"
+                        MaterialName = "Sand"
                     },
                     new[]
                     {
@@ -113,7 +113,7 @@ namespace Riskeer.MacroStabilityInwards.Data.TestUtil.Test.SoilProfile
                     }),
                     new MacroStabilityInwardsSoilLayerData
                     {
-                        MaterialName = "Sand3"
+                        MaterialName = "Sand"
                     },
                     Enumerable.Empty<MacroStabilityInwardsSoilLayer2D>())
             };
@@ -183,7 +183,7 @@ namespace Riskeer.MacroStabilityInwards.Data.TestUtil.Test.SoilProfile
                     }),
                     new MacroStabilityInwardsSoilLayerData
                     {
-                        MaterialName = "Sand1"
+                        MaterialName = "Sand"
                     },
                     Enumerable.Empty<MacroStabilityInwardsSoilLayer2D>()),
                 new MacroStabilityInwardsSoilLayer2D(
@@ -196,7 +196,7 @@ namespace Riskeer.MacroStabilityInwards.Data.TestUtil.Test.SoilProfile
                     }),
                     new MacroStabilityInwardsSoilLayerData
                     {
-                        MaterialName = "Sand2"
+                        MaterialName = "Sand"
                     },
                     new[]
                     {
@@ -213,7 +213,7 @@ namespace Riskeer.MacroStabilityInwards.Data.TestUtil.Test.SoilProfile
                     }),
                     new MacroStabilityInwardsSoilLayerData
                     {
-                        MaterialName = "Sand3"
+                        MaterialName = "Sand"
                     },
                     Enumerable.Empty<MacroStabilityInwardsSoilLayer2D>())
             };

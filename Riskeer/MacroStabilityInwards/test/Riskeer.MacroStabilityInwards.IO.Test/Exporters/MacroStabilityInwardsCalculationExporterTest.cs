@@ -394,13 +394,13 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
             {
                 MacroStabilityInwardsPreconsolidationStressTestFactory.CreateMacroStabilityInwardsPreconsolidationStress(new Point2D(2, 1))
             });
-            
+
             IMacroStabilityInwardsSoilLayer firstLayer = stochasticSoilProfile.SoilProfile.Layers.First();
             firstLayer.Data.UsePop = true;
             firstLayer.Data.Pop = new VariationCoefficientLogNormalDistribution
             {
-                Mean = random.NextRoundedDouble(),
-                CoefficientOfVariation = random.NextRoundedDouble()
+                Mean = (RoundedDouble) 1,
+                CoefficientOfVariation = (RoundedDouble) 2
             };
             calculation.InputParameters.StochasticSoilProfile = stochasticSoilProfile;
             calculation.Output = MacroStabilityInwardsOutputTestFactory.CreateRandomOutput();
