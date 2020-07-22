@@ -305,6 +305,16 @@ namespace Riskeer.MacroStabilityInwards.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to De schematisatie van de berekening bevat meerdere stresspunten binnen binnen één laag of stresspunten die niet aan een laag gekoppeld kunnen worden. Er worden daarom geen POP en grensspanningen geëxporteerd..
+        /// </summary>
+        public static string MacroStabilityInwardsCalculationExporter_ValidateData_Multiple_stress_points_not_supported_no_stress_points_exported {
+            get {
+                return ResourceManager.GetString("MacroStabilityInwardsCalculationExporter_ValidateData_Multiple_stress_points_not_" +
+                        "supported_no_stress_points_exported", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Berekening &apos;{0}&apos; heeft geen uitvoer. Deze berekening wordt overgeslagen..
         /// </summary>
         public static string MacroStabilityInwardsCalculationGroupExporter_Export_Calculation_0_has_no_output_and_is_skipped {

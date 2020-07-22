@@ -22,19 +22,25 @@
 using System;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using Components.Persistence.Stability;
 using Core.Common.Base.Data;
+using Core.Common.Base.Geometry;
 using Core.Common.Base.IO;
 using Core.Common.TestUtil;
 using Core.Common.Util.Extensions;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Riskeer.Common.Data.Probabilistics;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.MacroStabilityInwards.Data;
+using Riskeer.MacroStabilityInwards.Data.SoilProfile;
 using Riskeer.MacroStabilityInwards.Data.TestUtil;
+using Riskeer.MacroStabilityInwards.Data.TestUtil.SoilProfile;
 using Riskeer.MacroStabilityInwards.IO.Exporters;
 using Riskeer.MacroStabilityInwards.IO.TestUtil;
 using Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators;
+using Riskeer.MacroStabilityInwards.Primitives;
 
 namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
 {
@@ -330,6 +336,87 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
 
                     // Assert
                     const string expectedMessage = "De schematisatie van de berekening bevat meerdere aquifer lagen. De volgorde van de aquifer lagen kan niet bepaald worden tijdens exporteren. Er worden daarom geen lagen als aquifer geëxporteerd.";
+                    TestHelper.AssertLogMessageWithLevelIsGenerated(Call, new Tuple<string, LogLevelConstant>(expectedMessage, LogLevelConstant.Warn));
+                    Assert.IsTrue(exportResult);
+                }
+            }
+            finally
+            {
+                File.Delete(filePath);
+            }
+        }
+
+        [Test]
+        public void Export_SoilProfileWithMultiplePreconsolidationStressesOnOneLayer_LogsWarningAndReturnsTrue()
+        {
+            // Setup
+            string filePath = TestHelper.GetScratchPadPath($"{nameof(MacroStabilityInwardsCalculationExporterTest)}.{nameof(Export_SoilProfileWithMultiplePreconsolidationStressesOnOneLayer_LogsWarningAndReturnsTrue)}.ValidFile.stix");
+
+            MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput(new TestHydraulicBoundaryLocation());
+            calculation.InputParameters.StochasticSoilProfile = MacroStabilityInwardsStochasticSoilProfileTestFactory.CreateMacroStabilityInwardsStochasticSoilProfile2D(new[]
+            {
+                MacroStabilityInwardsPreconsolidationStressTestFactory.CreateMacroStabilityInwardsPreconsolidationStress(new Point2D(2, 1)),
+                MacroStabilityInwardsPreconsolidationStressTestFactory.CreateMacroStabilityInwardsPreconsolidationStress(new Point2D(2, 2))
+            });
+            calculation.Output = MacroStabilityInwardsOutputTestFactory.CreateRandomOutput();
+
+            var exporter = new MacroStabilityInwardsCalculationExporter(calculation, new PersistenceFactory(), filePath, AssessmentSectionTestHelper.GetTestAssessmentLevel);
+
+            try
+            {
+                using (new MacroStabilityInwardsCalculatorFactoryConfig())
+                {
+                    // Call
+                    var exportResult = false;
+                    void Call() => exportResult = exporter.Export();
+
+                    // Assert
+                    const string expectedMessage = "De schematisatie van de berekening bevat meerdere stresspunten binnen binnen één laag of stresspunten die niet aan een laag gekoppeld kunnen worden. Er worden daarom geen POP en grensspanningen geëxporteerd.";
+                    TestHelper.AssertLogMessageWithLevelIsGenerated(Call, new Tuple<string, LogLevelConstant>(expectedMessage, LogLevelConstant.Warn));
+                    Assert.IsTrue(exportResult);
+                }
+            }
+            finally
+            {
+                File.Delete(filePath);
+            }
+        }
+
+        [Test]
+        public void Export_SoilProfileWithPOPAndPreconsolidationStressOnOneLayer_LogsWarningAndReturnsTrue()
+        {
+            // Setup
+            var random = new Random(21);
+            string filePath = TestHelper.GetScratchPadPath($"{nameof(MacroStabilityInwardsCalculationExporterTest)}.{nameof(Export_SoilProfileWithPOPAndPreconsolidationStressOnOneLayer_LogsWarningAndReturnsTrue)}.ValidFile.stix");
+
+            MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput(new TestHydraulicBoundaryLocation());
+            MacroStabilityInwardsStochasticSoilProfile stochasticSoilProfile = MacroStabilityInwardsStochasticSoilProfileTestFactory.CreateMacroStabilityInwardsStochasticSoilProfile2D(new[]
+            {
+                MacroStabilityInwardsPreconsolidationStressTestFactory.CreateMacroStabilityInwardsPreconsolidationStress(new Point2D(2, 1))
+            });
+            
+            IMacroStabilityInwardsSoilLayer firstLayer = stochasticSoilProfile.SoilProfile.Layers.First();
+            firstLayer.Data.UsePop = true;
+            firstLayer.Data.Pop = new VariationCoefficientLogNormalDistribution
+            {
+                Mean = random.NextRoundedDouble(),
+                CoefficientOfVariation = random.NextRoundedDouble()
+            };
+            calculation.InputParameters.StochasticSoilProfile = stochasticSoilProfile;
+            calculation.Output = MacroStabilityInwardsOutputTestFactory.CreateRandomOutput();
+
+            var exporter = new MacroStabilityInwardsCalculationExporter(calculation, new PersistenceFactory(), filePath, AssessmentSectionTestHelper.GetTestAssessmentLevel);
+
+            try
+            {
+                using (new MacroStabilityInwardsCalculatorFactoryConfig())
+                {
+                    // Call
+                    var exportResult = false;
+                    void Call() => exportResult = exporter.Export();
+
+                    // Assert
+                    const string expectedMessage = "De schematisatie van de berekening bevat meerdere stresspunten binnen binnen één laag of stresspunten die niet aan een laag gekoppeld kunnen worden. Er worden daarom geen POP en grensspanningen geëxporteerd.";
                     TestHelper.AssertLogMessageWithLevelIsGenerated(Call, new Tuple<string, LogLevelConstant>(expectedMessage, LogLevelConstant.Warn));
                     Assert.IsTrue(exportResult);
                 }

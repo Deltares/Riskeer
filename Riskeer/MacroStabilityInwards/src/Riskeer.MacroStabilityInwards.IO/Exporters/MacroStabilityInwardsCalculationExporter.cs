@@ -28,8 +28,10 @@ using Components.Persistence.Stability;
 using Components.Persistence.Stability.Data;
 using Core.Common.Base.Data;
 using Core.Common.Base.IO;
+using Core.Common.Geometry;
 using Core.Common.Util;
 using log4net;
+using Riskeer.Common.Data.Probabilistics;
 using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.MacroStabilityInwards.Data.SoilProfile;
 using Riskeer.MacroStabilityInwards.IO.Factories;
@@ -138,11 +140,55 @@ namespace Riskeer.MacroStabilityInwards.IO.Exporters
                                calculation.InputParameters.MaximumSliceWidth.ToString(null, CultureInfo.CurrentCulture));
             }
 
-            IEnumerable<MacroStabilityInwardsSoilLayer2D> layers = MacroStabilityInwardsSoilProfile2DLayersHelper.GetLayersRecursively(calculation.InputParameters.SoilProfileUnderSurfaceLine.Layers);
+            MacroStabilityInwardsSoilLayer2D[] layers = MacroStabilityInwardsSoilProfile2DLayersHelper.GetLayersRecursively(calculation.InputParameters.SoilProfileUnderSurfaceLine.Layers).ToArray();
             if (layers.Count(l => l.Data.IsAquifer) > 1)
             {
                 log.Warn(Resources.MacroStabilityInwardsCalculationExporter_ValidateData_Multiple_aquifer_layers_not_supported_no_aquifer_layer_exported);
             }
+
+            IDictionary<MacroStabilityInwardsSoilLayer2D, List<IMacroStabilityInwardsPreconsolidationStress>> layersWithStresses =
+                GetLayersWithPreconsolidationStresses(layers, calculation.InputParameters.SoilProfileUnderSurfaceLine.PreconsolidationStresses);
+
+            if (layersWithStresses.Any(lws => lws.Value.Count > 1 || lws.Value.Count == 1 && lws.Key.Data.UsePop && HasValidPop(lws.Key.Data.Pop)))
+            {
+                log.Warn(Resources.MacroStabilityInwardsCalculationExporter_ValidateData_Multiple_stress_points_not_supported_no_stress_points_exported);
+            }
+        }
+
+        private static bool HasValidPop(IVariationCoefficientDistribution pop)
+        {
+            return pop.Mean != RoundedDouble.NaN
+                   && pop.CoefficientOfVariation != RoundedDouble.NaN;
+        }
+
+        private static IDictionary<MacroStabilityInwardsSoilLayer2D, List<IMacroStabilityInwardsPreconsolidationStress>> GetLayersWithPreconsolidationStresses(
+            IEnumerable<MacroStabilityInwardsSoilLayer2D> layers, IEnumerable<IMacroStabilityInwardsPreconsolidationStress> preconsolidationStresses)
+        {
+            var dictionary = new Dictionary<MacroStabilityInwardsSoilLayer2D, List<IMacroStabilityInwardsPreconsolidationStress>>();
+
+            foreach (MacroStabilityInwardsSoilLayer2D layer in layers)
+            {
+                foreach (IMacroStabilityInwardsPreconsolidationStress preconsolidationStress in preconsolidationStresses)
+                {
+                    if (AdvancedMath2D.PointInPolygon(preconsolidationStress.Location, layer.OuterRing.Points, layer.NestedLayers.Select(l => l.OuterRing.Points)))
+                    {
+                        AddToDictionary(dictionary, layer, preconsolidationStress);
+                    }
+                }
+            }
+
+            return dictionary;
+        }
+
+        private static void AddToDictionary(IDictionary<MacroStabilityInwardsSoilLayer2D, List<IMacroStabilityInwardsPreconsolidationStress>> dictionary,
+                                            MacroStabilityInwardsSoilLayer2D layer, IMacroStabilityInwardsPreconsolidationStress preconsolidationStress)
+        {
+            if (!dictionary.ContainsKey(layer))
+            {
+                dictionary.Add(layer, new List<IMacroStabilityInwardsPreconsolidationStress>());
+            }
+
+            dictionary[layer].Add(preconsolidationStress);
         }
 
         private void MoveTempFileToFinal(string tempFilePath)
