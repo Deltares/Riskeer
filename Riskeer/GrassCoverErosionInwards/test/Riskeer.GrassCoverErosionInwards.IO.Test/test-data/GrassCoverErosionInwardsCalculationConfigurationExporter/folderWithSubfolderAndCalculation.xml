@@ -14,6 +14,10 @@
           <standaardafwijking>0.0006</standaardafwijking>
         </stochast>
       </stochasten>
+      <scenario>
+        <gebruik>true</gebruik>
+        <bijdrage>100</bijdrage>
+      </scenario>
     </berekening>
     <map naam="Nested">
       <berekening naam="Berekening 2">
@@ -28,6 +32,10 @@
             <standaardafwijking>0.0006</standaardafwijking>
           </stochast>
         </stochasten>
+        <scenario>
+          <gebruik>true</gebruik>
+          <bijdrage>100</bijdrage>
+        </scenario>
       </berekening>
     </map>
   </map>

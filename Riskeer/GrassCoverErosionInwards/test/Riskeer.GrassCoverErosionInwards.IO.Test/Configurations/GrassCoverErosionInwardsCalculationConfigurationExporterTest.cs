@@ -36,14 +36,14 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
         : CustomCalculationConfigurationExporterDesignGuidelinesTestFixture<
             GrassCoverErosionInwardsCalculationConfigurationExporter,
             GrassCoverErosionInwardsCalculationConfigurationWriter,
-            GrassCoverErosionInwardsCalculation,
+            GrassCoverErosionInwardsCalculationScenario,
             GrassCoverErosionInwardsCalculationConfiguration>
     {
         [Test]
         public void Export_ValidData_ReturnTrueAndWritesFile()
         {
             // Setup
-            var calculation = new GrassCoverErosionInwardsCalculation
+            var calculation = new GrassCoverErosionInwardsCalculationScenario
             {
                 Name = "Berekening 1",
                 InputParameters =
@@ -51,7 +51,7 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
                     HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation("Location1")
                 }
             };
-            var calculation2 = new GrassCoverErosionInwardsCalculation
+            var calculation2 = new GrassCoverErosionInwardsCalculationScenario
             {
                 Name = "Berekening 2"
             };
@@ -86,9 +86,9 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
             }, expectedXmlFilePath);
         }
 
-        protected override GrassCoverErosionInwardsCalculation CreateCalculation()
+        protected override GrassCoverErosionInwardsCalculationScenario CreateCalculation()
         {
-            return new GrassCoverErosionInwardsCalculation();
+            return new GrassCoverErosionInwardsCalculationScenario();
         }
 
         protected override GrassCoverErosionInwardsCalculationConfigurationExporter CallConfigurationFilePathConstructor(IEnumerable<ICalculationBase> calculations, string filePath)

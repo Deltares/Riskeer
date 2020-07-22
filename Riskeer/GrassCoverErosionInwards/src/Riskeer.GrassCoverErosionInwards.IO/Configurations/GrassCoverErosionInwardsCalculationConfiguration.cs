@@ -102,6 +102,11 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Configurations
         public StochastConfiguration CriticalFlowRate { get; set; }
 
         /// <summary>
+        /// Gets or sets the configuration of the scenario of the grass cover erosion inwards calculation.
+        /// </summary>
+        public ScenarioConfiguration Scenario { get; set; }
+
+        /// <summary>
         /// Gets or sets the name of the grass cover erosion inwards calculation.
         /// </summary>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="value"/> is <c>null</c>.</exception>

@@ -37,7 +37,7 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Configurations
     public class GrassCoverErosionInwardsCalculationConfigurationExporter
         : CalculationConfigurationExporter<
             GrassCoverErosionInwardsCalculationConfigurationWriter,
-            GrassCoverErosionInwardsCalculation,
+            GrassCoverErosionInwardsCalculationScenario,
             GrassCoverErosionInwardsCalculationConfiguration>
     {
         /// <summary>
@@ -50,7 +50,7 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Configurations
         public GrassCoverErosionInwardsCalculationConfigurationExporter(IEnumerable<ICalculationBase> calculations, string filePath)
             : base(calculations, new GrassCoverErosionInwardsCalculationConfigurationWriter(filePath)) {}
 
-        protected override GrassCoverErosionInwardsCalculationConfiguration ToConfiguration(GrassCoverErosionInwardsCalculation calculation)
+        protected override GrassCoverErosionInwardsCalculationConfiguration ToConfiguration(GrassCoverErosionInwardsCalculationScenario calculation)
         {
             GrassCoverErosionInwardsInput input = calculation.InputParameters;
             var configuration = new GrassCoverErosionInwardsCalculationConfiguration(calculation.Name)
@@ -59,7 +59,8 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Configurations
                 ShouldOvertoppingOutputIllustrationPointsBeCalculated = input.ShouldOvertoppingOutputIllustrationPointsBeCalculated,
                 ShouldDikeHeightIllustrationPointsBeCalculated = input.ShouldDikeHeightIllustrationPointsBeCalculated,
                 ShouldOvertoppingRateIllustrationPointsBeCalculated = input.ShouldOvertoppingRateIllustrationPointsBeCalculated,
-                CriticalFlowRate = input.CriticalFlowRate.ToStochastConfiguration()
+                CriticalFlowRate = input.CriticalFlowRate.ToStochastConfiguration(),
+                Scenario = calculation.ToScenarioConfiguration()
             };
 
             if (input.DikeProfile != null)

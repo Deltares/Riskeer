@@ -33,10 +33,10 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
         public void Constructor_NameNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new GrassCoverErosionInwardsCalculationConfiguration(null);
+            void Call() => new GrassCoverErosionInwardsCalculationConfiguration(null);
 
             // Assert
-            Assert.Throws<ArgumentNullException>(test);
+            Assert.Throws<ArgumentNullException>(Call);
         }
 
         [Test]
@@ -62,6 +62,7 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
             Assert.IsNull(readCalculation.ShouldOvertoppingOutputIllustrationPointsBeCalculated);
             Assert.IsNull(readCalculation.ShouldDikeHeightIllustrationPointsBeCalculated);
             Assert.IsNull(readCalculation.ShouldOvertoppingRateIllustrationPointsBeCalculated);
+            Assert.IsNull(readCalculation.Scenario);
         }
 
         [Test]
@@ -84,6 +85,8 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
             const bool readOvertoppingOutputIllustrationPoints = true;
             const bool readDikeHeightIllustrationPoints = true;
             const bool readOvertoppingRateIllustrationPoints = true;
+
+            var scenarioConfiguration = new ScenarioConfiguration();
 
             // Call
             var readCalculation = new GrassCoverErosionInwardsCalculationConfiguration(calculationName)
@@ -109,7 +112,8 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
                 {
                     Mean = criticalFlowMean,
                     StandardDeviation = critifalFlowStandardDeviation
-                }
+                },
+                Scenario = scenarioConfiguration
             };
 
             // Assert
@@ -129,6 +133,7 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
             Assert.AreEqual(readOvertoppingOutputIllustrationPoints, readCalculation.ShouldOvertoppingOutputIllustrationPointsBeCalculated);
             Assert.AreEqual(readDikeHeightIllustrationPoints, readCalculation.ShouldDikeHeightIllustrationPointsBeCalculated);
             Assert.AreEqual(readOvertoppingRateIllustrationPoints, readCalculation.ShouldOvertoppingRateIllustrationPointsBeCalculated);
+            Assert.AreEqual(scenarioConfiguration, readCalculation.Scenario);
         }
 
         [Test]

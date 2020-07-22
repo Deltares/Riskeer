@@ -51,6 +51,13 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Configurations
             writer.WriteStartElement(ConfigurationSchemaIdentifiers.CalculationElement);
             writer.WriteAttributeString(ConfigurationSchemaIdentifiers.NameAttribute, configuration.Name);
 
+            WriteCalculationElements(configuration, writer);
+
+            writer.WriteEndElement();
+        }
+
+        private static void WriteCalculationElements(GrassCoverErosionInwardsCalculationConfiguration configuration, XmlWriter writer)
+        {
             WriteElementWhenContentAvailable(
                 writer,
                 ConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElementNew,
@@ -114,7 +121,7 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Configurations
 
             writer.WriteEndElement();
 
-            writer.WriteEndElement();
+            WriteScenarioWhenAvailable(writer, configuration.Scenario);
         }
 
         /// <summary>

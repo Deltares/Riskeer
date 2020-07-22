@@ -220,6 +220,11 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
                 {
                     Mean = 0.1,
                     StandardDeviation = 0.1
+                },
+                Scenario = new ScenarioConfiguration()
+                {
+                    IsRelevant = true,
+                    Contribution = 0.3
                 }
             };
         }
