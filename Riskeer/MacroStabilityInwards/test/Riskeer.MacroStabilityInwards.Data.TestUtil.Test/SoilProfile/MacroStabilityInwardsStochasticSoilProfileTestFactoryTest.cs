@@ -44,7 +44,9 @@ namespace Riskeer.MacroStabilityInwards.Data.TestUtil.Test.SoilProfile
                 new Ring(new List<Point2D>
                 {
                     new Point2D(4.0, 2.0),
-                    new Point2D(0.0, 2.5)
+                    new Point2D(0.0, 2.5),
+                    new Point2D(4.0, 2.5),
+                    new Point2D(4.0, 3.0)
                 }),
                 new MacroStabilityInwardsSoilLayerData
                 {
@@ -56,7 +58,9 @@ namespace Riskeer.MacroStabilityInwards.Data.TestUtil.Test.SoilProfile
                 new Ring(new List<Point2D>
                 {
                     new Point2D(4.0, 2.0),
-                    new Point2D(0.0, 2.5)
+                    new Point2D(0.0, 2.5),
+                    new Point2D(4.0, 2.5),
+                    new Point2D(4.0, 3.0)
                 }),
                 new MacroStabilityInwardsSoilLayerData
                 {
@@ -73,22 +77,26 @@ namespace Riskeer.MacroStabilityInwards.Data.TestUtil.Test.SoilProfile
                     new Ring(new List<Point2D>
                     {
                         new Point2D(0.0, 1.0),
-                        new Point2D(2.0, 4.0)
+                        new Point2D(2.0, 4.0),
+                        new Point2D(2.0, 1.0),
+                        new Point2D(0.0, 0.0)
                     }),
                     new MacroStabilityInwardsSoilLayerData
                     {
-                        MaterialName = "Sand"
+                        MaterialName = "Sand1"
                     },
                     Enumerable.Empty<MacroStabilityInwardsSoilLayer2D>()),
                 new MacroStabilityInwardsSoilLayer2D(
                     new Ring(new List<Point2D>
                     {
                         new Point2D(3.0, 1.0),
-                        new Point2D(8.0, 3.0)
+                        new Point2D(3.0, 3.0),
+                        new Point2D(8.0, 3.0),
+                        new Point2D(8.0, 1.0)
                     }),
                     new MacroStabilityInwardsSoilLayerData
                     {
-                        MaterialName = "Sand"
+                        MaterialName = "Sand2"
                     },
                     new[]
                     {
@@ -99,11 +107,13 @@ namespace Riskeer.MacroStabilityInwards.Data.TestUtil.Test.SoilProfile
                     new Ring(new List<Point2D>
                     {
                         new Point2D(2.0, 4.0),
-                        new Point2D(2.0, 8.0)
+                        new Point2D(2.0, 8.0),
+                        new Point2D(4.0, 8.0),
+                        new Point2D(4.0, 4.0)
                     }),
                     new MacroStabilityInwardsSoilLayerData
                     {
-                        MaterialName = "Sand"
+                        MaterialName = "Sand3"
                     },
                     Enumerable.Empty<MacroStabilityInwardsSoilLayer2D>())
             };
@@ -114,6 +124,106 @@ namespace Riskeer.MacroStabilityInwards.Data.TestUtil.Test.SoilProfile
             Assert.AreEqual("Profile 2D", soilProfile.Name);
             CollectionAssert.AreEqual(layers, soilProfile.Layers);
             CollectionAssert.IsEmpty(soilProfile.PreconsolidationStresses);
+        }
+
+        [Test]
+        public void CreateMacroStabilityInwardsStochasticSoilProfile2D_WithPreconsolidationStresses_ReturnsExpectedMacroStabilityInwardsStochasticSoilProfile2D()
+        {
+            // Setup
+            MacroStabilityInwardsPreconsolidationStress[] preconsolidationStresses =
+            {
+                MacroStabilityInwardsPreconsolidationStressTestFactory.CreateMacroStabilityInwardsPreconsolidationStress()
+            };
+
+            // Call
+            MacroStabilityInwardsStochasticSoilProfile stochasticSoilProfile = MacroStabilityInwardsStochasticSoilProfileTestFactory
+                .CreateMacroStabilityInwardsStochasticSoilProfile2D(preconsolidationStresses);
+
+            // Assert
+            var doubleNestedLayer = new MacroStabilityInwardsSoilLayer2D(
+                new Ring(new List<Point2D>
+                {
+                    new Point2D(4.0, 2.0),
+                    new Point2D(0.0, 2.5),
+                    new Point2D(4.0, 2.5),
+                    new Point2D(4.0, 3.0)
+                }),
+                new MacroStabilityInwardsSoilLayerData
+                {
+                    MaterialName = "Soil"
+                },
+                Enumerable.Empty<MacroStabilityInwardsSoilLayer2D>());
+
+            var nestedLayer = new MacroStabilityInwardsSoilLayer2D(
+                new Ring(new List<Point2D>
+                {
+                    new Point2D(4.0, 2.0),
+                    new Point2D(0.0, 2.5),
+                    new Point2D(4.0, 2.5),
+                    new Point2D(4.0, 3.0)
+                }),
+                new MacroStabilityInwardsSoilLayerData
+                {
+                    MaterialName = "Clay"
+                },
+                new[]
+                {
+                    doubleNestedLayer
+                });
+
+            var layers = new[]
+            {
+                new MacroStabilityInwardsSoilLayer2D(
+                    new Ring(new List<Point2D>
+                    {
+                        new Point2D(0.0, 1.0),
+                        new Point2D(2.0, 4.0),
+                        new Point2D(2.0, 1.0),
+                        new Point2D(0.0, 0.0)
+                    }),
+                    new MacroStabilityInwardsSoilLayerData
+                    {
+                        MaterialName = "Sand1"
+                    },
+                    Enumerable.Empty<MacroStabilityInwardsSoilLayer2D>()),
+                new MacroStabilityInwardsSoilLayer2D(
+                    new Ring(new List<Point2D>
+                    {
+                        new Point2D(3.0, 1.0),
+                        new Point2D(3.0, 3.0),
+                        new Point2D(8.0, 3.0),
+                        new Point2D(8.0, 1.0)
+                    }),
+                    new MacroStabilityInwardsSoilLayerData
+                    {
+                        MaterialName = "Sand2"
+                    },
+                    new[]
+                    {
+                        nestedLayer
+                    }
+                ),
+                new MacroStabilityInwardsSoilLayer2D(
+                    new Ring(new List<Point2D>
+                    {
+                        new Point2D(2.0, 4.0),
+                        new Point2D(2.0, 8.0),
+                        new Point2D(4.0, 8.0),
+                        new Point2D(4.0, 4.0)
+                    }),
+                    new MacroStabilityInwardsSoilLayerData
+                    {
+                        MaterialName = "Sand3"
+                    },
+                    Enumerable.Empty<MacroStabilityInwardsSoilLayer2D>())
+            };
+
+            Assert.AreEqual(0.5, stochasticSoilProfile.Probability);
+
+            var soilProfile = (MacroStabilityInwardsSoilProfile2D) stochasticSoilProfile.SoilProfile;
+            Assert.AreEqual("Profile 2D", soilProfile.Name);
+            CollectionAssert.AreEqual(layers, soilProfile.Layers);
+            CollectionAssert.AreEqual(preconsolidationStresses, soilProfile.PreconsolidationStresses);
         }
     }
 }

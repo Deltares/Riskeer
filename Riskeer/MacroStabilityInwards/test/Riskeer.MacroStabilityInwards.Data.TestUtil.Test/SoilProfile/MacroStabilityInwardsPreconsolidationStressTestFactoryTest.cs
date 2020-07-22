@@ -39,8 +39,25 @@ namespace Riskeer.MacroStabilityInwards.Data.TestUtil.Test.SoilProfile
                 MacroStabilityInwardsPreconsolidationStressTestFactory.CreateMacroStabilityInwardsPreconsolidationStress();
 
             // Assert
-            Assert.IsNotNull(stress);
             Assert.AreEqual(new Point2D(13, 34), stress.Location);
+
+            VariationCoefficientLogNormalDistribution stressDistribution = stress.Stress;
+            Assert.AreEqual(10.09, stressDistribution.Mean, stressDistribution.GetAccuracy());
+            Assert.AreEqual(20.05, stressDistribution.CoefficientOfVariation, stressDistribution.GetAccuracy());
+        }
+
+        [Test]
+        public void CreateMacroStabilityInwardsPreconsolidationStress_WithLocation_ReturnsExpectedValues()
+        {
+            // Setup
+            var location = new Point2D(0, 0);
+
+            // Call
+            MacroStabilityInwardsPreconsolidationStress stress =
+                MacroStabilityInwardsPreconsolidationStressTestFactory.CreateMacroStabilityInwardsPreconsolidationStress(location);
+
+            // Assert
+            Assert.AreSame(location, stress.Location);
 
             VariationCoefficientLogNormalDistribution stressDistribution = stress.Stress;
             Assert.AreEqual(10.09, stressDistribution.Mean, stressDistribution.GetAccuracy());

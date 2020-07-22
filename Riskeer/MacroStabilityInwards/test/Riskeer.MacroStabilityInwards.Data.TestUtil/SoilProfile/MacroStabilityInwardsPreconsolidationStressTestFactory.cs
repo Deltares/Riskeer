@@ -38,12 +38,24 @@ namespace Riskeer.MacroStabilityInwards.Data.TestUtil.SoilProfile
         /// <returns>The created <see cref="MacroStabilityInwardsPreconsolidationStress"/>.</returns>
         public static MacroStabilityInwardsPreconsolidationStress CreateMacroStabilityInwardsPreconsolidationStress()
         {
-            return new MacroStabilityInwardsPreconsolidationStress(new Point2D(13, 34),
+            return CreateMacroStabilityInwardsPreconsolidationStress(new Point2D(13, 34));
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="MacroStabilityInwardsPreconsolidationStress"/>.
+        /// </summary>
+        /// <param name="location">The location of the preconsolidation stress.</param>
+        /// <returns>The created <see cref="MacroStabilityInwardsPreconsolidationStress"/>.</returns>
+        public static MacroStabilityInwardsPreconsolidationStress CreateMacroStabilityInwardsPreconsolidationStress(Point2D location)
+        {
+            return new MacroStabilityInwardsPreconsolidationStress(location,
                                                                    new VariationCoefficientLogNormalDistribution
                                                                    {
                                                                        Mean = (RoundedDouble) 10.09,
                                                                        CoefficientOfVariation = (RoundedDouble) 20.05
                                                                    });
         }
+
+
     }
 }

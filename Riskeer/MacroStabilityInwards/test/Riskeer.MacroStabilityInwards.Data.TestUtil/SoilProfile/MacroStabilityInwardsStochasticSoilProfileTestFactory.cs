@@ -40,11 +40,24 @@ namespace Riskeer.MacroStabilityInwards.Data.TestUtil.SoilProfile
         /// <returns>A configured <see cref="MacroStabilityInwardsStochasticSoilProfile"/>.</returns>
         public static MacroStabilityInwardsStochasticSoilProfile CreateMacroStabilityInwardsStochasticSoilProfile2D()
         {
+            return CreateMacroStabilityInwardsStochasticSoilProfile2D(Enumerable.Empty<MacroStabilityInwardsPreconsolidationStress>());
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="MacroStabilityInwardsStochasticSoilProfile"/> with
+        /// a configured 2D soil profile.
+        /// </summary>
+        /// <param name="preconsolidationStresses">The preconsolidation stresses that are part of the profile.</param>
+        /// <returns>A configured <see cref="MacroStabilityInwardsStochasticSoilProfile"/>.</returns>
+        public static MacroStabilityInwardsStochasticSoilProfile CreateMacroStabilityInwardsStochasticSoilProfile2D(IEnumerable<MacroStabilityInwardsPreconsolidationStress> preconsolidationStresses)
+        {
             var doubleNestedLayer = new MacroStabilityInwardsSoilLayer2D(
                 new Ring(new List<Point2D>
                 {
                     new Point2D(4.0, 2.0),
-                    new Point2D(0.0, 2.5)
+                    new Point2D(0.0, 2.5),
+                    new Point2D(4.0, 2.5),
+                    new Point2D(4.0, 3.0)
                 }),
                 new MacroStabilityInwardsSoilLayerData
                 {
@@ -56,7 +69,9 @@ namespace Riskeer.MacroStabilityInwards.Data.TestUtil.SoilProfile
                 new Ring(new List<Point2D>
                 {
                     new Point2D(4.0, 2.0),
-                    new Point2D(0.0, 2.5)
+                    new Point2D(0.0, 2.5),
+                    new Point2D(4.0, 2.5),
+                    new Point2D(4.0, 3.0)
                 }),
                 new MacroStabilityInwardsSoilLayerData
                 {
@@ -73,22 +88,27 @@ namespace Riskeer.MacroStabilityInwards.Data.TestUtil.SoilProfile
                     new Ring(new List<Point2D>
                     {
                         new Point2D(0.0, 1.0),
-                        new Point2D(2.0, 4.0)
+                        new Point2D(2.0, 4.0),
+                        new Point2D(2.0, 1.0),
+                        new Point2D(0.0, 0.0)
+
                     }),
                     new MacroStabilityInwardsSoilLayerData
                     {
-                        MaterialName = "Sand"
+                        MaterialName = "Sand1"
                     },
                     Enumerable.Empty<MacroStabilityInwardsSoilLayer2D>()),
                 new MacroStabilityInwardsSoilLayer2D(
                     new Ring(new List<Point2D>
                     {
                         new Point2D(3.0, 1.0),
-                        new Point2D(8.0, 3.0)
+                        new Point2D(3.0, 3.0),
+                        new Point2D(8.0, 3.0),
+                        new Point2D(8.0, 1.0)
                     }),
                     new MacroStabilityInwardsSoilLayerData
                     {
-                        MaterialName = "Sand"
+                        MaterialName = "Sand2"
                     },
                     new[]
                     {
@@ -99,20 +119,19 @@ namespace Riskeer.MacroStabilityInwards.Data.TestUtil.SoilProfile
                     new Ring(new List<Point2D>
                     {
                         new Point2D(2.0, 4.0),
-                        new Point2D(2.0, 8.0)
+                        new Point2D(2.0, 8.0),
+                        new Point2D(4.0, 8.0),
+                        new Point2D(4.0, 4.0)
                     }),
                     new MacroStabilityInwardsSoilLayerData
                     {
-                        MaterialName = "Sand"
+                        MaterialName = "Sand3"
                     },
                     Enumerable.Empty<MacroStabilityInwardsSoilLayer2D>())
             };
 
-            return new MacroStabilityInwardsStochasticSoilProfile(0.5,
-                                                                  new MacroStabilityInwardsSoilProfile2D(
-                                                                      "Profile 2D",
-                                                                      layers,
-                                                                      Enumerable.Empty<MacroStabilityInwardsPreconsolidationStress>()));
+            return new MacroStabilityInwardsStochasticSoilProfile(
+                0.5, new MacroStabilityInwardsSoilProfile2D("Profile 2D", layers, preconsolidationStresses));
         }
     }
 }
