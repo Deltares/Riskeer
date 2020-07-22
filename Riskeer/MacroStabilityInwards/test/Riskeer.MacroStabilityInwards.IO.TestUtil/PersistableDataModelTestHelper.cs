@@ -406,9 +406,6 @@ namespace Riskeer.MacroStabilityInwards.IO.TestUtil
             Assert.AreEqual(1, states.Count());
 
             IEnumerable<MacroStabilityInwardsSoilLayer2D> layers = MacroStabilityInwardsSoilProfile2DLayersHelper.GetLayersRecursively(soilProfile.Layers);
-            IEnumerable<MacroStabilityInwardsSoilLayer2D> layersWithPop = layers.Where(l => l.Data.UsePop
-                                                                                            && l.Data.Pop.Mean != RoundedDouble.NaN
-                                                                                            && l.Data.Pop.CoefficientOfVariation != RoundedDouble.NaN);
 
             for (var i = 0; i < states.Count(); i++)
             {
@@ -417,50 +414,8 @@ namespace Riskeer.MacroStabilityInwards.IO.TestUtil
                 Assert.IsNotNull(state.Id);
                 CollectionAssert.IsEmpty(state.StateLines);
 
-                IEnumerable<PersistableStatePoint> popStatePoints = state.StatePoints.Where(sp => sp.Stress.StateType == PersistableStateType.Pop);
-                Assert.AreEqual(layersWithPop.Count(), popStatePoints.Count());
-
-                for (var j = 0; j < layersWithPop.Count(); j++)
-                {
-                    MacroStabilityInwardsSoilLayer2D layerWithPop = layersWithPop.ElementAt(j);
-                    PersistableStatePoint statePoint = popStatePoints.ElementAt(j);
-
-                    Assert.IsNotNull(statePoint.Id);
-                    Assert.AreEqual($"POP - {layerWithPop.Data.MaterialName}", statePoint.Label);
-                    Assert.IsNotNull(statePoint.LayerId);
-                    Assert.IsTrue(statePoint.IsProbabilistic);
-
-                    Point2D interiorPoint = AdvancedMath2D.GetPolygonInteriorPoint(layerWithPop.OuterRing.Points, layerWithPop.NestedLayers.Select(nl => nl.OuterRing.Points));
-                    Assert.AreEqual(interiorPoint.X, statePoint.Point.X);
-                    Assert.AreEqual(interiorPoint.Y, statePoint.Point.Z);
-
-                    Assert.AreEqual(MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetPop(layerWithPop.Data).GetDesignValue(), statePoint.Stress.Pop);
-                    AssertStochasticParameter(layerWithPop.Data.Pop, statePoint.Stress.PopStochasticParameter);
-                }
-
-                IEnumerable<PersistableStatePoint> yieldStressStatePoints = state.StatePoints.Where(sp => sp.Stress.StateType == PersistableStateType.YieldStress);
-                Assert.AreEqual(soilProfile.PreconsolidationStresses.Count(), yieldStressStatePoints.Count());
-
-                for (var j = 0; j < soilProfile.PreconsolidationStresses.Count(); j++)
-                {
-                    IMacroStabilityInwardsPreconsolidationStress preconsolidationStress = soilProfile.PreconsolidationStresses.ElementAt(j);
-
-                    MacroStabilityInwardsSoilLayer2D layerWithPreconsolidationStress = layers.Single(l => AdvancedMath2D.PointInPolygon(
-                                                                                                         preconsolidationStress.Location,
-                                                                                                         l.OuterRing.Points,
-                                                                                                         l.NestedLayers.Select(nl => nl.OuterRing.Points)));
-                    PersistableStatePoint yieldStressStatePoint = yieldStressStatePoints.ElementAt(j);
-
-                    Assert.IsNotNull(yieldStressStatePoint.Id);
-                    Assert.AreEqual($"Grensspanning - {layerWithPreconsolidationStress.Data.MaterialName}", yieldStressStatePoint.Label);
-                    Assert.IsNotNull(yieldStressStatePoint.LayerId);
-                    Assert.IsTrue(yieldStressStatePoint.IsProbabilistic);
-
-                    Assert.AreEqual(preconsolidationStress.Location.X, yieldStressStatePoint.Point.X);
-                    Assert.AreEqual(preconsolidationStress.Location.Y, yieldStressStatePoint.Point.Z);
-
-                    Assert.AreEqual(MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetPreconsolidationStress(preconsolidationStress).GetDesignValue(), yieldStressStatePoint.Stress.YieldStress);
-                }
+                AssertPopStatePoints(layers, state.StatePoints.Where(sp => sp.Stress.StateType == PersistableStateType.Pop));
+                AssertYieldStressStatePoints(layers, soilProfile.PreconsolidationStresses, state.StatePoints.Where(sp => sp.Stress.StateType == PersistableStateType.YieldStress));
             }
         }
 
@@ -572,6 +527,59 @@ namespace Riskeer.MacroStabilityInwards.IO.TestUtil
                     return PersistableEmbankmentSoilScenario.SandEmbankmentOnSand;
                 default:
                     throw new NotSupportedException();
+            }
+        }
+
+        private static void AssertPopStatePoints(IEnumerable<MacroStabilityInwardsSoilLayer2D> layers, IEnumerable<PersistableStatePoint> popStatePoints)
+        {
+            IEnumerable<MacroStabilityInwardsSoilLayer2D> layersWithPop = layers.Where(l => l.Data.UsePop
+                                                                                            && l.Data.Pop.Mean != RoundedDouble.NaN
+                                                                                            && l.Data.Pop.CoefficientOfVariation != RoundedDouble.NaN);
+            Assert.AreEqual(layersWithPop.Count(), popStatePoints.Count());
+
+            for (var j = 0; j < layersWithPop.Count(); j++)
+            {
+                MacroStabilityInwardsSoilLayer2D layerWithPop = layersWithPop.ElementAt(j);
+                PersistableStatePoint statePoint = popStatePoints.ElementAt(j);
+
+                Assert.IsNotNull(statePoint.Id);
+                Assert.AreEqual($"POP - {layerWithPop.Data.MaterialName}", statePoint.Label);
+                Assert.IsNotNull(statePoint.LayerId);
+                Assert.IsTrue(statePoint.IsProbabilistic);
+
+                Point2D interiorPoint = AdvancedMath2D.GetPolygonInteriorPoint(layerWithPop.OuterRing.Points, layerWithPop.NestedLayers.Select(nl => nl.OuterRing.Points));
+                Assert.AreEqual(interiorPoint.X, statePoint.Point.X);
+                Assert.AreEqual(interiorPoint.Y, statePoint.Point.Z);
+
+                Assert.AreEqual(MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetPop(layerWithPop.Data).GetDesignValue(), statePoint.Stress.Pop);
+                AssertStochasticParameter(layerWithPop.Data.Pop, statePoint.Stress.PopStochasticParameter);
+            }
+        }
+
+        private static void AssertYieldStressStatePoints(IEnumerable<MacroStabilityInwardsSoilLayer2D> layers, IEnumerable<IMacroStabilityInwardsPreconsolidationStress> preconsolidationStresses,
+                                                         IEnumerable<PersistableStatePoint> yieldStressStatePoints)
+        {
+            Assert.AreEqual(preconsolidationStresses.Count(), yieldStressStatePoints.Count());
+
+            for (var j = 0; j < preconsolidationStresses.Count(); j++)
+            {
+                IMacroStabilityInwardsPreconsolidationStress preconsolidationStress = preconsolidationStresses.ElementAt(j);
+
+                MacroStabilityInwardsSoilLayer2D layerWithPreconsolidationStress = layers.Single(l => AdvancedMath2D.PointInPolygon(
+                                                                                                     preconsolidationStress.Location,
+                                                                                                     l.OuterRing.Points,
+                                                                                                     l.NestedLayers.Select(nl => nl.OuterRing.Points)));
+                PersistableStatePoint yieldStressStatePoint = yieldStressStatePoints.ElementAt(j);
+
+                Assert.IsNotNull(yieldStressStatePoint.Id);
+                Assert.AreEqual($"Grensspanning - {layerWithPreconsolidationStress.Data.MaterialName}", yieldStressStatePoint.Label);
+                Assert.IsNotNull(yieldStressStatePoint.LayerId);
+                Assert.IsTrue(yieldStressStatePoint.IsProbabilistic);
+
+                Assert.AreEqual(preconsolidationStress.Location.X, yieldStressStatePoint.Point.X);
+                Assert.AreEqual(preconsolidationStress.Location.Y, yieldStressStatePoint.Point.Z);
+
+                Assert.AreEqual(MacroStabilityInwardsSemiProbabilisticDesignVariableFactory.GetPreconsolidationStress(preconsolidationStress).GetDesignValue(), yieldStressStatePoint.Stress.YieldStress);
             }
         }
 
