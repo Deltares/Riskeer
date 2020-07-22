@@ -23,6 +23,9 @@ All rights reserved.
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
 
   <!--Algemene structuur met configuratie, mappen en berekeningen.-->
+
+  <!--Definitie voor het specificeren van een berekeningsscenario.-->
+  <xs:include schemaLocation="ScenarioSchema.xsd"/>
   
   <!--Herdefinieer berekening, zodat deze de juiste inhoud heeft.-->
   <xs:redefine schemaLocation="ConfiguratieSchema.xsd">
@@ -41,6 +44,7 @@ All rights reserved.
             <xs:element ref="overslagdebietillustratiepunteninlezen" minOccurs="0"/>
             <xs:element ref="golfreductie" minOccurs="0"/>
             <xs:element ref="stochasten" minOccurs="0"/>
+            <xs:element ref="scenario" minOccurs="0"/>
           </xs:all>
         </xs:extension>
       </xs:complexContent>

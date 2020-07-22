@@ -22,5 +22,9 @@
         <standaardafwijking>0.2</standaardafwijking>
       </stochast>
     </stochasten>
+      <scenario>
+        <gebruik>true</gebruik>
+        <bijdrage>8.8</bijdrage>
+      </scenario>		
   </berekening>
 </configuratie>

@@ -8,6 +8,10 @@
         <verwachtingswaarde>0.1</verwachtingswaarde>
       </stochast>
     </stochasten>
+      <scenario>
+        <gebruik>true</gebruik>
+        <bijdrage>8.8</bijdrage>
+      </scenario>		
 	<illustratiepunteninlezen>true</illustratiepunteninlezen>
     <hbnillustratiepunteninlezen>true</hbnillustratiepunteninlezen>
     <overslagdebietillustratiepunteninlezen>false</overslagdebietillustratiepunteninlezen>

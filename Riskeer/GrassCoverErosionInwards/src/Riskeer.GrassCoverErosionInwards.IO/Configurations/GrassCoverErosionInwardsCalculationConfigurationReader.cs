@@ -44,6 +44,7 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Configurations
         private const string golfReductieSchemaName = "GolfReductieSchema.xsd";
         private const string stochastSchemaName = "StochastSchema.xsd";
         private const string stochastStandaardafwijkingSchemaName = "StochastStandaardafwijkingSchema.xsd";
+        private const string scenarioSchemaName = "ScenarioSchema.xsd";
 
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionInwardsCalculationConfigurationReader"/>.
@@ -77,6 +78,9 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Configurations
                        },
                        {
                            stochastStandaardafwijkingSchemaName, RiskeerCommonIOResources.StochastStandaardafwijkingSchema
+                       },
+                       {
+                           scenarioSchemaName, RiskeerCommonIOResources.ScenarioSchema
                        }
                    }) {}
 
@@ -96,7 +100,8 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Configurations
                 CriticalFlowRate = calculationElement.GetStochastConfiguration(GrassCoverErosionInwardsCalculationConfigurationSchemaIdentifiers.CriticalFlowRateStochastName),
                 ShouldOvertoppingOutputIllustrationPointsBeCalculated = calculationElement.GetBoolValueFromDescendantElement(GrassCoverErosionInwardsCalculationConfigurationSchemaIdentifiers.ShouldOvertoppingOutputIllustrationPointsBeCalculatedElement),
                 ShouldDikeHeightIllustrationPointsBeCalculated = calculationElement.GetBoolValueFromDescendantElement(GrassCoverErosionInwardsCalculationConfigurationSchemaIdentifiers.ShouldDikeHeightIllustrationPointsBeCalculatedElementElement),
-                ShouldOvertoppingRateIllustrationPointsBeCalculated = calculationElement.GetBoolValueFromDescendantElement(GrassCoverErosionInwardsCalculationConfigurationSchemaIdentifiers.ShouldOvertoppingRateIllustrationPointsBeCalculatedElement)
+                ShouldOvertoppingRateIllustrationPointsBeCalculated = calculationElement.GetBoolValueFromDescendantElement(GrassCoverErosionInwardsCalculationConfigurationSchemaIdentifiers.ShouldOvertoppingRateIllustrationPointsBeCalculatedElement),
+                Scenario = calculationElement.GetScenarioConfiguration()
             };
 
             return configuration;

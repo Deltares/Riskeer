@@ -12,5 +12,9 @@
         <standaardafwijking>NaN</standaardafwijking>
       </stochast>
     </stochasten>
+      <scenario>
+        <gebruik>true</gebruik>
+        <bijdrage>NaN</bijdrage>
+      </scenario>	
   </berekening>
 </configuratie>

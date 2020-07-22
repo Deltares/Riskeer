@@ -12,5 +12,9 @@
         <standaardafwijking>INF</standaardafwijking>
       </stochast>
     </stochasten>
+      <scenario>
+        <gebruik>true</gebruik>
+        <bijdrage>INF</bijdrage>
+      </scenario>	
   </berekening>
 </configuratie>
