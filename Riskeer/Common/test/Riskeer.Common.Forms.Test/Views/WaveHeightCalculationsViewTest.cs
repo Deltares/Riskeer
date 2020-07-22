@@ -544,17 +544,17 @@ namespace Riskeer.Common.Forms.Test.Views
                 base.Setup();
             }
 
-            protected override object GetCalculationSelection(CalculationsView<HydraulicBoundaryLocationCalculation> view, object selectedRowObject)
+            protected override object GetCalculationSelection(LocationCalculationsView<HydraulicBoundaryLocationCalculation> view, object selectedRowObject)
             {
                 return new WaveHeightCalculationContext(((HydraulicBoundaryLocationCalculationRow) selectedRowObject).CalculatableObject);
             }
 
-            protected override CalculationsView<HydraulicBoundaryLocationCalculation> ShowFullyConfiguredCalculationsView(Form form)
+            protected override LocationCalculationsView<HydraulicBoundaryLocationCalculation> ShowFullyConfiguredCalculationsView(Form form)
             {
                 return ShowFullyConfiguredWaveHeightCalculationsView(calculations, form);
             }
 
-            protected override ObservableList<HydraulicBoundaryLocationCalculation> GetCalculationsInView(CalculationsView<HydraulicBoundaryLocationCalculation> view)
+            protected override ObservableList<HydraulicBoundaryLocationCalculation> GetCalculationsInView(LocationCalculationsView<HydraulicBoundaryLocationCalculation> view)
             {
                 return calculations;
             }

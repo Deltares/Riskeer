@@ -36,7 +36,7 @@ namespace Riskeer.Common.Forms.Views
     /// Base view for selecting and performing hydraulic boundary location calculations.
     /// </summary>
     /// <typeparam name="T">The type of the calculation objects.</typeparam>
-    public abstract partial class CalculationsView<T> : UserControl, ISelectionProvider, IView where T : class
+    public abstract partial class LocationCalculationsView<T> : UserControl, ISelectionProvider, IView where T : class
     {
         private const int calculateColumnIndex = 0;
         private bool suspendAllEvents;
@@ -44,9 +44,9 @@ namespace Riskeer.Common.Forms.Views
         public event EventHandler<EventArgs> SelectionChanged;
 
         /// <summary>
-        /// Creates a new instance of <see cref="CalculationsView{T}"/>.
+        /// Creates a new instance of <see cref="LocationCalculationsView{T}"/>.
         /// </summary>
-        protected CalculationsView()
+        protected LocationCalculationsView()
         {
             InitializeComponent();
             LocalizeControls();

@@ -33,7 +33,7 @@ using Riskeer.Common.Forms.Views;
 namespace Riskeer.Common.Forms.TestUtil
 {
     /// <summary>
-    /// Class for testing data and selection synchronization in <see cref="CalculationsView{T}"/> derivatives.
+    /// Class for testing data and selection synchronization in <see cref="LocationCalculationsView{T}"/> derivatives.
     /// </summary>
     /// <typeparam name="T">The type of the calculations contained by the view.</typeparam>
     [TestFixture]
@@ -64,7 +64,7 @@ namespace Riskeer.Common.Forms.TestUtil
         /// <param name="view">The calculations view involved.</param>
         /// <param name="selectedRowObject">The selected calculation row object.</param>
         /// <returns>The view selection object.</returns>
-        protected abstract object GetCalculationSelection(CalculationsView<T> view, object selectedRowObject);
+        protected abstract object GetCalculationSelection(LocationCalculationsView<T> view, object selectedRowObject);
 
         /// <summary>
         /// Method for showing a fully configured calculations view.
@@ -80,16 +80,16 @@ namespace Riskeer.Common.Forms.TestUtil
         /// </list>
         /// </remarks>
         /// <returns>The fully configured calculations view.</returns>
-        protected abstract CalculationsView<T> ShowFullyConfiguredCalculationsView(Form form);
+        protected abstract LocationCalculationsView<T> ShowFullyConfiguredCalculationsView(Form form);
 
         /// <summary>
         /// Method for getting the calculations in <paramref name="view"/>.
         /// </summary>
         /// <param name="view">The view to get the calculations from.</param>
         /// <returns>An <see cref="ObservableList{T}"/> of calculations.</returns>
-        protected abstract ObservableList<HydraulicBoundaryLocationCalculation> GetCalculationsInView(CalculationsView<T> view);
+        protected abstract ObservableList<HydraulicBoundaryLocationCalculation> GetCalculationsInView(LocationCalculationsView<T> view);
 
-        private void ReplaceCalculationsAndNotifyObservers(CalculationsView<T> view)
+        private void ReplaceCalculationsAndNotifyObservers(LocationCalculationsView<T> view)
         {
             ObservableList<HydraulicBoundaryLocationCalculation> calculations = GetCalculationsInView(view);
 
@@ -98,7 +98,7 @@ namespace Riskeer.Common.Forms.TestUtil
             calculations.NotifyObservers();
         }
 
-        private void ClearCalculationOutputAndNotifyObservers(CalculationsView<T> view)
+        private void ClearCalculationOutputAndNotifyObservers(LocationCalculationsView<T> view)
         {
             ObservableList<HydraulicBoundaryLocationCalculation> calculations = GetCalculationsInView(view);
 
@@ -109,7 +109,7 @@ namespace Riskeer.Common.Forms.TestUtil
             });
         }
 
-        private void SetCalculationOutputAndNotifyObservers(CalculationsView<T> view)
+        private void SetCalculationOutputAndNotifyObservers(LocationCalculationsView<T> view)
         {
             ObservableList<HydraulicBoundaryLocationCalculation> calculations = GetCalculationsInView(view);
 
@@ -192,7 +192,7 @@ namespace Riskeer.Common.Forms.TestUtil
         public void GivenFullyConfiguredViewWithFilledIllustrationPointsControl_WhenOutputCleared_ThenDataGridViewsUpdated()
         {
             // Given
-            CalculationsView<T> view = ShowFullyConfiguredCalculationsView(testForm);
+            LocationCalculationsView<T> view = ShowFullyConfiguredCalculationsView(testForm);
 
             DataGridView calculationsDataGridView = GetCalculationsDataGridView();
             DataGridViewRowCollection dataGridViewRows = calculationsDataGridView.Rows;
@@ -230,7 +230,7 @@ namespace Riskeer.Common.Forms.TestUtil
         public void GivenFullyConfiguredView_WhenSelectingCalculation_ThenSelectionUpdated()
         {
             // Given
-            CalculationsView<T> view = ShowFullyConfiguredCalculationsView(testForm);
+            LocationCalculationsView<T> view = ShowFullyConfiguredCalculationsView(testForm);
 
             DataGridView calculationsDataGridView = GetCalculationsDataGridView();
 
@@ -247,7 +247,7 @@ namespace Riskeer.Common.Forms.TestUtil
         public void GivenFullyConfiguredViewWithCalculationSelection_WhenCalculationsReplaced_ThenSelectionUpdated()
         {
             // Given
-            CalculationsView<T> view = ShowFullyConfiguredCalculationsView(testForm);
+            LocationCalculationsView<T> view = ShowFullyConfiguredCalculationsView(testForm);
 
             DataGridView calculationsDataGridView = GetCalculationsDataGridView();
             calculationsDataGridView.CurrentCell = calculationsDataGridView.Rows[3].Cells[0];
@@ -270,7 +270,7 @@ namespace Riskeer.Common.Forms.TestUtil
         public void GivenFullyConfiguredViewWithCalculationSelection_WhenOutputCleared_ThenSelectionPreserved()
         {
             // Given
-            CalculationsView<T> view = ShowFullyConfiguredCalculationsView(testForm);
+            LocationCalculationsView<T> view = ShowFullyConfiguredCalculationsView(testForm);
 
             DataGridView calculationsDataGridView = GetCalculationsDataGridView();
             calculationsDataGridView.CurrentCell = calculationsDataGridView.Rows[3].Cells[0];
@@ -293,7 +293,7 @@ namespace Riskeer.Common.Forms.TestUtil
         public void GivenFullyConfiguredViewWithCalculationSelection_WhenOutputUpdated_ThenSelectionPreserved()
         {
             // Given
-            CalculationsView<T> view = ShowFullyConfiguredCalculationsView(testForm);
+            LocationCalculationsView<T> view = ShowFullyConfiguredCalculationsView(testForm);
 
             DataGridView calculationsDataGridView = GetCalculationsDataGridView();
             calculationsDataGridView.CurrentCell = calculationsDataGridView.Rows[3].Cells[0];
@@ -316,7 +316,7 @@ namespace Riskeer.Common.Forms.TestUtil
         public void GivenFullyConfiguredView_WhenSelectingIllustrationPoint_ThenSelectionUpdated()
         {
             // Given
-            CalculationsView<T> view = ShowFullyConfiguredCalculationsView(testForm);
+            LocationCalculationsView<T> view = ShowFullyConfiguredCalculationsView(testForm);
 
             DataGridView calculationsDataGridView = GetCalculationsDataGridView();
             calculationsDataGridView.CurrentCell = calculationsDataGridView.Rows[3].Cells[0];
@@ -333,7 +333,7 @@ namespace Riskeer.Common.Forms.TestUtil
         public void GivenFullyConfiguredViewWithIllustrationPointSelection_WhenCalculationsReplaced_ThenSelectionSetToCalculation()
         {
             // Given
-            CalculationsView<T> view = ShowFullyConfiguredCalculationsView(testForm);
+            LocationCalculationsView<T> view = ShowFullyConfiguredCalculationsView(testForm);
 
             DataGridView calculationsDataGridView = GetCalculationsDataGridView();
             calculationsDataGridView.CurrentCell = calculationsDataGridView.Rows[3].Cells[0];
@@ -357,7 +357,7 @@ namespace Riskeer.Common.Forms.TestUtil
         public void GivenFullyConfiguredViewWithIllustrationPointSelection_WhenOutputCleared_ThenSelectionSetToCalculation()
         {
             // Given
-            CalculationsView<T> view = ShowFullyConfiguredCalculationsView(testForm);
+            LocationCalculationsView<T> view = ShowFullyConfiguredCalculationsView(testForm);
 
             DataGridView calculationsDataGridView = GetCalculationsDataGridView();
             calculationsDataGridView.CurrentCell = calculationsDataGridView.Rows[3].Cells[0];
@@ -381,7 +381,7 @@ namespace Riskeer.Common.Forms.TestUtil
         public void GivenFullyConfiguredViewWithIllustrationPointSelection_WhenOutputUpdated_ThenSelectionPreserved()
         {
             // Given
-            CalculationsView<T> view = ShowFullyConfiguredCalculationsView(testForm);
+            LocationCalculationsView<T> view = ShowFullyConfiguredCalculationsView(testForm);
 
             DataGridView calculationsDataGridView = GetCalculationsDataGridView();
             calculationsDataGridView.CurrentCell = calculationsDataGridView.Rows[3].Cells[0];

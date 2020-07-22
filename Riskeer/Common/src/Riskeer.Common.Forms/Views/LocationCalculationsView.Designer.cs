@@ -23,7 +23,7 @@ using System.Windows.Forms;
 
 namespace Riskeer.Common.Forms.Views
 {
-    partial class CalculationsView<T>
+    partial class LocationCalculationsView<T>
     {
         /// <summary> 
         /// Required designer variable.
@@ -162,7 +162,7 @@ namespace Riskeer.Common.Forms.Views
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.splitContainer);
-            this.Name = "CalculationsView";
+            this.Name = "LocationCalculationsView";
             this.Size = new System.Drawing.Size(822, 543);
             this.ButtonGroupBox.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.CalculateForSelectedButtonErrorProvider)).EndInit();

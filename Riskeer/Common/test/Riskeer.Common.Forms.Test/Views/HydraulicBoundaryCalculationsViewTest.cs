@@ -90,7 +90,7 @@ namespace Riskeer.Common.Forms.Test.Views
             TestHydraulicBoundaryCalculationsView view = ShowFullyConfiguredTestHydraulicBoundaryCalculationsView();
 
             // Assert
-            Assert.IsInstanceOf<CalculationsView<HydraulicBoundaryLocationCalculation>>(view);
+            Assert.IsInstanceOf<LocationCalculationsView<HydraulicBoundaryLocationCalculation>>(view);
             Assert.IsNull(view.Data);
         }
 

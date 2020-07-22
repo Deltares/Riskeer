@@ -36,7 +36,7 @@ namespace Riskeer.Common.Forms.Views
     /// Base view for <see cref="HydraulicBoundaryLocationCalculation"/> views which should be derived in
     /// order to get a consistent look and feel.
     /// </summary>
-    public abstract partial class HydraulicBoundaryCalculationsView : CalculationsView<HydraulicBoundaryLocationCalculation>
+    public abstract partial class HydraulicBoundaryCalculationsView : LocationCalculationsView<HydraulicBoundaryLocationCalculation>
     {
         private readonly Observer calculationsObserver;
         private readonly RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> calculationObserver;

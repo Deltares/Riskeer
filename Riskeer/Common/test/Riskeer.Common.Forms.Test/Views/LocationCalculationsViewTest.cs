@@ -36,7 +36,7 @@ using Riskeer.Common.Forms.Views;
 namespace Riskeer.Common.Forms.Test.Views
 {
     [TestFixture]
-    public class CalculationsViewTest
+    public class LocationCalculationsViewTest
     {
         private const int calculateColumnIndex = 0;
 
@@ -319,7 +319,7 @@ namespace Riskeer.Common.Forms.Test.Views
             public GeneralResult<TopLevelSubMechanismIllustrationPoint> GeneralResult { get; set; }
         }
 
-        private class TestCalculationsView : CalculationsView<TestCalculatableObject>
+        private class TestCalculationsView : LocationCalculationsView<TestCalculatableObject>
         {
             private IEnumerable<TestCalculatableObject> data;
 
