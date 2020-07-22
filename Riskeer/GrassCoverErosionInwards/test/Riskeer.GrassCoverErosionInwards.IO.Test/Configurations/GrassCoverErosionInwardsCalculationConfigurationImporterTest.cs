@@ -39,7 +39,7 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
     [TestFixture]
     public class GrassCoverErosionInwardsCalculationConfigurationImporterTest
     {
-        private readonly string path = TestHelper.GetTestDataPath(
+        private readonly string importerPath = TestHelper.GetTestDataPath(
             TestDataPath.Riskeer.GrassCoverErosionInwards.IO,
             nameof(GrassCoverErosionInwardsCalculationConfigurationImporter));
 
@@ -77,7 +77,7 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
         {
             // Call
             void Call() => new GrassCoverErosionInwardsCalculationConfigurationImporter(
-                "", new CalculationGroup(), Enumerable.Empty<HydraulicBoundaryLocation>(),  null);
+                "", new CalculationGroup(), Enumerable.Empty<HydraulicBoundaryLocation>(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -89,7 +89,7 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
         public void Import_ValidConfigurationInvalidOrientation_LogMessageAndContinueImport()
         {
             // Setup
-            string filePath = Path.Combine(path, "validConfigurationOrientationOutOfRange.xml");
+            string filePath = Path.Combine(importerPath, "validConfigurationOrientationOutOfRange.xml");
 
             var calculationGroup = new CalculationGroup();
             var importer = new GrassCoverErosionInwardsCalculationConfigurationImporter(
@@ -118,7 +118,7 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
         public void Import_ValidConfigurationInvalidCriticalWaveReductionMean_LogMessageAndContinueImport()
         {
             // Setup
-            string filePath = Path.Combine(path, "validConfigurationNegativeCriticalWaveReductionMean.xml");
+            string filePath = Path.Combine(importerPath, "validConfigurationNegativeCriticalWaveReductionMean.xml");
 
             var calculationGroup = new CalculationGroup();
             var importer = new GrassCoverErosionInwardsCalculationConfigurationImporter(
@@ -145,7 +145,7 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
         public void Import_ValidConfigurationInvalidCriticalWaveReductionStandardDeviation_LogMessageAndContinueImport()
         {
             // Setup
-            string filePath = Path.Combine(path, "validConfigurationNegativeCriticalWaveReductionStandardDeviation.xml");
+            string filePath = Path.Combine(importerPath, "validConfigurationNegativeCriticalWaveReductionStandardDeviation.xml");
 
             var calculationGroup = new CalculationGroup();
             var importer = new GrassCoverErosionInwardsCalculationConfigurationImporter(
@@ -171,7 +171,7 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
         public void Import_HydraulicBoundaryLocationUnknown_LogMessageAndContinueImport()
         {
             // Setup
-            string filePath = Path.Combine(path, "validConfigurationCalculationUnknownHydraulicBoundaryLocation.xml");
+            string filePath = Path.Combine(importerPath, "validConfigurationCalculationUnknownHydraulicBoundaryLocation.xml");
 
             var calculationGroup = new CalculationGroup();
             var importer = new GrassCoverErosionInwardsCalculationConfigurationImporter(
@@ -195,7 +195,7 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
         public void Import_DikeProfileUnknown_LogMessageAndContinueImport()
         {
             // Setup
-            string filePath = Path.Combine(path, "validConfigurationCalculationUnknownDikeProfile.xml");
+            string filePath = Path.Combine(importerPath, "validConfigurationCalculationUnknownDikeProfile.xml");
 
             var calculationGroup = new CalculationGroup();
             var importer = new GrassCoverErosionInwardsCalculationConfigurationImporter(
@@ -219,7 +219,7 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
         public void Import_WaveReductionWithoutDikeProfile_LogMessageAndContinueImport()
         {
             // Setup
-            string filePath = Path.Combine(path, "validConfigurationCalculationWaveReductionWithoutDikeProfile.xml");
+            string filePath = Path.Combine(importerPath, "validConfigurationCalculationWaveReductionWithoutDikeProfile.xml");
 
             var calculationGroup = new CalculationGroup();
             var importer = new GrassCoverErosionInwardsCalculationConfigurationImporter(
@@ -243,7 +243,7 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
         public void Import_DikeHeightWithoutDikeProfile_LogMessageAndContinueImport()
         {
             // Setup
-            string filePath = Path.Combine(path, "validConfigurationCalculationDikeHeightWithoutDikeProfile.xml");
+            string filePath = Path.Combine(importerPath, "validConfigurationCalculationDikeHeightWithoutDikeProfile.xml");
 
             var calculationGroup = new CalculationGroup();
             var importer = new GrassCoverErosionInwardsCalculationConfigurationImporter(
@@ -267,7 +267,7 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
         public void Import_OrientationWithoutDikeProfile_LogMessageAndContinueImport()
         {
             // Setup
-            string filePath = Path.Combine(path, "validConfigurationCalculationOrientationWithoutDikeProfile.xml");
+            string filePath = Path.Combine(importerPath, "validConfigurationCalculationOrientationWithoutDikeProfile.xml");
 
             var calculationGroup = new CalculationGroup();
             var importer = new GrassCoverErosionInwardsCalculationConfigurationImporter(
@@ -291,7 +291,7 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
         public void Import_UseForeshoreButProfileWithoutGeometry_LogMessageAndContinueImport()
         {
             // Setup
-            string filePath = Path.Combine(path, "validConfigurationCalculationUseForeshoreWithoutGeometry.xml");
+            string filePath = Path.Combine(importerPath, "validConfigurationCalculationUseForeshoreWithoutGeometry.xml");
 
             var calculationGroup = new CalculationGroup();
             DikeProfile dikeProfile = DikeProfileTestFactory.CreateDikeProfile("Dijkprofiel", "Dijkprofiel ID");
@@ -319,7 +319,7 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
         public void Import_ValidConfigurationWithoutForeshoreProfileNotUsed_DataAddedToModel()
         {
             // Setup
-            string filePath = Path.Combine(path, "validConfigurationCalculationNotUseForeshoreWithoutGeometry.xml");
+            string filePath = Path.Combine(importerPath, "validConfigurationCalculationNotUseForeshoreWithoutGeometry.xml");
 
             var calculationGroup = new CalculationGroup();
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "HBlocatie", 10, 20);
@@ -353,14 +353,102 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
             };
 
             Assert.AreEqual(1, calculationGroup.Children.Count);
-            AssertCalculation(expectedCalculation, (GrassCoverErosionInwardsCalculationScenario) calculationGroup.Children[0]);
+            AssertCalculationScenario(expectedCalculation, (GrassCoverErosionInwardsCalculationScenario) calculationGroup.Children[0]);
+        }
+
+        [Test]
+        public void Import_ScenarioEmpty_LogMessageAndContinueImport()
+        {
+            // Setup
+            string filePath = Path.Combine(importerPath, "validConfigurationCalculationContainingEmptyScenario.xml");
+
+            var calculationGroup = new CalculationGroup();
+
+            var importer = new GrassCoverErosionInwardsCalculationConfigurationImporter(filePath,
+                                                                                        calculationGroup,
+                                                                                        Enumerable.Empty<HydraulicBoundaryLocation>(),
+                                                                                        Enumerable.Empty<DikeProfile>());
+
+            var successful = false;
+
+            // Call
+            void Call() => successful = importer.Import();
+
+            // Assert
+            const string expectedMessage = "In een berekening moet voor het scenario tenminste de relevantie of contributie worden opgegeven. " +
+                                           "Berekening 'Calculation' is overgeslagen.";
+            TestHelper.AssertLogMessageIsGenerated(Call, expectedMessage, 2);
+            Assert.IsTrue(successful);
+            CollectionAssert.IsEmpty(calculationGroup.Children);
+        }
+
+        [Test]
+        public void Import_ScenarioWithContributionSet_DataAddedToModel()
+        {
+            // Setup
+            string filePath = Path.Combine(importerPath, "validConfigurationScenarioContributionOnly.xml");
+
+            var calculationGroup = new CalculationGroup();
+
+            var importer = new GrassCoverErosionInwardsCalculationConfigurationImporter(filePath,
+                                                                                        calculationGroup,
+                                                                                        Enumerable.Empty<HydraulicBoundaryLocation>(),
+                                                                                        Enumerable.Empty<DikeProfile>());
+
+            // Call
+            var successful = false;
+            Action call = () => successful = importer.Import();
+
+            // Assert
+            TestHelper.AssertLogMessageIsGenerated(call, $"Gegevens zijn geïmporteerd vanuit bestand '{filePath}'.", 1);
+            Assert.IsTrue(successful);
+
+            var expectedCalculation = new GrassCoverErosionInwardsCalculationScenario
+            {
+                Name = "Calculation",
+                Contribution = (RoundedDouble) 0.8765
+            };
+
+            Assert.AreEqual(1, calculationGroup.Children.Count);
+            AssertCalculationScenario(expectedCalculation, (GrassCoverErosionInwardsCalculationScenario) calculationGroup.Children[0]);
+        }
+
+        [Test]
+        public void Import_ScenarioWithRevelantSet_DataAddedToModel()
+        {
+            // Setup
+            string filePath = Path.Combine(importerPath, "validConfigurationScenarioRevelantOnly.xml");
+
+            var calculationGroup = new CalculationGroup();
+
+            var importer = new GrassCoverErosionInwardsCalculationConfigurationImporter(filePath,
+                                                                                        calculationGroup,
+                                                                                        Enumerable.Empty<HydraulicBoundaryLocation>(),
+                                                                                        Enumerable.Empty<DikeProfile>());
+
+            // Call
+            var successful = false;
+            Action call = () => successful = importer.Import();
+
+            // Assert
+            TestHelper.AssertLogMessageIsGenerated(call, $"Gegevens zijn geïmporteerd vanuit bestand '{filePath}'.", 1);
+            Assert.IsTrue(successful);
+
+            var expectedCalculation = new GrassCoverErosionInwardsCalculationScenario
+            {
+                Name = "Calculation",
+                IsRelevant = false
+            };
+
+            Assert.AreEqual(1, calculationGroup.Children.Count);
+            AssertCalculationScenario(expectedCalculation, (GrassCoverErosionInwardsCalculationScenario) calculationGroup.Children[0]);
         }
 
         [Test]
         public void Import_ValidConfigurationOnlyCriticalFlowRateMeanSet_DataAddedToModel()
         {
             // Setup
-            string filePath = Path.Combine(path, "validConfigurationCriticalFlowRateMeanOnly.xml");
+            string filePath = Path.Combine(importerPath, "validConfigurationCriticalFlowRateMeanOnly.xml");
 
             var calculationGroup = new CalculationGroup();
 
@@ -389,14 +477,14 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
             };
 
             Assert.AreEqual(1, calculationGroup.Children.Count);
-            AssertCalculation(expectedCalculation, (GrassCoverErosionInwardsCalculationScenario) calculationGroup.Children[0]);
+            AssertCalculationScenario(expectedCalculation, (GrassCoverErosionInwardsCalculationScenario) calculationGroup.Children[0]);
         }
 
         [Test]
         public void Import_ValidConfigurationOnlyCriticalFlowRateNoParametersSet_DataAddedToModel()
         {
             // Setup
-            string filePath = Path.Combine(path, "validConfigurationCriticalFlowRateNoParameters.xml");
+            string filePath = Path.Combine(importerPath, "validConfigurationCriticalFlowRateNoParameters.xml");
 
             var calculationGroup = new CalculationGroup();
 
@@ -418,14 +506,14 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
             };
 
             Assert.AreEqual(1, calculationGroup.Children.Count);
-            AssertCalculation(expectedCalculation, (GrassCoverErosionInwardsCalculationScenario) calculationGroup.Children[0]);
+            AssertCalculationScenario(expectedCalculation, (GrassCoverErosionInwardsCalculationScenario) calculationGroup.Children[0]);
         }
 
         [Test]
         public void Import_ValidConfigurationOnlyCriticalFlowRateStandardDeviationSet_DataAddedToModel()
         {
             // Setup
-            string filePath = Path.Combine(path, "validConfigurationCriticalFlowRateStandardDeviationOnly.xml");
+            string filePath = Path.Combine(importerPath, "validConfigurationCriticalFlowRateStandardDeviationOnly.xml");
 
             var calculationGroup = new CalculationGroup();
 
@@ -454,14 +542,14 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
             };
 
             Assert.AreEqual(1, calculationGroup.Children.Count);
-            AssertCalculation(expectedCalculation, (GrassCoverErosionInwardsCalculationScenario) calculationGroup.Children[0]);
+            AssertCalculationScenario(expectedCalculation, (GrassCoverErosionInwardsCalculationScenario) calculationGroup.Children[0]);
         }
 
         [Test]
         public void Import_ValidConfigurationWithValidData_DataAddedToModel()
         {
             // Setup
-            string filePath = Path.Combine(path, "validConfigurationFullCalculation.xml");
+            string filePath = Path.Combine(importerPath, "validConfigurationFullCalculation.xml");
 
             var calculationGroup = new CalculationGroup();
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "Locatie", 10, 20);
@@ -532,10 +620,10 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
             };
 
             Assert.AreEqual(1, calculationGroup.Children.Count);
-            AssertCalculation(expectedCalculation, (GrassCoverErosionInwardsCalculationScenario) calculationGroup.Children[0]);
+            AssertCalculationScenario(expectedCalculation, (GrassCoverErosionInwardsCalculationScenario) calculationGroup.Children[0]);
         }
 
-        private static void AssertCalculation(GrassCoverErosionInwardsCalculationScenario expectedCalculation, GrassCoverErosionInwardsCalculationScenario actualCalculation)
+        private static void AssertCalculationScenario(GrassCoverErosionInwardsCalculationScenario expectedCalculation, GrassCoverErosionInwardsCalculationScenario actualCalculation)
         {
             Assert.AreEqual(expectedCalculation.Name, actualCalculation.Name);
             Assert.AreEqual(expectedCalculation.IsRelevant, actualCalculation.IsRelevant);
