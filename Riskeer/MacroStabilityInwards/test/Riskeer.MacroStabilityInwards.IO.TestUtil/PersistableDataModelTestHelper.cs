@@ -574,7 +574,7 @@ namespace Riskeer.MacroStabilityInwards.IO.TestUtil
                 Assert.IsNotNull(yieldStressStatePoint.Id);
                 Assert.AreEqual($"Grensspanning - {layerWithPreconsolidationStress.Data.MaterialName}", yieldStressStatePoint.Label);
                 Assert.IsNotNull(yieldStressStatePoint.LayerId);
-                Assert.IsTrue(yieldStressStatePoint.IsProbabilistic);
+                Assert.IsFalse(yieldStressStatePoint.IsProbabilistic);
 
                 Assert.AreEqual(preconsolidationStress.Location.X, yieldStressStatePoint.Point.X);
                 Assert.AreEqual(preconsolidationStress.Location.Y, yieldStressStatePoint.Point.Z);

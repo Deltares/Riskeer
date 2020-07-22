@@ -115,7 +115,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
             return new PersistableStatePoint
             {
                 Id = idFactory.Create(),
-                IsProbabilistic = true,
+                IsProbabilistic = false,
                 LayerId = registry.GeometryLayers[stageType][layer],
                 Point = new PersistablePoint(preconsolidationStress.Location.X, preconsolidationStress.Location.Y),
                 Stress = CreateYieldStress(preconsolidationStress),
