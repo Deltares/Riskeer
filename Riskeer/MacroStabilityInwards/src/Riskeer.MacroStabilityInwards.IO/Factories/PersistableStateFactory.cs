@@ -112,36 +112,35 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
         private static PersistableStatePoint CreateYieldStressStatePoint(MacroStabilityInwardsSoilLayer2D layer, IMacroStabilityInwardsPreconsolidationStress preconsolidationStress,
                                                                          MacroStabilityInwardsExportStageType stageType, IdFactory idFactory, MacroStabilityInwardsExportRegistry registry)
         {
-            return new PersistableStatePoint
-            {
-                Id = idFactory.Create(),
-                IsProbabilistic = false,
-                LayerId = registry.GeometryLayers[stageType][layer],
-                Point = new PersistablePoint(preconsolidationStress.Location.X, preconsolidationStress.Location.Y),
-                Stress = CreateYieldStress(preconsolidationStress),
-                Label = string.Format(Resources.PersistableStateFactory_CreateStatePoint_PreconsolidationStress_LayerName_0, layer.Data.MaterialName)
-            };
+            return CreateStatePoint(layer, stageType, preconsolidationStress.Location,
+                                    () => CreateYieldStress(preconsolidationStress),
+                                    Resources.PersistableStateFactory_CreateStatePoint_PreconsolidationStress_LayerName_0,
+                                    false, idFactory, registry);
         }
 
         private static PersistableStatePoint CreatePOPStatePoint(MacroStabilityInwardsSoilLayer2D layer, MacroStabilityInwardsExportStageType stageType,
                                                                  IdFactory idFactory, MacroStabilityInwardsExportRegistry registry)
         {
+            Point2D interiorPoint = AdvancedMath2D.GetPolygonInteriorPoint(layer.OuterRing.Points, layer.NestedLayers.Select(layers => layers.OuterRing.Points));
+
+            return CreateStatePoint(layer, stageType, interiorPoint, () => CreatePOPStress(layer.Data),
+                                    Resources.PersistableStateFactory_CreateStatePoint_POP_LayerName_0,
+                                    true, idFactory, registry);
+        }
+
+        private static PersistableStatePoint CreateStatePoint(MacroStabilityInwardsSoilLayer2D layer, MacroStabilityInwardsExportStageType stageType,
+                                                              Point2D location, Func<PersistableStress> createStressFunc, string label, bool isProbabilistic,
+                                                              IdFactory idFactory, MacroStabilityInwardsExportRegistry registry)
+        {
             return new PersistableStatePoint
             {
                 Id = idFactory.Create(),
-                IsProbabilistic = true,
+                IsProbabilistic = isProbabilistic,
                 LayerId = registry.GeometryLayers[stageType][layer],
-                Point = CreatePoint(layer),
-                Stress = CreatePOPStress(layer.Data),
-                Label = string.Format(Resources.PersistableStateFactory_CreateStatePoint_POP_LayerName_0, layer.Data.MaterialName)
+                Point = new PersistablePoint(location.X, location.Y),
+                Stress = createStressFunc(),
+                Label = string.Format(label, layer.Data.MaterialName)
             };
-        }
-
-        private static PersistablePoint CreatePoint(MacroStabilityInwardsSoilLayer2D layer)
-        {
-            Point2D interiorPoint = AdvancedMath2D.GetPolygonInteriorPoint(layer.OuterRing.Points, layer.NestedLayers.Select(layers => layers.OuterRing.Points));
-
-            return new PersistablePoint(interiorPoint.X, interiorPoint.Y);
         }
 
         private static PersistableStress CreateYieldStress(IMacroStabilityInwardsPreconsolidationStress preconsolidationStress)
