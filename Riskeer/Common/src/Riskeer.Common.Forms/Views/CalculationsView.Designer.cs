@@ -1,6 +1,6 @@
 ﻿namespace Riskeer.Common.Forms.Views
 {
-    partial class CalculationsView
+    partial class CalculationsView<TCalculation, TCalculationRow>
     {
         /// <summary>
         /// Required designer variable.

@@ -21,11 +21,15 @@
 
 using Core.Common.Base;
 using Riskeer.Common.Data.Calculation;
+using Riskeer.Common.Data.Hydraulics;
 
 namespace Riskeer.Common.Data.TestUtil
 {
     /// <summary>
     /// Creates a simple <see cref="ICalculationInput"/> implementation.
     /// </summary>
-    public class TestCalculationInput : CloneableObservable, ICalculationInput {}
+    public class TestCalculationInput : CloneableObservable, ICalculationInput
+    {
+        public HydraulicBoundaryLocation HydraulicBoundaryLocation { get; set; }
+    }
 }

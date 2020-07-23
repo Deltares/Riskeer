@@ -26,7 +26,6 @@ using Core.Common.Controls.DataGrid;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.Calculation;
-using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Forms.PropertyClasses;
@@ -59,7 +58,7 @@ namespace Riskeer.Common.Forms.Test.Views
         public void Constructor_PropertyChangeHandlerNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => new TestCalculationRow(new TestCalculationWithHydraulicBoundaryLocation(), null);
+            void Call() => new TestCalculationRow(new TestCalculation(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -74,9 +73,12 @@ namespace Riskeer.Common.Forms.Test.Views
             var handler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
 
-            var calculation = new TestCalculationWithHydraulicBoundaryLocation
+            var calculation = new TestCalculation
             {
-                HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation()
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation()
+                }
             };
 
             // Call
@@ -85,7 +87,7 @@ namespace Riskeer.Common.Forms.Test.Views
             // Assert
             Assert.AreSame(calculation, row.Calculation);
             Assert.AreEqual(calculation.Name, row.Name);
-            Assert.AreSame(calculation.HydraulicBoundaryLocation, row.SelectableHydraulicBoundaryLocation.WrappedObject.HydraulicBoundaryLocation);
+            Assert.AreSame(calculation.InputParameters.HydraulicBoundaryLocation, row.SelectableHydraulicBoundaryLocation.WrappedObject.HydraulicBoundaryLocation);
             mocks.VerifyAll();
         }
 
@@ -101,7 +103,7 @@ namespace Riskeer.Common.Forms.Test.Views
 
             const string newValue = "Test new name";
 
-            var calculation = new TestCalculationWithHydraulicBoundaryLocation();
+            var calculation = new TestCalculation();
             var row = new TestCalculationRow(calculation, handler);
 
             calculation.Attach(observer);
@@ -122,7 +124,7 @@ namespace Riskeer.Common.Forms.Test.Views
             var selectableHydraulicBoundaryLocation = new SelectableHydraulicBoundaryLocation(newLocation, new Point2D(0, 0));
             var newValue = new DataGridViewComboBoxItemWrapper<SelectableHydraulicBoundaryLocation>(selectableHydraulicBoundaryLocation);
 
-            var calculation = new TestCalculationWithHydraulicBoundaryLocation();
+            var calculation = new TestCalculation();
 
             // Call & Assert
             SetPropertyAndVerifyNotificationsAndOutputForCalculation(row => row.SelectableHydraulicBoundaryLocation = newValue, calculation);
@@ -145,13 +147,13 @@ namespace Riskeer.Common.Forms.Test.Views
                 {
                     // Assert
                     Assert.NotNull(oldValue);
-                    Assert.AreEqual(oldValue.WrappedObject.HydraulicBoundaryLocation, calculation.HydraulicBoundaryLocation);
+                    Assert.AreEqual(oldValue.WrappedObject.HydraulicBoundaryLocation, calculation.InputParameters.HydraulicBoundaryLocation);
                 });
         }
 
         private static void SetPropertyAndVerifyNotificationsAndOutputForCalculation(
-            Action<CalculationRow<TestCalculationWithHydraulicBoundaryLocation>> setProperty,
-            TestCalculationWithHydraulicBoundaryLocation calculation)
+            Action<CalculationRow<TestCalculation>> setProperty,
+            TestCalculation calculation)
         {
             // Setup
             var mocks = new MockRepository();
@@ -185,16 +187,16 @@ namespace Riskeer.Common.Forms.Test.Views
         /// <param name="assertions">The additional assertions to be performed on the <see cref="ICalculation"/>
         /// whose input has been changed.</param>
         private static void AssertPropertyNotChanged(
-            Action<CalculationRow<TestCalculationWithHydraulicBoundaryLocation>> setProperty,
-            Action<TestCalculationWithHydraulicBoundaryLocation> assertions)
+            Action<CalculationRow<TestCalculation>> setProperty,
+            Action<TestCalculation> assertions)
         {
             AssertPropertyChangeWithOrWithoutCalculationOutput(setProperty, assertions, true, false);
             AssertPropertyChangeWithOrWithoutCalculationOutput(setProperty, assertions, false, false);
         }
 
         private static void AssertPropertyChangeWithOrWithoutCalculationOutput(
-            Action<CalculationRow<TestCalculationWithHydraulicBoundaryLocation>> setProperty,
-            Action<TestCalculationWithHydraulicBoundaryLocation> assertions,
+            Action<CalculationRow<TestCalculation>> setProperty,
+            Action<TestCalculation> assertions,
             bool hasOutput,
             bool expectUpdates)
         {
@@ -217,9 +219,12 @@ namespace Riskeer.Common.Forms.Test.Views
 
             object assignedOutput = null;
 
-            var calculation = new TestCalculationWithHydraulicBoundaryLocation
+            var calculation = new TestCalculation
             {
-                HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation()
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation()
+                }
             };
 
             if (hasOutput)
@@ -246,28 +251,6 @@ namespace Riskeer.Common.Forms.Test.Views
             {
                 Assert.AreSame(assignedOutput, calculation.Output);
             }
-        }
-
-        private class TestCalculationRow : CalculationRow<TestCalculationWithHydraulicBoundaryLocation>
-        {
-            public TestCalculationRow(TestCalculationWithHydraulicBoundaryLocation calculation, IObservablePropertyChangeHandler propertyChangeHandler)
-                : base(calculation, propertyChangeHandler) {}
-
-            public override Point2D GetCalculationLocation()
-            {
-                return new Point2D(0, 0);
-            }
-
-            protected override HydraulicBoundaryLocation HydraulicBoundaryLocation
-            {
-                get => Calculation.HydraulicBoundaryLocation;
-                set => Calculation.HydraulicBoundaryLocation = value;
-            }
-        }
-
-        private class TestCalculationWithHydraulicBoundaryLocation : TestCalculation
-        {
-            public HydraulicBoundaryLocation HydraulicBoundaryLocation { get; set; }
         }
     }
 }

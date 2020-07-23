@@ -31,7 +31,7 @@ using Riskeer.Common.Forms.PropertyClasses;
 namespace Riskeer.Common.Forms.Views
 {
     /// <summary>
-    /// This class represents a row of <see cref="TCalculation"/> in the <see cref="CalculationsView"/>.
+    /// This class represents a row of <see cref="TCalculation"/> in the <see cref="CalculationsView{TCalculation, TCalculationRow}"/>.
     /// </summary>
     /// <typeparam name="TCalculation">The type of the calculation.</typeparam>
     public abstract class CalculationRow<TCalculation>

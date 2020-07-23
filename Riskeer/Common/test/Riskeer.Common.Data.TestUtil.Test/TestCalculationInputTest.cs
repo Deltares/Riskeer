@@ -37,6 +37,7 @@ namespace Riskeer.Common.Data.TestUtil.Test
             // Assert
             Assert.IsInstanceOf<CloneableObservable>(input);
             Assert.IsInstanceOf<ICalculationInput>(input);
+            Assert.IsNull(input.HydraulicBoundaryLocation);
         }
     }
 }
