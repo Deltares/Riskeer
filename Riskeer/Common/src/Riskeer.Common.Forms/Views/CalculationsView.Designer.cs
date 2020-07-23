@@ -21,7 +21,7 @@ namespace Riskeer.Common.Forms.Views
             this.listBox = new System.Windows.Forms.ListBox();
             this.sectionsLabel = new System.Windows.Forms.Label();
             this.dataGridTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
-            this.DataGridViewControl = new Core.Common.Controls.DataGrid.DataGridViewControl();
+            this.dataGridViewControl = new Core.Common.Controls.DataGrid.DataGridViewControl();
             this.calculationsLabel = new System.Windows.Forms.Label();
             this.tableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.generateButton = new System.Windows.Forms.Button();
@@ -75,7 +75,7 @@ namespace Riskeer.Common.Forms.Views
             // 
             this.dataGridTableLayoutPanel.ColumnCount = 1;
             this.dataGridTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.dataGridTableLayoutPanel.Controls.Add(this.DataGridViewControl, 0, 0);
+            this.dataGridTableLayoutPanel.Controls.Add(this.dataGridViewControl, 0, 0);
             this.dataGridTableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridTableLayoutPanel.Location = new System.Drawing.Point(0, 13);
             this.dataGridTableLayoutPanel.Name = "dataGridTableLayoutPanel";
@@ -86,13 +86,13 @@ namespace Riskeer.Common.Forms.Views
             // 
             // dataGridViewControl
             // 
-            this.DataGridViewControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.DataGridViewControl.Location = new System.Drawing.Point(3, 3);
-            this.DataGridViewControl.MultiSelect = true;
-            this.DataGridViewControl.Name = "dataGridViewControl";
-            this.DataGridViewControl.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.RowHeaderSelect;
-            this.DataGridViewControl.Size = new System.Drawing.Size(821, 434);
-            this.DataGridViewControl.TabIndex = 0;
+            this.dataGridViewControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridViewControl.Location = new System.Drawing.Point(3, 3);
+            this.dataGridViewControl.MultiSelect = true;
+            this.dataGridViewControl.Name = "dataGridViewControl";
+            this.dataGridViewControl.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.RowHeaderSelect;
+            this.dataGridViewControl.Size = new System.Drawing.Size(821, 434);
+            this.dataGridViewControl.TabIndex = 0;
             // 
             // calculationsLabel
             // 
@@ -154,6 +154,7 @@ namespace Riskeer.Common.Forms.Views
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel;
         private System.Windows.Forms.Button generateButton;
         private System.Windows.Forms.TableLayoutPanel dataGridTableLayoutPanel;
-        public DataGridViewControl DataGridViewControl { get; private set; }
+        private DataGridViewControl dataGridViewControl;
+
     }
 }

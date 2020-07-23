@@ -305,7 +305,7 @@ namespace Riskeer.Common.Forms.Test.Views
             var selectionChangedCount = 0;
             calculationsView.SelectionChanged += (sender, args) => selectionChangedCount++;
 
-            var control = TypeUtils.GetProperty<DataGridViewControl>(calculationsView, "DataGridViewControl");
+            var control = TypeUtils.GetField<DataGridViewControl>(calculationsView, "dataGridViewControl");
             WindowsFormsTestHelper.Show(control);
 
             var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
@@ -661,10 +661,9 @@ namespace Riskeer.Common.Forms.Test.Views
             public TestCalculationsView(CalculationGroup calculationGroup, IFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
                 : base(calculationGroup, failureMechanism, assessmentSection) {}
 
-            protected override object CreateSelectedItemFromCurrentRow()
+            protected override object CreateSelectedItemFromCurrentRow(TestCalculationRow currentRow)
             {
-                DataGridViewRow currentRow = DataGridViewControl.CurrentRow;
-                return (TestCalculationRow) currentRow?.DataBoundItem;
+                return currentRow;
             }
 
             protected override IEnumerable<Point2D> GetReferenceLocations()
