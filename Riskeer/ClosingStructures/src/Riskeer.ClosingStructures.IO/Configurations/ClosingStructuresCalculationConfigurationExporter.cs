@@ -36,7 +36,7 @@ namespace Riskeer.ClosingStructures.IO.Configurations
     public class ClosingStructuresCalculationConfigurationExporter
         : CalculationConfigurationExporter<
             ClosingStructuresCalculationConfigurationWriter,
-            StructuresCalculation<ClosingStructuresInput>,
+            StructuresCalculationScenario<ClosingStructuresInput>,
             ClosingStructuresCalculationConfiguration>
     {
         /// <summary>
@@ -49,7 +49,7 @@ namespace Riskeer.ClosingStructures.IO.Configurations
         public ClosingStructuresCalculationConfigurationExporter(IEnumerable<ICalculationBase> calculations, string filePath)
             : base(calculations, new ClosingStructuresCalculationConfigurationWriter(filePath)) {}
 
-        protected override ClosingStructuresCalculationConfiguration ToConfiguration(StructuresCalculation<ClosingStructuresInput> calculation)
+        protected override ClosingStructuresCalculationConfiguration ToConfiguration(StructuresCalculationScenario<ClosingStructuresInput> calculation)
         {
             ClosingStructuresInput input = calculation.InputParameters;
             var calculationConfiguration = new ClosingStructuresCalculationConfiguration(calculation.Name)
@@ -60,7 +60,8 @@ namespace Riskeer.ClosingStructures.IO.Configurations
                 FactorStormDurationOpenStructure = input.FactorStormDurationOpenStructure,
                 StormDuration = input.StormDuration.ToStochastConfigurationWithMean(),
                 DrainCoefficient = input.DrainCoefficient.ToStochastConfigurationWithMean(),
-                ModelFactorSuperCriticalFlow = input.ModelFactorSuperCriticalFlow.ToStochastConfigurationWithMean()
+                ModelFactorSuperCriticalFlow = input.ModelFactorSuperCriticalFlow.ToStochastConfigurationWithMean(),
+                Scenario = calculation.ToScenarioConfiguration()
             };
 
             calculationConfiguration.SetConfigurationForeshoreProfileDependentProperties(input);

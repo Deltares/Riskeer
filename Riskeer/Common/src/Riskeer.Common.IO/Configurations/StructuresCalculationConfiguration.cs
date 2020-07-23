@@ -106,6 +106,11 @@ namespace Riskeer.Common.IO.Configurations
         public bool? ShouldIllustrationPointsBeCalculated { get; set; }
 
         /// <summary>
+        /// Gets or sets the scenario.
+        /// </summary>
+        public ScenarioConfiguration Scenario { get; set; }
+
+        /// <summary>
         /// Gets or sets the name of the calculation.
         /// </summary>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="value"/> is <c>null</c>.</exception>

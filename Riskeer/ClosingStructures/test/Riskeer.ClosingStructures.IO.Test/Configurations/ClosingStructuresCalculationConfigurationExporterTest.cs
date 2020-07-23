@@ -41,7 +41,7 @@ namespace Riskeer.ClosingStructures.IO.Test.Configurations
         : CustomCalculationConfigurationExporterDesignGuidelinesTestFixture<
             ClosingStructuresCalculationConfigurationExporter,
             ClosingStructuresCalculationConfigurationWriter,
-            StructuresCalculation<ClosingStructuresInput>,
+            StructuresCalculationScenario<ClosingStructuresInput>,
             ClosingStructuresCalculationConfiguration>
     {
         private static IEnumerable<TestCaseData> Calculations
@@ -113,13 +113,13 @@ namespace Riskeer.ClosingStructures.IO.Test.Configurations
 
         private static ICalculation CreateSparseCalculation()
         {
-            return new StructuresCalculation<ClosingStructuresInput>
+            return new StructuresCalculationScenario<ClosingStructuresInput>
             {
                 Name = "sparse config"
             };
         }
 
-        private static StructuresCalculation<ClosingStructuresInput> CreateFullCalculation()
+        private static StructuresCalculationScenario<ClosingStructuresInput> CreateFullCalculation()
         {
             return new TestClosingStructuresCalculationScenario
             {
@@ -209,9 +209,9 @@ namespace Riskeer.ClosingStructures.IO.Test.Configurations
             };
         }
 
-        private static StructuresCalculation<ClosingStructuresInput> CreateCalculationWithForeshoreProfile()
+        private static StructuresCalculationScenario<ClosingStructuresInput> CreateCalculationWithForeshoreProfile()
         {
-            return new StructuresCalculation<ClosingStructuresInput>
+            return new StructuresCalculationScenario<ClosingStructuresInput>
             {
                 Name = "with foreshore profile",
                 InputParameters =
@@ -222,9 +222,9 @@ namespace Riskeer.ClosingStructures.IO.Test.Configurations
             };
         }
 
-        private static StructuresCalculation<ClosingStructuresInput> CreateCalculationWithUseBreakWater()
+        private static StructuresCalculationScenario<ClosingStructuresInput> CreateCalculationWithUseBreakWater()
         {
-            return new StructuresCalculation<ClosingStructuresInput>
+            return new StructuresCalculationScenario<ClosingStructuresInput>
             {
                 Name = "with use breakwater",
                 InputParameters =
@@ -241,9 +241,9 @@ namespace Riskeer.ClosingStructures.IO.Test.Configurations
             };
         }
 
-        private static StructuresCalculation<ClosingStructuresInput> CreateCalculationWithStructure()
+        private static StructuresCalculationScenario<ClosingStructuresInput> CreateCalculationWithStructure()
         {
-            return new StructuresCalculation<ClosingStructuresInput>
+            return new StructuresCalculationScenario<ClosingStructuresInput>
             {
                 Name = "with structure",
                 InputParameters =
@@ -253,7 +253,7 @@ namespace Riskeer.ClosingStructures.IO.Test.Configurations
             };
         }
 
-        protected override StructuresCalculation<ClosingStructuresInput> CreateCalculation()
+        protected override StructuresCalculationScenario<ClosingStructuresInput> CreateCalculation()
         {
             return new TestClosingStructuresCalculationScenario();
         }

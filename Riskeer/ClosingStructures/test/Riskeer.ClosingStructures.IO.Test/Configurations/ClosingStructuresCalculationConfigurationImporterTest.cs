@@ -640,12 +640,103 @@ namespace Riskeer.ClosingStructures.IO.Test.Configurations
             AssertCalculation(expectedCalculation, (StructuresCalculationScenario<ClosingStructuresInput>) calculationGroup.Children[0]);
         }
 
+        [Test]
+        public void Import_ScenarioEmpty_LogMessageAndContinueImport()
+        {
+            // Setup
+            string filePath = Path.Combine(importerPath, "validConfigurationCalculationContainingEmptyScenario.xml");
+
+            var calculationGroup = new CalculationGroup();
+
+            var importer = new ClosingStructuresCalculationConfigurationImporter(filePath,
+                                                                                 calculationGroup,
+                                                                                 Enumerable.Empty<HydraulicBoundaryLocation>(),
+                                                                                 Enumerable.Empty<ForeshoreProfile>(),
+                                                                                 Enumerable.Empty<ClosingStructure>());
+
+            var successful = false;
+
+            // Call
+            void Call() => successful = importer.Import();
+
+            // Assert
+            const string expectedMessage = "In een berekening moet voor het scenario tenminste de relevantie of contributie worden opgegeven. " +
+                                           "Berekening 'Calculation' is overgeslagen.";
+            TestHelper.AssertLogMessageIsGenerated(Call, expectedMessage, 2);
+            Assert.IsTrue(successful);
+            CollectionAssert.IsEmpty(calculationGroup.Children);
+        }
+
+        [Test]
+        public void Import_ScenarioWithContributionSet_DataAddedToModel()
+        {
+            // Setup
+            string filePath = Path.Combine(importerPath, "validConfigurationScenarioContributionOnly.xml");
+
+            var calculationGroup = new CalculationGroup();
+
+            var importer = new ClosingStructuresCalculationConfigurationImporter(filePath,
+                                                                                 calculationGroup,
+                                                                                 Enumerable.Empty<HydraulicBoundaryLocation>(),
+                                                                                 Enumerable.Empty<ForeshoreProfile>(),
+                                                                                 Enumerable.Empty<ClosingStructure>());
+
+            // Call
+            var successful = false;
+            Action call = () => successful = importer.Import();
+
+            // Assert
+            TestHelper.AssertLogMessageIsGenerated(call, $"Gegevens zijn geïmporteerd vanuit bestand '{filePath}'.", 1);
+            Assert.IsTrue(successful);
+
+            var expectedCalculation = new StructuresCalculationScenario<ClosingStructuresInput>
+            {
+                Name = "Calculation",
+                Contribution = (RoundedDouble) 0.8765
+            };
+
+            Assert.AreEqual(1, calculationGroup.Children.Count);
+            AssertCalculation(expectedCalculation, (StructuresCalculationScenario<ClosingStructuresInput>) calculationGroup.Children[0]);
+        }
+
+        [Test]
+        public void Import_ScenarioWithRevelantSet_DataAddedToModel()
+        {
+            // Setup
+            string filePath = Path.Combine(importerPath, "validConfigurationScenarioRevelantOnly.xml");
+
+            var calculationGroup = new CalculationGroup();
+
+            var importer = new ClosingStructuresCalculationConfigurationImporter(filePath,
+                                                                                 calculationGroup,
+                                                                                 Enumerable.Empty<HydraulicBoundaryLocation>(),
+                                                                                 Enumerable.Empty<ForeshoreProfile>(),
+                                                                                 Enumerable.Empty<ClosingStructure>());
+
+            // Call
+            var successful = false;
+            Action call = () => successful = importer.Import();
+
+            // Assert
+            TestHelper.AssertLogMessageIsGenerated(call, $"Gegevens zijn geïmporteerd vanuit bestand '{filePath}'.", 1);
+            Assert.IsTrue(successful);
+
+            var expectedCalculation = new StructuresCalculationScenario<ClosingStructuresInput>
+            {
+                Name = "Calculation",
+                IsRelevant = false
+            };
+
+            Assert.AreEqual(1, calculationGroup.Children.Count);
+            AssertCalculation(expectedCalculation, (StructuresCalculationScenario<ClosingStructuresInput>) calculationGroup.Children[0]);
+        }
+
         [TestCase("validConfigurationUnknownForeshoreProfile.xml",
-            "Het voorlandprofiel met ID 'unknown' bestaat niet.")]
+                  "Het voorlandprofiel met ID 'unknown' bestaat niet.")]
         [TestCase("validConfigurationUnknownHydraulicBoundaryLocation.xml",
-            "De hydraulische belastingenlocatie 'unknown' bestaat niet.")]
+                  "De hydraulische belastingenlocatie 'unknown' bestaat niet.")]
         [TestCase("validConfigurationUnknownStructure.xml",
-            "Het kunstwerk met ID 'unknown' bestaat niet.")]
+                  "Het kunstwerk met ID 'unknown' bestaat niet.")]
         public void Import_ValidConfigurationUnknownData_LogMessageAndContinueImport(string file, string expectedErrorMessage)
         {
             // Setup

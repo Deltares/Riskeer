@@ -46,6 +46,7 @@ namespace Riskeer.ClosingStructures.IO.Configurations
         private const string stochastStandaardafwijkingSchemaName = "StochastStandaardafwijkingSchema.xsd";
         private const string stochastVariatiecoefficientSchemaName = "StochastVariatiecoefficientSchema.xsd";
         private const string structureBaseSchemaName = "KunstwerkenBasisSchema.xsd";
+        private const string scenarioSchemaName = "ScenariosSchema.xsd";
 
         /// <summary>
         /// Creates a new instance of <see cref="ClosingStructuresCalculationConfigurationReader"/>.
@@ -88,6 +89,9 @@ namespace Riskeer.ClosingStructures.IO.Configurations
                        },
                        {
                            structureBaseSchemaName, RiskeerCommonIOResources.KunstwerkenBasisSchema
+                       },
+                       {
+                           scenarioSchemaName, RiskeerCommonIOResources.ScenarioSchema
                        }
                    }) {}
 
@@ -121,7 +125,8 @@ namespace Riskeer.ClosingStructures.IO.Configurations
                 CriticalOvertoppingDischarge = calculationElement.GetStochastConfiguration(ConfigurationSchemaIdentifiers.CriticalOvertoppingDischargeStochastName),
                 StorageStructureArea = calculationElement.GetStochastConfiguration(ConfigurationSchemaIdentifiers.StorageStructureAreaStochastName),
                 StormDuration = calculationElement.GetStochastConfiguration(ConfigurationSchemaIdentifiers.StormDurationStochastName),
-                ShouldIllustrationPointsBeCalculated = calculationElement.GetBoolValueFromDescendantElement(ConfigurationSchemaIdentifiers.ShouldIllustrationPointsBeCalculatedElement)
+                ShouldIllustrationPointsBeCalculated = calculationElement.GetBoolValueFromDescendantElement(ConfigurationSchemaIdentifiers.ShouldIllustrationPointsBeCalculatedElement),
+                Scenario = calculationElement.GetScenarioConfiguration()
             };
 
             return configuration;

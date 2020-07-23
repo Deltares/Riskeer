@@ -22,5 +22,9 @@
         <variatiecoefficient>0.1</variatiecoefficient>
       </stochast>
     </stochasten>
+      <scenario>
+        <gebruik>true</gebruik>
+        <bijdrage>8.8</bijdrage>
+      </scenario>	
   </berekening>
 </configuratie>

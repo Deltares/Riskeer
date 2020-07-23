@@ -272,6 +272,28 @@ namespace Riskeer.ClosingStructures.IO.Test.Configurations
                 yield return new TestCaseData("invalidShouldIllustrationPointsBeCalculatedNoBoolean.xml",
                                               "The 'illustratiepunteninlezen' element is invalid - The value 'string' is invalid according to its datatype 'Boolean'")
                     .SetName("invalidShouldIllustrationPointsBeCalculatedNoBoolean");
+
+                yield return new TestCaseData("invalidCalculationMultipleScenario.xml",
+                                              "Element 'scenario' cannot appear more than once if content model type is \"all\".")
+                    .SetName("invalidCalculationMultipleScenario");
+                yield return new TestCaseData("invalidScenarioMultipleContribution.xml",
+                                              "Element 'bijdrage' cannot appear more than once if content model type is \"all\".")
+                    .SetName("invalidScenarioMultipleContribution");
+                yield return new TestCaseData("invalidScenarioContributionEmpty.xml",
+                                              "The 'bijdrage' element is invalid - The value '' is invalid according to its datatype 'Double'")
+                    .SetName("invalidScenarioContributionEmpty");
+                yield return new TestCaseData("invalidScenarioContributionNoDouble.xml",
+                                              "The 'bijdrage' element is invalid - The value 'string' is invalid according to its datatype 'Double'")
+                    .SetName("invalidScenarioContributionNoDouble");
+                yield return new TestCaseData("invalidScenarioMultipleRelevant.xml",
+                                              "Element 'gebruik' cannot appear more than once if content model type is \"all\".")
+                    .SetName("invalidScenarioMultipleRelevant");
+                yield return new TestCaseData("invalidScenarioRelevantEmpty.xml",
+                                              "The 'gebruik' element is invalid - The value '' is invalid according to its datatype 'Boolean'")
+                    .SetName("invalidScenarioRelevantEmpty");
+                yield return new TestCaseData("invalidScenarioRelevantNoBoolean.xml",
+                                              "The 'gebruik' element is invalid - The value 'string' is invalid according to its datatype 'Boolean'")
+                    .SetName("invalidScenarioRelevantNoBoolean");
             }
         }
 
@@ -296,10 +318,10 @@ namespace Riskeer.ClosingStructures.IO.Test.Configurations
             string filePath = Path.Combine(testDirectoryPath, fileName);
 
             // Call
-            TestDelegate call = () => new ClosingStructuresCalculationConfigurationReader(filePath);
+            void Call() => new ClosingStructuresCalculationConfigurationReader(filePath);
 
             // Assert
-            var exception = Assert.Throws<CriticalFileReadException>(call);
+            var exception = Assert.Throws<CriticalFileReadException>(Call);
             Assert.IsInstanceOf<XmlSchemaValidationException>(exception.InnerException);
             StringAssert.Contains(expectedParsingMessage, exception.InnerException?.Message);
         }
@@ -333,8 +355,8 @@ namespace Riskeer.ClosingStructures.IO.Test.Configurations
             Assert.IsNull(calculation.StorageStructureArea);
             Assert.IsNull(calculation.StormDuration);
             Assert.IsNull(calculation.WidthFlowApertures);
-
             Assert.IsNull(calculation.WaveReduction);
+            Assert.IsNull(calculation.Scenario);
         }
 
         [Test]
@@ -396,6 +418,8 @@ namespace Riskeer.ClosingStructures.IO.Test.Configurations
             Assert.AreEqual(1.234, calculation.WaveReduction.BreakWaterHeight);
             Assert.IsTrue(calculation.WaveReduction.UseBreakWater);
             Assert.IsTrue(calculation.WaveReduction.UseForeshoreProfile);
+            Assert.IsTrue(calculation.Scenario.IsRelevant);
+            Assert.AreEqual(8.8, calculation.Scenario.Contribution);
         }
 
         [Test]
@@ -451,6 +475,7 @@ namespace Riskeer.ClosingStructures.IO.Test.Configurations
             Assert.IsTrue(double.IsNegativeInfinity(calculation.WaveReduction.BreakWaterHeight.Value));
             Assert.IsNull(calculation.WaveReduction.UseBreakWater);
             Assert.IsNull(calculation.WaveReduction.UseForeshoreProfile);
+            Assert.IsTrue(double.IsPositiveInfinity(calculation.Scenario.Contribution.Value));
         }
 
         [Test]
@@ -506,6 +531,7 @@ namespace Riskeer.ClosingStructures.IO.Test.Configurations
             Assert.IsNaN(calculation.WaveReduction.BreakWaterHeight);
             Assert.IsNull(calculation.WaveReduction.UseBreakWater);
             Assert.IsNull(calculation.WaveReduction.UseForeshoreProfile);
+            Assert.IsNaN(calculation.Scenario.Contribution);
         }
 
         [Test]
@@ -558,6 +584,8 @@ namespace Riskeer.ClosingStructures.IO.Test.Configurations
             Assert.IsNull(calculation.WaveReduction.BreakWaterHeight);
             Assert.IsTrue(calculation.WaveReduction.UseBreakWater);
             Assert.IsTrue(calculation.WaveReduction.UseForeshoreProfile);
+            Assert.IsTrue(calculation.Scenario.IsRelevant);
+            Assert.AreEqual(8.8, calculation.Scenario.Contribution);
         }
 
         [Test]
@@ -611,8 +639,8 @@ namespace Riskeer.ClosingStructures.IO.Test.Configurations
             Assert.IsNull(calculation.StormDuration.VariationCoefficient);
             Assert.IsNull(calculation.WidthFlowApertures.Mean);
             Assert.IsNull(calculation.WidthFlowApertures.StandardDeviation);
-
             Assert.IsNull(calculation.WaveReduction);
+            Assert.IsNull(calculation.Scenario);
         }
     }
 }

@@ -67,6 +67,10 @@
         </stochast>
       </stochasten>
       <illustratiepunteninlezen>true</illustratiepunteninlezen>
+      <scenario>
+        <gebruik>true</gebruik>
+        <bijdrage>100</bijdrage>
+      </scenario>
     </berekening>
     <map naam="Nested">
       <berekening naam="sparse config">
@@ -84,6 +88,10 @@
           </stochast>
         </stochasten>
         <illustratiepunteninlezen>false</illustratiepunteninlezen>
+        <scenario>
+          <gebruik>true</gebruik>
+          <bijdrage>100</bijdrage>
+        </scenario>
       </berekening>
     </map>
   </map>

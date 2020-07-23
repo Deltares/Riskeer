@@ -112,13 +112,14 @@ namespace Riskeer.ClosingStructures.IO.Test.Configurations
             var writer = new ClosingStructuresCalculationConfigurationWriter("valid");
 
             // Call
-            TestDelegate call = () => writer.Write(new[]
-            {
-                configuration
-            });
+            void Call() =>
+                writer.Write(new[]
+                {
+                    configuration
+                });
 
             // Assert
-            var exception = Assert.Throws<CriticalFileWriteException>(call);
+            var exception = Assert.Throws<CriticalFileWriteException>(Call);
             Assert.IsInstanceOf<InvalidEnumArgumentException>(exception.InnerException);
         }
 
@@ -209,6 +210,11 @@ namespace Riskeer.ClosingStructures.IO.Test.Configurations
                 {
                     Mean = 4.3,
                     StandardDeviation = 0.2
+                },
+                Scenario = new ScenarioConfiguration()
+                {
+                    IsRelevant = true,
+                    Contribution = 0.3
                 }
             };
         }

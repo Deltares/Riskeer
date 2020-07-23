@@ -63,6 +63,8 @@ namespace Riskeer.Common.IO.Configurations.Export
                     XmlConvert.ToString(configuration.ShouldIllustrationPointsBeCalculated.Value));
             }
 
+            WriteScenarioWhenAvailable(writer, configuration.Scenario);
+
             writer.WriteEndElement();
         }
 
