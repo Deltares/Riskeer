@@ -110,13 +110,15 @@ namespace Riskeer.Common.Forms.Test.Views
         public void Constructor_ExpectedValues()
         {
             // Call
-            using (var view = new TestCalculationsView(new CalculationGroup(), new TestFailureMechanism(), new AssessmentSectionStub()))
-            {
-                // Assert
-                Assert.IsInstanceOf<UserControl>(view);
-                Assert.IsInstanceOf<ISelectionProvider>(view);
-                Assert.IsInstanceOf<IView>(view);
-            }
+            TestCalculationsView view = ShowCalculationsView(new CalculationGroup(), new TestFailureMechanism(), new AssessmentSectionStub());
+
+            var button = (Button) new ControlTester("generateButton").TheObject;
+
+            // Assert
+            Assert.IsInstanceOf<UserControl>(view);
+            Assert.IsInstanceOf<ISelectionProvider>(view);
+            Assert.IsInstanceOf<IView>(view);
+            Assert.AreEqual("Genereer &berekeningen...", button.Text);
         }
 
         [Test]
@@ -255,6 +257,29 @@ namespace Riskeer.Common.Forms.Test.Views
             mocks.VerifyAll();
         }
 
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void GenerateButton_Always_HasCorrectState(bool state)
+        {
+            // Setup
+            var view = new TestCalculationsView(new CalculationGroup(), new TestFailureMechanism(), new AssessmentSectionStub())
+            {
+                CanGenerateCalculationState = state
+            };
+
+            testForm.Controls.Add(view);
+            testForm.Show();
+
+            var button = (Button) new ControlTester("generateButton").TheObject;
+
+            // Call
+            bool buttonState = button.Enabled;
+
+            // Assert
+            Assert.AreEqual(state, buttonState);
+        }
+
         #endregion
 
         #region Selection
@@ -362,7 +387,7 @@ namespace Riskeer.Common.Forms.Test.Views
 
             var data = (CalculationGroup) calculationsView.Data;
             var calculation = (TestCalculation) data.Children.First();
-            
+
             calculation.Attach(calculationObserver);
 
             var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
@@ -412,7 +437,7 @@ namespace Riskeer.Common.Forms.Test.Views
 
             ShowCalculationsView(ConfigureCalculationGroup(assessmentSection), failureMechanism, assessmentSection);
 
-            var listBox = (ListBox)new ControlTester("listBox").TheObject;
+            var listBox = (ListBox) new ControlTester("listBox").TheObject;
 
             // Precondition
             Assert.AreEqual(2, listBox.Items.Count);
@@ -445,11 +470,11 @@ namespace Riskeer.Common.Forms.Test.Views
             mocks.ReplayAll();
 
             ShowCalculationsView(ConfigureCalculationGroup(assessmentSection), ConfigureFailureMechanism(), assessmentSection);
-            
-            var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
-            var hydraulicBoundaryLocationCombobox = (DataGridViewComboBoxColumn)dataGridView.Columns[selectableHydraulicBoundaryLocationsColumnIndex];
+
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+            var hydraulicBoundaryLocationCombobox = (DataGridViewComboBoxColumn) dataGridView.Columns[selectableHydraulicBoundaryLocationsColumnIndex];
             DataGridViewComboBoxCell.ObjectCollection oldHydraulicBoundaryLocationComboboxItems = hydraulicBoundaryLocationCombobox.Items;
-            
+
             // Precondition
             Assert.AreEqual(7, oldHydraulicBoundaryLocationComboboxItems.Count);
 
@@ -514,7 +539,7 @@ namespace Riskeer.Common.Forms.Test.Views
             CalculationGroup calculationGroup = ConfigureCalculationGroup(assessmentSection);
 
             ShowCalculationsView(calculationGroup, ConfigureFailureMechanism(), assessmentSection);
-            var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
             var invalidated = 0;
             dataGridView.Invalidated += (sender, args) => invalidated++;
@@ -542,7 +567,7 @@ namespace Riskeer.Common.Forms.Test.Views
             CalculationGroup calculationGroup = ConfigureCalculationGroup(assessmentSection);
 
             ShowCalculationsView(calculationGroup, ConfigureFailureMechanism(), assessmentSection);
-            var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
             var dataSourceUpdated = 0;
             dataGridView.DataSourceChanged += (sender, args) => dataSourceUpdated++;
@@ -562,6 +587,30 @@ namespace Riskeer.Common.Forms.Test.Views
         }
 
         #endregion
+
+        [Test]
+        public void GivenCalculationsView_WhenGenerateCalculationsButtonClicked_ThenGenerateCalculationsCalled()
+        {
+            // Given
+            var view = new TestCalculationsView(new CalculationGroup(), new TestFailureMechanism(), new AssessmentSectionStub())
+            {
+                CanGenerateCalculationState = true
+            };
+
+            testForm.Controls.Add(view);
+            testForm.Show();
+
+            var button = new ButtonTester("generateButton", testForm);
+
+            // Precondition
+            Assert.IsFalse(view.GenerateButtonClicked);
+
+            // When
+            button.Click();
+
+            // Then
+            Assert.IsTrue(view.GenerateButtonClicked);
+        }
 
         public override void Setup()
         {
@@ -661,6 +710,10 @@ namespace Riskeer.Common.Forms.Test.Views
             public TestCalculationsView(CalculationGroup calculationGroup, IFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
                 : base(calculationGroup, failureMechanism, assessmentSection) {}
 
+            public bool CanGenerateCalculationState { get; set; }
+
+            public bool GenerateButtonClicked { get; private set; }
+
             protected override object CreateSelectedItemFromCurrentRow(TestCalculationRow currentRow)
             {
                 return currentRow;
@@ -683,6 +736,16 @@ namespace Riskeer.Common.Forms.Test.Views
             protected override TestCalculationRow CreateRow(TestCalculation calculation)
             {
                 return new TestCalculationRow(calculation, new ObservablePropertyChangeHandler(calculation, calculation.InputParameters));
+            }
+
+            protected override bool CanGenerateCalculations()
+            {
+                return CanGenerateCalculationState;
+            }
+
+            protected override void GenerateCalculations()
+            {
+                GenerateButtonClicked = true;
             }
         }
     }

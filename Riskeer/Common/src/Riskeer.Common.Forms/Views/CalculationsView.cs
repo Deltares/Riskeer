@@ -115,6 +115,8 @@ namespace Riskeer.Common.Forms.Views
             UpdateDataGridViewDataSource();
 
             base.OnLoad(e);
+
+            UpdateGenerateCalculationsButtonState();
         }
 
         protected override void Dispose(bool disposing)
@@ -162,6 +164,17 @@ namespace Riskeer.Common.Forms.Views
         /// <returns>The created <see cref="TCalculationRow"/>.</returns>
         protected abstract TCalculationRow CreateRow(TCalculation calculation);
 
+        /// <summary>
+        /// Gets an indicator whether calculations can be generated.
+        /// </summary>
+        /// <returns><c>true</c> when calculations can be generated; <c>false</c> otherwise.</returns>
+        protected abstract bool CanGenerateCalculations();
+
+        /// <summary>
+        /// Generates the calculations.
+        /// </summary>
+        protected abstract void GenerateCalculations();
+
         private void InitializeObservers()
         {
             failureMechanismObserver = new Observer(UpdateSectionsListBox)
@@ -198,17 +211,6 @@ namespace Riskeer.Common.Forms.Views
             listBox.SelectedValueChanged += ListBoxOnSelectedValueChanged;
         }
 
-        private void UpdateSectionsListBox()
-        {
-            listBox.Items.Clear();
-
-            if (failureMechanism.Sections.Any())
-            {
-                listBox.Items.AddRange(failureMechanism.Sections.Cast<object>().ToArray());
-                listBox.SelectedItem = failureMechanism.Sections.First();
-            }
-        }
-
         private void InitializeDataGridView()
         {
             dataGridViewControl.CurrentRowChanged += DataGridViewOnCurrentRowChangedHandler;
@@ -223,6 +225,17 @@ namespace Riskeer.Common.Forms.Views
                 null,
                 nameof(DataGridViewComboBoxItemWrapper<SelectableHydraulicBoundaryLocation>.This),
                 nameof(DataGridViewComboBoxItemWrapper<SelectableHydraulicBoundaryLocation>.DisplayName));
+        }
+
+        private void UpdateSectionsListBox()
+        {
+            listBox.Items.Clear();
+
+            if (failureMechanism.Sections.Any())
+            {
+                listBox.Items.AddRange(failureMechanism.Sections.Cast<object>().ToArray());
+                listBox.SelectedItem = failureMechanism.Sections.First();
+            }
         }
 
         private void UpdateDataGridViewDataSource()
@@ -252,6 +265,11 @@ namespace Riskeer.Common.Forms.Views
             dataGridViewControl.ClearCurrentCell();
 
             UpdateSelectableHydraulicBoundaryLocationsColumn();
+        }
+
+        private void UpdateGenerateCalculationsButtonState()
+        {
+            generateButton.Enabled = CanGenerateCalculations();
         }
 
         #region Prefill combo box list items
@@ -358,6 +376,11 @@ namespace Riskeer.Common.Forms.Views
         private void ListBoxOnSelectedValueChanged(object sender, EventArgs e)
         {
             UpdateDataGridViewDataSource();
+        }
+
+        private void generateButton_Click(object sender, EventArgs e)
+        {
+            GenerateCalculations();
         }
 
         #endregion

@@ -1,4 +1,4 @@
-﻿using Core.Common.Controls.DataGrid;
+using Core.Common.Controls.DataGrid;
 
 namespace Riskeer.Common.Forms.Views
 {
@@ -125,8 +125,9 @@ namespace Riskeer.Common.Forms.Views
             this.generateButton.Name = "generateButton";
             this.generateButton.Size = new System.Drawing.Size(127, 23);
             this.generateButton.TabIndex = 1;
-            this.generateButton.Text = "button1";
+            this.generateButton.Text = global::Riskeer.Common.Forms.Properties.Resources.CalculationGroup_Generate_calculations;
             this.generateButton.UseVisualStyleBackColor = true;
+            this.generateButton.Click += new System.EventHandler(this.generateButton_Click);
             // 
             // CalculationsView
             // 
