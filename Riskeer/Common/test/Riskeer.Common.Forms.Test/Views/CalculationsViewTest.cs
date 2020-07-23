@@ -19,9 +19,11 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Windows.Forms;
 using Core.Common.Controls.Views;
 using NUnit.Framework;
+using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Forms.Views;
 
 namespace Riskeer.Common.Forms.Test.Views
@@ -30,10 +32,21 @@ namespace Riskeer.Common.Forms.Test.Views
     public class CalculationsViewTest
     {
         [Test]
+        public void Constructor_CalculationGroupNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => new TestCalculationsView(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("calculationGroup", exception.ParamName);
+        }
+
+        [Test]
         public void Constructor_ExpectedValues()
         {
             // Call
-            using (var view = new TestCalculationsView())
+            using (var view = new TestCalculationsView(new CalculationGroup()))
             {
                 // Assert
                 Assert.IsInstanceOf<UserControl>(view);
@@ -42,6 +55,9 @@ namespace Riskeer.Common.Forms.Test.Views
             }
         }
 
-        private class TestCalculationsView : CalculationsView {}
+        private class TestCalculationsView : CalculationsView
+        {
+            public TestCalculationsView(CalculationGroup calculationGroup) : base(calculationGroup) {}
+        }
     }
 }

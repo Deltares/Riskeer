@@ -22,6 +22,7 @@
 using System;
 using System.Windows.Forms;
 using Core.Common.Controls.Views;
+using Riskeer.Common.Data.Calculation;
 
 namespace Riskeer.Common.Forms.Views
 {
@@ -30,18 +31,32 @@ namespace Riskeer.Common.Forms.Views
     /// </summary>
     public abstract partial class CalculationsView : UserControl, ISelectionProvider, IView
     {
+        private CalculationGroup calculationGroup;
         public event EventHandler<EventArgs> SelectionChanged;
 
         /// <summary>
         /// Creates a new instance of <see cref="CalculationsView"/>.
         /// </summary>
-        protected CalculationsView()
+        /// <param name="calculationGroup">All the calculations of the failure mechanism.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        protected CalculationsView(CalculationGroup calculationGroup)
         {
+            if (calculationGroup == null)
+            {
+                throw new ArgumentNullException(nameof(calculationGroup));
+            }
+
+            this.calculationGroup = calculationGroup;
+
             InitializeComponent();
         }
 
         public object Selection { get; }
 
-        public object Data { get; set; }
+        public object Data
+        {
+            get => calculationGroup;
+            set => calculationGroup = value as CalculationGroup;
+        }
     }
 }
