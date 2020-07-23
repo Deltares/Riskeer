@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
+using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.Views;
@@ -266,8 +267,8 @@ namespace Riskeer.Common.Forms.Test.Views
             var selectionChangedCount = 0;
             calculationsView.SelectionChanged += (sender, args) => selectionChangedCount++;
 
-            var listBox = (ListBox)new ControlTester("listBox").TheObject;
-            var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+            var listBox = (ListBox) new ControlTester("listBox").TheObject;
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
             // Precondition
             Assert.AreEqual(2, dataGridView.Rows.Count);
@@ -299,7 +300,7 @@ namespace Riskeer.Common.Forms.Test.Views
             var selectionChangedCount = 0;
             calculationsView.SelectionChanged += (sender, args) => selectionChangedCount++;
 
-            var control = TypeUtils.GetField<DataGridViewControl>(calculationsView, "dataGridViewControl");
+            var control = TypeUtils.GetProperty<DataGridViewControl>(calculationsView, "DataGridViewControl");
             WindowsFormsTestHelper.Show(control);
 
             var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
@@ -326,7 +327,7 @@ namespace Riskeer.Common.Forms.Test.Views
 
             TestCalculationsView calculationsView = ShowFullyConfiguredCalculationsView(assessmentSection);
 
-            var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
             dataGridView.CurrentCell = dataGridView.Rows[selectedRow].Cells[0];
 
@@ -335,6 +336,32 @@ namespace Riskeer.Common.Forms.Test.Views
 
             // Assert
             Assert.IsInstanceOf<TestCalculationRow>(selection);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CalculationsView_EditingNameViaDataGridView_ObserversCorrectlyNotified()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var calculationObserver = mocks.StrictMock<IObserver>();
+            calculationObserver.Expect(o => o.UpdateObserver());
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            TestCalculationsView calculationsView = ShowFullyConfiguredCalculationsView(assessmentSection);
+
+            var data = (CalculationGroup) calculationsView.Data;
+            var calculation = (TestCalculation) data.Children.First();
+            
+            calculation.Attach(calculationObserver);
+
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+
+            // Call
+            dataGridView.Rows[0].Cells[nameColumnIndex].Value = "New name";
+
+            // Assert
             mocks.VerifyAll();
         }
 
