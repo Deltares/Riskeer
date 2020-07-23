@@ -162,9 +162,9 @@ namespace Riskeer.HeightStructures.Plugin.Test.ViewInfos
         public void CloseForData_ViewCorrespondingToRemovedAssessmentSection_ReturnsTrue()
         {
             // Setup
+            var failureMechanism = new HeightStructuresFailureMechanism();
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var failureMechanism = new HeightStructuresFailureMechanism();
             assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new IFailureMechanism[]
             {
                 failureMechanism
@@ -229,10 +229,8 @@ namespace Riskeer.HeightStructures.Plugin.Test.ViewInfos
         public void CloseForData_ViewNotCorrespondingToRemovedFailureMechanismContext_ReturnsFalse()
         {
             // Setup
-            var mocks = new MockRepository();
             var assessmentSection = new AssessmentSectionStub();
             var failureMechanism = new HeightStructuresFailureMechanism();
-            mocks.ReplayAll();
 
             using (var view = new HeightStructuresCalculationsView(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection))
             {

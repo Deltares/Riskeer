@@ -39,14 +39,12 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
     [TestFixture]
     public class GrassCoverErosionInwardsCalculationsViewInfoTest
     {
-        private MockRepository mocks;
         private GrassCoverErosionInwardsPlugin plugin;
         private ViewInfo info;
 
         [SetUp]
         public void SetUp()
         {
-            mocks = new MockRepository();
             plugin = new GrassCoverErosionInwardsPlugin();
             info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(GrassCoverErosionInwardsCalculationsView));
         }
@@ -161,8 +159,6 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
                 // Assert
                 Assert.IsFalse(closeForData);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -178,8 +174,6 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
                 // Assert
                 Assert.IsFalse(closeForData);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -188,6 +182,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
             // Setup
             var calculationGroup = new CalculationGroup();
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new IFailureMechanism[]
             {
@@ -262,7 +257,6 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
         {
             // Setup
             var assessmentSection = new AssessmentSectionStub();
-            mocks.ReplayAll();
 
             using (var calculationsView = new GrassCoverErosionInwardsCalculationsView(new CalculationGroup(), new GrassCoverErosionInwardsFailureMechanism(), assessmentSection))
             {

@@ -69,7 +69,6 @@ namespace Riskeer.ClosingStructures.Plugin.Test.ViewInfos
         {
             // Setup
             var assessmentSection = new AssessmentSectionStub();
-
             var failureMechanism = new ClosingStructuresFailureMechanism();
             var calculationGroup = new CalculationGroup();
             var calculationGroupContext = new ClosingStructuresCalculationGroupContext(calculationGroup,
@@ -112,7 +111,6 @@ namespace Riskeer.ClosingStructures.Plugin.Test.ViewInfos
         {
             // Setup
             var assessmentSection = new AssessmentSectionStub();
-
             var failureMechanism = new ClosingStructuresFailureMechanism();
             var calculationGroupContext = new ClosingStructuresCalculationGroupContext(failureMechanism.CalculationsGroup,
                                                                                        null,
@@ -165,9 +163,9 @@ namespace Riskeer.ClosingStructures.Plugin.Test.ViewInfos
         public void CloseForData_ViewCorrespondingToRemovedAssessmentSection_ReturnsTrue()
         {
             // Setup
+            var failureMechanism = new ClosingStructuresFailureMechanism();
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var failureMechanism = new ClosingStructuresFailureMechanism();
             assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new IFailureMechanism[]
             {
                 failureMechanism

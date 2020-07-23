@@ -129,7 +129,6 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.ViewInfos
         {
             // Setup
             var assessmentSection = new AssessmentSectionStub();
-
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
             var calculationGroup = new CalculationGroup();
             var calculationGroupContext = new StabilityPointStructuresCalculationGroupContext(calculationGroup,
@@ -164,9 +163,9 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.ViewInfos
         public void CloseForData_ViewCorrespondingToRemovedAssessmentSection_ReturnsTrue()
         {
             // Setup
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var failureMechanism = new StabilityPointStructuresFailureMechanism();
             assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new IFailureMechanism[]
             {
                 new TestFailureMechanism(),
