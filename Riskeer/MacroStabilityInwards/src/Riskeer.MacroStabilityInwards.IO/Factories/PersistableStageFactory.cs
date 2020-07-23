@@ -70,7 +70,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
                 SoilLayersId = registry.SoilLayers[stageType],
                 WaternetId = registry.Waternets[stageType],
                 WaternetCreatorSettingsId = registry.WaternetCreatorSettings[stageType],
-                StateId = stageType == MacroStabilityInwardsExportStageType.Daily 
+                StateId = stageType == MacroStabilityInwardsExportStageType.Daily
                               ? registry.States[stageType]
                               : null
             };
