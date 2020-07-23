@@ -20,14 +20,11 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using Core.Common.Base.Data;
-using Core.Common.Base.Geometry;
 using NUnit.Framework;
-using Riskeer.Common.Data;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.Structures;
+using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.Helpers;
 
 namespace Riskeer.Common.Forms.Test.Helpers
@@ -39,7 +36,7 @@ namespace Riskeer.Common.Forms.Test.Helpers
         public void GenerateCalculations_CalculationGroupNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => StructureCalculationConfigurationHelper.GenerateCalculations<TestStructure, TestStructureInput>(null, new List<TestStructure>());
+            void Call() => StructureCalculationConfigurationHelper.GenerateCalculations<TestStructure, TestStructuresInput>(null, Enumerable.Empty<TestStructure>());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -50,7 +47,7 @@ namespace Riskeer.Common.Forms.Test.Helpers
         public void GenerateCalculations_StructuresNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => StructureCalculationConfigurationHelper.GenerateCalculations<TestStructure, TestStructureInput>(new CalculationGroup(), null);
+            void Call() => StructureCalculationConfigurationHelper.GenerateCalculations<TestStructure, TestStructuresInput>(new CalculationGroup(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -58,53 +55,30 @@ namespace Riskeer.Common.Forms.Test.Helpers
         }
 
         [Test]
-        public void GenerateCalculations_Always_SetsCorrectCalculations()
+        public void GenerateCalculations_WithValidData_SetsCorrectCalculations()
         {
             // Setup
             var calculationGroup = new CalculationGroup();
 
-            var structure1 = new TestStructure(new StructureBase.ConstructionProperties
-            {
-                Id = "testStructure1",
-                Location = new Point2D(0.0, 0.0),
-                Name = "structure1",
-                StructureNormalOrientation = (RoundedDouble) 4.0
-            });
-            var structure2 = new TestStructure(new StructureBase.ConstructionProperties
-            {
-                Id = "testStructure2",
-                Location = new Point2D(5.0, 0.0),
-                Name = "structure2",
-                StructureNormalOrientation = (RoundedDouble) 5.0
-            });
+            var structure1 = new TestStructure("testStructure1", "structure1");
+            var structure2 = new TestStructure("testStructure2", "structure2");
 
             // Call
-            StructureCalculationConfigurationHelper.GenerateCalculations<TestStructure, TestStructureInput>(calculationGroup, new[]
+            StructureCalculationConfigurationHelper.GenerateCalculations<TestStructure, TestStructuresInput>(calculationGroup, new[]
             {
                 structure1,
                 structure2
             });
 
             // Assert
-            var calculation1 = (StructuresCalculationScenario<TestStructureInput>) calculationGroup.Children.First();
+            Assert.AreEqual(2, calculationGroup.Children.Count);
+            var calculation1 = (StructuresCalculationScenario<TestStructuresInput>) calculationGroup.Children.First();
             Assert.AreEqual("structure1", calculation1.Name);
             Assert.AreEqual(structure1, calculation1.InputParameters.Structure);
 
-            var calculation2 = (StructuresCalculationScenario<TestStructureInput>) calculationGroup.Children.Last();
+            var calculation2 = (StructuresCalculationScenario<TestStructuresInput>) calculationGroup.Children.Last();
             Assert.AreEqual("structure2", calculation2.Name);
             Assert.AreEqual(structure2, calculation2.InputParameters.Structure);
-        }
-
-        private class TestStructure : StructureBase
-        {
-            public TestStructure(ConstructionProperties constructionProperties) : base(constructionProperties) {}
-        }
-
-        private class TestStructureInput : StructuresInputBase<TestStructure>
-        {
-            public override bool IsStructureInputSynchronized => true;
-
-            public override void SynchronizeStructureInput() {}
         }
     }
 }

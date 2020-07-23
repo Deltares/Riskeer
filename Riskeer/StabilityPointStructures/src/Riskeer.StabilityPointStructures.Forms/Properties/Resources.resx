@@ -162,9 +162,6 @@
   <data name="Structure_EvaluationLevel_Description" xml:space="preserve">
     <value>Hoogte waarop de constructieve sterkte wordt beoordeeld.</value>
   </data>
-  <data name="Structure_EvaluationLevel_DisplayName" xml:space="preserve">
-    <value>Analysehoogte [m+NAP]</value>
-  </data>
   <data name="Structure_FailureCollisionEnergy_Description" xml:space="preserve">
     <value>Bezwijkwaarde aanvaarenergie.</value>
   </data>
@@ -197,9 +194,6 @@
   </data>
   <data name="Structure_LoadSchematizationType_Description" xml:space="preserve">
     <value>Geeft aan of het lineaire belastingmodel of het kwadratische belastingmodel moet worden gebruikt.</value>
-  </data>
-  <data name="Structure_LoadSchematizationType_DisplayName" xml:space="preserve">
-    <value>Belastingschematisering</value>
   </data>
   <data name="Structure_ProbabilityCollisionSecondaryStructure_Description" xml:space="preserve">
     <value>Kans op aanvaring tweede keermiddel per nivellering.</value>

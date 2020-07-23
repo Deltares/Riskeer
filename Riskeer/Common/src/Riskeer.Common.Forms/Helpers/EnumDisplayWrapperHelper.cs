@@ -31,9 +31,9 @@ namespace Riskeer.Common.Forms.Helpers
     public static class EnumDisplayWrapperHelper
     {
         /// <summary>
-        /// generates a collection of <see cref="EnumDisplayWrapper{T}"/> from enum values.
+        /// Creates a collection of <see cref="EnumDisplayWrapper{T}"/> from enum values.
         /// </summary>
-        /// <typeparam name="T">Any enum type.</typeparam>
+        /// <typeparam name="T">The type of enum.</typeparam>
         /// <returns>A collection of <see cref="EnumDisplayWrapper{T}"/>.</returns>
         public static EnumDisplayWrapper<T>[] GetEnumTypes<T>()
         {

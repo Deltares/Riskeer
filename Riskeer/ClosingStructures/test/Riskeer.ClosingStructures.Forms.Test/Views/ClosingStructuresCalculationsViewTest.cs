@@ -810,7 +810,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
             {
                 new TestClosingStructure(new Point2D(0.0, 0.0), "Structure 1"),
                 new TestClosingStructure(new Point2D(0.0, 0.0), "Structure 2")
-            },string.Empty );
+            }, string.Empty);
             failureMechanism.ForeshoreProfiles.AddRange(new List<ForeshoreProfile>
             {
                 new TestForeshoreProfile("profiel 1"),

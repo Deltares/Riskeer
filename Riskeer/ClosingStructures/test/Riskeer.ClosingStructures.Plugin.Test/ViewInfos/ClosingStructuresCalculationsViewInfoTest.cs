@@ -39,7 +39,6 @@ namespace Riskeer.ClosingStructures.Plugin.Test.ViewInfos
     [TestFixture]
     public class ClosingStructuresCalculationsViewInfoTest
     {
-        private MockRepository mocks;
         private ClosingStructuresPlugin plugin;
         private ViewInfo info;
 
@@ -166,13 +165,11 @@ namespace Riskeer.ClosingStructures.Plugin.Test.ViewInfos
         public void CloseForData_ViewCorrespondingToRemovedAssessmentSection_ReturnsTrue()
         {
             // Setup
-            mocks = new MockRepository();
-            var calculationGroup = new CalculationGroup();
-            var failureMechanism = new ClosingStructuresFailureMechanism();
+            var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var failureMechanism = new ClosingStructuresFailureMechanism();
             assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new IFailureMechanism[]
             {
-                new TestFailureMechanism(),
                 failureMechanism
             });
             assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase
@@ -185,10 +182,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.ViewInfos
             });
             mocks.ReplayAll();
 
-            using (var view = new ClosingStructuresCalculationsView(calculationGroup, failureMechanism, assessmentSection)
-            {
-                Data = failureMechanism.CalculationsGroup
-            })
+            using (var view = new ClosingStructuresCalculationsView(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);

@@ -181,7 +181,7 @@ namespace Riskeer.StabilityPointStructures.Service
                     ParameterNameExtractor.GetFromDisplayName(RiskeerStabilityPointStructuresFormsResources.Structure_BankWidth_DisplayName)),
                 new NumericInputRule(
                     input.EvaluationLevel,
-                    ParameterNameExtractor.GetFromDisplayName(RiskeerStabilityPointStructuresFormsResources.Structure_EvaluationLevel_DisplayName)),
+                    ParameterNameExtractor.GetFromDisplayName(RiskeerCommonFormsResources.Evaluation_Level_DisplayName)),
                 new NumericInputRule(
                     input.VerticalDistance,
                     ParameterNameExtractor.GetFromDisplayName(RiskeerStabilityPointStructuresFormsResources.Structure_VerticalDistance_DisplayName)),
@@ -255,7 +255,7 @@ namespace Riskeer.StabilityPointStructures.Service
                     ParameterNameExtractor.GetFromDisplayName(RiskeerStabilityPointStructuresFormsResources.Structure_BankWidth_DisplayName)),
                 new NumericInputRule(
                     input.EvaluationLevel,
-                    ParameterNameExtractor.GetFromDisplayName(RiskeerStabilityPointStructuresFormsResources.Structure_EvaluationLevel_DisplayName)),
+                    ParameterNameExtractor.GetFromDisplayName(RiskeerCommonFormsResources.Evaluation_Level_DisplayName)),
                 new NumericInputRule(
                     input.VerticalDistance,
                     ParameterNameExtractor.GetFromDisplayName(RiskeerStabilityPointStructuresFormsResources.Structure_VerticalDistance_DisplayName)),
@@ -332,7 +332,7 @@ namespace Riskeer.StabilityPointStructures.Service
                     ParameterNameExtractor.GetFromDisplayName(RiskeerStabilityPointStructuresFormsResources.Structure_BankWidth_DisplayName)),
                 new NumericInputRule(
                     input.EvaluationLevel,
-                    ParameterNameExtractor.GetFromDisplayName(RiskeerStabilityPointStructuresFormsResources.Structure_EvaluationLevel_DisplayName)),
+                    ParameterNameExtractor.GetFromDisplayName(RiskeerCommonFormsResources.Evaluation_Level_DisplayName)),
                 new NumericInputRule(
                     input.VerticalDistance,
                     ParameterNameExtractor.GetFromDisplayName(RiskeerStabilityPointStructuresFormsResources.Structure_VerticalDistance_DisplayName)),
@@ -409,7 +409,7 @@ namespace Riskeer.StabilityPointStructures.Service
                     ParameterNameExtractor.GetFromDisplayName(RiskeerStabilityPointStructuresFormsResources.Structure_BankWidth_DisplayName)),
                 new NumericInputRule(
                     input.EvaluationLevel,
-                    ParameterNameExtractor.GetFromDisplayName(RiskeerStabilityPointStructuresFormsResources.Structure_EvaluationLevel_DisplayName)),
+                    ParameterNameExtractor.GetFromDisplayName(RiskeerCommonFormsResources.Evaluation_Level_DisplayName)),
                 new NumericInputRule(
                     input.VerticalDistance,
                     ParameterNameExtractor.GetFromDisplayName(RiskeerStabilityPointStructuresFormsResources.Structure_VerticalDistance_DisplayName)),

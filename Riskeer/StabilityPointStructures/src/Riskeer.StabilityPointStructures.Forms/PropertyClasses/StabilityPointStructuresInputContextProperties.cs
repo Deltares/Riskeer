@@ -352,7 +352,7 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
         [TypeConverter(typeof(EnumTypeConverter))]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_ConstructiveFailure),
             constructiveFailureCategoryIndex, totalNrOfCategories)]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.Structure_LoadSchematizationType_DisplayName))]
+        [ResourcesDisplayName(typeof(Resources), nameof(RiskeerCommonFormsResources.LoadSchematizationType_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.Structure_LoadSchematizationType_Description))]
         public LoadSchematizationType LoadSchematizationType
         {
@@ -410,7 +410,7 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
         [PropertyOrder(evaluationLevelPropertyIndex)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_ConstructiveFailure),
             constructiveFailureCategoryIndex, totalNrOfCategories)]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.Structure_EvaluationLevel_DisplayName))]
+        [ResourcesDisplayName(typeof(Resources), nameof(RiskeerCommonFormsResources.Evaluation_Level_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.Structure_EvaluationLevel_Description))]
         public RoundedDouble EvaluationLevel
         {
