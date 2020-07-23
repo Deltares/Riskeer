@@ -790,13 +790,16 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
 
         private void ShowDikeProfileSelectionDialog(GrassCoverErosionInwardsCalculationGroupContext nodeData)
         {
-            using (var view = new GrassCoverErosionInwardsDikeProfileSelectionDialog(Gui.MainWindow, nodeData.AvailableDikeProfiles))
+            using (var dialog = new GrassCoverErosionInwardsDikeProfileSelectionDialog(Gui.MainWindow, nodeData.AvailableDikeProfiles))
             {
-                view.ShowDialog();
-                GrassCoverErosionInwardsCalculationConfigurationHelper.GenerateCalculations(nodeData.WrappedData, view.SelectedItems);
-            }
+                dialog.ShowDialog();
 
-            nodeData.NotifyObservers();
+                if (dialog.SelectedItems.Any())
+                {
+                    GrassCoverErosionInwardsCalculationConfigurationHelper.GenerateCalculations(nodeData.WrappedData, dialog.SelectedItems);
+                    nodeData.NotifyObservers();
+                }
+            }
         }
 
         private static void AddCalculation(GrassCoverErosionInwardsCalculationGroupContext context)

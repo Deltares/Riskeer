@@ -29,7 +29,7 @@ using Riskeer.GrassCoverErosionInwards.Data;
 namespace Riskeer.GrassCoverErosionInwards.Forms
 {
     /// <summary>
-    /// Class holds methods to help views when dealing with <see cref="GrassCoverErosionInwardsCalculationScenario"/>.
+    /// Helper class to help views when dealing with <see cref="GrassCoverErosionInwardsCalculationScenario"/>.
     /// </summary>
     public static class GrassCoverErosionInwardsCalculationConfigurationHelper
     {

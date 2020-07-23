@@ -449,10 +449,13 @@ namespace Riskeer.HeightStructures.Forms.Views
             using (var dialog = new StructureSelectionDialog(Parent, failureMechanism.HeightStructures))
             {
                 dialog.ShowDialog();
-                StructureCalculationConfigurationHelper.GenerateCalculations<HeightStructure, HeightStructuresInput>(calculationGroup, dialog.SelectedItems.Cast<HeightStructure>());
-            }
 
-            calculationGroup.NotifyObservers();
+                if (dialog.SelectedItems.Any())
+                {
+                    StructureCalculationConfigurationHelper.GenerateCalculations<HeightStructure, HeightStructuresInput>(calculationGroup, dialog.SelectedItems.Cast<HeightStructure>());
+                    calculationGroup.NotifyObservers();
+                }
+            }
         }
 
         private void OnFailureMechanismUpdate()

@@ -38,8 +38,8 @@ namespace Riskeer.Common.Forms.Helpers
         /// <param name="calculationGroup">The calculation group.</param>
         /// <param name="structures">The collection of structures.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public static void GenerateCalculations<TStructureBase, TInputBase>(CalculationGroup calculationGroup,
-                                                                            IEnumerable<TStructureBase> structures) where TStructureBase : StructureBase where TInputBase : StructuresInputBase<TStructureBase>, new()
+        public static void GenerateCalculations<TStructureBase, TInputBase>(CalculationGroup calculationGroup, IEnumerable<TStructureBase> structures) where TStructureBase : StructureBase 
+                                                                                                                                                       where TInputBase : StructuresInputBase<TStructureBase>, new()
         {
             if (calculationGroup == null)
             {

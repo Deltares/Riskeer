@@ -72,6 +72,7 @@ namespace Riskeer.Common.Forms.Test.Helpers
 
             // Assert
             Assert.AreEqual(2, calculationGroup.Children.Count);
+
             var calculation1 = (StructuresCalculationScenario<TestStructuresInput>) calculationGroup.Children.First();
             Assert.AreEqual("structure1", calculation1.Name);
             Assert.AreEqual(structure1, calculation1.InputParameters.Structure);

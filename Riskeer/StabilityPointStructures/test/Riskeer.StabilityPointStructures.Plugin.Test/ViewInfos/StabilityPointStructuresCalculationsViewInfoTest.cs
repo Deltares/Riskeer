@@ -39,7 +39,6 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.ViewInfos
     [TestFixture]
     public class StabilityPointStructuresCalculationsViewInfoTest
     {
-        private MockRepository mocks;
         private StabilityPointStructuresPlugin plugin;
         private ViewInfo info;
 
@@ -165,9 +164,9 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.ViewInfos
         public void CloseForData_ViewCorrespondingToRemovedAssessmentSection_ReturnsTrue()
         {
             // Setup
-            mocks = new MockRepository();
-            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+            var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
             assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new IFailureMechanism[]
             {
                 new TestFailureMechanism(),

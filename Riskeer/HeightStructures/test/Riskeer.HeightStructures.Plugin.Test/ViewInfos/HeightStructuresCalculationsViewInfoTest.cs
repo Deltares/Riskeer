@@ -39,7 +39,6 @@ namespace Riskeer.HeightStructures.Plugin.Test.ViewInfos
     [TestFixture]
     public class HeightStructuresCalculationsViewInfoTest
     {
-        private MockRepository mocks;
         private HeightStructuresPlugin plugin;
         private ViewInfo info;
 
@@ -163,12 +162,11 @@ namespace Riskeer.HeightStructures.Plugin.Test.ViewInfos
         public void CloseForData_ViewCorrespondingToRemovedAssessmentSection_ReturnsTrue()
         {
             // Setup
-            mocks = new MockRepository();
-            var failureMechanism = new HeightStructuresFailureMechanism();
+            var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
+            var failureMechanism = new HeightStructuresFailureMechanism();
             assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new IFailureMechanism[]
             {
-                new TestFailureMechanism(),
                 failureMechanism
             });
             assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase
@@ -231,7 +229,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.ViewInfos
         public void CloseForData_ViewNotCorrespondingToRemovedFailureMechanismContext_ReturnsFalse()
         {
             // Setup
-            mocks = new MockRepository();
+            var mocks = new MockRepository();
             var assessmentSection = new AssessmentSectionStub();
             var failureMechanism = new HeightStructuresFailureMechanism();
             mocks.ReplayAll();

@@ -828,13 +828,16 @@ namespace Riskeer.Piping.Plugin
 
         private void ShowSurfaceLineSelectionDialog(PipingCalculationGroupContext nodeData)
         {
-            using (var view = new PipingSurfaceLineSelectionDialog(Gui.MainWindow, nodeData.AvailablePipingSurfaceLines))
+            using (var dialog = new PipingSurfaceLineSelectionDialog(Gui.MainWindow, nodeData.AvailablePipingSurfaceLines))
             {
-                view.ShowDialog();
-                GenerateCalculations(nodeData.WrappedData, view.SelectedItems, nodeData.AvailableStochasticSoilModels, nodeData.FailureMechanism.GeneralInput);
-            }
+                dialog.ShowDialog();
 
-            nodeData.NotifyObservers();
+                if (dialog.SelectedItems.Any())
+                {
+                    GenerateCalculations(nodeData.WrappedData, dialog.SelectedItems, nodeData.AvailableStochasticSoilModels, nodeData.FailureMechanism.GeneralInput);
+                    nodeData.NotifyObservers();
+                }
+            }
         }
 
         private static void GenerateCalculations(CalculationGroup target,

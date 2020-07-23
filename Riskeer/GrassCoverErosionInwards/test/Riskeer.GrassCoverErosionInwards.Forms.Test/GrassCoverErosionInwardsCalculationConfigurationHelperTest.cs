@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
@@ -38,7 +37,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test
         public void GenerateCalculations_CalculationGroupNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => GrassCoverErosionInwardsCalculationConfigurationHelper.GenerateCalculations(null, new List<DikeProfile>());
+            void Call() => GrassCoverErosionInwardsCalculationConfigurationHelper.GenerateCalculations(null, Enumerable.Empty<DikeProfile>());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -73,6 +72,8 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test
             });
 
             // Assert
+            Assert.AreEqual(2, calculationGroup.Children.Count);
+
             var calculation1 = (GrassCoverErosionInwardsCalculationScenario) calculationGroup.Children.First();
             Assert.AreEqual("name", calculation1.Name);
             Assert.AreEqual(dikeProfile1, calculation1.InputParameters.DikeProfile);

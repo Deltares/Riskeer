@@ -334,7 +334,6 @@ namespace Riskeer.HeightStructures.Plugin
 
         private static bool CloseCalculationsViewForData(HeightStructuresCalculationsView view, object o)
         {
-            
             var failureMechanism = o as HeightStructuresFailureMechanism;
 
             if (o is HeightStructuresFailureMechanismContext failureMechanismContext)

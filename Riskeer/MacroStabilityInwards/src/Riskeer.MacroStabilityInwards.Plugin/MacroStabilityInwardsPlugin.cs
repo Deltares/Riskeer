@@ -824,13 +824,16 @@ namespace Riskeer.MacroStabilityInwards.Plugin
 
         private void ShowSurfaceLineSelectionDialog(MacroStabilityInwardsCalculationGroupContext nodeData)
         {
-            using (var view = new MacroStabilityInwardsSurfaceLineSelectionDialog(Gui.MainWindow, nodeData.AvailableMacroStabilityInwardsSurfaceLines))
+            using (var dialog = new MacroStabilityInwardsSurfaceLineSelectionDialog(Gui.MainWindow, nodeData.AvailableMacroStabilityInwardsSurfaceLines))
             {
-                view.ShowDialog();
-                GenerateCalculations(nodeData.WrappedData, view.SelectedItems, nodeData.AvailableStochasticSoilModels);
-            }
+                dialog.ShowDialog();
 
-            nodeData.NotifyObservers();
+                if (dialog.SelectedItems.Any())
+                {
+                    GenerateCalculations(nodeData.WrappedData, dialog.SelectedItems, nodeData.AvailableStochasticSoilModels);
+                    nodeData.NotifyObservers();
+                }
+            }
         }
 
         private static void GenerateCalculations(CalculationGroup target, IEnumerable<MacroStabilityInwardsSurfaceLine> surfaceLines, IEnumerable<MacroStabilityInwardsStochasticSoilModel> soilModels)
