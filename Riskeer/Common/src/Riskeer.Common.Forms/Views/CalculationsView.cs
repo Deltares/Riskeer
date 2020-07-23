@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.Views;
@@ -40,20 +41,29 @@ namespace Riskeer.Common.Forms.Views
     /// Base view for configuring calculations.
     /// </summary>
     /// <typeparam name="TCalculation">The type of calculation.</typeparam>
+    /// /// <typeparam name="TCalculationInput">The type of the calculation input.</typeparam>
     /// <typeparam name="TCalculationRow">The type of the calculation row.</typeparam>
-    public abstract partial class CalculationsView<TCalculation, TCalculationRow> : UserControl, ISelectionProvider, IView
-        where TCalculation : class, ICalculation
+    public abstract partial class CalculationsView<TCalculation, TCalculationInput, TCalculationRow> : UserControl, ISelectionProvider, IView
+        where TCalculation : class, ICalculation<TCalculationInput>
         where TCalculationRow : CalculationRow<TCalculation>
+        where TCalculationInput : class, ICalculationInput
     {
         private const int selectableHydraulicBoundaryLocationColumnIndex = 1;
+
         private readonly IFailureMechanism failureMechanism;
         private readonly IAssessmentSection assessmentSection;
+
+        private Observer failureMechanismObserver;
+        private Observer hydraulicBoundaryLocationsObserver;
+        private RecursiveObserver<CalculationGroup, TCalculationInput> inputObserver;
+        private RecursiveObserver<CalculationGroup, TCalculation> calculationObserver;
+        private RecursiveObserver<CalculationGroup, CalculationGroup> calculationGroupObserver;
 
         private CalculationGroup calculationGroup;
         public event EventHandler<EventArgs> SelectionChanged;
 
         /// <summary>
-        /// Creates a new instance of <see cref="CalculationsView{TCalculation, TCalculationRow}"/>.
+        /// Creates a new instance of <see cref="CalculationsView{TCalculation, TCalculationInput, TCalculationRow}"/>.
         /// </summary>
         /// <param name="calculationGroup">All the calculations of the failure mechanism.</param>
         /// <param name="failureMechanism">The <see cref="IFailureMechanism"/> the calculations belongs to.</param>
@@ -79,6 +89,8 @@ namespace Riskeer.Common.Forms.Views
             this.calculationGroup = calculationGroup;
             this.failureMechanism = failureMechanism;
             this.assessmentSection = assessmentSection;
+
+            InitializeObservers();
 
             InitializeComponent();
 
@@ -107,11 +119,57 @@ namespace Riskeer.Common.Forms.Views
             base.OnLoad(e);
         }
 
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                failureMechanismObserver.Dispose();
+                inputObserver.Dispose();
+                calculationObserver.Dispose();
+                calculationGroupObserver.Dispose();
+                hydraulicBoundaryLocationsObserver.Dispose();
+
+                components?.Dispose();
+            }
+
+            base.Dispose(disposing);
+        }
+
         protected abstract IEnumerable<Point2D> GetReferenceLocations();
 
         protected abstract bool IsCalculationIntersectionWithReferenceLineInSection(TCalculation calculation, IEnumerable<Segment2D> lineSegments);
 
         protected abstract TCalculationRow CreateRow(TCalculation calculation);
+
+        private void InitializeObservers()
+        {
+            failureMechanismObserver = new Observer(UpdateSectionsListBox)
+            {
+                Observable = failureMechanism
+            };
+            hydraulicBoundaryLocationsObserver = new Observer(() =>
+            {
+                PrefillComboBoxListItemsAtColumnLevel();
+                UpdateSelectableHydraulicBoundaryLocationsColumn();
+            })
+            {
+                Observable = assessmentSection.HydraulicBoundaryDatabase.Locations
+            };
+            
+            // The concat is needed to observe the input of calculations in child groups.
+            inputObserver = new RecursiveObserver<CalculationGroup, TCalculationInput>(UpdateDataGridViewDataSource, pcg => pcg.Children.Concat<object>(pcg.Children.OfType<TCalculation>().Select(pc => pc.InputParameters)))
+            {
+                Observable = calculationGroup
+            };
+            calculationObserver = new RecursiveObserver<CalculationGroup, TCalculation>(() => DataGridViewControl.RefreshDataGridView(), pcg => pcg.Children)
+            {
+                Observable = calculationGroup
+            };
+            calculationGroupObserver = new RecursiveObserver<CalculationGroup, CalculationGroup>(UpdateDataGridViewDataSource, pcg => pcg.Children)
+            {
+                Observable = calculationGroup
+            };
+        }
 
         private void InitializeListBox()
         {

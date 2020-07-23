@@ -52,6 +52,8 @@ namespace Riskeer.Common.Forms.Test.Views
 
         private Form testForm;
 
+        #region Initialization
+
         [Test]
         public void Constructor_CalculationGroupNull_ThrowsArgumentNullException()
         {
@@ -123,9 +125,9 @@ namespace Riskeer.Common.Forms.Test.Views
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
+            ConfigureHydraulicBoundaryDatabase(assessmentSection);
             mocks.ReplayAll();
 
-            ConfigureHydraulicBoundaryDatabase(assessmentSection);
             TestFailureMechanism failureMechanism = ConfigureFailureMechanism();
 
             // Call
@@ -144,9 +146,9 @@ namespace Riskeer.Common.Forms.Test.Views
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
+            ConfigureHydraulicBoundaryDatabase(assessmentSection);
             mocks.ReplayAll();
 
-            ConfigureHydraulicBoundaryDatabase(assessmentSection);
             TestFailureMechanism failureMechanism = ConfigureFailureMechanism();
 
             // Call
@@ -187,9 +189,8 @@ namespace Riskeer.Common.Forms.Test.Views
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
             ConfigureHydraulicBoundaryDatabase(assessmentSection);
+            mocks.ReplayAll();
 
             // Call
             ShowCalculationsView(ConfigureCalculationGroup(assessmentSection), ConfigureFailureMechanism(), assessmentSection);
@@ -215,9 +216,9 @@ namespace Riskeer.Common.Forms.Test.Views
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
+            ConfigureHydraulicBoundaryDatabase(assessmentSection);
             mocks.ReplayAll();
 
-            ConfigureHydraulicBoundaryDatabase(assessmentSection);
             var failureMechanism = new TestFailureMechanism();
             var failureMechanismSection1 = new FailureMechanismSection("Section 1", new[]
             {
@@ -253,6 +254,10 @@ namespace Riskeer.Common.Forms.Test.Views
             Assert.AreSame(failureMechanismSection3, listBox.Items[2]);
             mocks.VerifyAll();
         }
+
+        #endregion
+
+        #region Selection
 
         [Test]
         public void CalculationsView_ChangingListBoxSelection_DataGridViewCorrectlySyncedAndSelectionChangedFired()
@@ -339,6 +344,10 @@ namespace Riskeer.Common.Forms.Test.Views
             mocks.VerifyAll();
         }
 
+        #endregion
+
+        #region Cell editing
+
         [Test]
         public void CalculationsView_EditingNameViaDataGridView_ObserversCorrectlyNotified()
         {
@@ -364,6 +373,195 @@ namespace Riskeer.Common.Forms.Test.Views
             // Assert
             mocks.VerifyAll();
         }
+
+        #endregion
+
+        #region Observers
+
+        [Test]
+        public void GivenCalculationsView_WhenSectionsAddedAndFailureMechanismNotified_ThenSectionsListBoxCorrectlyUpdated()
+        {
+            // Given
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            ConfigureHydraulicBoundaryDatabase(assessmentSection);
+            mocks.ReplayAll();
+
+            var failureMechanism = new TestFailureMechanism();
+            var failureMechanismSection1 = new FailureMechanismSection("Section 1", new[]
+            {
+                new Point2D(0.0, 0.0),
+                new Point2D(5.0, 0.0)
+            });
+            var failureMechanismSection2 = new FailureMechanismSection("Section 2", new[]
+            {
+                new Point2D(5.0, 0.0),
+                new Point2D(10.0, 0.0)
+            });
+            var failureMechanismSection3 = new FailureMechanismSection("Section 3", new[]
+            {
+                new Point2D(10.0, 0.0),
+                new Point2D(15.0, 0.0)
+            });
+
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
+            {
+                failureMechanismSection1,
+                failureMechanismSection2
+            });
+
+            ShowCalculationsView(ConfigureCalculationGroup(assessmentSection), failureMechanism, assessmentSection);
+
+            var listBox = (ListBox)new ControlTester("listBox").TheObject;
+
+            // Precondition
+            Assert.AreEqual(2, listBox.Items.Count);
+
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
+            {
+                failureMechanismSection1,
+                failureMechanismSection2,
+                failureMechanismSection3
+            });
+
+            // When
+            failureMechanism.NotifyObservers();
+
+            // Then
+            Assert.AreEqual(3, listBox.Items.Count);
+            Assert.AreSame(failureMechanismSection1, listBox.Items[0]);
+            Assert.AreSame(failureMechanismSection2, listBox.Items[1]);
+            Assert.AreSame(failureMechanismSection3, listBox.Items[2]);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GivenCalculationsView_WhenHydraulicBoundaryDatabaseWithLocationsUpdatedAndNotified_ThenSelectableHydraulicBoundaryLocationsComboboxCorrectlyUpdated()
+        {
+            // Given
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            ConfigureHydraulicBoundaryDatabase(assessmentSection);
+            mocks.ReplayAll();
+
+            ShowCalculationsView(ConfigureCalculationGroup(assessmentSection), ConfigureFailureMechanism(), assessmentSection);
+            
+            var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+            var hydraulicBoundaryLocationCombobox = (DataGridViewComboBoxColumn)dataGridView.Columns[selectableHydraulicBoundaryLocationsColumnIndex];
+            DataGridViewComboBoxCell.ObjectCollection oldHydraulicBoundaryLocationComboboxItems = hydraulicBoundaryLocationCombobox.Items;
+            
+            // Precondition
+            Assert.AreEqual(7, oldHydraulicBoundaryLocationComboboxItems.Count);
+
+            // When
+            assessmentSection.HydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(3, "Location 3", 5.5, 6.6));
+            assessmentSection.HydraulicBoundaryDatabase.Locations.NotifyObservers();
+
+            // Then
+            DataGridViewComboBoxCell.ObjectCollection newHydraulicBoundaryLocationComboboxItems = hydraulicBoundaryLocationCombobox.Items;
+            Assert.AreEqual(10, newHydraulicBoundaryLocationComboboxItems.Count);
+            Assert.AreEqual("<selecteer>", newHydraulicBoundaryLocationComboboxItems[0].ToString());
+            Assert.AreEqual("Location 1", newHydraulicBoundaryLocationComboboxItems[1].ToString());
+            Assert.AreEqual("Location 2", newHydraulicBoundaryLocationComboboxItems[2].ToString());
+            Assert.AreEqual("Location 3", newHydraulicBoundaryLocationComboboxItems[3].ToString());
+            Assert.AreEqual("Location 1 (2 m)", newHydraulicBoundaryLocationComboboxItems[4].ToString());
+            Assert.AreEqual("Location 2 (6 m)", newHydraulicBoundaryLocationComboboxItems[5].ToString());
+            Assert.AreEqual("Location 3 (9 m)", newHydraulicBoundaryLocationComboboxItems[6].ToString());
+            Assert.AreEqual("Location 1 (4 m)", newHydraulicBoundaryLocationComboboxItems[7].ToString());
+            Assert.AreEqual("Location 2 (5 m)", newHydraulicBoundaryLocationComboboxItems[8].ToString());
+            Assert.AreEqual("Location 3 (7 m)", newHydraulicBoundaryLocationComboboxItems[9].ToString());
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GivenCalculationsView_WhenCalculationInputUpdatedAndNotified_ThenDataGridViewCorrectlyUpdated()
+        {
+            // Given
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            ConfigureHydraulicBoundaryDatabase(assessmentSection);
+            mocks.ReplayAll();
+
+            CalculationGroup calculationGroup = ConfigureCalculationGroup(assessmentSection);
+
+            ShowCalculationsView(calculationGroup, ConfigureFailureMechanism(), assessmentSection);
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+
+            var dataSourceUpdated = 0;
+            dataGridView.DataSourceChanged += (sender, args) => dataSourceUpdated++;
+
+            // When
+            TestCalculation calculation = calculationGroup.Children.Cast<TestCalculation>().First();
+            calculation.InputParameters.HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.Last();
+            calculation.InputParameters.NotifyObservers();
+
+            // Then
+            Assert.AreEqual(1, dataSourceUpdated);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GivenCalculationsView_WhenCalculationUpdatedAndNotified_ThenDataGridViewCorrectlyUpdated()
+        {
+            // Given
+            const string calculationName = "New name";
+
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            ConfigureHydraulicBoundaryDatabase(assessmentSection);
+            mocks.ReplayAll();
+
+            CalculationGroup calculationGroup = ConfigureCalculationGroup(assessmentSection);
+
+            ShowCalculationsView(calculationGroup, ConfigureFailureMechanism(), assessmentSection);
+            var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+
+            var invalidated = 0;
+            dataGridView.Invalidated += (sender, args) => invalidated++;
+
+            // When
+            TestCalculation calculation = calculationGroup.Children.Cast<TestCalculation>().First();
+            calculation.Name = calculationName;
+            calculation.NotifyObservers();
+
+            // Then
+            Assert.AreEqual(calculationName, dataGridView.Rows[0].Cells[nameColumnIndex].Value);
+            Assert.AreEqual(1, invalidated);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GivenCalculationsView_WhenCalculationGroupUpdatedAndNotified_ThenDataGridViewCorrectlyUpdated()
+        {
+            // Given
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            ConfigureHydraulicBoundaryDatabase(assessmentSection);
+            mocks.ReplayAll();
+
+            CalculationGroup calculationGroup = ConfigureCalculationGroup(assessmentSection);
+
+            ShowCalculationsView(calculationGroup, ConfigureFailureMechanism(), assessmentSection);
+            var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+
+            var dataSourceUpdated = 0;
+            dataGridView.DataSourceChanged += (sender, args) => dataSourceUpdated++;
+
+            // Precondition
+            DataGridViewRowCollection rows = dataGridView.Rows;
+            Assert.AreEqual(2, rows.Count);
+
+            // When
+            calculationGroup.Children.Add(new TestCalculation());
+            calculationGroup.NotifyObservers();
+
+            // Then
+            Assert.AreEqual(3, rows.Count);
+            Assert.AreEqual(1, dataSourceUpdated);
+            mocks.VerifyAll();
+        }
+
+        #endregion
 
         public override void Setup()
         {
@@ -458,7 +656,7 @@ namespace Riskeer.Common.Forms.Test.Views
             return calculationsView;
         }
 
-        private class TestCalculationsView : CalculationsView<TestCalculation, TestCalculationRow>
+        private class TestCalculationsView : CalculationsView<TestCalculation, TestCalculationInput, TestCalculationRow>
         {
             public TestCalculationsView(CalculationGroup calculationGroup, IFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
                 : base(calculationGroup, failureMechanism, assessmentSection) {}
