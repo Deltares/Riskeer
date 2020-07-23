@@ -53,7 +53,7 @@ namespace Riskeer.Common.Forms.Views
         public event EventHandler<EventArgs> SelectionChanged;
 
         /// <summary>
-        /// Creates a new instance of <see cref="CalculationsView"/>.
+        /// Creates a new instance of <see cref="CalculationsView{TCalculation, TCalculationRow}"/>.
         /// </summary>
         /// <param name="calculationGroup">All the calculations of the failure mechanism.</param>
         /// <param name="failureMechanism">The <see cref="IFailureMechanism"/> the calculations belongs to.</param>
@@ -113,6 +113,7 @@ namespace Riskeer.Common.Forms.Views
         private void InitializeListBox()
         {
             listBox.DisplayMember = nameof(FailureMechanismSection.Name);
+            listBox.SelectedValueChanged += ListBoxOnSelectedValueChanged;
         }
 
         private void UpdateSectionsListBox()
@@ -128,6 +129,8 @@ namespace Riskeer.Common.Forms.Views
 
         private void InitializeDataGridView()
         {
+            dataGridViewControl.CurrentRowChanged += DataGridViewOnCurrentRowChangedHandler;
+
             dataGridViewControl.AddTextBoxColumn(
                 nameof(CalculationRow<TCalculation>.Name),
                 Resources.FailureMechanism_Name_DisplayName);
@@ -254,6 +257,25 @@ namespace Riskeer.Common.Forms.Views
         {
             return SelectableHydraulicBoundaryLocationHelper.GetSortedSelectableHydraulicBoundaryLocations(
                 hydraulicBoundaryLocations, referencePoint);
+        }
+
+        #endregion
+
+        #region Event handling
+
+        private void DataGridViewOnCurrentRowChangedHandler(object sender, EventArgs e)
+        {
+            OnSelectionChanged();
+        }
+
+        private void OnSelectionChanged()
+        {
+            SelectionChanged?.Invoke(this, new EventArgs());
+        }
+
+        private void ListBoxOnSelectedValueChanged(object sender, EventArgs e)
+        {
+            UpdateDataGridViewDataSource();
         }
 
         #endregion

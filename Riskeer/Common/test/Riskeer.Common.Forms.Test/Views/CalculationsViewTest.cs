@@ -22,9 +22,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Windows.Forms;
 using Core.Common.Base.Geometry;
+using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.Views;
+using Core.Common.TestUtil;
+using Core.Common.Util.Reflection;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -249,6 +253,67 @@ namespace Riskeer.Common.Forms.Test.Views
             mocks.VerifyAll();
         }
 
+        [Test]
+        public void CalculationsView_ChangingListBoxSelection_DataGridViewCorrectlySyncedAndSelectionChangedFired()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            TestCalculationsView calculationsView = ShowFullyConfiguredCalculationsView(assessmentSection);
+
+            var selectionChangedCount = 0;
+            calculationsView.SelectionChanged += (sender, args) => selectionChangedCount++;
+
+            var listBox = (ListBox)new ControlTester("listBox").TheObject;
+            var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+
+            // Precondition
+            Assert.AreEqual(2, dataGridView.Rows.Count);
+            Assert.AreEqual("Calculation 1", dataGridView.Rows[0].Cells[nameColumnIndex].FormattedValue);
+            Assert.AreEqual("Calculation 2", dataGridView.Rows[1].Cells[nameColumnIndex].FormattedValue);
+
+            // Call
+            listBox.SelectedIndex = 1;
+
+            // Assert
+            Assert.AreEqual(2, dataGridView.Rows.Count);
+            Assert.AreEqual("Calculation 1", dataGridView.Rows[0].Cells[nameColumnIndex].FormattedValue);
+            Assert.AreEqual("Calculation 2", dataGridView.Rows[1].Cells[nameColumnIndex].FormattedValue);
+            Assert.AreEqual(2, selectionChangedCount);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [Apartment(ApartmentState.STA)]
+        public void CalculationsView_SelectingCellInRow_SelectionChangedFired()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            TestCalculationsView calculationsView = ShowFullyConfiguredCalculationsView(assessmentSection);
+
+            var selectionChangedCount = 0;
+            calculationsView.SelectionChanged += (sender, args) => selectionChangedCount++;
+
+            var control = TypeUtils.GetField<DataGridViewControl>(calculationsView, "dataGridViewControl");
+            WindowsFormsTestHelper.Show(control);
+
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+            dataGridView.CurrentCell = dataGridView.Rows[0].Cells[0];
+
+            // Call                
+            EventHelper.RaiseEvent(dataGridView, "CellClick", new DataGridViewCellEventArgs(1, 0));
+
+            // Assert
+            Assert.AreEqual(1, selectionChangedCount);
+            WindowsFormsTestHelper.CloseAll();
+            mocks.VerifyAll();
+        }
+
         public override void Setup()
         {
             base.Setup();
@@ -321,6 +386,15 @@ namespace Riskeer.Common.Forms.Test.Views
                     }
                 }
             };
+        }
+
+        private TestCalculationsView ShowFullyConfiguredCalculationsView(IAssessmentSection assessmentSection)
+        {
+            ConfigureHydraulicBoundaryDatabase(assessmentSection);
+
+            TestFailureMechanism failureMechanism = ConfigureFailureMechanism();
+
+            return ShowCalculationsView(ConfigureCalculationGroup(assessmentSection), failureMechanism, assessmentSection);
         }
 
         private TestCalculationsView ShowCalculationsView(CalculationGroup calculationGroup, IFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
