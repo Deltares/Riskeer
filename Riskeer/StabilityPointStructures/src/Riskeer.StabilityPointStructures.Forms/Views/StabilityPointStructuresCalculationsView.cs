@@ -306,9 +306,9 @@ namespace Riskeer.StabilityPointStructures.Forms.Views
 
             IEnumerable<Segment2D> lineSegments = Math2D.ConvertPointsToLineSegments(failureMechanismSection.Points);
             IEnumerable<StructuresCalculationScenario<StabilityPointStructuresInput>> calculationScenarios = calculationGroup
-                                                                                                     .GetCalculations()
-                                                                                                     .OfType<StructuresCalculationScenario<StabilityPointStructuresInput>>()
-                                                                                                     .Where(cs => cs.IsStructureIntersectionWithReferenceLineInSection(lineSegments));
+                                                                                                             .GetCalculations()
+                                                                                                             .OfType<StructuresCalculationScenario<StabilityPointStructuresInput>>()
+                                                                                                             .Where(cs => cs.IsStructureIntersectionWithReferenceLineInSection(lineSegments));
 
             PrefillComboBoxListItemsAtColumnLevel();
 
@@ -463,10 +463,13 @@ namespace Riskeer.StabilityPointStructures.Forms.Views
             using (var dialog = new StructureSelectionDialog(Parent, failureMechanism.StabilityPointStructures))
             {
                 dialog.ShowDialog();
-                StructureCalculationConfigurationHelper.GenerateCalculations<StabilityPointStructure, StabilityPointStructuresInput>(calculationGroup, dialog.SelectedItems.Cast<StabilityPointStructure>());
-            }
 
-            calculationGroup.NotifyObservers();
+                if (dialog.SelectedItems.Any())
+                {
+                    StructureCalculationConfigurationHelper.GenerateCalculations<StabilityPointStructure, StabilityPointStructuresInput>(calculationGroup, dialog.SelectedItems.Cast<StabilityPointStructure>());
+                    calculationGroup.NotifyObservers();
+                }
+            }
         }
 
         private void OnFailureMechanismUpdate()
