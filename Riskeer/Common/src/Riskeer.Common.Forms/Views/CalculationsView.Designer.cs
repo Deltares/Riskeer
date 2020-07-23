@@ -1,4 +1,6 @@
-﻿namespace Riskeer.Common.Forms.Views
+﻿using Core.Common.Controls.DataGrid;
+
+namespace Riskeer.Common.Forms.Views
 {
     partial class CalculationsView<TCalculation, TCalculationRow>
     {
@@ -31,8 +33,8 @@
             this.splitContainer = new System.Windows.Forms.SplitContainer();
             this.listBox = new System.Windows.Forms.ListBox();
             this.sectionsLabel = new System.Windows.Forms.Label();
-            this.DataGridTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
-            this.dataGridViewControl = new Core.Common.Controls.DataGrid.DataGridViewControl();
+            this.dataGridTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
+            this.DataGridViewControl = new Core.Common.Controls.DataGrid.DataGridViewControl();
             this.calculationsLabel = new System.Windows.Forms.Label();
             this.tableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.generateButton = new System.Windows.Forms.Button();
@@ -40,7 +42,7 @@
             this.splitContainer.Panel1.SuspendLayout();
             this.splitContainer.Panel2.SuspendLayout();
             this.splitContainer.SuspendLayout();
-            this.DataGridTableLayoutPanel.SuspendLayout();
+            this.dataGridTableLayoutPanel.SuspendLayout();
             this.tableLayoutPanel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -57,7 +59,7 @@
             // 
             // splitContainer.Panel2
             // 
-            this.splitContainer.Panel2.Controls.Add(this.DataGridTableLayoutPanel);
+            this.splitContainer.Panel2.Controls.Add(this.dataGridTableLayoutPanel);
             this.splitContainer.Panel2.Controls.Add(this.calculationsLabel);
             this.splitContainer.Size = new System.Drawing.Size(1162, 473);
             this.splitContainer.SplitterDistance = 331;
@@ -82,28 +84,28 @@
             this.sectionsLabel.TabIndex = 0;
             this.sectionsLabel.Text = "Vak";
             // 
-            // DataGridTableLayoutPanel
+            // dataGridTableLayoutPanel
             // 
-            this.DataGridTableLayoutPanel.ColumnCount = 1;
-            this.DataGridTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.DataGridTableLayoutPanel.Controls.Add(this.dataGridViewControl, 0, 0);
-            this.DataGridTableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.DataGridTableLayoutPanel.Location = new System.Drawing.Point(0, 13);
-            this.DataGridTableLayoutPanel.Name = "DataGridTableLayoutPanel";
-            this.DataGridTableLayoutPanel.RowCount = 1;
-            this.DataGridTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.DataGridTableLayoutPanel.Size = new System.Drawing.Size(827, 460);
-            this.DataGridTableLayoutPanel.TabIndex = 1;
+            this.dataGridTableLayoutPanel.ColumnCount = 1;
+            this.dataGridTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.dataGridTableLayoutPanel.Controls.Add(this.DataGridViewControl, 0, 0);
+            this.dataGridTableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridTableLayoutPanel.Location = new System.Drawing.Point(0, 13);
+            this.dataGridTableLayoutPanel.Name = "dataGridTableLayoutPanel";
+            this.dataGridTableLayoutPanel.RowCount = 1;
+            this.dataGridTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.dataGridTableLayoutPanel.Size = new System.Drawing.Size(827, 460);
+            this.dataGridTableLayoutPanel.TabIndex = 1;
             // 
             // dataGridViewControl
             // 
-            this.dataGridViewControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridViewControl.Location = new System.Drawing.Point(3, 3);
-            this.dataGridViewControl.MultiSelect = true;
-            this.dataGridViewControl.Name = "dataGridViewControl";
-            this.dataGridViewControl.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.RowHeaderSelect;
-            this.dataGridViewControl.Size = new System.Drawing.Size(821, 434);
-            this.dataGridViewControl.TabIndex = 0;
+            this.DataGridViewControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.DataGridViewControl.Location = new System.Drawing.Point(3, 3);
+            this.DataGridViewControl.MultiSelect = true;
+            this.DataGridViewControl.Name = "dataGridViewControl";
+            this.DataGridViewControl.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.RowHeaderSelect;
+            this.DataGridViewControl.Size = new System.Drawing.Size(821, 434);
+            this.DataGridViewControl.TabIndex = 0;
             // 
             // calculationsLabel
             // 
@@ -150,7 +152,7 @@
             this.splitContainer.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).EndInit();
             this.splitContainer.ResumeLayout(false);
-            this.DataGridTableLayoutPanel.ResumeLayout(false);
+            this.dataGridTableLayoutPanel.ResumeLayout(false);
             this.tableLayoutPanel.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -164,7 +166,7 @@
         private System.Windows.Forms.Label calculationsLabel;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel;
         private System.Windows.Forms.Button generateButton;
-        protected System.Windows.Forms.TableLayoutPanel DataGridTableLayoutPanel;
-        private Core.Common.Controls.DataGrid.DataGridViewControl dataGridViewControl;
+        private System.Windows.Forms.TableLayoutPanel dataGridTableLayoutPanel;
+        public DataGridViewControl DataGridViewControl { get; private set; }
     }
 }

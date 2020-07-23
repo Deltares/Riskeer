@@ -314,6 +314,30 @@ namespace Riskeer.Common.Forms.Test.Views
             mocks.VerifyAll();
         }
 
+        [Test]
+        [TestCase(0)]
+        [TestCase(1)]
+        public void Selection_Always_ReturnsTheSelectedRowObject(int selectedRow)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            TestCalculationsView calculationsView = ShowFullyConfiguredCalculationsView(assessmentSection);
+
+            var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+
+            dataGridView.CurrentCell = dataGridView.Rows[selectedRow].Cells[0];
+
+            // Call
+            object selection = calculationsView.Selection;
+
+            // Assert
+            Assert.IsInstanceOf<TestCalculationRow>(selection);
+            mocks.VerifyAll();
+        }
+
         public override void Setup()
         {
             base.Setup();
@@ -411,6 +435,12 @@ namespace Riskeer.Common.Forms.Test.Views
         {
             public TestCalculationsView(CalculationGroup calculationGroup, IFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
                 : base(calculationGroup, failureMechanism, assessmentSection) {}
+
+            protected override object CreateSelectedItemFromCurrentRow()
+            {
+                DataGridViewRow currentRow = DataGridViewControl.CurrentRow;
+                return (TestCalculationRow) currentRow?.DataBoundItem;
+            }
 
             protected override IEnumerable<Point2D> GetReferenceLocations()
             {

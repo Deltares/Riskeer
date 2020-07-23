@@ -89,13 +89,15 @@ namespace Riskeer.Common.Forms.Views
             UpdateDataGridViewDataSource();
         }
 
-        public object Selection { get; }
+        public object Selection => CreateSelectedItemFromCurrentRow();
 
         public object Data
         {
             get => calculationGroup;
             set => calculationGroup = value as CalculationGroup;
         }
+
+        protected abstract object CreateSelectedItemFromCurrentRow();
 
         protected override void OnLoad(EventArgs e)
         {
@@ -104,6 +106,7 @@ namespace Riskeer.Common.Forms.Views
 
             base.OnLoad(e);
         }
+
         protected abstract IEnumerable<Point2D> GetReferenceLocations();
 
         protected abstract bool IsCalculationIntersectionWithReferenceLineInSection(TCalculation calculation, IEnumerable<Segment2D> lineSegments);
@@ -129,13 +132,13 @@ namespace Riskeer.Common.Forms.Views
 
         private void InitializeDataGridView()
         {
-            dataGridViewControl.CurrentRowChanged += DataGridViewOnCurrentRowChangedHandler;
+            DataGridViewControl.CurrentRowChanged += DataGridViewOnCurrentRowChangedHandler;
 
-            dataGridViewControl.AddTextBoxColumn(
+            DataGridViewControl.AddTextBoxColumn(
                 nameof(CalculationRow<TCalculation>.Name),
                 Resources.FailureMechanism_Name_DisplayName);
 
-            dataGridViewControl.AddComboBoxColumn<DataGridViewComboBoxItemWrapper<SelectableHydraulicBoundaryLocation>>(
+            DataGridViewControl.AddComboBoxColumn<DataGridViewComboBoxItemWrapper<SelectableHydraulicBoundaryLocation>>(
                 nameof(CalculationRow<TCalculation>.SelectableHydraulicBoundaryLocation),
                 Resources.HydraulicBoundaryLocation_DisplayName,
                 null,
@@ -146,14 +149,14 @@ namespace Riskeer.Common.Forms.Views
         private void UpdateDataGridViewDataSource()
         {
             // Skip changes coming from the view itself
-            if (dataGridViewControl.IsCurrentCellInEditMode)
+            if (DataGridViewControl.IsCurrentCellInEditMode)
             {
-                dataGridViewControl.AutoResizeColumns();
+                DataGridViewControl.AutoResizeColumns();
             }
 
             if (!(listBox.SelectedItem is FailureMechanismSection failureMechanismSection))
             {
-                dataGridViewControl.SetDataSource(null);
+                DataGridViewControl.SetDataSource(null);
                 return;
             }
 
@@ -166,8 +169,8 @@ namespace Riskeer.Common.Forms.Views
             PrefillComboBoxListItemsAtColumnLevel();
 
             List<TCalculationRow> dataSource = calculations.Select(CreateRow).ToList();
-            dataGridViewControl.SetDataSource(dataSource);
-            dataGridViewControl.ClearCurrentCell();
+            DataGridViewControl.SetDataSource(dataSource);
+            DataGridViewControl.ClearCurrentCell();
 
             UpdateSelectableHydraulicBoundaryLocationsColumn();
         }
@@ -176,7 +179,7 @@ namespace Riskeer.Common.Forms.Views
 
         private void PrefillComboBoxListItemsAtColumnLevel()
         {
-            var selectableHydraulicBoundaryLocationColumn = (DataGridViewComboBoxColumn) dataGridViewControl.GetColumnFromIndex(selectableHydraulicBoundaryLocationColumnIndex);
+            var selectableHydraulicBoundaryLocationColumn = (DataGridViewComboBoxColumn) DataGridViewControl.GetColumnFromIndex(selectableHydraulicBoundaryLocationColumnIndex);
 
             // Need to prefill for all possible data in order to guarantee 'combo box' columns
             // do not generate errors when their cell value is not present in the list of available
@@ -200,11 +203,11 @@ namespace Riskeer.Common.Forms.Views
 
         private void UpdateSelectableHydraulicBoundaryLocationsColumn()
         {
-            var column = (DataGridViewComboBoxColumn) dataGridViewControl.GetColumnFromIndex(selectableHydraulicBoundaryLocationColumnIndex);
+            var column = (DataGridViewComboBoxColumn) DataGridViewControl.GetColumnFromIndex(selectableHydraulicBoundaryLocationColumnIndex);
 
             using (new SuspendDataGridViewColumnResizes(column))
             {
-                foreach (DataGridViewRow dataGridViewRow in dataGridViewControl.Rows)
+                foreach (DataGridViewRow dataGridViewRow in DataGridViewControl.Rows)
                 {
                     FillAvailableSelectableHydraulicBoundaryLocationsList(dataGridViewRow);
                 }
