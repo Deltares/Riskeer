@@ -32,6 +32,7 @@ using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Forms.PropertyClasses;
 using Riskeer.Common.Forms.TestUtil;
+using Riskeer.Common.Forms.Views;
 using Riskeer.Piping.Data;
 using Riskeer.Piping.Data.SoilProfile;
 using Riskeer.Piping.Data.TestUtil;
@@ -45,35 +46,7 @@ namespace Riskeer.Piping.Forms.Test.Views
     public class PipingCalculationRowTest
     {
         [Test]
-        public void Constructor_WithoutPipingCalculation_ThrowsArgumentNullException()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
-            mocks.ReplayAll();
-
-            // Call
-            TestDelegate test = () => new PipingCalculationRow(null, handler);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("pipingCalculation", paramName);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Constructor_WithoutHandler_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate test = () => new PipingCalculationRow(new PipingCalculationScenario(new GeneralPipingInput()), null);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("handler", paramName);
-        }
-
-        [Test]
-        public void Constructor_WithPipingCalculation_PropertiesFromPipingCalculation()
+        public void Constructor_ExpectedValues()
         {
             // Setup
             var mocks = new MockRepository();
@@ -118,7 +91,9 @@ namespace Riskeer.Piping.Forms.Test.Views
             var row = new PipingCalculationRow(calculation, handler);
 
             // Assert
-            Assert.AreSame(calculation, row.PipingCalculation);
+            Assert.IsInstanceOf<CalculationRow<PipingCalculationScenario>>(row);
+
+            Assert.AreSame(calculation, row.Calculation);
             Assert.AreEqual(calculation.Name, row.Name);
             Assert.AreSame(stochasticSoilModel, row.StochasticSoilModel.WrappedObject);
             Assert.AreSame(stochasticSoilProfile, row.StochasticSoilProfile.WrappedObject);
@@ -130,54 +105,6 @@ namespace Riskeer.Piping.Forms.Test.Views
             Assert.AreEqual(calculation.InputParameters.EntryPointL, row.EntryPointL);
             Assert.AreEqual(calculation.InputParameters.ExitPointL, row.ExitPointL);
             mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Constructor_WithPipingCalculationWithInvalidInput_PropertiesFromPipingCalculation()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
-            mocks.ReplayAll();
-
-            PipingCalculationScenario calculation = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithInvalidInput();
-
-            // Call
-            var row = new PipingCalculationRow(calculation, handler);
-
-            // Assert
-            Assert.AreSame(calculation, row.PipingCalculation);
-            Assert.IsNull(row.StochasticSoilModel.WrappedObject);
-            Assert.IsNull(row.StochasticSoilProfile.WrappedObject);
-            Assert.AreEqual(2, row.StochasticSoilProfileProbability.NumberOfDecimalPlaces);
-            Assert.AreEqual(0, row.StochasticSoilProfileProbability, row.StochasticSoilProfileProbability.GetAccuracy());
-            Assert.IsNull(row.SelectableHydraulicBoundaryLocation.WrappedObject);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Name_AlwaysOnChange_NotifyObserverAndCalculationPropertyChanged()
-        {
-            // Setup
-            var mockRepository = new MockRepository();
-            var observer = mockRepository.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
-            mockRepository.ReplayAll();
-
-            const string newValue = "Test new name";
-
-            var calculation = new PipingCalculationScenario(new GeneralPipingInput());
-            var row = new PipingCalculationRow(calculation, handler);
-
-            calculation.Attach(observer);
-
-            // Call
-            row.Name = newValue;
-
-            // Assert
-            Assert.AreEqual(newValue, calculation.Name);
-            mockRepository.VerifyAll();
         }
 
         [Test]

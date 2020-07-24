@@ -21,15 +21,11 @@
 
 using System.Globalization;
 using System.Linq;
-using System.Threading;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Controls.DataGrid;
-using Core.Common.Controls.Views;
-using Core.Common.TestUtil;
-using Core.Common.Util.Reflection;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -38,6 +34,7 @@ using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
+using Riskeer.Common.Forms.Views;
 using Riskeer.Piping.Data;
 using Riskeer.Piping.Data.SoilProfile;
 using Riskeer.Piping.Data.TestUtil;
@@ -52,10 +49,10 @@ namespace Riskeer.Piping.Forms.Test.Views
     public class PipingCalculationsViewTest : NUnitFormTest
     {
         private const int nameColumnIndex = 0;
-        private const int stochasticSoilModelsColumnIndex = 1;
-        private const int stochasticSoilProfilesColumnIndex = 2;
-        private const int stochasticSoilProfilesProbabilityColumnIndex = 3;
-        private const int selectableHydraulicBoundaryLocationsColumnIndex = 4;
+        private const int selectableHydraulicBoundaryLocationsColumnIndex = 1;
+        private const int stochasticSoilModelsColumnIndex = 2;
+        private const int stochasticSoilProfilesColumnIndex = 3;
+        private const int stochasticSoilProfilesProbabilityColumnIndex = 4;
         private const int dampingFactorExitMeanColumnIndex = 5;
         private const int phreaticLevelExitMeanColumnIndex = 6;
         private const int entryPointLColumnIndex = 7;
@@ -63,18 +60,13 @@ namespace Riskeer.Piping.Forms.Test.Views
         private Form testForm;
 
         [Test]
-        public void Constructor_DefaultValues()
+        public void Constructor_ExpectedValues()
         {
             // Call
-            using (var pipingCalculationsView = new PipingCalculationsView())
+            using (var view = new PipingCalculationsView(new CalculationGroup(), new PipingFailureMechanism(), new AssessmentSectionStub()))
             {
                 // Assert
-                Assert.IsInstanceOf<UserControl>(pipingCalculationsView);
-                Assert.IsInstanceOf<IView>(pipingCalculationsView);
-                Assert.IsInstanceOf<ISelectionProvider>(pipingCalculationsView);
-                Assert.IsNull(pipingCalculationsView.Data);
-                Assert.IsNull(pipingCalculationsView.PipingFailureMechanism);
-                Assert.IsNull(pipingCalculationsView.AssessmentSection);
+                Assert.IsInstanceOf<CalculationsView<PipingCalculationScenario, PipingInput, PipingCalculationRow, PipingFailureMechanism>>(view);
             }
         }
 
@@ -82,229 +74,67 @@ namespace Riskeer.Piping.Forms.Test.Views
         public void Constructor_DataGridViewCorrectlyInitialized()
         {
             // Call
-            using (ShowPipingCalculationsView())
+            ShowPipingCalculationsView(new CalculationGroup(), new PipingFailureMechanism(), new AssessmentSectionStub());
+
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+
+            // Assert
+            Assert.IsFalse(dataGridView.AutoGenerateColumns);
+            Assert.AreEqual(9, dataGridView.ColumnCount);
+
+            Assert.AreEqual("Naam", dataGridView.Columns[nameColumnIndex].HeaderText);
+            Assert.AreEqual("Hydraulische belastingenlocatie", dataGridView.Columns[selectableHydraulicBoundaryLocationsColumnIndex].HeaderText);
+            Assert.AreEqual("Stochastisch ondergrondmodel", dataGridView.Columns[stochasticSoilModelsColumnIndex].HeaderText);
+            Assert.AreEqual("Ondergrondschematisatie", dataGridView.Columns[stochasticSoilProfilesColumnIndex].HeaderText);
+            Assert.AreEqual("Aandeel van schematisatie\r\nin het stochastische ondergrondmodel\r\n[%]", dataGridView.Columns[stochasticSoilProfilesProbabilityColumnIndex].HeaderText);
+            Assert.AreEqual("Verwachtingswaarde\r\ndempingsfactor bij uittredepunt\r\n[-]", dataGridView.Columns[dampingFactorExitMeanColumnIndex].HeaderText);
+            Assert.AreEqual("Verwachtingswaarde\r\npolderpeil\r\n[m+NAP]", dataGridView.Columns[phreaticLevelExitMeanColumnIndex].HeaderText);
+            Assert.AreEqual("Intredepunt", dataGridView.Columns[entryPointLColumnIndex].HeaderText);
+            Assert.AreEqual("Uittredepunt", dataGridView.Columns[exitPointLColumnIndex].HeaderText);
+
+            foreach (DataGridViewComboBoxColumn column in dataGridView.Columns.OfType<DataGridViewComboBoxColumn>())
             {
-                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-
-                // Assert
-                Assert.IsFalse(dataGridView.AutoGenerateColumns);
-                Assert.AreEqual(9, dataGridView.ColumnCount);
-
-                foreach (DataGridViewComboBoxColumn column in dataGridView.Columns.OfType<DataGridViewComboBoxColumn>())
-                {
-                    Assert.AreEqual("This", column.ValueMember);
-                    Assert.AreEqual("DisplayName", column.DisplayMember);
-                }
-
-                var soilProfilesCombobox = (DataGridViewComboBoxColumn) dataGridView.Columns[stochasticSoilProfilesColumnIndex];
-                DataGridViewComboBoxCell.ObjectCollection soilProfilesComboboxItems = soilProfilesCombobox.Items;
-                Assert.AreEqual(0, soilProfilesComboboxItems.Count); // Row dependent
-
-                var hydraulicBoundaryLocationCombobox = (DataGridViewComboBoxColumn) dataGridView.Columns[selectableHydraulicBoundaryLocationsColumnIndex];
-                DataGridViewComboBoxCell.ObjectCollection hydraulicBoundaryLocationComboboxItems = hydraulicBoundaryLocationCombobox.Items;
-                Assert.AreEqual(0, hydraulicBoundaryLocationComboboxItems.Count); // Row dependent
-            }
-        }
-
-        [Test]
-        public void Constructor_DataGridViewControlColumnHeadersCorrectlyInitialized_()
-        {
-            // Call
-            using (ShowPipingCalculationsView())
-            {
-                // Assert
-                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-                Assert.AreEqual(9, dataGridView.ColumnCount);
-                Assert.AreEqual("Naam", dataGridView.Columns[nameColumnIndex].HeaderText);
-                Assert.AreEqual("Stochastisch ondergrondmodel", dataGridView.Columns[stochasticSoilModelsColumnIndex].HeaderText);
-                Assert.AreEqual("Ondergrondschematisatie", dataGridView.Columns[stochasticSoilProfilesColumnIndex].HeaderText);
-                Assert.AreEqual("Aandeel van schematisatie\r\nin het stochastische ondergrondmodel\r\n[%]", dataGridView.Columns[stochasticSoilProfilesProbabilityColumnIndex].HeaderText);
-                Assert.AreEqual("Hydraulische belastingenlocatie", dataGridView.Columns[selectableHydraulicBoundaryLocationsColumnIndex].HeaderText);
-                Assert.AreEqual("Verwachtingswaarde\r\ndempingsfactor bij uittredepunt\r\n[-]", dataGridView.Columns[dampingFactorExitMeanColumnIndex].HeaderText);
-                Assert.AreEqual("Verwachtingswaarde\r\npolderpeil\r\n[m+NAP]", dataGridView.Columns[phreaticLevelExitMeanColumnIndex].HeaderText);
-                Assert.AreEqual("Intredepunt", dataGridView.Columns[entryPointLColumnIndex].HeaderText);
-                Assert.AreEqual("Uittredepunt", dataGridView.Columns[exitPointLColumnIndex].HeaderText);
-            }
-        }
-
-        [Test]
-        public void Constructor_ListBoxCorrectlyInitialized()
-        {
-            // Call
-            using (ShowPipingCalculationsView())
-            {
-                var listBox = (ListBox) new ControlTester("listBox").TheObject;
-
-                // Assert
-                Assert.AreEqual(0, listBox.Items.Count);
-            }
-        }
-
-        [Test]
-        public void Data_SetToNull_DoesNotThrow()
-        {
-            // Setup
-            using (PipingCalculationsView pipingCalculationsView = ShowPipingCalculationsView())
-            {
-                // Call
-                var testDelegate = new TestDelegate(() => pipingCalculationsView.Data = null);
-
-                // Assert
-                Assert.DoesNotThrow(testDelegate);
-            }
-        }
-
-        [Test]
-        public void AssessmentSection_WithHydraulicBoundaryDatabaseSurfaceLinesNull_SelectableHydraulicBoundaryLocationsComboboxCorrectlyInitialized()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            using (PipingCalculationsView pipingCalculationsView = ShowSimplePipingCalculationsViewWithoutSurfaceLines(
-                assessmentSection, new HydraulicBoundaryDatabase()))
-            {
-                // Call
-                pipingCalculationsView.AssessmentSection = assessmentSection;
-
-                // Assert
-                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-                var hydraulicBoundaryLocationCombobox = (DataGridViewComboBoxColumn) dataGridView.Columns[selectableHydraulicBoundaryLocationsColumnIndex];
-                DataGridViewComboBoxCell.ObjectCollection hydraulicBoundaryLocationComboboxItems = hydraulicBoundaryLocationCombobox.Items;
-                Assert.AreEqual(3, hydraulicBoundaryLocationComboboxItems.Count);
-                Assert.AreEqual("<selecteer>", hydraulicBoundaryLocationComboboxItems[0].ToString());
-                Assert.AreEqual("Location 1", hydraulicBoundaryLocationComboboxItems[1].ToString());
-                Assert.AreEqual("Location 2", hydraulicBoundaryLocationComboboxItems[2].ToString());
+                Assert.AreEqual("This", column.ValueMember);
+                Assert.AreEqual("DisplayName", column.DisplayMember);
             }
 
-            mocks.VerifyAll();
-        }
+            var soilProfilesCombobox = (DataGridViewComboBoxColumn) dataGridView.Columns[stochasticSoilProfilesColumnIndex];
+            DataGridViewComboBoxCell.ObjectCollection soilProfilesComboboxItems = soilProfilesCombobox.Items;
+            Assert.AreEqual(0, soilProfilesComboboxItems.Count); // Row dependent
 
-        [Test]
-        public void AssessmentSection_WithSurfaceLinesHydraulicBoundaryDatabaseNotLinked_SelectableHydraulicBoundaryLocationsComboboxCorrectlyInitialized()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
-            assessmentSection.Stub(a => a.Attach(null)).IgnoreArguments();
-            assessmentSection.Stub(a => a.Detach(null)).IgnoreArguments();
-            mocks.ReplayAll();
-
-            using (PipingCalculationsView pipingCalculationsView = ShowSimplePipingCalculationsViewWithSurfaceLines(
-                assessmentSection))
-            {
-                // Call
-                pipingCalculationsView.AssessmentSection = assessmentSection;
-
-                // Assert
-                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-                var hydraulicBoundaryLocationCombobox = (DataGridViewComboBoxColumn) dataGridView.Columns[selectableHydraulicBoundaryLocationsColumnIndex];
-                DataGridViewComboBoxCell.ObjectCollection hydraulicBoundaryLocationComboboxItems = hydraulicBoundaryLocationCombobox.Items;
-                Assert.AreEqual(1, hydraulicBoundaryLocationComboboxItems.Count);
-                Assert.AreEqual("<selecteer>", hydraulicBoundaryLocationComboboxItems[0].ToString());
-            }
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void AssessmentSection_HydraulicBoundaryDatabaseWithLocationsAndSurfaceLines_SelectableHydraulicBoundaryLocationsComboboxCorrectlyInitialized()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            using (PipingCalculationsView pipingCalculationsView = ShowFullyConfiguredPipingCalculationsView(
-                assessmentSection))
-            {
-                // Call
-                pipingCalculationsView.AssessmentSection = assessmentSection;
-
-                // Assert
-                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-                var hydraulicBoundaryLocationCombobox = (DataGridViewComboBoxColumn) dataGridView.Columns[selectableHydraulicBoundaryLocationsColumnIndex];
-                DataGridViewComboBoxCell.ObjectCollection hydraulicBoundaryLocationComboboxItems = hydraulicBoundaryLocationCombobox.Items;
-                Assert.AreEqual(7, hydraulicBoundaryLocationComboboxItems.Count);
-                Assert.AreEqual("<selecteer>", hydraulicBoundaryLocationComboboxItems[0].ToString());
-                Assert.AreEqual("Location 1", hydraulicBoundaryLocationComboboxItems[1].ToString());
-                Assert.AreEqual("Location 2", hydraulicBoundaryLocationComboboxItems[2].ToString());
-                Assert.AreEqual("Location 1 (2 m)", hydraulicBoundaryLocationComboboxItems[3].ToString());
-                Assert.AreEqual("Location 2 (6 m)", hydraulicBoundaryLocationComboboxItems[4].ToString());
-                Assert.AreEqual("Location 1 (4 m)", hydraulicBoundaryLocationComboboxItems[5].ToString());
-                Assert.AreEqual("Location 2 (5 m)", hydraulicBoundaryLocationComboboxItems[6].ToString());
-            }
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void PipingFailureMechanism_PipingFailureMechanismWithSections_SectionsListBoxCorrectlyInitialized()
-        {
-            // Setup
-            var failureMechanism = new PipingFailureMechanism();
-            var failureMechanismSection1 = new FailureMechanismSection("Section 1", new[]
-            {
-                new Point2D(0.0, 0.0),
-                new Point2D(5.0, 0.0)
-            });
-            var failureMechanismSection2 = new FailureMechanismSection("Section 2", new[]
-            {
-                new Point2D(5.0, 0.0),
-                new Point2D(10.0, 0.0)
-            });
-            var failureMechanismSection3 = new FailureMechanismSection("Section 3", new[]
-            {
-                new Point2D(10.0, 0.0),
-                new Point2D(15.0, 0.0)
-            });
-
-            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
-            {
-                failureMechanismSection1,
-                failureMechanismSection2,
-                failureMechanismSection3
-            });
-
-            using (PipingCalculationsView pipingCalculationsView = ShowPipingCalculationsView())
-            {
-                // Call
-                pipingCalculationsView.PipingFailureMechanism = failureMechanism;
-
-                // Assert
-                var listBox = (ListBox) new ControlTester("listBox").TheObject;
-                Assert.AreEqual(3, listBox.Items.Count);
-                Assert.AreSame(failureMechanismSection1, listBox.Items[0]);
-                Assert.AreSame(failureMechanismSection2, listBox.Items[1]);
-                Assert.AreSame(failureMechanismSection3, listBox.Items[2]);
-            }
+            var hydraulicBoundaryLocationCombobox = (DataGridViewComboBoxColumn) dataGridView.Columns[selectableHydraulicBoundaryLocationsColumnIndex];
+            DataGridViewComboBoxCell.ObjectCollection hydraulicBoundaryLocationComboboxItems = hydraulicBoundaryLocationCombobox.Items;
+            Assert.AreEqual(0, hydraulicBoundaryLocationComboboxItems.Count); // Row dependent
         }
 
         [Test]
         public void PipingCalculationsView_CalculationsWithCorrespondingStochasticSoilModel_StochasticSoilModelsComboboxCorrectlyInitialized()
         {
-            // Setup & Call
+            // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
+            ConfigureHydraulicBoundaryDatabase(assessmentSection);
             mocks.ReplayAll();
 
-            using (ShowFullyConfiguredPipingCalculationsView(assessmentSection))
-            {
-                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+            PipingFailureMechanism failureMechanism = ConfigureFailureMechanism();
 
-                // Assert
-                DataGridViewComboBoxCell.ObjectCollection stochasticSoilModelsComboboxItems = ((DataGridViewComboBoxCell) dataGridView.Rows[0].Cells[stochasticSoilModelsColumnIndex]).Items;
-                Assert.AreEqual(2, stochasticSoilModelsComboboxItems.Count);
-                Assert.AreEqual("<selecteer>", stochasticSoilModelsComboboxItems[0].ToString());
-                Assert.AreEqual("Model A", stochasticSoilModelsComboboxItems[1].ToString());
+            // Call
+            ShowPipingCalculationsView(ConfigureCalculationGroup(assessmentSection, failureMechanism),
+                                       failureMechanism, assessmentSection);
 
-                stochasticSoilModelsComboboxItems = ((DataGridViewComboBoxCell) dataGridView.Rows[1].Cells[stochasticSoilModelsColumnIndex]).Items;
-                Assert.AreEqual(3, stochasticSoilModelsComboboxItems.Count);
-                Assert.AreEqual("<selecteer>", stochasticSoilModelsComboboxItems[0].ToString());
-                Assert.AreEqual("Model A", stochasticSoilModelsComboboxItems[1].ToString());
-                Assert.AreEqual("Model E", stochasticSoilModelsComboboxItems[2].ToString());
-            }
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+
+            // Assert
+            DataGridViewComboBoxCell.ObjectCollection stochasticSoilModelsComboboxItems = ((DataGridViewComboBoxCell) dataGridView.Rows[0].Cells[stochasticSoilModelsColumnIndex]).Items;
+            Assert.AreEqual(2, stochasticSoilModelsComboboxItems.Count);
+            Assert.AreEqual("<selecteer>", stochasticSoilModelsComboboxItems[0].ToString());
+            Assert.AreEqual("Model A", stochasticSoilModelsComboboxItems[1].ToString());
+
+            stochasticSoilModelsComboboxItems = ((DataGridViewComboBoxCell) dataGridView.Rows[1].Cells[stochasticSoilModelsColumnIndex]).Items;
+            Assert.AreEqual(3, stochasticSoilModelsComboboxItems.Count);
+            Assert.AreEqual("<selecteer>", stochasticSoilModelsComboboxItems[0].ToString());
+            Assert.AreEqual("Model A", stochasticSoilModelsComboboxItems[1].ToString());
+            Assert.AreEqual("Model E", stochasticSoilModelsComboboxItems[2].ToString());
 
             mocks.VerifyAll();
         }
@@ -312,27 +142,31 @@ namespace Riskeer.Piping.Forms.Test.Views
         [Test]
         public void PipingCalculationsView_CalculationsWithCorrespondingSoilProfiles_SoilProfilesComboboxCorrectlyInitialized()
         {
-            // Setup & Call
+            // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
+            ConfigureHydraulicBoundaryDatabase(assessmentSection);
             mocks.ReplayAll();
 
-            using (ShowFullyConfiguredPipingCalculationsView(assessmentSection))
-            {
-                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+            PipingFailureMechanism failureMechanism = ConfigureFailureMechanism();
 
-                // Assert
-                DataGridViewComboBoxCell.ObjectCollection soilProfilesComboboxItems = ((DataGridViewComboBoxCell) dataGridView.Rows[0].Cells[stochasticSoilProfilesColumnIndex]).Items;
-                Assert.AreEqual(3, soilProfilesComboboxItems.Count);
-                Assert.AreEqual("<selecteer>", soilProfilesComboboxItems[0].ToString());
-                Assert.AreEqual("Profile 1", soilProfilesComboboxItems[1].ToString());
-                Assert.AreEqual("Profile 2", soilProfilesComboboxItems[2].ToString());
+            // Call
+            ShowPipingCalculationsView(ConfigureCalculationGroup(assessmentSection, failureMechanism),
+                                       failureMechanism, assessmentSection);
 
-                soilProfilesComboboxItems = ((DataGridViewComboBoxCell) dataGridView.Rows[1].Cells[stochasticSoilProfilesColumnIndex]).Items;
-                Assert.AreEqual(2, soilProfilesComboboxItems.Count);
-                Assert.AreEqual("<selecteer>", soilProfilesComboboxItems[0].ToString());
-                Assert.AreEqual("Profile 5", soilProfilesComboboxItems[1].ToString());
-            }
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+
+            // Assert
+            DataGridViewComboBoxCell.ObjectCollection soilProfilesComboboxItems = ((DataGridViewComboBoxCell) dataGridView.Rows[0].Cells[stochasticSoilProfilesColumnIndex]).Items;
+            Assert.AreEqual(3, soilProfilesComboboxItems.Count);
+            Assert.AreEqual("<selecteer>", soilProfilesComboboxItems[0].ToString());
+            Assert.AreEqual("Profile 1", soilProfilesComboboxItems[1].ToString());
+            Assert.AreEqual("Profile 2", soilProfilesComboboxItems[2].ToString());
+
+            soilProfilesComboboxItems = ((DataGridViewComboBoxCell) dataGridView.Rows[1].Cells[stochasticSoilProfilesColumnIndex]).Items;
+            Assert.AreEqual(2, soilProfilesComboboxItems.Count);
+            Assert.AreEqual("<selecteer>", soilProfilesComboboxItems[0].ToString());
+            Assert.AreEqual("Profile 5", soilProfilesComboboxItems[1].ToString());
 
             mocks.VerifyAll();
         }
@@ -340,116 +174,47 @@ namespace Riskeer.Piping.Forms.Test.Views
         [Test]
         public void PipingCalculationsView_CalculationsWithAllDataSet_DataGridViewCorrectlyInitialized()
         {
-            // Setup & Call
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            using (ShowFullyConfiguredPipingCalculationsView(assessmentSection))
-            {
-                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-
-                // Assert
-                DataGridViewRowCollection rows = dataGridView.Rows;
-                Assert.AreEqual(2, rows.Count);
-
-                DataGridViewCellCollection cells = rows[0].Cells;
-                Assert.AreEqual(9, cells.Count);
-                Assert.AreEqual("Calculation 1", cells[nameColumnIndex].FormattedValue);
-                Assert.AreEqual("Model A", cells[stochasticSoilModelsColumnIndex].FormattedValue);
-                Assert.AreEqual("<selecteer>", cells[stochasticSoilProfilesColumnIndex].FormattedValue);
-                Assert.AreEqual(GetFormattedProbabilityValue(0), cells[stochasticSoilProfilesProbabilityColumnIndex].FormattedValue);
-                Assert.AreEqual("Location 1 (2 m)", cells[selectableHydraulicBoundaryLocationsColumnIndex].FormattedValue);
-                Assert.AreEqual(1.111.ToString(CultureInfo.CurrentCulture), cells[dampingFactorExitMeanColumnIndex].FormattedValue);
-                Assert.AreEqual(2.222.ToString(CultureInfo.CurrentCulture), cells[phreaticLevelExitMeanColumnIndex].FormattedValue);
-                Assert.AreEqual(3.33.ToString(CultureInfo.CurrentCulture), cells[entryPointLColumnIndex].FormattedValue);
-                Assert.AreEqual(4.44.ToString(CultureInfo.CurrentCulture), cells[exitPointLColumnIndex].FormattedValue);
-
-                cells = rows[1].Cells;
-                Assert.AreEqual(9, cells.Count);
-                Assert.AreEqual("Calculation 2", cells[nameColumnIndex].FormattedValue);
-                Assert.AreEqual("Model E", cells[stochasticSoilModelsColumnIndex].FormattedValue);
-                Assert.AreEqual("Profile 5", cells[stochasticSoilProfilesColumnIndex].FormattedValue);
-                Assert.AreEqual(GetFormattedProbabilityValue(30), cells[stochasticSoilProfilesProbabilityColumnIndex].FormattedValue);
-                Assert.AreEqual("Location 2 (5 m)", cells[selectableHydraulicBoundaryLocationsColumnIndex].FormattedValue);
-                Assert.AreEqual(5.556.ToString(CultureInfo.CurrentCulture), cells[dampingFactorExitMeanColumnIndex].FormattedValue);
-                Assert.AreEqual(6.667.ToString(CultureInfo.CurrentCulture), cells[phreaticLevelExitMeanColumnIndex].FormattedValue);
-                Assert.AreEqual(7.78.ToString(CultureInfo.CurrentCulture), cells[entryPointLColumnIndex].FormattedValue);
-                Assert.AreEqual(8.89.ToString(CultureInfo.CurrentCulture), cells[exitPointLColumnIndex].FormattedValue);
-            }
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        [Apartment(ApartmentState.STA)]
-        public void PipingCalculationsView_SelectingCellInRow_SelectionChangedFired()
-        {
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
             ConfigureHydraulicBoundaryDatabase(assessmentSection);
+            mocks.ReplayAll();
 
             PipingFailureMechanism failureMechanism = ConfigureFailureMechanism();
-            using (var calculationsView = new PipingCalculationsView
-            {
-                AssessmentSection = assessmentSection,
-                PipingFailureMechanism = failureMechanism,
-                Data = ConfigureCalculationGroup(assessmentSection, failureMechanism)
-            })
-            {
-                var selectionChangedCount = 0;
-                calculationsView.SelectionChanged += (sender, args) => selectionChangedCount++;
 
-                var control = TypeUtils.GetField<DataGridViewControl>(calculationsView, "dataGridViewControl");
-                WindowsFormsTestHelper.Show(control);
+            // Call
+            ShowPipingCalculationsView(ConfigureCalculationGroup(assessmentSection, failureMechanism),
+                                       failureMechanism, assessmentSection);
 
-                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-                dataGridView.CurrentCell = dataGridView.Rows[0].Cells[0];
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
-                // Call                
-                EventHelper.RaiseEvent(dataGridView, "CellClick", new DataGridViewCellEventArgs(1, 0));
+            // Assert
+            DataGridViewRowCollection rows = dataGridView.Rows;
+            Assert.AreEqual(2, rows.Count);
 
-                // Assert
-                Assert.AreEqual(1, selectionChangedCount);
-            }
+            DataGridViewCellCollection cells = rows[0].Cells;
+            Assert.AreEqual(9, cells.Count);
+            Assert.AreEqual("Calculation 1", cells[nameColumnIndex].FormattedValue);
+            Assert.AreEqual("Location 1 (2 m)", cells[selectableHydraulicBoundaryLocationsColumnIndex].FormattedValue);
+            Assert.AreEqual("Model A", cells[stochasticSoilModelsColumnIndex].FormattedValue);
+            Assert.AreEqual("<selecteer>", cells[stochasticSoilProfilesColumnIndex].FormattedValue);
+            Assert.AreEqual(GetFormattedProbabilityValue(0), cells[stochasticSoilProfilesProbabilityColumnIndex].FormattedValue);
+            Assert.AreEqual(1.111.ToString(CultureInfo.CurrentCulture), cells[dampingFactorExitMeanColumnIndex].FormattedValue);
+            Assert.AreEqual(2.222.ToString(CultureInfo.CurrentCulture), cells[phreaticLevelExitMeanColumnIndex].FormattedValue);
+            Assert.AreEqual(3.33.ToString(CultureInfo.CurrentCulture), cells[entryPointLColumnIndex].FormattedValue);
+            Assert.AreEqual(4.44.ToString(CultureInfo.CurrentCulture), cells[exitPointLColumnIndex].FormattedValue);
 
-            WindowsFormsTestHelper.CloseAll();
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void PipingCalculationsView_ChangingListBoxSelection_DataGridViewCorrectlySyncedAndSelectionChangedFired()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            using (PipingCalculationsView pipingCalculationsView = ShowFullyConfiguredPipingCalculationsView(
-                assessmentSection))
-            {
-                var selectionChangedCount = 0;
-                pipingCalculationsView.SelectionChanged += (sender, args) => selectionChangedCount++;
-
-                var listBox = (ListBox) new ControlTester("listBox").TheObject;
-                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-
-                // Precondition
-                Assert.AreEqual(2, dataGridView.Rows.Count);
-                Assert.AreEqual("Calculation 1", dataGridView.Rows[0].Cells[nameColumnIndex].FormattedValue);
-                Assert.AreEqual("Calculation 2", dataGridView.Rows[1].Cells[nameColumnIndex].FormattedValue);
-
-                // Call
-                listBox.SelectedIndex = 1;
-
-                // Assert
-                Assert.AreEqual(1, dataGridView.Rows.Count);
-                Assert.AreEqual("Calculation 2", dataGridView.Rows[0].Cells[nameColumnIndex].FormattedValue);
-                Assert.AreEqual(2, selectionChangedCount);
-            }
+            cells = rows[1].Cells;
+            Assert.AreEqual(9, cells.Count);
+            Assert.AreEqual("Calculation 2", cells[nameColumnIndex].FormattedValue);
+            Assert.AreEqual("Location 2 (5 m)", cells[selectableHydraulicBoundaryLocationsColumnIndex].FormattedValue);
+            Assert.AreEqual("Model E", cells[stochasticSoilModelsColumnIndex].FormattedValue);
+            Assert.AreEqual("Profile 5", cells[stochasticSoilProfilesColumnIndex].FormattedValue);
+            Assert.AreEqual(GetFormattedProbabilityValue(30), cells[stochasticSoilProfilesProbabilityColumnIndex].FormattedValue);
+            Assert.AreEqual(5.556.ToString(CultureInfo.CurrentCulture), cells[dampingFactorExitMeanColumnIndex].FormattedValue);
+            Assert.AreEqual(6.667.ToString(CultureInfo.CurrentCulture), cells[phreaticLevelExitMeanColumnIndex].FormattedValue);
+            Assert.AreEqual(7.78.ToString(CultureInfo.CurrentCulture), cells[entryPointLColumnIndex].FormattedValue);
+            Assert.AreEqual(8.89.ToString(CultureInfo.CurrentCulture), cells[exitPointLColumnIndex].FormattedValue);
 
             mocks.VerifyAll();
         }
@@ -468,18 +233,21 @@ namespace Riskeer.Piping.Forms.Test.Views
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
+            ConfigureHydraulicBoundaryDatabase(assessmentSection);
             mocks.ReplayAll();
 
-            using (ShowFullyConfiguredPipingCalculationsView(assessmentSection))
-            {
-                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+            PipingFailureMechanism failureMechanism = ConfigureFailureMechanism();
 
-                // Call
-                dataGridView.Rows[0].Cells[cellIndex].Value = newValue;
+            ShowPipingCalculationsView(ConfigureCalculationGroup(assessmentSection, failureMechanism),
+                                       failureMechanism, assessmentSection);
 
-                // Assert
-                Assert.AreEqual("De tekst moet een getal zijn.", dataGridView.Rows[0].ErrorText);
-            }
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+
+            // Call
+            dataGridView.Rows[0].Cells[cellIndex].Value = newValue;
+
+            // Assert
+            Assert.AreEqual("De tekst moet een getal zijn.", dataGridView.Rows[0].ErrorText);
 
             mocks.VerifyAll();
         }
@@ -504,26 +272,22 @@ namespace Riskeer.Piping.Forms.Test.Views
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
+            ConfigureHydraulicBoundaryDatabase(assessmentSection);
             mocks.ReplayAll();
 
-            ConfigureHydraulicBoundaryDatabase(assessmentSection);
             PipingFailureMechanism failureMechanism = ConfigureFailureMechanism();
-            CalculationGroup calculationGroup = ConfigureCalculationGroup(assessmentSection, failureMechanism);
 
-            var newRoundedvalue = (RoundedDouble) newValue;
+            // Call
+            ShowPipingCalculationsView(ConfigureCalculationGroup(assessmentSection, failureMechanism),
+                                       failureMechanism, assessmentSection);
 
-            using (ShowFullyConfiguredPipingCalculationsView(assessmentSection, failureMechanism, calculationGroup))
-            {
-                mocks.ReplayAll();
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
-                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+            // Call
+            dataGridView.Rows[0].Cells[cellIndex].Value = (RoundedDouble) newValue;
 
-                // Call
-                dataGridView.Rows[0].Cells[cellIndex].Value = newRoundedvalue;
-
-                // Assert
-                Assert.IsEmpty(dataGridView.Rows[0].ErrorText);
-            }
+            // Assert
+            Assert.IsEmpty(dataGridView.Rows[0].ErrorText);
 
             mocks.VerifyAll();
         }
@@ -532,200 +296,131 @@ namespace Riskeer.Piping.Forms.Test.Views
         public void ButtonGenerateScenarios_WithoutSurfaceLines_ButtonDisabled()
         {
             // Setup
-            var pipingFailureMechanism = new PipingFailureMechanism();
-            pipingFailureMechanism.StochasticSoilModels.AddRange(new[]
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            ConfigureHydraulicBoundaryDatabase(assessmentSection);
+            mocks.ReplayAll();
+
+            var failureMechanism = new PipingFailureMechanism();
+            failureMechanism.StochasticSoilModels.AddRange(new[]
             {
                 PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel()
             }, "path");
 
-            using (PipingCalculationsView pipingCalculationsView = ShowPipingCalculationsView())
-            {
-                pipingCalculationsView.PipingFailureMechanism = pipingFailureMechanism;
-                var button = (Button) pipingCalculationsView.Controls.Find("buttonGenerateScenarios", true)[0];
+            ShowPipingCalculationsView(new CalculationGroup(), failureMechanism, assessmentSection);
 
-                // Call
-                bool state = button.Enabled;
+            var button = (Button)new ControlTester("generateButton").TheObject;
 
-                // Assert
-                Assert.IsFalse(state);
-            }
+            // Call
+            bool state = button.Enabled;
+
+            // Assert
+            Assert.IsFalse(state);
+            mocks.VerifyAll();
         }
 
         [Test]
         public void ButtonGenerateScenarios_WithoutSoilModels_ButtonDisabled()
         {
             // Setup
-            var pipingFailureMechanism = new PipingFailureMechanism();
-            pipingFailureMechanism.SurfaceLines.AddRange(new[]
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            ConfigureHydraulicBoundaryDatabase(assessmentSection);
+            mocks.ReplayAll();
+
+            var failureMechanism = new PipingFailureMechanism();
+            failureMechanism.SurfaceLines.AddRange(new[]
             {
                 new PipingSurfaceLine(string.Empty)
             }, "path");
 
-            using (PipingCalculationsView pipingCalculationsView = ShowPipingCalculationsView())
-            {
-                pipingCalculationsView.PipingFailureMechanism = pipingFailureMechanism;
-                var button = (Button) pipingCalculationsView.Controls.Find("buttonGenerateScenarios", true)[0];
+            ShowPipingCalculationsView(new CalculationGroup(), failureMechanism, assessmentSection);
 
-                // Call
-                bool state = button.Enabled;
+            var button = (Button)new ControlTester("generateButton").TheObject;
 
-                // Assert
-                Assert.IsFalse(state);
-            }
+            // Call
+            bool state = button.Enabled;
+
+            // Assert
+            Assert.IsFalse(state);
+            mocks.VerifyAll();
         }
 
         [Test]
         public void ButtonGenerateScenarios_WithSurfaceLinesAndSoilModels_ButtonEnabled()
         {
             // Setup
-            var pipingFailureMechanism = new PipingFailureMechanism();
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            ConfigureHydraulicBoundaryDatabase(assessmentSection);
+            mocks.ReplayAll();
+
             const string arbitrarySourcePath = "path";
-            pipingFailureMechanism.SurfaceLines.AddRange(new[]
+            var failureMechanism = new PipingFailureMechanism();
+            failureMechanism.SurfaceLines.AddRange(new[]
             {
                 new PipingSurfaceLine(string.Empty)
             }, arbitrarySourcePath);
-            pipingFailureMechanism.StochasticSoilModels.AddRange(new[]
+            failureMechanism.StochasticSoilModels.AddRange(new[]
             {
                 PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel()
             }, arbitrarySourcePath);
 
-            using (PipingCalculationsView pipingCalculationsView = ShowPipingCalculationsView())
-            {
-                pipingCalculationsView.PipingFailureMechanism = pipingFailureMechanism;
+            ShowPipingCalculationsView(new CalculationGroup(), failureMechanism, assessmentSection);
 
-                var button = (Button) pipingCalculationsView.Controls.Find("buttonGenerateScenarios", true)[0];
+            var button = (Button) new ControlTester("generateButton").TheObject;
 
-                // Call
-                bool state = button.Enabled;
+            // Call
+            bool state = button.Enabled;
 
-                // Assert
-                Assert.IsTrue(state);
-            }
-        }
-
-        [Test]
-        public void GivenPipingCalculationsViewWithPipingFailureMechanism_WhenSectionsAddedAndPipingFailureMechanismNotified_ThenSectionsListBoxCorrectlyUpdated()
-        {
-            // Given
-            var failureMechanism = new PipingFailureMechanism();
-            var failureMechanismSection1 = new FailureMechanismSection("Section 1", new[]
-            {
-                new Point2D(0.0, 0.0),
-                new Point2D(5.0, 0.0)
-            });
-            var failureMechanismSection2 = new FailureMechanismSection("Section 2", new[]
-            {
-                new Point2D(5.0, 0.0),
-                new Point2D(10.0, 0.0)
-            });
-            var failureMechanismSection3 = new FailureMechanismSection("Section 3", new[]
-            {
-                new Point2D(10.0, 0.0),
-                new Point2D(15.0, 0.0)
-            });
-
-            using (PipingCalculationsView pipingCalculationsView = ShowPipingCalculationsView())
-            {
-                pipingCalculationsView.PipingFailureMechanism = failureMechanism;
-
-                var listBox = (ListBox) new ControlTester("listBox").TheObject;
-
-                // Precondition
-                Assert.AreEqual(0, listBox.Items.Count);
-
-                FailureMechanismTestHelper.SetSections(failureMechanism, new[]
-                {
-                    failureMechanismSection1,
-                    failureMechanismSection2,
-                    failureMechanismSection3
-                });
-
-                // When
-                failureMechanism.NotifyObservers();
-
-                // Then
-                Assert.AreEqual(3, listBox.Items.Count);
-                Assert.AreSame(failureMechanismSection1, listBox.Items[0]);
-                Assert.AreSame(failureMechanismSection2, listBox.Items[1]);
-                Assert.AreSame(failureMechanismSection3, listBox.Items[2]);
-            }
+            // Assert
+            Assert.IsTrue(state);
+            mocks.VerifyAll();
         }
 
         [Test]
         public void GivenPipingCalculationsView_WhenGenerateScenariosButtonClicked_ThenShowViewWithSurfaceLines()
         {
             // Given
-            var pipingFailureMechanism = new PipingFailureMechanism();
-            const string arbitraryFilePath = "path";
-            pipingFailureMechanism.SurfaceLines.AddRange(new[]
-            {
-                new PipingSurfaceLine("Line A"),
-                new PipingSurfaceLine("Line B")
-            }, arbitraryFilePath);
-            pipingFailureMechanism.StochasticSoilModels.AddRange(new[]
-            {
-                PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel()
-            }, arbitraryFilePath);
-
-            using (PipingCalculationsView pipingCalculationsView = ShowPipingCalculationsView())
-            {
-                pipingCalculationsView.PipingFailureMechanism = pipingFailureMechanism;
-                pipingCalculationsView.Data = pipingFailureMechanism.CalculationsGroup;
-                var button = new ButtonTester("buttonGenerateScenarios", testForm);
-
-                PipingSurfaceLineSelectionDialog selectionDialog = null;
-                DataGridViewControl grid = null;
-                DialogBoxHandler = (name, wnd) =>
-                {
-                    selectionDialog = (PipingSurfaceLineSelectionDialog) new FormTester(name).TheObject;
-                    grid = (DataGridViewControl) new ControlTester("DataGridViewControl", selectionDialog).TheObject;
-
-                    new ButtonTester("CustomCancelButton", selectionDialog).Click();
-                };
-
-                // When
-                button.Click();
-
-                // Then
-                Assert.NotNull(selectionDialog);
-                Assert.NotNull(grid);
-                Assert.AreEqual(2, grid.Rows.Count);
-            }
-        }
-
-        [Test]
-        public void GivenPipingCalculationsViewGenerateScenariosButtonClicked_WhenNoCalculationGroupDefined_ThenCalculationGroupNotUpdated()
-        {
-            // Given
             var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            ConfigureHydraulicBoundaryDatabase(assessmentSection);
             mocks.ReplayAll();
 
-            var pipingFailureMechanism = new PipingFailureMechanism();
             const string arbitraryFilePath = "path";
-            pipingFailureMechanism.SurfaceLines.AddRange(new[]
+            var failureMechanism = new PipingFailureMechanism();
+            failureMechanism.SurfaceLines.AddRange(new[]
             {
                 new PipingSurfaceLine("Line A"),
                 new PipingSurfaceLine("Line B")
             }, arbitraryFilePath);
-            pipingFailureMechanism.StochasticSoilModels.AddRange(new[]
+            failureMechanism.StochasticSoilModels.AddRange(new[]
             {
                 PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel()
             }, arbitraryFilePath);
-            pipingFailureMechanism.CalculationsGroup.Attach(observer);
 
-            using (PipingCalculationsView pipingCalculationsView = ShowPipingCalculationsView())
+            ShowPipingCalculationsView(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection);
+
+            var button = new ButtonTester("generateButton", testForm);
+
+            PipingSurfaceLineSelectionDialog selectionDialog = null;
+            DataGridViewControl grid = null;
+            DialogBoxHandler = (name, wnd) =>
             {
-                pipingCalculationsView.PipingFailureMechanism = pipingFailureMechanism;
+                selectionDialog = (PipingSurfaceLineSelectionDialog) new FormTester(name).TheObject;
+                grid = (DataGridViewControl) new ControlTester("DataGridViewControl", selectionDialog).TheObject;
 
-                var button = new ButtonTester("buttonGenerateScenarios", testForm);
+                new ButtonTester("CustomCancelButton", selectionDialog).Click();
+            };
 
-                // When
-                button.Click();
+            // When
+            button.Click();
 
-                // Then
-                mocks.VerifyAll();
-            }
+            // Then
+            Assert.NotNull(selectionDialog);
+            Assert.NotNull(grid);
+            Assert.AreEqual(2, grid.Rows.Count);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -735,44 +430,43 @@ namespace Riskeer.Piping.Forms.Test.Views
         {
             // Given
             var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            ConfigureHydraulicBoundaryDatabase(assessmentSection);
             var observer = mocks.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
 
-            var pipingFailureMechanism = new PipingFailureMechanism();
-            const string arbitryFilePath = "path";
-            pipingFailureMechanism.SurfaceLines.AddRange(new[]
+            const string arbitraryFilePath = "path";
+            var failureMechanism = new PipingFailureMechanism();
+            failureMechanism.SurfaceLines.AddRange(new[]
             {
                 new PipingSurfaceLine("Line A"),
                 new PipingSurfaceLine("Line B")
-            }, arbitryFilePath);
-            pipingFailureMechanism.StochasticSoilModels.AddRange(new[]
+            }, arbitraryFilePath);
+            failureMechanism.StochasticSoilModels.AddRange(new[]
             {
                 PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel()
-            }, arbitryFilePath);
-            pipingFailureMechanism.CalculationsGroup.Attach(observer);
+            }, arbitraryFilePath);
+            failureMechanism.CalculationsGroup.Attach(observer);
 
-            using (PipingCalculationsView pipingCalculationsView = ShowPipingCalculationsView())
+            ShowPipingCalculationsView(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection);
+
+            var button = new ButtonTester("generateButton", testForm);
+
+            DialogBoxHandler = (name, wnd) =>
             {
-                pipingCalculationsView.PipingFailureMechanism = pipingFailureMechanism;
-                pipingCalculationsView.Data = pipingFailureMechanism.CalculationsGroup;
-                var button = new ButtonTester("buttonGenerateScenarios", testForm);
+                var selectionDialog = (PipingSurfaceLineSelectionDialog) new FormTester(name).TheObject;
+                var selectionView = (DataGridViewControl) new ControlTester("DataGridViewControl", selectionDialog).TheObject;
+                selectionView.Rows[0].Cells[0].Value = true;
 
-                DialogBoxHandler = (name, wnd) =>
-                {
-                    var selectionDialog = (PipingSurfaceLineSelectionDialog) new FormTester(name).TheObject;
-                    var selectionView = (DataGridViewControl) new ControlTester("DataGridViewControl", selectionDialog).TheObject;
-                    selectionView.Rows[0].Cells[0].Value = true;
+                // When
+                new ButtonTester(buttonName, selectionDialog).Click();
+            };
 
-                    // When
-                    new ButtonTester(buttonName, selectionDialog).Click();
-                };
+            button.Click();
 
-                button.Click();
-
-                // Then
-                mocks.VerifyAll();
-            }
+            // Then
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -781,199 +475,151 @@ namespace Riskeer.Piping.Forms.Test.Views
             // Given
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
+            ConfigureHydraulicBoundaryDatabase(assessmentSection);
             mocks.ReplayAll();
 
-            ConfigureHydraulicBoundaryDatabase(assessmentSection);
-            PipingFailureMechanism pipingFailureMechanism = ConfigureSimpleFailureMechanism();
+            PipingFailureMechanism failureMechanism = ConfigureSimpleFailureMechanism();
 
-            using (PipingCalculationsView pipingCalculationsView = ShowFullyConfiguredPipingCalculationsView(assessmentSection,
-                                                                                                             pipingFailureMechanism,
-                                                                                                             pipingFailureMechanism.CalculationsGroup))
+            ShowPipingCalculationsView(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection);
+
+            var button = new ButtonTester("generateButton", testForm);
+
+            DialogBoxHandler = (name, wnd) =>
             {
-                var button = new ButtonTester("buttonGenerateScenarios", testForm);
+                var selectionDialog = (PipingSurfaceLineSelectionDialog) new FormTester(name).TheObject;
+                var selectionView = (DataGridViewControl) new ControlTester("DataGridViewControl", selectionDialog).TheObject;
+                selectionView.Rows[0].Cells[0].Value = true;
 
-                DialogBoxHandler = (name, wnd) =>
-                {
-                    var selectionDialog = (PipingSurfaceLineSelectionDialog) new FormTester(name).TheObject;
-                    var selectionView = (DataGridViewControl) new ControlTester("DataGridViewControl", selectionDialog).TheObject;
-                    selectionView.Rows[0].Cells[0].Value = true;
+                // When
+                new ButtonTester("DoForSelectedButton", selectionDialog).Click();
+            };
 
-                    // When
-                    new ButtonTester("DoForSelectedButton", selectionDialog).Click();
-                };
+            button.Click();
 
-                button.Click();
+            // Then
+            PipingCalculationScenario[] pipingCalculationScenarios = failureMechanism.Calculations.OfType<PipingCalculationScenario>().ToArray();
+            PipingFailureMechanismSectionResult failureMechanismSectionResult1 = failureMechanism.SectionResults.First();
+            PipingFailureMechanismSectionResult failureMechanismSectionResult2 = failureMechanism.SectionResults.ElementAt(1);
 
-                // Then
-                PipingCalculationScenario[] pipingCalculationScenarios = pipingFailureMechanism.Calculations.OfType<PipingCalculationScenario>().ToArray();
-                PipingFailureMechanismSectionResult failureMechanismSectionResult1 = pipingCalculationsView.PipingFailureMechanism.SectionResults.First();
-                PipingFailureMechanismSectionResult failureMechanismSectionResult2 = pipingCalculationsView.PipingFailureMechanism.SectionResults.ElementAt(1);
+            Assert.AreEqual(2, failureMechanismSectionResult1.GetCalculationScenarios(pipingCalculationScenarios).Count());
 
-                Assert.AreEqual(2, failureMechanismSectionResult1.GetCalculationScenarios(pipingCalculationScenarios).Count());
-
-                foreach (PipingCalculationScenario calculationScenario in failureMechanismSectionResult1.GetCalculationScenarios(pipingCalculationScenarios))
-                {
-                    Assert.IsInstanceOf<ICalculationScenario>(calculationScenario);
-                }
-
-                CollectionAssert.IsEmpty(failureMechanismSectionResult2.GetCalculationScenarios(pipingCalculationScenarios));
+            foreach (PipingCalculationScenario calculationScenario in failureMechanismSectionResult1.GetCalculationScenarios(pipingCalculationScenarios))
+            {
+                Assert.IsInstanceOf<ICalculationScenario>(calculationScenario);
             }
+
+            CollectionAssert.IsEmpty(failureMechanismSectionResult2.GetCalculationScenarios(pipingCalculationScenarios));
+            mocks.VerifyAll();
         }
 
         [Test]
         public void GivenPipingCalculationsViewGenerateScenariosCancelButtonClicked_WhenDialogClosed_CalculationsNotUpdated()
         {
             // Given
-            using (PipingCalculationsView pipingCalculationsView = ShowPipingCalculationsView())
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            ConfigureHydraulicBoundaryDatabase(assessmentSection);
+            mocks.ReplayAll();
+
+            PipingFailureMechanism failureMechanism = ConfigureSimpleFailureMechanism();
+            ShowPipingCalculationsView(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection);
+
+            var button = new ButtonTester("generateButton", testForm);
+
+            DialogBoxHandler = (name, wnd) =>
             {
-                PipingFailureMechanism pipingFailureMechanism = ConfigureSimpleFailureMechanism();
+                var selectionDialog = (PipingSurfaceLineSelectionDialog) new FormTester(name).TheObject;
+                var selectionView = (DataGridViewControl) new ControlTester("DataGridViewControl", selectionDialog).TheObject;
+                selectionView.Rows[0].Cells[0].Value = true;
 
-                pipingCalculationsView.PipingFailureMechanism = pipingFailureMechanism;
-                pipingCalculationsView.Data = pipingFailureMechanism.CalculationsGroup;
+                // When
+                new ButtonTester("CustomCancelButton", selectionDialog).Click();
+            };
 
-                var button = new ButtonTester("buttonGenerateScenarios", testForm);
+            button.Click();
 
-                DialogBoxHandler = (name, wnd) =>
-                {
-                    var selectionDialog = (PipingSurfaceLineSelectionDialog) new FormTester(name).TheObject;
-                    var selectionView = (DataGridViewControl) new ControlTester("DataGridViewControl", selectionDialog).TheObject;
-                    selectionView.Rows[0].Cells[0].Value = true;
-
-                    // When
-                    new ButtonTester("CustomCancelButton", selectionDialog).Click();
-                };
-
-                button.Click();
-
-                // Then
-                CollectionAssert.IsEmpty(pipingCalculationsView.PipingFailureMechanism.Calculations);
-            }
+            // Then
+            CollectionAssert.IsEmpty(failureMechanism.Calculations);
+            mocks.VerifyAll();
         }
 
         [Test]
         public void GivenFailureMechanismWithoutSurfaceLinesAndSoilModels_WhenAddSoilModelAndNotify_ThenButtonDisabled()
         {
             // Given
-            using (PipingCalculationsView pipingCalculationsView = ShowPipingCalculationsView())
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            ConfigureHydraulicBoundaryDatabase(assessmentSection);
+            mocks.ReplayAll();
+
+            var failureMechanism = new PipingFailureMechanism();
+            ShowPipingCalculationsView(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection);
+
+            // When
+            failureMechanism.StochasticSoilModels.AddRange(new[]
             {
-                var pipingFailureMechanism = new PipingFailureMechanism();
-                pipingCalculationsView.PipingFailureMechanism = pipingFailureMechanism;
+                PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel()
+            }, "path");
+            failureMechanism.NotifyObservers();
 
-                // When
-                pipingFailureMechanism.StochasticSoilModels.AddRange(new[]
-                {
-                    PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel()
-                }, "path");
-                pipingFailureMechanism.NotifyObservers();
-
-                // Then
-                var button = (Button) pipingCalculationsView.Controls.Find("buttonGenerateScenarios", true)[0];
-                Assert.IsFalse(button.Enabled);
-            }
+            // Then
+            var button = (Button)new ControlTester("generateButton").TheObject;
+            Assert.IsFalse(button.Enabled);
+            mocks.VerifyAll();
         }
 
         [Test]
         public void GivenFailureMechanismWithoutSurfaceLinesAndSoilModels_WhenAddSurfaceLineAndNotify_ThenButtonDisabled()
         {
             // Given
-            using (PipingCalculationsView pipingCalculationsView = ShowPipingCalculationsView())
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            ConfigureHydraulicBoundaryDatabase(assessmentSection);
+            mocks.ReplayAll();
+
+            var failureMechanism = new PipingFailureMechanism();
+            ShowPipingCalculationsView(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection);
+
+            // When
+            failureMechanism.SurfaceLines.AddRange(new[]
             {
-                var pipingFailureMechanism = new PipingFailureMechanism();
-                pipingCalculationsView.PipingFailureMechanism = pipingFailureMechanism;
+                new PipingSurfaceLine(string.Empty)
+            }, "path");
+            failureMechanism.NotifyObservers();
 
-                // When
-                pipingFailureMechanism.SurfaceLines.AddRange(new[]
-                {
-                    new PipingSurfaceLine(string.Empty)
-                }, "path");
-                pipingFailureMechanism.NotifyObservers();
-
-                // Then
-                var button = (Button) pipingCalculationsView.Controls.Find("buttonGenerateScenarios", true)[0];
-                Assert.IsFalse(button.Enabled);
-            }
+            // Then
+            var button = (Button)new ControlTester("generateButton").TheObject;
+            Assert.IsFalse(button.Enabled);
+            mocks.VerifyAll();
         }
 
         [Test]
         public void GivenFailureMechanismWithoutSurfaceLinesAndSoilModels_WhenAddSurfaceLineAndSoilModelAndDoNotNotifyObservers_ThenButtonDisabled()
         {
             // Given
-            using (PipingCalculationsView pipingCalculationsView = ShowPipingCalculationsView())
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            ConfigureHydraulicBoundaryDatabase(assessmentSection);
+            mocks.ReplayAll();
+
+            var failureMechanism = new PipingFailureMechanism();
+            ShowPipingCalculationsView(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection);
+
+            // When
+            const string arbitraryFilePath = "path";
+            failureMechanism.SurfaceLines.AddRange(new[]
             {
-                var pipingFailureMechanism = new PipingFailureMechanism();
-                pipingCalculationsView.PipingFailureMechanism = pipingFailureMechanism;
-
-                // When
-                const string arbitraryFilePath = "path";
-                pipingFailureMechanism.SurfaceLines.AddRange(new[]
-                {
-                    new PipingSurfaceLine(string.Empty)
-                }, arbitraryFilePath);
-                pipingFailureMechanism.StochasticSoilModels.AddRange(new[]
-                {
-                    PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel()
-                }, arbitraryFilePath);
-
-                // Then
-                var button = (Button) pipingCalculationsView.Controls.Find("buttonGenerateScenarios", true)[0];
-                Assert.IsFalse(button.Enabled);
-            }
-        }
-
-        [Test]
-        public void GivenFailureMechanismWithoutSurfaceLinesAndSoilModels_WhenAddSurfaceLineAndSoilModelAndNotifyObservers_ThenButtonEnabled()
-        {
-            // Given
-            using (PipingCalculationsView pipingCalculationsView = ShowPipingCalculationsView())
+                new PipingSurfaceLine(string.Empty)
+            }, arbitraryFilePath);
+            failureMechanism.StochasticSoilModels.AddRange(new[]
             {
-                var pipingFailureMechanism = new PipingFailureMechanism();
-                pipingCalculationsView.PipingFailureMechanism = pipingFailureMechanism;
+                PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel()
+            }, arbitraryFilePath);
 
-                // When
-                const string arbitraryFilePath = "path";
-                pipingFailureMechanism.SurfaceLines.AddRange(new[]
-                {
-                    new PipingSurfaceLine(string.Empty)
-                }, arbitraryFilePath);
-                pipingFailureMechanism.StochasticSoilModels.AddRange(new[]
-                {
-                    PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel()
-                }, arbitraryFilePath);
-                pipingCalculationsView.PipingFailureMechanism.NotifyObservers();
-
-                // Then
-                var button = (Button) pipingCalculationsView.Controls.Find("buttonGenerateScenarios", true)[0];
-                Assert.IsTrue(button.Enabled);
-            }
-        }
-
-        [Test]
-        public void GivenFailureMechanismWithSurfaceLinesAndSoilModels_WhenSurfaceLinesAndSoilModelsClearedAndNotifyObservers_ThenButtonDisabled()
-        {
-            // Given
-            using (PipingCalculationsView pipingCalculationsView = ShowPipingCalculationsView())
-            {
-                var pipingFailureMechanism = new PipingFailureMechanism();
-                const string arbitraryFilePath = "path";
-                pipingFailureMechanism.SurfaceLines.AddRange(new[]
-                {
-                    new PipingSurfaceLine(string.Empty)
-                }, arbitraryFilePath);
-                pipingFailureMechanism.StochasticSoilModels.AddRange(new[]
-                {
-                    PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel()
-                }, arbitraryFilePath);
-                pipingCalculationsView.PipingFailureMechanism = pipingFailureMechanism;
-
-                // When
-                pipingFailureMechanism.SurfaceLines.Clear();
-                pipingFailureMechanism.StochasticSoilModels.Clear();
-                pipingCalculationsView.PipingFailureMechanism.NotifyObservers();
-
-                // Then
-                var button = (Button) pipingCalculationsView.Controls.Find("buttonGenerateScenarios", true)[0];
-                Assert.IsFalse(button.Enabled);
-            }
+            // Then
+            var button = (Button)new ControlTester("generateButton").TheObject;
+            Assert.IsFalse(button.Enabled);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -985,35 +631,29 @@ namespace Riskeer.Piping.Forms.Test.Views
         {
             // Setup
             var mocks = new MockRepository();
-            var pipingCalculationObserver = mocks.StrictMock<IObserver>();
-            var pipingCalculationInputObserver = mocks.StrictMock<IObserver>();
+            var calculationObserver = mocks.StrictMock<IObserver>();
+            var calculationInputObserver = mocks.StrictMock<IObserver>();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
+            ConfigureHydraulicBoundaryDatabase(assessmentSection);
             mocks.ReplayAll();
 
-            ConfigureHydraulicBoundaryDatabase(assessmentSection);
             PipingFailureMechanism failureMechanism = ConfigureFailureMechanism();
             CalculationGroup calculationGroup = ConfigureCalculationGroup(assessmentSection, failureMechanism);
 
-            var value = (RoundedDouble) newValue;
+            ShowPipingCalculationsView(calculationGroup, failureMechanism, assessmentSection);
 
-            using (PipingCalculationsView pipingCalculationsView = ShowFullyConfiguredPipingCalculationsView(
-                assessmentSection, failureMechanism, calculationGroup))
-            {
-                var data = (CalculationGroup) pipingCalculationsView.Data;
-                var pipingCalculation = (PipingCalculationScenario) data.Children.First();
+            var calculation = (PipingCalculationScenario) calculationGroup.Children.First();
 
-                pipingCalculation.Attach(pipingCalculationObserver);
-                pipingCalculation.InputParameters.Attach(pipingCalculationInputObserver);
+            calculation.Attach(calculationObserver);
+            calculation.InputParameters.Attach(calculationInputObserver);
 
-                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
-                // Call
-                dataGridView.Rows[0].Cells[cellIndex].Value = value;
+            // Call
+            dataGridView.Rows[0].Cells[cellIndex].Value = (RoundedDouble) newValue;
 
-                // Assert
-                Assert.AreEqual("Het uittredepunt moet landwaarts van het intredepunt liggen.", dataGridView.Rows[0].ErrorText);
-            }
-
+            // Assert
+            Assert.AreEqual("Het uittredepunt moet landwaarts van het intredepunt liggen.", dataGridView.Rows[0].ErrorText);
             mocks.VerifyAll(); // No observer notified
         }
 
@@ -1030,30 +670,27 @@ namespace Riskeer.Piping.Forms.Test.Views
             var pipingCalculationObserver = mocks.StrictMock<IObserver>();
             var pipingCalculationInputObserver = mocks.StrictMock<IObserver>();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
+            ConfigureHydraulicBoundaryDatabase(assessmentSection);
             mocks.ReplayAll();
 
-            ConfigureHydraulicBoundaryDatabase(assessmentSection);
             PipingFailureMechanism failureMechanism = ConfigureFailureMechanism();
             CalculationGroup calculationGroup = ConfigureCalculationGroup(assessmentSection, failureMechanism);
 
-            using (PipingCalculationsView pipingCalculationsView = ShowFullyConfiguredPipingCalculationsView(
-                assessmentSection, failureMechanism, calculationGroup))
-            {
-                var data = (CalculationGroup) pipingCalculationsView.Data;
-                var pipingCalculation = (PipingCalculationScenario) data.Children.First();
+            ShowPipingCalculationsView(calculationGroup, failureMechanism, assessmentSection);
 
-                pipingCalculation.Attach(pipingCalculationObserver);
-                pipingCalculation.InputParameters.Attach(pipingCalculationInputObserver);
+            var calculation = (PipingCalculationScenario) calculationGroup.Children.First();
 
-                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+            calculation.Attach(pipingCalculationObserver);
+            calculation.InputParameters.Attach(pipingCalculationInputObserver);
 
-                // Call
-                dataGridView.Rows[0].Cells[cellIndex].Value = (RoundedDouble) newValue;
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
-                // Assert
-                const string expectedMessage = "Het gespecificeerde punt moet op het profiel liggen (bereik [0,0, 10,0]).";
-                Assert.AreEqual(expectedMessage, dataGridView.Rows[0].ErrorText);
-            }
+            // Call
+            dataGridView.Rows[0].Cells[cellIndex].Value = (RoundedDouble) newValue;
+
+            // Assert
+            const string expectedMessage = "Het gespecificeerde punt moet op het profiel liggen (bereik [0,0, 10,0]).";
+            Assert.AreEqual(expectedMessage, dataGridView.Rows[0].ErrorText);
 
             mocks.VerifyAll(); // No observer notified
         }
@@ -1066,64 +703,25 @@ namespace Riskeer.Piping.Forms.Test.Views
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
+            ConfigureHydraulicBoundaryDatabase(assessmentSection);
             mocks.ReplayAll();
 
-            using (PipingCalculationsView pipingCalculationsView = ShowFullyConfiguredPipingCalculationsView(
-                assessmentSection))
-            {
-                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+            PipingFailureMechanism failureMechanism = ConfigureFailureMechanism();
 
-                dataGridView.CurrentCell = dataGridView.Rows[selectedRow].Cells[0];
+            PipingCalculationsView view = ShowPipingCalculationsView(ConfigureCalculationGroup(assessmentSection, failureMechanism),
+                                                                     failureMechanism, assessmentSection);
 
-                // Call
-                object selection = pipingCalculationsView.Selection;
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
-                // Assert
-                Assert.IsInstanceOf<PipingInputContext>(selection);
-                var dataRow = (PipingCalculationRow) dataGridView.Rows[selectedRow].DataBoundItem;
-                Assert.AreSame(dataRow.PipingCalculation, ((PipingInputContext) selection).PipingCalculation);
-            }
+            dataGridView.CurrentCell = dataGridView.Rows[selectedRow].Cells[0];
 
-            mocks.VerifyAll();
-        }
+            // Call
+            object selection = view.Selection;
 
-        [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void PipingCalculationsView_EditingNameViaDataGridView_ObserversCorrectlyNotified(bool useCalculationWithOutput)
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var pipingCalculationObserver = mocks.StrictMock<IObserver>();
-            var pipingCalculationInputObserver = mocks.StrictMock<IObserver>();
-
-            pipingCalculationObserver.Expect(o => o.UpdateObserver());
-
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            using (PipingCalculationsView pipingCalculationsView = ShowFullyConfiguredPipingCalculationsView(
-                assessmentSection))
-            {
-                var data = (CalculationGroup) pipingCalculationsView.Data;
-                var pipingCalculation = (PipingCalculationScenario) data.Children.First();
-
-                if (useCalculationWithOutput)
-                {
-                    pipingCalculation.Output = PipingOutputTestFactory.Create();
-                }
-
-                pipingCalculation.Attach(pipingCalculationObserver);
-                pipingCalculation.InputParameters.Attach(pipingCalculationInputObserver);
-
-                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-
-                // Call
-                dataGridView.Rows[0].Cells[nameColumnIndex].Value = "New name";
-
-                // Assert
-                pipingCalculation.Output = null;
-            }
+            // Assert
+            Assert.IsInstanceOf<PipingInputContext>(selection);
+            var dataRow = (PipingCalculationRow) dataGridView.Rows[selectedRow].DataBoundItem;
+            Assert.AreSame(dataRow.Calculation, ((PipingInputContext) selection).PipingCalculation);
 
             mocks.VerifyAll();
         }
@@ -1148,8 +746,8 @@ namespace Riskeer.Piping.Forms.Test.Views
         {
             // Setup
             var mocks = new MockRepository();
-            var pipingCalculationObserver = mocks.StrictMock<IObserver>();
-            var pipingCalculationInputObserver = mocks.StrictMock<IObserver>();
+            var calculationObserver = mocks.StrictMock<IObserver>();
+            var calculationInputObserver = mocks.StrictMock<IObserver>();
 
             if (useCalculationWithOutput)
             {
@@ -1159,45 +757,39 @@ namespace Riskeer.Piping.Forms.Test.Views
                     tester.ClickOk();
                 };
 
-                pipingCalculationObserver.Expect(o => o.UpdateObserver());
+                calculationObserver.Expect(o => o.UpdateObserver());
             }
 
-            pipingCalculationInputObserver.Expect(o => o.UpdateObserver());
+            calculationInputObserver.Expect(o => o.UpdateObserver());
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             ConfigureHydraulicBoundaryDatabase(assessmentSection);
             assessmentSection.Stub(a => a.Attach(null)).IgnoreArguments();
             assessmentSection.Stub(a => a.Detach(null)).IgnoreArguments();
-            assessmentSection.Replay();
+            mocks.ReplayAll();
 
             PipingFailureMechanism failureMechanism = ConfigureFailureMechanism();
             CalculationGroup calculationGroup = ConfigureCalculationGroup(assessmentSection, failureMechanism);
 
-            using (PipingCalculationsView pipingCalculationsView = ShowFullyConfiguredPipingCalculationsView(
-                assessmentSection, failureMechanism, calculationGroup))
+            ShowPipingCalculationsView(calculationGroup, failureMechanism, assessmentSection);
+
+            var calculation = (PipingCalculationScenario) calculationGroup.Children[1];
+
+            if (useCalculationWithOutput)
             {
-                mocks.ReplayAll();
-
-                var data = (CalculationGroup) pipingCalculationsView.Data;
-                var pipingCalculation = (PipingCalculationScenario) data.Children[1];
-
-                if (useCalculationWithOutput)
-                {
-                    pipingCalculation.Output = PipingOutputTestFactory.Create();
-                }
-
-                pipingCalculation.Attach(pipingCalculationObserver);
-                pipingCalculation.InputParameters.Attach(pipingCalculationInputObserver);
-
-                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-
-                // Call
-                dataGridView.Rows[1].Cells[cellIndex].Value = newValue is double ? (RoundedDouble) (double) newValue : newValue;
-
-                // Assert
-                pipingCalculation.Output = null;
+                calculation.Output = PipingOutputTestFactory.Create();
             }
 
+            calculation.Attach(calculationObserver);
+            calculation.InputParameters.Attach(calculationInputObserver);
+
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+
+            // Call
+            dataGridView.Rows[1].Cells[cellIndex].Value = newValue is double value ? (RoundedDouble) value : newValue;
+
+            // Assert
+            Assert.IsNull(calculation.Output);
             mocks.VerifyAll();
         }
 
@@ -1207,36 +799,36 @@ namespace Riskeer.Piping.Forms.Test.Views
             // Given
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
+            ConfigureHydraulicBoundaryDatabase(assessmentSection);
             mocks.ReplayAll();
 
-            using (PipingCalculationsView pipingCalculationsView = ShowFullyConfiguredPipingCalculationsView(
-                assessmentSection))
-            {
-                var data = (CalculationGroup) pipingCalculationsView.Data;
-                var pipingCalculation = (PipingCalculationScenario) data.Children[1];
+            PipingFailureMechanism failureMechanism = ConfigureFailureMechanism();
+            CalculationGroup calculationGroup = ConfigureCalculationGroup(assessmentSection, failureMechanism);
+            
+            ShowPipingCalculationsView(calculationGroup, failureMechanism, assessmentSection);
 
-                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+            var calculation = (PipingCalculationScenario) calculationGroup.Children[1];
 
-                var refreshed = 0;
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
-                // Precondition
-                var currentCell = (DataGridViewTextBoxCell) dataGridView.Rows[1].Cells[stochasticSoilProfilesProbabilityColumnIndex];
-                Assert.AreEqual(GetFormattedProbabilityValue(30), currentCell.FormattedValue);
+            var refreshed = 0;
 
-                PipingStochasticSoilProfile stochasticSoilProfileToChange = pipingCalculation.InputParameters.StochasticSoilProfile;
-                var updatedProfile = new PipingStochasticSoilProfile(0.5,
-                                                                     stochasticSoilProfileToChange.SoilProfile);
-                dataGridView.Invalidated += (sender, args) => refreshed++;
+            // Precondition
+            var currentCell = (DataGridViewTextBoxCell) dataGridView.Rows[1].Cells[stochasticSoilProfilesProbabilityColumnIndex];
+            Assert.AreEqual(GetFormattedProbabilityValue(30), currentCell.FormattedValue);
 
-                // When
-                stochasticSoilProfileToChange.Update(updatedProfile);
-                stochasticSoilProfileToChange.NotifyObservers();
+            PipingStochasticSoilProfile stochasticSoilProfileToChange = calculation.InputParameters.StochasticSoilProfile;
+            var updatedProfile = new PipingStochasticSoilProfile(0.5, stochasticSoilProfileToChange.SoilProfile);
+            dataGridView.Invalidated += (sender, args) => refreshed++;
 
-                // Then
-                Assert.AreEqual(1, refreshed);
-                var cell = (DataGridViewTextBoxCell) dataGridView.Rows[1].Cells[stochasticSoilProfilesProbabilityColumnIndex];
-                Assert.AreEqual(GetFormattedProbabilityValue(50), cell.FormattedValue);
-            }
+            // When
+            stochasticSoilProfileToChange.Update(updatedProfile);
+            stochasticSoilProfileToChange.NotifyObservers();
+
+            // Then
+            Assert.AreEqual(1, refreshed);
+            var cell = (DataGridViewTextBoxCell) dataGridView.Rows[1].Cells[stochasticSoilProfilesProbabilityColumnIndex];
+            Assert.AreEqual(GetFormattedProbabilityValue(50), cell.FormattedValue);
 
             mocks.VerifyAll();
         }
@@ -1247,53 +839,54 @@ namespace Riskeer.Piping.Forms.Test.Views
             // Given
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
+            ConfigureHydraulicBoundaryDatabase(assessmentSection);
             mocks.ReplayAll();
 
-            using (PipingCalculationsView pipingCalculationsView = ShowFullyConfiguredPipingCalculationsView(
-                assessmentSection))
+            PipingFailureMechanism failureMechanism = ConfigureFailureMechanism();
+            CalculationGroup calculationGroup = ConfigureCalculationGroup(assessmentSection, failureMechanism);
+
+            PipingCalculationsView view = ShowPipingCalculationsView(calculationGroup, failureMechanism, assessmentSection);
+
+            var calculation = (PipingCalculationScenario) calculationGroup.Children[0];
+
+            DataGridViewControl dataGridView = view.Controls.Find("dataGridViewControl", true).OfType<DataGridViewControl>().First();
+            ListBox listBox = view.Controls.Find("listBox", true).OfType<ListBox>().First();
+
+            // Precondition
+            listBox.SelectedIndex = 0;
+            Assert.AreEqual(2, dataGridView.Rows.Count);
+            Assert.AreEqual("Calculation 1", dataGridView.Rows[0].Cells[nameColumnIndex].FormattedValue);
+            Assert.AreEqual("Calculation 2", dataGridView.Rows[1].Cells[nameColumnIndex].FormattedValue);
+
+            listBox.SelectedIndex = 1;
+            Assert.AreEqual(1, dataGridView.Rows.Count);
+            Assert.AreEqual("Calculation 2", dataGridView.Rows[0].Cells[nameColumnIndex].FormattedValue);
+
+            PipingSurfaceLine surfaceLineToChange = calculation.InputParameters.SurfaceLine;
+            var updatedSurfaceLine = new PipingSurfaceLine(surfaceLineToChange.Name)
             {
-                var data = (CalculationGroup) pipingCalculationsView.Data;
-                var pipingCalculation = (PipingCalculationScenario) data.Children[0];
+                ReferenceLineIntersectionWorldPoint = new Point2D(9.0, 0.0)
+            };
+            updatedSurfaceLine.SetGeometry(new[]
+            {
+                new Point3D(9.0, 5.0, 0.0),
+                new Point3D(9.0, 0.0, 1.0),
+                new Point3D(9.0, -5.0, 0.0)
+            });
 
-                DataGridViewControl dataGridView = pipingCalculationsView.Controls.Find("dataGridViewControl", true).OfType<DataGridViewControl>().First();
-                ListBox listBox = pipingCalculationsView.Controls.Find("listBox", true).OfType<ListBox>().First();
+            // When
+            surfaceLineToChange.CopyProperties(updatedSurfaceLine);
+            surfaceLineToChange.NotifyObservers();
 
-                // Precondition
-                listBox.SelectedIndex = 0;
-                Assert.AreEqual(2, dataGridView.Rows.Count);
-                Assert.AreEqual("Calculation 1", dataGridView.Rows[0].Cells[nameColumnIndex].FormattedValue);
-                Assert.AreEqual("Calculation 2", dataGridView.Rows[1].Cells[nameColumnIndex].FormattedValue);
+            // Then
+            listBox.SelectedIndex = 0;
+            Assert.AreEqual(1, dataGridView.Rows.Count);
+            Assert.AreEqual("Calculation 2", dataGridView.Rows[0].Cells[nameColumnIndex].FormattedValue);
 
-                listBox.SelectedIndex = 1;
-                Assert.AreEqual(1, dataGridView.Rows.Count);
-                Assert.AreEqual("Calculation 2", dataGridView.Rows[0].Cells[nameColumnIndex].FormattedValue);
-
-                PipingSurfaceLine surfaceLineToChange = pipingCalculation.InputParameters.SurfaceLine;
-                var updatedSurfaceLine = new PipingSurfaceLine(surfaceLineToChange.Name)
-                {
-                    ReferenceLineIntersectionWorldPoint = new Point2D(9.0, 0.0)
-                };
-                updatedSurfaceLine.SetGeometry(new[]
-                {
-                    new Point3D(9.0, 5.0, 0.0),
-                    new Point3D(9.0, 0.0, 1.0),
-                    new Point3D(9.0, -5.0, 0.0)
-                });
-
-                // When
-                surfaceLineToChange.CopyProperties(updatedSurfaceLine);
-                surfaceLineToChange.NotifyObservers();
-
-                // Then
-                listBox.SelectedIndex = 0;
-                Assert.AreEqual(1, dataGridView.Rows.Count);
-                Assert.AreEqual("Calculation 2", dataGridView.Rows[0].Cells[nameColumnIndex].FormattedValue);
-
-                listBox.SelectedIndex = 1;
-                Assert.AreEqual(2, dataGridView.Rows.Count);
-                Assert.AreEqual("Calculation 1", dataGridView.Rows[0].Cells[nameColumnIndex].FormattedValue);
-                Assert.AreEqual("Calculation 2", dataGridView.Rows[1].Cells[nameColumnIndex].FormattedValue);
-            }
+            listBox.SelectedIndex = 1;
+            Assert.AreEqual(2, dataGridView.Rows.Count);
+            Assert.AreEqual("Calculation 1", dataGridView.Rows[0].Cells[nameColumnIndex].FormattedValue);
+            Assert.AreEqual("Calculation 2", dataGridView.Rows[1].Cells[nameColumnIndex].FormattedValue);
 
             mocks.VerifyAll();
         }
@@ -1305,25 +898,27 @@ namespace Riskeer.Piping.Forms.Test.Views
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
+            ConfigureHydraulicBoundaryDatabase(assessmentSection);
             mocks.ReplayAll();
 
-            using (PipingCalculationsView pipingCalculationsView = ShowFullyConfiguredPipingCalculationsView(assessmentSection))
-            {
-                var data = (CalculationGroup) pipingCalculationsView.Data;
-                var calculation = (PipingCalculationScenario) data.Children.First();
+            PipingFailureMechanism failureMechanism = ConfigureFailureMechanism();
+            CalculationGroup calculationGroup = ConfigureCalculationGroup(assessmentSection, failureMechanism);
 
-                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+            ShowPipingCalculationsView(calculationGroup, failureMechanism, assessmentSection);
 
-                // Call
-                calculation.InputParameters.UseAssessmentLevelManualInput = useAssessmentLevelManualInput;
-                calculation.InputParameters.NotifyObservers();
+            var calculation = (PipingCalculationScenario) calculationGroup.Children.First();
 
-                // Assert
-                Assert.IsFalse(dataGridView.Rows[0].ReadOnly);
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
-                var currentCellUpdated = (DataGridViewComboBoxCell) dataGridView.Rows[0].Cells[selectableHydraulicBoundaryLocationsColumnIndex];
-                Assert.AreEqual(useAssessmentLevelManualInput, currentCellUpdated.ReadOnly);
-            }
+            // Call
+            calculation.InputParameters.UseAssessmentLevelManualInput = useAssessmentLevelManualInput;
+            calculation.InputParameters.NotifyObservers();
+
+            // Assert
+            Assert.IsFalse(dataGridView.Rows[0].ReadOnly);
+
+            var currentCellUpdated = (DataGridViewComboBoxCell) dataGridView.Rows[0].Cells[selectableHydraulicBoundaryLocationsColumnIndex];
+            Assert.AreEqual(useAssessmentLevelManualInput, currentCellUpdated.ReadOnly);
 
             mocks.VerifyAll();
         }
@@ -1342,30 +937,6 @@ namespace Riskeer.Piping.Forms.Test.Views
             testForm.Dispose();
         }
 
-        private PipingCalculationsView ShowFullyConfiguredPipingCalculationsView(
-            IAssessmentSection assessmentSection)
-        {
-            ConfigureHydraulicBoundaryDatabase(assessmentSection);
-
-            PipingFailureMechanism failureMechanism = ConfigureFailureMechanism();
-
-            return ShowFullyConfiguredPipingCalculationsView(assessmentSection,
-                                                             failureMechanism,
-                                                             ConfigureCalculationGroup(assessmentSection, failureMechanism));
-        }
-
-        private PipingCalculationsView ShowFullyConfiguredPipingCalculationsView(IAssessmentSection assessmentSection,
-                                                                                 PipingFailureMechanism failureMechanism,
-                                                                                 CalculationGroup calculationGroup)
-        {
-            PipingCalculationsView view = ShowPipingCalculationsView();
-            view.Data = calculationGroup;
-            view.AssessmentSection = assessmentSection;
-            view.PipingFailureMechanism = failureMechanism;
-
-            return view;
-        }
-
         private static void ConfigureHydraulicBoundaryDatabase(IAssessmentSection assessmentSection)
         {
             assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase
@@ -1376,140 +947,6 @@ namespace Riskeer.Piping.Forms.Test.Views
                     new HydraulicBoundaryLocation(2, "Location 2", 3.3, 4.4)
                 }
             });
-        }
-
-        private PipingCalculationsView ShowSimplePipingCalculationsViewWithSurfaceLines(IAssessmentSection assessmentSection)
-        {
-            var surfaceLine1 = new PipingSurfaceLine("Surface line 1")
-            {
-                ReferenceLineIntersectionWorldPoint = new Point2D(0.0, 0.0)
-            };
-
-            surfaceLine1.SetGeometry(new[]
-            {
-                new Point3D(0.0, 5.0, 0.0),
-                new Point3D(0.0, 0.0, 1.0),
-                new Point3D(0.0, -5.0, 0.0)
-            });
-
-            var surfaceLine2 = new PipingSurfaceLine("Surface line 2")
-            {
-                ReferenceLineIntersectionWorldPoint = new Point2D(5.0, 0.0)
-            };
-
-            surfaceLine2.SetGeometry(new[]
-            {
-                new Point3D(5.0, 5.0, 0.0),
-                new Point3D(5.0, 0.0, 1.0),
-                new Point3D(5.0, -5.0, 0.0)
-            });
-
-            var failureMechanism = new PipingFailureMechanism();
-            failureMechanism.SurfaceLines.AddRange(new[]
-            {
-                surfaceLine1,
-                surfaceLine2
-            }, "path");
-
-            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
-            {
-                new FailureMechanismSection("Section 1", new[]
-                {
-                    new Point2D(0.0, 0.0),
-                    new Point2D(5.0, 0.0)
-                }),
-                new FailureMechanismSection("Section 2", new[]
-                {
-                    new Point2D(5.0, 0.0),
-                    new Point2D(10.0, 0.0)
-                })
-            });
-
-            PipingCalculationsView pipingCalculationsView = ShowPipingCalculationsView();
-
-            pipingCalculationsView.Data = new CalculationGroup
-            {
-                Children =
-                {
-                    new PipingCalculationScenario(new GeneralPipingInput())
-                    {
-                        Name = "Calculation 1",
-                        InputParameters =
-                        {
-                            SurfaceLine = surfaceLine1
-                        }
-                    },
-                    new PipingCalculationScenario(new GeneralPipingInput())
-                    {
-                        Name = "Calculation 2",
-                        InputParameters =
-                        {
-                            SurfaceLine = surfaceLine2
-                        }
-                    }
-                }
-            };
-
-            pipingCalculationsView.AssessmentSection = assessmentSection;
-            pipingCalculationsView.PipingFailureMechanism = failureMechanism;
-
-            return pipingCalculationsView;
-        }
-
-        private PipingCalculationsView ShowSimplePipingCalculationsViewWithoutSurfaceLines(IAssessmentSection assessmentSection,
-                                                                                           HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
-        {
-            var hydraulicBoundaryLocation1 = new HydraulicBoundaryLocation(1, "Location 1", 1.1, 2.2);
-            var hydraulicBoundaryLocation2 = new HydraulicBoundaryLocation(2, "Location 2", 3.3, 4.4);
-            hydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation1);
-            hydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation2);
-
-            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
-
-            var failureMechanism = new PipingFailureMechanism();
-            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
-            {
-                new FailureMechanismSection("Section 1", new[]
-                {
-                    new Point2D(0.0, 0.0),
-                    new Point2D(5.0, 0.0)
-                }),
-                new FailureMechanismSection("Section 2", new[]
-                {
-                    new Point2D(5.0, 0.0),
-                    new Point2D(10.0, 0.0)
-                })
-            });
-
-            PipingCalculationsView pipingCalculationsView = ShowPipingCalculationsView();
-
-            pipingCalculationsView.Data = new CalculationGroup
-            {
-                Children =
-                {
-                    new PipingCalculationScenario(new GeneralPipingInput())
-                    {
-                        Name = "Calculation 1",
-                        InputParameters =
-                        {
-                            HydraulicBoundaryLocation = hydraulicBoundaryLocation1
-                        }
-                    },
-                    new PipingCalculationScenario(new GeneralPipingInput())
-                    {
-                        Name = "Calculation 2",
-                        InputParameters =
-                        {
-                            HydraulicBoundaryLocation = hydraulicBoundaryLocation2
-                        }
-                    }
-                }
-            };
-
-            pipingCalculationsView.AssessmentSection = assessmentSection;
-            pipingCalculationsView.PipingFailureMechanism = failureMechanism;
-
-            return pipingCalculationsView;
         }
 
         private static PipingFailureMechanism ConfigureSimpleFailureMechanism()
@@ -1742,14 +1179,15 @@ namespace Riskeer.Piping.Forms.Test.Views
             return failureMechanism;
         }
 
-        private PipingCalculationsView ShowPipingCalculationsView()
+        private PipingCalculationsView ShowPipingCalculationsView(CalculationGroup calculationGroup, PipingFailureMechanism failureMechanism,
+                                                                  IAssessmentSection assessmentSection)
         {
-            var pipingCalculationsView = new PipingCalculationsView();
+            var view = new PipingCalculationsView(calculationGroup, failureMechanism, assessmentSection);
 
-            testForm.Controls.Add(pipingCalculationsView);
+            testForm.Controls.Add(view);
             testForm.Show();
 
-            return pipingCalculationsView;
+            return view;
         }
 
         private static string GetFormattedProbabilityValue(double value)
