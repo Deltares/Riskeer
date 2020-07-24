@@ -48,6 +48,10 @@
         </stochast>
       </stochasten>
       <illustratiepunteninlezen>true</illustratiepunteninlezen>
+      <scenario>
+        <gebruik>true</gebruik>
+        <bijdrage>8.8</bijdrage>
+      </scenario>
     </berekening>
     <map naam="Nested">
       <berekening naam="Berekening 2">

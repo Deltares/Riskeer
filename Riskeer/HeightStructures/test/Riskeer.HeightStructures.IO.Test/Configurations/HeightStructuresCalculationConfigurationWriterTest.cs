@@ -159,6 +159,11 @@ namespace Riskeer.HeightStructures.IO.Test.Configurations
                 {
                     Mean = 2,
                     VariationCoefficient = 0.1
+                },
+                Scenario = new ScenarioConfiguration()
+                {
+                    IsRelevant = true,
+                    Contribution = 8.8
                 }
             };
         }

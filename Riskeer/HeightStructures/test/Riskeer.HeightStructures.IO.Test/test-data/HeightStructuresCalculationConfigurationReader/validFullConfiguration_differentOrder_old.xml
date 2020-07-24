@@ -35,6 +35,10 @@
         <standaardafwijking>0.01</standaardafwijking>
       </stochast>
     </stochasten>
+      <scenario>
+        <gebruik>true</gebruik>
+        <bijdrage>8.8</bijdrage>
+      </scenario>	
     <golfreductie>
       <voorlandgebruiken>true</voorlandgebruiken>
       <damhoogte>1.234</damhoogte>

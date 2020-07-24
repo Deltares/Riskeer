@@ -24,6 +24,9 @@ All rights reserved.
 
   <!--Basis elementen voor een kunstwerken configuratie.-->
   <xs:include schemaLocation="KunstwerkenBasisSchema.xsd" />
+
+  <!--Definitie voor het specificeren van een berekeningsscenario-->
+  <xs:include schemaLocation="ScenariosSchema.xsd" />
   
   <!--Herdefinieer berekening, zodat deze de juiste inhoud heeft.-->
   <xs:redefine schemaLocation="ConfiguratieSchema.xsd">
@@ -39,6 +42,7 @@ All rights reserved.
             <xs:element ref="golfreductie" minOccurs="0"/>
             <xs:element ref="stochasten" minOccurs="0"/>
             <xs:element ref="illustratiepunteninlezen" minOccurs="0"/>
+            <xs:element ref="scenario" minOccurs="0"/>
           </xs:all>
         </xs:extension>
       </xs:complexContent>

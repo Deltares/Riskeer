@@ -40,5 +40,9 @@
         <variatiecoefficient>NaN</variatiecoefficient>
       </stochast>
     </stochasten>
+      <scenario>
+        <gebruik>true</gebruik>
+        <bijdrage>NaN</bijdrage>
+      </scenario>	
   </berekening>
 </configuratie>

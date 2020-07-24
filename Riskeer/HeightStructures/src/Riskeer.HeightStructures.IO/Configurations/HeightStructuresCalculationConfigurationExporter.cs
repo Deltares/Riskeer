@@ -35,7 +35,7 @@ namespace Riskeer.HeightStructures.IO.Configurations
     public class HeightStructuresCalculationConfigurationExporter
         : CalculationConfigurationExporter<
             HeightStructuresCalculationConfigurationWriter,
-            StructuresCalculation<HeightStructuresInput>,
+            StructuresCalculationScenario<HeightStructuresInput>,
             HeightStructuresCalculationConfiguration>
     {
         /// <summary>
@@ -48,7 +48,7 @@ namespace Riskeer.HeightStructures.IO.Configurations
         public HeightStructuresCalculationConfigurationExporter(IEnumerable<ICalculationBase> calculations, string filePath)
             : base(calculations, new HeightStructuresCalculationConfigurationWriter(filePath)) {}
 
-        protected override HeightStructuresCalculationConfiguration ToConfiguration(StructuresCalculation<HeightStructuresInput> calculation)
+        protected override HeightStructuresCalculationConfiguration ToConfiguration(StructuresCalculationScenario<HeightStructuresInput> calculation)
         {
             HeightStructuresInput input = calculation.InputParameters;
             var calculationConfiguration = new HeightStructuresCalculationConfiguration(calculation.Name)
@@ -56,7 +56,8 @@ namespace Riskeer.HeightStructures.IO.Configurations
                 HydraulicBoundaryLocationName = input.HydraulicBoundaryLocation?.Name,
                 ShouldIllustrationPointsBeCalculated = input.ShouldIllustrationPointsBeCalculated,
                 StormDuration = input.StormDuration.ToStochastConfigurationWithMean(),
-                ModelFactorSuperCriticalFlow = input.ModelFactorSuperCriticalFlow.ToStochastConfigurationWithMean()
+                ModelFactorSuperCriticalFlow = input.ModelFactorSuperCriticalFlow.ToStochastConfigurationWithMean(),
+                Scenario = calculation.ToScenarioConfiguration()
             };
 
             calculationConfiguration.SetConfigurationForeshoreProfileDependentProperties(input);

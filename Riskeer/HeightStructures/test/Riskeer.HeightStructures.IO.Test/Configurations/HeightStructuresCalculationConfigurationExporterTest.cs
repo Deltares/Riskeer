@@ -41,7 +41,7 @@ namespace Riskeer.HeightStructures.IO.Test.Configurations
         : CustomCalculationConfigurationExporterDesignGuidelinesTestFixture<
             HeightStructuresCalculationConfigurationExporter,
             HeightStructuresCalculationConfigurationWriter,
-            StructuresCalculation<HeightStructuresInput>,
+            StructuresCalculationScenario<HeightStructuresInput>,
             HeightStructuresCalculationConfiguration>
     {
         private static IEnumerable<TestCaseData> Calculations
@@ -113,13 +113,13 @@ namespace Riskeer.HeightStructures.IO.Test.Configurations
 
         private static ICalculation CreateSparseCalculation()
         {
-            return new StructuresCalculation<HeightStructuresInput>
+            return new StructuresCalculationScenario<HeightStructuresInput>
             {
                 Name = "sparse config"
             };
         }
 
-        private static StructuresCalculation<HeightStructuresInput> CreateFullCalculation()
+        private static StructuresCalculationScenario<HeightStructuresInput> CreateFullCalculation()
         {
             return new TestHeightStructuresCalculationScenario
             {
@@ -183,9 +183,9 @@ namespace Riskeer.HeightStructures.IO.Test.Configurations
             };
         }
 
-        private static StructuresCalculation<HeightStructuresInput> CreateCalculationWithForeshoreProfile()
+        private static StructuresCalculationScenario<HeightStructuresInput> CreateCalculationWithForeshoreProfile()
         {
-            return new StructuresCalculation<HeightStructuresInput>
+            return new StructuresCalculationScenario<HeightStructuresInput>
             {
                 Name = "with foreshore profile",
                 InputParameters =
@@ -196,9 +196,9 @@ namespace Riskeer.HeightStructures.IO.Test.Configurations
             };
         }
 
-        private static StructuresCalculation<HeightStructuresInput> CreateCalculationWithUseBreakWater()
+        private static StructuresCalculationScenario<HeightStructuresInput> CreateCalculationWithUseBreakWater()
         {
-            return new StructuresCalculation<HeightStructuresInput>
+            return new StructuresCalculationScenario<HeightStructuresInput>
             {
                 Name = "with use breakwater",
                 InputParameters =
@@ -215,9 +215,9 @@ namespace Riskeer.HeightStructures.IO.Test.Configurations
             };
         }
 
-        private static StructuresCalculation<HeightStructuresInput> CreateCalculationWithStructure()
+        private static StructuresCalculationScenario<HeightStructuresInput> CreateCalculationWithStructure()
         {
-            return new StructuresCalculation<HeightStructuresInput>
+            return new StructuresCalculationScenario<HeightStructuresInput>
             {
                 Name = "with structure",
                 InputParameters =
@@ -227,7 +227,7 @@ namespace Riskeer.HeightStructures.IO.Test.Configurations
             };
         }
 
-        protected override StructuresCalculation<HeightStructuresInput> CreateCalculation()
+        protected override StructuresCalculationScenario<HeightStructuresInput> CreateCalculation()
         {
             return new TestHeightStructuresCalculationScenario();
         }
