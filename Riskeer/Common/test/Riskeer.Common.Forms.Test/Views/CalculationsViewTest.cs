@@ -59,12 +59,11 @@ namespace Riskeer.Common.Forms.Test.Views
         {
             // Setup
             var mocks = new MockRepository();
-            var failureMechanism = mocks.StrictMock<IFailureMechanism>();
             var assessmentSection = mocks.StrictMock<IAssessmentSection>();
             mocks.ReplayAll();
 
             // Call
-            void Call() => new TestCalculationsView(null, failureMechanism, assessmentSection);
+            void Call() => new TestCalculationsView(null, new TestFailureMechanism(), assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -92,18 +91,12 @@ namespace Riskeer.Common.Forms.Test.Views
         [Test]
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
-            // Setup
-            var mocks = new MockRepository();
-            var failureMechanism = mocks.StrictMock<IFailureMechanism>();
-            mocks.ReplayAll();
-
             // Call
-            void Call() => new TestCalculationsView(new CalculationGroup(), failureMechanism, null);
+            void Call() => new TestCalculationsView(new CalculationGroup(), new TestFailureMechanism(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -330,7 +323,7 @@ namespace Riskeer.Common.Forms.Test.Views
             var selectionChangedCount = 0;
             calculationsView.SelectionChanged += (sender, args) => selectionChangedCount++;
 
-            var control = TypeUtils.GetField<DataGridViewControl>(calculationsView, "dataGridViewControl");
+            var control = TypeUtils.GetProperty<DataGridViewControl>(calculationsView, "DataGridViewControl");
             WindowsFormsTestHelper.Show(control);
 
             var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
@@ -348,7 +341,7 @@ namespace Riskeer.Common.Forms.Test.Views
         [Test]
         [TestCase(0)]
         [TestCase(1)]
-        public void Selection_Always_ReturnsTheSelectedRowObject(int selectedRow)
+        public void Selection_DataGridViewCellSelected_ReturnsTheSelectedRowObject(int selectedRow)
         {
             // Setup
             var mocks = new MockRepository();
@@ -366,6 +359,25 @@ namespace Riskeer.Common.Forms.Test.Views
 
             // Assert
             Assert.IsInstanceOf<TestCalculationRow>(selection);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Selection_NothingSelected_ReturnsNull()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            // Call
+            TestCalculationsView calculationsView = ShowFullyConfiguredCalculationsView(assessmentSection);
+
+            // Call
+            object selection = calculationsView.Selection;
+
+            // Assert
+            Assert.IsNull(selection);
             mocks.VerifyAll();
         }
 
@@ -695,7 +707,7 @@ namespace Riskeer.Common.Forms.Test.Views
             return ShowCalculationsView(ConfigureCalculationGroup(assessmentSection), failureMechanism, assessmentSection);
         }
 
-        private TestCalculationsView ShowCalculationsView(CalculationGroup calculationGroup, IFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+        private TestCalculationsView ShowCalculationsView(CalculationGroup calculationGroup, TestFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
         {
             var calculationsView = new TestCalculationsView(calculationGroup, failureMechanism, assessmentSection);
 
@@ -705,9 +717,9 @@ namespace Riskeer.Common.Forms.Test.Views
             return calculationsView;
         }
 
-        private class TestCalculationsView : CalculationsView<TestCalculation, TestCalculationInput, TestCalculationRow>
+        private class TestCalculationsView : CalculationsView<TestCalculation, TestCalculationInput, TestCalculationRow, TestFailureMechanism>
         {
-            public TestCalculationsView(CalculationGroup calculationGroup, IFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+            public TestCalculationsView(CalculationGroup calculationGroup, TestFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
                 : base(calculationGroup, failureMechanism, assessmentSection) {}
 
             public bool CanGenerateCalculationState { get; set; }
