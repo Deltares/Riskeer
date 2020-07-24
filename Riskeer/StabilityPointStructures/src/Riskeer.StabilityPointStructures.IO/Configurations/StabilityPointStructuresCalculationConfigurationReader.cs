@@ -46,6 +46,7 @@ namespace Riskeer.StabilityPointStructures.IO.Configurations
         private const string stochastStandaardafwijkingSchemaName = "StochastStandaardafwijkingSchema.xsd";
         private const string stochastVariatiecoefficientSchemaName = "StochastVariatiecoefficientSchema.xsd";
         private const string structureBaseSchemaName = "KunstwerkenBasisSchema.xsd";
+        private const string scenarioSchemaName = "ScenariosSchema.xsd";
 
         /// <summary>
         /// Creates a new instance of <see cref="StabilityPointStructuresCalculationConfigurationReader"/>.
@@ -88,6 +89,9 @@ namespace Riskeer.StabilityPointStructures.IO.Configurations
                        },
                        {
                            structureBaseSchemaName, RiskeerCommonIOResources.KunstwerkenBasisSchema
+                       },
+                       {
+                           scenarioSchemaName, RiskeerCommonIOResources.ScenarioSchema
                        }
                    }
             ) {}
@@ -136,7 +140,8 @@ namespace Riskeer.StabilityPointStructures.IO.Configurations
                 VolumicWeightWater = calculationElement.GetDoubleValueFromDescendantElement(StabilityPointStructuresConfigurationSchemaIdentifiers.VolumicWeightWaterElement),
                 WaveReduction = calculationElement.GetWaveReductionParameters(),
                 WidthFlowApertures = calculationElement.GetStochastConfiguration(ConfigurationSchemaIdentifiers.WidthFlowAperturesStochastName),
-                ShouldIllustrationPointsBeCalculated = calculationElement.GetBoolValueFromDescendantElement(ConfigurationSchemaIdentifiers.ShouldIllustrationPointsBeCalculatedElement)
+                ShouldIllustrationPointsBeCalculated = calculationElement.GetBoolValueFromDescendantElement(ConfigurationSchemaIdentifiers.ShouldIllustrationPointsBeCalculatedElement),
+                Scenario = calculationElement.GetScenarioConfiguration()
             };
         }
     }

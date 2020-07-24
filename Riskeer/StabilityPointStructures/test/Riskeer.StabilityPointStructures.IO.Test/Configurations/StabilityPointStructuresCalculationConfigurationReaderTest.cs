@@ -370,10 +370,10 @@ namespace Riskeer.StabilityPointStructures.IO.Test.Configurations
             string filePath = Path.Combine(testDirectoryPath, fileName);
 
             // Call
-            TestDelegate call = () => new StabilityPointStructuresCalculationConfigurationReader(filePath);
+            void Call() => new StabilityPointStructuresCalculationConfigurationReader(filePath);
 
             // Assert
-            var exception = Assert.Throws<CriticalFileReadException>(call);
+            var exception = Assert.Throws<CriticalFileReadException>(Call);
             Assert.IsInstanceOf<XmlSchemaValidationException>(exception.InnerException);
             StringAssert.Contains(expectedParsingMessage, exception.InnerException?.Message);
         }
@@ -490,6 +490,9 @@ namespace Riskeer.StabilityPointStructures.IO.Test.Configurations
             Assert.AreEqual(1.23, calculation.WaveReduction.BreakWaterHeight);
             Assert.IsTrue(calculation.WaveReduction.UseBreakWater);
             Assert.IsFalse(calculation.WaveReduction.UseForeshoreProfile);
+
+            Assert.IsTrue(calculation.Scenario.IsRelevant);
+            Assert.AreEqual(8.8, calculation.Scenario.Contribution);
         }
 
         [Test]
@@ -556,6 +559,7 @@ namespace Riskeer.StabilityPointStructures.IO.Test.Configurations
             Assert.IsNull(calculation.WidthFlowApertures);
             Assert.IsNull(calculation.WaveReduction.UseForeshoreProfile);
             Assert.IsNull(calculation.ShouldIllustrationPointsBeCalculated);
+            Assert.IsNull(calculation.Scenario);
         }
 
         [Test]
@@ -609,8 +613,8 @@ namespace Riskeer.StabilityPointStructures.IO.Test.Configurations
             Assert.IsNull(calculation.StructureNormalOrientation);
             Assert.IsNull(calculation.StructureId);
             Assert.IsNull(calculation.VerticalDistance);
-
             Assert.IsNull(calculation.WaveReduction);
+            Assert.IsNull(calculation.Scenario);
         }
 
         [Test]
@@ -683,8 +687,8 @@ namespace Riskeer.StabilityPointStructures.IO.Test.Configurations
             Assert.IsNull(calculation.StructureNormalOrientation);
             Assert.IsNull(calculation.StructureId);
             Assert.IsNull(calculation.VerticalDistance);
-
             Assert.IsNull(calculation.WaveReduction);
+            Assert.IsNull(calculation.Scenario);
         }
 
         [Test]
@@ -780,6 +784,8 @@ namespace Riskeer.StabilityPointStructures.IO.Test.Configurations
             Assert.That(double.IsNegativeInfinity(calculation.WidthFlowApertures.StandardDeviation.Value));
 
             Assert.That(double.IsNegativeInfinity(calculation.WaveReduction.BreakWaterHeight.Value));
+            
+            Assert.That(double.IsPositiveInfinity(calculation.Scenario.Contribution.Value));
         }
 
         [Test]
@@ -875,6 +881,8 @@ namespace Riskeer.StabilityPointStructures.IO.Test.Configurations
             Assert.IsNaN(calculation.WidthFlowApertures.StandardDeviation);
 
             Assert.IsNaN(calculation.WaveReduction.BreakWaterHeight);
+
+            Assert.IsNaN(calculation.Scenario.Contribution);
         }
     }
 }

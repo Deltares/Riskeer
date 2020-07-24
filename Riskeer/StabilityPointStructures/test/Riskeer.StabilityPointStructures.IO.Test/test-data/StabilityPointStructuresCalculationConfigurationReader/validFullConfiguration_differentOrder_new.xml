@@ -22,6 +22,10 @@
       <damhoogte>1.23</damhoogte>
       <voorlandgebruiken>false</voorlandgebruiken>
     </golfreductie>
+      <scenario>
+        <gebruik>true</gebruik>
+        <bijdrage>8.8</bijdrage>
+      </scenario>	
     <stochasten>
       <stochast naam="breedtebodembescherming">
         <verwachtingswaarde>15.2</verwachtingswaarde>

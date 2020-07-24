@@ -113,13 +113,14 @@ namespace Riskeer.StabilityPointStructures.IO.Test.Configurations
             var writer = new StabilityPointStructuresCalculationConfigurationWriter("valid");
 
             // Call
-            TestDelegate call = () => writer.Write(new[]
-            {
-                configuration
-            });
+            void Call() =>
+                writer.Write(new[]
+                {
+                    configuration
+                });
 
             // Assert
-            var exception = Assert.Throws<CriticalFileWriteException>(call);
+            var exception = Assert.Throws<CriticalFileWriteException>(Call);
             Assert.IsInstanceOf<InvalidEnumArgumentException>(exception.InnerException);
         }
 
@@ -135,13 +136,14 @@ namespace Riskeer.StabilityPointStructures.IO.Test.Configurations
             var writer = new StabilityPointStructuresCalculationConfigurationWriter("valid");
 
             // Call
-            TestDelegate call = () => writer.Write(new[]
-            {
-                configuration
-            });
+            void Call() =>
+                writer.Write(new[]
+                {
+                    configuration
+                });
 
             // Assert
-            var exception = Assert.Throws<CriticalFileWriteException>(call);
+            var exception = Assert.Throws<CriticalFileWriteException>(Call);
             Assert.IsInstanceOf<InvalidEnumArgumentException>(exception.InnerException);
         }
 
@@ -275,6 +277,11 @@ namespace Riskeer.StabilityPointStructures.IO.Test.Configurations
                     BreakWaterType = ConfigurationBreakWaterType.Dam,
                     BreakWaterHeight = 8.8,
                     UseForeshoreProfile = true
+                },
+                Scenario = new ScenarioConfiguration
+                {
+                    IsRelevant = true,
+                    Contribution = 0.3
                 }
             };
         }

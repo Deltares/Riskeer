@@ -36,7 +36,7 @@ namespace Riskeer.StabilityPointStructures.IO.Configurations
     public class StabilityPointStructuresCalculationConfigurationExporter
         : CalculationConfigurationExporter<
             StabilityPointStructuresCalculationConfigurationWriter,
-            StructuresCalculation<StabilityPointStructuresInput>,
+            StructuresCalculationScenario<StabilityPointStructuresInput>,
             StabilityPointStructuresCalculationConfiguration>
     {
         /// <summary>
@@ -49,7 +49,7 @@ namespace Riskeer.StabilityPointStructures.IO.Configurations
         public StabilityPointStructuresCalculationConfigurationExporter(IEnumerable<ICalculationBase> calculations, string filePath)
             : base(calculations, new StabilityPointStructuresCalculationConfigurationWriter(filePath)) {}
 
-        protected override StabilityPointStructuresCalculationConfiguration ToConfiguration(StructuresCalculation<StabilityPointStructuresInput> calculation)
+        protected override StabilityPointStructuresCalculationConfiguration ToConfiguration(StructuresCalculationScenario<StabilityPointStructuresInput> calculation)
         {
             StabilityPointStructuresInput input = calculation.InputParameters;
 
@@ -61,7 +61,8 @@ namespace Riskeer.StabilityPointStructures.IO.Configurations
                 HydraulicBoundaryLocationName = input.HydraulicBoundaryLocation?.Name,
                 VolumicWeightWater = input.VolumicWeightWater,
                 StormDuration = input.StormDuration.ToStochastConfigurationWithMean(),
-                ShouldIllustrationPointsBeCalculated = input.ShouldIllustrationPointsBeCalculated
+                ShouldIllustrationPointsBeCalculated = input.ShouldIllustrationPointsBeCalculated,
+                Scenario = calculation.ToScenarioConfiguration()
             };
 
             SetConfigurationStructureDependentParameters(calculationConfiguration, input);

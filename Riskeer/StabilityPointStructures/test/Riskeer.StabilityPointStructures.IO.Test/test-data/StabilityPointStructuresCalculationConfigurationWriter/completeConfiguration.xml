@@ -108,5 +108,9 @@
       </stochast>
     </stochasten>
     <illustratiepunteninlezen>true</illustratiepunteninlezen>
+    <scenario>
+      <gebruik>true</gebruik>
+      <bijdrage>0.3</bijdrage>
+    </scenario>
   </berekening>
 </configuratie>

@@ -41,7 +41,7 @@ namespace Riskeer.StabilityPointStructures.IO.Test.Configurations
         : CustomCalculationConfigurationExporterDesignGuidelinesTestFixture<
             StabilityPointStructuresCalculationConfigurationExporter,
             StabilityPointStructuresCalculationConfigurationWriter,
-            StructuresCalculation<StabilityPointStructuresInput>,
+            StructuresCalculationScenario<StabilityPointStructuresInput>,
             StabilityPointStructuresCalculationConfiguration>
     {
         private static IEnumerable<TestCaseData> Calculations
@@ -122,9 +122,9 @@ namespace Riskeer.StabilityPointStructures.IO.Test.Configurations
             WriteAndValidate(calculations, expectedXmlFilePath);
         }
 
-        private static StructuresCalculation<StabilityPointStructuresInput> CreateCalculationWithStructureAndLoadSchematizationLinearAndInflowModelFloodedCulvert()
+        private static StructuresCalculationScenario<StabilityPointStructuresInput> CreateCalculationWithStructureAndLoadSchematizationLinearAndInflowModelFloodedCulvert()
         {
-            return new StructuresCalculation<StabilityPointStructuresInput>
+            return new StructuresCalculationScenario<StabilityPointStructuresInput>
             {
                 Name = "with LoadSchematizationType set to Linear and InflowModelType to FloodedCulvert",
                 InputParameters =
@@ -136,9 +136,9 @@ namespace Riskeer.StabilityPointStructures.IO.Test.Configurations
             };
         }
 
-        private static StructuresCalculation<StabilityPointStructuresInput> CreateCalculationWithStructureAndLoadSchematizationQadraticAndInflowModelLowSill()
+        private static StructuresCalculationScenario<StabilityPointStructuresInput> CreateCalculationWithStructureAndLoadSchematizationQadraticAndInflowModelLowSill()
         {
-            return new StructuresCalculation<StabilityPointStructuresInput>
+            return new StructuresCalculationScenario<StabilityPointStructuresInput>
             {
                 Name = "with LoadSchematizationType set to Qadratic and InflowModelType to LowSil",
                 InputParameters =
@@ -150,9 +150,9 @@ namespace Riskeer.StabilityPointStructures.IO.Test.Configurations
             };
         }
 
-        private static StructuresCalculation<StabilityPointStructuresInput> CreateCalculationWithStructure()
+        private static StructuresCalculationScenario<StabilityPointStructuresInput> CreateCalculationWithStructure()
         {
-            return new StructuresCalculation<StabilityPointStructuresInput>
+            return new StructuresCalculationScenario<StabilityPointStructuresInput>
             {
                 Name = "with structure",
                 InputParameters =
@@ -162,9 +162,9 @@ namespace Riskeer.StabilityPointStructures.IO.Test.Configurations
             };
         }
 
-        private static StructuresCalculation<StabilityPointStructuresInput> CreateCalculationWithForeshoreProfile()
+        private static StructuresCalculationScenario<StabilityPointStructuresInput> CreateCalculationWithForeshoreProfile()
         {
-            return new StructuresCalculation<StabilityPointStructuresInput>
+            return new StructuresCalculationScenario<StabilityPointStructuresInput>
             {
                 Name = "with foreshore profile",
                 InputParameters =
@@ -174,9 +174,9 @@ namespace Riskeer.StabilityPointStructures.IO.Test.Configurations
             };
         }
 
-        private static StructuresCalculation<StabilityPointStructuresInput> CreateCalculationWithUseBreakWater()
+        private static StructuresCalculationScenario<StabilityPointStructuresInput> CreateCalculationWithUseBreakWater()
         {
-            return new StructuresCalculation<StabilityPointStructuresInput>
+            return new StructuresCalculationScenario<StabilityPointStructuresInput>
             {
                 Name = "with use breakwater",
                 InputParameters =
@@ -195,7 +195,7 @@ namespace Riskeer.StabilityPointStructures.IO.Test.Configurations
 
         private static ICalculationBase CreateSparseCalculation()
         {
-            return new StructuresCalculation<StabilityPointStructuresInput>
+            return new StructuresCalculationScenario<StabilityPointStructuresInput>
             {
                 Name = "sparse config"
             };
@@ -336,7 +336,7 @@ namespace Riskeer.StabilityPointStructures.IO.Test.Configurations
             };
         }
 
-        protected override StructuresCalculation<StabilityPointStructuresInput> CreateCalculation()
+        protected override StructuresCalculationScenario<StabilityPointStructuresInput> CreateCalculation()
         {
             return new TestStabilityPointStructuresCalculationScenario();
         }
