@@ -2280,6 +2280,14 @@ namespace Riskeer.Integration.Plugin
                         AssessmentSectionHydraulicBoundaryLocationCalculationActivityFactory.CreateHydraulicBoundaryLocationCalculationActivities(nodeData.AssessmentSection));
                 });
 
+            var connectItem = new StrictContextMenuItem(RiskeerFormsResources.HydraulicBoundaryDatabase_Connect,
+                                                        RiskeerFormsResources.HydraulicBoundaryDatabase_Connect_ToolTip,
+                                                        RiskeerCommonFormsResources.DatabaseIcon,
+                                                        (s, e) =>
+                                                        {
+                                                            // TODO: Open dialog that provides the import logic
+                                                        });
+
             SetHydraulicsMenuItemEnabledStateAndTooltip(nodeData.AssessmentSection,
                                                         calculateAllItem);
 
@@ -2290,9 +2298,7 @@ namespace Riskeer.Integration.Plugin
                 () => RiskeerDataSynchronizationService.ClearIllustrationPointResultsForDesignWaterLevelAndWaveHeightCalculations(nodeData.AssessmentSection));
 
             AssessmentSection assessmentSection = nodeData.AssessmentSection;
-            return builder.AddCustomImportItem(RiskeerFormsResources.HydraulicBoundaryDatabase_Connect,
-                                               RiskeerFormsResources.HydraulicBoundaryDatabase_Connect_ToolTip,
-                                               RiskeerCommonFormsResources.DatabaseIcon)
+            return builder.AddCustomItem(connectItem)
                           .AddExportItem()
                           .AddSeparator()
                           .AddCustomItem(calculateAllItem)

@@ -145,7 +145,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
             using (mocks.Ordered())
             {
-                menuBuilder.Expect(mb => mb.AddCustomImportItem(null, null, null)).IgnoreArguments().Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.AddExportItem()).Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
@@ -176,58 +176,6 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 
                     // Call
                     info.ContextMenuStrip(context, null, treeViewControl);
-                }
-            }
-
-            // Assert
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void ContextMenuStrip_Always_AddCustomImportItem()
-        {
-            // Setup
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-            var context = new HydraulicBoundaryDatabaseContext(assessmentSection.HydraulicBoundaryDatabase,
-                                                               assessmentSection);
-
-            var applicationFeatureCommands = mocks.Stub<IApplicationFeatureCommands>();
-            var importCommandHandler = mocks.Stub<IImportCommandHandler>();
-            importCommandHandler.Stub(ich => ich.CanImportOn(null)).IgnoreArguments().Return(true);
-            var exportCommandHandler = mocks.Stub<IExportCommandHandler>();
-            var updateCommandHandler = mocks.Stub<IUpdateCommandHandler>();
-            var viewCommands = mocks.Stub<IViewCommands>();
-
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var builder = new ContextMenuBuilder(applicationFeatureCommands,
-                                                     importCommandHandler,
-                                                     exportCommandHandler,
-                                                     updateCommandHandler,
-                                                     viewCommands,
-                                                     context,
-                                                     treeViewControl);
-
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(g => g.Get(context, treeViewControl)).Return(builder);
-                gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
-                gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
-                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
-                mocks.ReplayAll();
-
-                using (var plugin = new RiskeerPlugin())
-                {
-                    TreeNodeInfo info = GetInfo(plugin);
-                    plugin.Gui = gui;
-
-                    // Call
-                    using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, assessmentSection, treeViewControl))
-                    {
-                        TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuImportHydraulicBoundaryDatabaseIndex,
-                                                                      "&Koppel aan database...",
-                                                                      "Koppel aan hydraulische belastingendatabase.",
-                                                                      RiskeerCommonFormsResources.DatabaseIcon);
-                    }
                 }
             }
 
@@ -431,6 +379,58 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             }
 
             mocks.VerifyAll(); // Expect no calls on arguments
+        }
+
+        [Test]
+        public void ContextMenuStrip_Always_ContextMenuItemConnectToHydraulicBoundaryDatabaseAdded()
+        {
+            // Setup
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            var context = new HydraulicBoundaryDatabaseContext(assessmentSection.HydraulicBoundaryDatabase,
+                                                               assessmentSection);
+
+            var applicationFeatureCommands = mocks.Stub<IApplicationFeatureCommands>();
+            var importCommandHandler = mocks.Stub<IImportCommandHandler>();
+            importCommandHandler.Stub(ich => ich.CanImportOn(null)).IgnoreArguments().Return(true);
+            var exportCommandHandler = mocks.Stub<IExportCommandHandler>();
+            var updateCommandHandler = mocks.Stub<IUpdateCommandHandler>();
+            var viewCommands = mocks.Stub<IViewCommands>();
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var builder = new ContextMenuBuilder(applicationFeatureCommands,
+                                                     importCommandHandler,
+                                                     exportCommandHandler,
+                                                     updateCommandHandler,
+                                                     viewCommands,
+                                                     context,
+                                                     treeViewControl);
+
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(g => g.Get(context, treeViewControl)).Return(builder);
+                gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
+                gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
+                gui.Stub(cmp => cmp.MainWindow).Return(mocks.Stub<IMainWindow>());
+                mocks.ReplayAll();
+
+                using (var plugin = new RiskeerPlugin())
+                {
+                    TreeNodeInfo info = GetInfo(plugin);
+                    plugin.Gui = gui;
+
+                    // Call
+                    using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, assessmentSection, treeViewControl))
+                    {
+                        TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuImportHydraulicBoundaryDatabaseIndex,
+                                                                      "&Koppel aan database...",
+                                                                      "Koppel aan hydraulische belastingendatabase.",
+                                                                      RiskeerCommonFormsResources.DatabaseIcon);
+                    }
+                }
+            }
+
+            // Assert
+            mocks.VerifyAll();
         }
 
         [Test]
