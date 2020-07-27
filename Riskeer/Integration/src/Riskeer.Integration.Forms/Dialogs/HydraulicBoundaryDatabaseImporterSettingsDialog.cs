@@ -35,7 +35,7 @@ namespace Riskeer.Integration.Forms.Dialogs
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicBoundaryDatabaseImporterSettingsDialog"/>.
         /// </summary>
-        public HydraulicBoundaryDatabaseImporterSettingsDialog(IWin32Window dialogParent) : base(dialogParent, RiskeerCommonFormsResources.DatabaseIcon, 600, 200)
+        public HydraulicBoundaryDatabaseImporterSettingsDialog(IWin32Window dialogParent) : base(dialogParent, RiskeerCommonFormsResources.DatabaseIcon, 600, 250)
         {
             InitializeComponent();
 
