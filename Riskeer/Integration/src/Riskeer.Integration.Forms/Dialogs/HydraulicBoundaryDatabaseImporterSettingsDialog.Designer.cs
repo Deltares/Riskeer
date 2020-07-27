@@ -71,6 +71,9 @@ namespace Riskeer.Integration.Forms.Dialogs
             this.buttonCancel = new System.Windows.Forms.Button();
             this.buttonConnect = new System.Windows.Forms.Button();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
+            this.toolTipHlcd = new System.Windows.Forms.ToolTip(this.components);
+            this.toolTipHrd = new System.Windows.Forms.ToolTip(this.components);
+            this.toolTipLocations = new System.Windows.Forms.ToolTip(this.components);
             this.tableLayoutPanel.SuspendLayout();
             this.tableLayoutPanelHlcd.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxHlcd)).BeginInit();
@@ -100,7 +103,7 @@ namespace Riskeer.Integration.Forms.Dialogs
             this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 55F));
             this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
-            this.tableLayoutPanel.Size = new System.Drawing.Size(600, 220);
+            this.tableLayoutPanel.Size = new System.Drawing.Size(500, 150);
             this.tableLayoutPanel.TabIndex = 0;
             // 
             // tableLayoutPanelHlcd
@@ -119,7 +122,7 @@ namespace Riskeer.Integration.Forms.Dialogs
             this.tableLayoutPanelHlcd.RowCount = 2;
             this.tableLayoutPanelHlcd.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanelHlcd.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanelHlcd.Size = new System.Drawing.Size(594, 49);
+            this.tableLayoutPanelHlcd.Size = new System.Drawing.Size(494, 49);
             this.tableLayoutPanelHlcd.TabIndex = 0;
             // 
             // labelHlcd
@@ -136,7 +139,7 @@ namespace Riskeer.Integration.Forms.Dialogs
             // buttonHlcd
             // 
             this.buttonHlcd.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.buttonHlcd.Location = new System.Drawing.Point(567, 25);
+            this.buttonHlcd.Location = new System.Drawing.Point(467, 25);
             this.buttonHlcd.Name = "buttonHlcd";
             this.buttonHlcd.Size = new System.Drawing.Size(24, 21);
             this.buttonHlcd.TabIndex = 1;
@@ -149,8 +152,10 @@ namespace Riskeer.Integration.Forms.Dialogs
             this.textBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.textBox1.Location = new System.Drawing.Point(3, 25);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(558, 20);
+            this.textBox1.ReadOnly = true;
+            this.textBox1.Size = new System.Drawing.Size(458, 20);
             this.textBox1.TabIndex = 2;
+            this.textBox1.Text = "<selecteer>";
             // 
             // pictureBoxHlcd
             // 
@@ -179,7 +184,7 @@ namespace Riskeer.Integration.Forms.Dialogs
             this.tableLayoutPanelHrd.RowCount = 2;
             this.tableLayoutPanelHrd.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanelHrd.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanelHrd.Size = new System.Drawing.Size(594, 49);
+            this.tableLayoutPanelHrd.Size = new System.Drawing.Size(494, 49);
             this.tableLayoutPanelHrd.TabIndex = 1;
             // 
             // labelHrd
@@ -196,7 +201,7 @@ namespace Riskeer.Integration.Forms.Dialogs
             // buttonHrd
             // 
             this.buttonHrd.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.buttonHrd.Location = new System.Drawing.Point(567, 25);
+            this.buttonHrd.Location = new System.Drawing.Point(467, 25);
             this.buttonHrd.Name = "buttonHrd";
             this.buttonHrd.Size = new System.Drawing.Size(24, 21);
             this.buttonHrd.TabIndex = 1;
@@ -209,8 +214,10 @@ namespace Riskeer.Integration.Forms.Dialogs
             this.textBox2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.textBox2.Location = new System.Drawing.Point(3, 25);
             this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(558, 20);
+            this.textBox2.ReadOnly = true;
+            this.textBox2.Size = new System.Drawing.Size(458, 20);
             this.textBox2.TabIndex = 2;
+            this.textBox2.Text = "<selecteer>";
             // 
             // pictureBoxHrd
             // 
@@ -239,7 +246,7 @@ namespace Riskeer.Integration.Forms.Dialogs
             this.tableLayoutPanelLocations.RowCount = 2;
             this.tableLayoutPanelLocations.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanelLocations.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanelLocations.Size = new System.Drawing.Size(594, 49);
+            this.tableLayoutPanelLocations.Size = new System.Drawing.Size(494, 49);
             this.tableLayoutPanelLocations.TabIndex = 2;
             // 
             // labelLocations
@@ -256,7 +263,7 @@ namespace Riskeer.Integration.Forms.Dialogs
             // buttonLocations
             // 
             this.buttonLocations.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.buttonLocations.Location = new System.Drawing.Point(567, 25);
+            this.buttonLocations.Location = new System.Drawing.Point(467, 25);
             this.buttonLocations.Name = "buttonLocations";
             this.buttonLocations.Size = new System.Drawing.Size(24, 21);
             this.buttonLocations.TabIndex = 1;
@@ -269,8 +276,10 @@ namespace Riskeer.Integration.Forms.Dialogs
             this.textBox3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.textBox3.Location = new System.Drawing.Point(3, 25);
             this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(558, 20);
+            this.textBox3.ReadOnly = true;
+            this.textBox3.Size = new System.Drawing.Size(458, 20);
             this.textBox3.TabIndex = 2;
+            this.textBox3.Text = "<selecteer>";
             // 
             // pictureBoxLocations
             // 
@@ -293,16 +302,16 @@ namespace Riskeer.Integration.Forms.Dialogs
             this.tableLayoutPanelButtons.Controls.Add(this.buttonCancel, 2, 0);
             this.tableLayoutPanelButtons.Controls.Add(this.buttonConnect, 1, 0);
             this.tableLayoutPanelButtons.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanelButtons.Location = new System.Drawing.Point(3, 188);
+            this.tableLayoutPanelButtons.Location = new System.Drawing.Point(3, 118);
             this.tableLayoutPanelButtons.Name = "tableLayoutPanelButtons";
             this.tableLayoutPanelButtons.RowCount = 1;
             this.tableLayoutPanelButtons.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanelButtons.Size = new System.Drawing.Size(594, 29);
+            this.tableLayoutPanelButtons.Size = new System.Drawing.Size(494, 29);
             this.tableLayoutPanelButtons.TabIndex = 3;
             // 
             // buttonCancel
             // 
-            this.buttonCancel.Location = new System.Drawing.Point(516, 3);
+            this.buttonCancel.Location = new System.Drawing.Point(416, 3);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 0;
@@ -311,7 +320,7 @@ namespace Riskeer.Integration.Forms.Dialogs
             // 
             // buttonConnect
             // 
-            this.buttonConnect.Location = new System.Drawing.Point(435, 3);
+            this.buttonConnect.Location = new System.Drawing.Point(335, 3);
             this.buttonConnect.Name = "buttonConnect";
             this.buttonConnect.Size = new System.Drawing.Size(75, 23);
             this.buttonConnect.TabIndex = 1;
@@ -344,7 +353,6 @@ namespace Riskeer.Integration.Forms.Dialogs
             this.tableLayoutPanelButtons.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -370,5 +378,8 @@ namespace Riskeer.Integration.Forms.Dialogs
         private System.Windows.Forms.PictureBox pictureBoxHlcd;
         private System.Windows.Forms.PictureBox pictureBoxHrd;
         private System.Windows.Forms.PictureBox pictureBoxLocations;
+        private System.Windows.Forms.ToolTip toolTipHlcd;
+        private System.Windows.Forms.ToolTip toolTipHrd;
+        private System.Windows.Forms.ToolTip toolTipLocations;
     }
 }

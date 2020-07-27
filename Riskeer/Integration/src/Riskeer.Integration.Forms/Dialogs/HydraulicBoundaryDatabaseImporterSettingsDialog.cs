@@ -39,6 +39,10 @@ namespace Riskeer.Integration.Forms.Dialogs
         {
             InitializeComponent();
 
+            toolTipHlcd.SetToolTip(pictureBoxHlcd, "Korte toelichting bij HLCD-bestand."); // TODO: add description and move to resources
+            toolTipHrd.SetToolTip(pictureBoxHrd, "Korte toelichting bij HRD-bestandsmap."); // TODO: add description and move to resources
+            toolTipLocations.SetToolTip(pictureBoxLocations, "Korte toelichting bij locatiebestand."); // TODO: add description and move to resources
+
             buttonConnect.Enabled = false;
             errorProvider.SetIconPadding(buttonConnect, 3);
             errorProvider.SetIconAlignment(buttonConnect, ErrorIconAlignment.MiddleLeft);
