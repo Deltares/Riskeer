@@ -19,9 +19,12 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Windows.Forms;
 using Core.Common.Controls.Dialogs;
+using Core.Common.Gui.Helpers;
 using Riskeer.Common.Data.Hydraulics;
+using Riskeer.Integration.Forms.Properties;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.Integration.Forms.Dialogs
@@ -32,26 +35,64 @@ namespace Riskeer.Integration.Forms.Dialogs
     /// </summary>
     public partial class HydraulicBoundaryDatabaseImporterSettingsDialog : DialogBase
     {
+        private readonly IInquiryHelper inquiryHelper;
+
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicBoundaryDatabaseImporterSettingsDialog"/>.
         /// </summary>
-        public HydraulicBoundaryDatabaseImporterSettingsDialog(IWin32Window dialogParent) : base(dialogParent, RiskeerCommonFormsResources.DatabaseIcon, 600, 250)
+        /// <param name="dialogParent">The dialog parent for which this dialog should be shown on top.</param>
+        /// <param name="inquiryHelper">Object responsible for inquiring the required data.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
+        public HydraulicBoundaryDatabaseImporterSettingsDialog(IWin32Window dialogParent,
+                                                               IInquiryHelper inquiryHelper) : base(dialogParent, RiskeerCommonFormsResources.DatabaseIcon, 600, 250)
         {
+            this.inquiryHelper = inquiryHelper ?? throw new ArgumentNullException(nameof(inquiryHelper));
+
             InitializeComponent();
 
-            toolTipHlcd.SetToolTip(pictureBoxHlcd, "Korte toelichting bij HLCD-bestand."); // TODO: add description and move to resources
-            toolTipHrd.SetToolTip(pictureBoxHrd, "Korte toelichting bij HRD-bestandsmap."); // TODO: add description and move to resources
-            toolTipLocations.SetToolTip(pictureBoxLocations, "Korte toelichting bij locatiebestand."); // TODO: add description and move to resources
+            toolTipHlcd.SetToolTip(pictureBoxHlcd, Resources.HydraulicBoundaryDatabaseImporterSettingsDialog_Tooltip_Hlcd); // TODO: Improve resource text
+            toolTipHrd.SetToolTip(pictureBoxHrd, Resources.HydraulicBoundaryDatabaseImporterSettingsDialog_Tooltip_Hrd); // TODO: Improve resource text
+            toolTipLocations.SetToolTip(pictureBoxLocations, Resources.HydraulicBoundaryDatabaseImporterSettingsDialog_Tooltip_Locations); // TODO: Improve resource text
 
             buttonConnect.Enabled = false;
             errorProvider.SetIconPadding(buttonConnect, 3);
             errorProvider.SetIconAlignment(buttonConnect, ErrorIconAlignment.MiddleLeft);
-            errorProvider.SetError(buttonConnect, "Kan niet koppelen aan database: er is geen HLCD-bestand geselecteerd.");
+            errorProvider.SetError(buttonConnect, "Kan niet koppelen aan database: er is geen HLCD bestand geselecteerd.");
         }
 
         protected override Button GetCancelButton()
         {
             return buttonCancel;
+        }
+
+        private void OnButtonHlcdClick(object sender, EventArgs e)
+        {
+            string sourceFileLocation = inquiryHelper.GetSourceFileLocation(Resources.HydraulicBoundaryDatabaseImporterSettingsDialog_FileFilter_Hlcd);
+
+            if (sourceFileLocation != null)
+            {
+                textBoxHlcd.Text = sourceFileLocation;
+            }
+        }
+
+        private void OnButtonHrdClick(object sender, EventArgs e)
+        {
+            string targetFolderLocation = inquiryHelper.GetTargetFolderLocation();
+
+            if (targetFolderLocation != null)
+            {
+                textBoxHrd.Text = targetFolderLocation;
+            }
+        }
+
+        private void OnButtonLocationsClick(object sender, EventArgs e)
+        {
+            string sourceFileLocation = inquiryHelper.GetSourceFileLocation(Resources.HydraulicBoundaryDatabaseImporterSettingsDialog_FileFilter_Locations);
+
+            if (sourceFileLocation != null)
+            {
+                textBoxLocations.Text = sourceFileLocation;
+            }
         }
     }
 }

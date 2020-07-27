@@ -707,6 +707,51 @@ namespace Riskeer.Integration.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to HLCD bestand|*.sqlite.
+        /// </summary>
+        public static string HydraulicBoundaryDatabaseImporterSettingsDialog_FileFilter_Hlcd {
+            get {
+                return ResourceManager.GetString("HydraulicBoundaryDatabaseImporterSettingsDialog_FileFilter_Hlcd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Locatie bestand|*.sqlite.
+        /// </summary>
+        public static string HydraulicBoundaryDatabaseImporterSettingsDialog_FileFilter_Locations {
+            get {
+                return ResourceManager.GetString("HydraulicBoundaryDatabaseImporterSettingsDialog_FileFilter_Locations", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Korte toelichting bij HLCD bestand..
+        /// </summary>
+        public static string HydraulicBoundaryDatabaseImporterSettingsDialog_Tooltip_Hlcd {
+            get {
+                return ResourceManager.GetString("HydraulicBoundaryDatabaseImporterSettingsDialog_Tooltip_Hlcd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Korte toelichting bij HRD bestandsmap..
+        /// </summary>
+        public static string HydraulicBoundaryDatabaseImporterSettingsDialog_Tooltip_Hrd {
+            get {
+                return ResourceManager.GetString("HydraulicBoundaryDatabaseImporterSettingsDialog_Tooltip_Hrd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Korte toelichting bij locatie bestand..
+        /// </summary>
+        public static string HydraulicBoundaryDatabaseImporterSettingsDialog_Tooltip_Locations {
+            get {
+                return ResourceManager.GetString("HydraulicBoundaryDatabaseImporterSettingsDialog_Tooltip_Locations", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Overige informatie..
         /// </summary>
         public static string HydraulicLocationConfigurationSettings_Comment_Description {

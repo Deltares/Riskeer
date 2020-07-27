@@ -446,4 +446,19 @@ Daarbij gaan de huidige berekeningsresultaten voor belastingen op trajectniveau 
   <data name="HydraulicLocationConfigurationSettings_UsePreprocessorClosure_DisplayName" xml:space="preserve">
     <value>Gebruik preprocessor sluitregime database</value>
   </data>
+  <data name="HydraulicBoundaryDatabaseImporterSettingsDialog_FileFilter_Hlcd" xml:space="preserve">
+    <value>HLCD bestand|*.sqlite</value>
+  </data>
+  <data name="HydraulicBoundaryDatabaseImporterSettingsDialog_FileFilter_Locations" xml:space="preserve">
+    <value>Locatie bestand|*.sqlite</value>
+  </data>
+  <data name="HydraulicBoundaryDatabaseImporterSettingsDialog_Tooltip_Hlcd" xml:space="preserve">
+    <value>Korte toelichting bij HLCD bestand.</value>
+  </data>
+  <data name="HydraulicBoundaryDatabaseImporterSettingsDialog_Tooltip_Hrd" xml:space="preserve">
+    <value>Korte toelichting bij HRD bestandsmap.</value>
+  </data>
+  <data name="HydraulicBoundaryDatabaseImporterSettingsDialog_Tooltip_Locations" xml:space="preserve">
+    <value>Korte toelichting bij locatie bestand.</value>
+  </data>
 </root>
