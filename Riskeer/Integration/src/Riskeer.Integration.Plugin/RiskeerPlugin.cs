@@ -2285,7 +2285,7 @@ namespace Riskeer.Integration.Plugin
                                                         RiskeerCommonFormsResources.DatabaseIcon,
                                                         (s, e) =>
                                                         {
-                                                            var dialog = new HydraulicBoundaryDatabaseImporterSettingsDialog();
+                                                            var dialog = new HydraulicBoundaryDatabaseImporterSettingsDialog(Gui.MainWindow);
 
                                                             dialog.ShowDialog();
                                                         });

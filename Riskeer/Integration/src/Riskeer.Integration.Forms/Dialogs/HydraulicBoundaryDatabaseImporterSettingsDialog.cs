@@ -20,7 +20,9 @@
 // All rights reserved.
 
 using System.Windows.Forms;
+using Core.Common.Controls.Dialogs;
 using Riskeer.Common.Data.Hydraulics;
+using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.Integration.Forms.Dialogs
 {
@@ -28,12 +30,12 @@ namespace Riskeer.Integration.Forms.Dialogs
     /// A dialog which allows the user to select all required hydraulic file/directory paths. Upon
     /// closing of the dialog, the related <see cref="HydraulicBoundaryDatabase"/> can be constructed.
     /// </summary>
-    public partial class HydraulicBoundaryDatabaseImporterSettingsDialog : Form
+    public partial class HydraulicBoundaryDatabaseImporterSettingsDialog : DialogBase
     {
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicBoundaryDatabaseImporterSettingsDialog"/>.
         /// </summary>
-        public HydraulicBoundaryDatabaseImporterSettingsDialog()
+        public HydraulicBoundaryDatabaseImporterSettingsDialog(IWin32Window dialogParent) : base(dialogParent, RiskeerCommonFormsResources.DatabaseIcon, 600, 200)
         {
             InitializeComponent();
 
@@ -41,6 +43,11 @@ namespace Riskeer.Integration.Forms.Dialogs
             errorProvider.SetIconPadding(buttonConnect, 3);
             errorProvider.SetIconAlignment(buttonConnect, ErrorIconAlignment.MiddleLeft);
             errorProvider.SetError(buttonConnect, "Kan niet koppelen aan database: er is geen HLCD-bestand geselecteerd.");
+        }
+
+        protected override Button GetCancelButton()
+        {
+            return buttonCancel;
         }
     }
 }
