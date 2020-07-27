@@ -2285,7 +2285,9 @@ namespace Riskeer.Integration.Plugin
                                                         RiskeerCommonFormsResources.DatabaseIcon,
                                                         (s, e) =>
                                                         {
-                                                            // TODO: Open dialog that provides the import logic
+                                                            var dialog = new HydraulicBoundaryDatabaseImporterSettingsDialog();
+
+                                                            dialog.ShowDialog();
                                                         });
 
             SetHydraulicsMenuItemEnabledStateAndTooltip(nodeData.AssessmentSection,

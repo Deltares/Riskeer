@@ -30,6 +30,9 @@ namespace Riskeer.Integration.Forms.Dialogs
     /// </summary>
     public partial class HydraulicBoundaryDatabaseImporterSettingsDialog : Form
     {
+        /// <summary>
+        /// Creates a new instance of <see cref="HydraulicBoundaryDatabaseImporterSettingsDialog"/>.
+        /// </summary>
         public HydraulicBoundaryDatabaseImporterSettingsDialog()
         {
             InitializeComponent();
