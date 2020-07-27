@@ -36,6 +36,11 @@ namespace Riskeer.Integration.Forms.Dialogs
         public HydraulicBoundaryDatabaseImporterSettingsDialog()
         {
             InitializeComponent();
+
+            buttonConnect.Enabled = false;
+            errorProvider.SetIconPadding(buttonConnect, 3);
+            errorProvider.SetIconAlignment(buttonConnect, ErrorIconAlignment.MiddleLeft);
+            errorProvider.SetError(buttonConnect, "Kan niet koppelen aan database: er is geen HLCD-bestand geselecteerd.");
         }
     }
 }

@@ -102,9 +102,7 @@
     <None Include="Resources\AddFolder-stand32.png" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="Dialogs\HydraulicBoundaryDatabaseImporterSettingsDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Update="Dialogs\HydraulicBoundaryDatabaseImporterSettingsDialog.cs" />
     <Compile Update="Dialogs\HydraulicBoundaryDatabaseImporterSettingsDialog.Designer.cs">
       <DependentUpon>HydraulicBoundaryDatabaseImporterSettingsDialog.cs</DependentUpon>
     </Compile>
