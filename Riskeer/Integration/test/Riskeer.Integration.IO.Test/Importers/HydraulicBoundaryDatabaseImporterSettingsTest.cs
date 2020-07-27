@@ -20,12 +20,12 @@
 // All rights reserved.
 
 using NUnit.Framework;
-using Riskeer.Common.Data.Hydraulics;
+using Riskeer.Integration.IO.Importers;
 
-namespace Riskeer.Common.Data.Test.Hydraulics
+namespace Riskeer.Integration.IO.Test.Importers
 {
     [TestFixture]
-    public class HydraulicBoundaryDatabaseMetaTest
+    public class HydraulicBoundaryDatabaseImporterSettingsTest
     {
         [Test]
         public void Constructor_ExpectedValues()
@@ -36,12 +36,12 @@ namespace Riskeer.Common.Data.Test.Hydraulics
             const string locationsFilePath = "Path 3";
 
             // Call
-            var hydraulicBoundaryDatabaseMeta = new HydraulicBoundaryDatabaseMeta(hlcdFilePath, hrdDirectoryPath, locationsFilePath);
+            var hydraulicBoundaryDatabaseImporterSettings = new HydraulicBoundaryDatabaseImporterSettings(hlcdFilePath, hrdDirectoryPath, locationsFilePath);
 
             // Assert
-            Assert.AreEqual(hlcdFilePath, hydraulicBoundaryDatabaseMeta.HlcdFilePath);
-            Assert.AreEqual(hrdDirectoryPath, hydraulicBoundaryDatabaseMeta.HrdDirectoryPath);
-            Assert.AreEqual(locationsFilePath, hydraulicBoundaryDatabaseMeta.LocationsFilePath);
+            Assert.AreEqual(hlcdFilePath, hydraulicBoundaryDatabaseImporterSettings.HlcdFilePath);
+            Assert.AreEqual(hrdDirectoryPath, hydraulicBoundaryDatabaseImporterSettings.HrdDirectoryPath);
+            Assert.AreEqual(locationsFilePath, hydraulicBoundaryDatabaseImporterSettings.LocationsFilePath);
         }
     }
 }

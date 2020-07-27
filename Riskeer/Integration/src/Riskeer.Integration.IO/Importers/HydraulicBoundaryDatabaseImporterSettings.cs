@@ -19,20 +19,20 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Riskeer.Common.Data.Hydraulics
+namespace Riskeer.Integration.IO.Importers
 {
     /// <summary>
-    /// Wrapper class representing the meta data used as a basis for importing a hydraulic boundary database.
+    /// Class representing the settings used for importing a hydraulic boundary database.
     /// </summary>
-    public class HydraulicBoundaryDatabaseMeta
+    public class HydraulicBoundaryDatabaseImporterSettings
     {
         /// <summary>
-        /// Creates a new instance of <see cref="HydraulicBoundaryDatabaseMeta"/>.
+        /// Creates a new instance of <see cref="HydraulicBoundaryDatabaseImporterSettings"/>.
         /// </summary>
         /// <param name="hlcdFilePath">The path to the HLCD file.</param>
         /// <param name="hrdDirectoryPath">The path to the HRD directory.</param>
         /// <param name="locationsFilePath">The path to the locations file.</param>
-        public HydraulicBoundaryDatabaseMeta(string hlcdFilePath, string hrdDirectoryPath, string locationsFilePath)
+        public HydraulicBoundaryDatabaseImporterSettings(string hlcdFilePath, string hrdDirectoryPath, string locationsFilePath)
         {
             HlcdFilePath = hlcdFilePath;
             HrdDirectoryPath = hrdDirectoryPath;
