@@ -20,11 +20,13 @@
 // All rights reserved.
 
 using System;
+using System.IO;
 using System.Windows.Forms;
 using Core.Common.Controls.Dialogs;
 using Core.Common.Gui.Helpers;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Integration.Forms.Properties;
+using CoreCommonControlsResources = Core.Common.Controls.Properties.Resources;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.Integration.Forms.Dialogs
@@ -50,19 +52,80 @@ namespace Riskeer.Integration.Forms.Dialogs
 
             InitializeComponent();
 
-            toolTipHlcd.SetToolTip(pictureBoxHlcd, Resources.HydraulicBoundaryDatabaseImporterSettingsDialog_Tooltip_Hlcd); // TODO: Improve resource text
-            toolTipHrd.SetToolTip(pictureBoxHrd, Resources.HydraulicBoundaryDatabaseImporterSettingsDialog_Tooltip_Hrd); // TODO: Improve resource text
-            toolTipLocations.SetToolTip(pictureBoxLocations, Resources.HydraulicBoundaryDatabaseImporterSettingsDialog_Tooltip_Locations); // TODO: Improve resource text
+            FurtherInitializeComponent();
 
-            buttonConnect.Enabled = false;
-            errorProvider.SetIconPadding(buttonConnect, 3);
-            errorProvider.SetIconAlignment(buttonConnect, ErrorIconAlignment.MiddleLeft);
-            errorProvider.SetError(buttonConnect, "Kan niet koppelen aan database: er is geen HLCD bestand geselecteerd.");
+            textBoxHlcd.Text = CoreCommonControlsResources.DisplayName_None;
+            textBoxHrd.Text = CoreCommonControlsResources.DisplayName_None;
+            textBoxLocations.Text = CoreCommonControlsResources.DisplayName_None;
+
+            UpdateButtonConnect();
         }
 
         protected override Button GetCancelButton()
         {
             return buttonCancel;
+        }
+
+        private void FurtherInitializeComponent()
+        {
+            errorProvider.SetIconPadding(buttonConnect, 3);
+            errorProvider.SetIconAlignment(buttonConnect, ErrorIconAlignment.MiddleLeft);
+
+            // TODO: Improve resource texts
+            toolTipHlcd.SetToolTip(pictureBoxHlcd, Resources.HydraulicBoundaryDatabaseImporterSettingsDialog_Tooltip_Hlcd);
+            toolTipHrd.SetToolTip(pictureBoxHrd, Resources.HydraulicBoundaryDatabaseImporterSettingsDialog_Tooltip_Hrd);
+            toolTipLocations.SetToolTip(pictureBoxLocations, Resources.HydraulicBoundaryDatabaseImporterSettingsDialog_Tooltip_Locations);
+        }
+
+        private void UpdateButtonConnect()
+        {
+            string errorMessage = ValidateInput();
+
+            if (string.IsNullOrEmpty(errorMessage))
+            {
+                buttonConnect.Enabled = true;
+                errorProvider.SetError(buttonConnect, "");
+            }
+            else
+            {
+                buttonConnect.Enabled = false;
+                errorProvider.SetError(buttonConnect, errorMessage);
+            }
+        }
+
+        private string ValidateInput()
+        {
+            if (textBoxHlcd.Text.Equals(CoreCommonControlsResources.DisplayName_None))
+            {
+                return Resources.HydraulicBoundaryDatabaseImporterSettingsDialog_ValidateInput_No_Hlcd_selected;
+            }
+
+            if (!File.Exists(textBoxHlcd.Text))
+            {
+                return Resources.HydraulicBoundaryDatabaseImporterSettingsDialog_ValidateInput_Hlcd_does_not_exist;
+            }
+
+            if (textBoxHrd.Text.Equals(CoreCommonControlsResources.DisplayName_None))
+            {
+                return Resources.HydraulicBoundaryDatabaseImporterSettingsDialog_ValidateInput_No_Hrd_selected;
+            }
+
+            if (!Directory.Exists(textBoxHrd.Text))
+            {
+                return Resources.HydraulicBoundaryDatabaseImporterSettingsDialog_ValidateInput_Hrd_does_not_exist;
+            }
+
+            if (textBoxLocations.Text.Equals(CoreCommonControlsResources.DisplayName_None))
+            {
+                return Resources.HydraulicBoundaryDatabaseImporterSettingsDialog_ValidateInput_No_locations_selected;
+            }
+
+            if (!File.Exists(textBoxLocations.Text))
+            {
+                return Resources.HydraulicBoundaryDatabaseImporterSettingsDialog_ValidateInput_Locations_does_not_exist;
+            }
+
+            return string.Empty;
         }
 
         private void OnButtonHlcdClick(object sender, EventArgs e)
@@ -72,6 +135,8 @@ namespace Riskeer.Integration.Forms.Dialogs
             if (sourceFileLocation != null)
             {
                 textBoxHlcd.Text = sourceFileLocation;
+
+                UpdateButtonConnect();
             }
         }
 
@@ -82,6 +147,8 @@ namespace Riskeer.Integration.Forms.Dialogs
             if (targetFolderLocation != null)
             {
                 textBoxHrd.Text = targetFolderLocation;
+
+                UpdateButtonConnect();
             }
         }
 
@@ -92,6 +159,8 @@ namespace Riskeer.Integration.Forms.Dialogs
             if (sourceFileLocation != null)
             {
                 textBoxLocations.Text = sourceFileLocation;
+
+                UpdateButtonConnect();
             }
         }
     }

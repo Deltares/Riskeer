@@ -752,6 +752,63 @@ namespace Riskeer.Integration.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kan niet koppelen aan database: het geselecteerde HLCD bestand bestaat niet..
+        /// </summary>
+        public static string HydraulicBoundaryDatabaseImporterSettingsDialog_ValidateInput_Hlcd_does_not_exist {
+            get {
+                return ResourceManager.GetString("HydraulicBoundaryDatabaseImporterSettingsDialog_ValidateInput_Hlcd_does_not_exist" +
+                        "", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kan niet koppelen aan database: de geselecteerde HRD bestandsmap bestaat niet..
+        /// </summary>
+        public static string HydraulicBoundaryDatabaseImporterSettingsDialog_ValidateInput_Hrd_does_not_exist {
+            get {
+                return ResourceManager.GetString("HydraulicBoundaryDatabaseImporterSettingsDialog_ValidateInput_Hrd_does_not_exist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kan niet koppelen aan database: het geselecteerde locatie bestand bestaat niet..
+        /// </summary>
+        public static string HydraulicBoundaryDatabaseImporterSettingsDialog_ValidateInput_Locations_does_not_exist {
+            get {
+                return ResourceManager.GetString("HydraulicBoundaryDatabaseImporterSettingsDialog_ValidateInput_Locations_does_not_" +
+                        "exist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kan niet koppelen aan database: er is geen HLCD bestand geselecteerd..
+        /// </summary>
+        public static string HydraulicBoundaryDatabaseImporterSettingsDialog_ValidateInput_No_Hlcd_selected {
+            get {
+                return ResourceManager.GetString("HydraulicBoundaryDatabaseImporterSettingsDialog_ValidateInput_No_Hlcd_selected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kan niet koppelen aan database: er is geen HRD bestandsmap geselecteerd..
+        /// </summary>
+        public static string HydraulicBoundaryDatabaseImporterSettingsDialog_ValidateInput_No_Hrd_selected {
+            get {
+                return ResourceManager.GetString("HydraulicBoundaryDatabaseImporterSettingsDialog_ValidateInput_No_Hrd_selected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kan niet koppelen aan database: er is geen locatie bestand geselecteerd..
+        /// </summary>
+        public static string HydraulicBoundaryDatabaseImporterSettingsDialog_ValidateInput_No_locations_selected {
+            get {
+                return ResourceManager.GetString("HydraulicBoundaryDatabaseImporterSettingsDialog_ValidateInput_No_locations_select" +
+                        "ed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Overige informatie..
         /// </summary>
         public static string HydraulicLocationConfigurationSettings_Comment_Description {

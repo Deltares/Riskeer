@@ -156,7 +156,6 @@ namespace Riskeer.Integration.Forms.Dialogs
             this.textBoxHlcd.ReadOnly = true;
             this.textBoxHlcd.Size = new System.Drawing.Size(458, 20);
             this.textBoxHlcd.TabIndex = 2;
-            this.textBoxHlcd.Text = "<selecteer>";
             // 
             // pictureBoxHlcd
             // 
@@ -219,7 +218,6 @@ namespace Riskeer.Integration.Forms.Dialogs
             this.textBoxHrd.ReadOnly = true;
             this.textBoxHrd.Size = new System.Drawing.Size(458, 20);
             this.textBoxHrd.TabIndex = 2;
-            this.textBoxHrd.Text = "<selecteer>";
             // 
             // pictureBoxHrd
             // 
@@ -282,7 +280,6 @@ namespace Riskeer.Integration.Forms.Dialogs
             this.textBoxLocations.ReadOnly = true;
             this.textBoxLocations.Size = new System.Drawing.Size(458, 20);
             this.textBoxLocations.TabIndex = 2;
-            this.textBoxLocations.Text = "<selecteer>";
             // 
             // pictureBoxLocations
             // 

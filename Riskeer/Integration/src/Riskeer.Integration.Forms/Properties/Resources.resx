@@ -461,4 +461,22 @@ Daarbij gaan de huidige berekeningsresultaten voor belastingen op trajectniveau 
   <data name="HydraulicBoundaryDatabaseImporterSettingsDialog_Tooltip_Locations" xml:space="preserve">
     <value>Korte toelichting bij locatie bestand.</value>
   </data>
+  <data name="HydraulicBoundaryDatabaseImporterSettingsDialog_ValidateInput_No_Hlcd_selected" xml:space="preserve">
+    <value>Kan niet koppelen aan database: er is geen HLCD bestand geselecteerd.</value>
+  </data>
+  <data name="HydraulicBoundaryDatabaseImporterSettingsDialog_ValidateInput_No_Hrd_selected" xml:space="preserve">
+    <value>Kan niet koppelen aan database: er is geen HRD bestandsmap geselecteerd.</value>
+  </data>
+  <data name="HydraulicBoundaryDatabaseImporterSettingsDialog_ValidateInput_No_locations_selected" xml:space="preserve">
+    <value>Kan niet koppelen aan database: er is geen locatie bestand geselecteerd.</value>
+  </data>
+  <data name="HydraulicBoundaryDatabaseImporterSettingsDialog_ValidateInput_Hlcd_does_not_exist" xml:space="preserve">
+    <value>Kan niet koppelen aan database: het geselecteerde HLCD bestand bestaat niet.</value>
+  </data>
+  <data name="HydraulicBoundaryDatabaseImporterSettingsDialog_ValidateInput_Hrd_does_not_exist" xml:space="preserve">
+    <value>Kan niet koppelen aan database: de geselecteerde HRD bestandsmap bestaat niet.</value>
+  </data>
+  <data name="HydraulicBoundaryDatabaseImporterSettingsDialog_ValidateInput_Locations_does_not_exist" xml:space="preserve">
+    <value>Kan niet koppelen aan database: het geselecteerde locatie bestand bestaat niet.</value>
+  </data>
 </root>
