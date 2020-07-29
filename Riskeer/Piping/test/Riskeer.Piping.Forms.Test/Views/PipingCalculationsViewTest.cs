@@ -596,31 +596,70 @@ namespace Riskeer.Piping.Forms.Test.Views
         }
 
         [Test]
-        public void GivenFailureMechanismWithoutSurfaceLinesAndSoilModels_WhenAddSurfaceLineAndSoilModelAndDoNotNotifyObservers_ThenButtonDisabled()
+        public void GivenCalculationsView_WhenStochasticSoilModelsUpdatedAndNotified_ThenStochasticSoilModelsAndStochasticSoilProfilesComboboxCorrectlyUpdated()
         {
             // Given
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             ConfigureHydraulicBoundaryDatabase(assessmentSection);
             mocks.ReplayAll();
+            
+            PipingFailureMechanism failureMechanism = ConfigureFailureMechanism();
+            
+            ShowPipingCalculationsView(ConfigureCalculationGroup(assessmentSection, failureMechanism), failureMechanism, assessmentSection);
 
-            var failureMechanism = new PipingFailureMechanism();
-            ShowPipingCalculationsView(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection);
+            var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+            var soilModelsComboBox = (DataGridViewComboBoxColumn)dataGridView.Columns[stochasticSoilModelsColumnIndex];
+            var soilProfilesComboBox = (DataGridViewComboBoxColumn)dataGridView.Columns[stochasticSoilProfilesColumnIndex];
+
+            // Precondition
+            Assert.AreEqual(4, soilModelsComboBox.Items.Count);
+            Assert.AreEqual(6, soilProfilesComboBox.Items.Count);
 
             // When
-            const string arbitraryFilePath = "path";
-            failureMechanism.SurfaceLines.AddRange(new[]
-            {
-                new PipingSurfaceLine(string.Empty)
-            }, arbitraryFilePath);
             failureMechanism.StochasticSoilModels.AddRange(new[]
             {
-                PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel()
-            }, arbitraryFilePath);
+                new PipingStochasticSoilModel("Model F", new[]
+                {
+                    new Point2D(1.0, 0.0),
+                    new Point2D(4.0, 0.0)
+                }, new[]
+                {
+                    new PipingStochasticSoilProfile(0.3, new PipingSoilProfile("Profile 5", -10.0, new[]
+                    {
+                        new PipingSoilLayer(-5.0),
+                        new PipingSoilLayer(-2.0),
+                        new PipingSoilLayer(1.0)
+                    }, SoilProfileType.SoilProfile1D)),
+                    new PipingStochasticSoilProfile(0.7, new PipingSoilProfile("Profile 6", -8.0, new[]
+                    {
+                        new PipingSoilLayer(-4.0),
+                        new PipingSoilLayer(0.0),
+                        new PipingSoilLayer(4.0)
+                    }, SoilProfileType.SoilProfile1D))
+                })
+            }, string.Empty);
+            failureMechanism.StochasticSoilModels.NotifyObservers();
 
             // Then
-            var button = (Button)new ControlTester("generateButton").TheObject;
-            Assert.IsFalse(button.Enabled);
+            DataGridViewComboBoxCell.ObjectCollection soilModelItems = soilModelsComboBox.Items;
+            DataGridViewComboBoxCell.ObjectCollection soilProfileItems = soilProfilesComboBox.Items;
+            Assert.AreEqual(5, soilModelItems.Count);
+            Assert.AreEqual("<selecteer>", soilModelItems[0].ToString());
+            Assert.AreEqual("Model A", soilModelItems[1].ToString());
+            Assert.AreEqual("Model C", soilModelItems[2].ToString());
+            Assert.AreEqual("Model E", soilModelItems[3].ToString());
+            Assert.AreEqual("Model F", soilModelItems[4].ToString());
+
+            Assert.AreEqual(7, soilProfileItems.Count);
+            Assert.AreEqual("<selecteer>", soilProfileItems[0].ToString());
+            Assert.AreEqual("Profile 1", soilProfileItems[1].ToString());
+            Assert.AreEqual("Profile 2", soilProfileItems[2].ToString());
+            Assert.AreEqual("Profile 3", soilProfileItems[3].ToString());
+            Assert.AreEqual("Profile 4", soilProfileItems[4].ToString());
+            Assert.AreEqual("Profile 5", soilProfileItems[5].ToString());
+            Assert.AreEqual("Profile 6", soilProfileItems[6].ToString());
+
             mocks.VerifyAll();
         }
 

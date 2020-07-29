@@ -71,6 +71,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
 
             stochasticSoilModelsObserver = new Observer(() =>
             {
+                PrefillComboBoxListItemsAtColumnLevel();
                 UpdateColumns();
                 UpdateGenerateCalculationsButtonState();
             })

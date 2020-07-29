@@ -505,7 +505,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
         }
 
         [Test]
-        public void GivenFailureMechanismWithoutSurfaceLinesAndSoilModels_WhenAddSurfaceLineAndSoilModelAndDoNotNotifyObservers_ThenButtonDisabled()
+        public void GivenCalculationsView_WhenStochasticSoilModelsUpdatedAndNotified_ThenStochasticSoilModelsAndStochasticSoilProfilesComboboxCorrectlyUpdated()
         {
             // Given
             var mocks = new MockRepository();
@@ -513,23 +513,48 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             ConfigureHydraulicBoundaryDatabase(assessmentSection);
             mocks.ReplayAll();
 
-            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-            ShowMacroStabilityInwardsCalculationsView(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection);
+            MacroStabilityInwardsFailureMechanism failureMechanism = ConfigureFailureMechanism();
+
+             ShowMacroStabilityInwardsCalculationsView(ConfigureCalculationGroup(assessmentSection, failureMechanism), failureMechanism, assessmentSection);
+
+            var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+            var soilModelsComboBox = (DataGridViewComboBoxColumn)dataGridView.Columns[stochasticSoilModelsColumnIndex];
+            var soilProfilesComboBox = (DataGridViewComboBoxColumn)dataGridView.Columns[stochasticSoilProfilesColumnIndex];
+
+            // Precondition
+            Assert.AreEqual(4, soilModelsComboBox.Items.Count);
+            Assert.AreEqual(6, soilProfilesComboBox.Items.Count);
 
             // When
-            const string arbitraryFilePath = "path";
-            failureMechanism.SurfaceLines.AddRange(new[]
-            {
-                new MacroStabilityInwardsSurfaceLine(string.Empty)
-            }, arbitraryFilePath);
             failureMechanism.StochasticSoilModels.AddRange(new[]
-            {
-                MacroStabilityInwardsStochasticSoilModelTestFactory.CreateValidStochasticSoilModel()
-            }, arbitraryFilePath);
+                {
+                    MacroStabilityInwardsStochasticSoilModelTestFactory.CreateValidStochasticSoilModel("Model F", new[]
+                    {
+                        new Point2D(0.0, 0.0),
+                        new Point2D(5.0, 0.0)
+                    })
+                }, string.Empty);
+            failureMechanism.StochasticSoilModels.NotifyObservers();
 
             // Then
-            var button = (Button)new ControlTester("generateButton").TheObject;
-            Assert.IsFalse(button.Enabled);
+            DataGridViewComboBoxCell.ObjectCollection soilModelItems = soilModelsComboBox.Items;
+            DataGridViewComboBoxCell.ObjectCollection soilProfileItems = soilProfilesComboBox.Items;
+            Assert.AreEqual(5, soilModelItems.Count);
+            Assert.AreEqual("<selecteer>", soilModelItems[0].ToString());
+            Assert.AreEqual("Model A", soilModelItems[1].ToString());
+            Assert.AreEqual("Model C", soilModelItems[2].ToString());
+            Assert.AreEqual("Model E", soilModelItems[3].ToString());
+            Assert.AreEqual("Model F", soilModelItems[4].ToString());
+
+            Assert.AreEqual(8, soilProfileItems.Count);
+            Assert.AreEqual("<selecteer>", soilProfileItems[0].ToString());
+            Assert.AreEqual("Profile 1", soilProfileItems[1].ToString());
+            Assert.AreEqual("Profile 2", soilProfileItems[2].ToString());
+            Assert.AreEqual("Profile 3", soilProfileItems[3].ToString());
+            Assert.AreEqual("Profile 4", soilProfileItems[4].ToString());
+            Assert.AreEqual("Profile 5", soilProfileItems[5].ToString());
+            Assert.AreEqual("A", soilProfileItems[6].ToString());
+
             mocks.VerifyAll();
         }
 
