@@ -26,14 +26,11 @@ using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Common.Controls.DataGrid;
-using Core.Common.Controls.Views;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
-using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Forms.ChangeHandlers;
 using Riskeer.Common.Forms.Helpers;
-using Riskeer.Common.Forms.PresentationObjects;
+using Riskeer.Common.Forms.Views;
 using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.MacroStabilityInwards.Data.SoilProfile;
 using Riskeer.MacroStabilityInwards.Forms.PresentationObjects;
@@ -47,363 +44,202 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
     /// <summary>
     /// This class is a view for configuring macro stability inwards calculations.
     /// </summary>
-    public partial class MacroStabilityInwardsCalculationsView : UserControl, ISelectionProvider, IView
+    public class MacroStabilityInwardsCalculationsView : CalculationsView<MacroStabilityInwardsCalculationScenario, MacroStabilityInwardsInput, MacroStabilityInwardsCalculationRow, MacroStabilityInwardsFailureMechanism>
     {
-        private const int stochasticSoilModelColumnIndex = 1;
-        private const int stochasticSoilProfileColumnIndex = 2;
-        private const int selectableHydraulicBoundaryLocationColumnIndex = 4;
+        private const int selectableHydraulicBoundaryLocationColumnIndex = 1;
+        private const int stochasticSoilModelColumnIndex = 2;
+        private const int stochasticSoilProfileColumnIndex = 3;
 
-        private readonly Observer hydraulicBoundaryLocationsObserver;
-        private readonly RecursiveObserver<CalculationGroup, MacroStabilityInwardsInput> inputObserver;
-        private readonly RecursiveObserver<CalculationGroup, CalculationGroup> calculationGroupObserver;
-        private readonly RecursiveObserver<CalculationGroup, MacroStabilityInwardsCalculationScenario> calculationObserver;
-        private readonly Observer failureMechanismObserver;
         private readonly RecursiveObserver<MacroStabilityInwardsSurfaceLineCollection, MacroStabilityInwardsSurfaceLine> surfaceLineObserver;
         private readonly Observer stochasticSoilModelsObserver;
         private readonly RecursiveObserver<MacroStabilityInwardsStochasticSoilModelCollection, MacroStabilityInwardsStochasticSoilProfile> stochasticSoilProfileObserver;
-        private IAssessmentSection assessmentSection;
-        private CalculationGroup calculationGroup;
-        private MacroStabilityInwardsFailureMechanism macroStabilityInwardsFailureMechanism;
-
-        public event EventHandler<EventArgs> SelectionChanged;
 
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsCalculationsView"/>.
         /// </summary>
-        public MacroStabilityInwardsCalculationsView()
+        public MacroStabilityInwardsCalculationsView(CalculationGroup calculationGroup, MacroStabilityInwardsFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+            : base(calculationGroup, failureMechanism, assessmentSection)
         {
-            InitializeComponent();
-            InitializeDataGridView();
-            InitializeListBox();
-
-            failureMechanismObserver = new Observer(OnFailureMechanismUpdate);
-            hydraulicBoundaryLocationsObserver = new Observer(UpdateSelectableHydraulicBoundaryLocationsColumn);
-            // The concat is needed to observe the input of calculations in child groups.
-            inputObserver = new RecursiveObserver<CalculationGroup, MacroStabilityInwardsInput>(UpdateDataGridViewDataSource, cg => cg.Children
-                                                                                                                                      .Concat<object>(cg.Children
-                                                                                                                                                        .OfType<MacroStabilityInwardsCalculationScenario>()
-                                                                                                                                                        .Select(pc => pc.InputParameters)));
-            calculationGroupObserver = new RecursiveObserver<CalculationGroup, CalculationGroup>(UpdateDataGridViewDataSource, cg => cg.Children);
-            calculationObserver = new RecursiveObserver<CalculationGroup, MacroStabilityInwardsCalculationScenario>(() => dataGridViewControl.RefreshDataGridView(), cg => cg.Children);
-
-            surfaceLineObserver = new RecursiveObserver<MacroStabilityInwardsSurfaceLineCollection, MacroStabilityInwardsSurfaceLine>(UpdateDataGridViewDataSource, rpslc => rpslc);
-
-            stochasticSoilModelsObserver = new Observer(OnStochasticSoilModelsUpdate);
-            stochasticSoilProfileObserver = new RecursiveObserver<MacroStabilityInwardsStochasticSoilModelCollection, MacroStabilityInwardsStochasticSoilProfile>(() => dataGridViewControl.RefreshDataGridView(), ssmc => ssmc.SelectMany(ssm => ssm.StochasticSoilProfiles));
-        }
-
-        /// <summary>
-        /// Gets or sets the macro stability inwards failure mechanism.
-        /// </summary>
-        public MacroStabilityInwardsFailureMechanism MacroStabilityInwardsFailureMechanism
-        {
-            get
+            surfaceLineObserver = new RecursiveObserver<MacroStabilityInwardsSurfaceLineCollection, MacroStabilityInwardsSurfaceLine>(() =>
             {
-                return macroStabilityInwardsFailureMechanism;
-            }
-            set
+                UpdateColumns();
+                UpdateGenerateCalculationsButtonState();
+            }, rpslc => rpslc)
             {
-                macroStabilityInwardsFailureMechanism = value;
-                stochasticSoilModelsObserver.Observable = macroStabilityInwardsFailureMechanism?.StochasticSoilModels;
-                failureMechanismObserver.Observable = macroStabilityInwardsFailureMechanism;
-                surfaceLineObserver.Observable = macroStabilityInwardsFailureMechanism?.SurfaceLines;
-                stochasticSoilProfileObserver.Observable = macroStabilityInwardsFailureMechanism?.StochasticSoilModels;
+                Observable = failureMechanism.SurfaceLines
+            };
 
-                UpdateStochasticSoilModelColumn();
-                UpdateStochasticSoilProfileColumn();
-                UpdateSelectableHydraulicBoundaryLocationsColumn();
-                UpdateSectionsListBox();
-                UpdateGenerateScenariosButtonState();
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the assessment section.
-        /// </summary>
-        public IAssessmentSection AssessmentSection
-        {
-            get
+            stochasticSoilModelsObserver = new Observer(() =>
             {
-                return assessmentSection;
-            }
-            set
+                UpdateColumns();
+                UpdateGenerateCalculationsButtonState();
+            })
             {
-                assessmentSection = value;
-
-                hydraulicBoundaryLocationsObserver.Observable = assessmentSection?.HydraulicBoundaryDatabase.Locations;
-
-                UpdateSelectableHydraulicBoundaryLocationsColumn();
-            }
-        }
-
-        public object Selection
-        {
-            get
+                Observable = failureMechanism.StochasticSoilModels
+            };
+            stochasticSoilProfileObserver = new RecursiveObserver<MacroStabilityInwardsStochasticSoilModelCollection, MacroStabilityInwardsStochasticSoilProfile>(
+                () => DataGridViewControl.RefreshDataGridView(),
+                ssmc => ssmc.SelectMany(ssm => ssm.StochasticSoilProfiles))
             {
-                return CreateSelectedItemFromCurrentRow();
-            }
-        }
-
-        public object Data
-        {
-            get
-            {
-                return calculationGroup;
-            }
-            set
-            {
-                calculationGroup = value as CalculationGroup;
-
-                if (calculationGroup != null)
-                {
-                    UpdateDataGridViewDataSource();
-                    inputObserver.Observable = calculationGroup;
-                    calculationObserver.Observable = calculationGroup;
-                    calculationGroupObserver.Observable = calculationGroup;
-                }
-                else
-                {
-                    dataGridViewControl.SetDataSource(null);
-                    inputObserver.Observable = null;
-                    calculationObserver.Observable = null;
-                    calculationGroupObserver.Observable = null;
-                }
-            }
+                Observable = failureMechanism.StochasticSoilModels
+            };
         }
 
         protected override void OnLoad(EventArgs e)
         {
-            // Necessary to correctly load the content of the dropdown lists of the comboboxes...
-            UpdateDataGridViewDataSource();
             base.OnLoad(e);
+
+            GenerateButton.Text = RiskeerCommonFormsResources.CalculationGroup_Generate_Scenarios;
         }
 
         protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
-                dataGridViewControl.CellFormatting -= OnCellFormatting;
-                dataGridViewControl.CurrentRowChanged -= DataGridViewOnCurrentRowChangedHandler;
-
-                hydraulicBoundaryLocationsObserver.Dispose();
-                failureMechanismObserver.Dispose();
-                inputObserver.Dispose();
-                calculationObserver.Dispose();
                 surfaceLineObserver.Dispose();
-                calculationGroupObserver.Dispose();
                 stochasticSoilProfileObserver.Dispose();
                 stochasticSoilModelsObserver.Dispose();
-
-                components?.Dispose();
             }
 
             base.Dispose(disposing);
         }
 
-        private void InitializeDataGridView()
+        protected override object CreateSelectedItemFromCurrentRow(MacroStabilityInwardsCalculationRow currentRow)
         {
-            dataGridViewControl.CurrentRowChanged += DataGridViewOnCurrentRowChangedHandler;
-            dataGridViewControl.CellFormatting += OnCellFormatting;
+            return new MacroStabilityInwardsInputContext(
+                currentRow.Calculation.InputParameters,
+                currentRow.Calculation,
+                FailureMechanism.SurfaceLines,
+                FailureMechanism.StochasticSoilModels,
+                FailureMechanism,
+                AssessmentSection);
+        }
 
-            dataGridViewControl.AddTextBoxColumn(
-                nameof(MacroStabilityInwardsCalculationRow.Name),
-                Resources.MacroStabilityInwardsCalculation_Name_DisplayName);
+        protected override IEnumerable<Point2D> GetReferenceLocations()
+        {
+            return FailureMechanism.SurfaceLines.Select(sl => sl.ReferenceLineIntersectionWorldPoint);
+        }
 
-            dataGridViewControl.AddComboBoxColumn<DataGridViewComboBoxItemWrapper<MacroStabilityInwardsStochasticSoilModel>>(
+        protected override bool IsCalculationIntersectionWithReferenceLineInSection(MacroStabilityInwardsCalculationScenario calculation, IEnumerable<Segment2D> lineSegments)
+        {
+            return calculation.IsSurfaceLineIntersectionWithReferenceLineInSection(lineSegments);
+        }
+
+        protected override MacroStabilityInwardsCalculationRow CreateRow(MacroStabilityInwardsCalculationScenario calculation)
+        {
+            return new MacroStabilityInwardsCalculationRow(calculation, new ObservablePropertyChangeHandler(calculation, calculation.InputParameters));
+        }
+
+        protected override bool CanGenerateCalculations()
+        {
+            return FailureMechanism.SurfaceLines.Any() && FailureMechanism.StochasticSoilModels.Any();
+        }
+
+        protected override void GenerateCalculations()
+        {
+            var calculationGroup = (CalculationGroup) Data;
+
+            var dialog = new MacroStabilityInwardsSurfaceLineSelectionDialog(Parent, FailureMechanism.SurfaceLines);
+            dialog.ShowDialog();
+            IEnumerable<ICalculationBase> calculationsStructure = MacroStabilityInwardsCalculationConfigurationHelper.GenerateCalculationItemsStructure(
+                dialog.SelectedItems,
+                FailureMechanism.StochasticSoilModels);
+            foreach (ICalculationBase item in calculationsStructure)
+            {
+                calculationGroup.Children.Add(item);
+            }
+
+            calculationGroup.NotifyObservers();
+        }
+
+        protected override void InitializeDataGridView()
+        {
+            DataGridViewControl.CellFormatting += OnCellFormatting;
+
+            base.InitializeDataGridView();
+
+            DataGridViewControl.AddComboBoxColumn<DataGridViewComboBoxItemWrapper<MacroStabilityInwardsStochasticSoilModel>>(
                 nameof(MacroStabilityInwardsCalculationRow.StochasticSoilModel),
                 Resources.MacroStabilityInwardsInput_StochasticSoilModel_DisplayName,
                 null,
                 nameof(DataGridViewComboBoxItemWrapper<MacroStabilityInwardsStochasticSoilModel>.This),
                 nameof(DataGridViewComboBoxItemWrapper<MacroStabilityInwardsStochasticSoilModel>.DisplayName));
 
-            dataGridViewControl.AddComboBoxColumn<DataGridViewComboBoxItemWrapper<MacroStabilityInwardsStochasticSoilProfile>>(
+            DataGridViewControl.AddComboBoxColumn<DataGridViewComboBoxItemWrapper<MacroStabilityInwardsStochasticSoilProfile>>(
                 nameof(MacroStabilityInwardsCalculationRow.StochasticSoilProfile),
                 Resources.MacroStabilityInwardsInput_StochasticSoilProfile_DisplayName,
                 null,
                 nameof(DataGridViewComboBoxItemWrapper<MacroStabilityInwardsStochasticSoilProfile>.This),
                 nameof(DataGridViewComboBoxItemWrapper<MacroStabilityInwardsStochasticSoilProfile>.DisplayName));
 
-            dataGridViewControl.AddTextBoxColumn(
+            DataGridViewControl.AddTextBoxColumn(
                 nameof(MacroStabilityInwardsCalculationRow.StochasticSoilProfileProbability),
                 Resources.MacroStabilityInwardsCalculationsView_InitializeDataGridView_Stochastic_soil_profile_probability);
 
-            dataGridViewControl.AddComboBoxColumn<DataGridViewComboBoxItemWrapper<SelectableHydraulicBoundaryLocation>>(
-                nameof(MacroStabilityInwardsCalculationRow.SelectableHydraulicBoundaryLocation),
-                RiskeerCommonFormsResources.HydraulicBoundaryLocation_DisplayName,
-                null,
-                nameof(DataGridViewComboBoxItemWrapper<SelectableHydraulicBoundaryLocation>.This),
-                nameof(DataGridViewComboBoxItemWrapper<SelectableHydraulicBoundaryLocation>.DisplayName));
-
             UpdateStochasticSoilModelColumn();
             UpdateStochasticSoilProfileColumn();
-            UpdateSelectableHydraulicBoundaryLocationsColumn();
         }
 
-        private void InitializeListBox()
+        protected override void UpdateColumns()
         {
-            listBox.DisplayMember = nameof(FailureMechanismSection.Name);
-            listBox.SelectedValueChanged += ListBoxOnSelectedValueChanged;
+            base.UpdateColumns();
+            UpdateStochasticSoilModelColumn();
+            UpdateStochasticSoilProfileColumn();
         }
 
-        private void UpdateGenerateScenariosButtonState()
+        #region Event handling
+
+        private void OnCellFormatting(object sender, DataGridViewCellFormattingEventArgs eventArgs)
         {
-            buttonGenerateScenarios.Enabled = macroStabilityInwardsFailureMechanism != null &&
-                                              macroStabilityInwardsFailureMechanism.SurfaceLines.Any() &&
-                                              macroStabilityInwardsFailureMechanism.StochasticSoilModels.Any();
-        }
-
-        private static void SetItemsOnObjectCollection(DataGridViewComboBoxCell.ObjectCollection objectCollection, object[] comboBoxItems)
-        {
-            objectCollection.Clear();
-            objectCollection.AddRange(comboBoxItems);
-        }
-
-        private MacroStabilityInwardsInputContext CreateSelectedItemFromCurrentRow()
-        {
-            DataGridViewRow currentRow = dataGridViewControl.CurrentRow;
-
-            var calculationRow = (MacroStabilityInwardsCalculationRow) currentRow?.DataBoundItem;
-
-            MacroStabilityInwardsInputContext selection = null;
-            if (calculationRow != null)
+            if (eventArgs.ColumnIndex == selectableHydraulicBoundaryLocationColumnIndex)
             {
-                selection = new MacroStabilityInwardsInputContext(
-                    calculationRow.MacroStabilityInwardsCalculation.InputParameters,
-                    calculationRow.MacroStabilityInwardsCalculation,
-                    macroStabilityInwardsFailureMechanism.SurfaceLines,
-                    macroStabilityInwardsFailureMechanism.StochasticSoilModels,
-                    macroStabilityInwardsFailureMechanism,
-                    assessmentSection);
+                DataGridViewRow dataGridViewRow = DataGridViewControl.GetRowFromIndex(eventArgs.RowIndex);
+                dataGridViewRow.Cells[selectableHydraulicBoundaryLocationColumnIndex].ReadOnly = dataGridViewRow.DataBoundItem is MacroStabilityInwardsCalculationRow dataItem
+                                                                                                 && dataItem.Calculation.InputParameters.UseAssessmentLevelManualInput;
             }
-
-            return selection;
         }
 
-        private static IEnumerable<SelectableHydraulicBoundaryLocation> GetSelectableHydraulicBoundaryLocations(
-            IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations, MacroStabilityInwardsSurfaceLine surfaceLine)
-        {
-            Point2D referencePoint = surfaceLine?.ReferenceLineIntersectionWorldPoint;
-            return SelectableHydraulicBoundaryLocationHelper.GetSortedSelectableHydraulicBoundaryLocations(
-                hydraulicBoundaryLocations, referencePoint);
-        }
+        #endregion
 
         #region Data sources
 
-        private void UpdateDataGridViewDataSource()
+        private static IEnumerable<DataGridViewComboBoxItemWrapper<MacroStabilityInwardsStochasticSoilModel>> GetStochasticSoilModelsDataSource(
+            IEnumerable<MacroStabilityInwardsStochasticSoilModel> stochasticSoilModels)
         {
-            // Skip changes coming from the view itself
-            if (dataGridViewControl.IsCurrentCellInEditMode)
+            var dataGridViewComboBoxItemWrappers = new List<DataGridViewComboBoxItemWrapper<MacroStabilityInwardsStochasticSoilModel>>
             {
-                UpdateStochasticSoilProfileColumn();
-
-                dataGridViewControl.AutoResizeColumns();
-
-                return;
-            }
-
-            var failureMechanismSection = listBox.SelectedItem as FailureMechanismSection;
-            if (failureMechanismSection == null || calculationGroup == null)
-            {
-                dataGridViewControl.SetDataSource(null);
-                return;
-            }
-
-            IEnumerable<Segment2D> lineSegments = Math2D.ConvertPointsToLineSegments(failureMechanismSection.Points);
-            IEnumerable<MacroStabilityInwardsCalculationScenario> calculations = calculationGroup
-                                                                                 .GetCalculations()
-                                                                                 .OfType<MacroStabilityInwardsCalculationScenario>()
-                                                                                 .Where(pc => pc.IsSurfaceLineIntersectionWithReferenceLineInSection(lineSegments));
-
-            PrefillComboBoxListItemsAtColumnLevel();
-
-            List<MacroStabilityInwardsCalculationRow> dataSource = calculations.Select(pc => new MacroStabilityInwardsCalculationRow(pc, new ObservablePropertyChangeHandler(pc, pc.InputParameters))).ToList();
-            dataGridViewControl.SetDataSource(dataSource);
-            dataGridViewControl.ClearCurrentCell();
-
-            UpdateStochasticSoilModelColumn();
-            UpdateStochasticSoilProfileColumn();
-            UpdateSelectableHydraulicBoundaryLocationsColumn();
-        }
-
-        private static IEnumerable<DataGridViewComboBoxItemWrapper<MacroStabilityInwardsStochasticSoilModel>> GetStochasticSoilModelsDataSource(IEnumerable<MacroStabilityInwardsStochasticSoilModel> stochasticSoilModels)
-        {
-            yield return new DataGridViewComboBoxItemWrapper<MacroStabilityInwardsStochasticSoilModel>(null);
-
-            foreach (MacroStabilityInwardsStochasticSoilModel stochasticSoilModel in stochasticSoilModels)
-            {
-                yield return new DataGridViewComboBoxItemWrapper<MacroStabilityInwardsStochasticSoilModel>(stochasticSoilModel);
-            }
-        }
-
-        private static IEnumerable<DataGridViewComboBoxItemWrapper<MacroStabilityInwardsStochasticSoilProfile>> GetSoilProfilesDataSource(IEnumerable<MacroStabilityInwardsStochasticSoilProfile> stochasticSoilProfiles)
-        {
-            yield return new DataGridViewComboBoxItemWrapper<MacroStabilityInwardsStochasticSoilProfile>(null);
-
-            foreach (MacroStabilityInwardsStochasticSoilProfile stochasticSoilProfile in stochasticSoilProfiles)
-            {
-                yield return new DataGridViewComboBoxItemWrapper<MacroStabilityInwardsStochasticSoilProfile>(stochasticSoilProfile);
-            }
-        }
-
-        private static List<DataGridViewComboBoxItemWrapper<SelectableHydraulicBoundaryLocation>> GetSelectableHydraulicBoundaryLocationsDataSource(IEnumerable<SelectableHydraulicBoundaryLocation> selectableHydraulicBoundaryLocations = null)
-        {
-            var dataGridViewComboBoxItemWrappers = new List<DataGridViewComboBoxItemWrapper<SelectableHydraulicBoundaryLocation>>
-            {
-                new DataGridViewComboBoxItemWrapper<SelectableHydraulicBoundaryLocation>(null)
+                new DataGridViewComboBoxItemWrapper<MacroStabilityInwardsStochasticSoilModel>(null)
             };
 
-            if (selectableHydraulicBoundaryLocations != null)
-            {
-                dataGridViewComboBoxItemWrappers.AddRange(selectableHydraulicBoundaryLocations.Select(hbl => new DataGridViewComboBoxItemWrapper<SelectableHydraulicBoundaryLocation>(hbl)));
-            }
+            dataGridViewComboBoxItemWrappers.AddRange(stochasticSoilModels.Select(stochasticSoilModel => new DataGridViewComboBoxItemWrapper<MacroStabilityInwardsStochasticSoilModel>(stochasticSoilModel)));
 
-            return dataGridViewComboBoxItemWrappers;
+            return dataGridViewComboBoxItemWrappers.ToArray();
+        }
+
+        private static IEnumerable<DataGridViewComboBoxItemWrapper<MacroStabilityInwardsStochasticSoilProfile>> GetSoilProfilesDataSource(
+            IEnumerable<MacroStabilityInwardsStochasticSoilProfile> stochasticSoilProfiles)
+        {
+            var dataGridViewComboBoxItemWrappers = new List<DataGridViewComboBoxItemWrapper<MacroStabilityInwardsStochasticSoilProfile>>
+            {
+                new DataGridViewComboBoxItemWrapper<MacroStabilityInwardsStochasticSoilProfile>(null)
+            };
+
+            dataGridViewComboBoxItemWrappers.AddRange(stochasticSoilProfiles.Select(stochasticSoilProfile => new DataGridViewComboBoxItemWrapper<MacroStabilityInwardsStochasticSoilProfile>(stochasticSoilProfile)));
+
+            return dataGridViewComboBoxItemWrappers.ToArray();
         }
 
         #endregion
 
         #region Update combo box list items
 
-        #region Update Selectable Hydraulic Boundary Locations Column
-
-        private void UpdateSelectableHydraulicBoundaryLocationsColumn()
-        {
-            var column = (DataGridViewComboBoxColumn) dataGridViewControl.GetColumnFromIndex(selectableHydraulicBoundaryLocationColumnIndex);
-
-            using (new SuspendDataGridViewColumnResizes(column))
-            {
-                foreach (DataGridViewRow dataGridViewRow in dataGridViewControl.Rows)
-                {
-                    FillAvailableSelectableHydraulicBoundaryLocationsList(dataGridViewRow);
-                }
-            }
-        }
-
-        private void FillAvailableSelectableHydraulicBoundaryLocationsList(DataGridViewRow dataGridViewRow)
-        {
-            var rowData = (MacroStabilityInwardsCalculationRow) dataGridViewRow.DataBoundItem;
-            IEnumerable<SelectableHydraulicBoundaryLocation> locations = GetSelectableHydraulicBoundaryLocationsForCalculation(rowData.MacroStabilityInwardsCalculation);
-
-            var cell = (DataGridViewComboBoxCell) dataGridViewRow.Cells[selectableHydraulicBoundaryLocationColumnIndex];
-            DataGridViewComboBoxItemWrapper<SelectableHydraulicBoundaryLocation>[] dataGridViewComboBoxItemWrappers = GetSelectableHydraulicBoundaryLocationsDataSource(locations).ToArray();
-            SetItemsOnObjectCollection(cell.Items, dataGridViewComboBoxItemWrappers);
-        }
-
-        private IEnumerable<SelectableHydraulicBoundaryLocation> GetSelectableHydraulicBoundaryLocationsForCalculation(MacroStabilityInwardsCalculation macroStabilityInwardsCalculation)
-        {
-            return GetSelectableHydraulicBoundaryLocations(assessmentSection?.HydraulicBoundaryDatabase.Locations,
-                                                           macroStabilityInwardsCalculation.InputParameters.SurfaceLine);
-        }
-
-        #endregion
-
         #region Update Stochastic Soil Model Column
 
         private void UpdateStochasticSoilModelColumn()
         {
-            using (new SuspendDataGridViewColumnResizes(dataGridViewControl.GetColumnFromIndex(stochasticSoilModelColumnIndex)))
+            using (new SuspendDataGridViewColumnResizes(DataGridViewControl.GetColumnFromIndex(stochasticSoilModelColumnIndex)))
             {
-                foreach (DataGridViewRow dataGridViewRow in dataGridViewControl.Rows)
+                foreach (DataGridViewRow dataGridViewRow in DataGridViewControl.Rows)
                 {
                     FillAvailableSoilModelsList(dataGridViewRow);
                 }
@@ -413,22 +249,17 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
         private void FillAvailableSoilModelsList(DataGridViewRow dataGridViewRow)
         {
             var rowData = (MacroStabilityInwardsCalculationRow) dataGridViewRow.DataBoundItem;
-            IEnumerable<MacroStabilityInwardsStochasticSoilModel> stochasticSoilModels = GetSoilModelsForCalculation(rowData.MacroStabilityInwardsCalculation);
+            IEnumerable<MacroStabilityInwardsStochasticSoilModel> stochasticSoilModels = GetSoilModelsForCalculation(rowData.Calculation);
 
             var cell = (DataGridViewComboBoxCell) dataGridViewRow.Cells[stochasticSoilModelColumnIndex];
             SetItemsOnObjectCollection(cell.Items, GetStochasticSoilModelsDataSource(stochasticSoilModels).ToArray());
         }
 
-        private IEnumerable<MacroStabilityInwardsStochasticSoilModel> GetSoilModelsForCalculation(MacroStabilityInwardsCalculation macroStabilityInwardsCalculation)
+        private IEnumerable<MacroStabilityInwardsStochasticSoilModel> GetSoilModelsForCalculation(MacroStabilityInwardsCalculation calculation)
         {
-            if (macroStabilityInwardsFailureMechanism == null)
-            {
-                return Enumerable.Empty<MacroStabilityInwardsStochasticSoilModel>();
-            }
-
             return MacroStabilityInwardsCalculationConfigurationHelper.GetStochasticSoilModelsForSurfaceLine(
-                macroStabilityInwardsCalculation.InputParameters.SurfaceLine,
-                macroStabilityInwardsFailureMechanism.StochasticSoilModels);
+                calculation.InputParameters.SurfaceLine,
+                FailureMechanism.StochasticSoilModels);
         }
 
         #endregion
@@ -437,34 +268,31 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
 
         private void UpdateStochasticSoilProfileColumn()
         {
-            using (new SuspendDataGridViewColumnResizes(dataGridViewControl.GetColumnFromIndex(stochasticSoilProfileColumnIndex)))
+            using (new SuspendDataGridViewColumnResizes(DataGridViewControl.GetColumnFromIndex(stochasticSoilProfileColumnIndex)))
             {
-                foreach (DataGridViewRow dataGridViewRow in dataGridViewControl.Rows)
+                foreach (DataGridViewRow dataGridViewRow in DataGridViewControl.Rows)
                 {
                     FillAvailableSoilProfilesList(dataGridViewRow);
                 }
             }
         }
 
-        private void FillAvailableSoilProfilesList(DataGridViewRow dataGridViewRow)
+        private static void FillAvailableSoilProfilesList(DataGridViewRow dataGridViewRow)
         {
             var rowData = (MacroStabilityInwardsCalculationRow) dataGridViewRow.DataBoundItem;
-            MacroStabilityInwardsInputService.SyncStochasticSoilProfileWithStochasticSoilModel(rowData.MacroStabilityInwardsCalculation.InputParameters);
+            MacroStabilityInwardsInputService.SyncStochasticSoilProfileWithStochasticSoilModel(rowData.Calculation.InputParameters);
 
-            IEnumerable<MacroStabilityInwardsStochasticSoilProfile> stochasticSoilProfiles = GetSoilProfilesForCalculation(rowData.MacroStabilityInwardsCalculation);
+            IEnumerable<MacroStabilityInwardsStochasticSoilProfile> stochasticSoilProfiles = GetSoilProfilesForCalculation(rowData.Calculation);
 
             var cell = (DataGridViewComboBoxCell) dataGridViewRow.Cells[stochasticSoilProfileColumnIndex];
             SetItemsOnObjectCollection(cell.Items, GetSoilProfilesDataSource(stochasticSoilProfiles).ToArray());
         }
 
-        private static IEnumerable<MacroStabilityInwardsStochasticSoilProfile> GetSoilProfilesForCalculation(MacroStabilityInwardsCalculation macroStabilityInwardsCalculation)
+        private static IEnumerable<MacroStabilityInwardsStochasticSoilProfile> GetSoilProfilesForCalculation(MacroStabilityInwardsCalculation calculation)
         {
-            if (macroStabilityInwardsCalculation.InputParameters.StochasticSoilModel == null)
-            {
-                return Enumerable.Empty<MacroStabilityInwardsStochasticSoilProfile>();
-            }
-
-            return macroStabilityInwardsCalculation.InputParameters.StochasticSoilModel.StochasticSoilProfiles;
+            return calculation.InputParameters.StochasticSoilModel != null
+                       ? calculation.InputParameters.StochasticSoilModel.StochasticSoilProfiles
+                       : Enumerable.Empty<MacroStabilityInwardsStochasticSoilProfile>();
         }
 
         #endregion
@@ -473,138 +301,34 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
 
         #region Prefill combo box list items
 
-        private void PrefillComboBoxListItemsAtColumnLevel()
+        protected override void PrefillComboBoxListItemsAtColumnLevel()
         {
-            var stochasticSoilModelColumn = (DataGridViewComboBoxColumn) dataGridViewControl.GetColumnFromIndex(stochasticSoilModelColumnIndex);
-            var stochasticSoilProfileColumn = (DataGridViewComboBoxColumn) dataGridViewControl.GetColumnFromIndex(stochasticSoilProfileColumnIndex);
-            var selectableHydraulicBoundaryLocationColumn = (DataGridViewComboBoxColumn) dataGridViewControl.GetColumnFromIndex(selectableHydraulicBoundaryLocationColumnIndex);
+            base.PrefillComboBoxListItemsAtColumnLevel();
+
+            var stochasticSoilModelColumn = (DataGridViewComboBoxColumn) DataGridViewControl.GetColumnFromIndex(stochasticSoilModelColumnIndex);
+            var stochasticSoilProfileColumn = (DataGridViewComboBoxColumn) DataGridViewControl.GetColumnFromIndex(stochasticSoilProfileColumnIndex);
 
             // Need to prefill for all possible data in order to guarantee 'combo box' columns
             // do not generate errors when their cell value is not present in the list of available
             // items.
             using (new SuspendDataGridViewColumnResizes(stochasticSoilModelColumn))
             {
-                MacroStabilityInwardsStochasticSoilModelCollection stochasticSoilModels = macroStabilityInwardsFailureMechanism.StochasticSoilModels;
+                MacroStabilityInwardsStochasticSoilModelCollection stochasticSoilModels = FailureMechanism.StochasticSoilModels;
                 SetItemsOnObjectCollection(stochasticSoilModelColumn.Items, GetStochasticSoilModelsDataSource(stochasticSoilModels).ToArray());
             }
 
             using (new SuspendDataGridViewColumnResizes(stochasticSoilProfileColumn))
             {
-                MacroStabilityInwardsStochasticSoilProfile[] soilProfiles = GetStochasticSoilProfilesFromStochasticSoilModels();
-                SetItemsOnObjectCollection(stochasticSoilProfileColumn.Items, GetSoilProfilesDataSource(soilProfiles).ToArray());
-            }
-
-            using (new SuspendDataGridViewColumnResizes(selectableHydraulicBoundaryLocationColumn))
-            {
-                SetItemsOnObjectCollection(selectableHydraulicBoundaryLocationColumn.Items,
-                                           GetSelectableHydraulicBoundaryLocationsDataSource(GetSelectableHydraulicBoundaryLocationsFromFailureMechanism()).ToArray());
+                IEnumerable<MacroStabilityInwardsStochasticSoilProfile> stochasticSoilProfiles = GetStochasticSoilProfilesFromStochasticSoilModels();
+                SetItemsOnObjectCollection(stochasticSoilProfileColumn.Items, GetSoilProfilesDataSource(stochasticSoilProfiles).ToArray());
             }
         }
 
-        private IEnumerable<SelectableHydraulicBoundaryLocation> GetSelectableHydraulicBoundaryLocationsFromFailureMechanism()
+        private IEnumerable<MacroStabilityInwardsStochasticSoilProfile> GetStochasticSoilProfilesFromStochasticSoilModels()
         {
-            if (assessmentSection == null)
-            {
-                return null;
-            }
-
-            List<HydraulicBoundaryLocation> hydraulicBoundaryLocations = assessmentSection.HydraulicBoundaryDatabase.Locations;
-
-            List<SelectableHydraulicBoundaryLocation> selectableHydraulicBoundaryLocations = hydraulicBoundaryLocations.Select(hbl => new SelectableHydraulicBoundaryLocation(hbl, null)).ToList();
-            if (MacroStabilityInwardsFailureMechanism == null || !MacroStabilityInwardsFailureMechanism.SurfaceLines.Any())
-            {
-                return selectableHydraulicBoundaryLocations;
-            }
-
-            foreach (MacroStabilityInwardsSurfaceLine surfaceLine in MacroStabilityInwardsFailureMechanism.SurfaceLines)
-            {
-                selectableHydraulicBoundaryLocations.AddRange(GetSelectableHydraulicBoundaryLocations(hydraulicBoundaryLocations, surfaceLine));
-            }
-
-            return selectableHydraulicBoundaryLocations;
-        }
-
-        private MacroStabilityInwardsStochasticSoilProfile[] GetStochasticSoilProfilesFromStochasticSoilModels()
-        {
-            return macroStabilityInwardsFailureMechanism?.StochasticSoilModels
-                                                        .SelectMany(ssm => ssm.StochasticSoilProfiles)
-                                                        .Distinct()
-                                                        .ToArray();
-        }
-
-        #endregion
-
-        #region Event handling
-
-        private void DataGridViewOnCurrentRowChangedHandler(object sender, EventArgs e)
-        {
-            OnSelectionChanged();
-        }
-
-        private void ListBoxOnSelectedValueChanged(object sender, EventArgs e)
-        {
-            UpdateDataGridViewDataSource();
-        }
-
-        private void OnGenerateScenariosButtonClick(object sender, EventArgs e)
-        {
-            if (calculationGroup == null)
-            {
-                return;
-            }
-
-            var dialog = new MacroStabilityInwardsSurfaceLineSelectionDialog(Parent, macroStabilityInwardsFailureMechanism.SurfaceLines);
-            dialog.ShowDialog();
-            IEnumerable<ICalculationBase> calculationsStructure = MacroStabilityInwardsCalculationConfigurationHelper.GenerateCalculationItemsStructure(
-                dialog.SelectedItems,
-                macroStabilityInwardsFailureMechanism.StochasticSoilModels);
-            foreach (ICalculationBase item in calculationsStructure)
-            {
-                calculationGroup.Children.Add(item);
-            }
-
-            calculationGroup.NotifyObservers();
-        }
-
-        private void OnFailureMechanismUpdate()
-        {
-            UpdateGenerateScenariosButtonState();
-            UpdateSectionsListBox();
-        }
-
-        private void OnStochasticSoilModelsUpdate()
-        {
-            UpdateGenerateScenariosButtonState();
-            UpdateStochasticSoilModelColumn();
-            UpdateStochasticSoilProfileColumn();
-        }
-
-        private void UpdateSectionsListBox()
-        {
-            listBox.Items.Clear();
-
-            if (macroStabilityInwardsFailureMechanism != null && macroStabilityInwardsFailureMechanism.Sections.Any())
-            {
-                listBox.Items.AddRange(macroStabilityInwardsFailureMechanism.Sections.Cast<object>().ToArray());
-                listBox.SelectedItem = macroStabilityInwardsFailureMechanism.Sections.First();
-            }
-        }
-
-        private void OnSelectionChanged()
-        {
-            SelectionChanged?.Invoke(this, new EventArgs());
-        }
-
-        private void OnCellFormatting(object sender, DataGridViewCellFormattingEventArgs eventArgs)
-        {
-            if (eventArgs.ColumnIndex == selectableHydraulicBoundaryLocationColumnIndex)
-            {
-                DataGridViewRow dataGridViewRow = dataGridViewControl.GetRowFromIndex(eventArgs.RowIndex);
-                var dataItem = dataGridViewRow.DataBoundItem as MacroStabilityInwardsCalculationRow;
-
-                dataGridViewRow.Cells[selectableHydraulicBoundaryLocationColumnIndex].ReadOnly = dataItem != null
-                                                                                                 && dataItem.MacroStabilityInwardsCalculation.InputParameters.UseAssessmentLevelManualInput;
-            }
+            return FailureMechanism.StochasticSoilModels
+                                   .SelectMany(ssm => ssm.StochasticSoilProfiles)
+                                   .Distinct();
         }
 
         #endregion

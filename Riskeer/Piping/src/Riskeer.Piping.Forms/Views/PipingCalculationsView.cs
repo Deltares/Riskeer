@@ -93,7 +93,6 @@ namespace Riskeer.Piping.Forms.Views
         {
             base.OnLoad(e);
 
-            // Set button text
             GenerateButton.Text = RiskeerCommonFormsResources.CalculationGroup_Generate_Scenarios;
         }
 
@@ -203,6 +202,13 @@ namespace Riskeer.Piping.Forms.Views
             UpdateStochasticSoilProfileColumn();
         }
 
+        protected override void UpdateColumns()
+        {
+            base.UpdateColumns();
+            UpdateStochasticSoilModelColumn();
+            UpdateStochasticSoilProfileColumn();
+        }
+
         #region Data sources
 
         private static IEnumerable<DataGridViewComboBoxItemWrapper<PipingStochasticSoilModel>> GetStochasticSoilModelsDataSource(
@@ -292,12 +298,9 @@ namespace Riskeer.Piping.Forms.Views
 
         private static IEnumerable<PipingStochasticSoilProfile> GetSoilProfilesForCalculation(PipingCalculation pipingCalculation)
         {
-            if (pipingCalculation.InputParameters.StochasticSoilModel == null)
-            {
-                return Enumerable.Empty<PipingStochasticSoilProfile>();
-            }
-
-            return pipingCalculation.InputParameters.StochasticSoilModel.StochasticSoilProfiles;
+            return pipingCalculation.InputParameters.StochasticSoilModel != null 
+                       ? pipingCalculation.InputParameters.StochasticSoilModel.StochasticSoilProfiles
+                       : Enumerable.Empty<PipingStochasticSoilProfile>();
         }
 
         #endregion
@@ -340,19 +343,11 @@ namespace Riskeer.Piping.Forms.Views
 
         #region Event handling
 
-        protected override void UpdateColumns()
-        {
-            base.UpdateColumns();
-            UpdateStochasticSoilModelColumn();
-            UpdateStochasticSoilProfileColumn();
-        }
-
         private void OnCellFormatting(object sender, DataGridViewCellFormattingEventArgs eventArgs)
         {
             if (eventArgs.ColumnIndex == selectableHydraulicBoundaryLocationColumnIndex)
             {
                 DataGridViewRow dataGridViewRow = DataGridViewControl.GetRowFromIndex(eventArgs.RowIndex);
-
                 dataGridViewRow.Cells[selectableHydraulicBoundaryLocationColumnIndex].ReadOnly = dataGridViewRow.DataBoundItem is PipingCalculationRow dataItem
                                                                                                  && dataItem.Calculation.InputParameters.UseAssessmentLevelManualInput;
             }

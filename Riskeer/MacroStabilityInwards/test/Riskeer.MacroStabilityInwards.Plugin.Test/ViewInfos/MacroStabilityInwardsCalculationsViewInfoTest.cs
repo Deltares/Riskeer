@@ -26,7 +26,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
-using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.Hydraulics;
 using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.MacroStabilityInwards.Data.SoilProfile;
 using Riskeer.MacroStabilityInwards.Forms.PresentationObjects;
@@ -39,14 +39,12 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
     [TestFixture]
     public class MacroStabilityInwardsCalculationsViewInfoTest
     {
-        private MockRepository mocks;
         private MacroStabilityInwardsPlugin plugin;
         private ViewInfo info;
 
         [SetUp]
         public void SetUp()
         {
-            mocks = new MockRepository();
             plugin = new MacroStabilityInwardsPlugin();
             info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(MacroStabilityInwardsCalculationsView));
         }
@@ -70,8 +68,8 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
         public void GetViewData_Always_ReturnsWrappedCalculationGroup()
         {
             // Setup
+            var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-
             mocks.ReplayAll();
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
@@ -89,32 +87,38 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void GetViewName_WithMacroStabilityInwardsCalculationGroupContext_ReturnsCalculationGroupName()
+        public void GetViewName_WithContext_ReturnsCalculationGroupName()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var calculationsView = new MacroStabilityInwardsCalculationsView();
-
             const string calculationGroupName = "Test";
+
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase());
+            mocks.ReplayAll();
 
             var calculationGroup = new CalculationGroup
             {
                 Name = calculationGroupName
             };
 
-            var calculationGroupContext = new MacroStabilityInwardsCalculationGroupContext(calculationGroup,
-                                                                                           null,
-                                                                                           Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
-                                                                                           Enumerable.Empty<MacroStabilityInwardsStochasticSoilModel>(),
-                                                                                           new MacroStabilityInwardsFailureMechanism(),
-                                                                                           assessmentSection);
-            // Call
-            string name = info.GetViewName(calculationsView, calculationGroupContext);
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+            using (var calculationsView = new MacroStabilityInwardsCalculationsView(calculationGroup, failureMechanism, assessmentSection))
+            {
+                var context = new MacroStabilityInwardsCalculationGroupContext(calculationGroup,
+                                                                               null,
+                                                                               Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
+                                                                               Enumerable.Empty<MacroStabilityInwardsStochasticSoilModel>(),
+                                                                               failureMechanism,
+                                                                               assessmentSection);
 
-            // Assert
-            Assert.AreEqual(calculationGroupName, name);
+                // Call
+                string name = info.GetViewName(calculationsView, context);
+
+                // Assert
+                Assert.AreEqual(calculationGroupName, name);
+            }
+
             mocks.VerifyAll();
         }
 
@@ -122,19 +126,20 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
         public void AdditionalDataCheck_CalculationGroupContextWithFailureMechanismParent_ReturnsTrue()
         {
             // Setup
+            var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-            var calculationGroupContext = new MacroStabilityInwardsCalculationGroupContext(failureMechanism.CalculationsGroup,
-                                                                                           null,
-                                                                                           Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
-                                                                                           Enumerable.Empty<MacroStabilityInwardsStochasticSoilModel>(),
-                                                                                           failureMechanism,
-                                                                                           assessmentSection);
+            var context = new MacroStabilityInwardsCalculationGroupContext(failureMechanism.CalculationsGroup,
+                                                                           null,
+                                                                           Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
+                                                                           Enumerable.Empty<MacroStabilityInwardsStochasticSoilModel>(),
+                                                                           failureMechanism,
+                                                                           assessmentSection);
 
             // Call
-            bool additionalDataCheck = info.AdditionalDataCheck(calculationGroupContext);
+            bool additionalDataCheck = info.AdditionalDataCheck(context);
 
             // Assert
             Assert.IsTrue(additionalDataCheck);
@@ -145,20 +150,21 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
         public void AdditionalDataCheck_CalculationGroupContextWithoutFailureMechanismParent_ReturnsFalse()
         {
             // Setup
+            var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             var calculationGroup = new CalculationGroup();
-            var calculationGroupContext = new MacroStabilityInwardsCalculationGroupContext(calculationGroup,
-                                                                                           null,
-                                                                                           Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
-                                                                                           Enumerable.Empty<MacroStabilityInwardsStochasticSoilModel>(),
-                                                                                           failureMechanism,
-                                                                                           assessmentSection);
+            var context = new MacroStabilityInwardsCalculationGroupContext(calculationGroup,
+                                                                           null,
+                                                                           Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
+                                                                           Enumerable.Empty<MacroStabilityInwardsStochasticSoilModel>(),
+                                                                           failureMechanism,
+                                                                           assessmentSection);
 
             // Call
-            bool additionalDataCheck = info.AdditionalDataCheck(calculationGroupContext);
+            bool additionalDataCheck = info.AdditionalDataCheck(context);
 
             // Assert
             Assert.IsFalse(additionalDataCheck);
@@ -166,47 +172,28 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void CloseForData_AssessmentSectionRemovedWithoutFailureMechanism_ReturnsFalse()
-        {
-            // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new IFailureMechanism[0]);
-            mocks.ReplayAll();
-
-            var view = new MacroStabilityInwardsCalculationsView
-            {
-                Data = new CalculationGroup()
-            };
-
-            // Call
-            bool closeForData = info.CloseForData(view, assessmentSection);
-
-            // Assert
-            Assert.IsFalse(closeForData);
-            mocks.VerifyAll();
-        }
-
-        [Test]
         public void CloseForData_ViewNotCorrespondingToRemovedAssessmentSection_ReturnsFalse()
         {
             // Setup
+            var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new[]
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase());
+            var assessmentSectionToRemove = mocks.Stub<IAssessmentSection>();
+            assessmentSectionToRemove.Stub(asm => asm.GetFailureMechanisms()).Return(new[]
             {
                 new MacroStabilityInwardsFailureMechanism()
             });
             mocks.ReplayAll();
 
-            var view = new MacroStabilityInwardsCalculationsView
+            using (var view = new MacroStabilityInwardsCalculationsView(new CalculationGroup(), new MacroStabilityInwardsFailureMechanism(), assessmentSection))
             {
-                Data = new CalculationGroup()
-            };
+                // Call
+                bool closeForData = info.CloseForData(view, assessmentSectionToRemove);
 
-            // Call
-            bool closeForData = info.CloseForData(view, assessmentSection);
+                // Assert
+                Assert.IsFalse(closeForData);
+            }
 
-            // Assert
-            Assert.IsFalse(closeForData);
             mocks.VerifyAll();
         }
 
@@ -214,24 +201,26 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
         public void CloseForData_ViewCorrespondingToRemovedAssessmentSection_ReturnsTrue()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-            assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new[]
+
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase());
+            assessmentSection.Stub(a => a.GetFailureMechanisms()).Return(new[]
             {
                 failureMechanism
             });
             mocks.ReplayAll();
 
-            var view = new MacroStabilityInwardsCalculationsView
+            using (var view = new MacroStabilityInwardsCalculationsView(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection))
             {
-                Data = failureMechanism.CalculationsGroup
-            };
+                // Call
+                bool closeForData = info.CloseForData(view, assessmentSection);
 
-            // Call
-            bool closeForData = info.CloseForData(view, assessmentSection);
+                // Assert
+                Assert.IsTrue(closeForData);
+            }
 
-            // Assert
-            Assert.IsTrue(closeForData);
             mocks.VerifyAll();
         }
 
@@ -239,18 +228,20 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
         public void CloseForData_ViewNotCorrespondingToRemovedFailureMechanism_ReturnsFalse()
         {
             // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase());
             mocks.ReplayAll();
 
-            var view = new MacroStabilityInwardsCalculationsView();
-            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+            using (var view = new MacroStabilityInwardsCalculationsView(new CalculationGroup(), new MacroStabilityInwardsFailureMechanism(), assessmentSection))
+            {
+                // Call
+                bool closeForData = info.CloseForData(view, new MacroStabilityInwardsFailureMechanism());
 
-            view.Data = new CalculationGroup();
+                // Assert
+                Assert.IsFalse(closeForData);
+            }
 
-            // Call
-            bool closeForData = info.CloseForData(view, failureMechanism);
-
-            // Assert
-            Assert.IsFalse(closeForData);
             mocks.VerifyAll();
         }
 
@@ -258,18 +249,21 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
         public void CloseForData_ViewCorrespondingToRemovedFailureMechanism_ReturnsTrue()
         {
             // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase());
             mocks.ReplayAll();
 
-            var view = new MacroStabilityInwardsCalculationsView();
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+            using (var view = new MacroStabilityInwardsCalculationsView(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection))
+            {
+                // Call
+                bool closeForData = info.CloseForData(view, failureMechanism);
 
-            view.Data = failureMechanism.CalculationsGroup;
+                // Assert
+                Assert.IsTrue(closeForData);
+            }
 
-            // Call
-            bool closeForData = info.CloseForData(view, failureMechanism);
-
-            // Assert
-            Assert.IsTrue(closeForData);
             mocks.VerifyAll();
         }
 
@@ -277,20 +271,22 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
         public void CloseForData_ViewNotCorrespondingToRemovedFailureMechanismContext_ReturnsFalse()
         {
             // Setup
+            var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase());
             mocks.ReplayAll();
 
-            var view = new MacroStabilityInwardsCalculationsView();
-            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-            var failureMechanismContext = new MacroStabilityInwardsFailureMechanismContext(new MacroStabilityInwardsFailureMechanism(), assessmentSection);
+            using (var view = new MacroStabilityInwardsCalculationsView(new CalculationGroup(), new MacroStabilityInwardsFailureMechanism(), assessmentSection))
+            {
+                var failureMechanismContext = new MacroStabilityInwardsFailureMechanismContext(new MacroStabilityInwardsFailureMechanism(), assessmentSection);
 
-            view.Data = failureMechanism.CalculationsGroup;
+                // Call
+                bool closeForData = info.CloseForData(view, failureMechanismContext);
 
-            // Call
-            bool closeForData = info.CloseForData(view, failureMechanismContext);
+                // Assert
+                Assert.IsFalse(closeForData);
+            }
 
-            // Assert
-            Assert.IsFalse(closeForData);
             mocks.VerifyAll();
         }
 
@@ -298,42 +294,23 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
         public void CloseForData_ViewCorrespondingToRemovedFailureMechanismContext_ReturnsTrue()
         {
             // Setup
+            var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase());
             mocks.ReplayAll();
 
-            var view = new MacroStabilityInwardsCalculationsView();
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-            var failureMechanismContext = new MacroStabilityInwardsFailureMechanismContext(failureMechanism, assessmentSection);
+            using (var view = new MacroStabilityInwardsCalculationsView(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection))
+            {
+                var failureMechanismContext = new MacroStabilityInwardsFailureMechanismContext(failureMechanism, assessmentSection);
 
-            view.Data = failureMechanism.CalculationsGroup;
+                // Call
+                bool closeForData = info.CloseForData(view, failureMechanismContext);
 
-            // Call
-            bool closeForData = info.CloseForData(view, failureMechanismContext);
+                // Assert
+                Assert.IsTrue(closeForData);
+            }
 
-            // Assert
-            Assert.IsTrue(closeForData);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void AfterCreate_Always_SetsSpecificPropertiesToView()
-        {
-            // Setup
-            var view = mocks.StrictMock<MacroStabilityInwardsCalculationsView>();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var failureMechanism = mocks.StrictMock<MacroStabilityInwardsFailureMechanism>();
-            var calculationsGroup = mocks.StrictMock<CalculationGroup>();
-            var calculationGroupContext = new MacroStabilityInwardsCalculationGroupContext(calculationsGroup, null, Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(), Enumerable.Empty<MacroStabilityInwardsStochasticSoilModel>(), failureMechanism, assessmentSection);
-
-            view.Expect(v => v.AssessmentSection = assessmentSection);
-            view.Expect(v => v.MacroStabilityInwardsFailureMechanism = failureMechanism);
-
-            mocks.ReplayAll();
-
-            // Call
-            info.AfterCreate(view, calculationGroupContext);
-
-            // Assert
             mocks.VerifyAll();
         }
     }

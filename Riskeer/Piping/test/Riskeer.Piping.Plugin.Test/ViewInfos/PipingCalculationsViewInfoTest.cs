@@ -105,15 +105,15 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
             var failureMechanism = new PipingFailureMechanism();
             using (var calculationsView = new PipingCalculationsView(calculationGroup, failureMechanism, assessmentSection))
             {
-                var pipingCalculationGroupContext = new PipingCalculationGroupContext(calculationGroup,
-                                                                                      null,
-                                                                                      Enumerable.Empty<PipingSurfaceLine>(),
-                                                                                      Enumerable.Empty<PipingStochasticSoilModel>(),
-                                                                                      failureMechanism,
-                                                                                      assessmentSection);
+                var context = new PipingCalculationGroupContext(calculationGroup,
+                                                                null,
+                                                                Enumerable.Empty<PipingSurfaceLine>(),
+                                                                Enumerable.Empty<PipingStochasticSoilModel>(),
+                                                                failureMechanism,
+                                                                assessmentSection);
 
                 // Call
-                string name = info.GetViewName(calculationsView, pipingCalculationGroupContext);
+                string name = info.GetViewName(calculationsView, context);
 
                 // Assert
                 Assert.AreEqual(calculationGroupName, name);
@@ -123,23 +123,23 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void AdditionalDataCheck_PipingCalculationGroupContextWithPipingFailureMechanismParent_ReturnsTrue()
+        public void AdditionalDataCheck_CalculationGroupContextWithFailureMechanismParent_ReturnsTrue()
         {
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var pipingFailureMechanism = new PipingFailureMechanism();
-            var pipingCalculationGroupContext = new PipingCalculationGroupContext(pipingFailureMechanism.CalculationsGroup,
-                                                                                  null,
-                                                                                  Enumerable.Empty<PipingSurfaceLine>(),
-                                                                                  Enumerable.Empty<PipingStochasticSoilModel>(),
-                                                                                  pipingFailureMechanism,
-                                                                                  assessmentSection);
+            var failureMechanism = new PipingFailureMechanism();
+            var context = new PipingCalculationGroupContext(failureMechanism.CalculationsGroup,
+                                                            null,
+                                                            Enumerable.Empty<PipingSurfaceLine>(),
+                                                            Enumerable.Empty<PipingStochasticSoilModel>(),
+                                                            failureMechanism,
+                                                            assessmentSection);
 
             // Call
-            bool additionalDataCheck = info.AdditionalDataCheck(pipingCalculationGroupContext);
+            bool additionalDataCheck = info.AdditionalDataCheck(context);
 
             // Assert
             Assert.IsTrue(additionalDataCheck);
@@ -147,7 +147,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void AdditionalDataCheck_PipingCalculationGroupContextWithoutPipingFailureMechanismParent_ReturnsFalse()
+        public void AdditionalDataCheck_CalculationGroupContextWithoutFailureMechanismParent_ReturnsFalse()
         {
             // Setup
             var mocks = new MockRepository();
@@ -156,15 +156,15 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
 
             var failureMechanism = new PipingFailureMechanism();
             var calculationGroup = new CalculationGroup();
-            var pipingCalculationGroupContext = new PipingCalculationGroupContext(calculationGroup,
-                                                                                  null,
-                                                                                  Enumerable.Empty<PipingSurfaceLine>(),
-                                                                                  Enumerable.Empty<PipingStochasticSoilModel>(),
-                                                                                  failureMechanism,
-                                                                                  assessmentSection);
+            var context = new PipingCalculationGroupContext(calculationGroup,
+                                                            null,
+                                                            Enumerable.Empty<PipingSurfaceLine>(),
+                                                            Enumerable.Empty<PipingStochasticSoilModel>(),
+                                                            failureMechanism,
+                                                            assessmentSection);
 
             // Call
-            bool additionalDataCheck = info.AdditionalDataCheck(pipingCalculationGroupContext);
+            bool additionalDataCheck = info.AdditionalDataCheck(context);
 
             // Assert
             Assert.IsFalse(additionalDataCheck);
@@ -241,6 +241,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
                 // Assert
                 Assert.IsFalse(closeForData);
             }
+
             mocks.VerifyAll();
         }
 
@@ -262,6 +263,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
                 // Assert
                 Assert.IsTrue(closeForData);
             }
+
             mocks.VerifyAll();
         }
 
