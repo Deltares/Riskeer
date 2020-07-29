@@ -46,12 +46,12 @@ namespace Riskeer.Piping.Forms.Views
     /// </summary>
     public class PipingCalculationsView : CalculationsView<PipingCalculationScenario, PipingInput, PipingCalculationRow, PipingFailureMechanism>
     {
+        private const int selectableHydraulicBoundaryLocationColumnIndex = 1;
         private const int stochasticSoilModelColumnIndex = 2;
         private const int stochasticSoilProfileColumnIndex = 3;
-        private const int selectableHydraulicBoundaryLocationColumnIndex = 1;
 
-        private readonly RecursiveObserver<PipingSurfaceLineCollection, PipingSurfaceLine> pipingSurfaceLineObserver;
-        private readonly Observer pipingStochasticSoilModelsObserver;
+        private readonly RecursiveObserver<PipingSurfaceLineCollection, PipingSurfaceLine> surfaceLineObserver;
+        private readonly Observer stochasticSoilModelsObserver;
         private readonly RecursiveObserver<PipingStochasticSoilModelCollection, PipingStochasticSoilProfile> stochasticSoilProfileObserver;
 
         /// <summary>
@@ -64,7 +64,7 @@ namespace Riskeer.Piping.Forms.Views
         public PipingCalculationsView(CalculationGroup calculationGroup, PipingFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
             : base(calculationGroup, failureMechanism, assessmentSection)
         {
-            pipingSurfaceLineObserver = new RecursiveObserver<PipingSurfaceLineCollection, PipingSurfaceLine>(() =>
+            surfaceLineObserver = new RecursiveObserver<PipingSurfaceLineCollection, PipingSurfaceLine>(() =>
             {
                 UpdateColumns();
                 UpdateGenerateCalculationsButtonState();
@@ -73,7 +73,7 @@ namespace Riskeer.Piping.Forms.Views
                 Observable = failureMechanism.SurfaceLines
             };
 
-            pipingStochasticSoilModelsObserver = new Observer(() =>
+            stochasticSoilModelsObserver = new Observer(() =>
             {
                 UpdateColumns();
                 UpdateGenerateCalculationsButtonState();
@@ -101,9 +101,9 @@ namespace Riskeer.Piping.Forms.Views
         {
             if (disposing)
             {
-                pipingSurfaceLineObserver.Dispose();
+                surfaceLineObserver.Dispose();
                 stochasticSoilProfileObserver.Dispose();
-                pipingStochasticSoilModelsObserver.Dispose();
+                stochasticSoilModelsObserver.Dispose();
             }
 
             base.Dispose(disposing);
