@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<configuratie>
+  <berekening naam="irrelevant">
+    <faalkansgegevenerosiebodem>1</faalkansgegevenerosiebodem>
+    <factorstormduur>1</factorstormduur>
+    <volumiekgewichtwater>9.81</volumiekgewichtwater>
+    <stochasten>
+      <stochast naam="stormduur">
+        <verwachtingswaarde>6</verwachtingswaarde>
+      </stochast>
+      <stochast naam="afvoercoefficient">
+        <verwachtingswaarde>1</verwachtingswaarde>
+      </stochast>
+    </stochasten>
+    <illustratiepunteninlezen>false</illustratiepunteninlezen>
+    <scenario>
+      <gebruik>false</gebruik>
+      <bijdrage>54.32</bijdrage>
+    </scenario>
+  </berekening>
+</configuratie>

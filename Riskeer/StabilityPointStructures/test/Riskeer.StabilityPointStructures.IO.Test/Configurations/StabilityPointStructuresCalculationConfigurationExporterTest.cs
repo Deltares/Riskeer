@@ -104,6 +104,12 @@ namespace Riskeer.StabilityPointStructures.IO.Test.Configurations
                         CreateCalculationWithStructureAndLoadSchematizationQadraticAndInflowModelLowSill()
                     })
                     .SetName("Calculation configuration with LoadSchematizationType set to Qadratic and InflowModelType to LowSil");
+
+                yield return new TestCaseData("calculationScenarioIrrelevant", new[]
+                    {
+                        CreateIrrelevantCalculationScenario()
+                    })
+                    .SetName("Calculation configuration with scenario is relevant false");
             }
         }
 
@@ -333,6 +339,16 @@ namespace Riskeer.StabilityPointStructures.IO.Test.Configurations
                         StandardDeviation = (RoundedDouble) 0.1
                     }
                 }
+            };
+        }
+
+        private static StructuresCalculationScenario<StabilityPointStructuresInput> CreateIrrelevantCalculationScenario()
+        {
+            return new StructuresCalculationScenario<StabilityPointStructuresInput>
+            {
+                Name = "irrelevant",
+                Contribution = (RoundedDouble) 0.5432,
+                IsRelevant = false
             };
         }
 

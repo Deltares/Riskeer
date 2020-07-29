@@ -93,6 +93,11 @@ namespace Riskeer.HeightStructures.IO.Test.Configurations
                         }
                     })
                     .SetName("Calculation configuration with hierarchy");
+                yield return new TestCaseData("calculationScenarioIrrelevant", new[]
+                    {
+                        CreateIrrelevantCalculationScenario()
+                    })
+                    .SetName("Calculation configuration with scenario is relevant false");
             }
         }
 
@@ -224,6 +229,16 @@ namespace Riskeer.HeightStructures.IO.Test.Configurations
                 {
                     Structure = new TestHeightStructure("kunstwerk1")
                 }
+            };
+        }
+
+        private static StructuresCalculationScenario<HeightStructuresInput> CreateIrrelevantCalculationScenario()
+        {
+            return new StructuresCalculationScenario<HeightStructuresInput>
+            {
+                Name = "irrelevant",
+                Contribution = (RoundedDouble) 0.5432,
+                IsRelevant = false
             };
         }
 

@@ -90,8 +90,8 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Configurations
                 && TrySetDikeProfile(readCalculation.DikeProfileId, calculation)
                 && TrySetOrientation(readCalculation, calculation)
                 && TrySetDikeHeight(readCalculation, calculation)
-                && ValidateWaveReduction(readCalculation, calculation)
-                && TrySetScenarioParameters(readCalculation.Scenario, calculation))
+                && TrySetScenarioParameters(readCalculation.Scenario, calculation)
+                && ValidateWaveReduction(readCalculation, calculation))
             {
                 SetWaveReductionParameters(readCalculation.WaveReduction, calculation.InputParameters);
                 SetDikeHeightCalculationType(readCalculation, calculation);

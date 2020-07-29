@@ -93,6 +93,11 @@ namespace Riskeer.ClosingStructures.IO.Test.Configurations
                         }
                     })
                     .SetName("Calculation configuration with hierarchy");
+                yield return new TestCaseData("calculationScenarioIrrelevant", new[]
+                    {
+                        CreateIrrelevantCalculationScenario()
+                    })
+                    .SetName("Calculation configuration with scenario is relevant false");
             }
         }
 
@@ -250,6 +255,16 @@ namespace Riskeer.ClosingStructures.IO.Test.Configurations
                 {
                     Structure = new TestClosingStructure("kunstwerk1", "kunstwerk1")
                 }
+            };
+        }
+
+        private static StructuresCalculationScenario<ClosingStructuresInput> CreateIrrelevantCalculationScenario()
+        {
+            return new StructuresCalculationScenario<ClosingStructuresInput>
+            {
+                Name = "irrelevant",
+                Contribution = (RoundedDouble) 0.5432,
+                IsRelevant = false
             };
         }
 

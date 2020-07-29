@@ -115,8 +115,8 @@ namespace Riskeer.StabilityPointStructures.IO.Configurations
                 && TrySetStochasts(readCalculation, calculation)
                 && TrySetStructureNormalOrientation(readCalculation, calculation)
                 && TrySetVerticalDistance(readCalculation, calculation)
-                && readCalculation.WaveReduction.ValidateWaveReduction(calculation.InputParameters.ForeshoreProfile, calculation.Name, Log)
-                && TrySetScenarioParameters(readCalculation.Scenario, calculation))
+                && TrySetScenarioParameters(readCalculation.Scenario, calculation)
+                && readCalculation.WaveReduction.ValidateWaveReduction(calculation.InputParameters.ForeshoreProfile, calculation.Name, Log))
             {
                 SetFactorStormDurationOpenStructure(readCalculation, calculation);
                 SetVolumicWeightWater(readCalculation, calculation);

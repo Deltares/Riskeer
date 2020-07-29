@@ -21,6 +21,7 @@
 
 using System.Collections.Generic;
 using System.IO;
+using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.Data.Calculation;
@@ -39,10 +40,39 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
             GrassCoverErosionInwardsCalculationScenario,
             GrassCoverErosionInwardsCalculationConfiguration>
     {
+        private static IEnumerable<TestCaseData> Calculations
+        {
+            get
+            {
+                yield return new TestCaseData("folderWithSubfolderAndCalculation", new[]
+                    {
+                        CreateNestedCalculation()
+                    })
+                    .SetName("Calculation configuration with hierarchy");
+
+                yield return new TestCaseData("calculationScenarioIrrelevant", new[]
+                    {
+                        CreateIrrelevantCalculationScenario()
+                    })
+                    .SetName("Calculation configuration with scenario is relevant false");
+            }
+        }
+
         [Test]
-        public void Export_ValidData_ReturnTrueAndWritesFile()
+        [TestCaseSource(nameof(Calculations))]
+        public void Export_ValidData_ReturnTrueAndWritesFile(string fileName, ICalculationBase[] calculationGroup)
         {
             // Setup
+            string expectedXmlFilePath = TestHelper.GetTestDataPath(
+                TestDataPath.Riskeer.GrassCoverErosionInwards.IO,
+                Path.Combine(nameof(GrassCoverErosionInwardsCalculationConfigurationExporter), $"{fileName}.xml"));
+
+            // Call and Assert
+            WriteAndValidate(calculationGroup, expectedXmlFilePath);
+        }
+
+        private static CalculationGroup CreateNestedCalculation()
+        {
             var calculation = new GrassCoverErosionInwardsCalculationScenario
             {
                 Name = "Berekening 1",
@@ -75,15 +105,17 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
                 }
             };
 
-            string expectedXmlFilePath = TestHelper.GetTestDataPath(
-                TestDataPath.Riskeer.GrassCoverErosionInwards.IO,
-                Path.Combine(nameof(GrassCoverErosionInwardsCalculationConfigurationExporter), "folderWithSubfolderAndCalculation.xml"));
+            return calculationGroup;
+        }
 
-            // Call and Assert
-            WriteAndValidate(new[]
+        private static GrassCoverErosionInwardsCalculationScenario CreateIrrelevantCalculationScenario()
+        {
+            return new GrassCoverErosionInwardsCalculationScenario
             {
-                calculationGroup
-            }, expectedXmlFilePath);
+                Name = "irrelevant",
+                Contribution = (RoundedDouble) 0.5432,
+                IsRelevant = false
+            };
         }
 
         protected override GrassCoverErosionInwardsCalculationScenario CreateCalculation()
