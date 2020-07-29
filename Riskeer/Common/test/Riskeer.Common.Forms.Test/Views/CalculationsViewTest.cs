@@ -105,12 +105,12 @@ namespace Riskeer.Common.Forms.Test.Views
             // Call
             TestCalculationsView view = ShowCalculationsView(new CalculationGroup(), new TestFailureMechanism(), new AssessmentSectionStub());
 
-            var button = (Button) new ControlTester("generateButton").TheObject;
-
             // Assert
             Assert.IsInstanceOf<UserControl>(view);
             Assert.IsInstanceOf<ISelectionProvider>(view);
             Assert.IsInstanceOf<IView>(view);
+
+            var button = (Button)new ControlTester("generateButton").TheObject;
             Assert.AreEqual("Genereer &berekeningen...", button.Text);
         }
 

@@ -63,11 +63,13 @@ namespace Riskeer.Piping.Forms.Test.Views
         public void Constructor_ExpectedValues()
         {
             // Call
-            using (var view = new PipingCalculationsView(new CalculationGroup(), new PipingFailureMechanism(), new AssessmentSectionStub()))
-            {
-                // Assert
-                Assert.IsInstanceOf<CalculationsView<PipingCalculationScenario, PipingInput, PipingCalculationRow, PipingFailureMechanism>>(view);
-            }
+            PipingCalculationsView view = ShowPipingCalculationsView(new CalculationGroup(), new PipingFailureMechanism(), new AssessmentSectionStub());
+
+            // Assert
+            Assert.IsInstanceOf<CalculationsView<PipingCalculationScenario, PipingInput, PipingCalculationRow, PipingFailureMechanism>>(view);
+
+            var button = (Button) new ControlTester("generateButton").TheObject;
+            Assert.AreEqual("Genereer &scenario's...", button.Text);
         }
 
         [Test]
