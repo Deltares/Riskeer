@@ -194,14 +194,12 @@ namespace Riskeer.Common.Forms.Test.Views
             var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
             var hydraulicBoundaryLocationCombobox = (DataGridViewComboBoxColumn) dataGridView.Columns[selectableHydraulicBoundaryLocationsColumnIndex];
             DataGridViewComboBoxCell.ObjectCollection hydraulicBoundaryLocationComboboxItems = hydraulicBoundaryLocationCombobox.Items;
-            Assert.AreEqual(7, hydraulicBoundaryLocationComboboxItems.Count);
+            Assert.AreEqual(5, hydraulicBoundaryLocationComboboxItems.Count);
             Assert.AreEqual("<selecteer>", hydraulicBoundaryLocationComboboxItems[0].ToString());
-            Assert.AreEqual("Location 1", hydraulicBoundaryLocationComboboxItems[1].ToString());
-            Assert.AreEqual("Location 2", hydraulicBoundaryLocationComboboxItems[2].ToString());
-            Assert.AreEqual("Location 1 (2 m)", hydraulicBoundaryLocationComboboxItems[3].ToString());
-            Assert.AreEqual("Location 2 (6 m)", hydraulicBoundaryLocationComboboxItems[4].ToString());
-            Assert.AreEqual("Location 1 (4 m)", hydraulicBoundaryLocationComboboxItems[5].ToString());
-            Assert.AreEqual("Location 2 (5 m)", hydraulicBoundaryLocationComboboxItems[6].ToString());
+            Assert.AreEqual("Location 1 (2 m)", hydraulicBoundaryLocationComboboxItems[1].ToString());
+            Assert.AreEqual("Location 2 (6 m)", hydraulicBoundaryLocationComboboxItems[2].ToString());
+            Assert.AreEqual("Location 1 (4 m)", hydraulicBoundaryLocationComboboxItems[3].ToString());
+            Assert.AreEqual("Location 2 (5 m)", hydraulicBoundaryLocationComboboxItems[4].ToString());
             mocks.VerifyAll();
         }
 
@@ -488,7 +486,7 @@ namespace Riskeer.Common.Forms.Test.Views
             DataGridViewComboBoxCell.ObjectCollection oldHydraulicBoundaryLocationComboboxItems = hydraulicBoundaryLocationCombobox.Items;
 
             // Precondition
-            Assert.AreEqual(7, oldHydraulicBoundaryLocationComboboxItems.Count);
+            Assert.AreEqual(5, oldHydraulicBoundaryLocationComboboxItems.Count);
 
             // When
             assessmentSection.HydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(3, "Location 3", 5.5, 6.6));
@@ -496,17 +494,14 @@ namespace Riskeer.Common.Forms.Test.Views
 
             // Then
             DataGridViewComboBoxCell.ObjectCollection newHydraulicBoundaryLocationComboboxItems = hydraulicBoundaryLocationCombobox.Items;
-            Assert.AreEqual(10, newHydraulicBoundaryLocationComboboxItems.Count);
+            Assert.AreEqual(7, newHydraulicBoundaryLocationComboboxItems.Count);
             Assert.AreEqual("<selecteer>", newHydraulicBoundaryLocationComboboxItems[0].ToString());
-            Assert.AreEqual("Location 1", newHydraulicBoundaryLocationComboboxItems[1].ToString());
-            Assert.AreEqual("Location 2", newHydraulicBoundaryLocationComboboxItems[2].ToString());
-            Assert.AreEqual("Location 3", newHydraulicBoundaryLocationComboboxItems[3].ToString());
-            Assert.AreEqual("Location 1 (2 m)", newHydraulicBoundaryLocationComboboxItems[4].ToString());
-            Assert.AreEqual("Location 2 (6 m)", newHydraulicBoundaryLocationComboboxItems[5].ToString());
-            Assert.AreEqual("Location 3 (9 m)", newHydraulicBoundaryLocationComboboxItems[6].ToString());
-            Assert.AreEqual("Location 1 (4 m)", newHydraulicBoundaryLocationComboboxItems[7].ToString());
-            Assert.AreEqual("Location 2 (5 m)", newHydraulicBoundaryLocationComboboxItems[8].ToString());
-            Assert.AreEqual("Location 3 (7 m)", newHydraulicBoundaryLocationComboboxItems[9].ToString());
+            Assert.AreEqual("Location 1 (2 m)", newHydraulicBoundaryLocationComboboxItems[1].ToString());
+            Assert.AreEqual("Location 2 (6 m)", newHydraulicBoundaryLocationComboboxItems[2].ToString());
+            Assert.AreEqual("Location 3 (9 m)", newHydraulicBoundaryLocationComboboxItems[3].ToString());
+            Assert.AreEqual("Location 1 (4 m)", newHydraulicBoundaryLocationComboboxItems[4].ToString());
+            Assert.AreEqual("Location 2 (5 m)", newHydraulicBoundaryLocationComboboxItems[5].ToString());
+            Assert.AreEqual("Location 3 (7 m)", newHydraulicBoundaryLocationComboboxItems[6].ToString());
             mocks.VerifyAll();
         }
 

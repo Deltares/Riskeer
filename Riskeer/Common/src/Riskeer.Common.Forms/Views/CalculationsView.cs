@@ -30,7 +30,6 @@ using Core.Common.Controls.Views;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Forms.Properties;
@@ -207,7 +206,7 @@ namespace Riskeer.Common.Forms.Views
                 nameof(DataGridViewComboBoxItemWrapper<SelectableHydraulicBoundaryLocation>.DisplayName));
         }
 
-        protected void UpdateDataGridViewDataSource()
+        private void UpdateDataGridViewDataSource()
         {
             // Skip changes coming from the view itself
             if (DataGridViewControl.IsCurrentCellInEditMode)
@@ -344,9 +343,7 @@ namespace Riskeer.Common.Forms.Views
 
         private IEnumerable<SelectableHydraulicBoundaryLocation> GetSelectableHydraulicBoundaryLocationsFromFailureMechanism()
         {
-            List<HydraulicBoundaryLocation> hydraulicBoundaryLocations = AssessmentSection.HydraulicBoundaryDatabase.Locations;
-
-            List<SelectableHydraulicBoundaryLocation> selectableHydraulicBoundaryLocations = hydraulicBoundaryLocations.Select(hbl => new SelectableHydraulicBoundaryLocation(hbl, null)).ToList();
+            var selectableHydraulicBoundaryLocations = new List<SelectableHydraulicBoundaryLocation>();
 
             foreach (Point2D referenceLocation in GetReferenceLocations())
             {
