@@ -64,11 +64,7 @@ namespace Riskeer.Piping.Forms.Views
         public PipingCalculationsView(CalculationGroup calculationGroup, PipingFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
             : base(calculationGroup, failureMechanism, assessmentSection)
         {
-            surfaceLineObserver = new RecursiveObserver<PipingSurfaceLineCollection, PipingSurfaceLine>(() =>
-            {
-                UpdateColumns();
-                UpdateGenerateCalculationsButtonState();
-            }, rpslc => rpslc)
+            surfaceLineObserver = new RecursiveObserver<PipingSurfaceLineCollection, PipingSurfaceLine>(UpdateGenerateCalculationsButtonState, rpslc => rpslc)
             {
                 Observable = failureMechanism.SurfaceLines
             };

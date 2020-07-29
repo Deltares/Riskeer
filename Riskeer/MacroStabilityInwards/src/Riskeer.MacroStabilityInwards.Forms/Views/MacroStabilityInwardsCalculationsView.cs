@@ -60,11 +60,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
         public MacroStabilityInwardsCalculationsView(CalculationGroup calculationGroup, MacroStabilityInwardsFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
             : base(calculationGroup, failureMechanism, assessmentSection)
         {
-            surfaceLineObserver = new RecursiveObserver<MacroStabilityInwardsSurfaceLineCollection, MacroStabilityInwardsSurfaceLine>(() =>
-            {
-                UpdateColumns();
-                UpdateGenerateCalculationsButtonState();
-            }, rpslc => rpslc)
+            surfaceLineObserver = new RecursiveObserver<MacroStabilityInwardsSurfaceLineCollection, MacroStabilityInwardsSurfaceLine>(UpdateGenerateCalculationsButtonState, rpslc => rpslc)
             {
                 Observable = failureMechanism.SurfaceLines
             };
