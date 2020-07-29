@@ -55,7 +55,5 @@ namespace Riskeer.MacroStabilityInwards.Data.TestUtil.SoilProfile
                                                                        CoefficientOfVariation = (RoundedDouble) 20.05
                                                                    });
         }
-
-
     }
 }
