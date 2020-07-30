@@ -20,12 +20,15 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Threading;
 using System.Windows.Forms;
 using Core.Common.Controls.Dialogs;
 using Core.Common.Gui.Helpers;
 using Core.Common.TestUtil;
+using Core.Common.Util.Reflection;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -38,6 +41,53 @@ namespace Riskeer.Integration.Forms.Test.Dialogs
     [TestFixture]
     public class HydraulicBoundaryDatabaseImporterSettingsDialogTest
     {
+        private static IEnumerable<TestCaseData> TestCaseSettings
+        {
+            get
+            {
+                string validHrdDirectory = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, "HydraulicBoundaryDatabase");
+                string validHlcdFilePath = Path.Combine(validHrdDirectory, "HLCD.sqlite");
+                string validLocationsFilePath = Path.Combine(validHrdDirectory, "Locations.sqlite");
+
+                yield return new TestCaseData(null, false, "Kan niet koppelen aan database: er is geen HLCD bestand geselecteerd.");
+                yield return new TestCaseData(new HydraulicBoundaryDatabaseImporterSettings(
+                                                  string.Empty,
+                                                  validHrdDirectory,
+                                                  validLocationsFilePath),
+                                              false, "Kan niet koppelen aan database: er is geen HLCD bestand geselecteerd.");
+                yield return new TestCaseData(new HydraulicBoundaryDatabaseImporterSettings(
+                                                  validHlcdFilePath,
+                                                  string.Empty,
+                                                  validLocationsFilePath),
+                                              false, "Kan niet koppelen aan database: er is geen HRD bestandsmap geselecteerd.");
+                yield return new TestCaseData(new HydraulicBoundaryDatabaseImporterSettings(
+                                                  validHlcdFilePath,
+                                                  validHrdDirectory,
+                                                  string.Empty),
+                                              false, "Kan niet koppelen aan database: er is geen locatie bestand geselecteerd.");
+                yield return new TestCaseData(new HydraulicBoundaryDatabaseImporterSettings(
+                                                  "notExisting",
+                                                  validHrdDirectory,
+                                                  validLocationsFilePath),
+                                              false, "Kan niet koppelen aan database: het geselecteerde HLCD bestand bestaat niet.");
+                yield return new TestCaseData(new HydraulicBoundaryDatabaseImporterSettings(
+                                                  validHlcdFilePath,
+                                                  "notExisting",
+                                                  validLocationsFilePath),
+                                              false, "Kan niet koppelen aan database: de geselecteerde HRD bestandsmap bestaat niet.");
+                yield return new TestCaseData(new HydraulicBoundaryDatabaseImporterSettings(
+                                                  validHlcdFilePath,
+                                                  validHrdDirectory,
+                                                  "notExisting"),
+                                              false, "Kan niet koppelen aan database: het geselecteerde locatie bestand bestaat niet.");
+                yield return new TestCaseData(new HydraulicBoundaryDatabaseImporterSettings(
+                                                  validHlcdFilePath,
+                                                  validHrdDirectory,
+                                                  validLocationsFilePath),
+                                              true, string.Empty);
+            }
+        }
+
         [Test]
         public void Constructor_InquiryHelperNull_ThrowsArgumentNullException()
         {
@@ -89,7 +139,7 @@ namespace Riskeer.Integration.Forms.Test.Dialogs
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void ShowDialog_WithoutSettings_ExpectedValues()
+        public void ShowDialog_WithoutSettings_TextBoxesAsExpected()
         {
             // Setup
             var mockRepository = new MockRepository();
@@ -116,7 +166,7 @@ namespace Riskeer.Integration.Forms.Test.Dialogs
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void ShowDialog_WithSettings_ExpectedValues()
+        public void ShowDialog_WithSettings_TextBoxesAsExpected()
         {
             // Setup
             var mockRepository = new MockRepository();
@@ -140,6 +190,34 @@ namespace Riskeer.Integration.Forms.Test.Dialogs
 
                 var textBoxLocations = (TextBox) new ControlTester("textBoxLocations", dialog).TheObject;
                 Assert.AreEqual(settings.LocationsFilePath, textBoxLocations.Text);
+            }
+        }
+
+        [Test]
+        [Apartment(ApartmentState.STA)]
+        [TestCaseSource(nameof(TestCaseSettings))]
+        public void ShowDialog_WithSettings_ButtonConnectStateAndErrorProviderAsExpected(
+            HydraulicBoundaryDatabaseImporterSettings settings,
+            bool expectedEnabledState,
+            string expectedErrorMessage)
+        {
+            // Setup
+            var mockRepository = new MockRepository();
+            var inquiryHelper = mockRepository.Stub<IInquiryHelper>();
+            mockRepository.ReplayAll();
+
+            using (var dialogParent = new Form())
+            using (var dialog = new HydraulicBoundaryDatabaseImporterSettingsDialog(dialogParent, inquiryHelper, settings))
+            {
+                // Call
+                dialog.Show();
+
+                // Assert
+                var buttonConnect = (Button) new ButtonTester("buttonConnect", dialog).TheObject;
+                Assert.AreEqual(expectedEnabledState, buttonConnect.Enabled);
+
+                var errorProvider = TypeUtils.GetField<ErrorProvider>(dialog, "errorProvider");
+                Assert.AreEqual(expectedErrorMessage, errorProvider.GetError(buttonConnect));
             }
         }
 

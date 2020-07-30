@@ -57,20 +57,7 @@ namespace Riskeer.Integration.Forms.Dialogs
 
             InitializeComponent();
 
-            FurtherInitializeComponent();
-
-            if (settings == null)
-            {
-                textBoxHlcd.Text = CoreCommonControlsResources.DisplayName_None;
-                textBoxHrd.Text = CoreCommonControlsResources.DisplayName_None;
-                textBoxLocations.Text = CoreCommonControlsResources.DisplayName_None;
-            }
-            else
-            {
-                textBoxHlcd.Text = settings.HlcdFilePath;
-                textBoxHrd.Text = settings.HrdDirectoryPath;
-                textBoxLocations.Text = settings.LocationsFilePath;
-            }
+            InitializeDialog(settings);
 
             UpdateButtonConnect();
         }
@@ -80,7 +67,7 @@ namespace Riskeer.Integration.Forms.Dialogs
             return buttonCancel;
         }
 
-        private void FurtherInitializeComponent()
+        private void InitializeDialog(HydraulicBoundaryDatabaseImporterSettings settings)
         {
             errorProvider.SetIconPadding(buttonConnect, 3);
             errorProvider.SetIconAlignment(buttonConnect, ErrorIconAlignment.MiddleLeft);
@@ -89,6 +76,16 @@ namespace Riskeer.Integration.Forms.Dialogs
             toolTipHlcd.SetToolTip(pictureBoxHlcd, Resources.HydraulicBoundaryDatabaseImporterSettingsDialog_Tooltip_Hlcd);
             toolTipHrd.SetToolTip(pictureBoxHrd, Resources.HydraulicBoundaryDatabaseImporterSettingsDialog_Tooltip_Hrd);
             toolTipLocations.SetToolTip(pictureBoxLocations, Resources.HydraulicBoundaryDatabaseImporterSettingsDialog_Tooltip_Locations);
+
+            textBoxHlcd.Text = string.IsNullOrEmpty(settings?.HlcdFilePath)
+                                   ? CoreCommonControlsResources.DisplayName_None
+                                   : settings.HlcdFilePath;
+            textBoxHrd.Text = string.IsNullOrEmpty(settings?.HrdDirectoryPath)
+                                  ? CoreCommonControlsResources.DisplayName_None
+                                  : settings.HrdDirectoryPath;
+            textBoxLocations.Text = string.IsNullOrEmpty(settings?.LocationsFilePath)
+                                        ? CoreCommonControlsResources.DisplayName_None
+                                        : settings.LocationsFilePath;
         }
 
         private void UpdateButtonConnect()
