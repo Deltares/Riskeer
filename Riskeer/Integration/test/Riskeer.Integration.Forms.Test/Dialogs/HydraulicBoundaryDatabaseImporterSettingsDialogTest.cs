@@ -202,7 +202,7 @@ namespace Riskeer.Integration.Forms.Test.Dialogs
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void GivenValidDialog_WhenCancelPressed_ThenSelectedSettingsNull()
+        public void GivenValidDialog_WhenCancelButtonClicked_ThenSelectedSettingsNull()
         {
             // Given
             var mockRepository = new MockRepository();
@@ -231,6 +231,43 @@ namespace Riskeer.Integration.Forms.Test.Dialogs
                 // Then
                 Assert.AreEqual(DialogResult.Cancel, dialogResult);
                 Assert.IsNull(dialog.SelectedSettings);
+            }
+        }
+
+        [Test]
+        [Apartment(ApartmentState.STA)]
+        public void GivenValidDialog_WhenConnectButtonClicked_ThenSelectedSettingsAsExpected()
+        {
+            // Given
+            var mockRepository = new MockRepository();
+            var inquiryHelper = mockRepository.Stub<IInquiryHelper>();
+            mockRepository.ReplayAll();
+
+            DialogBoxHandler = (name, wnd) =>
+            {
+                using (new FormTester(name))
+                {
+                    new ButtonTester("buttonConnect", name).Click();
+                }
+            };
+
+            string validHrdDirectory = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, "HydraulicBoundaryDatabase");
+            string validHlcdFilePath = Path.Combine(validHrdDirectory, "HLCD.sqlite");
+            string validLocationsFilePath = Path.Combine(validHrdDirectory, "Locations.sqlite");
+            var settings = new HydraulicBoundaryDatabaseImporterSettings(validHlcdFilePath, validHrdDirectory, validLocationsFilePath);
+
+            using (var dialogParent = new Form())
+            using (var dialog = new HydraulicBoundaryDatabaseImporterSettingsDialog(dialogParent, inquiryHelper, settings))
+            {
+                // When
+                DialogResult dialogResult = dialog.ShowDialog();
+
+                // Then
+                Assert.AreEqual(DialogResult.OK, dialogResult);
+                Assert.IsNotNull(dialog.SelectedSettings);
+                Assert.AreEqual(validHlcdFilePath, dialog.SelectedSettings.HlcdFilePath);
+                Assert.AreEqual(validHrdDirectory, dialog.SelectedSettings.HrdDirectoryPath);
+                Assert.AreEqual(validLocationsFilePath, dialog.SelectedSettings.LocationsFilePath);
             }
         }
 
