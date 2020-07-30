@@ -31,9 +31,9 @@ using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.ChangeHandlers;
-using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Forms.PropertyClasses;
 using Riskeer.Common.Forms.TestUtil;
+using Riskeer.Common.Forms.Views;
 using Riskeer.GrassCoverErosionInwards.Data;
 using Riskeer.GrassCoverErosionInwards.Data.TestUtil;
 using Riskeer.GrassCoverErosionInwards.Forms.Views;
@@ -48,35 +48,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
         private const int useForeshoreColumnIndex = 6;
 
         [Test]
-        public void Constructor_CalculationScenarioNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
-            mocks.ReplayAll();
-
-            // Call
-            void Call() => new GrassCoverErosionInwardsCalculationRow(null, handler);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("calculationScenario", exception.ParamName);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Constructor_HandlerNull_ThrowsArgumentNullException()
-        {
-            // Call
-            void Call() => new GrassCoverErosionInwardsCalculationRow(new GrassCoverErosionInwardsCalculationScenario(), null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("handler", exception.ParamName);
-        }
-
-        [Test]
-        public void Constructor_WithCalculation_PropertiesCorrectlySet()
+        public void Constructor_ExpectedValues()
         {
             // Setup
             var mocks = new MockRepository();
@@ -86,12 +58,14 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             var calculationScenario = new GrassCoverErosionInwardsCalculationScenario();
 
             // Call
-            var calculationRow = new GrassCoverErosionInwardsCalculationRow(calculationScenario, handler);
+            var row = new GrassCoverErosionInwardsCalculationRow(calculationScenario, handler);
 
             // Asserts
-            Assert.AreSame(calculationScenario, calculationRow.CalculationScenario);
+            Assert.IsInstanceOf<CalculationRow<GrassCoverErosionInwardsCalculationScenario>>(row);
+            Assert.IsInstanceOf<IHasColumnStateDefinitions>(row);
+            Assert.AreSame(calculationScenario, row.Calculation);
 
-            IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = calculationRow.ColumnStateDefinitions;
+            IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
             Assert.AreEqual(3, columnStateDefinitions.Count);
 
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, breakWaterTypeColumnIndex);
@@ -99,66 +73,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, useForeshoreColumnIndex);
 
             mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Name_AlwaysOnChange_NotifyObserverAndCalculationPropertyChanged()
-        {
-            // Setup
-            var mockRepository = new MockRepository();
-            var observer = mockRepository.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
-            mockRepository.ReplayAll();
-
-            const string newValue = "Test new name";
-
-            var calculation = new GrassCoverErosionInwardsCalculationScenario();
-            var row = new GrassCoverErosionInwardsCalculationRow(calculation, handler);
-
-            calculation.Attach(observer);
-
-            // Call
-            row.Name = newValue;
-
-            // Assert
-            Assert.AreEqual(newValue, calculation.Name);
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        public void SelectableHydraulicBoundaryLocation_AlwaysOnChange_NotifyObserverAndCalculationPropertyChanged()
-        {
-            // Setup
-            var newLocation = new TestHydraulicBoundaryLocation();
-            var selectableHydraulicBoundaryLocation = new SelectableHydraulicBoundaryLocation(newLocation, new Point2D(0, 0));
-            var newValue = new DataGridViewComboBoxItemWrapper<SelectableHydraulicBoundaryLocation>(selectableHydraulicBoundaryLocation);
-
-            var calculation = new GrassCoverErosionInwardsCalculationScenario();
-
-            // Call & Assert
-            SetPropertyAndVerifyNotificationsAndOutputForCalculation(row => row.SelectableHydraulicBoundaryLocation = newValue, calculation);
-        }
-
-        [Test]
-        public void SelectableHydraulicBoundaryLocation_ChangeToEqualValue_NoNotificationsOutputNotCleared()
-        {
-            // Setup
-            DataGridViewComboBoxItemWrapper<SelectableHydraulicBoundaryLocation> oldValue = null;
-
-            // Call
-            AssertPropertyNotChanged(
-                row =>
-                {
-                    oldValue = row.SelectableHydraulicBoundaryLocation;
-                    row.SelectableHydraulicBoundaryLocation = row.SelectableHydraulicBoundaryLocation;
-                },
-                calculation =>
-                {
-                    // Assert
-                    Assert.NotNull(oldValue);
-                    Assert.AreEqual(oldValue.WrappedObject.HydraulicBoundaryLocation, calculation.InputParameters.HydraulicBoundaryLocation);
-                });
         }
 
         [Test]

@@ -23,13 +23,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Data;
+using Core.Common.Base.Geometry;
 using Core.Common.Controls.DataGrid;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Forms.ChangeHandlers;
 using Riskeer.Common.Forms.Helpers;
-using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Forms.PropertyClasses;
+using Riskeer.Common.Forms.Views;
 using Riskeer.GrassCoverErosionInwards.Data;
 
 namespace Riskeer.GrassCoverErosionInwards.Forms.Views
@@ -37,34 +38,22 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
     /// <summary>
     /// This class represents a row in the <see cref="GrassCoverErosionInwardsCalculationsView"/>.
     /// </summary>
-    internal class GrassCoverErosionInwardsCalculationRow : IHasColumnStateDefinitions
+    public class GrassCoverErosionInwardsCalculationRow : CalculationRow<GrassCoverErosionInwardsCalculationScenario>, IHasColumnStateDefinitions
     {
         private const int breakWaterTypeColumnIndex = 4;
         private const int breakWaterHeightColumnIndex = 5;
         private const int useForeshoreColumnIndex = 6;
-        private readonly IObservablePropertyChangeHandler propertyChangeHandler;
 
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionInwardsCalculationRow"/>.
         /// </summary>
-        /// <param name="calculationScenario">The <see cref="CalculationScenario"/> this row contains.</param>
+        /// <param name="calculationScenario">The <see cref="GrassCoverErosionInwardsCalculationScenario"/> this row contains.</param>
         /// <param name="handler">The handler responsible for handling effects of a property change.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public GrassCoverErosionInwardsCalculationRow(GrassCoverErosionInwardsCalculationScenario calculationScenario,
-                                                      IObservablePropertyChangeHandler handler)
+        internal GrassCoverErosionInwardsCalculationRow(GrassCoverErosionInwardsCalculationScenario calculationScenario,
+                                                        IObservablePropertyChangeHandler handler) :
+            base(calculationScenario, handler)
         {
-            if (calculationScenario == null)
-            {
-                throw new ArgumentNullException(nameof(calculationScenario));
-            }
-
-            if (handler == null)
-            {
-                throw new ArgumentNullException(nameof(handler));
-            }
-
-            CalculationScenario = calculationScenario;
-            propertyChangeHandler = handler;
             ColumnStateDefinitions = new Dictionary<int, DataGridViewColumnStateDefinition>();
             CreateColumnStateDefinitions();
             UpdateUseBreakWaterColumnStateDefinitions();
@@ -72,173 +61,140 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
         }
 
         /// <summary>
-        /// Gets the <see cref="CalculationScenario"/> this row contains.
-        /// </summary>
-        public GrassCoverErosionInwardsCalculationScenario CalculationScenario { get; }
-
-        /// <summary>
-        /// Gets or sets the name of the <see cref="CalculationScenario"/>.
-        /// </summary>
-        public string Name
-        {
-            get => CalculationScenario.Name;
-            set
-            {
-                CalculationScenario.Name = value;
-
-                CalculationScenario.NotifyObservers();
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the hydraulic boundary location of the <see cref="CalculationScenario"/>.
-        /// </summary>
-        public DataGridViewComboBoxItemWrapper<SelectableHydraulicBoundaryLocation> SelectableHydraulicBoundaryLocation
-        {
-            get
-            {
-                if (CalculationScenario.InputParameters.HydraulicBoundaryLocation == null)
-                {
-                    return new DataGridViewComboBoxItemWrapper<SelectableHydraulicBoundaryLocation>(null);
-                }
-
-                return new DataGridViewComboBoxItemWrapper<SelectableHydraulicBoundaryLocation>(
-                    new SelectableHydraulicBoundaryLocation(CalculationScenario.InputParameters.HydraulicBoundaryLocation, null));
-            }
-            set
-            {
-                HydraulicBoundaryLocation valueToSet = value?.WrappedObject?.HydraulicBoundaryLocation;
-                if (!ReferenceEquals(CalculationScenario.InputParameters.HydraulicBoundaryLocation, valueToSet))
-                {
-                    PropertyChangeHelper.ChangePropertyAndNotify(() => CalculationScenario.InputParameters.HydraulicBoundaryLocation = valueToSet, propertyChangeHandler);
-                }
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the dike profile of the <see cref="CalculationScenario"/>.
+        /// Gets or sets the dike profile of the <see cref="GrassCoverErosionInwardsCalculationScenario"/>.
         /// </summary>
         public DataGridViewComboBoxItemWrapper<DikeProfile> DikeProfile
         {
-            get => new DataGridViewComboBoxItemWrapper<DikeProfile>(CalculationScenario.InputParameters.DikeProfile);
+            get => new DataGridViewComboBoxItemWrapper<DikeProfile>(Calculation.InputParameters.DikeProfile);
             set
             {
                 DikeProfile valueToSet = value?.WrappedObject;
-                if (!ReferenceEquals(CalculationScenario.InputParameters.DikeProfile, valueToSet))
+                if (!ReferenceEquals(Calculation.InputParameters.DikeProfile, valueToSet))
                 {
-                    PropertyChangeHelper.ChangePropertyAndNotify(() => CalculationScenario.InputParameters.DikeProfile = valueToSet, propertyChangeHandler);
+                    PropertyChangeHelper.ChangePropertyAndNotify(() => Calculation.InputParameters.DikeProfile = valueToSet, PropertyChangeHandler);
                 }
             }
         }
 
         /// <summary>
-        /// Gets or sets whether break water of the <see cref="CalculationScenario"/> should be used.
+        /// Gets or sets whether break water of the <see cref="GrassCoverErosionInwardsCalculationScenario"/> should be used.
         /// </summary>
         public bool UseBreakWater
         {
-            get => CalculationScenario.InputParameters.UseBreakWater;
+            get => Calculation.InputParameters.UseBreakWater;
             set
             {
-                if (!CalculationScenario.InputParameters.UseBreakWater.Equals(value))
+                if (!Calculation.InputParameters.UseBreakWater.Equals(value))
                 {
-                    PropertyChangeHelper.ChangePropertyAndNotify(() => CalculationScenario.InputParameters.UseBreakWater = value, propertyChangeHandler);
+                    PropertyChangeHelper.ChangePropertyAndNotify(() => Calculation.InputParameters.UseBreakWater = value, PropertyChangeHandler);
                     UpdateUseBreakWaterColumnStateDefinitions();
                 }
             }
         }
 
         /// <summary>
-        /// Gets or sets the break water type of the <see cref="CalculationScenario"/>.
+        /// Gets or sets the break water type of the <see cref="GrassCoverErosionInwardsCalculationScenario"/>.
         /// </summary>
         public BreakWaterType BreakWaterType
         {
-            get => CalculationScenario.InputParameters.BreakWater.Type;
+            get => Calculation.InputParameters.BreakWater.Type;
             set
             {
-                if (!CalculationScenario.InputParameters.BreakWater.Type.Equals(value))
+                if (!Calculation.InputParameters.BreakWater.Type.Equals(value))
                 {
-                    PropertyChangeHelper.ChangePropertyAndNotify(() => CalculationScenario.InputParameters.BreakWater.Type = value, propertyChangeHandler);
+                    PropertyChangeHelper.ChangePropertyAndNotify(() => Calculation.InputParameters.BreakWater.Type = value, PropertyChangeHandler);
                 }
             }
         }
 
         /// <summary>
-        /// Gets or sets the break water height of the <see cref="CalculationScenario"/>.
+        /// Gets or sets the break water height of the <see cref="GrassCoverErosionInwardsCalculationScenario"/>.
         /// </summary>
         public RoundedDouble BreakWaterHeight
         {
-            get => CalculationScenario.InputParameters.BreakWater.Height;
+            get => Calculation.InputParameters.BreakWater.Height;
             set
             {
-                if (!CalculationScenario.InputParameters.BreakWater.Height.Equals(value))
+                if (!Calculation.InputParameters.BreakWater.Height.Equals(value))
                 {
-                    PropertyChangeHelper.ChangePropertyAndNotify(() => CalculationScenario.InputParameters.BreakWater.Height = value, propertyChangeHandler);
+                    PropertyChangeHelper.ChangePropertyAndNotify(() => Calculation.InputParameters.BreakWater.Height = value, PropertyChangeHandler);
                 }
             }
         }
 
         /// <summary>
-        /// Gets or sets whether foreshore profile of the <see cref="CalculationScenario"/> should be used.
+        /// Gets or sets whether foreshore profile of the <see cref="GrassCoverErosionInwardsCalculationScenario"/> should be used.
         /// </summary>
         public bool UseForeshoreGeometry
         {
-            get => CalculationScenario.InputParameters.UseForeshore;
+            get => Calculation.InputParameters.UseForeshore;
             set
             {
-                if (!CalculationScenario.InputParameters.UseForeshore.Equals(value))
+                if (!Calculation.InputParameters.UseForeshore.Equals(value))
                 {
-                    PropertyChangeHelper.ChangePropertyAndNotify(() => CalculationScenario.InputParameters.UseForeshore = value, propertyChangeHandler);
+                    PropertyChangeHelper.ChangePropertyAndNotify(() => Calculation.InputParameters.UseForeshore = value, PropertyChangeHandler);
                     UpdateUseForeshoreColumnStateDefinitions();
                 }
             }
         }
 
         /// <summary>
-        /// Gets or sets the dike height of the <see cref="CalculationScenario"/>.
+        /// Gets or sets the dike height of the <see cref="GrassCoverErosionInwardsCalculationScenario"/>.
         /// </summary>
         public RoundedDouble DikeHeight
         {
-            get => CalculationScenario.InputParameters.DikeHeight;
+            get => Calculation.InputParameters.DikeHeight;
             set
             {
-                if (!CalculationScenario.InputParameters.DikeHeight.Equals(value))
+                if (!Calculation.InputParameters.DikeHeight.Equals(value))
                 {
-                    PropertyChangeHelper.ChangePropertyAndNotify(() => CalculationScenario.InputParameters.DikeHeight = value, propertyChangeHandler);
+                    PropertyChangeHelper.ChangePropertyAndNotify(() => Calculation.InputParameters.DikeHeight = value, PropertyChangeHandler);
                 }
             }
         }
 
         /// <summary>
-        /// Gets or sets the mean critical flow rate of the <see cref="CalculationScenario"/>.
+        /// Gets or sets the mean critical flow rate of the <see cref="GrassCoverErosionInwardsCalculationScenario"/>.
         /// </summary>
         public RoundedDouble MeanCriticalFlowRate
         {
-            get => CalculationScenario.InputParameters.CriticalFlowRate.Mean;
+            get => Calculation.InputParameters.CriticalFlowRate.Mean;
             set
             {
-                if (!CalculationScenario.InputParameters.CriticalFlowRate.Mean.Equals(value))
+                if (!Calculation.InputParameters.CriticalFlowRate.Mean.Equals(value))
                 {
-                    PropertyChangeHelper.ChangePropertyAndNotify(() => CalculationScenario.InputParameters.CriticalFlowRate.Mean = value, propertyChangeHandler);
+                    PropertyChangeHelper.ChangePropertyAndNotify(() => Calculation.InputParameters.CriticalFlowRate.Mean = value, PropertyChangeHandler);
                 }
             }
         }
 
         /// <summary>
-        /// Gets or sets the standard deviation critical flow rate of the <see cref="CalculationScenario"/>.
+        /// Gets or sets the standard deviation critical flow rate of the <see cref="GrassCoverErosionInwardsCalculationScenario"/>.
         /// </summary>
         public RoundedDouble StandardDeviationCriticalFlowRate
         {
-            get => CalculationScenario.InputParameters.CriticalFlowRate.StandardDeviation;
+            get => Calculation.InputParameters.CriticalFlowRate.StandardDeviation;
             set
             {
-                if (!CalculationScenario.InputParameters.CriticalFlowRate.StandardDeviation.Equals(value))
+                if (!Calculation.InputParameters.CriticalFlowRate.StandardDeviation.Equals(value))
                 {
-                    PropertyChangeHelper.ChangePropertyAndNotify(() => CalculationScenario.InputParameters.CriticalFlowRate.StandardDeviation = value, propertyChangeHandler);
+                    PropertyChangeHelper.ChangePropertyAndNotify(() => Calculation.InputParameters.CriticalFlowRate.StandardDeviation = value, PropertyChangeHandler);
                 }
             }
         }
 
         public IDictionary<int, DataGridViewColumnStateDefinition> ColumnStateDefinitions { get; }
+
+        public override Point2D GetCalculationLocation()
+        {
+            return Calculation.InputParameters.DikeProfile?.WorldReferencePoint;
+        }
+
+        protected override HydraulicBoundaryLocation HydraulicBoundaryLocation
+        {
+            get => Calculation.InputParameters.HydraulicBoundaryLocation;
+            set => Calculation.InputParameters.HydraulicBoundaryLocation = value;
+        }
 
         private void CreateColumnStateDefinitions()
         {
@@ -263,7 +219,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
 
         private void UpdateUseForeshoreColumnStateDefinitions()
         {
-            DikeProfile dikeProfileForeshoreGeometry = CalculationScenario.InputParameters.DikeProfile;
+            DikeProfile dikeProfileForeshoreGeometry = Calculation.InputParameters.DikeProfile;
             if (dikeProfileForeshoreGeometry == null || !dikeProfileForeshoreGeometry.ForeshoreGeometry.Any())
             {
                 ColumnStateHelper.DisableColumn(ColumnStateDefinitions[useForeshoreColumnIndex]);
