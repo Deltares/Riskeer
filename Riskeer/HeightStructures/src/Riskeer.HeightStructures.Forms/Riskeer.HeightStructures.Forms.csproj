@@ -50,8 +50,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="Views\HeightStructuresCalculationsView.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
+    <Compile Update="Views\HeightStructuresCalculationsView.cs" />
   </ItemGroup>
 </Project>
