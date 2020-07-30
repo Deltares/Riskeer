@@ -326,6 +326,7 @@ namespace Riskeer.Integration.Forms.Dialogs
             this.buttonConnect.TabIndex = 1;
             this.buttonConnect.Text = "Koppelen";
             this.buttonConnect.UseVisualStyleBackColor = true;
+            this.buttonConnect.Click += new System.EventHandler(this.OnButtonConnectClick);
             // 
             // errorProvider
             // 

@@ -62,6 +62,11 @@ namespace Riskeer.Integration.Forms.Dialogs
             UpdateButtonConnect();
         }
 
+        /// <summary>
+        /// Gets the selected <see cref="HydraulicBoundaryDatabaseImporterSettings"/> or <c>null</c> if none selected.
+        /// </summary>
+        public HydraulicBoundaryDatabaseImporterSettings SelectedSettings { get; private set; }
+
         protected override Button GetCancelButton()
         {
             return buttonCancel;
@@ -173,6 +178,13 @@ namespace Riskeer.Integration.Forms.Dialogs
 
                 UpdateButtonConnect();
             }
+        }
+
+        private void OnButtonConnectClick(object sender, EventArgs e)
+        {
+            SelectedSettings = new HydraulicBoundaryDatabaseImporterSettings(textBoxHlcd.Text, textBoxHrd.Text, textBoxLocations.Text);
+            DialogResult = DialogResult.OK;
+            Close();
         }
     }
 }

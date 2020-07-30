@@ -39,7 +39,7 @@ using Riskeer.Integration.IO.Importers;
 namespace Riskeer.Integration.Forms.Test.Dialogs
 {
     [TestFixture]
-    public class HydraulicBoundaryDatabaseImporterSettingsDialogTest
+    public class HydraulicBoundaryDatabaseImporterSettingsDialogTest : NUnitFormTest
     {
         private static IEnumerable<TestCaseData> TestCaseSettings
         {
@@ -50,40 +50,19 @@ namespace Riskeer.Integration.Forms.Test.Dialogs
                 string validLocationsFilePath = Path.Combine(validHrdDirectory, "Locations.sqlite");
 
                 yield return new TestCaseData(null, false, "Kan niet koppelen aan database: er is geen HLCD bestand geselecteerd.");
-                yield return new TestCaseData(new HydraulicBoundaryDatabaseImporterSettings(
-                                                  string.Empty,
-                                                  validHrdDirectory,
-                                                  validLocationsFilePath),
+                yield return new TestCaseData(new HydraulicBoundaryDatabaseImporterSettings(string.Empty, validHrdDirectory, validLocationsFilePath),
                                               false, "Kan niet koppelen aan database: er is geen HLCD bestand geselecteerd.");
-                yield return new TestCaseData(new HydraulicBoundaryDatabaseImporterSettings(
-                                                  validHlcdFilePath,
-                                                  string.Empty,
-                                                  validLocationsFilePath),
+                yield return new TestCaseData(new HydraulicBoundaryDatabaseImporterSettings(validHlcdFilePath, string.Empty, validLocationsFilePath),
                                               false, "Kan niet koppelen aan database: er is geen HRD bestandsmap geselecteerd.");
-                yield return new TestCaseData(new HydraulicBoundaryDatabaseImporterSettings(
-                                                  validHlcdFilePath,
-                                                  validHrdDirectory,
-                                                  string.Empty),
+                yield return new TestCaseData(new HydraulicBoundaryDatabaseImporterSettings(validHlcdFilePath, validHrdDirectory, string.Empty),
                                               false, "Kan niet koppelen aan database: er is geen locatie bestand geselecteerd.");
-                yield return new TestCaseData(new HydraulicBoundaryDatabaseImporterSettings(
-                                                  "notExisting",
-                                                  validHrdDirectory,
-                                                  validLocationsFilePath),
+                yield return new TestCaseData(new HydraulicBoundaryDatabaseImporterSettings("notExisting", validHrdDirectory, validLocationsFilePath),
                                               false, "Kan niet koppelen aan database: het geselecteerde HLCD bestand bestaat niet.");
-                yield return new TestCaseData(new HydraulicBoundaryDatabaseImporterSettings(
-                                                  validHlcdFilePath,
-                                                  "notExisting",
-                                                  validLocationsFilePath),
+                yield return new TestCaseData(new HydraulicBoundaryDatabaseImporterSettings(validHlcdFilePath, "notExisting", validLocationsFilePath),
                                               false, "Kan niet koppelen aan database: de geselecteerde HRD bestandsmap bestaat niet.");
-                yield return new TestCaseData(new HydraulicBoundaryDatabaseImporterSettings(
-                                                  validHlcdFilePath,
-                                                  validHrdDirectory,
-                                                  "notExisting"),
+                yield return new TestCaseData(new HydraulicBoundaryDatabaseImporterSettings(validHlcdFilePath, validHrdDirectory, "notExisting"),
                                               false, "Kan niet koppelen aan database: het geselecteerde locatie bestand bestaat niet.");
-                yield return new TestCaseData(new HydraulicBoundaryDatabaseImporterSettings(
-                                                  validHlcdFilePath,
-                                                  validHrdDirectory,
-                                                  validLocationsFilePath),
+                yield return new TestCaseData(new HydraulicBoundaryDatabaseImporterSettings(validHlcdFilePath, validHrdDirectory, validLocationsFilePath),
                                               true, string.Empty);
             }
         }
@@ -218,6 +197,40 @@ namespace Riskeer.Integration.Forms.Test.Dialogs
 
                 var errorProvider = TypeUtils.GetField<ErrorProvider>(dialog, "errorProvider");
                 Assert.AreEqual(expectedErrorMessage, errorProvider.GetError(buttonConnect));
+            }
+        }
+
+        [Test]
+        [Apartment(ApartmentState.STA)]
+        public void GivenValidDialog_WhenCancelPressed_ThenSelectedSettingsNull()
+        {
+            // Given
+            var mockRepository = new MockRepository();
+            var inquiryHelper = mockRepository.Stub<IInquiryHelper>();
+            mockRepository.ReplayAll();
+
+            DialogBoxHandler = (name, wnd) =>
+            {
+                using (new FormTester(name))
+                {
+                    new ButtonTester("buttonCancel", name).Click();
+                }
+            };
+
+            string validHrdDirectory = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, "HydraulicBoundaryDatabase");
+            string validHlcdFilePath = Path.Combine(validHrdDirectory, "HLCD.sqlite");
+            string validLocationsFilePath = Path.Combine(validHrdDirectory, "Locations.sqlite");
+            var settings = new HydraulicBoundaryDatabaseImporterSettings(validHlcdFilePath, validHrdDirectory, validLocationsFilePath);
+
+            using (var dialogParent = new Form())
+            using (var dialog = new HydraulicBoundaryDatabaseImporterSettingsDialog(dialogParent, inquiryHelper, settings))
+            {
+                // When
+                DialogResult dialogResult = dialog.ShowDialog();
+
+                // Then
+                Assert.AreEqual(DialogResult.Cancel, dialogResult);
+                Assert.IsNull(dialog.SelectedSettings);
             }
         }
 
