@@ -23,14 +23,15 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Data;
+using Core.Common.Base.Geometry;
 using Core.Common.Controls.DataGrid;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Forms.ChangeHandlers;
 using Riskeer.Common.Forms.Helpers;
-using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Forms.PropertyClasses;
+using Riskeer.Common.Forms.Views;
 using Riskeer.StabilityPointStructures.Data;
 
 namespace Riskeer.StabilityPointStructures.Forms.Views
@@ -38,7 +39,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Views
     /// <summary>
     /// This class represents a row in the <see cref="StabilityPointStructuresCalculationsView"/>.
     /// </summary>
-    internal class StabilityPointStructuresCalculationRow : IHasColumnStateDefinitions
+    public class StabilityPointStructuresCalculationRow : CalculationRow<StructuresCalculationScenario<StabilityPointStructuresInput>>, IHasColumnStateDefinitions
     {
         private const int breakWaterTypeColumnIndex = 4;
         private const int breakWaterHeightColumnIndex = 5;
@@ -47,29 +48,17 @@ namespace Riskeer.StabilityPointStructures.Forms.Views
         private const int constructiveStrengthQuadraticLoadModelColumnIndex = 9;
         private const int stabilityLinearLoadModelColumnIndex = 10;
         private const int stabilityQuadraticLoadModelColumnIndex = 11;
-        private readonly IObservablePropertyChangeHandler propertyChangeHandler;
 
         /// <summary>
         /// Creates a new instance of <see cref="StabilityPointStructuresCalculationRow"/>.
         /// </summary>
-        /// <param name="calculationScenario">The <see cref="CalculationScenario"/> this row contains.</param>
+        /// <param name="calculationScenario">The <see cref="StructuresCalculationScenario{StabilityPointStructuresInput}"/> this row contains.</param>
         /// <param name="handler">The handler responsible for handling effects of a property change.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public StabilityPointStructuresCalculationRow(StructuresCalculationScenario<StabilityPointStructuresInput> calculationScenario,
-                                                      IObservablePropertyChangeHandler handler)
+        internal StabilityPointStructuresCalculationRow(StructuresCalculationScenario<StabilityPointStructuresInput> calculationScenario,
+                                                        IObservablePropertyChangeHandler handler)
+            : base(calculationScenario, handler)
         {
-            if (calculationScenario == null)
-            {
-                throw new ArgumentNullException(nameof(calculationScenario));
-            }
-
-            if (handler == null)
-            {
-                throw new ArgumentNullException(nameof(handler));
-            }
-
-            CalculationScenario = calculationScenario;
-            propertyChangeHandler = handler;
             ColumnStateDefinitions = new Dictionary<int, DataGridViewColumnStateDefinition>();
             CreateColumnStateDefinitions();
             UpdateUseBreakWaterColumnStateDefinitions();
@@ -78,219 +67,186 @@ namespace Riskeer.StabilityPointStructures.Forms.Views
         }
 
         /// <summary>
-        /// Gets the <see cref="CalculationScenario"/> this row contains.
-        /// </summary>
-        public StructuresCalculationScenario<StabilityPointStructuresInput> CalculationScenario { get; }
-
-        /// <summary>
-        /// Gets or sets the name of the <see cref="CalculationScenario"/>.
-        /// </summary>
-        public string Name
-        {
-            get => CalculationScenario.Name;
-            set
-            {
-                CalculationScenario.Name = value;
-
-                CalculationScenario.NotifyObservers();
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the hydraulic boundary location of the <see cref="CalculationScenario"/>.
-        /// </summary>
-        public DataGridViewComboBoxItemWrapper<SelectableHydraulicBoundaryLocation> SelectableHydraulicBoundaryLocation
-        {
-            get
-            {
-                if (CalculationScenario.InputParameters.HydraulicBoundaryLocation == null)
-                {
-                    return new DataGridViewComboBoxItemWrapper<SelectableHydraulicBoundaryLocation>(null);
-                }
-
-                return new DataGridViewComboBoxItemWrapper<SelectableHydraulicBoundaryLocation>(
-                    new SelectableHydraulicBoundaryLocation(CalculationScenario.InputParameters.HydraulicBoundaryLocation, null));
-            }
-            set
-            {
-                HydraulicBoundaryLocation valueToSet = value?.WrappedObject?.HydraulicBoundaryLocation;
-                if (!ReferenceEquals(CalculationScenario.InputParameters.HydraulicBoundaryLocation, valueToSet))
-                {
-                    PropertyChangeHelper.ChangePropertyAndNotify(() => CalculationScenario.InputParameters.HydraulicBoundaryLocation = valueToSet, propertyChangeHandler);
-                }
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the foreshore profile of the <see cref="CalculationScenario"/>.
+        /// Gets or sets the foreshore profile of the <see cref="StructuresCalculationScenario{StabilityPointStructuresInput}"/>.
         /// </summary>
         public DataGridViewComboBoxItemWrapper<ForeshoreProfile> ForeshoreProfile
         {
-            get => new DataGridViewComboBoxItemWrapper<ForeshoreProfile>(CalculationScenario.InputParameters.ForeshoreProfile);
+            get => new DataGridViewComboBoxItemWrapper<ForeshoreProfile>(Calculation.InputParameters.ForeshoreProfile);
             set
             {
                 ForeshoreProfile valueToSet = value?.WrappedObject;
-                if (!ReferenceEquals(CalculationScenario.InputParameters.ForeshoreProfile, valueToSet))
+                if (!ReferenceEquals(Calculation.InputParameters.ForeshoreProfile, valueToSet))
                 {
-                    PropertyChangeHelper.ChangePropertyAndNotify(() => CalculationScenario.InputParameters.ForeshoreProfile = valueToSet, propertyChangeHandler);
+                    PropertyChangeHelper.ChangePropertyAndNotify(() => Calculation.InputParameters.ForeshoreProfile = valueToSet, PropertyChangeHandler);
                 }
             }
         }
 
         /// <summary>
-        /// Gets or sets whether break water of the <see cref="CalculationScenario"/> should be used.
+        /// Gets or sets whether break water of the <see cref="StructuresCalculationScenario{StabilityPointStructuresInput}"/> should be used.
         /// </summary>
         public bool UseBreakWater
         {
-            get => CalculationScenario.InputParameters.UseBreakWater;
+            get => Calculation.InputParameters.UseBreakWater;
             set
             {
-                if (!CalculationScenario.InputParameters.UseBreakWater.Equals(value))
+                if (!Calculation.InputParameters.UseBreakWater.Equals(value))
                 {
-                    PropertyChangeHelper.ChangePropertyAndNotify(() => CalculationScenario.InputParameters.UseBreakWater = value, propertyChangeHandler);
+                    PropertyChangeHelper.ChangePropertyAndNotify(() => Calculation.InputParameters.UseBreakWater = value, PropertyChangeHandler);
                     UpdateUseBreakWaterColumnStateDefinitions();
                 }
             }
         }
 
         /// <summary>
-        /// Gets or sets the break water type of the <see cref="CalculationScenario"/>.
+        /// Gets or sets the break water type of the <see cref="StructuresCalculationScenario{StabilityPointStructuresInput}"/>.
         /// </summary>
         public BreakWaterType BreakWaterType
         {
-            get => CalculationScenario.InputParameters.BreakWater.Type;
+            get => Calculation.InputParameters.BreakWater.Type;
             set
             {
-                if (!CalculationScenario.InputParameters.BreakWater.Type.Equals(value))
+                if (!Calculation.InputParameters.BreakWater.Type.Equals(value))
                 {
-                    PropertyChangeHelper.ChangePropertyAndNotify(() => CalculationScenario.InputParameters.BreakWater.Type = value, propertyChangeHandler);
+                    PropertyChangeHelper.ChangePropertyAndNotify(() => Calculation.InputParameters.BreakWater.Type = value, PropertyChangeHandler);
                 }
             }
         }
 
         /// <summary>
-        /// Gets or sets the break water height of the <see cref="CalculationScenario"/>.
+        /// Gets or sets the break water height of the <see cref="StructuresCalculationScenario{StabilityPointStructuresInput}"/>.
         /// </summary>
         public RoundedDouble BreakWaterHeight
         {
-            get => CalculationScenario.InputParameters.BreakWater.Height;
+            get => Calculation.InputParameters.BreakWater.Height;
             set
             {
-                if (!CalculationScenario.InputParameters.BreakWater.Height.Equals(value))
+                if (!Calculation.InputParameters.BreakWater.Height.Equals(value))
                 {
-                    PropertyChangeHelper.ChangePropertyAndNotify(() => CalculationScenario.InputParameters.BreakWater.Height = value, propertyChangeHandler);
+                    PropertyChangeHelper.ChangePropertyAndNotify(() => Calculation.InputParameters.BreakWater.Height = value, PropertyChangeHandler);
                 }
             }
         }
 
         /// <summary>
-        /// Gets or sets whether foreshore profile of the <see cref="CalculationScenario"/> should be used.
+        /// Gets or sets whether foreshore profile of the <see cref="StructuresCalculationScenario{StabilityPointStructuresInput}"/> should be used.
         /// </summary>
         public bool UseForeshoreGeometry
         {
-            get => CalculationScenario.InputParameters.UseForeshore;
+            get => Calculation.InputParameters.UseForeshore;
             set
             {
-                if (!CalculationScenario.InputParameters.UseForeshore.Equals(value))
+                if (!Calculation.InputParameters.UseForeshore.Equals(value))
                 {
-                    PropertyChangeHelper.ChangePropertyAndNotify(() => CalculationScenario.InputParameters.UseForeshore = value, propertyChangeHandler);
+                    PropertyChangeHelper.ChangePropertyAndNotify(() => Calculation.InputParameters.UseForeshore = value, PropertyChangeHandler);
                     UpdateUseForeshoreColumnStateDefinitions();
                 }
             }
         }
 
         /// <summary>
-        /// Gets or sets the load schematization type of the <see cref="CalculationScenario"/>.
+        /// Gets or sets the load schematization type of the <see cref="StructuresCalculationScenario{StabilityPointStructuresInput}"/>.
         /// </summary>
         public LoadSchematizationType LoadSchematizationType
         {
-            get => CalculationScenario.InputParameters.LoadSchematizationType;
+            get => Calculation.InputParameters.LoadSchematizationType;
             set
             {
-                if (!CalculationScenario.InputParameters.LoadSchematizationType.Equals(value))
+                if (!Calculation.InputParameters.LoadSchematizationType.Equals(value))
                 {
-                    PropertyChangeHelper.ChangePropertyAndNotify(() => CalculationScenario.InputParameters.LoadSchematizationType = value, propertyChangeHandler);
+                    PropertyChangeHelper.ChangePropertyAndNotify(() => Calculation.InputParameters.LoadSchematizationType = value, PropertyChangeHandler);
                     UpdateLoadSchematizationColumnStateDefinitions();
                 }
             }
         }
 
         /// <summary>
-        /// Gets or sets the constructive strength linear load model of the <see cref="CalculationScenario"/>.
+        /// Gets or sets the constructive strength linear load model of the <see cref="StructuresCalculationScenario{StabilityPointStructuresInput}"/>.
         /// </summary>
         public RoundedDouble ConstructiveStrengthLinearLoadModel
         {
-            get => CalculationScenario.InputParameters.ConstructiveStrengthLinearLoadModel.Mean;
+            get => Calculation.InputParameters.ConstructiveStrengthLinearLoadModel.Mean;
             set
             {
-                if (!CalculationScenario.InputParameters.ConstructiveStrengthLinearLoadModel.Mean.Equals(value))
+                if (!Calculation.InputParameters.ConstructiveStrengthLinearLoadModel.Mean.Equals(value))
                 {
-                    PropertyChangeHelper.ChangePropertyAndNotify(() => CalculationScenario.InputParameters.ConstructiveStrengthLinearLoadModel.Mean = value, propertyChangeHandler);
+                    PropertyChangeHelper.ChangePropertyAndNotify(() => Calculation.InputParameters.ConstructiveStrengthLinearLoadModel.Mean = value, PropertyChangeHandler);
                 }
             }
         }
 
         /// <summary>
-        /// Gets or sets the constructive strength quadratic load model of the <see cref="CalculationScenario"/>.
+        /// Gets or sets the constructive strength quadratic load model of the <see cref="StructuresCalculationScenario{StabilityPointStructuresInput}"/>.
         /// </summary>
         public RoundedDouble ConstructiveStrengthQuadraticLoadModel
         {
-            get => CalculationScenario.InputParameters.ConstructiveStrengthQuadraticLoadModel.Mean;
+            get => Calculation.InputParameters.ConstructiveStrengthQuadraticLoadModel.Mean;
             set
             {
-                if (!CalculationScenario.InputParameters.ConstructiveStrengthQuadraticLoadModel.Mean.Equals(value))
+                if (!Calculation.InputParameters.ConstructiveStrengthQuadraticLoadModel.Mean.Equals(value))
                 {
-                    PropertyChangeHelper.ChangePropertyAndNotify(() => CalculationScenario.InputParameters.ConstructiveStrengthQuadraticLoadModel.Mean = value, propertyChangeHandler);
+                    PropertyChangeHelper.ChangePropertyAndNotify(() => Calculation.InputParameters.ConstructiveStrengthQuadraticLoadModel.Mean = value, PropertyChangeHandler);
                 }
             }
         }
 
         /// <summary>
-        /// Gets or sets the stability of the linear load model of the <see cref="CalculationScenario"/>.
+        /// Gets or sets the stability of the linear load model of the <see cref="StructuresCalculationScenario{StabilityPointStructuresInput}"/>.
         /// </summary>
         public RoundedDouble StabilityLinearLoadModel
         {
-            get => CalculationScenario.InputParameters.StabilityLinearLoadModel.Mean;
+            get => Calculation.InputParameters.StabilityLinearLoadModel.Mean;
             set
             {
-                if (!CalculationScenario.InputParameters.StabilityLinearLoadModel.Mean.Equals(value))
+                if (!Calculation.InputParameters.StabilityLinearLoadModel.Mean.Equals(value))
                 {
-                    PropertyChangeHelper.ChangePropertyAndNotify(() => CalculationScenario.InputParameters.StabilityLinearLoadModel.Mean = value, propertyChangeHandler);
+                    PropertyChangeHelper.ChangePropertyAndNotify(() => Calculation.InputParameters.StabilityLinearLoadModel.Mean = value, PropertyChangeHandler);
                 }
             }
         }
 
         /// <summary>
-        /// Gets or sets the stability of the quadratic load model of the <see cref="CalculationScenario"/>.
+        /// Gets or sets the stability of the quadratic load model of the <see cref="StructuresCalculationScenario{StabilityPointStructuresInput}"/>.
         /// </summary>
         public RoundedDouble StabilityQuadraticLoadModel
         {
-            get => CalculationScenario.InputParameters.StabilityQuadraticLoadModel.Mean;
+            get => Calculation.InputParameters.StabilityQuadraticLoadModel.Mean;
             set
             {
-                if (!CalculationScenario.InputParameters.StabilityQuadraticLoadModel.Mean.Equals(value))
+                if (!Calculation.InputParameters.StabilityQuadraticLoadModel.Mean.Equals(value))
                 {
-                    PropertyChangeHelper.ChangePropertyAndNotify(() => CalculationScenario.InputParameters.StabilityQuadraticLoadModel.Mean = value, propertyChangeHandler);
+                    PropertyChangeHelper.ChangePropertyAndNotify(() => Calculation.InputParameters.StabilityQuadraticLoadModel.Mean = value, PropertyChangeHandler);
                 }
             }
         }
 
         /// <summary>
-        /// Gets or sets the evaluation level of the <see cref="CalculationScenario"/>.
+        /// Gets or sets the evaluation level of the <see cref="StructuresCalculationScenario{StabilityPointStructuresInput}"/>.
         /// </summary>
         public RoundedDouble EvaluationLevel
         {
-            get => CalculationScenario.InputParameters.EvaluationLevel;
+            get => Calculation.InputParameters.EvaluationLevel;
             set
             {
-                if (!CalculationScenario.InputParameters.EvaluationLevel.Equals(value))
+                if (!Calculation.InputParameters.EvaluationLevel.Equals(value))
                 {
-                    PropertyChangeHelper.ChangePropertyAndNotify(() => CalculationScenario.InputParameters.EvaluationLevel = value, propertyChangeHandler);
+                    PropertyChangeHelper.ChangePropertyAndNotify(() => Calculation.InputParameters.EvaluationLevel = value, PropertyChangeHandler);
                 }
             }
         }
 
         public IDictionary<int, DataGridViewColumnStateDefinition> ColumnStateDefinitions { get; }
+
+        public override Point2D GetCalculationLocation()
+        {
+            return Calculation.InputParameters.Structure?.Location;
+        }
+
+        protected override HydraulicBoundaryLocation HydraulicBoundaryLocation
+        {
+            get => Calculation.InputParameters.HydraulicBoundaryLocation;
+            set => Calculation.InputParameters.HydraulicBoundaryLocation = value;
+        }
 
         private void CreateColumnStateDefinitions()
         {
@@ -319,7 +275,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Views
 
         private void UpdateUseForeshoreColumnStateDefinitions()
         {
-            ForeshoreProfile foreShoreProfileGeometry = CalculationScenario.InputParameters.ForeshoreProfile;
+            ForeshoreProfile foreShoreProfileGeometry = Calculation.InputParameters.ForeshoreProfile;
             if (foreShoreProfileGeometry == null || !foreShoreProfileGeometry.Geometry.Any())
             {
                 ColumnStateHelper.DisableColumn(ColumnStateDefinitions[useForeshoreColumnIndex]);

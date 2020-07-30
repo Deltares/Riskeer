@@ -32,9 +32,9 @@ using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.ChangeHandlers;
-using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Forms.PropertyClasses;
 using Riskeer.Common.Forms.TestUtil;
+using Riskeer.Common.Forms.Views;
 using Riskeer.StabilityPointStructures.Data;
 using Riskeer.StabilityPointStructures.Data.TestUtil;
 using Riskeer.StabilityPointStructures.Forms.Views;
@@ -47,42 +47,13 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
         private const int breakWaterTypeColumnIndex = 4;
         private const int breakWaterHeightColumnIndex = 5;
         private const int useForeshoreColumnIndex = 6;
-        private const int loadSchematizationTypeColumnIndex = 7;
         private const int constructiveStrengthLinearLoadModelColumnIndex = 8;
         private const int constructiveStrengthQuadraticLoadModelColumnIndex = 9;
         private const int stabilityLinearLoadModelColumnIndex = 10;
         private const int stabilityQuadraticLoadModelColumnIndex = 11;
 
         [Test]
-        public void Constructor_CalculationScenarioNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
-            mocks.ReplayAll();
-
-            // Call
-            void Call() => new StabilityPointStructuresCalculationRow(null, handler);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("calculationScenario", exception.ParamName);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Constructor_HandlerNull_ThrowsArgumentNullException()
-        {
-            // Call
-            void Call() => new StabilityPointStructuresCalculationRow(new StructuresCalculationScenario<StabilityPointStructuresInput>(), null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("handler", exception.ParamName);
-        }
-
-        [Test]
-        public void Constructor_WithCalculation_PropertiesCorrectlySet()
+        public void Constructor_ExpectedValues()
         {
             // Setup
             var mocks = new MockRepository();
@@ -92,12 +63,15 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
             var calculationScenario = new StructuresCalculationScenario<StabilityPointStructuresInput>();
 
             // Call
-            var calculationRow = new StabilityPointStructuresCalculationRow(calculationScenario, handler);
+            var row = new StabilityPointStructuresCalculationRow(calculationScenario, handler);
 
             // Asserts
-            Assert.AreSame(calculationScenario, calculationRow.CalculationScenario);
+            Assert.IsInstanceOf<CalculationRow<StructuresCalculationScenario<StabilityPointStructuresInput>>>(row);
+            Assert.IsInstanceOf<IHasColumnStateDefinitions>(row);
 
-            IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = calculationRow.ColumnStateDefinitions;
+            Assert.AreSame(calculationScenario, row.Calculation);
+
+            IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
             Assert.AreEqual(7, columnStateDefinitions.Count);
 
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, breakWaterTypeColumnIndex);
@@ -108,66 +82,6 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, stabilityLinearLoadModelColumnIndex);
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, stabilityQuadraticLoadModelColumnIndex);
             mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Name_AlwaysOnChange_NotifyObserverAndCalculationPropertyChanged()
-        {
-            // Setup
-            var mockRepository = new MockRepository();
-            var observer = mockRepository.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
-            mockRepository.ReplayAll();
-
-            const string newValue = "Test new name";
-
-            var calculation = new StructuresCalculationScenario<StabilityPointStructuresInput>();
-            var row = new StabilityPointStructuresCalculationRow(calculation, handler);
-
-            calculation.Attach(observer);
-
-            // Call
-            row.Name = newValue;
-
-            // Assert
-            Assert.AreEqual(newValue, calculation.Name);
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        public void SelectableHydraulicBoundaryLocation_AlwaysOnChange_NotifyObserverAndCalculationPropertyChanged()
-        {
-            // Setup
-            var newLocation = new TestHydraulicBoundaryLocation();
-            var selectableHydraulicBoundaryLocation = new SelectableHydraulicBoundaryLocation(newLocation, new Point2D(0, 0));
-            var newValue = new DataGridViewComboBoxItemWrapper<SelectableHydraulicBoundaryLocation>(selectableHydraulicBoundaryLocation);
-
-            var calculation = new StructuresCalculationScenario<StabilityPointStructuresInput>();
-
-            // Call & Assert
-            SetPropertyAndVerifyNotificationsAndOutputForCalculation(row => row.SelectableHydraulicBoundaryLocation = newValue, calculation);
-        }
-
-        [Test]
-        public void SelectableHydraulicBoundaryLocation_ChangeToEqualValue_NoNotificationsOutputNotCleared()
-        {
-            // Setup
-            DataGridViewComboBoxItemWrapper<SelectableHydraulicBoundaryLocation> oldValue = null;
-
-            // Call
-            AssertPropertyNotChanged(
-                row =>
-                {
-                    oldValue = row.SelectableHydraulicBoundaryLocation;
-                    row.SelectableHydraulicBoundaryLocation = row.SelectableHydraulicBoundaryLocation;
-                },
-                calculation =>
-                {
-                    // Assert
-                    Assert.NotNull(oldValue);
-                    Assert.AreEqual(oldValue.WrappedObject.HydraulicBoundaryLocation, calculation.InputParameters.HydraulicBoundaryLocation);
-                });
         }
 
         [Test]
