@@ -68,6 +68,11 @@ namespace Core.Common.Util
         /// if no <see cref="ResourcesDisplayNameAttribute"/> was defined for the enum value.</returns>
         public string DisplayName { get; private set; }
 
+        public override string ToString()
+        {
+            return DisplayName;
+        }
+
         private void SetDisplayName(T value)
         {
             DisplayName = new EnumTypeConverter(typeof(T)).ConvertToString(value) ?? value.ToString();

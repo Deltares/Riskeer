@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2019. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2019. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -122,6 +122,50 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             Assert.AreEqual("This", ((IReadOnlyList<DataGridViewComboBoxColumn>) dataGridView.Columns.OfType<DataGridViewComboBoxColumn>().ToArray())[0].ValueMember);
             Assert.AreEqual("This", ((IReadOnlyList<DataGridViewComboBoxColumn>) dataGridView.Columns.OfType<DataGridViewComboBoxColumn>().ToArray())[1].ValueMember);
             Assert.AreEqual("Value", ((IReadOnlyList<DataGridViewComboBoxColumn>) dataGridView.Columns.OfType<DataGridViewComboBoxColumn>().ToArray())[2].ValueMember);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CalculationsView_FailureMechanismWithDikeProfiles_DikeProfilesComboboxCorrectlyInitialized()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            // Call
+            ShowFullyConfiguredCalculationsView(assessmentSection);
+
+            // Assert
+            var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+            var dikeProfileComboBox = (DataGridViewComboBoxColumn)dataGridView.Columns[dikeProfileColumnIndex];
+            DataGridViewComboBoxCell.ObjectCollection dikeProfileComboBoxItems = dikeProfileComboBox.Items;
+            Assert.AreEqual(3, dikeProfileComboBoxItems.Count);
+            Assert.AreEqual("<selecteer>", dikeProfileComboBoxItems[0].ToString());
+            Assert.AreEqual("Profiel 1", dikeProfileComboBoxItems[1].ToString());
+            Assert.AreEqual("Profiel 2", dikeProfileComboBoxItems[2].ToString());
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CalculationsView_Always_BreakWaterTypeComboboxCorrectlyInitialized()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            // Call
+            ShowFullyConfiguredCalculationsView(assessmentSection);
+
+            // Assert
+            var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+            var breakWaterTypeComboBox = (DataGridViewComboBoxColumn)dataGridView.Columns[breakWaterTypeColumnIndex];
+            DataGridViewComboBoxCell.ObjectCollection breakWaterTypeComboBoxItems = breakWaterTypeComboBox.Items;
+            Assert.AreEqual(3, breakWaterTypeComboBoxItems.Count);
+            Assert.AreEqual("Muur", breakWaterTypeComboBoxItems[0].ToString());
+            Assert.AreEqual("Caisson", breakWaterTypeComboBoxItems[1].ToString());
+            Assert.AreEqual("Havendam", breakWaterTypeComboBoxItems[2].ToString());
             mocks.VerifyAll();
         }
 
@@ -618,8 +662,8 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
 
             failureMechanism.DikeProfiles.AddRange(new List<DikeProfile>
             {
-                DikeProfileTestFactory.CreateDikeProfile(new Point2D(0.0, 0.0), "profiel 1"),
-                DikeProfileTestFactory.CreateDikeProfile(new Point2D(5.0, 0.0), "profiel 2")
+                DikeProfileTestFactory.CreateDikeProfile("1", "Profiel 1", new Point2D(0.0, 0.0)),
+                DikeProfileTestFactory.CreateDikeProfile("2", "Profiel 2", new Point2D(5.0, 0.0))
             }, string.Empty);
 
             return failureMechanism;
