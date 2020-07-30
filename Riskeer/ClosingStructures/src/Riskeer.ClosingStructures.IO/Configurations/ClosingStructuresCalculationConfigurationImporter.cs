@@ -111,8 +111,7 @@ namespace Riskeer.ClosingStructures.IO.Configurations
                 && TrySetIdenticalApertures(readCalculation, calculation)
                 && TrySetScenarioParameters(readCalculation.Scenario, calculation)
                 && readCalculation.WaveReduction.ValidateWaveReduction(calculation.InputParameters.ForeshoreProfile,
-                                                                       calculation.Name, Log)
-                )
+                                                                       calculation.Name, Log))
             {
                 SetFactorStormDurationOpenStructure(readCalculation, calculation);
                 SetWaveReductionParameters(readCalculation.WaveReduction, calculation.InputParameters);
