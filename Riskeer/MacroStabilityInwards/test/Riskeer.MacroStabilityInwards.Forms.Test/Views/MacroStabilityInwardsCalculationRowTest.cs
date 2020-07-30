@@ -30,6 +30,7 @@ using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Forms.PropertyClasses;
 using Riskeer.Common.Forms.TestUtil;
+using Riskeer.Common.Forms.Views;
 using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.MacroStabilityInwards.Data.SoilProfile;
 using Riskeer.MacroStabilityInwards.Data.TestUtil;
@@ -72,6 +73,8 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             var row = new MacroStabilityInwardsCalculationRow(calculation, handler);
 
             // Assert
+            Assert.IsInstanceOf<CalculationRow<MacroStabilityInwardsCalculationScenario>>(row);
+
             Assert.AreSame(calculation, row.Calculation);
             Assert.AreEqual(calculation.Name, row.Name);
             Assert.AreSame(calculation.InputParameters.StochasticSoilModel, row.StochasticSoilModel.WrappedObject);

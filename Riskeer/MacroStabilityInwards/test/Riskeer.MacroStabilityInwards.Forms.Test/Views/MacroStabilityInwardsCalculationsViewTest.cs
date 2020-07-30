@@ -100,7 +100,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
         }
 
         [Test]
-        public void MacroStabilityInwardsCalculationsView_CalculationsWithCorrespondingStochasticSoilModel_StochasticSoilModelsComboboxCorrectlyInitialized()
+        public void CalculationsView_FailureMechanismWithCorrespondingStochasticSoilModels_StochasticSoilModelsComboboxCorrectlyInitialized()
         {
             // Setup
             var mocks = new MockRepository();
@@ -132,7 +132,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
         }
 
         [Test]
-        public void MacroStabilityInwardsCalculationsView_CalculationsWithCorrespondingSoilProfiles_SoilProfilesComboboxCorrectlyInitialized()
+        public void CalculationsView_FailureMechanismWithCorrespondingSoilProfiles_SoilProfilesComboboxCorrectlyInitialized()
         {
             // Setup
             var mocks = new MockRepository();
@@ -164,7 +164,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
         }
 
         [Test]
-        public void MacroStabilityInwardsCalculationsView_CalculationsWithAllDataSet_DataGridViewCorrectlyInitialized()
+        public void CalculationsView_CalculationsWithAllDataSet_DataGridViewCorrectlyInitialized()
         {
             // Setup
             var mocks = new MockRepository();
@@ -290,7 +290,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
         }
 
         [Test]
-        public void GivenMacroStabilityInwardsCalculationsView_WhenGenerateScenariosButtonClicked_ThenShowViewWithSurfaceLines()
+        public void GivenCalculationsView_WhenGenerateScenariosButtonClicked_ThenShowViewWithSurfaceLines()
         {
             // Given
             var mocks = new MockRepository();
@@ -337,7 +337,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
         [Test]
         [TestCase("DoForSelectedButton")]
         [TestCase("CustomCancelButton")]
-        public void GivenMacroStabilityInwardsCalculationsViewGenerateScenariosButtonClicked_WhenDialogClosed_ThenNotifyCalculationGroup(string buttonName)
+        public void GivenCalculationsViewGenerateScenariosButtonClicked_WhenDialogClosed_ThenNotifyCalculationGroup(string buttonName)
         {
             // Given
             var mocks = new MockRepository();
@@ -381,7 +381,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
         }
 
         [Test]
-        public void GivenMacroStabilityInwardsCalculationsViewGenerateScenariosButtonClicked_WhenSurfaceLineSelectedAndDialogClosed_ThenUpdateSectionResultScenarios()
+        public void GivenCalculationsViewGenerateScenariosButtonClicked_WhenSurfaceLineSelectedAndDialogClosed_ThenUpdateSectionResultScenarios()
         {
             // Given
             var mocks = new MockRepository();
@@ -424,7 +424,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
         }
 
         [Test]
-        public void GivenMacroStabilityInwardsCalculationsViewGenerateScenariosCancelButtonClicked_WhenDialogClosed_CalculationsNotUpdated()
+        public void GivenCalculationsViewGenerateScenariosCancelButtonClicked_WhenDialogClosed_CalculationsNotUpdated()
         {
             // Given
             var mocks = new MockRepository();
@@ -594,7 +594,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
         [TestCase(stochasticSoilProfilesColumnIndex, null, false)]
         [TestCase(selectableHydraulicBoundaryLocationsColumnIndex, null, true)]
         [TestCase(selectableHydraulicBoundaryLocationsColumnIndex, null, false)]
-        public void MacroStabilityInwardsCalculationsView_EditingPropertyViaDataGridView_ObserversCorrectlyNotified(
+        public void CalculationsView_EditingPropertyViaDataGridView_ObserversCorrectlyNotified(
             int cellIndex,
             object newValue,
             bool useCalculationWithOutput)
@@ -649,7 +649,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
         }
 
         [Test]
-        public void GivenMacroStabilityInwardsCalculationsViewWithStochasticSoilProfile_WhenProbabilityChangesAndNotified_ThenNewProbabilityVisible()
+        public void GivenCalculationsViewWithStochasticSoilProfile_WhenProbabilityChangesAndNotified_ThenNewProbabilityVisible()
         {
             // Given
             var mocks = new MockRepository();
@@ -689,7 +689,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
         }
 
         [Test]
-        public void GivenMacroStabilityInwardsCalculationsViewWithCalculations_WhenSurfaceLineLocatedOutsideSectionAfterUpdateAndObserversNotified_ThenDataGridViewUpdated()
+        public void GivenCalculationsViewWithCalculations_WhenSurfaceLineLocatedOutsideSectionAfterUpdateAndObserversNotified_ThenDataGridViewUpdated()
         {
             // Given
             var mocks = new MockRepository();
@@ -748,7 +748,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
 
         [TestCase(true)]
         [TestCase(false)]
-        public void MacroStabilityInwardsCalculationsViewWithHydraulicLocation_SpecificUseAssessmentLevelManualInputState_SelectableHydraulicLocationReadonlyAccordingly(bool useAssessmentLevelManualInput)
+        public void CalculationsViewWithHydraulicLocation_SpecificUseAssessmentLevelManualInputState_SelectableHydraulicLocationReadonlyAccordingly(bool useAssessmentLevelManualInput)
         {
             // Setup
             var mocks = new MockRepository();

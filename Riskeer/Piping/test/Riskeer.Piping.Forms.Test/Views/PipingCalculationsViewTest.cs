@@ -110,7 +110,7 @@ namespace Riskeer.Piping.Forms.Test.Views
         }
 
         [Test]
-        public void PipingCalculationsView_CalculationsWithCorrespondingStochasticSoilModel_StochasticSoilModelsComboboxCorrectlyInitialized()
+        public void CalculationsView_FailureMechanismWithStochasticSoilModels_StochasticSoilModelsComboboxCorrectlyInitialized()
         {
             // Setup
             var mocks = new MockRepository();
@@ -142,7 +142,7 @@ namespace Riskeer.Piping.Forms.Test.Views
         }
 
         [Test]
-        public void PipingCalculationsView_CalculationsWithCorrespondingSoilProfiles_SoilProfilesComboboxCorrectlyInitialized()
+        public void CalculationsView_FailureMechanismWithCorrespondingSoilProfiles_SoilProfilesComboboxCorrectlyInitialized()
         {
             // Setup
             var mocks = new MockRepository();
@@ -174,7 +174,7 @@ namespace Riskeer.Piping.Forms.Test.Views
         }
 
         [Test]
-        public void PipingCalculationsView_CalculationsWithAllDataSet_DataGridViewCorrectlyInitialized()
+        public void CalculationsView_CalculationsWithAllDataSet_DataGridViewCorrectlyInitialized()
         {
             // Setup
             var mocks = new MockRepository();
@@ -230,7 +230,7 @@ namespace Riskeer.Piping.Forms.Test.Views
         [TestCase(";/[].,~!@#$%^&*()_-+={}|?", phreaticLevelExitMeanColumnIndex)]
         [TestCase(";/[].,~!@#$%^&*()_-+={}|?", entryPointLColumnIndex)]
         [TestCase(";/[].,~!@#$%^&*()_-+={}|?", exitPointLColumnIndex)]
-        public void PipingCalculationsView_EditValueInvalid_ShowsErrorTooltip(string newValue, int cellIndex)
+        public void CalculationsView_EditValueInvalid_ShowsErrorTooltip(string newValue, int cellIndex)
         {
             // Setup
             var mocks = new MockRepository();
@@ -311,7 +311,7 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             ShowPipingCalculationsView(new CalculationGroup(), failureMechanism, assessmentSection);
 
-            var button = (Button)new ControlTester("generateButton").TheObject;
+            var button = (Button) new ControlTester("generateButton").TheObject;
 
             // Call
             bool state = button.Enabled;
@@ -338,7 +338,7 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             ShowPipingCalculationsView(new CalculationGroup(), failureMechanism, assessmentSection);
 
-            var button = (Button)new ControlTester("generateButton").TheObject;
+            var button = (Button) new ControlTester("generateButton").TheObject;
 
             // Call
             bool state = button.Enabled;
@@ -381,7 +381,7 @@ namespace Riskeer.Piping.Forms.Test.Views
         }
 
         [Test]
-        public void GivenPipingCalculationsView_WhenGenerateScenariosButtonClicked_ThenShowViewWithSurfaceLines()
+        public void GivenCalculationsView_WhenGenerateScenariosButtonClicked_ThenShowViewWithSurfaceLines()
         {
             // Given
             var mocks = new MockRepository();
@@ -428,7 +428,7 @@ namespace Riskeer.Piping.Forms.Test.Views
         [Test]
         [TestCase("DoForSelectedButton")]
         [TestCase("CustomCancelButton")]
-        public void GivenPipingCalculationsViewGenerateScenariosButtonClicked_WhenDialogClosed_ThenNotifyCalculationGroup(string buttonName)
+        public void GivenCalculationsViewGenerateScenariosButtonClicked_WhenDialogClosed_ThenNotifyCalculationGroup(string buttonName)
         {
             // Given
             var mocks = new MockRepository();
@@ -472,7 +472,7 @@ namespace Riskeer.Piping.Forms.Test.Views
         }
 
         [Test]
-        public void GivenPipingCalculationsViewGenerateScenariosButtonClicked_WhenSurfaceLineSelectedAndDialogClosed_ThenUpdateSectionResultScenarios()
+        public void GivenCalculationsViewGenerateScenariosButtonClicked_WhenSurfaceLineSelectedAndDialogClosed_ThenUpdateSectionResultScenarios()
         {
             // Given
             var mocks = new MockRepository();
@@ -515,7 +515,7 @@ namespace Riskeer.Piping.Forms.Test.Views
         }
 
         [Test]
-        public void GivenPipingCalculationsViewGenerateScenariosCancelButtonClicked_WhenDialogClosed_CalculationsNotUpdated()
+        public void GivenCalculationsViewGenerateScenariosCancelButtonClicked_WhenDialogClosed_CalculationsNotUpdated()
         {
             // Given
             var mocks = new MockRepository();
@@ -565,7 +565,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             failureMechanism.NotifyObservers();
 
             // Then
-            var button = (Button)new ControlTester("generateButton").TheObject;
+            var button = (Button) new ControlTester("generateButton").TheObject;
             Assert.IsFalse(button.Enabled);
             mocks.VerifyAll();
         }
@@ -590,7 +590,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             failureMechanism.NotifyObservers();
 
             // Then
-            var button = (Button)new ControlTester("generateButton").TheObject;
+            var button = (Button) new ControlTester("generateButton").TheObject;
             Assert.IsFalse(button.Enabled);
             mocks.VerifyAll();
         }
@@ -603,14 +603,14 @@ namespace Riskeer.Piping.Forms.Test.Views
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             ConfigureHydraulicBoundaryDatabase(assessmentSection);
             mocks.ReplayAll();
-            
+
             PipingFailureMechanism failureMechanism = ConfigureFailureMechanism();
-            
+
             ShowPipingCalculationsView(ConfigureCalculationGroup(assessmentSection, failureMechanism), failureMechanism, assessmentSection);
 
-            var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
-            var soilModelsComboBox = (DataGridViewComboBoxColumn)dataGridView.Columns[stochasticSoilModelsColumnIndex];
-            var soilProfilesComboBox = (DataGridViewComboBoxColumn)dataGridView.Columns[stochasticSoilProfilesColumnIndex];
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+            var soilModelsComboBox = (DataGridViewComboBoxColumn) dataGridView.Columns[stochasticSoilModelsColumnIndex];
+            var soilProfilesComboBox = (DataGridViewComboBoxColumn) dataGridView.Columns[stochasticSoilProfilesColumnIndex];
 
             // Precondition
             Assert.AreEqual(4, soilModelsComboBox.Items.Count);
@@ -668,7 +668,7 @@ namespace Riskeer.Piping.Forms.Test.Views
         [TestCase(entryPointLColumnIndex, 4.44)]
         [TestCase(exitPointLColumnIndex, 2.22)]
         [TestCase(exitPointLColumnIndex, 1.1)]
-        public void PipingCalculationsView_InvalidEntryOrExitPoint_ShowsErrorTooltip(int cellIndex, double newValue)
+        public void CalculationsView_InvalidEntryOrExitPoint_ShowsErrorTooltip(int cellIndex, double newValue)
         {
             // Setup
             var mocks = new MockRepository();
@@ -704,7 +704,7 @@ namespace Riskeer.Piping.Forms.Test.Views
         [TestCase(entryPointLColumnIndex, -1.0)]
         [TestCase(exitPointLColumnIndex, 10.1)]
         [TestCase(exitPointLColumnIndex, 11.0)]
-        public void PipingCalculationsView_EntryOrExitPointNotOnSurfaceLine_ShowsErrorToolTip(int cellIndex, double newValue)
+        public void CalculationsView_EntryOrExitPointNotOnSurfaceLine_ShowsErrorToolTip(int cellIndex, double newValue)
         {
             // Setup
             var mocks = new MockRepository();
@@ -780,7 +780,7 @@ namespace Riskeer.Piping.Forms.Test.Views
         [TestCase(entryPointLColumnIndex, 1.1, false)]
         [TestCase(exitPointLColumnIndex, 8.0, true)]
         [TestCase(exitPointLColumnIndex, 8.0, false)]
-        public void PipingCalculationsView_EditingPropertyViaDataGridView_ObserversCorrectlyNotified(
+        public void CalculationsView_EditingPropertyViaDataGridView_ObserversCorrectlyNotified(
             int cellIndex,
             object newValue,
             bool useCalculationWithOutput)
@@ -835,7 +835,7 @@ namespace Riskeer.Piping.Forms.Test.Views
         }
 
         [Test]
-        public void GivenPipingCalculationsViewWithStochasticSoilProfile_WhenProbabilityChangesAndNotified_ThenNewProbabilityVisible()
+        public void GivenCalculationsViewWithStochasticSoilProfile_WhenProbabilityChangesAndNotified_ThenNewProbabilityVisible()
         {
             // Given
             var mocks = new MockRepository();
@@ -845,7 +845,7 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             PipingFailureMechanism failureMechanism = ConfigureFailureMechanism();
             CalculationGroup calculationGroup = ConfigureCalculationGroup(assessmentSection, failureMechanism);
-            
+
             ShowPipingCalculationsView(calculationGroup, failureMechanism, assessmentSection);
 
             var calculation = (PipingCalculationScenario) calculationGroup.Children[1];
@@ -875,7 +875,7 @@ namespace Riskeer.Piping.Forms.Test.Views
         }
 
         [Test]
-        public void GivenPipingCalculationsViewWithCalculations_WhenSurfaceLineLocatedOutsideSectionAfterUpdateAndObserversNotified_ThenDataGridViewUpdated()
+        public void GivenCalculationsViewWithCalculations_WhenSurfaceLineLocatedOutsideSectionAfterUpdateAndObserversNotified_ThenDataGridViewUpdated()
         {
             // Given
             var mocks = new MockRepository();
@@ -934,7 +934,7 @@ namespace Riskeer.Piping.Forms.Test.Views
 
         [TestCase(true)]
         [TestCase(false)]
-        public void PipingCalculationsViewWithHydraulicLocation_SpecificUseAssessmentLevelManualInputState_SelectableHydraulicLocationReadonlyAccordingly(bool useAssessmentLevelManualInput)
+        public void CalculationsViewWithHydraulicLocation_SpecificUseAssessmentLevelManualInputState_SelectableHydraulicLocationReadonlyAccordingly(bool useAssessmentLevelManualInput)
         {
             // Setup
             var mocks = new MockRepository();
