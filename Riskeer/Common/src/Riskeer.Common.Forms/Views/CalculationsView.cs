@@ -88,8 +88,6 @@ namespace Riskeer.Common.Forms.Views
             FailureMechanism = failureMechanism;
             AssessmentSection = assessmentSection;
 
-            InitializeObservers();
-
             InitializeComponent();
 
             InitializeListBox();
@@ -126,6 +124,8 @@ namespace Riskeer.Common.Forms.Views
 
         protected override void OnLoad(EventArgs e)
         {
+            InitializeObservers();
+
             // Necessary to correctly load the content of the dropdown lists of the comboboxes...
             UpdateDataGridViewDataSource();
 
@@ -264,7 +264,7 @@ namespace Riskeer.Common.Forms.Views
             objectCollection.AddRange(comboBoxItems);
         }
 
-        private void InitializeObservers()
+        protected virtual void InitializeObservers()
         {
             failureMechanismObserver = new Observer(UpdateSectionsListBox)
             {

@@ -50,37 +50,15 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
         private const int stochasticSoilModelColumnIndex = 2;
         private const int stochasticSoilProfileColumnIndex = 3;
 
-        private readonly RecursiveObserver<MacroStabilityInwardsSurfaceLineCollection, MacroStabilityInwardsSurfaceLine> surfaceLineObserver;
-        private readonly Observer stochasticSoilModelsObserver;
-        private readonly RecursiveObserver<MacroStabilityInwardsStochasticSoilModelCollection, MacroStabilityInwardsStochasticSoilProfile> stochasticSoilProfileObserver;
+        private RecursiveObserver<MacroStabilityInwardsSurfaceLineCollection, MacroStabilityInwardsSurfaceLine> surfaceLineObserver;
+        private Observer stochasticSoilModelsObserver;
+        private RecursiveObserver<MacroStabilityInwardsStochasticSoilModelCollection, MacroStabilityInwardsStochasticSoilProfile> stochasticSoilProfileObserver;
 
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsCalculationsView"/>.
         /// </summary>
         public MacroStabilityInwardsCalculationsView(CalculationGroup calculationGroup, MacroStabilityInwardsFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
-            : base(calculationGroup, failureMechanism, assessmentSection)
-        {
-            surfaceLineObserver = new RecursiveObserver<MacroStabilityInwardsSurfaceLineCollection, MacroStabilityInwardsSurfaceLine>(UpdateGenerateCalculationsButtonState, rpslc => rpslc)
-            {
-                Observable = failureMechanism.SurfaceLines
-            };
-
-            stochasticSoilModelsObserver = new Observer(() =>
-            {
-                PrefillComboBoxListItemsAtColumnLevel();
-                UpdateColumns();
-                UpdateGenerateCalculationsButtonState();
-            })
-            {
-                Observable = failureMechanism.StochasticSoilModels
-            };
-            stochasticSoilProfileObserver = new RecursiveObserver<MacroStabilityInwardsStochasticSoilModelCollection, MacroStabilityInwardsStochasticSoilProfile>(
-                () => DataGridViewControl.RefreshDataGridView(),
-                ssmc => ssmc.SelectMany(ssm => ssm.StochasticSoilProfiles))
-            {
-                Observable = failureMechanism.StochasticSoilModels
-            };
-        }
+            : base(calculationGroup, failureMechanism, assessmentSection) {}
 
         protected override void OnLoad(EventArgs e)
         {
@@ -178,9 +156,32 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
             DataGridViewControl.AddTextBoxColumn(
                 nameof(MacroStabilityInwardsCalculationRow.StochasticSoilProfileProbability),
                 Resources.MacroStabilityInwardsCalculationsView_InitializeDataGridView_Stochastic_soil_profile_probability);
+        }
 
-            UpdateStochasticSoilModelColumn();
-            UpdateStochasticSoilProfileColumn();
+        protected override void InitializeObservers()
+        {
+            base.InitializeObservers();
+
+            surfaceLineObserver = new RecursiveObserver<MacroStabilityInwardsSurfaceLineCollection, MacroStabilityInwardsSurfaceLine>(UpdateGenerateCalculationsButtonState, rpslc => rpslc)
+            {
+                Observable = FailureMechanism.SurfaceLines
+            };
+
+            stochasticSoilModelsObserver = new Observer(() =>
+            {
+                PrefillComboBoxListItemsAtColumnLevel();
+                UpdateColumns();
+                UpdateGenerateCalculationsButtonState();
+            })
+            {
+                Observable = FailureMechanism.StochasticSoilModels
+            };
+            stochasticSoilProfileObserver = new RecursiveObserver<MacroStabilityInwardsStochasticSoilModelCollection, MacroStabilityInwardsStochasticSoilProfile>(
+                () => DataGridViewControl.RefreshDataGridView(),
+                ssmc => ssmc.SelectMany(ssm => ssm.StochasticSoilProfiles))
+            {
+                Observable = FailureMechanism.StochasticSoilModels
+            };
         }
 
         protected override void UpdateColumns()

@@ -48,8 +48,8 @@ namespace Riskeer.StabilityPointStructures.Forms.Views
     {
         private const int foreshoreProfileColumnIndex = 2;
 
-        private readonly Observer foreshoreProfilesObserver;
-        private readonly Observer stabilityPointStructuresObserver;
+        private Observer foreshoreProfilesObserver;
+        private Observer stabilityPointStructuresObserver;
 
         /// <summary>
         /// Creates a new instance of <see cref="StabilityPointStructuresCalculationsView"/>.
@@ -59,23 +59,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Views
         /// <param name="assessmentSection">The assessment section.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public StabilityPointStructuresCalculationsView(CalculationGroup data, StabilityPointStructuresFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
-            : base(data, failureMechanism, assessmentSection)
-        {
-            foreshoreProfilesObserver = new Observer(() =>
-            {
-                PrefillComboBoxListItemsAtColumnLevel();
-                UpdateColumns();
-                UpdateGenerateCalculationsButtonState();
-            })
-            {
-                Observable = FailureMechanism.ForeshoreProfiles
-            };
-
-            stabilityPointStructuresObserver = new Observer(UpdateGenerateCalculationsButtonState)
-            {
-                Observable = FailureMechanism.StabilityPointStructures
-            };
-        }
+            : base(data, failureMechanism, assessmentSection) {}
 
         protected override void OnLoad(EventArgs e)
         {
@@ -191,6 +175,26 @@ namespace Riskeer.StabilityPointStructures.Forms.Views
             DataGridViewControl.AddTextBoxColumn(
                 nameof(StabilityPointStructuresCalculationRow.EvaluationLevel),
                 RiskeerCommonFormsResources.Evaluation_Level_DisplayName);
+        }
+
+        protected override void InitializeObservers()
+        {
+            base.InitializeObservers();
+
+            foreshoreProfilesObserver = new Observer(() =>
+            {
+                PrefillComboBoxListItemsAtColumnLevel();
+                UpdateColumns();
+                UpdateGenerateCalculationsButtonState();
+            })
+            {
+                Observable = FailureMechanism.ForeshoreProfiles
+            };
+
+            stabilityPointStructuresObserver = new Observer(UpdateGenerateCalculationsButtonState)
+            {
+                Observable = FailureMechanism.StabilityPointStructures
+            };
         }
 
         #region Prefill combo box list items

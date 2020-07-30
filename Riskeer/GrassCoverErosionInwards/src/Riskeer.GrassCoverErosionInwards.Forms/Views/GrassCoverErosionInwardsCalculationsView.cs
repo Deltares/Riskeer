@@ -48,7 +48,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
     {
         private const int dikeProfileColumnIndex = 2;
 
-        private readonly Observer dikeProfilesObserver;
+        private Observer dikeProfilesObserver;
 
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionInwardsCalculationsView"/>.
@@ -61,16 +61,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
             : base(data, failureMechanism, assessmentSection)
         {
             AddWarningMessage();
-
-            dikeProfilesObserver = new Observer(() =>
-            {
-                PrefillComboBoxListItemsAtColumnLevel();
-                UpdateColumns();
-                UpdateGenerateCalculationsButtonState();
-            })
-            {
-                Observable = FailureMechanism.DikeProfiles
-            };
         }
 
         protected override void OnLoad(EventArgs e)
@@ -172,6 +162,21 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
             DataGridViewControl.AddTextBoxColumn(
                 nameof(GrassCoverErosionInwardsCalculationRow.StandardDeviationCriticalFlowRate),
                 Resources.StandardDeviation_Critical_FlowRate_DisplayName);
+        }
+
+        protected override void InitializeObservers()
+        {
+            base.InitializeObservers();
+
+            dikeProfilesObserver = new Observer(() =>
+            {
+                PrefillComboBoxListItemsAtColumnLevel();
+                UpdateColumns();
+                UpdateGenerateCalculationsButtonState();
+            })
+            {
+                Observable = FailureMechanism.DikeProfiles
+            };
         }
 
         #region Prefill combo box list items

@@ -50,9 +50,9 @@ namespace Riskeer.Piping.Forms.Views
         private const int stochasticSoilModelColumnIndex = 2;
         private const int stochasticSoilProfileColumnIndex = 3;
 
-        private readonly RecursiveObserver<PipingSurfaceLineCollection, PipingSurfaceLine> surfaceLineObserver;
-        private readonly Observer stochasticSoilModelsObserver;
-        private readonly RecursiveObserver<PipingStochasticSoilModelCollection, PipingStochasticSoilProfile> stochasticSoilProfileObserver;
+        private RecursiveObserver<PipingSurfaceLineCollection, PipingSurfaceLine> surfaceLineObserver;
+        private Observer stochasticSoilModelsObserver;
+        private RecursiveObserver<PipingStochasticSoilModelCollection, PipingStochasticSoilProfile> stochasticSoilProfileObserver;
 
         /// <summary>
         /// Creates a new instance of <see cref="PipingCalculationsView"/>.
@@ -62,29 +62,7 @@ namespace Riskeer.Piping.Forms.Views
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> the calculations belong to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public PipingCalculationsView(CalculationGroup calculationGroup, PipingFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
-            : base(calculationGroup, failureMechanism, assessmentSection)
-        {
-            surfaceLineObserver = new RecursiveObserver<PipingSurfaceLineCollection, PipingSurfaceLine>(UpdateGenerateCalculationsButtonState, rpslc => rpslc)
-            {
-                Observable = failureMechanism.SurfaceLines
-            };
-
-            stochasticSoilModelsObserver = new Observer(() =>
-            {
-                PrefillComboBoxListItemsAtColumnLevel();
-                UpdateColumns();
-                UpdateGenerateCalculationsButtonState();
-            })
-            {
-                Observable = failureMechanism.StochasticSoilModels
-            };
-            stochasticSoilProfileObserver = new RecursiveObserver<PipingStochasticSoilModelCollection, PipingStochasticSoilProfile>(
-                () => DataGridViewControl.RefreshDataGridView(),
-                ssmc => ssmc.SelectMany(ssm => ssm.StochasticSoilProfiles))
-            {
-                Observable = failureMechanism.StochasticSoilModels
-            };
-        }
+            : base(calculationGroup, failureMechanism, assessmentSection) {}
 
         protected override void OnLoad(EventArgs e)
         {
@@ -200,9 +178,32 @@ namespace Riskeer.Piping.Forms.Views
             DataGridViewControl.AddTextBoxColumn(
                 nameof(PipingCalculationRow.ExitPointL),
                 Resources.PipingInput_ExitPointL_DisplayName);
+        }
 
-            UpdateStochasticSoilModelColumn();
-            UpdateStochasticSoilProfileColumn();
+        protected override void InitializeObservers()
+        {
+            base.InitializeObservers();
+
+            surfaceLineObserver = new RecursiveObserver<PipingSurfaceLineCollection, PipingSurfaceLine>(UpdateGenerateCalculationsButtonState, rpslc => rpslc)
+            {
+                Observable = FailureMechanism.SurfaceLines
+            };
+
+            stochasticSoilModelsObserver = new Observer(() =>
+            {
+                PrefillComboBoxListItemsAtColumnLevel();
+                UpdateColumns();
+                UpdateGenerateCalculationsButtonState();
+            })
+            {
+                Observable = FailureMechanism.StochasticSoilModels
+            };
+            stochasticSoilProfileObserver = new RecursiveObserver<PipingStochasticSoilModelCollection, PipingStochasticSoilProfile>(
+                () => DataGridViewControl.RefreshDataGridView(),
+                ssmc => ssmc.SelectMany(ssm => ssm.StochasticSoilProfiles))
+            {
+                Observable = FailureMechanism.StochasticSoilModels
+            };
         }
 
         protected override void UpdateColumns()
@@ -211,6 +212,20 @@ namespace Riskeer.Piping.Forms.Views
             UpdateStochasticSoilModelColumn();
             UpdateStochasticSoilProfileColumn();
         }
+
+        #region Event handling
+
+        private void OnCellFormatting(object sender, DataGridViewCellFormattingEventArgs eventArgs)
+        {
+            if (eventArgs.ColumnIndex == selectableHydraulicBoundaryLocationColumnIndex)
+            {
+                DataGridViewRow dataGridViewRow = DataGridViewControl.GetRowFromIndex(eventArgs.RowIndex);
+                dataGridViewRow.Cells[selectableHydraulicBoundaryLocationColumnIndex].ReadOnly = dataGridViewRow.DataBoundItem is PipingCalculationRow dataItem
+                                                                                                 && dataItem.Calculation.InputParameters.UseAssessmentLevelManualInput;
+            }
+        }
+
+        #endregion
 
         #region Data sources
 
@@ -221,7 +236,7 @@ namespace Riskeer.Piping.Forms.Views
             {
                 new DataGridViewComboBoxItemWrapper<PipingStochasticSoilModel>(null)
             };
-            
+
             dataGridViewComboBoxItemWrappers.AddRange(stochasticSoilModels.Select(stochasticSoilModel => new DataGridViewComboBoxItemWrapper<PipingStochasticSoilModel>(stochasticSoilModel)));
 
             return dataGridViewComboBoxItemWrappers.ToArray();
@@ -301,7 +316,7 @@ namespace Riskeer.Piping.Forms.Views
 
         private static IEnumerable<PipingStochasticSoilProfile> GetSoilProfilesForCalculation(PipingCalculation pipingCalculation)
         {
-            return pipingCalculation.InputParameters.StochasticSoilModel != null 
+            return pipingCalculation.InputParameters.StochasticSoilModel != null
                        ? pipingCalculation.InputParameters.StochasticSoilModel.StochasticSoilProfiles
                        : Enumerable.Empty<PipingStochasticSoilProfile>();
         }
@@ -340,20 +355,6 @@ namespace Riskeer.Piping.Forms.Views
             return FailureMechanism.StochasticSoilModels
                                    .SelectMany(ssm => ssm.StochasticSoilProfiles)
                                    .Distinct();
-        }
-
-        #endregion
-
-        #region Event handling
-
-        private void OnCellFormatting(object sender, DataGridViewCellFormattingEventArgs eventArgs)
-        {
-            if (eventArgs.ColumnIndex == selectableHydraulicBoundaryLocationColumnIndex)
-            {
-                DataGridViewRow dataGridViewRow = DataGridViewControl.GetRowFromIndex(eventArgs.RowIndex);
-                dataGridViewRow.Cells[selectableHydraulicBoundaryLocationColumnIndex].ReadOnly = dataGridViewRow.DataBoundItem is PipingCalculationRow dataItem
-                                                                                                 && dataItem.Calculation.InputParameters.UseAssessmentLevelManualInput;
-            }
         }
 
         #endregion

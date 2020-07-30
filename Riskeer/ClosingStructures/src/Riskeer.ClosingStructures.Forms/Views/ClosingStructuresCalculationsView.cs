@@ -48,8 +48,8 @@ namespace Riskeer.ClosingStructures.Forms.Views
     {
         private const int foreshoreProfileColumnIndex = 2;
 
-        private readonly Observer foreshoreProfilesObserver;
-        private readonly Observer closingStructuresObserver;
+        private Observer foreshoreProfilesObserver;
+        private Observer closingStructuresObserver;
 
         /// <summary>
         /// Creates a new instance of <see cref="ClosingStructuresCalculationsView"/>.
@@ -59,23 +59,7 @@ namespace Riskeer.ClosingStructures.Forms.Views
         /// <param name="assessmentSection">The assessment section.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public ClosingStructuresCalculationsView(CalculationGroup data, ClosingStructuresFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
-            : base(data, failureMechanism, assessmentSection)
-        {
-            foreshoreProfilesObserver = new Observer(() =>
-            {
-                PrefillComboBoxListItemsAtColumnLevel();
-                UpdateColumns();
-                UpdateGenerateCalculationsButtonState();
-            })
-            {
-                Observable = FailureMechanism.ForeshoreProfiles
-            };
-
-            closingStructuresObserver = new Observer(UpdateGenerateCalculationsButtonState)
-            {
-                Observable = FailureMechanism.ClosingStructures
-            };
-        }
+            : base(data, failureMechanism, assessmentSection) {}
 
         protected override void OnLoad(EventArgs e)
         {
@@ -184,6 +168,26 @@ namespace Riskeer.ClosingStructures.Forms.Views
             DataGridViewControl.AddTextBoxColumn(
                 nameof(ClosingStructuresCalculationRow.AllowedLevelIncreaseStorage),
                 $"{RiskeerCommonFormsResources.NormalDistribution_Mean_DisplayName}\r\n{RiskeerCommonFormsResources.Structure_AllowedLevelIncreaseStorage_DisplayName}");
+        }
+
+        protected override void InitializeObservers()
+        {
+            base.InitializeObservers();
+
+            foreshoreProfilesObserver = new Observer(() =>
+            {
+                PrefillComboBoxListItemsAtColumnLevel();
+                UpdateColumns();
+                UpdateGenerateCalculationsButtonState();
+            })
+            {
+                Observable = FailureMechanism.ForeshoreProfiles
+            };
+
+            closingStructuresObserver = new Observer(UpdateGenerateCalculationsButtonState)
+            {
+                Observable = FailureMechanism.ClosingStructures
+            };
         }
 
         #region Prefill combo box list items
