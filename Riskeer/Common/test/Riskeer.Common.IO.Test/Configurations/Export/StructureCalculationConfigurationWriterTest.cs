@@ -22,6 +22,7 @@
 using System;
 using System.IO;
 using System.Xml;
+using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.IO.Configurations;
@@ -152,7 +153,12 @@ namespace Riskeer.Common.IO.Test.Configurations.Export
                     Mean = 121.3,
                     StandardDeviation = 222.1
                 },
-                ShouldIllustrationPointsBeCalculated = true
+                ShouldIllustrationPointsBeCalculated = true,
+                Scenario = new ScenarioConfiguration
+                {
+                    IsRelevant = true,
+                    Contribution = (RoundedDouble) 54.32
+                }
             };
         }
 
