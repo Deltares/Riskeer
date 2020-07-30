@@ -590,7 +590,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
         }
 
         [Test]
-        public void GivenCalculationsView_WhenGenerateScenariosButtonClicked_ThenShowViewWithDikeProfiles()
+        public void GivenCalculationsView_WhenGenerateCalculationsButtonClicked_ThenShowViewWithDikeProfiles()
         {
             // Given
             var mocks = new MockRepository();
