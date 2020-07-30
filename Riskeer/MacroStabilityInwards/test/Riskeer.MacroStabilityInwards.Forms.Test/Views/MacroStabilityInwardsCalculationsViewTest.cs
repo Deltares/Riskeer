@@ -290,171 +290,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
         }
 
         [Test]
-        public void GivenCalculationsView_WhenGenerateScenariosButtonClicked_ThenShowViewWithSurfaceLines()
-        {
-            // Given
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            ConfigureHydraulicBoundaryDatabase(assessmentSection);
-            mocks.ReplayAll();
-
-            const string arbitraryFilePath = "path";
-            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-            failureMechanism.SurfaceLines.AddRange(new[]
-            {
-                new MacroStabilityInwardsSurfaceLine("Line A"),
-                new MacroStabilityInwardsSurfaceLine("Line B")
-            }, arbitraryFilePath);
-            failureMechanism.StochasticSoilModels.AddRange(new[]
-            {
-                MacroStabilityInwardsStochasticSoilModelTestFactory.CreateValidStochasticSoilModel()
-            }, arbitraryFilePath);
-
-            ShowMacroStabilityInwardsCalculationsView(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection);
-
-            var button = new ButtonTester("generateButton", testForm);
-
-            MacroStabilityInwardsSurfaceLineSelectionDialog selectionDialog = null;
-            DataGridViewControl grid = null;
-            DialogBoxHandler = (name, wnd) =>
-            {
-                selectionDialog = (MacroStabilityInwardsSurfaceLineSelectionDialog)new FormTester(name).TheObject;
-                grid = (DataGridViewControl)new ControlTester("DataGridViewControl", selectionDialog).TheObject;
-
-                new ButtonTester("CustomCancelButton", selectionDialog).Click();
-            };
-
-            // When
-            button.Click();
-
-            // Then
-            Assert.NotNull(selectionDialog);
-            Assert.NotNull(grid);
-            Assert.AreEqual(2, grid.Rows.Count);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        [TestCase("DoForSelectedButton")]
-        [TestCase("CustomCancelButton")]
-        public void GivenCalculationsViewGenerateScenariosButtonClicked_WhenDialogClosed_ThenNotifyCalculationGroup(string buttonName)
-        {
-            // Given
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            ConfigureHydraulicBoundaryDatabase(assessmentSection);
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
-
-            const string arbitraryFilePath = "path";
-            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-            failureMechanism.SurfaceLines.AddRange(new[]
-            {
-                new MacroStabilityInwardsSurfaceLine("Line A"),
-                new MacroStabilityInwardsSurfaceLine("Line B")
-            }, arbitraryFilePath);
-            failureMechanism.StochasticSoilModels.AddRange(new[]
-            {
-                MacroStabilityInwardsStochasticSoilModelTestFactory.CreateValidStochasticSoilModel()
-            }, arbitraryFilePath);
-            failureMechanism.CalculationsGroup.Attach(observer);
-
-            ShowMacroStabilityInwardsCalculationsView(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection);
-
-            var button = new ButtonTester("generateButton", testForm);
-
-            DialogBoxHandler = (name, wnd) =>
-            {
-                var selectionDialog = (MacroStabilityInwardsSurfaceLineSelectionDialog)new FormTester(name).TheObject;
-                var selectionView = (DataGridViewControl)new ControlTester("DataGridViewControl", selectionDialog).TheObject;
-                selectionView.Rows[0].Cells[0].Value = true;
-
-                // When
-                new ButtonTester(buttonName, selectionDialog).Click();
-            };
-
-            button.Click();
-
-            // Then
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void GivenCalculationsViewGenerateScenariosButtonClicked_WhenSurfaceLineSelectedAndDialogClosed_ThenUpdateSectionResultScenarios()
-        {
-            // Given
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            ConfigureHydraulicBoundaryDatabase(assessmentSection);
-            mocks.ReplayAll();
-
-            MacroStabilityInwardsFailureMechanism failureMechanism = ConfigureSimpleFailureMechanism();
-
-            ShowMacroStabilityInwardsCalculationsView(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection);
-
-            var button = new ButtonTester("generateButton", testForm);
-
-            DialogBoxHandler = (name, wnd) =>
-            {
-                var selectionDialog = (MacroStabilityInwardsSurfaceLineSelectionDialog)new FormTester(name).TheObject;
-                var selectionView = (DataGridViewControl)new ControlTester("DataGridViewControl", selectionDialog).TheObject;
-                selectionView.Rows[0].Cells[0].Value = true;
-
-                // When
-                new ButtonTester("DoForSelectedButton", selectionDialog).Click();
-            };
-
-            button.Click();
-
-            // Then
-            MacroStabilityInwardsCalculationScenario[] calculationScenarios = failureMechanism.Calculations.OfType<MacroStabilityInwardsCalculationScenario>().ToArray();
-            MacroStabilityInwardsFailureMechanismSectionResult failureMechanismSectionResult1 = failureMechanism.SectionResults.First();
-            MacroStabilityInwardsFailureMechanismSectionResult failureMechanismSectionResult2 = failureMechanism.SectionResults.ElementAt(1);
-
-            Assert.AreEqual(2, failureMechanismSectionResult1.GetCalculationScenarios(calculationScenarios).Count());
-
-            foreach (MacroStabilityInwardsCalculationScenario calculationScenario in failureMechanismSectionResult1.GetCalculationScenarios(calculationScenarios))
-            {
-                Assert.IsInstanceOf<ICalculationScenario>(calculationScenario);
-            }
-
-            CollectionAssert.IsEmpty(failureMechanismSectionResult2.GetCalculationScenarios(calculationScenarios));
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void GivenCalculationsViewGenerateScenariosCancelButtonClicked_WhenDialogClosed_CalculationsNotUpdated()
-        {
-            // Given
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            ConfigureHydraulicBoundaryDatabase(assessmentSection);
-            mocks.ReplayAll();
-
-            MacroStabilityInwardsFailureMechanism failureMechanism = ConfigureSimpleFailureMechanism();
-            ShowMacroStabilityInwardsCalculationsView(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection);
-
-            var button = new ButtonTester("generateButton", testForm);
-
-            DialogBoxHandler = (name, wnd) =>
-            {
-                var selectionDialog = (MacroStabilityInwardsSurfaceLineSelectionDialog)new FormTester(name).TheObject;
-                var selectionView = (DataGridViewControl)new ControlTester("DataGridViewControl", selectionDialog).TheObject;
-                selectionView.Rows[0].Cells[0].Value = true;
-
-                // When
-                new ButtonTester("CustomCancelButton", selectionDialog).Click();
-            };
-
-            button.Click();
-
-            // Then
-            CollectionAssert.IsEmpty(failureMechanism.Calculations);
-            mocks.VerifyAll();
-        }
-
-        [Test]
         public void GivenFailureMechanismWithoutSurfaceLinesAndSoilModels_WhenAddSoilModelAndNotify_ThenButtonDisabled()
         {
             // Given
@@ -777,6 +612,175 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
 
             mocks.VerifyAll();
         }
+
+        [Test]
+        public void GivenCalculationsView_WhenGenerateScenariosButtonClicked_ThenShowViewWithSurfaceLines()
+        {
+            // Given
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            ConfigureHydraulicBoundaryDatabase(assessmentSection);
+            mocks.ReplayAll();
+
+            const string arbitraryFilePath = "path";
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+            failureMechanism.SurfaceLines.AddRange(new[]
+            {
+                new MacroStabilityInwardsSurfaceLine("Line A"),
+                new MacroStabilityInwardsSurfaceLine("Line B")
+            }, arbitraryFilePath);
+            failureMechanism.StochasticSoilModels.AddRange(new[]
+            {
+                MacroStabilityInwardsStochasticSoilModelTestFactory.CreateValidStochasticSoilModel()
+            }, arbitraryFilePath);
+
+            ShowMacroStabilityInwardsCalculationsView(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection);
+
+            var button = new ButtonTester("generateButton", testForm);
+
+            MacroStabilityInwardsSurfaceLineSelectionDialog selectionDialog = null;
+            DataGridViewControl grid = null;
+            var rows = 0;
+            DialogBoxHandler = (name, wnd) =>
+            {
+                selectionDialog = (MacroStabilityInwardsSurfaceLineSelectionDialog)new FormTester(name).TheObject;
+                grid = (DataGridViewControl)new ControlTester("DataGridViewControl", selectionDialog).TheObject;
+                rows = grid.Rows.Count;
+
+                new ButtonTester("CustomCancelButton", selectionDialog).Click();
+            };
+
+            // When
+            button.Click();
+
+            // Then
+            Assert.NotNull(selectionDialog);
+            Assert.NotNull(grid);
+            Assert.AreEqual(failureMechanism.SurfaceLines.Count, rows);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GivenCalculationsViewGenerateScenariosButtonClicked_WhenDialogClosed_ThenNotifyCalculationGroup()
+        {
+            // Given
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            ConfigureHydraulicBoundaryDatabase(assessmentSection);
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
+            const string arbitraryFilePath = "path";
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+            failureMechanism.SurfaceLines.AddRange(new[]
+            {
+                new MacroStabilityInwardsSurfaceLine("Line A"),
+                new MacroStabilityInwardsSurfaceLine("Line B")
+            }, arbitraryFilePath);
+            failureMechanism.StochasticSoilModels.AddRange(new[]
+            {
+                MacroStabilityInwardsStochasticSoilModelTestFactory.CreateValidStochasticSoilModel()
+            }, arbitraryFilePath);
+            failureMechanism.CalculationsGroup.Attach(observer);
+
+            ShowMacroStabilityInwardsCalculationsView(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection);
+
+            var button = new ButtonTester("generateButton", testForm);
+
+            DialogBoxHandler = (name, wnd) =>
+            {
+                var selectionDialog = (MacroStabilityInwardsSurfaceLineSelectionDialog)new FormTester(name).TheObject;
+                var selectionView = (DataGridViewControl)new ControlTester("DataGridViewControl", selectionDialog).TheObject;
+                selectionView.Rows[0].Cells[0].Value = true;
+
+                // When
+                new ButtonTester("DoForSelectedButton", selectionDialog).Click();
+            };
+
+            button.Click();
+
+            // Then
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GivenCalculationsViewGenerateScenariosButtonClicked_WhenSurfaceLineSelectedAndDialogClosed_ThenUpdateSectionResultScenarios()
+        {
+            // Given
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            ConfigureHydraulicBoundaryDatabase(assessmentSection);
+            mocks.ReplayAll();
+
+            MacroStabilityInwardsFailureMechanism failureMechanism = ConfigureSimpleFailureMechanism();
+
+            ShowMacroStabilityInwardsCalculationsView(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection);
+
+            var button = new ButtonTester("generateButton", testForm);
+
+            DialogBoxHandler = (name, wnd) =>
+            {
+                var selectionDialog = (MacroStabilityInwardsSurfaceLineSelectionDialog)new FormTester(name).TheObject;
+                var selectionView = (DataGridViewControl)new ControlTester("DataGridViewControl", selectionDialog).TheObject;
+                selectionView.Rows[0].Cells[0].Value = true;
+
+                // When
+                new ButtonTester("DoForSelectedButton", selectionDialog).Click();
+            };
+
+            button.Click();
+
+            // Then
+            MacroStabilityInwardsCalculationScenario[] calculationScenarios = failureMechanism.Calculations.OfType<MacroStabilityInwardsCalculationScenario>().ToArray();
+            MacroStabilityInwardsFailureMechanismSectionResult failureMechanismSectionResult1 = failureMechanism.SectionResults.First();
+            MacroStabilityInwardsFailureMechanismSectionResult failureMechanismSectionResult2 = failureMechanism.SectionResults.ElementAt(1);
+
+            Assert.AreEqual(2, failureMechanismSectionResult1.GetCalculationScenarios(calculationScenarios).Count());
+
+            foreach (MacroStabilityInwardsCalculationScenario calculationScenario in failureMechanismSectionResult1.GetCalculationScenarios(calculationScenarios))
+            {
+                Assert.IsInstanceOf<ICalculationScenario>(calculationScenario);
+            }
+
+            CollectionAssert.IsEmpty(failureMechanismSectionResult2.GetCalculationScenarios(calculationScenarios));
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GivenCalculationsViewGenerateScenariosCancelButtonClicked_WhenDialogClosed_CalculationsNotUpdatedAndCalculationGroupNotNotified()
+        {
+            // Given
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            ConfigureHydraulicBoundaryDatabase(assessmentSection);
+            var observer = mocks.StrictMock<IObserver>();
+            mocks.ReplayAll();
+
+            MacroStabilityInwardsFailureMechanism failureMechanism = ConfigureSimpleFailureMechanism();
+            ShowMacroStabilityInwardsCalculationsView(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection);
+
+            failureMechanism.CalculationsGroup.Attach(observer);
+
+            var button = new ButtonTester("generateButton", testForm);
+
+            DialogBoxHandler = (name, wnd) =>
+            {
+                var selectionDialog = (MacroStabilityInwardsSurfaceLineSelectionDialog)new FormTester(name).TheObject;
+                var selectionView = (DataGridViewControl)new ControlTester("DataGridViewControl", selectionDialog).TheObject;
+                selectionView.Rows[0].Cells[0].Value = true;
+
+                // When
+                new ButtonTester("CustomCancelButton", selectionDialog).Click();
+            };
+
+            button.Click();
+
+            // Then
+            CollectionAssert.IsEmpty(failureMechanism.Calculations);
+            mocks.VerifyAll(); // No observer notified
+        }
+
         public override void Setup()
         {
             base.Setup();

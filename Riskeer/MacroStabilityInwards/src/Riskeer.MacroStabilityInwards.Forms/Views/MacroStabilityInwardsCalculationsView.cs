@@ -136,17 +136,23 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
         {
             var calculationGroup = (CalculationGroup) Data;
 
-            var dialog = new MacroStabilityInwardsSurfaceLineSelectionDialog(Parent, FailureMechanism.SurfaceLines);
-            dialog.ShowDialog();
-            IEnumerable<ICalculationBase> calculationsStructure = MacroStabilityInwardsCalculationConfigurationHelper.GenerateCalculationItemsStructure(
-                dialog.SelectedItems,
-                FailureMechanism.StochasticSoilModels);
-            foreach (ICalculationBase item in calculationsStructure)
+            using (var dialog = new MacroStabilityInwardsSurfaceLineSelectionDialog(Parent, FailureMechanism.SurfaceLines))
             {
-                calculationGroup.Children.Add(item);
-            }
+                dialog.ShowDialog();
 
-            calculationGroup.NotifyObservers();
+                if (dialog.SelectedItems.Any())
+                {
+                    IEnumerable<ICalculationBase> calculationsStructure = MacroStabilityInwardsCalculationConfigurationHelper.GenerateCalculationItemsStructure(
+                        dialog.SelectedItems,
+                        FailureMechanism.StochasticSoilModels);
+                    foreach (ICalculationBase item in calculationsStructure)
+                    {
+                        calculationGroup.Children.Add(item);
+                    }
+
+                    calculationGroup.NotifyObservers();
+                }
+            }
         }
 
         protected override void InitializeDataGridView()

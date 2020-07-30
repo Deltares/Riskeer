@@ -27,6 +27,7 @@ using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
+using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.Views;
 using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
@@ -568,6 +569,160 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             var dataRow = (GrassCoverErosionInwardsCalculationRow) dataGridView.Rows[selectedRow].DataBoundItem;
             Assert.AreSame(dataRow.Calculation, ((GrassCoverErosionInwardsInputContext) selection).Calculation);
             mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GivenCalculationsView_WhenGenerateScenariosButtonClicked_ThenShowViewWithDikeProfiles()
+        {
+            // Given
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            ConfigureHydraulicBoundaryDatabase(assessmentSection);
+            mocks.ReplayAll();
+        
+            const string arbitraryFilePath = "path";
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            failureMechanism.DikeProfiles.AddRange(new[]
+            {
+                DikeProfileTestFactory.CreateDikeProfile("1", "Profiel 1", new Point2D(0.0, 0.0)),
+                DikeProfileTestFactory.CreateDikeProfile("2", "Profiel 2", new Point2D(5.0, 0.0))
+            }, arbitraryFilePath);
+
+            ShowCalculationsView(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection);
+        
+            var button = new ButtonTester("generateButton", testForm);
+
+            GrassCoverErosionInwardsDikeProfileSelectionDialog selectionDialog = null;
+            DataGridViewControl grid = null;
+            var rows = 0;
+            DialogBoxHandler = (name, wnd) =>
+            {
+                selectionDialog = (GrassCoverErosionInwardsDikeProfileSelectionDialog) new FormTester(name).TheObject;
+                grid = (DataGridViewControl) new ControlTester("DataGridViewControl", selectionDialog).TheObject;
+                rows = grid.Rows.Count;
+
+                new ButtonTester("CustomCancelButton", selectionDialog).Click();
+            };
+        
+            // When
+            button.Click();
+        
+            // Then
+            Assert.NotNull(selectionDialog);
+            Assert.NotNull(grid);
+            Assert.AreEqual(failureMechanism.DikeProfiles.Count, rows);
+            mocks.VerifyAll();
+        }
+        
+        [Test]
+        public void GivenCalculationsViewGenerateCalculationsButtonClicked_WhenDialogClosed_ThenNotifyCalculationGroup()
+        {
+            // Given
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            ConfigureHydraulicBoundaryDatabase(assessmentSection);
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+        
+            const string arbitraryFilePath = "path";
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            failureMechanism.DikeProfiles.AddRange(new[]
+            {
+                DikeProfileTestFactory.CreateDikeProfile("1", "Profiel 1", new Point2D(0.0, 0.0)),
+                DikeProfileTestFactory.CreateDikeProfile("2", "Profiel 2", new Point2D(5.0, 0.0))
+            }, arbitraryFilePath);
+            failureMechanism.CalculationsGroup.Attach(observer);
+        
+            ShowCalculationsView(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection);
+        
+            var button = new ButtonTester("generateButton", testForm);
+        
+            DialogBoxHandler = (name, wnd) =>
+            {
+                var selectionDialog = (GrassCoverErosionInwardsDikeProfileSelectionDialog)new FormTester(name).TheObject;
+                var selectionView = (DataGridViewControl)new ControlTester("DataGridViewControl", selectionDialog).TheObject;
+                selectionView.Rows[0].Cells[0].Value = true;
+        
+                // When
+                new ButtonTester("DoForSelectedButton", selectionDialog).Click();
+            };
+        
+            button.Click();
+        
+            // Then
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GivenCalculationsViewGenerateCalculationsButtonClicked_WhenDikeProfileSelectedAndDialogClosed_ThenUpdateSectionResultScenarios()
+        {
+            // Given
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            ConfigureHydraulicBoundaryDatabase(assessmentSection);
+            mocks.ReplayAll();
+
+            GrassCoverErosionInwardsFailureMechanism failureMechanism = ConfigureFailureMechanism();
+
+            ShowCalculationsView(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection);
+
+            var button = new ButtonTester("generateButton", testForm);
+
+            DialogBoxHandler = (name, wnd) =>
+            {
+                var selectionDialog = (GrassCoverErosionInwardsDikeProfileSelectionDialog) new FormTester(name).TheObject;
+                var selectionView = (DataGridViewControl)new ControlTester("DataGridViewControl", selectionDialog).TheObject;
+                selectionView.Rows[0].Cells[0].Value = true;
+
+                // When
+                new ButtonTester("DoForSelectedButton", selectionDialog).Click();
+            };
+
+            button.Click();
+
+            // Then
+            GrassCoverErosionInwardsCalculationScenario[] calculationScenarios = failureMechanism.Calculations.OfType<GrassCoverErosionInwardsCalculationScenario>().ToArray();
+            GrassCoverErosionInwardsFailureMechanismSectionResult failureMechanismSectionResult1 = failureMechanism.SectionResults.First();
+            GrassCoverErosionInwardsFailureMechanismSectionResult failureMechanismSectionResult2 = failureMechanism.SectionResults.ElementAt(1);
+
+            Assert.AreEqual(1, failureMechanismSectionResult1.GetCalculationScenarios(calculationScenarios).Count());
+            CollectionAssert.IsEmpty(failureMechanismSectionResult2.GetCalculationScenarios(calculationScenarios));
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GivenCalculationsViewGenerateCalculationsCancelButtonClicked_WhenDialogClosed_CalculationsNotUpdatedAndCalculationGroupNotNotified()
+        {
+            // Given
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            ConfigureHydraulicBoundaryDatabase(assessmentSection);
+            var observer = mocks.StrictMock<IObserver>();
+            mocks.ReplayAll();
+
+            GrassCoverErosionInwardsFailureMechanism failureMechanism = ConfigureFailureMechanism();
+            ShowCalculationsView(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection);
+
+            failureMechanism.CalculationsGroup.Attach(observer);
+
+            var button = new ButtonTester("generateButton", testForm);
+        
+            DialogBoxHandler = (name, wnd) =>
+            {
+                var selectionDialog = (GrassCoverErosionInwardsDikeProfileSelectionDialog)new FormTester(name).TheObject;
+                var selectionView = (DataGridViewControl)new ControlTester("DataGridViewControl", selectionDialog).TheObject;
+                selectionView.Rows[0].Cells[0].Value = true;
+        
+                // When
+                new ButtonTester("CustomCancelButton", selectionDialog).Click();
+            };
+        
+            button.Click();
+        
+            // Then
+            CollectionAssert.IsEmpty(failureMechanism.Calculations);
+            mocks.VerifyAll(); // No observer notified
         }
 
         public override void Setup()

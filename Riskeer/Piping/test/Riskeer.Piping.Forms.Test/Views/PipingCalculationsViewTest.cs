@@ -381,171 +381,6 @@ namespace Riskeer.Piping.Forms.Test.Views
         }
 
         [Test]
-        public void GivenCalculationsView_WhenGenerateScenariosButtonClicked_ThenShowViewWithSurfaceLines()
-        {
-            // Given
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            ConfigureHydraulicBoundaryDatabase(assessmentSection);
-            mocks.ReplayAll();
-
-            const string arbitraryFilePath = "path";
-            var failureMechanism = new PipingFailureMechanism();
-            failureMechanism.SurfaceLines.AddRange(new[]
-            {
-                new PipingSurfaceLine("Line A"),
-                new PipingSurfaceLine("Line B")
-            }, arbitraryFilePath);
-            failureMechanism.StochasticSoilModels.AddRange(new[]
-            {
-                PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel()
-            }, arbitraryFilePath);
-
-            ShowPipingCalculationsView(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection);
-
-            var button = new ButtonTester("generateButton", testForm);
-
-            PipingSurfaceLineSelectionDialog selectionDialog = null;
-            DataGridViewControl grid = null;
-            DialogBoxHandler = (name, wnd) =>
-            {
-                selectionDialog = (PipingSurfaceLineSelectionDialog) new FormTester(name).TheObject;
-                grid = (DataGridViewControl) new ControlTester("DataGridViewControl", selectionDialog).TheObject;
-
-                new ButtonTester("CustomCancelButton", selectionDialog).Click();
-            };
-
-            // When
-            button.Click();
-
-            // Then
-            Assert.NotNull(selectionDialog);
-            Assert.NotNull(grid);
-            Assert.AreEqual(2, grid.Rows.Count);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        [TestCase("DoForSelectedButton")]
-        [TestCase("CustomCancelButton")]
-        public void GivenCalculationsViewGenerateScenariosButtonClicked_WhenDialogClosed_ThenNotifyCalculationGroup(string buttonName)
-        {
-            // Given
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            ConfigureHydraulicBoundaryDatabase(assessmentSection);
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
-
-            const string arbitraryFilePath = "path";
-            var failureMechanism = new PipingFailureMechanism();
-            failureMechanism.SurfaceLines.AddRange(new[]
-            {
-                new PipingSurfaceLine("Line A"),
-                new PipingSurfaceLine("Line B")
-            }, arbitraryFilePath);
-            failureMechanism.StochasticSoilModels.AddRange(new[]
-            {
-                PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel()
-            }, arbitraryFilePath);
-            failureMechanism.CalculationsGroup.Attach(observer);
-
-            ShowPipingCalculationsView(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection);
-
-            var button = new ButtonTester("generateButton", testForm);
-
-            DialogBoxHandler = (name, wnd) =>
-            {
-                var selectionDialog = (PipingSurfaceLineSelectionDialog) new FormTester(name).TheObject;
-                var selectionView = (DataGridViewControl) new ControlTester("DataGridViewControl", selectionDialog).TheObject;
-                selectionView.Rows[0].Cells[0].Value = true;
-
-                // When
-                new ButtonTester(buttonName, selectionDialog).Click();
-            };
-
-            button.Click();
-
-            // Then
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void GivenCalculationsViewGenerateScenariosButtonClicked_WhenSurfaceLineSelectedAndDialogClosed_ThenUpdateSectionResultScenarios()
-        {
-            // Given
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            ConfigureHydraulicBoundaryDatabase(assessmentSection);
-            mocks.ReplayAll();
-
-            PipingFailureMechanism failureMechanism = ConfigureSimpleFailureMechanism();
-
-            ShowPipingCalculationsView(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection);
-
-            var button = new ButtonTester("generateButton", testForm);
-
-            DialogBoxHandler = (name, wnd) =>
-            {
-                var selectionDialog = (PipingSurfaceLineSelectionDialog) new FormTester(name).TheObject;
-                var selectionView = (DataGridViewControl) new ControlTester("DataGridViewControl", selectionDialog).TheObject;
-                selectionView.Rows[0].Cells[0].Value = true;
-
-                // When
-                new ButtonTester("DoForSelectedButton", selectionDialog).Click();
-            };
-
-            button.Click();
-
-            // Then
-            PipingCalculationScenario[] pipingCalculationScenarios = failureMechanism.Calculations.OfType<PipingCalculationScenario>().ToArray();
-            PipingFailureMechanismSectionResult failureMechanismSectionResult1 = failureMechanism.SectionResults.First();
-            PipingFailureMechanismSectionResult failureMechanismSectionResult2 = failureMechanism.SectionResults.ElementAt(1);
-
-            Assert.AreEqual(2, failureMechanismSectionResult1.GetCalculationScenarios(pipingCalculationScenarios).Count());
-
-            foreach (PipingCalculationScenario calculationScenario in failureMechanismSectionResult1.GetCalculationScenarios(pipingCalculationScenarios))
-            {
-                Assert.IsInstanceOf<ICalculationScenario>(calculationScenario);
-            }
-
-            CollectionAssert.IsEmpty(failureMechanismSectionResult2.GetCalculationScenarios(pipingCalculationScenarios));
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void GivenCalculationsViewGenerateScenariosCancelButtonClicked_WhenDialogClosed_CalculationsNotUpdated()
-        {
-            // Given
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            ConfigureHydraulicBoundaryDatabase(assessmentSection);
-            mocks.ReplayAll();
-
-            PipingFailureMechanism failureMechanism = ConfigureSimpleFailureMechanism();
-            ShowPipingCalculationsView(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection);
-
-            var button = new ButtonTester("generateButton", testForm);
-
-            DialogBoxHandler = (name, wnd) =>
-            {
-                var selectionDialog = (PipingSurfaceLineSelectionDialog) new FormTester(name).TheObject;
-                var selectionView = (DataGridViewControl) new ControlTester("DataGridViewControl", selectionDialog).TheObject;
-                selectionView.Rows[0].Cells[0].Value = true;
-
-                // When
-                new ButtonTester("CustomCancelButton", selectionDialog).Click();
-            };
-
-            button.Click();
-
-            // Then
-            CollectionAssert.IsEmpty(failureMechanism.Calculations);
-            mocks.VerifyAll();
-        }
-
-        [Test]
         public void GivenFailureMechanismWithoutSurfaceLinesAndSoilModels_WhenAddSoilModelAndNotify_ThenButtonDisabled()
         {
             // Given
@@ -930,6 +765,174 @@ namespace Riskeer.Piping.Forms.Test.Views
             Assert.AreEqual("Calculation 2", dataGridView.Rows[1].Cells[nameColumnIndex].FormattedValue);
 
             mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GivenCalculationsView_WhenGenerateScenariosButtonClicked_ThenShowViewWithSurfaceLines()
+        {
+            // Given
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            ConfigureHydraulicBoundaryDatabase(assessmentSection);
+            mocks.ReplayAll();
+
+            const string arbitraryFilePath = "path";
+            var failureMechanism = new PipingFailureMechanism();
+            failureMechanism.SurfaceLines.AddRange(new[]
+            {
+                new PipingSurfaceLine("Line A"),
+                new PipingSurfaceLine("Line B")
+            }, arbitraryFilePath);
+            failureMechanism.StochasticSoilModels.AddRange(new[]
+            {
+                PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel()
+            }, arbitraryFilePath);
+
+            ShowPipingCalculationsView(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection);
+
+            var button = new ButtonTester("generateButton", testForm);
+
+            PipingSurfaceLineSelectionDialog selectionDialog = null;
+            DataGridViewControl grid = null;
+            var rows = 0;
+            DialogBoxHandler = (name, wnd) =>
+            {
+                selectionDialog = (PipingSurfaceLineSelectionDialog) new FormTester(name).TheObject;
+                grid = (DataGridViewControl) new ControlTester("DataGridViewControl", selectionDialog).TheObject;
+                rows = grid.Rows.Count;
+
+                new ButtonTester("CustomCancelButton", selectionDialog).Click();
+            };
+
+            // When
+            button.Click();
+
+            // Then
+            Assert.NotNull(selectionDialog);
+            Assert.NotNull(grid);
+            Assert.AreEqual(failureMechanism.SurfaceLines.Count, rows);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GivenCalculationsViewGenerateScenariosButtonClicked_WhenDialogClosed_ThenNotifyCalculationGroup()
+        {
+            // Given
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            ConfigureHydraulicBoundaryDatabase(assessmentSection);
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
+            const string arbitraryFilePath = "path";
+            var failureMechanism = new PipingFailureMechanism();
+            failureMechanism.SurfaceLines.AddRange(new[]
+            {
+                new PipingSurfaceLine("Line A"),
+                new PipingSurfaceLine("Line B")
+            }, arbitraryFilePath);
+            failureMechanism.StochasticSoilModels.AddRange(new[]
+            {
+                PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel()
+            }, arbitraryFilePath);
+            failureMechanism.CalculationsGroup.Attach(observer);
+
+            ShowPipingCalculationsView(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection);
+
+            var button = new ButtonTester("generateButton", testForm);
+
+            DialogBoxHandler = (name, wnd) =>
+            {
+                var selectionDialog = (PipingSurfaceLineSelectionDialog) new FormTester(name).TheObject;
+                var selectionView = (DataGridViewControl) new ControlTester("DataGridViewControl", selectionDialog).TheObject;
+                selectionView.Rows[0].Cells[0].Value = true;
+
+                // When
+                new ButtonTester("DoForSelectedButton", selectionDialog).Click();
+            };
+
+            button.Click();
+
+            // Then
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GivenCalculationsViewGenerateScenariosButtonClicked_WhenSurfaceLineSelectedAndDialogClosed_ThenUpdateSectionResultScenarios()
+        {
+            // Given
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            ConfigureHydraulicBoundaryDatabase(assessmentSection);
+            mocks.ReplayAll();
+
+            PipingFailureMechanism failureMechanism = ConfigureSimpleFailureMechanism();
+
+            ShowPipingCalculationsView(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection);
+
+            var button = new ButtonTester("generateButton", testForm);
+
+            DialogBoxHandler = (name, wnd) =>
+            {
+                var selectionDialog = (PipingSurfaceLineSelectionDialog) new FormTester(name).TheObject;
+                var selectionView = (DataGridViewControl) new ControlTester("DataGridViewControl", selectionDialog).TheObject;
+                selectionView.Rows[0].Cells[0].Value = true;
+
+                // When
+                new ButtonTester("DoForSelectedButton", selectionDialog).Click();
+            };
+
+            button.Click();
+
+            // Then
+            PipingCalculationScenario[] pipingCalculationScenarios = failureMechanism.Calculations.OfType<PipingCalculationScenario>().ToArray();
+            PipingFailureMechanismSectionResult failureMechanismSectionResult1 = failureMechanism.SectionResults.First();
+            PipingFailureMechanismSectionResult failureMechanismSectionResult2 = failureMechanism.SectionResults.ElementAt(1);
+
+            Assert.AreEqual(2, failureMechanismSectionResult1.GetCalculationScenarios(pipingCalculationScenarios).Count());
+
+            foreach (PipingCalculationScenario calculationScenario in failureMechanismSectionResult1.GetCalculationScenarios(pipingCalculationScenarios))
+            {
+                Assert.IsInstanceOf<ICalculationScenario>(calculationScenario);
+            }
+
+            CollectionAssert.IsEmpty(failureMechanismSectionResult2.GetCalculationScenarios(pipingCalculationScenarios));
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GivenCalculationsViewGenerateScenariosCancelButtonClicked_WhenDialogClosed_CalculationsNotUpdatedAndCalculationGroupNotNotified()
+        {
+            // Given
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            ConfigureHydraulicBoundaryDatabase(assessmentSection);
+            var observer = mocks.StrictMock<IObserver>();
+            mocks.ReplayAll();
+
+            PipingFailureMechanism failureMechanism = ConfigureSimpleFailureMechanism();
+            ShowPipingCalculationsView(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection);
+
+            failureMechanism.CalculationsGroup.Attach(observer);
+
+            var button = new ButtonTester("generateButton", testForm);
+
+            DialogBoxHandler = (name, wnd) =>
+            {
+                var selectionDialog = (PipingSurfaceLineSelectionDialog) new FormTester(name).TheObject;
+                var selectionView = (DataGridViewControl) new ControlTester("DataGridViewControl", selectionDialog).TheObject;
+                selectionView.Rows[0].Cells[0].Value = true;
+
+                // When
+                new ButtonTester("CustomCancelButton", selectionDialog).Click();
+            };
+
+            button.Click();
+
+            // Then
+            CollectionAssert.IsEmpty(failureMechanism.Calculations);
+            mocks.VerifyAll(); // No observer notified
         }
 
         [TestCase(true)]
