@@ -616,7 +616,9 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
                     ShouldOvertoppingOutputIllustrationPointsBeCalculated = true,
                     ShouldDikeHeightIllustrationPointsBeCalculated = false,
                     ShouldOvertoppingRateIllustrationPointsBeCalculated = true
-                }
+                },
+                IsRelevant = true,
+                Contribution = (RoundedDouble) 0.5432
             };
 
             Assert.AreEqual(1, calculationGroup.Children.Count);
