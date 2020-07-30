@@ -19,8 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
-using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.IO.Configurations;
 using Riskeer.StabilityPointStructures.IO.Configurations;
@@ -30,17 +28,6 @@ namespace Riskeer.StabilityPointStructures.IO.Test.Configurations
     [TestFixture]
     public class StabilityPointStructuresCalculationConfigurationTest
     {
-        [Test]
-        public void Constructor_NameNull_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate call = () => new StabilityPointStructuresCalculationConfiguration(null);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("value", paramName);
-        }
-
         [Test]
         public void Constructor_WithName_ExpectedValues()
         {
@@ -77,107 +64,6 @@ namespace Riskeer.StabilityPointStructures.IO.Test.Configurations
             Assert.IsNull(configuration.ThresholdHeightOpenWeir);
             Assert.IsNull(configuration.VerticalDistance);
             Assert.IsNull(configuration.VolumicWeightWater);
-        }
-
-        [Test]
-        public void Properties_SetNewValues_NewValuesSet()
-        {
-            // Setup
-            var configuration = new StabilityPointStructuresCalculationConfiguration("some name");
-            var random = new Random(5432);
-
-            var areaFlowApertures = new StochastConfiguration();
-            var bankWidth = new StochastConfiguration();
-            var drainCoefficient = new StochastConfiguration();
-            var insideWaterLevel = new StochastConfiguration();
-            var insideWaterLevelFailureConstruction = new StochastConfiguration();
-            var levelCrestStructure = new StochastConfiguration();
-            var thresholdHeightOpenWeir = new StochastConfiguration();
-
-            var constructiveStrengthLinearLoadModel = new StochastConfiguration();
-            var constructiveStrengthQuadraticLoadModel = new StochastConfiguration();
-            var failureCollisionEnergy = new StochastConfiguration();
-            var flowVelocityStructureClosable = new StochastConfiguration();
-            var shipMass = new StochastConfiguration();
-            var shipVelocity = new StochastConfiguration();
-            var stabilityLinearLoadModel = new StochastConfiguration();
-            var stabilityQuadraticLoadModel = new StochastConfiguration();
-
-            int levellingCount = random.Next();
-            double evaluationLevel = random.NextDouble();
-            double factorStormDurationOpenStructure = random.NextDouble();
-            double failureProbabilityRepairClosure = random.NextDouble();
-            double probabilityCollisionSecondaryStructure = random.NextDouble();
-            double verticalDistance = random.NextDouble();
-            double volumicWeightWater = random.NextDouble();
-
-            var inflowModelType = random.NextEnumValue<ConfigurationStabilityPointStructuresInflowModelType>();
-            var loadSchematizationType = random.NextEnumValue<ConfigurationStabilityPointStructuresLoadSchematizationType>();
-
-            // Call
-            configuration.AreaFlowApertures = areaFlowApertures;
-            configuration.BankWidth = bankWidth;
-            configuration.ConstructiveStrengthLinearLoadModel = constructiveStrengthLinearLoadModel;
-            configuration.ConstructiveStrengthQuadraticLoadModel = constructiveStrengthQuadraticLoadModel;
-            configuration.DrainCoefficient = drainCoefficient;
-            configuration.EvaluationLevel = evaluationLevel;
-            configuration.FactorStormDurationOpenStructure = factorStormDurationOpenStructure;
-            configuration.FailureCollisionEnergy = failureCollisionEnergy;
-            configuration.FailureProbabilityRepairClosure = failureProbabilityRepairClosure;
-            configuration.FlowVelocityStructureClosable = flowVelocityStructureClosable;
-            configuration.InflowModelType = inflowModelType;
-            configuration.InsideWaterLevel = insideWaterLevel;
-            configuration.InsideWaterLevelFailureConstruction = insideWaterLevelFailureConstruction;
-            configuration.LevelCrestStructure = levelCrestStructure;
-            configuration.LevellingCount = levellingCount;
-            configuration.LoadSchematizationType = loadSchematizationType;
-            configuration.ProbabilityCollisionSecondaryStructure = probabilityCollisionSecondaryStructure;
-            configuration.ShipMass = shipMass;
-            configuration.ShipVelocity = shipVelocity;
-            configuration.StabilityLinearLoadModel = stabilityLinearLoadModel;
-            configuration.StabilityQuadraticLoadModel = stabilityQuadraticLoadModel;
-            configuration.ThresholdHeightOpenWeir = thresholdHeightOpenWeir;
-            configuration.VerticalDistance = verticalDistance;
-            configuration.VolumicWeightWater = volumicWeightWater;
-
-            // Assert
-            Assert.AreSame(areaFlowApertures, configuration.AreaFlowApertures);
-            Assert.AreSame(bankWidth, configuration.BankWidth);
-            Assert.AreSame(constructiveStrengthLinearLoadModel, configuration.ConstructiveStrengthLinearLoadModel);
-            Assert.AreSame(constructiveStrengthQuadraticLoadModel, configuration.ConstructiveStrengthQuadraticLoadModel);
-            Assert.AreSame(drainCoefficient, configuration.DrainCoefficient);
-            Assert.AreEqual(evaluationLevel, configuration.EvaluationLevel);
-            Assert.AreEqual(factorStormDurationOpenStructure, configuration.FactorStormDurationOpenStructure);
-            Assert.AreSame(failureCollisionEnergy, configuration.FailureCollisionEnergy);
-            Assert.AreEqual(failureProbabilityRepairClosure, configuration.FailureProbabilityRepairClosure);
-            Assert.AreSame(flowVelocityStructureClosable, configuration.FlowVelocityStructureClosable);
-            Assert.AreEqual(inflowModelType, configuration.InflowModelType);
-            Assert.AreEqual(insideWaterLevel, configuration.InsideWaterLevel);
-            Assert.AreEqual(insideWaterLevelFailureConstruction, configuration.InsideWaterLevelFailureConstruction);
-            Assert.AreEqual(levelCrestStructure, configuration.LevelCrestStructure);
-            Assert.AreEqual(levellingCount, configuration.LevellingCount);
-            Assert.AreEqual(loadSchematizationType, configuration.LoadSchematizationType);
-            Assert.AreEqual(probabilityCollisionSecondaryStructure, configuration.ProbabilityCollisionSecondaryStructure);
-            Assert.AreSame(shipMass, configuration.ShipMass);
-            Assert.AreSame(shipVelocity, configuration.ShipVelocity);
-            Assert.AreSame(stabilityLinearLoadModel, configuration.StabilityLinearLoadModel);
-            Assert.AreSame(stabilityQuadraticLoadModel, configuration.StabilityQuadraticLoadModel);
-            Assert.AreSame(thresholdHeightOpenWeir, configuration.ThresholdHeightOpenWeir);
-            Assert.AreEqual(verticalDistance, configuration.VerticalDistance);
-            Assert.AreEqual(volumicWeightWater, configuration.VolumicWeightWater);
-        }
-
-        [Test]
-        public void Name_Null_ThrowsArgumentNullException()
-        {
-            // Setup
-            var calculationConfiguration = new StabilityPointStructuresCalculationConfiguration("valid name");
-
-            // Call
-            TestDelegate test = () => calculationConfiguration.Name = null;
-
-            // Assert
-            Assert.Throws<ArgumentNullException>(test);
         }
     }
 }
