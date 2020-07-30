@@ -31,6 +31,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Forms.Properties;
 using Riskeer.Integration.Forms.Dialogs;
+using Riskeer.Integration.IO.Importers;
 
 namespace Riskeer.Integration.Forms.Test.Dialogs
 {
@@ -83,6 +84,62 @@ namespace Riskeer.Integration.Forms.Test.Dialogs
                 var buttonCancel = (Button) new ButtonTester("buttonCancel", dialog).TheObject;
                 Assert.AreSame(buttonCancel, dialog.CancelButton);
                 Assert.IsTrue(buttonCancel.Enabled);
+            }
+        }
+
+        [Test]
+        [Apartment(ApartmentState.STA)]
+        public void ShowDialog_WithoutSettings_ExpectedValues()
+        {
+            // Setup
+            var mockRepository = new MockRepository();
+            var inquiryHelper = mockRepository.Stub<IInquiryHelper>();
+            mockRepository.ReplayAll();
+
+            using (var dialogParent = new Form())
+            using (var dialog = new HydraulicBoundaryDatabaseImporterSettingsDialog(dialogParent, inquiryHelper))
+            {
+                // Call
+                dialog.Show();
+
+                // Assert
+                var textBoxHlcd = (TextBox) new ControlTester("textBoxHlcd", dialog).TheObject;
+                Assert.AreEqual("<selecteer>", textBoxHlcd.Text);
+
+                var textBoxHrd = (TextBox) new ControlTester("textBoxHrd", dialog).TheObject;
+                Assert.AreEqual("<selecteer>", textBoxHrd.Text);
+
+                var textBoxLocations = (TextBox) new ControlTester("textBoxLocations", dialog).TheObject;
+                Assert.AreEqual("<selecteer>", textBoxLocations.Text);
+            }
+        }
+
+        [Test]
+        [Apartment(ApartmentState.STA)]
+        public void ShowDialog_WithSettings_ExpectedValues()
+        {
+            // Setup
+            var mockRepository = new MockRepository();
+            var inquiryHelper = mockRepository.Stub<IInquiryHelper>();
+            mockRepository.ReplayAll();
+
+            var settings = new HydraulicBoundaryDatabaseImporterSettings("path hlcd file", "path hrd directory", "path locations file");
+
+            using (var dialogParent = new Form())
+            using (var dialog = new HydraulicBoundaryDatabaseImporterSettingsDialog(dialogParent, inquiryHelper, settings))
+            {
+                // Call
+                dialog.Show();
+
+                // Assert
+                var textBoxHlcd = (TextBox) new ControlTester("textBoxHlcd", dialog).TheObject;
+                Assert.AreEqual(settings.HlcdFilePath, textBoxHlcd.Text);
+
+                var textBoxHrd = (TextBox) new ControlTester("textBoxHrd", dialog).TheObject;
+                Assert.AreEqual(settings.HrdDirectoryPath, textBoxHrd.Text);
+
+                var textBoxLocations = (TextBox) new ControlTester("textBoxLocations", dialog).TheObject;
+                Assert.AreEqual(settings.LocationsFilePath, textBoxLocations.Text);
             }
         }
 

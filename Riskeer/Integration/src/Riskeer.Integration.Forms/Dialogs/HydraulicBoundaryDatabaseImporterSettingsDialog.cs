@@ -26,6 +26,7 @@ using Core.Common.Controls.Dialogs;
 using Core.Common.Gui.Helpers;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Integration.Forms.Properties;
+using Riskeer.Integration.IO.Importers;
 using CoreCommonControlsResources = Core.Common.Controls.Properties.Resources;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
@@ -44,9 +45,13 @@ namespace Riskeer.Integration.Forms.Dialogs
         /// </summary>
         /// <param name="dialogParent">The dialog parent for which this dialog should be shown on top.</param>
         /// <param name="inquiryHelper">Object responsible for inquiring the required data.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
+        /// <param name="settings">The settings to use for initialization of the dialog.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="dialogParent"/> or
+        /// <paramref name="inquiryHelper"/> is <c>null</c>.</exception>
         public HydraulicBoundaryDatabaseImporterSettingsDialog(IWin32Window dialogParent,
-                                                               IInquiryHelper inquiryHelper) : base(dialogParent, RiskeerCommonFormsResources.DatabaseIcon, 600, 250)
+                                                               IInquiryHelper inquiryHelper,
+                                                               HydraulicBoundaryDatabaseImporterSettings settings = null)
+            : base(dialogParent, RiskeerCommonFormsResources.DatabaseIcon, 600, 250)
         {
             this.inquiryHelper = inquiryHelper ?? throw new ArgumentNullException(nameof(inquiryHelper));
 
@@ -54,9 +59,18 @@ namespace Riskeer.Integration.Forms.Dialogs
 
             FurtherInitializeComponent();
 
-            textBoxHlcd.Text = CoreCommonControlsResources.DisplayName_None;
-            textBoxHrd.Text = CoreCommonControlsResources.DisplayName_None;
-            textBoxLocations.Text = CoreCommonControlsResources.DisplayName_None;
+            if (settings == null)
+            {
+                textBoxHlcd.Text = CoreCommonControlsResources.DisplayName_None;
+                textBoxHrd.Text = CoreCommonControlsResources.DisplayName_None;
+                textBoxLocations.Text = CoreCommonControlsResources.DisplayName_None;
+            }
+            else
+            {
+                textBoxHlcd.Text = settings.HlcdFilePath;
+                textBoxHrd.Text = settings.HrdDirectoryPath;
+                textBoxLocations.Text = settings.LocationsFilePath;
+            }
 
             UpdateButtonConnect();
         }
