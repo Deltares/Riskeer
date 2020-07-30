@@ -94,7 +94,6 @@ namespace Riskeer.Common.Forms.Views
             InitializeDataGridView();
 
             UpdateSectionsListBox();
-            UpdateDataGridViewDataSource();
         }
 
         public object Selection
