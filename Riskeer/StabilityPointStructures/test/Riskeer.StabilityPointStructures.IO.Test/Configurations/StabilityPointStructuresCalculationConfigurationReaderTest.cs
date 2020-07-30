@@ -559,7 +559,8 @@ namespace Riskeer.StabilityPointStructures.IO.Test.Configurations
             Assert.IsNull(calculation.WidthFlowApertures);
             Assert.IsNull(calculation.WaveReduction.UseForeshoreProfile);
             Assert.IsNull(calculation.ShouldIllustrationPointsBeCalculated);
-            Assert.IsNull(calculation.Scenario);
+            Assert.IsTrue(calculation.Scenario.IsRelevant);
+            Assert.AreEqual(8.8, calculation.Scenario.Contribution);
         }
 
         [Test]

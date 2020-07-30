@@ -49,11 +49,13 @@ namespace Riskeer.HeightStructures.IO.Test.Configurations
                         CreateFullCalculation()
                     })
                     .SetName("Calculation configuration with all parameters set");
+                
                 yield return new TestCaseData("sparseConfiguration", new[]
                     {
                         new HeightStructuresCalculationConfiguration("sparse config")
                     })
                     .SetName("Calculation configuration with none of its parameters set");
+                
                 yield return new TestCaseData("folderWithSubfolderAndCalculation", new IConfigurationItem[]
                     {
                         new CalculationGroupConfiguration("Testmap", new IConfigurationItem[]
@@ -160,10 +162,10 @@ namespace Riskeer.HeightStructures.IO.Test.Configurations
                     Mean = 2,
                     VariationCoefficient = 0.1
                 },
-                Scenario = new ScenarioConfiguration()
+                Scenario = new ScenarioConfiguration
                 {
                     IsRelevant = true,
-                    Contribution = 8.8
+                    Contribution = 0.3
                 }
             };
         }

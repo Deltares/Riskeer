@@ -64,52 +64,6 @@ namespace Riskeer.Piping.IO.Test.Configurations
         }
 
         [Test]
-        public void Constructor_WithNameAndProperties_PropertiesAsExpected()
-        {
-            // Setup
-            const string calculationName = "Name of the calculation";
-            const double assessmentLevel = 1.1;
-            const string hydraulicBoundaryLocation = "Name of the hydraulic boundary location";
-            const string surfaceLine = "Name of the surface line";
-            const double entryPointL = 2.2;
-            const double exitPointL = 3.3;
-            const string stochasticSoilModel = "Name of the stochastic soil model";
-            const string stochasticSoilProfile = "Name of the stochastic soil profile";
-
-            var phreaticLevelExit = new StochastConfiguration();
-            var dampingFactorExit = new StochastConfiguration();
-            var scenarioConfiguration = new ScenarioConfiguration();
-
-            // Call
-            var readPipingCalculation = new PipingCalculationConfiguration(calculationName)
-            {
-                AssessmentLevel = assessmentLevel,
-                HydraulicBoundaryLocationName = hydraulicBoundaryLocation,
-                SurfaceLineName = surfaceLine,
-                EntryPointL = entryPointL,
-                ExitPointL = exitPointL,
-                StochasticSoilModelName = stochasticSoilModel,
-                StochasticSoilProfileName = stochasticSoilProfile,
-                PhreaticLevelExit = phreaticLevelExit,
-                DampingFactorExit = dampingFactorExit,
-                Scenario = scenarioConfiguration
-            };
-
-            // Assert
-            Assert.AreEqual(calculationName, readPipingCalculation.Name);
-            Assert.AreEqual(assessmentLevel, readPipingCalculation.AssessmentLevel);
-            Assert.AreEqual(hydraulicBoundaryLocation, readPipingCalculation.HydraulicBoundaryLocationName);
-            Assert.AreEqual(surfaceLine, readPipingCalculation.SurfaceLineName);
-            Assert.AreEqual(entryPointL, readPipingCalculation.EntryPointL);
-            Assert.AreEqual(exitPointL, readPipingCalculation.ExitPointL);
-            Assert.AreEqual(stochasticSoilModel, readPipingCalculation.StochasticSoilModelName);
-            Assert.AreEqual(stochasticSoilProfile, readPipingCalculation.StochasticSoilProfileName);
-            Assert.AreSame(phreaticLevelExit, readPipingCalculation.PhreaticLevelExit);
-            Assert.AreSame(dampingFactorExit, readPipingCalculation.DampingFactorExit);
-            Assert.AreSame(scenarioConfiguration, readPipingCalculation.Scenario);
-        }
-
-        [Test]
         public void Name_Null_ThrowsArgumentNullException()
         {
             // Setup
