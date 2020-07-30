@@ -47,6 +47,8 @@ namespace Riskeer.StabilityPointStructures.Forms.Views
     public class StabilityPointStructuresCalculationsView : CalculationsView<StructuresCalculationScenario<StabilityPointStructuresInput>, StabilityPointStructuresInput, StabilityPointStructuresCalculationRow, StabilityPointStructuresFailureMechanism>
     {
         private const int foreshoreProfileColumnIndex = 2;
+
+        private readonly Observer foreshoreProfilesObserver;
         private readonly Observer stabilityPointStructuresObserver;
 
         /// <summary>
@@ -59,6 +61,16 @@ namespace Riskeer.StabilityPointStructures.Forms.Views
         public StabilityPointStructuresCalculationsView(CalculationGroup data, StabilityPointStructuresFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
             : base(data, failureMechanism, assessmentSection)
         {
+            foreshoreProfilesObserver = new Observer(() =>
+            {
+                PrefillComboBoxListItemsAtColumnLevel();
+                UpdateColumns();
+                UpdateGenerateCalculationsButtonState();
+            })
+            {
+                Observable = FailureMechanism.ForeshoreProfiles
+            };
+
             stabilityPointStructuresObserver = new Observer(UpdateGenerateCalculationsButtonState)
             {
                 Observable = FailureMechanism.StabilityPointStructures
@@ -76,6 +88,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Views
         {
             if (disposing)
             {
+                foreshoreProfilesObserver.Dispose();
                 stabilityPointStructuresObserver.Dispose();
             }
 
