@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2019. All rights reserved.
+// Copyright (C) Stichting Deltares 2019. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -267,6 +267,16 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Properties {
         public static string DikeProfileCollection_SourcePath_Description {
             get {
                 return ResourceManager.GetString("DikeProfileCollection_SourcePath_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Als u het dijkprofiel van een berekening wijzigt kan de berekening in een ander vak komen te liggen..
+        /// </summary>
+        public static string GrassCoverErosionInwardsCalculationsView_AddWarningMessage_Calculation_can_change_section_when_DikeProfile_is_changed {
+            get {
+                return ResourceManager.GetString("GrassCoverErosionInwardsCalculationsView_AddWarningMessage_Calculation_can_change" +
+                        "_section_when_DikeProfile_is_changed", resourceCulture);
             }
         }
         

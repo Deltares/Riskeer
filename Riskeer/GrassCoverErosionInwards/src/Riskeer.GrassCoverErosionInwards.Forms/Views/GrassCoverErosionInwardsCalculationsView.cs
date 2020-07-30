@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
@@ -59,6 +60,8 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
         public GrassCoverErosionInwardsCalculationsView(CalculationGroup data, GrassCoverErosionInwardsFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
             : base(data, failureMechanism, assessmentSection)
         {
+            AddWarningMessage();
+
             dikeProfilesObserver = new Observer(() =>
             {
                 PrefillComboBoxListItemsAtColumnLevel();
@@ -190,6 +193,31 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
         }
 
         #endregion
+
+        private void AddWarningMessage()
+        {
+            var warningPanel = new Panel();
+            var warningText = new Label();
+            var warningIcon = new PictureBox();
+
+            warningPanel.Controls.Add(warningText);
+            warningPanel.Controls.Add(warningIcon);
+            warningPanel.Dock = DockStyle.Fill;
+
+            warningIcon.Dock = DockStyle.Left;
+            warningIcon.Image = RiskeerCommonFormsResources.warning.ToBitmap();
+            warningIcon.Location = new Point(0, 0);
+            warningIcon.Size = new Size(20, 14);
+
+            warningText.Name = "warningText";
+            warningText.AutoSize = true;
+            warningText.Dock = DockStyle.Left;
+            warningText.Text = Resources.GrassCoverErosionInwardsCalculationsView_AddWarningMessage_Calculation_can_change_section_when_DikeProfile_is_changed;
+
+            DataGridTableLayoutPanel.RowCount = 2;
+            DataGridTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 30));
+            DataGridTableLayoutPanel.Controls.Add(warningPanel, 0, 1);
+        }
 
         #region Event handling
 

@@ -39,6 +39,7 @@ using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
+using Riskeer.Common.Forms.Views;
 using Riskeer.GrassCoverErosionInwards.Data;
 using Riskeer.GrassCoverErosionInwards.Data.TestUtil;
 using Riskeer.GrassCoverErosionInwards.Forms.PresentationObjects;
@@ -64,22 +65,17 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
         [Test]
         public void Constructor_ExpectedValues()
         {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            ConfigureHydraulicBoundaryDatabase(assessmentSection);
-            GrassCoverErosionInwardsFailureMechanism failureMechanism = ConfigureFailureMechanism();
-
             // Call
-            var calculationsView = new GrassCoverErosionInwardsCalculationsView(ConfigureCalculationGroup(failureMechanism, assessmentSection), failureMechanism, assessmentSection);
+            GrassCoverErosionInwardsCalculationsView view = ShowCalculationsView(new CalculationGroup(), new GrassCoverErosionInwardsFailureMechanism(), new AssessmentSectionStub());
 
             // Assert
-            Assert.IsInstanceOf<UserControl>(calculationsView);
-            Assert.IsInstanceOf<IView>(calculationsView);
-            Assert.IsInstanceOf<ISelectionProvider>(calculationsView);
-            mocks.VerifyAll();
+            Assert.IsInstanceOf<CalculationsView<GrassCoverErosionInwardsCalculationScenario, GrassCoverErosionInwardsInput, GrassCoverErosionInwardsCalculationRow, GrassCoverErosionInwardsFailureMechanism>>(view);
+
+            var button = (Button) new ControlTester("generateButton").TheObject;
+            Assert.AreEqual("Genereer &berekeningen...", button.Text);
+
+            var label = (Label) new ControlTester("warningText").TheObject;
+            Assert.AreEqual("Als u het dijkprofiel van een berekening wijzigt kan de berekening in een ander vak komen te liggen.", label.Text);
         }
 
         [Test]

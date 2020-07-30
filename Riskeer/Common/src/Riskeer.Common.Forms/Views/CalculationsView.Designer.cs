@@ -177,6 +177,11 @@ namespace Riskeer.Common.Forms.Views
         private Core.Common.Controls.DataGrid.DataGridViewControl dataGridViewControl;
         private System.Windows.Forms.Button generateButton;
 
+        protected System.Windows.Forms.TableLayoutPanel DataGridTableLayoutPanel
+        {
+            get => this.dataGridTableLayoutPanel;
+        }
+
         protected System.Windows.Forms.Button GenerateButton
         {
             get => this.generateButton;
