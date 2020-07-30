@@ -20,11 +20,16 @@
 // All rights reserved.
 
 using System;
+using System.Drawing;
+using System.Threading;
 using System.Windows.Forms;
 using Core.Common.Controls.Dialogs;
 using Core.Common.Gui.Helpers;
+using Core.Common.TestUtil;
+using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Riskeer.Common.Forms.Properties;
 using Riskeer.Integration.Forms.Dialogs;
 
 namespace Riskeer.Integration.Forms.Test.Dialogs
@@ -50,20 +55,40 @@ namespace Riskeer.Integration.Forms.Test.Dialogs
         }
 
         [Test]
-        public void Constructor_ValidParameters_ExpectedValues()
+        [Apartment(ApartmentState.STA)]
+        public void ShowDialog_Always_ExpectedValues()
         {
             // Setup
             var mockRepository = new MockRepository();
-            var dialogParent = mockRepository.Stub<IWin32Window>();
             var inquiryHelper = mockRepository.Stub<IInquiryHelper>();
             mockRepository.ReplayAll();
 
-            // Call
-            var dialog = new HydraulicBoundaryDatabaseImporterSettingsDialog(dialogParent, inquiryHelper);
+            using (var dialogParent = new Form())
+            using (var dialog = new HydraulicBoundaryDatabaseImporterSettingsDialog(dialogParent, inquiryHelper))
+            {
+                // Call
+                dialog.Show();
 
-            // Assert
-            Assert.IsInstanceOf<DialogBase>(dialog);
-            mockRepository.VerifyAll();
+                // Assert
+                Assert.IsInstanceOf<DialogBase>(dialog);
+                Assert.AreEqual(600, dialog.MinimumSize.Width);
+                Assert.AreEqual(250, dialog.MinimumSize.Height);
+                Assert.AreEqual("Koppel aan database", dialog.Text);
+
+                Icon icon = BitmapToIcon(Resources.DatabaseIcon);
+                Bitmap expectedImage = icon.ToBitmap();
+                Bitmap actualImage = dialog.Icon.ToBitmap();
+                TestHelper.AssertImagesAreEqual(expectedImage, actualImage);
+
+                var buttonCancel = (Button) new ButtonTester("buttonCancel", dialog).TheObject;
+                Assert.AreSame(buttonCancel, dialog.CancelButton);
+                Assert.IsTrue(buttonCancel.Enabled);
+            }
+        }
+
+        private static Icon BitmapToIcon(Bitmap icon)
+        {
+            return Icon.FromHandle(icon.GetHicon());
         }
     }
 }
