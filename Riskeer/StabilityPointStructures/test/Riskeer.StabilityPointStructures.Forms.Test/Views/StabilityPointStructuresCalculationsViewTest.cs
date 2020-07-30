@@ -27,6 +27,7 @@ using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
+using Core.Common.Controls.DataGrid;
 using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
@@ -38,6 +39,7 @@ using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Data.TestUtil;
+using Riskeer.Common.Forms;
 using Riskeer.Common.Forms.Views;
 using Riskeer.StabilityPointStructures.Data;
 using Riskeer.StabilityPointStructures.Data.TestUtil;
@@ -119,6 +121,56 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
             Assert.AreEqual("This", ((IReadOnlyList<DataGridViewComboBoxColumn>) dataGridView.Columns.OfType<DataGridViewComboBoxColumn>().ToArray())[0].ValueMember);
             Assert.AreEqual("This", ((IReadOnlyList<DataGridViewComboBoxColumn>) dataGridView.Columns.OfType<DataGridViewComboBoxColumn>().ToArray())[1].ValueMember);
             Assert.AreEqual("Value", ((IReadOnlyList<DataGridViewComboBoxColumn>) dataGridView.Columns.OfType<DataGridViewComboBoxColumn>().ToArray())[2].ValueMember);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CalculationsView_FailureMechanismWithForeshoreProfiles_ForeshoreProfilesComboboxCorrectlyInitialized()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            ConfigureHydraulicBoundaryDatabase(assessmentSection);
+            mocks.ReplayAll();
+
+            StabilityPointStructuresFailureMechanism failureMechanism = ConfigureFailureMechanism();
+
+            // Call
+            ShowCalculationsView(ConfigureCalculationGroup(failureMechanism, assessmentSection), failureMechanism, assessmentSection);
+
+            // Assert
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+            var foreshoreProfileComboBox = (DataGridViewComboBoxColumn) dataGridView.Columns[foreshoreProfileColumnIndex];
+            DataGridViewComboBoxCell.ObjectCollection foreshoreProfileComboBoxItems = foreshoreProfileComboBox.Items;
+            Assert.AreEqual(3, foreshoreProfileComboBoxItems.Count);
+            Assert.AreEqual("<selecteer>", foreshoreProfileComboBoxItems[0].ToString());
+            Assert.AreEqual("Profiel 1", foreshoreProfileComboBoxItems[1].ToString());
+            Assert.AreEqual("Profiel 2", foreshoreProfileComboBoxItems[2].ToString());
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CalculationsView_Always_BreakWaterTypeComboboxCorrectlyInitialized()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            ConfigureHydraulicBoundaryDatabase(assessmentSection);
+            mocks.ReplayAll();
+
+            StabilityPointStructuresFailureMechanism failureMechanism = ConfigureFailureMechanism();
+
+            // Call
+            ShowCalculationsView(ConfigureCalculationGroup(failureMechanism, assessmentSection), failureMechanism, assessmentSection);
+
+            // Assert
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+            var breakWaterTypeComboBox = (DataGridViewComboBoxColumn) dataGridView.Columns[breakWaterTypeColumnIndex];
+            DataGridViewComboBoxCell.ObjectCollection breakWaterTypeComboBoxItems = breakWaterTypeComboBox.Items;
+            Assert.AreEqual(3, breakWaterTypeComboBoxItems.Count);
+            Assert.AreEqual("Muur", breakWaterTypeComboBoxItems[0].ToString());
+            Assert.AreEqual("Caisson", breakWaterTypeComboBoxItems[1].ToString());
+            Assert.AreEqual("Havendam", breakWaterTypeComboBoxItems[2].ToString());
             mocks.VerifyAll();
         }
 
@@ -520,6 +572,147 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
             var dataRow = (StabilityPointStructuresCalculationRow) dataGridView.Rows[selectedRow].DataBoundItem;
             Assert.AreSame(dataRow.Calculation, ((StabilityPointStructuresInputContext) selection).Calculation);
             mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GivenCalculationsView_WhenGenerateCalculationsButtonClicked_ThenShowViewWithForeshoreProfiles()
+        {
+            // Given
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            ConfigureHydraulicBoundaryDatabase(assessmentSection);
+            mocks.ReplayAll();
+
+            StabilityPointStructuresFailureMechanism failureMechanism = ConfigureFailureMechanism();
+            ShowCalculationsView(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection);
+
+            var button = new ButtonTester("generateButton", testForm);
+
+            StructureSelectionDialog selectionDialog = null;
+            DataGridViewControl grid = null;
+            var rows = 0;
+            DialogBoxHandler = (name, wnd) =>
+            {
+                selectionDialog = (StructureSelectionDialog) new FormTester(name).TheObject;
+                grid = (DataGridViewControl) new ControlTester("DataGridViewControl", selectionDialog).TheObject;
+                rows = grid.Rows.Count;
+
+                new ButtonTester("CustomCancelButton", selectionDialog).Click();
+            };
+
+            // When
+            button.Click();
+
+            // Then
+            Assert.NotNull(selectionDialog);
+            Assert.NotNull(grid);
+            Assert.AreEqual(failureMechanism.ForeshoreProfiles.Count, rows);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GivenCalculationsViewGenerateCalculationsButtonClicked_WhenDialogClosed_ThenNotifyCalculationGroup()
+        {
+            // Given
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            ConfigureHydraulicBoundaryDatabase(assessmentSection);
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
+            StabilityPointStructuresFailureMechanism failureMechanism = ConfigureFailureMechanism();
+            failureMechanism.CalculationsGroup.Attach(observer);
+
+            ShowCalculationsView(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection);
+
+            var button = new ButtonTester("generateButton", testForm);
+
+            DialogBoxHandler = (name, wnd) =>
+            {
+                var selectionDialog = (StructureSelectionDialog) new FormTester(name).TheObject;
+                var selectionView = (DataGridViewControl) new ControlTester("DataGridViewControl", selectionDialog).TheObject;
+                selectionView.Rows[0].Cells[0].Value = true;
+
+                // When
+                new ButtonTester("DoForSelectedButton", selectionDialog).Click();
+            };
+
+            button.Click();
+
+            // Then
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GivenCalculationsViewGenerateCalculationsButtonClicked_WhenForeshoreProfileSelectedAndDialogClosed_ThenUpdateSectionResultScenarios()
+        {
+            // Given
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            ConfigureHydraulicBoundaryDatabase(assessmentSection);
+            mocks.ReplayAll();
+
+            StabilityPointStructuresFailureMechanism failureMechanism = ConfigureFailureMechanism();
+
+            ShowCalculationsView(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection);
+
+            var button = new ButtonTester("generateButton", testForm);
+
+            DialogBoxHandler = (name, wnd) =>
+            {
+                var selectionDialog = (StructureSelectionDialog) new FormTester(name).TheObject;
+                var selectionView = (DataGridViewControl) new ControlTester("DataGridViewControl", selectionDialog).TheObject;
+                selectionView.Rows[0].Cells[0].Value = true;
+
+                // When
+                new ButtonTester("DoForSelectedButton", selectionDialog).Click();
+            };
+
+            button.Click();
+
+            // Then
+            StructuresCalculationScenario<StabilityPointStructuresInput>[] calculationScenarios = failureMechanism.Calculations.OfType<StructuresCalculationScenario<StabilityPointStructuresInput>>().ToArray();
+            StabilityPointStructuresFailureMechanismSectionResult failureMechanismSectionResult1 = failureMechanism.SectionResults.First();
+            StabilityPointStructuresFailureMechanismSectionResult failureMechanismSectionResult2 = failureMechanism.SectionResults.ElementAt(1);
+
+            Assert.AreEqual(1, failureMechanismSectionResult1.GetCalculationScenarios(calculationScenarios).Count());
+            CollectionAssert.IsEmpty(failureMechanismSectionResult2.GetCalculationScenarios(calculationScenarios));
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GivenCalculationsViewGenerateCalculationsCancelButtonClicked_WhenDialogClosed_CalculationsNotUpdatedAndCalculationGroupNotNotified()
+        {
+            // Given
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            ConfigureHydraulicBoundaryDatabase(assessmentSection);
+            var observer = mocks.StrictMock<IObserver>();
+            mocks.ReplayAll();
+
+            StabilityPointStructuresFailureMechanism failureMechanism = ConfigureFailureMechanism();
+            ShowCalculationsView(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection);
+
+            failureMechanism.CalculationsGroup.Attach(observer);
+
+            var button = new ButtonTester("generateButton", testForm);
+
+            DialogBoxHandler = (name, wnd) =>
+            {
+                var selectionDialog = (StructureSelectionDialog) new FormTester(name).TheObject;
+                var selectionView = (DataGridViewControl) new ControlTester("DataGridViewControl", selectionDialog).TheObject;
+                selectionView.Rows[0].Cells[0].Value = true;
+
+                // When
+                new ButtonTester("CustomCancelButton", selectionDialog).Click();
+            };
+
+            button.Click();
+
+            // Then
+            CollectionAssert.IsEmpty(failureMechanism.Calculations);
+            mocks.VerifyAll(); // No observer notified
         }
 
         public override void Setup()
