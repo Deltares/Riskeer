@@ -188,7 +188,7 @@ namespace Riskeer.HeightStructures.Forms.Views
 
         public override Point2D GetCalculationLocation()
         {
-            return Calculation.InputParameters.Structure.Location;
+            return Calculation.InputParameters.Structure?.Location;
         }
 
         protected override HydraulicBoundaryLocation HydraulicBoundaryLocation

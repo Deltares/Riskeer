@@ -80,9 +80,9 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
+            ConfigureHydraulicBoundaryDatabase(assessmentSection);
             mocks.ReplayAll();
 
-            ConfigureHydraulicBoundaryDatabase(assessmentSection);
             HeightStructuresFailureMechanism failureMechanism = ConfigureFailureMechanism();
 
             // Call
