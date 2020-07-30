@@ -446,6 +446,45 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
         }
 
         [Test]
+        public void GivenCalculationsView_WhenForeshoreProfilesUpdatedAndNotified_ThenForeshoreProfilesComboboxCorrectlyUpdated()
+        {
+            // Given
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            ConfigureHydraulicBoundaryDatabase(assessmentSection);
+            mocks.ReplayAll();
+
+            HeightStructuresFailureMechanism failureMechanism = ConfigureFailureMechanism();
+
+            ShowCalculationsView(ConfigureCalculationGroup(failureMechanism, assessmentSection), failureMechanism, assessmentSection);
+
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+            var foreshoreProfileComboBox = (DataGridViewComboBoxColumn) dataGridView.Columns[foreshoreProfileColumnIndex];
+
+            // Precondition
+            Assert.AreEqual(3, foreshoreProfileComboBox.Items.Count);
+
+            // When
+            failureMechanism.ForeshoreProfiles.AddRange(new[]
+            {
+                new TestForeshoreProfile("Profiel 3", "3"),
+                new TestForeshoreProfile("Profiel 4", "4")
+            }, string.Empty);
+            failureMechanism.ForeshoreProfiles.NotifyObservers();
+
+            // Then
+            DataGridViewComboBoxCell.ObjectCollection foreshoreProfileItems = foreshoreProfileComboBox.Items;
+            Assert.AreEqual(5, foreshoreProfileItems.Count);
+            Assert.AreEqual("<selecteer>", foreshoreProfileItems[0].ToString());
+            Assert.AreEqual("Profiel 1", foreshoreProfileItems[1].ToString());
+            Assert.AreEqual("Profiel 2", foreshoreProfileItems[2].ToString());
+            Assert.AreEqual("Profiel 3", foreshoreProfileItems[3].ToString());
+            Assert.AreEqual("Profiel 4", foreshoreProfileItems[4].ToString());
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
         [TestCase(true, false)]
         [TestCase(false, true)]
         public void CalculationsView_UseBreakWaterState_HasCorrespondingColumnState(bool newValue, bool expectedState)

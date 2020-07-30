@@ -48,6 +48,7 @@ namespace Riskeer.HeightStructures.Forms.Views
     {
         private const int foreshoreProfileColumnIndex = 2;
 
+        private readonly Observer foreshoreProfilesObserver;
         private readonly Observer heightStructuresObserver;
 
         /// <summary>
@@ -60,6 +61,16 @@ namespace Riskeer.HeightStructures.Forms.Views
         public HeightStructuresCalculationsView(CalculationGroup data, HeightStructuresFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
             : base(data, failureMechanism, assessmentSection)
         {
+            foreshoreProfilesObserver = new Observer(() =>
+            {
+                PrefillComboBoxListItemsAtColumnLevel();
+                UpdateColumns();
+                UpdateGenerateCalculationsButtonState();
+            })
+            {
+                Observable = FailureMechanism.ForeshoreProfiles
+            };
+
             heightStructuresObserver = new Observer(UpdateGenerateCalculationsButtonState)
             {
                 Observable = FailureMechanism.HeightStructures
@@ -77,6 +88,7 @@ namespace Riskeer.HeightStructures.Forms.Views
         {
             if (disposing)
             {
+                foreshoreProfilesObserver.Dispose();
                 heightStructuresObserver.Dispose();
             }
 
