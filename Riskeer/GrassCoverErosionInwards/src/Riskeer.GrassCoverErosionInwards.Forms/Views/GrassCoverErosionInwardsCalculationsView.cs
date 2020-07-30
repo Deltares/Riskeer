@@ -46,7 +46,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
     /// </summary>
     public class GrassCoverErosionInwardsCalculationsView : CalculationsView<GrassCoverErosionInwardsCalculationScenario, GrassCoverErosionInwardsInput, GrassCoverErosionInwardsCalculationRow, GrassCoverErosionInwardsFailureMechanism>
     {
-        private const int selectableDikeProfileColumnIndex = 2;
+        private const int dikeProfileColumnIndex = 2;
 
         private readonly Observer dikeProfilesObserver;
 
@@ -183,11 +183,11 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
             // Need to prefill for all possible data in order to guarantee 'combo box' columns
             // do not generate errors when their cell value is not present in the list of available
             // items.
-            var selectableDikeProfileColumn = (DataGridViewComboBoxColumn) DataGridViewControl.GetColumnFromIndex(selectableDikeProfileColumnIndex);
+            var dikeProfileColumn = (DataGridViewComboBoxColumn) DataGridViewControl.GetColumnFromIndex(dikeProfileColumnIndex);
 
-            using (new SuspendDataGridViewColumnResizes(selectableDikeProfileColumn))
+            using (new SuspendDataGridViewColumnResizes(dikeProfileColumn))
             {
-                SetItemsOnObjectCollection(selectableDikeProfileColumn.Items,
+                SetItemsOnObjectCollection(dikeProfileColumn.Items,
                                            GetDikeProfileDataSource(FailureMechanism.DikeProfiles));
             }
         }
@@ -240,7 +240,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
 
         private void UpdateDikeProfilesColumn()
         {
-            var column = (DataGridViewComboBoxColumn) DataGridViewControl.GetColumnFromIndex(selectableDikeProfileColumnIndex);
+            var column = (DataGridViewComboBoxColumn) DataGridViewControl.GetColumnFromIndex(dikeProfileColumnIndex);
 
             using (new SuspendDataGridViewColumnResizes(column))
             {
@@ -253,7 +253,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
 
         private void FillAvailableDikeProfilesList(DataGridViewRow dataGridViewRow)
         {
-            var cell = (DataGridViewComboBoxCell) dataGridViewRow.Cells[selectableDikeProfileColumnIndex];
+            var cell = (DataGridViewComboBoxCell) dataGridViewRow.Cells[dikeProfileColumnIndex];
             DataGridViewComboBoxItemWrapper<DikeProfile>[] dataGridViewComboBoxItemWrappers = GetDikeProfileDataSource(FailureMechanism.DikeProfiles);
             SetItemsOnObjectCollection(cell.Items, dataGridViewComboBoxItemWrappers);
         }
