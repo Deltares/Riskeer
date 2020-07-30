@@ -171,7 +171,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
             dikeProfilesObserver = new Observer(() =>
             {
                 PrefillComboBoxListItemsAtColumnLevel();
-                UpdateColumns();
+                UpdateComboBoxColumns();
                 UpdateGenerateCalculationsButtonState();
             })
             {
@@ -235,9 +235,9 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
 
         #region Update combo box list items
 
-        protected override void UpdateColumns()
+        protected override void UpdateComboBoxColumns()
         {
-            base.UpdateColumns();
+            base.UpdateComboBoxColumns();
             UpdateDikeProfilesColumn();
         }
 

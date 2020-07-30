@@ -184,7 +184,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Views
             foreshoreProfilesObserver = new Observer(() =>
             {
                 PrefillComboBoxListItemsAtColumnLevel();
-                UpdateColumns();
+                UpdateComboBoxColumns();
                 UpdateGenerateCalculationsButtonState();
             })
             {
@@ -228,9 +228,9 @@ namespace Riskeer.StabilityPointStructures.Forms.Views
 
         #region Update combo box list items
 
-        protected override void UpdateColumns()
+        protected override void UpdateComboBoxColumns()
         {
-            base.UpdateColumns();
+            base.UpdateComboBoxColumns();
             UpdateForeshoreProfilesColumn();
         }
 

@@ -192,7 +192,7 @@ namespace Riskeer.Piping.Forms.Views
             stochasticSoilModelsObserver = new Observer(() =>
             {
                 PrefillComboBoxListItemsAtColumnLevel();
-                UpdateColumns();
+                UpdateComboBoxColumns();
                 UpdateGenerateCalculationsButtonState();
             })
             {
@@ -206,9 +206,9 @@ namespace Riskeer.Piping.Forms.Views
             };
         }
 
-        protected override void UpdateColumns()
+        protected override void UpdateComboBoxColumns()
         {
-            base.UpdateColumns();
+            base.UpdateComboBoxColumns();
             UpdateStochasticSoilModelColumn();
             UpdateStochasticSoilProfileColumn();
         }
