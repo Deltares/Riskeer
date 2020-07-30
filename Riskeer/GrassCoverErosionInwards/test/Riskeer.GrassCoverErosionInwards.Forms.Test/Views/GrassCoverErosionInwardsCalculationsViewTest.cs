@@ -137,8 +137,8 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             ShowFullyConfiguredCalculationsView(assessmentSection);
 
             // Assert
-            var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
-            var dikeProfileComboBox = (DataGridViewComboBoxColumn)dataGridView.Columns[dikeProfileColumnIndex];
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+            var dikeProfileComboBox = (DataGridViewComboBoxColumn) dataGridView.Columns[dikeProfileColumnIndex];
             DataGridViewComboBoxCell.ObjectCollection dikeProfileComboBoxItems = dikeProfileComboBox.Items;
             Assert.AreEqual(3, dikeProfileComboBoxItems.Count);
             Assert.AreEqual("<selecteer>", dikeProfileComboBoxItems[0].ToString());
@@ -159,13 +159,58 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             ShowFullyConfiguredCalculationsView(assessmentSection);
 
             // Assert
-            var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
-            var breakWaterTypeComboBox = (DataGridViewComboBoxColumn)dataGridView.Columns[breakWaterTypeColumnIndex];
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+            var breakWaterTypeComboBox = (DataGridViewComboBoxColumn) dataGridView.Columns[breakWaterTypeColumnIndex];
             DataGridViewComboBoxCell.ObjectCollection breakWaterTypeComboBoxItems = breakWaterTypeComboBox.Items;
             Assert.AreEqual(3, breakWaterTypeComboBoxItems.Count);
             Assert.AreEqual("Muur", breakWaterTypeComboBoxItems[0].ToString());
             Assert.AreEqual("Caisson", breakWaterTypeComboBoxItems[1].ToString());
             Assert.AreEqual("Havendam", breakWaterTypeComboBoxItems[2].ToString());
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CalculationsView_CalculationsWithAllDataSet_DataGridViewCorrectlyInitialized()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            // Call
+            ShowFullyConfiguredCalculationsView(assessmentSection);
+
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+
+            // Assert
+            DataGridViewRowCollection rows = dataGridView.Rows;
+            Assert.AreEqual(2, rows.Count);
+
+            DataGridViewCellCollection cells = rows[0].Cells;
+            Assert.AreEqual(10, cells.Count);
+            Assert.AreEqual("Calculation 1", cells[nameColumnIndex].FormattedValue);
+            Assert.AreEqual("Location 1 (2 m)", cells[selectableHydraulicBoundaryLocationsColumnIndex].FormattedValue);
+            Assert.AreEqual("Profiel 1", cells[dikeProfileColumnIndex].FormattedValue);
+            Assert.AreEqual(false, cells[useBreakWaterColumnIndex].FormattedValue);
+            Assert.AreEqual("Havendam", cells[breakWaterTypeColumnIndex].FormattedValue);
+            Assert.AreEqual(3.30.ToString("0.00", CultureInfo.CurrentCulture), cells[breakWaterHeightColumnIndex].FormattedValue);
+            Assert.AreEqual(false, cells[useForeShoreGeometryColumnIndex].FormattedValue);
+            Assert.AreEqual(1.10.ToString("0.00", CultureInfo.CurrentCulture), cells[dikeHeightColumnIndex].FormattedValue);
+            Assert.AreEqual(4.4000.ToString("0.0000", CultureInfo.CurrentCulture), cells[meanCriticalFlowRateColumnIndex].FormattedValue);
+            Assert.AreEqual(5.5000.ToString("0.0000", CultureInfo.CurrentCulture), cells[standardDeviationCriticalFlowRateColumnIndex].FormattedValue);
+
+            cells = rows[1].Cells;
+            Assert.AreEqual(10, cells.Count);
+            Assert.AreEqual("Calculation 2", cells[nameColumnIndex].FormattedValue);
+            Assert.AreEqual("Location 2 (5 m)", cells[selectableHydraulicBoundaryLocationsColumnIndex].FormattedValue);
+            Assert.AreEqual("Profiel 2", cells[dikeProfileColumnIndex].FormattedValue);
+            Assert.AreEqual(false, cells[useBreakWaterColumnIndex].FormattedValue);
+            Assert.AreEqual("Havendam", cells[breakWaterTypeColumnIndex].FormattedValue);
+            Assert.AreEqual(3.30.ToString("0.00", CultureInfo.CurrentCulture), cells[breakWaterHeightColumnIndex].FormattedValue);
+            Assert.AreEqual(false, cells[useForeShoreGeometryColumnIndex].FormattedValue);
+            Assert.AreEqual(1.10.ToString("0.00", CultureInfo.CurrentCulture), cells[dikeHeightColumnIndex].FormattedValue);
+            Assert.AreEqual(4.4000.ToString("0.0000", CultureInfo.CurrentCulture), cells[meanCriticalFlowRateColumnIndex].FormattedValue);
+            Assert.AreEqual(5.5000.ToString("0.0000", CultureInfo.CurrentCulture), cells[standardDeviationCriticalFlowRateColumnIndex].FormattedValue);
             mocks.VerifyAll();
         }
 
@@ -229,51 +274,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
 
             // Assert
             Assert.IsTrue(button.Enabled);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void CalculationsView_CalculationsWithAllDataSet_DataGridViewCorrectlyInitialized()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            // Call
-            ShowFullyConfiguredCalculationsView(assessmentSection);
-
-            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-
-            // Assert
-            DataGridViewRowCollection rows = dataGridView.Rows;
-            Assert.AreEqual(2, rows.Count);
-
-            DataGridViewCellCollection cells = rows[0].Cells;
-            Assert.AreEqual(10, cells.Count);
-            Assert.AreEqual("Calculation 1", cells[nameColumnIndex].FormattedValue);
-            Assert.AreEqual("Location 1 (2 m)", cells[selectableHydraulicBoundaryLocationsColumnIndex].FormattedValue);
-            Assert.AreEqual("Profiel 1", cells[dikeProfileColumnIndex].FormattedValue);
-            Assert.AreEqual(false, cells[useBreakWaterColumnIndex].FormattedValue);
-            Assert.AreEqual("Havendam", cells[breakWaterTypeColumnIndex].FormattedValue);
-            Assert.AreEqual(3.30.ToString("0.00", CultureInfo.CurrentCulture), cells[breakWaterHeightColumnIndex].FormattedValue);
-            Assert.AreEqual(false, cells[useForeShoreGeometryColumnIndex].FormattedValue);
-            Assert.AreEqual(1.10.ToString("0.00", CultureInfo.CurrentCulture), cells[dikeHeightColumnIndex].FormattedValue);
-            Assert.AreEqual(4.4000.ToString("0.0000", CultureInfo.CurrentCulture), cells[meanCriticalFlowRateColumnIndex].FormattedValue);
-            Assert.AreEqual(5.5000.ToString("0.0000", CultureInfo.CurrentCulture), cells[standardDeviationCriticalFlowRateColumnIndex].FormattedValue);
-
-            cells = rows[1].Cells;
-            Assert.AreEqual(10, cells.Count);
-            Assert.AreEqual("Calculation 2", cells[nameColumnIndex].FormattedValue);
-            Assert.AreEqual("Location 2 (5 m)", cells[selectableHydraulicBoundaryLocationsColumnIndex].FormattedValue);
-            Assert.AreEqual("Profiel 2", cells[dikeProfileColumnIndex].FormattedValue);
-            Assert.AreEqual(false, cells[useBreakWaterColumnIndex].FormattedValue);
-            Assert.AreEqual("Havendam", cells[breakWaterTypeColumnIndex].FormattedValue);
-            Assert.AreEqual(3.30.ToString("0.00", CultureInfo.CurrentCulture), cells[breakWaterHeightColumnIndex].FormattedValue);
-            Assert.AreEqual(false, cells[useForeShoreGeometryColumnIndex].FormattedValue);
-            Assert.AreEqual(1.10.ToString("0.00", CultureInfo.CurrentCulture), cells[dikeHeightColumnIndex].FormattedValue);
-            Assert.AreEqual(4.4000.ToString("0.0000", CultureInfo.CurrentCulture), cells[meanCriticalFlowRateColumnIndex].FormattedValue);
-            Assert.AreEqual(5.5000.ToString("0.0000", CultureInfo.CurrentCulture), cells[standardDeviationCriticalFlowRateColumnIndex].FormattedValue);
             mocks.VerifyAll();
         }
 
@@ -474,6 +474,45 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
 
             // Assert
             calculationScenario.Output = null;
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GivenCalculationsView_WhenDikeProfilesUpdatedAndNotified_ThenDikeProfilesComboboxCorrectlyUpdated()
+        {
+            // Given
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            ConfigureHydraulicBoundaryDatabase(assessmentSection);
+            mocks.ReplayAll();
+
+            GrassCoverErosionInwardsFailureMechanism failureMechanism = ConfigureFailureMechanism();
+
+            ShowCalculationsView(ConfigureCalculationGroup(failureMechanism, assessmentSection), failureMechanism, assessmentSection);
+
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+            var dikeProfilesComboBox = (DataGridViewComboBoxColumn) dataGridView.Columns[dikeProfileColumnIndex];
+
+            // Precondition
+            Assert.AreEqual(3, dikeProfilesComboBox.Items.Count);
+
+            // When
+            failureMechanism.DikeProfiles.AddRange(new[]
+            {
+                DikeProfileTestFactory.CreateDikeProfile("3", "Profiel 3", new Point2D(0.0, 0.0)),
+                DikeProfileTestFactory.CreateDikeProfile("4", "Profiel 4", new Point2D(5.0, 0.0))
+            }, string.Empty);
+            failureMechanism.DikeProfiles.NotifyObservers();
+
+            // Then
+            DataGridViewComboBoxCell.ObjectCollection dikeProfileItems = dikeProfilesComboBox.Items;
+            Assert.AreEqual(5, dikeProfileItems.Count);
+            Assert.AreEqual("<selecteer>", dikeProfileItems[0].ToString());
+            Assert.AreEqual("Profiel 1", dikeProfileItems[1].ToString());
+            Assert.AreEqual("Profiel 2", dikeProfileItems[2].ToString());
+            Assert.AreEqual("Profiel 3", dikeProfileItems[3].ToString());
+            Assert.AreEqual("Profiel 4", dikeProfileItems[4].ToString());
+
             mocks.VerifyAll();
         }
 
