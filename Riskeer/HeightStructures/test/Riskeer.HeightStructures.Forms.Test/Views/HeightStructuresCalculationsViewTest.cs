@@ -68,7 +68,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
             // Assert
             Assert.IsInstanceOf<CalculationsView<StructuresCalculationScenario<HeightStructuresInput>, HeightStructuresInput, HeightStructuresCalculationRow, HeightStructuresFailureMechanism>>(view);
 
-            var button = (Button)new ControlTester("generateButton").TheObject;
+            var button = (Button) new ControlTester("generateButton").TheObject;
             Assert.AreEqual("Genereer &berekeningen...", button.Text);
         }
 
@@ -115,6 +115,56 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
         }
 
         [Test]
+        public void CalculationsView_FailureMechanismWithForeshoreProfiles_ForeshoreProfilesComboboxCorrectlyInitialized()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            ConfigureHydraulicBoundaryDatabase(assessmentSection);
+            mocks.ReplayAll();
+
+            HeightStructuresFailureMechanism failureMechanism = ConfigureFailureMechanism();
+
+            // Call
+            ShowCalculationsView(ConfigureCalculationGroup(failureMechanism, assessmentSection), failureMechanism, assessmentSection);
+
+            // Assert
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+            var foreshoreProfileComboBox = (DataGridViewComboBoxColumn) dataGridView.Columns[foreshoreProfileColumnIndex];
+            DataGridViewComboBoxCell.ObjectCollection foreshoreProfileComboBoxItems = foreshoreProfileComboBox.Items;
+            Assert.AreEqual(3, foreshoreProfileComboBoxItems.Count);
+            Assert.AreEqual("<selecteer>", foreshoreProfileComboBoxItems[0].ToString());
+            Assert.AreEqual("Profiel 1", foreshoreProfileComboBoxItems[1].ToString());
+            Assert.AreEqual("Profiel 2", foreshoreProfileComboBoxItems[2].ToString());
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CalculationsView_Always_BreakWaterTypeComboboxCorrectlyInitialized()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            ConfigureHydraulicBoundaryDatabase(assessmentSection);
+            mocks.ReplayAll();
+
+            HeightStructuresFailureMechanism failureMechanism = ConfigureFailureMechanism();
+
+            // Call
+            ShowCalculationsView(ConfigureCalculationGroup(failureMechanism, assessmentSection), failureMechanism, assessmentSection);
+
+            // Assert
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+            var breakWaterTypeComboBox = (DataGridViewComboBoxColumn) dataGridView.Columns[breakWaterTypeColumnIndex];
+            DataGridViewComboBoxCell.ObjectCollection breakWaterTypeComboBoxItems = breakWaterTypeComboBox.Items;
+            Assert.AreEqual(3, breakWaterTypeComboBoxItems.Count);
+            Assert.AreEqual("Muur", breakWaterTypeComboBoxItems[0].ToString());
+            Assert.AreEqual("Caisson", breakWaterTypeComboBoxItems[1].ToString());
+            Assert.AreEqual("Havendam", breakWaterTypeComboBoxItems[2].ToString());
+            mocks.VerifyAll();
+        }
+
+        [Test]
         public void CalculationsView_CalculationsWithAllDataSet_DataGridViewCorrectlyInitialized()
         {
             // Setup
@@ -128,7 +178,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
             // Call
             ShowCalculationsView(ConfigureCalculationGroup(failureMechanism, assessmentSection), failureMechanism, assessmentSection);
 
-            var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
             // Assert
             DataGridViewRowCollection rows = dataGridView.Rows;
@@ -175,7 +225,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
 
             ShowCalculationsView(ConfigureCalculationGroup(failureMechanism, assessmentSection), failureMechanism, assessmentSection);
 
-            var button = (Button)new ControlTester("generateButton").TheObject;
+            var button = (Button) new ControlTester("generateButton").TheObject;
 
             // Call
             bool state = button.Enabled;
@@ -199,7 +249,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
             ShowCalculationsView(ConfigureCalculationGroup(failureMechanism, assessmentSection), failureMechanism, assessmentSection);
 
             // Precondition
-            var button = (Button)new ControlTester("generateButton").TheObject;
+            var button = (Button) new ControlTester("generateButton").TheObject;
             Assert.IsFalse(button.Enabled);
 
             var section = new FailureMechanismSection("Section 1", new[]
@@ -294,7 +344,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
             Assert.IsEmpty(dataGridView.Rows[0].ErrorText);
             mocks.VerifyAll();
         }
-        
+
         [Test]
         [TestCase(0, criticalOvertoppingDischargeColumnIndex)]
         [TestCase(-123.45, criticalOvertoppingDischargeColumnIndex)]
