@@ -23,15 +23,11 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Threading;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
-using Core.Common.Controls.DataGrid;
-using Core.Common.Controls.Views;
 using Core.Common.TestUtil;
-using Core.Common.Util.Reflection;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -46,6 +42,7 @@ using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Data.TestUtil;
+using Riskeer.Common.Forms.Views;
 
 namespace Riskeer.ClosingStructures.Forms.Test.Views
 {
@@ -66,70 +63,16 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
         private Form testForm;
 
         [Test]
-        public void Constructor_CalculationGroupNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            // Call
-            void Call() => new ClosingStructuresCalculationsView(null, new TestClosingStructuresFailureMechanism(), assessmentSection);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("data", exception.ParamName);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
-        {
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            void Call() => new ClosingStructuresCalculationsView(new CalculationGroup(), null, assessmentSection);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("failureMechanism", exception.ParamName);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            ClosingStructuresFailureMechanism failureMechanism = new TestClosingStructuresFailureMechanism();
-
-            // Call
-            void Call() => new ClosingStructuresCalculationsView(new CalculationGroup(), failureMechanism, null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("assessmentSection", exception.ParamName);
-        }
-
-        [Test]
         public void Constructor_ExpectedValues()
         {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            ConfigureHydraulicBoundaryDatabase(assessmentSection);
-            ClosingStructuresFailureMechanism failureMechanism = ConfigureFailureMechanism();
-
             // Call
-            var calculationsView = new ClosingStructuresCalculationsView(ConfigureCalculationGroup(failureMechanism, assessmentSection), failureMechanism, assessmentSection);
+            ClosingStructuresCalculationsView view = ShowCalculationsView(new CalculationGroup(), new ClosingStructuresFailureMechanism(), new AssessmentSectionStub());
 
             // Assert
-            Assert.IsInstanceOf<UserControl>(calculationsView);
-            Assert.IsInstanceOf<IView>(calculationsView);
-            Assert.IsInstanceOf<ISelectionProvider>(calculationsView);
-            mocks.VerifyAll();
+            Assert.IsInstanceOf<CalculationsView<StructuresCalculationScenario<ClosingStructuresInput>, ClosingStructuresInput, ClosingStructuresCalculationRow, ClosingStructuresFailureMechanism>>(view);
+
+            var button = (Button)new ControlTester("generateButton").TheObject;
+            Assert.AreEqual("Genereer &berekeningen...", button.Text);
         }
 
         [Test]
@@ -138,9 +81,9 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
+            ConfigureHydraulicBoundaryDatabase(assessmentSection);
             mocks.ReplayAll();
 
-            ConfigureHydraulicBoundaryDatabase(assessmentSection);
             ClosingStructuresFailureMechanism failureMechanism = ConfigureFailureMechanism();
 
             // Call
@@ -150,172 +93,28 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
 
             // Assert
             Assert.IsFalse(dataGridView.AutoGenerateColumns);
+
             Assert.AreEqual(11, dataGridView.ColumnCount);
+            Assert.AreEqual("Naam", dataGridView.Columns[nameColumnIndex].HeaderText);
+            Assert.AreEqual("Hydraulische belastingenlocatie", dataGridView.Columns[selectableHydraulicBoundaryLocationsColumnIndex].HeaderText);
+            Assert.AreEqual("Voorlandprofiel", dataGridView.Columns[foreshoreProfileColumnIndex].HeaderText);
+            Assert.AreEqual("Gebruik dam", dataGridView.Columns[useBreakWaterColumnIndex].HeaderText);
+            Assert.AreEqual("Damtype", dataGridView.Columns[breakWaterTypeColumnIndex].HeaderText);
+            Assert.AreEqual("Damhoogte [m+NAP]", dataGridView.Columns[breakWaterHeightColumnIndex].HeaderText);
+            Assert.AreEqual("Gebruik voorlandgeometrie", dataGridView.Columns[useForeShoreGeometryColumnIndex].HeaderText);
+            Assert.AreEqual("Instroommodel", dataGridView.Columns[inflowModelTypeColumnIndex].HeaderText);
+            Assert.AreEqual("Verwachtingswaarde\r\nBinnenwaterstand [m+NAP]", dataGridView.Columns[meanInsideWaterLevelColumnIndex].HeaderText);
+            Assert.AreEqual("Verwachtingswaarde\r\nKritiek instromend debiet [m³/s/m]", dataGridView.Columns[criticalOvertoppingDischargeColumnIndex].HeaderText);
+            Assert.AreEqual("Verwachtingswaarde\r\nToegestane peilverhoging komberging [m]", dataGridView.Columns[allowedLevelIncreaseStorageColumnIndex].HeaderText);
 
-            AssertColumnMembers(dataGridView.Columns.OfType<DataGridViewComboBoxColumn>().ToArray());
-            AssertDataGridViewControlColumnHeaders(dataGridView);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Constructor_ListBoxCorrectlyInitialized()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            ConfigureHydraulicBoundaryDatabase(assessmentSection);
-            ClosingStructuresFailureMechanism failureMechanism = ConfigureFailureMechanism();
-
-            // Call
-            ShowCalculationsView(ConfigureCalculationGroup(failureMechanism, assessmentSection), failureMechanism, assessmentSection);
-
-            var listBox = (ListBox) new ControlTester("listBox").TheObject;
-
-            // Assert
-            Assert.AreEqual(2, listBox.Items.Count);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void AssessmentSection_HydraulicBoundaryDatabaseWithLocations_SelectableHydraulicBoundaryLocationsComboboxCorrectlyInitialized()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            // Call
-            ShowFullyConfiguredCalculationsView(assessmentSection);
-
-            // Assert
-            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-            var hydraulicBoundaryLocationCombobox = (DataGridViewComboBoxColumn) dataGridView.Columns[selectableHydraulicBoundaryLocationsColumnIndex];
-            DataGridViewComboBoxCell.ObjectCollection hydraulicBoundaryLocationComboboxItems = hydraulicBoundaryLocationCombobox.Items;
-            Assert.AreEqual(7, hydraulicBoundaryLocationComboboxItems.Count);
-            Assert.AreEqual("<selecteer>", hydraulicBoundaryLocationComboboxItems[0].ToString());
-            Assert.AreEqual("Location 1", hydraulicBoundaryLocationComboboxItems[1].ToString());
-            Assert.AreEqual("Location 2", hydraulicBoundaryLocationComboboxItems[2].ToString());
-            Assert.AreEqual("Location 1 (2 m)", hydraulicBoundaryLocationComboboxItems[3].ToString());
-            Assert.AreEqual("Location 2 (6 m)", hydraulicBoundaryLocationComboboxItems[4].ToString());
-            Assert.AreEqual("Location 1 (2 m)", hydraulicBoundaryLocationComboboxItems[5].ToString());
-            Assert.AreEqual("Location 2 (6 m)", hydraulicBoundaryLocationComboboxItems[6].ToString());
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void ButtonGenerateCalculations_StructuresPresent_ButtonEnabled()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            ConfigureHydraulicBoundaryDatabase(assessmentSection);
-
-            ClosingStructuresCalculationsView calculationsView = ShowFullyConfiguredCalculationsView(assessmentSection);
-
-            var button = (Button) calculationsView.Controls.Find("buttonGenerateCalculations", true)[0];
-
-            // Call
-            bool state = button.Enabled;
-
-            // Assert
-            Assert.IsTrue(state);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void CalculationsView_ChangingStructures_ButtonCorrectState()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            ConfigureHydraulicBoundaryDatabase(assessmentSection);
-            var failureMechanism = new ClosingStructuresFailureMechanism();
-
-            ClosingStructuresCalculationsView calculationsView = ShowCalculationsView(ConfigureCalculationGroup(failureMechanism, assessmentSection), failureMechanism, assessmentSection);
-
-            // Precondition
-            var button = (Button) calculationsView.Controls.Find("buttonGenerateCalculations", true)[0];
-            Assert.IsFalse(button.Enabled);
-
-            var failureMechanismSection1 = new FailureMechanismSection("Section 1", new[]
+            foreach (DataGridViewComboBoxColumn column in dataGridView.Columns.OfType<DataGridViewComboBoxColumn>().ToArray())
             {
-                new Point2D(0.0, 0.0),
-                new Point2D(5.0, 0.0)
-            });
+                Assert.AreEqual("DisplayName", column.DisplayMember);
+            }
 
-            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
-            {
-                failureMechanismSection1
-            });
-
-            failureMechanism.ClosingStructures.AddRange(new List<ClosingStructure>
-            {
-                new TestClosingStructure(new Point2D(0.0, 0.0), "Structure 1"),
-                new TestClosingStructure(new Point2D(0.0, 0.0), "Structure 2")
-            }, string.Empty);
-
-            // Call
-            failureMechanism.ClosingStructures.NotifyObservers();
-
-            // Assert
-            Assert.IsTrue(button.Enabled);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void FailureMechanism_FailureMechanismWithSections_SectionsListBoxCorrectlyInitialized()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            ConfigureHydraulicBoundaryDatabase(assessmentSection);
-            var failureMechanism = new ClosingStructuresFailureMechanism();
-            var failureMechanismSection1 = new FailureMechanismSection("Section 1", new[]
-            {
-                new Point2D(0.0, 0.0),
-                new Point2D(5.0, 0.0)
-            });
-            var failureMechanismSection2 = new FailureMechanismSection("Section 2", new[]
-            {
-                new Point2D(5.0, 0.0),
-                new Point2D(10.0, 0.0)
-            });
-            var failureMechanismSection3 = new FailureMechanismSection("Section 3", new[]
-            {
-                new Point2D(10.0, 0.0),
-                new Point2D(15.0, 0.0)
-            });
-
-            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
-            {
-                failureMechanismSection1,
-                failureMechanismSection2,
-                failureMechanismSection3
-            });
-
-            failureMechanism.ForeshoreProfiles.AddRange(new List<ForeshoreProfile>
-            {
-                new TestForeshoreProfile("profiel1"),
-                new TestForeshoreProfile("profiel2")
-            }, string.Empty);
-
-            // Call
-            ShowCalculationsView(ConfigureCalculationGroup(failureMechanism, assessmentSection), failureMechanism, assessmentSection);
-
-            // Assert
-            var listBox = (ListBox) new ControlTester("listBox").TheObject;
-            Assert.AreEqual(3, listBox.Items.Count);
-            Assert.AreSame(failureMechanismSection1, listBox.Items[0]);
-            Assert.AreSame(failureMechanismSection2, listBox.Items[1]);
-            Assert.AreSame(failureMechanismSection3, listBox.Items[2]);
+            Assert.AreEqual("This", ((IReadOnlyList<DataGridViewComboBoxColumn>) dataGridView.Columns.OfType<DataGridViewComboBoxColumn>().ToArray())[0].ValueMember);
+            Assert.AreEqual("This", ((IReadOnlyList<DataGridViewComboBoxColumn>) dataGridView.Columns.OfType<DataGridViewComboBoxColumn>().ToArray())[1].ValueMember);
+            Assert.AreEqual("Value", ((IReadOnlyList<DataGridViewComboBoxColumn>) dataGridView.Columns.OfType<DataGridViewComboBoxColumn>().ToArray())[2].ValueMember);
             mocks.VerifyAll();
         }
 
@@ -325,12 +124,15 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
+            ConfigureHydraulicBoundaryDatabase(assessmentSection);
             mocks.ReplayAll();
 
-            // Call
-            ShowFullyConfiguredCalculationsView(assessmentSection);
+            ClosingStructuresFailureMechanism failureMechanism = ConfigureFailureMechanism();
 
-            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+            // Call
+            ShowCalculationsView(ConfigureCalculationGroup(failureMechanism, assessmentSection), failureMechanism, assessmentSection);
+
+            var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
 
             // Assert
             DataGridViewRowCollection rows = dataGridView.Rows;
@@ -367,67 +169,68 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
         }
 
         [Test]
-        [Apartment(ApartmentState.STA)]
-        public void CalculationsView_SelectingCellInRow_SelectionChangedFired()
+        public void ButtonGenerateCalculations_StructuresPresent_ButtonEnabled()
         {
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
+            ConfigureHydraulicBoundaryDatabase(assessmentSection);
             mocks.ReplayAll();
 
-            ConfigureHydraulicBoundaryDatabase(assessmentSection);
-
             ClosingStructuresFailureMechanism failureMechanism = ConfigureFailureMechanism();
-            using (var calculationsView = new ClosingStructuresCalculationsView(ConfigureCalculationGroup(failureMechanism, assessmentSection), failureMechanism, assessmentSection))
-            {
-                var selectionChangedCount = 0;
-                calculationsView.SelectionChanged += (sender, args) => selectionChangedCount++;
+            CalculationGroup calculationGroup = ConfigureCalculationGroup(failureMechanism, assessmentSection);
 
-                var control = TypeUtils.GetField<DataGridViewControl>(calculationsView, "dataGridViewControl");
-                WindowsFormsTestHelper.Show(control);
+            ShowCalculationsView(calculationGroup, failureMechanism, assessmentSection);
 
-                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-                dataGridView.CurrentCell = dataGridView.Rows[0].Cells[0];
+            var button = (Button)new ControlTester("generateButton").TheObject;
 
-                // Call                
-                EventHelper.RaiseEvent(dataGridView, "CellClick", new DataGridViewCellEventArgs(1, 0));
+            // Call
+            bool state = button.Enabled;
 
-                // Assert
-                Assert.AreEqual(1, selectionChangedCount);
-            }
-
-            WindowsFormsTestHelper.CloseAll();
+            // Assert
+            Assert.IsTrue(state);
             mocks.VerifyAll();
         }
 
         [Test]
-        public void CalculationsView_ChangingListBoxSelection_DataGridViewCorrectlySyncedAndSelectionChangedFired()
+        public void CalculationsView_ChangingStructures_ButtonCorrectState()
         {
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
+            ConfigureHydraulicBoundaryDatabase(assessmentSection);
             mocks.ReplayAll();
 
-            ClosingStructuresCalculationsView calculationsView = ShowFullyConfiguredCalculationsView(assessmentSection);
+            var failureMechanism = new ClosingStructuresFailureMechanism();
 
-            var selectionChangedCount = 0;
-            calculationsView.SelectionChanged += (sender, args) => selectionChangedCount++;
-
-            var listBox = (ListBox) new ControlTester("listBox").TheObject;
-            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+            ShowCalculationsView(ConfigureCalculationGroup(failureMechanism, assessmentSection), failureMechanism, assessmentSection);
 
             // Precondition
-            Assert.AreEqual(2, dataGridView.Rows.Count);
-            Assert.AreEqual("Calculation 1", dataGridView.Rows[0].Cells[nameColumnIndex].FormattedValue);
-            Assert.AreEqual("Calculation 2", dataGridView.Rows[1].Cells[nameColumnIndex].FormattedValue);
+            var button = (Button)new ControlTester("generateButton").TheObject;
+            Assert.IsFalse(button.Enabled);
+
+            var failureMechanismSection1 = new FailureMechanismSection("Section 1", new[]
+            {
+                new Point2D(0.0, 0.0),
+                new Point2D(5.0, 0.0)
+            });
+
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
+            {
+                failureMechanismSection1
+            });
+
+            failureMechanism.ClosingStructures.AddRange(new List<ClosingStructure>
+            {
+                new TestClosingStructure(new Point2D(0.0, 0.0), "Structure 1"),
+                new TestClosingStructure(new Point2D(0.0, 0.0), "Structure 2")
+            }, string.Empty);
 
             // Call
-            listBox.SelectedIndex = 1;
+            failureMechanism.ClosingStructures.NotifyObservers();
 
             // Assert
-            Assert.AreEqual(1, dataGridView.Rows.Count);
-            Assert.AreEqual("Calculation 2", dataGridView.Rows[0].Cells[nameColumnIndex].FormattedValue);
-            Assert.AreEqual(2, selectionChangedCount);
+            Assert.IsTrue(button.Enabled);
             mocks.VerifyAll();
         }
 
@@ -445,9 +248,13 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
+            ConfigureHydraulicBoundaryDatabase(assessmentSection);
             mocks.ReplayAll();
 
-            ShowFullyConfiguredCalculationsView(assessmentSection);
+            ClosingStructuresFailureMechanism failureMechanism = ConfigureFailureMechanism();
+            CalculationGroup calculationGroup = ConfigureCalculationGroup(failureMechanism, assessmentSection);
+
+            ShowCalculationsView(calculationGroup, failureMechanism, assessmentSection);
 
             var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
@@ -478,96 +285,24 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
+            ConfigureHydraulicBoundaryDatabase(assessmentSection);
             mocks.ReplayAll();
 
-            ConfigureHydraulicBoundaryDatabase(assessmentSection);
             ClosingStructuresFailureMechanism failureMechanism = ConfigureFailureMechanism();
             CalculationGroup calculationGroup = ConfigureCalculationGroup(failureMechanism, assessmentSection);
 
-            var newRoundedValue = (RoundedDouble) newValue;
-
             ShowCalculationsView(calculationGroup, failureMechanism, assessmentSection);
-
-            mocks.ReplayAll();
 
             var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
             // Call
-            dataGridView.Rows[0].Cells[cellIndex].Value = newRoundedValue;
+            dataGridView.Rows[0].Cells[cellIndex].Value = (RoundedDouble) newValue;
 
             // Assert
             Assert.IsEmpty(dataGridView.Rows[0].ErrorText);
             mocks.VerifyAll();
         }
-
-        [Test]
-        public void CalculationsViewWithFailureMechanism_WhenSectionsAddedAndFailureMechanismNotified_ThenSectionsListBoxCorrectlyUpdated()
-        {
-            // Given
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            ConfigureHydraulicBoundaryDatabase(assessmentSection);
-            var failureMechanism = new ClosingStructuresFailureMechanism();
-            var failureMechanismSection1 = new FailureMechanismSection("Section 1", new[]
-            {
-                new Point2D(0.0, 0.0),
-                new Point2D(5.0, 0.0)
-            });
-            var failureMechanismSection2 = new FailureMechanismSection("Section 2", new[]
-            {
-                new Point2D(5.0, 0.0),
-                new Point2D(10.0, 0.0)
-            });
-            var failureMechanismSection3 = new FailureMechanismSection("Section 3", new[]
-            {
-                new Point2D(10.0, 0.0),
-                new Point2D(15.0, 0.0)
-            });
-
-            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
-            {
-                failureMechanismSection1,
-                failureMechanismSection2
-            });
-
-            failureMechanism.ForeshoreProfiles.AddRange(new List<ForeshoreProfile>
-            {
-                new TestForeshoreProfile("profiel1"),
-                new TestForeshoreProfile("profiel2")
-            }, string.Empty);
-
-            ShowCalculationsView(ConfigureCalculationGroup(failureMechanism, assessmentSection), failureMechanism, assessmentSection);
-
-            var listBox = (ListBox) new ControlTester("listBox").TheObject;
-
-            // Precondition
-            Assert.AreEqual(2, listBox.Items.Count);
-
-            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
-            {
-                failureMechanismSection1,
-                failureMechanismSection2,
-                failureMechanismSection3
-            });
-
-            failureMechanism.ForeshoreProfiles.AddRange(new List<ForeshoreProfile>
-            {
-                new TestForeshoreProfile("profiel3")
-            }, string.Empty);
-
-            // When
-            failureMechanism.NotifyObservers();
-
-            // Then
-            Assert.AreEqual(3, listBox.Items.Count);
-            Assert.AreSame(failureMechanismSection1, listBox.Items[0]);
-            Assert.AreSame(failureMechanismSection2, listBox.Items[1]);
-            Assert.AreSame(failureMechanismSection3, listBox.Items[2]);
-            mocks.VerifyAll();
-        }
-
+        
         [Test]
         [TestCase(0, criticalOvertoppingDischargeColumnIndex)]
         [TestCase(-123.45, criticalOvertoppingDischargeColumnIndex)]
@@ -582,14 +317,15 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
             var calculationObserver = mocks.StrictMock<IObserver>();
             var inputObserver = mocks.StrictMock<IObserver>();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
+            ConfigureHydraulicBoundaryDatabase(assessmentSection);
             mocks.ReplayAll();
 
-            var newRoundedValue = (RoundedDouble) newValue;
+            ClosingStructuresFailureMechanism failureMechanism = ConfigureFailureMechanism();
+            CalculationGroup calculationGroup = ConfigureCalculationGroup(failureMechanism, assessmentSection);
 
-            ClosingStructuresCalculationsView calculationsView = ShowFullyConfiguredCalculationsView(assessmentSection);
+            ShowCalculationsView(calculationGroup, failureMechanism, assessmentSection);
 
-            var data = (CalculationGroup) calculationsView.Data;
-            var calculation = (StructuresCalculationScenario<ClosingStructuresInput>) data.Children.First();
+            var calculation = (StructuresCalculationScenario<ClosingStructuresInput>) calculationGroup.Children.First();
 
             calculation.Attach(calculationObserver);
             calculation.InputParameters.Attach(inputObserver);
@@ -597,7 +333,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
             var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
             // Call
-            dataGridView.Rows[0].Cells[index].Value = newRoundedValue;
+            dataGridView.Rows[0].Cells[index].Value = (RoundedDouble) newValue;
 
             // Assert
             Assert.AreEqual("Gemiddelde moet groter zijn dan 0.", dataGridView.Rows[0].ErrorText);
@@ -640,15 +376,14 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
             ConfigureHydraulicBoundaryDatabase(assessmentSection);
             assessmentSection.Stub(a => a.Attach(null)).IgnoreArguments();
             assessmentSection.Stub(a => a.Detach(null)).IgnoreArguments();
-            assessmentSection.Replay();
-
-            ClosingStructuresFailureMechanism failureMechanism = ConfigureFailureMechanism();
-            ClosingStructuresCalculationsView calculationsView = ShowCalculationsView(ConfigureCalculationGroup(failureMechanism, assessmentSection), failureMechanism, assessmentSection);
-
             mocks.ReplayAll();
 
-            var data = (CalculationGroup) calculationsView.Data;
-            var calculationScenario = (StructuresCalculationScenario<ClosingStructuresInput>) data.Children[1];
+            ClosingStructuresFailureMechanism failureMechanism = ConfigureFailureMechanism();
+            CalculationGroup calculationGroup = ConfigureCalculationGroup(failureMechanism, assessmentSection);
+
+            ShowCalculationsView(calculationGroup, failureMechanism, assessmentSection);
+
+            var calculationScenario = (StructuresCalculationScenario<ClosingStructuresInput>) calculationGroup.Children[1];
 
             if (useCalculationWithOutput)
             {
@@ -676,16 +411,19 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
+            ConfigureHydraulicBoundaryDatabase(assessmentSection);
             mocks.ReplayAll();
 
-            ClosingStructuresCalculationsView view = ShowFullyConfiguredCalculationsView(assessmentSection);
+            ClosingStructuresFailureMechanism failureMechanism = ConfigureFailureMechanism();
+            CalculationGroup calculationGroup = ConfigureCalculationGroup(failureMechanism, assessmentSection);
 
-            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+            ShowCalculationsView(calculationGroup, failureMechanism, assessmentSection);
 
             // This step is necessary because setting the same value would not change the view state.
-            var calculationGroup = (CalculationGroup) view.Data;
             var calculation = (StructuresCalculationScenario<ClosingStructuresInput>) calculationGroup.GetCalculations().First();
             calculation.InputParameters.UseBreakWater = !newValue;
+
+            var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
 
             // Call
             dataGridView.Rows[0].Cells[useBreakWaterColumnIndex].Value = newValue;
@@ -704,72 +442,25 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
+            ConfigureHydraulicBoundaryDatabase(assessmentSection);
             mocks.ReplayAll();
 
-            ClosingStructuresCalculationsView calculationsView = ShowFullyConfiguredCalculationsView(assessmentSection);
+            ClosingStructuresFailureMechanism failureMechanism = ConfigureFailureMechanism();
+            CalculationGroup calculationGroup = ConfigureCalculationGroup(failureMechanism, assessmentSection);
+
+            ClosingStructuresCalculationsView view = ShowCalculationsView(calculationGroup, failureMechanism, assessmentSection);
 
             var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-
             dataGridView.CurrentCell = dataGridView.Rows[selectedRow].Cells[0];
 
             // Call
-            object selection = calculationsView.Selection;
+            object selection = view.Selection;
 
             // Assert
             Assert.IsInstanceOf<ClosingStructuresInputContext>(selection);
             var dataRow = (ClosingStructuresCalculationRow) dataGridView.Rows[selectedRow].DataBoundItem;
-            Assert.AreSame(dataRow.CalculationScenario, ((ClosingStructuresInputContext) selection).Calculation);
+            Assert.AreSame(dataRow.Calculation, ((ClosingStructuresInputContext) selection).Calculation);
             mocks.VerifyAll();
-        }
-
-        [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void CalculationsView_EditingNameViaDataGridView_ObserversCorrectlyNotified(bool useCalculationWithOutput)
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var calculationObserver = mocks.StrictMock<IObserver>();
-            var calculationInputObserver = mocks.StrictMock<IObserver>();
-
-            calculationObserver.Expect(o => o.UpdateObserver());
-
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            ClosingStructuresCalculationsView calculationsView = ShowFullyConfiguredCalculationsView(assessmentSection);
-
-            var data = (CalculationGroup) calculationsView.Data;
-            var calculation = (StructuresCalculationScenario<ClosingStructuresInput>) data.Children.First();
-
-            if (useCalculationWithOutput)
-            {
-                calculation.Output = new TestStructuresOutput();
-            }
-
-            calculation.Attach(calculationObserver);
-            calculation.InputParameters.Attach(calculationInputObserver);
-
-            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-
-            // Call
-            dataGridView.Rows[0].Cells[nameColumnIndex].Value = "New name";
-
-            // Assert
-            calculation.Output = null;
-            mocks.VerifyAll();
-        }
-
-        private static void AssertColumnMembers(IReadOnlyList<DataGridViewComboBoxColumn> dataGridViewColumns)
-        {
-            foreach (DataGridViewComboBoxColumn column in dataGridViewColumns)
-            {
-                Assert.AreEqual("DisplayName", column.DisplayMember);
-            }
-
-            Assert.AreEqual("This", dataGridViewColumns[0].ValueMember);
-            Assert.AreEqual("This", dataGridViewColumns[1].ValueMember);
-            Assert.AreEqual("Value", dataGridViewColumns[2].ValueMember);
         }
 
         public override void Setup()
@@ -784,40 +475,6 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
             base.TearDown();
 
             testForm.Dispose();
-        }
-
-        private ClosingStructuresCalculationsView ShowFullyConfiguredCalculationsView(IAssessmentSection assessmentSection)
-        {
-            ConfigureHydraulicBoundaryDatabase(assessmentSection);
-
-            var failureMechanism = new ClosingStructuresFailureMechanism();
-
-            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
-            {
-                new FailureMechanismSection("Section 1", new[]
-                {
-                    new Point2D(0.0, 0.0),
-                    new Point2D(5.0, 0.0)
-                }),
-                new FailureMechanismSection("Section 2", new[]
-                {
-                    new Point2D(5.0, 0.0),
-                    new Point2D(10.0, 0.0)
-                })
-            });
-
-            failureMechanism.ClosingStructures.AddRange(new List<ClosingStructure>
-            {
-                new TestClosingStructure(new Point2D(0.0, 0.0), "Structure 1"),
-                new TestClosingStructure(new Point2D(0.0, 0.0), "Structure 2")
-            }, string.Empty);
-            failureMechanism.ForeshoreProfiles.AddRange(new List<ForeshoreProfile>
-            {
-                new TestForeshoreProfile("profiel 1"),
-                new TestForeshoreProfile("profiel 2")
-            }, string.Empty);
-
-            return ShowCalculationsView(ConfigureCalculationGroup(failureMechanism, assessmentSection), failureMechanism, assessmentSection);
         }
 
         private ClosingStructuresCalculationsView ShowCalculationsView(CalculationGroup calculationGroup, ClosingStructuresFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
@@ -942,27 +599,17 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
 
             failureMechanism.ForeshoreProfiles.AddRange(new List<ForeshoreProfile>
             {
-                new TestForeshoreProfile("profiel1"),
-                new TestForeshoreProfile("profiel2")
+                new TestForeshoreProfile("Profiel 1"),
+                new TestForeshoreProfile("Profiel 2")
+            }, string.Empty);
+
+            failureMechanism.ClosingStructures.AddRange(new List<ClosingStructure>
+            {
+                new TestClosingStructure(new Point2D(0.0, 0.0), "Structure 1"),
+                new TestClosingStructure(new Point2D(0.0, 0.0), "Structure 2")
             }, string.Empty);
 
             return failureMechanism;
-        }
-
-        private static void AssertDataGridViewControlColumnHeaders(DataGridView dataGridView)
-        {
-            Assert.AreEqual(11, dataGridView.ColumnCount);
-            Assert.AreEqual("Naam", dataGridView.Columns[nameColumnIndex].HeaderText);
-            Assert.AreEqual("Hydraulische belastingenlocatie", dataGridView.Columns[selectableHydraulicBoundaryLocationsColumnIndex].HeaderText);
-            Assert.AreEqual("Voorlandprofiel", dataGridView.Columns[foreshoreProfileColumnIndex].HeaderText);
-            Assert.AreEqual("Gebruik dam", dataGridView.Columns[useBreakWaterColumnIndex].HeaderText);
-            Assert.AreEqual("Damtype", dataGridView.Columns[breakWaterTypeColumnIndex].HeaderText);
-            Assert.AreEqual("Damhoogte [m+NAP]", dataGridView.Columns[breakWaterHeightColumnIndex].HeaderText);
-            Assert.AreEqual("Gebruik voorlandgeometrie", dataGridView.Columns[useForeShoreGeometryColumnIndex].HeaderText);
-            Assert.AreEqual("Instroommodel", dataGridView.Columns[inflowModelTypeColumnIndex].HeaderText);
-            Assert.AreEqual("Verwachtingswaarde\r\nBinnenwaterstand [m+NAP]", dataGridView.Columns[meanInsideWaterLevelColumnIndex].HeaderText);
-            Assert.AreEqual("Verwachtingswaarde\r\nKritiek instromend debiet [m³/s/m]", dataGridView.Columns[criticalOvertoppingDischargeColumnIndex].HeaderText);
-            Assert.AreEqual("Verwachtingswaarde\r\nToegestane peilverhoging komberging [m]", dataGridView.Columns[allowedLevelIncreaseStorageColumnIndex].HeaderText);
         }
     }
 }
