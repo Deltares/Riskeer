@@ -48,6 +48,7 @@ namespace Riskeer.ClosingStructures.Forms.Views
     {
         private const int foreshoreProfileColumnIndex = 2;
 
+        private readonly Observer foreshoreProfilesObserver;
         private readonly Observer closingStructuresObserver;
 
         /// <summary>
@@ -60,12 +61,17 @@ namespace Riskeer.ClosingStructures.Forms.Views
         public ClosingStructuresCalculationsView(CalculationGroup data, ClosingStructuresFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
             : base(data, failureMechanism, assessmentSection)
         {
-            closingStructuresObserver = new Observer(() =>
+            foreshoreProfilesObserver = new Observer(() =>
             {
                 PrefillComboBoxListItemsAtColumnLevel();
                 UpdateColumns();
                 UpdateGenerateCalculationsButtonState();
             })
+            {
+                Observable = FailureMechanism.ForeshoreProfiles
+            };
+
+            closingStructuresObserver = new Observer(UpdateGenerateCalculationsButtonState)
             {
                 Observable = FailureMechanism.ClosingStructures
             };
@@ -82,6 +88,7 @@ namespace Riskeer.ClosingStructures.Forms.Views
         {
             if (disposing)
             {
+                foreshoreProfilesObserver.Dispose();
                 closingStructuresObserver.Dispose();
             }
 
