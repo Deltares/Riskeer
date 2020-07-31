@@ -261,10 +261,11 @@
     <value>Illustratiepunten inlezen   </value>
     <comment>Spaces are added to make this value unique to prevent jumping from the selected property after editing.</comment>
   </data>
-  <data name="Mean_Critical_FlowRate_DisplayName" xml:space="preserve">
-    <value>Verwachtingswaarde kritiek overslagdebiet [m3/m/s]</value>
+  <data name="GrassCoverErosionInwardsCalculationsView_AddWarningMessage_Calculation_can_change_section_when_DikeProfile_is_changed" xml:space="preserve">
+    <value>Als u het dijkprofiel van een berekening wijzigt kan de berekening in een ander vak komen te liggen.</value>
   </data>
-  <data name="StandardDeviation_Critical_FlowRate_DisplayName" xml:space="preserve">
-    <value>Standaardafwijking kritiek overslagdebiet [m3/m/s]</value>
+  <data name="GrassCoverErosionInwardsCalculationsView_CriticalFlowRate_DisplayName" xml:space="preserve">
+    <value>kritiek overslagdebiet
+[m³/s/m]</value>
   </data>
 </root>

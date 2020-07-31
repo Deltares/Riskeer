@@ -441,7 +441,9 @@ namespace Riskeer.ClosingStructures.IO.Test.Configurations
                         Mean = (RoundedDouble) 1.2,
                         StandardDeviation = (RoundedDouble) 0.1
                     }
-                }
+                },
+                IsRelevant = true,
+                Contribution = (RoundedDouble) 0.5432
             };
 
             Assert.AreEqual(1, calculationGroup.Children.Count);

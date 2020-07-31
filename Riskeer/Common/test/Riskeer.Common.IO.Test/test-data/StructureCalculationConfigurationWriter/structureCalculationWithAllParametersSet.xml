@@ -41,5 +41,9 @@
       <stochast naam="testStochastName" />
     </stochasten>
     <illustratiepunteninlezen>true</illustratiepunteninlezen>
+    <scenario>
+      <gebruik>true</gebruik>
+      <bijdrage>54.32</bijdrage>
+    </scenario>
   </berekening>
 </configuratie>

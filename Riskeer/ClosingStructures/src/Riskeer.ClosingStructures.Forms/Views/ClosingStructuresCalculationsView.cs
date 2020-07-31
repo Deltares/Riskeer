@@ -26,20 +26,18 @@ using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Common.Controls.DataGrid;
-using Core.Common.Controls.Views;
 using Core.Common.Util;
 using Riskeer.ClosingStructures.Data;
 using Riskeer.ClosingStructures.Forms.PresentationObjects;
+using Riskeer.ClosingStructures.Forms.Properties;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.DikeProfiles;
-using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Forms;
 using Riskeer.Common.Forms.ChangeHandlers;
 using Riskeer.Common.Forms.Helpers;
-using Riskeer.Common.Forms.PresentationObjects;
+using Riskeer.Common.Forms.Views;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.ClosingStructures.Forms.Views
@@ -47,22 +45,12 @@ namespace Riskeer.ClosingStructures.Forms.Views
     /// <summary>
     /// This class is a view for configuring closing structures calculations.
     /// </summary>
-    public partial class ClosingStructuresCalculationsView : UserControl, ISelectionProvider, IView
+    public class ClosingStructuresCalculationsView : CalculationsView<StructuresCalculationScenario<ClosingStructuresInput>, ClosingStructuresInput, ClosingStructuresCalculationRow, ClosingStructuresFailureMechanism>
     {
-        private const int selectableHydraulicBoundaryLocationColumnIndex = 1;
-        private const int selectableForeshoreProfileColumnIndex = 2;
-        private readonly IAssessmentSection assessmentSection;
-        private readonly ClosingStructuresFailureMechanism failureMechanism;
-        private Observer failureMechanismObserver;
-        private Observer hydraulicBoundaryLocationsObserver;
+        private const int foreshoreProfileColumnIndex = 2;
+
+        private Observer foreshoreProfilesObserver;
         private Observer closingStructuresObserver;
-        private RecursiveObserver<CalculationGroup, ClosingStructuresInput> inputObserver;
-        private RecursiveObserver<CalculationGroup, StructuresCalculationScenario<ClosingStructuresInput>> calculationScenarioObserver;
-        private RecursiveObserver<CalculationGroup, CalculationGroup> calculationGroupObserver;
-
-        private CalculationGroup calculationGroup;
-
-        public event EventHandler<EventArgs> SelectionChanged;
 
         /// <summary>
         /// Creates a new instance of <see cref="ClosingStructuresCalculationsView"/>.
@@ -72,387 +60,60 @@ namespace Riskeer.ClosingStructures.Forms.Views
         /// <param name="assessmentSection">The assessment section.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public ClosingStructuresCalculationsView(CalculationGroup data, ClosingStructuresFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
-        {
-            if (data == null)
-            {
-                throw new ArgumentNullException(nameof(data));
-            }
-
-            if (failureMechanism == null)
-            {
-                throw new ArgumentNullException(nameof(failureMechanism));
-            }
-
-            if (assessmentSection == null)
-            {
-                throw new ArgumentNullException(nameof(assessmentSection));
-            }
-
-            this.failureMechanism = failureMechanism;
-            this.assessmentSection = assessmentSection;
-            calculationGroup = data;
-
-            InitializeObservers();
-
-            InitializeComponent();
-            InitializeListBox();
-            InitializeDataGridView();
-
-            UpdateSectionsListBox();
-            UpdateDataGridViewDataSource();
-            UpdateSelectableHydraulicBoundaryLocationsColumn();
-            UpdateForeshoreProfilesColumn();
-            UpdateGenerateCalculationsButtonState();
-        }
-
-        public object Selection => CreateSelectedItemFromCurrentRow();
-
-        public object Data
-        {
-            get => calculationGroup;
-            set => calculationGroup = value as CalculationGroup;
-        }
+            : base(data, failureMechanism, assessmentSection) {}
 
         protected override void OnLoad(EventArgs e)
         {
-            // Necessary to correctly load the content of the dropdown lists of the comboboxes...
-            UpdateDataGridViewDataSource();
-
             base.OnLoad(e);
 
-            dataGridViewControl.CellFormatting += HandleCellStyling;
+            DataGridViewControl.CellFormatting += HandleCellStyling;
         }
 
         protected override void Dispose(bool disposing)
         {
-            if (disposing)
+            if (disposing && Loaded)
             {
-                failureMechanismObserver.Dispose();
-                inputObserver.Dispose();
-                calculationScenarioObserver.Dispose();
-                calculationGroupObserver.Dispose();
-
-                hydraulicBoundaryLocationsObserver.Dispose();
+                foreshoreProfilesObserver.Dispose();
                 closingStructuresObserver.Dispose();
-
-                components?.Dispose();
             }
 
             base.Dispose(disposing);
         }
 
-        private void InitializeDataGridView()
+        protected override object CreateSelectedItemFromCurrentRow(ClosingStructuresCalculationRow currentRow)
         {
-            dataGridViewControl.CurrentRowChanged += DataGridViewOnCurrentRowChangedHandler;
-
-            dataGridViewControl.AddTextBoxColumn(
-                nameof(ClosingStructuresCalculationRow.Name),
-                RiskeerCommonFormsResources.FailureMechanism_Name_DisplayName);
-
-            dataGridViewControl.AddComboBoxColumn<DataGridViewComboBoxItemWrapper<SelectableHydraulicBoundaryLocation>>(
-                nameof(ClosingStructuresCalculationRow.SelectableHydraulicBoundaryLocation),
-                RiskeerCommonFormsResources.HydraulicBoundaryLocation_DisplayName,
-                null,
-                nameof(DataGridViewComboBoxItemWrapper<SelectableHydraulicBoundaryLocation>.This),
-                nameof(DataGridViewComboBoxItemWrapper<SelectableHydraulicBoundaryLocation>.DisplayName));
-
-            dataGridViewControl.AddComboBoxColumn<DataGridViewComboBoxItemWrapper<ForeshoreProfile>>(
-                nameof(ClosingStructuresCalculationRow.ForeshoreProfile),
-                RiskeerCommonFormsResources.Structure_ForeshoreProfile_DisplayName,
-                null,
-                nameof(DataGridViewComboBoxItemWrapper<ForeshoreProfile>.This),
-                nameof(DataGridViewComboBoxItemWrapper<ForeshoreProfile>.DisplayName));
-
-            dataGridViewControl.AddCheckBoxColumn(nameof(ClosingStructuresCalculationRow.UseBreakWater),
-                                                  RiskeerCommonFormsResources.Use_BreakWater_DisplayName);
-
-            dataGridViewControl.AddComboBoxColumn(nameof(ClosingStructuresCalculationRow.BreakWaterType),
-                                                  RiskeerCommonFormsResources.CalculationsView_BreakWaterType_DisplayName,
-                                                  EnumDisplayWrapperHelper.GetEnumTypes<BreakWaterType>(),
-                                                  nameof(EnumDisplayWrapper<BreakWaterType>.Value),
-                                                  nameof(EnumDisplayWrapper<BreakWaterType>.DisplayName));
-
-            dataGridViewControl.AddTextBoxColumn(
-                nameof(ClosingStructuresCalculationRow.BreakWaterHeight),
-                RiskeerCommonFormsResources.CalculationsView_BreakWaterHeight_DisplayName);
-
-            dataGridViewControl.AddCheckBoxColumn(nameof(ClosingStructuresCalculationRow.UseForeshoreGeometry),
-                                                  RiskeerCommonFormsResources.Use_Foreshore_DisplayName);
-
-            dataGridViewControl.AddComboBoxColumn(nameof(ClosingStructuresCalculationRow.InflowModelType),
-                                                  RiskeerCommonFormsResources.Structure_InflowModelType_DisplayName,
-                                                  EnumDisplayWrapperHelper.GetEnumTypes<ClosingStructureInflowModelType>(),
-                                                  nameof(EnumDisplayWrapper<ClosingStructureInflowModelType>.Value),
-                                                  nameof(EnumDisplayWrapper<ClosingStructureInflowModelType>.DisplayName));
-
-            dataGridViewControl.AddTextBoxColumn(
-                nameof(ClosingStructuresCalculationRow.MeanInsideWaterLevel),
-                $"{RiskeerCommonFormsResources.NormalDistribution_Mean_DisplayName}\r\n{RiskeerCommonFormsResources.Structure_InsideWaterLevel_DisplayName}");
-
-            dataGridViewControl.AddTextBoxColumn(
-                nameof(ClosingStructuresCalculationRow.CriticalOvertoppingDischarge),
-                $"{RiskeerCommonFormsResources.NormalDistribution_Mean_DisplayName}\r\n{RiskeerCommonFormsResources.Structure_CriticalOvertoppingDischarge_DisplayName}");
-
-            dataGridViewControl.AddTextBoxColumn(
-                nameof(ClosingStructuresCalculationRow.AllowedLevelIncreaseStorage),
-                $"{RiskeerCommonFormsResources.NormalDistribution_Mean_DisplayName}\r\n{RiskeerCommonFormsResources.Structure_AllowedLevelIncreaseStorage_DisplayName}");
+            return new ClosingStructuresInputContext(
+                currentRow.Calculation.InputParameters,
+                currentRow.Calculation,
+                FailureMechanism,
+                AssessmentSection);
         }
 
-        private void InitializeListBox()
+        protected override IEnumerable<Point2D> GetReferenceLocations()
         {
-            listBox.DisplayMember = nameof(FailureMechanismSection.Name);
-            listBox.SelectedValueChanged += ListBoxOnSelectedValueChanged;
+            return FailureMechanism.ClosingStructures.Select(cs => cs.Location);
         }
 
-        private void UpdateGenerateCalculationsButtonState()
+        protected override bool IsCalculationIntersectionWithReferenceLineInSection(StructuresCalculationScenario<ClosingStructuresInput> calculation, IEnumerable<Segment2D> lineSegments)
         {
-            buttonGenerateCalculations.Enabled = failureMechanism.ClosingStructures.Any();
+            return calculation.IsStructureIntersectionWithReferenceLineInSection(lineSegments);
         }
 
-        private ClosingStructuresInputContext CreateSelectedItemFromCurrentRow()
+        protected override ClosingStructuresCalculationRow CreateRow(StructuresCalculationScenario<ClosingStructuresInput> calculation)
         {
-            DataGridViewRow currentRow = dataGridViewControl.CurrentRow;
-
-            var calculationRow = (ClosingStructuresCalculationRow) currentRow?.DataBoundItem;
-
-            ClosingStructuresInputContext selection = null;
-            if (calculationRow != null)
-            {
-                selection = new ClosingStructuresInputContext(
-                    calculationRow.CalculationScenario.InputParameters,
-                    calculationRow.CalculationScenario,
-                    failureMechanism,
-                    assessmentSection);
-            }
-
-            return selection;
+            return new ClosingStructuresCalculationRow(calculation, new ObservablePropertyChangeHandler(calculation, calculation.InputParameters));
         }
 
-        private static void SetItemsOnObjectCollection(DataGridViewComboBoxCell.ObjectCollection objectCollection, object[] comboBoxItems)
+        protected override bool CanGenerateCalculations()
         {
-            objectCollection.Clear();
-            objectCollection.AddRange(comboBoxItems);
+            return FailureMechanism.ClosingStructures.Any();
         }
 
-        private static DataGridViewComboBoxItemWrapper<SelectableHydraulicBoundaryLocation>[] GetSelectableHydraulicBoundaryLocationsDataSource(
-            IEnumerable<SelectableHydraulicBoundaryLocation> selectableHydraulicBoundaryLocations = null)
+        protected override void GenerateCalculations()
         {
-            var dataGridViewComboBoxItemWrappers = new List<DataGridViewComboBoxItemWrapper<SelectableHydraulicBoundaryLocation>>
-            {
-                new DataGridViewComboBoxItemWrapper<SelectableHydraulicBoundaryLocation>(null)
-            };
+            var calculationGroup = (CalculationGroup) Data;
 
-            if (selectableHydraulicBoundaryLocations != null)
-            {
-                dataGridViewComboBoxItemWrappers.AddRange(selectableHydraulicBoundaryLocations.Select(hbl => new DataGridViewComboBoxItemWrapper<SelectableHydraulicBoundaryLocation>(hbl)));
-            }
-
-            return dataGridViewComboBoxItemWrappers.ToArray();
-        }
-
-        private void InitializeObservers()
-        {
-            failureMechanismObserver = new Observer(OnFailureMechanismUpdate)
-            {
-                Observable = failureMechanism
-            };
-            hydraulicBoundaryLocationsObserver = new Observer(UpdateSelectableHydraulicBoundaryLocationsColumn)
-            {
-                Observable = assessmentSection.HydraulicBoundaryDatabase.Locations
-            };
-            closingStructuresObserver = new Observer(UpdateGenerateCalculationsButtonState)
-            {
-                Observable = failureMechanism.ClosingStructures
-            };
-
-            // The concat is needed to observe the input of calculations in child groups.
-            inputObserver = new RecursiveObserver<CalculationGroup, ClosingStructuresInput>(UpdateDataGridViewDataSource, pcg => pcg.Children.Concat<object>(pcg.Children.OfType<StructuresCalculationScenario<ClosingStructuresInput>>().Select(pc => pc.InputParameters)))
-            {
-                Observable = calculationGroup
-            };
-            calculationScenarioObserver = new RecursiveObserver<CalculationGroup, StructuresCalculationScenario<ClosingStructuresInput>>(() => dataGridViewControl.RefreshDataGridView(), pcg => pcg.Children)
-            {
-                Observable = calculationGroup
-            };
-            calculationGroupObserver = new RecursiveObserver<CalculationGroup, CalculationGroup>(UpdateDataGridViewDataSource, pcg => pcg.Children)
-            {
-                Observable = calculationGroup
-            };
-        }
-
-        #region Data sources
-
-        private void UpdateDataGridViewDataSource()
-        {
-            // Skip changes coming from the view itself
-            if (dataGridViewControl.IsCurrentCellInEditMode)
-            {
-                dataGridViewControl.AutoResizeColumns();
-            }
-
-            if (!(listBox.SelectedItem is FailureMechanismSection failureMechanismSection))
-            {
-                dataGridViewControl.SetDataSource(null);
-                return;
-            }
-
-            IEnumerable<Segment2D> lineSegments = Math2D.ConvertPointsToLineSegments(failureMechanismSection.Points);
-            IEnumerable<StructuresCalculationScenario<ClosingStructuresInput>> calculationScenarios = calculationGroup
-                                                                                                      .GetCalculations()
-                                                                                                      .OfType<StructuresCalculationScenario<ClosingStructuresInput>>()
-                                                                                                      .Where(cs => cs.IsStructureIntersectionWithReferenceLineInSection(lineSegments));
-
-            PrefillComboBoxListItemsAtColumnLevel();
-
-            List<ClosingStructuresCalculationRow> dataSource = calculationScenarios.Select(cs => new ClosingStructuresCalculationRow(cs, new ObservablePropertyChangeHandler(cs, cs.InputParameters))).ToList();
-            dataGridViewControl.SetDataSource(dataSource);
-            dataGridViewControl.ClearCurrentCell();
-
-            UpdateSelectableHydraulicBoundaryLocationsColumn();
-            UpdateForeshoreProfilesColumn();
-        }
-
-        #endregion
-
-        #region Update combo box list items
-
-        #region Update SelectableHydraulicBoundaryLocations
-
-        private void UpdateSelectableHydraulicBoundaryLocationsColumn()
-        {
-            var column = (DataGridViewComboBoxColumn) dataGridViewControl.GetColumnFromIndex(selectableHydraulicBoundaryLocationColumnIndex);
-
-            using (new SuspendDataGridViewColumnResizes(column))
-            {
-                foreach (DataGridViewRow dataGridViewRow in dataGridViewControl.Rows)
-                {
-                    FillAvailableSelectableHydraulicBoundaryLocationsList(dataGridViewRow);
-                }
-            }
-        }
-
-        private void FillAvailableSelectableHydraulicBoundaryLocationsList(DataGridViewRow dataGridViewRow)
-        {
-            var rowData = (ClosingStructuresCalculationRow) dataGridViewRow.DataBoundItem;
-            IEnumerable<SelectableHydraulicBoundaryLocation> locations = GetSelectableHydraulicBoundaryLocationsForCalculation(rowData.CalculationScenario);
-
-            var cell = (DataGridViewComboBoxCell) dataGridViewRow.Cells[selectableHydraulicBoundaryLocationColumnIndex];
-            DataGridViewComboBoxItemWrapper<SelectableHydraulicBoundaryLocation>[] dataGridViewComboBoxItemWrappers = GetSelectableHydraulicBoundaryLocationsDataSource(locations);
-            SetItemsOnObjectCollection(cell.Items, dataGridViewComboBoxItemWrappers);
-        }
-
-        private IEnumerable<SelectableHydraulicBoundaryLocation> GetSelectableHydraulicBoundaryLocationsForCalculation(StructuresCalculationScenario<ClosingStructuresInput> calculationScenario)
-        {
-            return GetSelectableHydraulicBoundaryLocations(assessmentSection?.HydraulicBoundaryDatabase.Locations,
-                                                           calculationScenario.InputParameters.Structure);
-        }
-
-        private static IEnumerable<SelectableHydraulicBoundaryLocation> GetSelectableHydraulicBoundaryLocations(
-            IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations, ClosingStructure closingStructure)
-        {
-            Point2D referencePoint = closingStructure?.Location;
-            return SelectableHydraulicBoundaryLocationHelper.GetSortedSelectableHydraulicBoundaryLocations(
-                hydraulicBoundaryLocations, referencePoint);
-        }
-
-        #endregion
-
-        #region Update ForeshoreProfiles
-
-        private void UpdateForeshoreProfilesColumn()
-        {
-            var column = (DataGridViewComboBoxColumn) dataGridViewControl.GetColumnFromIndex(selectableForeshoreProfileColumnIndex);
-
-            using (new SuspendDataGridViewColumnResizes(column))
-            {
-                foreach (DataGridViewRow dataGridViewRow in dataGridViewControl.Rows)
-                {
-                    FillAvailableForeshoreProfilesList(dataGridViewRow);
-                }
-            }
-        }
-
-        private void FillAvailableForeshoreProfilesList(DataGridViewRow dataGridViewRow)
-        {
-            var cell = (DataGridViewComboBoxCell) dataGridViewRow.Cells[selectableForeshoreProfileColumnIndex];
-            DataGridViewComboBoxItemWrapper<ForeshoreProfile>[] dataGridViewComboBoxItemWrappers = GetSelectableForeshoreProfileDataSource(failureMechanism.ForeshoreProfiles);
-            SetItemsOnObjectCollection(cell.Items, dataGridViewComboBoxItemWrappers);
-        }
-
-        private static DataGridViewComboBoxItemWrapper<ForeshoreProfile>[] GetSelectableForeshoreProfileDataSource(IEnumerable<ForeshoreProfile> selectableForeshoreProfiles = null)
-        {
-            var dataGridViewComboBoxItemWrappers = new List<DataGridViewComboBoxItemWrapper<ForeshoreProfile>>
-            {
-                new DataGridViewComboBoxItemWrapper<ForeshoreProfile>(null)
-            };
-
-            if (selectableForeshoreProfiles != null)
-            {
-                dataGridViewComboBoxItemWrappers.AddRange(selectableForeshoreProfiles.Select(fp => new DataGridViewComboBoxItemWrapper<ForeshoreProfile>(fp)));
-            }
-
-            return dataGridViewComboBoxItemWrappers.ToArray();
-        }
-
-        #endregion
-
-        #endregion
-
-        #region Prefill combo box list items
-
-        private void PrefillComboBoxListItemsAtColumnLevel()
-        {
-            var selectableHydraulicBoundaryLocationColumn = (DataGridViewComboBoxColumn) dataGridViewControl.GetColumnFromIndex(selectableHydraulicBoundaryLocationColumnIndex);
-
-            // Need to prefill for all possible data in order to guarantee 'combo box' columns
-            // do not generate errors when their cell value is not present in the list of available
-            // items.
-            using (new SuspendDataGridViewColumnResizes(selectableHydraulicBoundaryLocationColumn))
-            {
-                SetItemsOnObjectCollection(selectableHydraulicBoundaryLocationColumn.Items,
-                                           GetSelectableHydraulicBoundaryLocationsDataSource(GetSelectableHydraulicBoundaryLocationsFromFailureMechanism()));
-            }
-
-            var selectableForeshoreProfiles = (DataGridViewComboBoxColumn) dataGridViewControl.GetColumnFromIndex(selectableForeshoreProfileColumnIndex);
-
-            using (new SuspendDataGridViewColumnResizes(selectableForeshoreProfiles))
-            {
-                SetItemsOnObjectCollection(selectableForeshoreProfiles.Items,
-                                           GetSelectableForeshoreProfileDataSource(failureMechanism.ForeshoreProfiles));
-            }
-        }
-
-        private IEnumerable<SelectableHydraulicBoundaryLocation> GetSelectableHydraulicBoundaryLocationsFromFailureMechanism()
-        {
-            List<HydraulicBoundaryLocation> hydraulicBoundaryLocations = assessmentSection.HydraulicBoundaryDatabase.Locations;
-
-            List<SelectableHydraulicBoundaryLocation> selectableHydraulicBoundaryLocations = hydraulicBoundaryLocations.Select(hbl => new SelectableHydraulicBoundaryLocation(hbl, null)).ToList();
-
-            foreach (ClosingStructure closingStructure in failureMechanism.ClosingStructures)
-            {
-                selectableHydraulicBoundaryLocations.AddRange(GetSelectableHydraulicBoundaryLocations(hydraulicBoundaryLocations, closingStructure));
-            }
-
-            return selectableHydraulicBoundaryLocations;
-        }
-
-        #endregion
-
-        #region Event handling
-
-        private void DataGridViewOnCurrentRowChangedHandler(object sender, EventArgs e)
-        {
-            OnSelectionChanged();
-        }
-
-        private void ListBoxOnSelectedValueChanged(object sender, EventArgs e)
-        {
-            UpdateDataGridViewDataSource();
-        }
-
-        private void OnGenerateCalculationsButtonClick(object sender, EventArgs e)
-        {
-            using (var dialog = new StructureSelectionDialog(Parent, failureMechanism.ClosingStructures))
+            using (var dialog = new StructureSelectionDialog(Parent, FailureMechanism.ClosingStructures))
             {
                 dialog.ShowDialog();
 
@@ -464,31 +125,151 @@ namespace Riskeer.ClosingStructures.Forms.Views
             }
         }
 
-        private void OnFailureMechanismUpdate()
+        protected override void InitializeDataGridView()
         {
-            UpdateSectionsListBox();
+            base.InitializeDataGridView();
+
+            DataGridViewControl.AddComboBoxColumn<DataGridViewComboBoxItemWrapper<ForeshoreProfile>>(
+                nameof(ClosingStructuresCalculationRow.ForeshoreProfile),
+                RiskeerCommonFormsResources.Structure_ForeshoreProfile_DisplayName,
+                null,
+                nameof(DataGridViewComboBoxItemWrapper<ForeshoreProfile>.This),
+                nameof(DataGridViewComboBoxItemWrapper<ForeshoreProfile>.DisplayName));
+
+            DataGridViewControl.AddCheckBoxColumn(
+                nameof(ClosingStructuresCalculationRow.UseBreakWater),
+                RiskeerCommonFormsResources.Use_BreakWater_DisplayName);
+
+            DataGridViewControl.AddComboBoxColumn(
+                nameof(ClosingStructuresCalculationRow.BreakWaterType),
+                RiskeerCommonFormsResources.CalculationsView_BreakWaterType_DisplayName,
+                EnumDisplayWrapperHelper.GetEnumTypes<BreakWaterType>(),
+                nameof(EnumDisplayWrapper<BreakWaterType>.Value),
+                nameof(EnumDisplayWrapper<BreakWaterType>.DisplayName));
+
+            DataGridViewControl.AddTextBoxColumn(
+                nameof(ClosingStructuresCalculationRow.BreakWaterHeight),
+                RiskeerCommonFormsResources.CalculationsView_BreakWaterHeight_DisplayName);
+
+            DataGridViewControl.AddCheckBoxColumn(
+                nameof(ClosingStructuresCalculationRow.UseForeshoreGeometry),
+                RiskeerCommonFormsResources.Use_Foreshore_DisplayName);
+
+            DataGridViewControl.AddComboBoxColumn(
+                nameof(ClosingStructuresCalculationRow.InflowModelType),
+                RiskeerCommonFormsResources.Structure_InflowModelType_DisplayName,
+                EnumDisplayWrapperHelper.GetEnumTypes<ClosingStructureInflowModelType>(),
+                nameof(EnumDisplayWrapper<ClosingStructureInflowModelType>.Value),
+                nameof(EnumDisplayWrapper<ClosingStructureInflowModelType>.DisplayName));
+
+            DataGridViewControl.AddTextBoxColumn(
+                nameof(ClosingStructuresCalculationRow.MeanInsideWaterLevel),
+                $"{RiskeerCommonFormsResources.NormalDistribution_Mean_DisplayName}\r\n{Resources.ClosingStructuresCalculationsView_InsideWaterLevel_DisplayName}");
+
+            DataGridViewControl.AddTextBoxColumn(
+                nameof(ClosingStructuresCalculationRow.CriticalOvertoppingDischarge),
+                $"{RiskeerCommonFormsResources.NormalDistribution_Mean_DisplayName}\r\n{RiskeerCommonFormsResources.StructuresCalculationsView_CriticalOvertoppingDischarge_DisplayName}");
+
+            DataGridViewControl.AddTextBoxColumn(
+                nameof(ClosingStructuresCalculationRow.AllowedLevelIncreaseStorage),
+                $"{RiskeerCommonFormsResources.NormalDistribution_Mean_DisplayName}\r\n{RiskeerCommonFormsResources.StructuresCalculationsView_AllowedLevelIncreaseStorage_DisplayName}");
         }
 
-        private void UpdateSectionsListBox()
+        protected override void InitializeObservers()
         {
-            listBox.Items.Clear();
+            base.InitializeObservers();
 
-            if (failureMechanism.Sections.Any())
+            foreshoreProfilesObserver = new Observer(() =>
             {
-                listBox.Items.AddRange(failureMechanism.Sections.Cast<object>().ToArray());
-                listBox.SelectedItem = failureMechanism.Sections.First();
+                PrefillComboBoxListItemsAtColumnLevel();
+                UpdateComboBoxColumns();
+                UpdateGenerateCalculationsButtonState();
+            })
+            {
+                Observable = FailureMechanism.ForeshoreProfiles
+            };
+
+            closingStructuresObserver = new Observer(UpdateGenerateCalculationsButtonState)
+            {
+                Observable = FailureMechanism.ClosingStructures
+            };
+        }
+
+        #region Prefill combo box list items
+
+        protected override void PrefillComboBoxListItemsAtColumnLevel()
+        {
+            base.PrefillComboBoxListItemsAtColumnLevel();
+
+            // Need to prefill for all possible data in order to guarantee 'combo box' columns
+            // do not generate errors when their cell value is not present in the list of available
+            // items.
+            var foreShoreProfilesColumn = (DataGridViewComboBoxColumn) DataGridViewControl.GetColumnFromIndex(foreshoreProfileColumnIndex);
+
+            using (new SuspendDataGridViewColumnResizes(foreShoreProfilesColumn))
+            {
+                SetItemsOnObjectCollection(foreShoreProfilesColumn.Items,
+                                           GetForeshoreProfileDataSource(FailureMechanism.ForeshoreProfiles));
             }
         }
 
-        private void OnSelectionChanged()
-        {
-            SelectionChanged?.Invoke(this, new EventArgs());
-        }
+        #endregion
+
+        #region Event handling
 
         private void HandleCellStyling(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            dataGridViewControl.FormatCellWithColumnStateDefinition(e.RowIndex, e.ColumnIndex);
+            DataGridViewControl.FormatCellWithColumnStateDefinition(e.RowIndex, e.ColumnIndex);
         }
+
+        #endregion
+
+        #region Update combo box list items
+
+        protected override void UpdateComboBoxColumns()
+        {
+            base.UpdateComboBoxColumns();
+            UpdateForeshoreProfilesColumn();
+        }
+
+        #region Update ForeshoreProfiles
+
+        private void UpdateForeshoreProfilesColumn()
+        {
+            var column = (DataGridViewComboBoxColumn) DataGridViewControl.GetColumnFromIndex(foreshoreProfileColumnIndex);
+
+            using (new SuspendDataGridViewColumnResizes(column))
+            {
+                foreach (DataGridViewRow dataGridViewRow in DataGridViewControl.Rows)
+                {
+                    FillAvailableForeshoreProfilesList(dataGridViewRow);
+                }
+            }
+        }
+
+        private void FillAvailableForeshoreProfilesList(DataGridViewRow dataGridViewRow)
+        {
+            var cell = (DataGridViewComboBoxCell) dataGridViewRow.Cells[foreshoreProfileColumnIndex];
+            DataGridViewComboBoxItemWrapper<ForeshoreProfile>[] dataGridViewComboBoxItemWrappers = GetForeshoreProfileDataSource(FailureMechanism.ForeshoreProfiles);
+            SetItemsOnObjectCollection(cell.Items, dataGridViewComboBoxItemWrappers);
+        }
+
+        private static DataGridViewComboBoxItemWrapper<ForeshoreProfile>[] GetForeshoreProfileDataSource(IEnumerable<ForeshoreProfile> foreshoreProfiles = null)
+        {
+            var dataGridViewComboBoxItemWrappers = new List<DataGridViewComboBoxItemWrapper<ForeshoreProfile>>
+            {
+                new DataGridViewComboBoxItemWrapper<ForeshoreProfile>(null)
+            };
+
+            if (foreshoreProfiles != null)
+            {
+                dataGridViewComboBoxItemWrappers.AddRange(foreshoreProfiles.Select(fp => new DataGridViewComboBoxItemWrapper<ForeshoreProfile>(fp)));
+            }
+
+            return dataGridViewComboBoxItemWrappers.ToArray();
+        }
+
+        #endregion
 
         #endregion
     }

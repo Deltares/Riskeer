@@ -23,15 +23,12 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Threading;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Controls.DataGrid;
-using Core.Common.Controls.Views;
 using Core.Common.TestUtil;
-using Core.Common.Util.Reflection;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -41,6 +38,7 @@ using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
+using Riskeer.Common.Forms.Views;
 using Riskeer.GrassCoverErosionInwards.Data;
 using Riskeer.GrassCoverErosionInwards.Data.TestUtil;
 using Riskeer.GrassCoverErosionInwards.Forms.PresentationObjects;
@@ -64,70 +62,19 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
         private Form testForm;
 
         [Test]
-        public void Constructor_CalculationGroupNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            // Call
-            void Call() => new GrassCoverErosionInwardsCalculationsView(null, new TestGrassCoverErosionInwardsFailureMechanism(), assessmentSection);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("data", exception.ParamName);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
-        {
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            void Call() => new GrassCoverErosionInwardsCalculationsView(new CalculationGroup(), null, assessmentSection);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("failureMechanism", exception.ParamName);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            GrassCoverErosionInwardsFailureMechanism failureMechanism = new TestGrassCoverErosionInwardsFailureMechanism();
-
-            // Call
-            void Call() => new GrassCoverErosionInwardsCalculationsView(new CalculationGroup(), failureMechanism, null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("assessmentSection", exception.ParamName);
-        }
-
-        [Test]
         public void Constructor_ExpectedValues()
         {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            ConfigureHydraulicBoundaryDatabase(assessmentSection);
-            GrassCoverErosionInwardsFailureMechanism failureMechanism = ConfigureFailureMechanism();
-
             // Call
-            var calculationsView = new GrassCoverErosionInwardsCalculationsView(ConfigureCalculationGroup(failureMechanism, assessmentSection), failureMechanism, assessmentSection);
+            GrassCoverErosionInwardsCalculationsView view = ShowCalculationsView(new CalculationGroup(), new GrassCoverErosionInwardsFailureMechanism(), new AssessmentSectionStub());
 
             // Assert
-            Assert.IsInstanceOf<UserControl>(calculationsView);
-            Assert.IsInstanceOf<IView>(calculationsView);
-            Assert.IsInstanceOf<ISelectionProvider>(calculationsView);
-            mocks.VerifyAll();
+            Assert.IsInstanceOf<CalculationsView<GrassCoverErosionInwardsCalculationScenario, GrassCoverErosionInwardsInput, GrassCoverErosionInwardsCalculationRow, GrassCoverErosionInwardsFailureMechanism>>(view);
+
+            var button = (Button) new ControlTester("generateButton").TheObject;
+            Assert.AreEqual("Genereer &berekeningen...", button.Text);
+
+            var label = (Label) new ControlTester("warningText").TheObject;
+            Assert.AreEqual("Als u het dijkprofiel van een berekening wijzigt kan de berekening in een ander vak komen te liggen.", label.Text);
         }
 
         [Test]
@@ -136,9 +83,9 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
+            ConfigureHydraulicBoundaryDatabase(assessmentSection);
             mocks.ReplayAll();
 
-            ConfigureHydraulicBoundaryDatabase(assessmentSection);
             GrassCoverErosionInwardsFailureMechanism failureMechanism = ConfigureFailureMechanism();
 
             // Call
@@ -148,57 +95,127 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
 
             // Assert
             Assert.IsFalse(dataGridView.AutoGenerateColumns);
+
+            Assert.AreEqual(10, dataGridView.ColumnCount);
+            Assert.AreEqual("Naam", dataGridView.Columns[nameColumnIndex].HeaderText);
+            Assert.AreEqual("Hydraulische belastingenlocatie", dataGridView.Columns[selectableHydraulicBoundaryLocationsColumnIndex].HeaderText);
+            Assert.AreEqual("Dijkprofiel", dataGridView.Columns[dikeProfileColumnIndex].HeaderText);
+            Assert.AreEqual("Gebruik dam", dataGridView.Columns[useBreakWaterColumnIndex].HeaderText);
+            Assert.AreEqual("Damtype", dataGridView.Columns[breakWaterTypeColumnIndex].HeaderText);
+            Assert.AreEqual("Damhoogte [m+NAP]", dataGridView.Columns[breakWaterHeightColumnIndex].HeaderText);
+            Assert.AreEqual("Gebruik voorlandgeometrie", dataGridView.Columns[useForeShoreGeometryColumnIndex].HeaderText);
+            Assert.AreEqual("Dijkhoogte [m+NAP]", dataGridView.Columns[dikeHeightColumnIndex].HeaderText);
+            Assert.AreEqual("Verwachtingswaarde\r\nkritiek overslagdebiet\r\n[m³/s/m]", dataGridView.Columns[meanCriticalFlowRateColumnIndex].HeaderText);
+            Assert.AreEqual("Standaardafwijking\r\nkritiek overslagdebiet\r\n[m³/s/m]", dataGridView.Columns[standardDeviationCriticalFlowRateColumnIndex].HeaderText);
+
             Assert.AreEqual(10, dataGridView.ColumnCount);
 
-            AssertColumnMembers(dataGridView.Columns.OfType<DataGridViewComboBoxColumn>().ToArray());
-            AssertDataGridViewControlColumnHeaders(dataGridView);
+            foreach (DataGridViewComboBoxColumn column in dataGridView.Columns.OfType<DataGridViewComboBoxColumn>().ToArray())
+            {
+                Assert.AreEqual("DisplayName", column.DisplayMember);
+            }
+
+            Assert.AreEqual("This", ((IReadOnlyList<DataGridViewComboBoxColumn>) dataGridView.Columns.OfType<DataGridViewComboBoxColumn>().ToArray())[0].ValueMember);
+            Assert.AreEqual("This", ((IReadOnlyList<DataGridViewComboBoxColumn>) dataGridView.Columns.OfType<DataGridViewComboBoxColumn>().ToArray())[1].ValueMember);
+            Assert.AreEqual("Value", ((IReadOnlyList<DataGridViewComboBoxColumn>) dataGridView.Columns.OfType<DataGridViewComboBoxColumn>().ToArray())[2].ValueMember);
             mocks.VerifyAll();
         }
 
         [Test]
-        public void Constructor_ListBoxCorrectlyInitialized()
+        public void CalculationsView_FailureMechanismWithDikeProfiles_DikeProfilesComboboxCorrectlyInitialized()
         {
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
+            ConfigureHydraulicBoundaryDatabase(assessmentSection);
             mocks.ReplayAll();
 
-            ConfigureHydraulicBoundaryDatabase(assessmentSection);
             GrassCoverErosionInwardsFailureMechanism failureMechanism = ConfigureFailureMechanism();
 
             // Call
             ShowCalculationsView(ConfigureCalculationGroup(failureMechanism, assessmentSection), failureMechanism, assessmentSection);
 
-            var listBox = (ListBox) new ControlTester("listBox").TheObject;
-
             // Assert
-            Assert.AreEqual(2, listBox.Items.Count);
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+            var dikeProfileComboBox = (DataGridViewComboBoxColumn) dataGridView.Columns[dikeProfileColumnIndex];
+            DataGridViewComboBoxCell.ObjectCollection dikeProfileComboBoxItems = dikeProfileComboBox.Items;
+            Assert.AreEqual(3, dikeProfileComboBoxItems.Count);
+            Assert.AreEqual("<selecteer>", dikeProfileComboBoxItems[0].ToString());
+            Assert.AreEqual("Profiel 1", dikeProfileComboBoxItems[1].ToString());
+            Assert.AreEqual("Profiel 2", dikeProfileComboBoxItems[2].ToString());
             mocks.VerifyAll();
         }
 
         [Test]
-        public void AssessmentSection_HydraulicBoundaryDatabaseWithLocations_SelectableHydraulicBoundaryLocationsComboboxCorrectlyInitialized()
+        public void CalculationsView_Always_BreakWaterTypeComboboxCorrectlyInitialized()
         {
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
+            ConfigureHydraulicBoundaryDatabase(assessmentSection);
             mocks.ReplayAll();
 
+            GrassCoverErosionInwardsFailureMechanism failureMechanism = ConfigureFailureMechanism();
+
             // Call
-            ShowFullyConfiguredCalculationsView(assessmentSection);
+            ShowCalculationsView(ConfigureCalculationGroup(failureMechanism, assessmentSection), failureMechanism, assessmentSection);
 
             // Assert
             var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-            var hydraulicBoundaryLocationCombobox = (DataGridViewComboBoxColumn) dataGridView.Columns[selectableHydraulicBoundaryLocationsColumnIndex];
-            DataGridViewComboBoxCell.ObjectCollection hydraulicBoundaryLocationComboboxItems = hydraulicBoundaryLocationCombobox.Items;
-            Assert.AreEqual(7, hydraulicBoundaryLocationComboboxItems.Count);
-            Assert.AreEqual("<selecteer>", hydraulicBoundaryLocationComboboxItems[0].ToString());
-            Assert.AreEqual("Location 1", hydraulicBoundaryLocationComboboxItems[1].ToString());
-            Assert.AreEqual("Location 2", hydraulicBoundaryLocationComboboxItems[2].ToString());
-            Assert.AreEqual("Location 1 (2 m)", hydraulicBoundaryLocationComboboxItems[3].ToString());
-            Assert.AreEqual("Location 2 (6 m)", hydraulicBoundaryLocationComboboxItems[4].ToString());
-            Assert.AreEqual("Location 1 (4 m)", hydraulicBoundaryLocationComboboxItems[5].ToString());
-            Assert.AreEqual("Location 2 (5 m)", hydraulicBoundaryLocationComboboxItems[6].ToString());
+            var breakWaterTypeComboBox = (DataGridViewComboBoxColumn) dataGridView.Columns[breakWaterTypeColumnIndex];
+            DataGridViewComboBoxCell.ObjectCollection breakWaterTypeComboBoxItems = breakWaterTypeComboBox.Items;
+            Assert.AreEqual(3, breakWaterTypeComboBoxItems.Count);
+            Assert.AreEqual("Muur", breakWaterTypeComboBoxItems[0].ToString());
+            Assert.AreEqual("Caisson", breakWaterTypeComboBoxItems[1].ToString());
+            Assert.AreEqual("Havendam", breakWaterTypeComboBoxItems[2].ToString());
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CalculationsView_CalculationsWithAllDataSet_DataGridViewCorrectlyInitialized()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            ConfigureHydraulicBoundaryDatabase(assessmentSection);
+            mocks.ReplayAll();
+
+            GrassCoverErosionInwardsFailureMechanism failureMechanism = ConfigureFailureMechanism();
+
+            // Call
+            ShowCalculationsView(ConfigureCalculationGroup(failureMechanism, assessmentSection), failureMechanism, assessmentSection);
+
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+
+            // Assert
+            DataGridViewRowCollection rows = dataGridView.Rows;
+            Assert.AreEqual(2, rows.Count);
+
+            DataGridViewCellCollection cells = rows[0].Cells;
+            Assert.AreEqual(10, cells.Count);
+            Assert.AreEqual("Calculation 1", cells[nameColumnIndex].FormattedValue);
+            Assert.AreEqual("Location 1 (2 m)", cells[selectableHydraulicBoundaryLocationsColumnIndex].FormattedValue);
+            Assert.AreEqual("Profiel 1", cells[dikeProfileColumnIndex].FormattedValue);
+            Assert.AreEqual(false, cells[useBreakWaterColumnIndex].FormattedValue);
+            Assert.AreEqual("Havendam", cells[breakWaterTypeColumnIndex].FormattedValue);
+            Assert.AreEqual(3.30.ToString("0.00", CultureInfo.CurrentCulture), cells[breakWaterHeightColumnIndex].FormattedValue);
+            Assert.AreEqual(false, cells[useForeShoreGeometryColumnIndex].FormattedValue);
+            Assert.AreEqual(1.10.ToString("0.00", CultureInfo.CurrentCulture), cells[dikeHeightColumnIndex].FormattedValue);
+            Assert.AreEqual(4.4000.ToString("0.0000", CultureInfo.CurrentCulture), cells[meanCriticalFlowRateColumnIndex].FormattedValue);
+            Assert.AreEqual(5.5000.ToString("0.0000", CultureInfo.CurrentCulture), cells[standardDeviationCriticalFlowRateColumnIndex].FormattedValue);
+
+            cells = rows[1].Cells;
+            Assert.AreEqual(10, cells.Count);
+            Assert.AreEqual("Calculation 2", cells[nameColumnIndex].FormattedValue);
+            Assert.AreEqual("Location 2 (5 m)", cells[selectableHydraulicBoundaryLocationsColumnIndex].FormattedValue);
+            Assert.AreEqual("Profiel 2", cells[dikeProfileColumnIndex].FormattedValue);
+            Assert.AreEqual(false, cells[useBreakWaterColumnIndex].FormattedValue);
+            Assert.AreEqual("Havendam", cells[breakWaterTypeColumnIndex].FormattedValue);
+            Assert.AreEqual(3.30.ToString("0.00", CultureInfo.CurrentCulture), cells[breakWaterHeightColumnIndex].FormattedValue);
+            Assert.AreEqual(false, cells[useForeShoreGeometryColumnIndex].FormattedValue);
+            Assert.AreEqual(1.10.ToString("0.00", CultureInfo.CurrentCulture), cells[dikeHeightColumnIndex].FormattedValue);
+            Assert.AreEqual(4.4000.ToString("0.0000", CultureInfo.CurrentCulture), cells[meanCriticalFlowRateColumnIndex].FormattedValue);
+            Assert.AreEqual(5.5000.ToString("0.0000", CultureInfo.CurrentCulture), cells[standardDeviationCriticalFlowRateColumnIndex].FormattedValue);
             mocks.VerifyAll();
         }
 
@@ -208,13 +225,15 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
+            ConfigureHydraulicBoundaryDatabase(assessmentSection);
             mocks.ReplayAll();
 
-            ConfigureHydraulicBoundaryDatabase(assessmentSection);
+            GrassCoverErosionInwardsFailureMechanism failureMechanism = ConfigureFailureMechanism();
 
-            GrassCoverErosionInwardsCalculationsView calculationsView = ShowFullyConfiguredCalculationsView(assessmentSection);
+            // Call
+            ShowCalculationsView(ConfigureCalculationGroup(failureMechanism, assessmentSection), failureMechanism, assessmentSection);
 
-            var button = (Button) calculationsView.Controls.Find("buttonGenerateCalculations", true)[0];
+            var button = (Button) new ControlTester("generateButton").TheObject;
 
             // Call
             bool state = button.Enabled;
@@ -224,22 +243,21 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             mocks.VerifyAll();
         }
 
-
         [Test]
         public void CalculationsView_ChangingDikeProfiles_ButtonCorrectState()
         {
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
+            ConfigureHydraulicBoundaryDatabase(assessmentSection);
             mocks.ReplayAll();
 
-            ConfigureHydraulicBoundaryDatabase(assessmentSection);
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
-            GrassCoverErosionInwardsCalculationsView calculationsView = ShowCalculationsView(ConfigureCalculationGroup(failureMechanism, assessmentSection), failureMechanism, assessmentSection);
+            ShowCalculationsView(ConfigureCalculationGroup(failureMechanism, assessmentSection), failureMechanism, assessmentSection);
 
             // Precondition
-            var button = (Button) calculationsView.Controls.Find("buttonGenerateCalculations", true)[0];
+            var button = (Button) new ControlTester("generateButton").TheObject;
             Assert.IsFalse(button.Enabled);
 
             var failureMechanismSection1 = new FailureMechanismSection("Section 1", new[]
@@ -267,167 +285,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
         }
 
         [Test]
-        public void FailureMechanism_FailureMechanismWithSections_SectionsListBoxCorrectlyInitialized()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            ConfigureHydraulicBoundaryDatabase(assessmentSection);
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            var failureMechanismSection1 = new FailureMechanismSection("Section 1", new[]
-            {
-                new Point2D(0.0, 0.0),
-                new Point2D(5.0, 0.0)
-            });
-            var failureMechanismSection2 = new FailureMechanismSection("Section 2", new[]
-            {
-                new Point2D(5.0, 0.0),
-                new Point2D(10.0, 0.0)
-            });
-            var failureMechanismSection3 = new FailureMechanismSection("Section 3", new[]
-            {
-                new Point2D(10.0, 0.0),
-                new Point2D(15.0, 0.0)
-            });
-
-            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
-            {
-                failureMechanismSection1,
-                failureMechanismSection2,
-                failureMechanismSection3
-            });
-
-            failureMechanism.DikeProfiles.AddRange(new List<DikeProfile>
-            {
-                DikeProfileTestFactory.CreateDikeProfile(new Point2D(0.0, 0.0), "profiel 1"),
-                DikeProfileTestFactory.CreateDikeProfile(new Point2D(5.0, 0.0), "profiel 2")
-            }, string.Empty);
-
-            // Call
-            ShowCalculationsView(ConfigureCalculationGroup(failureMechanism, assessmentSection), failureMechanism, assessmentSection);
-
-            // Assert
-            var listBox = (ListBox) new ControlTester("listBox").TheObject;
-            Assert.AreEqual(3, listBox.Items.Count);
-            Assert.AreSame(failureMechanismSection1, listBox.Items[0]);
-            Assert.AreSame(failureMechanismSection2, listBox.Items[1]);
-            Assert.AreSame(failureMechanismSection3, listBox.Items[2]);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void CalculationsView_CalculationsWithAllDataSet_DataGridViewCorrectlyInitialized()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            // Call
-            ShowFullyConfiguredCalculationsView(assessmentSection);
-
-            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-
-            // Assert
-            DataGridViewRowCollection rows = dataGridView.Rows;
-            Assert.AreEqual(2, rows.Count);
-
-            DataGridViewCellCollection cells = rows[0].Cells;
-            Assert.AreEqual(10, cells.Count);
-            Assert.AreEqual("Calculation 1", cells[nameColumnIndex].FormattedValue);
-            Assert.AreEqual("Location 1 (2 m)", cells[selectableHydraulicBoundaryLocationsColumnIndex].FormattedValue);
-            Assert.AreEqual("name", cells[dikeProfileColumnIndex].FormattedValue);
-            Assert.AreEqual(false, cells[useBreakWaterColumnIndex].FormattedValue);
-            Assert.AreEqual("Havendam", cells[breakWaterTypeColumnIndex].FormattedValue);
-            Assert.AreEqual(3.30.ToString("0.00", CultureInfo.CurrentCulture), cells[breakWaterHeightColumnIndex].FormattedValue);
-            Assert.AreEqual(false, cells[useForeShoreGeometryColumnIndex].FormattedValue);
-            Assert.AreEqual(1.10.ToString("0.00", CultureInfo.CurrentCulture), cells[dikeHeightColumnIndex].FormattedValue);
-            Assert.AreEqual(4.4000.ToString("0.0000", CultureInfo.CurrentCulture), cells[meanCriticalFlowRateColumnIndex].FormattedValue);
-            Assert.AreEqual(5.5000.ToString("0.0000", CultureInfo.CurrentCulture), cells[standardDeviationCriticalFlowRateColumnIndex].FormattedValue);
-
-            cells = rows[1].Cells;
-            Assert.AreEqual(10, cells.Count);
-            Assert.AreEqual("Calculation 2", cells[nameColumnIndex].FormattedValue);
-            Assert.AreEqual("Location 2 (5 m)", cells[selectableHydraulicBoundaryLocationsColumnIndex].FormattedValue);
-            Assert.AreEqual("name", cells[dikeProfileColumnIndex].FormattedValue);
-            Assert.AreEqual(false, cells[useBreakWaterColumnIndex].FormattedValue);
-            Assert.AreEqual("Havendam", cells[breakWaterTypeColumnIndex].FormattedValue);
-            Assert.AreEqual(3.30.ToString("0.00", CultureInfo.CurrentCulture), cells[breakWaterHeightColumnIndex].FormattedValue);
-            Assert.AreEqual(false, cells[useForeShoreGeometryColumnIndex].FormattedValue);
-            Assert.AreEqual(1.10.ToString("0.00", CultureInfo.CurrentCulture), cells[dikeHeightColumnIndex].FormattedValue);
-            Assert.AreEqual(4.4000.ToString("0.0000", CultureInfo.CurrentCulture), cells[meanCriticalFlowRateColumnIndex].FormattedValue);
-            Assert.AreEqual(5.5000.ToString("0.0000", CultureInfo.CurrentCulture), cells[standardDeviationCriticalFlowRateColumnIndex].FormattedValue);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        [Apartment(ApartmentState.STA)]
-        public void CalculationsView_SelectingCellInRow_SelectionChangedFired()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            ConfigureHydraulicBoundaryDatabase(assessmentSection);
-
-            GrassCoverErosionInwardsFailureMechanism failureMechanism = ConfigureFailureMechanism();
-            using (var calculationsView = new GrassCoverErosionInwardsCalculationsView(ConfigureCalculationGroup(failureMechanism, assessmentSection), failureMechanism, assessmentSection))
-            {
-                var selectionChangedCount = 0;
-                calculationsView.SelectionChanged += (sender, args) => selectionChangedCount++;
-
-                var control = TypeUtils.GetField<DataGridViewControl>(calculationsView, "dataGridViewControl");
-                WindowsFormsTestHelper.Show(control);
-
-                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-                dataGridView.CurrentCell = dataGridView.Rows[0].Cells[0];
-
-                // Call                
-                EventHelper.RaiseEvent(dataGridView, "CellClick", new DataGridViewCellEventArgs(1, 0));
-
-                // Assert
-                Assert.AreEqual(1, selectionChangedCount);
-            }
-
-            WindowsFormsTestHelper.CloseAll();
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void CalculationsView_ChangingListBoxSelection_DataGridViewCorrectlySyncedAndSelectionChangedFired()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            GrassCoverErosionInwardsCalculationsView calculationsView = ShowFullyConfiguredCalculationsView(assessmentSection);
-
-            var selectionChangedCount = 0;
-            calculationsView.SelectionChanged += (sender, args) => selectionChangedCount++;
-
-            var listBox = (ListBox) new ControlTester("listBox").TheObject;
-            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-
-            // Precondition
-            Assert.AreEqual(2, dataGridView.Rows.Count);
-            Assert.AreEqual("Calculation 1", dataGridView.Rows[0].Cells[nameColumnIndex].FormattedValue);
-            Assert.AreEqual("Calculation 2", dataGridView.Rows[1].Cells[nameColumnIndex].FormattedValue);
-
-            // Call
-            listBox.SelectedIndex = 1;
-
-            // Assert
-            Assert.AreEqual(1, dataGridView.Rows.Count);
-            Assert.AreEqual("Calculation 2", dataGridView.Rows[0].Cells[nameColumnIndex].FormattedValue);
-            Assert.AreEqual(2, selectionChangedCount);
-            mocks.VerifyAll();
-        }
-
-        [Test]
         [TestCase("test", breakWaterHeightColumnIndex)]
         [TestCase("test", dikeHeightColumnIndex)]
         [TestCase("test", meanCriticalFlowRateColumnIndex)]
@@ -441,9 +298,13 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
+            ConfigureHydraulicBoundaryDatabase(assessmentSection);
             mocks.ReplayAll();
 
-            ShowFullyConfiguredCalculationsView(assessmentSection);
+            GrassCoverErosionInwardsFailureMechanism failureMechanism = ConfigureFailureMechanism();
+
+            // Call
+            ShowCalculationsView(ConfigureCalculationGroup(failureMechanism, assessmentSection), failureMechanism, assessmentSection);
 
             var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
@@ -476,13 +337,11 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
+            ConfigureHydraulicBoundaryDatabase(assessmentSection);
             mocks.ReplayAll();
 
-            ConfigureHydraulicBoundaryDatabase(assessmentSection);
             GrassCoverErosionInwardsFailureMechanism failureMechanism = ConfigureFailureMechanism();
             CalculationGroup calculationGroup = ConfigureCalculationGroup(failureMechanism, assessmentSection);
-
-            var newRoundedValue = (RoundedDouble) newValue;
 
             ShowCalculationsView(calculationGroup, failureMechanism, assessmentSection);
 
@@ -491,78 +350,10 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
             // Call
-            dataGridView.Rows[0].Cells[cellIndex].Value = newRoundedValue;
+            dataGridView.Rows[0].Cells[cellIndex].Value = (RoundedDouble) newValue;
 
             // Assert
             Assert.IsEmpty(dataGridView.Rows[0].ErrorText);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void CalculationsViewWithFailureMechanism_WhenSectionsAddedAndFailureMechanismNotified_ThenSectionsListBoxCorrectlyUpdated()
-        {
-            // Given
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            ConfigureHydraulicBoundaryDatabase(assessmentSection);
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            var failureMechanismSection1 = new FailureMechanismSection("Section 1", new[]
-            {
-                new Point2D(0.0, 0.0),
-                new Point2D(5.0, 0.0)
-            });
-            var failureMechanismSection2 = new FailureMechanismSection("Section 2", new[]
-            {
-                new Point2D(5.0, 0.0),
-                new Point2D(10.0, 0.0)
-            });
-            var failureMechanismSection3 = new FailureMechanismSection("Section 3", new[]
-            {
-                new Point2D(10.0, 0.0),
-                new Point2D(15.0, 0.0)
-            });
-
-            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
-            {
-                failureMechanismSection1,
-                failureMechanismSection2
-            });
-
-            failureMechanism.DikeProfiles.AddRange(new List<DikeProfile>
-            {
-                DikeProfileTestFactory.CreateDikeProfile(new Point2D(0.0, 0.0), "profiel 1"),
-                DikeProfileTestFactory.CreateDikeProfile(new Point2D(5.0, 0.0), "profiel 2"),
-            }, string.Empty);
-
-            ShowCalculationsView(ConfigureCalculationGroup(failureMechanism, assessmentSection), failureMechanism, assessmentSection);
-
-            var listBox = (ListBox) new ControlTester("listBox").TheObject;
-
-            // Precondition
-            Assert.AreEqual(2, listBox.Items.Count);
-
-            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
-            {
-                failureMechanismSection1,
-                failureMechanismSection2,
-                failureMechanismSection3
-            });
-
-            failureMechanism.DikeProfiles.AddRange(new List<DikeProfile>
-            {
-                DikeProfileTestFactory.CreateDikeProfile(new Point2D(10.0, 0.0), "profiel 3")
-            }, string.Empty);
-
-            // When
-            failureMechanism.NotifyObservers();
-
-            // Then
-            Assert.AreEqual(3, listBox.Items.Count);
-            Assert.AreSame(failureMechanismSection1, listBox.Items[0]);
-            Assert.AreSame(failureMechanismSection2, listBox.Items[1]);
-            Assert.AreSame(failureMechanismSection3, listBox.Items[2]);
             mocks.VerifyAll();
         }
 
@@ -577,14 +368,16 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             var calculationObserver = mocks.StrictMock<IObserver>();
             var inputObserver = mocks.StrictMock<IObserver>();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
+            ConfigureHydraulicBoundaryDatabase(assessmentSection);
             mocks.ReplayAll();
 
-            var newRoundedValue = (RoundedDouble) newValue;
+            GrassCoverErosionInwardsFailureMechanism failureMechanism = ConfigureFailureMechanism();
+            CalculationGroup calculationGroup = ConfigureCalculationGroup(failureMechanism, assessmentSection);
 
-            GrassCoverErosionInwardsCalculationsView calculationsView = ShowFullyConfiguredCalculationsView(assessmentSection);
+            // Call
+            ShowCalculationsView(calculationGroup, failureMechanism, assessmentSection);
 
-            var data = (CalculationGroup) calculationsView.Data;
-            var calculation = (GrassCoverErosionInwardsCalculationScenario) data.Children.First();
+            var calculation = (GrassCoverErosionInwardsCalculationScenario) calculationGroup.Children.First();
 
             calculation.Attach(calculationObserver);
             calculation.InputParameters.Attach(inputObserver);
@@ -592,7 +385,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
             // Call
-            dataGridView.Rows[0].Cells[meanCriticalFlowRateColumnIndex].Value = newRoundedValue;
+            dataGridView.Rows[0].Cells[meanCriticalFlowRateColumnIndex].Value = (RoundedDouble) newValue;
 
             // Assert
             Assert.AreEqual("Gemiddelde moet groter zijn dan 0.", dataGridView.Rows[0].ErrorText);
@@ -607,14 +400,15 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             var calculationObserver = mocks.StrictMock<IObserver>();
             var inputObserver = mocks.StrictMock<IObserver>();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
+            ConfigureHydraulicBoundaryDatabase(assessmentSection);
             mocks.ReplayAll();
 
-            var newRoundedValue = (RoundedDouble) (-123.45);
+            GrassCoverErosionInwardsFailureMechanism failureMechanism = ConfigureFailureMechanism();
+            CalculationGroup calculationGroup = ConfigureCalculationGroup(failureMechanism, assessmentSection);
 
-            GrassCoverErosionInwardsCalculationsView calculationsView = ShowFullyConfiguredCalculationsView(assessmentSection);
+            ShowCalculationsView(calculationGroup, failureMechanism, assessmentSection);
 
-            var data = (CalculationGroup) calculationsView.Data;
-            var calculation = (GrassCoverErosionInwardsCalculationScenario) data.Children.First();
+            var calculation = (GrassCoverErosionInwardsCalculationScenario) calculationGroup.Children.First();
 
             calculation.Attach(calculationObserver);
             calculation.InputParameters.Attach(inputObserver);
@@ -622,7 +416,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
             // Call
-            dataGridView.Rows[0].Cells[standardDeviationCriticalFlowRateColumnIndex].Value = newRoundedValue;
+            dataGridView.Rows[0].Cells[standardDeviationCriticalFlowRateColumnIndex].Value = (RoundedDouble) (-123.45);
 
             // Assert
             Assert.AreEqual("Standaardafwijking (σ) moet groter zijn dan of gelijk zijn aan 0.", dataGridView.Rows[0].ErrorText);
@@ -668,12 +462,13 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             assessmentSection.Replay();
 
             GrassCoverErosionInwardsFailureMechanism failureMechanism = ConfigureFailureMechanism();
-            GrassCoverErosionInwardsCalculationsView calculationsView = ShowCalculationsView(ConfigureCalculationGroup(failureMechanism, assessmentSection), failureMechanism, assessmentSection);
+            CalculationGroup calculationGroup = ConfigureCalculationGroup(failureMechanism, assessmentSection);
+
+            ShowCalculationsView(calculationGroup, failureMechanism, assessmentSection);
 
             mocks.ReplayAll();
 
-            var data = (CalculationGroup) calculationsView.Data;
-            var calculationScenario = (GrassCoverErosionInwardsCalculationScenario) data.Children[1];
+            var calculationScenario = (GrassCoverErosionInwardsCalculationScenario) calculationGroup.Children[1];
 
             if (useCalculationWithOutput)
             {
@@ -696,6 +491,45 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
         }
 
         [Test]
+        public void GivenCalculationsView_WhenDikeProfilesUpdatedAndNotified_ThenDikeProfilesComboboxCorrectlyUpdated()
+        {
+            // Given
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            ConfigureHydraulicBoundaryDatabase(assessmentSection);
+            mocks.ReplayAll();
+
+            GrassCoverErosionInwardsFailureMechanism failureMechanism = ConfigureFailureMechanism();
+
+            ShowCalculationsView(ConfigureCalculationGroup(failureMechanism, assessmentSection), failureMechanism, assessmentSection);
+
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+            var dikeProfilesComboBox = (DataGridViewComboBoxColumn) dataGridView.Columns[dikeProfileColumnIndex];
+
+            // Precondition
+            Assert.AreEqual(3, dikeProfilesComboBox.Items.Count);
+
+            // When
+            failureMechanism.DikeProfiles.AddRange(new[]
+            {
+                DikeProfileTestFactory.CreateDikeProfile("3", "Profiel 3", new Point2D(0.0, 0.0)),
+                DikeProfileTestFactory.CreateDikeProfile("4", "Profiel 4", new Point2D(5.0, 0.0))
+            }, string.Empty);
+            failureMechanism.DikeProfiles.NotifyObservers();
+
+            // Then
+            DataGridViewComboBoxCell.ObjectCollection dikeProfileItems = dikeProfilesComboBox.Items;
+            Assert.AreEqual(5, dikeProfileItems.Count);
+            Assert.AreEqual("<selecteer>", dikeProfileItems[0].ToString());
+            Assert.AreEqual("Profiel 1", dikeProfileItems[1].ToString());
+            Assert.AreEqual("Profiel 2", dikeProfileItems[2].ToString());
+            Assert.AreEqual("Profiel 3", dikeProfileItems[3].ToString());
+            Assert.AreEqual("Profiel 4", dikeProfileItems[4].ToString());
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
         [TestCase(true, false)]
         [TestCase(false, true)]
         public void CalculationsView_UseBreakWaterState_HasCorrespondingColumnState(bool newValue, bool expectedState)
@@ -703,16 +537,19 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
+            ConfigureHydraulicBoundaryDatabase(assessmentSection);
             mocks.ReplayAll();
 
-            GrassCoverErosionInwardsCalculationsView view = ShowFullyConfiguredCalculationsView(assessmentSection);
+            GrassCoverErosionInwardsFailureMechanism failureMechanism = ConfigureFailureMechanism();
+            CalculationGroup calculationGroup = ConfigureCalculationGroup(failureMechanism, assessmentSection);
 
-            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+            ShowCalculationsView(calculationGroup, failureMechanism, assessmentSection);
 
             // This step is necessary because setting the same value would not change the view state.
-            var calculationGroup = (CalculationGroup) view.Data;
             var calculation = (GrassCoverErosionInwardsCalculationScenario) calculationGroup.GetCalculations().First();
             calculation.InputParameters.UseBreakWater = !newValue;
+
+            var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
 
             // Call
             dataGridView.Rows[0].Cells[useBreakWaterColumnIndex].Value = newValue;
@@ -731,74 +568,179 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
+            ConfigureHydraulicBoundaryDatabase(assessmentSection);
             mocks.ReplayAll();
 
-            GrassCoverErosionInwardsCalculationsView calculationsView = ShowFullyConfiguredCalculationsView(assessmentSection);
+            GrassCoverErosionInwardsFailureMechanism failureMechanism = ConfigureFailureMechanism();
+            CalculationGroup calculationGroup = ConfigureCalculationGroup(failureMechanism, assessmentSection);
+
+            GrassCoverErosionInwardsCalculationsView view = ShowCalculationsView(calculationGroup, failureMechanism, assessmentSection);
 
             var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-
             dataGridView.CurrentCell = dataGridView.Rows[selectedRow].Cells[0];
 
             // Call
-            object selection = calculationsView.Selection;
+            object selection = view.Selection;
 
             // Assert
             Assert.IsInstanceOf<GrassCoverErosionInwardsInputContext>(selection);
             var dataRow = (GrassCoverErosionInwardsCalculationRow) dataGridView.Rows[selectedRow].DataBoundItem;
-            Assert.AreSame(dataRow.CalculationScenario, ((GrassCoverErosionInwardsInputContext) selection).Calculation);
+            Assert.AreSame(dataRow.Calculation, ((GrassCoverErosionInwardsInputContext) selection).Calculation);
             mocks.VerifyAll();
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void CalculationsView_EditingNameViaDataGridView_ObserversCorrectlyNotified(bool useCalculationWithOutput)
+        public void GivenCalculationsView_WhenGenerateCalculationsButtonClicked_ThenShowViewWithDikeProfiles()
         {
-            // Setup
+            // Given
             var mocks = new MockRepository();
-            var calculationObserver = mocks.StrictMock<IObserver>();
-            var calculationInputObserver = mocks.StrictMock<IObserver>();
-
-            calculationObserver.Expect(o => o.UpdateObserver());
-
             var assessmentSection = mocks.Stub<IAssessmentSection>();
+            ConfigureHydraulicBoundaryDatabase(assessmentSection);
             mocks.ReplayAll();
-
-            GrassCoverErosionInwardsCalculationsView calculationsView = ShowFullyConfiguredCalculationsView(assessmentSection);
-
-            var data = (CalculationGroup) calculationsView.Data;
-            var calculation = (GrassCoverErosionInwardsCalculationScenario) data.Children.First();
-
-            if (useCalculationWithOutput)
+        
+            const string arbitraryFilePath = "path";
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            failureMechanism.DikeProfiles.AddRange(new[]
             {
-                calculation.Output = new GrassCoverErosionInwardsOutput(new TestOvertoppingOutput(2.4),
-                                                                        new TestDikeHeightOutput(4.2),
-                                                                        new TestOvertoppingRateOutput(1.0));
-            }
+                DikeProfileTestFactory.CreateDikeProfile("1", "Profiel 1", new Point2D(0.0, 0.0)),
+                DikeProfileTestFactory.CreateDikeProfile("2", "Profiel 2", new Point2D(5.0, 0.0))
+            }, arbitraryFilePath);
 
-            calculation.Attach(calculationObserver);
-            calculation.InputParameters.Attach(calculationInputObserver);
+            ShowCalculationsView(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection);
+        
+            var button = new ButtonTester("generateButton", testForm);
 
-            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+            GrassCoverErosionInwardsDikeProfileSelectionDialog selectionDialog = null;
+            DataGridViewControl grid = null;
+            var rows = 0;
+            DialogBoxHandler = (name, wnd) =>
+            {
+                selectionDialog = (GrassCoverErosionInwardsDikeProfileSelectionDialog) new FormTester(name).TheObject;
+                grid = (DataGridViewControl) new ControlTester("DataGridViewControl", selectionDialog).TheObject;
+                rows = grid.Rows.Count;
 
-            // Call
-            dataGridView.Rows[0].Cells[nameColumnIndex].Value = "New name";
-
-            // Assert
-            calculation.Output = null;
+                new ButtonTester("CustomCancelButton", selectionDialog).Click();
+            };
+        
+            // When
+            button.Click();
+        
+            // Then
+            Assert.NotNull(selectionDialog);
+            Assert.NotNull(grid);
+            Assert.AreEqual(failureMechanism.DikeProfiles.Count, rows);
+            mocks.VerifyAll();
+        }
+        
+        [Test]
+        public void GivenCalculationsViewGenerateCalculationsButtonClicked_WhenDialogClosed_ThenNotifyCalculationGroup()
+        {
+            // Given
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            ConfigureHydraulicBoundaryDatabase(assessmentSection);
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+        
+            const string arbitraryFilePath = "path";
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            failureMechanism.DikeProfiles.AddRange(new[]
+            {
+                DikeProfileTestFactory.CreateDikeProfile("1", "Profiel 1", new Point2D(0.0, 0.0)),
+                DikeProfileTestFactory.CreateDikeProfile("2", "Profiel 2", new Point2D(5.0, 0.0))
+            }, arbitraryFilePath);
+            failureMechanism.CalculationsGroup.Attach(observer);
+        
+            ShowCalculationsView(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection);
+        
+            var button = new ButtonTester("generateButton", testForm);
+        
+            DialogBoxHandler = (name, wnd) =>
+            {
+                var selectionDialog = (GrassCoverErosionInwardsDikeProfileSelectionDialog)new FormTester(name).TheObject;
+                var selectionView = (DataGridViewControl)new ControlTester("DataGridViewControl", selectionDialog).TheObject;
+                selectionView.Rows[0].Cells[0].Value = true;
+        
+                // When
+                new ButtonTester("DoForSelectedButton", selectionDialog).Click();
+            };
+        
+            button.Click();
+        
+            // Then
             mocks.VerifyAll();
         }
 
-        private static void AssertColumnMembers(IReadOnlyList<DataGridViewComboBoxColumn> dataGridViewColumns)
+        [Test]
+        public void GivenCalculationsViewGenerateCalculationsButtonClicked_WhenDikeProfileSelectedAndDialogClosed_ThenUpdateSectionResultScenarios()
         {
-            foreach (DataGridViewComboBoxColumn column in dataGridViewColumns)
-            {
-                Assert.AreEqual("DisplayName", column.DisplayMember);
-            }
+            // Given
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            ConfigureHydraulicBoundaryDatabase(assessmentSection);
+            mocks.ReplayAll();
 
-            Assert.AreEqual("This", dataGridViewColumns[0].ValueMember);
-            Assert.AreEqual("This", dataGridViewColumns[1].ValueMember);
-            Assert.AreEqual("Value", dataGridViewColumns[2].ValueMember);
+            GrassCoverErosionInwardsFailureMechanism failureMechanism = ConfigureFailureMechanism();
+
+            ShowCalculationsView(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection);
+
+            var button = new ButtonTester("generateButton", testForm);
+
+            DialogBoxHandler = (name, wnd) =>
+            {
+                var selectionDialog = (GrassCoverErosionInwardsDikeProfileSelectionDialog) new FormTester(name).TheObject;
+                var selectionView = (DataGridViewControl)new ControlTester("DataGridViewControl", selectionDialog).TheObject;
+                selectionView.Rows[0].Cells[0].Value = true;
+
+                // When
+                new ButtonTester("DoForSelectedButton", selectionDialog).Click();
+            };
+
+            button.Click();
+
+            // Then
+            GrassCoverErosionInwardsCalculationScenario[] calculationScenarios = failureMechanism.Calculations.OfType<GrassCoverErosionInwardsCalculationScenario>().ToArray();
+            GrassCoverErosionInwardsFailureMechanismSectionResult failureMechanismSectionResult1 = failureMechanism.SectionResults.First();
+            GrassCoverErosionInwardsFailureMechanismSectionResult failureMechanismSectionResult2 = failureMechanism.SectionResults.ElementAt(1);
+
+            Assert.AreEqual(1, failureMechanismSectionResult1.GetCalculationScenarios(calculationScenarios).Count());
+            CollectionAssert.IsEmpty(failureMechanismSectionResult2.GetCalculationScenarios(calculationScenarios));
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GivenCalculationsViewGenerateCalculationsCancelButtonClicked_WhenDialogClosed_CalculationsNotUpdatedAndCalculationGroupNotNotified()
+        {
+            // Given
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            ConfigureHydraulicBoundaryDatabase(assessmentSection);
+            var observer = mocks.StrictMock<IObserver>();
+            mocks.ReplayAll();
+
+            GrassCoverErosionInwardsFailureMechanism failureMechanism = ConfigureFailureMechanism();
+            ShowCalculationsView(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection);
+
+            failureMechanism.CalculationsGroup.Attach(observer);
+
+            var button = new ButtonTester("generateButton", testForm);
+        
+            DialogBoxHandler = (name, wnd) =>
+            {
+                var selectionDialog = (GrassCoverErosionInwardsDikeProfileSelectionDialog)new FormTester(name).TheObject;
+                var selectionView = (DataGridViewControl)new ControlTester("DataGridViewControl", selectionDialog).TheObject;
+                selectionView.Rows[0].Cells[0].Value = true;
+        
+                // When
+                new ButtonTester("CustomCancelButton", selectionDialog).Click();
+            };
+        
+            button.Click();
+        
+            // Then
+            CollectionAssert.IsEmpty(failureMechanism.Calculations);
+            mocks.VerifyAll(); // No observer notified
         }
 
         public override void Setup()
@@ -813,15 +755,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             base.TearDown();
 
             testForm.Dispose();
-        }
-
-        private GrassCoverErosionInwardsCalculationsView ShowFullyConfiguredCalculationsView(IAssessmentSection assessmentSection)
-        {
-            ConfigureHydraulicBoundaryDatabase(assessmentSection);
-
-            GrassCoverErosionInwardsFailureMechanism failureMechanism = ConfigureFailureMechanism();
-
-            return ShowCalculationsView(ConfigureCalculationGroup(failureMechanism, assessmentSection), failureMechanism, assessmentSection);
         }
 
         private static void ConfigureHydraulicBoundaryDatabase(IAssessmentSection assessmentSection)
@@ -932,8 +865,8 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
 
             failureMechanism.DikeProfiles.AddRange(new List<DikeProfile>
             {
-                DikeProfileTestFactory.CreateDikeProfile(new Point2D(0.0, 0.0), "profiel 1"),
-                DikeProfileTestFactory.CreateDikeProfile(new Point2D(5.0, 0.0), "profiel 2")
+                DikeProfileTestFactory.CreateDikeProfile("1", "Profiel 1", new Point2D(0.0, 0.0)),
+                DikeProfileTestFactory.CreateDikeProfile("2", "Profiel 2", new Point2D(5.0, 0.0))
             }, string.Empty);
 
             return failureMechanism;
@@ -947,21 +880,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             testForm.Show();
 
             return calculationsView;
-        }
-
-        private static void AssertDataGridViewControlColumnHeaders(DataGridView dataGridView)
-        {
-            Assert.AreEqual(10, dataGridView.ColumnCount);
-            Assert.AreEqual("Naam", dataGridView.Columns[nameColumnIndex].HeaderText);
-            Assert.AreEqual("Hydraulische belastingenlocatie", dataGridView.Columns[selectableHydraulicBoundaryLocationsColumnIndex].HeaderText);
-            Assert.AreEqual("Dijkprofiel", dataGridView.Columns[dikeProfileColumnIndex].HeaderText);
-            Assert.AreEqual("Gebruik dam", dataGridView.Columns[useBreakWaterColumnIndex].HeaderText);
-            Assert.AreEqual("Damtype", dataGridView.Columns[breakWaterTypeColumnIndex].HeaderText);
-            Assert.AreEqual("Damhoogte [m+NAP]", dataGridView.Columns[breakWaterHeightColumnIndex].HeaderText);
-            Assert.AreEqual("Gebruik voorlandgeometrie", dataGridView.Columns[useForeShoreGeometryColumnIndex].HeaderText);
-            Assert.AreEqual("Dijkhoogte [m+NAP]", dataGridView.Columns[dikeHeightColumnIndex].HeaderText);
-            Assert.AreEqual("Verwachtingswaarde kritiek overslagdebiet [m3/m/s]", dataGridView.Columns[meanCriticalFlowRateColumnIndex].HeaderText);
-            Assert.AreEqual("Standaardafwijking kritiek overslagdebiet [m3/m/s]", dataGridView.Columns[standardDeviationCriticalFlowRateColumnIndex].HeaderText);
         }
     }
 }

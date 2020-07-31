@@ -362,7 +362,9 @@ namespace Riskeer.HeightStructures.IO.Test.Configurations
                         Mean = (RoundedDouble) 2,
                         CoefficientOfVariation = (RoundedDouble) 0.1
                     }
-                }
+                },
+                IsRelevant = true,
+                Contribution = (RoundedDouble) 0.5432
             };
 
             Assert.AreEqual(1, calculationGroup.Children.Count);

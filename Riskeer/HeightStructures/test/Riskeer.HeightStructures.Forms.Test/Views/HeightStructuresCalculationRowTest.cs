@@ -35,6 +35,7 @@ using Riskeer.Common.Forms.ChangeHandlers;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Forms.PropertyClasses;
 using Riskeer.Common.Forms.TestUtil;
+using Riskeer.Common.Forms.Views;
 using Riskeer.HeightStructures.Data;
 using Riskeer.HeightStructures.Data.TestUtil;
 using Riskeer.HeightStructures.Forms.Views;
@@ -49,35 +50,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
         private const int useForeshoreColumnIndex = 6;
 
         [Test]
-        public void Constructor_CalculationScenarioNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
-            mocks.ReplayAll();
-
-            // Call
-            void Call() => new HeightStructuresCalculationRow(null, handler);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("calculationScenario", exception.ParamName);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Constructor_HandlerNull_ThrowsArgumentNullException()
-        {
-            // Call
-            void Call() => new HeightStructuresCalculationRow(new StructuresCalculationScenario<HeightStructuresInput>(), null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("handler", exception.ParamName);
-        }
-
-        [Test]
-        public void Constructor_WithCalculation_PropertiesCorrectlySet()
+        public void Constructor_ExpectedValues()
         {
             // Setup
             var mocks = new MockRepository();
@@ -87,43 +60,21 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
             var calculationScenario = new StructuresCalculationScenario<HeightStructuresInput>();
 
             // Call
-            var calculationRow = new HeightStructuresCalculationRow(calculationScenario, handler);
+            var row = new HeightStructuresCalculationRow(calculationScenario, handler);
 
             // Asserts
-            Assert.AreSame(calculationScenario, calculationRow.CalculationScenario);
+            Assert.IsInstanceOf<CalculationRow<StructuresCalculationScenario<HeightStructuresInput>>>(row);
+            Assert.IsInstanceOf<IHasColumnStateDefinitions>(row);
 
-            IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = calculationRow.ColumnStateDefinitions;
+            Assert.AreSame(calculationScenario, row.Calculation);
+
+            IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
             Assert.AreEqual(3, columnStateDefinitions.Count);
 
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, breakWaterTypeColumnIndex);
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, breakWaterHeightColumnIndex);
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, useForeshoreColumnIndex);
             mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Name_AlwaysOnChange_NotifyObserverAndCalculationPropertyChanged()
-        {
-            // Setup
-            var mockRepository = new MockRepository();
-            var observer = mockRepository.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
-            mockRepository.ReplayAll();
-
-            const string newValue = "Test new name";
-
-            var calculation = new StructuresCalculationScenario<HeightStructuresInput>();
-            var row = new HeightStructuresCalculationRow(calculation, handler);
-
-            calculation.Attach(observer);
-
-            // Call
-            row.Name = newValue;
-
-            // Assert
-            Assert.AreEqual(newValue, calculation.Name);
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -138,27 +89,6 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
 
             // Call & Assert
             SetPropertyAndVerifyNotificationsAndOutputForCalculation(row => row.SelectableHydraulicBoundaryLocation = newValue, calculation);
-        }
-
-        [Test]
-        public void SelectableHydraulicBoundaryLocation_ChangeToEqualValue_NoNotificationsOutputNotCleared()
-        {
-            // Setup
-            DataGridViewComboBoxItemWrapper<SelectableHydraulicBoundaryLocation> oldValue = null;
-
-            // Call
-            AssertPropertyNotChanged(
-                row =>
-                {
-                    oldValue = row.SelectableHydraulicBoundaryLocation;
-                    row.SelectableHydraulicBoundaryLocation = row.SelectableHydraulicBoundaryLocation;
-                },
-                calculation =>
-                {
-                    // Assert
-                    Assert.NotNull(oldValue);
-                    Assert.AreEqual(oldValue.WrappedObject.HydraulicBoundaryLocation, calculation.InputParameters.HydraulicBoundaryLocation);
-                });
         }
 
         [Test]

@@ -1023,7 +1023,9 @@ namespace Riskeer.StabilityPointStructures.IO.Test.Configurations
                         Mean = (RoundedDouble) 15.2,
                         StandardDeviation = (RoundedDouble) 0.1
                     }
-                }
+                },
+                IsRelevant = true,
+                Contribution = (RoundedDouble) 0.5432
             };
 
             Assert.AreEqual(1, calculationGroup.Children.Count);
@@ -1060,6 +1062,97 @@ namespace Riskeer.StabilityPointStructures.IO.Test.Configurations
             Assert.AreEqual(expectedValue, calculation.InputParameters.ProbabilityCollisionSecondaryStructure);
         }
 
+        [Test]
+        public void Import_ScenarioEmpty_LogMessageAndContinueImport()
+        {
+            // Setup
+            string filePath = Path.Combine(importerPath, "validConfigurationCalculationContainingEmptyScenario.xml");
+
+            var calculationGroup = new CalculationGroup();
+
+            var importer = new StabilityPointStructuresCalculationConfigurationImporter(filePath,
+                                                                                        calculationGroup,
+                                                                                        Enumerable.Empty<HydraulicBoundaryLocation>(),
+                                                                                        Enumerable.Empty<ForeshoreProfile>(),
+                                                                                        Enumerable.Empty<StabilityPointStructure>());
+
+            var successful = false;
+
+            // Call
+            void Call() => successful = importer.Import();
+
+            // Assert
+            const string expectedMessage = "In een berekening moet voor het scenario tenminste de relevantie of contributie worden opgegeven. " +
+                                           "Berekening 'Calculation' is overgeslagen.";
+            TestHelper.AssertLogMessageIsGenerated(Call, expectedMessage, 2);
+            Assert.IsTrue(successful);
+            CollectionAssert.IsEmpty(calculationGroup.Children);
+        }
+
+        [Test]
+        public void Import_ScenarioWithContributionSet_DataAddedToModel()
+        {
+            // Setup
+            string filePath = Path.Combine(importerPath, "validConfigurationScenarioContributionOnly.xml");
+
+            var calculationGroup = new CalculationGroup();
+
+            var importer = new StabilityPointStructuresCalculationConfigurationImporter(filePath,
+                                                                                        calculationGroup,
+                                                                                        Enumerable.Empty<HydraulicBoundaryLocation>(),
+                                                                                        Enumerable.Empty<ForeshoreProfile>(),
+                                                                                        Enumerable.Empty<StabilityPointStructure>());
+
+            // Call
+            var successful = false;
+            Action call = () => successful = importer.Import();
+
+            // Assert
+            TestHelper.AssertLogMessageIsGenerated(call, $"Gegevens zijn geïmporteerd vanuit bestand '{filePath}'.", 1);
+            Assert.IsTrue(successful);
+
+            var expectedCalculation = new StructuresCalculationScenario<StabilityPointStructuresInput>
+            {
+                Name = "Calculation",
+                Contribution = (RoundedDouble) 0.8765
+            };
+
+            Assert.AreEqual(1, calculationGroup.Children.Count);
+            AssertCalculation(expectedCalculation, (StructuresCalculationScenario<StabilityPointStructuresInput>) calculationGroup.Children[0]);
+        }
+
+        [Test]
+        public void Import_ScenarioWithRevelantSet_DataAddedToModel()
+        {
+            // Setup
+            string filePath = Path.Combine(importerPath, "validConfigurationScenarioRevelantOnly.xml");
+
+            var calculationGroup = new CalculationGroup();
+
+            var importer = new StabilityPointStructuresCalculationConfigurationImporter(filePath,
+                                                                                        calculationGroup,
+                                                                                        Enumerable.Empty<HydraulicBoundaryLocation>(),
+                                                                                        Enumerable.Empty<ForeshoreProfile>(),
+                                                                                        Enumerable.Empty<StabilityPointStructure>());
+
+            // Call
+            var successful = false;
+            Action call = () => successful = importer.Import();
+
+            // Assert
+            TestHelper.AssertLogMessageIsGenerated(call, $"Gegevens zijn geïmporteerd vanuit bestand '{filePath}'.", 1);
+            Assert.IsTrue(successful);
+
+            var expectedCalculation = new StructuresCalculationScenario<StabilityPointStructuresInput>
+            {
+                Name = "Calculation",
+                IsRelevant = false
+            };
+
+            Assert.AreEqual(1, calculationGroup.Children.Count);
+            AssertCalculation(expectedCalculation, (StructuresCalculationScenario<StabilityPointStructuresInput>) calculationGroup.Children[0]);
+        }
+
         [TestCase("validConfigurationUnknownForeshoreProfile.xml",
                   "Het voorlandprofiel met ID 'unknown' bestaat niet.",
                   TestName = "Import_UnknownData({0:80})")]
@@ -1091,98 +1184,6 @@ namespace Riskeer.StabilityPointStructures.IO.Test.Configurations
             TestHelper.AssertLogMessageWithLevelIsGenerated(Call, Tuple.Create(expectedMessage, LogLevelConstant.Error), 2);
             Assert.IsTrue(successful);
             CollectionAssert.IsEmpty(calculationGroup.Children);
-        }
-
-
-        [Test]
-        public void Import_ScenarioEmpty_LogMessageAndContinueImport()
-        {
-            // Setup
-            string filePath = Path.Combine(importerPath, "validConfigurationCalculationContainingEmptyScenario.xml");
-
-            var calculationGroup = new CalculationGroup();
-
-            var importer = new StabilityPointStructuresCalculationConfigurationImporter(filePath,
-            calculationGroup,
-            Enumerable.Empty<HydraulicBoundaryLocation>(),
-            Enumerable.Empty<ForeshoreProfile>(),
-            Enumerable.Empty<StabilityPointStructure>());
-
-            var successful = false;
-
-            // Call
-            void Call() => successful = importer.Import();
-
-            // Assert
-            const string expectedMessage = "In een berekening moet voor het scenario tenminste de relevantie of contributie worden opgegeven. " +
- "Berekening 'Calculation' is overgeslagen.";
-            TestHelper.AssertLogMessageIsGenerated(Call, expectedMessage, 2);
-            Assert.IsTrue(successful);
-            CollectionAssert.IsEmpty(calculationGroup.Children);
-        }
-
-        [Test]
-        public void Import_ScenarioWithContributionSet_DataAddedToModel()
-        {
-            // Setup
-            string filePath = Path.Combine(importerPath, "validConfigurationScenarioContributionOnly.xml");
-
-            var calculationGroup = new CalculationGroup();
-
-            var importer = new StabilityPointStructuresCalculationConfigurationImporter(filePath,
-            calculationGroup,
-            Enumerable.Empty<HydraulicBoundaryLocation>(),
-            Enumerable.Empty<ForeshoreProfile>(),
-            Enumerable.Empty<StabilityPointStructure>());
-
-            // Call
-            var successful = false;
-            Action call = () => successful = importer.Import();
-
-            // Assert
-            TestHelper.AssertLogMessageIsGenerated(call, $"Gegevens zijn geïmporteerd vanuit bestand '{filePath}'.", 1);
-            Assert.IsTrue(successful);
-
-            var expectedCalculation = new StructuresCalculationScenario<StabilityPointStructuresInput>
-            {
-                Name = "Calculation",
-                Contribution = (RoundedDouble)0.8765
-            };
-
-            Assert.AreEqual(1, calculationGroup.Children.Count);
-            AssertCalculation(expectedCalculation, (StructuresCalculationScenario<StabilityPointStructuresInput>)calculationGroup.Children[0]);
-        }
-
-        [Test]
-        public void Import_ScenarioWithRevelantSet_DataAddedToModel()
-        {
-            // Setup
-            string filePath = Path.Combine(importerPath, "validConfigurationScenarioRevelantOnly.xml");
-
-            var calculationGroup = new CalculationGroup();
-
-            var importer = new StabilityPointStructuresCalculationConfigurationImporter(filePath,
-            calculationGroup,
-            Enumerable.Empty<HydraulicBoundaryLocation>(),
-            Enumerable.Empty<ForeshoreProfile>(),
-            Enumerable.Empty<StabilityPointStructure>());
-
-            // Call
-            var successful = false;
-            Action call = () => successful = importer.Import();
-
-            // Assert
-            TestHelper.AssertLogMessageIsGenerated(call, $"Gegevens zijn geïmporteerd vanuit bestand '{filePath}'.", 1);
-            Assert.IsTrue(successful);
-
-            var expectedCalculation = new StructuresCalculationScenario<StabilityPointStructuresInput>
-            {
-                Name = "Calculation",
-                IsRelevant = false
-            };
-
-            Assert.AreEqual(1, calculationGroup.Children.Count);
-            AssertCalculation(expectedCalculation, (StructuresCalculationScenario<StabilityPointStructuresInput>)calculationGroup.Children[0]);
         }
 
         private static void AssertCalculation(StructuresCalculationScenario<StabilityPointStructuresInput> expectedCalculation,

@@ -103,9 +103,9 @@ namespace Riskeer.HeightStructures.IO.Configurations
                 && TrySetStochasts(readCalculation, calculation)
                 && TrySetOrientation(readCalculation, calculation)
                 && TrySetFailureProbabilityStructureWithErosion(readCalculation, calculation)
+                && TrySetScenarioParameters(readCalculation.Scenario, calculation)
                 && readCalculation.WaveReduction.ValidateWaveReduction(calculation.InputParameters.ForeshoreProfile,
-                                                                       calculation.Name, Log)
-                && TrySetScenarioParameters(readCalculation.Scenario, calculation))
+                                                                       calculation.Name, Log))
             {
                 SetWaveReductionParameters(readCalculation.WaveReduction, calculation.InputParameters);
                 SetShouldIllustrationPointsBeCalculated(readCalculation, calculation);

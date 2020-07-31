@@ -53,7 +53,8 @@ namespace Riskeer.MacroStabilityInwards.IO.Helpers
             IDictionary<MacroStabilityInwardsSoilLayer2D, List<IMacroStabilityInwardsPreconsolidationStress>> layersWithStresses =
                 GetLayersWithPreconsolidationStresses(layers, soilProfile.PreconsolidationStresses);
 
-            return !layersWithStresses.Any(lws => lws.Value.Count > 1 || lws.Value.Count == 1 && lws.Key.Data.UsePop && HasValidPop(lws.Key.Data.Pop));
+            return !layersWithStresses.Any(lws => lws.Value.Count > 1
+                                                  || lws.Value.Count == 1 && lws.Key.Data.UsePop && HasValidPop(lws.Key.Data.Pop));
         }
 
         /// <summary>

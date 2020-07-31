@@ -240,12 +240,8 @@ namespace Riskeer.Piping.Plugin
                 GetViewName = (view, context) => context.WrappedData.Name,
                 Image = RiskeerCommonFormsResources.GeneralFolderIcon,
                 AdditionalDataCheck = context => context.WrappedData == context.FailureMechanism.CalculationsGroup,
-                CloseForData = ClosePipingCalculationsViewForData,
-                AfterCreate = (view, context) =>
-                {
-                    view.AssessmentSection = context.AssessmentSection;
-                    view.PipingFailureMechanism = context.FailureMechanism;
-                }
+                CreateInstance = context => new PipingCalculationsView(context.WrappedData, context.FailureMechanism, context.AssessmentSection),
+                CloseForData = ClosePipingCalculationsViewForData
             };
 
             yield return new ViewInfo<PipingInputContext, PipingCalculationScenario, PipingInputView>

@@ -34,22 +34,22 @@ namespace Core.Common.Util.Test
         public void Constructor_WithoutValue_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new EnumDisplayWrapper<object>(null);
+            void Call() => new EnumDisplayWrapper<object>(null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("value", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("value", exception.ParamName);
         }
 
         [Test]
         public void Constructor_WithTypeParameterNotOfEnumType_ThrowsArgumentException()
         {
             // Call
-            TestDelegate test = () => new EnumDisplayWrapper<object>(TestEnum.DisplayName);
+            void Call() => new EnumDisplayWrapper<object>(TestEnum.DisplayName);
 
             // Assert
-            string paramName = Assert.Throws<InvalidTypeParameterException>(test).TypeParamName;
-            Assert.AreEqual("T", paramName);
+            var exception = Assert.Throws<InvalidTypeParameterException>(Call);
+            Assert.AreEqual("T", exception.TypeParamName);
         }
 
         [Test]
@@ -77,6 +77,19 @@ namespace Core.Common.Util.Test
 
             // Assert
             Assert.AreEqual(Resources.EnumDisplayWrapperTest_DisplayNameValueDisplayName, displayName);
+        }
+
+        [Test]
+        public void ToString_Always_SameAsDisplayName()
+        {
+            // Setup
+            var wrapper = new EnumDisplayWrapper<TestEnum>(TestEnum.DisplayName);
+
+            // Call
+            var toString = wrapper.ToString();
+
+            // Assert
+            Assert.AreEqual(wrapper.DisplayName, toString);
         }
 
         private enum TestEnum

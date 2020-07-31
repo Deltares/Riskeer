@@ -30,6 +30,7 @@ using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Forms.PropertyClasses;
 using Riskeer.Common.Forms.TestUtil;
+using Riskeer.Common.Forms.Views;
 using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.MacroStabilityInwards.Data.SoilProfile;
 using Riskeer.MacroStabilityInwards.Data.TestUtil;
@@ -43,35 +44,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
     public class MacroStabilityInwardsCalculationRowTest
     {
         [Test]
-        public void Constructor_WithoutCalculation_ThrowsArgumentNullException()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
-            mocks.ReplayAll();
-
-            // Call
-            TestDelegate test = () => new MacroStabilityInwardsCalculationRow(null, handler);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("macroStabilityInwardsCalculation", paramName);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Constructor_WithoutHandler_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate test = () => new MacroStabilityInwardsCalculationRow(new MacroStabilityInwardsCalculationScenario(), null);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("handler", paramName);
-        }
-
-        [Test]
-        public void Constructor_WithCalculation_PropertiesFromCalculation()
+        public void Constructor_ExpectedValues()
         {
             // Setup
             var mocks = new MockRepository();
@@ -100,7 +73,9 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             var row = new MacroStabilityInwardsCalculationRow(calculation, handler);
 
             // Assert
-            Assert.AreSame(calculation, row.MacroStabilityInwardsCalculation);
+            Assert.IsInstanceOf<CalculationRow<MacroStabilityInwardsCalculationScenario>>(row);
+
+            Assert.AreSame(calculation, row.Calculation);
             Assert.AreEqual(calculation.Name, row.Name);
             Assert.AreSame(calculation.InputParameters.StochasticSoilModel, row.StochasticSoilModel.WrappedObject);
             Assert.AreSame(calculation.InputParameters.StochasticSoilProfile, row.StochasticSoilProfile.WrappedObject);
@@ -108,54 +83,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             Assert.AreEqual(calculation.InputParameters.StochasticSoilProfile.Probability * 100, row.StochasticSoilProfileProbability, row.StochasticSoilProfileProbability.GetAccuracy());
             Assert.AreSame(hydraulicBoundaryLocation, row.SelectableHydraulicBoundaryLocation.WrappedObject.HydraulicBoundaryLocation);
             mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Constructor_WithCalculationWithInvalidInput_PropertiesFromCalculation()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
-            mocks.ReplayAll();
-
-            MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithInvalidInput();
-
-            // Call
-            var row = new MacroStabilityInwardsCalculationRow(calculation, handler);
-
-            // Assert
-            Assert.AreSame(calculation, row.MacroStabilityInwardsCalculation);
-            Assert.IsNull(row.StochasticSoilModel.WrappedObject);
-            Assert.IsNull(row.StochasticSoilProfile.WrappedObject);
-            Assert.AreEqual(2, row.StochasticSoilProfileProbability.NumberOfDecimalPlaces);
-            Assert.AreEqual(0, row.StochasticSoilProfileProbability, row.StochasticSoilProfileProbability.GetAccuracy());
-            Assert.IsNull(row.SelectableHydraulicBoundaryLocation.WrappedObject);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Name_AlwaysOnChange_NotifyObserverAndCalculationPropertyChanged()
-        {
-            // Setup
-            var mockRepository = new MockRepository();
-            var observer = mockRepository.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
-            mockRepository.ReplayAll();
-
-            const string newValue = "Test new name";
-
-            var calculation = new MacroStabilityInwardsCalculationScenario();
-            var row = new MacroStabilityInwardsCalculationRow(calculation, handler);
-
-            calculation.Attach(observer);
-
-            // Call
-            row.Name = newValue;
-
-            // Assert
-            Assert.AreEqual(newValue, calculation.Name);
-            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -239,27 +166,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
 
             // Call & Assert
             SetPropertyAndVerifyNotificationsAndOutputForCalculation(row => row.SelectableHydraulicBoundaryLocation = newValue, calculation);
-        }
-
-        [Test]
-        public void SelectableHydraulicBoundaryLocation_ChangeToEqualValue_NoNotificationsOutputNotCleared()
-        {
-            // Setup
-            DataGridViewComboBoxItemWrapper<SelectableHydraulicBoundaryLocation> oldValue = null;
-
-            // Call
-            AssertPropertyNotChanged(
-                row =>
-                {
-                    oldValue = row.SelectableHydraulicBoundaryLocation;
-                    row.SelectableHydraulicBoundaryLocation = row.SelectableHydraulicBoundaryLocation;
-                },
-                calculation =>
-                {
-                    // Assert
-                    Assert.NotNull(oldValue);
-                    Assert.AreEqual(oldValue.WrappedObject.HydraulicBoundaryLocation, calculation.InputParameters.HydraulicBoundaryLocation);
-                });
         }
 
         /// <summary>

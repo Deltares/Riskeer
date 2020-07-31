@@ -19,8 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
-using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.ClosingStructures.IO.Configurations;
 using Riskeer.Common.IO.Configurations;
@@ -30,17 +28,6 @@ namespace Riskeer.ClosingStructures.IO.Test.Configurations
     [TestFixture]
     public class ClosingStructuresCalculationConfigurationTest
     {
-        [Test]
-        public void Constructor_NameNull_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate call = () => new ClosingStructuresCalculationConfiguration(null);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("value", paramName);
-        }
-
         [Test]
         public void Constructor_WithName_ExpectedValues()
         {
@@ -62,68 +49,6 @@ namespace Riskeer.ClosingStructures.IO.Test.Configurations
             Assert.IsNull(configuration.FailureProbabilityOpenStructure);
             Assert.IsNull(configuration.FailureProbabilityReparation);
             Assert.IsNull(configuration.ProbabilityOpenStructureBeforeFlooding);
-        }
-
-        [Test]
-        public void SimpleProperties_SetNewValues_NewValuesSet()
-        {
-            // Setup
-            var random = new Random(21);
-            var inflowModelType = random.NextEnumValue<ConfigurationClosingStructureInflowModelType>();
-            var insideWaterLevel = new StochastConfiguration();
-            var modelFactorSuperCriticalFlow = new StochastConfiguration();
-            var drainCoefficient = new StochastConfiguration();
-            var thresholdHeightOpenWeir = new StochastConfiguration();
-            var areaFlowApertures = new StochastConfiguration();
-            var levelCrestStructureNotClosing = new StochastConfiguration();
-            int identicalApertures = random.Next(1, 5);
-            double factorStormDurationOpenStructure = random.NextDouble();
-            double failureProbabilityOpenStructure = random.NextDouble();
-            double failureProbabilityReparation = random.NextDouble();
-            double probabilityOpenStructureBeforeFlooding = random.NextDouble();
-
-            var configuration = new ClosingStructuresCalculationConfiguration("some name");
-
-            // Call
-            configuration.InflowModelType = inflowModelType;
-            configuration.InsideWaterLevel = insideWaterLevel;
-            configuration.ModelFactorSuperCriticalFlow = modelFactorSuperCriticalFlow;
-            configuration.DrainCoefficient = drainCoefficient;
-            configuration.ThresholdHeightOpenWeir = thresholdHeightOpenWeir;
-            configuration.AreaFlowApertures = areaFlowApertures;
-            configuration.LevelCrestStructureNotClosing = levelCrestStructureNotClosing;
-            configuration.IdenticalApertures = identicalApertures;
-            configuration.FactorStormDurationOpenStructure = factorStormDurationOpenStructure;
-            configuration.FailureProbabilityOpenStructure = failureProbabilityOpenStructure;
-            configuration.FailureProbabilityReparation = failureProbabilityReparation;
-            configuration.ProbabilityOpenStructureBeforeFlooding = probabilityOpenStructureBeforeFlooding;
-
-            // Assert
-            Assert.AreEqual(inflowModelType, configuration.InflowModelType);
-            Assert.AreSame(insideWaterLevel, configuration.InsideWaterLevel);
-            Assert.AreSame(modelFactorSuperCriticalFlow, configuration.ModelFactorSuperCriticalFlow);
-            Assert.AreSame(drainCoefficient, configuration.DrainCoefficient);
-            Assert.AreSame(thresholdHeightOpenWeir, configuration.ThresholdHeightOpenWeir);
-            Assert.AreSame(areaFlowApertures, configuration.AreaFlowApertures);
-            Assert.AreSame(levelCrestStructureNotClosing, configuration.LevelCrestStructureNotClosing);
-            Assert.AreEqual(identicalApertures, configuration.IdenticalApertures);
-            Assert.AreEqual(factorStormDurationOpenStructure, configuration.FactorStormDurationOpenStructure);
-            Assert.AreEqual(failureProbabilityOpenStructure, configuration.FailureProbabilityOpenStructure);
-            Assert.AreEqual(failureProbabilityReparation, configuration.FailureProbabilityReparation);
-            Assert.AreEqual(probabilityOpenStructureBeforeFlooding, configuration.ProbabilityOpenStructureBeforeFlooding);
-        }
-
-        [Test]
-        public void Name_Null_ThrowsArgumentNullException()
-        {
-            // Setup
-            var calculationConfiguration = new ClosingStructuresCalculationConfiguration("valid name");
-
-            // Call
-            TestDelegate test = () => calculationConfiguration.Name = null;
-
-            // Assert
-            Assert.Throws<ArgumentNullException>(test);
         }
     }
 }

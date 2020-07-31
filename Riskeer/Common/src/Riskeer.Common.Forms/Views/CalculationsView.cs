@@ -30,7 +30,6 @@ using Core.Common.Controls.Views;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Forms.Properties;
@@ -41,17 +40,16 @@ namespace Riskeer.Common.Forms.Views
     /// Base view for configuring calculations.
     /// </summary>
     /// <typeparam name="TCalculation">The type of calculation.</typeparam>
-    /// /// <typeparam name="TCalculationInput">The type of the calculation input.</typeparam>
+    /// <typeparam name="TCalculationInput">The type of the calculation input.</typeparam>
     /// <typeparam name="TCalculationRow">The type of the calculation row.</typeparam>
-    public abstract partial class CalculationsView<TCalculation, TCalculationInput, TCalculationRow> : UserControl, ISelectionProvider, IView
+    /// <typeparam name="TFailureMechanism">The type of the failure mechanism.</typeparam>
+    public abstract partial class CalculationsView<TCalculation, TCalculationInput, TCalculationRow, TFailureMechanism> : UserControl, ISelectionProvider, IView
         where TCalculation : class, ICalculation<TCalculationInput>
         where TCalculationRow : CalculationRow<TCalculation>
         where TCalculationInput : class, ICalculationInput
+        where TFailureMechanism : IFailureMechanism
     {
         private const int selectableHydraulicBoundaryLocationColumnIndex = 1;
-
-        private readonly IFailureMechanism failureMechanism;
-        private readonly IAssessmentSection assessmentSection;
 
         private Observer failureMechanismObserver;
         private Observer hydraulicBoundaryLocationsObserver;
@@ -63,13 +61,13 @@ namespace Riskeer.Common.Forms.Views
         public event EventHandler<EventArgs> SelectionChanged;
 
         /// <summary>
-        /// Creates a new instance of <see cref="CalculationsView{TCalculation, TCalculationInput, TCalculationRow}"/>.
+        /// Creates a new instance of <see cref="CalculationsView{TCalculation, TCalculationInput, TCalculationRow, TFailureMechanism}"/>.
         /// </summary>
         /// <param name="calculationGroup">All the calculations of the failure mechanism.</param>
         /// <param name="failureMechanism">The <see cref="IFailureMechanism"/> the calculations belongs to.</param>
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> the calculations belong to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        protected CalculationsView(CalculationGroup calculationGroup, IFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+        protected CalculationsView(CalculationGroup calculationGroup, TFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
         {
             if (calculationGroup == null)
             {
@@ -87,10 +85,8 @@ namespace Riskeer.Common.Forms.Views
             }
 
             this.calculationGroup = calculationGroup;
-            this.failureMechanism = failureMechanism;
-            this.assessmentSection = assessmentSection;
-
-            InitializeObservers();
+            FailureMechanism = failureMechanism;
+            AssessmentSection = assessmentSection;
 
             InitializeComponent();
 
@@ -98,10 +94,16 @@ namespace Riskeer.Common.Forms.Views
             InitializeDataGridView();
 
             UpdateSectionsListBox();
-            UpdateDataGridViewDataSource();
         }
 
-        public object Selection => CreateSelectedItemFromCurrentRow((TCalculationRow) dataGridViewControl.CurrentRow?.DataBoundItem);
+        public object Selection
+        {
+            get
+            {
+                DataGridViewRow currentRow = DataGridViewControl.CurrentRow;
+                return currentRow != null ? CreateSelectedItemFromCurrentRow((TCalculationRow) currentRow.DataBoundItem) : null;
+            }
+        }
 
         public object Data
         {
@@ -109,27 +111,51 @@ namespace Riskeer.Common.Forms.Views
             set => calculationGroup = value as CalculationGroup;
         }
 
+        /// <summary>
+        /// Gets the failure mechanism.
+        /// </summary>
+        protected TFailureMechanism FailureMechanism { get; }
+
+        /// <summary>
+        /// Gets the assessment section.
+        /// </summary>
+        protected IAssessmentSection AssessmentSection { get; }
+
+        /// <summary>
+        /// Gets an indicator whether the view is loaded.
+        /// </summary>
+        protected bool Loaded { get; private set; }
+
         protected override void OnLoad(EventArgs e)
         {
+            InitializeObservers();
+
             // Necessary to correctly load the content of the dropdown lists of the comboboxes...
             UpdateDataGridViewDataSource();
 
             base.OnLoad(e);
 
             UpdateGenerateCalculationsButtonState();
+
+            Loaded = true;
         }
 
         protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
-                failureMechanismObserver.Dispose();
-                inputObserver.Dispose();
-                calculationObserver.Dispose();
-                calculationGroupObserver.Dispose();
-                hydraulicBoundaryLocationsObserver.Dispose();
+                if (Loaded)
+                {
+                    failureMechanismObserver.Dispose();
+                    inputObserver.Dispose();
+                    calculationObserver.Dispose();
+                    calculationGroupObserver.Dispose();
+                    hydraulicBoundaryLocationsObserver.Dispose();
+                }
 
                 components?.Dispose();
+
+                Loaded = false;
             }
 
             base.Dispose(disposing);
@@ -175,19 +201,41 @@ namespace Riskeer.Common.Forms.Views
         /// </summary>
         protected abstract void GenerateCalculations();
 
-        private void InitializeObservers()
+        /// <summary>
+        /// Initializes the <see cref="DataGridViewControl"/> columns
+        /// </summary>
+        protected virtual void InitializeDataGridView()
+        {
+            DataGridViewControl.CurrentRowChanged += DataGridViewOnCurrentRowChangedHandler;
+
+            DataGridViewControl.AddTextBoxColumn(
+                nameof(CalculationRow<TCalculation>.Name),
+                Resources.FailureMechanism_Name_DisplayName);
+
+            DataGridViewControl.AddComboBoxColumn<DataGridViewComboBoxItemWrapper<SelectableHydraulicBoundaryLocation>>(
+                nameof(CalculationRow<TCalculation>.SelectableHydraulicBoundaryLocation),
+                Resources.HydraulicBoundaryLocation_DisplayName,
+                null,
+                nameof(DataGridViewComboBoxItemWrapper<SelectableHydraulicBoundaryLocation>.This),
+                nameof(DataGridViewComboBoxItemWrapper<SelectableHydraulicBoundaryLocation>.DisplayName));
+        }
+
+        /// <summary>
+        /// Initializes the observers.
+        /// </summary>
+        protected virtual void InitializeObservers()
         {
             failureMechanismObserver = new Observer(UpdateSectionsListBox)
             {
-                Observable = failureMechanism
+                Observable = FailureMechanism
             };
             hydraulicBoundaryLocationsObserver = new Observer(() =>
             {
                 PrefillComboBoxListItemsAtColumnLevel();
-                UpdateSelectableHydraulicBoundaryLocationsColumn();
+                UpdateComboBoxColumns();
             })
             {
-                Observable = assessmentSection.HydraulicBoundaryDatabase.Locations
+                Observable = AssessmentSection.HydraulicBoundaryDatabase.Locations
             };
 
             // The concat is needed to observe the input of calculations in child groups.
@@ -195,7 +243,7 @@ namespace Riskeer.Common.Forms.Views
             {
                 Observable = calculationGroup
             };
-            calculationObserver = new RecursiveObserver<CalculationGroup, TCalculation>(() => dataGridViewControl.RefreshDataGridView(), pcg => pcg.Children)
+            calculationObserver = new RecursiveObserver<CalculationGroup, TCalculation>(() => DataGridViewControl.RefreshDataGridView(), pcg => pcg.Children)
             {
                 Observable = calculationGroup
             };
@@ -205,78 +253,41 @@ namespace Riskeer.Common.Forms.Views
             };
         }
 
-        private void InitializeListBox()
+        /// <summary>
+        /// Updates the state of the generate calculations button.
+        /// </summary>
+        protected void UpdateGenerateCalculationsButtonState()
         {
-            listBox.DisplayMember = nameof(FailureMechanismSection.Name);
-            listBox.SelectedValueChanged += ListBoxOnSelectedValueChanged;
+            GenerateButton.Enabled = CanGenerateCalculations();
         }
 
-        private void InitializeDataGridView()
+        /// <summary>
+        /// Sets the items on the <paramref name="objectCollection"/>.
+        /// </summary>
+        /// <param name="objectCollection">The collection to set the items on.</param>
+        /// <param name="comboBoxItems">The item to set on the collection.</param>
+        protected static void SetItemsOnObjectCollection(DataGridViewComboBoxCell.ObjectCollection objectCollection, object[] comboBoxItems)
         {
-            dataGridViewControl.CurrentRowChanged += DataGridViewOnCurrentRowChangedHandler;
-
-            dataGridViewControl.AddTextBoxColumn(
-                nameof(CalculationRow<TCalculation>.Name),
-                Resources.FailureMechanism_Name_DisplayName);
-
-            dataGridViewControl.AddComboBoxColumn<DataGridViewComboBoxItemWrapper<SelectableHydraulicBoundaryLocation>>(
-                nameof(CalculationRow<TCalculation>.SelectableHydraulicBoundaryLocation),
-                Resources.HydraulicBoundaryLocation_DisplayName,
-                null,
-                nameof(DataGridViewComboBoxItemWrapper<SelectableHydraulicBoundaryLocation>.This),
-                nameof(DataGridViewComboBoxItemWrapper<SelectableHydraulicBoundaryLocation>.DisplayName));
+            objectCollection.Clear();
+            objectCollection.AddRange(comboBoxItems);
         }
 
-        private void UpdateSectionsListBox()
+        /// <summary>
+        /// Updates the <see cref="DataGridViewComboBoxColumn"/> columns.
+        /// </summary>
+        protected virtual void UpdateComboBoxColumns()
         {
-            listBox.Items.Clear();
-
-            if (failureMechanism.Sections.Any())
-            {
-                listBox.Items.AddRange(failureMechanism.Sections.Cast<object>().ToArray());
-                listBox.SelectedItem = failureMechanism.Sections.First();
-            }
-        }
-
-        private void UpdateDataGridViewDataSource()
-        {
-            // Skip changes coming from the view itself
-            if (dataGridViewControl.IsCurrentCellInEditMode)
-            {
-                dataGridViewControl.AutoResizeColumns();
-            }
-
-            if (!(listBox.SelectedItem is FailureMechanismSection failureMechanismSection))
-            {
-                dataGridViewControl.SetDataSource(null);
-                return;
-            }
-
-            IEnumerable<Segment2D> lineSegments = Math2D.ConvertPointsToLineSegments(failureMechanismSection.Points);
-            IEnumerable<TCalculation> calculations = calculationGroup
-                                                     .GetCalculations()
-                                                     .OfType<TCalculation>()
-                                                     .Where(cs => IsCalculationIntersectionWithReferenceLineInSection(cs, lineSegments));
-
-            PrefillComboBoxListItemsAtColumnLevel();
-
-            List<TCalculationRow> dataSource = calculations.Select(CreateRow).ToList();
-            dataGridViewControl.SetDataSource(dataSource);
-            dataGridViewControl.ClearCurrentCell();
-
             UpdateSelectableHydraulicBoundaryLocationsColumn();
-        }
-
-        private void UpdateGenerateCalculationsButtonState()
-        {
-            generateButton.Enabled = CanGenerateCalculations();
         }
 
         #region Prefill combo box list items
 
-        private void PrefillComboBoxListItemsAtColumnLevel()
+        /// <summary>
+        /// Pre fills the <see cref="ComboBox"/> list items.
+        /// </summary>
+        protected virtual void PrefillComboBoxListItemsAtColumnLevel()
         {
-            var selectableHydraulicBoundaryLocationColumn = (DataGridViewComboBoxColumn) dataGridViewControl.GetColumnFromIndex(selectableHydraulicBoundaryLocationColumnIndex);
+            var selectableHydraulicBoundaryLocationColumn = (DataGridViewComboBoxColumn) DataGridViewControl.GetColumnFromIndex(selectableHydraulicBoundaryLocationColumnIndex);
 
             // Need to prefill for all possible data in order to guarantee 'combo box' columns
             // do not generate errors when their cell value is not present in the list of available
@@ -290,21 +301,61 @@ namespace Riskeer.Common.Forms.Views
 
         #endregion
 
-        private static void SetItemsOnObjectCollection(DataGridViewComboBoxCell.ObjectCollection objectCollection, object[] comboBoxItems)
+        private void UpdateDataGridViewDataSource()
         {
-            objectCollection.Clear();
-            objectCollection.AddRange(comboBoxItems);
+            // Skip changes coming from the view itself
+            if (DataGridViewControl.IsCurrentCellInEditMode)
+            {
+                DataGridViewControl.AutoResizeColumns();
+            }
+
+            if (!(listBox.SelectedItem is FailureMechanismSection failureMechanismSection))
+            {
+                DataGridViewControl.SetDataSource(null);
+                return;
+            }
+
+            IEnumerable<Segment2D> lineSegments = Math2D.ConvertPointsToLineSegments(failureMechanismSection.Points);
+            IEnumerable<TCalculation> calculations = calculationGroup
+                                                     .GetCalculations()
+                                                     .OfType<TCalculation>()
+                                                     .Where(cs => IsCalculationIntersectionWithReferenceLineInSection(cs, lineSegments));
+
+            PrefillComboBoxListItemsAtColumnLevel();
+
+            List<TCalculationRow> dataSource = calculations.Select(CreateRow).ToList();
+            DataGridViewControl.SetDataSource(dataSource);
+            DataGridViewControl.ClearCurrentCell();
+
+            UpdateComboBoxColumns();
+        }
+
+        private void InitializeListBox()
+        {
+            listBox.DisplayMember = nameof(FailureMechanismSection.Name);
+            listBox.SelectedValueChanged += ListBoxOnSelectedValueChanged;
+        }
+
+        private void UpdateSectionsListBox()
+        {
+            listBox.Items.Clear();
+
+            if (FailureMechanism.Sections.Any())
+            {
+                listBox.Items.AddRange(FailureMechanism.Sections.Cast<object>().ToArray());
+                listBox.SelectedItem = FailureMechanism.Sections.First();
+            }
         }
 
         #region HydraulicBoundaryLocations
 
         private void UpdateSelectableHydraulicBoundaryLocationsColumn()
         {
-            var column = (DataGridViewComboBoxColumn) dataGridViewControl.GetColumnFromIndex(selectableHydraulicBoundaryLocationColumnIndex);
+            var column = (DataGridViewComboBoxColumn) DataGridViewControl.GetColumnFromIndex(selectableHydraulicBoundaryLocationColumnIndex);
 
             using (new SuspendDataGridViewColumnResizes(column))
             {
-                foreach (DataGridViewRow dataGridViewRow in dataGridViewControl.Rows)
+                foreach (DataGridViewRow dataGridViewRow in DataGridViewControl.Rows)
                 {
                     FillAvailableSelectableHydraulicBoundaryLocationsList(dataGridViewRow);
                 }
@@ -314,8 +365,7 @@ namespace Riskeer.Common.Forms.Views
         private void FillAvailableSelectableHydraulicBoundaryLocationsList(DataGridViewRow dataGridViewRow)
         {
             var rowData = (TCalculationRow) dataGridViewRow.DataBoundItem;
-            IEnumerable<SelectableHydraulicBoundaryLocation> locations = GetSelectableHydraulicBoundaryLocations(assessmentSection?.HydraulicBoundaryDatabase.Locations,
-                                                                                                                 rowData.GetCalculationLocation());
+            IEnumerable<SelectableHydraulicBoundaryLocation> locations = GetSelectableHydraulicBoundaryLocations(rowData.GetCalculationLocation());
 
             var cell = (DataGridViewComboBoxCell) dataGridViewRow.Cells[selectableHydraulicBoundaryLocationColumnIndex];
             DataGridViewComboBoxItemWrapper<SelectableHydraulicBoundaryLocation>[] dataGridViewComboBoxItemWrappers = GetSelectableHydraulicBoundaryLocationsDataSource(locations);
@@ -324,13 +374,11 @@ namespace Riskeer.Common.Forms.Views
 
         private IEnumerable<SelectableHydraulicBoundaryLocation> GetSelectableHydraulicBoundaryLocationsFromFailureMechanism()
         {
-            List<HydraulicBoundaryLocation> hydraulicBoundaryLocations = assessmentSection.HydraulicBoundaryDatabase.Locations;
-
-            List<SelectableHydraulicBoundaryLocation> selectableHydraulicBoundaryLocations = hydraulicBoundaryLocations.Select(hbl => new SelectableHydraulicBoundaryLocation(hbl, null)).ToList();
+            var selectableHydraulicBoundaryLocations = new List<SelectableHydraulicBoundaryLocation>();
 
             foreach (Point2D referenceLocation in GetReferenceLocations())
             {
-                selectableHydraulicBoundaryLocations.AddRange(GetSelectableHydraulicBoundaryLocations(hydraulicBoundaryLocations, referenceLocation));
+                selectableHydraulicBoundaryLocations.AddRange(GetSelectableHydraulicBoundaryLocations(referenceLocation));
             }
 
             return selectableHydraulicBoundaryLocations;
@@ -352,11 +400,10 @@ namespace Riskeer.Common.Forms.Views
             return dataGridViewComboBoxItemWrappers.ToArray();
         }
 
-        private static IEnumerable<SelectableHydraulicBoundaryLocation> GetSelectableHydraulicBoundaryLocations(
-            IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations, Point2D referencePoint)
+        private IEnumerable<SelectableHydraulicBoundaryLocation> GetSelectableHydraulicBoundaryLocations(Point2D referencePoint)
         {
             return SelectableHydraulicBoundaryLocationHelper.GetSortedSelectableHydraulicBoundaryLocations(
-                hydraulicBoundaryLocations, referencePoint);
+                AssessmentSection.HydraulicBoundaryDatabase.Locations, referencePoint);
         }
 
         #endregion

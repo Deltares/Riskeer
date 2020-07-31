@@ -109,9 +109,9 @@ namespace Riskeer.ClosingStructures.IO.Configurations
                 && TrySetProbabilityOpenStructureBeforeFlooding(readCalculation, calculation)
                 && TrySetInflowModelType(readCalculation, calculation)
                 && TrySetIdenticalApertures(readCalculation, calculation)
+                && TrySetScenarioParameters(readCalculation.Scenario, calculation)
                 && readCalculation.WaveReduction.ValidateWaveReduction(calculation.InputParameters.ForeshoreProfile,
-                                                                       calculation.Name, Log)
-                && TrySetScenarioParameters(readCalculation.Scenario, calculation))
+                                                                       calculation.Name, Log))
             {
                 SetFactorStormDurationOpenStructure(readCalculation, calculation);
                 SetWaveReductionParameters(readCalculation.WaveReduction, calculation.InputParameters);

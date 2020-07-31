@@ -106,7 +106,7 @@ namespace Riskeer.Common.IO.Configurations
         public bool? ShouldIllustrationPointsBeCalculated { get; set; }
 
         /// <summary>
-        /// Gets or sets the scenario.
+        /// Gets or sets the configuration of the scenario of the calculation.
         /// </summary>
         public ScenarioConfiguration Scenario { get; set; }
 

@@ -21,11 +21,12 @@
 
 using System;
 using Core.Common.Base.Data;
+using Core.Common.Base.Geometry;
 using Core.Common.Controls.DataGrid;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Forms.ChangeHandlers;
-using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Forms.PropertyClasses;
+using Riskeer.Common.Forms.Views;
 using Riskeer.Piping.Data;
 using Riskeer.Piping.Data.SoilProfile;
 
@@ -34,70 +35,30 @@ namespace Riskeer.Piping.Forms.Views
     /// <summary>
     /// This class represents a row of <see cref="PipingCalculationScenario"/> in the <see cref="PipingCalculationsView"/>.
     /// </summary>
-    internal class PipingCalculationRow
+    public class PipingCalculationRow : CalculationRow<PipingCalculationScenario>
     {
-        private readonly IObservablePropertyChangeHandler propertyChangeHandler;
-
         /// <summary>
         /// Creates a new instance of <see cref="PipingCalculationRow"/>.
         /// </summary>
-        /// <param name="pipingCalculation">The <see cref="PipingCalculationScenario"/> this row contains.</param>
+        /// <param name="calculationScenario">The <see cref="PipingCalculationScenario"/> this row contains.</param>
         /// <param name="handler">The handler responsible for handling effects of a property change.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public PipingCalculationRow(PipingCalculationScenario pipingCalculation,
-                                    IObservablePropertyChangeHandler handler)
-        {
-            if (pipingCalculation == null)
-            {
-                throw new ArgumentNullException(nameof(pipingCalculation));
-            }
-
-            if (handler == null)
-            {
-                throw new ArgumentNullException(nameof(handler));
-            }
-
-            PipingCalculation = pipingCalculation;
-            propertyChangeHandler = handler;
-        }
-
-        /// <summary>
-        /// Gets the <see cref="PipingCalculationScenario"/> this row contains.
-        /// </summary>
-        public PipingCalculationScenario PipingCalculation { get; }
-
-        /// <summary>
-        /// Gets or sets the name of the <see cref="PipingCalculationScenario"/>.
-        /// </summary>
-        public string Name
-        {
-            get
-            {
-                return PipingCalculation.Name;
-            }
-            set
-            {
-                PipingCalculation.Name = value;
-
-                PipingCalculation.NotifyObservers();
-            }
-        }
+        internal PipingCalculationRow(PipingCalculationScenario calculationScenario,
+                                      IObservablePropertyChangeHandler handler)
+            : base(calculationScenario, handler) {}
 
         /// <summary>
         /// Gets or sets the stochastic soil model of the <see cref="PipingCalculationScenario"/>.
         /// </summary>
         public DataGridViewComboBoxItemWrapper<PipingStochasticSoilModel> StochasticSoilModel
         {
-            get
-            {
-                return new DataGridViewComboBoxItemWrapper<PipingStochasticSoilModel>(PipingCalculation.InputParameters.StochasticSoilModel);
-            }
+            get => new DataGridViewComboBoxItemWrapper<PipingStochasticSoilModel>(Calculation.InputParameters.StochasticSoilModel);
             set
             {
                 PipingStochasticSoilModel valueToSet = value?.WrappedObject;
-                if (!ReferenceEquals(PipingCalculation.InputParameters.StochasticSoilModel, valueToSet))
+                if (!ReferenceEquals(Calculation.InputParameters.StochasticSoilModel, valueToSet))
                 {
-                    PropertyChangeHelper.ChangePropertyAndNotify(() => PipingCalculation.InputParameters.StochasticSoilModel = valueToSet, propertyChangeHandler);
+                    PropertyChangeHelper.ChangePropertyAndNotify(() => Calculation.InputParameters.StochasticSoilModel = valueToSet, PropertyChangeHandler);
                 }
             }
         }
@@ -107,16 +68,13 @@ namespace Riskeer.Piping.Forms.Views
         /// </summary>
         public DataGridViewComboBoxItemWrapper<PipingStochasticSoilProfile> StochasticSoilProfile
         {
-            get
-            {
-                return new DataGridViewComboBoxItemWrapper<PipingStochasticSoilProfile>(PipingCalculation.InputParameters.StochasticSoilProfile);
-            }
+            get => new DataGridViewComboBoxItemWrapper<PipingStochasticSoilProfile>(Calculation.InputParameters.StochasticSoilProfile);
             set
             {
                 PipingStochasticSoilProfile valueToSet = value?.WrappedObject;
-                if (!ReferenceEquals(PipingCalculation.InputParameters.StochasticSoilProfile, valueToSet))
+                if (!ReferenceEquals(Calculation.InputParameters.StochasticSoilProfile, valueToSet))
                 {
-                    PropertyChangeHelper.ChangePropertyAndNotify(() => PipingCalculation.InputParameters.StochasticSoilProfile = valueToSet, propertyChangeHandler);
+                    PropertyChangeHelper.ChangePropertyAndNotify(() => Calculation.InputParameters.StochasticSoilProfile = valueToSet, PropertyChangeHandler);
                 }
             }
         }
@@ -124,56 +82,22 @@ namespace Riskeer.Piping.Forms.Views
         /// <summary>
         /// Gets the stochastic soil profile probability of the <see cref="PipingCalculationScenario"/>.
         /// </summary>
-        public RoundedDouble StochasticSoilProfileProbability
-        {
-            get
-            {
-                return PipingCalculation.InputParameters.StochasticSoilProfile != null
-                           ? new RoundedDouble(2, PipingCalculation.InputParameters.StochasticSoilProfile.Probability * 100)
-                           : new RoundedDouble(2);
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the hydraulic boundary location of the <see cref="PipingCalculationScenario"/>.
-        /// </summary>
-        public DataGridViewComboBoxItemWrapper<SelectableHydraulicBoundaryLocation> SelectableHydraulicBoundaryLocation
-        {
-            get
-            {
-                if (PipingCalculation.InputParameters.HydraulicBoundaryLocation == null)
-                {
-                    return new DataGridViewComboBoxItemWrapper<SelectableHydraulicBoundaryLocation>(null);
-                }
-
-                return new DataGridViewComboBoxItemWrapper<SelectableHydraulicBoundaryLocation>(
-                    new SelectableHydraulicBoundaryLocation(PipingCalculation.InputParameters.HydraulicBoundaryLocation,
-                                                            PipingCalculation.InputParameters.SurfaceLine?.ReferenceLineIntersectionWorldPoint));
-            }
-            set
-            {
-                HydraulicBoundaryLocation valueToSet = value?.WrappedObject?.HydraulicBoundaryLocation;
-                if (!ReferenceEquals(PipingCalculation.InputParameters.HydraulicBoundaryLocation, valueToSet))
-                {
-                    PropertyChangeHelper.ChangePropertyAndNotify(() => PipingCalculation.InputParameters.HydraulicBoundaryLocation = valueToSet, propertyChangeHandler);
-                }
-            }
-        }
+        public RoundedDouble StochasticSoilProfileProbability =>
+            Calculation.InputParameters.StochasticSoilProfile != null
+                ? new RoundedDouble(2, Calculation.InputParameters.StochasticSoilProfile.Probability * 100)
+                : new RoundedDouble(2);
 
         /// <summary>
         /// Gets or sets the damping factory exit mean of the <see cref="PipingCalculationScenario"/>.
         /// </summary>
         public RoundedDouble DampingFactorExitMean
         {
-            get
-            {
-                return PipingCalculation.InputParameters.DampingFactorExit.Mean;
-            }
+            get => Calculation.InputParameters.DampingFactorExit.Mean;
             set
             {
-                if (!PipingCalculation.InputParameters.DampingFactorExit.Mean.Equals(value))
+                if (!Calculation.InputParameters.DampingFactorExit.Mean.Equals(value))
                 {
-                    PropertyChangeHelper.ChangePropertyAndNotify(() => PipingCalculation.InputParameters.DampingFactorExit.Mean = value, propertyChangeHandler);
+                    PropertyChangeHelper.ChangePropertyAndNotify(() => Calculation.InputParameters.DampingFactorExit.Mean = value, PropertyChangeHandler);
                 }
             }
         }
@@ -183,15 +107,12 @@ namespace Riskeer.Piping.Forms.Views
         /// </summary>
         public RoundedDouble PhreaticLevelExitMean
         {
-            get
-            {
-                return PipingCalculation.InputParameters.PhreaticLevelExit.Mean;
-            }
+            get => Calculation.InputParameters.PhreaticLevelExit.Mean;
             set
             {
-                if (!PipingCalculation.InputParameters.PhreaticLevelExit.Mean.Equals(value))
+                if (!Calculation.InputParameters.PhreaticLevelExit.Mean.Equals(value))
                 {
-                    PropertyChangeHelper.ChangePropertyAndNotify(() => PipingCalculation.InputParameters.PhreaticLevelExit.Mean = value, propertyChangeHandler);
+                    PropertyChangeHelper.ChangePropertyAndNotify(() => Calculation.InputParameters.PhreaticLevelExit.Mean = value, PropertyChangeHandler);
                 }
             }
         }
@@ -201,15 +122,12 @@ namespace Riskeer.Piping.Forms.Views
         /// </summary>
         public RoundedDouble EntryPointL
         {
-            get
-            {
-                return PipingCalculation.InputParameters.EntryPointL;
-            }
+            get => Calculation.InputParameters.EntryPointL;
             set
             {
-                if (!PipingCalculation.InputParameters.EntryPointL.Equals(value))
+                if (!Calculation.InputParameters.EntryPointL.Equals(value))
                 {
-                    PropertyChangeHelper.ChangePropertyAndNotify(() => PipingCalculation.InputParameters.EntryPointL = value, propertyChangeHandler);
+                    PropertyChangeHelper.ChangePropertyAndNotify(() => Calculation.InputParameters.EntryPointL = value, PropertyChangeHandler);
                 }
             }
         }
@@ -219,17 +137,25 @@ namespace Riskeer.Piping.Forms.Views
         /// </summary>
         public RoundedDouble ExitPointL
         {
-            get
-            {
-                return PipingCalculation.InputParameters.ExitPointL;
-            }
+            get => Calculation.InputParameters.ExitPointL;
             set
             {
-                if (!PipingCalculation.InputParameters.ExitPointL.Equals(value))
+                if (!Calculation.InputParameters.ExitPointL.Equals(value))
                 {
-                    PropertyChangeHelper.ChangePropertyAndNotify(() => PipingCalculation.InputParameters.ExitPointL = value, propertyChangeHandler);
+                    PropertyChangeHelper.ChangePropertyAndNotify(() => Calculation.InputParameters.ExitPointL = value, PropertyChangeHandler);
                 }
             }
+        }
+
+        public override Point2D GetCalculationLocation()
+        {
+            return Calculation.InputParameters.SurfaceLine?.ReferenceLineIntersectionWorldPoint;
+        }
+
+        protected override HydraulicBoundaryLocation HydraulicBoundaryLocation
+        {
+            get => Calculation.InputParameters.HydraulicBoundaryLocation;
+            set => Calculation.InputParameters.HydraulicBoundaryLocation = value;
         }
     }
 }

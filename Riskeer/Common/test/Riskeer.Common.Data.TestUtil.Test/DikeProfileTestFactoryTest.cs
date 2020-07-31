@@ -172,6 +172,32 @@ namespace Riskeer.Common.Data.TestUtil.Test
             Assert.AreEqual(point, dikeProfile.WorldReferencePoint);
             Assert.AreEqual(0, dikeProfile.X0);
         }
+        
+        [Test]
+        public void CreateDikeProfile_WithIdAndNameAndPoint_ReturnsExpectedValues()
+        {
+            // Setup
+            const string id = "1";
+            const string name = "N";
+            var point = new Point2D(-12.34, 7.78);
+
+            // Call
+            DikeProfile dikeProfile = DikeProfileTestFactory.CreateDikeProfile(id, name, point);
+
+            // Assert
+            Assert.IsNotNull(dikeProfile);
+            Assert.IsNotNull(dikeProfile.ForeshoreProfile);
+            Assert.IsNull(dikeProfile.BreakWater);
+            CollectionAssert.IsEmpty(dikeProfile.DikeGeometry);
+            Assert.AreEqual(0, dikeProfile.DikeHeight.Value);
+            CollectionAssert.IsEmpty(dikeProfile.ForeshoreGeometry);
+            Assert.IsFalse(dikeProfile.HasBreakWater);
+            Assert.AreEqual(id, dikeProfile.Id);
+            Assert.AreEqual(name, dikeProfile.Name);
+            Assert.AreEqual(0, dikeProfile.Orientation.Value);
+            Assert.AreEqual(point, dikeProfile.WorldReferencePoint);
+            Assert.AreEqual(0, dikeProfile.X0);
+        }
 
         [Test]
         public void CreateDikeProfile_WithForeshoreGeometry_ReturnsExpectedValues()

@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using NUnit.Framework;
 using Riskeer.Common.IO.Configurations;
 using Riskeer.HeightStructures.IO.Configurations;
@@ -29,17 +28,6 @@ namespace Riskeer.HeightStructures.IO.Test.Configurations
     [TestFixture]
     public class HeightStructuresCalculationConfigurationTest
     {
-        [Test]
-        public void Constructor_NameNull_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate call = () => new HeightStructuresCalculationConfiguration(null);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("value", paramName);
-        }
-
         [Test]
         public void Constructor_WithName_ExpectedValues()
         {
@@ -51,36 +39,6 @@ namespace Riskeer.HeightStructures.IO.Test.Configurations
             Assert.AreEqual("some name", configuration.Name);
             Assert.IsNull(configuration.ModelFactorSuperCriticalFlow);
             Assert.IsNull(configuration.LevelCrestStructure);
-        }
-
-        [Test]
-        public void SimpleProperties_SetNewValues_NewValuesSet()
-        {
-            // Setup
-            var modelFactorSuperCriticalFlow = new StochastConfiguration();
-            var levelCrestStructure = new StochastConfiguration();
-            var configuration = new HeightStructuresCalculationConfiguration("some name");
-
-            // Call
-            configuration.ModelFactorSuperCriticalFlow = modelFactorSuperCriticalFlow;
-            configuration.LevelCrestStructure = levelCrestStructure;
-
-            // Assert
-            Assert.AreSame(modelFactorSuperCriticalFlow, configuration.ModelFactorSuperCriticalFlow);
-            Assert.AreSame(levelCrestStructure, configuration.LevelCrestStructure);
-        }
-
-        [Test]
-        public void Name_Null_ThrowsArgumentNullException()
-        {
-            // Setup
-            var calculationConfiguration = new HeightStructuresCalculationConfiguration("valid name");
-
-            // Call
-            TestDelegate test = () => calculationConfiguration.Name = null;
-
-            // Assert
-            Assert.Throws<ArgumentNullException>(test);
         }
     }
 }

@@ -21,11 +21,12 @@
 
 using System;
 using Core.Common.Base.Data;
+using Core.Common.Base.Geometry;
 using Core.Common.Controls.DataGrid;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Forms.ChangeHandlers;
-using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Forms.PropertyClasses;
+using Riskeer.Common.Forms.Views;
 using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.MacroStabilityInwards.Data.SoilProfile;
 
@@ -34,70 +35,30 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
     /// <summary>
     /// This class represents a row of <see cref="MacroStabilityInwardsCalculationScenario"/> in the <see cref="MacroStabilityInwardsCalculationsView"/>.
     /// </summary>
-    internal class MacroStabilityInwardsCalculationRow
+    public class MacroStabilityInwardsCalculationRow : CalculationRow<MacroStabilityInwardsCalculationScenario>
     {
-        private readonly IObservablePropertyChangeHandler propertyChangeHandler;
-
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsCalculationRow"/>.
         /// </summary>
-        /// <param name="macroStabilityInwardsCalculation">The <see cref="MacroStabilityInwardsCalculationScenario"/> this row contains.</param>
+        /// <param name="calculationScenario">The <see cref="MacroStabilityInwardsCalculationScenario"/> this row contains.</param>
         /// <param name="handler">The handler responsible for handling effects of a property change.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public MacroStabilityInwardsCalculationRow(MacroStabilityInwardsCalculationScenario macroStabilityInwardsCalculation,
+        internal MacroStabilityInwardsCalculationRow(MacroStabilityInwardsCalculationScenario calculationScenario,
                                                    IObservablePropertyChangeHandler handler)
-        {
-            if (macroStabilityInwardsCalculation == null)
-            {
-                throw new ArgumentNullException(nameof(macroStabilityInwardsCalculation));
-            }
-
-            if (handler == null)
-            {
-                throw new ArgumentNullException(nameof(handler));
-            }
-
-            MacroStabilityInwardsCalculation = macroStabilityInwardsCalculation;
-            propertyChangeHandler = handler;
-        }
-
-        /// <summary>
-        /// Gets the <see cref="MacroStabilityInwardsCalculationScenario"/> this row contains.
-        /// </summary>
-        public MacroStabilityInwardsCalculationScenario MacroStabilityInwardsCalculation { get; }
-
-        /// <summary>
-        /// Gets or sets the name of the <see cref="MacroStabilityInwardsCalculationScenario"/>.
-        /// </summary>
-        public string Name
-        {
-            get
-            {
-                return MacroStabilityInwardsCalculation.Name;
-            }
-            set
-            {
-                MacroStabilityInwardsCalculation.Name = value;
-
-                MacroStabilityInwardsCalculation.NotifyObservers();
-            }
-        }
+            : base(calculationScenario, handler) {}
 
         /// <summary>
         /// Gets or sets the stochastic soil model of the <see cref="MacroStabilityInwardsCalculationScenario"/>.
         /// </summary>
         public DataGridViewComboBoxItemWrapper<MacroStabilityInwardsStochasticSoilModel> StochasticSoilModel
         {
-            get
-            {
-                return new DataGridViewComboBoxItemWrapper<MacroStabilityInwardsStochasticSoilModel>(MacroStabilityInwardsCalculation.InputParameters.StochasticSoilModel);
-            }
+            get => new DataGridViewComboBoxItemWrapper<MacroStabilityInwardsStochasticSoilModel>(Calculation.InputParameters.StochasticSoilModel);
             set
             {
                 MacroStabilityInwardsStochasticSoilModel valueToSet = value?.WrappedObject;
-                if (!ReferenceEquals(MacroStabilityInwardsCalculation.InputParameters.StochasticSoilModel, valueToSet))
+                if (!ReferenceEquals(Calculation.InputParameters.StochasticSoilModel, valueToSet))
                 {
-                    PropertyChangeHelper.ChangePropertyAndNotify(() => MacroStabilityInwardsCalculation.InputParameters.StochasticSoilModel = valueToSet, propertyChangeHandler);
+                    PropertyChangeHelper.ChangePropertyAndNotify(() => Calculation.InputParameters.StochasticSoilModel = valueToSet, PropertyChangeHandler);
                 }
             }
         }
@@ -107,16 +68,13 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
         /// </summary>
         public DataGridViewComboBoxItemWrapper<MacroStabilityInwardsStochasticSoilProfile> StochasticSoilProfile
         {
-            get
-            {
-                return new DataGridViewComboBoxItemWrapper<MacroStabilityInwardsStochasticSoilProfile>(MacroStabilityInwardsCalculation.InputParameters.StochasticSoilProfile);
-            }
+            get => new DataGridViewComboBoxItemWrapper<MacroStabilityInwardsStochasticSoilProfile>(Calculation.InputParameters.StochasticSoilProfile);
             set
             {
                 MacroStabilityInwardsStochasticSoilProfile valueToSet = value?.WrappedObject;
-                if (!ReferenceEquals(MacroStabilityInwardsCalculation.InputParameters.StochasticSoilProfile, valueToSet))
+                if (!ReferenceEquals(Calculation.InputParameters.StochasticSoilProfile, valueToSet))
                 {
-                    PropertyChangeHelper.ChangePropertyAndNotify(() => MacroStabilityInwardsCalculation.InputParameters.StochasticSoilProfile = valueToSet, propertyChangeHandler);
+                    PropertyChangeHelper.ChangePropertyAndNotify(() => Calculation.InputParameters.StochasticSoilProfile = valueToSet, PropertyChangeHandler);
                 }
             }
         }
@@ -124,40 +82,20 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
         /// <summary>
         /// Gets the stochastic soil profile probability of the <see cref="MacroStabilityInwardsCalculationScenario"/>.
         /// </summary>
-        public RoundedDouble StochasticSoilProfileProbability
+        public RoundedDouble StochasticSoilProfileProbability =>
+            Calculation.InputParameters.StochasticSoilProfile != null
+                ? new RoundedDouble(2, Calculation.InputParameters.StochasticSoilProfile.Probability * 100)
+                : new RoundedDouble(2);
+
+        public override Point2D GetCalculationLocation()
         {
-            get
-            {
-                return MacroStabilityInwardsCalculation.InputParameters.StochasticSoilProfile != null
-                           ? new RoundedDouble(2, MacroStabilityInwardsCalculation.InputParameters.StochasticSoilProfile.Probability * 100)
-                           : new RoundedDouble(2);
-            }
+            return Calculation.InputParameters.SurfaceLine?.ReferenceLineIntersectionWorldPoint;
         }
 
-        /// <summary>
-        /// Gets or sets the hydraulic boundary location of the <see cref="MacroStabilityInwardsCalculationScenario"/>.
-        /// </summary>
-        public DataGridViewComboBoxItemWrapper<SelectableHydraulicBoundaryLocation> SelectableHydraulicBoundaryLocation
+        protected override HydraulicBoundaryLocation HydraulicBoundaryLocation
         {
-            get
-            {
-                if (MacroStabilityInwardsCalculation.InputParameters.HydraulicBoundaryLocation == null)
-                {
-                    return new DataGridViewComboBoxItemWrapper<SelectableHydraulicBoundaryLocation>(null);
-                }
-
-                return new DataGridViewComboBoxItemWrapper<SelectableHydraulicBoundaryLocation>(
-                    new SelectableHydraulicBoundaryLocation(MacroStabilityInwardsCalculation.InputParameters.HydraulicBoundaryLocation,
-                                                            MacroStabilityInwardsCalculation.InputParameters.SurfaceLine?.ReferenceLineIntersectionWorldPoint));
-            }
-            set
-            {
-                HydraulicBoundaryLocation valueToSet = value?.WrappedObject?.HydraulicBoundaryLocation;
-                if (!ReferenceEquals(MacroStabilityInwardsCalculation.InputParameters.HydraulicBoundaryLocation, valueToSet))
-                {
-                    PropertyChangeHelper.ChangePropertyAndNotify(() => MacroStabilityInwardsCalculation.InputParameters.HydraulicBoundaryLocation = valueToSet, propertyChangeHandler);
-                }
-            }
+            get => Calculation.InputParameters.HydraulicBoundaryLocation;
+            set => Calculation.InputParameters.HydraulicBoundaryLocation = value;
         }
     }
 }

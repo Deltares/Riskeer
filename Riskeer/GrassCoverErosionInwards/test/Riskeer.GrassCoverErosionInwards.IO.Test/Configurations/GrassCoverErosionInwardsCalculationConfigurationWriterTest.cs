@@ -164,13 +164,14 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
             var writer = new GrassCoverErosionInwardsCalculationConfigurationWriter("valid");
 
             // Call
-            TestDelegate call = () => writer.Write(new[]
-            {
-                configuration
-            });
+            void Call() =>
+                writer.Write(new[]
+                {
+                    configuration
+                });
 
             // Assert
-            var exception = Assert.Throws<CriticalFileWriteException>(call);
+            var exception = Assert.Throws<CriticalFileWriteException>(Call);
             Assert.IsInstanceOf<InvalidEnumArgumentException>(exception.InnerException);
         }
 
@@ -186,13 +187,14 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
             var writer = new GrassCoverErosionInwardsCalculationConfigurationWriter("valid");
 
             // Call
-            TestDelegate call = () => writer.Write(new[]
-            {
-                configuration
-            });
+            void Call() =>
+                writer.Write(new[]
+                {
+                    configuration
+                });
 
             // Assert
-            var exception = Assert.Throws<CriticalFileWriteException>(call);
+            var exception = Assert.Throws<CriticalFileWriteException>(Call);
             Assert.IsInstanceOf<InvalidEnumArgumentException>(exception.InnerException);
         }
 
@@ -221,7 +223,7 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
                     Mean = 0.1,
                     StandardDeviation = 0.1
                 },
-                Scenario = new ScenarioConfiguration()
+                Scenario = new ScenarioConfiguration
                 {
                     IsRelevant = true,
                     Contribution = 0.3

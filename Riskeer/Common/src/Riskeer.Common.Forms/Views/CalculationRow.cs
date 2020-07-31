@@ -31,14 +31,12 @@ using Riskeer.Common.Forms.PropertyClasses;
 namespace Riskeer.Common.Forms.Views
 {
     /// <summary>
-    /// This class represents a row of <see cref="TCalculation"/> in the <see cref="CalculationsView{TCalculation, TCalculationRow}"/>.
+    /// This class represents a row of <see cref="TCalculation"/> in the <see cref="CalculationsView{TCalculation, TCalculationInput, TCalculationRow, TFailureMechanism}"/>.
     /// </summary>
     /// <typeparam name="TCalculation">The type of the calculation.</typeparam>
     public abstract class CalculationRow<TCalculation>
         where TCalculation : class, ICalculation
     {
-        private readonly IObservablePropertyChangeHandler propertyChangeHandler;
-
         /// <summary>
         /// Creates a new instance of <see cref="CalculationRow{TCalculation}"/>.
         /// </summary>
@@ -58,7 +56,7 @@ namespace Riskeer.Common.Forms.Views
             }
 
             Calculation = calculation;
-            this.propertyChangeHandler = propertyChangeHandler;
+            PropertyChangeHandler = propertyChangeHandler;
         }
 
         /// <summary>
@@ -100,7 +98,7 @@ namespace Riskeer.Common.Forms.Views
                 HydraulicBoundaryLocation valueToSet = value?.WrappedObject?.HydraulicBoundaryLocation;
                 if (!ReferenceEquals(HydraulicBoundaryLocation, valueToSet))
                 {
-                    PropertyChangeHelper.ChangePropertyAndNotify(() => HydraulicBoundaryLocation = valueToSet, propertyChangeHandler);
+                    PropertyChangeHelper.ChangePropertyAndNotify(() => HydraulicBoundaryLocation = valueToSet, PropertyChangeHandler);
                 }
             }
         }
@@ -110,6 +108,11 @@ namespace Riskeer.Common.Forms.Views
         /// </summary>
         /// <returns>The location of the <see cref="Calculation"/>.</returns>
         public abstract Point2D GetCalculationLocation();
+
+        /// <summary>
+        /// Gets the <see cref="IObservablePropertyChangeHandler"/>.
+        /// </summary>
+        protected IObservablePropertyChangeHandler PropertyChangeHandler { get; }
 
         /// <summary>
         /// Gets or sets the <see cref="HydraulicBoundaryLocation"/> of the <see cref="Calculation"/>.

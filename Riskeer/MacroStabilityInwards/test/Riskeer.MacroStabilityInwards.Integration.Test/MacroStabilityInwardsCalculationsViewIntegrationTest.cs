@@ -26,7 +26,6 @@ using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
-using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.TestUtil;
 using Riskeer.MacroStabilityInwards.Data;
@@ -39,10 +38,10 @@ namespace Riskeer.MacroStabilityInwards.Integration.Test
     public class MacroStabilityInwardsCalculationsViewIntegrationTest
     {
         private const int nameColumnIndex = 0;
-        private const int stochasticSoilModelsColumnIndex = 1;
-        private const int stochasticSoilProfilesColumnIndex = 2;
-        private const int stochasticSoilProfilesProbabilityColumnIndex = 3;
-        private const int hydraulicBoundaryLocationsColumnIndex = 4;
+        private const int hydraulicBoundaryLocationsColumnIndex = 1;
+        private const int stochasticSoilModelsColumnIndex = 2;
+        private const int stochasticSoilProfilesColumnIndex = 3;
+        private const int stochasticSoilProfilesProbabilityColumnIndex = 4;
 
         [Test]
         public void MacroStabilityInwardsCalculationsView_DataImportedOrChanged_ChangesCorrectlyObservedAndSynced()
@@ -50,8 +49,11 @@ namespace Riskeer.MacroStabilityInwards.Integration.Test
             // Setup
             using (var form = new Form())
             {
+                var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+                MacroStabilityInwardsFailureMechanism failureMechanism = assessmentSection.MacroStabilityInwards;
+
                 // Show the view
-                var calculationsView = new MacroStabilityInwardsCalculationsView();
+                var calculationsView = new MacroStabilityInwardsCalculationsView(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection);
                 form.Controls.Add(calculationsView);
                 form.Show();
 
@@ -59,15 +61,8 @@ namespace Riskeer.MacroStabilityInwards.Integration.Test
                 var listBox = (ListBox) new ControlTester("listBox").TheObject;
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
-                // Set all necessary data to the view
-                var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-                calculationsView.Data = assessmentSection.MacroStabilityInwards.CalculationsGroup;
-                calculationsView.AssessmentSection = assessmentSection;
-                calculationsView.MacroStabilityInwardsFailureMechanism = assessmentSection.MacroStabilityInwards;
-
                 // Import failure mechanism sections and ensure the listbox is updated
                 DataImportHelper.ImportReferenceLine(assessmentSection);
-                IFailureMechanism failureMechanism = assessmentSection.MacroStabilityInwards;
                 DataImportHelper.ImportFailureMechanismSections(assessmentSection, failureMechanism);
                 Assert.AreEqual(283, listBox.Items.Count);
 

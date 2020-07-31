@@ -1187,15 +1187,6 @@ namespace Riskeer.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Verwachtingswaarde.
-        /// </summary>
-        public static string Probabilistics_Mean_Symbol {
-            get {
-                return ResourceManager.GetString("Probabilistics_Mean_Symbol", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to De hoeveelheid waarmee de kansverdeling naar rechts (richting van positieve X-as) verschoven is..
         /// </summary>
         public static string Probabilistics_Shift_Description {

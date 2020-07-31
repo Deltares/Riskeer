@@ -131,6 +131,17 @@ namespace Riskeer.Common.Data.TestUtil
         }
 
         /// <summary>
+        /// Creates a default <see cref="DikeProfile"/> at the world location.
+        /// </summary>
+        /// <param name="id">The ID of the dike profile.</param>
+        /// <param name="name">The name of the dike profile.</param>
+        /// <param name="point">The world coordinate of the dike profile.</param>
+        public static DikeProfile CreateDikeProfile(string id, string name, Point2D point)
+        {
+            return CreateDikeProfile(id, name, point, Enumerable.Empty<RoughnessPoint>(), Enumerable.Empty<Point2D>());
+        }
+
+        /// <summary>
         /// Creates a default <see cref="DikeProfile"/>at the world location with 
         /// a specified foreshore profile geometry.
         /// </summary>

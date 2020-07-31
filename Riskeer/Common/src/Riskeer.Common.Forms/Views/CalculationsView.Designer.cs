@@ -1,8 +1,27 @@
-using Core.Common.Controls.DataGrid;
+// Copyright (C) Stichting Deltares 2019. All rights reserved.
+//
+// This file is part of Riskeer.
+//
+// Riskeer is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+// 
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program. If not, see <http://www.gnu.org/licenses/>.
+//
+// All names, logos, and references to "Deltares" are registered trademarks of
+// Stichting Deltares and remain full property of Stichting Deltares at all times.
+// All rights reserved.
 
 namespace Riskeer.Common.Forms.Views
 {
-    partial class CalculationsView<TCalculation, TCalculationInput, TCalculationRow>
+    partial class CalculationsView<TCalculation, TCalculationInput, TCalculationRow, TFailureMechanism>
     {
         /// <summary>
         /// Required designer variable.
@@ -21,10 +40,10 @@ namespace Riskeer.Common.Forms.Views
             this.listBox = new System.Windows.Forms.ListBox();
             this.sectionsLabel = new System.Windows.Forms.Label();
             this.dataGridTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
-            this.dataGridViewControl = new Core.Common.Controls.DataGrid.DataGridViewControl();
             this.calculationsLabel = new System.Windows.Forms.Label();
             this.tableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.generateButton = new System.Windows.Forms.Button();
+            this.dataGridViewControl = new Core.Common.Controls.DataGrid.DataGridViewControl();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
             this.splitContainer.Panel1.SuspendLayout();
             this.splitContainer.Panel2.SuspendLayout();
@@ -48,8 +67,8 @@ namespace Riskeer.Common.Forms.Views
             // 
             this.splitContainer.Panel2.Controls.Add(this.dataGridTableLayoutPanel);
             this.splitContainer.Panel2.Controls.Add(this.calculationsLabel);
-            this.splitContainer.Size = new System.Drawing.Size(1162, 473);
-            this.splitContainer.SplitterDistance = 331;
+            this.splitContainer.Size = new System.Drawing.Size(1343, 598);
+            this.splitContainer.SplitterDistance = 250;
             this.splitContainer.TabIndex = 0;
             // 
             // listBox
@@ -58,7 +77,7 @@ namespace Riskeer.Common.Forms.Views
             this.listBox.FormattingEnabled = true;
             this.listBox.Location = new System.Drawing.Point(0, 13);
             this.listBox.Name = "listBox";
-            this.listBox.Size = new System.Drawing.Size(331, 460);
+            this.listBox.Size = new System.Drawing.Size(250, 585);
             this.listBox.TabIndex = 1;
             // 
             // sectionsLabel
@@ -81,18 +100,8 @@ namespace Riskeer.Common.Forms.Views
             this.dataGridTableLayoutPanel.Name = "dataGridTableLayoutPanel";
             this.dataGridTableLayoutPanel.RowCount = 1;
             this.dataGridTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.dataGridTableLayoutPanel.Size = new System.Drawing.Size(827, 460);
+            this.dataGridTableLayoutPanel.Size = new System.Drawing.Size(1089, 585);
             this.dataGridTableLayoutPanel.TabIndex = 1;
-            // 
-            // dataGridViewControl
-            // 
-            this.dataGridViewControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridViewControl.Location = new System.Drawing.Point(3, 3);
-            this.dataGridViewControl.MultiSelect = true;
-            this.dataGridViewControl.Name = "dataGridViewControl";
-            this.dataGridViewControl.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.RowHeaderSelect;
-            this.dataGridViewControl.Size = new System.Drawing.Size(821, 434);
-            this.dataGridViewControl.TabIndex = 0;
             // 
             // calculationsLabel
             // 
@@ -115,25 +124,36 @@ namespace Riskeer.Common.Forms.Views
             this.tableLayoutPanel.Name = "tableLayoutPanel";
             this.tableLayoutPanel.RowCount = 2;
             this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel.Size = new System.Drawing.Size(1168, 508);
+            this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
+            this.tableLayoutPanel.Size = new System.Drawing.Size(1349, 644);
             this.tableLayoutPanel.TabIndex = 0;
             // 
             // generateButton
             // 
-            this.generateButton.Location = new System.Drawing.Point(3, 482);
+            this.generateButton.Location = new System.Drawing.Point(3, 607);
             this.generateButton.Name = "generateButton";
-            this.generateButton.Size = new System.Drawing.Size(127, 23);
+            this.generateButton.Padding = new System.Windows.Forms.Padding(2);
+            this.generateButton.Size = new System.Drawing.Size(170, 34);
             this.generateButton.TabIndex = 1;
             this.generateButton.Text = global::Riskeer.Common.Forms.Properties.Resources.CalculationGroup_Generate_calculations;
             this.generateButton.UseVisualStyleBackColor = true;
             this.generateButton.Click += new System.EventHandler(this.generateButton_Click);
             // 
+            // dataGridViewControl
+            // 
+            this.dataGridViewControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridViewControl.Location = new System.Drawing.Point(3, 3);
+            this.dataGridViewControl.MultiSelect = true;
+            this.dataGridViewControl.Name = "dataGridViewControl";
+            this.dataGridViewControl.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.RowHeaderSelect;
+            this.dataGridViewControl.Size = new System.Drawing.Size(1083, 579);
+            this.dataGridViewControl.TabIndex = 0;
+            // 
             // CalculationsView
             // 
             this.Controls.Add(this.tableLayoutPanel);
             this.Name = "CalculationsView";
-            this.Size = new System.Drawing.Size(1168, 508);
+            this.Size = new System.Drawing.Size(1349, 644);
             this.splitContainer.Panel1.ResumeLayout(false);
             this.splitContainer.Panel1.PerformLayout();
             this.splitContainer.Panel2.ResumeLayout(false);
@@ -153,9 +173,23 @@ namespace Riskeer.Common.Forms.Views
         private System.Windows.Forms.Label sectionsLabel;
         private System.Windows.Forms.Label calculationsLabel;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel;
-        private System.Windows.Forms.Button generateButton;
         private System.Windows.Forms.TableLayoutPanel dataGridTableLayoutPanel;
-        private DataGridViewControl dataGridViewControl;
+        private Core.Common.Controls.DataGrid.DataGridViewControl dataGridViewControl;
+        private System.Windows.Forms.Button generateButton;
 
+        protected System.Windows.Forms.TableLayoutPanel DataGridTableLayoutPanel
+        {
+            get => this.dataGridTableLayoutPanel;
+        }
+
+        protected System.Windows.Forms.Button GenerateButton
+        {
+            get => this.generateButton;
+        }
+
+        protected Core.Common.Controls.DataGrid.DataGridViewControl DataGridViewControl
+        {
+            get => this.dataGridViewControl;
+        }
     }
 }

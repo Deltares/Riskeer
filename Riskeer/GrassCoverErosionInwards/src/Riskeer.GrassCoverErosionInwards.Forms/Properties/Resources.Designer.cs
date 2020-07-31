@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2019. All rights reserved.
+// Copyright (C) Stichting Deltares 2019. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -271,6 +271,26 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Als u het dijkprofiel van een berekening wijzigt kan de berekening in een ander vak komen te liggen..
+        /// </summary>
+        public static string GrassCoverErosionInwardsCalculationsView_AddWarningMessage_Calculation_can_change_section_when_DikeProfile_is_changed {
+            get {
+                return ResourceManager.GetString("GrassCoverErosionInwardsCalculationsView_AddWarningMessage_Calculation_can_change" +
+                        "_section_when_DikeProfile_is_changed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to kritiek overslagdebiet
+        ///[m³/s/m].
+        /// </summary>
+        public static string GrassCoverErosionInwardsCalculationsView_CriticalFlowRate_DisplayName {
+            get {
+                return ResourceManager.GetString("GrassCoverErosionInwardsCalculationsView_CriticalFlowRate_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Selecteer dijkprofielen.
         /// </summary>
         public static string GrassCoverErosionInwardsDikeProfileSelectionDialog_Select_DikeProfiles {
@@ -424,15 +444,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Verwachtingswaarde kritiek overslagdebiet [m3/m/s].
-        /// </summary>
-        public static string Mean_Critical_FlowRate_DisplayName {
-            get {
-                return ResourceManager.GetString("Mean_Critical_FlowRate_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Oriëntatie van de dijknormaal ten opzichte van het noorden..
         /// </summary>
         public static string Orientation_DikeProfile_Description {
@@ -501,15 +512,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Properties {
         public static string ShouldOvertoppingRateIllustrationPointsBeCalculated_DisplayName {
             get {
                 return ResourceManager.GetString("ShouldOvertoppingRateIllustrationPointsBeCalculated_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Standaardafwijking kritiek overslagdebiet [m3/m/s].
-        /// </summary>
-        public static string StandardDeviation_Critical_FlowRate_DisplayName {
-            get {
-                return ResourceManager.GetString("StandardDeviation_Critical_FlowRate_DisplayName", resourceCulture);
             }
         }
         
