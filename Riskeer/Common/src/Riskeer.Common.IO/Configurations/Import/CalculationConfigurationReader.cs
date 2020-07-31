@@ -50,24 +50,12 @@ namespace Riskeer.Common.IO.Configurations.Import
         /// Creates a new instance of <see cref="CalculationConfigurationReader{TReadCalculation}"/>.
         /// </summary>
         /// <param name="xmlFilePath">The file path to the XML file.</param>
-        /// <param name="mainSchemaDefinition">A <c>string</c> representing the main schema definition.</param>
-        /// <param name="nestedSchemaDefinitions">A <see cref="IDictionary{TKey,TValue}"/> containing
-        /// zero to more nested schema definitions. The keys should represent unique file names by which
-        /// the schema definitions can be referenced from <paramref name="mainSchemaDefinition"/>; the
-        /// values should represent their corresponding schema definition <c>string</c>.</param>
+        /// <param name="schemaDefinitions">The <see cref="CalculationConfigurationSchemaDefinitions"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="nestedSchemaDefinitions"/>
         /// is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when:
         /// <list type="bullet">
         /// <item><paramref name="xmlFilePath"/> is invalid.</item>
-        /// <item><paramref name="mainSchemaDefinition"/> is invalid.</item>
-        /// <item><paramref name="nestedSchemaDefinitions"/> contains invalid schema definition values.</item>
-        /// <item><paramref name="mainSchemaDefinition"/>, all together with its referenced
-        /// <paramref name="nestedSchemaDefinitions"/>, contains an invalid schema definition.</item>
-        /// <item><paramref name="nestedSchemaDefinitions"/> contains schema definitions that are not
-        /// referenced by <see cref="mainSchemaDefinition"/>.</item>
-        /// <item><paramref name="mainSchemaDefinition"/> does not reference the default schema definition
-        /// <c>ConfiguratieSchema.xsd</c>.</item>
         /// </list>
         /// </exception>
         /// <exception cref="CriticalFileReadException">Thrown when:
@@ -78,7 +66,7 @@ namespace Riskeer.Common.IO.Configurations.Import
         /// <item><paramref name="xmlFilePath"/> points to a file that does not contain configuration elements.</item>
         /// </list>
         /// </exception>
-        protected CalculationConfigurationReader(string xmlFilePath, string mainSchemaDefinition, IDictionary<string, string> nestedSchemaDefinitions)
+        protected CalculationConfigurationReader(string xmlFilePath, CalculationConfigurationSchemaDefinitions schemaDefinitions)
         {
             IOUtils.ValidateFilePath(xmlFilePath);
 
@@ -86,7 +74,7 @@ namespace Riskeer.Common.IO.Configurations.Import
 
             xmlDocument = LoadDocument(xmlFilePath);
 
-            ValidateToSchema(xmlDocument, xmlFilePath, mainSchemaDefinition, nestedSchemaDefinitions);
+            ValidateToSchema(xmlDocument, xmlFilePath, schemaDefinitions.MainSchemaDefinition, schemaDefinitions.NestedSchemaDefinitions);
 
             ValidateNotEmpty(xmlDocument, xmlFilePath);
         }
