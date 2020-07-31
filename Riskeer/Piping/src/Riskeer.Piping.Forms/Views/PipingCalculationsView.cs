@@ -73,7 +73,7 @@ namespace Riskeer.Piping.Forms.Views
 
         protected override void Dispose(bool disposing)
         {
-            if (disposing)
+            if (disposing && Loaded)
             {
                 surfaceLineObserver.Dispose();
                 stochasticSoilProfileObserver.Dispose();

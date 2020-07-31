@@ -88,8 +88,6 @@ namespace Riskeer.Common.Forms.Views
             FailureMechanism = failureMechanism;
             AssessmentSection = assessmentSection;
 
-            InitializeObservers();
-
             InitializeComponent();
 
             InitializeListBox();
@@ -123,27 +121,41 @@ namespace Riskeer.Common.Forms.Views
         /// </summary>
         protected IAssessmentSection AssessmentSection { get; }
 
+        /// <summary>
+        /// Gets an indicator whether the view is loaded.
+        /// </summary>
+        protected bool Loaded { get; private set; }
+
         protected override void OnLoad(EventArgs e)
         {
+            InitializeObservers();
+
             // Necessary to correctly load the content of the dropdown lists of the comboboxes...
             UpdateDataGridViewDataSource();
 
             base.OnLoad(e);
 
             UpdateGenerateCalculationsButtonState();
+
+            Loaded = true;
         }
 
         protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
-                failureMechanismObserver.Dispose();
-                inputObserver.Dispose();
-                calculationObserver.Dispose();
-                calculationGroupObserver.Dispose();
-                hydraulicBoundaryLocationsObserver.Dispose();
+                if (Loaded)
+                {
+                    failureMechanismObserver.Dispose();
+                    inputObserver.Dispose();
+                    calculationObserver.Dispose();
+                    calculationGroupObserver.Dispose();
+                    hydraulicBoundaryLocationsObserver.Dispose();
+                }
 
                 components?.Dispose();
+
+                Loaded = false;
             }
 
             base.Dispose(disposing);
