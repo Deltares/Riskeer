@@ -190,27 +190,6 @@ namespace Riskeer.Piping.Forms.Test.Views
         }
 
         [Test]
-        public void SelectableHydraulicBoundaryLocation_ChangeToEqualValue_NoNotificationsOutputNotCleared()
-        {
-            // Setup
-            DataGridViewComboBoxItemWrapper<SelectableHydraulicBoundaryLocation> oldValue = null;
-
-            // Call
-            AssertPropertyNotChanged(
-                row =>
-                {
-                    oldValue = row.SelectableHydraulicBoundaryLocation;
-                    row.SelectableHydraulicBoundaryLocation = row.SelectableHydraulicBoundaryLocation;
-                },
-                calculation =>
-                {
-                    // Assert
-                    Assert.NotNull(oldValue);
-                    Assert.AreEqual(oldValue.WrappedObject.HydraulicBoundaryLocation, calculation.InputParameters.HydraulicBoundaryLocation);
-                });
-        }
-
-        [Test]
         public void DampingFactorExitMean_AlwaysOnChange_NotifyObserverAndCalculationPropertyChanged()
         {
             // Setup

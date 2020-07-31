@@ -168,27 +168,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             SetPropertyAndVerifyNotificationsAndOutputForCalculation(row => row.SelectableHydraulicBoundaryLocation = newValue, calculation);
         }
 
-        [Test]
-        public void SelectableHydraulicBoundaryLocation_ChangeToEqualValue_NoNotificationsOutputNotCleared()
-        {
-            // Setup
-            DataGridViewComboBoxItemWrapper<SelectableHydraulicBoundaryLocation> oldValue = null;
-
-            // Call
-            AssertPropertyNotChanged(
-                row =>
-                {
-                    oldValue = row.SelectableHydraulicBoundaryLocation;
-                    row.SelectableHydraulicBoundaryLocation = row.SelectableHydraulicBoundaryLocation;
-                },
-                calculation =>
-                {
-                    // Assert
-                    Assert.NotNull(oldValue);
-                    Assert.AreEqual(oldValue.WrappedObject.HydraulicBoundaryLocation, calculation.InputParameters.HydraulicBoundaryLocation);
-                });
-        }
-
         /// <summary>
         /// Asserts that the output of a <see cref="MacroStabilityInwardsCalculationScenario"/> remains
         /// unaffected (and therefore no change notification occurring) when the input for
