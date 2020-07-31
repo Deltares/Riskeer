@@ -135,27 +135,31 @@ namespace Riskeer.ClosingStructures.Forms.Views
                 nameof(DataGridViewComboBoxItemWrapper<ForeshoreProfile>.This),
                 nameof(DataGridViewComboBoxItemWrapper<ForeshoreProfile>.DisplayName));
 
-            DataGridViewControl.AddCheckBoxColumn(nameof(ClosingStructuresCalculationRow.UseBreakWater),
-                                                  RiskeerCommonFormsResources.Use_BreakWater_DisplayName);
+            DataGridViewControl.AddCheckBoxColumn(
+                nameof(ClosingStructuresCalculationRow.UseBreakWater),
+                RiskeerCommonFormsResources.Use_BreakWater_DisplayName);
 
-            DataGridViewControl.AddComboBoxColumn(nameof(ClosingStructuresCalculationRow.BreakWaterType),
-                                                  RiskeerCommonFormsResources.CalculationsView_BreakWaterType_DisplayName,
-                                                  EnumDisplayWrapperHelper.GetEnumTypes<BreakWaterType>(),
-                                                  nameof(EnumDisplayWrapper<BreakWaterType>.Value),
-                                                  nameof(EnumDisplayWrapper<BreakWaterType>.DisplayName));
+            DataGridViewControl.AddComboBoxColumn(
+                nameof(ClosingStructuresCalculationRow.BreakWaterType),
+                RiskeerCommonFormsResources.CalculationsView_BreakWaterType_DisplayName,
+                EnumDisplayWrapperHelper.GetEnumTypes<BreakWaterType>(),
+                nameof(EnumDisplayWrapper<BreakWaterType>.Value),
+                nameof(EnumDisplayWrapper<BreakWaterType>.DisplayName));
 
             DataGridViewControl.AddTextBoxColumn(
                 nameof(ClosingStructuresCalculationRow.BreakWaterHeight),
                 RiskeerCommonFormsResources.CalculationsView_BreakWaterHeight_DisplayName);
 
-            DataGridViewControl.AddCheckBoxColumn(nameof(ClosingStructuresCalculationRow.UseForeshoreGeometry),
-                                                  RiskeerCommonFormsResources.Use_Foreshore_DisplayName);
+            DataGridViewControl.AddCheckBoxColumn(
+                nameof(ClosingStructuresCalculationRow.UseForeshoreGeometry),
+                RiskeerCommonFormsResources.Use_Foreshore_DisplayName);
 
-            DataGridViewControl.AddComboBoxColumn(nameof(ClosingStructuresCalculationRow.InflowModelType),
-                                                  RiskeerCommonFormsResources.Structure_InflowModelType_DisplayName,
-                                                  EnumDisplayWrapperHelper.GetEnumTypes<ClosingStructureInflowModelType>(),
-                                                  nameof(EnumDisplayWrapper<ClosingStructureInflowModelType>.Value),
-                                                  nameof(EnumDisplayWrapper<ClosingStructureInflowModelType>.DisplayName));
+            DataGridViewControl.AddComboBoxColumn(
+                nameof(ClosingStructuresCalculationRow.InflowModelType),
+                RiskeerCommonFormsResources.Structure_InflowModelType_DisplayName,
+                EnumDisplayWrapperHelper.GetEnumTypes<ClosingStructureInflowModelType>(),
+                nameof(EnumDisplayWrapper<ClosingStructureInflowModelType>.Value),
+                nameof(EnumDisplayWrapper<ClosingStructureInflowModelType>.DisplayName));
 
             DataGridViewControl.AddTextBoxColumn(
                 nameof(ClosingStructuresCalculationRow.MeanInsideWaterLevel),

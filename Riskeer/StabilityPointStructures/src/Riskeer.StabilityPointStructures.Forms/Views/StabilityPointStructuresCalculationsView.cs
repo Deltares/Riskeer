@@ -134,27 +134,31 @@ namespace Riskeer.StabilityPointStructures.Forms.Views
                 nameof(DataGridViewComboBoxItemWrapper<ForeshoreProfile>.This),
                 nameof(DataGridViewComboBoxItemWrapper<ForeshoreProfile>.DisplayName));
 
-            DataGridViewControl.AddCheckBoxColumn(nameof(StabilityPointStructuresCalculationRow.UseBreakWater),
-                                                  RiskeerCommonFormsResources.Use_BreakWater_DisplayName);
+            DataGridViewControl.AddCheckBoxColumn(
+                nameof(StabilityPointStructuresCalculationRow.UseBreakWater),
+                RiskeerCommonFormsResources.Use_BreakWater_DisplayName);
 
-            DataGridViewControl.AddComboBoxColumn(nameof(StabilityPointStructuresCalculationRow.BreakWaterType),
-                                                  RiskeerCommonFormsResources.CalculationsView_BreakWaterType_DisplayName,
-                                                  EnumDisplayWrapperHelper.GetEnumTypes<BreakWaterType>(),
-                                                  nameof(EnumDisplayWrapper<BreakWaterType>.Value),
-                                                  nameof(EnumDisplayWrapper<BreakWaterType>.DisplayName));
+            DataGridViewControl.AddComboBoxColumn(
+                nameof(StabilityPointStructuresCalculationRow.BreakWaterType),
+                RiskeerCommonFormsResources.CalculationsView_BreakWaterType_DisplayName,
+                EnumDisplayWrapperHelper.GetEnumTypes<BreakWaterType>(),
+                nameof(EnumDisplayWrapper<BreakWaterType>.Value),
+                nameof(EnumDisplayWrapper<BreakWaterType>.DisplayName));
 
             DataGridViewControl.AddTextBoxColumn(
                 nameof(StabilityPointStructuresCalculationRow.BreakWaterHeight),
                 RiskeerCommonFormsResources.CalculationsView_BreakWaterHeight_DisplayName);
 
-            DataGridViewControl.AddCheckBoxColumn(nameof(StabilityPointStructuresCalculationRow.UseForeshoreGeometry),
-                                                  RiskeerCommonFormsResources.Use_Foreshore_DisplayName);
+            DataGridViewControl.AddCheckBoxColumn(
+                nameof(StabilityPointStructuresCalculationRow.UseForeshoreGeometry),
+                RiskeerCommonFormsResources.Use_Foreshore_DisplayName);
 
-            DataGridViewControl.AddComboBoxColumn(nameof(StabilityPointStructuresCalculationRow.LoadSchematizationType),
-                                                  RiskeerCommonFormsResources.LoadSchematizationType_DisplayName,
-                                                  EnumDisplayWrapperHelper.GetEnumTypes<LoadSchematizationType>(),
-                                                  nameof(EnumDisplayWrapper<LoadSchematizationType>.Value),
-                                                  nameof(EnumDisplayWrapper<LoadSchematizationType>.DisplayName));
+            DataGridViewControl.AddComboBoxColumn(
+                nameof(StabilityPointStructuresCalculationRow.LoadSchematizationType),
+                RiskeerCommonFormsResources.LoadSchematizationType_DisplayName,
+                EnumDisplayWrapperHelper.GetEnumTypes<LoadSchematizationType>(),
+                nameof(EnumDisplayWrapper<LoadSchematizationType>.Value),
+                nameof(EnumDisplayWrapper<LoadSchematizationType>.DisplayName));
 
             DataGridViewControl.AddTextBoxColumn(
                 nameof(StabilityPointStructuresCalculationRow.ConstructiveStrengthLinearLoadModel),

@@ -135,21 +135,24 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
                 nameof(DataGridViewComboBoxItemWrapper<DikeProfile>.This),
                 nameof(DataGridViewComboBoxItemWrapper<DikeProfile>.DisplayName));
 
-            DataGridViewControl.AddCheckBoxColumn(nameof(GrassCoverErosionInwardsCalculationRow.UseBreakWater),
-                                                  RiskeerCommonFormsResources.Use_BreakWater_DisplayName);
+            DataGridViewControl.AddCheckBoxColumn(
+                nameof(GrassCoverErosionInwardsCalculationRow.UseBreakWater),
+                RiskeerCommonFormsResources.Use_BreakWater_DisplayName);
 
-            DataGridViewControl.AddComboBoxColumn(nameof(GrassCoverErosionInwardsCalculationRow.BreakWaterType),
-                                                  RiskeerCommonFormsResources.CalculationsView_BreakWaterType_DisplayName,
-                                                  EnumDisplayWrapperHelper.GetEnumTypes<BreakWaterType>(),
-                                                  nameof(EnumDisplayWrapper<BreakWaterType>.Value),
-                                                  nameof(EnumDisplayWrapper<BreakWaterType>.DisplayName));
+            DataGridViewControl.AddComboBoxColumn(
+                nameof(GrassCoverErosionInwardsCalculationRow.BreakWaterType),
+                RiskeerCommonFormsResources.CalculationsView_BreakWaterType_DisplayName,
+                EnumDisplayWrapperHelper.GetEnumTypes<BreakWaterType>(),
+                nameof(EnumDisplayWrapper<BreakWaterType>.Value),
+                nameof(EnumDisplayWrapper<BreakWaterType>.DisplayName));
 
             DataGridViewControl.AddTextBoxColumn(
                 nameof(GrassCoverErosionInwardsCalculationRow.BreakWaterHeight),
                 RiskeerCommonFormsResources.CalculationsView_BreakWaterHeight_DisplayName);
 
-            DataGridViewControl.AddCheckBoxColumn(nameof(GrassCoverErosionInwardsCalculationRow.UseForeshoreGeometry),
-                                                  RiskeerCommonFormsResources.Use_Foreshore_DisplayName);
+            DataGridViewControl.AddCheckBoxColumn(
+                nameof(GrassCoverErosionInwardsCalculationRow.UseForeshoreGeometry),
+                RiskeerCommonFormsResources.Use_Foreshore_DisplayName);
 
             DataGridViewControl.AddTextBoxColumn(
                 nameof(GrassCoverErosionInwardsCalculationRow.DikeHeight),
