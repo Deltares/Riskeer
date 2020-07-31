@@ -26,20 +26,32 @@ namespace Riskeer.Common.IO.Configurations.Import
     /// <summary>
     /// Class that represents calculation configuration schema definitions.
     /// </summary>
-    public class CalculationConfigurationSchemaDefinitions
+    public class CalculationConfigurationSchemaDefinition
     {
         private string mainSchemaDefinition;
         private IDictionary<string, string> nestedSchemaDefinitions;
+        private string versionSchemaDefinition;
 
         /// <summary>
-        /// Creates a new instance of <see cref="CalculationConfigurationSchemaDefinitions"/>.
+        /// Creates a new instance of <see cref="CalculationConfigurationSchemaDefinition"/>.
         /// </summary>
         /// <param name="mainSchemaDefinition">The main schema definition xsd.</param>
         /// <param name="nestedSchemaDefinitions">The nested schema definition xsd.</param>
-        public CalculationConfigurationSchemaDefinitions(string mainSchemaDefinition, IDictionary<string, string> nestedSchemaDefinitions)
+        /// <param name="versionSchemaDefinition">The version schema definition xsd.</param>
+        public CalculationConfigurationSchemaDefinition(string mainSchemaDefinition, IDictionary<string, string> nestedSchemaDefinitions, string versionSchemaDefinition = null)
         {
             MainSchemaDefinition = mainSchemaDefinition;
             NestedSchemaDefinitions = nestedSchemaDefinitions;
+            VersionSchemaDefinition = versionSchemaDefinition;
+        }
+
+        /// <summary>
+        /// Gets or sets the version schema definition.
+        /// </summary>
+        public string VersionSchemaDefinition
+        {
+            get => versionSchemaDefinition;
+            private set => versionSchemaDefinition = value;
         }
 
         /// <summary>
@@ -48,7 +60,7 @@ namespace Riskeer.Common.IO.Configurations.Import
         public string MainSchemaDefinition
         {
             get => mainSchemaDefinition;
-            set => mainSchemaDefinition = value;
+            private set => mainSchemaDefinition = value;
         }
 
         /// <summary>
@@ -57,7 +69,7 @@ namespace Riskeer.Common.IO.Configurations.Import
         public IDictionary<string, string> NestedSchemaDefinitions
         {
             get => nestedSchemaDefinitions;
-            set => nestedSchemaDefinitions = value;
+            private set => nestedSchemaDefinitions = value;
         }
     }
 }

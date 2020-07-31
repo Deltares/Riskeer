@@ -56,20 +56,23 @@ namespace Riskeer.Piping.IO.Configurations
         /// </list>
         /// </exception>
         internal PipingCalculationConfigurationReader(string xmlFilePath)
-            : base(xmlFilePath, new CalculationConfigurationSchemaDefinitions(
-                   Resources.PipingConfiguratieSchema,
-                   new Dictionary<string, string>
-                   {
-                       {
-                           stochastSchemaName, RiskeerCommonIOResources.StochastSchema
-                       },
-                       {
-                           stochastStandaardafwijkingSchemaName, RiskeerCommonIOResources.StochastStandaardafwijkingSchema
-                       },
-                       {
-                           scenarioSchemaName, RiskeerCommonIOResources.ScenarioSchema
-                       }
-                   })) {}
+            : base(xmlFilePath, new[]
+            {
+                new CalculationConfigurationSchemaDefinition(
+                    Resources.PipingConfiguratieSchema,
+                    new Dictionary<string, string>
+                    {
+                        {
+                            stochastSchemaName, RiskeerCommonIOResources.StochastSchema
+                        },
+                        {
+                            stochastStandaardafwijkingSchemaName, RiskeerCommonIOResources.StochastStandaardafwijkingSchema
+                        },
+                        {
+                            scenarioSchemaName, RiskeerCommonIOResources.ScenarioSchema
+                        }
+                    })
+            }) {}
 
         protected override PipingCalculationConfiguration ParseCalculationElement(XElement calculationElement)
         {

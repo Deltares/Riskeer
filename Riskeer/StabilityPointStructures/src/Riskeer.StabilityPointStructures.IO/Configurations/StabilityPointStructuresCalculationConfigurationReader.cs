@@ -62,38 +62,41 @@ namespace Riskeer.StabilityPointStructures.IO.Configurations
         /// </list>
         /// </exception>
         public StabilityPointStructuresCalculationConfigurationReader(string filePath)
-            : base(filePath, new CalculationConfigurationSchemaDefinitions(
-                   Resources.StabilityPointStructuresConfigurationSchema,
-                   new Dictionary<string, string>
-                   {
-                       {
-                           hbLocatieSchemaName, RiskeerCommonIOResources.HbLocatieSchema
-                       },
-                       {
-                           orientatieSchemaName, RiskeerCommonIOResources.OrientatieSchema
-                       },
-                       {
-                           voorlandProfielSchemaName, RiskeerCommonIOResources.VoorlandProfielSchema
-                       },
-                       {
-                           golfReductieSchemaName, RiskeerCommonIOResources.GolfReductieSchema
-                       },
-                       {
-                           stochastSchemaName, RiskeerCommonIOResources.StochastSchema
-                       },
-                       {
-                           stochastStandaardafwijkingSchemaName, RiskeerCommonIOResources.StochastStandaardafwijkingSchema
-                       },
-                       {
-                           stochastVariatiecoefficientSchemaName, RiskeerCommonIOResources.StochastVariatiecoefficientSchema
-                       },
-                       {
-                           structureBaseSchemaName, RiskeerCommonIOResources.KunstwerkenBasisSchema
-                       },
-                       {
-                           scenarioSchemaName, RiskeerCommonIOResources.ScenarioSchema
-                       }
-                   })) {}
+            : base(filePath, new[]
+            {
+                new CalculationConfigurationSchemaDefinition(
+                    Resources.StabilityPointStructuresConfigurationSchema,
+                    new Dictionary<string, string>
+                    {
+                        {
+                            hbLocatieSchemaName, RiskeerCommonIOResources.HbLocatieSchema
+                        },
+                        {
+                            orientatieSchemaName, RiskeerCommonIOResources.OrientatieSchema
+                        },
+                        {
+                            voorlandProfielSchemaName, RiskeerCommonIOResources.VoorlandProfielSchema
+                        },
+                        {
+                            golfReductieSchemaName, RiskeerCommonIOResources.GolfReductieSchema
+                        },
+                        {
+                            stochastSchemaName, RiskeerCommonIOResources.StochastSchema
+                        },
+                        {
+                            stochastStandaardafwijkingSchemaName, RiskeerCommonIOResources.StochastStandaardafwijkingSchema
+                        },
+                        {
+                            stochastVariatiecoefficientSchemaName, RiskeerCommonIOResources.StochastVariatiecoefficientSchema
+                        },
+                        {
+                            structureBaseSchemaName, RiskeerCommonIOResources.KunstwerkenBasisSchema
+                        },
+                        {
+                            scenarioSchemaName, RiskeerCommonIOResources.ScenarioSchema
+                        }
+                    })
+            }) {}
 
         protected override StabilityPointStructuresCalculationConfiguration ParseCalculationElement(XElement calculationElement)
         {

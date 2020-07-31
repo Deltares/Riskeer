@@ -62,26 +62,29 @@ namespace Riskeer.Revetment.IO.Configurations
         /// </list>
         /// </exception>
         protected WaveConditionsCalculationConfigurationReader(string xmlFilePath, string mainSchemaDefinition)
-            : base(xmlFilePath,new CalculationConfigurationSchemaDefinitions(
-                       mainSchemaDefinition,
-                   new Dictionary<string, string>
-                   {
-                       {
-                           revetmentBaseSchemaName, Resources.BekledingenConfiguratieBasisSchema
-                       },
-                       {
-                           hbLocationSchemaName, RiskeerCommonIOResources.HbLocatieSchema
-                       },
-                       {
-                           orientationSchemaName, RiskeerCommonIOResources.OrientatieSchema
-                       },
-                       {
-                           foreshoreProfileSchemaName, RiskeerCommonIOResources.VoorlandProfielSchema
-                       },
-                       {
-                           waveReductionSchemaName, RiskeerCommonIOResources.GolfReductieSchema
-                       }
-                   })) {}
+            : base(xmlFilePath, new[]
+            {
+                new CalculationConfigurationSchemaDefinition(
+                    mainSchemaDefinition,
+                    new Dictionary<string, string>
+                    {
+                        {
+                            revetmentBaseSchemaName, Resources.BekledingenConfiguratieBasisSchema
+                        },
+                        {
+                            hbLocationSchemaName, RiskeerCommonIOResources.HbLocatieSchema
+                        },
+                        {
+                            orientationSchemaName, RiskeerCommonIOResources.OrientatieSchema
+                        },
+                        {
+                            foreshoreProfileSchemaName, RiskeerCommonIOResources.VoorlandProfielSchema
+                        },
+                        {
+                            waveReductionSchemaName, RiskeerCommonIOResources.GolfReductieSchema
+                        }
+                    })
+            }) {}
 
         protected abstract override T ParseCalculationElement(XElement calculationElement);
 

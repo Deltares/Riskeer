@@ -62,38 +62,41 @@ namespace Riskeer.ClosingStructures.IO.Configurations
         /// </list>
         /// </exception>
         public ClosingStructuresCalculationConfigurationReader(string filePath)
-            : base(filePath, new CalculationConfigurationSchemaDefinitions(
-                   Resources.KunstwerkenBetrouwbaarheidSluitenSchema,
-                   new Dictionary<string, string>
-                   {
-                       {
-                           hbLocatieSchemaName, RiskeerCommonIOResources.HbLocatieSchema
-                       },
-                       {
-                           orientatieSchemaName, RiskeerCommonIOResources.OrientatieSchema
-                       },
-                       {
-                           voorlandProfielSchemaName, RiskeerCommonIOResources.VoorlandProfielSchema
-                       },
-                       {
-                           golfReductieSchemaName, RiskeerCommonIOResources.GolfReductieSchema
-                       },
-                       {
-                           stochastSchemaName, RiskeerCommonIOResources.StochastSchema
-                       },
-                       {
-                           stochastStandaardafwijkingSchemaName, RiskeerCommonIOResources.StochastStandaardafwijkingSchema
-                       },
-                       {
-                           stochastVariatiecoefficientSchemaName, RiskeerCommonIOResources.StochastVariatiecoefficientSchema
-                       },
-                       {
-                           structureBaseSchemaName, RiskeerCommonIOResources.KunstwerkenBasisSchema
-                       },
-                       {
-                           scenarioSchemaName, RiskeerCommonIOResources.ScenarioSchema
-                       }
-                   })) {}
+            : base(filePath, new[]
+            {
+                new CalculationConfigurationSchemaDefinition(
+                    Resources.KunstwerkenBetrouwbaarheidSluitenSchema,
+                    new Dictionary<string, string>
+                    {
+                        {
+                            hbLocatieSchemaName, RiskeerCommonIOResources.HbLocatieSchema
+                        },
+                        {
+                            orientatieSchemaName, RiskeerCommonIOResources.OrientatieSchema
+                        },
+                        {
+                            voorlandProfielSchemaName, RiskeerCommonIOResources.VoorlandProfielSchema
+                        },
+                        {
+                            golfReductieSchemaName, RiskeerCommonIOResources.GolfReductieSchema
+                        },
+                        {
+                            stochastSchemaName, RiskeerCommonIOResources.StochastSchema
+                        },
+                        {
+                            stochastStandaardafwijkingSchemaName, RiskeerCommonIOResources.StochastStandaardafwijkingSchema
+                        },
+                        {
+                            stochastVariatiecoefficientSchemaName, RiskeerCommonIOResources.StochastVariatiecoefficientSchema
+                        },
+                        {
+                            structureBaseSchemaName, RiskeerCommonIOResources.KunstwerkenBasisSchema
+                        },
+                        {
+                            scenarioSchemaName, RiskeerCommonIOResources.ScenarioSchema
+                        }
+                    })
+            }) {}
 
         protected override ClosingStructuresCalculationConfiguration ParseCalculationElement(XElement calculationElement)
         {

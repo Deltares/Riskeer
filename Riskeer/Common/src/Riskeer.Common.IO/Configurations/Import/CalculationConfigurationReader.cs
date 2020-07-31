@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Schema;
@@ -50,7 +51,7 @@ namespace Riskeer.Common.IO.Configurations.Import
         /// Creates a new instance of <see cref="CalculationConfigurationReader{TReadCalculation}"/>.
         /// </summary>
         /// <param name="xmlFilePath">The file path to the XML file.</param>
-        /// <param name="schemaDefinitions">The <see cref="CalculationConfigurationSchemaDefinitions"/>.</param>
+        /// <param name="schemaDefinitions">The <see cref="CalculationConfigurationSchemaDefinition"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="nestedSchemaDefinitions"/>
         /// is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when:
@@ -66,7 +67,7 @@ namespace Riskeer.Common.IO.Configurations.Import
         /// <item><paramref name="xmlFilePath"/> points to a file that does not contain configuration elements.</item>
         /// </list>
         /// </exception>
-        protected CalculationConfigurationReader(string xmlFilePath, CalculationConfigurationSchemaDefinitions schemaDefinitions)
+        protected CalculationConfigurationReader(string xmlFilePath, IEnumerable<CalculationConfigurationSchemaDefinition> schemaDefinitions)
         {
             IOUtils.ValidateFilePath(xmlFilePath);
 
@@ -74,9 +75,52 @@ namespace Riskeer.Common.IO.Configurations.Import
 
             xmlDocument = LoadDocument(xmlFilePath);
 
-            ValidateToSchema(xmlDocument, xmlFilePath, schemaDefinitions.MainSchemaDefinition, schemaDefinitions.NestedSchemaDefinitions);
+            // Versie check XSD Versie 2 | Full XSD Versie 2 (inclusief nested) | Versie 1 naar Versie 2 XSLT
+            // Versie check XSD Versie 1 | Full XSD Versie 1 (inclusief nested) | Versie 0 naar Versie 1 XSLT
+            // Versie check XSD Versie 0 | Full XSD Versie 0 (inclusief nested) | -
+            
+            // < xs:element name = "configuratie"  >
+            //    
+            //      attribute versie op 2
+            //
+            //
+            //     </ xs:element >
 
+            CalculationConfigurationSchemaDefinition matchingSchemaDefinition = GetMatchingSchemaDefinition(schemaDefinitions);
+            if (matchingSchemaDefinition == null)
+            {
+                return;
+            }
+
+            ValidateToSchema(xmlDocument, xmlFilePath, matchingSchemaDefinition.MainSchemaDefinition, matchingSchemaDefinition.NestedSchemaDefinitions);
+            
             ValidateNotEmpty(xmlDocument, xmlFilePath);
+
+            // Migrate
+            // ...
+        }
+
+        private CalculationConfigurationSchemaDefinition GetMatchingSchemaDefinition(IEnumerable<CalculationConfigurationSchemaDefinition> schemaDefinitions)
+        {
+            for (var i = 0; i < schemaDefinitions.Count(); i++)
+            {
+                try
+                {
+                    CalculationConfigurationSchemaDefinition current = schemaDefinitions.ElementAt(i);
+
+                    var combinedXmlSchemaDefinition = new CombinedXmlSchemaDefinition(current.VersionSchemaDefinition, new Dictionary<string, string>());
+
+                    combinedXmlSchemaDefinition.Validate(xmlDocument);
+
+                    return current;
+                }
+                catch (XmlSchemaValidationException)
+                {
+                    // Do nothing and continue search
+                }
+            }
+
+            return null;
         }
 
         /// <summary>

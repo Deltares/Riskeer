@@ -36,7 +36,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
             var nestedSchemaDefinitions = new Dictionary<string, string>();
 
             // Call
-            var schemaDefinitions = new CalculationConfigurationSchemaDefinitions(mainSchemaDefinition, nestedSchemaDefinitions);
+            var schemaDefinitions = new CalculationConfigurationSchemaDefinition(mainSchemaDefinition, nestedSchemaDefinitions);
 
             // Assert
             Assert.AreEqual(mainSchemaDefinition, schemaDefinitions.MainSchemaDefinition);
