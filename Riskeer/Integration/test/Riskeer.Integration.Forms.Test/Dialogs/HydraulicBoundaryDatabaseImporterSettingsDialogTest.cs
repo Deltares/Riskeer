@@ -271,6 +271,105 @@ namespace Riskeer.Integration.Forms.Test.Dialogs
             }
         }
 
+        [Test]
+        [Apartment(ApartmentState.STA)]
+        public void GivenDialog_WhenHlcdButtonClicked_ThenInquiryHelperCorrectlyUsedAndSelectedFilePathSetToTextBox()
+        {
+            // Given
+            const string selectedHlcdPath = "selected hlcd path";
+
+            var mockRepository = new MockRepository();
+            var inquiryHelper = mockRepository.StrictMock<IInquiryHelper>();
+            inquiryHelper.Expect(ih => ih.GetSourceFileLocation("HLCD bestand|*.sqlite")).Return(selectedHlcdPath);
+            mockRepository.ReplayAll();
+
+            DialogBoxHandler = (name, wnd) =>
+            {
+                using (new FormTester(name))
+                {
+                    new ButtonTester("buttonHlcd", name).Click();
+                }
+            };
+
+            using (var dialogParent = new Form())
+            using (var dialog = new HydraulicBoundaryDatabaseImporterSettingsDialog(dialogParent, inquiryHelper))
+            {
+                // When
+                dialog.ShowDialog();
+
+                // Then
+                var textBoxHlcd = (TextBox) new ControlTester("textBoxHlcd", dialog).TheObject;
+                Assert.AreEqual(selectedHlcdPath, textBoxHlcd.Text);
+                mockRepository.VerifyAll();
+            }
+        }
+
+        [Test]
+        [Apartment(ApartmentState.STA)]
+        public void GivenDialog_WhenHrdButtonClicked_ThenInquiryHelperCorrectlyUsedAndSelectedDirectoryPathSetToTextBox()
+        {
+            // Given
+            const string selectedHrdPath = "selected hrd path";
+
+            var mockRepository = new MockRepository();
+            var inquiryHelper = mockRepository.StrictMock<IInquiryHelper>();
+            inquiryHelper.Expect(ih => ih.GetTargetFolderLocation()).Return(selectedHrdPath);
+            mockRepository.ReplayAll();
+
+            DialogBoxHandler = (name, wnd) =>
+            {
+                using (new FormTester(name))
+                {
+                    new ButtonTester("buttonHrd", name).Click();
+                }
+            };
+
+            using (var dialogParent = new Form())
+            using (var dialog = new HydraulicBoundaryDatabaseImporterSettingsDialog(dialogParent, inquiryHelper))
+            {
+                // When
+                dialog.ShowDialog();
+
+                // Then
+                var textBoxHrd = (TextBox) new ControlTester("textBoxHrd", dialog).TheObject;
+                Assert.AreEqual(selectedHrdPath, textBoxHrd.Text);
+                mockRepository.VerifyAll();
+            }
+        }
+
+        [Test]
+        [Apartment(ApartmentState.STA)]
+        public void GivenDialog_WhenLocationsButtonClicked_ThenInquiryHelperCorrectlyUsedAndSelectedFilePathSetToTextBox()
+        {
+            // Given
+            const string selectedLocationsPath = "selected locations path";
+
+            var mockRepository = new MockRepository();
+            var inquiryHelper = mockRepository.StrictMock<IInquiryHelper>();
+            inquiryHelper.Expect(ih => ih.GetSourceFileLocation("Locatie bestand|*.sqlite")).Return(selectedLocationsPath);
+            mockRepository.ReplayAll();
+
+            DialogBoxHandler = (name, wnd) =>
+            {
+                using (new FormTester(name))
+                {
+                    new ButtonTester("buttonLocations", name).Click();
+                }
+            };
+
+            using (var dialogParent = new Form())
+            using (var dialog = new HydraulicBoundaryDatabaseImporterSettingsDialog(dialogParent, inquiryHelper))
+            {
+                // When
+                dialog.ShowDialog();
+
+                // Then
+                var textBoxLocations = (TextBox) new ControlTester("textBoxLocations", dialog).TheObject;
+                Assert.AreEqual(selectedLocationsPath, textBoxLocations.Text);
+                mockRepository.VerifyAll();
+            }
+        }
+
         private static Icon BitmapToIcon(Bitmap icon)
         {
             return Icon.FromHandle(icon.GetHicon());
