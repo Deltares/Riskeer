@@ -107,10 +107,10 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
             Assert.AreEqual("Damhoogte [m+NAP]", dataGridView.Columns[breakWaterHeightColumnIndex].HeaderText);
             Assert.AreEqual("Gebruik voorlandgeometrie", dataGridView.Columns[useForeShoreGeometryColumnIndex].HeaderText);
             Assert.AreEqual("Belastingschematisering", dataGridView.Columns[loadSchematizationTypeColumnIndex].HeaderText);
-            Assert.AreEqual("Verwachtingswaarde\r\nLineaire belastingschematisering constructieve sterkte [kN/m]", dataGridView.Columns[constructiveStrengthLinearLoadModelColumnIndex].HeaderText);
-            Assert.AreEqual("Verwachtingswaarde\r\nKwadratische belastingschematisering constructieve sterkte [kN/m]", dataGridView.Columns[constructiveStrengthQuadraticLoadModelColumnIndex].HeaderText);
-            Assert.AreEqual("Verwachtingswaarde\r\nLineaire belastingschematisering stabiliteit [kN/m²]", dataGridView.Columns[stabilityLinearLoadModelColumnIndex].HeaderText);
-            Assert.AreEqual("Verwachtingswaarde\r\nKwadratische belastingschematisering stabiliteit [kN/m²]", dataGridView.Columns[stabilityQuadraticLoadModelColumnIndex].HeaderText);
+            Assert.AreEqual("Verwachtingswaarde\r\nlineaire belastingschematisering constructieve sterkte\r\n[kN/m]", dataGridView.Columns[constructiveStrengthLinearLoadModelColumnIndex].HeaderText);
+            Assert.AreEqual("Verwachtingswaarde\r\nkwadratische belastingschematisering constructieve sterkte\r\n[kN/m]", dataGridView.Columns[constructiveStrengthQuadraticLoadModelColumnIndex].HeaderText);
+            Assert.AreEqual("Verwachtingswaarde\r\nlineaire belastingschematisering stabiliteit\r\n[kN/m²]", dataGridView.Columns[stabilityLinearLoadModelColumnIndex].HeaderText);
+            Assert.AreEqual("Verwachtingswaarde\r\nkwadratische belastingschematisering stabiliteit\r\n[kN/m²]", dataGridView.Columns[stabilityQuadraticLoadModelColumnIndex].HeaderText);
             Assert.AreEqual("Analysehoogte [m+NAP]", dataGridView.Columns[evaluationLevelModelColumnIndex].HeaderText);
 
             foreach (DataGridViewComboBoxColumn column in dataGridView.Columns.OfType<DataGridViewComboBoxColumn>().ToArray())

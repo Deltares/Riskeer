@@ -37,6 +37,7 @@ using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.Views;
 using Riskeer.HeightStructures.Data;
 using Riskeer.HeightStructures.Forms.PresentationObjects;
+using Riskeer.HeightStructures.Forms.Properties;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.HeightStructures.Forms.Views
@@ -155,15 +156,15 @@ namespace Riskeer.HeightStructures.Forms.Views
 
             DataGridViewControl.AddTextBoxColumn(
                 nameof(HeightStructuresCalculationRow.LevelCrestStructure),
-                $"{RiskeerCommonFormsResources.NormalDistribution_Mean_DisplayName}\r\n{RiskeerCommonFormsResources.Structure_LevelCrestStructure_DisplayName}");
+                $"{RiskeerCommonFormsResources.NormalDistribution_Mean_DisplayName}\r\n{Resources.HeightStructuresCalculationsView_LevelCrestStructure_DisplayName}");
 
             DataGridViewControl.AddTextBoxColumn(
                 nameof(HeightStructuresCalculationRow.CriticalOvertoppingDischarge),
-                $"{RiskeerCommonFormsResources.NormalDistribution_Mean_DisplayName}\r\n{RiskeerCommonFormsResources.Structure_CriticalOvertoppingDischarge_DisplayName}");
+                $"{RiskeerCommonFormsResources.NormalDistribution_Mean_DisplayName}\r\n{RiskeerCommonFormsResources.StructuresCalculationsView_CriticalOvertoppingDischarge_DisplayName}");
 
             DataGridViewControl.AddTextBoxColumn(
                 nameof(HeightStructuresCalculationRow.AllowedLevelIncreaseStorage),
-                $"{RiskeerCommonFormsResources.NormalDistribution_Mean_DisplayName}\r\n{RiskeerCommonFormsResources.Structure_AllowedLevelIncreaseStorage_DisplayName}");
+                $"{RiskeerCommonFormsResources.NormalDistribution_Mean_DisplayName}\r\n{RiskeerCommonFormsResources.StructuresCalculationsView_AllowedLevelIncreaseStorage_DisplayName}");
         }
 
         protected override void InitializeObservers()

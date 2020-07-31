@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2019. All rights reserved.
+// Copyright (C) Stichting Deltares 2019. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -114,6 +114,48 @@ namespace Riskeer.StabilityPointStructures.Forms.Properties {
         public static string Categoties_CollisionSecondaryStructure {
             get {
                 return ResourceManager.GetString("Categoties_CollisionSecondaryStructure", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to lineaire belastingschematisering constructieve sterkte
+        ///[kN/m].
+        /// </summary>
+        public static string StabilityPointStructuresCalculationsView_ConstructiveStrength_Linear_LoadModel_DisplayName {
+            get {
+                return ResourceManager.GetString("StabilityPointStructuresCalculationsView_ConstructiveStrength_Linear_LoadModel_Di" +
+                        "splayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to kwadratische belastingschematisering constructieve sterkte
+        ///[kN/m].
+        /// </summary>
+        public static string StabilityPointStructuresCalculationsView_ConstructiveStrength_Quadratic_LoadModel_DisplayName {
+            get {
+                return ResourceManager.GetString("StabilityPointStructuresCalculationsView_ConstructiveStrength_Quadratic_LoadModel" +
+                        "_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to lineaire belastingschematisering stabiliteit
+        ///[kN/m²].
+        /// </summary>
+        public static string StabilityPointStructuresCalculationsView_Linear_LoadModel_DisplayName {
+            get {
+                return ResourceManager.GetString("StabilityPointStructuresCalculationsView_Linear_LoadModel_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to kwadratische belastingschematisering stabiliteit
+        ///[kN/m²].
+        /// </summary>
+        public static string StabilityPointStructuresCalculationsView_Quadratic_LoadModel_DisplayName {
+            get {
+                return ResourceManager.GetString("StabilityPointStructuresCalculationsView_Quadratic_LoadModel_DisplayName", resourceCulture);
             }
         }
         

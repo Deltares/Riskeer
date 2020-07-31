@@ -37,6 +37,7 @@ using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.Views;
 using Riskeer.StabilityPointStructures.Data;
 using Riskeer.StabilityPointStructures.Forms.PresentationObjects;
+using Riskeer.StabilityPointStructures.Forms.Properties;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.StabilityPointStructures.Forms.Views
@@ -162,19 +163,19 @@ namespace Riskeer.StabilityPointStructures.Forms.Views
 
             DataGridViewControl.AddTextBoxColumn(
                 nameof(StabilityPointStructuresCalculationRow.ConstructiveStrengthLinearLoadModel),
-                $"{RiskeerCommonFormsResources.NormalDistribution_Mean_DisplayName}\r\n{RiskeerCommonFormsResources.ConstructiveStrength_Linear_LoadModel_DisplayName}");
+                $"{RiskeerCommonFormsResources.NormalDistribution_Mean_DisplayName}\r\n{Resources.StabilityPointStructuresCalculationsView_ConstructiveStrength_Linear_LoadModel_DisplayName}");
 
             DataGridViewControl.AddTextBoxColumn(
                 nameof(StabilityPointStructuresCalculationRow.ConstructiveStrengthQuadraticLoadModel),
-                $"{RiskeerCommonFormsResources.NormalDistribution_Mean_DisplayName}\r\n{RiskeerCommonFormsResources.ConstructiveStrength_Quadratic_LoadModel_DisplayName}");
+                $"{RiskeerCommonFormsResources.NormalDistribution_Mean_DisplayName}\r\n{Resources.StabilityPointStructuresCalculationsView_ConstructiveStrength_Quadratic_LoadModel_DisplayName}");
 
             DataGridViewControl.AddTextBoxColumn(
                 nameof(StabilityPointStructuresCalculationRow.StabilityLinearLoadModel),
-                $"{RiskeerCommonFormsResources.NormalDistribution_Mean_DisplayName}\r\n{RiskeerCommonFormsResources.Stability_Linear_LoadModel_DisplayName}");
+                $"{RiskeerCommonFormsResources.NormalDistribution_Mean_DisplayName}\r\n{Resources.StabilityPointStructuresCalculationsView_Linear_LoadModel_DisplayName}");
 
             DataGridViewControl.AddTextBoxColumn(
                 nameof(StabilityPointStructuresCalculationRow.StabilityQuadraticLoadModel),
-                $"{RiskeerCommonFormsResources.NormalDistribution_Mean_DisplayName}\r\n{RiskeerCommonFormsResources.Stability_Quadratic_LoadModel_DisplayName}");
+                $"{RiskeerCommonFormsResources.NormalDistribution_Mean_DisplayName}\r\n{Resources.StabilityPointStructuresCalculationsView_Quadratic_LoadModel_DisplayName}");
 
             DataGridViewControl.AddTextBoxColumn(
                 nameof(StabilityPointStructuresCalculationRow.EvaluationLevel),

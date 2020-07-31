@@ -29,6 +29,7 @@ using Core.Common.Controls.DataGrid;
 using Core.Common.Util;
 using Riskeer.ClosingStructures.Data;
 using Riskeer.ClosingStructures.Forms.PresentationObjects;
+using Riskeer.ClosingStructures.Forms.Properties;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.DikeProfiles;
@@ -163,15 +164,15 @@ namespace Riskeer.ClosingStructures.Forms.Views
 
             DataGridViewControl.AddTextBoxColumn(
                 nameof(ClosingStructuresCalculationRow.MeanInsideWaterLevel),
-                $"{RiskeerCommonFormsResources.NormalDistribution_Mean_DisplayName}\r\n{RiskeerCommonFormsResources.Structure_InsideWaterLevel_DisplayName}");
+                $"{RiskeerCommonFormsResources.NormalDistribution_Mean_DisplayName}\r\n{Resources.ClosingStructuresCalculationsView_InsideWaterLevel_DisplayName}");
 
             DataGridViewControl.AddTextBoxColumn(
                 nameof(ClosingStructuresCalculationRow.CriticalOvertoppingDischarge),
-                $"{RiskeerCommonFormsResources.NormalDistribution_Mean_DisplayName}\r\n{RiskeerCommonFormsResources.Structure_CriticalOvertoppingDischarge_DisplayName}");
+                $"{RiskeerCommonFormsResources.NormalDistribution_Mean_DisplayName}\r\n{RiskeerCommonFormsResources.StructuresCalculationsView_CriticalOvertoppingDischarge_DisplayName}");
 
             DataGridViewControl.AddTextBoxColumn(
                 nameof(ClosingStructuresCalculationRow.AllowedLevelIncreaseStorage),
-                $"{RiskeerCommonFormsResources.NormalDistribution_Mean_DisplayName}\r\n{RiskeerCommonFormsResources.Structure_AllowedLevelIncreaseStorage_DisplayName}");
+                $"{RiskeerCommonFormsResources.NormalDistribution_Mean_DisplayName}\r\n{RiskeerCommonFormsResources.StructuresCalculationsView_AllowedLevelIncreaseStorage_DisplayName}");
         }
 
         protected override void InitializeObservers()

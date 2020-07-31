@@ -259,9 +259,6 @@
   <data name="PipingInput_StochasticSoilProfile_DisplayName" xml:space="preserve">
     <value>Ondergrondschematisatie</value>
   </data>
-  <data name="Probabilistics_Mean_Symbol" xml:space="preserve">
-    <value>Verwachtingswaarde</value>
-  </data>
   <data name="Probabilistics_Shift_Symbol" xml:space="preserve">
     <value>Verschuiving</value>
   </data>

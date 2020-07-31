@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2019. All rights reserved.
+// Copyright (C) Stichting Deltares 2019. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -1104,24 +1104,6 @@ namespace Riskeer.Common.Forms.Properties {
         public static string CombinedAssembly_DisplayName {
             get {
                 return ResourceManager.GetString("CombinedAssembly_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Lineaire belastingschematisering constructieve sterkte [kN/m].
-        /// </summary>
-        public static string ConstructiveStrength_Linear_LoadModel_DisplayName {
-            get {
-                return ResourceManager.GetString("ConstructiveStrength_Linear_LoadModel_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Kwadratische belastingschematisering constructieve sterkte [kN/m].
-        /// </summary>
-        public static string ConstructiveStrength_Quadratic_LoadModel_DisplayName {
-            get {
-                return ResourceManager.GetString("ConstructiveStrength_Quadratic_LoadModel_DisplayName", resourceCulture);
             }
         }
         
@@ -3385,24 +3367,6 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Lineaire belastingschematisering stabiliteit [kN/m²].
-        /// </summary>
-        public static string Stability_Linear_LoadModel_DisplayName {
-            get {
-                return ResourceManager.GetString("Stability_Linear_LoadModel_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Kwadratische belastingschematisering stabiliteit [kN/m²].
-        /// </summary>
-        public static string Stability_Quadratic_LoadModel_DisplayName {
-            get {
-                return ResourceManager.GetString("Stability_Quadratic_LoadModel_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Geometrie uit de database..
         /// </summary>
         public static string StochasticSoilModel_Geometry_Description {
@@ -3957,6 +3921,26 @@ namespace Riskeer.Common.Forms.Properties {
         public static string StructureCollection_SourcePath_Description {
             get {
                 return ResourceManager.GetString("StructureCollection_SourcePath_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to toegestane peilverhoging komberging
+        ///[m].
+        /// </summary>
+        public static string StructuresCalculationsView_AllowedLevelIncreaseStorage_DisplayName {
+            get {
+                return ResourceManager.GetString("StructuresCalculationsView_AllowedLevelIncreaseStorage_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to kritiek instromend debiet
+        ///[m³/s/m].
+        /// </summary>
+        public static string StructuresCalculationsView_CriticalOvertoppingDischarge_DisplayName {
+            get {
+                return ResourceManager.GetString("StructuresCalculationsView_CriticalOvertoppingDischarge_DisplayName", resourceCulture);
             }
         }
         

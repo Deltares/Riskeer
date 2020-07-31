@@ -160,11 +160,11 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
 
             DataGridViewControl.AddTextBoxColumn(
                 nameof(GrassCoverErosionInwardsCalculationRow.MeanCriticalFlowRate),
-                Resources.Mean_Critical_FlowRate_DisplayName);
+                $"{RiskeerCommonFormsResources.NormalDistribution_Mean_DisplayName}\r\n{Resources.GrassCoverErosionInwardsCalculationsView_CriticalFlowRate_DisplayName}");
 
             DataGridViewControl.AddTextBoxColumn(
                 nameof(GrassCoverErosionInwardsCalculationRow.StandardDeviationCriticalFlowRate),
-                Resources.StandardDeviation_Critical_FlowRate_DisplayName);
+                $"{RiskeerCommonFormsResources.NormalDistribution_StandardDeviation_DisplayName}\r\n{Resources.GrassCoverErosionInwardsCalculationsView_CriticalFlowRate_DisplayName}");
         }
 
         protected override void InitializeObservers()

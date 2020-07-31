@@ -165,11 +165,11 @@ namespace Riskeer.Piping.Forms.Views
 
             DataGridViewControl.AddTextBoxColumn(
                 nameof(PipingCalculationRow.DampingFactorExitMean),
-                $"{Resources.Probabilistics_Mean_Symbol}\r\n{Resources.PipingCalculationsView_DampingFactorExit_DisplayName}");
+                $"{RiskeerCommonFormsResources.NormalDistribution_Mean_DisplayName}\r\n{Resources.PipingCalculationsView_DampingFactorExit_DisplayName}");
 
             DataGridViewControl.AddTextBoxColumn(
                 nameof(PipingCalculationRow.PhreaticLevelExitMean),
-                $"{Resources.Probabilistics_Mean_Symbol}\r\n{Resources.PipingCalculationsView_PhreaticLevelExit_DisplayName}");
+                $"{RiskeerCommonFormsResources.NormalDistribution_Mean_DisplayName}\r\n{Resources.PipingCalculationsView_PhreaticLevelExit_DisplayName}");
 
             DataGridViewControl.AddTextBoxColumn(
                 nameof(PipingCalculationRow.EntryPointL),

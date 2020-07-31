@@ -101,9 +101,9 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
             Assert.AreEqual("Damtype", dataGridView.Columns[breakWaterTypeColumnIndex].HeaderText);
             Assert.AreEqual("Damhoogte [m+NAP]", dataGridView.Columns[breakWaterHeightColumnIndex].HeaderText);
             Assert.AreEqual("Gebruik voorlandgeometrie", dataGridView.Columns[useForeShoreGeometryColumnIndex].HeaderText);
-            Assert.AreEqual("Verwachtingswaarde\r\nKerende hoogte [m+NAP]", dataGridView.Columns[meanLevelCrestStructureColumnIndex].HeaderText);
-            Assert.AreEqual("Verwachtingswaarde\r\nKritiek instromend debiet [m³/s/m]", dataGridView.Columns[criticalOvertoppingDischargeColumnIndex].HeaderText);
-            Assert.AreEqual("Verwachtingswaarde\r\nToegestane peilverhoging komberging [m]", dataGridView.Columns[allowedLevelIncreaseStorageColumnIndex].HeaderText);
+            Assert.AreEqual("Verwachtingswaarde\r\nkerende hoogte\r\n[m+NAP]", dataGridView.Columns[meanLevelCrestStructureColumnIndex].HeaderText);
+            Assert.AreEqual("Verwachtingswaarde\r\nkritiek instromend debiet\r\n[m³/s/m]", dataGridView.Columns[criticalOvertoppingDischargeColumnIndex].HeaderText);
+            Assert.AreEqual("Verwachtingswaarde\r\ntoegestane peilverhoging komberging\r\n[m]", dataGridView.Columns[allowedLevelIncreaseStorageColumnIndex].HeaderText);
 
             foreach (DataGridViewComboBoxColumn column in dataGridView.Columns.OfType<DataGridViewComboBoxColumn>().ToArray())
             {

@@ -105,8 +105,8 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             Assert.AreEqual("Damhoogte [m+NAP]", dataGridView.Columns[breakWaterHeightColumnIndex].HeaderText);
             Assert.AreEqual("Gebruik voorlandgeometrie", dataGridView.Columns[useForeShoreGeometryColumnIndex].HeaderText);
             Assert.AreEqual("Dijkhoogte [m+NAP]", dataGridView.Columns[dikeHeightColumnIndex].HeaderText);
-            Assert.AreEqual("Verwachtingswaarde kritiek overslagdebiet [m3/m/s]", dataGridView.Columns[meanCriticalFlowRateColumnIndex].HeaderText);
-            Assert.AreEqual("Standaardafwijking kritiek overslagdebiet [m3/m/s]", dataGridView.Columns[standardDeviationCriticalFlowRateColumnIndex].HeaderText);
+            Assert.AreEqual("Verwachtingswaarde\r\nkritiek overslagdebiet\r\n[m³/s/m]", dataGridView.Columns[meanCriticalFlowRateColumnIndex].HeaderText);
+            Assert.AreEqual("Standaardafwijking\r\nkritiek overslagdebiet\r\n[m³/s/m]", dataGridView.Columns[standardDeviationCriticalFlowRateColumnIndex].HeaderText);
 
             Assert.AreEqual(10, dataGridView.ColumnCount);
 
