@@ -41,14 +41,14 @@ namespace Riskeer.Integration.Forms.Test.Dialogs
     [TestFixture]
     public class HydraulicBoundaryDatabaseImporterSettingsDialogTest : NUnitFormTest
     {
+        private static readonly string validHrdDirectory = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, "HydraulicBoundaryDatabase");
+        private static readonly string validHlcdFilePath = Path.Combine(validHrdDirectory, "HLCD.sqlite");
+        private static readonly string validLocationsFilePath = Path.Combine(validHrdDirectory, "Locations.sqlite");
+
         private static IEnumerable<TestCaseData> TestCaseSettings
         {
             get
             {
-                string validHrdDirectory = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, "HydraulicBoundaryDatabase");
-                string validHlcdFilePath = Path.Combine(validHrdDirectory, "HLCD.sqlite");
-                string validLocationsFilePath = Path.Combine(validHrdDirectory, "Locations.sqlite");
-
                 yield return new TestCaseData(null, false, "Kan niet koppelen aan database: er is geen HLCD bestand geselecteerd.");
                 yield return new TestCaseData(new HydraulicBoundaryDatabaseImporterSettings(string.Empty, validHrdDirectory, validLocationsFilePath),
                                               false, "Kan niet koppelen aan database: er is geen HLCD bestand geselecteerd.");
@@ -113,6 +113,8 @@ namespace Riskeer.Integration.Forms.Test.Dialogs
                 var buttonCancel = (Button) new ButtonTester("buttonCancel", dialog).TheObject;
                 Assert.AreSame(buttonCancel, dialog.CancelButton);
                 Assert.IsTrue(buttonCancel.Enabled);
+
+                mockRepository.VerifyAll();
             }
         }
 
@@ -140,6 +142,8 @@ namespace Riskeer.Integration.Forms.Test.Dialogs
 
                 var textBoxLocations = (TextBox) new ControlTester("textBoxLocations", dialog).TheObject;
                 Assert.AreEqual("<selecteer>", textBoxLocations.Text);
+
+                mockRepository.VerifyAll();
             }
         }
 
@@ -169,16 +173,17 @@ namespace Riskeer.Integration.Forms.Test.Dialogs
 
                 var textBoxLocations = (TextBox) new ControlTester("textBoxLocations", dialog).TheObject;
                 Assert.AreEqual(settings.LocationsFilePath, textBoxLocations.Text);
+
+                mockRepository.VerifyAll();
             }
         }
 
         [Test]
         [Apartment(ApartmentState.STA)]
         [TestCaseSource(nameof(TestCaseSettings))]
-        public void ShowDialog_WithSettings_ButtonConnectStateAndErrorProviderAsExpected(
-            HydraulicBoundaryDatabaseImporterSettings settings,
-            bool expectedEnabledState,
-            string expectedErrorMessage)
+        public void ShowDialog_WithSettings_ButtonConnectStateAndErrorProviderAsExpected(HydraulicBoundaryDatabaseImporterSettings settings,
+                                                                                         bool expectedEnabledState,
+                                                                                         string expectedErrorMessage)
         {
             // Setup
             var mockRepository = new MockRepository();
@@ -197,6 +202,8 @@ namespace Riskeer.Integration.Forms.Test.Dialogs
 
                 var errorProvider = TypeUtils.GetField<ErrorProvider>(dialog, "errorProvider");
                 Assert.AreEqual(expectedErrorMessage, errorProvider.GetError(buttonConnect));
+
+                mockRepository.VerifyAll();
             }
         }
 
@@ -217,9 +224,6 @@ namespace Riskeer.Integration.Forms.Test.Dialogs
                 }
             };
 
-            string validHrdDirectory = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, "HydraulicBoundaryDatabase");
-            string validHlcdFilePath = Path.Combine(validHrdDirectory, "HLCD.sqlite");
-            string validLocationsFilePath = Path.Combine(validHrdDirectory, "Locations.sqlite");
             var settings = new HydraulicBoundaryDatabaseImporterSettings(validHlcdFilePath, validHrdDirectory, validLocationsFilePath);
 
             using (var dialogParent = new Form())
@@ -231,6 +235,8 @@ namespace Riskeer.Integration.Forms.Test.Dialogs
                 // Then
                 Assert.AreEqual(DialogResult.Cancel, dialogResult);
                 Assert.IsNull(dialog.SelectedSettings);
+
+                mockRepository.VerifyAll();
             }
         }
 
@@ -251,9 +257,6 @@ namespace Riskeer.Integration.Forms.Test.Dialogs
                 }
             };
 
-            string validHrdDirectory = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO, "HydraulicBoundaryDatabase");
-            string validHlcdFilePath = Path.Combine(validHrdDirectory, "HLCD.sqlite");
-            string validLocationsFilePath = Path.Combine(validHrdDirectory, "Locations.sqlite");
             var settings = new HydraulicBoundaryDatabaseImporterSettings(validHlcdFilePath, validHrdDirectory, validLocationsFilePath);
 
             using (var dialogParent = new Form())
@@ -268,19 +271,19 @@ namespace Riskeer.Integration.Forms.Test.Dialogs
                 Assert.AreEqual(validHlcdFilePath, dialog.SelectedSettings.HlcdFilePath);
                 Assert.AreEqual(validHrdDirectory, dialog.SelectedSettings.HrdDirectoryPath);
                 Assert.AreEqual(validLocationsFilePath, dialog.SelectedSettings.LocationsFilePath);
+
+                mockRepository.VerifyAll();
             }
         }
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void GivenDialog_WhenHlcdButtonClicked_ThenInquiryHelperCorrectlyUsedAndSelectedFilePathSetToTextBox()
+        public void GivenDialog_WhenHlcdButtonClicked_ThenSelectedDirectoryPathSetToTextBoxAndButtonConnectUpdated()
         {
             // Given
-            const string selectedHlcdPath = "selected hlcd path";
-
             var mockRepository = new MockRepository();
             var inquiryHelper = mockRepository.StrictMock<IInquiryHelper>();
-            inquiryHelper.Expect(ih => ih.GetSourceFileLocation("HLCD bestand|*.sqlite")).Return(selectedHlcdPath);
+            inquiryHelper.Expect(ih => ih.GetSourceFileLocation("HLCD bestand|*.sqlite")).Return(validHlcdFilePath);
             mockRepository.ReplayAll();
 
             DialogBoxHandler = (name, wnd) =>
@@ -291,29 +294,36 @@ namespace Riskeer.Integration.Forms.Test.Dialogs
                 }
             };
 
+            var settings = new HydraulicBoundaryDatabaseImporterSettings(string.Empty, validHrdDirectory, validLocationsFilePath);
+
             using (var dialogParent = new Form())
-            using (var dialog = new HydraulicBoundaryDatabaseImporterSettingsDialog(dialogParent, inquiryHelper))
+            using (var dialog = new HydraulicBoundaryDatabaseImporterSettingsDialog(dialogParent, inquiryHelper, settings))
             {
+                // Precondition
+                var buttonConnect = (Button) new ButtonTester("buttonConnect", dialog).TheObject;
+                Assert.IsFalse(buttonConnect.Enabled);
+
                 // When
                 dialog.ShowDialog();
 
                 // Then
                 var textBoxHlcd = (TextBox) new ControlTester("textBoxHlcd", dialog).TheObject;
-                Assert.AreEqual(selectedHlcdPath, textBoxHlcd.Text);
+                Assert.AreEqual(validHlcdFilePath, textBoxHlcd.Text);
+
+                Assert.IsTrue(buttonConnect.Enabled);
+
                 mockRepository.VerifyAll();
             }
         }
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void GivenDialog_WhenHrdButtonClicked_ThenInquiryHelperCorrectlyUsedAndSelectedDirectoryPathSetToTextBox()
+        public void GivenDialog_WhenHrdButtonClicked_ThenSelectedDirectoryPathSetToTextBoxAndButtonConnectUpdated()
         {
             // Given
-            const string selectedHrdPath = "selected hrd path";
-
             var mockRepository = new MockRepository();
             var inquiryHelper = mockRepository.StrictMock<IInquiryHelper>();
-            inquiryHelper.Expect(ih => ih.GetTargetFolderLocation()).Return(selectedHrdPath);
+            inquiryHelper.Expect(ih => ih.GetTargetFolderLocation()).Return(validHrdDirectory);
             mockRepository.ReplayAll();
 
             DialogBoxHandler = (name, wnd) =>
@@ -324,29 +334,36 @@ namespace Riskeer.Integration.Forms.Test.Dialogs
                 }
             };
 
+            var settings = new HydraulicBoundaryDatabaseImporterSettings(validHlcdFilePath, string.Empty, validLocationsFilePath);
+
             using (var dialogParent = new Form())
-            using (var dialog = new HydraulicBoundaryDatabaseImporterSettingsDialog(dialogParent, inquiryHelper))
+            using (var dialog = new HydraulicBoundaryDatabaseImporterSettingsDialog(dialogParent, inquiryHelper, settings))
             {
+                // Precondition
+                var buttonConnect = (Button) new ButtonTester("buttonConnect", dialog).TheObject;
+                Assert.IsFalse(buttonConnect.Enabled);
+
                 // When
                 dialog.ShowDialog();
 
                 // Then
                 var textBoxHrd = (TextBox) new ControlTester("textBoxHrd", dialog).TheObject;
-                Assert.AreEqual(selectedHrdPath, textBoxHrd.Text);
+                Assert.AreEqual(validHrdDirectory, textBoxHrd.Text);
+
+                Assert.IsTrue(buttonConnect.Enabled);
+
                 mockRepository.VerifyAll();
             }
         }
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void GivenDialog_WhenLocationsButtonClicked_ThenInquiryHelperCorrectlyUsedAndSelectedFilePathSetToTextBox()
+        public void GivenDialog_WhenLocationsButtonClicked_ThenSelectedDirectoryPathSetToTextBoxAndButtonConnectUpdated()
         {
             // Given
-            const string selectedLocationsPath = "selected locations path";
-
             var mockRepository = new MockRepository();
             var inquiryHelper = mockRepository.StrictMock<IInquiryHelper>();
-            inquiryHelper.Expect(ih => ih.GetSourceFileLocation("Locatie bestand|*.sqlite")).Return(selectedLocationsPath);
+            inquiryHelper.Expect(ih => ih.GetSourceFileLocation("Locatie bestand|*.sqlite")).Return(validLocationsFilePath);
             mockRepository.ReplayAll();
 
             DialogBoxHandler = (name, wnd) =>
@@ -357,15 +374,24 @@ namespace Riskeer.Integration.Forms.Test.Dialogs
                 }
             };
 
+            var settings = new HydraulicBoundaryDatabaseImporterSettings(validHlcdFilePath, validHrdDirectory, string.Empty);
+
             using (var dialogParent = new Form())
-            using (var dialog = new HydraulicBoundaryDatabaseImporterSettingsDialog(dialogParent, inquiryHelper))
+            using (var dialog = new HydraulicBoundaryDatabaseImporterSettingsDialog(dialogParent, inquiryHelper, settings))
             {
+                // Precondition
+                var buttonConnect = (Button) new ButtonTester("buttonConnect", dialog).TheObject;
+                Assert.IsFalse(buttonConnect.Enabled);
+
                 // When
                 dialog.ShowDialog();
 
                 // Then
                 var textBoxLocations = (TextBox) new ControlTester("textBoxLocations", dialog).TheObject;
-                Assert.AreEqual(selectedLocationsPath, textBoxLocations.Text);
+                Assert.AreEqual(validLocationsFilePath, textBoxLocations.Text);
+
+                Assert.IsTrue(buttonConnect.Enabled);
+
                 mockRepository.VerifyAll();
             }
         }
