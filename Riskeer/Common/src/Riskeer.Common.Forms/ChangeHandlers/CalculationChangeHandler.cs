@@ -36,18 +36,18 @@ namespace Riskeer.Common.Forms.ChangeHandlers
     {
         private readonly string query;
         private readonly IEnumerable<ICalculation> calculations;
-        private readonly IInquiryHelper inquiryHandler;
+        private readonly IInquiryHelper inquiryHelper;
 
         /// <summary>
         /// Creates a new instance of <see cref="CalculationChangeHandler"/>.
         /// </summary>
         /// <param name="calculations">The calculations for which to handle changes.</param>
         /// <param name="query">The query which should be displayed when inquiring for a confirmation.</param>
-        /// <param name="inquiryHandler">Object responsible for inquiring the required data.</param>
+        /// <param name="inquiryHelper">Object responsible for inquiring the required data.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public CalculationChangeHandler(IEnumerable<ICalculation> calculations,
                                         string query,
-                                        IInquiryHelper inquiryHandler)
+                                        IInquiryHelper inquiryHelper)
         {
             if (calculations == null)
             {
@@ -59,14 +59,14 @@ namespace Riskeer.Common.Forms.ChangeHandlers
                 throw new ArgumentNullException(nameof(query));
             }
 
-            if (inquiryHandler == null)
+            if (inquiryHelper == null)
             {
-                throw new ArgumentNullException(nameof(inquiryHandler));
+                throw new ArgumentNullException(nameof(inquiryHelper));
             }
 
             this.calculations = calculations;
             this.query = query;
-            this.inquiryHandler = inquiryHandler;
+            this.inquiryHelper = inquiryHelper;
         }
 
         public bool RequireConfirmation()
@@ -76,7 +76,7 @@ namespace Riskeer.Common.Forms.ChangeHandlers
 
         public bool InquireConfirmation()
         {
-            return inquiryHandler.InquireContinuation(query);
+            return inquiryHelper.InquireContinuation(query);
         }
     }
 }

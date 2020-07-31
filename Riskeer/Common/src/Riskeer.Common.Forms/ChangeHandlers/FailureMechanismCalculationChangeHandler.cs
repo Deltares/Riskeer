@@ -35,18 +35,18 @@ namespace Riskeer.Common.Forms.ChangeHandlers
     {
         private readonly string query;
         private readonly IFailureMechanism failureMechanism;
-        private readonly IInquiryHelper inquiryHandler;
+        private readonly IInquiryHelper inquiryHelper;
 
         /// <summary>
         /// Creates a new instance of <see cref="FailureMechanismCalculationChangeHandler"/>.
         /// </summary>
         /// <param name="failureMechanism">Failure mechanism for which to handle changes.</param>
         /// <param name="query">The query which should be displayed when inquiring for a confirmation.</param>
-        /// <param name="inquiryHandler">Object responsible for inquiring required data.</param>
+        /// <param name="inquiryHelper">Object responsible for inquiring required data.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         public FailureMechanismCalculationChangeHandler(IFailureMechanism failureMechanism,
                                                         string query,
-                                                        IInquiryHelper inquiryHandler)
+                                                        IInquiryHelper inquiryHelper)
         {
             if (failureMechanism == null)
             {
@@ -58,14 +58,14 @@ namespace Riskeer.Common.Forms.ChangeHandlers
                 throw new ArgumentNullException(nameof(query));
             }
 
-            if (inquiryHandler == null)
+            if (inquiryHelper == null)
             {
-                throw new ArgumentNullException(nameof(inquiryHandler));
+                throw new ArgumentNullException(nameof(inquiryHelper));
             }
 
             this.failureMechanism = failureMechanism;
             this.query = query;
-            this.inquiryHandler = inquiryHandler;
+            this.inquiryHelper = inquiryHelper;
         }
 
         public bool RequireConfirmation()
@@ -75,7 +75,7 @@ namespace Riskeer.Common.Forms.ChangeHandlers
 
         public bool InquireConfirmation()
         {
-            return inquiryHandler.InquireContinuation(query);
+            return inquiryHelper.InquireContinuation(query);
         }
     }
 }

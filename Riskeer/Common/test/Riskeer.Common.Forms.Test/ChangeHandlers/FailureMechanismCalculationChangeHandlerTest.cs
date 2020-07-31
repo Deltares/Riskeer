@@ -40,11 +40,11 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
         {
             // Setup
             var mockRepository = new MockRepository();
-            var inquiryHandler = mockRepository.Stub<IInquiryHelper>();
+            var inquiryHelper = mockRepository.Stub<IInquiryHelper>();
             mockRepository.ReplayAll();
 
             // Call
-            TestDelegate test = () => new FailureMechanismCalculationChangeHandler(null, string.Empty, inquiryHandler);
+            TestDelegate test = () => new FailureMechanismCalculationChangeHandler(null, string.Empty, inquiryHelper);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -57,12 +57,12 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
         {
             // Setup
             var mockRepository = new MockRepository();
-            var inquiryHandler = mockRepository.Stub<IInquiryHelper>();
+            var inquiryHelper = mockRepository.Stub<IInquiryHelper>();
             var failureMechanism = mockRepository.Stub<IFailureMechanism>();
             mockRepository.ReplayAll();
 
             // Call
-            TestDelegate test = () => new FailureMechanismCalculationChangeHandler(failureMechanism, null, inquiryHandler);
+            TestDelegate test = () => new FailureMechanismCalculationChangeHandler(failureMechanism, null, inquiryHelper);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -71,7 +71,7 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
         }
 
         [Test]
-        public void Constructor_WithoutInquiryHandler_ThrowsArgumentNullException()
+        public void Constructor_WithoutInquiryHelper_ThrowsArgumentNullException()
         {
             // Setup
             var mockRepository = new MockRepository();
@@ -83,7 +83,7 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("inquiryHandler", paramName);
+            Assert.AreEqual("inquiryHelper", paramName);
             mockRepository.VerifyAll();
         }
 
@@ -92,12 +92,12 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
         {
             // Setup
             var mockRepository = new MockRepository();
-            var inquiryHandler = mockRepository.Stub<IInquiryHelper>();
+            var inquiryHelper = mockRepository.Stub<IInquiryHelper>();
             var failureMechanism = mockRepository.Stub<IFailureMechanism>();
             mockRepository.ReplayAll();
 
             // Call
-            var handler = new FailureMechanismCalculationChangeHandler(failureMechanism, string.Empty, inquiryHandler);
+            var handler = new FailureMechanismCalculationChangeHandler(failureMechanism, string.Empty, inquiryHelper);
 
             // Assert
             Assert.IsInstanceOf<IConfirmDataChangeHandler>(handler);
@@ -109,12 +109,12 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
         {
             // Setup
             var mockRepository = new MockRepository();
-            var inquiryHandler = mockRepository.StrictMock<IInquiryHelper>();
+            var inquiryHelper = mockRepository.StrictMock<IInquiryHelper>();
             mockRepository.ReplayAll();
 
             var failureMechanism = new TestFailureMechanism(Enumerable.Empty<ICalculation>());
 
-            var handler = new FailureMechanismCalculationChangeHandler(failureMechanism, string.Empty, inquiryHandler);
+            var handler = new FailureMechanismCalculationChangeHandler(failureMechanism, string.Empty, inquiryHelper);
 
             // Call
             bool requireConfirmation = handler.RequireConfirmation();
@@ -129,7 +129,7 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
         {
             // Setup
             var mockRepository = new MockRepository();
-            var inquiryHandler = mockRepository.StrictMock<IInquiryHelper>();
+            var inquiryHelper = mockRepository.StrictMock<IInquiryHelper>();
 
             var calculation = mockRepository.StrictMock<ICalculation>();
             calculation.Expect(calc => calc.HasOutput).Return(false);
@@ -140,7 +140,7 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
                 calculation
             });
 
-            var handler = new FailureMechanismCalculationChangeHandler(failureMechanism, string.Empty, inquiryHandler);
+            var handler = new FailureMechanismCalculationChangeHandler(failureMechanism, string.Empty, inquiryHelper);
 
             // Call
             bool requireConfirmation = handler.RequireConfirmation();
@@ -155,7 +155,7 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
         {
             // Setup
             var mockRepository = new MockRepository();
-            var inquiryHandler = mockRepository.StrictMock<IInquiryHelper>();
+            var inquiryHelper = mockRepository.StrictMock<IInquiryHelper>();
 
             var calculation = mockRepository.StrictMock<ICalculation>();
             calculation.Expect(calc => calc.HasOutput).Return(true);
@@ -166,7 +166,7 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
                 calculation
             });
 
-            var handler = new FailureMechanismCalculationChangeHandler(failureMechanism, string.Empty, inquiryHandler);
+            var handler = new FailureMechanismCalculationChangeHandler(failureMechanism, string.Empty, inquiryHelper);
 
             // Call
             bool requireConfirmation = handler.RequireConfirmation();
@@ -187,12 +187,12 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
         {
             // Setup
             var mockRepository = new MockRepository();
-            var inquiryHandler = mockRepository.StrictMock<IInquiryHelper>();
-            inquiryHandler.Expect(ih => ih.InquireContinuation(message)).Return(expectedResult);
+            var inquiryHelper = mockRepository.StrictMock<IInquiryHelper>();
+            inquiryHelper.Expect(ih => ih.InquireContinuation(message)).Return(expectedResult);
             var failureMechanism = mockRepository.Stub<IFailureMechanism>();
             mockRepository.ReplayAll();
 
-            var handler = new FailureMechanismCalculationChangeHandler(failureMechanism, message, inquiryHandler);
+            var handler = new FailureMechanismCalculationChangeHandler(failureMechanism, message, inquiryHelper);
 
             // Call
             bool result = handler.InquireConfirmation();
