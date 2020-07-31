@@ -61,28 +61,30 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Configurations
         /// </exception>
         public GrassCoverErosionInwardsCalculationConfigurationReader(string xmlFilePath)
             : base(xmlFilePath,
-                   Resources.GEKBConfiguratieSchema,
-                   new Dictionary<string, string>
-                   {
+                   new CalculationConfigurationSchemaDefinitions(
+                       Resources.GEKBConfiguratieSchema,
+                       new Dictionary<string, string>
                        {
-                           hbLocatieSchemaName, RiskeerCommonIOResources.HbLocatieSchema
-                       },
-                       {
-                           orientatieSchemaName, RiskeerCommonIOResources.OrientatieSchema
-                       },
-                       {
-                           golfReductieSchemaName, RiskeerCommonIOResources.GolfReductieSchema
-                       },
-                       {
-                           stochastSchemaName, RiskeerCommonIOResources.StochastSchema
-                       },
-                       {
-                           stochastStandaardafwijkingSchemaName, RiskeerCommonIOResources.StochastStandaardafwijkingSchema
-                       },
-                       {
-                           scenarioSchemaName, RiskeerCommonIOResources.ScenarioSchema
-                       }
-                   }) {}
+                           {
+                               hbLocatieSchemaName, RiskeerCommonIOResources.HbLocatieSchema
+                           },
+                           {
+                               orientatieSchemaName, RiskeerCommonIOResources.OrientatieSchema
+                           },
+                           {
+                               golfReductieSchemaName, RiskeerCommonIOResources.GolfReductieSchema
+                           },
+                           {
+                               stochastSchemaName, RiskeerCommonIOResources.StochastSchema
+                           },
+                           {
+                               stochastStandaardafwijkingSchemaName, RiskeerCommonIOResources.StochastStandaardafwijkingSchema
+                           },
+                           {
+                               scenarioSchemaName, RiskeerCommonIOResources.ScenarioSchema
+                           }
+                       }))
+        {}
 
         protected override GrassCoverErosionInwardsCalculationConfiguration ParseCalculationElement(XElement calculationElement)
         {

@@ -61,7 +61,7 @@ namespace Riskeer.HeightStructures.IO.Configurations
         /// </list>
         /// </exception>
         public HeightStructuresCalculationConfigurationReader(string filePath)
-            : base(filePath,
+            : base(filePath,new CalculationConfigurationSchemaDefinitions(
                    Resources.KunstwerkenHoogteSchema,
                    new Dictionary<string, string>
                    {
@@ -92,7 +92,7 @@ namespace Riskeer.HeightStructures.IO.Configurations
                        {
                            scenarioSchemaName, RiskeerCommonIOResources.ScenarioSchema
                        }
-                   }) {}
+                   })) {}
 
         protected override HeightStructuresCalculationConfiguration ParseCalculationElement(XElement calculationElement)
         {

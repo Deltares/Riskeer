@@ -62,7 +62,7 @@ namespace Riskeer.StabilityPointStructures.IO.Configurations
         /// </list>
         /// </exception>
         public StabilityPointStructuresCalculationConfigurationReader(string filePath)
-            : base(filePath,
+            : base(filePath, new CalculationConfigurationSchemaDefinitions(
                    Resources.StabilityPointStructuresConfigurationSchema,
                    new Dictionary<string, string>
                    {
@@ -93,8 +93,7 @@ namespace Riskeer.StabilityPointStructures.IO.Configurations
                        {
                            scenarioSchemaName, RiskeerCommonIOResources.ScenarioSchema
                        }
-                   }
-            ) {}
+                   })) {}
 
         protected override StabilityPointStructuresCalculationConfiguration ParseCalculationElement(XElement calculationElement)
         {

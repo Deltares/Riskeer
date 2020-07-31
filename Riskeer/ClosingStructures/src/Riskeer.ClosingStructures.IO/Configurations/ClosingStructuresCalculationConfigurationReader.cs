@@ -62,7 +62,7 @@ namespace Riskeer.ClosingStructures.IO.Configurations
         /// </list>
         /// </exception>
         public ClosingStructuresCalculationConfigurationReader(string filePath)
-            : base(filePath,
+            : base(filePath, new CalculationConfigurationSchemaDefinitions(
                    Resources.KunstwerkenBetrouwbaarheidSluitenSchema,
                    new Dictionary<string, string>
                    {
@@ -93,7 +93,7 @@ namespace Riskeer.ClosingStructures.IO.Configurations
                        {
                            scenarioSchemaName, RiskeerCommonIOResources.ScenarioSchema
                        }
-                   }) {}
+                   })) {}
 
         protected override ClosingStructuresCalculationConfiguration ParseCalculationElement(XElement calculationElement)
         {

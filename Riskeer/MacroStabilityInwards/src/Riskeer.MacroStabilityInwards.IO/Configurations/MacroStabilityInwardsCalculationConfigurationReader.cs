@@ -59,7 +59,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Configurations
         /// </list>
         /// </exception>
         internal MacroStabilityInwardsCalculationConfigurationReader(string xmlFilePath)
-            : base(xmlFilePath,
+            : base(xmlFilePath, new CalculationConfigurationSchemaDefinitions(
                    Resources.MacroStabiliteitBinnenwaartsConfiguratieSchema,
                    new Dictionary<string, string>
                    {
@@ -75,7 +75,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Configurations
                        {
                            slopeStabilityGridsSchemaName, Resources.MacroStabiliteitBinnenwaartsGridsSchema
                        }
-                   }) {}
+                   })) {}
 
         protected override MacroStabilityInwardsCalculationConfiguration ParseCalculationElement(XElement calculationElement)
         {

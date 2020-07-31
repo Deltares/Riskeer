@@ -62,7 +62,8 @@ namespace Riskeer.Revetment.IO.Configurations
         /// </list>
         /// </exception>
         protected WaveConditionsCalculationConfigurationReader(string xmlFilePath, string mainSchemaDefinition)
-            : base(xmlFilePath, mainSchemaDefinition,
+            : base(xmlFilePath,new CalculationConfigurationSchemaDefinitions(
+                       mainSchemaDefinition,
                    new Dictionary<string, string>
                    {
                        {
@@ -80,7 +81,7 @@ namespace Riskeer.Revetment.IO.Configurations
                        {
                            waveReductionSchemaName, RiskeerCommonIOResources.GolfReductieSchema
                        }
-                   }) {}
+                   })) {}
 
         protected abstract override T ParseCalculationElement(XElement calculationElement);
 

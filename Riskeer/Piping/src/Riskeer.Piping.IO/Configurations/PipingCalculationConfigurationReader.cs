@@ -56,7 +56,7 @@ namespace Riskeer.Piping.IO.Configurations
         /// </list>
         /// </exception>
         internal PipingCalculationConfigurationReader(string xmlFilePath)
-            : base(xmlFilePath,
+            : base(xmlFilePath, new CalculationConfigurationSchemaDefinitions(
                    Resources.PipingConfiguratieSchema,
                    new Dictionary<string, string>
                    {
@@ -69,7 +69,7 @@ namespace Riskeer.Piping.IO.Configurations
                        {
                            scenarioSchemaName, RiskeerCommonIOResources.ScenarioSchema
                        }
-                   }) {}
+                   })) {}
 
         protected override PipingCalculationConfiguration ParseCalculationElement(XElement calculationElement)
         {
