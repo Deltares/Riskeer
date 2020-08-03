@@ -35,7 +35,6 @@ namespace Riskeer.Piping.KernelWrapper.Test.SubCalculator
 
             // Assert
             Assert.IsInstanceOf<IHeaveCalculator>(calculator);
-            Assert.AreEqual(0.0, calculator.Zh);
             Assert.AreEqual(0.0, calculator.FoSh);
         }
     }

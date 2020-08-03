@@ -32,12 +32,7 @@ namespace Riskeer.Piping.KernelWrapper.SubCalculator
         /// Gets the vertical outflow gradient.
         /// </summary>
         double Gradient { get; }
-
-        /// <summary>
-        /// Gets the z-value.
-        /// </summary>
-        double Zh { get; }
-
+        
         /// <summary>
         /// Gets the factor of safety.
         /// </summary>
