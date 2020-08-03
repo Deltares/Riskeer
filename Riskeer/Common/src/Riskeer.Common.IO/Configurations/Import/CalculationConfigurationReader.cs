@@ -23,7 +23,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Schema;
@@ -75,17 +74,6 @@ namespace Riskeer.Common.IO.Configurations.Import
 
             xmlDocument = LoadDocument(xmlFilePath);
 
-            // Versie check XSD Versie 2 | Full XSD Versie 2 (inclusief nested) | Versie 1 naar Versie 2 XSLT
-            // Versie check XSD Versie 1 | Full XSD Versie 1 (inclusief nested) | Versie 0 naar Versie 1 XSLT
-            // Versie check XSD Versie 0 | Full XSD Versie 0 (inclusief nested) | -
-            
-            // < xs:element name = "configuratie"  >
-            //    
-            //      attribute versie op 2
-            //
-            //
-            //     </ xs:element >
-
             CalculationConfigurationSchemaDefinition matchingSchemaDefinition = GetMatchingSchemaDefinition(schemaDefinitions);
             if (matchingSchemaDefinition == null)
             {
@@ -93,12 +81,28 @@ namespace Riskeer.Common.IO.Configurations.Import
             }
 
             ValidateToSchema(xmlDocument, xmlFilePath, matchingSchemaDefinition.MainSchemaDefinition, matchingSchemaDefinition.NestedSchemaDefinitions);
-            
+
             ValidateNotEmpty(xmlDocument, xmlFilePath);
 
-            // Migrate
+            // Migrate with XSLT
             // ...
         }
+
+        /// <summary>
+        /// Reads the calculation configuration from the XML and creates a collection of corresponding <see cref="IConfigurationItem"/>.
+        /// </summary>
+        /// <returns>A collection of read <see cref="IConfigurationItem"/>.</returns>
+        public IEnumerable<IConfigurationItem> Read()
+        {
+            return ParseElements(xmlDocument.Root?.Elements());
+        }
+
+        /// <summary>
+        /// Parses a read calculation element.
+        /// </summary>
+        /// <param name="calculationElement">The read calculation element to parse.</param>
+        /// <returns>A parsed <see cref="TReadCalculation"/>.</returns>
+        protected abstract TReadCalculation ParseCalculationElement(XElement calculationElement);
 
         private CalculationConfigurationSchemaDefinition GetMatchingSchemaDefinition(IEnumerable<CalculationConfigurationSchemaDefinition> schemaDefinitions)
         {
@@ -122,22 +126,6 @@ namespace Riskeer.Common.IO.Configurations.Import
 
             return null;
         }
-
-        /// <summary>
-        /// Reads the calculation configuration from the XML and creates a collection of corresponding <see cref="IConfigurationItem"/>.
-        /// </summary>
-        /// <returns>A collection of read <see cref="IConfigurationItem"/>.</returns>
-        public IEnumerable<IConfigurationItem> Read()
-        {
-            return ParseElements(xmlDocument.Root?.Elements());
-        }
-
-        /// <summary>
-        /// Parses a read calculation element.
-        /// </summary>
-        /// <param name="calculationElement">The read calculation element to parse.</param>
-        /// <returns>A parsed <see cref="TReadCalculation"/>.</returns>
-        protected abstract TReadCalculation ParseCalculationElement(XElement calculationElement);
 
         /// <summary>
         /// Validates whether a file exists at the provided <paramref name="xmlFilePath"/>.
