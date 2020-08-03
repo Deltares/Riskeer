@@ -42,11 +42,8 @@ namespace Riskeer.Piping.KernelWrapper
                 throw new ArgumentNullException(nameof(constructionProperties));
             }
 
-            UpliftZValue = constructionProperties.UpliftZValue;
             UpliftFactorOfSafety = constructionProperties.UpliftFactorOfSafety;
-            HeaveZValue = constructionProperties.HeaveZValue;
             HeaveFactorOfSafety = constructionProperties.HeaveFactorOfSafety;
-            SellmeijerZValue = constructionProperties.SellmeijerZValue;
             SellmeijerFactorOfSafety = constructionProperties.SellmeijerFactorOfSafety;
             UpliftEffectiveStress = constructionProperties.UpliftEffectiveStress;
             HeaveGradient = constructionProperties.HeaveGradient;
@@ -65,11 +62,8 @@ namespace Riskeer.Piping.KernelWrapper
             /// </summary>
             public ConstructionProperties()
             {
-                UpliftZValue = double.NaN;
                 UpliftFactorOfSafety = double.NaN;
-                HeaveZValue = double.NaN;
                 HeaveFactorOfSafety = double.NaN;
-                SellmeijerZValue = double.NaN;
                 SellmeijerFactorOfSafety = double.NaN;
                 UpliftEffectiveStress = double.NaN;
                 HeaveGradient = double.NaN;
@@ -79,30 +73,15 @@ namespace Riskeer.Piping.KernelWrapper
             }
 
             /// <summary>
-            /// Sets the z-value of the Uplift sub calculation.
-            /// </summary>
-            public double UpliftZValue { internal get; set; }
-
-            /// <summary>
             /// Sets the factor of safety of the Uplift sub calculation.
             /// </summary>
             public double UpliftFactorOfSafety { internal get; set; }
-
-            /// <summary>
-            /// Sets the z-value of the Heave sub calculation.
-            /// </summary>
-            public double HeaveZValue { internal get; set; }
-
+            
             /// <summary>
             /// Sets the factor of safety of the Heave sub calculation.
             /// </summary>
             public double HeaveFactorOfSafety { internal get; set; }
-
-            /// <summary>
-            /// Sets the z-value of the Sellmeijer sub calculation.
-            /// </summary>
-            public double SellmeijerZValue { internal get; set; }
-
+            
             /// <summary>
             /// Sets the factor of safety of the Sellmeijer sub calculation.
             /// </summary>
@@ -135,32 +114,17 @@ namespace Riskeer.Piping.KernelWrapper
         }
 
         #region Properties
-
-        /// <summary>
-        /// Gets the z-value of the Uplift sub calculation.
-        /// </summary>
-        public double UpliftZValue { get; }
-
+        
         /// <summary>
         /// Gets the factor of safety of the Uplift sub calculation.
         /// </summary>
         public double UpliftFactorOfSafety { get; }
-
-        /// <summary>
-        /// Gets the z-value of the Heave sub calculation.
-        /// </summary>
-        public double HeaveZValue { get; }
-
+        
         /// <summary>
         /// Gets the factor of safety of the Heave sub calculation.
         /// </summary>
         public double HeaveFactorOfSafety { get; }
-
-        /// <summary>
-        /// Gets the z-value of the Sellmeijer sub calculation.
-        /// </summary>
-        public double SellmeijerZValue { get; }
-
+        
         /// <summary>
         /// Gets the factor of safety of the Sellmeijer sub calculation.
         /// </summary>
