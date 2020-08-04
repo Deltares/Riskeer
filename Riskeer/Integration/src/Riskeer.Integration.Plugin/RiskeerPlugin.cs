@@ -27,6 +27,7 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Base.Data;
+using Core.Common.Base.Service;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
@@ -760,15 +761,6 @@ namespace Riskeer.Integration.Plugin
                 FileFilterGenerator = CreateForeshoreProfileFileFilterGenerator,
                 IsEnabled = context => HasGeometry(context.ParentAssessmentSection.ReferenceLine),
                 VerifyUpdates = context => VerifyForeshoreProfileUpdates(context, Resources.RiskeerPlugin_VerifyForeshoreProfileUpdates_When_importing_ForeshoreProfile_definitions_assigned_to_calculations_output_will_be_cleared_confirm)
-            };
-
-            yield return new ImportInfo<HydraulicBoundaryDatabaseContext>
-            {
-                CreateFileImporter = (context, filePath) => new HydraulicBoundaryDatabaseImporter(
-                    context.WrappedData, new HydraulicBoundaryDatabaseUpdateHandler(context.AssessmentSection,
-                                                                                    new DuneLocationsReplacementHandler(
-                                                                                        Gui.ViewCommands, context.AssessmentSection.DuneErosion)),
-                    filePath)
             };
         }
 
@@ -2282,17 +2274,11 @@ namespace Riskeer.Integration.Plugin
                                                         {
                                                             HydraulicBoundaryDatabase hydraulicBoundaryDatabase = nodeData.WrappedData;
 
-                                                            var dialog = hydraulicBoundaryDatabase.IsLinked()
-                                                                             ? new HydraulicBoundaryDatabaseImporterSettingsDialog(Gui.MainWindow, GetInquiryHelper(),
-                                                                                                                                   new HydraulicBoundaryDatabaseImporterSettings(
-                                                                                                                                       hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.FilePath,
-                                                                                                                                       hydraulicBoundaryDatabase.HrdDirectory,
-                                                                                                                                       hydraulicBoundaryDatabase.LocationsFilePath))
-                                                                             : new HydraulicBoundaryDatabaseImporterSettingsDialog(Gui.MainWindow, GetInquiryHelper());
+                                                            HydraulicBoundaryDatabaseImporterSettingsDialog dialog = CreateHydraulicBoundaryDatabaseImporterSettingsDialog(hydraulicBoundaryDatabase);
 
                                                             if (dialog.ShowDialog() == DialogResult.OK)
                                                             {
-
+                                                                RunHydraulicBoundaryDatabaseImport(nodeData, hydraulicBoundaryDatabase);
                                                             }
                                                         });
 
@@ -2318,6 +2304,27 @@ namespace Riskeer.Integration.Plugin
                           .AddSeparator()
                           .AddPropertiesItem()
                           .Build();
+        }
+
+        private HydraulicBoundaryDatabaseImporterSettingsDialog CreateHydraulicBoundaryDatabaseImporterSettingsDialog(HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
+        {
+            return hydraulicBoundaryDatabase.IsLinked()
+                       ? new HydraulicBoundaryDatabaseImporterSettingsDialog(Gui.MainWindow, GetInquiryHelper(),
+                                                                             new HydraulicBoundaryDatabaseImporterSettings(
+                                                                                 hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.FilePath,
+                                                                                 hydraulicBoundaryDatabase.HrdDirectory,
+                                                                                 hydraulicBoundaryDatabase.LocationsFilePath))
+                       : new HydraulicBoundaryDatabaseImporterSettingsDialog(Gui.MainWindow, GetInquiryHelper());
+        }
+
+        private void RunHydraulicBoundaryDatabaseImport(HydraulicBoundaryDatabaseContext nodeData, HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
+        {
+            var importer = new HydraulicBoundaryDatabaseImporter(hydraulicBoundaryDatabase,
+                                                                 new HydraulicBoundaryDatabaseUpdateHandler(nodeData.AssessmentSection,
+                                                                                                            new DuneLocationsReplacementHandler(Gui.ViewCommands, nodeData.AssessmentSection.DuneErosion)),
+                                                                 "");
+
+            ActivityProgressDialogRunner.Run(Gui.MainWindow, new FileImportActivity(importer, RiskeerFormsResources.RiskeerPlugin_RunHydraulicBoundaryDatabaseImport_Connecting_to_database));
         }
 
         private ContextMenuStrip DesignWaterLevelCalculationsGroupContextMenuStrip(DesignWaterLevelCalculationsGroupContext nodeData, object parentData, TreeViewControl treeViewControl)

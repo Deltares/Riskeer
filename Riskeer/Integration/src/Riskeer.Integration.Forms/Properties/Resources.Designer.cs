@@ -1119,6 +1119,15 @@ namespace Riskeer.Integration.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Koppelen aan hydraulische belastingendatabase.
+        /// </summary>
+        public static string RiskeerPlugin_RunHydraulicBoundaryDatabaseImport_Connecting_to_database {
+            get {
+                return ResourceManager.GetString("RiskeerPlugin_RunHydraulicBoundaryDatabaseImport_Connecting_to_database", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Korte beschrijving van het project..
         /// </summary>
         public static string RiskeerProjectProperties_Description_Description {

@@ -482,4 +482,7 @@ Daarbij gaan de huidige berekeningsresultaten voor belastingen op trajectniveau 
   <data name="HydraulicBoundaryDatabaseImporterSettingsDialog_FileFilterGenerator_description_locations" xml:space="preserve">
     <value>Locatie bestand</value>
   </data>
+  <data name="RiskeerPlugin_RunHydraulicBoundaryDatabaseImport_Connecting_to_database" xml:space="preserve">
+    <value>Koppelen aan hydraulische belastingendatabase</value>
+  </data>
 </root>
