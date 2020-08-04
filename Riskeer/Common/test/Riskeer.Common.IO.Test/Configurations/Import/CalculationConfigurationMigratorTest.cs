@@ -78,6 +78,22 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
             Assert.IsTrue(XNode.DeepEquals(expectedXmlDocument, migratedXDocument));
         }
 
+        [Test]
+        public void Migrate_InvalidMigrationScript_ThrowsCalculationConfigurationMigrationException()
+        {
+            // Setup
+            string xslt = File.ReadAllText(Path.Combine(testDirectoryPath, "InvalidMigrationScript.xslt"));
+            XDocument xmlDocument = GetDefaultXDocument();
+
+            // Call
+            void Call() => CalculationConfigurationMigrator.Migrate(xmlDocument, xslt);
+
+            // Assert
+            var exception = Assert.Throws<CalculationConfigurationMigrationException>(Call);
+            Assert.IsInstanceOf<InvalidOperationException>(exception.InnerException);
+            Assert.AreEqual(exception.InnerException.Message, exception.Message);
+        }
+
         private static XDocument GetDefaultXDocument()
         {
             var xDocument = new XDocument();

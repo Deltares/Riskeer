@@ -41,6 +41,8 @@ namespace Riskeer.Common.IO.Configurations.Import
         /// <returns>The migrated <see cref="XDocument"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="xmlDocument"/>
         /// is <c>null</c>.</exception>
+        /// <exception cref="CalculationConfigurationMigrationException">Thrown when
+        /// something went wrong while migrating.</exception>
         public static XDocument Migrate(XDocument xmlDocument, string migrationScriptDefinition)
         {
             if (xmlDocument == null)
@@ -50,18 +52,34 @@ namespace Riskeer.Common.IO.Configurations.Import
 
             var stringBuilder = new StringBuilder();
 
-            XslCompiledTransform transformer = CreateTransformer(migrationScriptDefinition);
-
-            using (var writer = XmlWriter.Create(stringBuilder))
+            try
             {
-                transformer.Transform(xmlDocument.CreateReader(ReaderOptions.None), writer);
-                writer.Close();
-                writer.Flush();
+                XslCompiledTransform transformer = CreateTransformer(migrationScriptDefinition);
+
+                using (var writer = XmlWriter.Create(stringBuilder))
+                {
+                    transformer.Transform(xmlDocument.CreateReader(ReaderOptions.None), writer);
+                    writer.Close();
+                    writer.Flush();
+                }
+            }
+            catch (Exception e) when (e is InvalidOperationException 
+                                      || e is XsltException
+                                      || e is IOException)
+            {
+                throw new CalculationConfigurationMigrationException(e.Message, e);
             }
 
             return XDocument.Parse(stringBuilder.ToString());
         }
 
+        /// <summary>
+        /// Creates a new <see cref="XslCompiledTransform"/>.
+        /// </summary>
+        /// <param name="migrationScriptDefinition">The migration script definition.</param>
+        /// <returns>The created <see cref="XslCompiledTransform"/>.</returns>
+        /// <exception cref="XsltException">Thrown when <paramref name="migrationScriptDefinition"/>
+        /// is invalid.</exception>
         private static XslCompiledTransform CreateTransformer(string migrationScriptDefinition)
         {
             var xslCompiledTransform = new XslCompiledTransform();
