@@ -85,11 +85,11 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
         public void Constructor_NoFilePath_ThrowArgumentException(string invalidFilePath)
         {
             // Call
-            TestDelegate call = () => new CalculationConfigurationReader(invalidFilePath, validMainSchemaDefinition, new Dictionary<string, string>());
+            void Call() => new CalculationConfigurationReader(invalidFilePath, validMainSchemaDefinition, new Dictionary<string, string>());
 
             // Assert
             string expectedMessage = $"Fout bij het lezen van bestand '{invalidFilePath}': bestandspad mag niet leeg of ongedefinieerd zijn.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(Call, expectedMessage);
         }
 
         [Test]
@@ -101,12 +101,12 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
             string invalidFilePath = validFilePath.Replace("Config", invalidPathChars[3].ToString());
 
             // Call
-            TestDelegate call = () => new CalculationConfigurationReader(invalidFilePath, validMainSchemaDefinition, new Dictionary<string, string>());
+            void Call() => new CalculationConfigurationReader(invalidFilePath, validMainSchemaDefinition, new Dictionary<string, string>());
 
             // Assert
             string expectedMessage = $"Fout bij het lezen van bestand '{invalidFilePath}': "
                                      + "er zitten ongeldige tekens in het bestandspad. Alle tekens in het bestandspad moeten geldig zijn.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(Call, expectedMessage);
         }
 
         [Test]
@@ -116,11 +116,11 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
             string invalidFilePath = Path.Combine(testDirectoryPath, Path.DirectorySeparatorChar.ToString());
 
             // Call
-            TestDelegate call = () => new CalculationConfigurationReader(invalidFilePath, validMainSchemaDefinition, new Dictionary<string, string>());
+            void Call() => new CalculationConfigurationReader(invalidFilePath, validMainSchemaDefinition, new Dictionary<string, string>());
 
             // Assert
             string expectedMessage = $"Fout bij het lezen van bestand '{invalidFilePath}': bestandspad mag niet verwijzen naar een lege bestandsnaam.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(Call, expectedMessage);
         }
 
         [Test]
@@ -130,11 +130,11 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
             string invalidFilePath = Path.Combine(testDirectoryPath, "notExisting.xml");
 
             // Call
-            TestDelegate call = () => new CalculationConfigurationReader(invalidFilePath, validMainSchemaDefinition, new Dictionary<string, string>());
+            void Call() => new CalculationConfigurationReader(invalidFilePath, validMainSchemaDefinition, new Dictionary<string, string>());
 
             // Assert
             string expectedMessage = $"Fout bij het lezen van bestand '{invalidFilePath}': het bestand bestaat niet.";
-            string message = Assert.Throws<CriticalFileReadException>(call).Message;
+            string message = Assert.Throws<CriticalFileReadException>(Call).Message;
             Assert.AreEqual(expectedMessage, message);
         }
 
@@ -146,10 +146,10 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
             string filePath = Path.Combine(testDirectoryPath, fileName);
 
             // Call
-            TestDelegate call = () => new CalculationConfigurationReader(filePath, validMainSchemaDefinition, new Dictionary<string, string>());
+            void Call() => new CalculationConfigurationReader(filePath, validMainSchemaDefinition, new Dictionary<string, string>());
 
             // Assert
-            var exception = Assert.Throws<CriticalFileReadException>(call);
+            var exception = Assert.Throws<CriticalFileReadException>(Call);
             string expectedMessage = $"Fout bij het lezen van bestand '{filePath}': " +
                                      "het XML-document dat de configuratie voor de berekeningen beschrijft is niet geldig. " +
                                      $"De validatie geeft de volgende melding: {expectedInnerMessage}";
@@ -169,11 +169,11 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
                 fileDisposeHelper.LockFiles();
 
                 // Call
-                TestDelegate call = () => new CalculationConfigurationReader(path, validMainSchemaDefinition, new Dictionary<string, string>());
+                void Call() => new CalculationConfigurationReader(path, validMainSchemaDefinition, new Dictionary<string, string>());
 
                 // Assert
                 string expectedMessage = $"Fout bij het lezen van bestand '{path}': het bestand kon niet worden geopend. Mogelijk is het bestand corrupt of in gebruik door een andere applicatie.";
-                var exception = Assert.Throws<CriticalFileReadException>(call);
+                var exception = Assert.Throws<CriticalFileReadException>(Call);
                 Assert.AreEqual(expectedMessage, exception.Message);
                 Assert.IsInstanceOf<IOException>(exception.InnerException);
             }
@@ -187,10 +187,10 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
             string xsdPath = Path.Combine(testDirectoryPath, "mainSchemaDefinitionNotReferencingDefaultSchema.xsd");
 
             // Call
-            TestDelegate call = () => new CalculationConfigurationReader(filePath, File.ReadAllText(xsdPath), new Dictionary<string, string>());
+            void Call() => new CalculationConfigurationReader(filePath, File.ReadAllText(xsdPath), new Dictionary<string, string>());
 
             // Assert
-            var exception = Assert.Throws<ArgumentException>(call);
+            var exception = Assert.Throws<ArgumentException>(Call);
             Assert.AreEqual("'mainSchemaDefinition' does not reference the default schema 'ConfiguratieSchema.xsd'.", exception.Message);
         }
 
@@ -202,10 +202,10 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
             string filePath = Path.Combine(testDirectoryPath, fileName);
 
             // Call
-            TestDelegate call = () => new CalculationConfigurationReader(filePath, validMainSchemaDefinition, new Dictionary<string, string>());
+            void Call() => new CalculationConfigurationReader(filePath, validMainSchemaDefinition, new Dictionary<string, string>());
 
             // Assert
-            var exception = Assert.Throws<CriticalFileReadException>(call);
+            var exception = Assert.Throws<CriticalFileReadException>(Call);
             Assert.IsInstanceOf<XmlSchemaValidationException>(exception.InnerException);
             Assert.IsTrue(exception.InnerException?.Message.Contains(expectedParsingMessage));
         }
@@ -217,13 +217,13 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
             string filePath = Path.Combine(testDirectoryPath, "invalidFolderNoName.xml");
 
             // Call
-            TestDelegate call = () => new CalculationConfigurationReader(filePath, validMainSchemaDefinition, new Dictionary<string, string>());
+            void Call() => new CalculationConfigurationReader(filePath, validMainSchemaDefinition, new Dictionary<string, string>());
 
             // Assert
             string expectedMessage = $"Fout bij het lezen van bestand '{filePath}': het XML-document dat de configuratie" +
                                      " voor de berekeningen beschrijft is niet geldig. De validatie geeft de volgende melding" +
                                      " op regel 3, positie 4: The required attribute \'naam\' is missing.";
-            var exception = Assert.Throws<CriticalFileReadException>(call);
+            var exception = Assert.Throws<CriticalFileReadException>(Call);
             Assert.AreEqual(expectedMessage, exception.Message);
         }
 
@@ -234,13 +234,13 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
             string filePath = Path.Combine(testDirectoryPath, "emptyConfiguration.xml");
 
             // Call
-            TestDelegate call = () => new CalculationConfigurationReader(filePath, validMainSchemaDefinition, new Dictionary<string, string>());
+            void Call() => new CalculationConfigurationReader(filePath, validMainSchemaDefinition, new Dictionary<string, string>());
 
             // Assert
             string expectedMessage = $"Fout bij het lezen van bestand '{filePath}': " +
                                      "het XML-document dat de configuratie voor de berekeningen beschrijft, " +
                                      "moet mappen en/of berekeningen bevatten.";
-            var exception = Assert.Throws<CriticalFileReadException>(call);
+            var exception = Assert.Throws<CriticalFileReadException>(Call);
             Assert.AreEqual(expectedMessage, exception.Message);
         }
 
@@ -251,10 +251,10 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
             string filePath = Path.Combine(testDirectoryPath, "validConfiguration.xml");
 
             // Call
-            TestDelegate call = () => new CalculationConfigurationReader(filePath, validMainSchemaDefinition, new Dictionary<string, string>());
+            void Call() => new CalculationConfigurationReader(filePath, validMainSchemaDefinition, new Dictionary<string, string>());
 
             // Assert
-            Assert.DoesNotThrow(call);
+            Assert.DoesNotThrow(Call);
         }
 
         [Test]
@@ -350,7 +350,8 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
                                                   IDictionary<string, string> nestedSchemaDefinitions)
                 : base(xmlFilePath, new[]
                 {
-                    new CalculationConfigurationSchemaDefinition(mainSchemaDefinition, nestedSchemaDefinitions)
+                    new CalculationConfigurationSchemaDefinition(
+                        mainSchemaDefinition, nestedSchemaDefinitions)
                 }) {}
 
             protected override ReadCalculation ParseCalculationElement(XElement calculationElement)

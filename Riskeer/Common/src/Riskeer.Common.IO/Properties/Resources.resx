@@ -876,4 +876,7 @@ Deze locatie met karakteristieke punten wordt overgeslagen.</value>
   <data name="DikeProfilesImporter_Invalid_dike_geometry_file_0_skipped" xml:space="preserve">
     <value>Profielgegevens definiëren geen geldige dijkgeometrie. De dijkgeometrie moet bestaan uit tenminste 2 punten. Bestand '{0}' wordt overgeslagen.</value>
   </data>
+  <data name="VersieSchema" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\VersieSchema.xsd;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
 </root>

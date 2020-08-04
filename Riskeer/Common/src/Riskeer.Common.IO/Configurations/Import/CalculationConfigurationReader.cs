@@ -74,18 +74,19 @@ namespace Riskeer.Common.IO.Configurations.Import
 
             xmlDocument = LoadDocument(xmlFilePath);
 
-            CalculationConfigurationSchemaDefinition matchingSchemaDefinition = GetMatchingSchemaDefinition(schemaDefinitions);
-            if (matchingSchemaDefinition == null)
-            {
-                return;
-            }
+            int versionNumber = GetVersionNumber();
 
-            ValidateToSchema(xmlDocument, xmlFilePath, matchingSchemaDefinition.MainSchemaDefinition, matchingSchemaDefinition.NestedSchemaDefinitions);
+            // Check of versienummer bestaat in lijst
+            // if (!schemaDefinitions.Any(schemaDefinition => schemaDefinition.VersionNumber == versionNumber))
+            // {
+            //     throw new Exception();
+            // }
+
+            ValidateToSchema(xmlDocument, xmlFilePath, schemaDefinitions.ElementAt(versionNumber).MainSchemaDefinition, schemaDefinitions.ElementAt(versionNumber).NestedSchemaDefinitions);
 
             ValidateNotEmpty(xmlDocument, xmlFilePath);
 
-            // Migrate with XSLT
-            // ...
+            //XmlMigrator.Migrate(xmlDocument, schemaDefinitions, );
         }
 
         /// <summary>
@@ -104,27 +105,24 @@ namespace Riskeer.Common.IO.Configurations.Import
         /// <returns>A parsed <see cref="TReadCalculation"/>.</returns>
         protected abstract TReadCalculation ParseCalculationElement(XElement calculationElement);
 
-        private CalculationConfigurationSchemaDefinition GetMatchingSchemaDefinition(IEnumerable<CalculationConfigurationSchemaDefinition> schemaDefinitions)
+        private int GetVersionNumber()
         {
-            for (var i = 0; i < schemaDefinitions.Count(); i++)
+            int versionNumber;
+            try
             {
-                try
-                {
-                    CalculationConfigurationSchemaDefinition current = schemaDefinitions.ElementAt(i);
+                var combinedXmlSchemaDefinition = new CombinedXmlSchemaDefinition(Resources.VersieSchema, new Dictionary<string, string>());
 
-                    var combinedXmlSchemaDefinition = new CombinedXmlSchemaDefinition(current.VersionSchemaDefinition, new Dictionary<string, string>());
+                combinedXmlSchemaDefinition.Validate(xmlDocument);
 
-                    combinedXmlSchemaDefinition.Validate(xmlDocument);
-
-                    return current;
-                }
-                catch (XmlSchemaValidationException)
-                {
-                    // Do nothing and continue search
-                }
+                var versionNumberString = xmlDocument.Elements("configuration").Attributes("versie").ToString();
+                versionNumber = int.Parse(versionNumberString);
+            }
+            catch (XmlSchemaValidationException)
+            {
+                versionNumber = 0;
             }
 
-            return null;
+            return versionNumber;
         }
 
         /// <summary>

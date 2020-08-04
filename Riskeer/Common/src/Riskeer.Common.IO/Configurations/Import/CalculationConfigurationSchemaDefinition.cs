@@ -28,48 +28,32 @@ namespace Riskeer.Common.IO.Configurations.Import
     /// </summary>
     public class CalculationConfigurationSchemaDefinition
     {
-        private string mainSchemaDefinition;
-        private IDictionary<string, string> nestedSchemaDefinitions;
-        private string versionSchemaDefinition;
-
         /// <summary>
         /// Creates a new instance of <see cref="CalculationConfigurationSchemaDefinition"/>.
         /// </summary>
         /// <param name="mainSchemaDefinition">The main schema definition xsd.</param>
         /// <param name="nestedSchemaDefinitions">The nested schema definition xsd.</param>
-        /// <param name="versionSchemaDefinition">The version schema definition xsd.</param>
-        public CalculationConfigurationSchemaDefinition(string mainSchemaDefinition, IDictionary<string, string> nestedSchemaDefinitions, string versionSchemaDefinition = null)
+        /// <param name="versionNumber">The version number of the xml that is read.</param>
+        public CalculationConfigurationSchemaDefinition(string mainSchemaDefinition, IDictionary<string, string> nestedSchemaDefinitions, int versionNumber = 0)
         {
             MainSchemaDefinition = mainSchemaDefinition;
             NestedSchemaDefinitions = nestedSchemaDefinitions;
-            VersionSchemaDefinition = versionSchemaDefinition;
+            VersionNumber = versionNumber;
         }
 
         /// <summary>
         /// Gets or sets the version schema definition.
         /// </summary>
-        public string VersionSchemaDefinition
-        {
-            get => versionSchemaDefinition;
-            private set => versionSchemaDefinition = value;
-        }
+        public int VersionNumber { get; private set; }
 
         /// <summary>
         /// Gets or sets the main schema definition.
         /// </summary>
-        public string MainSchemaDefinition
-        {
-            get => mainSchemaDefinition;
-            private set => mainSchemaDefinition = value;
-        }
+        public string MainSchemaDefinition { get; private set; }
 
         /// <summary>
         /// Gets or sets the nested schema definitions.
         /// </summary>
-        public IDictionary<string, string> NestedSchemaDefinitions
-        {
-            get => nestedSchemaDefinitions;
-            private set => nestedSchemaDefinitions = value;
-        }
+        public IDictionary<string, string> NestedSchemaDefinitions { get; private set; }
     }
 }
