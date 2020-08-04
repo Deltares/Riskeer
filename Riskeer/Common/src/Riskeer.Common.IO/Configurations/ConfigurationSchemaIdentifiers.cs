@@ -32,6 +32,11 @@ namespace Riskeer.Common.IO.Configurations
         public const string ConfigurationElement = "configuratie";
 
         /// <summary>
+        /// The identifier for version attributes.
+        /// </summary>
+        public const string VersionAttribute = "versie";
+
+        /// <summary>
         /// The identifier for calculation elements.
         /// </summary>
         public const string CalculationElement = "berekening";

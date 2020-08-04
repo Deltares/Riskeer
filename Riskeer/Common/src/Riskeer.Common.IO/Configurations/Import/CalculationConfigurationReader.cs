@@ -114,7 +114,7 @@ namespace Riskeer.Common.IO.Configurations.Import
 
                 combinedXmlSchemaDefinition.Validate(xmlDocument);
 
-                string versionNumberString = xmlDocument.Element("configuratie").Attribute("versie").Value;
+                string versionNumberString = xmlDocument.Element(ConfigurationSchemaIdentifiers.ConfigurationElement).Attribute(ConfigurationSchemaIdentifiers.VersionAttribute).Value;
                 versionNumber = int.Parse(versionNumberString);
             }
             catch (XmlSchemaValidationException)

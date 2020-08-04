@@ -31,6 +31,7 @@ namespace Riskeer.Common.IO.Test.Configurations
         public void ConfigurationSchemaIdentifiers_ExpectedValues()
         {
             Assert.AreEqual("configuratie", ConfigurationSchemaIdentifiers.ConfigurationElement);
+            Assert.AreEqual("versie", ConfigurationSchemaIdentifiers.VersionAttribute);
             Assert.AreEqual("berekening", ConfigurationSchemaIdentifiers.CalculationElement);
             Assert.AreEqual("map", ConfigurationSchemaIdentifiers.FolderElement);
             Assert.AreEqual("naam", ConfigurationSchemaIdentifiers.NameAttribute);
