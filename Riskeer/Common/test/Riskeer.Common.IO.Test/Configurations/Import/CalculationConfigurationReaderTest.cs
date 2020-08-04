@@ -99,7 +99,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
         public void Constructor_NoFilePath_ThrowArgumentException(string invalidFilePath)
         {
             // Call
-            void Call() => new CalculationConfigurationReader(invalidFilePath, new List<CalculationConfigurationSchemaDefinition>
+            void Call() => new CalculationConfigurationReader(invalidFilePath, new[]
             {
                 new CalculationConfigurationSchemaDefinition(0, validMainSchemaDefinition, new Dictionary<string, string>())
             });
@@ -118,7 +118,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
             string invalidFilePath = validFilePath.Replace("Config", invalidPathChars[3].ToString());
 
             // Call
-            void Call() => new CalculationConfigurationReader(invalidFilePath, new List<CalculationConfigurationSchemaDefinition>
+            void Call() => new CalculationConfigurationReader(invalidFilePath, new[]
             {
                 new CalculationConfigurationSchemaDefinition(0, validMainSchemaDefinition, new Dictionary<string, string>())
             });
@@ -136,7 +136,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
             string invalidFilePath = Path.Combine(testDirectoryPath, Path.DirectorySeparatorChar.ToString());
 
             // Call
-            void Call() => new CalculationConfigurationReader(invalidFilePath, new List<CalculationConfigurationSchemaDefinition>
+            void Call() => new CalculationConfigurationReader(invalidFilePath, new[]
             {
                 new CalculationConfigurationSchemaDefinition(0, validMainSchemaDefinition, new Dictionary<string, string>())
             });
@@ -153,7 +153,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
             string invalidFilePath = Path.Combine(testDirectoryPath, "notExisting.xml");
 
             // Call
-            void Call() => new CalculationConfigurationReader(invalidFilePath, new List<CalculationConfigurationSchemaDefinition>
+            void Call() => new CalculationConfigurationReader(invalidFilePath, new[]
             {
                 new CalculationConfigurationSchemaDefinition(0, validMainSchemaDefinition, new Dictionary<string, string>())
             });
@@ -172,7 +172,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
             string filePath = Path.Combine(testDirectoryPath, fileName);
 
             // Call
-            void Call() => new CalculationConfigurationReader(filePath, new List<CalculationConfigurationSchemaDefinition>
+            void Call() => new CalculationConfigurationReader(filePath, new[]
             {
                 new CalculationConfigurationSchemaDefinition(0, validMainSchemaDefinition, new Dictionary<string, string>())
             });
@@ -198,7 +198,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
                 fileDisposeHelper.LockFiles();
 
                 // Call
-                void Call() => new CalculationConfigurationReader(path, new List<CalculationConfigurationSchemaDefinition>
+                void Call() => new CalculationConfigurationReader(path, new[]
                 {
                     new CalculationConfigurationSchemaDefinition(0, validMainSchemaDefinition, new Dictionary<string, string>())
                 });
@@ -219,7 +219,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
             string xsdPath = Path.Combine(testDirectoryPath, "mainSchemaDefinitionNotReferencingDefaultSchema.xsd");
 
             // Call
-            void Call() => new CalculationConfigurationReader(filePath, new List<CalculationConfigurationSchemaDefinition>
+            void Call() => new CalculationConfigurationReader(filePath, new[]
             {
                 new CalculationConfigurationSchemaDefinition(0, File.ReadAllText(xsdPath), new Dictionary<string, string>())
             });
@@ -237,7 +237,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
             string filePath = Path.Combine(testDirectoryPath, fileName);
 
             // Call
-            void Call() => new CalculationConfigurationReader(filePath, new List<CalculationConfigurationSchemaDefinition>
+            void Call() => new CalculationConfigurationReader(filePath, new[]
             {
                 new CalculationConfigurationSchemaDefinition(0, validMainSchemaDefinition, new Dictionary<string, string>())
             });
@@ -255,7 +255,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
             string filePath = Path.Combine(testDirectoryPath, "invalidFolderNoName.xml");
 
             // Call
-            void Call() => new CalculationConfigurationReader(filePath, new List<CalculationConfigurationSchemaDefinition>
+            void Call() => new CalculationConfigurationReader(filePath, new[]
             {
                 new CalculationConfigurationSchemaDefinition(0, validMainSchemaDefinition, new Dictionary<string, string>())
             });
@@ -275,7 +275,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
             string filePath = Path.Combine(testDirectoryPath, "emptyConfiguration.xml");
 
             // Call
-            void Call() => new CalculationConfigurationReader(filePath, new List<CalculationConfigurationSchemaDefinition>
+            void Call() => new CalculationConfigurationReader(filePath, new[]
             {
                 new CalculationConfigurationSchemaDefinition(0, validMainSchemaDefinition, new Dictionary<string, string>())
             });
@@ -295,7 +295,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
             string filePath = Path.Combine(testDirectoryPath, "validConfiguration.xml");
 
             // Call
-            void Call() => new CalculationConfigurationReader(filePath, new List<CalculationConfigurationSchemaDefinition>
+            void Call() => new CalculationConfigurationReader(filePath, new[]
             {
                 new CalculationConfigurationSchemaDefinition(0, validMainSchemaDefinition, new Dictionary<string, string>())
             });
@@ -311,7 +311,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
             string filePath = Path.Combine(testDirectoryPath, "validConfigurationInvalidVersionNumber.xml");
 
             // Call
-            void Call() => new CalculationConfigurationReader(filePath, new List<CalculationConfigurationSchemaDefinition>
+            void Call() => new CalculationConfigurationReader(filePath, new[]
             {
                 new CalculationConfigurationSchemaDefinition(0, validMainSchemaDefinition, new Dictionary<string, string>())
             });
@@ -328,7 +328,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
         {
             // Setup
             string filePath = Path.Combine(testDirectoryPath, "validConfigurationEmptyFolder.xml");
-            var calculationConfigurationReader = new CalculationConfigurationReader(filePath, new List<CalculationConfigurationSchemaDefinition>
+            var calculationConfigurationReader = new CalculationConfigurationReader(filePath, new[]
             {
                 new CalculationConfigurationSchemaDefinition(0, validMainSchemaDefinition, new Dictionary<string, string>())
             });
@@ -349,7 +349,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
         {
             // Setup
             string filePath = Path.Combine(testDirectoryPath, "validConfiguration.xml");
-            var calculationConfigurationReader = new CalculationConfigurationReader(filePath, new List<CalculationConfigurationSchemaDefinition>
+            var calculationConfigurationReader = new CalculationConfigurationReader(filePath, new[]
             {
                 new CalculationConfigurationSchemaDefinition(0, validMainSchemaDefinition, new Dictionary<string, string>())
             });
@@ -417,7 +417,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
 
         private class CalculationConfigurationReader : CalculationConfigurationReader<ReadCalculation>
         {
-            public CalculationConfigurationReader(string xmlFilePath, IEnumerable<CalculationConfigurationSchemaDefinition> schemaDefinitions)
+            public CalculationConfigurationReader(string xmlFilePath, CalculationConfigurationSchemaDefinition[] schemaDefinitions)
                 : base(xmlFilePath, schemaDefinitions) {}
 
             protected override ReadCalculation ParseCalculationElement(XElement calculationElement)

@@ -50,7 +50,7 @@ namespace Riskeer.Common.IO.Configurations.Import
         /// Creates a new instance of <see cref="CalculationConfigurationReader{TReadCalculation}"/>.
         /// </summary>
         /// <param name="xmlFilePath">The file path to the XML file.</param>
-        /// <param name="schemaDefinitions">The <see cref="CalculationConfigurationSchemaDefinition"/>.</param>
+        /// <param name="schemaDefinitions">The array of <see cref="CalculationConfigurationSchemaDefinition"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="schemaDefinitions"/>
         /// is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when:
@@ -66,7 +66,7 @@ namespace Riskeer.Common.IO.Configurations.Import
         /// <item><paramref name="xmlFilePath"/> points to a file that does not contain configuration elements.</item>
         /// </list>
         /// </exception>
-        protected CalculationConfigurationReader(string xmlFilePath, IEnumerable<CalculationConfigurationSchemaDefinition> schemaDefinitions)
+        protected CalculationConfigurationReader(string xmlFilePath, CalculationConfigurationSchemaDefinition[] schemaDefinitions)
         {
             if (schemaDefinitions == null)
             {
