@@ -43,6 +43,7 @@ namespace Riskeer.Common.IO.Configurations.Import
         where TReadCalculation : IConfigurationItem
     {
         private const string defaultSchemaName = "ConfiguratieSchema.xsd";
+        private readonly string xmlFilePath;
 
         private XDocument xmlDocument;
 
@@ -75,22 +76,19 @@ namespace Riskeer.Common.IO.Configurations.Import
 
             IOUtils.ValidateFilePath(xmlFilePath);
 
-            ValidateFileExists(xmlFilePath);
+            this.xmlFilePath = xmlFilePath;
 
-            xmlDocument = LoadDocument(xmlFilePath);
+            ValidateFileExists();
 
-            CalculationConfigurationSchemaDefinition schemaDefinition = GetSchemaDefinition(schemaDefinitions, xmlFilePath);
+            xmlDocument = LoadDocument();
 
-            ValidateToSchema(xmlDocument, xmlFilePath, schemaDefinition.MainSchemaDefinition, schemaDefinition.NestedSchemaDefinitions);
+            CalculationConfigurationSchemaDefinition schemaDefinition = GetSchemaDefinition(schemaDefinitions);
 
-            ValidateNotEmpty(xmlDocument, xmlFilePath);
+            ValidateToSchema(schemaDefinition.MainSchemaDefinition, schemaDefinition.NestedSchemaDefinitions);
 
-            int index = Array.IndexOf(schemaDefinitions, schemaDefinition);
+            ValidateNotEmpty();
 
-            for (int i = index + 1; i < schemaDefinitions.Length; i++)
-            {
-                MigrateToNewSchema(schemaDefinitions[i].MigrationScript, xmlFilePath);
-            }
+            MigrateWhenNeeded(schemaDefinitions, schemaDefinition);
         }
 
         /// <summary>
@@ -113,11 +111,10 @@ namespace Riskeer.Common.IO.Configurations.Import
         /// Gets the correct schema definition depending on the version.
         /// </summary>
         /// <param name="schemaDefinitions">All the schema definitions.</param>
-        /// <param name="xmlFilePath">The file path to the XML file.</param>
         /// <returns>The schema definition that belongs to the XML file.</returns>
         /// <exception cref="CriticalFileReadException">Thrown when the version
         /// from the XML file is not supported.</exception>
-        private CalculationConfigurationSchemaDefinition GetSchemaDefinition(IEnumerable<CalculationConfigurationSchemaDefinition> schemaDefinitions, string xmlFilePath)
+        private CalculationConfigurationSchemaDefinition GetSchemaDefinition(IEnumerable<CalculationConfigurationSchemaDefinition> schemaDefinitions)
         {
             int versionNumber;
 
@@ -149,12 +146,30 @@ namespace Riskeer.Common.IO.Configurations.Import
         }
 
         /// <summary>
+        /// Migrates the XML document to newer versions when needed/
+        /// </summary>
+        /// <param name="schemaDefinitions">All the schema definitions.</param>
+        /// <param name="schemaDefinition">The schema definition for the version
+        /// of the XML document.</param>
+        /// <exception cref="CriticalFileReadException">Thrown when something goes wrong
+        /// while migrating.</exception>
+        private void MigrateWhenNeeded(CalculationConfigurationSchemaDefinition[] schemaDefinitions, CalculationConfigurationSchemaDefinition schemaDefinition)
+        {
+            int index = Array.IndexOf(schemaDefinitions, schemaDefinition);
+
+            for (int i = index + 1; i < schemaDefinitions.Length; i++)
+            {
+                MigrateToNewSchema(schemaDefinitions[i].MigrationScript);
+            }
+        }
+
+        /// <summary>
         /// Migrates the <see cref="xmlDocument"/> with the given <paramref name="migrationScript"/>.
         /// </summary>
         /// <param name="migrationScript">The script to perform the migration with.</param>
         /// <exception cref="CriticalFileReadException">Thrown when something goes wrong
         /// while migrating.</exception>
-        private void MigrateToNewSchema(string migrationScript, string xmlFilePath)
+        private void MigrateToNewSchema(string migrationScript)
         {
             try
             {
@@ -170,11 +185,10 @@ namespace Riskeer.Common.IO.Configurations.Import
         }
 
         /// <summary>
-        /// Validates whether a file exists at the provided <paramref name="xmlFilePath"/>.
+        /// Validates whether a file exists at the <see cref="xmlFilePath"/>.
         /// </summary>
-        /// <param name="xmlFilePath">The file path to validate.</param>
         /// <exception cref="CriticalFileReadException">Thrown when no existing file is found.</exception>
-        private static void ValidateFileExists(string xmlFilePath)
+        private void ValidateFileExists()
         {
             if (!File.Exists(xmlFilePath))
             {
@@ -186,11 +200,11 @@ namespace Riskeer.Common.IO.Configurations.Import
         }
 
         /// <summary>
-        /// Loads an XML document from the provided <see cref="xmlFilePath"/>.
+        /// Loads an XML document from the <see cref="xmlFilePath"/>.
         /// </summary>
-        /// <param name="xmlFilePath">The file path to load the XML document from.</param>
-        /// <exception cref="CriticalFileReadException">Thrown when the XML document cannot be loaded.</exception>
-        private static XDocument LoadDocument(string xmlFilePath)
+        /// <exception cref="CriticalFileReadException">Thrown when
+        /// the XML document cannot be loaded.</exception>
+        private XDocument LoadDocument()
         {
             try
             {
@@ -214,19 +228,16 @@ namespace Riskeer.Common.IO.Configurations.Import
         }
 
         /// <summary>
-        /// Validates the provided XML document based on the provided schema definitions.
+        /// Validates the XML document based on the provided schema definitions.
         /// </summary>
-        /// <param name="document">The XML document to validate.</param>
-        /// <param name="xmlFilePath">The file path the XML document is loaded from.</param>
         /// <param name="mainSchemaDefinition">A <c>string</c> representing the main schema definition.</param>
         /// <param name="nestedSchemaDefinitions">A <see cref="IDictionary{TKey,TValue}"/> containing
         /// zero to more nested schema definitions</param>
-        /// <exception cref="CriticalFileReadException">Thrown when the provided XML document does not match
+        /// <exception cref="CriticalFileReadException">Thrown when the XML document does not match
         /// the provided schema definitions.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="mainSchemaDefinition"/> does not
         /// reference the default schema definition <c>ConfiguratieSchema.xsd</c>.</exception>
-        private static void ValidateToSchema(XDocument document, string xmlFilePath, string mainSchemaDefinition,
-                                             IDictionary<string, string> nestedSchemaDefinitions)
+        private void ValidateToSchema(string mainSchemaDefinition, IDictionary<string, string> nestedSchemaDefinitions)
         {
             if (!mainSchemaDefinition.Contains(defaultSchemaName))
             {
@@ -240,7 +251,7 @@ namespace Riskeer.Common.IO.Configurations.Import
 
             try
             {
-                combinedXmlSchemaDefinition.Validate(document);
+                combinedXmlSchemaDefinition.Validate(xmlDocument);
             }
             catch (XmlSchemaValidationException exception)
             {
@@ -254,16 +265,15 @@ namespace Riskeer.Common.IO.Configurations.Import
         }
 
         /// <summary>
-        /// Validates whether the provided XML document is not empty.
+        /// Validates whether the XML document is not empty.
         /// </summary>
-        /// <param name="document">The XML document to validate.</param>
-        /// <param name="xmlFilePath">The file path the XML document is loaded from.</param>
-        /// <exception cref="CriticalFileReadException">Thrown when the provided XML document does not contain configuration items.</exception>
-        private static void ValidateNotEmpty(XDocument document, string xmlFilePath)
+        /// <exception cref="CriticalFileReadException">Thrown when the XML document
+        /// does not contain configuration items.</exception>
+        private void ValidateNotEmpty()
         {
-            if (!document.Descendants()
-                         .Any(d => d.Name == ConfigurationSchemaIdentifiers.CalculationElement
-                                   || d.Name == ConfigurationSchemaIdentifiers.FolderElement))
+            if (!xmlDocument.Descendants()
+                            .Any(d => d.Name == ConfigurationSchemaIdentifiers.CalculationElement
+                                      || d.Name == ConfigurationSchemaIdentifiers.FolderElement))
             {
                 string message = new FileReaderErrorMessageBuilder(xmlFilePath)
                     .Build(Resources.CalculationConfigurationReader_No_configuration_items_found);

@@ -64,13 +64,9 @@ namespace Riskeer.Common.IO.Configurations.Import
                 using (var writer = XmlWriter.Create(stringBuilder))
                 {
                     transformer.Transform(xmlDocument.CreateReader(ReaderOptions.None), writer);
-                    writer.Close();
-                    writer.Flush();
                 }
             }
-            catch (Exception e) when (e is InvalidOperationException 
-                                      || e is XsltException
-                                      || e is IOException)
+            catch (Exception e)
             {
                 throw new CalculationConfigurationMigrationException(e.Message, e);
             }
