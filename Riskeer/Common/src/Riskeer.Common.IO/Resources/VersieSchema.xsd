@@ -22,9 +22,11 @@ All rights reserved.
 -->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
 
-  <!--Generieke definitie van het versienummer van het bestand.-->
   <xs:element name="configuratie">
     <xs:complexType>
+      <xs:sequence>
+        <xs:any processContents="skip" minOccurs="0" maxOccurs="unbounded" />
+      </xs:sequence>
       <xs:attribute name="versie" use="required">
         <xs:simpleType>
           <xs:restriction base="xs:int"/>

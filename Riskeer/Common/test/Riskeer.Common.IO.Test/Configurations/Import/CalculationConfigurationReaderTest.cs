@@ -258,6 +258,22 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
         }
 
         [Test]
+        public void Constructor_InvalidVersionNumber_ThrowCriticalFileReadException()
+        {
+            // Setup
+            string filePath = Path.Combine(testDirectoryPath, "validConfigurationInvalidVersionNumber.xml");
+
+            // Call
+            void Call() => new CalculationConfigurationReader(filePath, validMainSchemaDefinition, new Dictionary<string, string>());
+
+            // Assert
+            string expectedMessage = $"Fout bij het lezen van bestand '{filePath}': " +
+                                     "het versienummer van het bestand wordt niet ondersteund.";
+            var exception = Assert.Throws<CriticalFileReadException>(Call);
+            Assert.AreEqual(expectedMessage, exception.Message);
+        }
+
+        [Test]
         public void Read_ValidConfigurationWithEmptyFolder_ReturnExpectedReadCalculationGroup()
         {
             // Setup

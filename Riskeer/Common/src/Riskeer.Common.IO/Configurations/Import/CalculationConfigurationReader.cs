@@ -74,19 +74,19 @@ namespace Riskeer.Common.IO.Configurations.Import
 
             xmlDocument = LoadDocument(xmlFilePath);
 
-            int versionNumber = GetVersionNumber();
+            int versionNumber = GetSchemaDefinition();
 
-            // Check of versienummer bestaat in lijst
-            // if (!schemaDefinitions.Any(schemaDefinition => schemaDefinition.VersionNumber == versionNumber))
-            // {
-            //     throw new Exception();
-            // }
+            if (!schemaDefinitions.Any(schemaDefinition => schemaDefinition.VersionNumber == versionNumber))
+            {
+                string message = new FileReaderErrorMessageBuilder(xmlFilePath)
+                    .Build("Het versienummer van het bestand wordt niet ondersteund.");
+
+                throw new CriticalFileReadException(message);
+            }
 
             ValidateToSchema(xmlDocument, xmlFilePath, schemaDefinitions.ElementAt(versionNumber).MainSchemaDefinition, schemaDefinitions.ElementAt(versionNumber).NestedSchemaDefinitions);
 
             ValidateNotEmpty(xmlDocument, xmlFilePath);
-
-            //XmlMigrator.Migrate(xmlDocument, schemaDefinitions, );
         }
 
         /// <summary>
@@ -105,7 +105,7 @@ namespace Riskeer.Common.IO.Configurations.Import
         /// <returns>A parsed <see cref="TReadCalculation"/>.</returns>
         protected abstract TReadCalculation ParseCalculationElement(XElement calculationElement);
 
-        private int GetVersionNumber()
+        private int GetSchemaDefinition()
         {
             int versionNumber;
             try
@@ -114,7 +114,7 @@ namespace Riskeer.Common.IO.Configurations.Import
 
                 combinedXmlSchemaDefinition.Validate(xmlDocument);
 
-                var versionNumberString = xmlDocument.Elements("configuration").Attributes("versie").ToString();
+                string versionNumberString = xmlDocument.Element("configuratie").Attribute("versie").Value;
                 versionNumber = int.Parse(versionNumberString);
             }
             catch (XmlSchemaValidationException)
