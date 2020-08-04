@@ -51,7 +51,7 @@ namespace Riskeer.Common.IO.Configurations.Import
         /// </summary>
         /// <param name="xmlFilePath">The file path to the XML file.</param>
         /// <param name="schemaDefinitions">The <see cref="CalculationConfigurationSchemaDefinition"/>.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="nestedSchemaDefinitions"/>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="schemaDefinitions"/>
         /// is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when:
         /// <list type="bullet">
@@ -68,23 +68,20 @@ namespace Riskeer.Common.IO.Configurations.Import
         /// </exception>
         protected CalculationConfigurationReader(string xmlFilePath, IEnumerable<CalculationConfigurationSchemaDefinition> schemaDefinitions)
         {
+            if (schemaDefinitions == null)
+            {
+                throw new ArgumentNullException(nameof(schemaDefinitions));
+            }
+
             IOUtils.ValidateFilePath(xmlFilePath);
 
             ValidateFileExists(xmlFilePath);
 
             xmlDocument = LoadDocument(xmlFilePath);
 
-            int versionNumber = GetSchemaDefinition();
-
-            if (!schemaDefinitions.Any(schemaDefinition => schemaDefinition.VersionNumber == versionNumber))
-            {
-                string message = new FileReaderErrorMessageBuilder(xmlFilePath)
-                    .Build("Het versienummer van het bestand wordt niet ondersteund.");
-
-                throw new CriticalFileReadException(message);
-            }
-
-            ValidateToSchema(xmlDocument, xmlFilePath, schemaDefinitions.ElementAt(versionNumber).MainSchemaDefinition, schemaDefinitions.ElementAt(versionNumber).NestedSchemaDefinitions);
+            CalculationConfigurationSchemaDefinition schemaDefinition = GetSchemaDefinition(schemaDefinitions, xmlFilePath);
+            
+            ValidateToSchema(xmlDocument, xmlFilePath, schemaDefinition.MainSchemaDefinition, schemaDefinition.NestedSchemaDefinitions);
 
             ValidateNotEmpty(xmlDocument, xmlFilePath);
         }
@@ -105,9 +102,18 @@ namespace Riskeer.Common.IO.Configurations.Import
         /// <returns>A parsed <see cref="TReadCalculation"/>.</returns>
         protected abstract TReadCalculation ParseCalculationElement(XElement calculationElement);
 
-        private int GetSchemaDefinition()
+        /// <summary>
+        /// Gets the correct schema definition depending on the version.
+        /// </summary>
+        /// <param name="schemaDefinitions">All the schema definitions.</param>
+        /// <param name="xmlFilePath">The file path to the XML file.</param>
+        /// <returns>The schema definition that belongs to the XML file.</returns>
+        /// <exception cref="CriticalFileReadException">Thrown when the version
+        /// from the XML file is not supported.</exception>
+        private CalculationConfigurationSchemaDefinition GetSchemaDefinition(IEnumerable<CalculationConfigurationSchemaDefinition> schemaDefinitions, string xmlFilePath)
         {
             int versionNumber;
+
             try
             {
                 var combinedXmlSchemaDefinition = new CombinedXmlSchemaDefinition(Resources.VersieSchema, new Dictionary<string, string>());
@@ -122,7 +128,17 @@ namespace Riskeer.Common.IO.Configurations.Import
                 versionNumber = 0;
             }
 
-            return versionNumber;
+            CalculationConfigurationSchemaDefinition schemaDefinition = schemaDefinitions.SingleOrDefault(sd => sd.VersionNumber == versionNumber);
+
+            if (schemaDefinition == null)
+            {
+                string message = new FileReaderErrorMessageBuilder(xmlFilePath)
+                    .Build(Resources.CalculationConfigurationReader_GetSchemaDefinition_Not_supported_version);
+
+                throw new CriticalFileReadException(message);
+            }
+
+            return schemaDefinition;
         }
 
         /// <summary>

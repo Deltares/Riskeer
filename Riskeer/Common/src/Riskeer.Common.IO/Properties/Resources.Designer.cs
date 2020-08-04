@@ -293,6 +293,15 @@ namespace Riskeer.Common.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Het versienummer van het bestand wordt niet ondersteund..
+        /// </summary>
+        public static string CalculationConfigurationReader_GetSchemaDefinition_Not_supported_version {
+            get {
+                return ResourceManager.GetString("CalculationConfigurationReader_GetSchemaDefinition_Not_supported_version", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Het XML-document dat de configuratie voor de berekeningen beschrijft, moet mappen en/of berekeningen bevatten..
         /// </summary>
         public static string CalculationConfigurationReader_No_configuration_items_found {
