@@ -19,7 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Core.Common.Base.IO;
 using Core.Common.IO.Readers;
 using Core.Common.TestUtil;
@@ -40,14 +42,14 @@ namespace Riskeer.HydraRing.IO.Test.HydraulicBoundaryDatabase
             string locationsFilePath = Path.Combine(testDataPath, "doesNotExist.sqlite");
 
             // Call
-            TestDelegate test = () =>
+            void Call()
             {
-                using (new LocationsFileReader(locationsFilePath)) { }
-            };
+                using (new LocationsFileReader(locationsFilePath)) {}
+            }
 
             // Assert
             string expectedMessage = $"Fout bij het lezen van bestand '{locationsFilePath}': het bestand bestaat niet.";
-            var exception = Assert.Throws<CriticalFileReadException>(test);
+            var exception = Assert.Throws<CriticalFileReadException>(Call);
             Assert.AreEqual(expectedMessage, exception.Message);
         }
 
@@ -57,14 +59,14 @@ namespace Riskeer.HydraRing.IO.Test.HydraulicBoundaryDatabase
         public void Constructor_PathNullOrEmpty_ThrowsCriticalFileReadException(string locationsFilePath)
         {
             // Call
-            TestDelegate test = () =>
+            void Call()
             {
-                using (new LocationsFileReader(locationsFilePath)) { }
-            };
+                using (new LocationsFileReader(locationsFilePath)) {}
+            }
 
             // Assert
             string expectedMessage = $"Fout bij het lezen van bestand '{locationsFilePath}': bestandspad mag niet leeg of ongedefinieerd zijn.";
-            var exception = Assert.Throws<CriticalFileReadException>(test);
+            var exception = Assert.Throws<CriticalFileReadException>(Call);
             Assert.AreEqual(expectedMessage, exception.Message);
         }
 
@@ -81,6 +83,32 @@ namespace Riskeer.HydraRing.IO.Test.HydraulicBoundaryDatabase
                 Assert.AreEqual(locationsFilePath, reader.Path);
                 Assert.IsInstanceOf<SqLiteDatabaseReaderBase>(reader);
             }
+        }
+
+        [Test]
+        public void ReadLocations_ValidFile_ReturnsExpectedLocations()
+        {
+            // Setup
+            string locationsFilePath = Path.Combine(testDataPath, "Locations.sqlite");
+
+            using (var reader = new LocationsFileReader(locationsFilePath))
+            {
+                // Call
+                IEnumerable<ReadLocation> readLocations = reader.ReadLocations().ToArray();
+
+                // Assert
+                Assert.AreEqual(164, readLocations.Count());
+                AssertReadLocation(readLocations.ElementAt(0), 700001, "10-1", "07_IJsselmeer_selectie_mu2017.sqlite");
+                AssertReadLocation(readLocations.ElementAt(41), 1000012, "40-1", "10_Waddenzee_west_selectie_mu2017.sqlite");
+            }
+        }
+
+        private static void AssertReadLocation(ReadLocation readLocation, int expectedLocationId,
+                                               string expectedAssessmentSectionName, string expectedHrdFileName)
+        {
+            Assert.AreEqual(expectedLocationId, readLocation.LocationId);
+            Assert.AreEqual(expectedAssessmentSectionName, readLocation.AssessmentSectionName);
+            Assert.AreEqual(expectedHrdFileName, readLocation.HrdFileName);
         }
     }
 }

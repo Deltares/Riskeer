@@ -19,7 +19,10 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
+using System.Data;
 using Core.Common.Base.IO;
+using Core.Common.IO.Exceptions;
 using Core.Common.IO.Readers;
 
 namespace Riskeer.HydraRing.IO.HydraulicBoundaryDatabase
@@ -40,5 +43,30 @@ namespace Riskeer.HydraRing.IO.HydraulicBoundaryDatabase
         /// </list>
         /// </exception>
         public LocationsFileReader(string databaseFilePath) : base(databaseFilePath) {}
+
+        /// <summary>
+        /// Reads the locations from the database.
+        /// </summary>
+        /// <exception cref="LineParseException">Thrown when the database contains incorrect values for required properties.</exception>
+        public IEnumerable<ReadLocation> ReadLocations()
+        {
+            using (IDataReader reader = CreateDataReader(GetLocationsQuery()))
+            {
+                while (MoveNext(reader))
+                {
+                    yield return new ReadLocation(reader.Read<long>("LocationId"),
+                                                  reader.Read<string>("Segment"),
+                                                  reader.Read<string>("HRDFileName"));
+                }
+            }
+        }
+
+        private static string GetLocationsQuery()
+        {
+            return "SELECT L.LocationId, L.Segment, T.HRDFileName " +
+                   "FROM Locations L " +
+                   "INNER JOIN Tracks T USING(TrackId) " +
+                   "WHERE L.TypeOfHydraulicDataId > 1;"; // Value > 1 makes it relevant
+        }
     }
 }
