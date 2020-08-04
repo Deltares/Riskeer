@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<configuratie versie="1">
+  <map naam="Group 1">
+    <berekening naam="Calculation 3" a="test1" />
+  </map>
+  <berekening naam="Calculation 1" a="test1" />
+  <map naam="Group 2">
+    <map naam="Group 4">
+      <berekening naam="Calculation 5" a="test1" />
+    </map>
+    <berekening naam="Calculation 4" a="test1" />
+  </map>
+  <berekening naam="Calculation 2" a="test1" />
+  <map naam="Group 3"/>
+</configuratie>

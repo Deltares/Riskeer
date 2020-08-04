@@ -24,14 +24,15 @@ All rights reserved.
 
   <!--Generieke definitie van het hoogste element in een bestand waarin alle 
   berekeningen en mappen kunnen worden opgenomen.-->
-  <xs:element name="configuratie">
-    <xs:complexType>
-      <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element ref="berekening"/>
-        <xs:element ref="map"/>
-      </xs:choice>
-    </xs:complexType>
-  </xs:element>
+  <xs:complexType name="configuratieType">
+    <xs:choice minOccurs="0" maxOccurs="unbounded">
+      <xs:element ref="berekening"/>
+      <xs:element ref="map"/>
+    </xs:choice>
+  </xs:complexType>
+
+  <!-- Basisdefinitie van een configuratie.-->
+  <xs:element name="configuratie" type="configuratieType" />
 
   <!--Definitie van een map die zichzelf recursief kan bevatten, maar ook 
   berekeningen kan bevatten.-->

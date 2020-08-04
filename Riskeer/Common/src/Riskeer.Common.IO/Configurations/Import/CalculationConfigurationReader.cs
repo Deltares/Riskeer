@@ -44,7 +44,7 @@ namespace Riskeer.Common.IO.Configurations.Import
     {
         private const string defaultSchemaName = "ConfiguratieSchema.xsd";
 
-        private readonly XDocument xmlDocument;
+        private XDocument xmlDocument;
 
         /// <summary>
         /// Creates a new instance of <see cref="CalculationConfigurationReader{TReadCalculation}"/>.
@@ -80,10 +80,17 @@ namespace Riskeer.Common.IO.Configurations.Import
             xmlDocument = LoadDocument(xmlFilePath);
 
             CalculationConfigurationSchemaDefinition schemaDefinition = GetSchemaDefinition(schemaDefinitions, xmlFilePath);
-            
+
             ValidateToSchema(xmlDocument, xmlFilePath, schemaDefinition.MainSchemaDefinition, schemaDefinition.NestedSchemaDefinitions);
 
             ValidateNotEmpty(xmlDocument, xmlFilePath);
+
+            int index = Array.IndexOf(schemaDefinitions, schemaDefinition);
+
+            for (int i = index + 1; i < schemaDefinitions.Length; i++)
+            {
+                MigrateToNewSchema(schemaDefinitions[i].MigrationScript, xmlFilePath);
+            }
         }
 
         /// <summary>
@@ -139,6 +146,27 @@ namespace Riskeer.Common.IO.Configurations.Import
             }
 
             return schemaDefinition;
+        }
+
+        /// <summary>
+        /// Migrates the <see cref="xmlDocument"/> with the given <paramref name="migrationScript"/>.
+        /// </summary>
+        /// <param name="migrationScript">The script to perform the migration with.</param>
+        /// <exception cref="CriticalFileReadException">Thrown when something goes wrong
+        /// while migrating.</exception>
+        private void MigrateToNewSchema(string migrationScript, string xmlFilePath)
+        {
+            try
+            {
+                xmlDocument = CalculationConfigurationMigrator.Migrate(xmlDocument, migrationScript);
+            }
+            catch (CalculationConfigurationMigrationException e)
+            {
+                string message = new FileReaderErrorMessageBuilder(xmlFilePath)
+                    .Build(Resources.CalculationConfigurationReader_MigrateToNewSchema_An_unexpected_error_occurred);
+
+                throw new CriticalFileReadException(message, e);
+            }
         }
 
         /// <summary>

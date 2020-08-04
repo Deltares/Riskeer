@@ -882,4 +882,7 @@ Deze locatie met karakteristieke punten wordt overgeslagen.</value>
   <data name="CalculationConfigurationReader_GetSchemaDefinition_Not_supported_version" xml:space="preserve">
     <value>Het versienummer van het bestand wordt niet ondersteund.</value>
   </data>
+  <data name="CalculationConfigurationReader_MigrateToNewSchema_An_unexpected_error_occurred" xml:space="preserve">
+    <value>er is een onverwachte fout opgetreden.</value>
+  </data>
 </root>

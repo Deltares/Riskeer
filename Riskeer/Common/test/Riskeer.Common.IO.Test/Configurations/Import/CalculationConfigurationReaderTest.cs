@@ -409,6 +409,79 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
             Assert.AreEqual("Calculation 5", calculation5.Name);
         }
 
+        [Test]
+        public void GivenCalculationConfigurationReader_WhenVersionIsZeroAndVersionOneAvailable_ThenCalculationConfigurationMigratedToVersionOne()
+        {
+            // Given
+            string filePath = Path.Combine(testDirectoryPath, "validConfiguration.xml");
+            string versionOneSchemaDefinition = File.ReadAllText(Path.Combine(testDirectoryPath, "validConfigurationSchema_1.xsd"));
+            string migrationDefinition = File.ReadAllText(Path.Combine(testDirectoryPath, "validConfigurationMigration0To1.xslt"));
+
+            // When
+            var calculationConfigurationReader = new CalculationConfigurationReader(filePath, new[]
+            {
+                new CalculationConfigurationSchemaDefinition(0, validMainSchemaDefinition, new Dictionary<string, string>(), null),
+                new CalculationConfigurationSchemaDefinition(1, versionOneSchemaDefinition, new Dictionary<string, string>(), migrationDefinition)
+            });
+            IConfigurationItem[] readConfigurationItems = calculationConfigurationReader.Read().ToArray();
+
+            // Then
+            Assert.IsTrue(readConfigurationItems.OfType<ReadCalculation>()
+                                                .Select(calc => calc.A)
+                                                .All(s => s == "test1"));
+        }
+
+        [Test]
+        public void GivenCalculationConfigurationReader_WhenVersionIsOneAndVersionThreeAvailable_ThenCalculationConfigurationMigratedToVersionThree()
+        {
+            // Given
+            string filePath = Path.Combine(testDirectoryPath, "validConfiguration_1.xml");
+            string versionOneSchemaDefinition = File.ReadAllText(Path.Combine(testDirectoryPath, "validConfigurationSchema_1.xsd"));
+            string versionTwoSchemaDefinition = File.ReadAllText(Path.Combine(testDirectoryPath, "validConfigurationSchema_2.xsd"));
+            string versionThreeSchemaDefinition = File.ReadAllText(Path.Combine(testDirectoryPath, "validConfigurationSchema_3.xsd"));
+            string migrationZeroOneDefinition = File.ReadAllText(Path.Combine(testDirectoryPath, "validConfigurationMigration0To1.xslt"));
+            string migrationOneTwoDefinition = File.ReadAllText(Path.Combine(testDirectoryPath, "validConfigurationMigration1To2.xslt"));
+            string migrationTwoThreeDefinition = File.ReadAllText(Path.Combine(testDirectoryPath, "validConfigurationMigration2To3.xslt"));
+
+            // When
+            var calculationConfigurationReader = new CalculationConfigurationReader(filePath, new[]
+            {
+                new CalculationConfigurationSchemaDefinition(0, validMainSchemaDefinition, new Dictionary<string, string>(), null),
+                new CalculationConfigurationSchemaDefinition(1, versionOneSchemaDefinition, new Dictionary<string, string>(), migrationZeroOneDefinition),
+                new CalculationConfigurationSchemaDefinition(2, versionTwoSchemaDefinition, new Dictionary<string, string>(), migrationOneTwoDefinition),
+                new CalculationConfigurationSchemaDefinition(3, versionThreeSchemaDefinition, new Dictionary<string, string>(), migrationTwoThreeDefinition)
+            });
+            IConfigurationItem[] readConfigurationItems = calculationConfigurationReader.Read().ToArray();
+
+            // Then
+            Assert.IsTrue(readConfigurationItems.OfType<ReadCalculation>()
+                                                .Select(calc => calc.A)
+                                                .All(s => s == "test3"));
+        }
+
+        [Test]
+        public void GivenCalculationConfigurationReader_WhenMigrationScriptIsValid_ThenCriticalFileReadExceptionIsThrown()
+        {
+            // Given
+            string filePath = Path.Combine(testDirectoryPath, "validConfiguration.xml");
+            string versionOneSchemaDefinition = File.ReadAllText(Path.Combine(testDirectoryPath, "validConfigurationSchema_1.xsd"));
+            string migrationDefinition = File.ReadAllText(Path.Combine(testDirectoryPath, "invalidMigrationScript.xslt"));
+
+            // When
+            void Call() => new CalculationConfigurationReader(filePath, new[]
+            {
+                new CalculationConfigurationSchemaDefinition(0, validMainSchemaDefinition, new Dictionary<string, string>(), null),
+                new CalculationConfigurationSchemaDefinition(1, versionOneSchemaDefinition, new Dictionary<string, string>(), migrationDefinition)
+            });
+
+            // Then
+            string expectedMessage = $"Fout bij het lezen van bestand '{filePath}': er is een onverwachte fout opgetreden.";
+
+            var exception = Assert.Throws<CriticalFileReadException>(Call);
+            Assert.AreEqual(expectedMessage, exception.Message);
+            Assert.IsInstanceOf<CalculationConfigurationMigrationException>(exception.InnerException);
+        }
+
         [OneTimeSetUp]
         public void OneTimeSetUp()
         {
@@ -422,18 +495,22 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
 
             protected override ReadCalculation ParseCalculationElement(XElement calculationElement)
             {
-                return new ReadCalculation(calculationElement.Attribute(ConfigurationSchemaIdentifiers.NameAttribute)?.Value);
+                return new ReadCalculation(calculationElement.Attribute(ConfigurationSchemaIdentifiers.NameAttribute)?.Value,
+                                           calculationElement.Attribute("a")?.Value);
             }
         }
 
         private class ReadCalculation : IConfigurationItem
         {
-            public ReadCalculation(string name)
+            public ReadCalculation(string name, string a)
             {
                 Name = name;
+                A = a;
             }
 
             public string Name { get; }
+
+            public string A { get; }
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2019. All rights reserved.
+// Copyright (C) Stichting Deltares 2019. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -298,6 +298,15 @@ namespace Riskeer.Common.IO.Properties {
         public static string CalculationConfigurationReader_GetSchemaDefinition_Not_supported_version {
             get {
                 return ResourceManager.GetString("CalculationConfigurationReader_GetSchemaDefinition_Not_supported_version", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to er is een onverwachte fout opgetreden..
+        /// </summary>
+        public static string CalculationConfigurationReader_MigrateToNewSchema_An_unexpected_error_occurred {
+            get {
+                return ResourceManager.GetString("CalculationConfigurationReader_MigrateToNewSchema_An_unexpected_error_occurred", resourceCulture);
             }
         }
         
