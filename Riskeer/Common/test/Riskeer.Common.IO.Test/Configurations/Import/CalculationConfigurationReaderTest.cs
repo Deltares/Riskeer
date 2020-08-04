@@ -40,7 +40,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
         private string validMainSchemaDefinition;
 
         private readonly string testDirectoryPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
-                                                                               "CalculationConfigurationReader");
+                                                                               nameof(CalculationConfigurationReader<IConfigurationItem>));
 
         private static IEnumerable<TestCaseData> InvalidConfigurations
         {
