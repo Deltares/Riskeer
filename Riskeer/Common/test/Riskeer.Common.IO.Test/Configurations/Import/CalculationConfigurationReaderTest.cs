@@ -101,7 +101,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
             // Call
             void Call() => new CalculationConfigurationReader(invalidFilePath, new List<CalculationConfigurationSchemaDefinition>
             {
-                new CalculationConfigurationSchemaDefinition(validMainSchemaDefinition, new Dictionary<string, string>())
+                new CalculationConfigurationSchemaDefinition(0, validMainSchemaDefinition, new Dictionary<string, string>())
             });
 
             // Assert
@@ -120,7 +120,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
             // Call
             void Call() => new CalculationConfigurationReader(invalidFilePath, new List<CalculationConfigurationSchemaDefinition>
             {
-                new CalculationConfigurationSchemaDefinition(validMainSchemaDefinition, new Dictionary<string, string>())
+                new CalculationConfigurationSchemaDefinition(0, validMainSchemaDefinition, new Dictionary<string, string>())
             });
 
             // Assert
@@ -138,7 +138,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
             // Call
             void Call() => new CalculationConfigurationReader(invalidFilePath, new List<CalculationConfigurationSchemaDefinition>
             {
-                new CalculationConfigurationSchemaDefinition(validMainSchemaDefinition, new Dictionary<string, string>())
+                new CalculationConfigurationSchemaDefinition(0, validMainSchemaDefinition, new Dictionary<string, string>())
             });
 
             // Assert
@@ -155,7 +155,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
             // Call
             void Call() => new CalculationConfigurationReader(invalidFilePath, new List<CalculationConfigurationSchemaDefinition>
             {
-                new CalculationConfigurationSchemaDefinition(validMainSchemaDefinition, new Dictionary<string, string>())
+                new CalculationConfigurationSchemaDefinition(0, validMainSchemaDefinition, new Dictionary<string, string>())
             });
 
             // Assert
@@ -174,7 +174,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
             // Call
             void Call() => new CalculationConfigurationReader(filePath, new List<CalculationConfigurationSchemaDefinition>
             {
-                new CalculationConfigurationSchemaDefinition(validMainSchemaDefinition, new Dictionary<string, string>())
+                new CalculationConfigurationSchemaDefinition(0, validMainSchemaDefinition, new Dictionary<string, string>())
             });
 
             // Assert
@@ -200,7 +200,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
                 // Call
                 void Call() => new CalculationConfigurationReader(path, new List<CalculationConfigurationSchemaDefinition>
                 {
-                    new CalculationConfigurationSchemaDefinition(validMainSchemaDefinition, new Dictionary<string, string>())
+                    new CalculationConfigurationSchemaDefinition(0, validMainSchemaDefinition, new Dictionary<string, string>())
                 });
 
                 // Assert
@@ -221,7 +221,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
             // Call
             void Call() => new CalculationConfigurationReader(filePath, new List<CalculationConfigurationSchemaDefinition>
             {
-                new CalculationConfigurationSchemaDefinition(File.ReadAllText(xsdPath), new Dictionary<string, string>())
+                new CalculationConfigurationSchemaDefinition(0, File.ReadAllText(xsdPath), new Dictionary<string, string>())
             });
 
             // Assert
@@ -239,7 +239,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
             // Call
             void Call() => new CalculationConfigurationReader(filePath, new List<CalculationConfigurationSchemaDefinition>
             {
-                new CalculationConfigurationSchemaDefinition(validMainSchemaDefinition, new Dictionary<string, string>())
+                new CalculationConfigurationSchemaDefinition(0, validMainSchemaDefinition, new Dictionary<string, string>())
             });
 
             // Assert
@@ -257,7 +257,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
             // Call
             void Call() => new CalculationConfigurationReader(filePath, new List<CalculationConfigurationSchemaDefinition>
             {
-                new CalculationConfigurationSchemaDefinition(validMainSchemaDefinition, new Dictionary<string, string>())
+                new CalculationConfigurationSchemaDefinition(0, validMainSchemaDefinition, new Dictionary<string, string>())
             });
 
             // Assert
@@ -277,7 +277,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
             // Call
             void Call() => new CalculationConfigurationReader(filePath, new List<CalculationConfigurationSchemaDefinition>
             {
-                new CalculationConfigurationSchemaDefinition(validMainSchemaDefinition, new Dictionary<string, string>())
+                new CalculationConfigurationSchemaDefinition(0, validMainSchemaDefinition, new Dictionary<string, string>())
             });
 
             // Assert
@@ -297,7 +297,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
             // Call
             void Call() => new CalculationConfigurationReader(filePath, new List<CalculationConfigurationSchemaDefinition>
             {
-                new CalculationConfigurationSchemaDefinition(validMainSchemaDefinition, new Dictionary<string, string>())
+                new CalculationConfigurationSchemaDefinition(0, validMainSchemaDefinition, new Dictionary<string, string>())
             });
 
             // Assert
@@ -313,7 +313,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
             // Call
             void Call() => new CalculationConfigurationReader(filePath, new List<CalculationConfigurationSchemaDefinition>
             {
-                new CalculationConfigurationSchemaDefinition(validMainSchemaDefinition, new Dictionary<string, string>())
+                new CalculationConfigurationSchemaDefinition(0, validMainSchemaDefinition, new Dictionary<string, string>())
             });
 
             // Assert
@@ -330,7 +330,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
             string filePath = Path.Combine(testDirectoryPath, "validConfigurationEmptyFolder.xml");
             var calculationConfigurationReader = new CalculationConfigurationReader(filePath, new List<CalculationConfigurationSchemaDefinition>
             {
-                new CalculationConfigurationSchemaDefinition(validMainSchemaDefinition, new Dictionary<string, string>())
+                new CalculationConfigurationSchemaDefinition(0, validMainSchemaDefinition, new Dictionary<string, string>())
             });
 
             // Call
@@ -351,7 +351,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
             string filePath = Path.Combine(testDirectoryPath, "validConfiguration.xml");
             var calculationConfigurationReader = new CalculationConfigurationReader(filePath, new List<CalculationConfigurationSchemaDefinition>
             {
-                new CalculationConfigurationSchemaDefinition(validMainSchemaDefinition, new Dictionary<string, string>())
+                new CalculationConfigurationSchemaDefinition(0, validMainSchemaDefinition, new Dictionary<string, string>())
             });
 
             // Call

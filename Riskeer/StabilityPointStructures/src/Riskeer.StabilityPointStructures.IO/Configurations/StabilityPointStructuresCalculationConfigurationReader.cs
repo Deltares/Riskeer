@@ -65,7 +65,7 @@ namespace Riskeer.StabilityPointStructures.IO.Configurations
             : base(filePath, new[]
             {
                 new CalculationConfigurationSchemaDefinition(
-                    Resources.StabilityPointStructuresConfigurationSchema,
+                    0, Resources.StabilityPointStructuresConfigurationSchema,
                     new Dictionary<string, string>
                     {
                         {

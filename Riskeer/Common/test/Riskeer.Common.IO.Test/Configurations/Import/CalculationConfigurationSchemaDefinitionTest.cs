@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using NUnit.Framework;
 using Riskeer.Common.IO.Configurations.Import;
@@ -26,21 +27,23 @@ using Riskeer.Common.IO.Configurations.Import;
 namespace Riskeer.Common.IO.Test.Configurations.Import
 {
     [TestFixture]
-    public class CalculationConfigurationSchemaDefinitionsTest
+    public class CalculationConfigurationSchemaDefinitionTest
     {
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup
+            int versionNumber = new Random(21).Next();
             const string mainSchemaDefinition = "mainSchemaDefinition";
             var nestedSchemaDefinitions = new Dictionary<string, string>();
 
             // Call
-            var schemaDefinitions = new CalculationConfigurationSchemaDefinition(mainSchemaDefinition, nestedSchemaDefinitions);
+            var schemaDefinition = new CalculationConfigurationSchemaDefinition(versionNumber, mainSchemaDefinition, nestedSchemaDefinitions);
 
             // Assert
-            Assert.AreEqual(mainSchemaDefinition, schemaDefinitions.MainSchemaDefinition);
-            Assert.AreEqual(nestedSchemaDefinitions, schemaDefinitions.NestedSchemaDefinitions);
+            Assert.AreEqual(versionNumber, schemaDefinition.VersionNumber);
+            Assert.AreEqual(mainSchemaDefinition, schemaDefinition.MainSchemaDefinition);
+            Assert.AreSame(nestedSchemaDefinitions, schemaDefinition.NestedSchemaDefinitions);
         }
     }
 }

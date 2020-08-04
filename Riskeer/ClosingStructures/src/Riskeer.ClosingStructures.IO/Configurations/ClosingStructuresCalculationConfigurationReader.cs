@@ -65,7 +65,7 @@ namespace Riskeer.ClosingStructures.IO.Configurations
             : base(filePath, new[]
             {
                 new CalculationConfigurationSchemaDefinition(
-                    Resources.KunstwerkenBetrouwbaarheidSluitenSchema,
+                    0, Resources.KunstwerkenBetrouwbaarheidSluitenSchema,
                     new Dictionary<string, string>
                     {
                         {

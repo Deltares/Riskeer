@@ -847,7 +847,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
             public CalculationConfigurationReader(string xmlFilePath)
                 : base(xmlFilePath, new[]
                 {
-                    new CalculationConfigurationSchemaDefinition(mainSchemaDefinition, new Dictionary<string, string>())
+                    new CalculationConfigurationSchemaDefinition(0, mainSchemaDefinition, new Dictionary<string, string>())
                 }) {}
 
             protected override ReadCalculation ParseCalculationElement(XElement calculationElement)

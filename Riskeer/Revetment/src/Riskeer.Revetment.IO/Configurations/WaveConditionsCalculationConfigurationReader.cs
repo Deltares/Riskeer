@@ -65,7 +65,7 @@ namespace Riskeer.Revetment.IO.Configurations
             : base(xmlFilePath, new[]
             {
                 new CalculationConfigurationSchemaDefinition(
-                    mainSchemaDefinition,
+                    0, mainSchemaDefinition,
                     new Dictionary<string, string>
                     {
                         {

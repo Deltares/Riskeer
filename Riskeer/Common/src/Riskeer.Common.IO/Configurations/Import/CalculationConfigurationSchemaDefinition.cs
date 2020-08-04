@@ -24,36 +24,36 @@ using System.Collections.Generic;
 namespace Riskeer.Common.IO.Configurations.Import
 {
     /// <summary>
-    /// Class that represents calculation configuration schema definitions.
+    /// Class that represents calculation configuration schema definition.
     /// </summary>
     public class CalculationConfigurationSchemaDefinition
     {
         /// <summary>
         /// Creates a new instance of <see cref="CalculationConfigurationSchemaDefinition"/>.
         /// </summary>
-        /// <param name="mainSchemaDefinition">The main schema definition xsd.</param>
-        /// <param name="nestedSchemaDefinitions">The nested schema definition xsd.</param>
         /// <param name="versionNumber">The version number of the xml that is read.</param>
-        public CalculationConfigurationSchemaDefinition(string mainSchemaDefinition, IDictionary<string, string> nestedSchemaDefinitions, int versionNumber = 0)
+        /// <param name="mainSchemaDefinition">The main schema definition xsd.</param>
+        /// <param name="nestedSchemaDefinitions">The nested schema definitions.</param>
+        public CalculationConfigurationSchemaDefinition(int versionNumber, string mainSchemaDefinition, IDictionary<string, string> nestedSchemaDefinitions)
         {
+            VersionNumber = versionNumber;
             MainSchemaDefinition = mainSchemaDefinition;
             NestedSchemaDefinitions = nestedSchemaDefinitions;
-            VersionNumber = versionNumber;
         }
 
         /// <summary>
-        /// Gets or sets the version schema definition.
+        /// Gets the version schema definition.
         /// </summary>
-        public int VersionNumber { get; private set; }
+        public int VersionNumber { get; }
 
         /// <summary>
-        /// Gets or sets the main schema definition.
+        /// Gets the main schema definition.
         /// </summary>
-        public string MainSchemaDefinition { get; private set; }
+        public string MainSchemaDefinition { get; }
 
         /// <summary>
-        /// Gets or sets the nested schema definitions.
+        /// Gets the nested schema definitions.
         /// </summary>
-        public IDictionary<string, string> NestedSchemaDefinitions { get; private set; }
+        public IDictionary<string, string> NestedSchemaDefinitions { get; }
     }
 }

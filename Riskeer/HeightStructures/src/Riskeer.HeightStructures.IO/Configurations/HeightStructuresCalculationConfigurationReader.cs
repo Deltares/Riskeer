@@ -64,7 +64,7 @@ namespace Riskeer.HeightStructures.IO.Configurations
             : base(filePath, new[]
             {
                 new CalculationConfigurationSchemaDefinition(
-                    Resources.KunstwerkenHoogteSchema,
+                    0, Resources.KunstwerkenHoogteSchema,
                     new Dictionary<string, string>
                     {
                         {
