@@ -446,12 +446,6 @@ Daarbij gaan de huidige berekeningsresultaten voor belastingen op trajectniveau 
   <data name="HydraulicLocationConfigurationSettings_UsePreprocessorClosure_DisplayName" xml:space="preserve">
     <value>Gebruik preprocessor sluitregime database</value>
   </data>
-  <data name="HydraulicBoundaryDatabaseImporterSettingsDialog_FileFilter_Hlcd" xml:space="preserve">
-    <value>HLCD bestand|*.sqlite</value>
-  </data>
-  <data name="HydraulicBoundaryDatabaseImporterSettingsDialog_FileFilter_Locations" xml:space="preserve">
-    <value>Locatie bestand|*.sqlite</value>
-  </data>
   <data name="HydraulicBoundaryDatabaseImporterSettingsDialog_Tooltip_Hlcd" xml:space="preserve">
     <value>Korte toelichting bij HLCD bestand.</value>
   </data>
@@ -478,5 +472,14 @@ Daarbij gaan de huidige berekeningsresultaten voor belastingen op trajectniveau 
   </data>
   <data name="HydraulicBoundaryDatabaseImporterSettingsDialog_ValidateInput_Locations_does_not_exist" xml:space="preserve">
     <value>Kan niet koppelen aan database: het geselecteerde locatie bestand bestaat niet.</value>
+  </data>
+  <data name="HydraulicBoundaryDatabaseImporterSettingsDialog_FileFilterGenerator_extension_sqlite" xml:space="preserve">
+    <value>sqlite</value>
+  </data>
+  <data name="HydraulicBoundaryDatabaseImporterSettingsDialog_FileFilterGenerator_description_hlcd" xml:space="preserve">
+    <value>HLCD bestand</value>
+  </data>
+  <data name="HydraulicBoundaryDatabaseImporterSettingsDialog_FileFilterGenerator_description_locations" xml:space="preserve">
+    <value>Locatie bestand</value>
   </data>
 </root>

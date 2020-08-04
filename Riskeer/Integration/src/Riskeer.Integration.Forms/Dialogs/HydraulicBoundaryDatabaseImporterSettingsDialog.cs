@@ -24,6 +24,7 @@ using System.IO;
 using System.Windows.Forms;
 using Core.Common.Controls.Dialogs;
 using Core.Common.Gui.Helpers;
+using Core.Common.Util;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Integration.Forms.Properties;
 using Riskeer.Integration.IO.Importers;
@@ -146,7 +147,9 @@ namespace Riskeer.Integration.Forms.Dialogs
 
         private void OnButtonHlcdClick(object sender, EventArgs e)
         {
-            string sourceFileLocation = inquiryHelper.GetSourceFileLocation(Resources.HydraulicBoundaryDatabaseImporterSettingsDialog_FileFilter_Hlcd);
+            string sourceFileLocation = inquiryHelper.GetSourceFileLocation(
+                new FileFilterGenerator(Resources.HydraulicBoundaryDatabaseImporterSettingsDialog_FileFilterGenerator_extension_sqlite,
+                                        Resources.HydraulicBoundaryDatabaseImporterSettingsDialog_FileFilterGenerator_description_hlcd).Filter);
 
             if (sourceFileLocation != null)
             {
@@ -170,7 +173,9 @@ namespace Riskeer.Integration.Forms.Dialogs
 
         private void OnButtonLocationsClick(object sender, EventArgs e)
         {
-            string sourceFileLocation = inquiryHelper.GetSourceFileLocation(Resources.HydraulicBoundaryDatabaseImporterSettingsDialog_FileFilter_Locations);
+            string sourceFileLocation = inquiryHelper.GetSourceFileLocation(
+                new FileFilterGenerator(Resources.HydraulicBoundaryDatabaseImporterSettingsDialog_FileFilterGenerator_extension_sqlite,
+                                        Resources.HydraulicBoundaryDatabaseImporterSettingsDialog_FileFilterGenerator_description_locations).Filter);
 
             if (sourceFileLocation != null)
             {

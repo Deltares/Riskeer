@@ -764,11 +764,6 @@ namespace Riskeer.Integration.Plugin
 
             yield return new ImportInfo<HydraulicBoundaryDatabaseContext>
             {
-                Name = RiskeerCommonDataResources.HydraulicBoundaryConditions_DisplayName,
-                Image = RiskeerCommonFormsResources.DatabaseIcon,
-                Category = RiskeerCommonFormsResources.Riskeer_Category,
-                FileFilterGenerator = new FileFilterGenerator(Resources.HydraulicBoundaryDatabase_FilePath_Extension,
-                                                              Resources.HydraulicBoundaryDatabase_file_filter_Description),
                 CreateFileImporter = (context, filePath) => new HydraulicBoundaryDatabaseImporter(
                     context.WrappedData, new HydraulicBoundaryDatabaseUpdateHandler(context.AssessmentSection,
                                                                                     new DuneLocationsReplacementHandler(
@@ -2295,7 +2290,10 @@ namespace Riskeer.Integration.Plugin
                                                                                                                                        hydraulicBoundaryDatabase.LocationsFilePath))
                                                                              : new HydraulicBoundaryDatabaseImporterSettingsDialog(Gui.MainWindow, GetInquiryHelper());
 
-                                                            dialog.ShowDialog();
+                                                            if (dialog.ShowDialog() == DialogResult.OK)
+                                                            {
+
+                                                            }
                                                         });
 
             SetHydraulicsMenuItemEnabledStateAndTooltip(nodeData.AssessmentSection,

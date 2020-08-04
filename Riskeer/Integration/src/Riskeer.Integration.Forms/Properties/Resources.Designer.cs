@@ -707,20 +707,32 @@ namespace Riskeer.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to HLCD bestand|*.sqlite.
+        ///   Looks up a localized string similar to HLCD bestand.
         /// </summary>
-        public static string HydraulicBoundaryDatabaseImporterSettingsDialog_FileFilter_Hlcd {
+        public static string HydraulicBoundaryDatabaseImporterSettingsDialog_FileFilterGenerator_description_hlcd {
             get {
-                return ResourceManager.GetString("HydraulicBoundaryDatabaseImporterSettingsDialog_FileFilter_Hlcd", resourceCulture);
+                return ResourceManager.GetString("HydraulicBoundaryDatabaseImporterSettingsDialog_FileFilterGenerator_description_h" +
+                        "lcd", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Locatie bestand|*.sqlite.
+        ///   Looks up a localized string similar to Locatie bestand.
         /// </summary>
-        public static string HydraulicBoundaryDatabaseImporterSettingsDialog_FileFilter_Locations {
+        public static string HydraulicBoundaryDatabaseImporterSettingsDialog_FileFilterGenerator_description_locations {
             get {
-                return ResourceManager.GetString("HydraulicBoundaryDatabaseImporterSettingsDialog_FileFilter_Locations", resourceCulture);
+                return ResourceManager.GetString("HydraulicBoundaryDatabaseImporterSettingsDialog_FileFilterGenerator_description_l" +
+                        "ocations", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to sqlite.
+        /// </summary>
+        public static string HydraulicBoundaryDatabaseImporterSettingsDialog_FileFilterGenerator_extension_sqlite {
+            get {
+                return ResourceManager.GetString("HydraulicBoundaryDatabaseImporterSettingsDialog_FileFilterGenerator_extension_sql" +
+                        "ite", resourceCulture);
             }
         }
         
