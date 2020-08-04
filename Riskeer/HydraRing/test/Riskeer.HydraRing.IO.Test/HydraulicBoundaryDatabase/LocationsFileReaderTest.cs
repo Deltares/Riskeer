@@ -100,6 +100,7 @@ namespace Riskeer.HydraRing.IO.Test.HydraulicBoundaryDatabase
                 Assert.AreEqual(164, readLocations.Count());
                 AssertReadLocation(readLocations.ElementAt(0), 700001, "10-1", "07_IJsselmeer_selectie_mu2017.sqlite");
                 AssertReadLocation(readLocations.ElementAt(41), 1000012, "40-1", "10_Waddenzee_west_selectie_mu2017.sqlite");
+                AssertReadLocation(readLocations.ElementAt(121), 11421125, "10-1", "03_Benedenrijn_selectie_mu2017.sqlite");
             }
         }
 
