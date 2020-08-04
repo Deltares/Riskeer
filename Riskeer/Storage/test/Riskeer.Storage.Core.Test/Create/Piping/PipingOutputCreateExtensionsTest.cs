@@ -35,10 +35,10 @@ namespace Riskeer.Storage.Core.Test.Create.Piping
         public void Create_OutputNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => ((PipingOutput) null).Create();
+            void Call() => ((PipingOutput) null).Create();
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("output", exception.ParamName);
         }
 
@@ -48,11 +48,8 @@ namespace Riskeer.Storage.Core.Test.Create.Piping
             // Setup
             var pipingOutput = new PipingOutput(new PipingOutput.ConstructionProperties
             {
-                UpliftZValue = 1.1,
                 UpliftFactorOfSafety = 2.2,
-                HeaveZValue = 3.3,
                 HeaveFactorOfSafety = 4.4,
-                SellmeijerZValue = 5.5,
                 SellmeijerFactorOfSafety = 6.6,
                 UpliftEffectiveStress = 7.7,
                 HeaveGradient = 8.8,
@@ -66,11 +63,8 @@ namespace Riskeer.Storage.Core.Test.Create.Piping
 
             // Assert
             Assert.AreEqual(pipingOutput.HeaveFactorOfSafety, entity.HeaveFactorOfSafety);
-            Assert.AreEqual(pipingOutput.HeaveZValue, entity.HeaveZValue);
             Assert.AreEqual(pipingOutput.SellmeijerFactorOfSafety, entity.SellmeijerFactorOfSafety);
-            Assert.AreEqual(pipingOutput.SellmeijerZValue, entity.SellmeijerZValue);
             Assert.AreEqual(pipingOutput.UpliftFactorOfSafety, entity.UpliftFactorOfSafety);
-            Assert.AreEqual(pipingOutput.UpliftZValue, entity.UpliftZValue);
             Assert.AreEqual(pipingOutput.UpliftEffectiveStress, entity.UpliftEffectiveStress, pipingOutput.UpliftEffectiveStress.GetAccuracy());
             Assert.AreEqual(pipingOutput.HeaveGradient, entity.HeaveGradient, pipingOutput.HeaveGradient.GetAccuracy());
             Assert.AreEqual(pipingOutput.SellmeijerCreepCoefficient, entity.SellmeijerCreepCoefficient, pipingOutput.SellmeijerCreepCoefficient.GetAccuracy());

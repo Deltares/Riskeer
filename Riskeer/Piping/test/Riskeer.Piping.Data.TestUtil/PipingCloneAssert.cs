@@ -41,11 +41,8 @@ namespace Riskeer.Piping.Data.TestUtil
         /// <paramref name="clone"/> are not clones.</exception>
         public static void AreClones(PipingOutput original, PipingOutput clone)
         {
-            Assert.AreEqual(original.UpliftZValue, clone.UpliftZValue);
             Assert.AreEqual(original.UpliftFactorOfSafety, clone.UpliftFactorOfSafety);
-            Assert.AreEqual(original.HeaveZValue, clone.HeaveZValue);
             Assert.AreEqual(original.HeaveFactorOfSafety, clone.HeaveFactorOfSafety);
-            Assert.AreEqual(original.SellmeijerZValue, clone.SellmeijerZValue);
             Assert.AreEqual(original.SellmeijerFactorOfSafety, clone.SellmeijerFactorOfSafety);
             Assert.AreEqual(original.UpliftEffectiveStress, clone.UpliftEffectiveStress);
             Assert.AreEqual(original.HeaveGradient, clone.HeaveGradient);

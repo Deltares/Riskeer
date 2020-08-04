@@ -36,11 +36,11 @@ namespace Riskeer.Piping.Data.Test
         public void Constructor_WithoutConstructionProperties_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new PipingOutput(null);
+            void Call() => new PipingOutput(null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("constructionProperties", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("constructionProperties", exception.ParamName);
         }
 
         [Test]
@@ -50,11 +50,8 @@ namespace Riskeer.Piping.Data.Test
             var actual = new PipingOutput(new PipingOutput.ConstructionProperties());
 
             // Assert
-            Assert.IsNaN(actual.UpliftZValue);
             Assert.IsNaN(actual.UpliftFactorOfSafety);
-            Assert.IsNaN(actual.HeaveZValue);
             Assert.IsNaN(actual.HeaveFactorOfSafety);
-            Assert.IsNaN(actual.SellmeijerZValue);
             Assert.IsNaN(actual.SellmeijerFactorOfSafety);
             Assert.IsNaN(actual.UpliftEffectiveStress);
             Assert.IsNaN(actual.HeaveGradient);
@@ -67,11 +64,8 @@ namespace Riskeer.Piping.Data.Test
         public void Constructor_ExpectedValues()
         {
             var random = new Random(22);
-            double zuValue = random.NextDouble();
             double foSuValue = random.NextDouble();
-            double zhValue = random.NextDouble();
             double foShValue = random.NextDouble();
-            double zsValue = random.NextDouble();
             double foSsValue = random.NextDouble();
             double upliftEffectiveStress = random.NextDouble();
             double heaveGradient = random.NextDouble();
@@ -81,11 +75,8 @@ namespace Riskeer.Piping.Data.Test
 
             var output = new PipingOutput(new PipingOutput.ConstructionProperties
             {
-                UpliftZValue = zuValue,
                 UpliftFactorOfSafety = foSuValue,
-                HeaveZValue = zhValue,
                 HeaveFactorOfSafety = foShValue,
-                SellmeijerZValue = zsValue,
                 SellmeijerFactorOfSafety = foSsValue,
                 UpliftEffectiveStress = upliftEffectiveStress,
                 HeaveGradient = heaveGradient,
@@ -98,11 +89,8 @@ namespace Riskeer.Piping.Data.Test
             Assert.IsInstanceOf<ICalculationOutput>(output);
             Assert.IsInstanceOf<ICloneable>(output);
 
-            Assert.AreEqual(zuValue, output.UpliftZValue);
             Assert.AreEqual(foSuValue, output.UpliftFactorOfSafety);
-            Assert.AreEqual(zhValue, output.HeaveZValue);
             Assert.AreEqual(foShValue, output.HeaveFactorOfSafety);
-            Assert.AreEqual(zsValue, output.SellmeijerZValue);
             Assert.AreEqual(foSsValue, output.SellmeijerFactorOfSafety);
 
             Assert.AreEqual(2, output.UpliftEffectiveStress.NumberOfDecimalPlaces);

@@ -48,11 +48,11 @@ namespace Riskeer.Storage.Core.Test.Create.Piping
             var calculation = new PipingCalculationScenario(new GeneralPipingInput());
 
             // Call
-            TestDelegate call = () => calculation.Create(null, 0);
+            void Call() => calculation.Create(null, 0);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual(paramName, "registry");
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("registry", exception.ParamName);
         }
 
         [Test]
@@ -259,11 +259,8 @@ namespace Riskeer.Storage.Core.Test.Create.Piping
 
             Assert.IsNotNull(outputEntity);
             Assert.AreEqual(newOutput.HeaveFactorOfSafety, outputEntity.HeaveFactorOfSafety);
-            Assert.AreEqual(newOutput.HeaveZValue, outputEntity.HeaveZValue);
             Assert.AreEqual(newOutput.SellmeijerFactorOfSafety, outputEntity.SellmeijerFactorOfSafety);
-            Assert.AreEqual(newOutput.SellmeijerZValue, outputEntity.SellmeijerZValue);
             Assert.AreEqual(newOutput.UpliftFactorOfSafety, outputEntity.UpliftFactorOfSafety);
-            Assert.AreEqual(newOutput.UpliftZValue, outputEntity.UpliftZValue);
             Assert.AreEqual(newOutput.UpliftEffectiveStress, outputEntity.UpliftEffectiveStress, newOutput.UpliftEffectiveStress.GetAccuracy());
             Assert.AreEqual(newOutput.HeaveGradient, outputEntity.HeaveGradient, newOutput.HeaveGradient.GetAccuracy());
             Assert.AreEqual(newOutput.SellmeijerCreepCoefficient, outputEntity.SellmeijerCreepCoefficient, newOutput.SellmeijerCreepCoefficient.GetAccuracy());

@@ -49,11 +49,8 @@ namespace Riskeer.Storage.Core.Read.Piping
 
             return new PipingOutput(new PipingOutput.ConstructionProperties
             {
-                UpliftZValue = entity.UpliftZValue.ToNullAsNaN(),
                 UpliftFactorOfSafety = entity.UpliftFactorOfSafety.ToNullAsNaN(),
-                HeaveZValue = entity.HeaveZValue.ToNullAsNaN(),
                 HeaveFactorOfSafety = entity.HeaveFactorOfSafety.ToNullAsNaN(),
-                SellmeijerZValue = entity.SellmeijerZValue.ToNullAsNaN(),
                 SellmeijerFactorOfSafety = entity.SellmeijerFactorOfSafety.ToNullAsNaN(),
                 UpliftEffectiveStress = entity.UpliftEffectiveStress.ToNullAsNaN(),
                 HeaveGradient = entity.HeaveGradient.ToNullAsNaN(),
