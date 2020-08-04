@@ -879,4 +879,7 @@ Deze locatie met karakteristieke punten wordt overgeslagen.</value>
   <data name="VersieSchema" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\VersieSchema.xsd;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
+  <data name="CalculationConfigurationReader_GetSchemaDefinition_Not_supported_version" xml:space="preserve">
+    <value>Het versienummer van het bestand wordt niet ondersteund.</value>
+  </data>
 </root>
