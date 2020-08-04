@@ -36,14 +36,16 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
             int versionNumber = new Random(21).Next();
             const string mainSchemaDefinition = "mainSchemaDefinition";
             var nestedSchemaDefinitions = new Dictionary<string, string>();
+            const string migrationScript = "migrationScript";
 
             // Call
-            var schemaDefinition = new CalculationConfigurationSchemaDefinition(versionNumber, mainSchemaDefinition, nestedSchemaDefinitions);
+            var schemaDefinition = new CalculationConfigurationSchemaDefinition(versionNumber, mainSchemaDefinition, nestedSchemaDefinitions, migrationScript);
 
             // Assert
             Assert.AreEqual(versionNumber, schemaDefinition.VersionNumber);
             Assert.AreEqual(mainSchemaDefinition, schemaDefinition.MainSchemaDefinition);
             Assert.AreSame(nestedSchemaDefinitions, schemaDefinition.NestedSchemaDefinitions);
+            Assert.AreEqual(migrationScript, schemaDefinition.MigrationScript);
         }
     }
 }

@@ -95,7 +95,7 @@ namespace Riskeer.ClosingStructures.IO.Configurations
                         {
                             scenarioSchemaName, RiskeerCommonIOResources.ScenarioSchema
                         }
-                    })
+                    }, null)
             }) {}
 
         protected override ClosingStructuresCalculationConfiguration ParseCalculationElement(XElement calculationElement)

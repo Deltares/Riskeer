@@ -34,11 +34,15 @@ namespace Riskeer.Common.IO.Configurations.Import
         /// <param name="versionNumber">The version number of the xml that is read.</param>
         /// <param name="mainSchemaDefinition">The main schema definition xsd.</param>
         /// <param name="nestedSchemaDefinitions">The nested schema definitions.</param>
-        public CalculationConfigurationSchemaDefinition(int versionNumber, string mainSchemaDefinition, IDictionary<string, string> nestedSchemaDefinitions)
+        /// <param name="migrationScript">The migration script.</param>
+        public CalculationConfigurationSchemaDefinition(int versionNumber, string mainSchemaDefinition,
+                                                        IDictionary<string, string> nestedSchemaDefinitions,
+                                                        string migrationScript)
         {
             VersionNumber = versionNumber;
             MainSchemaDefinition = mainSchemaDefinition;
             NestedSchemaDefinitions = nestedSchemaDefinitions;
+            MigrationScript = migrationScript;
         }
 
         /// <summary>
@@ -55,5 +59,10 @@ namespace Riskeer.Common.IO.Configurations.Import
         /// Gets the nested schema definitions.
         /// </summary>
         public IDictionary<string, string> NestedSchemaDefinitions { get; }
+
+        /// <summary>
+        /// Gets the migration script.
+        /// </summary>
+        public string MigrationScript { get; }
     }
 }

@@ -77,7 +77,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Configurations
                         {
                             slopeStabilityGridsSchemaName, Resources.MacroStabiliteitBinnenwaartsGridsSchema
                         }
-                    })
+                    }, null)
             }) {}
 
         protected override MacroStabilityInwardsCalculationConfiguration ParseCalculationElement(XElement calculationElement)

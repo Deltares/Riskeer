@@ -83,7 +83,7 @@ namespace Riskeer.Revetment.IO.Configurations
                         {
                             waveReductionSchemaName, RiskeerCommonIOResources.GolfReductieSchema
                         }
-                    })
+                    }, null)
             }) {}
 
         protected abstract override T ParseCalculationElement(XElement calculationElement);

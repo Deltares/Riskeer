@@ -45,6 +45,17 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
         }
 
         [Test]
+        public void Migrate_MigrationScriptDefinitionNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => CalculationConfigurationMigrator.Migrate(new XDocument(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("migrationScriptDefinition", exception.ParamName);
+        }
+
+        [Test]
         public void Migrate_EmptyMigrationScript_MigratesXmlDocument()
         {
             // Setup

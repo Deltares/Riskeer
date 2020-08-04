@@ -39,7 +39,7 @@ namespace Riskeer.Common.IO.Configurations.Import
         /// <param name="xmlDocument">The <see cref="XDocument"/> to migrate.</param>
         /// <param name="migrationScriptDefinition">The migration script.</param>
         /// <returns>The migrated <see cref="XDocument"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="xmlDocument"/>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter
         /// is <c>null</c>.</exception>
         /// <exception cref="CalculationConfigurationMigrationException">Thrown when
         /// something went wrong while migrating.</exception>
@@ -48,6 +48,11 @@ namespace Riskeer.Common.IO.Configurations.Import
             if (xmlDocument == null)
             {
                 throw new ArgumentNullException(nameof(xmlDocument));
+            }
+
+            if (migrationScriptDefinition == null)
+            {
+                throw new ArgumentNullException(nameof(migrationScriptDefinition));
             }
 
             var stringBuilder = new StringBuilder();

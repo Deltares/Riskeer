@@ -71,7 +71,7 @@ namespace Riskeer.Piping.IO.Configurations
                         {
                             scenarioSchemaName, RiskeerCommonIOResources.ScenarioSchema
                         }
-                    })
+                    }, null)
             }) {}
 
         protected override PipingCalculationConfiguration ParseCalculationElement(XElement calculationElement)

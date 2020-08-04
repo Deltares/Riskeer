@@ -94,7 +94,7 @@ namespace Riskeer.HeightStructures.IO.Configurations
                         {
                             scenarioSchemaName, RiskeerCommonIOResources.ScenarioSchema
                         }
-                    })
+                    }, null)
             }) {}
 
         protected override HeightStructuresCalculationConfiguration ParseCalculationElement(XElement calculationElement)

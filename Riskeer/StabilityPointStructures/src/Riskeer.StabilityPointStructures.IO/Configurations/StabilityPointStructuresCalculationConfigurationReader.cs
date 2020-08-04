@@ -95,7 +95,7 @@ namespace Riskeer.StabilityPointStructures.IO.Configurations
                         {
                             scenarioSchemaName, RiskeerCommonIOResources.ScenarioSchema
                         }
-                    })
+                    }, null)
             }) {}
 
         protected override StabilityPointStructuresCalculationConfiguration ParseCalculationElement(XElement calculationElement)

@@ -85,7 +85,7 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Configurations
                                {
                                    scenarioSchemaName, RiskeerCommonIOResources.ScenarioSchema
                                }
-                           })
+                           }, null)
                    }) {}
 
         protected override GrassCoverErosionInwardsCalculationConfiguration ParseCalculationElement(XElement calculationElement)
