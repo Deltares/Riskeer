@@ -53,8 +53,18 @@ namespace Riskeer.Common.Data.Hydraulics
         public ObservableList<HydraulicBoundaryLocation> Locations { get; }
 
         /// <summary>
-        /// Gets the <see cref="Hydraulics.HydraulicLocationConfigurationSettings"/>.
+        /// Gets the settings corresponding to the HLCD file.
         /// </summary>
         public HydraulicLocationConfigurationSettings HydraulicLocationConfigurationSettings { get; }
+
+        /// <summary>
+        /// Gets or sets the path to the directory that contains the HRD files.
+        /// </summary>
+        public string HrdDirectory { get; set; }
+
+        /// <summary>
+        /// Gets or sets the path to the locations file.
+        /// </summary>
+        public string LocationsFilePath { get; set; }
     }
 }
