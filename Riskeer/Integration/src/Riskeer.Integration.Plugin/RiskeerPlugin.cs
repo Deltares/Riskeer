@@ -2285,7 +2285,15 @@ namespace Riskeer.Integration.Plugin
                                                         RiskeerCommonFormsResources.DatabaseIcon,
                                                         (s, e) =>
                                                         {
-                                                            var dialog = new HydraulicBoundaryDatabaseImporterSettingsDialog(Gui.MainWindow, GetInquiryHelper());
+                                                            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = nodeData.WrappedData;
+
+                                                            var dialog = hydraulicBoundaryDatabase.IsLinked()
+                                                                             ? new HydraulicBoundaryDatabaseImporterSettingsDialog(Gui.MainWindow, GetInquiryHelper(),
+                                                                                                                                   new HydraulicBoundaryDatabaseImporterSettings(
+                                                                                                                                       hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.FilePath,
+                                                                                                                                       hydraulicBoundaryDatabase.HrdDirectory,
+                                                                                                                                       hydraulicBoundaryDatabase.LocationsFilePath))
+                                                                             : new HydraulicBoundaryDatabaseImporterSettingsDialog(Gui.MainWindow, GetInquiryHelper());
 
                                                             dialog.ShowDialog();
                                                         });
