@@ -29,6 +29,15 @@ All rights reserved.
   
   <!--Herdefinieer berekening, zodat deze de juiste inhoud heeft.-->
   <xs:redefine schemaLocation="ConfiguratieSchema.xsd">
+    
+    <xs:complexType name="configuratieType">
+      <xs:complexContent>
+        <xs:extension base="configuratieType">
+          <xs:attribute name="versie" type="xs:int" use="required" fixed="1"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+
     <xs:complexType name="berekeningType">
       <xs:complexContent>
         <xs:extension base="berekeningType">
