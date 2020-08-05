@@ -221,6 +221,9 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
                 yield return new TestCaseData("invalidScenarioRelevantNoBoolean.xml",
                                               "The 'gebruik' element is invalid - The value 'string' is invalid according to its datatype 'Boolean'")
                     .SetName("invalidScenarioRelevantNoBoolean");
+                yield return new TestCaseData("invalidCalculationVersion1HydraulicBoundaryLocationOld.xml",
+                                              "The element 'berekening' has invalid child element 'hrlocatie'.")
+                    .SetName("invalidCalculationVersion1HydraulicBoundaryLocationOld");
             }
         }
 
@@ -353,6 +356,8 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
         [TestCase("validConfigurationFullCalculationNew.xml")]
         [TestCase("validConfigurationFullCalculation_differentOrder_old.xml")]
         [TestCase("validConfigurationFullCalculation_differentOrder_new.xml")]
+        [TestCase("validConfigurationFullCalculationVersion1.xml")]
+        [TestCase("validConfigurationFullCalculationVersion1_differentOrder.xml")]
         public void Read_ValidConfigurationWithFullCalculation_ReturnExpectedReadCalculation(string fileName)
         {
             // Setup
