@@ -65,7 +65,7 @@ namespace Riskeer.ClosingStructures.IO.Configurations
             : base(filePath, new[]
             {
                 new CalculationConfigurationSchemaDefinition(
-                    0, Resources.KunstwerkenBetrouwbaarheidSluitenSchema,
+                    0, Resources.KunstwerkenBetrouwbaarheidSluitenSchema_0,
                     new Dictionary<string, string>
                     {
                         {
@@ -90,7 +90,7 @@ namespace Riskeer.ClosingStructures.IO.Configurations
                             stochastVariatiecoefficientSchemaName, RiskeerCommonIOResources.StochastVariatiecoefficientSchema
                         },
                         {
-                            structureBaseSchemaName, RiskeerCommonIOResources.KunstwerkenBasisSchema
+                            structureBaseSchemaName, RiskeerCommonIOResources.KunstwerkenBasisSchema_0
                         },
                         {
                             scenarioSchemaName, RiskeerCommonIOResources.ScenarioSchema

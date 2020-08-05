@@ -90,7 +90,7 @@ namespace Riskeer.StabilityPointStructures.IO.Configurations
                             stochastVariatiecoefficientSchemaName, RiskeerCommonIOResources.StochastVariatiecoefficientSchema
                         },
                         {
-                            structureBaseSchemaName, RiskeerCommonIOResources.KunstwerkenBasisSchema
+                            structureBaseSchemaName, RiskeerCommonIOResources.KunstwerkenBasisSchema_0
                         },
                         {
                             scenarioSchemaName, RiskeerCommonIOResources.ScenarioSchema

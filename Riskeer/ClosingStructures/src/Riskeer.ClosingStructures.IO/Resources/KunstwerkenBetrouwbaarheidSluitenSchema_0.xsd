@@ -36,7 +36,7 @@ All rights reserved.
       <xs:complexContent>
         <xs:extension base="berekeningType">
           <xs:all>
-            <xs:element ref="hblocatie" minOccurs="0"/>
+            <xs:element ref="hblocatie-of-hrlocatie" minOccurs="0"/>
             <xs:element ref="factorstormduur" minOccurs="0"/>
             <xs:element ref="kunstwerk" minOccurs="0"/>
             <xs:element ref="orientatie" minOccurs="0"/>
