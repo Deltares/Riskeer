@@ -38,7 +38,8 @@ namespace Riskeer.ClosingStructures.IO.Configurations
     /// </summary>
     public class ClosingStructuresCalculationConfigurationReader : CalculationConfigurationReader<ClosingStructuresCalculationConfiguration>
     {
-        private const string hbLocatieSchemaName = "HbLocatieSchema_0.xsd";
+        private const string hbLocatieSchemaVersion0Name = "HbLocatieSchema_0.xsd";
+        private const string hbLocatieSchemaVersion1Name = "HbLocatieSchema.xsd";
         private const string orientatieSchemaName = "OrientatieSchema.xsd";
         private const string golfReductieSchemaName = "GolfReductieSchema.xsd";
         private const string voorlandProfielSchemaName = "VoorlandProfielSchema.xsd";
@@ -69,7 +70,7 @@ namespace Riskeer.ClosingStructures.IO.Configurations
                     new Dictionary<string, string>
                     {
                         {
-                            hbLocatieSchemaName, RiskeerCommonIOResources.HbLocatieSchema_0
+                            hbLocatieSchemaVersion0Name, RiskeerCommonIOResources.HbLocatieSchema_0
                         },
                         {
                             orientatieSchemaName, RiskeerCommonIOResources.OrientatieSchema
