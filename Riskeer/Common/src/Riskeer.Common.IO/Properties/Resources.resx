@@ -885,4 +885,7 @@ Deze locatie met karakteristieke punten wordt overgeslagen.</value>
   <data name="CalculationConfigurationReader_MigrateToNewSchema_An_unexpected_error_occurred" xml:space="preserve">
     <value>er is een onverwachte fout opgetreden.</value>
   </data>
+  <data name="HbLocatieSchema_0" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\hblocatieschema_0.xsd;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
 </root>
