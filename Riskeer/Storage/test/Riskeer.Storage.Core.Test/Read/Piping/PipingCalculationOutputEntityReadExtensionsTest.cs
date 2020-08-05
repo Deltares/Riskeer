@@ -48,10 +48,7 @@ namespace Riskeer.Storage.Core.Test.Read.Piping
             var entity = new PipingCalculationOutputEntity
             {
                 HeaveFactorOfSafety = 9.8,
-                HeaveZValue = 7.6,
-                UpliftZValue = 5.4,
                 UpliftFactorOfSafety = 3.2,
-                SellmeijerZValue = 1.9,
                 SellmeijerFactorOfSafety = 8.7,
                 UpliftEffectiveStress = 15.2,
                 HeaveGradient = 12.2,
@@ -81,10 +78,7 @@ namespace Riskeer.Storage.Core.Test.Read.Piping
             var entity = new PipingCalculationOutputEntity
             {
                 HeaveFactorOfSafety = null,
-                HeaveZValue = null,
-                UpliftZValue = null,
                 UpliftFactorOfSafety = null,
-                SellmeijerZValue = null,
                 SellmeijerFactorOfSafety = null,
                 UpliftEffectiveStress = null,
                 HeaveGradient = null,

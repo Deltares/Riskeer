@@ -83,11 +83,8 @@ namespace Riskeer.Storage.Core.Test.Create.Piping
 
             // Assert
             Assert.IsNull(entity.HeaveFactorOfSafety);
-            Assert.IsNull(entity.HeaveZValue);
             Assert.IsNull(entity.SellmeijerFactorOfSafety);
-            Assert.IsNull(entity.SellmeijerZValue);
             Assert.IsNull(entity.UpliftFactorOfSafety);
-            Assert.IsNull(entity.UpliftZValue);
             Assert.IsNull(entity.UpliftEffectiveStress);
             Assert.IsNull(entity.HeaveGradient);
             Assert.IsNull(entity.SellmeijerCreepCoefficient);
