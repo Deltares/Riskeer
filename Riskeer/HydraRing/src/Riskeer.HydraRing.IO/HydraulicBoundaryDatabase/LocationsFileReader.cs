@@ -24,6 +24,8 @@ using System.Data;
 using Core.Common.Base.IO;
 using Core.Common.IO.Exceptions;
 using Core.Common.IO.Readers;
+using Core.Common.Util.Builders;
+using Riskeer.HydraRing.IO.Properties;
 
 namespace Riskeer.HydraRing.IO.HydraulicBoundaryDatabase
 {
@@ -35,11 +37,11 @@ namespace Riskeer.HydraRing.IO.HydraulicBoundaryDatabase
         /// <summary>
         /// Creates a new instance of <see cref="LocationsFileReader"/>.
         /// </summary>
-        /// <param name="databaseFilePath">The path of the locations file to open.</param>
+        /// <param name="databaseFilePath">The path of the locations file to read.</param>
         /// <exception cref="CriticalFileReadException">Thrown when:
         /// <list type="bullet">
-        /// <item>The <paramref name="databaseFilePath"/> contains invalid characters.</item>
-        /// <item>No file could be found at <paramref name="databaseFilePath"/>.</item>
+        /// <item>the <paramref name="databaseFilePath"/> contains invalid characters;</item>
+        /// <item>no file could be found at <paramref name="databaseFilePath"/>.</item>
         /// </list>
         /// </exception>
         public LocationsFileReader(string databaseFilePath) : base(databaseFilePath) {}
@@ -50,23 +52,37 @@ namespace Riskeer.HydraRing.IO.HydraulicBoundaryDatabase
         /// <exception cref="LineParseException">Thrown when the database contains incorrect values for required properties.</exception>
         public IEnumerable<ReadLocation> ReadLocations()
         {
-            using (IDataReader reader = CreateDataReader(GetLocationsQuery()))
+            using (IDataReader reader = CreateDataReader("SELECT L.LocationId, L.Segment, T.HRDFileName " +
+                                                         "FROM Locations L " +
+                                                         "INNER JOIN Tracks T USING(TrackId) " +
+                                                         "WHERE L.TypeOfHydraulicDataId > 1;"))
             {
                 while (MoveNext(reader))
                 {
-                    yield return new ReadLocation(reader.Read<long>("LocationId"),
-                                                  reader.Read<string>("Segment"),
-                                                  reader.Read<string>("HRDFileName"));
+                    yield return ReadLocation(reader);
                 }
             }
         }
 
-        private static string GetLocationsQuery()
+        /// <summary>
+        /// Reads a location from the database.
+        /// </summary>
+        /// <returns>A <see cref="ReadLocation"/> based on the data read from the database.</returns>
+        /// <exception cref="LineParseException">Thrown when the database contains incorrect values for required properties.</exception>
+        private ReadLocation ReadLocation(IDataReader reader)
         {
-            return "SELECT L.LocationId, L.Segment, T.HRDFileName " +
-                   "FROM Locations L " +
-                   "INNER JOIN Tracks T USING(TrackId) " +
-                   "WHERE L.TypeOfHydraulicDataId > 1;"; // Value > 1 makes it relevant
+            try
+            {
+                return new ReadLocation(reader.Read<long>("LocationId"),
+                                        reader.Read<string>("Segment"),
+                                        reader.Read<string>("HRDFileName"));
+            }
+            catch (ConversionException e)
+            {
+                throw new LineParseException(
+                    new FileReaderErrorMessageBuilder(Path).Build(Resources.HydraulicBoundaryDatabaseReader_Critical_Unexpected_value_on_column),
+                    e);
+            }
         }
     }
 }
