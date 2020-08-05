@@ -117,10 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Error_HydraulicBoundaryLocation_read_from_database" xml:space="preserve">
-    <value>Kon geen locaties verkrijgen van de database.</value>
+  <data name="HydraulicBoundaryDatabase_Unknown_database_structure" xml:space="preserve">
+    <value>Kritieke fout opgetreden bij het uitlezen van de structuur van de database.</value>
   </data>
-  <data name="HydraulicBoundaryDatabaseReader_Critical_Unexpected_value_on_column" xml:space="preserve">
+  <data name="HydraulicBoundaryDatabase_Unexpected_value_on_column" xml:space="preserve">
     <value>Kritieke fout opgetreden bij het uitlezen van waardes uit kolommen in de database.</value>
   </data>
   <data name="HydraulicLocationConfigurationDatabaseReader_GetLocationIdFromDatabase_Ambiguous_Row_Found_Take_First" xml:space="preserve">

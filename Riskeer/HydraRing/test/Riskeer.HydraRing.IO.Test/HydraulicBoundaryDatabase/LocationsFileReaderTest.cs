@@ -74,7 +74,7 @@ namespace Riskeer.HydraRing.IO.Test.HydraulicBoundaryDatabase
         public void Constructor_ValidFile_ExpectedValues()
         {
             // Setup
-            string locationsFilePath = Path.Combine(testDataPath, "Locations.sqlite");
+            string locationsFilePath = Path.Combine(testDataPath, "complete.sqlite");
 
             // Call
             using (var reader = new LocationsFileReader(locationsFilePath))
@@ -89,7 +89,7 @@ namespace Riskeer.HydraRing.IO.Test.HydraulicBoundaryDatabase
         public void ReadLocations_ValidFile_ReturnsExpectedLocations()
         {
             // Setup
-            string locationsFilePath = Path.Combine(testDataPath, "Locations.sqlite");
+            string locationsFilePath = Path.Combine(testDataPath, "complete.sqlite");
 
             using (var reader = new LocationsFileReader(locationsFilePath))
             {

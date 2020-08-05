@@ -101,7 +101,7 @@ namespace Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase
             }
             catch (InvalidCastException exception)
             {
-                string message = new FileReaderErrorMessageBuilder(Path).Build(Resources.HydraulicBoundaryDatabaseReader_Critical_Unexpected_value_on_column);
+                string message = new FileReaderErrorMessageBuilder(Path).Build(Resources.HydraulicBoundaryDatabase_Unexpected_value_on_column);
                 throw new LineParseException(message, exception);
             }
         }
@@ -179,7 +179,7 @@ namespace Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase
                         return Convert.ToBoolean(dataReader[ScenarioInformationTableDefinitions.IsScenarioInformationPresent]);
                     }
 
-                    string message = new FileReaderErrorMessageBuilder(Path).Build(Resources.HydraulicBoundaryDatabaseReader_Critical_Unexpected_value_on_column);
+                    string message = new FileReaderErrorMessageBuilder(Path).Build(Resources.HydraulicBoundaryDatabase_Unexpected_value_on_column);
                     throw new CriticalFileReadException(message);
                 }
             }
@@ -239,7 +239,7 @@ namespace Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase
             }
             catch (ConversionException e)
             {
-                string message = new FileReaderErrorMessageBuilder(Path).Build(Resources.HydraulicBoundaryDatabaseReader_Critical_Unexpected_value_on_column);
+                string message = new FileReaderErrorMessageBuilder(Path).Build(Resources.HydraulicBoundaryDatabase_Unexpected_value_on_column);
                 throw new LineParseException(message, e);
             }
         }
@@ -273,7 +273,7 @@ namespace Riskeer.HydraRing.IO.HydraulicLocationConfigurationDatabase
             }
             catch (InvalidCastException e)
             {
-                string message = new FileReaderErrorMessageBuilder(Path).Build(Resources.HydraulicBoundaryDatabaseReader_Critical_Unexpected_value_on_column);
+                string message = new FileReaderErrorMessageBuilder(Path).Build(Resources.HydraulicBoundaryDatabase_Unexpected_value_on_column);
                 throw new LineParseException(message, e);
             }
         }

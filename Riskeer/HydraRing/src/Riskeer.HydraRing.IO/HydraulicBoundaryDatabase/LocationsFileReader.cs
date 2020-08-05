@@ -74,7 +74,7 @@ namespace Riskeer.HydraRing.IO.HydraulicBoundaryDatabase
             catch (SQLiteException e)
             {
                 throw new CriticalFileReadException(
-                    new FileReaderErrorMessageBuilder(Path).Build(Resources.Error_HydraulicBoundaryLocation_read_from_database),
+                    new FileReaderErrorMessageBuilder(Path).Build(Resources.HydraulicBoundaryDatabase_Unknown_database_structure),
                     e);
             }
         }
@@ -95,7 +95,7 @@ namespace Riskeer.HydraRing.IO.HydraulicBoundaryDatabase
             catch (ConversionException e)
             {
                 throw new LineParseException(
-                    new FileReaderErrorMessageBuilder(Path).Build(Resources.HydraulicBoundaryDatabaseReader_Critical_Unexpected_value_on_column),
+                    new FileReaderErrorMessageBuilder(Path).Build(Resources.HydraulicBoundaryDatabase_Unexpected_value_on_column),
                     e);
             }
         }

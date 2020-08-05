@@ -82,11 +82,20 @@ namespace Riskeer.HydraRing.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kon geen locaties verkrijgen van de database..
+        ///   Looks up a localized string similar to Kritieke fout opgetreden bij het uitlezen van waardes uit kolommen in de database..
         /// </summary>
-        public static string Error_HydraulicBoundaryLocation_read_from_database {
+        public static string HydraulicBoundaryDatabase_Unexpected_value_on_column {
             get {
-                return ResourceManager.GetString("Error_HydraulicBoundaryLocation_read_from_database", resourceCulture);
+                return ResourceManager.GetString("HydraulicBoundaryDatabase_Unexpected_value_on_column", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kritieke fout opgetreden bij het uitlezen van de structuur van de database..
+        /// </summary>
+        public static string HydraulicBoundaryDatabase_Unknown_database_structure {
+            get {
+                return ResourceManager.GetString("HydraulicBoundaryDatabase_Unknown_database_structure", resourceCulture);
             }
         }
         
@@ -96,15 +105,6 @@ namespace Riskeer.HydraRing.IO.Properties {
         public static string HydraulicBoundaryDatabaseHelper_ValidatePathForCalculation_Invalid_path_0_ {
             get {
                 return ResourceManager.GetString("HydraulicBoundaryDatabaseHelper_ValidatePathForCalculation_Invalid_path_0_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Kritieke fout opgetreden bij het uitlezen van waardes uit kolommen in de database..
-        /// </summary>
-        public static string HydraulicBoundaryDatabaseReader_Critical_Unexpected_value_on_column {
-            get {
-                return ResourceManager.GetString("HydraulicBoundaryDatabaseReader_Critical_Unexpected_value_on_column", resourceCulture);
             }
         }
         
