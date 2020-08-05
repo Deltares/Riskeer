@@ -167,5 +167,10 @@ namespace Riskeer.StabilityPointStructures.IO.Configurations
             writer.WriteElementString(StabilityPointStructuresConfigurationSchemaIdentifiers.InflowModelTypeElement,
                                       converter.ConvertToInvariantString(inflowModelType.Value));
         }
+
+        protected override int GetConfigurationVersion()
+        {
+            return 1;
+        }
     }
 }

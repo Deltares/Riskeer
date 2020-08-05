@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<configuratie>
+<configuratie versie="1">
   <map naam="Testmap">
     <berekening naam="Berekening 1">
       <hblocatie>Location1</hblocatie>

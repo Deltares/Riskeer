@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<configuratie>
+<configuratie versie="1">
   <map naam="PK001_0001">
     <berekening naam="Calculation A">
       <categoriegrens>A+</categoriegrens>

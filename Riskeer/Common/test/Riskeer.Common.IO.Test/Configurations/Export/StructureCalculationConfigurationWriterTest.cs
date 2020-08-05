@@ -196,6 +196,11 @@ namespace Riskeer.Common.IO.Test.Configurations.Export
                     writer.WriteDistribution("testStochastName", new StochastConfiguration());
                 }
             }
+
+            protected override int GetConfigurationVersion()
+            {
+                return 1;
+            }
         }
     }
 }

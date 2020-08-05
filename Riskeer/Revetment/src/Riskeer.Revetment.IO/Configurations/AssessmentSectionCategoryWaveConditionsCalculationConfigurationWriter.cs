@@ -53,5 +53,10 @@ namespace Riskeer.Revetment.IO.Configurations
             writer.WriteElementString(WaveConditionsCalculationConfigurationSchemaIdentifiers.CategoryType,
                                       converter.ConvertToInvariantString(configuration.CategoryType.Value));
         }
+
+        protected override int GetConfigurationVersion()
+        {
+            return 1;
+        }
     }
 }

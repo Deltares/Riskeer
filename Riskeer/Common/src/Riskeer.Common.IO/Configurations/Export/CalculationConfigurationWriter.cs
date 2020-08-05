@@ -75,10 +75,11 @@ namespace Riskeer.Common.IO.Configurations.Export
                     Indent = true
                 };
 
-                using (XmlWriter writer = XmlWriter.Create(filePath, settings))
+                using (var writer = XmlWriter.Create(filePath, settings))
                 {
                     writer.WriteStartDocument();
                     writer.WriteStartElement(ConfigurationSchemaIdentifiers.ConfigurationElement);
+                    writer.WriteAttributeString(ConfigurationSchemaIdentifiers.VersionAttribute, GetConfigurationVersion().ToString());
 
                     WriteConfiguration(configurations, writer);
 
@@ -91,6 +92,12 @@ namespace Riskeer.Common.IO.Configurations.Export
                 throw new CriticalFileWriteException(string.Format(Resources.Error_General_output_error_0, filePath), e);
             }
         }
+
+        /// <summary>
+        /// Gets the version of configuration to write.
+        /// </summary>
+        /// <returns>The version.</returns>
+        protected abstract int GetConfigurationVersion();
 
         /// <summary>
         /// Writes a single <paramref name="configuration"/> in XML format to file.

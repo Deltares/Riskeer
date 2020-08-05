@@ -623,6 +623,11 @@ namespace Riskeer.Common.IO.Test.Configurations.Export
                 WriteScenarioWhenAvailable(writer, configuration);
             }
 
+            protected override int GetConfigurationVersion()
+            {
+                return 1;
+            }
+
             protected override void WriteCalculation(TestConfigurationItem calculation, XmlWriter writer)
             {
                 throw new NotImplementedException();
