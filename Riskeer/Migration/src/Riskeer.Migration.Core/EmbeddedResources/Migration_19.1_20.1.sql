@@ -386,7 +386,31 @@ INSERT INTO MacroStabilityOutwardsFailureMechanismMetaEntity SELECT * FROM [SOUR
 INSERT INTO MacroStabilityOutwardsSectionResultEntity SELECT * FROM [SOURCEPROJECT].MacroStabilityOutwardsSectionResultEntity;
 INSERT INTO MicrostabilitySectionResultEntity SELECT * FROM [SOURCEPROJECT].MicrostabilitySectionResultEntity;
 INSERT INTO PipingCalculationEntity SELECT * FROM [SOURCEPROJECT].PipingCalculationEntity;
-INSERT INTO PipingCalculationOutputEntity SELECT * FROM [SOURCEPROJECT].PipingCalculationOutputEntity;
+INSERT INTO PipingCalculationOutputEntity(
+	[PipingCalculationOutputEntityId],
+	[PipingCalculationEntityId],
+	[Order],
+	[HeaveFactorOfSafety],
+	[UpliftFactorOfSafety],
+	[SellmeijerFactorOfSafety],
+	[UpliftEffectiveStress],
+	[HeaveGradient],
+	[SellmeijerCreepCoefficient],
+	[SellmeijerCriticalFall],
+	[SellmeijerReducedFall])
+SELECT 
+	[PipingCalculationOutputEntityId],
+	[PipingCalculationEntityId],
+	[Order],
+	[HeaveFactorOfSafety],
+	[UpliftFactorOfSafety],
+	[SellmeijerFactorOfSafety],
+	[UpliftEffectiveStress],
+	[HeaveGradient],
+	[SellmeijerCreepCoefficient],
+	[SellmeijerCriticalFall],
+	[SellmeijerReducedFall]
+FROM [SOURCEPROJECT].PipingCalculationOutputEntity;
 INSERT INTO PipingCharacteristicPointEntity SELECT * FROM [SOURCEPROJECT].PipingCharacteristicPointEntity;
 INSERT INTO PipingFailureMechanismMetaEntity SELECT * FROM [SOURCEPROJECT].PipingFailureMechanismMetaEntity;
 INSERT INTO PipingSectionResultEntity SELECT * FROM [SOURCEPROJECT].PipingSectionResultEntity;

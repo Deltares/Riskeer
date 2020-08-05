@@ -74,6 +74,8 @@ namespace Riskeer.Migration.Integration.Test
                     AssertStabilityPointStructuresSectionResult(reader, sourceFilePath);
 
                     AssertMacroStabilityInwardsOutput(reader);
+
+                    AssertPipingOutput(reader, sourceFilePath);
                 }
 
                 AssertLogDatabase(logFilePath);
@@ -614,6 +616,40 @@ namespace Riskeer.Migration.Integration.Test
             reader.AssertReturnedDataIsValid(validateSectionResults);
         }
 
+        private static void AssertMacroStabilityInwardsOutput(MigratedDatabaseReader reader)
+        {
+            const string macroStabilityInwardsCalculationOutputEntityTable =
+                "SELECT COUNT() = 0 " +
+                "FROM MacroStabilityInwardsCalculationOutputEntity;" +
+                "DETACH SOURCEPROJECT;";
+            reader.AssertReturnedDataIsValid(macroStabilityInwardsCalculationOutputEntityTable);
+        }
+
+        private static void AssertPipingOutput(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            string validateSectionResults =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT COUNT() = " +
+                "(" +
+                "SELECT COUNT() " +
+                "FROM SOURCEPROJECT.PipingCalculationOutputEntity" +
+                ") " +
+                "FROM PipingCalculationOutputEntity NEW " +
+                "JOIN SOURCEPROJECT.PipingCalculationOutputEntity OLD USING(PipingCalculationOutputEntityId) " +
+                "WHERE NEW.[PipingCalculationEntityId] = OLD.[PipingCalculationEntityId] " +
+                "AND NEW.\"Order\" = OLD.\"Order\" " +
+                "AND NEW.[HeaveFactorOfSafety] IS OLD.[HeaveFactorOfSafety] " +
+                "AND NEW.[UpliftFactorOfSafety] IS OLD.[UpliftFactorOfSafety] " +
+                "AND NEW.[SellmeijerFactorOfSafety] IS OLD.[SellmeijerFactorOfSafety] " +
+                "AND NEW.[UpliftEffectiveStress] IS OLD.[UpliftEffectiveStress] " +
+                "AND NEW.[HeaveGradient] IS OLD.[HeaveGradient] " +
+                "AND NEW.[SellmeijerCreepCoefficient] IS OLD.[SellmeijerCreepCoefficient] " +
+                "AND NEW.[SellmeijerCriticalFall] IS OLD.[SellmeijerCriticalFall] " +
+                "AND NEW.[SellmeijerReducedFall] IS OLD.[SellmeijerReducedFall]; " +
+                "DETACH SOURCEPROJECT;";
+            reader.AssertReturnedDataIsValid(validateSectionResults);
+        }
+
         private static void AssertTablesContentMigrated(MigratedDatabaseReader reader, string sourceFilePath)
         {
             string[] tables =
@@ -623,10 +659,8 @@ namespace Riskeer.Migration.Integration.Test
                 "BackgroundDataMetaEntity",
                 "CalculationGroupEntity",
                 "ClosingStructureEntity",
-                "ClosingStructuresCalculationEntity",
                 "ClosingStructuresFailureMechanismMetaEntity",
                 "ClosingStructuresOutputEntity",
-                "ClosingStructuresSectionResultEntity",
                 "DikeProfileEntity",
                 "DuneErosionFailureMechanismMetaEntity",
                 "DuneErosionSectionResultEntity",
@@ -655,10 +689,8 @@ namespace Riskeer.Migration.Integration.Test
                 "GrassCoverSlipOffInwardsSectionResultEntity",
                 "GrassCoverSlipOffOutwardsSectionResultEntity",
                 "HeightStructureEntity",
-                "HeightStructuresCalculationEntity",
                 "HeightStructuresFailureMechanismMetaEntity",
                 "HeightStructuresOutputEntity",
-                "HeightStructuresSectionResultEntity",
                 "HydraulicBoundaryDatabaseEntity",
                 "HydraulicLocationCalculationCollectionEntity",
                 "HydraulicLocationCalculationEntity",
@@ -680,7 +712,6 @@ namespace Riskeer.Migration.Integration.Test
                 "MacroStabilityOutwardsSectionResultEntity",
                 "MicrostabilitySectionResultEntity",
                 "PipingCalculationEntity",
-                "PipingCalculationOutputEntity",
                 "PipingCharacteristicPointEntity",
                 "PipingFailureMechanismMetaEntity",
                 "PipingSectionResultEntity",
@@ -691,10 +722,8 @@ namespace Riskeer.Migration.Integration.Test
                 "PipingStructureSectionResultEntity",
                 "ProjectEntity",
                 "StabilityPointStructureEntity",
-                "StabilityPointStructuresCalculationEntity",
                 "StabilityPointStructuresFailureMechanismMetaEntity",
                 "StabilityPointStructuresOutputEntity",
-                "StabilityPointStructuresSectionResultEntity",
                 "StabilityStoneCoverFailureMechanismMetaEntity",
                 "StabilityStoneCoverSectionResultEntity",
                 "StabilityStoneCoverWaveConditionsCalculationEntity",
@@ -725,15 +754,6 @@ namespace Riskeer.Migration.Integration.Test
                     "DETACH SOURCEPROJECT;";
                 reader.AssertReturnedDataIsValid(validateMigratedTable);
             }
-        }
-
-        private static void AssertMacroStabilityInwardsOutput(MigratedDatabaseReader reader)
-        {
-            const string macroStabilityInwardsCalculationOutputEntityTable =
-                "SELECT COUNT() = 0 " +
-                "FROM MacroStabilityInwardsCalculationOutputEntity;" +
-                "DETACH SOURCEPROJECT;";
-            reader.AssertReturnedDataIsValid(macroStabilityInwardsCalculationOutputEntityTable);
         }
 
         private static void AssertVersions(MigratedDatabaseReader reader)
