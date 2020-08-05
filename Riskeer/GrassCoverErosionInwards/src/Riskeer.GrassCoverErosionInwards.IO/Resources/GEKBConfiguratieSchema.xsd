@@ -33,7 +33,7 @@ All rights reserved.
       <xs:complexContent>
         <xs:extension base="berekeningType">
           <xs:all>
-            <xs:element ref="hblocatie-of-hrlocatie" minOccurs="0"/>
+            <xs:element ref="hblocatie" minOccurs="0"/>
             <xs:element ref="dijkprofiel" minOccurs="0"/>
             <xs:element ref="orientatie" minOccurs="0"/>
             <xs:element ref="dijkhoogte" minOccurs="0"/>
@@ -52,7 +52,7 @@ All rights reserved.
   </xs:redefine>
 
   <!--Generieke definitie voor de geselecteerde HB locatie voor alle toetssporen.-->
-  <xs:include schemaLocation="HbLocatieSchema_0.xsd"/>
+  <xs:include schemaLocation="HbLocatieSchema.xsd"/>
 
   <!--Generieke definitie voor de orientatie voor alle toetssporen.-->
   <xs:include schemaLocation="OrientatieSchema.xsd"/>
