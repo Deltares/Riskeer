@@ -22,29 +22,14 @@ All rights reserved.
 -->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
 
-  <!--Generiek element voor het specificeren van een geselecteerde
-  HB of HR locatie. In dit element moet de naam van de hydraulische belastingenlocatie
+  <!--Generiek element voor het specificeren van een geselecteerde HB locatie.
+  In dit element moet de naam van de hydraulische belastingenlocatie
   zoals ook zichtbaar in Riskeer worden opgenomen.-->
-  <xs:element name="hblocatie-of-hrlocatie" abstract="true" />
-
-  <!--Specificeert de HB locatie. Indien dit element is opgenomen, mag geen 
-  HR locatie element worden opgenomen.-->
-  <xs:element name="hblocatie" substitutionGroup="hblocatie-of-hrlocatie" >
+  <xs:element name="hblocatie">
     <xs:simpleType>
       <xs:restriction base="xs:string">
         <xs:minLength value="1"/>
       </xs:restriction>
     </xs:simpleType>
   </xs:element>
-
-  <!--Specificeert de HR locatie. Indien dit element is opgenomen, mag geen 
-  HB locatie element worden opgenomen.-->
-  <xs:element name="hrlocatie" substitutionGroup="hblocatie-of-hrlocatie">
-    <xs:simpleType>
-      <xs:restriction base="xs:string">
-        <xs:minLength value="1"/>
-      </xs:restriction>
-    </xs:simpleType>
-  </xs:element>
-
 </xs:schema>
