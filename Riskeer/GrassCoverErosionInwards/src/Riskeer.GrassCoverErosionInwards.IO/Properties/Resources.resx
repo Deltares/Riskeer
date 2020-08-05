@@ -148,4 +148,7 @@
   <data name="GrassCoverErosionInwardsCalculationConfigurationImporter_ValidateWaveReduction_No_DikeProfile_provided_for_Orientation" xml:space="preserve">
     <value>Er is geen dijkprofiel opgegeven om de oriëntatie aan toe te voegen.</value>
   </data>
+  <data name="GEKBConfiguratieSchema_0" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\gekbconfiguratieschema_0.xsd;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
 </root>

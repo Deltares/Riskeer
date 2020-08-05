@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?><!--
+Copyright (C) Stichting Deltares 2019. All rights reserved.
+
+This file is part of Riskeer.
+
+Riskeer is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program. If not, see <http://www.gnu.org/licenses/>.
+
+All names, logos, and references to "Deltares" are registered trademarks of
+Stichting Deltares and remain full property of Stichting Deltares at all times.
+All rights reserved.
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <!--Algemene structuur met configuratie, mappen en berekeningen.-->
+
+  <!--Definitie voor het specificeren van een berekeningsscenario.-->
+  <xs:include schemaLocation="ScenarioSchema.xsd"/>
+  
+  <!--Herdefinieer berekening, zodat deze de juiste inhoud heeft.-->
+  <xs:redefine schemaLocation="ConfiguratieSchema.xsd">
+    <xs:complexType name="berekeningType">
+      <xs:complexContent>
+        <xs:extension base="berekeningType">
+          <xs:all>
+            <xs:element ref="hblocatie-of-hrlocatie" minOccurs="0"/>
+            <xs:element ref="dijkprofiel" minOccurs="0"/>
+            <xs:element ref="orientatie" minOccurs="0"/>
+            <xs:element ref="dijkhoogte" minOccurs="0"/>
+            <xs:element ref="hbnberekenen" minOccurs="0"/>
+            <xs:element ref="overslagdebietberekenen" minOccurs="0"/>
+            <xs:element ref="illustratiepunteninlezen" minOccurs="0"/>
+            <xs:element ref="hbnillustratiepunteninlezen" minOccurs="0"/>
+            <xs:element ref="overslagdebietillustratiepunteninlezen" minOccurs="0"/>
+            <xs:element ref="golfreductie" minOccurs="0"/>
+            <xs:element ref="stochasten" minOccurs="0"/>
+            <xs:element ref="scenario" minOccurs="0"/>
+          </xs:all>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:redefine>
+
+  <!--Generieke definitie voor de geselecteerde HB locatie voor alle toetssporen.-->
+  <xs:include schemaLocation="HbLocatieSchema_0.xsd"/>
+
+  <!--Generieke definitie voor de orientatie voor alle toetssporen.-->
+  <xs:include schemaLocation="OrientatieSchema.xsd"/>
+
+  <!--Generieke definitie voor golfreducerende parameters voor alle toetssporen.-->
+  <xs:include schemaLocation="GolfReductieSchema.xsd"/>
+
+  <!--Herdefinieer stochastnamen. Voor dit toetsspoor zijn alleen de onderstaande
+  namen voor stochasten toegestaan (en ze mogen ook maar maximaal 1 keer voorkomen).-->
+  <xs:redefine schemaLocation="StochastSchema.xsd">
+    <xs:simpleType name="nameType">
+      <xs:restriction base="nameType">
+        <xs:enumeration value="overslagdebiet"/>
+      </xs:restriction>
+    </xs:simpleType>
+  </xs:redefine>
+
+  <!--Generieke definitie voor de standaardafwijking van een stochast.-->
+  <xs:include schemaLocation="StochastStandaardafwijkingSchema.xsd"/>
+
+  <!--Volgende elementen zijn specifiek voor dit toetsspoor.-->
+  
+  <!--Specificeert het geselecteerde dijkprofiel. In dit element moet de naam van
+  het dijkprofiel zoals ook zichtbaar in Riskeer worden opgenomen.-->
+  <xs:element name="dijkprofiel">
+    <xs:simpleType>
+      <xs:restriction base="xs:string">
+        <xs:minLength value="1"/>
+      </xs:restriction>
+    </xs:simpleType>
+  </xs:element>
+
+  <!--Specificeert de ingevoerde dijkhoogte waarmee een berekening moet worden uitgevoerd.-->
+  <xs:element name="dijkhoogte">
+    <xs:simpleType>
+      <xs:restriction base="xs:double"/>
+    </xs:simpleType>
+  </xs:element>
+
+  <!--Geeft aan hoe een HBN berekend moet worden. Dit element kent drie geldige waarden:
+  * "niet" -> HBN berekening wordt niet uitgevoerd.
+  * "norm" -> HBN berekening wordt uitgevoerd bij de trajectnorm.
+  * "doorsnede" -> HBN berekening wordt uitgevoerd bij de doorsnede-eis.-->
+  <xs:element name="hbnberekenen">
+    <xs:simpleType>
+      <xs:restriction base="xs:string">
+        <xs:enumeration value="niet"/>
+        <xs:enumeration value="norm"/>
+        <xs:enumeration value="doorsnede"/>
+      </xs:restriction>
+    </xs:simpleType>
+  </xs:element>
+
+  <!--Geeft aan hoe een overslagdebiet berekend moet worden. Dit element kent drie geldige waarden:
+  * "niet" -> Overslagdebiet berekening wordt niet uitgevoerd.
+  * "norm" -> Overslagdebiet berekening wordt uitgevoerd bij de trajectnorm.
+  * "doorsnede" -> Overslagdebiet berekening wordt uitgevoerd bij de doorsnede-eis.-->
+  <xs:element name="overslagdebietberekenen">
+    <xs:simpleType>
+      <xs:restriction base="xs:string">
+        <xs:enumeration value="niet"/>
+        <xs:enumeration value="norm"/>
+        <xs:enumeration value="doorsnede"/>
+      </xs:restriction>
+    </xs:simpleType>
+  </xs:element>
+
+  <!--Geeft aan of de illustratiepunten ingelezen moeten worden bij het uitvoeren van een sterkte berekening.-->
+  <xs:element name="illustratiepunteninlezen">
+    <xs:simpleType>
+      <xs:restriction base="xs:boolean"/>
+    </xs:simpleType>
+  </xs:element>
+
+  <!--Geeft aan of de illustratiepunten ingelezen moeten worden bij het uitvoeren van een hbn berekening.-->
+  <xs:element name="hbnillustratiepunteninlezen">
+    <xs:simpleType>
+      <xs:restriction base="xs:boolean"/>
+    </xs:simpleType>
+  </xs:element>
+
+  <!--Geeft aan of de illustratiepunten ingelezen moeten worden bij het uitvoeren van een overslag berekening.-->
+  <xs:element name="overslagdebietillustratiepunteninlezen">
+    <xs:simpleType>
+      <xs:restriction base="xs:boolean"/>
+    </xs:simpleType>
+  </xs:element>
+</xs:schema>
