@@ -21,6 +21,7 @@
 
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SQLite;
 using Core.Common.Base.IO;
 using Core.Common.IO.Exceptions;
 using Core.Common.IO.Readers;
@@ -49,18 +50,32 @@ namespace Riskeer.HydraRing.IO.HydraulicBoundaryDatabase
         /// <summary>
         /// Reads the locations from the database.
         /// </summary>
+        /// <exception cref="CriticalFileReadException">Thrown when the database has an unsupported structure.</exception>
         /// <exception cref="LineParseException">Thrown when the database contains incorrect values for required properties.</exception>
         public IEnumerable<ReadLocation> ReadLocations()
         {
-            using (IDataReader reader = CreateDataReader("SELECT L.LocationId, L.Segment, T.HRDFileName " +
-                                                         "FROM Locations L " +
-                                                         "INNER JOIN Tracks T USING(TrackId) " +
-                                                         "WHERE L.TypeOfHydraulicDataId > 1;"))
+            var readLocations = new List<ReadLocation>();
+
+            try
             {
-                while (MoveNext(reader))
+                using (IDataReader reader = CreateDataReader("SELECT L.LocationId, L.Segment, T.HRDFileName " +
+                                                             "FROM Locations L " +
+                                                             "INNER JOIN Tracks T USING(TrackId) " +
+                                                             "WHERE L.TypeOfHydraulicDataId > 1;"))
                 {
-                    yield return ReadLocation(reader);
+                    while (MoveNext(reader))
+                    {
+                        readLocations.Add(ReadLocation(reader));
+                    }
+
+                    return readLocations;
                 }
+            }
+            catch (SQLiteException e)
+            {
+                throw new CriticalFileReadException(
+                    new FileReaderErrorMessageBuilder(Path).Build(Resources.Error_HydraulicBoundaryLocation_read_from_database),
+                    e);
             }
         }
 

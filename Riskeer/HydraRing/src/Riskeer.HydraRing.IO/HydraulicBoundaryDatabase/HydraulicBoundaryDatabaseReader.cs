@@ -103,7 +103,7 @@ namespace Riskeer.HydraRing.IO.HydraulicBoundaryDatabase
         /// Gets the version of the hydraulic boundary database.
         /// </summary>
         /// <returns>The version found in the database, or <see cref="string.Empty"/> if the version cannot be found.</returns>
-        /// <exception cref="CriticalFileReadException">Thrown when the version cannot be read..</exception>
+        /// <exception cref="CriticalFileReadException">Thrown when the version cannot be read.</exception>
         public string ReadVersion()
         {
             try
