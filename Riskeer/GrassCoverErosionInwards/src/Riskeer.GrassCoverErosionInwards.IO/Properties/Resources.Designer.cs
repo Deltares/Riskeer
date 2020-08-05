@@ -124,6 +124,27 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;!--
+        ///Copyright (C) Stichting Deltares 2019. All rights reserved.
+        ///
+        ///This file is part of Riskeer.
+        ///
+        ///Riskeer is free software: you can redistribute it and/or modify
+        ///it under the terms of the GNU General Public License as published by
+        ///the Free Software Foundation, either version 3 of the License, or
+        ///(at your option) any later version.
+        ///
+        ///This program is distributed in the hope that it will be useful,
+        ///but WITHOUT ANY WARRANTY; without even the implied warranty of
+        ///MERCHANTABILITY or FITNESS FOR A PARTICU [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string GEKBConfiguratieSchema0To1 {
+            get {
+                return ResourceManager.GetString("GEKBConfiguratieSchema0To1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Het dijkprofiel met ID &apos;{0}&apos; bestaat niet..
         /// </summary>
         internal static string GrassCoverErosionInwardsCalculationConfigurationImporter_ReadDikeProfile_DikeProfile_0_does_not_exist {
