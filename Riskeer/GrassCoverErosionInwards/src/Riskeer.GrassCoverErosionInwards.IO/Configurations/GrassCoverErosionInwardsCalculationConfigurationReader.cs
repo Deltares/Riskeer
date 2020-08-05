@@ -64,7 +64,7 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Configurations
                    new[]
                    {
                        new CalculationConfigurationSchemaDefinition(
-                           0, Resources.GEKBConfiguratieSchema,
+                           0, Resources.GEKBConfiguratieSchema_0,
                            new Dictionary<string, string>
                            {
                                {
