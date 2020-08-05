@@ -48,7 +48,7 @@ All rights reserved.
   </xs:redefine>
   
   <!--Generieke definitie van de geselecteerde HB locatie voor alle toetssporen.-->
-  <xs:include schemaLocation="HbLocatieSchema.xsd"/>
+  <xs:include schemaLocation="HbLocatieSchema_0.xsd"/>
 
   <!--Generieke definitie voor de orientatie voor alle toetssporen.-->
   <xs:include schemaLocation="OrientatieSchema.xsd"/>

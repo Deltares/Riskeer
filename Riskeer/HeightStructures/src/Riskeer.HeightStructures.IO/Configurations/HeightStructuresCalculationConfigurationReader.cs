@@ -37,7 +37,7 @@ namespace Riskeer.HeightStructures.IO.Configurations
     /// </summary>
     public class HeightStructuresCalculationConfigurationReader : CalculationConfigurationReader<HeightStructuresCalculationConfiguration>
     {
-        private const string hbLocatieSchemaName = "HbLocatieSchema.xsd";
+        private const string hbLocatieSchemaName = "HbLocatieSchema_0.xsd";
         private const string orientatieSchemaName = "OrientatieSchema.xsd";
         private const string golfReductieSchemaName = "GolfReductieSchema.xsd";
         private const string voorlandProfielSchemaName = "VoorlandProfielSchema.xsd";
@@ -68,7 +68,7 @@ namespace Riskeer.HeightStructures.IO.Configurations
                     new Dictionary<string, string>
                     {
                         {
-                            hbLocatieSchemaName, RiskeerCommonIOResources.HbLocatieSchema
+                            hbLocatieSchemaName, RiskeerCommonIOResources.HbLocatieSchema_0
                         },
                         {
                             orientatieSchemaName, RiskeerCommonIOResources.OrientatieSchema

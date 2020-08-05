@@ -39,7 +39,7 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Configurations
     /// </summary>
     public class GrassCoverErosionInwardsCalculationConfigurationReader : CalculationConfigurationReader<GrassCoverErosionInwardsCalculationConfiguration>
     {
-        private const string hbLocatieSchemaName = "HbLocatieSchema.xsd";
+        private const string hbLocatieSchemaName = "HbLocatieSchema_0.xsd";
         private const string orientatieSchemaName = "OrientatieSchema.xsd";
         private const string golfReductieSchemaName = "GolfReductieSchema.xsd";
         private const string stochastSchemaName = "StochastSchema.xsd";
@@ -68,7 +68,7 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Configurations
                            new Dictionary<string, string>
                            {
                                {
-                                   hbLocatieSchemaName, RiskeerCommonIOResources.HbLocatieSchema
+                                   hbLocatieSchemaName, RiskeerCommonIOResources.HbLocatieSchema_0
                                },
                                {
                                    orientatieSchemaName, RiskeerCommonIOResources.OrientatieSchema

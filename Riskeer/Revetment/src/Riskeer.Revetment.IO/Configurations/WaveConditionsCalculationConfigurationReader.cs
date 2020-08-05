@@ -40,7 +40,7 @@ namespace Riskeer.Revetment.IO.Configurations
     public abstract class WaveConditionsCalculationConfigurationReader<T> : CalculationConfigurationReader<T>
         where T : WaveConditionsCalculationConfiguration
     {
-        private const string hbLocationSchemaName = "HbLocatieSchema.xsd";
+        private const string hbLocationSchemaName = "HbLocatieSchema_0.xsd";
         private const string orientationSchemaName = "OrientatieSchema.xsd";
         private const string foreshoreProfileSchemaName = "VoorlandProfielSchema.xsd";
         private const string waveReductionSchemaName = "GolfReductieSchema.xsd";
@@ -72,7 +72,7 @@ namespace Riskeer.Revetment.IO.Configurations
                             revetmentBaseSchemaName, Resources.BekledingenConfiguratieBasisSchema
                         },
                         {
-                            hbLocationSchemaName, RiskeerCommonIOResources.HbLocatieSchema
+                            hbLocationSchemaName, RiskeerCommonIOResources.HbLocatieSchema_0
                         },
                         {
                             orientationSchemaName, RiskeerCommonIOResources.OrientatieSchema
