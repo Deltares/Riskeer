@@ -99,7 +99,7 @@ namespace Riskeer.HydraRing.IO.Test.HydraulicBoundaryDatabase
                 TestDelegate test = () => reader.Read();
 
                 // Assert
-                string expectedMessage = $"Fout bij het lezen van bestand '{hydraulicBoundaryDatabaseFile}': kon geen locaties verkrijgen van de database.";
+                string expectedMessage = $"Fout bij het lezen van bestand '{hydraulicBoundaryDatabaseFile}': kritieke fout opgetreden bij het uitlezen van de structuur van de database.";
                 var exception = Assert.Throws<CriticalFileReadException>(test);
                 Assert.AreEqual(expectedMessage, exception.Message);
                 Assert.IsInstanceOf<SQLiteException>(exception.InnerException);
@@ -216,7 +216,7 @@ namespace Riskeer.HydraRing.IO.Test.HydraulicBoundaryDatabase
 
                 // Assert
                 var exception = Assert.Throws<CriticalFileReadException>(test);
-                string expectedMessage = $"Fout bij het lezen van bestand '{hydraulicBoundaryDatabaseFile}': kon geen locaties verkrijgen van de database.";
+                string expectedMessage = $"Fout bij het lezen van bestand '{hydraulicBoundaryDatabaseFile}': kritieke fout opgetreden bij het uitlezen van de structuur van de database.";
                 Assert.AreEqual(expectedMessage, exception.Message);
                 Assert.IsInstanceOf<SQLiteException>(exception.InnerException);
             }
@@ -288,7 +288,7 @@ namespace Riskeer.HydraRing.IO.Test.HydraulicBoundaryDatabase
 
                 // Assert
                 var exception = Assert.Throws<CriticalFileReadException>(test);
-                string expectedMessage = $"Fout bij het lezen van bestand '{hydraulicBoundaryDatabaseFile}': kon geen locaties verkrijgen van de database.";
+                string expectedMessage = $"Fout bij het lezen van bestand '{hydraulicBoundaryDatabaseFile}': kritieke fout opgetreden bij het uitlezen van de structuur van de database.";
                 Assert.AreEqual(expectedMessage, exception.Message);
                 Assert.IsInstanceOf<SQLiteException>(exception.InnerException);
             }

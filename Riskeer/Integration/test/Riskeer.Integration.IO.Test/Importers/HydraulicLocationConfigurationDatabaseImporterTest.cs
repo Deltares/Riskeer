@@ -171,7 +171,7 @@ namespace Riskeer.Integration.IO.Test.Importers
             Action call = () => importSuccessful = importer.Import();
 
             // Assert
-            string expectedMessage = $"Fout bij het lezen van bestand '{hydraulicBoundaryDatabase.FilePath}': kon geen locaties verkrijgen van de database.";
+            string expectedMessage = $"Fout bij het lezen van bestand '{hydraulicBoundaryDatabase.FilePath}': kritieke fout opgetreden bij het uitlezen van de structuur van de database.";
             AssertImportFailed(call, expectedMessage, ref importSuccessful);
             mocks.VerifyAll();
         }

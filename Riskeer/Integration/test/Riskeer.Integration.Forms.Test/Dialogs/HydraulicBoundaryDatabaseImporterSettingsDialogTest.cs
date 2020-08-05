@@ -283,7 +283,7 @@ namespace Riskeer.Integration.Forms.Test.Dialogs
             // Given
             var mockRepository = new MockRepository();
             var inquiryHelper = mockRepository.StrictMock<IInquiryHelper>();
-            inquiryHelper.Expect(ih => ih.GetSourceFileLocation("HLCD bestand|*.sqlite")).Return(validHlcdFilePath);
+            inquiryHelper.Expect(ih => ih.GetSourceFileLocation("HLCD bestand (*.sqlite)|*.sqlite")).Return(validHlcdFilePath);
             mockRepository.ReplayAll();
 
             DialogBoxHandler = (name, wnd) =>
@@ -363,7 +363,7 @@ namespace Riskeer.Integration.Forms.Test.Dialogs
             // Given
             var mockRepository = new MockRepository();
             var inquiryHelper = mockRepository.StrictMock<IInquiryHelper>();
-            inquiryHelper.Expect(ih => ih.GetSourceFileLocation("Locatie bestand|*.sqlite")).Return(validLocationsFilePath);
+            inquiryHelper.Expect(ih => ih.GetSourceFileLocation("Locatie bestand (*.sqlite)|*.sqlite")).Return(validLocationsFilePath);
             mockRepository.ReplayAll();
 
             DialogBoxHandler = (name, wnd) =>
