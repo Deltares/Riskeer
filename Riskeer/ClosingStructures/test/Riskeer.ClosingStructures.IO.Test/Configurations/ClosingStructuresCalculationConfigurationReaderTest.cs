@@ -368,8 +368,8 @@ namespace Riskeer.ClosingStructures.IO.Test.Configurations
         [TestCase("validFullConfiguration_differentOrder_old")]
         [TestCase("validFullConfigurationNew")]
         [TestCase("validFullConfiguration_differentOrder_new")]
-        [TestCase("validFullConfigurationVersion1.xml")]
-        [TestCase("validFullConfiguration_differentOrder_Version1.xml")]
+        [TestCase("validFullConfigurationVersion1")]
+        [TestCase("validFullConfiguration_differentOrder_Version1")]
         public void Read_ValidFullConfigurations_ExpectedValues(string fileName)
         {
             // Setup
