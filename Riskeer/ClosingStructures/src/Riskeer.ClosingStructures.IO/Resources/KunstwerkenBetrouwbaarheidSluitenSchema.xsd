@@ -30,6 +30,14 @@ All rights reserved.
   <!--Definitie voor het specificeren van een berekeningsscenario-->
   <xs:include schemaLocation="ScenariosSchema.xsd" />
   
+  <xs:complexType name="configuratieType">
+    <xs:complexContent>
+      <xs:extension base="configuratieType">
+        <xs:attribute name="versie" type="xs:int" use="required" fixed="1"/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
   <!--Herdefinieer berekening, zodat deze de juiste inhoud heeft.-->
   <xs:redefine schemaLocation="ConfiguratieSchema.xsd">
     <xs:complexType name="berekeningType">

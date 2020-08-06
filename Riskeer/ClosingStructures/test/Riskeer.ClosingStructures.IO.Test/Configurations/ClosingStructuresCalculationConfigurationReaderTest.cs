@@ -294,6 +294,10 @@ namespace Riskeer.ClosingStructures.IO.Test.Configurations
                 yield return new TestCaseData("invalidScenarioRelevantNoBoolean.xml",
                                               "The 'gebruik' element is invalid - The value 'string' is invalid according to its datatype 'Boolean'")
                     .SetName("invalidScenarioRelevantNoBoolean");
+
+                yield return new TestCaseData("invalidCalculationVersion1HydraulicBoundaryLocationOld.xml",
+                                              "The element 'berekening' has invalid child element 'hrlocatie'.")
+                    .SetName("invalidCalculationVersion1HydraulicBoundaryLocationOld");
             }
         }
 
@@ -364,6 +368,8 @@ namespace Riskeer.ClosingStructures.IO.Test.Configurations
         [TestCase("validFullConfiguration_differentOrder_old")]
         [TestCase("validFullConfigurationNew")]
         [TestCase("validFullConfiguration_differentOrder_new")]
+        [TestCase("validFullConfigurationVersion1.xml")]
+        [TestCase("validFullConfiguration_differentOrder_Version1.xml")]
         public void Read_ValidFullConfigurations_ExpectedValues(string fileName)
         {
             // Setup
