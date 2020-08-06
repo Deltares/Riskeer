@@ -71,15 +71,29 @@ namespace Riskeer.Piping.IO.Configurations
                         {
                             scenarioSchemaName, RiskeerCommonIOResources.ScenarioSchema
                         }
-                    }, null)
+                    }, null),
+                new CalculationConfigurationSchemaDefinition(
+                    1, Resources.PipingConfiguratieSchema,
+                    new Dictionary<string, string>
+                    {
+                        {
+                            stochastSchemaName, RiskeerCommonIOResources.StochastSchema
+                        },
+                        {
+                            stochastStandaardafwijkingSchemaName, RiskeerCommonIOResources.StochastStandaardafwijkingSchema
+                        },
+                        {
+                            scenarioSchemaName, RiskeerCommonIOResources.ScenarioSchema
+                        }
+                    }, Resources.PipingConfiguratieSchema0To1)
             }) {}
 
         protected override PipingCalculationConfiguration ParseCalculationElement(XElement calculationElement)
         {
             return new PipingCalculationConfiguration(calculationElement.Attribute(ConfigurationSchemaIdentifiers.NameAttribute).Value)
             {
-                AssessmentLevel = GetAssessmentLevel(calculationElement),
-                HydraulicBoundaryLocationName = calculationElement.GetHydraulicBoundaryLocationName(),
+                AssessmentLevel = calculationElement.GetDoubleValueFromDescendantElement(PipingCalculationConfigurationSchemaIdentifiers.WaterLevelElement),
+                HydraulicBoundaryLocationName = calculationElement.GetStringValueFromDescendantElement(ConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElementNew),
                 SurfaceLineName = calculationElement.GetStringValueFromDescendantElement(PipingCalculationConfigurationSchemaIdentifiers.SurfaceLineElement),
                 EntryPointL = calculationElement.GetDoubleValueFromDescendantElement(PipingCalculationConfigurationSchemaIdentifiers.EntryPointLElement),
                 ExitPointL = calculationElement.GetDoubleValueFromDescendantElement(PipingCalculationConfigurationSchemaIdentifiers.ExitPointLElement),
@@ -89,12 +103,6 @@ namespace Riskeer.Piping.IO.Configurations
                 DampingFactorExit = calculationElement.GetStochastConfiguration(PipingCalculationConfigurationSchemaIdentifiers.DampingFactorExitStochastName),
                 Scenario = calculationElement.GetScenarioConfiguration()
             };
-        }
-
-        private static double? GetAssessmentLevel(XElement calculationElement)
-        {
-            return calculationElement.GetDoubleValueFromDescendantElement(PipingCalculationConfigurationSchemaIdentifiers.WaterLevelElement)
-                   ?? calculationElement.GetDoubleValueFromDescendantElement(PipingCalculationConfigurationSchemaIdentifiers.AssessmentLevelElement);
         }
     }
 }

@@ -30,7 +30,6 @@ namespace Riskeer.Piping.IO.Test.Configurations
         [Test]
         public void PipingCalculationConfigurationSchemaIdentifiers_ExpectedValues()
         {
-            Assert.AreEqual("toetspeil", PipingCalculationConfigurationSchemaIdentifiers.AssessmentLevelElement);
             Assert.AreEqual("waterstand", PipingCalculationConfigurationSchemaIdentifiers.WaterLevelElement);
             Assert.AreEqual("profielschematisatie", PipingCalculationConfigurationSchemaIdentifiers.SurfaceLineElement);
             Assert.AreEqual("intredepunt", PipingCalculationConfigurationSchemaIdentifiers.EntryPointLElement);

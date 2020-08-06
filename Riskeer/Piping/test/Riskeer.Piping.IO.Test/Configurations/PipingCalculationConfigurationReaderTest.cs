@@ -180,6 +180,16 @@ namespace Riskeer.Piping.IO.Test.Configurations
                 yield return new TestCaseData("invalidContainingBothHydraulicBoundaryLocationOldAndNew.xml",
                                               "Element 'hrlocatie' cannot appear more than once if content model type is \"all\".")
                     .SetName("invalidContainingBothHydraulicBoundaryLocationOldAndNew");
+
+                yield return new TestCaseData("invalidCalculationVersion1HydraulicBoundaryLocationOld.xml",
+                                              "The element 'berekening' has invalid child element 'hrlocatie'.")
+                    .SetName("invalidCalculationVersion1HydraulicBoundaryLocationOld");
+                yield return new TestCaseData("invalidCalculationVersion1AssessmentLevel.xml",
+                                              "The element 'berekening' has invalid child element 'toetspeil'.")
+                    .SetName("invalidCalculationVersion1AssessmentLevel");
+                yield return new TestCaseData("invalidCalculationVersion1ContainingBothAssessmentLevelAndHydraulicBoundaryLocation.xml",
+                                              "Element 'hblocatie' cannot appear more than once if content model type is \"all\".")
+                    .SetName("invalidCalculationVersion1ContainingBothAssessmentLevelAndHydraulicBoundaryLocation");
             }
         }
 
@@ -191,10 +201,10 @@ namespace Riskeer.Piping.IO.Test.Configurations
             string filePath = Path.Combine(testDirectoryPath, fileName);
 
             // Call
-            TestDelegate call = () => new PipingCalculationConfigurationReader(filePath);
+            void Call() => new PipingCalculationConfigurationReader(filePath);
 
             // Assert
-            var exception = Assert.Throws<CriticalFileReadException>(call);
+            var exception = Assert.Throws<CriticalFileReadException>(Call);
             Assert.IsInstanceOf<XmlSchemaValidationException>(exception.InnerException);
             StringAssert.Contains(expectedParsingMessage, exception.InnerException?.Message);
         }
@@ -319,6 +329,8 @@ namespace Riskeer.Piping.IO.Test.Configurations
         [TestCase("validConfigurationFullCalculationContainingHydraulicBoundaryLocationNew")]
         [TestCase("validConfigurationFullCalculationContainingHydraulicBoundaryLocation_differentOrder_old")]
         [TestCase("validConfigurationFullCalculationContainingHydraulicBoundaryLocation_differentOrder_new")]
+        [TestCase("validConfigurationFullCalculationVersion1ContainingHydraulicBoundaryLocation")]
+        [TestCase("validConfigurationFullCalculationVersion1ContainingHydraulicBoundaryLocation_differentOrder")]
         public void Read_ValidConfigurationWithFullCalculationContainingHydraulicBoundaryLocation_ReturnExpectedReadPipingCalculation(string fileName)
         {
             // Setup
@@ -352,6 +364,8 @@ namespace Riskeer.Piping.IO.Test.Configurations
         [TestCase("validConfigurationFullCalculationContainingWaterLevel")]
         [TestCase("validConfigurationFullCalculationContainingAssessmentLevel_differentOrder")]
         [TestCase("validConfigurationFullCalculationContainingWaterLevel_differentOrder")]
+        [TestCase("validConfigurationFullCalculationVersion1ContainingWaterLevel")]
+        [TestCase("validConfigurationFullCalculationVersion1ContainingWaterLevel_differentOrder")]
         public void Read_ValidConfigurationWithFullCalculationContainingAssessmentLevel_ReturnExpectedReadPipingCalculation(string fileName)
         {
             // Setup
