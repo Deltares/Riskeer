@@ -62,7 +62,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Configurations
             : base(xmlFilePath, new[]
             {
                 new CalculationConfigurationSchemaDefinition(
-                    0, Resources.MacroStabiliteitBinnenwaartsConfiguratieSchema,
+                    0, Resources.MacroStabiliteitBinnenwaartsConfiguratieSchema_0,
                     new Dictionary<string, string>
                     {
                         {
