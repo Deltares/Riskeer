@@ -27,11 +27,6 @@ namespace Riskeer.MacroStabilityInwards.IO.Configurations
     internal static class MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers
     {
         /// <summary>
-        /// The identifier for assessment level elements.
-        /// </summary>
-        public const string AssessmentLevelElement = "toetspeil";
-
-        /// <summary>
         /// The identifier for water level elements.
         /// </summary>
         public const string WaterLevelElement = "waterstand";

@@ -77,7 +77,24 @@ namespace Riskeer.MacroStabilityInwards.IO.Configurations
                         {
                             slopeStabilityGridsSchemaName, Resources.MacroStabiliteitBinnenwaartsGridsSchema
                         }
-                    }, null)
+                    }, null),
+                new CalculationConfigurationSchemaDefinition(
+                    1, Resources.MacroStabiliteitBinnenwaartsConfiguratieSchema,
+                    new Dictionary<string, string>
+                    {
+                        {
+                            scenarioSchemaName, RiskeerCommonIOResources.ScenarioSchema
+                        },
+                        {
+                            waternetCreatorSchemaSchemaName, Resources.MacroStabiliteitBinnenwaartsWaterspanningenSchema
+                        },
+                        {
+                            slopeStabilityZonesSchemaName, Resources.MacroStabiliteitBinnenwaartsZonesSchema
+                        },
+                        {
+                            slopeStabilityGridsSchemaName, Resources.MacroStabiliteitBinnenwaartsGridsSchema
+                        }
+                    }, Resources.MacroStabiliteitBinnenwaartsConfiguratieSchema0To1)
             }) {}
 
         protected override MacroStabilityInwardsCalculationConfiguration ParseCalculationElement(XElement calculationElement)
@@ -85,8 +102,8 @@ namespace Riskeer.MacroStabilityInwards.IO.Configurations
             var configuration = new MacroStabilityInwardsCalculationConfiguration(
                 calculationElement.Attribute(ConfigurationSchemaIdentifiers.NameAttribute).Value)
             {
-                AssessmentLevel = GetAssessmentLevel(calculationElement),
-                HydraulicBoundaryLocationName = calculationElement.GetHydraulicBoundaryLocationName(),
+                AssessmentLevel = calculationElement.GetDoubleValueFromDescendantElement(MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.WaterLevelElement),
+                HydraulicBoundaryLocationName = calculationElement.GetStringValueFromDescendantElement(ConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElementNew),
                 SurfaceLineName = calculationElement.GetStringValueFromDescendantElement(
                     MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.SurfaceLineElement),
                 StochasticSoilModelName = calculationElement.GetStringValueFromDescendantElement(
@@ -125,12 +142,6 @@ namespace Riskeer.MacroStabilityInwards.IO.Configurations
             SetGridProperties(configuration, calculationElement);
 
             return configuration;
-        }
-
-        private static double? GetAssessmentLevel(XElement calculationElement)
-        {
-            return calculationElement.GetDoubleValueFromDescendantElement(MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.WaterLevelElement)
-                   ?? calculationElement.GetDoubleValueFromDescendantElement(MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.AssessmentLevelElement);
         }
 
         /// <summary>

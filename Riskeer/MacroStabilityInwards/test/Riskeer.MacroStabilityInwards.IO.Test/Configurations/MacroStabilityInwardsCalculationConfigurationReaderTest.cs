@@ -49,10 +49,10 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Configurations
             Assert.IsTrue(File.Exists(filePath), $"File '{fileName}' does not exist");
 
             // Call
-            TestDelegate call = () => new MacroStabilityInwardsCalculationConfigurationReader(filePath);
+            void Call() => new MacroStabilityInwardsCalculationConfigurationReader(filePath);
 
             // Assert
-            var exception = Assert.Throws<CriticalFileReadException>(call);
+            var exception = Assert.Throws<CriticalFileReadException>(Call);
             Assert.IsInstanceOf<XmlSchemaValidationException>(exception.InnerException);
             StringAssert.Contains(expectedParsingMessage, exception.InnerException?.Message);
         }
@@ -239,6 +239,8 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Configurations
         [TestCase("validConfigurationFullCalculationContainingHydraulicBoundaryLocationNew")]
         [TestCase("validConfigurationFullCalculationContainingHydraulicBoundaryLocation_differentOrder_old")]
         [TestCase("validConfigurationFullCalculationContainingHydraulicBoundaryLocation_differentOrder_new")]
+        [TestCase("validConfigurationFullCalculationVersion1ContainingHydraulicBoundaryLocation")]
+        [TestCase("validConfigurationFullCalculationVersion1ContainingHydraulicBoundaryLocation_differentOrder")]
         public void Read_ValidConfigurationWithFullCalculationContainingHydraulicBoundaryLocation_ReturnExpectedReadMacroStabilityInwardsCalculation(string fileName)
         {
             // Setup
@@ -343,6 +345,8 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Configurations
         [TestCase("validConfigurationFullCalculationContainingWaterLevel")]
         [TestCase("validConfigurationFullCalculationContainingAssessmentLevel_differentOrder")]
         [TestCase("validConfigurationFullCalculationContainingWaterLevel_differentOrder")]
+        [TestCase("validConfigurationFullCalculationVersion1ContainingWaterLevel")]
+        [TestCase("validConfigurationFullCalculationVersion1ContainingWaterLevel_differentOrder")]
         public void Read_ValidConfigurationWithFullCalculationContainingAssessmentLevel_ReturnExpectedReadMacroStabilityInwardsCalculation(string fileName)
         {
             // Setup
@@ -506,6 +510,16 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Configurations
             {
                 yield return testCaseData.SetName(testName);
             }
+
+            yield return new TestCaseData("invalidCalculationVersion1HydraulicBoundaryLocationOld.xml",
+                                          "The element 'berekening' has invalid child element 'hrlocatie'.")
+                .SetName("invalidCalculationVersion1HydraulicBoundaryLocationOld");
+            yield return new TestCaseData("invalidCalculationVersion1AssessmentLevel.xml",
+                                          "The element 'berekening' has invalid child element 'toetspeil'.")
+                .SetName("invalidCalculationVersion1AssessmentLevel");
+            yield return new TestCaseData("invalidCalculationVersion1ContainingBothAssessmentLevelAndHydraulicBoundaryLocation.xml",
+                                          "Element 'hblocatie' cannot appear more than once if content model type is \"all\".")
+                .SetName("invalidCalculationVersion1ContainingBothAssessmentLevelAndHydraulicBoundaryLocation");
         }
 
         private static IEnumerable<TestCaseData> InvalidTypeTestCases()
