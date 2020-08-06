@@ -221,6 +221,27 @@ namespace Riskeer.Piping.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;!--
+        ///Copyright (C) Stichting Deltares 2019. All rights reserved.
+        ///
+        ///This file is part of Riskeer.
+        ///
+        ///Riskeer is free software: you can redistribute it and/or modify
+        ///it under the terms of the GNU General Public License as published by
+        ///the Free Software Foundation, either version 3 of the License, or
+        ///(at your option) any later version.
+        ///
+        ///This program is distributed in the hope that it will be useful,
+        ///but WITHOUT ANY WARRANTY; without even the implied warranty of
+        ///ME [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string PipingConfiguratieSchema0To1 {
+            get {
+                return ResourceManager.GetString("PipingConfiguratieSchema0To1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Verzadigd gewicht.
         /// </summary>
         public static string SoilLayer_BelowPhreaticLevelDistribution_DisplayName {
