@@ -59,7 +59,7 @@ namespace Riskeer.Piping.IO.Configurations
         /// <summary>
         /// The identifier for the phreatic level exit stochast names.
         /// </summary>
-        public const string PhreaticLevelExitStochastName = "polderpeil";
+        public const string PhreaticLevelExitStochastName = "binnendijksewaterstand";
 
         /// <summary>
         /// The identifier for the damping factor exit stochast names.

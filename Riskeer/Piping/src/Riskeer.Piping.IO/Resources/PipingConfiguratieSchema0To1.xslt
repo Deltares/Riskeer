@@ -39,4 +39,11 @@ All rights reserved.
       <xsl:apply-templates/>
     </xsl:element>
   </xsl:template>
+
+  <xsl:template match="stochast/@naam[.='polderpeil']">
+    <xsl:attribute name="naam">
+      <xsl:value-of select="'binnendijksewaterstand'"/>
+    </xsl:attribute>
+  </xsl:template>
+
 </xsl:stylesheet>

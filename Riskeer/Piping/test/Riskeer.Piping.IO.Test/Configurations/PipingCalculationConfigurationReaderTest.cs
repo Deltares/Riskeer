@@ -190,6 +190,9 @@ namespace Riskeer.Piping.IO.Test.Configurations
                 yield return new TestCaseData("invalidCalculationVersion1ContainingBothAssessmentLevelAndHydraulicBoundaryLocation.xml",
                                               "Element 'hblocatie' cannot appear more than once if content model type is \"all\".")
                     .SetName("invalidCalculationVersion1ContainingBothAssessmentLevelAndHydraulicBoundaryLocation");
+                yield return new TestCaseData("invalidCalculationVersion1OldStochastName.xml",
+                                              "The 'naam' attribute is invalid - The value 'polderpeil' is invalid according to its datatype 'nameType' - The Enumeration constraint failed.")
+                    .SetName("invalidCalculationVersion1OldStochastName");
             }
         }
 

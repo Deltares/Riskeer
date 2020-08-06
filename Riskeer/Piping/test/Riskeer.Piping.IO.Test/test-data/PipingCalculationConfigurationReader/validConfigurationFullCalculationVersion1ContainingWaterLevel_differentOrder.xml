@@ -6,7 +6,7 @@
         <standaardafwijking>7.7</standaardafwijking>
         <verwachtingswaarde>6.6</verwachtingswaarde>
       </stochast>
-      <stochast naam="polderpeil">
+      <stochast naam="binnendijksewaterstand">
         <standaardafwijking>5.5</standaardafwijking>
         <verwachtingswaarde>4.4</verwachtingswaarde>
       </stochast>

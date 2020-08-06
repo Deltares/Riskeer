@@ -63,7 +63,7 @@ All rights reserved.
   <xs:redefine schemaLocation="StochastSchema.xsd">
     <xs:simpleType name="nameType">
       <xs:restriction base="nameType">
-        <xs:enumeration value="polderpeil"/>
+        <xs:enumeration value="binnendijksewaterstand"/>
         <xs:enumeration value="dempingsfactor"/>
       </xs:restriction>
     </xs:simpleType>

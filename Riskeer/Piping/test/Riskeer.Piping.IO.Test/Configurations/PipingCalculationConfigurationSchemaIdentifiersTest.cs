@@ -36,7 +36,7 @@ namespace Riskeer.Piping.IO.Test.Configurations
             Assert.AreEqual("uittredepunt", PipingCalculationConfigurationSchemaIdentifiers.ExitPointLElement);
             Assert.AreEqual("ondergrondmodel", PipingCalculationConfigurationSchemaIdentifiers.StochasticSoilModelElement);
             Assert.AreEqual("ondergrondschematisatie", PipingCalculationConfigurationSchemaIdentifiers.StochasticSoilProfileElement);
-            Assert.AreEqual("polderpeil", PipingCalculationConfigurationSchemaIdentifiers.PhreaticLevelExitStochastName);
+            Assert.AreEqual("binnendijksewaterstand", PipingCalculationConfigurationSchemaIdentifiers.PhreaticLevelExitStochastName);
             Assert.AreEqual("dempingsfactor", PipingCalculationConfigurationSchemaIdentifiers.DampingFactorExitStochastName);
         }
     }

@@ -6,7 +6,7 @@
     <intredepunt>0</intredepunt>
     <uittredepunt>10</uittredepunt>
     <stochasten>
-      <stochast naam="polderpeil">
+      <stochast naam="binnendijksewaterstand">
         <verwachtingswaarde>0</verwachtingswaarde>
         <standaardafwijking>0.1</standaardafwijking>
       </stochast>

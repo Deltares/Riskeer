@@ -7,7 +7,7 @@
     <uittredepunt>10</uittredepunt>
     <ondergrondmodel>PK001_0001_Piping</ondergrondmodel>
     <stochasten>
-      <stochast naam="polderpeil">
+      <stochast naam="binnendijksewaterstand">
         <verwachtingswaarde>0</verwachtingswaarde>
         <standaardafwijking>0.1</standaardafwijking>
       </stochast>
