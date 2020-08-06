@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<configuratie versie="1">
+  <berekening naam="Berekening 1">
+    <hrlocatie>Some_hydraulic_boundary_location</hrlocatie>
+  </berekening>
+</configuratie>

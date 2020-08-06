@@ -199,8 +199,8 @@ namespace Riskeer.HeightStructures.IO.Test.Configurations
                     .SetName("invalidShouldIllustrationPointsBeCalculatedNoBoolean");
 
                 yield return new TestCaseData("invalidCalculationMultipleScenario.xml",
-                              "Element 'scenario' cannot appear more than once if content model type is \"all\".")
-    .SetName("invalidCalculationMultipleScenario");
+                                              "Element 'scenario' cannot appear more than once if content model type is \"all\".")
+                    .SetName("invalidCalculationMultipleScenario");
                 yield return new TestCaseData("invalidScenarioMultipleContribution.xml",
                                               "Element 'bijdrage' cannot appear more than once if content model type is \"all\".")
                     .SetName("invalidScenarioMultipleContribution");
@@ -219,6 +219,10 @@ namespace Riskeer.HeightStructures.IO.Test.Configurations
                 yield return new TestCaseData("invalidScenarioRelevantNoBoolean.xml",
                                               "The 'gebruik' element is invalid - The value 'string' is invalid according to its datatype 'Boolean'")
                     .SetName("invalidScenarioRelevantNoBoolean");
+
+                yield return new TestCaseData("invalidCalculationVersion1HydraulicBoundaryLocationOld.xml",
+                                              "The element 'berekening' has invalid child element 'hrlocatie'.")
+                    .SetName("invalidCalculationVersion1HydraulicBoundaryLocationOld");
             }
         }
 
@@ -290,6 +294,8 @@ namespace Riskeer.HeightStructures.IO.Test.Configurations
         [TestCase("validFullConfigurationNew")]
         [TestCase("validFullConfiguration_differentOrder_old")]
         [TestCase("validFullConfiguration_differentOrder_new")]
+        [TestCase("validFullConfigurationVersion1")]
+        [TestCase("validFullConfiguration_differentOrder_Version1")]
         public void Read_ValidFullConfigurations_ExpectedValues(string fileName)
         {
             // Setup
