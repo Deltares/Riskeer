@@ -59,7 +59,7 @@ namespace Riskeer.Piping.IO.Configurations
             : base(xmlFilePath, new[]
             {
                 new CalculationConfigurationSchemaDefinition(
-                    0, Resources.PipingConfiguratieSchema,
+                    0, Resources.PipingConfiguratieSchema_0,
                     new Dictionary<string, string>
                     {
                         {
