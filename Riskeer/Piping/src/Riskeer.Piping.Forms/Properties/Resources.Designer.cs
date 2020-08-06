@@ -378,7 +378,7 @@ namespace Riskeer.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to polderpeil
+        ///   Looks up a localized string similar to binnendijkse waterstand
         ///[m+NAP].
         /// </summary>
         public static string PipingCalculationsView_PhreaticLevelExit_DisplayName {
@@ -496,7 +496,7 @@ namespace Riskeer.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Polderpeil..
+        ///   Looks up a localized string similar to Binnendijkse waterstand ter plaatse van het uittredepunt..
         /// </summary>
         public static string PipingInput_PhreaticLevelExit_Description {
             get {
@@ -505,7 +505,7 @@ namespace Riskeer.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Polderpeil [m+NAP].
+        ///   Looks up a localized string similar to Binnendijkse waterstand [m+NAP].
         /// </summary>
         public static string PipingInput_PhreaticLevelExit_DisplayName {
             get {

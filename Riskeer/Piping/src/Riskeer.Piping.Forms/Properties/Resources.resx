@@ -154,10 +154,10 @@
     <value>Referentiewaarde voor 70%-fraktiel in Sellmeijer regel [m]</value>
   </data>
   <data name="PipingInput_PhreaticLevelExit_Description" xml:space="preserve">
-    <value>Polderpeil.</value>
+    <value>Binnendijkse waterstand ter plaatse van het uittredepunt.</value>
   </data>
   <data name="PipingInput_PhreaticLevelExit_DisplayName" xml:space="preserve">
-    <value>Polderpeil [m+NAP]</value>
+    <value>Binnendijkse waterstand [m+NAP]</value>
   </data>
   <data name="PipingInput_PiezometricHeadExit_Description" xml:space="preserve">
     <value>Stijghoogte bij uittredepunt.</value>
@@ -509,7 +509,7 @@ opbarsten
 [-]</value>
   </data>
   <data name="PipingCalculationsView_PhreaticLevelExit_DisplayName" xml:space="preserve">
-    <value>polderpeil
+    <value>binnendijkse waterstand
 [m+NAP]</value>
   </data>
 </root>

@@ -90,7 +90,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             Assert.AreEqual("Ondergrondschematisatie", dataGridView.Columns[stochasticSoilProfilesColumnIndex].HeaderText);
             Assert.AreEqual("Aandeel van schematisatie\r\nin het stochastische ondergrondmodel\r\n[%]", dataGridView.Columns[stochasticSoilProfilesProbabilityColumnIndex].HeaderText);
             Assert.AreEqual("Verwachtingswaarde\r\ndempingsfactor bij uittredepunt\r\n[-]", dataGridView.Columns[dampingFactorExitMeanColumnIndex].HeaderText);
-            Assert.AreEqual("Verwachtingswaarde\r\npolderpeil\r\n[m+NAP]", dataGridView.Columns[phreaticLevelExitMeanColumnIndex].HeaderText);
+            Assert.AreEqual("Verwachtingswaarde\r\nbinnendijkse waterstand\r\n[m+NAP]", dataGridView.Columns[phreaticLevelExitMeanColumnIndex].HeaderText);
             Assert.AreEqual("Intredepunt", dataGridView.Columns[entryPointLColumnIndex].HeaderText);
             Assert.AreEqual("Uittredepunt", dataGridView.Columns[exitPointLColumnIndex].HeaderText);
 
