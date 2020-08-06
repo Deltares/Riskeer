@@ -346,6 +346,10 @@ namespace Riskeer.StabilityPointStructures.IO.Test.Configurations
                 yield return new TestCaseData("invalidShouldIllustrationPointsBeCalculatedNoBoolean.xml",
                                               "The 'illustratiepunteninlezen' element is invalid - The value 'string' is invalid according to its datatype 'Boolean'")
                     .SetName("invalidShouldIllustrationPointsBeCalculatedNoBoolean");
+
+                yield return new TestCaseData("invalidCalculationVersion1HydraulicBoundaryLocationOld.xml",
+                                              "The element 'berekening' has invalid child element 'hrlocatie'.")
+                    .SetName("invalidCalculationVersion1HydraulicBoundaryLocationOld");
             }
         }
 
@@ -383,6 +387,8 @@ namespace Riskeer.StabilityPointStructures.IO.Test.Configurations
         [TestCase("validFullConfigurationNew")]
         [TestCase("validFullConfiguration_differentOrder_old")]
         [TestCase("validFullConfiguration_differentOrder_new")]
+        [TestCase("validFullConfigurationVersion1")]
+        [TestCase("validFullConfiguration_differentOrder_Version1")]
         public void Read_ValidFullConfigurations_ExpectedValues(string fileName)
         {
             // Setup
@@ -785,7 +791,7 @@ namespace Riskeer.StabilityPointStructures.IO.Test.Configurations
             Assert.That(double.IsNegativeInfinity(calculation.WidthFlowApertures.StandardDeviation.Value));
 
             Assert.That(double.IsNegativeInfinity(calculation.WaveReduction.BreakWaterHeight.Value));
-            
+
             Assert.That(double.IsPositiveInfinity(calculation.Scenario.Contribution.Value));
         }
 

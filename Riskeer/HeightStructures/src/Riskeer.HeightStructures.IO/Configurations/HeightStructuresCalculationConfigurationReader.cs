@@ -127,7 +127,7 @@ namespace Riskeer.HeightStructures.IO.Configurations
                         {
                             scenarioSchemaName, RiskeerCommonIOResources.ScenarioSchema
                         }
-                    }, Resources.KunstwerkenHoogteSchemaConfiguratieSchema0To1)
+                    }, Resources.KunstwerkenHoogteConfiguratieSchema0To1)
             }) {}
 
         protected override HeightStructuresCalculationConfiguration ParseCalculationElement(XElement calculationElement)

@@ -38,7 +38,8 @@ namespace Riskeer.StabilityPointStructures.IO.Configurations
     /// </summary>
     public class StabilityPointStructuresCalculationConfigurationReader : CalculationConfigurationReader<StabilityPointStructuresCalculationConfiguration>
     {
-        private const string hbLocatieSchemaName = "HbLocatieSchema_0.xsd";
+        private const string hbLocatieSchemaVersion0Name = "HbLocatieSchema_0.xsd";
+        private const string hbLocatieSchemaVersion1Name = "HbLocatieSchema.xsd";
         private const string orientatieSchemaName = "OrientatieSchema.xsd";
         private const string golfReductieSchemaName = "GolfReductieSchema.xsd";
         private const string voorlandProfielSchemaName = "VoorlandProfielSchema.xsd";
@@ -65,11 +66,11 @@ namespace Riskeer.StabilityPointStructures.IO.Configurations
             : base(filePath, new[]
             {
                 new CalculationConfigurationSchemaDefinition(
-                    0, Resources.StabilityPointStructuresConfigurationSchema,
+                    0, Resources.KunstwerkenConstructiefFalenSchema_0,
                     new Dictionary<string, string>
                     {
                         {
-                            hbLocatieSchemaName, RiskeerCommonIOResources.HbLocatieSchema_0
+                            hbLocatieSchemaVersion0Name, RiskeerCommonIOResources.HbLocatieSchema_0
                         },
                         {
                             orientatieSchemaName, RiskeerCommonIOResources.OrientatieSchema
@@ -95,7 +96,39 @@ namespace Riskeer.StabilityPointStructures.IO.Configurations
                         {
                             scenarioSchemaName, RiskeerCommonIOResources.ScenarioSchema
                         }
-                    }, null)
+                    }, null),
+                new CalculationConfigurationSchemaDefinition(
+                    1, Resources.KunstwerkenConstructiefFalenSchema,
+                    new Dictionary<string, string>
+                    {
+                        {
+                            hbLocatieSchemaVersion1Name, RiskeerCommonIOResources.HbLocatieSchema
+                        },
+                        {
+                            orientatieSchemaName, RiskeerCommonIOResources.OrientatieSchema
+                        },
+                        {
+                            voorlandProfielSchemaName, RiskeerCommonIOResources.VoorlandProfielSchema
+                        },
+                        {
+                            golfReductieSchemaName, RiskeerCommonIOResources.GolfReductieSchema
+                        },
+                        {
+                            stochastSchemaName, RiskeerCommonIOResources.StochastSchema
+                        },
+                        {
+                            stochastStandaardafwijkingSchemaName, RiskeerCommonIOResources.StochastStandaardafwijkingSchema
+                        },
+                        {
+                            stochastVariatiecoefficientSchemaName, RiskeerCommonIOResources.StochastVariatiecoefficientSchema
+                        },
+                        {
+                            structureBaseSchemaName, RiskeerCommonIOResources.KunstwerkenBasisSchema
+                        },
+                        {
+                            scenarioSchemaName, RiskeerCommonIOResources.ScenarioSchema
+                        }
+                    }, Resources.KunstwerkenConstructiefFalenConfiguratieSchema0To1)
             }) {}
 
         protected override StabilityPointStructuresCalculationConfiguration ParseCalculationElement(XElement calculationElement)
@@ -117,7 +150,7 @@ namespace Riskeer.StabilityPointStructures.IO.Configurations
                 FlowVelocityStructureClosable = calculationElement.GetStochastConfiguration(StabilityPointStructuresConfigurationSchemaIdentifiers.FlowVelocityStructureClosableStochastName),
                 FlowWidthAtBottomProtection = calculationElement.GetStochastConfiguration(ConfigurationSchemaIdentifiers.FlowWidthAtBottomProtectionStochastName),
                 ForeshoreProfileId = calculationElement.GetStringValueFromDescendantElement(ConfigurationSchemaIdentifiers.ForeshoreProfileNameElement),
-                HydraulicBoundaryLocationName = calculationElement.GetHydraulicBoundaryLocationName(),
+                HydraulicBoundaryLocationName = calculationElement.GetStringValueFromDescendantElement(ConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElementNew),
                 InflowModelType = (ConfigurationStabilityPointStructuresInflowModelType?)
                     calculationElement.GetConvertedValueFromDescendantStringElement<ConfigurationStabilityPointStructuresInflowModelTypeConverter>(
                         StabilityPointStructuresConfigurationSchemaIdentifiers.InflowModelTypeElement),
