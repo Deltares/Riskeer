@@ -371,7 +371,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
                     void Call() => exportResult = exporter.Export();
 
                     // Assert
-                    const string expectedMessage = "De schematisatie van de berekening bevat meerdere stresspunten binnen binnen één laag of stresspunten die niet aan een laag gekoppeld kunnen worden. Er worden daarom geen POP en grensspanningen geëxporteerd.";
+                    const string expectedMessage = "De schematisatie van de berekening bevat meerdere stresspunten binnen één laag of stresspunten die niet aan een laag gekoppeld kunnen worden. Er worden daarom geen POP en grensspanningen geëxporteerd.";
                     TestHelper.AssertLogMessageWithLevelIsGenerated(Call, new Tuple<string, LogLevelConstant>(expectedMessage, LogLevelConstant.Warn));
                     Assert.IsTrue(exportResult);
                 }
@@ -416,7 +416,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
                     void Call() => exportResult = exporter.Export();
 
                     // Assert
-                    const string expectedMessage = "De schematisatie van de berekening bevat meerdere stresspunten binnen binnen één laag of stresspunten die niet aan een laag gekoppeld kunnen worden. Er worden daarom geen POP en grensspanningen geëxporteerd.";
+                    const string expectedMessage = "De schematisatie van de berekening bevat meerdere stresspunten binnen één laag of stresspunten die niet aan een laag gekoppeld kunnen worden. Er worden daarom geen POP en grensspanningen geëxporteerd.";
                     TestHelper.AssertLogMessageWithLevelIsGenerated(Call, new Tuple<string, LogLevelConstant>(expectedMessage, LogLevelConstant.Warn));
                     Assert.IsTrue(exportResult);
                 }
