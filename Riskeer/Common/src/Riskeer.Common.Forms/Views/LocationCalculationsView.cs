@@ -128,20 +128,6 @@ namespace Riskeer.Common.Forms.Views
         }
 
         /// <summary>
-        /// Validates the calculatable objects.
-        /// </summary>
-        /// <returns>A validation message in case no calculations can be performed, <c>null</c> otherwise.</returns>
-        protected virtual string ValidateCalculatableObjects()
-        {
-            if (!GetCalculatableRows().Any(r => r.ShouldCalculate))
-            {
-                return Resources.CalculatableViews_No_calculations_selected;
-            }
-
-            return null;
-        }
-
-        /// <summary>
         /// Handles the update of a hydraulic boundary location calculation by refreshing the data grid view
         /// and updating the data of the illustration points control.
         /// </summary>
@@ -153,6 +139,16 @@ namespace Riskeer.Common.Forms.Views
             suspendAllEvents = false;
 
             HandlePossibleOutdatedIllustrationPointsSelection();
+        }
+
+        private string ValidateCalculatableObjects()
+        {
+            if (!GetCalculatableRows().Any(r => r.ShouldCalculate))
+            {
+                return Resources.CalculatableViews_No_calculations_selected;
+            }
+
+            return null;
         }
 
         private void UpdateCalculateForSelectedButton()

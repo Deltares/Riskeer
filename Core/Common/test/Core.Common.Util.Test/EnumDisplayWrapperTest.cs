@@ -86,10 +86,10 @@ namespace Core.Common.Util.Test
             var wrapper = new EnumDisplayWrapper<TestEnum>(TestEnum.DisplayName);
 
             // Call
-            var toString = wrapper.ToString();
+            string wrapperToString = wrapper.ToString();
 
             // Assert
-            Assert.AreEqual(wrapper.DisplayName, toString);
+            Assert.AreEqual(wrapper.DisplayName, wrapperToString);
         }
 
         private enum TestEnum

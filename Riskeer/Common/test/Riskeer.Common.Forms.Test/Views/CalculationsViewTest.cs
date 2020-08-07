@@ -52,6 +52,197 @@ namespace Riskeer.Common.Forms.Test.Views
 
         private Form testForm;
 
+        #region Cell editing
+
+        [Test]
+        public void CalculationsView_EditingNameViaDataGridView_ObserversCorrectlyNotified()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var calculationObserver = mocks.StrictMock<IObserver>();
+            calculationObserver.Expect(o => o.UpdateObserver());
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            TestCalculationsView calculationsView = ShowFullyConfiguredCalculationsView(assessmentSection);
+
+            var data = (CalculationGroup) calculationsView.Data;
+            var calculation = (TestCalculation) data.Children.First();
+
+            calculation.Attach(calculationObserver);
+
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+
+            // Call
+            dataGridView.Rows[0].Cells[nameColumnIndex].Value = "New name";
+
+            // Assert
+            mocks.VerifyAll();
+        }
+
+        #endregion
+
+        [Test]
+        public void GivenCalculationsView_WhenGenerateCalculationsButtonClicked_ThenGenerateCalculationsCalled()
+        {
+            // Given
+            var view = new TestCalculationsView(new CalculationGroup(), new TestFailureMechanism(), new AssessmentSectionStub())
+            {
+                CanGenerateCalculationState = true
+            };
+
+            testForm.Controls.Add(view);
+            testForm.Show();
+
+            var button = new ButtonTester("generateButton", testForm);
+
+            // Precondition
+            Assert.IsFalse(view.GenerateButtonClicked);
+
+            // When
+            button.Click();
+
+            // Then
+            Assert.IsTrue(view.GenerateButtonClicked);
+        }
+
+        public override void Setup()
+        {
+            base.Setup();
+
+            testForm = new Form();
+        }
+
+        public override void TearDown()
+        {
+            base.TearDown();
+
+            testForm.Dispose();
+        }
+
+        private static void ConfigureHydraulicBoundaryDatabase(IAssessmentSection assessmentSection)
+        {
+            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase
+            {
+                Locations =
+                {
+                    new HydraulicBoundaryLocation(1, "Location 1", 1.1, 2.2),
+                    new HydraulicBoundaryLocation(2, "Location 2", 3.3, 4.4)
+                }
+            });
+        }
+
+        private static TestFailureMechanism ConfigureFailureMechanism()
+        {
+            var failureMechanism = new TestFailureMechanism();
+
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
+            {
+                new FailureMechanismSection("Section 1", new[]
+                {
+                    new Point2D(0.0, 0.0),
+                    new Point2D(5.0, 0.0)
+                }),
+                new FailureMechanismSection("Section 2", new[]
+                {
+                    new Point2D(5.0, 0.0),
+                    new Point2D(10.0, 0.0)
+                })
+            });
+
+            return failureMechanism;
+        }
+
+        private static CalculationGroup ConfigureCalculationGroup(IAssessmentSection assessmentSection)
+        {
+            return new CalculationGroup
+            {
+                Children =
+                {
+                    new TestCalculation
+                    {
+                        Name = "Calculation 1",
+                        InputParameters =
+                        {
+                            HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First()
+                        },
+                        Output = null
+                    },
+                    new TestCalculation
+                    {
+                        Name = "Calculation 2",
+                        InputParameters =
+                        {
+                            HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.Last()
+                        }
+                    }
+                }
+            };
+        }
+
+        private TestCalculationsView ShowFullyConfiguredCalculationsView(IAssessmentSection assessmentSection)
+        {
+            ConfigureHydraulicBoundaryDatabase(assessmentSection);
+
+            TestFailureMechanism failureMechanism = ConfigureFailureMechanism();
+
+            return ShowCalculationsView(ConfigureCalculationGroup(assessmentSection), failureMechanism, assessmentSection);
+        }
+
+        private TestCalculationsView ShowCalculationsView(CalculationGroup calculationGroup, TestFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+        {
+            var calculationsView = new TestCalculationsView(calculationGroup, failureMechanism, assessmentSection);
+
+            testForm.Controls.Add(calculationsView);
+            testForm.Show();
+
+            return calculationsView;
+        }
+
+        private class TestCalculationsView : CalculationsView<TestCalculation, TestCalculationInput, TestCalculationRow, TestFailureMechanism>
+        {
+            public TestCalculationsView(CalculationGroup calculationGroup, TestFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+                : base(calculationGroup, failureMechanism, assessmentSection) {}
+
+            public bool CanGenerateCalculationState { get; set; }
+
+            public bool GenerateButtonClicked { get; private set; }
+
+            protected override object CreateSelectedItemFromCurrentRow(TestCalculationRow currentRow)
+            {
+                return currentRow;
+            }
+
+            protected override IEnumerable<Point2D> GetReferenceLocations()
+            {
+                return new[]
+                {
+                    new Point2D(0.0, 0.0),
+                    new Point2D(5.0, 0.0)
+                };
+            }
+
+            protected override bool IsCalculationIntersectionWithReferenceLineInSection(TestCalculation calculation, IEnumerable<Segment2D> lineSegments)
+            {
+                return true;
+            }
+
+            protected override TestCalculationRow CreateRow(TestCalculation calculation)
+            {
+                return new TestCalculationRow(calculation, new ObservablePropertyChangeHandler(calculation, calculation.InputParameters));
+            }
+
+            protected override bool CanGenerateCalculations()
+            {
+                return CanGenerateCalculationState;
+            }
+
+            protected override void GenerateCalculations()
+            {
+                GenerateButtonClicked = true;
+            }
+        }
+
         #region Initialization
 
         [Test]
@@ -110,7 +301,7 @@ namespace Riskeer.Common.Forms.Test.Views
             Assert.IsInstanceOf<ISelectionProvider>(view);
             Assert.IsInstanceOf<IView>(view);
 
-            var button = (Button)new ControlTester("generateButton").TheObject;
+            var button = (Button) new ControlTester("generateButton").TheObject;
             Assert.AreEqual("Genereer &berekeningen...", button.Text);
         }
 
@@ -381,36 +572,6 @@ namespace Riskeer.Common.Forms.Test.Views
 
         #endregion
 
-        #region Cell editing
-
-        [Test]
-        public void CalculationsView_EditingNameViaDataGridView_ObserversCorrectlyNotified()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var calculationObserver = mocks.StrictMock<IObserver>();
-            calculationObserver.Expect(o => o.UpdateObserver());
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            TestCalculationsView calculationsView = ShowFullyConfiguredCalculationsView(assessmentSection);
-
-            var data = (CalculationGroup) calculationsView.Data;
-            var calculation = (TestCalculation) data.Children.First();
-
-            calculation.Attach(calculationObserver);
-
-            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-
-            // Call
-            dataGridView.Rows[0].Cells[nameColumnIndex].Value = "New name";
-
-            // Assert
-            mocks.VerifyAll();
-        }
-
-        #endregion
-
         #region Observers
 
         [Test]
@@ -593,166 +754,5 @@ namespace Riskeer.Common.Forms.Test.Views
         }
 
         #endregion
-
-        [Test]
-        public void GivenCalculationsView_WhenGenerateCalculationsButtonClicked_ThenGenerateCalculationsCalled()
-        {
-            // Given
-            var view = new TestCalculationsView(new CalculationGroup(), new TestFailureMechanism(), new AssessmentSectionStub())
-            {
-                CanGenerateCalculationState = true
-            };
-
-            testForm.Controls.Add(view);
-            testForm.Show();
-
-            var button = new ButtonTester("generateButton", testForm);
-
-            // Precondition
-            Assert.IsFalse(view.GenerateButtonClicked);
-
-            // When
-            button.Click();
-
-            // Then
-            Assert.IsTrue(view.GenerateButtonClicked);
-        }
-
-        public override void Setup()
-        {
-            base.Setup();
-
-            testForm = new Form();
-        }
-
-        public override void TearDown()
-        {
-            base.TearDown();
-
-            testForm.Dispose();
-        }
-
-        private static void ConfigureHydraulicBoundaryDatabase(IAssessmentSection assessmentSection)
-        {
-            assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(new HydraulicBoundaryDatabase
-            {
-                Locations =
-                {
-                    new HydraulicBoundaryLocation(1, "Location 1", 1.1, 2.2),
-                    new HydraulicBoundaryLocation(2, "Location 2", 3.3, 4.4)
-                }
-            });
-        }
-
-        private static TestFailureMechanism ConfigureFailureMechanism()
-        {
-            var failureMechanism = new TestFailureMechanism();
-
-            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
-            {
-                new FailureMechanismSection("Section 1", new[]
-                {
-                    new Point2D(0.0, 0.0),
-                    new Point2D(5.0, 0.0)
-                }),
-                new FailureMechanismSection("Section 2", new[]
-                {
-                    new Point2D(5.0, 0.0),
-                    new Point2D(10.0, 0.0)
-                })
-            });
-
-            return failureMechanism;
-        }
-
-        private static CalculationGroup ConfigureCalculationGroup(IAssessmentSection assessmentSection)
-        {
-            return new CalculationGroup
-            {
-                Children =
-                {
-                    new TestCalculation
-                    {
-                        Name = "Calculation 1",
-                        InputParameters =
-                        {
-                            HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First()
-                        },
-                        Output = null
-                    },
-                    new TestCalculation
-                    {
-                        Name = "Calculation 2",
-                        InputParameters =
-                        {
-                            HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.Last()
-                        }
-                    }
-                }
-            };
-        }
-
-        private TestCalculationsView ShowFullyConfiguredCalculationsView(IAssessmentSection assessmentSection)
-        {
-            ConfigureHydraulicBoundaryDatabase(assessmentSection);
-
-            TestFailureMechanism failureMechanism = ConfigureFailureMechanism();
-
-            return ShowCalculationsView(ConfigureCalculationGroup(assessmentSection), failureMechanism, assessmentSection);
-        }
-
-        private TestCalculationsView ShowCalculationsView(CalculationGroup calculationGroup, TestFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
-        {
-            var calculationsView = new TestCalculationsView(calculationGroup, failureMechanism, assessmentSection);
-
-            testForm.Controls.Add(calculationsView);
-            testForm.Show();
-
-            return calculationsView;
-        }
-
-        private class TestCalculationsView : CalculationsView<TestCalculation, TestCalculationInput, TestCalculationRow, TestFailureMechanism>
-        {
-            public TestCalculationsView(CalculationGroup calculationGroup, TestFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
-                : base(calculationGroup, failureMechanism, assessmentSection) {}
-
-            public bool CanGenerateCalculationState { get; set; }
-
-            public bool GenerateButtonClicked { get; private set; }
-
-            protected override object CreateSelectedItemFromCurrentRow(TestCalculationRow currentRow)
-            {
-                return currentRow;
-            }
-
-            protected override IEnumerable<Point2D> GetReferenceLocations()
-            {
-                return new[]
-                {
-                    new Point2D(0.0, 0.0),
-                    new Point2D(5.0, 0.0)
-                };
-            }
-
-            protected override bool IsCalculationIntersectionWithReferenceLineInSection(TestCalculation calculation, IEnumerable<Segment2D> lineSegments)
-            {
-                return true;
-            }
-
-            protected override TestCalculationRow CreateRow(TestCalculation calculation)
-            {
-                return new TestCalculationRow(calculation, new ObservablePropertyChangeHandler(calculation, calculation.InputParameters));
-            }
-
-            protected override bool CanGenerateCalculations()
-            {
-                return CanGenerateCalculationState;
-            }
-
-            protected override void GenerateCalculations()
-            {
-                GenerateButtonClicked = true;
-            }
-        }
     }
 }
