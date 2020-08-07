@@ -159,6 +159,37 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Factories
         }
 
         [Test]
+        public void Create_SoilProfileWithPreconsolidationStressOutsideLayers_ReturnsPersistableStates()
+        {
+            // Setup
+            MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput(new TestHydraulicBoundaryLocation());
+            MacroStabilityInwardsStochasticSoilProfile stochasticSoilProfile = MacroStabilityInwardsStochasticSoilProfileTestFactory.CreateMacroStabilityInwardsStochasticSoilProfile2D(new[]
+            {
+                MacroStabilityInwardsPreconsolidationStressTestFactory.CreateMacroStabilityInwardsPreconsolidationStress(new Point2D(50, 1))
+            });
+            calculation.InputParameters.StochasticSoilProfile = stochasticSoilProfile;
+
+            IMacroStabilityInwardsSoilProfileUnderSurfaceLine soilProfile = calculation.InputParameters.SoilProfileUnderSurfaceLine;
+
+            var idFactory = new IdFactory();
+            var registry = new MacroStabilityInwardsExportRegistry();
+
+            PersistableGeometryFactory.Create(soilProfile, idFactory, registry);
+
+            // Call
+            IEnumerable<PersistableState> states = PersistableStateFactory.Create(soilProfile, idFactory, registry);
+
+            // Assert
+            Assert.AreEqual(1, states.Count());
+
+            PersistableState state = states.First();
+
+            Assert.IsNotNull(state.Id);
+            CollectionAssert.IsEmpty(state.StateLines);
+            CollectionAssert.IsEmpty(state.StatePoints);
+        }
+
+        [Test]
         public void Create_WithValidData_ReturnsPersistableStates()
         {
             // Setup
