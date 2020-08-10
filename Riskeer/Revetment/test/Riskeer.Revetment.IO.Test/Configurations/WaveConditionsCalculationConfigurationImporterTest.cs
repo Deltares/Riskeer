@@ -390,7 +390,11 @@ namespace Riskeer.Revetment.IO.Test.Configurations
                                                                                           nameof(WaveConditionsCalculationConfigurationImporter<TestTargetTestWaveConditionsCalculation, WaveConditionsCalculationConfigurationReader<WaveConditionsCalculationConfiguration>, WaveConditionsCalculationConfiguration>));
 
             public TestWaveConditionsCalculationConfigurationReader(string xmlFilePath)
-                : base(xmlFilePath, File.ReadAllText(Path.Combine(testDirectoryPath, "validConfigurationSchema.xsd"))) {}
+                : base(xmlFilePath, new []
+                {
+                    File.ReadAllText(Path.Combine(testDirectoryPath, "validConfigurationSchema_0.xsd")),
+                    File.ReadAllText(Path.Combine(testDirectoryPath, "validConfigurationSchema.xsd"))
+                }) {}
 
             protected override WaveConditionsCalculationConfiguration ParseCalculationElement(XElement calculationElement)
             {

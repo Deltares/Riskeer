@@ -23,20 +23,11 @@ All rights reserved.
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
   
   <!--Basis elementen voor een bekledingen configuratie.-->
-  <xs:include schemaLocation="BekledingenConfiguratieBasisSchema.xsd" />
+  <xs:include schemaLocation="BekledingenConfiguratieBasisSchema_0.xsd" />
   <xs:include schemaLocation="ConfiguratieSchema.xsd" />
 
   <!--Herdefinieer categoriegrens, zodat deze de juiste inhoud heeft.-->
-  <xs:redefine schemaLocation="BekledingenConfiguratieBasisSchema.xsd">
-    
-    <xs:complexType name="configuratieType">
-      <xs:complexContent>
-        <xs:extension base="configuratieType">
-          <xs:attribute name="versie" type="xs:int" use="required" fixed="1"/>
-        </xs:extension>
-      </xs:complexContent>
-    </xs:complexType>
-
+  <xs:redefine schemaLocation="BekledingenConfiguratieBasisSchema_0.xsd">
     <xs:simpleType name="categoriegrensType">
       <xs:restriction base="categoriegrensType">
         <xs:enumeration value="Iv"/>

@@ -71,10 +71,10 @@ namespace Riskeer.Revetment.IO.Test.Configurations
             string filePath = Path.Combine(testDirectoryPath, fileName);
 
             // Call
-            TestDelegate call = () => new AssessmentSectionCategoryWaveConditionsCalculationConfigurationReader(filePath);
+            void Call() => new AssessmentSectionCategoryWaveConditionsCalculationConfigurationReader(filePath);
 
             // Assert
-            var exception = Assert.Throws<CriticalFileReadException>(call);
+            var exception = Assert.Throws<CriticalFileReadException>(Call);
             Assert.IsInstanceOf<XmlSchemaValidationException>(exception.InnerException);
             StringAssert.Contains(expectedParsingMessage, exception.InnerException?.Message);
         }

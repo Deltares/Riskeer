@@ -50,7 +50,11 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Configurations
         /// </list>
         /// </exception>
         public GrassCoverErosionOutwardsWaveConditionsCalculationConfigurationReader(string xmlFilePath)
-            : base(xmlFilePath, Resources.GEBUConfiguratieSchema) {}
+            : base(xmlFilePath, new[]
+            {
+                Resources.GEBUConfiguratieSchema_0,
+                Resources.GEBUConfiguratieSchema
+            }) {}
 
         protected override GrassCoverErosionOutwardsWaveConditionsCalculationConfiguration ParseCalculationElement(XElement calculationElement)
         {

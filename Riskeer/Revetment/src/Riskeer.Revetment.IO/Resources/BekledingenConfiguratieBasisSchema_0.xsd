@@ -26,20 +26,11 @@ All rights reserved.
   
   <!--Herdefinieer berekening, zodat deze de juiste inhoud heeft.-->
   <xs:redefine schemaLocation="ConfiguratieSchema.xsd">
-
-    <xs:complexType name="configuratieType">
-      <xs:complexContent>
-        <xs:extension base="configuratieType">
-          <xs:attribute name="versie" type="xs:int" use="required" fixed="1"/>
-        </xs:extension>
-      </xs:complexContent>
-    </xs:complexType>
-
     <xs:complexType name="berekeningType">
       <xs:complexContent>
         <xs:extension base="berekeningType">
           <xs:all>
-            <xs:element ref="hblocatie" minOccurs="0"/>
+            <xs:element ref="hblocatie-of-hrlocatie" minOccurs="0"/>
             <xs:element ref="bovengrensbekleding" minOccurs="0"/>
             <xs:element ref="ondergrensbekleding" minOccurs="0"/>
             <xs:element ref="bovengrenswaterstanden" minOccurs="0"/>
@@ -57,7 +48,7 @@ All rights reserved.
   </xs:redefine>
   
   <!--Generieke definitie van de geselecteerde HB locatie voor alle toetssporen.-->
-  <xs:include schemaLocation="HbLocatieSchema.xsd"/>
+  <xs:include schemaLocation="HbLocatieSchema_0.xsd"/>
 
   <!--Generieke definitie voor de orientatie voor alle toetssporen.-->
   <xs:include schemaLocation="OrientatieSchema.xsd"/>

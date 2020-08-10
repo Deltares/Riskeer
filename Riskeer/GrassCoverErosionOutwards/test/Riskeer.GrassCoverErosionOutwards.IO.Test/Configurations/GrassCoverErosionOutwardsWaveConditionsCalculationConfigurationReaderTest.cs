@@ -79,10 +79,10 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Test.Configurations
             string filePath = Path.Combine(testDirectoryPath, fileName);
 
             // Call
-            TestDelegate call = () => new GrassCoverErosionOutwardsWaveConditionsCalculationConfigurationReader(filePath);
+            void Call() => new GrassCoverErosionOutwardsWaveConditionsCalculationConfigurationReader(filePath);
 
             // Assert
-            var exception = Assert.Throws<CriticalFileReadException>(call);
+            var exception = Assert.Throws<CriticalFileReadException>(Call);
             Assert.IsInstanceOf<XmlSchemaValidationException>(exception.InnerException);
             StringAssert.Contains(expectedParsingMessage, exception.InnerException?.Message);
         }

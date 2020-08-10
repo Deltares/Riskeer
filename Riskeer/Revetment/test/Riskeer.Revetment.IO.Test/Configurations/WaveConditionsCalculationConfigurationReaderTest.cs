@@ -36,7 +36,7 @@ namespace Riskeer.Revetment.IO.Test.Configurations
     [TestFixture]
     public class WaveConditionsCalculationConfigurationReaderTest
     {
-        private string validMainSchemaDefinition;
+        private string[] validMainSchemaDefinitions;
 
         private readonly string testDirectoryPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Revetment.IO,
                                                                                nameof(WaveConditionsCalculationConfigurationReader<WaveConditionsCalculationConfiguration>));
@@ -162,6 +162,10 @@ namespace Riskeer.Revetment.IO.Test.Configurations
                 yield return new TestCaseData("invalidForeshoreUsageNoBoolean.xml",
                                               "The 'voorlandgebruiken' element is invalid - The value 'string' is invalid according to its datatype 'Boolean'")
                     .SetName("invalidForeshoreUsageNoBoolean");
+
+                yield return new TestCaseData("invalidCalculationVersion1HydraulicBoundaryLocationOld.xml",
+                                              "The element 'berekening' has invalid child element 'hrlocatie'.")
+                    .SetName("invalidCalculationVersion1HydraulicBoundaryLocationOld");
             }
         }
 
@@ -172,7 +176,7 @@ namespace Riskeer.Revetment.IO.Test.Configurations
             string filePath = Path.Combine(testDirectoryPath, "validConfigurationEmptyCalculation.xml");
 
             // Call
-            var reader = new TestWaveConditionsCalculationConfigurationReader(filePath, validMainSchemaDefinition);
+            var reader = new TestWaveConditionsCalculationConfigurationReader(filePath, validMainSchemaDefinitions);
 
             // Assert
             Assert.IsInstanceOf<CalculationConfigurationReader<WaveConditionsCalculationConfiguration>>(reader);
@@ -186,10 +190,10 @@ namespace Riskeer.Revetment.IO.Test.Configurations
             string filePath = Path.Combine(testDirectoryPath, fileName);
 
             // Call
-            TestDelegate call = () => new TestWaveConditionsCalculationConfigurationReader(filePath, validMainSchemaDefinition);
+            void Call() => new TestWaveConditionsCalculationConfigurationReader(filePath, validMainSchemaDefinitions);
 
             // Assert
-            var exception = Assert.Throws<CriticalFileReadException>(call);
+            var exception = Assert.Throws<CriticalFileReadException>(Call);
             Assert.IsInstanceOf<XmlSchemaValidationException>(exception.InnerException);
             StringAssert.Contains(expectedParsingMessage, exception.InnerException?.Message);
         }
@@ -199,7 +203,7 @@ namespace Riskeer.Revetment.IO.Test.Configurations
         {
             // Setup
             string filePath = Path.Combine(testDirectoryPath, "validConfigurationEmptyCalculation.xml");
-            var reader = new TestWaveConditionsCalculationConfigurationReader(filePath, validMainSchemaDefinition);
+            var reader = new TestWaveConditionsCalculationConfigurationReader(filePath, validMainSchemaDefinitions);
 
             // Call
             IEnumerable<IConfigurationItem> readItems = reader.Read().ToArray();
@@ -224,7 +228,7 @@ namespace Riskeer.Revetment.IO.Test.Configurations
         {
             // Setup
             string filePath = Path.Combine(testDirectoryPath, "validConfigurationCalculationContainingEmptyWaveReduction.xml");
-            var reader = new TestWaveConditionsCalculationConfigurationReader(filePath, validMainSchemaDefinition);
+            var reader = new TestWaveConditionsCalculationConfigurationReader(filePath, validMainSchemaDefinitions);
 
             // Call
             IEnumerable<IConfigurationItem> readItems = reader.Read().ToArray();
@@ -244,7 +248,7 @@ namespace Riskeer.Revetment.IO.Test.Configurations
         {
             // Setup
             string filePath = Path.Combine(testDirectoryPath, "validConfigurationCalculationContainingNaNs.xml");
-            var reader = new TestWaveConditionsCalculationConfigurationReader(filePath, validMainSchemaDefinition);
+            var reader = new TestWaveConditionsCalculationConfigurationReader(filePath, validMainSchemaDefinitions);
 
             // Call
             IEnumerable<IConfigurationItem> readItems = reader.Read().ToArray();
@@ -266,7 +270,7 @@ namespace Riskeer.Revetment.IO.Test.Configurations
         {
             // Setup
             string filePath = Path.Combine(testDirectoryPath, "validConfigurationCalculationContaininInfinities.xml");
-            var reader = new TestWaveConditionsCalculationConfigurationReader(filePath, validMainSchemaDefinition);
+            var reader = new TestWaveConditionsCalculationConfigurationReader(filePath, validMainSchemaDefinitions);
 
             // Call
             IEnumerable<IConfigurationItem> readItems = reader.Read().ToArray();
@@ -296,11 +300,13 @@ namespace Riskeer.Revetment.IO.Test.Configurations
         [TestCase("validConfigurationFullCalculation_differentOrder_old.xml")]
         [TestCase("validConfigurationFullCalculationNew.xml")]
         [TestCase("validConfigurationFullCalculation_differentOrder_new.xml")]
+        [TestCase("validConfigurationFullCalculationVersion1.xml")]
+        [TestCase("validConfigurationFullCalculation_differentOrder_Version1.xml")]
         public void Read_ValidConfigurationWithFullCalculation_ReturnExpectedReadWaveConditionsCalculation(string fileName)
         {
             // Setup
             string filePath = Path.Combine(testDirectoryPath, fileName);
-            var reader = new TestWaveConditionsCalculationConfigurationReader(filePath, validMainSchemaDefinition);
+            var reader = new TestWaveConditionsCalculationConfigurationReader(filePath, validMainSchemaDefinitions);
 
             // Call
             IEnumerable<IConfigurationItem> readItems = reader.Read().ToArray();
@@ -328,7 +334,7 @@ namespace Riskeer.Revetment.IO.Test.Configurations
         {
             // Setup
             string filePath = Path.Combine(testDirectoryPath, "validConfigurationPartialCalculation.xml");
-            var reader = new TestWaveConditionsCalculationConfigurationReader(filePath, validMainSchemaDefinition);
+            var reader = new TestWaveConditionsCalculationConfigurationReader(filePath, validMainSchemaDefinitions);
 
             // Call
             IEnumerable<IConfigurationItem> readItems = reader.Read().ToArray();
@@ -354,14 +360,21 @@ namespace Riskeer.Revetment.IO.Test.Configurations
         [OneTimeSetUp]
         public void OneTimeSetUp()
         {
-            validMainSchemaDefinition = File.ReadAllText(Path.Combine(testDirectoryPath, "validConfigurationSchema.xsd"));
+            string schemaDefiniton0 = File.ReadAllText(Path.Combine(testDirectoryPath, "validConfigurationSchema_0.xsd"));
+            string schemaDefiniton1 = File.ReadAllText(Path.Combine(testDirectoryPath, "validConfigurationSchema.xsd"));
+
+            validMainSchemaDefinitions = new[]
+            {
+                schemaDefiniton0,
+                schemaDefiniton1
+            };
         }
 
         private class TestWaveConditionsCalculationConfigurationReader
             : WaveConditionsCalculationConfigurationReader<WaveConditionsCalculationConfiguration>
         {
-            public TestWaveConditionsCalculationConfigurationReader(string xmlFilePath, string configurationSchema)
-                : base(xmlFilePath, configurationSchema) {}
+            public TestWaveConditionsCalculationConfigurationReader(string xmlFilePath, string[] configurationSchemas)
+                : base(xmlFilePath, configurationSchemas) {}
 
             protected override WaveConditionsCalculationConfiguration ParseCalculationElement(XElement calculationElement)
             {

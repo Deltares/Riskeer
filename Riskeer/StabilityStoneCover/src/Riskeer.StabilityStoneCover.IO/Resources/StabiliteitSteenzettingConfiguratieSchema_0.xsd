@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?><!--
+<?xml version="1.0" encoding="utf-8"?><!--
 Copyright (C) Stichting Deltares 2019. All rights reserved.
 
 This file is part of Riskeer.
@@ -21,40 +21,27 @@ Stichting Deltares and remain full property of Stichting Deltares at all times.
 All rights reserved.
 -->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  
+
   <!--Basis elementen voor een bekledingen configuratie.-->
-  <xs:include schemaLocation="BekledingenConfiguratieBasisSchema.xsd" />
+  <xs:include schemaLocation="BekledingenConfiguratieBasisSchema_0.xsd" />
   <xs:include schemaLocation="ConfiguratieSchema.xsd" />
 
   <!--Herdefinieer categoriegrens, zodat deze de juiste inhoud heeft.-->
-  <xs:redefine schemaLocation="BekledingenConfiguratieBasisSchema.xsd">
-    
-    <xs:complexType name="configuratieType">
-      <xs:complexContent>
-        <xs:extension base="configuratieType">
-          <xs:attribute name="versie" type="xs:int" use="required" fixed="1"/>
-        </xs:extension>
-      </xs:complexContent>
-    </xs:complexType>
-
+  <xs:redefine schemaLocation="BekledingenConfiguratieBasisSchema_0.xsd">
     <xs:simpleType name="categoriegrensType">
       <xs:restriction base="categoriegrensType">
-        <xs:enumeration value="Iv"/>
-        <xs:enumeration value="IIv"/>
-        <xs:enumeration value="IIIv"/>
-        <xs:enumeration value="IVv"/>
-        <xs:enumeration value="Vv"/>
+        <xs:enumeration value="A+"/>
+        <xs:enumeration value="A"/>
+        <xs:enumeration value="B"/>
+        <xs:enumeration value="C"/>
       </xs:restriction>
     </xs:simpleType>
 
     <xs:simpleType name="bekledingType">
       <xs:restriction base="bekledingType">
-        <xs:enumeration value="Gras (golfoploop)"/>
-        <xs:enumeration value="Gras (golfklap)"/>
-        <xs:enumeration value="Gras (golfoploop en golfklap)"/>
-        <xs:enumeration value="Gras (golfklap voor toets op maat)"/>
-        <xs:enumeration value="Gras (golfoploop en golfklap voor toets op maat)"/>
-        <xs:enumeration value="Gras (alle types)"/>
+        <xs:enumeration value="Steen (blokken)"/>
+        <xs:enumeration value="Steen (zuilen)"/>
+        <xs:enumeration value="Steen (blokken en zuilen)"/>
       </xs:restriction>
     </xs:simpleType>
   </xs:redefine>
