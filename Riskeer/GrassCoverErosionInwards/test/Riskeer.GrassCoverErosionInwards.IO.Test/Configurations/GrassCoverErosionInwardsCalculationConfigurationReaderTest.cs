@@ -42,21 +42,12 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
         {
             get
             {
-                yield return new TestCaseData("invalidHydraulicBoundaryLocationEmptyOld.xml",
-                                              "The 'hrlocatie' element is invalid - The value '' is invalid according to its datatype 'String' - The actual length is less than the MinLength value.")
-                    .SetName("invalidHydraulicBoundaryLocationEmptyOld");
-                yield return new TestCaseData("invalidHydraulicBoundaryLocationEmptyNew.xml",
+                yield return new TestCaseData("invalidHydraulicBoundaryLocationEmpty.xml",
                                               "The 'hblocatie' element is invalid - The value '' is invalid according to its datatype 'String' - The actual length is less than the MinLength value.")
-                    .SetName("invalidHydraulicBoundaryLocationEmptyNew");
-                yield return new TestCaseData("invalidMultipleHydraulicBoundaryLocationsOld.xml",
-                                              "Element 'hrlocatie' cannot appear more than once if content model type is \"all\".")
-                    .SetName("invalidMultipleHydraulicBoundaryLocationsOld");
-                yield return new TestCaseData("invalidMultipleHydraulicBoundaryLocationsNew.xml",
+                    .SetName("invalidHydraulicBoundaryLocationEmpty");
+                yield return new TestCaseData("invalidMultipleHydraulicBoundaryLocations.xml",
                                               "Element 'hblocatie' cannot appear more than once if content model type is \"all\".")
-                    .SetName("invalidMultipleHydraulicBoundaryLocationsNew");
-                yield return new TestCaseData("invalidCalculationHydraulicBoundaryLocationOldAndNew.xml",
-                                              "Element 'hblocatie' cannot appear more than once if content model type is \"all\".")
-                    .SetName("invalidCalculationHydraulicBoundaryLocationOldAndNew");
+                    .SetName("invalidMultipleHydraulicBoundaryLocations");
 
                 yield return new TestCaseData("invalidDikeProfileEmpty.xml",
                                               "The 'dijkprofiel' element is invalid - The value '' is invalid according to its datatype 'String' - The actual length is less than the MinLength value.")
@@ -221,9 +212,6 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
                 yield return new TestCaseData("invalidScenarioRelevantNoBoolean.xml",
                                               "The 'gebruik' element is invalid - The value 'string' is invalid according to its datatype 'Boolean'")
                     .SetName("invalidScenarioRelevantNoBoolean");
-                yield return new TestCaseData("invalidCalculationVersion1HydraulicBoundaryLocationOld.xml",
-                                              "The element 'berekening' has invalid child element 'hrlocatie'.")
-                    .SetName("invalidCalculationVersion1HydraulicBoundaryLocationOld");
             }
         }
 
@@ -352,12 +340,8 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
         }
 
         [Test]
-        [TestCase("validConfigurationFullCalculationOld.xml")]
-        [TestCase("validConfigurationFullCalculationNew.xml")]
-        [TestCase("validConfigurationFullCalculation_differentOrder_old.xml")]
-        [TestCase("validConfigurationFullCalculation_differentOrder_new.xml")]
-        [TestCase("validConfigurationFullCalculationVersion1.xml")]
-        [TestCase("validConfigurationFullCalculationVersion1_differentOrder.xml")]
+        [TestCase("validConfigurationFullCalculation.xml")]
+        [TestCase("validConfigurationFullCalculation_differentOrder.xml")]
         public void Read_ValidConfigurationWithFullCalculation_ReturnExpectedReadCalculation(string fileName)
         {
             // Setup
@@ -370,25 +354,46 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
             // Assert
             var calculation = (GrassCoverErosionInwardsCalculationConfiguration) readConfigurationItems.Single();
 
-            Assert.IsNotNull(calculation);
-            Assert.AreEqual("Berekening 1", calculation.Name);
-            Assert.AreEqual("Some_hydraulic_boundary_location", calculation.HydraulicBoundaryLocationName);
-            Assert.AreEqual("some_dike_profile", calculation.DikeProfileId);
-            Assert.AreEqual(67.1, calculation.Orientation);
-            Assert.AreEqual(3.45, calculation.DikeHeight);
-            Assert.AreEqual(ConfigurationHydraulicLoadsCalculationType.CalculateByAssessmentSectionNorm, calculation.DikeHeightCalculationType);
-            Assert.AreEqual(ConfigurationHydraulicLoadsCalculationType.CalculateByProfileSpecificRequiredProbability, calculation.OvertoppingRateCalculationType);
-            Assert.AreEqual(true, calculation.WaveReduction.UseBreakWater);
-            Assert.AreEqual(ConfigurationBreakWaterType.Dam, calculation.WaveReduction.BreakWaterType);
-            Assert.AreEqual(1.234, calculation.WaveReduction.BreakWaterHeight);
-            Assert.AreEqual(false, calculation.WaveReduction.UseForeshoreProfile);
-            Assert.AreEqual(0.1, calculation.CriticalFlowRate.Mean);
-            Assert.AreEqual(0.2, calculation.CriticalFlowRate.StandardDeviation);
-            Assert.IsTrue(calculation.ShouldOvertoppingOutputIllustrationPointsBeCalculated);
-            Assert.IsTrue(calculation.ShouldDikeHeightIllustrationPointsBeCalculated);
-            Assert.IsFalse(calculation.ShouldOvertoppingRateIllustrationPointsBeCalculated);
-            Assert.AreEqual(8.8, calculation.Scenario.Contribution);
-            Assert.IsTrue(calculation.Scenario.IsRelevant);
+            AssertConfiguration(calculation);
+        }
+
+        [Test]
+        public void Read_ValidPreviousVersionConfigurationWithFullCalculation_ReturnExpectedReadCalculation()
+        {
+            // Setup
+            string filePath = Path.Combine(testDirectoryPath, "version0ValidConfigurationFullCalculation.xml");
+            var reader = new GrassCoverErosionInwardsCalculationConfigurationReader(filePath);
+
+            // Call
+            IEnumerable<IConfigurationItem> readConfigurationItems = reader.Read().ToArray();
+
+            // Assert
+            var configuration = (GrassCoverErosionInwardsCalculationConfiguration) readConfigurationItems.Single();
+
+            AssertConfiguration(configuration);
+        }
+
+        private static void AssertConfiguration(GrassCoverErosionInwardsCalculationConfiguration configuration)
+        {
+            Assert.IsNotNull(configuration);
+            Assert.AreEqual("Berekening 1", configuration.Name);
+            Assert.AreEqual("Some_hydraulic_boundary_location", configuration.HydraulicBoundaryLocationName);
+            Assert.AreEqual("some_dike_profile", configuration.DikeProfileId);
+            Assert.AreEqual(67.1, configuration.Orientation);
+            Assert.AreEqual(3.45, configuration.DikeHeight);
+            Assert.AreEqual(ConfigurationHydraulicLoadsCalculationType.CalculateByAssessmentSectionNorm, configuration.DikeHeightCalculationType);
+            Assert.AreEqual(ConfigurationHydraulicLoadsCalculationType.CalculateByProfileSpecificRequiredProbability, configuration.OvertoppingRateCalculationType);
+            Assert.AreEqual(true, configuration.WaveReduction.UseBreakWater);
+            Assert.AreEqual(ConfigurationBreakWaterType.Dam, configuration.WaveReduction.BreakWaterType);
+            Assert.AreEqual(1.234, configuration.WaveReduction.BreakWaterHeight);
+            Assert.AreEqual(false, configuration.WaveReduction.UseForeshoreProfile);
+            Assert.AreEqual(0.1, configuration.CriticalFlowRate.Mean);
+            Assert.AreEqual(0.2, configuration.CriticalFlowRate.StandardDeviation);
+            Assert.IsTrue(configuration.ShouldOvertoppingOutputIllustrationPointsBeCalculated);
+            Assert.IsTrue(configuration.ShouldDikeHeightIllustrationPointsBeCalculated);
+            Assert.IsFalse(configuration.ShouldOvertoppingRateIllustrationPointsBeCalculated);
+            Assert.AreEqual(8.8, configuration.Scenario.Contribution);
+            Assert.IsTrue(configuration.Scenario.IsRelevant);
         }
 
         [Test]

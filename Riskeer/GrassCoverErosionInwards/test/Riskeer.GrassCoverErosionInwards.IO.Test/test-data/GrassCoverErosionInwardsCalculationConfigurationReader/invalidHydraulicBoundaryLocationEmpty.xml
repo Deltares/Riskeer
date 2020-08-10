@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<configuratie>
+<configuratie versie="1">
   <berekening naam="Calculation">
-    <hrlocatie>Locatie 1</hrlocatie>
-    <hrlocatie>Locatie 2</hrlocatie>
+    <hblocatie/>
   </berekening>
 </configuratie>
