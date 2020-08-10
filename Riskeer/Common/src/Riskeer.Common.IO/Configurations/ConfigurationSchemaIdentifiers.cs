@@ -52,12 +52,6 @@ namespace Riskeer.Common.IO.Configurations
         public const string NameAttribute = "naam";
 
         /// <summary>
-        /// The old identifier for hydraulic boundary location elements.
-        /// </summary>
-        /// <remarks>This property represents the element name before the rename.</remarks>
-        public const string HydraulicBoundaryLocationElementOld = "hrlocatie";
-
-        /// <summary>
         /// The new identifier for hydraulic boundary location elements.
         /// </summary>
         /// <remarks>This property represents the element name after the rename.</remarks>
