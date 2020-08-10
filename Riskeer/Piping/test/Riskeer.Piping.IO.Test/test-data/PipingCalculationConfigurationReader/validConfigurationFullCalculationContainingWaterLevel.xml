@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<configuratie>
+<configuratie versie="1">
   <berekening naam="Calculation">
     <waterstand>1.1</waterstand>
     <profielschematisatie>Profielschematisatie</profielschematisatie>
@@ -8,7 +8,7 @@
     <ondergrondmodel>Ondergrondmodel</ondergrondmodel>
     <ondergrondschematisatie>Ondergrondschematisatie</ondergrondschematisatie>
     <stochasten>
-      <stochast naam="polderpeil">
+      <stochast naam="binnendijksewaterstand">
         <verwachtingswaarde>4.4</verwachtingswaarde>
         <standaardafwijking>5.5</standaardafwijking>
       </stochast>

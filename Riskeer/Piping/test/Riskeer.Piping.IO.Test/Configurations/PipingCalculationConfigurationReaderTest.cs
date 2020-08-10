@@ -42,12 +42,6 @@ namespace Riskeer.Piping.IO.Test.Configurations
         {
             get
             {
-                yield return new TestCaseData("invalidAssessmentLevelEmpty.xml",
-                                              "The 'toetspeil' element is invalid - The value '' is invalid according to its datatype 'Double'")
-                    .SetName("invalidAssessmentLevelEmpty");
-                yield return new TestCaseData("invalidAssessmentLevelNoDouble.xml",
-                                              "The 'toetspeil' element is invalid - The value 'string' is invalid according to its datatype 'Double'")
-                    .SetName("invalidAssessmentLevelNoDouble");
                 yield return new TestCaseData("invalidWaterLevelEmpty.xml",
                                               "The 'waterstand' element is invalid - The value '' is invalid according to its datatype 'Double'")
                     .SetName("invalidWaterLevelEmpty");
@@ -91,35 +85,20 @@ namespace Riskeer.Piping.IO.Test.Configurations
                                               "The 'standaardafwijking' element is invalid - The value 'string' is invalid according to its datatype 'Double'")
                     .SetName("invalidStochastStandardDeviationNoDouble");
                 yield return new TestCaseData("invalidMultiplePhreaticLevelExitStochast.xml",
-                                              "There is a duplicate key sequence 'polderpeil' for the 'uniqueStochastNameConstraint' key or unique identity constraint.")
+                                              "There is a duplicate key sequence 'binnendijksewaterstand' for the 'uniqueStochastNameConstraint' key or unique identity constraint.")
                     .SetName("invalidMultiplePhreaticLevelExitStochast");
                 yield return new TestCaseData("invalidMultipleDampingFactorExitStochast.xml",
                                               "There is a duplicate key sequence 'dempingsfactor' for the 'uniqueStochastNameConstraint' key or unique identity constraint.")
                     .SetName("invalidMultipleDampingFactorExitStochast");
-                yield return new TestCaseData("invalidContainingBothAssessmentLevelAndHydraulicBoundaryLocationOld.xml",
-                                              "Element 'hrlocatie' cannot appear more than once if content model type is \"all\".")
-                    .SetName("invalidContainingBothAssessmentLevelAndHydraulicBoundaryLocationOld");
-                yield return new TestCaseData("invalidContainingBothAssessmentLevelAndHydraulicBoundaryLocationNew.xml",
+                yield return new TestCaseData("invalidContainingBothWaterLevelAndHydraulicBoundaryLocation.xml",
                                               "Element 'hblocatie' cannot appear more than once if content model type is \"all\".")
-                    .SetName("invalidContainingBothAssessmentLevelAndHydraulicBoundaryLocationNew");
-                yield return new TestCaseData("invalidContainingBothWaterLevelAndHydraulicBoundaryLocationOld.xml",
-                                              "Element 'hrlocatie' cannot appear more than once if content model type is \"all\".")
-                    .SetName("invalidContainingBothWaterLevelAndHydraulicBoundaryLocationOld");
-                yield return new TestCaseData("invalidContainingBothWaterLevelAndHydraulicBoundaryLocationNew.xml",
-                                              "Element 'hblocatie' cannot appear more than once if content model type is \"all\".")
-                    .SetName("invalidContainingBothWaterLevelAndHydraulicBoundaryLocationNew");
-                yield return new TestCaseData("invalidCalculationMultipleAssessmentLevel.xml",
-                                              "Element 'toetspeil' cannot appear more than once if content model type is \"all\".")
-                    .SetName("invalidCalculationMultipleAssessmentLevel");
+                    .SetName("invalidContainingBothWaterLevelAndHydraulicBoundaryLocation");
                 yield return new TestCaseData("invalidCalculationMultipleWaterLevel.xml",
                                               "Element 'waterstand' cannot appear more than once if content model type is \"all\".")
                     .SetName("invalidCalculationMultipleWaterLevel");
-                yield return new TestCaseData("invalidCalculationMultipleHydraulicBoundaryLocationOld.xml",
-                                              "Element 'hrlocatie' cannot appear more than once if content model type is \"all\".")
-                    .SetName("invalidCalculationMultipleHydraulicBoundaryLocationOld");
-                yield return new TestCaseData("invalidCalculationMultipleHydraulicBoundaryLocationNew.xml",
+                yield return new TestCaseData("invalidCalculationMultipleHydraulicBoundaryLocation.xml",
                                               "Element 'hblocatie' cannot appear more than once if content model type is \"all\".")
-                    .SetName("invalidCalculationMultipleHydraulicBoundaryLocationNew");
+                    .SetName("invalidCalculationMultipleHydraulicBoundaryLocation");
                 yield return new TestCaseData("invalidCalculationMultipleSurfaceLine.xml",
                                               "Element 'profielschematisatie' cannot appear more than once if content model type is \"all\".")
                     .SetName("invalidCalculationMultipleSurfaceLine");
@@ -138,12 +117,9 @@ namespace Riskeer.Piping.IO.Test.Configurations
                 yield return new TestCaseData("invalidCalculationMultipleStochasts.xml",
                                               "Element 'stochasten' cannot appear more than once if content model type is \"all\".")
                     .SetName("invalidCalculationMultipleStochasts");
-                yield return new TestCaseData("invalidConfigurationCalculationContainingEmptyHydraulicBoundaryLocationOld.xml",
-                                              "The 'hrlocatie' element is invalid - The value '' is invalid according to its datatype 'String' - The actual length is less than the MinLength value.")
-                    .SetName("invalidConfigurationCalculationContainingEmptyHydraulicBoundaryLocationOld");
-                yield return new TestCaseData("invalidConfigurationCalculationContainingEmptyHydraulicBoundaryLocationNew.xml",
+                yield return new TestCaseData("invalidConfigurationCalculationContainingEmptyHydraulicBoundaryLocation.xml",
                                               "The 'hblocatie' element is invalid - The value '' is invalid according to its datatype 'String' - The actual length is less than the MinLength value.")
-                    .SetName("invalidConfigurationCalculationContainingEmptyHydraulicBoundaryLocationNew");
+                    .SetName("invalidConfigurationCalculationContainingEmptyHydraulicBoundaryLocation");
                 yield return new TestCaseData("invalidConfigurationCalculationContainingEmptySurfaceLine.xml",
                                               "The 'profielschematisatie' element is invalid - The value '' is invalid according to its datatype 'String' - The actual length is less than the MinLength value.")
                     .SetName("invalidConfigurationCalculationContainingEmptySurfaceLine");
@@ -175,24 +151,8 @@ namespace Riskeer.Piping.IO.Test.Configurations
                                               "The 'gebruik' element is invalid - The value 'string' is invalid according to its datatype 'Boolean'")
                     .SetName("invalidScenarioRelevantNoBoolean");
                 yield return new TestCaseData("invalidContainingBothAssessmentLevelAndWaterLevel.xml",
-                                              "Element 'toetspeil' cannot appear more than once if content model type is \"all\".")
+                                              "Element 'waterstand' cannot appear more than once if content model type is \"all\".")
                     .SetName("invalidContainingBothAssessmentLevelAndWaterLevel");
-                yield return new TestCaseData("invalidContainingBothHydraulicBoundaryLocationOldAndNew.xml",
-                                              "Element 'hrlocatie' cannot appear more than once if content model type is \"all\".")
-                    .SetName("invalidContainingBothHydraulicBoundaryLocationOldAndNew");
-
-                yield return new TestCaseData("invalidCalculationVersion1HydraulicBoundaryLocationOld.xml",
-                                              "The element 'berekening' has invalid child element 'hrlocatie'.")
-                    .SetName("invalidCalculationVersion1HydraulicBoundaryLocationOld");
-                yield return new TestCaseData("invalidCalculationVersion1AssessmentLevel.xml",
-                                              "The element 'berekening' has invalid child element 'toetspeil'.")
-                    .SetName("invalidCalculationVersion1AssessmentLevel");
-                yield return new TestCaseData("invalidCalculationVersion1ContainingBothAssessmentLevelAndHydraulicBoundaryLocation.xml",
-                                              "Element 'hblocatie' cannot appear more than once if content model type is \"all\".")
-                    .SetName("invalidCalculationVersion1ContainingBothAssessmentLevelAndHydraulicBoundaryLocation");
-                yield return new TestCaseData("invalidCalculationVersion1OldStochastName.xml",
-                                              "The 'naam' attribute is invalid - The value 'polderpeil' is invalid according to its datatype 'nameType' - The Enumeration constraint failed.")
-                    .SetName("invalidCalculationVersion1OldStochastName");
             }
         }
 
@@ -332,8 +292,6 @@ namespace Riskeer.Piping.IO.Test.Configurations
         [TestCase("validConfigurationFullCalculationContainingHydraulicBoundaryLocationNew")]
         [TestCase("validConfigurationFullCalculationContainingHydraulicBoundaryLocation_differentOrder_old")]
         [TestCase("validConfigurationFullCalculationContainingHydraulicBoundaryLocation_differentOrder_new")]
-        [TestCase("validConfigurationFullCalculationVersion1ContainingHydraulicBoundaryLocation")]
-        [TestCase("validConfigurationFullCalculationVersion1ContainingHydraulicBoundaryLocation_differentOrder")]
         public void Read_ValidConfigurationWithFullCalculationContainingHydraulicBoundaryLocation_ReturnExpectedReadPipingCalculation(string fileName)
         {
             // Setup
@@ -367,8 +325,6 @@ namespace Riskeer.Piping.IO.Test.Configurations
         [TestCase("validConfigurationFullCalculationContainingWaterLevel")]
         [TestCase("validConfigurationFullCalculationContainingAssessmentLevel_differentOrder")]
         [TestCase("validConfigurationFullCalculationContainingWaterLevel_differentOrder")]
-        [TestCase("validConfigurationFullCalculationVersion1ContainingWaterLevel")]
-        [TestCase("validConfigurationFullCalculationVersion1ContainingWaterLevel_differentOrder")]
         public void Read_ValidConfigurationWithFullCalculationContainingAssessmentLevel_ReturnExpectedReadPipingCalculation(string fileName)
         {
             // Setup

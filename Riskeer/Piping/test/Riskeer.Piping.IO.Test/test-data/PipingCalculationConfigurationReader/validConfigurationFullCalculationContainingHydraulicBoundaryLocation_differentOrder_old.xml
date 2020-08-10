@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<configuratie>
+<configuratie versie="1">
   <berekening naam="Calculation">
     <stochasten>
       <stochast naam="dempingsfactor">
         <standaardafwijking>7.7</standaardafwijking>
         <verwachtingswaarde>6.6</verwachtingswaarde>
       </stochast>
-      <stochast naam="polderpeil">
+      <stochast naam="binnendijksewaterstand">
         <standaardafwijking>5.5</standaardafwijking>
         <verwachtingswaarde>4.4</verwachtingswaarde>
       </stochast>
@@ -20,6 +20,6 @@
       <bijdrage>8.8</bijdrage>
     </scenario>
     <profielschematisatie>Profielschematisatie</profielschematisatie>
-    <hrlocatie>Locatie</hrlocatie>
+    <hblocatie>Locatie</hblocatie>
   </berekening>
 </configuratie>

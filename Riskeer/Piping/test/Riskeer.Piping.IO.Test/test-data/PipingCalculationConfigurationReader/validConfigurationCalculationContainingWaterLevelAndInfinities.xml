@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<configuratie>
+<configuratie versie="1">
   <berekening naam="Calculation">
     <waterstand>-INF</waterstand>
     <intredepunt>-INF</intredepunt>
     <uittredepunt>INF</uittredepunt>
     <stochasten>
-      <stochast naam="polderpeil">
+      <stochast naam="binnendijksewaterstand">
         <verwachtingswaarde>-INF</verwachtingswaarde>
         <standaardafwijking>INF</standaardafwijking>
       </stochast>

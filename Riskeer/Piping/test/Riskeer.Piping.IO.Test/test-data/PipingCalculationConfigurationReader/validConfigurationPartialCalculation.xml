@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<configuratie>
+<configuratie versie="1">
   <berekening naam="Calculation">
     <uittredepunt>2.2</uittredepunt>
     <ondergrondschematisatie>Ondergrondschematisatie</ondergrondschematisatie>
     <stochasten>
-      <stochast naam="polderpeil">
+      <stochast naam="binnendijksewaterstand">
         <verwachtingswaarde>3.3</verwachtingswaarde>
         <standaardafwijking>4.4</standaardafwijking>
       </stochast>
