@@ -295,32 +295,9 @@ namespace Riskeer.Piping.IO.Test.Configurations
             IEnumerable<IConfigurationItem> readConfigurationItems = reader.Read().ToArray();
 
             // Assert
-            var calculation = (PipingCalculationConfiguration) readConfigurationItems.Single();
+            var configuration = (PipingCalculationConfiguration) readConfigurationItems.Single();
 
-            Assert.AreEqual("Calculation", calculation.Name);
-            
-            if (hydraulicBoundaryLocation)
-            {
-                Assert.IsNull(calculation.AssessmentLevel);
-                Assert.AreEqual("Locatie", calculation.HydraulicBoundaryLocationName);
-            }
-            else
-            {
-                Assert.AreEqual(1.1, calculation.AssessmentLevel);
-                Assert.IsNull(calculation.HydraulicBoundaryLocationName);
-            }
-
-            Assert.AreEqual("Profielschematisatie", calculation.SurfaceLineName);
-            Assert.AreEqual(2.2, calculation.EntryPointL);
-            Assert.AreEqual(3.3, calculation.ExitPointL);
-            Assert.AreEqual("Ondergrondmodel", calculation.StochasticSoilModelName);
-            Assert.AreEqual("Ondergrondschematisatie", calculation.StochasticSoilProfileName);
-            Assert.AreEqual(4.4, calculation.PhreaticLevelExit.Mean);
-            Assert.AreEqual(5.5, calculation.PhreaticLevelExit.StandardDeviation);
-            Assert.AreEqual(6.6, calculation.DampingFactorExit.Mean);
-            Assert.AreEqual(7.7, calculation.DampingFactorExit.StandardDeviation);
-            Assert.AreEqual(8.8, calculation.Scenario.Contribution);
-            Assert.IsFalse(calculation.Scenario.IsRelevant);
+            AssertConfiguration(configuration, hydraulicBoundaryLocation);
         }
 
         [Test]
@@ -336,32 +313,9 @@ namespace Riskeer.Piping.IO.Test.Configurations
             IEnumerable<IConfigurationItem> readConfigurationItems = reader.Read().ToArray();
 
             // Assert
-            var calculation = (PipingCalculationConfiguration) readConfigurationItems.Single();
+            var configuration = (PipingCalculationConfiguration) readConfigurationItems.Single();
 
-            Assert.AreEqual("Calculation", calculation.Name);
-            
-            if (hydraulicBoundaryLocation)
-            {
-                Assert.IsNull(calculation.AssessmentLevel);
-                Assert.AreEqual("Locatie", calculation.HydraulicBoundaryLocationName);
-            }
-            else
-            {
-                Assert.AreEqual(1.1, calculation.AssessmentLevel);
-                Assert.IsNull(calculation.HydraulicBoundaryLocationName);
-            }
-
-            Assert.AreEqual("Profielschematisatie", calculation.SurfaceLineName);
-            Assert.AreEqual(2.2, calculation.EntryPointL);
-            Assert.AreEqual(3.3, calculation.ExitPointL);
-            Assert.AreEqual("Ondergrondmodel", calculation.StochasticSoilModelName);
-            Assert.AreEqual("Ondergrondschematisatie", calculation.StochasticSoilProfileName);
-            Assert.AreEqual(4.4, calculation.PhreaticLevelExit.Mean);
-            Assert.AreEqual(5.5, calculation.PhreaticLevelExit.StandardDeviation);
-            Assert.AreEqual(6.6, calculation.DampingFactorExit.Mean);
-            Assert.AreEqual(7.7, calculation.DampingFactorExit.StandardDeviation);
-            Assert.AreEqual(8.8, calculation.Scenario.Contribution);
-            Assert.IsFalse(calculation.Scenario.IsRelevant);
+            AssertConfiguration(configuration, hydraulicBoundaryLocation);
         }
 
         [Test]
@@ -462,6 +416,34 @@ namespace Riskeer.Piping.IO.Test.Configurations
 
             Assert.IsNull(calculation.Scenario.Contribution);
             Assert.IsNull(calculation.Scenario.IsRelevant);
+        }
+
+        private static void AssertConfiguration(PipingCalculationConfiguration configuration, bool hydraulicBoundaryLocation)
+        {
+            Assert.AreEqual("Calculation", configuration.Name);
+
+            if (hydraulicBoundaryLocation)
+            {
+                Assert.IsNull(configuration.AssessmentLevel);
+                Assert.AreEqual("Locatie", configuration.HydraulicBoundaryLocationName);
+            }
+            else
+            {
+                Assert.AreEqual(1.1, configuration.AssessmentLevel);
+                Assert.IsNull(configuration.HydraulicBoundaryLocationName);
+            }
+
+            Assert.AreEqual("Profielschematisatie", configuration.SurfaceLineName);
+            Assert.AreEqual(2.2, configuration.EntryPointL);
+            Assert.AreEqual(3.3, configuration.ExitPointL);
+            Assert.AreEqual("Ondergrondmodel", configuration.StochasticSoilModelName);
+            Assert.AreEqual("Ondergrondschematisatie", configuration.StochasticSoilProfileName);
+            Assert.AreEqual(4.4, configuration.PhreaticLevelExit.Mean);
+            Assert.AreEqual(5.5, configuration.PhreaticLevelExit.StandardDeviation);
+            Assert.AreEqual(6.6, configuration.DampingFactorExit.Mean);
+            Assert.AreEqual(7.7, configuration.DampingFactorExit.StandardDeviation);
+            Assert.AreEqual(8.8, configuration.Scenario.Contribution);
+            Assert.IsFalse(configuration.Scenario.IsRelevant);
         }
     }
 }
