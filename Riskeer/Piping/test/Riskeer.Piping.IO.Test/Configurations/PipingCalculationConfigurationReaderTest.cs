@@ -150,9 +150,6 @@ namespace Riskeer.Piping.IO.Test.Configurations
                 yield return new TestCaseData("invalidScenarioRelevantNoBoolean.xml",
                                               "The 'gebruik' element is invalid - The value 'string' is invalid according to its datatype 'Boolean'")
                     .SetName("invalidScenarioRelevantNoBoolean");
-                yield return new TestCaseData("invalidContainingBothAssessmentLevelAndWaterLevel.xml",
-                                              "Element 'waterstand' cannot appear more than once if content model type is \"all\".")
-                    .SetName("invalidContainingBothAssessmentLevelAndWaterLevel");
             }
         }
 
