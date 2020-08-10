@@ -53,15 +53,9 @@ namespace Riskeer.ClosingStructures.IO.Test.Configurations
                                               "The 'voorlandprofiel' element is invalid - The value '' is invalid according to its datatype 'String'")
                     .SetName("invalidCalculationForeshoreProfileEmpty");
 
-                yield return new TestCaseData("invalidCalculationHydraulicBoundaryLocationEmptyOld.xml",
-                                              "The 'hrlocatie' element is invalid - The value '' is invalid according to its datatype 'String'")
-                    .SetName("invalidCalculationHydraulicBoundaryLocationEmptyOld");
-                yield return new TestCaseData("invalidCalculationHydraulicBoundaryLocationEmptyNew.xml",
+                yield return new TestCaseData("invalidCalculationHydraulicBoundaryLocationEmpty.xml",
                                               "The 'hblocatie' element is invalid - The value '' is invalid according to its datatype 'String'")
                     .SetName("invalidCalculationHydraulicBoundaryLocationEmptyNew");
-                yield return new TestCaseData("invalidCalculationHydraulicBoundaryLocationOldAndNew.xml",
-                                              "Element 'hblocatie' cannot appear more than once if content model type is \"all\".")
-                    .SetName("invalidCalculationHydraulicBoundaryLocationOldAndNew");
 
                 yield return new TestCaseData("invalidCalculationMultipleFailureProbabilityStructureWithErosion.xml",
                                               "Element 'faalkansgegevenerosiebodem' cannot appear more than once if content model type is \"all\".")
@@ -69,12 +63,10 @@ namespace Riskeer.ClosingStructures.IO.Test.Configurations
                 yield return new TestCaseData("invalidCalculationMultipleForeshoreProfile.xml",
                                               "Element 'voorlandprofiel' cannot appear more than once if content model type is \"all\".")
                     .SetName("invalidCalculationMultipleForeshoreProfile");
-                yield return new TestCaseData("invalidCalculationMultipleHydraulicBoundaryLocationOld.xml",
-                                              "Element 'hrlocatie' cannot appear more than once if content model type is \"all\".")
-                    .SetName("invalidCalculationMultipleHydraulicBoundaryLocationOld");
-                yield return new TestCaseData("invalidCalculationMultipleHydraulicBoundaryLocationNew.xml",
+
+                yield return new TestCaseData("invalidCalculationMultipleHydraulicBoundaryLocation.xml",
                                               "Element 'hblocatie' cannot appear more than once if content model type is \"all\".")
-                    .SetName("invalidCalculationMultipleHydraulicBoundaryLocationNew");
+                    .SetName("invalidCalculationMultipleHydraulicBoundaryLocation");
                 yield return new TestCaseData("invalidCalculationMultipleOrientation.xml",
                                               "Element 'orientatie' cannot appear more than once if content model type is \"all\".")
                     .SetName("invalidCalculationMultipleOrientation");
@@ -294,10 +286,6 @@ namespace Riskeer.ClosingStructures.IO.Test.Configurations
                 yield return new TestCaseData("invalidScenarioRelevantNoBoolean.xml",
                                               "The 'gebruik' element is invalid - The value 'string' is invalid according to its datatype 'Boolean'")
                     .SetName("invalidScenarioRelevantNoBoolean");
-
-                yield return new TestCaseData("invalidCalculationVersion1HydraulicBoundaryLocationOld.xml",
-                                              "The element 'berekening' has invalid child element 'hrlocatie'.")
-                    .SetName("invalidCalculationVersion1HydraulicBoundaryLocationOld");
             }
         }
 
@@ -364,12 +352,8 @@ namespace Riskeer.ClosingStructures.IO.Test.Configurations
         }
 
         [Test]
-        [TestCase("validFullConfigurationOld")]
-        [TestCase("validFullConfiguration_differentOrder_old")]
-        [TestCase("validFullConfigurationNew")]
-        [TestCase("validFullConfiguration_differentOrder_new")]
-        [TestCase("validFullConfigurationVersion1")]
-        [TestCase("validFullConfiguration_differentOrder_Version1")]
+        [TestCase("validFullConfiguration")]
+        [TestCase("validFullConfiguration_differentOrder")]
         public void Read_ValidFullConfigurations_ExpectedValues(string fileName)
         {
             // Setup
@@ -382,50 +366,23 @@ namespace Riskeer.ClosingStructures.IO.Test.Configurations
             // Assert
             var calculation = (ClosingStructuresCalculationConfiguration) readConfigurationItems.Single();
 
-            Assert.AreEqual(67.1, calculation.StructureNormalOrientation);
-            Assert.AreEqual("kunstwerk1", calculation.StructureId);
-            Assert.AreEqual("Locatie1", calculation.HydraulicBoundaryLocationName);
-            Assert.AreEqual("profiel1", calculation.ForeshoreProfileId);
-            Assert.AreEqual(0.002, calculation.FactorStormDurationOpenStructure);
-            Assert.AreEqual(0.03, calculation.ProbabilityOpenStructureBeforeFlooding);
-            Assert.AreEqual(0.22, calculation.FailureProbabilityOpenStructure);
-            Assert.AreEqual(0.0006, calculation.FailureProbabilityReparation);
-            Assert.AreEqual(0.001, calculation.FailureProbabilityStructureWithErosion);
-            Assert.AreEqual(4, calculation.IdenticalApertures);
-            Assert.AreEqual(ConfigurationClosingStructureInflowModelType.VerticalWall, calculation.InflowModelType);
+            AssertConfiguration(calculation);
+        }
 
-            Assert.AreEqual(1.1, calculation.DrainCoefficient.Mean);
-            Assert.AreEqual(0.1, calculation.DrainCoefficient.StandardDeviation);
-            Assert.AreEqual(0.5, calculation.InsideWaterLevel.Mean);
-            Assert.AreEqual(0.1, calculation.InsideWaterLevel.StandardDeviation);
-            Assert.AreEqual(80.5, calculation.AreaFlowApertures.Mean);
-            Assert.AreEqual(1, calculation.AreaFlowApertures.StandardDeviation);
-            Assert.AreEqual(1.2, calculation.ThresholdHeightOpenWeir.Mean);
-            Assert.AreEqual(0.1, calculation.ThresholdHeightOpenWeir.StandardDeviation);
-            Assert.AreEqual(4.3, calculation.LevelCrestStructureNotClosing.Mean);
-            Assert.AreEqual(0.2, calculation.LevelCrestStructureNotClosing.StandardDeviation);
+        [Test]
+        public void Read_ValidPreviousVersionConfigurationWithFullCalculation_ReturnExpectedReadCalculation()
+        {
+            // Setup
+            string filePath = Path.Combine(testDirectoryPath, "version0ValidConfigurationFullCalculation.xml");
+            var reader = new ClosingStructuresCalculationConfigurationReader(filePath);
 
-            Assert.AreEqual(0.2, calculation.AllowedLevelIncreaseStorage.Mean);
-            Assert.AreEqual(0.01, calculation.AllowedLevelIncreaseStorage.StandardDeviation);
-            Assert.AreEqual(2, calculation.CriticalOvertoppingDischarge.Mean);
-            Assert.AreEqual(0.1, calculation.CriticalOvertoppingDischarge.VariationCoefficient);
-            Assert.AreEqual(15.2, calculation.FlowWidthAtBottomProtection.Mean);
-            Assert.AreEqual(0.1, calculation.FlowWidthAtBottomProtection.StandardDeviation);
-            Assert.AreEqual(1.10, calculation.ModelFactorSuperCriticalFlow.Mean);
-            Assert.AreEqual(0.12, calculation.ModelFactorSuperCriticalFlow.StandardDeviation);
-            Assert.AreEqual(15000, calculation.StorageStructureArea.Mean);
-            Assert.AreEqual(0.01, calculation.StorageStructureArea.VariationCoefficient);
-            Assert.AreEqual(6.0, calculation.StormDuration.Mean);
-            Assert.AreEqual(0.12, calculation.StormDuration.VariationCoefficient);
-            Assert.AreEqual(15.2, calculation.WidthFlowApertures.Mean);
-            Assert.AreEqual(0.1, calculation.WidthFlowApertures.StandardDeviation);
+            // Call
+            IEnumerable<IConfigurationItem> readConfigurationItems = reader.Read().ToArray();
 
-            Assert.AreEqual(ConfigurationBreakWaterType.Dam, calculation.WaveReduction.BreakWaterType);
-            Assert.AreEqual(1.234, calculation.WaveReduction.BreakWaterHeight);
-            Assert.IsTrue(calculation.WaveReduction.UseBreakWater);
-            Assert.IsTrue(calculation.WaveReduction.UseForeshoreProfile);
-            Assert.IsTrue(calculation.Scenario.IsRelevant);
-            Assert.AreEqual(8.8, calculation.Scenario.Contribution);
+            // Assert
+            var configuration = (ClosingStructuresCalculationConfiguration) readConfigurationItems.Single();
+
+            AssertConfiguration(configuration);
         }
 
         [Test]
@@ -541,12 +498,10 @@ namespace Riskeer.ClosingStructures.IO.Test.Configurations
         }
 
         [Test]
-        [TestCase("validPartialConfigurationOld")]
-        [TestCase("validPartialConfigurationNew")]
-        public void Read_ValidPartialConfigurations_ExpectedValues(string fileName)
+        public void Read_ValidPartialConfigurations_ExpectedValues()
         {
             // Setup
-            string filePath = Path.Combine(testDirectoryPath, $"{fileName}.xml");
+            string filePath = Path.Combine(testDirectoryPath, "validPartialConfiguration.xml");
             var reader = new ClosingStructuresCalculationConfigurationReader(filePath);
 
             // Call
@@ -647,6 +602,54 @@ namespace Riskeer.ClosingStructures.IO.Test.Configurations
             Assert.IsNull(calculation.WidthFlowApertures.StandardDeviation);
             Assert.IsNull(calculation.WaveReduction);
             Assert.IsNull(calculation.Scenario);
+        }
+
+        private static void AssertConfiguration(ClosingStructuresCalculationConfiguration calculation)
+        {
+            Assert.AreEqual(67.1, calculation.StructureNormalOrientation);
+            Assert.AreEqual("kunstwerk1", calculation.StructureId);
+            Assert.AreEqual("Locatie1", calculation.HydraulicBoundaryLocationName);
+            Assert.AreEqual("profiel1", calculation.ForeshoreProfileId);
+            Assert.AreEqual(0.002, calculation.FactorStormDurationOpenStructure);
+            Assert.AreEqual(0.03, calculation.ProbabilityOpenStructureBeforeFlooding);
+            Assert.AreEqual(0.22, calculation.FailureProbabilityOpenStructure);
+            Assert.AreEqual(0.0006, calculation.FailureProbabilityReparation);
+            Assert.AreEqual(0.001, calculation.FailureProbabilityStructureWithErosion);
+            Assert.AreEqual(4, calculation.IdenticalApertures);
+            Assert.AreEqual(ConfigurationClosingStructureInflowModelType.VerticalWall, calculation.InflowModelType);
+
+            Assert.AreEqual(1.1, calculation.DrainCoefficient.Mean);
+            Assert.AreEqual(0.1, calculation.DrainCoefficient.StandardDeviation);
+            Assert.AreEqual(0.5, calculation.InsideWaterLevel.Mean);
+            Assert.AreEqual(0.1, calculation.InsideWaterLevel.StandardDeviation);
+            Assert.AreEqual(80.5, calculation.AreaFlowApertures.Mean);
+            Assert.AreEqual(1, calculation.AreaFlowApertures.StandardDeviation);
+            Assert.AreEqual(1.2, calculation.ThresholdHeightOpenWeir.Mean);
+            Assert.AreEqual(0.1, calculation.ThresholdHeightOpenWeir.StandardDeviation);
+            Assert.AreEqual(4.3, calculation.LevelCrestStructureNotClosing.Mean);
+            Assert.AreEqual(0.2, calculation.LevelCrestStructureNotClosing.StandardDeviation);
+
+            Assert.AreEqual(0.2, calculation.AllowedLevelIncreaseStorage.Mean);
+            Assert.AreEqual(0.01, calculation.AllowedLevelIncreaseStorage.StandardDeviation);
+            Assert.AreEqual(2, calculation.CriticalOvertoppingDischarge.Mean);
+            Assert.AreEqual(0.1, calculation.CriticalOvertoppingDischarge.VariationCoefficient);
+            Assert.AreEqual(15.2, calculation.FlowWidthAtBottomProtection.Mean);
+            Assert.AreEqual(0.1, calculation.FlowWidthAtBottomProtection.StandardDeviation);
+            Assert.AreEqual(1.10, calculation.ModelFactorSuperCriticalFlow.Mean);
+            Assert.AreEqual(0.12, calculation.ModelFactorSuperCriticalFlow.StandardDeviation);
+            Assert.AreEqual(15000, calculation.StorageStructureArea.Mean);
+            Assert.AreEqual(0.01, calculation.StorageStructureArea.VariationCoefficient);
+            Assert.AreEqual(6.0, calculation.StormDuration.Mean);
+            Assert.AreEqual(0.12, calculation.StormDuration.VariationCoefficient);
+            Assert.AreEqual(15.2, calculation.WidthFlowApertures.Mean);
+            Assert.AreEqual(0.1, calculation.WidthFlowApertures.StandardDeviation);
+
+            Assert.AreEqual(ConfigurationBreakWaterType.Dam, calculation.WaveReduction.BreakWaterType);
+            Assert.AreEqual(1.234, calculation.WaveReduction.BreakWaterHeight);
+            Assert.IsTrue(calculation.WaveReduction.UseBreakWater);
+            Assert.IsTrue(calculation.WaveReduction.UseForeshoreProfile);
+            Assert.IsTrue(calculation.Scenario.IsRelevant);
+            Assert.AreEqual(8.8, calculation.Scenario.Contribution);
         }
     }
 }

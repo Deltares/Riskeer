@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<configuratie>
+<configuratie versie="1">
   <berekening naam="Berekening 1">
-    <hrlocatie>Locatie1</hrlocatie>
+    <hblocatie>Locatie1</hblocatie>
     <voorlandprofiel>profiel1</voorlandprofiel>
     <golfreductie>
       <damgebruiken>true</damgebruiken>
