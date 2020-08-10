@@ -255,19 +255,19 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
             IEnumerable<IConfigurationItem> readConfigurationItems = reader.Read().ToArray();
 
             // Assert
-            var calculation = (GrassCoverErosionInwardsCalculationConfiguration) readConfigurationItems.Single();
+            var configuration = (GrassCoverErosionInwardsCalculationConfiguration) readConfigurationItems.Single();
 
-            Assert.IsNotNull(calculation);
-            Assert.AreEqual("Calculation", calculation.Name);
-            Assert.IsNull(calculation.HydraulicBoundaryLocationName);
-            Assert.IsNull(calculation.DikeProfileId);
-            Assert.IsNull(calculation.Orientation);
-            Assert.IsNull(calculation.DikeHeight);
-            Assert.IsNull(calculation.DikeHeightCalculationType);
-            Assert.IsNull(calculation.OvertoppingRateCalculationType);
-            Assert.IsNull(calculation.WaveReduction);
-            Assert.IsNull(calculation.CriticalFlowRate);
-            Assert.IsNull(calculation.Scenario);
+            Assert.IsNotNull(configuration);
+            Assert.AreEqual("Calculation", configuration.Name);
+            Assert.IsNull(configuration.HydraulicBoundaryLocationName);
+            Assert.IsNull(configuration.DikeProfileId);
+            Assert.IsNull(configuration.Orientation);
+            Assert.IsNull(configuration.DikeHeight);
+            Assert.IsNull(configuration.DikeHeightCalculationType);
+            Assert.IsNull(configuration.OvertoppingRateCalculationType);
+            Assert.IsNull(configuration.WaveReduction);
+            Assert.IsNull(configuration.CriticalFlowRate);
+            Assert.IsNull(configuration.Scenario);
         }
 
         [Test]
@@ -281,10 +281,10 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
             IEnumerable<IConfigurationItem> readConfigurationItems = reader.Read().ToArray();
 
             // Assert
-            var calculation = (GrassCoverErosionInwardsCalculationConfiguration) readConfigurationItems.Single();
+            var configuration = (GrassCoverErosionInwardsCalculationConfiguration) readConfigurationItems.Single();
 
-            Assert.IsNotNull(calculation);
-            Assert.IsNull(calculation.CriticalFlowRate);
+            Assert.IsNotNull(configuration);
+            Assert.IsNull(configuration.CriticalFlowRate);
         }
 
         [Test]
@@ -298,15 +298,15 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
             IEnumerable<IConfigurationItem> readConfigurationItems = reader.Read().ToArray();
 
             // Assert
-            var calculation = (GrassCoverErosionInwardsCalculationConfiguration) readConfigurationItems.Single();
+            var configuration = (GrassCoverErosionInwardsCalculationConfiguration) readConfigurationItems.Single();
 
-            Assert.IsNotNull(calculation);
-            Assert.IsNaN(calculation.Orientation);
-            Assert.IsNaN(calculation.DikeHeight);
-            Assert.IsNaN(calculation.WaveReduction.BreakWaterHeight);
-            Assert.IsNaN(calculation.CriticalFlowRate.Mean);
-            Assert.IsNaN(calculation.CriticalFlowRate.StandardDeviation);
-            Assert.IsNaN(calculation.Scenario.Contribution);
+            Assert.IsNotNull(configuration);
+            Assert.IsNaN(configuration.Orientation);
+            Assert.IsNaN(configuration.DikeHeight);
+            Assert.IsNaN(configuration.WaveReduction.BreakWaterHeight);
+            Assert.IsNaN(configuration.CriticalFlowRate.Mean);
+            Assert.IsNaN(configuration.CriticalFlowRate.StandardDeviation);
+            Assert.IsNaN(configuration.Scenario.Contribution);
         }
 
         [Test]
@@ -320,23 +320,23 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
             IEnumerable<IConfigurationItem> readConfigurationItems = reader.Read().ToArray();
 
             // Assert
-            var calculation = (GrassCoverErosionInwardsCalculationConfiguration) readConfigurationItems.Single();
+            var configuration = (GrassCoverErosionInwardsCalculationConfiguration) readConfigurationItems.Single();
 
-            Assert.IsNotNull(calculation);
+            Assert.IsNotNull(configuration);
 
-            Assert.IsNotNull(calculation.Orientation);
-            Assert.IsNotNull(calculation.DikeHeight);
-            Assert.IsNotNull(calculation.WaveReduction.BreakWaterHeight);
-            Assert.IsNotNull(calculation.CriticalFlowRate.Mean);
-            Assert.IsNotNull(calculation.CriticalFlowRate.StandardDeviation);
-            Assert.IsNotNull(calculation.Scenario.Contribution);
+            Assert.IsNotNull(configuration.Orientation);
+            Assert.IsNotNull(configuration.DikeHeight);
+            Assert.IsNotNull(configuration.WaveReduction.BreakWaterHeight);
+            Assert.IsNotNull(configuration.CriticalFlowRate.Mean);
+            Assert.IsNotNull(configuration.CriticalFlowRate.StandardDeviation);
+            Assert.IsNotNull(configuration.Scenario.Contribution);
 
-            Assert.IsTrue(double.IsPositiveInfinity(calculation.Orientation.Value));
-            Assert.IsTrue(double.IsNegativeInfinity(calculation.DikeHeight.Value));
-            Assert.IsTrue(double.IsNegativeInfinity(calculation.WaveReduction.BreakWaterHeight.Value));
-            Assert.IsTrue(double.IsPositiveInfinity(calculation.CriticalFlowRate.Mean.Value));
-            Assert.IsTrue(double.IsPositiveInfinity(calculation.CriticalFlowRate.StandardDeviation.Value));
-            Assert.IsTrue(double.IsPositiveInfinity(calculation.Scenario.Contribution.Value));
+            Assert.IsTrue(double.IsPositiveInfinity(configuration.Orientation.Value));
+            Assert.IsTrue(double.IsNegativeInfinity(configuration.DikeHeight.Value));
+            Assert.IsTrue(double.IsNegativeInfinity(configuration.WaveReduction.BreakWaterHeight.Value));
+            Assert.IsTrue(double.IsPositiveInfinity(configuration.CriticalFlowRate.Mean.Value));
+            Assert.IsTrue(double.IsPositiveInfinity(configuration.CriticalFlowRate.StandardDeviation.Value));
+            Assert.IsTrue(double.IsPositiveInfinity(configuration.Scenario.Contribution.Value));
         }
 
         [Test]
@@ -352,9 +352,9 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
             IEnumerable<IConfigurationItem> readConfigurationItems = reader.Read().ToArray();
 
             // Assert
-            var calculation = (GrassCoverErosionInwardsCalculationConfiguration) readConfigurationItems.Single();
+            var configuration = (GrassCoverErosionInwardsCalculationConfiguration) readConfigurationItems.Single();
 
-            AssertConfiguration(calculation);
+            AssertConfiguration(configuration);
         }
 
         [Test]
@@ -371,6 +371,108 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
             var configuration = (GrassCoverErosionInwardsCalculationConfiguration) readConfigurationItems.Single();
 
             AssertConfiguration(configuration);
+        }
+
+        [Test]
+        public void Read_ValidConfigurationWithPartialCalculation_ReturnExpectedReadCalculation()
+        {
+            // Setup
+            string filePath = Path.Combine(testDirectoryPath, "validConfigurationPartialCalculation.xml");
+            var reader = new GrassCoverErosionInwardsCalculationConfigurationReader(filePath);
+
+            // Call
+            IEnumerable<IConfigurationItem> readConfigurationItems = reader.Read().ToArray();
+
+            // Assert
+            var configuration = (GrassCoverErosionInwardsCalculationConfiguration) readConfigurationItems.Single();
+
+            Assert.IsNotNull(configuration);
+            Assert.AreEqual("Partial calculation 2", configuration.Name);
+            Assert.IsNull(configuration.HydraulicBoundaryLocationName);
+            Assert.AreEqual("id_of_dikeprofile", configuration.DikeProfileId);
+            Assert.IsNull(configuration.Orientation);
+            Assert.AreEqual(-1.2, configuration.DikeHeight);
+            Assert.IsNull(configuration.DikeHeightCalculationType);
+            Assert.IsNull(configuration.OvertoppingRateCalculationType);
+            Assert.AreEqual(false, configuration.WaveReduction.UseBreakWater);
+            Assert.IsNull(configuration.WaveReduction.BreakWaterType);
+            Assert.AreEqual(3.4, configuration.WaveReduction.BreakWaterHeight);
+            Assert.IsNull(configuration.WaveReduction.UseForeshoreProfile);
+            Assert.IsNull(configuration.CriticalFlowRate);
+            Assert.IsTrue(configuration.ShouldOvertoppingOutputIllustrationPointsBeCalculated);
+            Assert.IsNull(configuration.ShouldDikeHeightIllustrationPointsBeCalculated);
+            Assert.IsNull(configuration.ShouldOvertoppingRateIllustrationPointsBeCalculated);
+        }
+
+        [Test]
+        public void Read_ValidConfigurationWithMissingStochastMean_ExpectedValues()
+        {
+            // Setup
+            string filePath = Path.Combine(testDirectoryPath, "validConfigurationCriticalFlowRateMissingMean.xml");
+            var reader = new GrassCoverErosionInwardsCalculationConfigurationReader(filePath);
+
+            // Call
+            IEnumerable<IConfigurationItem> readConfigurationItems = reader.Read().ToArray();
+
+            // Assert
+            var configuration = (GrassCoverErosionInwardsCalculationConfiguration) readConfigurationItems.Single();
+
+            Assert.IsNotNull(configuration);
+            Assert.IsNull(configuration.CriticalFlowRate.Mean);
+            Assert.AreEqual(2.2, configuration.CriticalFlowRate.StandardDeviation);
+        }
+
+        [Test]
+        public void Read_ValidConfigurationWithMissingStochastStandardDeviation_ExpectedValues()
+        {
+            // Setup
+            string filePath = Path.Combine(testDirectoryPath, "validConfigurationCriticalFlowRateMissingStandardDeviation.xml");
+            var reader = new GrassCoverErosionInwardsCalculationConfigurationReader(filePath);
+
+            // Call
+            IEnumerable<IConfigurationItem> readConfigurationItems = reader.Read().ToArray();
+
+            // Assert
+            var configuration = (GrassCoverErosionInwardsCalculationConfiguration) readConfigurationItems.Single();
+
+            Assert.IsNotNull(configuration);
+            Assert.AreEqual(1.1, configuration.CriticalFlowRate.Mean);
+            Assert.IsNull(configuration.CriticalFlowRate.StandardDeviation);
+        }
+
+        [Test]
+        public void Read_ValidConfigurationWithEmptyStochast_ExpectedValues()
+        {
+            // Setup
+            string filePath = Path.Combine(testDirectoryPath, "validConfigurationEmptyCriticalFlowRate.xml");
+            var reader = new GrassCoverErosionInwardsCalculationConfigurationReader(filePath);
+
+            // Call
+            IEnumerable<IConfigurationItem> readConfigurationItems = reader.Read().ToArray();
+
+            // Assert
+            var configuration = (GrassCoverErosionInwardsCalculationConfiguration) readConfigurationItems.Single();
+
+            Assert.IsNotNull(configuration);
+            Assert.IsNull(configuration.CriticalFlowRate.Mean);
+            Assert.IsNull(configuration.CriticalFlowRate.StandardDeviation);
+        }
+
+        [Test]
+        public void Read_ValidConfigurationWithEmptyScenario_ExpectedValues()
+        {
+            // Setup
+            string filePath = Path.Combine(testDirectoryPath, "validConfigurationEmptyScenario.xml");
+            var reader = new GrassCoverErosionInwardsCalculationConfigurationReader(filePath);
+
+            // Call
+            IEnumerable<IConfigurationItem> readConfigurationItems = reader.Read().ToArray();
+
+            // Assert
+            var configuration = (GrassCoverErosionInwardsCalculationConfiguration) readConfigurationItems.Single();
+
+            Assert.IsNull(configuration.Scenario.Contribution);
+            Assert.IsNull(configuration.Scenario.IsRelevant);
         }
 
         private static void AssertConfiguration(GrassCoverErosionInwardsCalculationConfiguration configuration)
@@ -394,108 +496,6 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Test.Configurations
             Assert.IsFalse(configuration.ShouldOvertoppingRateIllustrationPointsBeCalculated);
             Assert.AreEqual(8.8, configuration.Scenario.Contribution);
             Assert.IsTrue(configuration.Scenario.IsRelevant);
-        }
-
-        [Test]
-        public void Read_ValidConfigurationWithPartialCalculation_ReturnExpectedReadCalculation()
-        {
-            // Setup
-            string filePath = Path.Combine(testDirectoryPath, "validConfigurationPartialCalculation.xml");
-            var reader = new GrassCoverErosionInwardsCalculationConfigurationReader(filePath);
-
-            // Call
-            IEnumerable<IConfigurationItem> readConfigurationItems = reader.Read().ToArray();
-
-            // Assert
-            var calculation = (GrassCoverErosionInwardsCalculationConfiguration) readConfigurationItems.Single();
-
-            Assert.IsNotNull(calculation);
-            Assert.AreEqual("Partial calculation 2", calculation.Name);
-            Assert.IsNull(calculation.HydraulicBoundaryLocationName);
-            Assert.AreEqual("id_of_dikeprofile", calculation.DikeProfileId);
-            Assert.IsNull(calculation.Orientation);
-            Assert.AreEqual(-1.2, calculation.DikeHeight);
-            Assert.IsNull(calculation.DikeHeightCalculationType);
-            Assert.IsNull(calculation.OvertoppingRateCalculationType);
-            Assert.AreEqual(false, calculation.WaveReduction.UseBreakWater);
-            Assert.IsNull(calculation.WaveReduction.BreakWaterType);
-            Assert.AreEqual(3.4, calculation.WaveReduction.BreakWaterHeight);
-            Assert.IsNull(calculation.WaveReduction.UseForeshoreProfile);
-            Assert.IsNull(calculation.CriticalFlowRate);
-            Assert.IsTrue(calculation.ShouldOvertoppingOutputIllustrationPointsBeCalculated);
-            Assert.IsNull(calculation.ShouldDikeHeightIllustrationPointsBeCalculated);
-            Assert.IsNull(calculation.ShouldOvertoppingRateIllustrationPointsBeCalculated);
-        }
-
-        [Test]
-        public void Read_ValidConfigurationWithMissingStochastMean_ExpectedValues()
-        {
-            // Setup
-            string filePath = Path.Combine(testDirectoryPath, "validConfigurationCriticalFlowRateMissingMean.xml");
-            var reader = new GrassCoverErosionInwardsCalculationConfigurationReader(filePath);
-
-            // Call
-            IEnumerable<IConfigurationItem> readConfigurationItems = reader.Read().ToArray();
-
-            // Assert
-            var calculation = (GrassCoverErosionInwardsCalculationConfiguration) readConfigurationItems.Single();
-
-            Assert.IsNotNull(calculation);
-            Assert.IsNull(calculation.CriticalFlowRate.Mean);
-            Assert.AreEqual(2.2, calculation.CriticalFlowRate.StandardDeviation);
-        }
-
-        [Test]
-        public void Read_ValidConfigurationWithMissingStochastStandardDeviation_ExpectedValues()
-        {
-            // Setup
-            string filePath = Path.Combine(testDirectoryPath, "validConfigurationCriticalFlowRateMissingStandardDeviation.xml");
-            var reader = new GrassCoverErosionInwardsCalculationConfigurationReader(filePath);
-
-            // Call
-            IEnumerable<IConfigurationItem> readConfigurationItems = reader.Read().ToArray();
-
-            // Assert
-            var calculation = (GrassCoverErosionInwardsCalculationConfiguration) readConfigurationItems.Single();
-
-            Assert.IsNotNull(calculation);
-            Assert.AreEqual(1.1, calculation.CriticalFlowRate.Mean);
-            Assert.IsNull(calculation.CriticalFlowRate.StandardDeviation);
-        }
-
-        [Test]
-        public void Read_ValidConfigurationWithEmptyStochast_ExpectedValues()
-        {
-            // Setup
-            string filePath = Path.Combine(testDirectoryPath, "validConfigurationEmptyCriticalFlowRate.xml");
-            var reader = new GrassCoverErosionInwardsCalculationConfigurationReader(filePath);
-
-            // Call
-            IEnumerable<IConfigurationItem> readConfigurationItems = reader.Read().ToArray();
-
-            // Assert
-            var calculation = (GrassCoverErosionInwardsCalculationConfiguration) readConfigurationItems.Single();
-
-            Assert.IsNotNull(calculation);
-            Assert.IsNull(calculation.CriticalFlowRate.Mean);
-            Assert.IsNull(calculation.CriticalFlowRate.StandardDeviation);
-        }
-
-        [Test]
-        public void Read_ValidConfigurationWithEmptyScenario_ExpectedValues()
-        {
-            // Setup
-            string filePath = Path.Combine(testDirectoryPath, "validConfigurationEmptyScenario.xml");
-            var reader = new GrassCoverErosionInwardsCalculationConfigurationReader(filePath);
-
-            // Call
-            IEnumerable<IConfigurationItem> readConfigurationItems = reader.Read().ToArray();
-
-            // Assert
-            var calculation = (GrassCoverErosionInwardsCalculationConfiguration) readConfigurationItems.Single();
-
-            Assert.IsNull(calculation.Scenario.Contribution);
-            Assert.IsNull(calculation.Scenario.IsRelevant);
         }
     }
 }
