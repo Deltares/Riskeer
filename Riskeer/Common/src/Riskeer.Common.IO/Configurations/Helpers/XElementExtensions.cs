@@ -303,23 +303,5 @@ namespace Riskeer.Common.IO.Configurations.Helpers
 
             return null;
         }
-
-        /// <summary>
-        /// Gets a hydraulic boundary location name based on the values found in the <paramref name="calculationElement"/>.
-        /// </summary>
-        /// <param name="calculationElement">The element containing values for hydraulic boundary location parameters.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculationElement"/> is <c>null</c>.</exception>
-        /// <returns>The hydraulic boundary location name, or <c>null</c> when the <paramref name="calculationElement"/> does not
-        /// have hydraulic boundary location elements.</returns>
-        public static string GetHydraulicBoundaryLocationName(this XElement calculationElement)
-        {
-            if (calculationElement == null)
-            {
-                throw new ArgumentNullException(nameof(calculationElement));
-            }
-
-            return calculationElement.GetStringValueFromDescendantElement(ConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElementNew)
-                   ?? calculationElement.GetStringValueFromDescendantElement(ConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElementOld);
-        }
     }
 }
