@@ -229,12 +229,10 @@ namespace Riskeer.Piping.IO.Test.Configurations
         }
 
         [Test]
-        [TestCase("validConfigurationCalculationContainingAssessmentLevelAndNaNs")]
-        [TestCase("validConfigurationCalculationContainingWaterLevelAndNaNs")]
-        public void Read_ValidConfigurationWithCalculationContainingNaNs_ReturnExpectedReadPipingCalculation(string fileName)
+        public void Read_ValidConfigurationWithCalculationContainingNaNs_ReturnExpectedReadPipingCalculation()
         {
             // Setup
-            string filePath = Path.Combine(testDirectoryPath, $"{fileName}.xml");
+            string filePath = Path.Combine(testDirectoryPath, "validConfigurationCalculationContainingNaNs.xml");
             var reader = new PipingCalculationConfigurationReader(filePath);
 
             // Call
@@ -254,12 +252,10 @@ namespace Riskeer.Piping.IO.Test.Configurations
         }
 
         [Test]
-        [TestCase("validConfigurationCalculationContainingAssessmentLevelAndInfinities")]
-        [TestCase("validConfigurationCalculationContainingWaterLevelAndInfinities")]
-        public void Read_ValidConfigurationWithCalculationContainingInfinities_ReturnExpectedReadPipingCalculation(string fileName)
+        public void Read_ValidConfigurationWithCalculationContainingInfinities_ReturnExpectedReadPipingCalculation()
         {
             // Setup
-            string filePath = Path.Combine(testDirectoryPath, $"{fileName}.xml");
+            string filePath = Path.Combine(testDirectoryPath, "validConfigurationCalculationContainingInfinities.xml");
             var reader = new PipingCalculationConfigurationReader(filePath);
 
             // Call
@@ -288,11 +284,11 @@ namespace Riskeer.Piping.IO.Test.Configurations
         }
 
         [Test]
-        [TestCase("validConfigurationFullCalculationContainingHydraulicBoundaryLocationOld")]
-        [TestCase("validConfigurationFullCalculationContainingHydraulicBoundaryLocationNew")]
-        [TestCase("validConfigurationFullCalculationContainingHydraulicBoundaryLocation_differentOrder_old")]
-        [TestCase("validConfigurationFullCalculationContainingHydraulicBoundaryLocation_differentOrder_new")]
-        public void Read_ValidConfigurationWithFullCalculationContainingHydraulicBoundaryLocation_ReturnExpectedReadPipingCalculation(string fileName)
+        [TestCase("validConfigurationFullCalculationContainingHydraulicBoundaryLocation", true)]
+        [TestCase("validConfigurationFullCalculationContainingHydraulicBoundaryLocation_differentOrder", true)]
+        [TestCase("validConfigurationFullCalculationContainingWaterLevel", false)]
+        [TestCase("validConfigurationFullCalculationContainingWaterLevel_differentOrder", false)]
+        public void Read_ValidConfigurationWithFullCalculation_ReturnExpectedReadPipingCalculation(string fileName, bool hydraulicBoundaryLocation)
         {
             // Setup
             string filePath = Path.Combine(testDirectoryPath, $"{fileName}.xml");
@@ -305,8 +301,18 @@ namespace Riskeer.Piping.IO.Test.Configurations
             var calculation = (PipingCalculationConfiguration) readConfigurationItems.Single();
 
             Assert.AreEqual("Calculation", calculation.Name);
-            Assert.IsNull(calculation.AssessmentLevel);
-            Assert.AreEqual("Locatie", calculation.HydraulicBoundaryLocationName);
+            
+            if (hydraulicBoundaryLocation)
+            {
+                Assert.IsNull(calculation.AssessmentLevel);
+                Assert.AreEqual("Locatie", calculation.HydraulicBoundaryLocationName);
+            }
+            else
+            {
+                Assert.AreEqual(1.1, calculation.AssessmentLevel);
+                Assert.IsNull(calculation.HydraulicBoundaryLocationName);
+            }
+
             Assert.AreEqual("Profielschematisatie", calculation.SurfaceLineName);
             Assert.AreEqual(2.2, calculation.EntryPointL);
             Assert.AreEqual(3.3, calculation.ExitPointL);
@@ -321,11 +327,9 @@ namespace Riskeer.Piping.IO.Test.Configurations
         }
 
         [Test]
-        [TestCase("validConfigurationFullCalculationContainingAssessmentLevel")]
-        [TestCase("validConfigurationFullCalculationContainingWaterLevel")]
-        [TestCase("validConfigurationFullCalculationContainingAssessmentLevel_differentOrder")]
-        [TestCase("validConfigurationFullCalculationContainingWaterLevel_differentOrder")]
-        public void Read_ValidConfigurationWithFullCalculationContainingAssessmentLevel_ReturnExpectedReadPipingCalculation(string fileName)
+        [TestCase("version0ValidConfigurationFullCalculationContainingHydraulicBoundaryLocation", true)]
+        [TestCase("version0ValidConfigurationFullCalculationContainingAssessmentLevel", false)]
+        public void Read_ValidPreviousVersionConfigurationWithFullCalculation_ReturnExpectedReadPipingCalculation(string fileName, bool hydraulicBoundaryLocation)
         {
             // Setup
             string filePath = Path.Combine(testDirectoryPath, $"{fileName}.xml");
@@ -338,8 +342,18 @@ namespace Riskeer.Piping.IO.Test.Configurations
             var calculation = (PipingCalculationConfiguration) readConfigurationItems.Single();
 
             Assert.AreEqual("Calculation", calculation.Name);
-            Assert.AreEqual(1.1, calculation.AssessmentLevel);
-            Assert.IsNull(calculation.HydraulicBoundaryLocationName);
+            
+            if (hydraulicBoundaryLocation)
+            {
+                Assert.IsNull(calculation.AssessmentLevel);
+                Assert.AreEqual("Locatie", calculation.HydraulicBoundaryLocationName);
+            }
+            else
+            {
+                Assert.AreEqual(1.1, calculation.AssessmentLevel);
+                Assert.IsNull(calculation.HydraulicBoundaryLocationName);
+            }
+
             Assert.AreEqual("Profielschematisatie", calculation.SurfaceLineName);
             Assert.AreEqual(2.2, calculation.EntryPointL);
             Assert.AreEqual(3.3, calculation.ExitPointL);

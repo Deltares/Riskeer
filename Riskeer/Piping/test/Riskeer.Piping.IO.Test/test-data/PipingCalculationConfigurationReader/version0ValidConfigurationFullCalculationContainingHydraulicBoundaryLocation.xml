@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<configuratie versie="1">
+<configuratie>
   <berekening naam="Calculation">
-    <hblocatie>Locatie</hblocatie>
+    <hrlocatie>Locatie</hrlocatie>
     <profielschematisatie>Profielschematisatie</profielschematisatie>
     <intredepunt>2.2</intredepunt>
     <uittredepunt>3.3</uittredepunt>
     <ondergrondmodel>Ondergrondmodel</ondergrondmodel>
     <ondergrondschematisatie>Ondergrondschematisatie</ondergrondschematisatie>
     <stochasten>
-      <stochast naam="binnendijksewaterstand">
+      <stochast naam="polderpeil">
         <verwachtingswaarde>4.4</verwachtingswaarde>
         <standaardafwijking>5.5</standaardafwijking>
       </stochast>
