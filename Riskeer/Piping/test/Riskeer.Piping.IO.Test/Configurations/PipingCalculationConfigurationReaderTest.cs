@@ -193,19 +193,19 @@ namespace Riskeer.Piping.IO.Test.Configurations
             IEnumerable<IConfigurationItem> readConfigurationItems = reader.Read().ToArray();
 
             // Assert
-            var calculation = (PipingCalculationConfiguration) readConfigurationItems.Single();
+            var configuration = (PipingCalculationConfiguration) readConfigurationItems.Single();
 
-            Assert.AreEqual("Calculation", calculation.Name);
-            Assert.IsNull(calculation.AssessmentLevel);
-            Assert.IsNull(calculation.HydraulicBoundaryLocationName);
-            Assert.IsNull(calculation.SurfaceLineName);
-            Assert.IsNull(calculation.EntryPointL);
-            Assert.IsNull(calculation.ExitPointL);
-            Assert.IsNull(calculation.StochasticSoilModelName);
-            Assert.IsNull(calculation.StochasticSoilProfileName);
-            Assert.IsNull(calculation.PhreaticLevelExit);
-            Assert.IsNull(calculation.DampingFactorExit);
-            Assert.IsNull(calculation.Scenario);
+            Assert.AreEqual("Calculation", configuration.Name);
+            Assert.IsNull(configuration.AssessmentLevel);
+            Assert.IsNull(configuration.HydraulicBoundaryLocationName);
+            Assert.IsNull(configuration.SurfaceLineName);
+            Assert.IsNull(configuration.EntryPointL);
+            Assert.IsNull(configuration.ExitPointL);
+            Assert.IsNull(configuration.StochasticSoilModelName);
+            Assert.IsNull(configuration.StochasticSoilProfileName);
+            Assert.IsNull(configuration.PhreaticLevelExit);
+            Assert.IsNull(configuration.DampingFactorExit);
+            Assert.IsNull(configuration.Scenario);
         }
 
         [Test]
@@ -219,10 +219,10 @@ namespace Riskeer.Piping.IO.Test.Configurations
             IEnumerable<IConfigurationItem> readConfigurationItems = reader.Read().ToArray();
 
             // Assert
-            var calculation = (PipingCalculationConfiguration) readConfigurationItems.Single();
+            var configuration = (PipingCalculationConfiguration) readConfigurationItems.Single();
 
-            Assert.IsNull(calculation.PhreaticLevelExit);
-            Assert.IsNull(calculation.DampingFactorExit);
+            Assert.IsNull(configuration.PhreaticLevelExit);
+            Assert.IsNull(configuration.DampingFactorExit);
         }
 
         [Test]
@@ -236,16 +236,16 @@ namespace Riskeer.Piping.IO.Test.Configurations
             IEnumerable<IConfigurationItem> readConfigurationItems = reader.Read().ToArray();
 
             // Assert
-            var calculation = (PipingCalculationConfiguration) readConfigurationItems.Single();
+            var configuration = (PipingCalculationConfiguration) readConfigurationItems.Single();
 
-            Assert.IsNaN(calculation.AssessmentLevel);
-            Assert.IsNaN(calculation.EntryPointL);
-            Assert.IsNaN(calculation.ExitPointL);
-            Assert.IsNaN(calculation.PhreaticLevelExit.Mean);
-            Assert.IsNaN(calculation.PhreaticLevelExit.StandardDeviation);
-            Assert.IsNaN(calculation.DampingFactorExit.Mean);
-            Assert.IsNaN(calculation.DampingFactorExit.StandardDeviation);
-            Assert.IsNaN(calculation.Scenario.Contribution);
+            Assert.IsNaN(configuration.AssessmentLevel);
+            Assert.IsNaN(configuration.EntryPointL);
+            Assert.IsNaN(configuration.ExitPointL);
+            Assert.IsNaN(configuration.PhreaticLevelExit.Mean);
+            Assert.IsNaN(configuration.PhreaticLevelExit.StandardDeviation);
+            Assert.IsNaN(configuration.DampingFactorExit.Mean);
+            Assert.IsNaN(configuration.DampingFactorExit.StandardDeviation);
+            Assert.IsNaN(configuration.Scenario.Contribution);
         }
 
         [Test]
@@ -259,25 +259,25 @@ namespace Riskeer.Piping.IO.Test.Configurations
             IEnumerable<IConfigurationItem> readConfigurationItems = reader.Read().ToArray();
 
             // Assert
-            var calculation = (PipingCalculationConfiguration) readConfigurationItems.Single();
+            var configuration = (PipingCalculationConfiguration) readConfigurationItems.Single();
 
-            Assert.IsNotNull(calculation.AssessmentLevel);
-            Assert.IsNotNull(calculation.EntryPointL);
-            Assert.IsNotNull(calculation.ExitPointL);
-            Assert.IsNotNull(calculation.PhreaticLevelExit.Mean);
-            Assert.IsNotNull(calculation.PhreaticLevelExit.StandardDeviation);
-            Assert.IsNotNull(calculation.DampingFactorExit.Mean);
-            Assert.IsNotNull(calculation.DampingFactorExit.StandardDeviation);
-            Assert.IsNotNull(calculation.Scenario.Contribution);
+            Assert.IsNotNull(configuration.AssessmentLevel);
+            Assert.IsNotNull(configuration.EntryPointL);
+            Assert.IsNotNull(configuration.ExitPointL);
+            Assert.IsNotNull(configuration.PhreaticLevelExit.Mean);
+            Assert.IsNotNull(configuration.PhreaticLevelExit.StandardDeviation);
+            Assert.IsNotNull(configuration.DampingFactorExit.Mean);
+            Assert.IsNotNull(configuration.DampingFactorExit.StandardDeviation);
+            Assert.IsNotNull(configuration.Scenario.Contribution);
 
-            Assert.IsTrue(double.IsNegativeInfinity(calculation.AssessmentLevel.Value));
-            Assert.IsTrue(double.IsNegativeInfinity(calculation.EntryPointL.Value));
-            Assert.IsTrue(double.IsPositiveInfinity(calculation.ExitPointL.Value));
-            Assert.IsTrue(double.IsNegativeInfinity(calculation.PhreaticLevelExit.Mean.Value));
-            Assert.IsTrue(double.IsPositiveInfinity(calculation.PhreaticLevelExit.StandardDeviation.Value));
-            Assert.IsTrue(double.IsPositiveInfinity(calculation.DampingFactorExit.Mean.Value));
-            Assert.IsTrue(double.IsPositiveInfinity(calculation.DampingFactorExit.StandardDeviation.Value));
-            Assert.IsTrue(double.IsNegativeInfinity(calculation.Scenario.Contribution.Value));
+            Assert.IsTrue(double.IsNegativeInfinity(configuration.AssessmentLevel.Value));
+            Assert.IsTrue(double.IsNegativeInfinity(configuration.EntryPointL.Value));
+            Assert.IsTrue(double.IsPositiveInfinity(configuration.ExitPointL.Value));
+            Assert.IsTrue(double.IsNegativeInfinity(configuration.PhreaticLevelExit.Mean.Value));
+            Assert.IsTrue(double.IsPositiveInfinity(configuration.PhreaticLevelExit.StandardDeviation.Value));
+            Assert.IsTrue(double.IsPositiveInfinity(configuration.DampingFactorExit.Mean.Value));
+            Assert.IsTrue(double.IsPositiveInfinity(configuration.DampingFactorExit.StandardDeviation.Value));
+            Assert.IsTrue(double.IsNegativeInfinity(configuration.Scenario.Contribution.Value));
         }
 
         [Test]
@@ -329,19 +329,19 @@ namespace Riskeer.Piping.IO.Test.Configurations
             IEnumerable<IConfigurationItem> readConfigurationItems = reader.Read().ToArray();
 
             // Assert
-            var calculation = (PipingCalculationConfiguration) readConfigurationItems.Single();
+            var configuration = (PipingCalculationConfiguration) readConfigurationItems.Single();
 
-            Assert.AreEqual("Calculation", calculation.Name);
-            Assert.IsNull(calculation.AssessmentLevel);
-            Assert.IsNull(calculation.HydraulicBoundaryLocationName);
-            Assert.IsNull(calculation.SurfaceLineName);
-            Assert.IsNull(calculation.EntryPointL);
-            Assert.AreEqual(2.2, calculation.ExitPointL);
-            Assert.IsNull(calculation.StochasticSoilModelName);
-            Assert.AreEqual("Ondergrondschematisatie", calculation.StochasticSoilProfileName);
-            Assert.AreEqual(3.3, calculation.PhreaticLevelExit.Mean);
-            Assert.AreEqual(4.4, calculation.PhreaticLevelExit.StandardDeviation);
-            Assert.IsNull(calculation.DampingFactorExit);
+            Assert.AreEqual("Calculation", configuration.Name);
+            Assert.IsNull(configuration.AssessmentLevel);
+            Assert.IsNull(configuration.HydraulicBoundaryLocationName);
+            Assert.IsNull(configuration.SurfaceLineName);
+            Assert.IsNull(configuration.EntryPointL);
+            Assert.AreEqual(2.2, configuration.ExitPointL);
+            Assert.IsNull(configuration.StochasticSoilModelName);
+            Assert.AreEqual("Ondergrondschematisatie", configuration.StochasticSoilProfileName);
+            Assert.AreEqual(3.3, configuration.PhreaticLevelExit.Mean);
+            Assert.AreEqual(4.4, configuration.PhreaticLevelExit.StandardDeviation);
+            Assert.IsNull(configuration.DampingFactorExit);
         }
 
         [Test]
@@ -355,12 +355,12 @@ namespace Riskeer.Piping.IO.Test.Configurations
             IEnumerable<IConfigurationItem> readConfigurationItems = reader.Read().ToArray();
 
             // Assert
-            var calculation = (PipingCalculationConfiguration) readConfigurationItems.Single();
+            var configuration = (PipingCalculationConfiguration) readConfigurationItems.Single();
 
-            Assert.IsNull(calculation.PhreaticLevelExit.Mean);
-            Assert.AreEqual(0.1, calculation.PhreaticLevelExit.StandardDeviation);
-            Assert.IsNull(calculation.DampingFactorExit.Mean);
-            Assert.AreEqual(7.7, calculation.DampingFactorExit.StandardDeviation);
+            Assert.IsNull(configuration.PhreaticLevelExit.Mean);
+            Assert.AreEqual(0.1, configuration.PhreaticLevelExit.StandardDeviation);
+            Assert.IsNull(configuration.DampingFactorExit.Mean);
+            Assert.AreEqual(7.7, configuration.DampingFactorExit.StandardDeviation);
         }
 
         [Test]
@@ -374,12 +374,12 @@ namespace Riskeer.Piping.IO.Test.Configurations
             IEnumerable<IConfigurationItem> readConfigurationItems = reader.Read().ToArray();
 
             // Assert
-            var calculation = (PipingCalculationConfiguration) readConfigurationItems.Single();
+            var configuration = (PipingCalculationConfiguration) readConfigurationItems.Single();
 
-            Assert.AreEqual(0.0, calculation.PhreaticLevelExit.Mean);
-            Assert.IsNull(calculation.PhreaticLevelExit.StandardDeviation);
-            Assert.AreEqual(6.6, calculation.DampingFactorExit.Mean);
-            Assert.IsNull(calculation.DampingFactorExit.StandardDeviation);
+            Assert.AreEqual(0.0, configuration.PhreaticLevelExit.Mean);
+            Assert.IsNull(configuration.PhreaticLevelExit.StandardDeviation);
+            Assert.AreEqual(6.6, configuration.DampingFactorExit.Mean);
+            Assert.IsNull(configuration.DampingFactorExit.StandardDeviation);
         }
 
         [Test]
@@ -393,12 +393,12 @@ namespace Riskeer.Piping.IO.Test.Configurations
             IEnumerable<IConfigurationItem> readConfigurationItems = reader.Read().ToArray();
 
             // Assert
-            var calculation = (PipingCalculationConfiguration) readConfigurationItems.Single();
+            var configuration = (PipingCalculationConfiguration) readConfigurationItems.Single();
 
-            Assert.IsNull(calculation.PhreaticLevelExit.Mean);
-            Assert.IsNull(calculation.PhreaticLevelExit.StandardDeviation);
-            Assert.IsNull(calculation.DampingFactorExit.Mean);
-            Assert.IsNull(calculation.DampingFactorExit.StandardDeviation);
+            Assert.IsNull(configuration.PhreaticLevelExit.Mean);
+            Assert.IsNull(configuration.PhreaticLevelExit.StandardDeviation);
+            Assert.IsNull(configuration.DampingFactorExit.Mean);
+            Assert.IsNull(configuration.DampingFactorExit.StandardDeviation);
         }
 
         [Test]
@@ -412,10 +412,10 @@ namespace Riskeer.Piping.IO.Test.Configurations
             IEnumerable<IConfigurationItem> readConfigurationItems = reader.Read().ToArray();
 
             // Assert
-            var calculation = (PipingCalculationConfiguration) readConfigurationItems.Single();
+            var configuration = (PipingCalculationConfiguration) readConfigurationItems.Single();
 
-            Assert.IsNull(calculation.Scenario.Contribution);
-            Assert.IsNull(calculation.Scenario.IsRelevant);
+            Assert.IsNull(configuration.Scenario.Contribution);
+            Assert.IsNull(configuration.Scenario.IsRelevant);
         }
 
         private static void AssertConfiguration(PipingCalculationConfiguration configuration, bool hydraulicBoundaryLocation)
