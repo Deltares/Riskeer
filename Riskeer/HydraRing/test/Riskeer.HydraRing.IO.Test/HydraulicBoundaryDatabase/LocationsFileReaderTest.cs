@@ -23,6 +23,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Core.Common.Base.IO;
+using Core.Common.IO.Exceptions;
 using Core.Common.IO.Readers;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -102,6 +103,27 @@ namespace Riskeer.HydraRing.IO.Test.HydraulicBoundaryDatabase
                 // Assert
                 string expectedMessage = $"Fout bij het lezen van bestand '{locationsFilePath}': kritieke fout opgetreden bij het uitlezen van de structuur van de database.";
                 var exception = Assert.Throws<CriticalFileReadException>(Call);
+                Assert.AreEqual(expectedMessage, exception.Message);
+            }
+        }
+
+        [Test]
+        public void ReadLocations_FileWithInvalidValues_ThrowsLineParseException()
+        {
+            // Setup
+            string locationsFilePath = Path.Combine(testDataPath, "invalidLocationIdValue.sqlite");
+
+            using (var reader = new LocationsFileReader(locationsFilePath))
+            {
+                // Call
+                void Call()
+                {
+                    reader.ReadLocations();
+                }
+
+                // Assert
+                string expectedMessage = $"Fout bij het lezen van bestand '{locationsFilePath}': kritieke fout opgetreden bij het uitlezen van waardes uit kolommen in de database.";
+                var exception = Assert.Throws<LineParseException>(Call);
                 Assert.AreEqual(expectedMessage, exception.Message);
             }
         }
