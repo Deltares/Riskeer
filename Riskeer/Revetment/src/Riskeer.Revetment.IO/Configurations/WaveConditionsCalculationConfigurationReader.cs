@@ -85,7 +85,7 @@ namespace Riskeer.Revetment.IO.Configurations
                         {
                             waveReductionSchemaName, RiskeerCommonIOResources.GolfReductieSchema
                         }
-                    }, null),
+                    }, string.Empty),
                 new CalculationConfigurationSchemaDefinition(
                     1, mainSchemaDefinitions[1],
                     new Dictionary<string, string>

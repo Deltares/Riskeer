@@ -95,7 +95,7 @@ namespace Riskeer.HeightStructures.IO.Configurations
                         {
                             scenarioSchemaName, RiskeerCommonIOResources.ScenarioSchema
                         }
-                    }, null),
+                    }, string.Empty),
                 new CalculationConfigurationSchemaDefinition(
                     1, Resources.KunstwerkenHoogteSchema,
                     new Dictionary<string, string>

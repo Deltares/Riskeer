@@ -96,7 +96,7 @@ namespace Riskeer.ClosingStructures.IO.Configurations
                         {
                             scenarioSchemaName, RiskeerCommonIOResources.ScenarioSchema
                         }
-                    }, null),
+                    }, string.Empty),
                 new CalculationConfigurationSchemaDefinition(
                     1, Resources.KunstwerkenBetrouwbaarheidSluitenSchema,
                     new Dictionary<string, string>

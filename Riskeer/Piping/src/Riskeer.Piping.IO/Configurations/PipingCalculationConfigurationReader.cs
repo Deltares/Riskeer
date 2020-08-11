@@ -71,7 +71,7 @@ namespace Riskeer.Piping.IO.Configurations
                         {
                             scenarioSchemaName, RiskeerCommonIOResources.ScenarioSchema
                         }
-                    }, null),
+                    }, string.Empty),
                 new CalculationConfigurationSchemaDefinition(
                     1, Resources.PipingConfiguratieSchema,
                     new Dictionary<string, string>

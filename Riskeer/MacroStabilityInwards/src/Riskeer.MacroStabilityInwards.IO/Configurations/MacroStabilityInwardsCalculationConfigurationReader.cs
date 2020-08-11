@@ -77,7 +77,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Configurations
                         {
                             slopeStabilityGridsSchemaName, Resources.MacroStabiliteitBinnenwaartsGridsSchema
                         }
-                    }, null),
+                    }, string.Empty),
                 new CalculationConfigurationSchemaDefinition(
                     1, Resources.MacroStabiliteitBinnenwaartsConfiguratieSchema,
                     new Dictionary<string, string>

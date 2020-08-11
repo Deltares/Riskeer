@@ -96,7 +96,7 @@ namespace Riskeer.StabilityPointStructures.IO.Configurations
                         {
                             scenarioSchemaName, RiskeerCommonIOResources.ScenarioSchema
                         }
-                    }, null),
+                    }, string.Empty),
                 new CalculationConfigurationSchemaDefinition(
                     1, Resources.KunstwerkenConstructiefFalenSchema,
                     new Dictionary<string, string>

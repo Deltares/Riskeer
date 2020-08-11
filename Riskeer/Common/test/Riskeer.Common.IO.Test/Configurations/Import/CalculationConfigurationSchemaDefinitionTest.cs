@@ -30,6 +30,54 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
     public class CalculationConfigurationSchemaDefinitionTest
     {
         [Test]
+        public void Constructor_MainSchemaDefinitionNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            int versionNumber = new Random(21).Next();
+            var nestedSchemaDefinitions = new Dictionary<string, string>();
+            const string migrationScript = "migrationScript";
+
+            // Call
+            void Call() => new CalculationConfigurationSchemaDefinition(versionNumber, null, nestedSchemaDefinitions, migrationScript);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("mainSchemaDefinition", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_NestedSchemaDefinitionsNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            int versionNumber = new Random(21).Next();
+            const string mainSchemaDefinition = "mainSchemaDefinition";
+            const string migrationScript = "migrationScript";
+
+            // Call
+            void Call() => new CalculationConfigurationSchemaDefinition(versionNumber, mainSchemaDefinition, null, migrationScript);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("nestedSchemaDefinitions", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_MigrationScriptNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            int versionNumber = new Random(21).Next();
+            const string mainSchemaDefinition = "mainSchemaDefinition";
+            var nestedSchemaDefinitions = new Dictionary<string, string>();
+
+            // Call
+            void Call() => new CalculationConfigurationSchemaDefinition(versionNumber, mainSchemaDefinition, nestedSchemaDefinitions, null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("migrationScript", exception.ParamName);
+        }
+
+        [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup

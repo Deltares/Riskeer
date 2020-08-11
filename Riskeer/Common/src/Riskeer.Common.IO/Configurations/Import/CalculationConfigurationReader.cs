@@ -65,7 +65,7 @@ namespace Riskeer.Common.IO.Configurations.Import
         /// <item><paramref name="xmlFilePath"/> points to a file that does not contain valid XML.</item>
         /// <item><paramref name="xmlFilePath"/> points to a file that does not pass the schema validation.</item>
         /// <item><paramref name="xmlFilePath"/> points to a file that does not contain configuration elements.</item>
-        /// <item><paramref name="schemaDefinitions"/> Thrown when something goes wrong while migrating.</item>
+        /// <item>something goes wrong while migrating.</item>
         /// </list>
         /// </exception>
         protected CalculationConfigurationReader(string xmlFilePath, CalculationConfigurationSchemaDefinition[] schemaDefinitions)
@@ -122,7 +122,6 @@ namespace Riskeer.Common.IO.Configurations.Import
             try
             {
                 var combinedXmlSchemaDefinition = new CombinedXmlSchemaDefinition(Resources.VersieSchema, new Dictionary<string, string>());
-
                 combinedXmlSchemaDefinition.Validate(xmlDocument);
 
                 versionNumber = GetVersionNumber();

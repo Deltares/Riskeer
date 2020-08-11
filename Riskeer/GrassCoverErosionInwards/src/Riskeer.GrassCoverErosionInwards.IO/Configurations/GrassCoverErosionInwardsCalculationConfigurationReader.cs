@@ -86,7 +86,7 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Configurations
                                {
                                    scenarioSchemaName, RiskeerCommonIOResources.ScenarioSchema
                                }
-                           }, null),
+                           }, string.Empty),
                        new CalculationConfigurationSchemaDefinition(
                            1, Resources.GEKBConfiguratieSchema,
                            new Dictionary<string, string>
