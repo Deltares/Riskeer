@@ -90,22 +90,43 @@ namespace Riskeer.Revetment.IO.Test.Configurations
             IEnumerable<IConfigurationItem> readItems = reader.Read().ToArray();
 
             // Assert
-            var calculation = (AssessmentSectionCategoryWaveConditionsCalculationConfiguration) readItems.Single();
+            var configuration = (AssessmentSectionCategoryWaveConditionsCalculationConfiguration) readItems.Single();
 
-            Assert.IsNotNull(calculation);
-            Assert.AreEqual("Locatie", calculation.HydraulicBoundaryLocationName);
-            Assert.AreEqual(1.1, calculation.UpperBoundaryRevetment);
-            Assert.AreEqual(2.2, calculation.LowerBoundaryRevetment);
-            Assert.AreEqual(3.3, calculation.UpperBoundaryWaterLevels);
-            Assert.AreEqual(4.4, calculation.LowerBoundaryWaterLevels);
-            Assert.AreEqual(ConfigurationWaveConditionsInputStepSize.Half, calculation.StepSize);
-            Assert.AreEqual("Voorlandprofiel", calculation.ForeshoreProfileId);
-            Assert.AreEqual(5.5, calculation.Orientation);
-            Assert.IsTrue(calculation.WaveReduction.UseBreakWater);
-            Assert.AreEqual(ConfigurationBreakWaterType.Caisson, calculation.WaveReduction.BreakWaterType);
-            Assert.AreEqual(6.6, calculation.WaveReduction.BreakWaterHeight);
-            Assert.IsFalse(calculation.WaveReduction.UseForeshoreProfile);
-            Assert.AreEqual(ConfigurationAssessmentSectionCategoryType.SignalingNorm, calculation.CategoryType);
+            AssertConfiguration(configuration);
+        }
+
+        [Test]
+        public void Read_ValidPreviousVersionConfigurationWithFullCalculation_ReturnExpectedReadCalculation()
+        {
+            // Setup
+            string filePath = Path.Combine(testDirectoryPath, "version0ValidConfigurationFullCalculation.xml");
+            var reader = new AssessmentSectionCategoryWaveConditionsCalculationConfigurationReader(filePath);
+
+            // Call
+            IEnumerable<IConfigurationItem> readConfigurationItems = reader.Read().ToArray();
+
+            // Assert
+            var configuration = (AssessmentSectionCategoryWaveConditionsCalculationConfiguration) readConfigurationItems.Single();
+
+            AssertConfiguration(configuration);
+        }
+
+        private static void AssertConfiguration(AssessmentSectionCategoryWaveConditionsCalculationConfiguration configuration)
+        {
+            Assert.IsNotNull(configuration);
+            Assert.AreEqual("Locatie", configuration.HydraulicBoundaryLocationName);
+            Assert.AreEqual(1.1, configuration.UpperBoundaryRevetment);
+            Assert.AreEqual(2.2, configuration.LowerBoundaryRevetment);
+            Assert.AreEqual(3.3, configuration.UpperBoundaryWaterLevels);
+            Assert.AreEqual(4.4, configuration.LowerBoundaryWaterLevels);
+            Assert.AreEqual(ConfigurationWaveConditionsInputStepSize.Half, configuration.StepSize);
+            Assert.AreEqual("Voorlandprofiel", configuration.ForeshoreProfileId);
+            Assert.AreEqual(5.5, configuration.Orientation);
+            Assert.IsTrue(configuration.WaveReduction.UseBreakWater);
+            Assert.AreEqual(ConfigurationBreakWaterType.Caisson, configuration.WaveReduction.BreakWaterType);
+            Assert.AreEqual(6.6, configuration.WaveReduction.BreakWaterHeight);
+            Assert.IsFalse(configuration.WaveReduction.UseForeshoreProfile);
+            Assert.AreEqual(ConfigurationAssessmentSectionCategoryType.SignalingNorm, configuration.CategoryType);
         }
     }
 }
