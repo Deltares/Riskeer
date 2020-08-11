@@ -36,11 +36,8 @@ namespace Riskeer.Storage.Core.DbContext
         public long PipingCalculationEntityId { get; set; }
         public int Order { get; set; }
         public double? HeaveFactorOfSafety { get; set; }
-        public double? HeaveZValue { get; set; }
         public double? UpliftFactorOfSafety { get; set; }
-        public double? UpliftZValue { get; set; }
         public double? SellmeijerFactorOfSafety { get; set; }
-        public double? SellmeijerZValue { get; set; }
         public double? UpliftEffectiveStress { get; set; }
         public double? HeaveGradient { get; set; }
         public double? SellmeijerCreepCoefficient { get; set; }

@@ -58,10 +58,10 @@ namespace Riskeer.Piping.Service.Test
         public void Validate_CalculationNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => PipingCalculationService.Validate(null, RoundedDouble.NaN);
+            void Call() => PipingCalculationService.Validate(null, RoundedDouble.NaN);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("calculation", exception.ParamName);
         }
 
@@ -69,11 +69,10 @@ namespace Riskeer.Piping.Service.Test
         public void Validate_Always_LogStartAndEndOfValidatingInputs()
         {
             // Call
-            Action call = () => PipingCalculationService.Validate(testCalculation,
-                                                                  AssessmentSectionTestHelper.GetTestAssessmentLevel());
+            void Call() => PipingCalculationService.Validate(testCalculation, AssessmentSectionTestHelper.GetTestAssessmentLevel());
 
             // Assert
-            TestHelper.AssertLogMessages(call, messages =>
+            TestHelper.AssertLogMessages(Call, messages =>
             {
                 string[] msgs = messages.ToArray();
                 CalculationServiceTestHelper.AssertValidationStartMessage(msgs[0]);
@@ -106,11 +105,10 @@ namespace Riskeer.Piping.Service.Test
 
             // Call
             var isValid = false;
-            Action call = () => isValid = PipingCalculationService.Validate(calculation,
-                                                                            AssessmentSectionTestHelper.GetTestAssessmentLevel());
+            void Call() => isValid = PipingCalculationService.Validate(calculation, AssessmentSectionTestHelper.GetTestAssessmentLevel());
 
             // Assert
-            TestHelper.AssertLogMessages(call, messages =>
+            TestHelper.AssertLogMessages(Call, messages =>
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(7, msgs.Length);
@@ -133,10 +131,10 @@ namespace Riskeer.Piping.Service.Test
 
             // Call
             var isValid = false;
-            Action call = () => isValid = PipingCalculationService.Validate(testCalculation, RoundedDouble.NaN);
+            void Call() => isValid = PipingCalculationService.Validate(testCalculation, RoundedDouble.NaN);
 
             // Assert
-            TestHelper.AssertLogMessages(call, messages =>
+            TestHelper.AssertLogMessages(Call, messages =>
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(4, msgs.Length);
@@ -160,11 +158,10 @@ namespace Riskeer.Piping.Service.Test
 
             // Call
             var isValid = false;
-            Action call = () => isValid = PipingCalculationService.Validate(testCalculation,
-                                                                            AssessmentSectionTestHelper.GetTestAssessmentLevel());
+            void Call() => isValid = PipingCalculationService.Validate(testCalculation, AssessmentSectionTestHelper.GetTestAssessmentLevel());
 
             // Assert
-            TestHelper.AssertLogMessages(call, messages =>
+            TestHelper.AssertLogMessages(Call, messages =>
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(4, msgs.Length);
@@ -184,11 +181,10 @@ namespace Riskeer.Piping.Service.Test
 
             // Call
             var isValid = false;
-            Action call = () => isValid = PipingCalculationService.Validate(testCalculation,
-                                                                            AssessmentSectionTestHelper.GetTestAssessmentLevel());
+            void Call() => isValid = PipingCalculationService.Validate(testCalculation, AssessmentSectionTestHelper.GetTestAssessmentLevel());
 
             // Assert
-            TestHelper.AssertLogMessages(call, messages =>
+            TestHelper.AssertLogMessages(Call, messages =>
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
@@ -207,11 +203,10 @@ namespace Riskeer.Piping.Service.Test
 
             // Call
             var isValid = false;
-            Action call = () => isValid = PipingCalculationService.Validate(testCalculation,
-                                                                            AssessmentSectionTestHelper.GetTestAssessmentLevel());
+            void Call() => isValid = PipingCalculationService.Validate(testCalculation, AssessmentSectionTestHelper.GetTestAssessmentLevel());
 
             // Assert
-            TestHelper.AssertLogMessages(call, messages =>
+            TestHelper.AssertLogMessages(Call, messages =>
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
@@ -232,11 +227,10 @@ namespace Riskeer.Piping.Service.Test
 
             // Call
             var isValid = false;
-            Action call = () => isValid = PipingCalculationService.Validate(testCalculation,
-                                                                            AssessmentSectionTestHelper.GetTestAssessmentLevel());
+            void Call() => isValid = PipingCalculationService.Validate(testCalculation, AssessmentSectionTestHelper.GetTestAssessmentLevel());
 
             // Assert
-            TestHelper.AssertLogMessages(call, messages =>
+            TestHelper.AssertLogMessages(Call, messages =>
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
@@ -263,11 +257,10 @@ namespace Riskeer.Piping.Service.Test
 
             // Call
             var isValid = false;
-            Action call = () => isValid = PipingCalculationService.Validate(testCalculation,
-                                                                            AssessmentSectionTestHelper.GetTestAssessmentLevel());
+            void Call() => isValid = PipingCalculationService.Validate(testCalculation, AssessmentSectionTestHelper.GetTestAssessmentLevel());
 
             // Assert
-            TestHelper.AssertLogMessages(call, messages =>
+            TestHelper.AssertLogMessages(Call, messages =>
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
@@ -288,11 +281,10 @@ namespace Riskeer.Piping.Service.Test
             var isValid = false;
 
             // Call
-            Action call = () => isValid = PipingCalculationService.Validate(testCalculation,
-                                                                            AssessmentSectionTestHelper.GetTestAssessmentLevel());
+            void Call() => isValid = PipingCalculationService.Validate(testCalculation, AssessmentSectionTestHelper.GetTestAssessmentLevel());
 
             // Assert
-            TestHelper.AssertLogMessages(call, messages =>
+            TestHelper.AssertLogMessages(Call, messages =>
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
@@ -344,11 +336,10 @@ namespace Riskeer.Piping.Service.Test
             var isValid = false;
 
             // Call
-            Action call = () => isValid = PipingCalculationService.Validate(testCalculation,
-                                                                            AssessmentSectionTestHelper.GetTestAssessmentLevel());
+            void Call() => isValid = PipingCalculationService.Validate(testCalculation, AssessmentSectionTestHelper.GetTestAssessmentLevel());
 
             // Assert
-            TestHelper.AssertLogMessages(call, messages =>
+            TestHelper.AssertLogMessages(Call, messages =>
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
@@ -379,11 +370,10 @@ namespace Riskeer.Piping.Service.Test
             var isValid = false;
 
             // Call
-            Action call = () => isValid = PipingCalculationService.Validate(testCalculation,
-                                                                            AssessmentSectionTestHelper.GetTestAssessmentLevel());
+            void Call() => isValid = PipingCalculationService.Validate(testCalculation, AssessmentSectionTestHelper.GetTestAssessmentLevel());
 
             // Assert
-            TestHelper.AssertLogMessages(call, messages =>
+            TestHelper.AssertLogMessages(Call, messages =>
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(6, msgs.Length);
@@ -427,11 +417,10 @@ namespace Riskeer.Piping.Service.Test
             var isValid = false;
 
             // Call
-            Action call = () => isValid = PipingCalculationService.Validate(testCalculation,
-                                                                            AssessmentSectionTestHelper.GetTestAssessmentLevel());
+            void Call() => isValid = PipingCalculationService.Validate(testCalculation, AssessmentSectionTestHelper.GetTestAssessmentLevel());
 
             // Assert
-            TestHelper.AssertLogMessages(call, messages =>
+            TestHelper.AssertLogMessages(Call, messages =>
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(4, msgs.Length);
@@ -478,11 +467,10 @@ namespace Riskeer.Piping.Service.Test
             var isValid = false;
 
             // Call
-            Action call = () => isValid = PipingCalculationService.Validate(testCalculation,
-                                                                            AssessmentSectionTestHelper.GetTestAssessmentLevel());
+            void Call() => isValid = PipingCalculationService.Validate(testCalculation, AssessmentSectionTestHelper.GetTestAssessmentLevel());
 
             // Assert
-            TestHelper.AssertLogMessages(call, messages =>
+            TestHelper.AssertLogMessages(Call, messages =>
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(4, msgs.Length);
@@ -552,11 +540,10 @@ namespace Riskeer.Piping.Service.Test
             var isValid = false;
 
             // Call
-            Action call = () => isValid = PipingCalculationService.Validate(testCalculation,
-                                                                            AssessmentSectionTestHelper.GetTestAssessmentLevel());
+            void Call() => isValid = PipingCalculationService.Validate(testCalculation, AssessmentSectionTestHelper.GetTestAssessmentLevel());
 
             // Assert
-            TestHelper.AssertLogMessages(call, messages =>
+            TestHelper.AssertLogMessages(Call, messages =>
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
@@ -618,11 +605,10 @@ namespace Riskeer.Piping.Service.Test
             var isValid = false;
 
             // Call
-            Action call = () => isValid = PipingCalculationService.Validate(testCalculation,
-                                                                            AssessmentSectionTestHelper.GetTestAssessmentLevel());
+            void Call() => isValid = PipingCalculationService.Validate(testCalculation, AssessmentSectionTestHelper.GetTestAssessmentLevel());
 
             // Assert
-            TestHelper.AssertLogMessages(call, messages =>
+            TestHelper.AssertLogMessages(Call, messages =>
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
@@ -677,11 +663,10 @@ namespace Riskeer.Piping.Service.Test
             var isValid = false;
 
             // Call
-            Action call = () => isValid = PipingCalculationService.Validate(testCalculation,
-                                                                            AssessmentSectionTestHelper.GetTestAssessmentLevel());
+            void Call() => isValid = PipingCalculationService.Validate(testCalculation, AssessmentSectionTestHelper.GetTestAssessmentLevel());
 
             // Assert
-            TestHelper.AssertLogMessages(call, messages =>
+            TestHelper.AssertLogMessages(Call, messages =>
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
@@ -743,11 +728,10 @@ namespace Riskeer.Piping.Service.Test
             var isValid = false;
 
             // Call
-            Action call = () => isValid = PipingCalculationService.Validate(testCalculation,
-                                                                            AssessmentSectionTestHelper.GetTestAssessmentLevel());
+            void Call() => isValid = PipingCalculationService.Validate(testCalculation, AssessmentSectionTestHelper.GetTestAssessmentLevel());
 
             // Assert
-            TestHelper.AssertLogMessages(call, messages =>
+            TestHelper.AssertLogMessages(Call, messages =>
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
@@ -813,11 +797,10 @@ namespace Riskeer.Piping.Service.Test
             var isValid = false;
 
             // Call
-            Action call = () => isValid = PipingCalculationService.Validate(testCalculation,
-                                                                            AssessmentSectionTestHelper.GetTestAssessmentLevel());
+            void Call() => isValid = PipingCalculationService.Validate(testCalculation, AssessmentSectionTestHelper.GetTestAssessmentLevel());
 
             // Assert
-            TestHelper.AssertLogMessages(call, messages =>
+            TestHelper.AssertLogMessages(Call, messages =>
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
@@ -869,11 +852,10 @@ namespace Riskeer.Piping.Service.Test
             var isValid = false;
 
             // Call
-            Action call = () => isValid = PipingCalculationService.Validate(testCalculation,
-                                                                            AssessmentSectionTestHelper.GetTestAssessmentLevel());
+            void Call() => isValid = PipingCalculationService.Validate(testCalculation, AssessmentSectionTestHelper.GetTestAssessmentLevel());
 
             // Assert
-            TestHelper.AssertLogMessages(call, messages =>
+            TestHelper.AssertLogMessages(Call, messages =>
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
@@ -937,11 +919,10 @@ namespace Riskeer.Piping.Service.Test
             testCalculation.InputParameters.StochasticSoilProfile = new PipingStochasticSoilProfile(0.0, profile);
 
             // Call
-            Action call = () => PipingCalculationService.Validate(testCalculation,
-                                                                  AssessmentSectionTestHelper.GetTestAssessmentLevel());
+            void Call() => PipingCalculationService.Validate(testCalculation, AssessmentSectionTestHelper.GetTestAssessmentLevel());
 
             // Assert
-            TestHelper.AssertLogMessages(call, messages =>
+            TestHelper.AssertLogMessages(Call, messages =>
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(4, msgs.Length);
@@ -958,10 +939,10 @@ namespace Riskeer.Piping.Service.Test
         public void Calculate_CalculationNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => PipingCalculationService.Calculate(null, RoundedDouble.NaN);
+            void Call() => PipingCalculationService.Calculate(null, RoundedDouble.NaN);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("calculation", exception.ParamName);
         }
 
@@ -977,7 +958,7 @@ namespace Riskeer.Piping.Service.Test
                 var exceptionThrown = false;
 
                 // Call
-                Action call = () =>
+                void Call()
                 {
                     try
                     {
@@ -987,10 +968,10 @@ namespace Riskeer.Piping.Service.Test
                     {
                         exceptionThrown = true;
                     }
-                };
+                }
 
                 // Assert
-                TestHelper.AssertLogMessagesWithLevelAndLoggedExceptions(call, tuples =>
+                TestHelper.AssertLogMessagesWithLevelAndLoggedExceptions(Call, tuples =>
                 {
                     Tuple<string, Level, Exception>[] messages = tuples as Tuple<string, Level, Exception>[] ?? tuples.ToArray();
                     Assert.AreEqual(3, messages.Length);
@@ -1014,16 +995,16 @@ namespace Riskeer.Piping.Service.Test
         public void Calculate_ValidPipingCalculation_LogStartAndEndOfCalculation()
         {
             // Call
-            Action call = () =>
+            void Call()
             {
                 using (new PipingSubCalculatorFactoryConfig())
                 {
                     PipingCalculationService.Calculate(testCalculation, AssessmentSectionTestHelper.GetTestAssessmentLevel());
                 }
-            };
+            }
 
             // Assert
-            TestHelper.AssertLogMessages(call, messages =>
+            TestHelper.AssertLogMessages(Call, messages =>
             {
                 string[] msgs = messages.ToArray();
                 CalculationServiceTestHelper.AssertCalculationStartMessage(msgs[0]);
@@ -1050,11 +1031,8 @@ namespace Riskeer.Piping.Service.Test
             PipingOutput pipingOutput = testCalculation.Output;
             Assert.IsNotNull(pipingOutput);
             Assert.IsFalse(double.IsNaN(pipingOutput.UpliftEffectiveStress));
-            Assert.IsFalse(double.IsNaN(pipingOutput.UpliftZValue));
             Assert.IsFalse(double.IsNaN(pipingOutput.UpliftFactorOfSafety));
-            Assert.IsFalse(double.IsNaN(pipingOutput.HeaveZValue));
             Assert.IsFalse(double.IsNaN(pipingOutput.HeaveFactorOfSafety));
-            Assert.IsFalse(double.IsNaN(pipingOutput.SellmeijerZValue));
             Assert.IsFalse(double.IsNaN(pipingOutput.SellmeijerFactorOfSafety));
         }
 

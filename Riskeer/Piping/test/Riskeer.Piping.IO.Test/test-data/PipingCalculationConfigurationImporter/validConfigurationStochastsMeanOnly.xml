@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<configuratie>
+<configuratie versie="1">
   <berekening naam="Calculation">
     <stochasten>
-      <stochast naam="polderpeil">
+      <stochast naam="binnendijksewaterstand">
         <verwachtingswaarde>4.4</verwachtingswaarde>
       </stochast>
       <stochast naam="dempingsfactor">

@@ -39,7 +39,8 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Configurations
     /// </summary>
     public class GrassCoverErosionInwardsCalculationConfigurationReader : CalculationConfigurationReader<GrassCoverErosionInwardsCalculationConfiguration>
     {
-        private const string hbLocatieSchemaName = "HbLocatieSchema.xsd";
+        private const string hbLocatieSchemaVersion0Name = "HbLocatieSchema_0.xsd";
+        private const string hbLocatieSchemaVersion1Name = "HbLocatieSchema.xsd";
         private const string orientatieSchemaName = "OrientatieSchema.xsd";
         private const string golfReductieSchemaName = "GolfReductieSchema.xsd";
         private const string stochastSchemaName = "StochastSchema.xsd";
@@ -61,34 +62,61 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Configurations
         /// </exception>
         public GrassCoverErosionInwardsCalculationConfigurationReader(string xmlFilePath)
             : base(xmlFilePath,
-                   Resources.GEKBConfiguratieSchema,
-                   new Dictionary<string, string>
+                   new[]
                    {
-                       {
-                           hbLocatieSchemaName, RiskeerCommonIOResources.HbLocatieSchema
-                       },
-                       {
-                           orientatieSchemaName, RiskeerCommonIOResources.OrientatieSchema
-                       },
-                       {
-                           golfReductieSchemaName, RiskeerCommonIOResources.GolfReductieSchema
-                       },
-                       {
-                           stochastSchemaName, RiskeerCommonIOResources.StochastSchema
-                       },
-                       {
-                           stochastStandaardafwijkingSchemaName, RiskeerCommonIOResources.StochastStandaardafwijkingSchema
-                       },
-                       {
-                           scenarioSchemaName, RiskeerCommonIOResources.ScenarioSchema
-                       }
+                       new CalculationConfigurationSchemaDefinition(
+                           0, Resources.GEKBConfiguratieSchema_0,
+                           new Dictionary<string, string>
+                           {
+                               {
+                                   hbLocatieSchemaVersion0Name, RiskeerCommonIOResources.HbLocatieSchema_0
+                               },
+                               {
+                                   orientatieSchemaName, RiskeerCommonIOResources.OrientatieSchema
+                               },
+                               {
+                                   golfReductieSchemaName, RiskeerCommonIOResources.GolfReductieSchema
+                               },
+                               {
+                                   stochastSchemaName, RiskeerCommonIOResources.StochastSchema
+                               },
+                               {
+                                   stochastStandaardafwijkingSchemaName, RiskeerCommonIOResources.StochastStandaardafwijkingSchema
+                               },
+                               {
+                                   scenarioSchemaName, RiskeerCommonIOResources.ScenarioSchema
+                               }
+                           }, null),
+                       new CalculationConfigurationSchemaDefinition(
+                           1, Resources.GEKBConfiguratieSchema,
+                           new Dictionary<string, string>
+                           {
+                               {
+                                   hbLocatieSchemaVersion1Name, RiskeerCommonIOResources.HbLocatieSchema
+                               },
+                               {
+                                   orientatieSchemaName, RiskeerCommonIOResources.OrientatieSchema
+                               },
+                               {
+                                   golfReductieSchemaName, RiskeerCommonIOResources.GolfReductieSchema
+                               },
+                               {
+                                   stochastSchemaName, RiskeerCommonIOResources.StochastSchema
+                               },
+                               {
+                                   stochastStandaardafwijkingSchemaName, RiskeerCommonIOResources.StochastStandaardafwijkingSchema
+                               },
+                               {
+                                   scenarioSchemaName, RiskeerCommonIOResources.ScenarioSchema
+                               }
+                           }, Resources.GEKBConfiguratieSchema0To1)
                    }) {}
 
         protected override GrassCoverErosionInwardsCalculationConfiguration ParseCalculationElement(XElement calculationElement)
         {
             var configuration = new GrassCoverErosionInwardsCalculationConfiguration(calculationElement.Attribute(ConfigurationSchemaIdentifiers.NameAttribute).Value)
             {
-                HydraulicBoundaryLocationName = calculationElement.GetHydraulicBoundaryLocationName(),
+                HydraulicBoundaryLocationName = calculationElement.GetStringValueFromDescendantElement(ConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElement),
                 DikeProfileId = calculationElement.GetStringValueFromDescendantElement(GrassCoverErosionInwardsCalculationConfigurationSchemaIdentifiers.DikeProfileElement),
                 Orientation = calculationElement.GetDoubleValueFromDescendantElement(ConfigurationSchemaIdentifiers.Orientation),
                 DikeHeight = calculationElement.GetDoubleValueFromDescendantElement(GrassCoverErosionInwardsCalculationConfigurationSchemaIdentifiers.DikeHeightElement),

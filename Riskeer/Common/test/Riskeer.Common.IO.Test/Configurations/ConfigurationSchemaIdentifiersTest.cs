@@ -31,11 +31,11 @@ namespace Riskeer.Common.IO.Test.Configurations
         public void ConfigurationSchemaIdentifiers_ExpectedValues()
         {
             Assert.AreEqual("configuratie", ConfigurationSchemaIdentifiers.ConfigurationElement);
+            Assert.AreEqual("versie", ConfigurationSchemaIdentifiers.VersionAttribute);
             Assert.AreEqual("berekening", ConfigurationSchemaIdentifiers.CalculationElement);
             Assert.AreEqual("map", ConfigurationSchemaIdentifiers.FolderElement);
             Assert.AreEqual("naam", ConfigurationSchemaIdentifiers.NameAttribute);
-            Assert.AreEqual("hrlocatie", ConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElementOld);
-            Assert.AreEqual("hblocatie", ConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElementNew);
+            Assert.AreEqual("hblocatie", ConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElement);
             Assert.AreEqual("orientatie", ConfigurationSchemaIdentifiers.Orientation);
             Assert.AreEqual("illustratiepunteninlezen", ConfigurationSchemaIdentifiers.ShouldIllustrationPointsBeCalculatedElement);
 

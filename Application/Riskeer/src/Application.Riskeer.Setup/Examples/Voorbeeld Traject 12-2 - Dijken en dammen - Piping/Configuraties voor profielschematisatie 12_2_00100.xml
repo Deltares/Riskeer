@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<configuratie>
+<configuratie versie="1">
   <berekening naam="12_2_00100 Segment_12004_1D1">
     <hblocatie>YM_2_12-2_dk_00012</hblocatie>
     <profielschematisatie>12_2_00100</profielschematisatie>
@@ -8,7 +8,7 @@
     <ondergrondmodel>12004_Piping</ondergrondmodel>
     <ondergrondschematisatie>Segment_12004_1D1</ondergrondschematisatie>
     <stochasten>
-      <stochast naam="polderpeil">
+      <stochast naam="binnendijksewaterstand">
         <verwachtingswaarde>0</verwachtingswaarde>
         <standaardafwijking>0.1</standaardafwijking>
       </stochast>
@@ -30,7 +30,7 @@
     <ondergrondmodel>12004_Piping</ondergrondmodel>
     <ondergrondschematisatie>Segment_12004_1D2</ondergrondschematisatie>
     <stochasten>
-      <stochast naam="polderpeil">
+      <stochast naam="binnendijksewaterstand">
         <verwachtingswaarde>0</verwachtingswaarde>
         <standaardafwijking>0.1</standaardafwijking>
       </stochast>
@@ -53,7 +53,7 @@
       <ondergrondmodel>12004_Piping</ondergrondmodel>
       <ondergrondschematisatie>Segment_12004_1D2</ondergrondschematisatie>
       <stochasten>
-        <stochast naam="polderpeil">
+        <stochast naam="binnendijksewaterstand">
           <verwachtingswaarde>0</verwachtingswaarde>
           <standaardafwijking>0.1</standaardafwijking>
         </stochast>

@@ -34,12 +34,9 @@ namespace Riskeer.Piping.Data.TestUtil.Test
             PipingOutput output = PipingOutputTestFactory.Create();
 
             // Assert
-            Assert.IsTrue(IsValidDouble(output.HeaveZValue));
             Assert.IsTrue(IsValidDouble(output.HeaveFactorOfSafety));
             Assert.IsTrue(IsValidDouble(output.UpliftEffectiveStress));
-            Assert.IsTrue(IsValidDouble(output.UpliftZValue));
             Assert.IsTrue(IsValidDouble(output.UpliftFactorOfSafety));
-            Assert.IsTrue(IsValidDouble(output.SellmeijerZValue));
             Assert.IsTrue(IsValidDouble(output.SellmeijerFactorOfSafety));
             Assert.IsTrue(IsValidDouble(output.HeaveGradient));
             Assert.IsTrue(IsValidDouble(output.SellmeijerCreepCoefficient));

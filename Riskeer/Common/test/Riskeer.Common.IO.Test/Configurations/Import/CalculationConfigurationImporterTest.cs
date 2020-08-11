@@ -845,7 +845,10 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
                                               "validConfigurationSchema.xsd"));
 
             public CalculationConfigurationReader(string xmlFilePath)
-                : base(xmlFilePath, mainSchemaDefinition, new Dictionary<string, string>()) {}
+                : base(xmlFilePath, new[]
+                {
+                    new CalculationConfigurationSchemaDefinition(0, mainSchemaDefinition, new Dictionary<string, string>(), null)
+                }) {}
 
             protected override ReadCalculation ParseCalculationElement(XElement calculationElement)
             {

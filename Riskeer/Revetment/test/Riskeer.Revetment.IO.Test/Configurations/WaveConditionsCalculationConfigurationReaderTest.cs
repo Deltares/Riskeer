@@ -36,7 +36,7 @@ namespace Riskeer.Revetment.IO.Test.Configurations
     [TestFixture]
     public class WaveConditionsCalculationConfigurationReaderTest
     {
-        private string validMainSchemaDefinition;
+        private string[] validMainSchemaDefinitions;
 
         private readonly string testDirectoryPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Revetment.IO,
                                                                                nameof(WaveConditionsCalculationConfigurationReader<WaveConditionsCalculationConfiguration>));
@@ -45,15 +45,9 @@ namespace Riskeer.Revetment.IO.Test.Configurations
         {
             get
             {
-                yield return new TestCaseData("invalidCalculationMultipleHydraulicBoundaryLocationOld.xml",
-                                              "Element 'hrlocatie' cannot appear more than once if content model type is \"all\".")
-                    .SetName("invalidCalculationMultipleHydraulicBoundaryLocationOld");
-                yield return new TestCaseData("invalidCalculationMultipleHydraulicBoundaryLocationNew.xml",
+                yield return new TestCaseData("invalidCalculationMultipleHydraulicBoundaryLocation.xml",
                                               "Element 'hblocatie' cannot appear more than once if content model type is \"all\".")
-                    .SetName("invalidCalculationMultipleHydraulicBoundaryLocationNew");
-                yield return new TestCaseData("invalidCalculationHydraulicBoundaryLocationOldAndNew.xml",
-                                              "Element 'hblocatie' cannot appear more than once if content model type is \"all\".")
-                    .SetName("invalidCalculationHydraulicBoundaryLocationOldAndNew");
+                    .SetName("invalidCalculationMultipleHydraulicBoundaryLocation");
                 yield return new TestCaseData("invalidCalculationMultipleForeshoreProfile.xml",
                                               "Element 'voorlandprofiel' cannot appear more than once if content model type is \"all\".")
                     .SetName("invalidCalculationMultipleForeshoreProfile");
@@ -90,12 +84,9 @@ namespace Riskeer.Revetment.IO.Test.Configurations
                 yield return new TestCaseData("invalidCalculationMultipleForeshoreUsage.xml",
                                               "Element 'voorlandgebruiken' cannot appear more than once if content model type is \"all\".")
                     .SetName("invalidCalculationMultipleForeshoreUsage");
-                yield return new TestCaseData("invalidConfigurationCalculationContainingEmptyHydraulicBoundaryLocationOld.xml",
-                                              "The 'hrlocatie' element is invalid - The value '' is invalid according to its datatype 'String' - The actual length is less than the MinLength value.")
-                    .SetName("invalidConfigurationCalculationContainingEmptyHydraulicBoundaryLocationOld");
-                yield return new TestCaseData("invalidConfigurationCalculationContainingEmptyHydraulicBoundaryLocationNew.xml",
+                yield return new TestCaseData("invalidConfigurationCalculationContainingEmptyHydraulicBoundaryLocation.xml",
                                               "The 'hblocatie' element is invalid - The value '' is invalid according to its datatype 'String' - The actual length is less than the MinLength value.")
-                    .SetName("invalidConfigurationCalculationContainingEmptyHydraulicBoundaryLocationNew");
+                    .SetName("invalidConfigurationCalculationContainingEmptyHydraulicBoundaryLocation");
                 yield return new TestCaseData("invalidConfigurationCalculationContainingEmptyForeshoreProfile.xml",
                                               "The 'voorlandprofiel' element is invalid - The value '' is invalid according to its datatype 'String' - The actual length is less than the MinLength value.")
                     .SetName("invalidConfigurationCalculationContainingEmptyForeshoreProfile");
@@ -172,7 +163,7 @@ namespace Riskeer.Revetment.IO.Test.Configurations
             string filePath = Path.Combine(testDirectoryPath, "validConfigurationEmptyCalculation.xml");
 
             // Call
-            var reader = new TestWaveConditionsCalculationConfigurationReader(filePath, validMainSchemaDefinition);
+            var reader = new TestWaveConditionsCalculationConfigurationReader(filePath, validMainSchemaDefinitions);
 
             // Assert
             Assert.IsInstanceOf<CalculationConfigurationReader<WaveConditionsCalculationConfiguration>>(reader);
@@ -186,10 +177,10 @@ namespace Riskeer.Revetment.IO.Test.Configurations
             string filePath = Path.Combine(testDirectoryPath, fileName);
 
             // Call
-            TestDelegate call = () => new TestWaveConditionsCalculationConfigurationReader(filePath, validMainSchemaDefinition);
+            void Call() => new TestWaveConditionsCalculationConfigurationReader(filePath, validMainSchemaDefinitions);
 
             // Assert
-            var exception = Assert.Throws<CriticalFileReadException>(call);
+            var exception = Assert.Throws<CriticalFileReadException>(Call);
             Assert.IsInstanceOf<XmlSchemaValidationException>(exception.InnerException);
             StringAssert.Contains(expectedParsingMessage, exception.InnerException?.Message);
         }
@@ -199,24 +190,24 @@ namespace Riskeer.Revetment.IO.Test.Configurations
         {
             // Setup
             string filePath = Path.Combine(testDirectoryPath, "validConfigurationEmptyCalculation.xml");
-            var reader = new TestWaveConditionsCalculationConfigurationReader(filePath, validMainSchemaDefinition);
+            var reader = new TestWaveConditionsCalculationConfigurationReader(filePath, validMainSchemaDefinitions);
 
             // Call
             IEnumerable<IConfigurationItem> readItems = reader.Read().ToArray();
 
             // Assert
-            var calculation = (WaveConditionsCalculationConfiguration) readItems.Single();
+            var configuration = (WaveConditionsCalculationConfiguration) readItems.Single();
 
-            Assert.IsNotNull(calculation);
-            Assert.IsNull(calculation.HydraulicBoundaryLocationName);
-            Assert.IsNull(calculation.UpperBoundaryRevetment);
-            Assert.IsNull(calculation.LowerBoundaryRevetment);
-            Assert.IsNull(calculation.UpperBoundaryWaterLevels);
-            Assert.IsNull(calculation.LowerBoundaryWaterLevels);
-            Assert.IsNull(calculation.StepSize);
-            Assert.IsNull(calculation.ForeshoreProfileId);
-            Assert.IsNull(calculation.Orientation);
-            Assert.IsNull(calculation.WaveReduction);
+            Assert.IsNotNull(configuration);
+            Assert.IsNull(configuration.HydraulicBoundaryLocationName);
+            Assert.IsNull(configuration.UpperBoundaryRevetment);
+            Assert.IsNull(configuration.LowerBoundaryRevetment);
+            Assert.IsNull(configuration.UpperBoundaryWaterLevels);
+            Assert.IsNull(configuration.LowerBoundaryWaterLevels);
+            Assert.IsNull(configuration.StepSize);
+            Assert.IsNull(configuration.ForeshoreProfileId);
+            Assert.IsNull(configuration.Orientation);
+            Assert.IsNull(configuration.WaveReduction);
         }
 
         [Test]
@@ -224,19 +215,19 @@ namespace Riskeer.Revetment.IO.Test.Configurations
         {
             // Setup
             string filePath = Path.Combine(testDirectoryPath, "validConfigurationCalculationContainingEmptyWaveReduction.xml");
-            var reader = new TestWaveConditionsCalculationConfigurationReader(filePath, validMainSchemaDefinition);
+            var reader = new TestWaveConditionsCalculationConfigurationReader(filePath, validMainSchemaDefinitions);
 
             // Call
             IEnumerable<IConfigurationItem> readItems = reader.Read().ToArray();
 
             // Assert
-            var calculation = (WaveConditionsCalculationConfiguration) readItems.Single();
+            var configuration = (WaveConditionsCalculationConfiguration) readItems.Single();
 
-            Assert.IsNotNull(calculation);
-            Assert.IsNull(calculation.WaveReduction.UseBreakWater);
-            Assert.IsNull(calculation.WaveReduction.BreakWaterType);
-            Assert.IsNull(calculation.WaveReduction.BreakWaterHeight);
-            Assert.IsNull(calculation.WaveReduction.UseForeshoreProfile);
+            Assert.IsNotNull(configuration);
+            Assert.IsNull(configuration.WaveReduction.UseBreakWater);
+            Assert.IsNull(configuration.WaveReduction.BreakWaterType);
+            Assert.IsNull(configuration.WaveReduction.BreakWaterHeight);
+            Assert.IsNull(configuration.WaveReduction.UseForeshoreProfile);
         }
 
         [Test]
@@ -244,21 +235,21 @@ namespace Riskeer.Revetment.IO.Test.Configurations
         {
             // Setup
             string filePath = Path.Combine(testDirectoryPath, "validConfigurationCalculationContainingNaNs.xml");
-            var reader = new TestWaveConditionsCalculationConfigurationReader(filePath, validMainSchemaDefinition);
+            var reader = new TestWaveConditionsCalculationConfigurationReader(filePath, validMainSchemaDefinitions);
 
             // Call
             IEnumerable<IConfigurationItem> readItems = reader.Read().ToArray();
 
             // Assert
-            var calculation = (WaveConditionsCalculationConfiguration) readItems.Single();
+            var configuration = (WaveConditionsCalculationConfiguration) readItems.Single();
 
-            Assert.IsNotNull(calculation);
-            Assert.IsNaN(calculation.UpperBoundaryRevetment);
-            Assert.IsNaN(calculation.LowerBoundaryRevetment);
-            Assert.IsNaN(calculation.UpperBoundaryWaterLevels);
-            Assert.IsNaN(calculation.LowerBoundaryWaterLevels);
-            Assert.IsNaN(calculation.Orientation);
-            Assert.IsNaN(calculation.WaveReduction.BreakWaterHeight);
+            Assert.IsNotNull(configuration);
+            Assert.IsNaN(configuration.UpperBoundaryRevetment);
+            Assert.IsNaN(configuration.LowerBoundaryRevetment);
+            Assert.IsNaN(configuration.UpperBoundaryWaterLevels);
+            Assert.IsNaN(configuration.LowerBoundaryWaterLevels);
+            Assert.IsNaN(configuration.Orientation);
+            Assert.IsNaN(configuration.WaveReduction.BreakWaterHeight);
         }
 
         [Test]
@@ -266,61 +257,63 @@ namespace Riskeer.Revetment.IO.Test.Configurations
         {
             // Setup
             string filePath = Path.Combine(testDirectoryPath, "validConfigurationCalculationContaininInfinities.xml");
-            var reader = new TestWaveConditionsCalculationConfigurationReader(filePath, validMainSchemaDefinition);
+            var reader = new TestWaveConditionsCalculationConfigurationReader(filePath, validMainSchemaDefinitions);
 
             // Call
             IEnumerable<IConfigurationItem> readItems = reader.Read().ToArray();
 
             // Assert
-            var calculation = (WaveConditionsCalculationConfiguration) readItems.Single();
+            var configuration = (WaveConditionsCalculationConfiguration) readItems.Single();
 
-            Assert.IsNotNull(calculation);
+            Assert.IsNotNull(configuration);
 
-            Assert.NotNull(calculation.UpperBoundaryRevetment);
-            Assert.NotNull(calculation.LowerBoundaryRevetment);
-            Assert.NotNull(calculation.UpperBoundaryWaterLevels);
-            Assert.NotNull(calculation.LowerBoundaryWaterLevels);
-            Assert.NotNull(calculation.Orientation);
-            Assert.NotNull(calculation.WaveReduction.BreakWaterHeight);
+            Assert.NotNull(configuration.UpperBoundaryRevetment);
+            Assert.NotNull(configuration.LowerBoundaryRevetment);
+            Assert.NotNull(configuration.UpperBoundaryWaterLevels);
+            Assert.NotNull(configuration.LowerBoundaryWaterLevels);
+            Assert.NotNull(configuration.Orientation);
+            Assert.NotNull(configuration.WaveReduction.BreakWaterHeight);
 
-            Assert.IsTrue(double.IsPositiveInfinity(calculation.UpperBoundaryRevetment.Value));
-            Assert.IsTrue(double.IsNegativeInfinity(calculation.LowerBoundaryRevetment.Value));
-            Assert.IsTrue(double.IsPositiveInfinity(calculation.UpperBoundaryWaterLevels.Value));
-            Assert.IsTrue(double.IsNegativeInfinity(calculation.LowerBoundaryWaterLevels.Value));
-            Assert.IsTrue(double.IsPositiveInfinity(calculation.Orientation.Value));
-            Assert.IsTrue(double.IsPositiveInfinity(calculation.WaveReduction.BreakWaterHeight.Value));
+            Assert.IsTrue(double.IsPositiveInfinity(configuration.UpperBoundaryRevetment.Value));
+            Assert.IsTrue(double.IsNegativeInfinity(configuration.LowerBoundaryRevetment.Value));
+            Assert.IsTrue(double.IsPositiveInfinity(configuration.UpperBoundaryWaterLevels.Value));
+            Assert.IsTrue(double.IsNegativeInfinity(configuration.LowerBoundaryWaterLevels.Value));
+            Assert.IsTrue(double.IsPositiveInfinity(configuration.Orientation.Value));
+            Assert.IsTrue(double.IsPositiveInfinity(configuration.WaveReduction.BreakWaterHeight.Value));
         }
 
         [Test]
-        [TestCase("validConfigurationFullCalculationOld.xml")]
-        [TestCase("validConfigurationFullCalculation_differentOrder_old.xml")]
-        [TestCase("validConfigurationFullCalculationNew.xml")]
-        [TestCase("validConfigurationFullCalculation_differentOrder_new.xml")]
+        [TestCase("validConfigurationFullCalculation.xml")]
+        [TestCase("validConfigurationFullCalculation_differentOrder.xml")]
         public void Read_ValidConfigurationWithFullCalculation_ReturnExpectedReadWaveConditionsCalculation(string fileName)
         {
             // Setup
             string filePath = Path.Combine(testDirectoryPath, fileName);
-            var reader = new TestWaveConditionsCalculationConfigurationReader(filePath, validMainSchemaDefinition);
+            var reader = new TestWaveConditionsCalculationConfigurationReader(filePath, validMainSchemaDefinitions);
 
             // Call
             IEnumerable<IConfigurationItem> readItems = reader.Read().ToArray();
 
             // Assert
-            var calculation = (WaveConditionsCalculationConfiguration) readItems.Single();
+            var configuration = (WaveConditionsCalculationConfiguration) readItems.Single();
 
-            Assert.IsNotNull(calculation);
-            Assert.AreEqual("Locatie", calculation.HydraulicBoundaryLocationName);
-            Assert.AreEqual(1.1, calculation.UpperBoundaryRevetment);
-            Assert.AreEqual(2.2, calculation.LowerBoundaryRevetment);
-            Assert.AreEqual(3.3, calculation.UpperBoundaryWaterLevels);
-            Assert.AreEqual(4.4, calculation.LowerBoundaryWaterLevels);
-            Assert.AreEqual(ConfigurationWaveConditionsInputStepSize.Half, calculation.StepSize);
-            Assert.AreEqual("Voorlandprofiel", calculation.ForeshoreProfileId);
-            Assert.AreEqual(5.5, calculation.Orientation);
-            Assert.IsTrue(calculation.WaveReduction.UseBreakWater);
-            Assert.AreEqual(ConfigurationBreakWaterType.Caisson, calculation.WaveReduction.BreakWaterType);
-            Assert.AreEqual(6.6, calculation.WaveReduction.BreakWaterHeight);
-            Assert.IsFalse(calculation.WaveReduction.UseForeshoreProfile);
+            AssertConfiguration(configuration);
+        }
+
+        [Test]
+        public void Read_ValidPreviousVersionConfigurationWithFullCalculation_ReturnExpectedReadCalculation()
+        {
+            // Setup
+            string filePath = Path.Combine(testDirectoryPath, "version0ValidConfigurationFullCalculation.xml");
+            var reader = new TestWaveConditionsCalculationConfigurationReader(filePath, validMainSchemaDefinitions);
+
+            // Call
+            IEnumerable<IConfigurationItem> readConfigurationItems = reader.Read().ToArray();
+
+            // Assert
+            var configuration = (WaveConditionsCalculationConfiguration) readConfigurationItems.Single();
+
+            AssertConfiguration(configuration);
         }
 
         [Test]
@@ -328,40 +321,61 @@ namespace Riskeer.Revetment.IO.Test.Configurations
         {
             // Setup
             string filePath = Path.Combine(testDirectoryPath, "validConfigurationPartialCalculation.xml");
-            var reader = new TestWaveConditionsCalculationConfigurationReader(filePath, validMainSchemaDefinition);
+            var reader = new TestWaveConditionsCalculationConfigurationReader(filePath, validMainSchemaDefinitions);
 
             // Call
             IEnumerable<IConfigurationItem> readItems = reader.Read().ToArray();
 
             // Assert
-            var calculation = (WaveConditionsCalculationConfiguration) readItems.Single();
+            var configuration = (WaveConditionsCalculationConfiguration) readItems.Single();
 
-            Assert.IsNotNull(calculation);
-            Assert.IsNull(calculation.HydraulicBoundaryLocationName);
-            Assert.AreEqual(1.1, calculation.UpperBoundaryRevetment);
-            Assert.AreEqual(2.2, calculation.LowerBoundaryRevetment);
-            Assert.IsNull(calculation.UpperBoundaryWaterLevels);
-            Assert.IsNull(calculation.LowerBoundaryWaterLevels);
-            Assert.AreEqual(ConfigurationWaveConditionsInputStepSize.Half, calculation.StepSize);
-            Assert.IsNull(calculation.ForeshoreProfileId);
-            Assert.IsNull(calculation.Orientation);
-            Assert.IsTrue(calculation.WaveReduction.UseBreakWater);
-            Assert.AreEqual(ConfigurationBreakWaterType.Caisson, calculation.WaveReduction.BreakWaterType);
-            Assert.AreEqual(3.3, calculation.WaveReduction.BreakWaterHeight);
-            Assert.IsNull(calculation.WaveReduction.UseForeshoreProfile);
+            Assert.IsNotNull(configuration);
+            Assert.IsNull(configuration.HydraulicBoundaryLocationName);
+            Assert.AreEqual(1.1, configuration.UpperBoundaryRevetment);
+            Assert.AreEqual(2.2, configuration.LowerBoundaryRevetment);
+            Assert.IsNull(configuration.UpperBoundaryWaterLevels);
+            Assert.IsNull(configuration.LowerBoundaryWaterLevels);
+            Assert.AreEqual(ConfigurationWaveConditionsInputStepSize.Half, configuration.StepSize);
+            Assert.IsNull(configuration.ForeshoreProfileId);
+            Assert.IsNull(configuration.Orientation);
+            Assert.IsTrue(configuration.WaveReduction.UseBreakWater);
+            Assert.AreEqual(ConfigurationBreakWaterType.Caisson, configuration.WaveReduction.BreakWaterType);
+            Assert.AreEqual(3.3, configuration.WaveReduction.BreakWaterHeight);
+            Assert.IsNull(configuration.WaveReduction.UseForeshoreProfile);
+        }
+
+        private static void AssertConfiguration(WaveConditionsCalculationConfiguration configuration)
+        {
+            Assert.IsNotNull(configuration);
+            Assert.AreEqual("Locatie", configuration.HydraulicBoundaryLocationName);
+            Assert.AreEqual(1.1, configuration.UpperBoundaryRevetment);
+            Assert.AreEqual(2.2, configuration.LowerBoundaryRevetment);
+            Assert.AreEqual(3.3, configuration.UpperBoundaryWaterLevels);
+            Assert.AreEqual(4.4, configuration.LowerBoundaryWaterLevels);
+            Assert.AreEqual(ConfigurationWaveConditionsInputStepSize.Half, configuration.StepSize);
+            Assert.AreEqual("Voorlandprofiel", configuration.ForeshoreProfileId);
+            Assert.AreEqual(5.5, configuration.Orientation);
+            Assert.IsTrue(configuration.WaveReduction.UseBreakWater);
+            Assert.AreEqual(ConfigurationBreakWaterType.Caisson, configuration.WaveReduction.BreakWaterType);
+            Assert.AreEqual(6.6, configuration.WaveReduction.BreakWaterHeight);
+            Assert.IsFalse(configuration.WaveReduction.UseForeshoreProfile);
         }
 
         [OneTimeSetUp]
         public void OneTimeSetUp()
         {
-            validMainSchemaDefinition = File.ReadAllText(Path.Combine(testDirectoryPath, "validConfigurationSchema.xsd"));
+            validMainSchemaDefinitions = new[]
+            {
+                File.ReadAllText(Path.Combine(testDirectoryPath, "validConfigurationSchema_0.xsd")),
+                File.ReadAllText(Path.Combine(testDirectoryPath, "validConfigurationSchema.xsd"))
+            };
         }
 
         private class TestWaveConditionsCalculationConfigurationReader
             : WaveConditionsCalculationConfigurationReader<WaveConditionsCalculationConfiguration>
         {
-            public TestWaveConditionsCalculationConfigurationReader(string xmlFilePath, string configurationSchema)
-                : base(xmlFilePath, configurationSchema) {}
+            public TestWaveConditionsCalculationConfigurationReader(string xmlFilePath, string[] configurationSchemas)
+                : base(xmlFilePath, configurationSchemas) {}
 
             protected override WaveConditionsCalculationConfiguration ParseCalculationElement(XElement calculationElement)
             {

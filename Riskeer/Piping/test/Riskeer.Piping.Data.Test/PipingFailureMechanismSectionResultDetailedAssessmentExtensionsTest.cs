@@ -135,7 +135,7 @@ namespace Riskeer.Piping.Data.Test
 
             pipingCalculationScenario2.IsRelevant = true;
             pipingCalculationScenario2.Contribution = (RoundedDouble) 0.7889;
-            pipingCalculationScenario1.Output = PipingOutputTestFactory.Create(4.4, 5.5, 6.6);
+            pipingCalculationScenario2.Output = PipingOutputTestFactory.Create(4.4, 5.5, 6.6);
 
             pipingCalculationScenario3.IsRelevant = false;
 
@@ -150,7 +150,7 @@ namespace Riskeer.Piping.Data.Test
             double detailedAssessmentProbability = failureMechanismSectionResult.GetDetailedAssessmentProbability(calculations, failureMechanism, assessmentSection);
 
             // Assert
-            Assert.AreEqual(0.022635940064759167, detailedAssessmentProbability);
+            Assert.AreEqual(4.2467174336864661e-7, detailedAssessmentProbability);
             mocks.VerifyAll();
         }
 

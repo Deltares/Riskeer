@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  
+  <xs:include schemaLocation="BekledingenConfiguratieBasisSchema_0.xsd" />
+  
+  <xs:redefine schemaLocation="ConfiguratieSchema.xsd">
+    <xs:complexType name="berekeningType">
+      <xs:complexContent>
+        <xs:extension base="berekeningType">
+          <xs:all>
+            <xs:element ref="hblocatie-of-hrlocatie" minOccurs="0"/>
+            <xs:element ref="bovengrensbekleding" minOccurs="0"/>
+            <xs:element ref="ondergrensbekleding" minOccurs="0"/>
+            <xs:element ref="bovengrenswaterstanden" minOccurs="0"/>
+            <xs:element ref="ondergrenswaterstanden" minOccurs="0"/>
+            <xs:element ref="stapgrootte" minOccurs="0"/>
+            <xs:element ref="voorlandprofiel" minOccurs="0"/>
+            <xs:element ref="orientatie" minOccurs="0"/>
+            <xs:element ref="golfreductie" minOccurs="0"/>
+          </xs:all>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:redefine>
+  
+</xs:schema>

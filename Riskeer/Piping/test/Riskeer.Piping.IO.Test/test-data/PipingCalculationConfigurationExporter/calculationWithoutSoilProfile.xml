@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<configuratie>
+<configuratie versie="1">
   <berekening naam="PK001_0001 W1-6_0_1D1">
     <hblocatie>PUNT_KAT_18</hblocatie>
     <profielschematisatie>PK001_0001</profielschematisatie>
@@ -7,7 +7,7 @@
     <uittredepunt>10</uittredepunt>
     <ondergrondmodel>PK001_0001_Piping</ondergrondmodel>
     <stochasten>
-      <stochast naam="polderpeil">
+      <stochast naam="binnendijksewaterstand">
         <verwachtingswaarde>0</verwachtingswaarde>
         <standaardafwijking>0.1</standaardafwijking>
       </stochast>

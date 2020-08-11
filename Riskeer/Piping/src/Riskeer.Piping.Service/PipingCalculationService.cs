@@ -105,11 +105,8 @@ namespace Riskeer.Piping.Service
 
                 calculation.Output = new PipingOutput(new PipingOutput.ConstructionProperties
                 {
-                    UpliftZValue = pipingResult.UpliftZValue,
                     UpliftFactorOfSafety = pipingResult.UpliftFactorOfSafety,
-                    HeaveZValue = pipingResult.HeaveZValue,
                     HeaveFactorOfSafety = pipingResult.HeaveFactorOfSafety,
-                    SellmeijerZValue = pipingResult.SellmeijerZValue,
                     SellmeijerFactorOfSafety = pipingResult.SellmeijerFactorOfSafety,
                     UpliftEffectiveStress = pipingResult.UpliftEffectiveStress,
                     HeaveGradient = pipingResult.HeaveGradient,

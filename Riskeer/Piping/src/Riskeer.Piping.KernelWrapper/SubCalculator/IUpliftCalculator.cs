@@ -32,12 +32,7 @@ namespace Riskeer.Piping.KernelWrapper.SubCalculator
         /// Gets or sets the effective stress.
         /// </summary>
         double EffectiveStress { get; set; }
-
-        /// <summary>
-        /// Gets the z-value.
-        /// </summary>
-        double Zu { get; }
-
+        
         /// <summary>
         /// Gets the factor of safety.
         /// </summary>

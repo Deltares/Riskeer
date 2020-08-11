@@ -32,6 +32,15 @@ All rights reserved.
   waterstand (handmatig gespecificeerde waterstand) vergelijkbaar met een
   macrostabiliteit binnenwaarts berekening in Riskeer.-->
   <xs:redefine schemaLocation="ConfiguratieSchema.xsd">
+
+    <xs:complexType name="configuratieType">
+      <xs:complexContent>
+        <xs:extension base="configuratieType">
+          <xs:attribute name="versie" type="xs:int" use="required" fixed="1"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+
     <xs:complexType name="berekeningType">
       <xs:complexContent>
         <xs:extension base="berekeningType">
@@ -68,41 +77,17 @@ All rights reserved.
   <!--Specificeert de keuze van een HB locatie of een waterstand.-->
   <xs:element name="hblocatie-of-waterstand" abstract="true" />
 
-  <!--Specificeert een waterstand of een toetspeil.-->
-  <xs:element name="waterstand-of-toetspeil" abstract="true" substitutionGroup="hblocatie-of-waterstand" />
-
-  <!--Specificeert een HB locatie of een HR locatie.-->
-  <xs:element name="hblocatie-of-hrlocatie" abstract="true" substitutionGroup="hblocatie-of-waterstand" />
-
   <!--Specificeert de handmatig ingevoerde waterstand. Indien dit element is
-  opgenomen, mag geen handmatig ingevoerd toetspeil element worden opgenomen.-->
-  <xs:element name="waterstand" substitutionGroup="waterstand-of-toetspeil" >
+  opgenomen, mag geen HB locatie worden opgenomen (en anderson).-->
+  <xs:element name="waterstand" substitutionGroup="hblocatie-of-waterstand" >
     <xs:simpleType>
       <xs:restriction base="xs:double"/>
     </xs:simpleType>
   </xs:element>
-
-  <!--Specificeert het handmatig ingevoerde toetspeil. Indien dit element is
-  opgenomen, mag geen handmatig ingevoerde waterstand element worden opgenomen.-->
-  <xs:element name="toetspeil" substitutionGroup="waterstand-of-toetspeil" >
-    <xs:simpleType>
-      <xs:restriction base="xs:double"/>
-    </xs:simpleType>
-  </xs:element>
-
+  
   <!--Specificeert de HB locatie. Indien dit element is opgenomen, mag geen 
-  HR locatie element worden opgenomen.-->
-  <xs:element name="hblocatie" substitutionGroup="hblocatie-of-hrlocatie">
-    <xs:simpleType>
-      <xs:restriction base="xs:string">
-        <xs:minLength value="1"/>
-      </xs:restriction>
-    </xs:simpleType>
-  </xs:element>
-
-  <!--Specificeert de HR locatie. Indien dit element is opgenomen, mag geen 
-  HB locatie element worden opgenomen.-->
-  <xs:element name="hrlocatie" substitutionGroup="hblocatie-of-hrlocatie">
+  handmatig ingevoerde waterstand worden opgenomen (en andersom).-->
+  <xs:element name="hblocatie" substitutionGroup="hblocatie-of-waterstand">
     <xs:simpleType>
       <xs:restriction base="xs:string">
         <xs:minLength value="1"/>

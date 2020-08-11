@@ -47,6 +47,11 @@ namespace Riskeer.MacroStabilityInwards.IO.Configurations
         /// </list></remarks>
         public MacroStabilityInwardsCalculationConfigurationWriter(string filePath) : base(filePath) {}
 
+        protected override int GetConfigurationVersion()
+        {
+            return 1;
+        }
+
         protected override void WriteCalculation(MacroStabilityInwardsCalculationConfiguration configuration,
                                                  XmlWriter writer)
         {
@@ -71,7 +76,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Configurations
                                              MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.WaterLevelElement,
                                              configuration.AssessmentLevel);
             WriteElementWhenContentAvailable(writer,
-                                             ConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElementNew,
+                                             ConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElement,
                                              configuration.HydraulicBoundaryLocationName);
 
             WriteElementWhenContentAvailable(writer,

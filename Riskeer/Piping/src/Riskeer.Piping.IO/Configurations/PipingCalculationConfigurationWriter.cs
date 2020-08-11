@@ -45,6 +45,11 @@ namespace Riskeer.Piping.IO.Configurations
         /// </list></remarks>
         public PipingCalculationConfigurationWriter(string filePath) : base(filePath) {}
 
+        protected override int GetConfigurationVersion()
+        {
+            return 1;
+        }
+
         protected override void WriteCalculation(PipingCalculationConfiguration configuration, XmlWriter writer)
         {
             writer.WriteStartElement(ConfigurationSchemaIdentifiers.CalculationElement);
@@ -68,7 +73,7 @@ namespace Riskeer.Piping.IO.Configurations
                                              PipingCalculationConfigurationSchemaIdentifiers.WaterLevelElement,
                                              configuration.AssessmentLevel);
             WriteElementWhenContentAvailable(writer,
-                                             ConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElementNew,
+                                             ConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElement,
                                              configuration.HydraulicBoundaryLocationName);
 
             WriteElementWhenContentAvailable(writer,

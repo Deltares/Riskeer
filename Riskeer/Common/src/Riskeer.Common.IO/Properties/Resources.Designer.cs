@@ -40,7 +40,7 @@ namespace Riskeer.Common.IO.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Resources {
@@ -289,6 +289,24 @@ namespace Riskeer.Common.IO.Properties {
         public static string CalculationConfigurationReader_Configuration_contains_no_valid_xml_Reason_0_ {
             get {
                 return ResourceManager.GetString("CalculationConfigurationReader_Configuration_contains_no_valid_xml_Reason_0_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to het versienummer van het bestand wordt niet ondersteund..
+        /// </summary>
+        public static string CalculationConfigurationReader_GetSchemaDefinition_Not_supported_version {
+            get {
+                return ResourceManager.GetString("CalculationConfigurationReader_GetSchemaDefinition_Not_supported_version", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to er is een onverwachte fout opgetreden..
+        /// </summary>
+        public static string CalculationConfigurationReader_MigrateToNewSchema_An_unexpected_error_occurred {
+            get {
+                return ResourceManager.GetString("CalculationConfigurationReader_MigrateToNewSchema_An_unexpected_error_occurred", resourceCulture);
             }
         }
         
@@ -911,6 +929,27 @@ namespace Riskeer.Common.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;&lt;!--
+        ///Copyright (C) Stichting Deltares 2019. All rights reserved.
+        ///
+        ///This file is part of Riskeer.
+        ///
+        ///Riskeer is free software: you can redistribute it and/or modify
+        ///it under the terms of the GNU General Public License as published by
+        ///the Free Software Foundation, either version 3 of the License, or
+        ///(at your option) any later version.
+        ///
+        ///This program is distributed in the hope that it will be useful,
+        ///but WITHOUT ANY WARRANTY; without even the implied warranty of
+        ///ME [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string HbLocatieSchema_0 {
+            get {
+                return ResourceManager.GetString("HbLocatieSchema_0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to De rekeninstellingen database heeft niet het juiste schema..
         /// </summary>
         public static string HydraRingSettingsDatabase_Hydraulic_calculation_settings_database_has_invalid_schema {
@@ -1171,6 +1210,27 @@ namespace Riskeer.Common.IO.Properties {
         public static string KunstwerkenBasisSchema {
             get {
                 return ResourceManager.GetString("KunstwerkenBasisSchema", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;!--
+        ///Copyright (C) Stichting Deltares 2019. All rights reserved.
+        ///
+        ///This file is part of Riskeer.
+        ///
+        ///Riskeer is free software: you can redistribute it and/or modify
+        ///it under the terms of the GNU General Public License as published by
+        ///the Free Software Foundation, either version 3 of the License, or
+        ///(at your option) any later version.
+        ///
+        ///This program is distributed in the hope that it will be useful,
+        ///but WITHOUT ANY WARRANTY; without even the implied warranty of
+        ///ME [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string KunstwerkenBasisSchema_0 {
+            get {
+                return ResourceManager.GetString("KunstwerkenBasisSchema_0", resourceCulture);
             }
         }
         
@@ -2587,6 +2647,27 @@ namespace Riskeer.Common.IO.Properties {
             get {
                 return ResourceManager.GetString("VerifyStructuresShouldUpdate_When_updating_Calculation_with_Structure_data_output" +
                         "_will_be_cleared_confirm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;&lt;!--
+        ///Copyright (C) Stichting Deltares 2019. All rights reserved.
+        ///
+        ///This file is part of Riskeer.
+        ///
+        ///Riskeer is free software: you can redistribute it and/or modify
+        ///it under the terms of the GNU General Public License as published by
+        ///the Free Software Foundation, either version 3 of the License, or
+        ///(at your option) any later version.
+        ///
+        ///This program is distributed in the hope that it will be useful,
+        ///but WITHOUT ANY WARRANTY; without even the implied warranty of
+        ///ME [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string VersieSchema {
+            get {
+                return ResourceManager.GetString("VersieSchema", resourceCulture);
             }
         }
         

@@ -102,7 +102,7 @@ namespace Riskeer.Common.IO.Configurations.Export
         private void WriteParameters(T configuration, XmlWriter writer)
         {
             WriteElementWhenContentAvailable(writer,
-                                             ConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElementNew,
+                                             ConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElement,
                                              configuration.HydraulicBoundaryLocationName);
             WriteElementWhenContentAvailable(writer,
                                              ConfigurationSchemaIdentifiers.StructureElement,

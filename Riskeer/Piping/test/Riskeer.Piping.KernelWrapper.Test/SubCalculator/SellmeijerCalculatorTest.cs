@@ -35,7 +35,6 @@ namespace Riskeer.Piping.KernelWrapper.Test.SubCalculator
 
             // Assert
             Assert.IsInstanceOf<ISellmeijerCalculator>(calculator);
-            Assert.AreEqual(0.0, calculator.Zp);
             Assert.AreEqual(0.0, calculator.FoSp);
         }
     }

@@ -77,11 +77,8 @@ namespace Riskeer.Piping.KernelWrapper
 
             return new PipingCalculatorResult(new PipingCalculatorResult.ConstructionProperties
             {
-                UpliftZValue = upliftResult.Zu,
                 UpliftFactorOfSafety = upliftResult.FoSu,
-                HeaveZValue = heaveResult.Zh,
                 HeaveFactorOfSafety = heaveResult.FoSh,
-                SellmeijerZValue = sellmeijerResult.Zp,
                 SellmeijerFactorOfSafety = sellmeijerResult.FoSp,
                 UpliftEffectiveStress = upliftResult.EffectiveStress,
                 HeaveGradient = heaveResult.Gradient,

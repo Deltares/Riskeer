@@ -465,11 +465,8 @@ namespace Riskeer.Piping.Data.TestUtil
 
             return new PipingOutput(new PipingOutput.ConstructionProperties
             {
-                UpliftZValue = random.NextDouble(),
                 UpliftFactorOfSafety = random.NextDouble(),
-                HeaveZValue = random.NextDouble(),
                 HeaveFactorOfSafety = random.NextDouble(),
-                SellmeijerZValue = random.NextDouble(),
                 SellmeijerFactorOfSafety = random.NextDouble(),
                 UpliftEffectiveStress = random.NextDouble(),
                 HeaveGradient = random.NextDouble(),

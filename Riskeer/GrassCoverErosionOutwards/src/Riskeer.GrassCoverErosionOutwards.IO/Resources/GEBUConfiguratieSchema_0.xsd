@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?><!--
+Copyright (C) Stichting Deltares 2019. All rights reserved.
+
+This file is part of Riskeer.
+
+Riskeer is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program. If not, see <http://www.gnu.org/licenses/>.
+
+All names, logos, and references to "Deltares" are registered trademarks of
+Stichting Deltares and remain full property of Stichting Deltares at all times.
+All rights reserved.
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  
+  <!--Basis elementen voor een bekledingen configuratie.-->
+  <xs:include schemaLocation="BekledingenConfiguratieBasisSchema_0.xsd" />
+  <xs:include schemaLocation="ConfiguratieSchema.xsd" />
+
+  <!--Herdefinieer categoriegrens, zodat deze de juiste inhoud heeft.-->
+  <xs:redefine schemaLocation="BekledingenConfiguratieBasisSchema_0.xsd">
+    <xs:simpleType name="categoriegrensType">
+      <xs:restriction base="categoriegrensType">
+        <xs:enumeration value="Iv"/>
+        <xs:enumeration value="IIv"/>
+        <xs:enumeration value="IIIv"/>
+        <xs:enumeration value="IVv"/>
+        <xs:enumeration value="Vv"/>
+      </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="bekledingType">
+      <xs:restriction base="bekledingType">
+        <xs:enumeration value="Gras (golfoploop)"/>
+        <xs:enumeration value="Gras (golfklap)"/>
+        <xs:enumeration value="Gras (golfoploop en golfklap)"/>
+        <xs:enumeration value="Gras (golfklap voor toets op maat)"/>
+        <xs:enumeration value="Gras (golfoploop en golfklap voor toets op maat)"/>
+        <xs:enumeration value="Gras (alle types)"/>
+      </xs:restriction>
+    </xs:simpleType>
+  </xs:redefine>
+</xs:schema>

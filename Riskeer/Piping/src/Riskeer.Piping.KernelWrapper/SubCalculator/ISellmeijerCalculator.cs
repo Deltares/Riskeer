@@ -42,12 +42,7 @@ namespace Riskeer.Piping.KernelWrapper.SubCalculator
         /// Gets the reduced fall. 
         /// </summary>
         double ReducedFall { get; }
-
-        /// <summary>
-        /// Gets the z-value.
-        /// </summary>
-        double Zp { get; }
-
+        
         /// <summary>
         /// Gets the factor of safety.
         /// </summary>

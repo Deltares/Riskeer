@@ -39,6 +39,11 @@ namespace Riskeer.Common.IO.TestUtil
         /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is invalid.</exception>
         public TestCalculationConfigurationWriter(string filePath) : base(filePath) {}
 
+        protected override int GetConfigurationVersion()
+        {
+            return 1;
+        }
+
         protected override void WriteCalculation(TestConfigurationItem configuration, XmlWriter writer)
         {
             writer.WriteElementString(calculationElementTag, configuration.Name);

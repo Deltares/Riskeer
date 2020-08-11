@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<configuratie>
+<configuratie versie="1">
   <map naam="Vak1">
     <berekening naam="Vak1 Segment_50005_1D4">
       <hblocatie>050-01_0048_1_IJ_km0926</hblocatie>
@@ -9,7 +9,7 @@
       <ondergrondmodel>50005_Piping</ondergrondmodel>
       <ondergrondschematisatie>Segment_50005_1D4</ondergrondschematisatie>
       <stochasten>
-        <stochast naam="polderpeil">
+        <stochast naam="binnendijksewaterstand">
           <verwachtingswaarde>7.65</verwachtingswaarde>
           <standaardafwijking>0.1</standaardafwijking>
         </stochast>
@@ -31,7 +31,7 @@
       <ondergrondmodel>50005_Piping</ondergrondmodel>
       <ondergrondschematisatie>Segment_50005_1D5</ondergrondschematisatie>
       <stochasten>
-        <stochast naam="polderpeil">
+        <stochast naam="binnendijksewaterstand">
           <verwachtingswaarde>7.65</verwachtingswaarde>
           <standaardafwijking>0.1</standaardafwijking>
         </stochast>
@@ -53,7 +53,7 @@
       <ondergrondmodel>50005_Piping</ondergrondmodel>
       <ondergrondschematisatie>Segment_50005_1D1</ondergrondschematisatie>
       <stochasten>
-        <stochast naam="polderpeil">
+        <stochast naam="binnendijksewaterstand">
           <verwachtingswaarde>7.65</verwachtingswaarde>
           <standaardafwijking>0.1</standaardafwijking>
         </stochast>
@@ -75,7 +75,7 @@
       <ondergrondmodel>50005_Piping</ondergrondmodel>
       <ondergrondschematisatie>Segment_50005_1D2</ondergrondschematisatie>
       <stochasten>
-        <stochast naam="polderpeil">
+        <stochast naam="binnendijksewaterstand">
           <verwachtingswaarde>7.65</verwachtingswaarde>
           <standaardafwijking>0.1</standaardafwijking>
         </stochast>
@@ -97,7 +97,7 @@
       <ondergrondmodel>50005_Piping</ondergrondmodel>
       <ondergrondschematisatie>Segment_50005_1D6</ondergrondschematisatie>
       <stochasten>
-        <stochast naam="polderpeil">
+        <stochast naam="binnendijksewaterstand">
           <verwachtingswaarde>7.65</verwachtingswaarde>
           <standaardafwijking>0.1</standaardafwijking>
         </stochast>
@@ -119,7 +119,7 @@
       <ondergrondmodel>50005_Piping</ondergrondmodel>
       <ondergrondschematisatie>Segment_50005_1D3</ondergrondschematisatie>
       <stochasten>
-        <stochast naam="polderpeil">
+        <stochast naam="binnendijksewaterstand">
           <verwachtingswaarde>7.65</verwachtingswaarde>
           <standaardafwijking>0.1</standaardafwijking>
         </stochast>
@@ -143,7 +143,7 @@
       <ondergrondmodel>50005_Piping</ondergrondmodel>
       <ondergrondschematisatie>Segment_50005_1D4</ondergrondschematisatie>
       <stochasten>
-        <stochast naam="polderpeil">
+        <stochast naam="binnendijksewaterstand">
           <verwachtingswaarde>7.65</verwachtingswaarde>
           <standaardafwijking>0.1</standaardafwijking>
         </stochast>
@@ -165,7 +165,7 @@
       <ondergrondmodel>50005_Piping</ondergrondmodel>
       <ondergrondschematisatie>Segment_50005_1D5</ondergrondschematisatie>
       <stochasten>
-        <stochast naam="polderpeil">
+        <stochast naam="binnendijksewaterstand">
           <verwachtingswaarde>7.65</verwachtingswaarde>
           <standaardafwijking>0.1</standaardafwijking>
         </stochast>
@@ -187,7 +187,7 @@
       <ondergrondmodel>50005_Piping</ondergrondmodel>
       <ondergrondschematisatie>Segment_50005_1D1</ondergrondschematisatie>
       <stochasten>
-        <stochast naam="polderpeil">
+        <stochast naam="binnendijksewaterstand">
           <verwachtingswaarde>7.65</verwachtingswaarde>
           <standaardafwijking>0.1</standaardafwijking>
         </stochast>
@@ -209,7 +209,7 @@
       <ondergrondmodel>50005_Piping</ondergrondmodel>
       <ondergrondschematisatie>Segment_50005_1D2</ondergrondschematisatie>
       <stochasten>
-        <stochast naam="polderpeil">
+        <stochast naam="binnendijksewaterstand">
           <verwachtingswaarde>7.65</verwachtingswaarde>
           <standaardafwijking>0.1</standaardafwijking>
         </stochast>
@@ -231,7 +231,7 @@
       <ondergrondmodel>50005_Piping</ondergrondmodel>
       <ondergrondschematisatie>Segment_50005_1D6</ondergrondschematisatie>
       <stochasten>
-        <stochast naam="polderpeil">
+        <stochast naam="binnendijksewaterstand">
           <verwachtingswaarde>7.65</verwachtingswaarde>
           <standaardafwijking>0.1</standaardafwijking>
         </stochast>
@@ -253,7 +253,7 @@
       <ondergrondmodel>50005_Piping</ondergrondmodel>
       <ondergrondschematisatie>Segment_50005_1D3</ondergrondschematisatie>
       <stochasten>
-        <stochast naam="polderpeil">
+        <stochast naam="binnendijksewaterstand">
           <verwachtingswaarde>7.65</verwachtingswaarde>
           <standaardafwijking>0.1</standaardafwijking>
         </stochast>
@@ -277,7 +277,7 @@
       <ondergrondmodel>50006_Piping</ondergrondmodel>
       <ondergrondschematisatie>Segment_50006_1D3</ondergrondschematisatie>
       <stochasten>
-        <stochast naam="polderpeil">
+        <stochast naam="binnendijksewaterstand">
           <verwachtingswaarde>7.65</verwachtingswaarde>
           <standaardafwijking>0.1</standaardafwijking>
         </stochast>
@@ -299,7 +299,7 @@
       <ondergrondmodel>50006_Piping</ondergrondmodel>
       <ondergrondschematisatie>Segment_50006_1D4</ondergrondschematisatie>
       <stochasten>
-        <stochast naam="polderpeil">
+        <stochast naam="binnendijksewaterstand">
           <verwachtingswaarde>7.65</verwachtingswaarde>
           <standaardafwijking>0.1</standaardafwijking>
         </stochast>
@@ -321,7 +321,7 @@
       <ondergrondmodel>50006_Piping</ondergrondmodel>
       <ondergrondschematisatie>Segment_50006_1D1</ondergrondschematisatie>
       <stochasten>
-        <stochast naam="polderpeil">
+        <stochast naam="binnendijksewaterstand">
           <verwachtingswaarde>7.65</verwachtingswaarde>
           <standaardafwijking>0.1</standaardafwijking>
         </stochast>
@@ -343,7 +343,7 @@
       <ondergrondmodel>50006_Piping</ondergrondmodel>
       <ondergrondschematisatie>Segment_50006_1D2</ondergrondschematisatie>
       <stochasten>
-        <stochast naam="polderpeil">
+        <stochast naam="binnendijksewaterstand">
           <verwachtingswaarde>7.65</verwachtingswaarde>
           <standaardafwijking>0.1</standaardafwijking>
         </stochast>

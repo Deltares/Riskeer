@@ -59,31 +59,51 @@ namespace Riskeer.MacroStabilityInwards.IO.Configurations
         /// </list>
         /// </exception>
         internal MacroStabilityInwardsCalculationConfigurationReader(string xmlFilePath)
-            : base(xmlFilePath,
-                   Resources.MacroStabiliteitBinnenwaartsConfiguratieSchema,
-                   new Dictionary<string, string>
-                   {
-                       {
-                           scenarioSchemaName, RiskeerCommonIOResources.ScenarioSchema
-                       },
-                       {
-                           waternetCreatorSchemaSchemaName, Resources.MacroStabiliteitBinnenwaartsWaterspanningenSchema
-                       },
-                       {
-                           slopeStabilityZonesSchemaName, Resources.MacroStabiliteitBinnenwaartsZonesSchema
-                       },
-                       {
-                           slopeStabilityGridsSchemaName, Resources.MacroStabiliteitBinnenwaartsGridsSchema
-                       }
-                   }) {}
+            : base(xmlFilePath, new[]
+            {
+                new CalculationConfigurationSchemaDefinition(
+                    0, Resources.MacroStabiliteitBinnenwaartsConfiguratieSchema_0,
+                    new Dictionary<string, string>
+                    {
+                        {
+                            scenarioSchemaName, RiskeerCommonIOResources.ScenarioSchema
+                        },
+                        {
+                            waternetCreatorSchemaSchemaName, Resources.MacroStabiliteitBinnenwaartsWaterspanningenSchema
+                        },
+                        {
+                            slopeStabilityZonesSchemaName, Resources.MacroStabiliteitBinnenwaartsZonesSchema
+                        },
+                        {
+                            slopeStabilityGridsSchemaName, Resources.MacroStabiliteitBinnenwaartsGridsSchema
+                        }
+                    }, null),
+                new CalculationConfigurationSchemaDefinition(
+                    1, Resources.MacroStabiliteitBinnenwaartsConfiguratieSchema,
+                    new Dictionary<string, string>
+                    {
+                        {
+                            scenarioSchemaName, RiskeerCommonIOResources.ScenarioSchema
+                        },
+                        {
+                            waternetCreatorSchemaSchemaName, Resources.MacroStabiliteitBinnenwaartsWaterspanningenSchema
+                        },
+                        {
+                            slopeStabilityZonesSchemaName, Resources.MacroStabiliteitBinnenwaartsZonesSchema
+                        },
+                        {
+                            slopeStabilityGridsSchemaName, Resources.MacroStabiliteitBinnenwaartsGridsSchema
+                        }
+                    }, Resources.MacroStabiliteitBinnenwaartsConfiguratieSchema0To1)
+            }) {}
 
         protected override MacroStabilityInwardsCalculationConfiguration ParseCalculationElement(XElement calculationElement)
         {
             var configuration = new MacroStabilityInwardsCalculationConfiguration(
                 calculationElement.Attribute(ConfigurationSchemaIdentifiers.NameAttribute).Value)
             {
-                AssessmentLevel = GetAssessmentLevel(calculationElement),
-                HydraulicBoundaryLocationName = calculationElement.GetHydraulicBoundaryLocationName(),
+                AssessmentLevel = calculationElement.GetDoubleValueFromDescendantElement(MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.WaterLevelElement),
+                HydraulicBoundaryLocationName = calculationElement.GetStringValueFromDescendantElement(ConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElement),
                 SurfaceLineName = calculationElement.GetStringValueFromDescendantElement(
                     MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.SurfaceLineElement),
                 StochasticSoilModelName = calculationElement.GetStringValueFromDescendantElement(
@@ -93,7 +113,6 @@ namespace Riskeer.MacroStabilityInwards.IO.Configurations
                 DikeSoilScenario = (ConfigurationDikeSoilScenario?)
                     calculationElement.GetConvertedValueFromDescendantStringElement<ConfigurationDikeSoilScenarioTypeConverter>(
                         MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.DikeSoilScenarioElement),
-
                 WaterLevelRiverAverage = calculationElement.GetDoubleValueFromDescendantElement(
                     MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.WaterLevelRiverAverageElement),
                 DrainageConstructionPresent = calculationElement.GetBoolValueFromDescendantElement(
@@ -102,20 +121,16 @@ namespace Riskeer.MacroStabilityInwards.IO.Configurations
                     MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.XCoordinateDrainageConstructionElement),
                 ZCoordinateDrainageConstruction = calculationElement.GetDoubleValueFromDescendantElement(
                     MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.ZCoordinateDrainageConstructionElement),
-
                 AdjustPhreaticLine3And4ForUplift = calculationElement.GetBoolValueFromDescendantElement(
                     MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.AdjustPhreaticLine3And4ForUpliftElement),
-
                 LocationInputDaily = calculationElement.GetMacroStabilityInwardsLocationInputConfiguration(),
                 LocationInputExtreme = calculationElement.GetMacroStabilityInwardsLocationInputExtremeConfiguration(),
-
                 SlipPlaneMinimumDepth = calculationElement.GetDoubleValueFromDescendantElement(
                     MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.SlipPlaneMinimumDepthElement),
                 SlipPlaneMinimumLength = calculationElement.GetDoubleValueFromDescendantElement(
                     MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.SlipPlaneMinimumLengthElement),
                 MaximumSliceWidth = calculationElement.GetDoubleValueFromDescendantElement(
                     MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.MaximumSliceWidthElement),
-
                 Scenario = calculationElement.GetScenarioConfiguration()
             };
 
@@ -127,12 +142,6 @@ namespace Riskeer.MacroStabilityInwards.IO.Configurations
             SetGridProperties(configuration, calculationElement);
 
             return configuration;
-        }
-
-        private static double? GetAssessmentLevel(XElement calculationElement)
-        {
-            return calculationElement.GetDoubleValueFromDescendantElement(MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.WaterLevelElement)
-                   ?? calculationElement.GetDoubleValueFromDescendantElement(MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.AssessmentLevelElement);
         }
 
         /// <summary>

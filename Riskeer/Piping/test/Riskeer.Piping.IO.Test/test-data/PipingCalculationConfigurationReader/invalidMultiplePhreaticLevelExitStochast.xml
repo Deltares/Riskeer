@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<configuratie>
+<configuratie versie="1">
   <berekening naam="Calculation 2">
     <stochasten>
-      <stochast naam="polderpeil">
+      <stochast naam="binnendijksewaterstand">
         <verwachtingswaarde>0.000</verwachtingswaarde>
         <standaardafwijking>0.100</standaardafwijking>
       </stochast>
-      <stochast naam="polderpeil">
+      <stochast naam="binnendijksewaterstand">
         <verwachtingswaarde>0.000</verwachtingswaarde>
         <standaardafwijking>0.100</standaardafwijking>
       </stochast>

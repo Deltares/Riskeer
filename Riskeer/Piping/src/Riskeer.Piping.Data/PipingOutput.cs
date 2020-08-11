@@ -46,11 +46,8 @@ namespace Riskeer.Piping.Data
             }
 
             HeaveFactorOfSafety = constructionProperties.HeaveFactorOfSafety;
-            HeaveZValue = constructionProperties.HeaveZValue;
             UpliftFactorOfSafety = constructionProperties.UpliftFactorOfSafety;
-            UpliftZValue = constructionProperties.UpliftZValue;
             SellmeijerFactorOfSafety = constructionProperties.SellmeijerFactorOfSafety;
-            SellmeijerZValue = constructionProperties.SellmeijerZValue;
             UpliftEffectiveStress = new RoundedDouble(2, constructionProperties.UpliftEffectiveStress);
             HeaveGradient = new RoundedDouble(2, constructionProperties.HeaveGradient);
             SellmeijerCreepCoefficient = new RoundedDouble(1, constructionProperties.SellmeijerCreepCoefficient);
@@ -59,30 +56,15 @@ namespace Riskeer.Piping.Data
         }
 
         /// <summary>
-        /// Gets the calculated z-value for the uplift sub calculation.
-        /// </summary>
-        public double UpliftZValue { get; }
-
-        /// <summary>
         /// Gets the factor of safety for the uplift sub calculation.
         /// </summary>
         public double UpliftFactorOfSafety { get; }
-
-        /// <summary>
-        /// Gets the calculated z-value for the heave sub calculation.
-        /// </summary>
-        public double HeaveZValue { get; }
-
+        
         /// <summary>
         /// Gets the factor of safety for the heave sub calculation.
         /// </summary>
         public double HeaveFactorOfSafety { get; }
-
-        /// <summary>
-        /// Gets the calculated z-value for the Sellmeijer sub calculation.
-        /// </summary>
-        public double SellmeijerZValue { get; }
-
+        
         /// <summary>
         /// Gets the factor of safety for the Sellmeijer sub calculation.
         /// </summary>
@@ -123,11 +105,8 @@ namespace Riskeer.Piping.Data
             /// </summary>
             public ConstructionProperties()
             {
-                UpliftZValue = double.NaN;
                 UpliftFactorOfSafety = double.NaN;
-                HeaveZValue = double.NaN;
                 HeaveFactorOfSafety = double.NaN;
-                SellmeijerZValue = double.NaN;
                 SellmeijerFactorOfSafety = double.NaN;
                 UpliftEffectiveStress = double.NaN;
                 HeaveGradient = double.NaN;
@@ -137,30 +116,15 @@ namespace Riskeer.Piping.Data
             }
 
             /// <summary>
-            /// Sets the calculated z-value for the uplift sub calculation.
-            /// </summary>
-            public double UpliftZValue { internal get; set; }
-
-            /// <summary>
             /// Sets the factor of safety for the uplift sub calculation.
             /// </summary>
             public double UpliftFactorOfSafety { internal get; set; }
 
             /// <summary>
-            /// Sets the calculated z-value for the heave sub calculation.
-            /// </summary>
-            public double HeaveZValue { internal get; set; }
-
-            /// <summary>
             /// Sets the factor of safety for the heave sub calculation.
             /// </summary>
             public double HeaveFactorOfSafety { internal get; set; }
-
-            /// <summary>
-            /// Sets the calculated z-value for the Sellmeijer sub calculation.
-            /// </summary>
-            public double SellmeijerZValue { internal get; set; }
-
+            
             /// <summary>
             /// Sets the factor of safety for the Sellmeijer sub calculation.
             /// </summary>

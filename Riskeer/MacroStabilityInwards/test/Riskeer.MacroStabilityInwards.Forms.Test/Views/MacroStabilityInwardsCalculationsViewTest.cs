@@ -62,7 +62,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             // Assert
             Assert.IsInstanceOf<CalculationsView<MacroStabilityInwardsCalculationScenario, MacroStabilityInwardsInput, MacroStabilityInwardsCalculationRow, MacroStabilityInwardsFailureMechanism>>(view);
 
-            var button = (Button)new ControlTester("generateButton").TheObject;
+            var button = (Button) new ControlTester("generateButton").TheObject;
             Assert.AreEqual("Genereer &scenario's...", button.Text);
         }
 
@@ -112,17 +112,17 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
 
             // Call
             ShowMacroStabilityInwardsCalculationsView(ConfigureCalculationGroup(assessmentSection, failureMechanism),
-                                       failureMechanism, assessmentSection);
+                                                      failureMechanism, assessmentSection);
 
-            var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
             // Assert
-            DataGridViewComboBoxCell.ObjectCollection stochasticSoilModelsComboboxItems = ((DataGridViewComboBoxCell)dataGridView.Rows[0].Cells[stochasticSoilModelsColumnIndex]).Items;
+            DataGridViewComboBoxCell.ObjectCollection stochasticSoilModelsComboboxItems = ((DataGridViewComboBoxCell) dataGridView.Rows[0].Cells[stochasticSoilModelsColumnIndex]).Items;
             Assert.AreEqual(2, stochasticSoilModelsComboboxItems.Count);
             Assert.AreEqual("<selecteer>", stochasticSoilModelsComboboxItems[0].ToString());
             Assert.AreEqual("Model A", stochasticSoilModelsComboboxItems[1].ToString());
 
-            stochasticSoilModelsComboboxItems = ((DataGridViewComboBoxCell)dataGridView.Rows[1].Cells[stochasticSoilModelsColumnIndex]).Items;
+            stochasticSoilModelsComboboxItems = ((DataGridViewComboBoxCell) dataGridView.Rows[1].Cells[stochasticSoilModelsColumnIndex]).Items;
             Assert.AreEqual(3, stochasticSoilModelsComboboxItems.Count);
             Assert.AreEqual("<selecteer>", stochasticSoilModelsComboboxItems[0].ToString());
             Assert.AreEqual("Model A", stochasticSoilModelsComboboxItems[1].ToString());
@@ -144,18 +144,18 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
 
             // Call
             ShowMacroStabilityInwardsCalculationsView(ConfigureCalculationGroup(assessmentSection, failureMechanism),
-                                       failureMechanism, assessmentSection);
+                                                      failureMechanism, assessmentSection);
 
-            var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
             // Assert
-            DataGridViewComboBoxCell.ObjectCollection soilProfilesComboboxItems = ((DataGridViewComboBoxCell)dataGridView.Rows[0].Cells[stochasticSoilProfilesColumnIndex]).Items;
+            DataGridViewComboBoxCell.ObjectCollection soilProfilesComboboxItems = ((DataGridViewComboBoxCell) dataGridView.Rows[0].Cells[stochasticSoilProfilesColumnIndex]).Items;
             Assert.AreEqual(3, soilProfilesComboboxItems.Count);
             Assert.AreEqual("<selecteer>", soilProfilesComboboxItems[0].ToString());
             Assert.AreEqual("Profile 1", soilProfilesComboboxItems[1].ToString());
             Assert.AreEqual("Profile 2", soilProfilesComboboxItems[2].ToString());
 
-            soilProfilesComboboxItems = ((DataGridViewComboBoxCell)dataGridView.Rows[1].Cells[stochasticSoilProfilesColumnIndex]).Items;
+            soilProfilesComboboxItems = ((DataGridViewComboBoxCell) dataGridView.Rows[1].Cells[stochasticSoilProfilesColumnIndex]).Items;
             Assert.AreEqual(2, soilProfilesComboboxItems.Count);
             Assert.AreEqual("<selecteer>", soilProfilesComboboxItems[0].ToString());
             Assert.AreEqual("Profile 5", soilProfilesComboboxItems[1].ToString());
@@ -176,9 +176,9 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
 
             // Call
             ShowMacroStabilityInwardsCalculationsView(ConfigureCalculationGroup(assessmentSection, failureMechanism),
-                                       failureMechanism, assessmentSection);
+                                                      failureMechanism, assessmentSection);
 
-            var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
             // Assert
             DataGridViewRowCollection rows = dataGridView.Rows;
@@ -220,7 +220,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
 
             ShowMacroStabilityInwardsCalculationsView(new CalculationGroup(), failureMechanism, assessmentSection);
 
-            var button = (Button)new ControlTester("generateButton").TheObject;
+            var button = (Button) new ControlTester("generateButton").TheObject;
 
             // Call
             bool state = button.Enabled;
@@ -247,7 +247,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
 
             ShowMacroStabilityInwardsCalculationsView(new CalculationGroup(), failureMechanism, assessmentSection);
 
-            var button = (Button)new ControlTester("generateButton").TheObject;
+            var button = (Button) new ControlTester("generateButton").TheObject;
 
             // Call
             bool state = button.Enabled;
@@ -279,7 +279,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
 
             ShowMacroStabilityInwardsCalculationsView(new CalculationGroup(), failureMechanism, assessmentSection);
 
-            var button = (Button)new ControlTester("generateButton").TheObject;
+            var button = (Button) new ControlTester("generateButton").TheObject;
 
             // Call
             bool state = button.Enabled;
@@ -309,7 +309,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             failureMechanism.NotifyObservers();
 
             // Then
-            var button = (Button)new ControlTester("generateButton").TheObject;
+            var button = (Button) new ControlTester("generateButton").TheObject;
             Assert.IsFalse(button.Enabled);
             mocks.VerifyAll();
         }
@@ -334,7 +334,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             failureMechanism.NotifyObservers();
 
             // Then
-            var button = (Button)new ControlTester("generateButton").TheObject;
+            var button = (Button) new ControlTester("generateButton").TheObject;
             Assert.IsFalse(button.Enabled);
             mocks.VerifyAll();
         }
@@ -350,11 +350,11 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
 
             MacroStabilityInwardsFailureMechanism failureMechanism = ConfigureFailureMechanism();
 
-             ShowMacroStabilityInwardsCalculationsView(ConfigureCalculationGroup(assessmentSection, failureMechanism), failureMechanism, assessmentSection);
+            ShowMacroStabilityInwardsCalculationsView(ConfigureCalculationGroup(assessmentSection, failureMechanism), failureMechanism, assessmentSection);
 
-            var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
-            var soilModelsComboBox = (DataGridViewComboBoxColumn)dataGridView.Columns[stochasticSoilModelsColumnIndex];
-            var soilProfilesComboBox = (DataGridViewComboBoxColumn)dataGridView.Columns[stochasticSoilProfilesColumnIndex];
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+            var soilModelsComboBox = (DataGridViewComboBoxColumn) dataGridView.Columns[stochasticSoilModelsColumnIndex];
+            var soilProfilesComboBox = (DataGridViewComboBoxColumn) dataGridView.Columns[stochasticSoilProfilesColumnIndex];
 
             // Precondition
             Assert.AreEqual(4, soilModelsComboBox.Items.Count);
@@ -362,13 +362,13 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
 
             // When
             failureMechanism.StochasticSoilModels.AddRange(new[]
+            {
+                MacroStabilityInwardsStochasticSoilModelTestFactory.CreateValidStochasticSoilModel("Model F", new[]
                 {
-                    MacroStabilityInwardsStochasticSoilModelTestFactory.CreateValidStochasticSoilModel("Model F", new[]
-                    {
-                        new Point2D(0.0, 0.0),
-                        new Point2D(5.0, 0.0)
-                    })
-                }, string.Empty);
+                    new Point2D(0.0, 0.0),
+                    new Point2D(5.0, 0.0)
+                })
+            }, string.Empty);
             failureMechanism.StochasticSoilModels.NotifyObservers();
 
             // Then
@@ -407,9 +407,9 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             MacroStabilityInwardsFailureMechanism failureMechanism = ConfigureFailureMechanism();
 
             MacroStabilityInwardsCalculationsView view = ShowMacroStabilityInwardsCalculationsView(ConfigureCalculationGroup(assessmentSection, failureMechanism),
-                                                                     failureMechanism, assessmentSection);
+                                                                                                   failureMechanism, assessmentSection);
 
-            var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
             dataGridView.CurrentCell = dataGridView.Rows[selectedRow].Cells[0];
 
@@ -418,8 +418,8 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
 
             // Assert
             Assert.IsInstanceOf<MacroStabilityInwardsInputContext>(selection);
-            var dataRow = (MacroStabilityInwardsCalculationRow)dataGridView.Rows[selectedRow].DataBoundItem;
-            Assert.AreSame(dataRow.Calculation, ((MacroStabilityInwardsInputContext)selection).MacroStabilityInwardsCalculation);
+            var dataRow = (MacroStabilityInwardsCalculationRow) dataGridView.Rows[selectedRow].DataBoundItem;
+            Assert.AreSame(dataRow.Calculation, ((MacroStabilityInwardsInputContext) selection).MacroStabilityInwardsCalculation);
 
             mocks.VerifyAll();
         }
@@ -463,7 +463,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
 
             ShowMacroStabilityInwardsCalculationsView(calculationGroup, failureMechanism, assessmentSection);
 
-            var calculation = (MacroStabilityInwardsCalculationScenario)calculationGroup.Children[1];
+            var calculation = (MacroStabilityInwardsCalculationScenario) calculationGroup.Children[1];
 
             if (useCalculationWithOutput)
             {
@@ -473,10 +473,10 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             calculation.Attach(calculationObserver);
             calculation.InputParameters.Attach(calculationInputObserver);
 
-            var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
             // Call
-            dataGridView.Rows[1].Cells[cellIndex].Value = newValue is double value ? (RoundedDouble)value : newValue;
+            dataGridView.Rows[1].Cells[cellIndex].Value = newValue is double value ? (RoundedDouble) value : newValue;
 
             // Assert
             Assert.IsNull(calculation.Output);
@@ -497,14 +497,14 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
 
             ShowMacroStabilityInwardsCalculationsView(calculationGroup, failureMechanism, assessmentSection);
 
-            var calculation = (MacroStabilityInwardsCalculationScenario)calculationGroup.Children[1];
+            var calculation = (MacroStabilityInwardsCalculationScenario) calculationGroup.Children[1];
 
-            var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
             var refreshed = 0;
 
             // Precondition
-            var currentCell = (DataGridViewTextBoxCell)dataGridView.Rows[1].Cells[stochasticSoilProfilesProbabilityColumnIndex];
+            var currentCell = (DataGridViewTextBoxCell) dataGridView.Rows[1].Cells[stochasticSoilProfilesProbabilityColumnIndex];
             Assert.AreEqual(GetFormattedProbabilityValue(30), currentCell.FormattedValue);
 
             MacroStabilityInwardsStochasticSoilProfile stochasticSoilProfileToChange = calculation.InputParameters.StochasticSoilProfile;
@@ -517,7 +517,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
 
             // Then
             Assert.AreEqual(1, refreshed);
-            var cell = (DataGridViewTextBoxCell)dataGridView.Rows[1].Cells[stochasticSoilProfilesProbabilityColumnIndex];
+            var cell = (DataGridViewTextBoxCell) dataGridView.Rows[1].Cells[stochasticSoilProfilesProbabilityColumnIndex];
             Assert.AreEqual(GetFormattedProbabilityValue(50), cell.FormattedValue);
 
             mocks.VerifyAll();
@@ -537,7 +537,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
 
             MacroStabilityInwardsCalculationsView view = ShowMacroStabilityInwardsCalculationsView(calculationGroup, failureMechanism, assessmentSection);
 
-            var calculation = (MacroStabilityInwardsCalculationScenario)calculationGroup.Children[0];
+            var calculation = (MacroStabilityInwardsCalculationScenario) calculationGroup.Children[0];
 
             DataGridViewControl dataGridView = view.Controls.Find("dataGridViewControl", true).OfType<DataGridViewControl>().First();
             ListBox listBox = view.Controls.Find("listBox", true).OfType<ListBox>().First();
@@ -581,38 +581,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             mocks.VerifyAll();
         }
 
-        [TestCase(true)]
-        [TestCase(false)]
-        public void CalculationsViewWithHydraulicLocation_SpecificUseAssessmentLevelManualInputState_SelectableHydraulicLocationReadonlyAccordingly(bool useAssessmentLevelManualInput)
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            ConfigureHydraulicBoundaryDatabase(assessmentSection);
-            mocks.ReplayAll();
-
-            MacroStabilityInwardsFailureMechanism failureMechanism = ConfigureFailureMechanism();
-            CalculationGroup calculationGroup = ConfigureCalculationGroup(assessmentSection, failureMechanism);
-
-            ShowMacroStabilityInwardsCalculationsView(calculationGroup, failureMechanism, assessmentSection);
-
-            var calculation = (MacroStabilityInwardsCalculationScenario)calculationGroup.Children.First();
-
-            var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
-
-            // Call
-            calculation.InputParameters.UseAssessmentLevelManualInput = useAssessmentLevelManualInput;
-            calculation.InputParameters.NotifyObservers();
-
-            // Assert
-            Assert.IsFalse(dataGridView.Rows[0].ReadOnly);
-
-            var currentCellUpdated = (DataGridViewComboBoxCell)dataGridView.Rows[0].Cells[selectableHydraulicBoundaryLocationsColumnIndex];
-            Assert.AreEqual(useAssessmentLevelManualInput, currentCellUpdated.ReadOnly);
-
-            mocks.VerifyAll();
-        }
-
         [Test]
         public void GivenCalculationsView_WhenGenerateScenariosButtonClicked_ThenShowViewWithSurfaceLines()
         {
@@ -643,8 +611,8 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             var rows = 0;
             DialogBoxHandler = (name, wnd) =>
             {
-                selectionDialog = (MacroStabilityInwardsSurfaceLineSelectionDialog)new FormTester(name).TheObject;
-                grid = (DataGridViewControl)new ControlTester("DataGridViewControl", selectionDialog).TheObject;
+                selectionDialog = (MacroStabilityInwardsSurfaceLineSelectionDialog) new FormTester(name).TheObject;
+                grid = (DataGridViewControl) new ControlTester("DataGridViewControl", selectionDialog).TheObject;
                 rows = grid.Rows.Count;
 
                 new ButtonTester("CustomCancelButton", selectionDialog).Click();
@@ -690,8 +658,8 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
 
             DialogBoxHandler = (name, wnd) =>
             {
-                var selectionDialog = (MacroStabilityInwardsSurfaceLineSelectionDialog)new FormTester(name).TheObject;
-                var selectionView = (DataGridViewControl)new ControlTester("DataGridViewControl", selectionDialog).TheObject;
+                var selectionDialog = (MacroStabilityInwardsSurfaceLineSelectionDialog) new FormTester(name).TheObject;
+                var selectionView = (DataGridViewControl) new ControlTester("DataGridViewControl", selectionDialog).TheObject;
                 selectionView.Rows[0].Cells[0].Value = true;
 
                 // When
@@ -721,8 +689,8 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
 
             DialogBoxHandler = (name, wnd) =>
             {
-                var selectionDialog = (MacroStabilityInwardsSurfaceLineSelectionDialog)new FormTester(name).TheObject;
-                var selectionView = (DataGridViewControl)new ControlTester("DataGridViewControl", selectionDialog).TheObject;
+                var selectionDialog = (MacroStabilityInwardsSurfaceLineSelectionDialog) new FormTester(name).TheObject;
+                var selectionView = (DataGridViewControl) new ControlTester("DataGridViewControl", selectionDialog).TheObject;
                 selectionView.Rows[0].Cells[0].Value = true;
 
                 // When
@@ -766,8 +734,8 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
 
             DialogBoxHandler = (name, wnd) =>
             {
-                var selectionDialog = (MacroStabilityInwardsSurfaceLineSelectionDialog)new FormTester(name).TheObject;
-                var selectionView = (DataGridViewControl)new ControlTester("DataGridViewControl", selectionDialog).TheObject;
+                var selectionDialog = (MacroStabilityInwardsSurfaceLineSelectionDialog) new FormTester(name).TheObject;
+                var selectionView = (DataGridViewControl) new ControlTester("DataGridViewControl", selectionDialog).TheObject;
                 selectionView.Rows[0].Cells[0].Value = true;
 
                 // When
@@ -779,6 +747,38 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             // Then
             CollectionAssert.IsEmpty(failureMechanism.Calculations);
             mocks.VerifyAll(); // No observer notified
+        }
+
+        [TestCase(true)]
+        [TestCase(false)]
+        public void CalculationsViewWithHydraulicLocation_SpecificUseAssessmentLevelManualInputState_SelectableHydraulicLocationReadonlyAccordingly(bool useAssessmentLevelManualInput)
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            ConfigureHydraulicBoundaryDatabase(assessmentSection);
+            mocks.ReplayAll();
+
+            MacroStabilityInwardsFailureMechanism failureMechanism = ConfigureFailureMechanism();
+            CalculationGroup calculationGroup = ConfigureCalculationGroup(assessmentSection, failureMechanism);
+
+            ShowMacroStabilityInwardsCalculationsView(calculationGroup, failureMechanism, assessmentSection);
+
+            var calculation = (MacroStabilityInwardsCalculationScenario) calculationGroup.Children.First();
+
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+
+            // Call
+            calculation.InputParameters.UseAssessmentLevelManualInput = useAssessmentLevelManualInput;
+            calculation.InputParameters.NotifyObservers();
+
+            // Assert
+            Assert.IsFalse(dataGridView.Rows[0].ReadOnly);
+
+            var currentCellUpdated = (DataGridViewComboBoxCell) dataGridView.Rows[0].Cells[selectableHydraulicBoundaryLocationsColumnIndex];
+            Assert.AreEqual(useAssessmentLevelManualInput, currentCellUpdated.ReadOnly);
+
+            mocks.VerifyAll();
         }
 
         public override void Setup()

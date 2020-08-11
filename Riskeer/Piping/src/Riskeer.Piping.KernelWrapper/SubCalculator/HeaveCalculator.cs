@@ -46,14 +46,6 @@ namespace Riskeer.Piping.KernelWrapper.SubCalculator
             }
         }
 
-        public double Zh
-        {
-            get
-            {
-                return wrappedCalculator.Zh;
-            }
-        }
-
         public double FoSh
         {
             get

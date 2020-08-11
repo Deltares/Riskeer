@@ -32,6 +32,11 @@ namespace Riskeer.Common.IO.Configurations
         public const string ConfigurationElement = "configuratie";
 
         /// <summary>
+        /// The identifier for version attributes.
+        /// </summary>
+        public const string VersionAttribute = "versie";
+
+        /// <summary>
         /// The identifier for calculation elements.
         /// </summary>
         public const string CalculationElement = "berekening";
@@ -47,16 +52,9 @@ namespace Riskeer.Common.IO.Configurations
         public const string NameAttribute = "naam";
 
         /// <summary>
-        /// The old identifier for hydraulic boundary location elements.
+        /// The identifier for hydraulic boundary location elements.
         /// </summary>
-        /// <remarks>This property represents the element name before the rename.</remarks>
-        public const string HydraulicBoundaryLocationElementOld = "hrlocatie";
-
-        /// <summary>
-        /// The new identifier for hydraulic boundary location elements.
-        /// </summary>
-        /// <remarks>This property represents the element name after the rename.</remarks>
-        public const string HydraulicBoundaryLocationElementNew = "hblocatie";
+        public const string HydraulicBoundaryLocationElement = "hblocatie";
 
         /// <summary>
         /// The tag of elements containing the orientation of the profile.

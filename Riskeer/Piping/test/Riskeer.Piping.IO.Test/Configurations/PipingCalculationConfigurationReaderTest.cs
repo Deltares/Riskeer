@@ -42,12 +42,6 @@ namespace Riskeer.Piping.IO.Test.Configurations
         {
             get
             {
-                yield return new TestCaseData("invalidAssessmentLevelEmpty.xml",
-                                              "The 'toetspeil' element is invalid - The value '' is invalid according to its datatype 'Double'")
-                    .SetName("invalidAssessmentLevelEmpty");
-                yield return new TestCaseData("invalidAssessmentLevelNoDouble.xml",
-                                              "The 'toetspeil' element is invalid - The value 'string' is invalid according to its datatype 'Double'")
-                    .SetName("invalidAssessmentLevelNoDouble");
                 yield return new TestCaseData("invalidWaterLevelEmpty.xml",
                                               "The 'waterstand' element is invalid - The value '' is invalid according to its datatype 'Double'")
                     .SetName("invalidWaterLevelEmpty");
@@ -91,35 +85,20 @@ namespace Riskeer.Piping.IO.Test.Configurations
                                               "The 'standaardafwijking' element is invalid - The value 'string' is invalid according to its datatype 'Double'")
                     .SetName("invalidStochastStandardDeviationNoDouble");
                 yield return new TestCaseData("invalidMultiplePhreaticLevelExitStochast.xml",
-                                              "There is a duplicate key sequence 'polderpeil' for the 'uniqueStochastNameConstraint' key or unique identity constraint.")
+                                              "There is a duplicate key sequence 'binnendijksewaterstand' for the 'uniqueStochastNameConstraint' key or unique identity constraint.")
                     .SetName("invalidMultiplePhreaticLevelExitStochast");
                 yield return new TestCaseData("invalidMultipleDampingFactorExitStochast.xml",
                                               "There is a duplicate key sequence 'dempingsfactor' for the 'uniqueStochastNameConstraint' key or unique identity constraint.")
                     .SetName("invalidMultipleDampingFactorExitStochast");
-                yield return new TestCaseData("invalidContainingBothAssessmentLevelAndHydraulicBoundaryLocationOld.xml",
-                                              "Element 'hrlocatie' cannot appear more than once if content model type is \"all\".")
-                    .SetName("invalidContainingBothAssessmentLevelAndHydraulicBoundaryLocationOld");
-                yield return new TestCaseData("invalidContainingBothAssessmentLevelAndHydraulicBoundaryLocationNew.xml",
+                yield return new TestCaseData("invalidContainingBothWaterLevelAndHydraulicBoundaryLocation.xml",
                                               "Element 'hblocatie' cannot appear more than once if content model type is \"all\".")
-                    .SetName("invalidContainingBothAssessmentLevelAndHydraulicBoundaryLocationNew");
-                yield return new TestCaseData("invalidContainingBothWaterLevelAndHydraulicBoundaryLocationOld.xml",
-                                              "Element 'hrlocatie' cannot appear more than once if content model type is \"all\".")
-                    .SetName("invalidContainingBothWaterLevelAndHydraulicBoundaryLocationOld");
-                yield return new TestCaseData("invalidContainingBothWaterLevelAndHydraulicBoundaryLocationNew.xml",
-                                              "Element 'hblocatie' cannot appear more than once if content model type is \"all\".")
-                    .SetName("invalidContainingBothWaterLevelAndHydraulicBoundaryLocationNew");
-                yield return new TestCaseData("invalidCalculationMultipleAssessmentLevel.xml",
-                                              "Element 'toetspeil' cannot appear more than once if content model type is \"all\".")
-                    .SetName("invalidCalculationMultipleAssessmentLevel");
+                    .SetName("invalidContainingBothWaterLevelAndHydraulicBoundaryLocation");
                 yield return new TestCaseData("invalidCalculationMultipleWaterLevel.xml",
                                               "Element 'waterstand' cannot appear more than once if content model type is \"all\".")
                     .SetName("invalidCalculationMultipleWaterLevel");
-                yield return new TestCaseData("invalidCalculationMultipleHydraulicBoundaryLocationOld.xml",
-                                              "Element 'hrlocatie' cannot appear more than once if content model type is \"all\".")
-                    .SetName("invalidCalculationMultipleHydraulicBoundaryLocationOld");
-                yield return new TestCaseData("invalidCalculationMultipleHydraulicBoundaryLocationNew.xml",
+                yield return new TestCaseData("invalidCalculationMultipleHydraulicBoundaryLocation.xml",
                                               "Element 'hblocatie' cannot appear more than once if content model type is \"all\".")
-                    .SetName("invalidCalculationMultipleHydraulicBoundaryLocationNew");
+                    .SetName("invalidCalculationMultipleHydraulicBoundaryLocation");
                 yield return new TestCaseData("invalidCalculationMultipleSurfaceLine.xml",
                                               "Element 'profielschematisatie' cannot appear more than once if content model type is \"all\".")
                     .SetName("invalidCalculationMultipleSurfaceLine");
@@ -138,12 +117,9 @@ namespace Riskeer.Piping.IO.Test.Configurations
                 yield return new TestCaseData("invalidCalculationMultipleStochasts.xml",
                                               "Element 'stochasten' cannot appear more than once if content model type is \"all\".")
                     .SetName("invalidCalculationMultipleStochasts");
-                yield return new TestCaseData("invalidConfigurationCalculationContainingEmptyHydraulicBoundaryLocationOld.xml",
-                                              "The 'hrlocatie' element is invalid - The value '' is invalid according to its datatype 'String' - The actual length is less than the MinLength value.")
-                    .SetName("invalidConfigurationCalculationContainingEmptyHydraulicBoundaryLocationOld");
-                yield return new TestCaseData("invalidConfigurationCalculationContainingEmptyHydraulicBoundaryLocationNew.xml",
+                yield return new TestCaseData("invalidConfigurationCalculationContainingEmptyHydraulicBoundaryLocation.xml",
                                               "The 'hblocatie' element is invalid - The value '' is invalid according to its datatype 'String' - The actual length is less than the MinLength value.")
-                    .SetName("invalidConfigurationCalculationContainingEmptyHydraulicBoundaryLocationNew");
+                    .SetName("invalidConfigurationCalculationContainingEmptyHydraulicBoundaryLocation");
                 yield return new TestCaseData("invalidConfigurationCalculationContainingEmptySurfaceLine.xml",
                                               "The 'profielschematisatie' element is invalid - The value '' is invalid according to its datatype 'String' - The actual length is less than the MinLength value.")
                     .SetName("invalidConfigurationCalculationContainingEmptySurfaceLine");
@@ -174,12 +150,6 @@ namespace Riskeer.Piping.IO.Test.Configurations
                 yield return new TestCaseData("invalidScenarioRelevantNoBoolean.xml",
                                               "The 'gebruik' element is invalid - The value 'string' is invalid according to its datatype 'Boolean'")
                     .SetName("invalidScenarioRelevantNoBoolean");
-                yield return new TestCaseData("invalidContainingBothAssessmentLevelAndWaterLevel.xml",
-                                              "Element 'toetspeil' cannot appear more than once if content model type is \"all\".")
-                    .SetName("invalidContainingBothAssessmentLevelAndWaterLevel");
-                yield return new TestCaseData("invalidContainingBothHydraulicBoundaryLocationOldAndNew.xml",
-                                              "Element 'hrlocatie' cannot appear more than once if content model type is \"all\".")
-                    .SetName("invalidContainingBothHydraulicBoundaryLocationOldAndNew");
             }
         }
 
@@ -191,10 +161,10 @@ namespace Riskeer.Piping.IO.Test.Configurations
             string filePath = Path.Combine(testDirectoryPath, fileName);
 
             // Call
-            TestDelegate call = () => new PipingCalculationConfigurationReader(filePath);
+            void Call() => new PipingCalculationConfigurationReader(filePath);
 
             // Assert
-            var exception = Assert.Throws<CriticalFileReadException>(call);
+            var exception = Assert.Throws<CriticalFileReadException>(Call);
             Assert.IsInstanceOf<XmlSchemaValidationException>(exception.InnerException);
             StringAssert.Contains(expectedParsingMessage, exception.InnerException?.Message);
         }
@@ -223,19 +193,19 @@ namespace Riskeer.Piping.IO.Test.Configurations
             IEnumerable<IConfigurationItem> readConfigurationItems = reader.Read().ToArray();
 
             // Assert
-            var calculation = (PipingCalculationConfiguration) readConfigurationItems.Single();
+            var configuration = (PipingCalculationConfiguration) readConfigurationItems.Single();
 
-            Assert.AreEqual("Calculation", calculation.Name);
-            Assert.IsNull(calculation.AssessmentLevel);
-            Assert.IsNull(calculation.HydraulicBoundaryLocationName);
-            Assert.IsNull(calculation.SurfaceLineName);
-            Assert.IsNull(calculation.EntryPointL);
-            Assert.IsNull(calculation.ExitPointL);
-            Assert.IsNull(calculation.StochasticSoilModelName);
-            Assert.IsNull(calculation.StochasticSoilProfileName);
-            Assert.IsNull(calculation.PhreaticLevelExit);
-            Assert.IsNull(calculation.DampingFactorExit);
-            Assert.IsNull(calculation.Scenario);
+            Assert.AreEqual("Calculation", configuration.Name);
+            Assert.IsNull(configuration.AssessmentLevel);
+            Assert.IsNull(configuration.HydraulicBoundaryLocationName);
+            Assert.IsNull(configuration.SurfaceLineName);
+            Assert.IsNull(configuration.EntryPointL);
+            Assert.IsNull(configuration.ExitPointL);
+            Assert.IsNull(configuration.StochasticSoilModelName);
+            Assert.IsNull(configuration.StochasticSoilProfileName);
+            Assert.IsNull(configuration.PhreaticLevelExit);
+            Assert.IsNull(configuration.DampingFactorExit);
+            Assert.IsNull(configuration.Scenario);
         }
 
         [Test]
@@ -249,16 +219,73 @@ namespace Riskeer.Piping.IO.Test.Configurations
             IEnumerable<IConfigurationItem> readConfigurationItems = reader.Read().ToArray();
 
             // Assert
-            var calculation = (PipingCalculationConfiguration) readConfigurationItems.Single();
+            var configuration = (PipingCalculationConfiguration) readConfigurationItems.Single();
 
-            Assert.IsNull(calculation.PhreaticLevelExit);
-            Assert.IsNull(calculation.DampingFactorExit);
+            Assert.IsNull(configuration.PhreaticLevelExit);
+            Assert.IsNull(configuration.DampingFactorExit);
         }
 
         [Test]
-        [TestCase("validConfigurationCalculationContainingAssessmentLevelAndNaNs")]
-        [TestCase("validConfigurationCalculationContainingWaterLevelAndNaNs")]
-        public void Read_ValidConfigurationWithCalculationContainingNaNs_ReturnExpectedReadPipingCalculation(string fileName)
+        public void Read_ValidConfigurationWithCalculationContainingNaNs_ReturnExpectedReadPipingCalculation()
+        {
+            // Setup
+            string filePath = Path.Combine(testDirectoryPath, "validConfigurationCalculationContainingNaNs.xml");
+            var reader = new PipingCalculationConfigurationReader(filePath);
+
+            // Call
+            IEnumerable<IConfigurationItem> readConfigurationItems = reader.Read().ToArray();
+
+            // Assert
+            var configuration = (PipingCalculationConfiguration) readConfigurationItems.Single();
+
+            Assert.IsNaN(configuration.AssessmentLevel);
+            Assert.IsNaN(configuration.EntryPointL);
+            Assert.IsNaN(configuration.ExitPointL);
+            Assert.IsNaN(configuration.PhreaticLevelExit.Mean);
+            Assert.IsNaN(configuration.PhreaticLevelExit.StandardDeviation);
+            Assert.IsNaN(configuration.DampingFactorExit.Mean);
+            Assert.IsNaN(configuration.DampingFactorExit.StandardDeviation);
+            Assert.IsNaN(configuration.Scenario.Contribution);
+        }
+
+        [Test]
+        public void Read_ValidConfigurationWithCalculationContainingInfinities_ReturnExpectedReadPipingCalculation()
+        {
+            // Setup
+            string filePath = Path.Combine(testDirectoryPath, "validConfigurationCalculationContainingInfinities.xml");
+            var reader = new PipingCalculationConfigurationReader(filePath);
+
+            // Call
+            IEnumerable<IConfigurationItem> readConfigurationItems = reader.Read().ToArray();
+
+            // Assert
+            var configuration = (PipingCalculationConfiguration) readConfigurationItems.Single();
+
+            Assert.IsNotNull(configuration.AssessmentLevel);
+            Assert.IsNotNull(configuration.EntryPointL);
+            Assert.IsNotNull(configuration.ExitPointL);
+            Assert.IsNotNull(configuration.PhreaticLevelExit.Mean);
+            Assert.IsNotNull(configuration.PhreaticLevelExit.StandardDeviation);
+            Assert.IsNotNull(configuration.DampingFactorExit.Mean);
+            Assert.IsNotNull(configuration.DampingFactorExit.StandardDeviation);
+            Assert.IsNotNull(configuration.Scenario.Contribution);
+
+            Assert.IsTrue(double.IsNegativeInfinity(configuration.AssessmentLevel.Value));
+            Assert.IsTrue(double.IsNegativeInfinity(configuration.EntryPointL.Value));
+            Assert.IsTrue(double.IsPositiveInfinity(configuration.ExitPointL.Value));
+            Assert.IsTrue(double.IsNegativeInfinity(configuration.PhreaticLevelExit.Mean.Value));
+            Assert.IsTrue(double.IsPositiveInfinity(configuration.PhreaticLevelExit.StandardDeviation.Value));
+            Assert.IsTrue(double.IsPositiveInfinity(configuration.DampingFactorExit.Mean.Value));
+            Assert.IsTrue(double.IsPositiveInfinity(configuration.DampingFactorExit.StandardDeviation.Value));
+            Assert.IsTrue(double.IsNegativeInfinity(configuration.Scenario.Contribution.Value));
+        }
+
+        [Test]
+        [TestCase("validConfigurationFullCalculationContainingHydraulicBoundaryLocation", true)]
+        [TestCase("validConfigurationFullCalculationContainingHydraulicBoundaryLocation_differentOrder", true)]
+        [TestCase("validConfigurationFullCalculationContainingWaterLevel", false)]
+        [TestCase("validConfigurationFullCalculationContainingWaterLevel_differentOrder", false)]
+        public void Read_ValidConfigurationWithFullCalculation_ReturnExpectedReadPipingCalculation(string fileName, bool hydraulicBoundaryLocation)
         {
             // Setup
             string filePath = Path.Combine(testDirectoryPath, $"{fileName}.xml");
@@ -268,22 +295,15 @@ namespace Riskeer.Piping.IO.Test.Configurations
             IEnumerable<IConfigurationItem> readConfigurationItems = reader.Read().ToArray();
 
             // Assert
-            var calculation = (PipingCalculationConfiguration) readConfigurationItems.Single();
+            var configuration = (PipingCalculationConfiguration) readConfigurationItems.Single();
 
-            Assert.IsNaN(calculation.AssessmentLevel);
-            Assert.IsNaN(calculation.EntryPointL);
-            Assert.IsNaN(calculation.ExitPointL);
-            Assert.IsNaN(calculation.PhreaticLevelExit.Mean);
-            Assert.IsNaN(calculation.PhreaticLevelExit.StandardDeviation);
-            Assert.IsNaN(calculation.DampingFactorExit.Mean);
-            Assert.IsNaN(calculation.DampingFactorExit.StandardDeviation);
-            Assert.IsNaN(calculation.Scenario.Contribution);
+            AssertConfiguration(configuration, hydraulicBoundaryLocation);
         }
 
         [Test]
-        [TestCase("validConfigurationCalculationContainingAssessmentLevelAndInfinities")]
-        [TestCase("validConfigurationCalculationContainingWaterLevelAndInfinities")]
-        public void Read_ValidConfigurationWithCalculationContainingInfinities_ReturnExpectedReadPipingCalculation(string fileName)
+        [TestCase("version0ValidConfigurationFullCalculationContainingHydraulicBoundaryLocation", true)]
+        [TestCase("version0ValidConfigurationFullCalculationContainingAssessmentLevel", false)]
+        public void Read_ValidPreviousVersionConfigurationWithFullCalculation_ReturnExpectedReadPipingCalculation(string fileName, bool hydraulicBoundaryLocation)
         {
             // Setup
             string filePath = Path.Combine(testDirectoryPath, $"{fileName}.xml");
@@ -293,91 +313,9 @@ namespace Riskeer.Piping.IO.Test.Configurations
             IEnumerable<IConfigurationItem> readConfigurationItems = reader.Read().ToArray();
 
             // Assert
-            var calculation = (PipingCalculationConfiguration) readConfigurationItems.Single();
+            var configuration = (PipingCalculationConfiguration) readConfigurationItems.Single();
 
-            Assert.IsNotNull(calculation.AssessmentLevel);
-            Assert.IsNotNull(calculation.EntryPointL);
-            Assert.IsNotNull(calculation.ExitPointL);
-            Assert.IsNotNull(calculation.PhreaticLevelExit.Mean);
-            Assert.IsNotNull(calculation.PhreaticLevelExit.StandardDeviation);
-            Assert.IsNotNull(calculation.DampingFactorExit.Mean);
-            Assert.IsNotNull(calculation.DampingFactorExit.StandardDeviation);
-            Assert.IsNotNull(calculation.Scenario.Contribution);
-
-            Assert.IsTrue(double.IsNegativeInfinity(calculation.AssessmentLevel.Value));
-            Assert.IsTrue(double.IsNegativeInfinity(calculation.EntryPointL.Value));
-            Assert.IsTrue(double.IsPositiveInfinity(calculation.ExitPointL.Value));
-            Assert.IsTrue(double.IsNegativeInfinity(calculation.PhreaticLevelExit.Mean.Value));
-            Assert.IsTrue(double.IsPositiveInfinity(calculation.PhreaticLevelExit.StandardDeviation.Value));
-            Assert.IsTrue(double.IsPositiveInfinity(calculation.DampingFactorExit.Mean.Value));
-            Assert.IsTrue(double.IsPositiveInfinity(calculation.DampingFactorExit.StandardDeviation.Value));
-            Assert.IsTrue(double.IsNegativeInfinity(calculation.Scenario.Contribution.Value));
-        }
-
-        [Test]
-        [TestCase("validConfigurationFullCalculationContainingHydraulicBoundaryLocationOld")]
-        [TestCase("validConfigurationFullCalculationContainingHydraulicBoundaryLocationNew")]
-        [TestCase("validConfigurationFullCalculationContainingHydraulicBoundaryLocation_differentOrder_old")]
-        [TestCase("validConfigurationFullCalculationContainingHydraulicBoundaryLocation_differentOrder_new")]
-        public void Read_ValidConfigurationWithFullCalculationContainingHydraulicBoundaryLocation_ReturnExpectedReadPipingCalculation(string fileName)
-        {
-            // Setup
-            string filePath = Path.Combine(testDirectoryPath, $"{fileName}.xml");
-            var reader = new PipingCalculationConfigurationReader(filePath);
-
-            // Call
-            IEnumerable<IConfigurationItem> readConfigurationItems = reader.Read().ToArray();
-
-            // Assert
-            var calculation = (PipingCalculationConfiguration) readConfigurationItems.Single();
-
-            Assert.AreEqual("Calculation", calculation.Name);
-            Assert.IsNull(calculation.AssessmentLevel);
-            Assert.AreEqual("Locatie", calculation.HydraulicBoundaryLocationName);
-            Assert.AreEqual("Profielschematisatie", calculation.SurfaceLineName);
-            Assert.AreEqual(2.2, calculation.EntryPointL);
-            Assert.AreEqual(3.3, calculation.ExitPointL);
-            Assert.AreEqual("Ondergrondmodel", calculation.StochasticSoilModelName);
-            Assert.AreEqual("Ondergrondschematisatie", calculation.StochasticSoilProfileName);
-            Assert.AreEqual(4.4, calculation.PhreaticLevelExit.Mean);
-            Assert.AreEqual(5.5, calculation.PhreaticLevelExit.StandardDeviation);
-            Assert.AreEqual(6.6, calculation.DampingFactorExit.Mean);
-            Assert.AreEqual(7.7, calculation.DampingFactorExit.StandardDeviation);
-            Assert.AreEqual(8.8, calculation.Scenario.Contribution);
-            Assert.IsFalse(calculation.Scenario.IsRelevant);
-        }
-
-        [Test]
-        [TestCase("validConfigurationFullCalculationContainingAssessmentLevel")]
-        [TestCase("validConfigurationFullCalculationContainingWaterLevel")]
-        [TestCase("validConfigurationFullCalculationContainingAssessmentLevel_differentOrder")]
-        [TestCase("validConfigurationFullCalculationContainingWaterLevel_differentOrder")]
-        public void Read_ValidConfigurationWithFullCalculationContainingAssessmentLevel_ReturnExpectedReadPipingCalculation(string fileName)
-        {
-            // Setup
-            string filePath = Path.Combine(testDirectoryPath, $"{fileName}.xml");
-            var reader = new PipingCalculationConfigurationReader(filePath);
-
-            // Call
-            IEnumerable<IConfigurationItem> readConfigurationItems = reader.Read().ToArray();
-
-            // Assert
-            var calculation = (PipingCalculationConfiguration) readConfigurationItems.Single();
-
-            Assert.AreEqual("Calculation", calculation.Name);
-            Assert.AreEqual(1.1, calculation.AssessmentLevel);
-            Assert.IsNull(calculation.HydraulicBoundaryLocationName);
-            Assert.AreEqual("Profielschematisatie", calculation.SurfaceLineName);
-            Assert.AreEqual(2.2, calculation.EntryPointL);
-            Assert.AreEqual(3.3, calculation.ExitPointL);
-            Assert.AreEqual("Ondergrondmodel", calculation.StochasticSoilModelName);
-            Assert.AreEqual("Ondergrondschematisatie", calculation.StochasticSoilProfileName);
-            Assert.AreEqual(4.4, calculation.PhreaticLevelExit.Mean);
-            Assert.AreEqual(5.5, calculation.PhreaticLevelExit.StandardDeviation);
-            Assert.AreEqual(6.6, calculation.DampingFactorExit.Mean);
-            Assert.AreEqual(7.7, calculation.DampingFactorExit.StandardDeviation);
-            Assert.AreEqual(8.8, calculation.Scenario.Contribution);
-            Assert.IsFalse(calculation.Scenario.IsRelevant);
+            AssertConfiguration(configuration, hydraulicBoundaryLocation);
         }
 
         [Test]
@@ -391,19 +329,19 @@ namespace Riskeer.Piping.IO.Test.Configurations
             IEnumerable<IConfigurationItem> readConfigurationItems = reader.Read().ToArray();
 
             // Assert
-            var calculation = (PipingCalculationConfiguration) readConfigurationItems.Single();
+            var configuration = (PipingCalculationConfiguration) readConfigurationItems.Single();
 
-            Assert.AreEqual("Calculation", calculation.Name);
-            Assert.IsNull(calculation.AssessmentLevel);
-            Assert.IsNull(calculation.HydraulicBoundaryLocationName);
-            Assert.IsNull(calculation.SurfaceLineName);
-            Assert.IsNull(calculation.EntryPointL);
-            Assert.AreEqual(2.2, calculation.ExitPointL);
-            Assert.IsNull(calculation.StochasticSoilModelName);
-            Assert.AreEqual("Ondergrondschematisatie", calculation.StochasticSoilProfileName);
-            Assert.AreEqual(3.3, calculation.PhreaticLevelExit.Mean);
-            Assert.AreEqual(4.4, calculation.PhreaticLevelExit.StandardDeviation);
-            Assert.IsNull(calculation.DampingFactorExit);
+            Assert.AreEqual("Calculation", configuration.Name);
+            Assert.IsNull(configuration.AssessmentLevel);
+            Assert.IsNull(configuration.HydraulicBoundaryLocationName);
+            Assert.IsNull(configuration.SurfaceLineName);
+            Assert.IsNull(configuration.EntryPointL);
+            Assert.AreEqual(2.2, configuration.ExitPointL);
+            Assert.IsNull(configuration.StochasticSoilModelName);
+            Assert.AreEqual("Ondergrondschematisatie", configuration.StochasticSoilProfileName);
+            Assert.AreEqual(3.3, configuration.PhreaticLevelExit.Mean);
+            Assert.AreEqual(4.4, configuration.PhreaticLevelExit.StandardDeviation);
+            Assert.IsNull(configuration.DampingFactorExit);
         }
 
         [Test]
@@ -417,12 +355,12 @@ namespace Riskeer.Piping.IO.Test.Configurations
             IEnumerable<IConfigurationItem> readConfigurationItems = reader.Read().ToArray();
 
             // Assert
-            var calculation = (PipingCalculationConfiguration) readConfigurationItems.Single();
+            var configuration = (PipingCalculationConfiguration) readConfigurationItems.Single();
 
-            Assert.IsNull(calculation.PhreaticLevelExit.Mean);
-            Assert.AreEqual(0.1, calculation.PhreaticLevelExit.StandardDeviation);
-            Assert.IsNull(calculation.DampingFactorExit.Mean);
-            Assert.AreEqual(7.7, calculation.DampingFactorExit.StandardDeviation);
+            Assert.IsNull(configuration.PhreaticLevelExit.Mean);
+            Assert.AreEqual(0.1, configuration.PhreaticLevelExit.StandardDeviation);
+            Assert.IsNull(configuration.DampingFactorExit.Mean);
+            Assert.AreEqual(7.7, configuration.DampingFactorExit.StandardDeviation);
         }
 
         [Test]
@@ -436,12 +374,12 @@ namespace Riskeer.Piping.IO.Test.Configurations
             IEnumerable<IConfigurationItem> readConfigurationItems = reader.Read().ToArray();
 
             // Assert
-            var calculation = (PipingCalculationConfiguration) readConfigurationItems.Single();
+            var configuration = (PipingCalculationConfiguration) readConfigurationItems.Single();
 
-            Assert.AreEqual(0.0, calculation.PhreaticLevelExit.Mean);
-            Assert.IsNull(calculation.PhreaticLevelExit.StandardDeviation);
-            Assert.AreEqual(6.6, calculation.DampingFactorExit.Mean);
-            Assert.IsNull(calculation.DampingFactorExit.StandardDeviation);
+            Assert.AreEqual(0.0, configuration.PhreaticLevelExit.Mean);
+            Assert.IsNull(configuration.PhreaticLevelExit.StandardDeviation);
+            Assert.AreEqual(6.6, configuration.DampingFactorExit.Mean);
+            Assert.IsNull(configuration.DampingFactorExit.StandardDeviation);
         }
 
         [Test]
@@ -455,12 +393,12 @@ namespace Riskeer.Piping.IO.Test.Configurations
             IEnumerable<IConfigurationItem> readConfigurationItems = reader.Read().ToArray();
 
             // Assert
-            var calculation = (PipingCalculationConfiguration) readConfigurationItems.Single();
+            var configuration = (PipingCalculationConfiguration) readConfigurationItems.Single();
 
-            Assert.IsNull(calculation.PhreaticLevelExit.Mean);
-            Assert.IsNull(calculation.PhreaticLevelExit.StandardDeviation);
-            Assert.IsNull(calculation.DampingFactorExit.Mean);
-            Assert.IsNull(calculation.DampingFactorExit.StandardDeviation);
+            Assert.IsNull(configuration.PhreaticLevelExit.Mean);
+            Assert.IsNull(configuration.PhreaticLevelExit.StandardDeviation);
+            Assert.IsNull(configuration.DampingFactorExit.Mean);
+            Assert.IsNull(configuration.DampingFactorExit.StandardDeviation);
         }
 
         [Test]
@@ -474,10 +412,38 @@ namespace Riskeer.Piping.IO.Test.Configurations
             IEnumerable<IConfigurationItem> readConfigurationItems = reader.Read().ToArray();
 
             // Assert
-            var calculation = (PipingCalculationConfiguration) readConfigurationItems.Single();
+            var configuration = (PipingCalculationConfiguration) readConfigurationItems.Single();
 
-            Assert.IsNull(calculation.Scenario.Contribution);
-            Assert.IsNull(calculation.Scenario.IsRelevant);
+            Assert.IsNull(configuration.Scenario.Contribution);
+            Assert.IsNull(configuration.Scenario.IsRelevant);
+        }
+
+        private static void AssertConfiguration(PipingCalculationConfiguration configuration, bool hydraulicBoundaryLocation)
+        {
+            Assert.AreEqual("Calculation", configuration.Name);
+
+            if (hydraulicBoundaryLocation)
+            {
+                Assert.IsNull(configuration.AssessmentLevel);
+                Assert.AreEqual("Locatie", configuration.HydraulicBoundaryLocationName);
+            }
+            else
+            {
+                Assert.AreEqual(1.1, configuration.AssessmentLevel);
+                Assert.IsNull(configuration.HydraulicBoundaryLocationName);
+            }
+
+            Assert.AreEqual("Profielschematisatie", configuration.SurfaceLineName);
+            Assert.AreEqual(2.2, configuration.EntryPointL);
+            Assert.AreEqual(3.3, configuration.ExitPointL);
+            Assert.AreEqual("Ondergrondmodel", configuration.StochasticSoilModelName);
+            Assert.AreEqual("Ondergrondschematisatie", configuration.StochasticSoilProfileName);
+            Assert.AreEqual(4.4, configuration.PhreaticLevelExit.Mean);
+            Assert.AreEqual(5.5, configuration.PhreaticLevelExit.StandardDeviation);
+            Assert.AreEqual(6.6, configuration.DampingFactorExit.Mean);
+            Assert.AreEqual(7.7, configuration.DampingFactorExit.StandardDeviation);
+            Assert.AreEqual(8.8, configuration.Scenario.Contribution);
+            Assert.IsFalse(configuration.Scenario.IsRelevant);
         }
     }
 }

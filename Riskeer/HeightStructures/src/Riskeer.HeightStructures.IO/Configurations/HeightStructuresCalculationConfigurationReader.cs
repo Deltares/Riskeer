@@ -37,7 +37,8 @@ namespace Riskeer.HeightStructures.IO.Configurations
     /// </summary>
     public class HeightStructuresCalculationConfigurationReader : CalculationConfigurationReader<HeightStructuresCalculationConfiguration>
     {
-        private const string hbLocatieSchemaName = "HbLocatieSchema.xsd";
+        private const string hbLocatieSchemaVersion0Name = "HbLocatieSchema_0.xsd";
+        private const string hbLocatieSchemaVersion1Name = "HbLocatieSchema.xsd";
         private const string orientatieSchemaName = "OrientatieSchema.xsd";
         private const string golfReductieSchemaName = "GolfReductieSchema.xsd";
         private const string voorlandProfielSchemaName = "VoorlandProfielSchema.xsd";
@@ -61,38 +62,73 @@ namespace Riskeer.HeightStructures.IO.Configurations
         /// </list>
         /// </exception>
         public HeightStructuresCalculationConfigurationReader(string filePath)
-            : base(filePath,
-                   Resources.KunstwerkenHoogteSchema,
-                   new Dictionary<string, string>
-                   {
-                       {
-                           hbLocatieSchemaName, RiskeerCommonIOResources.HbLocatieSchema
-                       },
-                       {
-                           orientatieSchemaName, RiskeerCommonIOResources.OrientatieSchema
-                       },
-                       {
-                           voorlandProfielSchemaName, RiskeerCommonIOResources.VoorlandProfielSchema
-                       },
-                       {
-                           golfReductieSchemaName, RiskeerCommonIOResources.GolfReductieSchema
-                       },
-                       {
-                           stochastSchemaName, RiskeerCommonIOResources.StochastSchema
-                       },
-                       {
-                           stochastStandaardafwijkingSchemaName, RiskeerCommonIOResources.StochastStandaardafwijkingSchema
-                       },
-                       {
-                           stochastVariatiecoefficientSchemaName, RiskeerCommonIOResources.StochastVariatiecoefficientSchema
-                       },
-                       {
-                           structureBaseSchemaName, RiskeerCommonIOResources.KunstwerkenBasisSchema
-                       },
-                       {
-                           scenarioSchemaName, RiskeerCommonIOResources.ScenarioSchema
-                       }
-                   }) {}
+            : base(filePath, new[]
+            {
+                new CalculationConfigurationSchemaDefinition(
+                    0, Resources.KunstwerkenHoogteSchema_0,
+                    new Dictionary<string, string>
+                    {
+                        {
+                            hbLocatieSchemaVersion0Name, RiskeerCommonIOResources.HbLocatieSchema_0
+                        },
+                        {
+                            orientatieSchemaName, RiskeerCommonIOResources.OrientatieSchema
+                        },
+                        {
+                            voorlandProfielSchemaName, RiskeerCommonIOResources.VoorlandProfielSchema
+                        },
+                        {
+                            golfReductieSchemaName, RiskeerCommonIOResources.GolfReductieSchema
+                        },
+                        {
+                            stochastSchemaName, RiskeerCommonIOResources.StochastSchema
+                        },
+                        {
+                            stochastStandaardafwijkingSchemaName, RiskeerCommonIOResources.StochastStandaardafwijkingSchema
+                        },
+                        {
+                            stochastVariatiecoefficientSchemaName, RiskeerCommonIOResources.StochastVariatiecoefficientSchema
+                        },
+                        {
+                            structureBaseSchemaName, RiskeerCommonIOResources.KunstwerkenBasisSchema_0
+                        },
+                        {
+                            scenarioSchemaName, RiskeerCommonIOResources.ScenarioSchema
+                        }
+                    }, null),
+                new CalculationConfigurationSchemaDefinition(
+                    1, Resources.KunstwerkenHoogteSchema,
+                    new Dictionary<string, string>
+                    {
+                        {
+                            hbLocatieSchemaVersion1Name, RiskeerCommonIOResources.HbLocatieSchema
+                        },
+                        {
+                            orientatieSchemaName, RiskeerCommonIOResources.OrientatieSchema
+                        },
+                        {
+                            voorlandProfielSchemaName, RiskeerCommonIOResources.VoorlandProfielSchema
+                        },
+                        {
+                            golfReductieSchemaName, RiskeerCommonIOResources.GolfReductieSchema
+                        },
+                        {
+                            stochastSchemaName, RiskeerCommonIOResources.StochastSchema
+                        },
+                        {
+                            stochastStandaardafwijkingSchemaName, RiskeerCommonIOResources.StochastStandaardafwijkingSchema
+                        },
+                        {
+                            stochastVariatiecoefficientSchemaName, RiskeerCommonIOResources.StochastVariatiecoefficientSchema
+                        },
+                        {
+                            structureBaseSchemaName, RiskeerCommonIOResources.KunstwerkenBasisSchema
+                        },
+                        {
+                            scenarioSchemaName, RiskeerCommonIOResources.ScenarioSchema
+                        }
+                    }, Resources.KunstwerkenHoogteConfiguratieSchema0To1)
+            }) {}
 
         protected override HeightStructuresCalculationConfiguration ParseCalculationElement(XElement calculationElement)
         {
@@ -101,7 +137,7 @@ namespace Riskeer.HeightStructures.IO.Configurations
                 FailureProbabilityStructureWithErosion = calculationElement.GetDoubleValueFromDescendantElement(ConfigurationSchemaIdentifiers.FailureProbabilityStructureWithErosionElement),
                 StructureNormalOrientation = calculationElement.GetDoubleValueFromDescendantElement(ConfigurationSchemaIdentifiers.Orientation),
                 ForeshoreProfileId = calculationElement.GetStringValueFromDescendantElement(ConfigurationSchemaIdentifiers.ForeshoreProfileNameElement),
-                HydraulicBoundaryLocationName = calculationElement.GetHydraulicBoundaryLocationName(),
+                HydraulicBoundaryLocationName = calculationElement.GetStringValueFromDescendantElement(ConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElement),
                 StructureId = calculationElement.GetStringValueFromDescendantElement(ConfigurationSchemaIdentifiers.StructureElement),
                 WaveReduction = calculationElement.GetWaveReductionParameters(),
                 LevelCrestStructure = calculationElement.GetStochastConfiguration(HeightStructuresConfigurationSchemaIdentifiers.LevelCrestStructureStochastName),

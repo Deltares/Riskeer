@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<configuratie>
+<configuratie versie="1">
   <berekening naam="PK001_0001 W1-6_0_1D1">
     <waterstand>-INF</waterstand>
     <profielschematisatie>PK001_0001</profielschematisatie>

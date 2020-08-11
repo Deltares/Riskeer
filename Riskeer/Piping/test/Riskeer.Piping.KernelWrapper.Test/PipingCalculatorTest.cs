@@ -71,11 +71,8 @@ namespace Riskeer.Piping.KernelWrapper.Test
             // Assert
             Assert.IsNotNull(actual);
             Assert.IsFalse(double.IsNaN(actual.UpliftEffectiveStress));
-            Assert.IsFalse(double.IsNaN(actual.UpliftZValue));
             Assert.IsFalse(double.IsNaN(actual.UpliftFactorOfSafety));
-            Assert.IsFalse(double.IsNaN(actual.HeaveZValue));
             Assert.IsFalse(double.IsNaN(actual.HeaveFactorOfSafety));
-            Assert.IsFalse(double.IsNaN(actual.SellmeijerZValue));
             Assert.IsFalse(double.IsNaN(actual.SellmeijerFactorOfSafety));
 
             Assert.IsTrue(testPipingSubCalculatorFactory.LastCreatedHeaveCalculator.Calculated);

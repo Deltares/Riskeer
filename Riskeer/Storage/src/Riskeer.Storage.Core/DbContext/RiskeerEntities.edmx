@@ -1038,11 +1038,8 @@
           <Property Name="PipingCalculationEntityId" Type="integer" Nullable="false" />
           <Property Name="Order" Type="int" Nullable="false" />
           <Property Name="HeaveFactorOfSafety" Type="real" />
-          <Property Name="HeaveZValue" Type="real" />
           <Property Name="UpliftFactorOfSafety" Type="real" />
-          <Property Name="UpliftZValue" Type="real" />
           <Property Name="SellmeijerFactorOfSafety" Type="real" />
-          <Property Name="SellmeijerZValue" Type="real" />
           <Property Name="UpliftEffectiveStress" Type="real" />
           <Property Name="HeaveGradient" Type="real" />
           <Property Name="SellmeijerCreepCoefficient" Type="real" />
@@ -5963,11 +5960,8 @@
           <Property Name="PipingCalculationEntityId" Type="Int64" Nullable="false" />
           <Property Name="Order" Type="Int32" Nullable="false" />
           <Property Name="HeaveFactorOfSafety" Type="Double" />
-          <Property Name="HeaveZValue" Type="Double" />
           <Property Name="UpliftFactorOfSafety" Type="Double" />
-          <Property Name="UpliftZValue" Type="Double" />
           <Property Name="SellmeijerFactorOfSafety" Type="Double" />
-          <Property Name="SellmeijerZValue" Type="Double" />
           <Property Name="UpliftEffectiveStress" Type="Double" />
           <Property Name="HeaveGradient" Type="Double" />
           <Property Name="SellmeijerCreepCoefficient" Type="Double" />
@@ -9305,11 +9299,8 @@
                 <ScalarProperty Name="SellmeijerCreepCoefficient" ColumnName="SellmeijerCreepCoefficient" />
                 <ScalarProperty Name="HeaveGradient" ColumnName="HeaveGradient" />
                 <ScalarProperty Name="UpliftEffectiveStress" ColumnName="UpliftEffectiveStress" />
-                <ScalarProperty Name="SellmeijerZValue" ColumnName="SellmeijerZValue" />
                 <ScalarProperty Name="SellmeijerFactorOfSafety" ColumnName="SellmeijerFactorOfSafety" />
-                <ScalarProperty Name="UpliftZValue" ColumnName="UpliftZValue" />
                 <ScalarProperty Name="UpliftFactorOfSafety" ColumnName="UpliftFactorOfSafety" />
-                <ScalarProperty Name="HeaveZValue" ColumnName="HeaveZValue" />
                 <ScalarProperty Name="HeaveFactorOfSafety" ColumnName="HeaveFactorOfSafety" />
                 <ScalarProperty Name="Order" ColumnName="Order" />
                 <ScalarProperty Name="PipingCalculationEntityId" ColumnName="PipingCalculationEntityId" />

@@ -109,5 +109,10 @@ namespace Riskeer.ClosingStructures.IO.Configurations
                     new ConfigurationClosingStructureInflowModelTypeConverter().ConvertToInvariantString(inflowModelType));
             }
         }
+
+        protected override int GetConfigurationVersion()
+        {
+            return 1;
+        }
     }
 }

@@ -57,5 +57,10 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Configurations
                                               .ConvertToInvariantString(configuration.CalculationType.Value));
             }
         }
+
+        protected override int GetConfigurationVersion()
+        {
+            return 1;
+        }
     }
 }

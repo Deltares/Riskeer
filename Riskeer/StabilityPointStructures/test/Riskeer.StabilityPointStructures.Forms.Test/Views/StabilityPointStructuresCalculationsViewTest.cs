@@ -493,8 +493,8 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
 
             ShowCalculationsView(ConfigureCalculationGroup(failureMechanism, assessmentSection), failureMechanism, assessmentSection);
 
-            var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
-            var foreshoreProfileComboBox = (DataGridViewComboBoxColumn)dataGridView.Columns[foreshoreProfileColumnIndex];
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+            var foreshoreProfileComboBox = (DataGridViewComboBoxColumn) dataGridView.Columns[foreshoreProfileColumnIndex];
 
             // Precondition
             Assert.AreEqual(3, foreshoreProfileComboBox.Items.Count);

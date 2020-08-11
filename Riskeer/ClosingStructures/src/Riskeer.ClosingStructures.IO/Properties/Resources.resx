@@ -118,7 +118,13 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="KunstwerkenBetrouwbaarheidSluitenConfiguratieSchema0To1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\kunstwerkenbetrouwbaarheidsluitenconfiguratieschema0to1.xslt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
   <data name="KunstwerkenBetrouwbaarheidSluitenSchema" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\KunstwerkenBetrouwbaarheidSluitenSchema.xsd;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="KunstwerkenBetrouwbaarheidSluitenSchema_0" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\kunstwerkenbetrouwbaarheidsluitenschema_0.xsd;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
 </root>

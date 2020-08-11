@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<configuratie>
+<configuratie versie="1">
   <calculation>calculation1</calculation>
   <map naam="group2">
     <calculation>calculation2</calculation>

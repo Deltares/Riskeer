@@ -30,7 +30,6 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Configurations
         [Test]
         public void MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers_ExpectedValues()
         {
-            Assert.AreEqual("toetspeil", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.AssessmentLevelElement);
             Assert.AreEqual("waterstand", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.WaterLevelElement);
             Assert.AreEqual("profielschematisatie", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.SurfaceLineElement);
             Assert.AreEqual("ondergrondmodel", MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.StochasticSoilModelElement);

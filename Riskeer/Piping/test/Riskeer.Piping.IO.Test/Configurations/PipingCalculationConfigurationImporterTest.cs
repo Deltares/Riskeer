@@ -59,7 +59,7 @@ namespace Riskeer.Piping.IO.Test.Configurations
                 yield return new TestCaseData("validConfigurationCalculationContainingInfinityExitPoint.xml",
                                               $"Een waarde van '{double.PositiveInfinity}' als uittredepunt is ongeldig. Het gespecificeerde punt moet op het profiel liggen (bereik [0,0, 10,0]).");
                 yield return new TestCaseData("validConfigurationInvalidStandardDeviationPhreaticLevelExit.xml",
-                                              "Een standaardafwijking van '-1' is ongeldig voor stochast 'polderpeil'. Standaardafwijking (σ) moet groter zijn dan of gelijk zijn aan 0.");
+                                              "Een standaardafwijking van '-1' is ongeldig voor stochast 'binnendijksewaterstand'. Standaardafwijking (σ) moet groter zijn dan of gelijk zijn aan 0.");
                 yield return new TestCaseData("validConfigurationInvalidMeanDampingFactorExit.xml",
                                               "Een gemiddelde van '-1' is ongeldig voor stochast 'dempingsfactor'. Gemiddelde moet groter zijn dan 0.");
                 yield return new TestCaseData("validConfigurationInvalidStandardDeviationDampingFactorExit.xml",

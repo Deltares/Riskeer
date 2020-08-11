@@ -48,11 +48,11 @@ namespace Riskeer.Storage.Core.Test.Read.Piping
             var entity = new PipingCalculationEntity();
 
             // Call
-            TestDelegate call = () => entity.Read(null, new GeneralPipingInput());
+            void Call() => entity.Read(null, new GeneralPipingInput());
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("collector", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("collector", exception.ParamName);
         }
 
         [Test]
@@ -344,10 +344,7 @@ namespace Riskeer.Storage.Core.Test.Read.Piping
             Assert.IsNotNull(output);
 
             Assert.IsNaN(output.HeaveFactorOfSafety);
-            Assert.IsNaN(output.HeaveZValue);
             Assert.IsNaN(output.SellmeijerFactorOfSafety);
-            Assert.IsNaN(output.SellmeijerZValue);
-            Assert.IsNaN(output.UpliftZValue);
             Assert.IsNaN(output.UpliftFactorOfSafety);
             Assert.IsNaN(output.UpliftEffectiveStress);
             Assert.IsNaN(output.HeaveGradient);

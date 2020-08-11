@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<configuratie versie="1">
+  <berekening naam="Berekening 1">
+    <hblocatie>Locatie</hblocatie>
+    <bovengrensbekleding>1.1</bovengrensbekleding>
+    <ondergrensbekleding>2.2</ondergrensbekleding>
+    <bovengrenswaterstanden>3.3</bovengrenswaterstanden>
+    <ondergrenswaterstanden>4.4</ondergrenswaterstanden>
+    <stapgrootte>0.5</stapgrootte>
+    <voorlandprofiel>Voorlandprofiel</voorlandprofiel>
+    <orientatie>5.5</orientatie>
+    <golfreductie>
+      <damgebruiken>true</damgebruiken>
+      <damtype>caisson</damtype>
+      <damhoogte>6.6</damhoogte>
+      <voorlandgebruiken>false</voorlandgebruiken>
+    </golfreductie>
+  </berekening>
+</configuratie>

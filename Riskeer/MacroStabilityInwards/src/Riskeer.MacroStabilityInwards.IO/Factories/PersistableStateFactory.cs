@@ -82,11 +82,19 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
                                            .Select(l => CreatePOPStatePoint(l, stageType, idFactory, registry))
                                            .ToArray());
 
-                statePoints.AddRange(soilProfile.PreconsolidationStresses.Select(
-                                                    pcs => CreateYieldStressStatePoint(
-                                                        GetLayerForPreconsolidationStress(layers, pcs),
-                                                        pcs, stageType, idFactory, registry))
-                                                .ToArray());
+                var preconsolidationStressPoints = new List<PersistableStatePoint>();
+
+                foreach (IMacroStabilityInwardsPreconsolidationStress preconsolidationStress in soilProfile.PreconsolidationStresses)
+                {
+                    MacroStabilityInwardsSoilLayer2D layer = GetLayerForPreconsolidationStress(layers, preconsolidationStress);
+                    if (layer != null)
+                    {
+                        preconsolidationStressPoints.Add(
+                            CreateYieldStressStatePoint(layer, preconsolidationStress, stageType, idFactory, registry));
+                    }
+                }
+
+                statePoints.AddRange(preconsolidationStressPoints);
             }
 
             var state = new PersistableState
@@ -103,10 +111,10 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
 
         private static MacroStabilityInwardsSoilLayer2D GetLayerForPreconsolidationStress(IEnumerable<MacroStabilityInwardsSoilLayer2D> layers, IMacroStabilityInwardsPreconsolidationStress pcs)
         {
-            return layers.Single(l => AdvancedMath2D.PointInPolygon(
-                                     pcs.Location,
-                                     l.OuterRing.Points,
-                                     l.NestedLayers.Select(nl => nl.OuterRing.Points)));
+            return layers.SingleOrDefault(l => AdvancedMath2D.PointInPolygon(
+                                              pcs.Location,
+                                              l.OuterRing.Points,
+                                              l.NestedLayers.Select(nl => nl.OuterRing.Points)));
         }
 
         private static PersistableStatePoint CreateYieldStressStatePoint(MacroStabilityInwardsSoilLayer2D layer, IMacroStabilityInwardsPreconsolidationStress preconsolidationStress,

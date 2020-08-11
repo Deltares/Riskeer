@@ -40,7 +40,7 @@ namespace Riskeer.Common.Forms.TestUtil
         /// <param name="propertyChangeHandler">The handler responsible for handling effects of a property change.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public TestCalculationRow(TestCalculation calculation, IObservablePropertyChangeHandler propertyChangeHandler)
-            : base(calculation, propertyChangeHandler) { }
+            : base(calculation, propertyChangeHandler) {}
 
         public override Point2D GetCalculationLocation()
         {

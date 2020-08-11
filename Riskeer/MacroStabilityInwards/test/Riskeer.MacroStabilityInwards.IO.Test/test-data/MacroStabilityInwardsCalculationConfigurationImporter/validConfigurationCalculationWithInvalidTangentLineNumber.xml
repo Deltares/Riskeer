@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<configuratie>
+<configuratie versie="1">
   <map naam="Tangent line numbers">
     <berekening naam="Calculation with tangent line too low">
       <grids>

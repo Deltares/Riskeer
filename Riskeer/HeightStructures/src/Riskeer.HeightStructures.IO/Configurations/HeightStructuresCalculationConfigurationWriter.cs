@@ -54,5 +54,10 @@ namespace Riskeer.HeightStructures.IO.Configurations
                                            HeightStructuresConfigurationSchemaIdentifiers.LevelCrestStructureStochastName,
                                            configuration.LevelCrestStructure);
         }
+
+        protected override int GetConfigurationVersion()
+        {
+            return 1;
+        }
     }
 }

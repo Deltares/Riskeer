@@ -51,7 +51,11 @@ namespace Riskeer.StabilityStoneCover.IO.Configurations
         /// </list>
         /// </exception>
         public StabilityStoneCoverWaveConditionsCalculationConfigurationReader(string xmlFilePath)
-            : base(xmlFilePath, Resources.StabiliteitSteenzettingConfiguratieSchema) {}
+            : base(xmlFilePath, new[]
+            {
+                Resources.StabiliteitSteenzettingConfiguratieSchema_0,
+                Resources.StabiliteitSteenzettingConfiguratieSchema
+            }) {}
 
         protected override StabilityStoneCoverWaveConditionsCalculationConfiguration ParseCalculationElement(XElement calculationElement)
         {

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<configuratie>
+<configuratie versie="1">
   <berekening naam="Berekening 1">
 	<golfreductie>
 	  <damtype>verticalewand</damtype>

@@ -48,10 +48,10 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
         public void GetDoubleValueFromDescendantElement_ParentElementNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => XElementExtensions.GetDoubleValueFromDescendantElement(null, "");
+            void Call() => XElementExtensions.GetDoubleValueFromDescendantElement(null, "");
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("parentElement", exception.ParamName);
         }
 
@@ -62,10 +62,10 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
             var rootElement = new XElement("Root");
 
             // Call
-            TestDelegate test = () => rootElement.GetDoubleValueFromDescendantElement(null);
+            void Call() => rootElement.GetDoubleValueFromDescendantElement(null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("descendantElementName", exception.ParamName);
         }
 
@@ -79,10 +79,10 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
             var element = new XElement("Root", new XElement(descendantElementName, descendantElementValue));
 
             // Call
-            TestDelegate test = () => element.GetDoubleValueFromDescendantElement(descendantElementName);
+            void Call() => element.GetDoubleValueFromDescendantElement(descendantElementName);
 
             // Assert
-            Assert.Throws<FormatException>(test);
+            Assert.Throws<FormatException>(Call);
         }
 
         [Test]
@@ -95,10 +95,10 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
             var element = new XElement("Root", new XElement(descendantElementName, descendantElementValue));
 
             // Call
-            TestDelegate test = () => element.GetDoubleValueFromDescendantElement(descendantElementName);
+            void Call() => element.GetDoubleValueFromDescendantElement(descendantElementName);
 
             // Assert
-            Assert.Throws<OverflowException>(test);
+            Assert.Throws<OverflowException>(Call);
         }
 
         [Test]
@@ -136,10 +136,10 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
         public void GetIntegerValueFromDescendantElement_ParentElementNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => XElementExtensions.GetIntegerValueFromDescendantElement(null, "");
+            void Call() => XElementExtensions.GetIntegerValueFromDescendantElement(null, "");
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("parentElement", exception.ParamName);
         }
 
@@ -150,10 +150,10 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
             var rootElement = new XElement("Root");
 
             // Call
-            TestDelegate test = () => rootElement.GetIntegerValueFromDescendantElement(null);
+            void Call() => rootElement.GetIntegerValueFromDescendantElement(null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("descendantElementName", exception.ParamName);
         }
 
@@ -167,10 +167,10 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
             var element = new XElement("Root", new XElement(descendantElementName, descendantElementValue));
 
             // Call
-            TestDelegate test = () => element.GetIntegerValueFromDescendantElement(descendantElementName);
+            void Call() => element.GetIntegerValueFromDescendantElement(descendantElementName);
 
             // Assert
-            Assert.Throws<FormatException>(test);
+            Assert.Throws<FormatException>(Call);
         }
 
         [Test]
@@ -183,10 +183,10 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
             var element = new XElement("Root", new XElement(descendantElementName, descendantElementValue));
 
             // Call
-            TestDelegate test = () => element.GetIntegerValueFromDescendantElement(descendantElementName);
+            void Call() => element.GetIntegerValueFromDescendantElement(descendantElementName);
 
             // Assert
-            Assert.Throws<OverflowException>(test);
+            Assert.Throws<OverflowException>(Call);
         }
 
         [Test]
@@ -222,10 +222,10 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
         public void GetStringValueFromDescendantElement_ParentElementNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => XElementExtensions.GetStringValueFromDescendantElement(null, "");
+            void Call() => XElementExtensions.GetStringValueFromDescendantElement(null, "");
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("parentElement", exception.ParamName);
         }
 
@@ -233,10 +233,10 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
         public void GetStringValueFromDescendantElement_DescendantElementNameNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new XElement("Test").GetStringValueFromDescendantElement(null);
+            void Call() => new XElement("Test").GetStringValueFromDescendantElement(null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("descendantElementName", exception.ParamName);
         }
 
@@ -273,10 +273,10 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
         public void GetBoolValueFromDescendantElement_ParentElementNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => XElementExtensions.GetBoolValueFromDescendantElement(null, "");
+            void Call() => XElementExtensions.GetBoolValueFromDescendantElement(null, "");
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("parentElement", exception.ParamName);
         }
 
@@ -287,10 +287,10 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
             var element = new XElement("Root");
 
             // Call
-            TestDelegate test = () => element.GetBoolValueFromDescendantElement(null);
+            void Call() => element.GetBoolValueFromDescendantElement(null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("descendantElementName", exception.ParamName);
         }
 
@@ -304,10 +304,10 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
             var element = new XElement("Root", new XElement(descendantElementName, elementValue));
 
             // Call
-            TestDelegate test = () => element.GetBoolValueFromDescendantElement(descendantElementName);
+            void Call() => element.GetBoolValueFromDescendantElement(descendantElementName);
 
             // Assert
-            Assert.Throws<FormatException>(test);
+            Assert.Throws<FormatException>(Call);
         }
 
         [Test]
@@ -347,10 +347,10 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
         public void GetConvertedValueFromDescendantStringElement_ParentElementNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => XElementExtensions.GetConvertedValueFromDescendantStringElement<TypeConverter>(null, "");
+            void Call() => XElementExtensions.GetConvertedValueFromDescendantStringElement<TypeConverter>(null, "");
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("parentElement", exception.ParamName);
         }
 
@@ -361,10 +361,10 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
             var element = new XElement("Root");
 
             // Call
-            TestDelegate test = () => element.GetConvertedValueFromDescendantStringElement<TypeConverter>(null);
+            void Call() => element.GetConvertedValueFromDescendantStringElement<TypeConverter>(null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("descendantElementName", exception.ParamName);
         }
 
@@ -438,10 +438,10 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
         public void GetConvertedValueFromDescendantDoubleElement_ParentElementNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => XElementExtensions.GetConvertedValueFromDescendantDoubleElement<TypeConverter>(null, "0");
+            void Call() => XElementExtensions.GetConvertedValueFromDescendantDoubleElement<TypeConverter>(null, "0");
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("parentElement", exception.ParamName);
         }
 
@@ -452,10 +452,10 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
             var element = new XElement("Root");
 
             // Call
-            TestDelegate test = () => element.GetConvertedValueFromDescendantDoubleElement<TypeConverter>(null);
+            void Call() => element.GetConvertedValueFromDescendantDoubleElement<TypeConverter>(null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("descendantElementName", exception.ParamName);
         }
 
@@ -487,10 +487,10 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
             var element = new XElement("Root", new XElement(descendantElementName, descendantElementValue));
 
             // Call
-            TestDelegate test = () => element.GetConvertedValueFromDescendantDoubleElement<TypeConverter>(descendantElementName);
+            void Call() => element.GetConvertedValueFromDescendantDoubleElement<TypeConverter>(descendantElementName);
 
             // Assert
-            Assert.Throws<FormatException>(test);
+            Assert.Throws<FormatException>(Call);
         }
 
         [Test]
@@ -503,10 +503,10 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
             var element = new XElement("Root", new XElement(descendantElementName, descendantElementValue));
 
             // Call
-            TestDelegate test = () => element.GetConvertedValueFromDescendantDoubleElement<TypeConverter>(descendantElementName);
+            void Call() => element.GetConvertedValueFromDescendantDoubleElement<TypeConverter>(descendantElementName);
 
             // Assert
-            Assert.Throws<OverflowException>(test);
+            Assert.Throws<OverflowException>(Call);
         }
 
         [Test]
@@ -519,10 +519,10 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
             var element = new XElement("Root", new XElement(descendantElementName, descendantElementValue));
 
             // Call
-            TestDelegate test = () => element.GetConvertedValueFromDescendantDoubleElement<TypeConverter>(descendantElementName);
+            void Call() => element.GetConvertedValueFromDescendantDoubleElement<TypeConverter>(descendantElementName);
 
             // Assert
-            Assert.Throws<NotSupportedException>(test);
+            Assert.Throws<NotSupportedException>(Call);
         }
 
         [Test]
@@ -563,10 +563,10 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
         public void GetStochastElement_ParentElementNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => XElementExtensions.GetStochastElement(null, "");
+            void Call() => XElementExtensions.GetStochastElement(null, "");
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("parentElement", exception.ParamName);
         }
 
@@ -577,10 +577,10 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
             var element = new XElement("Root");
 
             // Call
-            TestDelegate test = () => element.GetStochastElement(null);
+            void Call() => element.GetStochastElement(null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("stochastName", exception.ParamName);
         }
 
@@ -666,10 +666,10 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
         public void GetDescendantElement_ParentElementNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => XElementExtensions.GetDescendantElement(null, "");
+            void Call() => XElementExtensions.GetDescendantElement(null, "");
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("parentElement", exception.ParamName);
         }
 
@@ -677,10 +677,10 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
         public void GetDescendantElement_DescendantElementNameNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new XElement("Test").GetDescendantElement(null);
+            void Call() => new XElement("Test").GetDescendantElement(null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("descendantElementName", exception.ParamName);
         }
 
@@ -713,10 +713,10 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
         public void GetStochastConfiguration_CalculationElementNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => ((XElement) null).GetStochastConfiguration("name");
+            void Call() => ((XElement) null).GetStochastConfiguration("name");
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("calculationElement", exception.ParamName);
         }
 
@@ -724,10 +724,10 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
         public void GetStochastConfiguration_NameNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new XElement("root").GetStochastConfiguration(null);
+            void Call() => new XElement("root").GetStochastConfiguration(null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("stochastName", exception.ParamName);
         }
 
@@ -818,10 +818,10 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
         public void GetWaveReductionParameters_CalculationElementNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => ((XElement) null).GetWaveReductionParameters();
+            void Call() => ((XElement) null).GetWaveReductionParameters();
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("parentElement", exception.ParamName);
         }
 
@@ -871,10 +871,10 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
             var xElement = new XElement("root", new XElement("root", waveReductionElement));
 
             // Call
-            TestDelegate test = () => xElement.GetWaveReductionParameters();
+            void Call() => xElement.GetWaveReductionParameters();
 
             // Assert
-            Assert.Throws<OverflowException>(test);
+            Assert.Throws<OverflowException>(Call);
         }
 
         [Test]
@@ -888,10 +888,10 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
             var xElement = new XElement("root", new XElement("root", waveReductionElement));
 
             // Call
-            TestDelegate test = () => xElement.GetWaveReductionParameters();
+            void Call() => xElement.GetWaveReductionParameters();
 
             // Assert
-            Assert.Throws<FormatException>(test);
+            Assert.Throws<FormatException>(Call);
         }
 
         [Test]
@@ -925,10 +925,10 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
             var xElement = new XElement("root", new XElement("root", waveReductionElement));
 
             // Call
-            TestDelegate test = () => xElement.GetWaveReductionParameters();
+            void Call() => xElement.GetWaveReductionParameters();
 
             // Assert
-            Assert.Throws<NotSupportedException>(test);
+            Assert.Throws<NotSupportedException>(Call);
         }
 
         [Test]
@@ -962,10 +962,10 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
             var xElement = new XElement("root", new XElement("root", waveReductionElement));
 
             // Call
-            TestDelegate test = () => xElement.GetWaveReductionParameters();
+            void Call() => xElement.GetWaveReductionParameters();
 
             // Assert
-            Assert.Throws<FormatException>(test);
+            Assert.Throws<FormatException>(Call);
         }
 
         [Test]
@@ -999,10 +999,10 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
             var xElement = new XElement("root", new XElement("root", waveReductionElement));
 
             // Call
-            TestDelegate test = () => xElement.GetWaveReductionParameters();
+            void Call() => xElement.GetWaveReductionParameters();
 
             // Assert
-            Assert.Throws<FormatException>(test);
+            Assert.Throws<FormatException>(Call);
         }
 
         [Test]
@@ -1040,10 +1040,10 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
         public void GetScenarioConfiguration_CalculationElementNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => ((XElement) null).GetScenarioConfiguration();
+            void Call() => ((XElement) null).GetScenarioConfiguration();
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("calculationElement", exception.ParamName);
         }
 
@@ -1091,10 +1091,10 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
             var xElement = new XElement("root", configurationElement);
 
             // Call
-            TestDelegate test = () => xElement.GetScenarioConfiguration();
+            void Call() => xElement.GetScenarioConfiguration();
 
             // Assert
-            Assert.Throws<OverflowException>(test);
+            Assert.Throws<OverflowException>(Call);
         }
 
         [Test]
@@ -1108,10 +1108,10 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
             var xElement = new XElement("root", configurationElement);
 
             // Call
-            TestDelegate test = () => xElement.GetScenarioConfiguration();
+            void Call() => xElement.GetScenarioConfiguration();
 
             // Assert
-            Assert.Throws<FormatException>(test);
+            Assert.Throws<FormatException>(Call);
         }
 
         [Test]
@@ -1143,10 +1143,10 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
             var xElement = new XElement("root", configurationElement);
 
             // Call
-            TestDelegate test = () => xElement.GetScenarioConfiguration();
+            void Call() => xElement.GetScenarioConfiguration();
 
             // Assert
-            Assert.Throws<FormatException>(test);
+            Assert.Throws<FormatException>(Call);
         }
 
         [Test]
@@ -1173,68 +1173,6 @@ namespace Riskeer.Common.IO.Test.Configurations.Helpers
             // Assert
             Assert.AreEqual(contribution, configuration.Contribution);
             Assert.AreEqual(isRelevant, configuration.IsRelevant);
-        }
-
-        [Test]
-        public void GetHydraulicBoundaryLocationName_CalculationElementNull_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate call = () => ((XElement) null).GetHydraulicBoundaryLocationName();
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("calculationElement", exception.ParamName);
-        }
-
-        [Test]
-        [TestCase("hrlocatie")]
-        [TestCase("hblocatie")]
-        public void GetHydraulicBoundaryLocationName_WithHydraulicBoundaryLocation_ReturnHydraulicBoundaryLocationName(string tagName)
-        {
-            // Setup
-            const string locationName = "Location1";
-
-            var locationElement = new XElement(tagName, locationName);
-            var configurationElement = new XElement("configuratie", locationElement);
-            var xElement = new XElement("root", configurationElement);
-
-            // Call
-            string hydraulicBoundaryLocationName = xElement.GetHydraulicBoundaryLocationName();
-
-            // Assert
-            Assert.AreEqual(locationName, hydraulicBoundaryLocationName);
-        }
-
-        [Test]
-        public void GetHydraulicBoundaryLocationName_WithBothHrLocationAndHbLocationElement_ReturnHbLocationName()
-        {
-            // Setup
-            const string hrLocationName = "HRlocatie";
-            const string hbLocationName = "HBlocatie";
-
-            var hrLocationElement = new XElement("hrlocatie", hrLocationName);
-            var hbLocationElement = new XElement("hblocatie", hbLocationName);
-            var configurationElement = new XElement("configuratie", hrLocationElement, hbLocationElement);
-            var xElement = new XElement("root", configurationElement);
-
-            // Call
-            string hydraulicBoundaryLocationName = xElement.GetHydraulicBoundaryLocationName();
-
-            // Assert
-            Assert.AreEqual(hbLocationName, hydraulicBoundaryLocationName);
-        }
-
-        [Test]
-        public void GetHydraulicBoundaryLocationName_OtherDescendantElement_ReturnsNull()
-        {
-            // Setup
-            var xElement = new XElement("root", new XElement("OtherDescendantElement"));
-
-            // Call
-            string hydraulicBoundaryLocationName = xElement.GetHydraulicBoundaryLocationName();
-
-            // Assert
-            Assert.IsNull(hydraulicBoundaryLocationName);
         }
 
         private class DoubleToBooleanConverter : TypeConverter

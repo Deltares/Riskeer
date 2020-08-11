@@ -285,8 +285,8 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
                 phreaticLevelExitProperty,
                 hydraulicDataCategory,
-                "Polderpeil [m+NAP]",
-                "Polderpeil.",
+                "Binnendijkse waterstand [m+NAP]",
+                "Binnendijkse waterstand ter plaatse van het uittredepunt.",
                 true);
             Assert.IsInstanceOf<ExpandableObjectConverter>(phreaticLevelExitProperty.Converter);
 

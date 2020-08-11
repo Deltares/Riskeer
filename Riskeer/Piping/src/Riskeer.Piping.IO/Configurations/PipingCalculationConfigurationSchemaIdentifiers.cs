@@ -27,11 +27,6 @@ namespace Riskeer.Piping.IO.Configurations
     internal static class PipingCalculationConfigurationSchemaIdentifiers
     {
         /// <summary>
-        /// The identifier for assessment level elements.
-        /// </summary>
-        public const string AssessmentLevelElement = "toetspeil";
-
-        /// <summary>
         /// The identifier for water level elements.
         /// </summary>
         public const string WaterLevelElement = "waterstand";
@@ -64,7 +59,7 @@ namespace Riskeer.Piping.IO.Configurations
         /// <summary>
         /// The identifier for the phreatic level exit stochast names.
         /// </summary>
-        public const string PhreaticLevelExitStochastName = "polderpeil";
+        public const string PhreaticLevelExitStochastName = "binnendijksewaterstand";
 
         /// <summary>
         /// The identifier for the damping factor exit stochast names.

@@ -34,10 +34,10 @@ namespace Riskeer.Storage.Core.Test.Read.Piping
         public void Read_EntityNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => ((PipingCalculationOutputEntity) null).Read();
+            void Call() => ((PipingCalculationOutputEntity) null).Read();
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("entity", exception.ParamName);
         }
 
@@ -48,10 +48,7 @@ namespace Riskeer.Storage.Core.Test.Read.Piping
             var entity = new PipingCalculationOutputEntity
             {
                 HeaveFactorOfSafety = 9.8,
-                HeaveZValue = 7.6,
-                UpliftZValue = 5.4,
                 UpliftFactorOfSafety = 3.2,
-                SellmeijerZValue = 1.9,
                 SellmeijerFactorOfSafety = 8.7,
                 UpliftEffectiveStress = 15.2,
                 HeaveGradient = 12.2,
@@ -65,10 +62,7 @@ namespace Riskeer.Storage.Core.Test.Read.Piping
 
             // Assert
             Assert.AreEqual(entity.HeaveFactorOfSafety, output.HeaveFactorOfSafety);
-            Assert.AreEqual(entity.HeaveZValue, output.HeaveZValue);
             Assert.AreEqual(entity.SellmeijerFactorOfSafety, output.SellmeijerFactorOfSafety);
-            Assert.AreEqual(entity.SellmeijerZValue, output.SellmeijerZValue);
-            Assert.AreEqual(entity.UpliftZValue, output.UpliftZValue);
             Assert.AreEqual(entity.UpliftFactorOfSafety, output.UpliftFactorOfSafety);
             Assert.AreEqual(entity.UpliftEffectiveStress, output.UpliftEffectiveStress.Value);
             Assert.AreEqual(entity.HeaveGradient, output.HeaveGradient.Value);
@@ -84,10 +78,7 @@ namespace Riskeer.Storage.Core.Test.Read.Piping
             var entity = new PipingCalculationOutputEntity
             {
                 HeaveFactorOfSafety = null,
-                HeaveZValue = null,
-                UpliftZValue = null,
                 UpliftFactorOfSafety = null,
-                SellmeijerZValue = null,
                 SellmeijerFactorOfSafety = null,
                 UpliftEffectiveStress = null,
                 HeaveGradient = null,
@@ -101,10 +92,7 @@ namespace Riskeer.Storage.Core.Test.Read.Piping
 
             // Assert
             Assert.IsNaN(output.HeaveFactorOfSafety);
-            Assert.IsNaN(output.HeaveZValue);
             Assert.IsNaN(output.SellmeijerFactorOfSafety);
-            Assert.IsNaN(output.SellmeijerZValue);
-            Assert.IsNaN(output.UpliftZValue);
             Assert.IsNaN(output.UpliftFactorOfSafety);
             Assert.IsNaN(output.UpliftEffectiveStress);
             Assert.IsNaN(output.HeaveGradient);
