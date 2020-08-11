@@ -57,6 +57,14 @@ namespace Riskeer.Common.IO.Configurations.Import
         /// <exception cref="ArgumentException">Thrown when:
         /// <list type="bullet">
         /// <item><paramref name="xmlFilePath"/> is invalid.</item>
+        /// <item>the main schema definition of <see cref="CalculationConfigurationSchemaDefinition"/> is invalid.</item>
+        /// <item>the nested schema definitions of <see cref="CalculationConfigurationSchemaDefinition"/> contains invalid schema definition values.</item>
+        /// <item>the main schema definition of <see cref="CalculationConfigurationSchemaDefinition"/>, all together with its referenced
+        /// nested schema definitions, contains an invalid schema definition.</item>
+        /// <item>nested schema definitions of <see cref="CalculationConfigurationSchemaDefinition"/> contains schema definitions that are not
+        /// referenced by the main schema definition.</item>
+        /// <item>the main schema definition of <see cref="CalculationConfigurationSchemaDefinition"/> does not reference the default schema definition
+        /// <c>ConfiguratieSchema.xsd</c>.</item>        
         /// </list>
         /// </exception>
         /// <exception cref="CriticalFileReadException">Thrown when:
