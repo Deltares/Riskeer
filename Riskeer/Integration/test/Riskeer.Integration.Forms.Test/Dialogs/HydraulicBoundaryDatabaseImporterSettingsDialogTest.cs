@@ -282,29 +282,24 @@ namespace Riskeer.Integration.Forms.Test.Dialogs
         {
             // Given
             var mockRepository = new MockRepository();
+            var dialogParent = mockRepository.Stub<IWin32Window>();
             var inquiryHelper = mockRepository.StrictMock<IInquiryHelper>();
             inquiryHelper.Expect(ih => ih.GetSourceFileLocation("HLCD bestand (*.sqlite)|*.sqlite")).Return(validHlcdFilePath);
             mockRepository.ReplayAll();
 
-            DialogBoxHandler = (name, wnd) =>
-            {
-                using (new FormTester(name))
-                {
-                    new ButtonTester("buttonHlcd", name).Click();
-                }
-            };
-
             var settings = new HydraulicBoundaryDatabaseImporterSettings(string.Empty, validHrdDirectory, validLocationsFilePath);
 
-            using (var dialogParent = new Form())
             using (var dialog = new HydraulicBoundaryDatabaseImporterSettingsDialog(dialogParent, inquiryHelper, settings))
             {
+                dialog.Show();
+
                 // Precondition
                 var buttonConnect = (Button) new ButtonTester("buttonConnect", dialog).TheObject;
                 Assert.IsFalse(buttonConnect.Enabled);
 
                 // When
-                dialog.ShowDialog();
+                var button = new ButtonTester("buttonHlcd", dialog);
+                button.Click();
 
                 // Then
                 var textBoxHlcd = (TextBox) new ControlTester("textBoxHlcd", dialog).TheObject;
