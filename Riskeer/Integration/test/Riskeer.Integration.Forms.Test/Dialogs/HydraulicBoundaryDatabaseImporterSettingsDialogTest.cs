@@ -90,10 +90,10 @@ namespace Riskeer.Integration.Forms.Test.Dialogs
         {
             // Setup
             var mockRepository = new MockRepository();
+            var dialogParent = mockRepository.Stub<IWin32Window>();
             var inquiryHelper = mockRepository.Stub<IInquiryHelper>();
             mockRepository.ReplayAll();
 
-            using (var dialogParent = new Form())
             using (var dialog = new HydraulicBoundaryDatabaseImporterSettingsDialog(dialogParent, inquiryHelper))
             {
                 // Call
@@ -124,10 +124,10 @@ namespace Riskeer.Integration.Forms.Test.Dialogs
         {
             // Setup
             var mockRepository = new MockRepository();
+            var dialogParent = mockRepository.Stub<IWin32Window>();
             var inquiryHelper = mockRepository.Stub<IInquiryHelper>();
             mockRepository.ReplayAll();
 
-            using (var dialogParent = new Form())
             using (var dialog = new HydraulicBoundaryDatabaseImporterSettingsDialog(dialogParent, inquiryHelper))
             {
                 // Call
@@ -153,12 +153,12 @@ namespace Riskeer.Integration.Forms.Test.Dialogs
         {
             // Setup
             var mockRepository = new MockRepository();
+            var dialogParent = mockRepository.Stub<IWin32Window>();
             var inquiryHelper = mockRepository.Stub<IInquiryHelper>();
             mockRepository.ReplayAll();
 
             var settings = new HydraulicBoundaryDatabaseImporterSettings("path hlcd file", "path hrd directory", "path locations file");
 
-            using (var dialogParent = new Form())
             using (var dialog = new HydraulicBoundaryDatabaseImporterSettingsDialog(dialogParent, inquiryHelper, settings))
             {
                 // Call
@@ -187,10 +187,10 @@ namespace Riskeer.Integration.Forms.Test.Dialogs
         {
             // Setup
             var mockRepository = new MockRepository();
+            var dialogParent = mockRepository.Stub<IWin32Window>();
             var inquiryHelper = mockRepository.Stub<IInquiryHelper>();
             mockRepository.ReplayAll();
 
-            using (var dialogParent = new Form())
             using (var dialog = new HydraulicBoundaryDatabaseImporterSettingsDialog(dialogParent, inquiryHelper, settings))
             {
                 // Call
@@ -213,6 +213,7 @@ namespace Riskeer.Integration.Forms.Test.Dialogs
         {
             // Given
             var mockRepository = new MockRepository();
+            var dialogParent = mockRepository.Stub<IWin32Window>();
             var inquiryHelper = mockRepository.Stub<IInquiryHelper>();
             mockRepository.ReplayAll();
 
@@ -226,7 +227,6 @@ namespace Riskeer.Integration.Forms.Test.Dialogs
 
             var settings = new HydraulicBoundaryDatabaseImporterSettings(validHlcdFilePath, validHrdDirectory, validLocationsFilePath);
 
-            using (var dialogParent = new Form())
             using (var dialog = new HydraulicBoundaryDatabaseImporterSettingsDialog(dialogParent, inquiryHelper, settings))
             {
                 // When
@@ -246,6 +246,7 @@ namespace Riskeer.Integration.Forms.Test.Dialogs
         {
             // Given
             var mockRepository = new MockRepository();
+            var dialogParent = mockRepository.Stub<IWin32Window>();
             var inquiryHelper = mockRepository.Stub<IInquiryHelper>();
             mockRepository.ReplayAll();
 
@@ -259,7 +260,6 @@ namespace Riskeer.Integration.Forms.Test.Dialogs
 
             var settings = new HydraulicBoundaryDatabaseImporterSettings(validHlcdFilePath, validHrdDirectory, validLocationsFilePath);
 
-            using (var dialogParent = new Form())
             using (var dialog = new HydraulicBoundaryDatabaseImporterSettingsDialog(dialogParent, inquiryHelper, settings))
             {
                 // When
@@ -317,29 +317,24 @@ namespace Riskeer.Integration.Forms.Test.Dialogs
         {
             // Given
             var mockRepository = new MockRepository();
+            var dialogParent = mockRepository.Stub<IWin32Window>();
             var inquiryHelper = mockRepository.StrictMock<IInquiryHelper>();
             inquiryHelper.Expect(ih => ih.GetTargetFolderLocation()).Return(validHrdDirectory);
             mockRepository.ReplayAll();
 
-            DialogBoxHandler = (name, wnd) =>
-            {
-                using (new FormTester(name))
-                {
-                    new ButtonTester("buttonHrd", name).Click();
-                }
-            };
-
             var settings = new HydraulicBoundaryDatabaseImporterSettings(validHlcdFilePath, string.Empty, validLocationsFilePath);
 
-            using (var dialogParent = new Form())
             using (var dialog = new HydraulicBoundaryDatabaseImporterSettingsDialog(dialogParent, inquiryHelper, settings))
             {
+                dialog.Show();
+
                 // Precondition
                 var buttonConnect = (Button) new ButtonTester("buttonConnect", dialog).TheObject;
                 Assert.IsFalse(buttonConnect.Enabled);
 
                 // When
-                dialog.ShowDialog();
+                var button = new ButtonTester("buttonHrd", dialog);
+                button.Click();
 
                 // Then
                 var textBoxHrd = (TextBox) new ControlTester("textBoxHrd", dialog).TheObject;
@@ -357,29 +352,24 @@ namespace Riskeer.Integration.Forms.Test.Dialogs
         {
             // Given
             var mockRepository = new MockRepository();
+            var dialogParent = mockRepository.Stub<IWin32Window>();
             var inquiryHelper = mockRepository.StrictMock<IInquiryHelper>();
             inquiryHelper.Expect(ih => ih.GetSourceFileLocation("Locatie bestand (*.sqlite)|*.sqlite")).Return(validLocationsFilePath);
             mockRepository.ReplayAll();
 
-            DialogBoxHandler = (name, wnd) =>
-            {
-                using (new FormTester(name))
-                {
-                    new ButtonTester("buttonLocations", name).Click();
-                }
-            };
-
             var settings = new HydraulicBoundaryDatabaseImporterSettings(validHlcdFilePath, validHrdDirectory, string.Empty);
 
-            using (var dialogParent = new Form())
             using (var dialog = new HydraulicBoundaryDatabaseImporterSettingsDialog(dialogParent, inquiryHelper, settings))
             {
+                dialog.Show();
+
                 // Precondition
                 var buttonConnect = (Button) new ButtonTester("buttonConnect", dialog).TheObject;
                 Assert.IsFalse(buttonConnect.Enabled);
 
                 // When
-                dialog.ShowDialog();
+                var button = new ButtonTester("buttonLocations", dialog);
+                button.Click();
 
                 // Then
                 var textBoxLocations = (TextBox) new ControlTester("textBoxLocations", dialog).TheObject;
