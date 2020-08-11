@@ -65,7 +65,7 @@ namespace Riskeer.GrassCoverErosionInwards.IO.Configurations
         {
             WriteElementWhenContentAvailable(
                 writer,
-                ConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElementNew,
+                ConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElement,
                 configuration.HydraulicBoundaryLocationName);
 
             WriteElementWhenContentAvailable(

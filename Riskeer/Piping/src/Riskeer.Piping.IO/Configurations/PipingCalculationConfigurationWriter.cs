@@ -73,7 +73,7 @@ namespace Riskeer.Piping.IO.Configurations
                                              PipingCalculationConfigurationSchemaIdentifiers.WaterLevelElement,
                                              configuration.AssessmentLevel);
             WriteElementWhenContentAvailable(writer,
-                                             ConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElementNew,
+                                             ConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElement,
                                              configuration.HydraulicBoundaryLocationName);
 
             WriteElementWhenContentAvailable(writer,

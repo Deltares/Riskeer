@@ -103,7 +103,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Configurations
                 calculationElement.Attribute(ConfigurationSchemaIdentifiers.NameAttribute).Value)
             {
                 AssessmentLevel = calculationElement.GetDoubleValueFromDescendantElement(MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.WaterLevelElement),
-                HydraulicBoundaryLocationName = calculationElement.GetStringValueFromDescendantElement(ConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElementNew),
+                HydraulicBoundaryLocationName = calculationElement.GetStringValueFromDescendantElement(ConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElement),
                 SurfaceLineName = calculationElement.GetStringValueFromDescendantElement(
                     MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.SurfaceLineElement),
                 StochasticSoilModelName = calculationElement.GetStringValueFromDescendantElement(

@@ -52,10 +52,9 @@ namespace Riskeer.Common.IO.Configurations
         public const string NameAttribute = "naam";
 
         /// <summary>
-        /// The new identifier for hydraulic boundary location elements.
+        /// The identifier for hydraulic boundary location elements.
         /// </summary>
-        /// <remarks>This property represents the element name after the rename.</remarks>
-        public const string HydraulicBoundaryLocationElementNew = "hblocatie";
+        public const string HydraulicBoundaryLocationElement = "hblocatie";
 
         /// <summary>
         /// The tag of elements containing the orientation of the profile.

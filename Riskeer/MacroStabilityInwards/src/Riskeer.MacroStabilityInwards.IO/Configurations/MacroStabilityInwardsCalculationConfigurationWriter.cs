@@ -76,7 +76,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Configurations
                                              MacroStabilityInwardsCalculationConfigurationSchemaIdentifiers.WaterLevelElement,
                                              configuration.AssessmentLevel);
             WriteElementWhenContentAvailable(writer,
-                                             ConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElementNew,
+                                             ConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElement,
                                              configuration.HydraulicBoundaryLocationName);
 
             WriteElementWhenContentAvailable(writer,

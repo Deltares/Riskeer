@@ -35,7 +35,7 @@ namespace Riskeer.Common.IO.Test.Configurations
             Assert.AreEqual("berekening", ConfigurationSchemaIdentifiers.CalculationElement);
             Assert.AreEqual("map", ConfigurationSchemaIdentifiers.FolderElement);
             Assert.AreEqual("naam", ConfigurationSchemaIdentifiers.NameAttribute);
-            Assert.AreEqual("hblocatie", ConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElementNew);
+            Assert.AreEqual("hblocatie", ConfigurationSchemaIdentifiers.HydraulicBoundaryLocationElement);
             Assert.AreEqual("orientatie", ConfigurationSchemaIdentifiers.Orientation);
             Assert.AreEqual("illustratiepunteninlezen", ConfigurationSchemaIdentifiers.ShouldIllustrationPointsBeCalculatedElement);
 
