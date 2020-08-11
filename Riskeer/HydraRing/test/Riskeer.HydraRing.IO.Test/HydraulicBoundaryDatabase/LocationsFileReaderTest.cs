@@ -86,6 +86,27 @@ namespace Riskeer.HydraRing.IO.Test.HydraulicBoundaryDatabase
         }
 
         [Test]
+        public void ReadLocations_FileWithInvalidDatabaseStructure_ThrowsCriticalFileReadException()
+        {
+            // Setup
+            string locationsFilePath = Path.Combine(testDataPath, "missingSegmentColumn.sqlite");
+
+            using (var reader = new LocationsFileReader(locationsFilePath))
+            {
+                // Call
+                void Call()
+                {
+                    reader.ReadLocations();
+                }
+
+                // Assert
+                string expectedMessage = $"Fout bij het lezen van bestand '{locationsFilePath}': kritieke fout opgetreden bij het uitlezen van de structuur van de database.";
+                var exception = Assert.Throws<CriticalFileReadException>(Call);
+                Assert.AreEqual(expectedMessage, exception.Message);
+            }
+        }
+
+        [Test]
         public void ReadLocations_ValidFile_ReturnsExpectedLocations()
         {
             // Setup
