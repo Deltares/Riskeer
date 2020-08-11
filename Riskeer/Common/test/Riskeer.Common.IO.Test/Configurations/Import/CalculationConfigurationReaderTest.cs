@@ -308,7 +308,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
         public void Constructor_InvalidVersionNumber_ThrowCriticalFileReadException()
         {
             // Setup
-            string filePath = Path.Combine(testDirectoryPath, "validConfigurationInvalidVersionNumber.xml");
+            string filePath = Path.Combine(testDirectoryPath, "validConfigurationUnsupportedVersionNumber.xml");
 
             // Call
             void Call() => new CalculationConfigurationReader(filePath, new[]
