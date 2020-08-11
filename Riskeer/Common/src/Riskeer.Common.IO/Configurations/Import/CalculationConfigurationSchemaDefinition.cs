@@ -19,26 +19,33 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 
 namespace Riskeer.Common.IO.Configurations.Import
 {
     /// <summary>
-    /// Class that represents calculation configuration schema definition.
+    /// Class that represents a calculation configuration schema definition.
     /// </summary>
     public class CalculationConfigurationSchemaDefinition
     {
         /// <summary>
         /// Creates a new instance of <see cref="CalculationConfigurationSchemaDefinition"/>.
         /// </summary>
-        /// <param name="versionNumber">The version number of the xml that is read.</param>
-        /// <param name="mainSchemaDefinition">The main schema definition xsd.</param>
+        /// <param name="versionNumber">The version number of the xml that applies to this definition.</param>
+        /// <param name="mainSchemaDefinition">The main schema definition.</param>
         /// <param name="nestedSchemaDefinitions">The nested schema definitions.</param>
         /// <param name="migrationScript">The migration script.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <see cref="NestedSchemaDefinitions"/> is <c>null</c>.</exception>
         public CalculationConfigurationSchemaDefinition(int versionNumber, string mainSchemaDefinition,
                                                         IDictionary<string, string> nestedSchemaDefinitions,
                                                         string migrationScript)
         {
+            if (NestedSchemaDefinitions == null)
+            {
+                throw new ArgumentNullException(nameof(nestedSchemaDefinitions));
+            }
+
             VersionNumber = versionNumber;
             MainSchemaDefinition = mainSchemaDefinition;
             NestedSchemaDefinitions = nestedSchemaDefinitions;

@@ -65,6 +65,7 @@ namespace Riskeer.Common.IO.Configurations.Import
         /// <item><paramref name="xmlFilePath"/> points to a file that does not contain valid XML.</item>
         /// <item><paramref name="xmlFilePath"/> points to a file that does not pass the schema validation.</item>
         /// <item><paramref name="xmlFilePath"/> points to a file that does not contain configuration elements.</item>
+        /// <item><paramref name="schemaDefinitions"/> Thrown when something goes wrong while migrating.</item>
         /// </list>
         /// </exception>
         protected CalculationConfigurationReader(string xmlFilePath, CalculationConfigurationSchemaDefinition[] schemaDefinitions)
@@ -111,7 +112,7 @@ namespace Riskeer.Common.IO.Configurations.Import
         /// Gets the correct schema definition depending on the version.
         /// </summary>
         /// <param name="schemaDefinitions">All the schema definitions.</param>
-        /// <returns>The schema definition that belongs to the XML file.</returns>
+        /// <returns>The schema definition that corresponds to the XML file.</returns>
         /// <exception cref="CriticalFileReadException">Thrown when the version
         /// from the XML file is not supported.</exception>
         private CalculationConfigurationSchemaDefinition GetSchemaDefinition(IEnumerable<CalculationConfigurationSchemaDefinition> schemaDefinitions)
@@ -124,8 +125,7 @@ namespace Riskeer.Common.IO.Configurations.Import
 
                 combinedXmlSchemaDefinition.Validate(xmlDocument);
 
-                string versionNumberString = xmlDocument.Element(ConfigurationSchemaIdentifiers.ConfigurationElement).Attribute(ConfigurationSchemaIdentifiers.VersionAttribute).Value;
-                versionNumber = int.Parse(versionNumberString);
+                versionNumber = GetVersionNumber();
             }
             catch (XmlSchemaValidationException)
             {
@@ -145,11 +145,18 @@ namespace Riskeer.Common.IO.Configurations.Import
             return schemaDefinition;
         }
 
+        private int GetVersionNumber()
+        {
+            string versionNumberString = xmlDocument.Element(ConfigurationSchemaIdentifiers.ConfigurationElement).Attribute(ConfigurationSchemaIdentifiers.VersionAttribute).Value;
+            int versionNumber = int.Parse(versionNumberString);
+            return versionNumber;
+        }
+
         /// <summary>
-        /// Migrates the XML document to newer versions when needed/
+        /// Migrates the XML document to newer versions when needed.
         /// </summary>
         /// <param name="schemaDefinitions">All the schema definitions.</param>
-        /// <param name="schemaDefinition">The schema definition for the version
+        /// <param name="schemaDefinition">The schema definition corresponding to the version
         /// of the XML document.</param>
         /// <exception cref="CriticalFileReadException">Thrown when something goes wrong
         /// while migrating.</exception>
@@ -202,8 +209,7 @@ namespace Riskeer.Common.IO.Configurations.Import
         /// <summary>
         /// Loads an XML document from the <see cref="xmlFilePath"/>.
         /// </summary>
-        /// <exception cref="CriticalFileReadException">Thrown when
-        /// the XML document cannot be loaded.</exception>
+        /// <exception cref="CriticalFileReadException">Thrown when the XML document cannot be loaded.</exception>
         private XDocument LoadDocument()
         {
             try
@@ -232,11 +238,22 @@ namespace Riskeer.Common.IO.Configurations.Import
         /// </summary>
         /// <param name="mainSchemaDefinition">A <c>string</c> representing the main schema definition.</param>
         /// <param name="nestedSchemaDefinitions">A <see cref="IDictionary{TKey,TValue}"/> containing
-        /// zero to more nested schema definitions</param>
+        /// zero to more nested schema definitions.</param>
         /// <exception cref="CriticalFileReadException">Thrown when the XML document does not match
         /// the provided schema definitions.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="mainSchemaDefinition"/> does not
         /// reference the default schema definition <c>ConfiguratieSchema.xsd</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when:
+        /// <list type="bullet">
+        /// <item><paramref name="mainSchemaDefinition"/> is invalid.</item>
+        /// <item><paramref name="nestedSchemaDefinitions"/> contains invalid schema definition values.</item>
+        /// <item><paramref name="mainSchemaDefinition"/>, all together with its referenced
+        /// <paramref name="nestedSchemaDefinitions"/>, contains an invalid schema definition.</item>
+        /// <item><paramref name="nestedSchemaDefinitions"/> contains schema definitions that are not
+        /// referenced by <see cref="mainSchemaDefinition"/>.</item>
+        /// </list>
+        /// </exception>
+
         private void ValidateToSchema(string mainSchemaDefinition, IDictionary<string, string> nestedSchemaDefinitions)
         {
             if (!mainSchemaDefinition.Contains(defaultSchemaName))
