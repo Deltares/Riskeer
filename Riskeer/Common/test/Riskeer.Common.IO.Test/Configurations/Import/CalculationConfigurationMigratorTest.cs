@@ -33,6 +33,7 @@ namespace Riskeer.Common.IO.Test.Configurations.Import
     {
         private readonly string testDirectoryPath = TestHelper.GetTestDataPath(TestDataPath.Riskeer.Common.IO,
                                                                                nameof(CalculationConfigurationMigrator));
+
         [Test]
         public void Migrate_XmlDocumentNull_ThrowsArgumentNullException()
         {

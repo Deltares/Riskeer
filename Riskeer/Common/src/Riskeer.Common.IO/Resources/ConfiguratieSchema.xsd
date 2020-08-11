@@ -31,7 +31,7 @@ All rights reserved.
     </xs:choice>
   </xs:complexType>
 
-  <!-- Basisdefinitie van een configuratie.-->
+  <!--Basisdefinitie van een configuratie.-->
   <xs:element name="configuratie" type="configuratieType" />
 
   <!--Definitie van een map die zichzelf recursief kan bevatten, maar ook 
