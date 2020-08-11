@@ -53,15 +53,9 @@ namespace Riskeer.HeightStructures.IO.Test.Configurations
                                               "The 'voorlandprofiel' element is invalid - The value '' is invalid according to its datatype 'String'")
                     .SetName("invalidCalculationForeshoreProfileEmpty");
 
-                yield return new TestCaseData("invalidCalculationHydraulicBoundaryLocationEmptyOld.xml",
-                                              "The 'hrlocatie' element is invalid - The value '' is invalid according to its datatype 'String'")
-                    .SetName("invalidCalculationHydraulicBoundaryLocationEmptyOld");
-                yield return new TestCaseData("invalidCalculationHydraulicBoundaryLocationEmptyNew.xml",
+                yield return new TestCaseData("invalidCalculationHydraulicBoundaryLocationEmpty.xml",
                                               "The 'hblocatie' element is invalid - The value '' is invalid according to its datatype 'String'")
-                    .SetName("invalidCalculationHydraulicBoundaryLocationEmptyNew");
-                yield return new TestCaseData("invalidCalculationHydraulicBoundaryLocationOldAndNew.xml",
-                                              "Element 'hblocatie' cannot appear more than once if content model type is \"all\".")
-                    .SetName("invalidCalculationHydraulicBoundaryLocationOldAndNew");
+                    .SetName("invalidCalculationHydraulicBoundaryLocationEmpty");
 
                 yield return new TestCaseData("invalidCalculationMultipleFailureProbabilityStructureWithErosion.xml",
                                               "Element 'faalkansgegevenerosiebodem' cannot appear more than once if content model type is \"all\".")
@@ -69,12 +63,9 @@ namespace Riskeer.HeightStructures.IO.Test.Configurations
                 yield return new TestCaseData("invalidCalculationMultipleForeshoreProfile.xml",
                                               "Element 'voorlandprofiel' cannot appear more than once if content model type is \"all\".")
                     .SetName("invalidCalculationMultipleForeshoreProfile");
-                yield return new TestCaseData("invalidCalculationMultipleHydraulicBoundaryLocationOld.xml",
-                                              "Element 'hrlocatie' cannot appear more than once if content model type is \"all\".")
-                    .SetName("invalidCalculationMultipleHydraulicBoundaryLocationOld");
-                yield return new TestCaseData("invalidCalculationMultipleHydraulicBoundaryLocationNew.xml",
+                yield return new TestCaseData("invalidCalculationMultipleHydraulicBoundaryLocation.xml",
                                               "Element 'hblocatie' cannot appear more than once if content model type is \"all\".")
-                    .SetName("invalidCalculationMultipleHydraulicBoundaryLocationNew");
+                    .SetName("invalidCalculationMultipleHydraulicBoundaryLocation");
                 yield return new TestCaseData("invalidCalculationMultipleOrientation.xml",
                                               "Element 'orientatie' cannot appear more than once if content model type is \"all\".")
                     .SetName("invalidCalculationMultipleOrientation");
@@ -219,10 +210,6 @@ namespace Riskeer.HeightStructures.IO.Test.Configurations
                 yield return new TestCaseData("invalidScenarioRelevantNoBoolean.xml",
                                               "The 'gebruik' element is invalid - The value 'string' is invalid according to its datatype 'Boolean'")
                     .SetName("invalidScenarioRelevantNoBoolean");
-
-                yield return new TestCaseData("invalidCalculationVersion1HydraulicBoundaryLocationOld.xml",
-                                              "The element 'berekening' has invalid child element 'hrlocatie'.")
-                    .SetName("invalidCalculationVersion1HydraulicBoundaryLocationOld");
             }
         }
 
@@ -268,34 +255,30 @@ namespace Riskeer.HeightStructures.IO.Test.Configurations
             IEnumerable<IConfigurationItem> readConfigurationItems = reader.Read().ToArray();
 
             // Assert
-            var calculation = (HeightStructuresCalculationConfiguration) readConfigurationItems.Single();
+            var configuration = (HeightStructuresCalculationConfiguration) readConfigurationItems.Single();
 
-            Assert.IsNull(calculation.StructureNormalOrientation);
-            Assert.IsNull(calculation.StructureId);
-            Assert.IsNull(calculation.HydraulicBoundaryLocationName);
-            Assert.IsNull(calculation.ForeshoreProfileId);
-            Assert.IsNull(calculation.FailureProbabilityStructureWithErosion);
+            Assert.IsNull(configuration.StructureNormalOrientation);
+            Assert.IsNull(configuration.StructureId);
+            Assert.IsNull(configuration.HydraulicBoundaryLocationName);
+            Assert.IsNull(configuration.ForeshoreProfileId);
+            Assert.IsNull(configuration.FailureProbabilityStructureWithErosion);
 
-            Assert.IsNull(calculation.LevelCrestStructure);
-            Assert.IsNull(calculation.AllowedLevelIncreaseStorage);
-            Assert.IsNull(calculation.CriticalOvertoppingDischarge);
-            Assert.IsNull(calculation.FlowWidthAtBottomProtection);
-            Assert.IsNull(calculation.ModelFactorSuperCriticalFlow);
-            Assert.IsNull(calculation.StorageStructureArea);
-            Assert.IsNull(calculation.StormDuration);
-            Assert.IsNull(calculation.WidthFlowApertures);
-            Assert.IsNull(calculation.ShouldIllustrationPointsBeCalculated);
-            Assert.IsNull(calculation.WaveReduction);
-            Assert.IsNull(calculation.Scenario);
+            Assert.IsNull(configuration.LevelCrestStructure);
+            Assert.IsNull(configuration.AllowedLevelIncreaseStorage);
+            Assert.IsNull(configuration.CriticalOvertoppingDischarge);
+            Assert.IsNull(configuration.FlowWidthAtBottomProtection);
+            Assert.IsNull(configuration.ModelFactorSuperCriticalFlow);
+            Assert.IsNull(configuration.StorageStructureArea);
+            Assert.IsNull(configuration.StormDuration);
+            Assert.IsNull(configuration.WidthFlowApertures);
+            Assert.IsNull(configuration.ShouldIllustrationPointsBeCalculated);
+            Assert.IsNull(configuration.WaveReduction);
+            Assert.IsNull(configuration.Scenario);
         }
 
         [Test]
-        [TestCase("validFullConfigurationOld")]
-        [TestCase("validFullConfigurationNew")]
-        [TestCase("validFullConfiguration_differentOrder_old")]
-        [TestCase("validFullConfiguration_differentOrder_new")]
-        [TestCase("validFullConfigurationVersion1")]
-        [TestCase("validFullConfiguration_differentOrder_Version1")]
+        [TestCase("validFullConfiguration")]
+        [TestCase("validFullConfiguration_differentOrder")]
         public void Read_ValidFullConfigurations_ExpectedValues(string fileName)
         {
             // Setup
@@ -306,39 +289,25 @@ namespace Riskeer.HeightStructures.IO.Test.Configurations
             IEnumerable<IConfigurationItem> readConfigurationItems = reader.Read().ToArray();
 
             // Assert
-            var calculation = (HeightStructuresCalculationConfiguration) readConfigurationItems.Single();
+            var configuration = (HeightStructuresCalculationConfiguration) readConfigurationItems.Single();
 
-            Assert.AreEqual(67.1, calculation.StructureNormalOrientation);
-            Assert.AreEqual("kunstwerk1", calculation.StructureId);
-            Assert.AreEqual("Locatie1", calculation.HydraulicBoundaryLocationName);
-            Assert.AreEqual("profiel1", calculation.ForeshoreProfileId);
-            Assert.AreEqual(1e-6, calculation.FailureProbabilityStructureWithErosion);
+            AssertConfiguration(configuration);
+        }
 
-            Assert.AreEqual(4.3, calculation.LevelCrestStructure.Mean);
-            Assert.AreEqual(0.1, calculation.LevelCrestStructure.StandardDeviation);
+        [Test]
+        public void Read_ValidPreviousVersionConfigurationWithFullCalculation_ReturnExpectedReadCalculation()
+        {
+            // Setup
+            string filePath = Path.Combine(testDirectoryPath, "version0ValidConfigurationFullCalculation.xml");
+            var reader = new HeightStructuresCalculationConfigurationReader(filePath);
 
-            Assert.AreEqual(0.2, calculation.AllowedLevelIncreaseStorage.Mean);
-            Assert.AreEqual(0.01, calculation.AllowedLevelIncreaseStorage.StandardDeviation);
-            Assert.AreEqual(2, calculation.CriticalOvertoppingDischarge.Mean);
-            Assert.AreEqual(0.1, calculation.CriticalOvertoppingDischarge.VariationCoefficient);
-            Assert.AreEqual(15.2, calculation.FlowWidthAtBottomProtection.Mean);
-            Assert.AreEqual(0.1, calculation.FlowWidthAtBottomProtection.StandardDeviation);
-            Assert.AreEqual(1.10, calculation.ModelFactorSuperCriticalFlow.Mean);
-            Assert.AreEqual(0.12, calculation.ModelFactorSuperCriticalFlow.StandardDeviation);
-            Assert.AreEqual(15000, calculation.StorageStructureArea.Mean);
-            Assert.AreEqual(0.01, calculation.StorageStructureArea.VariationCoefficient);
-            Assert.AreEqual(6.0, calculation.StormDuration.Mean);
-            Assert.AreEqual(0.12, calculation.StormDuration.VariationCoefficient);
-            Assert.AreEqual(15.2, calculation.WidthFlowApertures.Mean);
-            Assert.AreEqual(0.1, calculation.WidthFlowApertures.StandardDeviation);
+            // Call
+            IEnumerable<IConfigurationItem> readConfigurationItems = reader.Read().ToArray();
 
-            Assert.AreEqual(ConfigurationBreakWaterType.Dam, calculation.WaveReduction.BreakWaterType);
-            Assert.AreEqual(1.234, calculation.WaveReduction.BreakWaterHeight);
-            Assert.IsTrue(calculation.WaveReduction.UseBreakWater);
-            Assert.IsTrue(calculation.WaveReduction.UseForeshoreProfile);
-            Assert.IsTrue(calculation.ShouldIllustrationPointsBeCalculated);
-            Assert.IsTrue(calculation.Scenario.IsRelevant);
-            Assert.AreEqual(8.8, calculation.Scenario.Contribution);
+            // Assert
+            var configuration = (HeightStructuresCalculationConfiguration) readConfigurationItems.Single();
+
+            AssertConfiguration(configuration);
         }
 
         [Test]
@@ -352,38 +321,38 @@ namespace Riskeer.HeightStructures.IO.Test.Configurations
             IEnumerable<IConfigurationItem> readConfigurationItems = reader.Read().ToArray();
 
             // Assert
-            var calculation = (HeightStructuresCalculationConfiguration) readConfigurationItems.Single();
+            var configuration = (HeightStructuresCalculationConfiguration) readConfigurationItems.Single();
 
-            Assert.IsTrue(double.IsNegativeInfinity(calculation.StructureNormalOrientation.Value));
-            Assert.IsNull(calculation.StructureId);
-            Assert.IsNull(calculation.HydraulicBoundaryLocationName);
-            Assert.IsNull(calculation.ForeshoreProfileId);
-            Assert.IsTrue(double.IsNegativeInfinity(calculation.FailureProbabilityStructureWithErosion.Value));
+            Assert.IsTrue(double.IsNegativeInfinity(configuration.StructureNormalOrientation.Value));
+            Assert.IsNull(configuration.StructureId);
+            Assert.IsNull(configuration.HydraulicBoundaryLocationName);
+            Assert.IsNull(configuration.ForeshoreProfileId);
+            Assert.IsTrue(double.IsNegativeInfinity(configuration.FailureProbabilityStructureWithErosion.Value));
 
-            Assert.IsTrue(double.IsNegativeInfinity(calculation.LevelCrestStructure.Mean.Value));
-            Assert.IsTrue(double.IsNegativeInfinity(calculation.LevelCrestStructure.StandardDeviation.Value));
+            Assert.IsTrue(double.IsNegativeInfinity(configuration.LevelCrestStructure.Mean.Value));
+            Assert.IsTrue(double.IsNegativeInfinity(configuration.LevelCrestStructure.StandardDeviation.Value));
 
-            Assert.IsTrue(double.IsPositiveInfinity(calculation.AllowedLevelIncreaseStorage.Mean.Value));
-            Assert.IsTrue(double.IsNegativeInfinity(calculation.AllowedLevelIncreaseStorage.StandardDeviation.Value));
-            Assert.IsTrue(double.IsPositiveInfinity(calculation.CriticalOvertoppingDischarge.Mean.Value));
-            Assert.IsTrue(double.IsPositiveInfinity(calculation.CriticalOvertoppingDischarge.VariationCoefficient.Value));
-            Assert.IsTrue(double.IsNegativeInfinity(calculation.FlowWidthAtBottomProtection.Mean.Value));
-            Assert.IsTrue(double.IsPositiveInfinity(calculation.FlowWidthAtBottomProtection.StandardDeviation.Value));
-            Assert.IsTrue(double.IsNegativeInfinity(calculation.ModelFactorSuperCriticalFlow.Mean.Value));
-            Assert.IsTrue(double.IsPositiveInfinity(calculation.ModelFactorSuperCriticalFlow.StandardDeviation.Value));
-            Assert.IsTrue(double.IsPositiveInfinity(calculation.StorageStructureArea.Mean.Value));
-            Assert.IsTrue(double.IsPositiveInfinity(calculation.StorageStructureArea.VariationCoefficient.Value));
-            Assert.IsTrue(double.IsNegativeInfinity(calculation.StormDuration.Mean.Value));
-            Assert.IsTrue(double.IsNegativeInfinity(calculation.StormDuration.VariationCoefficient.Value));
-            Assert.IsTrue(double.IsPositiveInfinity(calculation.WidthFlowApertures.Mean.Value));
-            Assert.IsTrue(double.IsPositiveInfinity(calculation.WidthFlowApertures.StandardDeviation.Value));
+            Assert.IsTrue(double.IsPositiveInfinity(configuration.AllowedLevelIncreaseStorage.Mean.Value));
+            Assert.IsTrue(double.IsNegativeInfinity(configuration.AllowedLevelIncreaseStorage.StandardDeviation.Value));
+            Assert.IsTrue(double.IsPositiveInfinity(configuration.CriticalOvertoppingDischarge.Mean.Value));
+            Assert.IsTrue(double.IsPositiveInfinity(configuration.CriticalOvertoppingDischarge.VariationCoefficient.Value));
+            Assert.IsTrue(double.IsNegativeInfinity(configuration.FlowWidthAtBottomProtection.Mean.Value));
+            Assert.IsTrue(double.IsPositiveInfinity(configuration.FlowWidthAtBottomProtection.StandardDeviation.Value));
+            Assert.IsTrue(double.IsNegativeInfinity(configuration.ModelFactorSuperCriticalFlow.Mean.Value));
+            Assert.IsTrue(double.IsPositiveInfinity(configuration.ModelFactorSuperCriticalFlow.StandardDeviation.Value));
+            Assert.IsTrue(double.IsPositiveInfinity(configuration.StorageStructureArea.Mean.Value));
+            Assert.IsTrue(double.IsPositiveInfinity(configuration.StorageStructureArea.VariationCoefficient.Value));
+            Assert.IsTrue(double.IsNegativeInfinity(configuration.StormDuration.Mean.Value));
+            Assert.IsTrue(double.IsNegativeInfinity(configuration.StormDuration.VariationCoefficient.Value));
+            Assert.IsTrue(double.IsPositiveInfinity(configuration.WidthFlowApertures.Mean.Value));
+            Assert.IsTrue(double.IsPositiveInfinity(configuration.WidthFlowApertures.StandardDeviation.Value));
 
-            Assert.IsNull(calculation.WaveReduction.BreakWaterType);
-            Assert.IsTrue(double.IsNegativeInfinity(calculation.WaveReduction.BreakWaterHeight.Value));
-            Assert.IsNull(calculation.WaveReduction.UseBreakWater);
-            Assert.IsNull(calculation.WaveReduction.UseForeshoreProfile);
-            Assert.IsNull(calculation.ShouldIllustrationPointsBeCalculated);
-            Assert.IsTrue(double.IsPositiveInfinity(calculation.Scenario.Contribution.Value));
+            Assert.IsNull(configuration.WaveReduction.BreakWaterType);
+            Assert.IsTrue(double.IsNegativeInfinity(configuration.WaveReduction.BreakWaterHeight.Value));
+            Assert.IsNull(configuration.WaveReduction.UseBreakWater);
+            Assert.IsNull(configuration.WaveReduction.UseForeshoreProfile);
+            Assert.IsNull(configuration.ShouldIllustrationPointsBeCalculated);
+            Assert.IsTrue(double.IsPositiveInfinity(configuration.Scenario.Contribution.Value));
         }
 
         [Test]
@@ -397,82 +366,80 @@ namespace Riskeer.HeightStructures.IO.Test.Configurations
             IEnumerable<IConfigurationItem> readConfigurationItems = reader.Read().ToArray();
 
             // Assert
-            var calculation = (HeightStructuresCalculationConfiguration) readConfigurationItems.Single();
+            var configuration = (HeightStructuresCalculationConfiguration) readConfigurationItems.Single();
 
-            Assert.IsNaN(calculation.StructureNormalOrientation);
-            Assert.IsNull(calculation.StructureId);
-            Assert.IsNull(calculation.HydraulicBoundaryLocationName);
-            Assert.IsNull(calculation.ForeshoreProfileId);
-            Assert.IsNaN(calculation.FailureProbabilityStructureWithErosion);
+            Assert.IsNaN(configuration.StructureNormalOrientation);
+            Assert.IsNull(configuration.StructureId);
+            Assert.IsNull(configuration.HydraulicBoundaryLocationName);
+            Assert.IsNull(configuration.ForeshoreProfileId);
+            Assert.IsNaN(configuration.FailureProbabilityStructureWithErosion);
 
-            Assert.IsNaN(calculation.LevelCrestStructure.Mean);
-            Assert.IsNaN(calculation.LevelCrestStructure.StandardDeviation);
+            Assert.IsNaN(configuration.LevelCrestStructure.Mean);
+            Assert.IsNaN(configuration.LevelCrestStructure.StandardDeviation);
 
-            Assert.IsNaN(calculation.AllowedLevelIncreaseStorage.Mean);
-            Assert.IsNaN(calculation.AllowedLevelIncreaseStorage.StandardDeviation);
-            Assert.IsNaN(calculation.CriticalOvertoppingDischarge.Mean);
-            Assert.IsNaN(calculation.CriticalOvertoppingDischarge.VariationCoefficient);
-            Assert.IsNaN(calculation.FlowWidthAtBottomProtection.Mean);
-            Assert.IsNaN(calculation.FlowWidthAtBottomProtection.StandardDeviation);
-            Assert.IsNaN(calculation.ModelFactorSuperCriticalFlow.Mean);
-            Assert.IsNaN(calculation.ModelFactorSuperCriticalFlow.StandardDeviation);
-            Assert.IsNaN(calculation.StorageStructureArea.Mean);
-            Assert.IsNaN(calculation.StorageStructureArea.VariationCoefficient);
-            Assert.IsNaN(calculation.StormDuration.Mean);
-            Assert.IsNaN(calculation.StormDuration.VariationCoefficient);
-            Assert.IsNaN(calculation.WidthFlowApertures.Mean);
-            Assert.IsNaN(calculation.WidthFlowApertures.StandardDeviation);
+            Assert.IsNaN(configuration.AllowedLevelIncreaseStorage.Mean);
+            Assert.IsNaN(configuration.AllowedLevelIncreaseStorage.StandardDeviation);
+            Assert.IsNaN(configuration.CriticalOvertoppingDischarge.Mean);
+            Assert.IsNaN(configuration.CriticalOvertoppingDischarge.VariationCoefficient);
+            Assert.IsNaN(configuration.FlowWidthAtBottomProtection.Mean);
+            Assert.IsNaN(configuration.FlowWidthAtBottomProtection.StandardDeviation);
+            Assert.IsNaN(configuration.ModelFactorSuperCriticalFlow.Mean);
+            Assert.IsNaN(configuration.ModelFactorSuperCriticalFlow.StandardDeviation);
+            Assert.IsNaN(configuration.StorageStructureArea.Mean);
+            Assert.IsNaN(configuration.StorageStructureArea.VariationCoefficient);
+            Assert.IsNaN(configuration.StormDuration.Mean);
+            Assert.IsNaN(configuration.StormDuration.VariationCoefficient);
+            Assert.IsNaN(configuration.WidthFlowApertures.Mean);
+            Assert.IsNaN(configuration.WidthFlowApertures.StandardDeviation);
 
-            Assert.IsNull(calculation.WaveReduction.BreakWaterType);
-            Assert.IsNaN(calculation.WaveReduction.BreakWaterHeight);
-            Assert.IsNull(calculation.WaveReduction.UseBreakWater);
-            Assert.IsNull(calculation.WaveReduction.UseForeshoreProfile);
-            Assert.IsNull(calculation.ShouldIllustrationPointsBeCalculated);
-            Assert.IsNaN(calculation.Scenario.Contribution);
+            Assert.IsNull(configuration.WaveReduction.BreakWaterType);
+            Assert.IsNaN(configuration.WaveReduction.BreakWaterHeight);
+            Assert.IsNull(configuration.WaveReduction.UseBreakWater);
+            Assert.IsNull(configuration.WaveReduction.UseForeshoreProfile);
+            Assert.IsNull(configuration.ShouldIllustrationPointsBeCalculated);
+            Assert.IsNaN(configuration.Scenario.Contribution);
         }
 
         [Test]
-        [TestCase("validPartialConfigurationOld")]
-        [TestCase("validPartialConfigurationNew")]
-        public void Read_ValidPartialConfigurations_ExpectedValues(string fileName)
+        public void Read_ValidPartialConfigurations_ExpectedValues()
         {
             // Setup
-            string filePath = Path.Combine(testDirectoryPath, $"{fileName}.xml");
+            string filePath = Path.Combine(testDirectoryPath, "validPartialConfiguration.xml");
             var reader = new HeightStructuresCalculationConfigurationReader(filePath);
 
             // Call
             IEnumerable<IConfigurationItem> readConfigurationItems = reader.Read().ToArray();
 
             // Assert
-            var calculation = (HeightStructuresCalculationConfiguration) readConfigurationItems.Single();
+            var configuration = (HeightStructuresCalculationConfiguration) readConfigurationItems.Single();
 
-            Assert.IsNull(calculation.StructureNormalOrientation);
-            Assert.IsNull(calculation.StructureId);
-            Assert.AreEqual("Locatie1", calculation.HydraulicBoundaryLocationName);
-            Assert.AreEqual("profiel1", calculation.ForeshoreProfileId);
-            Assert.IsNull(calculation.FailureProbabilityStructureWithErosion);
+            Assert.IsNull(configuration.StructureNormalOrientation);
+            Assert.IsNull(configuration.StructureId);
+            Assert.AreEqual("Locatie1", configuration.HydraulicBoundaryLocationName);
+            Assert.AreEqual("profiel1", configuration.ForeshoreProfileId);
+            Assert.IsNull(configuration.FailureProbabilityStructureWithErosion);
 
-            Assert.IsNull(calculation.LevelCrestStructure);
+            Assert.IsNull(configuration.LevelCrestStructure);
 
-            Assert.IsNull(calculation.AllowedLevelIncreaseStorage);
-            Assert.AreEqual(2, calculation.CriticalOvertoppingDischarge.Mean);
-            Assert.AreEqual(0.1, calculation.CriticalOvertoppingDischarge.VariationCoefficient);
-            Assert.IsNull(calculation.FlowWidthAtBottomProtection);
-            Assert.IsNull(calculation.ModelFactorSuperCriticalFlow);
-            Assert.AreEqual(15000, calculation.StorageStructureArea.Mean);
-            Assert.IsNull(calculation.StorageStructureArea.VariationCoefficient);
-            Assert.AreEqual(6.0, calculation.StormDuration.Mean);
-            Assert.IsNull(calculation.StormDuration.VariationCoefficient);
-            Assert.IsNull(calculation.WidthFlowApertures.Mean);
-            Assert.AreEqual(0.1, calculation.WidthFlowApertures.StandardDeviation);
+            Assert.IsNull(configuration.AllowedLevelIncreaseStorage);
+            Assert.AreEqual(2, configuration.CriticalOvertoppingDischarge.Mean);
+            Assert.AreEqual(0.1, configuration.CriticalOvertoppingDischarge.VariationCoefficient);
+            Assert.IsNull(configuration.FlowWidthAtBottomProtection);
+            Assert.IsNull(configuration.ModelFactorSuperCriticalFlow);
+            Assert.AreEqual(15000, configuration.StorageStructureArea.Mean);
+            Assert.IsNull(configuration.StorageStructureArea.VariationCoefficient);
+            Assert.AreEqual(6.0, configuration.StormDuration.Mean);
+            Assert.IsNull(configuration.StormDuration.VariationCoefficient);
+            Assert.IsNull(configuration.WidthFlowApertures.Mean);
+            Assert.AreEqual(0.1, configuration.WidthFlowApertures.StandardDeviation);
 
-            Assert.IsNull(calculation.WaveReduction.BreakWaterType);
-            Assert.IsNull(calculation.WaveReduction.BreakWaterHeight);
-            Assert.IsTrue(calculation.WaveReduction.UseBreakWater);
-            Assert.IsTrue(calculation.WaveReduction.UseForeshoreProfile);
-            Assert.IsNull(calculation.ShouldIllustrationPointsBeCalculated);
-            Assert.IsTrue(calculation.Scenario.IsRelevant);
-            Assert.AreEqual(8.8, calculation.Scenario.Contribution);
+            Assert.IsNull(configuration.WaveReduction.BreakWaterType);
+            Assert.IsNull(configuration.WaveReduction.BreakWaterHeight);
+            Assert.IsTrue(configuration.WaveReduction.UseBreakWater);
+            Assert.IsTrue(configuration.WaveReduction.UseForeshoreProfile);
+            Assert.IsNull(configuration.ShouldIllustrationPointsBeCalculated);
+            Assert.IsTrue(configuration.Scenario.IsRelevant);
+            Assert.AreEqual(8.8, configuration.Scenario.Contribution);
         }
 
         [Test]
@@ -486,35 +453,70 @@ namespace Riskeer.HeightStructures.IO.Test.Configurations
             IEnumerable<IConfigurationItem> readConfigurationItems = reader.Read().ToArray();
 
             // Assert
-            var calculation = (HeightStructuresCalculationConfiguration) readConfigurationItems.Single();
+            var configuration = (HeightStructuresCalculationConfiguration) readConfigurationItems.Single();
 
-            Assert.IsNull(calculation.StructureNormalOrientation);
-            Assert.IsNull(calculation.StructureId);
-            Assert.IsNull(calculation.HydraulicBoundaryLocationName);
-            Assert.IsNull(calculation.ForeshoreProfileId);
-            Assert.IsNull(calculation.FailureProbabilityStructureWithErosion);
+            Assert.IsNull(configuration.StructureNormalOrientation);
+            Assert.IsNull(configuration.StructureId);
+            Assert.IsNull(configuration.HydraulicBoundaryLocationName);
+            Assert.IsNull(configuration.ForeshoreProfileId);
+            Assert.IsNull(configuration.FailureProbabilityStructureWithErosion);
 
-            Assert.IsNull(calculation.LevelCrestStructure.Mean);
-            Assert.IsNull(calculation.LevelCrestStructure.StandardDeviation);
+            Assert.IsNull(configuration.LevelCrestStructure.Mean);
+            Assert.IsNull(configuration.LevelCrestStructure.StandardDeviation);
 
-            Assert.IsNull(calculation.AllowedLevelIncreaseStorage.Mean);
-            Assert.IsNull(calculation.AllowedLevelIncreaseStorage.StandardDeviation);
-            Assert.IsNull(calculation.CriticalOvertoppingDischarge.Mean);
-            Assert.IsNull(calculation.CriticalOvertoppingDischarge.VariationCoefficient);
-            Assert.IsNull(calculation.FlowWidthAtBottomProtection.Mean);
-            Assert.IsNull(calculation.FlowWidthAtBottomProtection.StandardDeviation);
-            Assert.IsNull(calculation.ModelFactorSuperCriticalFlow.Mean);
-            Assert.IsNull(calculation.ModelFactorSuperCriticalFlow.StandardDeviation);
-            Assert.IsNull(calculation.StorageStructureArea.Mean);
-            Assert.IsNull(calculation.StorageStructureArea.VariationCoefficient);
-            Assert.IsNull(calculation.StormDuration.Mean);
-            Assert.IsNull(calculation.StormDuration.VariationCoefficient);
-            Assert.IsNull(calculation.WidthFlowApertures.Mean);
-            Assert.IsNull(calculation.WidthFlowApertures.StandardDeviation);
+            Assert.IsNull(configuration.AllowedLevelIncreaseStorage.Mean);
+            Assert.IsNull(configuration.AllowedLevelIncreaseStorage.StandardDeviation);
+            Assert.IsNull(configuration.CriticalOvertoppingDischarge.Mean);
+            Assert.IsNull(configuration.CriticalOvertoppingDischarge.VariationCoefficient);
+            Assert.IsNull(configuration.FlowWidthAtBottomProtection.Mean);
+            Assert.IsNull(configuration.FlowWidthAtBottomProtection.StandardDeviation);
+            Assert.IsNull(configuration.ModelFactorSuperCriticalFlow.Mean);
+            Assert.IsNull(configuration.ModelFactorSuperCriticalFlow.StandardDeviation);
+            Assert.IsNull(configuration.StorageStructureArea.Mean);
+            Assert.IsNull(configuration.StorageStructureArea.VariationCoefficient);
+            Assert.IsNull(configuration.StormDuration.Mean);
+            Assert.IsNull(configuration.StormDuration.VariationCoefficient);
+            Assert.IsNull(configuration.WidthFlowApertures.Mean);
+            Assert.IsNull(configuration.WidthFlowApertures.StandardDeviation);
 
-            Assert.IsNull(calculation.WaveReduction);
-            Assert.IsNull(calculation.ShouldIllustrationPointsBeCalculated);
-            Assert.IsNull(calculation.Scenario);
+            Assert.IsNull(configuration.WaveReduction);
+            Assert.IsNull(configuration.ShouldIllustrationPointsBeCalculated);
+            Assert.IsNull(configuration.Scenario);
+        }
+
+        private static void AssertConfiguration(HeightStructuresCalculationConfiguration configuration)
+        {
+            Assert.AreEqual(67.1, configuration.StructureNormalOrientation);
+            Assert.AreEqual("kunstwerk1", configuration.StructureId);
+            Assert.AreEqual("Locatie1", configuration.HydraulicBoundaryLocationName);
+            Assert.AreEqual("profiel1", configuration.ForeshoreProfileId);
+            Assert.AreEqual(1e-6, configuration.FailureProbabilityStructureWithErosion);
+
+            Assert.AreEqual(4.3, configuration.LevelCrestStructure.Mean);
+            Assert.AreEqual(0.1, configuration.LevelCrestStructure.StandardDeviation);
+
+            Assert.AreEqual(0.2, configuration.AllowedLevelIncreaseStorage.Mean);
+            Assert.AreEqual(0.01, configuration.AllowedLevelIncreaseStorage.StandardDeviation);
+            Assert.AreEqual(2, configuration.CriticalOvertoppingDischarge.Mean);
+            Assert.AreEqual(0.1, configuration.CriticalOvertoppingDischarge.VariationCoefficient);
+            Assert.AreEqual(15.2, configuration.FlowWidthAtBottomProtection.Mean);
+            Assert.AreEqual(0.1, configuration.FlowWidthAtBottomProtection.StandardDeviation);
+            Assert.AreEqual(1.10, configuration.ModelFactorSuperCriticalFlow.Mean);
+            Assert.AreEqual(0.12, configuration.ModelFactorSuperCriticalFlow.StandardDeviation);
+            Assert.AreEqual(15000, configuration.StorageStructureArea.Mean);
+            Assert.AreEqual(0.01, configuration.StorageStructureArea.VariationCoefficient);
+            Assert.AreEqual(6.0, configuration.StormDuration.Mean);
+            Assert.AreEqual(0.12, configuration.StormDuration.VariationCoefficient);
+            Assert.AreEqual(15.2, configuration.WidthFlowApertures.Mean);
+            Assert.AreEqual(0.1, configuration.WidthFlowApertures.StandardDeviation);
+
+            Assert.AreEqual(ConfigurationBreakWaterType.Dam, configuration.WaveReduction.BreakWaterType);
+            Assert.AreEqual(1.234, configuration.WaveReduction.BreakWaterHeight);
+            Assert.IsTrue(configuration.WaveReduction.UseBreakWater);
+            Assert.IsTrue(configuration.WaveReduction.UseForeshoreProfile);
+            Assert.IsTrue(configuration.ShouldIllustrationPointsBeCalculated);
+            Assert.IsTrue(configuration.Scenario.IsRelevant);
+            Assert.AreEqual(8.8, configuration.Scenario.Contribution);
         }
     }
 }
