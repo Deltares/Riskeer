@@ -41,11 +41,6 @@ namespace Riskeer.Common.IO.Configurations.Import
                                                         IDictionary<string, string> nestedSchemaDefinitions,
                                                         string migrationScript)
         {
-            if (NestedSchemaDefinitions == null)
-            {
-                throw new ArgumentNullException(nameof(nestedSchemaDefinitions));
-            }
-
             VersionNumber = versionNumber;
             MainSchemaDefinition = mainSchemaDefinition;
             NestedSchemaDefinitions = nestedSchemaDefinitions;
@@ -53,7 +48,7 @@ namespace Riskeer.Common.IO.Configurations.Import
         }
 
         /// <summary>
-        /// Gets the version schema definition.
+        /// Gets the version number of the xml that applies to this definition.
         /// </summary>
         public int VersionNumber { get; }
 

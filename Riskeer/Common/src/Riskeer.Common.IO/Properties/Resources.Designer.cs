@@ -293,7 +293,7 @@ namespace Riskeer.Common.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het versienummer van het bestand wordt niet ondersteund..
+        ///   Looks up a localized string similar to het versienummer van het bestand wordt niet ondersteund..
         /// </summary>
         public static string CalculationConfigurationReader_GetSchemaDefinition_Not_supported_version {
             get {
