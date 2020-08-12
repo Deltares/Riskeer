@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<configuratie>
+<configuratie versie="1">
   <berekening naam="WZ_1_6-3_dk_00043">
     <hblocatie>WZ_1_6-3_dk_00043</hblocatie>
     <categoriegrens>IIv</categoriegrens>

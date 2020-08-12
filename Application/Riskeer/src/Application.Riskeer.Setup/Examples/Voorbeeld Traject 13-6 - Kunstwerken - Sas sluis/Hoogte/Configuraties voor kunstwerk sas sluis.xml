@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<configuratie>
+<configuratie versie="1">
   <berekening naam="Sassluis">
     <hblocatie>YM_2_13-6_dk_00284</hblocatie>
     <kunstwerk>17k6</kunstwerk>

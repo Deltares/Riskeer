@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<configuratie>
+<configuratie versie="1">
   <berekening naam="Profiel 1">
     <hblocatie>YM_2_12-2_dk_00012</hblocatie>
     <dijkprofiel>01200</dijkprofiel>

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<configuratie>
+<configuratie versie="1">
   <berekening naam="Gemaal Helbergen">
     <hblocatie>050-01_0050_1_IJ_km0926</hblocatie>
     <kunstwerk>KW_1</kunstwerk>

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<configuratie>
+<configuratie versie="1">
   <map naam="Vak_41-123">
     <berekening naam="Vak_41-123 Vak_41-123_Segment_41009_1D2">
       <hblocatie>041-01_0104_1_WA_km0891</hblocatie>

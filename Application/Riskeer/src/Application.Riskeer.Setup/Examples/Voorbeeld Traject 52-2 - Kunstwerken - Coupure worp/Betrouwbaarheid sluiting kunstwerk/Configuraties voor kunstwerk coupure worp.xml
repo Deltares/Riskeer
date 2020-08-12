@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<configuratie>
+<configuratie versie="1">
   <berekening naam="Coupure Worp">
     <hblocatie>IJ_1_52-2_dk_00487</hblocatie>
     <kunstwerk>KWK_1</kunstwerk>
