@@ -60,7 +60,7 @@ namespace Riskeer.HydraRing.IO.HydraulicBoundaryDatabase
             {
                 using (IDataReader reader = CreateDataReader("SELECT HRDLocationId, Name, XCoordinate, YCoordinate " +
                                                              "FROM HRDLocations " +
-                                                             "WHERE L.LocationTypeId > 1;"))
+                                                             "WHERE LocationTypeId > 1;"))
                 {
                     while (MoveNext(reader))
                     {

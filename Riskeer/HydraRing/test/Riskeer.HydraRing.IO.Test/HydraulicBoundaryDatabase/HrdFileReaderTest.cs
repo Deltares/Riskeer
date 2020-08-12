@@ -90,7 +90,7 @@ namespace Riskeer.HydraRing.IO.Test.HydraulicBoundaryDatabase
         public void ReadHrdLocations_FileWithInvalidDatabaseStructure_ThrowsCriticalFileReadException()
         {
             // Setup
-            string hrdFilePath = Path.Combine(testDataPath, "missingSegmentColumn.sqlite");
+            string hrdFilePath = Path.Combine(testDataPath, "missingNameColumn.sqlite");
 
             using (var reader = new HrdFileReader(hrdFilePath))
             {
@@ -140,15 +140,15 @@ namespace Riskeer.HydraRing.IO.Test.HydraulicBoundaryDatabase
                 IEnumerable<ReadHrdLocation> readHrdLocations = reader.ReadHrdLocations().ToArray();
 
                 // Assert
-                Assert.AreEqual(164, readHrdLocations.Count());
-                AssertReadHrdLocation(readHrdLocations.ElementAt(0), 700001, "10-1", "07_IJsselmeer_selectie_mu2017.sqlite");
-                AssertReadHrdLocation(readHrdLocations.ElementAt(41), 1000012, "40-1", "10_Waddenzee_west_selectie_mu2017.sqlite");
-                AssertReadHrdLocation(readHrdLocations.ElementAt(121), 11421125, "10-1", "03_Benedenrijn_selectie_mu2017.sqlite");
+                Assert.AreEqual(18, readHrdLocations.Count());
+                AssertReadHrdLocation(readHrdLocations.ElementAt(0), 1, "punt_flw_ 1", 52697.5, 427567.0);
+                AssertReadHrdLocation(readHrdLocations.ElementAt(9), 10, "PUNT_HAR_ 10", 63092.1, 428577.0);
+                AssertReadHrdLocation(readHrdLocations.ElementAt(17), 18, "PUNT_KAT_ 18", 87390.5, 469797.0);
             }
         }
 
         private static void AssertReadHrdLocation(ReadHrdLocation readHrdLocation, int expectedHrdLocationId,
-                                                  string expectedName, string expectedCoordinateX, string expectedCoordinateY)
+                                                  string expectedName, double expectedCoordinateX, double expectedCoordinateY)
         {
             Assert.AreEqual(expectedHrdLocationId, readHrdLocation.HrdLocationId);
             Assert.AreEqual(expectedName, readHrdLocation.Name);
