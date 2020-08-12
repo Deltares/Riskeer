@@ -36,8 +36,8 @@ namespace Riskeer.Common.IO.Configurations.Import
         /// <param name="mainSchemaDefinition">The main schema definition.</param>
         /// <param name="nestedSchemaDefinitions">The nested schema definitions.</param>
         /// <param name="migrationScript">The migration script.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <see cref="mainSchemaDefinition"/>, <see cref="nestedSchemaDefinitions"/> or
-        /// <see cref="migrationScript"/> is <c>null.</c></exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="mainSchemaDefinition"/>, <paramref name="nestedSchemaDefinitions"/> or
+        /// <paramref name="migrationScript"/> is <c>null</c>.</exception>
         public CalculationConfigurationSchemaDefinition(int versionNumber, string mainSchemaDefinition,
                                                         IDictionary<string, string> nestedSchemaDefinitions,
                                                         string migrationScript)
