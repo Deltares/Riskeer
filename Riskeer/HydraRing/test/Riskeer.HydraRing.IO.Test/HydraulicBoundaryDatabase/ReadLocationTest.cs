@@ -11,14 +11,16 @@ namespace Riskeer.HydraRing.IO.Test.HydraulicBoundaryDatabase
         {
             // Setup
             const long locationId = 1;
+            const long hrdLocationId = 12;
             const string assessmentSectionName = "10-1";
             const string hrdFileName = "01_Bovenrijn_selectie_mu2017.sqlite";
 
             // Call
-            var readLocation = new ReadLocation(locationId, assessmentSectionName, hrdFileName);
+            var readLocation = new ReadLocation(locationId, hrdLocationId, assessmentSectionName, hrdFileName);
 
             // Assert
             Assert.AreEqual(locationId, readLocation.LocationId);
+            Assert.AreEqual(hrdLocationId, readLocation.HrdLocationId);
             Assert.AreEqual(assessmentSectionName, readLocation.AssessmentSectionName);
             Assert.AreEqual(hrdFileName, readLocation.HrdFileName);
         }

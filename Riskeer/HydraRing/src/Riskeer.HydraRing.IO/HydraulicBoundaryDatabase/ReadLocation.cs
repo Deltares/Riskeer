@@ -30,11 +30,13 @@ namespace Riskeer.HydraRing.IO.HydraulicBoundaryDatabase
         /// Creates a new instance of <see cref="ReadLocation"/>.
         /// </summary>
         /// <param name="locationId">The database id of the read location.</param>
+        /// <param name="hrdLocationId">The HRD location id of the read location.</param>
         /// <param name="assessmentSectionName">The name of the assessment section the read location belongs to.</param>
         /// <param name="hrdFileName">The name of the HRD file the read location is represented by.</param>
-        public ReadLocation(long locationId, string assessmentSectionName, string hrdFileName)
+        public ReadLocation(long locationId, long hrdLocationId, string assessmentSectionName, string hrdFileName)
         {
             LocationId = locationId;
+            HrdLocationId = hrdLocationId;
             AssessmentSectionName = assessmentSectionName;
             HrdFileName = hrdFileName;
         }
@@ -43,6 +45,11 @@ namespace Riskeer.HydraRing.IO.HydraulicBoundaryDatabase
         /// Gets the database id of the read location.
         /// </summary>
         public long LocationId { get; }
+
+        /// <summary>
+        /// Gets the HRD location id of the read location.
+        /// </summary>
+        public long HrdLocationId { get; }
 
         /// <summary>
         /// Gets the name of the assessment section the read location belongs to.

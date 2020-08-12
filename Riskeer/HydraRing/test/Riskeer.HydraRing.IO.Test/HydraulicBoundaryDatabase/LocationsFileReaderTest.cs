@@ -141,16 +141,17 @@ namespace Riskeer.HydraRing.IO.Test.HydraulicBoundaryDatabase
 
                 // Assert
                 Assert.AreEqual(164, readLocations.Count());
-                AssertReadLocation(readLocations.ElementAt(0), 700001, "10-1", "07_IJsselmeer_selectie_mu2017.sqlite");
-                AssertReadLocation(readLocations.ElementAt(41), 1000012, "40-1", "10_Waddenzee_west_selectie_mu2017.sqlite");
-                AssertReadLocation(readLocations.ElementAt(121), 11421125, "10-1", "03_Benedenrijn_selectie_mu2017.sqlite");
+                AssertReadLocation(readLocations.ElementAt(0), 700001, 1, "10-1", "07_IJsselmeer_selectie_mu2017.sqlite");
+                AssertReadLocation(readLocations.ElementAt(42), 1000035, 2, "40-1", "10_Waddenzee_west_selectie_mu2017.sqlite");
+                AssertReadLocation(readLocations.ElementAt(123), 11431061, 3, "10-1", "03_Benedenrijn_selectie_mu2017.sqlite");
             }
         }
 
-        private static void AssertReadLocation(ReadLocation readLocation, int expectedLocationId,
+        private static void AssertReadLocation(ReadLocation readLocation, int expectedLocationId, int expectedHrdLocationId,
                                                string expectedAssessmentSectionName, string expectedHrdFileName)
         {
             Assert.AreEqual(expectedLocationId, readLocation.LocationId);
+            Assert.AreEqual(expectedHrdLocationId, readLocation.HrdLocationId);
             Assert.AreEqual(expectedAssessmentSectionName, readLocation.AssessmentSectionName);
             Assert.AreEqual(expectedHrdFileName, readLocation.HrdFileName);
         }

@@ -58,7 +58,7 @@ namespace Riskeer.HydraRing.IO.HydraulicBoundaryDatabase
 
             try
             {
-                using (IDataReader reader = CreateDataReader("SELECT L.LocationId, L.Segment, T.HRDFileName " +
+                using (IDataReader reader = CreateDataReader("SELECT L.LocationId, L.HRDLocationId, L.Segment, T.HRDFileName " +
                                                              "FROM Locations L " +
                                                              "INNER JOIN Tracks T USING(TrackId) " +
                                                              "WHERE L.TypeOfHydraulicDataId > 1;"))
@@ -89,6 +89,7 @@ namespace Riskeer.HydraRing.IO.HydraulicBoundaryDatabase
             try
             {
                 return new ReadLocation(reader.Read<long>("LocationId"),
+                                        reader.Read<long>("HRDLocationId"),
                                         reader.Read<string>("Segment"),
                                         reader.Read<string>("HRDFileName"));
             }
