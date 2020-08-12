@@ -94,6 +94,24 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Helpers
         }
 
         [Test]
+        public void HasValidStatePoints_SoilProfileWithPreconsolidationStressOutsideLayers_ReturnsFalse()
+        {
+            // Setup
+            MacroStabilityInwardsStochasticSoilProfile stochasticSoilProfile = MacroStabilityInwardsStochasticSoilProfileTestFactory.CreateMacroStabilityInwardsStochasticSoilProfile2D(new[]
+            {
+                MacroStabilityInwardsPreconsolidationStressTestFactory.CreateMacroStabilityInwardsPreconsolidationStress(new Point2D(2, -50))
+            });
+
+            MacroStabilityInwardsSoilProfileUnderSurfaceLine soilProfileUnderSurfaceLine = MacroStabilityInwardsSoilProfileUnderSurfaceLineFactory.Create(stochasticSoilProfile.SoilProfile, CreateSurfaceLine());
+
+            // Call
+            bool hasValidStatePoints = PersistableStateHelper.HasValidStatePoints(soilProfileUnderSurfaceLine);
+
+            // Assert
+            Assert.IsFalse(hasValidStatePoints);
+        }
+
+        [Test]
         public void HasValidStatePoints_WithValidData_ReturnsTrue()
         {
             // Setup
@@ -186,6 +204,72 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Helpers
             // Assert
             Assert.IsTrue(hasValidPop);
             mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GetLayerForPreconsolidationStress_LayersNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var preconsolidationStress = mocks.Stub<IMacroStabilityInwardsPreconsolidationStress>();
+            mocks.ReplayAll();
+
+            // Call
+            void Call() => PersistableStateHelper.GetLayerForPreconsolidationStress(null, preconsolidationStress);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("layers", exception.ParamName);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GetLayerForPreconsolidationStress_PreconsolidationStressNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => PersistableStateHelper.GetLayerForPreconsolidationStress(Enumerable.Empty<MacroStabilityInwardsSoilLayer2D>(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("preconsolidationStress", exception.ParamName);
+        }
+
+        [Test]
+        public void GetLayerForPreconsolidationStress_PreconsolidationStressInLayer_ReturnsLayer()
+        {
+            // Setup
+            MacroStabilityInwardsStochasticSoilProfile stochasticSoilProfile = MacroStabilityInwardsStochasticSoilProfileTestFactory.CreateMacroStabilityInwardsStochasticSoilProfile2D(new[]
+            {
+                MacroStabilityInwardsPreconsolidationStressTestFactory.CreateMacroStabilityInwardsPreconsolidationStress(new Point2D(2, 1))
+            });
+            
+            MacroStabilityInwardsSoilProfileUnderSurfaceLine soilProfileUnderSurfaceLine = MacroStabilityInwardsSoilProfileUnderSurfaceLineFactory.Create(stochasticSoilProfile.SoilProfile,
+                                                                                                                                                          CreateSurfaceLine());
+
+            // Call
+            MacroStabilityInwardsSoilLayer2D layer = PersistableStateHelper.GetLayerForPreconsolidationStress(soilProfileUnderSurfaceLine.Layers, soilProfileUnderSurfaceLine.PreconsolidationStresses.First());
+
+            // Assert
+            Assert.IsNotNull(layer);
+        }
+
+        [Test]
+        public void GetLayerForPreconsolidationStress_PreconsolidationStressNotInLayer_ReturnsNull()
+        {
+            // Setup
+            MacroStabilityInwardsStochasticSoilProfile stochasticSoilProfile = MacroStabilityInwardsStochasticSoilProfileTestFactory.CreateMacroStabilityInwardsStochasticSoilProfile2D(new[]
+            {
+                MacroStabilityInwardsPreconsolidationStressTestFactory.CreateMacroStabilityInwardsPreconsolidationStress(new Point2D(2, -50))
+            });
+            
+            MacroStabilityInwardsSoilProfileUnderSurfaceLine soilProfileUnderSurfaceLine = MacroStabilityInwardsSoilProfileUnderSurfaceLineFactory.Create(stochasticSoilProfile.SoilProfile,
+                                                                                                                                                          CreateSurfaceLine());
+
+            // Call
+            MacroStabilityInwardsSoilLayer2D layer = PersistableStateHelper.GetLayerForPreconsolidationStress(soilProfileUnderSurfaceLine.Layers, soilProfileUnderSurfaceLine.PreconsolidationStresses.First());
+
+            // Assert
+            Assert.IsNull(layer);
         }
 
         private static MacroStabilityInwardsSurfaceLine CreateSurfaceLine()

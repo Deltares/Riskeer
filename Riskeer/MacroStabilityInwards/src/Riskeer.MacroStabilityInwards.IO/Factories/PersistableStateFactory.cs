@@ -86,7 +86,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
 
                 foreach (IMacroStabilityInwardsPreconsolidationStress preconsolidationStress in soilProfile.PreconsolidationStresses)
                 {
-                    MacroStabilityInwardsSoilLayer2D layer = GetLayerForPreconsolidationStress(layers, preconsolidationStress);
+                    MacroStabilityInwardsSoilLayer2D layer = PersistableStateHelper.GetLayerForPreconsolidationStress(layers, preconsolidationStress);
                     if (layer != null)
                     {
                         preconsolidationStressPoints.Add(
@@ -107,14 +107,6 @@ namespace Riskeer.MacroStabilityInwards.IO.Factories
             registry.AddState(stageType, state.Id);
 
             return state;
-        }
-
-        private static MacroStabilityInwardsSoilLayer2D GetLayerForPreconsolidationStress(IEnumerable<MacroStabilityInwardsSoilLayer2D> layers, IMacroStabilityInwardsPreconsolidationStress pcs)
-        {
-            return layers.SingleOrDefault(l => AdvancedMath2D.PointInPolygon(
-                                              pcs.Location,
-                                              l.OuterRing.Points,
-                                              l.NestedLayers.Select(nl => nl.OuterRing.Points)));
         }
 
         private static PersistableStatePoint CreateYieldStressStatePoint(MacroStabilityInwardsSoilLayer2D layer, IMacroStabilityInwardsPreconsolidationStress preconsolidationStress,

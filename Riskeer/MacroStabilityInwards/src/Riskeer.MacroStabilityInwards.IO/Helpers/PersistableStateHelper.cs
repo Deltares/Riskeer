@@ -50,11 +50,16 @@ namespace Riskeer.MacroStabilityInwards.IO.Helpers
             }
 
             MacroStabilityInwardsSoilLayer2D[] layers = MacroStabilityInwardsSoilProfile2DLayersHelper.GetLayersRecursively(soilProfile.Layers).ToArray();
-            IDictionary<MacroStabilityInwardsSoilLayer2D, List<IMacroStabilityInwardsPreconsolidationStress>> layersWithStresses =
-                GetLayersWithPreconsolidationStresses(layers, soilProfile.PreconsolidationStresses);
 
-            return !layersWithStresses.Any(lws => lws.Value.Count > 1
-                                                  || lws.Value.Count == 1 && lws.Key.Data.UsePop && HasValidPop(lws.Key.Data.Pop));
+            Dictionary<IMacroStabilityInwardsPreconsolidationStress, MacroStabilityInwardsSoilLayer2D> stressesWithLayers =
+                soilProfile.PreconsolidationStresses.ToDictionary(pcs => pcs, pcs => GetLayerForPreconsolidationStress(layers, pcs));
+
+            IEnumerable<IGrouping<MacroStabilityInwardsSoilLayer2D, IMacroStabilityInwardsPreconsolidationStress>> duplicateLayers =
+                stressesWithLayers.ToLookup(pair => pair.Value, pair => pair.Key).Where(x => x.Count() > 1);
+
+            return !duplicateLayers.Any()
+                   && stressesWithLayers.All(pair => pair.Value != null)
+                   && !stressesWithLayers.Any(stressWithLayer => stressWithLayer.Value.Data.UsePop && HasValidPop(stressWithLayer.Value.Data.Pop));
         }
 
         /// <summary>
@@ -74,34 +79,31 @@ namespace Riskeer.MacroStabilityInwards.IO.Helpers
                    && pop.CoefficientOfVariation != RoundedDouble.NaN;
         }
 
-        private static IDictionary<MacroStabilityInwardsSoilLayer2D, List<IMacroStabilityInwardsPreconsolidationStress>> GetLayersWithPreconsolidationStresses(
-            IEnumerable<MacroStabilityInwardsSoilLayer2D> layers, IEnumerable<IMacroStabilityInwardsPreconsolidationStress> preconsolidationStresses)
+        /// <summary>
+        /// Gets the <see cref="MacroStabilityInwardsSoilLayer2D"/> the <paramref name="preconsolidationStress"/> is placed on.
+        /// </summary>
+        /// <param name="layers">The layers of the profile.</param>
+        /// <param name="preconsolidationStress">The <see cref="IMacroStabilityInwardsPreconsolidationStress"/> to get the layer for.</param>
+        /// <returns>The <see cref="MacroStabilityInwardsSoilLayer2D"/> the <paramref name="preconsolidationStress"/> is placed on;
+        /// or <c>null</c> when no layer can be found.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public static MacroStabilityInwardsSoilLayer2D GetLayerForPreconsolidationStress(
+            IEnumerable<MacroStabilityInwardsSoilLayer2D> layers, IMacroStabilityInwardsPreconsolidationStress preconsolidationStress)
         {
-            var dictionary = new Dictionary<MacroStabilityInwardsSoilLayer2D, List<IMacroStabilityInwardsPreconsolidationStress>>();
-
-            foreach (MacroStabilityInwardsSoilLayer2D layer in layers)
+            if (layers == null)
             {
-                foreach (IMacroStabilityInwardsPreconsolidationStress preconsolidationStress in preconsolidationStresses)
-                {
-                    if (AdvancedMath2D.PointInPolygon(preconsolidationStress.Location, layer.OuterRing.Points, layer.NestedLayers.Select(l => l.OuterRing.Points)))
-                    {
-                        AddToDictionary(dictionary, layer, preconsolidationStress);
-                    }
-                }
+                throw new ArgumentNullException(nameof(layers));
             }
 
-            return dictionary;
-        }
-
-        private static void AddToDictionary(IDictionary<MacroStabilityInwardsSoilLayer2D, List<IMacroStabilityInwardsPreconsolidationStress>> dictionary,
-                                            MacroStabilityInwardsSoilLayer2D layer, IMacroStabilityInwardsPreconsolidationStress preconsolidationStress)
-        {
-            if (!dictionary.ContainsKey(layer))
+            if (preconsolidationStress == null)
             {
-                dictionary.Add(layer, new List<IMacroStabilityInwardsPreconsolidationStress>());
+                throw new ArgumentNullException(nameof(preconsolidationStress));
             }
 
-            dictionary[layer].Add(preconsolidationStress);
+            return layers.SingleOrDefault(l => AdvancedMath2D.PointInPolygon(
+                                              preconsolidationStress.Location,
+                                              l.OuterRing.Points,
+                                              l.NestedLayers.Select(nl => nl.OuterRing.Points)));
         }
     }
 }
