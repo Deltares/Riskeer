@@ -29,15 +29,36 @@ namespace Riskeer.HydraRing.IO.HydraulicBoundaryDatabase
         /// <summary>
         /// Creates a new instance of <see cref="ReadHrdLocation"/>.
         /// </summary>
-        /// <param name="locationId">The database id of the read HRD location.</param>
-        public ReadHrdLocation(long locationId)
+        /// <param name="hrdLocationId">The database id of the read HRD location.</param>
+        /// <param name="name">The name of the read HRD location.</param>
+        /// <param name="coordinateX">The x coordinate of the read HRD location.</param>
+        /// <param name="coordinateY">The y coordinate of the read HRD location.</param>
+        public ReadHrdLocation(long hrdLocationId, string name, double coordinateX, double coordinateY)
         {
-            LocationId = locationId;
+            HrdLocationId = hrdLocationId;
+            Name = name;
+            CoordinateX = coordinateX;
+            CoordinateY = coordinateY;
         }
 
         /// <summary>
         /// Gets the database id of the read HRD location.
         /// </summary>
-        public long LocationId { get; }
+        public long HrdLocationId { get; }
+
+        /// <summary>
+        /// Gets the name of the read HRD location.
+        /// </summary>
+        public string Name { get; }
+
+        /// <summary>
+        /// Gets the x coordinate of the read HRD location.
+        /// </summary>
+        public double CoordinateX { get; }
+
+        /// <summary>
+        /// Gets the y coordinate of the read HRD location.
+        /// </summary>
+        public double CoordinateY { get; }
     }
 }
