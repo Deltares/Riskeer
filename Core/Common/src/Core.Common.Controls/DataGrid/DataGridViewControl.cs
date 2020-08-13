@@ -565,7 +565,7 @@ namespace Core.Common.Controls.DataGrid
             if (currentColumn is DataGridViewCheckBoxColumn || currentColumn is DataGridViewComboBoxColumn)
             {
                 dataGridView.CommitEdit(DataGridViewDataErrorContexts.Commit);
-                dataGridView.Refresh();
+                dataGridView.EndEdit();
             }
         }
 

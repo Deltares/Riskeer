@@ -1575,7 +1575,7 @@ namespace Core.Common.Controls.Test.DataGrid
         }
 
         [Test]
-        public void DataGridViewControlCheckBoxColumn_EditValueDirtyStateChangedEventFired_ValueCommittedCellInEditMode()
+        public void DataGridViewControlCheckBoxColumn_EditValueDirtyStateChangedEventFired_ValueCommittedCellEndedEditMode()
         {
             // Setup
             using (var form = new Form())
@@ -1610,14 +1610,14 @@ namespace Core.Common.Controls.Test.DataGrid
                 gridTester.FireEvent("CurrentCellDirtyStateChanged", EventArgs.Empty);
 
                 // Assert
-                Assert.IsTrue(dataGridViewCell.IsInEditMode);
+                Assert.IsFalse(dataGridViewCell.IsInEditMode);
                 Assert.IsTrue(Convert.ToBoolean(dataGridViewCell.FormattedValue));
                 Assert.IsTrue(invalidated);
             }
         }
 
         [Test]
-        public void DataGridViewControlComboBoxColumn_EditValueDirtyStateChangedEventFired_ValueCommittedCellInEditMode()
+        public void DataGridViewControlComboBoxColumn_EditValueDirtyStateChangedEventFired_ValueCommittedCellEndedEditMode()
         {
             // Setup
             using (var form = new Form())
@@ -1659,7 +1659,7 @@ namespace Core.Common.Controls.Test.DataGrid
                 gridTester.FireEvent("CurrentCellDirtyStateChanged", EventArgs.Empty);
 
                 // Assert
-                Assert.IsTrue(dataGridViewCell.IsInEditMode);
+                Assert.IsFalse(dataGridViewCell.IsInEditMode);
                 Assert.AreEqual(TestEnum.DisplayName, dataGridViewCell.Value);
                 Assert.IsTrue(invalidated);
             }
