@@ -41,6 +41,7 @@ namespace Riskeer.HeightStructures.Forms.Views
     /// </summary>
     public class HeightStructuresCalculationRow : CalculationRow<StructuresCalculationScenario<HeightStructuresInput>>, IHasColumnStateDefinitions
     {
+        private const int useBreakWaterColumnIndex = 3;
         private const int breakWaterTypeColumnIndex = 4;
         private const int breakWaterHeightColumnIndex = 5;
         private const int useForeshoreColumnIndex = 6;
@@ -73,6 +74,7 @@ namespace Riskeer.HeightStructures.Forms.Views
                 if (!ReferenceEquals(Calculation.InputParameters.ForeshoreProfile, valueToSet))
                 {
                     PropertyChangeHelper.ChangePropertyAndNotify(() => Calculation.InputParameters.ForeshoreProfile = valueToSet, PropertyChangeHandler);
+                    UpdateUseForeshoreColumnStateDefinitions();
                 }
             }
         }
@@ -199,6 +201,7 @@ namespace Riskeer.HeightStructures.Forms.Views
 
         private void CreateColumnStateDefinitions()
         {
+            ColumnStateDefinitions.Add(useBreakWaterColumnIndex, new DataGridViewColumnStateDefinition());
             ColumnStateDefinitions.Add(breakWaterTypeColumnIndex, new DataGridViewColumnStateDefinition());
             ColumnStateDefinitions.Add(breakWaterHeightColumnIndex, new DataGridViewColumnStateDefinition());
             ColumnStateDefinitions.Add(useForeshoreColumnIndex, new DataGridViewColumnStateDefinition());
@@ -224,10 +227,12 @@ namespace Riskeer.HeightStructures.Forms.Views
             if (foreShoreProfileGeometry == null || !foreShoreProfileGeometry.Geometry.Any())
             {
                 ColumnStateHelper.DisableColumn(ColumnStateDefinitions[useForeshoreColumnIndex]);
+                ColumnStateHelper.DisableColumn(ColumnStateDefinitions[useBreakWaterColumnIndex]);
             }
             else
             {
                 ColumnStateHelper.EnableColumn(ColumnStateDefinitions[useForeshoreColumnIndex]);
+                ColumnStateHelper.EnableColumn(ColumnStateDefinitions[useBreakWaterColumnIndex]);
             }
         }
     }
