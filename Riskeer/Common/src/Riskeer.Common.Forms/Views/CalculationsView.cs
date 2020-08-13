@@ -307,6 +307,7 @@ namespace Riskeer.Common.Forms.Views
             if (DataGridViewControl.IsCurrentCellInEditMode)
             {
                 DataGridViewControl.AutoResizeColumns();
+                return;
             }
 
             if (!(listBox.SelectedItem is FailureMechanismSection failureMechanismSection))
