@@ -55,9 +55,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Update="Views\ClosingStructuresCalculationsView.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
+    <Compile Update="Views\ClosingStructuresCalculationsView.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Update="Properties\Resources.resx">
