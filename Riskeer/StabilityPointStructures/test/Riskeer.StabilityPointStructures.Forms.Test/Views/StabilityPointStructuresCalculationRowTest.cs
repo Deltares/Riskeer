@@ -45,6 +45,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
     [TestFixture]
     public class StabilityPointStructuresCalculationRowTest
     {
+        private const int useBreakWaterColumnIndex = 3;
         private const int breakWaterTypeColumnIndex = 4;
         private const int breakWaterHeightColumnIndex = 5;
         private const int useForeshoreColumnIndex = 6;
@@ -73,8 +74,9 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
             Assert.AreSame(calculationScenario, row.Calculation);
 
             IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
-            Assert.AreEqual(7, columnStateDefinitions.Count);
+            Assert.AreEqual(8, columnStateDefinitions.Count);
 
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, useBreakWaterColumnIndex);
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, breakWaterTypeColumnIndex);
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, breakWaterHeightColumnIndex);
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, useForeshoreColumnIndex);
