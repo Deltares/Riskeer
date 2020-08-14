@@ -566,6 +566,7 @@ namespace Core.Common.Controls.DataGrid
             {
                 dataGridView.CommitEdit(DataGridViewDataErrorContexts.Commit);
                 dataGridView.EndEdit();
+                dataGridView.Refresh();
             }
         }
 
