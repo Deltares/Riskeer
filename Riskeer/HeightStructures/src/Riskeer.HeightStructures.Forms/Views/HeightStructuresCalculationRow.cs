@@ -59,6 +59,7 @@ namespace Riskeer.HeightStructures.Forms.Views
             ColumnStateDefinitions = new Dictionary<int, DataGridViewColumnStateDefinition>();
             CreateColumnStateDefinitions();
             UpdateUseBreakWaterColumnStateDefinitions();
+            UpdateBreakWaterTypeAndHeightColumnStateDefinitions();
             UpdateUseForeshoreColumnStateDefinitions();
         }
 
@@ -90,7 +91,7 @@ namespace Riskeer.HeightStructures.Forms.Views
                 if (!Calculation.InputParameters.UseBreakWater.Equals(value))
                 {
                     PropertyChangeHelper.ChangePropertyAndNotify(() => Calculation.InputParameters.UseBreakWater = value, PropertyChangeHandler);
-                    UpdateUseBreakWaterColumnStateDefinitions();
+                    UpdateBreakWaterTypeAndHeightColumnStateDefinitions();
                 }
             }
         }
@@ -207,7 +208,7 @@ namespace Riskeer.HeightStructures.Forms.Views
             ColumnStateDefinitions.Add(useForeshoreColumnIndex, new DataGridViewColumnStateDefinition());
         }
 
-        private void UpdateUseBreakWaterColumnStateDefinitions()
+        private void UpdateBreakWaterTypeAndHeightColumnStateDefinitions()
         {
             if (!UseBreakWater)
             {
@@ -227,11 +228,22 @@ namespace Riskeer.HeightStructures.Forms.Views
             if (foreShoreProfileGeometry == null || !foreShoreProfileGeometry.Geometry.Any())
             {
                 ColumnStateHelper.DisableColumn(ColumnStateDefinitions[useForeshoreColumnIndex]);
-                ColumnStateHelper.DisableColumn(ColumnStateDefinitions[useBreakWaterColumnIndex]);
             }
             else
             {
                 ColumnStateHelper.EnableColumn(ColumnStateDefinitions[useForeshoreColumnIndex]);
+            }
+        }
+
+        private void UpdateUseBreakWaterColumnStateDefinitions()
+        {
+            ForeshoreProfile foreShoreProfileGeometry = Calculation.InputParameters.ForeshoreProfile;
+            if (foreShoreProfileGeometry == null)
+            {
+                ColumnStateHelper.DisableColumn(ColumnStateDefinitions[useBreakWaterColumnIndex]);
+            }
+            else
+            {
                 ColumnStateHelper.EnableColumn(ColumnStateDefinitions[useBreakWaterColumnIndex]);
             }
         }
