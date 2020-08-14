@@ -75,6 +75,8 @@ namespace Riskeer.HeightStructures.Forms.Views
                 if (!ReferenceEquals(Calculation.InputParameters.ForeshoreProfile, valueToSet))
                 {
                     PropertyChangeHelper.ChangePropertyAndNotify(() => Calculation.InputParameters.ForeshoreProfile = valueToSet, PropertyChangeHandler);
+                    UpdateUseBreakWaterColumnStateDefinitions();
+                    UpdateBreakWaterTypeAndHeightColumnStateDefinitions();
                     UpdateUseForeshoreColumnStateDefinitions();
                 }
             }
