@@ -63,6 +63,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Views
             ColumnStateDefinitions = new Dictionary<int, DataGridViewColumnStateDefinition>();
             CreateColumnStateDefinitions();
             UpdateUseBreakWaterColumnStateDefinitions();
+            UpdateBreakWaterTypeAndHeightColumnStateDefinitions();
             UpdateUseForeshoreColumnStateDefinitions();
             UpdateLoadSchematizationColumnStateDefinitions();
         }
@@ -95,7 +96,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Views
                 if (!Calculation.InputParameters.UseBreakWater.Equals(value))
                 {
                     PropertyChangeHelper.ChangePropertyAndNotify(() => Calculation.InputParameters.UseBreakWater = value, PropertyChangeHandler);
-                    UpdateUseBreakWaterColumnStateDefinitions();
+                    UpdateBreakWaterTypeAndHeightColumnStateDefinitions();
                 }
             }
         }
@@ -262,7 +263,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Views
             ColumnStateDefinitions.Add(stabilityQuadraticLoadModelColumnIndex, new DataGridViewColumnStateDefinition());
         }
 
-        private void UpdateUseBreakWaterColumnStateDefinitions()
+        private void UpdateBreakWaterTypeAndHeightColumnStateDefinitions()
         {
             if (!UseBreakWater)
             {
@@ -287,6 +288,19 @@ namespace Riskeer.StabilityPointStructures.Forms.Views
             else
             {
                 ColumnStateHelper.EnableColumn(ColumnStateDefinitions[useForeshoreColumnIndex]);
+                ColumnStateHelper.EnableColumn(ColumnStateDefinitions[useBreakWaterColumnIndex]);
+            }
+        }
+
+        private void UpdateUseBreakWaterColumnStateDefinitions()
+        {
+            ForeshoreProfile foreShoreProfileGeometry = Calculation.InputParameters.ForeshoreProfile;
+            if (foreShoreProfileGeometry == null)
+            {
+                ColumnStateHelper.DisableColumn(ColumnStateDefinitions[useBreakWaterColumnIndex]);
+            }
+            else
+            {
                 ColumnStateHelper.EnableColumn(ColumnStateDefinitions[useBreakWaterColumnIndex]);
             }
         }
