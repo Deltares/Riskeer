@@ -241,15 +241,13 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
             if (dikeProfile == null)
             {
                 ColumnStateHelper.DisableColumn(ColumnStateDefinitions[useBreakWaterColumnIndex]);
-                ColumnStateHelper.DisableColumn(ColumnStateDefinitions[breakWaterTypeColumnIndex]);
-                ColumnStateHelper.DisableColumn(ColumnStateDefinitions[breakWaterHeightColumnIndex]);
             }
             else
             {
                 ColumnStateHelper.EnableColumn(ColumnStateDefinitions[useBreakWaterColumnIndex]);
-                ColumnStateHelper.EnableColumn(ColumnStateDefinitions[breakWaterTypeColumnIndex]);
-                ColumnStateHelper.EnableColumn(ColumnStateDefinitions[breakWaterHeightColumnIndex]);
             }
+
+            UpdateBreakWaterTypeAndHeightColumnStateDefinitions();
         }
     }
 }
