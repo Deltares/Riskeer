@@ -27,6 +27,7 @@ using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.Views;
+using Core.Common.Util.Extensions;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
@@ -58,6 +59,9 @@ namespace Riskeer.Common.Forms.Views
         private RecursiveObserver<CalculationGroup, CalculationGroup> calculationGroupObserver;
 
         private CalculationGroup calculationGroup;
+
+        private List<TCalculationRow> dataSource;
+
         public event EventHandler<EventArgs> SelectionChanged;
 
         /// <summary>
@@ -313,8 +317,11 @@ namespace Riskeer.Common.Forms.Views
                 return;
             }
 
+            dataSource?.ForEachElementDo(UnsubscribeFromCalculationRow);
+
             if (!(listBox.SelectedItem is FailureMechanismSection failureMechanismSection))
             {
+                dataSource = null;
                 DataGridViewControl.SetDataSource(null);
                 return;
             }
@@ -327,11 +334,31 @@ namespace Riskeer.Common.Forms.Views
 
             PrefillComboBoxListItemsAtColumnLevel();
 
-            List<TCalculationRow> dataSource = calculations.Select(CreateRow).ToList();
+            dataSource = calculations.Select(CreateRow).ToList();
             DataGridViewControl.SetDataSource(dataSource);
             DataGridViewControl.ClearCurrentCell();
 
             UpdateComboBoxColumns();
+
+            dataSource.ForEachElementDo(SubscribeToCalculationRow);
+        }
+
+        /// <summary>
+        /// Handle for subscribing to all individual calculation rows in the view.
+        /// </summary>
+        /// <param name="calculationRow">The specific calculation row to subscribe to.</param>
+        protected virtual void SubscribeToCalculationRow(TCalculationRow calculationRow)
+        {
+
+        }
+
+        /// <summary>
+        /// Handle for unsubscribing from all individual calculation rows in the view.
+        /// </summary>
+        /// <param name="calculationRow">The specific calculation row to unsubscribe from.</param>
+        protected virtual void UnsubscribeFromCalculationRow(TCalculationRow calculationRow)
+        {
+            
         }
 
         private void InitializeListBox()
