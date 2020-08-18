@@ -126,6 +126,11 @@ namespace Riskeer.Common.Forms.Views
         protected IAssessmentSection AssessmentSection { get; }
 
         /// <summary>
+        /// Gets the selected failure mechanism section.
+        /// </summary>
+        protected FailureMechanismSection SelectedFailureMechanismSection => listBox.SelectedItem as FailureMechanismSection;
+
+        /// <summary>
         /// Gets an indicator whether the view is loaded.
         /// </summary>
         protected bool Loaded { get; private set; }
@@ -243,7 +248,7 @@ namespace Riskeer.Common.Forms.Views
             };
 
             // The concat is needed to observe the input of calculations in child groups.
-            inputObserver = new RecursiveObserver<CalculationGroup, TCalculationInput>(UpdateDataGridViewDataSource, pcg => pcg.Children.Concat<object>(pcg.Children.OfType<TCalculation>().Select(pc => pc.InputParameters)))
+            inputObserver = new RecursiveObserver<CalculationGroup, TCalculationInput>(() => UpdateDataGridViewDataSource(), pcg => pcg.Children.Concat<object>(pcg.Children.OfType<TCalculation>().Select(pc => pc.InputParameters)))
             {
                 Observable = calculationGroup
             };
@@ -251,7 +256,7 @@ namespace Riskeer.Common.Forms.Views
             {
                 Observable = calculationGroup
             };
-            calculationGroupObserver = new RecursiveObserver<CalculationGroup, CalculationGroup>(UpdateDataGridViewDataSource, pcg => pcg.Children)
+            calculationGroupObserver = new RecursiveObserver<CalculationGroup, CalculationGroup>(() => UpdateDataGridViewDataSource(), pcg => pcg.Children)
             {
                 Observable = calculationGroup
             };
