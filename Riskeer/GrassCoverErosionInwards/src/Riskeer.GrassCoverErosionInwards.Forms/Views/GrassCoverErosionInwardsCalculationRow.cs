@@ -48,7 +48,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
         /// <summary>
         /// Fired when <see cref="DikeProfile"/> has changed.
         /// </summary>
-        public EventHandler DikeProfileChanged;
+        public event EventHandler DikeProfileChanged;
 
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionInwardsCalculationRow"/>.

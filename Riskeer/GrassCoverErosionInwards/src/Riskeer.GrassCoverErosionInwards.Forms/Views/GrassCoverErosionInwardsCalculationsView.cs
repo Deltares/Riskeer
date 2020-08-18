@@ -202,6 +202,38 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
 
         #endregion
 
+        protected override void SubscribeToCalculationRow(GrassCoverErosionInwardsCalculationRow calculationRow)
+        {
+            base.SubscribeToCalculationRow(calculationRow);
+
+            calculationRow.DikeProfileChanged += DikeProfileChanged;
+        }
+
+        protected override void UnsubscribeFromCalculationRow(GrassCoverErosionInwardsCalculationRow calculationRow)
+        {
+            base.UnsubscribeFromCalculationRow(calculationRow);
+
+            calculationRow.DikeProfileChanged -= DikeProfileChanged;
+        }
+
+        private void DikeProfileChanged(object sender, EventArgs e)
+        {
+            if (IsProfileInSelectedFailureMechanismSection())
+            {
+                return;
+            }
+
+            UpdateDataGridViewDataSource(false);
+        }
+
+        private bool IsProfileInSelectedFailureMechanismSection()
+        {
+            IEnumerable<Segment2D> lineSegments = Math2D.ConvertPointsToLineSegments(SelectedFailureMechanismSection.Points);
+            GrassCoverErosionInwardsCalculationScenario calculation = ((GrassCoverErosionInwardsCalculationRow) Selection).Calculation;
+
+            return IsCalculationIntersectionWithReferenceLineInSection(calculation, lineSegments);
+        }
+
         private void AddWarningMessage()
         {
             var warningPanel = new Panel();
