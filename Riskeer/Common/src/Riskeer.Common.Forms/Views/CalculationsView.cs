@@ -301,10 +301,13 @@ namespace Riskeer.Common.Forms.Views
 
         #endregion
 
-        private void UpdateDataGridViewDataSource()
+        /// <summary>
+        /// Updates the data source of the data grid view.
+        /// </summary>
+        /// <param name="skipChangesComingFromView">Whether or not to skip changes coming from the calculation view itself.</param>
+        protected void UpdateDataGridViewDataSource(bool skipChangesComingFromView = true)
         {
-            // Skip changes coming from the view itself
-            if (DataGridViewControl.IsCurrentCellInEditMode)
+            if (skipChangesComingFromView && DataGridViewControl.IsCurrentCellInEditMode)
             {
                 DataGridViewControl.AutoResizeColumns();
                 return;
