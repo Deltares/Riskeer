@@ -209,7 +209,8 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
 
         private void UpdateBreakWaterTypeAndHeightColumnStateDefinitions()
         {
-            if (!UseBreakWater)
+            DikeProfile dikeProfile = Calculation.InputParameters.DikeProfile;
+            if (!UseBreakWater || dikeProfile == null)
             {
                 ColumnStateHelper.DisableColumn(ColumnStateDefinitions[breakWaterTypeColumnIndex]);
                 ColumnStateHelper.DisableColumn(ColumnStateDefinitions[breakWaterHeightColumnIndex]);
