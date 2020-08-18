@@ -46,6 +46,11 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
         private const int useForeshoreColumnIndex = 6;
 
         /// <summary>
+        /// Fired when <see cref="DikeProfile"/> has changed.
+        /// </summary>
+        public EventHandler DikeProfileChanged;
+
+        /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionInwardsCalculationRow"/>.
         /// </summary>
         /// <param name="calculationScenario">The <see cref="GrassCoverErosionInwardsCalculationScenario"/> this row contains.</param>
@@ -75,6 +80,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
                 {
                     PropertyChangeHelper.ChangePropertyAndNotify(() => Calculation.InputParameters.DikeProfile = valueToSet, PropertyChangeHandler);
                     UpdateUseBreakWaterColumnStateDefinitions();
+                    DikeProfileChanged?.Invoke(this, EventArgs.Empty);
                 }
             }
         }
