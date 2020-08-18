@@ -166,7 +166,13 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
         public void UseBreakWaterState_AlwaysOnChange_CorrectColumnStates(bool useBreakWaterState, bool columnIsEnabled)
         {
             // Setup
-            var calculation = new StructuresCalculationScenario<HeightStructuresInput>();
+            var calculation = new StructuresCalculationScenario<HeightStructuresInput>
+            {
+                InputParameters =
+                {
+                    ForeshoreProfile = new TestForeshoreProfile()
+                }
+            };
 
             // Call
             var row = new HeightStructuresCalculationRow(calculation, new ObservablePropertyChangeHandler(calculation, new HeightStructuresInput()))
