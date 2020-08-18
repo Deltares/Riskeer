@@ -167,8 +167,17 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
         public void UseBreakWaterState_AlwaysOnChange_CorrectColumnStates(bool useBreakWaterState, bool columnIsEnabled)
         {
             // Setup
-            var calculation = new GrassCoverErosionInwardsCalculationScenario();
-            
+            var calculation = new GrassCoverErosionInwardsCalculationScenario
+            {
+                InputParameters =
+                {
+                    DikeProfile = DikeProfileTestFactory.CreateDikeProfile(new[]
+                    {
+                        new Point2D(2.0, 0.0)
+                    }, "testProfile")
+                }
+            };
+
             // Call
             var row = new GrassCoverErosionInwardsCalculationRow(calculation, new ObservablePropertyChangeHandler(calculation, new GrassCoverErosionInwardsInput()))
             {
