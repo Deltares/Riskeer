@@ -695,6 +695,40 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
             mocks.VerifyAll(); // No observer notified
         }
 
+        [Test]
+        public void GivenForeshoreProfile_WhenSelectingAnotherForeshoreProfile_ThenCorrectColumnStates()
+        {
+            // Given
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            ConfigureHydraulicBoundaryDatabase(assessmentSection);
+            mocks.ReplayAll();
+
+            ClosingStructuresFailureMechanism failureMechanism = ConfigureFailureMechanism();
+            CalculationGroup calculationGroup = ConfigureCalculationGroup(failureMechanism, assessmentSection);
+
+            ShowCalculationsView(calculationGroup, failureMechanism, assessmentSection);
+
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+            var foreshoreProfileComboBox = (DataGridViewComboBoxColumn) dataGridView.Columns[foreshoreProfileColumnIndex];
+
+            // Precondition
+            Assert.AreEqual(3, foreshoreProfileComboBox.Items.Count);
+            Assert.AreEqual(false, dataGridView.Rows[0].Cells[useBreakWaterColumnIndex].ReadOnly);
+            Assert.AreEqual(false, dataGridView.Rows[0].Cells[breakWaterTypeColumnIndex].ReadOnly);
+            Assert.AreEqual(false, dataGridView.Rows[0].Cells[breakWaterHeightColumnIndex].ReadOnly);
+
+            // When
+            dataGridView.Rows[0].Cells[foreshoreProfileColumnIndex].Value = new DataGridViewComboBoxItemWrapper<ForeshoreProfile>(null);
+
+            // Then
+            Assert.AreEqual(true, dataGridView.Rows[0].Cells[useBreakWaterColumnIndex].ReadOnly);
+            Assert.AreEqual(true, dataGridView.Rows[0].Cells[breakWaterTypeColumnIndex].ReadOnly);
+            Assert.AreEqual(true, dataGridView.Rows[0].Cells[breakWaterHeightColumnIndex].ReadOnly);
+
+            mocks.VerifyAll();
+        }
+
         public override void Setup()
         {
             base.Setup();
