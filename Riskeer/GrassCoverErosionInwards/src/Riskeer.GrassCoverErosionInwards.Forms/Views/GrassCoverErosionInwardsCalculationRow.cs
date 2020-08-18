@@ -40,6 +40,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
     /// </summary>
     public class GrassCoverErosionInwardsCalculationRow : CalculationRow<GrassCoverErosionInwardsCalculationScenario>, IHasColumnStateDefinitions
     {
+        private const int useBreakWaterColumnIndex = 3;
         private const int breakWaterTypeColumnIndex = 4;
         private const int breakWaterHeightColumnIndex = 5;
         private const int useForeshoreColumnIndex = 6;
@@ -57,6 +58,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
             ColumnStateDefinitions = new Dictionary<int, DataGridViewColumnStateDefinition>();
             CreateColumnStateDefinitions();
             UpdateUseBreakWaterColumnStateDefinitions();
+            UpdateBreakWaterTypeAndHeightColumnStateDefinitions();
             UpdateUseForeshoreColumnStateDefinitions();
         }
 
@@ -72,6 +74,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
                 if (!ReferenceEquals(Calculation.InputParameters.DikeProfile, valueToSet))
                 {
                     PropertyChangeHelper.ChangePropertyAndNotify(() => Calculation.InputParameters.DikeProfile = valueToSet, PropertyChangeHandler);
+                    UpdateUseBreakWaterColumnStateDefinitions();
                 }
             }
         }
@@ -87,7 +90,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
                 if (!Calculation.InputParameters.UseBreakWater.Equals(value))
                 {
                     PropertyChangeHelper.ChangePropertyAndNotify(() => Calculation.InputParameters.UseBreakWater = value, PropertyChangeHandler);
-                    UpdateUseBreakWaterColumnStateDefinitions();
+                    UpdateBreakWaterTypeAndHeightColumnStateDefinitions();
                 }
             }
         }
@@ -198,12 +201,13 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
 
         private void CreateColumnStateDefinitions()
         {
+            ColumnStateDefinitions.Add(useBreakWaterColumnIndex, new DataGridViewColumnStateDefinition());
             ColumnStateDefinitions.Add(breakWaterTypeColumnIndex, new DataGridViewColumnStateDefinition());
             ColumnStateDefinitions.Add(breakWaterHeightColumnIndex, new DataGridViewColumnStateDefinition());
             ColumnStateDefinitions.Add(useForeshoreColumnIndex, new DataGridViewColumnStateDefinition());
         }
 
-        private void UpdateUseBreakWaterColumnStateDefinitions()
+        private void UpdateBreakWaterTypeAndHeightColumnStateDefinitions()
         {
             if (!UseBreakWater)
             {
@@ -219,14 +223,31 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
 
         private void UpdateUseForeshoreColumnStateDefinitions()
         {
-            DikeProfile dikeProfileForeshoreGeometry = Calculation.InputParameters.DikeProfile;
-            if (dikeProfileForeshoreGeometry == null || !dikeProfileForeshoreGeometry.ForeshoreGeometry.Any())
+            DikeProfile dikeProfile = Calculation.InputParameters.DikeProfile;
+            if (dikeProfile == null || !dikeProfile.ForeshoreGeometry.Any())
             {
                 ColumnStateHelper.DisableColumn(ColumnStateDefinitions[useForeshoreColumnIndex]);
             }
             else
             {
                 ColumnStateHelper.EnableColumn(ColumnStateDefinitions[useForeshoreColumnIndex]);
+            }
+        }
+
+        private void UpdateUseBreakWaterColumnStateDefinitions()
+        {
+            DikeProfile dikeProfile = Calculation.InputParameters.DikeProfile;
+            if (dikeProfile == null)
+            {
+                ColumnStateHelper.DisableColumn(ColumnStateDefinitions[useBreakWaterColumnIndex]);
+                ColumnStateHelper.DisableColumn(ColumnStateDefinitions[breakWaterTypeColumnIndex]);
+                ColumnStateHelper.DisableColumn(ColumnStateDefinitions[breakWaterHeightColumnIndex]);
+            }
+            else
+            {
+                ColumnStateHelper.EnableColumn(ColumnStateDefinitions[useBreakWaterColumnIndex]);
+                ColumnStateHelper.EnableColumn(ColumnStateDefinitions[breakWaterTypeColumnIndex]);
+                ColumnStateHelper.EnableColumn(ColumnStateDefinitions[breakWaterHeightColumnIndex]);
             }
         }
     }
