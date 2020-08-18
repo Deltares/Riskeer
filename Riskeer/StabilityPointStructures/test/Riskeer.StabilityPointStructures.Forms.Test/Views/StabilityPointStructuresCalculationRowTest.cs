@@ -174,7 +174,13 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
         public void UseBreakWaterState_AlwaysOnChange_CorrectColumnStates(bool useBreakWaterState, bool columnIsEnabled)
         {
             // Setup
-            var calculation = new StructuresCalculationScenario<StabilityPointStructuresInput>();
+            var calculation = new StructuresCalculationScenario<StabilityPointStructuresInput>
+            {
+                InputParameters =
+                {
+                    ForeshoreProfile = new TestForeshoreProfile()
+                }
+            };
 
             // Call
             var row = new StabilityPointStructuresCalculationRow(calculation, new ObservablePropertyChangeHandler(calculation, new StabilityPointStructuresInput()))
