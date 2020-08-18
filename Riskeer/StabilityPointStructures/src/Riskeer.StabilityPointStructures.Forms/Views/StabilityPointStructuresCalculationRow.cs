@@ -267,7 +267,8 @@ namespace Riskeer.StabilityPointStructures.Forms.Views
 
         private void UpdateBreakWaterTypeAndHeightColumnStateDefinitions()
         {
-            if (!UseBreakWater)
+            ForeshoreProfile foreShoreProfileGeometry = Calculation.InputParameters.ForeshoreProfile;
+            if (!UseBreakWater || foreShoreProfileGeometry == null)
             {
                 ColumnStateHelper.DisableColumn(ColumnStateDefinitions[breakWaterTypeColumnIndex]);
                 ColumnStateHelper.DisableColumn(ColumnStateDefinitions[breakWaterHeightColumnIndex]);
