@@ -229,7 +229,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
         private bool IsProfileInSelectedFailureMechanismSection()
         {
             IEnumerable<Segment2D> lineSegments = Math2D.ConvertPointsToLineSegments(SelectedFailureMechanismSection.Points);
-            GrassCoverErosionInwardsCalculationScenario calculation = ((GrassCoverErosionInwardsCalculationRow) Selection).Calculation;
+            GrassCoverErosionInwardsCalculationScenario calculation = ((GrassCoverErosionInwardsCalculationRow) DataGridViewControl.CurrentRow.DataBoundItem).Calculation;
 
             return IsCalculationIntersectionWithReferenceLineInSection(calculation, lineSegments);
         }
