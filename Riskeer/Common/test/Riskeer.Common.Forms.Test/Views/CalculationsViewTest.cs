@@ -593,7 +593,7 @@ namespace Riskeer.Common.Forms.Test.Views
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void CalculationsView_ChangingCellValueWhereSubscribed_CellValueEdited()
+        public void CalculationsView_ChangingSubscribedCellValue_ValueCorrectlyAdjusted()
         {
             // Setup
             var mocks = new MockRepository();
@@ -603,10 +603,10 @@ namespace Riskeer.Common.Forms.Test.Views
             TestCalculationsView calculationsView = ShowFullyConfiguredCalculationsView(assessmentSection);
 
             var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-
-            // Call
             DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[selectableHydraulicBoundaryLocationsColumnIndex];
             dataGridView.CurrentCell = dataGridViewCell;
+
+            // Call
             dataGridViewCell.Value = dataGridView.Rows[1].Cells[selectableHydraulicBoundaryLocationsColumnIndex].Value;
 
             // Assert
