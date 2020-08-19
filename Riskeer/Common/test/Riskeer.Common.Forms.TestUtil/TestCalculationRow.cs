@@ -33,6 +33,8 @@ namespace Riskeer.Common.Forms.TestUtil
     /// </summary>
     public class TestCalculationRow : CalculationRow<TestCalculation>
     {
+        public event EventHandler HydraulicBoundaryLocationChanged;
+
         /// <summary>
         /// Creates a new instance of <see cref="TestCalculationRow"/>.
         /// </summary>
@@ -50,7 +52,12 @@ namespace Riskeer.Common.Forms.TestUtil
         protected override HydraulicBoundaryLocation HydraulicBoundaryLocation
         {
             get => Calculation.InputParameters.HydraulicBoundaryLocation;
-            set => Calculation.InputParameters.HydraulicBoundaryLocation = value;
+            set
+            {
+                Calculation.InputParameters.HydraulicBoundaryLocation = value;
+
+                HydraulicBoundaryLocationChanged?.Invoke(this, new EventArgs());
+            }
         }
     }
 }
