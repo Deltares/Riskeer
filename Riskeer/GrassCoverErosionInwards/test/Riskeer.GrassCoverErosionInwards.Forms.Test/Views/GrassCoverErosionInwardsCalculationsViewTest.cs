@@ -743,6 +743,42 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             mocks.VerifyAll(); // No observer notified
         }
 
+        [Test]
+        public void CalculationsView_SelectedProfileOutsideSection_RowCorrectlyRemovedFromView()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            ConfigureHydraulicBoundaryDatabase(assessmentSection);
+            mocks.ReplayAll();
+
+            GrassCoverErosionInwardsFailureMechanism failureMechanism = ConfigureFailureMechanism();
+            CalculationGroup calculationGroup = ConfigureCalculationGroup(failureMechanism, assessmentSection);
+
+            ShowCalculationsView(calculationGroup, failureMechanism, assessmentSection);
+            
+            var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+            DikeProfile dikeProfile3 = DikeProfileTestFactory.CreateDikeProfile("3", "Profiel 3", new Point2D(20.0, 0.0));
+            
+            failureMechanism.DikeProfiles.AddRange(new[]
+            {
+                dikeProfile3
+            }, string.Empty);
+            failureMechanism.DikeProfiles.NotifyObservers();
+            
+            // Precondition
+            Assert.AreEqual(2, dataGridView.RowCount);
+            Assert.AreEqual("Profiel 1", dataGridView.Rows[0].Cells[dikeProfileColumnIndex].FormattedValue);
+            Assert.AreEqual("Profiel 2", dataGridView.Rows[1].Cells[dikeProfileColumnIndex].FormattedValue);
+            
+            // When
+            dataGridView.Rows[0].Cells[dikeProfileColumnIndex].Value = new DataGridViewComboBoxItemWrapper<DikeProfile>(dikeProfile3);
+
+            // Then
+            Assert.AreEqual(1, dataGridView.RowCount);
+            Assert.AreEqual("Profiel 2", dataGridView.Rows[0].Cells[dikeProfileColumnIndex].FormattedValue);
+        }
+
         public override void Setup()
         {
             base.Setup();
