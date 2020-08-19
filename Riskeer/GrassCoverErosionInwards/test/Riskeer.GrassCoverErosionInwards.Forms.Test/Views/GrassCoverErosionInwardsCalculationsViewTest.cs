@@ -549,7 +549,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             var calculation = (GrassCoverErosionInwardsCalculationScenario) calculationGroup.GetCalculations().First();
             calculation.InputParameters.UseBreakWater = !newValue;
 
-            var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
             // Call
             dataGridView.Rows[0].Cells[useBreakWaterColumnIndex].Value = newValue;
@@ -597,7 +597,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             ConfigureHydraulicBoundaryDatabase(assessmentSection);
             mocks.ReplayAll();
-        
+
             const string arbitraryFilePath = "path";
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             failureMechanism.DikeProfiles.AddRange(new[]
@@ -607,7 +607,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             }, arbitraryFilePath);
 
             ShowCalculationsView(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection);
-        
+
             var button = new ButtonTester("generateButton", testForm);
 
             GrassCoverErosionInwardsDikeProfileSelectionDialog selectionDialog = null;
@@ -621,17 +621,17 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
 
                 new ButtonTester("CustomCancelButton", selectionDialog).Click();
             };
-        
+
             // When
             button.Click();
-        
+
             // Then
             Assert.NotNull(selectionDialog);
             Assert.NotNull(grid);
             Assert.AreEqual(failureMechanism.DikeProfiles.Count, rows);
             mocks.VerifyAll();
         }
-        
+
         [Test]
         public void GivenCalculationsViewGenerateCalculationsButtonClicked_WhenDialogClosed_ThenNotifyCalculationGroup()
         {
@@ -642,7 +642,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             var observer = mocks.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
-        
+
             const string arbitraryFilePath = "path";
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             failureMechanism.DikeProfiles.AddRange(new[]
@@ -651,23 +651,23 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
                 DikeProfileTestFactory.CreateDikeProfile("2", "Profiel 2", new Point2D(5.0, 0.0))
             }, arbitraryFilePath);
             failureMechanism.CalculationsGroup.Attach(observer);
-        
+
             ShowCalculationsView(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection);
-        
+
             var button = new ButtonTester("generateButton", testForm);
-        
+
             DialogBoxHandler = (name, wnd) =>
             {
-                var selectionDialog = (GrassCoverErosionInwardsDikeProfileSelectionDialog)new FormTester(name).TheObject;
-                var selectionView = (DataGridViewControl)new ControlTester("DataGridViewControl", selectionDialog).TheObject;
+                var selectionDialog = (GrassCoverErosionInwardsDikeProfileSelectionDialog) new FormTester(name).TheObject;
+                var selectionView = (DataGridViewControl) new ControlTester("DataGridViewControl", selectionDialog).TheObject;
                 selectionView.Rows[0].Cells[0].Value = true;
-        
+
                 // When
                 new ButtonTester("DoForSelectedButton", selectionDialog).Click();
             };
-        
+
             button.Click();
-        
+
             // Then
             mocks.VerifyAll();
         }
@@ -690,7 +690,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             DialogBoxHandler = (name, wnd) =>
             {
                 var selectionDialog = (GrassCoverErosionInwardsDikeProfileSelectionDialog) new FormTester(name).TheObject;
-                var selectionView = (DataGridViewControl)new ControlTester("DataGridViewControl", selectionDialog).TheObject;
+                var selectionView = (DataGridViewControl) new ControlTester("DataGridViewControl", selectionDialog).TheObject;
                 selectionView.Rows[0].Cells[0].Value = true;
 
                 // When
@@ -725,28 +725,28 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             failureMechanism.CalculationsGroup.Attach(observer);
 
             var button = new ButtonTester("generateButton", testForm);
-        
+
             DialogBoxHandler = (name, wnd) =>
             {
-                var selectionDialog = (GrassCoverErosionInwardsDikeProfileSelectionDialog)new FormTester(name).TheObject;
-                var selectionView = (DataGridViewControl)new ControlTester("DataGridViewControl", selectionDialog).TheObject;
+                var selectionDialog = (GrassCoverErosionInwardsDikeProfileSelectionDialog) new FormTester(name).TheObject;
+                var selectionView = (DataGridViewControl) new ControlTester("DataGridViewControl", selectionDialog).TheObject;
                 selectionView.Rows[0].Cells[0].Value = true;
-        
+
                 // When
                 new ButtonTester("CustomCancelButton", selectionDialog).Click();
             };
-        
+
             button.Click();
-        
+
             // Then
             CollectionAssert.IsEmpty(failureMechanism.Calculations);
             mocks.VerifyAll(); // No observer notified
         }
 
         [Test]
-        public void CalculationsView_SelectedProfileOutsideSection_RowCorrectlyRemovedFromView()
+        public void GivenCalculationsView_WhenSelectingProfileOutsideSection_ThenRowIsCorrectlyRemovedFromView()
         {
-            // Setup
+            // Given
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             ConfigureHydraulicBoundaryDatabase(assessmentSection);
@@ -754,25 +754,28 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
 
             GrassCoverErosionInwardsFailureMechanism failureMechanism = ConfigureFailureMechanism();
             CalculationGroup calculationGroup = ConfigureCalculationGroup(failureMechanism, assessmentSection);
-
             ShowCalculationsView(calculationGroup, failureMechanism, assessmentSection);
-            
-            var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
             DikeProfile dikeProfile3 = DikeProfileTestFactory.CreateDikeProfile("3", "Profiel 3", new Point2D(20.0, 0.0));
-            
+
             failureMechanism.DikeProfiles.AddRange(new[]
             {
                 dikeProfile3
             }, string.Empty);
             failureMechanism.DikeProfiles.NotifyObservers();
-            
+
             // Precondition
             Assert.AreEqual(2, dataGridView.RowCount);
             Assert.AreEqual("Profiel 1", dataGridView.Rows[0].Cells[dikeProfileColumnIndex].FormattedValue);
             Assert.AreEqual("Profiel 2", dataGridView.Rows[1].Cells[dikeProfileColumnIndex].FormattedValue);
-            
+
             // When
-            dataGridView.Rows[0].Cells[dikeProfileColumnIndex].Value = new DataGridViewComboBoxItemWrapper<DikeProfile>(dikeProfile3);
+            DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[dikeProfileColumnIndex];
+            dataGridView.CurrentCell = dataGridViewCell;
+            dataGridView.BeginEdit(false);
+            dataGridViewCell.Value = new DataGridViewComboBoxItemWrapper<DikeProfile>(dikeProfile3);
+            dataGridView.EndEdit();
 
             // Then
             Assert.AreEqual(1, dataGridView.RowCount);
