@@ -1,8 +1,9 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <configuratie versie="1">
-  <berekening naam="WZ_1_6-3_dk_00043">
+  <berekening naam="Gras (golfoploop)">
     <hblocatie>WZ_1_6-3_dk_00043</hblocatie>
     <categoriegrens>IIv</categoriegrens>
+    <typebekleding>Gras (golfoploop)</typebekleding>
     <bovengrensbekleding>6.3</bovengrensbekleding>
     <ondergrensbekleding>4.21</ondergrensbekleding>
     <bovengrenswaterstanden>NaN</bovengrenswaterstanden>
@@ -16,44 +17,77 @@
       <damhoogte>0</damhoogte>
       <voorlandgebruiken>true</voorlandgebruiken>
     </golfreductie>
-    <typebekleding>Gras (golfoploop)</typebekleding>
   </berekening>
-  <map naam="Gevoeligheid">
-    <berekening naam="Stapgrootte 1.0">
-      <hblocatie>WZ_1_6-3_dk_00043</hblocatie>
-      <categoriegrens>IIv</categoriegrens>
-      <bovengrensbekleding>6.3</bovengrensbekleding>
-      <ondergrensbekleding>4.21</ondergrensbekleding>
-      <bovengrenswaterstanden>NaN</bovengrenswaterstanden>
-      <ondergrenswaterstanden>NaN</ondergrenswaterstanden>
-      <stapgrootte>1.0</stapgrootte>
-      <voorlandprofiel>profiel63dam0voorland1</voorlandprofiel>
-      <orientatie>290</orientatie>
-      <golfreductie>
-        <damgebruiken>false</damgebruiken>
-        <damtype>havendam</damtype>
-        <damhoogte>0</damhoogte>
-        <voorlandgebruiken>true</voorlandgebruiken>
-      </golfreductie>
-      <typebekleding>Gras (golfklap)</typebekleding>
-    </berekening>
-    <berekening naam="Zonder voorland">
-      <hblocatie>WZ_1_6-3_dk_00043</hblocatie>
-      <categoriegrens>IIv</categoriegrens>
-      <bovengrensbekleding>6.3</bovengrensbekleding>
-      <ondergrensbekleding>4.21</ondergrensbekleding>
-      <bovengrenswaterstanden>NaN</bovengrenswaterstanden>
-      <ondergrenswaterstanden>NaN</ondergrenswaterstanden>
-      <stapgrootte>0.5</stapgrootte>
-      <voorlandprofiel>profiel63dam0voorland1</voorlandprofiel>
-      <orientatie>290</orientatie>
-      <golfreductie>
-        <damgebruiken>false</damgebruiken>
-        <damtype>havendam</damtype>
-        <damhoogte>0</damhoogte>
-        <voorlandgebruiken>false</voorlandgebruiken>
-      </golfreductie>
-      <typebekleding>Gras (golfoploop en golfklap)</typebekleding>
-    </berekening>
-  </map>
+  <berekening naam="Gras (golfklap)">
+    <hblocatie>WZ_1_6-3_dk_00043</hblocatie>
+    <categoriegrens>IIv</categoriegrens>
+    <typebekleding>Gras (golfklap)</typebekleding>
+    <bovengrensbekleding>6.3</bovengrensbekleding>
+    <ondergrensbekleding>4.21</ondergrensbekleding>
+    <bovengrenswaterstanden>NaN</bovengrenswaterstanden>
+    <ondergrenswaterstanden>NaN</ondergrenswaterstanden>
+    <stapgrootte>1.0</stapgrootte>
+    <voorlandprofiel>profiel63dam0voorland1</voorlandprofiel>
+    <orientatie>290</orientatie>
+    <golfreductie>
+      <damgebruiken>false</damgebruiken>
+      <damtype>havendam</damtype>
+      <damhoogte>0</damhoogte>
+      <voorlandgebruiken>true</voorlandgebruiken>
+    </golfreductie>
+  </berekening>
+  <berekening naam="Gras (golfoploop en golfklap)">
+    <hblocatie>WZ_1_6-3_dk_00043</hblocatie>
+    <categoriegrens>IIv</categoriegrens>
+    <typebekleding>Gras (golfoploop en golfklap)</typebekleding>
+    <bovengrensbekleding>6.3</bovengrensbekleding>
+    <ondergrensbekleding>4.21</ondergrensbekleding>
+    <bovengrenswaterstanden>NaN</bovengrenswaterstanden>
+    <ondergrenswaterstanden>NaN</ondergrenswaterstanden>
+    <stapgrootte>0.5</stapgrootte>
+    <voorlandprofiel>profiel63dam0voorland1</voorlandprofiel>
+    <orientatie>290</orientatie>
+    <golfreductie>
+      <damgebruiken>false</damgebruiken>
+      <damtype>havendam</damtype>
+      <damhoogte>0</damhoogte>
+      <voorlandgebruiken>false</voorlandgebruiken>
+    </golfreductie>
+  </berekening>
+  <berekening naam="Gras (golfklap voor toets op maat)">
+    <hblocatie>WZ_1_6-3_dk_00002</hblocatie>
+    <categoriegrens>IIv</categoriegrens>
+    <typebekleding>Gras (golfoploop en golfklap)</typebekleding>
+    <bovengrensbekleding>NaN</bovengrensbekleding>
+    <ondergrensbekleding>NaN</ondergrensbekleding>
+    <bovengrenswaterstanden>NaN</bovengrenswaterstanden>
+    <ondergrenswaterstanden>NaN</ondergrenswaterstanden>
+    <stapgrootte>0.5</stapgrootte>
+    <voorlandprofiel>profiel63dam0voorland1</voorlandprofiel>
+    <orientatie>290</orientatie>
+    <golfreductie>
+      <damgebruiken>false</damgebruiken>
+      <damtype>havendam</damtype>
+      <damhoogte>0</damhoogte>
+      <voorlandgebruiken>true</voorlandgebruiken>
+    </golfreductie>
+  </berekening>
+  <berekening naam="Gras (alle types)">
+    <hblocatie>WZ_1_6-3_dk_00012</hblocatie>
+    <categoriegrens>IIv</categoriegrens>
+    <typebekleding>Gras (golfoploop en golfklap)</typebekleding>
+    <bovengrensbekleding>NaN</bovengrensbekleding>
+    <ondergrensbekleding>NaN</ondergrensbekleding>
+    <bovengrenswaterstanden>NaN</bovengrenswaterstanden>
+    <ondergrenswaterstanden>NaN</ondergrenswaterstanden>
+    <stapgrootte>0.5</stapgrootte>
+    <voorlandprofiel>profiel63dam0voorland1</voorlandprofiel>
+    <orientatie>290</orientatie>
+    <golfreductie>
+      <damgebruiken>false</damgebruiken>
+      <damtype>havendam</damtype>
+      <damhoogte>0</damhoogte>
+      <voorlandgebruiken>true</voorlandgebruiken>
+    </golfreductie>
+  </berekening>
 </configuratie>

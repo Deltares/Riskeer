@@ -22,6 +22,10 @@
         <standaardafwijking>0.0006</standaardafwijking>
       </stochast>
     </stochasten>
+    <scenario>
+      <gebruik>true</gebruik>
+      <bijdrage>100</bijdrage>
+    </scenario>
   </berekening>
   <berekening naam="Profiel 2 met Illustratiepunten">
     <hblocatie>YM_1_12-2_dk_00022</hblocatie>
@@ -45,6 +49,10 @@
         <standaardafwijking>0.0006</standaardafwijking>
       </stochast>
     </stochasten>
+    <scenario>
+      <gebruik>true</gebruik>
+      <bijdrage>75</bijdrage>
+    </scenario>
   </berekening>
   <map naam="Profiel 3">
     <berekening naam="Profiel 3">
@@ -69,6 +77,10 @@
           <standaardafwijking>0.0006</standaardafwijking>
         </stochast>
       </stochasten>
+      <scenario>
+        <gebruik>true</gebruik>
+        <bijdrage>25</bijdrage>
+      </scenario>
     </berekening>
     <berekening naam="Profiel 3 met HBN en overslag">
       <hblocatie>YM_2_12-2_dk_00035</hblocatie>
@@ -92,6 +104,10 @@
           <standaardafwijking>0.0006</standaardafwijking>
         </stochast>
       </stochasten>
+      <scenario>
+        <gebruik>false</gebruik>
+        <bijdrage>100</bijdrage>
+      </scenario>
     </berekening>
   </map>
 </configuratie>

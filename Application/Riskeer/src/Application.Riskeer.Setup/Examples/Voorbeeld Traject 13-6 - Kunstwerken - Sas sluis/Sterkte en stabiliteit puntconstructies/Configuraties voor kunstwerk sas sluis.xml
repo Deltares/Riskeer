@@ -31,8 +31,115 @@
         <verwachtingswaarde>4.5</verwachtingswaarde>
         <variatiecoefficient>0.15</variatiecoefficient>
       </stochast>
-      <stochast naam="modelfactoroverloopdebiet">
-        <verwachtingswaarde>1.1</verwachtingswaarde>
+      <stochast naam="peilverhogingkomberging">
+        <verwachtingswaarde>1</verwachtingswaarde>
+        <standaardafwijking>0.1</standaardafwijking>
+      </stochast>
+      <stochast naam="stormduur">
+        <verwachtingswaarde>6</verwachtingswaarde>
+      </stochast>
+      <stochast naam="doorstroomoppervlak">
+        <verwachtingswaarde>31.5</verwachtingswaarde>
+        <standaardafwijking>0.01</standaardafwijking>
+      </stochast>
+      <stochast naam="bermbreedte">
+        <verwachtingswaarde>1000</verwachtingswaarde>
+        <standaardafwijking>0</standaardafwijking>
+      </stochast>
+      <stochast naam="lineairebelastingschematiseringsterkte">
+        <verwachtingswaarde>90.71</verwachtingswaarde>
+        <variatiecoefficient>0.2</variatiecoefficient>
+      </stochast>
+      <stochast naam="kwadratischebelastingschematiseringsterkte">
+        <verwachtingswaarde>100</verwachtingswaarde>
+        <variatiecoefficient>0.1</variatiecoefficient>
+      </stochast>
+      <stochast naam="afvoercoefficient">
+        <verwachtingswaarde>1</verwachtingswaarde>
+      </stochast>
+      <stochast naam="bezwijkwaardeaanvaarenergie">
+        <verwachtingswaarde>10</verwachtingswaarde>
+        <variatiecoefficient>0.3</variatiecoefficient>
+      </stochast>
+      <stochast naam="kritiekestroomsnelheid">
+        <verwachtingswaarde>3</verwachtingswaarde>
+      </stochast>
+      <stochast naam="binnenwaterstand">
+        <verwachtingswaarde>0.3</verwachtingswaarde>
+        <standaardafwijking>0.1</standaardafwijking>
+      </stochast>
+      <stochast naam="binnenwaterstandbijfalen">
+        <verwachtingswaarde>0.2</verwachtingswaarde>
+        <standaardafwijking>0.1</standaardafwijking>
+      </stochast>
+      <stochast naam="kerendehoogte">
+        <verwachtingswaarde>3.25</verwachtingswaarde>
+        <standaardafwijking>0.05</standaardafwijking>
+      </stochast>
+      <stochast naam="massaschip">
+        <verwachtingswaarde>1</verwachtingswaarde>
+        <variatiecoefficient>0.2</variatiecoefficient>
+      </stochast>
+      <stochast naam="aanvaarsnelheid">
+        <verwachtingswaarde>0.5</verwachtingswaarde>
+        <variatiecoefficient>0.2</variatiecoefficient>
+      </stochast>
+      <stochast naam="lineairebelastingschematiseringstabiliteit">
+        <verwachtingswaarde>200</verwachtingswaarde>
+        <variatiecoefficient>0.1</variatiecoefficient>
+      </stochast>
+      <stochast naam="kwadratischebelastingschematiseringstabiliteit">
+        <verwachtingswaarde>200</verwachtingswaarde>
+        <variatiecoefficient>0.1</variatiecoefficient>
+      </stochast>
+      <stochast naam="drempelhoogte">
+        <verwachtingswaarde>-3.76</verwachtingswaarde>
+        <standaardafwijking>0.1</standaardafwijking>
+      </stochast>
+    </stochasten>
+    <illustratiepunteninlezen>true</illustratiepunteninlezen>
+    <scenario>
+      <gebruik>true</gebruik>
+      <bijdrage>20</bijdrage>
+    </scenario>
+  </berekening>
+  <berekening naam="Sassluis met dam">
+    <hblocatie>YM_2_13-6_dk_00284</hblocatie>
+    <kunstwerk>17k6</kunstwerk>
+    <orientatie>180</orientatie>
+    <faalkansgegevenerosiebodem>1</faalkansgegevenerosiebodem>
+    <voorlandprofiel>01200</voorlandprofiel>
+    <analysehoogte>-3</analysehoogte>
+    <factorstormduur>1</factorstormduur>
+    <faalkansherstel>1</faalkansherstel>
+    <instroommodel>lagedrempel</instroommodel>
+    <belastingschematisering>lineair</belastingschematisering>
+    <nrnivelleringen>1</nrnivelleringen>
+    <kansaanvaringtweedekeermiddel>1E-08</kansaanvaringtweedekeermiddel>
+    <afstandonderkantwandteendijk>0</afstandonderkantwandteendijk>
+    <volumiekgewichtwater>9.81</volumiekgewichtwater>
+    <golfreductie>
+      <damgebruiken>true</damgebruiken>
+      <damtype>havendam</damtype>
+      <damhoogte>0.5</damhoogte>
+      <voorlandgebruiken>false</voorlandgebruiken>
+    </golfreductie>
+    <stochasten>
+      <stochast naam="breedtebodembescherming">
+        <verwachtingswaarde>10</verwachtingswaarde>
+        <standaardafwijking>0.5</standaardafwijking>
+      </stochast>
+      <stochast naam="breedtedoorstroomopening">
+        <verwachtingswaarde>10</verwachtingswaarde>
+        <standaardafwijking>0.5</standaardafwijking>
+      </stochast>
+      <stochast naam="kombergendoppervlak">
+        <verwachtingswaarde>10000000000</verwachtingswaarde>
+        <variatiecoefficient>0.1</variatiecoefficient>
+      </stochast>
+      <stochast naam="kritiekinstromenddebiet">
+        <verwachtingswaarde>4.5</verwachtingswaarde>
+        <variatiecoefficient>0.15</variatiecoefficient>
       </stochast>
       <stochast naam="peilverhogingkomberging">
         <verwachtingswaarde>1</verwachtingswaarde>
@@ -101,6 +208,10 @@
       </stochast>
     </stochasten>
     <illustratiepunteninlezen>true</illustratiepunteninlezen>
+    <scenario>
+      <gebruik>true</gebruik>
+      <bijdrage>80</bijdrage>
+    </scenario>
   </berekening>
   <map naam="Gevoeligheid">
     <berekening naam="Kwadratisch belastingmodel">
@@ -133,9 +244,6 @@
         <stochast naam="kritiekinstromenddebiet">
           <verwachtingswaarde>4.5</verwachtingswaarde>
           <variatiecoefficient>0.15</variatiecoefficient>
-        </stochast>
-        <stochast naam="modelfactoroverloopdebiet">
-          <verwachtingswaarde>1.1</verwachtingswaarde>
         </stochast>
         <stochast naam="peilverhogingkomberging">
           <verwachtingswaarde>1</verwachtingswaarde>
@@ -204,6 +312,10 @@
         </stochast>
       </stochasten>
       <illustratiepunteninlezen>false</illustratiepunteninlezen>
+      <scenario>
+        <gebruik>false</gebruik>
+        <bijdrage>0</bijdrage>
+      </scenario>
     </berekening>
   </map>
 </configuratie>

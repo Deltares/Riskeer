@@ -28,15 +28,15 @@
         <verwachtingswaarde>0.1</verwachtingswaarde>
         <variatiecoefficient>0.15</variatiecoefficient>
       </stochast>
-      <stochast naam="modelfactoroverloopdebiet">
-        <verwachtingswaarde>1.1</verwachtingswaarde>
-      </stochast>
       <stochast naam="peilverhogingkomberging">
         <verwachtingswaarde>10</verwachtingswaarde>
         <standaardafwijking>0.05</standaardafwijking>
       </stochast>
       <stochast naam="stormduur">
         <verwachtingswaarde>6</verwachtingswaarde>
+      </stochast>
+      <stochast naam="modelfactoroverloopdebiet">
+        <verwachtingswaarde>1.1</verwachtingswaarde>
       </stochast>
       <stochast naam="afvoercoefficient">
         <verwachtingswaarde>1</verwachtingswaarde>
@@ -59,6 +59,81 @@
       </stochast>
     </stochasten>
     <illustratiepunteninlezen>true</illustratiepunteninlezen>
+    <scenario>
+      <gebruik>true</gebruik>
+      <bijdrage>25</bijdrage>
+    </scenario>
+  </berekening>
+  <berekening naam="Coupure Worp met voorland">
+    <hblocatie>IJ_1_52-2_dk_00487</hblocatie>
+    <kunstwerk>KWK_1</kunstwerk>
+    <orientatie>45</orientatie>
+    <faalkansgegevenerosiebodem>1</faalkansgegevenerosiebodem>
+    <voorlandprofiel>01200</voorlandprofiel>
+    <instroommodel>lagedrempel</instroommodel>
+    <factorstormduur>1</factorstormduur>
+    <nrdoorstroomopeningen>1</nrdoorstroomopeningen>
+    <kansopopenstaan>1</kansopopenstaan>
+    <kansmislukkensluiting>0.01</kansmislukkensluiting>
+    <faalkansherstel>0.1</faalkansherstel>
+    <golfreductie>
+      <damgebruiken>false</damgebruiken>
+      <damtype>havendam</damtype>
+      <damhoogte>0</damhoogte>
+      <voorlandgebruiken>true</voorlandgebruiken>
+    </golfreductie>
+    <stochasten>
+      <stochast naam="breedtebodembescherming">
+        <verwachtingswaarde>10</verwachtingswaarde>
+        <standaardafwijking>0.05</standaardafwijking>
+      </stochast>
+      <stochast naam="breedtedoorstroomopening">
+        <verwachtingswaarde>9.5</verwachtingswaarde>
+        <standaardafwijking>0.48</standaardafwijking>
+      </stochast>
+      <stochast naam="kombergendoppervlak">
+        <verwachtingswaarde>1000000</verwachtingswaarde>
+        <variatiecoefficient>0.1</variatiecoefficient>
+      </stochast>
+      <stochast naam="kritiekinstromenddebiet">
+        <verwachtingswaarde>0.1</verwachtingswaarde>
+        <variatiecoefficient>0.15</variatiecoefficient>
+      </stochast>
+      <stochast naam="peilverhogingkomberging">
+        <verwachtingswaarde>10</verwachtingswaarde>
+        <standaardafwijking>0.05</standaardafwijking>
+      </stochast>
+      <stochast naam="stormduur">
+        <verwachtingswaarde>6</verwachtingswaarde>
+      </stochast>
+      <stochast naam="modelfactoroverloopdebiet">
+        <verwachtingswaarde>1.1</verwachtingswaarde>
+      </stochast>
+      <stochast naam="afvoercoefficient">
+        <verwachtingswaarde>1</verwachtingswaarde>
+      </stochast>
+      <stochast naam="binnenwaterstand">
+        <verwachtingswaarde>7</verwachtingswaarde>
+        <standaardafwijking>0.05</standaardafwijking>
+      </stochast>
+      <stochast naam="doorstroomoppervlak">
+        <verwachtingswaarde>100</verwachtingswaarde>
+        <standaardafwijking>0.05</standaardafwijking>
+      </stochast>
+      <stochast naam="drempelhoogte">
+        <verwachtingswaarde>7</verwachtingswaarde>
+        <standaardafwijking>0.05</standaardafwijking>
+      </stochast>
+      <stochast naam="kruinhoogte">
+        <verwachtingswaarde>7</verwachtingswaarde>
+        <standaardafwijking>0.05</standaardafwijking>
+      </stochast>
+    </stochasten>
+    <illustratiepunteninlezen>true</illustratiepunteninlezen>
+    <scenario>
+      <gebruik>true</gebruik>
+      <bijdrage>75</bijdrage>
+    </scenario>
   </berekening>
   <map naam="Gevoeligheid">
     <berekening naam="hr locatie 486">
@@ -89,15 +164,15 @@
           <verwachtingswaarde>0.1</verwachtingswaarde>
           <variatiecoefficient>0.15</variatiecoefficient>
         </stochast>
-        <stochast naam="modelfactoroverloopdebiet">
-          <verwachtingswaarde>1.1</verwachtingswaarde>
-        </stochast>
         <stochast naam="peilverhogingkomberging">
           <verwachtingswaarde>10</verwachtingswaarde>
           <standaardafwijking>0.05</standaardafwijking>
         </stochast>
         <stochast naam="stormduur">
           <verwachtingswaarde>6</verwachtingswaarde>
+        </stochast>
+        <stochast naam="modelfactoroverloopdebiet">
+          <verwachtingswaarde>1.1</verwachtingswaarde>
         </stochast>
         <stochast naam="afvoercoefficient">
           <verwachtingswaarde>1</verwachtingswaarde>
@@ -120,6 +195,10 @@
         </stochast>
       </stochasten>
       <illustratiepunteninlezen>false</illustratiepunteninlezen>
+      <scenario>
+        <gebruik>false</gebruik>
+        <bijdrage>0</bijdrage>
+      </scenario>
     </berekening>
   </map>
 </configuratie>
