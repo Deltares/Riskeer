@@ -696,7 +696,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
         }
 
         [Test]
-        public void GivenForeshoreProfile_WhenSelectingAnotherForeshoreProfile_ThenCorrectColumnStates()
+        public void GivenForeshoreProfile_WhenSelectedForeshoreProfileNull_ThenCorrectColumnStates()
         {
             // Given
             var mocks = new MockRepository();
@@ -715,8 +715,8 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
             // Precondition
             Assert.AreEqual(3, foreshoreProfileComboBox.Items.Count);
             Assert.AreEqual(false, dataGridView.Rows[0].Cells[useBreakWaterColumnIndex].ReadOnly);
-            Assert.AreEqual(false, dataGridView.Rows[0].Cells[breakWaterTypeColumnIndex].ReadOnly);
-            Assert.AreEqual(false, dataGridView.Rows[0].Cells[breakWaterHeightColumnIndex].ReadOnly);
+            Assert.AreEqual(true, dataGridView.Rows[0].Cells[breakWaterTypeColumnIndex].ReadOnly);
+            Assert.AreEqual(true, dataGridView.Rows[0].Cells[breakWaterHeightColumnIndex].ReadOnly);
 
             // When
             dataGridView.Rows[0].Cells[foreshoreProfileColumnIndex].Value = new DataGridViewComboBoxItemWrapper<ForeshoreProfile>(null);
