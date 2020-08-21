@@ -64,9 +64,9 @@ namespace Riskeer.StabilityPointStructures.Forms.Views
 
         protected override void OnLoad(EventArgs e)
         {
-            base.OnLoad(e);
-
             DataGridViewControl.CellFormatting += HandleCellStyling;
+            
+            base.OnLoad(e);
         }
 
         protected override void Dispose(bool disposing)
