@@ -539,7 +539,7 @@ namespace Riskeer.Common.Forms.Test.Views
             var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
             dataGridView.CurrentCell = dataGridView.Rows[0].Cells[0];
 
-            // Call                
+            // Call
             EventHelper.RaiseEvent(dataGridView, "CellClick", new DataGridViewCellEventArgs(1, 0));
 
             // Assert
@@ -580,7 +580,6 @@ namespace Riskeer.Common.Forms.Test.Views
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            // Call
             TestCalculationsView calculationsView = ShowFullyConfiguredCalculationsView(assessmentSection);
 
             // Call
@@ -588,30 +587,6 @@ namespace Riskeer.Common.Forms.Test.Views
 
             // Assert
             Assert.IsNull(selection);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        [Apartment(ApartmentState.STA)]
-        public void CalculationsView_ChangingSubscribedCellValue_ValueCorrectlyAdjusted()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            TestCalculationsView calculationsView = ShowFullyConfiguredCalculationsView(assessmentSection);
-
-            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-            DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[selectableHydraulicBoundaryLocationsColumnIndex];
-            dataGridView.CurrentCell = dataGridViewCell;
-
-            // Call
-            dataGridViewCell.Value = dataGridView.Rows[1].Cells[selectableHydraulicBoundaryLocationsColumnIndex].Value;
-
-            // Assert
-            Assert.AreEqual(1, calculationsView.HydraulicBoundaryLocationChangedCounter);
-            WindowsFormsTestHelper.CloseAll();
             mocks.VerifyAll();
         }
 
@@ -799,5 +774,29 @@ namespace Riskeer.Common.Forms.Test.Views
         }
 
         #endregion
+
+        [Test]
+        [Apartment(ApartmentState.STA)]
+        public void CalculationsView_ChangingSubscribedRow_ListenerCorrectlyNotified()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            TestCalculationsView calculationsView = ShowFullyConfiguredCalculationsView(assessmentSection);
+
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+            DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[selectableHydraulicBoundaryLocationsColumnIndex];
+            dataGridView.CurrentCell = dataGridViewCell;
+
+            // Call
+            dataGridViewCell.Value = dataGridView.Rows[1].Cells[selectableHydraulicBoundaryLocationsColumnIndex].Value;
+
+            // Assert
+            Assert.AreEqual(1, calculationsView.HydraulicBoundaryLocationChangedCounter);
+            WindowsFormsTestHelper.CloseAll();
+            mocks.VerifyAll();
+        }
     }
 }
