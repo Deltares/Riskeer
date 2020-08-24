@@ -306,8 +306,6 @@ namespace Riskeer.StabilityPointStructures.Forms.Views
             {
                 ColumnStateHelper.EnableColumn(ColumnStateDefinitions[useBreakWaterColumnIndex]);
             }
-
-            UpdateBreakWaterTypeAndHeightColumnStateDefinitions();
         }
 
         private void UpdateLoadSchematizationColumnStateDefinitions()
