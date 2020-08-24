@@ -782,6 +782,46 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             Assert.AreEqual("Profiel 2", dataGridView.Rows[0].Cells[dikeProfileColumnIndex].FormattedValue);
         }
 
+        [Test]
+        public void CalculationsView_ChangingDikeProfile_HasCorrespondingColumnState()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            ConfigureHydraulicBoundaryDatabase(assessmentSection);
+            mocks.ReplayAll();
+
+            GrassCoverErosionInwardsFailureMechanism failureMechanism = ConfigureFailureMechanism();
+            CalculationGroup calculationGroup = ConfigureCalculationGroup(failureMechanism, assessmentSection);
+
+            ShowCalculationsView(calculationGroup, failureMechanism, assessmentSection);
+
+            var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+
+            // Precondition
+            Assert.AreEqual(2, dataGridView.RowCount);
+            Assert.AreEqual(true, dataGridView.Rows[0].Cells[breakWaterTypeColumnIndex].ReadOnly);
+            Assert.AreEqual(true, dataGridView.Rows[0].Cells[breakWaterHeightColumnIndex].ReadOnly);
+            
+            var calculation = (GrassCoverErosionInwardsCalculationScenario)calculationGroup.GetCalculations().ElementAt(1);
+            calculation.InputParameters.UseBreakWater = true;
+            calculation.InputParameters.BreakWater.Type = BreakWaterType.Wall;
+            calculation.InputParameters.BreakWater.Height = (RoundedDouble)2.0;
+
+            // Call
+            DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[dikeProfileColumnIndex];
+            dataGridView.CurrentCell = dataGridViewCell;
+            dataGridView.BeginEdit(false);
+            dataGridViewCell.Value = dataGridView.Rows[1].Cells[dikeProfileColumnIndex].Value;
+            dataGridView.EndEdit();
+
+            // Assert
+            Assert.AreEqual(2, dataGridView.RowCount);
+            Assert.AreEqual(false, dataGridView.Rows[0].Cells[breakWaterTypeColumnIndex].ReadOnly);
+            Assert.AreEqual(false, dataGridView.Rows[0].Cells[breakWaterHeightColumnIndex].ReadOnly);
+            mocks.VerifyAll();
+        }
+
         public override void Setup()
         {
             base.Setup();
