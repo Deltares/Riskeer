@@ -39,6 +39,8 @@ using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.ChangeHandlers;
+using Riskeer.Common.Forms.Helpers;
+using Riskeer.Common.Forms.PropertyClasses;
 using Riskeer.Common.Forms.TestUtil;
 using Riskeer.Common.Forms.Views;
 
@@ -223,18 +225,17 @@ namespace Riskeer.Common.Forms.Test.Views
             return calculationsView;
         }
 
-        private class TestCalculationsView : CalculationsView<TestCalculation, TestCalculationInput, TestCalculationRow, TestFailureMechanism>
+        private abstract class TestCalculationsViewBase<TCalculationRow> : CalculationsView<TestCalculation, TestCalculationInput, TCalculationRow, TestFailureMechanism> 
+            where TCalculationRow : CalculationRow<TestCalculation>
         {
-            public TestCalculationsView(CalculationGroup calculationGroup, TestFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+            protected TestCalculationsViewBase(CalculationGroup calculationGroup, TestFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
                 : base(calculationGroup, failureMechanism, assessmentSection) {}
 
             public bool CanGenerateCalculationState { get; set; }
 
             public bool GenerateButtonClicked { get; private set; }
 
-            public int HydraulicBoundaryLocationChangedCounter { get; private set; }
-
-            protected override object CreateSelectedItemFromCurrentRow(TestCalculationRow currentRow)
+            protected override object CreateSelectedItemFromCurrentRow(TCalculationRow currentRow)
             {
                 return currentRow;
             }
@@ -253,11 +254,6 @@ namespace Riskeer.Common.Forms.Test.Views
                 return true;
             }
 
-            protected override TestCalculationRow CreateRow(TestCalculation calculation)
-            {
-                return new TestCalculationRow(calculation, new ObservablePropertyChangeHandler(calculation, calculation.InputParameters));
-            }
-
             protected override bool CanGenerateCalculations()
             {
                 return CanGenerateCalculationState;
@@ -266,6 +262,19 @@ namespace Riskeer.Common.Forms.Test.Views
             protected override void GenerateCalculations()
             {
                 GenerateButtonClicked = true;
+            }
+        }
+
+        private class TestCalculationsView : TestCalculationsViewBase<TestCalculationRow>
+        {
+            public TestCalculationsView(CalculationGroup calculationGroup, TestFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+                : base(calculationGroup, failureMechanism, assessmentSection) { }
+
+            public int HydraulicBoundaryLocationChangedCounter { get; private set; }
+
+            protected override TestCalculationRow CreateRow(TestCalculation calculation)
+            {
+                return new TestCalculationRow(calculation, new ObservablePropertyChangeHandler(calculation, calculation.InputParameters));
             }
 
             protected override void SubscribeToCalculationRow(TestCalculationRow calculationRow)
@@ -795,6 +804,89 @@ namespace Riskeer.Common.Forms.Test.Views
             Assert.AreEqual(3, rows.Count);
             Assert.AreEqual(1, dataSourceUpdated);
             mocks.VerifyAll();
+        }
+
+        #endregion
+
+        #region Column state definitions
+
+        private class TestCalculationRowWithColumnStateDefinitions : TestCalculationRow, IHasColumnStateDefinitions
+        {
+            public TestCalculationRowWithColumnStateDefinitions(TestCalculation calculation, IObservablePropertyChangeHandler propertyChangeHandler)
+                : base(calculation, propertyChangeHandler)
+            {
+                ColumnStateDefinitions = new Dictionary<int, DataGridViewColumnStateDefinition>
+                {
+                    {
+                        nameColumnIndex, new DataGridViewColumnStateDefinition()
+                    }
+                };
+
+                ColumnReadOnly = true;
+            }
+
+            public IDictionary<int, DataGridViewColumnStateDefinition> ColumnStateDefinitions { get; }
+
+            public bool ColumnReadOnly
+            {
+                get => ColumnStateDefinitions[nameColumnIndex].ReadOnly;
+                set => ColumnStateHelper.SetColumnState(ColumnStateDefinitions[nameColumnIndex], value);
+            }
+        }
+
+        private class TestCalculationsViewWithColumnStateDefinitions : TestCalculationsViewBase<TestCalculationRowWithColumnStateDefinitions>
+        {
+            public TestCalculationsViewWithColumnStateDefinitions(CalculationGroup calculationGroup, TestFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+                : base(calculationGroup, failureMechanism, assessmentSection) { }
+
+            protected override TestCalculationRowWithColumnStateDefinitions CreateRow(TestCalculation calculation)
+            {
+                return new TestCalculationRowWithColumnStateDefinitions(calculation, new ObservablePropertyChangeHandler(calculation, calculation.InputParameters));
+            }
+        }
+
+        private void ShowFullyConfiguredCalculationsViewWithColumnStateDefinitions(IAssessmentSection assessmentSection)
+        {
+            ConfigureHydraulicBoundaryDatabase(assessmentSection);
+
+            var calculationsView = new TestCalculationsViewWithColumnStateDefinitions(ConfigureCalculationGroup(assessmentSection),
+                                                                                      ConfigureFailureMechanism(),
+                                                                                      assessmentSection);
+
+            testForm.Controls.Add(calculationsView);
+            testForm.Show();
+        }
+
+        [Test]
+        public void GivenCalculationsViewWithoutColumnStateDefinitions_ThenColumnStatesAsExpected()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            // Call
+            ShowFullyConfiguredCalculationsView(assessmentSection);
+
+            // Assert
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+            Assert.AreEqual(false, dataGridView.Rows[0].Cells[nameColumnIndex].ReadOnly);
+        }
+
+        [Test]
+        public void GivenCalculationsViewWithColumnStateDefinitions_ThenColumnStatesAsExpected()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            // Call
+            ShowFullyConfiguredCalculationsViewWithColumnStateDefinitions(assessmentSection);
+
+            // Assert
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+            Assert.AreEqual(true, dataGridView.Rows[0].Cells[nameColumnIndex].ReadOnly);
         }
 
         #endregion
