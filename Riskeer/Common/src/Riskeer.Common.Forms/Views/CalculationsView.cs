@@ -319,6 +319,9 @@ namespace Riskeer.Common.Forms.Views
             if (skipChangesComingFromView && DataGridViewControl.IsCurrentCellInEditMode)
             {
                 DataGridViewControl.AutoResizeColumns();
+
+                FormatRowWithColumnStateDefinitions(DataGridViewControl.CurrentRow);
+
                 return;
             }
 
@@ -344,6 +347,8 @@ namespace Riskeer.Common.Forms.Views
             DataGridViewControl.ClearCurrentCell();
 
             UpdateComboBoxColumns();
+
+            FormatGridWithColumnStateDefinitions();
 
             dataSource.ForEachElementDo(SubscribeToCalculationRow);
         }
@@ -467,5 +472,21 @@ namespace Riskeer.Common.Forms.Views
         }
 
         #endregion
+
+        private void FormatGridWithColumnStateDefinitions()
+        {
+            foreach (DataGridViewRow row in DataGridViewControl.Rows)
+            {
+                FormatRowWithColumnStateDefinitions(row);
+            }
+        }
+
+        private void FormatRowWithColumnStateDefinitions(DataGridViewRow row)
+        {
+            foreach (DataGridViewCell cell in row.Cells)
+            {
+                DataGridViewControl.FormatCellWithColumnStateDefinition(cell.RowIndex, cell.ColumnIndex);
+            }
+        }
     }
 }
