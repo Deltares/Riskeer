@@ -796,17 +796,17 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
 
             ShowCalculationsView(calculationGroup, failureMechanism, assessmentSection);
 
-            var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
             // Precondition
             Assert.AreEqual(2, dataGridView.RowCount);
             Assert.AreEqual(true, dataGridView.Rows[0].Cells[breakWaterTypeColumnIndex].ReadOnly);
             Assert.AreEqual(true, dataGridView.Rows[0].Cells[breakWaterHeightColumnIndex].ReadOnly);
-            
-            var calculation = (GrassCoverErosionInwardsCalculationScenario)calculationGroup.GetCalculations().ElementAt(1);
+
+            var calculation = (GrassCoverErosionInwardsCalculationScenario) calculationGroup.GetCalculations().ElementAt(1);
             calculation.InputParameters.UseBreakWater = true;
             calculation.InputParameters.BreakWater.Type = BreakWaterType.Wall;
-            calculation.InputParameters.BreakWater.Height = (RoundedDouble)2.0;
+            calculation.InputParameters.BreakWater.Height = (RoundedDouble) 2.0;
 
             // Call
             DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[dikeProfileColumnIndex];
@@ -820,6 +820,39 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             Assert.AreEqual(false, dataGridView.Rows[0].Cells[breakWaterTypeColumnIndex].ReadOnly);
             Assert.AreEqual(false, dataGridView.Rows[0].Cells[breakWaterHeightColumnIndex].ReadOnly);
             mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GivenCalculationsView_WhenChangingDikeProfileWithinSameSection_ThenHydraulicBoundaryCellCorrectlyUpdated()
+        {
+            // Given
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            ConfigureHydraulicBoundaryDatabase(assessmentSection);
+            mocks.ReplayAll();
+
+            GrassCoverErosionInwardsFailureMechanism failureMechanism = ConfigureFailureMechanism();
+            CalculationGroup calculationGroup = ConfigureCalculationGroup(failureMechanism, assessmentSection);
+            ShowCalculationsView(calculationGroup, failureMechanism, assessmentSection);
+
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+
+            // Precondition
+            Assert.AreEqual(2, dataGridView.RowCount);
+            Assert.AreEqual("Location 1 (2 m)", dataGridView.Rows[0].Cells[selectableHydraulicBoundaryLocationsColumnIndex].FormattedValue);
+            Assert.AreEqual("Location 2 (5 m)", dataGridView.Rows[1].Cells[selectableHydraulicBoundaryLocationsColumnIndex].FormattedValue);
+
+            // When
+            DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[dikeProfileColumnIndex];
+            dataGridView.CurrentCell = dataGridViewCell;
+            dataGridView.BeginEdit(false);
+            dataGridViewCell.Value = dataGridView.Rows[1].Cells[dikeProfileColumnIndex].Value;
+            dataGridView.EndEdit();
+
+            // Then
+            Assert.AreEqual(2, dataGridView.RowCount);
+            Assert.AreEqual("Location 1 (4 m)", dataGridView.Rows[0].Cells[selectableHydraulicBoundaryLocationsColumnIndex].FormattedValue);
+            Assert.AreEqual("Location 2 (5 m)", dataGridView.Rows[1].Cells[selectableHydraulicBoundaryLocationsColumnIndex].FormattedValue);
         }
 
         public override void Setup()
