@@ -39,6 +39,8 @@ namespace Core.Common.Controls.DataGrid
         /// is <c>null</c>.</exception>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when the <paramref name="rowIndex"/>
         /// or the <paramref name="columnIndex"/> does not exist.</exception>
+        /// <remarks>When the <see cref="DataGridViewRow.DataBoundItem"/> of the corresponding row is not of
+        /// the type <see cref="IHasColumnStateDefinitions"/>, no formatting is applied.</remarks>
         public static void FormatCellWithColumnStateDefinition(this DataGridViewControl dataGridViewControl, int rowIndex, int columnIndex)
         {
             if (dataGridViewControl == null)
@@ -46,7 +48,11 @@ namespace Core.Common.Controls.DataGrid
                 throw new ArgumentNullException(nameof(dataGridViewControl));
             }
 
-            var row = (IHasColumnStateDefinitions) dataGridViewControl.GetRowFromIndex(rowIndex).DataBoundItem;
+            if (!(dataGridViewControl.GetRowFromIndex(rowIndex).DataBoundItem is IHasColumnStateDefinitions row))
+            {
+                return;
+            }
+
             if (row.ColumnStateDefinitions.ContainsKey(columnIndex))
             {
                 DataGridViewColumnStateDefinition columnStateDefinition = row.ColumnStateDefinitions[columnIndex];

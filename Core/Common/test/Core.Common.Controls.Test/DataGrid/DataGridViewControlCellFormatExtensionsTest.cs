@@ -44,11 +44,35 @@ namespace Core.Common.Controls.Test.DataGrid
         public void FormatCellWithColumnStateDefinition_DataGridViewControlNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => ((DataGridViewControl) null).FormatCellWithColumnStateDefinition(0, 0);
+            void Call() => ((DataGridViewControl) null).FormatCellWithColumnStateDefinition(0, 0);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("dataGridViewControl", exception.ParamName);
+        }
+
+        [Test]
+        public void FormatCellWithColumnStateDefinition_RowWithoutColumnStateDefinitions_DoesNotThrow()
+        {
+            // Setup
+            using (var form = new Form())
+            using (var dataGridViewControl = new DataGridViewControl())
+            {
+                form.Controls.Add(dataGridViewControl);
+                form.Show();
+
+                dataGridViewControl.AddTextBoxColumn(null, "Test");
+                dataGridViewControl.SetDataSource(new[]
+                {
+                    new object()
+                });
+
+                // Call
+                void Call() => dataGridViewControl.FormatCellWithColumnStateDefinition(0, 0);
+
+                // Assert
+                Assert.DoesNotThrow(Call);
+            }
         }
 
         [Test]
@@ -95,6 +119,8 @@ namespace Core.Common.Controls.Test.DataGrid
                 Assert.AreEqual(errorText, cell.ErrorText);
                 Assert.AreEqual(cellStyle.BackgroundColor, cell.Style.BackColor);
                 Assert.AreEqual(cellStyle.TextColor, cell.Style.ForeColor);
+
+                mocks.VerifyAll();
             }
         }
     }
