@@ -249,8 +249,6 @@ namespace Riskeer.HeightStructures.Forms.Views
             {
                 ColumnStateHelper.EnableColumn(ColumnStateDefinitions[useBreakWaterColumnIndex]);
             }
-
-            UpdateBreakWaterTypeAndHeightColumnStateDefinitions();
         }
     }
 }
