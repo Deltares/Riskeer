@@ -264,8 +264,6 @@ namespace Riskeer.ClosingStructures.Forms.Views
             {
                 ColumnStateHelper.EnableColumn(ColumnStateDefinitions[useBreakWaterColumnIndex]);
             }
-
-            UpdateBreakWaterTypeAndHeightColumnStateDefinitions();
         }
     }
 }
