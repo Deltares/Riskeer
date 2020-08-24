@@ -830,13 +830,12 @@ namespace Riskeer.Common.Forms.Test.Views
                 SetReadOnlyState(initialReadOnlyState);
             }
 
+            public IDictionary<int, DataGridViewColumnStateDefinition> ColumnStateDefinitions { get; }
+
             public void SetReadOnlyState(bool readOnlyState)
             {
-                ColumnStateHelper.SetColumnState(ColumnStateDefinitions[nameColumnIndex], readOnlyState);
                 ColumnStateHelper.SetColumnState(ColumnStateDefinitions[selectableHydraulicBoundaryLocationsColumnIndex], readOnlyState);
             }
-
-            public IDictionary<int, DataGridViewColumnStateDefinition> ColumnStateDefinitions { get; }
         }
 
         private class TestCalculationsViewWithColumnStateDefinitions : TestCalculationsViewBase<TestCalculationRowWithColumnStateDefinitions>
@@ -876,16 +875,16 @@ namespace Riskeer.Common.Forms.Test.Views
         [Test]
         public void GivenCalculationsViewWithoutColumnStateDefinitions_ThenColumnStatesAsExpected()
         {
-            // Setup
+            // Given
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            // Call
             ShowFullyConfiguredCalculationsView(assessmentSection);
 
-            // Assert
             var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+
+            // Then
             Assert.AreEqual(false, dataGridView.Rows[0].Cells[nameColumnIndex].ReadOnly);
             Assert.AreEqual(false, dataGridView.Rows[0].Cells[selectableHydraulicBoundaryLocationsColumnIndex].ReadOnly);
         }
@@ -895,18 +894,46 @@ namespace Riskeer.Common.Forms.Test.Views
         [TestCase(false)]
         public void GivenCalculationsViewWithColumnStateDefinitions_ThenColumnStatesAsExpected(bool initialReadOnlyState)
         {
-            // Setup
+            // Given
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            // Call
             ShowFullyConfiguredCalculationsViewWithColumnStateDefinitions(assessmentSection, initialReadOnlyState);
 
-            // Assert
             var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-            Assert.AreEqual(initialReadOnlyState, dataGridView.Rows[0].Cells[nameColumnIndex].ReadOnly);
+
+            // Then
+            Assert.AreEqual(false, dataGridView.Rows[0].Cells[nameColumnIndex].ReadOnly);
             Assert.AreEqual(initialReadOnlyState, dataGridView.Rows[0].Cells[selectableHydraulicBoundaryLocationsColumnIndex].ReadOnly);
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void GivenCalculationsViewWithColumnStateDefinitions_WhenColumnStateChangedAndCalculationInputObserversNotifiedDuringEditAction_ThenColumnStatesAsExpected(bool initialReadOnlyState)
+        {
+            // Given
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            ShowFullyConfiguredCalculationsViewWithColumnStateDefinitions(assessmentSection, initialReadOnlyState);
+
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+
+            // Precondition
+            Assert.AreEqual(initialReadOnlyState, dataGridView.Rows[0].Cells[selectableHydraulicBoundaryLocationsColumnIndex].ReadOnly);
+
+            // When
+            var testCalculationRowWithColumnStateDefinitions = ((TestCalculationRowWithColumnStateDefinitions) dataGridView.Rows[0].DataBoundItem);
+            dataGridView.CurrentCell = dataGridView.Rows[0].Cells[nameColumnIndex];
+            dataGridView.BeginEdit(false);
+            testCalculationRowWithColumnStateDefinitions.SetReadOnlyState(!initialReadOnlyState);
+            testCalculationRowWithColumnStateDefinitions.Calculation.InputParameters.NotifyObservers();
+
+            // Then
+            Assert.AreEqual(!initialReadOnlyState, dataGridView.Rows[0].Cells[selectableHydraulicBoundaryLocationsColumnIndex].ReadOnly);
         }
 
         #endregion
