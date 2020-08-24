@@ -225,7 +225,7 @@ namespace Riskeer.Common.Forms.Test.Views
             return calculationsView;
         }
 
-        private abstract class TestCalculationsViewBase<TCalculationRow> : CalculationsView<TestCalculation, TestCalculationInput, TCalculationRow, TestFailureMechanism> 
+        private abstract class TestCalculationsViewBase<TCalculationRow> : CalculationsView<TestCalculation, TestCalculationInput, TCalculationRow, TestFailureMechanism>
             where TCalculationRow : CalculationRow<TestCalculation>
         {
             protected TestCalculationsViewBase(CalculationGroup calculationGroup, TestFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
@@ -268,7 +268,7 @@ namespace Riskeer.Common.Forms.Test.Views
         private class TestCalculationsView : TestCalculationsViewBase<TestCalculationRow>
         {
             public TestCalculationsView(CalculationGroup calculationGroup, TestFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
-                : base(calculationGroup, failureMechanism, assessmentSection) { }
+                : base(calculationGroup, failureMechanism, assessmentSection) {}
 
             public int HydraulicBoundaryLocationChangedCounter { get; private set; }
 
@@ -812,46 +812,62 @@ namespace Riskeer.Common.Forms.Test.Views
 
         private class TestCalculationRowWithColumnStateDefinitions : TestCalculationRow, IHasColumnStateDefinitions
         {
-            public TestCalculationRowWithColumnStateDefinitions(TestCalculation calculation, IObservablePropertyChangeHandler propertyChangeHandler)
+            public TestCalculationRowWithColumnStateDefinitions(TestCalculation calculation,
+                                                                IObservablePropertyChangeHandler propertyChangeHandler,
+                                                                bool initialReadOnlyState)
                 : base(calculation, propertyChangeHandler)
             {
                 ColumnStateDefinitions = new Dictionary<int, DataGridViewColumnStateDefinition>
                 {
                     {
                         nameColumnIndex, new DataGridViewColumnStateDefinition()
+                    },
+                    {
+                        selectableHydraulicBoundaryLocationsColumnIndex, new DataGridViewColumnStateDefinition()
                     }
                 };
 
-                ColumnReadOnly = true;
+                SetReadOnlyState(initialReadOnlyState);
+            }
+
+            public void SetReadOnlyState(bool readOnlyState)
+            {
+                ColumnStateHelper.SetColumnState(ColumnStateDefinitions[nameColumnIndex], readOnlyState);
+                ColumnStateHelper.SetColumnState(ColumnStateDefinitions[selectableHydraulicBoundaryLocationsColumnIndex], readOnlyState);
             }
 
             public IDictionary<int, DataGridViewColumnStateDefinition> ColumnStateDefinitions { get; }
-
-            public bool ColumnReadOnly
-            {
-                get => ColumnStateDefinitions[nameColumnIndex].ReadOnly;
-                set => ColumnStateHelper.SetColumnState(ColumnStateDefinitions[nameColumnIndex], value);
-            }
         }
 
         private class TestCalculationsViewWithColumnStateDefinitions : TestCalculationsViewBase<TestCalculationRowWithColumnStateDefinitions>
         {
-            public TestCalculationsViewWithColumnStateDefinitions(CalculationGroup calculationGroup, TestFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
-                : base(calculationGroup, failureMechanism, assessmentSection) { }
+            private readonly bool initialReadOnlyState;
+
+            public TestCalculationsViewWithColumnStateDefinitions(CalculationGroup calculationGroup,
+                                                                  TestFailureMechanism failureMechanism,
+                                                                  IAssessmentSection assessmentSection,
+                                                                  bool initialReadOnlyState)
+                : base(calculationGroup, failureMechanism, assessmentSection)
+            {
+                this.initialReadOnlyState = initialReadOnlyState;
+            }
 
             protected override TestCalculationRowWithColumnStateDefinitions CreateRow(TestCalculation calculation)
             {
-                return new TestCalculationRowWithColumnStateDefinitions(calculation, new ObservablePropertyChangeHandler(calculation, calculation.InputParameters));
+                return new TestCalculationRowWithColumnStateDefinitions(calculation,
+                                                                        new ObservablePropertyChangeHandler(calculation, calculation.InputParameters),
+                                                                        initialReadOnlyState);
             }
         }
 
-        private void ShowFullyConfiguredCalculationsViewWithColumnStateDefinitions(IAssessmentSection assessmentSection)
+        private void ShowFullyConfiguredCalculationsViewWithColumnStateDefinitions(IAssessmentSection assessmentSection, bool initialReadOnlyState)
         {
             ConfigureHydraulicBoundaryDatabase(assessmentSection);
 
             var calculationsView = new TestCalculationsViewWithColumnStateDefinitions(ConfigureCalculationGroup(assessmentSection),
                                                                                       ConfigureFailureMechanism(),
-                                                                                      assessmentSection);
+                                                                                      assessmentSection,
+                                                                                      initialReadOnlyState);
 
             testForm.Controls.Add(calculationsView);
             testForm.Show();
@@ -871,10 +887,13 @@ namespace Riskeer.Common.Forms.Test.Views
             // Assert
             var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
             Assert.AreEqual(false, dataGridView.Rows[0].Cells[nameColumnIndex].ReadOnly);
+            Assert.AreEqual(false, dataGridView.Rows[0].Cells[selectableHydraulicBoundaryLocationsColumnIndex].ReadOnly);
         }
 
         [Test]
-        public void GivenCalculationsViewWithColumnStateDefinitions_ThenColumnStatesAsExpected()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void GivenCalculationsViewWithColumnStateDefinitions_ThenColumnStatesAsExpected(bool initialReadOnlyState)
         {
             // Setup
             var mocks = new MockRepository();
@@ -882,11 +901,12 @@ namespace Riskeer.Common.Forms.Test.Views
             mocks.ReplayAll();
 
             // Call
-            ShowFullyConfiguredCalculationsViewWithColumnStateDefinitions(assessmentSection);
+            ShowFullyConfiguredCalculationsViewWithColumnStateDefinitions(assessmentSection, initialReadOnlyState);
 
             // Assert
             var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-            Assert.AreEqual(true, dataGridView.Rows[0].Cells[nameColumnIndex].ReadOnly);
+            Assert.AreEqual(initialReadOnlyState, dataGridView.Rows[0].Cells[nameColumnIndex].ReadOnly);
+            Assert.AreEqual(initialReadOnlyState, dataGridView.Rows[0].Cells[selectableHydraulicBoundaryLocationsColumnIndex].ReadOnly);
         }
 
         #endregion
