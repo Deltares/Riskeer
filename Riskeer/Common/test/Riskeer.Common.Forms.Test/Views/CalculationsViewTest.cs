@@ -106,6 +106,30 @@ namespace Riskeer.Common.Forms.Test.Views
             Assert.IsTrue(view.GenerateButtonClicked);
         }
 
+        [Test]
+        [Apartment(ApartmentState.STA)]
+        public void CalculationsView_ChangingSubscribedRow_ListenerCorrectlyNotified()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            TestCalculationsView calculationsView = ShowFullyConfiguredCalculationsView(assessmentSection);
+
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+            DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[selectableHydraulicBoundaryLocationsColumnIndex];
+            dataGridView.CurrentCell = dataGridViewCell;
+
+            // Call
+            dataGridViewCell.Value = dataGridView.Rows[1].Cells[selectableHydraulicBoundaryLocationsColumnIndex].Value;
+
+            // Assert
+            Assert.AreEqual(1, calculationsView.HydraulicBoundaryLocationChangedCounter);
+            WindowsFormsTestHelper.CloseAll();
+            mocks.VerifyAll();
+        }
+
         public override void Setup()
         {
             base.Setup();
@@ -774,29 +798,5 @@ namespace Riskeer.Common.Forms.Test.Views
         }
 
         #endregion
-
-        [Test]
-        [Apartment(ApartmentState.STA)]
-        public void CalculationsView_ChangingSubscribedRow_ListenerCorrectlyNotified()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            TestCalculationsView calculationsView = ShowFullyConfiguredCalculationsView(assessmentSection);
-
-            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-            DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[selectableHydraulicBoundaryLocationsColumnIndex];
-            dataGridView.CurrentCell = dataGridViewCell;
-
-            // Call
-            dataGridViewCell.Value = dataGridView.Rows[1].Cells[selectableHydraulicBoundaryLocationsColumnIndex].Value;
-
-            // Assert
-            Assert.AreEqual(1, calculationsView.HydraulicBoundaryLocationChangedCounter);
-            WindowsFormsTestHelper.CloseAll();
-            mocks.VerifyAll();
-        }
     }
 }
