@@ -40,6 +40,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
     /// </summary>
     public class GrassCoverErosionInwardsCalculationRow : CalculationRow<GrassCoverErosionInwardsCalculationScenario>, IHasColumnStateDefinitions
     {
+        private const int useBreakWaterColumnIndex = 3;
         private const int breakWaterTypeColumnIndex = 4;
         private const int breakWaterHeightColumnIndex = 5;
         private const int useForeshoreColumnIndex = 6;
@@ -61,6 +62,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
         {
             ColumnStateDefinitions = new Dictionary<int, DataGridViewColumnStateDefinition>();
             CreateColumnStateDefinitions();
+            UpdateUseBreakWaterColumnStateDefinitions();
             UpdateBreakWaterTypeAndHeightColumnStateDefinitions();
             UpdateUseForeshoreColumnStateDefinitions();
         }
@@ -77,6 +79,8 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
                 if (!ReferenceEquals(Calculation.InputParameters.DikeProfile, valueToSet))
                 {
                     PropertyChangeHelper.ChangePropertyAndNotify(() => Calculation.InputParameters.DikeProfile = valueToSet, PropertyChangeHandler);
+                    UpdateUseBreakWaterColumnStateDefinitions();
+                    UpdateBreakWaterTypeAndHeightColumnStateDefinitions();
                     DikeProfileChanged?.Invoke(this, EventArgs.Empty);
                 }
             }
@@ -204,6 +208,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
 
         private void CreateColumnStateDefinitions()
         {
+            ColumnStateDefinitions.Add(useBreakWaterColumnIndex, new DataGridViewColumnStateDefinition());
             ColumnStateDefinitions.Add(breakWaterTypeColumnIndex, new DataGridViewColumnStateDefinition());
             ColumnStateDefinitions.Add(breakWaterHeightColumnIndex, new DataGridViewColumnStateDefinition());
             ColumnStateDefinitions.Add(useForeshoreColumnIndex, new DataGridViewColumnStateDefinition());
@@ -234,6 +239,19 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
             else
             {
                 ColumnStateHelper.EnableColumn(ColumnStateDefinitions[useForeshoreColumnIndex]);
+            }
+        }
+
+        private void UpdateUseBreakWaterColumnStateDefinitions()
+        {
+            DikeProfile dikeProfile = Calculation.InputParameters.DikeProfile;
+            if (dikeProfile == null)
+            {
+                ColumnStateHelper.DisableColumn(ColumnStateDefinitions[useBreakWaterColumnIndex]);
+            }
+            else
+            {
+                ColumnStateHelper.EnableColumn(ColumnStateDefinitions[useBreakWaterColumnIndex]);
             }
         }
     }
