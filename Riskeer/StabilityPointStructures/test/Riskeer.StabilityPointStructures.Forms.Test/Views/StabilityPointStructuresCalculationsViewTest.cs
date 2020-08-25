@@ -382,7 +382,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
         [TestCase(0, stabilityQuadraticLoadModelColumnIndex)]
         [TestCase(-123.45, stabilityQuadraticLoadModelColumnIndex)]
         [TestCase(1e-5, stabilityQuadraticLoadModelColumnIndex)]
-        public void CalculationsView_InvalidOvertoppingAndLevelIncreseStorage_ShowsErrorTooltip(double newValue, int index)
+        public void CalculationsView_InvalidOvertoppingAndLevelIncreaseStorage_ShowsErrorTooltip(double newValue, int index)
         {
             // Setup
             var mocks = new MockRepository();
@@ -516,70 +516,6 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
             Assert.AreEqual("Profiel 3", foreshoreProfileItems[3].ToString());
             Assert.AreEqual("Profiel 4", foreshoreProfileItems[4].ToString());
 
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        [TestCase(true, false)]
-        [TestCase(false, true)]
-        public void CalculationsView_UseBreakWaterState_HasCorrespondingColumnState(bool newValue, bool expectedState)
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            ConfigureHydraulicBoundaryDatabase(assessmentSection);
-            mocks.ReplayAll();
-
-            StabilityPointStructuresFailureMechanism failureMechanism = ConfigureFailureMechanism();
-            CalculationGroup calculationGroup = ConfigureCalculationGroup(failureMechanism, assessmentSection);
-
-            ShowCalculationsView(calculationGroup, failureMechanism, assessmentSection);
-
-            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-
-            // This step is necessary because setting the same value would not change the view state.
-            var calculation = (StructuresCalculationScenario<StabilityPointStructuresInput>) calculationGroup.GetCalculations().First();
-            calculation.InputParameters.UseBreakWater = !newValue;
-
-            // Call
-            dataGridView.Rows[0].Cells[useBreakWaterColumnIndex].Value = newValue;
-
-            // Assert
-            Assert.AreEqual(expectedState, dataGridView.Rows[0].Cells[breakWaterTypeColumnIndex].ReadOnly);
-            Assert.AreEqual(expectedState, dataGridView.Rows[0].Cells[breakWaterHeightColumnIndex].ReadOnly);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        [TestCase(LoadSchematizationType.Linear, LoadSchematizationType.Quadratic, false)]
-        [TestCase(LoadSchematizationType.Quadratic, LoadSchematizationType.Linear, true)]
-        public void CalculationsView_LoadSchematizationType_HasCorrespondingColumnState(LoadSchematizationType newValue, LoadSchematizationType controlValue, bool expectedState)
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            ConfigureHydraulicBoundaryDatabase(assessmentSection);
-            mocks.ReplayAll();
-
-            StabilityPointStructuresFailureMechanism failureMechanism = ConfigureFailureMechanism();
-            CalculationGroup calculationGroup = ConfigureCalculationGroup(failureMechanism, assessmentSection);
-
-            ShowCalculationsView(calculationGroup, failureMechanism, assessmentSection);
-
-            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-
-            // This step is necessary because setting the same value would not change the view state.
-            var calculation = (StructuresCalculationScenario<StabilityPointStructuresInput>) calculationGroup.GetCalculations().First();
-            calculation.InputParameters.LoadSchematizationType = controlValue;
-
-            // Call
-            dataGridView.Rows[0].Cells[loadSchematizationTypeColumnIndex].Value = newValue;
-
-            // Assert
-            Assert.AreEqual(expectedState, dataGridView.Rows[0].Cells[constructiveStrengthLinearLoadModelColumnIndex].ReadOnly);
-            Assert.AreEqual(expectedState, dataGridView.Rows[0].Cells[stabilityLinearLoadModelColumnIndex].ReadOnly);
-            Assert.AreEqual(!expectedState, dataGridView.Rows[0].Cells[constructiveStrengthQuadraticLoadModelColumnIndex].ReadOnly);
-            Assert.AreEqual(!expectedState, dataGridView.Rows[0].Cells[stabilityQuadraticLoadModelColumnIndex].ReadOnly);
             mocks.VerifyAll();
         }
 
@@ -752,40 +688,6 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
             // Then
             CollectionAssert.IsEmpty(failureMechanism.Calculations);
             mocks.VerifyAll(); // No observer notified
-        }
-
-        [Test]
-        public void GivenForeshoreProfile_WhenSelectedForeshoreProfileNull_ThenCorrectColumnStates()
-        {
-            // Given
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            ConfigureHydraulicBoundaryDatabase(assessmentSection);
-            mocks.ReplayAll();
-
-            StabilityPointStructuresFailureMechanism failureMechanism = ConfigureFailureMechanism();
-            CalculationGroup calculationGroup = ConfigureCalculationGroup(failureMechanism, assessmentSection);
-
-            ShowCalculationsView(calculationGroup, failureMechanism, assessmentSection);
-
-            var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
-            var foreshoreProfileComboBox = (DataGridViewComboBoxColumn)dataGridView.Columns[foreshoreProfileColumnIndex];
-
-            // Precondition
-            Assert.AreEqual(3, foreshoreProfileComboBox.Items.Count);
-            Assert.AreEqual(false, dataGridView.Rows[0].Cells[useBreakWaterColumnIndex].ReadOnly);
-            Assert.AreEqual(true, dataGridView.Rows[0].Cells[breakWaterTypeColumnIndex].ReadOnly);
-            Assert.AreEqual(true, dataGridView.Rows[0].Cells[breakWaterHeightColumnIndex].ReadOnly);
-
-            // When
-            dataGridView.Rows[0].Cells[foreshoreProfileColumnIndex].Value = new DataGridViewComboBoxItemWrapper<ForeshoreProfile>(null);
-
-            // Then
-            Assert.AreEqual(true, dataGridView.Rows[0].Cells[useBreakWaterColumnIndex].ReadOnly);
-            Assert.AreEqual(true, dataGridView.Rows[0].Cells[breakWaterTypeColumnIndex].ReadOnly);
-            Assert.AreEqual(true, dataGridView.Rows[0].Cells[breakWaterHeightColumnIndex].ReadOnly);
-
-            mocks.VerifyAll();
         }
 
         public override void Setup()
