@@ -62,13 +62,6 @@ namespace Riskeer.StabilityPointStructures.Forms.Views
         public StabilityPointStructuresCalculationsView(CalculationGroup data, StabilityPointStructuresFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
             : base(data, failureMechanism, assessmentSection) {}
 
-        protected override void OnLoad(EventArgs e)
-        {
-            DataGridViewControl.CellFormatting += HandleCellStyling;
-            
-            base.OnLoad(e);
-        }
-
         protected override void Dispose(bool disposing)
         {
             if (disposing && Loaded)
@@ -218,15 +211,6 @@ namespace Riskeer.StabilityPointStructures.Forms.Views
                 SetItemsOnObjectCollection(foreshoreProfiles.Items,
                                            GetForeshoreProfileDataSource(FailureMechanism.ForeshoreProfiles));
             }
-        }
-
-        #endregion
-
-        #region Event handling
-
-        private void HandleCellStyling(object sender, DataGridViewCellFormattingEventArgs e)
-        {
-            DataGridViewControl.FormatCellWithColumnStateDefinition(e.RowIndex, e.ColumnIndex);
         }
 
         #endregion
