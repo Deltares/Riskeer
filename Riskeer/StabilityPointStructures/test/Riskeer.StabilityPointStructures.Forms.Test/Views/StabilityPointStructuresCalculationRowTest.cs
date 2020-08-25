@@ -314,30 +314,6 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
         }
 
         [Test]
-        [TestCase(LoadSchematizationType.Linear, true)]
-        [TestCase(LoadSchematizationType.Quadratic, false)]
-        public void LoadSchematizationState_AlwaysOnChange_CorrectColumnStates(LoadSchematizationType loadSchematizationType, bool columnIsEnabled)
-        {
-            // Setup
-            var calculation = new StructuresCalculationScenario<StabilityPointStructuresInput>();
-
-            // Call
-            var row = new StabilityPointStructuresCalculationRow(calculation, new ObservablePropertyChangeHandler(calculation, new StabilityPointStructuresInput()))
-            {
-                LoadSchematizationType = loadSchematizationType
-            };
-
-            // Assert
-            IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
-
-            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[constructiveStrengthLinearLoadModelColumnIndex], columnIsEnabled);
-            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[stabilityLinearLoadModelColumnIndex], columnIsEnabled);
-
-            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[constructiveStrengthQuadraticLoadModelColumnIndex], !columnIsEnabled);
-            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[stabilityQuadraticLoadModelColumnIndex], !columnIsEnabled);
-        }
-
-        [Test]
         public void ConstructiveStrengthLinearLoadModel_AlwaysOnChange_NotifyObserverAndCalculationPropertyChanged()
         {
             // Setup
@@ -664,6 +640,31 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
         }
 
         [Test]
+        [TestCase(LoadSchematizationType.Linear)]
+        [TestCase(LoadSchematizationType.Quadratic)]
+        public void Constructor_LoadSchematizationType_CorrectColumnStates(LoadSchematizationType loadSchematizationType)
+        {
+            // Setup
+            var calculation = new StructuresCalculationScenario<StabilityPointStructuresInput>
+            {
+                InputParameters =
+                {
+                    LoadSchematizationType = loadSchematizationType
+                }
+            };
+
+            // Call
+            var row = new StabilityPointStructuresCalculationRow(calculation, new ObservablePropertyChangeHandler(calculation, new StabilityPointStructuresInput()));
+
+            // Assert
+            IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[constructiveStrengthLinearLoadModelColumnIndex], loadSchematizationType == LoadSchematizationType.Linear);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[stabilityLinearLoadModelColumnIndex], loadSchematizationType == LoadSchematizationType.Linear);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[constructiveStrengthQuadraticLoadModelColumnIndex], loadSchematizationType == LoadSchematizationType.Quadratic);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[stabilityQuadraticLoadModelColumnIndex], loadSchematizationType == LoadSchematizationType.Quadratic);
+        }
+
+        [Test]
         [TestCase(true)]
         [TestCase(false)]
         public void UseBreakWater_AlwaysOnChange_CorrectColumnStates(bool useBreakWater)
@@ -756,6 +757,34 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[breakWaterTypeColumnIndex], false);
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[breakWaterHeightColumnIndex], false);
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[useForeshoreColumnIndex], true);
+        }
+
+        [Test]
+        [TestCase(LoadSchematizationType.Linear)]
+        [TestCase(LoadSchematizationType.Quadratic)]
+        public void LoadSchematizationType_AlwaysOnChange_CorrectColumnStates(LoadSchematizationType loadSchematizationType)
+        {
+            // Setup
+            var calculation = new StructuresCalculationScenario<StabilityPointStructuresInput>
+            {
+                InputParameters =
+                {
+                    LoadSchematizationType = 0
+                }
+            };
+
+            // Call
+            var row = new StabilityPointStructuresCalculationRow(calculation, new ObservablePropertyChangeHandler(calculation, new StabilityPointStructuresInput()))
+            {
+                LoadSchematizationType = loadSchematizationType
+            };
+
+            // Assert
+            IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[constructiveStrengthLinearLoadModelColumnIndex], loadSchematizationType == LoadSchematizationType.Linear);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[stabilityLinearLoadModelColumnIndex], loadSchematizationType == LoadSchematizationType.Linear);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[constructiveStrengthQuadraticLoadModelColumnIndex], loadSchematizationType == LoadSchematizationType.Quadratic);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[stabilityQuadraticLoadModelColumnIndex], loadSchematizationType == LoadSchematizationType.Quadratic);
         }
 
         #endregion
