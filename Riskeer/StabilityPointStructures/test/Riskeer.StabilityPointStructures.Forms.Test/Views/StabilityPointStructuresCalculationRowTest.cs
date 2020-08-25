@@ -67,7 +67,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
             // Call
             var row = new StabilityPointStructuresCalculationRow(calculationScenario, handler);
 
-            // Asserts
+            // Assert
             Assert.IsInstanceOf<CalculationRow<StructuresCalculationScenario<StabilityPointStructuresInput>>>(row);
             Assert.IsInstanceOf<IHasColumnStateDefinitions>(row);
 
@@ -115,7 +115,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
         }
 
         [Test]
-        public void ForeshoreProfile_ChangeToEqualValue_NoNotificationsOutputNotCleared()
+        public void ForeshoreProfile_ChangeToEqualValue_NoNotificationsAndOutputNotCleared()
         {
             // Setup
             DataGridViewComboBoxItemWrapper<ForeshoreProfile> oldValue = null;
@@ -148,7 +148,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void UseBreakWater_ChangeToEqualValue_NoNotificationsOutputNotCleared(bool useBreakWater)
+        public void UseBreakWater_ChangeToEqualValue_NoNotificationsAndOutputNotCleared(bool useBreakWater)
         {
             // Setup
             bool oldValue = useBreakWater;
@@ -166,33 +166,6 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
                     Assert.NotNull(oldValue);
                     Assert.AreEqual(oldValue, calculation.InputParameters.UseBreakWater);
                 });
-        }
-
-        [Test]
-        [TestCase(true, true)]
-        [TestCase(false, false)]
-        public void UseBreakWaterState_AlwaysOnChange_CorrectColumnStates(bool useBreakWaterState, bool columnIsEnabled)
-        {
-            // Setup
-            var calculation = new StructuresCalculationScenario<StabilityPointStructuresInput>
-            {
-                InputParameters =
-                {
-                    ForeshoreProfile = new TestForeshoreProfile()
-                }
-            };
-
-            // Call
-            var row = new StabilityPointStructuresCalculationRow(calculation, new ObservablePropertyChangeHandler(calculation, new StabilityPointStructuresInput()))
-            {
-                UseBreakWater = useBreakWaterState
-            };
-
-            // Asserts
-            IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
-
-            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[breakWaterTypeColumnIndex], columnIsEnabled);
-            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[breakWaterHeightColumnIndex], columnIsEnabled);
         }
 
         [Test]
@@ -221,7 +194,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
         [TestCase(BreakWaterType.Wall)]
         [TestCase(BreakWaterType.Caisson)]
         [TestCase(BreakWaterType.Dam)]
-        public void BreakWaterType_ChangeToEqualValue_NoNotificationsOutputNotCleared(BreakWaterType breakWaterType)
+        public void BreakWaterType_ChangeToEqualValue_NoNotificationsAndOutputNotCleared(BreakWaterType breakWaterType)
         {
             // Call
             AssertPropertyNotChanged(
@@ -251,7 +224,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
         }
 
         [Test]
-        public void BreakWaterHeight_ChangeToEqualValue_NoNotificationsOutputNotCleared()
+        public void BreakWaterHeight_ChangeToEqualValue_NoNotificationsAndOutputNotCleared()
         {
             // Setup
             var oldValue = new RoundedDouble(4, 16);
@@ -282,7 +255,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
         }
 
         [Test]
-        public void UseForeShoreGeometry_ChangeToEqualValue_NoNotificationsOutputNotCleared()
+        public void UseForeShoreGeometry_ChangeToEqualValue_NoNotificationsAndOutputNotCleared()
         {
             // Setup
             var oldValue = true;
@@ -300,66 +273,6 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
                     Assert.NotNull(oldValue);
                     Assert.AreEqual(oldValue, calculation.InputParameters.UseForeshore);
                 });
-        }
-
-        [Test]
-        public void UseForeshoreState_DikeProfileHasForeshoreGeometry_CorrectColumnState()
-        {
-            // Setup
-            var calculation = new StructuresCalculationScenario<StabilityPointStructuresInput>
-            {
-                InputParameters =
-                {
-                    UseForeshore = true,
-                    ForeshoreProfile = new TestForeshoreProfile(new[]
-                    {
-                        new Point2D(0.0, 0.0)
-                    })
-                }
-            };
-
-            // Call
-            var row = new StabilityPointStructuresCalculationRow(calculation, new ObservablePropertyChangeHandler(calculation, new StabilityPointStructuresInput()));
-            
-            // Asserts
-            IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
-            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[useForeshoreColumnIndex], true);
-        }
-
-        [Test]
-        public void UseForeshoreState_CalculationWithoutDikeProfile_CorrectColumnState()
-        {
-            // Setup
-            var calculation = new StructuresCalculationScenario<StabilityPointStructuresInput>();
-
-            // Call
-            var row = new StabilityPointStructuresCalculationRow(calculation, new ObservablePropertyChangeHandler(calculation, new StabilityPointStructuresInput()));
-
-            // Asserts
-            IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
-
-            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateIsDisabled(columnStateDefinitions[useForeshoreColumnIndex]);
-        }
-
-        [Test]
-        public void UseForeshoreState_CalculationWithDikeProfileWithoutForeshoreGeometry_CorrectColumnState()
-        {
-            // Setup
-            var calculation = new StructuresCalculationScenario<StabilityPointStructuresInput>
-            {
-                InputParameters =
-                {
-                    ForeshoreProfile = new TestForeshoreProfile()
-                }
-            };
-
-            // Call
-            var row = new StabilityPointStructuresCalculationRow(calculation, new ObservablePropertyChangeHandler(calculation, new StabilityPointStructuresInput()));
-
-            // Asserts
-            IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
-
-            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateIsDisabled(columnStateDefinitions[useForeshoreColumnIndex]);
         }
 
         [Test]
@@ -383,7 +296,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
         [Test]
         [TestCase(LoadSchematizationType.Linear)]
         [TestCase(LoadSchematizationType.Quadratic)]
-        public void LoadSchematizationType_ChangeToEqualValue_NoNotificationsOutputNotCleared(LoadSchematizationType breakWaterType)
+        public void LoadSchematizationType_ChangeToEqualValue_NoNotificationsAndOutputNotCleared(LoadSchematizationType breakWaterType)
         {
             // Call
             AssertPropertyNotChanged(
@@ -414,7 +327,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
                 LoadSchematizationType = loadSchematizationType
             };
 
-            // Asserts
+            // Assert
             IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
 
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[constructiveStrengthLinearLoadModelColumnIndex], columnIsEnabled);
@@ -437,7 +350,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
         }
 
         [Test]
-        public void ConstructiveStrengthLinearLoadModel_ChangeToEqualValue_NoNotificationsOutputNotCleared()
+        public void ConstructiveStrengthLinearLoadModel_ChangeToEqualValue_NoNotificationsAndOutputNotCleared()
         {
             // Setup
             var oldValue = new RoundedDouble(4, 0.03);
@@ -470,7 +383,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
         }
 
         [Test]
-        public void ConstructiveStrengthQuadraticLoadModel_ChangeToEqualValue_NoNotificationsOutputNotCleared()
+        public void ConstructiveStrengthQuadraticLoadModel_ChangeToEqualValue_NoNotificationsAndOutputNotCleared()
         {
             // Setup
             var oldValue = new RoundedDouble(4, 0.03);
@@ -491,7 +404,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
         }
 
         [Test]
-        public void StabilityLinearLoadModel_ChangeToEqualValue_NoNotificationsOutputNotCleared()
+        public void StabilityLinearLoadModel_ChangeToEqualValue_NoNotificationsAndOutputNotCleared()
         {
             // Setup
             var oldValue = new RoundedDouble(4, 0.03);
@@ -524,7 +437,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
         }
 
         [Test]
-        public void StabilityQuadraticLoadModel_ChangeToEqualValue_NoNotificationsOutputNotCleared()
+        public void StabilityQuadraticLoadModel_ChangeToEqualValue_NoNotificationsAndOutputNotCleared()
         {
             // Setup
             var oldValue = new RoundedDouble(4, 0.03);
@@ -557,7 +470,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
         }
 
         [Test]
-        public void EvaluationLevel_ChangeToEqualValue_NoNotificationsOutputNotCleared()
+        public void EvaluationLevel_ChangeToEqualValue_NoNotificationsAndOutputNotCleared()
         {
             // Setup
             var oldValue = new RoundedDouble(4, 0.03);
@@ -675,5 +588,176 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
                 Assert.AreSame(assignedOutput, calculation.Output);
             }
         }
+
+        #region Column states
+
+        [Test]
+        public void Constructor_ForeshoreProfileNull_CorrectColumnStates()
+        {
+            // Setup
+            var calculation = new StructuresCalculationScenario<StabilityPointStructuresInput>();
+
+            // Call
+            var row = new StabilityPointStructuresCalculationRow(calculation, new ObservablePropertyChangeHandler(calculation, new StabilityPointStructuresInput()));
+
+            // Assert
+            IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[useBreakWaterColumnIndex], false);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[breakWaterTypeColumnIndex], false);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[breakWaterHeightColumnIndex], false);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[useForeshoreColumnIndex], false);
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Constructor_ForeshoreProfileWithoutGeometry_CorrectColumnStates(bool useBreakWater)
+        {
+            // Setup
+            var calculation = new StructuresCalculationScenario<StabilityPointStructuresInput>
+            {
+                InputParameters =
+                {
+                    ForeshoreProfile = new TestForeshoreProfile(),
+                    UseBreakWater = useBreakWater
+                }
+            };
+
+            // Call
+            var row = new StabilityPointStructuresCalculationRow(calculation, new ObservablePropertyChangeHandler(calculation, new StabilityPointStructuresInput()));
+
+            // Assert
+            IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[useBreakWaterColumnIndex], true);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[breakWaterTypeColumnIndex], useBreakWater);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[breakWaterHeightColumnIndex], useBreakWater);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[useForeshoreColumnIndex], false);
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Constructor_ForeshoreProfileWithGeometry_CorrectColumnStates(bool useBreakWater)
+        {
+            // Setup
+            var calculation = new StructuresCalculationScenario<StabilityPointStructuresInput>
+            {
+                InputParameters =
+                {
+                    ForeshoreProfile = new TestForeshoreProfile(new[]
+                    {
+                        new Point2D(0.0, 0.0)
+                    }),
+                    UseBreakWater = useBreakWater
+                }
+            };
+
+            // Call
+            var row = new StabilityPointStructuresCalculationRow(calculation, new ObservablePropertyChangeHandler(calculation, new StabilityPointStructuresInput()));
+
+            // Assert
+            IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[useBreakWaterColumnIndex], true);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[breakWaterTypeColumnIndex], useBreakWater);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[breakWaterHeightColumnIndex], useBreakWater);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[useForeshoreColumnIndex], true);
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void UseBreakWater_AlwaysOnChange_CorrectColumnStates(bool useBreakWater)
+        {
+            // Setup
+            var calculation = new StructuresCalculationScenario<StabilityPointStructuresInput>
+            {
+                InputParameters =
+                {
+                    ForeshoreProfile = new TestForeshoreProfile()
+                }
+            };
+
+            // Call
+            var row = new StabilityPointStructuresCalculationRow(calculation, new ObservablePropertyChangeHandler(calculation, new StabilityPointStructuresInput()))
+            {
+                UseBreakWater = useBreakWater
+            };
+
+            // Assert
+            IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[breakWaterTypeColumnIndex], useBreakWater);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[breakWaterHeightColumnIndex], useBreakWater);
+        }
+
+        [Test]
+        public void ForeshoreProfile_OnChangeToNull_CorrectColumnStates()
+        {
+            // Setup
+            var calculation = new StructuresCalculationScenario<StabilityPointStructuresInput>
+            {
+                InputParameters =
+                {
+                    ForeshoreProfile = new TestForeshoreProfile()
+                }
+            };
+
+            // Call
+            var row = new StabilityPointStructuresCalculationRow(calculation, new ObservablePropertyChangeHandler(calculation, new StabilityPointStructuresInput()))
+            {
+                ForeshoreProfile = new DataGridViewComboBoxItemWrapper<ForeshoreProfile>(null)
+            };
+
+            // Assert
+            IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[useBreakWaterColumnIndex], false);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[breakWaterTypeColumnIndex], false);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[breakWaterHeightColumnIndex], false);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[useForeshoreColumnIndex], false);
+        }
+
+        [Test]
+        public void ForeshoreProfile_OnChangeToProfileWithoutGeometry_CorrectColumnStates()
+        {
+            // Setup
+            var calculation = new StructuresCalculationScenario<StabilityPointStructuresInput>();
+
+            // Call
+            var row = new StabilityPointStructuresCalculationRow(calculation, new ObservablePropertyChangeHandler(calculation, new StabilityPointStructuresInput()))
+            {
+                ForeshoreProfile = new DataGridViewComboBoxItemWrapper<ForeshoreProfile>(new TestForeshoreProfile())
+            };
+
+            // Assert
+            IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[useBreakWaterColumnIndex], true);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[breakWaterTypeColumnIndex], false);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[breakWaterHeightColumnIndex], false);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[useForeshoreColumnIndex], false);
+        }
+
+        [Test]
+        public void ForeshoreProfile_OnChangeToProfileWithGeometry_CorrectColumnStates()
+        {
+            // Setup
+            var calculation = new StructuresCalculationScenario<StabilityPointStructuresInput>();
+
+            // Call
+            var row = new StabilityPointStructuresCalculationRow(calculation, new ObservablePropertyChangeHandler(calculation, new StabilityPointStructuresInput()))
+            {
+                ForeshoreProfile = new DataGridViewComboBoxItemWrapper<ForeshoreProfile>(new TestForeshoreProfile(new[]
+                {
+                    new Point2D(0.0, 0.0)
+                }))
+            };
+
+            // Assert
+            IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[useBreakWaterColumnIndex], true);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[breakWaterTypeColumnIndex], false);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[breakWaterHeightColumnIndex], false);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[useForeshoreColumnIndex], true);
+        }
+
+        #endregion
     }
 }
