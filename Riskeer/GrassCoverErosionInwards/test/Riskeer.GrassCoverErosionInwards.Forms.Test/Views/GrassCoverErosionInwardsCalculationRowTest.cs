@@ -106,7 +106,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
         }
 
         [Test]
-        public void DikeProfile_ChangeToEqualValue_NoNotificationsOutputNotCleared()
+        public void DikeProfile_ChangeToEqualValue_NoNotificationsAndOutputNotCleared()
         {
             // Setup
             DataGridViewComboBoxItemWrapper<DikeProfile> oldValue = null;
@@ -141,7 +141,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void UseBreakWater_ChangeToEqualValue_NoNotificationsOutputNotCleared(bool useBreakWater)
+        public void UseBreakWater_ChangeToEqualValue_NoNotificationsAndOutputNotCleared(bool useBreakWater)
         {
             // Setup
             bool oldValue = useBreakWater;
@@ -217,7 +217,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
         [TestCase(BreakWaterType.Wall)]
         [TestCase(BreakWaterType.Caisson)]
         [TestCase(BreakWaterType.Dam)]
-        public void BreakWaterType_ChangeToEqualValue_NoNotificationsOutputNotCleared(BreakWaterType breakWaterType)
+        public void BreakWaterType_ChangeToEqualValue_NoNotificationsAndOutputNotCleared(BreakWaterType breakWaterType)
         {
             // Call
             AssertPropertyNotChanged(
@@ -247,7 +247,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
         }
 
         [Test]
-        public void BreakWaterHeight_ChangeToEqualValue_NoNotificationsOutputNotCleared()
+        public void BreakWaterHeight_ChangeToEqualValue_NoNotificationsAndOutputNotCleared()
         {
             // Setup
             var oldValue = new RoundedDouble(4, 16);
@@ -280,7 +280,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
         }
 
         [Test]
-        public void UseForeShoreGeometry_ChangeToEqualValue_NoNotificationsOutputNotCleared()
+        public void UseForeShoreGeometry_ChangeToEqualValue_NoNotificationsAndOutputNotCleared()
         {
             // Setup
             var oldValue = true;
@@ -375,7 +375,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
         }
 
         [Test]
-        public void DikeHeight_ChangeToEqualValue_NoNotificationsOutputNotCleared()
+        public void DikeHeight_ChangeToEqualValue_NoNotificationsAndOutputNotCleared()
         {
             // Setup
             var oldValue = new RoundedDouble(2, 2.08);
@@ -408,7 +408,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
         }
 
         [Test]
-        public void MeanCriticalFlowRate_ChangeToEqualValue_NoNotificationsOutputNotCleared()
+        public void MeanCriticalFlowRate_ChangeToEqualValue_NoNotificationsAndOutputNotCleared()
         {
             // Setup
             var oldValue = new RoundedDouble(4, 0.03);
@@ -441,7 +441,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
         }
 
         [Test]
-        public void StandardDeviationCriticalFlowRate_ChangeToEqualValue_NoNotificationsOutputNotCleared()
+        public void StandardDeviationCriticalFlowRate_ChangeToEqualValue_NoNotificationsAndOutputNotCleared()
         {
             // Setup
             var oldValue = new RoundedDouble(4, 0.0004);
