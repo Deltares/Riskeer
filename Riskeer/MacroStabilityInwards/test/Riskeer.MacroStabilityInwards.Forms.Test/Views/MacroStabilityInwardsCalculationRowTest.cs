@@ -99,7 +99,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
         }
 
         [Test]
-        public void StochasticSoilModel_ChangeToEqualValue_NoNotificationsOutputNotCleared()
+        public void StochasticSoilModel_ChangeToEqualValue_NoNotificationsAndOutputNotCleared()
         {
             // Setup
             DataGridViewComboBoxItemWrapper<MacroStabilityInwardsStochasticSoilModel> oldValue = null;
@@ -134,7 +134,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
         }
 
         [Test]
-        public void StochasticSoilProfile_ChangeToEqualValue_NoNotificationsOutputNotCleared()
+        public void StochasticSoilProfile_ChangeToEqualValue_NoNotificationsAndOutputNotCleared()
         {
             // Setup
             DataGridViewComboBoxItemWrapper<MacroStabilityInwardsStochasticSoilProfile> oldValue = null;

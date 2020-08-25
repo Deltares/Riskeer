@@ -121,7 +121,7 @@ namespace Riskeer.Piping.Forms.Test.Views
         }
 
         [Test]
-        public void StochasticSoilModel_ChangeToEqualValue_NoNotificationsOutputNotCleared()
+        public void StochasticSoilModel_ChangeToEqualValue_NoNotificationsAndOutputNotCleared()
         {
             // Setup
             DataGridViewComboBoxItemWrapper<PipingStochasticSoilModel> oldValue = null;
@@ -155,7 +155,7 @@ namespace Riskeer.Piping.Forms.Test.Views
         }
 
         [Test]
-        public void StochasticSoilProfile_ChangeToEqualValue_NoNotificationsOutputNotCleared()
+        public void StochasticSoilProfile_ChangeToEqualValue_NoNotificationsAndOutputNotCleared()
         {
             // Setup
             DataGridViewComboBoxItemWrapper<PipingStochasticSoilProfile> oldValue = null;
@@ -201,7 +201,7 @@ namespace Riskeer.Piping.Forms.Test.Views
         }
 
         [Test]
-        public void DampingFactorExitMean_ChangeToEqualValue_NoNotificationsOutputNotCleared()
+        public void DampingFactorExitMean_ChangeToEqualValue_NoNotificationsAndOutputNotCleared()
         {
             // Setup
             RoundedDouble oldValue = RoundedDouble.NaN;
@@ -233,7 +233,7 @@ namespace Riskeer.Piping.Forms.Test.Views
         }
 
         [Test]
-        public void PhreaticLevelExitMean_ChangeToEqualValue_NoNotificationsOutputNotCleared()
+        public void PhreaticLevelExitMean_ChangeToEqualValue_NoNotificationsAndOutputNotCleared()
         {
             // Setup
             RoundedDouble oldValue = RoundedDouble.NaN;
@@ -265,7 +265,7 @@ namespace Riskeer.Piping.Forms.Test.Views
         }
 
         [Test]
-        public void EntryPointL_ChangeToEqualValue_NoNotificationsOutputNotCleared()
+        public void EntryPointL_ChangeToEqualValue_NoNotificationsAndOutputNotCleared()
         {
             // Setup
             RoundedDouble oldValue = RoundedDouble.NaN;
@@ -326,7 +326,7 @@ namespace Riskeer.Piping.Forms.Test.Views
         }
 
         [Test]
-        public void ExitPointL_ChangeToEqualValue_NoNotificationsOutputNotCleared()
+        public void ExitPointL_ChangeToEqualValue_NoNotificationsAndOutputNotCleared()
         {
             // Setup
             RoundedDouble oldValue = RoundedDouble.NaN;

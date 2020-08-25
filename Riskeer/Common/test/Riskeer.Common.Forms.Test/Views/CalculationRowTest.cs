@@ -131,7 +131,7 @@ namespace Riskeer.Common.Forms.Test.Views
         }
 
         [Test]
-        public void SelectableHydraulicBoundaryLocation_ChangeToEqualValue_NoNotificationsOutputNotCleared()
+        public void SelectableHydraulicBoundaryLocation_ChangeToEqualValue_NoNotificationsAndOutputNotCleared()
         {
             // Setup
             DataGridViewComboBoxItemWrapper<SelectableHydraulicBoundaryLocation> oldValue = null;
