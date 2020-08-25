@@ -94,7 +94,7 @@ namespace Riskeer.Common.IO.Configurations.Export
         }
 
         /// <summary>
-        /// Gets the version of configuration to write.
+        /// Gets the version of the configuration to write.
         /// </summary>
         /// <returns>The version.</returns>
         protected abstract int GetConfigurationVersion();
