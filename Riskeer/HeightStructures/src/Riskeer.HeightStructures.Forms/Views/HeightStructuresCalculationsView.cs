@@ -62,13 +62,6 @@ namespace Riskeer.HeightStructures.Forms.Views
         public HeightStructuresCalculationsView(CalculationGroup data, HeightStructuresFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
             : base(data, failureMechanism, assessmentSection) {}
 
-        protected override void OnLoad(EventArgs e)
-        {
-            DataGridViewControl.CellFormatting += HandleCellStyling;
-            
-            base.OnLoad(e);
-        }
-
         protected override void Dispose(bool disposing)
         {
             if (disposing && Loaded)
@@ -203,15 +196,6 @@ namespace Riskeer.HeightStructures.Forms.Views
                 SetItemsOnObjectCollection(selectableForeshoreProfiles.Items,
                                            GetForeshoreProfileDataSource(FailureMechanism.ForeshoreProfiles));
             }
-        }
-
-        #endregion
-
-        #region Event handling
-
-        private void HandleCellStyling(object sender, DataGridViewCellFormattingEventArgs e)
-        {
-            DataGridViewControl.FormatCellWithColumnStateDefinition(e.RowIndex, e.ColumnIndex);
         }
 
         #endregion
