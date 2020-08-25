@@ -406,109 +406,6 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
                 });
         }
 
-        #region Column states
-
-        [Test]
-        public void Constructor_ForeshoreProfileNull_CorrectColumnStates()
-        {
-            // Setup
-            var calculation = new StructuresCalculationScenario<ClosingStructuresInput>();
-
-            // Call
-            var row = new ClosingStructuresCalculationRow(calculation, new ObservablePropertyChangeHandler(calculation, new ClosingStructuresInput()));
-
-            // Assert
-            IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
-            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[useBreakWaterColumnIndex], false);
-            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[breakWaterTypeColumnIndex], false);
-            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[breakWaterHeightColumnIndex], false);
-            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[useForeshoreColumnIndex], false);
-        }
-
-        [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void Constructor_ForeshoreProfileWithoutGeometry_CorrectColumnStates(bool useBreakWater)
-        {
-            // Setup
-            var calculation = new StructuresCalculationScenario<ClosingStructuresInput>
-            {
-                InputParameters =
-                {
-                    ForeshoreProfile = new TestForeshoreProfile(),
-                    UseBreakWater = useBreakWater
-                }
-            };
-
-            // Call
-            var row = new ClosingStructuresCalculationRow(calculation, new ObservablePropertyChangeHandler(calculation, new ClosingStructuresInput()));
-
-            // Assert
-            IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
-            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[useBreakWaterColumnIndex], true);
-            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[breakWaterTypeColumnIndex], useBreakWater);
-            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[breakWaterHeightColumnIndex], useBreakWater);
-            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[useForeshoreColumnIndex], false);
-        }
-
-        [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void Constructor_ForeshoreProfileWithGeometry_CorrectColumnStates(bool useBreakWater)
-        {
-            // Setup
-            var calculation = new StructuresCalculationScenario<ClosingStructuresInput>
-            {
-                InputParameters =
-                {
-                    ForeshoreProfile = new TestForeshoreProfile(new[]
-                    {
-                        new Point2D(0.0, 0.0)
-                    }),
-                    UseBreakWater = useBreakWater
-                }
-            };
-
-            // Call
-            var row = new ClosingStructuresCalculationRow(calculation, new ObservablePropertyChangeHandler(calculation, new ClosingStructuresInput()));
-
-            // Assert
-            IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
-            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[useBreakWaterColumnIndex], true);
-            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[breakWaterTypeColumnIndex], useBreakWater);
-            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[breakWaterHeightColumnIndex], useBreakWater);
-            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[useForeshoreColumnIndex], true);
-        }
-
-        [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void UseBreakWater_AlwaysOnChange_CorrectColumnStates(bool useBreakWater)
-        {
-            // Setup
-            var calculation = new StructuresCalculationScenario<ClosingStructuresInput>
-            {
-                InputParameters =
-                {
-                    ForeshoreProfile = new TestForeshoreProfile()
-                }
-            };
-
-            // Call
-            var row = new ClosingStructuresCalculationRow(calculation, new ObservablePropertyChangeHandler(calculation, new ClosingStructuresInput()))
-            {
-                UseBreakWater = useBreakWater
-            };
-
-            // Assert
-            IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
-
-            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[breakWaterTypeColumnIndex], useBreakWater);
-            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[breakWaterHeightColumnIndex], useBreakWater);
-        }
-
-        #endregion
-
         private static void SetPropertyAndVerifyNotificationsAndOutputForCalculation(
             Action<ClosingStructuresCalculationRow> setProperty,
             StructuresCalculationScenario<ClosingStructuresInput> calculation)
@@ -607,5 +504,176 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
                 Assert.AreSame(assignedOutput, calculation.Output);
             }
         }
+
+        #region Column states
+
+        [Test]
+        public void Constructor_ForeshoreProfileNull_CorrectColumnStates()
+        {
+            // Setup
+            var calculation = new StructuresCalculationScenario<ClosingStructuresInput>();
+
+            // Call
+            var row = new ClosingStructuresCalculationRow(calculation, new ObservablePropertyChangeHandler(calculation, new ClosingStructuresInput()));
+
+            // Assert
+            IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[useBreakWaterColumnIndex], false);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[breakWaterTypeColumnIndex], false);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[breakWaterHeightColumnIndex], false);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[useForeshoreColumnIndex], false);
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Constructor_ForeshoreProfileWithoutGeometry_CorrectColumnStates(bool useBreakWater)
+        {
+            // Setup
+            var calculation = new StructuresCalculationScenario<ClosingStructuresInput>
+            {
+                InputParameters =
+                {
+                    ForeshoreProfile = new TestForeshoreProfile(),
+                    UseBreakWater = useBreakWater
+                }
+            };
+
+            // Call
+            var row = new ClosingStructuresCalculationRow(calculation, new ObservablePropertyChangeHandler(calculation, new ClosingStructuresInput()));
+
+            // Assert
+            IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[useBreakWaterColumnIndex], true);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[breakWaterTypeColumnIndex], useBreakWater);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[breakWaterHeightColumnIndex], useBreakWater);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[useForeshoreColumnIndex], false);
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Constructor_ForeshoreProfileWithGeometry_CorrectColumnStates(bool useBreakWater)
+        {
+            // Setup
+            var calculation = new StructuresCalculationScenario<ClosingStructuresInput>
+            {
+                InputParameters =
+                {
+                    ForeshoreProfile = new TestForeshoreProfile(new[]
+                    {
+                        new Point2D(0.0, 0.0)
+                    }),
+                    UseBreakWater = useBreakWater
+                }
+            };
+
+            // Call
+            var row = new ClosingStructuresCalculationRow(calculation, new ObservablePropertyChangeHandler(calculation, new ClosingStructuresInput()));
+
+            // Assert
+            IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[useBreakWaterColumnIndex], true);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[breakWaterTypeColumnIndex], useBreakWater);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[breakWaterHeightColumnIndex], useBreakWater);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[useForeshoreColumnIndex], true);
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void UseBreakWater_AlwaysOnChange_CorrectColumnStates(bool useBreakWater)
+        {
+            // Setup
+            var calculation = new StructuresCalculationScenario<ClosingStructuresInput>
+            {
+                InputParameters =
+                {
+                    ForeshoreProfile = new TestForeshoreProfile()
+                }
+            };
+
+            // Call
+            var row = new ClosingStructuresCalculationRow(calculation, new ObservablePropertyChangeHandler(calculation, new ClosingStructuresInput()))
+            {
+                UseBreakWater = useBreakWater
+            };
+
+            // Assert
+            IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[breakWaterTypeColumnIndex], useBreakWater);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[breakWaterHeightColumnIndex], useBreakWater);
+        }
+
+        [Test]
+        public void ForeshoreProfile_OnChangeToNull_CorrectColumnStates()
+        {
+            // Setup
+            var calculation = new StructuresCalculationScenario<ClosingStructuresInput>
+            {
+                InputParameters =
+                {
+                    ForeshoreProfile = new TestForeshoreProfile()
+                }
+            };
+
+            // Call
+            var row = new ClosingStructuresCalculationRow(calculation, new ObservablePropertyChangeHandler(calculation, new ClosingStructuresInput()))
+            {
+                ForeshoreProfile = new DataGridViewComboBoxItemWrapper<ForeshoreProfile>(null)
+            };
+
+            // Assert
+            IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[useBreakWaterColumnIndex], false);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[breakWaterTypeColumnIndex], false);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[breakWaterHeightColumnIndex], false);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[useForeshoreColumnIndex], false);
+        }
+
+        [Test]
+        public void ForeshoreProfile_OnChangeToProfileWithoutGeometry_CorrectColumnStates()
+        {
+            // Setup
+            var calculation = new StructuresCalculationScenario<ClosingStructuresInput>();
+
+            // Call
+            var row = new ClosingStructuresCalculationRow(calculation, new ObservablePropertyChangeHandler(calculation, new ClosingStructuresInput()))
+            {
+                ForeshoreProfile = new DataGridViewComboBoxItemWrapper<ForeshoreProfile>(new TestForeshoreProfile())
+            };
+
+            // Assert
+            IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[useBreakWaterColumnIndex], true);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[breakWaterTypeColumnIndex], false);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[breakWaterHeightColumnIndex], false);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[useForeshoreColumnIndex], false);
+        }
+
+        [Test]
+        public void ForeshoreProfile_OnChangeToProfileWithGeometry_CorrectColumnStates()
+        {
+            // Setup
+            var calculation = new StructuresCalculationScenario<ClosingStructuresInput>();
+
+            // Call
+            var row = new ClosingStructuresCalculationRow(calculation, new ObservablePropertyChangeHandler(calculation, new ClosingStructuresInput()))
+            {
+                ForeshoreProfile = new DataGridViewComboBoxItemWrapper<ForeshoreProfile>(new TestForeshoreProfile(new[]
+                {
+                    new Point2D(0.0, 0.0)
+                }))
+            };
+
+            // Assert
+            IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[useBreakWaterColumnIndex], true);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[breakWaterTypeColumnIndex], false);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[breakWaterHeightColumnIndex], false);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[useForeshoreColumnIndex], true);
+        }
+
+        #endregion
     }
 }
