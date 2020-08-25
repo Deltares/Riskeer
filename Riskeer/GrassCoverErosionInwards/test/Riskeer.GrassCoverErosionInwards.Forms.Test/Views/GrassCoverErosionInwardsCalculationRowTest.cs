@@ -162,36 +162,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
         }
 
         [Test]
-        [TestCase(true, true)]
-        [TestCase(false, false)]
-        public void UseBreakWaterState_AlwaysOnChange_CorrectColumnStates(bool useBreakWaterState, bool columnIsEnabled)
-        {
-            // Setup
-            var calculation = new GrassCoverErosionInwardsCalculationScenario
-            {
-                InputParameters =
-                {
-                    DikeProfile = DikeProfileTestFactory.CreateDikeProfile(new[]
-                    {
-                        new Point2D(2.0, 0.0)
-                    }, "testProfile")
-                }
-            };
-
-            // Call
-            var row = new GrassCoverErosionInwardsCalculationRow(calculation, new ObservablePropertyChangeHandler(calculation, new GrassCoverErosionInwardsInput()))
-            {
-                UseBreakWater = useBreakWaterState
-            };
-
-            // Asserts
-            IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
-
-            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[breakWaterTypeColumnIndex], columnIsEnabled);
-            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[breakWaterHeightColumnIndex], columnIsEnabled);
-        }
-
-        [Test]
         [TestCase(BreakWaterType.Wall, BreakWaterType.Dam)]
         [TestCase(BreakWaterType.Caisson, BreakWaterType.Wall)]
         [TestCase(BreakWaterType.Dam, BreakWaterType.Caisson)]
@@ -298,68 +268,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
                     Assert.NotNull(oldValue);
                     Assert.AreEqual(oldValue, calculation.InputParameters.UseForeshore);
                 });
-        }
-
-        [Test]
-        public void UseForeshoreState_DikeProfileHasForeshoreGeometry_CorrectColumnState()
-        {
-            // Setup
-            var calculation = new GrassCoverErosionInwardsCalculationScenario
-            {
-                InputParameters =
-                {
-                    DikeProfile = DikeProfileTestFactory.CreateDikeProfile(new[]
-                    {
-                        new Point2D(2.0, 0.0)
-                    }, "testProfile")
-                }
-            };
-
-            // Call
-            var row = new GrassCoverErosionInwardsCalculationRow(calculation, new ObservablePropertyChangeHandler(calculation, new GrassCoverErosionInwardsInput()))
-            {
-                UseForeshoreGeometry = true
-            };
-
-            // Asserts
-            IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
-            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[useForeshoreColumnIndex], true);
-        }
-
-        [Test]
-        public void UseForeshoreState_CalculationWithoutDikeProfile_CorrectColumnState()
-        {
-            // Setup
-            var calculation = new GrassCoverErosionInwardsCalculationScenario();
-
-            // Call
-            var row = new GrassCoverErosionInwardsCalculationRow(calculation, new ObservablePropertyChangeHandler(calculation, new GrassCoverErosionInwardsInput()));
-
-            // Asserts
-            IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
-
-            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateIsDisabled(columnStateDefinitions[useForeshoreColumnIndex]);
-        }
-
-        [Test]
-        public void UseForeshoreState_CalculationWithDikeProfileWithoutForeshoreGeometry_CorrectColumnState()
-        {
-            // Setup
-            var calculation = new GrassCoverErosionInwardsCalculationScenario
-            {
-                InputParameters =
-                {
-                    DikeProfile = DikeProfileTestFactory.CreateDikeProfile()
-                }
-            };
-
-            // Call
-            var row = new GrassCoverErosionInwardsCalculationRow(calculation, new ObservablePropertyChangeHandler(calculation, new GrassCoverErosionInwardsInput()));
-
-            // Asserts
-            IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
-
-            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateIsDisabled(columnStateDefinitions[useForeshoreColumnIndex]);
         }
 
         [Test]
@@ -559,5 +467,176 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
                 Assert.AreSame(assignedOutput, calculation.Output);
             }
         }
+
+        #region Column states
+
+        [Test]
+        public void Constructor_DikeProfileNull_CorrectColumnStates()
+        {
+            // Setup
+            var calculationScenario = new GrassCoverErosionInwardsCalculationScenario();
+
+            // Call
+            var row = new GrassCoverErosionInwardsCalculationRow(calculationScenario, new ObservablePropertyChangeHandler(calculationScenario, new GrassCoverErosionInwardsInput()));
+
+            // Assert
+            IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[useBreakWaterColumnIndex], false);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[breakWaterTypeColumnIndex], false);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[breakWaterHeightColumnIndex], false);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[useForeshoreColumnIndex], false);
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Constructor_DikeProfileWithoutForeshoreGeometry_CorrectColumnStates(bool useBreakWater)
+        {
+            // Setup
+            var calculationScenario = new GrassCoverErosionInwardsCalculationScenario
+            {
+                InputParameters =
+                {
+                    DikeProfile = DikeProfileTestFactory.CreateDikeProfile(),
+                    UseBreakWater = useBreakWater
+                }
+            };
+
+            // Call
+            var row = new GrassCoverErosionInwardsCalculationRow(calculationScenario, new ObservablePropertyChangeHandler(calculationScenario, new GrassCoverErosionInwardsInput()));
+
+            // Assert
+            IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[useBreakWaterColumnIndex], true);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[breakWaterTypeColumnIndex], useBreakWater);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[breakWaterHeightColumnIndex], useBreakWater);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[useForeshoreColumnIndex], false);
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Constructor_DikeProfileWithForeshoreGeometry_CorrectColumnStates(bool useBreakWater)
+        {
+            // Setup
+            var calculationScenario = new GrassCoverErosionInwardsCalculationScenario
+            {
+                InputParameters =
+                {
+                    DikeProfile = DikeProfileTestFactory.CreateDikeProfile(new[]
+                    {
+                        new Point2D(0.0, 0.0)
+                    }),
+                    UseBreakWater = useBreakWater
+                }
+            };
+
+            // Call
+            var row = new GrassCoverErosionInwardsCalculationRow(calculationScenario, new ObservablePropertyChangeHandler(calculationScenario, new GrassCoverErosionInwardsInput()));
+
+            // Assert
+            IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[useBreakWaterColumnIndex], true);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[breakWaterTypeColumnIndex], useBreakWater);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[breakWaterHeightColumnIndex], useBreakWater);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[useForeshoreColumnIndex], true);
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void UseBreakWater_AlwaysOnChange_CorrectColumnStates(bool useBreakWater)
+        {
+            // Setup
+            var calculationScenario = new GrassCoverErosionInwardsCalculationScenario
+            {
+                InputParameters =
+                {
+                    DikeProfile = DikeProfileTestFactory.CreateDikeProfile()
+                }
+            };
+
+            // Call
+            var row = new GrassCoverErosionInwardsCalculationRow(calculationScenario, new ObservablePropertyChangeHandler(calculationScenario, new GrassCoverErosionInwardsInput()))
+            {
+                UseBreakWater = useBreakWater
+            };
+
+            // Assert
+            IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[breakWaterTypeColumnIndex], useBreakWater);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[breakWaterHeightColumnIndex], useBreakWater);
+        }
+
+        [Test]
+        public void DikeProfile_OnChangeToNull_CorrectColumnStates()
+        {
+            // Setup
+            var calculationScenario = new GrassCoverErosionInwardsCalculationScenario
+            {
+                InputParameters =
+                {
+                    DikeProfile = DikeProfileTestFactory.CreateDikeProfile()
+                }
+            };
+
+            // Call
+            var row = new GrassCoverErosionInwardsCalculationRow(calculationScenario, new ObservablePropertyChangeHandler(calculationScenario, new GrassCoverErosionInwardsInput()))
+            {
+                DikeProfile = new DataGridViewComboBoxItemWrapper<DikeProfile>(null)
+            };
+
+            // Assert
+            IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[useBreakWaterColumnIndex], false);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[breakWaterTypeColumnIndex], false);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[breakWaterHeightColumnIndex], false);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[useForeshoreColumnIndex], false);
+        }
+
+        [Test]
+        public void DikeProfile_OnChangeToProfileWithoutForeshoreGeometry_CorrectColumnStates()
+        {
+            // Setup
+            var calculationScenario = new GrassCoverErosionInwardsCalculationScenario();
+
+            // Call
+            var row = new GrassCoverErosionInwardsCalculationRow(calculationScenario, new ObservablePropertyChangeHandler(calculationScenario, new GrassCoverErosionInwardsInput()))
+            {
+                DikeProfile = new DataGridViewComboBoxItemWrapper<DikeProfile>(DikeProfileTestFactory.CreateDikeProfile())
+            };
+
+            // Assert
+            IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[useBreakWaterColumnIndex], true);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[breakWaterTypeColumnIndex], false);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[breakWaterHeightColumnIndex], false);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[useForeshoreColumnIndex], false);
+        }
+
+        [Test]
+        public void DikeProfile_OnChangeToProfileWithForeshoreGeometry_CorrectColumnStates()
+        {
+            // Setup
+            var calculationScenario = new GrassCoverErosionInwardsCalculationScenario();
+
+            // Call
+            var row = new GrassCoverErosionInwardsCalculationRow(calculationScenario, new ObservablePropertyChangeHandler(calculationScenario, new GrassCoverErosionInwardsInput()))
+            {
+                DikeProfile = new DataGridViewComboBoxItemWrapper<DikeProfile>(DikeProfileTestFactory.CreateDikeProfile(new[]
+                {
+                    new Point2D(0.0, 0.0)
+                }))
+            };
+
+            // Assert
+            IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[useBreakWaterColumnIndex], true);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[breakWaterTypeColumnIndex], false);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[breakWaterHeightColumnIndex], false);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[useForeshoreColumnIndex], true);
+        }
+
+        #endregion
     }
 }
