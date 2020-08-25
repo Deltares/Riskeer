@@ -530,37 +530,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
         }
 
         [Test]
-        [TestCase(true, false)]
-        [TestCase(false, true)]
-        public void CalculationsView_UseBreakWaterState_HasCorrespondingColumnState(bool newValue, bool expectedState)
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            ConfigureHydraulicBoundaryDatabase(assessmentSection);
-            mocks.ReplayAll();
-
-            GrassCoverErosionInwardsFailureMechanism failureMechanism = ConfigureFailureMechanism();
-            CalculationGroup calculationGroup = ConfigureCalculationGroup(failureMechanism, assessmentSection);
-
-            ShowCalculationsView(calculationGroup, failureMechanism, assessmentSection);
-
-            // This step is necessary because setting the same value would not change the view state.
-            var calculation = (GrassCoverErosionInwardsCalculationScenario) calculationGroup.GetCalculations().First();
-            calculation.InputParameters.UseBreakWater = !newValue;
-
-            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-
-            // Call
-            dataGridView.Rows[0].Cells[useBreakWaterColumnIndex].Value = newValue;
-
-            // Assert
-            Assert.AreEqual(expectedState, dataGridView.Rows[0].Cells[breakWaterTypeColumnIndex].ReadOnly);
-            Assert.AreEqual(expectedState, dataGridView.Rows[0].Cells[breakWaterHeightColumnIndex].ReadOnly);
-            mocks.VerifyAll();
-        }
-
-        [Test]
         [TestCase(0)]
         [TestCase(1)]
         public void Selection_Always_ReturnsTheSelectedRowObject(int selectedRow)
@@ -780,46 +749,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             // Then
             Assert.AreEqual(1, dataGridView.RowCount);
             Assert.AreEqual("Profiel 2", dataGridView.Rows[0].Cells[dikeProfileColumnIndex].FormattedValue);
-        }
-
-        [Test]
-        public void CalculationsView_ChangingDikeProfile_HasCorrespondingColumnState()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            ConfigureHydraulicBoundaryDatabase(assessmentSection);
-            mocks.ReplayAll();
-
-            GrassCoverErosionInwardsFailureMechanism failureMechanism = ConfigureFailureMechanism();
-            CalculationGroup calculationGroup = ConfigureCalculationGroup(failureMechanism, assessmentSection);
-
-            ShowCalculationsView(calculationGroup, failureMechanism, assessmentSection);
-
-            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-
-            // Precondition
-            Assert.AreEqual(2, dataGridView.RowCount);
-            Assert.AreEqual(true, dataGridView.Rows[0].Cells[breakWaterTypeColumnIndex].ReadOnly);
-            Assert.AreEqual(true, dataGridView.Rows[0].Cells[breakWaterHeightColumnIndex].ReadOnly);
-
-            var calculation = (GrassCoverErosionInwardsCalculationScenario) calculationGroup.GetCalculations().ElementAt(1);
-            calculation.InputParameters.UseBreakWater = true;
-            calculation.InputParameters.BreakWater.Type = BreakWaterType.Wall;
-            calculation.InputParameters.BreakWater.Height = (RoundedDouble) 2.0;
-
-            // Call
-            DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[dikeProfileColumnIndex];
-            dataGridView.CurrentCell = dataGridViewCell;
-            dataGridView.BeginEdit(false);
-            dataGridViewCell.Value = dataGridView.Rows[1].Cells[dikeProfileColumnIndex].Value;
-            dataGridView.EndEdit();
-
-            // Assert
-            Assert.AreEqual(2, dataGridView.RowCount);
-            Assert.AreEqual(false, dataGridView.Rows[0].Cells[breakWaterTypeColumnIndex].ReadOnly);
-            Assert.AreEqual(false, dataGridView.Rows[0].Cells[breakWaterHeightColumnIndex].ReadOnly);
-            mocks.VerifyAll();
         }
 
         [Test]
