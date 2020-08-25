@@ -56,8 +56,22 @@ namespace Riskeer.HeightStructures.Forms.Views
                                                 IObservablePropertyChangeHandler handler)
             : base(calculationScenario, handler)
         {
-            ColumnStateDefinitions = new Dictionary<int, DataGridViewColumnStateDefinition>();
-            CreateColumnStateDefinitions();
+            ColumnStateDefinitions = new Dictionary<int, DataGridViewColumnStateDefinition>
+            {
+                {
+                    useBreakWaterColumnIndex, new DataGridViewColumnStateDefinition()
+                },
+                {
+                    breakWaterTypeColumnIndex, new DataGridViewColumnStateDefinition()
+                },
+                {
+                    breakWaterHeightColumnIndex, new DataGridViewColumnStateDefinition()
+                },
+                {
+                    useForeshoreColumnIndex, new DataGridViewColumnStateDefinition()
+                }
+            };
+
             UpdateUseBreakWaterColumnStateDefinitions();
             UpdateBreakWaterTypeAndHeightColumnStateDefinitions();
             UpdateUseForeshoreColumnStateDefinitions();
@@ -72,18 +86,22 @@ namespace Riskeer.HeightStructures.Forms.Views
             set
             {
                 ForeshoreProfile valueToSet = value?.WrappedObject;
+
                 if (!ReferenceEquals(Calculation.InputParameters.ForeshoreProfile, valueToSet))
                 {
-                    PropertyChangeHelper.ChangePropertyAndNotify(() => Calculation.InputParameters.ForeshoreProfile = valueToSet, PropertyChangeHandler);
-                    UpdateUseBreakWaterColumnStateDefinitions();
-                    UpdateBreakWaterTypeAndHeightColumnStateDefinitions();
-                    UpdateUseForeshoreColumnStateDefinitions();
+                    PropertyChangeHelper.ChangePropertyAndNotify(() =>
+                    {
+                        Calculation.InputParameters.ForeshoreProfile = valueToSet;
+                        UpdateUseBreakWaterColumnStateDefinitions();
+                        UpdateBreakWaterTypeAndHeightColumnStateDefinitions();
+                        UpdateUseForeshoreColumnStateDefinitions();
+                    }, PropertyChangeHandler);
                 }
             }
         }
 
         /// <summary>
-        /// Gets or sets whether break water of the <see cref="StructuresCalculationScenario{HeightStructuresInput}"/> should be used.
+        /// Gets or sets whether the break water of the <see cref="StructuresCalculationScenario{HeightStructuresInput}"/> should be used.
         /// </summary>
         public bool UseBreakWater
         {
@@ -92,8 +110,11 @@ namespace Riskeer.HeightStructures.Forms.Views
             {
                 if (!Calculation.InputParameters.UseBreakWater.Equals(value))
                 {
-                    PropertyChangeHelper.ChangePropertyAndNotify(() => Calculation.InputParameters.UseBreakWater = value, PropertyChangeHandler);
-                    UpdateBreakWaterTypeAndHeightColumnStateDefinitions();
+                    PropertyChangeHelper.ChangePropertyAndNotify(() =>
+                    {
+                        Calculation.InputParameters.UseBreakWater = value;
+                        UpdateBreakWaterTypeAndHeightColumnStateDefinitions();
+                    }, PropertyChangeHandler);
                 }
             }
         }
@@ -129,7 +150,7 @@ namespace Riskeer.HeightStructures.Forms.Views
         }
 
         /// <summary>
-        /// Gets or sets whether foreshore profile of the <see cref="StructuresCalculationScenario{HeightStructuresInput}"/> should be used.
+        /// Gets or sets whether the foreshore profile of the <see cref="StructuresCalculationScenario{HeightStructuresInput}"/> should be used.
         /// </summary>
         public bool UseForeshoreGeometry
         {
@@ -139,7 +160,6 @@ namespace Riskeer.HeightStructures.Forms.Views
                 if (!Calculation.InputParameters.UseForeshore.Equals(value))
                 {
                     PropertyChangeHelper.ChangePropertyAndNotify(() => Calculation.InputParameters.UseForeshore = value, PropertyChangeHandler);
-                    UpdateUseForeshoreColumnStateDefinitions();
                 }
             }
         }
@@ -202,18 +222,25 @@ namespace Riskeer.HeightStructures.Forms.Views
             set => Calculation.InputParameters.HydraulicBoundaryLocation = value;
         }
 
-        private void CreateColumnStateDefinitions()
+        private void UpdateUseBreakWaterColumnStateDefinitions()
         {
-            ColumnStateDefinitions.Add(useBreakWaterColumnIndex, new DataGridViewColumnStateDefinition());
-            ColumnStateDefinitions.Add(breakWaterTypeColumnIndex, new DataGridViewColumnStateDefinition());
-            ColumnStateDefinitions.Add(breakWaterHeightColumnIndex, new DataGridViewColumnStateDefinition());
-            ColumnStateDefinitions.Add(useForeshoreColumnIndex, new DataGridViewColumnStateDefinition());
+            ForeshoreProfile foreShoreProfileGeometry = Calculation.InputParameters.ForeshoreProfile;
+
+            if (foreShoreProfileGeometry == null)
+            {
+                ColumnStateHelper.DisableColumn(ColumnStateDefinitions[useBreakWaterColumnIndex]);
+            }
+            else
+            {
+                ColumnStateHelper.EnableColumn(ColumnStateDefinitions[useBreakWaterColumnIndex]);
+            }
         }
 
         private void UpdateBreakWaterTypeAndHeightColumnStateDefinitions()
         {
             ForeshoreProfile foreShoreProfileGeometry = Calculation.InputParameters.ForeshoreProfile;
-            if (!UseBreakWater || foreShoreProfileGeometry == null)
+
+            if (foreShoreProfileGeometry == null || !UseBreakWater)
             {
                 ColumnStateHelper.DisableColumn(ColumnStateDefinitions[breakWaterTypeColumnIndex]);
                 ColumnStateHelper.DisableColumn(ColumnStateDefinitions[breakWaterHeightColumnIndex]);
@@ -228,6 +255,7 @@ namespace Riskeer.HeightStructures.Forms.Views
         private void UpdateUseForeshoreColumnStateDefinitions()
         {
             ForeshoreProfile foreShoreProfileGeometry = Calculation.InputParameters.ForeshoreProfile;
+
             if (foreShoreProfileGeometry == null || !foreShoreProfileGeometry.Geometry.Any())
             {
                 ColumnStateHelper.DisableColumn(ColumnStateDefinitions[useForeshoreColumnIndex]);
@@ -235,19 +263,6 @@ namespace Riskeer.HeightStructures.Forms.Views
             else
             {
                 ColumnStateHelper.EnableColumn(ColumnStateDefinitions[useForeshoreColumnIndex]);
-            }
-        }
-
-        private void UpdateUseBreakWaterColumnStateDefinitions()
-        {
-            ForeshoreProfile foreShoreProfileGeometry = Calculation.InputParameters.ForeshoreProfile;
-            if (foreShoreProfileGeometry == null)
-            {
-                ColumnStateHelper.DisableColumn(ColumnStateDefinitions[useBreakWaterColumnIndex]);
-            }
-            else
-            {
-                ColumnStateHelper.EnableColumn(ColumnStateDefinitions[useBreakWaterColumnIndex]);
             }
         }
     }
