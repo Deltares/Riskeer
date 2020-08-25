@@ -63,13 +63,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
             AddWarningMessage();
         }
 
-        protected override void OnLoad(EventArgs e)
-        {
-            DataGridViewControl.CellFormatting += HandleCellStyling;
-
-            base.OnLoad(e);
-        }
-
         protected override void Dispose(bool disposing)
         {
             if (disposing && Loaded)
@@ -262,15 +255,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
             DataGridTableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 30));
             DataGridTableLayoutPanel.Controls.Add(warningPanel, 0, 1);
         }
-
-        #region Event handling
-
-        private void HandleCellStyling(object sender, DataGridViewCellFormattingEventArgs e)
-        {
-            DataGridViewControl.FormatCellWithColumnStateDefinition(e.RowIndex, e.ColumnIndex);
-        }
-
-        #endregion
 
         #region Update combo box list items
 
