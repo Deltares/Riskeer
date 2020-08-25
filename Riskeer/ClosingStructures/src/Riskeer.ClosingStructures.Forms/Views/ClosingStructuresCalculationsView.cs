@@ -62,13 +62,6 @@ namespace Riskeer.ClosingStructures.Forms.Views
         public ClosingStructuresCalculationsView(CalculationGroup data, ClosingStructuresFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
             : base(data, failureMechanism, assessmentSection) {}
 
-        protected override void OnLoad(EventArgs e)
-        {
-            DataGridViewControl.CellFormatting += HandleCellStyling;
-
-            base.OnLoad(e);
-        }
-
         protected override void Dispose(bool disposing)
         {
             if (disposing && Loaded)
@@ -211,15 +204,6 @@ namespace Riskeer.ClosingStructures.Forms.Views
                 SetItemsOnObjectCollection(foreShoreProfilesColumn.Items,
                                            GetForeshoreProfileDataSource(FailureMechanism.ForeshoreProfiles));
             }
-        }
-
-        #endregion
-
-        #region Event handling
-
-        private void HandleCellStyling(object sender, DataGridViewCellFormattingEventArgs e)
-        {
-            DataGridViewControl.FormatCellWithColumnStateDefinition(e.RowIndex, e.ColumnIndex);
         }
 
         #endregion
