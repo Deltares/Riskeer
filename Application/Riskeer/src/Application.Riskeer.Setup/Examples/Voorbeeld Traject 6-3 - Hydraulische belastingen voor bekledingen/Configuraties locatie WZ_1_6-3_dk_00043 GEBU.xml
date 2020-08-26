@@ -57,9 +57,9 @@
   <berekening naam="Gras (golfklap voor toets op maat)">
     <hblocatie>WZ_1_6-3_dk_00002</hblocatie>
     <categoriegrens>IIv</categoriegrens>
-    <typebekleding>Gras (golfoploop en golfklap)</typebekleding>
-    <bovengrensbekleding>NaN</bovengrensbekleding>
-    <ondergrensbekleding>NaN</ondergrensbekleding>
+    <typebekleding>Gras (golfklap voor toets op maat)</typebekleding>
+    <bovengrensbekleding>6.3</bovengrensbekleding>
+    <ondergrensbekleding>4.21</ondergrensbekleding>
     <bovengrenswaterstanden>NaN</bovengrenswaterstanden>
     <ondergrenswaterstanden>NaN</ondergrenswaterstanden>
     <stapgrootte>0.5</stapgrootte>
@@ -75,9 +75,9 @@
   <berekening naam="Gras (alle types)">
     <hblocatie>WZ_1_6-3_dk_00012</hblocatie>
     <categoriegrens>IIv</categoriegrens>
-    <typebekleding>Gras (golfoploop en golfklap)</typebekleding>
-    <bovengrensbekleding>NaN</bovengrensbekleding>
-    <ondergrensbekleding>NaN</ondergrensbekleding>
+    <typebekleding>Gras (alle types)</typebekleding>
+    <bovengrensbekleding>6.3</bovengrensbekleding>
+    <ondergrensbekleding>4.21</ondergrensbekleding>
     <bovengrenswaterstanden>NaN</bovengrenswaterstanden>
     <ondergrenswaterstanden>NaN</ondergrenswaterstanden>
     <stapgrootte>0.5</stapgrootte>
