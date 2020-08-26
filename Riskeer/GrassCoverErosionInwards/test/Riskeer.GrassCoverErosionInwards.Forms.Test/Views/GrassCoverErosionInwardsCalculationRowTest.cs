@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
@@ -106,6 +107,23 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
         }
 
         [Test]
+        public void DikeProfile_AlwaysOnChange_DikeProfileChangedFired()
+        {
+            // Setup
+            var dikeProfileChangedCounter = 0;
+            var handler = new SetPropertyValueAfterConfirmationParameterTester(Enumerable.Empty<IObservable>());
+            var row = new GrassCoverErosionInwardsCalculationRow(new GrassCoverErosionInwardsCalculationScenario(), handler);
+
+            row.DikeProfileChanged += (s, a) => dikeProfileChangedCounter++;
+
+            // Call
+            row.DikeProfile = new DataGridViewComboBoxItemWrapper<DikeProfile>(DikeProfileTestFactory.CreateDikeProfile());
+
+            // Assert
+            Assert.AreEqual(1, dikeProfileChangedCounter);
+        }
+
+        [Test]
         public void DikeProfile_ChangeToEqualValue_NoNotificationsAndOutputNotCleared()
         {
             // Setup
@@ -124,6 +142,30 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
                     Assert.NotNull(oldValue);
                     Assert.AreEqual(oldValue.WrappedObject, calculation.InputParameters.DikeProfile);
                 });
+        }
+
+        [Test]
+        public void DikeProfile_ChangeToEqualValue_DikeProfileChangedNotFired()
+        {
+            // Setup
+            var dikeProfileChangedCounter = 0;
+            var handler = new SetPropertyValueAfterConfirmationParameterTester(Enumerable.Empty<IObservable>());
+            DikeProfile dikeProfile = DikeProfileTestFactory.CreateDikeProfile();
+            var row = new GrassCoverErosionInwardsCalculationRow(new GrassCoverErosionInwardsCalculationScenario
+            {
+                InputParameters =
+                {
+                    DikeProfile = dikeProfile
+                }
+            }, handler);
+
+            row.DikeProfileChanged += (s, a) => dikeProfileChangedCounter++;
+
+            // Call
+            row.DikeProfile = new DataGridViewComboBoxItemWrapper<DikeProfile>(dikeProfile);
+
+            // Assert
+            Assert.AreEqual(0, dikeProfileChangedCounter);
         }
 
         [Test]

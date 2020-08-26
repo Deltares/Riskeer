@@ -28,8 +28,6 @@ using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.Views;
-using Core.Common.TestUtil;
-using Core.Common.Util.Reflection;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -122,13 +120,13 @@ namespace Riskeer.Common.Forms.Test.Views
             var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
             DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[selectableHydraulicBoundaryLocationsColumnIndex];
             dataGridView.CurrentCell = dataGridViewCell;
+            dataGridView.BeginEdit(false);
 
             // Call
             dataGridViewCell.Value = dataGridView.Rows[1].Cells[selectableHydraulicBoundaryLocationsColumnIndex].Value;
 
             // Assert
             Assert.AreEqual(1, calculationsView.HydraulicBoundaryLocationChangedCounter);
-            WindowsFormsTestHelper.CloseAll();
             mocks.VerifyAll();
         }
 
@@ -566,9 +564,6 @@ namespace Riskeer.Common.Forms.Test.Views
             var selectionChangedCount = 0;
             calculationsView.SelectionChanged += (sender, args) => selectionChangedCount++;
 
-            var control = TypeUtils.GetProperty<DataGridViewControl>(calculationsView, "DataGridViewControl");
-            WindowsFormsTestHelper.Show(control);
-
             var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
             dataGridView.CurrentCell = dataGridView.Rows[0].Cells[0];
 
@@ -577,7 +572,6 @@ namespace Riskeer.Common.Forms.Test.Views
 
             // Assert
             Assert.AreEqual(1, selectionChangedCount);
-            WindowsFormsTestHelper.CloseAll();
             mocks.VerifyAll();
         }
 
@@ -926,7 +920,7 @@ namespace Riskeer.Common.Forms.Test.Views
             Assert.AreEqual(initialReadOnlyState, dataGridView.Rows[0].Cells[selectableHydraulicBoundaryLocationsColumnIndex].ReadOnly);
 
             // When
-            var testCalculationRowWithColumnStateDefinitions = ((TestCalculationRowWithColumnStateDefinitions) dataGridView.Rows[0].DataBoundItem);
+            var testCalculationRowWithColumnStateDefinitions = (TestCalculationRowWithColumnStateDefinitions) dataGridView.Rows[0].DataBoundItem;
             dataGridView.CurrentCell = dataGridView.Rows[0].Cells[nameColumnIndex];
             dataGridView.BeginEdit(false);
             testCalculationRowWithColumnStateDefinitions.SetReadOnlyState(!initialReadOnlyState);

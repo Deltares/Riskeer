@@ -726,33 +726,27 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             ShowCalculationsView(calculationGroup, failureMechanism, assessmentSection);
 
             var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-            DikeProfile dikeProfile3 = DikeProfileTestFactory.CreateDikeProfile("3", "Profiel 3", new Point2D(20.0, 0.0));
-
-            failureMechanism.DikeProfiles.AddRange(new[]
-            {
-                dikeProfile3
-            }, string.Empty);
-            failureMechanism.DikeProfiles.NotifyObservers();
 
             // Precondition
             Assert.AreEqual(2, dataGridView.RowCount);
-            Assert.AreEqual("Profiel 1", dataGridView.Rows[0].Cells[dikeProfileColumnIndex].FormattedValue);
-            Assert.AreEqual("Profiel 2", dataGridView.Rows[1].Cells[dikeProfileColumnIndex].FormattedValue);
+            Assert.AreEqual("Calculation 1", dataGridView.Rows[0].Cells[nameColumnIndex].FormattedValue);
+            Assert.AreEqual("Calculation 2", dataGridView.Rows[1].Cells[nameColumnIndex].FormattedValue);
 
             // When
             DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[dikeProfileColumnIndex];
             dataGridView.CurrentCell = dataGridViewCell;
             dataGridView.BeginEdit(false);
-            dataGridViewCell.Value = new DataGridViewComboBoxItemWrapper<DikeProfile>(dikeProfile3);
+            dataGridViewCell.Value = new DataGridViewComboBoxItemWrapper<DikeProfile>(
+                DikeProfileTestFactory.CreateDikeProfile(new Point2D(20.0, 0.0)));
             dataGridView.EndEdit();
 
             // Then
             Assert.AreEqual(1, dataGridView.RowCount);
-            Assert.AreEqual("Profiel 2", dataGridView.Rows[0].Cells[dikeProfileColumnIndex].FormattedValue);
+            Assert.AreEqual("Calculation 2", dataGridView.Rows[0].Cells[nameColumnIndex].FormattedValue);
         }
 
         [Test]
-        public void GivenCalculationsView_WhenChangingDikeProfileWithinSameSection_ThenHydraulicBoundaryCellCorrectlyUpdated()
+        public void GivenCalculationsView_WhenSelectingProfileInsideSection_ThenHydraulicBoundaryCellCorrectlyUpdated()
         {
             // Given
             var mocks = new MockRepository();
