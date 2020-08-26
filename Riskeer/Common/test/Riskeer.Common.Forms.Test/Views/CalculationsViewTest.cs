@@ -261,6 +261,12 @@ namespace Riskeer.Common.Forms.Test.Views
             {
                 GenerateButtonClicked = true;
             }
+
+            protected override void AddColumns(Action addNameColumn, Action addHydraulicBoundaryLocationColumn)
+            {
+                addNameColumn();
+                addHydraulicBoundaryLocationColumn();
+            }
         }
 
         private class TestCalculationsView : TestCalculationsViewBase<TestCalculationRow>

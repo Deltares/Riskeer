@@ -46,7 +46,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
     /// </summary>
     public class GrassCoverErosionInwardsCalculationsView : CalculationsView<GrassCoverErosionInwardsCalculationScenario, GrassCoverErosionInwardsInput, GrassCoverErosionInwardsCalculationRow, GrassCoverErosionInwardsFailureMechanism>
     {
-        private const int dikeProfileColumnIndex = 2;
+        private const int dikeProfileColumnIndex = 1;
 
         private Observer dikeProfilesObserver;
 
@@ -117,9 +117,9 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
             }
         }
 
-        protected override void InitializeDataGridView()
+        protected override void AddColumns(Action addNameColumn, Action addHydraulicBoundaryLocationColumn)
         {
-            base.InitializeDataGridView();
+            addNameColumn();
 
             DataGridViewControl.AddComboBoxColumn<DataGridViewComboBoxItemWrapper<DikeProfile>>(
                 nameof(GrassCoverErosionInwardsCalculationRow.DikeProfile),
@@ -127,6 +127,8 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
                 null,
                 nameof(DataGridViewComboBoxItemWrapper<DikeProfile>.This),
                 nameof(DataGridViewComboBoxItemWrapper<DikeProfile>.DisplayName));
+
+            addHydraulicBoundaryLocationColumn();
 
             DataGridViewControl.AddCheckBoxColumn(
                 nameof(GrassCoverErosionInwardsCalculationRow.UseBreakWater),

@@ -50,7 +50,8 @@ namespace Riskeer.Common.Forms.Views
         where TCalculationInput : class, ICalculationInput
         where TFailureMechanism : IFailureMechanism
     {
-        private const int selectableHydraulicBoundaryLocationColumnIndex = 1;
+        private int nameColumnIndex = -1;
+        private int selectableHydraulicBoundaryLocationColumnIndex = -1;
 
         private Observer failureMechanismObserver;
         private Observer hydraulicBoundaryLocationsObserver;
@@ -213,21 +214,33 @@ namespace Riskeer.Common.Forms.Views
         /// <summary>
         /// Initializes the <see cref="DataGridViewControl"/> columns
         /// </summary>
+        /// <exception cref="InvalidOperationException">Thrown when one of the generic columns is not added via <see cref="AddColumns"/>.</exception>
         protected virtual void InitializeDataGridView()
         {
             DataGridViewControl.CurrentRowChanged += DataGridViewOnCurrentRowChangedHandler;
 
-            DataGridViewControl.AddTextBoxColumn(
-                nameof(CalculationRow<TCalculation>.Name),
-                Resources.FailureMechanism_Name_DisplayName);
+            AddColumns(() => nameColumnIndex = DataGridViewControl.AddTextBoxColumn(
+                                 nameof(CalculationRow<TCalculation>.Name),
+                                 Resources.FailureMechanism_Name_DisplayName),
+                       () => selectableHydraulicBoundaryLocationColumnIndex = DataGridViewControl.AddComboBoxColumn<DataGridViewComboBoxItemWrapper<SelectableHydraulicBoundaryLocation>>(
+                                 nameof(CalculationRow<TCalculation>.SelectableHydraulicBoundaryLocation),
+                                 Resources.HydraulicBoundaryLocation_DisplayName,
+                                 null,
+                                 nameof(DataGridViewComboBoxItemWrapper<SelectableHydraulicBoundaryLocation>.This),
+                                 nameof(DataGridViewComboBoxItemWrapper<SelectableHydraulicBoundaryLocation>.DisplayName)));
 
-            DataGridViewControl.AddComboBoxColumn<DataGridViewComboBoxItemWrapper<SelectableHydraulicBoundaryLocation>>(
-                nameof(CalculationRow<TCalculation>.SelectableHydraulicBoundaryLocation),
-                Resources.HydraulicBoundaryLocation_DisplayName,
-                null,
-                nameof(DataGridViewComboBoxItemWrapper<SelectableHydraulicBoundaryLocation>.This),
-                nameof(DataGridViewComboBoxItemWrapper<SelectableHydraulicBoundaryLocation>.DisplayName));
+            if (nameColumnIndex == -1 || selectableHydraulicBoundaryLocationColumnIndex == -1)
+            {
+                throw new InvalidOperationException("Both the name column and the hydraulic boundary database column need to be added to the data grid view.");
+            }
         }
+
+        /// <summary>
+        /// Adds the columns to the data grid view.
+        /// </summary>
+        /// <param name="addNameColumn">Action for adding the name column (which is mandatory).</param>
+        /// <param name="addHydraulicBoundaryLocationColumn">Action for adding the hydraulic boundary database column (which is mandatory).</param>
+        protected abstract void AddColumns(Action addNameColumn, Action addHydraulicBoundaryLocationColumn);
 
         /// <summary>
         /// Initializes the observers.

@@ -224,9 +224,10 @@ namespace Core.Common.Controls.DataGrid
         /// <param name="autoSizeMode">The <see cref="DataGridViewColumn.AutoSizeMode"/> of the column.</param>
         /// <param name="minimumWidth">The minimum width of the column.</param>
         /// <param name="format">The text format of the column.</param>
+        /// <returns>The index of the column.</returns>
         /// <remarks><paramref name="dataPropertyName"/> is also used to create the <see cref="DataGridViewColumn.Name"/>.
         /// The format is "column_<paramref name="dataPropertyName"/>.</remarks>
-        public void AddTextBoxColumn(string dataPropertyName, string headerText, bool readOnly = false, DataGridViewAutoSizeColumnMode autoSizeMode = DataGridViewAutoSizeColumnMode.AllCells, int minimumWidth = 0, string format = null)
+        public int AddTextBoxColumn(string dataPropertyName, string headerText, bool readOnly = false, DataGridViewAutoSizeColumnMode autoSizeMode = DataGridViewAutoSizeColumnMode.AllCells, int minimumWidth = 0, string format = null)
         {
             var dataGridViewTextBoxColumn = new DataGridViewTextBoxColumn
             {
@@ -253,7 +254,7 @@ namespace Core.Common.Controls.DataGrid
                 dataGridViewTextBoxColumn.DefaultCellStyle.Format = format;
             }
 
-            dataGridView.Columns.Add(dataGridViewTextBoxColumn);
+            return dataGridView.Columns.Add(dataGridViewTextBoxColumn);
         }
 
         /// <summary>
@@ -262,11 +263,12 @@ namespace Core.Common.Controls.DataGrid
         /// <param name="dataPropertyName">The <see cref="DataGridViewColumn.DataPropertyName"/> of the column.</param>
         /// <param name="headerText">The <see cref="DataGridViewColumn.HeaderText"/> of the column.</param>
         /// <param name="readOnly">Indicates whether the column is read-only or not.</param>
+        /// <returns>The index of the column.</returns>
         /// <remarks><paramref name="dataPropertyName"/> is also used to create the <see cref="DataGridViewColumn.Name"/>.
         /// The format is "column_<paramref name="dataPropertyName"/>.</remarks>
-        public void AddCheckBoxColumn(string dataPropertyName, string headerText, bool readOnly = false)
+        public int AddCheckBoxColumn(string dataPropertyName, string headerText, bool readOnly = false)
         {
-            dataGridView.Columns.Add(new DataGridViewCheckBoxColumn
+            return dataGridView.Columns.Add(new DataGridViewCheckBoxColumn
             {
                 DataPropertyName = dataPropertyName,
                 HeaderText = headerText,
@@ -286,9 +288,10 @@ namespace Core.Common.Controls.DataGrid
         /// <param name="dataSource">The datasource that is set on the column.</param>
         /// <param name="valueMember">The <see cref="DataGridViewComboBoxColumn.ValueMember"/> of the column.</param>
         /// <param name="displayMember">The <see cref="DataGridViewComboBoxColumn.DisplayMember"/> of the column.</param>
+        /// <returns>The index of the column.</returns>
         /// <remarks><paramref name="dataPropertyName"/> is also used to create the <see cref="DataGridViewColumn.Name"/>.
         /// The format is "column_<paramref name="dataPropertyName"/>.</remarks>
-        public void AddComboBoxColumn<T>(string dataPropertyName, string headerText, IEnumerable<T> dataSource, string valueMember, string displayMember)
+        public int AddComboBoxColumn<T>(string dataPropertyName, string headerText, IEnumerable<T> dataSource, string valueMember, string displayMember)
         {
             var dataGridViewComboBoxColumn = new DataGridViewComboBoxColumn
             {
@@ -316,7 +319,7 @@ namespace Core.Common.Controls.DataGrid
                 dataGridViewComboBoxColumn.DisplayMember = displayMember;
             }
 
-            dataGridView.Columns.Add(dataGridViewComboBoxColumn);
+            return dataGridView.Columns.Add(dataGridViewComboBoxColumn);
         }
 
         /// <summary>
@@ -324,9 +327,10 @@ namespace Core.Common.Controls.DataGrid
         /// </summary>
         /// <param name="dataPropertyName">The <see cref="DataGridViewColumn.DataPropertyName"/> of the column.</param>
         /// <param name="headerText">The <see cref="DataGridViewColumn.HeaderText"/> of the column.</param>
+        /// <returns>The index of the column.</returns>
         /// <remarks><paramref name="dataPropertyName"/> is also used to create the <see cref="DataGridViewColumn.Name"/>.
         /// The format is "column_<paramref name="dataPropertyName"/>.</remarks>
-        public void AddColorColumn(string dataPropertyName, string headerText)
+        public int AddColorColumn(string dataPropertyName, string headerText)
         {
             var colorColumn = new DataGridViewColorColumn
             {
@@ -339,7 +343,7 @@ namespace Core.Common.Controls.DataGrid
                 ReadOnly = true
             };
 
-            dataGridView.Columns.Add(colorColumn);
+            return dataGridView.Columns.Add(colorColumn);
         }
 
         /// <summary>

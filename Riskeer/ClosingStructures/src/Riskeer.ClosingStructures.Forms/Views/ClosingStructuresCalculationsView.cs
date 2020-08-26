@@ -118,9 +118,10 @@ namespace Riskeer.ClosingStructures.Forms.Views
             }
         }
 
-        protected override void InitializeDataGridView()
+        protected override void AddColumns(Action addNameColumn, Action addHydraulicBoundaryLocationColumn)
         {
-            base.InitializeDataGridView();
+            addNameColumn();
+            addHydraulicBoundaryLocationColumn();
 
             DataGridViewControl.AddComboBoxColumn<DataGridViewComboBoxItemWrapper<ForeshoreProfile>>(
                 nameof(ClosingStructuresCalculationRow.ForeshoreProfile),

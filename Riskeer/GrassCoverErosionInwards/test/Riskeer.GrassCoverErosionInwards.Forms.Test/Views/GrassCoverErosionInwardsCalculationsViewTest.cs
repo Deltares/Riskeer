@@ -50,8 +50,8 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
     public class GrassCoverErosionInwardsCalculationsViewTest : NUnitFormTest
     {
         private const int nameColumnIndex = 0;
-        private const int selectableHydraulicBoundaryLocationsColumnIndex = 1;
-        private const int dikeProfileColumnIndex = 2;
+        private const int dikeProfileColumnIndex = 1;
+        private const int selectableHydraulicBoundaryLocationsColumnIndex = 2;
         private const int useBreakWaterColumnIndex = 3;
         private const int breakWaterTypeColumnIndex = 4;
         private const int breakWaterHeightColumnIndex = 5;

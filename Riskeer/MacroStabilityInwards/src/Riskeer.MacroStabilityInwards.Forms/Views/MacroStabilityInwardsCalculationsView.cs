@@ -138,6 +138,12 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
             DataGridViewControl.CellFormatting += OnCellFormatting;
 
             base.InitializeDataGridView();
+        }
+
+        protected override void AddColumns(Action addNameColumn, Action addHydraulicBoundaryLocationColumn)
+        {
+            addNameColumn();
+            addHydraulicBoundaryLocationColumn();
 
             DataGridViewControl.AddComboBoxColumn<DataGridViewComboBoxItemWrapper<MacroStabilityInwardsStochasticSoilModel>>(
                 nameof(MacroStabilityInwardsCalculationRow.StochasticSoilModel),

@@ -144,6 +144,12 @@ namespace Riskeer.Piping.Forms.Views
             DataGridViewControl.CellFormatting += OnCellFormatting;
 
             base.InitializeDataGridView();
+        }
+
+        protected override void AddColumns(Action addNameColumn, Action addHydraulicBoundaryLocationColumn)
+        {
+            addNameColumn();
+            addHydraulicBoundaryLocationColumn();
 
             DataGridViewControl.AddComboBoxColumn<DataGridViewComboBoxItemWrapper<PipingStochasticSoilModel>>(
                 nameof(PipingCalculationRow.StochasticSoilModel),
