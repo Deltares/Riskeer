@@ -106,7 +106,7 @@
       </stochasten>
       <scenario>
         <gebruik>false</gebruik>
-        <bijdrage>100</bijdrage>
+        <bijdrage>0</bijdrage>
       </scenario>
     </berekening>
   </map>
