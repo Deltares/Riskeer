@@ -45,6 +45,12 @@ namespace Riskeer.ClosingStructures.Forms.Views
         private const int breakWaterTypeColumnIndex = 4;
         private const int breakWaterHeightColumnIndex = 5;
         private const int useForeshoreColumnIndex = 6;
+        private const int meanInsideWaterLevelColumnIndex = 8;
+
+        /// <summary>
+        /// Fired when <see cref="ClosingStructureInflowModelType"/> has changed.
+        /// </summary>
+        public event EventHandler InflowModelTypeChanged;
 
         /// <summary>
         /// Creates a new instance of <see cref="ClosingStructuresCalculationRow"/>.
@@ -69,12 +75,16 @@ namespace Riskeer.ClosingStructures.Forms.Views
                 },
                 {
                     useForeshoreColumnIndex, new DataGridViewColumnStateDefinition()
+                },
+                {
+                    meanInsideWaterLevelColumnIndex, new DataGridViewColumnStateDefinition()
                 }
             };
 
             UpdateUseBreakWaterColumnStateDefinitions();
             UpdateBreakWaterTypeAndHeightColumnStateDefinitions();
             UpdateUseForeshoreColumnStateDefinitions();
+            UpdateMeanInsideWaterLevelColumnStateDefinitions();
         }
 
         /// <summary>
@@ -174,6 +184,8 @@ namespace Riskeer.ClosingStructures.Forms.Views
                 if (!Calculation.InputParameters.InflowModelType.Equals(value))
                 {
                     PropertyChangeHelper.ChangePropertyAndNotify(() => Calculation.InputParameters.InflowModelType = value, PropertyChangeHandler);
+                    UpdateMeanInsideWaterLevelColumnStateDefinitions();
+                    InflowModelTypeChanged?.Invoke(this, EventArgs.Empty);
                 }
             }
         }
@@ -277,6 +289,18 @@ namespace Riskeer.ClosingStructures.Forms.Views
             else
             {
                 ColumnStateHelper.EnableColumn(ColumnStateDefinitions[useForeshoreColumnIndex]);
+            }
+        }
+
+        private void UpdateMeanInsideWaterLevelColumnStateDefinitions()
+        {
+            if (InflowModelType == ClosingStructureInflowModelType.VerticalWall)
+            {
+                ColumnStateHelper.DisableColumn(ColumnStateDefinitions[meanInsideWaterLevelColumnIndex]);
+            }
+            else
+            {
+                ColumnStateHelper.EnableColumn(ColumnStateDefinitions[meanInsideWaterLevelColumnIndex]);
             }
         }
     }

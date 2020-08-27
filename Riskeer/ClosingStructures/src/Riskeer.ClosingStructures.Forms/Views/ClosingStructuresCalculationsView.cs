@@ -209,6 +209,25 @@ namespace Riskeer.ClosingStructures.Forms.Views
 
         #endregion
 
+        protected override void SubscribeToCalculationRow(ClosingStructuresCalculationRow calculationRow)
+        {
+            base.SubscribeToCalculationRow(calculationRow);
+
+            calculationRow.InflowModelTypeChanged += InflowModelTypeChanged;
+        }
+
+        protected override void UnsubscribeFromCalculationRow(ClosingStructuresCalculationRow calculationRow)
+        {
+            base.UnsubscribeFromCalculationRow(calculationRow);
+
+            calculationRow.InflowModelTypeChanged -= InflowModelTypeChanged;
+        }
+
+        private void InflowModelTypeChanged(object sender, EventArgs e)
+        {
+            UpdateDataGridViewDataSource(false);
+        }
+
         #region Update combo box list items
 
         protected override void UpdateComboBoxColumns()

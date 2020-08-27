@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
@@ -49,6 +50,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
         private const int breakWaterTypeColumnIndex = 4;
         private const int breakWaterHeightColumnIndex = 5;
         private const int useForeshoreColumnIndex = 6;
+        private const int meanInsideWaterLevelColumnIndex = 8;
 
         [Test]
         public void Constructor_ExpectedValues()
@@ -70,12 +72,13 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
             Assert.AreSame(calculationScenario, row.Calculation);
 
             IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
-            Assert.AreEqual(4, columnStateDefinitions.Count);
+            Assert.AreEqual(5, columnStateDefinitions.Count);
 
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, useBreakWaterColumnIndex);
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, breakWaterTypeColumnIndex);
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, breakWaterHeightColumnIndex);
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, useForeshoreColumnIndex);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, meanInsideWaterLevelColumnIndex);
             mocks.VerifyAll();
         }
 
@@ -284,6 +287,32 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
 
             // Call & Assert
             SetPropertyAndVerifyNotificationsAndOutputForCalculation(row => row.InflowModelType = newInflowModelType, calculation);
+        }
+
+        [Test]
+        [TestCase(ClosingStructureInflowModelType.FloodedCulvert, ClosingStructureInflowModelType.LowSill)]
+        [TestCase(ClosingStructureInflowModelType.LowSill, ClosingStructureInflowModelType.VerticalWall)]
+        [TestCase(ClosingStructureInflowModelType.VerticalWall, ClosingStructureInflowModelType.FloodedCulvert)]
+        public void InflowModelType_AlwaysOnChange_DikeProfileChangedFired(ClosingStructureInflowModelType inflowModelType, ClosingStructureInflowModelType newInflowModelType)
+        {
+            // Setup
+            var inflowModelTypeChangedCounter = 0;
+            var handler = new SetPropertyValueAfterConfirmationParameterTester(Enumerable.Empty<IObservable>());
+            var row = new ClosingStructuresCalculationRow(new StructuresCalculationScenario<ClosingStructuresInput>
+            {
+                InputParameters =
+                {
+                    InflowModelType = inflowModelType
+                }
+            }, handler);
+
+            row.InflowModelTypeChanged += (s, a) => inflowModelTypeChangedCounter++;
+
+            // Call
+            row.InflowModelType = newInflowModelType;
+
+            // Assert
+            Assert.AreEqual(1, inflowModelTypeChangedCounter);
         }
 
         [Test]
@@ -672,6 +701,26 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[breakWaterTypeColumnIndex], false);
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[breakWaterHeightColumnIndex], false);
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[useForeshoreColumnIndex], true);
+        }
+
+        [Test]
+        [TestCase(ClosingStructureInflowModelType.FloodedCulvert, true)]
+        [TestCase(ClosingStructureInflowModelType.LowSill, true)]
+        [TestCase(ClosingStructureInflowModelType.VerticalWall, false)]
+        public void InflowModelType_AlwaysOnChange_CorrectColumnStates(ClosingStructureInflowModelType inflowModelType, bool isEnabled)
+        {
+            // Setup
+            var calculation = new StructuresCalculationScenario<ClosingStructuresInput>();
+
+            // Call
+            var row = new ClosingStructuresCalculationRow(calculation, new ObservablePropertyChangeHandler(calculation, new ClosingStructuresInput()))
+            {
+                InflowModelType = inflowModelType
+            };
+
+            // Assert
+            IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(columnStateDefinitions[meanInsideWaterLevelColumnIndex], isEnabled);
         }
 
         #endregion
