@@ -60,7 +60,6 @@ namespace Riskeer.MacroStabilityInwards.Data.TestUtil.Test
             AssertIsConcreteValue(slice.VerticalPorePressure);
             AssertIsConcreteValue(slice.PiezometricPorePressure);
             AssertIsConcreteValue(slice.EffectiveStress);
-            AssertIsConcreteValue(slice.EffectiveStressDaily);
             AssertIsConcreteValue(slice.ExcessPorePressure);
             AssertIsConcreteValue(slice.ShearStress);
             AssertIsConcreteValue(slice.SoilStress);

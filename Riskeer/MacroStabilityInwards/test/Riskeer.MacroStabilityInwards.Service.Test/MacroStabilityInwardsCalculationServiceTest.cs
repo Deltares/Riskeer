@@ -942,7 +942,6 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
                 Assert.AreEqual(expectedSlices[i].VerticalPorePressure, actualSlices[i].VerticalPorePressure);
                 Assert.AreEqual(expectedSlices[i].PiezometricPorePressure, actualSlices[i].PiezometricPorePressure);
                 Assert.AreEqual(expectedSlices[i].EffectiveStress, actualSlices[i].EffectiveStress);
-                Assert.AreEqual(expectedSlices[i].EffectiveStressDaily, actualSlices[i].EffectiveStressDaily);
                 Assert.AreEqual(expectedSlices[i].ExcessPorePressure, actualSlices[i].ExcessPorePressure);
                 Assert.AreEqual(expectedSlices[i].ShearStress, actualSlices[i].ShearStress);
                 Assert.AreEqual(expectedSlices[i].SoilStress, actualSlices[i].SoilStress);

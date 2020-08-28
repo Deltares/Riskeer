@@ -299,7 +299,6 @@ namespace Riskeer.MacroStabilityInwards.Data.TestUtil
             Assert.AreEqual(original.VerticalPorePressure, clone.VerticalPorePressure);
             Assert.AreEqual(original.PiezometricPorePressure, clone.PiezometricPorePressure);
             Assert.AreEqual(original.EffectiveStress, clone.EffectiveStress);
-            Assert.AreEqual(original.EffectiveStressDaily, clone.EffectiveStressDaily);
             Assert.AreEqual(original.ExcessPorePressure, clone.ExcessPorePressure);
             Assert.AreEqual(original.ShearStress, clone.ShearStress);
             Assert.AreEqual(original.SoilStress, clone.SoilStress);

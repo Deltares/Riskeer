@@ -70,7 +70,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
         private readonly ChartDataCollection sliceParametersChartDataCollection;
         private readonly ChartMultipleAreaData sliceCohesionChartData;
         private readonly ChartMultipleAreaData sliceEffectiveStressChartData;
-        private readonly ChartMultipleAreaData sliceEffectiveStressDailyChartData;
         private readonly ChartMultipleAreaData sliceTotalPorePressureChartData;
         private readonly ChartMultipleAreaData sliceWeightChartData;
         private readonly ChartMultipleAreaData slicePiezometricPorePressureChartData;
@@ -151,7 +150,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
             sliceParametersChartDataCollection = MacroStabilityInwardsSliceChartDataFactory.CreateSliceParametersChartDataCollection();
             sliceCohesionChartData = MacroStabilityInwardsSliceChartDataFactory.CreateCohesionChartData();
             sliceEffectiveStressChartData = MacroStabilityInwardsSliceChartDataFactory.CreateEffectiveStressChartData();
-            sliceEffectiveStressDailyChartData = MacroStabilityInwardsSliceChartDataFactory.CreateEffectiveStressDailyChartData();
             sliceTotalPorePressureChartData = MacroStabilityInwardsSliceChartDataFactory.CreateTotalPorePressureChartData();
             sliceWeightChartData = MacroStabilityInwardsSliceChartDataFactory.CreateWeightChartData();
             slicePiezometricPorePressureChartData = MacroStabilityInwardsSliceChartDataFactory.CreatePiezometricPorePressureChartData();
@@ -200,7 +198,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
             sliceParametersChartDataCollection.Add(slicePiezometricPorePressureChartData);
             sliceParametersChartDataCollection.Add(sliceWeightChartData);
             sliceParametersChartDataCollection.Add(sliceTotalPorePressureChartData);
-            sliceParametersChartDataCollection.Add(sliceEffectiveStressDailyChartData);
             sliceParametersChartDataCollection.Add(sliceEffectiveStressChartData);
             sliceParametersChartDataCollection.Add(sliceCohesionChartData);
 
@@ -273,7 +270,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
         {
             sliceCohesionChartData.Areas = MacroStabilityInwardsSliceChartDataPointsFactory.CreateCohesionAreas(slidingCurve);
             sliceEffectiveStressChartData.Areas = MacroStabilityInwardsSliceChartDataPointsFactory.CreateEffectiveStressAreas(slidingCurve);
-            sliceEffectiveStressDailyChartData.Areas = MacroStabilityInwardsSliceChartDataPointsFactory.CreateEffectiveStressDailyAreas(slidingCurve);
             sliceTotalPorePressureChartData.Areas = MacroStabilityInwardsSliceChartDataPointsFactory.CreateTotalPorePressureAreas(slidingCurve);
             sliceWeightChartData.Areas = MacroStabilityInwardsSliceChartDataPointsFactory.CreateWeightAreas(slidingCurve);
             slicePiezometricPorePressureChartData.Areas = MacroStabilityInwardsSliceChartDataPointsFactory.CreatePiezometricPorePressureAreas(slidingCurve);

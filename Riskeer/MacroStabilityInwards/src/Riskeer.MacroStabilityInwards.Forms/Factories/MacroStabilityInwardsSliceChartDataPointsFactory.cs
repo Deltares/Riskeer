@@ -88,20 +88,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.Factories
         }
 
         /// <summary>
-        /// Creates the areas for <see cref="MacroStabilityInwardsSlice.EffectiveStressDaily"/>
-        /// values in <paramref name="slidingCurve"/>.
-        /// </summary>
-        /// <param name="slidingCurve">The <see cref="MacroStabilityInwardsSlidingCurve"/> to 
-        /// get the slices from.</param>
-        /// <returns>A collection of collections of points in 2D space containing areas representing the
-        /// slice output values, or an empty collection when <paramref name="slidingCurve"/> is <c>null</c>.
-        /// </returns>
-        public static IEnumerable<IEnumerable<Point2D>> CreateEffectiveStressDailyAreas(MacroStabilityInwardsSlidingCurve slidingCurve)
-        {
-            return CreateParameterAreas(slidingCurve?.Slices, slice => slice.EffectiveStressDaily, 0.125);
-        }
-
-        /// <summary>
         /// Creates the areas for <see cref="MacroStabilityInwardsSlice.TotalPorePressure"/>
         /// values in <paramref name="slidingCurve"/>.
         /// </summary>

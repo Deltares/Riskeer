@@ -105,7 +105,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Output
                             VerticalPorePressure = slice.VPoreOnSurface,
                             PiezometricPorePressure = slice.PiezometricPorePressure,
                             EffectiveStress = slice.EffectiveStress,
-                            EffectiveStressDaily = slice.EffectiveStressDaily,
                             ExcessPorePressure = slice.ExcessPorePressure,
                             ShearStress = slice.ShearStress,
                             SoilStress = slice.SoilStress,

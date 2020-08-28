@@ -88,7 +88,6 @@ namespace Riskeer.Storage.Core.Test.Serializers
                         VerticalPorePressure = random.NextDouble(),
                         PiezometricPorePressure = random.NextDouble(),
                         EffectiveStress = random.NextDouble(),
-                        EffectiveStressDaily = random.NextDouble(),
                         ExcessPorePressure = random.NextDouble(),
                         ShearStress = random.NextDouble(),
                         SoilStress = random.NextDouble(),
@@ -138,7 +137,6 @@ namespace Riskeer.Storage.Core.Test.Serializers
                        && x.VerticalPorePressure.Equals(y.VerticalPorePressure)
                        && x.PiezometricPorePressure.Equals(y.PiezometricPorePressure)
                        && x.EffectiveStress.Equals(y.EffectiveStress)
-                       && x.EffectiveStressDaily.Equals(y.EffectiveStressDaily)
                        && x.ExcessPorePressure.Equals(y.ExcessPorePressure)
                        && x.ShearStress.Equals(y.ShearStress)
                        && x.SoilStress.Equals(y.SoilStress)

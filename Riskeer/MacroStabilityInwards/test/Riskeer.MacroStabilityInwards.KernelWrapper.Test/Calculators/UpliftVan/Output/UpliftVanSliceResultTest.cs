@@ -139,7 +139,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
             Assert.IsNaN(slice.VerticalPorePressure);
             Assert.IsNaN(slice.PiezometricPorePressure);
             Assert.IsNaN(slice.EffectiveStress);
-            Assert.IsNaN(slice.EffectiveStressDaily);
             Assert.IsNaN(slice.ExcessPorePressure);
             Assert.IsNaN(slice.ShearStress);
             Assert.IsNaN(slice.SoilStress);
@@ -176,7 +175,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
             double verticalPorePressure = random.NextDouble();
             double piezometricPorePressure = random.NextDouble();
             double effectiveStress = random.NextDouble();
-            double effectiveStressDaily = random.NextDouble();
             double excessPorePressure = random.NextDouble();
             double shearStress = random.NextDouble();
             double soilStress = random.NextDouble();
@@ -209,7 +207,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
                 VerticalPorePressure = verticalPorePressure,
                 PiezometricPorePressure = piezometricPorePressure,
                 EffectiveStress = effectiveStress,
-                EffectiveStressDaily = effectiveStressDaily,
                 ExcessPorePressure = excessPorePressure,
                 ShearStress = shearStress,
                 SoilStress = soilStress,
@@ -247,7 +244,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
             Assert.AreEqual(verticalPorePressure, slice.VerticalPorePressure);
             Assert.AreEqual(piezometricPorePressure, slice.PiezometricPorePressure);
             Assert.AreEqual(effectiveStress, slice.EffectiveStress);
-            Assert.AreEqual(effectiveStressDaily, slice.EffectiveStressDaily);
             Assert.AreEqual(excessPorePressure, slice.ExcessPorePressure);
             Assert.AreEqual(shearStress, slice.ShearStress);
             Assert.AreEqual(soilStress, slice.SoilStress);

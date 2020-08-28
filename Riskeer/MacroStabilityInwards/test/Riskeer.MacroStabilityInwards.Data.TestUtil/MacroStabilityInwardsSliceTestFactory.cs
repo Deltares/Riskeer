@@ -67,7 +67,6 @@ namespace Riskeer.MacroStabilityInwards.Data.TestUtil
                                                       VerticalPorePressure = random.NextDouble(),
                                                       PiezometricPorePressure = random.NextDouble(),
                                                       EffectiveStress = random.NextDouble(),
-                                                      EffectiveStressDaily = random.NextDouble(),
                                                       ExcessPorePressure = random.NextDouble(),
                                                       ShearStress = random.NextDouble(),
                                                       SoilStress = random.NextDouble(),

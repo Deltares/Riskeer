@@ -96,7 +96,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Outp
             VerticalPorePressure = properties.VerticalPorePressure;
             PiezometricPorePressure = properties.PiezometricPorePressure;
             EffectiveStress = properties.EffectiveStress;
-            EffectiveStressDaily = properties.EffectiveStressDaily;
             ExcessPorePressure = properties.ExcessPorePressure;
             ShearStress = properties.ShearStress;
             SoilStress = properties.SoilStress;
@@ -263,12 +262,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Outp
         public double EffectiveStress { get; }
 
         /// <summary>
-        /// Gets the daily effective stress.
-        /// [kN/m²]
-        /// </summary>
-        public double EffectiveStressDaily { get; }
-
-        /// <summary>
         /// Gets the excess pore pressure.
         /// [kN/m²]
         /// </summary>
@@ -337,7 +330,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Outp
                 VerticalPorePressure = double.NaN;
                 PiezometricPorePressure = double.NaN;
                 EffectiveStress = double.NaN;
-                EffectiveStressDaily = double.NaN;
                 ExcessPorePressure = double.NaN;
                 ShearStress = double.NaN;
                 SoilStress = double.NaN;
@@ -482,12 +474,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Outp
             /// [kN/m²]
             /// </summary>
             public double EffectiveStress { internal get; set; }
-
-            /// <summary>
-            /// Gets or sets the daily effective stress.
-            /// [kN/m²]
-            /// </summary>
-            public double EffectiveStressDaily { internal get; set; }
 
             /// <summary>
             /// Gets or sets the excess pore pressure.

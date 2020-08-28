@@ -55,7 +55,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
             FrictionAngle = slice.FrictionAngle;
             Cohesion = slice.Cohesion;
             EffectiveStress = slice.EffectiveStress;
-            EffectiveStressDaily = slice.EffectiveStressDaily;
             TotalPorePressure = slice.TotalPorePressure;
             Weight = slice.Weight;
             PiezometricPorePressure = slice.PiezometricPorePressure;
@@ -193,12 +192,5 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
         /// [kN/m²]
         /// </summary>
         public RoundedDouble EffectiveStress { get; }
-
-        /// <summary>
-        /// Gets the effective stress of the slice under
-        /// daily circumstances.
-        /// [kN/m²]
-        /// </summary>
-        public RoundedDouble EffectiveStressDaily { get; }
     }
 }

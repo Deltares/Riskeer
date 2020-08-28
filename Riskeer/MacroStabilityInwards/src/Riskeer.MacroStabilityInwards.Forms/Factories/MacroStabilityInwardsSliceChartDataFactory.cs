@@ -80,17 +80,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.Factories
 
         /// <summary>
         /// Create a <see cref="ChartMultipleAreaData"/> for the representation
-        /// of <see cref="MacroStabilityInwardsSlice.EffectiveStressDaily"/> values in a
-        /// sliding curve.
-        /// </summary>
-        /// <returns>The created <see cref="ChartMultipleAreaData"/>.</returns>
-        public static ChartMultipleAreaData CreateEffectiveStressDailyChartData()
-        {
-            return CreateSliceParameterChartData(Resources.MacroStabilityInwardsSlice_EffectiveStressDaily_DisplayName, false);
-        }
-
-        /// <summary>
-        /// Create a <see cref="ChartMultipleAreaData"/> for the representation
         /// of <see cref="MacroStabilityInwardsSlice.TotalPorePressure"/> values in a
         /// sliding curve.
         /// </summary>

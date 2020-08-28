@@ -161,7 +161,6 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
             Assert.IsNaN(slice.VerticalPorePressure);
             Assert.IsNaN(slice.PiezometricPorePressure);
             Assert.IsNaN(slice.EffectiveStress);
-            Assert.IsNaN(slice.EffectiveStressDaily);
             Assert.IsNaN(slice.ExcessPorePressure);
             Assert.IsNaN(slice.ShearStress);
             Assert.IsNaN(slice.SoilStress);
@@ -198,7 +197,6 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
             double verticalPorePressure = random.NextDouble();
             double piezometricPorePressure = random.NextDouble();
             double effectiveStress = random.NextDouble();
-            double effectiveStressDaily = random.NextDouble();
             double excessPorePressure = random.NextDouble();
             double shearStress = random.NextDouble();
             double soilStress = random.NextDouble();
@@ -231,7 +229,6 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
                 VerticalPorePressure = verticalPorePressure,
                 PiezometricPorePressure = piezometricPorePressure,
                 EffectiveStress = effectiveStress,
-                EffectiveStressDaily = effectiveStressDaily,
                 ExcessPorePressure = excessPorePressure,
                 ShearStress = shearStress,
                 SoilStress = soilStress,
@@ -315,9 +312,6 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
             Assert.AreEqual(3, slice.EffectiveStress.NumberOfDecimalPlaces);
             Assert.AreEqual(effectiveStress, slice.EffectiveStress, slice.EffectiveStress.GetAccuracy());
 
-            Assert.AreEqual(3, slice.EffectiveStressDaily.NumberOfDecimalPlaces);
-            Assert.AreEqual(effectiveStressDaily, slice.EffectiveStressDaily, slice.EffectiveStressDaily.GetAccuracy());
-
             Assert.AreEqual(3, slice.ExcessPorePressure.NumberOfDecimalPlaces);
             Assert.AreEqual(excessPorePressure, slice.ExcessPorePressure, slice.ExcessPorePressure.GetAccuracy());
 
@@ -367,7 +361,6 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
                 VerticalPorePressure = random.NextDouble(),
                 PiezometricPorePressure = random.NextDouble(),
                 EffectiveStress = random.NextDouble(),
-                EffectiveStressDaily = random.NextDouble(),
                 ExcessPorePressure = random.NextDouble(),
                 ShearStress = random.NextDouble(),
                 SoilStress = random.NextDouble(),

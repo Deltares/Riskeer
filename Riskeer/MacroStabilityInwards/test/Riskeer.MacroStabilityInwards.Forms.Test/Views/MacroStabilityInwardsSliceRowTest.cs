@@ -68,8 +68,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                     Pop = 14.0,
                     NormalStress = 15.0,
                     ShearStress = 16.0,
-                    LoadStress = 17.0,
-                    EffectiveStressDaily = 18.0
+                    LoadStress = 17.0
                 });
 
             // Call
@@ -98,7 +97,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             Assert.AreEqual(15.0, sliceRow.NormalStress, sliceRow.NormalStress.GetAccuracy());
             Assert.AreEqual(16.0, sliceRow.ShearStress, sliceRow.ShearStress.GetAccuracy());
             Assert.AreEqual(17.0, sliceRow.LoadStress, sliceRow.LoadStress.GetAccuracy());
-            Assert.AreEqual(18.0, sliceRow.EffectiveStressDaily, sliceRow.EffectiveStressDaily.GetAccuracy());
         }
     }
 }

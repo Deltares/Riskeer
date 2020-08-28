@@ -115,7 +115,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Uplif
                 Assert.AreEqual(expected[i].VerticalPorePressure, actual[i].VerticalPorePressure);
                 Assert.AreEqual(expected[i].PiezometricPorePressure, actual[i].PiezometricPorePressure);
                 Assert.AreEqual(expected[i].EffectiveStress, actual[i].EffectiveStress);
-                Assert.AreEqual(expected[i].EffectiveStressDaily, actual[i].EffectiveStressDaily);
                 Assert.AreEqual(expected[i].ExcessPorePressure, actual[i].ExcessPorePressure);
                 Assert.AreEqual(expected[i].ShearStress, actual[i].ShearStress);
                 Assert.AreEqual(expected[i].SoilStress, actual[i].SoilStress);

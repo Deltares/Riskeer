@@ -89,7 +89,6 @@ namespace Riskeer.Storage.Core.Serializers
                 verticalPorePressure = slice.VerticalPorePressure;
                 piezometricPorePressure = slice.PiezometricPorePressure;
                 effectiveStress = slice.EffectiveStress;
-                effectiveStressDaily = slice.EffectiveStressDaily;
                 excessPorePressure = slice.ExcessPorePressure;
                 shearStress = slice.ShearStress;
                 soilStress = slice.SoilStress;
@@ -134,7 +133,6 @@ namespace Riskeer.Storage.Core.Serializers
                         VerticalPorePressure = verticalPorePressure,
                         PiezometricPorePressure = piezometricPorePressure,
                         EffectiveStress = effectiveStress,
-                        EffectiveStressDaily = effectiveStressDaily,
                         ExcessPorePressure = excessPorePressure,
                         ShearStress = shearStress,
                         SoilStress = soilStress,
@@ -246,9 +244,6 @@ namespace Riskeer.Storage.Core.Serializers
 
             [DataMember]
             private readonly double effectiveStress;
-
-            [DataMember]
-            private readonly double effectiveStressDaily;
 
             [DataMember]
             private readonly double excessPorePressure;

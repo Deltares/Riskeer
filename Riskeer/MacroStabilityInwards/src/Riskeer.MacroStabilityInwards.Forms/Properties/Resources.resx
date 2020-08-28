@@ -636,9 +636,6 @@ in het stochastische ondergrondmodel
   <data name="MacroStabilityInwardsSlice_EffectiveStress_DisplayName" xml:space="preserve">
     <value>Effectieve spanning</value>
   </data>
-  <data name="MacroStabilityInwardsSlice_EffectiveStressDaily_DisplayName" xml:space="preserve">
-    <value>Effectieve spanning (dagelijks)</value>
-  </data>
   <data name="FrictionAngle_DisplayName" xml:space="preserve">
     <value>Wrijvingshoek</value>
   </data>
@@ -737,10 +734,6 @@ in het stochastische ondergrondmodel
   </data>
   <data name="MacroStabilityInwardsFailureMechanismProperties_ModelFactor_DisplayName" xml:space="preserve">
     <value>Modelfactor [-]</value>
-  </data>
-  <data name="MacroStabilityInwardsSlicesTable_EffectiveStressDaily_DisplayName" xml:space="preserve">
-    <value>Effectieve spanning
-(dagelijks)</value>
   </data>
   <data name="MacroStabilityInwardsSlicesTable_HorizontalPorePressure_DisplayName" xml:space="preserve">
     <value>Horizontale waterspanning

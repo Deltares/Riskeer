@@ -45,18 +45,17 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
         private const int frictionAngleColumnIndex = 7;
         private const int cohesionColumnIndex = 8;
         private const int effectiveStressColumnIndex = 9;
-        private const int effectiveStressDailyColumnIndex = 10;
-        private const int totalPorePressureColumnIndex = 11;
-        private const int weightColumnIndex = 12;
-        private const int piezometricPorePressureColumnIndex = 13;
-        private const int porePressureColumnIndex = 14;
-        private const int verticalPorePressureColumnIndex = 15;
-        private const int horizontalPorePressureColumnIndex = 16;
-        private const int overConsolidationRatioColumnIndex = 17;
-        private const int popColumnIndex = 18;
-        private const int normalStressColumnIndex = 19;
-        private const int shearStressColumnIndex = 20;
-        private const int loadStressColumnIndex = 21;
+        private const int totalPorePressureColumnIndex = 10;
+        private const int weightColumnIndex = 11;
+        private const int piezometricPorePressureColumnIndex = 12;
+        private const int porePressureColumnIndex = 13;
+        private const int verticalPorePressureColumnIndex = 14;
+        private const int horizontalPorePressureColumnIndex = 15;
+        private const int overConsolidationRatioColumnIndex = 16;
+        private const int popColumnIndex = 17;
+        private const int normalStressColumnIndex = 18;
+        private const int shearStressColumnIndex = 19;
+        private const int loadStressColumnIndex = 20;
 
         [Test]
         public void Constructor_InitializesWithColumns()
@@ -87,8 +86,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                 Assert.AreEqual("Cohesie\r\n[kN/m²]", cohesionColumn.HeaderText);
                 DataGridViewColumn effectiveStressColumn = table.GetColumnFromIndex(effectiveStressColumnIndex);
                 Assert.AreEqual("Effectieve spanning\r\n[kN/m²]", effectiveStressColumn.HeaderText);
-                DataGridViewColumn effectiveStressDailyColumn = table.GetColumnFromIndex(effectiveStressDailyColumnIndex);
-                Assert.AreEqual("Effectieve spanning\r\n(dagelijks)\r\n[kN/m²]", effectiveStressDailyColumn.HeaderText);
                 DataGridViewColumn totalPorePressureColumn = table.GetColumnFromIndex(totalPorePressureColumnIndex);
                 Assert.AreEqual("Totale\r\nwaterspanning\r\n[kN/m²]", totalPorePressureColumn.HeaderText);
                 DataGridViewColumn weightColumn = table.GetColumnFromIndex(weightColumnIndex);
@@ -257,11 +254,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                     Assert.AreEqual(slice.EffectiveStress,
                                     effectiveStress,
                                     effectiveStress.GetAccuracy());
-
-                    var effectiveStressDaily = (RoundedDouble) rowCells[effectiveStressDailyColumnIndex].Value;
-                    Assert.AreEqual(slice.EffectiveStressDaily,
-                                    effectiveStressDaily,
-                                    effectiveStressDaily.GetAccuracy());
 
                     var totalPorePressure = (RoundedDouble) rowCells[totalPorePressureColumnIndex].Value;
                     Assert.AreEqual(slice.TotalPorePressure,

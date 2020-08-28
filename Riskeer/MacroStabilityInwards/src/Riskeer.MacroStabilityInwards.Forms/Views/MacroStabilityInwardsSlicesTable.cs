@@ -83,9 +83,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
             AddTextBoxColumn(nameof(MacroStabilityInwardsSliceRow.EffectiveStress),
                              $"{Resources.MacroStabilityInwardsSlice_EffectiveStress_DisplayName}\r\n{Resources.Unit_KiloNewtonPerSquareMeter}",
                              true);
-            AddTextBoxColumn(nameof(MacroStabilityInwardsSliceRow.EffectiveStressDaily),
-                             $"{Resources.MacroStabilityInwardsSlicesTable_EffectiveStressDaily_DisplayName}\r\n{Resources.Unit_KiloNewtonPerSquareMeter}",
-                             true);
             AddTextBoxColumn(nameof(MacroStabilityInwardsSliceRow.TotalPorePressure),
                              $"{Resources.MacroStabilityInwardsSlicesTable_TotalPorePressure_DisplayName}\r\n{Resources.Unit_KiloNewtonPerSquareMeter}",
                              true);

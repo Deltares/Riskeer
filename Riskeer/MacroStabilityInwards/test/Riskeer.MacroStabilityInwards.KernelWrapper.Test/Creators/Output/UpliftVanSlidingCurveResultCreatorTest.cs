@@ -142,7 +142,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Output
             double verticalPorePressure = random.NextDouble();
             double piezometricPorePressure = random.NextDouble();
             double effectiveStress = random.NextDouble();
-            double effectiveStressDaily = random.NextDouble();
             double excessPorePressure = random.NextDouble();
             double shearStress = random.NextDouble();
             double soilStress = random.NextDouble();
@@ -187,7 +186,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Output
                         VPoreOnSurface = verticalPorePressure,
                         PiezometricPorePressure = piezometricPorePressure,
                         EffectiveStress = effectiveStress,
-                        EffectiveStressDaily = effectiveStressDaily,
                         ExcessPorePressure = excessPorePressure,
                         ShearStress = shearStress,
                         SoilStress = soilStress,
@@ -233,7 +231,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Output
             Assert.AreEqual(verticalPorePressure, slice.VerticalPorePressure);
             Assert.AreEqual(piezometricPorePressure, slice.PiezometricPorePressure);
             Assert.AreEqual(effectiveStress, slice.EffectiveStress);
-            Assert.AreEqual(effectiveStressDaily, slice.EffectiveStressDaily);
             Assert.AreEqual(excessPorePressure, slice.ExcessPorePressure);
             Assert.AreEqual(shearStress, slice.ShearStress);
             Assert.AreEqual(soilStress, slice.SoilStress);

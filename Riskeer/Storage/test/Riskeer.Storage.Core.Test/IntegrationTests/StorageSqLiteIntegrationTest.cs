@@ -1680,7 +1680,6 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
             Assert.AreEqual(expectedSlice.VerticalPorePressure, actualSlice.VerticalPorePressure);
             Assert.AreEqual(expectedSlice.PiezometricPorePressure, actualSlice.PiezometricPorePressure);
             Assert.AreEqual(expectedSlice.EffectiveStress, actualSlice.EffectiveStress);
-            Assert.AreEqual(expectedSlice.EffectiveStressDaily, actualSlice.EffectiveStressDaily);
             Assert.AreEqual(expectedSlice.ExcessPorePressure, actualSlice.ExcessPorePressure);
             Assert.AreEqual(expectedSlice.ShearStress, actualSlice.ShearStress);
             Assert.AreEqual(expectedSlice.SoilStress, actualSlice.SoilStress);

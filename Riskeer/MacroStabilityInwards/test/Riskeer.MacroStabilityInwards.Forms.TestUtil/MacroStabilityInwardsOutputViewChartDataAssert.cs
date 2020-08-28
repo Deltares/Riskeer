@@ -74,10 +74,9 @@ namespace Riskeer.MacroStabilityInwards.Forms.TestUtil
         private const int sliceParameterPiezometricPorePressureIndex = 8;
         private const int sliceParameterWeightIndex = 9;
         private const int sliceParameterTotalPorePressureIndex = 10;
-        private const int sliceParameterEffectiveStressDailyIndex = 11;
-        private const int sliceParameterEffectiveStressIndex = 12;
-        private const int sliceParameterCohesionIndex = 13;
-        private const int sliceParameterNrOfChartData = 14;
+        private const int sliceParameterEffectiveStressIndex = 11;
+        private const int sliceParameterCohesionIndex = 12;
+        private const int sliceParameterNrOfChartData = 13;
 
         /// <summary>
         /// Asserts whether <paramref name="actual"/> corresponds to the input of <paramref name="calculationScenario"/>.
@@ -260,8 +259,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.TestUtil
                                       ((ChartMultipleAreaData) actual.Collection.ElementAt(sliceParameterCohesionIndex)).Areas);
             CollectionAssert.AreEqual(CreateExpectedSliceParameterAreas(macroStabilityInwardsSlices, s => s.EffectiveStress, 0.125),
                                       ((ChartMultipleAreaData) actual.Collection.ElementAt(sliceParameterEffectiveStressIndex)).Areas);
-            CollectionAssert.AreEqual(CreateExpectedSliceParameterAreas(macroStabilityInwardsSlices, s => s.EffectiveStressDaily, 0.125),
-                                      ((ChartMultipleAreaData) actual.Collection.ElementAt(sliceParameterEffectiveStressDailyIndex)).Areas);
             CollectionAssert.AreEqual(CreateExpectedSliceParameterAreas(macroStabilityInwardsSlices, s => s.TotalPorePressure, 0.125),
                                       ((ChartMultipleAreaData) actual.Collection.ElementAt(sliceParameterTotalPorePressureIndex)).Areas);
             CollectionAssert.AreEqual(CreateExpectedSliceParameterAreas(macroStabilityInwardsSlices, s => s.Weight, 0.125),
@@ -299,7 +296,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.TestUtil
             Assert.AreEqual(sliceParameterNrOfChartData, chartDataArray.Length);
             var cohesionSliceData = (ChartMultipleAreaData) chartDataArray[sliceParameterCohesionIndex];
             var effectiveStressSliceData = (ChartMultipleAreaData) chartDataArray[sliceParameterEffectiveStressIndex];
-            var effectiveStressDailySliceData = (ChartMultipleAreaData) chartDataArray[sliceParameterEffectiveStressDailyIndex];
             var totalPorePressureSliceData = (ChartMultipleAreaData) chartDataArray[sliceParameterTotalPorePressureIndex];
             var weightSliceData = (ChartMultipleAreaData) chartDataArray[sliceParameterWeightIndex];
             var piezometricPorePressureSliceData = (ChartMultipleAreaData) chartDataArray[sliceParameterPiezometricPorePressureIndex];
@@ -314,7 +310,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.TestUtil
 
             CollectionAssert.IsEmpty(cohesionSliceData.Areas);
             CollectionAssert.IsEmpty(effectiveStressSliceData.Areas);
-            CollectionAssert.IsEmpty(effectiveStressDailySliceData.Areas);
             CollectionAssert.IsEmpty(totalPorePressureSliceData.Areas);
             CollectionAssert.IsEmpty(weightSliceData.Areas);
             CollectionAssert.IsEmpty(piezometricPorePressureSliceData.Areas);
@@ -329,7 +324,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.TestUtil
 
             Assert.AreEqual("Cohesie", cohesionSliceData.Name);
             Assert.AreEqual("Effectieve spanning", effectiveStressSliceData.Name);
-            Assert.AreEqual("Effectieve spanning (dagelijks)", effectiveStressDailySliceData.Name);
             Assert.AreEqual("Totale waterspanning", totalPorePressureSliceData.Name);
             Assert.AreEqual("Gewicht", weightSliceData.Name);
             Assert.AreEqual("Piezometrische waterspanning", piezometricPorePressureSliceData.Name);

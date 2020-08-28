@@ -98,7 +98,6 @@ namespace Riskeer.MacroStabilityInwards.Service.Converters
                                          VerticalPorePressure = s.VerticalPorePressure,
                                          PiezometricPorePressure = s.PiezometricPorePressure,
                                          EffectiveStress = s.EffectiveStress,
-                                         EffectiveStressDaily = s.EffectiveStressDaily,
                                          ExcessPorePressure = s.ExcessPorePressure,
                                          ShearStress = s.ShearStress,
                                          SoilStress = s.SoilStress,

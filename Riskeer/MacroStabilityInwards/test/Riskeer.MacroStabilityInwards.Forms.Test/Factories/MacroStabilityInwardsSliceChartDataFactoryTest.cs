@@ -80,19 +80,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Factories
         }
 
         [Test]
-        public void CreateEffectiveStressDailyChartData_ReturnsChartMultipleAreaData()
-        {
-            // Call
-            ChartMultipleAreaData data = MacroStabilityInwardsSliceChartDataFactory.CreateEffectiveStressDailyChartData();
-
-            // Assert
-            CollectionAssert.IsEmpty(data.Areas);
-            Assert.AreEqual("Effectieve spanning (dagelijks)", data.Name);
-            Assert.IsFalse(data.IsVisible);
-            AssertEqualStyle(data.Style, Color.FromArgb(150, 255, 0, 0), Color.Black, 1, true);
-        }
-
-        [Test]
         public void CreateTotalPorePressureChartData_ReturnsChartMultipleAreaData()
         {
             // Call
