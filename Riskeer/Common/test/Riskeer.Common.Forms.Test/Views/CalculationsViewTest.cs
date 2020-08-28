@@ -301,6 +301,22 @@ namespace Riskeer.Common.Forms.Test.Views
             }
         }
 
+        private class ExceptionTestCalculationsView : TestCalculationsViewBase<TestCalculationRow>
+        {
+            public ExceptionTestCalculationsView(CalculationGroup calculationGroup, TestFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+                : base(calculationGroup, failureMechanism, assessmentSection) {}
+
+            protected override TestCalculationRow CreateRow(TestCalculation calculation)
+            {
+                throw new NotImplementedException();
+            }
+
+            protected override void AddColumns(Action addNameColumn, Action addHydraulicBoundaryLocationColumn)
+            {
+                base.AddColumns(() => {}, () => {});
+            }
+        }
+
         #region Initialization
 
         [Test]
@@ -495,6 +511,17 @@ namespace Riskeer.Common.Forms.Test.Views
             Assert.AreSame(failureMechanismSection2, listBox.Items[1]);
             Assert.AreSame(failureMechanismSection3, listBox.Items[2]);
             mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Constructor_IncorrectIndex_ThrowsInvalidOperationException()
+        {
+            // Call
+            void Call() => new ExceptionTestCalculationsView(new CalculationGroup(), new TestFailureMechanism(), new AssessmentSectionStub());
+
+            // Assert
+            var exception = Assert.Throws<InvalidOperationException>(Call);
+            Assert.AreEqual("Both the name column and the hydraulic boundary database column need to be added to the data grid view.", exception.Message);
         }
 
         [Test]

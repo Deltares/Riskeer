@@ -301,6 +301,38 @@ namespace Core.Common.Controls.Test.DataGrid
         }
 
         [Test]
+        public void AddTextBoxColumn_Always_ReturnsCorrectIndex()
+        {
+            // Setup
+            const DataGridViewAutoSizeColumnMode autoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader;
+            const int minimumWidth = 100;
+            const string format = "1/#,#";
+
+            using (var form = new Form())
+            using (var control = new DataGridViewControl())
+            {
+                form.Controls.Add(control);
+                form.Show();
+
+                var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+
+                // Precondition
+                Assert.AreEqual(0, dataGridView.ColumnCount);
+
+                for (var i = 0; i < 3; i++)
+                {
+                    // Call
+                    int index = control.AddTextBoxColumn(propertyName, headerText, false, autoSizeMode, minimumWidth, format);
+
+                    // Assert
+                    Assert.AreEqual(i+1, dataGridView.ColumnCount);
+                    var columnData = (DataGridViewTextBoxColumn) dataGridView.Columns[i];
+                    Assert.AreEqual(index, columnData.Index);
+                }
+            }
+        }
+
+        [Test]
         public void AddCheckBoxColumn_WithoutReadOnly_AddsColumnToDataGridViewWithDefaultReadOnly()
         {
             // Setup
@@ -359,6 +391,34 @@ namespace Core.Common.Controls.Test.DataGrid
                 Assert.IsTrue(columnData.ReadOnly);
                 Assert.AreEqual(DataGridViewAutoSizeColumnMode.AllCells, columnData.AutoSizeMode);
                 Assert.AreEqual(DataGridViewContentAlignment.MiddleCenter, columnData.HeaderCell.Style.Alignment);
+            }
+        }
+
+        [Test]
+        public void AddCheckBoxColumn_Always_ReturnsCorrectIndex()
+        {
+            // Setup
+            using (var form = new Form())
+            using (var control = new DataGridViewControl())
+            {
+                form.Controls.Add(control);
+                form.Show();
+
+                var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+
+                // Precondition
+                Assert.AreEqual(0, dataGridView.ColumnCount);
+
+                for (var i = 0; i < 3; i++)
+                {
+                    // Call
+                    int index = control.AddCheckBoxColumn(propertyName, headerText);
+
+                    // Assert
+                    Assert.AreEqual(i + 1, dataGridView.ColumnCount);
+                    var columnData = (DataGridViewCheckBoxColumn)dataGridView.Columns[i];
+                    Assert.AreEqual(index, columnData.Index);
+                }
             }
         }
 
@@ -442,6 +502,44 @@ namespace Core.Common.Controls.Test.DataGrid
         }
 
         [Test]
+        public void AddComboBoxColumn_Always_ReturnsCorrectIndex()
+        {
+            // Setup
+            List<EnumDisplayWrapper<TestEnum>> dataSource = Enum.GetValues(typeof(TestEnum))
+                                                                .OfType<TestEnum>()
+                                                                .Select(el => new EnumDisplayWrapper<TestEnum>(el))
+                                                                .ToList();
+
+            using (var form = new Form())
+            using (var control = new DataGridViewControl())
+            {
+                form.Controls.Add(control);
+                form.Show();
+
+                var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+
+                // Precondition
+                Assert.AreEqual(0, dataGridView.ColumnCount);
+
+                for (var i = 0; i < 3; i++)
+                {
+                    // Call
+                    int index = control.AddComboBoxColumn(
+                        propertyName,
+                        headerText,
+                        dataSource,
+                        nameof(EnumDisplayWrapper<TestEnum>.Value),
+                        nameof(EnumDisplayWrapper<TestEnum>.DisplayName));
+
+                    // Assert
+                    Assert.AreEqual(i + 1, dataGridView.ColumnCount);
+                    var columnData = (DataGridViewComboBoxColumn)dataGridView.Columns[i];
+                    Assert.AreEqual(index, columnData.Index);
+                }
+            }
+        }
+
+        [Test]
         public void AddColorColumn_Always_AddsReadOnlyColumnToDataGridView()
         {
             // Setup
@@ -469,6 +567,34 @@ namespace Core.Common.Controls.Test.DataGrid
                 Assert.IsTrue(columnData.ReadOnly);
                 Assert.AreEqual(DataGridViewAutoSizeColumnMode.AllCells, columnData.AutoSizeMode);
                 Assert.AreEqual(DataGridViewContentAlignment.MiddleCenter, columnData.HeaderCell.Style.Alignment);
+            }
+        }
+
+        [Test]
+        public void AddColorColumn_Always_ReturnsCorrectIndex()
+        {
+            // Setup
+            using (var form = new Form())
+            using (var control = new DataGridViewControl())
+            {
+                form.Controls.Add(control);
+                form.Show();
+
+                var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+
+                // Precondition
+                Assert.AreEqual(0, dataGridView.ColumnCount);
+
+                for (var i = 0; i < 3; i++)
+                {
+                    // Call
+                    int index = control.AddColorColumn(propertyName, headerText);
+
+                    // Assert
+                    Assert.AreEqual(i + 1, dataGridView.ColumnCount);
+                    var columnData = (DataGridViewColorColumn)dataGridView.Columns[i];
+                    Assert.AreEqual(index, columnData.Index);
+                }
             }
         }
 
