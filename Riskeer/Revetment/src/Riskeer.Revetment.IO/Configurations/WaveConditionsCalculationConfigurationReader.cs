@@ -52,7 +52,7 @@ namespace Riskeer.Revetment.IO.Configurations
         /// Creates a new instance of <see cref="WaveConditionsCalculationConfigurationReader{T}"/>.
         /// </summary>
         /// <param name="xmlFilePath">The file path to the XML file.</param>
-        /// <param name="mainSchemaDefinitions">A <c>string</c> representing the main schema definition.</param>
+        /// <param name="mainSchemaDefinitions">An <see cref="Array"/> of <see cref="string"/> representing the main schema definitions.</param>
         /// <exception cref="ArgumentException">Thrown when <paramref name="xmlFilePath"/> is invalid.</exception>
         /// <exception cref="CriticalFileReadException">Thrown when:
         /// <list type="bullet">
