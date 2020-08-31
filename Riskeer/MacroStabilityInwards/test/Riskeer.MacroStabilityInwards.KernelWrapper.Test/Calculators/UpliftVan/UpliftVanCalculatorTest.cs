@@ -592,13 +592,12 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
                         VPoreOnSurface = 4.5,
                         PiezometricPorePressure = 4.6,
                         EffectiveStress = 4.7,
-                        EffectiveStressDaily = 4.8,
-                        ExcessPorePressure = 4.9,
-                        ShearStress = 5.0,
-                        SoilStress = 5.1,
-                        TotalPorePressure = 5.2,
-                        TotalStress = 5.3,
-                        Weight = 5.4
+                        ExcessPorePressure = 4.8,
+                        ShearStress = 4.9,
+                        SoilStress = 5.0,
+                        TotalPorePressure = 5.1,
+                        TotalStress = 5.2,
+                        Weight = 5.3
                     }
                 }
             };
