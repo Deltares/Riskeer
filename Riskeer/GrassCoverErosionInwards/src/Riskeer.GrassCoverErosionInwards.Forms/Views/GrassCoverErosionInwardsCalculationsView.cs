@@ -215,7 +215,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
         {
             if (IsProfileInSelectedFailureMechanismSection())
             {
-                UpdateHydraulicBoundaryLocationColumnIfOutdated();
+                UpdateHydraulicBoundaryLocationColumn();
             }
             else
             {
@@ -223,7 +223,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
             }
         }
 
-        private void UpdateHydraulicBoundaryLocationColumnIfOutdated()
+        private void UpdateHydraulicBoundaryLocationColumn()
         {
             PrefillComboBoxListItemsAtColumnLevel();
             UpdateComboBoxColumns();
