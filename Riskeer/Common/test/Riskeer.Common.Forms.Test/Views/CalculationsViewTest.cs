@@ -301,9 +301,9 @@ namespace Riskeer.Common.Forms.Test.Views
             }
         }
 
-        private class ExceptionTestCalculationsView : TestCalculationsViewBase<TestCalculationRow>
+        private class MissingNameColumnTestCalculationsView : TestCalculationsViewBase<TestCalculationRow>
         {
-            public ExceptionTestCalculationsView(CalculationGroup calculationGroup, TestFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+            public MissingNameColumnTestCalculationsView(CalculationGroup calculationGroup, TestFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
                 : base(calculationGroup, failureMechanism, assessmentSection) {}
 
             protected override TestCalculationRow CreateRow(TestCalculation calculation)
@@ -313,7 +313,23 @@ namespace Riskeer.Common.Forms.Test.Views
 
             protected override void AddColumns(Action addNameColumn, Action addHydraulicBoundaryLocationColumn)
             {
-                base.AddColumns(() => {}, () => {});
+                base.AddColumns(() => {}, addHydraulicBoundaryLocationColumn);
+            }
+        }
+
+        private class MissingHydraulicBoundaryLocationTestCalculationsView : TestCalculationsViewBase<TestCalculationRow>
+        {
+            public MissingHydraulicBoundaryLocationTestCalculationsView(CalculationGroup calculationGroup, TestFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+                : base(calculationGroup, failureMechanism, assessmentSection) {}
+
+            protected override TestCalculationRow CreateRow(TestCalculation calculation)
+            {
+                throw new NotImplementedException();
+            }
+
+            protected override void AddColumns(Action addNameColumn, Action addHydraulicBoundaryLocationColumn)
+            {
+                base.AddColumns(addNameColumn, () => {});
             }
         }
 
@@ -514,10 +530,21 @@ namespace Riskeer.Common.Forms.Test.Views
         }
 
         [Test]
-        public void Constructor_IncorrectIndex_ThrowsInvalidOperationException()
+        public void Constructor_IncorrectNameIndex_ThrowsInvalidOperationException()
         {
             // Call
-            void Call() => new ExceptionTestCalculationsView(new CalculationGroup(), new TestFailureMechanism(), new AssessmentSectionStub());
+            void Call() => new MissingNameColumnTestCalculationsView(new CalculationGroup(), new TestFailureMechanism(), new AssessmentSectionStub());
+
+            // Assert
+            var exception = Assert.Throws<InvalidOperationException>(Call);
+            Assert.AreEqual("Both the name column and the hydraulic boundary database column need to be added to the data grid view.", exception.Message);
+        }
+
+        [Test]
+        public void Constructor_IncorrectHydraulicBoundaryLocationIndex_ThrowsInvalidOperationException()
+        {
+            // Call
+            void Call() => new MissingHydraulicBoundaryLocationTestCalculationsView(new CalculationGroup(), new TestFailureMechanism(), new AssessmentSectionStub());
 
             // Assert
             var exception = Assert.Throws<InvalidOperationException>(Call);

@@ -215,14 +215,18 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
         {
             if (IsProfileInSelectedFailureMechanismSection())
             {
-                // Update possibly outdated hydraulic boundary location column
-                PrefillComboBoxListItemsAtColumnLevel();
-                UpdateComboBoxColumns();
+                UpdateHydraulicBoundaryLocationColumnIfOutdated();
             }
             else
             {
                 UpdateDataGridViewDataSource(false);
             }
+        }
+
+        private void UpdateHydraulicBoundaryLocationColumnIfOutdated()
+        {
+            PrefillComboBoxListItemsAtColumnLevel();
+            UpdateComboBoxColumns();
         }
 
         private bool IsProfileInSelectedFailureMechanismSection()
