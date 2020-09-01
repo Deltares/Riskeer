@@ -211,15 +211,11 @@ namespace Riskeer.ClosingStructures.Forms.Views
 
         protected override void SubscribeToCalculationRow(ClosingStructuresCalculationRow calculationRow)
         {
-            base.SubscribeToCalculationRow(calculationRow);
-
             calculationRow.InflowModelTypeChanged += InflowModelTypeChanged;
         }
 
         protected override void UnsubscribeFromCalculationRow(ClosingStructuresCalculationRow calculationRow)
         {
-            base.UnsubscribeFromCalculationRow(calculationRow);
-
             calculationRow.InflowModelTypeChanged -= InflowModelTypeChanged;
         }
 
