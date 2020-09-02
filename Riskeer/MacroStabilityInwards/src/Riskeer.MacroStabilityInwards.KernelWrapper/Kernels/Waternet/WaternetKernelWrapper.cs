@@ -22,11 +22,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Deltares.MacroStability.Geometry;
+using Deltares.MacroStability.CSharpWrapper;
+using Deltares.MacroStability.CSharpWrapper.Input;
+using Deltares.MacroStability.CSharpWrapper.Output;
+using Deltares.MacroStability.CSharpWrapper.Output.WaternetCreator;
 using Deltares.MacroStability.Standard;
 using Deltares.MacroStability.WaternetCreator;
-using Deltares.WTIStability.Calculation.Wrapper;
-using WtiStabilityWaternet = Deltares.MacroStability.Geometry.Waternet;
+using WtiStabilityWaternet = Deltares.MacroStability.CSharpWrapper.Waternet;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.Waternet
 {
@@ -35,53 +37,74 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.Waternet
     /// </summary>
     internal class WaternetKernelWrapper : IWaternetKernel
     {
-        private const double unitWeightWater = 9.81;
-        private readonly Location location;
-        private readonly WaternetCreator waternetCreator;
+        private readonly string waternetName;
+        private readonly MacroStabilityInput input;
 
         /// <summary>
         /// Creates a new instance of <see cref="WaternetKernelWrapper"/>.
         /// </summary>
         /// <param name="location">The <see cref="Location"/> to use.</param>
         /// <param name="waternetName">The name of the <see cref="Waternet"/>.</param>
-        public WaternetKernelWrapper(Location location, string waternetName)
+        /// <param name="waternetCreatorInput"></param>
+        public WaternetKernelWrapper(WaternetCreatorInput waternetCreatorInput, string waternetName)
         {
-            if (location == null)
-            {
-                throw new ArgumentNullException(nameof(location));
-            }
+            this.waternetName = waternetName;
 
-            this.location = location;
-            Waternet = new WtiStabilityWaternet
+            input = new MacroStabilityInput
             {
-                Name = waternetName
+                StabilityModel =
+                {
+                    ConstructionStages =
+                    {
+                        new ConstructionStage()
+                    }
+                },
+                PreprocessingInput =
+                {
+                    PreConstructionStages =
+                    {
+                        new PreConstructionStage
+                        {
+                            WaternetCreationMode = WaternetCreationMode.CreateWaternet,
+                            WaternetCreatorInput = waternetCreatorInput
+                        }
+                    }
+                }
             };
-            waternetCreator = new WaternetCreator(unitWeightWater);
+
         }
 
-        public WtiStabilityWaternet Waternet { get; }
+        public WtiStabilityWaternet Waternet { get; private set; }
 
-        public void SetSoilProfile(SoilProfile2D soilProfile)
+        public void SetSoils(ICollection<Soil> soils)
         {
-            location.SoilProfile2D = soilProfile;
+            input.StabilityModel.Soils = soils;
         }
 
-        public void SetSurfaceLine(SurfaceLine2 surfaceLine)
+        public void SetSoilProfile(SoilProfile soilProfile)
         {
-            location.Surfaceline = surfaceLine;
+            input.StabilityModel.ConstructionStages.First().SoilProfile = soilProfile;
+        }
+
+        public void SetSurfaceLine(SurfaceLine surfaceLine)
+        {
+            input.PreprocessingInput.PreConstructionStages.First().SurfaceLine = surfaceLine;
         }
 
         public void Calculate()
         {
-            CheckIfWaternetCanBeGenerated();
-
             try
             {
-                waternetCreator.UpdateWaternet(Waternet, location);
+                var calculator = new Calculator(input);
 
-                ReadLogMessages(waternetCreator.LogMessages);
+                CheckIfWaternetCanBeGenerated();
 
-                SynchronizeWaternetLinePoints();
+                WaternetCreatorOutput output = calculator.CalculateWaternet(0);
+
+                Waternet = output.Waternet;
+                Waternet.Name = waternetName;
+
+                ReadLogMessages(output.Messages);
             }
             catch (Exception e) when (!(e is WaternetKernelWrapperException))
             {
@@ -89,11 +112,13 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.Waternet
             }
         }
 
-        public IEnumerable<IValidationResult> Validate()
+        public IEnumerable<Message> Validate()
         {
             try
             {
-                return location.Validate();
+                var validator = new Validator(input);
+                ValidationOutput output = validator.ValidateWaternetCreator();
+                return output.Messages;
             }
             catch (Exception e)
             {
@@ -107,17 +132,13 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.Waternet
         /// <exception cref="WaternetKernelWrapperException">Thrown when the Waternet can not be generated.</exception>
         private void CheckIfWaternetCanBeGenerated()
         {
-            if (!waternetCreator.CanGenerateWaternet(location))
+            var validator = new Validator(input);
+            ValidationOutput output = validator.ValidateWaternetCreator();
+
+            if(!output.IsValid)
             {
                 throw new WaternetKernelWrapperException();
             }
-        }
-
-        private void SynchronizeWaternetLinePoints()
-        {
-            Waternet.HeadLineList.ForEach(l => l.SyncPoints());
-            Waternet.WaternetLineList.ForEach(l => l.SyncPoints());
-            Waternet.PhreaticLine.SyncPoints();
         }
 
         /// <summary>
@@ -126,15 +147,14 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.Waternet
         /// <param name="receivedLogMessages">The messages to read.</param>
         /// <exception cref="WaternetKernelWrapperException">Thrown when there
         /// are log messages of the type <see cref="LogMessageType.FatalError"/> or <see cref="LogMessageType.Error"/>.</exception>
-        private static void ReadLogMessages(IEnumerable<LogMessage> receivedLogMessages)
+        private static void ReadLogMessages(IEnumerable<Message> receivedLogMessages)
         {
-            LogMessage[] errorMessages = receivedLogMessages.Where(lm => lm.MessageType == LogMessageType.FatalError
-                                                                         || lm.MessageType == LogMessageType.Error).ToArray();
+            Message[] errorMessages = receivedLogMessages.Where(lm => lm.MessageType == MessageType.Error).ToArray();
 
             if (errorMessages.Any())
             {
                 string message = errorMessages.Aggregate(string.Empty,
-                                                         (current, logMessage) => current + $"{logMessage.Message}{Environment.NewLine}")
+                                                         (current, logMessage) => current + $"{logMessage.Content}{Environment.NewLine}")
                                               .Trim();
 
                 throw new WaternetKernelWrapperException(message);
