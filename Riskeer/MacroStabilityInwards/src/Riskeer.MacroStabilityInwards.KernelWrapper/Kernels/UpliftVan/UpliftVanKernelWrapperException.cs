@@ -23,7 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
-using Deltares.MacroStability.Standard;
+using Deltares.MacroStability.CSharpWrapper.Output;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
 {
@@ -64,7 +64,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
         /// <param name="inner">The exception that is the cause of the current exception, 
         /// or a null reference if no inner exception is specified.</param>
         /// <param name="logMessages">The messages provided by the kernel.</param>
-        public UpliftVanKernelWrapperException(string message, Exception inner, IEnumerable<LogMessage> logMessages)
+        public UpliftVanKernelWrapperException(string message, Exception inner, IEnumerable<Message> logMessages)
             : base(message, inner)
         {
             LogMessages = logMessages;
@@ -86,6 +86,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
         /// <summary>
         /// Gets the log messages.
         /// </summary>
-        public IEnumerable<LogMessage> LogMessages { get; } = Enumerable.Empty<LogMessage>();
+        public IEnumerable<Message> LogMessages { get; } = Enumerable.Empty<Message>();
     }
 }
