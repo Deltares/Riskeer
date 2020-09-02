@@ -21,11 +21,12 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Controls.DataGrid;
+using Core.Common.TestUtil;
+using DotSpatial.Symbology;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.ClosingStructures.Data;
@@ -290,37 +291,44 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
         }
 
         [Test]
-        [TestCase(ClosingStructureInflowModelType.FloodedCulvert, ClosingStructureInflowModelType.LowSill)]
-        [TestCase(ClosingStructureInflowModelType.LowSill, ClosingStructureInflowModelType.VerticalWall)]
-        [TestCase(ClosingStructureInflowModelType.VerticalWall, ClosingStructureInflowModelType.FloodedCulvert)]
-        public void InflowModelType_AlwaysOnChange_DikeProfileChangedFired(ClosingStructureInflowModelType inflowModelType, ClosingStructureInflowModelType newInflowModelType)
+        public void InflowModelType_AlwaysOnChange_DikeProfileChangedFired()
         {
             // Setup
             var inflowModelTypeChangedCounter = 0;
-            var handler = new SetPropertyValueAfterConfirmationParameterTester(Enumerable.Empty<IObservable>());
+            var random = new Random(21);
+            var mocks = new MockRepository();
+            var observable = mocks.StrictMock<IObservable>();
+            observable.Expect(o => o.NotifyObservers());
+            var handler = new SetPropertyValueAfterConfirmationParameterTester(new[]
+            {
+                observable
+            });
+            mocks.ReplayAll();
+
             var row = new ClosingStructuresCalculationRow(new StructuresCalculationScenario<ClosingStructuresInput>
             {
                 InputParameters =
                 {
-                    InflowModelType = inflowModelType
+                    InflowModelType = random.NextEnum<ClosingStructureInflowModelType>()
                 }
             }, handler);
 
             row.InflowModelTypeChanged += (s, a) => inflowModelTypeChangedCounter++;
 
             // Call
-            row.InflowModelType = newInflowModelType;
+            row.InflowModelType = random.NextEnumValue<ClosingStructureInflowModelType>();
 
             // Assert
             Assert.AreEqual(1, inflowModelTypeChangedCounter);
+            mocks.VerifyAll();
         }
 
         [Test]
-        [TestCase(ClosingStructureInflowModelType.FloodedCulvert)]
-        [TestCase(ClosingStructureInflowModelType.LowSill)]
-        [TestCase(ClosingStructureInflowModelType.VerticalWall)]
-        public void InflowModelType_ChangeToEqualValue_NoNotificationsAndOutputNotCleared(ClosingStructureInflowModelType inflowModelType)
+        public void InflowModelType_ChangeToEqualValue_NoNotificationsAndOutputNotCleared()
         {
+            // Setup
+            var inflowModelType = ClosingStructureInflowModelType.VerticalWall;
+
             // Call
             AssertPropertyNotChanged(
                 row =>

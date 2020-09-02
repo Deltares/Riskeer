@@ -664,6 +664,35 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
             mocks.VerifyAll(); // No observer notified
         }
 
+        [Test]
+        public void GivenCalculationsView_WhenChangingInflowModelType_ThenDataGridViewIsUpdated()
+        {
+            // Given
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            ConfigureHydraulicBoundaryDatabase(assessmentSection);
+            mocks.ReplayAll();
+
+            ClosingStructuresFailureMechanism failureMechanism = ConfigureFailureMechanism();
+            CalculationGroup calculationGroup = ConfigureCalculationGroup(failureMechanism, assessmentSection);
+
+            ShowCalculationsView(calculationGroup, failureMechanism, assessmentSection);
+
+            var invalidated = false;
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+            dataGridView.Invalidated += (s, e) => invalidated = true;
+
+            // When
+            DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[inflowModelTypeColumnIndex];
+            dataGridView.CurrentCell = dataGridViewCell;
+            dataGridView.BeginEdit(false);
+            dataGridViewCell.Value = ClosingStructureInflowModelType.LowSill;
+            dataGridView.EndEdit();
+
+            // Then
+            Assert.IsTrue(invalidated);
+        }
+
         public override void Setup()
         {
             base.Setup();
