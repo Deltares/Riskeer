@@ -21,6 +21,8 @@
 
 using System;
 using System.ComponentModel;
+using Deltares.MacroStability.CSharpWrapper;
+using Deltares.MacroStability.CSharpWrapper.Input;
 using Deltares.MacroStability.WaternetCreator;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan;
@@ -30,7 +32,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
     /// <summary>
     /// Creates <see cref="Location"/> instances which are required by <see cref="IUpliftVanKernel"/>.
     /// </summary>
-    internal static class UpliftVanLocationCreator
+    internal static class UpliftVanWaternetCreatorInputCreator
     {
         /// <summary>
         /// Creates a <see cref="Location"/> based on the given <paramref name="input"/> under extreme circumstances,
@@ -45,23 +47,23 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
         /// <exception cref="NotSupportedException">Thrown when <see cref="UpliftVanCalculatorInput.DikeSoilScenario"/>,
         /// <see cref="UpliftVanCalculatorInput.WaternetCreationMode"/> or <see cref="UpliftVanCalculatorInput.PlLineCreationMethod"/>
         /// is a valid value, but unsupported.</exception>
-        public static Location CreateExtreme(UpliftVanCalculatorInput input)
+        public static WaternetCreatorInput CreateExtreme(UpliftVanCalculatorInput input)
         {
             if (input == null)
             {
                 throw new ArgumentNullException(nameof(input));
             }
 
-            Location location = CreateBaseLocation(input);
-            location.WaterLevelRiver = input.AssessmentLevel;
-            location.WaterLevelPolder = input.WaterLevelPolderExtreme;
-            location.UseDefaultOffsets = input.PhreaticLineOffsetsExtreme.UseDefaults;
-            location.PlLineOffsetBelowPointBRingtoetsWti2017 = input.PhreaticLineOffsetsExtreme.BelowDikeTopAtRiver;
-            location.PlLineOffsetBelowDikeTopAtPolder = input.PhreaticLineOffsetsExtreme.BelowDikeTopAtPolder;
-            location.PlLineOffsetBelowShoulderBaseInside = input.PhreaticLineOffsetsExtreme.BelowShoulderBaseInside;
-            location.PlLineOffsetBelowDikeToeAtPolder = input.PhreaticLineOffsetsExtreme.BelowDikeToeAtPolder;
-            location.PenetrationLength = input.PenetrationLengthExtreme;
-            return location;
+            WaternetCreatorInput creatorInput = CreateBaseLocation(input);
+            creatorInput.WaterLevelRiver = input.AssessmentLevel;
+            creatorInput.WaterLevelPolder = input.WaterLevelPolderExtreme;
+            creatorInput.UseDefaultOffsets = input.PhreaticLineOffsetsExtreme.UseDefaults;
+            creatorInput.PlLineOffsetBelowPointBRingtoetsWti2017 = input.PhreaticLineOffsetsExtreme.BelowDikeTopAtRiver;
+            creatorInput.PlLineOffsetBelowDikeTopAtPolder = input.PhreaticLineOffsetsExtreme.BelowDikeTopAtPolder;
+            creatorInput.PlLineOffsetBelowShoulderBaseInside = input.PhreaticLineOffsetsExtreme.BelowShoulderBaseInside;
+            creatorInput.PlLineOffsetBelowDikeToeAtPolder = input.PhreaticLineOffsetsExtreme.BelowDikeToeAtPolder;
+            creatorInput.PenetrationLength = input.PenetrationLengthExtreme;
+            return creatorInput;
         }
 
         /// <summary>
@@ -77,36 +79,35 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
         /// <exception cref="NotSupportedException">Thrown when <see cref="UpliftVanCalculatorInput.DikeSoilScenario"/>,
         /// <see cref="UpliftVanCalculatorInput.WaternetCreationMode"/> or <see cref="UpliftVanCalculatorInput.PlLineCreationMethod"/>
         /// is a valid value, but unsupported.</exception>
-        public static Location CreateDaily(UpliftVanCalculatorInput input)
+        public static WaternetCreatorInput CreateDaily(UpliftVanCalculatorInput input)
         {
             if (input == null)
             {
                 throw new ArgumentNullException(nameof(input));
             }
 
-            Location location = CreateBaseLocation(input);
-            location.WaterLevelRiver = input.WaterLevelRiverAverage;
-            location.WaterLevelPolder = input.WaterLevelPolderDaily;
-            location.UseDefaultOffsets = input.PhreaticLineOffsetsDaily.UseDefaults;
-            location.PlLineOffsetBelowPointBRingtoetsWti2017 = input.PhreaticLineOffsetsDaily.BelowDikeTopAtRiver;
-            location.PlLineOffsetBelowDikeTopAtPolder = input.PhreaticLineOffsetsDaily.BelowDikeTopAtPolder;
-            location.PlLineOffsetBelowShoulderBaseInside = input.PhreaticLineOffsetsDaily.BelowShoulderBaseInside;
-            location.PlLineOffsetBelowDikeToeAtPolder = input.PhreaticLineOffsetsDaily.BelowDikeToeAtPolder;
-            location.PenetrationLength = input.PenetrationLengthDaily;
-            return location;
+            WaternetCreatorInput creatorInput = CreateBaseLocation(input);
+            creatorInput.WaterLevelRiver = input.WaterLevelRiverAverage;
+            creatorInput.WaterLevelPolder = input.WaterLevelPolderDaily;
+            creatorInput.UseDefaultOffsets = input.PhreaticLineOffsetsDaily.UseDefaults;
+            creatorInput.PlLineOffsetBelowPointBRingtoetsWti2017 = input.PhreaticLineOffsetsDaily.BelowDikeTopAtRiver;
+            creatorInput.PlLineOffsetBelowDikeTopAtPolder = input.PhreaticLineOffsetsDaily.BelowDikeTopAtPolder;
+            creatorInput.PlLineOffsetBelowShoulderBaseInside = input.PhreaticLineOffsetsDaily.BelowShoulderBaseInside;
+            creatorInput.PlLineOffsetBelowDikeToeAtPolder = input.PhreaticLineOffsetsDaily.BelowDikeToeAtPolder;
+            creatorInput.PenetrationLength = input.PenetrationLengthDaily;
+            return creatorInput;
         }
 
-        private static Location CreateBaseLocation(UpliftVanCalculatorInput input)
+        private static WaternetCreatorInput CreateBaseLocation(UpliftVanCalculatorInput input)
         {
-            return new Location
+            return new WaternetCreatorInput
             {
                 DikeSoilScenario = LocationCreatorHelper.ConvertDikeSoilScenario(input.DikeSoilScenario),
-                WaternetCreationMode = LocationCreatorHelper.ConvertWaternetCreationMode(input.WaternetCreationMode),
-                PlLineCreationMethod = LocationCreatorHelper.ConvertPlLineCreationMethod(input.PlLineCreationMethod),
                 WaterLevelRiverAverage = input.WaterLevelRiverAverage,
                 DrainageConstructionPresent = input.DrainageConstruction.IsPresent,
-                XCoordMiddleDrainageConstruction = input.DrainageConstruction.XCoordinate,
-                ZCoordMiddleDrainageConstruction = input.DrainageConstruction.ZCoordinate,
+                DrainageConstruction = input.DrainageConstruction.IsPresent 
+                                           ? new Point2D(input.DrainageConstruction.XCoordinate, input.DrainageConstruction.ZCoordinate)
+                                           : null,
                 MinimumLevelPhreaticLineAtDikeTopRiver = input.MinimumLevelPhreaticLineAtDikeTopRiver,
                 MinimumLevelPhreaticLineAtDikeTopPolder = input.MinimumLevelPhreaticLineAtDikeTopPolder,
                 AdjustPl3And4ForUplift = input.AdjustPhreaticLine3And4ForUplift,

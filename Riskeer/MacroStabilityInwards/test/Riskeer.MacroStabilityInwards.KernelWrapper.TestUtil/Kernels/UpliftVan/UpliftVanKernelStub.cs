@@ -21,11 +21,10 @@
 
 using System;
 using System.Collections.Generic;
-using Deltares.MacroStability.Data;
-using Deltares.MacroStability.Geometry;
-using Deltares.MacroStability.Standard;
+using Deltares.MacroStability.CSharpWrapper;
+using Deltares.MacroStability.CSharpWrapper.Input;
+using Deltares.MacroStability.CSharpWrapper.Output;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan;
-using WtiStabilityWaternet = Deltares.MacroStability.Geometry.Waternet;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan
 {
@@ -65,74 +64,9 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan
         public bool ReturnLogMessages { get; set; }
 
         /// <summary>
-        /// Gets the soil model.
+        /// Gets the <see cref="MacroStabilityInput"/>.
         /// </summary>
-        public IList<Soil> SoilModel { get; private set; }
-
-        /// <summary>
-        /// Gets the soil profile.
-        /// </summary>
-        public SoilProfile2D SoilProfile { get; private set; }
-
-        /// <summary>
-        /// Gets an indicator whether a grid should be moved.
-        /// </summary>
-        public bool MoveGrid { get; private set; }
-
-        /// <summary>
-        /// Gets the maximum slice width.
-        /// </summary>
-        public double MaximumSliceWidth { get; private set; }
-
-        /// <summary>
-        /// Gets the surface line.
-        /// </summary>
-        public SurfaceLine2 SurfaceLine { get; private set; }
-
-        /// <summary>
-        /// Gets the slip plane uplift van object.
-        /// </summary>
-        public SlipPlaneUpliftVan SlipPlaneUpliftVan { get; private set; }
-
-        /// <summary>
-        /// Gets the slip plane constraints object.
-        /// </summary>
-        public SlipPlaneConstraints SlipPlaneConstraints { get; private set; }
-
-        /// <summary>
-        /// Gets an indicator whether a grid should be automatically determined by the kernel.
-        /// </summary>
-        public bool GridAutomaticDetermined { get; private set; }
-
-        /// <summary>
-        /// Gets an indicator whether tangent lines should be automatically determined by the kernel.
-        /// </summary>
-        public bool TangentLinesAutomaticDetermined { get; private set; }
-
-        /// <summary>
-        /// Gets the Waternet daily.
-        /// </summary>
-        public WtiStabilityWaternet WaternetDaily { get; private set; }
-
-        /// <summary>
-        /// Gets the Waternet extreme.
-        /// </summary>
-        public WtiStabilityWaternet WaternetExtreme { get; private set; }
-
-        /// <summary>
-        /// Gets the fixed soil stresses.
-        /// </summary>
-        public IEnumerable<FixedSoilStress> SoilStresses { get; private set; }
-
-        /// <summary>
-        /// Gets the preconsolidation stresses.
-        /// </summary>
-        public IEnumerable<PreConsolidationStress> PreConsolidationStresses { get; private set; }
-
-        /// <summary>
-        /// Gets an indicator whether forbidden zones should be automatically determined by the kernel.
-        /// </summary>
-        public bool AutomaticForbiddenZones { get; private set; }
+        public MacroStabilityInput KernelInput { get; private set; }
 
         public double FactorOfStability { get; set; }
 
@@ -140,80 +74,19 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan
 
         public double ForbiddenZonesXEntryMax { get; set; }
 
-        public SlidingDualCircle SlidingCurveResult { get; set; }
+        public DualSlidingCircleMinimumSafetyCurve SlidingCurveResult { get; set; }
 
-        public SlipPlaneUpliftVan SlipPlaneResult { get; set; }
+        public UpliftVanCalculationGrid UpliftVanCalculationGridResult { get; set; }
 
-        public IEnumerable<LogMessage> CalculationMessages { get; private set; }
+        public IEnumerable<Message> CalculationMessages { get; private set; }
 
-        public void SetSlipPlaneUpliftVan(SlipPlaneUpliftVan slipPlaneUpliftVan)
+        /// <summary>
+        /// Sets the <see cref="MacroStabilityInput"/>.
+        /// </summary>
+        /// <param name="input">The input to set.</param>
+        public void SetInput(MacroStabilityInput input)
         {
-            SlipPlaneUpliftVan = slipPlaneUpliftVan;
-        }
-
-        public void SetSlipPlaneConstraints(SlipPlaneConstraints slipPlaneConstraints)
-        {
-            SlipPlaneConstraints = slipPlaneConstraints;
-        }
-
-        public void SetSoilModel(IList<Soil> soilModel)
-        {
-            SoilModel = soilModel;
-        }
-
-        public void SetSoilProfile(SoilProfile2D soilProfile)
-        {
-            SoilProfile = soilProfile;
-        }
-
-        public void SetWaternetDaily(WtiStabilityWaternet waternetDaily)
-        {
-            WaternetDaily = waternetDaily;
-        }
-
-        public void SetWaternetExtreme(WtiStabilityWaternet waternetExtreme)
-        {
-            WaternetExtreme = waternetExtreme;
-        }
-
-        public void SetMoveGrid(bool moveGrid)
-        {
-            MoveGrid = moveGrid;
-        }
-
-        public void SetMaximumSliceWidth(double maximumSliceWidth)
-        {
-            MaximumSliceWidth = maximumSliceWidth;
-        }
-
-        public void SetSurfaceLine(SurfaceLine2 surfaceLine)
-        {
-            SurfaceLine = surfaceLine;
-        }
-
-        public void SetGridAutomaticDetermined(bool gridAutomaticDetermined)
-        {
-            GridAutomaticDetermined = gridAutomaticDetermined;
-        }
-
-        public void SetTangentLinesAutomaticDetermined(bool tangentLinesAutomaticDetermined)
-        {
-            TangentLinesAutomaticDetermined = tangentLinesAutomaticDetermined;
-        }
-
-        public void SetFixedSoilStresses(IEnumerable<FixedSoilStress> soilStresses)
-        {
-            SoilStresses = soilStresses;
-        }
-
-        public void SetPreConsolidationStresses(IEnumerable<PreConsolidationStress> preConsolidationStresses)
-        {
-            PreConsolidationStresses = preConsolidationStresses;
-        }
-
-        public void SetAutomaticForbiddenZones(bool automaticForbiddenZones)
-        {
-            AutomaticForbiddenZones = automaticForbiddenZones;
+            KernelInput = input;
         }
 
         public void Calculate()
@@ -222,17 +95,14 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan
             {
                 CalculationMessages = new[]
                 {
-                    new LogMessage(LogMessageType.Trace, "subject", "Calculation Trace"),
-                    new LogMessage(LogMessageType.Debug, "subject", "Calculation Debug"),
-                    new LogMessage(LogMessageType.Info, "subject", "Calculation Info"),
-                    new LogMessage(LogMessageType.Warning, "subject", "Calculation Warning"),
-                    new LogMessage(LogMessageType.Error, "subject", "Calculation Error"),
-                    new LogMessage(LogMessageType.FatalError, "subject", "Calculation Fatal Error")
+                    CreateMessage(MessageType.Warning, "Calculation Warning"),
+                    CreateMessage(MessageType.Error, "Calculation Error"),
+                    CreateMessage(MessageType.Info, "Calculation Info")
                 };
             }
             else
             {
-                CalculationMessages = new LogMessage[0];
+                CalculationMessages = new Message[0];
             }
 
             if (ThrowExceptionOnCalculate)
@@ -243,7 +113,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan
             Calculated = true;
         }
 
-        public IEnumerable<IValidationResult> Validate()
+        public IEnumerable<Message> Validate()
         {
             if (ThrowExceptionOnValidate)
             {
@@ -252,13 +122,21 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan
 
             if (ReturnValidationResults)
             {
-                yield return new ValidationResult(ValidationResultType.Warning, "Validation Warning");
-                yield return new ValidationResult(ValidationResultType.Error, "Validation Error");
-                yield return new ValidationResult(ValidationResultType.Info, "Validation Info");
-                yield return new ValidationResult(ValidationResultType.Debug, "Validation Debug");
+                yield return CreateMessage(MessageType.Warning, "Validation Warning");
+                yield return CreateMessage(MessageType.Error, "Validation Error");
+                yield return CreateMessage(MessageType.Info, "Validation Info");
             }
 
             Validated = true;
+        }
+
+        private static Message CreateMessage(MessageType messageType, string message)
+        {
+            return new Message
+            {
+                MessageType = messageType,
+                Content = message
+            };
         }
     }
 }

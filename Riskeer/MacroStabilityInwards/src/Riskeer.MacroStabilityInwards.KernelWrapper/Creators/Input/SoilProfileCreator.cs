@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Deltares.MacroStability.CSharpWrapper.Input;
 using Deltares.MacroStability.Geometry;
 using Deltares.MacroStability.Standard;
 using Point2D = Core.Common.Base.Geometry.Point2D;
@@ -40,14 +41,14 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
         /// <param name="layersWithSoil">The layer data to use in the <see cref="SoilProfile2D"/>.</param>
         /// <returns>A new <see cref="SoilProfile2D"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public static SoilProfile2D Create(IEnumerable<LayerWithSoil> layersWithSoil)
+        public static SoilProfile Create(IEnumerable<LayerWithSoil> layersWithSoil)
         {
             if (layersWithSoil == null)
             {
                 throw new ArgumentNullException(nameof(layersWithSoil));
             }
 
-            var profile = new SoilProfile2D();
+            var profile = new SoilProfile();
 
             var alreadyCreatedPoints = new List<WtiStabilityPoint2D>();
             var alreadyCreatedCurves = new List<GeometryCurve>();

@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Geometry;
+using Deltares.MacroStability.CSharpWrapper.Input;
 using Deltares.MacroStability.Geometry;
 using Riskeer.MacroStabilityInwards.Primitives;
 
@@ -41,14 +42,14 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
         /// which to take the information.</param>
         /// <returns>A new <see cref="SurfaceLine2"/> with information taken from the <see cref="surfaceLine"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="surfaceLine"/> is <c>null</c>.</exception>
-        public static SurfaceLine2 Create(MacroStabilityInwardsSurfaceLine surfaceLine)
+        public static SurfaceLine Create(MacroStabilityInwardsSurfaceLine surfaceLine)
         {
             if (surfaceLine == null)
             {
                 throw new ArgumentNullException(nameof(surfaceLine));
             }
 
-            var wtiSurfaceLine = new SurfaceLine2
+            var wtiSurfaceLine = new SurfaceLine
             {
                 Name = surfaceLine.Name
             };

@@ -23,16 +23,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.TestUtil;
-using Core.Common.Util.Extensions;
 using Core.Common.Util.Reflection;
-using Deltares.MacroStability.Data;
-using Deltares.MacroStability.Geometry;
-using Deltares.MacroStability.Kernel;
-using Deltares.MacroStability.Preprocessing;
-using Deltares.MacroStability.Standard;
+using Deltares.MacroStability.CSharpWrapper.Input;
+using Deltares.MacroStability.CSharpWrapper.Output;
 using NUnit.Framework;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan;
-using WtiStabilityWaternet = Deltares.MacroStability.Geometry.Waternet;
+using WtiStabilityWaternet = Deltares.MacroStability.CSharpWrapper.Waternet;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
 {
@@ -51,13 +47,12 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
             Assert.IsNaN(kernel.ForbiddenZonesXEntryMin);
             Assert.IsNaN(kernel.ForbiddenZonesXEntryMax);
             Assert.IsNull(kernel.SlidingCurveResult);
-            Assert.IsNull(kernel.SlipPlaneResult);
+            Assert.IsNull(kernel.UpliftVanCalculationGridResult);
             Assert.IsNull(kernel.CalculationMessages);
 
-            var kernelModel = TypeUtils.GetField<KernelModel>(kernel, "kernelModel");
-            StabilityModel stabilityModel = kernelModel.StabilityModel;
+            var input = TypeUtils.GetField<MacroStabilityInput>(kernel, "input");
 
-            AssertConstructorValues(stabilityModel, kernelModel);
+            AssertConstructorValues(input);
         }
 
         [Test]
@@ -88,10 +83,10 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
 
             // Call
             var kernel = new UpliftVanKernelWrapper();
-            kernel.SetSoilModel(soilModel);
+            kernel.SetSoils(soilModel);
             kernel.SetSoilProfile(soilProfile2D);
             kernel.SetMaximumSliceWidth(maximumSliceWidth);
-            kernel.SetSlipPlaneUpliftVan(slipPlaneUpliftVan);
+            kernel.SetUpliftVanCalculationGrid(slipPlaneUpliftVan);
             kernel.SetSurfaceLine(surfaceLine);
             kernel.SetMoveGrid(moveGrid);
             kernel.SetGridAutomaticDetermined(gridAutomaticDetermined);
@@ -100,7 +95,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
             kernel.SetWaternetDaily(waternetDaily);
             kernel.SetWaternetExtreme(waternetExtreme);
             kernel.SetFixedSoilStresses(fixedSoilStresses);
-            kernel.SetPreConsolidationStresses(preConsolidationStresses);
+            kernel.SetPreconsolidationStresses(preConsolidationStresses);
             kernel.SetAutomaticForbiddenZones(automaticForbiddenZones);
 
             // Assert
@@ -162,7 +157,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
             Assert.IsNaN(kernel.ForbiddenZonesXEntryMax);
             Assert.IsNaN(kernel.ForbiddenZonesXEntryMin);
             Assert.IsNull(kernel.SlidingCurveResult);
-            Assert.IsNull(kernel.SlipPlaneResult);
+            Assert.IsNull(kernel.UpliftVanCalculationGridResult);
         }
 
         [Test]
@@ -191,7 +186,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
             Assert.IsFalse(double.IsNaN(kernel.ForbiddenZonesXEntryMin));
             Assert.IsFalse(double.IsNaN(kernel.ForbiddenZonesXEntryMax));
             Assert.IsNotNull(kernel.SlidingCurveResult);
-            Assert.IsNotNull(kernel.SlipPlaneResult);
+            Assert.IsNotNull(kernel.UpliftVanCalculationGridResult);
         }
 
         [Test]
@@ -243,23 +238,22 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
             Assert.AreEqual(11, validationMessages.Count());
         }
 
-        private static void AssertConstructorValues(StabilityModel stabilityModel, KernelModel kernelModel)
+        private static void AssertConstructorValues(MacroStabilityInput input)
         {
-            Assert.AreEqual(GridOrientation.Inwards, stabilityModel.GridOrientation);
-            Assert.IsNotNull(stabilityModel.SlipCircle);
-            Assert.AreEqual(SearchAlgorithm.Grid, stabilityModel.SearchAlgorithm);
-            Assert.AreEqual(ModelOptions.UpliftVan, stabilityModel.ModelOption);
+            Assert.AreEqual(Orientation.Inwards, input.StabilityModel.Orientation);
+            Assert.IsNotNull(input.StabilityModel.BishopCalculationCircle);
+            Assert.AreEqual(SearchAlgorithm.Grid, input.StabilityModel.SearchAlgorithm);
+            Assert.AreEqual(StabilityModelOptionType.UpliftVan, input.StabilityModel.ModelOption);
             
-            Assert.AreEqual(0.8, kernelModel.PreprocessingModel.SearchAreaConditions.MaxSpacingBetweenBoundaries);
-            Assert.IsTrue(kernelModel.PreprocessingModel.SearchAreaConditions.OnlyAbovePleistoceen);
+            Assert.AreEqual(0.8, input.PreprocessingInput.SearchAreaConditions.MaxSpacingBetweenBoundaries);
+            Assert.IsTrue(input.PreprocessingInput.SearchAreaConditions.OnlyAbovePleistoceen);
 
-            Assert.AreEqual(2, kernelModel.PreprocessingModel.PreProcessingConstructionStages.Count);
-            kernelModel.PreprocessingModel.PreProcessingConstructionStages.ForEachElementDo(
-                ppcs => Assert.AreSame(stabilityModel, ppcs.StabilityModel));
+            Assert.AreEqual(2, input.PreprocessingInput.PreConstructionStages.Count);
+            Assert.IsTrue(input.PreprocessingInput.PreConstructionStages.All(stage => stage.WaternetCreationMode == WaternetCreationMode.FillInWaternetValues));
         }
 
-        private static void AssertConstructionStages(IEnumerable<ConstructionStage> constructionStages, SoilProfile2D soilProfile2D, IEnumerable<WtiStabilityWaternet> waternets,
-                                                     IEnumerable<FixedSoilStress> fixedSoilStresses, IEnumerable<PreConsolidationStress> preConsolidationStresses)
+        private static void AssertConstructionStages(IEnumerable<ConstructionStage> constructionStages, SoilProfile soilProfile2D, IEnumerable<WtiStabilityWaternet> waternets,
+                                                     IEnumerable<FixedSoilStress> fixedSoilStresses, IEnumerable<PreconsolidationStress> preConsolidationStresses)
         {
             Assert.AreEqual(2, constructionStages.Count());
 
@@ -267,16 +261,16 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
             {
                 ConstructionStage constructionStage = constructionStages.ElementAt(i);
 
-                Assert.AreSame(waternets.ElementAt(i), constructionStage.GeotechnicsData.CurrentWaternet);
+                Assert.AreSame(waternets.ElementAt(i), constructionStage.Waternet);
                 Assert.AreSame(soilProfile2D, constructionStage.SoilProfile);
-                Assert.AreEqual(1, constructionStage.MultiplicationFactorsCPhiForUpliftList.Count);
-                Assert.AreEqual(1.2, constructionStage.MultiplicationFactorsCPhiForUpliftList[0].UpliftFactor);
-                Assert.AreEqual(0.0, constructionStage.MultiplicationFactorsCPhiForUpliftList[0].MultiplicationFactor);
+                Assert.AreEqual(1, constructionStage.MultiplicationFactorsCPhiForUplift.Count);
+                Assert.AreEqual(1.2, constructionStage.MultiplicationFactorsCPhiForUplift.ElementAt(0).UpliftFactor);
+                Assert.AreEqual(0.0, constructionStage.MultiplicationFactorsCPhiForUplift.ElementAt(0).MultiplicationFactor);
             }
 
-            CollectionAssert.AreEqual(fixedSoilStresses, constructionStages.First().SoilStresses);
+            CollectionAssert.AreEqual(fixedSoilStresses, constructionStages.First().FixedSoilStresses);
             CollectionAssert.AreEqual(preConsolidationStresses, constructionStages.First().PreconsolidationStresses);
-            CollectionAssert.IsEmpty(constructionStages.Last().SoilStresses);
+            CollectionAssert.IsEmpty(constructionStages.Last().FixedSoilStresses);
             CollectionAssert.IsEmpty(constructionStages.Last().PreconsolidationStresses);
         }
 
@@ -317,7 +311,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
                 OuterLoop = loop
             };
             var kernelWrapper = new UpliftVanKernelWrapper();
-            kernelWrapper.SetSoilModel(new List<Soil>
+            kernelWrapper.SetSoils(new List<Soil>
             {
                 soil
             });
@@ -368,7 +362,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
                     }
                 }
             });
-            kernelWrapper.SetSlipPlaneUpliftVan(new SlipPlaneUpliftVan
+            kernelWrapper.SetUpliftVanCalculationGrid(new SlipPlaneUpliftVan
             {
                 SlipPlaneLeftGrid = new SlipCircleGrid
                 {
@@ -451,7 +445,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
                 OuterLoop = loop
             };
             var kernelWrapper = new UpliftVanKernelWrapper();
-            kernelWrapper.SetSoilModel(new List<Soil>
+            kernelWrapper.SetSoils(new List<Soil>
             {
                 soil
             });
@@ -491,7 +485,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
                     }
                 }
             });
-            kernelWrapper.SetSlipPlaneUpliftVan(new SlipPlaneUpliftVan());
+            kernelWrapper.SetUpliftVanCalculationGrid(new SlipPlaneUpliftVan());
             kernelWrapper.SetMoveGrid(true);
             kernelWrapper.SetMaximumSliceWidth(0);
             kernelWrapper.SetSlipPlaneConstraints(new SlipPlaneConstraints());
@@ -499,7 +493,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
             return kernelWrapper;
         }
 
-        private static void AssertIrrelevantValues(StabilityModel stabilityModel)
+        private static void AssertIrrelevantValues(StabilityInput stabilityModel)
         {
             Assert.IsNotNull(stabilityModel.BeeswarmOptions);
             Assert.IsNotNull(stabilityModel.SpencerSlipPlanes);

@@ -23,7 +23,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Deltares.MacroStability.CSharpWrapper;
-using Deltares.MacroStability.CSharpWrapper.Input;
 using Deltares.MacroStability.CSharpWrapper.Output;
 using Deltares.MacroStability.CSharpWrapper.Output.WaternetCreator;
 using Deltares.MacroStability.Standard;
@@ -37,8 +36,9 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.Waternet
     /// </summary>
     internal class WaternetKernelWrapper : IWaternetKernel
     {
+        private readonly ICalculator calculator;
+        private readonly IValidator validator;
         private readonly string waternetName;
-        private readonly MacroStabilityInput input;
 
         /// <summary>
         /// Creates a new instance of <see cref="WaternetKernelWrapper"/>.
@@ -46,57 +46,19 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.Waternet
         /// <param name="location">The <see cref="Location"/> to use.</param>
         /// <param name="waternetName">The name of the <see cref="Waternet"/>.</param>
         /// <param name="waternetCreatorInput"></param>
-        public WaternetKernelWrapper(WaternetCreatorInput waternetCreatorInput, string waternetName)
+        public WaternetKernelWrapper(ICalculator calculator, IValidator validator, string waternetName)
         {
+            this.calculator = calculator;
+            this.validator = validator;
             this.waternetName = waternetName;
-
-            input = new MacroStabilityInput
-            {
-                StabilityModel =
-                {
-                    ConstructionStages =
-                    {
-                        new ConstructionStage()
-                    }
-                },
-                PreprocessingInput =
-                {
-                    PreConstructionStages =
-                    {
-                        new PreConstructionStage
-                        {
-                            WaternetCreationMode = WaternetCreationMode.CreateWaternet,
-                            WaternetCreatorInput = waternetCreatorInput
-                        }
-                    }
-                }
-            };
-
         }
 
         public WtiStabilityWaternet Waternet { get; private set; }
-
-        public void SetSoils(ICollection<Soil> soils)
-        {
-            input.StabilityModel.Soils = soils;
-        }
-
-        public void SetSoilProfile(SoilProfile soilProfile)
-        {
-            input.StabilityModel.ConstructionStages.First().SoilProfile = soilProfile;
-        }
-
-        public void SetSurfaceLine(SurfaceLine surfaceLine)
-        {
-            input.PreprocessingInput.PreConstructionStages.First().SurfaceLine = surfaceLine;
-        }
 
         public void Calculate()
         {
             try
             {
-                var calculator = new Calculator(input);
-
                 CheckIfWaternetCanBeGenerated();
 
                 WaternetCreatorOutput output = calculator.CalculateWaternet(0);
@@ -116,7 +78,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.Waternet
         {
             try
             {
-                var validator = new Validator(input);
                 ValidationOutput output = validator.ValidateWaternetCreator();
                 return output.Messages;
             }
@@ -132,7 +93,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.Waternet
         /// <exception cref="WaternetKernelWrapperException">Thrown when the Waternet can not be generated.</exception>
         private void CheckIfWaternetCanBeGenerated()
         {
-            var validator = new Validator(input);
             ValidationOutput output = validator.ValidateWaternetCreator();
 
             if(!output.IsValid)

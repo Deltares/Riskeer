@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Deltares.MacroStability.WaternetCreator;
+using Deltares.MacroStability.CSharpWrapper.Input;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Kernels;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.Waternet;
@@ -52,24 +52,25 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels
         /// </summary>
         public WaternetKernelStub LastCreatedWaternetKernel { get; }
 
-        public IUpliftVanKernel CreateUpliftVanKernel()
+        public IUpliftVanKernel CreateUpliftVanKernel(MacroStabilityInput kernelInput)
         {
+            LastCreatedUpliftVanKernel.SetInput(kernelInput);
             return LastCreatedUpliftVanKernel;
         }
 
-        public IWaternetKernel CreateWaternetExtremeKernel(Location location)
+        public IWaternetKernel CreateWaternetExtremeKernel(MacroStabilityInput kernelInput)
         {
-            return CreateWaternetKernel(location);
+            return CreateWaternetKernel(kernelInput);
         }
 
-        public IWaternetKernel CreateWaternetDailyKernel(Location location)
+        public IWaternetKernel CreateWaternetDailyKernel(MacroStabilityInput kernelInput)
         {
-            return CreateWaternetKernel(location);
+            return CreateWaternetKernel(kernelInput);
         }
 
-        private IWaternetKernel CreateWaternetKernel(Location location)
+        private IWaternetKernel CreateWaternetKernel(MacroStabilityInput kernelInput)
         {
-            LastCreatedWaternetKernel.SetLocation(location);
+            LastCreatedWaternetKernel.SetInput(kernelInput);
             return LastCreatedWaternetKernel;
         }
     }

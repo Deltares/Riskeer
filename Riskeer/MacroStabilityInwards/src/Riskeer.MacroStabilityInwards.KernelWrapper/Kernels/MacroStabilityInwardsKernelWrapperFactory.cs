@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using Deltares.MacroStability.CSharpWrapper;
+using Deltares.MacroStability.CSharpWrapper.Input;
 using Deltares.MacroStability.WaternetCreator;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.Waternet;
@@ -39,29 +41,23 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels
         /// </summary>
         public static IMacroStabilityInwardsKernelFactory Instance
         {
-            get
-            {
-                return instance ?? (instance = new MacroStabilityInwardsKernelWrapperFactory());
-            }
-            set
-            {
-                instance = value;
-            }
+            get => instance ?? (instance = new MacroStabilityInwardsKernelWrapperFactory());
+            set => instance = value;
         }
 
-        public IUpliftVanKernel CreateUpliftVanKernel()
+        public IUpliftVanKernel CreateUpliftVanKernel(MacroStabilityInput kernelInput)
         {
-            return new UpliftVanKernelWrapper();
+            return new UpliftVanKernelWrapper(new Calculator(kernelInput), new Validator(kernelInput));
         }
 
-        public IWaternetKernel CreateWaternetExtremeKernel(Location location)
+        public IWaternetKernel CreateWaternetExtremeKernel(MacroStabilityInput kernelInput)
         {
-            return new WaternetKernelWrapper(location, "WaternetExtreme");
+            return new WaternetKernelWrapper(new Calculator(kernelInput), new Validator(kernelInput), "WaternetExtreme");
         }
 
-        public IWaternetKernel CreateWaternetDailyKernel(Location location)
+        public IWaternetKernel CreateWaternetDailyKernel(MacroStabilityInput kernelInput)
         {
-            return new WaternetKernelWrapper(location, "WaternetDaily");
+            return new WaternetKernelWrapper(new Calculator(kernelInput), new Validator(kernelInput), "WaternetDaily");
         }
     }
 }

@@ -23,61 +23,25 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Deltares.MacroStability.CSharpWrapper;
-using Deltares.MacroStability.CSharpWrapper.Input;
 using Deltares.MacroStability.CSharpWrapper.Output;
-using ConstructionStage = Deltares.MacroStability.CSharpWrapper.Input.ConstructionStage;
-using MacroStabilityInput = Deltares.MacroStability.CSharpWrapper.Input.MacroStabilityInput;
-using Orientation = Deltares.MacroStability.CSharpWrapper.Input.Orientation;
-using SearchAlgorithm = Deltares.MacroStability.CSharpWrapper.Input.SearchAlgorithm;
-using WtiStabilityWaternet = Deltares.MacroStability.CSharpWrapper.Waternet;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
 {
     /// <summary>
-    /// Class that wraps <see cref="WTIStabilityCalculation"/> for performing an Uplift Van calculation.
+    /// Class that wraps the <see cref="Deltares.MacroStability.CSharpWrapper"/> for performing an Uplift Van calculation.
     /// </summary>
     internal class UpliftVanKernelWrapper : IUpliftVanKernel
     {
-        private readonly MacroStabilityInput macroStabilityInput;
+        private readonly ICalculator calculator;
+        private readonly IValidator validator;
 
         /// <summary>
         /// Creates a new instance of <see cref="UpliftVanKernelWrapper"/>.
         /// </summary>
-        public UpliftVanKernelWrapper()
+        public UpliftVanKernelWrapper(ICalculator calculator, IValidator validator)
         {
-            macroStabilityInput = new MacroStabilityInput
-            {
-                StabilityModel =
-                {
-                    Orientation = Orientation.Inwards,
-                    SearchAlgorithm = SearchAlgorithm.Grid,
-                    ModelOption = StabilityModelOptionType.UpliftVan,
-                    ConstructionStages =
-                    {
-                        AddConstructionStage(),
-                        AddConstructionStage()
-                    }
-                },
-                PreprocessingInput =
-                {
-                    SearchAreaConditions =
-                    {
-                        MaxSpacingBetweenBoundaries = 0.8,
-                        OnlyAbovePleistoceen = true
-                    },
-                    PreConstructionStages =
-                    {
-                        new PreConstructionStage
-                        {
-                            WaternetCreationMode = WaternetCreationMode.FillInWaternetValues
-                        },
-                        new PreConstructionStage
-                        {
-                            WaternetCreationMode = WaternetCreationMode.FillInWaternetValues
-                        }
-                    }
-                }
-            };
+            this.calculator = calculator;
+            this.validator = validator;
 
             FactorOfStability = double.NaN;
             ForbiddenZonesXEntryMin = double.NaN;
@@ -92,101 +56,14 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
 
         public DualSlidingCircleMinimumSafetyCurve SlidingCurveResult { get; private set; }
 
-        public UpliftVanCalculationGrid SlipPlaneResult { get; private set; }
+        public UpliftVanCalculationGrid UpliftVanCalculationGridResult { get; private set; }
 
         public IEnumerable<Message> CalculationMessages { get; private set; }
-
-        public void SetSoilModel(IEnumerable<Soil> soilModel)
-        {
-            foreach (Soil soil in soilModel)
-            {
-                macroStabilityInput.StabilityModel.Soils.Add(soil);
-            }
-        }
-
-        public void SetSoilProfile(SoilProfile soilProfile)
-        {
-            GetDailyConstructionStage().SoilProfile = soilProfile;
-            GetExtremeConstructionStage().SoilProfile = soilProfile;
-        }
-
-        public void SetWaternetDaily(WtiStabilityWaternet waternetDaily)
-        {
-            GetDailyConstructionStage().Waternet = waternetDaily;
-        }
-
-        public void SetWaternetExtreme(WtiStabilityWaternet waternetExtreme)
-        {
-            GetExtremeConstructionStage().Waternet = waternetExtreme;
-        }
-
-        public void SetMoveGrid(bool moveGrid)
-        {
-            macroStabilityInput.StabilityModel.MoveGrid = moveGrid;
-        }
-
-        public void SetMaximumSliceWidth(double maximumSliceWidth)
-        {
-            macroStabilityInput.StabilityModel.MaximumSliceWidth = maximumSliceWidth;
-        }
-
-        public void SetSlipPlaneUpliftVan(UpliftVanCalculationGrid slipPlaneUpliftVan)
-        {
-            macroStabilityInput.StabilityModel.UpliftVanCalculationGrid = slipPlaneUpliftVan;
-        }
-
-        public void SetSurfaceLine(SurfaceLine surfaceLine)
-        {
-            foreach (PreConstructionStage preConstructionStage in macroStabilityInput.PreprocessingInput.PreConstructionStages)
-            {
-                preConstructionStage.SurfaceLine = surfaceLine;
-            }
-        }
-
-        public void SetSlipPlaneConstraints(SlipPlaneConstraints slipPlaneConstraints)
-        {
-            macroStabilityInput.StabilityModel.SlipPlaneConstraints = slipPlaneConstraints;
-        }
-
-        public void SetGridAutomaticDetermined(bool gridAutomaticDetermined)
-        {
-            macroStabilityInput.PreprocessingInput.SearchAreaConditions.AutoSearchArea = gridAutomaticDetermined;
-        }
-
-        public void SetTangentLinesAutomaticDetermined(bool tangentLinesAutomaticDetermined)
-        {
-            macroStabilityInput.PreprocessingInput.SearchAreaConditions.AutoTangentLines = tangentLinesAutomaticDetermined;
-        }
-
-        public void SetFixedSoilStresses(IEnumerable<FixedSoilStress> soilStresses)
-        {
-            ConstructionStage stage = GetDailyConstructionStage();
-            foreach (FixedSoilStress soilStress in soilStresses)
-            {
-                stage.FixedSoilStresses.Add(soilStress);
-            }
-        }
-
-        public void SetPreConsolidationStresses(IEnumerable<PreconsolidationStress> preconsolidationStresses)
-        {
-            ConstructionStage stage = GetDailyConstructionStage();
-
-            foreach (PreconsolidationStress preconsolidationStress in preconsolidationStresses)
-            {
-                stage.PreconsolidationStresses.Add(preconsolidationStress);
-            }
-        }
-
-        public void SetAutomaticForbiddenZones(bool automaticForbiddenZones)
-        {
-            macroStabilityInput.PreprocessingInput.SearchAreaConditions.AutomaticForbiddenZones = automaticForbiddenZones;
-        }
 
         public void Calculate()
         {
             try
             {
-                var calculator = new Calculator(macroStabilityInput);
                 MacroStabilityOutput output = calculator.Calculate();
 
                 CalculationMessages = output.StabilityOutput.Messages ?? Enumerable.Empty<Message>();
@@ -202,7 +79,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
         {
             try
             {
-                var validator = new Validator(macroStabilityInput);
                 ValidationOutput output = validator.Validate();
                 return output.Messages;
             }
@@ -212,31 +88,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
             }
         }
 
-        private ConstructionStage GetDailyConstructionStage()
-        {
-            return macroStabilityInput.StabilityModel.ConstructionStages.First();
-        }
-
-        private ConstructionStage GetExtremeConstructionStage()
-        {
-            return macroStabilityInput.StabilityModel.ConstructionStages.Last();
-        }
-
-        private static ConstructionStage AddConstructionStage()
-        {
-            return new ConstructionStage
-            {
-                MultiplicationFactorsCPhiForUplift = 
-                {
-                    new MultiplicationFactorsCPhiForUplift
-                    {
-                        MultiplicationFactor = 0.0,
-                        UpliftFactor = 1.2
-                    }
-                }
-            };
-        }
-
         private void SetResults(MacroStabilityOutput output)
         {
             FactorOfStability = output.StabilityOutput.SafetyFactor;
@@ -244,7 +95,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
             ForbiddenZonesXEntryMax = output.PreprocessingOutputBase.ForbiddenZone.XEntryMax;
 
             SlidingCurveResult = (DualSlidingCircleMinimumSafetyCurve) output.StabilityOutput.MinimumSafetyCurve;
-            SlipPlaneResult = ((UpliftVanPreprocessingOutput) output.PreprocessingOutputBase).UpliftVanCalculationGrid;
+            UpliftVanCalculationGridResult = ((UpliftVanPreprocessingOutput) output.PreprocessingOutputBase).UpliftVanCalculationGrid;
         }
     }
 }

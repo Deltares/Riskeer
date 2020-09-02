@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Deltares.MacroStability.CSharpWrapper;
 using Deltares.MacroStability.Data;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input;
@@ -39,17 +40,17 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
         /// <param name="slipPlane">The <see cref="UpliftVanSlipPlane"/> to get the information from.</param>
         /// <returns>A new <see cref="SlipPlaneUpliftVan"/> with the given information from <paramref name="slipPlane"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="slipPlane"/> is <c>null</c>.</exception>
-        public static SlipPlaneUpliftVan Create(UpliftVanSlipPlane slipPlane)
+        public static UpliftVanCalculationGrid Create(UpliftVanSlipPlane slipPlane)
         {
             if (slipPlane == null)
             {
                 throw new ArgumentNullException(nameof(slipPlane));
             }
 
-            var kernelSlipPlane = new SlipPlaneUpliftVan
+            var kernelSlipPlane = new UpliftVanCalculationGrid
             {
-                SlipPlaneLeftGrid = CreateGrid(slipPlane, slipPlane.LeftGrid),
-                SlipPlaneRightGrid = CreateGrid(slipPlane, slipPlane.RightGrid),
+                LeftGrid = CreateGrid(slipPlane, slipPlane.LeftGrid),
+                RightGrid = CreateGrid(slipPlane, slipPlane.RightGrid),
                 SlipPlaneTangentLine = CreateTangentLine(slipPlane)
             };
 

@@ -21,11 +21,10 @@
 
 using System;
 using System.Collections.Generic;
-using Deltares.MacroStability.Geometry;
-using Deltares.MacroStability.Standard;
-using Deltares.MacroStability.WaternetCreator;
+using Deltares.MacroStability.CSharpWrapper.Input;
+using Deltares.MacroStability.CSharpWrapper.Output;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.Waternet;
-using WtiStabilityWaternet = Deltares.MacroStability.Geometry.Waternet;
+using WtiStabilityWaternet = Deltares.MacroStability.CSharpWrapper.Waternet;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.Waternet
 {
@@ -60,39 +59,19 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.Waternet
         public bool ReturnValidationResults { get; set; }
 
         /// <summary>
-        /// Gets the location.
+        /// Gets the <see cref="MacroStabilityInput"/>.
         /// </summary>
-        public Location Location { get; private set; }
-
-        /// <summary>
-        /// Gets the soil profile.
-        /// </summary>
-        public SoilProfile2D SoilProfile { get; private set; }
-
-        /// <summary>
-        /// Gets the surface line.
-        /// </summary>
-        public SurfaceLine2 SurfaceLine { get; private set; }
+        public MacroStabilityInput KernelInput { get; private set; }
 
         public WtiStabilityWaternet Waternet { get; set; }
 
         /// <summary>
-        /// Sets the location.
+        /// Sets the <see cref="MacroStabilityInput"/>.
         /// </summary>
-        /// <param name="location">The <see cref="Location"/> to set.</param>
-        public void SetLocation(Location location)
+        /// <param name="input">The input to set.</param>
+        public void SetInput(MacroStabilityInput input)
         {
-            Location = location;
-        }
-
-        public void SetSoilProfile(SoilProfile2D soilProfile)
-        {
-            SoilProfile = soilProfile;
-        }
-
-        public void SetSurfaceLine(SurfaceLine2 surfaceLine)
-        {
-            SurfaceLine = surfaceLine;
+            KernelInput = input;
         }
 
         public void Calculate()
@@ -105,7 +84,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.Waternet
             Calculated = true;
         }
 
-        public IEnumerable<IValidationResult> Validate()
+        public IEnumerable<Message> Validate()
         {
             if (ThrowExceptionOnValidate)
             {
@@ -114,13 +93,21 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.Waternet
 
             if (ReturnValidationResults)
             {
-                yield return new ValidationResult(ValidationResultType.Warning, "Validation Warning");
-                yield return new ValidationResult(ValidationResultType.Error, "Validation Error");
-                yield return new ValidationResult(ValidationResultType.Info, "Validation Info");
-                yield return new ValidationResult(ValidationResultType.Debug, "Validation Debug");
+                yield return CreateMessage(MessageType.Warning, "Validation Warning");
+                yield return CreateMessage(MessageType.Error, "Validation Error");
+                yield return CreateMessage(MessageType.Info, "Validation Info");
             }
 
             Validated = true;
+        }
+
+        private static Message CreateMessage(MessageType messageType, string message)
+        {
+            return new Message
+            {
+                MessageType = messageType,
+                Content = message
+            };
         }
     }
 }

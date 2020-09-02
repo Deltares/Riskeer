@@ -25,6 +25,7 @@ using System.Linq;
 using Deltares.MacroStability.Geometry;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Input;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan;
+using KernelPreconsolidationStress = Deltares.MacroStability.CSharpWrapper.Input.PreconsolidationStress;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
 {
@@ -40,14 +41,14 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
         /// <returns>An <see cref="IEnumerable{T}"/> of <see cref="PreConsolidationStress"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="preconsolidationStresses"/>
         /// is <c>null</c>.</exception>
-        public static IEnumerable<PreConsolidationStress> Create(IEnumerable<PreconsolidationStress> preconsolidationStresses)
+        public static IEnumerable<KernelPreconsolidationStress> Create(IEnumerable<PreconsolidationStress> preconsolidationStresses)
         {
             if (preconsolidationStresses == null)
             {
                 throw new ArgumentNullException(nameof(preconsolidationStresses));
             }
 
-            return preconsolidationStresses.Select(preconsolidationStress => new PreConsolidationStress
+            return preconsolidationStresses.Select(preconsolidationStress => new KernelPreconsolidationStress
             {
                 StressValue = preconsolidationStress.Stress,
                 X = preconsolidationStress.Coordinate.X,

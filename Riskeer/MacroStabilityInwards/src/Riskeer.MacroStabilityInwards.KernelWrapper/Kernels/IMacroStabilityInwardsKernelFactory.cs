@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using Deltares.MacroStability.CSharpWrapper.Input;
 using Deltares.MacroStability.WaternetCreator;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.Waternet;
@@ -33,21 +34,22 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels
         /// <summary>
         /// Creates an Uplift Van kernel.
         /// </summary>
+        /// <param name="kernelInput">The input of the kernel.</param>
         /// <returns>A new <see cref="IUpliftVanKernel"/>.</returns>
-        IUpliftVanKernel CreateUpliftVanKernel();
+        IUpliftVanKernel CreateUpliftVanKernel(MacroStabilityInput kernelInput);
 
         /// <summary>
         /// Creates a Waternet kernel for extreme circumstances.
         /// </summary>
-        /// <param name="location">The <see cref="Location"/> to use.</param>
+        /// <param name="kernelInput">The input of the kernel.</param>
         /// <returns>A new <see cref="IWaternetKernel"/>.</returns>
-        IWaternetKernel CreateWaternetExtremeKernel(Location location);
+        IWaternetKernel CreateWaternetExtremeKernel(MacroStabilityInput kernelInput);
 
         /// <summary>
         /// Creates Waternet kernel for daily circumstances.
         /// </summary>
-        /// <param name="location">The <see cref="Location"/> to use.</param>
+        /// <param name="kernelInput">The input of the kernel.</param>
         /// <returns>A new <see cref="IWaternetKernel"/>.</returns>
-        IWaternetKernel CreateWaternetDailyKernel(Location location);
+        IWaternetKernel CreateWaternetDailyKernel(MacroStabilityInput kernelInput);
     }
 }

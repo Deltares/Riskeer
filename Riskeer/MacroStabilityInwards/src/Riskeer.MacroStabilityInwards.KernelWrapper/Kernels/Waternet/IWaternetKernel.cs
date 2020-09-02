@@ -46,16 +46,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.Waternet
         WtiStabilityWaternet Waternet { get; }
 
         /// <summary>
-        /// Sets the soil profile.
-        /// </summary>
-        void SetSoilProfile(SoilProfile soilProfile);
-
-        /// <summary>
-        /// Sets the surface line.
-        /// </summary>
-        void SetSurfaceLine(SurfaceLine surfaceLine);
-
-        /// <summary>
         /// Performs the Waternet calculation.
         /// </summary>
         /// <exception cref="WaternetKernelWrapperException">Thrown when
@@ -69,7 +59,5 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.Waternet
         /// <exception cref="WaternetKernelWrapperException">Thrown when 
         /// an error occurs when performing the validation.</exception>
         IEnumerable<Message> Validate();
-
-        void SetSoils(ICollection<Soil> soils);
     }
 }

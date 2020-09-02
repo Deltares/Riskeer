@@ -21,18 +21,14 @@
 
 using System;
 using System.ComponentModel;
-using Deltares.MacroStability.WaternetCreator;
+using Deltares.MacroStability.CSharpWrapper.Input;
 using Riskeer.MacroStabilityInwards.Primitives;
-using PlLineCreationMethod = Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Input.PlLineCreationMethod;
-using WaternetCreationMode = Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Input.WaternetCreationMode;
-using WtiStabilityPlLineCreationMethod = Deltares.MacroStability.WaternetCreator.PlLineCreationMethod;
-using WtiStabilityWaternetCreationMode = Deltares.MacroStability.WaternetCreator.WaternetCreationMode;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
 {
     /// <summary>
-    /// Helper class to convert properties needed in the <see cref="UpliftVanLocationCreator"/>
-    /// and <see cref="WaternetLocationCreator"/>.
+    /// Helper class to convert properties needed in the <see cref="UpliftVanWaternetCreatorInputCreator"/>
+    /// and <see cref="WaternetCreatorInputCreator"/>.
     /// </summary>
     internal static class LocationCreatorHelper
     {
@@ -64,64 +60,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
                     return DikeSoilScenario.ClayDikeOnSand;
                 case MacroStabilityInwardsDikeSoilScenario.SandDikeOnSand:
                     return DikeSoilScenario.SandDikeOnSand;
-                default:
-                    throw new NotSupportedException();
-            }
-        }
-
-        /// <summary>
-        /// Converts a <see cref="WaternetCreationMode"/> into a <see cref="WtiStabilityWaternetCreationMode"/>.
-        /// </summary>
-        /// <param name="waternetCreationMode">The <see cref="WaternetCreationMode"/> to convert.</param>
-        /// <returns>A <see cref="WtiStabilityWaternetCreationMode"/> based on <paramref name="waternetCreationMode"/>.</returns>
-        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="waternetCreationMode"/>
-        /// is an invalid value.</exception>
-        /// <exception cref="NotSupportedException">Thrown when <paramref name="waternetCreationMode"/>
-        /// is a valid value, but unsupported.</exception>
-        public static WtiStabilityWaternetCreationMode ConvertWaternetCreationMode(WaternetCreationMode waternetCreationMode)
-        {
-            if (!Enum.IsDefined(typeof(WaternetCreationMode), waternetCreationMode))
-            {
-                throw new InvalidEnumArgumentException(nameof(waternetCreationMode),
-                                                       (int) waternetCreationMode,
-                                                       typeof(WaternetCreationMode));
-            }
-
-            switch (waternetCreationMode)
-            {
-                case WaternetCreationMode.CreateWaternet:
-                    return WtiStabilityWaternetCreationMode.CreateWaternet;
-                case WaternetCreationMode.FillInWaternetValues:
-                    return WtiStabilityWaternetCreationMode.FillInWaternetValues;
-                default:
-                    throw new NotSupportedException();
-            }
-        }
-
-        /// <summary>
-        /// Converts a <see cref="PlLineCreationMethod"/> into a <see cref="WtiStabilityPlLineCreationMethod"/>.
-        /// </summary>
-        /// <param name="plLineCreationMethod">The <see cref="PlLineCreationMethod"/> to convert.</param>
-        /// <returns>A <see cref="WtiStabilityPlLineCreationMethod"/> based on <paramref name="plLineCreationMethod"/>.</returns>
-        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="plLineCreationMethod"/>
-        /// is an invalid value.</exception>
-        /// <exception cref="NotSupportedException">Thrown when <paramref name="plLineCreationMethod"/>
-        /// is a valid value, but unsupported.</exception>
-        public static WtiStabilityPlLineCreationMethod ConvertPlLineCreationMethod(PlLineCreationMethod plLineCreationMethod)
-        {
-            if (!Enum.IsDefined(typeof(PlLineCreationMethod), plLineCreationMethod))
-            {
-                throw new InvalidEnumArgumentException(nameof(plLineCreationMethod),
-                                                       (int) plLineCreationMethod,
-                                                       typeof(PlLineCreationMethod));
-            }
-
-            switch (plLineCreationMethod)
-            {
-                case PlLineCreationMethod.RingtoetsWti2017:
-                    return WtiStabilityPlLineCreationMethod.RingtoetsWti2017;
-                case PlLineCreationMethod.None:
-                    return WtiStabilityPlLineCreationMethod.None;
                 default:
                     throw new NotSupportedException();
             }

@@ -131,8 +131,8 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
             {
                 var factory = (TestMacroStabilityInwardsKernelFactory) MacroStabilityInwardsKernelWrapperFactory.Instance;
                 UpliftVanKernelStub upliftVanKernel = factory.LastCreatedUpliftVanKernel;
-                upliftVanKernel.SetWaternetDaily(factory.CreateWaternetDailyKernel(UpliftVanLocationCreator.CreateDaily(input)).Waternet);
-                upliftVanKernel.SetWaternetExtreme(factory.CreateWaternetExtremeKernel(UpliftVanLocationCreator.CreateExtreme(input)).Waternet);
+                upliftVanKernel.SetWaternetDaily(factory.CreateWaternetDailyKernel(UpliftVanWaternetCreatorInputCreator.CreateDaily(input)).Waternet);
+                upliftVanKernel.SetWaternetExtreme(factory.CreateWaternetExtremeKernel(UpliftVanWaternetCreatorInputCreator.CreateExtreme(input)).Waternet);
                 SetValidKernelOutput(upliftVanKernel);
 
                 // Call
