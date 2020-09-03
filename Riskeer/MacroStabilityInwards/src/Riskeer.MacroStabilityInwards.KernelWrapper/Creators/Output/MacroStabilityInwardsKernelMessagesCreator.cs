@@ -21,8 +21,7 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using Deltares.MacroStability.Standard;
+using Deltares.MacroStability.CSharpWrapper.Output;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Properties;
 
@@ -35,82 +34,41 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Output
     {
         /// <summary>
         /// Creates an <see cref="IEnumerable{T}"/> of <see cref="MacroStabilityInwardsKernelMessage"/> 
-        /// based on the <see cref="LogMessage"/> given in the <paramref name="logMessages"/>.
+        /// based on the <see cref="Message"/> given in the <paramref name="messages"/>.
         /// </summary>
-        /// <param name="logMessages">The log messages to create the Uplift Van kernel messages for.</param>
+        /// <param name="messages">The messages to create the Uplift Van kernel messages for.</param>
         /// <returns>A new <see cref="IEnumerable{T}"/> of <see cref="MacroStabilityInwardsKernelMessage"/> with information
-        /// taken from the <paramref name="logMessages"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="logMessages"/>
+        /// taken from the <paramref name="messages"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="messages"/>
         /// is <c>null</c>.</exception>
-        public static IEnumerable<MacroStabilityInwardsKernelMessage> CreateFromLogMessages(IEnumerable<LogMessage> logMessages)
+        public static IEnumerable<MacroStabilityInwardsKernelMessage> Create(IEnumerable<Message> messages)
         {
-            if (logMessages == null)
+            if (messages == null)
             {
-                throw new ArgumentNullException(nameof(logMessages));
+                throw new ArgumentNullException(nameof(messages));
             }
 
-            return CreateLogMessages(logMessages);
+            return CreateLogMessages(messages);
         }
 
-        /// <summary>
-        /// Creates an <see cref="IEnumerable{T}"/> of <see cref="MacroStabilityInwardsKernelMessage"/> 
-        /// based on the <see cref="IValidationResult"/> given in the <paramref name="validationResults"/>.
-        /// </summary>
-        /// <param name="validationResults">The validation results to create the Uplift Van kernel messages for.</param>
-        /// <returns>A new <see cref="IEnumerable{T}"/> of <see cref="MacroStabilityInwardsKernelMessage"/> with information
-        /// taken from the <paramref name="validationResults"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="validationResults"/>
-        /// is <c>null</c>.</exception>
-        public static IEnumerable<MacroStabilityInwardsKernelMessage> CreateFromValidationResults(IEnumerable<IValidationResult> validationResults)
+        private static IEnumerable<MacroStabilityInwardsKernelMessage> CreateLogMessages(IEnumerable<Message> messages)
         {
-            if (validationResults == null)
-            {
-                throw new ArgumentNullException(nameof(validationResults));
-            }
-
-            return CreateValidationMessages(validationResults).ToArray();
-        }
-
-        private static IEnumerable<MacroStabilityInwardsKernelMessage> CreateLogMessages(IEnumerable<LogMessage> logMessages)
-        {
-            foreach (LogMessage logMessage in logMessages)
+            foreach (Message message in messages)
             {
                 MacroStabilityInwardsKernelMessageType type;
-                switch (logMessage.MessageType)
+                switch (message.MessageType)
                 {
-                    case LogMessageType.Error:
-                    case LogMessageType.FatalError:
+                    case MessageType.Error:
                         type = MacroStabilityInwardsKernelMessageType.Error;
                         break;
-                    case LogMessageType.Warning:
+                    case MessageType.Warning:
                         type = MacroStabilityInwardsKernelMessageType.Warning;
                         break;
                     default:
                         continue;
                 }
 
-                yield return CreateMessage(type, logMessage.Message);
-            }
-        }
-
-        private static IEnumerable<MacroStabilityInwardsKernelMessage> CreateValidationMessages(IEnumerable<IValidationResult> validationResults)
-        {
-            foreach (IValidationResult logMessage in validationResults)
-            {
-                MacroStabilityInwardsKernelMessageType type;
-                switch (logMessage.MessageType)
-                {
-                    case ValidationResultType.Error:
-                        type = MacroStabilityInwardsKernelMessageType.Error;
-                        break;
-                    case ValidationResultType.Warning:
-                        type = MacroStabilityInwardsKernelMessageType.Warning;
-                        break;
-                    default:
-                        continue;
-                }
-
-                yield return CreateMessage(type, logMessage.Text);
+                yield return CreateMessage(type, message.Content);
             }
         }
 

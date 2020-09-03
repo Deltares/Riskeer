@@ -74,7 +74,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Waternet
 
             try
             {
-                return MacroStabilityInwardsKernelMessagesCreator.CreateFromValidationResults(waternetKernel.Validate().ToArray());
+                return MacroStabilityInwardsKernelMessagesCreator.Create(waternetKernel.Validate().ToArray());
             }
             catch (WaternetKernelWrapperException e)
             {

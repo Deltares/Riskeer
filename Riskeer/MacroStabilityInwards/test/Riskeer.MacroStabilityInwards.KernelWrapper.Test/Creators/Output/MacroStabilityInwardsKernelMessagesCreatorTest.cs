@@ -22,7 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Deltares.MacroStability.Standard;
+using Deltares.MacroStability.CSharpWrapper.Output;
 using NUnit.Framework;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Output;
@@ -33,32 +33,29 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Output
     public class MacroStabilityInwardsKernelMessagesCreatorTest
     {
         [Test]
-        public void CreateFromLogMessages_LogMessagesNull_ThrowsArgumentNullException()
+        public void Create_MessagesNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => MacroStabilityInwardsKernelMessagesCreator.CreateFromLogMessages(null);
+            void Call() => MacroStabilityInwardsKernelMessagesCreator.Create(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("logMessages", exception.ParamName);
+            Assert.AreEqual("messages", exception.ParamName);
         }
 
         [Test]
-        public void CreateFromLogMessages_WithLogMessages_ReturnOnlyWarningAndErrorUpliftVanKernelMessages()
+        public void Create_WithMessages_ReturnOnlyWarningAndErrorUpliftVanKernelMessages()
         {
             // Setup
-            var logMessages = new[]
+            Message[] logMessages =
             {
-                new LogMessage(LogMessageType.Trace, "subject", "Calculation Trace"),
-                new LogMessage(LogMessageType.Debug, "subject", "Calculation Debug"),
-                new LogMessage(LogMessageType.Info, "subject", "Calculation Info"),
-                new LogMessage(LogMessageType.Warning, "subject", "Calculation Warning"),
-                new LogMessage(LogMessageType.Error, "subject", "Calculation Error"),
-                new LogMessage(LogMessageType.FatalError, "subject", "Calculation Fatal Error")
+                CreateMessage(MessageType.Info, "Calculation Info"),
+                CreateMessage(MessageType.Warning, "Calculation Warning"),
+                CreateMessage(MessageType.Error, "Calculation Error")
             };
 
             // Call
-            IEnumerable<MacroStabilityInwardsKernelMessage> kernelMessages = MacroStabilityInwardsKernelMessagesCreator.CreateFromLogMessages(logMessages);
+            IEnumerable<MacroStabilityInwardsKernelMessage> kernelMessages = MacroStabilityInwardsKernelMessagesCreator.Create(logMessages);
 
             // Assert
             Assert.AreEqual(3, kernelMessages.Count());
@@ -76,16 +73,16 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Output
         }
 
         [Test]
-        public void CreateFromLogMessages_LogMessageTextNull_ReturnsUpliftVanKernelMessageWithUnknownText()
+        public void Create_MessageTextNull_ReturnsUpliftVanKernelMessageWithUnknownText()
         {
             // Setup
-            var logMessages = new[]
+            Message[] logMessages =
             {
-                new LogMessage(LogMessageType.Error, "subject", null)
+                CreateMessage(MessageType.Error, null)
             };
 
             // Call
-            IEnumerable<MacroStabilityInwardsKernelMessage> kernelMessages = MacroStabilityInwardsKernelMessagesCreator.CreateFromLogMessages(logMessages);
+            IEnumerable<MacroStabilityInwardsKernelMessage> kernelMessages = MacroStabilityInwardsKernelMessagesCreator.Create(logMessages);
 
             // Assert
             MacroStabilityInwardsKernelMessage kernelMessage = kernelMessages.Single();
@@ -93,59 +90,13 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Output
             Assert.AreEqual(MacroStabilityInwardsKernelMessageType.Error, kernelMessage.Type);
         }
 
-        [Test]
-        public void CreateFromValidationResults_ValidationResultsNull_ThrowsArgumentNullException()
+        private static Message CreateMessage(MessageType messageType, string message)
         {
-            // Call
-            void Call() => MacroStabilityInwardsKernelMessagesCreator.CreateFromValidationResults(null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("validationResults", exception.ParamName);
-        }
-
-        [Test]
-        public void CreateFromValidationResults_WithValidationResults_ReturnsOnlyWarningAndErrorUpliftVanKernelMessages()
-        {
-            // Setup
-            var validationResults = new[]
+            return new Message
             {
-                new ValidationResult(ValidationResultType.Debug, "Validation Debug"),
-                new ValidationResult(ValidationResultType.Info, "Validation Info"),
-                new ValidationResult(ValidationResultType.Warning, "Validation Warning"),
-                new ValidationResult(ValidationResultType.Error, "Validation Error")
+                MessageType = messageType,
+                Content = message
             };
-
-            // Call
-            IEnumerable<MacroStabilityInwardsKernelMessage> kernelMessages = MacroStabilityInwardsKernelMessagesCreator.CreateFromValidationResults(validationResults);
-
-            // Assert
-            Assert.AreEqual(2, kernelMessages.Count());
-            MacroStabilityInwardsKernelMessage firstMessage = kernelMessages.ElementAt(0);
-            Assert.AreEqual("Validation Warning", firstMessage.Message);
-            Assert.AreEqual(MacroStabilityInwardsKernelMessageType.Warning, firstMessage.Type);
-
-            MacroStabilityInwardsKernelMessage secondMessage = kernelMessages.ElementAt(1);
-            Assert.AreEqual("Validation Error", secondMessage.Message);
-            Assert.AreEqual(MacroStabilityInwardsKernelMessageType.Error, secondMessage.Type);
-        }
-
-        [Test]
-        public void CreateFromValidationResults_ValidationResultMessageNull_ReturnsUpliftVanKernelMessageWithUnknownText()
-        {
-            // Setup
-            var validationResults = new[]
-            {
-                new ValidationResult(ValidationResultType.Error, null)
-            };
-
-            // Call
-            IEnumerable<MacroStabilityInwardsKernelMessage> kernelMessages = MacroStabilityInwardsKernelMessagesCreator.CreateFromValidationResults(validationResults);
-
-            // Assert
-            MacroStabilityInwardsKernelMessage kernelMessage = kernelMessages.Single();
-            Assert.AreEqual("Onbekend", kernelMessage.Message);
-            Assert.AreEqual(MacroStabilityInwardsKernelMessageType.Error, kernelMessage.Type);
         }
     }
 }
