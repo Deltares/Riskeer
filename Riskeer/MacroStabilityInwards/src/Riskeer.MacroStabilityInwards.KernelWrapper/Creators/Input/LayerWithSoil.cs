@@ -42,7 +42,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
                                IEnumerable<IEnumerable<Point2D>> innerRings,
                                Soil soil,
                                bool isAquifer,
-                               WaterpressureInterpolationModel waterPressureInterpolationModel)
+                               WaterPressureInterpolationModel waterPressureInterpolationModel)
         {
             OuterRing = outerRing;
             InnerRings = innerRings;
@@ -74,6 +74,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
         /// <summary>
         /// Gets the water pressure interpolation model of the layer.
         /// </summary>
-        public WaterpressureInterpolationModel WaterPressureInterpolationModel { get; }
+        public WaterPressureInterpolationModel WaterPressureInterpolationModel { get; }
     }
 }

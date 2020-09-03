@@ -22,24 +22,22 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Base.Geometry;
 using Deltares.MacroStability.CSharpWrapper.Input;
-using Deltares.MacroStability.Geometry;
-using Deltares.MacroStability.Standard;
-using Point2D = Core.Common.Base.Geometry.Point2D;
-using WtiStabilityPoint2D = Deltares.MacroStability.Geometry.Point2D;
+using CSharpWrapperPoint2D = Deltares.MacroStability.CSharpWrapper.Point2D;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
 {
     /// <summary>
-    /// Creates <see cref="SoilProfile2D"/> instances which are required in a calculation.
+    /// Creates <see cref="SoilProfile"/> instances which are required in a calculation.
     /// </summary>
     internal static class SoilProfileCreator
     {
         /// <summary>
-        /// Creates a <see cref="SoilProfile2D"/> based on <paramref name="layersWithSoil"/>.
+        /// Creates a <see cref="SoilProfile"/> based on <paramref name="layersWithSoil"/>.
         /// </summary>
-        /// <param name="layersWithSoil">The layer data to use in the <see cref="SoilProfile2D"/>.</param>
-        /// <returns>A new <see cref="SoilProfile2D"/>.</returns>
+        /// <param name="layersWithSoil">The layer data to use in the <see cref="SoilProfile"/>.</param>
+        /// <returns>A new <see cref="SoilProfile"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public static SoilProfile Create(IEnumerable<LayerWithSoil> layersWithSoil)
         {
@@ -50,18 +48,18 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
 
             var profile = new SoilProfile();
 
-            var alreadyCreatedPoints = new List<WtiStabilityPoint2D>();
-            var alreadyCreatedCurves = new List<GeometryCurve>();
-            var alreadyCreatedLoops = new List<GeometryLoop>();
+            var alreadyCreatedPoints = new List<CSharpWrapperPoint2D>();
+            var alreadyCreatedCurves = new List<Curve>();
+            var alreadyCreatedLoops = new List<Loop>();
 
             foreach (LayerWithSoil layerWithSoil in layersWithSoil)
             {
-                profile.Surfaces.Add(new SoilLayer2D
+                profile.SoilSurfaces.Add(new SoilProfileSurface
                 {
                     IsAquifer = layerWithSoil.IsAquifer,
                     Soil = layerWithSoil.Soil,
-                    GeometrySurface = CreateGeometrySurface(layerWithSoil, alreadyCreatedPoints, alreadyCreatedCurves, alreadyCreatedLoops),
-                    WaterpressureInterpolationModel = layerWithSoil.WaterPressureInterpolationModel
+                    Surface = CreateSurface(layerWithSoil, alreadyCreatedPoints, alreadyCreatedCurves, alreadyCreatedLoops),
+                    WaterPressureInterpolationModel = layerWithSoil.WaterPressureInterpolationModel
                 });
             }
 
@@ -70,28 +68,26 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
             return profile;
         }
 
-        private static GeometrySurface CreateGeometrySurface(LayerWithSoil layer, List<WtiStabilityPoint2D> alreadyCreatedPoints, List<GeometryCurve> alreadyCreatedCurves, List<GeometryLoop> alreadyCreatedLoops)
+        private static Surface CreateSurface(LayerWithSoil layer, List<CSharpWrapperPoint2D> alreadyCreatedPoints, List<Curve> alreadyCreatedCurves, List<Loop> alreadyCreatedLoops)
         {
-            var surface = new GeometrySurface
+            return new Surface
             {
-                OuterLoop = CreateGeometryLoop(layer.OuterRing, alreadyCreatedPoints, alreadyCreatedCurves, alreadyCreatedLoops)
+                OuterLoop = CreateLoop(layer.OuterRing, alreadyCreatedPoints, alreadyCreatedCurves, alreadyCreatedLoops),
+                InnerLoops = layer.InnerRings.Select(ir => CreateLoop(ir, alreadyCreatedPoints, alreadyCreatedCurves, alreadyCreatedLoops)).ToArray()
             };
-
-            surface.InnerLoops.AddRange(layer.InnerRings.Select(ir => CreateGeometryLoop(ir, alreadyCreatedPoints, alreadyCreatedCurves, alreadyCreatedLoops)).ToArray());
-
-            return surface;
         }
 
-        private static GeometryLoop CreateGeometryLoop(IEnumerable<Point2D> points, List<WtiStabilityPoint2D> alreadyCreatedPoints, List<GeometryCurve> alreadyCreatedCurves, List<GeometryLoop> alreadyCreatedLoops)
+        private static Loop CreateLoop(IEnumerable<Point2D> points, List<CSharpWrapperPoint2D> alreadyCreatedPoints, List<Curve> alreadyCreatedCurves, List<Loop> alreadyCreatedLoops)
         {
-            GeometryCurve[] geometryCurves = CreateGeometryCurves(points, alreadyCreatedPoints, alreadyCreatedCurves);
-            GeometryLoop loop = alreadyCreatedLoops.FirstOrDefault(l => l.CurveList.SequenceEqual(geometryCurves));
+            Curve[] curves = CreateCurves(points, alreadyCreatedPoints, alreadyCreatedCurves);
+            Loop loop = alreadyCreatedLoops.FirstOrDefault(l => l.Curves.SequenceEqual(curves));
 
             if (loop == null)
             {
-                loop = new GeometryLoop();
-
-                loop.CurveList.AddRange(geometryCurves);
+                loop = new Loop
+                {
+                    Curves = curves
+                };
 
                 alreadyCreatedLoops.Add(loop);
             }
@@ -99,11 +95,11 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
             return loop;
         }
 
-        private static GeometryCurve[] CreateGeometryCurves(IEnumerable<Point2D> points, List<WtiStabilityPoint2D> alreadyCreatedPoints, List<GeometryCurve> alreadyCreatedCurves)
+        private static Curve[] CreateCurves(IEnumerable<Point2D> points, List<CSharpWrapperPoint2D> alreadyCreatedPoints, List<Curve> alreadyCreatedCurves)
         {
-            var curves = new List<GeometryCurve>();
+            var curves = new List<Curve>();
 
-            WtiStabilityPoint2D[] stabilityPoints = points.Select(p => GetPoint(p, alreadyCreatedPoints)).ToArray();
+            CSharpWrapperPoint2D[] stabilityPoints = points.Select(p => GetPoint(p, alreadyCreatedPoints)).ToArray();
             int stabilityPointsLength = stabilityPoints.Length;
 
             for (var i = 0; i < stabilityPointsLength; i++)
@@ -118,12 +114,12 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
             return curves.ToArray();
         }
 
-        private static WtiStabilityPoint2D GetPoint(Point2D point2D, List<WtiStabilityPoint2D> alreadyCreatedPoints)
+        private static CSharpWrapperPoint2D GetPoint(Point2D point2D, List<CSharpWrapperPoint2D> alreadyCreatedPoints)
         {
-            WtiStabilityPoint2D stabilityPoint = alreadyCreatedPoints.FirstOrDefault(p => p.X.Equals(point2D.X) && p.Z.Equals(point2D.Y));
+            CSharpWrapperPoint2D stabilityPoint = alreadyCreatedPoints.FirstOrDefault(p => p.X.Equals(point2D.X) && p.Z.Equals(point2D.Y));
             if (stabilityPoint == null)
             {
-                stabilityPoint = new WtiStabilityPoint2D(point2D.X, point2D.Y);
+                stabilityPoint = new CSharpWrapperPoint2D(point2D.X, point2D.Y);
 
                 alreadyCreatedPoints.Add(stabilityPoint);
             }
@@ -131,13 +127,13 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
             return stabilityPoint;
         }
 
-        private static GeometryCurve GetCurve(WtiStabilityPoint2D headPoint, WtiStabilityPoint2D endPoint, List<GeometryCurve> alreadyCreatedCurves)
+        private static Curve GetCurve(CSharpWrapperPoint2D headPoint, CSharpWrapperPoint2D endPoint, List<Curve> alreadyCreatedCurves)
         {
-            GeometryCurve curve = alreadyCreatedCurves.FirstOrDefault(c => ReferenceEquals(c.HeadPoint, headPoint) && ReferenceEquals(c.EndPoint, endPoint)
-                                                                           || ReferenceEquals(c.HeadPoint, endPoint) && ReferenceEquals(c.EndPoint, headPoint));
+            Curve curve = alreadyCreatedCurves.FirstOrDefault(c => ReferenceEquals(c.HeadPoint, headPoint) && ReferenceEquals(c.EndPoint, endPoint)
+                                                                   || ReferenceEquals(c.HeadPoint, endPoint) && ReferenceEquals(c.EndPoint, headPoint));
             if (curve == null)
             {
-                curve = new GeometryCurve
+                curve = new Curve
                 {
                     HeadPoint = headPoint,
                     EndPoint = endPoint
@@ -149,27 +145,31 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
             return curve;
         }
 
-        private static GeometryData CreateGeometryData(SoilProfile2D profile)
+        private static Geometry CreateGeometryData(SoilProfile profile)
         {
-            var geometryData = new GeometryData();
+            var geometry = new Geometry
+            {
+                Surfaces = profile.SoilSurfaces.Select(s => s.Surface).ToArray()
+            };
 
-            geometryData.Surfaces.AddRange(profile.Surfaces
-                                                  .Select(s => s.GeometrySurface));
-            geometryData.Loops.AddRange(geometryData.Surfaces
-                                                    .Select(gs => gs.OuterLoop));
-            geometryData.Curves.AddRange(geometryData.Loops
-                                                     .SelectMany(l => l.CurveList)
-                                                     .Distinct());
-            geometryData.Points.AddRange(geometryData.Curves
-                                                     .SelectMany(c => new[]
-                                                     {
-                                                         c.HeadPoint,
-                                                         c.EndPoint
-                                                     }).Distinct());
+            geometry.Loops = geometry.Surfaces
+                                     .Select(s => s.OuterLoop)
+                                     .ToArray();
 
-            geometryData.Rebox();
+            geometry.Curves = geometry.Loops
+                                      .SelectMany(l => l.Curves)
+                                      .Distinct()
+                                      .ToArray();
+            geometry.Points = geometry.Curves
+                                      .SelectMany(c => new[]
+                                      {
+                                          c.HeadPoint,
+                                          c.EndPoint
+                                      })
+                                      .Distinct()
+                                      .ToArray();
 
-            return geometryData;
+            return geometry;
         }
     }
 }

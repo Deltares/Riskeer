@@ -21,12 +21,12 @@
 
 using System;
 using System.Linq;
-using Deltares.MacroStability.Geometry;
+using Core.Common.Base.Geometry;
+using Deltares.MacroStability.CSharpWrapper.Input;
 using NUnit.Framework;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input;
 using Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan.Input;
-using Point2D = Core.Common.Base.Geometry.Point2D;
-using WtiStabilityPoint2D = Deltares.MacroStability.Geometry.Point2D;
+using CSharpWrapperPoint2D = Deltares.MacroStability.CSharpWrapper.Point2D;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
 {
@@ -123,7 +123,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                 new Point2D[0][],
                 soil1,
                 false,
-                WaterpressureInterpolationModel.Automatic);
+                WaterPressureInterpolationModel.Automatic);
 
             var layerWithSoil2 = new LayerWithSoil(
                 layer2Points,
@@ -134,24 +134,24 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                 },
                 soil2,
                 true,
-                WaterpressureInterpolationModel.Hydrostatic);
+                WaterPressureInterpolationModel.Hydrostatic);
 
             var layerWithSoil3 = new LayerWithSoil(
                 layer2Hole1Points,
                 new Point2D[0][],
                 soil3,
                 false,
-                WaterpressureInterpolationModel.Automatic);
+                WaterPressureInterpolationModel.Automatic);
 
             var layerWithSoil4 = new LayerWithSoil(
                 layer2Hole2Points,
                 new Point2D[0][],
                 soil4,
                 true,
-                WaterpressureInterpolationModel.Hydrostatic);
+                WaterPressureInterpolationModel.Hydrostatic);
 
             // Call
-            SoilProfile2D profile = SoilProfileCreator.Create(new[]
+            SoilProfile profile = SoilProfileCreator.Create(new[]
             {
                 layerWithSoil1,
                 layerWithSoil2,
@@ -163,22 +163,22 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
 
             #region Geometry
 
-            var outerLoopPoint1 = new WtiStabilityPoint2D(0, 0);
-            var outerLoopPoint2 = new WtiStabilityPoint2D(0, 3);
-            var outerLoopPoint3 = new WtiStabilityPoint2D(10, 3);
-            var outerLoopPoint4 = new WtiStabilityPoint2D(10, 0);
-            var outerLoopPoint5 = new WtiStabilityPoint2D(0, 11);
-            var outerLoopPoint6 = new WtiStabilityPoint2D(10, 11);
-            var outerLoopCurve1 = new GeometryCurve(outerLoopPoint1, outerLoopPoint2);
-            var outerLoopCurve2 = new GeometryCurve(outerLoopPoint2, outerLoopPoint3);
-            var outerLoopCurve3 = new GeometryCurve(outerLoopPoint3, outerLoopPoint4);
-            var outerLoopCurve4 = new GeometryCurve(outerLoopPoint4, outerLoopPoint1);
-            var outerLoopCurve5 = new GeometryCurve(outerLoopPoint2, outerLoopPoint5);
-            var outerLoopCurve6 = new GeometryCurve(outerLoopPoint5, outerLoopPoint6);
-            var outerLoopCurve7 = new GeometryCurve(outerLoopPoint6, outerLoopPoint3);
-            var outerLoop1 = new GeometryLoop
+            var outerLoopPoint1 = new CSharpWrapperPoint2D(0, 0);
+            var outerLoopPoint2 = new CSharpWrapperPoint2D(0, 3);
+            var outerLoopPoint3 = new CSharpWrapperPoint2D(10, 3);
+            var outerLoopPoint4 = new CSharpWrapperPoint2D(10, 0);
+            var outerLoopPoint5 = new CSharpWrapperPoint2D(0, 11);
+            var outerLoopPoint6 = new CSharpWrapperPoint2D(10, 11);
+            Curve outerLoopCurve1 = CreateCurve(outerLoopPoint1, outerLoopPoint2);
+            Curve outerLoopCurve2 = CreateCurve(outerLoopPoint2, outerLoopPoint3);
+            Curve outerLoopCurve3 = CreateCurve(outerLoopPoint3, outerLoopPoint4);
+            Curve outerLoopCurve4 = CreateCurve(outerLoopPoint4, outerLoopPoint1);
+            Curve outerLoopCurve5 = CreateCurve(outerLoopPoint2, outerLoopPoint5);
+            Curve outerLoopCurve6 = CreateCurve(outerLoopPoint5, outerLoopPoint6);
+            Curve outerLoopCurve7 = CreateCurve(outerLoopPoint6, outerLoopPoint3);
+            var outerLoop1 = new Loop
             {
-                CurveList =
+                Curves =
                 {
                     outerLoopCurve1,
                     outerLoopCurve2,
@@ -186,9 +186,9 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                     outerLoopCurve4
                 }
             };
-            var outerLoop2 = new GeometryLoop
+            var outerLoop2 = new Loop
             {
-                CurveList =
+                Curves =
                 {
                     outerLoopCurve5,
                     outerLoopCurve6,
@@ -197,22 +197,22 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                 }
             };
 
-            var innerLoopPoint1 = new WtiStabilityPoint2D(2, 5);
-            var innerLoopPoint2 = new WtiStabilityPoint2D(2, 7);
-            var innerLoopPoint3 = new WtiStabilityPoint2D(8, 7);
-            var innerLoopPoint4 = new WtiStabilityPoint2D(8, 5);
-            var innerLoopPoint5 = new WtiStabilityPoint2D(2, 9);
-            var innerLoopPoint6 = new WtiStabilityPoint2D(8, 9);
-            var innerLoopCurve1 = new GeometryCurve(innerLoopPoint1, innerLoopPoint2);
-            var innerLoopCurve2 = new GeometryCurve(innerLoopPoint2, innerLoopPoint3);
-            var innerLoopCurve3 = new GeometryCurve(innerLoopPoint3, innerLoopPoint4);
-            var innerLoopCurve4 = new GeometryCurve(innerLoopPoint4, innerLoopPoint1);
-            var innerLoopCurve5 = new GeometryCurve(innerLoopPoint2, innerLoopPoint5);
-            var innerLoopCurve6 = new GeometryCurve(innerLoopPoint5, innerLoopPoint6);
-            var innerLoopCurve7 = new GeometryCurve(innerLoopPoint6, innerLoopPoint3);
-            var innerLoop1 = new GeometryLoop
+            var innerLoopPoint1 = new CSharpWrapperPoint2D(2, 5);
+            var innerLoopPoint2 = new CSharpWrapperPoint2D(2, 7);
+            var innerLoopPoint3 = new CSharpWrapperPoint2D(8, 7);
+            var innerLoopPoint4 = new CSharpWrapperPoint2D(8, 5);
+            var innerLoopPoint5 = new CSharpWrapperPoint2D(2, 9);
+            var innerLoopPoint6 = new CSharpWrapperPoint2D(8, 9);
+            Curve innerLoopCurve1 = CreateCurve(innerLoopPoint1, innerLoopPoint2);
+            Curve innerLoopCurve2 = CreateCurve(innerLoopPoint2, innerLoopPoint3);
+            Curve innerLoopCurve3 = CreateCurve(innerLoopPoint3, innerLoopPoint4);
+            Curve innerLoopCurve4 = CreateCurve(innerLoopPoint4, innerLoopPoint1);
+            Curve innerLoopCurve5 = CreateCurve(innerLoopPoint2, innerLoopPoint5);
+            Curve innerLoopCurve6 = CreateCurve(innerLoopPoint5, innerLoopPoint6);
+            Curve innerLoopCurve7 = CreateCurve(innerLoopPoint6, innerLoopPoint3);
+            var innerLoop1 = new Loop
             {
-                CurveList =
+                Curves =
                 {
                     innerLoopCurve1,
                     innerLoopCurve2,
@@ -220,9 +220,9 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                     innerLoopCurve4
                 }
             };
-            var innerLoop2 = new GeometryLoop
+            var innerLoop2 = new Loop
             {
-                CurveList =
+                Curves =
                 {
                     innerLoopCurve5,
                     innerLoopCurve6,
@@ -277,49 +277,51 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             Assert.AreEqual(0, profile.Geometry.Bottom);
             Assert.AreEqual(10, profile.Geometry.Right);
 
-            Assert.AreEqual(4, profile.Surfaces.Count);
+            Assert.AreEqual(4, profile.SoilSurfaces.Count);
             Assert.AreEqual(4, profile.Geometry.Surfaces.Count);
-            CollectionAssert.AreEqual(profile.Surfaces.Select(s => s.GeometrySurface), profile.Geometry.Surfaces);
+            CollectionAssert.AreEqual(profile.SoilSurfaces.ToList()
+                                             .Select(s => s.Surface),
+                                      profile.Geometry.Surfaces);
 
             #endregion
 
             #region Surfaces
 
-            SoilLayer2D surface1 = profile.Surfaces.ElementAt(0);
+            SoilProfileSurface surface1 = profile.SoilSurfaces.ElementAt(0);
             Assert.AreSame(soil1, surface1.Soil);
             Assert.AreEqual(soil1.Name, surface1.Name);
             Assert.AreEqual(layerWithSoil1.IsAquifer, surface1.IsAquifer);
-            Assert.AreEqual(layerWithSoil1.WaterPressureInterpolationModel, surface1.WaterpressureInterpolationModel);
-            Assert.AreSame(profile.Geometry.Loops[0], surface1.GeometrySurface.OuterLoop);
-            CollectionAssert.IsEmpty(surface1.GeometrySurface.InnerLoops);
+            Assert.AreEqual(layerWithSoil1.WaterPressureInterpolationModel, surface1.WaterPressureInterpolationModel);
+            Assert.AreSame(profile.Geometry.Loops.ElementAt(0), surface1.Surface.OuterLoop);
+            CollectionAssert.IsEmpty(surface1.Surface.InnerLoops);
 
-            SoilLayer2D surface2 = profile.Surfaces.ElementAt(1);
+            SoilProfileSurface surface2 = profile.SoilSurfaces.ElementAt(1);
             Assert.AreSame(soil2, surface2.Soil);
             Assert.AreEqual(soil2.Name, surface2.Name);
             Assert.AreEqual(layerWithSoil2.IsAquifer, surface2.IsAquifer);
-            Assert.AreEqual(layerWithSoil2.WaterPressureInterpolationModel, surface2.WaterpressureInterpolationModel);
-            Assert.AreSame(profile.Geometry.Loops[1], surface2.GeometrySurface.OuterLoop);
+            Assert.AreEqual(layerWithSoil2.WaterPressureInterpolationModel, surface2.WaterPressureInterpolationModel);
+            Assert.AreSame(profile.Geometry.Loops.ElementAt(1), surface2.Surface.OuterLoop);
             CollectionAssert.AreEqual(new[]
             {
-                profile.Geometry.Loops[2],
-                profile.Geometry.Loops[3]
-            }, surface2.GeometrySurface.InnerLoops);
+                profile.Geometry.Loops.ElementAt(2),
+                profile.Geometry.Loops.ElementAt(3)
+            }, surface2.Surface.InnerLoops);
 
-            SoilLayer2D surface3 = profile.Surfaces.ElementAt(2);
+            SoilProfileSurface surface3 = profile.SoilSurfaces.ElementAt(2);
             Assert.AreSame(soil3, surface3.Soil);
             Assert.AreEqual(soil3.Name, surface3.Name);
             Assert.AreEqual(layerWithSoil3.IsAquifer, surface3.IsAquifer);
-            Assert.AreEqual(layerWithSoil3.WaterPressureInterpolationModel, surface3.WaterpressureInterpolationModel);
-            Assert.AreSame(profile.Geometry.Loops[2], surface3.GeometrySurface.OuterLoop);
-            CollectionAssert.IsEmpty(surface3.GeometrySurface.InnerLoops);
+            Assert.AreEqual(layerWithSoil3.WaterPressureInterpolationModel, surface3.WaterPressureInterpolationModel);
+            Assert.AreSame(profile.Geometry.Loops.ElementAt(2), surface3.Surface.OuterLoop);
+            CollectionAssert.IsEmpty(surface3.Surface.InnerLoops);
 
-            SoilLayer2D surface4 = profile.Surfaces.ElementAt(3);
+            SoilProfileSurface surface4 = profile.SoilSurfaces.ElementAt(3);
             Assert.AreSame(soil4, surface4.Soil);
             Assert.AreEqual(soil4.Name, surface4.Name);
             Assert.AreEqual(layerWithSoil4.IsAquifer, surface4.IsAquifer);
-            Assert.AreEqual(layerWithSoil4.WaterPressureInterpolationModel, surface4.WaterpressureInterpolationModel);
-            Assert.AreSame(profile.Geometry.Loops[3], surface4.GeometrySurface.OuterLoop);
-            CollectionAssert.IsEmpty(surface4.GeometrySurface.InnerLoops);
+            Assert.AreEqual(layerWithSoil4.WaterPressureInterpolationModel, surface4.WaterPressureInterpolationModel);
+            Assert.AreSame(profile.Geometry.Loops.ElementAt(3), surface4.Surface.OuterLoop);
+            CollectionAssert.IsEmpty(surface4.Surface.InnerLoops);
 
             #endregion
         }
@@ -405,7 +407,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                 new Point2D[0][],
                 soil1,
                 false,
-                WaterpressureInterpolationModel.Automatic);
+                WaterPressureInterpolationModel.Automatic);
 
             var layerWithSoil2 = new LayerWithSoil(
                 layer2Points,
@@ -415,7 +417,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                 },
                 soil2,
                 true,
-                WaterpressureInterpolationModel.Hydrostatic);
+                WaterPressureInterpolationModel.Hydrostatic);
 
             var layerWithSoil3 = new LayerWithSoil(
                 layer2Hole1Points,
@@ -425,17 +427,17 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                 },
                 soil3,
                 false,
-                WaterpressureInterpolationModel.Automatic);
+                WaterPressureInterpolationModel.Automatic);
 
             var layerWithSoil4 = new LayerWithSoil(
                 layer2Hole2Points,
                 new Point2D[0][],
                 soil4,
                 true,
-                WaterpressureInterpolationModel.Hydrostatic);
+                WaterPressureInterpolationModel.Hydrostatic);
 
             // Call
-            SoilProfile2D profile = SoilProfileCreator.Create(new[]
+            SoilProfile profile = SoilProfileCreator.Create(new[]
             {
                 layerWithSoil1,
                 layerWithSoil2,
@@ -447,22 +449,22 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
 
             #region Geometry
 
-            var outerLoopPoint1 = new WtiStabilityPoint2D(0, 0);
-            var outerLoopPoint2 = new WtiStabilityPoint2D(0, 3);
-            var outerLoopPoint3 = new WtiStabilityPoint2D(10, 3);
-            var outerLoopPoint4 = new WtiStabilityPoint2D(10, 0);
-            var outerLoopPoint5 = new WtiStabilityPoint2D(0, 13);
-            var outerLoopPoint6 = new WtiStabilityPoint2D(10, 13);
-            var outerLoopCurve1 = new GeometryCurve(outerLoopPoint1, outerLoopPoint2);
-            var outerLoopCurve2 = new GeometryCurve(outerLoopPoint2, outerLoopPoint3);
-            var outerLoopCurve3 = new GeometryCurve(outerLoopPoint3, outerLoopPoint4);
-            var outerLoopCurve4 = new GeometryCurve(outerLoopPoint4, outerLoopPoint1);
-            var outerLoopCurve5 = new GeometryCurve(outerLoopPoint2, outerLoopPoint5);
-            var outerLoopCurve6 = new GeometryCurve(outerLoopPoint5, outerLoopPoint6);
-            var outerLoopCurve7 = new GeometryCurve(outerLoopPoint6, outerLoopPoint3);
-            var outerLoop1 = new GeometryLoop
+            var outerLoopPoint1 = new CSharpWrapperPoint2D(0, 0);
+            var outerLoopPoint2 = new CSharpWrapperPoint2D(0, 3);
+            var outerLoopPoint3 = new CSharpWrapperPoint2D(10, 3);
+            var outerLoopPoint4 = new CSharpWrapperPoint2D(10, 0);
+            var outerLoopPoint5 = new CSharpWrapperPoint2D(0, 13);
+            var outerLoopPoint6 = new CSharpWrapperPoint2D(10, 13);
+            Curve outerLoopCurve1 = CreateCurve(outerLoopPoint1, outerLoopPoint2);
+            Curve outerLoopCurve2 = CreateCurve(outerLoopPoint2, outerLoopPoint3);
+            Curve outerLoopCurve3 = CreateCurve(outerLoopPoint3, outerLoopPoint4);
+            Curve outerLoopCurve4 = CreateCurve(outerLoopPoint4, outerLoopPoint1);
+            Curve outerLoopCurve5 = CreateCurve(outerLoopPoint2, outerLoopPoint5);
+            Curve outerLoopCurve6 = CreateCurve(outerLoopPoint5, outerLoopPoint6);
+            Curve outerLoopCurve7 = CreateCurve(outerLoopPoint6, outerLoopPoint3);
+            var outerLoop1 = new Loop
             {
-                CurveList =
+                Curves =
                 {
                     outerLoopCurve1,
                     outerLoopCurve2,
@@ -470,9 +472,9 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                     outerLoopCurve4
                 }
             };
-            var outerLoop2 = new GeometryLoop
+            var outerLoop2 = new Loop
             {
-                CurveList =
+                Curves =
                 {
                     outerLoopCurve5,
                     outerLoopCurve6,
@@ -481,26 +483,26 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                 }
             };
 
-            var innerLoopPoint1 = new WtiStabilityPoint2D(2, 5);
-            var innerLoopPoint2 = new WtiStabilityPoint2D(2, 11);
-            var innerLoopPoint3 = new WtiStabilityPoint2D(8, 11);
-            var innerLoopPoint4 = new WtiStabilityPoint2D(8, 5);
-            var innerLoopPoint5 = new WtiStabilityPoint2D(4, 7);
-            var innerLoopPoint6 = new WtiStabilityPoint2D(4, 9);
-            var innerLoopPoint7 = new WtiStabilityPoint2D(6, 9);
-            var innerLoopPoint8 = new WtiStabilityPoint2D(6, 7);
-            var innerLoopCurve1 = new GeometryCurve(innerLoopPoint1, innerLoopPoint2);
-            var innerLoopCurve2 = new GeometryCurve(innerLoopPoint2, innerLoopPoint3);
-            var innerLoopCurve3 = new GeometryCurve(innerLoopPoint3, innerLoopPoint4);
-            var innerLoopCurve4 = new GeometryCurve(innerLoopPoint4, innerLoopPoint1);
-            var innerLoopCurve5 = new GeometryCurve(innerLoopPoint5, innerLoopPoint6);
-            var innerLoopCurve6 = new GeometryCurve(innerLoopPoint6, innerLoopPoint7);
-            var innerLoopCurve7 = new GeometryCurve(innerLoopPoint7, innerLoopPoint8);
-            var innerLoopCurve8 = new GeometryCurve(innerLoopPoint8, innerLoopPoint5);
+            var innerLoopPoint1 = new CSharpWrapperPoint2D(2, 5);
+            var innerLoopPoint2 = new CSharpWrapperPoint2D(2, 11);
+            var innerLoopPoint3 = new CSharpWrapperPoint2D(8, 11);
+            var innerLoopPoint4 = new CSharpWrapperPoint2D(8, 5);
+            var innerLoopPoint5 = new CSharpWrapperPoint2D(4, 7);
+            var innerLoopPoint6 = new CSharpWrapperPoint2D(4, 9);
+            var innerLoopPoint7 = new CSharpWrapperPoint2D(6, 9);
+            var innerLoopPoint8 = new CSharpWrapperPoint2D(6, 7);
+            Curve innerLoopCurve1 = CreateCurve(innerLoopPoint1, innerLoopPoint2);
+            Curve innerLoopCurve2 = CreateCurve(innerLoopPoint2, innerLoopPoint3);
+            Curve innerLoopCurve3 = CreateCurve(innerLoopPoint3, innerLoopPoint4);
+            Curve innerLoopCurve4 = CreateCurve(innerLoopPoint4, innerLoopPoint1);
+            Curve innerLoopCurve5 = CreateCurve(innerLoopPoint5, innerLoopPoint6);
+            Curve innerLoopCurve6 = CreateCurve(innerLoopPoint6, innerLoopPoint7);
+            Curve innerLoopCurve7 = CreateCurve(innerLoopPoint7, innerLoopPoint8);
+            Curve innerLoopCurve8 = CreateCurve(innerLoopPoint8, innerLoopPoint5);
 
-            var innerLoop1 = new GeometryLoop
+            var innerLoop1 = new Loop
             {
-                CurveList =
+                Curves =
                 {
                     innerLoopCurve1,
                     innerLoopCurve2,
@@ -508,9 +510,9 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                     innerLoopCurve4
                 }
             };
-            var innerLoop2 = new GeometryLoop
+            var innerLoop2 = new Loop
             {
-                CurveList =
+                Curves =
                 {
                     innerLoopCurve5,
                     innerLoopCurve6,
@@ -568,53 +570,64 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             Assert.AreEqual(0, profile.Geometry.Bottom);
             Assert.AreEqual(10, profile.Geometry.Right);
 
-            Assert.AreEqual(4, profile.Surfaces.Count);
+            Assert.AreEqual(4, profile.SoilSurfaces.Count);
             Assert.AreEqual(4, profile.Geometry.Surfaces.Count);
-            CollectionAssert.AreEqual(profile.Surfaces.Select(s => s.GeometrySurface), profile.Geometry.Surfaces);
+            CollectionAssert.AreEqual(profile.SoilSurfaces.ToList()
+                                             .Select(s => s.Surface),
+                                      profile.Geometry.Surfaces);
 
             #endregion
 
             #region Surfaces
 
-            SoilLayer2D surface1 = profile.Surfaces.ElementAt(0);
+            SoilProfileSurface surface1 = profile.SoilSurfaces.ElementAt(0);
             Assert.AreSame(soil1, surface1.Soil);
             Assert.AreEqual(soil1.Name, surface1.Name);
             Assert.AreEqual(layerWithSoil1.IsAquifer, surface1.IsAquifer);
-            Assert.AreEqual(layerWithSoil1.WaterPressureInterpolationModel, surface1.WaterpressureInterpolationModel);
-            Assert.AreSame(profile.Geometry.Loops[0], surface1.GeometrySurface.OuterLoop);
-            CollectionAssert.IsEmpty(surface1.GeometrySurface.InnerLoops);
+            Assert.AreEqual(layerWithSoil1.WaterPressureInterpolationModel, surface1.WaterPressureInterpolationModel);
+            Assert.AreSame(profile.Geometry.Loops.ElementAt(0), surface1.Surface.OuterLoop);
+            CollectionAssert.IsEmpty(surface1.Surface.InnerLoops);
 
-            SoilLayer2D surface2 = profile.Surfaces.ElementAt(1);
+            SoilProfileSurface surface2 = profile.SoilSurfaces.ElementAt(1);
             Assert.AreSame(soil2, surface2.Soil);
             Assert.AreEqual(soil2.Name, surface2.Name);
             Assert.AreEqual(layerWithSoil2.IsAquifer, surface2.IsAquifer);
-            Assert.AreEqual(layerWithSoil2.WaterPressureInterpolationModel, surface2.WaterpressureInterpolationModel);
-            Assert.AreSame(profile.Geometry.Loops[1], surface2.GeometrySurface.OuterLoop);
+            Assert.AreEqual(layerWithSoil2.WaterPressureInterpolationModel, surface2.WaterPressureInterpolationModel);
+            Assert.AreSame(profile.Geometry.Loops.ElementAt(1), surface2.Surface.OuterLoop);
             CollectionAssert.AreEqual(new[]
             {
-                profile.Geometry.Loops[2]
-            }, surface2.GeometrySurface.InnerLoops);
+                profile.Geometry.Loops.ElementAt(2)
+            }, surface2.Surface.InnerLoops);
 
-            SoilLayer2D surface3 = profile.Surfaces.ElementAt(2);
+            SoilProfileSurface surface3 = profile.SoilSurfaces.ElementAt(2);
             Assert.AreSame(soil3, surface3.Soil);
             Assert.AreEqual(soil3.Name, surface3.Name);
             Assert.AreEqual(layerWithSoil3.IsAquifer, surface3.IsAquifer);
-            Assert.AreEqual(layerWithSoil3.WaterPressureInterpolationModel, surface3.WaterpressureInterpolationModel);
-            Assert.AreSame(profile.Geometry.Loops[2], surface3.GeometrySurface.OuterLoop);
+            Assert.AreEqual(layerWithSoil3.WaterPressureInterpolationModel, surface3.WaterPressureInterpolationModel);
+            Assert.AreSame(profile.Geometry.Loops.ElementAt(2), surface3.Surface.OuterLoop);
             CollectionAssert.AreEqual(new[]
             {
-                profile.Geometry.Loops[3]
-            }, surface3.GeometrySurface.InnerLoops);
+                profile.Geometry.Loops.ElementAt(3)
+            }, surface3.Surface.InnerLoops);
 
-            SoilLayer2D surface4 = profile.Surfaces.ElementAt(3);
+            SoilProfileSurface surface4 = profile.SoilSurfaces.ElementAt(3);
             Assert.AreSame(soil4, surface4.Soil);
             Assert.AreEqual(soil4.Name, surface4.Name);
             Assert.AreEqual(layerWithSoil4.IsAquifer, surface4.IsAquifer);
-            Assert.AreEqual(layerWithSoil4.WaterPressureInterpolationModel, surface4.WaterpressureInterpolationModel);
-            Assert.AreSame(profile.Geometry.Loops[3], surface4.GeometrySurface.OuterLoop);
-            CollectionAssert.IsEmpty(surface4.GeometrySurface.InnerLoops);
+            Assert.AreEqual(layerWithSoil4.WaterPressureInterpolationModel, surface4.WaterPressureInterpolationModel);
+            Assert.AreSame(profile.Geometry.Loops.ElementAt(3), surface4.Surface.OuterLoop);
+            CollectionAssert.IsEmpty(surface4.Surface.InnerLoops);
 
             #endregion
+        }
+
+        private static Curve CreateCurve(CSharpWrapperPoint2D headPoint, CSharpWrapperPoint2D endPoint)
+        {
+            return new Curve
+            {
+                HeadPoint = headPoint,
+                EndPoint = endPoint
+            };
         }
     }
 }
