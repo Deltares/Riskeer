@@ -296,6 +296,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
             // Setup
             var inflowModelTypeChangedCounter = 0;
             var random = new Random(21);
+            
             var mocks = new MockRepository();
             var handler = new SetPropertyValueAfterConfirmationParameterTester(new IObservable[0]);
             mocks.ReplayAll();
@@ -322,7 +323,6 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
         public void InflowModelType_ChangeToEqualValue_NoNotificationsAndOutputNotCleared()
         {
             // Setup
-            var inflowModelTypeChangedCounter = 0;
             var inflowModelType = ClosingStructureInflowModelType.VerticalWall;
 
             // Call
@@ -337,8 +337,37 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
                     // Assert
                     Assert.NotNull(inflowModelType);
                     Assert.AreEqual(inflowModelType, calculation.InputParameters.InflowModelType);
-                    Assert.AreEqual(0, inflowModelTypeChangedCounter);
                 });
+        }
+
+        [Test]
+        public void InflowModelType_ChangeToEqualValue_DikeProfileChangedNotFired()
+        {
+            // Setup
+            var inflowModelTypeChangedCounter = 0;
+            var random = new Random(21);
+            
+            var mocks = new MockRepository();
+            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
+            mocks.ReplayAll();
+
+            var inflowModelType = random.NextEnum<ClosingStructureInflowModelType>();
+            var row = new ClosingStructuresCalculationRow(new StructuresCalculationScenario<ClosingStructuresInput>
+            {
+                InputParameters =
+                {
+                    InflowModelType = inflowModelType
+                }
+            }, handler);
+
+            row.InflowModelTypeChanged += (s, a) => inflowModelTypeChangedCounter++;
+
+            // Call
+            row.InflowModelType = inflowModelType;
+
+            // Assert
+            Assert.AreEqual(0, inflowModelTypeChangedCounter);
+            mocks.VerifyAll();
         }
 
         [Test]
