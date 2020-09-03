@@ -691,6 +691,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
 
             // Then
             Assert.IsTrue(invalidated);
+            mocks.VerifyAll();
         }
 
         public override void Setup()

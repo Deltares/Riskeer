@@ -327,6 +327,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
         public void InflowModelType_ChangeToEqualValue_NoNotificationsAndOutputNotCleared()
         {
             // Setup
+            var inflowModelTypeChangedCounter = 0;
             var inflowModelType = ClosingStructureInflowModelType.VerticalWall;
 
             // Call
@@ -341,6 +342,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
                     // Assert
                     Assert.NotNull(inflowModelType);
                     Assert.AreEqual(inflowModelType, calculation.InputParameters.InflowModelType);
+                    Assert.AreEqual(0, inflowModelTypeChangedCounter);
                 });
         }
 
