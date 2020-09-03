@@ -23,14 +23,14 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using Deltares.MacroStability.Geometry;
-using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Input;
+using Deltares.MacroStability.CSharpWrapper;
+using Deltares.MacroStability.CSharpWrapper.Input;
 using Point2D = Core.Common.Base.Geometry.Point2D;
 using ShearStrengthModel = Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Input.ShearStrengthModel;
 using SoilLayer = Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Input.SoilLayer;
 using SoilProfile = Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Input.SoilProfile;
-using WtiStabilitySoil = Deltares.MacroStability.Geometry.Soil;
-using WtiStabilityShearStrengthModel = Deltares.MacroStability.Geometry.ShearStrengthModel;
+using WaterPressureInterpolationModel = Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Input.WaterPressureInterpolationModel;
+using CSharpWrapperWaterPressureInterpolationModel = Deltares.MacroStability.CSharpWrapper.Input.WaterPressureInterpolationModel;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
 {
@@ -80,9 +80,11 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
                 var layerWithSoil = new LayerWithSoil(
                     layer.OuterRing,
                     GetInnerLoopsRecursively(layer),
-                    new WtiStabilitySoil(layer.MaterialName)
+                    new Soil
                     {
-                        ShearStrengthModel = ConvertShearStrengthModel(layer.ShearStrengthModel),
+                        Name = layer.MaterialName,
+                        ShearStrengthAbovePhreaticLevelModel = ConvertShearStrengthAbovePhreaticLevelModel(layer.ShearStrengthModel),
+                        ShearStrengthBelowPhreaticLevelModel = ConvertShearStrengthBelowPhreaticLevelModel(layer.ShearStrengthModel),
                         AbovePhreaticLevel = layer.AbovePhreaticLevel,
                         BelowPhreaticLevel = layer.BelowPhreaticLevel,
                         Cohesion = layer.Cohesion,
@@ -118,15 +120,15 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
         }
 
         /// <summary>
-        /// Converts a <see cref="ShearStrengthModel"/> into a <see cref="WtiStabilityShearStrengthModel"/>.
+        /// Converts a <see cref="ShearStrengthModel"/> into a <see cref="ShearStrengthModelType"/>.
         /// </summary>
         /// <param name="shearStrengthModel">The <see cref="ShearStrengthModel"/> to convert.</param>
-        /// <returns>A <see cref="WtiStabilityShearStrengthModel"/> based on <paramref name="shearStrengthModel"/>.</returns>
+        /// <returns>A <see cref="ShearStrengthModelType"/> based on <paramref name="shearStrengthModel"/>.</returns>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="shearStrengthModel"/>
         /// is an invalid value.</exception>
         /// <exception cref="NotSupportedException">Thrown when <paramref name="shearStrengthModel"/>
         /// is a valid value, but unsupported.</exception>
-        private static WtiStabilityShearStrengthModel ConvertShearStrengthModel(ShearStrengthModel shearStrengthModel)
+        private static ShearStrengthModelType ConvertShearStrengthAbovePhreaticLevelModel(ShearStrengthModel shearStrengthModel)
         {
             if (!Enum.IsDefined(typeof(ShearStrengthModel), shearStrengthModel))
             {
@@ -138,26 +140,55 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
             switch (shearStrengthModel)
             {
                 case ShearStrengthModel.SuCalculated:
-                    return WtiStabilityShearStrengthModel.CuCalculated;
+                    return ShearStrengthModelType.Shansep;
                 case ShearStrengthModel.CPhi:
-                    return WtiStabilityShearStrengthModel.CPhi;
                 case ShearStrengthModel.CPhiOrSuCalculated:
-                    return WtiStabilityShearStrengthModel.CPhiOrCuCalculated;
+                    return ShearStrengthModelType.MohrCoulomb;
                 default:
                     throw new NotSupportedException();
             }
         }
 
         /// <summary>
-        /// Converts a <see cref="WaterPressureInterpolationModel"/> into a <see cref="WaterpressureInterpolationModel"/>.
+        /// Converts a <see cref="ShearStrengthModel"/> into a <see cref="ShearStrengthModelType"/>.
+        /// </summary>
+        /// <param name="shearStrengthModel">The <see cref="ShearStrengthModel"/> to convert.</param>
+        /// <returns>A <see cref="ShearStrengthModelType"/> based on <paramref name="shearStrengthModel"/>.</returns>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="shearStrengthModel"/>
+        /// is an invalid value.</exception>
+        /// <exception cref="NotSupportedException">Thrown when <paramref name="shearStrengthModel"/>
+        /// is a valid value, but unsupported.</exception>
+        private static ShearStrengthModelType ConvertShearStrengthBelowPhreaticLevelModel(ShearStrengthModel shearStrengthModel)
+        {
+            if (!Enum.IsDefined(typeof(ShearStrengthModel), shearStrengthModel))
+            {
+                throw new InvalidEnumArgumentException(nameof(shearStrengthModel),
+                                                       (int) shearStrengthModel,
+                                                       typeof(ShearStrengthModel));
+            }
+
+            switch (shearStrengthModel)
+            {
+                case ShearStrengthModel.SuCalculated:
+                case ShearStrengthModel.CPhiOrSuCalculated:
+                    return ShearStrengthModelType.Shansep;
+                case ShearStrengthModel.CPhi:
+                    return ShearStrengthModelType.MohrCoulomb;
+                default:
+                    throw new NotSupportedException();
+            }
+        }
+
+        /// <summary>
+        /// Converts a <see cref="WaterPressureInterpolationModel"/> into a <see cref="CSharpWrapperWaterPressureInterpolationModel"/>.
         /// </summary>
         /// <param name="waterPressureInterpolationModel">The <see cref="WaterPressureInterpolationModel"/> to convert.</param>
-        /// <returns>A <see cref="WaterpressureInterpolationModel"/> based on <paramref name="waterPressureInterpolationModel"/>.</returns>
+        /// <returns>A <see cref="CSharpWrapperWaterPressureInterpolationModel"/> based on <paramref name="waterPressureInterpolationModel"/>.</returns>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="waterPressureInterpolationModel"/>
         /// is an invalid value.</exception>
         /// <exception cref="NotSupportedException">Thrown when <paramref name="waterPressureInterpolationModel"/>
         /// is a valid value, but unsupported.</exception>
-        private static WaterpressureInterpolationModel ConvertWaterPressureInterpolationModel(WaterPressureInterpolationModel waterPressureInterpolationModel)
+        private static CSharpWrapperWaterPressureInterpolationModel ConvertWaterPressureInterpolationModel(WaterPressureInterpolationModel waterPressureInterpolationModel)
         {
             if (!Enum.IsDefined(typeof(WaterPressureInterpolationModel), waterPressureInterpolationModel))
             {
@@ -169,9 +200,9 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
             switch (waterPressureInterpolationModel)
             {
                 case WaterPressureInterpolationModel.Automatic:
-                    return WaterpressureInterpolationModel.Automatic;
+                    return CSharpWrapperWaterPressureInterpolationModel.Automatic;
                 case WaterPressureInterpolationModel.Hydrostatic:
-                    return WaterpressureInterpolationModel.Hydrostatic;
+                    return CSharpWrapperWaterPressureInterpolationModel.Hydrostatic;
                 default:
                     throw new NotSupportedException();
             }

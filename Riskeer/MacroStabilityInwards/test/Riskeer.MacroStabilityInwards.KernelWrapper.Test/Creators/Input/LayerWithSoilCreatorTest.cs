@@ -24,15 +24,15 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using Core.Common.TestUtil;
-using Deltares.MacroStability.Geometry;
+using Deltares.MacroStability.CSharpWrapper;
 using NUnit.Framework;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Input;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input;
 using Point2D = Core.Common.Base.Geometry.Point2D;
-using ShearStrengthModel = Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Input.ShearStrengthModel;
 using SoilLayer = Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Input.SoilLayer;
 using SoilProfile = Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Input.SoilProfile;
-using WtiStabilityShearStrengthModel = Deltares.MacroStability.Geometry.ShearStrengthModel;
+using WaterPressureInterpolationModel = Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Input.WaterPressureInterpolationModel;
+using CSharpWrapperWaterPressureInterpolationModel = Deltares.MacroStability.CSharpWrapper.Input.WaterPressureInterpolationModel;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
 {
@@ -43,7 +43,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
         public void Create_SoilProfileNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => LayerWithSoilCreator.Create(null, out IDictionary<SoilLayer, LayerWithSoil> layerLookup);
+            void Call() => LayerWithSoilCreator.Create(null, out IDictionary<SoilLayer, LayerWithSoil> _);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -159,7 +159,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             }, Enumerable.Empty<PreconsolidationStress>());
 
             // Call
-            void Call() => LayerWithSoilCreator.Create(profile, out IDictionary<SoilLayer, LayerWithSoil> layerLookup);
+            void Call() => LayerWithSoilCreator.Create(profile, out IDictionary<SoilLayer, LayerWithSoil> _);
 
             // Assert
             string message = $"The value of argument 'shearStrengthModel' ({99}) is invalid for Enum type '{nameof(ShearStrengthModel)}'.";
@@ -181,17 +181,19 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             }, Enumerable.Empty<PreconsolidationStress>());
 
             // Call
-            void Call() => LayerWithSoilCreator.Create(profile, out IDictionary<SoilLayer, LayerWithSoil> layerLookup);
+            void Call() => LayerWithSoilCreator.Create(profile, out IDictionary<SoilLayer, LayerWithSoil> _);
 
             // Assert
             string message = $"The value of argument 'waterPressureInterpolationModel' ({99}) is invalid for Enum type '{nameof(WaterPressureInterpolationModel)}'.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(Call, message);
         }
 
-        [TestCase(ShearStrengthModel.CPhi, WtiStabilityShearStrengthModel.CPhi)]
-        [TestCase(ShearStrengthModel.CPhiOrSuCalculated, WtiStabilityShearStrengthModel.CPhiOrCuCalculated)]
-        [TestCase(ShearStrengthModel.SuCalculated, WtiStabilityShearStrengthModel.CuCalculated)]
-        public void Create_ValidShearStrengthModel_ExpectedShearStrengthModel(ShearStrengthModel shearStrengthModel, WtiStabilityShearStrengthModel expectedShearStrengthModel)
+        [TestCase(ShearStrengthModel.CPhi, ShearStrengthModelType.MohrCoulomb, ShearStrengthModelType.MohrCoulomb)]
+        [TestCase(ShearStrengthModel.SuCalculated, ShearStrengthModelType.Shansep, ShearStrengthModelType.Shansep)]
+        [TestCase(ShearStrengthModel.CPhiOrSuCalculated, ShearStrengthModelType.MohrCoulomb, ShearStrengthModelType.Shansep)]
+        public void Create_ValidShearStrengthModel_ExpectedShearStrengthModel(
+            ShearStrengthModel shearStrengthModel, ShearStrengthModelType expectedShearStrengthAbovePhreaticLevelModel,
+                                                                              ShearStrengthModelType expectedShearStrengthBelowPhreaticLevelModel)
         {
             // Setup
             var profile = new SoilProfile(new[]
@@ -205,16 +207,17 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             }, Enumerable.Empty<PreconsolidationStress>());
 
             // Call
-            LayerWithSoil[] layersWithSoil = LayerWithSoilCreator.Create(profile, out IDictionary<SoilLayer, LayerWithSoil> layerLookup);
+            LayerWithSoil[] layersWithSoil = LayerWithSoilCreator.Create(profile, out IDictionary<SoilLayer, LayerWithSoil> _);
 
             // Assert
-            Assert.AreEqual(expectedShearStrengthModel, layersWithSoil[0].Soil.ShearStrengthModel);
+            Assert.AreEqual(expectedShearStrengthAbovePhreaticLevelModel, layersWithSoil[0].Soil.ShearStrengthAbovePhreaticLevelModel);
+            Assert.AreEqual(expectedShearStrengthBelowPhreaticLevelModel, layersWithSoil[0].Soil.ShearStrengthBelowPhreaticLevelModel);
         }
 
-        [TestCase(WaterPressureInterpolationModel.Automatic, WaterpressureInterpolationModel.Automatic)]
-        [TestCase(WaterPressureInterpolationModel.Hydrostatic, WaterpressureInterpolationModel.Hydrostatic)]
+        [TestCase(WaterPressureInterpolationModel.Automatic, CSharpWrapperWaterPressureInterpolationModel.Automatic)]
+        [TestCase(WaterPressureInterpolationModel.Hydrostatic, CSharpWrapperWaterPressureInterpolationModel.Hydrostatic)]
         public void Create_ValidWaterPressureInterpolationModel_ExpectedWaterPressureInterpolationModel(
-            WaterPressureInterpolationModel waterPressureInterpolationModel, WaterpressureInterpolationModel expectedWaterPressureInterpolationModel)
+            WaterPressureInterpolationModel waterPressureInterpolationModel, CSharpWrapperWaterPressureInterpolationModel expectedWaterPressureInterpolationModel)
         {
             // Setup
             var profile = new SoilProfile(new[]
@@ -237,10 +240,11 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
         private static void AssertSoilLayerProperties(SoilLayer soilLayer, LayerWithSoil layerWithSoil)
         {
             Assert.AreEqual(soilLayer.IsAquifer, layerWithSoil.IsAquifer);
-            Assert.AreEqual(WaterpressureInterpolationModel.Hydrostatic, layerWithSoil.WaterPressureInterpolationModel);
+            Assert.AreEqual(WaterPressureInterpolationModel.Hydrostatic, layerWithSoil.WaterPressureInterpolationModel);
 
             Assert.IsNotNull(layerWithSoil.Soil);
-            Assert.AreEqual(WtiStabilityShearStrengthModel.CuCalculated, layerWithSoil.Soil.ShearStrengthModel);
+            Assert.AreEqual(ShearStrengthModelType.Shansep, layerWithSoil.Soil.ShearStrengthAbovePhreaticLevelModel);
+            Assert.AreEqual(ShearStrengthModelType.Shansep, layerWithSoil.Soil.ShearStrengthBelowPhreaticLevelModel);
             Assert.AreEqual(soilLayer.MaterialName, layerWithSoil.Soil.Name);
             Assert.AreEqual(soilLayer.AbovePhreaticLevel, layerWithSoil.Soil.AbovePhreaticLevel);
             Assert.AreEqual(soilLayer.BelowPhreaticLevel, layerWithSoil.Soil.BelowPhreaticLevel);
@@ -249,11 +253,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             Assert.AreEqual(soilLayer.ShearStrengthRatio, layerWithSoil.Soil.RatioCuPc);
             Assert.AreEqual(soilLayer.StrengthIncreaseExponent, layerWithSoil.Soil.StrengthIncreaseExponent);
             Assert.AreEqual(soilLayer.Dilatancy, layerWithSoil.Soil.Dilatancy);
-            Assert.IsNaN(layerWithSoil.Soil.RRatio); //Irrelevant
-            Assert.IsNaN(layerWithSoil.Soil.RheologicalCoefficient); //Irrelevant
-            Assert.IsNotNull(layerWithSoil.Soil.BondStressCurve); //Irrelevant
-            Assert.AreEqual(SoilType.Sand, layerWithSoil.Soil.SoilType); //Irrelevant
-            Assert.IsFalse(layerWithSoil.Soil.UseSoilType); //Irrelevant
         }
 
         private static SoilLayer.ConstructionProperties CreateRandomConstructionProperties(int seed, string materialName)
