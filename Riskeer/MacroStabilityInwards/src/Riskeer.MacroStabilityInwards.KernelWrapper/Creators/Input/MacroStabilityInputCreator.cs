@@ -49,7 +49,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
                     ConstructionStages =
                     {
                         AddConstructionStage(soilProfile, dailyWaternet, FixedSoilStressCreator.Create(layerLookup).ToList(),
-                                             PreConsolidationStressCreator.Create(upliftVanInput.SoilProfile.PreconsolidationStresses).ToList()),
+                                             PreconsolidationStressCreator.Create(upliftVanInput.SoilProfile.PreconsolidationStresses).ToList()),
                         AddConstructionStage(soilProfile, extremeWaternet)
                     },
                     Soils = layersWithSoil.Select(lws => lws.Soil).ToList(),

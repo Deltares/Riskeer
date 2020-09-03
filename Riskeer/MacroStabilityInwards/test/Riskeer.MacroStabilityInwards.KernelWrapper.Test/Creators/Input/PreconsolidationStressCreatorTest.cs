@@ -22,22 +22,22 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Deltares.MacroStability.Geometry;
 using NUnit.Framework;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Input;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input;
 using Point2D = Core.Common.Base.Geometry.Point2D;
+using CSharpWrapperPreconsolidationStress = Deltares.MacroStability.CSharpWrapper.Input.PreconsolidationStress;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
 {
     [TestFixture]
-    public class PreConsolidationStressCreatorTest
+    public class PreconsolidationStressCreatorTest
     {
         [Test]
         public void Create_PreconsolidationStressesNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => PreConsolidationStressCreator.Create(null);
+            void Call() => PreconsolidationStressCreator.Create(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -56,20 +56,19 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             };
 
             // Call
-            IEnumerable<PreConsolidationStress> preConsolidationStresses = PreConsolidationStressCreator.Create(preconsolidationStresses);
+            IEnumerable<CSharpWrapperPreconsolidationStress> stabilityPreconsolidationStresses = PreconsolidationStressCreator.Create(preconsolidationStresses);
 
             // Assert
-            Assert.AreEqual(preconsolidationStresses.Length, preConsolidationStresses.Count());
+            Assert.AreEqual(preconsolidationStresses.Length, stabilityPreconsolidationStresses.Count());
 
             for (var i = 0; i < preconsolidationStresses.Length; i++)
             {
-                PreconsolidationStress riskeerPreConsolidationStress = preconsolidationStresses[i];
-                PreConsolidationStress stabilityPreConsolidationStress = preConsolidationStresses.ElementAt(i);
+                PreconsolidationStress preconsolidationStress = preconsolidationStresses[i];
+                CSharpWrapperPreconsolidationStress stabilityPreconsolidationStress = stabilityPreconsolidationStresses.ElementAt(i);
 
-                Assert.AreEqual(riskeerPreConsolidationStress.Coordinate.X, stabilityPreConsolidationStress.X);
-                Assert.AreEqual(riskeerPreConsolidationStress.Coordinate.Y, stabilityPreConsolidationStress.Z);
-                Assert.AreEqual(riskeerPreConsolidationStress.Stress, stabilityPreConsolidationStress.StressValue);
-                Assert.IsNull(stabilityPreConsolidationStress.Name); // Irrelevant
+                Assert.AreEqual(preconsolidationStress.Coordinate.X, stabilityPreconsolidationStress.Point.X);
+                Assert.AreEqual(preconsolidationStress.Coordinate.Y, stabilityPreconsolidationStress.Point.Z);
+                Assert.AreEqual(preconsolidationStress.Stress, stabilityPreconsolidationStress.StressValue);
             }
         }
     }

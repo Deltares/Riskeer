@@ -152,7 +152,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
                 Assert.AreEqual(input.SlipPlane.GridAutomaticDetermined, upliftVanKernel.GridAutomaticDetermined);
                 Assert.AreEqual(input.SlipPlane.TangentLinesAutomaticAtBoundaries, upliftVanKernel.TangentLinesAutomaticDetermined);
                 CollectionAssert.AreEqual(FixedSoilStressCreator.Create(layerLookup), upliftVanKernel.SoilStresses, new FixedSoilStressComparer());
-                CollectionAssert.AreEqual(PreConsolidationStressCreator.Create(input.SoilProfile.PreconsolidationStresses), upliftVanKernel.PreConsolidationStresses, new PreConsolidationStressComparer());
+                CollectionAssert.AreEqual(PreconsolidationStressCreator.Create(input.SoilProfile.PreconsolidationStresses), upliftVanKernel.PreConsolidationStresses, new PreConsolidationStressComparer());
                 Assert.AreEqual(input.SlipPlaneConstraints.AutomaticForbiddenZones, upliftVanKernel.AutomaticForbiddenZones);
             }
         }

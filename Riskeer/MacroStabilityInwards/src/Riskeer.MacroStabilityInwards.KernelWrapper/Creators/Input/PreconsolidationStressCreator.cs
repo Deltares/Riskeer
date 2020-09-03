@@ -22,37 +22,36 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Deltares.MacroStability.Geometry;
+using Deltares.MacroStability.CSharpWrapper;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Input;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan;
-using KernelPreconsolidationStress = Deltares.MacroStability.CSharpWrapper.Input.PreconsolidationStress;
+using CSharpWrapperPreconsolidationStress = Deltares.MacroStability.CSharpWrapper.Input.PreconsolidationStress;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
 {
     /// <summary>
-    /// Creates <see cref="PreConsolidationStress"/> instances which are required by <see cref="IUpliftVanKernel"/>.
+    /// Creates <see cref="CSharpWrapperPreconsolidationStress"/> instances which are required by <see cref="IUpliftVanKernel"/>.
     /// </summary>
-    internal static class PreConsolidationStressCreator
+    internal static class PreconsolidationStressCreator
     {
         /// <summary>
-        /// Creates <see cref="PreConsolidationStress"/> objects based on the given <see cref="PreconsolidationStress"/> objects.
+        /// Creates <see cref="CSharpWrapperPreconsolidationStress"/> objects based on the given <see cref="PreconsolidationStress"/> objects.
         /// </summary>
         /// <param name="preconsolidationStresses">The preconsolidation stresses to use.</param>
-        /// <returns>An <see cref="IEnumerable{T}"/> of <see cref="PreConsolidationStress"/>.</returns>
+        /// <returns>An <see cref="IEnumerable{T}"/> of <see cref="CSharpWrapperPreconsolidationStress"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="preconsolidationStresses"/>
         /// is <c>null</c>.</exception>
-        public static IEnumerable<KernelPreconsolidationStress> Create(IEnumerable<PreconsolidationStress> preconsolidationStresses)
+        public static IEnumerable<CSharpWrapperPreconsolidationStress> Create(IEnumerable<PreconsolidationStress> preconsolidationStresses)
         {
             if (preconsolidationStresses == null)
             {
                 throw new ArgumentNullException(nameof(preconsolidationStresses));
             }
 
-            return preconsolidationStresses.Select(preconsolidationStress => new KernelPreconsolidationStress
+            return preconsolidationStresses.Select(preconsolidationStress => new CSharpWrapperPreconsolidationStress
             {
                 StressValue = preconsolidationStress.Stress,
-                X = preconsolidationStress.Coordinate.X,
-                Z = preconsolidationStress.Coordinate.Y
+                Point = new Point2D(preconsolidationStress.Coordinate.X, preconsolidationStress.Coordinate.Y)
             }).ToArray();
         }
     }
