@@ -21,11 +21,12 @@
 
 using System;
 using System.Linq;
-using Deltares.MacroStability.Geometry;
+using Deltares.MacroStability.CSharpWrapper;
 using NUnit.Framework;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Output;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Output;
 using Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Waternet.Output;
+using CSharpWrapperPoint2D = Deltares.MacroStability.CSharpWrapper.Point2D;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Output
 {
@@ -36,10 +37,10 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Output
         public void Create_WaternetNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => WaternetCalculatorResultCreator.Create(null);
+            void Call() => WaternetCalculatorResultCreator.Create(null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("waternet", exception.ParamName);
         }
 
@@ -52,40 +53,40 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Output
                 Name = "line 1",
                 Points =
                 {
-                    new GeometryPoint(0, 0),
-                    new GeometryPoint(1, 1)
+                    new CSharpWrapperPoint2D(0, 0),
+                    new CSharpWrapperPoint2D(1, 1)
                 }
             };
-            var phreaticLine = new PhreaticLine
+            var phreaticLine = new HeadLine
             {
                 Name = "line 2",
                 Points =
                 {
-                    new GeometryPoint(2, 2),
-                    new GeometryPoint(3, 3)
+                    new CSharpWrapperPoint2D(2, 2),
+                    new CSharpWrapperPoint2D(3, 3)
                 }
             };
-            var waternetLine = new WaternetLine
+            var referenceLine = new ReferenceLine
             {
                 Name = "line 3",
                 Points =
                 {
-                    new GeometryPoint(4, 4),
-                    new GeometryPoint(5, 5)
+                    new CSharpWrapperPoint2D(4, 4),
+                    new CSharpWrapperPoint2D(5, 5)
                 },
-                HeadLine = headLine
+                AssociatedHeadLine = headLine
             };
 
             var waternet = new Waternet
             {
-                HeadLineList =
+                HeadLines =
                 {
                     headLine
                 },
                 PhreaticLine = phreaticLine,
-                WaternetLineList =
+                ReferenceLines =
                 {
-                    waternetLine
+                    referenceLine
                 }
             };
 
@@ -93,15 +94,15 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Output
             WaternetCalculatorResult result = WaternetCalculatorResultCreator.Create(waternet);
 
             // Assert
-            WaternetCalculatorOutputAssert.AssertPhreaticLines(new GeometryPointString[]
+            WaternetCalculatorOutputAssert.AssertPhreaticLines(new[]
             {
                 phreaticLine,
                 headLine
             }, result.PhreaticLines.ToArray());
 
-            WaternetCalculatorOutputAssert.AssertWaternetLines(new[]
+            WaternetCalculatorOutputAssert.AssertReferenceLines(new[]
             {
-                waternetLine
+                referenceLine
             }, result.WaternetLines.ToArray());
         }
     }

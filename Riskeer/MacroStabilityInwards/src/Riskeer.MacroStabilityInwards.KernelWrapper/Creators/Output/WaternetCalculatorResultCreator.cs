@@ -22,7 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Deltares.MacroStability.Geometry;
+using Deltares.MacroStability.CSharpWrapper;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Output;
 using Point2D = Core.Common.Base.Geometry.Point2D;
 
@@ -49,30 +49,30 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Output
                 throw new ArgumentNullException(nameof(waternet));
             }
 
-            var phreaticLineLookup = new Dictionary<GeometryPointString, WaternetPhreaticLineResult>
+            var phreaticLineLookup = new Dictionary<HeadLine, WaternetPhreaticLineResult>
             {
                 {
                     waternet.PhreaticLine, CreatePhreaticLine(waternet.PhreaticLine)
                 }
             };
-            foreach (HeadLine headLine in waternet.HeadLineList)
+            foreach (HeadLine headLine in waternet.HeadLines)
             {
                 phreaticLineLookup.Add(headLine, CreatePhreaticLine(headLine));
             }
 
             return new WaternetCalculatorResult(phreaticLineLookup.Values,
-                                                waternet.WaternetLineList.Select(wl => CreateWaternetLine(wl, phreaticLineLookup)).ToArray());
+                                                waternet.ReferenceLines.Select(wl => CreateWaternetLine(wl, phreaticLineLookup)).ToArray());
         }
 
-        private static WaternetLineResult CreateWaternetLine(WaternetLine waternetLine,
-                                                             IDictionary<GeometryPointString, WaternetPhreaticLineResult> phreaticLines)
+        private static WaternetLineResult CreateWaternetLine(ReferenceLine waternetLine,
+                                                             IDictionary<HeadLine, WaternetPhreaticLineResult> phreaticLines)
         {
             return new WaternetLineResult(waternetLine.Name,
                                           waternetLine.Points.Select(p => new Point2D(p.X, p.Z)).ToArray(),
-                                          phreaticLines[waternetLine.HeadLine]);
+                                          phreaticLines[waternetLine.AssociatedHeadLine]);
         }
 
-        private static WaternetPhreaticLineResult CreatePhreaticLine(GeometryPointString phreaticLine)
+        private static WaternetPhreaticLineResult CreatePhreaticLine(HeadLine phreaticLine)
         {
             return new WaternetPhreaticLineResult(phreaticLine.Name,
                                                   phreaticLine.Points.Select(p => new Point2D(p.X, p.Z)).ToArray());

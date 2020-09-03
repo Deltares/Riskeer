@@ -22,8 +22,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Deltares.MacroStability.Geometry;
-using Deltares.MacroStability.WaternetCreator;
+using Deltares.MacroStability.CSharpWrapper;
+using Deltares.MacroStability.CSharpWrapper.Input;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators;
@@ -36,7 +36,8 @@ using Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Waternet.
 using Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Waternet.Output;
 using Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels;
 using Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.Waternet;
-using WtiStabilityWaternet = Deltares.MacroStability.Geometry.Waternet;
+using CSharpWrapperWaternet = Deltares.MacroStability.CSharpWrapper.Waternet;
+using CSharpWrapperPoint2D = Deltares.MacroStability.CSharpWrapper.Point2D;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.Waternet
 {
@@ -151,14 +152,14 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.Waternet
 
                 // Assert
                 Assert.IsNotNull(result);
-                var expectedPhreaticLines = new List<GeometryPointString>
+                var expectedPhreaticLines = new List<HeadLine>
                 {
                     kernel.Waternet.PhreaticLine
                 };
-                expectedPhreaticLines.AddRange(kernel.Waternet.HeadLineList);
+                expectedPhreaticLines.AddRange(kernel.Waternet.HeadLines);
 
                 WaternetCalculatorOutputAssert.AssertPhreaticLines(expectedPhreaticLines.ToArray(), result.PhreaticLines.ToArray());
-                WaternetCalculatorOutputAssert.AssertWaternetLines(kernel.Waternet.WaternetLineList.ToArray(), result.WaternetLines.ToArray());
+                WaternetCalculatorOutputAssert.AssertReferenceLines(kernel.Waternet.ReferenceLines.ToArray(), result.WaternetLines.ToArray());
             }
         }
 
@@ -257,37 +258,37 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.Waternet
                 Name = "line 1",
                 Points =
                 {
-                    new GeometryPoint(0, 0),
-                    new GeometryPoint(1, 1)
+                    new CSharpWrapperPoint2D(0, 0),
+                    new CSharpWrapperPoint2D(1, 1)
                 }
             };
 
-            kernel.Waternet = new WtiStabilityWaternet
+            kernel.Waternet = new CSharpWrapperWaternet
             {
-                HeadLineList =
+                HeadLines =
                 {
                     headLine
                 },
-                PhreaticLine = new PhreaticLine
+                PhreaticLine = new HeadLine
                 {
                     Name = "line 2",
                     Points =
                     {
-                        new GeometryPoint(2, 2),
-                        new GeometryPoint(3, 3)
+                        new CSharpWrapperPoint2D(2, 2),
+                        new CSharpWrapperPoint2D(3, 3)
                     }
                 },
-                WaternetLineList =
+                ReferenceLines =
                 {
-                    new WaternetLine
+                    new ReferenceLine
                     {
                         Name = "line 3",
                         Points =
                         {
-                            new GeometryPoint(4, 4),
-                            new GeometryPoint(5, 5)
+                            new CSharpWrapperPoint2D(4, 4),
+                            new CSharpWrapperPoint2D(5, 5)
                         },
-                        HeadLine = headLine
+                        AssociatedHeadLine = headLine
                     }
                 }
             };
@@ -298,9 +299,9 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.Waternet
             public TestWaternetCalculator(WaternetCalculatorInput input, IMacroStabilityInwardsKernelFactory factory)
                 : base(input, factory) {}
 
-            protected override IWaternetKernel CreateWaternetKernel(Location location)
+            protected override IWaternetKernel CreateWaternetKernel(MacroStabilityInput kernelInput)
             {
-                return Factory.CreateWaternetExtremeKernel(location);
+                return Factory.CreateWaternetExtremeKernel(kernelInput);
             }
         }
     }
