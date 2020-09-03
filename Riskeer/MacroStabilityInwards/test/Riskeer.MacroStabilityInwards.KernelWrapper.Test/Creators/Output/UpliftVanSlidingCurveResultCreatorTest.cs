@@ -20,13 +20,14 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
-using Deltares.MacroStability.Data;
-using Deltares.MacroStability.Geometry;
+using Core.Common.Base.Geometry;
+using Deltares.MacroStability.CSharpWrapper.Output;
 using NUnit.Framework;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Output;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Output;
-using Point2D = Core.Common.Base.Geometry.Point2D;
+using CSharpWrapperPoint2D = Deltares.MacroStability.CSharpWrapper.Point2D;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Output
 {
@@ -37,10 +38,10 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Output
         public void Create_SlidingCurveNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => UpliftVanSlidingCurveResultCreator.Create(null);
+            void Call() => UpliftVanSlidingCurveResultCreator.Create(null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("slidingCurve", exception.ParamName);
         }
 
@@ -69,29 +70,29 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Output
             double iteratedHorizontalForce = random.Next();
             double nonIteratedHorizontalForce = random.Next();
 
-            var slidingCurve = new SlidingDualCircle
+            var slidingCurve = new DualSlidingCircleMinimumSafetyCurve
             {
-                ActiveCircle = new GeometryPoint(activeCircleX, activeCircleZ),
-                ActiveForce = activeCircleIteratedForce,
-                ActiveForce0 = activeCircleNonIteratedForce,
-                ActiveRadius = activeCircleRadius,
-                DrivingMomentActive = activeCircleDrivingMoment,
-                ResistingMomentActive = activeCircleResistingMoment,
-                PassiveCircle = new GeometryPoint(passiveCircleX, passiveCircleZ),
-                PassiveForce = passiveCircleIteratedForce,
-                PassiveForce0 = passiveCircleNonIteratedForce,
-                PassiveRadius = passiveCircleRadius,
-                DrivingMomentPassive = passiveCircleDrivingMoment,
-                ResistingMomentPassive = passiveCircleResistingMoment,
-                HorizontalForce = iteratedHorizontalForce,
-                HorizontalForce0 = nonIteratedHorizontalForce
+                ActiveCircleCenter = new CSharpWrapperPoint2D(activeCircleX, activeCircleZ),
+                IteratedActiveForce = activeCircleIteratedForce,
+                NonIteratedActiveForce = activeCircleNonIteratedForce,
+                ActiveCircleRadius = activeCircleRadius,
+                DrivingActiveMoment = activeCircleDrivingMoment,
+                ResistingActiveMoment = activeCircleResistingMoment,
+                PassiveCircleCenter = new CSharpWrapperPoint2D(passiveCircleX, passiveCircleZ),
+                IteratedPassiveForce = passiveCircleIteratedForce,
+                NonIteratedPassiveForce = passiveCircleNonIteratedForce,
+                PassiveCircleRadius = passiveCircleRadius,
+                DrivingPassiveMoment = passiveCircleDrivingMoment,
+                ResistingPassiveMoment = passiveCircleResistingMoment,
+                IteratedHorizontalForce = iteratedHorizontalForce,
+                NonIteratedHorizontalForce = nonIteratedHorizontalForce
             };
 
             // Call
             UpliftVanSlidingCurveResult result = UpliftVanSlidingCurveResultCreator.Create(slidingCurve);
 
             // Assert
-            bool leftCircleIsActive = slidingCurve.ActiveCircle.X <= slidingCurve.PassiveCircle.X;
+            bool leftCircleIsActive = slidingCurve.ActiveCircleCenter.X <= slidingCurve.PassiveCircleCenter.X;
             AssertActiveCircle(leftCircleIsActive ? result.LeftCircle : result.RightCircle,
                                activeCircleX, activeCircleZ, activeCircleIteratedForce,
                                activeCircleNonIteratedForce, activeCircleRadius,
@@ -149,52 +150,44 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Output
             double totalStress = random.NextDouble();
             double weight = random.NextDouble();
 
-            var slidingCurve = new SlidingDualCircle
-            {
-                Slices =
+            var slidingCurve = new DualSlidingCircleMinimumSafetyCurve();
+            ((List<Slice>) slidingCurve.Slices).Add(
+                new Slice
                 {
-                    new Slice
-                    {
-                        TopLeftX = topLeftX,
-                        TopLeftZ = topLeftZ,
-                        TopRightX = topRightX,
-                        TopRightZ = topRightZ,
-                        BottomLeftX = bottomLeftX,
-                        BottomLeftZ = bottomLeftZ,
-                        BottomRightX = bottomRightX,
-                        BottomRightZ = bottomRightZ,
-                        Cohesion = cohesion,
-                        Phi = frictionAngle,
-                        PGrens = criticalPressure,
-                        OCR = overConsolidationRatio,
-                        POP = pop,
-                        DegreeofConsolidationPorePressure = degreeOfConsolidationPorePressureSoil,
-                        PorePressureDueToDegreeOfConsolidationLoad = degreeOfConsolidationPorePressureLoad,
-                        Dilatancy = dilatancy,
-                        ExternalLoad = externalLoad,
-                        HydrostaticPorePressure = hydrostaticPorePressure,
-                        LeftForce = leftForce,
-                        LeftForceAngle = leftForceAngle,
-                        LeftForceY = leftForceY,
-                        RightForce = rightForce,
-                        RightForceAngle = rightForceAngle,
-                        RightForceY = rightForceY,
-                        LoadStress = loadStress,
-                        NormalStress = normalStress,
-                        PoreOnSurface = porePressure,
-                        HPoreOnSurface = horizontalPorePressure,
-                        VPoreOnSurface = verticalPorePressure,
-                        PiezometricPorePressure = piezometricPorePressure,
-                        EffectiveStress = effectiveStress,
-                        ExcessPorePressure = excessPorePressure,
-                        ShearStress = shearStress,
-                        SoilStress = soilStress,
-                        TotalPorePressure = totalPorePressure,
-                        TotalStress = totalStress,
-                        Weight = weight
-                    }
-                }
-            };
+                    TopLeftPoint = new CSharpWrapperPoint2D(topLeftX, topLeftZ),
+                    TopRightPoint = new CSharpWrapperPoint2D(topRightX, topRightZ),
+                    BottomLeftPoint = new CSharpWrapperPoint2D(bottomLeftX, bottomLeftZ),
+                    BottomRightPoint = new CSharpWrapperPoint2D(bottomRightX, bottomRightZ),
+                    Cohesion = cohesion,
+                    FrictionAngleInput = frictionAngle,
+                    YieldStress = criticalPressure,
+                    OCR = overConsolidationRatio,
+                    POP = pop,
+                    DegreeOfConsolidationPorePressure = degreeOfConsolidationPorePressureSoil,
+                    PorePressureDueToDegreeOfConsolidationLoad = degreeOfConsolidationPorePressureLoad,
+                    Dilatancy = dilatancy,
+                    ExternalLoad = externalLoad,
+                    HydrostaticPorePressure = hydrostaticPorePressure,
+                    LeftForce = leftForce,
+                    LeftForceAngle = leftForceAngle,
+                    LeftForceY = leftForceY,
+                    RightForce = rightForce,
+                    RightForceAngle = rightForceAngle,
+                    RightForceY = rightForceY,
+                    LoadStress = loadStress,
+                    NormalStress = normalStress,
+                    PorePressure = porePressure,
+                    HorizontalPorePressure = horizontalPorePressure,
+                    VerticalPorePressure = verticalPorePressure,
+                    PiezometricPorePressure = piezometricPorePressure,
+                    EffectiveStress = effectiveStress,
+                    ExcessPorePressure = excessPorePressure,
+                    ShearStress = shearStress,
+                    SoilStress = soilStress,
+                    TotalPorePressure = totalPorePressure,
+                    TotalStress = totalStress,
+                    Weight = weight
+                });
 
             // Call
             UpliftVanSlidingCurveResult result = UpliftVanSlidingCurveResultCreator.Create(slidingCurve);

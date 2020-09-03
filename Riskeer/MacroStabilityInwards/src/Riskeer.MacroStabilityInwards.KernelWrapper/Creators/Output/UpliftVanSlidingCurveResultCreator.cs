@@ -23,8 +23,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Geometry;
-using Deltares.MacroStability.Data;
+using Deltares.MacroStability.CSharpWrapper.Output;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Output;
+using CSharpWrapperPoint2D = Deltares.MacroStability.CSharpWrapper.Point2D;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Output
 {
@@ -42,33 +43,33 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Output
         /// taken from the <paramref name="slidingCurve"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="slidingCurve"/>
         /// is <c>null</c>.</exception>
-        public static UpliftVanSlidingCurveResult Create(SlidingDualCircle slidingCurve)
+        public static UpliftVanSlidingCurveResult Create(DualSlidingCircleMinimumSafetyCurve slidingCurve)
         {
             if (slidingCurve == null)
             {
                 throw new ArgumentNullException(nameof(slidingCurve));
             }
 
-            bool leftCircleIsActive = slidingCurve.ActiveCircle.X <= slidingCurve.PassiveCircle.X;
+            bool leftCircleIsActive = slidingCurve.ActiveCircleCenter.X <= slidingCurve.PassiveCircleCenter.X;
             UpliftVanSlidingCircleResult leftCircle = leftCircleIsActive ? CreateActiveCircle(slidingCurve) : CreatePassiveCircle(slidingCurve);
             UpliftVanSlidingCircleResult rightCircle = leftCircleIsActive ? CreatePassiveCircle(slidingCurve) : CreateActiveCircle(slidingCurve);
 
             return new UpliftVanSlidingCurveResult(leftCircle, rightCircle, CreateSlices(slidingCurve.Slices),
-                                                   slidingCurve.HorizontalForce0, slidingCurve.HorizontalForce);
+                                                   slidingCurve.NonIteratedHorizontalForce, slidingCurve.IteratedHorizontalForce);
         }
 
-        private static UpliftVanSlidingCircleResult CreateActiveCircle(SlidingDualCircle slidingCurve)
+        private static UpliftVanSlidingCircleResult CreateActiveCircle(DualSlidingCircleMinimumSafetyCurve slidingCurve)
         {
-            return new UpliftVanSlidingCircleResult(new Point2D(slidingCurve.ActiveCircle.X, slidingCurve.ActiveCircle.Z),
-                                                    slidingCurve.ActiveRadius, true, slidingCurve.ActiveForce0, slidingCurve.ActiveForce,
-                                                    slidingCurve.DrivingMomentActive, slidingCurve.ResistingMomentActive);
+            return new UpliftVanSlidingCircleResult(new Point2D(slidingCurve.ActiveCircleCenter.X, slidingCurve.ActiveCircleCenter.Z),
+                                                    slidingCurve.ActiveCircleRadius, true, slidingCurve.NonIteratedActiveForce, slidingCurve.IteratedActiveForce,
+                                                    slidingCurve.DrivingActiveMoment, slidingCurve.ResistingActiveMoment);
         }
 
-        private static UpliftVanSlidingCircleResult CreatePassiveCircle(SlidingDualCircle slidingCurve)
+        private static UpliftVanSlidingCircleResult CreatePassiveCircle(DualSlidingCircleMinimumSafetyCurve slidingCurve)
         {
-            return new UpliftVanSlidingCircleResult(new Point2D(slidingCurve.PassiveCircle.X, slidingCurve.PassiveCircle.Z),
-                                                    slidingCurve.PassiveRadius, false, slidingCurve.PassiveForce0, slidingCurve.PassiveForce,
-                                                    slidingCurve.DrivingMomentPassive, slidingCurve.ResistingMomentPassive);
+            return new UpliftVanSlidingCircleResult(new Point2D(slidingCurve.PassiveCircleCenter.X, slidingCurve.PassiveCircleCenter.Z),
+                                                    slidingCurve.PassiveCircleRadius, false, slidingCurve.NonIteratedPassiveForce, slidingCurve.IteratedPassiveForce,
+                                                    slidingCurve.DrivingPassiveMoment, slidingCurve.ResistingPassiveMoment);
         }
 
         private static IEnumerable<UpliftVanSliceResult> CreateSlices(IEnumerable<Slice> slidingCurveSlices)
@@ -76,18 +77,18 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Output
             return slidingCurveSlices.Select(
                 slice =>
                     new UpliftVanSliceResult(
-                        new Point2D(slice.TopLeftX, slice.TopLeftZ),
-                        new Point2D(slice.TopRightX, slice.TopRightZ),
-                        new Point2D(slice.BottomLeftX, slice.BottomLeftZ),
-                        new Point2D(slice.BottomRightX, slice.BottomRightZ),
+                        ToRiskeerPoint2D(slice.TopLeftPoint),
+                        ToRiskeerPoint2D(slice.TopRightPoint),
+                        ToRiskeerPoint2D(slice.BottomLeftPoint),
+                        ToRiskeerPoint2D(slice.BottomRightPoint),
                         new UpliftVanSliceResult.ConstructionProperties
                         {
                             Cohesion = slice.Cohesion,
-                            FrictionAngle = slice.Phi,
-                            CriticalPressure = slice.PGrens,
+                            FrictionAngle = slice.FrictionAngleInput,
+                            CriticalPressure = slice.YieldStress,
                             OverConsolidationRatio = slice.OCR,
                             Pop = slice.POP,
-                            DegreeOfConsolidationPorePressureSoil = slice.DegreeofConsolidationPorePressure,
+                            DegreeOfConsolidationPorePressureSoil = slice.DegreeOfConsolidationPorePressure,
                             DegreeOfConsolidationPorePressureLoad = slice.PorePressureDueToDegreeOfConsolidationLoad,
                             Dilatancy = slice.Dilatancy,
                             ExternalLoad = slice.ExternalLoad,
@@ -100,9 +101,9 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Output
                             RightForceY = slice.RightForceY,
                             LoadStress = slice.LoadStress,
                             NormalStress = slice.NormalStress,
-                            PorePressure = slice.PoreOnSurface,
-                            HorizontalPorePressure = slice.HPoreOnSurface,
-                            VerticalPorePressure = slice.VPoreOnSurface,
+                            PorePressure = slice.PorePressure,
+                            HorizontalPorePressure = slice.HorizontalPorePressure,
+                            VerticalPorePressure = slice.VerticalPorePressure,
                             PiezometricPorePressure = slice.PiezometricPorePressure,
                             EffectiveStress = slice.EffectiveStress,
                             ExcessPorePressure = slice.ExcessPorePressure,
@@ -112,6 +113,11 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Output
                             TotalStress = slice.TotalStress,
                             Weight = slice.Weight
                         })).ToArray();
+        }
+
+        private static Point2D ToRiskeerPoint2D(CSharpWrapperPoint2D point)
+        {
+            return new Point2D(point.X, point.Z);
         }
     }
 }
