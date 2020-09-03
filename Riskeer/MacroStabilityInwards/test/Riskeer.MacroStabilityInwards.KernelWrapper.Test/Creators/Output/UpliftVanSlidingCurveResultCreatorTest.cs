@@ -150,44 +150,48 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Output
             double totalStress = random.NextDouble();
             double weight = random.NextDouble();
 
-            var slidingCurve = new DualSlidingCircleMinimumSafetyCurve();
-            ((List<Slice>) slidingCurve.Slices).Add(
-                new Slice
+            var slidingCurve = new DualSlidingCircleMinimumSafetyCurve
+            {
+                Slices = new[]
                 {
-                    TopLeftPoint = new CSharpWrapperPoint2D(topLeftX, topLeftZ),
-                    TopRightPoint = new CSharpWrapperPoint2D(topRightX, topRightZ),
-                    BottomLeftPoint = new CSharpWrapperPoint2D(bottomLeftX, bottomLeftZ),
-                    BottomRightPoint = new CSharpWrapperPoint2D(bottomRightX, bottomRightZ),
-                    Cohesion = cohesion,
-                    FrictionAngleInput = frictionAngle,
-                    YieldStress = criticalPressure,
-                    OCR = overConsolidationRatio,
-                    POP = pop,
-                    DegreeOfConsolidationPorePressure = degreeOfConsolidationPorePressureSoil,
-                    PorePressureDueToDegreeOfConsolidationLoad = degreeOfConsolidationPorePressureLoad,
-                    Dilatancy = dilatancy,
-                    ExternalLoad = externalLoad,
-                    HydrostaticPorePressure = hydrostaticPorePressure,
-                    LeftForce = leftForce,
-                    LeftForceAngle = leftForceAngle,
-                    LeftForceY = leftForceY,
-                    RightForce = rightForce,
-                    RightForceAngle = rightForceAngle,
-                    RightForceY = rightForceY,
-                    LoadStress = loadStress,
-                    NormalStress = normalStress,
-                    PorePressure = porePressure,
-                    HorizontalPorePressure = horizontalPorePressure,
-                    VerticalPorePressure = verticalPorePressure,
-                    PiezometricPorePressure = piezometricPorePressure,
-                    EffectiveStress = effectiveStress,
-                    ExcessPorePressure = excessPorePressure,
-                    ShearStress = shearStress,
-                    SoilStress = soilStress,
-                    TotalPorePressure = totalPorePressure,
-                    TotalStress = totalStress,
-                    Weight = weight
-                });
+                    new Slice
+                    {
+                        TopLeftPoint = new CSharpWrapperPoint2D(topLeftX, topLeftZ),
+                        TopRightPoint = new CSharpWrapperPoint2D(topRightX, topRightZ),
+                        BottomLeftPoint = new CSharpWrapperPoint2D(bottomLeftX, bottomLeftZ),
+                        BottomRightPoint = new CSharpWrapperPoint2D(bottomRightX, bottomRightZ),
+                        Cohesion = cohesion,
+                        FrictionAngleInput = frictionAngle,
+                        YieldStress = criticalPressure,
+                        OCR = overConsolidationRatio,
+                        POP = pop,
+                        DegreeOfConsolidationPorePressure = degreeOfConsolidationPorePressureSoil,
+                        PorePressureDueToDegreeOfConsolidationLoad = degreeOfConsolidationPorePressureLoad,
+                        Dilatancy = dilatancy,
+                        ExternalLoad = externalLoad,
+                        HydrostaticPorePressure = hydrostaticPorePressure,
+                        LeftForce = leftForce,
+                        LeftForceAngle = leftForceAngle,
+                        LeftForceY = leftForceY,
+                        RightForce = rightForce,
+                        RightForceAngle = rightForceAngle,
+                        RightForceY = rightForceY,
+                        LoadStress = loadStress,
+                        NormalStress = normalStress,
+                        PorePressure = porePressure,
+                        HorizontalPorePressure = horizontalPorePressure,
+                        VerticalPorePressure = verticalPorePressure,
+                        PiezometricPorePressure = piezometricPorePressure,
+                        EffectiveStress = effectiveStress,
+                        ExcessPorePressure = excessPorePressure,
+                        ShearStress = shearStress,
+                        SoilStress = soilStress,
+                        TotalPorePressure = totalPorePressure,
+                        TotalStress = totalStress,
+                        Weight = weight
+                    }
+                }
+            };
 
             // Call
             UpliftVanSlidingCurveResult result = UpliftVanSlidingCurveResultCreator.Create(slidingCurve);
