@@ -83,7 +83,7 @@ namespace Riskeer.Common.IO.Configurations.Import
         /// match the combined schema definition.</exception>
         public void Validate(XDocument document)
         {
-            document.Validate(xmlSchemaSet, null);
+            document.Validate(xmlSchemaSet, null); 
         }
 
         /// <summary>
