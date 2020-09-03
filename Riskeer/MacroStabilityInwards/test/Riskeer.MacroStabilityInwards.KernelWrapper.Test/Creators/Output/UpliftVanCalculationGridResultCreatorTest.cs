@@ -20,8 +20,7 @@
 // All rights reserved.
 
 using System;
-using System.Linq;
-using Deltares.MacroStability.Data;
+using Deltares.MacroStability.CSharpWrapper;
 using NUnit.Framework;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Output;
@@ -36,11 +35,11 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Output
         public void Create_SlipPlaneUpliftVanNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => UpliftVanCalculationGridResultCreator.Create(null);
+            void Call() => UpliftVanCalculationGridResultCreator.Create(null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("slipPlaneUpliftVan", exception.ParamName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("upliftVanCalculationGrid", exception.ParamName);
         }
 
         [Test]
@@ -65,9 +64,9 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Output
             double tangentLine1 = random.Next();
             double tangentLine2 = random.Next();
 
-            var slipPlaneUpliftVan = new SlipPlaneUpliftVan
+            var slipPlaneUpliftVan = new UpliftVanCalculationGrid
             {
-                SlipPlaneLeftGrid = new SlipCircleGrid
+                LeftGrid = new CalculationGrid
                 {
                     GridXLeft = leftGridXLeft,
                     GridXRight = leftGridXRight,
@@ -76,7 +75,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Output
                     GridXNumber = leftGridHorizontalPoints,
                     GridZNumber = leftGridVerticalPoints
                 },
-                SlipPlaneRightGrid = new SlipCircleGrid
+                RightGrid = new CalculationGrid
                 {
                     GridXLeft = rightGridXLeft,
                     GridXRight = rightGridXRight,
@@ -85,13 +84,10 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Output
                     GridXNumber = rightGridHorizontalPoints,
                     GridZNumber = rightGridVerticalPoints
                 },
-                SlipPlaneTangentLine = new SlipCircleTangentLine
+                TangentLines =
                 {
-                    BoundaryHeights =
-                    {
-                        new TangentLine(tangentLine1),
-                        new TangentLine(tangentLine2)
-                    }
+                    tangentLine1,
+                    tangentLine2
                 }
             };
 
@@ -99,12 +95,12 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Output
             UpliftVanCalculationGridResult result = UpliftVanCalculationGridResultCreator.Create(slipPlaneUpliftVan);
 
             // Assert
-            AssertGrid(slipPlaneUpliftVan.SlipPlaneLeftGrid, result.LeftGrid);
-            AssertGrid(slipPlaneUpliftVan.SlipPlaneRightGrid, result.RightGrid);
-            CollectionAssert.AreEqual(slipPlaneUpliftVan.SlipPlaneTangentLine.BoundaryHeights.Select(sl => sl.Height), result.TangentLines);
+            AssertGrid(slipPlaneUpliftVan.LeftGrid, result.LeftGrid);
+            AssertGrid(slipPlaneUpliftVan.RightGrid, result.RightGrid);
+            CollectionAssert.AreEqual(slipPlaneUpliftVan.TangentLines, result.TangentLines);
         }
 
-        private static void AssertGrid(SlipCircleGrid originalGrid, UpliftVanGrid actualGrid)
+        private static void AssertGrid(CalculationGrid originalGrid, UpliftVanGrid actualGrid)
         {
             Assert.AreEqual(originalGrid.GridXLeft, actualGrid.XLeft);
             Assert.AreEqual(originalGrid.GridXRight, actualGrid.XRight);
