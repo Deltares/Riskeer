@@ -297,12 +297,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
             var inflowModelTypeChangedCounter = 0;
             var random = new Random(21);
             var mocks = new MockRepository();
-            var observable = mocks.StrictMock<IObservable>();
-            observable.Expect(o => o.NotifyObservers());
-            var handler = new SetPropertyValueAfterConfirmationParameterTester(new[]
-            {
-                observable
-            });
+            var handler = new SetPropertyValueAfterConfirmationParameterTester(new IObservable[0]);
             mocks.ReplayAll();
 
             var row = new ClosingStructuresCalculationRow(new StructuresCalculationScenario<ClosingStructuresInput>
