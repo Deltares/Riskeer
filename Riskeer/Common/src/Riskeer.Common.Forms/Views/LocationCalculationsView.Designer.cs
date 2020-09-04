@@ -53,9 +53,9 @@ namespace Riskeer.Common.Forms.Views
         {
             this.components = new System.ComponentModel.Container();
             this.dataGridViewControl = new Core.Common.Controls.DataGrid.DataGridViewControl();
-            this.CalculateForSelectedButton = new System.Windows.Forms.Button();
-            this.DeselectAllButton = new System.Windows.Forms.Button();
-            this.SelectAllButton = new System.Windows.Forms.Button();
+            this.CalculateForSelectedButton = new Core.Common.Controls.Forms.EnhancedButton();
+            this.DeselectAllButton = new Core.Common.Controls.Forms.EnhancedButton();
+            this.SelectAllButton = new Core.Common.Controls.Forms.EnhancedButton();
             this.ButtonGroupBox = new System.Windows.Forms.GroupBox();
             this.CalculateForSelectedButtonErrorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.splitContainer = new System.Windows.Forms.SplitContainer();
@@ -177,9 +177,9 @@ namespace Riskeer.Common.Forms.Views
         #endregion
 
         protected Core.Common.Controls.DataGrid.DataGridViewControl dataGridViewControl;
-        private System.Windows.Forms.Button CalculateForSelectedButton;
-        private System.Windows.Forms.Button DeselectAllButton;
-        private System.Windows.Forms.Button SelectAllButton;
+        private Core.Common.Controls.Forms.EnhancedButton CalculateForSelectedButton;
+        private Core.Common.Controls.Forms.EnhancedButton DeselectAllButton;
+        private Core.Common.Controls.Forms.EnhancedButton SelectAllButton;
         protected System.Windows.Forms.GroupBox ButtonGroupBox;
         private System.Windows.Forms.ErrorProvider CalculateForSelectedButtonErrorProvider;
         private System.Windows.Forms.SplitContainer splitContainer;
