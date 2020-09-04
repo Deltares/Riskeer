@@ -54,7 +54,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Uplif
         /// <param name="actual">The actual <see cref="UpliftVanCalculationGridResult"/>.</param>
         /// <exception cref="AssertionException">Thrown when <paramref name="actual"/>
         /// is not equal to <paramref name="expected"/>.</exception>
-        public static void AssertSlipPlaneGrid(UpliftVanCalculationGridResult expected, UpliftVanCalculationGridResult actual)
+        public static void AssertUpliftVanCalculationGridResult(UpliftVanCalculationGridResult expected, UpliftVanCalculationGridResult actual)
         {
             CollectionAssert.AreEqual(expected.TangentLines, actual.TangentLines);
             AssertGrid(expected.LeftGrid, actual.LeftGrid);

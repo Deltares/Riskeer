@@ -24,9 +24,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
-using Deltares.MacroStability.Data;
-using Deltares.MacroStability.Geometry;
-using Deltares.MacroStability.Standard;
+using Deltares.MacroStability.CSharpWrapper;
+using Deltares.MacroStability.CSharpWrapper.Output;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators;
@@ -46,6 +45,7 @@ using Riskeer.MacroStabilityInwards.Primitives;
 using Point2D = Core.Common.Base.Geometry.Point2D;
 using SoilLayer = Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Input.SoilLayer;
 using SoilProfile = Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Input.SoilProfile;
+using CSharpWrapperPoint2D = Deltares.MacroStability.CSharpWrapper.Point2D;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
 {
@@ -179,7 +179,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
                 Assert.AreEqual(upliftVanKernel.ForbiddenZonesXEntryMin, result.ForbiddenZonesXEntryMin);
                 UpliftVanCalculatorOutputAssert.AssertSlidingCurve(UpliftVanSlidingCurveResultCreator.Create(upliftVanKernel.SlidingCurveResult),
                                                                    result.SlidingCurveResult);
-                UpliftVanCalculatorOutputAssert.AssertSlipPlaneGrid(UpliftVanCalculationGridResultCreator.Create(upliftVanKernel.SlipPlaneResult),
+                UpliftVanCalculatorOutputAssert.AssertUpliftVanCalculationGridResult(UpliftVanCalculationGridResultCreator.Create(upliftVanKernel.UpliftVanCalculationGridResult),
                                                                     result.CalculationGridResult);
             }
         }
@@ -201,30 +201,19 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
                 new UpliftVanCalculator(input, factory).Calculate();
 
                 // Assert
-                Assert.AreEqual(6, upliftVanKernel.CalculationMessages.Count());
-                LogMessage firstMessage = upliftVanKernel.CalculationMessages.ElementAt(0);
-                Assert.AreEqual("Calculation Trace", firstMessage.Message);
-                Assert.AreEqual(LogMessageType.Trace, firstMessage.MessageType);
+                Assert.AreEqual(3, upliftVanKernel.CalculationMessages.Count());
 
-                LogMessage secondMessage = upliftVanKernel.CalculationMessages.ElementAt(1);
-                Assert.AreEqual("Calculation Debug", secondMessage.Message);
-                Assert.AreEqual(LogMessageType.Debug, secondMessage.MessageType);
+                Message thirdMessage = upliftVanKernel.CalculationMessages.ElementAt(0);
+                Assert.AreEqual("Calculation Info", thirdMessage.Content);
+                Assert.AreEqual(MessageType.Info, thirdMessage.MessageType);
 
-                LogMessage thirdMessage = upliftVanKernel.CalculationMessages.ElementAt(2);
-                Assert.AreEqual("Calculation Info", thirdMessage.Message);
-                Assert.AreEqual(LogMessageType.Info, thirdMessage.MessageType);
+                Message fourthMessage = upliftVanKernel.CalculationMessages.ElementAt(1);
+                Assert.AreEqual("Calculation Warning", fourthMessage.Content);
+                Assert.AreEqual(MessageType.Warning, fourthMessage.MessageType);
 
-                LogMessage fourthMessage = upliftVanKernel.CalculationMessages.ElementAt(3);
-                Assert.AreEqual("Calculation Warning", fourthMessage.Message);
-                Assert.AreEqual(LogMessageType.Warning, fourthMessage.MessageType);
-
-                LogMessage fifthMessage = upliftVanKernel.CalculationMessages.ElementAt(4);
-                Assert.AreEqual("Calculation Error", fifthMessage.Message);
-                Assert.AreEqual(LogMessageType.Error, fifthMessage.MessageType);
-
-                LogMessage sixthMessage = upliftVanKernel.CalculationMessages.ElementAt(5);
-                Assert.AreEqual("Calculation Fatal Error", sixthMessage.Message);
-                Assert.AreEqual(LogMessageType.FatalError, sixthMessage.MessageType);
+                Message fifthMessage = upliftVanKernel.CalculationMessages.ElementAt(2);
+                Assert.AreEqual("Calculation Error", fifthMessage.Content);
+                Assert.AreEqual(MessageType.Error, fifthMessage.MessageType);
             }
         }
 
@@ -272,15 +261,15 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
                 Assert.IsInstanceOf<UpliftVanKernelWrapperException>(exception.InnerException);
                 Assert.AreEqual(exception.InnerException.Message, exception.Message);
 
-                IEnumerable<LogMessage> expectedMessages = GetSupportLogMessages(upliftVanKernel.CalculationMessages);
+                IEnumerable<Message> expectedMessages = GetSupportMessages(upliftVanKernel.CalculationMessages);
                 Assert.AreEqual(expectedMessages.Count(), exception.KernelMessages.Count());
 
                 for (var i = 0; i < expectedMessages.Count(); i++)
                 {
-                    LogMessage upliftVanKernelCalculationMessage = expectedMessages.ElementAt(i);
+                    Message upliftVanKernelCalculationMessage = expectedMessages.ElementAt(i);
                     MacroStabilityInwardsKernelMessage exceptionKernelMessage = exception.KernelMessages.ElementAt(i);
 
-                    Assert.AreEqual(upliftVanKernelCalculationMessage.Message, exceptionKernelMessage.Message);
+                    Assert.AreEqual(upliftVanKernelCalculationMessage.Content, exceptionKernelMessage.Message);
                     Assert.AreEqual(GetMessageType(upliftVanKernelCalculationMessage.MessageType), exceptionKernelMessage.Type);
                 }
             }
@@ -365,19 +354,18 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
             }
         }
 
-        private static IEnumerable<LogMessage> GetSupportLogMessages(IEnumerable<LogMessage> messages)
+        private static IEnumerable<Message> GetSupportMessages(IEnumerable<Message> messages)
         {
-            return messages.Where(lm => lm.MessageType == LogMessageType.Error || lm.MessageType == LogMessageType.FatalError || lm.MessageType == LogMessageType.Warning);
+            return messages.Where(lm => lm.MessageType == MessageType.Error || lm.MessageType == MessageType.Warning);
         }
 
-        private MacroStabilityInwardsKernelMessageType GetMessageType(LogMessageType logMessageType)
+        private MacroStabilityInwardsKernelMessageType GetMessageType(MessageType messageType)
         {
-            switch (logMessageType)
+            switch (messageType)
             {
-                case LogMessageType.Error:
-                case LogMessageType.FatalError:
+                case MessageType.Error:
                     return MacroStabilityInwardsKernelMessageType.Error;
-                case LogMessageType.Warning:
+                case MessageType.Warning:
                     return MacroStabilityInwardsKernelMessageType.Warning;
                 default:
                     throw new NotSupportedException();
@@ -493,7 +481,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
         private static void SetValidKernelOutput(UpliftVanKernelStub upliftVanKernel)
         {
             upliftVanKernel.SlidingCurveResult = CreateSlidingDualCircle();
-            upliftVanKernel.SlipPlaneResult = CreateSlipPlaneUpliftVan();
+            upliftVanKernel.UpliftVanCalculationGridResult = CreateUpliftVanCalculationGrid();
         }
 
         private static void SetCompleteKernelOutput(UpliftVanKernelStub upliftVanKernel)
@@ -506,11 +494,11 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
             SetValidKernelOutput(upliftVanKernel);
         }
 
-        private static SlipPlaneUpliftVan CreateSlipPlaneUpliftVan()
+        private static UpliftVanCalculationGrid CreateUpliftVanCalculationGrid()
         {
-            return new SlipPlaneUpliftVan
+            return new UpliftVanCalculationGrid
             {
-                SlipPlaneLeftGrid = new SlipCircleGrid
+                LeftGrid = new CalculationGrid
                 {
                     GridXLeft = 0.1,
                     GridXRight = 0.2,
@@ -519,7 +507,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
                     GridXNumber = 1,
                     GridZNumber = 2
                 },
-                SlipPlaneRightGrid = new SlipCircleGrid
+                RightGrid = new CalculationGrid
                 {
                     GridXLeft = 0.5,
                     GridXRight = 0.6,
@@ -528,53 +516,46 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
                     GridXNumber = 3,
                     GridZNumber = 4
                 },
-                SlipPlaneTangentLine = new SlipCircleTangentLine
+                TangentLines = new []
                 {
-                    BoundaryHeights =
-                    {
-                        new TangentLine(1.1),
-                        new TangentLine(2.2)
-                    }
+                    1.1,
+                    2.2
                 }
             };
         }
 
-        private static SlidingDualCircle CreateSlidingDualCircle()
+        private static DualSlidingCircleMinimumSafetyCurve CreateSlidingDualCircle()
         {
-            return new SlidingDualCircle
+            return new DualSlidingCircleMinimumSafetyCurve
             {
-                ActiveCircle = new GeometryPoint(0.1, 0.2),
-                ActiveForce = 0.3,
-                ActiveForce0 = 0.4,
-                ActiveRadius = 0.5,
-                DrivingMomentActive = 0.6,
-                ResistingMomentActive = 0.7,
-                PassiveCircle = new GeometryPoint(0.8, 0.9),
-                PassiveForce = 1.0,
-                PassiveForce0 = 1.1,
-                PassiveRadius = 1.2,
-                DrivingMomentPassive = 1.3,
-                ResistingMomentPassive = 1.4,
-                HorizontalForce = 1.5,
-                HorizontalForce0 = 1.6,
-                Slices =
+                ActiveCircleCenter = new CSharpWrapperPoint2D(0.1, 0.2),
+                IteratedActiveForce = 0.3,
+                NonIteratedActiveForce = 0.4,
+                ActiveCircleRadius = 0.5,
+                DrivingActiveMoment = 0.6,
+                ResistingActiveMoment = 0.7,
+                PassiveCircleCenter = new CSharpWrapperPoint2D(0.8, 0.9),
+                IteratedPassiveForce = 1.0,
+                NonIteratedPassiveForce = 1.1,
+                PassiveCircleRadius = 1.2,
+                DrivingPassiveMoment = 1.3,
+                ResistingPassiveMoment = 1.4,
+                IteratedHorizontalForce = 1.5,
+                NonIteratedHorizontalForce = 1.6,
+                Slices = new []
                 {
                     new Slice
                     {
-                        TopLeftX = 1.7,
-                        TopLeftZ = 1.8,
-                        TopRightX = 1.9,
-                        TopRightZ = 2.0,
-                        BottomLeftX = 2.1,
-                        BottomLeftZ = 2.2,
-                        BottomRightX = 2.3,
-                        BottomRightZ = 2.4,
+                        TopLeftPoint = new CSharpWrapperPoint2D(1.7, 1.8),
+                        TopRightPoint = new CSharpWrapperPoint2D(1.9, 2.0),
+                        BottomLeftPoint = new CSharpWrapperPoint2D(2.1, 2.2),
+                        BottomRightPoint = new CSharpWrapperPoint2D(2.3, 2.4),
                         Cohesion = 2.5,
-                        Phi = 2.6,
-                        PGrens = 2.7,
+                        FrictionAngleInput = 2.6,
+                        YieldStress = 2.7,
                         OCR = 2.8,
                         POP = 2.9,
-                        DegreeofConsolidationPorePressure = 3.0,
+                        DegreeOfConsolidationPorePressure = 3.0,
                         PorePressureDueToDegreeOfConsolidationLoad = 3.1,
                         Dilatancy = 3.2,
                         ExternalLoad = 3.3,
@@ -587,9 +568,9 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
                         RightForceY = 4.0,
                         LoadStress = 4.1,
                         NormalStress = 4.2,
-                        PoreOnSurface = 4.3,
-                        HPoreOnSurface = 4.4,
-                        VPoreOnSurface = 4.5,
+                        PorePressure = 4.3,
+                        HorizontalPorePressure = 4.4,
+                        VerticalPorePressure = 4.5,
                         PiezometricPorePressure = 4.6,
                         EffectiveStress = 4.7,
                         ExcessPorePressure = 4.8,
