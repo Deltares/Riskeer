@@ -27,16 +27,16 @@ using Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan;
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
 {
     /// <summary>
-    /// Creates <see cref="Deltares.MacroStability.Data.SlipPlaneConstraints"/> instances which are required by <see cref="IUpliftVanKernel"/>.
+    /// Creates <see cref="SlipPlaneConstraints"/> instances which are required by <see cref="IUpliftVanKernel"/>.
     /// </summary>
     public static class SlipPlaneConstraintsCreator
     {
         /// <summary>
-        /// Creates a <see cref="Deltares.MacroStability.Data.SlipPlaneConstraints"/> based on the given <paramref name="input"/>
+        /// Creates a <see cref="SlipPlaneConstraints"/> based on the given <paramref name="input"/>
         /// which can be used by <see cref="IUpliftVanKernel"/>.
         /// </summary>
         /// <param name="input">The <see cref="UpliftVanSlipPlaneConstraints"/> to get the information from.</param>
-        /// <returns>A new <see cref="Deltares.MacroStability.Data.SlipPlaneConstraints"/> with the given information from <paramref name="input"/>.</returns>
+        /// <returns>A new <see cref="SlipPlaneConstraints"/> with the given information from <paramref name="input"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="input"/> is <c>null</c>.</exception>
         public static SlipPlaneConstraints Create(UpliftVanSlipPlaneConstraints input)
         {
@@ -49,8 +49,8 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
             {
                 SlipPlaneMinDepth = input.SlipPlaneMinimumDepth,
                 SlipPlaneMinLength = input.SlipPlaneMinimumLength,
-                XLeftMin = input.ZoneBoundaryLeft,
-                XLeftMax = input.ZoneBoundaryRight
+                XEntryMin = input.ZoneBoundaryLeft,
+                XEntryMax = input.ZoneBoundaryRight
             };
         }
     }
