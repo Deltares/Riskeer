@@ -22,22 +22,19 @@
 using System;
 using System.ComponentModel;
 using Core.Common.TestUtil;
-using Deltares.MacroStability.WaternetCreator;
+using Deltares.MacroStability.CSharpWrapper.Input;
 using NUnit.Framework;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Input;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input;
 using Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Input;
 using Riskeer.MacroStabilityInwards.Primitives;
-using PlLineCreationMethod = Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Input.PlLineCreationMethod;
 using WaternetCreationMode = Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Input.WaternetCreationMode;
-using WtiStabilityPlLineCreationMethod = Deltares.MacroStability.WaternetCreator.PlLineCreationMethod;
-using WtiStabilityWaternetCreationMethod = Deltares.MacroStability.WaternetCreator.WaternetCreationMode;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
 {
     [TestFixture]
-    public class UpliftVanLocationCreatorTest
+    public class UpliftVanWaternetCreatorInputCreatorTest
     {
         [Test]
         public void CreateExtreme_InputNull_ThrowsArgumentNullException()
@@ -96,10 +93,10 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                 });
 
             // Call
-            Location location = UpliftVanWaternetCreatorInputCreator.CreateExtreme(input);
+            WaternetCreatorInput waternetCreatorInput = UpliftVanWaternetCreatorInputCreator.CreateExtreme(input);
 
             // Assert
-            Assert.AreEqual(expectedDikeSoilScenario, location.DikeSoilScenario);
+            Assert.AreEqual(expectedDikeSoilScenario, waternetCreatorInput.DikeSoilScenario);
         }
 
         [Test]
@@ -127,32 +124,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
         }
 
         [Test]
-        [TestCase(WaternetCreationMode.CreateWaternet, WtiStabilityWaternetCreationMethod.CreateWaternet)]
-        [TestCase(WaternetCreationMode.FillInWaternetValues, WtiStabilityWaternetCreationMethod.FillInWaternetValues)]
-        public void CreateExtreme_ValidWaternetCreationMode_ReturnLocationWithWaternetCreationMode(WaternetCreationMode waternetCreationMode,
-                                                                                                   WtiStabilityWaternetCreationMethod expectedWaternetCreationMode)
-        {
-            // Setup
-            var input = new UpliftVanCalculatorInput(
-                new UpliftVanCalculatorInput.ConstructionProperties
-                {
-                    DrainageConstruction = new DrainageConstruction(),
-                    PhreaticLineOffsetsExtreme = new PhreaticLineOffsets(),
-                    PhreaticLineOffsetsDaily = new PhreaticLineOffsets(),
-                    SurfaceLine = new MacroStabilityInwardsSurfaceLine("test"),
-                    SoilProfile = new TestSoilProfile(),
-                    SlipPlane = new UpliftVanSlipPlane(),
-                    WaternetCreationMode = waternetCreationMode
-                });
-
-            // Call
-            Location location = UpliftVanWaternetCreatorInputCreator.CreateExtreme(input);
-
-            // Assert
-            Assert.AreEqual(expectedWaternetCreationMode, location.WaternetCreationMode);
-        }
-
-        [Test]
         public void CreateExtreme_InvalidPlLineCreationMethod_ThrowInvalidEnumArgumentException()
         {
             // Setup
@@ -174,32 +145,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             // Assert
             string message = $"The value of argument 'plLineCreationMethod' ({99}) is invalid for Enum type '{nameof(PlLineCreationMethod)}'.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(Call, message);
-        }
-
-        [Test]
-        [TestCase(PlLineCreationMethod.RingtoetsWti2017, WtiStabilityPlLineCreationMethod.RingtoetsWti2017)]
-        [TestCase(PlLineCreationMethod.None, WtiStabilityPlLineCreationMethod.None)]
-        public void CreateExtreme_ValidPlLineCreationMethod_ReturnLocationWithWaternetCreationMode(PlLineCreationMethod plLineCreationMethod,
-                                                                                                   WtiStabilityPlLineCreationMethod expectedPlLineCreationMethod)
-        {
-            // Setup
-            var input = new UpliftVanCalculatorInput(
-                new UpliftVanCalculatorInput.ConstructionProperties
-                {
-                    DrainageConstruction = new DrainageConstruction(),
-                    PhreaticLineOffsetsExtreme = new PhreaticLineOffsets(),
-                    PhreaticLineOffsetsDaily = new PhreaticLineOffsets(),
-                    SurfaceLine = new MacroStabilityInwardsSurfaceLine("test"),
-                    SoilProfile = new TestSoilProfile(),
-                    SlipPlane = new UpliftVanSlipPlane(),
-                    PlLineCreationMethod = plLineCreationMethod
-                });
-
-            // Call
-            Location location = UpliftVanWaternetCreatorInputCreator.CreateExtreme(input);
-
-            // Assert
-            Assert.AreEqual(expectedPlLineCreationMethod, location.PlLineCreationMethod);
         }
 
         [Test]
@@ -243,22 +188,22 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                 });
 
             // Call
-            Location location = UpliftVanWaternetCreatorInputCreator.CreateExtreme(input);
+            WaternetCreatorInput waternetCreatorInput = UpliftVanWaternetCreatorInputCreator.CreateExtreme(input);
 
             // Assert
-            Assert.AreEqual(input.AssessmentLevel, location.HeadInPlLine3);
-            Assert.AreEqual(input.AssessmentLevel, location.HeadInPlLine4);
-            Assert.AreEqual(input.AssessmentLevel, location.WaterLevelRiver);
-            Assert.AreEqual(input.WaterLevelPolderExtreme, location.WaterLevelPolder);
-            Assert.AreEqual(input.PhreaticLineOffsetsExtreme.UseDefaults, location.UseDefaultOffsets);
-            Assert.AreEqual(input.PhreaticLineOffsetsExtreme.BelowDikeTopAtRiver, location.PlLineOffsetBelowPointBRingtoetsWti2017);
-            Assert.AreEqual(input.PhreaticLineOffsetsExtreme.BelowDikeTopAtPolder, location.PlLineOffsetBelowDikeTopAtPolder);
-            Assert.AreEqual(input.PhreaticLineOffsetsExtreme.BelowShoulderBaseInside, location.PlLineOffsetBelowShoulderBaseInside);
-            Assert.AreEqual(input.PhreaticLineOffsetsExtreme.BelowDikeToeAtPolder, location.PlLineOffsetBelowDikeToeAtPolder);
-            Assert.AreEqual(input.PenetrationLengthExtreme, location.PenetrationLength);
+            Assert.AreEqual(input.AssessmentLevel, waternetCreatorInput.HeadInPlLine3);
+            Assert.AreEqual(input.AssessmentLevel, waternetCreatorInput.HeadInPlLine4);
+            Assert.AreEqual(input.AssessmentLevel, waternetCreatorInput.WaterLevelRiver);
+            Assert.AreEqual(input.WaterLevelPolderExtreme, waternetCreatorInput.WaterLevelPolder);
+            Assert.AreEqual(input.PhreaticLineOffsetsExtreme.UseDefaults, waternetCreatorInput.UseDefaultOffsets);
+            Assert.AreEqual(input.PhreaticLineOffsetsExtreme.BelowDikeTopAtRiver, waternetCreatorInput.PlLineOffsetBelowPointBRingtoetsWti2017);
+            Assert.AreEqual(input.PhreaticLineOffsetsExtreme.BelowDikeTopAtPolder, waternetCreatorInput.PlLineOffsetBelowDikeTopAtPolder);
+            Assert.AreEqual(input.PhreaticLineOffsetsExtreme.BelowShoulderBaseInside, waternetCreatorInput.PlLineOffsetBelowShoulderBaseInside);
+            Assert.AreEqual(input.PhreaticLineOffsetsExtreme.BelowDikeToeAtPolder, waternetCreatorInput.PlLineOffsetBelowDikeToeAtPolder);
+            Assert.AreEqual(input.PenetrationLengthExtreme, waternetCreatorInput.PenetrationLength);
 
-            AssertGeneralLocationValues(input, location);
-            AssertIrrelevantValues(location);
+            AssertGeneralLocationValues(input, waternetCreatorInput);
+            AssertIrrelevantValues(waternetCreatorInput);
         }
 
         [Test]
@@ -318,10 +263,10 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                 });
 
             // Call
-            Location location = UpliftVanWaternetCreatorInputCreator.CreateDaily(input);
+            WaternetCreatorInput waternetCreatorInput = UpliftVanWaternetCreatorInputCreator.CreateDaily(input);
 
             // Assert
-            Assert.AreEqual(expectedDikeSoilScenario, location.DikeSoilScenario);
+            Assert.AreEqual(expectedDikeSoilScenario, waternetCreatorInput.DikeSoilScenario);
         }
 
         [Test]
@@ -349,32 +294,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
         }
 
         [Test]
-        [TestCase(WaternetCreationMode.CreateWaternet, WtiStabilityWaternetCreationMethod.CreateWaternet)]
-        [TestCase(WaternetCreationMode.FillInWaternetValues, WtiStabilityWaternetCreationMethod.FillInWaternetValues)]
-        public void CreateDaily_ValidWaternetCreationMode_ReturnLocationWithWaternetCreationMode(WaternetCreationMode waternetCreationMode,
-                                                                                                 WtiStabilityWaternetCreationMethod expectedWaternetCreationMode)
-        {
-            // Setup
-            var input = new UpliftVanCalculatorInput(
-                new UpliftVanCalculatorInput.ConstructionProperties
-                {
-                    DrainageConstruction = new DrainageConstruction(),
-                    PhreaticLineOffsetsExtreme = new PhreaticLineOffsets(),
-                    PhreaticLineOffsetsDaily = new PhreaticLineOffsets(),
-                    SurfaceLine = new MacroStabilityInwardsSurfaceLine("test"),
-                    SoilProfile = new TestSoilProfile(),
-                    SlipPlane = new UpliftVanSlipPlane(),
-                    WaternetCreationMode = waternetCreationMode
-                });
-
-            // Call
-            Location location = UpliftVanWaternetCreatorInputCreator.CreateDaily(input);
-
-            // Assert
-            Assert.AreEqual(expectedWaternetCreationMode, location.WaternetCreationMode);
-        }
-
-        [Test]
         public void CreateDaily_InvalidPlLineCreationMethod_ThrowInvalidEnumArgumentException()
         {
             // Setup
@@ -396,32 +315,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             // Assert
             string message = $"The value of argument 'plLineCreationMethod' ({99}) is invalid for Enum type '{nameof(PlLineCreationMethod)}'.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(Call, message);
-        }
-
-        [Test]
-        [TestCase(PlLineCreationMethod.RingtoetsWti2017, WtiStabilityPlLineCreationMethod.RingtoetsWti2017)]
-        [TestCase(PlLineCreationMethod.None, WtiStabilityPlLineCreationMethod.None)]
-        public void CreateDaily_ValidPlLineCreationMethod_ReturnLocationWithWaternetCreationMode(PlLineCreationMethod plLineCreationMethod,
-                                                                                                 WtiStabilityPlLineCreationMethod expectedPlLineCreationMethod)
-        {
-            // Setup
-            var input = new UpliftVanCalculatorInput(
-                new UpliftVanCalculatorInput.ConstructionProperties
-                {
-                    DrainageConstruction = new DrainageConstruction(),
-                    PhreaticLineOffsetsExtreme = new PhreaticLineOffsets(),
-                    PhreaticLineOffsetsDaily = new PhreaticLineOffsets(),
-                    SurfaceLine = new MacroStabilityInwardsSurfaceLine("test"),
-                    SoilProfile = new TestSoilProfile(),
-                    SlipPlane = new UpliftVanSlipPlane(),
-                    PlLineCreationMethod = plLineCreationMethod
-                });
-
-            // Call
-            Location location = UpliftVanWaternetCreatorInputCreator.CreateDaily(input);
-
-            // Assert
-            Assert.AreEqual(expectedPlLineCreationMethod, location.PlLineCreationMethod);
         }
 
         [Test]
@@ -465,50 +358,46 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                 });
 
             // Call
-            Location location = UpliftVanWaternetCreatorInputCreator.CreateDaily(input);
+            WaternetCreatorInput waternetCreatorInput = UpliftVanWaternetCreatorInputCreator.CreateDaily(input);
 
             // Assert
-            Assert.AreEqual(input.WaterLevelRiverAverage, location.HeadInPlLine3);
-            Assert.AreEqual(input.WaterLevelRiverAverage, location.HeadInPlLine4);
-            Assert.AreEqual(input.WaterLevelRiverAverage, location.WaterLevelRiver);
-            Assert.AreEqual(input.WaterLevelPolderDaily, location.WaterLevelPolder);
-            Assert.AreEqual(input.PhreaticLineOffsetsDaily.UseDefaults, location.UseDefaultOffsets);
-            Assert.AreEqual(input.PhreaticLineOffsetsDaily.BelowDikeTopAtRiver, location.PlLineOffsetBelowPointBRingtoetsWti2017);
-            Assert.AreEqual(input.PhreaticLineOffsetsDaily.BelowDikeTopAtPolder, location.PlLineOffsetBelowDikeTopAtPolder);
-            Assert.AreEqual(input.PhreaticLineOffsetsDaily.BelowShoulderBaseInside, location.PlLineOffsetBelowShoulderBaseInside);
-            Assert.AreEqual(input.PhreaticLineOffsetsDaily.BelowDikeToeAtPolder, location.PlLineOffsetBelowDikeToeAtPolder);
-            Assert.AreEqual(input.PenetrationLengthDaily, location.PenetrationLength);
+            Assert.AreEqual(input.WaterLevelRiverAverage, waternetCreatorInput.HeadInPlLine3);
+            Assert.AreEqual(input.WaterLevelRiverAverage, waternetCreatorInput.HeadInPlLine4);
+            Assert.AreEqual(input.WaterLevelRiverAverage, waternetCreatorInput.WaterLevelRiver);
+            Assert.AreEqual(input.WaterLevelPolderDaily, waternetCreatorInput.WaterLevelPolder);
+            Assert.AreEqual(input.PhreaticLineOffsetsDaily.UseDefaults, waternetCreatorInput.UseDefaultOffsets);
+            Assert.AreEqual(input.PhreaticLineOffsetsDaily.BelowDikeTopAtRiver, waternetCreatorInput.PlLineOffsetBelowPointBRingtoetsWti2017);
+            Assert.AreEqual(input.PhreaticLineOffsetsDaily.BelowDikeTopAtPolder, waternetCreatorInput.PlLineOffsetBelowDikeTopAtPolder);
+            Assert.AreEqual(input.PhreaticLineOffsetsDaily.BelowShoulderBaseInside, waternetCreatorInput.PlLineOffsetBelowShoulderBaseInside);
+            Assert.AreEqual(input.PhreaticLineOffsetsDaily.BelowDikeToeAtPolder, waternetCreatorInput.PlLineOffsetBelowDikeToeAtPolder);
+            Assert.AreEqual(input.PenetrationLengthDaily, waternetCreatorInput.PenetrationLength);
 
-            AssertGeneralLocationValues(input, location);
-            AssertIrrelevantValues(location);
+            AssertGeneralLocationValues(input, waternetCreatorInput);
+            AssertIrrelevantValues(waternetCreatorInput);
         }
 
-        private static void AssertGeneralLocationValues(UpliftVanCalculatorInput input, Location location)
+        private static void AssertGeneralLocationValues(UpliftVanCalculatorInput input, WaternetCreatorInput waternetCreatorInput)
         {
-            Assert.AreEqual(input.WaterLevelRiverAverage, location.WaterLevelRiverAverage);
-            Assert.AreEqual(input.DrainageConstruction.IsPresent, location.DrainageConstructionPresent);
-            Assert.AreEqual(input.DrainageConstruction.XCoordinate, location.XCoordMiddleDrainageConstruction);
-            Assert.AreEqual(input.DrainageConstruction.ZCoordinate, location.ZCoordMiddleDrainageConstruction);
-            Assert.AreEqual(input.MinimumLevelPhreaticLineAtDikeTopRiver, location.MinimumLevelPhreaticLineAtDikeTopRiver);
-            Assert.AreEqual(input.MinimumLevelPhreaticLineAtDikeTopPolder, location.MinimumLevelPhreaticLineAtDikeTopPolder);
-            Assert.AreEqual(DikeSoilScenario.SandDikeOnClay, location.DikeSoilScenario);
-            Assert.AreEqual(WtiStabilityWaternetCreationMethod.CreateWaternet, location.WaternetCreationMode);
-            Assert.AreEqual(WtiStabilityPlLineCreationMethod.RingtoetsWti2017, location.PlLineCreationMethod);
-            Assert.AreEqual(input.AdjustPhreaticLine3And4ForUplift, location.AdjustPl3And4ForUplift);
-            Assert.AreEqual(input.LeakageLengthOutwardsPhreaticLine3, location.LeakageLengthOutwardsPl3);
-            Assert.AreEqual(input.LeakageLengthInwardsPhreaticLine3, location.LeakageLengthInwardsPl3);
-            Assert.AreEqual(input.LeakageLengthOutwardsPhreaticLine4, location.LeakageLengthOutwardsPl4);
-            Assert.AreEqual(input.LeakageLengthInwardsPhreaticLine4, location.LeakageLengthInwardsPl4);
-            Assert.AreEqual(input.PiezometricHeadPhreaticLine2Outwards, location.HeadInPlLine2Outwards);
-            Assert.AreEqual(input.PiezometricHeadPhreaticLine2Inwards, location.HeadInPlLine2Inwards);
-            Assert.IsTrue(location.Inwards);
+            Assert.AreEqual(input.WaterLevelRiverAverage, waternetCreatorInput.WaterLevelRiverAverage);
+            Assert.AreEqual(input.DrainageConstruction.IsPresent, waternetCreatorInput.DrainageConstructionPresent);
+            Assert.AreEqual(input.DrainageConstruction.XCoordinate, waternetCreatorInput.DrainageConstruction.X);
+            Assert.AreEqual(input.DrainageConstruction.ZCoordinate, waternetCreatorInput.DrainageConstruction.Z);
+            Assert.AreEqual(input.MinimumLevelPhreaticLineAtDikeTopRiver, waternetCreatorInput.MinimumLevelPhreaticLineAtDikeTopRiver);
+            Assert.AreEqual(input.MinimumLevelPhreaticLineAtDikeTopPolder, waternetCreatorInput.MinimumLevelPhreaticLineAtDikeTopPolder);
+            Assert.AreEqual(DikeSoilScenario.SandDikeOnClay, waternetCreatorInput.DikeSoilScenario);
+            Assert.AreEqual(input.AdjustPhreaticLine3And4ForUplift, waternetCreatorInput.AdjustPl3And4ForUplift);
+            Assert.AreEqual(input.LeakageLengthOutwardsPhreaticLine3, waternetCreatorInput.LeakageLengthOutwardsPl3);
+            Assert.AreEqual(input.LeakageLengthInwardsPhreaticLine3, waternetCreatorInput.LeakageLengthInwardsPl3);
+            Assert.AreEqual(input.LeakageLengthOutwardsPhreaticLine4, waternetCreatorInput.LeakageLengthOutwardsPl4);
+            Assert.AreEqual(input.LeakageLengthInwardsPhreaticLine4, waternetCreatorInput.LeakageLengthInwardsPl4);
+            Assert.AreEqual(input.PiezometricHeadPhreaticLine2Outwards, waternetCreatorInput.HeadInPlLine2Outwards);
+            Assert.AreEqual(input.PiezometricHeadPhreaticLine2Inwards, waternetCreatorInput.HeadInPlLine2Inwards);
+            Assert.AreEqual(9.81, waternetCreatorInput.UnitWeightWater);
         }
 
-        private static void AssertIrrelevantValues(Location location)
+        private static void AssertIrrelevantValues(WaternetCreatorInput location)
         {
             Assert.IsNaN(location.WaterLevelRiverLow); // Only for macro stability outwards
-            Assert.AreEqual(0.0, location.X); // Unused property
-            Assert.AreEqual(0.0, location.Y); // Unused property
         }
     }
 }

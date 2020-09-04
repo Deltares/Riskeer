@@ -21,7 +21,7 @@
 
 using System;
 using Core.Common.TestUtil;
-using Deltares.MacroStability.Geometry;
+using Deltares.MacroStability.CSharpWrapper.Input;
 using NUnit.Framework;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input;
 using Point2D = Core.Common.Base.Geometry.Point2D;
@@ -38,9 +38,9 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             var random = new Random(21);
             var outerRing = new Point2D[0];
             var innerRings = new Point2D[0][];
-            var soil = new Soil("Soil");
+            var soil = new Soil();
             bool isAquifer = random.NextBoolean();
-            var waterPressureInterpolationModel = random.NextEnumValue<WaterpressureInterpolationModel>();
+            var waterPressureInterpolationModel = random.NextEnumValue<WaterPressureInterpolationModel>();
 
             // Call
             var layerWithSoil = new LayerWithSoil(outerRing, innerRings, soil, isAquifer, waterPressureInterpolationModel);
