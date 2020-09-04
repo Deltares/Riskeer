@@ -21,7 +21,6 @@
 
 using System;
 using Deltares.MacroStability.CSharpWrapper;
-using Deltares.MacroStability.Data;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan;
@@ -29,16 +28,16 @@ using Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan;
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
 {
     /// <summary>
-    /// Creates <see cref="SlipPlaneUpliftVan"/> instances which are required by <see cref="IUpliftVanKernel"/>.
+    /// Creates <see cref="UpliftVanCalculationGrid"/> instances which are required by <see cref="IUpliftVanKernel"/>.
     /// </summary>
-    internal static class SlipPlaneUpliftVanCreator
+    internal static class UpliftVanCalculationGridCreator
     {
         /// <summary>
-        /// Creates a <see cref="SlipPlaneUpliftVan"/> based on the given <paramref name="slipPlane"/>,
+        /// Creates a <see cref="UpliftVanCalculationGrid"/> based on the given <paramref name="slipPlane"/>,
         /// which can be used by <see cref="IUpliftVanKernel"/>.
         /// </summary>
-        /// <param name="slipPlane">The <see cref="UpliftVanSlipPlane"/> to get the information from.</param>
-        /// <returns>A new <see cref="SlipPlaneUpliftVan"/> with the given information from <paramref name="slipPlane"/>.</returns>
+        /// <param name="slipPlane">The <see cref="UpliftVanCalculationGrid"/> to get the information from.</param>
+        /// <returns>A new <see cref="UpliftVanCalculationGrid"/> with the given information from <paramref name="slipPlane"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="slipPlane"/> is <c>null</c>.</exception>
         public static UpliftVanCalculationGrid Create(UpliftVanSlipPlane slipPlane)
         {
@@ -50,19 +49,15 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
             var kernelSlipPlane = new UpliftVanCalculationGrid
             {
                 LeftGrid = CreateGrid(slipPlane, slipPlane.LeftGrid),
-                RightGrid = CreateGrid(slipPlane, slipPlane.RightGrid),
-                SlipPlaneTangentLine = CreateTangentLine(slipPlane)
+                RightGrid = CreateGrid(slipPlane, slipPlane.RightGrid)
             };
 
             return kernelSlipPlane;
         }
 
-        private static SlipCircleGrid CreateGrid(UpliftVanSlipPlane slipPlane, UpliftVanGrid grid)
+        private static CalculationGrid CreateGrid(UpliftVanSlipPlane slipPlane, UpliftVanGrid grid)
         {
-            var slipCircleGrid = new SlipCircleGrid
-            {
-                NumberOfRefinements = slipPlane.GridNumberOfRefinements
-            };
+            var slipCircleGrid = new CalculationGrid();
 
             if (!slipPlane.GridAutomaticDetermined)
             {
@@ -75,23 +70,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
             }
 
             return slipCircleGrid;
-        }
-
-        private static SlipCircleTangentLine CreateTangentLine(UpliftVanSlipPlane slipPlane)
-        {
-            var tangentLine = new SlipCircleTangentLine
-            {
-                NumberOfRefinements = slipPlane.TangentLineNumberOfRefinements
-            };
-
-            if (!slipPlane.TangentLinesAutomaticAtBoundaries)
-            {
-                tangentLine.TangentLineZTop = slipPlane.TangentZTop;
-                tangentLine.TangentLineZBottom = slipPlane.TangentZBottom;
-                tangentLine.TangentLineNumber = slipPlane.TangentLineNumber;
-            }
-
-            return tangentLine;
         }
     }
 }

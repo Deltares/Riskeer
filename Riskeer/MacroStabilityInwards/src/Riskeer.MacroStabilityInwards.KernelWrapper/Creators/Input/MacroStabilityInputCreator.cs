@@ -55,7 +55,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
                     Soils = layersWithSoil.Select(lws => lws.Soil).ToList(),
                     MoveGrid = upliftVanInput.MoveGrid,
                     MaximumSliceWidth = upliftVanInput.MaximumSliceWidth,
-                    UpliftVanCalculationGrid = SlipPlaneUpliftVanCreator.Create(upliftVanInput.SlipPlane),
+                    UpliftVanCalculationGrid = UpliftVanCalculationGridCreator.Create(upliftVanInput.SlipPlane),
                     SlipPlaneConstraints = SlipPlaneConstraintsCreator.Create(upliftVanInput.SlipPlaneConstraints),
                 },
                 PreprocessingInput =
@@ -66,7 +66,10 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
                         OnlyAbovePleistoceen = true,
                         AutoSearchArea = upliftVanInput.SlipPlane.GridAutomaticDetermined,
                         AutoTangentLines = upliftVanInput.SlipPlane.TangentLinesAutomaticAtBoundaries,
-                        AutomaticForbiddenZones = upliftVanInput.SlipPlaneConstraints.AutomaticForbiddenZones
+                        AutomaticForbiddenZones = upliftVanInput.SlipPlaneConstraints.AutomaticForbiddenZones,
+                        TangentLineNumber = upliftVanInput.SlipPlane.TangentLineNumber,
+                        TangentLineZTop = upliftVanInput.SlipPlane.TangentZTop,
+                        TangentLineZBottom = upliftVanInput.SlipPlane.TangentZBottom
                     },
                     PreConstructionStages =
                     {
