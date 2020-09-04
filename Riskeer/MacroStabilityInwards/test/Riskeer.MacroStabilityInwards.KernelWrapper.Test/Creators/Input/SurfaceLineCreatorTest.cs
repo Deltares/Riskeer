@@ -20,10 +20,11 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
-using Deltares.MacroStability.Geometry;
+using Deltares.MacroStability.CSharpWrapper.Input;
 using NUnit.Framework;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input;
 using Riskeer.MacroStabilityInwards.Primitives;
@@ -52,11 +53,10 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             var surfaceLine = new MacroStabilityInwardsSurfaceLine(name);
 
             // Call
-            SurfaceLine2 actual = SurfaceLineCreator.Create(surfaceLine);
+            SurfaceLine actual = SurfaceLineCreator.Create(surfaceLine);
 
             // Assert
-            AssertGeneralValues(name, actual);
-            CollectionAssert.IsEmpty(actual.Geometry.Points);
+            CollectionAssert.IsEmpty(actual.CharacteristicPoints);
         }
 
         [Test]
@@ -73,34 +73,12 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             });
 
             // Call
-            SurfaceLine2 actual = SurfaceLineCreator.Create(surfaceLine);
+            SurfaceLine actual = SurfaceLineCreator.Create(surfaceLine);
 
             // Assert
-            AssertGeneralValues(name, actual);
-            CollectionAssert.AreEqual(surfaceLine.Points.Select(p => p.X).ToArray(), actual.Geometry.Points.Select(p => p.X).ToArray());
-            CollectionAssert.AreEqual(surfaceLine.Points.Select(p => p.Z).ToArray(), actual.Geometry.Points.Select(p => p.Z).ToArray());
-            CollectionAssert.IsEmpty(actual.CharacteristicPoints);
-        }
-
-        [Test]
-        public void Create_Always_SynchronizesCalcPoints()
-        {
-            // Setup
-            const string name = "Local coordinate surface line";
-            var surfaceLine = new MacroStabilityInwardsSurfaceLine(name);
-            surfaceLine.SetGeometry(new[]
-            {
-                new Point3D(0.0, 0.0, 1.1),
-                new Point3D(2.2, 0.0, 3.3),
-                new Point3D(4.4, 0.0, 5.5)
-            });
-
-            // Call
-            SurfaceLine2 actual = SurfaceLineCreator.Create(surfaceLine);
-
-            // Assert
-            CollectionAssert.AreEqual(actual.Geometry.Points.Select(p => p.X), actual.Geometry.CalcPoints.Select(p => p.X));
-            CollectionAssert.AreEqual(actual.Geometry.Points.Select(p => p.Z), actual.Geometry.CalcPoints.Select(p => p.Z));
+            CollectionAssert.AreEqual(surfaceLine.Points.Select(p => p.X), actual.CharacteristicPoints.Select(p => p.GeometryPoint.X));
+            CollectionAssert.AreEqual(surfaceLine.Points.Select(p => p.Z), actual.CharacteristicPoints.Select(p => p.GeometryPoint.Z));
+            Assert.IsTrue(actual.CharacteristicPoints.All(cp => cp.CharacteristicPoint == CharacteristicPointType.None));
         }
 
         [Test]
@@ -118,16 +96,14 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             });
 
             // Call
-            SurfaceLine2 actual = SurfaceLineCreator.Create(surfaceLine);
+            SurfaceLine actual = SurfaceLineCreator.Create(surfaceLine);
 
             // Assert
-            AssertGeneralValues(name, actual);
-
             double[] expectedCoordinatesX = surfaceLine.Points.Select(p => p.X - firstX).ToArray();
 
-            CollectionAssert.AreEqual(expectedCoordinatesX, actual.Geometry.Points.Select(p => p.X).ToArray(), new DoubleWithToleranceComparer(1e-2));
-            CollectionAssert.AreEqual(surfaceLine.Points.Select(p => p.Z).ToArray(), actual.Geometry.Points.Select(p => p.Z).ToArray());
-            CollectionAssert.IsEmpty(actual.CharacteristicPoints);
+            CollectionAssert.AreEqual(expectedCoordinatesX, actual.CharacteristicPoints.Select(p => p.GeometryPoint.X), new DoubleWithToleranceComparer(1e-2));
+            CollectionAssert.AreEqual(surfaceLine.Points.Select(p => p.Z), actual.CharacteristicPoints.Select(p => p.GeometryPoint.Z));
+            Assert.IsTrue(actual.CharacteristicPoints.All(cp => cp.CharacteristicPoint == CharacteristicPointType.None));
         }
 
         [Test]
@@ -144,11 +120,9 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             });
 
             // Call
-            SurfaceLine2 actual = SurfaceLineCreator.Create(surfaceLine);
+            SurfaceLine actual = SurfaceLineCreator.Create(surfaceLine);
 
             // Assert
-            AssertGeneralValues(name, actual);
-
             double length = Math.Sqrt(2 * 2 + 3 * 3);
             const double secondCoordinateFactor = (2.0 * 1.0 + 3.0 * 2.0) / (2.0 * 2.0 + 3.0 * 3.0);
             double[] expectedCoordinatesX =
@@ -158,9 +132,9 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                 length
             };
 
-            CollectionAssert.AreEqual(expectedCoordinatesX, actual.Geometry.Points.Select(p => p.X).ToArray(), new DoubleWithToleranceComparer(1e-2));
-            CollectionAssert.AreEqual(surfaceLine.Points.Select(p => p.Z).ToArray(), actual.Geometry.Points.Select(p => p.Z).ToArray());
-            CollectionAssert.IsEmpty(actual.CharacteristicPoints);
+            CollectionAssert.AreEqual(expectedCoordinatesX, actual.CharacteristicPoints.Select(p => p.GeometryPoint.X), new DoubleWithToleranceComparer(1e-2));
+            CollectionAssert.AreEqual(surfaceLine.Points.Select(p => p.Z), actual.CharacteristicPoints.Select(p => p.GeometryPoint.Z));
+            Assert.IsTrue(actual.CharacteristicPoints.All(cp => cp.CharacteristicPoint == CharacteristicPointType.None));
         }
 
         [Test]
@@ -175,19 +149,17 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             });
 
             // Call
-            SurfaceLine2 actual = SurfaceLineCreator.Create(surfaceLine);
+            SurfaceLine actual = SurfaceLineCreator.Create(surfaceLine);
 
             // Assert
-            AssertGeneralValues(name, actual);
-
             double[] expectedCoordinatesX =
             {
                 0.0
             };
 
-            CollectionAssert.AreEqual(expectedCoordinatesX, actual.Geometry.Points.Select(p => p.X).ToArray());
-            CollectionAssert.AreEqual(surfaceLine.Points.Select(p => p.Z).ToArray(), actual.Geometry.Points.Select(p => p.Z).ToArray());
-            CollectionAssert.IsEmpty(actual.CharacteristicPoints);
+            CollectionAssert.AreEqual(expectedCoordinatesX, actual.CharacteristicPoints.Select(p => p.GeometryPoint.X));
+            CollectionAssert.AreEqual(surfaceLine.Points.Select(p => p.Z), actual.CharacteristicPoints.Select(p => p.GeometryPoint.Z));
+            Assert.IsTrue(actual.CharacteristicPoints.All(cp => cp.CharacteristicPoint == CharacteristicPointType.None));
         }
 
         [Test]
@@ -227,44 +199,27 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             surfaceLine.SetDikeTopAtRiverAt(geometry[11]);
 
             // Call
-            SurfaceLine2 actual = SurfaceLineCreator.Create(surfaceLine);
+            SurfaceLine actual = SurfaceLineCreator.Create(surfaceLine);
 
             // Assert
-            AssertGeneralValues(name, actual);
+            IEnumerable<double> expectedCoordinatesX = surfaceLine.Points.Select(p => p.X);
+            IEnumerable<double> expectedCoordinatesZ = surfaceLine.Points.Select(p => p.Z);
 
-            double[] expectedCoordinatesX = surfaceLine.Points.Select(p => p.X).ToArray();
-            double[] expectedCoordinatesZ = surfaceLine.Points.Select(p => p.Z).ToArray();
+            CollectionAssert.AreEqual(expectedCoordinatesX, actual.CharacteristicPoints.Select(p => p.GeometryPoint.X));
+            CollectionAssert.AreEqual(expectedCoordinatesZ, actual.CharacteristicPoints.Select(p => p.GeometryPoint.Z));
 
-            CollectionAssert.AreEqual(expectedCoordinatesX, actual.Geometry.Points.Select(p => p.X));
-            CollectionAssert.AreEqual(expectedCoordinatesZ, actual.Geometry.Points.Select(p => p.Z));
-
-            CharacteristicPointSet actualCharacteristicPoints = actual.CharacteristicPoints;
-            Assert.IsTrue(actualCharacteristicPoints.All(cp => ReferenceEquals(actualCharacteristicPoints, cp.PointSet)));
-            CollectionAssert.AreEqual(expectedCoordinatesX, actualCharacteristicPoints.Geometry.Points.Select(p => p.X));
-            CollectionAssert.AreEqual(expectedCoordinatesZ, actualCharacteristicPoints.Geometry.Points.Select(p => p.Z));
-
-            Assert.IsTrue(actualCharacteristicPoints.GetGeometryPoint(CharacteristicPointType.BottomDitchDikeSide).LocationEquals(ToGeometryPoint(geometry[0])));
-            Assert.IsTrue(actualCharacteristicPoints.GetGeometryPoint(CharacteristicPointType.BottomDitchPolderSide).LocationEquals(ToGeometryPoint(geometry[1])));
-            Assert.IsTrue(actualCharacteristicPoints.GetGeometryPoint(CharacteristicPointType.DikeToeAtPolder).LocationEquals(ToGeometryPoint(geometry[2])));
-            Assert.IsTrue(actualCharacteristicPoints.GetGeometryPoint(CharacteristicPointType.DikeToeAtRiver).LocationEquals(ToGeometryPoint(geometry[3])));
-            Assert.IsTrue(actualCharacteristicPoints.GetGeometryPoint(CharacteristicPointType.DikeTopAtPolder).LocationEquals(ToGeometryPoint(geometry[4])));
-            Assert.IsTrue(actualCharacteristicPoints.GetGeometryPoint(CharacteristicPointType.DitchDikeSide).LocationEquals(ToGeometryPoint(geometry[5])));
-            Assert.IsTrue(actualCharacteristicPoints.GetGeometryPoint(CharacteristicPointType.DitchPolderSide).LocationEquals(ToGeometryPoint(geometry[6])));
-            Assert.IsTrue(actualCharacteristicPoints.GetGeometryPoint(CharacteristicPointType.SurfaceLevelInside).LocationEquals(ToGeometryPoint(geometry[7])));
-            Assert.IsTrue(actualCharacteristicPoints.GetGeometryPoint(CharacteristicPointType.SurfaceLevelOutside).LocationEquals(ToGeometryPoint(geometry[8])));
-            Assert.IsTrue(actualCharacteristicPoints.GetGeometryPoint(CharacteristicPointType.ShoulderBaseInside).LocationEquals(ToGeometryPoint(geometry[9])));
-            Assert.IsTrue(actualCharacteristicPoints.GetGeometryPoint(CharacteristicPointType.ShoulderTopInside).LocationEquals(ToGeometryPoint(geometry[10])));
-            Assert.IsTrue(actualCharacteristicPoints.GetGeometryPoint(CharacteristicPointType.DikeTopAtRiver).LocationEquals(ToGeometryPoint(geometry[11])));
-        }
-
-        private static void AssertGeneralValues(string name, SurfaceLine2 actual)
-        {
-            Assert.AreEqual(name, actual.Name); // Unused property
-        }
-
-        private static GeometryPoint ToGeometryPoint(Point3D point)
-        {
-            return new GeometryPoint(point.X, point.Z);
+            Assert.AreEqual(CharacteristicPointType.BottomDitchDikeSide, actual.CharacteristicPoints.ElementAt(0).CharacteristicPoint);
+            Assert.AreEqual(CharacteristicPointType.BottomDitchPolderSide, actual.CharacteristicPoints.ElementAt(1).CharacteristicPoint);
+            Assert.AreEqual(CharacteristicPointType.DikeToeAtPolder, actual.CharacteristicPoints.ElementAt(2).CharacteristicPoint);
+            Assert.AreEqual(CharacteristicPointType.DikeToeAtRiver, actual.CharacteristicPoints.ElementAt(3).CharacteristicPoint);
+            Assert.AreEqual(CharacteristicPointType.DikeTopAtPolder, actual.CharacteristicPoints.ElementAt(4).CharacteristicPoint);
+            Assert.AreEqual(CharacteristicPointType.DitchDikeSide, actual.CharacteristicPoints.ElementAt(5).CharacteristicPoint);
+            Assert.AreEqual(CharacteristicPointType.DitchPolderSide, actual.CharacteristicPoints.ElementAt(6).CharacteristicPoint);
+            Assert.AreEqual(CharacteristicPointType.SurfaceLevelInside, actual.CharacteristicPoints.ElementAt(7).CharacteristicPoint);
+            Assert.AreEqual(CharacteristicPointType.SurfaceLevelOutside, actual.CharacteristicPoints.ElementAt(8).CharacteristicPoint);
+            Assert.AreEqual(CharacteristicPointType.ShoulderBaseInside, actual.CharacteristicPoints.ElementAt(9).CharacteristicPoint);
+            Assert.AreEqual(CharacteristicPointType.ShoulderTopInside, actual.CharacteristicPoints.ElementAt(10).CharacteristicPoint);
+            Assert.AreEqual(CharacteristicPointType.DikeTopAtRiver, actual.CharacteristicPoints.ElementAt(11).CharacteristicPoint);
         }
     }
 }
