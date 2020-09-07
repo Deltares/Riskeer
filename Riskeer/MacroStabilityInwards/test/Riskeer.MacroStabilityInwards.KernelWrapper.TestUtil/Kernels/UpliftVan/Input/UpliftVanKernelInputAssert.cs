@@ -19,6 +19,10 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
+using System.Linq;
+using Deltares.MacroStability.CSharpWrapper;
+using Deltares.MacroStability.CSharpWrapper.Input;
 using Deltares.MacroStability.Data;
 using NUnit.Framework;
 
@@ -32,15 +36,91 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan
         /// <summary>
         /// Asserts whether <paramref name="actual"/> is equal to <paramref name="expected"/>.
         /// </summary>
+        /// <param name="expected">The expected <see cref="MacroStabilityInput"/>.</param>
+        /// <param name="actual">The actual <see cref="MacroStabilityInput"/>.</param>
+        /// <exception cref="AssertionException">Thrown when <paramref name="actual"/>
+        /// is not equal to <paramref name="expected"/>.</exception>
+        public static void AssertMacroStabilityInput(MacroStabilityInput expected, MacroStabilityInput actual)
+        {
+            AssertStabilityInput(expected.StabilityModel, actual.StabilityModel);
+            AssertPreprocessingInput(expected.PreprocessingInput, actual.PreprocessingInput);
+        }
+
+        /// <summary>
+        /// Asserts whether <paramref name="actual"/> is equal to <paramref name="expected"/>.
+        /// </summary>
+        /// <param name="expected">The expected <see cref="StabilityInput"/>.</param>
+        /// <param name="actual">The actual <see cref="StabilityInput"/>.</param>
+        /// <exception cref="AssertionException">Thrown when <paramref name="actual"/>
+        /// is not equal to <paramref name="expected"/>.</exception>
+        private static void AssertStabilityInput(StabilityInput expected, StabilityInput actual)
+        {
+            Assert.AreEqual(expected.Orientation, actual.Orientation);
+            Assert.AreEqual(expected.SearchAlgorithm, actual.SearchAlgorithm);
+            Assert.AreEqual(expected.ModelOption, actual.ModelOption);
+
+            AssertConstructionStages(expected.ConstructionStages, actual.ConstructionStages);
+
+            CollectionAssert.AreEqual(expected.Soils, actual.Soils);
+            Assert.AreEqual(expected.MoveGrid, actual.MoveGrid);
+            Assert.AreEqual(expected.MaximumSliceWidth, actual.MaximumSliceWidth);
+
+            AssertUpliftVanCalculationGrid(expected.UpliftVanCalculationGrid, actual.UpliftVanCalculationGrid);
+            AssertSlipPlaneConstraints(expected.SlipPlaneConstraints, actual.SlipPlaneConstraints);
+        }
+
+        /// <summary>
+        /// Asserts whether <paramref name="actual"/> is equal to <paramref name="expected"/>.
+        /// </summary>
+        /// <param name="expected">The expected collection of <see cref="ConstructionStage"/>.</param>
+        /// <param name="actual">The actual collection of <see cref="ConstructionStage"/>.</param>
+        /// <exception cref="AssertionException">Thrown when <paramref name="actual"/>
+        /// is not equal to <paramref name="expected"/>.</exception>
+        private static void AssertConstructionStages(ICollection<ConstructionStage> expected, ICollection<ConstructionStage> actual)
+        {
+            Assert.AreEqual(expected.Count, actual.Count);
+
+            for (var i = 0; i < expected.Count; i++)
+            {
+                ConstructionStage expectedConstructionStage = expected.ElementAt(i);
+                ConstructionStage actualConstructionStage = actual.ElementAt(i);
+
+                Assert.AreEqual(expectedConstructionStage.SoilProfile, actualConstructionStage.SoilProfile);
+                Assert.AreEqual(expectedConstructionStage.Waternet, actualConstructionStage.Waternet);
+                CollectionAssert.AreEqual(expectedConstructionStage.FixedSoilStresses, actualConstructionStage.FixedSoilStresses);
+                CollectionAssert.AreEqual(expectedConstructionStage.PreconsolidationStresses, actualConstructionStage.PreconsolidationStresses);
+
+                AssertMultiplicationFactorsCPhiForUplift(expectedConstructionStage.MultiplicationFactorsCPhiForUplift.Single(),
+                                                         actualConstructionStage.MultiplicationFactorsCPhiForUplift.Single());
+            }
+        }
+
+        /// <summary>
+        /// Asserts whether <paramref name="actual"/> is equal to <paramref name="expected"/>.
+        /// </summary>
+        /// <param name="expected">The expected <see cref="MultiplicationFactorsCPhiForUplift"/>.</param>
+        /// <param name="actual">The actual <see cref="MultiplicationFactorsCPhiForUplift"/>.</param>
+        /// <exception cref="AssertionException">Thrown when <paramref name="actual"/>
+        /// is not equal to <paramref name="expected"/>.</exception>
+        private static void AssertMultiplicationFactorsCPhiForUplift(MultiplicationFactorsCPhiForUplift expected,
+                                                                     MultiplicationFactorsCPhiForUplift actual)
+        {
+            Assert.AreEqual(expected.MultiplicationFactor, actual.MultiplicationFactor);
+            Assert.AreEqual(expected.UpliftFactor, actual.UpliftFactor);
+        }
+
+        /// <summary>
+        /// Asserts whether <paramref name="actual"/> is equal to <paramref name="expected"/>.
+        /// </summary>
         /// <param name="expected">The expected <see cref="SlipPlaneUpliftVan"/>.</param>
         /// <param name="actual">The actual <see cref="SlipPlaneUpliftVan"/>.</param>
         /// <exception cref="AssertionException">Thrown when <paramref name="actual"/>
         /// is not equal to <paramref name="expected"/>.</exception>
-        public static void AssertSlipPlanesUpliftVan(SlipPlaneUpliftVan expected, SlipPlaneUpliftVan actual)
+        private static void AssertUpliftVanCalculationGrid(UpliftVanCalculationGrid expected, UpliftVanCalculationGrid actual)
         {
-            AssertSlipCircleGrid(expected.SlipPlaneLeftGrid, actual.SlipPlaneLeftGrid);
-            AssertSlipCircleGrid(expected.SlipPlaneRightGrid, actual.SlipPlaneRightGrid);
-            AssertSlipCircleTangentLine(expected.SlipCircleTangentLine, actual.SlipCircleTangentLine);
+            AssertCalculationGrid(expected.LeftGrid, actual.LeftGrid);
+            AssertCalculationGrid(expected.RightGrid, actual.RightGrid);
+            CollectionAssert.AreEqual(expected.TangentLines, actual.TangentLines);
         }
 
         /// <summary>
@@ -50,12 +130,12 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan
         /// <param name="actual">The actual <see cref="SlipPlaneConstraints"/>.</param>
         /// <exception cref="AssertionException">Thrown when <paramref name="actual"/>
         /// is not equal to <paramref name="expected"/>.</exception>
-        public static void AssertSlipPlaneConstraints(SlipPlaneConstraints expected, SlipPlaneConstraints actual)
+        private static void AssertSlipPlaneConstraints(SlipPlaneConstraints expected, SlipPlaneConstraints actual)
         {
             Assert.AreEqual(expected.SlipPlaneMinDepth, actual.SlipPlaneMinDepth);
             Assert.AreEqual(expected.SlipPlaneMinLength, actual.SlipPlaneMinLength);
-            Assert.AreEqual(expected.XLeftMin, actual.XLeftMin);
-            Assert.AreEqual(expected.XLeftMax, actual.XLeftMax);
+            Assert.AreEqual(expected.XEntryMin, actual.XEntryMin);
+            Assert.AreEqual(expected.XEntryMax, actual.XEntryMax);
         }
 
         /// <summary>
@@ -65,7 +145,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan
         /// <param name="actual">The actual <see cref="SlipCircleGrid"/>.</param>
         /// <exception cref="AssertionException">Thrown when <paramref name="actual"/>
         /// is not equal to <paramref name="expected"/>.</exception>
-        private static void AssertSlipCircleGrid(SlipCircleGrid expected, SlipCircleGrid actual)
+        private static void AssertCalculationGrid(CalculationGrid expected, CalculationGrid actual)
         {
             Assert.AreEqual(expected.GridXLeft, actual.GridXLeft);
             Assert.AreEqual(expected.GridXRight, actual.GridXRight);
@@ -78,15 +158,46 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan
         /// <summary>
         /// Asserts whether <paramref name="actual"/> is equal to <paramref name="expected"/>.
         /// </summary>
-        /// <param name="expected">The expected <see cref="SlipCircleTangentLine"/>.</param>
-        /// <param name="actual">The actual <see cref="SlipCircleTangentLine"/>.</param>
+        /// <param name="expected">The expected <see cref="PreprocessingInput"/>.</param>
+        /// <param name="actual">The actual <see cref="PreprocessingInput"/>.</param>
         /// <exception cref="AssertionException">Thrown when <paramref name="actual"/>
         /// is not equal to <paramref name="expected"/>.</exception>
-        private static void AssertSlipCircleTangentLine(SlipCircleTangentLine expected, SlipCircleTangentLine actual)
+        private static void AssertPreprocessingInput(PreprocessingInput expected, PreprocessingInput actual)
         {
-            Assert.AreEqual(expected.TangentLineZTop, actual.TangentLineZTop);
-            Assert.AreEqual(expected.TangentLineZBottom, actual.TangentLineZBottom);
-            Assert.AreEqual(expected.TangentLineNumber, actual.TangentLineNumber);
+            SearchAreaConditions expectedSearchAreaConditions = expected.SearchAreaConditions;
+            SearchAreaConditions actualSearchAreaConditions = actual.SearchAreaConditions;
+
+            Assert.AreEqual(expectedSearchAreaConditions.MaxSpacingBetweenBoundaries, actualSearchAreaConditions.MaxSpacingBetweenBoundaries);
+            Assert.AreEqual(expectedSearchAreaConditions.OnlyAbovePleistoceen, actualSearchAreaConditions.OnlyAbovePleistoceen);
+            Assert.AreEqual(expectedSearchAreaConditions.AutoSearchArea, actualSearchAreaConditions.AutoSearchArea);
+            Assert.AreEqual(expectedSearchAreaConditions.AutoTangentLines, actualSearchAreaConditions.AutoTangentLines);
+            Assert.AreEqual(expectedSearchAreaConditions.AutomaticForbiddenZones, actualSearchAreaConditions.AutomaticForbiddenZones);
+            Assert.AreEqual(expectedSearchAreaConditions.TangentLineNumber, actualSearchAreaConditions.TangentLineNumber);
+            Assert.AreEqual(expectedSearchAreaConditions.TangentLineZTop, actualSearchAreaConditions.TangentLineZTop);
+            Assert.AreEqual(expectedSearchAreaConditions.TangentLineZBottom, actualSearchAreaConditions.TangentLineZBottom);
+
+            AssertPreConstructionStages(expected.PreConstructionStages, actual.PreConstructionStages);
+        }
+
+        /// <summary>
+        /// Asserts whether <paramref name="actual"/> is equal to <paramref name="expected"/>.
+        /// </summary>
+        /// <param name="expected">The expected collection of <see cref="PreConstructionStage"/>.</param>
+        /// <param name="actual">The actual collection of <see cref="PreConstructionStage"/>.</param>
+        /// <exception cref="AssertionException">Thrown when <paramref name="actual"/>
+        /// is not equal to <paramref name="expected"/>.</exception>
+        private static void AssertPreConstructionStages(ICollection<PreConstructionStage> expected, ICollection<PreConstructionStage> actual)
+        {
+            Assert.AreEqual(expected.Count, actual.Count);
+
+            for (int i = 0; i < expected.Count; i++)
+            {
+                PreConstructionStage expectedPreConstructionStage = expected.ElementAt(i);
+                PreConstructionStage actualPreConstructionStage = actual.ElementAt(i);
+
+                Assert.AreEqual(expectedPreConstructionStage.WaternetCreationMode, actualPreConstructionStage.WaternetCreationMode);
+                Assert.AreEqual(expectedPreConstructionStage.SurfaceLine, actualPreConstructionStage.SurfaceLine);
+            }
         }
     }
 }

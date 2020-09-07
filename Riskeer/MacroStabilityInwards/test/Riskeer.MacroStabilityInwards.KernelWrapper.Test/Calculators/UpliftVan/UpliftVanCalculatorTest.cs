@@ -25,6 +25,7 @@ using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using Deltares.MacroStability.CSharpWrapper;
+using Deltares.MacroStability.CSharpWrapper.Input;
 using Deltares.MacroStability.CSharpWrapper.Output;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -44,8 +45,11 @@ using Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan.Inp
 using Riskeer.MacroStabilityInwards.Primitives;
 using Point2D = Core.Common.Base.Geometry.Point2D;
 using SoilLayer = Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Input.SoilLayer;
-using SoilProfile = Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Input.SoilProfile;
 using CSharpWrapperPoint2D = Deltares.MacroStability.CSharpWrapper.Point2D;
+using CSharpWrapperSoilProfile = Deltares.MacroStability.CSharpWrapper.Input.SoilProfile;
+using PreconsolidationStress = Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Input.PreconsolidationStress;
+using SoilProfile = Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Input.SoilProfile;
+using CSharpWrapperWaternet = Deltares.MacroStability.CSharpWrapper.Waternet;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
 {
@@ -131,29 +135,20 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
             {
                 var factory = (TestMacroStabilityInwardsKernelFactory) MacroStabilityInwardsKernelWrapperFactory.Instance;
                 UpliftVanKernelStub upliftVanKernel = factory.LastCreatedUpliftVanKernel;
-                upliftVanKernel.SetWaternetDaily(factory.CreateWaternetDailyKernel(UpliftVanWaternetCreatorInputCreator.CreateDaily(input)).Waternet);
-                upliftVanKernel.SetWaternetExtreme(factory.CreateWaternetExtremeKernel(UpliftVanWaternetCreatorInputCreator.CreateExtreme(input)).Waternet);
+
+                LayerWithSoil[] layersWithSoil = LayerWithSoilCreator.Create(input.SoilProfile, out IDictionary<SoilLayer, LayerWithSoil> layerLookup);
+                SurfaceLine surfaceLine = SurfaceLineCreator.Create(input.SurfaceLine);
+                CSharpWrapperSoilProfile soilProfile = SoilProfileCreator.Create(layersWithSoil);
+
+                CSharpWrapperWaternet waternetDaily = factory.CreateWaternetDailyKernel(MacroStabilityInputCreator.CreateDailyWaternetForUpliftVan(input, layersWithSoil, surfaceLine, soilProfile)).Waternet;
+                CSharpWrapperWaternet waternetExtreme = factory.CreateWaternetExtremeKernel(MacroStabilityInputCreator.CreateExtremeWaternetForUpliftVan(input, layersWithSoil, surfaceLine, soilProfile)).Waternet;
                 SetValidKernelOutput(upliftVanKernel);
 
                 // Call
                 new UpliftVanCalculator(input, factory).Calculate();
 
                 // Assert
-                Assert.AreEqual(input.MoveGrid, upliftVanKernel.MoveGrid);
-                Assert.AreEqual(input.MaximumSliceWidth, upliftVanKernel.MaximumSliceWidth);
-
-                LayerWithSoil[] layersWithSoil = LayerWithSoilCreator.Create(input.SoilProfile, out IDictionary<SoilLayer, LayerWithSoil> layerLookup);
-
-                UpliftVanKernelInputAssert.AssertSlipPlanesUpliftVan(UpliftVanCalculationGridCreator.Create(input.SlipPlane), upliftVanKernel.SlipPlaneUpliftVan);
-                UpliftVanKernelInputAssert.AssertSlipPlaneConstraints(SlipPlaneConstraintsCreator.Create(input.SlipPlaneConstraints), upliftVanKernel.SlipPlaneConstraints);
-                KernelInputAssert.AssertSoilModels(layersWithSoil.Select(lws => lws.Soil).ToArray(), upliftVanKernel.SoilModel);
-                KernelInputAssert.AssertSoilProfiles(SoilProfileCreator.Create(layersWithSoil), upliftVanKernel.SoilProfile);
-                KernelInputAssert.AssertSurfaceLines(SurfaceLineCreator.Create(input.SurfaceLine), upliftVanKernel.SurfaceLine);
-                Assert.AreEqual(input.SlipPlane.GridAutomaticDetermined, upliftVanKernel.GridAutomaticDetermined);
-                Assert.AreEqual(input.SlipPlane.TangentLinesAutomaticAtBoundaries, upliftVanKernel.TangentLinesAutomaticDetermined);
-                CollectionAssert.AreEqual(FixedSoilStressCreator.Create(layerLookup), upliftVanKernel.SoilStresses, new FixedSoilStressComparer());
-                CollectionAssert.AreEqual(PreconsolidationStressCreator.Create(input.SoilProfile.PreconsolidationStresses), upliftVanKernel.PreConsolidationStresses, new PreConsolidationStressComparer());
-                Assert.AreEqual(input.SlipPlaneConstraints.AutomaticForbiddenZones, upliftVanKernel.AutomaticForbiddenZones);
+                UpliftVanKernelInputAssert.AssertMacroStabilityInput(MacroStabilityInputCreator.CreateUpliftVan(input, layersWithSoil, layerLookup, surfaceLine, soilProfile, waternetDaily, waternetExtreme), upliftVanKernel.KernelInput);
             }
         }
 
