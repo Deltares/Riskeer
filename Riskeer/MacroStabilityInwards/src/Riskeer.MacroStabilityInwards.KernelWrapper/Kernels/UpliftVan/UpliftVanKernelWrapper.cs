@@ -38,8 +38,22 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
         /// <summary>
         /// Creates a new instance of <see cref="UpliftVanKernelWrapper"/>.
         /// </summary>
+        /// <param name="calculator">The <see cref="ICalculator"/> to use.</param>
+        /// <param name="validator">The <see cref="IValidator"/> to use.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter
+        /// is <c>null</c>.</exception>
         public UpliftVanKernelWrapper(ICalculator calculator, IValidator validator)
         {
+            if (calculator == null)
+            {
+                throw new ArgumentNullException(nameof(calculator));
+            }
+
+            if (validator == null)
+            {
+                throw new ArgumentNullException(nameof(validator));
+            }
+
             this.calculator = calculator;
             this.validator = validator;
 
