@@ -42,14 +42,14 @@ using Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.UpliftVan
 using Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels;
 using Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan;
 using Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan.Input;
+using Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.Waternet;
+using Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.Waternet.Input;
 using Riskeer.MacroStabilityInwards.Primitives;
-using Point2D = Core.Common.Base.Geometry.Point2D;
-using SoilLayer = Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Input.SoilLayer;
 using CSharpWrapperPoint2D = Deltares.MacroStability.CSharpWrapper.Point2D;
 using CSharpWrapperSoilProfile = Deltares.MacroStability.CSharpWrapper.Input.SoilProfile;
+using Point2D = Core.Common.Base.Geometry.Point2D;
 using PreconsolidationStress = Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Input.PreconsolidationStress;
 using SoilProfile = Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Input.SoilProfile;
-using CSharpWrapperWaternet = Deltares.MacroStability.CSharpWrapper.Waternet;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
 {
@@ -140,15 +140,24 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
                 SurfaceLine surfaceLine = SurfaceLineCreator.Create(input.SurfaceLine);
                 CSharpWrapperSoilProfile soilProfile = SoilProfileCreator.Create(layersWithSoil);
 
-                CSharpWrapperWaternet waternetDaily = factory.CreateWaternetDailyKernel(MacroStabilityInputCreator.CreateDailyWaternetForUpliftVan(input, layersWithSoil, surfaceLine, soilProfile)).Waternet;
-                CSharpWrapperWaternet waternetExtreme = factory.CreateWaternetExtremeKernel(MacroStabilityInputCreator.CreateExtremeWaternetForUpliftVan(input, layersWithSoil, surfaceLine, soilProfile)).Waternet;
+                MacroStabilityInput dailyWaternetInputForUpliftVan = MacroStabilityInputCreator.CreateDailyWaternetForUpliftVan(input, layersWithSoil, surfaceLine, soilProfile);
+                MacroStabilityInput extremeWaternetInputForUpliftVan = MacroStabilityInputCreator.CreateExtremeWaternetForUpliftVan(input, layersWithSoil, surfaceLine, soilProfile);
+
+                WaternetKernelStub waternetDailyKernel = (WaternetKernelStub) factory.CreateWaternetDailyKernel(dailyWaternetInputForUpliftVan);
+                WaternetKernelStub waternetExtremeKernel = (WaternetKernelStub) factory.CreateWaternetExtremeKernel(extremeWaternetInputForUpliftVan);
                 SetValidKernelOutput(upliftVanKernel);
 
                 // Call
                 new UpliftVanCalculator(input, factory).Calculate();
 
                 // Assert
-                UpliftVanKernelInputAssert.AssertMacroStabilityInput(MacroStabilityInputCreator.CreateUpliftVan(input, layersWithSoil, layerLookup, surfaceLine, soilProfile, waternetDaily, waternetExtreme), upliftVanKernel.KernelInput);
+                WaternetKernelInputAssert.AssertMacroStabilityInput(dailyWaternetInputForUpliftVan, waternetDailyKernel.KernelInput);
+                WaternetKernelInputAssert.AssertMacroStabilityInput(extremeWaternetInputForUpliftVan, waternetExtremeKernel.KernelInput);
+                UpliftVanKernelInputAssert.AssertMacroStabilityInput(
+                    MacroStabilityInputCreator.CreateUpliftVan(
+                        input, layersWithSoil, layerLookup, surfaceLine, soilProfile,
+                        waternetDailyKernel.Waternet, waternetExtremeKernel.Waternet),
+                    upliftVanKernel.KernelInput);
             }
         }
 
@@ -175,7 +184,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
                 UpliftVanCalculatorOutputAssert.AssertSlidingCurve(UpliftVanSlidingCurveResultCreator.Create(upliftVanKernel.SlidingCurveResult),
                                                                    result.SlidingCurveResult);
                 UpliftVanCalculatorOutputAssert.AssertUpliftVanCalculationGridResult(UpliftVanCalculationGridResultCreator.Create(upliftVanKernel.UpliftVanCalculationGridResult),
-                                                                    result.CalculationGridResult);
+                                                                                     result.CalculationGridResult);
             }
         }
 
@@ -511,7 +520,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
                     GridXNumber = 3,
                     GridZNumber = 4
                 },
-                TangentLines = new []
+                TangentLines = new[]
                 {
                     1.1,
                     2.2
@@ -537,7 +546,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
                 ResistingPassiveMoment = 1.4,
                 IteratedHorizontalForce = 1.5,
                 NonIteratedHorizontalForce = 1.6,
-                Slices = new []
+                Slices = new[]
                 {
                     new Slice
                     {
