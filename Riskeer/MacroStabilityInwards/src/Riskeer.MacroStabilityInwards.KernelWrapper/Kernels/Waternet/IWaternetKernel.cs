@@ -20,11 +20,10 @@
 // All rights reserved.
 
 using System.Collections.Generic;
-using Deltares.MacroStability.CSharpWrapper.Input;
 using Deltares.MacroStability.CSharpWrapper.Output;
 using Deltares.MacroStability.Standard;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Waternet;
-using WtiStabilityWaternet = Deltares.MacroStability.CSharpWrapper.Waternet;
+using CSharpWrapperWaternet = Deltares.MacroStability.CSharpWrapper.Waternet;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.Waternet
 {
@@ -43,7 +42,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.Waternet
         /// <summary>
         /// Gets the Waternet result.
         /// </summary>
-        WtiStabilityWaternet Waternet { get; }
+        CSharpWrapperWaternet Waternet { get; }
 
         /// <summary>
         /// Performs the Waternet calculation.

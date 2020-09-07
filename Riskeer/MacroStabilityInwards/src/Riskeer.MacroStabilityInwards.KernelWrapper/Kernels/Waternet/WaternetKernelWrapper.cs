@@ -26,13 +26,12 @@ using Deltares.MacroStability.CSharpWrapper;
 using Deltares.MacroStability.CSharpWrapper.Output;
 using Deltares.MacroStability.CSharpWrapper.Output.WaternetCreator;
 using Deltares.MacroStability.Standard;
-using Deltares.MacroStability.WaternetCreator;
-using WtiStabilityWaternet = Deltares.MacroStability.CSharpWrapper.Waternet;
+using CSharpWrapperWaternet = Deltares.MacroStability.CSharpWrapper.Waternet;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.Waternet
 {
     /// <summary>
-    /// Class that wraps <see cref="WTIStabilityCalculation"/> for performing a Waternet calculation.
+    /// Class that wraps the <see cref="Deltares.MacroStability.CSharpWrapper"/> for performing a Waternet calculation.
     /// </summary>
     internal class WaternetKernelWrapper : IWaternetKernel
     {
@@ -43,17 +42,29 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.Waternet
         /// <summary>
         /// Creates a new instance of <see cref="WaternetKernelWrapper"/>.
         /// </summary>
-        /// <param name="location">The <see cref="Location"/> to use.</param>
+        /// <param name="calculator">The <see cref="ICalculator"/> to use.</param>
+        /// <param name="validator">The <see cref="IValidator"/> to use.</param>
         /// <param name="waternetName">The name of the <see cref="Waternet"/>.</param>
-        /// <param name="waternetCreatorInput"></param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculator"/>
+        /// or <paramref name="validator"/> is <c>null</c>.</exception>
         public WaternetKernelWrapper(ICalculator calculator, IValidator validator, string waternetName)
         {
+            if (calculator == null)
+            {
+                throw new ArgumentNullException(nameof(calculator));
+            }
+
+            if (validator == null)
+            {
+                throw new ArgumentNullException(nameof(validator));
+            }
+
             this.calculator = calculator;
             this.validator = validator;
             this.waternetName = waternetName;
         }
 
-        public WtiStabilityWaternet Waternet { get; private set; }
+        public CSharpWrapperWaternet Waternet { get; private set; }
 
         public void Calculate()
         {
