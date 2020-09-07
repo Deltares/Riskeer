@@ -47,22 +47,30 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan
         /// <summary>
         /// Asserts whether <paramref name="actual"/> is equal to <paramref name="expected"/>.
         /// </summary>
-        /// <param name="expected">The expected <see cref="Location"/>.</param>
-        /// <param name="actual">The actual <see cref="Location"/>.</param>
+        /// <param name="expected">The expected <see cref="SurfaceLine"/>.</param>
+        /// <param name="actual">The actual <see cref="SurfaceLine"/>.</param>
         /// <exception cref="AssertionException">Thrown when <paramref name="actual"/>
         /// is not equal to <paramref name="expected"/>.</exception>
-        public static void AssertLocations(Location expected, Location actual)
+        public static void AssertSurfaceLine(SurfaceLine expected, SurfaceLine actual)
+        {
+            AssertCharacteristicPoints(expected.CharacteristicPoints, actual.CharacteristicPoints);
+        }
+
+        /// <summary>
+        /// Asserts whether <paramref name="actual"/> is equal to <paramref name="expected"/>.
+        /// </summary>
+        /// <param name="expected">The expected collection of <see cref="WaternetCreatorInput"/>.</param>
+        /// <param name="actual">The actual collection of <see cref="WaternetCreatorInput"/>.</param>
+        /// <exception cref="AssertionException">Thrown when <paramref name="actual"/>
+        /// is not equal to <paramref name="expected"/>.</exception>
+        public static void AssertWaternetCreatorInput(WaternetCreatorInput expected, WaternetCreatorInput actual)
         {
             Assert.AreEqual(expected.DikeSoilScenario, actual.DikeSoilScenario);
-            Assert.AreEqual(expected.WaternetCreationMode, actual.WaternetCreationMode);
-            Assert.AreEqual(expected.PlLineCreationMethod, actual.PlLineCreationMethod);
             Assert.AreEqual(expected.WaterLevelRiver, actual.WaterLevelRiver);
             Assert.AreEqual(expected.WaterLevelRiverAverage, actual.WaterLevelRiverAverage);
             Assert.AreEqual(expected.WaterLevelPolder, actual.WaterLevelPolder);
-            Assert.AreEqual(expected.WaterLevelRiverLow, actual.WaterLevelRiverLow);
             Assert.AreEqual(expected.DrainageConstructionPresent, actual.DrainageConstructionPresent);
-            Assert.AreEqual(expected.XCoordMiddleDrainageConstruction, actual.XCoordMiddleDrainageConstruction);
-            Assert.AreEqual(expected.ZCoordMiddleDrainageConstruction, actual.ZCoordMiddleDrainageConstruction);
+            Assert.AreEqual(expected.DrainageConstruction, actual.DrainageConstruction);
             Assert.AreEqual(expected.MinimumLevelPhreaticLineAtDikeTopRiver, actual.MinimumLevelPhreaticLineAtDikeTopRiver);
             Assert.AreEqual(expected.MinimumLevelPhreaticLineAtDikeTopPolder, actual.MinimumLevelPhreaticLineAtDikeTopPolder);
             Assert.AreEqual(expected.UseDefaultOffsets, actual.UseDefaultOffsets);
@@ -70,32 +78,15 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan
             Assert.AreEqual(expected.PlLineOffsetBelowDikeTopAtPolder, actual.PlLineOffsetBelowDikeTopAtPolder);
             Assert.AreEqual(expected.PlLineOffsetBelowShoulderBaseInside, actual.PlLineOffsetBelowShoulderBaseInside);
             Assert.AreEqual(expected.PlLineOffsetBelowDikeToeAtPolder, actual.PlLineOffsetBelowDikeToeAtPolder);
-            Assert.AreEqual(expected.HeadInPlLine2Outwards, actual.HeadInPlLine2Outwards);
-            Assert.AreEqual(expected.HeadInPlLine2Inwards, actual.HeadInPlLine2Inwards);
             Assert.AreEqual(expected.AdjustPl3And4ForUplift, actual.AdjustPl3And4ForUplift);
-            Assert.AreEqual(expected.PenetrationLength, actual.PenetrationLength);
             Assert.AreEqual(expected.LeakageLengthOutwardsPl3, actual.LeakageLengthOutwardsPl3);
             Assert.AreEqual(expected.LeakageLengthInwardsPl3, actual.LeakageLengthInwardsPl3);
             Assert.AreEqual(expected.LeakageLengthOutwardsPl4, actual.LeakageLengthOutwardsPl4);
             Assert.AreEqual(expected.LeakageLengthInwardsPl4, actual.LeakageLengthInwardsPl4);
-            Assert.AreEqual(expected.HeadInPlLine3, actual.HeadInPlLine3);
-            Assert.AreEqual(expected.HeadInPlLine4, actual.HeadInPlLine4);
-            Assert.AreEqual(expected.X, actual.X);
-            Assert.AreEqual(expected.Y, actual.Y);
-        }
-
-        /// <summary>
-        /// Asserts whether <paramref name="actual"/> is equal to <paramref name="expected"/>.
-        /// </summary>
-        /// <param name="expected">The expected <see cref="SurfaceLine"/>.</param>
-        /// <param name="actual">The actual <see cref="SurfaceLine"/>.</param>
-        /// <exception cref="AssertionException">Thrown when <paramref name="actual"/>
-        /// is not equal to <paramref name="expected"/>.</exception>
-        public static void AssertSurfaceLine(SurfaceLine expected, SurfaceLine actual)
-        {
-            Assert.AreEqual(expected.Name, actual.Name);
-            AssertGeometryPointStrings(expected.Geometry, actual.Geometry);
-            AssertCharacteristicPointSets(expected.CharacteristicPoints, actual.CharacteristicPoints);
+            Assert.AreEqual(expected.HeadInPlLine2Outwards, actual.HeadInPlLine2Outwards);
+            Assert.AreEqual(expected.HeadInPlLine2Inwards, actual.HeadInPlLine2Inwards);
+            Assert.AreEqual(expected.PenetrationLength, actual.PenetrationLength);
+            Assert.AreEqual(expected.UnitWeightWater, actual.UnitWeightWater);
         }
 
         /// <summary>
@@ -200,55 +191,17 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan
         /// <summary>
         /// Asserts whether <paramref name="actual"/> is equal to <paramref name="expected"/>.
         /// </summary>
-        /// <param name="expected">The expected <see cref="CharacteristicPointSet"/>.</param>
-        /// <param name="actual">The actual <see cref="CharacteristicPointSet"/>.</param>
+        /// <param name="expected">The expected collection of <see cref="SurfaceLineCharacteristicPoint"/>.</param>
+        /// <param name="actual">The actual collection of <see cref="SurfaceLineCharacteristicPoint"/>.</param>
         /// <exception cref="AssertionException">Thrown when <paramref name="actual"/>
         /// is not equal to <paramref name="expected"/>.</exception>
-        private static void AssertCharacteristicPointSets(CharacteristicPointSet expected, CharacteristicPointSet actual)
+        private static void AssertCharacteristicPoints(ICollection<SurfaceLineCharacteristicPoint> expected,
+                                                       ICollection<SurfaceLineCharacteristicPoint> actual)
         {
             Assert.AreEqual(expected.Count, actual.Count);
-            Assert.AreEqual(expected.GeometryMustContainPoint, actual.GeometryMustContainPoint);
 
-            for (var i = 0; i < expected.Count; i++)
-            {
-                CharacteristicPoint expectedCharacteristicPoint = expected[i];
-                CharacteristicPoint actualCharacteristicPoint = actual[i];
-
-                AssertGeometryPoints(expectedCharacteristicPoint.GeometryPoint, actualCharacteristicPoint.GeometryPoint);
-                Assert.AreEqual(expectedCharacteristicPoint.CharacteristicPointType, actualCharacteristicPoint.CharacteristicPointType);
-            }
-        }
-
-        /// <summary>
-        /// Asserts whether <paramref name="actual"/> is equal to <paramref name="expected"/>.
-        /// </summary>
-        /// <param name="expected">The expected <see cref="GeometryPointString"/>.</param>
-        /// <param name="actual">The actual <see cref="GeometryPointString"/>.</param>
-        /// <exception cref="AssertionException">Thrown when <paramref name="actual"/>
-        /// is not equal to <paramref name="expected"/>.</exception>
-        private static void AssertGeometryPointStrings(GeometryPointString expected, GeometryPointString actual)
-        {
-            Assert.AreEqual(expected.Points.Count, actual.Points.Count);
-
-            for (var i = 0; i < expected.Points.Count; i++)
-            {
-                AssertGeometryPoints(expected.Points[i], actual.Points[i]);
-            }
-        }
-
-        /// <summary>
-        /// Asserts whether <paramref name="actual"/> is equal to <paramref name="expected"/>.
-        /// </summary>
-        /// <param name="expected">The expected <see cref="GeometryPoint"/>.</param>
-        /// <param name="actual">The actual <see cref="GeometryPoint"/>.</param>
-        /// <exception cref="AssertionException">Thrown when <paramref name="actual"/>
-        /// is not equal to <paramref name="expected"/>.</exception>
-        private static void AssertGeometryPoints(GeometryPoint expected, GeometryPoint actual)
-        {
-            Assert.AreEqual(expected.Name, actual.Name);
-            Assert.AreEqual(expected.Owner, actual.Owner);
-            Assert.AreEqual(expected.X, actual.X);
-            Assert.AreEqual(expected.Z, actual.Z);
+            CollectionAssert.AreEqual(expected.Select(slcp => slcp.GeometryPoint), actual.Select(slcp => slcp.GeometryPoint), new StabilityPointComparer());
+            CollectionAssert.AreEqual(expected.Select(slcp => slcp.CharacteristicPoint), actual.Select(slcp => slcp.CharacteristicPoint));
         }
     }
 }

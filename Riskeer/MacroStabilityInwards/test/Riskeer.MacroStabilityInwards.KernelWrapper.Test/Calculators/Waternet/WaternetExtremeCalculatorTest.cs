@@ -19,8 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Collections.Generic;
-using Deltares.MacroStability.Geometry;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Waternet;
@@ -29,10 +27,9 @@ using Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Kernels;
 using Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Waternet.Input;
 using Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels;
-using Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan.Input;
 using Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.Waternet;
-using SoilLayer = Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Input.SoilLayer;
-using WtiStabilityWaternet = Deltares.MacroStability.Geometry.Waternet;
+using Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.Waternet.Input;
+using CSharpWrapperWaternet = Deltares.MacroStability.CSharpWrapper.Waternet;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.Waternet
 {
@@ -67,26 +64,14 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.Waternet
             {
                 var factory = (TestMacroStabilityInwardsKernelFactory) MacroStabilityInwardsKernelWrapperFactory.Instance;
                 WaternetKernelStub waternetKernel = factory.LastCreatedWaternetKernel;
-                SetKernelOutput(waternetKernel);
+                waternetKernel.Waternet = new CSharpWrapperWaternet();
 
                 // Call
                 new WaternetExtremeCalculator(input, factory).Calculate();
 
                 // Assert
-                LayerWithSoil[] layersWithSoil = LayerWithSoilCreator.Create(input.SoilProfile, out IDictionary<SoilLayer, LayerWithSoil> layerLookup);
-
-                KernelInputAssert.AssertSoilProfiles(SoilProfileCreator.Create(layersWithSoil), waternetKernel.SoilProfile);
-                KernelInputAssert.AssertLocations(WaternetCreatorInputCreator.Create(input), waternetKernel.Location);
-                KernelInputAssert.AssertSurfaceLines(SurfaceLineCreator.Create(input.SurfaceLine), waternetKernel.SurfaceLine);
+                WaternetKernelInputAssert.AssertMacroStabilityInput(MacroStabilityInputCreator.CreateWaternet(input), waternetKernel.KernelInput);
             }
-        }
-
-        private static void SetKernelOutput(WaternetKernelStub waternetKernel)
-        {
-            waternetKernel.Waternet = new WtiStabilityWaternet
-            {
-                PhreaticLine = new PhreaticLine()
-            };
         }
     }
 }
