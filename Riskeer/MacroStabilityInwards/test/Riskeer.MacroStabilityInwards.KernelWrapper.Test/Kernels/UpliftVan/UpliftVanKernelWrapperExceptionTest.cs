@@ -23,7 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.TestUtil;
-using Deltares.MacroStability.Standard;
+using Deltares.MacroStability.CSharpWrapper.Output;
 using NUnit.Framework;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan;
 
@@ -39,10 +39,10 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
             // Setup
             const string messageText = "Message";
             var innerException = new Exception();
-            IEnumerable<LogMessage> logMessages = Enumerable.Empty<LogMessage>();
+            IEnumerable<Message> messages = Enumerable.Empty<Message>();
 
             // Call
-            var exception = new UpliftVanKernelWrapperException(messageText, innerException, logMessages);
+            var exception = new UpliftVanKernelWrapperException(messageText, innerException, messages);
 
             // Assert
             Assert.IsInstanceOf<Exception>(exception);
@@ -53,7 +53,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
             Assert.IsNull(exception.StackTrace);
             Assert.IsNull(exception.TargetSite);
             CollectionAssert.IsEmpty(exception.Data);
-            Assert.AreSame(logMessages, exception.LogMessages);
+            Assert.AreSame(messages, exception.LogMessages);
         }
     }
 }

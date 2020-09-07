@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Deltares.MacroStability.WaternetCreator;
+using Deltares.MacroStability.CSharpWrapper.Input;
 using NUnit.Framework;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Kernels;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan;
@@ -76,7 +76,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels
             IMacroStabilityInwardsKernelFactory factory = MacroStabilityInwardsKernelWrapperFactory.Instance;
 
             // Call
-            IUpliftVanKernel upliftVanKernel = factory.CreateUpliftVanKernel();
+            IUpliftVanKernel upliftVanKernel = factory.CreateUpliftVanKernel(new MacroStabilityInput());
 
             // Assert
             Assert.IsInstanceOf<UpliftVanKernelWrapper>(upliftVanKernel);
@@ -89,7 +89,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels
             IMacroStabilityInwardsKernelFactory factory = MacroStabilityInwardsKernelWrapperFactory.Instance;
 
             // Call
-            IWaternetKernel waternetKernel = factory.CreateWaternetExtremeKernel(new Location());
+            IWaternetKernel waternetKernel = factory.CreateWaternetExtremeKernel(new MacroStabilityInput());
 
             // Assert
             Assert.IsInstanceOf<WaternetKernelWrapper> (waternetKernel);
@@ -102,7 +102,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels
             IMacroStabilityInwardsKernelFactory factory = MacroStabilityInwardsKernelWrapperFactory.Instance;
 
             // Call
-            IWaternetKernel waternetKernel = factory.CreateWaternetDailyKernel(new Location());
+            IWaternetKernel waternetKernel = factory.CreateWaternetDailyKernel(new MacroStabilityInput());
 
             // Assert
             Assert.IsInstanceOf<WaternetKernelWrapper>(waternetKernel);

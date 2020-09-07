@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using Deltares.MacroStability.CSharpWrapper.Input;
-using Deltares.MacroStability.WaternetCreator;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.Waternet;
 
