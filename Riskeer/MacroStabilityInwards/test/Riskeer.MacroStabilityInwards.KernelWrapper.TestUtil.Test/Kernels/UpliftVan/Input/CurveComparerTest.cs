@@ -19,23 +19,28 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Deltares.MacroStability.Geometry;
+using Deltares.MacroStability.CSharpWrapper;
+using Deltares.MacroStability.CSharpWrapper.Input;
 using NUnit.Framework;
 using Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan.Input;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernels.UpliftVan.Input
 {
     [TestFixture]
-    public class GeometryCurveComparerTest
+    public class CurveComparerTest
     {
         [Test]
         public void Compare_SameInstance_ReturnZero()
         {
             // Setup
-            var curve = new GeometryCurve(new Point2D(1.1, 2.2), new Point2D(3.3, 4.4));
+            var curve = new Curve
+            {
+                HeadPoint = new Point2D(1.1, 2.2),
+                EndPoint = new Point2D(3.3, 4.4)
+            };
 
             // Call
-            int result = new GeometryCurveComparer().Compare(curve, curve);
+            int result = new CurveComparer().Compare(curve, curve);
 
             // Assert
             Assert.AreEqual(0, result);
@@ -49,11 +54,19 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernels.Upli
             const double y1 = 2.2;
             const double x2 = 3.3;
             const double y2 = 4.4;
-            var curve1 = new GeometryCurve(new Point2D(x1, y1), new Point2D(x2, y2));
-            var curve2 = new GeometryCurve(new Point2D(x1, y1), new Point2D(x2, y2));
+            var curve1 = new Curve
+            {
+                HeadPoint = new Point2D(x1, y1),
+                EndPoint = new Point2D(x2, y2)
+            };
+            var curve2 = new Curve
+            {
+                HeadPoint = new Point2D(x1, y1),
+                EndPoint = new Point2D(x2, y2)
+            };
 
             // Call
-            int result = new GeometryCurveComparer().Compare(curve1, curve2);
+            int result = new CurveComparer().Compare(curve1, curve2);
 
             // Assert
             Assert.AreEqual(0, result);
@@ -63,11 +76,19 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernels.Upli
         public void Compare_DifferentCoordinates_ReturnOne()
         {
             // Setup
-            var curve1 = new GeometryCurve(new Point2D(0, 0), new Point2D(1, 1));
-            var curve2 = new GeometryCurve(new Point2D(2, 2), new Point2D(3, 3));
+            var curve1 = new Curve
+            {
+                HeadPoint = new Point2D(0, 0),
+                EndPoint = new Point2D(1, 1)
+            };
+            var curve2 = new Curve
+            {
+                HeadPoint = new Point2D(2, 2),
+                EndPoint = new Point2D(3, 3)
+            };
 
             // Call
-            int result = new GeometryCurveComparer().Compare(curve1, curve2);
+            int result = new CurveComparer().Compare(curve1, curve2);
 
             // Assert
             Assert.AreEqual(1, result);

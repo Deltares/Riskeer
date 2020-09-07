@@ -21,25 +21,26 @@
 
 using System.Collections;
 using System.Collections.Generic;
-using Deltares.MacroStability.Geometry;
+using Deltares.MacroStability.CSharpWrapper;
+using Deltares.MacroStability.CSharpWrapper.Input;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan.Input
 {
     /// <summary>
     /// This class compares the coordinates of the <see cref="Point2D"/>
-    /// of two <see cref="GeometryCurve"/> instances to determine whether
+    /// of two <see cref="Curve"/> instances to determine whether
     /// they're equal to each other or not.
     /// </summary>
-    public class GeometryCurveComparer : IComparer<GeometryCurve>, IComparer
+    public class CurveComparer : IComparer<Curve>, IComparer
     {
         private readonly StabilityPointComparer pointComparer = new StabilityPointComparer();
 
         public int Compare(object x, object y)
         {
-            return Compare(x as GeometryCurve, y as GeometryCurve);
+            return Compare(x as Curve, y as Curve);
         }
 
-        public int Compare(GeometryCurve x, GeometryCurve y)
+        public int Compare(Curve x, Curve y)
         {
             return pointComparer.Compare(x.HeadPoint, y.HeadPoint) == 0
                    && pointComparer.Compare(x.EndPoint, y.EndPoint) == 0

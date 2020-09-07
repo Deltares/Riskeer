@@ -22,28 +22,29 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Deltares.MacroStability.Geometry;
+using Deltares.MacroStability.CSharpWrapper;
+using Deltares.MacroStability.CSharpWrapper.Input;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan.Input
 {
     /// <summary>
     /// This class compares the coordinates of the <see cref="Point2D"/>
-    /// of all <see cref="GeometryCurve"/> instances of the <see cref="GeometryLoop"/>
+    /// of all <see cref="Curve"/> instances of the <see cref="Loop"/>
     /// instances to determine whether they're equal to each other or not.
     /// </summary>
-    public class GeometryLoopComparer : IComparer<GeometryLoop>, IComparer
+    public class LoopComparer : IComparer<Loop>, IComparer
     {
-        private readonly GeometryCurveComparer curveComparer = new GeometryCurveComparer();
+        private readonly CurveComparer curveComparer = new CurveComparer();
 
         public int Compare(object x, object y)
         {
-            return Compare(x as GeometryLoop, y as GeometryLoop);
+            return Compare(x as Loop, y as Loop);
         }
 
-        public int Compare(GeometryLoop x, GeometryLoop y)
+        public int Compare(Loop x, Loop y)
         {
-            return x.CurveList.Where((curve, index) =>
-                                         curveComparer.Compare(curve, y.CurveList[index]) == 1).Any()
+            return x.Curves.Where((curve, index) =>
+                                         curveComparer.Compare(curve, y.Curves.ElementAt(index)) == 1).Any()
                        ? 1
                        : 0;
         }

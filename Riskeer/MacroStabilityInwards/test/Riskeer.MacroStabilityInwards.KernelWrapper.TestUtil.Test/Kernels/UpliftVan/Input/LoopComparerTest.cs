@@ -19,23 +19,25 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Deltares.MacroStability.Geometry;
+using System.Collections.Generic;
+using Deltares.MacroStability.CSharpWrapper;
+using Deltares.MacroStability.CSharpWrapper.Input;
 using NUnit.Framework;
 using Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan.Input;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernels.UpliftVan.Input
 {
     [TestFixture]
-    public class GeometryLoopComparerTest
+    public class LoopComparerTest
     {
         [Test]
         public void Compare_SameInstance_ReturnZero()
         {
             // Setup
-            var loop = new GeometryLoop();
+            var loop = new Loop();
 
             // Call
-            int result = new GeometryLoopComparer().Compare(loop, loop);
+            int result = new LoopComparer().Compare(loop, loop);
 
             // Assert
             Assert.AreEqual(0, result);
@@ -45,24 +47,28 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernels.Upli
         public void Compare_SameCurveInstance_ReturnZero()
         {
             // Setup
-            var curve = new GeometryCurve(new Point2D(1.1, 2.2), new Point2D(3.3, 4.4));
-            var loop1 = new GeometryLoop
+            var curve = new Curve
             {
-                CurveList =
+                HeadPoint = new Point2D(1.1, 2.2),
+                EndPoint = new Point2D(3.3, 4.4)
+            };
+            var loop1 = new Loop
+            {
+                Curves = new List<Curve>
                 {
                     curve
                 }
             };
-            var loop2 = new GeometryLoop
+            var loop2 = new Loop
             {
-                CurveList =
+                Curves = new List<Curve>
                 {
                     curve
                 }
             };
 
             // Call
-            int result = new GeometryLoopComparer().Compare(loop1, loop2);
+            int result = new LoopComparer().Compare(loop1, loop2);
 
             // Assert
             Assert.AreEqual(0, result);
@@ -76,23 +82,31 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernels.Upli
             const double y1 = 2.2;
             const double x2 = 3.3;
             const double y2 = 4.4;
-            var loop1 = new GeometryLoop
+            var loop1 = new Loop
             {
-                CurveList =
+                Curves = new List<Curve>
                 {
-                    new GeometryCurve(new Point2D(x1, y1), new Point2D(x2, y2))
+                    new Curve
+                    {
+                        HeadPoint = new Point2D(x1, y1),
+                        EndPoint = new Point2D(x2, y2)
+                            }
                 }
             };
-            var loop2 = new GeometryLoop
+            var loop2 = new Loop
             {
-                CurveList =
+                Curves = new List<Curve>
                 {
-                    new GeometryCurve(new Point2D(x1, y1), new Point2D(x2, y2))
+                    new Curve
+                    {
+                        HeadPoint = new Point2D(x1, y1),
+                        EndPoint = new Point2D(x2, y2)
+                    }
                 }
             };
 
             // Call
-            int result = new GeometryLoopComparer().Compare(loop1, loop2);
+            int result = new LoopComparer().Compare(loop1, loop2);
 
             // Assert
             Assert.AreEqual(0, result);
@@ -102,23 +116,31 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernels.Upli
         public void Compare_DifferentCoordinates_ReturnOne()
         {
             // Setup
-            var loop1 = new GeometryLoop
+            var loop1 = new Loop
             {
-                CurveList =
+                Curves = new List<Curve>
                 {
-                    new GeometryCurve(new Point2D(0, 0), new Point2D(1, 1))
+                    new Curve
+                    {
+                        HeadPoint = new Point2D(0, 0),
+                        EndPoint = new Point2D(1, 1)
+                    }
                 }
             };
-            var loop2 = new GeometryLoop
+            var loop2 = new Loop
             {
-                CurveList =
+                Curves = new List<Curve>
                 {
-                    new GeometryCurve(new Point2D(2, 2), new Point2D(3, 3))
+                    new Curve
+                    {
+                        HeadPoint = new Point2D(2, 2),
+                        EndPoint = new Point2D(3, 3)
+                    }
                 }
             };
 
             // Call
-            int result = new GeometryLoopComparer().Compare(loop1, loop2);
+            int result = new LoopComparer().Compare(loop1, loop2);
 
             // Assert
             Assert.AreEqual(1, result);

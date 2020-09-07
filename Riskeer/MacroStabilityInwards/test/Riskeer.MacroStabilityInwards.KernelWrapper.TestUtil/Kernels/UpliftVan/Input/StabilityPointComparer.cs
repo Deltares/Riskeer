@@ -22,7 +22,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Deltares.MacroStability.Geometry;
+using Deltares.MacroStability.CSharpWrapper;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan.Input
 {
@@ -44,7 +44,10 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan
 
         public int Compare(Point2D x, Point2D y)
         {
-            return x.LocationEquals(y) ? 0 : 1;
+            return Math.Abs(x.X - y.X) < 1e-6
+                   && Math.Abs(x.Z - y.Z) < 1e-6
+                       ? 0
+                       : 1;
         }
     }
 }

@@ -263,7 +263,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                 innerLoopCurve5,
                 innerLoopCurve6,
                 innerLoopCurve7
-            }, profile.Geometry.Curves, new GeometryCurveComparer());
+            }, profile.Geometry.Curves, new CurveComparer());
 
             CollectionAssert.AreEqual(new[]
             {
@@ -271,7 +271,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                 outerLoop2,
                 innerLoop1,
                 innerLoop2
-            }, profile.Geometry.Loops, new GeometryLoopComparer());
+            }, profile.Geometry.Loops, new LoopComparer());
 
             Assert.AreEqual(0, profile.Geometry.Left);
             Assert.AreEqual(0, profile.Geometry.Bottom);
@@ -556,7 +556,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                 innerLoopCurve6,
                 innerLoopCurve7,
                 innerLoopCurve8
-            }, profile.Geometry.Curves, new GeometryCurveComparer());
+            }, profile.Geometry.Curves, new CurveComparer());
 
             CollectionAssert.AreEqual(new[]
             {
@@ -564,7 +564,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                 outerLoop2,
                 innerLoop1,
                 innerLoop2
-            }, profile.Geometry.Loops, new GeometryLoopComparer());
+            }, profile.Geometry.Loops, new LoopComparer());
 
             Assert.AreEqual(0, profile.Geometry.Left);
             Assert.AreEqual(0, profile.Geometry.Bottom);

@@ -85,7 +85,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan
                 ConstructionStage expectedConstructionStage = expected.ElementAt(i);
                 ConstructionStage actualConstructionStage = actual.ElementAt(i);
 
-                Assert.AreEqual(expectedConstructionStage.SoilProfile, actualConstructionStage.SoilProfile);
+                KernelInputAssert.AssertSoilProfile(expectedConstructionStage.SoilProfile, actualConstructionStage.SoilProfile);
                 Assert.AreEqual(expectedConstructionStage.Waternet, actualConstructionStage.Waternet);
                 CollectionAssert.AreEqual(expectedConstructionStage.FixedSoilStresses, actualConstructionStage.FixedSoilStresses);
                 CollectionAssert.AreEqual(expectedConstructionStage.PreconsolidationStresses, actualConstructionStage.PreconsolidationStresses);
@@ -196,7 +196,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan
                 PreConstructionStage actualPreConstructionStage = actual.ElementAt(i);
 
                 Assert.AreEqual(expectedPreConstructionStage.WaternetCreationMode, actualPreConstructionStage.WaternetCreationMode);
-                Assert.AreEqual(expectedPreConstructionStage.SurfaceLine, actualPreConstructionStage.SurfaceLine);
+                KernelInputAssert.AssertSurfaceLine(expectedPreConstructionStage.SurfaceLine, actualPreConstructionStage.SurfaceLine);
             }
         }
     }

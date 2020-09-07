@@ -63,7 +63,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
                 });
             }
 
-            profile.Geometry = CreateGeometryData(profile);
+            profile.Geometry = CreateGeometry(profile);
 
             return profile;
         }
@@ -145,7 +145,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
             return curve;
         }
 
-        private static Geometry CreateGeometryData(SoilProfile profile)
+        private static Geometry CreateGeometry(SoilProfile profile)
         {
             var geometry = new Geometry
             {
