@@ -21,9 +21,8 @@
 
 using System;
 using System.Linq;
-using Deltares.MacroStability.Geometry;
-using Deltares.MacroStability.Standard;
-using Deltares.MacroStability.WaternetCreator;
+using Deltares.MacroStability.CSharpWrapper.Input;
+using Deltares.MacroStability.CSharpWrapper.Output;
 using NUnit.Framework;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.Waternet;
 using Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.Waternet;
@@ -47,31 +46,22 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernels.Wate
             Assert.IsFalse(kernel.ThrowExceptionOnValidate);
             Assert.IsFalse(kernel.ReturnValidationResults);
 
-            Assert.IsNull(kernel.Location);
-            Assert.IsNull(kernel.SoilProfile);
-            Assert.IsNull(kernel.SurfaceLine);
+            Assert.IsNull(kernel.KernelInput);
             Assert.IsNull(kernel.Waternet);
         }
 
         [Test]
-        public void SetMethods_Always_SetsPropertiesOnKernel()
+        public void SetInput_Always_SetsKernelInputOnKernel()
         {
             // Setup
-            var soilProfile2D = new SoilProfile2D();
-            var surfaceLine = new SurfaceLine2();
-            var location = new Location();
-
+            var input = new MacroStabilityInput();
             var kernel = new WaternetKernelStub();
 
             // Call
-            kernel.SetLocation(location);
-            kernel.SetSoilProfile(soilProfile2D);
-            kernel.SetSurfaceLine(surfaceLine);
+            kernel.SetInput(input);
 
             // Assert
-            Assert.AreSame(location, kernel.Location);
-            Assert.AreSame(soilProfile2D, kernel.SoilProfile);
-            Assert.AreSame(surfaceLine, kernel.SurfaceLine);
+            Assert.AreSame(input, kernel.KernelInput);
         }
 
         [Test]
@@ -160,15 +150,14 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernels.Wate
             };
 
             // Call
-            IValidationResult[] results = kernel.Validate().ToArray();
+            Message[] results = kernel.Validate().ToArray();
 
             // Assert
             Assert.IsTrue(kernel.Validated);
-            Assert.AreEqual(4, results.Length);
-            AssertValidationResult(new ValidationResult(ValidationResultType.Warning, "Validation Warning"), results[0]);
-            AssertValidationResult(new ValidationResult(ValidationResultType.Error, "Validation Error"), results[1]);
-            AssertValidationResult(new ValidationResult(ValidationResultType.Info, "Validation Info"), results[2]);
-            AssertValidationResult(new ValidationResult(ValidationResultType.Debug, "Validation Debug"), results[3]);
+            Assert.AreEqual(3, results.Length);
+            AssertMessage(CreateMessage(MessageType.Warning, "Validation Warning"), results[0]);
+            AssertMessage(CreateMessage(MessageType.Error, "Validation Error"), results[1]);
+            AssertMessage(CreateMessage(MessageType.Info, "Validation Info"), results[2]);
         }
 
         [Test]
@@ -181,17 +170,26 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernels.Wate
             };
 
             // Call
-            IValidationResult[] results = kernel.Validate().ToArray();
+            Message[] results = kernel.Validate().ToArray();
 
             // Assert
             Assert.IsTrue(kernel.Validated);
             CollectionAssert.IsEmpty(results);
         }
 
-        private static void AssertValidationResult(IValidationResult expected, IValidationResult actual)
+        private static Message CreateMessage(MessageType messageType, string message)
+        {
+            return new Message
+            {
+                MessageType = messageType,
+                Content = message
+            };
+        }
+
+        private static void AssertMessage(Message expected, Message actual)
         {
             Assert.AreEqual(expected.MessageType, actual.MessageType);
-            Assert.AreEqual(expected.Text, actual.Text);
+            Assert.AreEqual(expected.Content, actual.Content);
         }
     }
 }
