@@ -30,13 +30,13 @@ using Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan.Inp
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernels.UpliftVan.Input
 {
     [TestFixture]
-    public class PreConsolidationStressComparerTest
+    public class PreconsolidationStressComparerTest
     {
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Call
-            var comparer = new PreConsolidationStressComparer();
+            var comparer = new PreconsolidationStressComparer();
 
             // Assert
             Assert.IsInstanceOf<IComparer>(comparer);
@@ -50,7 +50,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernels.Upli
             var firstObject = new object();
             object secondObject = new PreconsolidationStress();
 
-            var comparer = new PreConsolidationStressComparer();
+            var comparer = new PreconsolidationStressComparer();
 
             // Call
             void Call() => comparer.Compare(firstObject, secondObject);
@@ -67,7 +67,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernels.Upli
             object firstObject = new PreconsolidationStress();
             var secondObject = new object();
 
-            var comparer = new PreConsolidationStressComparer();
+            var comparer = new PreconsolidationStressComparer();
 
             // Call
             void Call() => comparer.Compare(firstObject, secondObject);
@@ -84,7 +84,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernels.Upli
             var preConsolidationStress = new PreconsolidationStress();
 
             // Call
-            int result = new PreConsolidationStressComparer().Compare(preConsolidationStress, preConsolidationStress);
+            int result = new PreconsolidationStressComparer().Compare(preConsolidationStress, preConsolidationStress);
 
             // Assert
             Assert.AreEqual(0, result);
@@ -108,7 +108,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernels.Upli
             };
 
             // Call
-            int result = new PreConsolidationStressComparer().Compare(preConsolidationStress1, preConsolidationStress2);
+            int result = new PreconsolidationStressComparer().Compare(preConsolidationStress1, preConsolidationStress2);
 
             // Assert
             Assert.AreEqual(0, result);
@@ -132,7 +132,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernels.Upli
             };
 
             // Call
-            int result = new PreConsolidationStressComparer().Compare(preConsolidationStress1, preConsolidationStress2);
+            int result = new PreconsolidationStressComparer().Compare(preConsolidationStress1, preConsolidationStress2);
 
             // Assert
             Assert.AreEqual(1, result);
@@ -156,7 +156,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernels.Upli
             };
 
             // Call
-            int result = new PreConsolidationStressComparer().Compare(preConsolidationStress1, preConsolidationStress2);
+            int result = new PreconsolidationStressComparer().Compare(preConsolidationStress1, preConsolidationStress2);
 
             // Assert
             Assert.AreEqual(1, result);
@@ -180,7 +180,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernels.Upli
             };
 
             // Call
-            int result = new PreConsolidationStressComparer().Compare(preConsolidationStress1, preConsolidationStress2);
+            int result = new PreconsolidationStressComparer().Compare(preConsolidationStress1, preConsolidationStress2);
 
             // Assert
             Assert.AreEqual(1, result);
