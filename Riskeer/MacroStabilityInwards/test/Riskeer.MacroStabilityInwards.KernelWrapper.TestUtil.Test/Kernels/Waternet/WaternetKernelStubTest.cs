@@ -25,6 +25,7 @@ using Deltares.MacroStability.CSharpWrapper.Input;
 using Deltares.MacroStability.CSharpWrapper.Output;
 using NUnit.Framework;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.Waternet;
+using Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels;
 using Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.Waternet;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernels.Waternet
@@ -155,9 +156,9 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernels.Wate
             // Assert
             Assert.IsTrue(kernel.Validated);
             Assert.AreEqual(3, results.Length);
-            AssertMessage(CreateMessage(MessageType.Warning, "Validation Warning"), results[0]);
-            AssertMessage(CreateMessage(MessageType.Error, "Validation Error"), results[1]);
-            AssertMessage(CreateMessage(MessageType.Info, "Validation Info"), results[2]);
+            MessageHelper.AssertMessage(MessageHelper.CreateMessage(MessageType.Warning, "Validation Warning"), results[0]);
+            MessageHelper.AssertMessage(MessageHelper.CreateMessage(MessageType.Error, "Validation Error"), results[1]);
+            MessageHelper.AssertMessage(MessageHelper.CreateMessage(MessageType.Info, "Validation Info"), results[2]);
         }
 
         [Test]
@@ -175,21 +176,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernels.Wate
             // Assert
             Assert.IsTrue(kernel.Validated);
             CollectionAssert.IsEmpty(results);
-        }
-
-        private static Message CreateMessage(MessageType messageType, string message)
-        {
-            return new Message
-            {
-                MessageType = messageType,
-                Content = message
-            };
-        }
-
-        private static void AssertMessage(Message expected, Message actual)
-        {
-            Assert.AreEqual(expected.MessageType, actual.MessageType);
-            Assert.AreEqual(expected.Content, actual.Content);
         }
     }
 }

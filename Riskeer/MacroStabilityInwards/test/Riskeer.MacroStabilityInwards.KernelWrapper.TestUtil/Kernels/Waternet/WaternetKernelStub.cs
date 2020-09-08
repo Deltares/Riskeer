@@ -93,21 +93,12 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.Waternet
 
             if (ReturnValidationResults)
             {
-                yield return CreateMessage(MessageType.Warning, "Validation Warning");
-                yield return CreateMessage(MessageType.Error, "Validation Error");
-                yield return CreateMessage(MessageType.Info, "Validation Info");
+                yield return MessageHelper.CreateMessage(MessageType.Warning, "Validation Warning");
+                yield return MessageHelper.CreateMessage(MessageType.Error, "Validation Error");
+                yield return MessageHelper.CreateMessage(MessageType.Info, "Validation Info");
             }
 
             Validated = true;
-        }
-
-        private static Message CreateMessage(MessageType messageType, string message)
-        {
-            return new Message
-            {
-                MessageType = messageType,
-                Content = message
-            };
         }
     }
 }

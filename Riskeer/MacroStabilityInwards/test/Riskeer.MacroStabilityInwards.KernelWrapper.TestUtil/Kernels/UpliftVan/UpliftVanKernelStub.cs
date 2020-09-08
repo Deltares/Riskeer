@@ -95,9 +95,9 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan
             {
                 CalculationMessages = new[]
                 {
-                    CreateMessage(MessageType.Warning, "Calculation Warning"),
-                    CreateMessage(MessageType.Error, "Calculation Error"),
-                    CreateMessage(MessageType.Info, "Calculation Info")
+                    MessageHelper.CreateMessage(MessageType.Warning, "Calculation Warning"),
+                    MessageHelper.CreateMessage(MessageType.Error, "Calculation Error"),
+                    MessageHelper.CreateMessage(MessageType.Info, "Calculation Info")
                 };
             }
             else
@@ -122,21 +122,12 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan
 
             if (ReturnValidationResults)
             {
-                yield return CreateMessage(MessageType.Warning, "Validation Warning");
-                yield return CreateMessage(MessageType.Error, "Validation Error");
-                yield return CreateMessage(MessageType.Info, "Validation Info");
+                yield return MessageHelper.CreateMessage(MessageType.Warning, "Validation Warning");
+                yield return MessageHelper.CreateMessage(MessageType.Error, "Validation Error");
+                yield return MessageHelper.CreateMessage(MessageType.Info, "Validation Info");
             }
 
             Validated = true;
-        }
-
-        private static Message CreateMessage(MessageType messageType, string message)
-        {
-            return new Message
-            {
-                MessageType = messageType,
-                Content = message
-            };
         }
     }
 }

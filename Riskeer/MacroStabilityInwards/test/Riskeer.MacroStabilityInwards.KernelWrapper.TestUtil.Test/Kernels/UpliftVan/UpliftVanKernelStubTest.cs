@@ -26,6 +26,7 @@ using Deltares.MacroStability.CSharpWrapper.Input;
 using Deltares.MacroStability.CSharpWrapper.Output;
 using NUnit.Framework;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan;
+using Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels;
 using Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernels.UpliftVan
@@ -132,9 +133,9 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernels.Upli
             IEnumerable<Message> results = calculator.CalculationMessages.ToList();
             Assert.IsTrue(calculator.Calculated);
             Assert.AreEqual(3, results.Count());
-            AssertMessage(CreateMessage(MessageType.Info, "Calculation Info"), results.ElementAt(0));
-            AssertMessage(CreateMessage(MessageType.Warning, "Calculation Warning"), results.ElementAt(1));
-            AssertMessage(CreateMessage(MessageType.Error, "Calculation Error"), results.ElementAt(2));
+            MessageHelper.AssertMessage(MessageHelper.CreateMessage(MessageType.Info, "Calculation Info"), results.ElementAt(0));
+            MessageHelper.AssertMessage(MessageHelper.CreateMessage(MessageType.Warning, "Calculation Warning"), results.ElementAt(1));
+            MessageHelper.AssertMessage(MessageHelper.CreateMessage(MessageType.Error, "Calculation Error"), results.ElementAt(2));
         }
 
         [Test]
@@ -207,9 +208,9 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernels.Upli
             // Assert
             Assert.IsTrue(kernel.Validated);
             Assert.AreEqual(3, messages.Length);
-            AssertMessage(CreateMessage(MessageType.Warning, "Validation Warning"), messages[0]);
-            AssertMessage(CreateMessage(MessageType.Error, "Validation Error"), messages[1]);
-            AssertMessage(CreateMessage(MessageType.Info, "Validation Info"), messages[2]);
+            MessageHelper.AssertMessage(MessageHelper.CreateMessage(MessageType.Warning, "Validation Warning"), messages[0]);
+            MessageHelper.AssertMessage(MessageHelper.CreateMessage(MessageType.Error, "Validation Error"), messages[1]);
+            MessageHelper.AssertMessage(MessageHelper.CreateMessage(MessageType.Info, "Validation Info"), messages[2]);
         }
 
         [Test]
@@ -227,21 +228,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernels.Upli
             // Assert
             Assert.IsTrue(kernel.Validated);
             CollectionAssert.IsEmpty(results);
-        }
-
-        private static Message CreateMessage(MessageType messageType, string message)
-        {
-            return new Message
-            {
-                Content = message,
-                MessageType = messageType
-            };
-        }
-
-        private static void AssertMessage(Message expected, Message actual)
-        {
-            Assert.AreEqual(expected.MessageType, actual.MessageType);
-            Assert.AreEqual(expected.Content, actual.Content);
         }
     }
 }
