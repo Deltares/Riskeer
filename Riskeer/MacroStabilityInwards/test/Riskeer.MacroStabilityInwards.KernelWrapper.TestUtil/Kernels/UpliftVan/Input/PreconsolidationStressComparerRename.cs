@@ -30,7 +30,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan
     /// This class compares the coordinates of two <see cref="PreconsolidationStress"/> 
     /// instances to determine whether they're equal to each other or not.
     /// </summary>
-    public class PreConsolidationStressComparer : IComparer<PreconsolidationStress>, IComparer
+    public class PreconsolidationStressComparerRename : IComparer<PreconsolidationStress>, IComparer
     {
         public int Compare(object x, object y)
         {
