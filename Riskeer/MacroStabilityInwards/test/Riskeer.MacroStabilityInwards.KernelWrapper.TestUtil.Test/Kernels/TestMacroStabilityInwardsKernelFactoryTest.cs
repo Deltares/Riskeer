@@ -19,12 +19,12 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Deltares.MacroStability.WaternetCreator;
+using Deltares.MacroStability.CSharpWrapper.Input;
 using NUnit.Framework;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Kernels;
-using Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan;
-using Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.Waternet;
 using Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels;
+using Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan;
+using Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.Waternet;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernels
 {
@@ -48,12 +48,14 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernels
         {
             // Setup
             var factory = new TestMacroStabilityInwardsKernelFactory();
+            var input = new MacroStabilityInput();
 
             // Call
-            IUpliftVanKernel upliftVanKernel = factory.CreateUpliftVanKernel();
+            var upliftVanKernel = (UpliftVanKernelStub) factory.CreateUpliftVanKernel(input);
 
             // Assert
             Assert.AreSame(factory.LastCreatedUpliftVanKernel, upliftVanKernel);
+            Assert.AreSame(input, upliftVanKernel.KernelInput);
         }
 
         [Test]
@@ -61,12 +63,14 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernels
         {
             // Setup
             var factory = new TestMacroStabilityInwardsKernelFactory();
+            var input = new MacroStabilityInput();
 
             // Call
-            IWaternetKernel waternetKernel = factory.CreateWaternetExtremeKernel(new Location());
+            var waternetKernel = (WaternetKernelStub) factory.CreateWaternetExtremeKernel(input);
 
             // Assert
             Assert.AreSame(factory.LastCreatedWaternetKernel, waternetKernel);
+            Assert.AreSame(input, waternetKernel.KernelInput);
         }
 
         [Test]
@@ -74,12 +78,14 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernels
         {
             // Setup
             var factory = new TestMacroStabilityInwardsKernelFactory();
+            var input = new MacroStabilityInput();
 
             // Call
-            IWaternetKernel waternetKernel = factory.CreateWaternetDailyKernel(new Location());
+            var waternetKernel = (WaternetKernelStub)factory.CreateWaternetDailyKernel(input);
 
             // Assert
             Assert.AreSame(factory.LastCreatedWaternetKernel, waternetKernel);
+            Assert.AreSame(input, waternetKernel.KernelInput);
         }
     }
 }
