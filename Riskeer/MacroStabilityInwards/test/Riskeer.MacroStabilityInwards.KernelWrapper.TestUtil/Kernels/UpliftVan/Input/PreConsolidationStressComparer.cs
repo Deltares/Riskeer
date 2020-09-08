@@ -22,36 +22,35 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Deltares.MacroStability.Geometry;
+using Deltares.MacroStability.CSharpWrapper.Input;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan.Input
 {
     /// <summary>
-    /// This class compares the coordinates of two <see cref="PreConsolidationStress"/> 
+    /// This class compares the coordinates of two <see cref="PreconsolidationStress"/> 
     /// instances to determine whether they're equal to each other or not.
     /// </summary>
-    public class PreConsolidationStressComparer : IComparer<PreConsolidationStress>, IComparer
+    public class PreConsolidationStressComparer : IComparer<PreconsolidationStress>, IComparer
     {
         public int Compare(object x, object y)
         {
-            if (!(x is PreConsolidationStress) || !(y is PreConsolidationStress))
+            if (!(x is PreconsolidationStress) || !(y is PreconsolidationStress))
             {
-                throw new ArgumentException($"Cannot compare objects other than {typeof(PreConsolidationStress)} with this comparer.");
+                throw new ArgumentException($"Cannot compare objects other than {typeof(PreconsolidationStress)} with this comparer.");
             }
 
-            return Compare((PreConsolidationStress) x, (PreConsolidationStress) y);
+            return Compare((PreconsolidationStress) x, (PreconsolidationStress) y);
         }
 
-        public int Compare(PreConsolidationStress x, PreConsolidationStress y)
+        public int Compare(PreconsolidationStress x, PreconsolidationStress y)
         {
             if (x.Equals(y))
             {
                 return 0;
             }
             if (Math.Abs(x.StressValue - y.StressValue) < 1e-6 &&
-                x.Name == y.Name &&
-                Math.Abs(x.X - y.X) < 1e-6 &&
-                Math.Abs(x.Z - y.Z) < 1e-6)
+                Math.Abs(x.Point.X - y.Point.X) < 1e-6 &&
+                Math.Abs(x.Point.Z - y.Point.Z) < 1e-6)
             {
                 return 0;
             }

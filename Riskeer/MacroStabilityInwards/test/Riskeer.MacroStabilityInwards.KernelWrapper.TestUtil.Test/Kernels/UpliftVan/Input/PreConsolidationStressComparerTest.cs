@@ -22,7 +22,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Deltares.MacroStability.Geometry;
+using Deltares.MacroStability.CSharpWrapper;
+using Deltares.MacroStability.CSharpWrapper.Input;
 using NUnit.Framework;
 using Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan.Input;
 
@@ -39,7 +40,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernels.Upli
 
             // Assert
             Assert.IsInstanceOf<IComparer>(comparer);
-            Assert.IsInstanceOf<IComparer<PreConsolidationStress>>(comparer);
+            Assert.IsInstanceOf<IComparer<PreconsolidationStress>>(comparer);
         }
 
         [Test]
@@ -47,7 +48,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernels.Upli
         {
             // Setup
             var firstObject = new object();
-            object secondObject = new PreConsolidationStress();
+            object secondObject = new PreconsolidationStress();
 
             var comparer = new PreConsolidationStressComparer();
 
@@ -56,14 +57,14 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernels.Upli
 
             // Assert
             var exception = Assert.Throws<ArgumentException>(Call);
-            Assert.AreEqual($"Cannot compare objects other than {typeof(PreConsolidationStress)} with this comparer.", exception.Message);
+            Assert.AreEqual($"Cannot compare objects other than {typeof(PreconsolidationStress)} with this comparer.", exception.Message);
         }
 
         [Test]
         public void Compare_SecondObjectOfIncorrectType_ThrowArgumentException()
         {
             // Setup
-            object firstObject = new PreConsolidationStress();
+            object firstObject = new PreconsolidationStress();
             var secondObject = new object();
 
             var comparer = new PreConsolidationStressComparer();
@@ -73,14 +74,14 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernels.Upli
 
             // Assert
             var exception = Assert.Throws<ArgumentException>(Call);
-            Assert.AreEqual($"Cannot compare objects other than {typeof(PreConsolidationStress)} with this comparer.", exception.Message);
+            Assert.AreEqual($"Cannot compare objects other than {typeof(PreconsolidationStress)} with this comparer.", exception.Message);
         }
 
         [Test]
         public void Compare_SameInstance_ReturnZero()
         {
             // Setup
-            var preConsolidationStress = new PreConsolidationStress();
+            var preConsolidationStress = new PreconsolidationStress();
 
             // Call
             int result = new PreConsolidationStressComparer().Compare(preConsolidationStress, preConsolidationStress);
@@ -94,22 +95,16 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernels.Upli
         {
             // Setup
             const double stressValue = 8.4;
-            const string name = "testName";
-            const double x = 2.01;
-            const double z = 40.486;
-            var preConsolidationStress1 = new PreConsolidationStress
+            var point = new Point2D(2.01, 40.486);
+            var preConsolidationStress1 = new PreconsolidationStress
             {
                 StressValue = stressValue,
-                Name = name,
-                X = x,
-                Z = z
+                Point = point
             };
-            var preConsolidationStress2 = new PreConsolidationStress
+            var preConsolidationStress2 = new PreconsolidationStress
             {
                 StressValue = stressValue,
-                Name = name,
-                X = x,
-                Z = z
+                Point = point
             };
 
             // Call
@@ -120,56 +115,20 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernels.Upli
         }
 
         [Test]
-        public void Compare_DifferentName_ReturnOne()
-        {
-            // Setup
-            const double stressValue = 8.4;
-            const string name = "testName";
-            const double x = 2.01;
-            const double z = 40.486;
-            var preConsolidationStress1 = new PreConsolidationStress
-            {
-                StressValue = stressValue,
-                Name = name,
-                X = x,
-                Z = z
-            };
-            var preConsolidationStress2 = new PreConsolidationStress
-            {
-                StressValue = stressValue,
-                Name = "newName",
-                X = x,
-                Z = z
-            };
-
-            // Call
-            int result = new PreConsolidationStressComparer().Compare(preConsolidationStress1, preConsolidationStress2);
-
-            // Assert
-            Assert.AreEqual(1, result);
-        }
-
-        [Test]
         public void Compare_DifferentStressValue_ReturnOne()
         {
             // Setup
             const double stressValue = 8.4;
-            const string name = "testName";
-            const double x = 2.01;
-            const double z = 40.486;
-            var preConsolidationStress1 = new PreConsolidationStress
+            var point = new Point2D(2.01, 40.486);
+            var preConsolidationStress1 = new PreconsolidationStress
             {
                 StressValue = stressValue,
-                Name = name,
-                X = x,
-                Z = z
+                Point = point
             };
-            var preConsolidationStress2 = new PreConsolidationStress
+            var preConsolidationStress2 = new PreconsolidationStress
             {
                 StressValue = 16.8,
-                Name = name,
-                X = x,
-                Z = z
+                Point = point
             };
 
             // Call
@@ -184,22 +143,16 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernels.Upli
         {
             // Setup
             const double stressValue = 8.4;
-            const string name = "testName";
-            const double x = 2.01;
             const double z = 40.486;
-            var preConsolidationStress1 = new PreConsolidationStress
+            var preConsolidationStress1 = new PreconsolidationStress
             {
                 StressValue = stressValue,
-                Name = name,
-                X = x,
-                Z = z
+                Point = new Point2D(2.01, z)
             };
-            var preConsolidationStress2 = new PreConsolidationStress
+            var preConsolidationStress2 = new PreconsolidationStress
             {
                 StressValue = stressValue,
-                Name = name,
-                X = 18.78,
-                Z = z
+                Point = new Point2D(18.78, z)
             };
 
             // Call
@@ -214,22 +167,16 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernels.Upli
         {
             // Setup
             const double stressValue = 8.4;
-            const string name = "testName";
             const double x = 2.01;
-            const double z = 40.486;
-            var preConsolidationStress1 = new PreConsolidationStress
+            var preConsolidationStress1 = new PreconsolidationStress
             {
                 StressValue = stressValue,
-                Name = name,
-                X = x,
-                Z = z
+                Point = new Point2D(x, 40.486)
             };
-            var preConsolidationStress2 = new PreConsolidationStress
+            var preConsolidationStress2 = new PreconsolidationStress
             {
                 StressValue = stressValue,
-                Name = name,
-                X = x,
-                Z = 40.487
+                Point = new Point2D(x, 40.487)
             };
 
             // Call
