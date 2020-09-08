@@ -137,11 +137,12 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
                 UpliftVanKernelStub upliftVanKernel = factory.LastCreatedUpliftVanKernel;
 
                 LayerWithSoil[] layersWithSoil = LayerWithSoilCreator.Create(input.SoilProfile, out IDictionary<SoilLayer, LayerWithSoil> layerLookup);
+                List<Soil> soils = layersWithSoil.Select(lws => lws.Soil).ToList();
                 SurfaceLine surfaceLine = SurfaceLineCreator.Create(input.SurfaceLine);
                 CSharpWrapperSoilProfile soilProfile = SoilProfileCreator.Create(layersWithSoil);
 
-                MacroStabilityInput dailyWaternetInputForUpliftVan = MacroStabilityInputCreator.CreateDailyWaternetForUpliftVan(input, layersWithSoil, surfaceLine, soilProfile);
-                MacroStabilityInput extremeWaternetInputForUpliftVan = MacroStabilityInputCreator.CreateExtremeWaternetForUpliftVan(input, layersWithSoil, surfaceLine, soilProfile);
+                MacroStabilityInput dailyWaternetInputForUpliftVan = MacroStabilityInputCreator.CreateDailyWaternetForUpliftVan(input, soils, surfaceLine, soilProfile);
+                MacroStabilityInput extremeWaternetInputForUpliftVan = MacroStabilityInputCreator.CreateExtremeWaternetForUpliftVan(input, soils, surfaceLine, soilProfile);
 
                 WaternetKernelStub waternetDailyKernel = (WaternetKernelStub) factory.CreateWaternetDailyKernel(dailyWaternetInputForUpliftVan);
                 WaternetKernelStub waternetExtremeKernel = (WaternetKernelStub) factory.CreateWaternetExtremeKernel(extremeWaternetInputForUpliftVan);
@@ -155,7 +156,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
                 WaternetKernelInputAssert.AssertMacroStabilityInput(extremeWaternetInputForUpliftVan, waternetExtremeKernel.KernelInput);
                 UpliftVanKernelInputAssert.AssertMacroStabilityInput(
                     MacroStabilityInputCreator.CreateUpliftVan(
-                        input, layersWithSoil, layerLookup, surfaceLine, soilProfile,
+                        input, soils, layerLookup, surfaceLine, soilProfile,
                         waternetDailyKernel.Waternet, waternetExtremeKernel.Waternet),
                     upliftVanKernel.KernelInput);
             }

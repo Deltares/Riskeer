@@ -114,12 +114,13 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan
         private IUpliftVanKernel CreateUpliftVanKernel()
         {
             LayerWithSoil[] layersWithSoil = LayerWithSoilCreator.Create(input.SoilProfile, out IDictionary<SoilLayer, LayerWithSoil> layerLookup);
+            List<Soil> soils = layersWithSoil.Select(lws => lws.Soil).ToList();
 
             SurfaceLine surfaceLine = SurfaceLineCreator.Create(input.SurfaceLine);
             SoilProfile soilProfile = SoilProfileCreator.Create(layersWithSoil);
 
-            MacroStabilityInput waternetDailyKernelInput = MacroStabilityInputCreator.CreateDailyWaternetForUpliftVan(input, layersWithSoil, surfaceLine, soilProfile);
-            MacroStabilityInput waternetExtremeKernelInput = MacroStabilityInputCreator.CreateExtremeWaternetForUpliftVan(input, layersWithSoil, surfaceLine, soilProfile);
+            MacroStabilityInput waternetDailyKernelInput = MacroStabilityInputCreator.CreateDailyWaternetForUpliftVan(input, soils, surfaceLine, soilProfile);
+            MacroStabilityInput waternetExtremeKernelInput = MacroStabilityInputCreator.CreateExtremeWaternetForUpliftVan(input, soils, surfaceLine, soilProfile);
 
             IWaternetKernel waternetDailyKernelWrapper = factory.CreateWaternetDailyKernel(waternetDailyKernelInput);
             waternetDailyKernelWrapper.Calculate();
@@ -127,7 +128,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan
             IWaternetKernel waternetExtremeKernelWrapper = factory.CreateWaternetExtremeKernel(waternetExtremeKernelInput);
             waternetExtremeKernelWrapper.Calculate();
 
-            MacroStabilityInput kernelInput = MacroStabilityInputCreator.CreateUpliftVan(input, layersWithSoil, layerLookup,
+            MacroStabilityInput kernelInput = MacroStabilityInputCreator.CreateUpliftVan(input, soils, layerLookup,
                                                                                          surfaceLine, soilProfile,
                                                                                          waternetDailyKernelWrapper.Waternet,
                                                                                          waternetExtremeKernelWrapper.Waternet);
