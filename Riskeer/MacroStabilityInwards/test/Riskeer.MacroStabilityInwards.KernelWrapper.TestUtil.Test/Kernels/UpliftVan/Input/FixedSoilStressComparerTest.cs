@@ -22,7 +22,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Deltares.MacroStability.Geometry;
+using Deltares.MacroStability.CSharpWrapper.Input;
 using NUnit.Framework;
 using Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan.Input;
 
@@ -47,7 +47,11 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernels.Upli
         {
             // Setup
             var firstObject = new object();
-            object secondObject = new FixedSoilStress(new Soil(), StressValueType.POP, 0);
+            object secondObject = new FixedSoilStress
+            {
+                POP = 0,
+                Soil = new Soil()
+            };
 
             var comparer = new FixedSoilStressComparer();
 
@@ -63,7 +67,11 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernels.Upli
         public void Compare_SecondObjectOfIncorrectType_ThrowArgumentException()
         {
             // Setup
-            object firstObject = new FixedSoilStress(new Soil(), StressValueType.POP, 0);
+            object firstObject = new FixedSoilStress
+            {
+                POP = 0,
+                Soil = new Soil()
+            };
             var secondObject = new object();
 
             var comparer = new FixedSoilStressComparer();
@@ -80,7 +88,11 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernels.Upli
         public void Compare_SameInstance_ReturnZero()
         {
             // Setup
-            var soilStress = new FixedSoilStress(new Soil(), StressValueType.POP, 0);
+            var soilStress = new FixedSoilStress
+            {
+                POP = 0,
+                Soil = new Soil()
+            };
 
             // Call
             int result = new FixedSoilStressComparer().Compare(soilStress, soilStress);
@@ -90,13 +102,21 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernels.Upli
         }
 
         [Test]
-        public void Compare_EqualSoilNameAndPop_ReturnZero()
+        public void Compare_EqualSoilAndPop_ReturnZero()
         {
             // Setup
             const double pop = 1.1;
-            const string soilName = "soil name";
-            var fixedSoilStress1 = new FixedSoilStress(new Soil(soilName), StressValueType.POP, pop);
-            var fixedSoilStress2 = new FixedSoilStress(new Soil(soilName), StressValueType.POP, pop);
+            var soil = new Soil();
+            var fixedSoilStress1 = new FixedSoilStress
+            {
+                POP = pop,
+                Soil = soil
+            };
+            var fixedSoilStress2 = new FixedSoilStress
+            {
+                POP = pop,
+                Soil = soil
+            };
 
             // Call
             int result = new FixedSoilStressComparer().Compare(fixedSoilStress1, fixedSoilStress2);
@@ -106,12 +126,20 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernels.Upli
         }
 
         [Test]
-        public void Compare_DifferentSoilNames_ReturnOne()
+        public void Compare_DifferentSoils_ReturnOne()
         {
             // Setup
             const double pop = 1.1;
-            var fixedSoilStress1 = new FixedSoilStress(new Soil("soil name 1"), StressValueType.POP, pop);
-            var fixedSoilStress2 = new FixedSoilStress(new Soil("soil name 2"), StressValueType.POP, pop);
+            var fixedSoilStress1 = new FixedSoilStress
+            {
+                POP = pop,
+                Soil = new Soil()
+            };
+            var fixedSoilStress2 = new FixedSoilStress
+            {
+                POP = pop,
+                Soil = new Soil()
+            };
 
             // Call
             int result = new FixedSoilStressComparer().Compare(fixedSoilStress1, fixedSoilStress2);
@@ -124,25 +152,17 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernels.Upli
         public void Compare_DifferentPop_ReturnOne()
         {
             // Setup
-            const string soilName = "soil name";
-            var fixedSoilStress1 = new FixedSoilStress(new Soil(soilName), StressValueType.POP, 1.1);
-            var fixedSoilStress2 = new FixedSoilStress(new Soil(soilName), StressValueType.POP, 2.2);
-
-            // Call
-            int result = new FixedSoilStressComparer().Compare(fixedSoilStress1, fixedSoilStress2);
-
-            // Assert
-            Assert.AreEqual(1, result);
-        }
-
-        [Test]
-        public void Compare_DifferentStressValueType_ReturnOne()
-        {
-            // Setup
-            const double pop = 1.1;
-            const string soilName = "soil name";
-            var fixedSoilStress1 = new FixedSoilStress(new Soil(soilName), StressValueType.POP, pop);
-            var fixedSoilStress2 = new FixedSoilStress(new Soil(soilName), StressValueType.OCR, pop);
+            var soil = new Soil();
+            var fixedSoilStress1 = new FixedSoilStress
+            {
+                POP = 1.1,
+                Soil = soil
+            };
+            var fixedSoilStress2 = new FixedSoilStress
+            {
+                POP = 2.2,
+                Soil = soil
+            };
 
             // Call
             int result = new FixedSoilStressComparer().Compare(fixedSoilStress1, fixedSoilStress2);

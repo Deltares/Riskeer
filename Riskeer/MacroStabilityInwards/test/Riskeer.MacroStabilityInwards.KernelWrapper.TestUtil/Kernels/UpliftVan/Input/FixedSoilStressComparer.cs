@@ -22,7 +22,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Deltares.MacroStability.Geometry;
+using Deltares.MacroStability.CSharpWrapper.Input;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan.Input
 {
@@ -44,7 +44,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan
 
         public int Compare(FixedSoilStress x, FixedSoilStress y)
         {
-            return x.ToString() == y.ToString() && Math.Abs(x.CenterStressValue.POP - y.CenterStressValue.POP) < 1e-6
+            return x.Soil == y.Soil && Math.Abs(x.POP - y.POP) < 1e-6
                        ? 0
                        : 1;
         }
