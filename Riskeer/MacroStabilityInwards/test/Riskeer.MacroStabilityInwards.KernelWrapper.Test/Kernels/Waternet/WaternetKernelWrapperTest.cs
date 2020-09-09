@@ -94,13 +94,18 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.Waternet
 
             var output = new WaternetCreatorOutput
             {
-                Waternet = new CSharpWrapperWaternet()
+                Waternet = new CSharpWrapperWaternet(),
+                Messages = new Message[0]
             };
 
             var mocks = new MockRepository();
             var calculator = mocks.Stub<ICalculator>();
             calculator.Stub(c => c.CalculateWaternet(0)).Return(output);
             var validator = mocks.Stub<IValidator>();
+            validator.Stub(v => v.ValidateWaternetCreator()).Return(new ValidationOutput
+            {
+                IsValid = true
+            });
             mocks.ReplayAll();
 
             var kernel = new WaternetKernelWrapper(calculator, validator, name);
@@ -147,6 +152,10 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.Waternet
             var calculator = mocks.Stub<ICalculator>();
             calculator.Stub(c => c.CalculateWaternet(0)).Throw(exceptionToThrow);
             var validator = mocks.Stub<IValidator>();
+            validator.Stub(v => v.ValidateWaternetCreator()).Return(new ValidationOutput
+            {
+                IsValid = true
+            });
             mocks.ReplayAll();
 
             var kernel = new WaternetKernelWrapper(calculator, validator, string.Empty);
@@ -188,13 +197,18 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.Waternet
                         Content = message3,
                         MessageType = MessageType.Warning
                     }
-                }
+                },
+                Waternet = new CSharpWrapperWaternet()
             };
 
             var mocks = new MockRepository();
             var calculator = mocks.Stub<ICalculator>();
             calculator.Stub(c => c.CalculateWaternet(0)).Return(waternetCreatorOutput);
             var validator = mocks.Stub<IValidator>();
+            validator.Stub(v => v.ValidateWaternetCreator()).Return(new ValidationOutput
+            {
+                IsValid = true
+            });
             mocks.ReplayAll();
 
             var kernel = new WaternetKernelWrapper(calculator, validator, string.Empty);
