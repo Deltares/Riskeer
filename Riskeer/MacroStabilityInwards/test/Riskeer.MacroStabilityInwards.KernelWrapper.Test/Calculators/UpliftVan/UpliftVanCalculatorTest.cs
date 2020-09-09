@@ -210,9 +210,9 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
                 // Assert
                 Assert.AreEqual(3, upliftVanKernel.CalculationMessages.Count());
                 
-                MessageHelper.AssertMessage(MessageHelper.CreateMessage(MessageType.Warning, "Calculation Warning"), upliftVanKernel.CalculationMessages.ElementAt(0));
-                MessageHelper.AssertMessage(MessageHelper.CreateMessage(MessageType.Error, "Calculation Error"), upliftVanKernel.CalculationMessages.ElementAt(1));
-                MessageHelper.AssertMessage(MessageHelper.CreateMessage(MessageType.Info, "Calculation Info"), upliftVanKernel.CalculationMessages.ElementAt(2));
+                MessageHelper.AssertMessage(MessageType.Warning, "Calculation Warning", upliftVanKernel.CalculationMessages.ElementAt(0));
+                MessageHelper.AssertMessage(MessageType.Error, "Calculation Error", upliftVanKernel.CalculationMessages.ElementAt(1));
+                MessageHelper.AssertMessage(MessageType.Info, "Calculation Info", upliftVanKernel.CalculationMessages.ElementAt(2));
             }
         }
 

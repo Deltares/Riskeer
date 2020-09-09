@@ -156,9 +156,9 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernels.Wate
             // Assert
             Assert.IsTrue(kernel.Validated);
             Assert.AreEqual(3, results.Length);
-            MessageHelper.AssertMessage(MessageHelper.CreateMessage(MessageType.Warning, "Validation Warning"), results[0]);
-            MessageHelper.AssertMessage(MessageHelper.CreateMessage(MessageType.Error, "Validation Error"), results[1]);
-            MessageHelper.AssertMessage(MessageHelper.CreateMessage(MessageType.Info, "Validation Info"), results[2]);
+            MessageHelper.AssertMessage(MessageType.Warning, "Validation Warning", results[0]);
+            MessageHelper.AssertMessage(MessageType.Error, "Validation Error", results[1]);
+            MessageHelper.AssertMessage(MessageType.Info, "Validation Info", results[2]);
         }
 
         [Test]

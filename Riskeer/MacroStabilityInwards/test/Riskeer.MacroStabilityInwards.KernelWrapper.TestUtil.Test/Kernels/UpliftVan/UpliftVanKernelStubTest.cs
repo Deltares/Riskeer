@@ -133,9 +133,9 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernels.Upli
             IEnumerable<Message> results = calculator.CalculationMessages.ToList();
             Assert.IsTrue(calculator.Calculated);
             Assert.AreEqual(3, results.Count());
-            MessageHelper.AssertMessage(MessageHelper.CreateMessage(MessageType.Info, "Calculation Info"), results.ElementAt(0));
-            MessageHelper.AssertMessage(MessageHelper.CreateMessage(MessageType.Warning, "Calculation Warning"), results.ElementAt(1));
-            MessageHelper.AssertMessage(MessageHelper.CreateMessage(MessageType.Error, "Calculation Error"), results.ElementAt(2));
+            MessageHelper.AssertMessage(MessageType.Info, "Calculation Info", results.ElementAt(0));
+            MessageHelper.AssertMessage(MessageType.Warning, "Calculation Warning", results.ElementAt(1));
+            MessageHelper.AssertMessage(MessageType.Error, "Calculation Error", results.ElementAt(2));
         }
 
         [Test]
@@ -208,9 +208,9 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernels.Upli
             // Assert
             Assert.IsTrue(kernel.Validated);
             Assert.AreEqual(3, messages.Length);
-            MessageHelper.AssertMessage(MessageHelper.CreateMessage(MessageType.Warning, "Validation Warning"), messages[0]);
-            MessageHelper.AssertMessage(MessageHelper.CreateMessage(MessageType.Error, "Validation Error"), messages[1]);
-            MessageHelper.AssertMessage(MessageHelper.CreateMessage(MessageType.Info, "Validation Info"), messages[2]);
+            MessageHelper.AssertMessage(MessageType.Warning, "Validation Warning", messages[0]);
+            MessageHelper.AssertMessage(MessageType.Error, "Validation Error", messages[1]);
+            MessageHelper.AssertMessage(MessageType.Info, "Validation Info", messages[2]);
         }
 
         [Test]

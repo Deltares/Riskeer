@@ -45,16 +45,18 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels
         }
 
         /// <summary>
-        /// Asserts whether <paramref name="actual"/> is equal to <paramref name="expected"/>.
+        /// Asserts whether <paramref name="actual"/> is equal to <paramref name="expectedMessageType"/>
+        /// and <paramref name="expectedContent"/>.
         /// </summary>
-        /// <param name="expected">The expected <see cref="Message"/>.</param>
+        /// <param name="expectedMessageType">The expected <see cref="MessageType"/>.</param>
+        /// <param name="expectedContent">The expected content.</param>
         /// <param name="actual">The actual <see cref="Message"/>.</param>
         /// <exception cref="AssertionException">Thrown when <paramref name="actual"/>
-        /// is not equal to <paramref name="expected"/>.</exception>
-        public static void AssertMessage(Message expected, Message actual)
+        /// is not equal to <paramref name="expectedMessageType"/> or <paramref name="expectedContent"/>.</exception>
+        public static void AssertMessage(MessageType expectedMessageType, string expectedContent, Message actual)
         {
-            Assert.AreEqual(expected.MessageType, actual.MessageType);
-            Assert.AreEqual(expected.Content, actual.Content);
+            Assert.AreEqual(expectedMessageType, actual.MessageType);
+            Assert.AreEqual(expectedContent, actual.Content);
         }
     }
 }
