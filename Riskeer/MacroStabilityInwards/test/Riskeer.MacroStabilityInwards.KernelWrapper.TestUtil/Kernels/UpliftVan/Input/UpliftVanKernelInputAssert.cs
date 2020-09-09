@@ -98,7 +98,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan
             AssertSlipPlaneConstraints(expected.SlipPlaneConstraints, actual.SlipPlaneConstraints);
         }
 
-        /// <summary>
+        /// <summary>   
         /// Asserts whether <paramref name="actual"/> is equal to <paramref name="expected"/>.
         /// </summary>
         /// <param name="expected">The expected collection of <see cref="ConstructionStage"/>.</param>
@@ -116,8 +116,8 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan
 
                 KernelInputAssert.AssertSoilProfile(expectedConstructionStage.SoilProfile, actualConstructionStage.SoilProfile);
                 Assert.AreEqual(expectedConstructionStage.Waternet, actualConstructionStage.Waternet);
-                CollectionAssert.AreEqual(expectedConstructionStage.FixedSoilStresses, actualConstructionStage.FixedSoilStresses);
-                CollectionAssert.AreEqual(expectedConstructionStage.PreconsolidationStresses, actualConstructionStage.PreconsolidationStresses);
+                CollectionAssert.AreEqual(expectedConstructionStage.FixedSoilStresses, actualConstructionStage.FixedSoilStresses, new FixedSoilStressComparer());
+                CollectionAssert.AreEqual(expectedConstructionStage.PreconsolidationStresses, actualConstructionStage.PreconsolidationStresses, new PreconsolidationStressComparer());
 
                 AssertMultiplicationFactorsCPhiForUplift(expectedConstructionStage.MultiplicationFactorsCPhiForUplift.Single(),
                                                          actualConstructionStage.MultiplicationFactorsCPhiForUplift.Single());

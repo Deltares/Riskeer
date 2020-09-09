@@ -133,12 +133,18 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernels.Upli
             var fixedSoilStress1 = new FixedSoilStress
             {
                 POP = pop,
-                Soil = new Soil()
+                Soil = new Soil
+                {
+                    Name = "Soil 1"
+                }
             };
             var fixedSoilStress2 = new FixedSoilStress
             {
                 POP = pop,
-                Soil = new Soil()
+                Soil = new Soil
+                {
+                    Name = "Soil 2"
+                }
             };
 
             // Call

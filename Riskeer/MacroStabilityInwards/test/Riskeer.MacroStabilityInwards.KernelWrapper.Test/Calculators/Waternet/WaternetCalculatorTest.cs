@@ -102,7 +102,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.Waternet
             using (new MacroStabilityInwardsKernelFactoryConfig())
             {
                 var factory = (TestMacroStabilityInwardsKernelFactory) MacroStabilityInwardsKernelWrapperFactory.Instance;
-                WaternetKernelStub waternetKernel = factory.LastCreatedWaternetKernel;
+                WaternetKernelStub waternetKernel = factory.LastCreatedWaternetExtremeKernel;
                 SetCompleteKernelOutput(waternetKernel);
 
                 // Call
@@ -122,7 +122,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.Waternet
             using (new MacroStabilityInwardsKernelFactoryConfig())
             {
                 var factory = (TestMacroStabilityInwardsKernelFactory) MacroStabilityInwardsKernelWrapperFactory.Instance;
-                WaternetKernelStub waternetKernel = factory.LastCreatedWaternetKernel;
+                WaternetKernelStub waternetKernel = factory.LastCreatedWaternetExtremeKernel;
                 waternetKernel.ThrowExceptionOnCalculate = true;
 
                 // Call
@@ -144,7 +144,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.Waternet
             using (new MacroStabilityInwardsKernelFactoryConfig())
             {
                 var factory = (TestMacroStabilityInwardsKernelFactory) MacroStabilityInwardsKernelWrapperFactory.Instance;
-                WaternetKernelStub kernel = factory.LastCreatedWaternetKernel;
+                WaternetKernelStub kernel = factory.LastCreatedWaternetExtremeKernel;
                 SetCompleteKernelOutput(kernel);
 
                 // Call
@@ -178,7 +178,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.Waternet
                 calculator.Validate();
 
                 // Assert
-                Assert.IsTrue(factory.LastCreatedWaternetKernel.Validated);
+                Assert.IsTrue(factory.LastCreatedWaternetExtremeKernel.Validated);
             }
         }
 
@@ -208,8 +208,8 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.Waternet
             using (new MacroStabilityInwardsKernelFactoryConfig())
             {
                 var factory = (TestMacroStabilityInwardsKernelFactory) MacroStabilityInwardsKernelWrapperFactory.Instance;
-                WaternetKernelStub WaternetKernel = factory.LastCreatedWaternetKernel;
-                WaternetKernel.ReturnValidationResults = true;
+                WaternetKernelStub waternetKernel = factory.LastCreatedWaternetExtremeKernel;
+                waternetKernel.ReturnValidationResults = true;
 
                 WaternetCalculatorInput input = WaternetCalculatorInputTestFactory.CreateValidCalculatorInput();
                 var calculator = new TestWaternetCalculator(input, factory);
@@ -235,7 +235,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.Waternet
             using (new MacroStabilityInwardsKernelFactoryConfig())
             {
                 var factory = (TestMacroStabilityInwardsKernelFactory) MacroStabilityInwardsKernelWrapperFactory.Instance;
-                WaternetKernelStub WaternetKernel = factory.LastCreatedWaternetKernel;
+                WaternetKernelStub WaternetKernel = factory.LastCreatedWaternetExtremeKernel;
                 WaternetKernel.ThrowExceptionOnValidate = true;
 
                 WaternetCalculatorInput input = WaternetCalculatorInputTestFactory.CreateValidCalculatorInput();

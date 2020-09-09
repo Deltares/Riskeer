@@ -32,6 +32,8 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan
     /// </summary>
     public class FixedSoilStressComparer : IComparer<FixedSoilStress>, IComparer
     {
+        private readonly SoilComparer soilComparer = new SoilComparer();
+
         public int Compare(object x, object y)
         {
             if (!(x is FixedSoilStress) || !(y is FixedSoilStress))
@@ -44,7 +46,8 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan
 
         public int Compare(FixedSoilStress x, FixedSoilStress y)
         {
-            return x.Soil == y.Soil && Math.Abs(x.POP - y.POP) < 1e-6
+            return soilComparer.Compare(x.Soil, y.Soil) == 0
+                   && Math.Abs(x.POP - y.POP) < 1e-6
                        ? 0
                        : 1;
         }

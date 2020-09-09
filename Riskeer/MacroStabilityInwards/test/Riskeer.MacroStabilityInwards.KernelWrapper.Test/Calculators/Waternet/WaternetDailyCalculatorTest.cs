@@ -65,7 +65,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.Waternet
             using (new MacroStabilityInwardsKernelFactoryConfig())
             {
                 var factory = (TestMacroStabilityInwardsKernelFactory) MacroStabilityInwardsKernelWrapperFactory.Instance;
-                WaternetKernelStub waternetKernel = factory.LastCreatedWaternetKernel;
+                WaternetKernelStub waternetKernel = factory.LastCreatedWaternetDailyKernel;
                 waternetKernel.Waternet = new CSharpWrapperWaternet
                 {
                     HeadLines = new List<HeadLine>(),

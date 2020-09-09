@@ -39,7 +39,8 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels
         public TestMacroStabilityInwardsKernelFactory()
         {
             LastCreatedUpliftVanKernel = new UpliftVanKernelStub();
-            LastCreatedWaternetKernel = new WaternetKernelStub();
+            LastCreatedWaternetExtremeKernel = new WaternetKernelStub();
+            LastCreatedWaternetDailyKernel = new WaternetKernelStub();
         }
 
         /// <summary>
@@ -48,9 +49,14 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels
         public UpliftVanKernelStub LastCreatedUpliftVanKernel { get; }
 
         /// <summary>
-        /// The last created Waternet kernel.
+        /// The last created Waternet extreme kernel.
         /// </summary>
-        public WaternetKernelStub LastCreatedWaternetKernel { get; }
+        public WaternetKernelStub LastCreatedWaternetExtremeKernel { get; }
+
+        /// <summary>
+        /// The last created Waternet daily kernel.
+        /// </summary>
+        public WaternetKernelStub LastCreatedWaternetDailyKernel { get; }
 
         public IUpliftVanKernel CreateUpliftVanKernel(MacroStabilityInput kernelInput)
         {
@@ -60,18 +66,18 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels
 
         public IWaternetKernel CreateWaternetExtremeKernel(MacroStabilityInput kernelInput)
         {
-            return CreateWaternetKernel(kernelInput);
+            return CreateWaternetKernel(kernelInput, LastCreatedWaternetExtremeKernel);
         }
 
         public IWaternetKernel CreateWaternetDailyKernel(MacroStabilityInput kernelInput)
         {
-            return CreateWaternetKernel(kernelInput);
+            return CreateWaternetKernel(kernelInput, LastCreatedWaternetDailyKernel);
         }
 
-        private IWaternetKernel CreateWaternetKernel(MacroStabilityInput kernelInput)
+        private static IWaternetKernel CreateWaternetKernel(MacroStabilityInput kernelInput, WaternetKernelStub waternetKernel)
         {
-            LastCreatedWaternetKernel.SetInput(kernelInput);
-            return LastCreatedWaternetKernel;
+            waternetKernel.SetInput(kernelInput);
+            return waternetKernel;
         }
     }
 }

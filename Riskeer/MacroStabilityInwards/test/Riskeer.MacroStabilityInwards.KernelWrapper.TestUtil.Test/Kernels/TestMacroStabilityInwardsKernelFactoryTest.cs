@@ -40,7 +40,8 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernels
             // Assert
             Assert.IsInstanceOf<IMacroStabilityInwardsKernelFactory>(factory);
             Assert.IsNotNull(factory.LastCreatedUpliftVanKernel);
-            Assert.IsNotNull(factory.LastCreatedWaternetKernel);
+            Assert.IsNotNull(factory.LastCreatedWaternetDailyKernel);
+            Assert.IsNotNull(factory.LastCreatedWaternetExtremeKernel);
         }
 
         [Test]
@@ -59,7 +60,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernels
         }
 
         [Test]
-        public void CreateWaternetExtremeKernel_Always_ReturnLastCreatedWaternetKernel()
+        public void CreateWaternetExtremeKernel_Always_ReturnLastCreatedWaternetExtremeKernel()
         {
             // Setup
             var factory = new TestMacroStabilityInwardsKernelFactory();
@@ -69,22 +70,22 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernels
             var waternetKernel = (WaternetKernelStub) factory.CreateWaternetExtremeKernel(input);
 
             // Assert
-            Assert.AreSame(factory.LastCreatedWaternetKernel, waternetKernel);
+            Assert.AreSame(factory.LastCreatedWaternetExtremeKernel, waternetKernel);
             Assert.AreSame(input, waternetKernel.KernelInput);
         }
 
         [Test]
-        public void CreateWaternetDailyKernel_Always_ReturnLastCreatedWaternetKernel()
+        public void CreateWaternetDailyKernel_Always_ReturnLastCreatedWaternetDailyKernel()
         {
             // Setup
             var factory = new TestMacroStabilityInwardsKernelFactory();
             var input = new MacroStabilityInput();
 
             // Call
-            var waternetKernel = (WaternetKernelStub)factory.CreateWaternetDailyKernel(input);
+            var waternetKernel = (WaternetKernelStub) factory.CreateWaternetDailyKernel(input);
 
             // Assert
-            Assert.AreSame(factory.LastCreatedWaternetKernel, waternetKernel);
+            Assert.AreSame(factory.LastCreatedWaternetDailyKernel, waternetKernel);
             Assert.AreSame(input, waternetKernel.KernelInput);
         }
     }
