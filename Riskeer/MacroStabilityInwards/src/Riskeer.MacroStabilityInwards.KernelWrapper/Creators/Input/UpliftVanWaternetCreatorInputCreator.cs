@@ -56,6 +56,8 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
 
             WaternetCreatorInput creatorInput = CreateBaseLocation(input);
             creatorInput.WaterLevelRiver = input.AssessmentLevel;
+            creatorInput.HeadInPlLine3 = input.AssessmentLevel;
+            creatorInput.HeadInPlLine4 = input.AssessmentLevel;
             creatorInput.WaterLevelPolder = input.WaterLevelPolderExtreme;
             creatorInput.UseDefaultOffsets = input.PhreaticLineOffsetsExtreme.UseDefaults;
             creatorInput.PlLineOffsetBelowPointBRingtoetsWti2017 = input.PhreaticLineOffsetsExtreme.BelowDikeTopAtRiver;
@@ -88,6 +90,8 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
 
             WaternetCreatorInput creatorInput = CreateBaseLocation(input);
             creatorInput.WaterLevelRiver = input.WaterLevelRiverAverage;
+            creatorInput.HeadInPlLine3 = input.WaterLevelRiverAverage;
+            creatorInput.HeadInPlLine4 = input.WaterLevelRiverAverage;
             creatorInput.WaterLevelPolder = input.WaterLevelPolderDaily;
             creatorInput.UseDefaultOffsets = input.PhreaticLineOffsetsDaily.UseDefaults;
             creatorInput.PlLineOffsetBelowPointBRingtoetsWti2017 = input.PhreaticLineOffsetsDaily.BelowDikeTopAtRiver;

@@ -273,10 +273,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                 innerLoop2
             }, profile.Geometry.Loops, new LoopComparer());
 
-            Assert.AreEqual(0, profile.Geometry.Left);
-            Assert.AreEqual(0, profile.Geometry.Bottom);
-            Assert.AreEqual(10, profile.Geometry.Right);
-
             Assert.AreEqual(4, profile.SoilSurfaces.Count);
             Assert.AreEqual(4, profile.Geometry.Surfaces.Count);
             CollectionAssert.AreEqual(profile.SoilSurfaces.ToList()
@@ -565,10 +561,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                 innerLoop1,
                 innerLoop2
             }, profile.Geometry.Loops, new LoopComparer());
-
-            Assert.AreEqual(0, profile.Geometry.Left);
-            Assert.AreEqual(0, profile.Geometry.Bottom);
-            Assert.AreEqual(10, profile.Geometry.Right);
 
             Assert.AreEqual(4, profile.SoilSurfaces.Count);
             Assert.AreEqual(4, profile.Geometry.Surfaces.Count);

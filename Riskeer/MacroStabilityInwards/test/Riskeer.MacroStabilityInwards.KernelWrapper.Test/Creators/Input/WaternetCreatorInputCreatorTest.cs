@@ -157,8 +157,12 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             Assert.AreEqual(waterLevelRiverAverage, waternetCreatorInput.WaterLevelRiverAverage);
             Assert.AreEqual(waterLevelPolderExtreme, waternetCreatorInput.WaterLevelPolder);
             Assert.AreEqual(drainageConstruction.IsPresent, waternetCreatorInput.DrainageConstructionPresent);
-            Assert.AreEqual(drainageConstruction.XCoordinate, waternetCreatorInput.DrainageConstruction.X);
-            Assert.AreEqual(drainageConstruction.ZCoordinate, waternetCreatorInput.DrainageConstruction.Z);
+            if (drainageConstructionPresent)
+            {
+                Assert.AreEqual(drainageConstruction.XCoordinate, waternetCreatorInput.DrainageConstruction.X);
+                Assert.AreEqual(drainageConstruction.ZCoordinate, waternetCreatorInput.DrainageConstruction.Z);
+            }
+
             Assert.AreEqual(minimumLevelPhreaticLineAtDikeTopRiver, waternetCreatorInput.MinimumLevelPhreaticLineAtDikeTopRiver);
             Assert.AreEqual(minimumLevelPhreaticLineAtDikeTopPolder, waternetCreatorInput.MinimumLevelPhreaticLineAtDikeTopPolder);
             Assert.AreEqual(phreaticLineOffsets.UseDefaults, waternetCreatorInput.UseDefaultOffsets);
@@ -181,7 +185,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
 
         private static void AssertIrrelevantValues(WaternetCreatorInput waternetCreatorInput)
         {
-            Assert.IsNaN(waternetCreatorInput.WaterLevelRiverLow); // Only for macro stability outwards
+            Assert.AreEqual(0, waternetCreatorInput.WaterLevelRiverLow); // Only for macro stability outwards
         }
     }
 }

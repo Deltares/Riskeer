@@ -240,7 +240,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
         private static void AssertSoilLayerProperties(SoilLayer soilLayer, LayerWithSoil layerWithSoil)
         {
             Assert.AreEqual(soilLayer.IsAquifer, layerWithSoil.IsAquifer);
-            Assert.AreEqual(WaterPressureInterpolationModel.Hydrostatic, layerWithSoil.WaterPressureInterpolationModel);
+            Assert.AreEqual(CSharpWrapperWaterPressureInterpolationModel.Hydrostatic, layerWithSoil.WaterPressureInterpolationModel);
 
             Assert.IsNotNull(layerWithSoil.Soil);
             Assert.AreEqual(ShearStrengthModelType.Shansep, layerWithSoil.Soil.ShearStrengthAbovePhreaticLevelModel);

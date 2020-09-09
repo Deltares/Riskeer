@@ -58,6 +58,8 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
             {
                 DikeSoilScenario = LocationCreatorHelper.ConvertDikeSoilScenario(input.DikeSoilScenario),
                 WaterLevelRiver = input.AssessmentLevel,
+                HeadInPlLine3 = input.AssessmentLevel,
+                HeadInPlLine4 = input.AssessmentLevel,
                 WaterLevelRiverAverage = input.WaterLevelRiverAverage,
                 WaterLevelPolder = input.WaterLevelPolder,
                 DrainageConstructionPresent = input.DrainageConstruction.IsPresent,

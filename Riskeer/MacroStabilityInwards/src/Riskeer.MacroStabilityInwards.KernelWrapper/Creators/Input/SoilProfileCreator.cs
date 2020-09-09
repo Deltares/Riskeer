@@ -56,6 +56,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
             {
                 profile.SoilSurfaces.Add(new SoilProfileSurface
                 {
+                    Name = layerWithSoil.Soil.Name,
                     IsAquifer = layerWithSoil.IsAquifer,
                     Soil = layerWithSoil.Soil,
                     Surface = CreateSurface(layerWithSoil, alreadyCreatedPoints, alreadyCreatedCurves, alreadyCreatedLoops),

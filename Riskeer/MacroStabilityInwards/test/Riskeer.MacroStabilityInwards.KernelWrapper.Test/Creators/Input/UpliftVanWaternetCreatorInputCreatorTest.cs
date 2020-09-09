@@ -29,7 +29,6 @@ using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input;
 using Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Input;
 using Riskeer.MacroStabilityInwards.Primitives;
-using WaternetCreationMode = Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Input.WaternetCreationMode;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
 {
@@ -97,54 +96,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
 
             // Assert
             Assert.AreEqual(expectedDikeSoilScenario, waternetCreatorInput.DikeSoilScenario);
-        }
-
-        [Test]
-        public void CreateExtreme_InvalidWaternetCreationMode_ThrowInvalidEnumArgumentException()
-        {
-            // Setup
-            var input = new UpliftVanCalculatorInput(
-                new UpliftVanCalculatorInput.ConstructionProperties
-                {
-                    SurfaceLine = new MacroStabilityInwardsSurfaceLine("test"),
-                    SoilProfile = new TestSoilProfile(),
-                    PhreaticLineOffsetsExtreme = new PhreaticLineOffsets(),
-                    PhreaticLineOffsetsDaily = new PhreaticLineOffsets(),
-                    DrainageConstruction = new DrainageConstruction(),
-                    SlipPlane = new UpliftVanSlipPlane(),
-                    WaternetCreationMode = (WaternetCreationMode) 99
-                });
-
-            // Call
-            void Call() => UpliftVanWaternetCreatorInputCreator.CreateExtreme(input);
-
-            // Assert
-            string message = $"The value of argument 'waternetCreationMode' ({99}) is invalid for Enum type '{nameof(WaternetCreationMode)}'.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(Call, message);
-        }
-
-        [Test]
-        public void CreateExtreme_InvalidPlLineCreationMethod_ThrowInvalidEnumArgumentException()
-        {
-            // Setup
-            var input = new UpliftVanCalculatorInput(
-                new UpliftVanCalculatorInput.ConstructionProperties
-                {
-                    SurfaceLine = new MacroStabilityInwardsSurfaceLine("test"),
-                    SoilProfile = new TestSoilProfile(),
-                    PhreaticLineOffsetsExtreme = new PhreaticLineOffsets(),
-                    PhreaticLineOffsetsDaily = new PhreaticLineOffsets(),
-                    DrainageConstruction = new DrainageConstruction(),
-                    SlipPlane = new UpliftVanSlipPlane(),
-                    PlLineCreationMethod = (PlLineCreationMethod) 99
-                });
-
-            // Call
-            void Call() => UpliftVanWaternetCreatorInputCreator.CreateExtreme(input);
-
-            // Assert
-            string message = $"The value of argument 'plLineCreationMethod' ({99}) is invalid for Enum type '{nameof(PlLineCreationMethod)}'.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(Call, message);
         }
 
         [Test]
@@ -270,54 +221,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
         }
 
         [Test]
-        public void CreateDaily_InvalidWaternetCreationMode_ThrowInvalidEnumArgumentException()
-        {
-            // Setup
-            var input = new UpliftVanCalculatorInput(
-                new UpliftVanCalculatorInput.ConstructionProperties
-                {
-                    SurfaceLine = new MacroStabilityInwardsSurfaceLine("test"),
-                    SoilProfile = new TestSoilProfile(),
-                    PhreaticLineOffsetsExtreme = new PhreaticLineOffsets(),
-                    PhreaticLineOffsetsDaily = new PhreaticLineOffsets(),
-                    DrainageConstruction = new DrainageConstruction(),
-                    SlipPlane = new UpliftVanSlipPlane(),
-                    WaternetCreationMode = (WaternetCreationMode) 99
-                });
-
-            // Call
-            void Call() => UpliftVanWaternetCreatorInputCreator.CreateDaily(input);
-
-            // Assert
-            string message = $"The value of argument 'waternetCreationMode' ({99}) is invalid for Enum type '{nameof(WaternetCreationMode)}'.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(Call, message);
-        }
-
-        [Test]
-        public void CreateDaily_InvalidPlLineCreationMethod_ThrowInvalidEnumArgumentException()
-        {
-            // Setup
-            var input = new UpliftVanCalculatorInput(
-                new UpliftVanCalculatorInput.ConstructionProperties
-                {
-                    SurfaceLine = new MacroStabilityInwardsSurfaceLine("test"),
-                    SoilProfile = new TestSoilProfile(),
-                    PhreaticLineOffsetsExtreme = new PhreaticLineOffsets(),
-                    PhreaticLineOffsetsDaily = new PhreaticLineOffsets(),
-                    DrainageConstruction = new DrainageConstruction(),
-                    SlipPlane = new UpliftVanSlipPlane(),
-                    PlLineCreationMethod = (PlLineCreationMethod) 99
-                });
-
-            // Call
-            void Call() => UpliftVanWaternetCreatorInputCreator.CreateDaily(input);
-
-            // Assert
-            string message = $"The value of argument 'plLineCreationMethod' ({99}) is invalid for Enum type '{nameof(PlLineCreationMethod)}'.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(Call, message);
-        }
-
-        [Test]
         [Combinatorial]
         public void CreateDaily_WithInput_ReturnLocation([Values(true, false)] bool drainageConstructionPresent,
                                                          [Values(true, false)] bool useDefaultOffsets)
@@ -380,8 +283,12 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
         {
             Assert.AreEqual(input.WaterLevelRiverAverage, waternetCreatorInput.WaterLevelRiverAverage);
             Assert.AreEqual(input.DrainageConstruction.IsPresent, waternetCreatorInput.DrainageConstructionPresent);
-            Assert.AreEqual(input.DrainageConstruction.XCoordinate, waternetCreatorInput.DrainageConstruction.X);
-            Assert.AreEqual(input.DrainageConstruction.ZCoordinate, waternetCreatorInput.DrainageConstruction.Z);
+            if (input.DrainageConstruction.IsPresent)
+            {
+                Assert.AreEqual(input.DrainageConstruction.XCoordinate, waternetCreatorInput.DrainageConstruction.X);
+                Assert.AreEqual(input.DrainageConstruction.ZCoordinate, waternetCreatorInput.DrainageConstruction.Z);
+            }
+
             Assert.AreEqual(input.MinimumLevelPhreaticLineAtDikeTopRiver, waternetCreatorInput.MinimumLevelPhreaticLineAtDikeTopRiver);
             Assert.AreEqual(input.MinimumLevelPhreaticLineAtDikeTopPolder, waternetCreatorInput.MinimumLevelPhreaticLineAtDikeTopPolder);
             Assert.AreEqual(DikeSoilScenario.SandDikeOnClay, waternetCreatorInput.DikeSoilScenario);
@@ -395,9 +302,9 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             Assert.AreEqual(9.81, waternetCreatorInput.UnitWeightWater);
         }
 
-        private static void AssertIrrelevantValues(WaternetCreatorInput location)
+        private static void AssertIrrelevantValues(WaternetCreatorInput waternetCreatorInput)
         {
-            Assert.IsNaN(location.WaterLevelRiverLow); // Only for macro stability outwards
+            Assert.AreEqual(0, waternetCreatorInput.WaterLevelRiverLow); // Only for macro stability outwards
         }
     }
 }
