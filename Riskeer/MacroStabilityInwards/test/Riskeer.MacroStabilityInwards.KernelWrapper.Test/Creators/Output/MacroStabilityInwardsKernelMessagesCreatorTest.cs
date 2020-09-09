@@ -58,7 +58,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Output
             IEnumerable<MacroStabilityInwardsKernelMessage> kernelMessages = MacroStabilityInwardsKernelMessagesCreator.Create(logMessages);
 
             // Assert
-            Assert.AreEqual(3, kernelMessages.Count());
+            Assert.AreEqual(2, kernelMessages.Count());
             MacroStabilityInwardsKernelMessage firstMessage = kernelMessages.ElementAt(0);
             Assert.AreEqual("Calculation Warning", firstMessage.Message);
             Assert.AreEqual(MacroStabilityInwardsKernelMessageType.Warning, firstMessage.Type);
@@ -66,10 +66,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Output
             MacroStabilityInwardsKernelMessage secondMessage = kernelMessages.ElementAt(1);
             Assert.AreEqual("Calculation Error", secondMessage.Message);
             Assert.AreEqual(MacroStabilityInwardsKernelMessageType.Error, secondMessage.Type);
-
-            MacroStabilityInwardsKernelMessage thirdMessage = kernelMessages.ElementAt(2);
-            Assert.AreEqual("Calculation Fatal Error", thirdMessage.Message);
-            Assert.AreEqual(MacroStabilityInwardsKernelMessageType.Error, thirdMessage.Type);
         }
 
         [Test]

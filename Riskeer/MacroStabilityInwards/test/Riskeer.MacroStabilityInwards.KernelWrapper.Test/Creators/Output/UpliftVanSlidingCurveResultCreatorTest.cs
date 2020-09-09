@@ -85,7 +85,8 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Output
                 DrivingPassiveMoment = passiveCircleDrivingMoment,
                 ResistingPassiveMoment = passiveCircleResistingMoment,
                 IteratedHorizontalForce = iteratedHorizontalForce,
-                NonIteratedHorizontalForce = nonIteratedHorizontalForce
+                NonIteratedHorizontalForce = nonIteratedHorizontalForce,
+                Slices = new Slice[0]
             };
 
             // Call
@@ -152,6 +153,8 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Output
 
             var slidingCurve = new DualSlidingCircleMinimumSafetyCurve
             {
+                ActiveCircleCenter = new CSharpWrapperPoint2D(0, 0),
+                PassiveCircleCenter = new CSharpWrapperPoint2D(1, 1),
                 Slices = new[]
                 {
                     new Slice

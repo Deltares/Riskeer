@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using Deltares.MacroStability.CSharpWrapper;
 using NUnit.Framework;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan;
@@ -43,7 +44,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Output
         }
 
         [Test]
-        public void Create_WithSlipPlaneUpliftVan_ReturnUpliftVanCalculationGridResult()
+        public void Create_WithUpliftVanCalculationGrid_ReturnUpliftVanCalculationGridResult()
         {
             // Setup
             var random = new Random(21);
@@ -64,7 +65,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Output
             double tangentLine1 = random.Next();
             double tangentLine2 = random.Next();
 
-            var slipPlaneUpliftVan = new UpliftVanCalculationGrid
+            var upliftVanCalculationGrid = new UpliftVanCalculationGrid
             {
                 LeftGrid = new CalculationGrid
                 {
@@ -84,7 +85,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Output
                     GridXNumber = rightGridHorizontalPoints,
                     GridZNumber = rightGridVerticalPoints
                 },
-                TangentLines =
+                TangentLines = new List<double>
                 {
                     tangentLine1,
                     tangentLine2
@@ -92,12 +93,12 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Output
             };
 
             // Call
-            UpliftVanCalculationGridResult result = UpliftVanCalculationGridResultCreator.Create(slipPlaneUpliftVan);
+            UpliftVanCalculationGridResult result = UpliftVanCalculationGridResultCreator.Create(upliftVanCalculationGrid);
 
             // Assert
-            AssertGrid(slipPlaneUpliftVan.LeftGrid, result.LeftGrid);
-            AssertGrid(slipPlaneUpliftVan.RightGrid, result.RightGrid);
-            CollectionAssert.AreEqual(slipPlaneUpliftVan.TangentLines, result.TangentLines);
+            AssertGrid(upliftVanCalculationGrid.LeftGrid, result.LeftGrid);
+            AssertGrid(upliftVanCalculationGrid.RightGrid, result.RightGrid);
+            CollectionAssert.AreEqual(upliftVanCalculationGrid.TangentLines, result.TangentLines);
         }
 
         private static void AssertGrid(CalculationGrid originalGrid, UpliftVanGrid actualGrid)
