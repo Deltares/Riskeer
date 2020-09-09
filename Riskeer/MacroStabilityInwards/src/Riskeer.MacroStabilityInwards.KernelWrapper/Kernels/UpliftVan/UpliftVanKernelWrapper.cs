@@ -85,7 +85,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
             }
             catch (Exception e) when (!(e is UpliftVanKernelWrapperException))
             {
-                throw new UpliftVanKernelWrapperException(e.Message, e, CalculationMessages.Where(lm => lm.MessageType == MessageType.Error));
+                throw new UpliftVanKernelWrapperException(e.Message, e);
             }
         }
 

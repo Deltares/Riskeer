@@ -93,7 +93,22 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
         public void Calculate_SuccessfulCalculation_OutputSet()
         {
             // Setup
-            var calculatorOutput = new MacroStabilityOutput();
+            var random = new Random(21);
+            var calculatorOutput = new MacroStabilityOutput
+            {
+                StabilityOutput = new StabilityOutput
+                {
+                    SafetyFactor = random.NextDouble()
+                },
+                PreprocessingOutputBase = new UpliftVanPreprocessingOutput
+                {
+                    ForbiddenZone = new ForbiddenZones
+                    {
+                        XEntryMin = random.NextDouble(),
+                        XEntryMax = random.NextDouble()
+                    }
+                }
+            };
 
             var mocks = new MockRepository();
             var calculator = mocks.Stub<ICalculator>();
@@ -120,7 +135,14 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
         public void Calculate_CalculatorMessagesNull_CalculationMessagesEmpty()
         {
             // Setup
-            var calculatorOutput = new MacroStabilityOutput();
+            var calculatorOutput = new MacroStabilityOutput
+            {
+                StabilityOutput = new StabilityOutput(),
+                PreprocessingOutputBase = new UpliftVanPreprocessingOutput
+                {
+                    ForbiddenZone = new ForbiddenZones()
+                }
+            };
 
             var mocks = new MockRepository();
             var calculator = mocks.Stub<ICalculator>();
@@ -144,9 +166,13 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
             // Setup
             var calculatorOutput = new MacroStabilityOutput
             {
-                StabilityOutput =
+                StabilityOutput = new StabilityOutput
                 {
                     Messages = new Message[0]
+                },
+                PreprocessingOutputBase = new UpliftVanPreprocessingOutput
+                {
+                    ForbiddenZone = new ForbiddenZones()
                 }
             };
 
