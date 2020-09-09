@@ -45,6 +45,7 @@ using Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.Waternet;
 using Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.Waternet.Input;
 using CSharpWrapperPoint2D = Deltares.MacroStability.CSharpWrapper.Point2D;
 using CSharpWrapperSoilProfile = Deltares.MacroStability.CSharpWrapper.Input.SoilProfile;
+using CSharpWrapperWaternet = Deltares.MacroStability.CSharpWrapper.Waternet;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
 {
@@ -72,7 +73,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
         public void Constructor_FactoryNull_ArgumentNullException()
         {
             // Setup
-            var input = new UpliftVanCalculatorInput(new UpliftVanCalculatorInput.ConstructionProperties());
+            UpliftVanCalculatorInput input = UpliftVanCalculatorInputTestFactory.Create();
 
             // Call
             void Call() => new UpliftVanCalculator(input, null);
@@ -90,7 +91,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
             var factory = mocks.Stub<IMacroStabilityInwardsKernelFactory>();
             mocks.ReplayAll();
 
-            var input = new UpliftVanCalculatorInput(new UpliftVanCalculatorInput.ConstructionProperties());
+            UpliftVanCalculatorInput input = UpliftVanCalculatorInputTestFactory.Create();
 
             // Call
             var calculator = new UpliftVanCalculator(input, factory);
@@ -111,6 +112,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
                 var factory = (TestMacroStabilityInwardsKernelFactory) MacroStabilityInwardsKernelWrapperFactory.Instance;
                 UpliftVanKernelStub upliftVanKernel = factory.LastCreatedUpliftVanKernel;
                 SetValidKernelOutput(upliftVanKernel);
+                SetValidKernelOutput(factory.LastCreatedWaternetKernel);
 
                 // Call
                 new UpliftVanCalculator(input, factory).Calculate();
@@ -139,8 +141,11 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
                 MacroStabilityInput dailyWaternetInputForUpliftVan = MacroStabilityInputCreator.CreateDailyWaternetForUpliftVan(input, soils, surfaceLine, soilProfile);
                 MacroStabilityInput extremeWaternetInputForUpliftVan = MacroStabilityInputCreator.CreateExtremeWaternetForUpliftVan(input, soils, surfaceLine, soilProfile);
 
-                WaternetKernelStub waternetDailyKernel = (WaternetKernelStub) factory.CreateWaternetDailyKernel(dailyWaternetInputForUpliftVan);
-                WaternetKernelStub waternetExtremeKernel = (WaternetKernelStub) factory.CreateWaternetExtremeKernel(extremeWaternetInputForUpliftVan);
+                var waternetDailyKernel = (WaternetKernelStub) factory.CreateWaternetDailyKernel(dailyWaternetInputForUpliftVan);
+                var waternetExtremeKernel = (WaternetKernelStub) factory.CreateWaternetExtremeKernel(extremeWaternetInputForUpliftVan);
+                SetValidKernelOutput(waternetDailyKernel);
+                SetValidKernelOutput(waternetExtremeKernel);
+
                 SetValidKernelOutput(upliftVanKernel);
 
                 // Call
@@ -168,6 +173,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
                 var factory = (TestMacroStabilityInwardsKernelFactory) MacroStabilityInwardsKernelWrapperFactory.Instance;
                 UpliftVanKernelStub upliftVanKernel = factory.LastCreatedUpliftVanKernel;
                 SetCompleteKernelOutput(upliftVanKernel);
+                SetValidKernelOutput(factory.LastCreatedWaternetKernel);
 
                 // Call
                 UpliftVanCalculatorResult result = new UpliftVanCalculator(input, factory).Calculate();
@@ -196,24 +202,17 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
                 UpliftVanKernelStub upliftVanKernel = factory.LastCreatedUpliftVanKernel;
                 upliftVanKernel.ReturnLogMessages = true;
                 SetCompleteKernelOutput(upliftVanKernel);
+                SetValidKernelOutput(factory.LastCreatedWaternetKernel);
 
                 // Call
                 new UpliftVanCalculator(input, factory).Calculate();
 
                 // Assert
                 Assert.AreEqual(3, upliftVanKernel.CalculationMessages.Count());
-
-                Message thirdMessage = upliftVanKernel.CalculationMessages.ElementAt(0);
-                Assert.AreEqual("Calculation Info", thirdMessage.Content);
-                Assert.AreEqual(MessageType.Info, thirdMessage.MessageType);
-
-                Message fourthMessage = upliftVanKernel.CalculationMessages.ElementAt(1);
-                Assert.AreEqual("Calculation Warning", fourthMessage.Content);
-                Assert.AreEqual(MessageType.Warning, fourthMessage.MessageType);
-
-                Message fifthMessage = upliftVanKernel.CalculationMessages.ElementAt(2);
-                Assert.AreEqual("Calculation Error", fifthMessage.Content);
-                Assert.AreEqual(MessageType.Error, fifthMessage.MessageType);
+                
+                MessageHelper.AssertMessage(MessageHelper.CreateMessage(MessageType.Warning, "Calculation Warning"), upliftVanKernel.CalculationMessages.ElementAt(0));
+                MessageHelper.AssertMessage(MessageHelper.CreateMessage(MessageType.Error, "Calculation Error"), upliftVanKernel.CalculationMessages.ElementAt(1));
+                MessageHelper.AssertMessage(MessageHelper.CreateMessage(MessageType.Info, "Calculation Info"), upliftVanKernel.CalculationMessages.ElementAt(2));
             }
         }
 
@@ -228,6 +227,8 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
                 var factory = (TestMacroStabilityInwardsKernelFactory) MacroStabilityInwardsKernelWrapperFactory.Instance;
                 UpliftVanKernelStub upliftVanKernel = factory.LastCreatedUpliftVanKernel;
                 upliftVanKernel.ThrowExceptionOnCalculate = true;
+
+                SetValidKernelOutput(factory.LastCreatedWaternetKernel);
 
                 // Call
                 void Call() => new UpliftVanCalculator(input, factory).Calculate();
@@ -252,6 +253,8 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
                 UpliftVanKernelStub upliftVanKernel = factory.LastCreatedUpliftVanKernel;
                 upliftVanKernel.ThrowExceptionOnCalculate = true;
                 upliftVanKernel.ReturnLogMessages = true;
+                
+                SetValidKernelOutput(factory.LastCreatedWaternetKernel);
 
                 // Call
                 void Call() => new UpliftVanCalculator(input, factory).Calculate();
@@ -283,6 +286,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
             using (new MacroStabilityInwardsKernelFactoryConfig())
             {
                 var factory = (TestMacroStabilityInwardsKernelFactory) MacroStabilityInwardsKernelWrapperFactory.Instance;
+                SetValidKernelOutput(factory.LastCreatedWaternetKernel);
 
                 // Call
                 new UpliftVanCalculator(input, factory).Validate();
@@ -300,6 +304,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
             using (new MacroStabilityInwardsKernelFactoryConfig())
             {
                 var factory = (TestMacroStabilityInwardsKernelFactory) MacroStabilityInwardsKernelWrapperFactory.Instance;
+                SetValidKernelOutput(factory.LastCreatedWaternetKernel);
 
                 // Call
                 IEnumerable<MacroStabilityInwardsKernelMessage> kernelMessages = new UpliftVanCalculator(input, factory).Validate();
@@ -319,10 +324,12 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
                 UpliftVanKernelStub upliftVanKernel = factory.LastCreatedUpliftVanKernel;
                 upliftVanKernel.ReturnValidationResults = true;
 
+                SetValidKernelOutput(factory.LastCreatedWaternetKernel);
+
                 // Call
                 IEnumerable<MacroStabilityInwardsKernelMessage> kernelMessages = new UpliftVanCalculator(
                     UpliftVanCalculatorInputTestFactory.Create(),
-                                                                                                         factory).Validate().ToList();
+                    factory).Validate().ToList();
 
                 // Assert
                 Assert.AreEqual(2, kernelMessages.Count());
@@ -345,6 +352,8 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
                 UpliftVanKernelStub upliftVanKernel = factory.LastCreatedUpliftVanKernel;
                 upliftVanKernel.ThrowExceptionOnValidate = true;
 
+                SetValidKernelOutput(factory.LastCreatedWaternetKernel);
+
                 // Call
                 void Call() => new UpliftVanCalculator(UpliftVanCalculatorInputTestFactory.Create(), factory).Validate();
 
@@ -353,6 +362,19 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
                 Assert.IsInstanceOf<UpliftVanKernelWrapperException>(exception.InnerException);
                 Assert.AreEqual(exception.InnerException.Message, exception.Message);
             }
+        }
+
+        private static void SetValidKernelOutput(WaternetKernelStub waternetKernel)
+        {
+            waternetKernel.Waternet = new CSharpWrapperWaternet
+            {
+                HeadLines = new List<HeadLine>(),
+                ReferenceLines = new List<ReferenceLine>(),
+                PhreaticLine = new HeadLine
+                {
+                    Name = string.Empty
+                }
+            };
         }
 
         private static IEnumerable<Message> GetSupportMessages(IEnumerable<Message> messages)
