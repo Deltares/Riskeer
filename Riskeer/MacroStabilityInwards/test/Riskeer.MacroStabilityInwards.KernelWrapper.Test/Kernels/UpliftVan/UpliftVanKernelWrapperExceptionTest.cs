@@ -53,7 +53,27 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
             Assert.IsNull(exception.StackTrace);
             Assert.IsNull(exception.TargetSite);
             CollectionAssert.IsEmpty(exception.Data);
-            Assert.AreSame(messages, exception.LogMessages);
+            Assert.AreSame(messages, exception.Messages);
+        }
+        [Test]
+        public void KernelMessagesConstructor_ExpectedValues()
+        {
+            // Setup
+            IEnumerable<Message> messages = Enumerable.Empty<Message>();
+
+            // Call
+            var exception = new UpliftVanKernelWrapperException(messages);
+
+            // Assert
+            Assert.IsInstanceOf<Exception>(exception);
+            Assert.AreEqual($"Exception of type '{typeof(UpliftVanKernelWrapperException)}' was thrown.", exception.Message);
+            Assert.IsNull(exception.HelpLink);
+            Assert.IsNull(exception.InnerException);
+            Assert.IsNull(exception.Source);
+            Assert.IsNull(exception.StackTrace);
+            Assert.IsNull(exception.TargetSite);
+            CollectionAssert.IsEmpty(exception.Data);
+            Assert.AreSame(messages, exception.Messages);
         }
     }
 }

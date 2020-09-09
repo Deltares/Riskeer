@@ -26,6 +26,7 @@ using Deltares.MacroStability.CSharpWrapper.Output;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan;
+using Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
 {
@@ -98,6 +99,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
             {
                 StabilityOutput = new StabilityOutput
                 {
+                    Succeeded = true,
                     SafetyFactor = random.NextDouble()
                 },
                 PreprocessingOutputBase = new UpliftVanPreprocessingOutput
@@ -132,12 +134,53 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
         }
 
         [Test]
+        public void Calculate_CalculationNotSuccessful_OutputSet()
+        {
+            // Setup
+            var random = new Random(21);
+            var calculatorOutput = new MacroStabilityOutput
+            {
+                StabilityOutput = new StabilityOutput
+                {
+                    Succeeded = false,
+                    Messages = new []
+                    {
+                        MessageHelper.CreateMessage(MessageType.Error, "Message 1"),
+                        MessageHelper.CreateMessage(MessageType.Error, "Message 2")
+                    }
+                }
+            };
+
+            var mocks = new MockRepository();
+            var calculator = mocks.Stub<ICalculator>();
+            calculator.Stub(c => c.Calculate()).Return(calculatorOutput);
+            var validator = mocks.Stub<IValidator>();
+            mocks.ReplayAll();
+
+            var kernel = new UpliftVanKernelWrapper(calculator, validator);
+
+            // Call
+            void Call() => kernel.Calculate();
+
+            // Assert
+            var exception = Assert.Throws<UpliftVanKernelWrapperException>(Call);
+            Assert.IsNull(exception.InnerException);
+            Assert.AreEqual($"Exception of type '{typeof(UpliftVanKernelWrapperException)}' was thrown.", exception.Message);
+            CollectionAssert.AreEqual(calculatorOutput.StabilityOutput.Messages, exception.Messages);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
         public void Calculate_CalculatorMessagesNull_CalculationMessagesEmpty()
         {
             // Setup
             var calculatorOutput = new MacroStabilityOutput
             {
-                StabilityOutput = new StabilityOutput(),
+                StabilityOutput = new StabilityOutput
+                {
+                    Succeeded = true
+                },
                 PreprocessingOutputBase = new UpliftVanPreprocessingOutput
                 {
                     ForbiddenZone = new ForbiddenZones()
@@ -168,7 +211,8 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
             {
                 StabilityOutput = new StabilityOutput
                 {
-                    Messages = new Message[0]
+                    Messages = new Message[0],
+                    Succeeded = true
                 },
                 PreprocessingOutputBase = new UpliftVanPreprocessingOutput
                 {

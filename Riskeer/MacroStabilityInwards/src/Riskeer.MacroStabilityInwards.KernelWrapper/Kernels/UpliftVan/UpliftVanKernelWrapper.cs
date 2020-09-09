@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Deltares.MacroStability.CSharpWrapper;
 using Deltares.MacroStability.CSharpWrapper.Output;
+using Riskeer.Common.Primitives.Properties;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
 {
@@ -81,6 +82,12 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
                 MacroStabilityOutput output = calculator.Calculate();
 
                 CalculationMessages = output.StabilityOutput.Messages ?? Enumerable.Empty<Message>();
+
+                if (!output.StabilityOutput.Succeeded)
+                {
+                    throw new UpliftVanKernelWrapperException(CalculationMessages);
+                }
+
                 SetResults(output);
             }
             catch (Exception e) when (!(e is UpliftVanKernelWrapperException))
