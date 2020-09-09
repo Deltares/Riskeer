@@ -19,6 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using System.Collections;
+using System.Collections.Generic;
 using Deltares.MacroStability.CSharpWrapper;
 using Deltares.MacroStability.CSharpWrapper.Input;
 using NUnit.Framework;
@@ -29,6 +32,51 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernels.Upli
     [TestFixture]
     public class CurveComparerTest
     {
+        [Test]
+        public void Constructor_ExpectedValues()
+        {
+            // Call
+            var comparer = new CurveComparer();
+
+            // Assert
+            Assert.IsInstanceOf<IComparer>(comparer);
+            Assert.IsInstanceOf<IComparer<Curve>>(comparer);
+        }
+
+        [Test]
+        public void Compare_FirstObjectOfIncorrectType_ThrowArgumentException()
+        {
+            // Setup
+            var firstObject = new object();
+            object secondObject = new Curve();
+
+            var comparer = new CurveComparer();
+
+            // Call
+            void Call() => comparer.Compare(firstObject, secondObject);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentException>(Call);
+            Assert.AreEqual($"Cannot compare objects other than {typeof(Curve)} with this comparer.", exception.Message);
+        }
+
+        [Test]
+        public void Compare_SecondObjectOfIncorrectType_ThrowArgumentException()
+        {
+            // Setup
+            object firstObject = new Curve();
+            var secondObject = new object();
+
+            var comparer = new CurveComparer();
+
+            // Call
+            void Call() => comparer.Compare(firstObject, secondObject);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentException>(Call);
+            Assert.AreEqual($"Cannot compare objects other than {typeof(Curve)} with this comparer.", exception.Message);
+        }
+
         [Test]
         public void Compare_SameInstance_ReturnZero()
         {

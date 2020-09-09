@@ -47,7 +47,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernels.Upli
         {
             // Setup
             var firstObject = new object();
-            object secondObject = 1.1;
+            object secondObject = new Point2D(1.1, 1.1);
 
             var comparer = new StabilityPointComparer();
 
@@ -63,7 +63,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernels.Upli
         public void Compare_SecondObjectOfIncorrectType_ThrowArgumentException()
         {
             // Setup
-            object firstObject = 2.2;
+            object firstObject = new Point2D(2.2, 2.2);
             var secondObject = new object();
 
             var comparer = new StabilityPointComparer();

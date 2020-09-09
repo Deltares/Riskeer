@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Deltares.MacroStability.CSharpWrapper;
@@ -37,7 +38,11 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan
 
         public int Compare(object x, object y)
         {
-            return Compare(x as Curve, y as Curve);
+            if (!(x is Curve) || !(y is Curve))
+            {
+                throw new ArgumentException($"Cannot compare objects other than {typeof(Curve)} with this comparer.");
+            }
+            return Compare((Curve) x, (Curve) y);
         }
 
         public int Compare(Curve x, Curve y)

@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,7 +39,11 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan
 
         public int Compare(object x, object y)
         {
-            return Compare(x as Loop, y as Loop);
+            if (!(x is Loop) || !(y is Loop))
+            {
+                throw new ArgumentException($"Cannot compare objects other than {typeof(Loop)} with this comparer.");
+            }
+            return Compare((Loop) x, (Loop) y);
         }
 
         public int Compare(Loop x, Loop y)
