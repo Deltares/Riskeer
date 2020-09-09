@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2019. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2019. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -44,6 +44,35 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan
         {
             AssertStabilityInput(expected.StabilityModel, actual.StabilityModel);
             AssertPreprocessingInput(expected.PreprocessingInput, actual.PreprocessingInput);
+        }
+
+        /// <summary>
+        /// Asserts whether <paramref name="actual"/> is equal to <paramref name="expected"/>.
+        /// </summary>
+        /// <param name="expected">The expected <see cref="SlipPlaneUpliftVan"/>.</param>
+        /// <param name="actual">The actual <see cref="SlipPlaneUpliftVan"/>.</param>
+        /// <exception cref="AssertionException">Thrown when <paramref name="actual"/>
+        /// is not equal to <paramref name="expected"/>.</exception>
+        public static void AssertUpliftVanCalculationGrid(UpliftVanCalculationGrid expected, UpliftVanCalculationGrid actual)
+        {
+            AssertCalculationGrid(expected.LeftGrid, actual.LeftGrid);
+            AssertCalculationGrid(expected.RightGrid, actual.RightGrid);
+            CollectionAssert.AreEqual(expected.TangentLines, actual.TangentLines);
+        }
+
+        /// <summary>
+        /// Asserts whether <paramref name="actual"/> is equal to <paramref name="expected"/>.
+        /// </summary>
+        /// <param name="expected">The expected <see cref="SlipPlaneConstraints"/>.</param>
+        /// <param name="actual">The actual <see cref="SlipPlaneConstraints"/>.</param>
+        /// <exception cref="AssertionException">Thrown when <paramref name="actual"/>
+        /// is not equal to <paramref name="expected"/>.</exception>
+        public static void AssertSlipPlaneConstraints(SlipPlaneConstraints expected, SlipPlaneConstraints actual)
+        {
+            Assert.AreEqual(expected.SlipPlaneMinDepth, actual.SlipPlaneMinDepth);
+            Assert.AreEqual(expected.SlipPlaneMinLength, actual.SlipPlaneMinLength);
+            Assert.AreEqual(expected.XEntryMin, actual.XEntryMin);
+            Assert.AreEqual(expected.XEntryMax, actual.XEntryMax);
         }
 
         /// <summary>
@@ -107,35 +136,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan
         {
             Assert.AreEqual(expected.MultiplicationFactor, actual.MultiplicationFactor);
             Assert.AreEqual(expected.UpliftFactor, actual.UpliftFactor);
-        }
-
-        /// <summary>
-        /// Asserts whether <paramref name="actual"/> is equal to <paramref name="expected"/>.
-        /// </summary>
-        /// <param name="expected">The expected <see cref="SlipPlaneUpliftVan"/>.</param>
-        /// <param name="actual">The actual <see cref="SlipPlaneUpliftVan"/>.</param>
-        /// <exception cref="AssertionException">Thrown when <paramref name="actual"/>
-        /// is not equal to <paramref name="expected"/>.</exception>
-        private static void AssertUpliftVanCalculationGrid(UpliftVanCalculationGrid expected, UpliftVanCalculationGrid actual)
-        {
-            AssertCalculationGrid(expected.LeftGrid, actual.LeftGrid);
-            AssertCalculationGrid(expected.RightGrid, actual.RightGrid);
-            CollectionAssert.AreEqual(expected.TangentLines, actual.TangentLines);
-        }
-
-        /// <summary>
-        /// Asserts whether <paramref name="actual"/> is equal to <paramref name="expected"/>.
-        /// </summary>
-        /// <param name="expected">The expected <see cref="SlipPlaneConstraints"/>.</param>
-        /// <param name="actual">The actual <see cref="SlipPlaneConstraints"/>.</param>
-        /// <exception cref="AssertionException">Thrown when <paramref name="actual"/>
-        /// is not equal to <paramref name="expected"/>.</exception>
-        private static void AssertSlipPlaneConstraints(SlipPlaneConstraints expected, SlipPlaneConstraints actual)
-        {
-            Assert.AreEqual(expected.SlipPlaneMinDepth, actual.SlipPlaneMinDepth);
-            Assert.AreEqual(expected.SlipPlaneMinLength, actual.SlipPlaneMinLength);
-            Assert.AreEqual(expected.XEntryMin, actual.XEntryMin);
-            Assert.AreEqual(expected.XEntryMax, actual.XEntryMax);
         }
 
         /// <summary>
