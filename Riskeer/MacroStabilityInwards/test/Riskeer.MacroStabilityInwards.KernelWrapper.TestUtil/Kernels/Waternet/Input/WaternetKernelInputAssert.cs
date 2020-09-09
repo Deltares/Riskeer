@@ -43,7 +43,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.Waternet.
             KernelInputAssert.AssertSoilProfile(expected.StabilityModel.ConstructionStages.Single().SoilProfile,
                                                 actual.StabilityModel.ConstructionStages.Single().SoilProfile);
 
-            CollectionAssert.AreEqual(expected.StabilityModel.Soils, actual.StabilityModel.Soils);
+            CollectionAssert.AreEqual(expected.StabilityModel.Soils, actual.StabilityModel.Soils, new SoilComparer());
 
             PreConstructionStage expectedPreconstructionStage = expected.PreprocessingInput.PreConstructionStages.Single();
             PreConstructionStage actualPreconstructionStage = actual.PreprocessingInput.PreConstructionStages.Single();

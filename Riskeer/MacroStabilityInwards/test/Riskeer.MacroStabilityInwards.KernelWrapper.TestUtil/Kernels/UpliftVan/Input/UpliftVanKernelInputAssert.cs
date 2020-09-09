@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2019. All rights reserved.
+// Copyright (C) Stichting Deltares 2019. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -61,7 +61,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan
 
             AssertConstructionStages(expected.ConstructionStages, actual.ConstructionStages);
 
-            CollectionAssert.AreEqual(expected.Soils, actual.Soils);
+            CollectionAssert.AreEqual(expected.Soils, actual.Soils, new SoilComparer());
             Assert.AreEqual(expected.MoveGrid, actual.MoveGrid);
             Assert.AreEqual(expected.MaximumSliceWidth, actual.MaximumSliceWidth);
 
