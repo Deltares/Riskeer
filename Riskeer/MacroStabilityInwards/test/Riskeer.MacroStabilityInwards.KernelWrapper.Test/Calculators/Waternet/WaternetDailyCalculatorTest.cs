@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
+using Deltares.MacroStability.CSharpWrapper;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Waternet;
@@ -64,7 +66,15 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.Waternet
             {
                 var factory = (TestMacroStabilityInwardsKernelFactory) MacroStabilityInwardsKernelWrapperFactory.Instance;
                 WaternetKernelStub waternetKernel = factory.LastCreatedWaternetKernel;
-                waternetKernel.Waternet = new CSharpWrapperWaternet();
+                waternetKernel.Waternet = new CSharpWrapperWaternet
+                {
+                    HeadLines = new List<HeadLine>(),
+                    ReferenceLines = new List<ReferenceLine>(),
+                    PhreaticLine = new HeadLine
+                    {
+                        Name = string.Empty
+                    }
+                };
 
                 // Call
                 new WaternetDailyCalculator(input, factory).Calculate();
