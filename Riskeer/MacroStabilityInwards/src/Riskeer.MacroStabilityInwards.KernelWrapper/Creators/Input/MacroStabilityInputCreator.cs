@@ -112,6 +112,8 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
                     MaximumSliceWidth = upliftVanInput.MaximumSliceWidth,
                     UpliftVanCalculationGrid = UpliftVanCalculationGridCreator.Create(upliftVanInput.SlipPlane),
                     SlipPlaneConstraints = SlipPlaneConstraintsCreator.Create(upliftVanInput.SlipPlaneConstraints),
+                    NumberOfRefinementsGrid = upliftVanInput.SlipPlane.GridNumberOfRefinements,
+                    NumberOfRefinementsTangentLines = upliftVanInput.SlipPlane.TangentLineNumberOfRefinements
                 },
                 PreprocessingInput =
                 {

@@ -98,6 +98,9 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan
 
             AssertUpliftVanCalculationGrid(expected.UpliftVanCalculationGrid, actual.UpliftVanCalculationGrid);
             AssertSlipPlaneConstraints(expected.SlipPlaneConstraints, actual.SlipPlaneConstraints);
+
+            Assert.AreEqual(expected.NumberOfRefinementsGrid, actual.NumberOfRefinementsGrid);
+            Assert.AreEqual(expected.NumberOfRefinementsTangentLines, actual.NumberOfRefinementsTangentLines);
         }
 
         /// <summary>   

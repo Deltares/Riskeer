@@ -177,6 +177,9 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
 
             AssertConstructionStages(input, stabilityModel, soilProfile, dailyWaternet, extremeWaternet, layerLookup);
 
+            Assert.AreEqual(input.SlipPlane.GridNumberOfRefinements, stabilityModel.NumberOfRefinementsGrid);
+            Assert.AreEqual(input.SlipPlane.TangentLineNumberOfRefinements, stabilityModel.NumberOfRefinementsTangentLines);
+
             SearchAreaConditions searchAreaConditions = macroStabilityInput.PreprocessingInput.SearchAreaConditions;
             Assert.AreEqual(0.8, searchAreaConditions.MaxSpacingBetweenBoundaries);
             Assert.IsTrue(searchAreaConditions.OnlyAbovePleistoceen);
