@@ -46,8 +46,8 @@ using Riskeer.HydraRing.Calculation.TestUtil.Calculator;
 using Riskeer.Integration.Data;
 using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.MacroStabilityInwards.Data.TestUtil;
-using Riskeer.MacroStabilityInwards.KernelWrapper.Kernels;
-using Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels;
+using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators;
+using Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators;
 using Riskeer.Piping.Data;
 using Riskeer.Piping.Data.TestUtil;
 using Riskeer.Piping.KernelWrapper.SubCalculator;
@@ -210,20 +210,21 @@ namespace Riskeer.Integration.Service.Test
 
             using (new HydraRingCalculatorFactoryConfig(calculatorFactory))
             using (new PipingSubCalculatorFactoryConfig())
-            using (new MacroStabilityInwardsKernelFactoryConfig())
+            using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
                 // Run hydraulic boundary location calculations first
                 activities.Take(8).ForEachElementDo(activity => activity.Run());
 
                 var pipingTestFactory = (TestPipingSubCalculatorFactory) PipingSubCalculatorFactory.Instance;
-                var macroStabilityTestFactory = (TestMacroStabilityInwardsKernelFactory) MacroStabilityInwardsKernelWrapperFactory.Instance;
+                var macroStabilityTestFactory = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
+
                 Assert.IsFalse(pipingTestFactory.LastCreatedUpliftCalculator.Calculated);
-                Assert.IsFalse(macroStabilityTestFactory.LastCreatedUpliftVanKernel.Calculated);
+                Assert.IsFalse(macroStabilityTestFactory.LastCreatedUpliftVanCalculator.Calculated);
 
                 activities.Skip(8).ForEachElementDo(activity => activity.Run());
 
                 Assert.IsTrue(pipingTestFactory.LastCreatedUpliftCalculator.Calculated);
-                Assert.IsTrue(macroStabilityTestFactory.LastCreatedUpliftVanKernel.Calculated);
+                Assert.IsTrue(macroStabilityTestFactory.LastCreatedUpliftVanCalculator.Calculated);
             }
 
             mocks.VerifyAll();

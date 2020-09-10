@@ -48,6 +48,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Calculators.
             Assert.IsFalse(calculator.ReturnValidationError);
             Assert.IsFalse(calculator.ReturnCalculationError);
             Assert.IsFalse(calculator.ReturnCalculationWarning);
+            Assert.IsFalse(calculator.Calculated);
         }
 
         [Test]
@@ -98,7 +99,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Calculators.
         }
 
         [Test]
-        public void Calculate_ThrowExceptionOnCalculateFalse_ReturnResult()
+        public void Calculate_ThrowExceptionOnCalculateFalse_CalculatedTrueAndReturnResult()
         {
             // Setup
             var calculator = new UpliftVanCalculatorStub();
@@ -107,6 +108,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Calculators.
             UpliftVanCalculatorResult result = calculator.Calculate();
 
             // Assert
+            Assert.IsTrue(calculator.Calculated);
             Assert.AreEqual(0.1, result.FactorOfStability);
             Assert.AreEqual(0.3, result.ForbiddenZonesXEntryMin);
             Assert.AreEqual(0.4, result.ForbiddenZonesXEntryMax);

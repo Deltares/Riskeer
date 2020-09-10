@@ -161,20 +161,23 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Exporters
             MacroStabilityInwardsCalculationScenario calculation = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput(new TestHydraulicBoundaryLocation());
             calculation.Output = MacroStabilityInwardsOutputTestFactory.CreateRandomOutput();
 
-            var persistenceFactory = new MacroStabilityInwardsTestPersistenceFactory
+            using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
-                ThrowException = true,
-                WriteFile = true
-            };
+                var persistenceFactory = new MacroStabilityInwardsTestPersistenceFactory
+                {
+                    ThrowException = true,
+                    WriteFile = true
+                };
 
-            var exporter = new MacroStabilityInwardsCalculationExporter(calculation, persistenceFactory, filePath, AssessmentSectionTestHelper.GetTestAssessmentLevel);
+                var exporter = new MacroStabilityInwardsCalculationExporter(calculation, persistenceFactory, filePath, AssessmentSectionTestHelper.GetTestAssessmentLevel);
 
-            // Call
-            exporter.Export();
+                // Call
+                exporter.Export();
 
-            // Assert
-            Assert.IsFalse(File.Exists(filePath));
-            Assert.IsFalse(File.Exists($"{filePath}.temp"));
+                // Assert
+                Assert.IsFalse(File.Exists(filePath));
+                Assert.IsFalse(File.Exists($"{filePath}.temp"));
+            }
         }
 
         [Test]
