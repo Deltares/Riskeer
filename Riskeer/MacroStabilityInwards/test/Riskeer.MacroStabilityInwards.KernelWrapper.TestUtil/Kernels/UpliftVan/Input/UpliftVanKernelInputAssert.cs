@@ -25,6 +25,8 @@ using Deltares.MacroStability.CSharpWrapper;
 using Deltares.MacroStability.CSharpWrapper.Input;
 using Deltares.MacroStability.Data;
 using NUnit.Framework;
+using ConstructionStage = Deltares.MacroStability.CSharpWrapper.Input.ConstructionStage;
+using SlipPlaneConstraints = Deltares.MacroStability.CSharpWrapper.Input.SlipPlaneConstraints;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan.Input
 {
