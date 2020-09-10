@@ -42,10 +42,10 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Calculators.
             Assert.AreEqual(-1, input.WaterLevelPolderDaily);
             Assert.AreEqual(0.1, input.MinimumLevelPhreaticLineAtDikeTopRiver);
             Assert.AreEqual(0.2, input.MinimumLevelPhreaticLineAtDikeTopPolder);
-            Assert.AreEqual(1.3, input.LeakageLengthInwardsPhreaticLine3);
-            Assert.AreEqual(1.4, input.LeakageLengthOutwardsPhreaticLine3);
-            Assert.AreEqual(1.5, input.LeakageLengthInwardsPhreaticLine4);
-            Assert.AreEqual(1.6, input.LeakageLengthOutwardsPhreaticLine4);
+            Assert.AreEqual(1.3, input.LeakageLengthOutwardsPhreaticLine3);
+            Assert.AreEqual(1.4, input.LeakageLengthInwardsPhreaticLine3);
+            Assert.AreEqual(1.5, input.LeakageLengthOutwardsPhreaticLine4);
+            Assert.AreEqual(1.6, input.LeakageLengthInwardsPhreaticLine4);
             Assert.AreEqual(0.3, input.PiezometricHeadPhreaticLine2Outwards);
             Assert.AreEqual(0.4, input.PiezometricHeadPhreaticLine2Inwards);
             Assert.AreEqual(0.5, input.PenetrationLengthExtreme);

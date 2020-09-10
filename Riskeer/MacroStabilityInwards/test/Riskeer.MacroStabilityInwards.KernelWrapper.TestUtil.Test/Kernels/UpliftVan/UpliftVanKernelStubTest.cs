@@ -133,9 +133,9 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernels.Upli
             IEnumerable<Message> results = calculator.CalculationMessages.ToList();
             Assert.IsTrue(calculator.Calculated);
             Assert.AreEqual(3, results.Count());
-            MessageHelper.AssertMessage(MessageType.Info, "Calculation Info", results.ElementAt(0));
-            MessageHelper.AssertMessage(MessageType.Warning, "Calculation Warning", results.ElementAt(1));
-            MessageHelper.AssertMessage(MessageType.Error, "Calculation Error", results.ElementAt(2));
+            MessageHelper.AssertMessage(MessageType.Warning, "Calculation Warning", results.ElementAt(0));
+            MessageHelper.AssertMessage(MessageType.Error, "Calculation Error", results.ElementAt(1));
+            MessageHelper.AssertMessage(MessageType.Info, "Calculation Info", results.ElementAt(2));
         }
 
         [Test]
