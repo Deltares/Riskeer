@@ -23,23 +23,22 @@ using System;
 using System.ComponentModel;
 using Deltares.MacroStability.CSharpWrapper;
 using Deltares.MacroStability.CSharpWrapper.Input;
-using Deltares.MacroStability.WaternetCreator;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
 {
     /// <summary>
-    /// Creates <see cref="Location"/> instances which are required by <see cref="IUpliftVanKernel"/>.
+    /// Creates <see cref="WaternetCreatorInput"/> instances which are required by <see cref="IUpliftVanKernel"/>.
     /// </summary>
     internal static class UpliftVanWaternetCreatorInputCreator
     {
         /// <summary>
-        /// Creates a <see cref="Location"/> based on the given <paramref name="input"/> under extreme circumstances,
+        /// Creates a <see cref="WaternetCreatorInput"/> based on the given <paramref name="input"/> under extreme circumstances,
         /// which can be used by <see cref="IUpliftVanKernel"/>.
         /// </summary>
         /// <param name="input">The <see cref="UpliftVanCalculatorInput"/> to get the information from.</param>
-        /// <returns>A new <see cref="Location"/> with the given information from <paramref name="input"/>.</returns>
+        /// <returns>A new <see cref="WaternetCreatorInput"/> with the given information from <paramref name="input"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="input"/> is <c>null</c>.</exception>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <see cref="UpliftVanCalculatorInput.DikeSoilScenario"/>,
         /// <see cref="UpliftVanCalculatorInput.WaternetCreationMode"/> or <see cref="UpliftVanCalculatorInput.PlLineCreationMethod"/>

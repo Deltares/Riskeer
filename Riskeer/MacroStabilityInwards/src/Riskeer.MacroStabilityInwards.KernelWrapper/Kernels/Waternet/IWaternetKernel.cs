@@ -21,7 +21,6 @@
 
 using System.Collections.Generic;
 using Deltares.MacroStability.CSharpWrapper.Output;
-using Deltares.MacroStability.Standard;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Waternet;
 using CSharpWrapperWaternet = Deltares.MacroStability.CSharpWrapper.Waternet;
 
@@ -54,7 +53,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.Waternet
         /// <summary>
         /// Validates the input for the Waternet calculation.
         /// </summary>
-        /// <returns>An <see cref="IEnumerable{T}"/> of <see cref="IValidationResult"/> objects.</returns>
+        /// <returns>An <see cref="IEnumerable{T}"/> of <see cref="Message"/> objects.</returns>
         /// <exception cref="WaternetKernelWrapperException">Thrown when 
         /// an error occurs when performing the validation.</exception>
         IEnumerable<Message> Validate();

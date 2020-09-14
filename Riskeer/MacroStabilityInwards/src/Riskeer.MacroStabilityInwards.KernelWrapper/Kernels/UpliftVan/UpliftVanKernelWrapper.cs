@@ -24,7 +24,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Deltares.MacroStability.CSharpWrapper;
 using Deltares.MacroStability.CSharpWrapper.Output;
-using Riskeer.Common.Primitives.Properties;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan
 {

@@ -23,7 +23,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Deltares.MacroStability.CSharpWrapper;
 using Deltares.MacroStability.CSharpWrapper.Input;
-using Deltares.MacroStability.Data;
 using NUnit.Framework;
 using ConstructionStage = Deltares.MacroStability.CSharpWrapper.Input.ConstructionStage;
 using SlipPlaneConstraints = Deltares.MacroStability.CSharpWrapper.Input.SlipPlaneConstraints;
@@ -51,8 +50,8 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan
         /// <summary>
         /// Asserts whether <paramref name="actual"/> is equal to <paramref name="expected"/>.
         /// </summary>
-        /// <param name="expected">The expected <see cref="SlipPlaneUpliftVan"/>.</param>
-        /// <param name="actual">The actual <see cref="SlipPlaneUpliftVan"/>.</param>
+        /// <param name="expected">The expected <see cref="UpliftVanCalculationGrid"/>.</param>
+        /// <param name="actual">The actual <see cref="UpliftVanCalculationGrid"/>.</param>
         /// <exception cref="AssertionException">Thrown when <paramref name="actual"/>
         /// is not equal to <paramref name="expected"/>.</exception>
         public static void AssertUpliftVanCalculationGrid(UpliftVanCalculationGrid expected, UpliftVanCalculationGrid actual)
@@ -146,8 +145,8 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan
         /// <summary>
         /// Asserts whether <paramref name="actual"/> is equal to <paramref name="expected"/>.
         /// </summary>
-        /// <param name="expected">The expected <see cref="SlipCircleGrid"/>.</param>
-        /// <param name="actual">The actual <see cref="SlipCircleGrid"/>.</param>
+        /// <param name="expected">The expected <see cref="CalculationGrid"/>.</param>
+        /// <param name="actual">The actual <see cref="CalculationGrid"/>.</param>
         /// <exception cref="AssertionException">Thrown when <paramref name="actual"/>
         /// is not equal to <paramref name="expected"/>.</exception>
         private static void AssertCalculationGrid(CalculationGrid expected, CalculationGrid actual)
