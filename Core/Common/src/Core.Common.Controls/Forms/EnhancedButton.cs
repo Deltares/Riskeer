@@ -31,15 +31,15 @@ namespace Core.Common.Controls.Forms
         const uint WM_LBUTTONDOWN = 0x201;
         const uint WM_LBUTTONUP = 0x202;
 
-        protected override void WndProc(ref Message message)
+        protected override void WndProc(ref Message m)
         {
-            if (message.Msg == WM_LBUTTONUP)
+            if (m.Msg == WM_LBUTTONUP)
             {
-                SimulateMouseClick(ref message);
+                SimulateMouseClick(ref m);
             }
             else
             {
-                base.WndProc(ref message);
+                base.WndProc(ref m);
             }
         }
 
