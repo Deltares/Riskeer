@@ -73,6 +73,8 @@ All rights reserved.
                     <fluent:BackstageTabControl>
                         <fluent:Button Header="{x:Static properties:Resources.Ribbon_Command_New}"
                                        x:Name="ButtonMenuFileNewProject"
+                                       AutomationProperties.AutomationId="ButtonMenuFileNewProject"
+                                       AutomationProperties.Name="ButtonMenuFileNewProject"
                                        Icon="/Core.Common.Gui;component\Resources\DocumentHS.png"
                                        fluent:KeyTip.Keys="N"
                                        Click="OnFileNewClicked" x:FieldModifier="private" />
@@ -85,12 +87,14 @@ All rights reserved.
 
                         <fluent:Button Header="{x:Static properties:Resources.Ribbon_Command_Save_As}"
                                        x:Name="ButtonMenuFileSaveProjectAs"
+                                       AutomationProperties.AutomationId="ButtonMenuFileSaveProjectAs"
                                        Icon="/Core.Common.Gui;component\Resources\SaveAsHH.png"
                                        fluent:KeyTip.Keys="A" 
                                        Click="OnFileSaveAsClicked" x:FieldModifier="private" />
 
                         <fluent:Button Header="{x:Static properties:Resources.Ribbon_Command_Open}"
                                        x:Name="ButtonMenuFileOpenProject"
+                                       AutomationProperties.AutomationId= "ButtonMenuFileOpenProject"
                                        Icon="/Core.Common.Gui;component\Resources\openfolderHS.png"
                                        fluent:KeyTip.Keys="O"
                                        Click="OnFileOpenClicked" x:FieldModifier="private" />
@@ -119,6 +123,8 @@ All rights reserved.
                 <fluent:QuickAccessMenuItem IsChecked="True">
                     <fluent:Button Header="{x:Static properties:Resources.Ribbon_Command_New}"
                                     x:Name="ButtonQuickAccessNewProject"
+                                    AutomationProperties.AutomationId="ButtonQuickAccessNewProject"
+                                    AutomationProperties.Name="ButtonQuickAccessNewProject"
                                     Icon="/Core.Common.Gui;component\Resources\DocumentHS.png"
                                     Click="OnFileNewClicked"/>
                 </fluent:QuickAccessMenuItem>
@@ -126,6 +132,8 @@ All rights reserved.
                 <fluent:QuickAccessMenuItem IsChecked="True">
                     <fluent:Button Header="{x:Static properties:Resources.Ribbon_Command_Open}"
                                    x:Name="ButtonQuickAccessOpenProject"
+                                   AutomationProperties.AutomationId="ButtonQuickAccessOpenProject"
+                                   AutomationProperties.Name="ButtonQuickAccessOpenProject"
                                    Icon="/Core.Common.Gui;component\Resources\openfolderHS.png"
                                    Click="OnFileOpenClicked" />
                 </fluent:QuickAccessMenuItem>
@@ -133,6 +141,8 @@ All rights reserved.
                 <fluent:QuickAccessMenuItem IsChecked="True">
                     <fluent:Button Header="{x:Static properties:Resources.Ribbon_Command_Save}" 
                                    x:Name="ButtonQuickAccessSaveProject"
+                                   AutomationProperties.AutomationId="ButtonQuickAccessSaveProject"
+                                   AutomationProperties.Name="ButtonQuickAccessSaveProject"
                                    Icon="/Core.Common.Gui;component\Resources\saveHS.png"
                                    Click="OnFileSaveClicked" />
                 </fluent:QuickAccessMenuItem>

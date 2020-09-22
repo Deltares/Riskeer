@@ -82,6 +82,7 @@ namespace Core.Common.Gui.Test.Forms.MainWindow
                 Assert.AreEqual("MainWindow", mainWindow.Title);
                 Assert.AreEqual(ResizeMode.CanResizeWithGrip, mainWindow.ResizeMode);
                 Assert.AreEqual(FlowDirection.LeftToRight, mainWindow.FlowDirection);
+                Assert.AreEqual("RiskeerMainWindow", mainWindow.Name);
             }
         }
 

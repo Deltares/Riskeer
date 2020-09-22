@@ -50,6 +50,7 @@ namespace Riskeer.Common.Forms.Test.Views
                 Assert.IsInstanceOf<ISelectionProvider>(control);
                 Assert.IsNull(control.Data);
                 Assert.IsNull(control.Selection);
+                Assert.AreEqual("IllustrationPointsFaultTreeControl", control.Name);
 
                 Assert.AreEqual(1, control.Controls.Count);
                 var pointedTreeGraphControl = control.Controls[0] as PointedTreeGraphControl;

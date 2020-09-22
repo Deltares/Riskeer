@@ -88,6 +88,7 @@ namespace Core.Common.Gui.Forms.MainWindow
             InitializeComponent();
 
             windowInteropHelper = new WindowInteropHelper(this);
+            Name = "RiskeerMainWindow";
         }
 
         /// <summary>

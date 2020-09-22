@@ -47,6 +47,7 @@ namespace Riskeer.Common.Forms.Views
         {
             InitializeComponent();
             InitializeEventHandlers();
+            Name = "IllustrationPointsFaultTreeControl";
         }
 
         /// <summary>

@@ -67,6 +67,7 @@ namespace Core.Common.Gui.Forms.PropertyGridView
             PropertySort = PropertySort.Categorized;
 
             this.propertyResolver = propertyResolver;
+            Name = "PropertiesPanelGridView";
         }
 
         public void UpdateObserver()

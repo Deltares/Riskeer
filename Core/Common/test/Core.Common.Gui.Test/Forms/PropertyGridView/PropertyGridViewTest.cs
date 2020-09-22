@@ -38,11 +38,11 @@ namespace Core.Common.Gui.Test.Forms.PropertyGridView
         public void Constructor_PropertyResolverIsNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new Gui.Forms.PropertyGridView.PropertyGridView(null);
+            void Call() => new Gui.Forms.PropertyGridView.PropertyGridView(null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("propertyResolver", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("propertyResolver", exception.ParamName);
         }
 
         [Test]
@@ -61,6 +61,7 @@ namespace Core.Common.Gui.Test.Forms.PropertyGridView
                 Assert.IsInstanceOf<IView>(propertyGridView);
                 Assert.IsNull(propertyGridView.Data);
                 Assert.AreEqual(PropertySort.Categorized, propertyGridView.PropertySort);
+                Assert.AreEqual("PropertiesPanelGridView", propertyGridView.Name);
 
                 ToolStrip toolStrip = propertyGridView.Controls.OfType<ToolStrip>().First();
                 Assert.AreEqual("Gecategoriseerd", toolStrip.Items[0].ToolTipText);
