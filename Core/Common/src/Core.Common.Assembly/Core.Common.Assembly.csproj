@@ -1,0 +1,10 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="$(SolutionDir)\build\Source.targets" />
+  <ItemGroup>
+    <None Include="..\..\..\..\build\Copying.Lesser.licenseheader" Link="Copying.Lesser.licenseheader" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+  </ItemGroup>
+</Project>
