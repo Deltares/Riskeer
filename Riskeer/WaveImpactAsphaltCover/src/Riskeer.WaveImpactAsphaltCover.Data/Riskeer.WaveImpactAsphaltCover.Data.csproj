@@ -30,4 +30,5 @@
     <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Primitives\Riskeer.Common.Primitives.csproj"/>
     <ProjectReference Include="..\..\..\Revetment\src\Riskeer.Revetment.Data\Riskeer.Revetment.Data.csproj"/>
   </ItemGroup>
+  <Import Project="$(SolutionDir)\build\PreBuild.targets" />
 </Project>

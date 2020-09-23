@@ -33,6 +33,7 @@ using System.Threading;
 using System.Windows;
 using System.Windows.Controls.Primitives;
 using System.Windows.Forms;
+using Core.Common.Assembly;
 using Core.Common.Gui;
 using Core.Common.Gui.Appenders;
 using Core.Common.Gui.Forms.MainWindow;
@@ -80,7 +81,7 @@ namespace Application.Riskeer
 
         private const int numberOfDaysToKeepLogFiles = 30;
 
-        private static readonly ILog log = LogManager.GetLogger(typeof(App));
+        private readonly ILog log;
 
         private GuiCore gui;
         private static int waitForProcessId = -1;
@@ -88,8 +89,12 @@ namespace Application.Riskeer
 
         private static Mutex singleInstanceMutex;
 
-        static App()
+        public App()
         {
+            SetupAssemblyResolver();
+
+            log = LogManager.GetLogger(typeof(App));
+
             SettingsHelper.Instance = new RiskeerSettingsHelper();
             SetLanguage();
 
@@ -101,10 +106,41 @@ namespace Application.Riskeer
 
         private delegate void ExceptionDelegate(Exception exception);
 
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            base.OnStartup(e);
+        }
+
         protected override void OnExit(ExitEventArgs e)
         {
             singleInstanceMutex?.ReleaseMutex();
             base.OnExit(e);
+        }
+
+        private static void SetupAssemblyResolver()
+        {
+            string assemblyDirectory = Path.Combine(
+                Directory.GetParent(Assembly.GetExecutingAssembly().Location).FullName,
+                "Application");
+
+            Assembly GetAssemblyResolver(object sender, ResolveEventArgs args)
+            {
+                return Assembly.LoadFile(Path.Combine(assemblyDirectory, "Core.Common.Assembly.dll"));
+            }
+
+            AppDomain.CurrentDomain.AssemblyResolve += GetAssemblyResolver;
+
+            InitializeAssemblyResolver(assemblyDirectory);
+
+            AppDomain.CurrentDomain.AssemblyResolve -= GetAssemblyResolver;
+        }
+
+        private static void InitializeAssemblyResolver(string assemblyDirectory)
+        {
+            if (AssemblyResolver.RequiresInitialization)
+            {
+                AssemblyResolver.Initialize(assemblyDirectory);
+            }
         }
 
         /// <summary>

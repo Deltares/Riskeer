@@ -1,17 +1,10 @@
 <Project>
   <PropertyGroup>
     <TestProjectType>UnitTest</TestProjectType>
+    <OutputPath>\bin\$(Configuration)\</OutputPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseForCodeCoverage|x86'">
     <DebugType>none</DebugType>
   </PropertyGroup>
   <Import Project="$(SolutionDir)\build\Source.targets" />
-  <Target Name="CopyTestData" AfterTargets="Build">
-    <ItemGroup>
-      <MySourceFiles Include="$(ProjectDir)test-data\**\*.*"/>
-    </ItemGroup>
-    <Copy SourceFiles="@(MySourceFiles)"
-	      DestinationFiles="@(MySourceFiles->'$(OutDir)test-data\$(ProjectName)\%(RecursiveDir)%(Filename)%(Extension)')"
-		  SkipUnchangedFiles="true"/>
-  </Target> 
 </Project>

@@ -99,6 +99,8 @@
     </PackageReference>
     <PackageReference Include="Fluent.Ribbon">
       <Version>3.4.0</Version>
+      <GeneratePathProperty>true</GeneratePathProperty>
+      <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="log4net">
       <Version>2.0.8</Version>
@@ -120,4 +122,8 @@
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <Exec Command="xcopy &quot;$(ProjectDir)nl&quot; &quot;$(OutDir)\nl\*&quot; /D /S /Y" />
   </Target>
+  <PropertyGroup>
+    <PostBuildEvent>xcopy /d/s/y $(PkgFluent_Ribbon)\lib\net45\* $(OutDir)\..\Externals\Fluent\*</PostBuildEvent>
+  </PropertyGroup>
+  <Import Project="$(SolutionDir)\build\PreBuild.targets" />
 </Project>

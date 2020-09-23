@@ -36,4 +36,5 @@
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <Exec Command="xcopy &quot;$(ProjectDir)HydraRing&quot; &quot;$(OutDir)\HydraRing\*&quot; /D /S /Y" />
   </Target>
+  <Import Project="$(SolutionDir)\build\PreBuild.targets" />
 </Project>

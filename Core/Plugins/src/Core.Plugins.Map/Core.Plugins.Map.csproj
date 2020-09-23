@@ -80,6 +80,8 @@
   <ItemGroup>
     <PackageReference Include="Fluent.Ribbon">
       <Version>3.4.0</Version>
+      <GeneratePathProperty>true</GeneratePathProperty>
+      <PrivateAssets>all</PrivateAssets>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
@@ -95,4 +97,8 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
+  <PropertyGroup>
+    <PostBuildEvent>xcopy /d/s/y $(PkgFluent_Ribbon)\lib\net45\* $(OutDir)\..\Externals\Fluent\*</PostBuildEvent>
+  </PropertyGroup>
+  <Import Project="$(SolutionDir)\build\PreBuild.targets" />
 </Project>

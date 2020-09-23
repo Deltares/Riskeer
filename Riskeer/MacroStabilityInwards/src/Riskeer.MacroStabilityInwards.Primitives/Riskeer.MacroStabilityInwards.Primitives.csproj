@@ -35,4 +35,5 @@
     </EmbeddedResource>
   </ItemGroup>
 
+  <Import Project="$(SolutionDir)\build\PreBuild.targets" />
 </Project>

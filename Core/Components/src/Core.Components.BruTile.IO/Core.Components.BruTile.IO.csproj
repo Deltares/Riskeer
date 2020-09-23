@@ -35,4 +35,5 @@
       <Version>2.2.4</Version>
     </PackageReference>
   </ItemGroup>
+  <Import Project="$(SolutionDir)\build\PreBuild.targets" />
 </Project>

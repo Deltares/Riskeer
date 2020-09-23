@@ -1,10 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <Import Project="$(SolutionDir)\build\Source.targets" />
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <AssemblyName>Riskeer</AssemblyName>
     <ApplicationIcon>Riskeer.ico</ApplicationIcon>
+    <OutputPath>$(SolutionDir)\bin\$(Configuration)\</OutputPath>
   </PropertyGroup>
+  <Import Project="$(SolutionDir)\build\Source.targets" />
   <ItemGroup>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -25,6 +26,7 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Assembly\Core.Common.Assembly.csproj" />
     <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj">
       <Private>False</Private>
     </ProjectReference>
@@ -109,6 +111,8 @@
   <ItemGroup>
     <PackageReference Include="Fluent.Ribbon">
       <Version>3.4.0</Version>
+      <GeneratePathProperty>true</GeneratePathProperty>
+      <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="log4net">
       <Version>2.0.8</Version>
@@ -120,4 +124,8 @@
       <Version>1.0.109</Version>
     </PackageReference>
   </ItemGroup>
+  <PropertyGroup>
+    <PostBuildEvent>xcopy /d/s/y $(PkgFluent_Ribbon)\lib\net45\* $(OutDir)\Externals\Fluent\*</PostBuildEvent>
+  </PropertyGroup>
+  <Import Project="$(SolutionDir)\build\PreBuild.targets" />
 </Project>

@@ -35,4 +35,5 @@
     <ProjectReference Include="..\Riskeer.WaveImpactAsphaltCover.IO\Riskeer.WaveImpactAsphaltCover.IO.csproj"/>
     <ProjectReference Include="..\Riskeer.WaveImpactAsphaltCover.Service\Riskeer.WaveImpactAsphaltCover.Service.csproj"/>
   </ItemGroup>
+  <Import Project="$(SolutionDir)\build\PreBuild.targets" />
 </Project>
