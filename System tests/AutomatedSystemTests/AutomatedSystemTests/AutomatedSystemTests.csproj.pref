@@ -1,14 +1,16 @@
 ﻿<Properties>
   <Array name="active">
-    <Element value="Recording1.rxrec" />
+    <Element value="AutomatedSystemTests.rxtst" />
   </Array>
   <Array name="bookmarks" />
   <Array name="files">
     <Element value="AutomatedSystemTests.rxtst" />
-    <Element value="StartAUT.rxrec" />
-    <Element value="Recording1.rxrec" />
+    <Element value="OpenProject.rxrec" />
   </Array>
   <Properties name="projectSavedData">
-    <Array name="recentusercodeselections" />
+    <Array name="recentusercodeselections">
+      <Element value="AutomatedSystemTests.CloseAUT.ClickButtonNoIfDialogShown(RepoItemInfo buttonInfo)" />
+      <Element value="AutomatedSystemTests.CloseAUT.Mouse_Click_ButtonNo(RepoItemInfo buttonInfo)" />
+    </Array>
   </Properties>
 </Properties>

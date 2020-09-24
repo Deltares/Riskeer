@@ -37,12 +37,65 @@ name="AutomatedSystemTestsRepository">
 				refimgid="00d59aef-a594-4f1a-bb4f-a1d44f05191c"
 				searchtimeout="30000ms"
 				usecache="True">
+					<folder
+					capname="treeitem"
+					id="3bb01c51-3d9c-4c3f-adc4-408396425ed8"
+					isrooted="True"
+					name="TrajectWithSubstringInName"
+					refimgid="6748b979-d963-4540-b8a3-bfc97c2b6b3c"
+					searchtimeout="30000ms"
+					usecache="False">
+						<item
+						addcaps="treeitem,accessible,accessibletreeitem"
+						capname="treeitem"
+						id="92f53398-7bb2-45f8-a305-0adb56ec8aa7"
+						name="GenericItemWithSubstringInName"
+						refimgid="260218f3-a9bd-4cfa-803e-def773275879"
+						searchtimeout="30000ms">
+							/form[@automationid='RiskeerMainWindow']//container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]/treeitem[@accessiblename~$substringTrajectName]/treeitem[@accessiblename~$substringItemName]
+						</item>
+						<basepath>
+							/form[@automationid='RiskeerMainWindow']//container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]/treeitem[@accessiblename~$substringTrajectName]
+						</basepath>
+					</folder>
 					<basepath>
 						/form[@automationid='RiskeerMainWindow']//container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]
 					</basepath>
 				</folder>
 				<basepath>
 					/form[@automationid='RiskeerMainWindow']//container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']
+				</basepath>
+			</folder>
+			<folder
+			capname="menubar"
+			id="c92795a7-9101-49d1-a0da-9036c4491cb2"
+			isrooted="True"
+			name="Ribbon"
+			searchtimeout="30000ms"
+			usecache="True">
+				<folder
+				capname="container"
+				id="ad33bdf4-926b-4708-9063-9df7f2f47498"
+				isrooted="True"
+				name="ButtonContainer"
+				searchtimeout="30000ms"
+				usecache="False">
+					<item
+					addcaps="button,wpfelement,wpfgroupelement"
+					capname="button"
+					id="199b3b31-3000-4083-9b32-a3b12ac2844a"
+					name="OpenProjectButton"
+					refimgid="1f91bbc7-5c47-44e1-be8d-ca9077b651b3"
+					refpath="/form[@automationid='RiskeerMainWindow']/menubar[@automationid='Ribbon']/container[@automationid='PART_ToolBarPanel']/button[2]"
+					searchtimeout="30000ms">
+						/form[@automationid='RiskeerMainWindow']/menubar[@automationid='Ribbon']/container[@automationid='PART_ToolBarPanel']/button[2]
+					</item>
+					<basepath>
+						/form[@automationid='RiskeerMainWindow']/menubar[@automationid='Ribbon']/container[@automationid='PART_ToolBarPanel']
+					</basepath>
+				</folder>
+				<basepath>
+					/form[@automationid='RiskeerMainWindow']/menubar[@automationid='Ribbon']
 				</basepath>
 			</folder>
 			<basepath>
@@ -92,9 +145,89 @@ cor/gNcOEsgoM65/gccbZUCga+e1nzvOaKzh8cIu3Kv8fPlR7YWrm5fehuIbzd7ZEgTfW6GQyBsS
 FjcAAAAASUVORK5CYII=
 			</icon>
 		</appfolder>
+		<appfolder
+		capname="form"
+		id="c507fecb-03d6-49f4-b5b8-7b6a4349c6de"
+		isrooted="True"
+		name="OpenDialog"
+		refpath="/form[@title='Openen']"
+		searchtimeout="30000ms"
+		usecache="True">
+			<item
+			addcaps="text,nativewindow"
+			capname="text"
+			id="6605374b-06f5-4614-99d7-445816f0207d"
+			name="FileNameField"
+			refimgid="7ddc0ddc-89a2-427a-a9a6-739f4d236898"
+			refpath="/form[@title='Openen']/combobox[@controlid='1148']/text[@controlid='1148']"
+			searchtimeout="30000ms">
+				/form[@title='Openen']/?/?/text[@controlid='1148']
+			</item>
+			<item
+			addcaps="button,nativewindow"
+			capname="button"
+			id="cbbe1268-3660-4dd4-a308-278fbe50bc01"
+			name="ButtonOpen"
+			refimgid="ddcb4a10-d905-4e3a-80e6-db0c94dc7fc6"
+			refpath="/form[@title='Openen']/button[@text='&amp;Open']"
+			searchtimeout="30000ms">
+				/form[@title='Openen']/button[@text='&amp;Open']
+			</item>
+			<basepath>
+				/form[@title='Openen']
+			</basepath>
+			<icon>
+				iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlz
+AAAOxAAADsQBlSsOGwAAATJJREFUOE+NkjtrAkEUhfefaJfKHxBSBtJZikUKq0BII6iQdrtIErAx
+aZJAKgvFzsZKQoqAdpJmhbAI6awCFlpt+Ma94+ydzeODC8uZc+489gaak8dG6/ih/llsVxK30FhL
+bT6Fq2rx8O58pYO68OBNYzsQDm5PtxiO7i+SwXySfG3WicA3Gmt48GaayM7NUTcT1LCGR05iwtwL
+4Wx4ndp2hGGYKRe8ZMyb8DilTs3b+bcGeMmQDeTomjiOTRGOoihV98hVTIPxYmpEvetPBWRsg7fl
+uxG10T2FW0DGawAS1GjdNuAhnmYjI7q7UEKeTsY8Ir+CAYE8I+TpZOxoMxRyiv+A1w4SyCgzrn+B
+xxtlQKBr57WfO85orOHxwi7cq/x8+VHthaubl96G4hvN3tkSBN9boZDIGxIWNwAAAABJRU5ErkJg
+gg==
+			</icon>
+		</appfolder>
+		<appfolder
+		capname="form"
+		id="6992b395-923d-4913-be11-dc9d7fa075dc"
+		isrooted="True"
+		name="ActivityProgressDialog"
+		refpath="/form[@controlname='ActivityProgressDialog']"
+		searchtimeout="30000ms"
+		usecache="True">
+			<item
+			addcaps="progressbar,control,nativewindow"
+			capname="progressbar"
+			id="626cf7e9-229f-443b-8711-8359ac8e9d95"
+			name="ProgressBar"
+			refimgid="73e2b350-8cc8-4194-977c-a4ee62cbfb80"
+			searchtimeout="30000ms">
+				/form[@controlname='ActivityProgressDialog']/progressbar[@controlname='progressBar']
+			</item>
+			<basepath>
+				/form[@controlname='ActivityProgressDialog']
+			</basepath>
+			<icon>
+				iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlz
+AAAOxAAADsQBlSsOGwAAAQVJREFUOE9jwAbku0INTCalXlHoCP0Pw7p98R1QadxAvj1cAVkTNmw4
+IekCVDkqkG8PTYAp8pxX8v/xh1f/kcHqS/tRDIJqgwBkmz/++ALVgh0Ub5kCVqfeHfUDqp2BAaYZ
+GTQ0NKBgZAAzBORqcICBOOhOxmcACMAsZYCFNqng6sv7EANAROOe+WDB9evXY7UVWQykBgbgBhx/
+eAUsgKwQH4YBDAPIcgEohYFClRBANhAGwAbAohEEkG1C1oBNfOetU//1JiTcBxsASp4gb2BTCALY
+xOG2wwBIgFAqhAFQUpfvDAuAakUAUPIExS8+gFMzDMAyFSjzwAAolYICGu5nOGBgAABoAoFZQCYT
+cwAAAABJRU5ErkJggg==
+			</icon>
+		</appfolder>
 		<basepath>
 		</basepath>
 	</rootfolder>
 	<variables>
+		<var
+		id="77ae6c27-603e-4704-add9-e1249169f0e5"
+		name="substringTrajectName">
+		</var>
+		<var
+		id="3a7276c1-fca1-4026-9d2e-5bac10651a47"
+		name="substringItemName">
+		</var>
 	</variables>
 </repository>

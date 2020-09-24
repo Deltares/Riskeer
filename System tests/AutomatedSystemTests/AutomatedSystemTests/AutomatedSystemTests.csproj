@@ -143,20 +143,20 @@
       <UserCode>true</UserCode>
       <id>99e4a5ba-b748-433b-936c-1f44daec08ed</id>
     </Compile>
+    <Compile Include="OpenProject.cs">
+      <BoundTo>5d1e103b-c666-4258-a32a-74d8fe397026</BoundTo>
+      <DependentUpon>OpenProject.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>46454a6a-f8b6-49ef-b3f8-a3f39bc673e5</id>
+    </Compile>
+    <Compile Include="OpenProject.UserCode.cs">
+      <BoundTo>5d1e103b-c666-4258-a32a-74d8fe397026</BoundTo>
+      <DependentUpon>OpenProject.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>b033024c-4757-4c74-87fa-f5c6b3daef0e</id>
+    </Compile>
     <Compile Include="Program.cs">
       <id>fe704264-7ebd-4c5a-b96f-f5192c4d2944</id>
-    </Compile>
-    <Compile Include="TestRecording.cs">
-      <BoundTo>c8e40c8b-da32-44bd-9946-22a8a23c792f</BoundTo>
-      <DependentUpon>TestRecording.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>cebd5412-7b12-4478-9c0b-2c65b1a86970</id>
-    </Compile>
-    <Compile Include="TestRecording.UserCode.cs">
-      <BoundTo>c8e40c8b-da32-44bd-9946-22a8a23c792f</BoundTo>
-      <DependentUpon>TestRecording.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>2ef0f368-cba7-4716-b597-6469dd549107</id>
     </Compile>
     <Compile Include="StartAUT.cs">
       <BoundTo>8f7fe1fa-f1ef-4825-8e3a-6a13124b5fbc</BoundTo>
@@ -169,6 +169,18 @@
       <DependentUpon>StartAUT.rxrec</DependentUpon>
       <UserCode>true</UserCode>
       <id>f103591c-470f-43f6-9be6-e6eb74067b9c</id>
+    </Compile>
+    <Compile Include="ValidateNode.cs">
+      <BoundTo>7be6f2c7-899a-473a-916d-727696d7051f</BoundTo>
+      <DependentUpon>ValidateNode.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>5f11ecdd-5d95-492a-8f08-5081b38cba9f</id>
+    </Compile>
+    <Compile Include="ValidateNode.UserCode.cs">
+      <BoundTo>7be6f2c7-899a-473a-916d-727696d7051f</BoundTo>
+      <DependentUpon>ValidateNode.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>ea5eedab-25f7-4631-b91f-f03881b952bb</id>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -191,15 +203,23 @@
       <id>cb95bf1c-596d-4a04-b8ec-bb98b0333f75</id>
       <recordtableid>07688822-3eb6-4d71-a97b-33498ae1d748</recordtableid>
     </None>
-    <None Include="TestRecording.rxrec">
+    <None Include="Data\script21\Faalkans-project.risk">
+      <id>49689626-d9fe-4bbf-ad9c-3d0ab683cfce</id>
+    </None>
+    <None Include="OpenProject.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>c8e40c8b-da32-44bd-9946-22a8a23c792f</id>
-      <recordtableid>9be9bd50-41eb-4328-bf9d-8c1e40e6f65f</recordtableid>
+      <id>5d1e103b-c666-4258-a32a-74d8fe397026</id>
+      <recordtableid>3f746bb2-6845-45b4-9b28-b7fd605378f3</recordtableid>
     </None>
     <None Include="StartAUT.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>8f7fe1fa-f1ef-4825-8e3a-6a13124b5fbc</id>
       <recordtableid>825ce2a6-cd3b-42f6-9972-8ced75f1a54f</recordtableid>
+    </None>
+    <None Include="ValidateNode.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>7be6f2c7-899a-473a-916d-727696d7051f</id>
+      <recordtableid>906330ec-73fa-48a5-91c6-ed42eabd4771</recordtableid>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -211,6 +231,14 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <id>3253c1bd-a517-45e9-96ad-e70b88e902c5</id>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Data">
+      <id>0876088b-059e-4c05-b2cd-fd3184c818bf</id>
+    </Folder>
+    <Folder Include="Data\script21">
+      <id>419bce8c-20e8-4863-970a-94ef1e44c8dc</id>
+    </Folder>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(RanorexTargetsPath)" Condition="Exists('$(RanorexTargetsPath)')" />

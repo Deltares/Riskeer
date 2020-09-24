@@ -2,7 +2,49 @@
 <testsuitedoc>
 	<testsuiteentryhierarchy>
 		<flatlistofchildren>
+			<smartfoldernode
+			id="0bbfd560-88d6-4516-bf12-c27a1fe6f4b9"
+			name="ValidateFMsPresentInTrajects">
+			</smartfoldernode>
 			<testmodule
+			id="3039d6a4-5dde-44dd-801c-e0629eec29fd"
+			name="ValidateNode"
+			ref="906330ec-73fa-48a5-91c6-ed42eabd4771"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="TextInTrajectName"
+					datasourceid="e7354d9e-0cbd-44f9-8420-b994cf2180e3"
+					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
+					variablename="substringTrajectName">
+					</var>
+					<var
+					dataname="NameFM"
+					datasourceid="24af1f45-008d-4bb7-a60c-90f42ab75efc"
+					variableid="3a7276c1-fca1-4026-9d2e-5bac10651a47"
+					variablename="substringItemName">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
+			id="40f1060d-68a7-4664-8a57-a4f610737466"
+			name="OpenProject"
+			ref="3f746bb2-6845-45b4-9b28-b7fd605378f3"
+			type="Recording">
+				<description>
+					<![CDATA[Open the given project]]>
+				</description>
+				<databinding>
+					<var
+					dataname="relativePathFileToOpen"
+					datasourceid="a42d9062-00d5-4260-bbf0-70457be6fe78"
+					variableid="3c870d6e-0774-4179-b1f4-65350b234510"
+					variablename="fileNameToOpen">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
+			enabled="False"
 			id="573f01a7-79df-46ca-be8c-dd429342d717"
 			name="CloseAUT"
 			ref="07688822-3eb6-4d71-a97b-33498ae1d748"
@@ -16,12 +58,11 @@
 					</var>
 				</databinding>
 			</testmodule>
-			<testmodule
-			id="7f196b41-fdc5-4bec-964e-d830c925d358"
-			name="TestRecording"
-			ref="9be9bd50-41eb-4328-bf9d-8c1e40e6f65f"
-			type="Recording">
-			</testmodule>
+			<smartfoldernode
+			datasource="listWithNamesFMs"
+			id="921c41ea-9f72-4d4f-bfe2-a7f2f0365468"
+			name="LoopFMs">
+			</smartfoldernode>
 			<setup
 			id="96337f21-01ec-4e24-8cc0-5f1f26b5d326"
 			name="setup">
@@ -45,6 +86,11 @@
 			reporttemplatefolder=""
 			reportwriteinterval="30000ms">
 			</testsuite>
+			<smartfoldernode
+			datasource="ListTrajectsNames"
+			id="d34200d9-5186-497e-9e06-4276b43682ad"
+			name="LoopTrajects">
+			</smartfoldernode>
 			<testmodule
 			id="d9cb81d2-4288-435b-af5a-0ef03e953f87"
 			name="StartAUT"
@@ -63,6 +109,11 @@
 			id="f16b204f-b66b-40a0-82c1-8d62dcbc8b22"
 			name="script21">
 			</testcase>
+			<smartfoldernode
+			datasource="FileToOpen"
+			id="f5d0be3d-2759-45ad-91aa-cd3a341517b3"
+			name="OpenFaalkansProject">
+			</smartfoldernode>
 			<testcase
 			id="fda567a0-be92-41b9-9761-e7e7d9e7be7f"
 			name="AutomatedSystemTests"
@@ -97,10 +148,30 @@
 							name="StartAUT">
 							</testmodule>
 						</setup>
-						<testmodule
-						id="7f196b41-fdc5-4bec-964e-d830c925d358"
-						name="TestRecording">
-						</testmodule>
+						<smartfoldernode
+						id="f5d0be3d-2759-45ad-91aa-cd3a341517b3"
+						name="OpenFaalkansProject">
+							<testmodule
+							id="40f1060d-68a7-4664-8a57-a4f610737466"
+							name="OpenProject">
+							</testmodule>
+						</smartfoldernode>
+						<smartfoldernode
+						id="0bbfd560-88d6-4516-bf12-c27a1fe6f4b9"
+						name="ValidateFMsPresentInTrajects">
+							<smartfoldernode
+							id="d34200d9-5186-497e-9e06-4276b43682ad"
+							name="LoopTrajects">
+								<smartfoldernode
+								id="921c41ea-9f72-4d4f-bfe2-a7f2f0365468"
+								name="LoopFMs">
+									<testmodule
+									id="3039d6a4-5dde-44dd-801c-e0629eec29fd"
+									name="ValidateNode">
+									</testmodule>
+								</smartfoldernode>
+							</smartfoldernode>
+						</smartfoldernode>
 						<teardown
 						id="fe1f0dec-30d6-4abc-b123-d9b0e01f7bf6"
 						name="teardown">
@@ -115,13 +186,82 @@
 		</childhierarchy>
 	</testsuiteentryhierarchy>
 	<datasources>
+		<DataSource
+		id="a42d9062-00d5-4260-bbf0-70457be6fe78"
+		includefile="Unchecked"
+		lastknownrowcount="1"
+		name="FileToOpen"
+		type="Ranorex.Core.Data.CsvDataConnector"
+		withheaders="True">
+			<lastknowncolumns>
+				<column>
+					relativePathFileToOpen
+				</column>
+			</lastknowncolumns>
+			<maskedcolumns>
+			</maskedcolumns>
+			<file>
+				D:\repos\Riskeer\System tests\AutomatedSystemTests\AutomatedSystemTests\Data\script21\input\CSVs\OpenFaalkansProject.csv
+			</file>
+		</DataSource>
+		<DataSource
+		id="e7354d9e-0cbd-44f9-8420-b994cf2180e3"
+		includefile="Unchecked"
+		lastknownrowcount="2"
+		name="ListTrajectsNames"
+		type="Ranorex.Core.Data.CsvDataConnector"
+		withheaders="True">
+			<lastknowncolumns>
+				<column>
+					TextInTrajectName
+				</column>
+			</lastknowncolumns>
+			<maskedcolumns>
+			</maskedcolumns>
+			<file>
+				D:\repos\Riskeer\System tests\AutomatedSystemTests\AutomatedSystemTests\Data\script21\input\CSVs\TextsInNamesOfTraject.csv
+			</file>
+		</DataSource>
+		<DataSource
+		id="24af1f45-008d-4bb7-a60c-90f42ab75efc"
+		includefile="Unchecked"
+		lastknownrowcount="4"
+		name="listWithNamesFMs"
+		type="Ranorex.Core.Data.CsvDataConnector"
+		withheaders="True">
+			<lastknowncolumns>
+				<column>
+					NameFM
+				</column>
+				<column>
+					Label
+				</column>
+			</lastknowncolumns>
+			<maskedcolumns>
+			</maskedcolumns>
+			<file>
+				D:\repos\Riskeer\System tests\AutomatedSystemTests\AutomatedSystemTests\Data\script21\input\CSVs\namesOfFMs.csv
+			</file>
+		</DataSource>
 	</datasources>
 	<testconfigurations
 	default="TestRun">
 		<testconfiguration
 		name="TestRun">
 			<testcontainer
+			id="0bbfd560-88d6-4516-bf12-c27a1fe6f4b9">
+			</testcontainer>
+			<testcontainer
+			id="921c41ea-9f72-4d4f-bfe2-a7f2f0365468">
+			</testcontainer>
+			<testcontainer
+			id="d34200d9-5186-497e-9e06-4276b43682ad">
+			</testcontainer>
+			<testcontainer
 			id="f16b204f-b66b-40a0-82c1-8d62dcbc8b22">
+			</testcontainer>
+			<testcontainer
+			id="f5d0be3d-2759-45ad-91aa-cd3a341517b3">
 			</testcontainer>
 			<testcontainer
 			id="fda567a0-be92-41b9-9761-e7e7d9e7be7f">

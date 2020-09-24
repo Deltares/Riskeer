@@ -11,6 +11,6 @@
       <string>60513a05-eab7-41e7-8c10-e51c735edc2e</string>
     </ArrayOfString>
   </SerializedValue>
-  <ProjectBrowserState value="[Solution AutomatedSystemTests[AutomatedSystemTests[]]]&#xD;&#xA;Solution AutomatedSystemTests\AutomatedSystemTests\Recording1.rxrec&#xD;&#xA;Solution AutomatedSystemTests" />
+  <ProjectBrowserState value="[Solution AutomatedSystemTests[AutomatedSystemTests[Data[script21[]]]]]&#xD;&#xA;Solution AutomatedSystemTests\AutomatedSystemTests\AutomatedSystemTests.rxtst&#xD;&#xA;Solution AutomatedSystemTests" />
   <StartupProject value="{6068A2A0-0B81-46C9-88D6-CD4C4B1E138E}" />
 </Properties>
