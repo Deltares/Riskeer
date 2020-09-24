@@ -1,0 +1,100 @@
+﻿<repository
+id="137723a5-e147-4b62-8c15-5c31a3d68f96"
+name="AutomatedSystemTestsRepository">
+	<codegen
+	classname="AutomatedSystemTestsRepository"
+	namespace="AutomatedSystemTests">
+	</codegen>
+	<rootfolder
+	capname="unknown"
+	id="40cb8eed-98dc-4b16-a5ad-7ef93b4f444c"
+	isrooted="True"
+	name="Root"
+	searchtimeout="0ms"
+	usecache="True">
+		<appfolder
+		addcaps="form,nativewindow,wpfwin32element,wpfelement,wpfgroupelement"
+		capname="form"
+		id="d918d6a6-a4c6-4c01-a295-0360a81bad96"
+		isrooted="True"
+		name="RiskeerMainWindow"
+		refpath="/form[@automationid='RiskeerMainWindow']"
+		searchtimeout="30000ms"
+		usecache="True">
+			<folder
+			capname="tree"
+			id="f5ed0b8b-7145-426f-982e-b89248da6d53"
+			isrooted="True"
+			name="ProjectExplorer"
+			refimgid="3ea0d743-8a25-4993-aa38-ca38dab87fd1"
+			searchtimeout="30000ms"
+			usecache="True">
+				<folder
+				capname="treeitem"
+				id="b466899e-e209-4d83-a46c-0533f333cea5"
+				isrooted="True"
+				name="ProjectRootNode"
+				refimgid="00d59aef-a594-4f1a-bb4f-a1d44f05191c"
+				searchtimeout="30000ms"
+				usecache="True">
+					<basepath>
+						/form[@automationid='RiskeerMainWindow']//container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]
+					</basepath>
+				</folder>
+				<basepath>
+					/form[@automationid='RiskeerMainWindow']//container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']
+				</basepath>
+			</folder>
+			<basepath>
+				/form[@automationid='RiskeerMainWindow']
+			</basepath>
+			<icon>
+				iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACx
+jwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAEySURBVDhPjZI7awJBFIX3n2iXyh8QUgbSWYpF
+CqtASCOokHa7SBKwMWmSQCoLxc7GSkKKgHaSZoWwCOmsAhZabfjGvePsnc3jgwvLmXPuPPYGmpPH
+Ruv4of5ZbFcSt9BYS20+hatq8fDufKWDuvDgTWM7EA5uT7cYju4vksF8knxt1onANxprePBmmsjO
+zVE3E9SwhkdOYsLcC+FseJ3adoRhmCkXvGTMm/A4pU7N2/m3BnjJkA3k6Jo4jk0RjqIoVffIVUyD
+8WJqRL3rTwVkbIO35bsRtdE9hVtAxmsAEtRo3TbgIZ5mIyO6u1BCnk7GPCK/ggGBPCPk6WTsaDMU
+cor/gNcOEsgoM65/gccbZUCga+e1nzvOaKzh8cIu3Kv8fPlR7YWrm5fehuIbzd7ZEgTfW6GQyBsS
+FjcAAAAASUVORK5CYII=
+			</icon>
+		</appfolder>
+		<appfolder
+		addcaps="form,nativewindow"
+		capname="form"
+		id="0c304014-01d3-44c4-9578-fb43d28c00b3"
+		isrooted="True"
+		name="CloseProjectDialog"
+		refpath="/form[@title='Project afsluiten']"
+		searchtimeout="30000ms"
+		usecache="True">
+			<item
+			addcaps="button,nativewindow"
+			capname="button"
+			id="2229a024-7306-4b0d-a6ab-e43f6a29c1bd"
+			name="ButtonNo"
+			refimgid="fedd381d-7387-40df-b583-ce17db1bdff5"
+			refpath="/form[@title='Project afsluiten']/button[@text='&amp;No']"
+			searchtimeout="30000ms">
+				/form[@title='Project afsluiten']/button[@text='&amp;No']
+			</item>
+			<basepath>
+				/form[@title='Project afsluiten']
+			</basepath>
+			<icon>
+				iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACx
+jwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAEySURBVDhPjZI7awJBFIX3n2iXyh8QUgbSWYpF
+CqtASCOokHa7SBKwMWmSQCoLxc7GSkKKgHaSZoWwCOmsAhZabfjGvePsnc3jgwvLmXPuPPYGmpPH
+Ruv4of5ZbFcSt9BYS20+hatq8fDufKWDuvDgTWM7EA5uT7cYju4vksF8knxt1onANxprePBmmsjO
+zVE3E9SwhkdOYsLcC+FseJ3adoRhmCkXvGTMm/A4pU7N2/m3BnjJkA3k6Jo4jk0RjqIoVffIVUyD
+8WJqRL3rTwVkbIO35bsRtdE9hVtAxmsAEtRo3TbgIZ5mIyO6u1BCnk7GPCK/ggGBPCPk6WTsaDMU
+cor/gNcOEsgoM65/gccbZUCga+e1nzvOaKzh8cIu3Kv8fPlR7YWrm5fehuIbzd7ZEgTfW6GQyBsS
+FjcAAAAASUVORK5CYII=
+			</icon>
+		</appfolder>
+		<basepath>
+		</basepath>
+	</rootfolder>
+	<variables>
+	</variables>
+</repository>
