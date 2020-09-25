@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 
 namespace Core.Common.Assembly
 {
@@ -148,19 +147,14 @@ namespace Core.Common.Assembly
         {
             string[] assemblies = Directory.GetFiles(assemblyDirectory, assemblySearchPattern);
 
-            if (!assemblies.Any())
+            foreach (string directory in Directory.GetDirectories(assemblyDirectory))
             {
-                foreach (string directory in Directory.GetDirectories(assemblyDirectory))
-                {
-                    InitializeAssemblyLookup(directory);
-                }
+                InitializeAssemblyLookup(directory);
             }
-            else
+
+            foreach (string assembly in assemblies)
             {
-                foreach (string assembly in assemblies)
-                {
-                    assemblyLookup[Path.GetFileNameWithoutExtension(assembly)] = assembly;
-                }
+                assemblyLookup[Path.GetFileNameWithoutExtension(assembly)] = assembly;
             }
         }
 
