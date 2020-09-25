@@ -184,8 +184,8 @@
       <Version>2.0.8</Version>
     </PackageReference>
   </ItemGroup>
-  <PropertyGroup>
-    <PostBuildEvent>xcopy /d/s/y $(PkgFluent_Ribbon)\lib\net45\* $(OutDir)\..\Externals\Fluent-3.4.0\*</PostBuildEvent>
-  </PropertyGroup>
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="xcopy /d/s/y $(PkgFluent_Ribbon)\lib\net45\* $(OutDir)\..\Externals\Fluent-3.4.0\*" />
+  </Target>
   <Import Project="$(SolutionDir)\build\PreBuild.targets" />
 </Project>
