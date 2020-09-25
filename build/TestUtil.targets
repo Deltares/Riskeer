@@ -1,3 +1,7 @@
 <Project>
+  <PropertyGroup>
+    <OutDir>$(OutputPath)</OutDir>
+    <OutputPath>bin\$(Configuration)\</OutputPath>
+  </PropertyGroup>
   <Import Project="$(SolutionDir)\build\Source.targets" />
 </Project>
