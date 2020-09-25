@@ -30,10 +30,18 @@
   <ItemGroup>
     <PackageReference Include="BruTile">
       <Version>2.1.2</Version>
+      <GeneratePathProperty>true</GeneratePathProperty>
+      <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="SmartThreadPool.dll">
       <Version>2.2.4</Version>
+      <GeneratePathProperty>true</GeneratePathProperty>
+      <PrivateAssets>all</PrivateAssets>
     </PackageReference>
   </ItemGroup>
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="xcopy /d/s/y $(PkgBruTile)\lib\net45\* $(OutDir)\..\Externals\BruTile-2.1.2\*" />
+    <Exec Command="xcopy /d/s/y $(PkgSmartThreadPool_dll)\lib\net45\* $(OutDir)\..\Externals\SmartThreadPool.dll-2.2.4\*" />
+  </Target>
   <Import Project="$(SolutionDir)\build\PreBuild.targets" />
 </Project>
