@@ -1,6 +1,6 @@
 <Project>
   <PropertyGroup>
-    <OutputPath Condition="$(OutputPath) == ''">$(SolutionDir)\bin\$(Configuration)\Application\</OutputPath>
+    <OutputPath Condition="$(OutputPath) == ''">$(SolutionDir)\bin\$(Configuration)\Application\Built-in\Managed\Core</OutputPath>
     <OutDir>$(OutputPath)</OutDir>
     <Platforms>x86</Platforms>
     <PlatformTarget>x86</PlatformTarget>

@@ -123,7 +123,7 @@
     <Exec Command="xcopy &quot;$(ProjectDir)nl&quot; &quot;$(OutDir)\nl\*&quot; /D /S /Y" />
   </Target>
   <PropertyGroup>
-    <PostBuildEvent>xcopy /d/s/y $(PkgFluent_Ribbon)\lib\net45\* $(OutDir)\..\Externals\Fluent\*</PostBuildEvent>
+    <PostBuildEvent>xcopy /d/s/y $(PkgFluent_Ribbon)\lib\net45\* $(OutDir)\..\Externals\Fluent-3.4.0\*</PostBuildEvent>
   </PropertyGroup>
   <Import Project="$(SolutionDir)\build\PreBuild.targets" />
 </Project>
