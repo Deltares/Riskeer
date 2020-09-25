@@ -134,7 +134,7 @@
     <Exec Command="xcopy /d/s/y $(PkgFluent_Ribbon)\lib\net45\* $(OutDir)\Application\Built-in\Managed\Externals\Fluent-3.4.0\*" />
     <Exec Command="xcopy /d/s/y $(Pkglog4net)\lib\net45-full\* $(OutDir)\Application\Built-in\Managed\Externals\Log4net-2.0.8\*" />
     <Exec Command="xcopy /d/s/y $(PkgSystem_Data_Sqlite_Core)\lib\net45\* $(OutDir)\Application\Built-in\Managed\Externals\System.Data.SQLite.Core-1.0.109.2\*" />
-    <Exec Command="xcopy /d/s/y $(PkgSystem_Data_Sqlite_EF6)\lib\net45\* $(OutDir)\Application\Built-in\Managed\Externals\System.Data.SQLite.EF46-1.0.109\*" />
+    <Exec Command="xcopy /d/s/y $(PkgSystem_Data_Sqlite_EF6)\lib\net45\* $(OutDir)\Application\Built-in\Managed\Externals\System.Data.SQLite.EF6-1.0.109\*" />
   </Target>
   <Import Project="$(SolutionDir)\build\PreBuild.targets" />
 </Project>
