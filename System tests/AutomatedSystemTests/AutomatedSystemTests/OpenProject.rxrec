@@ -7,7 +7,7 @@ mode="Global">
 		1
 	</repeatcount>
 	<turbomode>
-		False
+		True
 	</turbomode>
 	<genreport>
 		True
@@ -995,7 +995,7 @@ ACiiigAooooAKKKKACiiigAooooA/9k=
 		enabled="True"
 		optional="False">
 			<comment>
-				Minimum wait time to load (300ms)
+				Wait time (300ms) so that dialog is started up
 			</comment>
 			<bindings>
 			</bindings>

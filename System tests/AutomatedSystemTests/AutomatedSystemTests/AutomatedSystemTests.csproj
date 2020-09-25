@@ -143,6 +143,18 @@
       <UserCode>true</UserCode>
       <id>99e4a5ba-b748-433b-936c-1f44daec08ed</id>
     </Compile>
+    <Compile Include="CloseViewCentralPanelWithFocus.cs">
+      <BoundTo>75c56bbc-55ab-4649-abbf-6157d7ab6a40</BoundTo>
+      <DependentUpon>CloseViewCentralPanelWithFocus.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>2ac12996-4383-45fb-b3e5-e238c19400cf</id>
+    </Compile>
+    <Compile Include="CloseViewCentralPanelWithFocus.UserCode.cs">
+      <BoundTo>75c56bbc-55ab-4649-abbf-6157d7ab6a40</BoundTo>
+      <DependentUpon>CloseViewCentralPanelWithFocus.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>25b9d3df-d029-427a-96c4-de8470c01737</id>
+    </Compile>
     <Compile Include="OpenProject.cs">
       <BoundTo>5d1e103b-c666-4258-a32a-74d8fe397026</BoundTo>
       <DependentUpon>OpenProject.rxrec</DependentUpon>
@@ -155,8 +167,44 @@
       <UserCode>true</UserCode>
       <id>b033024c-4757-4c74-87fa-f5c6b3daef0e</id>
     </Compile>
+    <Compile Include="OpenViewForFailureMechanismContribution.cs">
+      <BoundTo>1cb570ed-7031-4292-a572-3c04e9fbc24a</BoundTo>
+      <DependentUpon>OpenViewForFailureMechanismContribution.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>2e48adb4-f574-43e0-a102-a28e1362443a</id>
+    </Compile>
+    <Compile Include="OpenViewForFailureMechanismContribution.UserCode.cs">
+      <BoundTo>1cb570ed-7031-4292-a572-3c04e9fbc24a</BoundTo>
+      <DependentUpon>OpenViewForFailureMechanismContribution.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>6405f2fa-2507-4ad6-aa04-2391e49e503b</id>
+    </Compile>
     <Compile Include="Program.cs">
       <id>fe704264-7ebd-4c5a-b96f-f5192c4d2944</id>
+    </Compile>
+    <Compile Include="SetRelevanceFMInFailureMechanismContributionView.cs">
+      <BoundTo>b784c65f-eb14-47fb-8870-5baafbb7e6fe</BoundTo>
+      <DependentUpon>SetRelevanceFMInFailureMechanismContributionView.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>c5b5af27-aa34-4960-9173-c56b0b4681ad</id>
+    </Compile>
+    <Compile Include="SetRelevanceFMInFailureMechanismContributionView.UserCode.cs">
+      <BoundTo>b784c65f-eb14-47fb-8870-5baafbb7e6fe</BoundTo>
+      <DependentUpon>SetRelevanceFMInFailureMechanismContributionView.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>f660bbb8-b71e-4e9a-8c62-47a5aaa25be4</id>
+    </Compile>
+    <Compile Include="SetRelevanceFMInProjectExplorer.cs">
+      <BoundTo>a3cb26e3-a1be-4cb7-b372-a09785de9a9b</BoundTo>
+      <DependentUpon>SetRelevanceFMInProjectExplorer.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>f1b0a79a-82a4-4e37-a221-4bd28ed82a52</id>
+    </Compile>
+    <Compile Include="SetRelevanceFMInProjectExplorer.UserCode.cs">
+      <BoundTo>a3cb26e3-a1be-4cb7-b372-a09785de9a9b</BoundTo>
+      <DependentUpon>SetRelevanceFMInProjectExplorer.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>162de3c0-1993-49bf-9c31-01fef0b63137</id>
     </Compile>
     <Compile Include="StartAUT.cs">
       <BoundTo>8f7fe1fa-f1ef-4825-8e3a-6a13124b5fbc</BoundTo>
@@ -203,13 +251,30 @@
       <id>cb95bf1c-596d-4a04-b8ec-bb98b0333f75</id>
       <recordtableid>07688822-3eb6-4d71-a97b-33498ae1d748</recordtableid>
     </None>
-    <None Include="Data\script21\Faalkans-project.risk">
-      <id>49689626-d9fe-4bbf-ad9c-3d0ab683cfce</id>
+    <None Include="CloseViewCentralPanelWithFocus.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>75c56bbc-55ab-4649-abbf-6157d7ab6a40</id>
+      <recordtableid>3c2d44f5-31b5-4584-91c8-1ad748affc77</recordtableid>
     </None>
     <None Include="OpenProject.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>5d1e103b-c666-4258-a32a-74d8fe397026</id>
       <recordtableid>3f746bb2-6845-45b4-9b28-b7fd605378f3</recordtableid>
+    </None>
+    <None Include="OpenViewForFailureMechanismContribution.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>1cb570ed-7031-4292-a572-3c04e9fbc24a</id>
+      <recordtableid>5e81345e-66bc-4e08-8ade-03d386d824fd</recordtableid>
+    </None>
+    <None Include="SetRelevanceFMInFailureMechanismContributionView.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>b784c65f-eb14-47fb-8870-5baafbb7e6fe</id>
+      <recordtableid>126d009c-618d-402d-8d3d-fa9ecc02bef7</recordtableid>
+    </None>
+    <None Include="SetRelevanceFMInProjectExplorer.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>a3cb26e3-a1be-4cb7-b372-a09785de9a9b</id>
+      <recordtableid>37154a5a-bed5-4655-91a2-0c5ebc672e77</recordtableid>
     </None>
     <None Include="StartAUT.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
@@ -235,9 +300,6 @@
   <ItemGroup>
     <Folder Include="Data">
       <id>0876088b-059e-4c05-b2cd-fd3184c818bf</id>
-    </Folder>
-    <Folder Include="Data\script21">
-      <id>419bce8c-20e8-4863-970a-94ef1e44c8dc</id>
     </Folder>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

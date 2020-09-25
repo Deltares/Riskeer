@@ -48,6 +48,15 @@ name="AutomatedSystemTestsRepository">
 						<item
 						addcaps="treeitem,accessible,accessibletreeitem"
 						capname="treeitem"
+						id="79c86dc7-8eee-48b2-b0af-b29632b7c092"
+						name="Faalkansbegroting"
+						refimgid="c33e2959-1eb3-434f-9ba5-7449b06b1808"
+						searchtimeout="30000ms">
+							/form[@automationid='RiskeerMainWindow']//container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]/treeitem[@accessiblename~$substringTrajectName]/treeitem[@accessiblename='Faalkansbegroting']
+						</item>
+						<item
+						addcaps="treeitem,accessible,accessibletreeitem"
+						capname="treeitem"
 						id="92f53398-7bb2-45f8-a305-0adb56ec8aa7"
 						name="GenericItemWithSubstringInName"
 						refimgid="260218f3-a9bd-4cfa-803e-def773275879"
@@ -98,6 +107,60 @@ name="AutomatedSystemTestsRepository">
 					/form[@automationid='RiskeerMainWindow']/menubar[@automationid='Ribbon']
 				</basepath>
 			</folder>
+			<folder
+			capname="button"
+			id="b2c76482-93c5-4171-9eaf-0f674aebb65b"
+			isrooted="True"
+			name="HeaderOpenViews"
+			refimgid="fcfe209d-b8ec-4630-bc95-492ec1caaab4"
+			searchtimeout="30000ms"
+			usecache="True">
+				<item
+				addcaps="text,wpfelement"
+				capname="button"
+				id="79aa5f18-da55-4d5b-9c7c-bc833052d329"
+				name="ViewCloseButton"
+				refimgid="db245c00-dff8-4d3c-aafb-9cbcb5b3a1cb"
+				searchtimeout="30000ms">
+					/form[@automationid='RiskeerMainWindow']//button[@automationid='MenuDropDownButton']/?/tabpage/button[@automationid='DocumentCloseButton']
+				</item>
+				<basepath>
+					/form[@automationid='RiskeerMainWindow']//button[@automationid='MenuDropDownButton']
+				</basepath>
+			</folder>
+			<folder
+			capname="container"
+			id="8de00d2a-2da8-41c8-b1cb-2600ea17161f"
+			isrooted="True"
+			name="FailureMechanismContributionView"
+			refimgid="b66732ba-90d5-4b97-b9cb-7c7429f591c6"
+			searchtimeout="30000ms"
+			usecache="False">
+				<basepath>
+					/form[@automationid='RiskeerMainWindow']//container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismContributionView']
+				</basepath>
+			</folder>
+			<item
+			addcaps="cell,accessible"
+			capname="cell"
+			id="1029a286-ce5f-4de6-8f9d-d68210aae163"
+			name="IsFMRelevantCell"
+			refimgid="abe9b3df-fa56-4ec4-8a9a-ff2ecd96810a"
+			searchtimeout="30000ms">
+				/form[@automationid='RiskeerMainWindow']/list//container[@controlname='FailureMechanismContributionView']/?/table/row[@accessiblevalue~$labelFM]/cell[@accessiblename&gt;'Is relevant']
+			</item>
+			<folder
+			capname="container"
+			id="98749289-fdda-4451-b00f-f2464c039a30"
+			isrooted="True"
+			name="MyFailureMechanismContributionView"
+			refimgid="ce2b32d5-a8bd-4abb-a7fd-fb987f23a5e9"
+			searchtimeout="30000ms"
+			usecache="False">
+				<basepath>
+					/form[@automationid='RiskeerMainWindow']/list//container[@controlname='FailureMechanismContributionView']
+				</basepath>
+			</folder>
 			<basepath>
 				/form[@automationid='RiskeerMainWindow']
 			</basepath>
@@ -117,7 +180,7 @@ FjcAAAAASUVORK5CYII=
 		capname="form"
 		id="0c304014-01d3-44c4-9578-fb43d28c00b3"
 		isrooted="True"
-		name="CloseProjectDialog"
+		name="ConfirmSaveProjectDialogWhenClosing"
 		refpath="/form[@title='Project afsluiten']"
 		searchtimeout="30000ms"
 		usecache="True">
@@ -217,6 +280,103 @@ xOG2wwBIgFAqhAFQUpfvDAuAakUAUPIExS8+gFMzDMAyFSjzwAAolYICGu5nOGBgAABoAoFZQCYT
 cwAAAABJRU5ErkJggg==
 			</icon>
 		</appfolder>
+		<appfolder
+		capname="contextmenu"
+		id="982924af-cebe-4e46-9281-476e566d6398"
+		isrooted="True"
+		name="ContextMenu"
+		refimgid="b02193bd-0e11-40de-a7d1-7a31055842a6"
+		refpath="/contextmenu[@processname='Riskeer']"
+		searchtimeout="30000ms"
+		usecache="True">
+			<item
+			addcaps="menuitem,accessible"
+			capname="menuitem"
+			id="3162063a-bd8d-4e48-b6ab-9725baa70e0e"
+			name="Openen"
+			refimgid="3909d8e4-daf2-4c63-bcbd-c09567400fad"
+			refpath="/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Openen']"
+			searchtimeout="30000ms">
+				/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Openen']
+			</item>
+			<item
+			addcaps="menuitem,accessible"
+			capname="menuitem"
+			id="561b2d91-62ad-4174-97e3-b9f7420df49a"
+			name="IsRelevant"
+			refimgid="6c6af78e-afc4-4f5f-af81-b20852597810"
+			refpath="/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Is relevant']"
+			searchtimeout="30000ms">
+				/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Is relevant']
+			</item>
+			<item
+			addcaps="menuitem,wpfelement,wpfgroupelement"
+			capname="menuitem"
+			id="7792c7fb-8afc-4635-86af-1263ee5b805f"
+			name="Sluiten"
+			refimgid="88695737-d00f-4307-adfb-01a4c3ba65b4"
+			refpath="/contextmenu[@processname='Riskeer']/menuitem[@text='Sluiten']"
+			searchtimeout="30000ms">
+				/contextmenu[@processname='Riskeer']/menuitem[@text='Sluiten']
+			</item>
+			<basepath>
+				/contextmenu[@processname='Riskeer']
+			</basepath>
+			<icon>
+				iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGOfPtRkwAAACBjSFJN
+AACHDwAAjA8AAP1SAACBQAAAfXkAAOmLAAA85QAAGcxzPIV3AAAKOWlDQ1BQaG90b3Nob3AgSUND
+IHByb2ZpbGUAAEjHnZZ3VFTXFofPvXd6oc0wAlKG3rvAANJ7k15FYZgZYCgDDjM0sSGiAhFFRJoi
+SFDEgNFQJFZEsRAUVLAHJAgoMRhFVCxvRtaLrqy89/Ly++Osb+2z97n77L3PWhcAkqcvl5cGSwGQ
+yhPwgzyc6RGRUXTsAIABHmCAKQBMVka6X7B7CBDJy82FniFyAl8EAfB6WLwCcNPQM4BOB/+fpFnp
+fIHomAARm7M5GSwRF4g4JUuQLrbPipgalyxmGCVmvihBEcuJOWGRDT77LLKjmNmpPLaIxTmns1PZ
+Yu4V8bZMIUfEiK+ICzO5nCwR3xKxRoowlSviN+LYVA4zAwAUSWwXcFiJIjYRMYkfEuQi4uUA4EgJ
+X3HcVyzgZAvEl3JJS8/hcxMSBXQdli7d1NqaQffkZKVwBALDACYrmcln013SUtOZvBwAFu/8WTLi
+2tJFRbY0tba0NDQzMv2qUP91829K3NtFehn4uWcQrf+L7a/80hoAYMyJarPziy2uCoDOLQDI3fti
+0zgAgKSobx3Xv7oPTTwviQJBuo2xcVZWlhGXwzISF/QP/U+Hv6GvvmckPu6P8tBdOfFMYYqALq4b
+Ky0lTcinZ6QzWRy64Z+H+B8H/nUeBkGceA6fwxNFhImmjMtLELWbx+YKuGk8Opf3n5r4D8P+pMW5
+FonS+BFQY4yA1HUqQH7tBygKESDR+8Vd/6NvvvgwIH554SqTi3P/7zf9Z8Gl4iWDm/A5ziUohM4S
+8jMX98TPEqABAUgCKpAHykAd6ABDYAasgC1wBG7AG/iDEBAJVgMWSASpgA+yQB7YBApBMdgJ9oBq
+UAcaQTNoBcdBJzgFzoNL4Bq4AW6D+2AUTIBnYBa8BgsQBGEhMkSB5CEVSBPSh8wgBmQPuUG+UBAU
+CcVCCRAPEkJ50GaoGCqDqqF6qBn6HjoJnYeuQIPQXWgMmoZ+h97BCEyCqbASrAUbwwzYCfaBQ+BV
+cAK8Bs6FC+AdcCXcAB+FO+Dz8DX4NjwKP4PnEIAQERqiihgiDMQF8UeikHiEj6xHipAKpAFpRbqR
+PuQmMorMIG9RGBQFRUcZomxRnqhQFAu1BrUeVYKqRh1GdaB6UTdRY6hZ1Ec0Ga2I1kfboL3QEegE
+dBa6EF2BbkK3oy+ib6Mn0K8xGAwNo42xwnhiIjFJmLWYEsw+TBvmHGYQM46Zw2Kx8lh9rB3WH8vE
+CrCF2CrsUexZ7BB2AvsGR8Sp4Mxw7rgoHA+Xj6vAHcGdwQ3hJnELeCm8Jt4G749n43PwpfhGfDf+
+On4Cv0CQJmgT7AghhCTCJkIloZVwkfCA8JJIJKoRrYmBRC5xI7GSeIx4mThGfEuSIemRXEjRJCFp
+B+kQ6RzpLuklmUzWIjuSo8gC8g5yM/kC+RH5jQRFwkjCS4ItsUGiRqJDYkjiuSReUlPSSXK1ZK5k
+heQJyeuSM1J4KS0pFymm1HqpGqmTUiNSc9IUaVNpf+lU6RLpI9JXpKdksDJaMm4ybJkCmYMyF2TG
+KQhFneJCYVE2UxopFykTVAxVm+pFTaIWU7+jDlBnZWVkl8mGyWbL1sielh2lITQtmhcthVZKO04b
+pr1borTEaQlnyfYlrUuGlszLLZVzlOPIFcm1yd2WeydPl3eTT5bfJd8p/1ABpaCnEKiQpbBf4aLC
+zFLqUtulrKVFS48vvacIK+opBimuVTyo2K84p6Ss5KGUrlSldEFpRpmm7KicpFyufEZ5WoWiYq/C
+VSlXOavylC5Ld6Kn0CvpvfRZVUVVT1Whar3qgOqCmrZaqFq+WpvaQ3WCOkM9Xr1cvUd9VkNFw08j
+T6NF454mXpOhmai5V7NPc15LWytca6tWp9aUtpy2l3audov2Ax2yjoPOGp0GnVu6GF2GbrLuPt0b
+erCehV6iXo3edX1Y31Kfq79Pf9AAbWBtwDNoMBgxJBk6GWYathiOGdGMfI3yjTqNnhtrGEcZ7zLu
+M/5oYmGSYtJoct9UxtTbNN+02/R3Mz0zllmN2S1zsrm7+QbzLvMXy/SXcZbtX3bHgmLhZ7HVosfi
+g6WVJd+y1XLaSsMq1qrWaoRBZQQwShiXrdHWztYbrE9Zv7WxtBHYHLf5zdbQNtn2iO3Ucu3lnOWN
+y8ft1OyYdvV2o/Z0+1j7A/ajDqoOTIcGh8eO6o5sxybHSSddpySno07PnU2c+c7tzvMuNi7rXM65
+Iq4erkWuA24ybqFu1W6P3NXcE9xb3Gc9LDzWepzzRHv6eO7yHPFS8mJ5NXvNelt5r/Pu9SH5BPtU
++zz21fPl+3b7wX7efrv9HqzQXMFb0ekP/L38d/s/DNAOWBPwYyAmMCCwJvBJkGlQXlBfMCU4JvhI
+8OsQ55DSkPuhOqHC0J4wybDosOaw+XDX8LLw0QjjiHUR1yIVIrmRXVHYqLCopqi5lW4r96yciLaI
+LoweXqW9KnvVldUKq1NWn46RjGHGnIhFx4bHHol9z/RnNjDn4rziauNmWS6svaxnbEd2OXuaY8cp
+40zG28WXxU8l2CXsTphOdEisSJzhunCruS+SPJPqkuaT/ZMPJX9KCU9pS8Wlxqae5Mnwknm9acpp
+2WmD6frphemja2zW7Fkzy/fhN2VAGasyugRU0c9Uv1BHuEU4lmmfWZP5Jiss60S2dDYvuz9HL2d7
+zmSue+63a1FrWWt78lTzNuWNrXNaV78eWh+3vmeD+oaCDRMbPTYe3kTYlLzpp3yT/LL8V5vDN3cX
+KBVsLBjf4rGlpVCikF84stV2a9021DbutoHt5turtn8sYhddLTYprih+X8IqufqN6TeV33zaEb9j
+oNSydP9OzE7ezuFdDrsOl0mX5ZaN7/bb3VFOLy8qf7UnZs+VimUVdXsJe4V7Ryt9K7uqNKp2Vr2v
+Tqy+XeNc01arWLu9dn4fe9/Qfsf9rXVKdcV17w5wD9yp96jvaNBqqDiIOZh58EljWGPft4xvm5sU
+moqbPhziHRo9HHS4t9mqufmI4pHSFrhF2DJ9NProje9cv+tqNWytb6O1FR8Dx4THnn4f+/3wcZ/j
+PScYJ1p/0Pyhtp3SXtQBdeR0zHYmdo52RXYNnvQ+2dNt293+o9GPh06pnqo5LXu69AzhTMGZT2dz
+z86dSz83cz7h/HhPTM/9CxEXbvUG9g5c9Ll4+ZL7pQt9Tn1nL9tdPnXF5srJq4yrndcsr3X0W/S3
+/2TxU/uA5UDHdavrXTesb3QPLh88M+QwdP6m681Lt7xuXbu94vbgcOjwnZHokdE77DtTd1PuvriX
+eW/h/sYH6AdFD6UeVjxSfNTws+7PbaOWo6fHXMf6Hwc/vj/OGn/2S8Yv7ycKnpCfVEyqTDZPmU2d
+mnafvvF05dOJZ+nPFmYKf5X+tfa5zvMffnP8rX82YnbiBf/Fp99LXsq/PPRq2aueuYC5R69TXy/M
+F72Rf3P4LeNt37vwd5MLWe+x7ys/6H7o/ujz8cGn1E+f/gUDmPP8usTo0wAAAAlwSFlzAAAOxAAA
+DsQBlSsOGwAAAKtJREFUOE9j+P//P0UYzrAJyP6/ZsVMojFWAxjAXMIApwEgADJkx8Hz/8va5/7P
+qJr4PzK75b9XbNl/mDwI4DUABAi5hKABIAAyZNnGff8jc5r/e8aWk+YCGMDlEqJdAMNTF64nzgUw
+DSAAos+dOwfG6ACnATANyIY0dE4iLgy6OqpBgmCA7gp0gNUAqCAYbD8IcQVJLkA2AARg3iHJBaRg
+DAPIxVgFicf/GQCdrAkiuOdOjQAAAABJRU5ErkJggg==
+			</icon>
+		</appfolder>
 		<basepath>
 		</basepath>
 	</rootfolder>
@@ -228,6 +388,10 @@ cwAAAABJRU5ErkJggg==
 		<var
 		id="3a7276c1-fca1-4026-9d2e-5bac10651a47"
 		name="substringItemName">
+		</var>
+		<var
+		id="5afdb904-9d2e-4bb5-ae28-38089eda6255"
+		name="labelFM">
 		</var>
 	</variables>
 </repository>

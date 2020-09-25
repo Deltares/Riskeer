@@ -24,54 +24,34 @@ namespace AutomatedSystemTests
 {
 #pragma warning disable 0436 //(CS0436) The type 'type' in 'assembly' conflicts with the imported type 'type2' in 'assembly'. Using the type defined in 'assembly'.
     /// <summary>
-    ///The ValidateNode recording.
+    ///The CloseViewCentralPanelWithFocus recording.
     /// </summary>
-    [TestModule("906330ec-73fa-48a5-91c6-ed42eabd4771", ModuleType.Recording, 1)]
-    public partial class ValidateNode : ITestModule
+    [TestModule("3c2d44f5-31b5-4584-91c8-1ad748affc77", ModuleType.Recording, 1)]
+    public partial class CloseViewCentralPanelWithFocus : ITestModule
     {
         /// <summary>
         /// Holds an instance of the AutomatedSystemTestsRepository repository.
         /// </summary>
         public static AutomatedSystemTestsRepository repo = AutomatedSystemTestsRepository.Instance;
 
-        static ValidateNode instance = new ValidateNode();
+        static CloseViewCentralPanelWithFocus instance = new CloseViewCentralPanelWithFocus();
 
         /// <summary>
         /// Constructs a new instance.
         /// </summary>
-        public ValidateNode()
+        public CloseViewCentralPanelWithFocus()
         {
         }
 
         /// <summary>
         /// Gets a static instance of this recording.
         /// </summary>
-        public static ValidateNode Instance
+        public static CloseViewCentralPanelWithFocus Instance
         {
             get { return instance; }
         }
 
 #region Variables
-
-        /// <summary>
-        /// Gets or sets the value of variable substringTrajectName.
-        /// </summary>
-        [TestVariable("77ae6c27-603e-4704-add9-e1249169f0e5")]
-        public string substringTrajectName
-        {
-            get { return repo.substringTrajectName; }
-            set { repo.substringTrajectName = value; }
-        }
-
-        /// <summary>
-        /// Gets or sets the value of variable substringItemName.
-        /// </summary>
-        [TestVariable("3a7276c1-fca1-4026-9d2e-5bac10651a47")]
-        public string substringItemName
-        {
-            get { return repo.substringItemName; }
-            set { repo.substringItemName = value; }
-        }
 
 #endregion
 
@@ -99,11 +79,8 @@ namespace AutomatedSystemTests
 
             Init();
 
-            // Validates that Item with Name containing $TextInItemName exists
-            Report.Log(ReportLevel.Info, "Validation", "Validates that Item with Name containing $TextInItemName exists\r\nValidating Exists on item 'RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericItemWithSubstringInName'.", repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericItemWithSubstringInNameInfo, new RecordItemIndex(0));
-            Validate.Exists(repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericItemWithSubstringInNameInfo);
-            
-            Report.Screenshot(ReportLevel.Info, "User", "", repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericItemWithSubstringInName, false, new RecordItemIndex(1));
+            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'RiskeerMainWindow.HeaderOpenViews.ViewCloseButton' at Center.", repo.RiskeerMainWindow.HeaderOpenViews.ViewCloseButtonInfo, new RecordItemIndex(0));
+            repo.RiskeerMainWindow.HeaderOpenViews.ViewCloseButton.Click();
             
         }
 

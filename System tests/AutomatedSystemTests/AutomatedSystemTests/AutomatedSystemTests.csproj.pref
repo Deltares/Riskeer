@@ -5,7 +5,9 @@
   <Array name="bookmarks" />
   <Array name="files">
     <Element value="AutomatedSystemTests.rxtst" />
+    <Element value="ValidateNode.rxrec" />
     <Element value="OpenProject.rxrec" />
+    <Element value="AutomatedSystemTestsRepository.rxrep" />
   </Array>
   <Properties name="projectSavedData">
     <Array name="recentusercodeselections">

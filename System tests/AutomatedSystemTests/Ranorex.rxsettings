@@ -216,8 +216,8 @@ rxversion="9.3">
 		<pathbuildoptions
 		defcapcost="20"
 		kattr="0.5"
-		kcap="1.0"
-		ksib="10.0"
+		kcap="1"
+		ksib="10"
 		q="0.5">
 			<cap
 			cost="10"
@@ -424,10 +424,10 @@ rxversion="9.3">
 		ReuseDirectoryForExecution, DetectChangesOnUpload
 	</TestExecution.RemoteAgentOptimizations>
 	<perftracing.tracers>
-		None
+		All
 	</perftracing.tracers>
 	<perftracing.directory>
-		%MyDocuments%\Ranorex\TraceLogs
+		D:\Ranorexlogs\Ranorex\Logs\TraceLogs
 	</perftracing.directory>
 	<mouse.interpolation.mode>
 		Optimized

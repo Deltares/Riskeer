@@ -22,7 +22,7 @@ using Ranorex.Core.Testing;
 
 namespace AutomatedSystemTests
 {
-    public partial class CloseAUT
+    public partial class OpenViewForFailureMechanismContribution
     {
         /// <summary>
         /// This method gets called right after the recording has been started.
@@ -33,14 +33,5 @@ namespace AutomatedSystemTests
             // Your recording specific initialization code goes here.
         }
 
-        public void ClickButtonNoIfDialogShown(RepoItemInfo buttonInfo)
-        {
-        	if (repo.ConfirmSaveProjectDialogWhenClosing.SelfInfo.Exists()) 
-        	{
-            	Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'buttonInfo' at Center.", buttonInfo);
-            	buttonInfo.FindAdapter<Button>().Click();
-            }
-        	
-        }
     }
 }

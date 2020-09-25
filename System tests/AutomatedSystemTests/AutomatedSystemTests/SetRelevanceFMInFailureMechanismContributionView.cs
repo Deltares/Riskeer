@@ -24,53 +24,56 @@ namespace AutomatedSystemTests
 {
 #pragma warning disable 0436 //(CS0436) The type 'type' in 'assembly' conflicts with the imported type 'type2' in 'assembly'. Using the type defined in 'assembly'.
     /// <summary>
-    ///The ValidateNode recording.
+    ///The SetRelevanceFMInFailureMechanismContributionView recording.
     /// </summary>
-    [TestModule("906330ec-73fa-48a5-91c6-ed42eabd4771", ModuleType.Recording, 1)]
-    public partial class ValidateNode : ITestModule
+    [TestModule("126d009c-618d-402d-8d3d-fa9ecc02bef7", ModuleType.Recording, 1)]
+    public partial class SetRelevanceFMInFailureMechanismContributionView : ITestModule
     {
         /// <summary>
         /// Holds an instance of the AutomatedSystemTestsRepository repository.
         /// </summary>
         public static AutomatedSystemTestsRepository repo = AutomatedSystemTestsRepository.Instance;
 
-        static ValidateNode instance = new ValidateNode();
+        static SetRelevanceFMInFailureMechanismContributionView instance = new SetRelevanceFMInFailureMechanismContributionView();
 
         /// <summary>
         /// Constructs a new instance.
         /// </summary>
-        public ValidateNode()
+        public SetRelevanceFMInFailureMechanismContributionView()
         {
+            isFMExpectedRelevant = "";
         }
 
         /// <summary>
         /// Gets a static instance of this recording.
         /// </summary>
-        public static ValidateNode Instance
+        public static SetRelevanceFMInFailureMechanismContributionView Instance
         {
             get { return instance; }
         }
 
 #region Variables
 
+        string _isFMExpectedRelevant;
+
         /// <summary>
-        /// Gets or sets the value of variable substringTrajectName.
+        /// Gets or sets the value of variable isFMExpectedRelevant.
         /// </summary>
-        [TestVariable("77ae6c27-603e-4704-add9-e1249169f0e5")]
-        public string substringTrajectName
+        [TestVariable("42b39611-e5ad-41f4-aa05-4779bcb10c5b")]
+        public string isFMExpectedRelevant
         {
-            get { return repo.substringTrajectName; }
-            set { repo.substringTrajectName = value; }
+            get { return _isFMExpectedRelevant; }
+            set { _isFMExpectedRelevant = value; }
         }
 
         /// <summary>
-        /// Gets or sets the value of variable substringItemName.
+        /// Gets or sets the value of variable labelFM.
         /// </summary>
-        [TestVariable("3a7276c1-fca1-4026-9d2e-5bac10651a47")]
-        public string substringItemName
+        [TestVariable("5afdb904-9d2e-4bb5-ae28-38089eda6255")]
+        public string labelFM
         {
-            get { return repo.substringItemName; }
-            set { repo.substringItemName = value; }
+            get { return repo.labelFM; }
+            set { repo.labelFM = value; }
         }
 
 #endregion
@@ -93,17 +96,14 @@ namespace AutomatedSystemTests
         [System.CodeDom.Compiler.GeneratedCode("Ranorex", global::Ranorex.Core.Constants.CodeGenVersion)]
         void ITestModule.Run()
         {
-            Mouse.DefaultMoveTime = 0;
+            Mouse.DefaultMoveTime = 300;
             Keyboard.DefaultKeyPressTime = 20;
-            Delay.SpeedFactor = 0.00;
+            Delay.SpeedFactor = 1.00;
 
             Init();
 
-            // Validates that Item with Name containing $TextInItemName exists
-            Report.Log(ReportLevel.Info, "Validation", "Validates that Item with Name containing $TextInItemName exists\r\nValidating Exists on item 'RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericItemWithSubstringInName'.", repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericItemWithSubstringInNameInfo, new RecordItemIndex(0));
-            Validate.Exists(repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericItemWithSubstringInNameInfo);
-            
-            Report.Screenshot(ReportLevel.Info, "User", "", repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericItemWithSubstringInName, false, new RecordItemIndex(1));
+            SetRelevanceInView(repo.RiskeerMainWindow.IsFMRelevantCellInfo, isFMExpectedRelevant);
+            Delay.Milliseconds(0);
             
         }
 

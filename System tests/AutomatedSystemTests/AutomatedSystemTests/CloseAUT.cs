@@ -96,7 +96,7 @@ namespace AutomatedSystemTests
             Host.Current.CloseApplication(int.Parse(CloseAutProcessIDVar), 500);
             Delay.Milliseconds(0);
             
-            ClickButtonNoIfDialogShown(repo.CloseProjectDialog.ButtonNoInfo);
+            ClickButtonNoIfDialogShown(repo.ConfirmSaveProjectDialogWhenClosing.ButtonNoInfo);
             Delay.Milliseconds(0);
             
         }

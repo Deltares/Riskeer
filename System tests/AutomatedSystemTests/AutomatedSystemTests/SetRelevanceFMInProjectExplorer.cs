@@ -24,46 +24,80 @@ namespace AutomatedSystemTests
 {
 #pragma warning disable 0436 //(CS0436) The type 'type' in 'assembly' conflicts with the imported type 'type2' in 'assembly'. Using the type defined in 'assembly'.
     /// <summary>
-    ///The OpenProject recording.
+    ///The SetRelevanceFMInProjectExplorer recording.
     /// </summary>
-    [TestModule("3f746bb2-6845-45b4-9b28-b7fd605378f3", ModuleType.Recording, 1)]
-    public partial class OpenProject : ITestModule
+    [TestModule("37154a5a-bed5-4655-91a2-0c5ebc672e77", ModuleType.Recording, 1)]
+    public partial class SetRelevanceFMInProjectExplorer : ITestModule
     {
         /// <summary>
         /// Holds an instance of the AutomatedSystemTestsRepository repository.
         /// </summary>
         public static AutomatedSystemTestsRepository repo = AutomatedSystemTestsRepository.Instance;
 
-        static OpenProject instance = new OpenProject();
+        static SetRelevanceFMInProjectExplorer instance = new SetRelevanceFMInProjectExplorer();
 
         /// <summary>
         /// Constructs a new instance.
         /// </summary>
-        public OpenProject()
+        public SetRelevanceFMInProjectExplorer()
         {
-            fileNameToOpen = "";
+            substringTrajectName = "";
+            substringFMName = "";
+            fmShouldBeRelevant = "";
         }
 
         /// <summary>
         /// Gets a static instance of this recording.
         /// </summary>
-        public static OpenProject Instance
+        public static SetRelevanceFMInProjectExplorer Instance
         {
             get { return instance; }
         }
 
 #region Variables
 
-        string _fileNameToOpen;
+        string _substringFMName;
 
         /// <summary>
-        /// Gets or sets the value of variable fileNameToOpen.
+        /// Gets or sets the value of variable substringFMName.
         /// </summary>
-        [TestVariable("3c870d6e-0774-4179-b1f4-65350b234510")]
-        public string fileNameToOpen
+        [TestVariable("1f7734c3-2c4d-4c2c-b8f8-d8bbbf0017be")]
+        public string substringFMName
         {
-            get { return _fileNameToOpen; }
-            set { _fileNameToOpen = value; }
+            get { return _substringFMName; }
+            set { _substringFMName = value; }
+        }
+
+        string _fmShouldBeRelevant;
+
+        /// <summary>
+        /// Gets or sets the value of variable fmShouldBeRelevant.
+        /// </summary>
+        [TestVariable("6f91cdce-7f0c-42ee-93e0-4a3735497a16")]
+        public string fmShouldBeRelevant
+        {
+            get { return _fmShouldBeRelevant; }
+            set { _fmShouldBeRelevant = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets the value of variable substringTrajectName.
+        /// </summary>
+        [TestVariable("51976da0-b6de-418b-bda5-bc27195d3616")]
+        public string substringTrajectName
+        {
+            get { return repo.substringTrajectName; }
+            set { repo.substringTrajectName = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets the value of variable substringItemName.
+        /// </summary>
+        [TestVariable("3a7276c1-fca1-4026-9d2e-5bac10651a47")]
+        public string substringItemName
+        {
+            get { return repo.substringItemName; }
+            set { repo.substringItemName = value; }
         }
 
 #endregion
@@ -92,25 +126,11 @@ namespace AutomatedSystemTests
 
             Init();
 
-            // Click on shortcut Open file
-            Report.Log(ReportLevel.Info, "Mouse", "Click on shortcut Open file\r\nMouse Left Click item 'RiskeerMainWindow.Ribbon.ButtonContainer.OpenProjectButton' at 8;15.", repo.RiskeerMainWindow.Ribbon.ButtonContainer.OpenProjectButtonInfo, new RecordItemIndex(0));
-            repo.RiskeerMainWindow.Ribbon.ButtonContainer.OpenProjectButton.Click("8;15");
+            Report.Log(ReportLevel.Info, "User", substringTrajectName, new RecordItemIndex(0));
             
-            // Assign file name to open
-            Report.Log(ReportLevel.Info, "Set value", "Assign file name to open\r\nSetting attribute Text to '$fileNameToOpen' on item 'OpenDialog.FileNameField'.", repo.OpenDialog.FileNameFieldInfo, new RecordItemIndex(1));
-            repo.OpenDialog.FileNameField.Element.SetAttributeValue("Text", fileNameToOpen);
+            Report.Log(ReportLevel.Info, "User", substringFMName, new RecordItemIndex(1));
             
-            // Click on open button
-            Report.Log(ReportLevel.Info, "Mouse", "Click on open button\r\nMouse Left Click item 'OpenDialog.ButtonOpen' at 42;4.", repo.OpenDialog.ButtonOpenInfo, new RecordItemIndex(2));
-            repo.OpenDialog.ButtonOpen.Click("42;4");
-            
-            // Wait time (300ms) so that dialog is started up
-            Report.Log(ReportLevel.Info, "Delay", "Wait time (300ms) so that dialog is started up\r\nWaiting for 300ms.", new RecordItemIndex(3));
-            Delay.Duration(300, false);
-            
-            // Wait until file has been loaded and open dialog has been closed
-            Report.Log(ReportLevel.Info, "Wait", "Wait until file has been loaded and open dialog has been closed\r\nWaiting 30s to not exist. Associated repository item: 'ActivityProgressDialog.ProgressBar'", repo.ActivityProgressDialog.ProgressBarInfo, new ActionTimeout(30000), new RecordItemIndex(4));
-            repo.ActivityProgressDialog.ProgressBarInfo.WaitForNotExists(30000);
+            SetRelevanceFM(repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericItemWithSubstringInNameInfo, fmShouldBeRelevant);
             
         }
 

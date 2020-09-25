@@ -24,46 +24,43 @@ namespace AutomatedSystemTests
 {
 #pragma warning disable 0436 //(CS0436) The type 'type' in 'assembly' conflicts with the imported type 'type2' in 'assembly'. Using the type defined in 'assembly'.
     /// <summary>
-    ///The OpenProject recording.
+    ///The OpenViewForFailureMechanismContribution recording.
     /// </summary>
-    [TestModule("3f746bb2-6845-45b4-9b28-b7fd605378f3", ModuleType.Recording, 1)]
-    public partial class OpenProject : ITestModule
+    [TestModule("5e81345e-66bc-4e08-8ade-03d386d824fd", ModuleType.Recording, 1)]
+    public partial class OpenViewForFailureMechanismContribution : ITestModule
     {
         /// <summary>
         /// Holds an instance of the AutomatedSystemTestsRepository repository.
         /// </summary>
         public static AutomatedSystemTestsRepository repo = AutomatedSystemTestsRepository.Instance;
 
-        static OpenProject instance = new OpenProject();
+        static OpenViewForFailureMechanismContribution instance = new OpenViewForFailureMechanismContribution();
 
         /// <summary>
         /// Constructs a new instance.
         /// </summary>
-        public OpenProject()
+        public OpenViewForFailureMechanismContribution()
         {
-            fileNameToOpen = "";
         }
 
         /// <summary>
         /// Gets a static instance of this recording.
         /// </summary>
-        public static OpenProject Instance
+        public static OpenViewForFailureMechanismContribution Instance
         {
             get { return instance; }
         }
 
 #region Variables
 
-        string _fileNameToOpen;
-
         /// <summary>
-        /// Gets or sets the value of variable fileNameToOpen.
+        /// Gets or sets the value of variable substringTrajectName.
         /// </summary>
-        [TestVariable("3c870d6e-0774-4179-b1f4-65350b234510")]
-        public string fileNameToOpen
+        [TestVariable("77ae6c27-603e-4704-add9-e1249169f0e5")]
+        public string substringTrajectName
         {
-            get { return _fileNameToOpen; }
-            set { _fileNameToOpen = value; }
+            get { return repo.substringTrajectName; }
+            set { repo.substringTrajectName = value; }
         }
 
 #endregion
@@ -92,25 +89,17 @@ namespace AutomatedSystemTests
 
             Init();
 
-            // Click on shortcut Open file
-            Report.Log(ReportLevel.Info, "Mouse", "Click on shortcut Open file\r\nMouse Left Click item 'RiskeerMainWindow.Ribbon.ButtonContainer.OpenProjectButton' at 8;15.", repo.RiskeerMainWindow.Ribbon.ButtonContainer.OpenProjectButtonInfo, new RecordItemIndex(0));
-            repo.RiskeerMainWindow.Ribbon.ButtonContainer.OpenProjectButton.Click("8;15");
+            Report.Log(ReportLevel.Info, "Invoke action", "Invoking Focus() on item 'RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.Faalkansbegroting'.", repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.FaalkansbegrotingInfo, new RecordItemIndex(0));
+            repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.Faalkansbegroting.Focus();
             
-            // Assign file name to open
-            Report.Log(ReportLevel.Info, "Set value", "Assign file name to open\r\nSetting attribute Text to '$fileNameToOpen' on item 'OpenDialog.FileNameField'.", repo.OpenDialog.FileNameFieldInfo, new RecordItemIndex(1));
-            repo.OpenDialog.FileNameField.Element.SetAttributeValue("Text", fileNameToOpen);
+            Report.Log(ReportLevel.Info, "Invoke action", "Invoking Select() on item 'RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.Faalkansbegroting'.", repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.FaalkansbegrotingInfo, new RecordItemIndex(1));
+            repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.Faalkansbegroting.Select();
             
-            // Click on open button
-            Report.Log(ReportLevel.Info, "Mouse", "Click on open button\r\nMouse Left Click item 'OpenDialog.ButtonOpen' at 42;4.", repo.OpenDialog.ButtonOpenInfo, new RecordItemIndex(2));
-            repo.OpenDialog.ButtonOpen.Click("42;4");
+            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left DoubleClick item 'RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.Faalkansbegroting' at Center.", repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.FaalkansbegrotingInfo, new RecordItemIndex(2));
+            repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.Faalkansbegroting.DoubleClick();
             
-            // Wait time (300ms) so that dialog is started up
-            Report.Log(ReportLevel.Info, "Delay", "Wait time (300ms) so that dialog is started up\r\nWaiting for 300ms.", new RecordItemIndex(3));
-            Delay.Duration(300, false);
-            
-            // Wait until file has been loaded and open dialog has been closed
-            Report.Log(ReportLevel.Info, "Wait", "Wait until file has been loaded and open dialog has been closed\r\nWaiting 30s to not exist. Associated repository item: 'ActivityProgressDialog.ProgressBar'", repo.ActivityProgressDialog.ProgressBarInfo, new ActionTimeout(30000), new RecordItemIndex(4));
-            repo.ActivityProgressDialog.ProgressBarInfo.WaitForNotExists(30000);
+            // Screenshot of FailureMechanismContributionView
+            Report.Screenshot(ReportLevel.Info, "User", "", repo.RiskeerMainWindow.FailureMechanismContributionView.Self, false, new RecordItemIndex(3));
             
         }
 

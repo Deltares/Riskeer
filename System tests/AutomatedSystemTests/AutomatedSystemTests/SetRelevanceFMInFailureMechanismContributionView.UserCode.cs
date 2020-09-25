@@ -22,7 +22,7 @@ using Ranorex.Core.Testing;
 
 namespace AutomatedSystemTests
 {
-    public partial class CloseAUT
+    public partial class SetRelevanceFMInFailureMechanismContributionView
     {
         /// <summary>
         /// This method gets called right after the recording has been started.
@@ -33,14 +33,21 @@ namespace AutomatedSystemTests
             // Your recording specific initialization code goes here.
         }
 
-        public void ClickButtonNoIfDialogShown(RepoItemInfo buttonInfo)
+        public void SetRelevanceInView(RepoItemInfo cellInfo, string expectedRelevance)
         {
-        	if (repo.ConfirmSaveProjectDialogWhenClosing.SelfInfo.Exists()) 
-        	{
-            	Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'buttonInfo' at Center.", buttonInfo);
-            	buttonInfo.FindAdapter<Button>().Click();
+            string currentStates = cellInfo.FindAdapter<Cell>().As<Accessible>().State.ToString();
+            var isCurrentlyRelevant = (currentStates.IndexOf("Checked") != -1)?"True":"False";
+            Report.Log(ReportLevel.Info, "Info", "Current relevance is " + isCurrentlyRelevant + ".", cellInfo);
+            Report.Log(ReportLevel.Info, "Info", "Relevance should be " + expectedRelevance + ".", cellInfo);
+            if (isCurrentlyRelevant!=expectedRelevance) {
+            	Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'cellInfo' at Center.", cellInfo);
+            	cellInfo.FindAdapter<Cell>().Click();
+            	Report.Log(ReportLevel.Info, "Info", "Relevance has been set to " + expectedRelevance + "." , cellInfo);
+            } else
+            {
+            	Report.Log(ReportLevel.Info, "Info", "No action required.", cellInfo);
             }
-        	
         }
+
     }
 }
