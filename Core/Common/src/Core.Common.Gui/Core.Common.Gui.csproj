@@ -124,8 +124,8 @@
     </EmbeddedResource>
   </ItemGroup>
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="xcopy &quot;$(ProjectDir)nl&quot; &quot;$(OutDir)\nl\*&quot; /D /S /Y" />
     <Exec Command="xcopy /d/s/y $(PkgAvalonDock)\lib\net40\* $(OutDir)\..\Externals\AvalonDock-2.0.2000\*" />
+    <Exec Command="xcopy /d/s/y $(ProjectDir)\nl\* $(OutDir)\..\Externals\AvalonDock-2.0.2000\nl\*" />
     <Exec Command="xcopy /d/s/y $(PkgFluent_Ribbon)\lib\net45\* $(OutDir)\..\Externals\Fluent-3.4.0\*" />
     <Exec Command="xcopy /d/s/y $(Pkglog4net)\lib\net45-full\* $(OutDir)\..\Externals\Log4net-2.0.8\*" />
   </Target>
