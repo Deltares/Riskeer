@@ -36,7 +36,7 @@
     </PackageReference>
   </ItemGroup>
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="xcopy &quot;$(ProjectDir)HydraRing&quot; &quot;$(OutDir)\HydraRing\*&quot; /D /S /Y" />
+    <Exec Command="xcopy /d/s/y $(SolutionDir)\lib\HydraRing\* $(OutDir)\..\..\..\Standalone\Deltares\HydraRing\*" />
     <Exec Command="xcopy /d/s/y $(PkgSystem_Data_Sqlite_Core)\lib\net45\* $(OutDir)\..\Externals\System.Data.SQLite.Core-1.0.109.2\*" />
   </Target>
   <Import Project="$(SolutionDir)\build\PreBuild.targets" />

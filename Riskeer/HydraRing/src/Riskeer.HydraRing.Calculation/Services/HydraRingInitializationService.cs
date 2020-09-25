@@ -83,10 +83,21 @@ namespace Riskeer.HydraRing.Calculation.Services
             this.sectionId = sectionId;
             TemporaryWorkingDirectory = temporaryWorkingDirectory;
             hlcdFilePath = settings.HlcdFilePath;
-            hydraRingDirectory = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), hydraRingBinariesSubDirectory);
+
+            string executingAssemblyLocation = Assembly.GetExecutingAssembly().Location;
+            string applicationFolder = GetApplicationFolder(Directory.GetParent(executingAssemblyLocation));
+            hydraRingDirectory = Path.Combine(applicationFolder, "Standalone", "Deltares", hydraRingBinariesSubDirectory);
+
             configurationDatabaseFilePath = Path.Combine(hydraRingDirectory, HydraRingFileConstants.ConfigurationDatabaseFileName);
             preprocessorDirectory = settings.PreprocessorDirectory;
             usePreprocessorClosure = settings.UsePreprocessorClosure;
+        }
+
+        private static string GetApplicationFolder(DirectoryInfo directory)
+        {
+            return directory.Name.Contains("Application")
+                       ? directory.FullName
+                       : GetApplicationFolder(directory.Parent);
         }
 
         /// <summary>
