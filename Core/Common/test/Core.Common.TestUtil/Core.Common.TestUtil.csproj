@@ -54,10 +54,23 @@
   <ItemGroup>
     <PackageReference Include="log4net">
       <Version>2.0.8</Version>
+      <GeneratePathProperty>true</GeneratePathProperty>
+      <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="NUnit">
       <Version>3.8.1</Version>
+      <GeneratePathProperty>true</GeneratePathProperty>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="RhinoMocks">
+      <Version>3.6.1</Version>
+      <GeneratePathProperty>true</GeneratePathProperty>
+      <PrivateAssets>all</PrivateAssets>
     </PackageReference>
   </ItemGroup>
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="xcopy /d/s/y $(PkgNUNit)\lib\net45\* $(OutDir)\..\Externals\NUnit-3.8.1\*" />
+    <Exec Command="xcopy /d/s/y $(PkgRhinoMocks)\lib\net\* $(OutDir)\..\Externals\RhinoMocks-3.6.1\*" />
+  </Target>
   <Import Project="$(SolutionDir)\build\PreBuild.targets" />
 </Project>
