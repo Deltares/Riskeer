@@ -58,4 +58,10 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
   </ItemGroup>
+  <PropertyGroup>
+    <ContentSQLiteInteropFiles>false</ContentSQLiteInteropFiles>
+    <CopySQLiteInteropFiles>false</CopySQLiteInteropFiles>
+    <CleanSQLiteInteropFiles>false</CleanSQLiteInteropFiles>
+    <CollectSQLiteInteropFiles>false</CollectSQLiteInteropFiles>
+  </PropertyGroup>
 </Project>

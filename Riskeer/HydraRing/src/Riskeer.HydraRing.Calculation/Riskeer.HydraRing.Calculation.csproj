@@ -38,6 +38,8 @@
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <Exec Command="xcopy /d/s/y $(SolutionDir)\lib\HydraRing\* $(OutDir)\..\..\..\Standalone\Deltares\HydraRing\*" />
     <Exec Command="xcopy /d/s/y $(PkgSystem_Data_Sqlite_Core)\lib\net45\* $(OutDir)\..\Externals\System.Data.SQLite.Core-1.0.109.2\*" />
+    <Exec Command="xcopy /d/s/y $(PkgSystem_Data_Sqlite_Core)\build\net45\x64\* $(OutDir)\..\Externals\System.Data.SQLite.Core-1.0.109.2\x64\*" />
+    <Exec Command="xcopy /d/s/y $(PkgSystem_Data_Sqlite_Core)\build\net45\x86\* $(OutDir)\..\Externals\System.Data.SQLite.Core-1.0.109.2\x86\*" />
   </Target>
   <Import Project="$(SolutionDir)\build\PreBuild.targets" />
 </Project>
