@@ -32,6 +32,8 @@ namespace AutomatedSystemTests
         AutomatedSystemTestsRepositoryFolders.OpenDialogAppFolder _opendialog;
         AutomatedSystemTestsRepositoryFolders.ActivityProgressDialogAppFolder _activityprogressdialog;
         AutomatedSystemTestsRepositoryFolders.ContextMenuAppFolder _contextmenu;
+        AutomatedSystemTestsRepositoryFolders.OpslaanAlsAppFolder _opslaanals;
+        RepoItemInfo _buttonyesInfo;
 
         /// <summary>
         /// Gets the singleton class instance representing the AutomatedSystemTestsRepository element repository.
@@ -53,6 +55,8 @@ namespace AutomatedSystemTests
             _opendialog = new AutomatedSystemTestsRepositoryFolders.OpenDialogAppFolder(this);
             _activityprogressdialog = new AutomatedSystemTestsRepositoryFolders.ActivityProgressDialogAppFolder(this);
             _contextmenu = new AutomatedSystemTestsRepositoryFolders.ContextMenuAppFolder(this);
+            _opslaanals = new AutomatedSystemTestsRepositoryFolders.OpslaanAlsAppFolder(this);
+            _buttonyesInfo = new RepoItemInfo(this, "ButtonYes", "/form[@title='Confirm Save As']//button[@text='&Yes']", 3000, null, "ac0a8e2f-9815-493c-bc5f-c81dcf12d652");
         }
 
 #region Variables
@@ -108,6 +112,30 @@ namespace AutomatedSystemTests
         }
 
         /// <summary>
+        /// The ButtonYes item.
+        /// </summary>
+        [RepositoryItem("ac0a8e2f-9815-493c-bc5f-c81dcf12d652")]
+        public virtual Ranorex.Button ButtonYes
+        {
+            get
+            {
+                 return _buttonyesInfo.CreateAdapter<Ranorex.Button>(true);
+            }
+        }
+
+        /// <summary>
+        /// The ButtonYes item info.
+        /// </summary>
+        [RepositoryItemInfo("ac0a8e2f-9815-493c-bc5f-c81dcf12d652")]
+        public virtual RepoItemInfo ButtonYesInfo
+        {
+            get
+            {
+                return _buttonyesInfo;
+            }
+        }
+
+        /// <summary>
         /// The RiskeerMainWindow folder.
         /// </summary>
         [RepositoryFolder("d918d6a6-a4c6-4c01-a295-0360a81bad96")]
@@ -151,6 +179,15 @@ namespace AutomatedSystemTests
         {
             get { return _contextmenu; }
         }
+
+        /// <summary>
+        /// The OpslaanAls folder.
+        /// </summary>
+        [RepositoryFolder("b4da5f61-a7ae-4a2a-bd84-09bffaec5225")]
+        public virtual AutomatedSystemTestsRepositoryFolders.OpslaanAlsAppFolder OpslaanAls
+        {
+            get { return _opslaanals; }
+        }
     }
 
     /// <summary>
@@ -171,6 +208,7 @@ namespace AutomatedSystemTests
             AutomatedSystemTestsRepositoryFolders.FailureMechanismContributionViewFolder _failuremechanismcontributionview;
             AutomatedSystemTestsRepositoryFolders.PropertiesPanelContainerFolder _propertiespanelcontainer;
             RepoItemInfo _isfmrelevantcellInfo;
+            RepoItemInfo _copy_of_isfmrelevantcellInfo;
 
             /// <summary>
             /// Creates a new RiskeerMainWindow  folder.
@@ -184,6 +222,7 @@ namespace AutomatedSystemTests
                 _failuremechanismcontributionview = new AutomatedSystemTestsRepositoryFolders.FailureMechanismContributionViewFolder(this);
                 _propertiespanelcontainer = new AutomatedSystemTestsRepositoryFolders.PropertiesPanelContainerFolder(this);
                 _isfmrelevantcellInfo = new RepoItemInfo(this, "IsFMRelevantCell", "list//container[@controlname='FailureMechanismContributionView']/?/table/row[@accessiblevalue~$labelFM]/cell[@accessiblename>'Is relevant']", 30000, null, "1029a286-ce5f-4de6-8f9d-d68210aae163");
+                _copy_of_isfmrelevantcellInfo = new RepoItemInfo(this, "Copy_of_IsFMRelevantCell", "list//container[@controlname='FailureMechanismContributionView']/?/table/row[@accessiblevalue~$labelFM]/cell[@accessiblename>'Is relevant']", 30000, null, "78b3cba4-3858-49b9-8809-b7f79f03aa5c");
             }
 
             /// <summary>
@@ -231,6 +270,30 @@ namespace AutomatedSystemTests
                 get
                 {
                     return _isfmrelevantcellInfo;
+                }
+            }
+
+            /// <summary>
+            /// The Copy_of_IsFMRelevantCell item.
+            /// </summary>
+            [RepositoryItem("78b3cba4-3858-49b9-8809-b7f79f03aa5c")]
+            public virtual Ranorex.Cell Copy_of_IsFMRelevantCell
+            {
+                get
+                {
+                    return _copy_of_isfmrelevantcellInfo.CreateAdapter<Ranorex.Cell>(true);
+                }
+            }
+
+            /// <summary>
+            /// The Copy_of_IsFMRelevantCell item info.
+            /// </summary>
+            [RepositoryItemInfo("78b3cba4-3858-49b9-8809-b7f79f03aa5c")]
+            public virtual RepoItemInfo Copy_of_IsFMRelevantCellInfo
+            {
+                get
+                {
+                    return _copy_of_isfmrelevantcellInfo;
                 }
             }
 
@@ -481,6 +544,9 @@ namespace AutomatedSystemTests
         public partial class RibbonFolder : RepoGenBaseFolder
         {
             AutomatedSystemTestsRepositoryFolders.ButtonContainerFolder _buttoncontainer;
+            RepoItemInfo _bestandInfo;
+            RepoItemInfo _buttonmenufilesaveprojectasInfo;
+            RepoItemInfo _buttonmenufilenewprojectInfo;
 
             /// <summary>
             /// Creates a new Ribbon  folder.
@@ -489,6 +555,9 @@ namespace AutomatedSystemTests
                     base("Ribbon", "menubar[@automationid='Ribbon']", parentFolder, 30000, null, true, "c92795a7-9101-49d1-a0da-9036c4491cb2", "")
             {
                 _buttoncontainer = new AutomatedSystemTestsRepositoryFolders.ButtonContainerFolder(this);
+                _bestandInfo = new RepoItemInfo(this, "Bestand", "?/?/text[@caption='Bestand']", 30000, null, "8ca7d8de-6c3a-48cd-98e3-444ddf09e011");
+                _buttonmenufilesaveprojectasInfo = new RepoItemInfo(this, "ButtonMenuFileSaveProjectAs", "?/?/button[@automationid='ButtonMenuFileSaveProjectAs']", 30000, null, "85528b1e-84f6-40a9-b2b7-58d99c5ad909");
+                _buttonmenufilenewprojectInfo = new RepoItemInfo(this, "ButtonMenuFileNewProject", "?/?/button[@automationid='ButtonMenuFileNewProject']", 30000, null, "9b0a050a-4689-4755-8f6d-c46dfe951fe7");
             }
 
             /// <summary>
@@ -512,6 +581,78 @@ namespace AutomatedSystemTests
                 get
                 {
                     return _selfInfo;
+                }
+            }
+
+            /// <summary>
+            /// The Bestand item.
+            /// </summary>
+            [RepositoryItem("8ca7d8de-6c3a-48cd-98e3-444ddf09e011")]
+            public virtual Ranorex.Text Bestand
+            {
+                get
+                {
+                    return _bestandInfo.CreateAdapter<Ranorex.Text>(true);
+                }
+            }
+
+            /// <summary>
+            /// The Bestand item info.
+            /// </summary>
+            [RepositoryItemInfo("8ca7d8de-6c3a-48cd-98e3-444ddf09e011")]
+            public virtual RepoItemInfo BestandInfo
+            {
+                get
+                {
+                    return _bestandInfo;
+                }
+            }
+
+            /// <summary>
+            /// The ButtonMenuFileSaveProjectAs item.
+            /// </summary>
+            [RepositoryItem("85528b1e-84f6-40a9-b2b7-58d99c5ad909")]
+            public virtual Ranorex.Button ButtonMenuFileSaveProjectAs
+            {
+                get
+                {
+                    return _buttonmenufilesaveprojectasInfo.CreateAdapter<Ranorex.Button>(true);
+                }
+            }
+
+            /// <summary>
+            /// The ButtonMenuFileSaveProjectAs item info.
+            /// </summary>
+            [RepositoryItemInfo("85528b1e-84f6-40a9-b2b7-58d99c5ad909")]
+            public virtual RepoItemInfo ButtonMenuFileSaveProjectAsInfo
+            {
+                get
+                {
+                    return _buttonmenufilesaveprojectasInfo;
+                }
+            }
+
+            /// <summary>
+            /// The ButtonMenuFileNewProject item.
+            /// </summary>
+            [RepositoryItem("9b0a050a-4689-4755-8f6d-c46dfe951fe7")]
+            public virtual Ranorex.Button ButtonMenuFileNewProject
+            {
+                get
+                {
+                    return _buttonmenufilenewprojectInfo.CreateAdapter<Ranorex.Button>(true);
+                }
+            }
+
+            /// <summary>
+            /// The ButtonMenuFileNewProject item info.
+            /// </summary>
+            [RepositoryItemInfo("9b0a050a-4689-4755-8f6d-c46dfe951fe7")]
+            public virtual RepoItemInfo ButtonMenuFileNewProjectInfo
+            {
+                get
+                {
+                    return _buttonmenufilenewprojectInfo;
                 }
             }
 
@@ -979,6 +1120,7 @@ namespace AutomatedSystemTests
         public partial class ActivityProgressDialogAppFolder : RepoGenBaseFolder
         {
             RepoItemInfo _progressbarInfo;
+            RepoItemInfo _buttoncancelInfo;
 
             /// <summary>
             /// Creates a new ActivityProgressDialog  folder.
@@ -987,6 +1129,7 @@ namespace AutomatedSystemTests
                     base("ActivityProgressDialog", "/form[@controlname='ActivityProgressDialog']", parentFolder, 30000, null, true, "6992b395-923d-4913-be11-dc9d7fa075dc", "")
             {
                 _progressbarInfo = new RepoItemInfo(this, "ProgressBar", "progressbar[@controlname='progressBar']", 30000, null, "626cf7e9-229f-443b-8711-8359ac8e9d95");
+                _buttoncancelInfo = new RepoItemInfo(this, "ButtonCancel", "button[@controlname='buttonCancel']", 30000, null, "ce9d9227-f12e-488e-9ca2-80d899fed485");
             }
 
             /// <summary>
@@ -1034,6 +1177,30 @@ namespace AutomatedSystemTests
                 get
                 {
                     return _progressbarInfo;
+                }
+            }
+
+            /// <summary>
+            /// The ButtonCancel item.
+            /// </summary>
+            [RepositoryItem("ce9d9227-f12e-488e-9ca2-80d899fed485")]
+            public virtual Ranorex.Button ButtonCancel
+            {
+                get
+                {
+                    return _buttoncancelInfo.CreateAdapter<Ranorex.Button>(true);
+                }
+            }
+
+            /// <summary>
+            /// The ButtonCancel item info.
+            /// </summary>
+            [RepositoryItemInfo("ce9d9227-f12e-488e-9ca2-80d899fed485")]
+            public virtual RepoItemInfo ButtonCancelInfo
+            {
+                get
+                {
+                    return _buttoncancelInfo;
                 }
             }
         }
@@ -1308,6 +1475,98 @@ namespace AutomatedSystemTests
                 get
                 {
                     return _eigenschappenInfo;
+                }
+            }
+        }
+
+        /// <summary>
+        /// The OpslaanAlsAppFolder folder.
+        /// </summary>
+        [RepositoryFolder("b4da5f61-a7ae-4a2a-bd84-09bffaec5225")]
+        public partial class OpslaanAlsAppFolder : RepoGenBaseFolder
+        {
+            RepoItemInfo _saveasfilenameInfo;
+            RepoItemInfo _savebuttonInfo;
+
+            /// <summary>
+            /// Creates a new OpslaanAls  folder.
+            /// </summary>
+            public OpslaanAlsAppFolder(RepoGenBaseFolder parentFolder) :
+                    base("OpslaanAls", "/form[@title='Opslaan als']", parentFolder, 30000, null, true, "b4da5f61-a7ae-4a2a-bd84-09bffaec5225", "")
+            {
+                _saveasfilenameInfo = new RepoItemInfo(this, "SaveAsFileName", "element[@class='DUIViewWndClassName']//combobox[@class='ComboBox']/text[@accessiblename='File name:']", 30000, null, "29c5aee0-b248-4a91-82b3-a8a9f8f7382e");
+                _savebuttonInfo = new RepoItemInfo(this, "SaveButton", "button[@text='&Save']", 30000, null, "d1a05174-5318-4647-9db3-00a286f95fbc");
+            }
+
+            /// <summary>
+            /// The Self item.
+            /// </summary>
+            [RepositoryItem("b4da5f61-a7ae-4a2a-bd84-09bffaec5225")]
+            public virtual Ranorex.Form Self
+            {
+                get
+                {
+                    return _selfInfo.CreateAdapter<Ranorex.Form>(true);
+                }
+            }
+
+            /// <summary>
+            /// The Self item info.
+            /// </summary>
+            [RepositoryItemInfo("b4da5f61-a7ae-4a2a-bd84-09bffaec5225")]
+            public virtual RepoItemInfo SelfInfo
+            {
+                get
+                {
+                    return _selfInfo;
+                }
+            }
+
+            /// <summary>
+            /// The SaveAsFileName item.
+            /// </summary>
+            [RepositoryItem("29c5aee0-b248-4a91-82b3-a8a9f8f7382e")]
+            public virtual Ranorex.Text SaveAsFileName
+            {
+                get
+                {
+                    return _saveasfilenameInfo.CreateAdapter<Ranorex.Text>(true);
+                }
+            }
+
+            /// <summary>
+            /// The SaveAsFileName item info.
+            /// </summary>
+            [RepositoryItemInfo("29c5aee0-b248-4a91-82b3-a8a9f8f7382e")]
+            public virtual RepoItemInfo SaveAsFileNameInfo
+            {
+                get
+                {
+                    return _saveasfilenameInfo;
+                }
+            }
+
+            /// <summary>
+            /// The SaveButton item.
+            /// </summary>
+            [RepositoryItem("d1a05174-5318-4647-9db3-00a286f95fbc")]
+            public virtual Ranorex.Button SaveButton
+            {
+                get
+                {
+                    return _savebuttonInfo.CreateAdapter<Ranorex.Button>(true);
+                }
+            }
+
+            /// <summary>
+            /// The SaveButton item info.
+            /// </summary>
+            [RepositoryItemInfo("d1a05174-5318-4647-9db3-00a286f95fbc")]
+            public virtual RepoItemInfo SaveButtonInfo
+            {
+                get
+                {
+                    return _savebuttonInfo;
                 }
             }
         }

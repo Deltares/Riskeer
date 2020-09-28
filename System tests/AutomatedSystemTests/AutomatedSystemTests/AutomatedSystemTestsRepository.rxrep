@@ -103,6 +103,33 @@ name="AutomatedSystemTestsRepository">
 						/form[@automationid='RiskeerMainWindow']/menubar[@automationid='Ribbon']/container[@automationid='PART_ToolBarPanel']
 					</basepath>
 				</folder>
+				<item
+				addcaps="text,wpfelement,wpfgroupelement"
+				capname="text"
+				id="8ca7d8de-6c3a-48cd-98e3-444ddf09e011"
+				name="Bestand"
+				refimgid="7e47a659-c52c-45ba-a6c7-9f6115204406"
+				searchtimeout="30000ms">
+					/form[@automationid='RiskeerMainWindow']/menubar[@automationid='Ribbon']/?/?/text[@caption='Bestand']
+				</item>
+				<item
+				addcaps="button,wpfelement,wpfgroupelement"
+				capname="button"
+				id="85528b1e-84f6-40a9-b2b7-58d99c5ad909"
+				name="ButtonMenuFileSaveProjectAs"
+				refimgid="386f5558-51e7-4270-8861-ff555ad58d1c"
+				searchtimeout="30000ms">
+					/form[@automationid='RiskeerMainWindow']/menubar[@automationid='Ribbon']/?/?/button[@automationid='ButtonMenuFileSaveProjectAs']
+				</item>
+				<item
+				addcaps="button,uiautomation,uiautomationinvoke"
+				capname="button"
+				id="9b0a050a-4689-4755-8f6d-c46dfe951fe7"
+				name="ButtonMenuFileNewProject"
+				refimgid="cbe45f81-ca04-4c67-bc95-a3f6466374d1"
+				searchtimeout="30000ms">
+					/form[@automationid='RiskeerMainWindow']/menubar[@automationid='Ribbon']/?/?/button[@automationid='ButtonMenuFileNewProject']
+				</item>
 				<basepath>
 					/form[@automationid='RiskeerMainWindow']/menubar[@automationid='Ribbon']
 				</basepath>
@@ -133,6 +160,15 @@ name="AutomatedSystemTestsRepository">
 			capname="cell"
 			id="1029a286-ce5f-4de6-8f9d-d68210aae163"
 			name="IsFMRelevantCell"
+			refimgid="abe9b3df-fa56-4ec4-8a9a-ff2ecd96810a"
+			searchtimeout="30000ms">
+				/form[@automationid='RiskeerMainWindow']/list//container[@controlname='FailureMechanismContributionView']/?/table/row[@accessiblevalue~$labelFM]/cell[@accessiblename&gt;'Is relevant']
+			</item>
+			<item
+			addcaps="cell,accessible"
+			capname="cell"
+			id="78b3cba4-3858-49b9-8809-b7f79f03aa5c"
+			name="Copy_of_IsFMRelevantCell"
 			refimgid="abe9b3df-fa56-4ec4-8a9a-ff2ecd96810a"
 			searchtimeout="30000ms">
 				/form[@automationid='RiskeerMainWindow']/list//container[@controlname='FailureMechanismContributionView']/?/table/row[@accessiblevalue~$labelFM]/cell[@accessiblename&gt;'Is relevant']
@@ -285,6 +321,16 @@ gg==
 			refimgid="73e2b350-8cc8-4194-977c-a4ee62cbfb80"
 			searchtimeout="30000ms">
 				/form[@controlname='ActivityProgressDialog']/progressbar[@controlname='progressBar']
+			</item>
+			<item
+			addcaps="button,control,nativewindow"
+			capname="button"
+			id="ce9d9227-f12e-488e-9ca2-80d899fed485"
+			name="ButtonCancel"
+			refimgid="11cb0b1f-2749-46f6-931f-6dff767be6b6"
+			refpath="/form[@controlname='ActivityProgressDialog']/button[@controlname='buttonCancel']"
+			searchtimeout="30000ms">
+				/form[@controlname='ActivityProgressDialog']/button[@controlname='buttonCancel']
 			</item>
 			<basepath>
 				/form[@controlname='ActivityProgressDialog']
@@ -454,6 +500,60 @@ DSAAos+dOwfG6ACnATANyIY0dE4iLgy6OqpBgmCA7gp0gNUAqCAYbD8IcQVJLkA2AARg3iHJBaRg
 DAPIxVgFicf/GQCdrAkiuOdOjQAAAABJRU5ErkJggg==
 			</icon>
 		</appfolder>
+		<appfolder
+		capname="form"
+		id="b4da5f61-a7ae-4a2a-bd84-09bffaec5225"
+		isrooted="True"
+		name="OpslaanAls"
+		refimgid="1efc1fc8-8618-470a-8104-d8d5a9d36cb9"
+		searchtimeout="30000ms"
+		usecache="True">
+			<item
+			addcaps="text,nativewindow"
+			capname="text"
+			id="29c5aee0-b248-4a91-82b3-a8a9f8f7382e"
+			name="SaveAsFileName"
+			refimgid="2962c325-4d60-46fa-9775-24f321f2646e"
+			searchtimeout="30000ms">
+				/form[@title='Opslaan als']/element[@class='DUIViewWndClassName']//combobox[@class='ComboBox']/text[@accessiblename='File name:']
+			</item>
+			<item
+			addcaps="button,nativewindow"
+			capname="button"
+			id="d1a05174-5318-4647-9db3-00a286f95fbc"
+			name="SaveButton"
+			refimgid="c674c8c6-3b5d-4b3a-a967-2466d8473da1"
+			searchtimeout="30000ms">
+				/form[@title='Opslaan als']/button[@text='&amp;Save']
+			</item>
+			<basepath>
+				/form[@title='Opslaan als']
+			</basepath>
+			<icon>
+				iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlz
+AAAOxAAADsQBlSsOGwAAAlFJREFUOE+lk+tLk2EYh/eX9CGipCIyCKLo4HHlzA8SVoR9KogkkKDM
+CKRCCwQtKUjtIJSdrKggqQ+CFZmHHGlzzrU552HqNnWbO7zHXT3bBLXQoG74fXvv63c9z8tj+O9p
+aDFz55WDmuYBqpp+cLnRzJnqTk5UdlNc8YWic60Ulr6koOTJshw8/RjjkXIMdc9tNLVrNLZp3GqV
+qX4dofJZkIpHs5Q3+Tl710fJ7UlO1o5zvNrN0SoXh644yS8zsyZtB4baZjN1bwLcfBvm4oMpTt1w
+U3zdybFrDg5ftVNYYaPg0iCmcisHLgxgLLOQe95CRmk369KNGGoaXuAPxAhHNeZFQhGVYFghIDIb
+SsUbUPDMyLi9Mg6PhHVMosvqYePW7QJQ38JqE4+DokJEijMX0ZkKaoz6VSwuLxs2b8Nw/+n7hU//
+HE0HSYkzH9OZmdeYnNNw+xR+Tir0DP0FoItmWSwnm8M606J5TDQ7pxSs4zKd1tUACW1NLMtxglEd
+X0hjYlbD5VWwTSj0j8h8tgjAphUAi+pxZsRySl3FLtQtozK9wxLtfSsAkupqQl1PqQdS6o6kusJ3
+l0yXQ6LNnACkLwckb1yDqDh3YKn6dEq9zy3R45TosMX40PsbQOyiLqiHhLo/eesqIwl1z6L6V3uM
+T9Yo73q8rE8A7i0xEOVI4p+HYggATMyByxdnyKPRP6rxbVilw67wcVBOAtambRFvof4hufvzyTGa
+yBbJEskUycg1sS/HxN7sPPaI7M7KY1dmKjszUsnJL2LhTf7rGAy/AP7X5rYY5FLEAAAAAElFTkSu
+QmCC
+			</icon>
+		</appfolder>
+		<item
+		addcaps="button,nativewindow"
+		capname="button"
+		id="ac0a8e2f-9815-493c-bc5f-c81dcf12d652"
+		name="ButtonYes"
+		refimgid="ee6faec7-8bdd-42ac-859f-c1ab5a4bb273"
+		searchtimeout="3000ms">
+			/form[@title='Confirm Save As']//button[@text='&amp;Yes']
+		</item>
 		<basepath>
 		</basepath>
 	</rootfolder>

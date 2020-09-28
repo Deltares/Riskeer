@@ -24,43 +24,56 @@ namespace AutomatedSystemTests
 {
 #pragma warning disable 0436 //(CS0436) The type 'type' in 'assembly' conflicts with the imported type 'type2' in 'assembly'. Using the type defined in 'assembly'.
     /// <summary>
-    ///The OpenViewForFailureMechanismContribution recording.
+    ///The ValidateFMRelevanceInFMCView recording.
     /// </summary>
-    [TestModule("5e81345e-66bc-4e08-8ade-03d386d824fd", ModuleType.Recording, 1)]
-    public partial class OpenViewForFailureMechanismContribution : ITestModule
+    [TestModule("3c9b70f2-d794-41d3-b0ce-6da8c1e00475", ModuleType.Recording, 1)]
+    public partial class ValidateFMRelevanceInFMCView : ITestModule
     {
         /// <summary>
         /// Holds an instance of the AutomatedSystemTestsRepository repository.
         /// </summary>
         public static AutomatedSystemTestsRepository repo = AutomatedSystemTestsRepository.Instance;
 
-        static OpenViewForFailureMechanismContribution instance = new OpenViewForFailureMechanismContribution();
+        static ValidateFMRelevanceInFMCView instance = new ValidateFMRelevanceInFMCView();
 
         /// <summary>
         /// Constructs a new instance.
         /// </summary>
-        public OpenViewForFailureMechanismContribution()
+        public ValidateFMRelevanceInFMCView()
         {
+            fmExpectedRelevance = "";
         }
 
         /// <summary>
         /// Gets a static instance of this recording.
         /// </summary>
-        public static OpenViewForFailureMechanismContribution Instance
+        public static ValidateFMRelevanceInFMCView Instance
         {
             get { return instance; }
         }
 
 #region Variables
 
+        string _fmExpectedRelevance;
+
         /// <summary>
-        /// Gets or sets the value of variable substringTrajectName.
+        /// Gets or sets the value of variable fmExpectedRelevance.
         /// </summary>
-        [TestVariable("77ae6c27-603e-4704-add9-e1249169f0e5")]
-        public string substringTrajectName
+        [TestVariable("8f4ca43a-f614-4ad7-898c-4a121072e015")]
+        public string fmExpectedRelevance
         {
-            get { return repo.substringTrajectName; }
-            set { repo.substringTrajectName = value; }
+            get { return _fmExpectedRelevance; }
+            set { _fmExpectedRelevance = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets the value of variable labelFM.
+        /// </summary>
+        [TestVariable("5afdb904-9d2e-4bb5-ae28-38089eda6255")]
+        public string labelFM
+        {
+            get { return repo.labelFM; }
+            set { repo.labelFM = value; }
         }
 
 #endregion
@@ -83,23 +96,16 @@ namespace AutomatedSystemTests
         [System.CodeDom.Compiler.GeneratedCode("Ranorex", global::Ranorex.Core.Constants.CodeGenVersion)]
         void ITestModule.Run()
         {
-            Mouse.DefaultMoveTime = 0;
+            Mouse.DefaultMoveTime = 300;
             Keyboard.DefaultKeyPressTime = 20;
-            Delay.SpeedFactor = 0.00;
+            Delay.SpeedFactor = 1.00;
 
             Init();
 
-            Report.Log(ReportLevel.Info, "Invoke action", "Invoking Focus() on item 'RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.Faalkansbegroting'.", repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.FaalkansbegrotingInfo, new RecordItemIndex(0));
-            repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.Faalkansbegroting.Focus();
-            
-            Report.Log(ReportLevel.Info, "Invoke action", "Invoking Select() on item 'RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.Faalkansbegroting'.", repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.FaalkansbegrotingInfo, new RecordItemIndex(1));
-            repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.Faalkansbegroting.Select();
-            
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left DoubleClick item 'RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.Faalkansbegroting' at Center.", repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.FaalkansbegrotingInfo, new RecordItemIndex(2));
-            repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.Faalkansbegroting.DoubleClick();
-            
-            // Screenshot of FailureMechanismContributionView
-            //Report.Screenshot(ReportLevel.Info, "User", "", repo.RiskeerMainWindow.FailureMechanismContributionView.Self, false, new RecordItemIndex(3));
+            try {
+                ValidateFMinFMCView(repo.RiskeerMainWindow.IsFMRelevantCellInfo, fmExpectedRelevance);
+                Delay.Milliseconds(0);
+            } catch(Exception ex) { Report.Log(ReportLevel.Warn, "Module", "(Optional Action) " + ex.Message, new RecordItemIndex(0)); }
             
         }
 

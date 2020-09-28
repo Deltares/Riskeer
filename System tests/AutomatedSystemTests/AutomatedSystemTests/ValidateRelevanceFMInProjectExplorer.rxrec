@@ -7,7 +7,7 @@ mode="Global">
 		1
 	</repeatcount>
 	<turbomode>
-		True
+		False
 	</turbomode>
 	<genreport>
 		True
@@ -81,6 +81,30 @@ mode="Global">
 			id="c037b496-f60f-4ab6-80c8-02122e01b63d">
 			</arguments>
 		</invokeactionrecorditem>
+		<mouseitem
+		action="Click"
+		button="Left"
+		duration="300ms"
+		enabled="True"
+		loc="Center"
+		movetime="300ms"
+		optional="False"
+		searchpropertyid="e059a5a4-ad29-4483-98a1-94c36d796ace"
+		sx="0"
+		sy="0"
+		warnoutofbounds="False">
+			<comment>
+			</comment>
+			<bindings>
+			</bindings>
+			<info
+			id="92f53398-7bb2-45f8-a305-0adb56ec8aa7"
+			sourcename="RepositoryEditor">
+				<path>
+					/form[@automationid='RiskeerMainWindow']//container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]/treeitem[@accessiblename~$substringTrajectName]/treeitem[@accessiblename~$substringItemName]
+				</path>
+			</info>
+		</mouseitem>
 		<keysequenceitem
 		KeySequence="{Right}"
 		duration="20ms"
@@ -93,6 +117,15 @@ mode="Global">
 			<bindings>
 			</bindings>
 		</keysequenceitem>
+		<explicitdelayitem
+		duration="300ms"
+		enabled="True"
+		optional="False">
+			<comment>
+			</comment>
+			<bindings>
+			</bindings>
+		</explicitdelayitem>
 		<loggingrecorditem
 		action="Screenshot"
 		category="User"
@@ -113,18 +146,6 @@ mode="Global">
 				</path>
 			</info>
 		</loggingrecorditem>
-		<keysequenceitem
-		KeySequence="{Left}"
-		duration="20ms"
-		enabled="True"
-		optional="False"
-		presstime="20ms"
-		searchpropertyid="5a9b273c-2b41-44fc-b284-54d97e6bad4e">
-			<comment>
-			</comment>
-			<bindings>
-			</bindings>
-		</keysequenceitem>
 		<userrecorditem
 		classname="ValidateRelevanceFMInProjectExplorer"
 		enabled="True"
@@ -166,6 +187,18 @@ mode="Global">
 				</argument>
 			</arguments>
 		</userrecorditem>
+		<keysequenceitem
+		KeySequence="{Left}"
+		duration="20ms"
+		enabled="True"
+		optional="False"
+		presstime="20ms"
+		searchpropertyid="5a9b273c-2b41-44fc-b284-54d97e6bad4e">
+			<comment>
+			</comment>
+			<bindings>
+			</bindings>
+		</keysequenceitem>
 		<loggingrecorditem
 		category="User"
 		enabled="True"

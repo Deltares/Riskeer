@@ -37,6 +37,9 @@ namespace AutomatedSystemTests
         {
             int numberOfChildren = fmObjectInfo.FindAdapter<TreeItem>().Children.Count;
             Report.Log(ReportLevel.Info, "Info", "Failure mechanism (FM) node contains " + numberOfChildren + " items.", fmObjectInfo);
+            foreach (var ch in fmObjectInfo.FindAdapter<TreeItem>().Children) {
+            	Report.Log(ReportLevel.Info, "Info", ch.ToString() , fmObjectInfo);
+            }
             string currentRelevance = numberOfChildren!=1 ? "True" : "False";
             Report.Log(ReportLevel.Info, "Info", "The relevance of the FM is  " + currentRelevance + ".", fmObjectInfo);
             Validate.AreEqual(currentRelevance, expectedRelevance);

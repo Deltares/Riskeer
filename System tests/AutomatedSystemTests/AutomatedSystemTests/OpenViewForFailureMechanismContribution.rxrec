@@ -92,7 +92,7 @@ mode="Global">
 		<loggingrecorditem
 		action="Screenshot"
 		category="User"
-		enabled="True"
+		enabled="False"
 		message=""
 		optional="False"
 		reportlevel="Info;20"
