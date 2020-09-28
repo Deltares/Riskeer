@@ -22,5 +22,4 @@
     <ProjectReference Include="..\..\src\Riskeer.MacroStabilityInwards.Data\Riskeer.MacroStabilityInwards.Data.csproj" />
     <ProjectReference Include="..\..\src\Riskeer.MacroStabilityInwards.IO\Riskeer.MacroStabilityInwards.IO.csproj" />
   </ItemGroup>
-  <Import Project="$(SolutionDir)\build\PreBuild.targets" />
 </Project>

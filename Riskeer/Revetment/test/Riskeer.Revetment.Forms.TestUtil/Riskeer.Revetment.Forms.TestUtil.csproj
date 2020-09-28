@@ -19,5 +19,4 @@
     <ProjectReference Include="..\..\src\Riskeer.Revetment.Forms\Riskeer.Revetment.Forms.csproj"/>
     <ProjectReference Include="..\Riskeer.Revetment.Data.TestUtil\Riskeer.Revetment.Data.TestUtil.csproj"/>
   </ItemGroup>
-  <Import Project="$(SolutionDir)\build\PreBuild.targets" />
 </Project>

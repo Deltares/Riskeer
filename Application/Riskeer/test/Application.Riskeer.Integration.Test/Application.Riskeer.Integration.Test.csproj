@@ -48,5 +48,4 @@
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <Exec Command="xcopy &quot;$(ProjectDir)UnusedResourceSearcher&quot; &quot;$(OutDir)\UnusedResourceSearcher\*&quot; /D /S /Y" />
   </Target>
-  <Import Project="$(SolutionDir)\build\PreBuild.targets" />
 </Project>

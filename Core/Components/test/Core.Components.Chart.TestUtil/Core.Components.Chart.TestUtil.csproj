@@ -13,5 +13,4 @@
       <Link>Copying.Lesser.licenseheader</Link>
     </None>
   </ItemGroup>
-  <Import Project="$(SolutionDir)\build\PreBuild.targets" />
 </Project>
