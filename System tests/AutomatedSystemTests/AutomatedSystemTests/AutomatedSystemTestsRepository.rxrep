@@ -128,18 +128,6 @@ name="AutomatedSystemTestsRepository">
 					/form[@automationid='RiskeerMainWindow']//button[@automationid='MenuDropDownButton']
 				</basepath>
 			</folder>
-			<folder
-			capname="container"
-			id="8de00d2a-2da8-41c8-b1cb-2600ea17161f"
-			isrooted="True"
-			name="FailureMechanismContributionView"
-			refimgid="b66732ba-90d5-4b97-b9cb-7c7429f591c6"
-			searchtimeout="30000ms"
-			usecache="False">
-				<basepath>
-					/form[@automationid='RiskeerMainWindow']//container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismContributionView']
-				</basepath>
-			</folder>
 			<item
 			addcaps="cell,accessible"
 			capname="cell"
@@ -151,14 +139,45 @@ name="AutomatedSystemTestsRepository">
 			</item>
 			<folder
 			capname="container"
-			id="98749289-fdda-4451-b00f-f2464c039a30"
+			id="4347e3f0-1ed0-4963-b57b-9e0102c2f5d2"
 			isrooted="True"
-			name="MyFailureMechanismContributionView"
-			refimgid="ce2b32d5-a8bd-4abb-a7fd-fb987f23a5e9"
+			name="FailureMechanismContributionView"
+			refimgid="b66732ba-90d5-4b97-b9cb-7c7429f591c6"
 			searchtimeout="30000ms"
 			usecache="False">
 				<basepath>
-					/form[@automationid='RiskeerMainWindow']/list//container[@controlname='FailureMechanismContributionView']
+					/form[@automationid='RiskeerMainWindow']//container/container[@controltypename='WinFormsAdapter']/container[@automationid='FailureMechanismContributionView']
+				</basepath>
+			</folder>
+			<folder
+			capname="container"
+			id="41bb0ddf-7a93-4518-a257-8322f257edf1"
+			isrooted="True"
+			name="PropertiesPanelContainer"
+			searchtimeout="30000ms"
+			usecache="True">
+				<folder
+				capname="table"
+				id="50f9e3b1-cf09-4ca3-8d3c-7edd64e7251e"
+				isrooted="True"
+				name="Table"
+				searchtimeout="30000ms"
+				usecache="True">
+					<item
+					addcaps="row,accessible"
+					capname="row"
+					id="a71a9303-6a79-4eab-86c6-b77f1a561c93"
+					name="IsRelevant"
+					refimgid="b10e19f9-7815-4f72-bde5-ded05eaaa1a8"
+					searchtimeout="30000ms">
+						/form[@automationid='RiskeerMainWindow']//container[@controlname='PropertiesPanelGridView']//table[@accessiblename='Properties Window']/row[@accessiblename='Is relevant']
+					</item>
+					<basepath>
+						/form[@automationid='RiskeerMainWindow']//container[@controlname='PropertiesPanelGridView']//table[@accessiblename='Properties Window']
+					</basepath>
+				</folder>
+				<basepath>
+					/form[@automationid='RiskeerMainWindow']//container[@controlname='PropertiesPanelGridView']
 				</basepath>
 			</folder>
 			<basepath>
@@ -318,6 +337,64 @@ cwAAAABJRU5ErkJggg==
 			refpath="/contextmenu[@processname='Riskeer']/menuitem[@text='Sluiten']"
 			searchtimeout="30000ms">
 				/contextmenu[@processname='Riskeer']/menuitem[@text='Sluiten']
+			</item>
+			<item
+			addcaps="menuitem,wpfelement,wpfgroupelement"
+			capname="menuitem"
+			id="909957a0-8645-4c4e-9153-757dbd6962c4"
+			name="AllesUitklappen"
+			refimgid="92c52544-154e-46aa-92e9-418e60b10aa6"
+			searchtimeout="30000ms">
+				/contextmenu[@processname='Riskeer']/menuitem[@text='Alles uitklappen']
+			</item>
+			<item
+			addcaps="menuitem,wpfelement,wpfgroupelement"
+			capname="menuitem"
+			id="297a672d-6c71-462e-ae55-f59073eacb0f"
+			name="AllesInklappen"
+			refimgid="c50beb08-d8ea-446d-8077-80b61d841472"
+			searchtimeout="30000ms">
+				/contextmenu[@processname='Riskeer']/menuitem[@text='Alles inklappen']
+			</item>
+			<item
+			addcaps="menuitem,accessible"
+			capname="menuitem"
+			id="942ab870-bf62-4d88-8050-58255777c435"
+			name="WisAlleUitvoer"
+			refimgid="4e16bc94-ee98-4d14-be4c-0c68555580e4"
+			refpath="/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Wis alle uitvoer...']"
+			searchtimeout="30000ms">
+				/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Wis alle uitvoer...']
+			</item>
+			<item
+			addcaps="menuitem,accessible"
+			capname="menuitem"
+			id="5fb39361-566b-401d-8784-98249ec265aa"
+			name="AllesValideren"
+			refimgid="08ad4924-3d24-41ce-9b9f-af28301cc311"
+			refpath="/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Alles valideren']"
+			searchtimeout="30000ms">
+				/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Alles valideren']
+			</item>
+			<item
+			addcaps="menuitem,accessible"
+			capname="menuitem"
+			id="e02b3f9a-ba31-43a8-afa9-3e258b8b22a1"
+			name="AllesBerekenen"
+			refimgid="c5fd86c0-01fb-4e8f-a0ca-35bb01f08598"
+			refpath="/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Alles berekenen']"
+			searchtimeout="30000ms">
+				/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Alles berekenen']
+			</item>
+			<item
+			addcaps="menuitem,accessible"
+			capname="menuitem"
+			id="e1da8f1b-1c8b-4e9c-b857-0e4571730d0f"
+			name="Eigenschappen"
+			refimgid="5ed48891-4069-497d-ba29-6873107a04f9"
+			refpath="/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Eigenschappen']"
+			searchtimeout="30000ms">
+				/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Eigenschappen']
 			</item>
 			<basepath>
 				/contextmenu[@processname='Riskeer']

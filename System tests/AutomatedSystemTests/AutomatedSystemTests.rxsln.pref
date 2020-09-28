@@ -7,10 +7,9 @@
   <SerializedValue name="ModuleBrowserState">
     <ArrayOfString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
       <string>{6068A2A0-0B81-46C9-88D6-CD4C4B1E138E}</string>
-      <string>6e12a760-6636-488c-b3e9-7d256aa61ae5</string>
       <string>60513a05-eab7-41e7-8c10-e51c735edc2e</string>
     </ArrayOfString>
   </SerializedValue>
-  <ProjectBrowserState value="[Solution AutomatedSystemTests[AutomatedSystemTests[Data[script21[]]]]]&#xD;&#xA;Solution AutomatedSystemTests\AutomatedSystemTests\Data\script21&#xD;&#xA;Solution AutomatedSystemTests" />
+  <ProjectBrowserState value="[Solution AutomatedSystemTests[AutomatedSystemTests[]]]&#xD;&#xA;Solution AutomatedSystemTests\AutomatedSystemTests\ValidfateRelevanceFMInProjectExplorer.rxrec&#xD;&#xA;Solution AutomatedSystemTests" />
   <StartupProject value="{6068A2A0-0B81-46C9-88D6-CD4C4B1E138E}" />
 </Properties>

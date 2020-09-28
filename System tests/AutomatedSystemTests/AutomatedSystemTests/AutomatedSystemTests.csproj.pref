@@ -1,18 +1,24 @@
 ﻿<Properties>
   <Array name="active">
-    <Element value="AutomatedSystemTests.rxtst" />
+    <Element value="ValidfateRelevanceFMInProjectExplorer.rxrec" />
   </Array>
   <Array name="bookmarks" />
   <Array name="files">
     <Element value="AutomatedSystemTests.rxtst" />
-    <Element value="ValidateNode.rxrec" />
-    <Element value="OpenProject.rxrec" />
-    <Element value="AutomatedSystemTestsRepository.rxrep" />
+    <Element value="ValidfateRelevanceFMInProjectExplorer.rxrec" />
+    <Element value="ValidfateRelevanceFMInProjectExplorer.UserCode.cs" />
   </Array>
   <Properties name="projectSavedData">
+    <Properties name="customTool">
+      <runOnBuild value="False" />
+    </Properties>
     <Array name="recentusercodeselections">
-      <Element value="AutomatedSystemTests.CloseAUT.ClickButtonNoIfDialogShown(RepoItemInfo buttonInfo)" />
-      <Element value="AutomatedSystemTests.CloseAUT.Mouse_Click_ButtonNo(RepoItemInfo buttonInfo)" />
+      <Element value="AutomatedSystemTests.ValidfateRelevanceFMInProjectExplorer.ValidateNumberOfNodesInFM(RepoItemInfo fmObjectInfo, String expectedRelevance)" />
+      <Element value="AutomatedSystemTests.ValidfateRelevanceFMInProjectExplorer.ValidateNumberOfNodesInFM(RepoItemInfo contextmenuInfo, String expectedRelevance)" />
+      <Element value="AutomatedSystemTests.ValidfateRelevanceFMInProjectExplorer.Mouse_Click_GenericItemWithSubstringInName(RepoItemInfo treeitemInfo)" />
+      <Element value="AutomatedSystemTests.ValidfateRelevanceFMInProjectExplorer.ValidateNumberOfNodesInContextMenu(RepoItemInfo contextmenuInfo)" />
+      <Element value="AutomatedSystemTests.ValidfateRelevanceFMInProjectExplorer.Invoke_action_ContextMenu(RepoItemInfo contextmenuInfo)" />
+      <Element value="AutomatedSystemTests.SetRelevanceFMInProjectExplorer.SetRelevanceFM(RepoItemInfo treeitemInfo)" />
     </Array>
   </Properties>
 </Properties>

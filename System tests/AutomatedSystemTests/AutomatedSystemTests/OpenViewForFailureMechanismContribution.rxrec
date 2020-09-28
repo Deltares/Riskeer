@@ -103,10 +103,10 @@ mode="Global">
 			<bindings>
 			</bindings>
 			<info
-			id="8de00d2a-2da8-41c8-b1cb-2600ea17161f"
+			id="4347e3f0-1ed0-4963-b57b-9e0102c2f5d2"
 			sourcename="RepositoryEditor">
 				<path>
-					/form[@automationid='RiskeerMainWindow']/list//container[@automationid='FailureMechanismContributionView']
+					/form[@automationid='RiskeerMainWindow']//container[@controltypename='WinFormsAdapter']/container[@automationid='FailureMechanismContributionView']
 				</path>
 			</info>
 		</loggingrecorditem>

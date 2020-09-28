@@ -230,6 +230,18 @@
       <UserCode>true</UserCode>
       <id>ea5eedab-25f7-4631-b91f-f03881b952bb</id>
     </Compile>
+    <Compile Include="ValidateRelevanceFMInProjectExplorer.cs">
+      <BoundTo>c2560085-5938-4406-b8ac-bee496ba5b6e</BoundTo>
+      <DependentUpon>ValidateRelevanceFMInProjectExplorer.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>88928187-2a77-44b0-ba23-03ae89fed2b6</id>
+    </Compile>
+    <Compile Include="ValidateRelevanceFMInProjectExplorer.UserCode.cs">
+      <BoundTo>c2560085-5938-4406-b8ac-bee496ba5b6e</BoundTo>
+      <DependentUpon>ValidateRelevanceFMInProjectExplorer.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>785b2472-6814-4de4-b013-0eefaac8add5</id>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config">
@@ -286,6 +298,11 @@
       <id>7be6f2c7-899a-473a-916d-727696d7051f</id>
       <recordtableid>906330ec-73fa-48a5-91c6-ed42eabd4771</recordtableid>
     </None>
+    <None Include="ValidateRelevanceFMInProjectExplorer.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>c2560085-5938-4406-b8ac-bee496ba5b6e</id>
+      <recordtableid>f42a383d-8a05-4e55-bddb-48e5a69b14e6</recordtableid>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Content Include="AutomatedSystemTests.rxtmg">
@@ -296,11 +313,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <id>3253c1bd-a517-45e9-96ad-e70b88e902c5</id>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Data">
-      <id>0876088b-059e-4c05-b2cd-fd3184c818bf</id>
-    </Folder>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(RanorexTargetsPath)" Condition="Exists('$(RanorexTargetsPath)')" />

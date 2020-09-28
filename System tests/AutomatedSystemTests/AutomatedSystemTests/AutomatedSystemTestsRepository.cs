@@ -169,7 +169,7 @@ namespace AutomatedSystemTests
             AutomatedSystemTestsRepositoryFolders.RibbonFolder _ribbon;
             AutomatedSystemTestsRepositoryFolders.HeaderOpenViewsFolder _headeropenviews;
             AutomatedSystemTestsRepositoryFolders.FailureMechanismContributionViewFolder _failuremechanismcontributionview;
-            AutomatedSystemTestsRepositoryFolders.MyFailureMechanismContributionViewFolder _myfailuremechanismcontributionview;
+            AutomatedSystemTestsRepositoryFolders.PropertiesPanelContainerFolder _propertiespanelcontainer;
             RepoItemInfo _isfmrelevantcellInfo;
 
             /// <summary>
@@ -182,7 +182,7 @@ namespace AutomatedSystemTests
                 _ribbon = new AutomatedSystemTestsRepositoryFolders.RibbonFolder(this);
                 _headeropenviews = new AutomatedSystemTestsRepositoryFolders.HeaderOpenViewsFolder(this);
                 _failuremechanismcontributionview = new AutomatedSystemTestsRepositoryFolders.FailureMechanismContributionViewFolder(this);
-                _myfailuremechanismcontributionview = new AutomatedSystemTestsRepositoryFolders.MyFailureMechanismContributionViewFolder(this);
+                _propertiespanelcontainer = new AutomatedSystemTestsRepositoryFolders.PropertiesPanelContainerFolder(this);
                 _isfmrelevantcellInfo = new RepoItemInfo(this, "IsFMRelevantCell", "list//container[@controlname='FailureMechanismContributionView']/?/table/row[@accessiblevalue~$labelFM]/cell[@accessiblename>'Is relevant']", 30000, null, "1029a286-ce5f-4de6-8f9d-d68210aae163");
             }
 
@@ -264,19 +264,19 @@ namespace AutomatedSystemTests
             /// <summary>
             /// The FailureMechanismContributionView folder.
             /// </summary>
-            [RepositoryFolder("8de00d2a-2da8-41c8-b1cb-2600ea17161f")]
+            [RepositoryFolder("4347e3f0-1ed0-4963-b57b-9e0102c2f5d2")]
             public virtual AutomatedSystemTestsRepositoryFolders.FailureMechanismContributionViewFolder FailureMechanismContributionView
             {
                 get { return _failuremechanismcontributionview; }
             }
 
             /// <summary>
-            /// The MyFailureMechanismContributionView folder.
+            /// The PropertiesPanelContainer folder.
             /// </summary>
-            [RepositoryFolder("98749289-fdda-4451-b00f-f2464c039a30")]
-            public virtual AutomatedSystemTestsRepositoryFolders.MyFailureMechanismContributionViewFolder MyFailureMechanismContributionView
+            [RepositoryFolder("41bb0ddf-7a93-4518-a257-8322f257edf1")]
+            public virtual AutomatedSystemTestsRepositoryFolders.PropertiesPanelContainerFolder PropertiesPanelContainer
             {
-                get { return _myfailuremechanismcontributionview; }
+                get { return _propertiespanelcontainer; }
             }
         }
 
@@ -660,7 +660,7 @@ namespace AutomatedSystemTests
         /// <summary>
         /// The FailureMechanismContributionViewFolder folder.
         /// </summary>
-        [RepositoryFolder("8de00d2a-2da8-41c8-b1cb-2600ea17161f")]
+        [RepositoryFolder("4347e3f0-1ed0-4963-b57b-9e0102c2f5d2")]
         public partial class FailureMechanismContributionViewFolder : RepoGenBaseFolder
         {
 
@@ -668,14 +668,14 @@ namespace AutomatedSystemTests
             /// Creates a new FailureMechanismContributionView  folder.
             /// </summary>
             public FailureMechanismContributionViewFolder(RepoGenBaseFolder parentFolder) :
-                    base("FailureMechanismContributionView", ".//container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismContributionView']", parentFolder, 30000, null, false, "8de00d2a-2da8-41c8-b1cb-2600ea17161f", "")
+                    base("FailureMechanismContributionView", ".//container/container[@controltypename='WinFormsAdapter']/container[@automationid='FailureMechanismContributionView']", parentFolder, 30000, null, false, "4347e3f0-1ed0-4963-b57b-9e0102c2f5d2", "")
             {
             }
 
             /// <summary>
             /// The Self item.
             /// </summary>
-            [RepositoryItem("8de00d2a-2da8-41c8-b1cb-2600ea17161f")]
+            [RepositoryItem("4347e3f0-1ed0-4963-b57b-9e0102c2f5d2")]
             public virtual Ranorex.Container Self
             {
                 get
@@ -687,7 +687,7 @@ namespace AutomatedSystemTests
             /// <summary>
             /// The Self item info.
             /// </summary>
-            [RepositoryItemInfo("8de00d2a-2da8-41c8-b1cb-2600ea17161f")]
+            [RepositoryItemInfo("4347e3f0-1ed0-4963-b57b-9e0102c2f5d2")]
             public virtual RepoItemInfo SelfInfo
             {
                 get
@@ -698,24 +698,26 @@ namespace AutomatedSystemTests
         }
 
         /// <summary>
-        /// The MyFailureMechanismContributionViewFolder folder.
+        /// The PropertiesPanelContainerFolder folder.
         /// </summary>
-        [RepositoryFolder("98749289-fdda-4451-b00f-f2464c039a30")]
-        public partial class MyFailureMechanismContributionViewFolder : RepoGenBaseFolder
+        [RepositoryFolder("41bb0ddf-7a93-4518-a257-8322f257edf1")]
+        public partial class PropertiesPanelContainerFolder : RepoGenBaseFolder
         {
+            AutomatedSystemTestsRepositoryFolders.TableFolder _table;
 
             /// <summary>
-            /// Creates a new MyFailureMechanismContributionView  folder.
+            /// Creates a new PropertiesPanelContainer  folder.
             /// </summary>
-            public MyFailureMechanismContributionViewFolder(RepoGenBaseFolder parentFolder) :
-                    base("MyFailureMechanismContributionView", "list//container[@controlname='FailureMechanismContributionView']", parentFolder, 30000, null, false, "98749289-fdda-4451-b00f-f2464c039a30", "")
+            public PropertiesPanelContainerFolder(RepoGenBaseFolder parentFolder) :
+                    base("PropertiesPanelContainer", ".//container[@controlname='PropertiesPanelGridView']", parentFolder, 30000, null, true, "41bb0ddf-7a93-4518-a257-8322f257edf1", "")
             {
+                _table = new AutomatedSystemTestsRepositoryFolders.TableFolder(this);
             }
 
             /// <summary>
             /// The Self item.
             /// </summary>
-            [RepositoryItem("98749289-fdda-4451-b00f-f2464c039a30")]
+            [RepositoryItem("41bb0ddf-7a93-4518-a257-8322f257edf1")]
             public virtual Ranorex.Container Self
             {
                 get
@@ -727,12 +729,87 @@ namespace AutomatedSystemTests
             /// <summary>
             /// The Self item info.
             /// </summary>
-            [RepositoryItemInfo("98749289-fdda-4451-b00f-f2464c039a30")]
+            [RepositoryItemInfo("41bb0ddf-7a93-4518-a257-8322f257edf1")]
             public virtual RepoItemInfo SelfInfo
             {
                 get
                 {
                     return _selfInfo;
+                }
+            }
+
+            /// <summary>
+            /// The Table folder.
+            /// </summary>
+            [RepositoryFolder("50f9e3b1-cf09-4ca3-8d3c-7edd64e7251e")]
+            public virtual AutomatedSystemTestsRepositoryFolders.TableFolder Table
+            {
+                get { return _table; }
+            }
+        }
+
+        /// <summary>
+        /// The TableFolder folder.
+        /// </summary>
+        [RepositoryFolder("50f9e3b1-cf09-4ca3-8d3c-7edd64e7251e")]
+        public partial class TableFolder : RepoGenBaseFolder
+        {
+            RepoItemInfo _isrelevantInfo;
+
+            /// <summary>
+            /// Creates a new Table  folder.
+            /// </summary>
+            public TableFolder(RepoGenBaseFolder parentFolder) :
+                    base("Table", ".//table[@accessiblename='Properties Window']", parentFolder, 30000, null, true, "50f9e3b1-cf09-4ca3-8d3c-7edd64e7251e", "")
+            {
+                _isrelevantInfo = new RepoItemInfo(this, "IsRelevant", "row[@accessiblename='Is relevant']", 30000, null, "a71a9303-6a79-4eab-86c6-b77f1a561c93");
+            }
+
+            /// <summary>
+            /// The Self item.
+            /// </summary>
+            [RepositoryItem("50f9e3b1-cf09-4ca3-8d3c-7edd64e7251e")]
+            public virtual Ranorex.Table Self
+            {
+                get
+                {
+                    return _selfInfo.CreateAdapter<Ranorex.Table>(true);
+                }
+            }
+
+            /// <summary>
+            /// The Self item info.
+            /// </summary>
+            [RepositoryItemInfo("50f9e3b1-cf09-4ca3-8d3c-7edd64e7251e")]
+            public virtual RepoItemInfo SelfInfo
+            {
+                get
+                {
+                    return _selfInfo;
+                }
+            }
+
+            /// <summary>
+            /// The IsRelevant item.
+            /// </summary>
+            [RepositoryItem("a71a9303-6a79-4eab-86c6-b77f1a561c93")]
+            public virtual Ranorex.Row IsRelevant
+            {
+                get
+                {
+                    return _isrelevantInfo.CreateAdapter<Ranorex.Row>(true);
+                }
+            }
+
+            /// <summary>
+            /// The IsRelevant item info.
+            /// </summary>
+            [RepositoryItemInfo("a71a9303-6a79-4eab-86c6-b77f1a561c93")]
+            public virtual RepoItemInfo IsRelevantInfo
+            {
+                get
+                {
+                    return _isrelevantInfo;
                 }
             }
         }
@@ -970,6 +1047,12 @@ namespace AutomatedSystemTests
             RepoItemInfo _openenInfo;
             RepoItemInfo _isrelevantInfo;
             RepoItemInfo _sluitenInfo;
+            RepoItemInfo _allesuitklappenInfo;
+            RepoItemInfo _allesinklappenInfo;
+            RepoItemInfo _wisalleuitvoerInfo;
+            RepoItemInfo _allesvaliderenInfo;
+            RepoItemInfo _allesberekenenInfo;
+            RepoItemInfo _eigenschappenInfo;
 
             /// <summary>
             /// Creates a new ContextMenu  folder.
@@ -980,6 +1063,12 @@ namespace AutomatedSystemTests
                 _openenInfo = new RepoItemInfo(this, "Openen", "menuitem[@accessiblename='Openen']", 30000, null, "3162063a-bd8d-4e48-b6ab-9725baa70e0e");
                 _isrelevantInfo = new RepoItemInfo(this, "IsRelevant", "menuitem[@accessiblename='Is relevant']", 30000, null, "561b2d91-62ad-4174-97e3-b9f7420df49a");
                 _sluitenInfo = new RepoItemInfo(this, "Sluiten", "menuitem[@text='Sluiten']", 30000, null, "7792c7fb-8afc-4635-86af-1263ee5b805f");
+                _allesuitklappenInfo = new RepoItemInfo(this, "AllesUitklappen", "menuitem[@text='Alles uitklappen']", 30000, null, "909957a0-8645-4c4e-9153-757dbd6962c4");
+                _allesinklappenInfo = new RepoItemInfo(this, "AllesInklappen", "menuitem[@text='Alles inklappen']", 30000, null, "297a672d-6c71-462e-ae55-f59073eacb0f");
+                _wisalleuitvoerInfo = new RepoItemInfo(this, "WisAlleUitvoer", "menuitem[@accessiblename='Wis alle uitvoer...']", 30000, null, "942ab870-bf62-4d88-8050-58255777c435");
+                _allesvaliderenInfo = new RepoItemInfo(this, "AllesValideren", "menuitem[@accessiblename='Alles valideren']", 30000, null, "5fb39361-566b-401d-8784-98249ec265aa");
+                _allesberekenenInfo = new RepoItemInfo(this, "AllesBerekenen", "menuitem[@accessiblename='Alles berekenen']", 30000, null, "e02b3f9a-ba31-43a8-afa9-3e258b8b22a1");
+                _eigenschappenInfo = new RepoItemInfo(this, "Eigenschappen", "menuitem[@accessiblename='Eigenschappen']", 30000, null, "e1da8f1b-1c8b-4e9c-b857-0e4571730d0f");
             }
 
             /// <summary>
@@ -1075,6 +1164,150 @@ namespace AutomatedSystemTests
                 get
                 {
                     return _sluitenInfo;
+                }
+            }
+
+            /// <summary>
+            /// The AllesUitklappen item.
+            /// </summary>
+            [RepositoryItem("909957a0-8645-4c4e-9153-757dbd6962c4")]
+            public virtual Ranorex.MenuItem AllesUitklappen
+            {
+                get
+                {
+                    return _allesuitklappenInfo.CreateAdapter<Ranorex.MenuItem>(true);
+                }
+            }
+
+            /// <summary>
+            /// The AllesUitklappen item info.
+            /// </summary>
+            [RepositoryItemInfo("909957a0-8645-4c4e-9153-757dbd6962c4")]
+            public virtual RepoItemInfo AllesUitklappenInfo
+            {
+                get
+                {
+                    return _allesuitklappenInfo;
+                }
+            }
+
+            /// <summary>
+            /// The AllesInklappen item.
+            /// </summary>
+            [RepositoryItem("297a672d-6c71-462e-ae55-f59073eacb0f")]
+            public virtual Ranorex.MenuItem AllesInklappen
+            {
+                get
+                {
+                    return _allesinklappenInfo.CreateAdapter<Ranorex.MenuItem>(true);
+                }
+            }
+
+            /// <summary>
+            /// The AllesInklappen item info.
+            /// </summary>
+            [RepositoryItemInfo("297a672d-6c71-462e-ae55-f59073eacb0f")]
+            public virtual RepoItemInfo AllesInklappenInfo
+            {
+                get
+                {
+                    return _allesinklappenInfo;
+                }
+            }
+
+            /// <summary>
+            /// The WisAlleUitvoer item.
+            /// </summary>
+            [RepositoryItem("942ab870-bf62-4d88-8050-58255777c435")]
+            public virtual Ranorex.MenuItem WisAlleUitvoer
+            {
+                get
+                {
+                    return _wisalleuitvoerInfo.CreateAdapter<Ranorex.MenuItem>(true);
+                }
+            }
+
+            /// <summary>
+            /// The WisAlleUitvoer item info.
+            /// </summary>
+            [RepositoryItemInfo("942ab870-bf62-4d88-8050-58255777c435")]
+            public virtual RepoItemInfo WisAlleUitvoerInfo
+            {
+                get
+                {
+                    return _wisalleuitvoerInfo;
+                }
+            }
+
+            /// <summary>
+            /// The AllesValideren item.
+            /// </summary>
+            [RepositoryItem("5fb39361-566b-401d-8784-98249ec265aa")]
+            public virtual Ranorex.MenuItem AllesValideren
+            {
+                get
+                {
+                    return _allesvaliderenInfo.CreateAdapter<Ranorex.MenuItem>(true);
+                }
+            }
+
+            /// <summary>
+            /// The AllesValideren item info.
+            /// </summary>
+            [RepositoryItemInfo("5fb39361-566b-401d-8784-98249ec265aa")]
+            public virtual RepoItemInfo AllesValiderenInfo
+            {
+                get
+                {
+                    return _allesvaliderenInfo;
+                }
+            }
+
+            /// <summary>
+            /// The AllesBerekenen item.
+            /// </summary>
+            [RepositoryItem("e02b3f9a-ba31-43a8-afa9-3e258b8b22a1")]
+            public virtual Ranorex.MenuItem AllesBerekenen
+            {
+                get
+                {
+                    return _allesberekenenInfo.CreateAdapter<Ranorex.MenuItem>(true);
+                }
+            }
+
+            /// <summary>
+            /// The AllesBerekenen item info.
+            /// </summary>
+            [RepositoryItemInfo("e02b3f9a-ba31-43a8-afa9-3e258b8b22a1")]
+            public virtual RepoItemInfo AllesBerekenenInfo
+            {
+                get
+                {
+                    return _allesberekenenInfo;
+                }
+            }
+
+            /// <summary>
+            /// The Eigenschappen item.
+            /// </summary>
+            [RepositoryItem("e1da8f1b-1c8b-4e9c-b857-0e4571730d0f")]
+            public virtual Ranorex.MenuItem Eigenschappen
+            {
+                get
+                {
+                    return _eigenschappenInfo.CreateAdapter<Ranorex.MenuItem>(true);
+                }
+            }
+
+            /// <summary>
+            /// The Eigenschappen item info.
+            /// </summary>
+            [RepositoryItemInfo("e1da8f1b-1c8b-4e9c-b857-0e4571730d0f")]
+            public virtual RepoItemInfo EigenschappenInfo
+            {
+                get
+                {
+                    return _eigenschappenInfo;
                 }
             }
         }
