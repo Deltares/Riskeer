@@ -7,6 +7,16 @@
 			id="00c7a4e5-d91a-40ea-9fc2-39264a957d87"
 			name="LoopFMs">
 			</smartfoldernode>
+			<testmodule
+			id="02a9ce1f-d639-43f7-ba9e-4268f39271ba"
+			name="NewProject"
+			ref="f0658d7f-65e3-4f38-afe8-97fd942c1478"
+			type="Recording">
+			</testmodule>
+			<smartfoldernode
+			id="0361e14d-0b05-486a-9f2d-f8acac08cbc6"
+			name="GABU">
+			</smartfoldernode>
 			<smartfoldernode
 			id="0bbfd560-88d6-4516-bf12-c27a1fe6f4b9"
 			name="ValidateFMsPresentInTrajects">
@@ -56,10 +66,24 @@
 				</databinding>
 			</testmodule>
 			<smartfoldernode
+			id="1eff0053-015a-4ebc-aece-f2f6f630f6bc"
+			name="LoopSections">
+			</smartfoldernode>
+			<smartfoldernode
+			id="204e15d8-a236-47c5-95df-610c25bf1947"
+			name="HTKW">
+			</smartfoldernode>
+			<smartfoldernode
 			datasource="relevance12_2FailureMechanismContributionView"
 			id="2179672b-c6cc-4f03-8e2b-71ae42170951"
 			name="LoopFMs">
 			</smartfoldernode>
+			<testmodule
+			id="24bfcdcd-8168-43d6-bcee-f74881c4ffe4"
+			name="CloseViewCentralPanelWithFocus"
+			ref="3c2d44f5-31b5-4584-91c8-1ad748affc77"
+			type="Recording">
+			</testmodule>
 			<testmodule
 			id="2632f48c-8a60-4589-bf96-cebeb8cc6a2c"
 			name="OpenViewForFailureMechanismContribution"
@@ -106,6 +130,10 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<smartfoldernode
+			id="2f24754f-14d9-48c1-90bc-e97fce998cdd"
+			name="BSKW">
+			</smartfoldernode>
 			<testmodule
 			id="3039d6a4-5dde-44dd-801c-e0629eec29fd"
 			name="ValidateNode"
@@ -127,9 +155,30 @@
 				</databinding>
 			</testmodule>
 			<smartfoldernode
+			id="32877929-4a1a-4a70-8c7e-b306edebb906"
+			name="STBI">
+			</smartfoldernode>
+			<smartfoldernode
 			datasource="relevance12_2ProjectExplorer"
 			id="33d7e485-8bdd-4286-9e35-8e1b4c29bb6e"
 			name="LoopFMs">
+			</smartfoldernode>
+			<smartfoldernode
+			id="362a98ab-dc0a-4ef4-8300-56a9fcb66219"
+			name="AWO">
+			</smartfoldernode>
+			<smartfoldernode
+			id="3727343f-880f-4d7d-ace6-c59dbd92b57a"
+			name="New_Project">
+			</smartfoldernode>
+			<smartfoldernode
+			datasource="NewConnector"
+			id="37c811fd-9297-4d92-b429-28a452540bf1"
+			name="b)Total_overview_of_the_assessment_results">
+			</smartfoldernode>
+			<smartfoldernode
+			id="40b9c69a-42d5-4908-8130-76122055b9d7"
+			name="GABI">
 			</smartfoldernode>
 			<testmodule
 			id="40f1060d-68a7-4664-8a57-a4f610737466"
@@ -183,6 +232,20 @@
 			id="4bb671b5-bd57-42fd-a72e-41482b3d1dbb"
 			name="ValidateRelevanceFMsTraject12_2InProjectExplorer">
 			</smartfoldernode>
+			<testmodule
+			id="53612c71-9f5d-4ce9-8da2-1713fe8692b0"
+			name="LogMessage"
+			ref="da5c8215-39c8-4753-aad9-b17540fb9e4c"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="messageToLog"
+					datasourceid="863cf468-3ba4-48ec-aa47-87672a4f4a6d"
+					variableid="d1b39a2b-87ad-4aeb-aa21-e4e33264bfb1"
+					variablename="logMessage">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			datasource="outputRelevancePE"
 			id="571a9ba3-86a6-4c7e-9f89-17d420e49e63"
@@ -213,10 +276,51 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
+			<testmodule
+			id="5b40acfa-8e10-416c-8148-dbe0a53f5688"
+			name="OpenResultView"
+			ref="14b19856-facd-4b69-82b3-b7f678560774"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="trajectSubstring"
+					datasourceid="263d9591-0ed9-4c66-9e5d-7cc81fa7b815"
+					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
+					variablename="substringTrajectName">
+					</var>
+					<var
+					dataname="fmSubstring"
+					datasourceid="263d9591-0ed9-4c66-9e5d-7cc81fa7b815"
+					variableid="3a7276c1-fca1-4026-9d2e-5bac10651a47"
+					variablename="substringItemName">
+					</var>
+				</databinding>
+			</testmodule>
+			<smartfoldernode
+			id="5e581e77-b3e3-470c-aaea-c5795803d38f"
+			name="AGK">
+			</smartfoldernode>
+			<smartfoldernode
+			id="676ab3e0-aa68-42e2-b0a3-3745733bc5c6"
+			name="INN">
+			</smartfoldernode>
+			<smartfoldernode
+			id="6a559f0a-ad88-4992-ae96-bef62e0feeca"
+			name="GEBU">
+			</smartfoldernode>
 			<smartfoldernode
 			datasource="outputRelevanceFMCView"
 			id="716669cb-8d3f-4f98-a608-2311ffb07430"
 			name="SaveProject">
+			</smartfoldernode>
+			<smartfoldernode
+			datasource="FileToOpen"
+			id="72139e5e-316f-4a54-9d52-75f865439dd6"
+			name="OpenFaalkansProject">
+			</smartfoldernode>
+			<smartfoldernode
+			id="7691c39e-6a78-44de-84b7-abd56ff73107"
+			name="STBU">
 			</smartfoldernode>
 			<smartfoldernode
 			datasource="listWithNamesFMs"
@@ -320,6 +424,14 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
+			<smartfoldernode
+			id="a05f1ece-a4c1-439f-a1db-ff664bd18416"
+			name="New_Project">
+			</smartfoldernode>
+			<smartfoldernode
+			id="a6b26f8f-a980-44b8-8a6e-04d6d3a43544"
+			name="STMI">
+			</smartfoldernode>
 			<testmodule
 			id="a9a265d9-11ae-459e-92d6-e0ba20cc0e41"
 			name="CloseViewCentralPanelWithFocus"
@@ -347,6 +459,12 @@
 					variablename="substringTrajectName">
 					</var>
 				</missingdatabinding>
+			</testmodule>
+			<testmodule
+			id="b28e3b48-240b-45d5-8fcc-970856b2290a"
+			name="SelectAssessmentForSection"
+			ref="e0d85a11-9622-402c-937d-fefa962c3394"
+			type="Recording">
 			</testmodule>
 			<testmodule
 			id="b30f6dd1-3b2e-4ea2-af88-6d37532addb5"
@@ -531,6 +649,14 @@
 			reportwriteinterval="30000ms">
 			</testsuite>
 			<smartfoldernode
+			id="c634f880-0187-4e4a-9eed-0c396c788f3f"
+			name="ControlSimpleAssessmentFMsGroup1">
+			</smartfoldernode>
+			<smartfoldernode
+			id="d3077971-c0a5-4104-ad0e-13e462629680"
+			name="PKW">
+			</smartfoldernode>
+			<smartfoldernode
 			datasource="ListTrajectsNames"
 			id="d34200d9-5186-497e-9e06-4276b43682ad"
 			name="LoopTrajects">
@@ -544,6 +670,23 @@
 			id="d508d6ac-d58e-4ef0-93d4-7d3874716ee9"
 			name="LoopFMs">
 			</smartfoldernode>
+			<testmodule
+			id="d70b425a-7c55-4fbf-ae5d-3d4b7e3205c1"
+			name="OpenProject"
+			ref="3f746bb2-6845-45b4-9b28-b7fd605378f3"
+			type="Recording">
+				<description>
+					<![CDATA[Open the given project]]>
+				</description>
+				<databinding>
+					<var
+					dataname="relativePathFileToOpen"
+					datasourceid="a42d9062-00d5-4260-bbf0-70457be6fe78"
+					variableid="3c870d6e-0774-4179-b1f4-65350b234510"
+					variablename="fileNameToOpen">
+					</var>
+				</databinding>
+			</testmodule>
 			<testmodule
 			id="d9cb81d2-4288-435b-af5a-0ef03e953f87"
 			name="StartAUT"
@@ -562,6 +705,11 @@
 			datasource="relevance12_2ProjectExplorer"
 			id="e1ff5697-2c1e-4010-85a0-6f45679d7f50"
 			name="LoopFMs">
+			</smartfoldernode>
+			<smartfoldernode
+			datasource="trajectID"
+			id="e756f312-1a93-4042-9200-8ee398806472"
+			name="STPH">
 			</smartfoldernode>
 			<testcase
 			id="f16b204f-b66b-40a0-82c1-8d62dcbc8b22"
@@ -609,6 +757,10 @@
 					</param>
 				</parameters>
 			</testcase>
+			<smartfoldernode
+			id="fdda1062-0276-4f8b-9bca-e6f5a6007e78"
+			name="STKWI">
+			</smartfoldernode>
 			<teardown
 			id="fe1f0dec-30d6-4abc-b123-d9b0e01f7bf6"
 			name="teardown">
@@ -760,10 +912,14 @@
 							name="SaveAs">
 							</testmodule>
 						</smartfoldernode>
-						<testmodule
-						id="f40bb921-5c81-4836-a3c2-c8ec03b42c85"
-						name="NewProject">
-						</testmodule>
+						<smartfoldernode
+						id="a05f1ece-a4c1-439f-a1db-ff664bd18416"
+						name="New_Project">
+							<testmodule
+							id="f40bb921-5c81-4836-a3c2-c8ec03b42c85"
+							name="NewProject">
+							</testmodule>
+						</smartfoldernode>
 						<smartfoldernode
 						id="9cb3bdde-1999-4bae-aa4e-6330208999d4"
 						name="OpenRelevanceProject">
@@ -798,6 +954,106 @@
 								id="f7db21d4-6285-4d3c-a8cb-5a2394ccb2c5"
 								name="ValidateFMRelevanceInFMCView">
 								</testmodule>
+							</smartfoldernode>
+						</smartfoldernode>
+						<smartfoldernode
+						id="37c811fd-9297-4d92-b429-28a452540bf1"
+						name="b)Total_overview_of_the_assessment_results">
+							<testmodule
+							id="53612c71-9f5d-4ce9-8da2-1713fe8692b0"
+							name="LogMessage">
+							</testmodule>
+						</smartfoldernode>
+						<smartfoldernode
+						id="3727343f-880f-4d7d-ace6-c59dbd92b57a"
+						name="New_Project">
+							<testmodule
+							id="02a9ce1f-d639-43f7-ba9e-4268f39271ba"
+							name="NewProject">
+							</testmodule>
+						</smartfoldernode>
+						<smartfoldernode
+						id="72139e5e-316f-4a54-9d52-75f865439dd6"
+						name="OpenFaalkansProject">
+							<testmodule
+							id="d70b425a-7c55-4fbf-ae5d-3d4b7e3205c1"
+							name="OpenProject">
+							</testmodule>
+						</smartfoldernode>
+						<smartfoldernode
+						id="c634f880-0187-4e4a-9eed-0c396c788f3f"
+						name="ControlSimpleAssessmentFMsGroup1">
+							<smartfoldernode
+							id="e756f312-1a93-4042-9200-8ee398806472"
+							name="STPH">
+								<testmodule
+								id="5b40acfa-8e10-416c-8148-dbe0a53f5688"
+								name="OpenResultView">
+								</testmodule>
+								<smartfoldernode
+								id="1eff0053-015a-4ebc-aece-f2f6f630f6bc"
+								name="LoopSections">
+									<testmodule
+									id="b28e3b48-240b-45d5-8fcc-970856b2290a"
+									name="SelectAssessmentForSection">
+									</testmodule>
+								</smartfoldernode>
+								<testmodule
+								id="24bfcdcd-8168-43d6-bcee-f74881c4ffe4"
+								name="CloseViewCentralPanelWithFocus">
+								</testmodule>
+							</smartfoldernode>
+							<smartfoldernode
+							id="32877929-4a1a-4a70-8c7e-b306edebb906"
+							name="STBI">
+							</smartfoldernode>
+							<smartfoldernode
+							id="7691c39e-6a78-44de-84b7-abd56ff73107"
+							name="STBU">
+							</smartfoldernode>
+							<smartfoldernode
+							id="a6b26f8f-a980-44b8-8a6e-04d6d3a43544"
+							name="STMI">
+							</smartfoldernode>
+							<smartfoldernode
+							id="5e581e77-b3e3-470c-aaea-c5795803d38f"
+							name="AGK">
+							</smartfoldernode>
+							<smartfoldernode
+							id="362a98ab-dc0a-4ef4-8300-56a9fcb66219"
+							name="AWO">
+							</smartfoldernode>
+							<smartfoldernode
+							id="6a559f0a-ad88-4992-ae96-bef62e0feeca"
+							name="GEBU">
+							</smartfoldernode>
+							<smartfoldernode
+							id="0361e14d-0b05-486a-9f2d-f8acac08cbc6"
+							name="GABU">
+							</smartfoldernode>
+							<smartfoldernode
+							id="40b9c69a-42d5-4908-8130-76122055b9d7"
+							name="GABI">
+							</smartfoldernode>
+							<smartfoldernode
+							id="204e15d8-a236-47c5-95df-610c25bf1947"
+							name="HTKW">
+							</smartfoldernode>
+							<smartfoldernode
+							id="2f24754f-14d9-48c1-90bc-e97fce998cdd"
+							name="BSKW">
+							</smartfoldernode>
+							<smartfoldernode
+							id="d3077971-c0a5-4104-ad0e-13e462629680"
+							name="PKW">
+							</smartfoldernode>
+							<smartfoldernode
+							id="fdda1062-0276-4f8b-9bca-e6f5a6007e78"
+							name="STKWI">
+							</smartfoldernode>
+							<smartfoldernode
+							id="676ab3e0-aa68-42e2-b0a3-3745733bc5c6"
+							name="INN">
 							</smartfoldernode>
 						</smartfoldernode>
 						<teardown
@@ -870,6 +1126,31 @@
 			<file>
 				D:\repos\Riskeer\System tests\AutomatedSystemTests\AutomatedSystemTests\Data\script21\input\CSVs\namesOfFMs.csv
 			</file>
+		</DataSource>
+		<DataSource
+		id="863cf468-3ba4-48ec-aa47-87672a4f4a6d"
+		lastknownrowcount="1"
+		name="NewConnector"
+		type="Ranorex.Core.Data.SimpleDataConnector">
+			<lastknowncolumns>
+				<column>
+					messageToLog
+				</column>
+			</lastknowncolumns>
+			<maskedcolumns>
+			</maskedcolumns>
+			<table>
+				<tr>
+					<th>
+						messageToLog
+					</th>
+				</tr>
+				<tr>
+					<td>
+						b)Total overview of the assessment results
+					</td>
+				</tr>
+			</table>
 		</DataSource>
 		<DataSource
 		id="831e4289-a337-434c-9753-aa59d1c77819"
@@ -975,6 +1256,40 @@
 				D:\repos\Riskeer\System tests\AutomatedSystemTests\AutomatedSystemTests\Data\script21\input\CSVs\relevanceOfFMsInTraject12_2PE.csv
 			</file>
 		</DataSource>
+		<DataSource
+		id="263d9591-0ed9-4c66-9e5d-7cc81fa7b815"
+		lastknownrowcount="1"
+		name="trajectID"
+		type="Ranorex.Core.Data.SimpleDataConnector">
+			<lastknowncolumns>
+				<column>
+					trajectSubstring
+				</column>
+				<column>
+					fmSubstring
+				</column>
+			</lastknowncolumns>
+			<maskedcolumns>
+			</maskedcolumns>
+			<table>
+				<tr>
+					<th>
+						trajectSubstring
+					</th>
+					<th>
+						fmSubstring
+					</th>
+				</tr>
+				<tr>
+					<td>
+						12-2
+					</td>
+					<td>
+						Dijken en dammen - Piping
+					</td>
+				</tr>
+			</table>
+		</DataSource>
 	</datasources>
 	<testconfigurations
 	default="TestRun">
@@ -984,16 +1299,43 @@
 			id="00c7a4e5-d91a-40ea-9fc2-39264a957d87">
 			</testcontainer>
 			<testcontainer
+			id="0361e14d-0b05-486a-9f2d-f8acac08cbc6">
+			</testcontainer>
+			<testcontainer
 			id="0bbfd560-88d6-4516-bf12-c27a1fe6f4b9">
 			</testcontainer>
 			<testcontainer
 			id="0cb3406e-9796-40ad-a9fc-964ae357d98d">
 			</testcontainer>
 			<testcontainer
+			id="1eff0053-015a-4ebc-aece-f2f6f630f6bc">
+			</testcontainer>
+			<testcontainer
+			id="204e15d8-a236-47c5-95df-610c25bf1947">
+			</testcontainer>
+			<testcontainer
 			id="2179672b-c6cc-4f03-8e2b-71ae42170951">
 			</testcontainer>
 			<testcontainer
+			id="2f24754f-14d9-48c1-90bc-e97fce998cdd">
+			</testcontainer>
+			<testcontainer
+			id="32877929-4a1a-4a70-8c7e-b306edebb906">
+			</testcontainer>
+			<testcontainer
 			id="33d7e485-8bdd-4286-9e35-8e1b4c29bb6e">
+			</testcontainer>
+			<testcontainer
+			id="362a98ab-dc0a-4ef4-8300-56a9fcb66219">
+			</testcontainer>
+			<testcontainer
+			id="3727343f-880f-4d7d-ace6-c59dbd92b57a">
+			</testcontainer>
+			<testcontainer
+			id="37c811fd-9297-4d92-b429-28a452540bf1">
+			</testcontainer>
+			<testcontainer
+			id="40b9c69a-42d5-4908-8130-76122055b9d7">
 			</testcontainer>
 			<testcontainer
 			id="4bb671b5-bd57-42fd-a72e-41482b3d1dbb">
@@ -1005,7 +1347,22 @@
 			id="58a6b72e-26d9-47d1-87ab-f35fb84b127c">
 			</testcontainer>
 			<testcontainer
+			id="5e581e77-b3e3-470c-aaea-c5795803d38f">
+			</testcontainer>
+			<testcontainer
+			id="676ab3e0-aa68-42e2-b0a3-3745733bc5c6">
+			</testcontainer>
+			<testcontainer
+			id="6a559f0a-ad88-4992-ae96-bef62e0feeca">
+			</testcontainer>
+			<testcontainer
 			id="716669cb-8d3f-4f98-a608-2311ffb07430">
+			</testcontainer>
+			<testcontainer
+			id="72139e5e-316f-4a54-9d52-75f865439dd6">
+			</testcontainer>
+			<testcontainer
+			id="7691c39e-6a78-44de-84b7-abd56ff73107">
 			</testcontainer>
 			<testcontainer
 			id="921c41ea-9f72-4d4f-bfe2-a7f2f0365468">
@@ -1020,6 +1377,12 @@
 			id="9edfe01c-c130-4792-b0ab-0c91a3270f15">
 			</testcontainer>
 			<testcontainer
+			id="a05f1ece-a4c1-439f-a1db-ff664bd18416">
+			</testcontainer>
+			<testcontainer
+			id="a6b26f8f-a980-44b8-8a6e-04d6d3a43544">
+			</testcontainer>
+			<testcontainer
 			id="b387024f-8d3e-4942-8f6f-4b9a2f5efde0">
 			</testcontainer>
 			<testcontainer
@@ -1027,6 +1390,12 @@
 			</testcontainer>
 			<testcontainer
 			id="c1adef3a-d31b-4c6f-8ad3-27e077f4bda0">
+			</testcontainer>
+			<testcontainer
+			id="c634f880-0187-4e4a-9eed-0c396c788f3f">
+			</testcontainer>
+			<testcontainer
+			id="d3077971-c0a5-4104-ad0e-13e462629680">
 			</testcontainer>
 			<testcontainer
 			id="d34200d9-5186-497e-9e06-4276b43682ad">
@@ -1041,6 +1410,9 @@
 			id="e1ff5697-2c1e-4010-85a0-6f45679d7f50">
 			</testcontainer>
 			<testcontainer
+			id="e756f312-1a93-4042-9200-8ee398806472">
+			</testcontainer>
+			<testcontainer
 			id="f16b204f-b66b-40a0-82c1-8d62dcbc8b22">
 			</testcontainer>
 			<testcontainer
@@ -1048,6 +1420,9 @@
 			</testcontainer>
 			<testcontainer
 			id="fda567a0-be92-41b9-9761-e7e7d9e7be7f">
+			</testcontainer>
+			<testcontainer
+			id="fdda1062-0276-4f8b-9bca-e6f5a6007e78">
 			</testcontainer>
 		</testconfiguration>
 	</testconfigurations>

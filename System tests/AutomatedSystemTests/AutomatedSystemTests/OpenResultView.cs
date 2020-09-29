@@ -24,34 +24,54 @@ namespace AutomatedSystemTests
 {
 #pragma warning disable 0436 //(CS0436) The type 'type' in 'assembly' conflicts with the imported type 'type2' in 'assembly'. Using the type defined in 'assembly'.
     /// <summary>
-    ///The CloseViewCentralPanelWithFocus recording.
+    ///The OpenResultView recording.
     /// </summary>
-    [TestModule("3c2d44f5-31b5-4584-91c8-1ad748affc77", ModuleType.Recording, 1)]
-    public partial class CloseViewCentralPanelWithFocus : ITestModule
+    [TestModule("14b19856-facd-4b69-82b3-b7f678560774", ModuleType.Recording, 1)]
+    public partial class OpenResultView : ITestModule
     {
         /// <summary>
         /// Holds an instance of the AutomatedSystemTestsRepository repository.
         /// </summary>
         public static AutomatedSystemTestsRepository repo = AutomatedSystemTestsRepository.Instance;
 
-        static CloseViewCentralPanelWithFocus instance = new CloseViewCentralPanelWithFocus();
+        static OpenResultView instance = new OpenResultView();
 
         /// <summary>
         /// Constructs a new instance.
         /// </summary>
-        public CloseViewCentralPanelWithFocus()
+        public OpenResultView()
         {
         }
 
         /// <summary>
         /// Gets a static instance of this recording.
         /// </summary>
-        public static CloseViewCentralPanelWithFocus Instance
+        public static OpenResultView Instance
         {
             get { return instance; }
         }
 
 #region Variables
+
+        /// <summary>
+        /// Gets or sets the value of variable substringTrajectName.
+        /// </summary>
+        [TestVariable("77ae6c27-603e-4704-add9-e1249169f0e5")]
+        public string substringTrajectName
+        {
+            get { return repo.substringTrajectName; }
+            set { repo.substringTrajectName = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets the value of variable substringItemName.
+        /// </summary>
+        [TestVariable("3a7276c1-fca1-4026-9d2e-5bac10651a47")]
+        public string substringItemName
+        {
+            get { return repo.substringItemName; }
+            set { repo.substringItemName = value; }
+        }
 
 #endregion
 
@@ -73,16 +93,23 @@ namespace AutomatedSystemTests
         [System.CodeDom.Compiler.GeneratedCode("Ranorex", global::Ranorex.Core.Constants.CodeGenVersion)]
         void ITestModule.Run()
         {
-            Mouse.DefaultMoveTime = 0;
+            Mouse.DefaultMoveTime = 300;
             Keyboard.DefaultKeyPressTime = 20;
-            Delay.SpeedFactor = 0.00;
+            Delay.SpeedFactor = 1.00;
 
             Init();
 
-            Report.Screenshot(ReportLevel.Info, "User", "", repo.RiskeerMainWindow.DocumentViewContainer.Self, false, new RecordItemIndex(0));
+            Report.Log(ReportLevel.Info, "Invoke action", "Invoking Focus() on item 'RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericItemWithSubstringInName'.", repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericItemWithSubstringInNameInfo, new RecordItemIndex(0));
+            repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericItemWithSubstringInName.Focus();
+            Delay.Milliseconds(0);
             
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'RiskeerMainWindow.HeaderOpenViews.ViewCloseButton' at Center.", repo.RiskeerMainWindow.HeaderOpenViews.ViewCloseButtonInfo, new RecordItemIndex(1));
-            repo.RiskeerMainWindow.HeaderOpenViews.ViewCloseButton.Click();
+            ExpandNode(repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericItemWithSubstringInNameInfo);
+            Delay.Milliseconds(0);
+            
+            try {
+                OpenResultViewIfFMIsRelevant(repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericItemWithSubstringInNameInfo, "Oordeel");
+                Delay.Milliseconds(0);
+            } catch(Exception ex) { Report.Log(ReportLevel.Warn, "Module", "(Optional Action) " + ex.Message, new RecordItemIndex(2)); }
             
         }
 

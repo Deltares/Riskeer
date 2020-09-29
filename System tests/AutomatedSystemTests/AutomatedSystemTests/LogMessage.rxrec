@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <recordtable
 embeddedrepository="False"
-id="3c2d44f5-31b5-4584-91c8-1ad748affc77"
+id="da5c8215-39c8-4753-aad9-b17540fb9e4c"
 mode="Global">
 	<repeatcount>
 		1
 	</repeatcount>
 	<turbomode>
-		True
+		False
 	</turbomode>
 	<genreport>
 		True
@@ -19,56 +19,32 @@ mode="Global">
 		True
 	</useDefaultItemLogging>
 	<codegen
-	classname="CloseViewCentralPanelWithFocus"
+	classname="LogMessage"
 	namespace="AutomatedSystemTests">
 	</codegen>
 	<variables>
+		<var
+		id="d1b39a2b-87ad-4aeb-aa21-e4e33264bfb1"
+		name="logMessage">
+		</var>
 	</variables>
 	<recorditems>
 		<loggingrecorditem
-		action="Screenshot"
 		category="User"
 		enabled="True"
 		message=""
 		optional="False"
 		reportlevel="Info;20"
-		searchpropertyid="82c2063f-5108-4aeb-97be-0185cb819baa">
+		searchpropertyid="6389d2f7-11f3-4253-b421-7f4f2ea64f65">
 			<comment>
 			</comment>
 			<bindings>
+				<binding
+				target="Message"
+				variable="logMessage">
+				</binding>
 			</bindings>
-			<info
-			id="78b3cba4-3858-49b9-8809-b7f79f03aa5c"
-			sourcename="RepositoryEditor">
-				<path>
-					/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']
-				</path>
-			</info>
 		</loggingrecorditem>
-		<mouseitem
-		action="Click"
-		button="Left"
-		duration="300ms"
-		enabled="True"
-		loc="Center"
-		movetime="300ms"
-		optional="False"
-		searchpropertyid="efa09a4a-03df-4406-a080-7cefcf8fbf37"
-		sx="0"
-		sy="0"
-		warnoutofbounds="False">
-			<comment>
-			</comment>
-			<bindings>
-			</bindings>
-			<info
-			id="79aa5f18-da55-4d5b-9c7c-bc833052d329"
-			sourcename="RepositoryEditor">
-				<path>
-					/form[@automationid='RiskeerMainWindow']//button[@automationid='MenuDropDownButton']/?/tabpage/button[@automationid='DocumentCloseButton']
-				</path>
-			</info>
-		</mouseitem>
 	</recorditems>
 	<repository
 	id="137723a5-e147-4b62-8c15-5c31a3d68f96"
@@ -85,7 +61,7 @@ mode="Global">
 	</repository>
 	<usercodefile
 	lang="CSharp">
-		CloseViewCentralPanelWithFocus.UserCode.cs
+		LogMessage.UserCode.cs
 	</usercodefile>
 	<references>
 	</references>

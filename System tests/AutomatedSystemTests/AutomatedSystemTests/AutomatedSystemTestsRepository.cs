@@ -438,6 +438,7 @@ namespace AutomatedSystemTests
         {
             RepoItemInfo _faalkansbegrotingInfo;
             RepoItemInfo _genericitemwithsubstringinnameInfo;
+            RepoItemInfo _oordeelInfo;
 
             /// <summary>
             /// Creates a new TrajectWithSubstringInName  folder.
@@ -447,6 +448,7 @@ namespace AutomatedSystemTests
             {
                 _faalkansbegrotingInfo = new RepoItemInfo(this, "Faalkansbegroting", "treeitem[@accessiblename='Faalkansbegroting']", 30000, null, "79c86dc7-8eee-48b2-b0af-b29632b7c092");
                 _genericitemwithsubstringinnameInfo = new RepoItemInfo(this, "GenericItemWithSubstringInName", "treeitem[@accessiblename~$substringItemName]", 30000, null, "92f53398-7bb2-45f8-a305-0adb56ec8aa7");
+                _oordeelInfo = new RepoItemInfo(this, "Oordeel", "treeitem[@accessiblename~$substringItemName]/treeitem[@accessiblename='Oordeel']", 30000, null, "9b833e18-2ad8-4a3e-89a9-ad2886320f3c");
             }
 
             /// <summary>
@@ -518,6 +520,30 @@ namespace AutomatedSystemTests
                 get
                 {
                     return _genericitemwithsubstringinnameInfo;
+                }
+            }
+
+            /// <summary>
+            /// The Oordeel item.
+            /// </summary>
+            [RepositoryItem("9b833e18-2ad8-4a3e-89a9-ad2886320f3c")]
+            public virtual Ranorex.TreeItem Oordeel
+            {
+                get
+                {
+                    return _oordeelInfo.CreateAdapter<Ranorex.TreeItem>(true);
+                }
+            }
+
+            /// <summary>
+            /// The Oordeel item info.
+            /// </summary>
+            [RepositoryItemInfo("9b833e18-2ad8-4a3e-89a9-ad2886320f3c")]
+            public virtual RepoItemInfo OordeelInfo
+            {
+                get
+                {
+                    return _oordeelInfo;
                 }
             }
         }

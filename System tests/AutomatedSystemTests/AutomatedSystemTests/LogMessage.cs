@@ -24,34 +24,47 @@ namespace AutomatedSystemTests
 {
 #pragma warning disable 0436 //(CS0436) The type 'type' in 'assembly' conflicts with the imported type 'type2' in 'assembly'. Using the type defined in 'assembly'.
     /// <summary>
-    ///The CloseViewCentralPanelWithFocus recording.
+    ///The LogMessage recording.
     /// </summary>
-    [TestModule("3c2d44f5-31b5-4584-91c8-1ad748affc77", ModuleType.Recording, 1)]
-    public partial class CloseViewCentralPanelWithFocus : ITestModule
+    [TestModule("da5c8215-39c8-4753-aad9-b17540fb9e4c", ModuleType.Recording, 1)]
+    public partial class LogMessage : ITestModule
     {
         /// <summary>
         /// Holds an instance of the AutomatedSystemTestsRepository repository.
         /// </summary>
         public static AutomatedSystemTestsRepository repo = AutomatedSystemTestsRepository.Instance;
 
-        static CloseViewCentralPanelWithFocus instance = new CloseViewCentralPanelWithFocus();
+        static LogMessage instance = new LogMessage();
 
         /// <summary>
         /// Constructs a new instance.
         /// </summary>
-        public CloseViewCentralPanelWithFocus()
+        public LogMessage()
         {
+            logMessage = "";
         }
 
         /// <summary>
         /// Gets a static instance of this recording.
         /// </summary>
-        public static CloseViewCentralPanelWithFocus Instance
+        public static LogMessage Instance
         {
             get { return instance; }
         }
 
 #region Variables
+
+        string _logMessage;
+
+        /// <summary>
+        /// Gets or sets the value of variable logMessage.
+        /// </summary>
+        [TestVariable("d1b39a2b-87ad-4aeb-aa21-e4e33264bfb1")]
+        public string logMessage
+        {
+            get { return _logMessage; }
+            set { _logMessage = value; }
+        }
 
 #endregion
 
@@ -73,16 +86,13 @@ namespace AutomatedSystemTests
         [System.CodeDom.Compiler.GeneratedCode("Ranorex", global::Ranorex.Core.Constants.CodeGenVersion)]
         void ITestModule.Run()
         {
-            Mouse.DefaultMoveTime = 0;
+            Mouse.DefaultMoveTime = 300;
             Keyboard.DefaultKeyPressTime = 20;
-            Delay.SpeedFactor = 0.00;
+            Delay.SpeedFactor = 1.00;
 
             Init();
 
-            Report.Screenshot(ReportLevel.Info, "User", "", repo.RiskeerMainWindow.DocumentViewContainer.Self, false, new RecordItemIndex(0));
-            
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'RiskeerMainWindow.HeaderOpenViews.ViewCloseButton' at Center.", repo.RiskeerMainWindow.HeaderOpenViews.ViewCloseButtonInfo, new RecordItemIndex(1));
-            repo.RiskeerMainWindow.HeaderOpenViews.ViewCloseButton.Click();
+            Report.Log(ReportLevel.Info, "User", logMessage, new RecordItemIndex(0));
             
         }
 
