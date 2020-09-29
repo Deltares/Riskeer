@@ -25,7 +25,7 @@
     <ConfigurationGroup>Release</ConfigurationGroup>
     <DebugType>none</DebugType>
     <Optimize>true</Optimize>
-    <DefineConstants>TRACE;DEVELOPMENT</DefineConstants>
+    <DefineConstants>TRACE;DEVELOPMENT;RELEASE</DefineConstants>
     <AllowedReferenceRelatedFileExtensions>none</AllowedReferenceRelatedFileExtensions>
     <IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
   </PropertyGroup>
@@ -33,7 +33,7 @@
     <ConfigurationGroup>Release</ConfigurationGroup>
     <DebugType>none</DebugType>
     <Optimize>true</Optimize>
-    <DefineConstants>TRACE</DefineConstants>
+    <DefineConstants>TRACE;CREATEINSTALLER</DefineConstants>
     <AllowedReferenceRelatedFileExtensions>none</AllowedReferenceRelatedFileExtensions>
     <IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
   </PropertyGroup>
@@ -41,12 +41,12 @@
     <ConfigurationGroup>Release</ConfigurationGroup>
     <DebugType>none</DebugType>
     <Optimize>true</Optimize>
-    <DefineConstants>TRACE;DEVELOPMENT</DefineConstants>
+    <DefineConstants>TRACE;DEVELOPMENT;CREATEINSTALLERWITHDEMOPLUGIN</DefineConstants>
     <AllowedReferenceRelatedFileExtensions>none</AllowedReferenceRelatedFileExtensions>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseForCodeCoverage|x86'">
     <ConfigurationGroup>Release</ConfigurationGroup>
-    <DefineConstants>TRACE</DefineConstants>
+    <DefineConstants>TRACE;RELEASEFORCODECOVERAGE</DefineConstants>
     <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>
   </PropertyGroup>

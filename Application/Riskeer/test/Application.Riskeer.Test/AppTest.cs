@@ -24,7 +24,7 @@ using System.DirectoryServices.AccountManagement;
 using System.Linq;
 using Core.Common.TestUtil;
 using Core.Common.Util.Settings;
-using NUnit.Framework;
+using NUnit.Framework;  
 using Riskeer.Integration.Forms;
 
 namespace Application.Riskeer.Test
