@@ -102,7 +102,7 @@ namespace AutomatedSystemTests
 
             Init();
 
-            SetRelevanceInView(repo.RiskeerMainWindow.IsFMRelevantCellInfo, isFMExpectedRelevant);
+            SetRelevanceInView(repo.RiskeerMainWindow.DocumentViewContainer.insideDocument_IsFMRelevantCellInfo, isFMExpectedRelevant);
             Delay.Milliseconds(0);
             
         }

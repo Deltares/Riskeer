@@ -25,6 +25,26 @@ mode="Global">
 	<variables>
 	</variables>
 	<recorditems>
+		<invokeactionrecorditem
+		action="Select"
+		enabled="True"
+		optional="False"
+		searchpropertyid="52ce0c83-09ee-4066-8465-93ad19b59095">
+			<comment>
+			</comment>
+			<bindings>
+			</bindings>
+			<info
+			id="b466899e-e209-4d83-a46c-0533f333cea5"
+			sourcename="RepositoryEditor">
+				<path>
+					/form[@automationid='RiskeerMainWindow']//container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]
+				</path>
+			</info>
+			<arguments
+			id="7017404c-861b-4764-a44f-cd69ac6624cb">
+			</arguments>
+		</invokeactionrecorditem>
 		<validationitem
 		action="Exists"
 		duration="100ms"

@@ -35,9 +35,10 @@ namespace AutomatedSystemTests
 
         public void ValidateNumberOfNodesInFM(RepoItemInfo fmObjectInfo, string expectedRelevance)
         {
-            int numberOfChildren = fmObjectInfo.FindAdapter<TreeItem>().Children.Count;
+            var nodeChildren = fmObjectInfo.FindAdapter<TreeItem>().Children; 
+            int numberOfChildren = nodeChildren.Count;
             Report.Log(ReportLevel.Info, "Info", "Failure mechanism (FM) node contains " + numberOfChildren + " items.", fmObjectInfo);
-            foreach (var ch in fmObjectInfo.FindAdapter<TreeItem>().Children) {
+            foreach (var ch in nodeChildren) {
             	Report.Log(ReportLevel.Info, "Info", ch.ToString() , fmObjectInfo);
             }
             string currentRelevance = numberOfChildren!=1 ? "True" : "False";

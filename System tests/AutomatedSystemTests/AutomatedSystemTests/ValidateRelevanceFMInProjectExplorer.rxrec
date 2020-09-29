@@ -41,6 +41,36 @@ mode="Global">
 			<bindings>
 			</bindings>
 		</loggingrecorditem>
+		<explicitdelayitem
+		duration="500ms"
+		enabled="True"
+		optional="False">
+			<comment>
+				Waiting for nodes to be updated
+			</comment>
+			<bindings>
+			</bindings>
+		</explicitdelayitem>
+		<invokeactionrecorditem
+		action="Select"
+		enabled="True"
+		optional="False"
+		searchpropertyid="8d4f8c45-94c9-4bba-a2b6-cfa711cdfb93">
+			<comment>
+			</comment>
+			<bindings>
+			</bindings>
+			<info
+			id="b466899e-e209-4d83-a46c-0533f333cea5"
+			sourcename="RepositoryEditor">
+				<path>
+					/form[@automationid='RiskeerMainWindow']//container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]
+				</path>
+			</info>
+			<arguments
+			id="9823e180-788e-4f7b-ac9b-bbed3b1ef8ec">
+			</arguments>
+		</invokeactionrecorditem>
 		<invokeactionrecorditem
 		action="Focus"
 		enabled="True"
@@ -118,7 +148,7 @@ mode="Global">
 			</bindings>
 		</keysequenceitem>
 		<explicitdelayitem
-		duration="300ms"
+		duration="500ms"
 		enabled="True"
 		optional="False">
 			<comment>

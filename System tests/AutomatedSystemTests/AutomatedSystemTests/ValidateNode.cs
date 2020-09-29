@@ -99,11 +99,14 @@ namespace AutomatedSystemTests
 
             Init();
 
+            Report.Log(ReportLevel.Info, "Invoke action", "Invoking Select() on item 'RiskeerMainWindow.ProjectExplorer.ProjectRootNode'.", repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.SelfInfo, new RecordItemIndex(0));
+            repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.Self.Select();
+            
             // Validates that Item with Name containing $TextInItemName exists
-            Report.Log(ReportLevel.Info, "Validation", "Validates that Item with Name containing $TextInItemName exists\r\nValidating Exists on item 'RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericItemWithSubstringInName'.", repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericItemWithSubstringInNameInfo, new RecordItemIndex(0));
+            Report.Log(ReportLevel.Info, "Validation", "Validates that Item with Name containing $TextInItemName exists\r\nValidating Exists on item 'RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericItemWithSubstringInName'.", repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericItemWithSubstringInNameInfo, new RecordItemIndex(1));
             Validate.Exists(repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericItemWithSubstringInNameInfo);
             
-            Report.Screenshot(ReportLevel.Info, "User", "", repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericItemWithSubstringInName, false, new RecordItemIndex(1));
+            Report.Screenshot(ReportLevel.Info, "User", "", repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericItemWithSubstringInName, false, new RecordItemIndex(2));
             
         }
 

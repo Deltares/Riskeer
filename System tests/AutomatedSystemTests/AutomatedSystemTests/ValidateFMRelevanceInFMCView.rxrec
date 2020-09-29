@@ -51,10 +51,10 @@ mode="Global">
 					<argvalue>
 					</argvalue>
 					<info
-					id="1029a286-ce5f-4de6-8f9d-d68210aae163"
+					id="59990c0d-401e-4dff-8f8b-b423839ef7c6"
 					sourcename="RepositoryEditor">
 						<path>
-							/form[@automationid='RiskeerMainWindow']/list//container[@controlname='FailureMechanismContributionView']/?/table/row[@accessiblevalue~$labelFM]/cell[@accessiblename&gt;'Is relevant']
+							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']//container[@controlname='FailureMechanismContributionView']/?/table/row[@accessiblevalue~$labelFM]/cell[@accessiblename&gt;'Is relevant']
 						</path>
 					</info>
 				</argument>

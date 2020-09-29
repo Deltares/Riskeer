@@ -36,7 +36,7 @@ name="AutomatedSystemTestsRepository">
 				name="ProjectRootNode"
 				refimgid="00d59aef-a594-4f1a-bb4f-a1d44f05191c"
 				searchtimeout="30000ms"
-				usecache="True">
+				usecache="False">
 					<folder
 					capname="treeitem"
 					id="3bb01c51-3d9c-4c3f-adc4-408396425ed8"
@@ -149,10 +149,10 @@ name="AutomatedSystemTestsRepository">
 				name="ViewCloseButton"
 				refimgid="db245c00-dff8-4d3c-aafb-9cbcb5b3a1cb"
 				searchtimeout="30000ms">
-					/form[@automationid='RiskeerMainWindow']//button[@automationid='MenuDropDownButton']/?/tabpage/button[@automationid='DocumentCloseButton']
+					/form[@automationid='RiskeerMainWindow']/?/container/tabpagelist/button[@automationid='MenuDropDownButton']/?/tabpage/button[@automationid='DocumentCloseButton']
 				</item>
 				<basepath>
-					/form[@automationid='RiskeerMainWindow']//button[@automationid='MenuDropDownButton']
+					/form[@automationid='RiskeerMainWindow']/?/container/tabpagelist/button[@automationid='MenuDropDownButton']
 				</basepath>
 			</folder>
 			<item
@@ -164,15 +164,27 @@ name="AutomatedSystemTestsRepository">
 			searchtimeout="30000ms">
 				/form[@automationid='RiskeerMainWindow']/list//container[@controlname='FailureMechanismContributionView']/?/table/row[@accessiblevalue~$labelFM]/cell[@accessiblename&gt;'Is relevant']
 			</item>
-			<item
-			addcaps="cell,accessible"
-			capname="cell"
+			<folder
+			capname="container"
 			id="78b3cba4-3858-49b9-8809-b7f79f03aa5c"
-			name="Copy_of_IsFMRelevantCell"
-			refimgid="abe9b3df-fa56-4ec4-8a9a-ff2ecd96810a"
-			searchtimeout="30000ms">
-				/form[@automationid='RiskeerMainWindow']/list//container[@controlname='FailureMechanismContributionView']/?/table/row[@accessiblevalue~$labelFM]/cell[@accessiblename&gt;'Is relevant']
-			</item>
+			isrooted="True"
+			name="DocumentViewContainer"
+			refimgid="e107b55a-b2a7-42e5-ad21-443242438546"
+			searchtimeout="30000ms"
+			usecache="False">
+				<item
+				addcaps="cell,accessible"
+				capname="cell"
+				id="59990c0d-401e-4dff-8f8b-b423839ef7c6"
+				name="insideDocument_IsFMRelevantCell"
+				refimgid="abe9b3df-fa56-4ec4-8a9a-ff2ecd96810a"
+				searchtimeout="30000ms">
+					/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']//container[@controlname='FailureMechanismContributionView']/?/table/row[@accessiblevalue~$labelFM]/cell[@accessiblename&gt;'Is relevant']
+				</item>
+				<basepath>
+					/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']
+				</basepath>
+			</folder>
 			<folder
 			capname="container"
 			id="4347e3f0-1ed0-4963-b57b-9e0102c2f5d2"

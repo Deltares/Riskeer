@@ -92,7 +92,7 @@ mode="Global">
 		<loggingrecorditem
 		action="Screenshot"
 		category="User"
-		enabled="False"
+		enabled="True"
 		message=""
 		optional="False"
 		reportlevel="Info;20"
@@ -103,10 +103,10 @@ mode="Global">
 			<bindings>
 			</bindings>
 			<info
-			id="4347e3f0-1ed0-4963-b57b-9e0102c2f5d2"
+			id="78b3cba4-3858-49b9-8809-b7f79f03aa5c"
 			sourcename="RepositoryEditor">
 				<path>
-					/form[@automationid='RiskeerMainWindow']//container[@controltypename='WinFormsAdapter']/container[@automationid='FailureMechanismContributionView']
+					/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']
 				</path>
 			</info>
 		</loggingrecorditem>

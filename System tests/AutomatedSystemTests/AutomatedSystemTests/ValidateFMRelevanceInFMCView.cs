@@ -103,7 +103,7 @@ namespace AutomatedSystemTests
             Init();
 
             try {
-                ValidateFMinFMCView(repo.RiskeerMainWindow.IsFMRelevantCellInfo, fmExpectedRelevance);
+                ValidateFMinFMCView(repo.RiskeerMainWindow.DocumentViewContainer.insideDocument_IsFMRelevantCellInfo, fmExpectedRelevance);
                 Delay.Milliseconds(0);
             } catch(Exception ex) { Report.Log(ReportLevel.Warn, "Module", "(Optional Action) " + ex.Message, new RecordItemIndex(0)); }
             

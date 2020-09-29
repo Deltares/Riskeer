@@ -1,24 +1,25 @@
 ﻿<Properties>
   <Array name="active">
-    <Element value="ValidfateRelevanceFMInProjectExplorer.rxrec" />
+    <Element value="OpenViewForFailureMechanismContribution.rxrec" />
   </Array>
   <Array name="bookmarks" />
   <Array name="files">
+    <Element value="ValidateFMRelevanceInFMCView.UserCode.cs" />
     <Element value="AutomatedSystemTests.rxtst" />
-    <Element value="ValidfateRelevanceFMInProjectExplorer.rxrec" />
-    <Element value="ValidfateRelevanceFMInProjectExplorer.UserCode.cs" />
+    <Element value="ValidateFMRelevanceInFMCView.rxrec" />
+    <Element value="OpenViewForFailureMechanismContribution.rxrec" />
   </Array>
   <Properties name="projectSavedData">
     <Properties name="customTool">
       <runOnBuild value="False" />
     </Properties>
     <Array name="recentusercodeselections">
+      <Element value="RiskeerSystemTests.SetRelevanceFMInFailureMechanismContributionView.SetRelevanceInView(RepoItemInfo cellInfo, String expectedRelevance)" />
+      <Element value="RiskeerSystemTests.SetRelevanceFMInFailureMechanismContributionView.SetRelevanceInView(RepoItemInfo cellInfo, String expectedRelevance)" />
+      <Element value="AutomatedSystemTests.ValidateFMRelevanceInFMCView.ValidateFMinFMCView(RepoItemInfo argument1)" />
+      <Element value="AutomatedSystemTests.ValidateFMRelevanceInFMCView.UserCodeMethod(RepoItemInfo argument1)" />
       <Element value="AutomatedSystemTests.ValidfateRelevanceFMInProjectExplorer.ValidateNumberOfNodesInFM(RepoItemInfo fmObjectInfo, String expectedRelevance)" />
       <Element value="AutomatedSystemTests.ValidfateRelevanceFMInProjectExplorer.ValidateNumberOfNodesInFM(RepoItemInfo contextmenuInfo, String expectedRelevance)" />
-      <Element value="AutomatedSystemTests.ValidfateRelevanceFMInProjectExplorer.Mouse_Click_GenericItemWithSubstringInName(RepoItemInfo treeitemInfo)" />
-      <Element value="AutomatedSystemTests.ValidfateRelevanceFMInProjectExplorer.ValidateNumberOfNodesInContextMenu(RepoItemInfo contextmenuInfo)" />
-      <Element value="AutomatedSystemTests.ValidfateRelevanceFMInProjectExplorer.Invoke_action_ContextMenu(RepoItemInfo contextmenuInfo)" />
-      <Element value="AutomatedSystemTests.SetRelevanceFMInProjectExplorer.SetRelevanceFM(RepoItemInfo treeitemInfo)" />
     </Array>
   </Properties>
 </Properties>

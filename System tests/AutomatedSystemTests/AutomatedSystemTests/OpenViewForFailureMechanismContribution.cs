@@ -99,7 +99,7 @@ namespace AutomatedSystemTests
             repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.Faalkansbegroting.DoubleClick();
             
             // Screenshot of FailureMechanismContributionView
-            //Report.Screenshot(ReportLevel.Info, "User", "", repo.RiskeerMainWindow.FailureMechanismContributionView.Self, false, new RecordItemIndex(3));
+            Report.Screenshot(ReportLevel.Info, "User", "", repo.RiskeerMainWindow.DocumentViewContainer.Self, false, new RecordItemIndex(3));
             
         }
 

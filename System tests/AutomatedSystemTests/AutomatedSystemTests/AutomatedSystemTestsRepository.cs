@@ -205,10 +205,10 @@ namespace AutomatedSystemTests
             AutomatedSystemTestsRepositoryFolders.ProjectExplorerFolder _projectexplorer;
             AutomatedSystemTestsRepositoryFolders.RibbonFolder _ribbon;
             AutomatedSystemTestsRepositoryFolders.HeaderOpenViewsFolder _headeropenviews;
+            AutomatedSystemTestsRepositoryFolders.DocumentViewContainerFolder _documentviewcontainer;
             AutomatedSystemTestsRepositoryFolders.FailureMechanismContributionViewFolder _failuremechanismcontributionview;
             AutomatedSystemTestsRepositoryFolders.PropertiesPanelContainerFolder _propertiespanelcontainer;
             RepoItemInfo _isfmrelevantcellInfo;
-            RepoItemInfo _copy_of_isfmrelevantcellInfo;
 
             /// <summary>
             /// Creates a new RiskeerMainWindow  folder.
@@ -219,10 +219,10 @@ namespace AutomatedSystemTests
                 _projectexplorer = new AutomatedSystemTestsRepositoryFolders.ProjectExplorerFolder(this);
                 _ribbon = new AutomatedSystemTestsRepositoryFolders.RibbonFolder(this);
                 _headeropenviews = new AutomatedSystemTestsRepositoryFolders.HeaderOpenViewsFolder(this);
+                _documentviewcontainer = new AutomatedSystemTestsRepositoryFolders.DocumentViewContainerFolder(this);
                 _failuremechanismcontributionview = new AutomatedSystemTestsRepositoryFolders.FailureMechanismContributionViewFolder(this);
                 _propertiespanelcontainer = new AutomatedSystemTestsRepositoryFolders.PropertiesPanelContainerFolder(this);
                 _isfmrelevantcellInfo = new RepoItemInfo(this, "IsFMRelevantCell", "list//container[@controlname='FailureMechanismContributionView']/?/table/row[@accessiblevalue~$labelFM]/cell[@accessiblename>'Is relevant']", 30000, null, "1029a286-ce5f-4de6-8f9d-d68210aae163");
-                _copy_of_isfmrelevantcellInfo = new RepoItemInfo(this, "Copy_of_IsFMRelevantCell", "list//container[@controlname='FailureMechanismContributionView']/?/table/row[@accessiblevalue~$labelFM]/cell[@accessiblename>'Is relevant']", 30000, null, "78b3cba4-3858-49b9-8809-b7f79f03aa5c");
             }
 
             /// <summary>
@@ -274,30 +274,6 @@ namespace AutomatedSystemTests
             }
 
             /// <summary>
-            /// The Copy_of_IsFMRelevantCell item.
-            /// </summary>
-            [RepositoryItem("78b3cba4-3858-49b9-8809-b7f79f03aa5c")]
-            public virtual Ranorex.Cell Copy_of_IsFMRelevantCell
-            {
-                get
-                {
-                    return _copy_of_isfmrelevantcellInfo.CreateAdapter<Ranorex.Cell>(true);
-                }
-            }
-
-            /// <summary>
-            /// The Copy_of_IsFMRelevantCell item info.
-            /// </summary>
-            [RepositoryItemInfo("78b3cba4-3858-49b9-8809-b7f79f03aa5c")]
-            public virtual RepoItemInfo Copy_of_IsFMRelevantCellInfo
-            {
-                get
-                {
-                    return _copy_of_isfmrelevantcellInfo;
-                }
-            }
-
-            /// <summary>
             /// The ProjectExplorer folder.
             /// </summary>
             [RepositoryFolder("f5ed0b8b-7145-426f-982e-b89248da6d53")]
@@ -322,6 +298,15 @@ namespace AutomatedSystemTests
             public virtual AutomatedSystemTestsRepositoryFolders.HeaderOpenViewsFolder HeaderOpenViews
             {
                 get { return _headeropenviews; }
+            }
+
+            /// <summary>
+            /// The DocumentViewContainer folder.
+            /// </summary>
+            [RepositoryFolder("78b3cba4-3858-49b9-8809-b7f79f03aa5c")]
+            public virtual AutomatedSystemTestsRepositoryFolders.DocumentViewContainerFolder DocumentViewContainer
+            {
+                get { return _documentviewcontainer; }
             }
 
             /// <summary>
@@ -406,7 +391,7 @@ namespace AutomatedSystemTests
             /// Creates a new ProjectRootNode  folder.
             /// </summary>
             public ProjectRootNodeFolder(RepoGenBaseFolder parentFolder) :
-                    base("ProjectRootNode", "treeitem[1]", parentFolder, 30000, null, true, "b466899e-e209-4d83-a46c-0533f333cea5", "")
+                    base("ProjectRootNode", "treeitem[1]", parentFolder, 30000, null, false, "b466899e-e209-4d83-a46c-0533f333cea5", "")
             {
                 _trajectwithsubstringinname = new AutomatedSystemTestsRepositoryFolders.TrajectWithSubstringInNameFolder(this);
             }
@@ -744,7 +729,7 @@ namespace AutomatedSystemTests
             /// Creates a new HeaderOpenViews  folder.
             /// </summary>
             public HeaderOpenViewsFolder(RepoGenBaseFolder parentFolder) :
-                    base("HeaderOpenViews", ".//button[@automationid='MenuDropDownButton']", parentFolder, 30000, null, true, "b2c76482-93c5-4171-9eaf-0f674aebb65b", "")
+                    base("HeaderOpenViews", "?/container/tabpagelist/button[@automationid='MenuDropDownButton']", parentFolder, 30000, null, true, "b2c76482-93c5-4171-9eaf-0f674aebb65b", "")
             {
                 _viewclosebuttonInfo = new RepoItemInfo(this, "ViewCloseButton", "?/tabpage/button[@automationid='DocumentCloseButton']", 30000, null, "79aa5f18-da55-4d5b-9c7c-bc833052d329");
             }
@@ -794,6 +779,72 @@ namespace AutomatedSystemTests
                 get
                 {
                     return _viewclosebuttonInfo;
+                }
+            }
+        }
+
+        /// <summary>
+        /// The DocumentViewContainerFolder folder.
+        /// </summary>
+        [RepositoryFolder("78b3cba4-3858-49b9-8809-b7f79f03aa5c")]
+        public partial class DocumentViewContainerFolder : RepoGenBaseFolder
+        {
+            RepoItemInfo _insidedocument_isfmrelevantcellInfo;
+
+            /// <summary>
+            /// Creates a new DocumentViewContainer  folder.
+            /// </summary>
+            public DocumentViewContainerFolder(RepoGenBaseFolder parentFolder) :
+                    base("DocumentViewContainer", "?/container[10]/container[@controltypename='WinFormsAdapter']", parentFolder, 30000, null, false, "78b3cba4-3858-49b9-8809-b7f79f03aa5c", "")
+            {
+                _insidedocument_isfmrelevantcellInfo = new RepoItemInfo(this, "insideDocument_IsFMRelevantCell", ".//container[@controlname='FailureMechanismContributionView']/?/table/row[@accessiblevalue~$labelFM]/cell[@accessiblename>'Is relevant']", 30000, null, "59990c0d-401e-4dff-8f8b-b423839ef7c6");
+            }
+
+            /// <summary>
+            /// The Self item.
+            /// </summary>
+            [RepositoryItem("78b3cba4-3858-49b9-8809-b7f79f03aa5c")]
+            public virtual Ranorex.Container Self
+            {
+                get
+                {
+                    return _selfInfo.CreateAdapter<Ranorex.Container>(true);
+                }
+            }
+
+            /// <summary>
+            /// The Self item info.
+            /// </summary>
+            [RepositoryItemInfo("78b3cba4-3858-49b9-8809-b7f79f03aa5c")]
+            public virtual RepoItemInfo SelfInfo
+            {
+                get
+                {
+                    return _selfInfo;
+                }
+            }
+
+            /// <summary>
+            /// The insideDocument_IsFMRelevantCell item.
+            /// </summary>
+            [RepositoryItem("59990c0d-401e-4dff-8f8b-b423839ef7c6")]
+            public virtual Ranorex.Cell insideDocument_IsFMRelevantCell
+            {
+                get
+                {
+                    return _insidedocument_isfmrelevantcellInfo.CreateAdapter<Ranorex.Cell>(true);
+                }
+            }
+
+            /// <summary>
+            /// The insideDocument_IsFMRelevantCell item info.
+            /// </summary>
+            [RepositoryItemInfo("59990c0d-401e-4dff-8f8b-b423839ef7c6")]
+            public virtual RepoItemInfo insideDocument_IsFMRelevantCellInfo
+            {
+                get
+                {
+                    return _insidedocument_isfmrelevantcellInfo;
                 }
             }
         }
