@@ -2005,6 +2005,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Riskeer.Integration.Util.Te
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Plugins.Map.TestUtil", "Core\Plugins\test\Core.Plugins.Map.TestUtil\Core.Plugins.Map.TestUtil.csproj", "{430C588F-004A-4E19-91FB-F31E35174DF5}"
 	ProjectSection(ProjectDependencies) = postProject
+		{D749EE4C-CE50-4C17-BF01-9A953028C126} = {D749EE4C-CE50-4C17-BF01-9A953028C126}
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
