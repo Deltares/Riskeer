@@ -13,4 +13,5 @@
     <ProjectReference Include="..\..\src\Core.Common.Util\Core.Common.Util.csproj"/>
     <ProjectReference Include="..\Core.Common.TestUtil\Core.Common.TestUtil.csproj"/>
   </ItemGroup>
+  <Import Project="$(SolutionDir)\build\PreBuild.targets" />
 </Project>

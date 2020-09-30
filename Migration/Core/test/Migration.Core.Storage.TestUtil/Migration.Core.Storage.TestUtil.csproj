@@ -13,4 +13,5 @@
     <ProjectReference Include="..\..\..\Scripts\src\Migration.Scripts.Data\Migration.Scripts.Data.csproj"/>
     <ProjectReference Include="..\..\src\Migration.Core.Storage\Migration.Core.Storage.csproj"/>
   </ItemGroup>
+  <Import Project="$(SolutionDir)\build\PreBuild.targets" />
 </Project>

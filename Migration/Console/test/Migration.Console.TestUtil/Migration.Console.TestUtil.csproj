@@ -12,4 +12,5 @@
   <ItemGroup>
     <ProjectReference Include="..\..\src\Migration.Console\Migration.Console.csproj"/>
   </ItemGroup>
+  <Import Project="$(SolutionDir)\build\PreBuild.targets" />
 </Project>
