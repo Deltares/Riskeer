@@ -1164,7 +1164,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Riskeer.Integration.Test", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Riskeer.Integration.TestUtil", "Riskeer\Integration\test\Riskeer.Integration.TestUtil\Riskeer.Integration.TestUtil.csproj", "{174BA68D-6176-4AC5-8DFD-98CDD2C4D971}"
 	ProjectSection(ProjectDependencies) = postProject
-		{D749EE4C-CE50-4C17-BF01-9A953028C126} = {D749EE4C-CE50-4C17-BF01-9A953028C126}
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
@@ -1908,7 +1907,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Riskeer.DuneErosion.Forms.T
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Riskeer.Integration.Forms.TestUtil", "Riskeer\Integration\test\Riskeer.Integration.Forms.TestUtil\Riskeer.Integration.Forms.TestUtil.csproj", "{93C3B757-C591-4451-BA56-140FF91EFE9A}"
 	ProjectSection(ProjectDependencies) = postProject
-		{D749EE4C-CE50-4C17-BF01-9A953028C126} = {D749EE4C-CE50-4C17-BF01-9A953028C126}
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
@@ -1997,13 +1995,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Riskeer.AssemblyTool.IO.Tes
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Riskeer.Integration.IO.TestUtil", "Riskeer\Integration\test\Riskeer.Integration.IO.TestUtil\Riskeer.Integration.IO.TestUtil.csproj", "{1C002B07-DDF6-4849-B8ED-551163AC9423}"
 	ProjectSection(ProjectDependencies) = postProject
-		{D749EE4C-CE50-4C17-BF01-9A953028C126} = {D749EE4C-CE50-4C17-BF01-9A953028C126}
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Riskeer.Integration.IO.TestUtil.Test", "Riskeer\Integration\test\Riskeer.Integration.IO.TestUtil.Test\Riskeer.Integration.IO.TestUtil.Test.csproj", "{C4EE67E7-6E00-4735-9439-32D9B2054E40}"
 	ProjectSection(ProjectDependencies) = postProject
-		{D749EE4C-CE50-4C17-BF01-9A953028C126} = {D749EE4C-CE50-4C17-BF01-9A953028C126}
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
@@ -2015,13 +2011,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Riskeer.AssemblyTool.IO.Tes
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Riskeer.Integration.Data.TestUtil", "Riskeer\Integration\test\Riskeer.Integration.Data.TestUtil\Riskeer.Integration.Data.TestUtil.csproj", "{2D51FD02-BBED-43FE-BDB7-4437152876A1}"
 	ProjectSection(ProjectDependencies) = postProject
-		{D749EE4C-CE50-4C17-BF01-9A953028C126} = {D749EE4C-CE50-4C17-BF01-9A953028C126}
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Riskeer.Integration.Data.TestUtil.Test", "Riskeer\Integration\test\Riskeer.Integration.Data.TestUtil.Test\Riskeer.Integration.Data.TestUtil.Test.csproj", "{1B636F2D-FA14-49DE-99ED-259BC72A77F7}"
 	ProjectSection(ProjectDependencies) = postProject
-		{D749EE4C-CE50-4C17-BF01-9A953028C126} = {D749EE4C-CE50-4C17-BF01-9A953028C126}
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
@@ -2032,7 +2026,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Riskeer.Integration.Util", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Riskeer.Integration.Util.Test", "Riskeer\Integration\test\Riskeer.Integration.Util.Test\Riskeer.Integration.Util.Test.csproj", "{C132D919-1EED-4856-8CF9-9B507066813D}"
 	ProjectSection(ProjectDependencies) = postProject
-		{D749EE4C-CE50-4C17-BF01-9A953028C126} = {D749EE4C-CE50-4C17-BF01-9A953028C126}
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
