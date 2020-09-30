@@ -1529,7 +1529,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Riskeer.MacroStabilityInwar
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Riskeer.MacroStabilityInwards.Data.TestUtil.Test", "Riskeer\MacroStabilityInwards\test\Riskeer.MacroStabilityInwards.Data.TestUtil.Test\Riskeer.MacroStabilityInwards.Data.TestUtil.Test.csproj", "{7CB3D26F-9FE5-4105-A3BC-36F457C6EA1D}"
 	ProjectSection(ProjectDependencies) = postProject
-		{D749EE4C-CE50-4C17-BF01-9A953028C126} = {D749EE4C-CE50-4C17-BF01-9A953028C126}
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
@@ -1540,7 +1539,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Riskeer.MacroStabilityInwar
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Riskeer.MacroStabilityInwards.Integration.Test", "Riskeer\MacroStabilityInwards\test\Riskeer.MacroStabilityInwards.Integration.Test\Riskeer.MacroStabilityInwards.Integration.Test.csproj", "{165DB703-875C-416C-80DE-92FC692A08C6}"
 	ProjectSection(ProjectDependencies) = postProject
-		{D749EE4C-CE50-4C17-BF01-9A953028C126} = {D749EE4C-CE50-4C17-BF01-9A953028C126}
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
@@ -1561,7 +1559,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Riskeer.MacroStabilityInwar
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Test", "Riskeer\MacroStabilityInwards\test\Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Test\Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Test.csproj", "{870AA57A-2010-45B3-BC85-63EB98EF05BA}"
 	ProjectSection(ProjectDependencies) = postProject
-		{D749EE4C-CE50-4C17-BF01-9A953028C126} = {D749EE4C-CE50-4C17-BF01-9A953028C126}
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
@@ -1739,13 +1736,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Riskeer.Piping.IO.TestUtil.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Riskeer.MacroStabilityInwards.IO.TestUtil", "Riskeer\MacroStabilityInwards\test\Riskeer.MacroStabilityInwards.IO.TestUtil\Riskeer.MacroStabilityInwards.IO.TestUtil.csproj", "{C83B2091-339A-4F35-A874-A4C807F55CAE}"
 	ProjectSection(ProjectDependencies) = postProject
-		{D749EE4C-CE50-4C17-BF01-9A953028C126} = {D749EE4C-CE50-4C17-BF01-9A953028C126}
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Riskeer.MacroStabilityInwards.IO.TestUtil.Test", "Riskeer\MacroStabilityInwards\test\Riskeer.MacroStabilityInwards.IO.TestUtil.Test\Riskeer.MacroStabilityInwards.IO.TestUtil.Test.csproj", "{F95B449C-02CC-409B-83EA-FF16D0D7CBDB}"
 	ProjectSection(ProjectDependencies) = postProject
-		{D749EE4C-CE50-4C17-BF01-9A953028C126} = {D749EE4C-CE50-4C17-BF01-9A953028C126}
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
@@ -1761,19 +1756,16 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Riskeer.MacroStabilityInwar
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Riskeer.MacroStabilityInwards.Primitives.TestUtil", "Riskeer\MacroStabilityInwards\test\Riskeer.MacroStabilityInwards.Primitives.TestUtil\Riskeer.MacroStabilityInwards.Primitives.TestUtil.csproj", "{1DF4EE8D-0EF5-4FCC-A40E-CB8B82080FDF}"
 	ProjectSection(ProjectDependencies) = postProject
-		{D749EE4C-CE50-4C17-BF01-9A953028C126} = {D749EE4C-CE50-4C17-BF01-9A953028C126}
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Riskeer.MacroStabilityInwards.Primitives.TestUtil.Test", "Riskeer\MacroStabilityInwards\test\Riskeer.MacroStabilityInwards.Primitives.TestUtil.Test\Riskeer.MacroStabilityInwards.Primitives.TestUtil.Test.csproj", "{C80AD710-0F84-40CE-9567-10CBE332E589}"
 	ProjectSection(ProjectDependencies) = postProject
-		{D749EE4C-CE50-4C17-BF01-9A953028C126} = {D749EE4C-CE50-4C17-BF01-9A953028C126}
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Riskeer.MacroStabilityInwards.CalculatedInput.TestUtil", "Riskeer\MacroStabilityInwards\test\Riskeer.MacroStabilityInwards.CalculatedInput.TestUtil\Riskeer.MacroStabilityInwards.CalculatedInput.TestUtil.csproj", "{53F7C73E-6D85-4B90-A6A8-DAA7F4BCB071}"
 	ProjectSection(ProjectDependencies) = postProject
-		{D749EE4C-CE50-4C17-BF01-9A953028C126} = {D749EE4C-CE50-4C17-BF01-9A953028C126}
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
@@ -1791,7 +1783,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Common.Base.TestUtil.T
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Riskeer.MacroStabilityInwards.Forms.TestUtil", "Riskeer\MacroStabilityInwards\test\Riskeer.MacroStabilityInwards.Forms.TestUtil\Riskeer.MacroStabilityInwards.Forms.TestUtil.csproj", "{85765B22-A2DD-43F7-BF54-B5EB8EE69780}"
 	ProjectSection(ProjectDependencies) = postProject
-		{D749EE4C-CE50-4C17-BF01-9A953028C126} = {D749EE4C-CE50-4C17-BF01-9A953028C126}
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
