@@ -1085,7 +1085,7 @@
 			<maskedcolumns>
 			</maskedcolumns>
 			<file>
-				D:\repos\Riskeer\System tests\AutomatedSystemTests\AutomatedSystemTests\Data\script21\input\CSVs\OpenFaalkansProject.csv
+				X:\script21\input\CSVs\OpenFaalkansProject.csv
 			</file>
 		</DataSource>
 		<DataSource
@@ -1103,7 +1103,7 @@
 			<maskedcolumns>
 			</maskedcolumns>
 			<file>
-				D:\repos\Riskeer\System tests\AutomatedSystemTests\AutomatedSystemTests\Data\script21\input\CSVs\TextsInNamesOfTraject.csv
+				X:\script21\input\CSVs\TextsInNamesOfTraject.csv
 			</file>
 		</DataSource>
 		<DataSource
@@ -1124,7 +1124,7 @@
 			<maskedcolumns>
 			</maskedcolumns>
 			<file>
-				D:\repos\Riskeer\System tests\AutomatedSystemTests\AutomatedSystemTests\Data\script21\input\CSVs\namesOfFMs.csv
+				X:\script21\input\CSVs\namesOfFMs.csv
 			</file>
 		</DataSource>
 		<DataSource
@@ -1253,7 +1253,7 @@
 			<maskedcolumns>
 			</maskedcolumns>
 			<file>
-				D:\repos\Riskeer\System tests\AutomatedSystemTests\AutomatedSystemTests\Data\script21\input\CSVs\relevanceOfFMsInTraject12_2PE.csv
+				X:\script21\input\CSVs\relevanceOfFMsInTraject12_2PE.csv
 			</file>
 		</DataSource>
 		<DataSource
