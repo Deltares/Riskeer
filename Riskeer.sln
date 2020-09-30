@@ -225,6 +225,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Riskeer.Piping.KernelWrappe
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Riskeer.Piping.KernelWrapper.TestUtil", "Riskeer\Piping\test\Riskeer.Piping.KernelWrapper.TestUtil\Riskeer.Piping.KernelWrapper.TestUtil.csproj", "{27E0A5C9-3ABF-426A-A3DA-7D0B83A218C8}"
 	ProjectSection(ProjectDependencies) = postProject
+		{D749EE4C-CE50-4C17-BF01-9A953028C126} = {D749EE4C-CE50-4C17-BF01-9A953028C126}
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
@@ -272,6 +273,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Common.Base.Test", "Co
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Riskeer.Piping.Integration.Test", "Riskeer\Piping\test\Riskeer.Piping.Integration.Test\Riskeer.Piping.Integration.Test.csproj", "{813FFA92-1F3F-462B-B596-5919334007A9}"
 	ProjectSection(ProjectDependencies) = postProject
+		{D749EE4C-CE50-4C17-BF01-9A953028C126} = {D749EE4C-CE50-4C17-BF01-9A953028C126}
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
@@ -349,6 +351,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Common.TestUtil.Test",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Riskeer.Piping.Data.TestUtil.Test", "Riskeer\Piping\test\Riskeer.Piping.Data.TestUtil.Test\Riskeer.Piping.Data.TestUtil.Test.csproj", "{35B78215-420B-4D7D-9959-9E9010601200}"
 	ProjectSection(ProjectDependencies) = postProject
+		{D749EE4C-CE50-4C17-BF01-9A953028C126} = {D749EE4C-CE50-4C17-BF01-9A953028C126}
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
@@ -532,6 +535,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Components.Chart.Forms
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Riskeer.Piping.KernelWrapper.TestUtil.Test", "Riskeer\Piping\test\Riskeer.Piping.KernelWrapper.TestUtil.Test\Riskeer.Piping.KernelWrapper.TestUtil.Test.csproj", "{529C4919-27DE-4DDA-ABD6-537F21B3F223}"
 	ProjectSection(ProjectDependencies) = postProject
+		{D749EE4C-CE50-4C17-BF01-9A953028C126} = {D749EE4C-CE50-4C17-BF01-9A953028C126}
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
@@ -1703,6 +1707,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Components.GraphSharp.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Riskeer.Piping.Primitives.TestUtil", "Riskeer\Piping\test\Riskeer.Piping.Primitives.TestUtil\Riskeer.Piping.Primitives.TestUtil.csproj", "{6F568E38-592A-4F99-A901-86B74C4F24D2}"
 	ProjectSection(ProjectDependencies) = postProject
+		{D749EE4C-CE50-4C17-BF01-9A953028C126} = {D749EE4C-CE50-4C17-BF01-9A953028C126}
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
@@ -1729,11 +1734,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Riskeer.GrassCoverErosionOu
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Riskeer.Piping.IO.TestUtil", "Riskeer\Piping\test\Riskeer.Piping.IO.TestUtil\Riskeer.Piping.IO.TestUtil.csproj", "{58E2D4FD-9DFA-4A05-99C6-5A2E8ADCF90A}"
 	ProjectSection(ProjectDependencies) = postProject
+		{D749EE4C-CE50-4C17-BF01-9A953028C126} = {D749EE4C-CE50-4C17-BF01-9A953028C126}
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Riskeer.Piping.IO.TestUtil.Test", "Riskeer\Piping\test\Riskeer.Piping.IO.TestUtil.Test\Riskeer.Piping.IO.TestUtil.Test.csproj", "{28665A2A-9B74-4297-977B-00A8619AF2EE}"
 	ProjectSection(ProjectDependencies) = postProject
+		{D749EE4C-CE50-4C17-BF01-9A953028C126} = {D749EE4C-CE50-4C17-BF01-9A953028C126}
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
