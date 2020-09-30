@@ -350,11 +350,18 @@ namespace Core.Common.Controls.DataGrid
         /// Sets the data source on the <see cref="DataGridView"/>.
         /// </summary>
         /// <param name="dataSource">The data source to set.</param>
-        /// <remarks>Providing a value of <c>null</c> for <paramref name="dataSource"/>
-        /// will clear the grid view.</remarks>
+        /// <remarks>
+        /// <list type="bullet">
+        /// <item>Providing a value of <c>null</c> for <paramref name="dataSource"/>
+        /// will clear the grid view.</item>
+        /// <item>To reset the scrollbars to the starting position,
+        /// the scrollbars need to be set to none before changing the datasource.</item>
+        /// </list></remarks>
         public void SetDataSource(IEnumerable dataSource)
         {
+            dataGridView.ScrollBars = ScrollBars.None;
             dataGridView.DataSource = dataSource;
+            dataGridView.ScrollBars = ScrollBars.Both;
         }
 
         /// <summary>
