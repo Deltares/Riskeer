@@ -72,6 +72,7 @@
 				</databinding>
 			</testmodule>
 			<smartfoldernode
+			datasource="simpleassessmentGroup1"
 			id="1eff0053-015a-4ebc-aece-f2f6f630f6bc"
 			name="LoopSections">
 			</smartfoldernode>
@@ -289,6 +290,20 @@
 			type="Recording">
 				<databinding>
 					<var
+					dataname="fmName"
+					datasourceid="3b159b7c-719d-4e4a-bfa0-b75369cae6fd"
+					variableid="3a7276c1-fca1-4026-9d2e-5bac10651a47"
+					variablename="substringItemName">
+					</var>
+					<var
+					dataname="trajectID"
+					datasourceid="3b159b7c-719d-4e4a-bfa0-b75369cae6fd"
+					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
+					variablename="substringTrajectName">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
 					dataname="trajectSubstring"
 					datasourceid="263d9591-0ed9-4c66-9e5d-7cc81fa7b815"
 					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
@@ -300,7 +315,7 @@
 					variableid="3a7276c1-fca1-4026-9d2e-5bac10651a47"
 					variablename="substringItemName">
 					</var>
-				</databinding>
+				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
 			id="5e581e77-b3e3-470c-aaea-c5795803d38f"
@@ -471,6 +486,20 @@
 			name="SelectAssessmentForSection"
 			ref="e0d85a11-9622-402c-937d-fefa962c3394"
 			type="Recording">
+				<databinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="5a0e29a6-08a7-4feb-b858-4061ef1b16a2"
+					variableid="d576037a-032a-4fa3-b9a8-9944503b34d3"
+					variablename="rowIndex">
+					</var>
+					<var
+					dataname="SimpleAssessmentItem"
+					datasourceid="5a0e29a6-08a7-4feb-b858-4061ef1b16a2"
+					variableid="d82001f1-20c0-4080-a06d-9f1f8ee3a56d"
+					variablename="textItemDropDownMenu">
+					</var>
+				</databinding>
 			</testmodule>
 			<testmodule
 			id="b30f6dd1-3b2e-4ea2-af88-6d37532addb5"
@@ -713,7 +742,7 @@
 			name="LoopFMs">
 			</smartfoldernode>
 			<smartfoldernode
-			datasource="trajectID"
+			datasource="FMsInGroup1SimpleAssessment"
 			id="e756f312-1a93-4042-9200-8ee398806472"
 			name="STPH">
 			</smartfoldernode>
@@ -1099,6 +1128,30 @@
 			</file>
 		</DataSource>
 		<DataSource
+		id="3b159b7c-719d-4e4a-bfa0-b75369cae6fd"
+		includefile="Unchecked"
+		lastknownrowcount="3"
+		name="FMsInGroup1SimpleAssessment"
+		type="Ranorex.Core.Data.CsvDataConnector"
+		withheaders="True">
+			<lastknowncolumns>
+				<column>
+					fmLabel
+				</column>
+				<column>
+					fmName
+				</column>
+				<column>
+					trajectID
+				</column>
+			</lastknowncolumns>
+			<maskedcolumns>
+			</maskedcolumns>
+			<file>
+				D:\repos\Riskeer\System tests\AutomatedSystemTests\AutomatedSystemTests\Data\script21\input\CSVs\FMsInGroup1SimpleAssessment.csv
+			</file>
+		</DataSource>
+		<DataSource
 		id="e7354d9e-0cbd-44f9-8420-b994cf2180e3"
 		includefile="Unchecked"
 		lastknownrowcount="2"
@@ -1264,6 +1317,27 @@
 			</maskedcolumns>
 			<file>
 				X:\script21\input\CSVs\relevanceOfFMsInTraject12_2PE.csv
+			</file>
+		</DataSource>
+		<DataSource
+		id="5a0e29a6-08a7-4feb-b858-4061ef1b16a2"
+		includefile="Unchecked"
+		lastknownrowcount="8"
+		name="simpleassessmentGroup1"
+		type="Ranorex.Core.Data.CsvDataConnector"
+		withheaders="True">
+			<lastknowncolumns>
+				<column>
+					rowIndex
+				</column>
+				<column>
+					SimpleAssessmentItem
+				</column>
+			</lastknowncolumns>
+			<maskedcolumns>
+			</maskedcolumns>
+			<file>
+				D:\repos\Riskeer\System tests\AutomatedSystemTests\AutomatedSystemTests\Data\script21\input\CSVs\simpleAssessmentFMsGroup1.csv
 			</file>
 		</DataSource>
 		<DataSource

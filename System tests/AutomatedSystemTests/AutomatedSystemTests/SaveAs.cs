@@ -109,11 +109,14 @@ namespace AutomatedSystemTests
             
             ConfirmOverwrite(repo.ButtonYesInfo);
             
-            Report.Log(ReportLevel.Info, "Delay", "Waiting for 100ms.", new RecordItemIndex(6));
-            Delay.Duration(100, false);
+            Report.Log(ReportLevel.Info, "Delay", "Waiting for 250ms.", new RecordItemIndex(6));
+            Delay.Duration(250, false);
             
-            Report.Log(ReportLevel.Info, "Wait", "Waiting 5m to not exist. Associated repository item: 'ActivityProgressDialog.ProgressBar'", repo.ActivityProgressDialog.ProgressBarInfo, new ActionTimeout(300000), new RecordItemIndex(7));
-            repo.ActivityProgressDialog.ProgressBarInfo.WaitForNotExists(300000);
+            //Report.Log(ReportLevel.Info, "Wait", "Waiting 5m to not exist. Associated repository item: 'ActivityProgressDialog.ProgressBar'", repo.ActivityProgressDialog.ProgressBarInfo, new ActionTimeout(300000), new RecordItemIndex(7));
+            //repo.ActivityProgressDialog.ProgressBarInfo.WaitForNotExists(300000);
+            
+            Report.Log(ReportLevel.Info, "Wait", "Waiting 5m to not exist. Associated repository item: 'ActivityProgressDialog.ButtonCancel'", repo.ActivityProgressDialog.ButtonCancelInfo, new ActionTimeout(300000), new RecordItemIndex(8));
+            repo.ActivityProgressDialog.ButtonCancelInfo.WaitForNotExists(300000);
             
         }
 

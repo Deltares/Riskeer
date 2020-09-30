@@ -41,6 +41,7 @@ namespace AutomatedSystemTests
         /// </summary>
         public SelectAssessmentForSection()
         {
+            rowIndex = "";
         }
 
         /// <summary>
@@ -52,6 +53,26 @@ namespace AutomatedSystemTests
         }
 
 #region Variables
+
+        /// <summary>
+        /// Gets or sets the value of variable rowIndex.
+        /// </summary>
+        [TestVariable("d576037a-032a-4fa3-b9a8-9944503b34d3")]
+        public string rowIndex
+        {
+            get { return repo.rowIndex; }
+            set { repo.rowIndex = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets the value of variable textItemDropDownMenu.
+        /// </summary>
+        [TestVariable("d82001f1-20c0-4080-a06d-9f1f8ee3a56d")]
+        public string textItemDropDownMenu
+        {
+            get { return repo.textItemDropDownMenu; }
+            set { repo.textItemDropDownMenu = value; }
+        }
 
 #endregion
 
@@ -73,12 +94,30 @@ namespace AutomatedSystemTests
         [System.CodeDom.Compiler.GeneratedCode("Ranorex", global::Ranorex.Core.Constants.CodeGenVersion)]
         void ITestModule.Run()
         {
-            Mouse.DefaultMoveTime = 300;
+            Mouse.DefaultMoveTime = 0;
             Keyboard.DefaultKeyPressTime = 20;
-            Delay.SpeedFactor = 1.00;
+            Delay.SpeedFactor = 0.00;
 
             Init();
 
+            //Report.Log(ReportLevel.Info, "Invoke action", "Invoking Focus() on item 'RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.EenvoudigeToetsVak12_2_00000'.", repo.RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.EenvoudigeToetsVak12_2_00000Info, new RecordItemIndex(0));
+            //repo.RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.EenvoudigeToetsVak12_2_00000.Focus();
+            
+            //Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.EenvoudigeToetsVak12_2_00000' at CenterRight.", repo.RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.EenvoudigeToetsVak12_2_00000Info, new RecordItemIndex(1));
+            //repo.RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.EenvoudigeToetsVak12_2_00000.Click(Location.CenterRight);
+            
+            //Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'DropDownMenuItemList.ListItemVB' at Center.", repo.DropDownMenuItemList.ListItemVBInfo, new RecordItemIndex(2));
+            //repo.DropDownMenuItemList.ListItemVB.Click();
+            
+            Report.Log(ReportLevel.Info, "Invoke action", "Invoking Focus() on item 'RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.EenvoudigeToetsRow0'.", repo.RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.EenvoudigeToetsRow0Info, new RecordItemIndex(3));
+            repo.RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.EenvoudigeToetsRow0.Focus();
+            
+            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.EenvoudigeToetsRow0' at CenterRight.", repo.RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.EenvoudigeToetsRow0Info, new RecordItemIndex(4));
+            repo.RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.EenvoudigeToetsRow0.Click(Location.CenterRight);
+            
+            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'DropDownMenuItemList.GenericDropDownItem' at Center.", repo.DropDownMenuItemList.GenericDropDownItemInfo, new RecordItemIndex(5));
+            repo.DropDownMenuItemList.GenericDropDownItem.Click();
+            
         }
 
 #region Image Feature Data

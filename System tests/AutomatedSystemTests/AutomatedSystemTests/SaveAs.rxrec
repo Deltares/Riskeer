@@ -1072,7 +1072,7 @@ rr/oISf9+0/wq9RQB//Z
 			</arguments>
 		</userrecorditem>
 		<explicitdelayitem
-		duration="100ms"
+		duration="250ms"
 		enabled="True"
 		optional="False">
 			<comment>
@@ -1081,7 +1081,7 @@ rr/oISf9+0/wq9RQB//Z
 			</bindings>
 		</explicitdelayitem>
 		<WaitForRecordItem
-		enabled="True"
+		enabled="False"
 		optional="False"
 		searchpropertyid="22f8bafe-bbf5-4cdb-ab86-90ceeb3d8693"
 		waitaction="NotExists"
@@ -1095,6 +1095,24 @@ rr/oISf9+0/wq9RQB//Z
 			sourcename="RepositoryEditor">
 				<path>
 					/form[@controlname='ActivityProgressDialog']/progressbar[@controlname='progressBar']
+				</path>
+			</info>
+		</WaitForRecordItem>
+		<WaitForRecordItem
+		enabled="True"
+		optional="False"
+		searchpropertyid="460b84ec-0411-47ad-8605-36732bfeb283"
+		waitaction="NotExists"
+		waittimeout="300000ms">
+			<comment>
+			</comment>
+			<bindings>
+			</bindings>
+			<info
+			id="ce9d9227-f12e-488e-9ca2-80d899fed485"
+			sourcename="RepositoryEditor">
+				<path>
+					/form[@controlname='ActivityProgressDialog']/button[@controlname='buttonCancel']
 				</path>
 			</info>
 		</WaitForRecordItem>

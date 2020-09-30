@@ -33,6 +33,7 @@ namespace AutomatedSystemTests
         AutomatedSystemTestsRepositoryFolders.ActivityProgressDialogAppFolder _activityprogressdialog;
         AutomatedSystemTestsRepositoryFolders.ContextMenuAppFolder _contextmenu;
         AutomatedSystemTestsRepositoryFolders.OpslaanAlsAppFolder _opslaanals;
+        AutomatedSystemTestsRepositoryFolders.DropDownMenuItemListAppFolder _dropdownmenuitemlist;
         RepoItemInfo _buttonyesInfo;
 
         /// <summary>
@@ -56,6 +57,7 @@ namespace AutomatedSystemTests
             _activityprogressdialog = new AutomatedSystemTestsRepositoryFolders.ActivityProgressDialogAppFolder(this);
             _contextmenu = new AutomatedSystemTestsRepositoryFolders.ContextMenuAppFolder(this);
             _opslaanals = new AutomatedSystemTestsRepositoryFolders.OpslaanAlsAppFolder(this);
+            _dropdownmenuitemlist = new AutomatedSystemTestsRepositoryFolders.DropDownMenuItemListAppFolder(this);
             _buttonyesInfo = new RepoItemInfo(this, "ButtonYes", "/form[@title='Confirm Save As']//button[@text='&Yes']", 3000, null, "ac0a8e2f-9815-493c-bc5f-c81dcf12d652");
         }
 
@@ -95,6 +97,30 @@ namespace AutomatedSystemTests
         {
             get { return _labelFM; }
             set { _labelFM = value; }
+        }
+
+        string _textItemDropDownMenu = "";
+
+        /// <summary>
+        /// Gets or sets the value of variable textItemDropDownMenu.
+        /// </summary>
+        [TestVariable("d82001f1-20c0-4080-a06d-9f1f8ee3a56d")]
+        public string textItemDropDownMenu
+        {
+            get { return _textItemDropDownMenu; }
+            set { _textItemDropDownMenu = value; }
+        }
+
+        string _rowIndex = "";
+
+        /// <summary>
+        /// Gets or sets the value of variable rowIndex.
+        /// </summary>
+        [TestVariable("3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0")]
+        public string rowIndex
+        {
+            get { return _rowIndex; }
+            set { _rowIndex = value; }
         }
 
 #endregion
@@ -188,6 +214,15 @@ namespace AutomatedSystemTests
         {
             get { return _opslaanals; }
         }
+
+        /// <summary>
+        /// The DropDownMenuItemList folder.
+        /// </summary>
+        [RepositoryFolder("559e3624-4636-44d9-8c9e-6d20453f95bf")]
+        public virtual AutomatedSystemTestsRepositoryFolders.DropDownMenuItemListAppFolder DropDownMenuItemList
+        {
+            get { return _dropdownmenuitemlist; }
+        }
     }
 
     /// <summary>
@@ -209,6 +244,7 @@ namespace AutomatedSystemTests
             AutomatedSystemTestsRepositoryFolders.FailureMechanismContributionViewFolder _failuremechanismcontributionview;
             AutomatedSystemTestsRepositoryFolders.PropertiesPanelContainerFolder _propertiespanelcontainer;
             RepoItemInfo _isfmrelevantcellInfo;
+            RepoItemInfo _eenvoudigetoetsrow0Info;
 
             /// <summary>
             /// Creates a new RiskeerMainWindow  folder.
@@ -223,6 +259,7 @@ namespace AutomatedSystemTests
                 _failuremechanismcontributionview = new AutomatedSystemTestsRepositoryFolders.FailureMechanismContributionViewFolder(this);
                 _propertiespanelcontainer = new AutomatedSystemTestsRepositoryFolders.PropertiesPanelContainerFolder(this);
                 _isfmrelevantcellInfo = new RepoItemInfo(this, "IsFMRelevantCell", "list//container[@controlname='FailureMechanismContributionView']/?/table/row[@accessiblevalue~$labelFM]/cell[@accessiblename>'Is relevant']", 30000, null, "1029a286-ce5f-4de6-8f9d-d68210aae163");
+                _eenvoudigetoetsrow0Info = new RepoItemInfo(this, "EenvoudigeToetsRow0", "list//table[@controlname='dataGridView']/row[@accessiblename='Row 0']/cell[@accessiblename='Eenvoudige toets Row 0']", 30000, null, "f8cdf597-37da-4ffc-b089-434847a309f6");
             }
 
             /// <summary>
@@ -270,6 +307,30 @@ namespace AutomatedSystemTests
                 get
                 {
                     return _isfmrelevantcellInfo;
+                }
+            }
+
+            /// <summary>
+            /// The EenvoudigeToetsRow0 item.
+            /// </summary>
+            [RepositoryItem("f8cdf597-37da-4ffc-b089-434847a309f6")]
+            public virtual Ranorex.Cell EenvoudigeToetsRow0
+            {
+                get
+                {
+                    return _eenvoudigetoetsrow0Info.CreateAdapter<Ranorex.Cell>(true);
+                }
+            }
+
+            /// <summary>
+            /// The EenvoudigeToetsRow0 item info.
+            /// </summary>
+            [RepositoryItemInfo("f8cdf597-37da-4ffc-b089-434847a309f6")]
+            public virtual RepoItemInfo EenvoudigeToetsRow0Info
+            {
+                get
+                {
+                    return _eenvoudigetoetsrow0Info;
                 }
             }
 
@@ -815,14 +876,16 @@ namespace AutomatedSystemTests
         [RepositoryFolder("78b3cba4-3858-49b9-8809-b7f79f03aa5c")]
         public partial class DocumentViewContainerFolder : RepoGenBaseFolder
         {
+            AutomatedSystemTestsRepositoryFolders.FailureMechanismResultViewFolder _failuremechanismresultview;
             RepoItemInfo _insidedocument_isfmrelevantcellInfo;
 
             /// <summary>
             /// Creates a new DocumentViewContainer  folder.
             /// </summary>
             public DocumentViewContainerFolder(RepoGenBaseFolder parentFolder) :
-                    base("DocumentViewContainer", "?/container[10]/container[@controltypename='WinFormsAdapter']", parentFolder, 30000, null, false, "78b3cba4-3858-49b9-8809-b7f79f03aa5c", "")
+                    base("DocumentViewContainer", "?/container[10]/container[@controltypename='WinFormsAdapter']", parentFolder, 30000, null, true, "78b3cba4-3858-49b9-8809-b7f79f03aa5c", "")
             {
+                _failuremechanismresultview = new AutomatedSystemTestsRepositoryFolders.FailureMechanismResultViewFolder(this);
                 _insidedocument_isfmrelevantcellInfo = new RepoItemInfo(this, "insideDocument_IsFMRelevantCell", ".//container[@controlname='FailureMechanismContributionView']/?/table/row[@accessiblevalue~$labelFM]/cell[@accessiblename>'Is relevant']", 30000, null, "59990c0d-401e-4dff-8f8b-b423839ef7c6");
             }
 
@@ -871,6 +934,158 @@ namespace AutomatedSystemTests
                 get
                 {
                     return _insidedocument_isfmrelevantcellInfo;
+                }
+            }
+
+            /// <summary>
+            /// The FailureMechanismResultView folder.
+            /// </summary>
+            [RepositoryFolder("9283a2f0-e106-4fff-973b-ee9186918301")]
+            public virtual AutomatedSystemTestsRepositoryFolders.FailureMechanismResultViewFolder FailureMechanismResultView
+            {
+                get { return _failuremechanismresultview; }
+            }
+        }
+
+        /// <summary>
+        /// The FailureMechanismResultViewFolder folder.
+        /// </summary>
+        [RepositoryFolder("9283a2f0-e106-4fff-973b-ee9186918301")]
+        public partial class FailureMechanismResultViewFolder : RepoGenBaseFolder
+        {
+            AutomatedSystemTestsRepositoryFolders.TableDataGridViewFolder _tabledatagridview;
+
+            /// <summary>
+            /// Creates a new FailureMechanismResultView  folder.
+            /// </summary>
+            public FailureMechanismResultViewFolder(RepoGenBaseFolder parentFolder) :
+                    base("FailureMechanismResultView", "container[@controlname='FailureMechanismResultView']", parentFolder, 30000, null, true, "9283a2f0-e106-4fff-973b-ee9186918301", "")
+            {
+                _tabledatagridview = new AutomatedSystemTestsRepositoryFolders.TableDataGridViewFolder(this);
+            }
+
+            /// <summary>
+            /// The Self item.
+            /// </summary>
+            [RepositoryItem("9283a2f0-e106-4fff-973b-ee9186918301")]
+            public virtual Ranorex.Container Self
+            {
+                get
+                {
+                    return _selfInfo.CreateAdapter<Ranorex.Container>(true);
+                }
+            }
+
+            /// <summary>
+            /// The Self item info.
+            /// </summary>
+            [RepositoryItemInfo("9283a2f0-e106-4fff-973b-ee9186918301")]
+            public virtual RepoItemInfo SelfInfo
+            {
+                get
+                {
+                    return _selfInfo;
+                }
+            }
+
+            /// <summary>
+            /// The TableDataGridView folder.
+            /// </summary>
+            [RepositoryFolder("6eb41290-65e9-4393-9e14-584a8ed6c564")]
+            public virtual AutomatedSystemTestsRepositoryFolders.TableDataGridViewFolder TableDataGridView
+            {
+                get { return _tabledatagridview; }
+            }
+        }
+
+        /// <summary>
+        /// The TableDataGridViewFolder folder.
+        /// </summary>
+        [RepositoryFolder("6eb41290-65e9-4393-9e14-584a8ed6c564")]
+        public partial class TableDataGridViewFolder : RepoGenBaseFolder
+        {
+            RepoItemInfo _eenvoudigetoetsvak12_2_00000Info;
+            RepoItemInfo _eenvoudigetoetsrow0Info;
+
+            /// <summary>
+            /// Creates a new TableDataGridView  folder.
+            /// </summary>
+            public TableDataGridViewFolder(RepoGenBaseFolder parentFolder) :
+                    base("TableDataGridView", "container/table[@controlname='dataGridView']", parentFolder, 30000, null, true, "6eb41290-65e9-4393-9e14-584a8ed6c564", "")
+            {
+                _eenvoudigetoetsvak12_2_00000Info = new RepoItemInfo(this, "EenvoudigeToetsVak12_2_00000", "row/cell[@accessiblename>'Vak' and @text='12_2_00000']/../cell[@accessiblename>'Eenvoudige']", 30000, null, "892f29d9-c365-437c-91bd-7720a612cf0c");
+                _eenvoudigetoetsrow0Info = new RepoItemInfo(this, "EenvoudigeToetsRow0", "row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename='Eenvoudige toets Row '+$rowIndex]", 30000, null, "78777803-f3ba-489a-8aa8-3ad795fbe569");
+            }
+
+            /// <summary>
+            /// The Self item.
+            /// </summary>
+            [RepositoryItem("6eb41290-65e9-4393-9e14-584a8ed6c564")]
+            public virtual Ranorex.Table Self
+            {
+                get
+                {
+                    return _selfInfo.CreateAdapter<Ranorex.Table>(true);
+                }
+            }
+
+            /// <summary>
+            /// The Self item info.
+            /// </summary>
+            [RepositoryItemInfo("6eb41290-65e9-4393-9e14-584a8ed6c564")]
+            public virtual RepoItemInfo SelfInfo
+            {
+                get
+                {
+                    return _selfInfo;
+                }
+            }
+
+            /// <summary>
+            /// The EenvoudigeToetsVak12_2_00000 item.
+            /// </summary>
+            [RepositoryItem("892f29d9-c365-437c-91bd-7720a612cf0c")]
+            public virtual Ranorex.Cell EenvoudigeToetsVak12_2_00000
+            {
+                get
+                {
+                    return _eenvoudigetoetsvak12_2_00000Info.CreateAdapter<Ranorex.Cell>(true);
+                }
+            }
+
+            /// <summary>
+            /// The EenvoudigeToetsVak12_2_00000 item info.
+            /// </summary>
+            [RepositoryItemInfo("892f29d9-c365-437c-91bd-7720a612cf0c")]
+            public virtual RepoItemInfo EenvoudigeToetsVak12_2_00000Info
+            {
+                get
+                {
+                    return _eenvoudigetoetsvak12_2_00000Info;
+                }
+            }
+
+            /// <summary>
+            /// The EenvoudigeToetsRow0 item.
+            /// </summary>
+            [RepositoryItem("78777803-f3ba-489a-8aa8-3ad795fbe569")]
+            public virtual Ranorex.Cell EenvoudigeToetsRow0
+            {
+                get
+                {
+                    return _eenvoudigetoetsrow0Info.CreateAdapter<Ranorex.Cell>(true);
+                }
+            }
+
+            /// <summary>
+            /// The EenvoudigeToetsRow0 item info.
+            /// </summary>
+            [RepositoryItemInfo("78777803-f3ba-489a-8aa8-3ad795fbe569")]
+            public virtual RepoItemInfo EenvoudigeToetsRow0Info
+            {
+                get
+                {
+                    return _eenvoudigetoetsrow0Info;
                 }
             }
         }
@@ -1644,6 +1859,124 @@ namespace AutomatedSystemTests
                 get
                 {
                     return _savebuttonInfo;
+                }
+            }
+        }
+
+        /// <summary>
+        /// The DropDownMenuItemListAppFolder folder.
+        /// </summary>
+        [RepositoryFolder("559e3624-4636-44d9-8c9e-6d20453f95bf")]
+        public partial class DropDownMenuItemListAppFolder : RepoGenBaseFolder
+        {
+            RepoItemInfo _listitemvbInfo;
+            RepoItemInfo _itemselecteerInfo;
+            RepoItemInfo _genericdropdownitemInfo;
+
+            /// <summary>
+            /// Creates a new DropDownMenuItemList  folder.
+            /// </summary>
+            public DropDownMenuItemListAppFolder(RepoGenBaseFolder parentFolder) :
+                    base("DropDownMenuItemList", "/list[@controlid='1000']", parentFolder, 30000, null, true, "559e3624-4636-44d9-8c9e-6d20453f95bf", "")
+            {
+                _listitemvbInfo = new RepoItemInfo(this, "ListItemVB", "listitem[@text='VB']", 30000, null, "7de3ab3c-85d6-46cd-89aa-bf6bd544fede");
+                _itemselecteerInfo = new RepoItemInfo(this, "ItemSelecteer", "listitem[@text='<selecteer>']", 30000, null, "0ba72d60-9b4f-4cc3-aab9-9bcf277862af");
+                _genericdropdownitemInfo = new RepoItemInfo(this, "GenericDropDownItem", "listitem[@text=$textItemDropDownMenu]", 30000, null, "81ebade6-6648-4b3b-a974-22ccbf15c7dc");
+            }
+
+            /// <summary>
+            /// The Self item.
+            /// </summary>
+            [RepositoryItem("559e3624-4636-44d9-8c9e-6d20453f95bf")]
+            public virtual Ranorex.List Self
+            {
+                get
+                {
+                    return _selfInfo.CreateAdapter<Ranorex.List>(true);
+                }
+            }
+
+            /// <summary>
+            /// The Self item info.
+            /// </summary>
+            [RepositoryItemInfo("559e3624-4636-44d9-8c9e-6d20453f95bf")]
+            public virtual RepoItemInfo SelfInfo
+            {
+                get
+                {
+                    return _selfInfo;
+                }
+            }
+
+            /// <summary>
+            /// The ListItemVB item.
+            /// </summary>
+            [RepositoryItem("7de3ab3c-85d6-46cd-89aa-bf6bd544fede")]
+            public virtual Ranorex.ListItem ListItemVB
+            {
+                get
+                {
+                    return _listitemvbInfo.CreateAdapter<Ranorex.ListItem>(true);
+                }
+            }
+
+            /// <summary>
+            /// The ListItemVB item info.
+            /// </summary>
+            [RepositoryItemInfo("7de3ab3c-85d6-46cd-89aa-bf6bd544fede")]
+            public virtual RepoItemInfo ListItemVBInfo
+            {
+                get
+                {
+                    return _listitemvbInfo;
+                }
+            }
+
+            /// <summary>
+            /// The ItemSelecteer item.
+            /// </summary>
+            [RepositoryItem("0ba72d60-9b4f-4cc3-aab9-9bcf277862af")]
+            public virtual Ranorex.ListItem ItemSelecteer
+            {
+                get
+                {
+                    return _itemselecteerInfo.CreateAdapter<Ranorex.ListItem>(true);
+                }
+            }
+
+            /// <summary>
+            /// The ItemSelecteer item info.
+            /// </summary>
+            [RepositoryItemInfo("0ba72d60-9b4f-4cc3-aab9-9bcf277862af")]
+            public virtual RepoItemInfo ItemSelecteerInfo
+            {
+                get
+                {
+                    return _itemselecteerInfo;
+                }
+            }
+
+            /// <summary>
+            /// The GenericDropDownItem item.
+            /// </summary>
+            [RepositoryItem("81ebade6-6648-4b3b-a974-22ccbf15c7dc")]
+            public virtual Ranorex.ListItem GenericDropDownItem
+            {
+                get
+                {
+                    return _genericdropdownitemInfo.CreateAdapter<Ranorex.ListItem>(true);
+                }
+            }
+
+            /// <summary>
+            /// The GenericDropDownItem item info.
+            /// </summary>
+            [RepositoryItemInfo("81ebade6-6648-4b3b-a974-22ccbf15c7dc")]
+            public virtual RepoItemInfo GenericDropDownItemInfo
+            {
+                get
+                {
+                    return _genericdropdownitemInfo;
                 }
             }
         }
