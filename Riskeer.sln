@@ -421,7 +421,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Components.Chart.Test"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Components.Chart.TestUtil", "Core\Components\test\Core.Components.Chart.TestUtil\Core.Components.Chart.TestUtil.csproj", "{E900A014-CA87-4374-87F0-813D653A9698}"
 	ProjectSection(ProjectDependencies) = postProject
-		{D749EE4C-CE50-4C17-BF01-9A953028C126} = {D749EE4C-CE50-4C17-BF01-9A953028C126}
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
@@ -1355,13 +1354,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Riskeer.Integration.TestUti
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Components.Gis.TestUtil", "Core\Components\test\Core.Components.Gis.TestUtil\Core.Components.Gis.TestUtil.csproj", "{F0FB401A-3494-4237-9E6D-02CDF77912A8}"
 	ProjectSection(ProjectDependencies) = postProject
-		{D749EE4C-CE50-4C17-BF01-9A953028C126} = {D749EE4C-CE50-4C17-BF01-9A953028C126}
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Components.Gis.TestUtil.Test", "Core\Components\test\Core.Components.Gis.TestUtil.Test\Core.Components.Gis.TestUtil.Test.csproj", "{98FD0100-A601-450B-A2CD-718FAEB3A408}"
 	ProjectSection(ProjectDependencies) = postProject
-		{D749EE4C-CE50-4C17-BF01-9A953028C126} = {D749EE4C-CE50-4C17-BF01-9A953028C126}
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
@@ -1402,13 +1399,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Components.BruTile.Dat
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Components.BruTile.Data.Test", "Core\Components\test\Core.Components.BruTile.Data.Test\Core.Components.BruTile.Data.Test.csproj", "{18DC8B68-59FB-4246-A9B0-2321D4627E10}"
 	ProjectSection(ProjectDependencies) = postProject
-		{D749EE4C-CE50-4C17-BF01-9A953028C126} = {D749EE4C-CE50-4C17-BF01-9A953028C126}
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Components.BruTile.TestUtil", "Core\Components\test\Core.Components.BruTile.TestUtil\Core.Components.BruTile.TestUtil.csproj", "{1081336C-D919-4249-AB33-9AF15F4D19EC}"
 	ProjectSection(ProjectDependencies) = postProject
-		{D749EE4C-CE50-4C17-BF01-9A953028C126} = {D749EE4C-CE50-4C17-BF01-9A953028C126}
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
@@ -1565,7 +1560,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Riskeer.MacroStabilityInwar
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Components.Chart.TestUtil.Test", "Core\Components\test\Core.Components.Chart.TestUtil.Test\Core.Components.Chart.TestUtil.Test.csproj", "{1FD22BC2-B3D5-49D5-9E9B-694BE547DB6D}"
 	ProjectSection(ProjectDependencies) = postProject
-		{D749EE4C-CE50-4C17-BF01-9A953028C126} = {D749EE4C-CE50-4C17-BF01-9A953028C126}
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
@@ -1651,7 +1645,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Components.GraphSharp.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Components.GraphSharp.Forms.Test", "Core\Components\test\Core.Components.GraphSharp.Forms.Test\Core.Components.GraphSharp.Forms.Test.csproj", "{20E27FD6-030E-4C5A-B39A-305299D5FD58}"
 	ProjectSection(ProjectDependencies) = postProject
-		{D749EE4C-CE50-4C17-BF01-9A953028C126} = {D749EE4C-CE50-4C17-BF01-9A953028C126}
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
@@ -1674,7 +1667,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Components.GraphSharp.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Components.GraphSharp.TestUtil.Test", "Core\Components\test\Core.Components.GraphSharp.TestUtil.Test\Core.Components.GraphSharp.TestUtil.Test.csproj", "{98B55901-9726-4172-A179-E2BF640FEDA8}"
 	ProjectSection(ProjectDependencies) = postProject
-		{D749EE4C-CE50-4C17-BF01-9A953028C126} = {D749EE4C-CE50-4C17-BF01-9A953028C126}
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
