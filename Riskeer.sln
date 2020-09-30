@@ -699,13 +699,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Common.Geometry.Test",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Riskeer.HydraRing.Calculation.TestUtil", "Riskeer\HydraRing\test\Riskeer.HydraRing.Calculation.TestUtil\Riskeer.HydraRing.Calculation.TestUtil.csproj", "{74CBA865-9338-447F-BAD9-28312446AE84}"
 	ProjectSection(ProjectDependencies) = postProject
-		{D749EE4C-CE50-4C17-BF01-9A953028C126} = {D749EE4C-CE50-4C17-BF01-9A953028C126}
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Riskeer.HydraRing.Calculation.TestUtil.Test", "Riskeer\HydraRing\test\Riskeer.HydraRing.Calculation.TestUtil.Test\Riskeer.HydraRing.Calculation.TestUtil.Test.csproj", "{89A94832-5337-4177-97D0-92CD77A375D7}"
 	ProjectSection(ProjectDependencies) = postProject
-		{D749EE4C-CE50-4C17-BF01-9A953028C126} = {D749EE4C-CE50-4C17-BF01-9A953028C126}
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
@@ -2037,13 +2035,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Plugins.Map.TestUtil",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Riskeer.HydraRing.IO.TestUtil", "Riskeer\HydraRing\test\Riskeer.HydraRing.IO.TestUtil\Riskeer.HydraRing.IO.TestUtil.csproj", "{7FB79768-1A8B-41CA-9614-8EC6C3C79482}"
 	ProjectSection(ProjectDependencies) = postProject
-		{D749EE4C-CE50-4C17-BF01-9A953028C126} = {D749EE4C-CE50-4C17-BF01-9A953028C126}
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Riskeer.HydraRing.IO.TestUtil.Test", "Riskeer\HydraRing\test\Riskeer.HydraRing.IO.TestUtil.Test\Riskeer.HydraRing.IO.TestUtil.Test.csproj", "{12B27394-C1AC-4B59-BD49-1662525B91C7}"
 	ProjectSection(ProjectDependencies) = postProject
-		{D749EE4C-CE50-4C17-BF01-9A953028C126} = {D749EE4C-CE50-4C17-BF01-9A953028C126}
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
