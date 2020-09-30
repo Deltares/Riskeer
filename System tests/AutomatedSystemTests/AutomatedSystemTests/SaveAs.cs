@@ -86,39 +86,34 @@ namespace AutomatedSystemTests
         [System.CodeDom.Compiler.GeneratedCode("Ranorex", global::Ranorex.Core.Constants.CodeGenVersion)]
         void ITestModule.Run()
         {
-            Mouse.DefaultMoveTime = 300;
+            Mouse.DefaultMoveTime = 0;
             Keyboard.DefaultKeyPressTime = 20;
-            Delay.SpeedFactor = 1.00;
+            Delay.SpeedFactor = 0.00;
 
             Init();
 
             Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'RiskeerMainWindow.Ribbon.Bestand' at Center.", repo.RiskeerMainWindow.Ribbon.BestandInfo, new RecordItemIndex(0));
             repo.RiskeerMainWindow.Ribbon.Bestand.Click();
-            Delay.Milliseconds(0);
             
             Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'RiskeerMainWindow.Ribbon.ButtonMenuFileSaveProjectAs' at Center.", repo.RiskeerMainWindow.Ribbon.ButtonMenuFileSaveProjectAsInfo, new RecordItemIndex(1));
             repo.RiskeerMainWindow.Ribbon.ButtonMenuFileSaveProjectAs.Click();
-            Delay.Milliseconds(0);
             
             Report.Log(ReportLevel.Info, "Set value", "Setting attribute Text to '$fileNameToSave' on item 'OpslaanAls.SaveAsFileName'.", repo.OpslaanAls.SaveAsFileNameInfo, new RecordItemIndex(2));
             repo.OpslaanAls.SaveAsFileName.Element.SetAttributeValue("Text", fileNameToSave);
-            Delay.Milliseconds(0);
             
             Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'OpslaanAls.SaveButton' at Center.", repo.OpslaanAls.SaveButtonInfo, new RecordItemIndex(3));
             repo.OpslaanAls.SaveButton.Click();
-            Delay.Milliseconds(0);
             
             Report.Log(ReportLevel.Info, "Delay", "Waiting for 50ms.", new RecordItemIndex(4));
             Delay.Duration(50, false);
             
             ConfirmOverwrite(repo.ButtonYesInfo);
-            Delay.Milliseconds(0);
             
             Report.Log(ReportLevel.Info, "Delay", "Waiting for 100ms.", new RecordItemIndex(6));
             Delay.Duration(100, false);
             
-            Report.Log(ReportLevel.Info, "Wait", "Waiting 5m to not exist. Associated repository item: 'ActivityProgressDialog.ButtonCancel'", repo.ActivityProgressDialog.ButtonCancelInfo, new ActionTimeout(300000), new RecordItemIndex(7));
-            repo.ActivityProgressDialog.ButtonCancelInfo.WaitForNotExists(300000);
+            Report.Log(ReportLevel.Info, "Wait", "Waiting 5m to not exist. Associated repository item: 'ActivityProgressDialog.ProgressBar'", repo.ActivityProgressDialog.ProgressBarInfo, new ActionTimeout(300000), new RecordItemIndex(7));
+            repo.ActivityProgressDialog.ProgressBarInfo.WaitForNotExists(300000);
             
         }
 

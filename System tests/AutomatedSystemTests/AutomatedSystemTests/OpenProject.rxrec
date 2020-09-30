@@ -34,7 +34,7 @@ mode="Global">
 		button="Left"
 		duration="300ms"
 		enabled="True"
-		loc="8;15"
+		loc="Center"
 		movetime="300ms"
 		optional="False"
 		searchpropertyid="5ee7b9d0-2417-41ed-96cf-a11e9d65e938"
@@ -753,7 +753,7 @@ lpD1H1rQQtFFFABRRRQAUUUUAf/Z
 		button="Left"
 		duration="300ms"
 		enabled="True"
-		loc="42;4"
+		loc="Center"
 		movetime="300ms"
 		optional="False"
 		searchpropertyid="f83dfeff-741f-48a6-a682-e93cb8e9d848"
@@ -1021,7 +1021,7 @@ ACiiigAooooAKKKKACiiigAooooA/9k=
 		</WaitForRecordItem>
 		<explicitdelayitem
 		duration="1000ms"
-		enabled="True"
+		enabled="False"
 		optional="False">
 			<comment>
 				Wait time (300ms) so that dialog is started up

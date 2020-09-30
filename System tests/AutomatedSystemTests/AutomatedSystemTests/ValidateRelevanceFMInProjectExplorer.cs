@@ -106,84 +106,54 @@ namespace AutomatedSystemTests
         [System.CodeDom.Compiler.GeneratedCode("Ranorex", global::Ranorex.Core.Constants.CodeGenVersion)]
         void ITestModule.Run()
         {
-            Mouse.DefaultMoveTime = 300;
+            Mouse.DefaultMoveTime = 0;
             Keyboard.DefaultKeyPressTime = 20;
-            Delay.SpeedFactor = 1.00;
+            Delay.SpeedFactor = 0.00;
 
             Init();
 
             Report.Log(ReportLevel.Info, "User", "Validating number of subnodes", new RecordItemIndex(0));
             
-            // Waiting for nodes to be updated
-            Report.Log(ReportLevel.Info, "Delay", "Waiting for nodes to be updated\r\nWaiting for 500ms.", new RecordItemIndex(1));
-            Delay.Duration(500, false);
-            
-            Report.Log(ReportLevel.Info, "Invoke action", "Invoking Select() on item 'RiskeerMainWindow.ProjectExplorer.ProjectRootNode'.", repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.SelfInfo, new RecordItemIndex(2));
-            repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.Self.Select();
-            Delay.Milliseconds(0);
-            
-            Report.Log(ReportLevel.Info, "Invoke action", "Invoking Focus() on item 'RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericItemWithSubstringInName'.", repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericItemWithSubstringInNameInfo, new RecordItemIndex(3));
+            Report.Log(ReportLevel.Info, "Invoke action", "Invoking Focus() on item 'RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericItemWithSubstringInName'.", repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericItemWithSubstringInNameInfo, new RecordItemIndex(1));
             repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericItemWithSubstringInName.Focus();
-            Delay.Milliseconds(0);
             
-            Report.Log(ReportLevel.Info, "Invoke action", "Invoking Select() on item 'RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericItemWithSubstringInName'.", repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericItemWithSubstringInNameInfo, new RecordItemIndex(4));
-            repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericItemWithSubstringInName.Select();
-            Delay.Milliseconds(0);
-            
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericItemWithSubstringInName' at Center.", repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericItemWithSubstringInNameInfo, new RecordItemIndex(5));
+            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericItemWithSubstringInName' at Center.", repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericItemWithSubstringInNameInfo, new RecordItemIndex(2));
             repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericItemWithSubstringInName.Click();
-            Delay.Milliseconds(0);
             
-            Report.Log(ReportLevel.Info, "Keyboard", "Key sequence '{Right}'.", new RecordItemIndex(6));
+            Report.Log(ReportLevel.Info, "Keyboard", "Key sequence '{Right}'.", new RecordItemIndex(3));
             Keyboard.Press("{Right}");
-            Delay.Milliseconds(0);
             
-            Report.Log(ReportLevel.Info, "Delay", "Waiting for 500ms.", new RecordItemIndex(7));
-            Delay.Duration(500, false);
-            
-            Report.Screenshot(ReportLevel.Info, "User", "", repo.RiskeerMainWindow.ProjectExplorer.Self, false, new RecordItemIndex(8));
+            Report.Screenshot(ReportLevel.Info, "User", "", repo.RiskeerMainWindow.ProjectExplorer.Self, false, new RecordItemIndex(4));
             
             try {
                 ValidateNumberOfNodesInFM(repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericItemWithSubstringInNameInfo, fmExpectedRelevance);
-                Delay.Milliseconds(0);
-            } catch(Exception ex) { Report.Log(ReportLevel.Warn, "Module", "(Optional Action) " + ex.Message, new RecordItemIndex(9)); }
+            } catch(Exception ex) { Report.Log(ReportLevel.Warn, "Module", "(Optional Action) " + ex.Message, new RecordItemIndex(5)); }
             
-            Report.Log(ReportLevel.Info, "Keyboard", "Key sequence '{Left}'.", new RecordItemIndex(10));
+            Report.Log(ReportLevel.Info, "Keyboard", "Key sequence '{Left}'.", new RecordItemIndex(6));
             Keyboard.Press("{Left}");
-            Delay.Milliseconds(0);
             
-            Report.Log(ReportLevel.Info, "User", "Validating context menu", new RecordItemIndex(11));
+            Report.Log(ReportLevel.Info, "User", "Validating context menu", new RecordItemIndex(7));
             
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Right Click item 'RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericItemWithSubstringInName' at Center.", repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericItemWithSubstringInNameInfo, new RecordItemIndex(12));
+            Report.Log(ReportLevel.Info, "Mouse", "Mouse Right Click item 'RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericItemWithSubstringInName' at Center.", repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericItemWithSubstringInNameInfo, new RecordItemIndex(8));
             repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericItemWithSubstringInName.Click(System.Windows.Forms.MouseButtons.Right);
-            Delay.Milliseconds(0);
             
-            Report.Screenshot(ReportLevel.Info, "User", "", repo.ContextMenu.Self, false, new RecordItemIndex(13));
+            Report.Screenshot(ReportLevel.Info, "User", "", repo.ContextMenu.Self, false, new RecordItemIndex(9));
             
             try {
                 ValidateNumberOfItemsInContextMenu(repo.ContextMenu.SelfInfo, fmExpectedRelevance);
-                Delay.Milliseconds(0);
-            } catch(Exception ex) { Report.Log(ReportLevel.Warn, "Module", "(Optional Action) " + ex.Message, new RecordItemIndex(14)); }
+            } catch(Exception ex) { Report.Log(ReportLevel.Warn, "Module", "(Optional Action) " + ex.Message, new RecordItemIndex(10)); }
             
-            Report.Log(ReportLevel.Info, "Keyboard", "Key sequence '{Escape}'.", new RecordItemIndex(15));
+            Report.Log(ReportLevel.Info, "Keyboard", "Key sequence '{Escape}'.", new RecordItemIndex(11));
             Keyboard.Press("{Escape}");
-            Delay.Milliseconds(0);
             
-            Report.Log(ReportLevel.Info, "User", "Validating property panel when selected", new RecordItemIndex(16));
+            Report.Log(ReportLevel.Info, "User", "Validating property panel when selected", new RecordItemIndex(12));
             
-            try {
-                Report.Log(ReportLevel.Info, "Mouse", "(Optional Action)\r\nMouse Left Click item 'RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericItemWithSubstringInName' at Center.", repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericItemWithSubstringInNameInfo, new RecordItemIndex(17));
-                repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericItemWithSubstringInName.Click();
-                Delay.Milliseconds(0);
-            } catch(Exception ex) { Report.Log(ReportLevel.Warn, "Module", "(Optional Action) " + ex.Message, new RecordItemIndex(17)); }
-            
-            Report.Screenshot(ReportLevel.Info, "User", "", repo.RiskeerMainWindow.PropertiesPanelContainer.Table.IsRelevant, false, new RecordItemIndex(18));
+            Report.Screenshot(ReportLevel.Info, "User", "", repo.RiskeerMainWindow.PropertiesPanelContainer.Table.IsRelevant, false, new RecordItemIndex(13));
             
             try {
-                Report.Log(ReportLevel.Info, "Validation", "(Optional Action)\r\nValidating AttributeEqual (AccessibleValue=$fmExpectedRelevance) on item 'RiskeerMainWindow.PropertiesPanelContainer.Table.IsRelevant'.", repo.RiskeerMainWindow.PropertiesPanelContainer.Table.IsRelevantInfo, new RecordItemIndex(19));
+                Report.Log(ReportLevel.Info, "Validation", "(Optional Action)\r\nValidating AttributeEqual (AccessibleValue=$fmExpectedRelevance) on item 'RiskeerMainWindow.PropertiesPanelContainer.Table.IsRelevant'.", repo.RiskeerMainWindow.PropertiesPanelContainer.Table.IsRelevantInfo, new RecordItemIndex(14));
                 Validate.AttributeEqual(repo.RiskeerMainWindow.PropertiesPanelContainer.Table.IsRelevantInfo, "AccessibleValue", fmExpectedRelevance, null, false);
-                Delay.Milliseconds(100);
-            } catch(Exception ex) { Report.Log(ReportLevel.Warn, "Module", "(Optional Action) " + ex.Message, new RecordItemIndex(19)); }
+            } catch(Exception ex) { Report.Log(ReportLevel.Warn, "Module", "(Optional Action) " + ex.Message, new RecordItemIndex(14)); }
             
         }
 

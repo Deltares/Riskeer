@@ -17,6 +17,12 @@
 			id="0361e14d-0b05-486a-9f2d-f8acac08cbc6"
 			name="GABU">
 			</smartfoldernode>
+			<testmodule
+			id="0ae714c3-8d3d-4e26-a875-14a65c612ad2"
+			name="SelectRootProject"
+			ref="4fdf4df4-40fe-44f6-af0a-be1b3051be26"
+			type="Recording">
+			</testmodule>
 			<smartfoldernode
 			id="0bbfd560-88d6-4516-bf12-c27a1fe6f4b9"
 			name="ValidateFMsPresentInTrajects">
@@ -863,6 +869,10 @@
 						<smartfoldernode
 						id="4bb671b5-bd57-42fd-a72e-41482b3d1dbb"
 						name="ValidateRelevanceFMsTraject12_2InProjectExplorer">
+							<testmodule
+							id="0ae714c3-8d3d-4e26-a875-14a65c612ad2"
+							name="SelectRootProject">
+							</testmodule>
 							<smartfoldernode
 							id="e1ff5697-2c1e-4010-85a0-6f45679d7f50"
 							name="LoopFMs">

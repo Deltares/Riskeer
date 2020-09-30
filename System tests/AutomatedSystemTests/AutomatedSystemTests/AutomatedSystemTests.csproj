@@ -155,6 +155,18 @@
       <UserCode>true</UserCode>
       <id>25b9d3df-d029-427a-96c4-de8470c01737</id>
     </Compile>
+    <Compile Include="SelectRootProject.cs">
+      <BoundTo>ad460e15-fe6e-4eb6-b91f-3972cb4e46a0</BoundTo>
+      <DependentUpon>SelectRootProject.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>8af970ad-cdd3-4501-a7b2-5016ad800f81</id>
+    </Compile>
+    <Compile Include="SelectRootProject.UserCode.cs">
+      <BoundTo>ad460e15-fe6e-4eb6-b91f-3972cb4e46a0</BoundTo>
+      <DependentUpon>SelectRootProject.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>85cc061a-9c94-49d1-ab69-2c9a5acfe973</id>
+    </Compile>
     <Compile Include="LogMessage.cs">
       <BoundTo>13439f4b-f332-4240-b490-e1dbd6823904</BoundTo>
       <DependentUpon>LogMessage.rxrec</DependentUpon>
@@ -339,6 +351,11 @@
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>75c56bbc-55ab-4649-abbf-6157d7ab6a40</id>
       <recordtableid>3c2d44f5-31b5-4584-91c8-1ad748affc77</recordtableid>
+    </None>
+    <None Include="SelectRootProject.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>ad460e15-fe6e-4eb6-b91f-3972cb4e46a0</id>
+      <recordtableid>4fdf4df4-40fe-44f6-af0a-be1b3051be26</recordtableid>
     </None>
     <None Include="LogMessage.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>

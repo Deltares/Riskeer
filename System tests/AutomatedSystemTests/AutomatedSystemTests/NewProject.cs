@@ -73,19 +73,17 @@ namespace AutomatedSystemTests
         [System.CodeDom.Compiler.GeneratedCode("Ranorex", global::Ranorex.Core.Constants.CodeGenVersion)]
         void ITestModule.Run()
         {
-            Mouse.DefaultMoveTime = 300;
+            Mouse.DefaultMoveTime = 0;
             Keyboard.DefaultKeyPressTime = 20;
-            Delay.SpeedFactor = 1.00;
+            Delay.SpeedFactor = 0.00;
 
             Init();
 
             Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'RiskeerMainWindow.Ribbon.Bestand' at Center.", repo.RiskeerMainWindow.Ribbon.BestandInfo, new RecordItemIndex(0));
             repo.RiskeerMainWindow.Ribbon.Bestand.Click();
-            Delay.Milliseconds(0);
             
             Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'RiskeerMainWindow.Ribbon.ButtonMenuFileNewProject' at Center.", repo.RiskeerMainWindow.Ribbon.ButtonMenuFileNewProjectInfo, new RecordItemIndex(1));
             repo.RiskeerMainWindow.Ribbon.ButtonMenuFileNewProject.Click();
-            Delay.Milliseconds(0);
             
             Report.Log(ReportLevel.Info, "Wait", "Waiting 5s to exist. Associated repository item: 'RiskeerMainWindow.ProjectExplorer.ProjectRootNode'", repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.SelfInfo, new ActionTimeout(5000), new RecordItemIndex(2));
             repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.SelfInfo.WaitForExists(5000);

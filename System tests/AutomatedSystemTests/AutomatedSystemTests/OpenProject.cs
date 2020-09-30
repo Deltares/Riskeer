@@ -93,16 +93,16 @@ namespace AutomatedSystemTests
             Init();
 
             // Click on shortcut Open file
-            Report.Log(ReportLevel.Info, "Mouse", "Click on shortcut Open file\r\nMouse Left Click item 'RiskeerMainWindow.Ribbon.ButtonContainer.OpenProjectButton' at 8;15.", repo.RiskeerMainWindow.Ribbon.ButtonContainer.OpenProjectButtonInfo, new RecordItemIndex(0));
-            repo.RiskeerMainWindow.Ribbon.ButtonContainer.OpenProjectButton.Click("8;15");
+            Report.Log(ReportLevel.Info, "Mouse", "Click on shortcut Open file\r\nMouse Left Click item 'RiskeerMainWindow.Ribbon.ButtonContainer.OpenProjectButton' at Center.", repo.RiskeerMainWindow.Ribbon.ButtonContainer.OpenProjectButtonInfo, new RecordItemIndex(0));
+            repo.RiskeerMainWindow.Ribbon.ButtonContainer.OpenProjectButton.Click();
             
             // Assign file name to open
             Report.Log(ReportLevel.Info, "Set value", "Assign file name to open\r\nSetting attribute Text to '$fileNameToOpen' on item 'OpenDialog.FileNameField'.", repo.OpenDialog.FileNameFieldInfo, new RecordItemIndex(1));
             repo.OpenDialog.FileNameField.Element.SetAttributeValue("Text", fileNameToOpen);
             
             // Click on open button
-            Report.Log(ReportLevel.Info, "Mouse", "Click on open button\r\nMouse Left Click item 'OpenDialog.ButtonOpen' at 42;4.", repo.OpenDialog.ButtonOpenInfo, new RecordItemIndex(2));
-            repo.OpenDialog.ButtonOpen.Click("42;4");
+            Report.Log(ReportLevel.Info, "Mouse", "Click on open button\r\nMouse Left Click item 'OpenDialog.ButtonOpen' at Center.", repo.OpenDialog.ButtonOpenInfo, new RecordItemIndex(2));
+            repo.OpenDialog.ButtonOpen.Click();
             
             // Wait time (300ms) so that dialog is started up
             Report.Log(ReportLevel.Info, "Delay", "Wait time (300ms) so that dialog is started up\r\nWaiting for 300ms.", new RecordItemIndex(3));
@@ -113,8 +113,8 @@ namespace AutomatedSystemTests
             repo.ActivityProgressDialog.ProgressBarInfo.WaitForNotExists(30000);
             
             // Wait time (300ms) so that dialog is started up
-            Report.Log(ReportLevel.Info, "Delay", "Wait time (300ms) so that dialog is started up\r\nWaiting for 1s.", new RecordItemIndex(5));
-            Delay.Duration(1000, false);
+            //Report.Log(ReportLevel.Info, "Delay", "Wait time (300ms) so that dialog is started up\r\nWaiting for 1s.", new RecordItemIndex(5));
+            //Delay.Duration(1000, false);
             
         }
 
