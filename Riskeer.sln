@@ -1587,7 +1587,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Riskeer.Common.Service.Test
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Riskeer.GrassCoverErosionInwards.Service.TestUtil", "Riskeer\GrassCoverErosionInwards\test\Riskeer.GrassCoverErosionInwards.Service.TestUtil\Riskeer.GrassCoverErosionInwards.Service.TestUtil.csproj", "{61506E11-2D00-44FE-AB74-44D5766DF457}"
 	ProjectSection(ProjectDependencies) = postProject
-		{D749EE4C-CE50-4C17-BF01-9A953028C126} = {D749EE4C-CE50-4C17-BF01-9A953028C126}
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
@@ -1599,7 +1598,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Riskeer.Common.Service.Test
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Riskeer.GrassCoverErosionInwards.Service.TestUtil.Test", "Riskeer\GrassCoverErosionInwards\test\Riskeer.GrassCoverErosionInwards.Service.TestUtil.Test\Riskeer.GrassCoverErosionInwards.Service.TestUtil.Test.csproj", "{CE7E92A2-00F7-423A-98F2-C5F78437D54D}"
 	ProjectSection(ProjectDependencies) = postProject
-		{D749EE4C-CE50-4C17-BF01-9A953028C126} = {D749EE4C-CE50-4C17-BF01-9A953028C126}
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
