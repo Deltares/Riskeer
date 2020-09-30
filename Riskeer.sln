@@ -1130,6 +1130,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Riskeer.ClosingStructures.D
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Riskeer.ClosingStructures.Data.TestUtil.Test", "Riskeer\ClosingStructures\test\Riskeer.ClosingStructures.Data.TestUtil.Test\Riskeer.ClosingStructures.Data.TestUtil.Test.csproj", "{13C8D0A6-13A2-4C81-9507-27AFD847C7AA}"
 	ProjectSection(ProjectDependencies) = postProject
+		{D749EE4C-CE50-4C17-BF01-9A953028C126} = {D749EE4C-CE50-4C17-BF01-9A953028C126}
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
