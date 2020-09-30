@@ -87,6 +87,9 @@ namespace AutomatedSystemTests
             repo.RiskeerMainWindow.Ribbon.ButtonMenuFileNewProject.Click();
             Delay.Milliseconds(0);
             
+            Report.Log(ReportLevel.Info, "Wait", "Waiting 5s to exist. Associated repository item: 'RiskeerMainWindow.ProjectExplorer.ProjectRootNode'", repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.SelfInfo, new ActionTimeout(5000), new RecordItemIndex(2));
+            repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.SelfInfo.WaitForExists(5000);
+            
         }
 
 #region Image Feature Data

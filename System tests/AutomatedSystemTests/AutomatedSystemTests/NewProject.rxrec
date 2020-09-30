@@ -266,6 +266,24 @@ SGxgKgbXGGLAiRgRnrgg5A9ulFFADzbRFWUqSHADZYknHSpaKKACiiigAPSo4/8AWN9B/WiigCSi
 iigAooooAKKKKACiiigAooooAKKKKAP/2Q==
 			</helperscreenshot>
 		</mouseitem>
+		<WaitForRecordItem
+		enabled="True"
+		optional="False"
+		searchpropertyid="e4b0caca-6cfc-4024-b91f-0719e70785d4"
+		waitaction="Exists"
+		waittimeout="5000ms">
+			<comment>
+			</comment>
+			<bindings>
+			</bindings>
+			<info
+			id="b466899e-e209-4d83-a46c-0533f333cea5"
+			sourcename="RepositoryEditor">
+				<path>
+					/form[@automationid='RiskeerMainWindow']//container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]
+				</path>
+			</info>
+		</WaitForRecordItem>
 	</recorditems>
 	<repository
 	id="137723a5-e147-4b62-8c15-5c31a3d68f96"
