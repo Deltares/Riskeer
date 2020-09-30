@@ -7,4 +7,5 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
   </ItemGroup>
+  <Import Project="$(SolutionDir)\build\PreBuild.targets" />
 </Project>

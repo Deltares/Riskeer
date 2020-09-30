@@ -57,7 +57,7 @@ namespace Core.Common.TestUtil
             {
                 return System.Reflection.Assembly.LoadFile(
                     Path.Combine(executableDirectory, "Application", "Built-in",
-                                 "Managed", "Core", "Common.Assembly.dll"));
+                                 "Managed", "Core", "Core.Common.Assembly.dll"));
             }
 
             AppDomain.CurrentDomain.AssemblyResolve += GetAssemblyResolver;
