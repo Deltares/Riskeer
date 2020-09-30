@@ -1722,7 +1722,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Riskeer.Piping.Primitives.T
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Riskeer.StabilityStoneCover.Data.TestUtil", "Riskeer\StabilityStoneCover\test\Riskeer.StabilityStoneCover.Data.TestUtil\Riskeer.StabilityStoneCover.Data.TestUtil.csproj", "{B727E93A-74B2-467A-AE46-9A4E39ED4B5F}"
 	ProjectSection(ProjectDependencies) = postProject
-		{D749EE4C-CE50-4C17-BF01-9A953028C126} = {D749EE4C-CE50-4C17-BF01-9A953028C126}
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
@@ -2077,7 +2076,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Riskeer.HydraRing.IO.TestUt
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Riskeer.StabilityStoneCover.Data.TestUtil.Test", "Riskeer\StabilityStoneCover\test\Riskeer.StabilityStoneCover.Data.TestUtil.Test\Riskeer.StabilityStoneCover.Data.TestUtil.Test.csproj", "{02266309-9A78-4843-AE3A-E563B744AF95}"
 	ProjectSection(ProjectDependencies) = postProject
-		{D749EE4C-CE50-4C17-BF01-9A953028C126} = {D749EE4C-CE50-4C17-BF01-9A953028C126}
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
