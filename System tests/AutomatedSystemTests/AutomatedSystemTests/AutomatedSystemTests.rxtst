@@ -13,10 +13,6 @@
 			ref="f0658d7f-65e3-4f38-afe8-97fd942c1478"
 			type="Recording">
 			</testmodule>
-			<smartfoldernode
-			id="0361e14d-0b05-486a-9f2d-f8acac08cbc6"
-			name="GABU">
-			</smartfoldernode>
 			<testmodule
 			id="0ae714c3-8d3d-4e26-a875-14a65c612ad2"
 			name="SelectRootProject"
@@ -77,10 +73,6 @@
 			name="LoopSections">
 			</smartfoldernode>
 			<smartfoldernode
-			id="204e15d8-a236-47c5-95df-610c25bf1947"
-			name="HTKW">
-			</smartfoldernode>
-			<smartfoldernode
 			datasource="relevance12_2FailureMechanismContributionView"
 			id="2179672b-c6cc-4f03-8e2b-71ae42170951"
 			name="LoopFMs">
@@ -137,10 +129,6 @@
 					</var>
 				</databinding>
 			</testmodule>
-			<smartfoldernode
-			id="2f24754f-14d9-48c1-90bc-e97fce998cdd"
-			name="BSKW">
-			</smartfoldernode>
 			<testmodule
 			id="3039d6a4-5dde-44dd-801c-e0629eec29fd"
 			name="ValidateNode"
@@ -162,17 +150,9 @@
 				</databinding>
 			</testmodule>
 			<smartfoldernode
-			id="32877929-4a1a-4a70-8c7e-b306edebb906"
-			name="STBI">
-			</smartfoldernode>
-			<smartfoldernode
 			datasource="relevance12_2ProjectExplorer"
 			id="33d7e485-8bdd-4286-9e35-8e1b4c29bb6e"
 			name="LoopFMs">
-			</smartfoldernode>
-			<smartfoldernode
-			id="362a98ab-dc0a-4ef4-8300-56a9fcb66219"
-			name="AWO">
 			</smartfoldernode>
 			<smartfoldernode
 			id="3727343f-880f-4d7d-ace6-c59dbd92b57a"
@@ -182,10 +162,6 @@
 			datasource="NewConnector"
 			id="37c811fd-9297-4d92-b429-28a452540bf1"
 			name="b)Total_overview_of_the_assessment_results">
-			</smartfoldernode>
-			<smartfoldernode
-			id="40b9c69a-42d5-4908-8130-76122055b9d7"
-			name="GABI">
 			</smartfoldernode>
 			<testmodule
 			id="40f1060d-68a7-4664-8a57-a4f610737466"
@@ -318,18 +294,6 @@
 				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
-			id="5e581e77-b3e3-470c-aaea-c5795803d38f"
-			name="AGK">
-			</smartfoldernode>
-			<smartfoldernode
-			id="676ab3e0-aa68-42e2-b0a3-3745733bc5c6"
-			name="INN">
-			</smartfoldernode>
-			<smartfoldernode
-			id="6a559f0a-ad88-4992-ae96-bef62e0feeca"
-			name="GEBU">
-			</smartfoldernode>
-			<smartfoldernode
 			datasource="outputRelevanceFMCView"
 			id="716669cb-8d3f-4f98-a608-2311ffb07430"
 			name="SaveProject">
@@ -338,10 +302,6 @@
 			datasource="FileToOpen"
 			id="72139e5e-316f-4a54-9d52-75f865439dd6"
 			name="OpenFaalkansProject">
-			</smartfoldernode>
-			<smartfoldernode
-			id="7691c39e-6a78-44de-84b7-abd56ff73107"
-			name="STBU">
 			</smartfoldernode>
 			<smartfoldernode
 			datasource="listWithNamesFMs"
@@ -448,10 +408,6 @@
 			<smartfoldernode
 			id="a05f1ece-a4c1-439f-a1db-ff664bd18416"
 			name="New_Project">
-			</smartfoldernode>
-			<smartfoldernode
-			id="a6b26f8f-a980-44b8-8a6e-04d6d3a43544"
-			name="STMI">
 			</smartfoldernode>
 			<testmodule
 			id="a9a265d9-11ae-459e-92d6-e0ba20cc0e41"
@@ -688,10 +644,6 @@
 			name="ControlSimpleAssessmentFMsGroup1">
 			</smartfoldernode>
 			<smartfoldernode
-			id="d3077971-c0a5-4104-ad0e-13e462629680"
-			name="PKW">
-			</smartfoldernode>
-			<smartfoldernode
 			datasource="ListTrajectsNames"
 			id="d34200d9-5186-497e-9e06-4276b43682ad"
 			name="LoopTrajects">
@@ -744,7 +696,7 @@
 			<smartfoldernode
 			datasource="FMsInGroup1SimpleAssessment"
 			id="e756f312-1a93-4042-9200-8ee398806472"
-			name="STPH">
+			name="FMsGroup1">
 			</smartfoldernode>
 			<testcase
 			id="f16b204f-b66b-40a0-82c1-8d62dcbc8b22"
@@ -792,10 +744,6 @@
 					</param>
 				</parameters>
 			</testcase>
-			<smartfoldernode
-			id="fdda1062-0276-4f8b-9bca-e6f5a6007e78"
-			name="STKWI">
-			</smartfoldernode>
 			<teardown
 			id="fe1f0dec-30d6-4abc-b123-d9b0e01f7bf6"
 			name="teardown">
@@ -1024,7 +972,7 @@
 						name="ControlSimpleAssessmentFMsGroup1">
 							<smartfoldernode
 							id="e756f312-1a93-4042-9200-8ee398806472"
-							name="STPH">
+							name="FMsGroup1">
 								<testmodule
 								id="5b40acfa-8e10-416c-8148-dbe0a53f5688"
 								name="OpenResultView">
@@ -1041,58 +989,6 @@
 								id="24bfcdcd-8168-43d6-bcee-f74881c4ffe4"
 								name="CloseViewCentralPanelWithFocus">
 								</testmodule>
-							</smartfoldernode>
-							<smartfoldernode
-							id="32877929-4a1a-4a70-8c7e-b306edebb906"
-							name="STBI">
-							</smartfoldernode>
-							<smartfoldernode
-							id="7691c39e-6a78-44de-84b7-abd56ff73107"
-							name="STBU">
-							</smartfoldernode>
-							<smartfoldernode
-							id="a6b26f8f-a980-44b8-8a6e-04d6d3a43544"
-							name="STMI">
-							</smartfoldernode>
-							<smartfoldernode
-							id="5e581e77-b3e3-470c-aaea-c5795803d38f"
-							name="AGK">
-							</smartfoldernode>
-							<smartfoldernode
-							id="362a98ab-dc0a-4ef4-8300-56a9fcb66219"
-							name="AWO">
-							</smartfoldernode>
-							<smartfoldernode
-							id="6a559f0a-ad88-4992-ae96-bef62e0feeca"
-							name="GEBU">
-							</smartfoldernode>
-							<smartfoldernode
-							id="0361e14d-0b05-486a-9f2d-f8acac08cbc6"
-							name="GABU">
-							</smartfoldernode>
-							<smartfoldernode
-							id="40b9c69a-42d5-4908-8130-76122055b9d7"
-							name="GABI">
-							</smartfoldernode>
-							<smartfoldernode
-							id="204e15d8-a236-47c5-95df-610c25bf1947"
-							name="HTKW">
-							</smartfoldernode>
-							<smartfoldernode
-							id="2f24754f-14d9-48c1-90bc-e97fce998cdd"
-							name="BSKW">
-							</smartfoldernode>
-							<smartfoldernode
-							id="d3077971-c0a5-4104-ad0e-13e462629680"
-							name="PKW">
-							</smartfoldernode>
-							<smartfoldernode
-							id="fdda1062-0276-4f8b-9bca-e6f5a6007e78"
-							name="STKWI">
-							</smartfoldernode>
-							<smartfoldernode
-							id="676ab3e0-aa68-42e2-b0a3-3745733bc5c6"
-							name="INN">
 							</smartfoldernode>
 						</smartfoldernode>
 						<teardown
@@ -1383,9 +1279,6 @@
 			id="00c7a4e5-d91a-40ea-9fc2-39264a957d87">
 			</testcontainer>
 			<testcontainer
-			id="0361e14d-0b05-486a-9f2d-f8acac08cbc6">
-			</testcontainer>
-			<testcontainer
 			id="0bbfd560-88d6-4516-bf12-c27a1fe6f4b9">
 			</testcontainer>
 			<testcontainer
@@ -1395,31 +1288,16 @@
 			id="1eff0053-015a-4ebc-aece-f2f6f630f6bc">
 			</testcontainer>
 			<testcontainer
-			id="204e15d8-a236-47c5-95df-610c25bf1947">
-			</testcontainer>
-			<testcontainer
 			id="2179672b-c6cc-4f03-8e2b-71ae42170951">
 			</testcontainer>
 			<testcontainer
-			id="2f24754f-14d9-48c1-90bc-e97fce998cdd">
-			</testcontainer>
-			<testcontainer
-			id="32877929-4a1a-4a70-8c7e-b306edebb906">
-			</testcontainer>
-			<testcontainer
 			id="33d7e485-8bdd-4286-9e35-8e1b4c29bb6e">
-			</testcontainer>
-			<testcontainer
-			id="362a98ab-dc0a-4ef4-8300-56a9fcb66219">
 			</testcontainer>
 			<testcontainer
 			id="3727343f-880f-4d7d-ace6-c59dbd92b57a">
 			</testcontainer>
 			<testcontainer
 			id="37c811fd-9297-4d92-b429-28a452540bf1">
-			</testcontainer>
-			<testcontainer
-			id="40b9c69a-42d5-4908-8130-76122055b9d7">
 			</testcontainer>
 			<testcontainer
 			id="4bb671b5-bd57-42fd-a72e-41482b3d1dbb">
@@ -1431,22 +1309,10 @@
 			id="58a6b72e-26d9-47d1-87ab-f35fb84b127c">
 			</testcontainer>
 			<testcontainer
-			id="5e581e77-b3e3-470c-aaea-c5795803d38f">
-			</testcontainer>
-			<testcontainer
-			id="676ab3e0-aa68-42e2-b0a3-3745733bc5c6">
-			</testcontainer>
-			<testcontainer
-			id="6a559f0a-ad88-4992-ae96-bef62e0feeca">
-			</testcontainer>
-			<testcontainer
 			id="716669cb-8d3f-4f98-a608-2311ffb07430">
 			</testcontainer>
 			<testcontainer
 			id="72139e5e-316f-4a54-9d52-75f865439dd6">
-			</testcontainer>
-			<testcontainer
-			id="7691c39e-6a78-44de-84b7-abd56ff73107">
 			</testcontainer>
 			<testcontainer
 			id="921c41ea-9f72-4d4f-bfe2-a7f2f0365468">
@@ -1464,9 +1330,6 @@
 			id="a05f1ece-a4c1-439f-a1db-ff664bd18416">
 			</testcontainer>
 			<testcontainer
-			id="a6b26f8f-a980-44b8-8a6e-04d6d3a43544">
-			</testcontainer>
-			<testcontainer
 			id="b387024f-8d3e-4942-8f6f-4b9a2f5efde0">
 			</testcontainer>
 			<testcontainer
@@ -1477,9 +1340,6 @@
 			</testcontainer>
 			<testcontainer
 			id="c634f880-0187-4e4a-9eed-0c396c788f3f">
-			</testcontainer>
-			<testcontainer
-			id="d3077971-c0a5-4104-ad0e-13e462629680">
 			</testcontainer>
 			<testcontainer
 			id="d34200d9-5186-497e-9e06-4276b43682ad">
@@ -1504,9 +1364,6 @@
 			</testcontainer>
 			<testcontainer
 			id="fda567a0-be92-41b9-9761-e7e7d9e7be7f">
-			</testcontainer>
-			<testcontainer
-			id="fdda1062-0276-4f8b-9bca-e6f5a6007e78">
 			</testcontainer>
 		</testconfiguration>
 	</testconfigurations>
