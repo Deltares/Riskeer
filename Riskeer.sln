@@ -1189,7 +1189,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Riskeer.Revetment.Data.Test
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Riskeer.Revetment.Data.TestUtil.Test", "Riskeer\Revetment\test\Riskeer.Revetment.Data.TestUtil.Test\Riskeer.Revetment.Data.TestUtil.Test.csproj", "{B5EEC43B-85AE-4A3A-8FFA-90C1F5199D04}"
 	ProjectSection(ProjectDependencies) = postProject
-		{D749EE4C-CE50-4C17-BF01-9A953028C126} = {D749EE4C-CE50-4C17-BF01-9A953028C126}
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
@@ -1473,13 +1472,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Common.Util.TestUtil",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Riskeer.Revetment.Forms.TestUtil", "Riskeer\Revetment\test\Riskeer.Revetment.Forms.TestUtil\Riskeer.Revetment.Forms.TestUtil.csproj", "{DF0BED5E-1BB0-469F-A15C-ACBF6767C193}"
 	ProjectSection(ProjectDependencies) = postProject
-		{D749EE4C-CE50-4C17-BF01-9A953028C126} = {D749EE4C-CE50-4C17-BF01-9A953028C126}
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Riskeer.Revetment.Forms.TestUtil.Test", "Riskeer\Revetment\test\Riskeer.Revetment.Forms.TestUtil.Test\Riskeer.Revetment.Forms.TestUtil.Test.csproj", "{22A4494E-DE65-4B79-9A3F-C1628D8489E7}"
 	ProjectSection(ProjectDependencies) = postProject
-		{D749EE4C-CE50-4C17-BF01-9A953028C126} = {D749EE4C-CE50-4C17-BF01-9A953028C126}
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
