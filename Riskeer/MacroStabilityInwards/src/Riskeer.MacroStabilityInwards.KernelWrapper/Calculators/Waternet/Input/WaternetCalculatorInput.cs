@@ -71,7 +71,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Input
                 throw new ArgumentException("PhreaticLineOffsets must be set.");
             }
 
-            PlLineCreationMethod = properties.PlLineCreationMethod;
             AssessmentLevel = properties.AssessmentLevel;
             SurfaceLine = properties.SurfaceLine;
             SoilProfile = properties.SoilProfile;
@@ -102,7 +101,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Input
             /// </summary>
             public ConstructionProperties()
             {
-                PlLineCreationMethod = PlLineCreationMethod.RingtoetsWti2017;
                 AssessmentLevel = double.NaN;
                 WaterLevelRiverAverage = double.NaN;
                 WaterLevelPolder = double.NaN;
@@ -119,11 +117,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Input
             }
 
             #region Properties
-
-            /// <summary>
-            /// Gets or sets the pl line creation method.
-            /// </summary>
-            public PlLineCreationMethod PlLineCreationMethod { internal get; set; }
 
             /// <summary>
             /// Gets or sets the outside high water level.
@@ -231,11 +224,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Input
         }
 
         #region Properties
-
-        /// <summary>
-        /// Gets the pl line creation method.
-        /// </summary>
-        public PlLineCreationMethod PlLineCreationMethod { get; }
 
         /// <summary>
         /// Gets the outside high water level.

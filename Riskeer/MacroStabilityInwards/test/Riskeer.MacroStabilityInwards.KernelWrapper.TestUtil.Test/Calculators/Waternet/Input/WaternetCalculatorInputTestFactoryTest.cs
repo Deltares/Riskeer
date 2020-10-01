@@ -58,7 +58,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Calculators.
             AssertSurfaceLine(input.SurfaceLine);
             AssertSoilProfile(input.SoilProfile, input.SurfaceLine);
 
-            Assert.AreEqual(PlLineCreationMethod.RingtoetsWti2017, input.PlLineCreationMethod);
             Assert.IsTrue(Enum.IsDefined(typeof(MacroStabilityInwardsDikeSoilScenario), input.DikeSoilScenario));
         }
 
@@ -87,7 +86,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Calculators.
             AssertSurfaceLine(input.SurfaceLine);
             AssertSoilProfile(input.SoilProfile, input.SurfaceLine);
 
-            Assert.AreEqual(PlLineCreationMethod.RingtoetsWti2017, input.PlLineCreationMethod);
             Assert.IsTrue(Enum.IsDefined(typeof(MacroStabilityInwardsDikeSoilScenario), input.DikeSoilScenario));
         }
 

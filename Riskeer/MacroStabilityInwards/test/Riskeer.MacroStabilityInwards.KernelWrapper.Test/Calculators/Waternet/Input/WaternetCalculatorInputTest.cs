@@ -55,7 +55,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.Waternet.
             var drainageConstruction = new DrainageConstruction();
             var phreaticLineOffsets = new PhreaticLineOffsets();
 
-            var plLineCreationMethod = random.NextEnumValue<PlLineCreationMethod>();
             double waterLevelRiverAverage = random.NextDouble();
             double waterLevelPolder = random.NextDouble();
             double minimumLevelPhreaticLineAtDikeTopRiver = random.NextDouble();
@@ -74,7 +73,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.Waternet.
             var input = new WaternetCalculatorInput(
                 new WaternetCalculatorInput.ConstructionProperties
                 {
-                    PlLineCreationMethod = plLineCreationMethod,
                     AssessmentLevel = assessmentLevel,
                     SurfaceLine = surfaceLine,
                     SoilProfile = soilProfile,
@@ -96,7 +94,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.Waternet.
                 });
 
             // Assert
-            Assert.AreEqual(plLineCreationMethod, input.PlLineCreationMethod);
             Assert.AreEqual(assessmentLevel, input.AssessmentLevel);
             Assert.AreSame(surfaceLine, input.SurfaceLine);
             Assert.AreSame(soilProfile, input.SoilProfile);
@@ -153,7 +150,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.Waternet.
             Assert.IsNaN(input.PenetrationLength);
             Assert.IsFalse(input.AdjustPhreaticLine3And4ForUplift);
 
-            Assert.AreEqual(PlLineCreationMethod.RingtoetsWti2017, input.PlLineCreationMethod);
             Assert.AreEqual(MacroStabilityInwardsDikeSoilScenario.ClayDikeOnClay, input.DikeSoilScenario);
         }
 

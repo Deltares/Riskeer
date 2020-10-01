@@ -30,7 +30,6 @@ using Riskeer.MacroStabilityInwards.CalculatedInput;
 using Riskeer.MacroStabilityInwards.CalculatedInput.Converters;
 using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators;
-using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Input;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Output;
@@ -235,7 +234,6 @@ namespace Riskeer.MacroStabilityInwards.Service
             return new UpliftVanCalculatorInput(
                 new UpliftVanCalculatorInput.ConstructionProperties
                 {
-                    PlLineCreationMethod = PlLineCreationMethod.RingtoetsWti2017,
                     AssessmentLevel = effectiveAssessmentLevel,
                     SurfaceLine = inputParameters.SurfaceLine,
                     SoilProfile = SoilProfileConverter.Convert(inputParameters.SoilProfileUnderSurfaceLine),
