@@ -165,7 +165,7 @@
 			name="New_Project">
 			</smartfoldernode>
 			<smartfoldernode
-			datasource="NewConnector"
+			datasource="logMessageConnectorSectionB"
 			id="37c811fd-9297-4d92-b429-28a452540bf1"
 			name="b)Total_overview_of_the_assessment_results">
 			</smartfoldernode>
@@ -349,7 +349,7 @@
 			</smartfoldernode>
 			<testmodule
 			id="724c49d9-885a-4c3c-ba29-55cf48848b1a"
-			name="SelectAssessmentForSection"
+			name="SelectSimpleAssessmentForRow"
 			ref="e0d85a11-9622-402c-937d-fefa962c3394"
 			type="Recording">
 				<databinding>
@@ -527,7 +527,7 @@
 			</testmodule>
 			<testmodule
 			id="b28e3b48-240b-45d5-8fcc-970856b2290a"
-			name="SelectAssessmentForSection"
+			name="SelectSimpleAssessmentForRow"
 			ref="e0d85a11-9622-402c-937d-fefa962c3394"
 			type="Recording">
 				<databinding>
@@ -1070,7 +1070,7 @@
 								name="LoopSections">
 									<testmodule
 									id="b28e3b48-240b-45d5-8fcc-970856b2290a"
-									name="SelectAssessmentForSection">
+									name="SelectSimpleAssessmentForRow">
 									</testmodule>
 								</smartfoldernode>
 								<testmodule
@@ -1094,7 +1094,7 @@
 								name="LoopSections">
 									<testmodule
 									id="724c49d9-885a-4c3c-ba29-55cf48848b1a"
-									name="SelectAssessmentForSection">
+									name="SelectSimpleAssessmentForRow">
 									</testmodule>
 								</smartfoldernode>
 								<testmodule
@@ -1225,7 +1225,7 @@
 		<DataSource
 		id="863cf468-3ba4-48ec-aa47-87672a4f4a6d"
 		lastknownrowcount="1"
-		name="NewConnector"
+		name="logMessageConnectorSectionB"
 		type="Ranorex.Core.Data.SimpleDataConnector">
 			<lastknowncolumns>
 				<column>
