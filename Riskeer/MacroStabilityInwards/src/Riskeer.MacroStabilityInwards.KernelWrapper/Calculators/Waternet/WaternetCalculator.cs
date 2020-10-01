@@ -90,7 +90,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Waternet
         /// <summary>
         /// Creates a Waternet kernel.
         /// </summary>
-        /// <param name="location">The location to create the Waternet for.</param>
+        /// <param name="kernelInput">The input of the kernel.</param>
         /// <returns>The created <see cref="IWaternetKernel"/>.</returns>
         protected abstract IWaternetKernel CreateWaternetKernel(MacroStabilityInput kernelInput);
 

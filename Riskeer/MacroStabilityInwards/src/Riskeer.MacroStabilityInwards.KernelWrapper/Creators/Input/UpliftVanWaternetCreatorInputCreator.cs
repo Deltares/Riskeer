@@ -53,7 +53,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
                 throw new ArgumentNullException(nameof(input));
             }
 
-            WaternetCreatorInput creatorInput = CreateBaseLocation(input);
+            WaternetCreatorInput creatorInput = CreateBaseWaternetCreatorInput(input);
             creatorInput.WaterLevelRiver = input.AssessmentLevel;
             creatorInput.HeadInPlLine3 = input.AssessmentLevel;
             creatorInput.HeadInPlLine4 = input.AssessmentLevel;
@@ -68,11 +68,11 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
         }
 
         /// <summary>
-        /// Creates a <see cref="Location"/> based on the given <paramref name="input"/> under daily circumstances,
+        /// Creates a <see cref="WaternetCreatorInput"/> based on the given <paramref name="input"/> under daily circumstances,
         /// which can be used by <see cref="IUpliftVanKernel"/>.
         /// </summary>
         /// <param name="input">The <see cref="UpliftVanCalculatorInput"/> to get the information from.</param>
-        /// <returns>A new <see cref="Location"/> with the given information from <paramref name="input"/>.</returns>
+        /// <returns>A new <see cref="WaternetCreatorInput"/> with the given information from <paramref name="input"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="input"/> is <c>null</c>.</exception>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <see cref="UpliftVanCalculatorInput.DikeSoilScenario"/>,
         /// <see cref="UpliftVanCalculatorInput.WaternetCreationMode"/> or <see cref="UpliftVanCalculatorInput.PlLineCreationMethod"/>
@@ -87,7 +87,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
                 throw new ArgumentNullException(nameof(input));
             }
 
-            WaternetCreatorInput creatorInput = CreateBaseLocation(input);
+            WaternetCreatorInput creatorInput = CreateBaseWaternetCreatorInput(input);
             creatorInput.WaterLevelRiver = input.WaterLevelRiverAverage;
             creatorInput.HeadInPlLine3 = input.WaterLevelRiverAverage;
             creatorInput.HeadInPlLine4 = input.WaterLevelRiverAverage;
@@ -101,11 +101,11 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
             return creatorInput;
         }
 
-        private static WaternetCreatorInput CreateBaseLocation(UpliftVanCalculatorInput input)
+        private static WaternetCreatorInput CreateBaseWaternetCreatorInput(UpliftVanCalculatorInput input)
         {
             return new WaternetCreatorInput
             {
-                DikeSoilScenario = LocationCreatorHelper.ConvertDikeSoilScenario(input.DikeSoilScenario),
+                DikeSoilScenario = WaternetCreatorInputHelper.ConvertDikeSoilScenario(input.DikeSoilScenario),
                 WaterLevelRiverAverage = input.WaterLevelRiverAverage,
                 DrainageConstructionPresent = input.DrainageConstruction.IsPresent,
                 DrainageConstruction = input.DrainageConstruction.IsPresent 

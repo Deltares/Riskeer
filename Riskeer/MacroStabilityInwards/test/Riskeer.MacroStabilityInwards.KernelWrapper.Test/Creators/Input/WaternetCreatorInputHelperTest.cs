@@ -29,16 +29,19 @@ using Riskeer.MacroStabilityInwards.Primitives;
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
 {
     [TestFixture]
-    public class LocationCreatorHelperTest
+    public class WaternetCreatorInputHelperTest
     {
         [Test]
         public void ConvertDikeSoilScenario_InvalidDikeSoilScenario_ThrowInvalidEnumArgumentException()
         {
+            // Setup
+            var dikeSoilScenario = (MacroStabilityInwardsDikeSoilScenario) 99;
+
             // Call
-            void Call() => LocationCreatorHelper.ConvertDikeSoilScenario((MacroStabilityInwardsDikeSoilScenario) 99);
+            void Call() => WaternetCreatorInputHelper.ConvertDikeSoilScenario(dikeSoilScenario);
 
             // Assert
-            string message = $"The value of argument 'dikeSoilScenario' ({99}) is invalid for Enum type '{nameof(MacroStabilityInwardsDikeSoilScenario)}'.";
+            string message = $"The value of argument 'dikeSoilScenario' ({dikeSoilScenario}) is invalid for Enum type '{nameof(MacroStabilityInwardsDikeSoilScenario)}'.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(Call, message);
         }
 
@@ -52,7 +55,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             DikeSoilScenario expectedDikeSoilScenario)
         {
             // Call
-            DikeSoilScenario convertedDikeSoilScenario = LocationCreatorHelper.ConvertDikeSoilScenario(macroStabilityInwardsDikeSoilScenario);
+            DikeSoilScenario convertedDikeSoilScenario = WaternetCreatorInputHelper.ConvertDikeSoilScenario(macroStabilityInwardsDikeSoilScenario);
 
             // Assert
             Assert.AreEqual(expectedDikeSoilScenario, convertedDikeSoilScenario);

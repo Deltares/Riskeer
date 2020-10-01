@@ -122,16 +122,16 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan
             MacroStabilityInput waternetDailyKernelInput = MacroStabilityInputCreator.CreateDailyWaternetForUpliftVan(input, soils, surfaceLine, soilProfile);
             MacroStabilityInput waternetExtremeKernelInput = MacroStabilityInputCreator.CreateExtremeWaternetForUpliftVan(input, soils, surfaceLine, soilProfile);
 
-            IWaternetKernel waternetDailyKernelWrapper = factory.CreateWaternetDailyKernel(waternetDailyKernelInput);
-            waternetDailyKernelWrapper.Calculate();
+            IWaternetKernel waternetDailyKernel = factory.CreateWaternetDailyKernel(waternetDailyKernelInput);
+            waternetDailyKernel.Calculate();
 
-            IWaternetKernel waternetExtremeKernelWrapper = factory.CreateWaternetExtremeKernel(waternetExtremeKernelInput);
-            waternetExtremeKernelWrapper.Calculate();
+            IWaternetKernel waternetExtremeKernel = factory.CreateWaternetExtremeKernel(waternetExtremeKernelInput);
+            waternetExtremeKernel.Calculate();
 
             MacroStabilityInput kernelInput = MacroStabilityInputCreator.CreateUpliftVan(input, soils, layerLookup,
                                                                                          surfaceLine, soilProfile,
-                                                                                         waternetDailyKernelWrapper.Waternet,
-                                                                                         waternetExtremeKernelWrapper.Waternet);
+                                                                                         waternetDailyKernel.Waternet,
+                                                                                         waternetExtremeKernel.Waternet);
 
             return factory.CreateUpliftVanKernel(kernelInput);
         }

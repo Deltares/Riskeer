@@ -120,7 +120,8 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
         }
 
         /// <summary>
-        /// Converts a <see cref="ShearStrengthModel"/> into a <see cref="ShearStrengthModelType"/>.
+        /// Converts a <see cref="ShearStrengthModel"/> into a <see cref="ShearStrengthModelType"/>
+        /// for the <see cref="Soil.ShearStrengthAbovePhreaticLevelModel"/>.
         /// </summary>
         /// <param name="shearStrengthModel">The <see cref="ShearStrengthModel"/> to convert.</param>
         /// <returns>A <see cref="ShearStrengthModelType"/> based on <paramref name="shearStrengthModel"/>.</returns>
@@ -151,6 +152,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
 
         /// <summary>
         /// Converts a <see cref="ShearStrengthModel"/> into a <see cref="ShearStrengthModelType"/>.
+        /// for the <see cref="Soil.ShearStrengthBelowPhreaticLevelModel"/>.
         /// </summary>
         /// <param name="shearStrengthModel">The <see cref="ShearStrengthModel"/> to convert.</param>
         /// <returns>A <see cref="ShearStrengthModelType"/> based on <paramref name="shearStrengthModel"/>.</returns>

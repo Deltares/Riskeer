@@ -30,7 +30,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
     /// Helper class to convert properties needed in the <see cref="UpliftVanWaternetCreatorInputCreator"/>
     /// and <see cref="WaternetCreatorInputCreator"/>.
     /// </summary>
-    internal static class LocationCreatorHelper
+    internal static class WaternetCreatorInputHelper
     {
         /// <summary>
         /// Converts a <see cref="MacroStabilityInwardsDikeSoilScenario"/> into a <see cref="DikeSoilScenario"/>.

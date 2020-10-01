@@ -30,16 +30,16 @@ using Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.Waternet;
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
 {
     /// <summary>
-    /// Creates <see cref="Location"/> instances which are required by <see cref="IWaternetKernel"/>.
+    /// Creates <see cref="WaternetCreatorInput"/> instances which are required by <see cref="IWaternetKernel"/>.
     /// </summary>
     internal static class WaternetCreatorInputCreator
     {
         /// <summary>
-        /// Creates a <see cref="Location"/> based on the given <paramref name="input"/>
+        /// Creates a <see cref="WaternetCreatorInput"/> based on the given <paramref name="input"/>
         /// which can be used by <see cref="IWaternetKernel"/>.
         /// </summary>
         /// <param name="input">The <see cref="WaternetCalculatorInput"/> to get the information from.</param>
-        /// <returns>A new <see cref="Location"/> with the given information from <paramref name="input"/>.</returns>
+        /// <returns>A new <see cref="WaternetCreatorInput"/> with the given information from <paramref name="input"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="input"/> is <c>null</c>.</exception>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <see cref="WaternetCalculatorInput.DikeSoilScenario"/>,
         /// <see cref="WaternetCalculatorInput.WaternetCreationMode"/> or <see cref="WaternetCalculatorInput.PlLineCreationMethod"/>
@@ -56,7 +56,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
 
             return new WaternetCreatorInput
             {
-                DikeSoilScenario = LocationCreatorHelper.ConvertDikeSoilScenario(input.DikeSoilScenario),
+                DikeSoilScenario = WaternetCreatorInputHelper.ConvertDikeSoilScenario(input.DikeSoilScenario),
                 WaterLevelRiver = input.AssessmentLevel,
                 HeadInPlLine3 = input.AssessmentLevel,
                 HeadInPlLine4 = input.AssessmentLevel,
