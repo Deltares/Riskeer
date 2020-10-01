@@ -32,12 +32,12 @@ namespace Riskeer.MacroStabilityInwards.Data
     public static class DerivedMacroStabilityInwardsInput
     {
         /// <summary>
-        /// Gets the calculated waternet for extreme circumstances.
+        /// Gets the calculated Waternet for extreme circumstances.
         /// </summary>
-        /// <param name="input">The input to calculate the waternet for.</param>
+        /// <param name="input">The input to calculate the Waternet for.</param>
         /// <param name="assessmentLevel">The assessment level at stake.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="input"/> is <c>null</c>.</exception>
-        /// <returns>Returns the corresponding derived waternet value.</returns>
+        /// <returns>Returns the corresponding derived Waternet value.</returns>
         public static MacroStabilityInwardsWaternet GetWaternetExtreme(MacroStabilityInwardsInput input, RoundedDouble assessmentLevel)
         {
             if (input == null)
@@ -52,11 +52,11 @@ namespace Riskeer.MacroStabilityInwards.Data
         }
 
         /// <summary>
-        /// Gets the calculated waternet for daily circumstances.
+        /// Gets the calculated Waternet for daily circumstances.
         /// </summary>
-        /// <param name="input">The input to calculate the waternet for.</param>
+        /// <param name="input">The input to calculate the Waternet for.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="input"/> is <c>null</c>.</exception>
-        /// <returns>Returns the corresponding derived waternet value.</returns>
+        /// <returns>Returns the corresponding derived Waternet value.</returns>
         public static MacroStabilityInwardsWaternet GetWaternetDaily(MacroStabilityInwardsInput input)
         {
             if (input == null)

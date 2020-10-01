@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2019. All rights reserved.
+// Copyright (C) Stichting Deltares 2019. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -138,7 +138,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
         }
 
         /// <summary>
-        /// Creates <see cref="MacroStabilityInput"/> objects based on the given input for the daily waternet calculation.
+        /// Creates <see cref="MacroStabilityInput"/> objects based on the given input for the daily Waternet calculation.
         /// </summary>
         /// <param name="upliftVanInput">The <see cref="UpliftVanCalculatorInput"/> containing all the values required
         /// for performing the Waternet calculation.</param>
@@ -174,7 +174,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
         }
 
         /// <summary>
-        /// Creates <see cref="MacroStabilityInput"/> objects based on the given input for the extreme waternet calculation.
+        /// Creates <see cref="MacroStabilityInput"/> objects based on the given input for the extreme Waternet calculation.
         /// </summary>
         /// <param name="upliftVanInput">The <see cref="UpliftVanCalculatorInput"/> containing all the values required
         /// for performing the Waternet calculation.</param>
@@ -210,7 +210,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
         }
 
         /// <summary>
-        /// Creates <see cref="MacroStabilityInput"/> objects based on the given input for the waternet calculation.
+        /// Creates <see cref="MacroStabilityInput"/> objects based on the given input for the Waternet calculation.
         /// </summary>
         /// <param name="waternetInput">The <see cref="WaternetCalculatorInput"/> containing all the values required
         /// for performing the Waternet calculation.</param>

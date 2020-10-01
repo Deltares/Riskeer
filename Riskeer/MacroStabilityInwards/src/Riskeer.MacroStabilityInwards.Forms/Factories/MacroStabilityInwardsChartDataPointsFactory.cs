@@ -256,9 +256,9 @@ namespace Riskeer.MacroStabilityInwards.Forms.Factories
         }
 
         /// <summary>
-        /// Create points of the waternet zone in 2D space based on the provide <paramref name="waternetLine"/>.
+        /// Create points of the Waternet zone in 2D space based on the provide <paramref name="waternetLine"/>.
         /// </summary>
-        /// <param name="waternetLine">The waternet line to create the zone for.</param>
+        /// <param name="waternetLine">The Waternet line to create the zone for.</param>
         /// <param name="surfaceLine">The <see cref="MacroStabilityInwardsSurfaceLine"/> that may intersect with 
         /// the <see cref="MacroStabilityInwardsWaternetLine.PhreaticLine"/> and by doing that restricts the
         /// drawn height of it.</param>

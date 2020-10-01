@@ -26,7 +26,7 @@ using System.Linq;
 namespace Riskeer.MacroStabilityInwards.Primitives
 {
     /// <summary>
-    /// The waternet created by the Waternet calculator in the derived
+    /// The Waternet created by the Waternet calculator in the derived
     /// macro stability inwards calculation input.
     /// </summary>
     public class MacroStabilityInwardsWaternet
@@ -61,7 +61,7 @@ namespace Riskeer.MacroStabilityInwards.Primitives
         public IEnumerable<MacroStabilityInwardsPhreaticLine> PhreaticLines { get; }
 
         /// <summary>
-        /// Gets the collection of waternet lines.
+        /// Gets the collection of Waternet lines.
         /// </summary>
         public IEnumerable<MacroStabilityInwardsWaternetLine> WaternetLines { get; }
 

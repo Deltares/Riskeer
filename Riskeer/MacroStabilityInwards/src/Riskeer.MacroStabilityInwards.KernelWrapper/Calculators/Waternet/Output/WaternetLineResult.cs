@@ -26,7 +26,7 @@ using Core.Common.Base.Geometry;
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Output
 {
     /// <summary>
-    /// The waternet line result of a Waternet calculation.
+    /// The Waternet line result of a Waternet calculation.
     /// </summary>
     public class WaternetLineResult
     {
