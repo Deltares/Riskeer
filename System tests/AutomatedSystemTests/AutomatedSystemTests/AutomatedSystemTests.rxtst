@@ -102,10 +102,29 @@
 			</smartfoldernode>
 			<testmodule
 			id="0cc64991-03f6-4736-848c-6a48265de8c6"
-			name="ValidateDetailedAssessmentAtRow"
+			name="ValidateDetailedAssessmentValueAtRow"
 			ref="91919928-72e3-45e3-8af5-a51f8db749e3"
 			type="Recording">
+				<databinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="377932e2-7a0a-42e1-8647-694095d5c60d"
+					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
+					variablename="rowIndex">
+					</var>
+					<var
+					dataname="DetailedAssessment"
+					datasourceid="377932e2-7a0a-42e1-8647-694095d5c60d"
+					variableid="79d7d1d0-a157-4326-954d-9ee0a7bbe710"
+					variablename="expectedDetailedAssessmentCellValue">
+					</var>
+				</databinding>
 			</testmodule>
+			<smartfoldernode
+			datasource="detailedAssessmentSTPHType"
+			id="0f6ce510-5e07-4792-80dc-5fa54c51639d"
+			name="ValidateDetailedAsssessmentType">
+			</smartfoldernode>
 			<testmodule
 			id="144282ec-ff9c-4bb5-bf8b-b30904d6d370"
 			name="CloseViewCentralPanelWithFocus"
@@ -184,6 +203,16 @@
 			<smartfoldernode
 			id="2688ac5e-e112-466c-aad3-9c8b60c1497f"
 			name="DetailedAssessmentFMsGroup1_STPH">
+				<parameters>
+					<param
+					name="trajectSubstring"
+					value="STPH">
+					</param>
+					<param
+					name="fmSubstring"
+					value="Dijken en dammen - Piping">
+					</param>
+				</parameters>
 			</smartfoldernode>
 			<testmodule
 			id="27ef79f2-a91d-4e27-b8b8-a204c65e7f3b"
@@ -237,6 +266,7 @@
 			name="LoopFMs">
 			</smartfoldernode>
 			<smartfoldernode
+			datasource="detailedAssessmentSTPH"
 			id="2de34f6f-37d9-43ec-bb73-99701040ddeb"
 			name="ValidateDetailedAsssessmentPerSectionExists">
 			</smartfoldernode>
@@ -273,7 +303,7 @@
 					variablename="rowIndex">
 					</var>
 					<var
-					dataname="SimpleAssessmentItem"
+					dataname="SimpleAssessmentTypeItem"
 					datasourceid="ae64935c-354a-40d0-902f-7059481f67d1"
 					variableid="d82001f1-20c0-4080-a06d-9f1f8ee3a56d"
 					variablename="textItemDropDownMenu">
@@ -495,6 +525,20 @@
 			name="OpenResultView"
 			ref="14b19856-facd-4b69-82b3-b7f678560774"
 			type="Recording">
+				<databinding>
+					<var
+					dataname="trajectSubstring"
+					datasourceid="2688ac5e-e112-466c-aad3-9c8b60c1497f"
+					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
+					variablename="substringTrajectName">
+					</var>
+					<var
+					dataname="fmSubstring"
+					datasourceid="2688ac5e-e112-466c-aad3-9c8b60c1497f"
+					variableid="3a7276c1-fca1-4026-9d2e-5bac10651a47"
+					variablename="substringItemName">
+					</var>
+				</databinding>
 				<missingdatabinding>
 					<var
 					dataname="trajectID"
@@ -579,9 +623,9 @@
 				</databinding>
 			</testmodule>
 			<smartfoldernode
-			datasource="detailedAssessmentGroup1"
+			datasource="detailedAssessmentSTPHType"
 			id="84bb39d9-6d34-41e6-ba8f-a857cfdc5275"
-			name="LoopRowsSelectDetailedAssessment">
+			name="LoopRowsSelectDetailedAssessmentType">
 			</smartfoldernode>
 			<smartfoldernode
 			datasource="simpleAssessmentGroup2"
@@ -1076,6 +1120,40 @@
 			id="e756f312-1a93-4042-9200-8ee398806472"
 			name="FMsGroup1">
 			</smartfoldernode>
+			<testmodule
+			id="ee5868e3-659a-4bba-a680-885d84379745"
+			name="ValidateDetailedAssessmentTypeAtRow"
+			ref="f90323b9-0faf-4e8d-ba0d-cddbcaec15a5"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="ae64935c-354a-40d0-902f-7059481f67d1"
+					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
+					variablename="rowIndex">
+					</var>
+					<var
+					dataname="SimpleAssessmentTypeItem"
+					datasourceid="ae64935c-354a-40d0-902f-7059481f67d1"
+					variableid="8099b7cd-452a-42e6-8a28-9c7c1869088a"
+					variablename="expectedDetailedAssessmentCellType">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="377932e2-7a0a-42e1-8647-694095d5c60d"
+					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
+					variablename="rowIndex">
+					</var>
+					<var
+					dataname="rowIndex"
+					datasourceid="377932e2-7a0a-42e1-8647-694095d5c60d"
+					variableid="8099b7cd-452a-42e6-8a28-9c7c1869088a"
+					variablename="expectedDetailedAssessmentCellType">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<testcase
 			id="f16b204f-b66b-40a0-82c1-8d62dcbc8b22"
 			name="script21">
@@ -1118,7 +1196,6 @@
 				</databinding>
 			</testmodule>
 			<testmodule
-			enabled="False"
 			id="fccf685a-4685-4dca-8f14-211c2e207232"
 			name="CloseViewCentralPanelWithFocus"
 			ref="3c2d44f5-31b5-4584-91c8-1ad748affc77"
@@ -1486,15 +1563,23 @@
 							name="ValidateDetailedAsssessmentPerSectionExists">
 								<testmodule
 								id="0cc64991-03f6-4736-848c-6a48265de8c6"
-								name="ValidateDetailedAssessmentAtRow">
+								name="ValidateDetailedAssessmentValueAtRow">
 								</testmodule>
 							</smartfoldernode>
 							<smartfoldernode
 							id="84bb39d9-6d34-41e6-ba8f-a857cfdc5275"
-							name="LoopRowsSelectDetailedAssessment">
+							name="LoopRowsSelectDetailedAssessmentType">
 								<testmodule
 								id="328383e3-e3fc-4be6-9787-baa30b524f66"
 								name="SelectDetailedAssessmentForRow">
+								</testmodule>
+							</smartfoldernode>
+							<smartfoldernode
+							id="0f6ce510-5e07-4792-80dc-5fa54c51639d"
+							name="ValidateDetailedAsssessmentType">
+								<testmodule
+								id="ee5868e3-659a-4bba-a680-885d84379745"
+								name="ValidateDetailedAssessmentTypeAtRow">
 								</testmodule>
 							</smartfoldernode>
 							<testmodule
@@ -1517,10 +1602,10 @@
 	</testsuiteentryhierarchy>
 	<datasources>
 		<DataSource
-		id="ae64935c-354a-40d0-902f-7059481f67d1"
+		id="377932e2-7a0a-42e1-8647-694095d5c60d"
 		includefile="Unchecked"
-		lastknownrowcount="8"
-		name="detailedAssessmentGroup1"
+		lastknownrowcount="4"
+		name="detailedAssessmentSTPH"
 		type="Ranorex.Core.Data.CsvDataConnector"
 		withheaders="True">
 			<lastknowncolumns>
@@ -1528,13 +1613,34 @@
 					rowIndex
 				</column>
 				<column>
-					SimpleAssessmentItem
+					DetailedAssessment
 				</column>
 			</lastknowncolumns>
 			<maskedcolumns>
 			</maskedcolumns>
 			<file>
-				X:\script21\input\CSVs\detailedAssessmentFMsGroup1.csv
+				X:\script21\input\CSVs\detailedAssessmentSTPH.csv
+			</file>
+		</DataSource>
+		<DataSource
+		id="ae64935c-354a-40d0-902f-7059481f67d1"
+		includefile="Unchecked"
+		lastknownrowcount="8"
+		name="detailedAssessmentSTPHType"
+		type="Ranorex.Core.Data.CsvDataConnector"
+		withheaders="True">
+			<lastknowncolumns>
+				<column>
+					rowIndex
+				</column>
+				<column>
+					SimpleAssessmentTypeItem
+				</column>
+			</lastknowncolumns>
+			<maskedcolumns>
+			</maskedcolumns>
+			<file>
+				X:\script21\input\CSVs\detailedAssessmentTypeSTPH.csv
 			</file>
 		</DataSource>
 		<DataSource
@@ -1935,6 +2041,9 @@
 			</testcontainer>
 			<testcontainer
 			id="0cb3406e-9796-40ad-a9fc-964ae357d98d">
+			</testcontainer>
+			<testcontainer
+			id="0f6ce510-5e07-4792-80dc-5fa54c51639d">
 			</testcontainer>
 			<testcontainer
 			id="1eff0053-015a-4ebc-aece-f2f6f630f6bc">

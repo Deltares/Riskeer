@@ -1030,7 +1030,7 @@ namespace AutomatedSystemTests
                 _eenvoudigetoetsvak12_2_00000Info = new RepoItemInfo(this, "EenvoudigeToetsVak12_2_00000", "row/cell[@accessiblename>'Vak' and @text='12_2_00000']/../cell[@accessiblename>'Eenvoudige']", 30000, null, "892f29d9-c365-437c-91bd-7720a612cf0c");
                 _eenvoudigetoetsrownthInfo = new RepoItemInfo(this, "EenvoudigeToetsRowNth", "row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename='Eenvoudige toets Row '+$rowIndex]", 30000, null, "78777803-f3ba-489a-8aa8-3ad795fbe569");
                 _gedetaileerdetoetsrownthInfo = new RepoItemInfo(this, "GedetaileerdeToetsRowNth", "row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename='Gedetailleerde toets per vak Row '+$rowIndex]", 30000, null, "65e328b8-068a-4b37-a2d7-cb220911d1fe");
-                _gedetailleerdetoetspervakfaalkansrInfo = new RepoItemInfo(this, "GedetailleerdeToetsPerVakFaalkansR", "row[@accessiblename='Row '+$rowIndexNumber]/cell[@accessiblename>'Gedetailleerde toets per vakfaalkans Row ']", 30000, null, "a641d0c3-927e-4d5c-8c7f-5164b18f8462");
+                _gedetailleerdetoetspervakfaalkansrInfo = new RepoItemInfo(this, "GedetailleerdeToetsPerVakFaalkansR", "row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename>'Gedetailleerde toets per vakfaalkans Row ']", 30000, null, "a641d0c3-927e-4d5c-8c7f-5164b18f8462");
             }
 
             /// <summary>
