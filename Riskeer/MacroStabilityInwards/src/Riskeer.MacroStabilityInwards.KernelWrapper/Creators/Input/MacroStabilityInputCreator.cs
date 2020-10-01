@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2019. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2019. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -266,14 +266,14 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
             SoilProfile soilProfile,
             Waternet waternet,
             List<FixedSoilStress> fixedSoilStresses = null,
-            List<KernelPreconsolidationStress> preConsolidationStresses = null)
+            List<KernelPreconsolidationStress> preconsolidationStresses = null)
         {
             return new ConstructionStage
             {
                 SoilProfile = soilProfile,
                 Waternet = waternet,
                 FixedSoilStresses = fixedSoilStresses ?? new List<FixedSoilStress>(),
-                PreconsolidationStresses = preConsolidationStresses ?? new List<KernelPreconsolidationStress>(),
+                PreconsolidationStresses = preconsolidationStresses ?? new List<KernelPreconsolidationStress>(),
                 MultiplicationFactorsCPhiForUplift =
                 {
                     new MultiplicationFactorsCPhiForUplift

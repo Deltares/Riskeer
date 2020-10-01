@@ -81,10 +81,10 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernels.Upli
         public void Compare_SameInstance_ReturnZero()
         {
             // Setup
-            var preConsolidationStress = new PreconsolidationStress();
+            var preconsolidationStress = new PreconsolidationStress();
 
             // Call
-            int result = new PreconsolidationStressComparer().Compare(preConsolidationStress, preConsolidationStress);
+            int result = new PreconsolidationStressComparer().Compare(preconsolidationStress, preconsolidationStress);
 
             // Assert
             Assert.AreEqual(0, result);
@@ -96,19 +96,19 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernels.Upli
             // Setup
             const double stressValue = 8.4;
             var point = new Point2D(2.01, 40.486);
-            var preConsolidationStress1 = new PreconsolidationStress
+            var preconsolidationStress1 = new PreconsolidationStress
             {
                 StressValue = stressValue,
                 Point = point
             };
-            var preConsolidationStress2 = new PreconsolidationStress
+            var preconsolidationStress2 = new PreconsolidationStress
             {
                 StressValue = stressValue,
                 Point = point
             };
 
             // Call
-            int result = new PreconsolidationStressComparer().Compare(preConsolidationStress1, preConsolidationStress2);
+            int result = new PreconsolidationStressComparer().Compare(preconsolidationStress1, preconsolidationStress2);
 
             // Assert
             Assert.AreEqual(0, result);
@@ -120,19 +120,19 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernels.Upli
             // Setup
             const double stressValue = 8.4;
             var point = new Point2D(2.01, 40.486);
-            var preConsolidationStress1 = new PreconsolidationStress
+            var preconsolidationStress1 = new PreconsolidationStress
             {
                 StressValue = stressValue,
                 Point = point
             };
-            var preConsolidationStress2 = new PreconsolidationStress
+            var preconsolidationStress2 = new PreconsolidationStress
             {
                 StressValue = 16.8,
                 Point = point
             };
 
             // Call
-            int result = new PreconsolidationStressComparer().Compare(preConsolidationStress1, preConsolidationStress2);
+            int result = new PreconsolidationStressComparer().Compare(preconsolidationStress1, preconsolidationStress2);
 
             // Assert
             Assert.AreEqual(1, result);
@@ -144,19 +144,19 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernels.Upli
             // Setup
             const double stressValue = 8.4;
             const double z = 40.486;
-            var preConsolidationStress1 = new PreconsolidationStress
+            var preconsolidationStress1 = new PreconsolidationStress
             {
                 StressValue = stressValue,
                 Point = new Point2D(2.01, z)
             };
-            var preConsolidationStress2 = new PreconsolidationStress
+            var preconsolidationStress2 = new PreconsolidationStress
             {
                 StressValue = stressValue,
                 Point = new Point2D(18.78, z)
             };
 
             // Call
-            int result = new PreconsolidationStressComparer().Compare(preConsolidationStress1, preConsolidationStress2);
+            int result = new PreconsolidationStressComparer().Compare(preconsolidationStress1, preconsolidationStress2);
 
             // Assert
             Assert.AreEqual(1, result);
@@ -168,19 +168,19 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernels.Upli
             // Setup
             const double stressValue = 8.4;
             const double x = 2.01;
-            var preConsolidationStress1 = new PreconsolidationStress
+            var preconsolidationStress1 = new PreconsolidationStress
             {
                 StressValue = stressValue,
                 Point = new Point2D(x, 40.486)
             };
-            var preConsolidationStress2 = new PreconsolidationStress
+            var preconsolidationStress2 = new PreconsolidationStress
             {
                 StressValue = stressValue,
                 Point = new Point2D(x, 40.487)
             };
 
             // Call
-            int result = new PreconsolidationStressComparer().Compare(preConsolidationStress1, preConsolidationStress2);
+            int result = new PreconsolidationStressComparer().Compare(preconsolidationStress1, preconsolidationStress2);
 
             // Assert
             Assert.AreEqual(1, result);
