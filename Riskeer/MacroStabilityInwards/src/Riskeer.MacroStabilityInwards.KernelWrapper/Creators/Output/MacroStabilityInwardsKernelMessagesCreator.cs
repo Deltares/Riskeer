@@ -36,7 +36,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Output
         /// Creates an <see cref="IEnumerable{T}"/> of <see cref="MacroStabilityInwardsKernelMessage"/> 
         /// based on the <see cref="Message"/> given in the <paramref name="messages"/>.
         /// </summary>
-        /// <param name="messages">The messages to create the Uplift Van kernel messages for.</param>
+        /// <param name="messages">The messages to create the MacrostabilityInwards kernel messages for.</param>
         /// <returns>A new <see cref="IEnumerable{T}"/> of <see cref="MacroStabilityInwardsKernelMessage"/> with information
         /// taken from the <paramref name="messages"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="messages"/>
@@ -74,7 +74,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Output
 
         private static MacroStabilityInwardsKernelMessage CreateMessage(MacroStabilityInwardsKernelMessageType type, string message)
         {
-            return new MacroStabilityInwardsKernelMessage(type, message ?? Resources.UpliftVanKernelMessagesCreator_Create_Unknown);
+            return new MacroStabilityInwardsKernelMessage(type, message ?? Resources.MacroStabilityInwardsKernelMessagesCreator_Create_Unknown);
         }
     }
 }

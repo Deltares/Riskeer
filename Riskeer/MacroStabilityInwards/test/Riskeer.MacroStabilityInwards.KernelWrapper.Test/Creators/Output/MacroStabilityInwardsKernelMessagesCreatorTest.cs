@@ -44,7 +44,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Output
         }
 
         [Test]
-        public void Create_WithMessages_ReturnOnlyWarningAndErrorUpliftVanKernelMessages()
+        public void Create_WithMessages_ReturnOnlyWarningAndErrorMacroStabilityInwardsKernelMessages()
         {
             // Setup
             Message[] logMessages =
@@ -69,7 +69,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Output
         }
 
         [Test]
-        public void Create_MessageTextNull_ReturnsUpliftVanKernelMessageWithUnknownText()
+        public void Create_MessageTextNull_ReturnsMacroStabilityInwardsKernelMessageWithUnknownText()
         {
             // Setup
             Message[] logMessages =

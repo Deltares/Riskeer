@@ -52,27 +52,27 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Output
             var phreaticLineLookup = new Dictionary<HeadLine, WaternetPhreaticLineResult>
             {
                 {
-                    waternet.PhreaticLine, CreatePhreaticLine(waternet.PhreaticLine)
+                    waternet.PhreaticLine, CreatePhreaticLineResult(waternet.PhreaticLine)
                 }
             };
             foreach (HeadLine headLine in waternet.HeadLines)
             {
-                phreaticLineLookup.Add(headLine, CreatePhreaticLine(headLine));
+                phreaticLineLookup.Add(headLine, CreatePhreaticLineResult(headLine));
             }
 
             return new WaternetCalculatorResult(phreaticLineLookup.Values,
-                                                waternet.ReferenceLines.Select(wl => CreateWaternetLine(wl, phreaticLineLookup)).ToArray());
+                                                waternet.ReferenceLines.Select(wl => CreateWaternetLineResult(wl, phreaticLineLookup)).ToArray());
         }
 
-        private static WaternetLineResult CreateWaternetLine(ReferenceLine waternetLine,
-                                                             IDictionary<HeadLine, WaternetPhreaticLineResult> phreaticLines)
+        private static WaternetLineResult CreateWaternetLineResult(ReferenceLine waternetLine,
+                                                                   IDictionary<HeadLine, WaternetPhreaticLineResult> phreaticLines)
         {
             return new WaternetLineResult(waternetLine.Name,
                                           waternetLine.Points.Select(p => new Point2D(p.X, p.Z)).ToArray(),
                                           phreaticLines[waternetLine.AssociatedHeadLine]);
         }
 
-        private static WaternetPhreaticLineResult CreatePhreaticLine(HeadLine phreaticLine)
+        private static WaternetPhreaticLineResult CreatePhreaticLineResult(HeadLine phreaticLine)
         {
             return new WaternetPhreaticLineResult(phreaticLine.Name,
                                                   phreaticLine.Points.Select(p => new Point2D(p.X, p.Z)).ToArray());

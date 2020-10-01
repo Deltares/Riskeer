@@ -77,10 +77,10 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Output
             return slidingCurveSlices.Select(
                 slice =>
                     new UpliftVanSliceResult(
-                        ToRiskeerPoint2D(slice.TopLeftPoint),
-                        ToRiskeerPoint2D(slice.TopRightPoint),
-                        ToRiskeerPoint2D(slice.BottomLeftPoint),
-                        ToRiskeerPoint2D(slice.BottomRightPoint),
+                        ToPoint2D(slice.TopLeftPoint),
+                        ToPoint2D(slice.TopRightPoint),
+                        ToPoint2D(slice.BottomLeftPoint),
+                        ToPoint2D(slice.BottomRightPoint),
                         new UpliftVanSliceResult.ConstructionProperties
                         {
                             Cohesion = slice.Cohesion,
@@ -115,7 +115,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Output
                         })).ToArray();
         }
 
-        private static Point2D ToRiskeerPoint2D(CSharpWrapperPoint2D point)
+        private static Point2D ToPoint2D(CSharpWrapperPoint2D point)
         {
             return new Point2D(point.X, point.Z);
         }
