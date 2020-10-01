@@ -235,7 +235,6 @@ namespace Riskeer.MacroStabilityInwards.Service
             return new UpliftVanCalculatorInput(
                 new UpliftVanCalculatorInput.ConstructionProperties
                 {
-                    WaternetCreationMode = WaternetCreationMode.CreateWaternet,
                     PlLineCreationMethod = PlLineCreationMethod.RingtoetsWti2017,
                     AssessmentLevel = effectiveAssessmentLevel,
                     SurfaceLine = inputParameters.SurfaceLine,

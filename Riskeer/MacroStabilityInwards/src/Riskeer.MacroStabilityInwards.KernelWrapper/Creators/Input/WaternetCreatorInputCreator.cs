@@ -23,7 +23,6 @@ using System;
 using System.ComponentModel;
 using Deltares.MacroStability.CSharpWrapper;
 using Deltares.MacroStability.CSharpWrapper.Input;
-using Deltares.MacroStability.WaternetCreator;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Input;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.Waternet;
 
@@ -41,11 +40,9 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
         /// <param name="input">The <see cref="WaternetCalculatorInput"/> to get the information from.</param>
         /// <returns>A new <see cref="WaternetCreatorInput"/> with the given information from <paramref name="input"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="input"/> is <c>null</c>.</exception>
-        /// <exception cref="InvalidEnumArgumentException">Thrown when <see cref="WaternetCalculatorInput.DikeSoilScenario"/>,
-        /// <see cref="WaternetCalculatorInput.WaternetCreationMode"/> or <see cref="WaternetCalculatorInput.PlLineCreationMethod"/>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <see cref="WaternetCalculatorInput.DikeSoilScenario"/>
         /// is an invalid value.</exception>
-        /// <exception cref="NotSupportedException">Thrown when <see cref="WaternetCalculatorInput.DikeSoilScenario"/>,
-        /// <see cref="WaternetCalculatorInput.WaternetCreationMode"/> or <see cref="WaternetCalculatorInput.PlLineCreationMethod"/>
+        /// <exception cref="NotSupportedException">Thrown when <see cref="WaternetCalculatorInput.DikeSoilScenario"/>
         /// is a valid value, but unsupported.</exception>
         public static WaternetCreatorInput Create(WaternetCalculatorInput input)
         {

@@ -821,7 +821,6 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
             CalculatorInputAssert.AssertPhreaticLineOffsets(originalInput.LocationInputDaily, actualInput.PhreaticLineOffsetsDaily);
             AssertSlipPlaneInput(originalInput, actualInput.SlipPlane);
             AssertSlipPlaneConstraints(originalInput, actualInput.SlipPlaneConstraints);
-            Assert.AreEqual(WaternetCreationMode.CreateWaternet, actualInput.WaternetCreationMode);
             Assert.AreEqual(PlLineCreationMethod.RingtoetsWti2017, actualInput.PlLineCreationMethod);
             Assert.AreSame(originalInput.SurfaceLine, actualInput.SurfaceLine);
             Assert.AreEqual(expectedAssessmentLevel, actualInput.AssessmentLevel);

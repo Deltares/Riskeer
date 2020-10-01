@@ -83,7 +83,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Inpu
                 throw new ArgumentException("SlipPlane must be set.");
             }
 
-            WaternetCreationMode = properties.WaternetCreationMode;
             PlLineCreationMethod = properties.PlLineCreationMethod;
             AssessmentLevel = properties.AssessmentLevel;
             SurfaceLine = properties.SurfaceLine;
@@ -122,7 +121,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Inpu
             /// </summary>
             public ConstructionProperties()
             {
-                WaternetCreationMode = WaternetCreationMode.CreateWaternet;
                 PlLineCreationMethod = PlLineCreationMethod.RingtoetsWti2017;
                 AssessmentLevel = double.NaN;
                 WaterLevelRiverAverage = double.NaN;
@@ -143,11 +141,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Inpu
             }
 
             #region Properties
-
-            /// <summary>
-            /// Gets or sets the waternet creation mode.
-            /// </summary>
-            public WaternetCreationMode WaternetCreationMode { internal get; set; }
 
             /// <summary>
             /// Gets or sets the pl line creation method.
@@ -298,11 +291,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Inpu
         }
 
         #region Properties
-
-        /// <summary>
-        /// Gets the waternet creation mode.
-        /// </summary>
-        public WaternetCreationMode WaternetCreationMode { get; }
 
         /// <summary>
         /// Gets the pl line creation method.

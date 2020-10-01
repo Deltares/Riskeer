@@ -383,7 +383,6 @@ namespace Riskeer.MacroStabilityInwards.CalculatedInput.Test
         {
             CalculatorInputAssert.AssertSoilProfile(originalInput.SoilProfileUnderSurfaceLine, actualInput.SoilProfile);
             CalculatorInputAssert.AssertDrainageConstruction(originalInput, actualInput.DrainageConstruction);
-            Assert.AreEqual(WaternetCreationMode.CreateWaternet, actualInput.WaternetCreationMode);
             Assert.AreEqual(PlLineCreationMethod.RingtoetsWti2017, actualInput.PlLineCreationMethod);
             Assert.AreSame(originalInput.SurfaceLine, actualInput.SurfaceLine);
             Assert.AreEqual(originalInput.DikeSoilScenario, actualInput.DikeSoilScenario);

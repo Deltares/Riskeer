@@ -55,7 +55,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.Waternet.
             var drainageConstruction = new DrainageConstruction();
             var phreaticLineOffsets = new PhreaticLineOffsets();
 
-            var waternetCreationMode = random.NextEnumValue<WaternetCreationMode>();
             var plLineCreationMethod = random.NextEnumValue<PlLineCreationMethod>();
             double waterLevelRiverAverage = random.NextDouble();
             double waterLevelPolder = random.NextDouble();
@@ -75,7 +74,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.Waternet.
             var input = new WaternetCalculatorInput(
                 new WaternetCalculatorInput.ConstructionProperties
                 {
-                    WaternetCreationMode = waternetCreationMode,
                     PlLineCreationMethod = plLineCreationMethod,
                     AssessmentLevel = assessmentLevel,
                     SurfaceLine = surfaceLine,
@@ -98,7 +96,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.Waternet.
                 });
 
             // Assert
-            Assert.AreEqual(waternetCreationMode, input.WaternetCreationMode);
             Assert.AreEqual(plLineCreationMethod, input.PlLineCreationMethod);
             Assert.AreEqual(assessmentLevel, input.AssessmentLevel);
             Assert.AreSame(surfaceLine, input.SurfaceLine);
@@ -156,7 +153,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.Waternet.
             Assert.IsNaN(input.PenetrationLength);
             Assert.IsFalse(input.AdjustPhreaticLine3And4ForUplift);
 
-            Assert.AreEqual(WaternetCreationMode.CreateWaternet, input.WaternetCreationMode);
             Assert.AreEqual(PlLineCreationMethod.RingtoetsWti2017, input.PlLineCreationMethod);
             Assert.AreEqual(MacroStabilityInwardsDikeSoilScenario.ClayDikeOnClay, input.DikeSoilScenario);
         }
@@ -165,8 +161,8 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.Waternet.
         public void Constructor_SurfaceLineNull_ThrowsArgumentException()
         {
             // Call
-            TestDelegate test = () => new WaternetCalculatorInput(
-                new WaternetCalculatorInput.ConstructionProperties
+            void Call() =>
+                new WaternetCalculatorInput(new WaternetCalculatorInput.ConstructionProperties
                 {
                     SoilProfile = new TestSoilProfile(),
                     PhreaticLineOffsets = new PhreaticLineOffsets(),
@@ -174,15 +170,15 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.Waternet.
                 });
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, "SurfaceLine must be set.");
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(Call, "SurfaceLine must be set.");
         }
 
         [Test]
         public void Constructor_SoilProfileNull_ThrowsArgumentException()
         {
             // Call
-            TestDelegate test = () => new WaternetCalculatorInput(
-                new WaternetCalculatorInput.ConstructionProperties
+            void Call() =>
+                new WaternetCalculatorInput(new WaternetCalculatorInput.ConstructionProperties
                 {
                     SurfaceLine = new MacroStabilityInwardsSurfaceLine("test"),
                     PhreaticLineOffsets = new PhreaticLineOffsets(),
@@ -190,15 +186,15 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.Waternet.
                 });
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, "SoilProfile must be set.");
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(Call, "SoilProfile must be set.");
         }
 
         [Test]
         public void Constructor_DrainageConstructionNull_ThrowsArgumentException()
         {
             // Call
-            TestDelegate test = () => new WaternetCalculatorInput(
-                new WaternetCalculatorInput.ConstructionProperties
+            void Call() =>
+                new WaternetCalculatorInput(new WaternetCalculatorInput.ConstructionProperties
                 {
                     SoilProfile = new TestSoilProfile(),
                     SurfaceLine = new MacroStabilityInwardsSurfaceLine("test"),
@@ -206,15 +202,15 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.Waternet.
                 });
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, "DrainageConstruction must be set.");
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(Call, "DrainageConstruction must be set.");
         }
 
         [Test]
         public void Constructor_PhreaticLineOffsetsNull_ThrowsArgumentException()
         {
             // Call
-            TestDelegate test = () => new WaternetCalculatorInput(
-                new WaternetCalculatorInput.ConstructionProperties
+            void Call() =>
+                new WaternetCalculatorInput(new WaternetCalculatorInput.ConstructionProperties
                 {
                     SoilProfile = new TestSoilProfile(),
                     SurfaceLine = new MacroStabilityInwardsSurfaceLine("test"),
@@ -222,7 +218,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.Waternet.
                 });
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, "PhreaticLineOffsets must be set.");
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(Call, "PhreaticLineOffsets must be set.");
         }
     }
 }
