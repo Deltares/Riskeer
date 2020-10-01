@@ -1005,7 +1005,8 @@ namespace AutomatedSystemTests
         public partial class TableDataGridViewFolder : RepoGenBaseFolder
         {
             RepoItemInfo _eenvoudigetoetsvak12_2_00000Info;
-            RepoItemInfo _eenvoudigetoetsrow0Info;
+            RepoItemInfo _eenvoudigetoetsrownthInfo;
+            RepoItemInfo _gedetaileerdetoetsrownthInfo;
 
             /// <summary>
             /// Creates a new TableDataGridView  folder.
@@ -1014,7 +1015,8 @@ namespace AutomatedSystemTests
                     base("TableDataGridView", "container/table[@controlname='dataGridView']", parentFolder, 30000, null, true, "6eb41290-65e9-4393-9e14-584a8ed6c564", "")
             {
                 _eenvoudigetoetsvak12_2_00000Info = new RepoItemInfo(this, "EenvoudigeToetsVak12_2_00000", "row/cell[@accessiblename>'Vak' and @text='12_2_00000']/../cell[@accessiblename>'Eenvoudige']", 30000, null, "892f29d9-c365-437c-91bd-7720a612cf0c");
-                _eenvoudigetoetsrow0Info = new RepoItemInfo(this, "EenvoudigeToetsRow0", "row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename='Eenvoudige toets Row '+$rowIndex]", 30000, null, "78777803-f3ba-489a-8aa8-3ad795fbe569");
+                _eenvoudigetoetsrownthInfo = new RepoItemInfo(this, "EenvoudigeToetsRowNth", "row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename='Eenvoudige toets Row '+$rowIndex]", 30000, null, "78777803-f3ba-489a-8aa8-3ad795fbe569");
+                _gedetaileerdetoetsrownthInfo = new RepoItemInfo(this, "GedetaileerdeToetsRowNth", "row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename='Gedetailleerde toets per vak Row '+$rowIndex]", 30000, null, "65e328b8-068a-4b37-a2d7-cb220911d1fe");
             }
 
             /// <summary>
@@ -1066,26 +1068,50 @@ namespace AutomatedSystemTests
             }
 
             /// <summary>
-            /// The EenvoudigeToetsRow0 item.
+            /// The EenvoudigeToetsRowNth item.
             /// </summary>
             [RepositoryItem("78777803-f3ba-489a-8aa8-3ad795fbe569")]
-            public virtual Ranorex.Cell EenvoudigeToetsRow0
+            public virtual Ranorex.Cell EenvoudigeToetsRowNth
             {
                 get
                 {
-                    return _eenvoudigetoetsrow0Info.CreateAdapter<Ranorex.Cell>(true);
+                    return _eenvoudigetoetsrownthInfo.CreateAdapter<Ranorex.Cell>(true);
                 }
             }
 
             /// <summary>
-            /// The EenvoudigeToetsRow0 item info.
+            /// The EenvoudigeToetsRowNth item info.
             /// </summary>
             [RepositoryItemInfo("78777803-f3ba-489a-8aa8-3ad795fbe569")]
-            public virtual RepoItemInfo EenvoudigeToetsRow0Info
+            public virtual RepoItemInfo EenvoudigeToetsRowNthInfo
             {
                 get
                 {
-                    return _eenvoudigetoetsrow0Info;
+                    return _eenvoudigetoetsrownthInfo;
+                }
+            }
+
+            /// <summary>
+            /// The GedetaileerdeToetsRowNth item.
+            /// </summary>
+            [RepositoryItem("65e328b8-068a-4b37-a2d7-cb220911d1fe")]
+            public virtual Ranorex.Cell GedetaileerdeToetsRowNth
+            {
+                get
+                {
+                    return _gedetaileerdetoetsrownthInfo.CreateAdapter<Ranorex.Cell>(true);
+                }
+            }
+
+            /// <summary>
+            /// The GedetaileerdeToetsRowNth item info.
+            /// </summary>
+            [RepositoryItemInfo("65e328b8-068a-4b37-a2d7-cb220911d1fe")]
+            public virtual RepoItemInfo GedetaileerdeToetsRowNthInfo
+            {
+                get
+                {
+                    return _gedetaileerdetoetsrownthInfo;
                 }
             }
         }

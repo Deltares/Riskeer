@@ -24,30 +24,29 @@ namespace AutomatedSystemTests
 {
 #pragma warning disable 0436 //(CS0436) The type 'type' in 'assembly' conflicts with the imported type 'type2' in 'assembly'. Using the type defined in 'assembly'.
     /// <summary>
-    ///The SelectSimpleAssessmentForRow recording.
+    ///The SelectDetailedAssessmentForRow recording.
     /// </summary>
-    [TestModule("e0d85a11-9622-402c-937d-fefa962c3394", ModuleType.Recording, 1)]
-    public partial class SelectSimpleAssessmentForRow : ITestModule
+    [TestModule("30a2f45d-ee95-4cb0-9ee5-87d71ca20ca5", ModuleType.Recording, 1)]
+    public partial class SelectDetailedAssessmentForRow : ITestModule
     {
         /// <summary>
         /// Holds an instance of the AutomatedSystemTestsRepository repository.
         /// </summary>
         public static AutomatedSystemTestsRepository repo = AutomatedSystemTestsRepository.Instance;
 
-        static SelectSimpleAssessmentForRow instance = new SelectSimpleAssessmentForRow();
+        static SelectDetailedAssessmentForRow instance = new SelectDetailedAssessmentForRow();
 
         /// <summary>
         /// Constructs a new instance.
         /// </summary>
-        public SelectSimpleAssessmentForRow()
+        public SelectDetailedAssessmentForRow()
         {
-            rowIndex = "";
         }
 
         /// <summary>
         /// Gets a static instance of this recording.
         /// </summary>
-        public static SelectSimpleAssessmentForRow Instance
+        public static SelectDetailedAssessmentForRow Instance
         {
             get { return instance; }
         }
@@ -57,7 +56,7 @@ namespace AutomatedSystemTests
         /// <summary>
         /// Gets or sets the value of variable rowIndex.
         /// </summary>
-        [TestVariable("d576037a-032a-4fa3-b9a8-9944503b34d3")]
+        [TestVariable("3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0")]
         public string rowIndex
         {
             get { return repo.rowIndex; }
@@ -94,29 +93,23 @@ namespace AutomatedSystemTests
         [System.CodeDom.Compiler.GeneratedCode("Ranorex", global::Ranorex.Core.Constants.CodeGenVersion)]
         void ITestModule.Run()
         {
-            Mouse.DefaultMoveTime = 0;
+            Mouse.DefaultMoveTime = 300;
             Keyboard.DefaultKeyPressTime = 20;
-            Delay.SpeedFactor = 0.00;
+            Delay.SpeedFactor = 1.00;
 
             Init();
 
-            //Report.Log(ReportLevel.Info, "Invoke action", "Invoking Focus() on item 'RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.EenvoudigeToetsVak12_2_00000'.", repo.RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.EenvoudigeToetsVak12_2_00000Info, new RecordItemIndex(0));
-            //repo.RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.EenvoudigeToetsVak12_2_00000.Focus();
+            Report.Log(ReportLevel.Info, "Invoke action", "Invoking Focus() on item 'RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.GedetaileerdeToetsRowNth'.", repo.RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.GedetaileerdeToetsRowNthInfo, new RecordItemIndex(0));
+            repo.RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.GedetaileerdeToetsRowNth.Focus();
+            Delay.Milliseconds(0);
             
-            //Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.EenvoudigeToetsVak12_2_00000' at CenterRight.", repo.RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.EenvoudigeToetsVak12_2_00000Info, new RecordItemIndex(1));
-            //repo.RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.EenvoudigeToetsVak12_2_00000.Click(Location.CenterRight);
+            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.GedetaileerdeToetsRowNth' at CenterRight.", repo.RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.GedetaileerdeToetsRowNthInfo, new RecordItemIndex(1));
+            repo.RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.GedetaileerdeToetsRowNth.Click(Location.CenterRight);
+            Delay.Milliseconds(0);
             
-            //Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'DropDownMenuItemList.ListItemVB' at Center.", repo.DropDownMenuItemList.ListItemVBInfo, new RecordItemIndex(2));
-            //repo.DropDownMenuItemList.ListItemVB.Click();
-            
-            Report.Log(ReportLevel.Info, "Invoke action", "Invoking Focus() on item 'RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.EenvoudigeToetsRowNth'.", repo.RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.EenvoudigeToetsRowNthInfo, new RecordItemIndex(3));
-            repo.RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.EenvoudigeToetsRowNth.Focus();
-            
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.EenvoudigeToetsRowNth' at CenterRight.", repo.RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.EenvoudigeToetsRowNthInfo, new RecordItemIndex(4));
-            repo.RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.EenvoudigeToetsRowNth.Click(Location.CenterRight);
-            
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'DropDownMenuItemList.GenericDropDownItem' at Center.", repo.DropDownMenuItemList.GenericDropDownItemInfo, new RecordItemIndex(5));
+            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'DropDownMenuItemList.GenericDropDownItem' at Center.", repo.DropDownMenuItemList.GenericDropDownItemInfo, new RecordItemIndex(2));
             repo.DropDownMenuItemList.GenericDropDownItem.Click();
+            Delay.Milliseconds(0);
             
         }
 
