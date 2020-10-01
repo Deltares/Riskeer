@@ -2,7 +2,7 @@
   <PropertyGroup>
     <TestProjectType>UnitTest</TestProjectType>
     <OutDir>$(OutputPath)</OutDir>
-    <OutputPath>$(SolutionDir)\bin\$(Configuration)\Test\Built-in\Managed\Core</OutputPath>
+    <OutputPath>$(SolutionDir)\bin\$(Configuration)\Test</OutputPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseForCodeCoverage|x86'">
     <DebugType>none</DebugType>
