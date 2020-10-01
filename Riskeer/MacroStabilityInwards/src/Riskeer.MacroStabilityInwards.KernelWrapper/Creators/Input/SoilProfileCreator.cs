@@ -38,7 +38,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
         /// </summary>
         /// <param name="layersWithSoil">The layer data to use in the <see cref="SoilProfile"/>.</param>
         /// <returns>A new <see cref="SoilProfile"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="layersWithSoil"/> is <c>null</c>.</exception>
         public static SoilProfile Create(IEnumerable<LayerWithSoil> layersWithSoil)
         {
             if (layersWithSoil == null)

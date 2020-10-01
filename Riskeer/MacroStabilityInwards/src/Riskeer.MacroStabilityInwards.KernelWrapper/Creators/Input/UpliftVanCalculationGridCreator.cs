@@ -46,30 +46,30 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
                 throw new ArgumentNullException(nameof(slipPlane));
             }
 
-            var kernelSlipPlane = new UpliftVanCalculationGrid
+            var upliftVanCalculationGrid = new UpliftVanCalculationGrid
             {
                 LeftGrid = CreateGrid(slipPlane, slipPlane.LeftGrid),
                 RightGrid = CreateGrid(slipPlane, slipPlane.RightGrid)
             };
 
-            return kernelSlipPlane;
+            return upliftVanCalculationGrid;
         }
 
         private static CalculationGrid CreateGrid(UpliftVanSlipPlane slipPlane, UpliftVanGrid grid)
         {
-            var slipCircleGrid = new CalculationGrid();
+            var calculationGrid = new CalculationGrid();
 
             if (!slipPlane.GridAutomaticDetermined)
             {
-                slipCircleGrid.GridXLeft = grid.XLeft;
-                slipCircleGrid.GridXRight = grid.XRight;
-                slipCircleGrid.GridZTop = grid.ZTop;
-                slipCircleGrid.GridZBottom = grid.ZBottom;
-                slipCircleGrid.GridXNumber = grid.NumberOfHorizontalPoints;
-                slipCircleGrid.GridZNumber = grid.NumberOfVerticalPoints;
+                calculationGrid.GridXLeft = grid.XLeft;
+                calculationGrid.GridXRight = grid.XRight;
+                calculationGrid.GridZTop = grid.ZTop;
+                calculationGrid.GridZBottom = grid.ZBottom;
+                calculationGrid.GridXNumber = grid.NumberOfHorizontalPoints;
+                calculationGrid.GridZNumber = grid.NumberOfVerticalPoints;
             }
 
-            return slipCircleGrid;
+            return calculationGrid;
         }
     }
 }
