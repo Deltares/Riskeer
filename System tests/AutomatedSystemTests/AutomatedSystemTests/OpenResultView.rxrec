@@ -117,6 +117,26 @@ mode="Global">
 				</argument>
 			</arguments>
 		</userrecorditem>
+		<loggingrecorditem
+		action="Screenshot"
+		category="User"
+		enabled="True"
+		message=""
+		optional="False"
+		reportlevel="Info;20"
+		searchpropertyid="d07ddf2f-85ea-4379-9420-e067f482ea68">
+			<comment>
+			</comment>
+			<bindings>
+			</bindings>
+			<info
+			id="78b3cba4-3858-49b9-8809-b7f79f03aa5c"
+			sourcename="RepositoryEditor">
+				<path>
+					/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']
+				</path>
+			</info>
+		</loggingrecorditem>
 	</recorditems>
 	<repository
 	id="137723a5-e147-4b62-8c15-5c31a3d68f96"

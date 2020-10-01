@@ -24,53 +24,56 @@ namespace AutomatedSystemTests
 {
 #pragma warning disable 0436 //(CS0436) The type 'type' in 'assembly' conflicts with the imported type 'type2' in 'assembly'. Using the type defined in 'assembly'.
     /// <summary>
-    ///The OpenResultView recording.
+    ///The ValidateDetailedAssessmentAtRow recording.
     /// </summary>
-    [TestModule("14b19856-facd-4b69-82b3-b7f678560774", ModuleType.Recording, 1)]
-    public partial class OpenResultView : ITestModule
+    [TestModule("91919928-72e3-45e3-8af5-a51f8db749e3", ModuleType.Recording, 1)]
+    public partial class ValidateDetailedAssessmentAtRow : ITestModule
     {
         /// <summary>
         /// Holds an instance of the AutomatedSystemTestsRepository repository.
         /// </summary>
         public static AutomatedSystemTestsRepository repo = AutomatedSystemTestsRepository.Instance;
 
-        static OpenResultView instance = new OpenResultView();
+        static ValidateDetailedAssessmentAtRow instance = new ValidateDetailedAssessmentAtRow();
 
         /// <summary>
         /// Constructs a new instance.
         /// </summary>
-        public OpenResultView()
+        public ValidateDetailedAssessmentAtRow()
         {
+            expectedDetailedAssessmentCellValue = "";
         }
 
         /// <summary>
         /// Gets a static instance of this recording.
         /// </summary>
-        public static OpenResultView Instance
+        public static ValidateDetailedAssessmentAtRow Instance
         {
             get { return instance; }
         }
 
 #region Variables
 
+        string _expectedDetailedAssessmentCellValue;
+
         /// <summary>
-        /// Gets or sets the value of variable substringTrajectName.
+        /// Gets or sets the value of variable expectedDetailedAssessmentCellValue.
         /// </summary>
-        [TestVariable("77ae6c27-603e-4704-add9-e1249169f0e5")]
-        public string substringTrajectName
+        [TestVariable("79d7d1d0-a157-4326-954d-9ee0a7bbe710")]
+        public string expectedDetailedAssessmentCellValue
         {
-            get { return repo.substringTrajectName; }
-            set { repo.substringTrajectName = value; }
+            get { return _expectedDetailedAssessmentCellValue; }
+            set { _expectedDetailedAssessmentCellValue = value; }
         }
 
         /// <summary>
-        /// Gets or sets the value of variable substringItemName.
+        /// Gets or sets the value of variable rowIndexNumber.
         /// </summary>
-        [TestVariable("3a7276c1-fca1-4026-9d2e-5bac10651a47")]
-        public string substringItemName
+        [TestVariable("78d97b21-0313-4655-9f2d-4d37f9c41737")]
+        public string rowIndexNumber
         {
-            get { return repo.substringItemName; }
-            set { repo.substringItemName = value; }
+            get { return repo.rowIndexNumber; }
+            set { repo.rowIndexNumber = value; }
         }
 
 #endregion
@@ -99,19 +102,8 @@ namespace AutomatedSystemTests
 
             Init();
 
-            Report.Log(ReportLevel.Info, "Invoke action", "Invoking Focus() on item 'RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericItemWithSubstringInName'.", repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericItemWithSubstringInNameInfo, new RecordItemIndex(0));
-            repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericItemWithSubstringInName.Focus();
+            ValidateDetailedAssessmentCell(repo.RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.GedetailleerdeToetsPerVakFaalkansRInfo, expectedDetailedAssessmentCellValue);
             Delay.Milliseconds(0);
-            
-            ExpandNode(repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericItemWithSubstringInNameInfo);
-            Delay.Milliseconds(0);
-            
-            try {
-                OpenResultViewIfFMIsRelevant(repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericItemWithSubstringInNameInfo, "Oordeel");
-                Delay.Milliseconds(0);
-            } catch(Exception ex) { Report.Log(ReportLevel.Warn, "Module", "(Optional Action) " + ex.Message, new RecordItemIndex(2)); }
-            
-            Report.Screenshot(ReportLevel.Info, "User", "", repo.RiskeerMainWindow.DocumentViewContainer.Self, false, new RecordItemIndex(3));
             
         }
 

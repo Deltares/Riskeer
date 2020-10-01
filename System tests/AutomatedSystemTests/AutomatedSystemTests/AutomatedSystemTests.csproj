@@ -302,6 +302,18 @@
       <UserCode>true</UserCode>
       <id>f103591c-470f-43f6-9be6-e6eb74067b9c</id>
     </Compile>
+    <Compile Include="ValidateDetailedAssessmentAtRow.cs">
+      <BoundTo>bbfde277-5adf-4de7-a49e-e6822bc65f48</BoundTo>
+      <DependentUpon>ValidateDetailedAssessmentAtRow.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>8ef49bdd-b485-4f22-bb85-942be3a64b1b</id>
+    </Compile>
+    <Compile Include="ValidateDetailedAssessmentAtRow.UserCode.cs">
+      <BoundTo>bbfde277-5adf-4de7-a49e-e6822bc65f48</BoundTo>
+      <DependentUpon>ValidateDetailedAssessmentAtRow.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>8658e6ac-2879-4557-85a0-bb2867183791</id>
+    </Compile>
     <Compile Include="ValidateFMRelevanceInFMCView.cs">
       <BoundTo>4321a5dc-dff9-4a99-9273-baf97a3bf99f</BoundTo>
       <DependentUpon>ValidateFMRelevanceInFMCView.rxrec</DependentUpon>
@@ -423,6 +435,11 @@
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>8f7fe1fa-f1ef-4825-8e3a-6a13124b5fbc</id>
       <recordtableid>825ce2a6-cd3b-42f6-9972-8ced75f1a54f</recordtableid>
+    </None>
+    <None Include="ValidateDetailedAssessmentAtRow.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>bbfde277-5adf-4de7-a49e-e6822bc65f48</id>
+      <recordtableid>91919928-72e3-45e3-8af5-a51f8db749e3</recordtableid>
     </None>
     <None Include="ValidateFMRelevanceInFMCView.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>

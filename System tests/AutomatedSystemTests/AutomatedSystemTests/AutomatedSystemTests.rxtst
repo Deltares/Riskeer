@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <testsuitedoc>
 	<testsuiteentryhierarchy>
 		<flatlistofchildren>
@@ -101,16 +101,17 @@
 			name="LoopFMs">
 			</smartfoldernode>
 			<testmodule
+			id="0cc64991-03f6-4736-848c-6a48265de8c6"
+			name="ValidateDetailedAssessmentAtRow"
+			ref="91919928-72e3-45e3-8af5-a51f8db749e3"
+			type="Recording">
+			</testmodule>
+			<testmodule
 			id="144282ec-ff9c-4bb5-bf8b-b30904d6d370"
 			name="CloseViewCentralPanelWithFocus"
 			ref="3c2d44f5-31b5-4584-91c8-1ad748affc77"
 			type="Recording">
 			</testmodule>
-			<smartfoldernode
-			datasource="FMsInGroup1DetailedAssessment"
-			id="14c01ddd-fcc4-4b30-b370-aca7b3f44f86"
-			name="FMsGroup1">
-			</smartfoldernode>
 			<testmodule
 			id="187e60a8-1254-4993-bafe-c9c5e04aba0b"
 			name="OpenProject"
@@ -153,7 +154,7 @@
 			<smartfoldernode
 			datasource="simpleAssessmentGroup1"
 			id="1eff0053-015a-4ebc-aece-f2f6f630f6bc"
-			name="LoopSections">
+			name="LoopRows">
 			</smartfoldernode>
 			<smartfoldernode
 			datasource="relevance12_2FailureMechanismContributionView"
@@ -182,7 +183,7 @@
 			</testmodule>
 			<smartfoldernode
 			id="2688ac5e-e112-466c-aad3-9c8b60c1497f"
-			name="DetailedAssessmentFMsGroup1">
+			name="DetailedAssessmentFMsGroup1_STPH">
 			</smartfoldernode>
 			<testmodule
 			id="27ef79f2-a91d-4e27-b8b8-a204c65e7f3b"
@@ -234,6 +235,10 @@
 			datasource="relevance41_1ProjectExplorer"
 			id="2d9c2bbc-6e4e-40ed-9c8e-77df224c089a"
 			name="LoopFMs">
+			</smartfoldernode>
+			<smartfoldernode
+			id="2de34f6f-37d9-43ec-bb73-99701040ddeb"
+			name="ValidateDetailedAsssessmentPerSectionExists">
 			</smartfoldernode>
 			<testmodule
 			id="3039d6a4-5dde-44dd-801c-e0629eec29fd"
@@ -490,30 +495,16 @@
 			name="OpenResultView"
 			ref="14b19856-facd-4b69-82b3-b7f678560774"
 			type="Recording">
-				<databinding>
-					<var
-					dataname="trajectID"
-					datasourceid="8f20477d-a7a3-4a0d-9b87-260c551eac8a"
-					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
-					variablename="substringTrajectName">
-					</var>
-					<var
-					dataname="fmName"
-					datasourceid="8f20477d-a7a3-4a0d-9b87-260c551eac8a"
-					variableid="3a7276c1-fca1-4026-9d2e-5bac10651a47"
-					variablename="substringItemName">
-					</var>
-				</databinding>
 				<missingdatabinding>
 					<var
 					dataname="trajectID"
-					datasourceid="3b159b7c-719d-4e4a-bfa0-b75369cae6fd"
+					datasourceid="8f20477d-a7a3-4a0d-9b87-260c551eac8a"
 					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
 					variablename="substringTrajectName">
 					</var>
 					<var
 					dataname="fmName"
-					datasourceid="3b159b7c-719d-4e4a-bfa0-b75369cae6fd"
+					datasourceid="8f20477d-a7a3-4a0d-9b87-260c551eac8a"
 					variableid="3a7276c1-fca1-4026-9d2e-5bac10651a47"
 					variablename="substringItemName">
 					</var>
@@ -590,12 +581,12 @@
 			<smartfoldernode
 			datasource="detailedAssessmentGroup1"
 			id="84bb39d9-6d34-41e6-ba8f-a857cfdc5275"
-			name="LoopSections">
+			name="LoopRowsSelectDetailedAssessment">
 			</smartfoldernode>
 			<smartfoldernode
 			datasource="simpleAssessmentGroup2"
 			id="885b0dbd-85dc-44b0-9c04-06b382fd2158"
-			name="LoopSections">
+			name="LoopRows">
 			</smartfoldernode>
 			<smartfoldernode
 			datasource="listWithNamesFMs"
@@ -1127,6 +1118,7 @@
 				</databinding>
 			</testmodule>
 			<testmodule
+			enabled="False"
 			id="fccf685a-4685-4dca-8f14-211c2e207232"
 			name="CloseViewCentralPanelWithFocus"
 			ref="3c2d44f5-31b5-4584-91c8-1ad748affc77"
@@ -1422,7 +1414,7 @@
 								</testmodule>
 								<smartfoldernode
 								id="1eff0053-015a-4ebc-aece-f2f6f630f6bc"
-								name="LoopSections">
+								name="LoopRows">
 									<testmodule
 									id="b28e3b48-240b-45d5-8fcc-970856b2290a"
 									name="SelectSimpleAssessmentForRow">
@@ -1446,7 +1438,7 @@
 								</testmodule>
 								<smartfoldernode
 								id="885b0dbd-85dc-44b0-9c04-06b382fd2158"
-								name="LoopSections">
+								name="LoopRows">
 									<testmodule
 									id="724c49d9-885a-4c3c-ba29-55cf48848b1a"
 									name="SelectSimpleAssessmentForRow">
@@ -1484,27 +1476,31 @@
 						</smartfoldernode>
 						<smartfoldernode
 						id="2688ac5e-e112-466c-aad3-9c8b60c1497f"
-						name="DetailedAssessmentFMsGroup1">
+						name="DetailedAssessmentFMsGroup1_STPH">
+							<testmodule
+							id="6afaac90-e752-4f8e-ac88-67f8d2c944e1"
+							name="OpenResultView">
+							</testmodule>
 							<smartfoldernode
-							id="14c01ddd-fcc4-4b30-b370-aca7b3f44f86"
-							name="FMsGroup1">
+							id="2de34f6f-37d9-43ec-bb73-99701040ddeb"
+							name="ValidateDetailedAsssessmentPerSectionExists">
 								<testmodule
-								id="6afaac90-e752-4f8e-ac88-67f8d2c944e1"
-								name="OpenResultView">
-								</testmodule>
-								<smartfoldernode
-								id="84bb39d9-6d34-41e6-ba8f-a857cfdc5275"
-								name="LoopSections">
-									<testmodule
-									id="328383e3-e3fc-4be6-9787-baa30b524f66"
-									name="SelectDetailedAssessmentForRow">
-									</testmodule>
-								</smartfoldernode>
-								<testmodule
-								id="fccf685a-4685-4dca-8f14-211c2e207232"
-								name="CloseViewCentralPanelWithFocus">
+								id="0cc64991-03f6-4736-848c-6a48265de8c6"
+								name="ValidateDetailedAssessmentAtRow">
 								</testmodule>
 							</smartfoldernode>
+							<smartfoldernode
+							id="84bb39d9-6d34-41e6-ba8f-a857cfdc5275"
+							name="LoopRowsSelectDetailedAssessment">
+								<testmodule
+								id="328383e3-e3fc-4be6-9787-baa30b524f66"
+								name="SelectDetailedAssessmentForRow">
+								</testmodule>
+							</smartfoldernode>
+							<testmodule
+							id="fccf685a-4685-4dca-8f14-211c2e207232"
+							name="CloseViewCentralPanelWithFocus">
+							</testmodule>
 						</smartfoldernode>
 						<teardown
 						id="fe1f0dec-30d6-4abc-b123-d9b0e01f7bf6"
@@ -1941,19 +1937,31 @@
 			id="0cb3406e-9796-40ad-a9fc-964ae357d98d">
 			</testcontainer>
 			<testcontainer
-			id="14c01ddd-fcc4-4b30-b370-aca7b3f44f86">
+			id="1eff0053-015a-4ebc-aece-f2f6f630f6bc">
 			</testcontainer>
 			<testcontainer
 			id="2179672b-c6cc-4f03-8e2b-71ae42170951">
 			</testcontainer>
 			<testcontainer
-			id="2d9c2bbc-6e4e-40ed-9c8e-77df224c089a">
-			</testcontainer>
-			<testcontainer
 			id="2688ac5e-e112-466c-aad3-9c8b60c1497f">
 			</testcontainer>
 			<testcontainer
+			id="2d9c2bbc-6e4e-40ed-9c8e-77df224c089a">
+			</testcontainer>
+			<testcontainer
+			id="2de34f6f-37d9-43ec-bb73-99701040ddeb">
+			</testcontainer>
+			<testcontainer
 			id="33d7e485-8bdd-4286-9e35-8e1b4c29bb6e">
+			</testcontainer>
+			<testcontainer
+			id="3727343f-880f-4d7d-ace6-c59dbd92b57a">
+			</testcontainer>
+			<testcontainer
+			id="37c811fd-9297-4d92-b429-28a452540bf1">
+			</testcontainer>
+			<testcontainer
+			id="466ac64f-9a07-4a8a-82b8-3af12a998abc">
 			</testcontainer>
 			<testcontainer
 			id="4bb671b5-bd57-42fd-a72e-41482b3d1dbb">
@@ -1968,6 +1976,9 @@
 			id="716669cb-8d3f-4f98-a608-2311ffb07430">
 			</testcontainer>
 			<testcontainer
+			id="72139e5e-316f-4a54-9d52-75f865439dd6">
+			</testcontainer>
+			<testcontainer
 			id="78b7779b-7370-4e07-b1e4-d9a21ce890e1">
 			</testcontainer>
 			<testcontainer
@@ -1977,6 +1988,9 @@
 			id="84bb39d9-6d34-41e6-ba8f-a857cfdc5275">
 			</testcontainer>
 			<testcontainer
+			id="885b0dbd-85dc-44b0-9c04-06b382fd2158">
+			</testcontainer>
+			<testcontainer
 			id="921c41ea-9f72-4d4f-bfe2-a7f2f0365468">
 			</testcontainer>
 			<testcontainer
@@ -1984,6 +1998,9 @@
 			</testcontainer>
 			<testcontainer
 			id="9cb3bdde-1999-4bae-aa4e-6330208999d4">
+			</testcontainer>
+			<testcontainer
+			id="9e3ed5ce-9517-474f-81c6-435b0d1e38ac">
 			</testcontainer>
 			<testcontainer
 			id="9edfe01c-c130-4792-b0ab-0c91a3270f15">
@@ -2004,6 +2021,9 @@
 			id="c591cc54-d1fc-4c63-9aef-9320d59440f6">
 			</testcontainer>
 			<testcontainer
+			id="c634f880-0187-4e4a-9eed-0c396c788f3f">
+			</testcontainer>
+			<testcontainer
 			id="cc2e030a-2b7b-4d84-8519-e4b7ef42b414">
 			</testcontainer>
 			<testcontainer
@@ -2017,6 +2037,9 @@
 			</testcontainer>
 			<testcontainer
 			id="e1ff5697-2c1e-4010-85a0-6f45679d7f50">
+			</testcontainer>
+			<testcontainer
+			id="e756f312-1a93-4042-9200-8ee398806472">
 			</testcontainer>
 			<testcontainer
 			id="f16b204f-b66b-40a0-82c1-8d62dcbc8b22">

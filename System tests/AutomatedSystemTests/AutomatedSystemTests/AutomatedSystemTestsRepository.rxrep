@@ -233,6 +233,15 @@ name="AutomatedSystemTestsRepository">
 						searchtimeout="30000ms">
 							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename='Gedetailleerde toets per vak Row '+$rowIndex]
 						</item>
+						<item
+						addcaps="cell,accessible"
+						capname="cell"
+						id="a641d0c3-927e-4d5c-8c7f-5164b18f8462"
+						name="GedetailleerdeToetsPerVakFaalkansR"
+						refimgid="983a5938-6ce7-43b5-a464-67fcec65e0f6"
+						searchtimeout="30000ms">
+							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[@accessiblename='Row '+$rowIndexNumber]/cell[@accessiblename&gt;'Gedetailleerde toets per vakfaalkans Row ']
+						</item>
 						<basepath>
 							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismResultView']/container/table[@controlname='dataGridView']
 						</basepath>
@@ -752,6 +761,10 @@ OsYqSDz+zwAAaK/nDj2T/r4AAAAASUVORK5CYII=
 		<var
 		id="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
 		name="rowIndex">
+		</var>
+		<var
+		id="78d97b21-0313-4655-9f2d-4d37f9c41737"
+		name="rowIndexNumber">
 		</var>
 	</variables>
 </repository>
