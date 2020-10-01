@@ -242,15 +242,15 @@
       <UserCode>true</UserCode>
       <id>83eafdce-0d37-4ebe-a02c-7699ea08d396</id>
     </Compile>
-    <Compile Include="SelectAssessmentForSection.cs">
+    <Compile Include="SelectSimpleAssessmentForRow.cs">
       <BoundTo>31496a42-800f-4754-b94c-bdba78e4cd44</BoundTo>
-      <DependentUpon>SelectAssessmentForSection.rxrec</DependentUpon>
+      <DependentUpon>SelectSimpleAssessmentForRow.rxrec</DependentUpon>
       <RecorderCode>true</RecorderCode>
       <id>eb4e1a22-7674-42d2-8df1-e94e62c66379</id>
     </Compile>
-    <Compile Include="SelectAssessmentForSection.UserCode.cs">
+    <Compile Include="SelectSimpleAssessmentForRow.UserCode.cs">
       <BoundTo>31496a42-800f-4754-b94c-bdba78e4cd44</BoundTo>
-      <DependentUpon>SelectAssessmentForSection.rxrec</DependentUpon>
+      <DependentUpon>SelectSimpleAssessmentForRow.rxrec</DependentUpon>
       <UserCode>true</UserCode>
       <id>9631cbb7-d221-4a87-99b0-a197f22e06e9</id>
     </Compile>
@@ -387,7 +387,7 @@
       <id>0e9d5246-714d-4876-9afc-2774723d4ba2</id>
       <recordtableid>9195acd9-b037-4ace-80c3-0f7f64c35452</recordtableid>
     </None>
-    <None Include="SelectAssessmentForSection.rxrec">
+    <None Include="SelectSimpleAssessmentForRow.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>31496a42-800f-4754-b94c-bdba78e4cd44</id>
       <recordtableid>e0d85a11-9622-402c-937d-fefa962c3394</recordtableid>

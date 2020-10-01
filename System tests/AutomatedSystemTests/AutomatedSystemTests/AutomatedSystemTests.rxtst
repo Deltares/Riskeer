@@ -14,6 +14,12 @@
 			type="Recording">
 			</testmodule>
 			<testmodule
+			id="054596a1-3783-4463-9f7e-7ed07788d51a"
+			name="CloseViewCentralPanelWithFocus"
+			ref="3c2d44f5-31b5-4584-91c8-1ad748affc77"
+			type="Recording">
+			</testmodule>
+			<testmodule
 			id="0ae714c3-8d3d-4e26-a875-14a65c612ad2"
 			name="SelectRootProject"
 			ref="4fdf4df4-40fe-44f6-af0a-be1b3051be26"
@@ -186,6 +192,10 @@
 			ref="3c2d44f5-31b5-4584-91c8-1ad748affc77"
 			type="Recording">
 			</testmodule>
+			<smartfoldernode
+			id="466ac64f-9a07-4a8a-82b8-3af12a998abc"
+			name="ControlSimpleAssessmentFMsGroup2">
+			</smartfoldernode>
 			<testmodule
 			id="47ee8546-ffbe-40bf-a731-d089aaed8e66"
 			name="OpenProject"
@@ -228,6 +238,40 @@
 					variablename="logMessage">
 					</var>
 				</databinding>
+			</testmodule>
+			<testmodule
+			id="53a7f1aa-0eb4-41e3-bfff-e62b69d60fc5"
+			name="OpenResultView"
+			ref="14b19856-facd-4b69-82b3-b7f678560774"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="fmName"
+					datasourceid="0610da1d-e8c2-4d82-a696-1d6caaa1e9cc"
+					variableid="3a7276c1-fca1-4026-9d2e-5bac10651a47"
+					variablename="substringItemName">
+					</var>
+					<var
+					dataname="trajectID"
+					datasourceid="0610da1d-e8c2-4d82-a696-1d6caaa1e9cc"
+					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
+					variablename="substringTrajectName">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="trajectID"
+					datasourceid="3b159b7c-719d-4e4a-bfa0-b75369cae6fd"
+					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
+					variablename="substringTrajectName">
+					</var>
+					<var
+					dataname="fmName"
+					datasourceid="3b159b7c-719d-4e4a-bfa0-b75369cae6fd"
+					variableid="3a7276c1-fca1-4026-9d2e-5bac10651a47"
+					variablename="substringItemName">
+					</var>
+				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
 			datasource="outputRelevancePE"
@@ -302,6 +346,45 @@
 			datasource="FileToOpen"
 			id="72139e5e-316f-4a54-9d52-75f865439dd6"
 			name="OpenFaalkansProject">
+			</smartfoldernode>
+			<testmodule
+			id="724c49d9-885a-4c3c-ba29-55cf48848b1a"
+			name="SelectAssessmentForSection"
+			ref="e0d85a11-9622-402c-937d-fefa962c3394"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="f49c9f26-0231-4942-adea-d0914532efb0"
+					variableid="d576037a-032a-4fa3-b9a8-9944503b34d3"
+					variablename="rowIndex">
+					</var>
+					<var
+					dataname="SimpleAssessmentItem"
+					datasourceid="f49c9f26-0231-4942-adea-d0914532efb0"
+					variableid="d82001f1-20c0-4080-a06d-9f1f8ee3a56d"
+					variablename="textItemDropDownMenu">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="5a0e29a6-08a7-4feb-b858-4061ef1b16a2"
+					variableid="d576037a-032a-4fa3-b9a8-9944503b34d3"
+					variablename="rowIndex">
+					</var>
+					<var
+					dataname="SimpleAssessmentItem"
+					datasourceid="5a0e29a6-08a7-4feb-b858-4061ef1b16a2"
+					variableid="d82001f1-20c0-4080-a06d-9f1f8ee3a56d"
+					variablename="textItemDropDownMenu">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<smartfoldernode
+			datasource="simpleAssessmentGroup2"
+			id="885b0dbd-85dc-44b0-9c04-06b382fd2158"
+			name="LoopSections">
 			</smartfoldernode>
 			<smartfoldernode
 			datasource="listWithNamesFMs"
@@ -394,6 +477,11 @@
 			datasource="outputRelevanceFMCView"
 			id="9cb3bdde-1999-4bae-aa4e-6330208999d4"
 			name="OpenRelevanceProject">
+			</smartfoldernode>
+			<smartfoldernode
+			datasource="FMsInGroup2SimpleAssessment"
+			id="9e3ed5ce-9517-474f-81c6-435b0d1e38ac"
+			name="FMsGroup2">
 			</smartfoldernode>
 			<smartfoldernode
 			id="9edfe01c-c130-4792-b0ab-0c91a3270f15"
@@ -991,6 +1079,30 @@
 								</testmodule>
 							</smartfoldernode>
 						</smartfoldernode>
+						<smartfoldernode
+						id="466ac64f-9a07-4a8a-82b8-3af12a998abc"
+						name="ControlSimpleAssessmentFMsGroup2">
+							<smartfoldernode
+							id="9e3ed5ce-9517-474f-81c6-435b0d1e38ac"
+							name="FMsGroup2">
+								<testmodule
+								id="53a7f1aa-0eb4-41e3-bfff-e62b69d60fc5"
+								name="OpenResultView">
+								</testmodule>
+								<smartfoldernode
+								id="885b0dbd-85dc-44b0-9c04-06b382fd2158"
+								name="LoopSections">
+									<testmodule
+									id="724c49d9-885a-4c3c-ba29-55cf48848b1a"
+									name="SelectAssessmentForSection">
+									</testmodule>
+								</smartfoldernode>
+								<testmodule
+								id="054596a1-3783-4463-9f7e-7ed07788d51a"
+								name="CloseViewCentralPanelWithFocus">
+								</testmodule>
+							</smartfoldernode>
+						</smartfoldernode>
 						<teardown
 						id="fe1f0dec-30d6-4abc-b123-d9b0e01f7bf6"
 						name="teardown">
@@ -1044,7 +1156,31 @@
 			<maskedcolumns>
 			</maskedcolumns>
 			<file>
-				D:\repos\Riskeer\System tests\AutomatedSystemTests\AutomatedSystemTests\Data\script21\input\CSVs\FMsInGroup1SimpleAssessment.csv
+				X:\script21\input\CSVs\FMsInGroup1SimpleAssessment.csv
+			</file>
+		</DataSource>
+		<DataSource
+		id="0610da1d-e8c2-4d82-a696-1d6caaa1e9cc"
+		includefile="Unchecked"
+		lastknownrowcount="2"
+		name="FMsInGroup2SimpleAssessment"
+		type="Ranorex.Core.Data.CsvDataConnector"
+		withheaders="True">
+			<lastknowncolumns>
+				<column>
+					fmLabel
+				</column>
+				<column>
+					fmName
+				</column>
+				<column>
+					trajectID
+				</column>
+			</lastknowncolumns>
+			<maskedcolumns>
+			</maskedcolumns>
+			<file>
+				X:\script21\input\CSVs\FMsInGroup2SimpleAssessment.csv
 			</file>
 		</DataSource>
 		<DataSource
@@ -1233,42 +1369,29 @@
 			<maskedcolumns>
 			</maskedcolumns>
 			<file>
-				D:\repos\Riskeer\System tests\AutomatedSystemTests\AutomatedSystemTests\Data\script21\input\CSVs\simpleAssessmentFMsGroup1.csv
+				X:\script21\input\CSVs\simpleAssessmentFMsGroup1.csv
 			</file>
 		</DataSource>
 		<DataSource
-		id="263d9591-0ed9-4c66-9e5d-7cc81fa7b815"
-		lastknownrowcount="1"
-		name="trajectID"
-		type="Ranorex.Core.Data.SimpleDataConnector">
+		id="f49c9f26-0231-4942-adea-d0914532efb0"
+		includefile="Unchecked"
+		lastknownrowcount="5"
+		name="simpleAssessmentGroup2"
+		type="Ranorex.Core.Data.CsvDataConnector"
+		withheaders="True">
 			<lastknowncolumns>
 				<column>
-					trajectSubstring
+					rowIndex
 				</column>
 				<column>
-					fmSubstring
+					SimpleAssessmentItem
 				</column>
 			</lastknowncolumns>
 			<maskedcolumns>
 			</maskedcolumns>
-			<table>
-				<tr>
-					<th>
-						trajectSubstring
-					</th>
-					<th>
-						fmSubstring
-					</th>
-				</tr>
-				<tr>
-					<td>
-						12-2
-					</td>
-					<td>
-						Dijken en dammen - Piping
-					</td>
-				</tr>
-			</table>
+			<file>
+				X:\script21\input\CSVs\simpleAssessmentFMsGroup2.csv
+			</file>
 		</DataSource>
 	</datasources>
 	<testconfigurations
@@ -1300,6 +1423,9 @@
 			id="37c811fd-9297-4d92-b429-28a452540bf1">
 			</testcontainer>
 			<testcontainer
+			id="466ac64f-9a07-4a8a-82b8-3af12a998abc">
+			</testcontainer>
+			<testcontainer
 			id="4bb671b5-bd57-42fd-a72e-41482b3d1dbb">
 			</testcontainer>
 			<testcontainer
@@ -1315,6 +1441,9 @@
 			id="72139e5e-316f-4a54-9d52-75f865439dd6">
 			</testcontainer>
 			<testcontainer
+			id="885b0dbd-85dc-44b0-9c04-06b382fd2158">
+			</testcontainer>
+			<testcontainer
 			id="921c41ea-9f72-4d4f-bfe2-a7f2f0365468">
 			</testcontainer>
 			<testcontainer
@@ -1322,6 +1451,9 @@
 			</testcontainer>
 			<testcontainer
 			id="9cb3bdde-1999-4bae-aa4e-6330208999d4">
+			</testcontainer>
+			<testcontainer
+			id="9e3ed5ce-9517-474f-81c6-435b0d1e38ac">
 			</testcontainer>
 			<testcontainer
 			id="9edfe01c-c130-4792-b0ab-0c91a3270f15">

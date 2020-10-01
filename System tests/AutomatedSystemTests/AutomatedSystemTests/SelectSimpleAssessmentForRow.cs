@@ -24,22 +24,22 @@ namespace AutomatedSystemTests
 {
 #pragma warning disable 0436 //(CS0436) The type 'type' in 'assembly' conflicts with the imported type 'type2' in 'assembly'. Using the type defined in 'assembly'.
     /// <summary>
-    ///The SelectAssessmentForSection recording.
+    ///The SelectSimpleAssessmentForRow recording.
     /// </summary>
     [TestModule("e0d85a11-9622-402c-937d-fefa962c3394", ModuleType.Recording, 1)]
-    public partial class SelectAssessmentForSection : ITestModule
+    public partial class SelectSimpleAssessmentForRow : ITestModule
     {
         /// <summary>
         /// Holds an instance of the AutomatedSystemTestsRepository repository.
         /// </summary>
         public static AutomatedSystemTestsRepository repo = AutomatedSystemTestsRepository.Instance;
 
-        static SelectAssessmentForSection instance = new SelectAssessmentForSection();
+        static SelectSimpleAssessmentForRow instance = new SelectSimpleAssessmentForRow();
 
         /// <summary>
         /// Constructs a new instance.
         /// </summary>
-        public SelectAssessmentForSection()
+        public SelectSimpleAssessmentForRow()
         {
             rowIndex = "";
         }
@@ -47,7 +47,7 @@ namespace AutomatedSystemTests
         /// <summary>
         /// Gets a static instance of this recording.
         /// </summary>
-        public static SelectAssessmentForSection Instance
+        public static SelectSimpleAssessmentForRow Instance
         {
             get { return instance; }
         }

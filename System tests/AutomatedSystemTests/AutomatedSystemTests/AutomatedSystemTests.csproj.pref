@@ -1,13 +1,11 @@
 ﻿<Properties>
   <Array name="active">
-    <Element value="OpenViewForFailureMechanismContribution.rxrec" />
+    <Element value="AutomatedSystemTests.rxtst" />
   </Array>
   <Array name="bookmarks" />
   <Array name="files">
-    <Element value="ValidateFMRelevanceInFMCView.UserCode.cs" />
     <Element value="AutomatedSystemTests.rxtst" />
-    <Element value="ValidateFMRelevanceInFMCView.rxrec" />
-    <Element value="OpenViewForFailureMechanismContribution.rxrec" />
+    <Element value="SelectAssessmentForSection.rxrec" />
   </Array>
   <Properties name="projectSavedData">
     <Properties name="customTool">

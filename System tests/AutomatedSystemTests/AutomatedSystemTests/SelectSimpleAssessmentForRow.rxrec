@@ -19,7 +19,7 @@ mode="Global">
 		True
 	</useDefaultItemLogging>
 	<codegen
-	classname="SelectAssessmentForSection"
+	classname="SelectSimpleAssessmentForRow"
 	namespace="AutomatedSystemTests">
 	</codegen>
 	<variables>
@@ -311,7 +311,7 @@ UAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAf/2Q==
 	</repository>
 	<usercodefile
 	lang="CSharp">
-		SelectAssessmentForSection.UserCode.cs
+		SelectSimpleAssessmentForRow.UserCode.cs
 	</usercodefile>
 	<references>
 	</references>
