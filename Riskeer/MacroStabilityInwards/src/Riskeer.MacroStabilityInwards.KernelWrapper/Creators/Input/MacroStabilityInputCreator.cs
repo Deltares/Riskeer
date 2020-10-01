@@ -48,7 +48,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
         /// <param name="upliftVanInput">The <see cref="UpliftVanCalculatorInput"/> containing all the values required
         /// for performing the Uplift Van calculation.</param>
         /// <param name="soils">The collection of <see cref="Soil"/>.</param>
-        /// <param name="layerLookup">The lookup between for <see cref="Soil"/> and <see cref="SoilLayer"/></param>
+        /// <param name="layerLookup">The lookup between <see cref="Soil"/> and <see cref="SoilLayer"/>.</param>
         /// <param name="surfaceLine">The <see cref="SurfaceLine"/>.</param>
         /// <param name="soilProfile">The <see cref="SoilProfile"/>.</param>
         /// <param name="dailyWaternet">The calculated <see cref="Waternet"/> for daily circumstances.</param>
