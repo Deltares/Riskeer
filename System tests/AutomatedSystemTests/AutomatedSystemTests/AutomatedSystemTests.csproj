@@ -122,6 +122,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddNewTraject.cs">
+      <BoundTo>7c43bc11-7959-43bd-bf48-f3a663df94a1</BoundTo>
+      <DependentUpon>AddNewTraject.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>b601e2cd-3723-40b0-93b6-3cf860f81940</id>
+    </Compile>
+    <Compile Include="AddNewTraject.UserCode.cs">
+      <BoundTo>7c43bc11-7959-43bd-bf48-f3a663df94a1</BoundTo>
+      <DependentUpon>AddNewTraject.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>d9b326df-1ecb-46f0-993f-3e50f50a7c5d</id>
+    </Compile>
     <Compile Include="AssemblyInfo.cs">
       <id>ebc10b1b-5a66-4375-b0da-63fa92c854e8</id>
     </Compile>
@@ -154,6 +166,54 @@
       <DependentUpon>CloseViewCentralPanelWithFocus.rxrec</DependentUpon>
       <UserCode>true</UserCode>
       <id>25b9d3df-d029-427a-96c4-de8470c01737</id>
+    </Compile>
+    <Compile Include="GenerateCalculations.cs">
+      <BoundTo>eae62d5d-fd0c-420e-bd9b-fcee4398bbff</BoundTo>
+      <DependentUpon>GenerateCalculations.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>85c917e3-c5a0-4695-ae37-f3958d58710c</id>
+    </Compile>
+    <Compile Include="GenerateCalculations.UserCode.cs">
+      <BoundTo>eae62d5d-fd0c-420e-bd9b-fcee4398bbff</BoundTo>
+      <DependentUpon>GenerateCalculations.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>6d50e1d1-3b95-4960-a2dc-05b4f670fe34</id>
+    </Compile>
+    <Compile Include="ImportStochasticSoilModelCollection.cs">
+      <BoundTo>42ae0196-5f78-448c-bd8a-65349a1cda86</BoundTo>
+      <DependentUpon>ImportStochasticSoilModelCollection.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>80d32f77-ece3-4bde-ae47-929b1605043e</id>
+    </Compile>
+    <Compile Include="ImportStochasticSoilModelCollection.UserCode.cs">
+      <BoundTo>42ae0196-5f78-448c-bd8a-65349a1cda86</BoundTo>
+      <DependentUpon>ImportStochasticSoilModelCollection.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>e4c43391-ae3b-4b9d-a4ca-a50b1e12521d</id>
+    </Compile>
+    <Compile Include="ImportSurfaceLines.cs">
+      <BoundTo>6e87cfa0-534f-4923-8621-fdf766c5ce6f</BoundTo>
+      <DependentUpon>ImportSurfaceLines.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>2340de48-ef73-4462-a3b1-a70df7aa5a8b</id>
+    </Compile>
+    <Compile Include="ImportSurfaceLines.UserCode.cs">
+      <BoundTo>6e87cfa0-534f-4923-8621-fdf766c5ce6f</BoundTo>
+      <DependentUpon>ImportSurfaceLines.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>f3d5c74c-a1ce-4c3f-8485-bffc34bbaa2e</id>
+    </Compile>
+    <Compile Include="OpenViewForGenericFM.cs">
+      <BoundTo>cd7df858-0e65-4fa4-b41f-594ad71f9cec</BoundTo>
+      <DependentUpon>OpenViewForGenericFM.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>b40da7e8-2351-4979-96c6-d787a97662f6</id>
+    </Compile>
+    <Compile Include="OpenViewForGenericFM.UserCode.cs">
+      <BoundTo>cd7df858-0e65-4fa4-b41f-594ad71f9cec</BoundTo>
+      <DependentUpon>OpenViewForGenericFM.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>83c1d0c2-3e84-4874-9d4d-515e0dca156e</id>
     </Compile>
     <Compile Include="SelectDetailedAssessmentForRow.cs">
       <BoundTo>731610be-3ce8-4f1d-8c8d-98ec88fef6e9</BoundTo>
@@ -314,6 +374,18 @@
       <UserCode>true</UserCode>
       <id>f103591c-470f-43f6-9be6-e6eb74067b9c</id>
     </Compile>
+    <Compile Include="ValidateChartsCalculations.cs">
+      <BoundTo>4b8d1691-69c4-4e3d-a814-9ceb4db6505b</BoundTo>
+      <DependentUpon>ValidateChartsCalculations.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>3f92ba8a-c125-4782-aa63-c6d9aeac3459</id>
+    </Compile>
+    <Compile Include="ValidateChartsCalculations.UserCode.cs">
+      <BoundTo>4b8d1691-69c4-4e3d-a814-9ceb4db6505b</BoundTo>
+      <DependentUpon>ValidateChartsCalculations.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>9fb44715-bbad-438c-82d6-0632f9784731</id>
+    </Compile>
     <Compile Include="ValidateCustomAssessmentTypeAtRow.cs">
       <BoundTo>dd1e40e5-89cd-4bda-be21-cdfa6fc0f479</BoundTo>
       <DependentUpon>ValidateCustomAssessmentTypeAtRow.rxrec</DependentUpon>
@@ -398,8 +470,37 @@
       <UserCode>true</UserCode>
       <id>785b2472-6814-4de4-b013-0eefaac8add5</id>
     </Compile>
+    <Compile Include="ValidateSourcePathSurfaceLines.cs">
+      <BoundTo>876cb4ff-6567-4a6e-ba15-8b1c8fa571db</BoundTo>
+      <DependentUpon>ValidateSourcePathSurfaceLines.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>38b0a339-f485-49aa-8e49-16b1d8866f7b</id>
+    </Compile>
+    <Compile Include="ValidateSourcePathSurfaceLines.UserCode.cs">
+      <BoundTo>876cb4ff-6567-4a6e-ba15-8b1c8fa571db</BoundTo>
+      <DependentUpon>ValidateSourcePathSurfaceLines.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>53492640-8a16-4a84-8839-03b44cbcfc43</id>
+    </Compile>
+    <Compile Include="ValidateSurfaceLineInProjectExplorerAndPropertiesPanel.cs">
+      <BoundTo>4b53e680-197b-47b4-82d7-5157b394bfcb</BoundTo>
+      <DependentUpon>ValidateSurfaceLineInProjectExplorerAndPropertiesPanel.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>fb2bf564-3569-4fad-af28-9d679d15b088</id>
+    </Compile>
+    <Compile Include="ValidateSurfaceLineInProjectExplorerAndPropertiesPanel.UserCode.cs">
+      <BoundTo>4b53e680-197b-47b4-82d7-5157b394bfcb</BoundTo>
+      <DependentUpon>ValidateSurfaceLineInProjectExplorerAndPropertiesPanel.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>27d2d9ae-7798-4f2f-ac73-31e08f03ece9</id>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="AddNewTraject.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>7c43bc11-7959-43bd-bf48-f3a663df94a1</id>
+      <recordtableid>549fb022-bf32-480a-ae5e-d3f6e14aa501</recordtableid>
+    </None>
     <None Include="app.config">
       <id>26a72276-7a2e-4ee3-bb52-7e45071fe9ee</id>
     </None>
@@ -423,6 +524,26 @@
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>75c56bbc-55ab-4649-abbf-6157d7ab6a40</id>
       <recordtableid>3c2d44f5-31b5-4584-91c8-1ad748affc77</recordtableid>
+    </None>
+    <None Include="GenerateCalculations.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>eae62d5d-fd0c-420e-bd9b-fcee4398bbff</id>
+      <recordtableid>8513f955-1cc5-4468-875c-d51ce8a545ba</recordtableid>
+    </None>
+    <None Include="ImportStochasticSoilModelCollection.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>42ae0196-5f78-448c-bd8a-65349a1cda86</id>
+      <recordtableid>288d66d7-3c19-43f3-bd1e-9523f15bb660</recordtableid>
+    </None>
+    <None Include="ImportSurfaceLines.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>6e87cfa0-534f-4923-8621-fdf766c5ce6f</id>
+      <recordtableid>ec62b093-3fff-4a7e-8468-0636f99e4153</recordtableid>
+    </None>
+    <None Include="OpenViewForGenericFM.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>cd7df858-0e65-4fa4-b41f-594ad71f9cec</id>
+      <recordtableid>d37f64f8-25dc-4a23-8dbd-257a13f39617</recordtableid>
     </None>
     <None Include="SelectDetailedAssessmentForRow.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
@@ -489,6 +610,11 @@
       <id>8f7fe1fa-f1ef-4825-8e3a-6a13124b5fbc</id>
       <recordtableid>825ce2a6-cd3b-42f6-9972-8ced75f1a54f</recordtableid>
     </None>
+    <None Include="ValidateChartsCalculations.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>4b8d1691-69c4-4e3d-a814-9ceb4db6505b</id>
+      <recordtableid>2161f947-3dda-4270-9a96-0d33afc50b6c</recordtableid>
+    </None>
     <None Include="ValidateCustomAssessmentTypeAtRow.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>dd1e40e5-89cd-4bda-be21-cdfa6fc0f479</id>
@@ -523,6 +649,16 @@
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>c2560085-5938-4406-b8ac-bee496ba5b6e</id>
       <recordtableid>f42a383d-8a05-4e55-bddb-48e5a69b14e6</recordtableid>
+    </None>
+    <None Include="ValidateSourcePathSurfaceLines.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>876cb4ff-6567-4a6e-ba15-8b1c8fa571db</id>
+      <recordtableid>cb7662f3-2819-4dda-b3ec-c0e6a585160f</recordtableid>
+    </None>
+    <None Include="ValidateSurfaceLineInProjectExplorerAndPropertiesPanel.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>4b53e680-197b-47b4-82d7-5157b394bfcb</id>
+      <recordtableid>2e0e4b2f-fccc-42ef-a61e-1a1da4acd8e3</recordtableid>
     </None>
   </ItemGroup>
   <ItemGroup>

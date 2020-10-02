@@ -130,7 +130,7 @@ namespace AutomatedSystemTests
             
             Report.Log(ReportLevel.Info, "User", substringFMName, new RecordItemIndex(1));
             
-            SetRelevanceFM(repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericItemWithSubstringInNameInfo, fmShouldBeRelevant);
+            SetRelevanceFM(repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericFMItemWithSubstringInName.SelfInfo, fmShouldBeRelevant);
             
         }
 

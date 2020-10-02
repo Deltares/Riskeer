@@ -54,15 +54,42 @@ name="AutomatedSystemTestsRepository">
 						searchtimeout="30000ms">
 							/form[@automationid='RiskeerMainWindow']//container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]/treeitem[@accessiblename~$substringTrajectName]/treeitem[@accessiblename='Faalkansbegroting']
 						</item>
-						<item
-						addcaps="treeitem,accessible,accessibletreeitem"
+						<folder
 						capname="treeitem"
 						id="92f53398-7bb2-45f8-a305-0adb56ec8aa7"
-						name="GenericItemWithSubstringInName"
-						refimgid="260218f3-a9bd-4cfa-803e-def773275879"
-						searchtimeout="30000ms">
-							/form[@automationid='RiskeerMainWindow']//container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]/treeitem[@accessiblename~$substringTrajectName]/treeitem[@accessiblename~$substringItemName]
-						</item>
+						isrooted="True"
+						name="GenericFMItemWithSubstringInName"
+						refimgid="0ecc761a-c3a6-4b2c-97ae-cd16ad77784b"
+						searchtimeout="30000ms"
+						usecache="False">
+							<folder
+							capname="treeitem"
+							id="49f4c93e-6dcb-4c7e-852a-1da467bd10e1"
+							isrooted="True"
+							name="Input"
+							refimgid="751ccaf5-8de7-4465-a476-dce1b5f0b565"
+							searchtimeout="30000ms"
+							usecache="False">
+								<folder
+								capname="treeitem"
+								id="0975ee40-020d-45db-a2a2-374a609a3436"
+								isrooted="True"
+								name="SurfaceLinesNode"
+								refimgid="5d4770bd-e943-4c06-a6de-6bb2d351cd85"
+								searchtimeout="30000ms"
+								usecache="False">
+									<basepath>
+										/form[@automationid='RiskeerMainWindow']//container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]/treeitem[@accessiblename~$substringTrajectName]/treeitem[@accessiblename~$substringItemName]/treeitem[@accessiblename='Invoer']/treeitem[@accessiblename='Profielschematisaties']
+									</basepath>
+								</folder>
+								<basepath>
+									/form[@automationid='RiskeerMainWindow']//container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]/treeitem[@accessiblename~$substringTrajectName]/treeitem[@accessiblename~$substringItemName]/treeitem[@accessiblename='Invoer']
+								</basepath>
+							</folder>
+							<basepath>
+								/form[@automationid='RiskeerMainWindow']//container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]/treeitem[@accessiblename~$substringTrajectName]/treeitem[@accessiblename~$substringItemName]
+							</basepath>
+						</folder>
 						<item
 						addcaps="treeitem,accessible,accessibletreeitem"
 						capname="treeitem"
@@ -92,10 +119,52 @@ name="AutomatedSystemTestsRepository">
 			searchtimeout="30000ms"
 			usecache="True">
 				<folder
+				capname="list"
+				id="b203905b-f6d6-4f92-a188-a998df3833d1"
+				isrooted="True"
+				name="TABsButtons"
+				searchtimeout="30000ms"
+				usecache="True">
+					<folder
+					capname="list"
+					id="28059a50-4cd9-4563-9dbf-b81f3edf6567"
+					isrooted="True"
+					name="StartBeeldTabs"
+					searchtimeout="30000ms"
+					usecache="True">
+						<item
+						addcaps="button,wpfelement,wpfgroupelement"
+						capname="button"
+						id="7a81ef7d-edff-44f0-9cd8-00e61c6c28f3"
+						name="AddAssessmentSectionButton"
+						refimgid="8d47bc49-610d-4f2c-bf00-13a23fa65084"
+						searchtimeout="30000ms">
+							/form[@automationid='RiskeerMainWindow']/menubar[@automationid='Ribbon']/list[@automationid='PART_RibbonTabControl']/list/button[@automationid='AddAssessmentSectionButton']
+						</item>
+						<basepath>
+							/form[@automationid='RiskeerMainWindow']/menubar[@automationid='Ribbon']/list[@automationid='PART_RibbonTabControl']/list
+						</basepath>
+					</folder>
+					<folder
+					capname="list"
+					id="c5f2dbf7-8238-4898-beda-855e8c88f5ba"
+					isrooted="True"
+					name="KaartTabs"
+					searchtimeout="30000ms"
+					usecache="True">
+						<basepath>
+							/form[@automationid='RiskeerMainWindow']/menubar[@automationid='Ribbon']/list[@automationid='PART_RibbonTabControl']/container/list
+						</basepath>
+					</folder>
+					<basepath>
+						/form[@automationid='RiskeerMainWindow']/menubar[@automationid='Ribbon']/list[@automationid='PART_RibbonTabControl']
+					</basepath>
+				</folder>
+				<folder
 				capname="container"
 				id="ad33bdf4-926b-4708-9063-9df7f2f47498"
 				isrooted="True"
-				name="ButtonContainer"
+				name="UpperButtonsContainer"
 				searchtimeout="30000ms"
 				usecache="False">
 					<item
@@ -551,6 +620,16 @@ cwAAAABJRU5ErkJggg==
 			searchtimeout="30000ms">
 				/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Eigenschappen']
 			</item>
+			<item
+			addcaps="menuitem,accessible"
+			capname="menuitem"
+			id="34965857-9328-4216-9d99-86afbd395e38"
+			name="Importeren"
+			refimgid="7a47e2e9-40db-4c3b-9cf3-5b225985f743"
+			refpath="/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Importeren...']"
+			searchtimeout="30000ms">
+				/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Importeren...']
+			</item>
 			<basepath>
 				/contextmenu[@processname='Riskeer']
 			</basepath>
@@ -756,6 +835,141 @@ xiBBEMYnDmIcOHAALM6watspkCQYICvEL84A5oANWLz+KJgBwzCFuMRBGFkMLkguZmicuOp/UfO8
 OsYqSDz+zwAAaK/nDj2T/r4AAAAASUVORK5CYII=
 			</icon>
 		</appfolder>
+		<appfolder
+		capname="form"
+		id="a95f8dbe-df2d-4b86-9086-a6751d400a59"
+		isrooted="True"
+		name="DialogNewTraject"
+		refpath="/form[@controlname='ReferenceLineMetaSelectionDialog']"
+		searchtimeout="30000ms"
+		usecache="True">
+			<item
+			addcaps="radiobutton,control,nativewindow"
+			capname="radiobutton"
+			id="f1bdec4b-e243-4cfe-8459-731408c338d4"
+			name="NormRadioButton"
+			refimgid="d9dba1c3-c9d5-4736-b106-9043de8684c3"
+			searchtimeout="30000ms">
+				/form[@controlname='ReferenceLineMetaSelectionDialog']/container/container/radiobutton[@controlname&gt;$normType]
+			</item>
+			<item
+			addcaps="button,control,nativewindow"
+			capname="button"
+			id="ce4cea6f-cbb0-4c97-a077-14d79e60ca7d"
+			name="ButtonOk"
+			refimgid="4d3d6958-7fc8-4e8f-89bc-9291f98aab0c"
+			searchtimeout="30000ms">
+				/form[@controlname='ReferenceLineMetaSelectionDialog']/container/container/button[@controlname='Ok']
+			</item>
+			<folder
+			capname="table"
+			id="16f13009-a75d-4921-8b3e-033e2bed69ca"
+			isrooted="True"
+			name="TableTrajects"
+			refimgid="2ba06692-a4c1-48ac-9c46-26ef72184461"
+			searchtimeout="30000ms"
+			usecache="True">
+				<folder
+				capname="row"
+				ensurevisible="False"
+				id="44bf3838-090b-46fe-8754-6602b139c5ec"
+				isrooted="True"
+				name="GenericTrajectIDRow"
+				refimgid="3f97a19b-dece-4ce9-9a29-6de1f31c1020"
+				searchtimeout="30000ms"
+				usecache="False">
+					<item
+					capname="cell"
+					id="9398ea14-bc10-44f5-b61a-a281f098ba05"
+					name="CellGenericRow"
+					searchtimeout="30000ms">
+						/form[@controlname='ReferenceLineMetaSelectionDialog']/?/?/container[@controlname='ReferenceLineMetaDataGridViewControl']/table[@controlname='dataGridView']/row[@accessiblevalue&gt;$trajectToAdd]/cell[2]
+					</item>
+					<basepath>
+						/form[@controlname='ReferenceLineMetaSelectionDialog']/?/?/container[@controlname='ReferenceLineMetaDataGridViewControl']/table[@controlname='dataGridView']/row[@accessiblevalue&gt;$trajectToAdd]
+					</basepath>
+				</folder>
+				<basepath>
+					/form[@controlname='ReferenceLineMetaSelectionDialog']/?/?/container[@controlname='ReferenceLineMetaDataGridViewControl']/table[@controlname='dataGridView']
+				</basepath>
+			</folder>
+			<basepath>
+				/form[@controlname='ReferenceLineMetaSelectionDialog']
+			</basepath>
+			<icon>
+				iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlz
+AAAOxAAADsQBlSsOGwAAAGlJREFUOE+tjoEKgDAIBffpftr+zPYSJeY2LTu4AsnLNuCixL33o0Tk
+xN4dWC1klMhfgS+EgeffZoELYKACne9IXXAiDERYQE+eQXgncAG8VaAf7nCBmXIgwgKjYKe/EXsS
+kEfF5TBp4wu7ctdIesgwigAAAABJRU5ErkJggg==
+			</icon>
+		</appfolder>
+		<folder
+		capname="tree"
+		id="e51e33d2-3acf-4acb-bdb2-39ee48065f55"
+		isrooted="True"
+		name="ProjectExplorer"
+		refimgid="57e375b7-37e2-49d8-abcf-2029d4d87a96"
+		searchtimeout="30000ms"
+		usecache="True">
+			<folder
+			capname="treeitem"
+			id="d1fede4e-9e41-488f-9476-e932fa9f2886"
+			isrooted="True"
+			name="STBI"
+			refimgid="fa55fa2b-e192-49b1-abbe-ba990c3e868c"
+			searchtimeout="30000ms"
+			usecache="False">
+				<basepath>
+					/form//container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem/treeitem/treeitem[9]
+				</basepath>
+			</folder>
+			<basepath>
+				/form//container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']
+			</basepath>
+		</folder>
+		<appfolder
+		capname="form"
+		id="3a716415-5c8c-4180-ba63-04ca2f4f5a22"
+		isrooted="True"
+		name="Openen"
+		refimgid="8fb39dfd-af64-4ec2-bf3f-b40db91411d0"
+		refpath="/form[@title='Openen']"
+		searchtimeout="30000ms"
+		usecache="True">
+			<item
+			addcaps="text,nativewindow"
+			capname="text"
+			id="6fa717c9-c262-49c5-87e8-2cbf90c3d127"
+			name="FileNameField"
+			refimgid="b5543e14-742e-43eb-a837-8dbb93159a2a"
+			refpath="/form[@title='Openen']/combobox[@controlid='1148']/text[@controlid='1148']"
+			searchtimeout="30000ms">
+				/form[@title='Openen']/?/?/text[@controlid='1148']
+			</item>
+			<item
+			addcaps="button,nativewindow"
+			capname="button"
+			id="aad8cdda-9624-426d-9965-7ea59f8db536"
+			name="ButtonOpen"
+			refimgid="27cf8816-f365-4e65-bf37-9ed1d7f5e726"
+			refpath="/form[@title='Openen']/button[@text='&amp;Open']"
+			searchtimeout="30000ms">
+				/form[@title='Openen']/button[@text='&amp;Open']
+			</item>
+			<basepath>
+				/form[@title='Openen']
+			</basepath>
+			<icon>
+				iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlz
+AAAOxAAADsQBlSsOGwAAATJJREFUOE+NkjtrAkEUhfefaJfKHxBSBtJZikUKq0BII6iQdrtIErAx
+aZJAKgvFzsZKQoqAdpJmhbAI6awCFlpt+Ma94+ydzeODC8uZc+489gaak8dG6/ih/llsVxK30FhL
+bT6Fq2rx8O58pYO68OBNYzsQDm5PtxiO7i+SwXySfG3WicA3Gmt48GaayM7NUTcT1LCGR05iwtwL
+4Wx4ndp2hGGYKRe8ZMyb8DilTs3b+bcGeMmQDeTomjiOTRGOoihV98hVTIPxYmpEvetPBWRsg7fl
+uxG10T2FW0DGawAS1GjdNuAhnmYjI7q7UEKeTsY8Ir+CAYE8I+TpZOxoMxRyiv+A1w4SyCgzrn+B
+xxtlQKBr57WfO85orOHxwi7cq/x8+VHthaubl96G4hvN3tkSBN9boZDIGxIWNwAAAABJRU5ErkJg
+gg==
+			</icon>
+		</appfolder>
 		<basepath>
 		</basepath>
 	</rootfolder>
@@ -783,6 +997,14 @@ OsYqSDz+zwAAaK/nDj2T/r4AAAAASUVORK5CYII=
 		<var
 		id="78d97b21-0313-4655-9f2d-4d37f9c41737"
 		name="rowIndexNumber">
+		</var>
+		<var
+		id="4ea4fb61-50c3-4243-9a99-25901a404ce2"
+		name="trajectToAdd">
+		</var>
+		<var
+		id="929a9a29-2c5b-41dc-93ed-daff0f25d734"
+		name="normType">
 		</var>
 	</variables>
 </repository>
