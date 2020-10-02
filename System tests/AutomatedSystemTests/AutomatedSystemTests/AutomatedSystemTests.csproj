@@ -302,15 +302,27 @@
       <UserCode>true</UserCode>
       <id>f103591c-470f-43f6-9be6-e6eb74067b9c</id>
     </Compile>
-    <Compile Include="ValidateDetailedAssessmentAtRow.cs">
+    <Compile Include="ValidateDetailedAssessmentTypeAtRow.cs">
+      <BoundTo>4453664d-3c67-4161-8674-c648c3a1bbd4</BoundTo>
+      <DependentUpon>ValidateDetailedAssessmentTypeAtRow.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>f700a7c8-4579-43d1-a31d-929f9d36d0b8</id>
+    </Compile>
+    <Compile Include="ValidateDetailedAssessmentTypeAtRow.UserCode.cs">
+      <BoundTo>4453664d-3c67-4161-8674-c648c3a1bbd4</BoundTo>
+      <DependentUpon>ValidateDetailedAssessmentTypeAtRow.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>ad1ac744-d61e-4ce7-bdee-915c49591142</id>
+    </Compile>
+    <Compile Include="ValidateDetailedAssessmentValueAtRow.cs">
       <BoundTo>bbfde277-5adf-4de7-a49e-e6822bc65f48</BoundTo>
-      <DependentUpon>ValidateDetailedAssessmentAtRow.rxrec</DependentUpon>
+      <DependentUpon>ValidateDetailedAssessmentValueAtRow.rxrec</DependentUpon>
       <RecorderCode>true</RecorderCode>
       <id>8ef49bdd-b485-4f22-bb85-942be3a64b1b</id>
     </Compile>
-    <Compile Include="ValidateDetailedAssessmentAtRow.UserCode.cs">
+    <Compile Include="ValidateDetailedAssessmentValueAtRow.UserCode.cs">
       <BoundTo>bbfde277-5adf-4de7-a49e-e6822bc65f48</BoundTo>
-      <DependentUpon>ValidateDetailedAssessmentAtRow.rxrec</DependentUpon>
+      <DependentUpon>ValidateDetailedAssessmentValueAtRow.rxrec</DependentUpon>
       <UserCode>true</UserCode>
       <id>8658e6ac-2879-4557-85a0-bb2867183791</id>
     </Compile>
@@ -436,7 +448,12 @@
       <id>8f7fe1fa-f1ef-4825-8e3a-6a13124b5fbc</id>
       <recordtableid>825ce2a6-cd3b-42f6-9972-8ced75f1a54f</recordtableid>
     </None>
-    <None Include="ValidateDetailedAssessmentAtRow.rxrec">
+    <None Include="ValidateDetailedAssessmentTypeAtRow.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>4453664d-3c67-4161-8674-c648c3a1bbd4</id>
+      <recordtableid>f90323b9-0faf-4e8d-ba0d-cddbcaec15a5</recordtableid>
+    </None>
+    <None Include="ValidateDetailedAssessmentValueAtRow.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>bbfde277-5adf-4de7-a49e-e6822bc65f48</id>
       <recordtableid>91919928-72e3-45e3-8af5-a51f8db749e3</recordtableid>
