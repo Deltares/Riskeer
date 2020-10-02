@@ -1019,16 +1019,6 @@ ACiiigAooooAKKKKACiiigAooooA/9k=
 				</path>
 			</info>
 		</WaitForRecordItem>
-		<explicitdelayitem
-		duration="1000ms"
-		enabled="False"
-		optional="False">
-			<comment>
-				Wait time (300ms) so that dialog is started up
-			</comment>
-			<bindings>
-			</bindings>
-		</explicitdelayitem>
 	</recorditems>
 	<repository
 	id="137723a5-e147-4b62-8c15-5c31a3d68f96"

@@ -266,6 +266,18 @@
       <UserCode>true</UserCode>
       <id>9631cbb7-d221-4a87-99b0-a197f22e06e9</id>
     </Compile>
+    <Compile Include="SetCustomAssessmentAtRow.cs">
+      <BoundTo>b838adb7-b43d-43a1-864f-14728db0fe9a</BoundTo>
+      <DependentUpon>SetCustomAssessmentAtRow.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>a57b728e-127f-4801-b004-331b6faf7029</id>
+    </Compile>
+    <Compile Include="SetCustomAssessmentAtRow.UserCode.cs">
+      <BoundTo>b838adb7-b43d-43a1-864f-14728db0fe9a</BoundTo>
+      <DependentUpon>SetCustomAssessmentAtRow.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>955819d2-1ece-4474-9f41-eeaed03ad5a8</id>
+    </Compile>
     <Compile Include="SetRelevanceFMInFailureMechanismContributionView.cs">
       <BoundTo>b784c65f-eb14-47fb-8870-5baafbb7e6fe</BoundTo>
       <DependentUpon>SetRelevanceFMInFailureMechanismContributionView.rxrec</DependentUpon>
@@ -301,6 +313,30 @@
       <DependentUpon>StartAUT.rxrec</DependentUpon>
       <UserCode>true</UserCode>
       <id>f103591c-470f-43f6-9be6-e6eb74067b9c</id>
+    </Compile>
+    <Compile Include="ValidateCustomAssessmentTypeAtRow.cs">
+      <BoundTo>dd1e40e5-89cd-4bda-be21-cdfa6fc0f479</BoundTo>
+      <DependentUpon>ValidateCustomAssessmentTypeAtRow.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>8929e179-edb9-4389-b36d-24c047175c3b</id>
+    </Compile>
+    <Compile Include="ValidateCustomAssessmentTypeAtRow.UserCode.cs">
+      <BoundTo>dd1e40e5-89cd-4bda-be21-cdfa6fc0f479</BoundTo>
+      <DependentUpon>ValidateCustomAssessmentTypeAtRow.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>e6a757b4-8329-4d41-85bd-b48ee04b0dac</id>
+    </Compile>
+    <Compile Include="ValidateCustomAssessmentValue.cs">
+      <BoundTo>33318670-518c-4e04-9e41-efbd1efea647</BoundTo>
+      <DependentUpon>ValidateCustomAssessmentValue.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>6cb9ef95-f16e-499c-8d7e-e16e912bd5e9</id>
+    </Compile>
+    <Compile Include="ValidateCustomAssessmentValue.UserCode.cs">
+      <BoundTo>33318670-518c-4e04-9e41-efbd1efea647</BoundTo>
+      <DependentUpon>ValidateCustomAssessmentValue.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>6b6f25b8-0660-465d-bd37-56c8a76f502e</id>
     </Compile>
     <Compile Include="ValidateDetailedAssessmentTypeAtRow.cs">
       <BoundTo>4453664d-3c67-4161-8674-c648c3a1bbd4</BoundTo>
@@ -433,6 +469,11 @@
       <id>31496a42-800f-4754-b94c-bdba78e4cd44</id>
       <recordtableid>e0d85a11-9622-402c-937d-fefa962c3394</recordtableid>
     </None>
+    <None Include="SetCustomAssessmentAtRow.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>b838adb7-b43d-43a1-864f-14728db0fe9a</id>
+      <recordtableid>dc218a16-91e8-4197-ae23-5bbe0c083a04</recordtableid>
+    </None>
     <None Include="SetRelevanceFMInFailureMechanismContributionView.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>b784c65f-eb14-47fb-8870-5baafbb7e6fe</id>
@@ -447,6 +488,16 @@
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>8f7fe1fa-f1ef-4825-8e3a-6a13124b5fbc</id>
       <recordtableid>825ce2a6-cd3b-42f6-9972-8ced75f1a54f</recordtableid>
+    </None>
+    <None Include="ValidateCustomAssessmentTypeAtRow.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>dd1e40e5-89cd-4bda-be21-cdfa6fc0f479</id>
+      <recordtableid>4a7e3f6a-b454-48a2-a19c-3321f75bc052</recordtableid>
+    </None>
+    <None Include="ValidateCustomAssessmentValue.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>33318670-518c-4e04-9e41-efbd1efea647</id>
+      <recordtableid>da4d5264-71fa-4c55-ade2-9344716cd1cc</recordtableid>
     </None>
     <None Include="ValidateDetailedAssessmentTypeAtRow.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>

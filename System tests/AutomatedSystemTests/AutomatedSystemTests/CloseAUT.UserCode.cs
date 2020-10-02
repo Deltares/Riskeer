@@ -35,12 +35,15 @@ namespace AutomatedSystemTests
 
         public void ClickButtonNoIfDialogShown(RepoItemInfo buttonInfo)
         {
-        	if (repo.ConfirmSaveProjectDialogWhenClosing.SelfInfo.Exists()) 
-        	{
-            	Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'buttonInfo' at Center.", buttonInfo);
+        	try {
+                Report.Log(ReportLevel.Info, "Wait", "(Optional Action)\r\nWaiting 2s to exist. Associated repository item: 'ConfirmSaveProjectDialogWhenClosing.ButtonNo'", repo.ConfirmSaveProjectDialogWhenClosing.ButtonNoInfo, new ActionTimeout(2000), new RecordItemIndex(1));
+                repo.ConfirmSaveProjectDialogWhenClosing.ButtonNoInfo.WaitForExists(2000);
+                Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'buttonInfo' at Center.", buttonInfo);
             	buttonInfo.FindAdapter<Button>().Click();
-            }
-        	
+            } catch(Exception ex) { 
+        		Report.Log(ReportLevel.Info, "Module", "(Optional Action) " + ex.Message, new RecordItemIndex(1));
+        		
+        	}
         }
     }
 }

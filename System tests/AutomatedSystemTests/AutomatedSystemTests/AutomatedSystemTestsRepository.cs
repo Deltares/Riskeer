@@ -1017,9 +1017,11 @@ namespace AutomatedSystemTests
         public partial class TableDataGridViewFolder : RepoGenBaseFolder
         {
             RepoItemInfo _eenvoudigetoetsvak12_2_00000Info;
-            RepoItemInfo _eenvoudigetoetsrownthInfo;
-            RepoItemInfo _gedetaileerdetoetsrownthInfo;
-            RepoItemInfo _gedetailleerdetoetspervakfaalkansrInfo;
+            RepoItemInfo _simpleassessmenttyperownthInfo;
+            RepoItemInfo _detailedasssessmenttyperownthInfo;
+            RepoItemInfo _detailedassessmentvaluerownthInfo;
+            RepoItemInfo _customasssessmenttyperownthInfo;
+            RepoItemInfo _customassessmentvaluerownthInfo;
 
             /// <summary>
             /// Creates a new TableDataGridView  folder.
@@ -1028,9 +1030,11 @@ namespace AutomatedSystemTests
                     base("TableDataGridView", "container/table[@controlname='dataGridView']", parentFolder, 30000, null, true, "6eb41290-65e9-4393-9e14-584a8ed6c564", "")
             {
                 _eenvoudigetoetsvak12_2_00000Info = new RepoItemInfo(this, "EenvoudigeToetsVak12_2_00000", "row/cell[@accessiblename>'Vak' and @text='12_2_00000']/../cell[@accessiblename>'Eenvoudige']", 30000, null, "892f29d9-c365-437c-91bd-7720a612cf0c");
-                _eenvoudigetoetsrownthInfo = new RepoItemInfo(this, "EenvoudigeToetsRowNth", "row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename='Eenvoudige toets Row '+$rowIndex]", 30000, null, "78777803-f3ba-489a-8aa8-3ad795fbe569");
-                _gedetaileerdetoetsrownthInfo = new RepoItemInfo(this, "GedetaileerdeToetsRowNth", "row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename='Gedetailleerde toets per vak Row '+$rowIndex]", 30000, null, "65e328b8-068a-4b37-a2d7-cb220911d1fe");
-                _gedetailleerdetoetspervakfaalkansrInfo = new RepoItemInfo(this, "GedetailleerdeToetsPerVakFaalkansR", "row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename>'Gedetailleerde toets per vakfaalkans Row ']", 30000, null, "a641d0c3-927e-4d5c-8c7f-5164b18f8462");
+                _simpleassessmenttyperownthInfo = new RepoItemInfo(this, "SimpleAssessmentTypeRowNth", "row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename>'Eenvoudige toets Row ']", 30000, null, "78777803-f3ba-489a-8aa8-3ad795fbe569");
+                _detailedasssessmenttyperownthInfo = new RepoItemInfo(this, "DetailedAsssessmentTypeRowNth", "row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename>'Gedetailleerde toets per vak Row ']", 30000, null, "65e328b8-068a-4b37-a2d7-cb220911d1fe");
+                _detailedassessmentvaluerownthInfo = new RepoItemInfo(this, "DetailedAssessmentValueRowNth", "row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename>'Gedetailleerde toets per vakfaalkans Row ']", 30000, null, "a641d0c3-927e-4d5c-8c7f-5164b18f8462");
+                _customasssessmenttyperownthInfo = new RepoItemInfo(this, "CustomAsssessmentTypeRowNth", "row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename='Toets op maat Row '+$rowIndex]", 30000, null, "88678175-4929-4e0e-a802-3dbaab044649");
+                _customassessmentvaluerownthInfo = new RepoItemInfo(this, "CustomAssessmentValueRowNth", "row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename>'Toets op maatfaalkans Row ']", 30000, null, "2a76c8ea-2ab5-4255-931e-89d10c2fcde3");
             }
 
             /// <summary>
@@ -1082,74 +1086,122 @@ namespace AutomatedSystemTests
             }
 
             /// <summary>
-            /// The EenvoudigeToetsRowNth item.
+            /// The SimpleAssessmentTypeRowNth item.
             /// </summary>
             [RepositoryItem("78777803-f3ba-489a-8aa8-3ad795fbe569")]
-            public virtual Ranorex.Cell EenvoudigeToetsRowNth
+            public virtual Ranorex.Cell SimpleAssessmentTypeRowNth
             {
                 get
                 {
-                    return _eenvoudigetoetsrownthInfo.CreateAdapter<Ranorex.Cell>(true);
+                    return _simpleassessmenttyperownthInfo.CreateAdapter<Ranorex.Cell>(true);
                 }
             }
 
             /// <summary>
-            /// The EenvoudigeToetsRowNth item info.
+            /// The SimpleAssessmentTypeRowNth item info.
             /// </summary>
             [RepositoryItemInfo("78777803-f3ba-489a-8aa8-3ad795fbe569")]
-            public virtual RepoItemInfo EenvoudigeToetsRowNthInfo
+            public virtual RepoItemInfo SimpleAssessmentTypeRowNthInfo
             {
                 get
                 {
-                    return _eenvoudigetoetsrownthInfo;
+                    return _simpleassessmenttyperownthInfo;
                 }
             }
 
             /// <summary>
-            /// The GedetaileerdeToetsRowNth item.
+            /// The DetailedAsssessmentTypeRowNth item.
             /// </summary>
             [RepositoryItem("65e328b8-068a-4b37-a2d7-cb220911d1fe")]
-            public virtual Ranorex.Cell GedetaileerdeToetsRowNth
+            public virtual Ranorex.Cell DetailedAsssessmentTypeRowNth
             {
                 get
                 {
-                    return _gedetaileerdetoetsrownthInfo.CreateAdapter<Ranorex.Cell>(true);
+                    return _detailedasssessmenttyperownthInfo.CreateAdapter<Ranorex.Cell>(true);
                 }
             }
 
             /// <summary>
-            /// The GedetaileerdeToetsRowNth item info.
+            /// The DetailedAsssessmentTypeRowNth item info.
             /// </summary>
             [RepositoryItemInfo("65e328b8-068a-4b37-a2d7-cb220911d1fe")]
-            public virtual RepoItemInfo GedetaileerdeToetsRowNthInfo
+            public virtual RepoItemInfo DetailedAsssessmentTypeRowNthInfo
             {
                 get
                 {
-                    return _gedetaileerdetoetsrownthInfo;
+                    return _detailedasssessmenttyperownthInfo;
                 }
             }
 
             /// <summary>
-            /// The GedetailleerdeToetsPerVakFaalkansR item.
+            /// The DetailedAssessmentValueRowNth item.
             /// </summary>
             [RepositoryItem("a641d0c3-927e-4d5c-8c7f-5164b18f8462")]
-            public virtual Ranorex.Cell GedetailleerdeToetsPerVakFaalkansR
+            public virtual Ranorex.Cell DetailedAssessmentValueRowNth
             {
                 get
                 {
-                    return _gedetailleerdetoetspervakfaalkansrInfo.CreateAdapter<Ranorex.Cell>(true);
+                    return _detailedassessmentvaluerownthInfo.CreateAdapter<Ranorex.Cell>(true);
                 }
             }
 
             /// <summary>
-            /// The GedetailleerdeToetsPerVakFaalkansR item info.
+            /// The DetailedAssessmentValueRowNth item info.
             /// </summary>
             [RepositoryItemInfo("a641d0c3-927e-4d5c-8c7f-5164b18f8462")]
-            public virtual RepoItemInfo GedetailleerdeToetsPerVakFaalkansRInfo
+            public virtual RepoItemInfo DetailedAssessmentValueRowNthInfo
             {
                 get
                 {
-                    return _gedetailleerdetoetspervakfaalkansrInfo;
+                    return _detailedassessmentvaluerownthInfo;
+                }
+            }
+
+            /// <summary>
+            /// The CustomAsssessmentTypeRowNth item.
+            /// </summary>
+            [RepositoryItem("88678175-4929-4e0e-a802-3dbaab044649")]
+            public virtual Ranorex.Cell CustomAsssessmentTypeRowNth
+            {
+                get
+                {
+                    return _customasssessmenttyperownthInfo.CreateAdapter<Ranorex.Cell>(true);
+                }
+            }
+
+            /// <summary>
+            /// The CustomAsssessmentTypeRowNth item info.
+            /// </summary>
+            [RepositoryItemInfo("88678175-4929-4e0e-a802-3dbaab044649")]
+            public virtual RepoItemInfo CustomAsssessmentTypeRowNthInfo
+            {
+                get
+                {
+                    return _customasssessmenttyperownthInfo;
+                }
+            }
+
+            /// <summary>
+            /// The CustomAssessmentValueRowNth item.
+            /// </summary>
+            [RepositoryItem("2a76c8ea-2ab5-4255-931e-89d10c2fcde3")]
+            public virtual Ranorex.Cell CustomAssessmentValueRowNth
+            {
+                get
+                {
+                    return _customassessmentvaluerownthInfo.CreateAdapter<Ranorex.Cell>(true);
+                }
+            }
+
+            /// <summary>
+            /// The CustomAssessmentValueRowNth item info.
+            /// </summary>
+            [RepositoryItemInfo("2a76c8ea-2ab5-4255-931e-89d10c2fcde3")]
+            public virtual RepoItemInfo CustomAssessmentValueRowNthInfo
+            {
+                get
+                {
+                    return _customassessmentvaluerownthInfo;
                 }
             }
         }

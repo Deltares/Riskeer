@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<recordtable
+embeddedrepository="False"
+id="da4d5264-71fa-4c55-ade2-9344716cd1cc"
+mode="Global">
+	<repeatcount>
+		1
+	</repeatcount>
+	<turbomode>
+		False
+	</turbomode>
+	<genreport>
+		True
+	</genreport>
+	<speedfactor>
+		1
+	</speedfactor>
+	<useDefaultItemLogging>
+		True
+	</useDefaultItemLogging>
+	<codegen
+	classname="ValidateCustomAssessmentValue"
+	namespace="AutomatedSystemTests">
+	</codegen>
+	<variables>
+		<var
+		id="0602758b-9931-4e34-a69f-4ebf0d921f1e"
+		name="expectedCustomAssessmentValueAtCell">
+		</var>
+	</variables>
+	<recorditems>
+		<userrecorditem
+		classname="ValidateCustomAssessmentValue"
+		enabled="True"
+		isexternaltestmethod="False"
+		methodname="ValidateCustomAssessmentValueCell"
+		namespace="AutomatedSystemTests"
+		optional="False">
+			<comment>
+			</comment>
+			<bindings>
+			</bindings>
+			<arguments
+			id="905efced-ba60-41e8-afcb-379c568a7fb5">
+				<argument
+				argname="cellInfo"
+				id="c0d9d480-3510-4e6f-b3a7-c81160febaab">
+					<argvaluetype>
+						Ranorex.Core.Repository.RepoItemInfo, Ranorex.Core, Culture=neutral
+					</argvaluetype>
+					<argvalue>
+					</argvalue>
+					<info
+					id="2a76c8ea-2ab5-4255-931e-89d10c2fcde3"
+					sourcename="RepositoryEditor">
+						<path>
+							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename&gt;'Toets op maat faalkans Row ']
+						</path>
+					</info>
+				</argument>
+				<argument
+				argname="expectedValue"
+				id="5a57c36e-fec1-4f5f-8431-3565c05c3267"
+				variable="expectedCustomAssessmentValueAtCell">
+					<argvaluetype>
+						System.String
+					</argvaluetype>
+					<argvalue>
+					</argvalue>
+				</argument>
+			</arguments>
+		</userrecorditem>
+	</recorditems>
+	<repository
+	id="137723a5-e147-4b62-8c15-5c31a3d68f96"
+	name="AutomatedSystemTestsRepository"
+	relativepath="AutomatedSystemTestsRepository.rxrep">
+		<codegen
+		classname="AutomatedSystemTestsRepository"
+		namespace="AutomatedSystemTests">
+		</codegen>
+		<rootfolder
+		id="40cb8eed-98dc-4b16-a5ad-7ef93b4f444c"
+		name="_rootdummy_">
+		</rootfolder>
+	</repository>
+	<usercodefile
+	lang="CSharp">
+		ValidateCustomAssessmentValue.UserCode.cs
+	</usercodefile>
+	<references>
+	</references>
+</recordtable>

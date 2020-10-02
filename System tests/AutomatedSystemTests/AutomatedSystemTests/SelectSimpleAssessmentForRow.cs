@@ -109,11 +109,11 @@ namespace AutomatedSystemTests
             //Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'DropDownMenuItemList.ListItemVB' at Center.", repo.DropDownMenuItemList.ListItemVBInfo, new RecordItemIndex(2));
             //repo.DropDownMenuItemList.ListItemVB.Click();
             
-            Report.Log(ReportLevel.Info, "Invoke action", "Invoking Focus() on item 'RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.EenvoudigeToetsRowNth'.", repo.RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.EenvoudigeToetsRowNthInfo, new RecordItemIndex(3));
-            repo.RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.EenvoudigeToetsRowNth.Focus();
+            Report.Log(ReportLevel.Info, "Invoke action", "Invoking Focus() on item 'RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.SimpleAssessmentTypeRowNth'.", repo.RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.SimpleAssessmentTypeRowNthInfo, new RecordItemIndex(3));
+            repo.RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.SimpleAssessmentTypeRowNth.Focus();
             
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.EenvoudigeToetsRowNth' at CenterRight.", repo.RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.EenvoudigeToetsRowNthInfo, new RecordItemIndex(4));
-            repo.RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.EenvoudigeToetsRowNth.Click(Location.CenterRight);
+            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.SimpleAssessmentTypeRowNth' at CenterRight.", repo.RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.SimpleAssessmentTypeRowNthInfo, new RecordItemIndex(4));
+            repo.RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.SimpleAssessmentTypeRowNth.Click(Location.CenterRight);
             
             Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'DropDownMenuItemList.GenericDropDownItem' at Center.", repo.DropDownMenuItemList.GenericDropDownItemInfo, new RecordItemIndex(5));
             repo.DropDownMenuItemList.GenericDropDownItem.Click();

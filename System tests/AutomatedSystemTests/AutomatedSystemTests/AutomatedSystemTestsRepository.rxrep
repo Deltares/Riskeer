@@ -219,28 +219,46 @@ name="AutomatedSystemTestsRepository">
 						addcaps="cell,accessible"
 						capname="cell"
 						id="78777803-f3ba-489a-8aa8-3ad795fbe569"
-						name="EenvoudigeToetsRowNth"
+						name="SimpleAssessmentTypeRowNth"
 						refimgid="8ee7eb94-dd16-4546-91bb-40a19b98fb87"
 						searchtimeout="30000ms">
-							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename='Eenvoudige toets Row '+$rowIndex]
+							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename&gt;'Eenvoudige toets Row ']
 						</item>
 						<item
 						addcaps="cell,accessible"
 						capname="cell"
 						id="65e328b8-068a-4b37-a2d7-cb220911d1fe"
-						name="GedetaileerdeToetsRowNth"
+						name="DetailedAsssessmentTypeRowNth"
 						refimgid="8ee7eb94-dd16-4546-91bb-40a19b98fb87"
 						searchtimeout="30000ms">
-							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename='Gedetailleerde toets per vak Row '+$rowIndex]
+							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename&gt;'Gedetailleerde toets per vak Row ']
 						</item>
 						<item
 						addcaps="cell,accessible"
 						capname="cell"
 						id="a641d0c3-927e-4d5c-8c7f-5164b18f8462"
-						name="GedetailleerdeToetsPerVakFaalkansR"
+						name="DetailedAssessmentValueRowNth"
 						refimgid="983a5938-6ce7-43b5-a464-67fcec65e0f6"
 						searchtimeout="30000ms">
 							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename&gt;'Gedetailleerde toets per vakfaalkans Row ']
+						</item>
+						<item
+						addcaps="cell,accessible"
+						capname="cell"
+						id="88678175-4929-4e0e-a802-3dbaab044649"
+						name="CustomAsssessmentTypeRowNth"
+						refimgid="8ee7eb94-dd16-4546-91bb-40a19b98fb87"
+						searchtimeout="30000ms">
+							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename='Toets op maat Row '+$rowIndex]
+						</item>
+						<item
+						addcaps="cell,accessible"
+						capname="cell"
+						id="2a76c8ea-2ab5-4255-931e-89d10c2fcde3"
+						name="CustomAssessmentValueRowNth"
+						refimgid="983a5938-6ce7-43b5-a464-67fcec65e0f6"
+						searchtimeout="30000ms">
+							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename&gt;'Toets op maatfaalkans Row ']
 						</item>
 						<basepath>
 							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismResultView']/container/table[@controlname='dataGridView']

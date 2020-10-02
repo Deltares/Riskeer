@@ -99,12 +99,12 @@ namespace AutomatedSystemTests
 
             Init();
 
-            Report.Log(ReportLevel.Info, "Invoke action", "Invoking Focus() on item 'RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.GedetaileerdeToetsRowNth'.", repo.RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.GedetaileerdeToetsRowNthInfo, new RecordItemIndex(0));
-            repo.RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.GedetaileerdeToetsRowNth.Focus();
+            Report.Log(ReportLevel.Info, "Invoke action", "Invoking Focus() on item 'RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.DetailedAsssessmentTypeRowNth'.", repo.RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.DetailedAsssessmentTypeRowNthInfo, new RecordItemIndex(0));
+            repo.RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.DetailedAsssessmentTypeRowNth.Focus();
             Delay.Milliseconds(0);
             
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.GedetaileerdeToetsRowNth' at CenterRight.", repo.RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.GedetaileerdeToetsRowNthInfo, new RecordItemIndex(1));
-            repo.RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.GedetaileerdeToetsRowNth.Click(Location.CenterRight);
+            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.DetailedAsssessmentTypeRowNth' at CenterRight.", repo.RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.DetailedAsssessmentTypeRowNthInfo, new RecordItemIndex(1));
+            repo.RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.DetailedAsssessmentTypeRowNth.Click(Location.CenterRight);
             Delay.Milliseconds(0);
             
             Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'DropDownMenuItemList.GenericDropDownItem' at Center.", repo.DropDownMenuItemList.GenericDropDownItemInfo, new RecordItemIndex(2));

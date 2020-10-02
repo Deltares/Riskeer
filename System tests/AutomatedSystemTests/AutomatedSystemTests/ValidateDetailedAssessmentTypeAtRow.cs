@@ -102,8 +102,8 @@ namespace AutomatedSystemTests
 
             Init();
 
-            Report.Log(ReportLevel.Info, "Validation", "Validating AttributeEqual (AccessibleValue=$expectedDetailedAssessmentCellType) on item 'RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.GedetaileerdeToetsRowNth'.", repo.RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.GedetaileerdeToetsRowNthInfo, new RecordItemIndex(0));
-            Validate.AttributeEqual(repo.RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.GedetaileerdeToetsRowNthInfo, "AccessibleValue", expectedDetailedAssessmentCellType);
+            Report.Log(ReportLevel.Info, "Validation", "Validating AttributeEqual (AccessibleValue=$expectedDetailedAssessmentCellType) on item 'RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.DetailedAsssessmentTypeRowNth'.", repo.RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.DetailedAsssessmentTypeRowNthInfo, new RecordItemIndex(0));
+            Validate.AttributeEqual(repo.RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.DetailedAsssessmentTypeRowNthInfo, "AccessibleValue", expectedDetailedAssessmentCellType);
             Delay.Milliseconds(0);
             
         }

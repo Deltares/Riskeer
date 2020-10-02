@@ -86,18 +86,16 @@ namespace AutomatedSystemTests
         [System.CodeDom.Compiler.GeneratedCode("Ranorex", global::Ranorex.Core.Constants.CodeGenVersion)]
         void ITestModule.Run()
         {
-            Mouse.DefaultMoveTime = 300;
+            Mouse.DefaultMoveTime = 0;
             Keyboard.DefaultKeyPressTime = 20;
-            Delay.SpeedFactor = 1.00;
+            Delay.SpeedFactor = 0.00;
 
             Init();
 
             Report.Log(ReportLevel.Info, "Application", "Closing application with Process ID bound to variable $CloseAutProcessIDVar.", new RecordItemIndex(0));
             Host.Current.CloseApplication(int.Parse(CloseAutProcessIDVar), 500);
-            Delay.Milliseconds(0);
             
             ClickButtonNoIfDialogShown(repo.ConfirmSaveProjectDialogWhenClosing.ButtonNoInfo);
-            Delay.Milliseconds(0);
             
         }
 
