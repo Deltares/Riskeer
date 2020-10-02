@@ -65,6 +65,7 @@ namespace Application.Riskeer
 
         public RiskeerRunner(string fileToOpen, App app)
         {
+            Logger.Setup();
             this.app = app;
             log = LogManager.GetLogger(typeof(RiskeerRunner));
 

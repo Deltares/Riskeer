@@ -21,6 +21,5 @@
 
 using System.Reflection;
 
-[assembly: log4net.Config.XmlConfigurator]
 [assembly: AssemblyTitle("Riskeer")]
 [assembly: AssemblyProduct("Riskeer")]
