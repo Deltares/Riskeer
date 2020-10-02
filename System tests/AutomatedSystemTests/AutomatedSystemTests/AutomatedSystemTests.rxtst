@@ -128,7 +128,7 @@
 			<smartfoldernode
 			datasource="detailedAssessmentSTPH"
 			id="136c96d5-a5f1-416e-a1a9-79ced6bb2f26"
-			name="ValidateDetailedAsssessmentPerSectionExists">
+			name="ValidateCustomAsssessmentValue">
 			</smartfoldernode>
 			<testmodule
 			id="144282ec-ff9c-4bb5-bf8b-b30904d6d370"
@@ -294,7 +294,7 @@
 			<smartfoldernode
 			datasource="detailedAssessmentSTPH"
 			id="2de34f6f-37d9-43ec-bb73-99701040ddeb"
-			name="ValidateDetailedAsssessmentPerSectionExists">
+			name="ValidateDetailedAsssessmentValue">
 			</smartfoldernode>
 			<testmodule
 			id="3039d6a4-5dde-44dd-801c-e0629eec29fd"
@@ -859,7 +859,7 @@
 			<smartfoldernode
 			datasource="detailedAssessmentSTPHType"
 			id="ac3846b8-cfe0-440c-8c4e-185c97a25237"
-			name="ValidateDetailedAsssessmentType">
+			name="ValidateCustomAsssessmentType">
 			</smartfoldernode>
 			<testmodule
 			id="af4aeb7c-ec16-4ffa-88d9-ab08209f7565"
@@ -1003,7 +1003,7 @@
 			<smartfoldernode
 			datasource="detailedAssessmentSTPHType"
 			id="b5ffcf6c-191b-4757-9d22-49e7233e7c54"
-			name="LoopRowsSelectDetailedAssessmentType">
+			name="LoopRowsSelectCustomAssessmentType">
 			</smartfoldernode>
 			<testmodule
 			id="b9c082f3-aad7-4cda-80a3-8d15ba80625c"
@@ -1807,7 +1807,7 @@
 									</testmodule>
 									<smartfoldernode
 									id="2de34f6f-37d9-43ec-bb73-99701040ddeb"
-									name="ValidateDetailedAsssessmentPerSectionExists">
+									name="ValidateDetailedAsssessmentValue">
 										<testmodule
 										id="0cc64991-03f6-4736-848c-6a48265de8c6"
 										name="ValidateDetailedAssessmentValueAtRow">
@@ -1871,7 +1871,7 @@
 									</testmodule>
 									<smartfoldernode
 									id="136c96d5-a5f1-416e-a1a9-79ced6bb2f26"
-									name="ValidateDetailedAsssessmentPerSectionExists">
+									name="ValidateCustomAsssessmentValue">
 										<testmodule
 										id="ca8a3873-c548-4b06-9e58-568a1f824080"
 										name="ValidateDetailedAssessmentValueAtRow">
@@ -1879,7 +1879,7 @@
 									</smartfoldernode>
 									<smartfoldernode
 									id="b5ffcf6c-191b-4757-9d22-49e7233e7c54"
-									name="LoopRowsSelectDetailedAssessmentType">
+									name="LoopRowsSelectCustomAssessmentType">
 										<testmodule
 										id="38ba81d6-9e59-4856-bd31-27cee27bdade"
 										name="SelectDetailedAssessmentForRow">
@@ -1887,7 +1887,7 @@
 									</smartfoldernode>
 									<smartfoldernode
 									id="ac3846b8-cfe0-440c-8c4e-185c97a25237"
-									name="ValidateDetailedAsssessmentType">
+									name="ValidateCustomAsssessmentType">
 										<testmodule
 										id="3734d2b4-5f98-4c3e-80a1-3b1f6e317128"
 										name="ValidateDetailedAssessmentTypeAtRow">
