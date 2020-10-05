@@ -28,11 +28,8 @@ using Deltares.MacroStability.CSharpWrapper;
 using NUnit.Framework;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Input;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input;
-using Point2D = Core.Common.Base.Geometry.Point2D;
-using SoilLayer = Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Input.SoilLayer;
-using SoilProfile = Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Input.SoilProfile;
-using WaterPressureInterpolationModel = Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Input.WaterPressureInterpolationModel;
 using CSharpWrapperWaterPressureInterpolationModel = Deltares.MacroStability.CSharpWrapper.Input.WaterPressureInterpolationModel;
+using Point2D = Core.Common.Base.Geometry.Point2D;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
 {
@@ -125,8 +122,8 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             Assert.AreEqual(outerRing6, layersWithSoil[5].OuterRing);
             CollectionAssert.IsEmpty(layersWithSoil[5].InnerRings);
             AssertSoilLayerProperties(layer6, layersWithSoil[5]);
-            
-            SoilLayer[] originalSoilLayers = 
+
+            SoilLayer[] originalSoilLayers =
             {
                 layer1,
                 layer2,
@@ -193,7 +190,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
         [TestCase(ShearStrengthModel.CPhiOrSuCalculated, ShearStrengthModelType.MohrCoulomb, ShearStrengthModelType.Shansep)]
         public void Create_ValidShearStrengthModel_ExpectedShearStrengthModel(
             ShearStrengthModel shearStrengthModel, ShearStrengthModelType expectedShearStrengthAbovePhreaticLevelModel,
-                                                                              ShearStrengthModelType expectedShearStrengthBelowPhreaticLevelModel)
+            ShearStrengthModelType expectedShearStrengthBelowPhreaticLevelModel)
         {
             // Setup
             var profile = new SoilProfile(new[]
@@ -231,7 +228,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             }, Enumerable.Empty<PreconsolidationStress>());
 
             // Call
-            LayerWithSoil[] layersWithSoil = LayerWithSoilCreator.Create(profile, out IDictionary<SoilLayer, LayerWithSoil> layerLookup);
+            LayerWithSoil[] layersWithSoil = LayerWithSoilCreator.Create(profile, out IDictionary<SoilLayer, LayerWithSoil> _);
 
             // Assert
             Assert.AreEqual(expectedWaterPressureInterpolationModel, layersWithSoil[0].WaterPressureInterpolationModel);

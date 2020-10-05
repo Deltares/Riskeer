@@ -20,11 +20,11 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using Deltares.MacroStability.CSharpWrapper.Input;
 using NUnit.Framework;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input;
-using Point2D = Core.Common.Base.Geometry.Point2D;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
 {

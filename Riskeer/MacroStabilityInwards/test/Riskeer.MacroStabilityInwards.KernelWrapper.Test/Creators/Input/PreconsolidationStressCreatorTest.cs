@@ -22,10 +22,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Input;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input;
-using Point2D = Core.Common.Base.Geometry.Point2D;
 using CSharpWrapperPreconsolidationStress = Deltares.MacroStability.CSharpWrapper.Input.PreconsolidationStress;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input

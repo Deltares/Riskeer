@@ -104,7 +104,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
                 DikeSoilScenario = WaternetCreatorInputHelper.ConvertDikeSoilScenario(input.DikeSoilScenario),
                 WaterLevelRiverAverage = input.WaterLevelRiverAverage,
                 DrainageConstructionPresent = input.DrainageConstruction.IsPresent,
-                DrainageConstruction = input.DrainageConstruction.IsPresent 
+                DrainageConstruction = input.DrainageConstruction.IsPresent
                                            ? new Point2D(input.DrainageConstruction.XCoordinate, input.DrainageConstruction.ZCoordinate)
                                            : null,
                 MinimumLevelPhreaticLineAtDikeTopRiver = input.MinimumLevelPhreaticLineAtDikeTopRiver,

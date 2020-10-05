@@ -235,8 +235,8 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.Waternet
             using (new MacroStabilityInwardsKernelFactoryConfig())
             {
                 var factory = (TestMacroStabilityInwardsKernelFactory) MacroStabilityInwardsKernelWrapperFactory.Instance;
-                WaternetKernelStub WaternetKernel = factory.LastCreatedWaternetExtremeKernel;
-                WaternetKernel.ThrowExceptionOnValidate = true;
+                WaternetKernelStub waternetKernel = factory.LastCreatedWaternetExtremeKernel;
+                waternetKernel.ThrowExceptionOnValidate = true;
 
                 WaternetCalculatorInput input = WaternetCalculatorInputTestFactory.CreateValidCalculatorInput();
                 var calculator = new TestWaternetCalculator(input, factory);

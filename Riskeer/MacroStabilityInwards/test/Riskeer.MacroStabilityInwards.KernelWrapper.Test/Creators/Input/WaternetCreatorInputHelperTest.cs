@@ -35,7 +35,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
         public void ConvertDikeSoilScenario_InvalidDikeSoilScenario_ThrowInvalidEnumArgumentException()
         {
             // Setup
-            var dikeSoilScenario = (MacroStabilityInwardsDikeSoilScenario) 99;
+            const MacroStabilityInwardsDikeSoilScenario dikeSoilScenario = (MacroStabilityInwardsDikeSoilScenario) 99;
 
             // Call
             void Call() => WaternetCreatorInputHelper.ConvertDikeSoilScenario(dikeSoilScenario);

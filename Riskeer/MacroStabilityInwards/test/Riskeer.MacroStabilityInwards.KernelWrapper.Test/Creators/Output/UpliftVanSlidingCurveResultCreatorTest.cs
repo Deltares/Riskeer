@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using Deltares.MacroStability.CSharpWrapper.Output;
@@ -46,7 +45,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Output
         }
 
         [Test]
-        public void Create_WithSlidingCurve_ReturnSlidingCurveResult()
+        public void Create_WithSlidingCurve_ReturnUpliftVanSlidingCurveResult()
         {
             // Setup
             var random = new Random();
@@ -109,7 +108,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Output
         }
 
         [Test]
-        public void Create_SlidingCurveWithSlices_ReturnSlidingCurveResult()
+        public void Create_SlidingCurveWithSlices_ReturnUpliftVanSlidingCurveResult()
         {
             // Setup
             var random = new Random(21);

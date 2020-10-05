@@ -33,7 +33,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Output
     public class UpliftVanCalculationGridResultCreatorTest
     {
         [Test]
-        public void Create_SlipPlaneUpliftVanNull_ThrowsArgumentNullException()
+        public void Create_UpliftVanCalculationGridNull_ThrowsArgumentNullException()
         {
             // Call
             void Call() => UpliftVanCalculationGridResultCreator.Create(null);

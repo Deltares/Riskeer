@@ -75,8 +75,8 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
         [TestCase(MacroStabilityInwardsDikeSoilScenario.ClayDikeOnSand, DikeSoilScenario.ClayDikeOnSand)]
         [TestCase(MacroStabilityInwardsDikeSoilScenario.SandDikeOnClay, DikeSoilScenario.SandDikeOnClay)]
         [TestCase(MacroStabilityInwardsDikeSoilScenario.SandDikeOnSand, DikeSoilScenario.SandDikeOnSand)]
-        public void CreateExtreme_ValidDikeSoilScenario_ReturnLocationWithDikeSoilScenario(MacroStabilityInwardsDikeSoilScenario macroStabilityInwardsDikeSoilScenario,
-                                                                                           DikeSoilScenario expectedDikeSoilScenario)
+        public void CreateExtreme_ValidDikeSoilScenario_ReturnInputWithDikeSoilScenario(MacroStabilityInwardsDikeSoilScenario macroStabilityInwardsDikeSoilScenario,
+                                                                                        DikeSoilScenario expectedDikeSoilScenario)
         {
             // Setup
             var input = new UpliftVanCalculatorInput(
@@ -100,8 +100,8 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
 
         [Test]
         [Combinatorial]
-        public void CreateExtreme_WithInput_ReturnLocation([Values(true, false)] bool drainageConstructionPresent,
-                                                           [Values(true, false)] bool useDefaultOffsets)
+        public void CreateExtreme_WithInput_ReturnWaternetCreatorInput([Values(true, false)] bool drainageConstructionPresent,
+                                                                       [Values(true, false)] bool useDefaultOffsets)
         {
             // Setup
             var random = new Random(21);
@@ -153,7 +153,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             Assert.AreEqual(input.PhreaticLineOffsetsExtreme.BelowDikeToeAtPolder, waternetCreatorInput.PlLineOffsetBelowDikeToeAtPolder);
             Assert.AreEqual(input.PenetrationLengthExtreme, waternetCreatorInput.PenetrationLength);
 
-            AssertGeneralLocationValues(input, waternetCreatorInput);
+            AssertGeneralWaternetCreatorInputValues(input, waternetCreatorInput);
             AssertIrrelevantValues(waternetCreatorInput);
         }
 
@@ -197,8 +197,8 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
         [TestCase(MacroStabilityInwardsDikeSoilScenario.ClayDikeOnSand, DikeSoilScenario.ClayDikeOnSand)]
         [TestCase(MacroStabilityInwardsDikeSoilScenario.SandDikeOnClay, DikeSoilScenario.SandDikeOnClay)]
         [TestCase(MacroStabilityInwardsDikeSoilScenario.SandDikeOnSand, DikeSoilScenario.SandDikeOnSand)]
-        public void CreateDaily_ValidDikeSoilScenario_ReturnLocationWithDikeSoilScenario(MacroStabilityInwardsDikeSoilScenario macroStabilityInwardsDikeSoilScenario,
-                                                                                         DikeSoilScenario expectedDikeSoilScenario)
+        public void CreateDaily_ValidDikeSoilScenario_ReturnInputWithDikeSoilScenario(MacroStabilityInwardsDikeSoilScenario macroStabilityInwardsDikeSoilScenario,
+                                                                                      DikeSoilScenario expectedDikeSoilScenario)
         {
             // Setup
             var input = new UpliftVanCalculatorInput(
@@ -222,8 +222,8 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
 
         [Test]
         [Combinatorial]
-        public void CreateDaily_WithInput_ReturnLocation([Values(true, false)] bool drainageConstructionPresent,
-                                                         [Values(true, false)] bool useDefaultOffsets)
+        public void CreateDaily_WithInput_ReturnWaternetCreatorInput([Values(true, false)] bool drainageConstructionPresent,
+                                                                     [Values(true, false)] bool useDefaultOffsets)
         {
             // Setup
             var random = new Random(21);
@@ -275,11 +275,11 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             Assert.AreEqual(input.PhreaticLineOffsetsDaily.BelowDikeToeAtPolder, waternetCreatorInput.PlLineOffsetBelowDikeToeAtPolder);
             Assert.AreEqual(input.PenetrationLengthDaily, waternetCreatorInput.PenetrationLength);
 
-            AssertGeneralLocationValues(input, waternetCreatorInput);
+            AssertGeneralWaternetCreatorInputValues(input, waternetCreatorInput);
             AssertIrrelevantValues(waternetCreatorInput);
         }
 
-        private static void AssertGeneralLocationValues(UpliftVanCalculatorInput input, WaternetCreatorInput waternetCreatorInput)
+        private static void AssertGeneralWaternetCreatorInputValues(UpliftVanCalculatorInput input, WaternetCreatorInput waternetCreatorInput)
         {
             Assert.AreEqual(input.WaterLevelRiverAverage, waternetCreatorInput.WaterLevelRiverAverage);
             Assert.AreEqual(input.DrainageConstruction.IsPresent, waternetCreatorInput.DrainageConstructionPresent);

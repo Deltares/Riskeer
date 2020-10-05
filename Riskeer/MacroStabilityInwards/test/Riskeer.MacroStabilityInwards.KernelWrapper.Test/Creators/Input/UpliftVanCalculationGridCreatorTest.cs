@@ -43,7 +43,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
         }
 
         [Test]
-        public void Create_WithInput_ReturnUpliftVanCalculationGrid()
+        public void Create_WithSlipPlane_ReturnUpliftVanCalculationGrid()
         {
             // Setup
             var random = new Random(21);

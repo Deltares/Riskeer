@@ -32,7 +32,6 @@ using Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.UpliftVan;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.Waternet;
 using KernelPreconsolidationStress = Deltares.MacroStability.CSharpWrapper.Input.PreconsolidationStress;
 using SoilProfile = Deltares.MacroStability.CSharpWrapper.Input.SoilProfile;
-using WaternetCreationMode = Deltares.MacroStability.CSharpWrapper.Input.WaternetCreationMode;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
 {

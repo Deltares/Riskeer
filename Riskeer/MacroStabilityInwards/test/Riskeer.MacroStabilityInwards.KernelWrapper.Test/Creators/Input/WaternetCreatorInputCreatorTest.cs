@@ -73,8 +73,8 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
         [TestCase(MacroStabilityInwardsDikeSoilScenario.ClayDikeOnSand, DikeSoilScenario.ClayDikeOnSand)]
         [TestCase(MacroStabilityInwardsDikeSoilScenario.SandDikeOnClay, DikeSoilScenario.SandDikeOnClay)]
         [TestCase(MacroStabilityInwardsDikeSoilScenario.SandDikeOnSand, DikeSoilScenario.SandDikeOnSand)]
-        public void Create_ValidDikeSoilScenario_ReturnLocationWithDikeSoilScenario(MacroStabilityInwardsDikeSoilScenario macroStabilityInwardsDikeSoilScenario,
-                                                                                    DikeSoilScenario expectedDikeSoilScenario)
+        public void Create_ValidDikeSoilScenario_ReturnInputWithDikeSoilScenario(MacroStabilityInwardsDikeSoilScenario macroStabilityInwardsDikeSoilScenario,
+                                                                                 DikeSoilScenario expectedDikeSoilScenario)
         {
             // Setup
             var input = new WaternetCalculatorInput(
@@ -96,8 +96,8 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
 
         [Test]
         [Combinatorial]
-        public void Create_WithInput_ReturnLocation([Values(true, false)] bool drainageConstructionPresent,
-                                                    [Values(true, false)] bool useDefaultOffsets)
+        public void Create_WithInput_ReturnWaternetCreatorInput([Values(true, false)] bool drainageConstructionPresent,
+                                                                [Values(true, false)] bool useDefaultOffsets)
         {
             // Setup
             var random = new Random(21);
@@ -143,7 +143,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                     LeakageLengthInwardsPhreaticLine4 = leakageLengthInwardsPhreaticLine4,
                     PiezometricHeadPhreaticLine2Outwards = piezometricHeadPhreaticLine2Outwards,
                     PiezometricHeadPhreaticLine2Inwards = piezometricHeadPhreaticLine2Inwards,
-                    PenetrationLength = penetrationLength,
+                    PenetrationLength = penetrationLength
                 });
 
             // Call

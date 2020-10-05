@@ -34,7 +34,6 @@ using Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.UpliftVan
 using Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Waternet.Input;
 using Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan.Input;
 using SoilProfile = Deltares.MacroStability.CSharpWrapper.Input.SoilProfile;
-using WaternetCreationMode = Deltares.MacroStability.CSharpWrapper.Input.WaternetCreationMode;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
 {
@@ -44,7 +43,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
         #region CreateUpliftVan
 
         [Test]
-        public void CreateUpliftVan_upliftVanInputNull_ThrowsArgumentNullException()
+        public void CreateUpliftVan_UpliftVanInputNull_ThrowsArgumentNullException()
         {
             // Call
             void Call() => MacroStabilityInputCreator.CreateUpliftVan(
@@ -140,7 +139,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
         }
 
         [Test]
-        public void CreateUpliftVan_WithData_ReturnMacroStabilityInput()
+        public void CreateUpliftVan_ValidData_ReturnMacroStabilityInput()
         {
             // Setup
             UpliftVanCalculatorInput input = UpliftVanCalculatorInputTestFactory.Create();
@@ -160,7 +159,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
 
             // Assert
             StabilityInput stabilityModel = macroStabilityInput.StabilityModel;
-            
+
             Assert.AreEqual(Orientation.Inwards, stabilityModel.Orientation);
             Assert.AreEqual(SearchAlgorithm.Grid, stabilityModel.SearchAlgorithm);
             Assert.AreEqual(StabilityModelOptionType.UpliftVan, stabilityModel.ModelOption);
@@ -234,7 +233,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
         #region CreateDailyWaternetForUpliftVan
 
         [Test]
-        public void CreateDailyWaternetForUpliftVan_upliftVanInputNull_ThrowsArgumentNullException()
+        public void CreateDailyWaternetForUpliftVan_UpliftVanInputNull_ThrowsArgumentNullException()
         {
             // Call
             void Call() => MacroStabilityInputCreator.CreateDailyWaternetForUpliftVan(
@@ -256,7 +255,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("soils", exception.ParamName);
         }
-        
+
         [Test]
         public void CreateDailyWaternetForUpliftVan_SurfaceLineNull_ThrowsArgumentNullException()
         {
@@ -282,7 +281,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
         }
 
         [Test]
-        public void CreateDailyWaternetForUpliftVan_WithData_ReturnMacroStabilityInput()
+        public void CreateDailyWaternetForUpliftVan_ValidData_ReturnMacroStabilityInput()
         {
             // Setup
             UpliftVanCalculatorInput input = UpliftVanCalculatorInputTestFactory.Create();
@@ -312,7 +311,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
         #region CreateExtremeWaternetForUpliftVan
 
         [Test]
-        public void CreateExtremeWaternetForUpliftVan_upliftVanInputNull_ThrowsArgumentNullException()
+        public void CreateExtremeWaternetForUpliftVan_UpliftVanInputNull_ThrowsArgumentNullException()
         {
             // Call
             void Call() => MacroStabilityInputCreator.CreateExtremeWaternetForUpliftVan(
@@ -334,7 +333,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("soils", exception.ParamName);
         }
-        
+
         [Test]
         public void CreateExtremeWaternetForUpliftVan_SurfaceLineNull_ThrowsArgumentNullException()
         {
@@ -360,7 +359,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
         }
 
         [Test]
-        public void CreateExtremeWaternetForUpliftVan_WithData_ReturnMacroStabilityInput()
+        public void CreateExtremeWaternetForUpliftVan_ValidData_ReturnMacroStabilityInput()
         {
             // Setup
             UpliftVanCalculatorInput input = UpliftVanCalculatorInputTestFactory.Create();
@@ -390,7 +389,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
         #region CreateWaternet
 
         [Test]
-        public void CreateWaternet_waternetInputNull_ThrowsArgumentNullException()
+        public void CreateWaternet_WaternetInputNull_ThrowsArgumentNullException()
         {
             // Call
             void Call() => MacroStabilityInputCreator.CreateWaternet(null);
@@ -401,7 +400,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
         }
 
         [Test]
-        public void CreateWaternet_WithData_ReturnMacroStabilityInput()
+        public void CreateWaternet_ValidData_ReturnMacroStabilityInput()
         {
             // Setup
             WaternetCalculatorInput input = WaternetCalculatorInputTestFactory.CreateValidCalculatorInput();
@@ -412,7 +411,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             // Assert
             LayerWithSoil[] layersWithSoil = LayerWithSoilCreator.Create(input.SoilProfile, out IDictionary<SoilLayer, LayerWithSoil> _);
             CollectionAssert.AreEqual(layersWithSoil.Select(lws => lws.Soil).ToList(), macroStabilityInput.StabilityModel.Soils, new SoilComparer());
-            KernelInputAssert.AssertSoilProfile(SoilProfileCreator.Create(layersWithSoil), 
+            KernelInputAssert.AssertSoilProfile(SoilProfileCreator.Create(layersWithSoil),
                                                 macroStabilityInput.StabilityModel.ConstructionStages.Single().SoilProfile);
 
             PreConstructionStage preConstructionStage = macroStabilityInput.PreprocessingInput.PreConstructionStages.Single();
