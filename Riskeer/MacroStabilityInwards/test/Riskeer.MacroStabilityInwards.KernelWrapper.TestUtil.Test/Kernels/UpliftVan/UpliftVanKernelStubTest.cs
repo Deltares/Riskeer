@@ -107,8 +107,8 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernels.Upli
 
             // Assert
             var exception = Assert.Throws<UpliftVanKernelWrapperException>(Call);
-            Assert.AreEqual($"Message 1{Environment.NewLine}Message 2", exception.Message);
-            Assert.IsNotNull(exception.InnerException);
+            Assert.AreEqual($"Exception of type '{typeof(UpliftVanKernelWrapperException)}' was thrown.", exception.Message);
+            Assert.IsNull(exception.InnerException);
             Assert.IsFalse(kernel.Calculated);
             Assert.IsFalse(kernel.Validated);
             Assert.IsTrue(kernel.ThrowExceptionOnCalculate);
