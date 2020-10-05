@@ -80,7 +80,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             Assert.AreEqual(rightGridZBottom, upliftVanCalculationGrid.RightGrid.GridZBottom);
             Assert.AreEqual(rightGridXNumber, upliftVanCalculationGrid.RightGrid.GridXNumber);
             Assert.AreEqual(rightGridZNumber, upliftVanCalculationGrid.RightGrid.GridZNumber);
-            Assert.IsNull(upliftVanCalculationGrid.TangentLines);
+            Assert.IsNull(upliftVanCalculationGrid.TangentLines); // Only for output
         }
 
         [Test]
@@ -107,7 +107,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             Assert.AreEqual(0, upliftVanCalculationGrid.RightGrid.GridZBottom);
             Assert.AreEqual(0, upliftVanCalculationGrid.RightGrid.GridXNumber);
             Assert.AreEqual(0, upliftVanCalculationGrid.RightGrid.GridZNumber);
-            Assert.IsNull(upliftVanCalculationGrid.TangentLines);
+            Assert.IsNull(upliftVanCalculationGrid.TangentLines); // Only for output
         }
     }
 }

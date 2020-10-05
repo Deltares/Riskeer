@@ -279,6 +279,10 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                                              .Select(s => s.Surface),
                                       profile.Geometry.Surfaces);
 
+            Assert.AreEqual(profile.Geometry.Points.Min(p => p.X), profile.Geometry.Left);
+            Assert.AreEqual(profile.Geometry.Points.Max(p => p.X), profile.Geometry.Right);
+            Assert.AreEqual(profile.Geometry.Points.Min(p => p.Z), profile.Geometry.Bottom);
+
             #endregion
 
             #region Surfaces
@@ -567,6 +571,10 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             CollectionAssert.AreEqual(profile.SoilSurfaces.ToList()
                                              .Select(s => s.Surface),
                                       profile.Geometry.Surfaces);
+
+            Assert.AreEqual(profile.Geometry.Points.Min(p => p.X), profile.Geometry.Left);
+            Assert.AreEqual(profile.Geometry.Points.Max(p => p.X), profile.Geometry.Right);
+            Assert.AreEqual(profile.Geometry.Points.Min(p => p.Z), profile.Geometry.Bottom);
 
             #endregion
 

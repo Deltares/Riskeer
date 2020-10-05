@@ -25,11 +25,15 @@ using System.ComponentModel;
 using System.Linq;
 using Core.Common.TestUtil;
 using Deltares.MacroStability.CSharpWrapper;
+using Deltares.MacroStability.CSharpWrapper.Input;
 using NUnit.Framework;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Input;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input;
 using CSharpWrapperWaterPressureInterpolationModel = Deltares.MacroStability.CSharpWrapper.Input.WaterPressureInterpolationModel;
 using Point2D = Core.Common.Base.Geometry.Point2D;
+using PreconsolidationStress = Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Input.PreconsolidationStress;
+using SoilProfile = Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Input.SoilProfile;
+using WaterPressureInterpolationModel = Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Input.WaterPressureInterpolationModel;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
 {
@@ -250,6 +254,18 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             Assert.AreEqual(soilLayer.ShearStrengthRatio, layerWithSoil.Soil.RatioCuPc);
             Assert.AreEqual(soilLayer.StrengthIncreaseExponent, layerWithSoil.Soil.StrengthIncreaseExponent);
             Assert.AreEqual(soilLayer.Dilatancy, layerWithSoil.Soil.Dilatancy);
+
+            AssertIrrelevantValues(layerWithSoil);
+        }
+
+        private static void AssertIrrelevantValues(LayerWithSoil layerWithSoil)
+        {
+            CollectionAssert.IsEmpty(layerWithSoil.Soil.BondStressCurve); // Irrelevant
+            Assert.AreEqual(0, layerWithSoil.Soil.RRatio); // Irrelevant
+            Assert.AreEqual(0, layerWithSoil.Soil.RheologicalCoefficient); // Irrelevant
+            CollectionAssert.IsEmpty(layerWithSoil.Soil.SuTable); // Irrelevant
+            Assert.IsFalse(layerWithSoil.Soil.UseSoilClassification); // Irrelevant
+            Assert.AreEqual(SoilClassification.Sand, layerWithSoil.Soil.SoilClassification); // Irrelevant
         }
 
         private static SoilLayer.ConstructionProperties CreateRandomConstructionProperties(int seed, string materialName)

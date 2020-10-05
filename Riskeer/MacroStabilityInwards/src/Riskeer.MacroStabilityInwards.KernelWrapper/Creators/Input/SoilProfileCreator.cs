@@ -170,6 +170,10 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
                                       .Distinct()
                                       .ToArray();
 
+            geometry.Left = geometry.Points.Min(p => p.X);
+            geometry.Right = geometry.Points.Max(p => p.X);
+            geometry.Bottom = geometry.Points.Min(p => p.Z);
+
             return geometry;
         }
     }

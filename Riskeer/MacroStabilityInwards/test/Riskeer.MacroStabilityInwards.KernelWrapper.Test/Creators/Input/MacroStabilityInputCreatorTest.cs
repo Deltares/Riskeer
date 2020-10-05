@@ -197,6 +197,8 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                 Assert.AreSame(surfaceLine, preConstructionStage.SurfaceLine);
                 Assert.IsNull(preConstructionStage.WaternetCreatorInput); // Not needed as Waternet is already calculated
             }
+
+            AssertIrrelevantValues(stabilityModel, searchAreaConditions);
         }
 
         [Test]
@@ -245,6 +247,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             CollectionAssert.AreEqual(PreconsolidationStressCreator.Create(input.SoilProfile.PreconsolidationStresses),
                                       dailyConstructionStage.PreconsolidationStresses, new PreconsolidationStressComparer());
             AssertMultiplicationFactors(dailyConstructionStage.MultiplicationFactorsCPhiForUplift.Single());
+            AssertIrrelevantValues(dailyConstructionStage);
 
             ConstructionStage extremeConstructionStage = stabilityModel.ConstructionStages.ElementAt(1);
             Assert.AreSame(soilProfile, extremeConstructionStage.SoilProfile);
@@ -252,12 +255,47 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             CollectionAssert.IsEmpty(extremeConstructionStage.FixedSoilStresses);
             CollectionAssert.IsEmpty(extremeConstructionStage.PreconsolidationStresses);
             AssertMultiplicationFactors(extremeConstructionStage.MultiplicationFactorsCPhiForUplift.Single());
+            AssertIrrelevantValues(extremeConstructionStage);
         }
 
         private static void AssertMultiplicationFactors(MultiplicationFactorsCPhiForUplift multiplicationFactors)
         {
             Assert.AreEqual(0.0, multiplicationFactors.MultiplicationFactor);
             Assert.AreEqual(1.2, multiplicationFactors.UpliftFactor);
+        }
+
+        private static void AssertIrrelevantValues(ConstructionStage constructionStage)
+        {
+            CollectionAssert.IsEmpty(constructionStage.ConsolidationValues); // Irrelevant
+            Assert.IsNotNull(constructionStage.Earthquake); // Irrelevant
+            CollectionAssert.IsEmpty(constructionStage.ForbiddenLines); // Irrelevant
+            CollectionAssert.IsEmpty(constructionStage.Geotextiles); // Irrelevant
+            CollectionAssert.IsEmpty(constructionStage.LineLoads); // Irrelevant
+            CollectionAssert.IsEmpty(constructionStage.Nails); // Irrelevant
+            CollectionAssert.IsEmpty(constructionStage.TreesOnSlope); // Irrelevant
+            CollectionAssert.IsEmpty(constructionStage.UniformLoads); // Irrelevant
+            Assert.IsNotNull(constructionStage.YieldStressField); // Irrelevant
+        }
+
+        private static void AssertIrrelevantValues(StabilityInput stabilityModel, SearchAreaConditions searchAreaConditions)
+        {
+            Assert.AreEqual(50, stabilityModel.MaxGridMoves); // Irrelevant
+
+            Assert.IsNotNull(stabilityModel.BishopCalculationCircle); // Irrelevant - Only for Bishop
+            
+            Assert.IsNotNull(stabilityModel.BeeswarmAlgorithmOptions); // Irrelevant - Only for Beeswarm
+
+            Assert.IsNotNull(stabilityModel.GeneticAlgorithmOptions); // Irrelevant - Only for Genetic Algorithm
+            Assert.IsFalse(searchAreaConditions.AutoGeneticAlgorithmOptions); // Irrelevant - Only for Genetic Algorithm
+
+            Assert.IsNull(stabilityModel.LevenbergMarquardtOptions); // Irrelevant - Only for Levenberg Marquardt
+
+            Assert.AreEqual(0, stabilityModel.MaxAllowedAngleBetweenSlices); // Irrelevant - Only for Spencer
+            Assert.AreEqual(0, stabilityModel.RequiredForcePointsInSlices); // Irrelevant - Only for Spencer
+            Assert.IsNotNull(stabilityModel.SpencerSlipPlanes); // Irrelevant - Only for Spencer
+            Assert.AreEqual(2, stabilityModel.TraversalGridPoints); // Irrelevant - Only for Spencer
+            Assert.AreEqual(0, stabilityModel.TraversalRefinements); // Irrelevant - Only for Spencer
+            Assert.AreEqual(SearchAreaConditionsSlipPlanePosition.High, searchAreaConditions.SlipPlanePosition); // Irrelevant - Only for Spencer
         }
 
         #endregion
