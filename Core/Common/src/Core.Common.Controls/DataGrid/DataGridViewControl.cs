@@ -359,9 +359,13 @@ namespace Core.Common.Controls.DataGrid
         /// </list></remarks>
         public void SetDataSource(IEnumerable dataSource)
         {
+            ScrollBars originalScrollBarsValue = dataGridView.ScrollBars;
+
             dataGridView.ScrollBars = ScrollBars.None;
+
             dataGridView.DataSource = dataSource;
-            dataGridView.ScrollBars = ScrollBars.Both;
+
+            dataGridView.ScrollBars = originalScrollBarsValue;
         }
 
         /// <summary>
