@@ -200,7 +200,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan
             Assert.AreEqual(expected.Count, actual.Count);
 
             CollectionAssert.AreEqual(expected.Select(slcp => slcp.GeometryPoint), actual.Select(slcp => slcp.GeometryPoint), new StabilityPointComparer());
-            CollectionAssert.AreEqual(expected.Select(slcp => slcp.CharacteristicPoint), actual.Select(slcp => slcp.CharacteristicPoint));
+            CollectionAssert.AreEqual(expected.Select(slcp => slcp.CharacteristicPointType), actual.Select(slcp => slcp.CharacteristicPointType));
         }
     }
 }

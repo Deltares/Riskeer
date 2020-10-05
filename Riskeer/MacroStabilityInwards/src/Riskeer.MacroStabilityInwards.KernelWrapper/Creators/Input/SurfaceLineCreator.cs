@@ -63,7 +63,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
         {
             SurfaceLineCharacteristicPoint[] characteristicPoints = surfaceLine.LocalGeometry.Select(p => new SurfaceLineCharacteristicPoint
             {
-                CharacteristicPoint = CharacteristicPointType.None,
+                CharacteristicPointType = CharacteristicPointType.None,
                 GeometryPoint = new CSharpWrapperPoint2D(p.X, p.Y)
             }).ToArray();
 
@@ -82,62 +82,62 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
 
             if (ReferenceEquals(surfaceLine.DitchPolderSide, surfaceLinePoint))
             {
-                characteristicPoint.CharacteristicPoint = CharacteristicPointType.DitchPolderSide;
+                characteristicPoint.CharacteristicPointType = CharacteristicPointType.DitchPolderSide;
             }
 
             if (ReferenceEquals(surfaceLine.BottomDitchPolderSide, surfaceLinePoint))
             {
-                characteristicPoint.CharacteristicPoint = CharacteristicPointType.BottomDitchPolderSide;
+                characteristicPoint.CharacteristicPointType = CharacteristicPointType.BottomDitchPolderSide;
             }
 
             if (ReferenceEquals(surfaceLine.BottomDitchDikeSide, surfaceLinePoint))
             {
-                characteristicPoint.CharacteristicPoint = CharacteristicPointType.BottomDitchDikeSide;
+                characteristicPoint.CharacteristicPointType = CharacteristicPointType.BottomDitchDikeSide;
             }
 
             if (ReferenceEquals(surfaceLine.DitchDikeSide, surfaceLinePoint))
             {
-                characteristicPoint.CharacteristicPoint = CharacteristicPointType.DitchDikeSide;
+                characteristicPoint.CharacteristicPointType = CharacteristicPointType.DitchDikeSide;
             }
 
             if (ReferenceEquals(surfaceLine.DikeToeAtPolder, surfaceLinePoint))
             {
-                characteristicPoint.CharacteristicPoint = CharacteristicPointType.DikeToeAtPolder;
+                characteristicPoint.CharacteristicPointType = CharacteristicPointType.DikeToeAtPolder;
             }
 
             if (ReferenceEquals(surfaceLine.DikeToeAtRiver, surfaceLinePoint))
             {
-                characteristicPoint.CharacteristicPoint = CharacteristicPointType.DikeToeAtRiver;
+                characteristicPoint.CharacteristicPointType = CharacteristicPointType.DikeToeAtRiver;
             }
 
             if (ReferenceEquals(surfaceLine.DikeTopAtPolder, surfaceLinePoint))
             {
-                characteristicPoint.CharacteristicPoint = CharacteristicPointType.DikeTopAtPolder;
+                characteristicPoint.CharacteristicPointType = CharacteristicPointType.DikeTopAtPolder;
             }
 
             if (ReferenceEquals(surfaceLine.ShoulderBaseInside, surfaceLinePoint))
             {
-                characteristicPoint.CharacteristicPoint = CharacteristicPointType.ShoulderBaseInside;
+                characteristicPoint.CharacteristicPointType = CharacteristicPointType.ShoulderBaseInside;
             }
 
             if (ReferenceEquals(surfaceLine.ShoulderTopInside, surfaceLinePoint))
             {
-                characteristicPoint.CharacteristicPoint = CharacteristicPointType.ShoulderTopInside;
+                characteristicPoint.CharacteristicPointType = CharacteristicPointType.ShoulderTopInside;
             }
 
             if (ReferenceEquals(surfaceLine.SurfaceLevelInside, surfaceLinePoint))
             {
-                characteristicPoint.CharacteristicPoint = CharacteristicPointType.SurfaceLevelInside;
+                characteristicPoint.CharacteristicPointType = CharacteristicPointType.SurfaceLevelInside;
             }
 
             if (ReferenceEquals(surfaceLine.SurfaceLevelOutside, surfaceLinePoint))
             {
-                characteristicPoint.CharacteristicPoint = CharacteristicPointType.SurfaceLevelOutside;
+                characteristicPoint.CharacteristicPointType = CharacteristicPointType.SurfaceLevelOutside;
             }
 
             if (ReferenceEquals(surfaceLine.DikeTopAtRiver, surfaceLinePoint))
             {
-                characteristicPoint.CharacteristicPoint = CharacteristicPointType.DikeTopAtRiver;
+                characteristicPoint.CharacteristicPointType = CharacteristicPointType.DikeTopAtRiver;
             }
         }
     }

@@ -78,7 +78,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             // Assert
             CollectionAssert.AreEqual(surfaceLine.Points.Select(p => p.X), actual.CharacteristicPoints.Select(p => p.GeometryPoint.X));
             CollectionAssert.AreEqual(surfaceLine.Points.Select(p => p.Z), actual.CharacteristicPoints.Select(p => p.GeometryPoint.Z));
-            Assert.IsTrue(actual.CharacteristicPoints.All(cp => cp.CharacteristicPoint == CharacteristicPointType.None));
+            Assert.IsTrue(actual.CharacteristicPoints.All(cp => cp.CharacteristicPointType == CharacteristicPointType.None));
         }
 
         [Test]
@@ -103,7 +103,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
 
             CollectionAssert.AreEqual(expectedCoordinatesX, actual.CharacteristicPoints.Select(p => p.GeometryPoint.X), new DoubleWithToleranceComparer(1e-2));
             CollectionAssert.AreEqual(surfaceLine.Points.Select(p => p.Z), actual.CharacteristicPoints.Select(p => p.GeometryPoint.Z));
-            Assert.IsTrue(actual.CharacteristicPoints.All(cp => cp.CharacteristicPoint == CharacteristicPointType.None));
+            Assert.IsTrue(actual.CharacteristicPoints.All(cp => cp.CharacteristicPointType == CharacteristicPointType.None));
         }
 
         [Test]
@@ -134,7 +134,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
 
             CollectionAssert.AreEqual(expectedCoordinatesX, actual.CharacteristicPoints.Select(p => p.GeometryPoint.X), new DoubleWithToleranceComparer(1e-2));
             CollectionAssert.AreEqual(surfaceLine.Points.Select(p => p.Z), actual.CharacteristicPoints.Select(p => p.GeometryPoint.Z));
-            Assert.IsTrue(actual.CharacteristicPoints.All(cp => cp.CharacteristicPoint == CharacteristicPointType.None));
+            Assert.IsTrue(actual.CharacteristicPoints.All(cp => cp.CharacteristicPointType == CharacteristicPointType.None));
         }
 
         [Test]
@@ -159,7 +159,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
 
             CollectionAssert.AreEqual(expectedCoordinatesX, actual.CharacteristicPoints.Select(p => p.GeometryPoint.X));
             CollectionAssert.AreEqual(surfaceLine.Points.Select(p => p.Z), actual.CharacteristicPoints.Select(p => p.GeometryPoint.Z));
-            Assert.IsTrue(actual.CharacteristicPoints.All(cp => cp.CharacteristicPoint == CharacteristicPointType.None));
+            Assert.IsTrue(actual.CharacteristicPoints.All(cp => cp.CharacteristicPointType == CharacteristicPointType.None));
         }
 
         [Test]
@@ -208,18 +208,18 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             CollectionAssert.AreEqual(expectedCoordinatesX, actual.CharacteristicPoints.Select(p => p.GeometryPoint.X));
             CollectionAssert.AreEqual(expectedCoordinatesZ, actual.CharacteristicPoints.Select(p => p.GeometryPoint.Z));
 
-            Assert.AreEqual(CharacteristicPointType.BottomDitchDikeSide, actual.CharacteristicPoints.ElementAt(0).CharacteristicPoint);
-            Assert.AreEqual(CharacteristicPointType.BottomDitchPolderSide, actual.CharacteristicPoints.ElementAt(1).CharacteristicPoint);
-            Assert.AreEqual(CharacteristicPointType.DikeToeAtPolder, actual.CharacteristicPoints.ElementAt(2).CharacteristicPoint);
-            Assert.AreEqual(CharacteristicPointType.DikeToeAtRiver, actual.CharacteristicPoints.ElementAt(3).CharacteristicPoint);
-            Assert.AreEqual(CharacteristicPointType.DikeTopAtPolder, actual.CharacteristicPoints.ElementAt(4).CharacteristicPoint);
-            Assert.AreEqual(CharacteristicPointType.DitchDikeSide, actual.CharacteristicPoints.ElementAt(5).CharacteristicPoint);
-            Assert.AreEqual(CharacteristicPointType.DitchPolderSide, actual.CharacteristicPoints.ElementAt(6).CharacteristicPoint);
-            Assert.AreEqual(CharacteristicPointType.SurfaceLevelInside, actual.CharacteristicPoints.ElementAt(7).CharacteristicPoint);
-            Assert.AreEqual(CharacteristicPointType.SurfaceLevelOutside, actual.CharacteristicPoints.ElementAt(8).CharacteristicPoint);
-            Assert.AreEqual(CharacteristicPointType.ShoulderBaseInside, actual.CharacteristicPoints.ElementAt(9).CharacteristicPoint);
-            Assert.AreEqual(CharacteristicPointType.ShoulderTopInside, actual.CharacteristicPoints.ElementAt(10).CharacteristicPoint);
-            Assert.AreEqual(CharacteristicPointType.DikeTopAtRiver, actual.CharacteristicPoints.ElementAt(11).CharacteristicPoint);
+            Assert.AreEqual(CharacteristicPointType.BottomDitchDikeSide, actual.CharacteristicPoints.ElementAt(0).CharacteristicPointType);
+            Assert.AreEqual(CharacteristicPointType.BottomDitchPolderSide, actual.CharacteristicPoints.ElementAt(1).CharacteristicPointType);
+            Assert.AreEqual(CharacteristicPointType.DikeToeAtPolder, actual.CharacteristicPoints.ElementAt(2).CharacteristicPointType);
+            Assert.AreEqual(CharacteristicPointType.DikeToeAtRiver, actual.CharacteristicPoints.ElementAt(3).CharacteristicPointType);
+            Assert.AreEqual(CharacteristicPointType.DikeTopAtPolder, actual.CharacteristicPoints.ElementAt(4).CharacteristicPointType);
+            Assert.AreEqual(CharacteristicPointType.DitchDikeSide, actual.CharacteristicPoints.ElementAt(5).CharacteristicPointType);
+            Assert.AreEqual(CharacteristicPointType.DitchPolderSide, actual.CharacteristicPoints.ElementAt(6).CharacteristicPointType);
+            Assert.AreEqual(CharacteristicPointType.SurfaceLevelInside, actual.CharacteristicPoints.ElementAt(7).CharacteristicPointType);
+            Assert.AreEqual(CharacteristicPointType.SurfaceLevelOutside, actual.CharacteristicPoints.ElementAt(8).CharacteristicPointType);
+            Assert.AreEqual(CharacteristicPointType.ShoulderBaseInside, actual.CharacteristicPoints.ElementAt(9).CharacteristicPointType);
+            Assert.AreEqual(CharacteristicPointType.ShoulderTopInside, actual.CharacteristicPoints.ElementAt(10).CharacteristicPointType);
+            Assert.AreEqual(CharacteristicPointType.DikeTopAtRiver, actual.CharacteristicPoints.ElementAt(11).CharacteristicPointType);
         }
     }
 }
