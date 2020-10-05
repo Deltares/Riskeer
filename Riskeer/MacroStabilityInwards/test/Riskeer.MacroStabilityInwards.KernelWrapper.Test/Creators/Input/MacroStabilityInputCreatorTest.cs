@@ -184,9 +184,9 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             Assert.IsTrue(searchAreaConditions.OnlyAbovePleistoceen);
             Assert.AreEqual(input.SlipPlane.GridAutomaticDetermined, searchAreaConditions.AutoSearchArea);
             Assert.AreEqual(input.SlipPlane.TangentLinesAutomaticAtBoundaries, searchAreaConditions.AutoTangentLines);
-            Assert.AreEqual(input.SlipPlane.TangentLineNumber, searchAreaConditions.TangentLineNumber);
-            Assert.AreEqual(input.SlipPlane.TangentZTop, searchAreaConditions.TangentLineZTop);
-            Assert.AreEqual(input.SlipPlane.TangentZBottom, searchAreaConditions.TangentLineZBottom);
+            Assert.AreEqual(1, searchAreaConditions.TangentLineNumber);
+            Assert.AreEqual(0, searchAreaConditions.TangentLineZTop);
+            Assert.AreEqual(0, searchAreaConditions.TangentLineZBottom);
             Assert.AreEqual(input.SlipPlaneConstraints.AutomaticForbiddenZones, searchAreaConditions.AutomaticForbiddenZones);
 
             Assert.AreEqual(2, macroStabilityInput.PreprocessingInput.PreConstructionStages.Count);
@@ -197,6 +197,38 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
                 Assert.AreSame(surfaceLine, preConstructionStage.SurfaceLine);
                 Assert.IsNull(preConstructionStage.WaternetCreatorInput); // Not needed as Waternet is already calculated
             }
+        }
+
+        [Test]
+        public void CreateUpliftVan_ValidDataWithManualTangentLines_ReturnMacroStabilityInput()
+        {
+            // Setup
+            var random = new Random(21);
+            double tangentZTop = random.NextDouble();
+            double tangentZBottom = random.NextDouble();
+            int tangentLineNumber = random.Next();
+
+            UpliftVanCalculatorInput input = UpliftVanCalculatorInputTestFactory.Create(tangentZTop, tangentZBottom, tangentLineNumber);
+
+            LayerWithSoil[] layersWithSoil = LayerWithSoilCreator.Create(input.SoilProfile, out IDictionary<SoilLayer, LayerWithSoil> layerLookup);
+            List<Soil> soils = layersWithSoil.Select(lws => lws.Soil).ToList();
+
+            SurfaceLine surfaceLine = SurfaceLineCreator.Create(input.SurfaceLine);
+            SoilProfile soilProfile = SoilProfileCreator.Create(layersWithSoil);
+
+            var dailyWaternet = new Waternet();
+            var extremeWaternet = new Waternet();
+
+            // Call
+            MacroStabilityInput macroStabilityInput = MacroStabilityInputCreator.CreateUpliftVan(
+                input, soils, layerLookup, surfaceLine, soilProfile, dailyWaternet, extremeWaternet);
+
+            // Assert
+            SearchAreaConditions searchAreaConditions = macroStabilityInput.PreprocessingInput.SearchAreaConditions;
+            Assert.AreEqual(input.SlipPlane.TangentLinesAutomaticAtBoundaries, searchAreaConditions.AutoTangentLines);
+            Assert.AreEqual(input.SlipPlane.TangentLineNumber, searchAreaConditions.TangentLineNumber);
+            Assert.AreEqual(input.SlipPlane.TangentZTop, searchAreaConditions.TangentLineZTop);
+            Assert.AreEqual(input.SlipPlane.TangentZBottom, searchAreaConditions.TangentLineZBottom);
         }
 
         private static void AssertConstructionStages(

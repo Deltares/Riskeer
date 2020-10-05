@@ -93,7 +93,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
                 throw new ArgumentNullException(nameof(extremeWaternet));
             }
 
-            return new MacroStabilityInput
+            var macroStabilityInput = new MacroStabilityInput
             {
                 StabilityModel =
                 {
@@ -122,10 +122,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
                         OnlyAbovePleistoceen = true,
                         AutoSearchArea = upliftVanInput.SlipPlane.GridAutomaticDetermined,
                         AutoTangentLines = upliftVanInput.SlipPlane.TangentLinesAutomaticAtBoundaries,
-                        AutomaticForbiddenZones = upliftVanInput.SlipPlaneConstraints.AutomaticForbiddenZones,
-                        TangentLineNumber = upliftVanInput.SlipPlane.TangentLineNumber,
-                        TangentLineZTop = upliftVanInput.SlipPlane.TangentZTop,
-                        TangentLineZBottom = upliftVanInput.SlipPlane.TangentZBottom
+                        AutomaticForbiddenZones = upliftVanInput.SlipPlaneConstraints.AutomaticForbiddenZones
                     },
                     PreConstructionStages =
                     {
@@ -134,6 +131,10 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
                     }
                 }
             };
+
+            SetTangentLineProperties(upliftVanInput, macroStabilityInput);
+
+            return macroStabilityInput;
         }
 
         /// <summary>
@@ -228,6 +229,16 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
                 SurfaceLineCreator.Create(waternetInput.SurfaceLine),
                 SoilProfileCreator.Create(layersWithSoil),
                 WaternetCreatorInputCreator.Create(waternetInput));
+        }
+
+        private static void SetTangentLineProperties(UpliftVanCalculatorInput upliftVanInput, MacroStabilityInput macroStabilityInput)
+        {
+            if (!upliftVanInput.SlipPlane.TangentLinesAutomaticAtBoundaries)
+            {
+                macroStabilityInput.PreprocessingInput.SearchAreaConditions.TangentLineNumber = upliftVanInput.SlipPlane.TangentLineNumber;
+                macroStabilityInput.PreprocessingInput.SearchAreaConditions.TangentLineZTop = upliftVanInput.SlipPlane.TangentZTop;
+                macroStabilityInput.PreprocessingInput.SearchAreaConditions.TangentLineZBottom = upliftVanInput.SlipPlane.TangentZBottom;
+            }
         }
 
         private static MacroStabilityInput CreateWaternet(ICollection<Soil> soils, SurfaceLine surfaceLine,

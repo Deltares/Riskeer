@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using NUnit.Framework;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan.Input;
 using Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.UpliftVan.Input;
@@ -30,7 +31,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Calculators.
     public class UpliftVanCalculatorInputTestFactoryTest
     {
         [Test]
-        public void Create_Always_ReturnsUpliftVanCalculatorInput()
+        public void Create_WithoutParameters_ReturnsUpliftVanCalculatorInput()
         {
             // Call
             UpliftVanCalculatorInput input = UpliftVanCalculatorInputTestFactory.Create();
@@ -61,6 +62,53 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Calculators.
             Assert.IsNotNull(input.PhreaticLineOffsetsDaily);
             Assert.IsNotNull(input.PhreaticLineOffsetsExtreme);
             Assert.IsNotNull(input.SlipPlane);
+            Assert.IsNotNull(input.SlipPlaneConstraints);
+
+            Assert.AreEqual(1, input.SlipPlaneConstraints.SlipPlaneMinimumDepth);
+            Assert.AreEqual(0.7, input.SlipPlaneConstraints.SlipPlaneMinimumLength);
+        }
+
+        [Test]
+        public void Create_WithParameters_ReturnsUpliftVanCalculatorInput()
+        {
+            // Setup
+            var random = new Random(21);
+            double tangentZTop = random.NextDouble();
+            double tangentZBottom = random.NextDouble();
+            int tangentLineNumber = random.Next();
+
+            // Call
+            UpliftVanCalculatorInput input = UpliftVanCalculatorInputTestFactory.Create(tangentZTop, tangentZBottom, tangentLineNumber);
+
+            // Assert
+            Assert.AreEqual(-1, input.AssessmentLevel);
+            Assert.AreEqual(-1, input.WaterLevelRiverAverage);
+            Assert.AreEqual(-1, input.WaterLevelPolderExtreme);
+            Assert.AreEqual(-1, input.WaterLevelPolderDaily);
+            Assert.AreEqual(0.1, input.MinimumLevelPhreaticLineAtDikeTopRiver);
+            Assert.AreEqual(0.2, input.MinimumLevelPhreaticLineAtDikeTopPolder);
+            Assert.AreEqual(1.3, input.LeakageLengthOutwardsPhreaticLine3);
+            Assert.AreEqual(1.4, input.LeakageLengthInwardsPhreaticLine3);
+            Assert.AreEqual(1.5, input.LeakageLengthOutwardsPhreaticLine4);
+            Assert.AreEqual(1.6, input.LeakageLengthInwardsPhreaticLine4);
+            Assert.AreEqual(0.3, input.PiezometricHeadPhreaticLine2Outwards);
+            Assert.AreEqual(0.4, input.PiezometricHeadPhreaticLine2Inwards);
+            Assert.AreEqual(0.5, input.PenetrationLengthExtreme);
+            Assert.AreEqual(0.6, input.PenetrationLengthDaily);
+            Assert.IsTrue(input.AdjustPhreaticLine3And4ForUplift);
+            Assert.AreEqual(MacroStabilityInwardsDikeSoilScenario.ClayDikeOnClay, input.DikeSoilScenario);
+            Assert.IsFalse(input.MoveGrid);
+            Assert.AreEqual(1, input.MaximumSliceWidth);
+
+            Assert.IsNotNull(input.SurfaceLine);
+            Assert.IsNotNull(input.SoilProfile);
+            Assert.IsNotNull(input.DrainageConstruction);
+            Assert.IsNotNull(input.PhreaticLineOffsetsDaily);
+            Assert.IsNotNull(input.PhreaticLineOffsetsExtreme);
+            Assert.IsNotNull(input.SlipPlane);
+            Assert.AreEqual(tangentZTop, input.SlipPlane.TangentZTop);
+            Assert.AreEqual(tangentZBottom, input.SlipPlane.TangentZBottom);
+            Assert.AreEqual(tangentLineNumber, input.SlipPlane.TangentLineNumber);
             Assert.IsNotNull(input.SlipPlaneConstraints);
 
             Assert.AreEqual(1, input.SlipPlaneConstraints.SlipPlaneMinimumDepth);

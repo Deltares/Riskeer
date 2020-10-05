@@ -39,6 +39,24 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Uplif
         /// <returns>The created <see cref="UpliftVanCalculatorInput"/>.</returns>
         public static UpliftVanCalculatorInput Create()
         {
+            return Create(new UpliftVanSlipPlane());
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="UpliftVanCalculatorInput"/>.
+        /// </summary>
+        /// <param name="tangentZTop">The tangent line top boundary.</param>
+        /// <param name="tangentZBottom">The tangent line bottom boundary.</param>
+        /// <param name="tangentLineNumber">The number of tangent lines.</param>
+        /// <returns>The created <see cref="UpliftVanCalculatorInput"/>.</returns>
+        public static UpliftVanCalculatorInput Create(double tangentZTop, double tangentZBottom, int tangentLineNumber)
+        {
+            return Create(new UpliftVanSlipPlane(UpliftVanGridTestFactory.Create(), UpliftVanGridTestFactory.Create(),
+                                                 tangentZTop, tangentZBottom, tangentLineNumber));
+        }
+
+        private static UpliftVanCalculatorInput Create(UpliftVanSlipPlane slipPlane)
+        {
             MacroStabilityInwardsSurfaceLine surfaceLine = CreateValidSurfaceLine();
 
             return new UpliftVanCalculatorInput(new UpliftVanCalculatorInput.ConstructionProperties
@@ -49,7 +67,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Uplif
                 DrainageConstruction = new DrainageConstruction(),
                 PhreaticLineOffsetsExtreme = new PhreaticLineOffsets(),
                 PhreaticLineOffsetsDaily = new PhreaticLineOffsets(),
-                SlipPlane = new UpliftVanSlipPlane(),
+                SlipPlane = slipPlane,
                 SlipPlaneConstraints = new UpliftVanSlipPlaneConstraints(1, 0.7),
                 WaterLevelRiverAverage = -1,
                 WaterLevelPolderExtreme = -1,
