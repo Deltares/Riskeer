@@ -19,7 +19,7 @@ mode="Global">
 		True
 	</useDefaultItemLogging>
 	<codegen
-	classname="ValidateChartsCalculations"
+	classname="ValidateChartCalculation"
 	namespace="AutomatedSystemTests">
 	</codegen>
 	<variables>
@@ -41,7 +41,7 @@ mode="Global">
 	</repository>
 	<usercodefile
 	lang="CSharp">
-		ValidateChartsCalculations.UserCode.cs
+		ValidateChartCalculation.UserCode.cs
 	</usercodefile>
 	<references>
 	</references>

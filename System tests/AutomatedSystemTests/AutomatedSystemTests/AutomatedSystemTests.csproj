@@ -167,6 +167,18 @@
       <UserCode>true</UserCode>
       <id>25b9d3df-d029-427a-96c4-de8470c01737</id>
     </Compile>
+    <Compile Include="ExpandUntilFMInput.cs">
+      <BoundTo>15520dd1-870c-4aa7-94ce-7a05d8be9a4c</BoundTo>
+      <DependentUpon>ExpandUntilFMInput.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>2a002dcb-9d56-4f00-9dd5-d167eaedcd7e</id>
+    </Compile>
+    <Compile Include="ExpandUntilFMInput.UserCode.cs">
+      <BoundTo>15520dd1-870c-4aa7-94ce-7a05d8be9a4c</BoundTo>
+      <DependentUpon>ExpandUntilFMInput.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>ebdb82ae-c816-411d-913b-a426c58ab31e</id>
+    </Compile>
     <Compile Include="GenerateCalculations.cs">
       <BoundTo>eae62d5d-fd0c-420e-bd9b-fcee4398bbff</BoundTo>
       <DependentUpon>GenerateCalculations.rxrec</DependentUpon>
@@ -374,15 +386,15 @@
       <UserCode>true</UserCode>
       <id>f103591c-470f-43f6-9be6-e6eb74067b9c</id>
     </Compile>
-    <Compile Include="ValidateChartsCalculations.cs">
+    <Compile Include="ValidateChartCalculation.cs">
       <BoundTo>4b8d1691-69c4-4e3d-a814-9ceb4db6505b</BoundTo>
-      <DependentUpon>ValidateChartsCalculations.rxrec</DependentUpon>
+      <DependentUpon>ValidateChartCalculation.rxrec</DependentUpon>
       <RecorderCode>true</RecorderCode>
       <id>3f92ba8a-c125-4782-aa63-c6d9aeac3459</id>
     </Compile>
-    <Compile Include="ValidateChartsCalculations.UserCode.cs">
+    <Compile Include="ValidateChartCalculation.UserCode.cs">
       <BoundTo>4b8d1691-69c4-4e3d-a814-9ceb4db6505b</BoundTo>
-      <DependentUpon>ValidateChartsCalculations.rxrec</DependentUpon>
+      <DependentUpon>ValidateChartCalculation.rxrec</DependentUpon>
       <UserCode>true</UserCode>
       <id>9fb44715-bbad-438c-82d6-0632f9784731</id>
     </Compile>
@@ -525,6 +537,11 @@
       <id>75c56bbc-55ab-4649-abbf-6157d7ab6a40</id>
       <recordtableid>3c2d44f5-31b5-4584-91c8-1ad748affc77</recordtableid>
     </None>
+    <None Include="ExpandUntilFMInput.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>15520dd1-870c-4aa7-94ce-7a05d8be9a4c</id>
+      <recordtableid>758dd2d8-956a-46d7-a793-08dc2c8e08a7</recordtableid>
+    </None>
     <None Include="GenerateCalculations.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>eae62d5d-fd0c-420e-bd9b-fcee4398bbff</id>
@@ -610,7 +627,7 @@
       <id>8f7fe1fa-f1ef-4825-8e3a-6a13124b5fbc</id>
       <recordtableid>825ce2a6-cd3b-42f6-9972-8ced75f1a54f</recordtableid>
     </None>
-    <None Include="ValidateChartsCalculations.rxrec">
+    <None Include="ValidateChartCalculation.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>4b8d1691-69c4-4e3d-a814-9ceb4db6505b</id>
       <recordtableid>2161f947-3dda-4270-9a96-0d33afc50b6c</recordtableid>

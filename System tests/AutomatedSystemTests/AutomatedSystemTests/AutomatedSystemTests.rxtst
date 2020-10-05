@@ -43,12 +43,6 @@
 					variableid="6f91cdce-7f0c-42ee-93e0-4a3735497a16"
 					variablename="fmShouldBeRelevant">
 					</var>
-					<var
-					dataname="NameFM"
-					datasourceid="3698fc68-261f-4cf7-ae99-41fde3616da2"
-					variableid="3a7276c1-fca1-4026-9d2e-5bac10651a47"
-					variablename="substringItemName">
-					</var>
 				</databinding>
 				<missingdatabinding>
 					<var
@@ -336,12 +330,6 @@
 					variableid="6f91cdce-7f0c-42ee-93e0-4a3735497a16"
 					variablename="fmShouldBeRelevant">
 					</var>
-					<var
-					dataname="NameFM"
-					datasourceid="1b1df013-4a4b-4a2a-a392-87368b82bae9"
-					variableid="3a7276c1-fca1-4026-9d2e-5bac10651a47"
-					variablename="substringItemName">
-					</var>
 				</databinding>
 			</testmodule>
 			<testmodule
@@ -366,6 +354,26 @@
 			name="GenerateCalculations"
 			ref="8513f955-1cc5-4468-875c-d51ce8a545ba"
 			type="Recording">
+				<databinding>
+					<var
+					dataname="trajectSubstring"
+					datasourceid="e3a5d86a-aed9-4cb2-9fd0-3f8149eb00ca"
+					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
+					variablename="substringTrajectName">
+					</var>
+					<var
+					dataname="fmSubstring"
+					datasourceid="e3a5d86a-aed9-4cb2-9fd0-3f8149eb00ca"
+					variableid="3a7276c1-fca1-4026-9d2e-5bac10651a47"
+					variablename="substringFMName">
+					</var>
+					<var
+					dataname="index"
+					datasourceid="e3a5d86a-aed9-4cb2-9fd0-3f8149eb00ca"
+					variableid="201b1d21-866e-4c9e-bf76-93ca440565ea"
+					variablename="indexRow">
+					</var>
+				</databinding>
 			</testmodule>
 			<smartfoldernode
 			datasource="relevance41_1ProjectExplorer"
@@ -393,7 +401,7 @@
 					dataname="NameFM"
 					datasourceid="24af1f45-008d-4bb7-a60c-90f42ab75efc"
 					variableid="3a7276c1-fca1-4026-9d2e-5bac10651a47"
-					variablename="substringItemName">
+					variablename="substringFMName">
 					</var>
 				</databinding>
 			</testmodule>
@@ -481,7 +489,7 @@
 					dataname="substringFM"
 					datasourceid="5c9aaf1b-40ce-4a6c-923c-fbe5859aa91f"
 					variableid="3a7276c1-fca1-4026-9d2e-5bac10651a47"
-					variablename="substringItemName">
+					variablename="substringFMName">
 					</var>
 				</databinding>
 			</testmodule>
@@ -597,7 +605,7 @@
 					dataname="fmName"
 					datasourceid="0610da1d-e8c2-4d82-a696-1d6caaa1e9cc"
 					variableid="3a7276c1-fca1-4026-9d2e-5bac10651a47"
-					variablename="substringItemName">
+					variablename="substringFMName">
 					</var>
 					<var
 					dataname="trajectID"
@@ -664,7 +672,7 @@
 					dataname="fmName"
 					datasourceid="3b159b7c-719d-4e4a-bfa0-b75369cae6fd"
 					variableid="3a7276c1-fca1-4026-9d2e-5bac10651a47"
-					variablename="substringItemName">
+					variablename="substringFMName">
 					</var>
 					<var
 					dataname="trajectID"
@@ -691,6 +699,20 @@
 			<smartfoldernode
 			id="5b63b031-dd02-4a8d-89c0-7f1d5f3066a9"
 			name="ImportSubsurfaceSchematizationsSTPH">
+				<parameters>
+					<param
+					name="filename"
+					value="X:\script10\input\00original\Ondergrond traject 12_2_met_DSoil_v17_2_1_987.soil">
+					</param>
+					<param
+					name="substringFM"
+					value="Dijken en dammen - Piping">
+					</param>
+					<param
+					name="substringTrajectName"
+					value="Traject 12-2">
+					</param>
+				</parameters>
 			</smartfoldernode>
 			<smartfoldernode
 			id="5c9aaf1b-40ce-4a6c-923c-fbe5859aa91f"
@@ -752,7 +774,7 @@
 					dataname="fmSubstring"
 					datasourceid="2688ac5e-e112-466c-aad3-9c8b60c1497f"
 					variableid="3a7276c1-fca1-4026-9d2e-5bac10651a47"
-					variablename="substringItemName">
+					variablename="substringFMName">
 					</var>
 				</databinding>
 				<missingdatabinding>
@@ -777,7 +799,7 @@
 			</smartfoldernode>
 			<testmodule
 			id="720fc0d3-d812-4104-890f-5a60e986688c"
-			name="ValidateChartsCalculations"
+			name="ValidateChartCalculation"
 			ref="2161f947-3dda-4270-9a96-0d33afc50b6c"
 			type="Recording">
 			</testmodule>
@@ -853,7 +875,7 @@
 					dataname="substringFM"
 					datasourceid="5c9aaf1b-40ce-4a6c-923c-fbe5859aa91f"
 					variableid="3a7276c1-fca1-4026-9d2e-5bac10651a47"
-					variablename="substringItemName">
+					variablename="substringFMName">
 					</var>
 				</databinding>
 			</testmodule>
@@ -911,6 +933,26 @@
 			name="ImportStochasticSoilModelCollection"
 			ref="288d66d7-3c19-43f3-bd1e-9523f15bb660"
 			type="Recording">
+				<databinding>
+					<var
+					dataname="filename"
+					datasourceid="5b63b031-dd02-4a8d-89c0-7f1d5f3066a9"
+					variableid="afc0a4c0-0d40-403c-b397-fb6a4c9112e8"
+					variablename="nameSoilFile">
+					</var>
+					<var
+					dataname="substringFM"
+					datasourceid="5b63b031-dd02-4a8d-89c0-7f1d5f3066a9"
+					variableid="3a7276c1-fca1-4026-9d2e-5bac10651a47"
+					variablename="substringFMName">
+					</var>
+					<var
+					dataname="substringTrajectName"
+					datasourceid="5b63b031-dd02-4a8d-89c0-7f1d5f3066a9"
+					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
+					variablename="substringTrajectName">
+					</var>
+				</databinding>
 			</testmodule>
 			<smartfoldernode
 			datasource="listWithNamesFMs"
@@ -937,7 +979,7 @@
 					dataname="NameFM"
 					datasourceid="9df3cf25-f308-49ae-bd27-f976cf66fd09"
 					variableid="3a7276c1-fca1-4026-9d2e-5bac10651a47"
-					variablename="substringItemName">
+					variablename="substringFMName">
 					</var>
 					<var
 					dataname="TextInTraject"
@@ -1285,6 +1327,10 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
+			<smartfoldernode
+			id="c2835620-b926-49c7-95b5-58ccb48f4e0e"
+			name="LoopCalculations">
+			</smartfoldernode>
 			<testmodule
 			id="c28c9f0c-e838-4d0f-a19d-352618177a90"
 			name="ValidateRelevanceFMInProjectExplorer"
@@ -1301,7 +1347,7 @@
 					dataname="NameFM"
 					datasourceid="1b1df013-4a4b-4a2a-a392-87368b82bae9"
 					variableid="3a7276c1-fca1-4026-9d2e-5bac10651a47"
-					variablename="substringItemName">
+					variablename="substringFMName">
 					</var>
 					<var
 					dataname="IsRelevant"
@@ -1446,6 +1492,26 @@
 				</databinding>
 			</testmodule>
 			<testmodule
+			id="d884dec3-4263-48c9-aeff-64381e3aa9c0"
+			name="ExpandUntilFMInput"
+			ref="758dd2d8-956a-46d7-a793-08dc2c8e08a7"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="substringTrajectName"
+					datasourceid="5c9aaf1b-40ce-4a6c-923c-fbe5859aa91f"
+					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
+					variablename="substringTrajectName">
+					</var>
+					<var
+					dataname="substringFM"
+					datasourceid="5c9aaf1b-40ce-4a6c-923c-fbe5859aa91f"
+					variableid="3a7276c1-fca1-4026-9d2e-5bac10651a47"
+					variablename="substringFMName">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
 			id="d9cb81d2-4288-435b-af5a-0ef03e953f87"
 			name="StartAUT"
 			ref="825ce2a6-cd3b-42f6-9972-8ced75f1a54f"
@@ -1467,6 +1533,20 @@
 			<smartfoldernode
 			id="e3a5d86a-aed9-4cb2-9fd0-3f8149eb00ca"
 			name="GenerateCalculationsSTPH">
+				<parameters>
+					<param
+					name="trajectSubstring"
+					value="12-2">
+					</param>
+					<param
+					name="fmSubstring"
+					value="Dijken en dammen - Piping">
+					</param>
+					<param
+					name="index"
+					value="6">
+					</param>
+				</parameters>
 			</smartfoldernode>
 			<smartfoldernode
 			id="e5ae984b-bd5a-4a0a-9e27-8c0d4bf76e75"
@@ -1621,7 +1701,7 @@
 					dataname="fmSubstring"
 					datasourceid="c23e27aa-dca4-4ae7-9cab-a920f2b2d594"
 					variableid="3a7276c1-fca1-4026-9d2e-5bac10651a47"
-					variablename="substringItemName">
+					variablename="substringFMName">
 					</var>
 				</databinding>
 				<missingdatabinding>
@@ -1668,6 +1748,94 @@
 				<testcase
 				id="fda567a0-be92-41b9-9761-e7e7d9e7be7f"
 				name="AutomatedSystemTests">
+					<testcase
+					id="bbc104ea-69c3-4dcd-8e50-5d1b60cd8d06"
+					name="script10">
+						<setup
+						id="69c50bc2-1f21-470a-9310-b9ca68b22aa7"
+						name="setup">
+							<testmodule
+							id="13851a8a-a87f-4496-b912-74004675d141"
+							name="StartAUT">
+							</testmodule>
+						</setup>
+						<smartfoldernode
+						id="f4955a2d-d976-4dab-9a66-884a462172a4"
+						name="AddTraject12-2">
+							<testmodule
+							id="85c62712-bbe5-489f-965e-90fd6852f168"
+							name="AddNewTraject">
+							</testmodule>
+						</smartfoldernode>
+						<smartfoldernode
+						id="5c9aaf1b-40ce-4a6c-923c-fbe5859aa91f"
+						name="ImportSurfaceLinesSTPH">
+							<testmodule
+							id="7e4d63d1-955f-4cd5-acf1-4630b0dbe407"
+							name="OpenViewForGenericFM">
+							</testmodule>
+							<testmodule
+							id="d884dec3-4263-48c9-aeff-64381e3aa9c0"
+							name="ExpandUntilFMInput">
+							</testmodule>
+							<testmodule
+							id="3fd35838-f609-47f6-b7ad-5a5e8267c81b"
+							name="ImportSurfaceLines">
+							</testmodule>
+						</smartfoldernode>
+						<smartfoldernode
+						id="5b63b031-dd02-4a8d-89c0-7f1d5f3066a9"
+						name="ImportSubsurfaceSchematizationsSTPH">
+							<testmodule
+							id="88a26224-9b86-47e7-beaa-10503cc65d8f"
+							name="ImportStochasticSoilModelCollection">
+							</testmodule>
+						</smartfoldernode>
+						<smartfoldernode
+						id="e3a5d86a-aed9-4cb2-9fd0-3f8149eb00ca"
+						name="GenerateCalculationsSTPH">
+							<testmodule
+							id="2c870f2e-8b60-4df3-b194-7ff69db5a826"
+							name="GenerateCalculations">
+							</testmodule>
+						</smartfoldernode>
+						<smartfoldernode
+						id="44f46814-6990-4cf7-a952-322a09d85d43"
+						name="ValidateSurfaceLinesSTPH">
+							<testmodule
+							id="19ebfc85-421b-4bc0-85a0-d04a1075e04a"
+							name="OpenViewForGenericFM">
+							</testmodule>
+							<testmodule
+							id="c9ce130a-8831-4864-bc2a-b447b6cfcaa1"
+							name="ValidateSourcePathSurfaceLines">
+							</testmodule>
+							<smartfoldernode
+							id="c2835620-b926-49c7-95b5-58ccb48f4e0e"
+							name="LoopCalculations">
+								<testmodule
+								id="720fc0d3-d812-4104-890f-5a60e986688c"
+								name="ValidateChartCalculation">
+								</testmodule>
+							</smartfoldernode>
+							<smartfoldernode
+							id="7df4f5d9-6c64-457c-8a84-336b3a0d721b"
+							name="LoopSurfaceLines">
+								<testmodule
+								id="cc470262-311b-415e-afad-5aa5ba3bf243"
+								name="ValidateSurfaceLineInProjectExplorerAndPropertiesPanel">
+								</testmodule>
+							</smartfoldernode>
+						</smartfoldernode>
+						<teardown
+						id="739dbdee-cb57-479e-9461-6d944c1505e4"
+						name="teardown">
+							<testmodule
+							id="b63f694f-32a5-4cdf-9719-05e53ad8a00d"
+							name="CloseAUT">
+							</testmodule>
+						</teardown>
+					</testcase>
 					<testcase
 					id="f16b204f-b66b-40a0-82c1-8d62dcbc8b22"
 					name="script21">
@@ -2116,86 +2284,6 @@
 						name="teardown">
 							<testmodule
 							id="573f01a7-79df-46ca-be8c-dd429342d717"
-							name="CloseAUT">
-							</testmodule>
-						</teardown>
-					</testcase>
-					<testcase
-					id="bbc104ea-69c3-4dcd-8e50-5d1b60cd8d06"
-					name="script10">
-						<setup
-						id="69c50bc2-1f21-470a-9310-b9ca68b22aa7"
-						name="setup">
-							<testmodule
-							id="13851a8a-a87f-4496-b912-74004675d141"
-							name="StartAUT">
-							</testmodule>
-						</setup>
-						<smartfoldernode
-						id="f4955a2d-d976-4dab-9a66-884a462172a4"
-						name="AddTraject12-2">
-							<testmodule
-							id="85c62712-bbe5-489f-965e-90fd6852f168"
-							name="AddNewTraject">
-							</testmodule>
-						</smartfoldernode>
-						<smartfoldernode
-						id="5c9aaf1b-40ce-4a6c-923c-fbe5859aa91f"
-						name="ImportSurfaceLinesSTPH">
-							<testmodule
-							id="7e4d63d1-955f-4cd5-acf1-4630b0dbe407"
-							name="OpenViewForGenericFM">
-							</testmodule>
-							<testmodule
-							id="3fd35838-f609-47f6-b7ad-5a5e8267c81b"
-							name="ImportSurfaceLines">
-							</testmodule>
-						</smartfoldernode>
-						<smartfoldernode
-						id="5b63b031-dd02-4a8d-89c0-7f1d5f3066a9"
-						name="ImportSubsurfaceSchematizationsSTPH">
-							<testmodule
-							id="88a26224-9b86-47e7-beaa-10503cc65d8f"
-							name="ImportStochasticSoilModelCollection">
-							</testmodule>
-						</smartfoldernode>
-						<smartfoldernode
-						id="e3a5d86a-aed9-4cb2-9fd0-3f8149eb00ca"
-						name="GenerateCalculationsSTPH">
-							<testmodule
-							id="2c870f2e-8b60-4df3-b194-7ff69db5a826"
-							name="GenerateCalculations">
-							</testmodule>
-						</smartfoldernode>
-						<smartfoldernode
-						id="44f46814-6990-4cf7-a952-322a09d85d43"
-						name="ValidateSurfaceLinesSTPH">
-							<testmodule
-							id="19ebfc85-421b-4bc0-85a0-d04a1075e04a"
-							name="OpenViewForGenericFM">
-							</testmodule>
-							<testmodule
-							id="c9ce130a-8831-4864-bc2a-b447b6cfcaa1"
-							name="ValidateSourcePathSurfaceLines">
-							</testmodule>
-							<testmodule
-							id="720fc0d3-d812-4104-890f-5a60e986688c"
-							name="ValidateChartsCalculations">
-							</testmodule>
-							<smartfoldernode
-							id="7df4f5d9-6c64-457c-8a84-336b3a0d721b"
-							name="LoopSurfaceLines">
-								<testmodule
-								id="cc470262-311b-415e-afad-5aa5ba3bf243"
-								name="ValidateSurfaceLineInProjectExplorerAndPropertiesPanel">
-								</testmodule>
-							</smartfoldernode>
-						</smartfoldernode>
-						<teardown
-						id="739dbdee-cb57-479e-9461-6d944c1505e4"
-						name="teardown">
-							<testmodule
-							id="b63f694f-32a5-4cdf-9719-05e53ad8a00d"
 							name="CloseAUT">
 							</testmodule>
 						</teardown>
@@ -2845,6 +2933,9 @@
 			</testcontainer>
 			<testcontainer
 			id="c23e27aa-dca4-4ae7-9cab-a920f2b2d594">
+			</testcontainer>
+			<testcontainer
+			id="c2835620-b926-49c7-95b5-58ccb48f4e0e">
 			</testcontainer>
 			<testcontainer
 			id="c591cc54-d1fc-4c63-9aef-9320d59440f6">

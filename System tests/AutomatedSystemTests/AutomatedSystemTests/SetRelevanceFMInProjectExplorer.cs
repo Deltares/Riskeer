@@ -56,18 +56,6 @@ namespace AutomatedSystemTests
 
 #region Variables
 
-        string _substringFMName;
-
-        /// <summary>
-        /// Gets or sets the value of variable substringFMName.
-        /// </summary>
-        [TestVariable("1f7734c3-2c4d-4c2c-b8f8-d8bbbf0017be")]
-        public string substringFMName
-        {
-            get { return _substringFMName; }
-            set { _substringFMName = value; }
-        }
-
         string _fmShouldBeRelevant;
 
         /// <summary>
@@ -91,13 +79,13 @@ namespace AutomatedSystemTests
         }
 
         /// <summary>
-        /// Gets or sets the value of variable substringItemName.
+        /// Gets or sets the value of variable substringFMName.
         /// </summary>
-        [TestVariable("3a7276c1-fca1-4026-9d2e-5bac10651a47")]
-        public string substringItemName
+        [TestVariable("1f7734c3-2c4d-4c2c-b8f8-d8bbbf0017be")]
+        public string substringFMName
         {
-            get { return repo.substringItemName; }
-            set { repo.substringItemName = value; }
+            get { return repo.substringFMName; }
+            set { repo.substringFMName = value; }
         }
 
 #endregion

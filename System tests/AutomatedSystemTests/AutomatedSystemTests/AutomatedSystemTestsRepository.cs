@@ -35,8 +35,8 @@ namespace AutomatedSystemTests
         AutomatedSystemTestsRepositoryFolders.OpslaanAlsAppFolder _opslaanals;
         AutomatedSystemTestsRepositoryFolders.DropDownMenuItemListAppFolder _dropdownmenuitemlist;
         AutomatedSystemTestsRepositoryFolders.DialogNewTrajectAppFolder _dialognewtraject;
-        AutomatedSystemTestsRepositoryFolders.ProjectExplorerFolder1 _projectexplorer;
         AutomatedSystemTestsRepositoryFolders.OpenenAppFolder _openen;
+        AutomatedSystemTestsRepositoryFolders.DialogGenerateCalculationsAppFolder _dialoggeneratecalculations;
         RepoItemInfo _buttonyesInfo;
 
         /// <summary>
@@ -62,8 +62,8 @@ namespace AutomatedSystemTests
             _opslaanals = new AutomatedSystemTestsRepositoryFolders.OpslaanAlsAppFolder(this);
             _dropdownmenuitemlist = new AutomatedSystemTestsRepositoryFolders.DropDownMenuItemListAppFolder(this);
             _dialognewtraject = new AutomatedSystemTestsRepositoryFolders.DialogNewTrajectAppFolder(this);
-            _projectexplorer = new AutomatedSystemTestsRepositoryFolders.ProjectExplorerFolder1(this);
             _openen = new AutomatedSystemTestsRepositoryFolders.OpenenAppFolder(this);
+            _dialoggeneratecalculations = new AutomatedSystemTestsRepositoryFolders.DialogGenerateCalculationsAppFolder(this);
             _buttonyesInfo = new RepoItemInfo(this, "ButtonYes", "/form[@title='Confirm Save As']//button[@text='&Yes']", 3000, null, "ac0a8e2f-9815-493c-bc5f-c81dcf12d652");
         }
 
@@ -81,16 +81,16 @@ namespace AutomatedSystemTests
             set { _substringTrajectName = value; }
         }
 
-        string _substringItemName = "";
+        string _substringFMName = "";
 
         /// <summary>
-        /// Gets or sets the value of variable substringItemName.
+        /// Gets or sets the value of variable substringFMName.
         /// </summary>
         [TestVariable("3a7276c1-fca1-4026-9d2e-5bac10651a47")]
-        public string substringItemName
+        public string substringFMName
         {
-            get { return _substringItemName; }
-            set { _substringItemName = value; }
+            get { return _substringFMName; }
+            set { _substringFMName = value; }
         }
 
         string _labelFM = "";
@@ -163,6 +163,18 @@ namespace AutomatedSystemTests
         {
             get { return _normType; }
             set { _normType = value; }
+        }
+
+        string _indexRow = "";
+
+        /// <summary>
+        /// Gets or sets the value of variable indexRow.
+        /// </summary>
+        [TestVariable("201b1d21-866e-4c9e-bf76-93ca440565ea")]
+        public string indexRow
+        {
+            get { return _indexRow; }
+            set { _indexRow = value; }
         }
 
 #endregion
@@ -276,21 +288,21 @@ namespace AutomatedSystemTests
         }
 
         /// <summary>
-        /// The ProjectExplorer folder.
-        /// </summary>
-        [RepositoryFolder("e51e33d2-3acf-4acb-bdb2-39ee48065f55")]
-        public virtual AutomatedSystemTestsRepositoryFolders.ProjectExplorerFolder1 ProjectExplorer
-        {
-            get { return _projectexplorer; }
-        }
-
-        /// <summary>
         /// The Openen folder.
         /// </summary>
         [RepositoryFolder("3a716415-5c8c-4180-ba63-04ca2f4f5a22")]
         public virtual AutomatedSystemTestsRepositoryFolders.OpenenAppFolder Openen
         {
             get { return _openen; }
+        }
+
+        /// <summary>
+        /// The DialogGenerateCalculations folder.
+        /// </summary>
+        [RepositoryFolder("42112570-aca4-4418-aa9e-8d74dbb65cc6")]
+        public virtual AutomatedSystemTestsRepositoryFolders.DialogGenerateCalculationsAppFolder DialogGenerateCalculations
+        {
+            get { return _dialoggeneratecalculations; }
         }
     }
 
@@ -314,6 +326,7 @@ namespace AutomatedSystemTests
             AutomatedSystemTestsRepositoryFolders.PropertiesPanelContainerFolder _propertiespanelcontainer;
             RepoItemInfo _isfmrelevantcellInfo;
             RepoItemInfo _eenvoudigetoetsrow0Info;
+            RepoItemInfo _containermapInfo;
 
             /// <summary>
             /// Creates a new RiskeerMainWindow  folder.
@@ -329,6 +342,7 @@ namespace AutomatedSystemTests
                 _propertiespanelcontainer = new AutomatedSystemTestsRepositoryFolders.PropertiesPanelContainerFolder(this);
                 _isfmrelevantcellInfo = new RepoItemInfo(this, "IsFMRelevantCell", "list//container[@controlname='FailureMechanismContributionView']/?/table/row[@accessiblevalue~$labelFM]/cell[@accessiblename>'Is relevant']", 30000, null, "1029a286-ce5f-4de6-8f9d-d68210aae163");
                 _eenvoudigetoetsrow0Info = new RepoItemInfo(this, "EenvoudigeToetsRow0", "list//table[@controlname='dataGridView']/row[@accessiblename='Row 0']/cell[@accessiblename='Eenvoudige toets Row 0']", 30000, null, "f8cdf597-37da-4ffc-b089-434847a309f6");
+                _containermapInfo = new RepoItemInfo(this, "ContainerMap", "container[1]//container[@controlname='PipingFailureMechanismView']/container[@controlname='riskeerMapControl']/?/?/container[@controlname='Map']", 30000, null, "74ddb834-ebe4-48fa-b57b-b1550e70b7fa");
             }
 
             /// <summary>
@@ -400,6 +414,30 @@ namespace AutomatedSystemTests
                 get
                 {
                     return _eenvoudigetoetsrow0Info;
+                }
+            }
+
+            /// <summary>
+            /// The ContainerMap item.
+            /// </summary>
+            [RepositoryItem("74ddb834-ebe4-48fa-b57b-b1550e70b7fa")]
+            public virtual Ranorex.Container ContainerMap
+            {
+                get
+                {
+                    return _containermapInfo.CreateAdapter<Ranorex.Container>(true);
+                }
+            }
+
+            /// <summary>
+            /// The ContainerMap item info.
+            /// </summary>
+            [RepositoryItemInfo("74ddb834-ebe4-48fa-b57b-b1550e70b7fa")]
+            public virtual RepoItemInfo ContainerMapInfo
+            {
+                get
+                {
+                    return _containermapInfo;
                 }
             }
 
@@ -578,7 +616,7 @@ namespace AutomatedSystemTests
             {
                 _genericfmitemwithsubstringinname = new AutomatedSystemTestsRepositoryFolders.GenericFMItemWithSubstringInNameFolder(this);
                 _faalkansbegrotingInfo = new RepoItemInfo(this, "Faalkansbegroting", "treeitem[@accessiblename='Faalkansbegroting']", 30000, null, "79c86dc7-8eee-48b2-b0af-b29632b7c092");
-                _oordeelInfo = new RepoItemInfo(this, "Oordeel", "treeitem[@accessiblename~$substringItemName]/treeitem[@accessiblename='Oordeel']", 30000, null, "9b833e18-2ad8-4a3e-89a9-ad2886320f3c");
+                _oordeelInfo = new RepoItemInfo(this, "Oordeel", "treeitem[@accessiblename~$substringFMName]/treeitem[@accessiblename='Oordeel']", 30000, null, "9b833e18-2ad8-4a3e-89a9-ad2886320f3c");
             }
 
             /// <summary>
@@ -670,14 +708,16 @@ namespace AutomatedSystemTests
         public partial class GenericFMItemWithSubstringInNameFolder : RepoGenBaseFolder
         {
             AutomatedSystemTestsRepositoryFolders.InputFolder _input;
+            AutomatedSystemTestsRepositoryFolders.CalculationsFolder _calculations;
 
             /// <summary>
             /// Creates a new GenericFMItemWithSubstringInName  folder.
             /// </summary>
             public GenericFMItemWithSubstringInNameFolder(RepoGenBaseFolder parentFolder) :
-                    base("GenericFMItemWithSubstringInName", "treeitem[@accessiblename~$substringItemName]", parentFolder, 30000, null, false, "92f53398-7bb2-45f8-a305-0adb56ec8aa7", "")
+                    base("GenericFMItemWithSubstringInName", "treeitem[@accessiblename~$substringFMName]", parentFolder, 30000, null, false, "92f53398-7bb2-45f8-a305-0adb56ec8aa7", "")
             {
                 _input = new AutomatedSystemTestsRepositoryFolders.InputFolder(this);
+                _calculations = new AutomatedSystemTestsRepositoryFolders.CalculationsFolder(this);
             }
 
             /// <summary>
@@ -712,6 +752,15 @@ namespace AutomatedSystemTests
             {
                 get { return _input; }
             }
+
+            /// <summary>
+            /// The Calculations folder.
+            /// </summary>
+            [RepositoryFolder("50f3bbe9-efbc-4f72-bf7d-d1dcc1c5ad98")]
+            public virtual AutomatedSystemTestsRepositoryFolders.CalculationsFolder Calculations
+            {
+                get { return _calculations; }
+            }
         }
 
         /// <summary>
@@ -721,6 +770,7 @@ namespace AutomatedSystemTests
         public partial class InputFolder : RepoGenBaseFolder
         {
             AutomatedSystemTestsRepositoryFolders.SurfaceLinesNodeFolder _surfacelinesnode;
+            AutomatedSystemTestsRepositoryFolders.StochasticSoilModelCollectionFolder _stochasticsoilmodelcollection;
 
             /// <summary>
             /// Creates a new Input  folder.
@@ -729,6 +779,7 @@ namespace AutomatedSystemTests
                     base("Input", "treeitem[@accessiblename='Invoer']", parentFolder, 30000, null, false, "49f4c93e-6dcb-4c7e-852a-1da467bd10e1", "")
             {
                 _surfacelinesnode = new AutomatedSystemTestsRepositoryFolders.SurfaceLinesNodeFolder(this);
+                _stochasticsoilmodelcollection = new AutomatedSystemTestsRepositoryFolders.StochasticSoilModelCollectionFolder(this);
             }
 
             /// <summary>
@@ -763,6 +814,15 @@ namespace AutomatedSystemTests
             {
                 get { return _surfacelinesnode; }
             }
+
+            /// <summary>
+            /// The StochasticSoilModelCollection folder.
+            /// </summary>
+            [RepositoryFolder("03aba76a-aaa9-4a4f-afc6-7205205077c8")]
+            public virtual AutomatedSystemTestsRepositoryFolders.StochasticSoilModelCollectionFolder StochasticSoilModelCollection
+            {
+                get { return _stochasticsoilmodelcollection; }
+            }
         }
 
         /// <summary>
@@ -796,6 +856,86 @@ namespace AutomatedSystemTests
             /// The Self item info.
             /// </summary>
             [RepositoryItemInfo("0975ee40-020d-45db-a2a2-374a609a3436")]
+            public virtual RepoItemInfo SelfInfo
+            {
+                get
+                {
+                    return _selfInfo;
+                }
+            }
+        }
+
+        /// <summary>
+        /// The StochasticSoilModelCollectionFolder folder.
+        /// </summary>
+        [RepositoryFolder("03aba76a-aaa9-4a4f-afc6-7205205077c8")]
+        public partial class StochasticSoilModelCollectionFolder : RepoGenBaseFolder
+        {
+
+            /// <summary>
+            /// Creates a new StochasticSoilModelCollection  folder.
+            /// </summary>
+            public StochasticSoilModelCollectionFolder(RepoGenBaseFolder parentFolder) :
+                    base("StochasticSoilModelCollection", "treeitem[@accessiblename='Stochastische ondergrondmodellen']", parentFolder, 30000, null, false, "03aba76a-aaa9-4a4f-afc6-7205205077c8", "")
+            {
+            }
+
+            /// <summary>
+            /// The Self item.
+            /// </summary>
+            [RepositoryItem("03aba76a-aaa9-4a4f-afc6-7205205077c8")]
+            public virtual Ranorex.TreeItem Self
+            {
+                get
+                {
+                    return _selfInfo.CreateAdapter<Ranorex.TreeItem>(true);
+                }
+            }
+
+            /// <summary>
+            /// The Self item info.
+            /// </summary>
+            [RepositoryItemInfo("03aba76a-aaa9-4a4f-afc6-7205205077c8")]
+            public virtual RepoItemInfo SelfInfo
+            {
+                get
+                {
+                    return _selfInfo;
+                }
+            }
+        }
+
+        /// <summary>
+        /// The CalculationsFolder folder.
+        /// </summary>
+        [RepositoryFolder("50f3bbe9-efbc-4f72-bf7d-d1dcc1c5ad98")]
+        public partial class CalculationsFolder : RepoGenBaseFolder
+        {
+
+            /// <summary>
+            /// Creates a new Calculations  folder.
+            /// </summary>
+            public CalculationsFolder(RepoGenBaseFolder parentFolder) :
+                    base("Calculations", "treeitem[@accessiblename='Berekeningen']", parentFolder, 30000, null, false, "50f3bbe9-efbc-4f72-bf7d-d1dcc1c5ad98", "")
+            {
+            }
+
+            /// <summary>
+            /// The Self item.
+            /// </summary>
+            [RepositoryItem("50f3bbe9-efbc-4f72-bf7d-d1dcc1c5ad98")]
+            public virtual Ranorex.TreeItem Self
+            {
+                get
+                {
+                    return _selfInfo.CreateAdapter<Ranorex.TreeItem>(true);
+                }
+            }
+
+            /// <summary>
+            /// The Self item info.
+            /// </summary>
+            [RepositoryItemInfo("50f3bbe9-efbc-4f72-bf7d-d1dcc1c5ad98")]
             public virtual RepoItemInfo SelfInfo
             {
                 get
@@ -1992,6 +2132,7 @@ namespace AutomatedSystemTests
             RepoItemInfo _allesberekenenInfo;
             RepoItemInfo _eigenschappenInfo;
             RepoItemInfo _importerenInfo;
+            RepoItemInfo _genereerscenariosInfo;
 
             /// <summary>
             /// Creates a new ContextMenu  folder.
@@ -2009,6 +2150,7 @@ namespace AutomatedSystemTests
                 _allesberekenenInfo = new RepoItemInfo(this, "AllesBerekenen", "menuitem[@accessiblename='Alles berekenen']", 30000, null, "e02b3f9a-ba31-43a8-afa9-3e258b8b22a1");
                 _eigenschappenInfo = new RepoItemInfo(this, "Eigenschappen", "menuitem[@accessiblename='Eigenschappen']", 30000, null, "e1da8f1b-1c8b-4e9c-b857-0e4571730d0f");
                 _importerenInfo = new RepoItemInfo(this, "Importeren", "menuitem[@accessiblename='Importeren...']", 30000, null, "34965857-9328-4216-9d99-86afbd395e38");
+                _genereerscenariosInfo = new RepoItemInfo(this, "GenereerScenarios", "menuitem[@accessiblename='Genereer scenario''s...']", 30000, null, "17056c41-6629-4a0e-8ab2-93470db9fa27");
             }
 
             /// <summary>
@@ -2272,6 +2414,30 @@ namespace AutomatedSystemTests
                 get
                 {
                     return _importerenInfo;
+                }
+            }
+
+            /// <summary>
+            /// The GenereerScenarios item.
+            /// </summary>
+            [RepositoryItem("17056c41-6629-4a0e-8ab2-93470db9fa27")]
+            public virtual Ranorex.MenuItem GenereerScenarios
+            {
+                get
+                {
+                    return _genereerscenariosInfo.CreateAdapter<Ranorex.MenuItem>(true);
+                }
+            }
+
+            /// <summary>
+            /// The GenereerScenarios item info.
+            /// </summary>
+            [RepositoryItemInfo("17056c41-6629-4a0e-8ab2-93470db9fa27")]
+            public virtual RepoItemInfo GenereerScenariosInfo
+            {
+                get
+                {
+                    return _genereerscenariosInfo;
                 }
             }
         }
@@ -2707,97 +2873,6 @@ namespace AutomatedSystemTests
         }
 
         /// <summary>
-        /// The ProjectExplorerFolder1 folder.
-        /// </summary>
-        [RepositoryFolder("e51e33d2-3acf-4acb-bdb2-39ee48065f55")]
-        public partial class ProjectExplorerFolder1 : RepoGenBaseFolder
-        {
-            AutomatedSystemTestsRepositoryFolders.STBIFolder _stbi;
-
-            /// <summary>
-            /// Creates a new ProjectExplorer  folder.
-            /// </summary>
-            public ProjectExplorerFolder1(RepoGenBaseFolder parentFolder) :
-                    base("ProjectExplorer", "/form//container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']", parentFolder, 30000, null, true, "e51e33d2-3acf-4acb-bdb2-39ee48065f55", "")
-            {
-                _stbi = new AutomatedSystemTestsRepositoryFolders.STBIFolder(this);
-            }
-
-            /// <summary>
-            /// The Self item.
-            /// </summary>
-            [RepositoryItem("e51e33d2-3acf-4acb-bdb2-39ee48065f55")]
-            public virtual Ranorex.Tree Self
-            {
-                get
-                {
-                    return _selfInfo.CreateAdapter<Ranorex.Tree>(true);
-                }
-            }
-
-            /// <summary>
-            /// The Self item info.
-            /// </summary>
-            [RepositoryItemInfo("e51e33d2-3acf-4acb-bdb2-39ee48065f55")]
-            public virtual RepoItemInfo SelfInfo
-            {
-                get
-                {
-                    return _selfInfo;
-                }
-            }
-
-            /// <summary>
-            /// The STBI folder.
-            /// </summary>
-            [RepositoryFolder("d1fede4e-9e41-488f-9476-e932fa9f2886")]
-            public virtual AutomatedSystemTestsRepositoryFolders.STBIFolder STBI
-            {
-                get { return _stbi; }
-            }
-        }
-
-        /// <summary>
-        /// The STBIFolder folder.
-        /// </summary>
-        [RepositoryFolder("d1fede4e-9e41-488f-9476-e932fa9f2886")]
-        public partial class STBIFolder : RepoGenBaseFolder
-        {
-
-            /// <summary>
-            /// Creates a new STBI  folder.
-            /// </summary>
-            public STBIFolder(RepoGenBaseFolder parentFolder) :
-                    base("STBI", "treeitem/treeitem/treeitem[9]", parentFolder, 30000, null, false, "d1fede4e-9e41-488f-9476-e932fa9f2886", "")
-            {
-            }
-
-            /// <summary>
-            /// The Self item.
-            /// </summary>
-            [RepositoryItem("d1fede4e-9e41-488f-9476-e932fa9f2886")]
-            public virtual Ranorex.TreeItem Self
-            {
-                get
-                {
-                    return _selfInfo.CreateAdapter<Ranorex.TreeItem>(true);
-                }
-            }
-
-            /// <summary>
-            /// The Self item info.
-            /// </summary>
-            [RepositoryItemInfo("d1fede4e-9e41-488f-9476-e932fa9f2886")]
-            public virtual RepoItemInfo SelfInfo
-            {
-                get
-                {
-                    return _selfInfo;
-                }
-            }
-        }
-
-        /// <summary>
         /// The OpenenAppFolder folder.
         /// </summary>
         [RepositoryFolder("3a716415-5c8c-4180-ba63-04ca2f4f5a22")]
@@ -2885,6 +2960,98 @@ namespace AutomatedSystemTests
                 get
                 {
                     return _buttonopenInfo;
+                }
+            }
+        }
+
+        /// <summary>
+        /// The DialogGenerateCalculationsAppFolder folder.
+        /// </summary>
+        [RepositoryFolder("42112570-aca4-4418-aa9e-8d74dbb65cc6")]
+        public partial class DialogGenerateCalculationsAppFolder : RepoGenBaseFolder
+        {
+            RepoItemInfo _usecellrowindexthInfo;
+            RepoItemInfo _generatebuttonInfo;
+
+            /// <summary>
+            /// Creates a new DialogGenerateCalculations  folder.
+            /// </summary>
+            public DialogGenerateCalculationsAppFolder(RepoGenBaseFolder parentFolder) :
+                    base("DialogGenerateCalculations", "/form[@controlname='SelectionDialogBase']", parentFolder, 30000, null, true, "42112570-aca4-4418-aa9e-8d74dbb65cc6", "")
+            {
+                _usecellrowindexthInfo = new RepoItemInfo(this, "UseCellRowIndexth", ".//table[@controlname='dataGridView']/row[@accessiblename='Row '+$indexRow]/cell[@accessiblename>'Gebruik']", 30000, null, "407fae09-698f-4177-8f27-47a238018ac5");
+                _generatebuttonInfo = new RepoItemInfo(this, "GenerateButton", "container/button[@controlname='DoForSelectedButton']", 30000, null, "eb4e6139-e00a-44c2-9e0d-344eeed26fd7");
+            }
+
+            /// <summary>
+            /// The Self item.
+            /// </summary>
+            [RepositoryItem("42112570-aca4-4418-aa9e-8d74dbb65cc6")]
+            public virtual Ranorex.Form Self
+            {
+                get
+                {
+                    return _selfInfo.CreateAdapter<Ranorex.Form>(true);
+                }
+            }
+
+            /// <summary>
+            /// The Self item info.
+            /// </summary>
+            [RepositoryItemInfo("42112570-aca4-4418-aa9e-8d74dbb65cc6")]
+            public virtual RepoItemInfo SelfInfo
+            {
+                get
+                {
+                    return _selfInfo;
+                }
+            }
+
+            /// <summary>
+            /// The UseCellRowIndexth item.
+            /// </summary>
+            [RepositoryItem("407fae09-698f-4177-8f27-47a238018ac5")]
+            public virtual Ranorex.Cell UseCellRowIndexth
+            {
+                get
+                {
+                    return _usecellrowindexthInfo.CreateAdapter<Ranorex.Cell>(true);
+                }
+            }
+
+            /// <summary>
+            /// The UseCellRowIndexth item info.
+            /// </summary>
+            [RepositoryItemInfo("407fae09-698f-4177-8f27-47a238018ac5")]
+            public virtual RepoItemInfo UseCellRowIndexthInfo
+            {
+                get
+                {
+                    return _usecellrowindexthInfo;
+                }
+            }
+
+            /// <summary>
+            /// The GenerateButton item.
+            /// </summary>
+            [RepositoryItem("eb4e6139-e00a-44c2-9e0d-344eeed26fd7")]
+            public virtual Ranorex.Button GenerateButton
+            {
+                get
+                {
+                    return _generatebuttonInfo.CreateAdapter<Ranorex.Button>(true);
+                }
+            }
+
+            /// <summary>
+            /// The GenerateButton item info.
+            /// </summary>
+            [RepositoryItemInfo("eb4e6139-e00a-44c2-9e0d-344eeed26fd7")]
+            public virtual RepoItemInfo GenerateButtonInfo
+            {
+                get
+                {
+                    return _generatebuttonInfo;
                 }
             }
         }

@@ -30,90 +30,6 @@ mode="Global">
 	</variables>
 	<recorditems>
 		<invokeactionrecorditem
-		action="Focus"
-		enabled="True"
-		optional="False"
-		searchpropertyid="fe2dd668-cc97-410a-b3fc-584bf7319c6d">
-			<comment>
-			</comment>
-			<bindings>
-			</bindings>
-			<info
-			id="92f53398-7bb2-45f8-a305-0adb56ec8aa7"
-			sourcename="RepositoryEditor">
-				<path>
-					/form[@automationid='RiskeerMainWindow']//container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]/treeitem[@accessiblename~$substringTrajectName]/treeitem[@accessiblename~$substringItemName]
-				</path>
-			</info>
-			<arguments
-			id="c037b496-f60f-4ab6-80c8-02122e01b63d">
-			</arguments>
-		</invokeactionrecorditem>
-		<invokeactionrecorditem
-		action="Select"
-		enabled="True"
-		optional="False"
-		searchpropertyid="7a062d77-1d63-4f84-9ce5-f7a1941d4fdd">
-			<comment>
-			</comment>
-			<bindings>
-			</bindings>
-			<info
-			id="92f53398-7bb2-45f8-a305-0adb56ec8aa7"
-			sourcename="RepositoryEditor">
-				<path>
-					/form[@automationid='RiskeerMainWindow']//container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]/treeitem[@accessiblename~$substringTrajectName]/treeitem[@accessiblename~$substringItemName]
-				</path>
-			</info>
-			<arguments
-			id="a6e1db0d-21ca-4358-92da-c3761b99a759">
-			</arguments>
-		</invokeactionrecorditem>
-		<keysequenceitem
-		KeySequence="{Right}"
-		duration="20ms"
-		enabled="True"
-		optional="False"
-		presstime="20ms"
-		searchpropertyid="749ba36e-2454-4c85-a34a-4f7da35763be">
-			<comment>
-			</comment>
-			<bindings>
-			</bindings>
-		</keysequenceitem>
-		<invokeactionrecorditem
-		action="Select"
-		enabled="True"
-		optional="False"
-		searchpropertyid="8e2342fb-dfb1-4a04-892c-9b56ae31dd99">
-			<comment>
-			</comment>
-			<bindings>
-			</bindings>
-			<info
-			id="49f4c93e-6dcb-4c7e-852a-1da467bd10e1"
-			sourcename="RepositoryEditor">
-				<path>
-					/form[@automationid='RiskeerMainWindow']//container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]/treeitem[@accessiblename~$substringTrajectName]/treeitem[@accessiblename~$substringItemName]/treeitem[@accessiblename='Invoer']
-				</path>
-			</info>
-			<arguments
-			id="0bf9bc03-3c00-4a9d-9125-16e9a4d43b59">
-			</arguments>
-		</invokeactionrecorditem>
-		<keysequenceitem
-		KeySequence="{Right}"
-		duration="20ms"
-		enabled="True"
-		optional="False"
-		presstime="20ms"
-		searchpropertyid="749ba36e-2454-4c85-a34a-4f7da35763be">
-			<comment>
-			</comment>
-			<bindings>
-			</bindings>
-		</keysequenceitem>
-		<invokeactionrecorditem
 		action="Select"
 		enabled="True"
 		optional="False"
@@ -1167,6 +1083,24 @@ KKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooA//2Q==
 		enabled="True"
 		optional="False"
 		searchpropertyid="7607f713-ef5c-44ba-b806-a2e9e0114f53"
+		waitaction="Exists"
+		waittimeout="5000ms">
+			<comment>
+			</comment>
+			<bindings>
+			</bindings>
+			<info
+			id="ce9d9227-f12e-488e-9ca2-80d899fed485"
+			sourcename="RepositoryEditor">
+				<path>
+					/form[@controlname='ActivityProgressDialog']/button[@controlname='buttonCancel']
+				</path>
+			</info>
+		</WaitForRecordItem>
+		<WaitForRecordItem
+		enabled="True"
+		optional="False"
+		searchpropertyid="7607f713-ef5c-44ba-b806-a2e9e0114f53"
 		waitaction="NotExists"
 		waittimeout="5000ms">
 			<comment>
@@ -1174,10 +1108,10 @@ KKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooA//2Q==
 			<bindings>
 			</bindings>
 			<info
-			id="3a716415-5c8c-4180-ba63-04ca2f4f5a22"
+			id="ce9d9227-f12e-488e-9ca2-80d899fed485"
 			sourcename="RepositoryEditor">
 				<path>
-					/form[@title='Openen']
+					/form[@controlname='ActivityProgressDialog']/button[@controlname='buttonCancel']
 				</path>
 			</info>
 		</WaitForRecordItem>

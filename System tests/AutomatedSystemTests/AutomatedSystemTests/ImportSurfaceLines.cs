@@ -77,13 +77,13 @@ namespace AutomatedSystemTests
         }
 
         /// <summary>
-        /// Gets or sets the value of variable substringItemName.
+        /// Gets or sets the value of variable substringFMName.
         /// </summary>
         [TestVariable("3a7276c1-fca1-4026-9d2e-5bac10651a47")]
-        public string substringItemName
+        public string substringFMName
         {
-            get { return repo.substringItemName; }
-            set { repo.substringItemName = value; }
+            get { return repo.substringFMName; }
+            set { repo.substringFMName = value; }
         }
 
 #endregion
@@ -112,38 +112,26 @@ namespace AutomatedSystemTests
 
             Init();
 
-            Report.Log(ReportLevel.Info, "Invoke action", "Invoking Focus() on item 'RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericFMItemWithSubstringInName'.", repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericFMItemWithSubstringInName.SelfInfo, new RecordItemIndex(0));
-            repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericFMItemWithSubstringInName.Self.Focus();
-            
-            Report.Log(ReportLevel.Info, "Invoke action", "Invoking Select() on item 'RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericFMItemWithSubstringInName'.", repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericFMItemWithSubstringInName.SelfInfo, new RecordItemIndex(1));
-            repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericFMItemWithSubstringInName.Self.Select();
-            
-            Report.Log(ReportLevel.Info, "Keyboard", "Key sequence '{Right}'.", new RecordItemIndex(2));
-            Keyboard.Press("{Right}");
-            
-            Report.Log(ReportLevel.Info, "Invoke action", "Invoking Select() on item 'RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericFMItemWithSubstringInName.Input'.", repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericFMItemWithSubstringInName.Input.SelfInfo, new RecordItemIndex(3));
-            repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericFMItemWithSubstringInName.Input.Self.Select();
-            
-            Report.Log(ReportLevel.Info, "Keyboard", "Key sequence '{Right}'.", new RecordItemIndex(4));
-            Keyboard.Press("{Right}");
-            
-            Report.Log(ReportLevel.Info, "Invoke action", "Invoking Select() on item 'RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericFMItemWithSubstringInName.Input.SurfaceLinesNode'.", repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericFMItemWithSubstringInName.Input.SurfaceLinesNode.SelfInfo, new RecordItemIndex(5));
+            Report.Log(ReportLevel.Info, "Invoke action", "Invoking Select() on item 'RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericFMItemWithSubstringInName.Input.SurfaceLinesNode'.", repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericFMItemWithSubstringInName.Input.SurfaceLinesNode.SelfInfo, new RecordItemIndex(0));
             repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericFMItemWithSubstringInName.Input.SurfaceLinesNode.Self.Select();
             
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Right Click item 'RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericFMItemWithSubstringInName.Input.SurfaceLinesNode' at Center.", repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericFMItemWithSubstringInName.Input.SurfaceLinesNode.SelfInfo, new RecordItemIndex(6));
+            Report.Log(ReportLevel.Info, "Mouse", "Mouse Right Click item 'RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericFMItemWithSubstringInName.Input.SurfaceLinesNode' at Center.", repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericFMItemWithSubstringInName.Input.SurfaceLinesNode.SelfInfo, new RecordItemIndex(1));
             repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericFMItemWithSubstringInName.Input.SurfaceLinesNode.Self.Click(System.Windows.Forms.MouseButtons.Right);
             
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'ContextMenu.Importeren' at Center.", repo.ContextMenu.ImporterenInfo, new RecordItemIndex(7));
+            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'ContextMenu.Importeren' at Center.", repo.ContextMenu.ImporterenInfo, new RecordItemIndex(2));
             repo.ContextMenu.Importeren.Click();
             
-            Report.Log(ReportLevel.Info, "Set value", "Setting attribute Text to '$SurfaceLineCollectionFileName' on item 'Openen.FileNameField'.", repo.Openen.FileNameFieldInfo, new RecordItemIndex(8));
+            Report.Log(ReportLevel.Info, "Set value", "Setting attribute Text to '$SurfaceLineCollectionFileName' on item 'Openen.FileNameField'.", repo.Openen.FileNameFieldInfo, new RecordItemIndex(3));
             repo.Openen.FileNameField.Element.SetAttributeValue("Text", SurfaceLineCollectionFileName);
             
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'Openen.ButtonOpen' at 41;7.", repo.Openen.ButtonOpenInfo, new RecordItemIndex(9));
+            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'Openen.ButtonOpen' at 41;7.", repo.Openen.ButtonOpenInfo, new RecordItemIndex(4));
             repo.Openen.ButtonOpen.Click("41;7");
             
-            Report.Log(ReportLevel.Info, "Wait", "Waiting 5s to not exist. Associated repository item: 'Openen'", repo.Openen.SelfInfo, new ActionTimeout(5000), new RecordItemIndex(10));
-            repo.Openen.SelfInfo.WaitForNotExists(5000);
+            Report.Log(ReportLevel.Info, "Wait", "Waiting 5s to exist. Associated repository item: 'ActivityProgressDialog.ButtonCancel'", repo.ActivityProgressDialog.ButtonCancelInfo, new ActionTimeout(5000), new RecordItemIndex(5));
+            repo.ActivityProgressDialog.ButtonCancelInfo.WaitForExists(5000);
+            
+            Report.Log(ReportLevel.Info, "Wait", "Waiting 5s to not exist. Associated repository item: 'ActivityProgressDialog.ButtonCancel'", repo.ActivityProgressDialog.ButtonCancelInfo, new ActionTimeout(5000), new RecordItemIndex(6));
+            repo.ActivityProgressDialog.ButtonCancelInfo.WaitForNotExists(5000);
             
         }
 

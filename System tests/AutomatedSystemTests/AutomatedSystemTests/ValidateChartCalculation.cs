@@ -24,29 +24,29 @@ namespace AutomatedSystemTests
 {
 #pragma warning disable 0436 //(CS0436) The type 'type' in 'assembly' conflicts with the imported type 'type2' in 'assembly'. Using the type defined in 'assembly'.
     /// <summary>
-    ///The ValidateChartsCalculations recording.
+    ///The ValidateChartCalculation recording.
     /// </summary>
     [TestModule("2161f947-3dda-4270-9a96-0d33afc50b6c", ModuleType.Recording, 1)]
-    public partial class ValidateChartsCalculations : ITestModule
+    public partial class ValidateChartCalculation : ITestModule
     {
         /// <summary>
         /// Holds an instance of the AutomatedSystemTestsRepository repository.
         /// </summary>
         public static AutomatedSystemTestsRepository repo = AutomatedSystemTestsRepository.Instance;
 
-        static ValidateChartsCalculations instance = new ValidateChartsCalculations();
+        static ValidateChartCalculation instance = new ValidateChartCalculation();
 
         /// <summary>
         /// Constructs a new instance.
         /// </summary>
-        public ValidateChartsCalculations()
+        public ValidateChartCalculation()
         {
         }
 
         /// <summary>
         /// Gets a static instance of this recording.
         /// </summary>
-        public static ValidateChartsCalculations Instance
+        public static ValidateChartCalculation Instance
         {
             get { return instance; }
         }

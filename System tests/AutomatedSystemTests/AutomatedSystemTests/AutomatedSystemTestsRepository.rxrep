@@ -79,15 +79,39 @@ name="AutomatedSystemTestsRepository">
 								searchtimeout="30000ms"
 								usecache="False">
 									<basepath>
-										/form[@automationid='RiskeerMainWindow']//container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]/treeitem[@accessiblename~$substringTrajectName]/treeitem[@accessiblename~$substringItemName]/treeitem[@accessiblename='Invoer']/treeitem[@accessiblename='Profielschematisaties']
+										/form[@automationid='RiskeerMainWindow']//container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]/treeitem[@accessiblename~$substringTrajectName]/treeitem[@accessiblename~$substringFMName]/treeitem[@accessiblename='Invoer']/treeitem[@accessiblename='Profielschematisaties']
+									</basepath>
+								</folder>
+								<folder
+								capname="treeitem"
+								id="03aba76a-aaa9-4a4f-afc6-7205205077c8"
+								isrooted="True"
+								name="StochasticSoilModelCollection"
+								refimgid="2f5d14f6-4ad1-47bc-ae3a-cb82987da73b"
+								searchtimeout="30000ms"
+								usecache="False">
+									<basepath>
+										/form[@automationid='RiskeerMainWindow']//container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]/treeitem[@accessiblename~$substringTrajectName]/treeitem[@accessiblename~$substringFMName]/treeitem[@accessiblename='Invoer']/treeitem[@accessiblename='Stochastische ondergrondmodellen']
 									</basepath>
 								</folder>
 								<basepath>
-									/form[@automationid='RiskeerMainWindow']//container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]/treeitem[@accessiblename~$substringTrajectName]/treeitem[@accessiblename~$substringItemName]/treeitem[@accessiblename='Invoer']
+									/form[@automationid='RiskeerMainWindow']//container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]/treeitem[@accessiblename~$substringTrajectName]/treeitem[@accessiblename~$substringFMName]/treeitem[@accessiblename='Invoer']
+								</basepath>
+							</folder>
+							<folder
+							capname="treeitem"
+							id="50f3bbe9-efbc-4f72-bf7d-d1dcc1c5ad98"
+							isrooted="True"
+							name="Calculations"
+							refimgid="f0bf2493-ca41-43af-95e0-8eba4326e41f"
+							searchtimeout="30000ms"
+							usecache="False">
+								<basepath>
+									/form[@automationid='RiskeerMainWindow']//container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]/treeitem[@accessiblename~$substringTrajectName]/treeitem[@accessiblename~$substringFMName]/treeitem[@accessiblename='Berekeningen']
 								</basepath>
 							</folder>
 							<basepath>
-								/form[@automationid='RiskeerMainWindow']//container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]/treeitem[@accessiblename~$substringTrajectName]/treeitem[@accessiblename~$substringItemName]
+								/form[@automationid='RiskeerMainWindow']//container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]/treeitem[@accessiblename~$substringTrajectName]/treeitem[@accessiblename~$substringFMName]
 							</basepath>
 						</folder>
 						<item
@@ -97,7 +121,7 @@ name="AutomatedSystemTestsRepository">
 						name="Oordeel"
 						refimgid="bc452234-d0d2-4e3d-8120-66ed76aab823"
 						searchtimeout="30000ms">
-							/form[@automationid='RiskeerMainWindow']//container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]/treeitem[@accessiblename~$substringTrajectName]/treeitem[@accessiblename~$substringItemName]/treeitem[@accessiblename='Oordeel']
+							/form[@automationid='RiskeerMainWindow']//container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]/treeitem[@accessiblename~$substringTrajectName]/treeitem[@accessiblename~$substringFMName]/treeitem[@accessiblename='Oordeel']
 						</item>
 						<basepath>
 							/form[@automationid='RiskeerMainWindow']//container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]/treeitem[@accessiblename~$substringTrajectName]
@@ -394,6 +418,16 @@ name="AutomatedSystemTestsRepository">
 			searchtimeout="30000ms">
 				/form[@automationid='RiskeerMainWindow']/list//table[@controlname='dataGridView']/row[@accessiblename='Row 0']/cell[@accessiblename='Eenvoudige toets Row 0']
 			</item>
+			<item
+			addcaps="container,control,nativewindow"
+			capname="container"
+			id="74ddb834-ebe4-48fa-b57b-b1550e70b7fa"
+			name="ContainerMap"
+			refimgid="94eb9043-f069-47d8-9b36-7b8cf6bde245"
+			refpath="/form[@automationid='RiskeerMainWindow']/container[1]/container[10]/container/container[@controlname='PipingFailureMechanismView']/container/element/container[@controlname='Map']"
+			searchtimeout="30000ms">
+				/form[@automationid='RiskeerMainWindow']/container[1]//container[@controlname='PipingFailureMechanismView']/container[@controlname='riskeerMapControl']/?/?/container[@controlname='Map']
+			</item>
 			<basepath>
 				/form[@automationid='RiskeerMainWindow']
 			</basepath>
@@ -446,6 +480,7 @@ FjcAAAAASUVORK5CYII=
 		id="c507fecb-03d6-49f4-b5b8-7b6a4349c6de"
 		isrooted="True"
 		name="OpenDialog"
+		refimgid="1664c68f-0b66-42dc-b4f2-a8ad7813473b"
 		refpath="/form[@title='Openen']"
 		searchtimeout="30000ms"
 		usecache="True">
@@ -488,6 +523,7 @@ gg==
 		id="6992b395-923d-4913-be11-dc9d7fa075dc"
 		isrooted="True"
 		name="ActivityProgressDialog"
+		refimgid="a2fbb6e9-16e1-4504-9257-bb6d67b367c8"
 		refpath="/form[@controlname='ActivityProgressDialog']"
 		searchtimeout="30000ms"
 		usecache="True">
@@ -629,6 +665,16 @@ cwAAAABJRU5ErkJggg==
 			refpath="/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Importeren...']"
 			searchtimeout="30000ms">
 				/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Importeren...']
+			</item>
+			<item
+			addcaps="menuitem,accessible"
+			capname="menuitem"
+			id="17056c41-6629-4a0e-8ab2-93470db9fa27"
+			name="GenereerScenarios"
+			refimgid="24449bf2-cce5-4210-a8ea-314d001a202a"
+			refpath="/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Genereer scenario''s...']"
+			searchtimeout="30000ms">
+				/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Genereer scenario''s...']
 			</item>
 			<basepath>
 				/contextmenu[@processname='Riskeer']
@@ -903,30 +949,6 @@ xN4dWC1klMhfgS+EgeffZoELYKACne9IXXAiDERYQE+eQXgncAG8VaAf7nCBmXIgwgKjYKe/EXsS
 kEfF5TBp4wu7ctdIesgwigAAAABJRU5ErkJggg==
 			</icon>
 		</appfolder>
-		<folder
-		capname="tree"
-		id="e51e33d2-3acf-4acb-bdb2-39ee48065f55"
-		isrooted="True"
-		name="ProjectExplorer"
-		refimgid="57e375b7-37e2-49d8-abcf-2029d4d87a96"
-		searchtimeout="30000ms"
-		usecache="True">
-			<folder
-			capname="treeitem"
-			id="d1fede4e-9e41-488f-9476-e932fa9f2886"
-			isrooted="True"
-			name="STBI"
-			refimgid="fa55fa2b-e192-49b1-abbe-ba990c3e868c"
-			searchtimeout="30000ms"
-			usecache="False">
-				<basepath>
-					/form//container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem/treeitem/treeitem[9]
-				</basepath>
-			</folder>
-			<basepath>
-				/form//container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']
-			</basepath>
-		</folder>
 		<appfolder
 		capname="form"
 		id="3a716415-5c8c-4180-ba63-04ca2f4f5a22"
@@ -970,6 +992,43 @@ xxtlQKBr57WfO85orOHxwi7cq/x8+VHthaubl96G4hvN3tkSBN9boZDIGxIWNwAAAABJRU5ErkJg
 gg==
 			</icon>
 		</appfolder>
+		<appfolder
+		capname="form"
+		id="42112570-aca4-4418-aa9e-8d74dbb65cc6"
+		isrooted="True"
+		name="DialogGenerateCalculations"
+		refpath="/form[@controlname='SelectionDialogBase']"
+		searchtimeout="30000ms"
+		usecache="True">
+			<item
+			addcaps="cell,accessible"
+			capname="cell"
+			id="407fae09-698f-4177-8f27-47a238018ac5"
+			name="UseCellRowIndexth"
+			refimgid="48232b9f-79a0-44ed-8d11-7c3c104cc5cb"
+			searchtimeout="30000ms">
+				/form[@controlname='SelectionDialogBase']//table[@controlname='dataGridView']/row[@accessiblename='Row '+$indexRow]/cell[@accessiblename&gt;'Gebruik']
+			</item>
+			<item
+			addcaps="button,control,nativewindow"
+			capname="button"
+			id="eb4e6139-e00a-44c2-9e0d-344eeed26fd7"
+			name="GenerateButton"
+			refimgid="cd642f45-a153-4427-a178-331abd3f56c1"
+			searchtimeout="30000ms">
+				/form[@controlname='SelectionDialogBase']/container/button[@controlname='DoForSelectedButton']
+			</item>
+			<basepath>
+				/form[@controlname='SelectionDialogBase']
+			</basepath>
+			<icon>
+				iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlz
+AAAOxAAADsQBlSsOGwAAAIxJREFUOE+VkQEKgDAMA316n7af6SrGXUodODjWxKYreMxzdkTV4Rq0
+5i5QcSNfzvAY477rJg2t+blBnuKZ2L7YhJMltH43pIax4TK/iIjWf3Ajmyu779PzAUQn/wgpQz0k
+sknn9wA15C2o2TsxYQ0KyGMNlqgfFZDPGqxmmK/HEGvQh+UzxBqY+MlxXrI+crsxqwfVAAAAAElF
+TkSuQmCC
+			</icon>
+		</appfolder>
 		<basepath>
 		</basepath>
 	</rootfolder>
@@ -980,7 +1039,7 @@ gg==
 		</var>
 		<var
 		id="3a7276c1-fca1-4026-9d2e-5bac10651a47"
-		name="substringItemName">
+		name="substringFMName">
 		</var>
 		<var
 		id="5afdb904-9d2e-4bb5-ae28-38089eda6255"
@@ -1005,6 +1064,10 @@ gg==
 		<var
 		id="929a9a29-2c5b-41dc-93ed-daff0f25d734"
 		name="normType">
+		</var>
+		<var
+		id="201b1d21-866e-4c9e-bf76-93ca440565ea"
+		name="indexRow">
 		</var>
 	</variables>
 </repository>

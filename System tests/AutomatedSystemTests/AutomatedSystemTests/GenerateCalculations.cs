@@ -53,6 +53,36 @@ namespace AutomatedSystemTests
 
 #region Variables
 
+        /// <summary>
+        /// Gets or sets the value of variable substringTrajectName.
+        /// </summary>
+        [TestVariable("77ae6c27-603e-4704-add9-e1249169f0e5")]
+        public string substringTrajectName
+        {
+            get { return repo.substringTrajectName; }
+            set { repo.substringTrajectName = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets the value of variable substringFMName.
+        /// </summary>
+        [TestVariable("3a7276c1-fca1-4026-9d2e-5bac10651a47")]
+        public string substringFMName
+        {
+            get { return repo.substringFMName; }
+            set { repo.substringFMName = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets the value of variable indexRow.
+        /// </summary>
+        [TestVariable("201b1d21-866e-4c9e-bf76-93ca440565ea")]
+        public string indexRow
+        {
+            get { return repo.indexRow; }
+            set { repo.indexRow = value; }
+        }
+
 #endregion
 
         /// <summary>
@@ -79,6 +109,30 @@ namespace AutomatedSystemTests
 
             Init();
 
+            // Right click on generic (inside traject and FM defined by sunstrings) Calculations node
+            Report.Log(ReportLevel.Info, "Mouse", "Right click on generic (inside traject and FM defined by sunstrings) Calculations node\r\nMouse Right Click item 'RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericFMItemWithSubstringInName.Calculations' at Center.", repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericFMItemWithSubstringInName.Calculations.SelfInfo, new RecordItemIndex(0));
+            repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericFMItemWithSubstringInName.Calculations.Self.Click(System.Windows.Forms.MouseButtons.Right);
+            Delay.Milliseconds(0);
+            
+            // Select Genereer scenario's from context menu
+            Report.Log(ReportLevel.Info, "Mouse", "Select Genereer scenario's from context menu\r\nMouse Left Click item 'ContextMenu.GenereerScenarios' at Center.", repo.ContextMenu.GenereerScenariosInfo, new RecordItemIndex(1));
+            repo.ContextMenu.GenereerScenarios.Click();
+            Delay.Milliseconds(0);
+            
+            // Select the Indexth row, cell Use
+            Report.Log(ReportLevel.Info, "Mouse", "Select the Indexth row, cell Use\r\nMouse Left Click item 'DialogGenerateCalculations.UseCellRowIndexth' at Center.", repo.DialogGenerateCalculations.UseCellRowIndexthInfo, new RecordItemIndex(2));
+            repo.DialogGenerateCalculations.UseCellRowIndexth.Click();
+            Delay.Milliseconds(0);
+            
+            // Click on Generate button to generate all desired calculations
+            Report.Log(ReportLevel.Info, "Mouse", "Click on Generate button to generate all desired calculations\r\nMouse Left Click item 'DialogGenerateCalculations.GenerateButton' at Center.", repo.DialogGenerateCalculations.GenerateButtonInfo, new RecordItemIndex(3));
+            repo.DialogGenerateCalculations.GenerateButton.Click();
+            Delay.Milliseconds(0);
+            
+            // Wait until all calculations have been generated
+            Report.Log(ReportLevel.Info, "Delay", "Wait until all calculations have been generated\r\nWaiting for 1s.", new RecordItemIndex(4));
+            Delay.Duration(1000, false);
+            
         }
 
 #region Image Feature Data

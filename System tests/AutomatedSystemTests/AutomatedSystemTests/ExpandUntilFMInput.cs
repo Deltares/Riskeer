@@ -24,47 +24,34 @@ namespace AutomatedSystemTests
 {
 #pragma warning disable 0436 //(CS0436) The type 'type' in 'assembly' conflicts with the imported type 'type2' in 'assembly'. Using the type defined in 'assembly'.
     /// <summary>
-    ///The ImportStochasticSoilModelCollection recording.
+    ///The ExpandUntilFMInput recording.
     /// </summary>
-    [TestModule("288d66d7-3c19-43f3-bd1e-9523f15bb660", ModuleType.Recording, 1)]
-    public partial class ImportStochasticSoilModelCollection : ITestModule
+    [TestModule("758dd2d8-956a-46d7-a793-08dc2c8e08a7", ModuleType.Recording, 1)]
+    public partial class ExpandUntilFMInput : ITestModule
     {
         /// <summary>
         /// Holds an instance of the AutomatedSystemTestsRepository repository.
         /// </summary>
         public static AutomatedSystemTestsRepository repo = AutomatedSystemTestsRepository.Instance;
 
-        static ImportStochasticSoilModelCollection instance = new ImportStochasticSoilModelCollection();
+        static ExpandUntilFMInput instance = new ExpandUntilFMInput();
 
         /// <summary>
         /// Constructs a new instance.
         /// </summary>
-        public ImportStochasticSoilModelCollection()
+        public ExpandUntilFMInput()
         {
-            nameSoilFile = "";
         }
 
         /// <summary>
         /// Gets a static instance of this recording.
         /// </summary>
-        public static ImportStochasticSoilModelCollection Instance
+        public static ExpandUntilFMInput Instance
         {
             get { return instance; }
         }
 
 #region Variables
-
-        string _nameSoilFile;
-
-        /// <summary>
-        /// Gets or sets the value of variable nameSoilFile.
-        /// </summary>
-        [TestVariable("afc0a4c0-0d40-403c-b397-fb6a4c9112e8")]
-        public string nameSoilFile
-        {
-            get { return _nameSoilFile; }
-            set { _nameSoilFile = value; }
-        }
 
         /// <summary>
         /// Gets or sets the value of variable substringTrajectName.
@@ -112,27 +99,25 @@ namespace AutomatedSystemTests
 
             Init();
 
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Right Click item 'RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericFMItemWithSubstringInName.Input.StochasticSoilModelCollection' at Center.", repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericFMItemWithSubstringInName.Input.StochasticSoilModelCollection.SelfInfo, new RecordItemIndex(0));
-            repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericFMItemWithSubstringInName.Input.StochasticSoilModelCollection.Self.Click(System.Windows.Forms.MouseButtons.Right);
+            Report.Log(ReportLevel.Info, "Invoke action", "Invoking Focus() on item 'RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericFMItemWithSubstringInName'.", repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericFMItemWithSubstringInName.SelfInfo, new RecordItemIndex(0));
+            repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericFMItemWithSubstringInName.Self.Focus();
             Delay.Milliseconds(0);
             
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'ContextMenu.Importeren' at Center.", repo.ContextMenu.ImporterenInfo, new RecordItemIndex(1));
-            repo.ContextMenu.Importeren.Click();
+            Report.Log(ReportLevel.Info, "Invoke action", "Invoking Select() on item 'RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericFMItemWithSubstringInName'.", repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericFMItemWithSubstringInName.SelfInfo, new RecordItemIndex(1));
+            repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericFMItemWithSubstringInName.Self.Select();
             Delay.Milliseconds(0);
             
-            Report.Log(ReportLevel.Info, "Set value", "Setting attribute Text to '$nameSoilFile' on item 'OpenDialog.FileNameField'.", repo.OpenDialog.FileNameFieldInfo, new RecordItemIndex(2));
-            repo.OpenDialog.FileNameField.Element.SetAttributeValue("Text", nameSoilFile);
+            Report.Log(ReportLevel.Info, "Keyboard", "Key sequence '{Right}'.", new RecordItemIndex(2));
+            Keyboard.Press("{Right}");
             Delay.Milliseconds(0);
             
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'OpenDialog.ButtonOpen' at Center.", repo.OpenDialog.ButtonOpenInfo, new RecordItemIndex(3));
-            repo.OpenDialog.ButtonOpen.Click();
+            Report.Log(ReportLevel.Info, "Invoke action", "Invoking Select() on item 'RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericFMItemWithSubstringInName.Input'.", repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericFMItemWithSubstringInName.Input.SelfInfo, new RecordItemIndex(3));
+            repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericFMItemWithSubstringInName.Input.Self.Select();
             Delay.Milliseconds(0);
             
-            Report.Log(ReportLevel.Info, "Delay", "Waiting for 100ms.", new RecordItemIndex(4));
-            Delay.Duration(100, false);
-            
-            Report.Log(ReportLevel.Info, "Wait", "Waiting 5s to not exist. Associated repository item: 'ActivityProgressDialog.ButtonCancel'", repo.ActivityProgressDialog.ButtonCancelInfo, new ActionTimeout(5000), new RecordItemIndex(5));
-            repo.ActivityProgressDialog.ButtonCancelInfo.WaitForNotExists(5000);
+            Report.Log(ReportLevel.Info, "Keyboard", "Key sequence '{Right}'.", new RecordItemIndex(4));
+            Keyboard.Press("{Right}");
+            Delay.Milliseconds(0);
             
         }
 
