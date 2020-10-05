@@ -20,5 +20,4 @@
     <ProjectReference Include="..\..\src\Riskeer.GrassCoverErosionOutwards.Data\Riskeer.GrassCoverErosionOutwards.Data.csproj"/>
     <ProjectReference Include="..\Riskeer.GrassCoverErosionOutwards.Data.TestUtil\Riskeer.GrassCoverErosionOutwards.Data.TestUtil.csproj"/>
   </ItemGroup>
-  <Import Project="$(SolutionDir)\build\PreBuild.targets" />
 </Project>

@@ -91,5 +91,4 @@
       <Version>3.6.1</Version>
     </PackageReference>
   </ItemGroup>
-  <Import Project="$(SolutionDir)\build\PreBuild.targets" />
 </Project>

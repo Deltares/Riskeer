@@ -14,5 +14,4 @@
     <ProjectReference Include="..\..\..\Common\src\Core.Common.Base\Core.Common.Base.csproj"/>
     <ProjectReference Include="..\..\src\Core.Components.Gis\Core.Components.Gis.csproj"/>
   </ItemGroup>
-  <Import Project="$(SolutionDir)\build\PreBuild.targets" />
 </Project>

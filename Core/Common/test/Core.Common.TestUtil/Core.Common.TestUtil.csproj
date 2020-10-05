@@ -70,5 +70,4 @@
     <Exec Command="xcopy /d/s/y $(PkgRhinoMocks)\lib\net\* $(OutDir)\*" />
     <Exec Command="xcopy /d/s/y $(SolutionDir)\lib\NUnitForms.dll $(OutDir)\*" />
   </Target>
-  <Import Project="$(SolutionDir)\build\PreBuild.targets" />
 </Project>
