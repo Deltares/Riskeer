@@ -24,29 +24,29 @@ namespace AutomatedSystemTests
 {
 #pragma warning disable 0436 //(CS0436) The type 'type' in 'assembly' conflicts with the imported type 'type2' in 'assembly'. Using the type defined in 'assembly'.
     /// <summary>
-    ///The ExpandUntilFMInput recording.
+    ///The ShowNodeItemInProjectExplorerTree recording.
     /// </summary>
-    [TestModule("758dd2d8-956a-46d7-a793-08dc2c8e08a7", ModuleType.Recording, 1)]
-    public partial class ExpandUntilFMInput : ITestModule
+    [TestModule("bf1f10cf-3437-4354-bf6d-9f79921f2297", ModuleType.Recording, 1)]
+    public partial class ShowNodeItemInProjectExplorerTree : ITestModule
     {
         /// <summary>
         /// Holds an instance of the AutomatedSystemTestsRepository repository.
         /// </summary>
         public static AutomatedSystemTestsRepository repo = AutomatedSystemTestsRepository.Instance;
 
-        static ExpandUntilFMInput instance = new ExpandUntilFMInput();
+        static ShowNodeItemInProjectExplorerTree instance = new ShowNodeItemInProjectExplorerTree();
 
         /// <summary>
         /// Constructs a new instance.
         /// </summary>
-        public ExpandUntilFMInput()
+        public ShowNodeItemInProjectExplorerTree()
         {
         }
 
         /// <summary>
         /// Gets a static instance of this recording.
         /// </summary>
-        public static ExpandUntilFMInput Instance
+        public static ShowNodeItemInProjectExplorerTree Instance
         {
             get { return instance; }
         }
@@ -61,16 +61,6 @@ namespace AutomatedSystemTests
         {
             get { return repo.substringTrajectName; }
             set { repo.substringTrajectName = value; }
-        }
-
-        /// <summary>
-        /// Gets or sets the value of variable substringFMName.
-        /// </summary>
-        [TestVariable("3a7276c1-fca1-4026-9d2e-5bac10651a47")]
-        public string substringFMName
-        {
-            get { return repo.substringFMName; }
-            set { repo.substringFMName = value; }
         }
 
 #endregion
@@ -93,26 +83,18 @@ namespace AutomatedSystemTests
         [System.CodeDom.Compiler.GeneratedCode("Ranorex", global::Ranorex.Core.Constants.CodeGenVersion)]
         void ITestModule.Run()
         {
-            Mouse.DefaultMoveTime = 0;
+            Mouse.DefaultMoveTime = 300;
             Keyboard.DefaultKeyPressTime = 20;
-            Delay.SpeedFactor = 0.00;
+            Delay.SpeedFactor = 1.00;
 
             Init();
 
-            Report.Log(ReportLevel.Info, "Invoke action", "Invoking Focus() on item 'RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericFMItemWithSubstringInName'.", repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericFMItemWithSubstringInName.SelfInfo, new RecordItemIndex(0));
-            repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericFMItemWithSubstringInName.Self.Focus();
+            FindAndExpandNode(repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.FaalkansbegrotingInfo, "12-2\\Piping\\Berekeningen\\09900");
+            Delay.Milliseconds(0);
             
-            Report.Log(ReportLevel.Info, "Invoke action", "Invoking Select() on item 'RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericFMItemWithSubstringInName'.", repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericFMItemWithSubstringInName.SelfInfo, new RecordItemIndex(1));
-            repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericFMItemWithSubstringInName.Self.Select();
-            
-            Report.Log(ReportLevel.Info, "Keyboard", "Key sequence '{Right}'.", new RecordItemIndex(2));
-            Keyboard.Press("{Right}");
-            
-            Report.Log(ReportLevel.Info, "Invoke action", "Invoking Select() on item 'RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericFMItemWithSubstringInName.InputFM'.", repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericFMItemWithSubstringInName.InputFM.SelfInfo, new RecordItemIndex(3));
-            repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericFMItemWithSubstringInName.InputFM.Self.Select();
-            
-            Report.Log(ReportLevel.Info, "Keyboard", "Key sequence '{Right}'.", new RecordItemIndex(4));
-            Keyboard.Press("{Right}");
+            Report.Log(ReportLevel.Info, "Keyboard", "Key sequence '{Right}' with focus on 'RiskeerMainWindow.ProjectExplorer.ProjectRootNode.DijkenEnDammenPiping'.", repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.DijkenEnDammenPipingInfo, new RecordItemIndex(1));
+            repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.DijkenEnDammenPiping.PressKeys("{Right}");
+            Delay.Milliseconds(0);
             
         }
 

@@ -24,34 +24,47 @@ namespace AutomatedSystemTests
 {
 #pragma warning disable 0436 //(CS0436) The type 'type' in 'assembly' conflicts with the imported type 'type2' in 'assembly'. Using the type defined in 'assembly'.
     /// <summary>
-    ///The ValidateChartCalculation recording.
+    ///The ValidateSurfaceLineNameInPropertiesPanel recording.
     /// </summary>
-    [TestModule("2161f947-3dda-4270-9a96-0d33afc50b6c", ModuleType.Recording, 1)]
-    public partial class ValidateChartCalculation : ITestModule
+    [TestModule("200d05d0-2615-44bf-991e-2913171cd220", ModuleType.Recording, 1)]
+    public partial class ValidateSurfaceLineNameInPropertiesPanel : ITestModule
     {
         /// <summary>
         /// Holds an instance of the AutomatedSystemTestsRepository repository.
         /// </summary>
         public static AutomatedSystemTestsRepository repo = AutomatedSystemTestsRepository.Instance;
 
-        static ValidateChartCalculation instance = new ValidateChartCalculation();
+        static ValidateSurfaceLineNameInPropertiesPanel instance = new ValidateSurfaceLineNameInPropertiesPanel();
 
         /// <summary>
         /// Constructs a new instance.
         /// </summary>
-        public ValidateChartCalculation()
+        public ValidateSurfaceLineNameInPropertiesPanel()
         {
+            expectedSurfaceLineName = "";
         }
 
         /// <summary>
         /// Gets a static instance of this recording.
         /// </summary>
-        public static ValidateChartCalculation Instance
+        public static ValidateSurfaceLineNameInPropertiesPanel Instance
         {
             get { return instance; }
         }
 
 #region Variables
+
+        string _expectedSurfaceLineName;
+
+        /// <summary>
+        /// Gets or sets the value of variable expectedSurfaceLineName.
+        /// </summary>
+        [TestVariable("a8e3cb99-db08-4cce-a138-eb8382ed259c")]
+        public string expectedSurfaceLineName
+        {
+            get { return _expectedSurfaceLineName; }
+            set { _expectedSurfaceLineName = value; }
+        }
 
 #endregion
 
@@ -73,12 +86,17 @@ namespace AutomatedSystemTests
         [System.CodeDom.Compiler.GeneratedCode("Ranorex", global::Ranorex.Core.Constants.CodeGenVersion)]
         void ITestModule.Run()
         {
-            Mouse.DefaultMoveTime = 300;
+            Mouse.DefaultMoveTime = 0;
             Keyboard.DefaultKeyPressTime = 20;
-            Delay.SpeedFactor = 1.00;
+            Delay.SpeedFactor = 0.00;
 
             Init();
 
+            Report.Screenshot(ReportLevel.Info, "User", "", repo.RiskeerMainWindow.PropertiesPanelContainer.Table.Naam, false, new RecordItemIndex(0));
+            
+            Report.Log(ReportLevel.Info, "Validation", "Validating AttributeEqual (AccessibleValue=$expectedSurfaceLineName) on item 'RiskeerMainWindow.PropertiesPanelContainer.Table.Naam'.", repo.RiskeerMainWindow.PropertiesPanelContainer.Table.NaamInfo, new RecordItemIndex(1));
+            Validate.AttributeEqual(repo.RiskeerMainWindow.PropertiesPanelContainer.Table.NaamInfo, "AccessibleValue", expectedSurfaceLineName);
+            
         }
 
 #region Image Feature Data

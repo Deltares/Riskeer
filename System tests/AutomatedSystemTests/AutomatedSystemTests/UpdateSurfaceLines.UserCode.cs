@@ -22,7 +22,7 @@ using Ranorex.Core.Testing;
 
 namespace AutomatedSystemTests
 {
-    public partial class ValidateChartCalculation
+    public partial class UpdateSurfaceLines
     {
         /// <summary>
         /// This method gets called right after the recording has been started.

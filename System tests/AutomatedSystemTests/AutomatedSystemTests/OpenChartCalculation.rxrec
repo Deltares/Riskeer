@@ -1,0 +1,315 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<recordtable
+embeddedrepository="False"
+id="2161f947-3dda-4270-9a96-0d33afc50b6c"
+mode="Global">
+	<repeatcount>
+		1
+	</repeatcount>
+	<turbomode>
+		False
+	</turbomode>
+	<genreport>
+		True
+	</genreport>
+	<speedfactor>
+		1
+	</speedfactor>
+	<useDefaultItemLogging>
+		True
+	</useDefaultItemLogging>
+	<codegen
+	classname="OpenChartCalculation"
+	namespace="AutomatedSystemTests">
+	</codegen>
+	<variables>
+		<var
+		id="3c63428f-921e-4ed8-96c7-a91856d049c7"
+		name="logMessageChartScreenshot">
+		</var>
+		<var
+		id="4f964365-5470-426e-9e06-2f54c57565cb"
+		name="singleCalculationName">
+		</var>
+	</variables>
+	<recorditems>
+		<mouseitem
+		action="Click"
+		button="Right"
+		duration="300ms"
+		enabled="True"
+		loc="Center"
+		movetime="300ms"
+		optional="False"
+		searchpropertyid="8014e95c-b8d9-4140-8fb7-d40a3aafce46"
+		sx="173"
+		sy="696"
+		warnoutofbounds="False">
+			<comment>
+			</comment>
+			<bindings>
+			</bindings>
+			<info
+			id="0339c040-c0af-4c1a-ba55-d9995b285970"
+			sourcename="Recorder">
+				<element
+				capabilities="accessible, accessibletreeitem"
+				dontcache="False"
+				enabled="True"
+				flavor="msaa"
+				hasfocus="False"
+				index="1"
+				prefcap="treeitem"
+				rect="160,690,37,18"
+				role="treeitem"
+				snapElem=""
+				valid="True"
+				visible="True">
+					<attribute
+					name="checked"
+					type="System.Boolean">
+						False
+					</attribute>
+					<attribute
+					name="expanded"
+					type="System.Boolean">
+						False
+					</attribute>
+					<attribute
+					name="selected"
+					type="System.Boolean">
+						False
+					</attribute>
+					<attribute
+					name="text"
+					type="System.String">
+						Invoer
+					</attribute>
+					<attribute
+					name="accessiblename"
+					type="System.String">
+						Invoer
+					</attribute>
+					<attribute
+					name="accessiblerole"
+					type="System.Windows.Forms.AccessibleRole, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+						OutlineItem
+					</attribute>
+					<attribute
+					name="accessiblestate"
+					type="System.Windows.Forms.AccessibleStates, System.Windows.Forms, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+						Focusable, Selectable
+					</attribute>
+					<attribute
+					name="accessiblevalue"
+					type="System.String">
+						6
+					</attribute>
+				</element>
+				<path>
+					/form[@automationid='RiskeerMainWindow']//container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[@accessiblename='Project']/?/?/treeitem[@accessiblename='Dijken en dammen - Piping']/treeitem[@accessiblename='Berekeningen']/treeitem/treeitem[1]/treeitem[@accessiblename='Invoer']
+				</path>
+			</info>
+			<helperscreenshot
+			guid="a9973f09-aa6f-401c-9f15-adb135e6027d">
+				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
+KKKKACiiigAooooA/9k=
+			</helperscreenshot>
+		</mouseitem>
+		<mouseitem
+		action="Click"
+		button="Left"
+		duration="300ms"
+		enabled="True"
+		loc="Center"
+		movetime="300ms"
+		optional="False"
+		searchpropertyid="a3f0d0f6-7314-4ce3-bf5a-60d65d3a3a50"
+		sx="210"
+		sy="713"
+		warnoutofbounds="False">
+			<comment>
+			</comment>
+			<bindings>
+			</bindings>
+			<info
+			id="3162063a-bd8d-4e48-b6ab-9725baa70e0e"
+			sourcename="RepositoryEditor">
+				<path>
+					/contextmenu[@processname='Riskeer']/menuitem[@accessiblename='Openen']
+				</path>
+			</info>
+		</mouseitem>
+		<WaitForRecordItem
+		enabled="True"
+		optional="False"
+		searchpropertyid="8e52349a-c157-4065-b2b5-7fdf19bbf18e"
+		waitaction="NotExists"
+		waittimeout="5000ms">
+			<comment>
+			</comment>
+			<bindings>
+			</bindings>
+			<info
+			id="982924af-cebe-4e46-9281-476e566d6398"
+			sourcename="RepositoryEditor">
+				<path>
+					/contextmenu[@processname='Riskeer']
+				</path>
+			</info>
+		</WaitForRecordItem>
+		<loggingrecorditem
+		category="User"
+		enabled="True"
+		message="$logMessageChartScreenshot"
+		optional="False"
+		reportlevel="Info;20"
+		searchpropertyid="d1421464-fa8d-4134-8292-01821c40b1de">
+			<comment>
+			</comment>
+			<bindings>
+				<binding
+				target="Message"
+				variable="logMessageChartScreenshot">
+				</binding>
+			</bindings>
+		</loggingrecorditem>
+		<loggingrecorditem
+		category="User"
+		enabled="True"
+		message=""
+		optional="False"
+		reportlevel="Info;20"
+		searchpropertyid="01831b57-a925-48e1-a697-5abb817e7794">
+			<comment>
+			</comment>
+			<bindings>
+				<binding
+				target="Message"
+				variable="singleCalculationName">
+				</binding>
+			</bindings>
+		</loggingrecorditem>
+		<loggingrecorditem
+		action="Screenshot"
+		category="User"
+		enabled="True"
+		message=""
+		optional="False"
+		reportlevel="Info;20"
+		searchpropertyid="4e3f9852-8bba-4a65-897b-ac6319d8baaa">
+			<comment>
+			</comment>
+			<bindings>
+			</bindings>
+			<info
+			id="78b3cba4-3858-49b9-8809-b7f79f03aa5c"
+			sourcename="RepositoryEditor">
+				<path>
+					/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']
+				</path>
+			</info>
+		</loggingrecorditem>
+	</recorditems>
+	<repository
+	id="137723a5-e147-4b62-8c15-5c31a3d68f96"
+	name="AutomatedSystemTestsRepository"
+	relativepath="AutomatedSystemTestsRepository.rxrep">
+		<codegen
+		classname="AutomatedSystemTestsRepository"
+		namespace="AutomatedSystemTests">
+		</codegen>
+		<rootfolder
+		id="40cb8eed-98dc-4b16-a5ad-7ef93b4f444c"
+		name="_rootdummy_">
+		</rootfolder>
+	</repository>
+	<usercodefile
+	lang="CSharp">
+		OpenChartCalculation.UserCode.cs
+	</usercodefile>
+	<references>
+	</references>
+</recordtable>

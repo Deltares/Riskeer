@@ -24,46 +24,46 @@ namespace AutomatedSystemTests
 {
 #pragma warning disable 0436 //(CS0436) The type 'type' in 'assembly' conflicts with the imported type 'type2' in 'assembly'. Using the type defined in 'assembly'.
     /// <summary>
-    ///The ValidateSourcePathSurfaceLines recording.
+    ///The ValidateSurfaceLineInProjectExplorer recording.
     /// </summary>
-    [TestModule("cb7662f3-2819-4dda-b3ec-c0e6a585160f", ModuleType.Recording, 1)]
-    public partial class ValidateSourcePathSurfaceLines : ITestModule
+    [TestModule("2e0e4b2f-fccc-42ef-a61e-1a1da4acd8e3", ModuleType.Recording, 1)]
+    public partial class ValidateSurfaceLineInProjectExplorer : ITestModule
     {
         /// <summary>
         /// Holds an instance of the AutomatedSystemTestsRepository repository.
         /// </summary>
         public static AutomatedSystemTestsRepository repo = AutomatedSystemTestsRepository.Instance;
 
-        static ValidateSourcePathSurfaceLines instance = new ValidateSourcePathSurfaceLines();
+        static ValidateSurfaceLineInProjectExplorer instance = new ValidateSurfaceLineInProjectExplorer();
 
         /// <summary>
         /// Constructs a new instance.
         /// </summary>
-        public ValidateSourcePathSurfaceLines()
+        public ValidateSurfaceLineInProjectExplorer()
         {
-            pathSurfaceLines = "";
+            expectedSurfaceLineName = "";
         }
 
         /// <summary>
         /// Gets a static instance of this recording.
         /// </summary>
-        public static ValidateSourcePathSurfaceLines Instance
+        public static ValidateSurfaceLineInProjectExplorer Instance
         {
             get { return instance; }
         }
 
 #region Variables
 
-        string _pathSurfaceLines;
+        string _expectedSurfaceLineName;
 
         /// <summary>
-        /// Gets or sets the value of variable pathSurfaceLines.
+        /// Gets or sets the value of variable expectedSurfaceLineName.
         /// </summary>
-        [TestVariable("4bd72c19-90ee-4d4d-8396-3588c63d074c")]
-        public string pathSurfaceLines
+        [TestVariable("26fbca10-aacc-45e7-b769-190d617a619f")]
+        public string expectedSurfaceLineName
         {
-            get { return _pathSurfaceLines; }
-            set { _pathSurfaceLines = value; }
+            get { return _expectedSurfaceLineName; }
+            set { _expectedSurfaceLineName = value; }
         }
 
         /// <summary>
@@ -84,6 +84,16 @@ namespace AutomatedSystemTests
         {
             get { return repo.substringFMName; }
             set { repo.substringFMName = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets the value of variable index.
+        /// </summary>
+        [TestVariable("2d0c885b-83ae-40f3-9125-d312ae463f11")]
+        public string index
+        {
+            get { return repo.index; }
+            set { repo.index = value; }
         }
 
 #endregion
@@ -112,17 +122,10 @@ namespace AutomatedSystemTests
 
             Init();
 
-            Report.Log(ReportLevel.Info, "Invoke action", "Invoking Select() on item 'RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericFMItemWithSubstringInName.InputFM.SurfaceLinesCollectionNode'.", repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericFMItemWithSubstringInName.InputFM.SurfaceLinesCollectionNode.SelfInfo, new RecordItemIndex(0));
-            repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericFMItemWithSubstringInName.InputFM.SurfaceLinesCollectionNode.Self.Select();
+            Report.Log(ReportLevel.Info, "Validation", "Validating AttributeEqual (Text=$expectedSurfaceLineName) on item 'RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericFMItemWithSubstringInName.InputFM.SurfaceLinesCollectionNode.surfaceLine'.", repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericFMItemWithSubstringInName.InputFM.SurfaceLinesCollectionNode.surfaceLineInfo, new RecordItemIndex(0));
+            Validate.AttributeEqual(repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericFMItemWithSubstringInName.InputFM.SurfaceLinesCollectionNode.surfaceLineInfo, "Text", expectedSurfaceLineName);
             
-            Report.Log(ReportLevel.Info, "Validation", "Validating AttributeEqual (AccessibleValue=$pathSurfaceLines) on item 'RiskeerMainWindow.PropertiesPanelContainer.Table.Bronlocatie'.", repo.RiskeerMainWindow.PropertiesPanelContainer.Table.BronlocatieInfo, new RecordItemIndex(1));
-            Validate.AttributeEqual(repo.RiskeerMainWindow.PropertiesPanelContainer.Table.BronlocatieInfo, "AccessibleValue", pathSurfaceLines);
-            
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericFMItemWithSubstringInName.InputFM.SurfaceLinesCollectionNode' at Center.", repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericFMItemWithSubstringInName.InputFM.SurfaceLinesCollectionNode.SelfInfo, new RecordItemIndex(2));
-            repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericFMItemWithSubstringInName.InputFM.SurfaceLinesCollectionNode.Self.Click();
-            
-            Report.Log(ReportLevel.Info, "Keyboard", "Key sequence '{Right}'.", new RecordItemIndex(3));
-            Keyboard.Press("{Right}");
+            Report.Screenshot(ReportLevel.Info, "User", "", repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericFMItemWithSubstringInName.InputFM.SurfaceLinesCollectionNode.surfaceLine, false, new RecordItemIndex(1));
             
         }
 

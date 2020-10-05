@@ -24,29 +24,29 @@ namespace AutomatedSystemTests
 {
 #pragma warning disable 0436 //(CS0436) The type 'type' in 'assembly' conflicts with the imported type 'type2' in 'assembly'. Using the type defined in 'assembly'.
     /// <summary>
-    ///The ValidateSurfaceLineInProjectExplorerAndPropertiesPanel recording.
+    ///The SelectItemBelow recording.
     /// </summary>
-    [TestModule("2e0e4b2f-fccc-42ef-a61e-1a1da4acd8e3", ModuleType.Recording, 1)]
-    public partial class ValidateSurfaceLineInProjectExplorerAndPropertiesPanel : ITestModule
+    [TestModule("12bc2c02-5298-4ca8-ae8e-6afb9e1b7d0f", ModuleType.Recording, 1)]
+    public partial class SelectItemBelow : ITestModule
     {
         /// <summary>
         /// Holds an instance of the AutomatedSystemTestsRepository repository.
         /// </summary>
         public static AutomatedSystemTestsRepository repo = AutomatedSystemTestsRepository.Instance;
 
-        static ValidateSurfaceLineInProjectExplorerAndPropertiesPanel instance = new ValidateSurfaceLineInProjectExplorerAndPropertiesPanel();
+        static SelectItemBelow instance = new SelectItemBelow();
 
         /// <summary>
         /// Constructs a new instance.
         /// </summary>
-        public ValidateSurfaceLineInProjectExplorerAndPropertiesPanel()
+        public SelectItemBelow()
         {
         }
 
         /// <summary>
         /// Gets a static instance of this recording.
         /// </summary>
-        public static ValidateSurfaceLineInProjectExplorerAndPropertiesPanel Instance
+        public static SelectItemBelow Instance
         {
             get { return instance; }
         }
@@ -73,12 +73,15 @@ namespace AutomatedSystemTests
         [System.CodeDom.Compiler.GeneratedCode("Ranorex", global::Ranorex.Core.Constants.CodeGenVersion)]
         void ITestModule.Run()
         {
-            Mouse.DefaultMoveTime = 300;
+            Mouse.DefaultMoveTime = 0;
             Keyboard.DefaultKeyPressTime = 20;
-            Delay.SpeedFactor = 1.00;
+            Delay.SpeedFactor = 0.00;
 
             Init();
 
+            Report.Log(ReportLevel.Info, "Keyboard", "Key sequence '{Down}'.", new RecordItemIndex(0));
+            Keyboard.Press("{Down}");
+            
         }
 
 #region Image Feature Data

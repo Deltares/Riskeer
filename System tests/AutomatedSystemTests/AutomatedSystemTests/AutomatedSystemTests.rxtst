@@ -8,6 +8,20 @@
 			name="LoopFMs">
 			</smartfoldernode>
 			<testmodule
+			id="0107a901-86b4-4f30-83c1-f3cf871c6ea6"
+			name="DeleteFileIfExists"
+			ref="2e4fc24f-fbac-4679-9b7f-37d1c3a42223"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="surfacelineFileToDelete"
+					datasourceid="ddfa8ca6-6795-4646-9070-a5d686852fac"
+					variableid="5002eb93-7d0b-4470-b99f-685e0d3a1d72"
+					variablename="fileToBeDeleted">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
 			id="02a9ce1f-d639-43f7-ba9e-4268f39271ba"
 			name="NewProject"
 			ref="f0658d7f-65e3-4f38-afe8-97fd942c1478"
@@ -19,6 +33,44 @@
 			ref="3c2d44f5-31b5-4584-91c8-1ad748affc77"
 			type="Recording">
 			</testmodule>
+			<smartfoldernode
+			id="06908862-b5db-4ca7-99ea-562da0210ef4"
+			name="UpdateSurfaceLinesSTPH">
+				<parameters>
+					<param
+					name="substringTraject"
+					value="12-2">
+					</param>
+					<param
+					name="substringFM"
+					value="Dijken en dammen - Piping">
+					</param>
+					<param
+					name="sourceSurfaceLineFile"
+					value="X:\script10\input\01edited\surfacelines traject 12-2.csv">
+					</param>
+					<param
+					name="sourceSurfaceLineCharPoints"
+					value="X:\script10\input\01edited\surfacelines traject 12-2.krp.csv">
+					</param>
+					<param
+					name="destinationSurfaceLineFile"
+					value="X:\script10\input\surfacelines traject 12-2.csv">
+					</param>
+					<param
+					name="destinationSurfaceLineCharPoints"
+					value="X:\script10\input\surfacelines traject 12-2.krp.csv">
+					</param>
+					<param
+					name="surfacelineFileToDelete"
+					value="X:\script10\input\surfacelines traject 12-2.csv">
+					</param>
+					<param
+					name="surfacelineCharactPointsToDelete"
+					value="X:\script10\input\surfacelines traject 12-2.krp.csv">
+					</param>
+				</parameters>
+			</smartfoldernode>
 			<smartfoldernode
 			id="0a44c5a2-9fe0-4a08-be4d-b094c7780e99"
 			name="New_Project">
@@ -123,26 +175,6 @@
 				</missingdatabinding>
 			</testmodule>
 			<testmodule
-			id="19ebfc85-421b-4bc0-85a0-d04a1075e04a"
-			name="OpenViewForGenericFM"
-			ref="d37f64f8-25dc-4a23-8dbd-257a13f39617"
-			type="Recording">
-				<missingdatabinding>
-					<var
-					dataname="substringTrajectName"
-					datasourceid="5c9aaf1b-40ce-4a6c-923c-fbe5859aa91f"
-					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
-					variablename="substringTrajectName">
-					</var>
-					<var
-					dataname="substringFM"
-					datasourceid="5c9aaf1b-40ce-4a6c-923c-fbe5859aa91f"
-					variableid="3a7276c1-fca1-4026-9d2e-5bac10651a47"
-					variablename="substringItemName">
-					</var>
-				</missingdatabinding>
-			</testmodule>
-			<testmodule
 			id="1ed06d7d-a99b-49fb-95a2-76dc74fd741b"
 			name="SaveAs"
 			ref="9195acd9-b037-4ace-80c3-0f7f64c35452"
@@ -237,6 +269,12 @@
 			type="Recording">
 				<databinding>
 					<var
+					dataname="substringInTrajectName"
+					datasourceid="9339f92a-867d-4e0d-b2a5-1fe03f3fc82a"
+					variableid="51976da0-b6de-418b-bda5-bc27195d3616"
+					variablename="substringTrajectName">
+					</var>
+					<var
 					dataname="NameFM"
 					datasourceid="1b1df013-4a4b-4a2a-a392-87368b82bae9"
 					variableid="1f7734c3-2c4d-4c2c-b8f8-d8bbbf0017be"
@@ -247,12 +285,6 @@
 					datasourceid="1b1df013-4a4b-4a2a-a392-87368b82bae9"
 					variableid="6f91cdce-7f0c-42ee-93e0-4a3735497a16"
 					variablename="fmShouldBeRelevant">
-					</var>
-					<var
-					dataname="substringInTrajectName"
-					datasourceid="9339f92a-867d-4e0d-b2a5-1fe03f3fc82a"
-					variableid="51976da0-b6de-418b-bda5-bc27195d3616"
-					variablename="substringTrajectName">
 					</var>
 				</databinding>
 			</testmodule>
@@ -366,10 +398,35 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<testmodule
+			id="3385736c-301d-49e3-a2c6-2b35a8899643"
+			name="DeleteFileIfExists"
+			ref="2e4fc24f-fbac-4679-9b7f-37d1c3a42223"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="surfacelineFileToDelete"
+					datasourceid="06908862-b5db-4ca7-99ea-562da0210ef4"
+					variableid="5002eb93-7d0b-4470-b99f-685e0d3a1d72"
+					variablename="fileToBeDeleted">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			datasource="relevance44_2ProjectExplorer"
 			id="33d7e485-8bdd-4286-9e35-8e1b4c29bb6e"
 			name="LoopFMs">
+			</smartfoldernode>
+			<smartfoldernode
+			datasource="calculations12_2_09900"
+			id="36de5b8d-308c-4502-9938-6fab6ac232a3"
+			name="LoopCalculations">
+				<parameters>
+					<param
+					name="messageToLogForScreenshotChartCalculation"
+					value="Chart for calculation: ">
+					</param>
+				</parameters>
 			</smartfoldernode>
 			<smartfoldernode
 			id="3727343f-880f-4d7d-ace6-c59dbd92b57a"
@@ -380,6 +437,26 @@
 			id="37c811fd-9297-4d92-b429-28a452540bf1"
 			name="b)Total_overview_of_the_assessment_results">
 			</smartfoldernode>
+			<testmodule
+			id="3fc0ec68-494f-438a-a685-cbf0ae2420f3"
+			name="CopyFile"
+			ref="ad8e1ad4-f412-41ae-a2dc-f39766081df4"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="sourceSurfaceLineCharPoints"
+					datasourceid="06908862-b5db-4ca7-99ea-562da0210ef4"
+					variableid="8f340347-b110-4f65-9582-a07a43e848ab"
+					variablename="sourceFileName">
+					</var>
+					<var
+					dataname="destinationSurfaceLineCharPoints"
+					datasourceid="06908862-b5db-4ca7-99ea-562da0210ef4"
+					variableid="ddede2e2-fd10-4e52-9653-95f1e1249238"
+					variablename="destinationFileName">
+					</var>
+				</databinding>
+			</testmodule>
 			<testmodule
 			id="3fd35838-f609-47f6-b7ad-5a5e8267c81b"
 			name="ImportSurfaceLines"
@@ -424,6 +501,26 @@
 				</databinding>
 			</testmodule>
 			<testmodule
+			id="415c4f73-0c6b-4947-a25a-f0f35c717541"
+			name="ExpandAllSubNodes"
+			ref="a2bd227a-e006-4e77-9c0d-21fc549d097c"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="substringInTraject"
+					datasourceid="44f46814-6990-4cf7-a952-322a09d85d43"
+					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
+					variablename="substringTrajectName">
+					</var>
+					<var
+					dataname="substringInFM"
+					datasourceid="44f46814-6990-4cf7-a952-322a09d85d43"
+					variableid="3a7276c1-fca1-4026-9d2e-5bac10651a47"
+					variablename="substringFMName">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
 			id="43bf9430-c12d-4341-becb-63c33c73e03e"
 			name="CloseViewCentralPanelWithFocus"
 			ref="3c2d44f5-31b5-4584-91c8-1ad748affc77"
@@ -432,6 +529,20 @@
 			<smartfoldernode
 			id="44f46814-6990-4cf7-a952-322a09d85d43"
 			name="ValidateSurfaceLinesSTPH">
+				<parameters>
+					<param
+					name="substringInTraject"
+					value="12-2">
+					</param>
+					<param
+					name="substringInFM"
+					value="Dijken en dammen - Piping">
+					</param>
+					<param
+					name="pathImportedSurfaceLines"
+					value="X:\script10\input\surfacelines traject 12-2.csv">
+					</param>
+				</parameters>
 			</smartfoldernode>
 			<smartfoldernode
 			id="466ac64f-9a07-4a8a-82b8-3af12a998abc"
@@ -576,6 +687,52 @@
 			name="Custom_Assessment">
 			</smartfoldernode>
 			<testmodule
+			id="5abb3278-abcb-44cc-a4c0-f7e146e18b99"
+			name="OpenViewForGenericFM"
+			ref="d37f64f8-25dc-4a23-8dbd-257a13f39617"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="substringTrajectName"
+					datasourceid="5b63b031-dd02-4a8d-89c0-7f1d5f3066a9"
+					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
+					variablename="substringTrajectName">
+					</var>
+					<var
+					dataname="substringFM"
+					datasourceid="5b63b031-dd02-4a8d-89c0-7f1d5f3066a9"
+					variableid="3a7276c1-fca1-4026-9d2e-5bac10651a47"
+					variablename="substringFMName">
+					</var>
+					<var
+					dataname="messageToLog"
+					datasourceid="5b63b031-dd02-4a8d-89c0-7f1d5f3066a9"
+					variableid="f767b8db-9a01-48e3-94b0-8a4492473cc6"
+					variablename="messageToBeLogged">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="substringTrajectName"
+					datasourceid="5c9aaf1b-40ce-4a6c-923c-fbe5859aa91f"
+					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
+					variablename="substringTrajectName">
+					</var>
+					<var
+					dataname="substringFM"
+					datasourceid="5c9aaf1b-40ce-4a6c-923c-fbe5859aa91f"
+					variableid="3a7276c1-fca1-4026-9d2e-5bac10651a47"
+					variablename="substringFMName">
+					</var>
+					<var
+					dataname="messageToLog"
+					datasourceid="5c9aaf1b-40ce-4a6c-923c-fbe5859aa91f"
+					variableid="f767b8db-9a01-48e3-94b0-8a4492473cc6"
+					variablename="messageToBeLogged">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<testmodule
 			id="5b40acfa-8e10-416c-8148-dbe0a53f5688"
 			name="OpenResultView"
 			ref="14b19856-facd-4b69-82b3-b7f678560774"
@@ -625,15 +782,25 @@
 					name="substringTrajectName"
 					value="Traject 12-2">
 					</param>
+					<param
+					name="messageToLog"
+					value="Screenshot of FM view after importing surface lines and subsurface stochastic schematizations">
+					</param>
 				</parameters>
 			</smartfoldernode>
+			<testmodule
+			id="5c29daac-031c-4041-bb73-6710340688db"
+			name="DeleteFileIfExists"
+			ref="2e4fc24f-fbac-4679-9b7f-37d1c3a42223"
+			type="Recording">
+			</testmodule>
 			<smartfoldernode
 			id="5c9aaf1b-40ce-4a6c-923c-fbe5859aa91f"
 			name="ImportSurfaceLinesSTPH">
 				<parameters>
 					<param
 					name="filenameSurfaceLines"
-					value="X:\script10\input\00original\surfacelines traject 12-2.csv">
+					value="X:\script10\input\surfacelines traject 12-2.csv">
 					</param>
 					<param
 					name="substringTrajectName"
@@ -643,7 +810,25 @@
 					name="substringFM"
 					value="Dijken en dammen - Piping">
 					</param>
+					<param
+					name="message1ToLog"
+					value="Screenshot of FM View before importing surface lines and subsurface stochastic schematization">
+					</param>
+					<param
+					name="message2ToLog"
+					value="Screenshot of FM View after importing surface lines and before importing subsurface stochastic schematization">
+					</param>
 				</parameters>
+			</smartfoldernode>
+			<testmodule
+			id="5e8109b5-9337-44dd-a450-032708951c4b"
+			name="CopyFile"
+			ref="ad8e1ad4-f412-41ae-a2dc-f39766081df4"
+			type="Recording">
+			</testmodule>
+			<smartfoldernode
+			id="645a1e46-fc85-4ee5-b48f-628d1c339748"
+			name="UpdateSubsurfaceSchematizationSTPH">
 			</smartfoldernode>
 			<setup
 			id="69c50bc2-1f21-470a-9310-b9ca68b22aa7"
@@ -690,9 +875,35 @@
 			</smartfoldernode>
 			<testmodule
 			id="720fc0d3-d812-4104-890f-5a60e986688c"
-			name="ValidateChartCalculation"
+			name="OpenChartCalculation"
 			ref="2161f947-3dda-4270-9a96-0d33afc50b6c"
 			type="Recording">
+				<databinding>
+					<var
+					dataname="substringInTraject"
+					datasourceid="44f46814-6990-4cf7-a952-322a09d85d43"
+					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
+					variablename="substringTrajectName">
+					</var>
+					<var
+					dataname="substringInFM"
+					datasourceid="44f46814-6990-4cf7-a952-322a09d85d43"
+					variableid="3a7276c1-fca1-4026-9d2e-5bac10651a47"
+					variablename="substringFMName">
+					</var>
+					<var
+					dataname="calculationName"
+					datasourceid="8ae99975-f899-4173-be26-3af2ab448099"
+					variableid="4f964365-5470-426e-9e06-2f54c57565cb"
+					variablename="singleCalculationName">
+					</var>
+					<var
+					dataname="messageToLogForScreenshotChartCalculation"
+					datasourceid="36de5b8d-308c-4502-9938-6fab6ac232a3"
+					variableid="3c63428f-921e-4ed8-96c7-a91856d049c7"
+					variablename="logMessageChartScreenshot">
+					</var>
+				</databinding>
 			</testmodule>
 			<smartfoldernode
 			datasource="FileToOpen"
@@ -746,7 +957,42 @@
 			id="78b7779b-7370-4e07-b1e4-d9a21ce890e1"
 			name="SaveProject">
 			</smartfoldernode>
+			<testmodule
+			id="7a796713-67c9-46ef-a544-9fc0c57d35a3"
+			name="DeleteFileIfExists"
+			ref="2e4fc24f-fbac-4679-9b7f-37d1c3a42223"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="surfacelineCharactPointsToDelete"
+					datasourceid="ddfa8ca6-6795-4646-9070-a5d686852fac"
+					variableid="5002eb93-7d0b-4470-b99f-685e0d3a1d72"
+					variablename="fileToBeDeleted">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
+			id="7c6786ee-7f19-446b-bba2-c8d8791a3639"
+			name="CopyFile"
+			ref="ad8e1ad4-f412-41ae-a2dc-f39766081df4"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="sourceSurfaceLineFile"
+					datasourceid="06908862-b5db-4ca7-99ea-562da0210ef4"
+					variableid="8f340347-b110-4f65-9582-a07a43e848ab"
+					variablename="sourceFileName">
+					</var>
+					<var
+					dataname="destinationSurfaceLineFile"
+					datasourceid="06908862-b5db-4ca7-99ea-562da0210ef4"
+					variableid="ddede2e2-fd10-4e52-9653-95f1e1249238"
+					variablename="destinationFileName">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
+			datasource="listSurfaceLines12_2"
 			id="7df4f5d9-6c64-457c-8a84-336b3a0d721b"
 			name="LoopSurfaceLines">
 			</smartfoldernode>
@@ -767,6 +1013,12 @@
 					datasourceid="5c9aaf1b-40ce-4a6c-923c-fbe5859aa91f"
 					variableid="3a7276c1-fca1-4026-9d2e-5bac10651a47"
 					variablename="substringFMName">
+					</var>
+					<var
+					dataname="message1ToLog"
+					datasourceid="5c9aaf1b-40ce-4a6c-923c-fbe5859aa91f"
+					variableid="f767b8db-9a01-48e3-94b0-8a4492473cc6"
+					variablename="messageToBeLogged">
 					</var>
 				</databinding>
 			</testmodule>
@@ -889,6 +1141,52 @@
 					datasourceid="9df3cf25-f308-49ae-bd27-f976cf66fd09"
 					variableid="3a7276c1-fca1-4026-9d2e-5bac10651a47"
 					variablename="substringFMName">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<testmodule
+			id="95568918-662a-4380-84f8-3dfec85d3eca"
+			name="OpenViewForGenericFM"
+			ref="d37f64f8-25dc-4a23-8dbd-257a13f39617"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="message2ToLog"
+					datasourceid="5c9aaf1b-40ce-4a6c-923c-fbe5859aa91f"
+					variableid="f767b8db-9a01-48e3-94b0-8a4492473cc6"
+					variablename="messageToBeLogged">
+					</var>
+					<var
+					dataname="substringTrajectName"
+					datasourceid="5c9aaf1b-40ce-4a6c-923c-fbe5859aa91f"
+					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
+					variablename="substringTrajectName">
+					</var>
+					<var
+					dataname="substringFM"
+					datasourceid="5c9aaf1b-40ce-4a6c-923c-fbe5859aa91f"
+					variableid="3a7276c1-fca1-4026-9d2e-5bac10651a47"
+					variablename="substringFMName">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="messageToLog"
+					datasourceid="5b63b031-dd02-4a8d-89c0-7f1d5f3066a9"
+					variableid="f767b8db-9a01-48e3-94b0-8a4492473cc6"
+					variablename="messageToBeLogged">
+					</var>
+					<var
+					dataname="substringFM"
+					datasourceid="5b63b031-dd02-4a8d-89c0-7f1d5f3066a9"
+					variableid="3a7276c1-fca1-4026-9d2e-5bac10651a47"
+					variablename="substringFMName">
+					</var>
+					<var
+					dataname="substringTrajectName"
+					datasourceid="5b63b031-dd02-4a8d-89c0-7f1d5f3066a9"
+					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
+					variablename="substringTrajectName">
 					</var>
 				</missingdatabinding>
 			</testmodule>
@@ -1206,7 +1504,7 @@
 			</smartfoldernode>
 			<smartfoldernode
 			id="c2835620-b926-49c7-95b5-58ccb48f4e0e"
-			name="LoopCalculations">
+			name="ValidateChartsInCalculations">
 			</smartfoldernode>
 			<testmodule
 			id="c28c9f0c-e838-4d0f-a19d-352618177a90"
@@ -1267,6 +1565,54 @@
 			reporttemplatefolder=""
 			reportwriteinterval="30000ms">
 			</testsuite>
+			<testmodule
+			id="c4a0f002-a5dd-4e84-a17e-ea68ef086cf5"
+			name="ValidateSurfaceLineNameInPropertiesPanel"
+			ref="200d05d0-2615-44bf-991e-2913171cd220"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="nameSurfaceLine"
+					datasourceid="4ce93af7-822a-4e20-8d70-2e16628861e4"
+					variableid="a8e3cb99-db08-4cce-a138-eb8382ed259c"
+					variablename="expectedSurfaceLineName">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
+			id="c5ff47ab-b333-41e9-80e0-5965ebc7759f"
+			name="ExpandUntilFMInput"
+			ref="758dd2d8-956a-46d7-a793-08dc2c8e08a7"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="substringTraject"
+					datasourceid="06908862-b5db-4ca7-99ea-562da0210ef4"
+					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
+					variablename="substringTrajectName">
+					</var>
+					<var
+					dataname="substringFM"
+					datasourceid="06908862-b5db-4ca7-99ea-562da0210ef4"
+					variableid="3a7276c1-fca1-4026-9d2e-5bac10651a47"
+					variablename="substringFMName">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="substringTrajectName"
+					datasourceid="5c9aaf1b-40ce-4a6c-923c-fbe5859aa91f"
+					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
+					variablename="substringTrajectName">
+					</var>
+					<var
+					dataname="substringFM"
+					datasourceid="5c9aaf1b-40ce-4a6c-923c-fbe5859aa91f"
+					variableid="3a7276c1-fca1-4026-9d2e-5bac10651a47"
+					variablename="substringFMName">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<smartfoldernode
 			id="c634f880-0187-4e4a-9eed-0c396c788f3f"
 			name="SimpleAssessmentFMsGroup1">
@@ -1281,18 +1627,84 @@
 			name="ValidateSourcePathSurfaceLines"
 			ref="cb7662f3-2819-4dda-b3ec-c0e6a585160f"
 			type="Recording">
+				<databinding>
+					<var
+					dataname="substringInTraject"
+					datasourceid="44f46814-6990-4cf7-a952-322a09d85d43"
+					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
+					variablename="substringTrajectName">
+					</var>
+					<var
+					dataname="substringInFM"
+					datasourceid="44f46814-6990-4cf7-a952-322a09d85d43"
+					variableid="3a7276c1-fca1-4026-9d2e-5bac10651a47"
+					variablename="substringFMName">
+					</var>
+					<var
+					dataname="pathImportedSurfaceLines"
+					datasourceid="44f46814-6990-4cf7-a952-322a09d85d43"
+					variableid="4bd72c19-90ee-4d4d-8396-3588c63d074c"
+					variablename="pathSurfaceLines">
+					</var>
+				</databinding>
 			</testmodule>
 			<testmodule
 			id="cc470262-311b-415e-afad-5aa5ba3bf243"
-			name="ValidateSurfaceLineInProjectExplorerAndPropertiesPanel"
+			name="ValidateSurfaceLineInProjectExplorer"
 			ref="2e0e4b2f-fccc-42ef-a61e-1a1da4acd8e3"
 			type="Recording">
+				<databinding>
+					<var
+					dataname="substringInTraject"
+					datasourceid="44f46814-6990-4cf7-a952-322a09d85d43"
+					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
+					variablename="substringTrajectName">
+					</var>
+					<var
+					dataname="substringInFM"
+					datasourceid="44f46814-6990-4cf7-a952-322a09d85d43"
+					variableid="3a7276c1-fca1-4026-9d2e-5bac10651a47"
+					variablename="substringFMName">
+					</var>
+					<var
+					dataname="nameSurfaceLine"
+					datasourceid="4ce93af7-822a-4e20-8d70-2e16628861e4"
+					variableid="26fbca10-aacc-45e7-b769-190d617a619f"
+					variablename="expectedSurfaceLineName">
+					</var>
+					<var
+					dataname="id"
+					datasourceid="4ce93af7-822a-4e20-8d70-2e16628861e4"
+					variableid="2d0c885b-83ae-40f3-9125-d312ae463f11"
+					variablename="index">
+					</var>
+				</databinding>
 			</testmodule>
 			<smartfoldernode
 			datasource="ListTrajectsNames"
 			id="d34200d9-5186-497e-9e06-4276b43682ad"
 			name="LoopTrajects">
 			</smartfoldernode>
+			<testmodule
+			id="d38a15f4-2049-44f5-89ea-8fd56bd5be47"
+			name="UpdateSurfaceLines"
+			ref="18e39f84-9b42-4666-802c-2fecd9846123"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="substringTraject"
+					datasourceid="06908862-b5db-4ca7-99ea-562da0210ef4"
+					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
+					variablename="substringTrajectName">
+					</var>
+					<var
+					dataname="substringFM"
+					datasourceid="06908862-b5db-4ca7-99ea-562da0210ef4"
+					variableid="3a7276c1-fca1-4026-9d2e-5bac10651a47"
+					variablename="substringFMName">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			id="d3a5f35e-8801-4c38-a81d-c55a85a2fdc5"
 			name="New_project">
@@ -1354,10 +1766,60 @@
 				</databinding>
 			</testmodule>
 			<smartfoldernode
+			id="ddfa8ca6-6795-4646-9070-a5d686852fac"
+			name="CopyOrginalFiles">
+				<parameters>
+					<param
+					name="surfacelineCharactPointsToDelete"
+					value="X:\script10\input\surfacelines traject 12-2.krp.csv">
+					</param>
+					<param
+					name="surfacelineFileToDelete"
+					value="X:\script10\input\surfacelines traject 12-2.csv">
+					</param>
+					<param
+					name="destinationSurfaceLineFile"
+					value="X:\script10\input\surfacelines traject 12-2.csv">
+					</param>
+					<param
+					name="destinationSurfaceLineCharPoints"
+					value="X:\script10\input\surfacelines traject 12-2.krp.csv">
+					</param>
+					<param
+					name="sourceSurfaceLineCharPoints"
+					value="X:\script10\input\00original\surfacelines traject 12-2.krp.csv">
+					</param>
+					<param
+					name="sourceSurfaceLineFile"
+					value="X:\script10\input\00original\surfacelines traject 12-2.csv">
+					</param>
+				</parameters>
+			</smartfoldernode>
+			<smartfoldernode
 			datasource="relevance44_2ProjectExplorer"
 			id="e1ff5697-2c1e-4010-85a0-6f45679d7f50"
 			name="LoopFMs">
 			</smartfoldernode>
+			<testmodule
+			id="e39f866d-3530-42bb-90d0-e3376c330a62"
+			name="CopyFile"
+			ref="ad8e1ad4-f412-41ae-a2dc-f39766081df4"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="destinationSurfaceLineCharPoints"
+					datasourceid="ddfa8ca6-6795-4646-9070-a5d686852fac"
+					variableid="ddede2e2-fd10-4e52-9653-95f1e1249238"
+					variablename="destinationFileName">
+					</var>
+					<var
+					dataname="sourceSurfaceLineCharPoints"
+					datasourceid="ddfa8ca6-6795-4646-9070-a5d686852fac"
+					variableid="8f340347-b110-4f65-9582-a07a43e848ab"
+					variablename="sourceFileName">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			id="e3a5d86a-aed9-4cb2-9fd0-3f8149eb00ca"
 			name="GenerateCalculationsSTPH">
@@ -1374,6 +1836,10 @@
 					name="index"
 					value="6">
 					</param>
+					<param
+					name="messageToLog"
+					value="Screenshot after importing surface lines and subsurface stochastic schematizations, and generating calculations">
+					</param>
 				</parameters>
 			</smartfoldernode>
 			<smartfoldernode
@@ -1385,6 +1851,12 @@
 			id="e756f312-1a93-4042-9200-8ee398806472"
 			name="FMsGroup1">
 			</smartfoldernode>
+			<testmodule
+			id="e91f01f5-e6a0-4c25-b8f9-7112c6456c8e"
+			name="SelectItemBelow"
+			ref="12bc2c02-5298-4ca8-ae8e-6afb9e1b7d0f"
+			type="Recording">
+			</testmodule>
 			<testmodule
 			id="e9cc632a-7f25-439f-a217-996ae9a7bb73"
 			name="NewProject"
@@ -1471,11 +1943,31 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
+			<testmodule
+			id="f54617e3-22c0-40ef-825f-4ce600a98187"
+			name="DeleteFileIfExists"
+			ref="2e4fc24f-fbac-4679-9b7f-37d1c3a42223"
+			type="Recording">
+			</testmodule>
 			<smartfoldernode
 			datasource="FileToOpen"
 			id="f5d0be3d-2759-45ad-91aa-cd3a341517b3"
 			name="OpenFaalkansProject">
 			</smartfoldernode>
+			<testmodule
+			id="f7762215-f00a-4666-b637-54e2d1b83e96"
+			name="DeleteFileIfExists"
+			ref="2e4fc24f-fbac-4679-9b7f-37d1c3a42223"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="surfacelineCharactPointsToDelete"
+					datasourceid="06908862-b5db-4ca7-99ea-562da0210ef4"
+					variableid="5002eb93-7d0b-4470-b99f-685e0d3a1d72"
+					variablename="fileToBeDeleted">
+					</var>
+				</databinding>
+			</testmodule>
 			<testmodule
 			id="f786727b-5000-4a32-8242-3c28844ce22e"
 			name="NewProject"
@@ -1507,6 +1999,72 @@
 			id="f8c83a48-af72-4d8d-ab1f-36873b1be41e"
 			name="OpenFaalkansProject">
 			</smartfoldernode>
+			<testmodule
+			id="fbb88fa9-3270-40ec-a1c6-51287b0cb2c4"
+			name="OpenViewForGenericFM"
+			ref="d37f64f8-25dc-4a23-8dbd-257a13f39617"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="trajectSubstring"
+					datasourceid="e3a5d86a-aed9-4cb2-9fd0-3f8149eb00ca"
+					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
+					variablename="substringTrajectName">
+					</var>
+					<var
+					dataname="fmSubstring"
+					datasourceid="e3a5d86a-aed9-4cb2-9fd0-3f8149eb00ca"
+					variableid="3a7276c1-fca1-4026-9d2e-5bac10651a47"
+					variablename="substringFMName">
+					</var>
+					<var
+					dataname="messageToLog"
+					datasourceid="e3a5d86a-aed9-4cb2-9fd0-3f8149eb00ca"
+					variableid="f767b8db-9a01-48e3-94b0-8a4492473cc6"
+					variablename="messageToBeLogged">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="substringTrajectName"
+					datasourceid="5b63b031-dd02-4a8d-89c0-7f1d5f3066a9"
+					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
+					variablename="substringTrajectName">
+					</var>
+					<var
+					dataname="substringFM"
+					datasourceid="5b63b031-dd02-4a8d-89c0-7f1d5f3066a9"
+					variableid="3a7276c1-fca1-4026-9d2e-5bac10651a47"
+					variablename="substringFMName">
+					</var>
+					<var
+					dataname="messageToLog"
+					datasourceid="5b63b031-dd02-4a8d-89c0-7f1d5f3066a9"
+					variableid="f767b8db-9a01-48e3-94b0-8a4492473cc6"
+					variablename="messageToBeLogged">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<testmodule
+			id="fbb8903c-2e0c-4afc-bdc6-7a59aeb669b6"
+			name="CopyFile"
+			ref="ad8e1ad4-f412-41ae-a2dc-f39766081df4"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="destinationSurfaceLineFile"
+					datasourceid="ddfa8ca6-6795-4646-9070-a5d686852fac"
+					variableid="ddede2e2-fd10-4e52-9653-95f1e1249238"
+					variablename="destinationFileName">
+					</var>
+					<var
+					dataname="sourceSurfaceLineFile"
+					datasourceid="ddfa8ca6-6795-4646-9070-a5d686852fac"
+					variableid="8f340347-b110-4f65-9582-a07a43e848ab"
+					variablename="sourceFileName">
+					</var>
+				</databinding>
+			</testmodule>
 			<testmodule
 			id="fccf685a-4685-4dca-8f14-211c2e207232"
 			name="CloseViewCentralPanelWithFocus"
@@ -1563,6 +2121,12 @@
 			name="teardown">
 			</teardown>
 			<testmodule
+			id="ffc78e74-c966-468c-9808-3f719da9caf6"
+			name="CopyFile"
+			ref="ad8e1ad4-f412-41ae-a2dc-f39766081df4"
+			type="Recording">
+			</testmodule>
+			<testmodule
 			id="fff21f28-b292-4559-a85c-427623308969"
 			name="CloseViewCentralPanelWithFocus"
 			ref="3c2d44f5-31b5-4584-91c8-1ad748affc77"
@@ -1596,6 +2160,26 @@
 							</testmodule>
 						</smartfoldernode>
 						<smartfoldernode
+						id="ddfa8ca6-6795-4646-9070-a5d686852fac"
+						name="CopyOrginalFiles">
+							<testmodule
+							id="0107a901-86b4-4f30-83c1-f3cf871c6ea6"
+							name="DeleteFileIfExists">
+							</testmodule>
+							<testmodule
+							id="7a796713-67c9-46ef-a544-9fc0c57d35a3"
+							name="DeleteFileIfExists">
+							</testmodule>
+							<testmodule
+							id="e39f866d-3530-42bb-90d0-e3376c330a62"
+							name="CopyFile">
+							</testmodule>
+							<testmodule
+							id="fbb8903c-2e0c-4afc-bdc6-7a59aeb669b6"
+							name="CopyFile">
+							</testmodule>
+						</smartfoldernode>
+						<smartfoldernode
 						id="5c9aaf1b-40ce-4a6c-923c-fbe5859aa91f"
 						name="ImportSurfaceLinesSTPH">
 							<testmodule
@@ -1610,6 +2194,10 @@
 							id="3fd35838-f609-47f6-b7ad-5a5e8267c81b"
 							name="ImportSurfaceLines">
 							</testmodule>
+							<testmodule
+							id="95568918-662a-4380-84f8-3dfec85d3eca"
+							name="OpenViewForGenericFM">
+							</testmodule>
 						</smartfoldernode>
 						<smartfoldernode
 						id="5b63b031-dd02-4a8d-89c0-7f1d5f3066a9"
@@ -1617,6 +2205,10 @@
 							<testmodule
 							id="88a26224-9b86-47e7-beaa-10503cc65d8f"
 							name="ImportStochasticSoilModelCollection">
+							</testmodule>
+							<testmodule
+							id="5abb3278-abcb-44cc-a4c0-f7e146e18b99"
+							name="OpenViewForGenericFM">
 							</testmodule>
 						</smartfoldernode>
 						<smartfoldernode
@@ -1626,34 +2218,98 @@
 							id="2c870f2e-8b60-4df3-b194-7ff69db5a826"
 							name="GenerateCalculations">
 							</testmodule>
+							<testmodule
+							id="fbb88fa9-3270-40ec-a1c6-51287b0cb2c4"
+							name="OpenViewForGenericFM">
+							</testmodule>
 						</smartfoldernode>
 						<smartfoldernode
 						id="44f46814-6990-4cf7-a952-322a09d85d43"
 						name="ValidateSurfaceLinesSTPH">
 							<testmodule
-							id="19ebfc85-421b-4bc0-85a0-d04a1075e04a"
-							name="OpenViewForGenericFM">
-							</testmodule>
-							<testmodule
 							id="c9ce130a-8831-4864-bc2a-b447b6cfcaa1"
 							name="ValidateSourcePathSurfaceLines">
 							</testmodule>
 							<smartfoldernode
-							id="c2835620-b926-49c7-95b5-58ccb48f4e0e"
-							name="LoopCalculations">
-								<testmodule
-								id="720fc0d3-d812-4104-890f-5a60e986688c"
-								name="ValidateChartCalculation">
-								</testmodule>
-							</smartfoldernode>
-							<smartfoldernode
 							id="7df4f5d9-6c64-457c-8a84-336b3a0d721b"
 							name="LoopSurfaceLines">
 								<testmodule
+								id="e91f01f5-e6a0-4c25-b8f9-7112c6456c8e"
+								name="SelectItemBelow">
+								</testmodule>
+								<testmodule
 								id="cc470262-311b-415e-afad-5aa5ba3bf243"
-								name="ValidateSurfaceLineInProjectExplorerAndPropertiesPanel">
+								name="ValidateSurfaceLineInProjectExplorer">
+								</testmodule>
+								<testmodule
+								id="c4a0f002-a5dd-4e84-a17e-ea68ef086cf5"
+								name="ValidateSurfaceLineNameInPropertiesPanel">
 								</testmodule>
 							</smartfoldernode>
+							<smartfoldernode
+							id="c2835620-b926-49c7-95b5-58ccb48f4e0e"
+							name="ValidateChartsInCalculations">
+								<testmodule
+								id="415c4f73-0c6b-4947-a25a-f0f35c717541"
+								name="ExpandAllSubNodes">
+								</testmodule>
+								<smartfoldernode
+								id="36de5b8d-308c-4502-9938-6fab6ac232a3"
+								name="LoopCalculations">
+									<testmodule
+									id="720fc0d3-d812-4104-890f-5a60e986688c"
+									name="OpenChartCalculation">
+									</testmodule>
+								</smartfoldernode>
+							</smartfoldernode>
+						</smartfoldernode>
+						<smartfoldernode
+						id="06908862-b5db-4ca7-99ea-562da0210ef4"
+						name="UpdateSurfaceLinesSTPH">
+							<testmodule
+							id="c5ff47ab-b333-41e9-80e0-5965ebc7759f"
+							name="ExpandUntilFMInput">
+							</testmodule>
+							<testmodule
+							id="f7762215-f00a-4666-b637-54e2d1b83e96"
+							name="DeleteFileIfExists">
+							</testmodule>
+							<testmodule
+							id="3385736c-301d-49e3-a2c6-2b35a8899643"
+							name="DeleteFileIfExists">
+							</testmodule>
+							<testmodule
+							id="7c6786ee-7f19-446b-bba2-c8d8791a3639"
+							name="CopyFile">
+							</testmodule>
+							<testmodule
+							id="3fc0ec68-494f-438a-a685-cbf0ae2420f3"
+							name="CopyFile">
+							</testmodule>
+							<testmodule
+							id="d38a15f4-2049-44f5-89ea-8fd56bd5be47"
+							name="UpdateSurfaceLines">
+							</testmodule>
+						</smartfoldernode>
+						<smartfoldernode
+						id="645a1e46-fc85-4ee5-b48f-628d1c339748"
+						name="UpdateSubsurfaceSchematizationSTPH">
+							<testmodule
+							id="5c29daac-031c-4041-bb73-6710340688db"
+							name="DeleteFileIfExists">
+							</testmodule>
+							<testmodule
+							id="f54617e3-22c0-40ef-825f-4ce600a98187"
+							name="DeleteFileIfExists">
+							</testmodule>
+							<testmodule
+							id="ffc78e74-c966-468c-9808-3f719da9caf6"
+							name="CopyFile">
+							</testmodule>
+							<testmodule
+							id="5e8109b5-9337-44dd-a450-032708951c4b"
+							name="CopyFile">
+							</testmodule>
 						</smartfoldernode>
 						<teardown
 						id="739dbdee-cb57-479e-9461-6d944c1505e4"
@@ -2078,6 +2734,36 @@
 	</testsuiteentryhierarchy>
 	<datasources>
 		<DataSource
+		id="8ae99975-f899-4173-be26-3af2ab448099"
+		lastknownrowcount="2"
+		name="calculations12_2_09900"
+		type="Ranorex.Core.Data.SimpleDataConnector">
+			<lastknowncolumns>
+				<column>
+					calculationName
+				</column>
+			</lastknowncolumns>
+			<maskedcolumns>
+			</maskedcolumns>
+			<table>
+				<tr>
+					<th>
+						calculationName
+					</th>
+				</tr>
+				<tr>
+					<td>
+						12_2_09900 Segment_12006_1D2
+					</td>
+				</tr>
+				<tr>
+					<td>
+						12_2_09900 Segment_12006_1D1
+					</td>
+				</tr>
+			</table>
+		</DataSource>
+		<DataSource
 		id="db66c0df-6518-4c43-b352-656c3623717d"
 		includefile="Unchecked"
 		lastknownrowcount="8"
@@ -2235,6 +2921,120 @@
 			<file>
 				X:\script21\input\CSVs\FMsInGroup2SimpleAssessment.csv
 			</file>
+		</DataSource>
+		<DataSource
+		id="4ce93af7-822a-4e20-8d70-2e16628861e4"
+		lastknownrowcount="11"
+		name="listSurfaceLines12_2"
+		type="Ranorex.Core.Data.SimpleDataConnector">
+			<lastknowncolumns>
+				<column>
+					id
+				</column>
+				<column>
+					nameSurfaceLine
+				</column>
+			</lastknowncolumns>
+			<maskedcolumns>
+			</maskedcolumns>
+			<table>
+				<tr>
+					<th>
+						id
+					</th>
+					<th>
+						nameSurfaceLine
+					</th>
+				</tr>
+				<tr>
+					<td>
+						1
+					</td>
+					<td>
+						12_2_00100
+					</td>
+				</tr>
+				<tr>
+					<td>
+						2
+					</td>
+					<td>
+						12_2_00600
+					</td>
+				</tr>
+				<tr>
+					<td>
+						3
+					</td>
+					<td>
+						12_2_02500
+					</td>
+				</tr>
+				<tr>
+					<td>
+						4
+					</td>
+					<td>
+						12_2_03500
+					</td>
+				</tr>
+				<tr>
+					<td>
+						5
+					</td>
+					<td>
+						12_2_07000
+					</td>
+				</tr>
+				<tr>
+					<td>
+						6
+					</td>
+					<td>
+						12_2_08600
+					</td>
+				</tr>
+				<tr>
+					<td>
+						7
+					</td>
+					<td>
+						12_2_09900
+					</td>
+				</tr>
+				<tr>
+					<td>
+						8
+					</td>
+					<td>
+						12_2_11200
+					</td>
+				</tr>
+				<tr>
+					<td>
+						9
+					</td>
+					<td>
+						12_2_14300
+					</td>
+				</tr>
+				<tr>
+					<td>
+						10
+					</td>
+					<td>
+						12_2_14900
+					</td>
+				</tr>
+				<tr>
+					<td>
+						11
+					</td>
+					<td>
+						12_2_18400
+					</td>
+				</tr>
+			</table>
 		</DataSource>
 		<DataSource
 		id="e7354d9e-0cbd-44f9-8420-b994cf2180e3"
@@ -2584,6 +3384,9 @@
 			id="00c7a4e5-d91a-40ea-9fc2-39264a957d87">
 			</testcontainer>
 			<testcontainer
+			id="06908862-b5db-4ca7-99ea-562da0210ef4">
+			</testcontainer>
+			<testcontainer
 			id="0a44c5a2-9fe0-4a08-be4d-b094c7780e99">
 			</testcontainer>
 			<testcontainer
@@ -2612,6 +3415,9 @@
 			</testcontainer>
 			<testcontainer
 			id="33d7e485-8bdd-4286-9e35-8e1b4c29bb6e">
+			</testcontainer>
+			<testcontainer
+			id="36de5b8d-308c-4502-9938-6fab6ac232a3">
 			</testcontainer>
 			<testcontainer
 			id="3727343f-880f-4d7d-ace6-c59dbd92b57a">
@@ -2713,13 +3519,13 @@
 			id="c23e27aa-dca4-4ae7-9cab-a920f2b2d594">
 			</testcontainer>
 			<testcontainer
+			id="c2835620-b926-49c7-95b5-58ccb48f4e0e">
+			</testcontainer>
+			<testcontainer
 			id="c634f880-0187-4e4a-9eed-0c396c788f3f">
 			</testcontainer>
 			<testcontainer
 			id="c7aa0781-b102-4705-92d4-de781e658f70">
-			</testcontainer>
-			<testcontainer
-			id="c2835620-b926-49c7-95b5-58ccb48f4e0e">
 			</testcontainer>
 			<testcontainer
 			id="d34200d9-5186-497e-9e06-4276b43682ad">
@@ -2729,6 +3535,9 @@
 			</testcontainer>
 			<testcontainer
 			id="d508d6ac-d58e-4ef0-93d4-7d3874716ee9">
+			</testcontainer>
+			<testcontainer
+			id="ddfa8ca6-6795-4646-9070-a5d686852fac">
 			</testcontainer>
 			<testcontainer
 			id="e1ff5697-2c1e-4010-85a0-6f45679d7f50">

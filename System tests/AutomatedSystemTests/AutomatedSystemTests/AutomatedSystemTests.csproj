@@ -167,6 +167,42 @@
       <UserCode>true</UserCode>
       <id>25b9d3df-d029-427a-96c4-de8470c01737</id>
     </Compile>
+    <Compile Include="CopyFile.cs">
+      <BoundTo>fab570ab-705a-4266-9144-f9f477a53503</BoundTo>
+      <DependentUpon>CopyFile.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>32da3003-c046-4193-bd31-0c76af533dcc</id>
+    </Compile>
+    <Compile Include="CopyFile.UserCode.cs">
+      <BoundTo>fab570ab-705a-4266-9144-f9f477a53503</BoundTo>
+      <DependentUpon>CopyFile.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>c153f628-d4cd-4d32-bbf7-2e2baf95a97d</id>
+    </Compile>
+    <Compile Include="DeleteFileIfExists.cs">
+      <BoundTo>c72195eb-6d83-44b2-b2f6-96b6855ac1e5</BoundTo>
+      <DependentUpon>DeleteFileIfExists.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>13d1471b-c171-4e5c-8b2a-36342d392515</id>
+    </Compile>
+    <Compile Include="DeleteFileIfExists.UserCode.cs">
+      <BoundTo>c72195eb-6d83-44b2-b2f6-96b6855ac1e5</BoundTo>
+      <DependentUpon>DeleteFileIfExists.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>2c162ae5-1c90-4947-b811-23668e93db4d</id>
+    </Compile>
+    <Compile Include="ExpandAllSubNodes.cs">
+      <BoundTo>59490521-b0d6-4832-b342-9035761334e8</BoundTo>
+      <DependentUpon>ExpandAllSubNodes.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>e5a16cb5-0ebe-4cba-9b69-51b63088fad0</id>
+    </Compile>
+    <Compile Include="ExpandAllSubNodes.UserCode.cs">
+      <BoundTo>59490521-b0d6-4832-b342-9035761334e8</BoundTo>
+      <DependentUpon>ExpandAllSubNodes.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>8ae21ef3-342a-4c9c-a7ac-809ad8717eba</id>
+    </Compile>
     <Compile Include="ExpandUntilFMInput.cs">
       <BoundTo>15520dd1-870c-4aa7-94ce-7a05d8be9a4c</BoundTo>
       <DependentUpon>ExpandUntilFMInput.rxrec</DependentUpon>
@@ -238,6 +274,18 @@
       <DependentUpon>SelectDetailedAssessmentForRow.rxrec</DependentUpon>
       <UserCode>true</UserCode>
       <id>487f6ed8-b5f5-4fb1-924f-bc9cd1a1e518</id>
+    </Compile>
+    <Compile Include="SelectItemBelow.cs">
+      <BoundTo>1fec213e-fd25-4c96-8055-5d4dad952155</BoundTo>
+      <DependentUpon>SelectItemBelow.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>9d25f98d-4085-4929-886e-a1285b4f5776</id>
+    </Compile>
+    <Compile Include="SelectItemBelow.UserCode.cs">
+      <BoundTo>1fec213e-fd25-4c96-8055-5d4dad952155</BoundTo>
+      <DependentUpon>SelectItemBelow.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>d3468ae5-9acf-4bda-aca4-fb58202c73e0</id>
     </Compile>
     <Compile Include="SelectRootProject.cs">
       <BoundTo>ad460e15-fe6e-4eb6-b91f-3972cb4e46a0</BoundTo>
@@ -374,6 +422,18 @@
       <UserCode>true</UserCode>
       <id>162de3c0-1993-49bf-9c31-01fef0b63137</id>
     </Compile>
+    <Compile Include="ShowNodeItemInProjectExplorerTree.cs">
+      <BoundTo>4e3730ed-8319-45cc-b9be-2ce0f123c501</BoundTo>
+      <DependentUpon>ShowNodeItemInProjectExplorerTree.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>a4dd162f-eedd-479b-a4b9-ac6acf3ad85c</id>
+    </Compile>
+    <Compile Include="ShowNodeItemInProjectExplorerTree.UserCode.cs">
+      <BoundTo>4e3730ed-8319-45cc-b9be-2ce0f123c501</BoundTo>
+      <DependentUpon>ShowNodeItemInProjectExplorerTree.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>801c0aa7-2760-40fa-a75b-8c67d7639933</id>
+    </Compile>
     <Compile Include="StartAUT.cs">
       <BoundTo>8f7fe1fa-f1ef-4825-8e3a-6a13124b5fbc</BoundTo>
       <DependentUpon>StartAUT.rxrec</DependentUpon>
@@ -386,17 +446,29 @@
       <UserCode>true</UserCode>
       <id>f103591c-470f-43f6-9be6-e6eb74067b9c</id>
     </Compile>
-    <Compile Include="ValidateChartCalculation.cs">
+    <Compile Include="OpenChartCalculation.cs">
       <BoundTo>4b8d1691-69c4-4e3d-a814-9ceb4db6505b</BoundTo>
-      <DependentUpon>ValidateChartCalculation.rxrec</DependentUpon>
+      <DependentUpon>OpenChartCalculation.rxrec</DependentUpon>
       <RecorderCode>true</RecorderCode>
       <id>3f92ba8a-c125-4782-aa63-c6d9aeac3459</id>
     </Compile>
-    <Compile Include="ValidateChartCalculation.UserCode.cs">
+    <Compile Include="OpenChartCalculation.UserCode.cs">
       <BoundTo>4b8d1691-69c4-4e3d-a814-9ceb4db6505b</BoundTo>
-      <DependentUpon>ValidateChartCalculation.rxrec</DependentUpon>
+      <DependentUpon>OpenChartCalculation.rxrec</DependentUpon>
       <UserCode>true</UserCode>
       <id>9fb44715-bbad-438c-82d6-0632f9784731</id>
+    </Compile>
+    <Compile Include="UpdateSurfaceLines.cs">
+      <BoundTo>48b2d7f3-eb5f-4e6a-906d-06315aeaa9db</BoundTo>
+      <DependentUpon>UpdateSurfaceLines.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>c916a031-a6ba-419f-8770-f467922b88af</id>
+    </Compile>
+    <Compile Include="UpdateSurfaceLines.UserCode.cs">
+      <BoundTo>48b2d7f3-eb5f-4e6a-906d-06315aeaa9db</BoundTo>
+      <DependentUpon>UpdateSurfaceLines.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>5edd3525-f8f2-4e1e-9179-3c85f8165e4b</id>
     </Compile>
     <Compile Include="ValidateCustomAssessmentTypeAtRow.cs">
       <BoundTo>dd1e40e5-89cd-4bda-be21-cdfa6fc0f479</BoundTo>
@@ -494,17 +566,29 @@
       <UserCode>true</UserCode>
       <id>53492640-8a16-4a84-8839-03b44cbcfc43</id>
     </Compile>
-    <Compile Include="ValidateSurfaceLineInProjectExplorerAndPropertiesPanel.cs">
+    <Compile Include="ValidateSurfaceLineInProjectExplorer.cs">
       <BoundTo>4b53e680-197b-47b4-82d7-5157b394bfcb</BoundTo>
-      <DependentUpon>ValidateSurfaceLineInProjectExplorerAndPropertiesPanel.rxrec</DependentUpon>
+      <DependentUpon>ValidateSurfaceLineInProjectExplorer.rxrec</DependentUpon>
       <RecorderCode>true</RecorderCode>
       <id>fb2bf564-3569-4fad-af28-9d679d15b088</id>
     </Compile>
-    <Compile Include="ValidateSurfaceLineInProjectExplorerAndPropertiesPanel.UserCode.cs">
+    <Compile Include="ValidateSurfaceLineInProjectExplorer.UserCode.cs">
       <BoundTo>4b53e680-197b-47b4-82d7-5157b394bfcb</BoundTo>
-      <DependentUpon>ValidateSurfaceLineInProjectExplorerAndPropertiesPanel.rxrec</DependentUpon>
+      <DependentUpon>ValidateSurfaceLineInProjectExplorer.rxrec</DependentUpon>
       <UserCode>true</UserCode>
       <id>27d2d9ae-7798-4f2f-ac73-31e08f03ece9</id>
+    </Compile>
+    <Compile Include="ValidateSurfaceLineNameInPropertiesPanel.cs">
+      <BoundTo>a07de890-0a93-4d5e-865b-7ca9370d261c</BoundTo>
+      <DependentUpon>ValidateSurfaceLineNameInPropertiesPanel.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>44e0450d-4b8c-4947-bcbc-dde21ac8ab9b</id>
+    </Compile>
+    <Compile Include="ValidateSurfaceLineNameInPropertiesPanel.UserCode.cs">
+      <BoundTo>a07de890-0a93-4d5e-865b-7ca9370d261c</BoundTo>
+      <DependentUpon>ValidateSurfaceLineNameInPropertiesPanel.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>efa53e23-d8e4-4e67-ac1c-b7c4fc9f2aaf</id>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -537,6 +621,21 @@
       <id>75c56bbc-55ab-4649-abbf-6157d7ab6a40</id>
       <recordtableid>3c2d44f5-31b5-4584-91c8-1ad748affc77</recordtableid>
     </None>
+    <None Include="CopyFile.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>fab570ab-705a-4266-9144-f9f477a53503</id>
+      <recordtableid>ad8e1ad4-f412-41ae-a2dc-f39766081df4</recordtableid>
+    </None>
+    <None Include="DeleteFileIfExists.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>c72195eb-6d83-44b2-b2f6-96b6855ac1e5</id>
+      <recordtableid>2e4fc24f-fbac-4679-9b7f-37d1c3a42223</recordtableid>
+    </None>
+    <None Include="ExpandAllSubNodes.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>59490521-b0d6-4832-b342-9035761334e8</id>
+      <recordtableid>a2bd227a-e006-4e77-9c0d-21fc549d097c</recordtableid>
+    </None>
     <None Include="ExpandUntilFMInput.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>15520dd1-870c-4aa7-94ce-7a05d8be9a4c</id>
@@ -566,6 +665,11 @@
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>731610be-3ce8-4f1d-8c8d-98ec88fef6e9</id>
       <recordtableid>30a2f45d-ee95-4cb0-9ee5-87d71ca20ca5</recordtableid>
+    </None>
+    <None Include="SelectItemBelow.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>1fec213e-fd25-4c96-8055-5d4dad952155</id>
+      <recordtableid>12bc2c02-5298-4ca8-ae8e-6afb9e1b7d0f</recordtableid>
     </None>
     <None Include="SelectRootProject.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
@@ -622,15 +726,25 @@
       <id>a3cb26e3-a1be-4cb7-b372-a09785de9a9b</id>
       <recordtableid>37154a5a-bed5-4655-91a2-0c5ebc672e77</recordtableid>
     </None>
+    <None Include="ShowNodeItemInProjectExplorerTree.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>4e3730ed-8319-45cc-b9be-2ce0f123c501</id>
+      <recordtableid>bf1f10cf-3437-4354-bf6d-9f79921f2297</recordtableid>
+    </None>
     <None Include="StartAUT.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>8f7fe1fa-f1ef-4825-8e3a-6a13124b5fbc</id>
       <recordtableid>825ce2a6-cd3b-42f6-9972-8ced75f1a54f</recordtableid>
     </None>
-    <None Include="ValidateChartCalculation.rxrec">
+    <None Include="OpenChartCalculation.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>4b8d1691-69c4-4e3d-a814-9ceb4db6505b</id>
       <recordtableid>2161f947-3dda-4270-9a96-0d33afc50b6c</recordtableid>
+    </None>
+    <None Include="UpdateSurfaceLines.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>48b2d7f3-eb5f-4e6a-906d-06315aeaa9db</id>
+      <recordtableid>18e39f84-9b42-4666-802c-2fecd9846123</recordtableid>
     </None>
     <None Include="ValidateCustomAssessmentTypeAtRow.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
@@ -672,10 +786,15 @@
       <id>876cb4ff-6567-4a6e-ba15-8b1c8fa571db</id>
       <recordtableid>cb7662f3-2819-4dda-b3ec-c0e6a585160f</recordtableid>
     </None>
-    <None Include="ValidateSurfaceLineInProjectExplorerAndPropertiesPanel.rxrec">
+    <None Include="ValidateSurfaceLineInProjectExplorer.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>4b53e680-197b-47b4-82d7-5157b394bfcb</id>
       <recordtableid>2e0e4b2f-fccc-42ef-a61e-1a1da4acd8e3</recordtableid>
+    </None>
+    <None Include="ValidateSurfaceLineNameInPropertiesPanel.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>a07de890-0a93-4d5e-865b-7ca9370d261c</id>
+      <recordtableid>200d05d0-2615-44bf-991e-2913171cd220</recordtableid>
     </None>
   </ItemGroup>
   <ItemGroup>

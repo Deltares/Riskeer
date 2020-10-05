@@ -22,7 +22,7 @@ using Ranorex.Core.Testing;
 
 namespace AutomatedSystemTests
 {
-    public partial class ValidateSurfaceLineInProjectExplorerAndPropertiesPanel
+    public partial class SelectItemBelow
     {
         /// <summary>
         /// This method gets called right after the recording has been started.

@@ -24,46 +24,47 @@ namespace AutomatedSystemTests
 {
 #pragma warning disable 0436 //(CS0436) The type 'type' in 'assembly' conflicts with the imported type 'type2' in 'assembly'. Using the type defined in 'assembly'.
     /// <summary>
-    ///The ValidateSourcePathSurfaceLines recording.
+    ///The OpenChartCalculation recording.
     /// </summary>
-    [TestModule("cb7662f3-2819-4dda-b3ec-c0e6a585160f", ModuleType.Recording, 1)]
-    public partial class ValidateSourcePathSurfaceLines : ITestModule
+    [TestModule("2161f947-3dda-4270-9a96-0d33afc50b6c", ModuleType.Recording, 1)]
+    public partial class OpenChartCalculation : ITestModule
     {
         /// <summary>
         /// Holds an instance of the AutomatedSystemTestsRepository repository.
         /// </summary>
         public static AutomatedSystemTestsRepository repo = AutomatedSystemTestsRepository.Instance;
 
-        static ValidateSourcePathSurfaceLines instance = new ValidateSourcePathSurfaceLines();
+        static OpenChartCalculation instance = new OpenChartCalculation();
 
         /// <summary>
         /// Constructs a new instance.
         /// </summary>
-        public ValidateSourcePathSurfaceLines()
+        public OpenChartCalculation()
         {
-            pathSurfaceLines = "";
+            logMessageChartScreenshot = "";
+            singleCalculationName = "";
         }
 
         /// <summary>
         /// Gets a static instance of this recording.
         /// </summary>
-        public static ValidateSourcePathSurfaceLines Instance
+        public static OpenChartCalculation Instance
         {
             get { return instance; }
         }
 
 #region Variables
 
-        string _pathSurfaceLines;
+        string _logMessageChartScreenshot;
 
         /// <summary>
-        /// Gets or sets the value of variable pathSurfaceLines.
+        /// Gets or sets the value of variable logMessageChartScreenshot.
         /// </summary>
-        [TestVariable("4bd72c19-90ee-4d4d-8396-3588c63d074c")]
-        public string pathSurfaceLines
+        [TestVariable("3c63428f-921e-4ed8-96c7-a91856d049c7")]
+        public string logMessageChartScreenshot
         {
-            get { return _pathSurfaceLines; }
-            set { _pathSurfaceLines = value; }
+            get { return _logMessageChartScreenshot; }
+            set { _logMessageChartScreenshot = value; }
         }
 
         /// <summary>
@@ -86,6 +87,16 @@ namespace AutomatedSystemTests
             set { repo.substringFMName = value; }
         }
 
+        /// <summary>
+        /// Gets or sets the value of variable singleCalculationName.
+        /// </summary>
+        [TestVariable("4f964365-5470-426e-9e06-2f54c57565cb")]
+        public string singleCalculationName
+        {
+            get { return repo.singleCalculationName; }
+            set { repo.singleCalculationName = value; }
+        }
+
 #endregion
 
         /// <summary>
@@ -106,23 +117,28 @@ namespace AutomatedSystemTests
         [System.CodeDom.Compiler.GeneratedCode("Ranorex", global::Ranorex.Core.Constants.CodeGenVersion)]
         void ITestModule.Run()
         {
-            Mouse.DefaultMoveTime = 0;
+            Mouse.DefaultMoveTime = 300;
             Keyboard.DefaultKeyPressTime = 20;
-            Delay.SpeedFactor = 0.00;
+            Delay.SpeedFactor = 1.00;
 
             Init();
 
-            Report.Log(ReportLevel.Info, "Invoke action", "Invoking Select() on item 'RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericFMItemWithSubstringInName.InputFM.SurfaceLinesCollectionNode'.", repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericFMItemWithSubstringInName.InputFM.SurfaceLinesCollectionNode.SelfInfo, new RecordItemIndex(0));
-            repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericFMItemWithSubstringInName.InputFM.SurfaceLinesCollectionNode.Self.Select();
+            Report.Log(ReportLevel.Info, "Mouse", "Mouse Right Click item 'RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericFMItemWithSubstringInName.Calculations.InputSingleCalculation' at Center.", repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericFMItemWithSubstringInName.Calculations.InputSingleCalculationInfo, new RecordItemIndex(0));
+            repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericFMItemWithSubstringInName.Calculations.InputSingleCalculation.Click(System.Windows.Forms.MouseButtons.Right);
+            Delay.Milliseconds(0);
             
-            Report.Log(ReportLevel.Info, "Validation", "Validating AttributeEqual (AccessibleValue=$pathSurfaceLines) on item 'RiskeerMainWindow.PropertiesPanelContainer.Table.Bronlocatie'.", repo.RiskeerMainWindow.PropertiesPanelContainer.Table.BronlocatieInfo, new RecordItemIndex(1));
-            Validate.AttributeEqual(repo.RiskeerMainWindow.PropertiesPanelContainer.Table.BronlocatieInfo, "AccessibleValue", pathSurfaceLines);
+            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'ContextMenu.Openen' at Center.", repo.ContextMenu.OpenenInfo, new RecordItemIndex(1));
+            repo.ContextMenu.Openen.Click();
+            Delay.Milliseconds(0);
             
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericFMItemWithSubstringInName.InputFM.SurfaceLinesCollectionNode' at Center.", repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericFMItemWithSubstringInName.InputFM.SurfaceLinesCollectionNode.SelfInfo, new RecordItemIndex(2));
-            repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericFMItemWithSubstringInName.InputFM.SurfaceLinesCollectionNode.Self.Click();
+            Report.Log(ReportLevel.Info, "Wait", "Waiting 5s to not exist. Associated repository item: 'ContextMenu'", repo.ContextMenu.SelfInfo, new ActionTimeout(5000), new RecordItemIndex(2));
+            repo.ContextMenu.SelfInfo.WaitForNotExists(5000);
             
-            Report.Log(ReportLevel.Info, "Keyboard", "Key sequence '{Right}'.", new RecordItemIndex(3));
-            Keyboard.Press("{Right}");
+            Report.Log(ReportLevel.Info, "User", logMessageChartScreenshot, new RecordItemIndex(3));
+            
+            Report.Log(ReportLevel.Info, "User", singleCalculationName, new RecordItemIndex(4));
+            
+            Report.Screenshot(ReportLevel.Info, "User", "", repo.RiskeerMainWindow.DocumentViewContainer.Self, false, new RecordItemIndex(5));
             
         }
 

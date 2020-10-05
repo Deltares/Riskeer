@@ -103,31 +103,27 @@ namespace AutomatedSystemTests
         [System.CodeDom.Compiler.GeneratedCode("Ranorex", global::Ranorex.Core.Constants.CodeGenVersion)]
         void ITestModule.Run()
         {
-            Mouse.DefaultMoveTime = 300;
+            Mouse.DefaultMoveTime = 0;
             Keyboard.DefaultKeyPressTime = 20;
-            Delay.SpeedFactor = 1.00;
+            Delay.SpeedFactor = 0.00;
 
             Init();
 
             // Right click on generic (inside traject and FM defined by sunstrings) Calculations node
             Report.Log(ReportLevel.Info, "Mouse", "Right click on generic (inside traject and FM defined by sunstrings) Calculations node\r\nMouse Right Click item 'RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericFMItemWithSubstringInName.Calculations' at Center.", repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericFMItemWithSubstringInName.Calculations.SelfInfo, new RecordItemIndex(0));
             repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericFMItemWithSubstringInName.Calculations.Self.Click(System.Windows.Forms.MouseButtons.Right);
-            Delay.Milliseconds(0);
             
             // Select Genereer scenario's from context menu
             Report.Log(ReportLevel.Info, "Mouse", "Select Genereer scenario's from context menu\r\nMouse Left Click item 'ContextMenu.GenereerScenarios' at Center.", repo.ContextMenu.GenereerScenariosInfo, new RecordItemIndex(1));
             repo.ContextMenu.GenereerScenarios.Click();
-            Delay.Milliseconds(0);
             
             // Select the Indexth row, cell Use
             Report.Log(ReportLevel.Info, "Mouse", "Select the Indexth row, cell Use\r\nMouse Left Click item 'DialogGenerateCalculations.UseCellRowIndexth' at Center.", repo.DialogGenerateCalculations.UseCellRowIndexthInfo, new RecordItemIndex(2));
             repo.DialogGenerateCalculations.UseCellRowIndexth.Click();
-            Delay.Milliseconds(0);
             
             // Click on Generate button to generate all desired calculations
             Report.Log(ReportLevel.Info, "Mouse", "Click on Generate button to generate all desired calculations\r\nMouse Left Click item 'DialogGenerateCalculations.GenerateButton' at Center.", repo.DialogGenerateCalculations.GenerateButtonInfo, new RecordItemIndex(3));
             repo.DialogGenerateCalculations.GenerateButton.Click();
-            Delay.Milliseconds(0);
             
             // Wait until all calculations have been generated
             Report.Log(ReportLevel.Info, "Delay", "Wait until all calculations have been generated\r\nWaiting for 1s.", new RecordItemIndex(4));

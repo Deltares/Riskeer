@@ -24,47 +24,34 @@ namespace AutomatedSystemTests
 {
 #pragma warning disable 0436 //(CS0436) The type 'type' in 'assembly' conflicts with the imported type 'type2' in 'assembly'. Using the type defined in 'assembly'.
     /// <summary>
-    ///The ValidateSourcePathSurfaceLines recording.
+    ///The ExpandAllSubNodes recording.
     /// </summary>
-    [TestModule("cb7662f3-2819-4dda-b3ec-c0e6a585160f", ModuleType.Recording, 1)]
-    public partial class ValidateSourcePathSurfaceLines : ITestModule
+    [TestModule("a2bd227a-e006-4e77-9c0d-21fc549d097c", ModuleType.Recording, 1)]
+    public partial class ExpandAllSubNodes : ITestModule
     {
         /// <summary>
         /// Holds an instance of the AutomatedSystemTestsRepository repository.
         /// </summary>
         public static AutomatedSystemTestsRepository repo = AutomatedSystemTestsRepository.Instance;
 
-        static ValidateSourcePathSurfaceLines instance = new ValidateSourcePathSurfaceLines();
+        static ExpandAllSubNodes instance = new ExpandAllSubNodes();
 
         /// <summary>
         /// Constructs a new instance.
         /// </summary>
-        public ValidateSourcePathSurfaceLines()
+        public ExpandAllSubNodes()
         {
-            pathSurfaceLines = "";
         }
 
         /// <summary>
         /// Gets a static instance of this recording.
         /// </summary>
-        public static ValidateSourcePathSurfaceLines Instance
+        public static ExpandAllSubNodes Instance
         {
             get { return instance; }
         }
 
 #region Variables
-
-        string _pathSurfaceLines;
-
-        /// <summary>
-        /// Gets or sets the value of variable pathSurfaceLines.
-        /// </summary>
-        [TestVariable("4bd72c19-90ee-4d4d-8396-3588c63d074c")]
-        public string pathSurfaceLines
-        {
-            get { return _pathSurfaceLines; }
-            set { _pathSurfaceLines = value; }
-        }
 
         /// <summary>
         /// Gets or sets the value of variable substringTrajectName.
@@ -112,17 +99,14 @@ namespace AutomatedSystemTests
 
             Init();
 
-            Report.Log(ReportLevel.Info, "Invoke action", "Invoking Select() on item 'RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericFMItemWithSubstringInName.InputFM.SurfaceLinesCollectionNode'.", repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericFMItemWithSubstringInName.InputFM.SurfaceLinesCollectionNode.SelfInfo, new RecordItemIndex(0));
-            repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericFMItemWithSubstringInName.InputFM.SurfaceLinesCollectionNode.Self.Select();
+            Report.Log(ReportLevel.Info, "Invoke action", "Invoking Focus() on item 'RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericFMItemWithSubstringInName.Calculations'.", repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericFMItemWithSubstringInName.Calculations.SelfInfo, new RecordItemIndex(0));
+            repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericFMItemWithSubstringInName.Calculations.Self.Focus();
             
-            Report.Log(ReportLevel.Info, "Validation", "Validating AttributeEqual (AccessibleValue=$pathSurfaceLines) on item 'RiskeerMainWindow.PropertiesPanelContainer.Table.Bronlocatie'.", repo.RiskeerMainWindow.PropertiesPanelContainer.Table.BronlocatieInfo, new RecordItemIndex(1));
-            Validate.AttributeEqual(repo.RiskeerMainWindow.PropertiesPanelContainer.Table.BronlocatieInfo, "AccessibleValue", pathSurfaceLines);
+            Report.Log(ReportLevel.Info, "Mouse", "Mouse Right Click item 'RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericFMItemWithSubstringInName.Calculations' at Center.", repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericFMItemWithSubstringInName.Calculations.SelfInfo, new RecordItemIndex(1));
+            repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericFMItemWithSubstringInName.Calculations.Self.Click(System.Windows.Forms.MouseButtons.Right);
             
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericFMItemWithSubstringInName.InputFM.SurfaceLinesCollectionNode' at Center.", repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericFMItemWithSubstringInName.InputFM.SurfaceLinesCollectionNode.SelfInfo, new RecordItemIndex(2));
-            repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericFMItemWithSubstringInName.InputFM.SurfaceLinesCollectionNode.Self.Click();
-            
-            Report.Log(ReportLevel.Info, "Keyboard", "Key sequence '{Right}'.", new RecordItemIndex(3));
-            Keyboard.Press("{Right}");
+            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'ContextMenu.AllesUitklappen' at Center.", repo.ContextMenu.AllesUitklappenInfo, new RecordItemIndex(2));
+            repo.ContextMenu.AllesUitklappen.Click();
             
         }
 
