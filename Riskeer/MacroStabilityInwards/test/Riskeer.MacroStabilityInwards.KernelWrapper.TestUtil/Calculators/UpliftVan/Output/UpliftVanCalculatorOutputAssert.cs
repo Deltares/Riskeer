@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.UpliftVan;
@@ -82,45 +83,48 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Uplif
         /// <summary>
         /// Asserts whether <paramref name="actual"/> is equal to <paramref name="expected"/>.
         /// </summary>
-        /// <param name="expected">The expected <see cref="UpliftVanSliceResult"/> array.</param>
-        /// <param name="actual">The actual <see cref="UpliftVanSliceResult"/> array.</param>
+        /// <param name="expected">The expected collection of <see cref="UpliftVanSliceResult"/>.</param>
+        /// <param name="actual">The actual collection of <see cref="UpliftVanSliceResult"/>.</param>
         /// <exception cref="AssertionException">Thrown when <paramref name="actual"/>
         /// is not equal to <paramref name="expected"/>.</exception>
-        private static void AssertUpliftVanSliceResults(UpliftVanSliceResult[] expected, UpliftVanSliceResult[] actual)
+        private static void AssertUpliftVanSliceResults(ICollection<UpliftVanSliceResult> expected, ICollection<UpliftVanSliceResult> actual)
         {
-            Assert.AreEqual(expected.Length, actual.Length);
+            Assert.AreEqual(expected.Count, actual.Count);
 
-            for (var i = 0; i < expected.Length; i++)
+            for (var i = 0; i < expected.Count; i++)
             {
-                Assert.AreEqual(expected[i].Cohesion, actual[i].Cohesion);
-                Assert.AreEqual(expected[i].FrictionAngle, actual[i].FrictionAngle);
-                Assert.AreEqual(expected[i].CriticalPressure, actual[i].CriticalPressure);
-                Assert.AreEqual(expected[i].OverConsolidationRatio, actual[i].OverConsolidationRatio);
-                Assert.AreEqual(expected[i].Pop, actual[i].Pop);
-                Assert.AreEqual(expected[i].DegreeOfConsolidationPorePressureSoil, actual[i].DegreeOfConsolidationPorePressureSoil);
-                Assert.AreEqual(expected[i].DegreeOfConsolidationPorePressureLoad, actual[i].DegreeOfConsolidationPorePressureLoad);
-                Assert.AreEqual(expected[i].Dilatancy, actual[i].Dilatancy);
-                Assert.AreEqual(expected[i].ExternalLoad, actual[i].ExternalLoad);
-                Assert.AreEqual(expected[i].HydrostaticPorePressure, actual[i].HydrostaticPorePressure);
-                Assert.AreEqual(expected[i].LeftForce, actual[i].LeftForce);
-                Assert.AreEqual(expected[i].LeftForceAngle, actual[i].LeftForceAngle);
-                Assert.AreEqual(expected[i].LeftForceY, actual[i].LeftForceY);
-                Assert.AreEqual(expected[i].RightForce, actual[i].RightForce);
-                Assert.AreEqual(expected[i].RightForceAngle, actual[i].RightForceAngle);
-                Assert.AreEqual(expected[i].RightForceY, actual[i].RightForceY);
-                Assert.AreEqual(expected[i].LoadStress, actual[i].LoadStress);
-                Assert.AreEqual(expected[i].NormalStress, actual[i].NormalStress);
-                Assert.AreEqual(expected[i].PorePressure, actual[i].PorePressure);
-                Assert.AreEqual(expected[i].HorizontalPorePressure, actual[i].HorizontalPorePressure);
-                Assert.AreEqual(expected[i].VerticalPorePressure, actual[i].VerticalPorePressure);
-                Assert.AreEqual(expected[i].PiezometricPorePressure, actual[i].PiezometricPorePressure);
-                Assert.AreEqual(expected[i].EffectiveStress, actual[i].EffectiveStress);
-                Assert.AreEqual(expected[i].ExcessPorePressure, actual[i].ExcessPorePressure);
-                Assert.AreEqual(expected[i].ShearStress, actual[i].ShearStress);
-                Assert.AreEqual(expected[i].SoilStress, actual[i].SoilStress);
-                Assert.AreEqual(expected[i].TotalPorePressure, actual[i].TotalPorePressure);
-                Assert.AreEqual(expected[i].TotalStress, actual[i].TotalStress);
-                Assert.AreEqual(expected[i].Weight, actual[i].Weight);
+                UpliftVanSliceResult expectedUpliftVanSliceResult = expected.ElementAt(i);
+                UpliftVanSliceResult actualUpliftVanSliceResult = actual.ElementAt(i);
+
+                Assert.AreEqual(expectedUpliftVanSliceResult.Cohesion, actualUpliftVanSliceResult.Cohesion);
+                Assert.AreEqual(expectedUpliftVanSliceResult.FrictionAngle, actualUpliftVanSliceResult.FrictionAngle);
+                Assert.AreEqual(expectedUpliftVanSliceResult.CriticalPressure, actualUpliftVanSliceResult.CriticalPressure);
+                Assert.AreEqual(expectedUpliftVanSliceResult.OverConsolidationRatio, actualUpliftVanSliceResult.OverConsolidationRatio);
+                Assert.AreEqual(expectedUpliftVanSliceResult.Pop, actualUpliftVanSliceResult.Pop);
+                Assert.AreEqual(expectedUpliftVanSliceResult.DegreeOfConsolidationPorePressureSoil, actualUpliftVanSliceResult.DegreeOfConsolidationPorePressureSoil);
+                Assert.AreEqual(expectedUpliftVanSliceResult.DegreeOfConsolidationPorePressureLoad, actualUpliftVanSliceResult.DegreeOfConsolidationPorePressureLoad);
+                Assert.AreEqual(expectedUpliftVanSliceResult.Dilatancy, actualUpliftVanSliceResult.Dilatancy);
+                Assert.AreEqual(expectedUpliftVanSliceResult.ExternalLoad, actualUpliftVanSliceResult.ExternalLoad);
+                Assert.AreEqual(expectedUpliftVanSliceResult.HydrostaticPorePressure, actualUpliftVanSliceResult.HydrostaticPorePressure);
+                Assert.AreEqual(expectedUpliftVanSliceResult.LeftForce, actualUpliftVanSliceResult.LeftForce);
+                Assert.AreEqual(expectedUpliftVanSliceResult.LeftForceAngle, actualUpliftVanSliceResult.LeftForceAngle);
+                Assert.AreEqual(expectedUpliftVanSliceResult.LeftForceY, actualUpliftVanSliceResult.LeftForceY);
+                Assert.AreEqual(expectedUpliftVanSliceResult.RightForce, actualUpliftVanSliceResult.RightForce);
+                Assert.AreEqual(expectedUpliftVanSliceResult.RightForceAngle, actualUpliftVanSliceResult.RightForceAngle);
+                Assert.AreEqual(expectedUpliftVanSliceResult.RightForceY, actualUpliftVanSliceResult.RightForceY);
+                Assert.AreEqual(expectedUpliftVanSliceResult.LoadStress, actualUpliftVanSliceResult.LoadStress);
+                Assert.AreEqual(expectedUpliftVanSliceResult.NormalStress, actualUpliftVanSliceResult.NormalStress);
+                Assert.AreEqual(expectedUpliftVanSliceResult.PorePressure, actualUpliftVanSliceResult.PorePressure);
+                Assert.AreEqual(expectedUpliftVanSliceResult.HorizontalPorePressure, actualUpliftVanSliceResult.HorizontalPorePressure);
+                Assert.AreEqual(expectedUpliftVanSliceResult.VerticalPorePressure, actualUpliftVanSliceResult.VerticalPorePressure);
+                Assert.AreEqual(expectedUpliftVanSliceResult.PiezometricPorePressure, actualUpliftVanSliceResult.PiezometricPorePressure);
+                Assert.AreEqual(expectedUpliftVanSliceResult.EffectiveStress, actualUpliftVanSliceResult.EffectiveStress);
+                Assert.AreEqual(expectedUpliftVanSliceResult.ExcessPorePressure, actualUpliftVanSliceResult.ExcessPorePressure);
+                Assert.AreEqual(expectedUpliftVanSliceResult.ShearStress, actualUpliftVanSliceResult.ShearStress);
+                Assert.AreEqual(expectedUpliftVanSliceResult.SoilStress, actualUpliftVanSliceResult.SoilStress);
+                Assert.AreEqual(expectedUpliftVanSliceResult.TotalPorePressure, actualUpliftVanSliceResult.TotalPorePressure);
+                Assert.AreEqual(expectedUpliftVanSliceResult.TotalStress, actualUpliftVanSliceResult.TotalStress);
+                Assert.AreEqual(expectedUpliftVanSliceResult.Weight, actualUpliftVanSliceResult.Weight);
             }
         }
 
