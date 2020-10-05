@@ -34,28 +34,6 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
         : CustomExceptionDesignGuidelinesTestFixture<UpliftVanKernelWrapperException, Exception>
     {
         [Test]
-        public void MessageAndInnerExceptionAndKernelMessagesConstructor_ExpectedValues()
-        {
-            // Setup
-            const string messageText = "Message";
-            var innerException = new Exception();
-            IEnumerable<Message> messages = Enumerable.Empty<Message>();
-
-            // Call
-            var exception = new UpliftVanKernelWrapperException(messageText, innerException, messages);
-
-            // Assert
-            Assert.IsInstanceOf<Exception>(exception);
-            Assert.AreEqual(messageText, exception.Message);
-            Assert.IsNull(exception.HelpLink);
-            Assert.AreEqual(innerException, exception.InnerException);
-            Assert.IsNull(exception.Source);
-            Assert.IsNull(exception.StackTrace);
-            Assert.IsNull(exception.TargetSite);
-            CollectionAssert.IsEmpty(exception.Data);
-            Assert.AreSame(messages, exception.Messages);
-        }
-        [Test]
         public void KernelMessagesConstructor_ExpectedValues()
         {
             // Setup

@@ -107,7 +107,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan
 
             if (ThrowExceptionOnCalculate)
             {
-                throw new UpliftVanKernelWrapperException($"Message 1{Environment.NewLine}Message 2", new Exception(), CalculationMessages);
+                throw new UpliftVanKernelWrapperException(CalculationMessages);
             }
 
             Calculated = true;
