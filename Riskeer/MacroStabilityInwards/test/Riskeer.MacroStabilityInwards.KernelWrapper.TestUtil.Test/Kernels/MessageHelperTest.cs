@@ -29,7 +29,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernels
     public class MessageHelperTest
     {
         [Test]
-        public void Constructor_ExpectedValues()
+        public void CreateMessage_ExpectedValues()
         {
             // Setup
             const string content = "test";

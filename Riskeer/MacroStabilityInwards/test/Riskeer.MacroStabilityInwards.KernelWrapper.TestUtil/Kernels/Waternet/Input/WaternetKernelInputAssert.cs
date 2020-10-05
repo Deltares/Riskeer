@@ -34,8 +34,8 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.Waternet.
         /// <summary>
         /// Asserts whether <paramref name="actual"/> is equal to <paramref name="expected"/>.
         /// </summary>
-        /// <param name="expected">The expected collection of <see cref="MacroStabilityInput"/>.</param>
-        /// <param name="actual">The actual collection of <see cref="MacroStabilityInput"/>.</param>
+        /// <param name="expected">The expected <see cref="MacroStabilityInput"/>.</param>
+        /// <param name="actual">The actual <see cref="MacroStabilityInput"/>.</param>
         /// <exception cref="AssertionException">Thrown when <paramref name="actual"/>
         /// is not equal to <paramref name="expected"/>.</exception>
         public static void AssertMacroStabilityInput(MacroStabilityInput expected, MacroStabilityInput actual)
@@ -45,13 +45,13 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.Waternet.
 
             CollectionAssert.AreEqual(expected.StabilityModel.Soils, actual.StabilityModel.Soils, new SoilComparer());
 
-            PreConstructionStage expectedPreconstructionStage = expected.PreprocessingInput.PreConstructionStages.Single();
-            PreConstructionStage actualPreconstructionStage = actual.PreprocessingInput.PreConstructionStages.Single();
+            PreConstructionStage expectedPreConstructionStage = expected.PreprocessingInput.PreConstructionStages.Single();
+            PreConstructionStage actualPreConstructionStage = actual.PreprocessingInput.PreConstructionStages.Single();
 
-            KernelInputAssert.AssertSurfaceLine(expectedPreconstructionStage.SurfaceLine, actualPreconstructionStage.SurfaceLine);
-            Assert.AreEqual(expectedPreconstructionStage.WaternetCreationMode, actualPreconstructionStage.WaternetCreationMode);
+            KernelInputAssert.AssertSurfaceLine(expectedPreConstructionStage.SurfaceLine, actualPreConstructionStage.SurfaceLine);
+            Assert.AreEqual(expectedPreConstructionStage.WaternetCreationMode, actualPreConstructionStage.WaternetCreationMode);
 
-            KernelInputAssert.AssertWaternetCreatorInput(expectedPreconstructionStage.WaternetCreatorInput, actualPreconstructionStage.WaternetCreatorInput);
+            KernelInputAssert.AssertWaternetCreatorInput(expectedPreConstructionStage.WaternetCreatorInput, actualPreConstructionStage.WaternetCreatorInput);
         }
     }
 }

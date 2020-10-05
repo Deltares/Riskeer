@@ -137,7 +137,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernels.Upli
                     {
                         HeadPoint = new Point2D(x1, y1),
                         EndPoint = new Point2D(x2, y2)
-                            }
+                    }
                 }
             };
             var loop2 = new Loop

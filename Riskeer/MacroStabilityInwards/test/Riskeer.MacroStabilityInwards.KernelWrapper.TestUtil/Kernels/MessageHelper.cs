@@ -52,7 +52,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels
         /// <param name="expectedContent">The expected content.</param>
         /// <param name="actual">The actual <see cref="Message"/>.</param>
         /// <exception cref="AssertionException">Thrown when <paramref name="actual"/>
-        /// is not equal to <paramref name="expectedMessageType"/> or <paramref name="expectedContent"/>.</exception>
+        /// does not correspond with <paramref name="expectedMessageType"/> or <paramref name="expectedContent"/>.</exception>
         public static void AssertMessage(MessageType expectedMessageType, string expectedContent, Message actual)
         {
             Assert.AreEqual(expectedMessageType, actual.MessageType);
