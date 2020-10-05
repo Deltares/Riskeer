@@ -38,13 +38,13 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Uplif
         /// <param name="actual">The actual <see cref="UpliftVanSlidingCurveResult"/>.</param>
         /// <exception cref="AssertionException">Thrown when <paramref name="actual"/>
         /// is not equal to <paramref name="expected"/>.</exception>
-        public static void AssertSlidingCurve(UpliftVanSlidingCurveResult expected, UpliftVanSlidingCurveResult actual)
+        public static void AssertUpliftVanSlidingCurveResult(UpliftVanSlidingCurveResult expected, UpliftVanSlidingCurveResult actual)
         {
             Assert.AreEqual(expected.IteratedHorizontalForce, actual.IteratedHorizontalForce);
             Assert.AreEqual(expected.NonIteratedHorizontalForce, actual.NonIteratedHorizontalForce);
-            AssertCircle(expected.LeftCircle, actual.LeftCircle);
-            AssertCircle(expected.RightCircle, actual.RightCircle);
-            AssertSlices(expected.Slices.ToArray(), actual.Slices.ToArray());
+            AssertUpliftVanSlidingCircleResult(expected.LeftCircle, actual.LeftCircle);
+            AssertUpliftVanSlidingCircleResult(expected.RightCircle, actual.RightCircle);
+            AssertUpliftVanSliceResults(expected.Slices.ToArray(), actual.Slices.ToArray());
         }
 
         /// <summary>
@@ -57,8 +57,8 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Uplif
         public static void AssertUpliftVanCalculationGridResult(UpliftVanCalculationGridResult expected, UpliftVanCalculationGridResult actual)
         {
             CollectionAssert.AreEqual(expected.TangentLines, actual.TangentLines);
-            AssertGrid(expected.LeftGrid, actual.LeftGrid);
-            AssertGrid(expected.RightGrid, actual.RightGrid);
+            AssertUpliftVanGrid(expected.LeftGrid, actual.LeftGrid);
+            AssertUpliftVanGrid(expected.RightGrid, actual.RightGrid);
         }
 
         /// <summary>
@@ -68,7 +68,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Uplif
         /// <param name="actual">The actual <see cref="UpliftVanSlidingCircleResult"/>.</param>
         /// <exception cref="AssertionException">Thrown when <paramref name="actual"/>
         /// is not equal to <paramref name="expected"/>.</exception>
-        private static void AssertCircle(UpliftVanSlidingCircleResult expected, UpliftVanSlidingCircleResult actual)
+        private static void AssertUpliftVanSlidingCircleResult(UpliftVanSlidingCircleResult expected, UpliftVanSlidingCircleResult actual)
         {
             Assert.AreEqual(expected.Center, actual.Center);
             Assert.AreEqual(expected.Radius, actual.Radius);
@@ -86,7 +86,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Uplif
         /// <param name="actual">The actual <see cref="UpliftVanSliceResult"/> array.</param>
         /// <exception cref="AssertionException">Thrown when <paramref name="actual"/>
         /// is not equal to <paramref name="expected"/>.</exception>
-        private static void AssertSlices(UpliftVanSliceResult[] expected, UpliftVanSliceResult[] actual)
+        private static void AssertUpliftVanSliceResults(UpliftVanSliceResult[] expected, UpliftVanSliceResult[] actual)
         {
             Assert.AreEqual(expected.Length, actual.Length);
 
@@ -131,7 +131,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Uplif
         /// <param name="actual">The actual <see cref="UpliftVanGrid"/>.</param>
         /// <exception cref="AssertionException">Thrown when <paramref name="actual"/>
         /// is not equal to <paramref name="expected"/>.</exception>
-        private static void AssertGrid(UpliftVanGrid expected, UpliftVanGrid actual)
+        private static void AssertUpliftVanGrid(UpliftVanGrid expected, UpliftVanGrid actual)
         {
             Assert.AreEqual(expected.XLeft, actual.XLeft);
             Assert.AreEqual(expected.XRight, actual.XRight);

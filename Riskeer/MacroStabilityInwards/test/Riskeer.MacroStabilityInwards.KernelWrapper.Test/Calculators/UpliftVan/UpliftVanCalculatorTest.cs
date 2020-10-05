@@ -188,8 +188,8 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Calculators.UpliftVan
                 Assert.AreEqual(upliftVanKernel.FactorOfStability, result.FactorOfStability);
                 Assert.AreEqual(upliftVanKernel.ForbiddenZonesXEntryMax, result.ForbiddenZonesXEntryMax);
                 Assert.AreEqual(upliftVanKernel.ForbiddenZonesXEntryMin, result.ForbiddenZonesXEntryMin);
-                UpliftVanCalculatorOutputAssert.AssertSlidingCurve(UpliftVanSlidingCurveResultCreator.Create(upliftVanKernel.SlidingCurveResult),
-                                                                   result.SlidingCurveResult);
+                UpliftVanCalculatorOutputAssert.AssertUpliftVanSlidingCurveResult(UpliftVanSlidingCurveResultCreator.Create(upliftVanKernel.SlidingCurveResult),
+                                                                                  result.SlidingCurveResult);
                 UpliftVanCalculatorOutputAssert.AssertUpliftVanCalculationGridResult(UpliftVanCalculationGridResultCreator.Create(upliftVanKernel.UpliftVanCalculationGridResult),
                                                                                      result.CalculationGridResult);
             }

@@ -134,16 +134,15 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.UpliftVan
         }
 
         [Test]
-        public void Calculate_CalculationNotSuccessful_OutputSet()
+        public void Calculate_CalculationNotSuccessful_ThrowsUpliftVanKernelWrapperException()
         {
             // Setup
-            var random = new Random(21);
             var calculatorOutput = new MacroStabilityOutput
             {
                 StabilityOutput = new StabilityOutput
                 {
                     Succeeded = false,
-                    Messages = new []
+                    Messages = new[]
                     {
                         MessageHelper.CreateMessage(MessageType.Error, "Message 1"),
                         MessageHelper.CreateMessage(MessageType.Error, "Message 2")

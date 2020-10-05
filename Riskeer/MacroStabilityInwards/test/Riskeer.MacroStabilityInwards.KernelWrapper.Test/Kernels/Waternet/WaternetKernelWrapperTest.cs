@@ -220,7 +220,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.Waternet
             var exception = Assert.Throws<WaternetKernelWrapperException>(Call);
             string expectedMessage = $"{message1}{Environment.NewLine}" +
                                      $"{message2}";
-                                     Assert.AreEqual(expectedMessage, exception.Message);
+            Assert.AreEqual(expectedMessage, exception.Message);
             mocks.VerifyAll();
         }
 
@@ -250,7 +250,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.Waternet
         }
 
         [Test]
-        public void Validate_ExceptionInWrappedKernel_ThrowsUpliftVanKernelWrapperException()
+        public void Validate_ExceptionInWrappedKernel_ThrowsWaternetKernelWrapperException()
         {
             // Setup
             var exceptionToThrow = new Exception();
