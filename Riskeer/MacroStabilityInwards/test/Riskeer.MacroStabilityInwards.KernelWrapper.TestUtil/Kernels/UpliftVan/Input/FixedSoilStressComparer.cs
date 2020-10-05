@@ -27,7 +27,7 @@ using Deltares.MacroStability.CSharpWrapper.Input;
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan.Input
 {
     /// <summary>
-    /// This class compares the coordinates of two <see cref="FixedSoilStress"/> 
+    /// This class compares the soil and POP of two <see cref="FixedSoilStress"/> 
     /// instances to determine whether they're equal to each other or not.
     /// </summary>
     public class FixedSoilStressComparer : IComparer<FixedSoilStress>, IComparer

@@ -27,7 +27,7 @@ using Deltares.MacroStability.CSharpWrapper.Input;
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan.Input
 {
     /// <summary>
-    /// This class compares the coordinates of two <see cref="Soil"/> 
+    /// This class compares the properties of two <see cref="Soil"/> 
     /// instances to determine whether they're equal to each other or not.
     /// </summary>
     public class SoilComparer : IComparer<Soil>, IComparer

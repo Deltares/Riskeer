@@ -40,8 +40,8 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan
         /// is not equal to <paramref name="expected"/>.</exception>
         public static void AssertSoilProfile(SoilProfile expected, SoilProfile actual)
         {
-            AssertSoilProfileSurfaces(expected.SoilSurfaces, actual.SoilSurfaces);
-            AssertGeometries(expected.Geometry, actual.Geometry);
+            AssertSurfaces(expected.SoilSurfaces, actual.SoilSurfaces);
+            AssertGeometry(expected.Geometry, actual.Geometry);
         }
 
         /// <summary>
@@ -59,8 +59,8 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan
         /// <summary>
         /// Asserts whether <paramref name="actual"/> is equal to <paramref name="expected"/>.
         /// </summary>
-        /// <param name="expected">The expected collection of <see cref="WaternetCreatorInput"/>.</param>
-        /// <param name="actual">The actual collection of <see cref="WaternetCreatorInput"/>.</param>
+        /// <param name="expected">The expected <see cref="WaternetCreatorInput"/>.</param>
+        /// <param name="actual">The actual <see cref="WaternetCreatorInput"/>.</param>
         /// <exception cref="AssertionException">Thrown when <paramref name="actual"/>
         /// is not equal to <paramref name="expected"/>.</exception>
         public static void AssertWaternetCreatorInput(WaternetCreatorInput expected, WaternetCreatorInput actual)
@@ -92,11 +92,11 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan
         /// <summary>
         /// Asserts whether <paramref name="actual"/> is equal to <paramref name="expected"/>.
         /// </summary>
-        /// <param name="expected">The expected <see cref="SoilProfileSurface"/> array.</param>
-        /// <param name="actual">The actual <see cref="SoilProfileSurface"/> array.</param>
+        /// <param name="expected">The expected collection of <see cref="SoilProfileSurface"/>.</param>
+        /// <param name="actual">The actual collection of <see cref="SoilProfileSurface"/>.</param>
         /// <exception cref="AssertionException">Thrown when <paramref name="actual"/>
         /// is not equal to <paramref name="expected"/>.</exception>
-        private static void AssertSoilProfileSurfaces(ICollection<SoilProfileSurface> expected, ICollection<SoilProfileSurface> actual)
+        private static void AssertSurfaces(ICollection<SoilProfileSurface> expected, ICollection<SoilProfileSurface> actual)
         {
             Assert.AreEqual(expected.Count, actual.Count);
 
@@ -107,8 +107,8 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan
 
                 Assert.AreEqual(expectedSoilProfileSurface.Name, actualSoilProfileSurface.Name);
                 Assert.AreEqual(expectedSoilProfileSurface.IsAquifer, actualSoilProfileSurface.IsAquifer);
-                AssertGeometrySurfaces(expectedSoilProfileSurface.Surface, actualSoilProfileSurface.Surface);
-                AssertSoils(expectedSoilProfileSurface.Soil, actualSoilProfileSurface.Soil);
+                AssertSurface(expectedSoilProfileSurface.Surface, actualSoilProfileSurface.Surface);
+                AssertSoil(expectedSoilProfileSurface.Soil, actualSoilProfileSurface.Soil);
                 Assert.AreEqual(expectedSoilProfileSurface.WaterPressureInterpolationModel, actualSoilProfileSurface.WaterPressureInterpolationModel);
             }
         }
@@ -120,7 +120,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan
         /// <param name="actual">The actual <see cref="Surface"/>.</param>
         /// <exception cref="AssertionException">Thrown when <paramref name="actual"/>
         /// is not equal to <paramref name="expected"/>.</exception>
-        private static void AssertGeometrySurfaces(Surface expected, Surface actual)
+        private static void AssertSurface(Surface expected, Surface actual)
         {
             CollectionAssert.AreEqual(new[]
                                       {
@@ -136,17 +136,17 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan
         /// <summary>
         /// Asserts whether <paramref name="actual"/> is equal to <paramref name="expected"/>.
         /// </summary>
-        /// <param name="expected">The expected <see cref="Surface"/> array.</param>
-        /// <param name="actual">The actual <see cref="Surface"/> array.</param>
+        /// <param name="expected">The expected collection of <see cref="Surface"/>.</param>
+        /// <param name="actual">The actual collection of <see cref="Surface"/>.</param>
         /// <exception cref="AssertionException">Thrown when <paramref name="actual"/>
         /// is not equal to <paramref name="expected"/>.</exception>
-        private static void AssertGeometrySurfaces(ICollection<Surface> expected, ICollection<Surface> actual)
+        private static void AssertSurfaces(ICollection<Surface> expected, ICollection<Surface> actual)
         {
             Assert.AreEqual(expected.Count, actual.Count);
 
             for (var i = 0; i < expected.Count; i++)
             {
-                AssertGeometrySurfaces(expected.ElementAt(i), actual.ElementAt(i));
+                AssertSurface(expected.ElementAt(i), actual.ElementAt(i));
             }
         }
 
@@ -157,7 +157,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan
         /// <param name="actual">The actual <see cref="Soil"/>.</param>
         /// <exception cref="AssertionException">Thrown when <paramref name="actual"/>
         /// is not equal to <paramref name="expected"/>.</exception>
-        private static void AssertSoils(Soil expected, Soil actual)
+        private static void AssertSoil(Soil expected, Soil actual)
         {
             Assert.AreEqual(expected.Name, actual.Name);
             Assert.AreEqual(expected.ShearStrengthAbovePhreaticLevelModel, actual.ShearStrengthAbovePhreaticLevelModel);
@@ -178,9 +178,9 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan
         /// <param name="actual">The actual <see cref="Geometry"/>.</param>
         /// <exception cref="AssertionException">Thrown when <paramref name="actual"/>
         /// is not equal to <paramref name="expected"/>.</exception>
-        private static void AssertGeometries(Geometry expected, Geometry actual)
+        private static void AssertGeometry(Geometry expected, Geometry actual)
         {
-            AssertGeometrySurfaces(expected.Surfaces, actual.Surfaces);
+            AssertSurfaces(expected.Surfaces, actual.Surfaces);
 
             CollectionAssert.AreEqual(expected.Loops, actual.Loops, new LoopComparer());
             CollectionAssert.AreEqual(expected.Curves, actual.Curves, new CurveComparer());

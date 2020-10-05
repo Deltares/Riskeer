@@ -42,6 +42,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan
             {
                 throw new ArgumentException($"Cannot compare objects other than {typeof(Curve)} with this comparer.");
             }
+
             return Compare((Curve) x, (Curve) y);
         }
 

@@ -43,13 +43,14 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan
             {
                 throw new ArgumentException($"Cannot compare objects other than {typeof(Loop)} with this comparer.");
             }
+
             return Compare((Loop) x, (Loop) y);
         }
 
         public int Compare(Loop x, Loop y)
         {
             return x.Curves.Where((curve, index) =>
-                                         curveComparer.Compare(curve, y.Curves.ElementAt(index)) == 1).Any()
+                                      curveComparer.Compare(curve, y.Curves.ElementAt(index)) == 1).Any()
                        ? 1
                        : 0;
         }

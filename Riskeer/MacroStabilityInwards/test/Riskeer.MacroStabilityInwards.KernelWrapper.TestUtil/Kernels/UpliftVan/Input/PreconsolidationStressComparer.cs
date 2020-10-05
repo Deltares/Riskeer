@@ -27,7 +27,7 @@ using Deltares.MacroStability.CSharpWrapper.Input;
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan.Input
 {
     /// <summary>
-    /// This class compares the coordinates of two <see cref="PreconsolidationStress"/> 
+    /// This class compares the coordinates and stress values of two <see cref="PreconsolidationStress"/> 
     /// instances to determine whether they're equal to each other or not.
     /// </summary>
     public class PreconsolidationStressComparer : IComparer<PreconsolidationStress>, IComparer
@@ -48,6 +48,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan
             {
                 return 0;
             }
+
             if (Math.Abs(x.StressValue - y.StressValue) < 1e-6 &&
                 Math.Abs(x.Point.X - y.Point.X) < 1e-6 &&
                 Math.Abs(x.Point.Z - y.Point.Z) < 1e-6)
