@@ -25,7 +25,6 @@ using System.Linq;
 using Deltares.MacroStability.CSharpWrapper;
 using Deltares.MacroStability.CSharpWrapper.Output;
 using Deltares.MacroStability.CSharpWrapper.Output.WaternetCreator;
-using Deltares.MacroStability.Standard;
 using CSharpWrapperWaternet = Deltares.MacroStability.CSharpWrapper.Waternet;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.Waternet
@@ -106,7 +105,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.Waternet
         {
             ValidationOutput output = validator.ValidateWaternetCreator();
 
-            if(!output.IsValid)
+            if (!output.IsValid)
             {
                 throw new WaternetKernelWrapperException();
             }
@@ -117,7 +116,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.Waternet
         /// </summary>
         /// <param name="receivedLogMessages">The messages to read.</param>
         /// <exception cref="WaternetKernelWrapperException">Thrown when there
-        /// are log messages of the type <see cref="LogMessageType.FatalError"/> or <see cref="LogMessageType.Error"/>.</exception>
+        /// are log messages of the type <see cref="MessageType.Error"/>.</exception>
         private static void ReadLogMessages(IEnumerable<Message> receivedLogMessages)
         {
             Message[] errorMessages = receivedLogMessages.Where(lm => lm.MessageType == MessageType.Error).ToArray();
