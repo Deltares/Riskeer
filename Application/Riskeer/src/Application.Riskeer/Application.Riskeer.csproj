@@ -3,7 +3,6 @@
     <OutputType>WinExe</OutputType>
     <AssemblyName>Riskeer</AssemblyName>
     <ApplicationIcon>Riskeer.ico</ApplicationIcon>
-    <OutputPath>$(SolutionDir)\bin\$(Configuration)\</OutputPath>
   </PropertyGroup>
   <Import Project="$(SolutionDir)\build\Source.targets" />
   <ItemGroup>
@@ -89,5 +88,10 @@
     <Exec Command="xcopy /d/s/y $(PkgSystem_Data_Sqlite_Core)\build\net45\x64\* $(OutDir)\Application\Built-in\Managed\Externals\System.Data.SQLite.Core-1.0.109.2\x64\*" />
     <Exec Command="xcopy /d/s/y $(PkgSystem_Data_Sqlite_Core)\build\net45\x86\* $(OutDir)\Application\Built-in\Managed\Externals\System.Data.SQLite.Core-1.0.109.2\x86\*" />
     <Exec Command="xcopy /d/s/y $(PkgSystem_Data_Sqlite_EF6)\lib\net45\* $(OutDir)\Application\Built-in\Managed\Externals\System.Data.SQLite.EF6-1.0.109\*" />
+  </Target>
+  <Target Name="PostBuildCopyAssembly" AfterTargets="PostBuildEvent">
+    <Exec Command="xcopy /d/s/y $(OutDir)\$(AssemblyName).exe $(SolutionDir)\bin\$(Configuration)\*" />
+    <Exec Command="xcopy /d/s/y $(OutDir)\$(AssemblyName).exe.config $(SolutionDir)\bin\$(Configuration)\*" />
+    <Exec Command="xcopy /d/s/y $(OutDir)\$(AssemblyName).pdb $(SolutionDir)\bin\$(Configuration)\*" Condition="$(DefineConstants.Contains('DEBUG')) Or $(DefineConstants.Contains('RELEASEFORCODECOVERAGE'))" />
   </Target>
 </Project>
