@@ -27,7 +27,7 @@ using Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan.Inp
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.Waternet.Input
 {
     /// <summary>
-    /// Class for asserting waternet kernel input.
+    /// Class for asserting Waternet kernel input.
     /// </summary>
     public static class WaternetKernelInputAssert
     {
