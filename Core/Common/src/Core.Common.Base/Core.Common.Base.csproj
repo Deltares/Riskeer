@@ -43,5 +43,4 @@
     <Exec Command="xcopy /d/s/y $(Pkglog4net)\lib\net45-full\* $(OutDir)\..\Externals\Log4net-2.0.8\*" />
     <Exec Command="xcopy /d/s/y $(PkgMathNet_Numerics)\lib\net40\* $(OutDir)\..\Externals\MathNet.Numerics-3.19.0\*" />
   </Target>
-  <Import Project="$(SolutionDir)\build\PreBuild.targets" />
 </Project>

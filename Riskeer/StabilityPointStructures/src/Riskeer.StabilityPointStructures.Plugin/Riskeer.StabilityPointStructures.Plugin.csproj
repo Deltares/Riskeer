@@ -30,5 +30,4 @@
     <ProjectReference Include="..\Riskeer.StabilityPointStructures.IO\Riskeer.StabilityPointStructures.IO.csproj" />
     <ProjectReference Include="..\Riskeer.StabilityPointStructures.Service\Riskeer.StabilityPointStructures.Service.csproj" />
   </ItemGroup>
-  <Import Project="$(SolutionDir)\build\PreBuild.targets" />
 </Project>

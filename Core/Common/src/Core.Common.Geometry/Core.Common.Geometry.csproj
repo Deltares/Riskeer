@@ -43,5 +43,4 @@
     <Exec Command="xcopy /d/s/y $(PkgNetTopologySuite)\lib\net45\* $(OutDir)\..\Externals\NetTopologySuite-1.14.0\*" />
     <Exec Command="xcopy /d/s/y $(PkgGeoAPI)\lib\net45\* $(OutDir)\..\Externals\GeoAPI-1.7.4\*" />
   </Target>
-  <Import Project="$(SolutionDir)\build\PreBuild.targets" />
 </Project>

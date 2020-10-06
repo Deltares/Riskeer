@@ -72,5 +72,4 @@
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <Exec Command="xcopy /d/s/y $(Pkglog4net)\lib\net45-full\* $(OutDir)\..\Externals\Log4net-2.0.8\*" />
   </Target>
-  <Import Project="$(SolutionDir)\build\PreBuild.targets" />
 </Project>

@@ -65,5 +65,4 @@
     <Exec Command="xcopy /d/s/y $(PkgGraphSharp)\lib\net40\* $(OutDir)\..\Externals\GraphSharp-1.1.0\*" />
     <Exec Command="xcopy /d/s/y $(PkgWPFExtensions)\lib\* $(OutDir)\..\Externals\WPFExtensions-1.0.0\*" />
   </Target>
-  <Import Project="$(SolutionDir)\build\PreBuild.targets" />
 </Project>

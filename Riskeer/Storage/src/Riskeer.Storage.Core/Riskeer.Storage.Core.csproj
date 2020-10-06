@@ -98,5 +98,4 @@
     <Exec Command="xcopy /d/s/y $(PkgSystem_Data_Sqlite_EF6)\lib\net45\* $(OutDir)\..\Externals\System.Data.SQLite.EF6-1.0.109\*" />
     <Exec Command="xcopy /d/s/y $(PkgEntityFrameWork)\lib\net45\* $(OutDir)\..\Externals\EntityFramework-6.2.0\*" />
   </Target>
-  <Import Project="$(SolutionDir)\build\PreBuild.targets" />
 </Project>

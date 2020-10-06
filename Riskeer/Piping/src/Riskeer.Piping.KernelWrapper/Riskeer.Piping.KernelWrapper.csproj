@@ -21,5 +21,4 @@
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <Exec Command="xcopy /d/s/y $(SolutionDir)\lib\Plugins\Wti\WTIPiping.dll $(OutDir)\..\Deltares\Piping-16.2.1.4574\*" />
   </Target>
-  <Import Project="$(SolutionDir)\build\PreBuild.targets" />
 </Project>

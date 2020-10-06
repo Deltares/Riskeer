@@ -37,5 +37,4 @@
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <Exec Command="xcopy /d/s/y $(SolutionDir)\lib\Plugins\AssemblyTool\* $(OutDir)\..\Deltares\AssemblyTool-19.1\*" />
   </Target>
-  <Import Project="$(SolutionDir)\build\PreBuild.targets" />
 </Project>

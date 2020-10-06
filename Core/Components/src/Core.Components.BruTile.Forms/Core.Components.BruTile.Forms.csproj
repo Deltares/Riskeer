@@ -49,5 +49,4 @@
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <Exec Command="xcopy /d/s/y $(PkgBruTile)\lib\net45\* $(OutDir)\..\Externals\BruTile-2.1.2\*" />
   </Target>
-  <Import Project="$(SolutionDir)\build\PreBuild.targets" />
 </Project>

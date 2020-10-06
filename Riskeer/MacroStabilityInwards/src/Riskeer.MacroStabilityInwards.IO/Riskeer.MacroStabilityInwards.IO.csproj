@@ -71,5 +71,4 @@
     <Exec Command="xcopy /d/s/y $(Pkglog4net)\lib\net45-full\* $(OutDir)\..\Externals\Log4net-2.0.8\*" />
     <Exec Command="xcopy /d/s/y $(SolutionDir)\lib\Plugins\Wti\Components.Persistence.Stability.dll $(OutDir)\..\Deltares\D-Stability-20.2.1\*" />
   </Target>
-  <Import Project="$(SolutionDir)\build\PreBuild.targets" />
 </Project>

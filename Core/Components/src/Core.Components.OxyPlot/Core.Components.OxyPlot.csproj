@@ -31,5 +31,4 @@
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <Exec Command="xcopy /d/s/y $(PkgOxyPlot_Core)\lib\net45\* $(OutDir)\..\Externals\OxyPlot.Core-1.0.0\*" />
   </Target>
-  <Import Project="$(SolutionDir)\build\PreBuild.targets" />
 </Project>
