@@ -11,15 +11,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Common\src\Core.Common.Base\Core.Common.Base.csproj">
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\Core.Components.Chart\Core.Components.Chart.csproj">
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\Core.Components.Stack\Core.Components.Stack.csproj">
-      <Private>False</Private>
-    </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\src\Core.Common.Base\Core.Common.Base.csproj" />
+    <ProjectReference Include="..\Core.Components.Chart\Core.Components.Chart.csproj" />
+    <ProjectReference Include="..\Core.Components.Stack\Core.Components.Stack.csproj" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="OxyPlot.Core">

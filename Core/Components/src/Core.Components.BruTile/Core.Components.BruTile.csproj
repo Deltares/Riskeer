@@ -11,18 +11,10 @@
     <None Include="app.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Common\src\Core.Common.Util\Core.Common.Util.csproj">
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\Core.Components.BruTile.Data\Core.Components.BruTile.Data.csproj">
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\Core.Components.BruTile.IO\Core.Components.BruTile.IO.csproj">
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\Core.Components.Gis\Core.Components.Gis.csproj">
-      <Private>False</Private>
-    </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\src\Core.Common.Util\Core.Common.Util.csproj" />
+    <ProjectReference Include="..\Core.Components.BruTile.Data\Core.Components.BruTile.Data.csproj" />
+    <ProjectReference Include="..\Core.Components.BruTile.IO\Core.Components.BruTile.IO.csproj" />
+    <ProjectReference Include="..\Core.Components.Gis\Core.Components.Gis.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="Properties\Resources.Designer.cs">

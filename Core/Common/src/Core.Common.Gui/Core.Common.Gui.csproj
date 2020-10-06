@@ -14,18 +14,10 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Core.Common.Base\Core.Common.Base.csproj">
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\Core.Common.Controls.TreeView\Core.Common.Controls.TreeView.csproj">
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\Core.Common.Controls\Core.Common.Controls.csproj">
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\Core.Common.Util\Core.Common.Util.csproj">
-      <Private>False</Private>
-    </ProjectReference>
+    <ProjectReference Include="..\Core.Common.Base\Core.Common.Base.csproj" />
+    <ProjectReference Include="..\Core.Common.Controls.TreeView\Core.Common.Controls.TreeView.csproj" />
+    <ProjectReference Include="..\Core.Common.Controls\Core.Common.Controls.csproj" />
+    <ProjectReference Include="..\Core.Common.Util\Core.Common.Util.csproj" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.Lesser.licenseheader">

@@ -11,9 +11,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Core.Common.Base\Core.Common.Base.csproj">
-      <Private>False</Private>
-    </ProjectReference>
+    <ProjectReference Include="..\Core.Common.Base\Core.Common.Base.csproj" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="MathNet.Numerics">

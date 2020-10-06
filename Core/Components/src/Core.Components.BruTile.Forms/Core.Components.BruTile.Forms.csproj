@@ -10,21 +10,11 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Common\src\Core.Common.Base\Core.Common.Base.csproj">
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Core.Common.Util\Core.Common.Util.csproj">
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\Core.Components.BruTile\Core.Components.BruTile.csproj">
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\Core.Components.Gis.Forms\Core.Components.Gis.Forms.csproj">
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\Core.Components.Gis\Core.Components.Gis.csproj">
-      <Private>False</Private>
-    </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\src\Core.Common.Base\Core.Common.Base.csproj" />
+    <ProjectReference Include="..\..\..\Common\src\Core.Common.Util\Core.Common.Util.csproj" />
+    <ProjectReference Include="..\Core.Components.BruTile\Core.Components.BruTile.csproj" />
+    <ProjectReference Include="..\Core.Components.Gis.Forms\Core.Components.Gis.Forms.csproj" />
+    <ProjectReference Include="..\Core.Components.Gis\Core.Components.Gis.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="Properties\Resources.Designer.cs">

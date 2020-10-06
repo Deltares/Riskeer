@@ -13,9 +13,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Core.Components.PointedTree\Core.Components.PointedTree.csproj">
-      <Private>False</Private>
-    </ProjectReference>
+    <ProjectReference Include="..\Core.Components.PointedTree\Core.Components.PointedTree.csproj" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="GraphSharp">

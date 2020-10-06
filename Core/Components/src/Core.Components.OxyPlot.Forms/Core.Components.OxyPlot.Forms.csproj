@@ -12,24 +12,12 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Common\src\Core.Common.Base\Core.Common.Base.csproj">
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\Core.Components.Chart.Forms\Core.Components.Chart.Forms.csproj">
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\Core.Components.Chart\Core.Components.Chart.csproj">
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\Core.Components.OxyPlot\Core.Components.OxyPlot.csproj">
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\Core.Components.Stack.Forms\Core.Components.Stack.Forms.csproj">
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\Core.Components.Stack\Core.Components.Stack.csproj">
-      <Private>False</Private>
-    </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\src\Core.Common.Base\Core.Common.Base.csproj" />
+    <ProjectReference Include="..\Core.Components.Chart.Forms\Core.Components.Chart.Forms.csproj" />
+    <ProjectReference Include="..\Core.Components.Chart\Core.Components.Chart.csproj" />
+    <ProjectReference Include="..\Core.Components.OxyPlot\Core.Components.OxyPlot.csproj" />
+    <ProjectReference Include="..\Core.Components.Stack.Forms\Core.Components.Stack.Forms.csproj" />
+    <ProjectReference Include="..\Core.Components.Stack\Core.Components.Stack.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="Properties\Resources.Designer.cs">

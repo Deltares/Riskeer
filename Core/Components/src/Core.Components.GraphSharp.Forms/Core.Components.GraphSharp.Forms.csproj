@@ -18,18 +18,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Common\src\Core.Common.Util\Core.Common.Util.csproj">
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\Core.Components.GraphSharp\Core.Components.GraphSharp.csproj">
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\Core.Components.PointedTree.Forms\Core.Components.PointedTree.Forms.csproj">
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\Core.Components.PointedTree\Core.Components.PointedTree.csproj">
-      <Private>False</Private>
-    </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\src\Core.Common.Util\Core.Common.Util.csproj" />
+    <ProjectReference Include="..\Core.Components.GraphSharp\Core.Components.GraphSharp.csproj" />
+    <ProjectReference Include="..\Core.Components.PointedTree.Forms\Core.Components.PointedTree.Forms.csproj" />
+    <ProjectReference Include="..\Core.Components.PointedTree\Core.Components.PointedTree.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="Templates\EdgeControlTemplate.xaml">
