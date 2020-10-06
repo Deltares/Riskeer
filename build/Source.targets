@@ -1,6 +1,6 @@
 <Project>
   <PropertyGroup>
-    <OutputPath Condition="$(OutputPath) == ''">$(SolutionDir)\bin\$(Configuration)\Application\Built-in\Managed\Core</OutputPath>
+    <OutputPath Condition="$(OutputPath) == ''">bin\$(Configuration)\</OutputPath>
     <OutDir>$(OutputPath)</OutDir>
     <Platforms>x86</Platforms>
     <PlatformTarget>x86</PlatformTarget>
@@ -64,4 +64,7 @@
     <CleanSQLiteInteropFiles>false</CleanSQLiteInteropFiles>
     <CollectSQLiteInteropFiles>false</CollectSQLiteInteropFiles>
   </PropertyGroup>
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="xcopy /d/s/y $(OutDir)\$(AssemblyName).dll $(SolutionDir)\bin\$(Configuration)\Application\Built-in\Managed\Core\*" />
+  </Target>
 </Project>
