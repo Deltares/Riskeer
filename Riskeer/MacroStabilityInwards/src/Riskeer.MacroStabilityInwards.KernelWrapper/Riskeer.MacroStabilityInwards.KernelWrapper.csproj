@@ -32,6 +32,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="xcopy /d/s/y $(SolutionDir)\lib\Plugins\Wti\WTIStability.dll $(OutDir)\..\Deltares\Macrostability-20.1.1.9503\*" />
+    <Exec Command="xcopy /d/s/y $(SolutionDir)\lib\Plugins\Wti\WTIStability.dll $(SolutionDir)\bin\$(Configuration)\Application\Built-in\Managed\Deltares\Macrostability-20.1.1.9503\*" />
   </Target>
 </Project>

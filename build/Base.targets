@@ -1,5 +1,5 @@
 <Project>
-    <PropertyGroup>
+  <PropertyGroup>
     <OutputPath Condition="$(OutputPath) == ''">bin\$(Configuration)\</OutputPath>
     <OutDir>$(OutputPath)</OutDir>
     <Platforms>x86</Platforms>

@@ -34,6 +34,6 @@
     </PackageReference>
   </ItemGroup>
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="xcopy /d/s/y $(PkgMathNet_Numerics)\lib\net40\* $(OutDir)\..\Externals\MathNet.Numerics-3.19.0\*" />
+    <Exec Command="xcopy /d/s/y $(PkgMathNet_Numerics)\lib\net40\* $(SolutionDir)\bin\$(Configuration)\Application\Built-in\Managed\Externals\MathNet.Numerics-3.19.0\*" />
   </Target>
 </Project>
