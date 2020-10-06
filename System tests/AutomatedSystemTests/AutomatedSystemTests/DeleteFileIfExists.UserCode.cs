@@ -48,8 +48,7 @@ namespace AutomatedSystemTests
 				} else {
 					Report.Log(ReportLevel.Info, "File " + fileToDelete + " could not be found to be deleted.");
 				}
-			} catch (IOException ioExp)    
-			{
+			} catch {
 				Report.Log(ReportLevel.Warn, "File " + fileToDelete + " was found but coudn't be deleted.");    
 			}    
         }

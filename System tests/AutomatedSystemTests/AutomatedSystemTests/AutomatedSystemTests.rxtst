@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <testsuitedoc>
 	<testsuiteentryhierarchy>
 		<flatlistofchildren>
@@ -35,7 +35,7 @@
 			</testmodule>
 			<smartfoldernode
 			id="06908862-b5db-4ca7-99ea-562da0210ef4"
-			name="UpdateSurfaceLinesSTPH">
+			name="UpdateSurfaceLinesEditedSTPH">
 				<parameters>
 					<param
 					name="substringTraject"
@@ -107,6 +107,64 @@
 					datasourceid="377932e2-7a0a-42e1-8647-694095d5c60d"
 					variableid="79d7d1d0-a157-4326-954d-9ee0a7bbe710"
 					variablename="expectedDetailedAssessmentCellValue">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
+			id="0eb80dfc-5f8b-47af-bd90-3595efeb63f7"
+			name="ValidateSubsurfaceSchematizationName"
+			ref="560d0007-fd1b-471b-9883-19d6c73cf565"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="substringTraject"
+					datasourceid="50ca1144-cabd-4fb2-b556-22a7edfadf97"
+					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
+					variablename="substringTrajectName">
+					</var>
+					<var
+					dataname="substringFM"
+					datasourceid="50ca1144-cabd-4fb2-b556-22a7edfadf97"
+					variableid="3a7276c1-fca1-4026-9d2e-5bac10651a47"
+					variablename="substringFMName">
+					</var>
+					<var
+					dataname="stochasticModelName"
+					datasourceid="b3c5b319-58ca-4ac4-b0be-d98cc9f3dfc1"
+					variableid="3ffbed7a-4559-45fe-b4e5-1a945317051e"
+					variablename="subsurfaceStochasticModelName">
+					</var>
+					<var
+					dataname="schematizationname"
+					datasourceid="b3c5b319-58ca-4ac4-b0be-d98cc9f3dfc1"
+					variableid="d6395975-e717-466e-bd96-55cf93332255"
+					variablename="subsurfaceSchematizationName">
+					</var>
+					<var
+					dataname="schematizationname"
+					datasourceid="b3c5b319-58ca-4ac4-b0be-d98cc9f3dfc1"
+					variableid="3e080daf-3a8c-454e-9f1c-885391b833ba"
+					variablename="nameSubsurfaceSchematization">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
+			id="0f437fb5-9b3a-47d6-b8f3-6f44c58e4f7b"
+			name="ExpandAllSubnodesStochasticSubsurfaceModels"
+			ref="6b3643f7-60a2-455b-8131-739ad1d10355"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="substringTraject"
+					datasourceid="50ca1144-cabd-4fb2-b556-22a7edfadf97"
+					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
+					variablename="substringTrajectName">
+					</var>
+					<var
+					dataname="substringFM"
+					datasourceid="50ca1144-cabd-4fb2-b556-22a7edfadf97"
+					variableid="3a7276c1-fca1-4026-9d2e-5bac10651a47"
+					variablename="substringFMName">
 					</var>
 				</databinding>
 			</testmodule>
@@ -223,6 +281,20 @@
 			datasource="relevance44_2ProjectExplorer"
 			id="2179672b-c6cc-4f03-8e2b-71ae42170951"
 			name="LoopFMs">
+			</smartfoldernode>
+			<smartfoldernode
+			id="22e4bbf9-0675-41cb-8838-d39c0cf423b6"
+			name="AddTraject6-5">
+				<parameters>
+					<param
+					name="trajectID"
+					value="6-5">
+					</param>
+					<param
+					name="norm"
+					value="Signal">
+					</param>
+				</parameters>
 			</smartfoldernode>
 			<testmodule
 			id="24bfcdcd-8168-43d6-bcee-f74881c4ffe4"
@@ -502,7 +574,7 @@
 			</testmodule>
 			<testmodule
 			id="415c4f73-0c6b-4947-a25a-f0f35c717541"
-			name="ExpandAllSubNodes"
+			name="ExpandAllSubNodesCalculations"
 			ref="a2bd227a-e006-4e77-9c0d-21fc549d097c"
 			type="Recording">
 				<databinding>
@@ -576,6 +648,24 @@
 			<smartfoldernode
 			id="4bb671b5-bd57-42fd-a72e-41482b3d1dbb"
 			name="ValidateRelevanceFMsTraject44_2InProjectExplorer">
+			</smartfoldernode>
+			<smartfoldernode
+			id="50ca1144-cabd-4fb2-b556-22a7edfadf97"
+			name="ValidateSubsurfaceStochasticModels">
+				<parameters>
+					<param
+					name="substringTraject"
+					value="12-2">
+					</param>
+					<param
+					name="substringFM"
+					value="Dijken en dammen - Piping">
+					</param>
+					<param
+					name="pathSubsurfaceStochasticModels"
+					value="X:\script10\input\Ondergrond traject 12_2_met_DSoil_v17_2_1_987.soil">
+					</param>
+				</parameters>
 			</smartfoldernode>
 			<testmodule
 			id="5243e9fd-04fc-47ca-b211-0fac8128c3d0"
@@ -653,6 +743,32 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<smartfoldernode
+			id="54726836-ea20-4aed-9544-c3ea520ce225"
+			name="ImportSurfaceLinesSTPH">
+				<parameters>
+					<param
+					name="filenameSurfaceLines"
+					value="X:\script10\input\surfacelines traject 12-2.csv">
+					</param>
+					<param
+					name="substringTrajectName"
+					value="Traject 6-5">
+					</param>
+					<param
+					name="substringFM"
+					value="Dijken en dammen - Piping">
+					</param>
+					<param
+					name="message1ToLog"
+					value="Screenshot of FM View before importing surface lines and subsurface stochastic schematization">
+					</param>
+					<param
+					name="message2ToLog"
+					value="Screenshot of FM View after importing surface lines and before importing subsurface stochastic schematization">
+					</param>
+				</parameters>
+			</smartfoldernode>
 			<smartfoldernode
 			datasource="outputRelevancePE"
 			id="571a9ba3-86a6-4c7e-9f89-17d420e49e63"
@@ -772,7 +888,7 @@
 				<parameters>
 					<param
 					name="filename"
-					value="X:\script10\input\00original\Ondergrond traject 12_2_met_DSoil_v17_2_1_987.soil">
+					value="X:\script10\input\Ondergrond traject 12_2_met_DSoil_v17_2_1_987.soil">
 					</param>
 					<param
 					name="substringFM"
@@ -786,14 +902,20 @@
 					name="messageToLog"
 					value="Screenshot of FM view after importing surface lines and subsurface stochastic schematizations">
 					</param>
+					<param
+					name="oldFileToDelete"
+					value="X:\script10\input\Ondergrond traject 12_2_met_DSoil_v17_2_1_987.soil">
+					</param>
+					<param
+					name="sourceFileSubsurfaceSchematization"
+					value="X:\script10\input\00original\Ondergrond traject 12_2_met_DSoil_v17_2_1_987.soil">
+					</param>
+					<param
+					name="destinationFileSubsurfaceSchematization"
+					value="X:\script10\input\Ondergrond traject 12_2_met_DSoil_v17_2_1_987.soil">
+					</param>
 				</parameters>
 			</smartfoldernode>
-			<testmodule
-			id="5c29daac-031c-4041-bb73-6710340688db"
-			name="DeleteFileIfExists"
-			ref="2e4fc24f-fbac-4679-9b7f-37d1c3a42223"
-			type="Recording">
-			</testmodule>
 			<smartfoldernode
 			id="5c9aaf1b-40ce-4a6c-923c-fbe5859aa91f"
 			name="ImportSurfaceLinesSTPH">
@@ -825,10 +947,46 @@
 			name="CopyFile"
 			ref="ad8e1ad4-f412-41ae-a2dc-f39766081df4"
 			type="Recording">
+				<databinding>
+					<var
+					dataname="sourceFileSubsurfaceSchematization"
+					datasourceid="645a1e46-fc85-4ee5-b48f-628d1c339748"
+					variableid="8f340347-b110-4f65-9582-a07a43e848ab"
+					variablename="sourceFileName">
+					</var>
+					<var
+					dataname="destinationFileSubsurfaceSchematization"
+					datasourceid="645a1e46-fc85-4ee5-b48f-628d1c339748"
+					variableid="ddede2e2-fd10-4e52-9653-95f1e1249238"
+					variablename="destinationFileName">
+					</var>
+				</databinding>
 			</testmodule>
 			<smartfoldernode
 			id="645a1e46-fc85-4ee5-b48f-628d1c339748"
-			name="UpdateSubsurfaceSchematizationSTPH">
+			name="UpdateSubsurfaceSchematizationEditedSTPH">
+				<parameters>
+					<param
+					name="destinationFileSubsurfaceSchematization"
+					value="X:\script10\input\Ondergrond traject 12_2_met_DSoil_v17_2_1_987.soil">
+					</param>
+					<param
+					name="sourceFileSubsurfaceSchematization"
+					value="X:\script10\input\01edited\Ondergrond traject 12_2_met_DSoil_v17_2_1_987.soil">
+					</param>
+					<param
+					name="oldFileToDelete"
+					value="X:\script10\input\Ondergrond traject 12_2_met_DSoil_v17_2_1_987.soil">
+					</param>
+					<param
+					name="substringTraject"
+					value="12-2">
+					</param>
+					<param
+					name="substringFM"
+					value="Dijken en dammen - Piping">
+					</param>
+				</parameters>
 			</smartfoldernode>
 			<setup
 			id="69c50bc2-1f21-470a-9310-b9ca68b22aa7"
@@ -948,6 +1106,32 @@
 			id="739dbdee-cb57-479e-9461-6d944c1505e4"
 			name="teardown">
 			</teardown>
+			<testmodule
+			id="74354751-ba73-4f11-b592-d198491917b6"
+			name="ValidateSourcePathSubsurfaceStochasticModels"
+			ref="91eb0c4e-9253-4dc7-a692-cc3aca2d4649"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="pathSubsurfaceStochasticModels"
+					datasourceid="50ca1144-cabd-4fb2-b556-22a7edfadf97"
+					variableid="93cc4d3e-3702-43cb-bcef-8942f86ea95b"
+					variablename="pathSubsurfaceStochasticModels">
+					</var>
+					<var
+					dataname="substringFM"
+					datasourceid="50ca1144-cabd-4fb2-b556-22a7edfadf97"
+					variableid="3a7276c1-fca1-4026-9d2e-5bac10651a47"
+					variablename="substringFMName">
+					</var>
+					<var
+					dataname="substringTraject"
+					datasourceid="50ca1144-cabd-4fb2-b556-22a7edfadf97"
+					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
+					variablename="substringTrajectName">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			id="75bc37b3-8164-46db-8dab-3fbff66c9045"
 			name="a)Relevance_Assessment">
@@ -957,6 +1141,26 @@
 			id="78b7779b-7370-4e07-b1e4-d9a21ce890e1"
 			name="SaveProject">
 			</smartfoldernode>
+			<testmodule
+			id="78d331a6-bde0-447d-98d2-d5c35a98442f"
+			name="UpdateSubsurfaceSchematization"
+			ref="32dc32fd-5a31-4bd3-96eb-7c8d70401ccb"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="substringTraject"
+					datasourceid="645a1e46-fc85-4ee5-b48f-628d1c339748"
+					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
+					variablename="substringTrajectName">
+					</var>
+					<var
+					dataname="substringFM"
+					datasourceid="645a1e46-fc85-4ee5-b48f-628d1c339748"
+					variableid="3a7276c1-fca1-4026-9d2e-5bac10651a47"
+					variablename="substringFMName">
+					</var>
+				</databinding>
+			</testmodule>
 			<testmodule
 			id="7a796713-67c9-46ef-a544-9fc0c57d35a3"
 			name="DeleteFileIfExists"
@@ -1027,6 +1231,26 @@
 			id="7f1d4de9-90da-4126-bf23-7008a5a44fee"
 			name="OpenFaalkansProject">
 			</smartfoldernode>
+			<testmodule
+			id="7f4fc51f-f97d-4807-bcc9-ac13ca60dfe3"
+			name="AddNewTraject"
+			ref="549fb022-bf32-480a-ae5e-d3f6e14aa501"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="trajectID"
+					datasourceid="22e4bbf9-0675-41cb-8838-d39c0cf423b6"
+					variableid="4ea4fb61-50c3-4243-9a99-25901a404ce2"
+					variablename="trajectToAdd">
+					</var>
+					<var
+					dataname="norm"
+					datasourceid="22e4bbf9-0675-41cb-8838-d39c0cf423b6"
+					variableid="929a9a29-2c5b-41dc-93ed-daff0f25d734"
+					variablename="normType">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			datasource="detailedAssessmentSTPHType"
 			id="84bb39d9-6d34-41e6-ba8f-a857cfdc5275"
@@ -1114,7 +1338,7 @@
 					dataname="NameFM"
 					datasourceid="1b1df013-4a4b-4a2a-a392-87368b82bae9"
 					variableid="3a7276c1-fca1-4026-9d2e-5bac10651a47"
-					variablename="substringItemName">
+					variablename="substringFMName">
 					</var>
 					<var
 					dataname="IsRelevant"
@@ -1216,6 +1440,32 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<testmodule
+			id="9b12212d-8601-4777-80e3-cca3e382a584"
+			name="OpenViewForGenericFM"
+			ref="d37f64f8-25dc-4a23-8dbd-257a13f39617"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="substringTrajectName"
+					datasourceid="54726836-ea20-4aed-9544-c3ea520ce225"
+					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
+					variablename="substringTrajectName">
+					</var>
+					<var
+					dataname="substringFM"
+					datasourceid="54726836-ea20-4aed-9544-c3ea520ce225"
+					variableid="3a7276c1-fca1-4026-9d2e-5bac10651a47"
+					variablename="substringFMName">
+					</var>
+					<var
+					dataname="message1ToLog"
+					datasourceid="54726836-ea20-4aed-9544-c3ea520ce225"
+					variableid="f767b8db-9a01-48e3-94b0-8a4492473cc6"
+					variablename="messageToBeLogged">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			datasource="outputRelevanceFMCView"
 			id="9cb3bdde-1999-4bae-aa4e-6330208999d4"
@@ -1244,6 +1494,59 @@
 			datasource="outputDetailedAssessment"
 			id="a340e9a4-4cf7-4999-b91c-36776c39fc1f"
 			name="SaveProject">
+			</smartfoldernode>
+			<testmodule
+			id="a4ea3db0-c17d-4323-bc85-b8c7f794576e"
+			name="ValidateErrorIcon"
+			ref="85bd5588-c795-4a99-aeaf-4daebe835849"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="index"
+					datasourceid="3a3fe5b2-2445-4628-a06e-c22d892c8271"
+					variableid="1fbcad7f-de39-4620-840f-1a08bca18ef2"
+					variablename="indexRowMessage">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
+			id="a867c6ab-9bc0-449a-86f1-71b3d8345333"
+			name="CopyFile"
+			ref="ad8e1ad4-f412-41ae-a2dc-f39766081df4"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="sourceFileSubsurfaceSchematization"
+					datasourceid="5b63b031-dd02-4a8d-89c0-7f1d5f3066a9"
+					variableid="8f340347-b110-4f65-9582-a07a43e848ab"
+					variablename="sourceFileName">
+					</var>
+					<var
+					dataname="destinationFileSubsurfaceSchematization"
+					datasourceid="5b63b031-dd02-4a8d-89c0-7f1d5f3066a9"
+					variableid="ddede2e2-fd10-4e52-9653-95f1e1249238"
+					variablename="destinationFileName">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="sourceSurfaceLineFile"
+					datasourceid="06908862-b5db-4ca7-99ea-562da0210ef4"
+					variableid="8f340347-b110-4f65-9582-a07a43e848ab"
+					variablename="sourceFileName">
+					</var>
+					<var
+					dataname="destinationSurfaceLineFile"
+					datasourceid="06908862-b5db-4ca7-99ea-562da0210ef4"
+					variableid="ddede2e2-fd10-4e52-9653-95f1e1249238"
+					variablename="destinationFileName">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<smartfoldernode
+			datasource="expectedErrorMessagesWhenNotIntersectingSurfaceLines"
+			id="a9476a5d-b871-4277-9188-1ebfe572836e"
+			name="ValidateErrorMessages">
 			</smartfoldernode>
 			<testmodule
 			id="a9a265d9-11ae-459e-92d6-e0ba20cc0e41"
@@ -1480,6 +1783,11 @@
 				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
+			datasource="subsurfaceStochasticModelsAndSchematizations"
+			id="bf121a60-f853-42d9-97a2-42a7a3601c72"
+			name="loopSubsurfaceSchematizations">
+			</smartfoldernode>
+			<smartfoldernode
 			datasource="outputRelevancePE"
 			id="c13fce8d-93a7-44e9-8603-4f02531c48d4"
 			name="SaveProject">
@@ -1715,6 +2023,28 @@
 			name="LoopFMs">
 			</smartfoldernode>
 			<testmodule
+			id="d5b53eb4-b138-4c8d-9f51-644ab631b55f"
+			name="DeleteFileIfExists"
+			ref="2e4fc24f-fbac-4679-9b7f-37d1c3a42223"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="oldFileToDelete"
+					datasourceid="5b63b031-dd02-4a8d-89c0-7f1d5f3066a9"
+					variableid="5002eb93-7d0b-4470-b99f-685e0d3a1d72"
+					variablename="fileToBeDeleted">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="surfacelineFileToDelete"
+					datasourceid="06908862-b5db-4ca7-99ea-562da0210ef4"
+					variableid="5002eb93-7d0b-4470-b99f-685e0d3a1d72"
+					variablename="fileToBeDeleted">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<testmodule
 			id="d70b425a-7c55-4fbf-ae5d-3d4b7e3205c1"
 			name="OpenProject"
 			ref="3f746bb2-6845-45b4-9b28-b7fd605378f3"
@@ -1924,6 +2254,34 @@
 			name="script21">
 			</testcase>
 			<testmodule
+			id="f2946722-e181-4961-87d0-d0c9a9e795ff"
+			name="ValidateTextMesage"
+			ref="c86bbec9-6a02-4170-b9b9-ba60dd06156f"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="index"
+					datasourceid="3a3fe5b2-2445-4628-a06e-c22d892c8271"
+					variableid="1fbcad7f-de39-4620-840f-1a08bca18ef2"
+					variablename="indexRowMessage">
+					</var>
+					<var
+					dataname="message"
+					datasourceid="3a3fe5b2-2445-4628-a06e-c22d892c8271"
+					variableid="def5a724-b27f-4934-8884-da4cdc3fd326"
+					variablename="expectedMessage">
+					</var>
+				</databinding>
+				<missingdatavariablesbinding>
+					<var
+					dataname="lastErrorMessage"
+					datasourceid="a9476a5d-b871-4277-9188-1ebfe572836e"
+					variableid="7e764f48-0b9b-4793-950e-04b54745ea4a"
+					variablename="expectedLasterrorMessage">
+					</var>
+				</missingdatavariablesbinding>
+			</testmodule>
+			<testmodule
 			id="f40bb921-5c81-4836-a3c2-c8ec03b42c85"
 			name="NewProject"
 			ref="f0658d7f-65e3-4f38-afe8-97fd942c1478"
@@ -1948,6 +2306,14 @@
 			name="DeleteFileIfExists"
 			ref="2e4fc24f-fbac-4679-9b7f-37d1c3a42223"
 			type="Recording">
+				<databinding>
+					<var
+					dataname="oldFileToDelete"
+					datasourceid="645a1e46-fc85-4ee5-b48f-628d1c339748"
+					variableid="5002eb93-7d0b-4470-b99f-685e0d3a1d72"
+					variablename="fileToBeDeleted">
+					</var>
+				</databinding>
 			</testmodule>
 			<smartfoldernode
 			datasource="FileToOpen"
@@ -1994,11 +2360,117 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<testmodule
+			id="f88d8120-e89e-4a11-bab3-2d1b84db2867"
+			name="ValidateSubsurfaceSchematizationContributionInPropertiesPanel"
+			ref="d917bf46-7cb3-4724-b4ba-f8763b6c116a"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="contributionPercentage"
+					datasourceid="b3c5b319-58ca-4ac4-b0be-d98cc9f3dfc1"
+					variableid="8df94070-254f-42b2-8866-1f4fbedd0238"
+					variablename="contributionPercentage">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			datasource="FileToOpen"
 			id="f8c83a48-af72-4d8d-ab1f-36873b1be41e"
 			name="OpenFaalkansProject">
 			</smartfoldernode>
+			<testmodule
+			id="f9647991-be20-40bd-8f02-edae1eae2119"
+			name="OpenViewForGenericFM"
+			ref="d37f64f8-25dc-4a23-8dbd-257a13f39617"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="message2ToLog"
+					datasourceid="54726836-ea20-4aed-9544-c3ea520ce225"
+					variableid="f767b8db-9a01-48e3-94b0-8a4492473cc6"
+					variablename="messageToBeLogged">
+					</var>
+					<var
+					dataname="substringTrajectName"
+					datasourceid="54726836-ea20-4aed-9544-c3ea520ce225"
+					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
+					variablename="substringTrajectName">
+					</var>
+					<var
+					dataname="substringFM"
+					datasourceid="54726836-ea20-4aed-9544-c3ea520ce225"
+					variableid="3a7276c1-fca1-4026-9d2e-5bac10651a47"
+					variablename="substringFMName">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="messageToLog"
+					datasourceid="5b63b031-dd02-4a8d-89c0-7f1d5f3066a9"
+					variableid="f767b8db-9a01-48e3-94b0-8a4492473cc6"
+					variablename="messageToBeLogged">
+					</var>
+					<var
+					dataname="substringFM"
+					datasourceid="5b63b031-dd02-4a8d-89c0-7f1d5f3066a9"
+					variableid="3a7276c1-fca1-4026-9d2e-5bac10651a47"
+					variablename="substringFMName">
+					</var>
+					<var
+					dataname="substringTrajectName"
+					datasourceid="5b63b031-dd02-4a8d-89c0-7f1d5f3066a9"
+					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
+					variablename="substringTrajectName">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<testmodule
+			id="f97fbc3e-84fe-4dd4-bbeb-6512f37be730"
+			name="ImportSurfaceLines"
+			ref="ec62b093-3fff-4a7e-8468-0636f99e4153"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="filenameSurfaceLines"
+					datasourceid="54726836-ea20-4aed-9544-c3ea520ce225"
+					variableid="1cec0b06-5aec-4724-a571-e2f4d523d773"
+					variablename="SurfaceLineCollectionFileName">
+					</var>
+					<var
+					dataname="substringTrajectName"
+					datasourceid="54726836-ea20-4aed-9544-c3ea520ce225"
+					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
+					variablename="substringTrajectName">
+					</var>
+					<var
+					dataname="substringFM"
+					datasourceid="54726836-ea20-4aed-9544-c3ea520ce225"
+					variableid="3a7276c1-fca1-4026-9d2e-5bac10651a47"
+					variablename="substringFMName">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
+			id="f99c6090-379e-4a3e-a8c6-a3e74fe3728d"
+			name="ExpandUntilFMInput"
+			ref="758dd2d8-956a-46d7-a793-08dc2c8e08a7"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="substringTrajectName"
+					datasourceid="54726836-ea20-4aed-9544-c3ea520ce225"
+					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
+					variablename="substringTrajectName">
+					</var>
+					<var
+					dataname="substringFM"
+					datasourceid="54726836-ea20-4aed-9544-c3ea520ce225"
+					variableid="3a7276c1-fca1-4026-9d2e-5bac10651a47"
+					variablename="substringFMName">
+					</var>
+				</databinding>
+			</testmodule>
 			<testmodule
 			id="fbb88fa9-3270-40ec-a1c6-51287b0cb2c4"
 			name="OpenViewForGenericFM"
@@ -2121,12 +2593,6 @@
 			name="teardown">
 			</teardown>
 			<testmodule
-			id="ffc78e74-c966-468c-9808-3f719da9caf6"
-			name="CopyFile"
-			ref="ad8e1ad4-f412-41ae-a2dc-f39766081df4"
-			type="Recording">
-			</testmodule>
-			<testmodule
 			id="fff21f28-b292-4559-a85c-427623308969"
 			name="CloseViewCentralPanelWithFocus"
 			ref="3c2d44f5-31b5-4584-91c8-1ad748affc77"
@@ -2203,6 +2669,14 @@
 						id="5b63b031-dd02-4a8d-89c0-7f1d5f3066a9"
 						name="ImportSubsurfaceSchematizationsSTPH">
 							<testmodule
+							id="d5b53eb4-b138-4c8d-9f51-644ab631b55f"
+							name="DeleteFileIfExists">
+							</testmodule>
+							<testmodule
+							id="a867c6ab-9bc0-449a-86f1-71b3d8345333"
+							name="CopyFile">
+							</testmodule>
+							<testmodule
 							id="88a26224-9b86-47e7-beaa-10503cc65d8f"
 							name="ImportStochasticSoilModelCollection">
 							</testmodule>
@@ -2251,7 +2725,7 @@
 							name="ValidateChartsInCalculations">
 								<testmodule
 								id="415c4f73-0c6b-4947-a25a-f0f35c717541"
-								name="ExpandAllSubNodes">
+								name="ExpandAllSubNodesCalculations">
 								</testmodule>
 								<smartfoldernode
 								id="36de5b8d-308c-4502-9938-6fab6ac232a3"
@@ -2264,8 +2738,32 @@
 							</smartfoldernode>
 						</smartfoldernode>
 						<smartfoldernode
+						id="50ca1144-cabd-4fb2-b556-22a7edfadf97"
+						name="ValidateSubsurfaceStochasticModels">
+							<testmodule
+							id="74354751-ba73-4f11-b592-d198491917b6"
+							name="ValidateSourcePathSubsurfaceStochasticModels">
+							</testmodule>
+							<testmodule
+							id="0f437fb5-9b3a-47d6-b8f3-6f44c58e4f7b"
+							name="ExpandAllSubnodesStochasticSubsurfaceModels">
+							</testmodule>
+							<smartfoldernode
+							id="bf121a60-f853-42d9-97a2-42a7a3601c72"
+							name="loopSubsurfaceSchematizations">
+								<testmodule
+								id="0eb80dfc-5f8b-47af-bd90-3595efeb63f7"
+								name="ValidateSubsurfaceSchematizationName">
+								</testmodule>
+								<testmodule
+								id="f88d8120-e89e-4a11-bab3-2d1b84db2867"
+								name="ValidateSubsurfaceSchematizationContributionInPropertiesPanel">
+								</testmodule>
+							</smartfoldernode>
+						</smartfoldernode>
+						<smartfoldernode
 						id="06908862-b5db-4ca7-99ea-562da0210ef4"
-						name="UpdateSurfaceLinesSTPH">
+						name="UpdateSurfaceLinesEditedSTPH">
 							<testmodule
 							id="c5ff47ab-b333-41e9-80e0-5965ebc7759f"
 							name="ExpandUntilFMInput">
@@ -2293,22 +2791,58 @@
 						</smartfoldernode>
 						<smartfoldernode
 						id="645a1e46-fc85-4ee5-b48f-628d1c339748"
-						name="UpdateSubsurfaceSchematizationSTPH">
-							<testmodule
-							id="5c29daac-031c-4041-bb73-6710340688db"
-							name="DeleteFileIfExists">
-							</testmodule>
+						name="UpdateSubsurfaceSchematizationEditedSTPH">
 							<testmodule
 							id="f54617e3-22c0-40ef-825f-4ce600a98187"
 							name="DeleteFileIfExists">
 							</testmodule>
 							<testmodule
-							id="ffc78e74-c966-468c-9808-3f719da9caf6"
+							id="5e8109b5-9337-44dd-a450-032708951c4b"
 							name="CopyFile">
 							</testmodule>
 							<testmodule
-							id="5e8109b5-9337-44dd-a450-032708951c4b"
-							name="CopyFile">
+							id="78d331a6-bde0-447d-98d2-d5c35a98442f"
+							name="UpdateSubsurfaceSchematization">
+							</testmodule>
+						</smartfoldernode>
+						<smartfoldernode
+						id="22e4bbf9-0675-41cb-8838-d39c0cf423b6"
+						name="AddTraject6-5">
+							<testmodule
+							id="7f4fc51f-f97d-4807-bcc9-ac13ca60dfe3"
+							name="AddNewTraject">
+							</testmodule>
+						</smartfoldernode>
+						<smartfoldernode
+						id="54726836-ea20-4aed-9544-c3ea520ce225"
+						name="ImportSurfaceLinesSTPH">
+							<testmodule
+							id="9b12212d-8601-4777-80e3-cca3e382a584"
+							name="OpenViewForGenericFM">
+							</testmodule>
+							<testmodule
+							id="f99c6090-379e-4a3e-a8c6-a3e74fe3728d"
+							name="ExpandUntilFMInput">
+							</testmodule>
+							<testmodule
+							id="f97fbc3e-84fe-4dd4-bbeb-6512f37be730"
+							name="ImportSurfaceLines">
+							</testmodule>
+							<testmodule
+							id="f9647991-be20-40bd-8f02-edae1eae2119"
+							name="OpenViewForGenericFM">
+							</testmodule>
+						</smartfoldernode>
+						<smartfoldernode
+						id="a9476a5d-b871-4277-9188-1ebfe572836e"
+						name="ValidateErrorMessages">
+							<testmodule
+							id="f2946722-e181-4961-87d0-d0c9a9e795ff"
+							name="ValidateTextMesage">
+							</testmodule>
+							<testmodule
+							id="a4ea3db0-c17d-4323-bc85-b8c7f794576e"
+							name="ValidateErrorIcon">
 							</testmodule>
 						</smartfoldernode>
 						<teardown
@@ -2831,6 +3365,48 @@
 			<file>
 				X:\script21\input\CSVs\detailedAssessmentTypeSTPH.csv
 			</file>
+		</DataSource>
+		<DataSource
+		id="3a3fe5b2-2445-4628-a06e-c22d892c8271"
+		lastknownrowcount="2"
+		name="expectedErrorMessagesWhenNotIntersectingSurfaceLines"
+		type="Ranorex.Core.Data.SimpleDataConnector">
+			<lastknowncolumns>
+				<column>
+					index
+				</column>
+				<column>
+					message
+				</column>
+			</lastknowncolumns>
+			<maskedcolumns>
+			</maskedcolumns>
+			<table>
+				<tr>
+					<th>
+						index
+					</th>
+					<th>
+						message
+					</th>
+				</tr>
+				<tr>
+					<td>
+						0
+					</td>
+					<td>
+						Importeren van 'Profielschematisaties' is mislukt.
+					</td>
+				</tr>
+				<tr>
+					<td>
+						1
+					</td>
+					<td>
+						doorkruist de huidige referentielijn niet of op meer dan &#233;&#233;n punt en kan niet worden ge&#239;mporteerd. Dit kan komen doordat de profielschematisatie een lokaal co&#246;rdinaatsysteem heeft.&#32;
+					</td>
+				</tr>
+			</table>
 		</DataSource>
 		<DataSource
 		id="a42d9062-00d5-4260-bbf0-70457be6fe78"
@@ -3375,6 +3951,93 @@
 				X:\script21\input\CSVs\simpleAssessmentFMsGroup2.csv
 			</file>
 		</DataSource>
+		<DataSource
+		id="b3c5b319-58ca-4ac4-b0be-d98cc9f3dfc1"
+		lastknownrowcount="5"
+		name="subsurfaceStochasticModelsAndSchematizations"
+		type="Ranorex.Core.Data.SimpleDataConnector">
+			<lastknowncolumns>
+				<column>
+					stochasticModelName
+				</column>
+				<column>
+					schematizationname
+				</column>
+				<column>
+					contributionPercentage
+				</column>
+			</lastknowncolumns>
+			<maskedcolumns>
+			</maskedcolumns>
+			<table>
+				<tr>
+					<th>
+						stochasticModelName
+					</th>
+					<th>
+						schematizationname
+					</th>
+					<th>
+						contributionPercentage
+					</th>
+				</tr>
+				<tr>
+					<td>
+						12004_Piping
+					</td>
+					<td>
+						12_2_00100_Segment_12004_1D3
+					</td>
+					<td>
+						5.00
+					</td>
+				</tr>
+				<tr>
+					<td>
+						12004_Piping
+					</td>
+					<td>
+						12_2_00100_Segment_12004_1D1
+					</td>
+					<td>
+						35.00
+					</td>
+				</tr>
+				<tr>
+					<td>
+						12004_Piping
+					</td>
+					<td>
+						Segment_12004_1D3
+					</td>
+					<td>
+						60.00
+					</td>
+				</tr>
+				<tr>
+					<td>
+						12006_Piping
+					</td>
+					<td>
+						Segment_12006_1D2
+					</td>
+					<td>
+						20.00
+					</td>
+				</tr>
+				<tr>
+					<td>
+						12006_Piping
+					</td>
+					<td>
+						Segment_12006_1D1
+					</td>
+					<td>
+						80.00
+					</td>
+				</tr>
+			</table>
+		</DataSource>
 	</datasources>
 	<testconfigurations
 	default="TestRun">
@@ -3403,6 +4066,9 @@
 			</testcontainer>
 			<testcontainer
 			id="2179672b-c6cc-4f03-8e2b-71ae42170951">
+			</testcontainer>
+			<testcontainer
+			id="22e4bbf9-0675-41cb-8838-d39c0cf423b6">
 			</testcontainer>
 			<testcontainer
 			id="2688ac5e-e112-466c-aad3-9c8b60c1497f">
@@ -3435,6 +4101,12 @@
 			id="4bb671b5-bd57-42fd-a72e-41482b3d1dbb">
 			</testcontainer>
 			<testcontainer
+			id="50ca1144-cabd-4fb2-b556-22a7edfadf97">
+			</testcontainer>
+			<testcontainer
+			id="54726836-ea20-4aed-9544-c3ea520ce225">
+			</testcontainer>
+			<testcontainer
 			id="571a9ba3-86a6-4c7e-9f89-17d420e49e63">
 			</testcontainer>
 			<testcontainer
@@ -3448,6 +4120,9 @@
 			</testcontainer>
 			<testcontainer
 			id="5c9aaf1b-40ce-4a6c-923c-fbe5859aa91f">
+			</testcontainer>
+			<testcontainer
+			id="645a1e46-fc85-4ee5-b48f-628d1c339748">
 			</testcontainer>
 			<testcontainer
 			id="716669cb-8d3f-4f98-a608-2311ffb07430">
@@ -3495,6 +4170,9 @@
 			id="a340e9a4-4cf7-4999-b91c-36776c39fc1f">
 			</testcontainer>
 			<testcontainer
+			id="a9476a5d-b871-4277-9188-1ebfe572836e">
+			</testcontainer>
+			<testcontainer
 			id="ac3846b8-cfe0-440c-8c4e-185c97a25237">
 			</testcontainer>
 			<testcontainer
@@ -3508,6 +4186,9 @@
 			</testcontainer>
 			<testcontainer
 			id="bbc104ea-69c3-4dcd-8e50-5d1b60cd8d06">
+			</testcontainer>
+			<testcontainer
+			id="bf121a60-f853-42d9-97a2-42a7a3601c72">
 			</testcontainer>
 			<testcontainer
 			id="c13fce8d-93a7-44e9-8603-4f02531c48d4">

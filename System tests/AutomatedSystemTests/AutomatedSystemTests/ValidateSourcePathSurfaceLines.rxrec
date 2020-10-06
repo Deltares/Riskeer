@@ -305,6 +305,26 @@ FFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAf/2Q==
 				X:\script10\input\00original\surfacelines traject 12-2.csv
 			</matchvalue>
 		</validationitem>
+		<loggingrecorditem
+		action="Screenshot"
+		category="User"
+		enabled="True"
+		message=""
+		optional="False"
+		reportlevel="Info;20"
+		searchpropertyid="a1dfc249-4254-4a5b-93eb-debf89a7cb28">
+			<comment>
+			</comment>
+			<bindings>
+			</bindings>
+			<info
+			id="aa50f2b7-9af1-4ae4-b50a-b071b2de54d6"
+			sourcename="RepositoryEditor">
+				<path>
+					/form[@automationid='RiskeerMainWindow']//container[@controlname='PropertiesPanelGridView']//table[@accessiblename='Properties Window']/row[@accessiblename='Bronlocatie']
+				</path>
+			</info>
+		</loggingrecorditem>
 		<mouseitem
 		action="Click"
 		button="Left"

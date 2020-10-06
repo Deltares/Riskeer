@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<recordtable
+embeddedrepository="False"
+id="85bd5588-c795-4a99-aeaf-4daebe835849"
+mode="Global">
+	<repeatcount>
+		1
+	</repeatcount>
+	<turbomode>
+		False
+	</turbomode>
+	<genreport>
+		True
+	</genreport>
+	<speedfactor>
+		1
+	</speedfactor>
+	<useDefaultItemLogging>
+		True
+	</useDefaultItemLogging>
+	<codegen
+	classname="ValidateErrorIcon"
+	namespace="AutomatedSystemTests">
+	</codegen>
+	<variables>
+	</variables>
+	<recorditems>
+		<validationitem
+		action="ContainsImage"
+		codegenpropertyname="GenericCellIcon_ErrorIcon"
+		duration="100ms"
+		enabled="True"
+		imageoptions="1;Edges;0,0,0,0;True;10000000;0ms"
+		imagerect="0,1,17,15"
+		optional="True"
+		reportDifferenceImages="OnFail"
+		reportExpectedAndActualImages="Always"
+		reportsimilarity="Always"
+		screenshotguid="177d1f5e-b60b-4c93-b880-4e6a8dc84a69"
+		screenshotname="ErrorIcon"
+		searchpropertyid="8fbd9bcc-121a-4a9b-8c8a-0d1e62841131">
+			<comment>
+			</comment>
+			<bindings>
+			</bindings>
+			<info
+			id="68d93ccb-0441-468c-9e9a-4028de2b4e0c"
+			sourcename="RepositoryEditor">
+				<path>
+					/form[@automationid='RiskeerMainWindow']//container[@controlname='MessageWindow']/table[@controlname='messagesDataGridView']/row[@accessiblename='Row '+$indexRowMessage]/cell[@accessiblename=' Row 0']
+				</path>
+			</info>
+			<matchname>
+			</matchname>
+			<matchvalue>
+			</matchvalue>
+			<message>
+				Comparing with error icon
+			</message>
+		</validationitem>
+	</recorditems>
+	<repository
+	id="137723a5-e147-4b62-8c15-5c31a3d68f96"
+	name="AutomatedSystemTestsRepository"
+	relativepath="AutomatedSystemTestsRepository.rxrep">
+		<codegen
+		classname="AutomatedSystemTestsRepository"
+		namespace="AutomatedSystemTests">
+		</codegen>
+		<rootfolder
+		id="40cb8eed-98dc-4b16-a5ad-7ef93b4f444c"
+		name="_rootdummy_">
+		</rootfolder>
+	</repository>
+	<usercodefile
+	lang="CSharp">
+		ValidateErrorIcon.UserCode.cs
+	</usercodefile>
+	<references>
+	</references>
+</recordtable>

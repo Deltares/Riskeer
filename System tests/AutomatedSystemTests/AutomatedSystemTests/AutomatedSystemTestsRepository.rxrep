@@ -99,6 +99,15 @@ name="AutomatedSystemTestsRepository">
 								refimgid="2f5d14f6-4ad1-47bc-ae3a-cb82987da73b"
 								searchtimeout="30000ms"
 								usecache="False">
+									<item
+									addcaps="treeitem,accessible,accessibletreeitem"
+									capname="treeitem"
+									id="bcc16566-161d-41f1-bec7-e5013a26aa7f"
+									name="GenericSubsurfaceSchematization"
+									refimgid="dc2e5d4b-25fc-4148-bd0b-c6585e41e863"
+									searchtimeout="30000ms">
+										/form[@automationid='RiskeerMainWindow']//container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]/treeitem[@accessiblename~$substringTrajectName]/treeitem[@accessiblename~$substringFMName]/treeitem[@accessiblename='Invoer']/treeitem[@accessiblename='Stochastische ondergrondmodellen']/treeitem[@accessiblename=$subsurfaceStochasticModelName]/treeitem[@accessiblename=$subsurfaceSchematizationName]
+									</item>
 									<basepath>
 										/form[@automationid='RiskeerMainWindow']//container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]/treeitem[@accessiblename~$substringTrajectName]/treeitem[@accessiblename~$substringFMName]/treeitem[@accessiblename='Invoer']/treeitem[@accessiblename='Stochastische ondergrondmodellen']
 									</basepath>
@@ -132,39 +141,10 @@ name="AutomatedSystemTestsRepository">
 								/form[@automationid='RiskeerMainWindow']//container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]/treeitem[@accessiblename~$substringTrajectName]/treeitem[@accessiblename~$substringFMName]
 							</basepath>
 						</folder>
-						<item
-						addcaps="treeitem,accessible,accessibletreeitem"
-						capname="treeitem"
-						id="9b833e18-2ad8-4a3e-89a9-ad2886320f3c"
-						name="Oordeel"
-						refimgid="bc452234-d0d2-4e3d-8120-66ed76aab823"
-						searchtimeout="30000ms">
-							/form[@automationid='RiskeerMainWindow']//container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]/treeitem[@accessiblename~$substringTrajectName]/treeitem[@accessiblename~$substringFMName]/treeitem[@accessiblename='Oordeel']
-						</item>
 						<basepath>
 							/form[@automationid='RiskeerMainWindow']//container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]/treeitem[@accessiblename~$substringTrajectName]
 						</basepath>
 					</folder>
-					<item
-					addcaps="treeitem,accessible,accessibletreeitem"
-					capname="treeitem"
-					id="f37b0dd2-392c-4536-aade-35a08e815f57"
-					name="DijkenEnDammenPiping"
-					refimgid="45620a57-864e-4041-9dda-7e62b7e35c58"
-					refpath="/form[@automationid='RiskeerMainWindow']/container[1]/container[3]/container/container[@controlname='ProjectExplorer']/container/container/tree/tree/treeitem/treeitem/treeitem[@accessiblename='Dijken en dammen - Piping']"
-					searchtimeout="30000ms">
-						/form[@automationid='RiskeerMainWindow']//container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]/treeitem[@accessiblename='Traject 12-2']/treeitem[@accessiblename='Dijken en dammen - Piping']
-					</item>
-					<item
-					addcaps="treeitem,accessible,accessibletreeitem"
-					capname="treeitem"
-					id="1ae90bc8-aa58-4120-9fc8-0c9d1923adbb"
-					name="Profielschematisaties"
-					refimgid="f8bc1cfe-2bf8-41a8-b930-3eef2ca9a4ee"
-					refpath="/form[@automationid='RiskeerMainWindow']/container[1]/container[3]/container[@caption='']/container[@controlname='ProjectExplorer']/container[@controlname='treeViewPanel']/container[@controlname='treeViewControl']/tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[@accessiblename='Project']/treeitem[@accessiblename='Traject 12-2']/treeitem[@accessiblename='Dijken en dammen - Piping']/treeitem[@accessiblename='Invoer']/treeitem[@accessiblename='Profielschematisaties']"
-					searchtimeout="30000ms">
-						/form[@automationid='RiskeerMainWindow']//container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]/?/?/treeitem[@accessiblename='Dijken en dammen - Piping']/treeitem[@accessiblename='Invoer']/treeitem[@accessiblename='Profielschematisaties']
-					</item>
 					<basepath>
 						/form[@automationid='RiskeerMainWindow']//container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]
 					</basepath>
@@ -295,15 +275,6 @@ name="AutomatedSystemTestsRepository">
 					/form[@automationid='RiskeerMainWindow']/?/container/tabpagelist/button[@automationid='MenuDropDownButton']
 				</basepath>
 			</folder>
-			<item
-			addcaps="cell,accessible"
-			capname="cell"
-			id="1029a286-ce5f-4de6-8f9d-d68210aae163"
-			name="IsFMRelevantCell"
-			refimgid="abe9b3df-fa56-4ec4-8a9a-ff2ecd96810a"
-			searchtimeout="30000ms">
-				/form[@automationid='RiskeerMainWindow']/list//container[@controlname='FailureMechanismContributionView']/?/table/row[@accessiblevalue~$labelFM]/cell[@accessiblename&gt;'Is relevant']
-			</item>
 			<folder
 			capname="container"
 			id="78b3cba4-3858-49b9-8809-b7f79f03aa5c"
@@ -337,15 +308,6 @@ name="AutomatedSystemTestsRepository">
 					refimgid="4c4dd41e-28a4-4335-abe4-66b3caab7efe"
 					searchtimeout="30000ms"
 					usecache="True">
-						<item
-						addcaps="cell,accessible"
-						capname="cell"
-						id="892f29d9-c365-437c-91bd-7720a612cf0c"
-						name="EenvoudigeToetsVak12_2_00000"
-						refimgid="8ee7eb94-dd16-4546-91bb-40a19b98fb87"
-						searchtimeout="30000ms">
-							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismResultView']/container/table[@controlname='dataGridView']/row/cell[@accessiblename&gt;'Vak' and @text='12_2_00000']/../cell[@accessiblename&gt;'Eenvoudige']
-						</item>
 						<item
 						addcaps="cell,accessible"
 						capname="cell"
@@ -405,18 +367,6 @@ name="AutomatedSystemTestsRepository">
 			</folder>
 			<folder
 			capname="container"
-			id="4347e3f0-1ed0-4963-b57b-9e0102c2f5d2"
-			isrooted="True"
-			name="FailureMechanismContributionView"
-			refimgid="b66732ba-90d5-4b97-b9cb-7c7429f591c6"
-			searchtimeout="30000ms"
-			usecache="False">
-				<basepath>
-					/form[@automationid='RiskeerMainWindow']//container/container[@controltypename='WinFormsAdapter']/container[@automationid='FailureMechanismContributionView']
-				</basepath>
-			</folder>
-			<folder
-			capname="container"
 			id="41bb0ddf-7a93-4518-a257-8322f257edf1"
 			isrooted="True"
 			name="PropertiesPanelContainer"
@@ -442,7 +392,7 @@ name="AutomatedSystemTestsRepository">
 					addcaps="row,accessible"
 					capname="row"
 					id="aa50f2b7-9af1-4ae4-b50a-b071b2de54d6"
-					name="Bronlocatie"
+					name="SourcePath"
 					refimgid="69ee7df9-acc8-40f8-9b15-90ebe83bc0a3"
 					refpath="/form[@automationid='RiskeerMainWindow']/container[1]/container[2]/container[@caption='']/container[@controlname='PropertiesPanelGridView']/element[@controltypename='PropertyGridView']/table[@accessiblename='Properties Window']/row[@accessiblename='Bronlocatie']"
 					searchtimeout="30000ms">
@@ -452,11 +402,20 @@ name="AutomatedSystemTestsRepository">
 					addcaps="row,accessible"
 					capname="row"
 					id="98c1c28a-f4dc-42c8-9ead-d777288121c5"
-					name="Naam"
+					name="Name"
 					refimgid="0d93e35c-ce0b-48d6-afb4-ecc5194f06a5"
 					refpath="/form[@automationid='RiskeerMainWindow']/container[1]/container[2]/container[@caption='']/container[@controlname='PropertiesPanelGridView']/element[@controltypename='PropertyGridView']/table[@accessiblename='Properties Window']/row[@accessiblename='Naam']"
 					searchtimeout="30000ms">
 						/form[@automationid='RiskeerMainWindow']//container[@controlname='PropertiesPanelGridView']//table[@accessiblename='Properties Window']/row[@accessiblename='Naam']
+					</item>
+					<item
+					addcaps="row,accessible"
+					capname="row"
+					id="863390a3-2d56-4c70-826d-86c4fb70b44f"
+					name="ContributionPercentage"
+					refimgid="d00ebfaf-bc2a-4b01-ac54-55ac34c77a8b"
+					searchtimeout="30000ms">
+						/form[@automationid='RiskeerMainWindow']//container[@controlname='PropertiesPanelGridView']//table[@accessiblename='Properties Window']/row[@accessiblename&gt;'Aandeel']
 					</item>
 					<basepath>
 						/form[@automationid='RiskeerMainWindow']//container[@controlname='PropertiesPanelGridView']//table[@accessiblename='Properties Window']
@@ -466,26 +425,79 @@ name="AutomatedSystemTestsRepository">
 					/form[@automationid='RiskeerMainWindow']//container[@controlname='PropertiesPanelGridView']
 				</basepath>
 			</folder>
-			<item
-			addcaps="cell,accessible"
-			capname="cell"
-			id="f8cdf597-37da-4ffc-b089-434847a309f6"
-			name="EenvoudigeToetsRow0"
-			refimgid="8ee7eb94-dd16-4546-91bb-40a19b98fb87"
-			refpath="/form[@automationid='RiskeerMainWindow']/list/container[10]/container/container[@controlname='FailureMechanismResultView']/container[@controlname='DataGridViewControl']/table/row[@accessiblename='Row 0']/cell[@accessiblename='Eenvoudige toets Row 0']"
-			searchtimeout="30000ms">
-				/form[@automationid='RiskeerMainWindow']/list//table[@controlname='dataGridView']/row[@accessiblename='Row 0']/cell[@accessiblename='Eenvoudige toets Row 0']
-			</item>
-			<item
-			addcaps="container,control,nativewindow"
-			capname="container"
-			id="74ddb834-ebe4-48fa-b57b-b1550e70b7fa"
-			name="ContainerMap"
-			refimgid="94eb9043-f069-47d8-9b36-7b8cf6bde245"
-			refpath="/form[@automationid='RiskeerMainWindow']/container[1]/container[10]/container/container[@controlname='PipingFailureMechanismView']/container/element/container[@controlname='Map']"
-			searchtimeout="30000ms">
-				/form[@automationid='RiskeerMainWindow']/container[1]//container[@controlname='PipingFailureMechanismView']/container[@controlname='riskeerMapControl']/?/?/container[@controlname='Map']
-			</item>
+			<folder
+			addcaps="table,control,nativewindow"
+			capname="table"
+			id="ebb0b0be-617b-4c07-a1f1-dd02286813f8"
+			isrooted="True"
+			name="MessagesDataGridView"
+			refpath="/form[@automationid='RiskeerMainWindow']/container[1]/container[1]/container[@caption='']/container[@controlname='MessageWindow']/table[@controlname='messagesDataGridView']"
+			searchtimeout="30000ms"
+			usecache="True">
+				<folder
+				capname="row"
+				id="d79a0edd-fbc5-415d-8701-852d3bf28406"
+				isrooted="True"
+				name="GenericRow"
+				refimgid="d5377a2d-9d5a-4d81-928b-0ed2747fc681"
+				searchtimeout="30000ms"
+				usecache="False">
+					<image
+					guid="de00bcae-85d4-42d6-83c8-f1dceff24bb0"
+					name="Screenshot11">
+						iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAIAAAAC64paAAAABGdBTUEAALGPC/xhBQAAAAlwSFlz
+AAAOxAAADsQBlSsOGwAAAflJREFUOE/Fk/9LE2Ecx/u/+iG0NL9c5+bZdI1NkuI0z+NBtsMIdLqz
+dkWiEzGJ2M2dY4JgYAZB+xeCyF/8YWw6dTnPtXOnnvpDvuNZnI4JJUFvPgfPvT/Pi8/n+Xbj53Wl
+quo/hTOZjKZpkiQ953kEBviFWUlfUDWcSqX8hBRDXjMRsT6oiHJialfo9JM+pCqTfusSjPS4IBiz
+8llq0Yq/PFIeIKx55fRzUo+IIcFdxdtwNpsNBAKl2RDIw7F2BPXLA45yf9vJp0Th9ZOAX8Q06kM2
+jIXpo54KOeo0g07qG31siWd/PGas1YV0N6NpcepDNoyNwfKsWBgYrUZ9YMWeVr27xZge098oEiHU
+h2w43PvQ+hgzZRcwWo36wPa8zQVP066PNZJvg+w96kM2LPd6j1fUg2AHbRLVTte/wQf2vetu3tWY
+9zDGwtxwTViSSCk6Yc7JtElUM95NlpcTwHY6Gradd/YUIT81XrttbFi2p+14RaNNohr1geUctzfZ
++oPF6FfHrdob9uuoRHEnzB++j9Nq+xFFj4SBbTB1INOCDxNqHxWEOzDidufkR+ZSTH8lbrlac/db
+Ci8EIxlN9/ueuduvvCRUSA/y/BpXl5+Ui+rMfnRmeyL0hblJeL6KhKphqPIwCHnKcUMch8GfPoy/
+0v+F8V1TqnoOxOXBfwwHqGMAAAAASUVORK5CYII=
+					</image>
+					<item
+					addcaps="cell,accessible"
+					capname="cell"
+					id="2a266ff1-53b4-4d79-a6fe-e2d23e8b118c"
+					name="GenericCellMessage"
+					refimgid="85d13c99-8b90-49f2-b235-29cc95822cea"
+					searchtimeout="30000ms">
+						/form[@automationid='RiskeerMainWindow']//container[@controlname='MessageWindow']/table[@controlname='messagesDataGridView']/row[@accessiblename='Row '+$indexRowMessage]/cell[@accessiblename&gt;'Bericht']
+					</item>
+					<item
+					addcaps="cell,accessible"
+					capname="cell"
+					id="68d93ccb-0441-468c-9e9a-4028de2b4e0c"
+					name="GenericCellIcon"
+					refimgid="df30e0c6-39a0-400a-82dd-ad6347165336"
+					searchtimeout="30000ms">
+						<image
+						guid="177d1f5e-b60b-4c93-b880-4e6a8dc84a69"
+						name="ErrorIcon">
+							iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAIAAAAC64paAAAABGdBTUEAALGPC/xhBQAAAAlwSFlz
+AAAOxAAADsQBlSsOGwAAAflJREFUOE/Fk/9LE2Ecx/u/+iG0NL9c5+bZdI1NkuI0z+NBtsMIdLqz
+dkWiEzGJ2M2dY4JgYAZB+xeCyF/8YWw6dTnPtXOnnvpDvuNZnI4JJUFvPgfPvT/Pi8/n+Xbj53Wl
+quo/hTOZjKZpkiQ953kEBviFWUlfUDWcSqX8hBRDXjMRsT6oiHJialfo9JM+pCqTfusSjPS4IBiz
+8llq0Yq/PFIeIKx55fRzUo+IIcFdxdtwNpsNBAKl2RDIw7F2BPXLA45yf9vJp0Th9ZOAX8Q06kM2
+jIXpo54KOeo0g07qG31siWd/PGas1YV0N6NpcepDNoyNwfKsWBgYrUZ9YMWeVr27xZge098oEiHU
+h2w43PvQ+hgzZRcwWo36wPa8zQVP066PNZJvg+w96kM2LPd6j1fUg2AHbRLVTte/wQf2vetu3tWY
+9zDGwtxwTViSSCk6Yc7JtElUM95NlpcTwHY6Gradd/YUIT81XrttbFi2p+14RaNNohr1geUctzfZ
++oPF6FfHrdob9uuoRHEnzB++j9Nq+xFFj4SBbTB1INOCDxNqHxWEOzDidufkR+ZSTH8lbrlac/db
+Ci8EIxlN9/ueuduvvCRUSA/y/BpXl5+Ui+rMfnRmeyL0hblJeL6KhKphqPIwCHnKcUMch8GfPoy/
+0v+F8V1TqnoOxOXBfwwHqGMAAAAASUVORK5CYII=
+						</image>
+						/form[@automationid='RiskeerMainWindow']//container[@controlname='MessageWindow']/table[@controlname='messagesDataGridView']/row[@accessiblename='Row '+$indexRowMessage]/cell[@accessiblename&gt;' Row']
+					</item>
+					<basepath>
+						/form[@automationid='RiskeerMainWindow']//container[@controlname='MessageWindow']/table[@controlname='messagesDataGridView']/row[@accessiblename='Row '+$indexRowMessage]
+					</basepath>
+				</folder>
+				<basepath>
+					/form[@automationid='RiskeerMainWindow']//container[@controlname='MessageWindow']/table[@controlname='messagesDataGridView']
+				</basepath>
+			</folder>
 			<basepath>
 				/form[@automationid='RiskeerMainWindow']
 			</basepath>
@@ -867,24 +879,6 @@ QmCC
 			<item
 			addcaps="listitem,nativeitem,checkable"
 			capname="listitem"
-			id="7de3ab3c-85d6-46cd-89aa-bf6bd544fede"
-			name="ListItemVB"
-			refimgid="12cca8c5-4c6c-4abc-b493-f41674b8275f"
-			searchtimeout="30000ms">
-				/list[@controlid='1000']/listitem[@text='VB']
-			</item>
-			<item
-			addcaps="listitem,nativeitem,checkable"
-			capname="listitem"
-			id="0ba72d60-9b4f-4cc3-aab9-9bcf277862af"
-			name="ItemSelecteer"
-			refimgid="12cca8c5-4c6c-4abc-b493-f41674b8275f"
-			searchtimeout="30000ms">
-				/list[@controlid='1000']/listitem[@text='&lt;selecteer&gt;']
-			</item>
-			<item
-			addcaps="listitem,nativeitem,checkable"
-			capname="listitem"
 			id="81ebade6-6648-4b3b-a974-22ccbf15c7dc"
 			name="GenericDropDownItem"
 			refimgid="12cca8c5-4c6c-4abc-b493-f41674b8275f"
@@ -1140,6 +1134,18 @@ TkSuQmCC
 		<var
 		id="4f964365-5470-426e-9e06-2f54c57565cb"
 		name="singleCalculationName">
+		</var>
+		<var
+		id="3ffbed7a-4559-45fe-b4e5-1a945317051e"
+		name="subsurfaceStochasticModelName">
+		</var>
+		<var
+		id="d6395975-e717-466e-bd96-55cf93332255"
+		name="subsurfaceSchematizationName">
+		</var>
+		<var
+		id="1fbcad7f-de39-4620-840f-1a08bca18ef2"
+		name="indexRowMessage">
 		</var>
 	</variables>
 </repository>

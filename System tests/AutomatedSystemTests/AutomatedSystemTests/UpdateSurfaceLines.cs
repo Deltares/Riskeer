@@ -107,6 +107,9 @@ namespace AutomatedSystemTests
             repo.ContextMenu.Bijwerken.Click();
             Delay.Milliseconds(0);
             
+            Report.Log(ReportLevel.Info, "Wait", "Waiting 5s to not exist. Associated repository item: 'ActivityProgressDialog.ProgressBar'", repo.ActivityProgressDialog.ProgressBarInfo, new ActionTimeout(5000), new RecordItemIndex(2));
+            repo.ActivityProgressDialog.ProgressBarInfo.WaitForNotExists(5000);
+            
         }
 
 #region Image Feature Data
