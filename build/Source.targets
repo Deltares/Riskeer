@@ -1,70 +1,16 @@
 <Project>
   <PropertyGroup>
-    <OutputPath Condition="$(OutputPath) == ''">bin\$(Configuration)\</OutputPath>
     <OutDir>$(OutputPath)</OutDir>
-    <Platforms>x86</Platforms>
-    <PlatformTarget>x86</PlatformTarget>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <TargetFramework>net45</TargetFramework>
-    <LangVersion>7.0</LangVersion>
-    <FileAlignment>512</FileAlignment>
-    <Company>Deltares</Company>
-    <Copyright>Copyright © Deltares 2020</Copyright>
-    <Version>20.1.1</Version>
-    <Configurations>Debug;Release;CreateInstaller;CreateInstallerWithDemoPlugin;ReleaseForCodeCoverage</Configurations>
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <OutputPath>bin\$(Configuration)\</OutputPath>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
-    <ConfigurationGroup>Debug</ConfigurationGroup>
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <DefineConstants>DEBUG;TRACE;DEVELOPMENT</DefineConstants>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
-    <ConfigurationGroup>Release</ConfigurationGroup>
-    <DebugType>none</DebugType>
-    <Optimize>true</Optimize>
-    <DefineConstants>TRACE;DEVELOPMENT;RELEASE</DefineConstants>
-    <AllowedReferenceRelatedFileExtensions>none</AllowedReferenceRelatedFileExtensions>
-    <IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'CreateInstaller|x86'">
-    <ConfigurationGroup>Release</ConfigurationGroup>
-    <DebugType>none</DebugType>
-    <Optimize>true</Optimize>
-    <DefineConstants>TRACE;CREATEINSTALLER</DefineConstants>
-    <AllowedReferenceRelatedFileExtensions>none</AllowedReferenceRelatedFileExtensions>
-    <IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'CreateInstallerWithDemoPlugin|x86'">
-    <ConfigurationGroup>Release</ConfigurationGroup>
-    <DebugType>none</DebugType>
-    <Optimize>true</Optimize>
-    <DefineConstants>TRACE;DEVELOPMENT;CREATEINSTALLERWITHDEMOPLUGIN</DefineConstants>
-    <AllowedReferenceRelatedFileExtensions>none</AllowedReferenceRelatedFileExtensions>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseForCodeCoverage|x86'">
-    <ConfigurationGroup>Release</ConfigurationGroup>
-    <DefineConstants>TRACE;RELEASEFORCODECOVERAGE</DefineConstants>
-    <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
-  </PropertyGroup>
-  <ItemGroup>
-    <PackageReference Include="MSBuildConfigurationDefaults" Version="1.0.1" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="$(SolutionDir)\Core\Common\src\Core.Common.Version\GlobalAssembly.cs">
-      <Link>Properties\GlobalAssembly.cs</Link>
-    </Compile>
-  </ItemGroup>
+  <Import Project="$(SolutionDir)\build\Base.targets" />
   <PropertyGroup>
     <ContentSQLiteInteropFiles>false</ContentSQLiteInteropFiles>
     <CopySQLiteInteropFiles>false</CopySQLiteInteropFiles>
     <CleanSQLiteInteropFiles>false</CleanSQLiteInteropFiles>
     <CollectSQLiteInteropFiles>false</CollectSQLiteInteropFiles>
   </PropertyGroup>
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+  <Target Name="PostBuildCopyAssembly" AfterTargets="PostBuildEvent">
     <Exec Command="xcopy /d/s/y $(OutDir)\$(AssemblyName).dll $(SolutionDir)\bin\$(Configuration)\Application\Built-in\Managed\Core\*" />
   </Target>
 </Project>
