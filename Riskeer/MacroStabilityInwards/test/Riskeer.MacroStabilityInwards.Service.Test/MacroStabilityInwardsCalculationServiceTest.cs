@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2019. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2019. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -324,6 +324,36 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
                     Assert.AreEqual(Level.Error, tuple.Item2);
                     Assert.IsInstanceOf<UpliftVanCalculatorException>(tuple.Item3);
                 });
+            }
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Validate_CompleteInput_SetsInputOnCalculator(bool useAssessmentLevelManualInput)
+        {
+            // Setup
+            RoundedDouble normativeAssessmentLevel = AssessmentSectionTestHelper.GetTestAssessmentLevel();
+            MacroStabilityInwardsInput input = testCalculation.InputParameters;
+
+            input.AssessmentLevel = (RoundedDouble) 2.2;
+
+            input.UseAssessmentLevelManualInput = useAssessmentLevelManualInput;
+            using (new MacroStabilityInwardsCalculatorFactoryConfig())
+            {
+                // Call
+                MacroStabilityInwardsCalculationService.Validate(testCalculation, normativeAssessmentLevel);
+
+                // Assert
+                RoundedDouble expectedAssessmentLevel = useAssessmentLevelManualInput
+                                                            ? testCalculation.InputParameters.AssessmentLevel
+                                                            : normativeAssessmentLevel;
+
+                var factory = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
+                CalculatorInputAssert.AssertExtremeInput(input, factory.LastCreatedWaternetExtremeCalculator.Input, expectedAssessmentLevel);
+                CalculatorInputAssert.AssertDailyInput(input, factory.LastCreatedWaternetDailyCalculator.Input);
+
+                AssertInput(testCalculation.InputParameters, factory, expectedAssessmentLevel);
             }
         }
 
