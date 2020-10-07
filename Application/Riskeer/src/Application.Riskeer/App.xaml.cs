@@ -20,15 +20,10 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Text.RegularExpressions;
-using System.Windows;
-using System.Windows.Controls.Primitives;
 using Core.Common.Assembly;
-using Core.Common.Util;
 
 namespace Application.Riskeer
 {
@@ -37,33 +32,13 @@ namespace Application.Riskeer
     /// </summary>
     public partial class App
     {
-        // Start application after this process will exit (used during restart)
-        private const string argumentWaitForProcess = "--wait-for-process=";
-
-        private static string fileToOpen = string.Empty;
-
-        private static RiskeerRunner runner;
-
+        /// <summary>
+        /// Creates a new instance of <see cref="App"/>.
+        /// </summary>
         public App()
         {
             SetupAssemblyResolver();
-
-            runner = new RiskeerRunner();
-        }
-
-        protected override void OnExit(ExitEventArgs e)
-        {
-            runner.OnExit();
-            base.OnExit(e);
-        }
-
-        private void App_Startup(object sender, StartupEventArgs e)
-        {
-            ParseArguments(e.Args);
-
-            Resources.Add(SystemParameters.MenuPopupAnimationKey, PopupAnimation.None);
-
-            runner.Run(fileToOpen, this);
+            Initialize();
         }
 
         private static void SetupAssemblyResolver()
@@ -87,52 +62,6 @@ namespace Application.Riskeer
             if (AssemblyResolver.RequiresInitialization)
             {
                 AssemblyResolver.Initialize(assemblyDirectory);
-            }
-        }
-
-        private static bool ParseFileArgument(string potentialPath)
-        {
-            if (potentialPath.Length > 0)
-            {
-                try
-                {
-                    IOUtils.ValidateFilePath(potentialPath);
-                    fileToOpen = potentialPath;
-                    return true;
-                }
-                catch (ArgumentException)
-                {
-                    return false;
-                }
-            }
-
-            return false;
-        }
-
-        /// <summary>
-        /// Parses the process' start-up parameters.
-        /// </summary>
-        /// <param name="arguments">List of start-up parameters.</param>
-        private static void ParseArguments(IEnumerable<string> arguments)
-        {
-            var argumentWaitForProcessRegex = new Regex("^" + argumentWaitForProcess + @"(?<processId>\d+)$", RegexOptions.IgnoreCase);
-            foreach (string arg in arguments)
-            {
-                Match match = argumentWaitForProcessRegex.Match(arg);
-                if (match.Success)
-                {
-                    int pid = int.Parse(match.Groups["processId"].Value);
-                    if (pid > 0)
-                    {
-                        RiskeerRunner.WaitForProcessId = pid;
-                        break;
-                    }
-                }
-
-                if (ParseFileArgument(arg))
-                {
-                    break;
-                }
             }
         }
 

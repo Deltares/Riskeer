@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Diagnostics;
 using System.DirectoryServices.AccountManagement;
@@ -27,7 +28,10 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Text.RegularExpressions;
 using System.Threading;
+using System.Windows;
+using System.Windows.Controls.Primitives;
 using System.Windows.Forms;
 using Core.Common.Gui;
 using Core.Common.Gui.Appenders;
@@ -63,27 +67,40 @@ using MessageBox = System.Windows.MessageBox;
 using Demo.Riskeer.GUIs;
 
 #endif
+
 namespace Application.Riskeer
 {
-    public class RiskeerRunner
+    // Partial class introduced for avoiding problems in relation to dynamically resolving assemblies
+    // (SetupAssemblyResolver must be called before any dependencies are needed).
+    public partial class App
     {
         // Start application after this process will exit (used during restart)
         private const string argumentWaitForProcess = "--wait-for-process=";
 
         private const int numberOfDaysToKeepLogFiles = 30;
 
+        private static string fileToOpen = string.Empty;
+
         private static Mutex singleInstanceMutex;
 
-        private readonly ILog log;
+        private static int waitForProcessId = -1;
+
+        private ILog log;
 
         private GuiCore gui;
 
         private delegate void ExceptionDelegate(Exception exception);
 
-        public RiskeerRunner()
+        protected override void OnExit(ExitEventArgs e)
+        {
+            singleInstanceMutex?.ReleaseMutex();
+            base.OnExit(e);
+        }
+
+        private void Initialize()
         {
             Logger.Setup();
-            log = LogManager.GetLogger(typeof(RiskeerRunner));
+            log = LogManager.GetLogger(typeof(App));
 
             SettingsHelper.Instance = new RiskeerSettingsHelper();
             SetLanguage();
@@ -94,12 +111,14 @@ namespace Application.Riskeer
                                    userDisplay));
         }
 
-        public static int WaitForProcessId { get; set; } = -1;
-
-        public void Run(string fileToOpen, App app)
+        private void OnStartup(object sender, StartupEventArgs e)
         {
+            ParseArguments(e.Args);
+
+            Resources.Add(SystemParameters.MenuPopupAnimationKey, PopupAnimation.None);
+
             WaitForPreviousInstanceToExit();
-            if (ShutdownIfNotFirstInstance(app))
+            if (ShutdownIfNotFirstInstance())
             {
                 return;
             }
@@ -141,17 +160,12 @@ namespace Application.Riskeer
                 }
             };
 
-            RunRiskeer(fileToOpen);
+            RunRiskeer();
 
             mainWindow.Show();
         }
 
-        public void OnExit()
-        {
-            singleInstanceMutex?.ReleaseMutex();
-        }
-
-        private void RunRiskeer(string fileToOpen)
+        private void RunRiskeer()
         {
             string loaderDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             if (loaderDirectory != null)
@@ -252,7 +266,7 @@ namespace Application.Riskeer
             }
         }
 
-        private bool ShutdownIfNotFirstInstance(App app)
+        private bool ShutdownIfNotFirstInstance()
         {
             var hasMutex = false;
 
@@ -261,7 +275,7 @@ namespace Application.Riskeer
                 if (!AcquireSingleInstancePerUserMutex())
                 {
                     MessageBox.Show(CoreCommonGuiResources.App_ShutdownIfNotFirstInstance_Cannot_start_multiple_instances_of_Riskeer_Please_close_the_other_instance_first);
-                    app.Shutdown(1);
+                    Shutdown(1);
                     return true; //done here
                 }
 
@@ -280,11 +294,9 @@ namespace Application.Riskeer
 
         private static bool AcquireSingleInstancePerUserMutex()
         {
-            bool createdNew;
-
             // Include the user name in the (global) mutex to ensure we limit only the number of instances per 
             // user, not per system (essential on for example Citrix systems).
-            singleInstanceMutex = new Mutex(true, $"Riskeer-single-instance-mutex-{Environment.UserName}", out createdNew);
+            singleInstanceMutex = new Mutex(true, $"Riskeer-single-instance-mutex-{Environment.UserName}", out bool createdNew);
 
             return createdNew;
         }
@@ -296,19 +308,65 @@ namespace Application.Riskeer
         private static void WaitForPreviousInstanceToExit()
         {
             // Wait until previous version of Riskeer has exited
-            if (WaitForProcessId == -1)
+            if (waitForProcessId == -1)
             {
                 return;
             }
 
             try
             {
-                Process process = Process.GetProcessById(WaitForProcessId);
+                Process process = Process.GetProcessById(waitForProcessId);
                 process.WaitForExit();
             }
             catch
             {
                 //Ignored, because the process may already be closed
+            }
+        }
+
+        private static bool ParseFileArgument(string potentialPath)
+        {
+            if (potentialPath.Length > 0)
+            {
+                try
+                {
+                    IOUtils.ValidateFilePath(potentialPath);
+                    fileToOpen = potentialPath;
+                    return true;
+                }
+                catch (ArgumentException)
+                {
+                    return false;
+                }
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Parses the process' start-up parameters.
+        /// </summary>
+        /// <param name="arguments">List of start-up parameters.</param>
+        private static void ParseArguments(IEnumerable<string> arguments)
+        {
+            var argumentWaitForProcessRegex = new Regex("^" + argumentWaitForProcess + @"(?<processId>\d+)$", RegexOptions.IgnoreCase);
+            foreach (string arg in arguments)
+            {
+                Match match = argumentWaitForProcessRegex.Match(arg);
+                if (match.Success)
+                {
+                    int pid = int.Parse(match.Groups["processId"].Value);
+                    if (pid > 0)
+                    {
+                        waitForProcessId = pid;
+                        break;
+                    }
+                }
+
+                if (ParseFileArgument(arg))
+                {
+                    break;
+                }
             }
         }
 
