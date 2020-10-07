@@ -198,7 +198,9 @@ namespace Core.Common.Assembly
 
         private static System.Reflection.Assembly LoadFileFromAssemblyLookup(object sender, ResolveEventArgs args)
         {
-            string assemblyName = args.Name.Substring(0, args.Name.IndexOf(','));
+            string assemblyName = args.Name.Contains(",") 
+                                      ? args.Name.Substring(0, args.Name.IndexOf(','))
+                                      : args.Name;
 
             if (assemblyLookup.TryGetValue(assemblyName, out string assemblyFile))
             {
