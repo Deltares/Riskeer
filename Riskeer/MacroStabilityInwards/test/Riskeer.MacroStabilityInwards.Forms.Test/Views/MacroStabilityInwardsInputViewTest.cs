@@ -228,8 +228,9 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
                 var calculatorFactory = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
-                WaternetCalculatorStub calculatorStub = calculatorFactory.LastCreatedWaternetCalculator;
-                calculatorStub.Output = WaternetCalculatorResultTestFactory.CreateEmptyResult();
+                calculatorFactory.LastCreatedWaternetDailyCalculator.Output = WaternetCalculatorResultTestFactory.CreateEmptyResult();
+                calculatorFactory.LastCreatedWaternetExtremeCalculator.Output = WaternetCalculatorResultTestFactory.CreateEmptyResult();
+
                 using (var view = new MacroStabilityInwardsInputView(calculation,
                                                                      assessmentSection,
                                                                      GetHydraulicBoundaryLocationCalculation))
@@ -358,7 +359,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
                 var calculatorFactory = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
-                WaternetCalculatorStub calculatorStub = calculatorFactory.LastCreatedWaternetCalculator;
+                WaternetCalculatorStub calculatorStub = calculatorFactory.LastCreatedWaternetDailyCalculator;
                 calculatorStub.Output = WaternetCalculatorResultTestFactory.CreateEmptyResult();
                 using (var view = new MacroStabilityInwardsInputView(calculation,
                                                                      assessmentSection,
@@ -475,7 +476,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
                 var calculatorFactory = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
-                WaternetCalculatorStub calculatorStub = calculatorFactory.LastCreatedWaternetCalculator;
+                WaternetCalculatorStub calculatorStub = calculatorFactory.LastCreatedWaternetDailyCalculator;
                 calculatorStub.Output = WaternetCalculatorResultTestFactory.CreateEmptyResult();
                 using (var view = new MacroStabilityInwardsInputView(calculation,
                                                                      assessmentSection,
@@ -766,7 +767,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
                 var calculatorFactory = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
-                WaternetCalculatorStub calculatorStub = calculatorFactory.LastCreatedWaternetCalculator;
+                WaternetCalculatorStub calculatorStub = calculatorFactory.LastCreatedWaternetDailyCalculator;
                 calculatorStub.Output = WaternetCalculatorResultTestFactory.CreateEmptyResult();
                 using (var view = new MacroStabilityInwardsInputView(calculation,
                                                                      assessmentSection,
@@ -814,7 +815,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
                 var calculatorFactory = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
-                WaternetCalculatorStub calculatorStub = calculatorFactory.LastCreatedWaternetCalculator;
+                WaternetCalculatorStub calculatorStub = calculatorFactory.LastCreatedWaternetDailyCalculator;
                 calculatorStub.Output = WaternetCalculatorResultTestFactory.CreateEmptyResult();
                 using (var view = new MacroStabilityInwardsInputView(calculation,
                                                                      assessmentSection,
@@ -875,7 +876,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
                 var calculatorFactory = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
-                WaternetCalculatorStub calculatorStub = calculatorFactory.LastCreatedWaternetCalculator;
+                WaternetCalculatorStub calculatorStub = calculatorFactory.LastCreatedWaternetDailyCalculator;
                 calculatorStub.Output = WaternetCalculatorResultTestFactory.CreateEmptyResult();
                 using (var view = new MacroStabilityInwardsInputView(calculation,
                                                                      assessmentSection,
@@ -935,7 +936,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
                 var calculatorFactory = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
-                WaternetCalculatorStub calculatorStub = calculatorFactory.LastCreatedWaternetCalculator;
+                WaternetCalculatorStub calculatorStub = calculatorFactory.LastCreatedWaternetDailyCalculator;
                 calculatorStub.Output = WaternetCalculatorResultTestFactory.CreateEmptyResult();
                 using (var view = new MacroStabilityInwardsInputView(calculation,
                                                                      assessmentSection,
@@ -989,20 +990,25 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
                 var calculatorFactory = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
-                WaternetCalculatorStub calculatorStub = calculatorFactory.LastCreatedWaternetCalculator;
+                WaternetCalculatorStub dailyCalculator = calculatorFactory.LastCreatedWaternetDailyCalculator;
+                WaternetCalculatorStub extremeCalculator = calculatorFactory.LastCreatedWaternetExtremeCalculator;
+                
+                dailyCalculator.Output = WaternetCalculatorResultTestFactory.Create();
+                extremeCalculator.Output = WaternetCalculatorResultTestFactory.Create();
+
                 using (var view = new MacroStabilityInwardsInputView(calculation,
                                                                      assessmentSection,
                                                                      GetHydraulicBoundaryLocationCalculation))
                 {
                     // Precondition
                     ChartData[] chartData = view.Chart.Data.Collection.ToArray();
-                    calculatorStub.Output = WaternetCalculatorResultTestFactory.Create();
                     MacroStabilityInwardsInputViewChartDataAssert.AssertWaternetChartData(DerivedMacroStabilityInwardsInput.GetWaternetDaily(calculation.InputParameters),
                                                                                           (ChartDataCollection) chartData[waternetZonesDailyIndex]);
                     MacroStabilityInwardsInputViewChartDataAssert.AssertWaternetChartData(DerivedMacroStabilityInwardsInput.GetWaternetExtreme(calculation.InputParameters, RoundedDouble.NaN),
                                                                                           (ChartDataCollection) chartData[waternetZonesExtremeIndex]);
 
-                    calculatorStub.Output = WaternetCalculatorResultTestFactory.CreateEmptyResult();
+                    dailyCalculator.Output = WaternetCalculatorResultTestFactory.CreateEmptyResult();
+                    extremeCalculator.Output = WaternetCalculatorResultTestFactory.CreateEmptyResult();
 
                     // When
                     calculation.InputParameters.NotifyObservers();
@@ -1038,8 +1044,9 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
                 var calculatorFactory = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
-                WaternetCalculatorStub calculatorStub = calculatorFactory.LastCreatedWaternetCalculator;
-                calculatorStub.Output = WaternetCalculatorResultTestFactory.CreateEmptyResult();
+                calculatorFactory.LastCreatedWaternetDailyCalculator.Output = WaternetCalculatorResultTestFactory.CreateEmptyResult();
+                calculatorFactory.LastCreatedWaternetExtremeCalculator.Output = WaternetCalculatorResultTestFactory.CreateEmptyResult();
+
                 using (var view = new MacroStabilityInwardsInputView(calculation,
                                                                      assessmentSection,
                                                                      GetHydraulicBoundaryLocationCalculation))
@@ -1090,8 +1097,9 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
                 var calculatorFactory = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
-                WaternetCalculatorStub calculatorStub = calculatorFactory.LastCreatedWaternetCalculator;
-                calculatorStub.Output = WaternetCalculatorResultTestFactory.CreateEmptyResult();
+                calculatorFactory.LastCreatedWaternetDailyCalculator.Output = WaternetCalculatorResultTestFactory.CreateEmptyResult();
+                calculatorFactory.LastCreatedWaternetExtremeCalculator.Output = WaternetCalculatorResultTestFactory.CreateEmptyResult();
+
                 using (var view = new MacroStabilityInwardsInputView(calculation,
                                                                      assessmentSection,
                                                                      () => hydraulicBoundaryLocationCalculation))
@@ -1139,8 +1147,9 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
                 var calculatorFactory = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
-                WaternetCalculatorStub calculatorStub = calculatorFactory.LastCreatedWaternetCalculator;
-                calculatorStub.Output = WaternetCalculatorResultTestFactory.CreateEmptyResult();
+                calculatorFactory.LastCreatedWaternetDailyCalculator.Output = WaternetCalculatorResultTestFactory.CreateEmptyResult();
+                calculatorFactory.LastCreatedWaternetExtremeCalculator.Output = WaternetCalculatorResultTestFactory.CreateEmptyResult();
+
                 using (var view = new MacroStabilityInwardsInputView(calculation,
                                                                      assessmentSection,
                                                                      () => hydraulicBoundaryLocationCalculation))
@@ -1186,8 +1195,9 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
                 var calculatorFactory = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
-                WaternetCalculatorStub calculatorStub = calculatorFactory.LastCreatedWaternetCalculator;
-                calculatorStub.Output = WaternetCalculatorResultTestFactory.CreateEmptyResult();
+                calculatorFactory.LastCreatedWaternetDailyCalculator.Output = WaternetCalculatorResultTestFactory.CreateEmptyResult();
+                calculatorFactory.LastCreatedWaternetExtremeCalculator.Output = WaternetCalculatorResultTestFactory.CreateEmptyResult();
+
                 using (var view = new MacroStabilityInwardsInputView(calculation,
                                                                      assessmentSection,
                                                                      () => null))

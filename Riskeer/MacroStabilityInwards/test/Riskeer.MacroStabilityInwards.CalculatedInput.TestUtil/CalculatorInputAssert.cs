@@ -24,6 +24,7 @@ using System.ComponentModel;
 using System.Linq;
 using NUnit.Framework;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Input;
+using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators.Waternet.Input;
 using Riskeer.MacroStabilityInwards.Primitives;
 
 namespace Riskeer.MacroStabilityInwards.CalculatedInput.TestUtil
@@ -33,6 +34,41 @@ namespace Riskeer.MacroStabilityInwards.CalculatedInput.TestUtil
     /// </summary>
     public static class CalculatorInputAssert
     {
+        /// <summary>
+        /// Asserts whether <paramref name="actual"/> corresponds to <paramref name="original"/>.
+        /// </summary>
+        /// <param name="original">The original <see cref="IMacroStabilityInwardsWaternetInput"/>.</param>
+        /// <param name="actual">The actual <see cref="WaternetCalculatorInput"/>.</param>
+        /// <exception cref="AssertionException">Thrown when <paramref name="actual"/>
+        /// does not correspond to <paramref name="original"/>.</exception>
+        public static void AssertDailyInput(IMacroStabilityInwardsWaternetInput original, WaternetCalculatorInput actual)
+        {
+            AssertPhreaticLineOffsets(original.LocationInputDaily, actual.PhreaticLineOffsets);
+            Assert.AreEqual(original.LocationInputDaily.WaterLevelPolder, actual.WaterLevelPolder);
+            Assert.AreEqual(original.LocationInputDaily.PenetrationLength, actual.PenetrationLength);
+            Assert.AreEqual(original.WaterLevelRiverAverage, actual.AssessmentLevel);
+
+            AssertGenericInput(original, actual);
+        }
+
+        /// <summary>
+        /// Asserts whether <paramref name="actual"/> corresponds to <paramref name="original"/>.
+        /// </summary>
+        /// <param name="original">The original <see cref="IMacroStabilityInwardsWaternetInput"/>.</param>
+        /// <param name="actual">The actual <see cref="WaternetCalculatorInput"/>.</param>
+        /// <param name="assessmentLevel">The assessment level to assert.</param>
+        /// <exception cref="AssertionException">Thrown when <paramref name="actual"/>
+        /// does not correspond to <paramref name="original"/> or <paramref name="assessmentLevel"/>.</exception>
+        public static void AssertExtremeInput(IMacroStabilityInwardsWaternetInput original, WaternetCalculatorInput actual, double assessmentLevel)
+        {
+            AssertPhreaticLineOffsets(original.LocationInputExtreme, actual.PhreaticLineOffsets);
+            Assert.AreEqual(original.LocationInputExtreme.WaterLevelPolder, actual.WaterLevelPolder);
+            Assert.AreEqual(original.LocationInputExtreme.PenetrationLength, actual.PenetrationLength);
+            Assert.AreEqual(assessmentLevel, actual.AssessmentLevel);
+
+            AssertGenericInput(original, actual);
+        }
+
         /// <summary>
         /// Asserts whether <paramref name="actual"/> corresponds to <paramref name="original"/>.
         /// </summary>
@@ -84,6 +120,31 @@ namespace Riskeer.MacroStabilityInwards.CalculatedInput.TestUtil
             Assert.AreEqual(original.PhreaticLineOffsetBelowDikeTopAtPolder, actual.BelowDikeTopAtPolder);
             Assert.AreEqual(original.PhreaticLineOffsetBelowDikeToeAtPolder, actual.BelowDikeToeAtPolder);
             Assert.AreEqual(original.PhreaticLineOffsetBelowShoulderBaseInside, actual.BelowShoulderBaseInside);
+        }
+
+        /// <summary>
+        /// Asserts whether <paramref name="actual"/> corresponds to <paramref name="original"/>.
+        /// </summary>
+        /// <param name="original">The original <see cref="IMacroStabilityInwardsWaternetInput"/>.</param>
+        /// <param name="actual">The actual <see cref="WaternetCalculatorInput"/>.</param>
+        /// <exception cref="AssertionException">Thrown when <paramref name="actual"/>
+        /// does not correspond to <paramref name="original"/>.</exception>
+        private static void AssertGenericInput(IMacroStabilityInwardsWaternetInput original, WaternetCalculatorInput actual)
+        {
+            AssertSoilProfile(original.SoilProfileUnderSurfaceLine, actual.SoilProfile);
+            AssertDrainageConstruction(original, actual.DrainageConstruction);
+            Assert.AreSame(original.SurfaceLine, actual.SurfaceLine);
+            Assert.AreEqual(original.DikeSoilScenario, actual.DikeSoilScenario);
+            Assert.AreEqual(original.WaterLevelRiverAverage, actual.WaterLevelRiverAverage);
+            Assert.AreEqual(original.MinimumLevelPhreaticLineAtDikeTopRiver, actual.MinimumLevelPhreaticLineAtDikeTopRiver);
+            Assert.AreEqual(original.MinimumLevelPhreaticLineAtDikeTopPolder, actual.MinimumLevelPhreaticLineAtDikeTopPolder);
+            Assert.AreEqual(original.LeakageLengthOutwardsPhreaticLine3, actual.LeakageLengthOutwardsPhreaticLine3);
+            Assert.AreEqual(original.LeakageLengthInwardsPhreaticLine3, actual.LeakageLengthInwardsPhreaticLine3);
+            Assert.AreEqual(original.LeakageLengthOutwardsPhreaticLine4, actual.LeakageLengthOutwardsPhreaticLine4);
+            Assert.AreEqual(original.LeakageLengthInwardsPhreaticLine4, actual.LeakageLengthInwardsPhreaticLine4);
+            Assert.AreEqual(original.PiezometricHeadPhreaticLine2Outwards, actual.PiezometricHeadPhreaticLine2Outwards);
+            Assert.AreEqual(original.PiezometricHeadPhreaticLine2Inwards, actual.PiezometricHeadPhreaticLine2Inwards);
+            Assert.AreEqual(original.AdjustPhreaticLine3And4ForUplift, actual.AdjustPhreaticLine3And4ForUplift);
         }
 
         /// <summary>

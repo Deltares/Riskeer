@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2019. All rights reserved.
+// Copyright (C) Stichting Deltares 2019. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -218,7 +218,8 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
                 var calculator = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
-                calculator.LastCreatedWaternetCalculator.ReturnValidationError = true;
+                calculator.LastCreatedWaternetDailyCalculator.ReturnValidationError = true;
+                calculator.LastCreatedWaternetExtremeCalculator.ReturnValidationError = true;
 
                 // Call
                 void Call() => isValid = MacroStabilityInwardsCalculationService.Validate(testCalculation, AssessmentSectionTestHelper.GetTestAssessmentLevel());
@@ -247,7 +248,8 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
                 var calculator = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
-                calculator.LastCreatedWaternetCalculator.ReturnValidationWarning = true;
+                calculator.LastCreatedWaternetDailyCalculator.ReturnValidationWarning = true;
+                calculator.LastCreatedWaternetExtremeCalculator.ReturnValidationWarning = true;
 
                 // Call
                 void Call() => isValid = MacroStabilityInwardsCalculationService.Validate(testCalculation, AssessmentSectionTestHelper.GetTestAssessmentLevel());
@@ -276,8 +278,10 @@ namespace Riskeer.MacroStabilityInwards.Service.Test
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
                 var calculator = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
-                calculator.LastCreatedWaternetCalculator.ReturnValidationWarning = true;
-                calculator.LastCreatedWaternetCalculator.ReturnValidationError = true;
+                calculator.LastCreatedWaternetDailyCalculator.ReturnValidationWarning = true;
+                calculator.LastCreatedWaternetDailyCalculator.ReturnValidationError = true;
+                calculator.LastCreatedWaternetExtremeCalculator.ReturnValidationWarning = true;
+                calculator.LastCreatedWaternetExtremeCalculator.ReturnValidationError = true;
 
                 // Call
                 void Call() => isValid = MacroStabilityInwardsCalculationService.Validate(testCalculation, AssessmentSectionTestHelper.GetTestAssessmentLevel());

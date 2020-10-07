@@ -178,8 +178,8 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
                 var calculatorFactory = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
-                WaternetCalculatorStub calculatorStub = calculatorFactory.LastCreatedWaternetCalculator;
-                calculatorStub.Output = WaternetCalculatorResultTestFactory.CreateEmptyResult();
+                calculatorFactory.LastCreatedWaternetDailyCalculator.Output = WaternetCalculatorResultTestFactory.CreateEmptyResult();
+                calculatorFactory.LastCreatedWaternetExtremeCalculator.Output = WaternetCalculatorResultTestFactory.CreateEmptyResult();
                 
                 // Call
                 using (var control = new MacroStabilityInwardsOutputChartControl(calculation,
@@ -420,11 +420,11 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                                                                              AssessmentSectionTestHelper.GetTestAssessmentLevel))
             {
                 // Precondition
-                var calculatorFactory = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
-                WaternetCalculatorStub calculatorStub = calculatorFactory.LastCreatedWaternetCalculator;
                 MacroStabilityInwardsOutputViewChartDataAssert.AssertInputChartData(calculation, GetChartControl(control).Data);
 
-                calculatorStub.Output = WaternetCalculatorResultTestFactory.CreateEmptyResult();
+                var calculatorFactory = (TestMacroStabilityInwardsCalculatorFactory)MacroStabilityInwardsCalculatorFactory.Instance;
+                calculatorFactory.LastCreatedWaternetDailyCalculator.Output = WaternetCalculatorResultTestFactory.CreateEmptyResult();
+                calculatorFactory.LastCreatedWaternetExtremeCalculator.Output = WaternetCalculatorResultTestFactory.CreateEmptyResult();
                 
                 // Call
                 control.UpdateChartData();
@@ -453,8 +453,9 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
                 var calculatorFactory = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
-                WaternetCalculatorStub calculatorStub = calculatorFactory.LastCreatedWaternetCalculator;
-                calculatorStub.Output = WaternetCalculatorResultTestFactory.CreateEmptyResult();
+                calculatorFactory.LastCreatedWaternetDailyCalculator.Output = WaternetCalculatorResultTestFactory.CreateEmptyResult();
+                calculatorFactory.LastCreatedWaternetExtremeCalculator.Output = WaternetCalculatorResultTestFactory.CreateEmptyResult();
+
                 using (var control = new MacroStabilityInwardsOutputChartControl(calculation,
                                                                                  AssessmentSectionTestHelper.GetTestAssessmentLevel))
                 {

@@ -74,14 +74,9 @@ namespace Riskeer.MacroStabilityInwards.CalculatedInput.Test
 
                 // Assert
                 var factory = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
-                WaternetCalculatorInput actualInput = factory.LastCreatedWaternetCalculator.Input;
+                WaternetCalculatorInput actualInput = factory.LastCreatedWaternetExtremeCalculator.Input;
 
-                CalculatorInputAssert.AssertPhreaticLineOffsets(input.LocationInputExtreme, actualInput.PhreaticLineOffsets);
-                Assert.AreEqual(input.LocationInputExtreme.WaterLevelPolder, actualInput.WaterLevelPolder);
-                Assert.AreEqual(input.LocationInputExtreme.PenetrationLength, actualInput.PenetrationLength);
-                Assert.AreEqual(assessmentLevel, actualInput.AssessmentLevel);
-
-                AssertGenericInput(input, actualInput);
+                CalculatorInputAssert.AssertExtremeInput(input, actualInput, assessmentLevel);
             }
         }
 
@@ -92,7 +87,7 @@ namespace Riskeer.MacroStabilityInwards.CalculatedInput.Test
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
                 var calculatorFactory = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
-                WaternetCalculatorStub calculator = calculatorFactory.LastCreatedWaternetCalculator;
+                WaternetCalculatorStub calculator = calculatorFactory.LastCreatedWaternetExtremeCalculator;
                 calculator.ReturnValidationError = true;
                 calculator.ReturnValidationWarning = true;
 
@@ -125,7 +120,7 @@ namespace Riskeer.MacroStabilityInwards.CalculatedInput.Test
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
                 var calculatorFactory = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
-                calculatorFactory.LastCreatedWaternetCalculator.ThrowExceptionOnValidate = true;
+                calculatorFactory.LastCreatedWaternetExtremeCalculator.ThrowExceptionOnValidate = true;
 
                 // Call
                 void Call() => WaternetCalculationService.ValidateExtreme(testCalculation.InputParameters, RoundedDouble.NaN);
@@ -161,14 +156,9 @@ namespace Riskeer.MacroStabilityInwards.CalculatedInput.Test
 
                 // Assert
                 var factory = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
-                WaternetCalculatorInput actualInput = factory.LastCreatedWaternetCalculator.Input;
+                WaternetCalculatorInput actualInput = factory.LastCreatedWaternetDailyCalculator.Input;
 
-                CalculatorInputAssert.AssertPhreaticLineOffsets(input.LocationInputDaily, actualInput.PhreaticLineOffsets);
-                Assert.AreEqual(input.LocationInputDaily.WaterLevelPolder, actualInput.WaterLevelPolder);
-                Assert.AreEqual(input.LocationInputDaily.PenetrationLength, actualInput.PenetrationLength);
-                Assert.AreEqual(input.WaterLevelRiverAverage, actualInput.AssessmentLevel);
-
-                AssertGenericInput(input, actualInput);
+                CalculatorInputAssert.AssertDailyInput(input, actualInput);
             }
         }
 
@@ -179,7 +169,7 @@ namespace Riskeer.MacroStabilityInwards.CalculatedInput.Test
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
                 var calculatorFactory = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
-                WaternetCalculatorStub calculator = calculatorFactory.LastCreatedWaternetCalculator;
+                WaternetCalculatorStub calculator = calculatorFactory.LastCreatedWaternetDailyCalculator;
                 calculator.ReturnValidationError = true;
                 calculator.ReturnValidationWarning = true;
 
@@ -212,7 +202,7 @@ namespace Riskeer.MacroStabilityInwards.CalculatedInput.Test
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
                 var calculatorFactory = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
-                calculatorFactory.LastCreatedWaternetCalculator.ThrowExceptionOnValidate = true;
+                calculatorFactory.LastCreatedWaternetDailyCalculator.ThrowExceptionOnValidate = true;
 
                 // Call
                 void Call() => WaternetCalculationService.ValidateDaily(testCalculation.InputParameters);
@@ -249,14 +239,9 @@ namespace Riskeer.MacroStabilityInwards.CalculatedInput.Test
 
                 // Assert
                 var factory = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
-                WaternetCalculatorInput actualInput = factory.LastCreatedWaternetCalculator.Input;
+                WaternetCalculatorInput actualInput = factory.LastCreatedWaternetExtremeCalculator.Input;
 
-                CalculatorInputAssert.AssertPhreaticLineOffsets(input.LocationInputExtreme, actualInput.PhreaticLineOffsets);
-                Assert.AreEqual(input.LocationInputExtreme.WaterLevelPolder, actualInput.WaterLevelPolder);
-                Assert.AreEqual(input.LocationInputExtreme.PenetrationLength, actualInput.PenetrationLength);
-                Assert.AreEqual(assessmentLevel, actualInput.AssessmentLevel);
-
-                AssertGenericInput(input, actualInput);
+                CalculatorInputAssert.AssertExtremeInput(input, actualInput, assessmentLevel);
             }
         }
 
@@ -272,7 +257,7 @@ namespace Riskeer.MacroStabilityInwards.CalculatedInput.Test
                 MacroStabilityInwardsWaternet output = WaternetCalculationService.CalculateExtreme(testCalculation.InputParameters, RoundedDouble.NaN);
 
                 // Assert
-                CalculatorOutputAssert.AssertWaternet(calculatorFactory.LastCreatedWaternetCalculator.Output, output);
+                CalculatorOutputAssert.AssertWaternet(calculatorFactory.LastCreatedWaternetExtremeCalculator.Output, output);
             }
         }
 
@@ -283,7 +268,7 @@ namespace Riskeer.MacroStabilityInwards.CalculatedInput.Test
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
                 var calculatorFactory = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
-                calculatorFactory.LastCreatedWaternetCalculator.ThrowExceptionOnCalculate = true;
+                calculatorFactory.LastCreatedWaternetExtremeCalculator.ThrowExceptionOnCalculate = true;
 
                 // Call
                 MacroStabilityInwardsWaternet output = WaternetCalculationService.CalculateExtreme(testCalculation.InputParameters, RoundedDouble.NaN);
@@ -319,14 +304,9 @@ namespace Riskeer.MacroStabilityInwards.CalculatedInput.Test
 
                 // Assert
                 var factory = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
-                WaternetCalculatorInput actualInput = factory.LastCreatedWaternetCalculator.Input;
+                WaternetCalculatorInput actualInput = factory.LastCreatedWaternetDailyCalculator.Input;
 
-                CalculatorInputAssert.AssertPhreaticLineOffsets(input.LocationInputDaily, actualInput.PhreaticLineOffsets);
-                Assert.AreEqual(input.LocationInputDaily.WaterLevelPolder, actualInput.WaterLevelPolder);
-                Assert.AreEqual(input.LocationInputDaily.PenetrationLength, actualInput.PenetrationLength);
-                Assert.AreEqual(input.WaterLevelRiverAverage, actualInput.AssessmentLevel);
-
-                AssertGenericInput(input, actualInput);
+                CalculatorInputAssert.AssertDailyInput(input, actualInput);
             }
         }
 
@@ -342,7 +322,7 @@ namespace Riskeer.MacroStabilityInwards.CalculatedInput.Test
                 MacroStabilityInwardsWaternet output = WaternetCalculationService.CalculateDaily(testCalculation.InputParameters);
 
                 // Assert
-                CalculatorOutputAssert.AssertWaternet(calculatorFactory.LastCreatedWaternetCalculator.Output, output);
+                CalculatorOutputAssert.AssertWaternet(calculatorFactory.LastCreatedWaternetDailyCalculator.Output, output);
             }
         }
 
@@ -353,7 +333,7 @@ namespace Riskeer.MacroStabilityInwards.CalculatedInput.Test
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
             {
                 var calculatorFactory = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
-                calculatorFactory.LastCreatedWaternetCalculator.ThrowExceptionOnCalculate = true;
+                calculatorFactory.LastCreatedWaternetDailyCalculator.ThrowExceptionOnCalculate = true;
 
                 // Call
                 MacroStabilityInwardsWaternet output = WaternetCalculationService.CalculateDaily(testCalculation.InputParameters);
@@ -376,24 +356,6 @@ namespace Riskeer.MacroStabilityInwards.CalculatedInput.Test
             {
                 return x.Message == y.Message && x.Type == y.Type ? 0 : 1;
             }
-        }
-
-        private static void AssertGenericInput(IMacroStabilityInwardsWaternetInput originalInput, WaternetCalculatorInput actualInput)
-        {
-            CalculatorInputAssert.AssertSoilProfile(originalInput.SoilProfileUnderSurfaceLine, actualInput.SoilProfile);
-            CalculatorInputAssert.AssertDrainageConstruction(originalInput, actualInput.DrainageConstruction);
-            Assert.AreSame(originalInput.SurfaceLine, actualInput.SurfaceLine);
-            Assert.AreEqual(originalInput.DikeSoilScenario, actualInput.DikeSoilScenario);
-            Assert.AreEqual(originalInput.WaterLevelRiverAverage, actualInput.WaterLevelRiverAverage);
-            Assert.AreEqual(originalInput.MinimumLevelPhreaticLineAtDikeTopRiver, actualInput.MinimumLevelPhreaticLineAtDikeTopRiver);
-            Assert.AreEqual(originalInput.MinimumLevelPhreaticLineAtDikeTopPolder, actualInput.MinimumLevelPhreaticLineAtDikeTopPolder);
-            Assert.AreEqual(originalInput.LeakageLengthOutwardsPhreaticLine3, actualInput.LeakageLengthOutwardsPhreaticLine3);
-            Assert.AreEqual(originalInput.LeakageLengthInwardsPhreaticLine3, actualInput.LeakageLengthInwardsPhreaticLine3);
-            Assert.AreEqual(originalInput.LeakageLengthOutwardsPhreaticLine4, actualInput.LeakageLengthOutwardsPhreaticLine4);
-            Assert.AreEqual(originalInput.LeakageLengthInwardsPhreaticLine4, actualInput.LeakageLengthInwardsPhreaticLine4);
-            Assert.AreEqual(originalInput.PiezometricHeadPhreaticLine2Outwards, actualInput.PiezometricHeadPhreaticLine2Outwards);
-            Assert.AreEqual(originalInput.PiezometricHeadPhreaticLine2Inwards, actualInput.PiezometricHeadPhreaticLine2Inwards);
-            Assert.AreEqual(originalInput.AdjustPhreaticLine3And4ForUplift, actualInput.AdjustPhreaticLine3And4ForUplift);
         }
     }
 }
