@@ -3,6 +3,7 @@
     <OutputType>WinExe</OutputType>
     <AssemblyName>Riskeer</AssemblyName>
     <ApplicationIcon>Riskeer.ico</ApplicationIcon>
+    <OutputPath>$(SolutionDir)bin\$(Configuration)\</OutputPath>
   </PropertyGroup>
   <Import Project="$(SolutionDir)build\Source.targets" />
   <ItemGroup>
@@ -89,9 +90,12 @@
     <Exec Command="xcopy /d/s/y &quot;$(PkgSystem_Data_Sqlite_Core)\build\net45\x86\*&quot; &quot;$(OutDir)Application\Built-in\Managed\Externals\System.Data.SQLite.Core-1.0.109.2\x86\*&quot;" />
     <Exec Command="xcopy /d/s/y &quot;$(PkgSystem_Data_Sqlite_EF6)\lib\net45\*&quot; &quot;$(OutDir)Application\Built-in\Managed\Externals\System.Data.SQLite.EF6-1.0.109\*&quot;" />
   </Target>
-  <Target Name="PostBuildCopyAssembly" AfterTargets="PostBuildEvent">
-    <Exec Command="xcopy /d/s/y &quot;$(OutDir)$(AssemblyName).exe&quot; &quot;$(SolutionDir)bin\$(Configuration)\*&quot;" />
-    <Exec Command="xcopy /d/s/y &quot;$(OutDir)$(AssemblyName).exe.config&quot; &quot;$(SolutionDir)bin\$(Configuration)\*&quot;" />
-    <Exec Command="xcopy /d/s/y &quot;$(OutDir)$(AssemblyName).pdb&quot; &quot;$(SolutionDir)bin\$(Configuration)\*&quot;" Condition="$(DefineConstants.Contains('DEBUG')) Or $(DefineConstants.Contains('RELEASEFORCODECOVERAGE'))" />
+  <!-- Overwrite PostBuildCopyAssembly, because no dll's or pdb's to copy here. -->
+  <Target Name="PostBuildCopyAssembly" AfterTargets="PostBuildEvent" />
+  <!-- make all references non-private, so they won't be copied to the output folder. -->
+  <Target Name="ClearReferenceCopyLocalPaths" AfterTargets="ResolveAssemblyReferences">
+    <ItemGroup>
+      <ReferenceCopyLocalPaths Remove="@(ReferenceCopyLocalPaths)" />
+    </ItemGroup>
   </Target>
 </Project>
