@@ -294,8 +294,8 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
         {
             // Setup
             var inflowModelTypeChangedCounter = 0;
-            var random = new Random(21);
-            
+            var random = new Random(645);
+
             var mocks = new MockRepository();
             var handler = new SetPropertyValueAfterConfirmationParameterTester(new IObservable[0]);
             mocks.ReplayAll();
