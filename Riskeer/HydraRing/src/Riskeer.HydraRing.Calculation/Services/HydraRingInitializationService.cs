@@ -21,8 +21,8 @@
 
 using System;
 using System.IO;
-using System.Reflection;
 using System.Security;
+using Core.Common.Assembly;
 using Riskeer.HydraRing.Calculation.Data;
 using Riskeer.HydraRing.Calculation.Data.Input;
 using Riskeer.HydraRing.Calculation.Providers;
@@ -84,20 +84,12 @@ namespace Riskeer.HydraRing.Calculation.Services
             TemporaryWorkingDirectory = temporaryWorkingDirectory;
             hlcdFilePath = settings.HlcdFilePath;
 
-            string executingAssemblyLocation = Assembly.GetExecutingAssembly().Location;
-            string applicationFolder = GetApplicationFolder(Directory.GetParent(executingAssemblyLocation));
+            string applicationFolder = AssemblyResolver.GetApplicationDirectory();
             hydraRingDirectory = Path.Combine(applicationFolder, "Standalone", "Deltares", hydraRingBinariesSubDirectory);
 
             configurationDatabaseFilePath = Path.Combine(hydraRingDirectory, HydraRingFileConstants.ConfigurationDatabaseFileName);
             preprocessorDirectory = settings.PreprocessorDirectory;
             usePreprocessorClosure = settings.UsePreprocessorClosure;
-        }
-
-        private static string GetApplicationFolder(DirectoryInfo directory)
-        {
-            return directory.Name.Contains("Application")
-                       ? directory.FullName
-                       : GetApplicationFolder(directory.Parent);
         }
 
         /// <summary>

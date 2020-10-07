@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Windows;
@@ -65,9 +66,7 @@ namespace Application.Riskeer
 
         private static void SetupAssemblyResolver()
         {
-            string assemblyDirectory = Path.Combine(
-                Directory.GetParent(Assembly.GetExecutingAssembly().Location).FullName,
-                "Application", "Built-in", "Managed");
+            string assemblyDirectory = Path.Combine(GetApplicationDirectory(), "Built-in", "Managed");
 
             Assembly GetAssemblyResolver(object sender, ResolveEventArgs args)
             {
@@ -133,6 +132,18 @@ namespace Application.Riskeer
                     break;
                 }
             }
+        }
+
+        private static string GetApplicationDirectory()
+        {
+            DirectoryInfo executingAssemblyDirectoryInfo = Directory.GetParent(Assembly.GetExecutingAssembly().Location);
+
+            while (executingAssemblyDirectoryInfo.GetDirectories().All(di => di.Name != "Application"))
+            {
+                executingAssemblyDirectoryInfo = Directory.GetParent(executingAssemblyDirectoryInfo.FullName);
+            }
+
+            return Path.Combine(executingAssemblyDirectoryInfo.FullName, "Application");
         }
     }
 }

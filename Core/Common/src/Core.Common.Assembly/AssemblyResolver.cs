@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace Core.Common.Assembly
 {
@@ -162,6 +163,22 @@ namespace Core.Common.Assembly
             assemblyLookup = new Dictionary<string, string>();
 
             AppDomain.CurrentDomain.AssemblyResolve -= LoadFileFromAssemblyLookup;
+        }
+
+        /// <summary>
+        /// Gets the "Application" directory, containing all built-in and standalone assemblies.
+        /// </summary>
+        /// <returns>The full path to the "Application" directory.</returns>
+        public static string GetApplicationDirectory()
+        {
+            DirectoryInfo executingAssemblyDirectoryInfo = Directory.GetParent(System.Reflection.Assembly.GetExecutingAssembly().Location);
+
+            while (executingAssemblyDirectoryInfo.GetDirectories().All(di => di.Name != "Application"))
+            {
+                executingAssemblyDirectoryInfo = Directory.GetParent(executingAssemblyDirectoryInfo.FullName);
+            }
+
+            return Path.Combine(executingAssemblyDirectoryInfo.FullName, "Application");
         }
 
         private static void InitializeAssemblyLookup(string assemblyDirectory)
