@@ -11,7 +11,11 @@
     <CollectSQLiteInteropFiles>false</CollectSQLiteInteropFiles>
   </PropertyGroup>
   <Target Name="PostBuildCopyAssembly" AfterTargets="PostBuildEvent">
-    <Exec Command="xcopy /d/s/y &quot;$(OutDir)$(AssemblyName).dll&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Core\*&quot;" />
-    <Exec Command="xcopy /d/s/y &quot;$(OutDir)$(AssemblyName).pdb&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Core\*&quot;" Condition="$(DefineConstants.Contains('DEBUG')) Or $(DefineConstants.Contains('RELEASEFORCODECOVERAGE'))" />
+    <Exec Command=":loop
+      xcopy /d/s/y &quot;$(OutDir)$(AssemblyName).dll&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Core\*&quot;
+      if ErrorLevel 1 goto loop"/>
+    <Exec Command=":loop
+      xcopy /d/s/y &quot;$(OutDir)$(AssemblyName).pdb&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Core\*&quot;
+      if ErrorLevel 1 goto loop" Condition="$(DefineConstants.Contains('DEBUG')) Or $(DefineConstants.Contains('RELEASEFORCODECOVERAGE'))"/>
   </Target>
 </Project>
