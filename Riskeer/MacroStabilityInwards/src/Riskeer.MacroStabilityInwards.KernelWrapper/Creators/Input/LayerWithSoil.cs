@@ -20,8 +20,8 @@
 // All rights reserved.
 
 using System.Collections.Generic;
+using Core.Common.Base.Geometry;
 using Deltares.MacroStability.CSharpWrapper.Input;
-using Point2D = Core.Common.Base.Geometry.Point2D;
 
 namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
 {

@@ -282,7 +282,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
             Assert.AreEqual(50, stabilityModel.MaxGridMoves); // Irrelevant
 
             Assert.IsNotNull(stabilityModel.BishopCalculationCircle); // Irrelevant - Only for Bishop
-            
+
             Assert.IsNotNull(stabilityModel.BeeswarmAlgorithmOptions); // Irrelevant - Only for Beeswarm
 
             Assert.IsNotNull(stabilityModel.GeneticAlgorithmOptions); // Irrelevant - Only for Genetic Algorithm

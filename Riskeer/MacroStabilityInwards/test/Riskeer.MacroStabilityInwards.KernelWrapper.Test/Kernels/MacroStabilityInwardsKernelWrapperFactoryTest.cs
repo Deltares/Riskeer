@@ -92,7 +92,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels
             IWaternetKernel waternetKernel = factory.CreateWaternetExtremeKernel(new MacroStabilityInput());
 
             // Assert
-            Assert.IsInstanceOf<WaternetKernelWrapper> (waternetKernel);
+            Assert.IsInstanceOf<WaternetKernelWrapper>(waternetKernel);
         }
 
         [Test]

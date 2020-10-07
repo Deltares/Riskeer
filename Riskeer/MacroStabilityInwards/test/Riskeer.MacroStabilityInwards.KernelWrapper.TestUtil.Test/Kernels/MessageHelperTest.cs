@@ -34,7 +34,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Test.Kernels
             // Setup
             const string content = "test";
             const MessageType messageType = MessageType.Warning;
-            
+
             // Call
             Message message = MessageHelper.CreateMessage(messageType, content);
 
