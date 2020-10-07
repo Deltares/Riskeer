@@ -47,6 +47,8 @@ namespace Application.Riskeer
         public App()
         {
             SetupAssemblyResolver();
+
+            runner = new RiskeerRunner();
         }
 
         protected override void OnExit(ExitEventArgs e)
@@ -61,7 +63,7 @@ namespace Application.Riskeer
 
             Resources.Add(SystemParameters.MenuPopupAnimationKey, PopupAnimation.None);
 
-            runner = new RiskeerRunner(fileToOpen, this);
+            runner.Run(fileToOpen, this);
         }
 
         private static void SetupAssemblyResolver()

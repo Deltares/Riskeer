@@ -61,32 +61,28 @@ using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 using MessageBox = System.Windows.MessageBox;
 #if DEVELOPMENT
 using Demo.Riskeer.GUIs;
+
 #endif
 namespace Application.Riskeer
 {
     public class RiskeerRunner
     {
-        private readonly App app;
-
         // Start application after this process will exit (used during restart)
         private const string argumentWaitForProcess = "--wait-for-process=";
 
         private const int numberOfDaysToKeepLogFiles = 30;
 
+        private static Mutex singleInstanceMutex;
+
         private readonly ILog log;
 
-        private readonly GuiCore gui;
-        
-        public static int WaitForProcessId { get; set; } = -1;
-
-        private static Mutex singleInstanceMutex;
+        private GuiCore gui;
 
         private delegate void ExceptionDelegate(Exception exception);
 
-        public RiskeerRunner(string fileToOpen, App app)
+        public RiskeerRunner()
         {
             Logger.Setup();
-            this.app = app;
             log = LogManager.GetLogger(typeof(RiskeerRunner));
 
             SettingsHelper.Instance = new RiskeerSettingsHelper();
@@ -96,9 +92,14 @@ namespace Application.Riskeer
             log.Info(string.Format(CoreCommonGuiResources.App_Starting_Riskeer_version_0_by_user_0,
                                    SettingsHelper.Instance.ApplicationVersion,
                                    userDisplay));
+        }
 
+        public static int WaitForProcessId { get; set; } = -1;
+
+        public void Run(string fileToOpen, App app)
+        {
             WaitForPreviousInstanceToExit();
-            if (ShutdownIfNotFirstInstance())
+            if (ShutdownIfNotFirstInstance(app))
             {
                 return;
             }
@@ -145,6 +146,11 @@ namespace Application.Riskeer
             mainWindow.Show();
         }
 
+        public void OnExit()
+        {
+            singleInstanceMutex?.ReleaseMutex();
+        }
+
         private void RunRiskeer(string fileToOpen)
         {
             string loaderDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
@@ -182,7 +188,7 @@ namespace Application.Riskeer
 
         private void HandleExceptionOnMainThread(Exception exception)
         {
-            var control = (Control)gui.MainWindow.PropertyGrid;
+            var control = (Control) gui.MainWindow.PropertyGrid;
 
             if (control != null && control.InvokeRequired)
             {
@@ -246,7 +252,7 @@ namespace Application.Riskeer
             }
         }
 
-        private bool ShutdownIfNotFirstInstance()
+        private bool ShutdownIfNotFirstInstance(App app)
         {
             var hasMutex = false;
 
@@ -311,7 +317,7 @@ namespace Application.Riskeer
             string language = ConfigurationManager.AppSettings["language"];
             if (language != null)
             {
-                var localMachineDateTimeFormat = (DateTimeFormatInfo)Thread.CurrentThread.CurrentCulture.DateTimeFormat.Clone();
+                var localMachineDateTimeFormat = (DateTimeFormatInfo) Thread.CurrentThread.CurrentCulture.DateTimeFormat.Clone();
                 localMachineDateTimeFormat.DayNames = CultureInfo.InvariantCulture.DateTimeFormat.DayNames;
                 localMachineDateTimeFormat.MonthNames = CultureInfo.InvariantCulture.DateTimeFormat.MonthNames;
                 localMachineDateTimeFormat.AbbreviatedDayNames = CultureInfo.InvariantCulture.DateTimeFormat.AbbreviatedDayNames;
@@ -352,11 +358,6 @@ namespace Application.Riskeer
             return string.IsNullOrWhiteSpace(fileAppender?.File)
                        ? string.Empty
                        : Path.GetDirectoryName(fileAppender.File);
-        }
-
-        public void OnExit()
-        {
-            singleInstanceMutex?.ReleaseMutex();
         }
     }
 }
