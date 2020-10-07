@@ -1,5 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <Import Project="$(SolutionDir)\build\Source.targets" />
+  <Import Project="$(SolutionDir)build\Source.targets" />
   <ItemGroup>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -66,6 +66,6 @@
     </PackageReference>
   </ItemGroup>
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="xcopy /d/s/y $(PkgFluent_Ribbon)\lib\net45\* $(SolutionDir)\bin\$(Configuration)\Application\Built-in\Managed\Externals\Fluent-3.4.0\*" />
+    <Exec Command="xcopy /d/s/y $(PkgFluent_Ribbon)\lib\net45\* $(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Externals\Fluent-3.4.0\*" />
   </Target>
 </Project>

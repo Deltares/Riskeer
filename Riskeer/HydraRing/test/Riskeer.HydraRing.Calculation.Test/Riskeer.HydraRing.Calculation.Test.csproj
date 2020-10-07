@@ -1,5 +1,5 @@
 <Project Sdk="Microsoft.NET.Sdk">
-  <Import Project="$(SolutionDir)\build\Test.targets" />
+  <Import Project="$(SolutionDir)build\Test.targets" />
   <ItemGroup>
     <Compile Remove="test-data\**" />
     <EmbeddedResource Remove="test-data\**" />

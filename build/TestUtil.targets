@@ -3,5 +3,5 @@
     <OutDir>$(OutputPath)</OutDir>
     <OutputPath>$(SolutionDir)\bin\$(Configuration)\Test</OutputPath>
   </PropertyGroup>
-  <Import Project="$(SolutionDir)\build\Base.targets" />
+  <Import Project="$(SolutionDir)build\Base.targets" />
 </Project>

@@ -1,5 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <Import Project="$(SolutionDir)\build\Source.targets" />
+  <Import Project="$(SolutionDir)build\Source.targets" />
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -22,8 +22,8 @@
     </PackageReference>
   </ItemGroup>
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="xcopy /d/s/y $(PkgSystem_Data_Sqlite_Core)\lib\net45\* $(SolutionDir)\bin\$(Configuration)\Application\Built-in\Managed\Externals\System.Data.SQLite.Core-1.0.109.2\*" />
-    <Exec Command="xcopy /d/s/y $(PkgSystem_Data_Sqlite_Core)\build\net45\x64\* $(SolutionDir)\bin\$(Configuration)\Application\Built-in\Managed\Externals\System.Data.SQLite.Core-1.0.109.2\x64\*" />
-    <Exec Command="xcopy /d/s/y $(PkgSystem_Data_Sqlite_Core)\build\net45\x86\* $(SolutionDir)\bin\$(Configuration)\Application\Built-in\Managed\Externals\System.Data.SQLite.Core-1.0.109.2\x86\*" />
+    <Exec Command="xcopy /d/s/y $(PkgSystem_Data_Sqlite_Core)\lib\net45\* $(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Externals\System.Data.SQLite.Core-1.0.109.2\*" />
+    <Exec Command="xcopy /d/s/y $(PkgSystem_Data_Sqlite_Core)\build\net45\x64\* $(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Externals\System.Data.SQLite.Core-1.0.109.2\x64\*" />
+    <Exec Command="xcopy /d/s/y $(PkgSystem_Data_Sqlite_Core)\build\net45\x86\* $(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Externals\System.Data.SQLite.Core-1.0.109.2\x86\*" />
   </Target>
 </Project>

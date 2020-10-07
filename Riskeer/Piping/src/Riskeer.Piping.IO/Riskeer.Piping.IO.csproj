@@ -1,5 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <Import Project="$(SolutionDir)\build\Source.targets" />
+  <Import Project="$(SolutionDir)build\Source.targets" />
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj"/>
     <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Data\Riskeer.Common.Data.csproj"/>
@@ -42,6 +42,6 @@
     </PackageReference>
   </ItemGroup>
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="xcopy /d/s/y $(Pkglog4net)\lib\net45-full\* $(SolutionDir)\bin\$(Configuration)\Application\Built-in\Managed\Externals\Log4net-2.0.8\*" />
+    <Exec Command="xcopy /d/s/y $(Pkglog4net)\lib\net45-full\* $(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Externals\Log4net-2.0.8\*" />
   </Target>
 </Project>

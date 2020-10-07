@@ -1,5 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <Import Project="$(SolutionDir)\build\Source.targets" />
+  <Import Project="$(SolutionDir)build\Source.targets" />
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -19,6 +19,6 @@
     </None>
   </ItemGroup>
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="xcopy /d/s/y $(SolutionDir)\lib\Plugins\Wti\WTIPiping.dll $(SolutionDir)\bin\$(Configuration)\Application\Built-in\Managed\Deltares\Piping-16.2.1.4574\*" />
+    <Exec Command="xcopy /d/s/y $(SolutionDir)\lib\Plugins\Wti\WTIPiping.dll $(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Deltares\Piping-16.2.1.4574\*" />
   </Target>
 </Project>

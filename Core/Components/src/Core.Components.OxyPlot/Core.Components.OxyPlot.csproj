@@ -1,5 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <Import Project="$(SolutionDir)\build\Source.targets" />
+  <Import Project="$(SolutionDir)build\Source.targets" />
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -23,6 +23,6 @@
     </PackageReference>
   </ItemGroup>
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="xcopy /d/s/y $(PkgOxyPlot_Core)\lib\net45\* $(SolutionDir)\bin\$(Configuration)\Application\Built-in\Managed\Externals\OxyPlot.Core-1.0.0\*" />
+    <Exec Command="xcopy /d/s/y $(PkgOxyPlot_Core)\lib\net45\* $(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Externals\OxyPlot.Core-1.0.0\*" />
   </Target>
 </Project>

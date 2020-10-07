@@ -1,5 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <Import Project="$(SolutionDir)\build\Source.targets" />
+  <Import Project="$(SolutionDir)build\Source.targets" />
   <ItemGroup>
     <Reference Include="PresentationCore" />
     <Reference Include="System" />
@@ -28,7 +28,7 @@
     </PackageReference>
   </ItemGroup>
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="xcopy /d/s/y $(PkgGraphSharp)\lib\net40\* $(SolutionDir)\bin\$(Configuration)\Application\Built-in\Managed\Externals\GraphSharp-1.1.0\*" />
-    <Exec Command="xcopy /d/s/y $(PkgWPFExtensions)\lib\* $(SolutionDir)\bin\$(Configuration)\Application\Built-in\Managed\Externals\WPFExtensions-1.0.0\*" />
+    <Exec Command="xcopy /d/s/y $(PkgGraphSharp)\lib\net40\* $(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Externals\GraphSharp-1.1.0\*" />
+    <Exec Command="xcopy /d/s/y $(PkgWPFExtensions)\lib\* $(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Externals\WPFExtensions-1.0.0\*" />
   </Target>
 </Project>

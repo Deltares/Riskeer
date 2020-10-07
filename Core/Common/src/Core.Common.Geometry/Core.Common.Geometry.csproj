@@ -1,5 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <Import Project="$(SolutionDir)\build\Source.targets" />
+  <Import Project="$(SolutionDir)build\Source.targets" />
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -36,9 +36,9 @@
     </PackageReference>
   </ItemGroup>
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="xcopy /d/s/y $(PkgMathNet_Numerics)\lib\net40\* $(SolutionDir)\bin\$(Configuration)\Application\Built-in\Managed\Externals\MathNet.Numerics-3.19.0\*" />
-    <Exec Command="xcopy /d/s/y $(PkgMathNet_Spatial)\lib\net40\* $(SolutionDir)\bin\$(Configuration)\Application\Built-in\Managed\Externals\MathNet.Spatial-0.3.0\*" />
-    <Exec Command="xcopy /d/s/y $(PkgNetTopologySuite)\lib\net45\* $(SolutionDir)\bin\$(Configuration)\Application\Built-in\Managed\Externals\NetTopologySuite-1.14.0\*" />
-    <Exec Command="xcopy /d/s/y $(PkgGeoAPI)\lib\net45\* $(SolutionDir)\bin\$(Configuration)\Application\Built-in\Managed\Externals\GeoAPI-1.7.4\*" />
+    <Exec Command="xcopy /d/s/y $(PkgMathNet_Numerics)\lib\net40\* $(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Externals\MathNet.Numerics-3.19.0\*" />
+    <Exec Command="xcopy /d/s/y $(PkgMathNet_Spatial)\lib\net40\* $(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Externals\MathNet.Spatial-0.3.0\*" />
+    <Exec Command="xcopy /d/s/y $(PkgNetTopologySuite)\lib\net45\* $(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Externals\NetTopologySuite-1.14.0\*" />
+    <Exec Command="xcopy /d/s/y $(PkgGeoAPI)\lib\net45\* $(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Externals\GeoAPI-1.7.4\*" />
   </Target>
 </Project>

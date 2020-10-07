@@ -1,5 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <Import Project="$(SolutionDir)\build\Source.targets" />
+  <Import Project="$(SolutionDir)build\Source.targets" />
   <ItemGroup>
     <Reference Include="Components.Persistence.Stability">
       <HintPath>..\..\..\..\lib\Plugins\Wti\Components.Persistence.Stability.dll</HintPath>
@@ -58,7 +58,7 @@
     </PackageReference>
   </ItemGroup>
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="xcopy /d/s/y $(Pkglog4net)\lib\net45-full\* $(SolutionDir)\bin\$(Configuration)\Application\Built-in\Managed\Externals\Log4net-2.0.8\*" />
-    <Exec Command="xcopy /d/s/y $(SolutionDir)\lib\Plugins\Wti\Components.Persistence.Stability.dll $(SolutionDir)\bin\$(Configuration)\Application\Built-in\Managed\Deltares\D-Stability-20.2.1\*" />
+    <Exec Command="xcopy /d/s/y $(Pkglog4net)\lib\net45-full\* $(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Externals\Log4net-2.0.8\*" />
+    <Exec Command="xcopy /d/s/y $(SolutionDir)\lib\Plugins\Wti\Components.Persistence.Stability.dll $(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Deltares\D-Stability-20.2.1\*" />
   </Target>
 </Project>

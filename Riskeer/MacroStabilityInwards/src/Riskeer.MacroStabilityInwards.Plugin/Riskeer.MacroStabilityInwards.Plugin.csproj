@@ -1,5 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <Import Project="$(SolutionDir)\build\Source.targets" />
+  <Import Project="$(SolutionDir)build\Source.targets" />
   <ItemGroup>
     <Reference Include="Components.Persistence.Stability">
       <HintPath>..\..\..\..\lib\Plugins\Wti\Components.Persistence.Stability.dll</HintPath>

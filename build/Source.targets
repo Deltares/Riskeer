@@ -3,7 +3,7 @@
     <OutDir>$(OutputPath)</OutDir>
     <OutputPath>bin\$(Configuration)\</OutputPath>
   </PropertyGroup>
-  <Import Project="$(SolutionDir)\build\Base.targets" />
+  <Import Project="$(SolutionDir)build\Base.targets" />
   <PropertyGroup>
     <ContentSQLiteInteropFiles>false</ContentSQLiteInteropFiles>
     <CopySQLiteInteropFiles>false</CopySQLiteInteropFiles>
@@ -11,7 +11,7 @@
     <CollectSQLiteInteropFiles>false</CollectSQLiteInteropFiles>
   </PropertyGroup>
   <Target Name="PostBuildCopyAssembly" AfterTargets="PostBuildEvent">
-    <Exec Command="xcopy /d/s/y $(OutDir)\$(AssemblyName).dll $(SolutionDir)\bin\$(Configuration)\Application\Built-in\Managed\Core\*" />
-    <Exec Command="xcopy /d/s/y $(OutDir)\$(AssemblyName).pdb $(SolutionDir)\bin\$(Configuration)\Application\Built-in\Managed\Core\*" Condition="$(DefineConstants.Contains('DEBUG')) Or $(DefineConstants.Contains('RELEASEFORCODECOVERAGE'))" />
+    <Exec Command="xcopy /d/s/y $(OutDir)$(AssemblyName).dll $(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Core\*" />
+    <Exec Command="xcopy /d/s/y $(OutDir)$(AssemblyName).pdb $(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Core\*" Condition="$(DefineConstants.Contains('DEBUG')) Or $(DefineConstants.Contains('RELEASEFORCODECOVERAGE'))" />
   </Target>
 </Project>
