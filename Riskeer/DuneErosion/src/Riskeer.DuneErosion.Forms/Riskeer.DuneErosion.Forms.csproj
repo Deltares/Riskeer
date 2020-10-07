@@ -50,6 +50,6 @@
     </PackageReference>
   </ItemGroup>
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="xcopy /d/s/y $(Pkglog4net)\lib\net45-full\* $(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Externals\Log4net-2.0.8\*" />
+    <Exec Command="xcopy /d/s/y &quot;$(Pkglog4net)\lib\net45-full\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Externals\Log4net-2.0.8\*&quot;" />
   </Target>
 </Project>

@@ -82,16 +82,16 @@
     </PackageReference>
   </ItemGroup>
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="xcopy /d/s/y $(PkgFluent_Ribbon)\lib\net45\* $(OutDir)Application\Built-in\Managed\Externals\Fluent-3.4.0\*" />
-    <Exec Command="xcopy /d/s/y $(Pkglog4net)\lib\net45-full\* $(OutDir)Application\Built-in\Managed\Externals\Log4net-2.0.8\*" />
-    <Exec Command="xcopy /d/s/y $(PkgSystem_Data_Sqlite_Core)\lib\net45\* $(OutDir)Application\Built-in\Managed\Externals\System.Data.SQLite.Core-1.0.109.2\*" />
-    <Exec Command="xcopy /d/s/y $(PkgSystem_Data_Sqlite_Core)\build\net45\x64\* $(OutDir)Application\Built-in\Managed\Externals\System.Data.SQLite.Core-1.0.109.2\x64\*" />
-    <Exec Command="xcopy /d/s/y $(PkgSystem_Data_Sqlite_Core)\build\net45\x86\* $(OutDir)Application\Built-in\Managed\Externals\System.Data.SQLite.Core-1.0.109.2\x86\*" />
-    <Exec Command="xcopy /d/s/y $(PkgSystem_Data_Sqlite_EF6)\lib\net45\* $(OutDir)Application\Built-in\Managed\Externals\System.Data.SQLite.EF6-1.0.109\*" />
+    <Exec Command="xcopy /d/s/y &quot;$(PkgFluent_Ribbon)\lib\net45\*&quot; &quot;$(OutDir)Application\Built-in\Managed\Externals\Fluent-3.4.0\*&quot;" />
+    <Exec Command="xcopy /d/s/y &quot;$(Pkglog4net)\lib\net45-full\*&quot; &quot;$(OutDir)Application\Built-in\Managed\Externals\Log4net-2.0.8\*&quot;" />
+    <Exec Command="xcopy /d/s/y &quot;$(PkgSystem_Data_Sqlite_Core)\lib\net45\*&quot; &quot;$(OutDir)Application\Built-in\Managed\Externals\System.Data.SQLite.Core-1.0.109.2\*&quot;" />
+    <Exec Command="xcopy /d/s/y &quot;$(PkgSystem_Data_Sqlite_Core)\build\net45\x64\*&quot; &quot;$(OutDir)Application\Built-in\Managed\Externals\System.Data.SQLite.Core-1.0.109.2\x64\*&quot;" />
+    <Exec Command="xcopy /d/s/y &quot;$(PkgSystem_Data_Sqlite_Core)\build\net45\x86\*&quot; &quot;$(OutDir)Application\Built-in\Managed\Externals\System.Data.SQLite.Core-1.0.109.2\x86\*&quot;" />
+    <Exec Command="xcopy /d/s/y &quot;$(PkgSystem_Data_Sqlite_EF6)\lib\net45\*&quot; &quot;$(OutDir)Application\Built-in\Managed\Externals\System.Data.SQLite.EF6-1.0.109\*&quot;" />
   </Target>
   <Target Name="PostBuildCopyAssembly" AfterTargets="PostBuildEvent">
-    <Exec Command="xcopy /d/s/y $(OutDir)$(AssemblyName).exe $(SolutionDir)bin\$(Configuration)\*" />
-    <Exec Command="xcopy /d/s/y $(OutDir)$(AssemblyName).exe.config $(SolutionDir)bin\$(Configuration)\*" />
-    <Exec Command="xcopy /d/s/y $(OutDir)$(AssemblyName).pdb $(SolutionDir)bin\$(Configuration)\*" Condition="$(DefineConstants.Contains('DEBUG')) Or $(DefineConstants.Contains('RELEASEFORCODECOVERAGE'))" />
+    <Exec Command="xcopy /d/s/y &quot;$(OutDir)$(AssemblyName).exe&quot; &quot;$(SolutionDir)bin\$(Configuration)\*&quot;" />
+    <Exec Command="xcopy /d/s/y &quot;$(OutDir)$(AssemblyName).exe.config&quot; &quot;$(SolutionDir)bin\$(Configuration)\*&quot;" />
+    <Exec Command="xcopy /d/s/y &quot;$(OutDir)$(AssemblyName).pdb&quot; &quot;$(SolutionDir)bin\$(Configuration)\*&quot;" Condition="$(DefineConstants.Contains('DEBUG')) Or $(DefineConstants.Contains('RELEASEFORCODECOVERAGE'))" />
   </Target>
 </Project>

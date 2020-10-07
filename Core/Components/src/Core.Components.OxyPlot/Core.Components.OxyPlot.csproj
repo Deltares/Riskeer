@@ -23,6 +23,6 @@
     </PackageReference>
   </ItemGroup>
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="xcopy /d/s/y $(PkgOxyPlot_Core)\lib\net45\* $(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Externals\OxyPlot.Core-1.0.0\*" />
+    <Exec Command="xcopy /d/s/y &quot;$(PkgOxyPlot_Core)\lib\net45\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Externals\OxyPlot.Core-1.0.0\*&quot;" />
   </Target>
 </Project>

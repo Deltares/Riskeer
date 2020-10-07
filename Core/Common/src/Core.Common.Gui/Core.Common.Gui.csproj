@@ -116,9 +116,9 @@
     </EmbeddedResource>
   </ItemGroup>
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="xcopy /d/s/y $(PkgAvalonDock)\lib\net40\* $(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Externals\AvalonDock-2.0.2000\*" />
-    <Exec Command="xcopy /d/s/y $(ProjectDir)\nl\* $(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Externals\AvalonDock-2.0.2000\nl\*" />
-    <Exec Command="xcopy /d/s/y $(PkgFluent_Ribbon)\lib\net45\* $(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Externals\Fluent-3.4.0\*" />
-    <Exec Command="xcopy /d/s/y $(Pkglog4net)\lib\net45-full\* $(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Externals\Log4net-2.0.8\*" />
+    <Exec Command="xcopy /d/s/y &quot;$(PkgAvalonDock)\lib\net40\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Externals\AvalonDock-2.0.2000\*&quot;" />
+    <Exec Command="xcopy /d/s/y &quot;$(ProjectDir)\nl\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Externals\AvalonDock-2.0.2000\nl\*&quot;" />
+    <Exec Command="xcopy /d/s/y &quot;$(PkgFluent_Ribbon)\lib\net45\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Externals\Fluent-3.4.0\*&quot;" />
+    <Exec Command="xcopy /d/s/y &quot;$(Pkglog4net)\lib\net45-full\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Externals\Log4net-2.0.8\*&quot;" />
   </Target>
 </Project>

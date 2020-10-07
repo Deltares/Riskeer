@@ -35,7 +35,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <Target Name="PostBuildCopyAssembly" AfterTargets="PostBuildEvent">
-    <Exec Command="xcopy /d/s/y $(OutDir)$(AssemblyName).exe $(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Core\*" />
-    <Exec Command="xcopy /d/s/y $(OutDir)$(AssemblyName).pdb $(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Core\*" Condition="$(DefineConstants.Contains('DEBUG')) Or $(DefineConstants.Contains('RELEASEFORCODECOVERAGE'))" />
+    <Exec Command="xcopy /d/s/y &quot;$(OutDir)$(AssemblyName).exe&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Core\*&quot;" />
+    <Exec Command="xcopy /d/s/y &quot;$(OutDir)$(AssemblyName).pdb&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Core\*&quot;" Condition="$(DefineConstants.Contains('DEBUG')) Or $(DefineConstants.Contains('RELEASEFORCODECOVERAGE'))" />
   </Target>
 </Project>

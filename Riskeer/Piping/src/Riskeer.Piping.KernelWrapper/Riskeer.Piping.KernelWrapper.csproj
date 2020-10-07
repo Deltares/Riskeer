@@ -19,6 +19,6 @@
     </None>
   </ItemGroup>
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="xcopy /d/s/y $(SolutionDir)\lib\Plugins\Wti\WTIPiping.dll $(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Deltares\Piping-16.2.1.4574\*" />
+    <Exec Command="xcopy /d/s/y &quot;$(SolutionDir)\lib\Plugins\Wti\WTIPiping.dll&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Deltares\Piping-16.2.1.4574\*&quot;" />
   </Target>
 </Project>
