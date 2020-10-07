@@ -1,8 +1,8 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
   <PropertyGroup>
-    <BuildPath>$(MSBuildProjectDirectory)\..</BuildPath>
-    <SolutionDir>$(MSBuildProjectDirectory)\..</SolutionDir> 
+    <BuildPath>$(MSBuildProjectDirectory)</BuildPath>
+    <SolutionDir>$(MSBuildProjectDirectory)</SolutionDir> 
     <DoxygenOutputDirectory>$(BuildPath)\target\Technical_documentation\</DoxygenOutputDirectory>
   </PropertyGroup>
   
