@@ -33,7 +33,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Services
     [TestFixture]
     public class HydraRingInitializationServiceTest
     {
-        private static readonly string hydraRingDirectory = Path.Combine(AssemblyResolver.GetApplicationDirectory(), "StandAlone", "Deltares", "HydraRing");
+        private static readonly string hydraRingDirectory = Path.Combine(AssemblyResolver.GetApplicationDirectory(), "Standalone", "Deltares", "HydraRing");
 
         [Test]
         public void Constructor_SettingsNull_ThrowsArgumentNullException()
