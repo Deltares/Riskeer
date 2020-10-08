@@ -3,7 +3,7 @@
 	<testsuiteentryhierarchy>
 		<flatlistofchildren>
 			<smartfoldernode
-			datasource="relevance44_2FailureMechanismContributionView"
+			datasource="setRelevance44_2FailureMechanismContributionView"
 			id="00c7a4e5-d91a-40ea-9fc2-39264a957d87"
 			name="LoopFMs">
 			</smartfoldernode>
@@ -125,7 +125,7 @@
 			name="ValidateFMsPresentInTrajects">
 			</smartfoldernode>
 			<smartfoldernode
-			datasource="relevance44_2FailureMechanismContributionView"
+			datasource="setRelevance44_2FailureMechanismContributionView"
 			id="0cb3406e-9796-40ad-a9fc-964ae357d98d"
 			name="LoopFMs">
 			</smartfoldernode>
@@ -402,7 +402,7 @@
 			name="LoopRows">
 			</smartfoldernode>
 			<smartfoldernode
-			datasource="relevance44_2ProjectExplorer"
+			datasource="setRelevance44_2FailureMechanismContributionView"
 			id="2179672b-c6cc-4f03-8e2b-71ae42170951"
 			name="LoopFMs">
 			</smartfoldernode>
@@ -1861,40 +1861,40 @@
 			type="Recording">
 				<databinding>
 					<var
+					dataname="IsRelevant"
+					datasourceid="a54ae645-4aaf-4171-8a2d-53ef4c71eb12"
+					variableid="e71d741d-fe4d-41b8-ba2d-00fc7872d25f"
+					variablename="fmExpectedRelevance">
+					</var>
+					<var
 					dataname="TextInTraject"
-					datasourceid="1b1df013-4a4b-4a2a-a392-87368b82bae9"
+					datasourceid="a54ae645-4aaf-4171-8a2d-53ef4c71eb12"
 					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
 					variablename="substringTrajectName">
 					</var>
 					<var
 					dataname="NameFM"
-					datasourceid="1b1df013-4a4b-4a2a-a392-87368b82bae9"
+					datasourceid="a54ae645-4aaf-4171-8a2d-53ef4c71eb12"
 					variableid="3a7276c1-fca1-4026-9d2e-5bac10651a47"
 					variablename="substringFMName">
-					</var>
-					<var
-					dataname="IsRelevant"
-					datasourceid="1b1df013-4a4b-4a2a-a392-87368b82bae9"
-					variableid="e71d741d-fe4d-41b8-ba2d-00fc7872d25f"
-					variablename="fmExpectedRelevance">
 					</var>
 				</databinding>
 				<missingdatabinding>
 					<var
 					dataname="IsRelevant"
-					datasourceid="9df3cf25-f308-49ae-bd27-f976cf66fd09"
+					datasourceid="1b1df013-4a4b-4a2a-a392-87368b82bae9"
 					variableid="e71d741d-fe4d-41b8-ba2d-00fc7872d25f"
 					variablename="fmExpectedRelevance">
 					</var>
 					<var
 					dataname="TextInTraject"
-					datasourceid="9df3cf25-f308-49ae-bd27-f976cf66fd09"
+					datasourceid="1b1df013-4a4b-4a2a-a392-87368b82bae9"
 					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
 					variablename="substringTrajectName">
 					</var>
 					<var
 					dataname="NameFM"
-					datasourceid="9df3cf25-f308-49ae-bd27-f976cf66fd09"
+					datasourceid="1b1df013-4a4b-4a2a-a392-87368b82bae9"
 					variableid="3a7276c1-fca1-4026-9d2e-5bac10651a47"
 					variablename="substringFMName">
 					</var>
@@ -2386,6 +2386,20 @@
 			type="Recording">
 				<databinding>
 					<var
+					dataname="IsRelevant"
+					datasourceid="a54ae645-4aaf-4171-8a2d-53ef4c71eb12"
+					variableid="42b39611-e5ad-41f4-aa05-4779bcb10c5b"
+					variablename="isFMExpectedRelevant">
+					</var>
+					<var
+					dataname="NameFM"
+					datasourceid="a54ae645-4aaf-4171-8a2d-53ef4c71eb12"
+					variableid="5afdb904-9d2e-4bb5-ae28-38089eda6255"
+					variablename="labelFM">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
 					dataname="NameFM"
 					datasourceid="9df3cf25-f308-49ae-bd27-f976cf66fd09"
 					variableid="5afdb904-9d2e-4bb5-ae28-38089eda6255"
@@ -2397,7 +2411,7 @@
 					variableid="42b39611-e5ad-41f4-aa05-4779bcb10c5b"
 					variablename="isFMExpectedRelevant">
 					</var>
-				</databinding>
+				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
 			id="b387024f-8d3e-4942-8f6f-4b9a2f5efde0"
@@ -3368,6 +3382,20 @@
 				<databinding>
 					<var
 					dataname="IsRelevant"
+					datasourceid="a54ae645-4aaf-4171-8a2d-53ef4c71eb12"
+					variableid="8f4ca43a-f614-4ad7-898c-4a121072e015"
+					variablename="fmExpectedRelevance">
+					</var>
+					<var
+					dataname="NameFM"
+					datasourceid="a54ae645-4aaf-4171-8a2d-53ef4c71eb12"
+					variableid="5afdb904-9d2e-4bb5-ae28-38089eda6255"
+					variablename="labelFM">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="IsRelevant"
 					datasourceid="9df3cf25-f308-49ae-bd27-f976cf66fd09"
 					variableid="8f4ca43a-f614-4ad7-898c-4a121072e015"
 					variablename="fmExpectedRelevance">
@@ -3378,7 +3406,7 @@
 					variableid="5afdb904-9d2e-4bb5-ae28-38089eda6255"
 					variablename="labelFM">
 					</var>
-				</databinding>
+				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="f88d8120-e89e-4a11-bab3-2d1b84db2867"
@@ -5430,6 +5458,33 @@
 			</file>
 		</DataSource>
 		<DataSource
+		id="a54ae645-4aaf-4171-8a2d-53ef4c71eb12"
+		includefile="Unchecked"
+		lastknownrowcount="11"
+		name="setRelevance44_2FailureMechanismContributionView"
+		type="Ranorex.Core.Data.CsvDataConnector"
+		withheaders="True">
+			<lastknowncolumns>
+				<column>
+					TextInTraject
+				</column>
+				<column>
+					Label
+				</column>
+				<column>
+					NameFM
+				</column>
+				<column>
+					IsRelevant
+				</column>
+			</lastknowncolumns>
+			<maskedcolumns>
+			</maskedcolumns>
+			<file>
+				X:\script21\input\CSVs\setRelevanceOfFMsInTraject44-2FMCView.csv
+			</file>
+		</DataSource>
+		<DataSource
 		id="5a0e29a6-08a7-4feb-b858-4061ef1b16a2"
 		includefile="Unchecked"
 		lastknownrowcount="8"
@@ -5564,7 +5619,22 @@
 		<testconfiguration
 		name="TestRun">
 			<testcontainer
+			id="00c7a4e5-d91a-40ea-9fc2-39264a957d87">
+			</testcontainer>
+			<testcontainer
+			id="06908862-b5db-4ca7-99ea-562da0210ef4">
+			</testcontainer>
+			<testcontainer
 			id="09206115-c01f-4bd2-a711-ec99d2198a5f">
+			</testcontainer>
+			<testcontainer
+			id="0a44c5a2-9fe0-4a08-be4d-b094c7780e99">
+			</testcontainer>
+			<testcontainer
+			id="0bbfd560-88d6-4516-bf12-c27a1fe6f4b9">
+			</testcontainer>
+			<testcontainer
+			id="0cb3406e-9796-40ad-a9fc-964ae357d98d">
 			</testcontainer>
 			<testcontainer
 			id="0f6ce510-5e07-4792-80dc-5fa54c51639d">
@@ -5573,10 +5643,22 @@
 			id="1ca083b2-ffd0-4553-a50a-f17aad616df9">
 			</testcontainer>
 			<testcontainer
+			id="1eff0053-015a-4ebc-aece-f2f6f630f6bc">
+			</testcontainer>
+			<testcontainer
+			id="2179672b-c6cc-4f03-8e2b-71ae42170951">
+			</testcontainer>
+			<testcontainer
+			id="22e4bbf9-0675-41cb-8838-d39c0cf423b6">
+			</testcontainer>
+			<testcontainer
 			id="25a64760-c54d-4c7f-b4dc-5f1ec4ef1935">
 			</testcontainer>
 			<testcontainer
 			id="2688ac5e-e112-466c-aad3-9c8b60c1497f">
+			</testcontainer>
+			<testcontainer
+			id="29d86fdd-4a06-4cf2-b6b4-163ef6f223e4">
 			</testcontainer>
 			<testcontainer
 			id="2c9bd23e-8b91-4297-a68d-6b10f154ed3b">
@@ -5585,13 +5667,52 @@
 			id="2de34f6f-37d9-43ec-bb73-99701040ddeb">
 			</testcontainer>
 			<testcontainer
+			id="33d7e485-8bdd-4286-9e35-8e1b4c29bb6e">
+			</testcontainer>
+			<testcontainer
+			id="36de5b8d-308c-4502-9938-6fab6ac232a3">
+			</testcontainer>
+			<testcontainer
+			id="3727343f-880f-4d7d-ace6-c59dbd92b57a">
+			</testcontainer>
+			<testcontainer
 			id="37c811fd-9297-4d92-b429-28a452540bf1">
 			</testcontainer>
 			<testcontainer
 			id="42f4cf7a-f88d-4f29-88fb-bd3bb76afff6">
 			</testcontainer>
 			<testcontainer
+			id="44f46814-6990-4cf7-a952-322a09d85d43">
+			</testcontainer>
+			<testcontainer
+			id="466ac64f-9a07-4a8a-82b8-3af12a998abc">
+			</testcontainer>
+			<testcontainer
+			id="4bb671b5-bd57-42fd-a72e-41482b3d1dbb">
+			</testcontainer>
+			<testcontainer
 			id="4d61407c-ed3a-404a-93cb-eff44aa1068a">
+			</testcontainer>
+			<testcontainer
+			id="50ca1144-cabd-4fb2-b556-22a7edfadf97">
+			</testcontainer>
+			<testcontainer
+			id="54726836-ea20-4aed-9544-c3ea520ce225">
+			</testcontainer>
+			<testcontainer
+			id="571a9ba3-86a6-4c7e-9f89-17d420e49e63">
+			</testcontainer>
+			<testcontainer
+			id="58a6b72e-26d9-47d1-87ab-f35fb84b127c">
+			</testcontainer>
+			<testcontainer
+			id="5a79372d-2a17-44e3-93d6-a6b0ba0c45ef">
+			</testcontainer>
+			<testcontainer
+			id="5b63b031-dd02-4a8d-89c0-7f1d5f3066a9">
+			</testcontainer>
+			<testcontainer
+			id="5c9aaf1b-40ce-4a6c-923c-fbe5859aa91f">
 			</testcontainer>
 			<testcontainer
 			id="5d98a6f1-5e9f-4420-8f4b-70a04216142f">
@@ -5606,7 +5727,25 @@
 			id="6328f616-711a-4f5c-92de-34ee4b839518">
 			</testcontainer>
 			<testcontainer
+			id="645a1e46-fc85-4ee5-b48f-628d1c339748">
+			</testcontainer>
+			<testcontainer
+			id="716669cb-8d3f-4f98-a608-2311ffb07430">
+			</testcontainer>
+			<testcontainer
+			id="72139e5e-316f-4a54-9d52-75f865439dd6">
+			</testcontainer>
+			<testcontainer
+			id="75bc37b3-8164-46db-8dab-3fbff66c9045">
+			</testcontainer>
+			<testcontainer
+			id="78b7779b-7370-4e07-b1e4-d9a21ce890e1">
+			</testcontainer>
+			<testcontainer
 			id="79ea34f0-ed79-448c-8aa5-d952976bfec4">
+			</testcontainer>
+			<testcontainer
+			id="7df4f5d9-6c64-457c-8a84-336b3a0d721b">
 			</testcontainer>
 			<testcontainer
 			id="7f1d4de9-90da-4126-bf23-7008a5a44fee">
@@ -5618,10 +5757,34 @@
 			id="8725146c-8183-4c21-bb8f-06e5ebf4c8ea">
 			</testcontainer>
 			<testcontainer
+			id="885b0dbd-85dc-44b0-9c04-06b382fd2158">
+			</testcontainer>
+			<testcontainer
 			id="8b8fa870-c170-4c55-b819-337a8696544e">
 			</testcontainer>
 			<testcontainer
 			id="8f466d99-9dec-4400-9916-caced2df458b">
+			</testcontainer>
+			<testcontainer
+			id="921c41ea-9f72-4d4f-bfe2-a7f2f0365468">
+			</testcontainer>
+			<testcontainer
+			id="9339f92a-867d-4e0d-b2a5-1fe03f3fc82a">
+			</testcontainer>
+			<testcontainer
+			id="9cb3bdde-1999-4bae-aa4e-6330208999d4">
+			</testcontainer>
+			<testcontainer
+			id="9e3ed5ce-9517-474f-81c6-435b0d1e38ac">
+			</testcontainer>
+			<testcontainer
+			id="9edfe01c-c130-4792-b0ab-0c91a3270f15">
+			</testcontainer>
+			<testcontainer
+			id="a05f1ece-a4c1-439f-a1db-ff664bd18416">
+			</testcontainer>
+			<testcontainer
+			id="a340e9a4-4cf7-4999-b91c-36776c39fc1f">
 			</testcontainer>
 			<testcontainer
 			id="a41fa0b2-d5f7-49f5-8cbd-3c55acd955ae">
@@ -5630,10 +5793,22 @@
 			id="a6967a33-1477-4893-927e-d6030af4a6df">
 			</testcontainer>
 			<testcontainer
+			id="a9476a5d-b871-4277-9188-1ebfe572836e">
+			</testcontainer>
+			<testcontainer
 			id="aa5794c0-c09f-491c-aabc-539950fa3cbf">
 			</testcontainer>
 			<testcontainer
+			id="ac3846b8-cfe0-440c-8c4e-185c97a25237">
+			</testcontainer>
+			<testcontainer
 			id="adfd004f-4c6b-44ef-86d2-3ee33f7984a2">
+			</testcontainer>
+			<testcontainer
+			id="b387024f-8d3e-4942-8f6f-4b9a2f5efde0">
+			</testcontainer>
+			<testcontainer
+			id="b5ffcf6c-191b-4757-9d22-49e7233e7c54">
 			</testcontainer>
 			<testcontainer
 			id="b66951ce-3ef1-44d5-8d02-75c34ad10f5b">
@@ -5642,19 +5817,76 @@
 			id="bbc066fa-b5b2-4b7d-99bd-7df1666d347a">
 			</testcontainer>
 			<testcontainer
+			id="bbc104ea-69c3-4dcd-8e50-5d1b60cd8d06">
+			</testcontainer>
+			<testcontainer
+			id="bf121a60-f853-42d9-97a2-42a7a3601c72">
+			</testcontainer>
+			<testcontainer
+			id="c13fce8d-93a7-44e9-8603-4f02531c48d4">
+			</testcontainer>
+			<testcontainer
+			id="c1adef3a-d31b-4c6f-8ad3-27e077f4bda0">
+			</testcontainer>
+			<testcontainer
+			id="c23e27aa-dca4-4ae7-9cab-a920f2b2d594">
+			</testcontainer>
+			<testcontainer
+			id="c2835620-b926-49c7-95b5-58ccb48f4e0e">
+			</testcontainer>
+			<testcontainer
+			id="c634f880-0187-4e4a-9eed-0c396c788f3f">
+			</testcontainer>
+			<testcontainer
+			id="c7aa0781-b102-4705-92d4-de781e658f70">
+			</testcontainer>
+			<testcontainer
 			id="d08265bc-bb9d-45a6-a666-5d4e5a13a1ca">
 			</testcontainer>
 			<testcontainer
 			id="d09feb8c-4a12-4dc9-b05b-f585593616e5">
 			</testcontainer>
 			<testcontainer
+			id="d34200d9-5186-497e-9e06-4276b43682ad">
+			</testcontainer>
+			<testcontainer
+			id="d3a5f35e-8801-4c38-a81d-c55a85a2fdc5">
+			</testcontainer>
+			<testcontainer
+			id="d508d6ac-d58e-4ef0-93d4-7d3874716ee9">
+			</testcontainer>
+			<testcontainer
 			id="db11f124-c58c-473c-bf94-af3cc95ea4f3">
+			</testcontainer>
+			<testcontainer
+			id="ddfa8ca6-6795-4646-9070-a5d686852fac">
+			</testcontainer>
+			<testcontainer
+			id="e1ff5697-2c1e-4010-85a0-6f45679d7f50">
+			</testcontainer>
+			<testcontainer
+			id="e3a5d86a-aed9-4cb2-9fd0-3f8149eb00ca">
+			</testcontainer>
+			<testcontainer
+			id="e5ae984b-bd5a-4a0a-9e27-8c0d4bf76e75">
+			</testcontainer>
+			<testcontainer
+			id="e756f312-1a93-4042-9200-8ee398806472">
 			</testcontainer>
 			<testcontainer
 			id="f16b204f-b66b-40a0-82c1-8d62dcbc8b22">
 			</testcontainer>
 			<testcontainer
 			id="f2d0096b-362f-4654-8f4b-52e8cae9663f">
+			</testcontainer>
+			<testcontainer
+			id="f4955a2d-d976-4dab-9a66-884a462172a4">
+			</testcontainer>
+			<testcontainer
+			id="f5d0be3d-2759-45ad-91aa-cd3a341517b3">
+			</testcontainer>
+			<testcontainer
+			id="f8c83a48-af72-4d8d-ab1f-36873b1be41e">
 			</testcontainer>
 			<testcontainer
 			id="fbb2a28a-3275-45eb-99ac-4e94fcc817ec">

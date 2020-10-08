@@ -1,6 +1,6 @@
 ﻿TextInTraject,Label,NameFM,IsRelevant
-44-2,STPH,Dijken en dammen - Piping,True
-44-2,GEKB,Dijken en dammen - Grasbekleding erosie kruin en binnentalud,True
+44-2,STPH,Dijken en dammen - Piping,False
+44-2,GEKB,Dijken en dammen - Grasbekleding erosie kruin en binnentalud,False
 44-2,STBI,Dijken en dammen - Macrostabiliteit binnenwaarts,True
 44-2,STBU,Dijken en dammen - Macrostabiliteit buitenwaarts,True
 44-2,STMI,Dijken en dammen - Microstabiliteit,True
