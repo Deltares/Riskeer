@@ -1,5 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <Import Project="$(SolutionDir)\build\Source.targets" />
+  <Import Project="$(SolutionDir)build\Source.targets" />
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -10,8 +10,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Core.Components.PointedTree\Core.Components.PointedTree.csproj">
-      <Private>False</Private>
-    </ProjectReference>
+    <ProjectReference Include="..\Core.Components.PointedTree\Core.Components.PointedTree.csproj" />
   </ItemGroup>
 </Project>

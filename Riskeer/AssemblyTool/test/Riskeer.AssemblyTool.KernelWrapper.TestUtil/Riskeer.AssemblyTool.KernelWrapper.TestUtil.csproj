@@ -1,5 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <Import Project="$(SolutionDir)\build\TestUtil.targets" />
+  <Import Project="$(SolutionDir)build\TestUtil.targets" />
   <ItemGroup>
     <Reference Include="Assembly.Kernel">
       <HintPath>..\..\..\..\lib\Plugins\AssemblyTool\Assembly.Kernel.dll</HintPath>

@@ -1,5 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <Import Project="$(SolutionDir)\build\Source.targets" />
+  <Import Project="$(SolutionDir)build\Source.targets" />
   <PropertyGroup>
     <AssemblyName>Migratiehulpprogramma</AssemblyName>
     <OutputType>Exe</OutputType>
@@ -14,24 +14,12 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Util\Core.Common.Util.csproj">
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Migration\Console\src\Migration.Console\Migration.Console.csproj">
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Migration\Core\src\Migration.Core.Storage\Migration.Core.Storage.csproj">
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Migration\Scripts\src\Migration.Scripts.Data\Migration.Scripts.Data.csproj">
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Riskeer\Common\src\Riskeer.Common.Util\Riskeer.Common.Util.csproj">
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Riskeer\Migration\src\Riskeer.Migration.Core\Riskeer.Migration.Core.csproj">
-      <Private>False</Private>
-    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Util\Core.Common.Util.csproj" />
+    <ProjectReference Include="..\..\..\..\Migration\Console\src\Migration.Console\Migration.Console.csproj" />
+    <ProjectReference Include="..\..\..\..\Migration\Core\src\Migration.Core.Storage\Migration.Core.Storage.csproj" />
+    <ProjectReference Include="..\..\..\..\Migration\Scripts\src\Migration.Scripts.Data\Migration.Scripts.Data.csproj" />
+    <ProjectReference Include="..\..\..\..\Riskeer\Common\src\Riskeer.Common.Util\Riskeer.Common.Util.csproj" />
+    <ProjectReference Include="..\..\..\..\Riskeer\Migration\src\Riskeer.Migration.Core\Riskeer.Migration.Core.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="Properties\Resources.Designer.cs">
@@ -46,4 +34,8 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
+  <Target Name="PostBuildCopyAssembly" AfterTargets="PostBuildEvent">
+    <Exec Command="xcopy /d/s/y &quot;$(OutDir)$(AssemblyName).exe&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Core\*&quot;" />
+    <Exec Command="xcopy /d/s/y &quot;$(OutDir)$(AssemblyName).pdb&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Core\*&quot;" Condition="$(DefineConstants.Contains('DEBUG')) Or $(DefineConstants.Contains('RELEASEFORCODECOVERAGE'))" />
+  </Target>
 </Project>

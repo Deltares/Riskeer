@@ -1,88 +1,36 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <Import Project="$(SolutionDir)\build\Source.targets" />
+  <Import Project="$(SolutionDir)build\Source.targets" />
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj">
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\ClosingStructures\src\Riskeer.ClosingStructures.Data\Riskeer.ClosingStructures.Data.csproj">
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\ClosingStructures\src\Riskeer.ClosingStructures.Service\Riskeer.ClosingStructures.Service.csproj">
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Data\Riskeer.Common.Data.csproj">
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Service\Riskeer.Common.Service.csproj">
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\DuneErosion\src\Riskeer.DuneErosion.Data\Riskeer.DuneErosion.Data.csproj">
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\DuneErosion\src\Riskeer.DuneErosion.Service\Riskeer.DuneErosion.Service.csproj">
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\GrassCoverErosionInwards\src\Riskeer.GrassCoverErosionInwards.Data\Riskeer.GrassCoverErosionInwards.Data.csproj">
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\GrassCoverErosionInwards\src\Riskeer.GrassCoverErosionInwards.Service\Riskeer.GrassCoverErosionInwards.Service.csproj">
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\GrassCoverErosionInwards\src\Riskeer.GrassCoverErosionInwards.Util\Riskeer.GrassCoverErosionInwards.Util.csproj">
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\GrassCoverErosionOutwards\src\Riskeer.GrassCoverErosionOutwards.Data\Riskeer.GrassCoverErosionOutwards.Data.csproj">
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\GrassCoverErosionOutwards\src\Riskeer.GrassCoverErosionOutwards.Service\Riskeer.GrassCoverErosionOutwards.Service.csproj">
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\HeightStructures\src\Riskeer.HeightStructures.Data\Riskeer.HeightStructures.Data.csproj">
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\HeightStructures\src\Riskeer.HeightStructures.Service\Riskeer.HeightStructures.Service.csproj">
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\MacroStabilityInwards\src\Riskeer.MacroStabilityInwards.Data\Riskeer.MacroStabilityInwards.Data.csproj">
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\MacroStabilityInwards\src\Riskeer.MacroStabilityInwards.Service\Riskeer.MacroStabilityInwards.Service.csproj">
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Piping\src\Riskeer.Piping.Data\Riskeer.Piping.Data.csproj">
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Piping\src\Riskeer.Piping.Service\Riskeer.Piping.Service.csproj">
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Revetment\src\Riskeer.Revetment.Data\Riskeer.Revetment.Data.csproj">
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\StabilityPointStructures\src\Riskeer.StabilityPointStructures.Data\Riskeer.StabilityPointStructures.Data.csproj">
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\StabilityPointStructures\src\Riskeer.StabilityPointStructures.Service\Riskeer.StabilityPointStructures.Service.csproj">
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\StabilityStoneCover\src\Riskeer.StabilityStoneCover.Data\Riskeer.StabilityStoneCover.Data.csproj">
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\StabilityStoneCover\src\Riskeer.StabilityStoneCover.Service\Riskeer.StabilityStoneCover.Service.csproj">
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\WaveImpactAsphaltCover\src\Riskeer.WaveImpactAsphaltCover.Data\Riskeer.WaveImpactAsphaltCover.Data.csproj">
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\WaveImpactAsphaltCover\src\Riskeer.WaveImpactAsphaltCover.Service\Riskeer.WaveImpactAsphaltCover.Service.csproj">
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\Riskeer.Integration.Data\Riskeer.Integration.Data.csproj">
-      <Private>False</Private>
-    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj" />
+    <ProjectReference Include="..\..\..\ClosingStructures\src\Riskeer.ClosingStructures.Data\Riskeer.ClosingStructures.Data.csproj" />
+    <ProjectReference Include="..\..\..\ClosingStructures\src\Riskeer.ClosingStructures.Service\Riskeer.ClosingStructures.Service.csproj" />
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Data\Riskeer.Common.Data.csproj" />
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Service\Riskeer.Common.Service.csproj" />
+    <ProjectReference Include="..\..\..\DuneErosion\src\Riskeer.DuneErosion.Data\Riskeer.DuneErosion.Data.csproj" />
+    <ProjectReference Include="..\..\..\DuneErosion\src\Riskeer.DuneErosion.Service\Riskeer.DuneErosion.Service.csproj" />
+    <ProjectReference Include="..\..\..\GrassCoverErosionInwards\src\Riskeer.GrassCoverErosionInwards.Data\Riskeer.GrassCoverErosionInwards.Data.csproj" />
+    <ProjectReference Include="..\..\..\GrassCoverErosionInwards\src\Riskeer.GrassCoverErosionInwards.Service\Riskeer.GrassCoverErosionInwards.Service.csproj" />
+    <ProjectReference Include="..\..\..\GrassCoverErosionInwards\src\Riskeer.GrassCoverErosionInwards.Util\Riskeer.GrassCoverErosionInwards.Util.csproj" />
+    <ProjectReference Include="..\..\..\GrassCoverErosionOutwards\src\Riskeer.GrassCoverErosionOutwards.Data\Riskeer.GrassCoverErosionOutwards.Data.csproj" />
+    <ProjectReference Include="..\..\..\GrassCoverErosionOutwards\src\Riskeer.GrassCoverErosionOutwards.Service\Riskeer.GrassCoverErosionOutwards.Service.csproj" />
+    <ProjectReference Include="..\..\..\HeightStructures\src\Riskeer.HeightStructures.Data\Riskeer.HeightStructures.Data.csproj" />
+    <ProjectReference Include="..\..\..\HeightStructures\src\Riskeer.HeightStructures.Service\Riskeer.HeightStructures.Service.csproj" />
+    <ProjectReference Include="..\..\..\MacroStabilityInwards\src\Riskeer.MacroStabilityInwards.Data\Riskeer.MacroStabilityInwards.Data.csproj" />
+    <ProjectReference Include="..\..\..\MacroStabilityInwards\src\Riskeer.MacroStabilityInwards.Service\Riskeer.MacroStabilityInwards.Service.csproj" />
+    <ProjectReference Include="..\..\..\Piping\src\Riskeer.Piping.Data\Riskeer.Piping.Data.csproj" />
+    <ProjectReference Include="..\..\..\Piping\src\Riskeer.Piping.Service\Riskeer.Piping.Service.csproj" />
+    <ProjectReference Include="..\..\..\Revetment\src\Riskeer.Revetment.Data\Riskeer.Revetment.Data.csproj" />
+    <ProjectReference Include="..\..\..\StabilityPointStructures\src\Riskeer.StabilityPointStructures.Data\Riskeer.StabilityPointStructures.Data.csproj" />
+    <ProjectReference Include="..\..\..\StabilityPointStructures\src\Riskeer.StabilityPointStructures.Service\Riskeer.StabilityPointStructures.Service.csproj" />
+    <ProjectReference Include="..\..\..\StabilityStoneCover\src\Riskeer.StabilityStoneCover.Data\Riskeer.StabilityStoneCover.Data.csproj" />
+    <ProjectReference Include="..\..\..\StabilityStoneCover\src\Riskeer.StabilityStoneCover.Service\Riskeer.StabilityStoneCover.Service.csproj" />
+    <ProjectReference Include="..\..\..\WaveImpactAsphaltCover\src\Riskeer.WaveImpactAsphaltCover.Data\Riskeer.WaveImpactAsphaltCover.Data.csproj" />
+    <ProjectReference Include="..\..\..\WaveImpactAsphaltCover\src\Riskeer.WaveImpactAsphaltCover.Service\Riskeer.WaveImpactAsphaltCover.Service.csproj" />
+    <ProjectReference Include="..\Riskeer.Integration.Data\Riskeer.Integration.Data.csproj" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.licenseheader">
@@ -105,6 +53,11 @@
   <ItemGroup>
     <PackageReference Include="log4net">
       <Version>2.0.8</Version>
+      <GeneratePathProperty>true</GeneratePathProperty>
+      <PrivateAssets>all</PrivateAssets>
     </PackageReference>
   </ItemGroup>
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="xcopy /d/s/y &quot;$(Pkglog4net)\lib\net45-full\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Externals\Log4net-2.0.8\*&quot;" />
+  </Target>
 </Project>

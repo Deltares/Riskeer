@@ -23,11 +23,11 @@ All rights reserved.
 <Application x:Class="Application.Riskeer.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             Startup="App_Startup" ShutdownMode="OnLastWindowClose">
+             Startup="OnStartup" ShutdownMode="OnLastWindowClose">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Fluent;Component/Themes/generic.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Fluent;Component/Themes/generic.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

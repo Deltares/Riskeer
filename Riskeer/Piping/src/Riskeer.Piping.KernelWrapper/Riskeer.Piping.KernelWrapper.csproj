@@ -1,20 +1,24 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <Import Project="$(SolutionDir)\build\Source.targets" />
+  <Import Project="$(SolutionDir)build\Source.targets" />
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="WTIPiping, Culture=neutral, processorArchitecture=x86">
       <HintPath>..\..\..\..\lib\Plugins\Wti\WTIPiping.dll</HintPath>
+      <Private>false</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj"/>
-    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Data\Riskeer.Common.Data.csproj"/>
-    <ProjectReference Include="..\Riskeer.Piping.Primitives\Riskeer.Piping.Primitives.csproj"/>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj" />
+    <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Data\Riskeer.Common.Data.csproj" />
+    <ProjectReference Include="..\Riskeer.Piping.Primitives\Riskeer.Piping.Primitives.csproj" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.licenseheader">
       <Link>Copying.licenseheader</Link>
     </None>
   </ItemGroup>
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="xcopy /d/s/y &quot;$(SolutionDir)\lib\Plugins\Wti\WTIPiping.dll&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Deltares\Piping-16.2.1.4574\*&quot;" />
+  </Target>
 </Project>

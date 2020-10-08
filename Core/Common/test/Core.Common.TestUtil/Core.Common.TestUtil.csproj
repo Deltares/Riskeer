@@ -1,5 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <Import Project="$(SolutionDir)\build\TestUtil.targets" />
+  <Import Project="$(SolutionDir)build\TestUtil.targets" />
   <ItemGroup>
     <Compile Remove="test-data\**" />
     <EmbeddedResource Remove="test-data\**" />
@@ -20,6 +20,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\src\Core.Common.Assembly\Core.Common.Assembly.csproj" />
     <ProjectReference Include="..\..\src\Core.Common.Base\Core.Common.Base.csproj" />
     <ProjectReference Include="..\..\src\Core.Common.Gui\Core.Common.Gui.csproj" />
     <ProjectReference Include="..\..\src\Core.Common.Util\Core.Common.Util.csproj" />

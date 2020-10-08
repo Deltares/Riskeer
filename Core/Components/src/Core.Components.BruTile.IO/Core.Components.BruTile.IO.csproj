@@ -1,5 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <Import Project="$(SolutionDir)\build\Source.targets" />
+  <Import Project="$(SolutionDir)build\Source.targets" />
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -10,9 +10,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Core.Components.BruTile.Data\Core.Components.BruTile.Data.csproj">
-      <Private>False</Private>
-    </ProjectReference>
+    <ProjectReference Include="..\Core.Components.BruTile.Data\Core.Components.BruTile.Data.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="Properties\Resources.Designer.cs">
@@ -30,9 +28,17 @@
   <ItemGroup>
     <PackageReference Include="BruTile">
       <Version>2.1.2</Version>
+      <GeneratePathProperty>true</GeneratePathProperty>
+      <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="SmartThreadPool.dll">
       <Version>2.2.4</Version>
+      <GeneratePathProperty>true</GeneratePathProperty>
+      <PrivateAssets>all</PrivateAssets>
     </PackageReference>
   </ItemGroup>
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="xcopy /d/s/y &quot;$(PkgBruTile)\lib\net45\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Externals\BruTile-2.1.2\*&quot;" />
+    <Exec Command="xcopy /d/s/y &quot;$(PkgSmartThreadPool_dll)\lib\net45\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Externals\SmartThreadPool.dll-2.2.4\*&quot;" />
+  </Target>
 </Project>

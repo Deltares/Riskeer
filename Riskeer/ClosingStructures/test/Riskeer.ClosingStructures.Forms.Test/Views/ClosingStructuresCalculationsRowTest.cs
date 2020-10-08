@@ -26,7 +26,6 @@ using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Controls.DataGrid;
 using Core.Common.TestUtil;
-using DotSpatial.Symbology;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.ClosingStructures.Data;
@@ -295,8 +294,8 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
         {
             // Setup
             var inflowModelTypeChangedCounter = 0;
-            var random = new Random(21);
-            
+            var random = new Random(645);
+
             var mocks = new MockRepository();
             var handler = new SetPropertyValueAfterConfirmationParameterTester(new IObservable[0]);
             mocks.ReplayAll();
@@ -305,7 +304,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
             {
                 InputParameters =
                 {
-                    InflowModelType = random.NextEnum<ClosingStructureInflowModelType>()
+                    InflowModelType = random.NextEnumValue<ClosingStructureInflowModelType>()
                 }
             }, handler);
 
@@ -351,7 +350,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views
             var handler = mocks.Stub<IObservablePropertyChangeHandler>();
             mocks.ReplayAll();
 
-            var inflowModelType = random.NextEnum<ClosingStructureInflowModelType>();
+            var inflowModelType = random.NextEnumValue<ClosingStructureInflowModelType>();
             var row = new ClosingStructuresCalculationRow(new StructuresCalculationScenario<ClosingStructuresInput>
             {
                 InputParameters =

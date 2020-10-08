@@ -48,7 +48,7 @@ namespace Core.Common.TestUtil
         {
             get
             {
-                return Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\"));
+                return Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\"));
             }
         }
 
