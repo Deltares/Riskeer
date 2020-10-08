@@ -64,7 +64,7 @@
               <Shortcut Id="ApplicationInstallDirShortcut"
                         Name="!(loc.ApplicationLongName)"
                         Description="!(loc.StartApplicationDescription)"
-                        Target="[BINDIR]$(var.Application.Riskeer.TargetFileName)"
+                        Target="[BINDIR]!(loc.ApplicationLongName).exe"
                         WorkingDirectory="INSTALLDIR"
                         Icon="Riskeer.ico"/>
               
@@ -95,7 +95,7 @@
               <Shortcut Id="ApplicationStartMenuShortcut"
                         Name="!(loc.ApplicationLongName)"
                         Description="!(loc.StartApplicationDescription)"
-                        Target="[BINDIR]$(var.Application.Riskeer.TargetFileName)"
+                        Target="[BINDIR]!(loc.ApplicationLongName).exe"
                         WorkingDirectory="INSTALLDIR"
                         Icon="Riskeer.ico"/>
               <RemoveFolder Id="RemoveProgramMenuShortcut" Directory="ProgramMenuRiskeer" On="uninstall" />
@@ -123,7 +123,7 @@
           <Shortcut Id="ApplicationDesktopShortcut"
                     Name="!(loc.ApplicationLongName)"
                     Description="!(loc.StartApplicationDescription)"
-                    Target="[BINDIR]$(var.Application.Riskeer.TargetFileName)"
+                    Target="[BINDIR]!(loc.ApplicationLongName).exe"
                     WorkingDirectory="INSTALLDIR"
                     Icon="Riskeer.ico"/>
 
