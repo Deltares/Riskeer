@@ -63,10 +63,6 @@ using Riskeer.Storage.Core;
 using Riskeer.WaveImpactAsphaltCover.Plugin;
 using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 using MessageBox = System.Windows.MessageBox;
-#if DEVELOPMENT
-using Demo.Riskeer.GUIs;
-
-#endif
 
 namespace Application.Riskeer
 {
@@ -153,10 +149,6 @@ namespace Application.Riskeer
                     new MacroStabilityInwardsPlugin(),
                     new ChartPlugin(),
                     new MapPlugin()
-#if DEVELOPMENT
-                    ,
-                    new DemoPlugin()
-#endif
                 }
             };
 

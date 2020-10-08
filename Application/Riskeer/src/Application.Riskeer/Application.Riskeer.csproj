@@ -35,7 +35,6 @@
     <ProjectReference Include="..\..\..\..\Core\Plugins\src\Core.Plugins.CommonTools\Core.Plugins.CommonTools.csproj" />
     <ProjectReference Include="..\..\..\..\Core\Plugins\src\Core.Plugins.Map\Core.Plugins.Map.csproj" />
     <ProjectReference Include="..\..\..\..\Core\Plugins\src\Core.Plugins.ProjectExplorer\Core.Plugins.ProjectExplorer.csproj" />
-    <ProjectReference Include="..\..\..\..\Demo\Riskeer\src\Demo.Riskeer\Demo.Riskeer.csproj" Condition="$(DefineConstants.Contains('DEVELOPMENT'))" />
     <ProjectReference Include="..\..\..\..\Riskeer\ClosingStructures\src\Riskeer.ClosingStructures.Plugin\Riskeer.ClosingStructures.Plugin.csproj" />
     <ProjectReference Include="..\..\..\..\Riskeer\DuneErosion\src\Riskeer.DuneErosion.Plugin\Riskeer.DuneErosion.Plugin.csproj" />
     <ProjectReference Include="..\..\..\..\Riskeer\Integration\src\Riskeer.Integration.Forms\Riskeer.Integration.Forms.csproj" />
