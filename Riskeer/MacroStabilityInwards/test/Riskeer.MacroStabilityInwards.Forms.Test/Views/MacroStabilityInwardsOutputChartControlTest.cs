@@ -38,7 +38,6 @@ using Riskeer.MacroStabilityInwards.Forms.TestUtil;
 using Riskeer.MacroStabilityInwards.Forms.Views;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators;
 using Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators;
-using Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Waternet;
 using Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Waternet.Output;
 using Riskeer.MacroStabilityInwards.Primitives;
 
@@ -180,7 +179,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                 var calculatorFactory = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
                 calculatorFactory.LastCreatedWaternetDailyCalculator.Output = WaternetCalculatorResultTestFactory.CreateEmptyResult();
                 calculatorFactory.LastCreatedWaternetExtremeCalculator.Output = WaternetCalculatorResultTestFactory.CreateEmptyResult();
-                
+
                 // Call
                 using (var control = new MacroStabilityInwardsOutputChartControl(calculation,
                                                                                  AssessmentSectionTestHelper.GetTestAssessmentLevel))
@@ -422,10 +421,10 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                 // Precondition
                 MacroStabilityInwardsOutputViewChartDataAssert.AssertInputChartData(calculation, GetChartControl(control).Data);
 
-                var calculatorFactory = (TestMacroStabilityInwardsCalculatorFactory)MacroStabilityInwardsCalculatorFactory.Instance;
+                var calculatorFactory = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
                 calculatorFactory.LastCreatedWaternetDailyCalculator.Output = WaternetCalculatorResultTestFactory.CreateEmptyResult();
                 calculatorFactory.LastCreatedWaternetExtremeCalculator.Output = WaternetCalculatorResultTestFactory.CreateEmptyResult();
-                
+
                 // Call
                 control.UpdateChartData();
 

@@ -36,7 +36,6 @@ using Riskeer.MacroStabilityInwards.Forms.TestUtil;
 using Riskeer.MacroStabilityInwards.Forms.Views;
 using Riskeer.MacroStabilityInwards.KernelWrapper.Calculators;
 using Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators;
-using Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Waternet;
 using Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators.Waternet.Output;
 using Riskeer.MacroStabilityInwards.Primitives;
 

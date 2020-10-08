@@ -992,7 +992,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                 var calculatorFactory = (TestMacroStabilityInwardsCalculatorFactory) MacroStabilityInwardsCalculatorFactory.Instance;
                 WaternetCalculatorStub dailyCalculator = calculatorFactory.LastCreatedWaternetDailyCalculator;
                 WaternetCalculatorStub extremeCalculator = calculatorFactory.LastCreatedWaternetExtremeCalculator;
-                
+
                 dailyCalculator.Output = WaternetCalculatorResultTestFactory.Create();
                 extremeCalculator.Output = WaternetCalculatorResultTestFactory.Create();
 
