@@ -35,20 +35,22 @@
           <Directory Id="INSTALLDIR" Name="$(var.ApplicationFullName)">
             
               <!--
-              RiskeerPayload.wxs defines all files going into this folder. 
+              RiskeerExecutablePayload.wxs defines the executable going into this folder.
+              RiskeerExecutableConfigPayload.wxs defines the executable config going into this folder.
+              RiskeerPayload.wxs defines the Application folder (which contains all files) going into this folder. 
               ThirdPartyLicensesPayload.wxs defines all license files for all used 3rd party libraries.
               
-              RiskeerPayload.wxs and ThirdPartyLicensesPayload.wxs will be generated on pre-build. Ensure you clean first before building the installer!
+              All the stated .wxs files will be generated on pre-build. Ensure you have build the solution before building the installer!
               -->
 
             
             <Component Id="FileAssociation" Guid="1117D79E-521C-48C3-9E23-549833F7BA09">
-              <File Source="Riskeer.ico" KeyPath="yes"></File>
+              <File Source="Riskeer.ico" KeyPath="yes" />
               
               <RegistryValue Root="HKLM" Key="SOFTWARE\Classes\Riskeer.risk" Name="FriendlyTypeName" Value="!(loc.RiskDescription)" Type="string" />
               <ProgId Id="Riskeer.risk" Description="!(loc.RiskDescription)" Icon="Riskeer.ico">
                 <Extension Id="risk" ContentType="application/risk">
-                  <Verb Id="open" TargetFile="fil1FB73FD18EC148C2C143258B3CCD8055" Command="Open" Argument="&quot;%1&quot;"/>
+                  <Verb Id="open" TargetFile="filCAE939C4E7E14EA47DA59FCBAD2F0F57" Command="Open" Argument="&quot;%1&quot;"/>
                   <MIME ContentType="application/risk" Default="yes" />
                 </Extension>
                 <Extension Id="rtd" ContentType="application/rtd">
@@ -156,6 +158,8 @@
     </Directory>
     
     <Feature Id="CompleteInstallation" Title="!(loc.ApplicationLongName)" Level="1" Absent="disallow" ConfigurableDirectory="INSTALLDIR" AllowAdvertise="no">
+      <ComponentGroupRef Id="RiskeerExecutable"/>
+      <ComponentGroupRef Id="RiskeerExecutableConfig"/>
       <ComponentGroupRef Id="RiskeerApplicationComponents"/>
       <ComponentGroupRef Id="ThirdPartyLicenseComponents"/>
       <ComponentGroupRef Id="Examples"/>

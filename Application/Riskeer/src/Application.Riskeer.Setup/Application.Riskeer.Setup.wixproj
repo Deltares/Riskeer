@@ -59,6 +59,8 @@
     <Compile Include="Product.wxs" />
     <Compile Include="RiskeerPayload.wxs" />
     <Compile Include="ThirdPartyLicensesPayload.wxs" />
+    <Compile Include="RiskeerExecutablePayload.wxs" />
+    <Compile Include="RiskeerExecutableConfigPayload.wxs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Banner_493x77.bmp" />
@@ -305,10 +307,12 @@
   <Import Project="$(WixTargetsPath)" Condition=" '$(WixTargetsPath)' != '' " />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\WiX\v3.x\Wix.targets" Condition=" '$(WixTargetsPath)' == '' AND Exists('$(MSBuildExtensionsPath32)\Microsoft\WiX\v3.x\Wix.targets') " />
   <PropertyGroup>
-    <DefineConstants>$(DefineConstants);ReleaseVersion=$(ReleaseVersion);ApplicationBinFolder=..\..\..\..\bin\$(Configuration);InstallerLicensesFolder=licenses\;ExamplesFolder=Examples\;</DefineConstants>
+    <DefineConstants>$(DefineConstants);ReleaseVersion=$(ReleaseVersion);ApplicationBinFolder=..\..\..\..\bin\$(Configuration);ApplicationNestedBinFolder=..\..\..\..\bin\$(Configuration)\Application;InstallerLicensesFolder=licenses\;ExamplesFolder=Examples\;</DefineConstants>
   </PropertyGroup>
   <PropertyGroup>
-    <PreBuildEvent>"$(WIX)bin\heat.exe" dir $(ProjectDir)..\..\..\..\bin\$(Configuration) -cg RiskeerApplicationComponents -gg -dr INSTALLDIR -var var.ApplicationBinFolder -sfrag -sreg -srd -o "$(ProjectDir)RiskeerPayload.wxs"
+    <PreBuildEvent>"$(WIX)bin\heat.exe" file $(ProjectDir)..\..\..\..\bin\$(Configuration)\Riskeer.exe -cg RiskeerExecutable -gg -dr INSTALLDIR -var var.ApplicationBinFolder -sfrag -sreg -srd -o "$(ProjectDir)RiskeerExecutablePayload.wxs" 
+"$(WIX)bin\heat.exe" file $(ProjectDir)..\..\..\..\bin\$(Configuration)\Riskeer.exe.config -cg RiskeerExecutableConfig -gg -dr INSTALLDIR -var var.ApplicationBinFolder -sfrag -sreg -srd -o "$(ProjectDir)RiskeerExecutableConfigPayload.wxs"
+"$(WIX)bin\heat.exe" dir $(ProjectDir)..\..\..\..\bin\$(Configuration)\Application -cg RiskeerApplicationComponents -gg -dr INSTALLDIR -var var.ApplicationNestedBinFolder -sfrag -sreg -o "$(ProjectDir)RiskeerPayload.wxs"
 "$(WIX)bin\heat.exe" dir $(ProjectDir)licenses -cg ThirdPartyLicenseComponents -gg -dr INSTALLDIR -var var.InstallerLicensesFolder -sfrag -sreg -srd -o "$(ProjectDir)ThirdPartyLicensesPayload.wxs"
 "$(WIX)bin\heat.exe" dir $(ProjectDir)Examples -cg Examples -gg -dr CommonDocumentsExamples -var var.ExamplesFolder -sfrag -sreg -srd -o "$(ProjectDir)Examples.wxs"</PreBuildEvent>
   </PropertyGroup>
