@@ -277,12 +277,75 @@ name="AutomatedSystemTestsRepository">
 			</folder>
 			<folder
 			capname="container"
+			id="0577a18c-71af-4c1c-bb03-b668001706c5"
+			isrooted="True"
+			name="DocumentViewContainerUncached"
+			refimgid="e107b55a-b2a7-42e5-ad21-443242438546"
+			searchtimeout="30000ms"
+			usecache="False">
+				<item
+				addcaps="cell,accessible"
+				capname="cell"
+				id="db215a7f-7857-4f38-b16c-d96366f08703"
+				name="insideDocument_IsFMRelevantCell"
+				refimgid="abe9b3df-fa56-4ec4-8a9a-ff2ecd96810a"
+				searchtimeout="30000ms">
+					/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']//container[@controlname='FailureMechanismContributionView']/?/table/row[@accessiblevalue~$labelFM]/cell[@accessiblename&gt;'Is relevant']
+				</item>
+				<folder
+				capname="container"
+				id="66d5c3ad-ea35-4782-8889-9aefcb8059a9"
+				isrooted="True"
+				name="FailureMechanismsContributionView"
+				refimgid="8eb71de1-a26e-4f98-801a-c66faff52b48"
+				searchtimeout="30000ms"
+				usecache="False">
+					<folder
+					capname="table"
+					id="351ac775-45ce-4f53-8ba7-49cf19ae37b1"
+					isrooted="True"
+					name="Table"
+					refimgid="da49a188-3dfe-4d17-b419-f43b96c65c95"
+					searchtimeout="30000ms"
+					usecache="False">
+						<item
+						addcaps="cell,accessible"
+						capname="cell"
+						id="92529114-2d07-4d87-bd57-14b079ae6590"
+						name="ContributionCellUnchached"
+						refimgid="86a4ac31-621f-41d9-913b-1aa9035f52f1"
+						searchtimeout="30000ms">
+							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismContributionView']/container[@controlname='probabilityDistributionGrid']/table/row[@accessiblevalue~';'+$fmLabel+';']/cell[@accessiblename&gt;'Toegestane bijdrage']
+						</item>
+						<item
+						addcaps="cell,accessible"
+						capname="cell"
+						id="57fde306-a459-4c26-9b98-a0e7d430fd9b"
+						name="ProbabilitySpaceCellUncached"
+						refimgid="75792ad4-b799-473a-a575-e7d7632daa73"
+						searchtimeout="30000ms">
+							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismContributionView']/container[@controlname='probabilityDistributionGrid']/table/row[@accessiblevalue~';'+$fmLabel+';']/cell[@accessiblename&gt;'Faalkansruimte']
+						</item>
+						<basepath>
+							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismContributionView']/container[@controlname='probabilityDistributionGrid']/table
+						</basepath>
+					</folder>
+					<basepath>
+						/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismContributionView']
+					</basepath>
+				</folder>
+				<basepath>
+					/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']
+				</basepath>
+			</folder>
+			<folder
+			capname="container"
 			id="78b3cba4-3858-49b9-8809-b7f79f03aa5c"
 			isrooted="True"
 			name="DocumentViewContainer"
 			refimgid="e107b55a-b2a7-42e5-ad21-443242438546"
 			searchtimeout="30000ms"
-			usecache="True">
+			usecache="False">
 				<item
 				addcaps="cell,accessible"
 				capname="cell"
@@ -361,6 +424,48 @@ name="AutomatedSystemTestsRepository">
 						/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismResultView']
 					</basepath>
 				</folder>
+				<folder
+				capname="container"
+				id="93d4e291-937c-4920-ad9f-0e07533582a4"
+				isrooted="True"
+				name="FailureMechanismsContributionView"
+				refimgid="8eb71de1-a26e-4f98-801a-c66faff52b48"
+				searchtimeout="30000ms"
+				usecache="False">
+					<folder
+					capname="table"
+					id="bac209b8-47a0-49c9-aabb-618dc821852b"
+					isrooted="True"
+					name="Table"
+					refimgid="da49a188-3dfe-4d17-b419-f43b96c65c95"
+					searchtimeout="30000ms"
+					usecache="False">
+						<item
+						addcaps="cell,accessible"
+						capname="cell"
+						id="4b3f7ec4-14c8-42ca-a940-a03d49ae168c"
+						name="ContributionCell"
+						refimgid="86a4ac31-621f-41d9-913b-1aa9035f52f1"
+						searchtimeout="30000ms">
+							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismContributionView']/container[@controlname='probabilityDistributionGrid']/table/row[@accessiblevalue~';'+$fmLabel+';']/cell[@accessiblename&gt;'Toegestane bijdrage']
+						</item>
+						<item
+						addcaps="cell,accessible"
+						capname="cell"
+						id="583b90dd-8959-4248-8b92-03f7e73fbf90"
+						name="ProbabilitySpaceCell"
+						refimgid="75792ad4-b799-473a-a575-e7d7632daa73"
+						searchtimeout="30000ms">
+							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismContributionView']/container[@controlname='probabilityDistributionGrid']/table/row[@accessiblevalue~';'+$fmLabel+';']/cell[@accessiblename&gt;'Faalkansruimte']
+						</item>
+						<basepath>
+							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismContributionView']/container[@controlname='probabilityDistributionGrid']/table
+						</basepath>
+					</folder>
+					<basepath>
+						/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismContributionView']
+					</basepath>
+				</folder>
 				<basepath>
 					/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']
 				</basepath>
@@ -417,6 +522,16 @@ name="AutomatedSystemTestsRepository">
 					searchtimeout="30000ms">
 						/form[@automationid='RiskeerMainWindow']//container[@controlname='PropertiesPanelGridView']//table[@accessiblename='Properties Window']/row[@accessiblename&gt;'Aandeel']
 					</item>
+					<item
+					addcaps="row,accessible"
+					capname="row"
+					id="c93d6b35-2159-4c88-a103-599b6efcb316"
+					name="Trajecttype"
+					refimgid="72b27128-9391-49ea-9f8f-530b0f9c0f75"
+					refpath="/form[@automationid='RiskeerMainWindow']/container[1]/container[2]/container/container[@controlname='PropertiesPanelGridView']/element[@controltypename='PropertyGridView']/table/row[@accessiblename='Trajecttype']"
+					searchtimeout="30000ms">
+						/form[@automationid='RiskeerMainWindow']//container[@controlname='PropertiesPanelGridView']//table[@accessiblename='Properties Window']/row[@accessiblename='Trajecttype']
+					</item>
 					<basepath>
 						/form[@automationid='RiskeerMainWindow']//container[@controlname='PropertiesPanelGridView']//table[@accessiblename='Properties Window']
 					</basepath>
@@ -460,15 +575,6 @@ Ci8EIxlN9/ueuduvvCRUSA/y/BpXl5+Ui+rMfnRmeyL0hblJeL6KhKphqPIwCHnKcUMch8GfPoy/
 					<item
 					addcaps="cell,accessible"
 					capname="cell"
-					id="2a266ff1-53b4-4d79-a6fe-e2d23e8b118c"
-					name="GenericCellMessage"
-					refimgid="85d13c99-8b90-49f2-b235-29cc95822cea"
-					searchtimeout="30000ms">
-						/form[@automationid='RiskeerMainWindow']//container[@controlname='MessageWindow']/table[@controlname='messagesDataGridView']/row[@accessiblename='Row '+$indexRowMessage]/cell[@accessiblename&gt;'Bericht']
-					</item>
-					<item
-					addcaps="cell,accessible"
-					capname="cell"
 					id="68d93ccb-0441-468c-9e9a-4028de2b4e0c"
 					name="GenericCellIcon"
 					refimgid="df30e0c6-39a0-400a-82dd-ad6347165336"
@@ -489,6 +595,15 @@ Ci8EIxlN9/ueuduvvCRUSA/y/BpXl5+Ui+rMfnRmeyL0hblJeL6KhKphqPIwCHnKcUMch8GfPoy/
 0v+F8V1TqnoOxOXBfwwHqGMAAAAASUVORK5CYII=
 						</image>
 						/form[@automationid='RiskeerMainWindow']//container[@controlname='MessageWindow']/table[@controlname='messagesDataGridView']/row[@accessiblename='Row '+$indexRowMessage]/cell[@accessiblename&gt;' Row']
+					</item>
+					<item
+					addcaps="cell,accessible"
+					capname="cell"
+					id="2a266ff1-53b4-4d79-a6fe-e2d23e8b118c"
+					name="GenericCellMessage"
+					refimgid="85d13c99-8b90-49f2-b235-29cc95822cea"
+					searchtimeout="30000ms">
+						/form[@automationid='RiskeerMainWindow']//container[@controlname='MessageWindow']/table[@controlname='messagesDataGridView']/row[@accessiblename='Row '+$indexRowMessage]/cell[@accessiblename&gt;'Bericht']
 					</item>
 					<basepath>
 						/form[@automationid='RiskeerMainWindow']//container[@controlname='MessageWindow']/table[@controlname='messagesDataGridView']/row[@accessiblename='Row '+$indexRowMessage]
@@ -989,9 +1104,23 @@ OsYqSDz+zwAAaK/nDj2T/r4AAAAASUVORK5CYII=
 					<item
 					capname="cell"
 					id="9398ea14-bc10-44f5-b61a-a281f098ba05"
-					name="CellGenericRow"
+					name="CellTrajectId"
 					searchtimeout="30000ms">
 						/form[@controlname='ReferenceLineMetaSelectionDialog']/?/?/container[@controlname='ReferenceLineMetaDataGridViewControl']/table[@controlname='dataGridView']/row[@accessiblevalue&gt;$trajectToAdd]/cell[2]
+					</item>
+					<item
+					capname="cell"
+					id="87a37e52-ec70-43cc-a88a-ca8783019ca2"
+					name="CellSignallingValue"
+					searchtimeout="30000ms">
+						/form[@controlname='ReferenceLineMetaSelectionDialog']/?/?/container[@controlname='ReferenceLineMetaDataGridViewControl']/table[@controlname='dataGridView']/row[@accessiblevalue&gt;$trajectToAdd]/cell[3]
+					</item>
+					<item
+					capname="cell"
+					id="8e329dc6-f841-4157-b4dd-5c8b2c9d9c7f"
+					name="CellLowLimitValue"
+					searchtimeout="30000ms">
+						/form[@controlname='ReferenceLineMetaSelectionDialog']/?/?/container[@controlname='ReferenceLineMetaDataGridViewControl']/table[@controlname='dataGridView']/row[@accessiblevalue&gt;$trajectToAdd]/cell[4]
 					</item>
 					<basepath>
 						/form[@controlname='ReferenceLineMetaSelectionDialog']/?/?/container[@controlname='ReferenceLineMetaDataGridViewControl']/table[@controlname='dataGridView']/row[@accessiblevalue&gt;$trajectToAdd]
@@ -1091,6 +1220,74 @@ sknn9wA15C2o2TsxYQ0KyGMNlqgfFZDPGqxmmK/HEGvQh+UzxBqY+MlxXrI+crsxqwfVAAAAAElF
 TkSuQmCC
 			</icon>
 		</appfolder>
+		<appfolder
+		addcaps="form,control,nativewindow"
+		capname="form"
+		id="0ac12703-7585-4db4-95bd-26378ea2b64c"
+		isrooted="True"
+		name="Riskeer"
+		refpath="/form[@title='']"
+		searchtimeout="30000ms"
+		usecache="True">
+			<item
+			addcaps="listitem,accessible"
+			capname="listitem"
+			id="52dd6943-e863-46c3-87ed-cfb8d3a558a3"
+			name="TrajectType"
+			refimgid="61eab022-0797-4a27-81ba-f4302c287004"
+			searchtimeout="30000ms">
+				/form[@title='']/?/?/listitem[@accessiblename=$trajectType]
+			</item>
+			<basepath>
+				/form[@title='']
+			</basepath>
+			<icon>
+				iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACx
+jwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAH4SURBVDhPrdFdSJNhGMbxR1BzhTJzapnsJGgU
+RnQQEXYQhGkEgRIUihSzrKyEMM0ME00ENRY6WjPLmOasObKkHDTKmoSBERUZbNWsVdtys/nRKjr5
+9+F74AvBwLrggufk/l0Hj/gveTDoYD6VzmcB6SnLsDGZbxOdfPW2EnbXMDNawvTjPCaHNnKlOj4y
+MGRQEfY08cVVzsyzQqYeZTN5by2fB9R0VC6KDNxvTZqzmknIrmGiP4VxaxzGsoVyYGxNNM7VMTzP
+iGVkVRyOlQrsusVMDWcT+r1qUxPoS+DTtWh83QJ9qUIOTN/sJWQ2ETDq8Taexro8noEmJaE7GoL9
+yQR6Ffh7ovjYJfBcFuhK4uRA8KIBf3MDnqpy3hwoQq9O5EaDkuCv1XFLDD6z4INJ8K5D4G4XNO5f
+IAfenzqB+3AxzvwdvMjZTPWSFCy1CfivRuGVVscuCV63CZxGQX1RrBxwFe5idFsWTzPXMZKh4aAq
+7a9/P7fS+SxQkZrKEdVSipPS2J24jAJlOlV9b+l08Kftd+GsDequw7Fu2HrcJgekpyxlZhdGO5y5
+DTVWONoF+9qgoOUH67U9kYG9hiectECpCbTnIV/3ndz6ADmVr1iReyEykFc3yJ5zsLM5zPZaH1sq
+XrLp0EM2aG+RntUiB+ZT6fxfIsRPbYnQgbXhGFYAAAAASUVORK5CYII=
+			</icon>
+		</appfolder>
+		<appfolder
+		addcaps="form,nativewindow"
+		capname="form"
+		id="a1f496aa-79c6-4a38-bf14-a67650685c78"
+		isrooted="True"
+		name="Bevestigen"
+		refpath="/form[@title='Bevestigen']"
+		searchtimeout="30000ms"
+		usecache="True">
+			<item
+			addcaps="button,nativewindow"
+			capname="button"
+			id="e7ae93d7-2c71-43b5-99bf-1790cbc314c0"
+			name="ButtonOK"
+			refimgid="861c3fd0-bc0e-4c2d-9251-5f6390805f4c"
+			refpath="/form[@title='Bevestigen']/button[@text='OK']"
+			searchtimeout="30000ms">
+				/form[@title='Bevestigen']/button[@text='OK']
+			</item>
+			<basepath>
+				/form[@title='Bevestigen']
+			</basepath>
+			<icon>
+				iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACx
+jwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAEySURBVDhPjZI7awJBFIX3n2iXyh8QUgbSWYpF
+CqtASCOokHa7SBKwMWmSQCoLxc7GSkKKgHaSZoWwCOmsAhZabfjGvePsnc3jgwvLmXPuPPYGmpPH
+Ruv4of5ZbFcSt9BYS20+hatq8fDufKWDuvDgTWM7EA5uT7cYju4vksF8knxt1onANxprePBmmsjO
+zVE3E9SwhkdOYsLcC+FseJ3adoRhmCkXvGTMm/A4pU7N2/m3BnjJkA3k6Jo4jk0RjqIoVffIVUyD
+8WJqRL3rTwVkbIO35bsRtdE9hVtAxmsAEtRo3TbgIZ5mIyO6u1BCnk7GPCK/ggGBPCPk6WTsaDMU
+cor/gNcOEsgoM65/gccbZUCga+e1nzvOaKzh8cIu3Kv8fPlR7YWrm5fehuIbzd7ZEgTfW6GQyBsS
+FjcAAAAASUVORK5CYII=
+			</icon>
+		</appfolder>
 		<basepath>
 		</basepath>
 	</rootfolder>
@@ -1146,6 +1343,14 @@ TkSuQmCC
 		<var
 		id="1fbcad7f-de39-4620-840f-1a08bca18ef2"
 		name="indexRowMessage">
+		</var>
+		<var
+		id="7cc22a20-a5dd-4037-8ffb-9bca9a82e6ae"
+		name="fmLabel">
+		</var>
+		<var
+		id="7e8f3140-795e-40f1-a611-9c126ff7de4f"
+		name="trajectType">
 		</var>
 	</variables>
 </repository>

@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <testsuitedoc>
 	<testsuiteentryhierarchy>
 		<flatlistofchildren>
@@ -21,6 +21,16 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<smartfoldernode
+			id="02a85580-c5da-4d64-8012-b42d5a9ad388"
+			name="AddNewTraject">
+				<parameters>
+					<param
+					name="trajectLabel"
+					value="12-2">
+					</param>
+				</parameters>
+			</smartfoldernode>
 			<testmodule
 			id="02a9ce1f-d639-43f7-ba9e-4268f39271ba"
 			name="NewProject"
@@ -281,10 +291,38 @@
 				</databinding>
 			</testmodule>
 			<testmodule
+			id="170f46b0-fe63-4238-9874-af8420fa3e8f"
+			name="CloseAUT"
+			ref="07688822-3eb6-4d71-a97b-33498ae1d748"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="AppProcessID"
+					datasourceid="fda567a0-be92-41b9-9761-e7e7d9e7be7f"
+					variableid="e59d97a7-c0d8-4a51-a822-5787958fd9be"
+					variablename="CloseAutProcessIDVar">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
 			id="177c9598-f8c9-4e63-b767-c5f1d49f4be4"
 			name="CloseViewCentralPanelWithFocus"
 			ref="3c2d44f5-31b5-4584-91c8-1ad748affc77"
 			type="Recording">
+			</testmodule>
+			<testmodule
+			id="179d64df-9ef2-416a-b5d8-ff1b08b5df41"
+			name="SetRangeInTableForFMCViewBasedOnTrajectType"
+			ref="a23d7db6-2e34-49a1-8c66-009718c79641"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="trajectType"
+					datasourceid="35053357-b9f5-45fe-8657-c49a72276bbd"
+					variableid="8c022444-0274-44a3-939f-061f44706b2f"
+					variablename="trajectType">
+					</var>
+				</databinding>
 			</testmodule>
 			<testmodule
 			id="17ae2977-b078-46e9-a87a-327dd1483895"
@@ -417,6 +455,14 @@
 					<param
 					name="norm"
 					value="Signal">
+					</param>
+					<param
+					name="lowLimitValue"
+					value="">
+					</param>
+					<param
+					name="signallingValue"
+					value="">
 					</param>
 				</parameters>
 			</smartfoldernode>
@@ -602,6 +648,44 @@
 					datasourceid="24af1f45-008d-4bb7-a60c-90f42ab75efc"
 					variableid="3a7276c1-fca1-4026-9d2e-5bac10651a47"
 					variablename="substringFMName">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
+			id="306fdb09-0446-4941-8626-0a0ca704b25a"
+			name="ValidateProbabilitySpaceInFailureMechanismContributionView"
+			ref="bbbbf5bf-dfd4-4308-9cd1-53e977ec87f1"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="signallingValue"
+					datasourceid="de320efd-8193-4dd4-9e9d-8fb5690ddafb"
+					variableid="c1f6a6e7-a412-48c1-88a7-9969552442cf"
+					variablename="signallingValueVar">
+					</var>
+					<var
+					dataname="lowLimitValue"
+					datasourceid="de320efd-8193-4dd4-9e9d-8fb5690ddafb"
+					variableid="d45edc98-38df-45d4-baee-7910ebf746ec"
+					variablename="lowLimitValueVar">
+					</var>
+					<var
+					dataname="labelFM"
+					datasourceid="a935893b-4673-417b-a3b6-eedd191ca5d9"
+					variableid="7cc22a20-a5dd-4037-8ffb-9bca9a82e6ae"
+					variablename="fmLabel">
+					</var>
+					<var
+					dataname="normType"
+					datasourceid="9b5303ea-11e0-4a2d-9cd9-dbdc460927eb"
+					variableid="062b1503-100f-4586-a386-93ef730cd7ef"
+					variablename="normTypeVar">
+					</var>
+					<var
+					dataname="contribution"
+					datasourceid="a935893b-4673-417b-a3b6-eedd191ca5d9"
+					variableid="89b0cb78-8dc2-46b2-a3e4-6295a3181948"
+					variablename="contributionValue">
 					</var>
 				</databinding>
 			</testmodule>
@@ -1571,6 +1655,21 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<setup
+			id="778ae4cc-be3c-48c8-9f60-777156c47788"
+			name="setup">
+			</setup>
+			<smartfoldernode
+			datasource="possibleTrajectTypes"
+			id="78a783b3-ec47-4145-85f3-55c2b56b7aa0"
+			name="SelectTrajectType">
+				<parameters>
+					<param
+					name="trajectType"
+					value="Dijk">
+					</param>
+				</parameters>
+			</smartfoldernode>
 			<smartfoldernode
 			datasource="outputSimpleAssessment"
 			id="78b7779b-7370-4e07-b1e4-d9a21ce890e1"
@@ -1615,6 +1714,11 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<smartfoldernode
+			datasource="contributionsFMsTypeDijkFMCView"
+			id="7b0054c9-2118-49ba-881e-5da96a820b5a"
+			name="ValidateContributionsOfAllFMsinFMCViewTrajectTypeDijk">
+			</smartfoldernode>
 			<testmodule
 			id="7c6786ee-7f19-446b-bba2-c8d8791a3639"
 			name="CopyFile"
@@ -1688,6 +1792,18 @@
 					datasourceid="22e4bbf9-0675-41cb-8838-d39c0cf423b6"
 					variableid="929a9a29-2c5b-41dc-93ed-daff0f25d734"
 					variablename="normType">
+					</var>
+					<var
+					dataname="lowLimitValue"
+					datasourceid="22e4bbf9-0675-41cb-8838-d39c0cf423b6"
+					variableid="86fb3bdf-e3c6-41eb-aea3-29e619ddc796"
+					variablename="lowLimitValue">
+					</var>
+					<var
+					dataname="signallingValue"
+					datasourceid="22e4bbf9-0675-41cb-8838-d39c0cf423b6"
+					variableid="477665a2-02a6-4c0f-af06-48edfa7bd209"
+					variablename="signallingValue">
 					</var>
 				</databinding>
 			</testmodule>
@@ -1777,10 +1893,22 @@
 					variablename="trajectToAdd">
 					</var>
 					<var
-					dataname="norm"
+					dataname="normType"
 					datasourceid="f4955a2d-d976-4dab-9a66-884a462172a4"
 					variableid="929a9a29-2c5b-41dc-93ed-daff0f25d734"
 					variablename="normType">
+					</var>
+					<var
+					dataname="signallingValue"
+					datasourceid="f4955a2d-d976-4dab-9a66-884a462172a4"
+					variableid="477665a2-02a6-4c0f-af06-48edfa7bd209"
+					variablename="signallingValue">
+					</var>
+					<var
+					dataname="lowLimitValue"
+					datasourceid="f4955a2d-d976-4dab-9a66-884a462172a4"
+					variableid="86fb3bdf-e3c6-41eb-aea3-29e619ddc796"
+					variablename="lowLimitValue">
 					</var>
 				</databinding>
 			</testmodule>
@@ -1839,6 +1967,26 @@
 			id="8f466d99-9dec-4400-9916-caced2df458b"
 			name="ValidateDetailedAsssessmentType">
 			</smartfoldernode>
+			<testmodule
+			id="91daaaf7-10e5-40e0-a29d-d13469923fd7"
+			name="ValidateContributionInFailureMechanismContributionView"
+			ref="4a63a2c8-7cac-4869-96dc-543747d8c4c7"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="labelFM"
+					datasourceid="a935893b-4673-417b-a3b6-eedd191ca5d9"
+					variableid="7cc22a20-a5dd-4037-8ffb-9bca9a82e6ae"
+					variablename="fmLabel">
+					</var>
+					<var
+					dataname="contribution"
+					datasourceid="a935893b-4673-417b-a3b6-eedd191ca5d9"
+					variableid="4a6b7212-c461-4d6c-895c-d6e646118872"
+					variablename="contributionValue">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			datasource="listWithNamesFMs"
 			id="921c41ea-9f72-4d4f-bfe2-a7f2f0365468"
@@ -1985,6 +2133,26 @@
 			name="setup">
 			</setup>
 			<testmodule
+			id="98217c5a-f9f6-48b6-83c0-be402c429503"
+			name="SelectTrajectType"
+			ref="f3cd18f8-b687-4886-b040-fc89f784d832"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="trajectType"
+					datasourceid="35053357-b9f5-45fe-8657-c49a72276bbd"
+					variableid="7e8f3140-795e-40f1-a611-9c126ff7de4f"
+					variablename="trajectType">
+					</var>
+					<var
+					dataname="hardCodedTrajectToAdd"
+					datasourceid="de320efd-8193-4dd4-9e9d-8fb5690ddafb"
+					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
+					variablename="substringTrajectName">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
 			id="9a12b1f8-032f-40bd-94b7-efe367ce56b7"
 			name="OpenViewForFailureMechanismContribution"
 			ref="5e81345e-66bc-4e08-8ade-03d386d824fd"
@@ -2032,6 +2200,16 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<smartfoldernode
+			id="9b5303ea-11e0-4a2d-9cd9-dbdc460927eb"
+			name="a)_Failure_probability_and_space">
+				<parameters>
+					<param
+					name="normType"
+					value="Signal">
+					</param>
+				</parameters>
+			</smartfoldernode>
 			<smartfoldernode
 			datasource="outputRelevanceFMCView"
 			id="9cb3bdde-1999-4bae-aa4e-6330208999d4"
@@ -2090,6 +2268,38 @@
 			id="a05f1ece-a4c1-439f-a1db-ff664bd18416"
 			name="New_Project">
 			</smartfoldernode>
+			<testmodule
+			id="a21427ac-0a51-4e66-b4ea-2e2800b1719f"
+			name="AddNewTraject"
+			ref="549fb022-bf32-480a-ae5e-d3f6e14aa501"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="trajectLabel"
+					datasourceid="02a85580-c5da-4d64-8012-b42d5a9ad388"
+					variableid="4ea4fb61-50c3-4243-9a99-25901a404ce2"
+					variablename="trajectToAdd">
+					</var>
+					<var
+					dataname="normType"
+					datasourceid="9b5303ea-11e0-4a2d-9cd9-dbdc460927eb"
+					variableid="929a9a29-2c5b-41dc-93ed-daff0f25d734"
+					variablename="normType">
+					</var>
+					<var
+					dataname="signallingValue"
+					datasourceid="de320efd-8193-4dd4-9e9d-8fb5690ddafb"
+					variableid="477665a2-02a6-4c0f-af06-48edfa7bd209"
+					variablename="signallingValue">
+					</var>
+					<var
+					dataname="lowLimitValue"
+					datasourceid="de320efd-8193-4dd4-9e9d-8fb5690ddafb"
+					variableid="86fb3bdf-e3c6-41eb-aea3-29e619ddc796"
+					variablename="lowLimitValue">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			datasource="outputDetailedAssessment"
 			id="a340e9a4-4cf7-4999-b91c-36776c39fc1f"
@@ -2482,7 +2692,6 @@
 			name="LoopRowsSetCustomAssessment">
 			</smartfoldernode>
 			<testmodule
-			enabled="False"
 			id="b63f694f-32a5-4cdf-9719-05e53ad8a00d"
 			name="CloseAUT"
 			ref="07688822-3eb6-4d71-a97b-33498ae1d748"
@@ -2990,6 +3199,10 @@
 			name="New_project">
 			</smartfoldernode>
 			<smartfoldernode
+			id="d430e17b-6468-4a3d-83d4-6333c1b327ad"
+			name="ControlFailureMechanismContributions">
+			</smartfoldernode>
+			<smartfoldernode
 			datasource="relevance44_2FailureMechanismContributionView"
 			id="d508d6ac-d58e-4ef0-93d4-7d3874716ee9"
 			name="LoopFMs">
@@ -3067,6 +3280,28 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<testmodule
+			id="da95823a-60ee-4a9b-834e-335833763e80"
+			name="OpenViewForFailureMechanismContribution"
+			ref="5e81345e-66bc-4e08-8ade-03d386d824fd"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="hardCodedTrajectToAdd"
+					datasourceid="de320efd-8193-4dd4-9e9d-8fb5690ddafb"
+					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
+					variablename="substringTrajectName">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="substringInTrajectName"
+					datasourceid="9339f92a-867d-4e0d-b2a5-1fe03f3fc82a"
+					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
+					variablename="substringTrajectName">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<smartfoldernode
 			datasource="detailedAssessmentSTKWpType"
 			id="db11f124-c58c-473c-bf94-af3cc95ea4f3"
@@ -3108,6 +3343,43 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
+			<testcase
+			id="de320efd-8193-4dd4-9e9d-8fb5690ddafb"
+			name="script08">
+				<parameters>
+					<param
+					name="randomlyChosenTrajectToAdd"
+					value="">
+					</param>
+					<param
+					name="hardCodedTrajectToAdd"
+					value="12-2">
+					</param>
+					<param
+					name="signallingValue"
+					value="">
+					</param>
+					<param
+					name="lowLimitValue"
+					value="">
+					</param>
+				</parameters>
+			</testcase>
+			<testmodule
+			enabled="False"
+			id="df87f7d1-211e-4399-950e-0587f0c44209"
+			name="StartAUT"
+			ref="825ce2a6-cd3b-42f6-9972-8ced75f1a54f"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="AppProcessID"
+					datasourceid="fda567a0-be92-41b9-9761-e7e7d9e7be7f"
+					variableid="8cd31747-b0d7-463c-aa3e-8ea07c17694e"
+					variablename="StartAutProcessIDVar">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			datasource="relevance44_2ProjectExplorer"
 			id="e1ff5697-2c1e-4010-85a0-6f45679d7f50"
@@ -3295,14 +3567,6 @@
 					variablename="expectedMessage">
 					</var>
 				</databinding>
-				<missingdatavariablesbinding>
-					<var
-					dataname="lastErrorMessage"
-					datasourceid="a9476a5d-b871-4277-9188-1ebfe572836e"
-					variableid="7e764f48-0b9b-4793-950e-04b54745ea4a"
-					variablename="expectedLasterrorMessage">
-					</var>
-				</missingdatavariablesbinding>
 			</testmodule>
 			<smartfoldernode
 			datasource="detailedAssessmentSTBIType"
@@ -3324,11 +3588,23 @@
 					value="12-2">
 					</param>
 					<param
-					name="norm"
+					name="normType"
 					value="Signal">
+					</param>
+					<param
+					name="signallingValue"
+					value="">
+					</param>
+					<param
+					name="lowLimitValue"
+					value="">
 					</param>
 				</parameters>
 			</smartfoldernode>
+			<teardown
+			id="f4d4d958-8b7c-427f-873c-e4ab538b83a8"
+			name="teardown">
+			</teardown>
 			<testmodule
 			id="f54617e3-22c0-40ef-825f-4ce600a98187"
 			name="DeleteFileIfExists"
@@ -3668,6 +3944,70 @@
 				<testcase
 				id="fda567a0-be92-41b9-9761-e7e7d9e7be7f"
 				name="AutomatedSystemTests">
+					<testcase
+					id="de320efd-8193-4dd4-9e9d-8fb5690ddafb"
+					name="script08">
+						<setup
+						id="778ae4cc-be3c-48c8-9f60-777156c47788"
+						name="setup">
+							<testmodule
+							id="df87f7d1-211e-4399-950e-0587f0c44209"
+							name="StartAUT">
+							</testmodule>
+						</setup>
+						<smartfoldernode
+						id="9b5303ea-11e0-4a2d-9cd9-dbdc460927eb"
+						name="a)_Failure_probability_and_space">
+							<smartfoldernode
+							id="02a85580-c5da-4d64-8012-b42d5a9ad388"
+							name="AddNewTraject">
+								<testmodule
+								id="a21427ac-0a51-4e66-b4ea-2e2800b1719f"
+								name="AddNewTraject">
+								</testmodule>
+							</smartfoldernode>
+							<smartfoldernode
+							id="d430e17b-6468-4a3d-83d4-6333c1b327ad"
+							name="ControlFailureMechanismContributions">
+								<testmodule
+								id="da95823a-60ee-4a9b-834e-335833763e80"
+								name="OpenViewForFailureMechanismContribution">
+								</testmodule>
+								<smartfoldernode
+								id="78a783b3-ec47-4145-85f3-55c2b56b7aa0"
+								name="SelectTrajectType">
+									<testmodule
+									id="98217c5a-f9f6-48b6-83c0-be402c429503"
+									name="SelectTrajectType">
+									</testmodule>
+									<testmodule
+									id="179d64df-9ef2-416a-b5d8-ff1b08b5df41"
+									name="SetRangeInTableForFMCViewBasedOnTrajectType">
+									</testmodule>
+									<smartfoldernode
+									id="7b0054c9-2118-49ba-881e-5da96a820b5a"
+									name="ValidateContributionsOfAllFMsinFMCViewTrajectTypeDijk">
+										<testmodule
+										id="91daaaf7-10e5-40e0-a29d-d13469923fd7"
+										name="ValidateContributionInFailureMechanismContributionView">
+										</testmodule>
+										<testmodule
+										id="306fdb09-0446-4941-8626-0a0ca704b25a"
+										name="ValidateProbabilitySpaceInFailureMechanismContributionView">
+										</testmodule>
+									</smartfoldernode>
+								</smartfoldernode>
+							</smartfoldernode>
+						</smartfoldernode>
+						<teardown
+						id="f4d4d958-8b7c-427f-873c-e4ab538b83a8"
+						name="teardown">
+							<testmodule
+							id="170f46b0-fe63-4238-9874-af8420fa3e8f"
+							name="CloseAUT">
+							</testmodule>
+						</teardown>
+					</testcase>
 					<testcase
 					id="bbc104ea-69c3-4dcd-8e50-5d1b60cd8d06"
 					name="script10">
@@ -4576,6 +4916,434 @@
 			</table>
 		</DataSource>
 		<DataSource
+		id="a935893b-4673-417b-a3b6-eedd191ca5d9"
+		lastknownrowcount="36"
+		name="contributionsFMsTypeDijkFMCView"
+		type="Ranorex.Core.Data.SimpleDataConnector">
+			<lastknowncolumns>
+				<column>
+					labelFM
+				</column>
+				<column>
+					contribution
+				</column>
+				<column>
+					trajectType
+				</column>
+			</lastknowncolumns>
+			<maskedcolumns>
+			</maskedcolumns>
+			<table>
+				<tr>
+					<th>
+						labelFM
+					</th>
+					<th>
+						contribution
+					</th>
+					<th>
+						trajectType
+					</th>
+				</tr>
+				<tr>
+					<td>
+						STPH
+					</td>
+					<td>
+						24
+					</td>
+					<td>
+						Dijk
+					</td>
+				</tr>
+				<tr>
+					<td>
+						GEKB
+					</td>
+					<td>
+						24
+					</td>
+					<td>
+						Dijk
+					</td>
+				</tr>
+				<tr>
+					<td>
+						STBI
+					</td>
+					<td>
+						4
+					</td>
+					<td>
+						Dijk
+					</td>
+				</tr>
+				<tr>
+					<td>
+						ZST
+					</td>
+					<td>
+						5
+					</td>
+					<td>
+						Dijk
+					</td>
+				</tr>
+				<tr>
+					<td>
+						AGK
+					</td>
+					<td>
+						5
+					</td>
+					<td>
+						Dijk
+					</td>
+				</tr>
+				<tr>
+					<td>
+						GEBU
+					</td>
+					<td>
+						5
+					</td>
+					<td>
+						Dijk
+					</td>
+				</tr>
+				<tr>
+					<td>
+						HTKW
+					</td>
+					<td>
+						24
+					</td>
+					<td>
+						Dijk
+					</td>
+				</tr>
+				<tr>
+					<td>
+						BSKW
+					</td>
+					<td>
+						4
+					</td>
+					<td>
+						Dijk
+					</td>
+				</tr>
+				<tr>
+					<td>
+						PKW
+					</td>
+					<td>
+						2
+					</td>
+					<td>
+						Dijk
+					</td>
+				</tr>
+				<tr>
+					<td>
+						STKWp
+					</td>
+					<td>
+						2
+					</td>
+					<td>
+						Dijk
+					</td>
+				</tr>
+				<tr>
+					<td>
+						DA
+					</td>
+					<td>
+						0
+					</td>
+					<td>
+						Dijk
+					</td>
+				</tr>
+				<tr>
+					<td>
+						-
+					</td>
+					<td>
+						30
+					</td>
+					<td>
+						Dijk
+					</td>
+				</tr>
+				<tr>
+					<td>
+						STPH
+					</td>
+					<td>
+						0
+					</td>
+					<td>
+						Duin
+					</td>
+				</tr>
+				<tr>
+					<td>
+						GEKB
+					</td>
+					<td>
+						0
+					</td>
+					<td>
+						Duin
+					</td>
+				</tr>
+				<tr>
+					<td>
+						STBI
+					</td>
+					<td>
+						0
+					</td>
+					<td>
+						Duin
+					</td>
+				</tr>
+				<tr>
+					<td>
+						ZST
+					</td>
+					<td>
+						0
+					</td>
+					<td>
+						Duin
+					</td>
+				</tr>
+				<tr>
+					<td>
+						AGK
+					</td>
+					<td>
+						0
+					</td>
+					<td>
+						Duin
+					</td>
+				</tr>
+				<tr>
+					<td>
+						GEBU
+					</td>
+					<td>
+						0
+					</td>
+					<td>
+						Duin
+					</td>
+				</tr>
+				<tr>
+					<td>
+						HTKW
+					</td>
+					<td>
+						0
+					</td>
+					<td>
+						Duin
+					</td>
+				</tr>
+				<tr>
+					<td>
+						BSKW
+					</td>
+					<td>
+						0
+					</td>
+					<td>
+						Duin
+					</td>
+				</tr>
+				<tr>
+					<td>
+						PKW
+					</td>
+					<td>
+						0
+					</td>
+					<td>
+						Duin
+					</td>
+				</tr>
+				<tr>
+					<td>
+						STKWp
+					</td>
+					<td>
+						0
+					</td>
+					<td>
+						Duin
+					</td>
+				</tr>
+				<tr>
+					<td>
+						DA
+					</td>
+					<td>
+						70
+					</td>
+					<td>
+						Duin
+					</td>
+				</tr>
+				<tr>
+					<td>
+						-
+					</td>
+					<td>
+						30
+					</td>
+					<td>
+						Duin
+					</td>
+				</tr>
+				<tr>
+					<td>
+						STPH
+					</td>
+					<td>
+						24
+					</td>
+					<td>
+						Dijk / Duin
+					</td>
+				</tr>
+				<tr>
+					<td>
+						GEKB
+					</td>
+					<td>
+						24
+					</td>
+					<td>
+						Dijk / Duin
+					</td>
+				</tr>
+				<tr>
+					<td>
+						STBI
+					</td>
+					<td>
+						4
+					</td>
+					<td>
+						Dijk / Duin
+					</td>
+				</tr>
+				<tr>
+					<td>
+						ZST
+					</td>
+					<td>
+						5
+					</td>
+					<td>
+						Dijk / Duin
+					</td>
+				</tr>
+				<tr>
+					<td>
+						AGK
+					</td>
+					<td>
+						5
+					</td>
+					<td>
+						Dijk / Duin
+					</td>
+				</tr>
+				<tr>
+					<td>
+						GEBU
+					</td>
+					<td>
+						5
+					</td>
+					<td>
+						Dijk / Duin
+					</td>
+				</tr>
+				<tr>
+					<td>
+						HTKW
+					</td>
+					<td>
+						24
+					</td>
+					<td>
+						Dijk / Duin
+					</td>
+				</tr>
+				<tr>
+					<td>
+						BSKW
+					</td>
+					<td>
+						4
+					</td>
+					<td>
+						Dijk / Duin
+					</td>
+				</tr>
+				<tr>
+					<td>
+						PKW
+					</td>
+					<td>
+						2
+					</td>
+					<td>
+						Dijk / Duin
+					</td>
+				</tr>
+				<tr>
+					<td>
+						STKWp
+					</td>
+					<td>
+						2
+					</td>
+					<td>
+						Dijk / Duin
+					</td>
+				</tr>
+				<tr>
+					<td>
+						DA
+					</td>
+					<td>
+						10
+					</td>
+					<td>
+						Dijk / Duin
+					</td>
+				</tr>
+				<tr>
+					<td>
+						-
+					</td>
+					<td>
+						20
+					</td>
+					<td>
+						Dijk / Duin
+					</td>
+				</tr>
+			</table>
+		</DataSource>
+		<DataSource
 		id="db66c0df-6518-4c43-b352-656c3623717d"
 		includefile="Unchecked"
 		lastknownrowcount="8"
@@ -5029,6 +5797,33 @@
 			</file>
 		</DataSource>
 		<DataSource
+		id="54d34b70-57b9-4100-92db-cca84269c504"
+		includefile="Unchecked"
+		lastknownrowcount="209"
+		name="listOfTrajectsWithDifferentSignalingAndLowerValues"
+		type="Ranorex.Core.Data.CsvDataConnector"
+		withheaders="True">
+			<lastknowncolumns>
+				<column>
+					rowId
+				</column>
+				<column>
+					trajectId
+				</column>
+				<column>
+					Signal
+				</column>
+				<column>
+					Low
+				</column>
+			</lastknowncolumns>
+			<maskedcolumns>
+			</maskedcolumns>
+			<file>
+				X:\script08\input\sectionsAndNormsDifferentValues.csv
+			</file>
+		</DataSource>
+		<DataSource
 		id="4ce93af7-822a-4e20-8d70-2e16628861e4"
 		lastknownrowcount="11"
 		name="listSurfaceLines12_2"
@@ -5350,6 +6145,41 @@
 			</table>
 		</DataSource>
 		<DataSource
+		id="35053357-b9f5-45fe-8657-c49a72276bbd"
+		lastknownrowcount="3"
+		name="possibleTrajectTypes"
+		type="Ranorex.Core.Data.SimpleDataConnector">
+			<lastknowncolumns>
+				<column>
+					trajectType
+				</column>
+			</lastknowncolumns>
+			<maskedcolumns>
+			</maskedcolumns>
+			<table>
+				<tr>
+					<th>
+						trajectType
+					</th>
+				</tr>
+				<tr>
+					<td>
+						Dijk
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Duin
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Dijk / Duin
+					</td>
+				</tr>
+			</table>
+		</DataSource>
+		<DataSource
 		id="07431aab-8efa-4c84-a588-8397280626c7"
 		includefile="Unchecked"
 		lastknownrowcount="1"
@@ -5622,6 +6452,9 @@
 			id="00c7a4e5-d91a-40ea-9fc2-39264a957d87">
 			</testcontainer>
 			<testcontainer
+			id="02a85580-c5da-4d64-8012-b42d5a9ad388">
+			</testcontainer>
+			<testcontainer
 			id="06908862-b5db-4ca7-99ea-562da0210ef4">
 			</testcontainer>
 			<testcontainer
@@ -5739,10 +6572,16 @@
 			id="75bc37b3-8164-46db-8dab-3fbff66c9045">
 			</testcontainer>
 			<testcontainer
+			id="78a783b3-ec47-4145-85f3-55c2b56b7aa0">
+			</testcontainer>
+			<testcontainer
 			id="78b7779b-7370-4e07-b1e4-d9a21ce890e1">
 			</testcontainer>
 			<testcontainer
 			id="79ea34f0-ed79-448c-8aa5-d952976bfec4">
+			</testcontainer>
+			<testcontainer
+			id="7b0054c9-2118-49ba-881e-5da96a820b5a">
 			</testcontainer>
 			<testcontainer
 			id="7df4f5d9-6c64-457c-8a84-336b3a0d721b">
@@ -5770,6 +6609,9 @@
 			</testcontainer>
 			<testcontainer
 			id="9339f92a-867d-4e0d-b2a5-1fe03f3fc82a">
+			</testcontainer>
+			<testcontainer
+			id="9b5303ea-11e0-4a2d-9cd9-dbdc460927eb">
 			</testcontainer>
 			<testcontainer
 			id="9cb3bdde-1999-4bae-aa4e-6330208999d4">
@@ -5853,6 +6695,9 @@
 			id="d3a5f35e-8801-4c38-a81d-c55a85a2fdc5">
 			</testcontainer>
 			<testcontainer
+			id="d430e17b-6468-4a3d-83d4-6333c1b327ad">
+			</testcontainer>
+			<testcontainer
 			id="d508d6ac-d58e-4ef0-93d4-7d3874716ee9">
 			</testcontainer>
 			<testcontainer
@@ -5860,6 +6705,9 @@
 			</testcontainer>
 			<testcontainer
 			id="ddfa8ca6-6795-4646-9070-a5d686852fac">
+			</testcontainer>
+			<testcontainer
+			id="de320efd-8193-4dd4-9e9d-8fb5690ddafb">
 			</testcontainer>
 			<testcontainer
 			id="e1ff5697-2c1e-4010-85a0-6f45679d7f50">

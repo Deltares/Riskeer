@@ -23,6 +23,14 @@ mode="Global">
 	namespace="AutomatedSystemTests">
 	</codegen>
 	<variables>
+		<var
+		id="477665a2-02a6-4c0f-af06-48edfa7bd209"
+		name="signallingValue">
+		</var>
+		<var
+		id="86fb3bdf-e3c6-41eb-aea3-29e619ddc796"
+		name="lowLimitValue">
+		</var>
 	</variables>
 	<recorditems>
 		<mouseitem
@@ -89,6 +97,42 @@ mode="Global">
 			id="80b9afc6-496a-413e-85ef-e564cf1d60ff">
 			</arguments>
 		</invokeactionrecorditem>
+		<getvaluerecorditem
+		attrname="Text"
+		enabled="True"
+		optional="False"
+		searchpropertyid="26c45c00-9cf4-4252-be46-2668816464b8"
+		varname="signallingValue">
+			<comment>
+			</comment>
+			<bindings>
+			</bindings>
+			<info
+			id="87a37e52-ec70-43cc-a88a-ca8783019ca2"
+			sourcename="RepositoryEditor">
+				<path>
+					/form[@controlname='ReferenceLineMetaSelectionDialog']/?/?/container[@controlname='ReferenceLineMetaDataGridViewControl']/table[@controlname='dataGridView']/row[@accessiblevalue&gt;$trajectToAdd]/cell[3]
+				</path>
+			</info>
+		</getvaluerecorditem>
+		<getvaluerecorditem
+		attrname="Text"
+		enabled="True"
+		optional="False"
+		searchpropertyid="205059d1-be48-4ca0-b7ff-6edf430b6567"
+		varname="lowLimitValue">
+			<comment>
+			</comment>
+			<bindings>
+			</bindings>
+			<info
+			id="8e329dc6-f841-4157-b4dd-5c8b2c9d9c7f"
+			sourcename="RepositoryEditor">
+				<path>
+					/form[@controlname='ReferenceLineMetaSelectionDialog']/?/?/container[@controlname='ReferenceLineMetaDataGridViewControl']/table[@controlname='dataGridView']/row[@accessiblevalue&gt;$trajectToAdd]/cell[4]
+				</path>
+			</info>
+		</getvaluerecorditem>
 		<mouseitem
 		action="Click"
 		button="Left"

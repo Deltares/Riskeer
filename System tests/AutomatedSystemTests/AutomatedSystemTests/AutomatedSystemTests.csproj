@@ -398,6 +398,18 @@
       <UserCode>true</UserCode>
       <id>9631cbb7-d221-4a87-99b0-a197f22e06e9</id>
     </Compile>
+    <Compile Include="SelectTrajectType.cs">
+      <BoundTo>bd83daa0-c4f9-4e92-818b-ddb482e0838c</BoundTo>
+      <DependentUpon>SelectTrajectType.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>2b34a057-cef9-40d4-8686-14b9cf297390</id>
+    </Compile>
+    <Compile Include="SelectTrajectType.UserCode.cs">
+      <BoundTo>bd83daa0-c4f9-4e92-818b-ddb482e0838c</BoundTo>
+      <DependentUpon>SelectTrajectType.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>c8e3883f-d27d-4363-8f1b-4fe07766baf9</id>
+    </Compile>
     <Compile Include="SetCustomAssessmentAtRow.cs">
       <BoundTo>b838adb7-b43d-43a1-864f-14728db0fe9a</BoundTo>
       <DependentUpon>SetCustomAssessmentAtRow.rxrec</DependentUpon>
@@ -409,6 +421,18 @@
       <DependentUpon>SetCustomAssessmentAtRow.rxrec</DependentUpon>
       <UserCode>true</UserCode>
       <id>955819d2-1ece-4474-9f41-eeaed03ad5a8</id>
+    </Compile>
+    <Compile Include="SetRangeInTableForFMCViewBasedOnTrajectType.cs">
+      <BoundTo>d4473d45-e535-40a7-b45e-f624510bc056</BoundTo>
+      <DependentUpon>SetRangeInTableForFMCViewBasedOnTrajectType.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>d0646bbb-bbb0-49ce-bf06-c2318044658c</id>
+    </Compile>
+    <Compile Include="SetRangeInTableForFMCViewBasedOnTrajectType.UserCode.cs">
+      <BoundTo>d4473d45-e535-40a7-b45e-f624510bc056</BoundTo>
+      <DependentUpon>SetRangeInTableForFMCViewBasedOnTrajectType.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>51f320f6-8b6d-4429-89ec-92b17660048c</id>
     </Compile>
     <Compile Include="SetRelevanceFMInFailureMechanismContributionView.cs">
       <BoundTo>b784c65f-eb14-47fb-8870-5baafbb7e6fe</BoundTo>
@@ -482,6 +506,18 @@
       <UserCode>true</UserCode>
       <id>5edd3525-f8f2-4e1e-9179-3c85f8165e4b</id>
     </Compile>
+    <Compile Include="ValidateContributionInFailureMechanismContributionView.cs">
+      <BoundTo>45ca3cad-b4eb-4830-b715-695e59a034fc</BoundTo>
+      <DependentUpon>ValidateContributionInFailureMechanismContributionView.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>94088e4c-d4d7-471d-aa1e-b2a556b206f3</id>
+    </Compile>
+    <Compile Include="ValidateContributionInFailureMechanismContributionView.UserCode.cs">
+      <BoundTo>45ca3cad-b4eb-4830-b715-695e59a034fc</BoundTo>
+      <DependentUpon>ValidateContributionInFailureMechanismContributionView.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>c7af6470-caf9-4ba8-9f9f-fc46fe4223a4</id>
+    </Compile>
     <Compile Include="ValidateCustomAssessmentTypeAtRow.cs">
       <BoundTo>dd1e40e5-89cd-4bda-be21-cdfa6fc0f479</BoundTo>
       <DependentUpon>ValidateCustomAssessmentTypeAtRow.rxrec</DependentUpon>
@@ -541,6 +577,18 @@
       <DependentUpon>ValidateErrorIcon.rxrec</DependentUpon>
       <UserCode>true</UserCode>
       <id>9aabd863-3df8-4890-abd4-a997f4914ca5</id>
+    </Compile>
+    <Compile Include="ValidateProbabilitySpaceInFailureMechanismContributionView.cs">
+      <BoundTo>e29f7d9b-ae68-4ca7-a428-d70d4680532e</BoundTo>
+      <DependentUpon>ValidateProbabilitySpaceInFailureMechanismContributionView.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>f7896ad9-f85e-4282-a999-59ea799fbcf8</id>
+    </Compile>
+    <Compile Include="ValidateProbabilitySpaceInFailureMechanismContributionView.UserCode.cs">
+      <BoundTo>e29f7d9b-ae68-4ca7-a428-d70d4680532e</BoundTo>
+      <DependentUpon>ValidateProbabilitySpaceInFailureMechanismContributionView.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>9cefaa1d-9ded-4c55-8092-777bcd7c2cb8</id>
     </Compile>
     <Compile Include="ValidateTextMesage.cs">
       <BoundTo>a1476601-a356-4d9f-b0f2-de9145f718c9</BoundTo>
@@ -800,10 +848,20 @@
       <id>31496a42-800f-4754-b94c-bdba78e4cd44</id>
       <recordtableid>e0d85a11-9622-402c-937d-fefa962c3394</recordtableid>
     </None>
+    <None Include="SelectTrajectType.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>bd83daa0-c4f9-4e92-818b-ddb482e0838c</id>
+      <recordtableid>f3cd18f8-b687-4886-b040-fc89f784d832</recordtableid>
+    </None>
     <None Include="SetCustomAssessmentAtRow.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>b838adb7-b43d-43a1-864f-14728db0fe9a</id>
       <recordtableid>dc218a16-91e8-4197-ae23-5bbe0c083a04</recordtableid>
+    </None>
+    <None Include="SetRangeInTableForFMCViewBasedOnTrajectType.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>d4473d45-e535-40a7-b45e-f624510bc056</id>
+      <recordtableid>a23d7db6-2e34-49a1-8c66-009718c79641</recordtableid>
     </None>
     <None Include="SetRelevanceFMInFailureMechanismContributionView.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
@@ -835,6 +893,11 @@
       <id>48b2d7f3-eb5f-4e6a-906d-06315aeaa9db</id>
       <recordtableid>18e39f84-9b42-4666-802c-2fecd9846123</recordtableid>
     </None>
+    <None Include="ValidateContributionInFailureMechanismContributionView.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>45ca3cad-b4eb-4830-b715-695e59a034fc</id>
+      <recordtableid>4a63a2c8-7cac-4869-96dc-543747d8c4c7</recordtableid>
+    </None>
     <None Include="ValidateCustomAssessmentTypeAtRow.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>dd1e40e5-89cd-4bda-be21-cdfa6fc0f479</id>
@@ -859,6 +922,11 @@
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>31e81b77-c11e-4528-8722-7adaeeeb11ad</id>
       <recordtableid>85bd5588-c795-4a99-aeaf-4daebe835849</recordtableid>
+    </None>
+    <None Include="ValidateProbabilitySpaceInFailureMechanismContributionView.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>e29f7d9b-ae68-4ca7-a428-d70d4680532e</id>
+      <recordtableid>bbbbf5bf-dfd4-4308-9cd1-53e977ec87f1</recordtableid>
     </None>
     <None Include="ValidateTextMesage.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>

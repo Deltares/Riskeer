@@ -41,6 +41,8 @@ namespace AutomatedSystemTests
         /// </summary>
         public AddNewTraject()
         {
+            signallingValue = "";
+            lowLimitValue = "";
         }
 
         /// <summary>
@@ -52,6 +54,30 @@ namespace AutomatedSystemTests
         }
 
 #region Variables
+
+        string _signallingValue;
+
+        /// <summary>
+        /// Gets or sets the value of variable signallingValue.
+        /// </summary>
+        [TestVariable("477665a2-02a6-4c0f-af06-48edfa7bd209")]
+        public string signallingValue
+        {
+            get { return _signallingValue; }
+            set { _signallingValue = value; }
+        }
+
+        string _lowLimitValue;
+
+        /// <summary>
+        /// Gets or sets the value of variable lowLimitValue.
+        /// </summary>
+        [TestVariable("86fb3bdf-e3c6-41eb-aea3-29e619ddc796")]
+        public string lowLimitValue
+        {
+            get { return _lowLimitValue; }
+            set { _lowLimitValue = value; }
+        }
 
         /// <summary>
         /// Gets or sets the value of variable trajectToAdd.
@@ -102,22 +128,28 @@ namespace AutomatedSystemTests
             Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'RiskeerMainWindow.Ribbon.TABsButtons.StartBeeldTabs.AddAssessmentSectionButton' at Center.", repo.RiskeerMainWindow.Ribbon.TABsButtons.StartBeeldTabs.AddAssessmentSectionButtonInfo, new RecordItemIndex(0));
             repo.RiskeerMainWindow.Ribbon.TABsButtons.StartBeeldTabs.AddAssessmentSectionButton.Click();
             
-            Report.Log(ReportLevel.Info, "Invoke action", "Invoking Focus() on item 'DialogNewTraject.TableTrajects.GenericTrajectIDRow.CellGenericRow'.", repo.DialogNewTraject.TableTrajects.GenericTrajectIDRow.CellGenericRowInfo, new RecordItemIndex(1));
-            repo.DialogNewTraject.TableTrajects.GenericTrajectIDRow.CellGenericRow.Focus();
+            Report.Log(ReportLevel.Info, "Invoke action", "Invoking Focus() on item 'DialogNewTraject.TableTrajects.GenericTrajectIDRow.CellTrajectId'.", repo.DialogNewTraject.TableTrajects.GenericTrajectIDRow.CellTrajectIdInfo, new RecordItemIndex(1));
+            repo.DialogNewTraject.TableTrajects.GenericTrajectIDRow.CellTrajectId.Focus();
             
-            Report.Log(ReportLevel.Info, "Invoke action", "Invoking Select() on item 'DialogNewTraject.TableTrajects.GenericTrajectIDRow.CellGenericRow'.", repo.DialogNewTraject.TableTrajects.GenericTrajectIDRow.CellGenericRowInfo, new RecordItemIndex(2));
-            repo.DialogNewTraject.TableTrajects.GenericTrajectIDRow.CellGenericRow.Select();
+            Report.Log(ReportLevel.Info, "Invoke action", "Invoking Select() on item 'DialogNewTraject.TableTrajects.GenericTrajectIDRow.CellTrajectId'.", repo.DialogNewTraject.TableTrajects.GenericTrajectIDRow.CellTrajectIdInfo, new RecordItemIndex(2));
+            repo.DialogNewTraject.TableTrajects.GenericTrajectIDRow.CellTrajectId.Select();
             
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'DialogNewTraject.NormRadioButton' at CenterLeft.", repo.DialogNewTraject.NormRadioButtonInfo, new RecordItemIndex(3));
+            Report.Log(ReportLevel.Info, "Get Value", "Getting attribute 'Text' from item 'DialogNewTraject.TableTrajects.GenericTrajectIDRow.CellSignallingValue' and assigning its value to variable 'signallingValue'.", repo.DialogNewTraject.TableTrajects.GenericTrajectIDRow.CellSignallingValueInfo, new RecordItemIndex(3));
+            signallingValue = repo.DialogNewTraject.TableTrajects.GenericTrajectIDRow.CellSignallingValue.Element.GetAttributeValueText("Text");
+            
+            Report.Log(ReportLevel.Info, "Get Value", "Getting attribute 'Text' from item 'DialogNewTraject.TableTrajects.GenericTrajectIDRow.CellLowLimitValue' and assigning its value to variable 'lowLimitValue'.", repo.DialogNewTraject.TableTrajects.GenericTrajectIDRow.CellLowLimitValueInfo, new RecordItemIndex(4));
+            lowLimitValue = repo.DialogNewTraject.TableTrajects.GenericTrajectIDRow.CellLowLimitValue.Element.GetAttributeValueText("Text");
+            
+            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'DialogNewTraject.NormRadioButton' at CenterLeft.", repo.DialogNewTraject.NormRadioButtonInfo, new RecordItemIndex(5));
             repo.DialogNewTraject.NormRadioButton.Click(Location.CenterLeft);
             
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'DialogNewTraject.ButtonOk' at Center.", repo.DialogNewTraject.ButtonOkInfo, new RecordItemIndex(4));
+            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'DialogNewTraject.ButtonOk' at Center.", repo.DialogNewTraject.ButtonOkInfo, new RecordItemIndex(6));
             repo.DialogNewTraject.ButtonOk.Click();
             
-            Report.Log(ReportLevel.Info, "Wait", "Waiting 5s to exist. Associated repository item: 'RiskeerMainWindow.DocumentViewContainer'", repo.RiskeerMainWindow.DocumentViewContainer.SelfInfo, new ActionTimeout(5000), new RecordItemIndex(5));
+            Report.Log(ReportLevel.Info, "Wait", "Waiting 5s to exist. Associated repository item: 'RiskeerMainWindow.DocumentViewContainer'", repo.RiskeerMainWindow.DocumentViewContainer.SelfInfo, new ActionTimeout(5000), new RecordItemIndex(7));
             repo.RiskeerMainWindow.DocumentViewContainer.SelfInfo.WaitForExists(5000);
             
-            Report.Screenshot(ReportLevel.Info, "User", "", repo.RiskeerMainWindow.DocumentViewContainer.Self, false, new RecordItemIndex(6));
+            Report.Screenshot(ReportLevel.Info, "User", "", repo.RiskeerMainWindow.DocumentViewContainer.Self, false, new RecordItemIndex(8));
             
         }
 
