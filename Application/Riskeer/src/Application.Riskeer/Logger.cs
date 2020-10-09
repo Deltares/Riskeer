@@ -34,7 +34,7 @@ namespace Application.Riskeer
     /// <summary>
     /// Class for managing the logging capabilities of Riskeer.
     /// </summary>
-    public class Logger
+    public static class Logger
     {
         /// <summary>
         /// Sets the configuration of the logger.

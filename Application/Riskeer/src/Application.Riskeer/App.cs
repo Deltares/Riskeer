@@ -114,8 +114,10 @@ namespace Application.Riskeer
             Resources.Add(SystemParameters.MenuPopupAnimationKey, PopupAnimation.None);
 
             WaitForPreviousInstanceToExit();
-            if (ShutdownIfNotFirstInstance())
+            if (IsNotFirstInstance())
             {
+                MessageBox.Show(CoreCommonGuiResources.App_ShutdownIfNotFirstInstance_Cannot_start_multiple_instances_of_Riskeer_Please_close_the_other_instance_first);
+                Shutdown(1);
                 return;
             }
 
@@ -241,7 +243,7 @@ namespace Application.Riskeer
         /// to write log files to the Riskeer user data folder. This method deletes the old log files
         /// that have been written there.
         /// </summary>
-        private void DeleteOldLogFiles()
+        private static void DeleteOldLogFiles()
         {
             try
             {
@@ -258,7 +260,7 @@ namespace Application.Riskeer
             }
         }
 
-        private bool ShutdownIfNotFirstInstance()
+        private static bool IsNotFirstInstance()
         {
             var hasMutex = false;
 
@@ -266,9 +268,7 @@ namespace Application.Riskeer
             {
                 if (!AcquireSingleInstancePerUserMutex())
                 {
-                    MessageBox.Show(CoreCommonGuiResources.App_ShutdownIfNotFirstInstance_Cannot_start_multiple_instances_of_Riskeer_Please_close_the_other_instance_first);
-                    Shutdown(1);
-                    return true; //done here
+                    return true;
                 }
 
                 hasMutex = true;
