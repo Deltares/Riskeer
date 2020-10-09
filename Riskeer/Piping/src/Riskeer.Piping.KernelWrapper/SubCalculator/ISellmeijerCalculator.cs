@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System.Collections.Generic;
+using Riskeer.Common.Data.Probabilistics;
 
 namespace Riskeer.Piping.KernelWrapper.SubCalculator
 {

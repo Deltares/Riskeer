@@ -20,7 +20,9 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Base.Data;
 using NUnit.Framework;
+using Riskeer.Common.Data.Probabilistics;
 using Riskeer.Piping.Primitives;
 
 namespace Riskeer.Piping.KernelWrapper.Test
@@ -47,7 +49,7 @@ namespace Riskeer.Piping.KernelWrapper.Test
 
             double volumetricWeightOfWaterValue = random.NextDouble();
             double saturatedVolumicWeightOfCoverageLayer = random.NextDouble();
-            double modelFactorUpliftValue = random.NextDouble();
+            var modelFactorUpliftValue = random.NextDouble();
             double hRiverValue = random.NextDouble();
             double phiExit = random.NextDouble();
             double rExitValue = random.NextDouble();
@@ -55,7 +57,7 @@ namespace Riskeer.Piping.KernelWrapper.Test
             double ichValue = random.NextDouble();
             double dTotalValue = random.NextDouble();
             double effectiveThicknessCoverageLayerValue = random.NextDouble();
-            double sellmeijerModelFactorValue = random.NextDouble();
+            var sellmeijerModelFactorValue = random.NextDouble();
             double reductionFactorValue = random.NextDouble();
             double seepageLengthValue = random.NextDouble();
             double sandParticlesVolumicWeightValue = random.NextDouble();

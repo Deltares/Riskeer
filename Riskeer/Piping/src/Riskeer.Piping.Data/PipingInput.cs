@@ -414,7 +414,7 @@ namespace Riskeer.Piping.Data
         /// <summary>
         /// Gets the calculation value used to account for uncertainty in the model for uplift.
         /// </summary>
-        public double UpliftModelFactor
+        public LogNormalDistribution UpliftModelFactor
         {
             get
             {
@@ -425,7 +425,7 @@ namespace Riskeer.Piping.Data
         /// <summary>
         /// Gets the calculation value used to account for uncertainty in the model for Sellmeijer.
         /// </summary>
-        public double SellmeijerModelFactor
+        public LogNormalDistribution SellmeijerModelFactor
         {
             get
             {

@@ -368,7 +368,7 @@ namespace Riskeer.Piping.Service
                 {
                     WaterVolumetricWeight = inputParameters.WaterVolumetricWeight,
                     SaturatedVolumicWeightOfCoverageLayer = PipingSemiProbabilisticDesignVariableFactory.GetSaturatedVolumicWeightOfCoverageLayer(inputParameters).GetDesignValue(),
-                    UpliftModelFactor = inputParameters.UpliftModelFactor,
+                    UpliftModelFactor = PipingSemiProbabilisticDesignVariableFactory.GetUpliftModelFactorDesignVariable(inputParameters).GetDesignValue(),
                     AssessmentLevel = effectiveAssessmentLevel,
                     PiezometricHeadExit = DerivedPipingInput.GetPiezometricHeadExit(inputParameters, effectiveAssessmentLevel),
                     DampingFactorExit = PipingSemiProbabilisticDesignVariableFactory.GetDampingFactorExit(inputParameters).GetDesignValue(),
@@ -376,7 +376,7 @@ namespace Riskeer.Piping.Service
                     CriticalHeaveGradient = inputParameters.CriticalHeaveGradient,
                     ThicknessCoverageLayer = PipingSemiProbabilisticDesignVariableFactory.GetThicknessCoverageLayer(inputParameters).GetDesignValue(),
                     EffectiveThicknessCoverageLayer = PipingSemiProbabilisticDesignVariableFactory.GetEffectiveThicknessCoverageLayer(inputParameters).GetDesignValue(),
-                    SellmeijerModelFactor = inputParameters.SellmeijerModelFactor,
+                    SellmeijerModelFactor = PipingSemiProbabilisticDesignVariableFactory.GetSellmeijerModelFactorDesignVariable(inputParameters).GetDesignValue(),
                     SellmeijerReductionFactor = inputParameters.SellmeijerReductionFactor,
                     SeepageLength = PipingSemiProbabilisticDesignVariableFactory.GetSeepageLength(inputParameters).GetDesignValue(),
                     SandParticlesVolumicWeight = inputParameters.SandParticlesVolumicWeight,

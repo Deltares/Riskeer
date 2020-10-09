@@ -30,6 +30,17 @@ namespace Riskeer.Piping.Data
     {
         #region General parameters
 
+        public static DeterministicDesignVariable<LogNormalDistribution> GetUpliftModelFactorDesignVariable(PipingInput parameters)
+        {
+            return new DeterministicDesignVariable<LogNormalDistribution>(parameters.UpliftModelFactor, parameters.UpliftModelFactor.Mean);
+        }
+
+
+        public static DeterministicDesignVariable<LogNormalDistribution> GetSellmeijerModelFactorDesignVariable(PipingInput parameters)
+        {
+            return new DeterministicDesignVariable<LogNormalDistribution>(parameters.SellmeijerModelFactor, parameters.SellmeijerModelFactor.Mean);
+        }
+
         /// <summary>
         /// Creates the design variable for the volumic weight of the saturated coverage layer.
         /// </summary>

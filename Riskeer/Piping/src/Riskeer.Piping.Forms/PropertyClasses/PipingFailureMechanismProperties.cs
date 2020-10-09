@@ -409,11 +409,11 @@ namespace Riskeer.Piping.Forms.PropertyClasses
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_ModelSettings))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.GeneralPipingInput_UpliftModelFactor_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.GeneralPipingInput_UpliftModelFactor_Description))]
-        public double UpliftModelFactor
+        public LogNormalDistributionProperties UpliftModelFactor
         {
             get
             {
-                return data.GeneralInput.UpliftModelFactor;
+                return new LogNormalDistributionProperties(data.GeneralInput.UpliftModelFactor);
             }
         }
 
@@ -422,11 +422,11 @@ namespace Riskeer.Piping.Forms.PropertyClasses
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_ModelSettings))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.GeneralPipingInput_SellmeijerModelFactor_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.GeneralPipingInput_SellmeijerModelFactor_Description))]
-        public double SellmeijerModelFactor
+        public LogNormalDistributionProperties SellmeijerModelFactor
         {
             get
             {
-                return data.GeneralInput.SellmeijerModelFactor;
+                return new LogNormalDistributionProperties(data.GeneralInput.SellmeijerModelFactor);
             }
         }
 

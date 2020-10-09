@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using Deltares.WTIPiping;
+using Riskeer.Common.Data.Probabilistics;
 using Riskeer.Piping.KernelWrapper.SubCalculator;
 
 namespace Riskeer.Piping.KernelWrapper.TestUtil.SubCalculator
