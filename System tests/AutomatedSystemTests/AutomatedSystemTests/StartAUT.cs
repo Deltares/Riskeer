@@ -42,6 +42,7 @@ namespace AutomatedSystemTests
         public StartAUT()
         {
             StartAutProcessIDVar = "";
+            AppPath = "";
         }
 
         /// <summary>
@@ -64,6 +65,18 @@ namespace AutomatedSystemTests
         {
             get { return _StartAutProcessIDVar; }
             set { _StartAutProcessIDVar = value; }
+        }
+
+        string _AppPath;
+
+        /// <summary>
+        /// Gets or sets the value of variable AppPath.
+        /// </summary>
+        [TestVariable("ae927c2e-4f2f-4656-ae88-d9198de4c5c4")]
+        public string AppPath
+        {
+            get { return _AppPath; }
+            set { _AppPath = value; }
         }
 
 #endregion
@@ -92,11 +105,14 @@ namespace AutomatedSystemTests
 
             Init();
 
-            Report.Log(ReportLevel.Info, "Application", "Run application 'D:\\repos\\Riskeer\\bin\\Debug\\Riskeer.exe' in normal mode. Return value bound to $StartAutProcessIDVar.", new RecordItemIndex(0));
-            StartAutProcessIDVar = ValueConverter.ToString(Host.Local.RunApplication("D:\\repos\\Riskeer\\bin\\Debug\\Riskeer.exe", "", "", false));
+            ResolveAppPath();
             Delay.Milliseconds(0);
             
-            Report.Log(ReportLevel.Info, "Wait", "Waiting 1m to exist. Associated repository item: 'RiskeerMainWindow'", repo.RiskeerMainWindow.SelfInfo, new ActionTimeout(60000), new RecordItemIndex(1));
+            Report.Log(ReportLevel.Info, "Application", "Run application with file name from variable $AppPath in normal mode. Return value bound to $StartAutProcessIDVar.", new RecordItemIndex(1));
+            StartAutProcessIDVar = ValueConverter.ToString(Host.Local.RunApplication(AppPath, "", "", false));
+            Delay.Milliseconds(0);
+            
+            Report.Log(ReportLevel.Info, "Wait", "Waiting 1m to exist. Associated repository item: 'RiskeerMainWindow'", repo.RiskeerMainWindow.SelfInfo, new ActionTimeout(60000), new RecordItemIndex(2));
             repo.RiskeerMainWindow.SelfInfo.WaitForExists(60000);
             
         }

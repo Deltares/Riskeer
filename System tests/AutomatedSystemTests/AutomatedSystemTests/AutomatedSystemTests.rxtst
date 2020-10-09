@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <testsuitedoc>
 	<testsuiteentryhierarchy>
 		<flatlistofchildren>
@@ -267,6 +267,12 @@
 					datasourceid="fda567a0-be92-41b9-9761-e7e7d9e7be7f"
 					variableid="8cd31747-b0d7-463c-aa3e-8ea07c17694e"
 					variablename="StartAutProcessIDVar">
+					</var>
+					<var
+					dataname="AppPath"
+					datasourceid="fda567a0-be92-41b9-9761-e7e7d9e7be7f"
+					variableid="ae927c2e-4f2f-4656-ae88-d9198de4c5c4"
+					variablename="AppPath">
 					</var>
 				</databinding>
 			</testmodule>
@@ -3278,6 +3284,12 @@
 					variableid="8cd31747-b0d7-463c-aa3e-8ea07c17694e"
 					variablename="StartAutProcessIDVar">
 					</var>
+					<var
+					dataname="AppPath"
+					datasourceid="fda567a0-be92-41b9-9761-e7e7d9e7be7f"
+					variableid="ae927c2e-4f2f-4656-ae88-d9198de4c5c4"
+					variablename="AppPath">
+					</var>
 				</databinding>
 			</testmodule>
 			<testmodule
@@ -3377,6 +3389,12 @@
 					datasourceid="fda567a0-be92-41b9-9761-e7e7d9e7be7f"
 					variableid="8cd31747-b0d7-463c-aa3e-8ea07c17694e"
 					variablename="StartAutProcessIDVar">
+					</var>
+					<var
+					dataname="AppPath"
+					datasourceid="fda567a0-be92-41b9-9761-e7e7d9e7be7f"
+					variableid="ae927c2e-4f2f-4656-ae88-d9198de4c5c4"
+					variablename="AppPath">
 					</var>
 				</databinding>
 			</testmodule>
@@ -3923,6 +3941,10 @@
 					<param
 					name="AppProcessID"
 					value="">
+					</param>
+					<param
+					name="AppPath"
+					value="..\..\..\..\..\bin\Debug\Riskeer.exe">
 					</param>
 				</parameters>
 			</testcase>

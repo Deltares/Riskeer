@@ -27,8 +27,27 @@ mode="Desktop">
 		id="8cd31747-b0d7-463c-aa3e-8ea07c17694e"
 		name="StartAutProcessIDVar">
 		</var>
+		<var
+		id="ae927c2e-4f2f-4656-ae88-d9198de4c5c4"
+		name="AppPath">
+		</var>
 	</variables>
 	<recorditems>
+		<userrecorditem
+		classname="StartAUT"
+		enabled="True"
+		isexternaltestmethod="False"
+		methodname="ResolveAppPath"
+		namespace="AutomatedSystemTests"
+		optional="False">
+			<comment>
+			</comment>
+			<bindings>
+			</bindings>
+			<arguments
+			id="bbf3c01d-2f45-48d9-aee0-30f94385857c">
+			</arguments>
+		</userrecorditem>
 		<runapprecorditem
 		enabled="True"
 		maximized="False"
@@ -40,9 +59,12 @@ mode="Desktop">
 				target="ReturnVariable"
 				variable="StartAutProcessIDVar">
 				</binding>
+				<binding
+				target="FileName"
+				variable="AppPath">
+				</binding>
 			</bindings>
 			<filename>
-				D:\repos\Riskeer\bin\Debug\Riskeer.exe
 			</filename>
 			<args>
 			</args>

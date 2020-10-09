@@ -9,12 +9,13 @@
 
 using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Drawing;
 using System.Threading;
-using WinForms = System.Windows.Forms;
 
+using WinForms = System.Windows.Forms;
 using Ranorex;
 using Ranorex.Core;
 using Ranorex.Core.Repository;
@@ -23,7 +24,7 @@ using Ranorex.Core.Testing;
 namespace AutomatedSystemTests
 {
     public partial class StartAUT
-    {
+    {	
         /// <summary>
         /// This method gets called right after the recording has been started.
         /// It can be used to execute recording specific initialization code.
@@ -31,6 +32,11 @@ namespace AutomatedSystemTests
         private void Init()
         {
             // Your recording specific initialization code goes here.
+        }
+
+        public void ResolveAppPath()
+        {
+        	AppPath = Path.Combine(System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location), AppPath);
         }
 
     }
