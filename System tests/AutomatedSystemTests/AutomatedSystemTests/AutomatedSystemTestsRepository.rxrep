@@ -1,4 +1,5 @@
-﻿<repository
+<?xml version="1.0" encoding="utf-8"?>
+<repository
 id="137723a5-e147-4b62-8c15-5c31a3d68f96"
 name="AutomatedSystemTestsRepository">
 	<codegen
@@ -434,6 +435,60 @@ name="AutomatedSystemTestsRepository">
 						searchtimeout="30000ms">
 							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename&gt;'Toets op maatfaalkans Row ']
 						</item>
+						<item
+						addcaps="cell,accessible"
+						capname="cell"
+						id="4dac1e41-a578-4792-8699-3ba59fb3fe9b"
+						name="ToetsoordeelGedetailleerdeToetsPerV"
+						refimgid="d5e7cd57-012e-45dc-a780-ed3166ba405c"
+						searchtimeout="30000ms">
+							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename&gt;'Toetsoordeelgedetailleerde']
+						</item>
+						<item
+						addcaps="cell,accessible"
+						capname="cell"
+						id="adbd81b7-87e6-4348-9438-cf24fa3d31bc"
+						name="GedetailleerdeToetsPerVakCategorie"
+						refimgid="39de783d-7558-4f5e-9fdb-05f8989ba096"
+						searchtimeout="30000ms">
+							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[@accessiblename='Row'+$rowIndex]/cell[4]
+						</item>
+						<item
+						addcaps="cell,accessible"
+						capname="cell"
+						id="fdd3d2c9-98f9-42a2-97e8-7de1aeb22b35"
+						name="GedetailleerdeToetsPerVakCategorie1"
+						refimgid="2aa90b9d-fda2-459a-be90-da306a333eed"
+						searchtimeout="30000ms">
+							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[@accessiblename='Row'+$rowIndex]/cell[5]
+						</item>
+						<item
+						addcaps="cell,accessible"
+						capname="cell"
+						id="54aaf95b-b50c-4527-b5d6-ce1519184540"
+						name="GedetailleerdeToetsPerVakCategorie2"
+						refimgid="d0fa67ad-25dd-4ca8-8494-1a42898951ab"
+						searchtimeout="30000ms">
+							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[@accessiblename='Row'+$rowIndex]/cell[6]
+						</item>
+						<item
+						addcaps="cell,accessible"
+						capname="cell"
+						id="46b0e398-5ea8-400e-9133-18443b9b3b69"
+						name="GedetailleerdeToetsPerVakCategorie3"
+						refimgid="642ac44d-2681-4e71-9031-94963114ca9e"
+						searchtimeout="30000ms">
+							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[@accessiblename='Row'+$rowIndex]/cell[7]
+						</item>
+						<item
+						addcaps="cell,accessible"
+						capname="cell"
+						id="54d174fe-ebc8-4465-a144-f91eb13fdcf6"
+						name="GedetailleerdeToetsPerVakCategorie4"
+						refimgid="12bba804-248e-47cb-a6c3-fb6f2cfd7206"
+						searchtimeout="30000ms">
+							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[@accessiblename='Row'+$rowIndex]/cell[8]
+						</item>
 						<basepath>
 							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismResultView']/container/table[@controlname='dataGridView']
 						</basepath>
@@ -616,6 +671,7 @@ Ci8EIxlN9/ueuduvvCRUSA/y/BpXl5+Ui+rMfnRmeyL0hblJeL6KhKphqPIwCHnKcUMch8GfPoy/
 					name="GenericCellIcon"
 					refimgid="df30e0c6-39a0-400a-82dd-ad6347165336"
 					searchtimeout="30000ms">
+						/form[@automationid='RiskeerMainWindow']//container[@controlname='MessageWindow']/table[@controlname='messagesDataGridView']/row[@accessiblename='Row '+$indexRowMessage]/cell[@accessiblename&gt;' Row']
 						<image
 						guid="177d1f5e-b60b-4c93-b880-4e6a8dc84a69"
 						name="ErrorIcon">
@@ -631,7 +687,6 @@ h2w43PvQ+hgzZRcwWo36wPa8zQVP066PNZJvg+w96kM2LPd6j1fUg2AHbRLVTte/wQf2vetu3tWY
 Ci8EIxlN9/ueuduvvCRUSA/y/BpXl5+Ui+rMfnRmeyL0hblJeL6KhKphqPIwCHnKcUMch8GfPoy/
 0v+F8V1TqnoOxOXBfwwHqGMAAAAASUVORK5CYII=
 						</image>
-						/form[@automationid='RiskeerMainWindow']//container[@controlname='MessageWindow']/table[@controlname='messagesDataGridView']/row[@accessiblename='Row '+$indexRowMessage]/cell[@accessiblename&gt;' Row']
 					</item>
 					<item
 					addcaps="cell,accessible"
@@ -1037,6 +1092,15 @@ QmCC
 			searchtimeout="30000ms">
 				/list[@controlid='1000']/listitem[@text=$textItemDropDownMenu]
 			</item>
+			<item
+			addcaps="listitem,nativeitem,checkable"
+			capname="listitem"
+			id="83d898b4-7bdb-4b01-8f3b-509fdd675bbe"
+			name="ListItemSelecteer"
+			refimgid="1a6b6dd7-7480-443f-a339-3ef3b476b134"
+			searchtimeout="30000ms">
+				/list[@controlid='1000']/listitem[@text=$textDropDownMenu]
+			</item>
 			<basepath>
 				/list[@controlid='1000']
 			</basepath>
@@ -1396,6 +1460,10 @@ FjcAAAAASUVORK5CYII=
 		<var
 		id="cb52c14e-9bef-4f4a-9d11-1758141c50cb"
 		name="substringNameItemInTraject">
+		</var>
+		<var
+		id="4f707b64-d756-4bb7-a45a-f34af402b280"
+		name="textDropDownMenu">
 		</var>
 	</variables>
 </repository>

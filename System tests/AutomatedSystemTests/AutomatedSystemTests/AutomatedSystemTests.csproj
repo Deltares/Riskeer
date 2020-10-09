@@ -312,6 +312,18 @@
       <UserCode>true</UserCode>
       <id>487f6ed8-b5f5-4fb1-924f-bc9cd1a1e518</id>
     </Compile>
+    <Compile Include="SelectDetailedAssessmentForRowPerCategory.cs">
+      <BoundTo>6fa21cc3-480a-4ae6-98ff-ae7fece12e4c</BoundTo>
+      <DependentUpon>SelectDetailedAssessmentForRowPerCategory.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>154279cd-fd66-48db-8146-d021ffde78e4</id>
+    </Compile>
+    <Compile Include="SelectDetailedAssessmentForRowPerCategory.UserCode.cs">
+      <BoundTo>6fa21cc3-480a-4ae6-98ff-ae7fece12e4c</BoundTo>
+      <DependentUpon>SelectDetailedAssessmentForRowPerCategory.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>7091f637-ad44-4ebc-8e89-2efc1287308a</id>
+    </Compile>
     <Compile Include="SelectItemBelow.cs">
       <BoundTo>1fec213e-fd25-4c96-8055-5d4dad952155</BoundTo>
       <DependentUpon>SelectItemBelow.rxrec</DependentUpon>
@@ -615,6 +627,18 @@
       <UserCode>true</UserCode>
       <id>8658e6ac-2879-4557-85a0-bb2867183791</id>
     </Compile>
+    <Compile Include="ValidateDetailedAssessmentValueAtRowPerCategory.cs">
+      <BoundTo>d713dd0c-6468-4e57-8a1a-9e182f238ec7</BoundTo>
+      <DependentUpon>ValidateDetailedAssessmentValueAtRowPerCategory.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>c5444e15-62da-4bf4-98c9-0ffbed14436f</id>
+    </Compile>
+    <Compile Include="ValidateDetailedAssessmentValueAtRowPerCategory.UserCode.cs">
+      <BoundTo>d713dd0c-6468-4e57-8a1a-9e182f238ec7</BoundTo>
+      <DependentUpon>ValidateDetailedAssessmentValueAtRowPerCategory.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>f9f9d8e6-595d-4f5d-92b8-116dd957a00c</id>
+    </Compile>
     <Compile Include="ValidateErrorIcon.cs">
       <BoundTo>31e81b77-c11e-4528-8722-7adaeeeb11ad</BoundTo>
       <DependentUpon>ValidateErrorIcon.rxrec</DependentUpon>
@@ -874,6 +898,11 @@
       <id>731610be-3ce8-4f1d-8c8d-98ec88fef6e9</id>
       <recordtableid>30a2f45d-ee95-4cb0-9ee5-87d71ca20ca5</recordtableid>
     </None>
+    <None Include="SelectDetailedAssessmentForRowPerCategory.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>6fa21cc3-480a-4ae6-98ff-ae7fece12e4c</id>
+      <recordtableid>c1513bdd-cf1e-4c78-a29b-2ede0ca009cb</recordtableid>
+    </None>
     <None Include="SelectItemBelow.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>1fec213e-fd25-4c96-8055-5d4dad952155</id>
@@ -998,6 +1027,11 @@
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>bbfde277-5adf-4de7-a49e-e6822bc65f48</id>
       <recordtableid>91919928-72e3-45e3-8af5-a51f8db749e3</recordtableid>
+    </None>
+    <None Include="ValidateDetailedAssessmentValueAtRowPerCategory.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>d713dd0c-6468-4e57-8a1a-9e182f238ec7</id>
+      <recordtableid>e8d5931b-4e59-4070-ae4d-51a65c062ea7</recordtableid>
     </None>
     <None Include="ValidateErrorIcon.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
