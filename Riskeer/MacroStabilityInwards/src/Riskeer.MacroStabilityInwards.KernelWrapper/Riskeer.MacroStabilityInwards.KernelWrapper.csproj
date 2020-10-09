@@ -5,7 +5,6 @@
     <Reference Include="System.Core" />
     <Reference Include="WTIStability">
       <HintPath>..\..\..\..\lib\Plugins\Wti\WTIStability.dll</HintPath>
-      <Private>false</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>
