@@ -24,48 +24,34 @@ namespace AutomatedSystemTests
 {
 #pragma warning disable 0436 //(CS0436) The type 'type' in 'assembly' conflicts with the imported type 'type2' in 'assembly'. Using the type defined in 'assembly'.
     /// <summary>
-    ///The ValidateDetailedAssessmentValueAtRowPerCategory recording.
+    ///The SelectDetailedAssessmentForRowCategoryIIIv recording.
     /// </summary>
-    [TestModule("e8d5931b-4e59-4070-ae4d-51a65c062ea7", ModuleType.Recording, 1)]
-    public partial class ValidateDetailedAssessmentValueAtRowPerCategory : ITestModule
+    [TestModule("a7eb8c7e-6846-46ff-b2ed-97d624f39d39", ModuleType.Recording, 1)]
+    public partial class SelectDetailedAssessmentForRowCategoryIIIv : ITestModule
     {
         /// <summary>
         /// Holds an instance of the AutomatedSystemTestsRepository repository.
         /// </summary>
         public static AutomatedSystemTestsRepository repo = AutomatedSystemTestsRepository.Instance;
 
-        static ValidateDetailedAssessmentValueAtRowPerCategory instance = new ValidateDetailedAssessmentValueAtRowPerCategory();
+        static SelectDetailedAssessmentForRowCategoryIIIv instance = new SelectDetailedAssessmentForRowCategoryIIIv();
 
         /// <summary>
         /// Constructs a new instance.
         /// </summary>
-        public ValidateDetailedAssessmentValueAtRowPerCategory()
+        public SelectDetailedAssessmentForRowCategoryIIIv()
         {
-            ExpectedDetailedAssessmentValuePerCategory = "Text";
-            rowIndex = "";
         }
 
         /// <summary>
         /// Gets a static instance of this recording.
         /// </summary>
-        public static ValidateDetailedAssessmentValueAtRowPerCategory Instance
+        public static SelectDetailedAssessmentForRowCategoryIIIv Instance
         {
             get { return instance; }
         }
 
 #region Variables
-
-        string _ExpectedDetailedAssessmentValuePerCategory;
-
-        /// <summary>
-        /// Gets or sets the value of variable ExpectedDetailedAssessmentValuePerCategory.
-        /// </summary>
-        [TestVariable("903942ed-bc73-4b42-a60b-842409679d97")]
-        public string ExpectedDetailedAssessmentValuePerCategory
-        {
-            get { return _ExpectedDetailedAssessmentValuePerCategory; }
-            set { _ExpectedDetailedAssessmentValuePerCategory = value; }
-        }
 
         /// <summary>
         /// Gets or sets the value of variable rowIndex.
@@ -75,6 +61,16 @@ namespace AutomatedSystemTests
         {
             get { return repo.rowIndex; }
             set { repo.rowIndex = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets the value of variable textDropDownMenu.
+        /// </summary>
+        [TestVariable("4f707b64-d756-4bb7-a45a-f34af402b280")]
+        public string textDropDownMenu
+        {
+            get { return repo.textDropDownMenu; }
+            set { repo.textDropDownMenu = value; }
         }
 
 #endregion
@@ -103,12 +99,16 @@ namespace AutomatedSystemTests
 
             Init();
 
-            Report.Log(ReportLevel.Info, "Invoke action", "Invoking Focus() on item 'RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.DetailedAssessmentValueCategories'.", repo.RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.DetailedAssessmentValueCategoriesInfo, new RecordItemIndex(0));
-            repo.RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.DetailedAssessmentValueCategories.Focus();
+            Report.Log(ReportLevel.Info, "Invoke action", "Invoking Focus() on item 'RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.DetailedAssessmentTypeCategoryIIIv'.", repo.RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.DetailedAssessmentTypeCategoryIIIvInfo, new RecordItemIndex(0));
+            repo.RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.DetailedAssessmentTypeCategoryIIIv.Focus();
             Delay.Milliseconds(0);
             
-            Report.Log(ReportLevel.Info, "Validation", "Validating AttributeEqual (Text=$ExpectedDetailedAssessmentValuePerCategory) on item 'RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.DetailedAssessmentValueCategories'.", repo.RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.DetailedAssessmentValueCategoriesInfo, new RecordItemIndex(1));
-            Validate.AttributeEqual(repo.RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.DetailedAssessmentValueCategoriesInfo, "Text", ExpectedDetailedAssessmentValuePerCategory);
+            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.DetailedAssessmentTypeCategoryIIIv' at CenterRight.", repo.RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.DetailedAssessmentTypeCategoryIIIvInfo, new RecordItemIndex(1));
+            repo.RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.DetailedAssessmentTypeCategoryIIIv.Click(Location.CenterRight);
+            Delay.Milliseconds(0);
+            
+            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'DropDownMenuItemList.DropDownItem' at Center.", repo.DropDownMenuItemList.DropDownItemInfo, new RecordItemIndex(2));
+            repo.DropDownMenuItemList.DropDownItem.Click();
             Delay.Milliseconds(0);
             
         }

@@ -229,7 +229,6 @@ namespace AutomatedSystemTests
             set { _indexRowMessage = value; }
         }
 
-<<<<<<< HEAD
         string _fmLabel = "";
 
         /// <summary>
@@ -252,7 +251,8 @@ namespace AutomatedSystemTests
         {
             get { return _trajectType; }
             set { _trajectType = value; }
-=======
+        }
+
         string _textDropDownMenu = "";
 
         /// <summary>
@@ -263,7 +263,6 @@ namespace AutomatedSystemTests
         {
             get { return _textDropDownMenu; }
             set { _textDropDownMenu = value; }
->>>>>>> c0a0c2a60b... WTI-2108
         }
 
         string _nameOfParameterInPropertiesPanel = "";
@@ -1923,12 +1922,12 @@ namespace AutomatedSystemTests
             RepoItemInfo _detailedassessmentvaluerownthInfo;
             RepoItemInfo _customasssessmenttyperownthInfo;
             RepoItemInfo _customassessmentvaluerownthInfo;
-            RepoItemInfo _toetsoordeelgedetailleerdetoetspervInfo;
-            RepoItemInfo _gedetailleerdetoetspervakcategorieInfo;
-            RepoItemInfo _gedetailleerdetoetspervakcategorie1Info;
-            RepoItemInfo _gedetailleerdetoetspervakcategorie2Info;
-            RepoItemInfo _gedetailleerdetoetspervakcategorie3Info;
-            RepoItemInfo _gedetailleerdetoetspervakcategorie4Info;
+            RepoItemInfo _detailedassessmentvaluecategoriesInfo;
+            RepoItemInfo _detailedassessmenttypecategoryivInfo;
+            RepoItemInfo _detailedassessmenttypecategoryiivInfo;
+            RepoItemInfo _detailedassessmenttypecategoryiiivInfo;
+            RepoItemInfo _detailedassessmenttypecategoryivvInfo;
+            RepoItemInfo _detailedassessmenttypecategoryvvInfo;
 
             /// <summary>
             /// Creates a new TableDataGridView  folder.
@@ -1941,12 +1940,12 @@ namespace AutomatedSystemTests
                 _detailedassessmentvaluerownthInfo = new RepoItemInfo(this, "DetailedAssessmentValueRowNth", "row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename>'Gedetailleerde toets per vakfaalkans Row ']", 30000, null, "a641d0c3-927e-4d5c-8c7f-5164b18f8462");
                 _customasssessmenttyperownthInfo = new RepoItemInfo(this, "CustomAsssessmentTypeRowNth", "row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename='Toets op maat Row '+$rowIndex]", 30000, null, "88678175-4929-4e0e-a802-3dbaab044649");
                 _customassessmentvaluerownthInfo = new RepoItemInfo(this, "CustomAssessmentValueRowNth", "row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename>'Toets op maatfaalkans Row ']", 30000, null, "2a76c8ea-2ab5-4255-931e-89d10c2fcde3");
-                _toetsoordeelgedetailleerdetoetspervInfo = new RepoItemInfo(this, "ToetsoordeelGedetailleerdeToetsPerV", "row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename>'Toetsoordeelgedetailleerde']", 30000, null, "4dac1e41-a578-4792-8699-3ba59fb3fe9b");
-                _gedetailleerdetoetspervakcategorieInfo = new RepoItemInfo(this, "GedetailleerdeToetsPerVakCategorie", "row[@accessiblename='Row'+$rowIndex]/cell[4]", 30000, null, "adbd81b7-87e6-4348-9438-cf24fa3d31bc");
-                _gedetailleerdetoetspervakcategorie1Info = new RepoItemInfo(this, "GedetailleerdeToetsPerVakCategorie1", "row[@accessiblename='Row'+$rowIndex]/cell[5]", 30000, null, "fdd3d2c9-98f9-42a2-97e8-7de1aeb22b35");
-                _gedetailleerdetoetspervakcategorie2Info = new RepoItemInfo(this, "GedetailleerdeToetsPerVakCategorie2", "row[@accessiblename='Row'+$rowIndex]/cell[6]", 30000, null, "54aaf95b-b50c-4527-b5d6-ce1519184540");
-                _gedetailleerdetoetspervakcategorie3Info = new RepoItemInfo(this, "GedetailleerdeToetsPerVakCategorie3", "row[@accessiblename='Row'+$rowIndex]/cell[7]", 30000, null, "46b0e398-5ea8-400e-9133-18443b9b3b69");
-                _gedetailleerdetoetspervakcategorie4Info = new RepoItemInfo(this, "GedetailleerdeToetsPerVakCategorie4", "row[@accessiblename='Row'+$rowIndex]/cell[8]", 30000, null, "54d174fe-ebc8-4465-a144-f91eb13fdcf6");
+                _detailedassessmentvaluecategoriesInfo = new RepoItemInfo(this, "DetailedAssessmentValueCategories", "row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename>'Toetsoordeelgedetailleerde']", 30000, null, "4dac1e41-a578-4792-8699-3ba59fb3fe9b");
+                _detailedassessmenttypecategoryivInfo = new RepoItemInfo(this, "DetailedAssessmentTypeCategoryIv", "row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename>'Gedetailleerde toetsper vakcategoriegrens Iv']", 30000, null, "adbd81b7-87e6-4348-9438-cf24fa3d31bc");
+                _detailedassessmenttypecategoryiivInfo = new RepoItemInfo(this, "DetailedAssessmentTypeCategoryIIv", "row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename>'Gedetailleerde toetsper vakcategoriegrens IIv']", 30000, null, "fdd3d2c9-98f9-42a2-97e8-7de1aeb22b35");
+                _detailedassessmenttypecategoryiiivInfo = new RepoItemInfo(this, "DetailedAssessmentTypeCategoryIIIv", "row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename>'Gedetailleerde toetsper vakcategoriegrens IIIv']", 30000, null, "54aaf95b-b50c-4527-b5d6-ce1519184540");
+                _detailedassessmenttypecategoryivvInfo = new RepoItemInfo(this, "DetailedAssessmentTypeCategoryIVv", "row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename>'Gedetailleerde toetsper vakcategoriegrens IVv']", 30000, null, "46b0e398-5ea8-400e-9133-18443b9b3b69");
+                _detailedassessmenttypecategoryvvInfo = new RepoItemInfo(this, "DetailedAssessmentTypeCategoryVv", "row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename>'Gedetailleerde toetsper vakcategoriegrens Vv']", 30000, null, "54d174fe-ebc8-4465-a144-f91eb13fdcf6");
             }
 
             /// <summary>
@@ -2094,146 +2093,146 @@ namespace AutomatedSystemTests
             }
 
             /// <summary>
-            /// The ToetsoordeelGedetailleerdeToetsPerV item.
+            /// The DetailedAssessmentValueCategories item.
             /// </summary>
             [RepositoryItem("4dac1e41-a578-4792-8699-3ba59fb3fe9b")]
-            public virtual Ranorex.Cell ToetsoordeelGedetailleerdeToetsPerV
+            public virtual Ranorex.Cell DetailedAssessmentValueCategories
             {
                 get
                 {
-                    return _toetsoordeelgedetailleerdetoetspervInfo.CreateAdapter<Ranorex.Cell>(true);
+                    return _detailedassessmentvaluecategoriesInfo.CreateAdapter<Ranorex.Cell>(true);
                 }
             }
 
             /// <summary>
-            /// The ToetsoordeelGedetailleerdeToetsPerV item info.
+            /// The DetailedAssessmentValueCategories item info.
             /// </summary>
             [RepositoryItemInfo("4dac1e41-a578-4792-8699-3ba59fb3fe9b")]
-            public virtual RepoItemInfo ToetsoordeelGedetailleerdeToetsPerVInfo
+            public virtual RepoItemInfo DetailedAssessmentValueCategoriesInfo
             {
                 get
                 {
-                    return _toetsoordeelgedetailleerdetoetspervInfo;
+                    return _detailedassessmentvaluecategoriesInfo;
                 }
             }
 
             /// <summary>
-            /// The GedetailleerdeToetsPerVakCategorie item.
+            /// The DetailedAssessmentTypeCategoryIv item.
             /// </summary>
             [RepositoryItem("adbd81b7-87e6-4348-9438-cf24fa3d31bc")]
-            public virtual Ranorex.Cell GedetailleerdeToetsPerVakCategorie
+            public virtual Ranorex.Cell DetailedAssessmentTypeCategoryIv
             {
                 get
                 {
-                    return _gedetailleerdetoetspervakcategorieInfo.CreateAdapter<Ranorex.Cell>(true);
+                    return _detailedassessmenttypecategoryivInfo.CreateAdapter<Ranorex.Cell>(true);
                 }
             }
 
             /// <summary>
-            /// The GedetailleerdeToetsPerVakCategorie item info.
+            /// The DetailedAssessmentTypeCategoryIv item info.
             /// </summary>
             [RepositoryItemInfo("adbd81b7-87e6-4348-9438-cf24fa3d31bc")]
-            public virtual RepoItemInfo GedetailleerdeToetsPerVakCategorieInfo
+            public virtual RepoItemInfo DetailedAssessmentTypeCategoryIvInfo
             {
                 get
                 {
-                    return _gedetailleerdetoetspervakcategorieInfo;
+                    return _detailedassessmenttypecategoryivInfo;
                 }
             }
 
             /// <summary>
-            /// The GedetailleerdeToetsPerVakCategorie1 item.
+            /// The DetailedAssessmentTypeCategoryIIv item.
             /// </summary>
             [RepositoryItem("fdd3d2c9-98f9-42a2-97e8-7de1aeb22b35")]
-            public virtual Ranorex.Cell GedetailleerdeToetsPerVakCategorie1
+            public virtual Ranorex.Cell DetailedAssessmentTypeCategoryIIv
             {
                 get
                 {
-                    return _gedetailleerdetoetspervakcategorie1Info.CreateAdapter<Ranorex.Cell>(true);
+                    return _detailedassessmenttypecategoryiivInfo.CreateAdapter<Ranorex.Cell>(true);
                 }
             }
 
             /// <summary>
-            /// The GedetailleerdeToetsPerVakCategorie1 item info.
+            /// The DetailedAssessmentTypeCategoryIIv item info.
             /// </summary>
             [RepositoryItemInfo("fdd3d2c9-98f9-42a2-97e8-7de1aeb22b35")]
-            public virtual RepoItemInfo GedetailleerdeToetsPerVakCategorie1Info
+            public virtual RepoItemInfo DetailedAssessmentTypeCategoryIIvInfo
             {
                 get
                 {
-                    return _gedetailleerdetoetspervakcategorie1Info;
+                    return _detailedassessmenttypecategoryiivInfo;
                 }
             }
 
             /// <summary>
-            /// The GedetailleerdeToetsPerVakCategorie2 item.
+            /// The DetailedAssessmentTypeCategoryIIIv item.
             /// </summary>
             [RepositoryItem("54aaf95b-b50c-4527-b5d6-ce1519184540")]
-            public virtual Ranorex.Cell GedetailleerdeToetsPerVakCategorie2
+            public virtual Ranorex.Cell DetailedAssessmentTypeCategoryIIIv
             {
                 get
                 {
-                    return _gedetailleerdetoetspervakcategorie2Info.CreateAdapter<Ranorex.Cell>(true);
+                    return _detailedassessmenttypecategoryiiivInfo.CreateAdapter<Ranorex.Cell>(true);
                 }
             }
 
             /// <summary>
-            /// The GedetailleerdeToetsPerVakCategorie2 item info.
+            /// The DetailedAssessmentTypeCategoryIIIv item info.
             /// </summary>
             [RepositoryItemInfo("54aaf95b-b50c-4527-b5d6-ce1519184540")]
-            public virtual RepoItemInfo GedetailleerdeToetsPerVakCategorie2Info
+            public virtual RepoItemInfo DetailedAssessmentTypeCategoryIIIvInfo
             {
                 get
                 {
-                    return _gedetailleerdetoetspervakcategorie2Info;
+                    return _detailedassessmenttypecategoryiiivInfo;
                 }
             }
 
             /// <summary>
-            /// The GedetailleerdeToetsPerVakCategorie3 item.
+            /// The DetailedAssessmentTypeCategoryIVv item.
             /// </summary>
             [RepositoryItem("46b0e398-5ea8-400e-9133-18443b9b3b69")]
-            public virtual Ranorex.Cell GedetailleerdeToetsPerVakCategorie3
+            public virtual Ranorex.Cell DetailedAssessmentTypeCategoryIVv
             {
                 get
                 {
-                    return _gedetailleerdetoetspervakcategorie3Info.CreateAdapter<Ranorex.Cell>(true);
+                    return _detailedassessmenttypecategoryivvInfo.CreateAdapter<Ranorex.Cell>(true);
                 }
             }
 
             /// <summary>
-            /// The GedetailleerdeToetsPerVakCategorie3 item info.
+            /// The DetailedAssessmentTypeCategoryIVv item info.
             /// </summary>
             [RepositoryItemInfo("46b0e398-5ea8-400e-9133-18443b9b3b69")]
-            public virtual RepoItemInfo GedetailleerdeToetsPerVakCategorie3Info
+            public virtual RepoItemInfo DetailedAssessmentTypeCategoryIVvInfo
             {
                 get
                 {
-                    return _gedetailleerdetoetspervakcategorie3Info;
+                    return _detailedassessmenttypecategoryivvInfo;
                 }
             }
 
             /// <summary>
-            /// The GedetailleerdeToetsPerVakCategorie4 item.
+            /// The DetailedAssessmentTypeCategoryVv item.
             /// </summary>
             [RepositoryItem("54d174fe-ebc8-4465-a144-f91eb13fdcf6")]
-            public virtual Ranorex.Cell GedetailleerdeToetsPerVakCategorie4
+            public virtual Ranorex.Cell DetailedAssessmentTypeCategoryVv
             {
                 get
                 {
-                    return _gedetailleerdetoetspervakcategorie4Info.CreateAdapter<Ranorex.Cell>(true);
+                    return _detailedassessmenttypecategoryvvInfo.CreateAdapter<Ranorex.Cell>(true);
                 }
             }
 
             /// <summary>
-            /// The GedetailleerdeToetsPerVakCategorie4 item info.
+            /// The DetailedAssessmentTypeCategoryVv item info.
             /// </summary>
             [RepositoryItemInfo("54d174fe-ebc8-4465-a144-f91eb13fdcf6")]
-            public virtual RepoItemInfo GedetailleerdeToetsPerVakCategorie4Info
+            public virtual RepoItemInfo DetailedAssessmentTypeCategoryVvInfo
             {
                 get
                 {
-                    return _gedetailleerdetoetspervakcategorie4Info;
+                    return _detailedassessmenttypecategoryvvInfo;
                 }
             }
         }
@@ -3570,7 +3569,7 @@ namespace AutomatedSystemTests
         public partial class DropDownMenuItemListAppFolder : RepoGenBaseFolder
         {
             RepoItemInfo _genericdropdownitemInfo;
-            RepoItemInfo _listitemselecteerInfo;
+            RepoItemInfo _dropdownitemInfo;
 
             /// <summary>
             /// Creates a new DropDownMenuItemList  folder.
@@ -3579,7 +3578,7 @@ namespace AutomatedSystemTests
                     base("DropDownMenuItemList", "/list[@controlid='1000']", parentFolder, 30000, null, true, "559e3624-4636-44d9-8c9e-6d20453f95bf", "")
             {
                 _genericdropdownitemInfo = new RepoItemInfo(this, "GenericDropDownItem", "listitem[@text=$textItemDropDownMenu]", 30000, null, "81ebade6-6648-4b3b-a974-22ccbf15c7dc");
-                _listitemselecteerInfo = new RepoItemInfo(this, "ListItemSelecteer", "listitem[@text=$textDropDownMenu]", 30000, null, "83d898b4-7bdb-4b01-8f3b-509fdd675bbe");
+                _dropdownitemInfo = new RepoItemInfo(this, "DropDownItem", "listitem[@text=$textDropDownMenu]", 30000, null, "83d898b4-7bdb-4b01-8f3b-509fdd675bbe");
             }
 
             /// <summary>
@@ -3631,26 +3630,26 @@ namespace AutomatedSystemTests
             }
 
             /// <summary>
-            /// The ListItemSelecteer item.
+            /// The DropDownItem item.
             /// </summary>
             [RepositoryItem("83d898b4-7bdb-4b01-8f3b-509fdd675bbe")]
-            public virtual Ranorex.ListItem ListItemSelecteer
+            public virtual Ranorex.ListItem DropDownItem
             {
                 get
                 {
-                    return _listitemselecteerInfo.CreateAdapter<Ranorex.ListItem>(true);
+                    return _dropdownitemInfo.CreateAdapter<Ranorex.ListItem>(true);
                 }
             }
 
             /// <summary>
-            /// The ListItemSelecteer item info.
+            /// The DropDownItem item info.
             /// </summary>
             [RepositoryItemInfo("83d898b4-7bdb-4b01-8f3b-509fdd675bbe")]
-            public virtual RepoItemInfo ListItemSelecteerInfo
+            public virtual RepoItemInfo DropDownItemInfo
             {
                 get
                 {
-                    return _listitemselecteerInfo;
+                    return _dropdownitemInfo;
                 }
             }
         }
