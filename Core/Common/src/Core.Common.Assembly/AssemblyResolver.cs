@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2019. All rights reserved.
+// Copyright (C) Stichting Deltares 2019. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -154,21 +154,6 @@ namespace Core.Common.Assembly
         }
 
         /// <summary>
-        /// Resets the <see cref="AssemblyResolver"/>.
-        /// </summary>
-        /// <remarks>
-        /// After performing this method, <see cref="RequiresInitialization"/> equals <c>true</c>.
-        /// </remarks>
-        public static void Reset()
-        {
-            initialized = false;
-
-            assemblyLookup = new Dictionary<string, string>();
-
-            AppDomain.CurrentDomain.AssemblyResolve -= LoadFileFromAssemblyLookup;
-        }
-
-        /// <summary>
         /// Gets the "Application" directory, containing all built-in and standalone assemblies.
         /// </summary>
         /// <returns>The full path to the "Application" directory.</returns>
@@ -201,7 +186,7 @@ namespace Core.Common.Assembly
 
         private static System.Reflection.Assembly LoadFileFromAssemblyLookup(object sender, ResolveEventArgs args)
         {
-            string assemblyName = args.Name.Contains(",") 
+            string assemblyName = args.Name.Contains(",")
                                       ? args.Name.Substring(0, args.Name.IndexOf(','))
                                       : args.Name;
 
