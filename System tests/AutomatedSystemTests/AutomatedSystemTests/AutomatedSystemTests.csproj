@@ -663,6 +663,66 @@
       <UserCode>true</UserCode>
       <id>ad1ac744-d61e-4ce7-bdee-915c49591142</id>
     </Compile>
+    <Compile Include="ValidateDetailedAssessmentTypeAtRowCategoryIIIv.cs">
+      <BoundTo>51a6d249-6729-4231-9d69-0b2452736022</BoundTo>
+      <DependentUpon>ValidateDetailedAssessmentTypeAtRowCategoryIIIv.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>e9212bdc-f4e8-4978-9d5e-641d8249e8b3</id>
+    </Compile>
+    <Compile Include="ValidateDetailedAssessmentTypeAtRowCategoryIIIv.UserCode.cs">
+      <BoundTo>51a6d249-6729-4231-9d69-0b2452736022</BoundTo>
+      <DependentUpon>ValidateDetailedAssessmentTypeAtRowCategoryIIIv.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>b95238a8-b207-4dfd-82c1-f55d4aaab0dd</id>
+    </Compile>
+    <Compile Include="ValidateDetailedAssessmentTypeAtRowCategoryIIv.cs">
+      <BoundTo>7fb7b0e0-1e1b-49bc-8ac6-4f0023d522c4</BoundTo>
+      <DependentUpon>ValidateDetailedAssessmentTypeAtRowCategoryIIv.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>bfd47ffa-3154-490c-ac6b-98fca1efc5fd</id>
+    </Compile>
+    <Compile Include="ValidateDetailedAssessmentTypeAtRowCategoryIIv.UserCode.cs">
+      <BoundTo>7fb7b0e0-1e1b-49bc-8ac6-4f0023d522c4</BoundTo>
+      <DependentUpon>ValidateDetailedAssessmentTypeAtRowCategoryIIv.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>168e21ce-5dcf-4f60-9133-b0f04cdee131</id>
+    </Compile>
+    <Compile Include="ValidateDetailedAssessmentTypeAtRowCategoryIv.cs">
+      <BoundTo>41e0dfba-c060-4616-adbf-a16ee30c5aee</BoundTo>
+      <DependentUpon>ValidateDetailedAssessmentTypeAtRowCategoryIv.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>89e4efcf-119c-434e-8be3-cb2f50575b62</id>
+    </Compile>
+    <Compile Include="ValidateDetailedAssessmentTypeAtRowCategoryIv.UserCode.cs">
+      <BoundTo>41e0dfba-c060-4616-adbf-a16ee30c5aee</BoundTo>
+      <DependentUpon>ValidateDetailedAssessmentTypeAtRowCategoryIv.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>6e530503-493a-4c79-b4cf-65f91c1f623e</id>
+    </Compile>
+    <Compile Include="ValidateDetailedAssessmentTypeAtRowCategoryIVv.cs">
+      <BoundTo>9573ec4e-63a8-44d4-843a-841c7eaaf759</BoundTo>
+      <DependentUpon>ValidateDetailedAssessmentTypeAtRowCategoryIVv.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>95a772d9-9c3c-4e64-87f1-9f9ef444aee6</id>
+    </Compile>
+    <Compile Include="ValidateDetailedAssessmentTypeAtRowCategoryIVv.UserCode.cs">
+      <BoundTo>9573ec4e-63a8-44d4-843a-841c7eaaf759</BoundTo>
+      <DependentUpon>ValidateDetailedAssessmentTypeAtRowCategoryIVv.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>f29bdf61-24fe-4c5c-9638-5224dff5295c</id>
+    </Compile>
+    <Compile Include="ValidateDetailedAssessmentTypeAtRowCategoryVv.cs">
+      <BoundTo>9ad23365-0d18-4462-ade2-d3e3302b16cd</BoundTo>
+      <DependentUpon>ValidateDetailedAssessmentTypeAtRowCategoryVv.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>37ca9709-a2eb-44db-8993-a9baf0466f76</id>
+    </Compile>
+    <Compile Include="ValidateDetailedAssessmentTypeAtRowCategoryVv.UserCode.cs">
+      <BoundTo>9ad23365-0d18-4462-ade2-d3e3302b16cd</BoundTo>
+      <DependentUpon>ValidateDetailedAssessmentTypeAtRowCategoryVv.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>4aac8800-a1be-4bd0-9f3c-4fbde9ad0bfa</id>
+    </Compile>
     <Compile Include="ValidateDetailedAssessmentValueAtRow.cs">
       <BoundTo>bbfde277-5adf-4de7-a49e-e6822bc65f48</BoundTo>
       <DependentUpon>ValidateDetailedAssessmentValueAtRow.rxrec</DependentUpon>
@@ -1090,6 +1150,31 @@
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>4453664d-3c67-4161-8674-c648c3a1bbd4</id>
       <recordtableid>f90323b9-0faf-4e8d-ba0d-cddbcaec15a5</recordtableid>
+    </None>
+    <None Include="ValidateDetailedAssessmentTypeAtRowCategoryIIIv.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>51a6d249-6729-4231-9d69-0b2452736022</id>
+      <recordtableid>395e8850-1508-4f0f-99b2-9269f620fabc</recordtableid>
+    </None>
+    <None Include="ValidateDetailedAssessmentTypeAtRowCategoryIIv.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>7fb7b0e0-1e1b-49bc-8ac6-4f0023d522c4</id>
+      <recordtableid>d90761a4-7311-4462-be01-cf40cca191d7</recordtableid>
+    </None>
+    <None Include="ValidateDetailedAssessmentTypeAtRowCategoryIv.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>41e0dfba-c060-4616-adbf-a16ee30c5aee</id>
+      <recordtableid>4ffec84f-aea2-4bf2-96bd-d9f58048fcd6</recordtableid>
+    </None>
+    <None Include="ValidateDetailedAssessmentTypeAtRowCategoryIVv.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>9573ec4e-63a8-44d4-843a-841c7eaaf759</id>
+      <recordtableid>42cf05e3-77be-41b2-bb8e-2d6b14e70872</recordtableid>
+    </None>
+    <None Include="ValidateDetailedAssessmentTypeAtRowCategoryVv.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>9ad23365-0d18-4462-ade2-d3e3302b16cd</id>
+      <recordtableid>43df9f01-0547-4bb8-a36b-78e1d73ecc7b</recordtableid>
     </None>
     <None Include="ValidateDetailedAssessmentValueAtRow.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
