@@ -3378,7 +3378,6 @@
 				</parameters>
 			</testcase>
 			<testmodule
-			enabled="False"
 			id="df87f7d1-211e-4399-950e-0587f0c44209"
 			name="StartAUT"
 			ref="825ce2a6-cd3b-42f6-9972-8ced75f1a54f"
