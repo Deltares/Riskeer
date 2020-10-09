@@ -11,7 +11,7 @@
     <Company>Deltares</Company>
     <Copyright>Copyright © Deltares 2020</Copyright>
     <Version>20.1.1</Version>
-    <Configurations>Debug;Release;CreateInstaller;CreateInstallerWithDemoPlugin;ReleaseForCodeCoverage</Configurations>
+    <Configurations>Debug;Release;ReleaseForCodeCoverage</Configurations>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
