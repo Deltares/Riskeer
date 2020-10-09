@@ -58,6 +58,6 @@
   </ItemGroup>
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <Exec Command="xcopy /d/s/y &quot;$(Pkglog4net)\lib\net45-full\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Externals\Log4net-2.0.8\*&quot;" />
-    <Exec Command="xcopy /d/s/y &quot;$(SolutionDir)\lib\Plugins\Wti\Components.Persistence.Stability.dll&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Deltares\D-Stability-20.2.1\*&quot;" />
+    <Exec Command="xcopy /d/s/y &quot;$(SolutionDir)lib\Plugins\Wti\Components.Persistence.Stability.dll&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Deltares\D-Stability-20.2.1\*&quot;" />
   </Target>
 </Project>

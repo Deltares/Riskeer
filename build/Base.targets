@@ -39,7 +39,7 @@
     <PackageReference Include="MSBuildConfigurationDefaults" Version="1.0.1" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="$(SolutionDir)\Core\Common\src\Core.Common.Version\GlobalAssembly.cs">
+    <Compile Include="$(SolutionDir)Core\Common\src\Core.Common.Version\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
   </ItemGroup>

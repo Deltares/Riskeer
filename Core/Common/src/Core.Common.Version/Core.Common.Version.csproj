@@ -13,6 +13,6 @@
     <Folder Include="Properties\" />
   </ItemGroup>
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
-    <Exec Command="cmd /c $(SolutionDir)\build\git_insert_hash.cmd $(SolutionDir)\Core\Common\src\Core.Common.Version GlobalAssembly.cs.template GlobalAssembly.cs" />
+    <Exec Command="cmd /c $(SolutionDir)build\git_insert_hash.cmd $(SolutionDir)Core\Common\src\Core.Common.Version GlobalAssembly.cs.template GlobalAssembly.cs" />
   </Target>
 </Project>

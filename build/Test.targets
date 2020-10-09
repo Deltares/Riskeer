@@ -1,7 +1,7 @@
 <Project>
   <PropertyGroup>
     <TestProjectType>UnitTest</TestProjectType>
-    <OutputPath>$(SolutionDir)\bin\$(Configuration)\Test</OutputPath>
+    <OutputPath>$(SolutionDir)bin\$(Configuration)\Test</OutputPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseForCodeCoverage|x86'">
     <DebugType>none</DebugType>
