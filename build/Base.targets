@@ -19,13 +19,13 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <DefineConstants>DEBUG;TRACE;DEVELOPMENT</DefineConstants>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
     <ConfigurationGroup>Release</ConfigurationGroup>
     <DebugType>none</DebugType>
     <Optimize>true</Optimize>
-    <DefineConstants>TRACE;DEVELOPMENT;RELEASE</DefineConstants>
+    <DefineConstants>TRACE;RELEASE</DefineConstants>
     <AllowedReferenceRelatedFileExtensions>none</AllowedReferenceRelatedFileExtensions>
     <IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
   </PropertyGroup>
