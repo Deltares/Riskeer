@@ -141,9 +141,11 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
             Assert.AreEqual(isRelevant, properties.IsRelevant);
 
             GeneralPipingInput generalInput = failureMechanism.GeneralInput;
-            Assert.AreEqual(generalInput.UpliftModelFactor, properties.UpliftModelFactor);
+            Assert.AreEqual(generalInput.UpliftModelFactor.Mean, properties.UpliftModelFactor.Mean);
+            Assert.AreEqual(generalInput.UpliftModelFactor.StandardDeviation, properties.UpliftModelFactor.StandardDeviation);
 
-            Assert.AreEqual(generalInput.SellmeijerModelFactor, properties.SellmeijerModelFactor);
+            Assert.AreEqual(generalInput.SellmeijerModelFactor.Mean, properties.SellmeijerModelFactor.Mean);
+            Assert.AreEqual(generalInput.SellmeijerModelFactor.StandardDeviation, properties.SellmeijerModelFactor.StandardDeviation);
 
             Assert.AreEqual(generalInput.WaterVolumetricWeight, properties.WaterVolumetricWeight);
 
@@ -240,6 +242,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
                                                                             "Volumiek gewicht van water.");
 
             PropertyDescriptor upliftModelFactorProperty = dynamicProperties[upLiftModelFactorPropertyIndex];
+            Assert.IsInstanceOf<ExpandableObjectConverter>(upliftModelFactorProperty.Converter);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(upliftModelFactorProperty,
                                                                             modelFactorCategory,
                                                                             "Modelfactor opbarsten [-]",
@@ -247,6 +250,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
                                                                             true);
 
             PropertyDescriptor sellmeijerModelFactorProperty = dynamicProperties[sellMeijerModelFactorPropertyIndex];
+            Assert.IsInstanceOf<ExpandableObjectConverter>(sellmeijerModelFactorProperty.Converter);
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(sellmeijerModelFactorProperty,
                                                                             modelFactorCategory,
                                                                             "Modelfactor piping toegepast op het model van Sellmeijer [-]",

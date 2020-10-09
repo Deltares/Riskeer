@@ -39,15 +39,15 @@ namespace Riskeer.Piping.Data
         /// </summary>
         public GeneralPipingInput()
         {
-            UpliftModelFactor = new LogNormalDistribution
+            UpliftModelFactor = new LogNormalDistribution(2)
             {
                 Mean = (RoundedDouble) 1.0,
                 StandardDeviation = (RoundedDouble) 0.1
             };
-            sellmeijerModelFactor = new LogNormalDistribution
+            SellmeijerModelFactor = new LogNormalDistribution(2)
             {
-                Mean = (RoundedDouble)1.0,
-                StandardDeviation = (RoundedDouble)0.12
+                Mean = (RoundedDouble) 1.0,
+                StandardDeviation = (RoundedDouble) 0.12
             };
             waterVolumetricWeight = new RoundedDouble(waterVolumicWeightNumberOfDecimalPlaces, 9.81);
             CriticalHeaveGradient = 0.3;
@@ -72,9 +72,6 @@ namespace Riskeer.Piping.Data
 
         private static readonly Range<RoundedDouble> waterVolumetricWeightValidityRange = new Range<RoundedDouble>(new RoundedDouble(waterVolumicWeightNumberOfDecimalPlaces),
                                                                                                                    new RoundedDouble(waterVolumicWeightNumberOfDecimalPlaces, 20.0));
-
-        private LogNormalDistribution upliftModelFactor;
-        private readonly LogNormalDistribution sellmeijerModelFactor;
 
         /// <summary>
         /// Gets the volumetric weight of water.
@@ -107,36 +104,14 @@ namespace Riskeer.Piping.Data
         #region Model factors
 
         /// <summary>
-        /// Gets or sets the calculation value used to account for uncertainty in the model for uplift.
+        /// Gets the calculation value used to account for uncertainty in the model for uplift.
         /// </summary>
-        public LogNormalDistribution UpliftModelFactor 
-        {
-            get
-            {
-                return upliftModelFactor;
-            }
-            set
-            {
-                upliftModelFactor.Mean = value.Mean;
-                upliftModelFactor.StandardDeviation = value.StandardDeviation;
-            }
-        }
+        public LogNormalDistribution UpliftModelFactor { get; }
 
         /// <summary>
-        /// Gets or sets the calculation value used to account for uncertainty in the model for Sellmeijer.
+        /// Gets the calculation value used to account for uncertainty in the model for Sellmeijer.
         /// </summary>
-        public LogNormalDistribution SellmeijerModelFactor
-        {
-            get
-            {
-                return sellmeijerModelFactor;
-            }
-            set
-            {
-                sellmeijerModelFactor.Mean = value.Mean;
-                sellmeijerModelFactor.StandardDeviation = value.StandardDeviation;
-            }
-        }
+        public LogNormalDistribution SellmeijerModelFactor { get; }
 
         #endregion
 
