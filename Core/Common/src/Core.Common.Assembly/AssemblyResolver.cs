@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2019. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2019. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -114,7 +114,7 @@ namespace Core.Common.Assembly
     {
         private const string assemblySearchPattern = "*.dll";
 
-        private static Dictionary<string, string> assemblyLookup = new Dictionary<string, string>();
+        private static readonly Dictionary<string, string> assemblyLookup = new Dictionary<string, string>();
 
         private static bool initialized;
 
