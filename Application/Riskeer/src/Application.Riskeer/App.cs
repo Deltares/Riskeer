@@ -66,7 +66,7 @@ using MessageBox = System.Windows.MessageBox;
 
 namespace Application.Riskeer
 {
-    // Partial class introduced for avoiding problems in relation to dynamically resolving assemblies
+    // Partial class introduced for avoiding problems related to dynamically resolving assemblies
     // (SetupAssemblyResolver must be called before any dependencies are needed).
     public partial class App
     {
@@ -75,14 +75,11 @@ namespace Application.Riskeer
 
         private const int numberOfDaysToKeepLogFiles = 30;
 
+        private static int waitForProcessId = -1;
+        private static Mutex singleInstanceMutex;
         private static string fileToOpen = string.Empty;
 
-        private static Mutex singleInstanceMutex;
-
-        private static int waitForProcessId = -1;
-
         private ILog log;
-
         private GuiCore gui;
 
         private delegate void ExceptionDelegate(Exception exception);
@@ -111,8 +108,6 @@ namespace Application.Riskeer
         {
             ParseArguments(e.Args);
 
-            Resources.Add(SystemParameters.MenuPopupAnimationKey, PopupAnimation.None);
-
             WaitForPreviousInstanceToExit();
             if (IsNotFirstInstance())
             {
@@ -123,6 +118,8 @@ namespace Application.Riskeer
 
             DeleteOldLogFiles();
 
+            Resources.Add(SystemParameters.MenuPopupAnimationKey, PopupAnimation.None);
+            
             var settings = new GuiCoreSettings
             {
                 SupportEmailAddress = "www.helpdeskwater.nl",
