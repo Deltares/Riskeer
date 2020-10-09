@@ -8,7 +8,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 using System;
-using System.IO;
 using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -23,7 +22,7 @@ using Ranorex.Core.Testing;
 
 namespace AutomatedSystemTests
 {
-    public partial class StartAUT
+    public partial class ValidateContributionOfFMInProjectExplorer
     {
         /// <summary>
         /// This method gets called right after the recording has been started.
@@ -32,11 +31,6 @@ namespace AutomatedSystemTests
         private void Init()
         {
             // Your recording specific initialization code goes here.
-        }
-
-        public void ResolveAppPath()
-        {
-            AppPath = Path.Combine(System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location), AppPath);
         }
 
     }

@@ -9,12 +9,12 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Drawing;
 using System.Threading;
 using WinForms = System.Windows.Forms;
-
 using Ranorex;
 using Ranorex.Core;
 using Ranorex.Core.Repository;
@@ -36,24 +36,32 @@ namespace AutomatedSystemTests
         public void Validate_ProbabilitySpaceCell(RepoItemInfo cellInfo)
         {
         	string expectedProbabilitySpace;
+        	string actualProbabilitySpace;
+        	System.Globalization.CultureInfo currentCulture = CultureInfo.CurrentCulture;
         	if (contributionValue=="0") {
-        		expectedProbabilitySpace = "nvt";
+        		expectedProbabilitySpace = "n.v.t";
+        		actualProbabilitySpace = cellInfo.CreateAdapter<Cell>(true).GetAttributeValue<string>("AccessibleValue");
+        		Report.Log(ReportLevel.Info, "Actual Probability space: " + actualProbabilitySpace);
+        		Report.Log(ReportLevel.Info, "Expected Probability space: " + expectedProbabilitySpace);
+        		Validate.AreEqual(actualProbabilitySpace, expectedProbabilitySpace);
         	} else {
-	        	string failureProbToUse = normTypeVar=="Signal"?signallingValueVar:lowLimitValueVar;
-	        	Report.Log(ReportLevel.Info, "normType: " + normTypeVar + ", failure probability to use:" + failureProbToUse);
-	        	string invFailureProbToUse = failureProbToUse.Substring(failureProbToUse.LastIndexOf('/') + 1);
-	        	// Remove spaces or dots from formatting thousands or its multiples
-	        	invFailureProbToUse = invFailureProbToUse.Replace(" ","").Replace(".","");
-	        	double invProbabilitySpaceNumber = Math.Round(Double.Parse(invFailureProbToUse)*100.0/Double.Parse(contributionValue));
+        		string expectedFailureProbToUse = normTypeVar=="Signal"?signallingValueVar:lowLimitValueVar;
+	        	Report.Log(ReportLevel.Info, "normType: " + normTypeVar + ", failure probability to use:" + expectedFailureProbToUse);
+	        	string invExpectedFailureProbToUse = expectedFailureProbToUse.Substring(expectedFailureProbToUse.LastIndexOf('/') + 1);
+	        	double invProbabilitySpaceNumber = Math.Round(Double.Parse(invExpectedFailureProbToUse, currentCulture)*100.0/Double.Parse(contributionValue, currentCulture));
 	        	expectedProbabilitySpace = "1/" + invProbabilitySpaceNumber.ToString();
+	        	actualProbabilitySpace = cellInfo.CreateAdapter<Cell>(true).GetAttributeValue<string>("AccessibleValue");
+	        	string invActualProbabilitySpace = actualProbabilitySpace.Substring(actualProbabilitySpace.LastIndexOf('/') + 1);
+	        	actualProbabilitySpace = "1/" + (Double.Parse(invActualProbabilitySpace, currentCulture)).ToString();
+        		Report.Log(ReportLevel.Info, "Actual Probability space: " + actualProbabilitySpace);
+        		Report.Log(ReportLevel.Info, "Expected Probability space: " + expectedProbabilitySpace);
+        		Validate.AreEqual(actualProbabilitySpace, expectedProbabilitySpace);
         	}
-        	Report.Log(ReportLevel.Info, "Validation", "Validating AttributeEqual (AccessibleValue=$probabilitySpaceValue) on item 'cellInfo'.", cellInfo);
-        	string actualProbabilitySpace = cellInfo.CreateAdapter<Cell>(true).GetAttributeValue<string>("AccessibleValue");
-        	// Remove spaces or dots from formatting thousands or its multiples
-        	actualProbabilitySpace = actualProbabilitySpace.Replace(" ","").Replace(".","");
-        	Report.Log(ReportLevel.Info, "Actual Probability space: " + actualProbabilitySpace);
-        	Report.Log(ReportLevel.Info, "Expected Probability space: " + expectedProbabilitySpace);
-        	Validate.AreEqual(actualProbabilitySpace, expectedProbabilitySpace);
+        	//string actualProbabilitySpace = cellInfo.CreateAdapter<Cell>(true).GetAttributeValue<string>("AccessibleValue");
+        	//double invActualProbabilitySpaceValue = Double.Parse(actualProbabilitySpace.Substring(actualProbabilitySpace.LastIndexOf('/') + 1), currentCulture);
+        	//Report.Log(ReportLevel.Info, "Actual Probability space: " + actualProbabilitySpace);
+        	//Report.Log(ReportLevel.Info, "Expected Probability space: " + expectedProbabilitySpace);
+        	//Validate.AreEqual(invActualProbabilitySpaceValue, invProbabilitySpaceNumber);
         }
     }
 }

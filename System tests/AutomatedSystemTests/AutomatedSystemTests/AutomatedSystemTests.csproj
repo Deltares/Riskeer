@@ -179,6 +179,18 @@
       <UserCode>true</UserCode>
       <id>c153f628-d4cd-4d32-bbf7-2e2baf95a97d</id>
     </Compile>
+    <Compile Include="CreateOutputFolder.cs">
+      <BoundTo>171d5e60-a4ba-4594-80a1-966838bfcfcd</BoundTo>
+      <DependentUpon>CreateOutputFolder.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>8ad0318b-b6ac-453d-b6a4-4dea363e47f7</id>
+    </Compile>
+    <Compile Include="CreateOutputFolder.UserCode.cs">
+      <BoundTo>171d5e60-a4ba-4594-80a1-966838bfcfcd</BoundTo>
+      <DependentUpon>CreateOutputFolder.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>5fb4a01e-4152-4cb8-aef6-80b96d54ec65</id>
+    </Compile>
     <Compile Include="DeleteFileIfExists.cs">
       <BoundTo>c72195eb-6d83-44b2-b2f6-96b6855ac1e5</BoundTo>
       <DependentUpon>DeleteFileIfExists.rxrec</DependentUpon>
@@ -434,6 +446,18 @@
       <UserCode>true</UserCode>
       <id>51f320f6-8b6d-4429-89ec-92b17660048c</id>
     </Compile>
+    <Compile Include="SetRangeInTableForPEBasedOnTrajectType.cs">
+      <BoundTo>fa8863c1-c307-4363-98e1-572ecfc0c2c6</BoundTo>
+      <DependentUpon>SetRangeInTableForPEBasedOnTrajectType.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>e508feb7-a9a9-4b0d-8fbf-d85428135699</id>
+    </Compile>
+    <Compile Include="SetRangeInTableForPEBasedOnTrajectType.UserCode.cs">
+      <BoundTo>fa8863c1-c307-4363-98e1-572ecfc0c2c6</BoundTo>
+      <DependentUpon>SetRangeInTableForPEBasedOnTrajectType.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>32d469cc-9c2d-4744-b013-128fb741c424</id>
+    </Compile>
     <Compile Include="SetRelevanceFMInFailureMechanismContributionView.cs">
       <BoundTo>b784c65f-eb14-47fb-8870-5baafbb7e6fe</BoundTo>
       <DependentUpon>SetRelevanceFMInFailureMechanismContributionView.rxrec</DependentUpon>
@@ -517,6 +541,18 @@
       <DependentUpon>ValidateContributionInFailureMechanismContributionView.rxrec</DependentUpon>
       <UserCode>true</UserCode>
       <id>c7af6470-caf9-4ba8-9f9f-fc46fe4223a4</id>
+    </Compile>
+    <Compile Include="ValidateContributionOfFmInProjectExplorer.cs">
+      <BoundTo>14aa4a80-c6e3-42d0-9b25-687fb71f8f07</BoundTo>
+      <DependentUpon>ValidateContributionOfFMInProjectExplorer.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>386815e4-11dc-4888-82aa-036696ac9b88</id>
+    </Compile>
+    <Compile Include="ValidateContributionOfFmInProjectExplorer.UserCode.cs">
+      <BoundTo>14aa4a80-c6e3-42d0-9b25-687fb71f8f07</BoundTo>
+      <DependentUpon>ValidateContributionOfFMInProjectExplorer.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>fb5d00c1-5668-4586-bc20-b5e8ecea1900</id>
     </Compile>
     <Compile Include="ValidateCustomAssessmentTypeAtRow.cs">
       <BoundTo>dd1e40e5-89cd-4bda-be21-cdfa6fc0f479</BoundTo>
@@ -758,6 +794,11 @@
       <id>fab570ab-705a-4266-9144-f9f477a53503</id>
       <recordtableid>ad8e1ad4-f412-41ae-a2dc-f39766081df4</recordtableid>
     </None>
+    <None Include="CreateOutputFolder.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>171d5e60-a4ba-4594-80a1-966838bfcfcd</id>
+      <recordtableid>40b6ae98-0f6f-4015-b0b2-13ee7ced6f84</recordtableid>
+    </None>
     <None Include="DeleteFileIfExists.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>c72195eb-6d83-44b2-b2f6-96b6855ac1e5</id>
@@ -863,6 +904,11 @@
       <id>d4473d45-e535-40a7-b45e-f624510bc056</id>
       <recordtableid>a23d7db6-2e34-49a1-8c66-009718c79641</recordtableid>
     </None>
+    <None Include="SetRangeInTableForPEBasedOnTrajectType.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>fa8863c1-c307-4363-98e1-572ecfc0c2c6</id>
+      <recordtableid>3a6da0ca-5c45-4932-a886-7c30d0e62630</recordtableid>
+    </None>
     <None Include="SetRelevanceFMInFailureMechanismContributionView.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>b784c65f-eb14-47fb-8870-5baafbb7e6fe</id>
@@ -897,6 +943,11 @@
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>45ca3cad-b4eb-4830-b715-695e59a034fc</id>
       <recordtableid>4a63a2c8-7cac-4869-96dc-543747d8c4c7</recordtableid>
+    </None>
+    <None Include="ValidateContributionOfFMInProjectExplorer.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>14aa4a80-c6e3-42d0-9b25-687fb71f8f07</id>
+      <recordtableid>502bc375-64a0-4290-aa3d-5d8fa8819d35</recordtableid>
     </None>
     <None Include="ValidateCustomAssessmentTypeAtRow.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>

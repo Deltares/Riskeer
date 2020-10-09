@@ -27,8 +27,27 @@ mode="Desktop">
 		id="8cd31747-b0d7-463c-aa3e-8ea07c17694e"
 		name="StartAutProcessIDVar">
 		</var>
+		<var
+		id="3a6c8ab2-554f-4a89-a733-0db4352cdccd"
+		name="AppPath">
+		</var>
 	</variables>
 	<recorditems>
+		<userrecorditem
+		classname="StartAUT"
+		enabled="True"
+		isexternaltestmethod="False"
+		methodname="ResolveAppPath"
+		namespace="AutomatedSystemTests"
+		optional="False">
+			<comment>
+			</comment>
+			<bindings>
+			</bindings>
+			<arguments
+			id="8efa0faa-20d7-44a2-82c6-4cc3d748f210">
+			</arguments>
+		</userrecorditem>
 		<runapprecorditem
 		enabled="True"
 		maximized="False"
@@ -39,6 +58,10 @@ mode="Desktop">
 				<binding
 				target="ReturnVariable"
 				variable="StartAutProcessIDVar">
+				</binding>
+				<binding
+				target="FileName"
+				variable="AppPath">
 				</binding>
 			</bindings>
 			<filename>

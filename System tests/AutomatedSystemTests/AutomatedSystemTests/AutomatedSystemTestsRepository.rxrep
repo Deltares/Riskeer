@@ -532,6 +532,16 @@ name="AutomatedSystemTestsRepository">
 					searchtimeout="30000ms">
 						/form[@automationid='RiskeerMainWindow']//container[@controlname='PropertiesPanelGridView']//table[@accessiblename='Properties Window']/row[@accessiblename='Trajecttype']
 					</item>
+					<item
+					addcaps="row,accessible"
+					capname="row"
+					id="104dcdca-9c98-4ba3-b553-7e2e25c29d6a"
+					name="FaalkansbijdragePercent"
+					refimgid="93ebf753-d410-46f2-b2d8-b7629262075a"
+					refpath="/form[@automationid='RiskeerMainWindow']/container[1]/container[2]/container/container[@controlname='PropertiesPanelGridView']/element[@controltypename='PropertyGridView']/table/row[@accessiblename='Faalkansbijdrage [%]']"
+					searchtimeout="30000ms">
+						/form[@automationid='RiskeerMainWindow']//container[@controlname='PropertiesPanelGridView']//table[@accessiblename='Properties Window']/row[@accessiblename='Faalkansbijdrage [%]']
+					</item>
 					<basepath>
 						/form[@automationid='RiskeerMainWindow']//container[@controlname='PropertiesPanelGridView']//table[@accessiblename='Properties Window']
 					</basepath>

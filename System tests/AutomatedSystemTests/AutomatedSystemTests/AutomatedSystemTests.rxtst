@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <testsuitedoc>
 	<testsuiteentryhierarchy>
 		<flatlistofchildren>
@@ -268,6 +268,12 @@
 					variableid="8cd31747-b0d7-463c-aa3e-8ea07c17694e"
 					variablename="StartAutProcessIDVar">
 					</var>
+					<var
+					dataname="AppPath"
+					datasourceid="fda567a0-be92-41b9-9761-e7e7d9e7be7f"
+					variableid="3a6c8ab2-554f-4a89-a733-0db4352cdccd"
+					variablename="AppPath">
+					</var>
 				</databinding>
 			</testmodule>
 			<testmodule
@@ -291,6 +297,7 @@
 				</databinding>
 			</testmodule>
 			<testmodule
+			enabled="False"
 			id="170f46b0-fe63-4238-9874-af8420fa3e8f"
 			name="CloseAUT"
 			ref="07688822-3eb6-4d71-a97b-33498ae1d748"
@@ -958,6 +965,32 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<smartfoldernode
+			datasource="contributionsFMsInProjectExplorerVisibleInPropertiesPanel"
+			id="4cf4be7b-d8e8-48b0-b19f-e7e4d203d35e"
+			name="ValidateContributionsOfAllFMsInProjectExplorer">
+				<conditiongroup
+				comparison="AND"
+				enabled="True">
+					<condition
+					comparison="IsNotEqual">
+						<leftvalue>
+							<datavaluesource>
+								<databinding
+								bindingtype="DataConnector"
+								dataname="contribution"
+								id="b7a8dc2f-f0d7-4272-afb7-f787ef640a2f">
+								</databinding>
+							</datavaluesource>
+						</leftvalue>
+						<rightvalue>
+							<simplevaluesource
+							value="0">
+							</simplevaluesource>
+						</rightvalue>
+					</condition>
+				</conditiongroup>
+			</smartfoldernode>
 			<smartfoldernode
 			datasource="detailedAssessmentHTKWType"
 			id="4d61407c-ed3a-404a-93cb-eff44aa1068a"
@@ -1663,12 +1696,6 @@
 			datasource="possibleTrajectTypes"
 			id="78a783b3-ec47-4145-85f3-55c2b56b7aa0"
 			name="SelectTrajectType">
-				<parameters>
-					<param
-					name="trajectType"
-					value="Dijk">
-					</param>
-				</parameters>
 			</smartfoldernode>
 			<smartfoldernode
 			datasource="outputSimpleAssessment"
@@ -1909,6 +1936,32 @@
 					datasourceid="f4955a2d-d976-4dab-9a66-884a462172a4"
 					variableid="86fb3bdf-e3c6-41eb-aea3-29e619ddc796"
 					variablename="lowLimitValue">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
+			id="866ab523-8f0f-4453-8c7b-31319b148e5c"
+			name="ValidateContributionOfFMInProjectExplorer"
+			ref="502bc375-64a0-4290-aa3d-5d8fa8819d35"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="hardCodedTrajectToAdd"
+					datasourceid="de320efd-8193-4dd4-9e9d-8fb5690ddafb"
+					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
+					variablename="substringTrajectName">
+					</var>
+					<var
+					dataname="contribution"
+					datasourceid="b7a8dc2f-f0d7-4272-afb7-f787ef640a2f"
+					variableid="e05a5c02-06a1-4745-8d56-f32ce5980414"
+					variablename="expectedContributionPE">
+					</var>
+					<var
+					dataname="fmName"
+					datasourceid="b7a8dc2f-f0d7-4272-afb7-f787ef640a2f"
+					variableid="3a7276c1-fca1-4026-9d2e-5bac10651a47"
+					variablename="substringFMName">
 					</var>
 				</databinding>
 			</testmodule>
@@ -2785,6 +2838,12 @@
 			<testcase
 			id="bbc104ea-69c3-4dcd-8e50-5d1b60cd8d06"
 			name="script10">
+				<parameters>
+					<param
+					name="caseNumber"
+					value="10">
+					</param>
+				</parameters>
 			</testcase>
 			<testmodule
 			id="bd144e3a-ff58-4976-be2e-dbb8b4149132"
@@ -3051,6 +3110,29 @@
 				</databinding>
 			</testmodule>
 			<testmodule
+			enabled="False"
+			id="ca88852d-a16f-4e5f-b5cf-b4e3f894a961"
+			name="CreateOutputFolder"
+			ref="40b6ae98-0f6f-4015-b0b2-13ee7ced6f84"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="caseNumber"
+					datasourceid="de320efd-8193-4dd4-9e9d-8fb5690ddafb"
+					variableid="98a89ffc-9cda-4a23-b124-acda85ba8a36"
+					variablename="caseNumberVar">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="caseNumber"
+					datasourceid="f16b204f-b66b-40a0-82c1-8d62dcbc8b22"
+					variableid="98a89ffc-9cda-4a23-b124-acda85ba8a36"
+					variablename="caseNumberVar">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<testmodule
 			id="cb028f34-42e5-4785-9b4f-fd7d2b62294a"
 			name="SelectDetailedAssessmentForRow"
 			ref="30a2f45d-ee95-4cb0-9ee5-87d71ca20ca5"
@@ -3230,6 +3312,20 @@
 				</missingdatabinding>
 			</testmodule>
 			<testmodule
+			id="d5e4e1c2-8bd3-428e-8001-d9eabaae741d"
+			name="SetRangeInTableForPEBasedOnTrajectType"
+			ref="3a6da0ca-5c45-4932-a886-7c30d0e62630"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="trajectType"
+					datasourceid="35053357-b9f5-45fe-8657-c49a72276bbd"
+					variableid="ef7281c2-8cbd-4b30-8007-ee513bb16330"
+					variablename="trajectType">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
 			id="d70b425a-7c55-4fbf-ae5d-3d4b7e3205c1"
 			name="OpenProject"
 			ref="3f746bb2-6845-45b4-9b28-b7fd605378f3"
@@ -3278,7 +3374,35 @@
 					variableid="8cd31747-b0d7-463c-aa3e-8ea07c17694e"
 					variablename="StartAutProcessIDVar">
 					</var>
+					<var
+					dataname="AppPath"
+					datasourceid="fda567a0-be92-41b9-9761-e7e7d9e7be7f"
+					variableid="3a6c8ab2-554f-4a89-a733-0db4352cdccd"
+					variablename="AppPath">
+					</var>
 				</databinding>
+			</testmodule>
+			<testmodule
+			id="da5c4fb6-1414-42b5-a056-cfd082b51ee3"
+			name="CreateOutputFolder"
+			ref="40b6ae98-0f6f-4015-b0b2-13ee7ced6f84"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="caseNumber"
+					datasourceid="bbc104ea-69c3-4dcd-8e50-5d1b60cd8d06"
+					variableid="98a89ffc-9cda-4a23-b124-acda85ba8a36"
+					variablename="caseNumberVar">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="caseNumber"
+					datasourceid="f16b204f-b66b-40a0-82c1-8d62dcbc8b22"
+					variableid="98a89ffc-9cda-4a23-b124-acda85ba8a36"
+					variablename="caseNumberVar">
+					</var>
+				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="da95823a-60ee-4a9b-834e-335833763e80"
@@ -3363,6 +3487,10 @@
 					name="lowLimitValue"
 					value="">
 					</param>
+					<param
+					name="caseNumber"
+					value="08">
+					</param>
 				</parameters>
 			</testcase>
 			<testmodule
@@ -3377,6 +3505,12 @@
 					datasourceid="fda567a0-be92-41b9-9761-e7e7d9e7be7f"
 					variableid="8cd31747-b0d7-463c-aa3e-8ea07c17694e"
 					variablename="StartAutProcessIDVar">
+					</var>
+					<var
+					dataname="AppPath"
+					datasourceid="fda567a0-be92-41b9-9761-e7e7d9e7be7f"
+					variableid="3a6c8ab2-554f-4a89-a733-0db4352cdccd"
+					variablename="AppPath">
 					</var>
 				</databinding>
 			</testmodule>
@@ -3547,6 +3681,12 @@
 			<testcase
 			id="f16b204f-b66b-40a0-82c1-8d62dcbc8b22"
 			name="script21">
+				<parameters>
+					<param
+					name="caseNumber"
+					value="21">
+					</param>
+				</parameters>
 			</testcase>
 			<testmodule
 			id="f2946722-e181-4961-87d0-d0c9a9e795ff"
@@ -3795,6 +3935,20 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<testmodule
+			id="f9c64076-d9ad-43b8-a9fa-4154e2ad48e2"
+			name="CreateOutputFolder"
+			ref="40b6ae98-0f6f-4015-b0b2-13ee7ced6f84"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="caseNumber"
+					datasourceid="f16b204f-b66b-40a0-82c1-8d62dcbc8b22"
+					variableid="98a89ffc-9cda-4a23-b124-acda85ba8a36"
+					variablename="caseNumberVar">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			id="fbb2a28a-3275-45eb-99ac-4e94fcc817ec"
 			name="DetailedAssessmentFMsGroup1_STBU">
@@ -3924,6 +4078,10 @@
 					name="AppProcessID"
 					value="">
 					</param>
+					<param
+					name="AppPath"
+					value="..\..\..\..\..\bin\Debug\Riskeer.exe">
+					</param>
 				</parameters>
 			</testcase>
 			<teardown
@@ -3953,6 +4111,10 @@
 							<testmodule
 							id="df87f7d1-211e-4399-950e-0587f0c44209"
 							name="StartAUT">
+							</testmodule>
+							<testmodule
+							id="ca88852d-a16f-4e5f-b5cf-b4e3f894a961"
+							name="CreateOutputFolder">
 							</testmodule>
 						</setup>
 						<smartfoldernode
@@ -3996,6 +4158,18 @@
 										name="ValidateProbabilitySpaceInFailureMechanismContributionView">
 										</testmodule>
 									</smartfoldernode>
+									<testmodule
+									id="d5e4e1c2-8bd3-428e-8001-d9eabaae741d"
+									name="SetRangeInTableForPEBasedOnTrajectType">
+									</testmodule>
+									<smartfoldernode
+									id="4cf4be7b-d8e8-48b0-b19f-e7e4d203d35e"
+									name="ValidateContributionsOfAllFMsInProjectExplorer">
+										<testmodule
+										id="866ab523-8f0f-4453-8c7b-31319b148e5c"
+										name="ValidateContributionOfFMInProjectExplorer">
+										</testmodule>
+									</smartfoldernode>
 								</smartfoldernode>
 							</smartfoldernode>
 						</smartfoldernode>
@@ -4017,6 +4191,10 @@
 							<testmodule
 							id="13851a8a-a87f-4496-b912-74004675d141"
 							name="StartAUT">
+							</testmodule>
+							<testmodule
+							id="da5c4fb6-1414-42b5-a056-cfd082b51ee3"
+							name="CreateOutputFolder">
 							</testmodule>
 						</setup>
 						<smartfoldernode
@@ -4265,6 +4443,10 @@
 							<testmodule
 							id="d9cb81d2-4288-435b-af5a-0ef03e953f87"
 							name="StartAUT">
+							</testmodule>
+							<testmodule
+							id="f9c64076-d9ad-43b8-a9fa-4154e2ad48e2"
+							name="CreateOutputFolder">
 							</testmodule>
 						</setup>
 						<smartfoldernode
@@ -4911,6 +5093,642 @@
 				<tr>
 					<td>
 						12_2_09900 Segment_12006_1D1
+					</td>
+				</tr>
+			</table>
+		</DataSource>
+		<DataSource
+		id="e5594d2f-e29a-4d8e-ab4d-472991974600"
+		lastknownrowcount="0"
+		name="contributionsFMInProjectExplorerVisibleInPropertiesPanel"
+		type="Ranorex.Core.Data.SimpleDataConnector">
+			<lastknowncolumns>
+			</lastknowncolumns>
+			<maskedcolumns>
+			</maskedcolumns>
+		</DataSource>
+		<DataSource
+		id="b7a8dc2f-f0d7-4272-afb7-f787ef640a2f"
+		lastknownrowcount="54"
+		name="contributionsFMsInProjectExplorerVisibleInPropertiesPanel"
+		type="Ranorex.Core.Data.SimpleDataConnector">
+			<lastknowncolumns>
+				<column>
+					fmName
+				</column>
+				<column>
+					contribution
+				</column>
+				<column>
+					trajectType
+				</column>
+			</lastknowncolumns>
+			<maskedcolumns>
+			</maskedcolumns>
+			<table>
+				<tr>
+					<th>
+						fmName
+					</th>
+					<th>
+						contribution
+					</th>
+					<th>
+						trajectType
+					</th>
+				</tr>
+				<tr>
+					<td>
+						Dijken en dammen - Piping
+					</td>
+					<td>
+						24
+					</td>
+					<td>
+						Dijk
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Dijken en dammen - Grasbekleding erosie kruin en binnentalud
+					</td>
+					<td>
+						24
+					</td>
+					<td>
+						Dijk
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Dijken en dammen - Macrostabiliteit binnenwaarts
+					</td>
+					<td>
+						4
+					</td>
+					<td>
+						Dijk
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Dijken en dammen - Macrostabiliteit buitenwaarts
+					</td>
+					<td>
+						4
+					</td>
+					<td>
+						Dijk
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Dijken en dammen - Microstabiliteit
+					</td>
+					<td>
+						Overig (30)
+					</td>
+					<td>
+						Dijk
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Dijken en dammen - Stabiliteit steenzetting
+					</td>
+					<td>
+						5
+					</td>
+					<td>
+						Dijk
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Dijken en dammen - Golfklappen op asfaltbekleding
+					</td>
+					<td>
+						5
+					</td>
+					<td>
+						Dijk
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Dijken en dammen - Wateroverdruk bij asfaltbekleding
+					</td>
+					<td>
+						Overig (30)
+					</td>
+					<td>
+						Dijk
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Dijken en dammen - Grasbekleding erosie buitentalud
+					</td>
+					<td>
+						5
+					</td>
+					<td>
+						Dijk
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Dijken en dammen - Grasbekleding afschuiven buitentalud
+					</td>
+					<td>
+						Overig (30)
+					</td>
+					<td>
+						Dijk
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Dijken en dammen - Grasbekleding afschuiven binnentalud
+					</td>
+					<td>
+						Overig (30)
+					</td>
+					<td>
+						Dijk
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Kunstwerken - Hoogte kunstwerk
+					</td>
+					<td>
+						24
+					</td>
+					<td>
+						Dijk
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Kunstwerken - Betrouwbaarheid sluiting kunstwerk
+					</td>
+					<td>
+						4
+					</td>
+					<td>
+						Dijk
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Kunstwerken - Piping bij kunstwerk
+					</td>
+					<td>
+						2
+					</td>
+					<td>
+						Dijk
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Kunstwerken - Sterkte en stabiliteit puntconstructies
+					</td>
+					<td>
+						2
+					</td>
+					<td>
+						Dijk
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Kunstwerken - Sterkte en stabiliteit langsconstructies
+					</td>
+					<td>
+						Overig (30)
+					</td>
+					<td>
+						Dijk
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Duinwaterkering - Duinafslag
+					</td>
+					<td>
+						0
+					</td>
+					<td>
+						Dijk
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Technische innovaties - Technische innovaties
+					</td>
+					<td>
+						Overig (30)
+					</td>
+					<td>
+						Dijk
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Dijken en dammen - Piping
+					</td>
+					<td>
+						0
+					</td>
+					<td>
+						Duin
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Dijken en dammen - Grasbekleding erosie kruin en binnentalud
+					</td>
+					<td>
+						0
+					</td>
+					<td>
+						Duin
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Dijken en dammen - Macrostabiliteit binnenwaarts
+					</td>
+					<td>
+						0
+					</td>
+					<td>
+						Duin
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Dijken en dammen - Macrostabiliteit buitenwaarts
+					</td>
+					<td>
+						4
+					</td>
+					<td>
+						Duin
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Dijken en dammen - Microstabiliteit
+					</td>
+					<td>
+						Overig (30)
+					</td>
+					<td>
+						Duin
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Dijken en dammen - Stabiliteit steenzetting
+					</td>
+					<td>
+						0
+					</td>
+					<td>
+						Duin
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Dijken en dammen - Golfklappen op asfaltbekleding
+					</td>
+					<td>
+						0
+					</td>
+					<td>
+						Duin
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Dijken en dammen - Wateroverdruk bij asfaltbekleding
+					</td>
+					<td>
+						Overig (30)
+					</td>
+					<td>
+						Duin
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Dijken en dammen - Grasbekleding erosie buitentalud
+					</td>
+					<td>
+						0
+					</td>
+					<td>
+						Duin
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Dijken en dammen - Grasbekleding afschuiven buitentalud
+					</td>
+					<td>
+						Overig (30)
+					</td>
+					<td>
+						Duin
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Dijken en dammen - Grasbekleding afschuiven binnentalud
+					</td>
+					<td>
+						Overig (30)
+					</td>
+					<td>
+						Duin
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Kunstwerken - Hoogte kunstwerk
+					</td>
+					<td>
+						0
+					</td>
+					<td>
+						Duin
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Kunstwerken - Betrouwbaarheid sluiting kunstwerk
+					</td>
+					<td>
+						0
+					</td>
+					<td>
+						Duin
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Kunstwerken - Piping bij kunstwerk
+					</td>
+					<td>
+						0
+					</td>
+					<td>
+						Duin
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Kunstwerken - Sterkte en stabiliteit puntconstructies
+					</td>
+					<td>
+						0
+					</td>
+					<td>
+						Duin
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Kunstwerken - Sterkte en stabiliteit langsconstructies
+					</td>
+					<td>
+						Overig (30)
+					</td>
+					<td>
+						Duin
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Duinwaterkering - Duinafslag
+					</td>
+					<td>
+						70
+					</td>
+					<td>
+						Duin
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Technische innovaties - Technische innovaties
+					</td>
+					<td>
+						Overig (30)
+					</td>
+					<td>
+						Duin
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Dijken en dammen - Piping
+					</td>
+					<td>
+						24
+					</td>
+					<td>
+						Dijk / Duin
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Dijken en dammen - Grasbekleding erosie kruin en binnentalud
+					</td>
+					<td>
+						24
+					</td>
+					<td>
+						Dijk / Duin
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Dijken en dammen - Macrostabiliteit binnenwaarts
+					</td>
+					<td>
+						4
+					</td>
+					<td>
+						Dijk / Duin
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Dijken en dammen - Macrostabiliteit buitenwaarts
+					</td>
+					<td>
+						4
+					</td>
+					<td>
+						Dijk / Duin
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Dijken en dammen - Microstabiliteit
+					</td>
+					<td>
+						Overig (20)
+					</td>
+					<td>
+						Dijk / Duin
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Dijken en dammen - Stabiliteit steenzetting
+					</td>
+					<td>
+						5
+					</td>
+					<td>
+						Dijk / Duin
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Dijken en dammen - Golfklappen op asfaltbekleding
+					</td>
+					<td>
+						5
+					</td>
+					<td>
+						Dijk / Duin
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Dijken en dammen - Wateroverdruk bij asfaltbekleding
+					</td>
+					<td>
+						Overig (20)
+					</td>
+					<td>
+						Dijk / Duin
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Dijken en dammen - Grasbekleding erosie buitentalud
+					</td>
+					<td>
+						5
+					</td>
+					<td>
+						Dijk / Duin
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Dijken en dammen - Grasbekleding afschuiven buitentalud
+					</td>
+					<td>
+						Overig (20)
+					</td>
+					<td>
+						Dijk / Duin
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Dijken en dammen - Grasbekleding afschuiven binnentalud
+					</td>
+					<td>
+						Overig (20)
+					</td>
+					<td>
+						Dijk / Duin
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Kunstwerken - Hoogte kunstwerk
+					</td>
+					<td>
+						24
+					</td>
+					<td>
+						Dijk / Duin
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Kunstwerken - Betrouwbaarheid sluiting kunstwerk
+					</td>
+					<td>
+						4
+					</td>
+					<td>
+						Dijk / Duin
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Kunstwerken - Piping bij kunstwerk
+					</td>
+					<td>
+						2
+					</td>
+					<td>
+						Dijk / Duin
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Kunstwerken - Sterkte en stabiliteit puntconstructies
+					</td>
+					<td>
+						2
+					</td>
+					<td>
+						Dijk / Duin
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Kunstwerken - Sterkte en stabiliteit langsconstructies
+					</td>
+					<td>
+						Overig (20)
+					</td>
+					<td>
+						Dijk / Duin
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Duinwaterkering - Duinafslag
+					</td>
+					<td>
+						10
+					</td>
+					<td>
+						Dijk / Duin
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Technische innovaties - Technische innovaties
+					</td>
+					<td>
+						Overig (20)
+					</td>
+					<td>
+						Dijk / Duin
 					</td>
 				</tr>
 			</table>
@@ -6114,7 +6932,7 @@
 				</tr>
 				<tr>
 					<td>
-						X:\script21\output\relevanceModifiedInPE.risk
+						Y:\script21\relevanceModifiedInPE.risk
 					</td>
 				</tr>
 			</table>
@@ -6522,6 +7340,9 @@
 			</testcontainer>
 			<testcontainer
 			id="4bb671b5-bd57-42fd-a72e-41482b3d1dbb">
+			</testcontainer>
+			<testcontainer
+			id="4cf4be7b-d8e8-48b0-b19f-e7e4d203d35e">
 			</testcontainer>
 			<testcontainer
 			id="4d61407c-ed3a-404a-93cb-eff44aa1068a">

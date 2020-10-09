@@ -24,59 +24,44 @@ namespace AutomatedSystemTests
 {
 #pragma warning disable 0436 //(CS0436) The type 'type' in 'assembly' conflicts with the imported type 'type2' in 'assembly'. Using the type defined in 'assembly'.
     /// <summary>
-    ///The StartAUT recording.
+    ///The SetRangeInTableForPEBasedOnTrajectType recording.
     /// </summary>
-    [TestModule("825ce2a6-cd3b-42f6-9972-8ced75f1a54f", ModuleType.Recording, 1)]
-    public partial class StartAUT : ITestModule
+    [TestModule("3a6da0ca-5c45-4932-a886-7c30d0e62630", ModuleType.Recording, 1)]
+    public partial class SetRangeInTableForPEBasedOnTrajectType : ITestModule
     {
         /// <summary>
         /// Holds an instance of the AutomatedSystemTestsRepository repository.
         /// </summary>
         public static AutomatedSystemTestsRepository repo = AutomatedSystemTestsRepository.Instance;
 
-        static StartAUT instance = new StartAUT();
+        static SetRangeInTableForPEBasedOnTrajectType instance = new SetRangeInTableForPEBasedOnTrajectType();
 
         /// <summary>
         /// Constructs a new instance.
         /// </summary>
-        public StartAUT()
+        public SetRangeInTableForPEBasedOnTrajectType()
         {
-            StartAutProcessIDVar = "";
-            AppPath = "";
+            trajectType = "";
         }
 
         /// <summary>
         /// Gets a static instance of this recording.
         /// </summary>
-        public static StartAUT Instance
+        public static SetRangeInTableForPEBasedOnTrajectType Instance
         {
             get { return instance; }
         }
 
 #region Variables
 
-        string _StartAutProcessIDVar;
-
         /// <summary>
-        /// Gets or sets the value of variable StartAutProcessIDVar.
+        /// Gets or sets the value of variable trajectType.
         /// </summary>
-        [TestVariable("8cd31747-b0d7-463c-aa3e-8ea07c17694e")]
-        public string StartAutProcessIDVar
+        [TestVariable("ef7281c2-8cbd-4b30-8007-ee513bb16330")]
+        public string trajectType
         {
-            get { return _StartAutProcessIDVar; }
-            set { _StartAutProcessIDVar = value; }
-        }
-
-        string _AppPath;
-
-        /// <summary>
-        /// Gets or sets the value of variable AppPath.
-        /// </summary>
-        [TestVariable("3a6c8ab2-554f-4a89-a733-0db4352cdccd")]
-        public string AppPath
-        {
-            get { return _AppPath; }
-            set { _AppPath = value; }
+            get { return repo.trajectType; }
+            set { repo.trajectType = value; }
         }
 
 #endregion
@@ -105,15 +90,8 @@ namespace AutomatedSystemTests
 
             Init();
 
-            ResolveAppPath();
+            SetRangeTablePEBasedInTrajectType();
             Delay.Milliseconds(0);
-            
-            Report.Log(ReportLevel.Info, "Application", "Run application with file name from variable $AppPath in normal mode. Return value bound to $StartAutProcessIDVar.", new RecordItemIndex(1));
-            StartAutProcessIDVar = ValueConverter.ToString(Host.Local.RunApplication(AppPath, "", "", false));
-            Delay.Milliseconds(0);
-            
-            Report.Log(ReportLevel.Info, "Wait", "Waiting 1m to exist. Associated repository item: 'RiskeerMainWindow'", repo.RiskeerMainWindow.SelfInfo, new ActionTimeout(60000), new RecordItemIndex(2));
-            repo.RiskeerMainWindow.SelfInfo.WaitForExists(60000);
             
         }
 

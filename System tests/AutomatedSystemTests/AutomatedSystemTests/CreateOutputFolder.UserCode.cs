@@ -8,6 +8,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -31,6 +32,30 @@ namespace AutomatedSystemTests
         private void Init()
         {
             // Your recording specific initialization code goes here.
+        }
+
+        public void CreateFolderInForCaseOutputDrive(string caseNumber)
+        {
+            // Specify the directory you want to manipulate.
+        string path = @"Y:\script" + caseNumber;
+
+        try
+        {
+            // Determine whether the folder exists.
+            if (Directory.Exists(path))
+            {
+                Report.Log(ReportLevel.Info, "Path " + path + " already exists.");
+                return;
+            }
+            // Try to create the folder.
+            DirectoryInfo di = Directory.CreateDirectory(path);
+            Report.Log(ReportLevel.Info, "The folder " + path + " was created successfully at " + Directory.GetCreationTime(path) + ".");
+        }
+        catch (Exception e)
+        {
+            Report.Log(ReportLevel.Error, "Creating the folder " + path + " failed: {0}", e.ToString());
+        }
+        finally {}
         }
 
     }

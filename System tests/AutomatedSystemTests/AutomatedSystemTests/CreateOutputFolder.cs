@@ -41,6 +41,7 @@ namespace AutomatedSystemTests
         /// </summary>
         public CreateOutputFolder()
         {
+            caseNumberVar = "";
         }
 
         /// <summary>
@@ -52,6 +53,18 @@ namespace AutomatedSystemTests
         }
 
 #region Variables
+
+        string _caseNumberVar;
+
+        /// <summary>
+        /// Gets or sets the value of variable caseNumberVar.
+        /// </summary>
+        [TestVariable("98a89ffc-9cda-4a23-b124-acda85ba8a36")]
+        public string caseNumberVar
+        {
+            get { return _caseNumberVar; }
+            set { _caseNumberVar = value; }
+        }
 
 #endregion
 
@@ -79,6 +92,9 @@ namespace AutomatedSystemTests
 
             Init();
 
+            CreateFolderInForCaseOutputDrive(caseNumberVar);
+            Delay.Milliseconds(0);
+            
         }
 
 #region Image Feature Data

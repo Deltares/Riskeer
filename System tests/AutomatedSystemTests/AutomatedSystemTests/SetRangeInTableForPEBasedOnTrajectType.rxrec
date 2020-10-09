@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <recordtable
 embeddedrepository="False"
-id="40b6ae98-0f6f-4015-b0b2-13ee7ced6f84"
+id="3a6da0ca-5c45-4932-a886-7c30d0e62630"
 mode="Global">
 	<repeatcount>
 		1
@@ -19,21 +19,21 @@ mode="Global">
 		True
 	</useDefaultItemLogging>
 	<codegen
-	classname="CreateOutputFolder"
+	classname="SetRangeInTableForPEBasedOnTrajectType"
 	namespace="AutomatedSystemTests">
 	</codegen>
 	<variables>
 		<var
-		id="98a89ffc-9cda-4a23-b124-acda85ba8a36"
-		name="caseNumberVar">
+		id="ef7281c2-8cbd-4b30-8007-ee513bb16330"
+		name="trajectType">
 		</var>
 	</variables>
 	<recorditems>
 		<userrecorditem
-		classname="CreateOutputFolder"
+		classname="SetRangeInTableForPEBasedOnTrajectType"
 		enabled="True"
 		isexternaltestmethod="False"
-		methodname="CreateFolderInForCaseOutputDrive"
+		methodname="SetRangeTablePEBasedInTrajectType"
 		namespace="AutomatedSystemTests"
 		optional="False">
 			<comment>
@@ -41,17 +41,7 @@ mode="Global">
 			<bindings>
 			</bindings>
 			<arguments
-			id="ebf3d7de-ff7d-4b4a-bc84-076a19aa1c79">
-				<argument
-				argname="caseNumber"
-				id="5046b550-bf5c-4573-adf0-3245de151d4b"
-				variable="caseNumberVar">
-					<argvaluetype>
-						System.String
-					</argvaluetype>
-					<argvalue>
-					</argvalue>
-				</argument>
+			id="37f9125d-fa0e-4bba-929e-5a6c74aef335">
 			</arguments>
 		</userrecorditem>
 	</recorditems>
@@ -70,7 +60,7 @@ mode="Global">
 	</repository>
 	<usercodefile
 	lang="CSharp">
-		CreateOutputFolder.UserCode.cs
+		SetRangeInTableForPEBasedOnTrajectType.UserCode.cs
 	</usercodefile>
 	<references>
 	</references>

@@ -8,7 +8,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 using System;
-using System.IO;
 using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -23,7 +22,7 @@ using Ranorex.Core.Testing;
 
 namespace AutomatedSystemTests
 {
-    public partial class StartAUT
+    public partial class SetRangeInTableForPEBasedOnTrajectType
     {
         /// <summary>
         /// This method gets called right after the recording has been started.
@@ -34,9 +33,18 @@ namespace AutomatedSystemTests
             // Your recording specific initialization code goes here.
         }
 
-        public void ResolveAppPath()
+        public void SetRangeTablePEBasedInTrajectType()
         {
-            AppPath = Path.Combine(System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location), AppPath);
+            string rangeTable = "";
+            if (trajectType=="Dijk") {
+            	rangeTable = "1-18";
+            } else if (trajectType=="Duin") {
+            	rangeTable = "19-36";
+            } else if (trajectType=="Dijk / Duin") {
+            	rangeTable = "37-54";
+            }
+            TestSuite.Current.GetTestContainer("ValidateContributionsOfAllFMsInProjectExplorer").DataContext.SetRange(DataRangeSet.Parse(rangeTable));
+            Report.Log(ReportLevel.Info, "Range of next loop: " + rangeTable);
         }
 
     }

@@ -2198,6 +2198,7 @@ namespace AutomatedSystemTests
             RepoItemInfo _nameInfo;
             RepoItemInfo _contributionpercentageInfo;
             RepoItemInfo _trajecttypeInfo;
+            RepoItemInfo _faalkansbijdragepercentInfo;
 
             /// <summary>
             /// Creates a new Table  folder.
@@ -2210,6 +2211,7 @@ namespace AutomatedSystemTests
                 _nameInfo = new RepoItemInfo(this, "Name", "row[@accessiblename='Naam']", 30000, null, "98c1c28a-f4dc-42c8-9ead-d777288121c5");
                 _contributionpercentageInfo = new RepoItemInfo(this, "ContributionPercentage", "row[@accessiblename>'Aandeel']", 30000, null, "863390a3-2d56-4c70-826d-86c4fb70b44f");
                 _trajecttypeInfo = new RepoItemInfo(this, "Trajecttype", "row[@accessiblename='Trajecttype']", 30000, null, "c93d6b35-2159-4c88-a103-599b6efcb316");
+                _faalkansbijdragepercentInfo = new RepoItemInfo(this, "FaalkansbijdragePercent", "row[@accessiblename='Faalkansbijdrage [%]']", 30000, null, "104dcdca-9c98-4ba3-b553-7e2e25c29d6a");
             }
 
             /// <summary>
@@ -2353,6 +2355,30 @@ namespace AutomatedSystemTests
                 get
                 {
                     return _trajecttypeInfo;
+                }
+            }
+
+            /// <summary>
+            /// The FaalkansbijdragePercent item.
+            /// </summary>
+            [RepositoryItem("104dcdca-9c98-4ba3-b553-7e2e25c29d6a")]
+            public virtual Ranorex.Row FaalkansbijdragePercent
+            {
+                get
+                {
+                    return _faalkansbijdragepercentInfo.CreateAdapter<Ranorex.Row>(true);
+                }
+            }
+
+            /// <summary>
+            /// The FaalkansbijdragePercent item info.
+            /// </summary>
+            [RepositoryItemInfo("104dcdca-9c98-4ba3-b553-7e2e25c29d6a")]
+            public virtual RepoItemInfo FaalkansbijdragePercentInfo
+            {
+                get
+                {
+                    return _faalkansbijdragepercentInfo;
                 }
             }
         }
