@@ -29,27 +29,27 @@ using NUnit.Framework;
 namespace Application.Riskeer.Test
 {
     [TestFixture]
-    public class LoggerTest
+    public class LogConfiguratorTest
     {
         [Test]
-        public void Setup_Always_SetsCorrectValues()
+        public void Initialize_Always_SetsExpectedHierarchyValues()
         {
-            // When
-            Logger.Setup();
+            // Call
+            LogConfigurator.Initialize();
 
-            // Then
+            // Assert
             var hierarchy = (Hierarchy) LogManager.GetRepository();
             Assert.AreEqual(Level.Debug, hierarchy.Root.Level);
             Assert.IsTrue(hierarchy.Configured);
         }
 
         [Test]
-        public void LogAppenders_Always_OfCorrectType()
+        public void Initialize_Always_AddsExpectedLogAppenders()
         {
-            // When
-            Logger.Setup();
+            // Call
+            LogConfigurator.Initialize();
 
-            // Then
+            // Assert
             var hierarchy = (Hierarchy) LogManager.GetRepository();
             Assert.AreEqual(2, hierarchy.Root.Appenders.Count);
             Assert.IsInstanceOf<FileAppender>(hierarchy.Root.Appenders[0]);

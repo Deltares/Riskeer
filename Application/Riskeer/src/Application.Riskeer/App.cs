@@ -92,7 +92,8 @@ namespace Application.Riskeer
 
         private void Initialize()
         {
-            Logger.Setup();
+            LogConfigurator.Initialize();
+
             log = LogManager.GetLogger(typeof(App));
 
             SettingsHelper.Instance = new RiskeerSettingsHelper();
@@ -119,7 +120,7 @@ namespace Application.Riskeer
             DeleteOldLogFiles();
 
             Resources.Add(SystemParameters.MenuPopupAnimationKey, PopupAnimation.None);
-            
+
             var settings = new GuiCoreSettings
             {
                 SupportEmailAddress = "www.helpdeskwater.nl",

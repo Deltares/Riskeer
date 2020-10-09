@@ -45,7 +45,7 @@ namespace Core.Common.Assembly
     ///           <item>
     ///             <description>Assembly_1.dll</description>
     ///           </item>
-    ///         </list>b
+    ///         </list>
     ///       </item>
     ///       <item>
     ///         <list type="bullet">
@@ -101,6 +101,9 @@ namespace Core.Common.Assembly
     ///   </item>
     ///   <item>
     ///     <description>Assembly_4.dll</description>
+    ///   </item>
+    ///   <item>
+    ///     <description>Assembly_5.dll</description>
     ///   </item>
     ///   <item>
     ///     <description>Assembly_6.dll</description>
