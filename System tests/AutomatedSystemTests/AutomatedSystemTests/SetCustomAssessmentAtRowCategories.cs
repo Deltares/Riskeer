@@ -24,47 +24,34 @@ namespace AutomatedSystemTests
 {
 #pragma warning disable 0436 //(CS0436) The type 'type' in 'assembly' conflicts with the imported type 'type2' in 'assembly'. Using the type defined in 'assembly'.
     /// <summary>
-    ///The SetCustomAssessmentAtRow recording.
+    ///The SetCustomAssessmentAtRowCategories recording.
     /// </summary>
-    [TestModule("dc218a16-91e8-4197-ae23-5bbe0c083a04", ModuleType.Recording, 1)]
-    public partial class SetCustomAssessmentAtRow : ITestModule
+    [TestModule("0a1c5bcf-8247-4ca8-bbd1-a4f8f26f6474", ModuleType.Recording, 1)]
+    public partial class SetCustomAssessmentAtRowCategories : ITestModule
     {
         /// <summary>
         /// Holds an instance of the AutomatedSystemTestsRepository repository.
         /// </summary>
         public static AutomatedSystemTestsRepository repo = AutomatedSystemTestsRepository.Instance;
 
-        static SetCustomAssessmentAtRow instance = new SetCustomAssessmentAtRow();
+        static SetCustomAssessmentAtRowCategories instance = new SetCustomAssessmentAtRowCategories();
 
         /// <summary>
         /// Constructs a new instance.
         /// </summary>
-        public SetCustomAssessmentAtRow()
+        public SetCustomAssessmentAtRowCategories()
         {
-            expectedCustomAssessmentValue = "";
         }
 
         /// <summary>
         /// Gets a static instance of this recording.
         /// </summary>
-        public static SetCustomAssessmentAtRow Instance
+        public static SetCustomAssessmentAtRowCategories Instance
         {
             get { return instance; }
         }
 
 #region Variables
-
-        string _expectedCustomAssessmentValue;
-
-        /// <summary>
-        /// Gets or sets the value of variable expectedCustomAssessmentValue.
-        /// </summary>
-        [TestVariable("ebca180a-929b-4462-bf7c-2388fcd92b35")]
-        public string expectedCustomAssessmentValue
-        {
-            get { return _expectedCustomAssessmentValue; }
-            set { _expectedCustomAssessmentValue = value; }
-        }
 
         /// <summary>
         /// Gets or sets the value of variable rowIndex.
