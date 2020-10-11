@@ -507,6 +507,18 @@
       <UserCode>true</UserCode>
       <id>955819d2-1ece-4474-9f41-eeaed03ad5a8</id>
     </Compile>
+    <Compile Include="SetDetailedAssessmentForRowPerSection.cs">
+      <BoundTo>a0c074a3-3c19-4557-8ef3-533b43266955</BoundTo>
+      <DependentUpon>SetDetailedAssessmentForRowPerSection.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>2a541a53-27eb-4271-ad1f-44ce9e7849c2</id>
+    </Compile>
+    <Compile Include="SetDetailedAssessmentForRowPerSection.UserCode.cs">
+      <BoundTo>a0c074a3-3c19-4557-8ef3-533b43266955</BoundTo>
+      <DependentUpon>SetDetailedAssessmentForRowPerSection.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>143e3bd7-53dc-4ac6-ba94-5a9d31f88a19</id>
+    </Compile>
     <Compile Include="SetRangeInTableForFMCViewBasedOnTrajectType.cs">
       <BoundTo>d4473d45-e535-40a7-b45e-f624510bc056</BoundTo>
       <DependentUpon>SetRangeInTableForFMCViewBasedOnTrajectType.rxrec</DependentUpon>
@@ -723,6 +735,18 @@
       <UserCode>true</UserCode>
       <id>4aac8800-a1be-4bd0-9f3c-4fbde9ad0bfa</id>
     </Compile>
+    <Compile Include="ValidateDetailedAssessmentTypeAtRowGroup3.cs">
+      <BoundTo>d7cb8aec-0058-4d17-adb7-4422eb8efacd</BoundTo>
+      <DependentUpon>ValidateDetailedAssessmentTypeAtRowGroup3.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>a68c1921-9115-476f-bd97-402ecf0846f6</id>
+    </Compile>
+    <Compile Include="ValidateDetailedAssessmentTypeAtRowGroup3.UserCode.cs">
+      <BoundTo>d7cb8aec-0058-4d17-adb7-4422eb8efacd</BoundTo>
+      <DependentUpon>ValidateDetailedAssessmentTypeAtRowGroup3.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>e4883ff6-42c1-4edd-81e7-3f0987ad6898</id>
+    </Compile>
     <Compile Include="ValidateDetailedAssessmentValueAtRow.cs">
       <BoundTo>bbfde277-5adf-4de7-a49e-e6822bc65f48</BoundTo>
       <DependentUpon>ValidateDetailedAssessmentValueAtRow.rxrec</DependentUpon>
@@ -746,6 +770,18 @@
       <DependentUpon>ValidateDetailedAssessmentValueAtRowPerCategory.rxrec</DependentUpon>
       <UserCode>true</UserCode>
       <id>f9f9d8e6-595d-4f5d-92b8-116dd957a00c</id>
+    </Compile>
+    <Compile Include="ValidateDetailedAssessmentValueAtRowPerCategoryGroup3.cs">
+      <BoundTo>370ab96d-f6b4-4168-9d3d-4ec451d4db1b</BoundTo>
+      <DependentUpon>ValidateDetailedAssessmentValueAtRowPerCategoryGroup3.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>80370af1-9069-4a06-b106-8d630be01d04</id>
+    </Compile>
+    <Compile Include="ValidateDetailedAssessmentValueAtRowPerCategoryGroup3.UserCode.cs">
+      <BoundTo>370ab96d-f6b4-4168-9d3d-4ec451d4db1b</BoundTo>
+      <DependentUpon>ValidateDetailedAssessmentValueAtRowPerCategoryGroup3.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>ed9ae4c9-9e1b-4ef1-a043-fccd914ff342</id>
     </Compile>
     <Compile Include="ValidateErrorIcon.cs">
       <BoundTo>31e81b77-c11e-4528-8722-7adaeeeb11ad</BoundTo>
@@ -1086,6 +1122,11 @@
       <id>b838adb7-b43d-43a1-864f-14728db0fe9a</id>
       <recordtableid>dc218a16-91e8-4197-ae23-5bbe0c083a04</recordtableid>
     </None>
+    <None Include="SetDetailedAssessmentForRowPerSection.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>a0c074a3-3c19-4557-8ef3-533b43266955</id>
+      <recordtableid>503dc525-67d9-4f84-8c18-ddd376efe5d4</recordtableid>
+    </None>
     <None Include="SetRangeInTableForFMCViewBasedOnTrajectType.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>d4473d45-e535-40a7-b45e-f624510bc056</id>
@@ -1176,6 +1217,11 @@
       <id>9ad23365-0d18-4462-ade2-d3e3302b16cd</id>
       <recordtableid>43df9f01-0547-4bb8-a36b-78e1d73ecc7b</recordtableid>
     </None>
+    <None Include="ValidateDetailedAssessmentTypeAtRowGroup3.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>d7cb8aec-0058-4d17-adb7-4422eb8efacd</id>
+      <recordtableid>4bec016b-4d75-4a07-9bb2-a12badf2136b</recordtableid>
+    </None>
     <None Include="ValidateDetailedAssessmentValueAtRow.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>bbfde277-5adf-4de7-a49e-e6822bc65f48</id>
@@ -1185,6 +1231,11 @@
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>d713dd0c-6468-4e57-8a1a-9e182f238ec7</id>
       <recordtableid>e8d5931b-4e59-4070-ae4d-51a65c062ea7</recordtableid>
+    </None>
+    <None Include="ValidateDetailedAssessmentValueAtRowPerCategoryGroup3.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>370ab96d-f6b4-4168-9d3d-4ec451d4db1b</id>
+      <recordtableid>d39d077e-c625-4d57-a6e7-a73a70d77e0d</recordtableid>
     </None>
     <None Include="ValidateErrorIcon.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>

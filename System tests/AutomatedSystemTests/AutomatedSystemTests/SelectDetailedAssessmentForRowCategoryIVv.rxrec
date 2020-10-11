@@ -86,10 +86,10 @@ mode="Global">
 			<bindings>
 			</bindings>
 			<info
-			id="83d898b4-7bdb-4b01-8f3b-509fdd675bbe"
+			id="81ebade6-6648-4b3b-a974-22ccbf15c7dc"
 			sourcename="ItemRecorderEditor">
 				<path>
-					/list[@controlid='1000']/listitem[@text='&lt;selecteer&gt;']
+					/list[@controlid='1000']/listitem[@text=$textItemDropDownMenu]
 				</path>
 			</info>
 		</mouseitem>

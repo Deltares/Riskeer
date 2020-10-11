@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <recordtable
 embeddedrepository="False"
-id="a7eb8c7e-6846-46ff-b2ed-97d624f39d39"
+id="503dc525-67d9-4f84-8c18-ddd376efe5d4"
 mode="Global">
 	<repeatcount>
 		1
@@ -19,7 +19,7 @@ mode="Global">
 		True
 	</useDefaultItemLogging>
 	<codegen
-	classname="SelectDetailedAssessmentForRowCategoryIIIv"
+	classname="SetDetailedAssessmentForRowPerSection"
 	namespace="AutomatedSystemTests">
 	</codegen>
 	<variables>
@@ -29,20 +29,20 @@ mode="Global">
 		action="Focus"
 		enabled="True"
 		optional="False"
-		searchpropertyid="70209401-6ae0-41d1-b25d-fb2615c34eee">
+		searchpropertyid="818c1687-2cd0-4773-b00f-7d5892dd3850">
 			<comment>
 			</comment>
 			<bindings>
 			</bindings>
 			<info
-			id="54aaf95b-b50c-4527-b5d6-ce1519184540"
+			id="687f57df-4210-4716-b1bb-a24e81983e66"
 			sourcename="ItemRecorderEditor">
 				<path>
-					/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[@accessiblename='Row 0']/cell[6]
+					/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[@accessiblename='Row 0']/cell[@accessiblename&gt;'Gedetailleerde toets per vak']
 				</path>
 			</info>
 			<arguments
-			id="d3d778f4-12b4-489a-b2b7-491e93e4f3d9">
+			id="8638940a-c224-4823-9f96-79e53c8966ac">
 			</arguments>
 		</invokeactionrecorditem>
 		<mouseitem
@@ -53,7 +53,7 @@ mode="Global">
 		loc="CenterRight"
 		movetime="300ms"
 		optional="False"
-		searchpropertyid="e0e233d6-b6ec-47bb-a3a6-e89c5ff80612"
+		searchpropertyid="8ee31220-b465-44aa-9042-f2b787d79ad2"
 		sx="0"
 		sy="0"
 		warnoutofbounds="False">
@@ -62,10 +62,10 @@ mode="Global">
 			<bindings>
 			</bindings>
 			<info
-			id="54aaf95b-b50c-4527-b5d6-ce1519184540"
+			id="687f57df-4210-4716-b1bb-a24e81983e66"
 			sourcename="ItemRecorderEditor">
 				<path>
-					/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[@accessiblename='Row 0']/cell[6]
+					/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[@accessiblename='Row 0']/cell[@accessiblename&gt;'Gedetailleerde toets per vak']
 				</path>
 			</info>
 		</mouseitem>
@@ -77,9 +77,9 @@ mode="Global">
 		loc="Center"
 		movetime="300ms"
 		optional="False"
-		searchpropertyid="d694b01f-2a81-4f65-bc72-63cf7cdf6506"
-		sx="0"
-		sy="0"
+		searchpropertyid="30f23262-8fb6-4172-89a2-9075ae22cea8"
+		sx="657"
+		sy="276"
 		warnoutofbounds="False">
 			<comment>
 			</comment>
@@ -87,7 +87,7 @@ mode="Global">
 			</bindings>
 			<info
 			id="81ebade6-6648-4b3b-a974-22ccbf15c7dc"
-			sourcename="ItemRecorderEditor">
+			sourcename="Recorder">
 				<path>
 					/list[@controlid='1000']/listitem[@text=$textItemDropDownMenu]
 				</path>
@@ -109,7 +109,7 @@ mode="Global">
 	</repository>
 	<usercodefile
 	lang="CSharp">
-		SelectDetailedAssessmentForRowCategoryIIIv.UserCode.cs
+		SetDetailedAssessmentForRowPerSection.UserCode.cs
 	</usercodefile>
 	<references>
 	</references>

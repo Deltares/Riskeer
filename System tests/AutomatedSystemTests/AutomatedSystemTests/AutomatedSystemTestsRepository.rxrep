@@ -489,6 +489,24 @@ name="AutomatedSystemTestsRepository">
 						searchtimeout="30000ms">
 							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename&gt;'Gedetailleerde toetsper vakcategoriegrens Vv']
 						</item>
+						<item
+						addcaps="cell,accessible"
+						capname="cell"
+						id="36bcd84c-e1a4-440b-9059-ef295de802e1"
+						name="DetailedAssessmentValuePerSection"
+						refimgid="d7e79c29-a957-4625-8c4e-34e7f02b5c5f"
+						searchtimeout="30000ms">
+							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename&gt;'Toetsoordeelgedetailleerde']
+						</item>
+						<item
+						addcaps="cell,accessible"
+						capname="cell"
+						id="687f57df-4210-4716-b1bb-a24e81983e66"
+						name="DetailedAssessmentTypePerSection"
+						refimgid="ee631e46-3cea-46d3-9674-172b07516265"
+						searchtimeout="30000ms">
+							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename&gt;'Gedetailleerde toets per vak']
+						</item>
 						<basepath>
 							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismResultView']/container/table[@controlname='dataGridView']
 						</basepath>
@@ -1091,15 +1109,6 @@ QmCC
 			refimgid="12cca8c5-4c6c-4abc-b493-f41674b8275f"
 			searchtimeout="30000ms">
 				/list[@controlid='1000']/listitem[@text=$textItemDropDownMenu]
-			</item>
-			<item
-			addcaps="listitem,nativeitem,checkable"
-			capname="listitem"
-			id="83d898b4-7bdb-4b01-8f3b-509fdd675bbe"
-			name="DropDownItem"
-			refimgid="1a6b6dd7-7480-443f-a339-3ef3b476b134"
-			searchtimeout="30000ms">
-				/list[@controlid='1000']/listitem[@text=$textDropDownMenu]
 			</item>
 			<basepath>
 				/list[@controlid='1000']

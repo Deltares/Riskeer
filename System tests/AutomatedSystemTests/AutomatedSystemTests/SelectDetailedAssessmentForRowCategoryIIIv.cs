@@ -64,13 +64,13 @@ namespace AutomatedSystemTests
         }
 
         /// <summary>
-        /// Gets or sets the value of variable textDropDownMenu.
+        /// Gets or sets the value of variable textItemDropDownMenu.
         /// </summary>
-        [TestVariable("4f707b64-d756-4bb7-a45a-f34af402b280")]
-        public string textDropDownMenu
+        [TestVariable("d82001f1-20c0-4080-a06d-9f1f8ee3a56d")]
+        public string textItemDropDownMenu
         {
-            get { return repo.textDropDownMenu; }
-            set { repo.textDropDownMenu = value; }
+            get { return repo.textItemDropDownMenu; }
+            set { repo.textItemDropDownMenu = value; }
         }
 
 #endregion
@@ -107,8 +107,8 @@ namespace AutomatedSystemTests
             repo.RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.DetailedAssessmentTypeCategoryIIIv.Click(Location.CenterRight);
             Delay.Milliseconds(0);
             
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'DropDownMenuItemList.DropDownItem' at Center.", repo.DropDownMenuItemList.DropDownItemInfo, new RecordItemIndex(2));
-            repo.DropDownMenuItemList.DropDownItem.Click();
+            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'DropDownMenuItemList.GenericDropDownItem' at Center.", repo.DropDownMenuItemList.GenericDropDownItemInfo, new RecordItemIndex(2));
+            repo.DropDownMenuItemList.GenericDropDownItem.Click();
             Delay.Milliseconds(0);
             
         }
