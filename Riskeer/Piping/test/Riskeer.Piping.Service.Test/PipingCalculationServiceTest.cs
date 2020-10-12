@@ -101,7 +101,7 @@ namespace Riskeer.Piping.Service.Test
         public void Validate_InvalidCalculationInput_LogsErrorAndReturnsFalse()
         {
             // Setup
-            var calculation = new PipingCalculation(new GeneralPipingInput());
+            var calculation = new TestPipingCalculation();
 
             // Call
             var isValid = false;

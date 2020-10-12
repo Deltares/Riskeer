@@ -25,6 +25,7 @@ using NUnit.Framework;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
+using Riskeer.Piping.Data.TestUtil;
 
 namespace Riskeer.Piping.Data.Test
 {
@@ -59,7 +60,7 @@ namespace Riskeer.Piping.Data.Test
         public void Calculations_AddPipingCalculation_ItemIsAddedToCollection()
         {
             // Setup
-            var calculation = new PipingCalculation(new GeneralPipingInput());
+            var calculation = new TestPipingCalculation();
             var failureMechanism = new PipingFailureMechanism();
 
             // Call
@@ -73,7 +74,7 @@ namespace Riskeer.Piping.Data.Test
         public void Calculations_RemovePipingCalculation_ItemIsRemovedFromCollection()
         {
             // Setup
-            var calculation = new PipingCalculation(new GeneralPipingInput());
+            var calculation = new TestPipingCalculation();
             var failureMechanism = new PipingFailureMechanism();
 
             failureMechanism.CalculationsGroup.Children.Add(calculation);

@@ -49,10 +49,10 @@ namespace Riskeer.Piping.Service.Test
         }
 
         [Test]
-        public void ClearCalculationOutput_WithCalculation_ClearsOutputAndReturnAffectedCaculations()
+        public void ClearCalculationOutput_WithCalculation_ClearsOutputAndReturnAffectedCalculations()
         {
             // Setup
-            var calculation = new PipingCalculation(new GeneralPipingInput())
+            var calculation = new TestPipingCalculation
             {
                 Output = PipingOutputTestFactory.Create()
             };
@@ -75,7 +75,7 @@ namespace Riskeer.Piping.Service.Test
         public void ClearCalculationOutput_CalculationWithoutOutput_DoNothing()
         {
             // Setup
-            var calculation = new PipingCalculation(new GeneralPipingInput())
+            var calculation = new TestPipingCalculation
             {
                 Output = null
             };

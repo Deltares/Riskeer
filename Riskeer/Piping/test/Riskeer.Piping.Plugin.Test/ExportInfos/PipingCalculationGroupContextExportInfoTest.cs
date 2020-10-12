@@ -31,6 +31,7 @@ using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Piping.Data;
 using Riskeer.Piping.Data.SoilProfile;
+using Riskeer.Piping.Data.TestUtil;
 using Riskeer.Piping.Forms.PresentationObjects;
 using Riskeer.Piping.IO.Configurations;
 using Riskeer.Piping.Primitives;
@@ -143,7 +144,7 @@ namespace Riskeer.Piping.Plugin.Test.ExportInfos
 
             if (hasCalculation)
             {
-                calculationGroup.Children.Add(new PipingCalculation(new GeneralPipingInput()));
+                calculationGroup.Children.Add(new TestPipingCalculation());
             }
 
             var context = new PipingCalculationGroupContext(calculationGroup,
