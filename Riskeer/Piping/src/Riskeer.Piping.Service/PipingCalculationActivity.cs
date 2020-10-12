@@ -32,7 +32,7 @@ namespace Riskeer.Piping.Service
     /// </summary>
     internal class PipingCalculationActivity : CalculatableActivity
     {
-        private readonly PipingCalculation calculation;
+        private readonly PipingCalculation<PipingInput> calculation;
         private readonly RoundedDouble normativeAssessmentLevel;
 
         /// <summary>
@@ -41,7 +41,7 @@ namespace Riskeer.Piping.Service
         /// <param name="calculation">The piping calculation to perform.</param>
         /// <param name="normativeAssessmentLevel">The normative assessment level to use in case the manual assessment level is not applicable.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculation"/> is <c>null</c>.</exception>
-        public PipingCalculationActivity(PipingCalculation calculation,
+        public PipingCalculationActivity(PipingCalculation<PipingInput> calculation,
                                          RoundedDouble normativeAssessmentLevel)
             : base(calculation)
         {

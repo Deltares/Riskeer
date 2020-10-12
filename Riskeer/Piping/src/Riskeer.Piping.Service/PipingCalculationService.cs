@@ -45,11 +45,11 @@ namespace Riskeer.Piping.Service
         /// Performs validation over the values on the given <paramref name="calculation"/>. Error and status information is logged during
         /// the execution of the operation.
         /// </summary>
-        /// <param name="calculation">The <see cref="PipingCalculation"/> for which to validate the values.</param>
+        /// <param name="calculation">The <see cref="PipingCalculation{TPipingInput}"/> for which to validate the values.</param>
         /// <param name="normativeAssessmentLevel">The normative assessment level to use in case the manual assessment level is not applicable.</param>
         /// <returns><c>false</c> if <paramref name="calculation"/> contains validation errors; <c>true</c> otherwise.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculation"/> is <c>null</c>.</exception>
-        public static bool Validate(PipingCalculation calculation, RoundedDouble normativeAssessmentLevel)
+        public static bool Validate(PipingCalculation<PipingInput> calculation, RoundedDouble normativeAssessmentLevel)
         {
             if (calculation == null)
             {
@@ -80,16 +80,17 @@ namespace Riskeer.Piping.Service
         }
 
         /// <summary>
-        /// Performs a piping calculation based on the supplied <see cref="PipingCalculation"/> and sets <see cref="PipingCalculation.Output"/>
+        /// Performs a piping calculation based on the supplied <see cref="PipingCalculation{TPipingInput}"/> and sets
+        /// <see cref="PipingCalculation{TPipingInput}.Output"/>
         /// based on the result if the calculation was successful. Error and status information is logged during
         /// the execution of the operation.
         /// </summary>
-        /// <param name="calculation">The <see cref="PipingCalculation"/> to base the input for the calculation upon.</param>
+        /// <param name="calculation">The <see cref="PipingCalculation{TPipingInput}"/> to base the input for the calculation upon.</param>
         /// <param name="normativeAssessmentLevel">The normative assessment level to use in case the manual assessment level is not applicable.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculation"/> is <c>null</c>.</exception>
         /// <exception cref="PipingCalculatorException">Thrown when an unexpected error occurred during the calculation.</exception>
         /// <remarks>Consider calling <see cref="Validate"/> first to see if calculation is possible.</remarks>
-        public static void Calculate(PipingCalculation calculation, RoundedDouble normativeAssessmentLevel)
+        public static void Calculate(PipingCalculation<PipingInput> calculation, RoundedDouble normativeAssessmentLevel)
         {
             if (calculation == null)
             {
