@@ -34,11 +34,8 @@ namespace Riskeer.Piping.Data.Test
         [Test]
         public void Constructor_DefaultPropertyValuesAreSet()
         {
-            // Setup
-            var generalInputParameters = new GeneralPipingInput();
-
             // Call
-            var calculation = new TestPipingCalculation(generalInputParameters);
+            var calculation = new TestPipingCalculation();
 
             // Assert
             Assert.IsInstanceOf<ICalculation<PipingInput>>(calculation);
@@ -66,7 +63,7 @@ namespace Riskeer.Piping.Data.Test
         public void ClearOutput_Always_SetsOutputToNull()
         {
             // Setup
-            var calculation = new TestPipingCalculation(new GeneralPipingInput())
+            var calculation = new TestPipingCalculation
             {
                 Output = PipingOutputTestFactory.Create()
             };
@@ -82,7 +79,7 @@ namespace Riskeer.Piping.Data.Test
         public void HasOutput_OutputNull_ReturnsFalse()
         {
             // Setup
-            var calculation = new TestPipingCalculation(new GeneralPipingInput())
+            var calculation = new TestPipingCalculation
             {
                 Output = null
             };
@@ -98,7 +95,7 @@ namespace Riskeer.Piping.Data.Test
         public void HasOutput_OutputSet_ReturnsTrue()
         {
             // Setup
-            var calculation = new TestPipingCalculation(new GeneralPipingInput())
+            var calculation = new TestPipingCalculation
             {
                 Output = PipingOutputTestFactory.Create()
             };
@@ -114,7 +111,7 @@ namespace Riskeer.Piping.Data.Test
         public void ShouldCalculate_OutputNull_ReturnsTrue()
         {
             // Setup
-            var calculation = new TestPipingCalculation(new GeneralPipingInput())
+            var calculation = new TestPipingCalculation
             {
                 Output = null
             };
@@ -130,7 +127,7 @@ namespace Riskeer.Piping.Data.Test
         public void ShouldCalculate_OutputSet_ReturnsFalse()
         {
             // Setup
-            var calculation = new TestPipingCalculation(new GeneralPipingInput())
+            var calculation = new TestPipingCalculation
             {
                 Output = PipingOutputTestFactory.Create()
             };
@@ -172,7 +169,7 @@ namespace Riskeer.Piping.Data.Test
 
         private static PipingCalculation CreateRandomCalculationWithoutOutput()
         {
-            var calculation = new TestPipingCalculation(new GeneralPipingInput())
+            var calculation = new TestPipingCalculation
             {
                 Comments =
                 {
@@ -184,11 +181,6 @@ namespace Riskeer.Piping.Data.Test
             PipingTestDataGenerator.SetRandomDataToPipingInput(calculation.InputParameters);
 
             return calculation;
-        }
-
-        private class TestPipingCalculation : PipingCalculation
-        {
-            public TestPipingCalculation(GeneralPipingInput generalInputParameters) : base(generalInputParameters) {}
         }
     }
 }
