@@ -53,18 +53,18 @@ namespace Riskeer.Piping.Service
             }
 
             return failureMechanism.Calculations
-                                   .Cast<PipingCalculation>()
+                                   .Cast<PipingCalculation<PipingInput>>()
                                    .SelectMany(ClearCalculationOutput)
                                    .ToArray();
         }
 
         /// <summary>
-        /// Clears the output of the given <see cref="PipingCalculation"/>.
+        /// Clears the output of the given <see cref="PipingCalculation{TPipingInput}"/>.
         /// </summary>
-        /// <param name="calculation">The <see cref="PipingCalculation"/> to clear the output for.</param>
+        /// <param name="calculation">The <see cref="PipingCalculation{TPipingInput}"/> to clear the output for.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculation"/> is <c>null</c>.</exception>
         /// <returns>All objects that have been changed.</returns>
-        public static IEnumerable<IObservable> ClearCalculationOutput(PipingCalculation calculation)
+        public static IEnumerable<IObservable> ClearCalculationOutput(PipingCalculation<PipingInput> calculation)
         {
             if (calculation == null)
             {
@@ -97,7 +97,7 @@ namespace Riskeer.Piping.Service
             }
 
             var affectedItems = new List<IObservable>();
-            foreach (PipingCalculation calculation in failureMechanism.Calculations.Cast<PipingCalculation>())
+            foreach (PipingCalculation<PipingInput> calculation in failureMechanism.Calculations.Cast<PipingCalculation<PipingInput>>())
             {
                 affectedItems.AddRange(ClearCalculationOutput(calculation)
                                            .Concat(ClearHydraulicBoundaryLocation(calculation.InputParameters)));
@@ -166,9 +166,9 @@ namespace Riskeer.Piping.Service
                 throw new ArgumentNullException(nameof(surfaceLine));
             }
 
-            IEnumerable<PipingCalculation> pipingCalculationScenarios =
+            IEnumerable<PipingCalculation<PipingInput>> pipingCalculationScenarios =
                 failureMechanism.Calculations
-                                .Cast<PipingCalculation>()
+                                .Cast<PipingCalculation<PipingInput>>()
                                 .Where(pcs => ReferenceEquals(pcs.InputParameters.SurfaceLine, surfaceLine));
 
             List<IObservable> changedObservables = RemoveSurfaceLineDependentData(pipingCalculationScenarios).ToList();
@@ -194,9 +194,9 @@ namespace Riskeer.Piping.Service
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
 
-            IEnumerable<PipingCalculation> affectedCalculationScenarios =
+            IEnumerable<PipingCalculation<PipingInput>> affectedCalculationScenarios =
                 failureMechanism.Calculations
-                                .Cast<PipingCalculation>()
+                                .Cast<PipingCalculation<PipingInput>>()
                                 .Where(calc => calc.InputParameters.SurfaceLine != null).ToArray();
 
             List<IObservable> affectedObjects = RemoveSurfaceLineDependentData(affectedCalculationScenarios).ToList();
@@ -231,12 +231,12 @@ namespace Riskeer.Piping.Service
 
             var changedObservables = new List<IObservable>();
 
-            IEnumerable<PipingCalculation> pipingCalculationScenarios =
+            IEnumerable<PipingCalculation<PipingInput>> pipingCalculationScenarios =
                 failureMechanism.Calculations
-                                .Cast<PipingCalculation>()
+                                .Cast<PipingCalculation<PipingInput>>()
                                 .Where(pcs => ReferenceEquals(pcs.InputParameters.StochasticSoilModel, soilModel));
 
-            foreach (PipingCalculation pipingCalculationScenario in pipingCalculationScenarios)
+            foreach (PipingCalculation<PipingInput> pipingCalculationScenario in pipingCalculationScenarios)
             {
                 changedObservables.AddRange(RiskeerCommonDataSynchronizationService.ClearCalculationOutput(pipingCalculationScenario));
                 changedObservables.AddRange(ClearStochasticSoilModel(pipingCalculationScenario.InputParameters));
@@ -263,13 +263,13 @@ namespace Riskeer.Piping.Service
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
 
-            IEnumerable<PipingCalculation> affectedCalculationScenarios =
+            IEnumerable<PipingCalculation<PipingInput>> affectedCalculationScenarios =
                 failureMechanism.Calculations
-                                .Cast<PipingCalculation>()
+                                .Cast<PipingCalculation<PipingInput>>()
                                 .Where(calc => calc.InputParameters.StochasticSoilModel != null).ToArray();
 
             var affectedObjects = new List<IObservable>();
-            foreach (PipingCalculation calculation in affectedCalculationScenarios)
+            foreach (PipingCalculation<PipingInput> calculation in affectedCalculationScenarios)
             {
                 affectedObjects.AddRange(RiskeerCommonDataSynchronizationService.ClearCalculationOutput(calculation));
                 affectedObjects.AddRange(ClearStochasticSoilModel(calculation.InputParameters));
@@ -305,7 +305,7 @@ namespace Riskeer.Piping.Service
 
             var changedObservables = new List<IObservable>();
 
-            foreach (PipingCalculation pipingCalculationScenario in GetCalculationsWithSoilProfileAssigned(failureMechanism, soilProfile))
+            foreach (PipingCalculation<PipingInput> pipingCalculationScenario in GetCalculationsWithSoilProfileAssigned(failureMechanism, soilProfile))
             {
                 changedObservables.AddRange(RiskeerCommonDataSynchronizationService.ClearCalculationOutput(pipingCalculationScenario));
                 changedObservables.AddRange(ClearStochasticSoilProfile(pipingCalculationScenario.InputParameters));
@@ -339,7 +339,7 @@ namespace Riskeer.Piping.Service
 
             var changedObservables = new List<IObservable>();
 
-            foreach (PipingCalculation calculation in GetCalculationsWithSoilProfileAssigned(failureMechanism, soilProfile))
+            foreach (PipingCalculation<PipingInput> calculation in GetCalculationsWithSoilProfileAssigned(failureMechanism, soilProfile))
             {
                 changedObservables.AddRange(RiskeerCommonDataSynchronizationService.ClearCalculationOutput(calculation));
                 changedObservables.Add(calculation.InputParameters);
@@ -348,10 +348,10 @@ namespace Riskeer.Piping.Service
             return changedObservables;
         }
 
-        private static IEnumerable<IObservable> RemoveSurfaceLineDependentData(IEnumerable<PipingCalculation> pipingCalculationScenarios)
+        private static IEnumerable<IObservable> RemoveSurfaceLineDependentData(IEnumerable<PipingCalculation<PipingInput>> pipingCalculationScenarios)
         {
             var changedObservables = new List<IObservable>();
-            foreach (PipingCalculation pipingCalculationScenario in pipingCalculationScenarios)
+            foreach (PipingCalculation<PipingInput> pipingCalculationScenario in pipingCalculationScenarios)
             {
                 changedObservables.AddRange(RiskeerCommonDataSynchronizationService.ClearCalculationOutput(pipingCalculationScenario));
                 changedObservables.AddRange(ClearSurfaceLine(pipingCalculationScenario.InputParameters));
@@ -360,12 +360,12 @@ namespace Riskeer.Piping.Service
             return changedObservables;
         }
 
-        private static IEnumerable<PipingCalculation> GetCalculationsWithSoilProfileAssigned(PipingFailureMechanism failureMechanism,
-                                                                                             PipingStochasticSoilProfile soilProfile)
+        private static IEnumerable<PipingCalculation<PipingInput>> GetCalculationsWithSoilProfileAssigned(PipingFailureMechanism failureMechanism,
+                                                                                                          PipingStochasticSoilProfile soilProfile)
         {
-            IEnumerable<PipingCalculation> pipingCalculationScenarios =
+            IEnumerable<PipingCalculation<PipingInput>> pipingCalculationScenarios =
                 failureMechanism.Calculations
-                                .Cast<PipingCalculation>()
+                                .Cast<PipingCalculation<PipingInput>>()
                                 .Where(pcs => ReferenceEquals(pcs.InputParameters.StochasticSoilProfile, soilProfile));
             return pipingCalculationScenarios;
         }
