@@ -33,35 +33,27 @@ namespace AutomatedSystemTests
             // Your recording specific initialization code goes here.
         }
 
-        public void Validate_ProbabilitySpaceCell(RepoItemInfo cellInfo)
+        public void Validate_ProbabilitySpaceCell(RepoItemInfo cellInfo, string probabilitySpaceForZeroContribution)
         {
-        	string expectedProbabilitySpace;
         	string actualProbabilitySpace;
-        	System.Globalization.CultureInfo currentCulture = CultureInfo.CurrentCulture;
+        	string expectedProbabilitySpace;
         	if (contributionValue=="0") {
-        		expectedProbabilitySpace = "n.v.t";
+        		expectedProbabilitySpace = probabilitySpaceForZeroContribution;
         		actualProbabilitySpace = cellInfo.CreateAdapter<Cell>(true).GetAttributeValue<string>("AccessibleValue");
-        		Report.Log(ReportLevel.Info, "Actual Probability space: " + actualProbabilitySpace);
-        		Report.Log(ReportLevel.Info, "Expected Probability space: " + expectedProbabilitySpace);
-        		Validate.AreEqual(actualProbabilitySpace, expectedProbabilitySpace);
         	} else {
+        		System.Globalization.CultureInfo currentCulture = CultureInfo.CurrentCulture;
         		string expectedFailureProbToUse = normTypeVar=="Signal"?signallingValueVar:lowLimitValueVar;
 	        	Report.Log(ReportLevel.Info, "normType: " + normTypeVar + ", failure probability to use:" + expectedFailureProbToUse);
 	        	string invExpectedFailureProbToUse = expectedFailureProbToUse.Substring(expectedFailureProbToUse.LastIndexOf('/') + 1);
-	        	double invProbabilitySpaceNumber = Math.Round(Double.Parse(invExpectedFailureProbToUse, currentCulture)*100.0/Double.Parse(contributionValue, currentCulture));
-	        	expectedProbabilitySpace = "1/" + invProbabilitySpaceNumber.ToString();
-	        	actualProbabilitySpace = cellInfo.CreateAdapter<Cell>(true).GetAttributeValue<string>("AccessibleValue");
-	        	string invActualProbabilitySpace = actualProbabilitySpace.Substring(actualProbabilitySpace.LastIndexOf('/') + 1);
-	        	actualProbabilitySpace = "1/" + (Double.Parse(invActualProbabilitySpace, currentCulture)).ToString();
-        		Report.Log(ReportLevel.Info, "Actual Probability space: " + actualProbabilitySpace);
-        		Report.Log(ReportLevel.Info, "Expected Probability space: " + expectedProbabilitySpace);
-        		Validate.AreEqual(actualProbabilitySpace, expectedProbabilitySpace);
+	        	double inverseExpectedProbabilitySpace = Math.Round(Double.Parse(invExpectedFailureProbToUse, currentCulture)*100.0/Double.Parse(contributionValue, currentCulture));
+	        	expectedProbabilitySpace = "1/" + inverseExpectedProbabilitySpace.ToString();
+	        	string actualProbabilitySpaceWithCustomCulture = cellInfo.CreateAdapter<Cell>(true).GetAttributeValue<string>("AccessibleValue");
+	        	string inverseActualProbabilitySpace = actualProbabilitySpaceWithCustomCulture.Substring(actualProbabilitySpaceWithCustomCulture.LastIndexOf('/') + 1);
+	        	actualProbabilitySpace = "1/" + (Double.Parse(inverseActualProbabilitySpace, currentCulture)).ToString();
         	}
-        	//string actualProbabilitySpace = cellInfo.CreateAdapter<Cell>(true).GetAttributeValue<string>("AccessibleValue");
-        	//double invActualProbabilitySpaceValue = Double.Parse(actualProbabilitySpace.Substring(actualProbabilitySpace.LastIndexOf('/') + 1), currentCulture);
-        	//Report.Log(ReportLevel.Info, "Actual Probability space: " + actualProbabilitySpace);
-        	//Report.Log(ReportLevel.Info, "Expected Probability space: " + expectedProbabilitySpace);
-        	//Validate.AreEqual(invActualProbabilitySpaceValue, invProbabilitySpaceNumber);
+        	Report.Log(ReportLevel.Info, "Actual Probability space: " + actualProbabilitySpace);
+        	Report.Log(ReportLevel.Info, "Expected Probability space: " + expectedProbabilitySpace);
+        	Validate.AreEqual(actualProbabilitySpace, expectedProbabilitySpace);
         }
     }
 }

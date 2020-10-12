@@ -45,6 +45,7 @@ namespace AutomatedSystemTests
             lowLimitValueVar = "";
             normTypeVar = "";
             contributionValue = "";
+            probSpaceForZeroContribution = "";
         }
 
         /// <summary>
@@ -105,6 +106,18 @@ namespace AutomatedSystemTests
             set { _contributionValue = value; }
         }
 
+        string _probSpaceForZeroContribution;
+
+        /// <summary>
+        /// Gets or sets the value of variable probSpaceForZeroContribution.
+        /// </summary>
+        [TestVariable("9b94e552-ef8b-4b1f-b14a-b179b6f3403f")]
+        public string probSpaceForZeroContribution
+        {
+            get { return _probSpaceForZeroContribution; }
+            set { _probSpaceForZeroContribution = value; }
+        }
+
         /// <summary>
         /// Gets or sets the value of variable fmLabel.
         /// </summary>
@@ -142,7 +155,7 @@ namespace AutomatedSystemTests
             Init();
 
             try {
-                Validate_ProbabilitySpaceCell(repo.RiskeerMainWindow.DocumentViewContainer.FailureMechanismsContributionView.Table.ProbabilitySpaceCellInfo);
+                Validate_ProbabilitySpaceCell(repo.RiskeerMainWindow.DocumentViewContainer.FailureMechanismsContributionView.Table.ProbabilitySpaceCellInfo, probSpaceForZeroContribution);
             } catch(Exception ex) { Report.Log(ReportLevel.Warn, "Module", "(Optional Action) " + ex.Message, new RecordItemIndex(0)); }
             
         }

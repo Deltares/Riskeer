@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <testsuitedoc>
 	<testsuiteentryhierarchy>
 		<flatlistofchildren>
@@ -267,12 +267,6 @@
 					datasourceid="fda567a0-be92-41b9-9761-e7e7d9e7be7f"
 					variableid="8cd31747-b0d7-463c-aa3e-8ea07c17694e"
 					variablename="StartAutProcessIDVar">
-					</var>
-					<var
-					dataname="AppPath"
-					datasourceid="fda567a0-be92-41b9-9761-e7e7d9e7be7f"
-					variableid="3a6c8ab2-554f-4a89-a733-0db4352cdccd"
-					variablename="AppPath">
 					</var>
 					<var
 					dataname="AppPath"
@@ -699,6 +693,12 @@
 					datasourceid="a935893b-4673-417b-a3b6-eedd191ca5d9"
 					variableid="89b0cb78-8dc2-46b2-a3e4-6295a3181948"
 					variablename="contributionValue">
+					</var>
+					<var
+					dataname="probabilitySpaceForZeroContribution"
+					datasourceid="7b0054c9-2118-49ba-881e-5da96a820b5a"
+					variableid="9b94e552-ef8b-4b1f-b14a-b179b6f3403f"
+					variablename="probSpaceForZeroContribution">
 					</var>
 				</databinding>
 			</testmodule>
@@ -1751,6 +1751,12 @@
 			datasource="contributionsFMsTypeDijkFMCView"
 			id="7b0054c9-2118-49ba-881e-5da96a820b5a"
 			name="ValidateContributionsOfAllFMsinFMCViewTrajectTypeDijk">
+				<parameters>
+					<param
+					name="probabilitySpaceForZeroContribution"
+					value="n.v.t">
+					</param>
+				</parameters>
 			</smartfoldernode>
 			<testmodule
 			id="7c6786ee-7f19-446b-bba2-c8d8791a3639"
@@ -3383,12 +3389,6 @@
 					<var
 					dataname="AppPath"
 					datasourceid="fda567a0-be92-41b9-9761-e7e7d9e7be7f"
-					variableid="3a6c8ab2-554f-4a89-a733-0db4352cdccd"
-					variablename="AppPath">
-					</var>
-					<var
-					dataname="AppPath"
-					datasourceid="fda567a0-be92-41b9-9761-e7e7d9e7be7f"
 					variableid="ae927c2e-4f2f-4656-ae88-d9198de4c5c4"
 					variablename="AppPath">
 					</var>
@@ -3506,6 +3506,7 @@
 				</parameters>
 			</testcase>
 			<testmodule
+			enabled="False"
 			id="df87f7d1-211e-4399-950e-0587f0c44209"
 			name="StartAUT"
 			ref="825ce2a6-cd3b-42f6-9972-8ced75f1a54f"
@@ -3516,12 +3517,6 @@
 					datasourceid="fda567a0-be92-41b9-9761-e7e7d9e7be7f"
 					variableid="8cd31747-b0d7-463c-aa3e-8ea07c17694e"
 					variablename="StartAutProcessIDVar">
-					</var>
-					<var
-					dataname="AppPath"
-					datasourceid="fda567a0-be92-41b9-9761-e7e7d9e7be7f"
-					variableid="3a6c8ab2-554f-4a89-a733-0db4352cdccd"
-					variablename="AppPath">
 					</var>
 					<var
 					dataname="AppPath"
