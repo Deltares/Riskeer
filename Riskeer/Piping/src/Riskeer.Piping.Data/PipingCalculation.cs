@@ -28,9 +28,9 @@ using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
 namespace Riskeer.Piping.Data
 {
     /// <summary>
-    /// This class holds information about a calculation for the <see cref="PipingFailureMechanism"/>.
+    /// Base class that holds information about a calculation for the <see cref="PipingFailureMechanism"/>.
     /// </summary>
-    public class PipingCalculation : CloneableObservable, ICalculation<PipingInput>
+    public abstract class PipingCalculation : CloneableObservable, ICalculation<PipingInput>
     {
         /// <summary>
         /// Creates a new instance of <see cref="PipingCalculation"/> with default values set for some of the parameters.
@@ -39,7 +39,7 @@ namespace Riskeer.Piping.Data
         /// piping calculations.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="generalInputParameters"/>
         /// is <c>null</c>.</exception>
-        public PipingCalculation(GeneralPipingInput generalInputParameters)
+        protected PipingCalculation(GeneralPipingInput generalInputParameters)
         {
             Name = RiskeerCommonDataResources.Calculation_DefaultName;
             InputParameters = new PipingInput(generalInputParameters);
