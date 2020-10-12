@@ -87,7 +87,9 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.Waternet
         }
 
         [Test]
-        public void Calculate_SuccessfulCalculation_WaternetSet()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Calculate_SuccessfulCalculation_WaternetSet(bool messagesNull)
         {
             // Setup
             const string name = "Waternet";
@@ -95,7 +97,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Kernels.Waternet
             var output = new WaternetCreatorOutput
             {
                 Waternet = new CSharpWrapperWaternet(),
-                Messages = new Message[0]
+                Messages = messagesNull ? null : new Message[0]
             };
 
             var mocks = new MockRepository();

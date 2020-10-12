@@ -76,7 +76,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Kernels.Waternet
                 Waternet = output.Waternet;
                 Waternet.Name = waternetName;
 
-                ReadLogMessages(output.Messages);
+                ReadLogMessages(output.Messages ?? Enumerable.Empty<Message>());
             }
             catch (Exception e) when (!(e is WaternetKernelWrapperException))
             {
