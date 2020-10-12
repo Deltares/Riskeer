@@ -85,7 +85,7 @@ namespace Riskeer.Piping.Service.Test
         {
             // Setup
             PipingOutput output = PipingOutputTestFactory.Create();
-            PipingCalculation<PipingInput, PipingOutput> invalidPipingCalculation = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithInvalidInput();
+            SemiProbabilisticPipingCalculation invalidPipingCalculation = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithInvalidInput();
             invalidPipingCalculation.Output = output;
 
             // Call
@@ -101,7 +101,7 @@ namespace Riskeer.Piping.Service.Test
         public void Validate_InvalidCalculationInput_LogsErrorAndReturnsFalse()
         {
             // Setup
-            var calculation = new TestPipingCalculation();
+            var calculation = new SemiProbabilisticPipingCalculation(new GeneralPipingInput());
 
             // Call
             var isValid = false;

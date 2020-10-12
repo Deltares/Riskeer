@@ -60,7 +60,7 @@ namespace Riskeer.Piping.Service.Test
         public void Run_InvalidPipingCalculation_LogValidationStartAndEndWithErrors()
         {
             // Setup
-            PipingCalculationScenario invalidPipingCalculation = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithInvalidInput();
+            SemiProbabilisticPipingCalculation invalidPipingCalculation = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithInvalidInput();
 
             var activity = new PipingCalculationActivity(invalidPipingCalculation,
                                                          AssessmentSectionTestHelper.GetTestAssessmentLevel());
@@ -91,7 +91,7 @@ namespace Riskeer.Piping.Service.Test
         public void Run_ValidPipingCalculation_PerformPipingValidationAndCalculationAndLogStartAndEnd()
         {
             // Setup
-            PipingCalculationScenario validPipingCalculation = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput(new TestHydraulicBoundaryLocation());
+            SemiProbabilisticPipingCalculation validPipingCalculation = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput(new TestHydraulicBoundaryLocation());
 
             var activity = new PipingCalculationActivity(validPipingCalculation,
                                                          AssessmentSectionTestHelper.GetTestAssessmentLevel());
@@ -123,7 +123,7 @@ namespace Riskeer.Piping.Service.Test
             observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
 
-            PipingCalculationScenario validPipingCalculation = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput(new TestHydraulicBoundaryLocation());
+            SemiProbabilisticPipingCalculation validPipingCalculation = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput(new TestHydraulicBoundaryLocation());
             validPipingCalculation.Output = null;
             validPipingCalculation.Attach(observer);
 
