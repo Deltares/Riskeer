@@ -43,7 +43,7 @@ namespace Riskeer.Piping.Service.Test
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var calculation = new TestPipingCalculation();
+            var calculation = new SemiProbabilisticPipingCalculation(new GeneralPipingInput());
 
             // Call
             var activity = new PipingCalculationActivity(calculation,
