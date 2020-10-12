@@ -82,7 +82,7 @@ namespace Riskeer.Piping.Data.TestUtil
         /// <param name="clone">The cloned object.</param>
         /// <exception cref="AssertionException">Thrown when <paramref name="original"/> and
         /// <paramref name="clone"/> are not clones.</exception>
-        public static void AreClones(PipingCalculation<PipingInput, PipingOutput> original, PipingCalculation<PipingInput, PipingOutput> clone)
+        public static void AreClones(IPipingCalculation<PipingInput, PipingOutput> original, IPipingCalculation<PipingInput, PipingOutput> clone)
         {
             Assert.AreEqual(original.Name, clone.Name);
             CoreCloneAssert.AreObjectClones(original.Comments, clone.Comments, CommonCloneAssert.AreClones);
@@ -100,7 +100,7 @@ namespace Riskeer.Piping.Data.TestUtil
         /// <paramref name="clone"/> are not clones.</exception>
         public static void AreClones(PipingCalculationScenario original, PipingCalculationScenario clone)
         {
-            AreClones((PipingCalculation<PipingInput, PipingOutput>) original, clone);
+            AreClones((IPipingCalculation<PipingInput, PipingOutput>) original, clone);
             Assert.AreEqual(original.Contribution, clone.Contribution);
             Assert.AreEqual(original.IsRelevant, clone.IsRelevant);
         }
