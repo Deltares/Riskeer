@@ -1126,7 +1126,7 @@ namespace Riskeer.Piping.Service.Test
             Assert.AreEqual(expectedDampingFactorExitDesignValue, heaveCalculator.RExit, dampingFactorExitAccuracy);
             Assert.AreEqual(expectedPhreaticLevelExitDesignValue, upliftCalculator.HExit, phreaticLevelExitDesignAccuracy);
             Assert.AreEqual(expectedAssessmentLevel, upliftCalculator.HRiver);
-            Assert.AreEqual(input.UpliftModelFactor, upliftCalculator.ModelFactorUplift);
+            Assert.AreEqual(PipingSemiProbabilisticDesignVariableFactory.GetUpliftModelFactorDesignVariable(input).GetDesignValue(), upliftCalculator.ModelFactorUplift);
             Assert.AreEqual(expectedPiezometricHeadExit, upliftCalculator.PhiExit);
             Assert.AreEqual(expectedPhreaticLevelExitDesignValue, upliftCalculator.PhiPolder, phreaticLevelExitDesignAccuracy);
             Assert.AreEqual(expectedDampingFactorExitDesignValue, upliftCalculator.RExit, dampingFactorExitAccuracy);
@@ -1143,7 +1143,7 @@ namespace Riskeer.Piping.Service.Test
             Assert.AreEqual(expectedPhreaticLevelExitDesignValue, sellmeijerCalculator.HExit, phreaticLevelExitDesignAccuracy);
             Assert.AreEqual(expectedAssessmentLevel, sellmeijerCalculator.HRiver);
             Assert.AreEqual(input.WaterKinematicViscosity, sellmeijerCalculator.KinematicViscosityWater);
-            Assert.AreEqual(input.SellmeijerModelFactor, sellmeijerCalculator.ModelFactorPiping);
+            Assert.AreEqual(PipingSemiProbabilisticDesignVariableFactory.GetSellmeijerModelFactorDesignVariable(input).GetDesignValue(), sellmeijerCalculator.ModelFactorPiping);
             Assert.AreEqual(input.SellmeijerReductionFactor, sellmeijerCalculator.Rc);
             Assert.AreEqual(input.WaterVolumetricWeight, sellmeijerCalculator.VolumetricWeightOfWater);
             Assert.AreEqual(input.WhitesDragCoefficient, sellmeijerCalculator.WhitesDragCoefficient);

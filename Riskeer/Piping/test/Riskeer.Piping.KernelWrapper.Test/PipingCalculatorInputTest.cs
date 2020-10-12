@@ -20,9 +20,7 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Base.Data;
 using NUnit.Framework;
-using Riskeer.Common.Data.Probabilistics;
 using Riskeer.Piping.Primitives;
 
 namespace Riskeer.Piping.KernelWrapper.Test
@@ -34,10 +32,10 @@ namespace Riskeer.Piping.KernelWrapper.Test
         public void Constructor_WithoutConstructionProperies_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new PipingCalculatorInput(null);
+            void Call() => new PipingCalculatorInput(null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("properties", paramName);
         }
 
@@ -49,7 +47,7 @@ namespace Riskeer.Piping.KernelWrapper.Test
 
             double volumetricWeightOfWaterValue = random.NextDouble();
             double saturatedVolumicWeightOfCoverageLayer = random.NextDouble();
-            var modelFactorUpliftValue = random.NextDouble();
+            double modelFactorUpliftValue = random.NextDouble();
             double hRiverValue = random.NextDouble();
             double phiExit = random.NextDouble();
             double rExitValue = random.NextDouble();
@@ -57,7 +55,7 @@ namespace Riskeer.Piping.KernelWrapper.Test
             double ichValue = random.NextDouble();
             double dTotalValue = random.NextDouble();
             double effectiveThicknessCoverageLayerValue = random.NextDouble();
-            var sellmeijerModelFactorValue = random.NextDouble();
+            double sellmeijerModelFactorValue = random.NextDouble();
             double reductionFactorValue = random.NextDouble();
             double seepageLengthValue = random.NextDouble();
             double sandParticlesVolumicWeightValue = random.NextDouble();
