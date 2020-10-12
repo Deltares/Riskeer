@@ -28,11 +28,11 @@ using RiskeerCommonServiceResources = Riskeer.Common.Service.Properties.Resource
 namespace Riskeer.Piping.Service
 {
     /// <summary>
-    /// <see cref="CalculatableActivity"/> for running a piping calculation.
+    /// <see cref="CalculatableActivity"/> for running a semi-probabilistic piping calculation.
     /// </summary>
     internal class PipingCalculationActivity : CalculatableActivity
     {
-        private readonly PipingCalculation<PipingInput, PipingOutput> calculation;
+        private readonly SemiProbabilisticPipingCalculation calculation;
         private readonly RoundedDouble normativeAssessmentLevel;
 
         /// <summary>
@@ -41,7 +41,7 @@ namespace Riskeer.Piping.Service
         /// <param name="calculation">The piping calculation to perform.</param>
         /// <param name="normativeAssessmentLevel">The normative assessment level to use in case the manual assessment level is not applicable.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculation"/> is <c>null</c>.</exception>
-        public PipingCalculationActivity(PipingCalculation<PipingInput, PipingOutput> calculation,
+        public PipingCalculationActivity(SemiProbabilisticPipingCalculation calculation,
                                          RoundedDouble normativeAssessmentLevel)
             : base(calculation)
         {

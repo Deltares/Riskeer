@@ -83,7 +83,7 @@ namespace Riskeer.Piping.Service
             }
 
             return calculationGroup.GetCalculations()
-                                   .Cast<PipingCalculation<PipingInput, PipingOutput>>()
+                                   .Cast<SemiProbabilisticPipingCalculation>()
                                    .Select(calc => CreateCalculationActivity(calc, assessmentSection))
                                    .ToArray();
         }
@@ -96,7 +96,7 @@ namespace Riskeer.Piping.Service
         /// belongs to.</param>
         /// <returns>A <see cref="CalculatableActivity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public static CalculatableActivity CreateCalculationActivity(PipingCalculation<PipingInput, PipingOutput> calculation,
+        public static CalculatableActivity CreateCalculationActivity(SemiProbabilisticPipingCalculation calculation,
                                                                      IAssessmentSection assessmentSection)
         {
             if (calculation == null)
