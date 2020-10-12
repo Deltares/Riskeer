@@ -26,18 +26,19 @@ using Riskeer.Common.Data.Calculation;
 namespace Riskeer.Piping.Data
 {
     /// <summary>
-    /// This class holds the information for a calculation scenario.
+    /// This class holds the information for a semi-probabilistic piping calculation scenario.
     /// </summary>
-    public class PipingCalculationScenario : PipingCalculation, ICalculationScenario
+    public class PipingCalculationScenario : SemiProbabilisticPipingCalculation, ICalculationScenario
     {
         private RoundedDouble contribution;
 
         /// <summary>
         /// Creates a new instance of <see cref="PipingCalculationScenario"/>.
         /// </summary>
-        /// <param name="generalInputParameters">General piping calculation parameters that
-        /// are the same across all piping calculations.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="generalInputParameters"/> is <c>null</c>.</exception>
+        /// <param name="generalInputParameters">General piping calculation parameters that are the same across all
+        /// piping calculations.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="generalInputParameters"/>
+        /// is <c>null</c>.</exception>
         public PipingCalculationScenario(GeneralPipingInput generalInputParameters)
             : base(generalInputParameters)
         {

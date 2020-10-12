@@ -35,9 +35,10 @@ namespace Riskeer.Piping.Data
         /// <summary>
         /// Creates a new instance of <see cref="PipingCalculation"/> with default values set for some of the parameters.
         /// </summary>
-        /// <param name="generalInputParameters">General piping calculation parameters that
-        /// are the same across all piping calculations.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="generalInputParameters"/> is <c>null</c>.</exception>
+        /// <param name="generalInputParameters">General piping calculation parameters that are the same across all
+        /// piping calculations.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="generalInputParameters"/>
+        /// is <c>null</c>.</exception>
         public PipingCalculation(GeneralPipingInput generalInputParameters)
         {
             Name = RiskeerCommonDataResources.Calculation_DefaultName;

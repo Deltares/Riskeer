@@ -43,7 +43,7 @@ namespace Riskeer.Piping.Data.Test
             var scenario = new PipingCalculationScenario(generalInputParameters);
 
             // Assert
-            Assert.IsInstanceOf<PipingCalculation>(scenario);
+            Assert.IsInstanceOf<SemiProbabilisticPipingCalculation>(scenario);
             Assert.IsInstanceOf<ICalculationScenario>(scenario);
 
             Assert.IsTrue(scenario.IsRelevant);

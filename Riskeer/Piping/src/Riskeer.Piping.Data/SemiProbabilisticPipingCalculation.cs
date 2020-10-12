@@ -24,7 +24,7 @@ using System;
 namespace Riskeer.Piping.Data
 {
     /// <summary>
-    /// This class holds information about a semi probabilistic calculation for the <see cref="PipingFailureMechanism"/>.
+    /// This class holds information about a semi-probabilistic calculation for the <see cref="PipingFailureMechanism"/>.
     /// </summary>
     public class SemiProbabilisticPipingCalculation : PipingCalculation
     {
