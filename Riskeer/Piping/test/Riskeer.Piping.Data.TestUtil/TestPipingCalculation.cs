@@ -26,7 +26,7 @@ namespace Riskeer.Piping.Data.TestUtil
     /// <summary>
     /// Piping calculation that can be used for testing.
     /// </summary>
-    public class TestPipingCalculation : PipingCalculation<PipingInput>
+    public class TestPipingCalculation : PipingCalculation<PipingInput, PipingOutput>
     {
         /// <summary>
         /// Creates a new instance of <see cref="TestPipingCalculation"/> with default <see cref="PipingInput"/>.
