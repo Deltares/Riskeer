@@ -253,18 +253,6 @@ namespace AutomatedSystemTests
             set { _trajectType = value; }
         }
 
-        string _textDropDownMenu = "";
-
-        /// <summary>
-        /// Gets or sets the value of variable textDropDownMenu.
-        /// </summary>
-        [TestVariable("4f707b64-d756-4bb7-a45a-f34af402b280")]
-        public string textDropDownMenu
-        {
-            get { return _textDropDownMenu; }
-            set { _textDropDownMenu = value; }
-        }
-
         string _nameOfParameterInPropertiesPanel = "";
 
         /// <summary>
@@ -287,6 +275,18 @@ namespace AutomatedSystemTests
         {
             get { return _substringNameItemInTraject; }
             set { _substringNameItemInTraject = value; }
+        }
+
+        string _textDropDownMenu = "";
+
+        /// <summary>
+        /// Gets or sets the value of variable textDropDownMenu.
+        /// </summary>
+        [TestVariable("4f707b64-d756-4bb7-a45a-f34af402b280")]
+        public string textDropDownMenu
+        {
+            get { return _textDropDownMenu; }
+            set { _textDropDownMenu = value; }
         }
 
 #endregion

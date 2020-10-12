@@ -41,11 +41,12 @@ namespace AutomatedSystemTests
         	fixedCulture.NumberFormat.NumberGroupSeparator = "";
         	System.Globalization.CultureInfo currentCulture = CultureInfo.CurrentCulture;
         	Report.Log(ReportLevel.Info, "", "x: " + xVariable);
+        	int numberOfDecimals = xVariable.Substring(xVariable.IndexOf(currentCulture.NumberFormat.NumberDecimalSeparator)+1).Length;
         	double xValue = Double.Parse(xVariable, currentCulture);
         	double aValue = Double.Parse(a, fixedCulture);
         	double bValue = Double.Parse(b, fixedCulture);
         	double yValue = aValue*xValue + bValue;
-        	string y = yValue.ToString(currentCulture);
+        	string y = yValue.ToString("N" + numberOfDecimals).Replace(currentCulture.NumberFormat.NumberGroupSeparator, "");
         	return y;
         }
 

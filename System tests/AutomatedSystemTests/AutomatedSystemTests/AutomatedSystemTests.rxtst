@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <testsuitedoc>
 	<testsuiteentryhierarchy>
 		<flatlistofchildren>
@@ -526,6 +526,58 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<testmodule
+			id="127cd33f-3715-4bd8-8b74-c3ed29f9a79d"
+			name="ValidateValueParameterForItemInTraject"
+			ref="54946666-7cba-49b9-b848-41ea43b074d9"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="hardCodedTrajectToAdd"
+					datasourceid="de320efd-8193-4dd4-9e9d-8fb5690ddafb"
+					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
+					variablename="substringTrajectName">
+					</var>
+					<var
+					dataname="nameOfParameter_DeltaL_InPropertiesPanel"
+					datasourceid="b76df6f8-799c-4ff8-8df2-198969a6b4be"
+					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
+					variablename="nameOfParameterInPropertiesPanel">
+					</var>
+					<var
+					dataname="finalValueParameter_DeltaL"
+					datasourceid="b76df6f8-799c-4ff8-8df2-198969a6b4be"
+					variableid="541e9cf7-fb71-4773-bd20-19b633ea6f9d"
+					variablename="expectedValueOfParameterForItemInTraject">
+					</var>
+					<var
+					dataname="fmName"
+					datasourceid="6dd3da41-63a0-417f-af27-bce097b7b5b7"
+					variableid="cb52c14e-9bef-4f4a-9d11-1758141c50cb"
+					variablename="substringNameItemInTraject">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="fmName"
+					datasourceid="748d51a9-ceeb-4ad2-9005-0e58af7ac131"
+					variableid="cb52c14e-9bef-4f4a-9d11-1758141c50cb"
+					variablename="substringNameItemInTraject">
+					</var>
+					<var
+					dataname="finalValueParameter_a"
+					datasourceid="8cb65e99-632a-4992-ae3e-ec6bb44ff32d"
+					variableid="541e9cf7-fb71-4773-bd20-19b633ea6f9d"
+					variablename="expectedValueOfParameterForItemInTraject">
+					</var>
+					<var
+					dataname="nameOfParameter_a_InPropertiesPanel"
+					datasourceid="8cb65e99-632a-4992-ae3e-ec6bb44ff32d"
+					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
+					variablename="nameOfParameterInPropertiesPanel">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<smartfoldernode
 			datasource="customAssessmentHTKW"
 			id="13215e9b-ec6c-4672-94f7-9dfaa4786756"
@@ -825,6 +877,10 @@
 			ref="3c2d44f5-31b5-4584-91c8-1ad748affc77"
 			type="Recording">
 			</testmodule>
+			<smartfoldernode
+			id="1bf12905-4374-4822-9568-ebc633e0f198"
+			name="LastFolder">
+			</smartfoldernode>
 			<testmodule
 			id="1c3a4907-6b3e-41b0-9d40-7ddde04b29bc"
 			name="ValidateDetailedAssessmentTypeAtRowCategoryIVv"
@@ -2191,6 +2247,58 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
+			<testmodule
+			id="4515e4d7-70e7-4310-a81c-13390c15a3a0"
+			name="SetValueParameterForItemInTraject"
+			ref="fe097e7d-bf74-4910-a6c5-c4cd7da935d8"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="hardCodedTrajectToAdd"
+					datasourceid="de320efd-8193-4dd4-9e9d-8fb5690ddafb"
+					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
+					variablename="substringTrajectName">
+					</var>
+					<var
+					dataname="nameOfParameter_DeltaL_InPropertiesPanel"
+					datasourceid="b76df6f8-799c-4ff8-8df2-198969a6b4be"
+					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
+					variablename="nameOfParameterInPropertiesPanel">
+					</var>
+					<var
+					dataname="finalValueParameter_DeltaL"
+					datasourceid="b76df6f8-799c-4ff8-8df2-198969a6b4be"
+					variableid="7ba665dd-518f-4369-9f74-2efdb2cfd916"
+					variablename="valueToSetParameterForItemInTraject">
+					</var>
+					<var
+					dataname="fmName"
+					datasourceid="6dd3da41-63a0-417f-af27-bce097b7b5b7"
+					variableid="cb52c14e-9bef-4f4a-9d11-1758141c50cb"
+					variablename="substringNameItemInTraject">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="fmName"
+					datasourceid="748d51a9-ceeb-4ad2-9005-0e58af7ac131"
+					variableid="cb52c14e-9bef-4f4a-9d11-1758141c50cb"
+					variablename="substringNameItemInTraject">
+					</var>
+					<var
+					dataname="nameOfParameter_a_InPropertiesPanel"
+					datasourceid="8cb65e99-632a-4992-ae3e-ec6bb44ff32d"
+					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
+					variablename="nameOfParameterInPropertiesPanel">
+					</var>
+					<var
+					dataname="finalValueParameter_a"
+					datasourceid="8cb65e99-632a-4992-ae3e-ec6bb44ff32d"
+					variableid="7ba665dd-518f-4369-9f74-2efdb2cfd916"
+					variablename="valueToSetParameterForItemInTraject">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<smartfoldernode
 			id="466ac64f-9a07-4a8a-82b8-3af12a998abc"
 			name="SimpleAssessmentFMsGroup2">
@@ -6378,6 +6486,85 @@
 				</parameters>
 			</smartfoldernode>
 			<smartfoldernode
+			datasource="tableFMsToAdjustValueDeltaL"
+			id="b76df6f8-799c-4ff8-8df2-198969a6b4be"
+			name="SetAndValidateNewValueForDeltaL">
+				<parameters>
+					<param
+					name="factorM"
+					value="1.5">
+					</param>
+					<param
+					name="shiftB"
+					value="0.1">
+					</param>
+					<param
+					name="finalValueParameter_DeltaL"
+					value="">
+					</param>
+					<param
+					name="initialValueParameter_DeltaL"
+					value="">
+					</param>
+					<param
+					name="nameOfParameter_DeltaL_InPropertiesPanel"
+					value="ΔL [m]">
+					</param>
+				</parameters>
+			</smartfoldernode>
+			<testmodule
+			id="b82eab11-472c-4185-82c4-694c60a90d9d"
+			name="GetValueParameterForItemInTraject"
+			ref="3b08b464-43f7-4e4b-9c47-143e9b31807c"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="hardCodedTrajectToAdd"
+					datasourceid="de320efd-8193-4dd4-9e9d-8fb5690ddafb"
+					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
+					variablename="substringTrajectName">
+					</var>
+					<var
+					dataname="initialValueParameter_DeltaL"
+					datasourceid="b76df6f8-799c-4ff8-8df2-198969a6b4be"
+					variableid="d2cb0634-81a3-4751-83ba-7939e1c8f258"
+					variablename="valueOfParameterInPropertiesPanel">
+					</var>
+					<var
+					dataname="nameOfParameter_DeltaL_InPropertiesPanel"
+					datasourceid="b76df6f8-799c-4ff8-8df2-198969a6b4be"
+					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
+					variablename="nameOfParameterInPropertiesPanel">
+					</var>
+					<var
+					dataname="fmName"
+					datasourceid="6dd3da41-63a0-417f-af27-bce097b7b5b7"
+					variableid="cb52c14e-9bef-4f4a-9d11-1758141c50cb"
+					variablename="substringNameItemInTraject">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="fmName"
+					datasourceid="748d51a9-ceeb-4ad2-9005-0e58af7ac131"
+					variableid="cb52c14e-9bef-4f4a-9d11-1758141c50cb"
+					variablename="substringNameItemInTraject">
+					</var>
+					<var
+					dataname="nameOfParameter_a_InPropertiesPanel"
+					datasourceid="8cb65e99-632a-4992-ae3e-ec6bb44ff32d"
+					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
+					variablename="nameOfParameterInPropertiesPanel">
+					</var>
+					<var
+					dataname="initialValueParameter_a"
+					datasourceid="8cb65e99-632a-4992-ae3e-ec6bb44ff32d"
+					variableid="d2cb0634-81a3-4751-83ba-7939e1c8f258"
+					variablename="valueOfParameterInPropertiesPanel">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<smartfoldernode
 			datasource="detailedAssessmentZST"
 			id="b90f12e8-31ee-41a0-b1e5-7fad5522e116"
 			name="ValidateDetailedAsssessmentValue">
@@ -8905,6 +9092,64 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<testmodule
+			id="fb55700a-6442-4774-8d5d-4b3bc4dbf23d"
+			name="CalculateLinearTransformationOfValue"
+			ref="ff1cb4d9-1388-49e6-bf2a-00ed354dca1e"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="initialValueParameter_DeltaL"
+					datasourceid="b76df6f8-799c-4ff8-8df2-198969a6b4be"
+					variableid="32b52b59-7056-4c43-85c8-445a27bd4e65"
+					variablename="xVariable">
+					</var>
+					<var
+					dataname="factorM"
+					datasourceid="b76df6f8-799c-4ff8-8df2-198969a6b4be"
+					variableid="96607dd0-1076-4d31-a7dd-d20dfee7c567"
+					variablename="aParameter">
+					</var>
+					<var
+					dataname="shiftB"
+					datasourceid="b76df6f8-799c-4ff8-8df2-198969a6b4be"
+					variableid="16f51e88-473c-4f0d-b4a9-810b68fea466"
+					variablename="bParameter">
+					</var>
+					<var
+					dataname="finalValueParameter_DeltaL"
+					datasourceid="b76df6f8-799c-4ff8-8df2-198969a6b4be"
+					variableid="5c3fdb07-7073-459d-8c51-922caeb92a86"
+					variablename="returnedValue">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="finalValueParameter_a"
+					datasourceid="8cb65e99-632a-4992-ae3e-ec6bb44ff32d"
+					variableid="5c3fdb07-7073-459d-8c51-922caeb92a86"
+					variablename="returnedValue">
+					</var>
+					<var
+					dataname="factorM"
+					datasourceid="8cb65e99-632a-4992-ae3e-ec6bb44ff32d"
+					variableid="96607dd0-1076-4d31-a7dd-d20dfee7c567"
+					variablename="aParameter">
+					</var>
+					<var
+					dataname="shiftB"
+					datasourceid="8cb65e99-632a-4992-ae3e-ec6bb44ff32d"
+					variableid="16f51e88-473c-4f0d-b4a9-810b68fea466"
+					variablename="bParameter">
+					</var>
+					<var
+					dataname="initialValueParameter_a"
+					datasourceid="8cb65e99-632a-4992-ae3e-ec6bb44ff32d"
+					variableid="32b52b59-7056-4c43-85c8-445a27bd4e65"
+					variablename="xVariable">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<smartfoldernode
 			datasource="detailedAssessmentPKWType"
 			id="fba8bc9d-f1c1-405a-857e-dcce975295f6"
@@ -9286,6 +9531,30 @@
 							id="e29498d5-9a1d-4564-bb6b-70d00ffa1bc7"
 							name="ValidateValueParameterForItemInTraject">
 							</testmodule>
+						</smartfoldernode>
+						<smartfoldernode
+						id="b76df6f8-799c-4ff8-8df2-198969a6b4be"
+						name="SetAndValidateNewValueForDeltaL">
+							<testmodule
+							id="b82eab11-472c-4185-82c4-694c60a90d9d"
+							name="GetValueParameterForItemInTraject">
+							</testmodule>
+							<testmodule
+							id="fb55700a-6442-4774-8d5d-4b3bc4dbf23d"
+							name="CalculateLinearTransformationOfValue">
+							</testmodule>
+							<testmodule
+							id="4515e4d7-70e7-4310-a81c-13390c15a3a0"
+							name="SetValueParameterForItemInTraject">
+							</testmodule>
+							<testmodule
+							id="127cd33f-3715-4bd8-8b74-c3ed29f9a79d"
+							name="ValidateValueParameterForItemInTraject">
+							</testmodule>
+						</smartfoldernode>
+						<smartfoldernode
+						id="1bf12905-4374-4822-9568-ebc633e0f198"
+						name="LastFolder">
 						</smartfoldernode>
 						<teardown
 						id="f4d4d958-8b7c-427f-873c-e4ab538b83a8"
@@ -12577,7 +12846,7 @@
 		<DataSource
 		id="db66c0df-6518-4c43-b352-656c3623717d"
 		includefile="Unchecked"
-		lastknownrowcount="9"
+		lastknownrowcount="8"
 		name="customAssessmentSTPH"
 		type="Ranorex.Core.Data.CsvDataConnector"
 		withheaders="True">
@@ -14172,6 +14441,31 @@
 			</table>
 		</DataSource>
 		<DataSource
+		id="6dd3da41-63a0-417f-af27-bce097b7b5b7"
+		lastknownrowcount="1"
+		name="tableFMsToAdjustValueDeltaL"
+		type="Ranorex.Core.Data.SimpleDataConnector">
+			<lastknowncolumns>
+				<column>
+					fmName
+				</column>
+			</lastknowncolumns>
+			<maskedcolumns>
+			</maskedcolumns>
+			<table>
+				<tr>
+					<th>
+						fmName
+					</th>
+				</tr>
+				<tr>
+					<td>
+						Dijken en dammen - Golfklappen op asfaltbekleding
+					</td>
+				</tr>
+			</table>
+		</DataSource>
+		<DataSource
 		id="6d42c555-b56d-4896-8200-5e6619488fd5"
 		lastknownrowcount="4"
 		name="tableFMsToValidateTrajectLength"
@@ -14262,6 +14556,9 @@
 			id="0f6ce510-5e07-4792-80dc-5fa54c51639d">
 			</testcontainer>
 			<testcontainer
+			id="1010c180-4323-4c5d-a8f2-a1541376c852">
+			</testcontainer>
+			<testcontainer
 			id="13215e9b-ec6c-4672-94f7-9dfaa4786756">
 			</testcontainer>
 			<testcontainer
@@ -14271,7 +14568,7 @@
 			id="17559d94-eef1-443e-af59-9a748633df47">
 			</testcontainer>
 			<testcontainer
-			id="1010c180-4323-4c5d-a8f2-a1541376c852">
+			id="1bf12905-4374-4822-9568-ebc633e0f198">
 			</testcontainer>
 			<testcontainer
 			id="1ca083b2-ffd0-4553-a50a-f17aad616df9">
@@ -14508,13 +14805,10 @@
 			id="8f466d99-9dec-4400-9916-caced2df458b">
 			</testcontainer>
 			<testcontainer
-			id="9217c88b-b56e-49fb-b95e-cb3908ef6441">
-			</testcontainer>
-			<testcontainer
 			id="90aa5c69-ee83-454b-8d3f-8cf843f5fd19">
 			</testcontainer>
 			<testcontainer
-			id="fdaf20c9-38bc-4d90-9d0e-cec63bbe5fc4">
+			id="9217c88b-b56e-49fb-b95e-cb3908ef6441">
 			</testcontainer>
 			<testcontainer
 			id="921c41ea-9f72-4d4f-bfe2-a7f2f0365468">
@@ -14605,6 +14899,9 @@
 			</testcontainer>
 			<testcontainer
 			id="b6c982e8-d12d-4bc1-8e69-daec37d56780">
+			</testcontainer>
+			<testcontainer
+			id="b76df6f8-799c-4ff8-8df2-198969a6b4be">
 			</testcontainer>
 			<testcontainer
 			id="b90f12e8-31ee-41a0-b1e5-7fad5522e116">
@@ -14773,6 +15070,9 @@
 			</testcontainer>
 			<testcontainer
 			id="fda567a0-be92-41b9-9761-e7e7d9e7be7f">
+			</testcontainer>
+			<testcontainer
+			id="fdaf20c9-38bc-4d90-9d0e-cec63bbe5fc4">
 			</testcontainer>
 		</testconfiguration>
 	</testconfigurations>
