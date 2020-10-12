@@ -32,7 +32,7 @@ using Riskeer.Piping.Primitives;
 namespace Riskeer.Piping.Forms.PresentationObjects
 {
     /// <summary>
-    /// Presentation object for all data required to configure an instance of <see cref="PipingCalculation"/>
+    /// Presentation object for all data required to configure an instance of <see cref="PipingCalculation{TPipingInput,TPipingOutput}"/>
     /// in order to prepare it for performing a calculation.
     /// </summary>
     public class PipingCalculationScenarioContext : PipingContext<PipingCalculationScenario>,
@@ -41,7 +41,7 @@ namespace Riskeer.Piping.Forms.PresentationObjects
         /// <summary>
         /// Initializes a new instance of the <see cref="PipingCalculationScenarioContext"/> class.
         /// </summary>
-        /// <param name="calculation">The <see cref="PipingCalculation"/> instance wrapped by this context object.</param>
+        /// <param name="calculation">The <see cref="PipingCalculation{TPipingInput,TPipingOutput}"/> instance wrapped by this context object.</param>
         /// <param name="parent">The <see cref="CalculationGroup"/> that owns the wrapped scenario.</param>
         /// <param name="surfaceLines">The surface lines available within the piping context.</param>
         /// <param name="stochasticSoilModels">The stochastic soil models available within the piping context.</param>
