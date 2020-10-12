@@ -911,7 +911,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                     // Assert
                     Assert.AreEqual(2, group.Children.Count);
                     ICalculationBase newlyAddedItem = group.Children.Last();
-                    Assert.IsInstanceOf<PipingCalculation<PipingInput>>(newlyAddedItem);
+                    Assert.IsInstanceOf<PipingCalculation<PipingInput, PipingOutput>>(newlyAddedItem);
                     Assert.AreEqual("Nieuwe berekening (1)", newlyAddedItem.Name,
                                     "An item with the same name default name already exists, therefore '(1)' needs to be appended.");
                 }
