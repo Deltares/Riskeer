@@ -26,7 +26,7 @@ namespace Riskeer.Piping.Data
     /// <summary>
     /// This class holds information about a semi-probabilistic calculation for the <see cref="PipingFailureMechanism"/>.
     /// </summary>
-    public class SemiProbabilisticPipingCalculation : PipingCalculation<PipingInput, PipingOutput>
+    public class SemiProbabilisticPipingCalculation : PipingCalculation<SemiProbabilisticPipingInput, PipingOutput>
     {
         /// <summary>
         /// Creates a new instance of <see cref="SemiProbabilisticPipingCalculation"/>.
@@ -35,6 +35,6 @@ namespace Riskeer.Piping.Data
         /// piping calculations.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="generalInputParameters"/>
         /// is <c>null</c>.</exception>
-        public SemiProbabilisticPipingCalculation(GeneralPipingInput generalInputParameters) : base(new PipingInput(generalInputParameters)) {}
+        public SemiProbabilisticPipingCalculation(GeneralPipingInput generalInputParameters) : base(new SemiProbabilisticPipingInput(generalInputParameters)) {}
     }
 }
