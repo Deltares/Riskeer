@@ -45,7 +45,7 @@ namespace Riskeer.Piping.InputParameterCalculation.Test
         public static void CalculateEffectiveThicknessCoverageLayer_InvalidPipingCalculationWithOutput_ReturnsNaN()
         {
             // Setup
-            PipingCalculation<PipingInput, PipingOutput> invalidPipingCalculation = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput(new TestHydraulicBoundaryLocation());
+            SemiProbabilisticPipingCalculation invalidPipingCalculation = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput(new TestHydraulicBoundaryLocation());
 
             // Make invalid by having surface line partially above soil profile:
             double highestLevelSurfaceLine = invalidPipingCalculation.InputParameters.SurfaceLine.Points.Max(p => p.Z);
@@ -186,7 +186,7 @@ namespace Riskeer.Piping.InputParameterCalculation.Test
         public static void CalculateEffectiveThicknessCoverageLayer_CompleteInput_InputSetOnSubCalculator()
         {
             // Setup
-            PipingCalculation<PipingInput, PipingOutput> validPipingCalculation = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput(new TestHydraulicBoundaryLocation());
+            SemiProbabilisticPipingCalculation validPipingCalculation = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput(new TestHydraulicBoundaryLocation());
             PipingInput input = validPipingCalculation.InputParameters;
 
             using (new PipingSubCalculatorFactoryConfig())
@@ -219,7 +219,7 @@ namespace Riskeer.Piping.InputParameterCalculation.Test
         {
             // Setup
             RoundedDouble assessmentLevel = new Random(21).NextRoundedDouble();
-            PipingCalculation<PipingInput, PipingOutput> validPipingCalculation = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput(new TestHydraulicBoundaryLocation());
+            SemiProbabilisticPipingCalculation validPipingCalculation = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput(new TestHydraulicBoundaryLocation());
             PipingInput input = validPipingCalculation.InputParameters;
 
             using (new PipingSubCalculatorFactoryConfig())
