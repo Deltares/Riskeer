@@ -35,6 +35,6 @@ namespace Riskeer.Piping.Data
         /// piping calculations.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="generalInputParameters"/>
         /// is <c>null</c>.</exception>
-        public ProbabilisticPipingCalculation(GeneralPipingInput generalInputParameters) : base(generalInputParameters) {}
+        public ProbabilisticPipingCalculation(GeneralPipingInput generalInputParameters) : base(new PipingInput(generalInputParameters)) {}
     }
 }

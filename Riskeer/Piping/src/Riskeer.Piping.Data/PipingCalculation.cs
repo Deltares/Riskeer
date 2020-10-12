@@ -38,14 +38,13 @@ namespace Riskeer.Piping.Data
         /// Creates a new instance of <see cref="PipingCalculation{TPipingInput}"/> with default values set for some of
         /// the parameters.
         /// </summary>
-        /// <param name="generalInputParameters">General piping calculation parameters that are the same across all
-        /// piping calculations.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="generalInputParameters"/>
+        /// <param name="pipingInput">The input parameters to perform the piping calculation with.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="pipingInput"/>
         /// is <c>null</c>.</exception>
-        protected PipingCalculation(GeneralPipingInput generalInputParameters)
+        protected PipingCalculation(TPipingInput pipingInput)
         {
             Name = RiskeerCommonDataResources.Calculation_DefaultName;
-            InputParameters = new PipingInput(generalInputParameters);
+            InputParameters = pipingInput;
             Comments = new Comment();
         }
 
@@ -55,7 +54,7 @@ namespace Riskeer.Piping.Data
         public PipingOutput Output { get; set; }
 
         /// <summary>
-        /// Gets the input parameters to perform a piping calculation with.
+        /// Gets the input parameters to perform the piping calculation with.
         /// </summary>
         public TPipingInput InputParameters { get; private set; }
 
