@@ -43,6 +43,11 @@ namespace Riskeer.Piping.Data
         /// is <c>null</c>.</exception>
         protected PipingCalculation(TPipingInput pipingInput)
         {
+            if (pipingInput == null)
+            {
+                throw new ArgumentNullException(nameof(pipingInput));
+            }
+            
             Name = RiskeerCommonDataResources.Calculation_DefaultName;
             InputParameters = pipingInput;
             Comments = new Comment();

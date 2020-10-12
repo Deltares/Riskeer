@@ -56,7 +56,8 @@ namespace Riskeer.Piping.Data.Test
             TestDelegate call = () => new TestPipingCalculation(null);
 
             // Assert
-            Assert.Throws<ArgumentNullException>(call);
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("pipingInput", paramName);
         }
 
         [Test]
