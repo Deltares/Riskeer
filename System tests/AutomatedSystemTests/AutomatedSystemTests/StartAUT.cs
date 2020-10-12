@@ -72,7 +72,7 @@ namespace AutomatedSystemTests
         /// <summary>
         /// Gets or sets the value of variable AppPath.
         /// </summary>
-        [TestVariable("3a6c8ab2-554f-4a89-a733-0db4352cdccd")]
+        [TestVariable("ae927c2e-4f2f-4656-ae88-d9198de4c5c4")]
         public string AppPath
         {
             get { return _AppPath; }

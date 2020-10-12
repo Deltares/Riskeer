@@ -11,7 +11,7 @@
     <Company>Deltares</Company>
     <Copyright>Copyright © Deltares 2020</Copyright>
     <Version>20.1.1</Version>
-    <Configurations>Debug;Release;CreateInstaller;CreateInstallerWithDemoPlugin;ReleaseForCodeCoverage</Configurations>
+    <Configurations>Debug;Release;ReleaseForCodeCoverage</Configurations>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
@@ -19,13 +19,13 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <DefineConstants>DEBUG;TRACE;DEVELOPMENT</DefineConstants>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
     <ConfigurationGroup>Release</ConfigurationGroup>
     <DebugType>none</DebugType>
     <Optimize>true</Optimize>
-    <DefineConstants>TRACE;DEVELOPMENT;RELEASE</DefineConstants>
+    <DefineConstants>TRACE;RELEASE</DefineConstants>
     <AllowedReferenceRelatedFileExtensions>none</AllowedReferenceRelatedFileExtensions>
     <IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
   </PropertyGroup>
@@ -39,7 +39,7 @@
     <PackageReference Include="MSBuildConfigurationDefaults" Version="1.0.1" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="$(SolutionDir)\Core\Common\src\Core.Common.Version\GlobalAssembly.cs">
+    <Compile Include="$(SolutionDir)Core\Common\src\Core.Common.Version\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
   </ItemGroup>

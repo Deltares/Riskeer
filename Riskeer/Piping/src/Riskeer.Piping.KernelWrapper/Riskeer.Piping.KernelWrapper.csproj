@@ -5,7 +5,6 @@
     <Reference Include="System.Core" />
     <Reference Include="WTIPiping, Culture=neutral, processorArchitecture=x86">
       <HintPath>..\..\..\..\lib\Plugins\Wti\WTIPiping.dll</HintPath>
-      <Private>false</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -19,6 +18,6 @@
     </None>
   </ItemGroup>
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="xcopy /d/s/y &quot;$(SolutionDir)\lib\Plugins\Wti\WTIPiping.dll&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Deltares\Piping-16.2.1.4574\*&quot;" />
+    <Exec Command="xcopy /d/s/y &quot;$(SolutionDir)lib\Plugins\Wti\WTIPiping.dll&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Deltares\Piping-16.2.1.4574\*&quot;" />
   </Target>
 </Project>

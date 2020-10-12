@@ -24,7 +24,7 @@ using System.DirectoryServices.AccountManagement;
 using System.Linq;
 using Core.Common.TestUtil;
 using Core.Common.Util.Settings;
-using NUnit.Framework;  
+using NUnit.Framework;
 using Riskeer.Integration.Forms;
 
 namespace Application.Riskeer.Test
@@ -37,7 +37,7 @@ namespace Application.Riskeer.Test
         [SetUp]
         public void SetUp()
         {
-            appDomain = AppDomain.CreateDomain("AppTest", AppDomain.CurrentDomain.Evidence,
+            appDomain = AppDomain.CreateDomain(nameof(AppTest), AppDomain.CurrentDomain.Evidence,
                                                AppDomain.CurrentDomain.SetupInformation);
         }
 
@@ -70,16 +70,16 @@ namespace Application.Riskeer.Test
             appDomain.DoCallBack(() =>
             {
                 // Call
-                Action call = () =>
+                void Call()
                 {
                     var app = new App();
                     app.Shutdown();
-                };
+                }
 
                 // Assert
                 string userDisplayInfo = UserDisplay();
 
-                TestHelper.AssertLogMessages(call, messages =>
+                TestHelper.AssertLogMessages(Call, messages =>
                 {
                     string[] msgs = messages.ToArray();
                     Assert.AreEqual(1, msgs.Length);

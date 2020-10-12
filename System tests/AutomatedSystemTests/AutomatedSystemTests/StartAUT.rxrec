@@ -28,7 +28,7 @@ mode="Desktop">
 		name="StartAutProcessIDVar">
 		</var>
 		<var
-		id="3a6c8ab2-554f-4a89-a733-0db4352cdccd"
+		id="ae927c2e-4f2f-4656-ae88-d9198de4c5c4"
 		name="AppPath">
 		</var>
 	</variables>
@@ -45,7 +45,7 @@ mode="Desktop">
 			<bindings>
 			</bindings>
 			<arguments
-			id="8efa0faa-20d7-44a2-82c6-4cc3d748f210">
+			id="bbf3c01d-2f45-48d9-aee0-30f94385857c">
 			</arguments>
 		</userrecorditem>
 		<runapprecorditem
@@ -65,7 +65,6 @@ mode="Desktop">
 				</binding>
 			</bindings>
 			<filename>
-				D:\repos\Riskeer\bin\Debug\Riskeer.exe
 			</filename>
 			<args>
 			</args>

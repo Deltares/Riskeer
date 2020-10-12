@@ -5,14 +5,11 @@
       <HintPath>..\..\..\..\lib\NUnitForms.dll</HintPath>
     </Reference>
     <Reference Include="System">
-      <Private>False</Private>
     </Reference>
     <Reference Include="System.Core">
-      <Private>False</Private>
     </Reference>
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms">
-      <Private>False</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>

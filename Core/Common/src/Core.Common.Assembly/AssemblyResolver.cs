@@ -45,7 +45,7 @@ namespace Core.Common.Assembly
     ///           <item>
     ///             <description>Assembly_1.dll</description>
     ///           </item>
-    ///         </list>b
+    ///         </list>
     ///       </item>
     ///       <item>
     ///         <list type="bullet">
@@ -103,6 +103,9 @@ namespace Core.Common.Assembly
     ///     <description>Assembly_4.dll</description>
     ///   </item>
     ///   <item>
+    ///     <description>Assembly_5.dll</description>
+    ///   </item>
+    ///   <item>
     ///     <description>Assembly_6.dll</description>
     ///   </item>
     /// </list>
@@ -111,7 +114,7 @@ namespace Core.Common.Assembly
     {
         private const string assemblySearchPattern = "*.dll";
 
-        private static Dictionary<string, string> assemblyLookup = new Dictionary<string, string>();
+        private static readonly Dictionary<string, string> assemblyLookup = new Dictionary<string, string>();
 
         private static bool initialized;
 
@@ -151,21 +154,6 @@ namespace Core.Common.Assembly
         }
 
         /// <summary>
-        /// Resets the <see cref="AssemblyResolver"/>.
-        /// </summary>
-        /// <remarks>
-        /// After performing this method, <see cref="RequiresInitialization"/> equals <c>true</c>.
-        /// </remarks>
-        public static void Reset()
-        {
-            initialized = false;
-
-            assemblyLookup = new Dictionary<string, string>();
-
-            AppDomain.CurrentDomain.AssemblyResolve -= LoadFileFromAssemblyLookup;
-        }
-
-        /// <summary>
         /// Gets the "Application" directory, containing all built-in and standalone assemblies.
         /// </summary>
         /// <returns>The full path to the "Application" directory.</returns>
@@ -198,7 +186,7 @@ namespace Core.Common.Assembly
 
         private static System.Reflection.Assembly LoadFileFromAssemblyLookup(object sender, ResolveEventArgs args)
         {
-            string assemblyName = args.Name.Contains(",") 
+            string assemblyName = args.Name.Contains(",")
                                       ? args.Name.Substring(0, args.Name.IndexOf(','))
                                       : args.Name;
 

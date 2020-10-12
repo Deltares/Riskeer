@@ -3,7 +3,6 @@
   <ItemGroup>
     <Reference Include="Assembly.Kernel">
       <HintPath>..\..\..\..\lib\Plugins\AssemblyTool\Assembly.Kernel.dll</HintPath>
-      <Private>false</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -31,6 +30,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="xcopy /d/s/y &quot;$(SolutionDir)\lib\Plugins\AssemblyTool\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Deltares\AssemblyTool-19.1\*&quot;" />
+    <Exec Command="xcopy /d/s/y &quot;$(SolutionDir)lib\Plugins\AssemblyTool\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Deltares\AssemblyTool-19.1\*&quot;" />
   </Target>
 </Project>

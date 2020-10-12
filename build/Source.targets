@@ -1,8 +1,4 @@
 <Project>
-  <PropertyGroup>
-    <OutDir>$(OutputPath)</OutDir>
-    <OutputPath Condition="$(OutputPath) == ''">bin\$(Configuration)\</OutputPath>
-  </PropertyGroup>
   <Import Project="$(SolutionDir)build\Base.targets" />
   <PropertyGroup>
     <ContentSQLiteInteropFiles>false</ContentSQLiteInteropFiles>

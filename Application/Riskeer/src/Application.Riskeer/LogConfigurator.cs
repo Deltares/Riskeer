@@ -32,14 +32,14 @@ using log4net.Repository.Hierarchy;
 namespace Application.Riskeer
 {
     /// <summary>
-    /// Class for managing the logging capabilities of Riskeer.
+    /// Class for configuring the logging functionality of Riskeer.
     /// </summary>
-    public class Logger
+    public static class LogConfigurator
     {
         /// <summary>
-        /// Sets the configuration of the logger.
+        /// Initializes the logging functionality.
         /// </summary>
-        public static void Setup()
+        public static void Initialize()
         {
             var hierarchy = (Hierarchy) LogManager.GetRepository();
 
@@ -49,15 +49,15 @@ namespace Application.Riskeer
             };
             patternLayout.ActivateOptions();
 
-            var roller = new FileAppender
+            var fileAppender = new FileAppender
             {
                 AppendToFile = false,
                 File = Path.Combine(SettingsHelper.Instance.GetApplicationLocalUserSettingsDirectory(), "BOI", "Riskeer", "Riskeer-") + DateTime.Now.ToString("yyyy.MMM.dd.HH.mm.ss") + ".log",
                 Layout = patternLayout
             };
 
-            roller.ActivateOptions();
-            hierarchy.Root.AddAppender(roller);
+            fileAppender.ActivateOptions();
+            hierarchy.Root.AddAppender(fileAppender);
 
             var messageWindowLogAppender = new MessageWindowLogAppender();
             hierarchy.Root.AddAppender(messageWindowLogAppender);

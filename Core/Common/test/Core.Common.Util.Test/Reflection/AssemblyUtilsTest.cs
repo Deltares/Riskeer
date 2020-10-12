@@ -69,7 +69,7 @@ namespace Core.Common.Util.Test.Reflection
 
             // Assert
             Assert.AreEqual("Deltares", assemblyInfo.Company);
-            Assert.AreEqual("Copyright © Deltares 2020", assemblyInfo.Copyright);
+            Assert.AreEqual("Copyright ï¿½ Deltares 2020", assemblyInfo.Copyright);
             Assert.AreEqual("Core.Common.Util.Test", assemblyInfo.Product);
             Assert.AreEqual("Core.Common.Util.Test", assemblyInfo.Title);
             StringAssert.StartsWith("20.1.1", assemblyInfo.Version);
@@ -153,7 +153,7 @@ namespace Core.Common.Util.Test.Reflection
         }
 
         [Test]
-        public void GetAssemblyResourceStream_ForNonexistingEmbeddedResource_ThrowArgumentException()
+        public void GetAssemblyResourceStream_ForNonExistingEmbeddedResource_ThrowArgumentException()
         {
             // Call
             void Call() => AssemblyUtils.GetAssemblyResourceStream(GetType().Assembly, "I do not exist.txt");

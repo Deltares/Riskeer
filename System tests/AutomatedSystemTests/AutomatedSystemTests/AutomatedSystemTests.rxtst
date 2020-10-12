@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <testsuitedoc>
 	<testsuiteentryhierarchy>
 		<flatlistofchildren>
@@ -272,6 +272,12 @@
 					dataname="AppPath"
 					datasourceid="fda567a0-be92-41b9-9761-e7e7d9e7be7f"
 					variableid="3a6c8ab2-554f-4a89-a733-0db4352cdccd"
+					variablename="AppPath">
+					</var>
+					<var
+					dataname="AppPath"
+					datasourceid="fda567a0-be92-41b9-9761-e7e7d9e7be7f"
+					variableid="ae927c2e-4f2f-4656-ae88-d9198de4c5c4"
 					variablename="AppPath">
 					</var>
 				</databinding>
@@ -3380,6 +3386,12 @@
 					variableid="3a6c8ab2-554f-4a89-a733-0db4352cdccd"
 					variablename="AppPath">
 					</var>
+					<var
+					dataname="AppPath"
+					datasourceid="fda567a0-be92-41b9-9761-e7e7d9e7be7f"
+					variableid="ae927c2e-4f2f-4656-ae88-d9198de4c5c4"
+					variablename="AppPath">
+					</var>
 				</databinding>
 			</testmodule>
 			<testmodule
@@ -3494,7 +3506,6 @@
 				</parameters>
 			</testcase>
 			<testmodule
-			enabled="False"
 			id="df87f7d1-211e-4399-950e-0587f0c44209"
 			name="StartAUT"
 			ref="825ce2a6-cd3b-42f6-9972-8ced75f1a54f"
@@ -3510,6 +3521,12 @@
 					dataname="AppPath"
 					datasourceid="fda567a0-be92-41b9-9761-e7e7d9e7be7f"
 					variableid="3a6c8ab2-554f-4a89-a733-0db4352cdccd"
+					variablename="AppPath">
+					</var>
+					<var
+					dataname="AppPath"
+					datasourceid="fda567a0-be92-41b9-9761-e7e7d9e7be7f"
+					variableid="ae927c2e-4f2f-4656-ae88-d9198de4c5c4"
 					variablename="AppPath">
 					</var>
 				</databinding>

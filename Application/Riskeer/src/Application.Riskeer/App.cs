@@ -66,7 +66,7 @@ using MessageBox = System.Windows.MessageBox;
 
 namespace Application.Riskeer
 {
-    // Partial class introduced for avoiding problems in relation to dynamically resolving assemblies
+    // Partial class introduced for avoiding problems related to dynamically resolving assemblies
     // (SetupAssemblyResolver must be called before any dependencies are needed).
     public partial class App
     {
@@ -75,14 +75,11 @@ namespace Application.Riskeer
 
         private const int numberOfDaysToKeepLogFiles = 30;
 
+        private static int waitForProcessId = -1;
+        private static Mutex singleInstanceMutex;
         private static string fileToOpen = string.Empty;
 
-        private static Mutex singleInstanceMutex;
-
-        private static int waitForProcessId = -1;
-
         private ILog log;
-
         private GuiCore gui;
 
         private delegate void ExceptionDelegate(Exception exception);
@@ -95,7 +92,8 @@ namespace Application.Riskeer
 
         private void Initialize()
         {
-            Logger.Setup();
+            LogConfigurator.Initialize();
+
             log = LogManager.GetLogger(typeof(App));
 
             SettingsHelper.Instance = new RiskeerSettingsHelper();
@@ -111,15 +109,17 @@ namespace Application.Riskeer
         {
             ParseArguments(e.Args);
 
-            Resources.Add(SystemParameters.MenuPopupAnimationKey, PopupAnimation.None);
-
             WaitForPreviousInstanceToExit();
-            if (ShutdownIfNotFirstInstance())
+            if (IsNotFirstInstance())
             {
+                MessageBox.Show(CoreCommonGuiResources.App_ShutdownIfNotFirstInstance_Cannot_start_multiple_instances_of_Riskeer_Please_close_the_other_instance_first);
+                Shutdown(1);
                 return;
             }
 
             DeleteOldLogFiles();
+
+            Resources.Add(SystemParameters.MenuPopupAnimationKey, PopupAnimation.None);
 
             var settings = new GuiCoreSettings
             {
@@ -241,7 +241,7 @@ namespace Application.Riskeer
         /// to write log files to the Riskeer user data folder. This method deletes the old log files
         /// that have been written there.
         /// </summary>
-        private void DeleteOldLogFiles()
+        private static void DeleteOldLogFiles()
         {
             try
             {
@@ -258,7 +258,7 @@ namespace Application.Riskeer
             }
         }
 
-        private bool ShutdownIfNotFirstInstance()
+        private static bool IsNotFirstInstance()
         {
             var hasMutex = false;
 
@@ -266,9 +266,7 @@ namespace Application.Riskeer
             {
                 if (!AcquireSingleInstancePerUserMutex())
                 {
-                    MessageBox.Show(CoreCommonGuiResources.App_ShutdownIfNotFirstInstance_Cannot_start_multiple_instances_of_Riskeer_Please_close_the_other_instance_first);
-                    Shutdown(1);
-                    return true; //done here
+                    return true;
                 }
 
                 hasMutex = true;
