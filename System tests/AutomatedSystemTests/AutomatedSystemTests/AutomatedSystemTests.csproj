@@ -144,6 +144,18 @@
       <RepositoryCode>true</RepositoryCode>
       <id>325092cf-4a87-4a04-a578-da3aff997536</id>
     </Compile>
+    <Compile Include="CalculateLinearTransformationOfValue.cs">
+      <BoundTo>0d625f89-ffec-435d-9b39-d07be9cf66b5</BoundTo>
+      <DependentUpon>CalculateLinearTransformationOfValue.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>43ae55ab-ec99-4cf8-9ee6-34caaedcff7f</id>
+    </Compile>
+    <Compile Include="CalculateLinearTransformationOfValue.UserCode.cs">
+      <BoundTo>0d625f89-ffec-435d-9b39-d07be9cf66b5</BoundTo>
+      <DependentUpon>CalculateLinearTransformationOfValue.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>2217bd1c-ffd0-47bf-876e-a75cc4362805</id>
+    </Compile>
     <Compile Include="CloseAUT.cs">
       <BoundTo>cb95bf1c-596d-4a04-b8ec-bb98b0333f75</BoundTo>
       <DependentUpon>CloseAUT.rxrec</DependentUpon>
@@ -579,6 +591,18 @@
       <UserCode>true</UserCode>
       <id>162de3c0-1993-49bf-9c31-01fef0b63137</id>
     </Compile>
+    <Compile Include="SetValueParameterForItemInTraject.cs">
+      <BoundTo>a2f507da-48e3-4fb8-b387-825031a20ed2</BoundTo>
+      <DependentUpon>SetValueParameterForItemInTraject.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>af7df850-f721-426c-9cae-0a7bf811b4e6</id>
+    </Compile>
+    <Compile Include="SetValueParameterForItemInTraject.UserCode.cs">
+      <BoundTo>a2f507da-48e3-4fb8-b387-825031a20ed2</BoundTo>
+      <DependentUpon>SetValueParameterForItemInTraject.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>2a077882-67f6-41fb-913c-264fd6847040</id>
+    </Compile>
     <Compile Include="StartAUT.cs">
       <BoundTo>8f7fe1fa-f1ef-4825-8e3a-6a13124b5fbc</BoundTo>
       <DependentUpon>StartAUT.rxrec</DependentUpon>
@@ -984,6 +1008,11 @@
       <repoid>137723a5-e147-4b62-8c15-5c31a3d68f96</repoid>
       <reporootid>40cb8eed-98dc-4b16-a5ad-7ef93b4f444c</reporootid>
     </None>
+    <None Include="CalculateLinearTransformationOfValue.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>0d625f89-ffec-435d-9b39-d07be9cf66b5</id>
+      <recordtableid>ff1cb4d9-1388-49e6-bf2a-00ed354dca1e</recordtableid>
+    </None>
     <None Include="CloseAUT.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>cb95bf1c-596d-4a04-b8ec-bb98b0333f75</id>
@@ -1163,6 +1192,11 @@
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>a3cb26e3-a1be-4cb7-b372-a09785de9a9b</id>
       <recordtableid>37154a5a-bed5-4655-91a2-0c5ebc672e77</recordtableid>
+    </None>
+    <None Include="SetValueParameterForItemInTraject.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>a2f507da-48e3-4fb8-b387-825031a20ed2</id>
+      <recordtableid>fe097e7d-bf74-4910-a6c5-c4cd7da935d8</recordtableid>
     </None>
     <None Include="StartAUT.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
