@@ -644,7 +644,7 @@ namespace Riskeer.Piping.Plugin
 
         private static void ValidateAllInFailureMechanism(PipingFailureMechanismContext context)
         {
-            ValidateAll(context.WrappedData.Calculations.OfType<PipingCalculation<PipingInput, PipingOutput>>(), context.Parent);
+            ValidateAll(context.WrappedData.Calculations.OfType<IPipingCalculation<PipingInput, PipingOutput>>(), context.Parent);
         }
 
         private void CalculateAllInFailureMechanism(PipingFailureMechanismContext failureMechanismContext)
@@ -869,7 +869,7 @@ namespace Riskeer.Piping.Plugin
 
         private static void ValidateAllInCalculationGroup(PipingCalculationGroupContext context)
         {
-            ValidateAll(context.WrappedData.GetCalculations().OfType<PipingCalculation<PipingInput, PipingOutput>>(), context.AssessmentSection);
+            ValidateAll(context.WrappedData.GetCalculations().OfType<IPipingCalculation<PipingInput, PipingOutput>>(), context.AssessmentSection);
         }
 
         private void CalculateAllInCalculationGroup(CalculationGroup group, PipingCalculationGroupContext context)

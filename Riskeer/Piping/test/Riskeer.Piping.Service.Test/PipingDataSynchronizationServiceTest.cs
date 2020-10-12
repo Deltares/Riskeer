@@ -605,7 +605,7 @@ namespace Riskeer.Piping.Service.Test
             // Assert
             CollectionAssert.AreEquivalent(expectedAffectedObjects, affected);
             CollectionAssert.IsEmpty(affected.OfType<PipingInput>().Where(a => a.StochasticSoilProfile != null));
-            CollectionAssert.IsEmpty(affected.OfType<PipingCalculation<PipingInput, PipingOutput>>().Where(a => a.HasOutput));
+            CollectionAssert.IsEmpty(affected.OfType<IPipingCalculation<PipingInput, PipingOutput>>().Where(a => a.HasOutput));
         }
 
         [Test]
@@ -740,7 +740,7 @@ namespace Riskeer.Piping.Service.Test
             // Assert
             CollectionAssert.AreEquivalent(expectedAffectedObjects, affected);
             CollectionAssert.IsEmpty(affected.OfType<PipingInput>().Where(a => a.StochasticSoilProfile == null));
-            CollectionAssert.IsEmpty(affected.OfType<PipingCalculation<PipingInput, PipingOutput>>().Where(a => a.HasOutput));
+            CollectionAssert.IsEmpty(affected.OfType<IPipingCalculation<PipingInput, PipingOutput>>().Where(a => a.HasOutput));
         }
     }
 }
