@@ -53,18 +53,18 @@ namespace Riskeer.Piping.Service
             }
 
             return failureMechanism.Calculations
-                                   .Cast<PipingCalculation<PipingInput, PipingOutput>>()
+                                   .Cast<IPipingCalculation<PipingInput, PipingOutput>>()
                                    .SelectMany(ClearCalculationOutput)
                                    .ToArray();
         }
 
         /// <summary>
-        /// Clears the output of the given <see cref="PipingCalculation{TPipingInput,TPipingOutput}"/>.
+        /// Clears the output of the given <see cref="IPipingCalculation{TPipingInput,TPipingOutput}"/>.
         /// </summary>
-        /// <param name="calculation">The <see cref="PipingCalculation{TPipingInput,TPipingOutput}"/> to clear the output for.</param>
+        /// <param name="calculation">The <see cref="IPipingCalculation{TPipingInput,TPipingOutput}"/> to clear the output for.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculation"/> is <c>null</c>.</exception>
         /// <returns>All objects that have been changed.</returns>
-        public static IEnumerable<IObservable> ClearCalculationOutput(PipingCalculation<PipingInput, PipingOutput> calculation)
+        public static IEnumerable<IObservable> ClearCalculationOutput(IPipingCalculation<PipingInput, PipingOutput> calculation)
         {
             if (calculation == null)
             {
