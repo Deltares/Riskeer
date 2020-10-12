@@ -252,6 +252,18 @@
       <UserCode>true</UserCode>
       <id>6d50e1d1-3b95-4960-a2dc-05b4f670fe34</id>
     </Compile>
+    <Compile Include="GetValueParameterForItemInTraject.cs">
+      <BoundTo>0be59255-8483-4bd6-b789-9bb7d1340977</BoundTo>
+      <DependentUpon>GetValueParameterForItemInTraject.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>d199ffc4-74dd-4dc9-b450-552e89165b0e</id>
+    </Compile>
+    <Compile Include="GetValueParameterForItemInTraject.UserCode.cs">
+      <BoundTo>0be59255-8483-4bd6-b789-9bb7d1340977</BoundTo>
+      <DependentUpon>GetValueParameterForItemInTraject.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>81e68b73-6531-4b38-8463-576c3f9bbe8a</id>
+    </Compile>
     <Compile Include="ImportStochasticSoilModelCollection.cs">
       <BoundTo>42ae0196-5f78-448c-bd8a-65349a1cda86</BoundTo>
       <DependentUpon>ImportStochasticSoilModelCollection.rxrec</DependentUpon>
@@ -824,6 +836,11 @@
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>eae62d5d-fd0c-420e-bd9b-fcee4398bbff</id>
       <recordtableid>8513f955-1cc5-4468-875c-d51ce8a545ba</recordtableid>
+    </None>
+    <None Include="GetValueParameterForItemInTraject.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>0be59255-8483-4bd6-b789-9bb7d1340977</id>
+      <recordtableid>3b08b464-43f7-4e4b-9c47-143e9b31807c</recordtableid>
     </None>
     <None Include="ImportStochasticSoilModelCollection.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>

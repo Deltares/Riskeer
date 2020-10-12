@@ -54,6 +54,24 @@ name="AutomatedSystemTestsRepository">
 						searchtimeout="30000ms">
 							/form[@automationid='RiskeerMainWindow']//container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]/treeitem[@accessiblename~$substringTrajectName]/treeitem[@accessiblename='Faalkansbegroting']
 						</item>
+						<item
+						addcaps="treeitem,accessible,accessibletreeitem"
+						capname="treeitem"
+						id="c6e3307d-ef2f-4a61-bf7b-443c02d22136"
+						name="GenericItemInTraject"
+						refimgid="c33e2959-1eb3-434f-9ba5-7449b06b1808"
+						searchtimeout="30000ms">
+							/form[@automationid='RiskeerMainWindow']//container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]/treeitem[@accessiblename~$substringTrajectName]/treeitem[@accessiblename=$substringNameItemInTraject]
+						</item>
+						<item
+						addcaps="treeitem,accessible,accessibletreeitem"
+						capname="treeitem"
+						id="dfd880dc-8e6a-4cff-9056-0c9f313b3d6d"
+						name="Copy_of_GenericItemInTraject"
+						refimgid="c33e2959-1eb3-434f-9ba5-7449b06b1808"
+						searchtimeout="30000ms">
+							/form[@automationid='RiskeerMainWindow']//container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]/treeitem[@accessiblename~$substringTrajectName]/treeitem[@accessiblename=$substringNameItemInTraject]
+						</item>
 						<folder
 						capname="treeitem"
 						id="92f53398-7bb2-45f8-a305-0adb56ec8aa7"
@@ -492,6 +510,15 @@ name="AutomatedSystemTestsRepository">
 					refimgid="b10e19f9-7815-4f72-bde5-ded05eaaa1a8"
 					searchtimeout="30000ms">
 						/form[@automationid='RiskeerMainWindow']//container[@controlname='PropertiesPanelGridView']//table[@accessiblename='Properties Window']/row[@accessiblename='Is relevant']
+					</item>
+					<item
+					addcaps="row,accessible"
+					capname="row"
+					id="fa26997c-4865-408a-9bd8-120810ae0e7a"
+					name="GenericParameterVisibleInProjectExplorer"
+					refimgid="b10e19f9-7815-4f72-bde5-ded05eaaa1a8"
+					searchtimeout="30000ms">
+						/form[@automationid='RiskeerMainWindow']//container[@controlname='PropertiesPanelGridView']//table[@accessiblename='Properties Window']/row[@accessiblename=$nameOfParameterInPropertiesPanel]
 					</item>
 					<item
 					addcaps="row,accessible"
@@ -1361,6 +1388,14 @@ FjcAAAAASUVORK5CYII=
 		<var
 		id="7e8f3140-795e-40f1-a611-9c126ff7de4f"
 		name="trajectType">
+		</var>
+		<var
+		id="be55172b-156d-4b6c-a990-593bf6c5d6a2"
+		name="nameOfParameterInPropertiesPanel">
+		</var>
+		<var
+		id="cb52c14e-9bef-4f4a-9d11-1758141c50cb"
+		name="substringNameItemInTraject">
 		</var>
 	</variables>
 </repository>

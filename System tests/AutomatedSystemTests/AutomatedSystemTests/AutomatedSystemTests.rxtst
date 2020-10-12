@@ -121,6 +121,16 @@
 			name="ValidateDetailedAsssessmentValue">
 			</smartfoldernode>
 			<smartfoldernode
+			id="095a933f-0351-4f44-914c-746ccae54ec0"
+			name="LengthEffects(trajectType=Dijk/Duin)">
+				<parameters>
+					<param
+					name="trajectLengthValue"
+					value="">
+					</param>
+				</parameters>
+			</smartfoldernode>
+			<smartfoldernode
 			id="0a44c5a2-9fe0-4a08-be4d-b094c7780e99"
 			name="New_Project">
 			</smartfoldernode>
@@ -586,6 +596,38 @@
 				</databinding>
 			</testmodule>
 			<testmodule
+			id="2c4d685d-ade2-4128-95f9-3f5bfb343ec9"
+			name="GetValueParameterForItemInTraject"
+			ref="3b08b464-43f7-4e4b-9c47-143e9b31807c"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="nameItemReferenceLineInProjectExplorer"
+					datasourceid="90aa5c69-ee83-454b-8d3f-8cf843f5fd19"
+					variableid="cb52c14e-9bef-4f4a-9d11-1758141c50cb"
+					variablename="substringnameitemintraject">
+					</var>
+					<var
+					dataname="hardCodedTrajectToAdd"
+					datasourceid="de320efd-8193-4dd4-9e9d-8fb5690ddafb"
+					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
+					variablename="substringTrajectName">
+					</var>
+					<var
+					dataname="nameLengthParameterInPropertiesPanel"
+					datasourceid="90aa5c69-ee83-454b-8d3f-8cf843f5fd19"
+					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
+					variablename="nameOfParameterInPropertiesPanel">
+					</var>
+					<var
+					dataname="trajectLengthValue"
+					datasourceid="095a933f-0351-4f44-914c-746ccae54ec0"
+					variableid="d2cb0634-81a3-4751-83ba-7939e1c8f258"
+					variablename="valueOfParameterInPropertiesPanel">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
 			id="2c583364-1d99-4e75-8682-cd60b7666f07"
 			name="OpenProject"
 			ref="3f746bb2-6845-45b4-9b28-b7fd605378f3"
@@ -683,12 +725,6 @@
 					variablename="fmLabel">
 					</var>
 					<var
-					dataname="normType"
-					datasourceid="9b5303ea-11e0-4a2d-9cd9-dbdc460927eb"
-					variableid="062b1503-100f-4586-a386-93ef730cd7ef"
-					variablename="normTypeVar">
-					</var>
-					<var
 					dataname="contribution"
 					datasourceid="a935893b-4673-417b-a3b6-eedd191ca5d9"
 					variableid="89b0cb78-8dc2-46b2-a3e4-6295a3181948"
@@ -700,7 +736,21 @@
 					variableid="9b94e552-ef8b-4b1f-b14a-b179b6f3403f"
 					variablename="probSpaceForZeroContribution">
 					</var>
+					<var
+					dataname="normType"
+					datasourceid="de320efd-8193-4dd4-9e9d-8fb5690ddafb"
+					variableid="062b1503-100f-4586-a386-93ef730cd7ef"
+					variablename="normTypeVar">
+					</var>
 				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="normType"
+					datasourceid="9b5303ea-11e0-4a2d-9cd9-dbdc460927eb"
+					variableid="062b1503-100f-4586-a386-93ef730cd7ef"
+					variablename="normTypeVar">
+					</var>
+				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="328383e3-e3fc-4be6-9787-baa30b524f66"
@@ -2032,6 +2082,20 @@
 			id="8f466d99-9dec-4400-9916-caced2df458b"
 			name="ValidateDetailedAsssessmentType">
 			</smartfoldernode>
+			<smartfoldernode
+			id="90aa5c69-ee83-454b-8d3f-8cf843f5fd19"
+			name="ReadTrajectLength">
+				<parameters>
+					<param
+					name="nameItemReferenceLineInProjectExplorer"
+					value="Referentielijn">
+					</param>
+					<param
+					name="nameLengthParameterInPropertiesPanel"
+					value="Lengte* [m]">
+					</param>
+				</parameters>
+			</smartfoldernode>
 			<testmodule
 			id="91daaaf7-10e5-40e0-a29d-d13469923fd7"
 			name="ValidateContributionInFailureMechanismContributionView"
@@ -2268,12 +2332,6 @@
 			<smartfoldernode
 			id="9b5303ea-11e0-4a2d-9cd9-dbdc460927eb"
 			name="a)_Failure_probability_and_space">
-				<parameters>
-					<param
-					name="normType"
-					value="Signal">
-					</param>
-				</parameters>
 			</smartfoldernode>
 			<smartfoldernode
 			datasource="outputRelevanceFMCView"
@@ -2346,12 +2404,6 @@
 					variablename="trajectToAdd">
 					</var>
 					<var
-					dataname="normType"
-					datasourceid="9b5303ea-11e0-4a2d-9cd9-dbdc460927eb"
-					variableid="929a9a29-2c5b-41dc-93ed-daff0f25d734"
-					variablename="normType">
-					</var>
-					<var
 					dataname="signallingValue"
 					datasourceid="de320efd-8193-4dd4-9e9d-8fb5690ddafb"
 					variableid="477665a2-02a6-4c0f-af06-48edfa7bd209"
@@ -2363,7 +2415,21 @@
 					variableid="86fb3bdf-e3c6-41eb-aea3-29e619ddc796"
 					variablename="lowLimitValue">
 					</var>
+					<var
+					dataname="normType"
+					datasourceid="de320efd-8193-4dd4-9e9d-8fb5690ddafb"
+					variableid="929a9a29-2c5b-41dc-93ed-daff0f25d734"
+					variablename="normType">
+					</var>
 				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="normType"
+					datasourceid="9b5303ea-11e0-4a2d-9cd9-dbdc460927eb"
+					variableid="929a9a29-2c5b-41dc-93ed-daff0f25d734"
+					variablename="normType">
+					</var>
+				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
 			datasource="outputDetailedAssessment"
@@ -3122,7 +3188,6 @@
 				</databinding>
 			</testmodule>
 			<testmodule
-			enabled="False"
 			id="ca88852d-a16f-4e5f-b5cf-b4e3f894a961"
 			name="CreateOutputFolder"
 			ref="40b6ae98-0f6f-4015-b0b2-13ee7ced6f84"
@@ -3503,10 +3568,13 @@
 					name="caseNumber"
 					value="08">
 					</param>
+					<param
+					name="normType"
+					value="Signal">
+					</param>
 				</parameters>
 			</testcase>
 			<testmodule
-			enabled="False"
 			id="df87f7d1-211e-4399-950e-0587f0c44209"
 			name="StartAUT"
 			ref="825ce2a6-cd3b-42f6-9972-8ced75f1a54f"
@@ -4130,16 +4198,16 @@
 							</testmodule>
 						</setup>
 						<smartfoldernode
+						id="02a85580-c5da-4d64-8012-b42d5a9ad388"
+						name="AddNewTraject">
+							<testmodule
+							id="a21427ac-0a51-4e66-b4ea-2e2800b1719f"
+							name="AddNewTraject">
+							</testmodule>
+						</smartfoldernode>
+						<smartfoldernode
 						id="9b5303ea-11e0-4a2d-9cd9-dbdc460927eb"
 						name="a)_Failure_probability_and_space">
-							<smartfoldernode
-							id="02a85580-c5da-4d64-8012-b42d5a9ad388"
-							name="AddNewTraject">
-								<testmodule
-								id="a21427ac-0a51-4e66-b4ea-2e2800b1719f"
-								name="AddNewTraject">
-								</testmodule>
-							</smartfoldernode>
 							<smartfoldernode
 							id="d430e17b-6468-4a3d-83d4-6333c1b327ad"
 							name="ControlFailureMechanismContributions">
@@ -4183,6 +4251,18 @@
 										</testmodule>
 									</smartfoldernode>
 								</smartfoldernode>
+							</smartfoldernode>
+						</smartfoldernode>
+						<smartfoldernode
+						id="095a933f-0351-4f44-914c-746ccae54ec0"
+						name="LengthEffects(trajectType=Dijk/Duin)">
+							<smartfoldernode
+							id="90aa5c69-ee83-454b-8d3f-8cf843f5fd19"
+							name="ReadTrajectLength">
+								<testmodule
+								id="2c4d685d-ade2-4128-95f9-3f5bfb343ec9"
+								name="GetValueParameterForItemInTraject">
+								</testmodule>
 							</smartfoldernode>
 						</smartfoldernode>
 						<teardown
@@ -7291,6 +7371,9 @@
 			id="09206115-c01f-4bd2-a711-ec99d2198a5f">
 			</testcontainer>
 			<testcontainer
+			id="095a933f-0351-4f44-914c-746ccae54ec0">
+			</testcontainer>
+			<testcontainer
 			id="0a44c5a2-9fe0-4a08-be4d-b094c7780e99">
 			</testcontainer>
 			<testcontainer
@@ -7436,6 +7519,9 @@
 			</testcontainer>
 			<testcontainer
 			id="8f466d99-9dec-4400-9916-caced2df458b">
+			</testcontainer>
+			<testcontainer
+			id="90aa5c69-ee83-454b-8d3f-8cf843f5fd19">
 			</testcontainer>
 			<testcontainer
 			id="921c41ea-9f72-4d4f-bfe2-a7f2f0365468">

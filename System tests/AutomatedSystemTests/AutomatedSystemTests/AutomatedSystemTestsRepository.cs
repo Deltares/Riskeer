@@ -253,6 +253,30 @@ namespace AutomatedSystemTests
             set { _trajectType = value; }
         }
 
+        string _nameOfParameterInPropertiesPanel = "";
+
+        /// <summary>
+        /// Gets or sets the value of variable nameOfParameterInPropertiesPanel.
+        /// </summary>
+        [TestVariable("be55172b-156d-4b6c-a990-593bf6c5d6a2")]
+        public string nameOfParameterInPropertiesPanel
+        {
+            get { return _nameOfParameterInPropertiesPanel; }
+            set { _nameOfParameterInPropertiesPanel = value; }
+        }
+
+        string _substringNameItemInTraject = "";
+
+        /// <summary>
+        /// Gets or sets the value of variable substringNameItemInTraject.
+        /// </summary>
+        [TestVariable("cb52c14e-9bef-4f4a-9d11-1758141c50cb")]
+        public string substringNameItemInTraject
+        {
+            get { return _substringNameItemInTraject; }
+            set { _substringNameItemInTraject = value; }
+        }
+
 #endregion
 
         /// <summary>
@@ -633,6 +657,8 @@ namespace AutomatedSystemTests
         {
             AutomatedSystemTestsRepositoryFolders.GenericFMItemWithSubstringInNameFolder _genericfmitemwithsubstringinname;
             RepoItemInfo _faalkansbegrotingInfo;
+            RepoItemInfo _genericitemintrajectInfo;
+            RepoItemInfo _copy_of_genericitemintrajectInfo;
 
             /// <summary>
             /// Creates a new TrajectWithSubstringInName  folder.
@@ -642,6 +668,8 @@ namespace AutomatedSystemTests
             {
                 _genericfmitemwithsubstringinname = new AutomatedSystemTestsRepositoryFolders.GenericFMItemWithSubstringInNameFolder(this);
                 _faalkansbegrotingInfo = new RepoItemInfo(this, "Faalkansbegroting", "treeitem[@accessiblename='Faalkansbegroting']", 30000, null, "79c86dc7-8eee-48b2-b0af-b29632b7c092");
+                _genericitemintrajectInfo = new RepoItemInfo(this, "GenericItemInTraject", "treeitem[@accessiblename=$substringNameItemInTraject]", 30000, null, "c6e3307d-ef2f-4a61-bf7b-443c02d22136");
+                _copy_of_genericitemintrajectInfo = new RepoItemInfo(this, "Copy_of_GenericItemInTraject", "treeitem[@accessiblename=$substringNameItemInTraject]", 30000, null, "dfd880dc-8e6a-4cff-9056-0c9f313b3d6d");
             }
 
             /// <summary>
@@ -689,6 +717,54 @@ namespace AutomatedSystemTests
                 get
                 {
                     return _faalkansbegrotingInfo;
+                }
+            }
+
+            /// <summary>
+            /// The GenericItemInTraject item.
+            /// </summary>
+            [RepositoryItem("c6e3307d-ef2f-4a61-bf7b-443c02d22136")]
+            public virtual Ranorex.TreeItem GenericItemInTraject
+            {
+                get
+                {
+                    return _genericitemintrajectInfo.CreateAdapter<Ranorex.TreeItem>(true);
+                }
+            }
+
+            /// <summary>
+            /// The GenericItemInTraject item info.
+            /// </summary>
+            [RepositoryItemInfo("c6e3307d-ef2f-4a61-bf7b-443c02d22136")]
+            public virtual RepoItemInfo GenericItemInTrajectInfo
+            {
+                get
+                {
+                    return _genericitemintrajectInfo;
+                }
+            }
+
+            /// <summary>
+            /// The Copy_of_GenericItemInTraject item.
+            /// </summary>
+            [RepositoryItem("dfd880dc-8e6a-4cff-9056-0c9f313b3d6d")]
+            public virtual Ranorex.TreeItem Copy_of_GenericItemInTraject
+            {
+                get
+                {
+                    return _copy_of_genericitemintrajectInfo.CreateAdapter<Ranorex.TreeItem>(true);
+                }
+            }
+
+            /// <summary>
+            /// The Copy_of_GenericItemInTraject item info.
+            /// </summary>
+            [RepositoryItemInfo("dfd880dc-8e6a-4cff-9056-0c9f313b3d6d")]
+            public virtual RepoItemInfo Copy_of_GenericItemInTrajectInfo
+            {
+                get
+                {
+                    return _copy_of_genericitemintrajectInfo;
                 }
             }
 
@@ -2194,6 +2270,7 @@ namespace AutomatedSystemTests
         public partial class TableFolder2 : RepoGenBaseFolder
         {
             RepoItemInfo _isrelevantInfo;
+            RepoItemInfo _genericparametervisibleinprojectexplorerInfo;
             RepoItemInfo _sourcepathInfo;
             RepoItemInfo _nameInfo;
             RepoItemInfo _contributionpercentageInfo;
@@ -2207,6 +2284,7 @@ namespace AutomatedSystemTests
                     base("Table", ".//table[@accessiblename='Properties Window']", parentFolder, 30000, null, true, "50f9e3b1-cf09-4ca3-8d3c-7edd64e7251e", "")
             {
                 _isrelevantInfo = new RepoItemInfo(this, "IsRelevant", "row[@accessiblename='Is relevant']", 30000, null, "a71a9303-6a79-4eab-86c6-b77f1a561c93");
+                _genericparametervisibleinprojectexplorerInfo = new RepoItemInfo(this, "GenericParameterVisibleInProjectExplorer", "row[@accessiblename=$nameOfParameterInPropertiesPanel]", 30000, null, "fa26997c-4865-408a-9bd8-120810ae0e7a");
                 _sourcepathInfo = new RepoItemInfo(this, "SourcePath", "row[@accessiblename='Bronlocatie']", 30000, null, "aa50f2b7-9af1-4ae4-b50a-b071b2de54d6");
                 _nameInfo = new RepoItemInfo(this, "Name", "row[@accessiblename='Naam']", 30000, null, "98c1c28a-f4dc-42c8-9ead-d777288121c5");
                 _contributionpercentageInfo = new RepoItemInfo(this, "ContributionPercentage", "row[@accessiblename>'Aandeel']", 30000, null, "863390a3-2d56-4c70-826d-86c4fb70b44f");
@@ -2259,6 +2337,30 @@ namespace AutomatedSystemTests
                 get
                 {
                     return _isrelevantInfo;
+                }
+            }
+
+            /// <summary>
+            /// The GenericParameterVisibleInProjectExplorer item.
+            /// </summary>
+            [RepositoryItem("fa26997c-4865-408a-9bd8-120810ae0e7a")]
+            public virtual Ranorex.Row GenericParameterVisibleInProjectExplorer
+            {
+                get
+                {
+                    return _genericparametervisibleinprojectexplorerInfo.CreateAdapter<Ranorex.Row>(true);
+                }
+            }
+
+            /// <summary>
+            /// The GenericParameterVisibleInProjectExplorer item info.
+            /// </summary>
+            [RepositoryItemInfo("fa26997c-4865-408a-9bd8-120810ae0e7a")]
+            public virtual RepoItemInfo GenericParameterVisibleInProjectExplorerInfo
+            {
+                get
+                {
+                    return _genericparametervisibleinprojectexplorerInfo;
                 }
             }
 
