@@ -543,7 +543,7 @@ namespace Riskeer.Piping.Plugin
 
         #endregion
 
-        private static RoundedDouble GetNormativeAssessmentLevel(IAssessmentSection assessmentSection, PipingCalculation calculation)
+        private static RoundedDouble GetNormativeAssessmentLevel(IAssessmentSection assessmentSection, PipingCalculation<PipingInput> calculation)
         {
             return assessmentSection.GetNormativeAssessmentLevel(calculation.InputParameters.HydraulicBoundaryLocation);
         }
@@ -644,7 +644,7 @@ namespace Riskeer.Piping.Plugin
 
         private static void ValidateAllInFailureMechanism(PipingFailureMechanismContext context)
         {
-            ValidateAll(context.WrappedData.Calculations.OfType<PipingCalculation>(), context.Parent);
+            ValidateAll(context.WrappedData.Calculations.OfType<PipingCalculation<PipingInput>>(), context.Parent);
         }
 
         private void CalculateAllInFailureMechanism(PipingFailureMechanismContext failureMechanismContext)
@@ -869,7 +869,7 @@ namespace Riskeer.Piping.Plugin
 
         private static void ValidateAllInCalculationGroup(PipingCalculationGroupContext context)
         {
-            ValidateAll(context.WrappedData.GetCalculations().OfType<PipingCalculation>(), context.AssessmentSection);
+            ValidateAll(context.WrappedData.GetCalculations().OfType<PipingCalculation<PipingInput>>(), context.AssessmentSection);
         }
 
         private void CalculateAllInCalculationGroup(CalculationGroup group, PipingCalculationGroupContext context)
@@ -917,7 +917,7 @@ namespace Riskeer.Piping.Plugin
         {
             var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
 
-            PipingCalculation calculation = nodeData.WrappedData;
+            PipingCalculation<PipingInput> calculation = nodeData.WrappedData;
 
             StrictContextMenuItem updateEntryAndExitPoint = CreateUpdateEntryAndExitPointItem(nodeData);
 
@@ -971,7 +971,7 @@ namespace Riskeer.Piping.Plugin
             };
         }
 
-        private void UpdatedSurfaceLineDependentDataOfCalculation(PipingCalculation scenario)
+        private void UpdatedSurfaceLineDependentDataOfCalculation(PipingCalculation<PipingInput> scenario)
         {
             string message = RiskeerCommonFormsResources.VerifyUpdate_Confirm_calculation_output_cleared;
             if (VerifyEntryAndExitPointUpdates(new[]
@@ -1000,7 +1000,7 @@ namespace Riskeer.Piping.Plugin
             PipingCalculationService.Validate(context.WrappedData, GetNormativeAssessmentLevel(context.AssessmentSection, context.WrappedData));
         }
 
-        private void Calculate(PipingCalculation calculation, PipingCalculationScenarioContext context)
+        private void Calculate(PipingCalculation<PipingInput> calculation, PipingCalculationScenarioContext context)
         {
             ActivityProgressDialogRunner.Run(Gui.MainWindow,
                                              PipingCalculationActivityFactory.CreateCalculationActivity(calculation, context.AssessmentSection));
@@ -1008,21 +1008,21 @@ namespace Riskeer.Piping.Plugin
 
         #endregion
 
-        private static void ValidateAll(IEnumerable<PipingCalculation> pipingCalculations, IAssessmentSection assessmentSection)
+        private static void ValidateAll(IEnumerable<PipingCalculation<PipingInput>> pipingCalculations, IAssessmentSection assessmentSection)
         {
-            foreach (PipingCalculation calculation in pipingCalculations)
+            foreach (PipingCalculation<PipingInput> calculation in pipingCalculations)
             {
                 PipingCalculationService.Validate(calculation, GetNormativeAssessmentLevel(assessmentSection, calculation));
             }
         }
 
-        private bool VerifyEntryAndExitPointUpdates(IEnumerable<PipingCalculation> calculations, string query)
+        private bool VerifyEntryAndExitPointUpdates(IEnumerable<PipingCalculation<PipingInput>> calculations, string query)
         {
             var changeHandler = new CalculationChangeHandler(calculations, query, GetInquiryHelper());
             return !changeHandler.RequireConfirmation() || changeHandler.InquireConfirmation();
         }
 
-        private static void UpdateSurfaceLineDependentData(PipingCalculation scenario)
+        private static void UpdateSurfaceLineDependentData(PipingCalculation<PipingInput> scenario)
         {
             scenario.InputParameters.SynchronizeEntryAndExitPointInput();
 
