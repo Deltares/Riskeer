@@ -543,7 +543,7 @@ namespace Riskeer.Piping.Plugin
 
         #endregion
 
-        private static RoundedDouble GetNormativeAssessmentLevel(IAssessmentSection assessmentSection, PipingCalculation<PipingInput, PipingOutput> calculation)
+        private static RoundedDouble GetNormativeAssessmentLevel(IAssessmentSection assessmentSection, SemiProbabilisticPipingCalculation calculation)
         {
             return assessmentSection.GetNormativeAssessmentLevel(calculation.InputParameters.HydraulicBoundaryLocation);
         }
