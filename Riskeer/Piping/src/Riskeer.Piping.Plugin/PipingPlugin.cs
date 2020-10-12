@@ -1008,9 +1008,9 @@ namespace Riskeer.Piping.Plugin
 
         #endregion
 
-        private static void ValidateAll(IEnumerable<PipingCalculation<PipingInput, PipingOutput>> pipingCalculations, IAssessmentSection assessmentSection)
+        private static void ValidateAll(IEnumerable<IPipingCalculation<PipingInput, PipingOutput>> pipingCalculations, IAssessmentSection assessmentSection)
         {
-            foreach (PipingCalculation<PipingInput, PipingOutput> calculation in pipingCalculations)
+            foreach (SemiProbabilisticPipingCalculation calculation in pipingCalculations.OfType<SemiProbabilisticPipingCalculation>())
             {
                 PipingCalculationService.Validate(calculation, GetNormativeAssessmentLevel(assessmentSection, calculation));
             }
