@@ -23,6 +23,7 @@ using System;
 using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Riskeer.Common.Data.Probabilistics;
 using Riskeer.Common.Data.TestUtil;
 
 namespace Riskeer.Piping.Data.Test
@@ -33,12 +34,25 @@ namespace Riskeer.Piping.Data.Test
         [Test]
         public void Constructor_ExpectedValues()
         {
+            // Setup
+            var upliftModelFactor = new LogNormalDistribution(2)
+            {
+                Mean = (RoundedDouble) 1.0,
+                StandardDeviation = (RoundedDouble) 0.1
+            };
+
+            var sellmeijerModelFactor = new LogNormalDistribution(2)
+            {
+                Mean = (RoundedDouble) 1.0,
+                StandardDeviation = (RoundedDouble) 0.12
+            };
+
             // Call
             var inputParameters = new GeneralPipingInput();
 
             // Assert
-            Assert.AreEqual(1.0, inputParameters.UpliftModelFactor);
-            Assert.AreEqual(1.0, inputParameters.SellmeijerModelFactor);
+            DistributionAssert.AreEqual(upliftModelFactor, inputParameters.UpliftModelFactor);
+            DistributionAssert.AreEqual(sellmeijerModelFactor, inputParameters.SellmeijerModelFactor);
 
             Assert.AreEqual(9.81, inputParameters.WaterVolumetricWeight.Value);
             Assert.AreEqual(2, inputParameters.WaterVolumetricWeight.NumberOfDecimalPlaces);

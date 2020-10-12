@@ -71,10 +71,10 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () => new PipingFailureMechanismProperties(null, assessmentSection, handler);
+            void Call() => new PipingFailureMechanismProperties(null, assessmentSection, handler);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("data", paramName);
             mocks.VerifyAll();
         }
@@ -88,10 +88,10 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => new PipingFailureMechanismProperties(new PipingFailureMechanism(), null, handler);
+            void Call() => new PipingFailureMechanismProperties(new PipingFailureMechanism(), null, handler);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
@@ -104,10 +104,10 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () => new PipingFailureMechanismProperties(new PipingFailureMechanism(), assessmentSection, null);
+            void Call() => new PipingFailureMechanismProperties(new PipingFailureMechanism(), assessmentSection, null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("handler", paramName);
             mocks.VerifyAll();
         }
@@ -418,11 +418,11 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
             var properties = new PipingFailureMechanismProperties(failureMechanism, assessmentSection, changeHandler);
 
             // Call
-            TestDelegate call = () => properties.A = value;
+            void Call() => properties.A = value;
 
             // Assert
             const string expectedMessage = "De waarde voor 'a' moet in het bereik [0,0, 1,0] liggen.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, expectedMessage);
             mocks.VerifyAll();
         }
 
@@ -484,12 +484,12 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
             var properties = new PipingFailureMechanismProperties(failureMechanism, assessmentSection, changeHandler);
 
             // Call            
-            TestDelegate test = () => properties.WaterVolumetricWeight = roundedValue;
+            void Call() => properties.WaterVolumetricWeight = roundedValue;
 
             // Assert
 
             const string expectedMessage = "De waarde moet binnen het bereik [0,00, 20,00] liggen.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, expectedMessage);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, expectedMessage);
             Assert.IsTrue(changeHandler.Called);
             mocks.VerifyAll(); // Does not expect notify observers.
         }

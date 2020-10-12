@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System.Collections.Generic;
-using Riskeer.Common.Data.Probabilistics;
 
 namespace Riskeer.Piping.KernelWrapper.SubCalculator
 {
@@ -43,7 +42,7 @@ namespace Riskeer.Piping.KernelWrapper.SubCalculator
         /// Gets the reduced fall. 
         /// </summary>
         double ReducedFall { get; }
-        
+
         /// <summary>
         /// Gets the factor of safety.
         /// </summary>

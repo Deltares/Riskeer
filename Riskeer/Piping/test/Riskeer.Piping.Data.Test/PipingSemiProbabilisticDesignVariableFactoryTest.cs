@@ -48,6 +48,34 @@ namespace Riskeer.Piping.Data.Test
         #region General parameters
 
         [Test]
+        public void GetUpliftModelFactorDesignVariable_PipingInputWithCoverLayer_CreateDeterministicDesignVariableForUpliftModelFactor()
+        {
+            // Setup
+            PipingInput inputParameters = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
+
+            // Call
+            DesignVariable<LogNormalDistribution> upliftModelFactor = PipingSemiProbabilisticDesignVariableFactory.GetUpliftModelFactorDesignVariable(inputParameters);
+
+            // Assert
+            Assert.IsInstanceOf<DeterministicDesignVariable<LogNormalDistribution>>(upliftModelFactor);
+            DistributionAssert.AreEqual(inputParameters.UpliftModelFactor, upliftModelFactor.Distribution);
+        }
+
+        [Test]
+        public void GetSellmeijerModelFactorDesignVariable_PipingInputWithCoverLayer_CreateDeterministicDesignVariableForSellmeijerModelFactor()
+        {
+            // Setup
+            PipingInput inputParameters = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
+
+            // Call
+            DesignVariable<LogNormalDistribution> sellmeijerModelFactor = PipingSemiProbabilisticDesignVariableFactory.GetSellmeijerModelFactorDesignVariable(inputParameters);
+
+            // Assert
+            Assert.IsInstanceOf<DeterministicDesignVariable<LogNormalDistribution>>(sellmeijerModelFactor);
+            DistributionAssert.AreEqual(inputParameters.SellmeijerModelFactor, sellmeijerModelFactor.Distribution);
+        }
+
+        [Test]
         public void GetThicknessCoverageLayer_PipingInputWithCoverLayer_CreatePercentileBasedDesignVariableForThicknessCoverageLayer()
         {
             // Setup

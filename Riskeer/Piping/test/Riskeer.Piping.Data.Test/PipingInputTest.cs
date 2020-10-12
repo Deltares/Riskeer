@@ -142,11 +142,11 @@ namespace Riskeer.Piping.Data.Test
             };
 
             // Call
-            TestDelegate call = () => pipingInput.ExitPointL = (RoundedDouble) value;
+            void Call() => pipingInput.ExitPointL = (RoundedDouble) value;
 
             // Assert
             const string expectedMessage = "Het uittredepunt moet landwaarts van het intredepunt liggen.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, expectedMessage);
         }
 
         [Test]
@@ -162,11 +162,11 @@ namespace Riskeer.Piping.Data.Test
             input.EntryPointL = RoundedDouble.NaN;
 
             // Call
-            TestDelegate call = () => input.ExitPointL = (RoundedDouble) value;
+            void Call() => input.ExitPointL = (RoundedDouble) value;
 
             // Assert
             const string expectedMessage = "Het gespecificeerde punt moet op het profiel liggen (bereik [0,0, 1,0]).";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, expectedMessage);
         }
 
         [Test]
@@ -216,11 +216,11 @@ namespace Riskeer.Piping.Data.Test
             };
 
             // Call
-            TestDelegate call = () => pipingInput.EntryPointL = (RoundedDouble) value;
+            void Call() => pipingInput.EntryPointL = (RoundedDouble) value;
 
             // Assert
             const string expectedMessage = "Het uittredepunt moet landwaarts van het intredepunt liggen.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, expectedMessage);
         }
 
         [Test]
@@ -234,12 +234,13 @@ namespace Riskeer.Piping.Data.Test
             // Setup
             PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
             input.ExitPointL = RoundedDouble.NaN;
+
             // Call
-            TestDelegate call = () => input.EntryPointL = (RoundedDouble) value;
+            void Call() => input.EntryPointL = (RoundedDouble) value;
 
             // Assert
             const string expectedMessage = "Het gespecificeerde punt moet op het profiel liggen (bereik [0,0, 1,0]).";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, expectedMessage);
         }
 
         [Test]
