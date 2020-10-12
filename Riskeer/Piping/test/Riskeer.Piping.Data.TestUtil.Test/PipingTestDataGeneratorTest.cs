@@ -260,12 +260,12 @@ namespace Riskeer.Piping.Data.TestUtil.Test
         private static void AssertCalculationsHasSameHydraulicBoundaryLocation(CalculationGroup calculationGroup,
                                                                                HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
-            IEnumerable<PipingCalculation<PipingInput>> calculationsWithHydraulicBoundaryLocation =
+            IEnumerable<PipingCalculation<PipingInput, PipingOutput>> calculationsWithHydraulicBoundaryLocation =
                 calculationGroup.Children
-                                .OfType<PipingCalculation<PipingInput>>()
+                                .OfType<PipingCalculation<PipingInput, PipingOutput>>()
                                 .Where(calc => calc.InputParameters.HydraulicBoundaryLocation != null);
 
-            foreach (PipingCalculation<PipingInput> calculation in calculationsWithHydraulicBoundaryLocation)
+            foreach (PipingCalculation<PipingInput, PipingOutput> calculation in calculationsWithHydraulicBoundaryLocation)
             {
                 Assert.AreSame(hydraulicBoundaryLocation, calculation.InputParameters.HydraulicBoundaryLocation);
             }
