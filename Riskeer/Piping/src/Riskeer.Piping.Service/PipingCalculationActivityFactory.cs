@@ -83,7 +83,7 @@ namespace Riskeer.Piping.Service
             }
 
             return calculationGroup.GetCalculations()
-                                   .Cast<PipingCalculation<PipingInput>>()
+                                   .Cast<PipingCalculation<PipingInput, PipingOutput>>()
                                    .Select(calc => CreateCalculationActivity(calc, assessmentSection))
                                    .ToArray();
         }
@@ -96,7 +96,7 @@ namespace Riskeer.Piping.Service
         /// belongs to.</param>
         /// <returns>A <see cref="CalculatableActivity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public static CalculatableActivity CreateCalculationActivity(PipingCalculation<PipingInput> calculation,
+        public static CalculatableActivity CreateCalculationActivity(PipingCalculation<PipingInput, PipingOutput> calculation,
                                                                      IAssessmentSection assessmentSection)
         {
             if (calculation == null)
