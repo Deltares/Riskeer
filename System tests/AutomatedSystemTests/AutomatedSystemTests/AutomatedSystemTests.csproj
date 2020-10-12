@@ -156,6 +156,42 @@
       <UserCode>true</UserCode>
       <id>2217bd1c-ffd0-47bf-876e-a75cc4362805</id>
     </Compile>
+    <Compile Include="CalculateNFormula1.cs">
+      <BoundTo>b06bc5d2-0e53-42a7-8447-1a4e68dfdacf</BoundTo>
+      <DependentUpon>CalculateNFormula1.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>d54d1b65-81ca-44d4-bb7c-8a76025cb31c</id>
+    </Compile>
+    <Compile Include="CalculateNFormula1.UserCode.cs">
+      <BoundTo>b06bc5d2-0e53-42a7-8447-1a4e68dfdacf</BoundTo>
+      <DependentUpon>CalculateNFormula1.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>2231b375-3e88-4466-a72f-6cf9094cc2e9</id>
+    </Compile>
+    <Compile Include="CalculateNFormula2.cs">
+      <BoundTo>cea2afaa-d763-48b0-8c0d-aa3f87780d37</BoundTo>
+      <DependentUpon>CalculateNFormula2.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>0fbf7e07-8099-4b91-8ae9-b7ea745b0c14</id>
+    </Compile>
+    <Compile Include="CalculateNFormula2.UserCode.cs">
+      <BoundTo>cea2afaa-d763-48b0-8c0d-aa3f87780d37</BoundTo>
+      <DependentUpon>CalculateNFormula2.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>51f92868-a462-4502-b78e-a6b9518b887e</id>
+    </Compile>
+    <Compile Include="CalculateNFormula3.cs">
+      <BoundTo>59d3b275-2ad2-49f7-81c7-3af9ffd72495</BoundTo>
+      <DependentUpon>CalculateNFormula3.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>899b367f-19dd-4dac-8f51-0fa8ab77316e</id>
+    </Compile>
+    <Compile Include="CalculateNFormula3.UserCode.cs">
+      <BoundTo>59d3b275-2ad2-49f7-81c7-3af9ffd72495</BoundTo>
+      <DependentUpon>CalculateNFormula3.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>3508caa8-41c7-4a29-b095-c69ec2c6f45b</id>
+    </Compile>
     <Compile Include="CloseAUT.cs">
       <BoundTo>cb95bf1c-596d-4a04-b8ec-bb98b0333f75</BoundTo>
       <DependentUpon>CloseAUT.rxrec</DependentUpon>
@@ -179,6 +215,18 @@
       <DependentUpon>CloseViewCentralPanelWithFocus.rxrec</DependentUpon>
       <UserCode>true</UserCode>
       <id>25b9d3df-d029-427a-96c4-de8470c01737</id>
+    </Compile>
+    <Compile Include="ConvertToCurrentCulture.cs">
+      <BoundTo>5b5e7a94-d166-4447-a367-89316035642d</BoundTo>
+      <DependentUpon>ConvertToCurrentCulture.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>1cf1d3e6-256f-4da2-b7b4-f2957efaa3f1</id>
+    </Compile>
+    <Compile Include="ConvertToCurrentCulture.UserCode.cs">
+      <BoundTo>5b5e7a94-d166-4447-a367-89316035642d</BoundTo>
+      <DependentUpon>ConvertToCurrentCulture.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>03891b57-02ef-4afe-8320-3b5cdb6942e6</id>
     </Compile>
     <Compile Include="CopyFile.cs">
       <BoundTo>fab570ab-705a-4266-9144-f9f477a53503</BoundTo>
@@ -831,6 +879,18 @@
       <UserCode>true</UserCode>
       <id>9aabd863-3df8-4890-abd4-a997f4914ca5</id>
     </Compile>
+    <Compile Include="ValidateParameterDoesNotExistForItemInTraject.cs">
+      <BoundTo>27f04823-1f1a-4251-be16-0e92f15ca64c</BoundTo>
+      <DependentUpon>ValidateParameterDoesNotExistForItemInTraject.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>ea03820d-8779-4d9b-bf7d-5c0a682f2039</id>
+    </Compile>
+    <Compile Include="ValidateParameterDoesNotExistForItemInTraject.UserCode.cs">
+      <BoundTo>27f04823-1f1a-4251-be16-0e92f15ca64c</BoundTo>
+      <DependentUpon>ValidateParameterDoesNotExistForItemInTraject.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>d1b69a80-39db-4977-9ba2-8e8a7174b81c</id>
+    </Compile>
     <Compile Include="ValidateProbabilitySpaceInFailureMechanismContributionView.cs">
       <BoundTo>e29f7d9b-ae68-4ca7-a428-d70d4680532e</BoundTo>
       <DependentUpon>ValidateProbabilitySpaceInFailureMechanismContributionView.rxrec</DependentUpon>
@@ -1013,6 +1073,21 @@
       <id>0d625f89-ffec-435d-9b39-d07be9cf66b5</id>
       <recordtableid>ff1cb4d9-1388-49e6-bf2a-00ed354dca1e</recordtableid>
     </None>
+    <None Include="CalculateNFormula1.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>b06bc5d2-0e53-42a7-8447-1a4e68dfdacf</id>
+      <recordtableid>41b2435b-9741-4e36-b6b5-e09633ca92af</recordtableid>
+    </None>
+    <None Include="CalculateNFormula2.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>cea2afaa-d763-48b0-8c0d-aa3f87780d37</id>
+      <recordtableid>7a5a313f-03e9-4259-a9ba-83be32da5355</recordtableid>
+    </None>
+    <None Include="CalculateNFormula3.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>59d3b275-2ad2-49f7-81c7-3af9ffd72495</id>
+      <recordtableid>cd64e64b-746a-4846-8490-369760278039</recordtableid>
+    </None>
     <None Include="CloseAUT.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>cb95bf1c-596d-4a04-b8ec-bb98b0333f75</id>
@@ -1022,6 +1097,11 @@
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>75c56bbc-55ab-4649-abbf-6157d7ab6a40</id>
       <recordtableid>3c2d44f5-31b5-4584-91c8-1ad748affc77</recordtableid>
+    </None>
+    <None Include="ConvertToCurrentCulture.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>5b5e7a94-d166-4447-a367-89316035642d</id>
+      <recordtableid>c1edbea9-a1e3-45d7-835b-452fd53ec06b</recordtableid>
     </None>
     <None Include="CopyFile.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
@@ -1292,6 +1372,11 @@
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>31e81b77-c11e-4528-8722-7adaeeeb11ad</id>
       <recordtableid>85bd5588-c795-4a99-aeaf-4daebe835849</recordtableid>
+    </None>
+    <None Include="ValidateParameterDoesNotExistForItemInTraject.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>27f04823-1f1a-4251-be16-0e92f15ca64c</id>
+      <recordtableid>76b79b85-92aa-460c-b126-3cc5de9d5f07</recordtableid>
     </None>
     <None Include="ValidateProbabilitySpaceInFailureMechanismContributionView.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>

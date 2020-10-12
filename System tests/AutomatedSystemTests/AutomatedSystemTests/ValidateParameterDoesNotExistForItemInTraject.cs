@@ -24,47 +24,34 @@ namespace AutomatedSystemTests
 {
 #pragma warning disable 0436 //(CS0436) The type 'type' in 'assembly' conflicts with the imported type 'type2' in 'assembly'. Using the type defined in 'assembly'.
     /// <summary>
-    ///The ValidateValueParameterForItemInTraject recording.
+    ///The ValidateParameterDoesNotExistForItemInTraject recording.
     /// </summary>
-    [TestModule("54946666-7cba-49b9-b848-41ea43b074d9", ModuleType.Recording, 1)]
-    public partial class ValidateValueParameterForItemInTraject : ITestModule
+    [TestModule("76b79b85-92aa-460c-b126-3cc5de9d5f07", ModuleType.Recording, 1)]
+    public partial class ValidateParameterDoesNotExistForItemInTraject : ITestModule
     {
         /// <summary>
         /// Holds an instance of the AutomatedSystemTestsRepository repository.
         /// </summary>
         public static AutomatedSystemTestsRepository repo = AutomatedSystemTestsRepository.Instance;
 
-        static ValidateValueParameterForItemInTraject instance = new ValidateValueParameterForItemInTraject();
+        static ValidateParameterDoesNotExistForItemInTraject instance = new ValidateParameterDoesNotExistForItemInTraject();
 
         /// <summary>
         /// Constructs a new instance.
         /// </summary>
-        public ValidateValueParameterForItemInTraject()
+        public ValidateParameterDoesNotExistForItemInTraject()
         {
-            expectedValueOfParameterForItemInTraject = "";
         }
 
         /// <summary>
         /// Gets a static instance of this recording.
         /// </summary>
-        public static ValidateValueParameterForItemInTraject Instance
+        public static ValidateParameterDoesNotExistForItemInTraject Instance
         {
             get { return instance; }
         }
 
 #region Variables
-
-        string _expectedValueOfParameterForItemInTraject;
-
-        /// <summary>
-        /// Gets or sets the value of variable expectedValueOfParameterForItemInTraject.
-        /// </summary>
-        [TestVariable("541e9cf7-fb71-4773-bd20-19b633ea6f9d")]
-        public string expectedValueOfParameterForItemInTraject
-        {
-            get { return _expectedValueOfParameterForItemInTraject; }
-            set { _expectedValueOfParameterForItemInTraject = value; }
-        }
 
         /// <summary>
         /// Gets or sets the value of variable substringTrajectName.
@@ -116,22 +103,24 @@ namespace AutomatedSystemTests
         [System.CodeDom.Compiler.GeneratedCode("Ranorex", global::Ranorex.Core.Constants.CodeGenVersion)]
         void ITestModule.Run()
         {
-            Mouse.DefaultMoveTime = 0;
+            Mouse.DefaultMoveTime = 300;
             Keyboard.DefaultKeyPressTime = 20;
-            Delay.SpeedFactor = 0.00;
+            Delay.SpeedFactor = 1.00;
 
             Init();
 
             Report.Log(ReportLevel.Info, "Invoke action", "Invoking Focus() on item 'RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericItemInTraject'.", repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericItemInTrajectInfo, new RecordItemIndex(0));
             repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericItemInTraject.Focus();
+            Delay.Milliseconds(0);
             
             Report.Log(ReportLevel.Info, "Invoke action", "Invoking Select() on item 'RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericItemInTraject'.", repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericItemInTrajectInfo, new RecordItemIndex(1));
             repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericItemInTraject.Select();
+            Delay.Milliseconds(0);
             
-            Report.Log(ReportLevel.Info, "Validation", "Validating AttributeEqual (AccessibleValue=$expectedValueOfParameterForItemInTraject) on item 'RiskeerMainWindow.PropertiesPanelContainer.Table.GenericParameterVisibleInProjectExplorer'.", repo.RiskeerMainWindow.PropertiesPanelContainer.Table.GenericParameterVisibleInProjectExplorerInfo, new RecordItemIndex(2));
-            Validate.AttributeEqual(repo.RiskeerMainWindow.PropertiesPanelContainer.Table.GenericParameterVisibleInProjectExplorerInfo, "AccessibleValue", expectedValueOfParameterForItemInTraject);
+            Validate_GenericParameterVisibleInProjectExplorer(repo.RiskeerMainWindow.PropertiesPanelContainer.Table.GenericParameterVisibleInProjectExplorerInfo);
+            Delay.Milliseconds(0);
             
-            Report.Screenshot(ReportLevel.Info, "User", "", repo.RiskeerMainWindow.PropertiesPanelContainer.Table.GenericParameterVisibleInProjectExplorer, false, new RecordItemIndex(3));
+            Report.Screenshot(ReportLevel.Info, "User", "", repo.RiskeerMainWindow.PropertiesPanelContainer.Table.Self, false, new RecordItemIndex(3));
             
         }
 
