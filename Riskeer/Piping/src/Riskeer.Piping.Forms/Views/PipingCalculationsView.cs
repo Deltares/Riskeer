@@ -287,7 +287,7 @@ namespace Riskeer.Piping.Forms.Views
             SetItemsOnObjectCollection(cell.Items, GetStochasticSoilModelsDataSource(stochasticSoilModels).ToArray());
         }
 
-        private IEnumerable<PipingStochasticSoilModel> GetSoilModelsForCalculation(PipingCalculation pipingCalculation)
+        private IEnumerable<PipingStochasticSoilModel> GetSoilModelsForCalculation(ICalculation<PipingInput> pipingCalculation)
         {
             return PipingCalculationConfigurationHelper.GetStochasticSoilModelsForSurfaceLine(
                 pipingCalculation.InputParameters.SurfaceLine,
@@ -320,7 +320,7 @@ namespace Riskeer.Piping.Forms.Views
             SetItemsOnObjectCollection(cell.Items, GetSoilProfilesDataSource(stochasticSoilProfiles).ToArray());
         }
 
-        private static IEnumerable<PipingStochasticSoilProfile> GetSoilProfilesForCalculation(PipingCalculation pipingCalculation)
+        private static IEnumerable<PipingStochasticSoilProfile> GetSoilProfilesForCalculation(ICalculation<PipingInput> pipingCalculation)
         {
             return pipingCalculation.InputParameters.StochasticSoilModel != null
                        ? pipingCalculation.InputParameters.StochasticSoilModel.StochasticSoilProfiles
