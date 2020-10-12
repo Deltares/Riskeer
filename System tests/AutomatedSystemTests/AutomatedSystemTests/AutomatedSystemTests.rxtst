@@ -232,6 +232,17 @@
 			id="0f6ce510-5e07-4792-80dc-5fa54c51639d"
 			name="ValidateDetailedAsssessmentType">
 			</smartfoldernode>
+			<smartfoldernode
+			datasource="tableFMsToValidateTrajectLength"
+			id="1010c180-4323-4c5d-a8f2-a1541376c852"
+			name="CompareTrajectLengthInFM">
+				<parameters>
+					<param
+					name="nameOfLengthParameterToValidate"
+					value="Lengte* [m]">
+					</param>
+				</parameters>
+			</smartfoldernode>
 			<testmodule
 			id="119063a9-23da-4b4e-a0d7-504af8944e9d"
 			name="ValidateDetailedAssessmentValueAtRow"
@@ -1356,6 +1367,38 @@
 			name="ValidateDetailedAsssessmentType">
 			</smartfoldernode>
 			<testmodule
+			id="5dc9bc5e-24e1-48cf-8f85-854b488174f0"
+			name="ValidateValueParameterForItemInTraject"
+			ref="54946666-7cba-49b9-b848-41ea43b074d9"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="fmName"
+					datasourceid="6d42c555-b56d-4896-8200-5e6619488fd5"
+					variableid="cb52c14e-9bef-4f4a-9d11-1758141c50cb"
+					variablename="substringNameItemInTraject">
+					</var>
+					<var
+					dataname="trajectLengthValue"
+					datasourceid="095a933f-0351-4f44-914c-746ccae54ec0"
+					variableid="541e9cf7-fb71-4773-bd20-19b633ea6f9d"
+					variablename="expectedValueOfParameterForItemInTraject">
+					</var>
+					<var
+					dataname="hardCodedTrajectToAdd"
+					datasourceid="de320efd-8193-4dd4-9e9d-8fb5690ddafb"
+					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
+					variablename="substringTrajectName">
+					</var>
+					<var
+					dataname="nameOfLengthParameterToValidate"
+					datasourceid="1010c180-4323-4c5d-a8f2-a1541376c852"
+					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
+					variablename="nameOfParameterInPropertiesPanel">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
 			id="5e8109b5-9337-44dd-a450-032708951c4b"
 			name="CopyFile"
 			ref="ad8e1ad4-f412-41ae-a2dc-f39766081df4"
@@ -1493,6 +1536,10 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<smartfoldernode
+			id="69391c41-06e7-414a-84c6-6ddfce6d7bdd"
+			name="LastFolder">
+			</smartfoldernode>
 			<setup
 			id="69c50bc2-1f21-470a-9310-b9ca68b22aa7"
 			name="setup">
@@ -4263,6 +4310,18 @@
 								name="GetValueParameterForItemInTraject">
 								</testmodule>
 							</smartfoldernode>
+							<smartfoldernode
+							id="1010c180-4323-4c5d-a8f2-a1541376c852"
+							name="CompareTrajectLengthInFM">
+								<testmodule
+								id="5dc9bc5e-24e1-48cf-8f85-854b488174f0"
+								name="ValidateValueParameterForItemInTraject">
+								</testmodule>
+							</smartfoldernode>
+						</smartfoldernode>
+						<smartfoldernode
+						id="69391c41-06e7-414a-84c6-6ddfce6d7bdd"
+						name="LastFolder">
 						</smartfoldernode>
 						<teardown
 						id="f4d4d958-8b7c-427f-873c-e4ab538b83a8"
@@ -7352,6 +7411,46 @@
 				</tr>
 			</table>
 		</DataSource>
+		<DataSource
+		id="6d42c555-b56d-4896-8200-5e6619488fd5"
+		lastknownrowcount="4"
+		name="tableFMsToValidateTrajectLength"
+		type="Ranorex.Core.Data.SimpleDataConnector">
+			<lastknowncolumns>
+				<column>
+					fmName
+				</column>
+			</lastknowncolumns>
+			<maskedcolumns>
+			</maskedcolumns>
+			<table>
+				<tr>
+					<th>
+						fmName
+					</th>
+				</tr>
+				<tr>
+					<td>
+						Dijken en dammen - Piping
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Dijken en dammen - Macrostabiliteit binnenwaarts
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Dijken en dammen - Macrostabiliteit buitenwaarts
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Dijken en dammen - Golfklappen op asfaltbekleding
+					</td>
+				</tr>
+			</table>
+		</DataSource>
 	</datasources>
 	<testconfigurations
 	default="TestRun">
@@ -7383,6 +7482,9 @@
 			</testcontainer>
 			<testcontainer
 			id="0f6ce510-5e07-4792-80dc-5fa54c51639d">
+			</testcontainer>
+			<testcontainer
+			id="1010c180-4323-4c5d-a8f2-a1541376c852">
 			</testcontainer>
 			<testcontainer
 			id="1ca083b2-ffd0-4553-a50a-f17aad616df9">
@@ -7476,6 +7578,9 @@
 			</testcontainer>
 			<testcontainer
 			id="645a1e46-fc85-4ee5-b48f-628d1c339748">
+			</testcontainer>
+			<testcontainer
+			id="69391c41-06e7-414a-84c6-6ddfce6d7bdd">
 			</testcontainer>
 			<testcontainer
 			id="716669cb-8d3f-4f98-a608-2311ffb07430">

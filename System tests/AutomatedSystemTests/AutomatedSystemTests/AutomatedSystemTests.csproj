@@ -771,6 +771,18 @@
       <UserCode>true</UserCode>
       <id>efa53e23-d8e4-4e67-ac1c-b7c4fc9f2aaf</id>
     </Compile>
+    <Compile Include="ValidateValueParameterForItemInTraject.cs">
+      <BoundTo>f146138e-5d6e-47a6-b572-efcb4d6fe1ba</BoundTo>
+      <DependentUpon>ValidateValueParameterForItemInTraject.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>43ecbd4d-2a3e-41b7-a165-ff44c713c769</id>
+    </Compile>
+    <Compile Include="ValidateValueParameterForItemInTraject.UserCode.cs">
+      <BoundTo>f146138e-5d6e-47a6-b572-efcb4d6fe1ba</BoundTo>
+      <DependentUpon>ValidateValueParameterForItemInTraject.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>6933b1f0-e685-46fa-afeb-f550560bf1b5</id>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="AddNewTraject.rxrec">
@@ -1051,6 +1063,11 @@
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>a07de890-0a93-4d5e-865b-7ca9370d261c</id>
       <recordtableid>200d05d0-2615-44bf-991e-2913171cd220</recordtableid>
+    </None>
+    <None Include="ValidateValueParameterForItemInTraject.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>f146138e-5d6e-47a6-b572-efcb4d6fe1ba</id>
+      <recordtableid>54946666-7cba-49b9-b848-41ea43b074d9</recordtableid>
     </None>
   </ItemGroup>
   <ItemGroup>
