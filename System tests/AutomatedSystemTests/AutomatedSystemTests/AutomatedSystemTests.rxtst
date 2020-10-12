@@ -307,7 +307,6 @@
 				</databinding>
 			</testmodule>
 			<testmodule
-			enabled="False"
 			id="170f46b0-fe63-4238-9874-af8420fa3e8f"
 			name="CloseAUT"
 			ref="07688822-3eb6-4d71-a97b-33498ae1d748"
