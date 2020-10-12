@@ -289,6 +289,18 @@ namespace AutomatedSystemTests
             set { _textDropDownMenu = value; }
         }
 
+        string _DropDownItem = "";
+
+        /// <summary>
+        /// Gets or sets the value of variable DropDownItem.
+        /// </summary>
+        [TestVariable("c5b8922f-77bf-441a-9b88-99da98bf1e54")]
+        public string DropDownItem
+        {
+            get { return _DropDownItem; }
+            set { _DropDownItem = value; }
+        }
+
 #endregion
 
         /// <summary>
@@ -3621,6 +3633,7 @@ namespace AutomatedSystemTests
         public partial class DropDownMenuItemListAppFolder : RepoGenBaseFolder
         {
             RepoItemInfo _genericdropdownitemInfo;
+            RepoItemInfo _dropdownitemInfo;
 
             /// <summary>
             /// Creates a new DropDownMenuItemList  folder.
@@ -3629,6 +3642,7 @@ namespace AutomatedSystemTests
                     base("DropDownMenuItemList", "/list[@controlid='1000']", parentFolder, 30000, null, true, "559e3624-4636-44d9-8c9e-6d20453f95bf", "")
             {
                 _genericdropdownitemInfo = new RepoItemInfo(this, "GenericDropDownItem", "listitem[@text=$textItemDropDownMenu]", 30000, null, "81ebade6-6648-4b3b-a974-22ccbf15c7dc");
+                _dropdownitemInfo = new RepoItemInfo(this, "DropDownItem", "listitem[@text=$DropDownItem]", 30000, null, "db738719-488e-425e-963f-e603572ec330");
             }
 
             /// <summary>
@@ -3676,6 +3690,30 @@ namespace AutomatedSystemTests
                 get
                 {
                     return _genericdropdownitemInfo;
+                }
+            }
+
+            /// <summary>
+            /// The DropDownItem item.
+            /// </summary>
+            [RepositoryItem("db738719-488e-425e-963f-e603572ec330")]
+            public virtual Ranorex.ListItem DropDownItem
+            {
+                get
+                {
+                    return _dropdownitemInfo.CreateAdapter<Ranorex.ListItem>(true);
+                }
+            }
+
+            /// <summary>
+            /// The DropDownItem item info.
+            /// </summary>
+            [RepositoryItemInfo("db738719-488e-425e-963f-e603572ec330")]
+            public virtual RepoItemInfo DropDownItemInfo
+            {
+                get
+                {
+                    return _dropdownitemInfo;
                 }
             }
         }
