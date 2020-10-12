@@ -971,7 +971,7 @@ namespace Riskeer.Piping.Plugin
             };
         }
 
-        private void UpdatedSurfaceLineDependentDataOfCalculation(PipingCalculation<PipingInput, PipingOutput> scenario)
+        private void UpdatedSurfaceLineDependentDataOfCalculation(IPipingCalculation<PipingInput, PipingOutput> scenario)
         {
             string message = RiskeerCommonFormsResources.VerifyUpdate_Confirm_calculation_output_cleared;
             if (VerifyEntryAndExitPointUpdates(new[]
@@ -1016,7 +1016,7 @@ namespace Riskeer.Piping.Plugin
             }
         }
 
-        private bool VerifyEntryAndExitPointUpdates(IEnumerable<PipingCalculation<PipingInput, PipingOutput>> calculations, string query)
+        private bool VerifyEntryAndExitPointUpdates(IEnumerable<IPipingCalculation<PipingInput, PipingOutput>> calculations, string query)
         {
             var changeHandler = new CalculationChangeHandler(calculations, query, GetInquiryHelper());
             return !changeHandler.RequireConfirmation() || changeHandler.InquireConfirmation();
