@@ -35,8 +35,7 @@ using Riskeer.Piping.Primitives;
 namespace Riskeer.Piping.Data
 {
     /// <summary>
-    /// Class that holds all piping calculation specific input parameters, i.e. the values
-    /// that can differ across various calculations.
+    /// Base class for piping calculation specific input parameters, i.e. values that can differ across various calculations.
     /// </summary>
     public class PipingInput : CloneableObservable, ICalculationInputWithHydraulicBoundaryLocation
     {
@@ -49,10 +48,10 @@ namespace Riskeer.Piping.Data
         private RoundedDouble assessmentLevel;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="PipingInput"/> class.
+        /// Creates a new instance of <see cref="PipingInput"/>.
         /// </summary>
-        /// <param name="generalInputParameters">General piping calculation parameters that
-        /// are the same across all piping calculations.</param>
+        /// <param name="generalInputParameters">General piping calculation parameters that are the same across all
+        /// piping calculations.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="generalInputParameters"/>
         /// is <c>null</c>.</exception>
         public PipingInput(GeneralPipingInput generalInputParameters)
