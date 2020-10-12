@@ -50,7 +50,7 @@ namespace Riskeer.Piping.Data.Test
         }
 
         [Test]
-        public void Constructor_GeneralPipingInputIsNull_ThrowArgumentNullException()
+        public void Constructor_PipingInputIsNull_ThrowArgumentNullException()
         {
             // Call
             TestDelegate call = () => new TestPipingCalculation(null);
@@ -143,7 +143,7 @@ namespace Riskeer.Piping.Data.Test
         public void Clone_AllPropertiesSet_ReturnNewInstanceWithCopiedValues()
         {
             // Setup
-            PipingCalculation original = CreateRandomCalculationWithoutOutput();
+            PipingCalculation<PipingInput> original = CreateRandomCalculationWithoutOutput();
 
             original.Output = PipingTestDataGenerator.GetRandomPipingOutput();
 
@@ -158,7 +158,7 @@ namespace Riskeer.Piping.Data.Test
         public void Clone_NotAllPropertiesSet_ReturnNewInstanceWithCopiedValues()
         {
             // Setup
-            PipingCalculation original = CreateRandomCalculationWithoutOutput();
+            PipingCalculation<PipingInput> original = CreateRandomCalculationWithoutOutput();
 
             // Call
             object clone = original.Clone();
@@ -167,7 +167,7 @@ namespace Riskeer.Piping.Data.Test
             CoreCloneAssert.AreObjectClones(original, clone, PipingCloneAssert.AreClones);
         }
 
-        private static PipingCalculation CreateRandomCalculationWithoutOutput()
+        private static PipingCalculation<PipingInput> CreateRandomCalculationWithoutOutput()
         {
             var calculation = new TestPipingCalculation
             {

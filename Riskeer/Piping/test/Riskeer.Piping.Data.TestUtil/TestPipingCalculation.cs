@@ -26,20 +26,19 @@ namespace Riskeer.Piping.Data.TestUtil
     /// <summary>
     /// Piping calculation that can be used for testing.
     /// </summary>
-    public class TestPipingCalculation : PipingCalculation
+    public class TestPipingCalculation : PipingCalculation<PipingInput>
     {
         /// <summary>
-        /// Creates a new instance of <see cref="TestPipingCalculation"/> with default <see cref="GeneralPipingInput"/>.
+        /// Creates a new instance of <see cref="TestPipingCalculation"/> with default <see cref="PipingInput"/>.
         /// </summary>
-        public TestPipingCalculation() : base(new GeneralPipingInput()) {}
-        
+        public TestPipingCalculation() : base(new PipingInput(new GeneralPipingInput())) {}
+
         /// <summary>
         /// Creates a new instance of <see cref="TestPipingCalculation"/>.
         /// </summary>
-        /// <param name="generalInputParameters">General piping calculation parameters that are the same across all
-        /// piping calculations.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="generalInputParameters"/>
+        /// <param name="pipingInput">The input parameters to perform the piping calculation with.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="pipingInput"/>
         /// is <c>null</c>.</exception>
-        public TestPipingCalculation(GeneralPipingInput generalInputParameters) : base(generalInputParameters) {}
+        public TestPipingCalculation(PipingInput pipingInput) : base(pipingInput) {}
     }
 }
