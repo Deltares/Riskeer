@@ -30,10 +30,13 @@ namespace Riskeer.Piping.Data
     /// <summary>
     /// Base class that holds information about a calculation for the <see cref="PipingFailureMechanism"/>.
     /// </summary>
-    public abstract class PipingCalculation : CloneableObservable, ICalculation<PipingInput>
+    /// <typeparam name="TPipingInput">The type of <see cref="PipingInput"/>.</typeparam>
+    public abstract class PipingCalculation<TPipingInput> : CloneableObservable, ICalculation<TPipingInput>
+        where TPipingInput : PipingInput
     {
         /// <summary>
-        /// Creates a new instance of <see cref="PipingCalculation"/> with default values set for some of the parameters.
+        /// Creates a new instance of <see cref="PipingCalculation{TPipingInput}"/> with default values set for some of
+        /// the parameters.
         /// </summary>
         /// <param name="generalInputParameters">General piping calculation parameters that are the same across all
         /// piping calculations.</param>
@@ -54,7 +57,7 @@ namespace Riskeer.Piping.Data
         /// <summary>
         /// Gets the input parameters to perform a piping calculation with.
         /// </summary>
-        public PipingInput InputParameters { get; private set; }
+        public TPipingInput InputParameters { get; private set; }
 
         public string Name { get; set; }
 
@@ -83,10 +86,10 @@ namespace Riskeer.Piping.Data
 
         public override object Clone()
         {
-            var clone = (PipingCalculation) base.Clone();
+            var clone = (PipingCalculation<TPipingInput>) base.Clone();
 
             clone.Comments = (Comment) Comments.Clone();
-            clone.InputParameters = (PipingInput) InputParameters.Clone();
+            clone.InputParameters = (TPipingInput) InputParameters.Clone();
 
             if (Output != null)
             {
