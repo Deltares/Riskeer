@@ -30,9 +30,9 @@ namespace Riskeer.Piping.Data
     /// <summary>
     /// Base class that holds information about a calculation for the <see cref="PipingFailureMechanism"/>.
     /// </summary>
-    /// <typeparam name="TPipingInput">The type of <see cref="InputParameters"/>.</typeparam>
-    /// <typeparam name="TPipingOutput">The type of <see cref="Output"/>.</typeparam>
-    public abstract class PipingCalculation<TPipingInput, TPipingOutput> : CloneableObservable, ICalculation<TPipingInput>
+    /// <typeparam name="TPipingInput">The type of calculation input.</typeparam>
+    /// <typeparam name="TPipingOutput">The type of calculation output.</typeparam>
+    public abstract class PipingCalculation<TPipingInput, TPipingOutput> : CloneableObservable, IPipingCalculation<TPipingInput, TPipingOutput>
         where TPipingInput : PipingInput
         where TPipingOutput : PipingOutput
     {

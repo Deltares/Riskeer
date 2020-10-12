@@ -23,7 +23,6 @@ using System;
 using Core.Common.Base;
 using Core.Common.Data.TestUtil;
 using NUnit.Framework;
-using Riskeer.Common.Data.Calculation;
 using Riskeer.Piping.Data.TestUtil;
 
 namespace Riskeer.Piping.Data.Test
@@ -38,7 +37,7 @@ namespace Riskeer.Piping.Data.Test
             var calculation = new TestPipingCalculation();
 
             // Assert
-            Assert.IsInstanceOf<ICalculation<PipingInput>>(calculation);
+            Assert.IsInstanceOf<IPipingCalculation<PipingInput, PipingOutput>>(calculation);
             Assert.IsInstanceOf<CloneableObservable>(calculation);
 
             Assert.AreEqual("Nieuwe berekening", calculation.Name);
