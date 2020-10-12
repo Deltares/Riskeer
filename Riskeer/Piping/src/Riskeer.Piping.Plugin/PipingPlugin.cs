@@ -917,7 +917,7 @@ namespace Riskeer.Piping.Plugin
         {
             var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
 
-            PipingCalculation<PipingInput, PipingOutput> calculation = nodeData.WrappedData;
+            SemiProbabilisticPipingCalculation calculation = nodeData.WrappedData;
 
             StrictContextMenuItem updateEntryAndExitPoint = CreateUpdateEntryAndExitPointItem(nodeData);
 
@@ -1000,7 +1000,7 @@ namespace Riskeer.Piping.Plugin
             PipingCalculationService.Validate(context.WrappedData, GetNormativeAssessmentLevel(context.AssessmentSection, context.WrappedData));
         }
 
-        private void Calculate(PipingCalculation<PipingInput, PipingOutput> calculation, PipingCalculationScenarioContext context)
+        private void Calculate(SemiProbabilisticPipingCalculation calculation, PipingCalculationScenarioContext context)
         {
             ActivityProgressDialogRunner.Run(Gui.MainWindow,
                                              PipingCalculationActivityFactory.CreateCalculationActivity(calculation, context.AssessmentSection));
