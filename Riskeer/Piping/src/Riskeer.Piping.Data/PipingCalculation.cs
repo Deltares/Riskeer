@@ -30,12 +30,14 @@ namespace Riskeer.Piping.Data
     /// <summary>
     /// Base class that holds information about a calculation for the <see cref="PipingFailureMechanism"/>.
     /// </summary>
-    /// <typeparam name="TPipingInput">The type of <see cref="PipingInput"/>.</typeparam>
-    public abstract class PipingCalculation<TPipingInput> : CloneableObservable, ICalculation<TPipingInput>
+    /// <typeparam name="TPipingInput">The type of <see cref="InputParameters"/>.</typeparam>
+    /// <typeparam name="TPipingOutput">The type of <see cref="Output"/>.</typeparam>
+    public abstract class PipingCalculation<TPipingInput, TPipingOutput> : CloneableObservable, ICalculation<TPipingInput>
         where TPipingInput : PipingInput
+        where TPipingOutput : PipingOutput
     {
         /// <summary>
-        /// Creates a new instance of <see cref="PipingCalculation{TPipingInput}"/> with default values set for some of
+        /// Creates a new instance of <see cref="PipingCalculation{TPipingInput,TPipingOutput}"/> with default values set for some of
         /// the parameters.
         /// </summary>
         /// <param name="pipingInput">The input parameters to perform the piping calculation with.</param>
@@ -47,16 +49,16 @@ namespace Riskeer.Piping.Data
             {
                 throw new ArgumentNullException(nameof(pipingInput));
             }
-            
+
             Name = RiskeerCommonDataResources.Calculation_DefaultName;
             InputParameters = pipingInput;
             Comments = new Comment();
         }
 
         /// <summary>
-        /// Gets or sets <see cref="PipingOutput"/>, which contains the results of a piping calculation.
+        /// Gets or sets the results of the piping calculation.
         /// </summary>
-        public PipingOutput Output { get; set; }
+        public TPipingOutput Output { get; set; }
 
         /// <summary>
         /// Gets the input parameters to perform the piping calculation with.
@@ -90,14 +92,14 @@ namespace Riskeer.Piping.Data
 
         public override object Clone()
         {
-            var clone = (PipingCalculation<TPipingInput>) base.Clone();
+            var clone = (PipingCalculation<TPipingInput, TPipingOutput>) base.Clone();
 
             clone.Comments = (Comment) Comments.Clone();
             clone.InputParameters = (TPipingInput) InputParameters.Clone();
 
             if (Output != null)
             {
-                clone.Output = (PipingOutput) Output.Clone();
+                clone.Output = (TPipingOutput) Output.Clone();
             }
 
             return clone;
