@@ -49,7 +49,7 @@ namespace Riskeer.Piping.IO.Configurations
 
         protected override PipingCalculationConfiguration ToConfiguration(PipingCalculationScenario calculation)
         {
-            PipingInput input = calculation.InputParameters;
+            SemiProbabilisticPipingInput input = calculation.InputParameters;
 
             var calculationConfiguration = new PipingCalculationConfiguration(calculation.Name)
             {

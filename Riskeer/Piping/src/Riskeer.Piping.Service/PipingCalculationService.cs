@@ -127,7 +127,7 @@ namespace Riskeer.Piping.Service
             }
         }
 
-        private static List<string> ValidateInput(PipingInput inputParameters, RoundedDouble normativeAssessmentLevel)
+        private static List<string> ValidateInput(SemiProbabilisticPipingInput inputParameters, RoundedDouble normativeAssessmentLevel)
         {
             var validationResults = new List<string>();
 
@@ -149,7 +149,7 @@ namespace Riskeer.Piping.Service
             return validationResults;
         }
 
-        private static IEnumerable<string> ValidateHydraulics(PipingInput inputParameters, RoundedDouble normativeAssessmentLevel)
+        private static IEnumerable<string> ValidateHydraulics(SemiProbabilisticPipingInput inputParameters, RoundedDouble normativeAssessmentLevel)
         {
             var validationResults = new List<string>();
             if (!inputParameters.UseAssessmentLevelManualInput && inputParameters.HydraulicBoundaryLocation == null)
@@ -170,7 +170,7 @@ namespace Riskeer.Piping.Service
             return validationResults;
         }
 
-        private static IEnumerable<string> ValidateAssessmentLevel(PipingInput inputParameters, RoundedDouble normativeAssessmentLevel)
+        private static IEnumerable<string> ValidateAssessmentLevel(SemiProbabilisticPipingInput inputParameters, RoundedDouble normativeAssessmentLevel)
         {
             var validationResult = new List<string>();
 
@@ -359,7 +359,7 @@ namespace Riskeer.Piping.Service
                    !double.IsNaN(surfaceLineMissing.ExitPointL);
         }
 
-        private static PipingCalculatorInput CreateInputFromData(PipingInput inputParameters, RoundedDouble normativeAssessmentLevel)
+        private static PipingCalculatorInput CreateInputFromData(SemiProbabilisticPipingInput inputParameters, RoundedDouble normativeAssessmentLevel)
         {
             RoundedDouble effectiveAssessmentLevel = GetEffectiveAssessmentLevel(inputParameters, normativeAssessmentLevel);
 
@@ -394,7 +394,7 @@ namespace Riskeer.Piping.Service
                 });
         }
 
-        private static RoundedDouble GetEffectiveAssessmentLevel(PipingInput input, RoundedDouble normativeAssessmentLevel)
+        private static RoundedDouble GetEffectiveAssessmentLevel(SemiProbabilisticPipingInput input, RoundedDouble normativeAssessmentLevel)
         {
             return input.UseAssessmentLevelManualInput
                        ? input.AssessmentLevel
