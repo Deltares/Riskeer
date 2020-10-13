@@ -30,12 +30,21 @@ namespace Riskeer.Piping.Data
     {
         #region General parameters
 
+        /// <summary>
+        /// Creates the deterministic design variable for the uplift model factor.
+        /// </summary>
+        /// <param name="parameters">The piping input.</param>
+        /// <returns>Returns the corresponding deterministic design variable.</returns>
         public static DeterministicDesignVariable<LogNormalDistribution> GetUpliftModelFactorDesignVariable(PipingInput parameters)
         {
             return new DeterministicDesignVariable<LogNormalDistribution>(parameters.UpliftModelFactor, parameters.UpliftModelFactor.Mean);
         }
 
-
+        /// <summary>
+        /// Creates the deterministic design variable for the sellmeijer model factor.
+        /// </summary>
+        /// <param name="parameters">The piping input.</param>
+        /// <returns>Returns the corresponding deterministic design variable.</returns>
         public static DeterministicDesignVariable<LogNormalDistribution> GetSellmeijerModelFactorDesignVariable(PipingInput parameters)
         {
             return new DeterministicDesignVariable<LogNormalDistribution>(parameters.SellmeijerModelFactor, parameters.SellmeijerModelFactor.Mean);

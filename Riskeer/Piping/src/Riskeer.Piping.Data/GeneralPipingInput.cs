@@ -104,12 +104,12 @@ namespace Riskeer.Piping.Data
         #region Model factors
 
         /// <summary>
-        /// Gets the calculation value used to account for uncertainty in the model for uplift.
+        /// Gets the distribution used to account for uncertainty in the model for uplift.
         /// </summary>
         public LogNormalDistribution UpliftModelFactor { get; }
 
         /// <summary>
-        /// Gets the calculation value used to account for uncertainty in the model for Sellmeijer.
+        /// Gets the distribution used to account for uncertainty in the model for Sellmeijer.
         /// </summary>
         public LogNormalDistribution SellmeijerModelFactor { get; }
 

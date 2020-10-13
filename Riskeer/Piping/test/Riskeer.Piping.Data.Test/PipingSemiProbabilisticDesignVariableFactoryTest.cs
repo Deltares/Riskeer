@@ -54,11 +54,11 @@ namespace Riskeer.Piping.Data.Test
             PipingInput inputParameters = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
 
             // Call
-            DesignVariable<LogNormalDistribution> upliftModelFactor = PipingSemiProbabilisticDesignVariableFactory.GetUpliftModelFactorDesignVariable(inputParameters);
+            DeterministicDesignVariable<LogNormalDistribution> upliftModelFactor = PipingSemiProbabilisticDesignVariableFactory.GetUpliftModelFactorDesignVariable(inputParameters);
 
             // Assert
-            Assert.IsInstanceOf<DeterministicDesignVariable<LogNormalDistribution>>(upliftModelFactor);
             DistributionAssert.AreEqual(inputParameters.UpliftModelFactor, upliftModelFactor.Distribution);
+            Assert.AreEqual(inputParameters.UpliftModelFactor.Mean, upliftModelFactor.GetDesignValue());
         }
 
         [Test]
@@ -68,11 +68,11 @@ namespace Riskeer.Piping.Data.Test
             PipingInput inputParameters = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
 
             // Call
-            DesignVariable<LogNormalDistribution> sellmeijerModelFactor = PipingSemiProbabilisticDesignVariableFactory.GetSellmeijerModelFactorDesignVariable(inputParameters);
+            DeterministicDesignVariable<LogNormalDistribution> sellmeijerModelFactor = PipingSemiProbabilisticDesignVariableFactory.GetSellmeijerModelFactorDesignVariable(inputParameters);
 
             // Assert
-            Assert.IsInstanceOf<DeterministicDesignVariable<LogNormalDistribution>>(sellmeijerModelFactor);
             DistributionAssert.AreEqual(inputParameters.SellmeijerModelFactor, sellmeijerModelFactor.Distribution);
+            Assert.AreEqual(inputParameters.SellmeijerModelFactor.Mean, sellmeijerModelFactor.GetDesignValue());
         }
 
         [Test]

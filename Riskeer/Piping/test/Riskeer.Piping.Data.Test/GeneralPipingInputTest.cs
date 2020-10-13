@@ -34,23 +34,21 @@ namespace Riskeer.Piping.Data.Test
         [Test]
         public void Constructor_ExpectedValues()
         {
-            // Setup
-            var upliftModelFactor = new LogNormalDistribution(2)
-            {
-                Mean = (RoundedDouble) 1.0,
-                StandardDeviation = (RoundedDouble) 0.1
-            };
-
-            var sellmeijerModelFactor = new LogNormalDistribution(2)
-            {
-                Mean = (RoundedDouble) 1.0,
-                StandardDeviation = (RoundedDouble) 0.12
-            };
-
             // Call
             var inputParameters = new GeneralPipingInput();
 
             // Assert
+            var upliftModelFactor = new LogNormalDistribution(2)
+            {
+                Mean = (RoundedDouble)1.0,
+                StandardDeviation = (RoundedDouble)0.1
+            };
+
+            var sellmeijerModelFactor = new LogNormalDistribution(2)
+            {
+                Mean = (RoundedDouble)1.0,
+                StandardDeviation = (RoundedDouble)0.12
+            };
             DistributionAssert.AreEqual(upliftModelFactor, inputParameters.UpliftModelFactor);
             DistributionAssert.AreEqual(sellmeijerModelFactor, inputParameters.SellmeijerModelFactor);
 
