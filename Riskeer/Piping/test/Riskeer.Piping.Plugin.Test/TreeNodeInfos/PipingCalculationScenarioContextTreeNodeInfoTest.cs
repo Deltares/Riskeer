@@ -140,7 +140,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             var comment = (Comment) children[0];
             Assert.AreSame(pipingCalculationContext.WrappedData.Comments, comment);
 
-            var pipingInputContext = (PipingInputContext) children[1];
+            var pipingInputContext = (SemiProbabilisticPipingInputContext) children[1];
             Assert.AreSame(pipingCalculationContext.WrappedData.InputParameters, pipingInputContext.WrappedData);
             CollectionAssert.AreEqual(pipingCalculationContext.AvailablePipingSurfaceLines, pipingInputContext.AvailablePipingSurfaceLines);
             CollectionAssert.AreEqual(pipingCalculationContext.AvailableStochasticSoilModels, pipingInputContext.AvailableStochasticSoilModels);
@@ -174,7 +174,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             var comment = (Comment) children[0];
             Assert.AreSame(pipingCalculationContext.WrappedData.Comments, comment);
 
-            var pipingInputContext = (PipingInputContext) children[1];
+            var pipingInputContext = (SemiProbabilisticPipingInputContext) children[1];
             Assert.AreSame(pipingCalculationContext.WrappedData.InputParameters, pipingInputContext.WrappedData);
             CollectionAssert.AreEqual(pipingCalculationContext.AvailablePipingSurfaceLines, pipingInputContext.AvailablePipingSurfaceLines);
             CollectionAssert.AreEqual(pipingCalculationContext.AvailableStochasticSoilModels, pipingInputContext.AvailableStochasticSoilModels);

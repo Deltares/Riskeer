@@ -63,7 +63,7 @@ namespace Riskeer.Piping.Forms.Test.UITypeEditors
             {
                 SurfaceLine = ValidSurfaceLine()
             };
-            var inputParametersContext = new PipingInputContext(pipingInput,
+            var inputParametersContext = new SemiProbabilisticPipingInputContext(pipingInput,
                                                                 calculationItem,
                                                                 new[]
                                                                 {
@@ -120,7 +120,7 @@ namespace Riskeer.Piping.Forms.Test.UITypeEditors
             {
                 SurfaceLine = surfaceLine
             };
-            var inputParametersContext = new PipingInputContext(pipingInput,
+            var inputParametersContext = new SemiProbabilisticPipingInputContext(pipingInput,
                                                                 calculationItem,
                                                                 new[]
                                                                 {

@@ -34,7 +34,7 @@ using Riskeer.Piping.Primitives;
 namespace Riskeer.Piping.Forms.Test.PresentationObjects.SemiProbabilistic
 {
     [TestFixture]
-    public class PipingInputContextTest
+    public class SemiProbabilisticPipingInputContextTest
     {
         [Test]
         public void ParameteredConstructor_ExpectedValues()
@@ -57,7 +57,7 @@ namespace Riskeer.Piping.Forms.Test.PresentationObjects.SemiProbabilistic
             var failureMechanism = new PipingFailureMechanism();
 
             // Call
-            var context = new PipingInputContext(calculation.InputParameters, calculation, surfaceLines, stochasticSoilModels, failureMechanism, assessmentSection);
+            var context = new SemiProbabilisticPipingInputContext(calculation.InputParameters, calculation, surfaceLines, stochasticSoilModels, failureMechanism, assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<PipingContext<SemiProbabilisticPipingInput>>(context);
@@ -90,7 +90,7 @@ namespace Riskeer.Piping.Forms.Test.PresentationObjects.SemiProbabilistic
             var failureMechanism = new PipingFailureMechanism();
 
             // Call
-            TestDelegate call = () => new PipingInputContext(calculationInput, null, surfaceLines, stochasticSoilModels, failureMechanism, assessmentSection);
+            TestDelegate call = () => new SemiProbabilisticPipingInputContext(calculationInput, null, surfaceLines, stochasticSoilModels, failureMechanism, assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

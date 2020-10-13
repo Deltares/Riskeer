@@ -25,7 +25,6 @@ using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Piping.Data;
 using Riskeer.Piping.Data.Probabilistic;
 using Riskeer.Piping.Data.SoilProfile;
-using Riskeer.Piping.Forms.PresentationObjects.SemiProbabilistic;
 using Riskeer.Piping.Primitives;
 
 namespace Riskeer.Piping.Forms.PresentationObjects.Probabilistic
@@ -38,7 +37,7 @@ namespace Riskeer.Piping.Forms.PresentationObjects.Probabilistic
     public class ProbabilisticPipingInputContext : PipingContext<ProbabilisticPipingInput>
     {
         /// <summary>
-        /// Creates a new instance of <see cref="PipingInputContext"/>
+        /// Creates a new instance of <see cref="ProbabilisticPipingInputContext"/>
         /// </summary>
         /// <param name="pipingInput">The piping input instance wrapped by this context object.</param>
         /// <param name="calculation">The calculation the <paramref name="pipingInput"/> belongs to.</param>

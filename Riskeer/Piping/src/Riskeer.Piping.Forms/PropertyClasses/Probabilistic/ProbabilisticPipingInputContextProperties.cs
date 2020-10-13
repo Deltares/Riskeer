@@ -125,7 +125,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
         }
 
         /// <summary>
-        /// Gets the available selectable hydraulic boundary locations on <see cref="PipingInputContext"/>.
+        /// Gets the available selectable hydraulic boundary locations on <see cref="SemiProbabilisticPipingInputContext"/>.
         /// </summary>
         public IEnumerable<SelectableHydraulicBoundaryLocation> GetSelectableHydraulicBoundaryLocations()
         {

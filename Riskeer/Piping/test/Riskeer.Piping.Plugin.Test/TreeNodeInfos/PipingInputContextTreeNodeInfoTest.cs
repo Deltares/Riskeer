@@ -50,7 +50,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
         {
             mocks = new MockRepository();
             plugin = new PipingPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(PipingInputContext));
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(SemiProbabilisticPipingInputContext));
         }
 
         [TearDown]
@@ -91,7 +91,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
         public void Text_Always_ReturnsTextFromResource()
         {
             // Setup
-            var pipingInputContext = new PipingInputContext(
+            var pipingInputContext = new SemiProbabilisticPipingInputContext(
                 new SemiProbabilisticPipingInput(new GeneralPipingInput()),
                 new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput()),
                 Enumerable.Empty<PipingSurfaceLine>(),
@@ -112,7 +112,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
         public void Image_Always_ReturnsSetImage()
         {
             // Setup
-            var pipingInputContext = new PipingInputContext(
+            var pipingInputContext = new SemiProbabilisticPipingInputContext(
                 new SemiProbabilisticPipingInput(new GeneralPipingInput()),
                 new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput()),
                 Enumerable.Empty<PipingSurfaceLine>(),

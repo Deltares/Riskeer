@@ -597,9 +597,9 @@ namespace Riskeer.Piping.Forms.Test.Views
             object selection = view.Selection;
 
             // Assert
-            Assert.IsInstanceOf<PipingInputContext>(selection);
+            Assert.IsInstanceOf<SemiProbabilisticPipingInputContext>(selection);
             var dataRow = (PipingCalculationRow) dataGridView.Rows[selectedRow].DataBoundItem;
-            Assert.AreSame(dataRow.Calculation, ((PipingInputContext) selection).PipingCalculation);
+            Assert.AreSame(dataRow.Calculation, ((SemiProbabilisticPipingInputContext) selection).PipingCalculation);
 
             mocks.VerifyAll();
         }

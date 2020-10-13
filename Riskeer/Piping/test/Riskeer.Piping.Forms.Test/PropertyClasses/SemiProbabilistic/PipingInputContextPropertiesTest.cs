@@ -104,7 +104,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
             var calculationItem = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput());
             var failureMechanism = new PipingFailureMechanism();
 
-            var context = new PipingInputContext(calculationItem.InputParameters,
+            var context = new SemiProbabilisticPipingInputContext(calculationItem.InputParameters,
                                                  calculationItem,
                                                  Enumerable.Empty<PipingSurfaceLine>(),
                                                  Enumerable.Empty<PipingStochasticSoilModel>(),
@@ -131,7 +131,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
             var calculationItem = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput());
             var failureMechanism = new PipingFailureMechanism();
 
-            var context = new PipingInputContext(calculationItem.InputParameters,
+            var context = new SemiProbabilisticPipingInputContext(calculationItem.InputParameters,
                                                  calculationItem,
                                                  Enumerable.Empty<PipingSurfaceLine>(),
                                                  Enumerable.Empty<PipingStochasticSoilModel>(),
@@ -160,7 +160,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
             var calculationItem = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput());
             var failureMechanism = new PipingFailureMechanism();
 
-            var context = new PipingInputContext(calculationItem.InputParameters,
+            var context = new SemiProbabilisticPipingInputContext(calculationItem.InputParameters,
                                                  calculationItem,
                                                  Enumerable.Empty<PipingSurfaceLine>(),
                                                  Enumerable.Empty<PipingStochasticSoilModel>(),
@@ -173,7 +173,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
                                                               handler);
 
             // Assert
-            Assert.IsInstanceOf<ObjectProperties<PipingInputContext>>(properties);
+            Assert.IsInstanceOf<ObjectProperties<SemiProbabilisticPipingInputContext>>(properties);
             Assert.IsInstanceOf<IHasHydraulicBoundaryLocationProperty>(properties);
             Assert.AreSame(context, properties.Data);
 
@@ -227,7 +227,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
             var calculationItem = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput());
             var failureMechanism = new PipingFailureMechanism();
 
-            var context = new PipingInputContext(calculationItem.InputParameters,
+            var context = new SemiProbabilisticPipingInputContext(calculationItem.InputParameters,
                                                  calculationItem,
                                                  Enumerable.Empty<PipingSurfaceLine>(),
                                                  Enumerable.Empty<PipingStochasticSoilModel>(),
@@ -412,7 +412,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
                 calculationItem.InputParameters.SurfaceLine = surfaceLine;
             }
 
-            var context = new PipingInputContext(calculationItem.InputParameters,
+            var context = new SemiProbabilisticPipingInputContext(calculationItem.InputParameters,
                                                  calculationItem,
                                                  Enumerable.Empty<PipingSurfaceLine>(),
                                                  Enumerable.Empty<PipingStochasticSoilModel>(),
@@ -461,7 +461,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
             var calculationItem = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput());
             var failureMechanism = new PipingFailureMechanism();
 
-            var context = new PipingInputContext(calculationItem.InputParameters,
+            var context = new SemiProbabilisticPipingInputContext(calculationItem.InputParameters,
                                                  calculationItem,
                                                  Enumerable.Empty<PipingSurfaceLine>(),
                                                  Enumerable.Empty<PipingStochasticSoilModel>(),
@@ -563,7 +563,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
 
             SemiProbabilisticPipingInput inputParameters = calculationItem.InputParameters;
 
-            var context = new PipingInputContext(inputParameters,
+            var context = new SemiProbabilisticPipingInputContext(inputParameters,
                                                  calculationItem,
                                                  Enumerable.Empty<PipingSurfaceLine>(),
                                                  Enumerable.Empty<PipingStochasticSoilModel>(),
@@ -644,7 +644,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
 
             SemiProbabilisticPipingInput inputParameters = calculationItem.InputParameters;
 
-            var context = new PipingInputContext(inputParameters,
+            var context = new SemiProbabilisticPipingInputContext(inputParameters,
                                                  calculationItem,
                                                  Enumerable.Empty<PipingSurfaceLine>(),
                                                  Enumerable.Empty<PipingStochasticSoilModel>(),
@@ -858,7 +858,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
             inputParameters.SurfaceLine = surfaceLine;
             inputParameters.Attach(inputObserver);
 
-            var context = new PipingInputContext(inputParameters,
+            var context = new SemiProbabilisticPipingInputContext(inputParameters,
                                                  calculationItem,
                                                  Enumerable.Empty<PipingSurfaceLine>(),
                                                  Enumerable.Empty<PipingStochasticSoilModel>(),
@@ -902,7 +902,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
             inputParameters.SurfaceLine = surfaceLine;
             inputParameters.Attach(inputObserver);
 
-            var context = new PipingInputContext(inputParameters,
+            var context = new SemiProbabilisticPipingInputContext(inputParameters,
                                                  calculationItem,
                                                  Enumerable.Empty<PipingSurfaceLine>(),
                                                  Enumerable.Empty<PipingStochasticSoilModel>(),
@@ -949,7 +949,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
             };
             var failureMechanism = new PipingFailureMechanism();
 
-            var context = new PipingInputContext(calculationItem.InputParameters,
+            var context = new SemiProbabilisticPipingInputContext(calculationItem.InputParameters,
                                                  calculationItem,
                                                  Enumerable.Empty<PipingSurfaceLine>(),
                                                  Enumerable.Empty<PipingStochasticSoilModel>(),
@@ -999,7 +999,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
             };
             var failureMechanism = new PipingFailureMechanism();
 
-            var context = new PipingInputContext(calculationItem.InputParameters,
+            var context = new SemiProbabilisticPipingInputContext(calculationItem.InputParameters,
                                                  calculationItem,
                                                  Enumerable.Empty<PipingSurfaceLine>(),
                                                  Enumerable.Empty<PipingStochasticSoilModel>(),
@@ -1046,7 +1046,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
             };
             var failureMechanism = new PipingFailureMechanism();
 
-            var context = new PipingInputContext(calculationItem.InputParameters,
+            var context = new SemiProbabilisticPipingInputContext(calculationItem.InputParameters,
                                                  calculationItem,
                                                  Enumerable.Empty<PipingSurfaceLine>(),
                                                  Enumerable.Empty<PipingStochasticSoilModel>(),
@@ -1093,7 +1093,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
             };
             var failureMechanism = new PipingFailureMechanism();
 
-            var context = new PipingInputContext(calculationItem.InputParameters,
+            var context = new SemiProbabilisticPipingInputContext(calculationItem.InputParameters,
                                                  calculationItem,
                                                  Enumerable.Empty<PipingSurfaceLine>(),
                                                  Enumerable.Empty<PipingStochasticSoilModel>(),
@@ -1139,7 +1139,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
 
             SemiProbabilisticPipingInput inputParameters = calculationItem.InputParameters;
 
-            var context = new PipingInputContext(inputParameters,
+            var context = new SemiProbabilisticPipingInputContext(inputParameters,
                                                  calculationItem,
                                                  Enumerable.Empty<PipingSurfaceLine>(),
                                                  Enumerable.Empty<PipingStochasticSoilModel>(),
@@ -1194,7 +1194,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
 
             SemiProbabilisticPipingInput inputParameters = calculationItem.InputParameters;
 
-            var context = new PipingInputContext(inputParameters,
+            var context = new SemiProbabilisticPipingInputContext(inputParameters,
                                                  calculationItem,
                                                  Enumerable.Empty<PipingSurfaceLine>(),
                                                  new[]
@@ -1243,7 +1243,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
             SemiProbabilisticPipingInput inputParameters = calculationItem.InputParameters;
             var failureMechanism = new PipingFailureMechanism();
 
-            var context = new PipingInputContext(inputParameters,
+            var context = new SemiProbabilisticPipingInputContext(inputParameters,
                                                  calculationItem,
                                                  Enumerable.Empty<PipingSurfaceLine>(),
                                                  new[]
@@ -1281,7 +1281,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
 
             var failureMechanism = new PipingFailureMechanism();
             var calculation = new SemiProbabilisticPipingCalculationScenario(failureMechanism.GeneralInput);
-            var context = new PipingInputContext(calculation.InputParameters, calculation,
+            var context = new SemiProbabilisticPipingInputContext(calculation.InputParameters, calculation,
                                                  failureMechanism.SurfaceLines, failureMechanism.StochasticSoilModels,
                                                  failureMechanism, assessmentSection);
             var properties = new PipingInputContextProperties(context,
@@ -1307,7 +1307,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
 
             var failureMechanism = new PipingFailureMechanism();
             var calculation = new SemiProbabilisticPipingCalculationScenario(failureMechanism.GeneralInput);
-            var context = new PipingInputContext(calculation.InputParameters, calculation,
+            var context = new SemiProbabilisticPipingInputContext(calculation.InputParameters, calculation,
                                                  failureMechanism.SurfaceLines, failureMechanism.StochasticSoilModels,
                                                  failureMechanism, assessmentSection);
             var properties = new PipingInputContextProperties(context,
@@ -1376,7 +1376,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
                     SurfaceLine = surfaceLine
                 }
             };
-            var context = new PipingInputContext(calculation.InputParameters, calculation,
+            var context = new SemiProbabilisticPipingInputContext(calculation.InputParameters, calculation,
                                                  failureMechanism.SurfaceLines, failureMechanism.StochasticSoilModels,
                                                  failureMechanism, assessmentSection);
             var properties = new PipingInputContextProperties(context,
@@ -1409,7 +1409,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
 
             var failureMechanism = new PipingFailureMechanism();
             var calculation = new SemiProbabilisticPipingCalculationScenario(failureMechanism.GeneralInput);
-            var context = new PipingInputContext(calculation.InputParameters, calculation,
+            var context = new SemiProbabilisticPipingInputContext(calculation.InputParameters, calculation,
                                                  failureMechanism.SurfaceLines, failureMechanism.StochasticSoilModels,
                                                  failureMechanism, assessmentSection);
             var properties = new PipingInputContextProperties(context,
@@ -1449,7 +1449,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
                     StochasticSoilModel = model
                 }
             };
-            var context = new PipingInputContext(calculation.InputParameters, calculation,
+            var context = new SemiProbabilisticPipingInputContext(calculation.InputParameters, calculation,
                                                  failureMechanism.SurfaceLines, failureMechanism.StochasticSoilModels,
                                                  failureMechanism, assessmentSection);
             var properties = new PipingInputContextProperties(context,
@@ -1478,7 +1478,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
 
             var failureMechanism = new PipingFailureMechanism();
             var calculation = new SemiProbabilisticPipingCalculationScenario(failureMechanism.GeneralInput);
-            var context = new PipingInputContext(calculation.InputParameters, calculation,
+            var context = new SemiProbabilisticPipingInputContext(calculation.InputParameters, calculation,
                                                  failureMechanism.SurfaceLines, failureMechanism.StochasticSoilModels,
                                                  failureMechanism, assessmentSection);
             var properties = new PipingInputContextProperties(context,
@@ -1529,7 +1529,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
                     StochasticSoilProfile = soilProfile
                 }
             };
-            var context = new PipingInputContext(calculation.InputParameters, calculation,
+            var context = new SemiProbabilisticPipingInputContext(calculation.InputParameters, calculation,
                                                  failureMechanism.SurfaceLines, failureMechanism.StochasticSoilModels,
                                                  failureMechanism, assessmentSection);
 
@@ -1574,7 +1574,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
 
             var failureMechanism = new PipingFailureMechanism();
             var calculation = new SemiProbabilisticPipingCalculationScenario(failureMechanism.GeneralInput);
-            var context = new PipingInputContext(calculation.InputParameters, calculation,
+            var context = new SemiProbabilisticPipingInputContext(calculation.InputParameters, calculation,
                                                  failureMechanism.SurfaceLines, failureMechanism.StochasticSoilModels,
                                                  failureMechanism, assessmentSection);
             var properties = new PipingInputContextProperties(context,
@@ -1628,7 +1628,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
                     SurfaceLine = surfaceLine
                 }
             };
-            var context = new PipingInputContext(calculation.InputParameters, calculation,
+            var context = new SemiProbabilisticPipingInputContext(calculation.InputParameters, calculation,
                                                  failureMechanism.SurfaceLines, failureMechanism.StochasticSoilModels,
                                                  failureMechanism, assessmentSection);
             var properties = new PipingInputContextProperties(context,
@@ -1686,7 +1686,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
                 }
             };
 
-            var context = new PipingInputContext(calculation.InputParameters, calculation,
+            var context = new SemiProbabilisticPipingInputContext(calculation.InputParameters, calculation,
                                                  failureMechanism.SurfaceLines, failureMechanism.StochasticSoilModels,
                                                  failureMechanism, assessmentSection);
 
@@ -1745,7 +1745,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
                 }
             };
 
-            var context = new PipingInputContext(calculation.InputParameters, calculation,
+            var context = new SemiProbabilisticPipingInputContext(calculation.InputParameters, calculation,
                                                  Enumerable.Empty<PipingSurfaceLine>(),
                                                  Enumerable.Empty<PipingStochasticSoilModel>(),
                                                  failureMechanism, assessmentSection);
@@ -1774,7 +1774,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
 
             var calculation = new SemiProbabilisticPipingCalculationScenario(failureMechanism.GeneralInput);
 
-            var context = new PipingInputContext(calculation.InputParameters, calculation,
+            var context = new SemiProbabilisticPipingInputContext(calculation.InputParameters, calculation,
                                                  Enumerable.Empty<PipingSurfaceLine>(),
                                                  Enumerable.Empty<PipingStochasticSoilModel>(),
                                                  failureMechanism, assessmentSection);
@@ -1812,7 +1812,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
                 }
             };
 
-            var context = new PipingInputContext(calculation.InputParameters, calculation,
+            var context = new SemiProbabilisticPipingInputContext(calculation.InputParameters, calculation,
                                                  Enumerable.Empty<PipingSurfaceLine>(),
                                                  Enumerable.Empty<PipingStochasticSoilModel>(),
                                                  failureMechanism, assessmentSection);
@@ -1841,7 +1841,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
 
             var calculation = new SemiProbabilisticPipingCalculationScenario(failureMechanism.GeneralInput);
 
-            var context = new PipingInputContext(calculation.InputParameters, calculation,
+            var context = new SemiProbabilisticPipingInputContext(calculation.InputParameters, calculation,
                                                  Enumerable.Empty<PipingSurfaceLine>(),
                                                  Enumerable.Empty<PipingStochasticSoilModel>(),
                                                  failureMechanism, assessmentSection);
@@ -1872,7 +1872,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
 
             var failureMechanism = new PipingFailureMechanism();
 
-            var context = new PipingInputContext(inputParameters,
+            var context = new SemiProbabilisticPipingInputContext(inputParameters,
                                                  calculation,
                                                  Enumerable.Empty<PipingSurfaceLine>(),
                                                  Enumerable.Empty<PipingStochasticSoilModel>(),

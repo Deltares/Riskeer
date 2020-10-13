@@ -65,7 +65,7 @@ namespace Riskeer.Piping.Forms.Test.UITypeEditors
             {
                 StochasticSoilModel = PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel("StochasticSoilModelName")
             };
-            var pipingInputContext = new PipingInputContext(pipingInput,
+            var pipingInputContext = new SemiProbabilisticPipingInputContext(pipingInput,
                                                             calculationItem,
                                                             Enumerable.Empty<PipingSurfaceLine>(),
                                                             new[]
@@ -135,7 +135,7 @@ namespace Riskeer.Piping.Forms.Test.UITypeEditors
                 StochasticSoilModel = stochasticSoilModel,
                 StochasticSoilProfile = stochasticSoilProfile
             };
-            var inputParametersContext = new PipingInputContext(pipingInput,
+            var inputParametersContext = new SemiProbabilisticPipingInputContext(pipingInput,
                                                                 calculationItem,
                                                                 Enumerable.Empty<PipingSurfaceLine>(),
                                                                 new[]

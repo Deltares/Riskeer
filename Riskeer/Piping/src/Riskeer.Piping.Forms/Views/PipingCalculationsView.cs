@@ -87,7 +87,7 @@ namespace Riskeer.Piping.Forms.Views
 
         protected override object CreateSelectedItemFromCurrentRow(PipingCalculationRow currentRow)
         {
-            return new PipingInputContext(
+            return new SemiProbabilisticPipingInputContext(
                 currentRow.Calculation.InputParameters,
                 currentRow.Calculation,
                 FailureMechanism.SurfaceLines,

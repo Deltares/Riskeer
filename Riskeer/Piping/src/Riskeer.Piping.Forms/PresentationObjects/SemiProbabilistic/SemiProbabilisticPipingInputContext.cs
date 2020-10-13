@@ -34,10 +34,10 @@ namespace Riskeer.Piping.Forms.PresentationObjects.SemiProbabilistic
     /// and allowing for selecting a surface line or soil profile based on data available
     /// in a piping failure mechanism.
     /// </summary>
-    public class PipingInputContext : PipingContext<SemiProbabilisticPipingInput>
+    public class SemiProbabilisticPipingInputContext : PipingContext<SemiProbabilisticPipingInput>
     {
         /// <summary>
-        /// Creates a new instance of <see cref="PipingInputContext"/>
+        /// Creates a new instance of <see cref="SemiProbabilisticPipingInputContext"/>
         /// </summary>
         /// <param name="pipingInput">The piping input instance wrapped by this context object.</param>
         /// <param name="calculation">The calculation scenario the <paramref name="pipingInput"/> belongs to.</param>
@@ -46,12 +46,12 @@ namespace Riskeer.Piping.Forms.PresentationObjects.SemiProbabilistic
         /// <param name="pipingFailureMechanism">The failure mechanism which the piping context belongs to.</param>
         /// <param name="assessmentSection">The assessment section which the piping context belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
-        public PipingInputContext(SemiProbabilisticPipingInput pipingInput,
-                                  SemiProbabilisticPipingCalculationScenario calculation,
-                                  IEnumerable<PipingSurfaceLine> surfaceLines,
-                                  IEnumerable<PipingStochasticSoilModel> stochasticSoilModels,
-                                  PipingFailureMechanism pipingFailureMechanism,
-                                  IAssessmentSection assessmentSection)
+        public SemiProbabilisticPipingInputContext(SemiProbabilisticPipingInput pipingInput,
+                                                   SemiProbabilisticPipingCalculationScenario calculation,
+                                                   IEnumerable<PipingSurfaceLine> surfaceLines,
+                                                   IEnumerable<PipingStochasticSoilModel> stochasticSoilModels,
+                                                   PipingFailureMechanism pipingFailureMechanism,
+                                                   IAssessmentSection assessmentSection)
             : base(pipingInput, surfaceLines, stochasticSoilModels, pipingFailureMechanism, assessmentSection)
         {
             if (calculation == null)

@@ -83,7 +83,7 @@ namespace Riskeer.Piping.Plugin
                 CreateInstance = context => new PipingFailureMechanismProperties(context.WrappedData, context.Parent,
                                                                                  new FailureMechanismPropertyChangeHandler<PipingFailureMechanism>())
             };
-            yield return new PropertyInfo<PipingInputContext, PipingInputContextProperties>
+            yield return new PropertyInfo<SemiProbabilisticPipingInputContext, PipingInputContextProperties>
             {
                 CreateInstance = context => new PipingInputContextProperties(context,
                                                                              () => GetNormativeAssessmentLevel(context.AssessmentSection, context.PipingCalculation),
@@ -250,7 +250,7 @@ namespace Riskeer.Piping.Plugin
                 CloseForData = ClosePipingCalculationsViewForData
             };
 
-            yield return new ViewInfo<PipingInputContext, SemiProbabilisticPipingCalculationScenario, PipingInputView>
+            yield return new ViewInfo<SemiProbabilisticPipingInputContext, SemiProbabilisticPipingCalculationScenario, PipingInputView>
             {
                 GetViewData = context => context.PipingCalculation,
                 GetViewName = (view, context) => RiskeerCommonFormsResources.Calculation_Input,
@@ -311,7 +311,7 @@ namespace Riskeer.Piping.Plugin
                                                                                  .Build()
             };
 
-            yield return new TreeNodeInfo<PipingInputContext>
+            yield return new TreeNodeInfo<SemiProbabilisticPipingInputContext>
             {
                 Text = pipingInputContext => RiskeerCommonFormsResources.Calculation_Input,
                 Image = pipingInputContext => PipingFormsResources.PipingInputIcon,
@@ -935,7 +935,7 @@ namespace Riskeer.Piping.Plugin
             var childNodes = new List<object>
             {
                 pipingCalculationScenario.Comments,
-                new PipingInputContext(pipingCalculationScenario.InputParameters,
+                new SemiProbabilisticPipingInputContext(pipingCalculationScenario.InputParameters,
                                        pipingCalculationScenario,
                                        context.AvailablePipingSurfaceLines,
                                        context.AvailableStochasticSoilModels,

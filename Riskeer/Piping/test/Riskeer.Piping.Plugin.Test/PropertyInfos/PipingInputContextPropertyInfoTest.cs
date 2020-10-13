@@ -59,7 +59,7 @@ namespace Riskeer.Piping.Plugin.Test.PropertyInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(PipingInputContext), info.DataType);
+            Assert.AreEqual(typeof(SemiProbabilisticPipingInputContext), info.DataType);
             Assert.AreEqual(typeof(PipingInputContextProperties), info.PropertyObjectType);
         }
 
@@ -85,7 +85,7 @@ namespace Riskeer.Piping.Plugin.Test.PropertyInfos
             };
 
             var failureMechanism = new PipingFailureMechanism();
-            var context = new PipingInputContext(
+            var context = new SemiProbabilisticPipingInputContext(
                 scenario.InputParameters,
                 scenario,
                 Enumerable.Empty<PipingSurfaceLine>(),
@@ -131,7 +131,7 @@ namespace Riskeer.Piping.Plugin.Test.PropertyInfos
             };
 
             var failureMechanism = new PipingFailureMechanism();
-            var context = new PipingInputContext(
+            var context = new SemiProbabilisticPipingInputContext(
                 scenario.InputParameters,
                 scenario,
                 Enumerable.Empty<PipingSurfaceLine>(),

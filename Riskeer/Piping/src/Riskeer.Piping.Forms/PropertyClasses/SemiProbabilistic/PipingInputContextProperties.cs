@@ -46,9 +46,9 @@ using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 namespace Riskeer.Piping.Forms.PropertyClasses.SemiProbabilistic
 {
     /// <summary>
-    /// ViewModel of <see cref="PipingInputContext"/> for properties panel.
+    /// ViewModel of <see cref="SemiProbabilisticPipingInputContext"/> for properties panel.
     /// </summary>
-    public class PipingInputContextProperties : ObjectProperties<PipingInputContext>,
+    public class PipingInputContextProperties : ObjectProperties<SemiProbabilisticPipingInputContext>,
                                                 IHasHydraulicBoundaryLocationProperty
     {
         private const int selectedHydraulicBoundaryLocationPropertyIndex = 1;
@@ -80,7 +80,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses.SemiProbabilistic
         /// <param name="getNormativeAssessmentLevelFunc"><see cref="Func{TResult}"/> for obtaining the normative assessment level.</param>
         /// <param name="propertyChangeHandler">The handler responsible for handling effects of a property change.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public PipingInputContextProperties(PipingInputContext data,
+        public PipingInputContextProperties(SemiProbabilisticPipingInputContext data,
                                             Func<RoundedDouble> getNormativeAssessmentLevelFunc,
                                             IObservablePropertyChangeHandler propertyChangeHandler)
         {
@@ -165,7 +165,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses.SemiProbabilistic
         }
 
         /// <summary>
-        /// Gets the available selectable hydraulic boundary locations on <see cref="PipingInputContext"/>.
+        /// Gets the available selectable hydraulic boundary locations on <see cref="SemiProbabilisticPipingInputContext"/>.
         /// </summary>
         public IEnumerable<SelectableHydraulicBoundaryLocation> GetSelectableHydraulicBoundaryLocations()
         {

@@ -62,7 +62,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(PipingInputContext), info.DataType);
+            Assert.AreEqual(typeof(SemiProbabilisticPipingInputContext), info.DataType);
             Assert.AreEqual(typeof(SemiProbabilisticPipingCalculationScenario), info.ViewDataType);
             TestHelper.AssertImagesAreEqual(PipingFormsResources.PipingInputIcon, info.Image);
         }
@@ -87,7 +87,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
             var pipingInput = new SemiProbabilisticPipingInput(new GeneralPipingInput());
 
             var calculation = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput());
-            var calculationInputContext = new PipingInputContext(pipingInput, calculation, Enumerable.Empty<PipingSurfaceLine>(),
+            var calculationInputContext = new SemiProbabilisticPipingInputContext(pipingInput, calculation, Enumerable.Empty<PipingSurfaceLine>(),
                                                                  Enumerable.Empty<PipingStochasticSoilModel>(),
                                                                  new PipingFailureMechanism(),
                                                                  assessmentSection);
