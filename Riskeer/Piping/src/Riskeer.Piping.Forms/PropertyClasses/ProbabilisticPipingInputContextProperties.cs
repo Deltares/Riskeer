@@ -410,8 +410,8 @@ namespace Riskeer.Piping.Forms.PropertyClasses
         [DynamicReadOnly]
         [PropertyOrder(sectionNamePropertyIndex)]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Output))]
-        [ResourcesDisplayName(typeof(Resources), nameof(RiskeerCommonFormsResources.SectionName_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(RiskeerCommonFormsResources.SectionName_Description))]
+        [ResourcesDisplayName(typeof(Resources), nameof(RiskeerCommonFormsResources.FailureMechanismSection_Name_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(RiskeerCommonFormsResources.FailureMechanismSection_Name_Description))]
         public string SectionName
         {
             get

@@ -3239,24 +3239,6 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Vaknaam.
-        /// </summary>
-        public static string SectionName_Description {
-            get {
-                return ResourceManager.GetString("SectionName_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Vaknaam.
-        /// </summary>
-        public static string SectionName_DisplayName {
-            get {
-                return ResourceManager.GetString("SectionName_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap SectionsIcon {
