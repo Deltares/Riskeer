@@ -680,30 +680,35 @@ namespace Riskeer.Piping.Plugin
 
             foreach (ICalculationBase item in nodeData.WrappedData.Children)
             {
-                var calculation = item as PipingCalculationScenario;
-                var group = item as CalculationGroup;
-
-                if (calculation != null)
+                switch (item)
                 {
-                    childNodeObjects.Add(new PipingCalculationScenarioContext(calculation,
-                                                                              nodeData.WrappedData,
-                                                                              nodeData.AvailablePipingSurfaceLines,
-                                                                              nodeData.AvailableStochasticSoilModels,
-                                                                              nodeData.FailureMechanism,
-                                                                              nodeData.AssessmentSection));
-                }
-                else if (group != null)
-                {
-                    childNodeObjects.Add(new PipingCalculationGroupContext(group,
-                                                                           nodeData.WrappedData,
-                                                                           nodeData.AvailablePipingSurfaceLines,
-                                                                           nodeData.AvailableStochasticSoilModels,
-                                                                           nodeData.FailureMechanism,
-                                                                           nodeData.AssessmentSection));
-                }
-                else
-                {
-                    childNodeObjects.Add(item);
+                    case PipingCalculationScenario semiProbabilisticCalculation:
+                        childNodeObjects.Add(new PipingCalculationScenarioContext(semiProbabilisticCalculation,
+                                                                                  nodeData.WrappedData,
+                                                                                  nodeData.AvailablePipingSurfaceLines,
+                                                                                  nodeData.AvailableStochasticSoilModels,
+                                                                                  nodeData.FailureMechanism,
+                                                                                  nodeData.AssessmentSection));
+                        break;
+                    case ProbabilisticPipingCalculation probabilisticCalculation:
+                        childNodeObjects.Add(new ProbabilisticPipingCalculationContext(probabilisticCalculation,
+                                                                                       nodeData.WrappedData,
+                                                                                       nodeData.AvailablePipingSurfaceLines,
+                                                                                       nodeData.AvailableStochasticSoilModels,
+                                                                                       nodeData.FailureMechanism,
+                                                                                       nodeData.AssessmentSection));
+                        break;
+                    case CalculationGroup group:
+                        childNodeObjects.Add(new PipingCalculationGroupContext(group,
+                                                                               nodeData.WrappedData,
+                                                                               nodeData.AvailablePipingSurfaceLines,
+                                                                               nodeData.AvailableStochasticSoilModels,
+                                                                               nodeData.FailureMechanism,
+                                                                               nodeData.AssessmentSection));
+                        break;
+                    default:
+                        childNodeObjects.Add(item);
+                        break;
                 }
             }
 

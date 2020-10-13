@@ -147,13 +147,15 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             // Setup
             var calculationItem = mocks.StrictMock<ICalculationBase>();
 
-            var childCalculation = new PipingCalculationScenario(new GeneralPipingInput());
+            var semiProbabilisticChildCalculation = new PipingCalculationScenario(new GeneralPipingInput());
+            var probabilisticChildCalculation = new ProbabilisticPipingCalculation(new GeneralPipingInput());
 
             var childGroup = new CalculationGroup();
 
             var group = new CalculationGroup();
             group.Children.Add(calculationItem);
-            group.Children.Add(childCalculation);
+            group.Children.Add(semiProbabilisticChildCalculation);
+            group.Children.Add(probabilisticChildCalculation);
             group.Children.Add(childGroup);
 
             var pipingFailureMechanism = new PipingFailureMechanism();
@@ -174,11 +176,18 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             // Assert
             Assert.AreEqual(group.Children.Count, children.Length);
             Assert.AreSame(calculationItem, children[0]);
-            var returnedCalculationContext = (PipingCalculationScenarioContext) children[1];
-            Assert.AreSame(childCalculation, returnedCalculationContext.WrappedData);
-            Assert.AreSame(group, returnedCalculationContext.Parent);
-            Assert.AreSame(pipingFailureMechanism, returnedCalculationContext.FailureMechanism);
-            var returnedCalculationGroupContext = (PipingCalculationGroupContext) children[2];
+            
+            var returnedSemiProbabilisticCalculationContext = (PipingCalculationScenarioContext) children[1];
+            Assert.AreSame(semiProbabilisticChildCalculation, returnedSemiProbabilisticCalculationContext.WrappedData);
+            Assert.AreSame(group, returnedSemiProbabilisticCalculationContext.Parent);
+            Assert.AreSame(pipingFailureMechanism, returnedSemiProbabilisticCalculationContext.FailureMechanism);
+            
+            var returnedProbabilisticCalculationContext = (ProbabilisticPipingCalculationContext) children[2];
+            Assert.AreSame(probabilisticChildCalculation, returnedProbabilisticCalculationContext.WrappedData);
+            Assert.AreSame(group, returnedProbabilisticCalculationContext.Parent);
+            Assert.AreSame(pipingFailureMechanism, returnedProbabilisticCalculationContext.FailureMechanism);
+            
+            var returnedCalculationGroupContext = (PipingCalculationGroupContext) children[3];
             Assert.AreSame(childGroup, returnedCalculationGroupContext.WrappedData);
             Assert.AreSame(group, returnedCalculationGroupContext.Parent);
             Assert.AreSame(pipingFailureMechanism, returnedCalculationGroupContext.FailureMechanism);
