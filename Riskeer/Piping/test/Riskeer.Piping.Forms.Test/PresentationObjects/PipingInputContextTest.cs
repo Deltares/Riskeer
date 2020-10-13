@@ -58,7 +58,7 @@ namespace Riskeer.Piping.Forms.Test.PresentationObjects
             var context = new PipingInputContext(calculation.InputParameters, calculation, surfaceLines, stochasticSoilModels, failureMechanism, assessmentSection);
 
             // Assert
-            Assert.IsInstanceOf<PipingContext<PipingInput>>(context);
+            Assert.IsInstanceOf<PipingContext<SemiProbabilisticPipingInput>>(context);
             Assert.AreSame(calculation.InputParameters, context.WrappedData);
             Assert.AreSame(calculation, context.PipingCalculation);
             Assert.AreSame(failureMechanism, context.FailureMechanism);
