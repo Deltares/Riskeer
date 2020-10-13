@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -315,7 +316,7 @@ namespace Riskeer.Piping.Plugin
                                                                                  .AddPropertiesItem()
                                                                                  .Build()
             };
-            
+
             yield return new TreeNodeInfo<ProbabilisticPipingInputContext>
             {
                 Text = pipingInputContext => RiskeerCommonFormsResources.Calculation_Input,
@@ -719,6 +720,7 @@ namespace Riskeer.Piping.Plugin
 
             StrictContextMenuItem generateCalculationsItem = CreateGeneratePipingCalculationsItem(nodeData);
             StrictContextMenuItem addSemiProbabilisticCalculationItem = CreateAddSemiProbabilisticCalculationItem(nodeData);
+            StrictContextMenuItem addProbabilisticCalculationItem = CreateAddProbabilisticCalculationItem(nodeData);
 
             PipingCalculationScenario[] calculations = nodeData.WrappedData.GetCalculations()
                                                                .OfType<PipingCalculationScenario>()
@@ -748,6 +750,7 @@ namespace Riskeer.Piping.Plugin
 
             builder.AddCreateCalculationGroupItem(group)
                    .AddCustomItem(addSemiProbabilisticCalculationItem)
+                   .AddCustomItem(addProbabilisticCalculationItem)
                    .AddSeparator();
 
             if (isNestedGroup)
@@ -838,14 +841,32 @@ namespace Riskeer.Piping.Plugin
                 Enabled = surfaceLineAvailable
             };
         }
-        
+
         private static StrictContextMenuItem CreateAddSemiProbabilisticCalculationItem(PipingCalculationGroupContext context)
         {
             return new StrictContextMenuItem(
                 Resources.CalculationGroup_Add_SemiProbabilisticCalculation,
                 Resources.CalculationGroup_Add_SemiProbabilisticCalculation_ToolTip,
                 RiskeerCommonFormsResources.FailureMechanismIcon,
-                (sender, args) => AddCalculationScenario(context));
+                (sender, args) => AddCalculation(() => new PipingCalculationScenario(context.FailureMechanism.GeneralInput), context.WrappedData));
+        }
+
+        private static StrictContextMenuItem CreateAddProbabilisticCalculationItem(PipingCalculationGroupContext context)
+        {
+            return new StrictContextMenuItem(
+                Resources.CalculationGroup_Add_ProbabilisticCalculation,
+                Resources.CalculationGroup_Add_ProbabilisticCalculation_ToolTip,
+                RiskeerCommonFormsResources.FailureMechanismIcon,
+                (sender, args) => AddCalculation(() => new ProbabilisticPipingCalculation(context.FailureMechanism.GeneralInput), context.WrappedData));
+        }
+
+        private static void AddCalculation(Func<IPipingCalculation<PipingInput, PipingOutput>> createCalculationFunc, CalculationGroup parentGroup)
+        {
+            IPipingCalculation<PipingInput, PipingOutput> calculation = createCalculationFunc();
+            calculation.Name = NamingHelper.GetUniqueName(parentGroup.Children, RiskeerCommonDataResources.Calculation_DefaultName, c => c.Name);
+
+            parentGroup.Children.Add(calculation);
+            parentGroup.NotifyObservers();
         }
 
         private void ShowSurfaceLineSelectionDialog(PipingCalculationGroupContext nodeData)
@@ -871,17 +892,6 @@ namespace Riskeer.Piping.Plugin
             {
                 target.Children.Add(group);
             }
-        }
-
-        private static void AddCalculationScenario(PipingCalculationGroupContext nodeData)
-        {
-            var calculation = new PipingCalculationScenario(nodeData.FailureMechanism.GeneralInput)
-            {
-                Name = NamingHelper.GetUniqueName(nodeData.WrappedData.Children, RiskeerCommonDataResources.Calculation_DefaultName, c => c.Name)
-            };
-
-            nodeData.WrappedData.Children.Add(calculation);
-            nodeData.WrappedData.NotifyObservers();
         }
 
         private static void CalculationGroupContextOnNodeRemoved(PipingCalculationGroupContext nodeData, object parentNodeData)
@@ -1066,7 +1076,7 @@ namespace Riskeer.Piping.Plugin
         private static void Calculate(ProbabilisticPipingCalculation calculation, ProbabilisticPipingCalculationContext context) {}
 
         #endregion
-        
+
         private StrictContextMenuItem CreateUpdateEntryAndExitPointItem(IPipingCalculation<PipingInput, PipingOutput> calculation)
         {
             var contextMenuEnabled = true;
@@ -1091,7 +1101,7 @@ namespace Riskeer.Piping.Plugin
                 Enabled = contextMenuEnabled
             };
         }
-        
+
         private void UpdatedSurfaceLineDependentDataOfCalculation(IPipingCalculation<PipingInput, PipingOutput> calculation)
         {
             string message = RiskeerCommonFormsResources.VerifyUpdate_Confirm_calculation_output_cleared;
@@ -1103,7 +1113,7 @@ namespace Riskeer.Piping.Plugin
                 UpdateSurfaceLineDependentData(calculation);
             }
         }
-        
+
         private static void CalculationContextOnNodeRemoved(object parentNodeData, IPipingCalculation<PipingInput, PipingOutput> calculation)
         {
             if (parentNodeData is PipingCalculationGroupContext calculationGroupContext)

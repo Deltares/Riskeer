@@ -60,28 +60,30 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
         private const int contextMenuExportCalculationGroupIndexRootGroup = 3;
         private const int contextMenuAddCalculationGroupIndexRootGroup = 7;
         private const int contextMenuAddSemiProbabilisticCalculationIndexRootGroup = 8;
-        private const int contextMenuUpdateEntryAndExitPointsAllIndexRootGroup = 10;
-        private const int contextMenuValidateAllIndexRootGroup = 12;
-        private const int contextMenuCalculateAllIndexRootGroup = 13;
-        private const int contextMenuClearOutputIndexRootGroup = 15;
-        private const int contextMenuCollapseAllIndexRootGroup = 18;
-        private const int contextMenuExpandAllIndexRootGroup = 19;
-        private const int contextMenuPropertiesIndexRootGroup = 21;
+        private const int contextMenuAddProbabilisticCalculationIndexRootGroup = 9;
+        private const int contextMenuUpdateEntryAndExitPointsAllIndexRootGroup = 11;
+        private const int contextMenuValidateAllIndexRootGroup = 13;
+        private const int contextMenuCalculateAllIndexRootGroup = 14;
+        private const int contextMenuClearOutputIndexRootGroup = 16;
+        private const int contextMenuCollapseAllIndexRootGroup = 19;
+        private const int contextMenuExpandAllIndexRootGroup = 20;
+        private const int contextMenuPropertiesIndexRootGroup = 22;
 
         private const int contextMenuImportCalculationGroupIndexNestedGroup = 0;
         private const int contextMenuExportCalculationGroupIndexNestedGroup = 1;
         private const int contextMenuDuplicateIndexNestedGroup = 3;
         private const int contextMenuAddCalculationGroupIndexNestedGroup = 5;
         private const int contextMenuAddSemiProbabilisticCalculationIndexNestedGroup = 6;
-        private const int contextMenuRenameCalculationGroupIndexNestedGroup = 8;
-        private const int contextMenuUpdateEntryAndExitPointsAllIndexNestedGroup = 9;
-        private const int contextMenuValidateAllIndexNestedGroup = 11;
-        private const int contextMenuCalculateAllIndexNestedGroup = 12;
-        private const int contextMenuClearOutputIndexNestedGroup = 14;
-        private const int contextMenuDeleteCalculationGroupIndexNestedGroup = 15;
-        private const int contextMenuCollapseAllIndexNestedGroup = 17;
-        private const int contextMenuExpandAllIndexNestedGroup = 18;
-        private const int contextMenuPropertiesIndexNestedGroup = 20;
+        private const int contextMenuAddProbabilisticCalculationIndexNestedGroup = 7;
+        private const int contextMenuRenameCalculationGroupIndexNestedGroup = 9;
+        private const int contextMenuUpdateEntryAndExitPointsAllIndexNestedGroup = 10;
+        private const int contextMenuValidateAllIndexNestedGroup = 12;
+        private const int contextMenuCalculateAllIndexNestedGroup = 13;
+        private const int contextMenuClearOutputIndexNestedGroup = 15;
+        private const int contextMenuDeleteCalculationGroupIndexNestedGroup = 16;
+        private const int contextMenuCollapseAllIndexNestedGroup = 18;
+        private const int contextMenuExpandAllIndexNestedGroup = 19;
+        private const int contextMenuPropertiesIndexNestedGroup = 21;
 
         private const int customOnlyContextMenuAddGenerateCalculationsIndex = 5;
 
@@ -242,7 +244,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
             {
                 // Assert
-                Assert.AreEqual(21, menu.Items.Count);
+                Assert.AreEqual(22, menu.Items.Count);
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuImportCalculationGroupIndexNestedGroup,
                                                               "&Importeren...",
                                                               "Importeer de gegevens vanuit een bestand.",
@@ -262,6 +264,10 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddSemiProbabilisticCalculationIndexNestedGroup,
                                                               "Semi-probabilistische berekening &toevoegen",
                                                               "Voeg een nieuwe semi-probabilistische berekening toe aan deze map met berekeningen.",
+                                                              RiskeerCommonFormsResources.CalculationIcon);
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddProbabilisticCalculationIndexNestedGroup,
+                                                              "&Probabilistische berekening toevoegen",
+                                                              "Voeg een nieuwe probabilistische berekening toe aan deze map met berekeningen.",
                                                               RiskeerCommonFormsResources.CalculationIcon);
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuRenameCalculationGroupIndexNestedGroup,
                                                               "&Hernoemen",
@@ -308,11 +314,11 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                 {
                     menu.Items[2],
                     menu.Items[4],
-                    menu.Items[7],
-                    menu.Items[10],
-                    menu.Items[13],
-                    menu.Items[16],
-                    menu.Items[19]
+                    menu.Items[8],
+                    menu.Items[11],
+                    menu.Items[14],
+                    menu.Items[17],
+                    menu.Items[20]
                 }, typeof(ToolStripSeparator));
             }
         }
@@ -369,7 +375,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                 ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewControl);
 
                 // Assert
-                Assert.AreEqual(22, menu.Items.Count);
+                Assert.AreEqual(23, menu.Items.Count);
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuImportCalculationGroupIndexRootGroup,
                                                               "&Importeren...",
                                                               "Importeer de gegevens vanuit een bestand.",
@@ -388,6 +394,11 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddSemiProbabilisticCalculationIndexRootGroup,
                                                               "Semi-probabilistische berekening &toevoegen",
                                                               "Voeg een nieuwe semi-probabilistische berekening toe aan deze map met berekeningen.",
+                                                              RiskeerCommonFormsResources.CalculationIcon);
+
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddProbabilisticCalculationIndexRootGroup,
+                                                              "&Probabilistische berekening toevoegen",
+                                                              "Voeg een nieuwe probabilistische berekening toe aan deze map met berekeningen.",
                                                               RiskeerCommonFormsResources.CalculationIcon);
 
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuUpdateEntryAndExitPointsAllIndexRootGroup,
@@ -428,11 +439,11 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                 {
                     menu.Items[1],
                     menu.Items[6],
-                    menu.Items[9],
-                    menu.Items[11],
-                    menu.Items[14],
-                    menu.Items[17],
-                    menu.Items[20]
+                    menu.Items[10],
+                    menu.Items[12],
+                    menu.Items[15],
+                    menu.Items[18],
+                    menu.Items[21]
                 }, typeof(ToolStripSeparator));
             }
         }
@@ -859,7 +870,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_ClickOnAddCalculationItem_AddCalculationToCalculationGroupAndNotifyObservers()
+        public void ContextMenuStrip_ClickOnAddSemiProbabilisticCalculationItem_AddSemiProbabilisticCalculationToCalculationGroupAndNotifyObservers()
         {
             // Setup
             using (var treeViewControl = new TreeViewControl())
@@ -911,7 +922,67 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                     // Assert
                     Assert.AreEqual(2, group.Children.Count);
                     ICalculationBase newlyAddedItem = group.Children.Last();
-                    Assert.IsInstanceOf<IPipingCalculation<PipingInput, PipingOutput>>(newlyAddedItem);
+                    Assert.IsInstanceOf<PipingCalculationScenario>(newlyAddedItem);
+                    Assert.AreEqual("Nieuwe berekening (1)", newlyAddedItem.Name,
+                                    "An item with the same name default name already exists, therefore '(1)' needs to be appended.");
+                }
+            }
+        }
+
+        [Test]
+        public void ContextMenuStrip_ClickOnAddProbabilisticCalculationItem_AddProbabilisticCalculationToCalculationGroupAndNotifyObservers()
+        {
+            // Setup
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var group = new CalculationGroup();
+                var parentGroup = new CalculationGroup();
+                var pipingFailureMechanism = new PipingFailureMechanism();
+                var assessmentSection = mocks.Stub<IAssessmentSection>();
+                var nodeData = new PipingCalculationGroupContext(group,
+                                                                 parentGroup,
+                                                                 Enumerable.Empty<PipingSurfaceLine>(),
+                                                                 Enumerable.Empty<PipingStochasticSoilModel>(),
+                                                                 pipingFailureMechanism,
+                                                                 assessmentSection);
+                var parentNodeData = new PipingCalculationGroupContext(parentGroup,
+                                                                       null,
+                                                                       Enumerable.Empty<PipingSurfaceLine>(),
+                                                                       Enumerable.Empty<PipingStochasticSoilModel>(),
+                                                                       pipingFailureMechanism,
+                                                                       assessmentSection);
+
+                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+                var gui = mocks.Stub<IGui>();
+                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
+
+                var observer = mocks.StrictMock<IObserver>();
+                observer.Expect(o => o.UpdateObserver());
+                mocks.ReplayAll();
+
+                plugin.Gui = gui;
+
+                var calculationItem = new PipingCalculationScenario(new GeneralPipingInput())
+                {
+                    Name = "Nieuwe berekening"
+                };
+                group.Children.Add(calculationItem);
+
+                nodeData.Attach(observer);
+
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
+                {
+                    // Precondition
+                    Assert.AreEqual(1, group.Children.Count);
+
+                    // Call
+                    contextMenu.Items[contextMenuAddProbabilisticCalculationIndexNestedGroup].PerformClick();
+
+                    // Assert
+                    Assert.AreEqual(2, group.Children.Count);
+                    ICalculationBase newlyAddedItem = group.Children.Last();
+                    Assert.IsInstanceOf<ProbabilisticPipingCalculation>(newlyAddedItem);
                     Assert.AreEqual("Nieuwe berekening (1)", newlyAddedItem.Name,
                                     "An item with the same name default name already exists, therefore '(1)' needs to be appended.");
                 }

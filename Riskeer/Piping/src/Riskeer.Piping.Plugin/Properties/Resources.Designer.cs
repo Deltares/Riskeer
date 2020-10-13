@@ -82,6 +82,24 @@ namespace Riskeer.Piping.Plugin.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &amp;Probabilistische berekening toevoegen.
+        /// </summary>
+        public static string CalculationGroup_Add_ProbabilisticCalculation {
+            get {
+                return ResourceManager.GetString("CalculationGroup_Add_ProbabilisticCalculation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Voeg een nieuwe probabilistische berekening toe aan deze map met berekeningen..
+        /// </summary>
+        public static string CalculationGroup_Add_ProbabilisticCalculation_ToolTip {
+            get {
+                return ResourceManager.GetString("CalculationGroup_Add_ProbabilisticCalculation_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Semi-probabilistische berekening &amp;toevoegen.
         /// </summary>
         public static string CalculationGroup_Add_SemiProbabilisticCalculation {
