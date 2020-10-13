@@ -61,7 +61,7 @@ namespace Riskeer.Storage.Core.Create.Piping
             return entity;
         }
 
-        private static void SetInputParametersToEntity(PipingCalculationEntity entity, PipingInput inputParameters, PersistenceRegistry registry)
+        private static void SetInputParametersToEntity(PipingCalculationEntity entity, SemiProbabilisticPipingInput inputParameters, PersistenceRegistry registry)
         {
             if (inputParameters.SurfaceLine != null)
             {
@@ -85,7 +85,7 @@ namespace Riskeer.Storage.Core.Create.Piping
             entity.DampingFactorExitStandardDeviation = inputParameters.DampingFactorExit.StandardDeviation.ToNaNAsNull();
         }
 
-        private static void SetHydraulicBoundaryLocationInputToEntity(PipingCalculationEntity entity, PipingInput inputParameters, PersistenceRegistry registry)
+        private static void SetHydraulicBoundaryLocationInputToEntity(PipingCalculationEntity entity, SemiProbabilisticPipingInput inputParameters, PersistenceRegistry registry)
         {
             entity.UseAssessmentLevelManualInput = Convert.ToByte(inputParameters.UseAssessmentLevelManualInput);
             entity.AssessmentLevel = inputParameters.AssessmentLevel.ToNaNAsNull();

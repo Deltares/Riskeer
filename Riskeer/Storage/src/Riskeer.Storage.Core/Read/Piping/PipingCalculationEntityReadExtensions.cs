@@ -77,7 +77,7 @@ namespace Riskeer.Storage.Core.Read.Piping
             }
         }
 
-        private static void ReadInputParameters(PipingInput inputParameters, PipingCalculationEntity entity, ReadConversionCollector collector)
+        private static void ReadInputParameters(SemiProbabilisticPipingInput inputParameters, PipingCalculationEntity entity, ReadConversionCollector collector)
         {
             if (entity.SurfaceLineEntity != null)
             {

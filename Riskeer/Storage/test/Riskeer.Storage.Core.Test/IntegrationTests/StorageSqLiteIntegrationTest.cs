@@ -1246,7 +1246,7 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
             AssertPipingOutput(expectedPipingCalculation.Output, actualPipingCalculation.Output);
         }
 
-        private static void AssertPipingInput(PipingInput expectedPipingInput, PipingInput actualPipingInput)
+        private static void AssertPipingInput(SemiProbabilisticPipingInput expectedPipingInput, SemiProbabilisticPipingInput actualPipingInput)
         {
             AssertReferencedObject(() => expectedPipingInput.HydraulicBoundaryLocation,
                                    () => actualPipingInput.HydraulicBoundaryLocation,

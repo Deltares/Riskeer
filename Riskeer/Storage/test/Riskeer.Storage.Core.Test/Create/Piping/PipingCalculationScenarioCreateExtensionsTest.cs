@@ -107,7 +107,7 @@ namespace Riskeer.Storage.Core.Test.Create.Piping
             Assert.AreEqual(exitPoint.ToNaNAsNull(), entity.ExitPointL);
             Assert.AreEqual(entryPoint.ToNaNAsNull(), entity.EntryPointL);
 
-            PipingInput input = calculation.InputParameters;
+            SemiProbabilisticPipingInput input = calculation.InputParameters;
             Assert.AreEqual(input.PhreaticLevelExit.Mean.Value, entity.PhreaticLevelExitMean);
             Assert.AreEqual(input.PhreaticLevelExit.StandardDeviation.Value, entity.PhreaticLevelExitStandardDeviation);
             Assert.AreEqual(input.DampingFactorExit.Mean.Value, entity.DampingFactorExitMean);
