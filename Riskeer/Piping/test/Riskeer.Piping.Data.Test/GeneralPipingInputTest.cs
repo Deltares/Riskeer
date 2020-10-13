@@ -40,14 +40,14 @@ namespace Riskeer.Piping.Data.Test
             // Assert
             var upliftModelFactor = new LogNormalDistribution(2)
             {
-                Mean = (RoundedDouble)1.0,
-                StandardDeviation = (RoundedDouble)0.1
+                Mean = (RoundedDouble) 1.0,
+                StandardDeviation = (RoundedDouble) 0.1
             };
 
             var sellmeijerModelFactor = new LogNormalDistribution(2)
             {
-                Mean = (RoundedDouble)1.0,
-                StandardDeviation = (RoundedDouble)0.12
+                Mean = (RoundedDouble) 1.0,
+                StandardDeviation = (RoundedDouble) 0.12
             };
             DistributionAssert.AreEqual(upliftModelFactor, inputParameters.UpliftModelFactor);
             DistributionAssert.AreEqual(sellmeijerModelFactor, inputParameters.SellmeijerModelFactor);
