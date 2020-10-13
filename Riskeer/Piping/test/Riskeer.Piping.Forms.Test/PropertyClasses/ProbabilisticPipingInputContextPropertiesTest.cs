@@ -34,6 +34,7 @@ using Riskeer.Piping.Data;
 using Riskeer.Piping.Data.Probabilistic;
 using Riskeer.Piping.Data.SoilProfile;
 using Riskeer.Piping.Forms.PresentationObjects;
+using Riskeer.Piping.Forms.PresentationObjects.Probabilistic;
 using Riskeer.Piping.Forms.PropertyClasses;
 using Riskeer.Piping.Primitives;
 

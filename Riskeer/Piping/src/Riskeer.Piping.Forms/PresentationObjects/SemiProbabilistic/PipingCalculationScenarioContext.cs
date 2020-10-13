@@ -30,7 +30,7 @@ using Riskeer.Piping.Data.SemiProbabilistic;
 using Riskeer.Piping.Data.SoilProfile;
 using Riskeer.Piping.Primitives;
 
-namespace Riskeer.Piping.Forms.PresentationObjects
+namespace Riskeer.Piping.Forms.PresentationObjects.SemiProbabilistic
 {
     /// <summary>
     /// Presentation object for all data required to configure an instance of <see cref="PipingCalculation{TPipingInput,TPipingOutput}"/>

@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2019. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2019. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -23,35 +23,35 @@ using System;
 using System.Collections.Generic;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Piping.Data;
-using Riskeer.Piping.Data.Probabilistic;
+using Riskeer.Piping.Data.SemiProbabilistic;
 using Riskeer.Piping.Data.SoilProfile;
 using Riskeer.Piping.Primitives;
 
-namespace Riskeer.Piping.Forms.PresentationObjects
+namespace Riskeer.Piping.Forms.PresentationObjects.SemiProbabilistic
 {
     /// <summary>
-    /// A presentation layer object wrapping an instance of <see cref="ProbabilisticPipingInput"/>
+    /// A presentation layer object wrapping an instance of <see cref="SemiProbabilisticPipingInput"/>
     /// and allowing for selecting a surface line or soil profile based on data available
     /// in a piping failure mechanism.
     /// </summary>
-    public class ProbabilisticPipingInputContext : PipingContext<ProbabilisticPipingInput>
+    public class PipingInputContext : PipingContext<SemiProbabilisticPipingInput>
     {
         /// <summary>
         /// Creates a new instance of <see cref="PipingInputContext"/>
         /// </summary>
         /// <param name="pipingInput">The piping input instance wrapped by this context object.</param>
-        /// <param name="calculation">The calculation the <paramref name="pipingInput"/> belongs to.</param>
+        /// <param name="calculation">The calculation scenario the <paramref name="pipingInput"/> belongs to.</param>
         /// <param name="surfaceLines">The surface lines available within the piping context.</param>
         /// <param name="stochasticSoilModels">The stochastic soil models available within the piping context.</param>
         /// <param name="pipingFailureMechanism">The failure mechanism which the piping context belongs to.</param>
         /// <param name="assessmentSection">The assessment section which the piping context belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
-        public ProbabilisticPipingInputContext(ProbabilisticPipingInput pipingInput,
-                                               ProbabilisticPipingCalculation calculation,
-                                               IEnumerable<PipingSurfaceLine> surfaceLines,
-                                               IEnumerable<PipingStochasticSoilModel> stochasticSoilModels,
-                                               PipingFailureMechanism pipingFailureMechanism,
-                                               IAssessmentSection assessmentSection)
+        public PipingInputContext(SemiProbabilisticPipingInput pipingInput,
+                                  SemiProbabilisticPipingCalculationScenario calculation,
+                                  IEnumerable<PipingSurfaceLine> surfaceLines,
+                                  IEnumerable<PipingStochasticSoilModel> stochasticSoilModels,
+                                  PipingFailureMechanism pipingFailureMechanism,
+                                  IAssessmentSection assessmentSection)
             : base(pipingInput, surfaceLines, stochasticSoilModels, pipingFailureMechanism, assessmentSection)
         {
             if (calculation == null)
@@ -63,8 +63,8 @@ namespace Riskeer.Piping.Forms.PresentationObjects
         }
 
         /// <summary>
-        /// Gets the calculation which the piping context belongs to.
+        /// Gets the calculation scenario which the piping context belongs to.
         /// </summary>
-        public ProbabilisticPipingCalculation PipingCalculation { get; }
+        public SemiProbabilisticPipingCalculationScenario PipingCalculation { get; }
     }
 }

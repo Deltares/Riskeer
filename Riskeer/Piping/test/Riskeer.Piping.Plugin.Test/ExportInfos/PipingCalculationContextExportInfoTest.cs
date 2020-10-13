@@ -33,6 +33,7 @@ using Riskeer.Piping.Data;
 using Riskeer.Piping.Data.SemiProbabilistic;
 using Riskeer.Piping.Data.SoilProfile;
 using Riskeer.Piping.Forms.PresentationObjects;
+using Riskeer.Piping.Forms.PresentationObjects.SemiProbabilistic;
 using Riskeer.Piping.IO.Configurations;
 using Riskeer.Piping.Primitives;
 using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;

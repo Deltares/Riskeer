@@ -48,6 +48,8 @@ using Riskeer.Piping.Data.SoilProfile;
 using Riskeer.Piping.Data.TestUtil;
 using Riskeer.Piping.Forms;
 using Riskeer.Piping.Forms.PresentationObjects;
+using Riskeer.Piping.Forms.PresentationObjects.Probabilistic;
+using Riskeer.Piping.Forms.PresentationObjects.SemiProbabilistic;
 using Riskeer.Piping.Primitives;
 using Riskeer.Piping.Primitives.TestUtil;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;

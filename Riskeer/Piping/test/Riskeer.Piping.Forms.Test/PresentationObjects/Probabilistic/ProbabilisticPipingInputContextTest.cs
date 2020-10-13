@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2019. All rights reserved.
+// Copyright (C) Stichting Deltares 2019. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -24,16 +24,17 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Piping.Data;
-using Riskeer.Piping.Data.SemiProbabilistic;
+using Riskeer.Piping.Data.Probabilistic;
 using Riskeer.Piping.Data.SoilProfile;
 using Riskeer.Piping.Data.TestUtil;
 using Riskeer.Piping.Forms.PresentationObjects;
+using Riskeer.Piping.Forms.PresentationObjects.Probabilistic;
 using Riskeer.Piping.Primitives;
 
-namespace Riskeer.Piping.Forms.Test.PresentationObjects
+namespace Riskeer.Piping.Forms.Test.PresentationObjects.Probabilistic
 {
     [TestFixture]
-    public class PipingInputContextTest
+    public class ProbabilisticPipingInputContextTest
     {
         [Test]
         public void ParameteredConstructor_ExpectedValues()
@@ -43,7 +44,7 @@ namespace Riskeer.Piping.Forms.Test.PresentationObjects
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var calculation = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput());
+            var calculation = new ProbabilisticPipingCalculation(new GeneralPipingInput());
             var surfaceLines = new[]
             {
                 new PipingSurfaceLine(string.Empty)
@@ -56,10 +57,10 @@ namespace Riskeer.Piping.Forms.Test.PresentationObjects
             var failureMechanism = new PipingFailureMechanism();
 
             // Call
-            var context = new PipingInputContext(calculation.InputParameters, calculation, surfaceLines, stochasticSoilModels, failureMechanism, assessmentSection);
+            var context = new ProbabilisticPipingInputContext(calculation.InputParameters, calculation, surfaceLines, stochasticSoilModels, failureMechanism, assessmentSection);
 
             // Assert
-            Assert.IsInstanceOf<PipingContext<SemiProbabilisticPipingInput>>(context);
+            Assert.IsInstanceOf<PipingContext<ProbabilisticPipingInput>>(context);
             Assert.AreSame(calculation.InputParameters, context.WrappedData);
             Assert.AreSame(calculation, context.PipingCalculation);
             Assert.AreSame(failureMechanism, context.FailureMechanism);
@@ -77,7 +78,7 @@ namespace Riskeer.Piping.Forms.Test.PresentationObjects
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var calculationInput = new SemiProbabilisticPipingInput(new GeneralPipingInput());
+            var calculationInput = new ProbabilisticPipingInput(new GeneralPipingInput());
             var surfaceLines = new[]
             {
                 new PipingSurfaceLine(string.Empty)
@@ -89,7 +90,7 @@ namespace Riskeer.Piping.Forms.Test.PresentationObjects
             var failureMechanism = new PipingFailureMechanism();
 
             // Call
-            TestDelegate call = () => new PipingInputContext(calculationInput, null, surfaceLines, stochasticSoilModels, failureMechanism, assessmentSection);
+            TestDelegate call = () => new ProbabilisticPipingInputContext(calculationInput, null, surfaceLines, stochasticSoilModels, failureMechanism, assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

@@ -32,9 +32,10 @@ using Riskeer.Piping.Data.SemiProbabilistic;
 using Riskeer.Piping.Data.SoilProfile;
 using Riskeer.Piping.Data.TestUtil;
 using Riskeer.Piping.Forms.PresentationObjects;
+using Riskeer.Piping.Forms.PresentationObjects.SemiProbabilistic;
 using Riskeer.Piping.Primitives;
 
-namespace Riskeer.Piping.Forms.Test.PresentationObjects
+namespace Riskeer.Piping.Forms.Test.PresentationObjects.SemiProbabilistic
 {
     [TestFixture]
     public class PipingCalculationScenarioContextTest

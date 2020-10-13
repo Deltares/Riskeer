@@ -30,7 +30,7 @@ using Riskeer.Piping.Data.Probabilistic;
 using Riskeer.Piping.Data.SoilProfile;
 using Riskeer.Piping.Primitives;
 
-namespace Riskeer.Piping.Forms.PresentationObjects
+namespace Riskeer.Piping.Forms.PresentationObjects.Probabilistic
 {
     /// <summary>
     /// Presentation object for all data required to configure an instance of <see cref="ProbabilisticPipingCalculation"/>
