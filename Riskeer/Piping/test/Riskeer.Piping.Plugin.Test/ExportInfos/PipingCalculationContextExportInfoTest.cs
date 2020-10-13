@@ -32,7 +32,6 @@ using Riskeer.Common.Data.Calculation;
 using Riskeer.Piping.Data;
 using Riskeer.Piping.Data.SemiProbabilistic;
 using Riskeer.Piping.Data.SoilProfile;
-using Riskeer.Piping.Forms.PresentationObjects;
 using Riskeer.Piping.Forms.PresentationObjects.SemiProbabilistic;
 using Riskeer.Piping.IO.Configurations;
 using Riskeer.Piping.Primitives;
@@ -93,11 +92,11 @@ namespace Riskeer.Piping.Plugin.Test.ExportInfos
             mocks.ReplayAll();
 
             var context = new SemiProbabilisticPipingCalculationScenarioContext(new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput()),
-                                                               new CalculationGroup(),
-                                                               Enumerable.Empty<PipingSurfaceLine>(),
-                                                               Enumerable.Empty<PipingStochasticSoilModel>(),
-                                                               new PipingFailureMechanism(),
-                                                               assessmentSection);
+                                                                                new CalculationGroup(),
+                                                                                Enumerable.Empty<PipingSurfaceLine>(),
+                                                                                Enumerable.Empty<PipingStochasticSoilModel>(),
+                                                                                new PipingFailureMechanism(),
+                                                                                assessmentSection);
 
             // Call
             IFileExporter fileExporter = info.CreateFileExporter(context, "test");
@@ -114,11 +113,11 @@ namespace Riskeer.Piping.Plugin.Test.ExportInfos
             mocks.ReplayAll();
 
             var context = new SemiProbabilisticPipingCalculationScenarioContext(new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput()),
-                                                               new CalculationGroup(),
-                                                               Enumerable.Empty<PipingSurfaceLine>(),
-                                                               Enumerable.Empty<PipingStochasticSoilModel>(),
-                                                               new PipingFailureMechanism(),
-                                                               assessmentSection);
+                                                                                new CalculationGroup(),
+                                                                                Enumerable.Empty<PipingSurfaceLine>(),
+                                                                                Enumerable.Empty<PipingStochasticSoilModel>(),
+                                                                                new PipingFailureMechanism(),
+                                                                                assessmentSection);
 
             // Call
             bool isEnabled = info.IsEnabled(context);

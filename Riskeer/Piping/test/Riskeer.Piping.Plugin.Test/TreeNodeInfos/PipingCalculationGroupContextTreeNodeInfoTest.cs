@@ -180,17 +180,17 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             // Assert
             Assert.AreEqual(group.Children.Count, children.Length);
             Assert.AreSame(calculationItem, children[0]);
-            
+
             var returnedSemiProbabilisticCalculationContext = (SemiProbabilisticPipingCalculationScenarioContext) children[1];
             Assert.AreSame(semiProbabilisticChildCalculation, returnedSemiProbabilisticCalculationContext.WrappedData);
             Assert.AreSame(group, returnedSemiProbabilisticCalculationContext.Parent);
             Assert.AreSame(pipingFailureMechanism, returnedSemiProbabilisticCalculationContext.FailureMechanism);
-            
+
             var returnedProbabilisticCalculationContext = (ProbabilisticPipingCalculationContext) children[2];
             Assert.AreSame(probabilisticChildCalculation, returnedProbabilisticCalculationContext.WrappedData);
             Assert.AreSame(group, returnedProbabilisticCalculationContext.Parent);
             Assert.AreSame(pipingFailureMechanism, returnedProbabilisticCalculationContext.FailureMechanism);
-            
+
             var returnedCalculationGroupContext = (PipingCalculationGroupContext) children[3];
             Assert.AreSame(childGroup, returnedCalculationGroupContext.WrappedData);
             Assert.AreSame(group, returnedCalculationGroupContext.Parent);

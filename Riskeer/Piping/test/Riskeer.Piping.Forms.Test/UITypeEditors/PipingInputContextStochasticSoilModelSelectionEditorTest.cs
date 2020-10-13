@@ -34,9 +34,7 @@ using Riskeer.Piping.Data;
 using Riskeer.Piping.Data.SemiProbabilistic;
 using Riskeer.Piping.Data.SoilProfile;
 using Riskeer.Piping.Data.TestUtil;
-using Riskeer.Piping.Forms.PresentationObjects;
 using Riskeer.Piping.Forms.PresentationObjects.SemiProbabilistic;
-using Riskeer.Piping.Forms.PropertyClasses;
 using Riskeer.Piping.Forms.PropertyClasses.SemiProbabilistic;
 using Riskeer.Piping.Forms.UITypeEditors;
 using Riskeer.Piping.Primitives;
@@ -66,18 +64,18 @@ namespace Riskeer.Piping.Forms.Test.UITypeEditors
                 StochasticSoilModel = PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel("StochasticSoilModelName")
             };
             var pipingInputContext = new SemiProbabilisticPipingInputContext(pipingInput,
-                                                            calculationItem,
-                                                            Enumerable.Empty<PipingSurfaceLine>(),
-                                                            new[]
-                                                            {
-                                                                PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel()
-                                                            },
-                                                            failureMechanism,
-                                                            assessmentSection);
+                                                                             calculationItem,
+                                                                             Enumerable.Empty<PipingSurfaceLine>(),
+                                                                             new[]
+                                                                             {
+                                                                                 PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel()
+                                                                             },
+                                                                             failureMechanism,
+                                                                             assessmentSection);
 
             var properties = new SemiProbabilisticPipingInputContextProperties(pipingInputContext,
-                                                              AssessmentSectionTestHelper.GetTestAssessmentLevel,
-                                                              handler);
+                                                                               AssessmentSectionTestHelper.GetTestAssessmentLevel,
+                                                                               handler);
 
             var editor = new PipingInputContextStochasticSoilModelSelectionEditor();
             var someValue = new object();
@@ -136,18 +134,18 @@ namespace Riskeer.Piping.Forms.Test.UITypeEditors
                 StochasticSoilProfile = stochasticSoilProfile
             };
             var inputParametersContext = new SemiProbabilisticPipingInputContext(pipingInput,
-                                                                calculationItem,
-                                                                Enumerable.Empty<PipingSurfaceLine>(),
-                                                                new[]
-                                                                {
-                                                                    stochasticSoilModel
-                                                                },
-                                                                failureMechanism,
-                                                                assessmentSection);
+                                                                                 calculationItem,
+                                                                                 Enumerable.Empty<PipingSurfaceLine>(),
+                                                                                 new[]
+                                                                                 {
+                                                                                     stochasticSoilModel
+                                                                                 },
+                                                                                 failureMechanism,
+                                                                                 assessmentSection);
 
             var properties = new SemiProbabilisticPipingInputContextProperties(inputParametersContext,
-                                                              AssessmentSectionTestHelper.GetTestAssessmentLevel,
-                                                              handler);
+                                                                               AssessmentSectionTestHelper.GetTestAssessmentLevel,
+                                                                               handler);
 
             var editor = new PipingInputContextStochasticSoilModelSelectionEditor();
             var someValue = new object();

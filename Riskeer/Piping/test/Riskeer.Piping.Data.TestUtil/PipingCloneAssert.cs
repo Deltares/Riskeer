@@ -72,7 +72,7 @@ namespace Riskeer.Piping.Data.TestUtil
             Assert.AreSame(original.StochasticSoilProfile, clone.StochasticSoilProfile);
             Assert.AreSame(original.HydraulicBoundaryLocation, clone.HydraulicBoundaryLocation);
         }
-        
+
         /// <summary>
         /// Method that asserts whether <paramref name="original"/> and <paramref name="clone"/>
         /// are clones.

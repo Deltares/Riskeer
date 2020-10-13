@@ -88,9 +88,9 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
 
             var calculation = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput());
             var calculationInputContext = new SemiProbabilisticPipingInputContext(pipingInput, calculation, Enumerable.Empty<PipingSurfaceLine>(),
-                                                                 Enumerable.Empty<PipingStochasticSoilModel>(),
-                                                                 new PipingFailureMechanism(),
-                                                                 assessmentSection);
+                                                                                  Enumerable.Empty<PipingStochasticSoilModel>(),
+                                                                                  new PipingFailureMechanism(),
+                                                                                  assessmentSection);
 
             // Call
             object viewData = info.GetViewData(calculationInputContext);
@@ -109,11 +109,11 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
 
             var pipingCalculation = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput());
             var pipingCalculationScenarioContext = new SemiProbabilisticPipingCalculationScenarioContext(pipingCalculation,
-                                                                                        new CalculationGroup(),
-                                                                                        Enumerable.Empty<PipingSurfaceLine>(),
-                                                                                        Enumerable.Empty<PipingStochasticSoilModel>(),
-                                                                                        new PipingFailureMechanism(),
-                                                                                        assessmentSection);
+                                                                                                         new CalculationGroup(),
+                                                                                                         Enumerable.Empty<PipingSurfaceLine>(),
+                                                                                                         Enumerable.Empty<PipingStochasticSoilModel>(),
+                                                                                                         new PipingFailureMechanism(),
+                                                                                                         assessmentSection);
 
             using (var view = new PipingInputView
             {
@@ -140,11 +140,11 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
             var calculationToRemove = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput());
 
             var pipingCalculationScenarioContext = new SemiProbabilisticPipingCalculationScenarioContext(calculationToRemove,
-                                                                                        new CalculationGroup(),
-                                                                                        Enumerable.Empty<PipingSurfaceLine>(),
-                                                                                        Enumerable.Empty<PipingStochasticSoilModel>(),
-                                                                                        new PipingFailureMechanism(),
-                                                                                        assessmentSection);
+                                                                                                         new CalculationGroup(),
+                                                                                                         Enumerable.Empty<PipingSurfaceLine>(),
+                                                                                                         Enumerable.Empty<PipingStochasticSoilModel>(),
+                                                                                                         new PipingFailureMechanism(),
+                                                                                                         assessmentSection);
 
             using (var view = new PipingInputView
             {

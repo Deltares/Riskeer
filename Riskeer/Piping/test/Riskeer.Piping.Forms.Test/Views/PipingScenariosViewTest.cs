@@ -102,7 +102,7 @@ namespace Riskeer.Piping.Forms.Test.Views
         {
             // Call
             ShowPipingScenariosView(new PipingFailureMechanism());
-            
+
             // Assert
             var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
             Assert.AreEqual(7, dataGridView.ColumnCount);

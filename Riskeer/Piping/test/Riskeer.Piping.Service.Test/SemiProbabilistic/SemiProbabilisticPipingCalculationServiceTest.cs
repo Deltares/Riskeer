@@ -92,7 +92,7 @@ namespace Riskeer.Piping.Service.Test.SemiProbabilistic
 
             // Call
             bool isValid = SemiProbabilisticPipingCalculationService.Validate(invalidPipingCalculation,
-                                                             AssessmentSectionTestHelper.GetTestAssessmentLevel());
+                                                                              AssessmentSectionTestHelper.GetTestAssessmentLevel());
 
             // Assert
             Assert.IsFalse(isValid);

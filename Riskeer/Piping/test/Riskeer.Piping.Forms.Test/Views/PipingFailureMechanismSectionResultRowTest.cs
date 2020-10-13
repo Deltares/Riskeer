@@ -1066,12 +1066,12 @@ namespace Riskeer.Piping.Forms.Test.Views
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new PipingFailureMechanismSectionResult(section){};
+            var sectionResult = new PipingFailureMechanismSectionResult(section);
 
             SemiProbabilisticPipingCalculationScenario scenario = SemiProbabilisticPipingCalculationScenarioTestFactory.CreateNotCalculatedPipingCalculationScenario(section);
             scenario.Output = PipingOutputTestFactory.Create();
             scenario.Contribution = (RoundedDouble) 0.3;
-            
+
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var resultRow = new PipingFailureMechanismSectionResultRow(
