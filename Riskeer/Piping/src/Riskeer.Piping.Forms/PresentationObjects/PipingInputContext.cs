@@ -29,11 +29,11 @@ using Riskeer.Piping.Primitives;
 namespace Riskeer.Piping.Forms.PresentationObjects
 {
     /// <summary>
-    /// A presentation layer object wrapping an instance of <see cref="PipingInput"/>
+    /// A presentation layer object wrapping an instance of <see cref="SemiProbabilisticPipingInput"/>
     /// and allowing for selecting a surface line or soil profile based on data available
     /// in a piping failure mechanism.
     /// </summary>
-    public class PipingInputContext : PipingContext<PipingInput>
+    public class PipingInputContext : PipingContext<SemiProbabilisticPipingInput>
     {
         /// <summary>
         /// Creates a new instance of <see cref="PipingInputContext"/>
@@ -45,7 +45,7 @@ namespace Riskeer.Piping.Forms.PresentationObjects
         /// <param name="pipingFailureMechanism">The failure mechanism which the piping context belongs to.</param>
         /// <param name="assessmentSection">The assessment section which the piping context belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
-        public PipingInputContext(PipingInput pipingInput,
+        public PipingInputContext(SemiProbabilisticPipingInput pipingInput,
                                   PipingCalculationScenario calculation,
                                   IEnumerable<PipingSurfaceLine> surfaceLines,
                                   IEnumerable<PipingStochasticSoilModel> stochasticSoilModels,

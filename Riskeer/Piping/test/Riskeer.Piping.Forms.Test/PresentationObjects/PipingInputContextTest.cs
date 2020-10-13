@@ -76,7 +76,7 @@ namespace Riskeer.Piping.Forms.Test.PresentationObjects
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var calculationInput = new PipingInput(new GeneralPipingInput());
+            var calculationInput = new SemiProbabilisticPipingInput(new GeneralPipingInput());
             var surfaceLines = new[]
             {
                 new PipingSurfaceLine(string.Empty)
