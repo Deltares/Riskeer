@@ -36,5 +36,10 @@ namespace Riskeer.Piping.Data
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="generalInputParameters"/>
         /// is <c>null</c>.</exception>
         public ProbabilisticPipingInput(GeneralPipingInput generalInputParameters) : base(generalInputParameters) {}
+
+        /// <summary>
+        /// Gets or sets if the illustration points should be calculated.
+        /// </summary>
+        public bool ShouldIllustrationPointsBeCalculated { get; set; }
     }
 }
