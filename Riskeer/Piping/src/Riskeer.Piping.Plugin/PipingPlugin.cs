@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2019. All rights reserved.
+// Copyright (C) Stichting Deltares 2019. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -285,6 +285,11 @@ namespace Riskeer.Piping.Plugin
                 SemiProbabilisticCalculationContextChildNodeObjects,
                 SemiProbabilisticCalculationContextContextMenuStrip,
                 SemiProbabilisticCalculationContextOnNodeRemoved);
+
+            yield return RiskeerTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<ProbabilisticPipingCalculationContext>(
+                ProbabilisticCalculationContextChildNodeObjects,
+                ProbabilisticCalculationContextContextMenuStrip,
+                ProbabilisticCalculationContextOnNodeRemoved);
 
             yield return RiskeerTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<PipingCalculationGroupContext>(
                 CalculationGroupContextChildNodeObjects,
@@ -1005,6 +1010,127 @@ namespace Riskeer.Piping.Plugin
             ActivityProgressDialogRunner.Run(Gui.MainWindow,
                                              PipingCalculationActivityFactory.CreateCalculationActivity(calculation, context.AssessmentSection));
         }
+
+        #endregion
+
+        #region ProbabilisticPipingCalculationContext TreeNodeInfo
+
+        private static object[] ProbabilisticCalculationContextChildNodeObjects(ProbabilisticPipingCalculationContext context)
+        {
+            ProbabilisticPipingCalculation calculation = context.WrappedData;
+
+            var childNodes = new List<object>
+            {
+                calculation.Comments,
+                new ProbabilisticPipingInputContext(calculation.InputParameters,
+                                                    calculation,
+                                                    context.AvailablePipingSurfaceLines,
+                                                    context.AvailableStochasticSoilModels,
+                                                    context.FailureMechanism,
+                                                    context.AssessmentSection)
+            };
+
+            if (calculation.HasOutput)
+            {
+                childNodes.Add(new PipingOutputContext(
+                                   calculation.Output,
+                                   context.FailureMechanism,
+                                   context.AssessmentSection));
+            }
+            else
+            {
+                childNodes.Add(new EmptyPipingOutput());
+            }
+
+            return childNodes.ToArray();
+        }
+
+        private ContextMenuStrip ProbabilisticCalculationContextContextMenuStrip(ProbabilisticPipingCalculationContext nodeData,
+                                                                                 object parentData, TreeViewControl treeViewControl)
+        {
+            var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
+
+            ProbabilisticPipingCalculation calculation = nodeData.WrappedData;
+
+            StrictContextMenuItem updateEntryAndExitPoint = CreateUpdateEntryAndExitPointItem(nodeData);
+
+            return builder.AddExportItem()
+                          .AddSeparator()
+                          .AddDuplicateCalculationItem(calculation, nodeData)
+                          .AddSeparator()
+                          .AddRenameItem()
+                          .AddCustomItem(updateEntryAndExitPoint)
+                          .AddSeparator()
+                          .AddValidateCalculationItem(
+                              nodeData,
+                              Validate)
+                          .AddPerformCalculationItem(
+                              calculation,
+                              nodeData,
+                              Calculate)
+                          .AddSeparator()
+                          .AddClearCalculationOutputItem(calculation)
+                          .AddDeleteItem()
+                          .AddSeparator()
+                          .AddCollapseAllItem()
+                          .AddExpandAllItem()
+                          .AddSeparator()
+                          .AddPropertiesItem()
+                          .Build();
+        }
+
+        private StrictContextMenuItem CreateUpdateEntryAndExitPointItem(ProbabilisticPipingCalculationContext context)
+        {
+            var contextMenuEnabled = true;
+            string toolTipMessage = Resources.PipingPlugin_CreateUpdateEntryAndExitPointItem_Update_calculation_with_characteristic_points_ToolTip;
+            if (context.WrappedData.InputParameters.SurfaceLine == null)
+            {
+                contextMenuEnabled = false;
+                toolTipMessage = Resources.PipingPlugin_CreateUpdateEntryAndExitPointItem_Update_calculation_no_surface_line_ToolTip;
+            }
+            else if (context.WrappedData.InputParameters.IsEntryAndExitPointInputSynchronized)
+            {
+                contextMenuEnabled = false;
+                toolTipMessage = RiskeerCommonFormsResources.CalculationItem_No_changes_to_update_ToolTip;
+            }
+
+            return new StrictContextMenuItem(
+                Resources.PipingPlugin_CreateUpdateEntryAndExitPointItem_Update_entry_and_exit_point,
+                toolTipMessage,
+                RiskeerCommonFormsResources.UpdateItemIcon,
+                (o, args) => UpdatedSurfaceLineDependentDataOfCalculation(context.WrappedData))
+            {
+                Enabled = contextMenuEnabled
+            };
+        }
+
+        private void UpdatedSurfaceLineDependentDataOfCalculation(IPipingCalculation<ProbabilisticPipingInput, PipingOutput> calculation)
+        {
+            string message = RiskeerCommonFormsResources.VerifyUpdate_Confirm_calculation_output_cleared;
+            if (VerifyEntryAndExitPointUpdates(new[]
+            {
+                calculation
+            }, message))
+            {
+                UpdateSurfaceLineDependentData(calculation);
+            }
+        }
+
+        private static void ProbabilisticCalculationContextOnNodeRemoved(ProbabilisticPipingCalculationContext calculationContext, object parentNodeData)
+        {
+            if (parentNodeData is PipingCalculationGroupContext calculationGroupContext)
+            {
+                bool successfullyRemovedData = calculationGroupContext.WrappedData.Children.Remove(calculationContext.WrappedData);
+                if (successfullyRemovedData)
+                {
+                    calculationGroupContext.NotifyObservers();
+                }
+            }
+        }
+
+        private static void Validate(ProbabilisticPipingCalculationContext context) {}
+
+        private static void Calculate(ProbabilisticPipingCalculation calculation, ProbabilisticPipingCalculationContext context) {}
 
         #endregion
 
