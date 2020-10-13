@@ -315,6 +315,17 @@ namespace Riskeer.Piping.Plugin
                                                                                  .AddPropertiesItem()
                                                                                  .Build()
             };
+            
+            yield return new TreeNodeInfo<ProbabilisticPipingInputContext>
+            {
+                Text = pipingInputContext => RiskeerCommonFormsResources.Calculation_Input,
+                Image = pipingInputContext => PipingFormsResources.PipingInputIcon,
+                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
+                                                                                 .AddOpenItem()
+                                                                                 .AddSeparator()
+                                                                                 .AddPropertiesItem()
+                                                                                 .Build()
+            };
 
             yield return new TreeNodeInfo<PipingSurfaceLinesContext>
             {
