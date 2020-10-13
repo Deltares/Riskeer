@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2019. All rights reserved.
+// Copyright (C) Stichting Deltares 2019. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -78,6 +78,24 @@ namespace Riskeer.Piping.Plugin.Properties {
             }
             set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Semi-probabilistische berekening &amp;toevoegen.
+        /// </summary>
+        public static string CalculationGroup_Add_SemiProbabilisticCalculation {
+            get {
+                return ResourceManager.GetString("CalculationGroup_Add_SemiProbabilisticCalculation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Voeg een nieuwe semi-probabilistische berekening toe aan deze map met berekeningen..
+        /// </summary>
+        public static string CalculationGroup_Add_SemiProbabilisticCalculation_ToolTip {
+            get {
+                return ResourceManager.GetString("CalculationGroup_Add_SemiProbabilisticCalculation_ToolTip", resourceCulture);
             }
         }
         

@@ -718,6 +718,7 @@ namespace Riskeer.Piping.Plugin
             bool isNestedGroup = parentData is PipingCalculationGroupContext;
 
             StrictContextMenuItem generateCalculationsItem = CreateGeneratePipingCalculationsItem(nodeData);
+            StrictContextMenuItem addSemiProbabilisticCalculationItem = CreateAddSemiProbabilisticCalculationItem(nodeData);
 
             PipingCalculationScenario[] calculations = nodeData.WrappedData.GetCalculations()
                                                                .OfType<PipingCalculationScenario>()
@@ -746,7 +747,7 @@ namespace Riskeer.Piping.Plugin
             }
 
             builder.AddCreateCalculationGroupItem(group)
-                   .AddCreateCalculationItem(nodeData, AddCalculationScenario)
+                   .AddCustomItem(addSemiProbabilisticCalculationItem)
                    .AddSeparator();
 
             if (isNestedGroup)
@@ -836,6 +837,15 @@ namespace Riskeer.Piping.Plugin
             {
                 Enabled = surfaceLineAvailable
             };
+        }
+        
+        private static StrictContextMenuItem CreateAddSemiProbabilisticCalculationItem(PipingCalculationGroupContext context)
+        {
+            return new StrictContextMenuItem(
+                Resources.CalculationGroup_Add_SemiProbabilisticCalculation,
+                Resources.CalculationGroup_Add_SemiProbabilisticCalculation_ToolTip,
+                RiskeerCommonFormsResources.FailureMechanismIcon,
+                (sender, args) => AddCalculationScenario(context));
         }
 
         private void ShowSurfaceLineSelectionDialog(PipingCalculationGroupContext nodeData)

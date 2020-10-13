@@ -158,4 +158,10 @@ Weet u zeker dat u wilt doorgaan?</value>
 
 Weet u zeker dat u wilt doorgaan?</value>
   </data>
+  <data name="CalculationGroup_Add_SemiProbabilisticCalculation" xml:space="preserve">
+    <value>Semi-probabilistische berekening &amp;toevoegen</value>
+  </data>
+  <data name="CalculationGroup_Add_SemiProbabilisticCalculation_ToolTip" xml:space="preserve">
+    <value>Voeg een nieuwe semi-probabilistische berekening toe aan deze map met berekeningen.</value>
+  </data>
 </root>

@@ -59,7 +59,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
         private const int contextMenuImportCalculationGroupIndexRootGroup = 2;
         private const int contextMenuExportCalculationGroupIndexRootGroup = 3;
         private const int contextMenuAddCalculationGroupIndexRootGroup = 7;
-        private const int contextMenuAddCalculationIndexRootGroup = 8;
+        private const int contextMenuAddSemiProbabilisticCalculationIndexRootGroup = 8;
         private const int contextMenuUpdateEntryAndExitPointsAllIndexRootGroup = 10;
         private const int contextMenuValidateAllIndexRootGroup = 12;
         private const int contextMenuCalculateAllIndexRootGroup = 13;
@@ -72,7 +72,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
         private const int contextMenuExportCalculationGroupIndexNestedGroup = 1;
         private const int contextMenuDuplicateIndexNestedGroup = 3;
         private const int contextMenuAddCalculationGroupIndexNestedGroup = 5;
-        private const int contextMenuAddCalculationIndexNestedGroup = 6;
+        private const int contextMenuAddSemiProbabilisticCalculationIndexNestedGroup = 6;
         private const int contextMenuRenameCalculationGroupIndexNestedGroup = 8;
         private const int contextMenuUpdateEntryAndExitPointsAllIndexNestedGroup = 9;
         private const int contextMenuValidateAllIndexNestedGroup = 11;
@@ -259,9 +259,9 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                                                               "&Map toevoegen",
                                                               "Voeg een nieuwe map toe aan deze map met berekeningen.",
                                                               RiskeerCommonFormsResources.AddFolderIcon);
-                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationIndexNestedGroup,
-                                                              "Berekening &toevoegen",
-                                                              "Voeg een nieuwe berekening toe aan deze map met berekeningen.",
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddSemiProbabilisticCalculationIndexNestedGroup,
+                                                              "Semi-probabilistische berekening &toevoegen",
+                                                              "Voeg een nieuwe semi-probabilistische berekening toe aan deze map met berekeningen.",
                                                               RiskeerCommonFormsResources.CalculationIcon);
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuRenameCalculationGroupIndexNestedGroup,
                                                               "&Hernoemen",
@@ -385,9 +385,9 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                                                               "Voeg een nieuwe map toe aan deze map met berekeningen.",
                                                               RiskeerCommonFormsResources.AddFolderIcon);
 
-                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationIndexRootGroup,
-                                                              "Berekening &toevoegen",
-                                                              "Voeg een nieuwe berekening toe aan deze map met berekeningen.",
+                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddSemiProbabilisticCalculationIndexRootGroup,
+                                                              "Semi-probabilistische berekening &toevoegen",
+                                                              "Voeg een nieuwe semi-probabilistische berekening toe aan deze map met berekeningen.",
                                                               RiskeerCommonFormsResources.CalculationIcon);
 
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuUpdateEntryAndExitPointsAllIndexRootGroup,
@@ -906,7 +906,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                     Assert.AreEqual(1, group.Children.Count);
 
                     // Call
-                    contextMenu.Items[contextMenuAddCalculationIndexNestedGroup].PerformClick();
+                    contextMenu.Items[contextMenuAddSemiProbabilisticCalculationIndexNestedGroup].PerformClick();
 
                     // Assert
                     Assert.AreEqual(2, group.Children.Count);
