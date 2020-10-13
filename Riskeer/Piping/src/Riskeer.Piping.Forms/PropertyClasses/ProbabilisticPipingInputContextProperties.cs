@@ -31,12 +31,12 @@ using Core.Common.Util.Attributes;
 using Riskeer.Common.Forms.ChangeHandlers;
 using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.PresentationObjects;
-using Riskeer.Common.Forms.Properties;
 using Riskeer.Common.Forms.PropertyClasses;
 using Riskeer.Common.Forms.UITypeEditors;
 using Riskeer.Piping.Data;
 using Riskeer.Piping.Data.SoilProfile;
 using Riskeer.Piping.Forms.PresentationObjects;
+using Riskeer.Piping.Forms.Properties;
 using Riskeer.Piping.Forms.UITypeEditors;
 using Riskeer.Piping.Primitives;
 using Riskeer.Piping.Service;
@@ -45,7 +45,7 @@ using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 namespace Riskeer.Piping.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel of <see cref="PipingInputContext"/> for properties panel.
+    /// ViewModel of <see cref="ProbabilisticPipingInputContext"/> for properties panel.
     /// </summary>
     public class ProbabilisticPipingInputContextProperties : ObjectProperties<ProbabilisticPipingInputContext>,
                                                              IHasHydraulicBoundaryLocationProperty
@@ -108,76 +108,6 @@ namespace Riskeer.Piping.Forms.PropertyClasses
             this.propertyChangeHandler = propertyChangeHandler;
         }
 
-        #region Hydraulic data
-
-        [DynamicVisible]
-        [PropertyOrder(selectedHydraulicBoundaryLocationPropertyIndex)]
-        [Editor(typeof(HydraulicBoundaryLocationEditor), typeof(UITypeEditor))]
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_HydraulicData))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.HydraulicBoundaryLocation_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.HydraulicBoundaryLocation_Description_with_assessment_level))]
-        public SelectableHydraulicBoundaryLocation SelectedHydraulicBoundaryLocation
-        {
-            get
-            {
-                Point2D referencePoint = SurfaceLine?.ReferenceLineIntersectionWorldPoint;
-
-                return data.WrappedData.HydraulicBoundaryLocation != null
-                           ? new SelectableHydraulicBoundaryLocation(data.WrappedData.HydraulicBoundaryLocation,
-                                                                     referencePoint)
-                           : null;
-            }
-            set
-            {
-                PropertyChangeHelper.ChangePropertyAndNotify(() => data.WrappedData.HydraulicBoundaryLocation = value.HydraulicBoundaryLocation, propertyChangeHandler);
-            }
-        }
-
-        [PropertyOrder(dampingFactorExitPropertyIndex)]
-        [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_HydraulicData))]
-        [ResourcesDisplayName(typeof(Properties.Resources), nameof(Properties.Resources.PipingInput_DampingFactorExit_DisplayName))]
-        [ResourcesDescription(typeof(Properties.Resources), nameof(Properties.Resources.PipingInput_DampingFactorExit_Description))]
-        public LogNormalDistributionDesignVariableProperties DampingFactorExit
-        {
-            get
-            {
-                return new LogNormalDistributionDesignVariableProperties(DistributionReadOnlyProperties.None,
-                                                                         PipingSemiProbabilisticDesignVariableFactory.GetDampingFactorExit(data.WrappedData),
-                                                                         propertyChangeHandler);
-            }
-        }
-
-        [PropertyOrder(phreaticLevelExitPropertyIndex)]
-        [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_HydraulicData))]
-        [ResourcesDisplayName(typeof(Properties.Resources), nameof(Properties.Resources.PipingInput_PhreaticLevelExit_DisplayName))]
-        [ResourcesDescription(typeof(Properties.Resources), nameof(Properties.Resources.PipingInput_PhreaticLevelExit_Description))]
-        public NormalDistributionDesignVariableProperties PhreaticLevelExit
-        {
-            get
-            {
-                return new NormalDistributionDesignVariableProperties(DistributionReadOnlyProperties.None,
-                                                                      PipingSemiProbabilisticDesignVariableFactory.GetPhreaticLevelExit(data.WrappedData),
-                                                                      propertyChangeHandler);
-            }
-        }
-
-        [PropertyOrder(piezometricHeadExitPropertyIndex)]
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_HydraulicData))]
-        [ResourcesDisplayName(typeof(Properties.Resources), nameof(Properties.Resources.PipingInput_PiezometricHeadExit_DisplayName))]
-        [ResourcesDescription(typeof(Properties.Resources), nameof(Properties.Resources.PipingInput_PiezometricHeadExit_Description))]
-        public RoundedDouble PiezometricHeadExit
-        {
-            get
-            {
-                return DerivedPipingInput.GetPiezometricHeadExit(data.WrappedData, getNormativeAssessmentLevelFunc());
-            }
-        }
-
-
-        #endregion
-
         /// <summary>
         /// Gets the available stochastic soil models on <see cref="PipingCalculationScenarioContext"/>.
         /// </summary>
@@ -202,13 +132,82 @@ namespace Riskeer.Piping.Forms.PropertyClasses
                 data.AssessmentSection.HydraulicBoundaryDatabase.Locations, referencePoint);
         }
 
+        #region Hydraulic data
+
+        [DynamicVisible]
+        [PropertyOrder(selectedHydraulicBoundaryLocationPropertyIndex)]
+        [Editor(typeof(HydraulicBoundaryLocationEditor), typeof(UITypeEditor))]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_HydraulicData))]
+        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.HydraulicBoundaryLocation_DisplayName))]
+        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.HydraulicBoundaryLocation_Description_with_assessment_level))]
+        public SelectableHydraulicBoundaryLocation SelectedHydraulicBoundaryLocation
+        {
+            get
+            {
+                Point2D referencePoint = SurfaceLine?.ReferenceLineIntersectionWorldPoint;
+
+                return data.WrappedData.HydraulicBoundaryLocation != null
+                           ? new SelectableHydraulicBoundaryLocation(data.WrappedData.HydraulicBoundaryLocation,
+                                                                     referencePoint)
+                           : null;
+            }
+            set
+            {
+                PropertyChangeHelper.ChangePropertyAndNotify(() => data.WrappedData.HydraulicBoundaryLocation = value.HydraulicBoundaryLocation, propertyChangeHandler);
+            }
+        }
+
+        [PropertyOrder(dampingFactorExitPropertyIndex)]
+        [TypeConverter(typeof(ExpandableObjectConverter))]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_HydraulicData))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.PipingInput_DampingFactorExit_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.PipingInput_DampingFactorExit_Description))]
+        public LogNormalDistributionDesignVariableProperties DampingFactorExit
+        {
+            get
+            {
+                return new LogNormalDistributionDesignVariableProperties(DistributionReadOnlyProperties.None,
+                                                                         PipingSemiProbabilisticDesignVariableFactory.GetDampingFactorExit(data.WrappedData),
+                                                                         propertyChangeHandler);
+            }
+        }
+
+        [PropertyOrder(phreaticLevelExitPropertyIndex)]
+        [TypeConverter(typeof(ExpandableObjectConverter))]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_HydraulicData))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.PipingInput_PhreaticLevelExit_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.PipingInput_PhreaticLevelExit_Description))]
+        public NormalDistributionDesignVariableProperties PhreaticLevelExit
+        {
+            get
+            {
+                return new NormalDistributionDesignVariableProperties(DistributionReadOnlyProperties.None,
+                                                                      PipingSemiProbabilisticDesignVariableFactory.GetPhreaticLevelExit(data.WrappedData),
+                                                                      propertyChangeHandler);
+            }
+        }
+
+        [PropertyOrder(piezometricHeadExitPropertyIndex)]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_HydraulicData))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.PipingInput_PiezometricHeadExit_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.PipingInput_PiezometricHeadExit_Description))]
+        public RoundedDouble PiezometricHeadExit
+        {
+            get
+            {
+                return DerivedPipingInput.GetPiezometricHeadExit(data.WrappedData, getNormativeAssessmentLevelFunc());
+            }
+        }
+
+        #endregion
+
         #region Schematization
 
         [PropertyOrder(surfaceLinePropertyIndex)]
         [Editor(typeof(PipingInputContextSurfaceLineSelectionEditor), typeof(UITypeEditor))]
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Schematization))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.SurfaceLine_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.SurfaceLine_Description))]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization))]
+        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.SurfaceLine_DisplayName))]
+        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.SurfaceLine_Description))]
         public PipingSurfaceLine SurfaceLine
         {
             get
@@ -230,9 +229,9 @@ namespace Riskeer.Piping.Forms.PropertyClasses
 
         [PropertyOrder(stochasticSoilModelPropertyIndex)]
         [Editor(typeof(PipingInputContextStochasticSoilModelSelectionEditor), typeof(UITypeEditor))]
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Schematization))]
-        [ResourcesDisplayName(typeof(Properties.Resources), nameof(Properties.Resources.PipingInput_StochasticSoilModel_DisplayName))]
-        [ResourcesDescription(typeof(Properties.Resources), nameof(Properties.Resources.PipingInput_StochasticSoilModel_Description))]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.PipingInput_StochasticSoilModel_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.PipingInput_StochasticSoilModel_Description))]
         public PipingStochasticSoilModel StochasticSoilModel
         {
             get
@@ -254,9 +253,9 @@ namespace Riskeer.Piping.Forms.PropertyClasses
 
         [PropertyOrder(stochasticSoilProfilePropertyIndex)]
         [Editor(typeof(PipingInputContextStochasticSoilProfileSelectionEditor), typeof(UITypeEditor))]
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Schematization))]
-        [ResourcesDisplayName(typeof(Properties.Resources), nameof(Properties.Resources.PipingInput_StochasticSoilProfile_DisplayName))]
-        [ResourcesDescription(typeof(Properties.Resources), nameof(Properties.Resources.PipingInput_StochasticSoilProfile_Description))]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.PipingInput_StochasticSoilProfile_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.PipingInput_StochasticSoilProfile_Description))]
         public PipingStochasticSoilProfile StochasticSoilProfile
         {
             get
@@ -274,9 +273,9 @@ namespace Riskeer.Piping.Forms.PropertyClasses
 
         [DynamicReadOnly]
         [PropertyOrder(entryPointLPropertyIndex)]
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Schematization))]
-        [ResourcesDisplayName(typeof(Properties.Resources), nameof(Properties.Resources.PipingInput_EntryPointL_DisplayName))]
-        [ResourcesDescription(typeof(Properties.Resources), nameof(Properties.Resources.PipingInput_EntryPointL_Description))]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.PipingInput_EntryPointL_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.PipingInput_EntryPointL_Description))]
         public RoundedDouble EntryPointL
         {
             get
@@ -291,9 +290,9 @@ namespace Riskeer.Piping.Forms.PropertyClasses
 
         [DynamicReadOnly]
         [PropertyOrder(exitPointLPropertyIndex)]
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Schematization))]
-        [ResourcesDisplayName(typeof(Properties.Resources), nameof(Properties.Resources.PipingInput_ExitPointL_DisplayName))]
-        [ResourcesDescription(typeof(Properties.Resources), nameof(Properties.Resources.PipingInput_ExitPointL_Description))]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.PipingInput_ExitPointL_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.PipingInput_ExitPointL_Description))]
         public RoundedDouble ExitPointL
         {
             get
@@ -308,9 +307,9 @@ namespace Riskeer.Piping.Forms.PropertyClasses
 
         [PropertyOrder(seepageLengthPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Schematization))]
-        [ResourcesDisplayName(typeof(Properties.Resources), nameof(Properties.Resources.PipingInput_SeepageLength_DisplayName))]
-        [ResourcesDescription(typeof(Properties.Resources), nameof(Properties.Resources.PipingInput_SeepageLength_Description))]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.PipingInput_SeepageLength_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.PipingInput_SeepageLength_Description))]
         public VariationCoefficientLogNormalDistributionDesignVariableProperties SeepageLength
         {
             get
@@ -322,9 +321,9 @@ namespace Riskeer.Piping.Forms.PropertyClasses
 
         [PropertyOrder(thicknessCoverageLayerPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Schematization))]
-        [ResourcesDisplayName(typeof(Properties.Resources), nameof(Properties.Resources.PipingInput_ThicknessCoverageLayer_DisplayName))]
-        [ResourcesDescription(typeof(Properties.Resources), nameof(Properties.Resources.PipingInput_ThicknessCoverageLayer_Description))]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.PipingInput_ThicknessCoverageLayer_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.PipingInput_ThicknessCoverageLayer_Description))]
         public LogNormalDistributionDesignVariableProperties ThicknessCoverageLayer
         {
             get
@@ -336,9 +335,9 @@ namespace Riskeer.Piping.Forms.PropertyClasses
 
         [PropertyOrder(effectiveThicknessCoverageLayerPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Schematization))]
-        [ResourcesDisplayName(typeof(Properties.Resources), nameof(Properties.Resources.PipingInput_EffectiveThicknessCoverageLayer_DisplayName))]
-        [ResourcesDescription(typeof(Properties.Resources), nameof(Properties.Resources.PipingInput_EffectiveThicknessCoverageLayer_Description))]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.PipingInput_EffectiveThicknessCoverageLayer_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.PipingInput_EffectiveThicknessCoverageLayer_Description))]
         public LogNormalDistributionDesignVariableProperties EffectiveThicknessCoverageLayer
         {
             get
@@ -350,9 +349,9 @@ namespace Riskeer.Piping.Forms.PropertyClasses
 
         [PropertyOrder(thicknessAquiferLayerPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Schematization))]
-        [ResourcesDisplayName(typeof(Properties.Resources), nameof(Properties.Resources.PipingInput_ThicknessAquiferLayer_DisplayName))]
-        [ResourcesDescription(typeof(Properties.Resources), nameof(Properties.Resources.PipingInput_ThicknessAquiferLayer_Description))]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.PipingInput_ThicknessAquiferLayer_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.PipingInput_ThicknessAquiferLayer_Description))]
         public LogNormalDistributionDesignVariableProperties ThicknessAquiferLayer
         {
             get
@@ -364,9 +363,9 @@ namespace Riskeer.Piping.Forms.PropertyClasses
 
         [PropertyOrder(darcyPermeabilityPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Schematization))]
-        [ResourcesDisplayName(typeof(Properties.Resources), nameof(Properties.Resources.PipingInput_DarcyPermeability_DisplayName))]
-        [ResourcesDescription(typeof(Properties.Resources), nameof(Properties.Resources.PipingInput_DarcyPermeability_Description))]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.PipingInput_DarcyPermeability_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.PipingInput_DarcyPermeability_Description))]
         public VariationCoefficientLogNormalDistributionDesignVariableProperties DarcyPermeability
         {
             get
@@ -378,9 +377,9 @@ namespace Riskeer.Piping.Forms.PropertyClasses
 
         [PropertyOrder(diameter70PropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Schematization))]
-        [ResourcesDisplayName(typeof(Properties.Resources), nameof(Properties.Resources.PipingInput_Diameter70_DisplayName))]
-        [ResourcesDescription(typeof(Properties.Resources), nameof(Properties.Resources.PipingInput_Diameter70_Description))]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.PipingInput_Diameter70_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.PipingInput_Diameter70_Description))]
         public VariationCoefficientLogNormalDistributionDesignVariableProperties Diameter70
         {
             get
@@ -392,9 +391,9 @@ namespace Riskeer.Piping.Forms.PropertyClasses
 
         [PropertyOrder(saturatedVolumicWeightOfCoverageLayerPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Schematization))]
-        [ResourcesDisplayName(typeof(Properties.Resources), nameof(Properties.Resources.PipingInput_SaturatedVolumicWeightOfCoverageLayer_DisplayName))]
-        [ResourcesDescription(typeof(Properties.Resources), nameof(Properties.Resources.PipingInput_SaturatedVolumicWeightOfCoverageLayer_Description))]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.PipingInput_SaturatedVolumicWeightOfCoverageLayer_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.PipingInput_SaturatedVolumicWeightOfCoverageLayer_Description))]
         public ShiftedLogNormalDistributionDesignVariableProperties SaturatedVolumicWeightOfCoverageLayer
         {
             get
@@ -408,14 +407,40 @@ namespace Riskeer.Piping.Forms.PropertyClasses
 
         #region Section information
 
+        [DynamicReadOnly]
+        [PropertyOrder(sectionNamePropertyIndex)]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Output))]
+        [ResourcesDisplayName(typeof(Resources), nameof(RiskeerCommonFormsResources.SectionName_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(RiskeerCommonFormsResources.SectionName_Description))]
+        public string SectionName
+        {
+            get
+            {
+                return data.WrappedData.SectionName;
+            }
+        }
+
+        [DynamicReadOnly]
+        [PropertyOrder(sectionLengthPropertyIndex)]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Output))]
+        [ResourcesDisplayName(typeof(Resources), nameof(RiskeerCommonFormsResources.SectionLength_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(RiskeerCommonFormsResources.SectionLength_Description))]
+        public string SectionLength
+        {
+            get
+            {
+                return data.WrappedData.SectionName;
+            }
+        }
+
         #endregion
 
         #region Output
 
         [PropertyOrder(shouldIllustrationPointsBeCalculatedPropertyIndex)]
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Schematization))]
-        [ResourcesDisplayName(typeof(Properties.Resources), nameof(RiskeerCommonFormsResources.ShouldIllustrationPointsBeCalculated_DisplayName))]
-        [ResourcesDescription(typeof(Properties.Resources), nameof(RiskeerCommonFormsResources.ShouldIllustrationPointsBeCalculated_Description))]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_OutputSettings))]
+        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.ShouldIllustrationPointsBeCalculated_DisplayName))]
+        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.ShouldIllustrationPointsBeCalculated_Description))]
         public bool ShouldIllustrationPointsBeCalculated
         {
             get

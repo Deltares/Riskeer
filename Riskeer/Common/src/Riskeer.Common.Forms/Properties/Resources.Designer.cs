@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2019. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2019. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -2898,6 +2898,15 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Uitvoer.
+        /// </summary>
+        public static string Output {
+            get {
+                return ResourceManager.GetString("Output", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap OutputFolderIcon {
@@ -3208,6 +3217,42 @@ namespace Riskeer.Common.Forms.Properties {
         public static string SectionEnd_DisplayName {
             get {
                 return ResourceManager.GetString("SectionEnd_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vaklengte [m].
+        /// </summary>
+        public static string SectionLength_Description {
+            get {
+                return ResourceManager.GetString("SectionLength_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vaklengte [m].
+        /// </summary>
+        public static string SectionLength_DisplayName {
+            get {
+                return ResourceManager.GetString("SectionLength_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vaknaam.
+        /// </summary>
+        public static string SectionName_Description {
+            get {
+                return ResourceManager.GetString("SectionName_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vaknaam.
+        /// </summary>
+        public static string SectionName_DisplayName {
+            get {
+                return ResourceManager.GetString("SectionName_DisplayName", resourceCulture);
             }
         }
         

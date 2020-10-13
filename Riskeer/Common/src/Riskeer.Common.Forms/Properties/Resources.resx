@@ -1595,4 +1595,19 @@ scenario
     <value>toegestane peilverhoging komberging
 [m]</value>
   </data>
+  <data name="Output" xml:space="preserve">
+    <value>Uitvoer</value>
+  </data>
+  <data name="SectionLength_Description" xml:space="preserve">
+    <value>Vaklengte [m]</value>
+  </data>
+  <data name="SectionLength_DisplayName" xml:space="preserve">
+    <value>Vaklengte [m]</value>
+  </data>
+  <data name="SectionName_Description" xml:space="preserve">
+    <value>Vaknaam</value>
+  </data>
+  <data name="SectionName_DisplayName" xml:space="preserve">
+    <value>Vaknaam</value>
+  </data>
 </root>
