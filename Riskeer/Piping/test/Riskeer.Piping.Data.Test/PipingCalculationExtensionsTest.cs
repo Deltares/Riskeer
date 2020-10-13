@@ -31,7 +31,7 @@ using Riskeer.Piping.Primitives;
 namespace Riskeer.Piping.Data.Test
 {
     [TestFixture]
-    public class PipingCalculationScenarioExtensionsTest
+    public class PipingCalculationExtensionsTest
     {
         [Test]
         public void IsSurfaceLineIntersectionWithReferenceLineInSection_SurfaceLineNull_ReturnsFalse()

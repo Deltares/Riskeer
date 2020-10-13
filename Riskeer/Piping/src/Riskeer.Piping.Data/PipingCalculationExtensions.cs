@@ -30,7 +30,7 @@ namespace Riskeer.Piping.Data
     /// <summary>
     /// Defines extension methods dealing with <see cref="IPipingCalculation{TPipingInput,TPipingOutput}"/> instances.
     /// </summary>
-    public static class PipingCalculationScenarioExtensions
+    public static class PipingCalculationExtensions
     {
         /// <summary>
         /// Determines if the surface line of a calculation is intersecting with the section reference line.
