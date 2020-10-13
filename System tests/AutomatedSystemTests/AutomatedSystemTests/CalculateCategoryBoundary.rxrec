@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<recordtable
+embeddedrepository="False"
+id="b235cebd-3495-47c7-96d9-f82c3092f4cb"
+mode="Global">
+	<repeatcount>
+		1
+	</repeatcount>
+	<turbomode>
+		False
+	</turbomode>
+	<genreport>
+		True
+	</genreport>
+	<speedfactor>
+		1
+	</speedfactor>
+	<useDefaultItemLogging>
+		True
+	</useDefaultItemLogging>
+	<codegen
+	classname="CalculateCategoryBoundary"
+	namespace="AutomatedSystemTests">
+	</codegen>
+	<variables>
+		<var
+		id="16e50af2-562e-44a8-990b-c5568f64a537"
+		name="calculatedCategoryBoundary">
+		</var>
+	</variables>
+	<recorditems>
+		<userrecorditem
+		classname="CalculateCategoryBoundary"
+		enabled="True"
+		isexternaltestmethod="False"
+		methodname="CalculateSingleCategoryBoundary"
+		namespace="AutomatedSystemTests"
+		optional="False">
+			<comment>
+			</comment>
+			<bindings>
+				<binding
+				target="ReturnVariable"
+				variable="calculatedCategoryBoundary">
+				</binding>
+			</bindings>
+			<arguments
+			id="8208a479-62fe-4b75-8373-126695c90c01">
+			</arguments>
+		</userrecorditem>
+	</recorditems>
+	<repository
+	id="137723a5-e147-4b62-8c15-5c31a3d68f96"
+	name="AutomatedSystemTestsRepository"
+	relativepath="AutomatedSystemTestsRepository.rxrep">
+		<codegen
+		classname="AutomatedSystemTestsRepository"
+		namespace="AutomatedSystemTests">
+		</codegen>
+		<rootfolder
+		id="40cb8eed-98dc-4b16-a5ad-7ef93b4f444c"
+		name="_rootdummy_">
+		</rootfolder>
+	</repository>
+	<usercodefile
+	lang="CSharp">
+		CalculateCategoryBoundary.UserCode.cs
+	</usercodefile>
+	<references>
+	</references>
+</recordtable>

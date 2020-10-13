@@ -3739,6 +3739,12 @@
 			ref="3c2d44f5-31b5-4584-91c8-1ad748affc77"
 			type="Recording">
 			</testmodule>
+			<testmodule
+			id="5cf5f154-cb30-4728-8b81-be2f1c2230a9"
+			name="CalculateCategoryBoundary"
+			ref="b235cebd-3495-47c7-96d9-f82c3092f4cb"
+			type="Recording">
+			</testmodule>
 			<smartfoldernode
 			datasource="detailedAssessmentBSKWType"
 			id="5d98a6f1-5e9f-4420-8f4b-70a04216142f"
@@ -5362,6 +5368,10 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<smartfoldernode
+			id="8a8ffa3e-b7fa-4e60-8b15-6a29f00df521"
+			name="ValidateUpperBoundaries">
+			</smartfoldernode>
 			<testmodule
 			id="8ab87b1e-169d-4d5c-8cdd-4fc27b76b0d7"
 			name="ValidateDetailedAssessmentTypeAtRowCategoryIVv"
@@ -6341,6 +6351,10 @@
 			ref="3c2d44f5-31b5-4584-91c8-1ad748affc77"
 			type="Recording">
 			</testmodule>
+			<smartfoldernode
+			id="a19d64b1-9804-430e-b24d-b02b6bf6945a"
+			name="ValidateLowerBoundaries">
+			</smartfoldernode>
 			<testmodule
 			id="a21427ac-0a51-4e66-b4ea-2e2800b1719f"
 			name="AddNewTraject"
@@ -6781,6 +6795,12 @@
 					variablename="textItemDropDownMenu">
 					</var>
 				</missingdatavariablesbinding>
+			</testmodule>
+			<testmodule
+			id="b00fa597-7d2c-403b-98c9-b3b57af8a0ed"
+			name="ValidateCategoryBoundary"
+			ref="b8095d4b-9eb5-467b-976f-5811b54836f6"
+			type="Recording">
 			</testmodule>
 			<smartfoldernode
 			id="b02d0880-3b6a-463e-98a6-5186f92abd12"
@@ -9571,6 +9591,10 @@
 				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
+			id="eb4954a5-f66b-4693-981d-d581746768ca"
+			name="ValidateBoundaries">
+			</smartfoldernode>
+			<smartfoldernode
 			id="ec6146f8-9a08-478a-a252-c91651cac9fe"
 			name="CustomAssessmentFMsGroup1_HTKW">
 				<parameters>
@@ -10920,6 +10944,26 @@
 								id="60e53209-a978-4c5a-817e-3b4685b8922b"
 								name="OpenViewForCategoryBoundaries">
 								</testmodule>
+							</smartfoldernode>
+							<smartfoldernode
+							id="eb4954a5-f66b-4693-981d-d581746768ca"
+							name="ValidateBoundaries">
+								<smartfoldernode
+								id="a19d64b1-9804-430e-b24d-b02b6bf6945a"
+								name="ValidateLowerBoundaries">
+									<testmodule
+									id="5cf5f154-cb30-4728-8b81-be2f1c2230a9"
+									name="CalculateCategoryBoundary">
+									</testmodule>
+									<testmodule
+									id="b00fa597-7d2c-403b-98c9-b3b57af8a0ed"
+									name="ValidateCategoryBoundary">
+									</testmodule>
+								</smartfoldernode>
+								<smartfoldernode
+								id="8a8ffa3e-b7fa-4e60-8b15-6a29f00df521"
+								name="ValidateUpperBoundaries">
+								</smartfoldernode>
 							</smartfoldernode>
 						</smartfoldernode>
 						<smartfoldernode
@@ -16501,6 +16545,9 @@
 			id="88b858d8-647d-4f7f-9c26-ec7fc0783f3a">
 			</testcontainer>
 			<testcontainer
+			id="8a8ffa3e-b7fa-4e60-8b15-6a29f00df521">
+			</testcontainer>
+			<testcontainer
 			id="8b8fa870-c170-4c55-b819-337a8696544e">
 			</testcontainer>
 			<testcontainer
@@ -16550,6 +16597,9 @@
 			</testcontainer>
 			<testcontainer
 			id="a05f1ece-a4c1-439f-a1db-ff664bd18416">
+			</testcontainer>
+			<testcontainer
+			id="a19d64b1-9804-430e-b24d-b02b6bf6945a">
 			</testcontainer>
 			<testcontainer
 			id="a220e9d3-3388-4a68-b45b-6ab4a63711ed">
@@ -16748,6 +16798,9 @@
 			</testcontainer>
 			<testcontainer
 			id="ea9ba8b2-e4f0-4023-8f1a-fddd36872370">
+			</testcontainer>
+			<testcontainer
+			id="eb4954a5-f66b-4693-981d-d581746768ca">
 			</testcontainer>
 			<testcontainer
 			id="ec6146f8-9a08-478a-a252-c91651cac9fe">

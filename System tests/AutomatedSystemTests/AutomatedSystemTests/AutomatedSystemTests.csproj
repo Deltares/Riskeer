@@ -150,6 +150,18 @@
       <RepositoryCode>true</RepositoryCode>
       <id>325092cf-4a87-4a04-a578-da3aff997536</id>
     </Compile>
+    <Compile Include="CalculateCategoryBoundary.cs">
+      <BoundTo>19cd184f-d473-437a-9fd5-c592a2f61743</BoundTo>
+      <DependentUpon>CalculateCategoryBoundary.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>e6e89825-6bd5-445d-a2b3-c5c8a0cdc970</id>
+    </Compile>
+    <Compile Include="CalculateCategoryBoundary.UserCode.cs">
+      <BoundTo>19cd184f-d473-437a-9fd5-c592a2f61743</BoundTo>
+      <DependentUpon>CalculateCategoryBoundary.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>6217e391-5ede-44c5-97f8-aa4b0d6a63b0</id>
+    </Compile>
     <Compile Include="CalculateLinearTransformationOfValue.cs">
       <BoundTo>0d625f89-ffec-435d-9b39-d07be9cf66b5</BoundTo>
       <DependentUpon>CalculateLinearTransformationOfValue.rxrec</DependentUpon>
@@ -729,6 +741,18 @@
       <UserCode>true</UserCode>
       <id>5edd3525-f8f2-4e1e-9179-3c85f8165e4b</id>
     </Compile>
+    <Compile Include="ValidateCategoryBoundary.cs">
+      <BoundTo>28e8d2ac-8496-492c-bd67-c05dd0310839</BoundTo>
+      <DependentUpon>ValidateCategoryBoundary.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>311a55ef-b84d-4ae2-89cd-1f81897d4107</id>
+    </Compile>
+    <Compile Include="ValidateCategoryBoundary.UserCode.cs">
+      <BoundTo>28e8d2ac-8496-492c-bd67-c05dd0310839</BoundTo>
+      <DependentUpon>ValidateCategoryBoundary.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>42cfd11f-b1b1-4fec-bfb1-b648b87e1bcf</id>
+    </Compile>
     <Compile Include="ValidateContributionInFailureMechanismContributionView.cs">
       <BoundTo>45ca3cad-b4eb-4830-b715-695e59a034fc</BoundTo>
       <DependentUpon>ValidateContributionInFailureMechanismContributionView.rxrec</DependentUpon>
@@ -1098,6 +1122,11 @@
       <repoid>137723a5-e147-4b62-8c15-5c31a3d68f96</repoid>
       <reporootid>40cb8eed-98dc-4b16-a5ad-7ef93b4f444c</reporootid>
     </None>
+    <None Include="CalculateCategoryBoundary.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>19cd184f-d473-437a-9fd5-c592a2f61743</id>
+      <recordtableid>b235cebd-3495-47c7-96d9-f82c3092f4cb</recordtableid>
+    </None>
     <None Include="CalculateLinearTransformationOfValue.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>0d625f89-ffec-435d-9b39-d07be9cf66b5</id>
@@ -1337,6 +1366,11 @@
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>48b2d7f3-eb5f-4e6a-906d-06315aeaa9db</id>
       <recordtableid>18e39f84-9b42-4666-802c-2fecd9846123</recordtableid>
+    </None>
+    <None Include="ValidateCategoryBoundary.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>28e8d2ac-8496-492c-bd67-c05dd0310839</id>
+      <recordtableid>b8095d4b-9eb5-467b-976f-5811b54836f6</recordtableid>
     </None>
     <None Include="ValidateContributionInFailureMechanismContributionView.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
