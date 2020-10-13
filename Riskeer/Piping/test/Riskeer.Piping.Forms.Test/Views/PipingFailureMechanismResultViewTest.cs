@@ -288,7 +288,7 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             protected override SemiProbabilisticPipingCalculationScenario CreateCalculation()
             {
-                return PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithInvalidInput();
+                return SemiProbabilisticPipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithInvalidInput();
             }
         }
 

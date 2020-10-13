@@ -61,7 +61,7 @@ namespace Riskeer.Piping.Service.Test
         public void Run_InvalidPipingCalculation_LogValidationStartAndEndWithErrors()
         {
             // Setup
-            SemiProbabilisticPipingCalculation invalidPipingCalculation = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithInvalidInput();
+            SemiProbabilisticPipingCalculation invalidPipingCalculation = SemiProbabilisticPipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithInvalidInput();
 
             var activity = new PipingCalculationActivity(invalidPipingCalculation,
                                                          AssessmentSectionTestHelper.GetTestAssessmentLevel());
@@ -92,7 +92,7 @@ namespace Riskeer.Piping.Service.Test
         public void Run_ValidPipingCalculation_PerformPipingValidationAndCalculationAndLogStartAndEnd()
         {
             // Setup
-            SemiProbabilisticPipingCalculation validPipingCalculation = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput(new TestHydraulicBoundaryLocation());
+            SemiProbabilisticPipingCalculation validPipingCalculation = SemiProbabilisticPipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput(new TestHydraulicBoundaryLocation());
 
             var activity = new PipingCalculationActivity(validPipingCalculation,
                                                          AssessmentSectionTestHelper.GetTestAssessmentLevel());
@@ -124,7 +124,7 @@ namespace Riskeer.Piping.Service.Test
             observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
 
-            SemiProbabilisticPipingCalculation validPipingCalculation = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput(new TestHydraulicBoundaryLocation());
+            SemiProbabilisticPipingCalculation validPipingCalculation = SemiProbabilisticPipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput(new TestHydraulicBoundaryLocation());
             validPipingCalculation.Output = null;
             validPipingCalculation.Attach(observer);
 

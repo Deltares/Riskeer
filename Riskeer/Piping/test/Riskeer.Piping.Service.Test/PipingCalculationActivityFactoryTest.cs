@@ -64,7 +64,7 @@ namespace Riskeer.Piping.Service.Test
         public void CreateCalculationActivity_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Setup
-            SemiProbabilisticPipingCalculationScenario calculation = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithInvalidInput();
+            SemiProbabilisticPipingCalculationScenario calculation = SemiProbabilisticPipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithInvalidInput();
 
             // Call
             TestDelegate test = () => PipingCalculationActivityFactory.CreateCalculationActivity(calculation, null);
@@ -267,7 +267,7 @@ namespace Riskeer.Piping.Service.Test
 
         private static SemiProbabilisticPipingCalculationScenario CreateValidCalculation(HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
-            SemiProbabilisticPipingCalculationScenario calculation = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput(hydraulicBoundaryLocation);
+            SemiProbabilisticPipingCalculationScenario calculation = SemiProbabilisticPipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput(hydraulicBoundaryLocation);
             calculation.InputParameters.ExitPointL = new Random(39).NextRoundedDouble(0.5, 1.0);
             return calculation;
         }

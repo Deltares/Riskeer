@@ -30,13 +30,13 @@ using Riskeer.Piping.Service;
 namespace Riskeer.Piping.Data.TestUtil.Test
 {
     [TestFixture]
-    public class PipingCalculationScenarioTestFactoryTest
+    public class SemiProbabilisticPipingCalculationScenarioTestFactoryTest
     {
         [Test]
         public void CreatePipingCalculationScenario_SectionNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => PipingCalculationScenarioTestFactory.CreatePipingCalculationScenario(null);
+            void Call() => SemiProbabilisticPipingCalculationScenarioTestFactory.CreatePipingCalculationScenario(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -50,7 +50,7 @@ namespace Riskeer.Piping.Data.TestUtil.Test
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
 
             // Call
-            SemiProbabilisticPipingCalculationScenario scenario = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenario(section);
+            SemiProbabilisticPipingCalculationScenario scenario = SemiProbabilisticPipingCalculationScenarioTestFactory.CreatePipingCalculationScenario(section);
 
             // Assert
             Assert.IsNotNull(scenario.Output);
@@ -63,7 +63,7 @@ namespace Riskeer.Piping.Data.TestUtil.Test
         public void CreateIrrelevantPipingCalculationScenario_SectionNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => PipingCalculationScenarioTestFactory.CreateIrrelevantPipingCalculationScenario(null);
+            void Call() => SemiProbabilisticPipingCalculationScenarioTestFactory.CreateIrrelevantPipingCalculationScenario(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -77,7 +77,7 @@ namespace Riskeer.Piping.Data.TestUtil.Test
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
 
             // Call
-            SemiProbabilisticPipingCalculationScenario scenario = PipingCalculationScenarioTestFactory.CreateIrrelevantPipingCalculationScenario(section);
+            SemiProbabilisticPipingCalculationScenario scenario = SemiProbabilisticPipingCalculationScenarioTestFactory.CreateIrrelevantPipingCalculationScenario(section);
 
             // Assert
             Assert.IsFalse(scenario.IsRelevant);
@@ -87,7 +87,7 @@ namespace Riskeer.Piping.Data.TestUtil.Test
         public void CreateNotCalculatedPipingCalculationScenario_SectionNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => PipingCalculationScenarioTestFactory.CreateNotCalculatedPipingCalculationScenario(null);
+            void Call() => SemiProbabilisticPipingCalculationScenarioTestFactory.CreateNotCalculatedPipingCalculationScenario(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -101,7 +101,7 @@ namespace Riskeer.Piping.Data.TestUtil.Test
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
 
             // Call
-            SemiProbabilisticPipingCalculationScenario scenario = PipingCalculationScenarioTestFactory.CreateNotCalculatedPipingCalculationScenario(section);
+            SemiProbabilisticPipingCalculationScenario scenario = SemiProbabilisticPipingCalculationScenarioTestFactory.CreateNotCalculatedPipingCalculationScenario(section);
 
             // Assert
             Assert.IsNull(scenario.Output);
@@ -114,7 +114,7 @@ namespace Riskeer.Piping.Data.TestUtil.Test
         public void CreatePipingCalculationScenarioWithInvalidInput_CreatesPipingCalculationScenarioWithInvalidInput()
         {
             // Call
-            SemiProbabilisticPipingCalculationScenario scenario = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithInvalidInput();
+            SemiProbabilisticPipingCalculationScenario scenario = SemiProbabilisticPipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithInvalidInput();
 
             // Assert
             Assert.IsFalse(PipingCalculationService.Validate(scenario, (RoundedDouble) 1.1));
@@ -124,7 +124,7 @@ namespace Riskeer.Piping.Data.TestUtil.Test
         public void CreatePipingCalculationScenarioWithValidInput_HydraulicBoundaryLocationNull_ThrowsArgumentnullException()
         {
             // Call
-            void Call() => PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput(null);
+            void Call() => SemiProbabilisticPipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -138,7 +138,7 @@ namespace Riskeer.Piping.Data.TestUtil.Test
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
 
             // Call
-            SemiProbabilisticPipingCalculationScenario scenario = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput(hydraulicBoundaryLocation);
+            SemiProbabilisticPipingCalculationScenario scenario = SemiProbabilisticPipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput(hydraulicBoundaryLocation);
 
             // Assert
             Assert.AreSame(hydraulicBoundaryLocation, scenario.InputParameters.HydraulicBoundaryLocation);

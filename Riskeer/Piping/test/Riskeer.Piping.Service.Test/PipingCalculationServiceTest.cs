@@ -51,7 +51,7 @@ namespace Riskeer.Piping.Service.Test
         [SetUp]
         public void Setup()
         {
-            testCalculation = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput(new TestHydraulicBoundaryLocation());
+            testCalculation = SemiProbabilisticPipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput(new TestHydraulicBoundaryLocation());
             testSurfaceLineTopLevel = testCalculation.InputParameters.SurfaceLine.Points.Max(p => p.Z);
         }
 
@@ -86,7 +86,7 @@ namespace Riskeer.Piping.Service.Test
         {
             // Setup
             PipingOutput output = PipingOutputTestFactory.Create();
-            SemiProbabilisticPipingCalculation invalidPipingCalculation = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithInvalidInput();
+            SemiProbabilisticPipingCalculation invalidPipingCalculation = SemiProbabilisticPipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithInvalidInput();
             invalidPipingCalculation.Output = output;
 
             // Call

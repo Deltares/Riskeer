@@ -609,7 +609,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                 {
                     Children =
                     {
-                        PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput(hydraulicBoundaryLocation)
+                        SemiProbabilisticPipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput(hydraulicBoundaryLocation)
                     }
                 };
 
@@ -744,7 +744,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                 {
                     Children =
                     {
-                        PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput(hydraulicBoundaryLocation)
+                        SemiProbabilisticPipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput(hydraulicBoundaryLocation)
                     }
                 };
 
@@ -783,7 +783,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             {
                 var pipingFailureMechanism = new TestPipingFailureMechanism();
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
-                SemiProbabilisticPipingCalculationScenario pipingCalculationScenario = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput(new TestHydraulicBoundaryLocation());
+                SemiProbabilisticPipingCalculationScenario pipingCalculationScenario = SemiProbabilisticPipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput(new TestHydraulicBoundaryLocation());
                 var group = new CalculationGroup
                 {
                     Children =
@@ -1015,9 +1015,9 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                     hydraulicBoundaryLocation
                 }, true);
 
-                SemiProbabilisticPipingCalculationScenario validCalculation = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput(hydraulicBoundaryLocation);
+                SemiProbabilisticPipingCalculationScenario validCalculation = SemiProbabilisticPipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput(hydraulicBoundaryLocation);
                 validCalculation.Name = "A";
-                SemiProbabilisticPipingCalculationScenario invalidCalculation = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithInvalidInput();
+                SemiProbabilisticPipingCalculationScenario invalidCalculation = SemiProbabilisticPipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithInvalidInput();
                 invalidCalculation.Name = "B";
 
                 var childGroup = new CalculationGroup();
@@ -1088,9 +1088,9 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                     hydraulicBoundaryLocation
                 }, true);
 
-                SemiProbabilisticPipingCalculationScenario calculationA = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput(hydraulicBoundaryLocation);
+                SemiProbabilisticPipingCalculationScenario calculationA = SemiProbabilisticPipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput(hydraulicBoundaryLocation);
                 calculationA.Name = "A";
-                SemiProbabilisticPipingCalculationScenario calculationB = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput(hydraulicBoundaryLocation);
+                SemiProbabilisticPipingCalculationScenario calculationB = SemiProbabilisticPipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput(hydraulicBoundaryLocation);
                 calculationB.Name = "B";
 
                 var childGroup = new CalculationGroup();
@@ -1185,11 +1185,11 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                     hydraulicBoundaryLocation
                 }, true);
 
-                SemiProbabilisticPipingCalculationScenario calculation1 = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput(hydraulicBoundaryLocation);
+                SemiProbabilisticPipingCalculationScenario calculation1 = SemiProbabilisticPipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput(hydraulicBoundaryLocation);
                 calculation1.Name = "A";
                 calculation1.Output = PipingOutputTestFactory.Create();
                 calculation1.Attach(calculation1Observer);
-                SemiProbabilisticPipingCalculationScenario calculation2 = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput(hydraulicBoundaryLocation);
+                SemiProbabilisticPipingCalculationScenario calculation2 = SemiProbabilisticPipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput(hydraulicBoundaryLocation);
                 calculation2.Name = "B";
                 calculation2.Output = PipingOutputTestFactory.Create();
                 calculation2.Attach(calculation2Observer);

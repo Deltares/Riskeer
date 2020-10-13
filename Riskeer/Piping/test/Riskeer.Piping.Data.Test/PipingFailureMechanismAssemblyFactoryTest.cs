@@ -286,7 +286,7 @@ namespace Riskeer.Piping.Data.Test
                         sectionResult,
                         new[]
                         {
-                            PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput(hydraulicBoundaryLocation)
+                            SemiProbabilisticPipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput(hydraulicBoundaryLocation)
                         },
                         failureMechanism,
                         assessmentSection);
@@ -323,7 +323,7 @@ namespace Riskeer.Piping.Data.Test
                     sectionResult,
                     new[]
                     {
-                        PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput(hydraulicBoundaryLocation)
+                        SemiProbabilisticPipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput(hydraulicBoundaryLocation)
                     },
                     failureMechanism,
                     assessmentSection);

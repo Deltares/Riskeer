@@ -36,7 +36,7 @@ namespace Riskeer.Piping.Data.TestUtil
     /// Helper class for creating different instances of <see cref="SemiProbabilisticPipingCalculationScenario"/>
     /// for easier testing.
     /// </summary>
-    public static class PipingCalculationScenarioTestFactory
+    public static class SemiProbabilisticPipingCalculationScenarioTestFactory
     {
         /// <summary>
         /// Creates a calculated scenario for which the surface line on the input intersects with <paramref name="section"/>.
