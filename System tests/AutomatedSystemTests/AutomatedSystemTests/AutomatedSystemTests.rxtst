@@ -3,25 +3,6 @@
 	<testsuiteentryhierarchy>
 		<flatlistofchildren>
 			<smartfoldernode
-			datasource="tableFMsToSetAndValidateValueFor_2NA"
-			id="004305c8-dc2f-4236-9cb5-fb4029bbb90b"
-			name="SetAndValidateNewValueFor_2NA">
-				<parameters>
-					<param
-					name="nameOfParameter_2NA_InPropertiesPanel"
-					value="2NA [-]">
-					</param>
-					<param
-					name="initialValueParameter_2NA"
-					value="">
-					</param>
-					<param
-					name="finalValueParameter_2NA"
-					value="3">
-					</param>
-				</parameters>
-			</smartfoldernode>
-			<smartfoldernode
 			datasource="setRelevance44_2FailureMechanismContributionView"
 			id="00c7a4e5-d91a-40ea-9fc2-39264a957d87"
 			name="LoopFMs">
@@ -66,69 +47,6 @@
 			ref="f0658d7f-65e3-4f38-afe8-97fd942c1478"
 			type="Recording">
 			</testmodule>
-			<testmodule
-			id="02ab976f-385f-419e-a525-516a1091e111"
-			name="SetValueParameterForItemInTraject"
-			ref="fe097e7d-bf74-4910-a6c5-c4cd7da935d8"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="hardCodedTrajectToAdd"
-					datasourceid="de320efd-8193-4dd4-9e9d-8fb5690ddafb"
-					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
-					variablename="substringTrajectName">
-					</var>
-					<var
-					dataname="nameOfParameter_2NA_InPropertiesPanel"
-					datasourceid="004305c8-dc2f-4236-9cb5-fb4029bbb90b"
-					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
-					variablename="nameOfParameterInPropertiesPanel">
-					</var>
-					<var
-					dataname="fmName"
-					datasourceid="bede15ad-b61c-41fa-a4ae-07db5ac38d84"
-					variableid="cb52c14e-9bef-4f4a-9d11-1758141c50cb"
-					variablename="substringNameItemInTraject">
-					</var>
-					<var
-					dataname="finalValueParameter_2NA"
-					datasourceid="004305c8-dc2f-4236-9cb5-fb4029bbb90b"
-					variableid="7ba665dd-518f-4369-9f74-2efdb2cfd916"
-					variablename="valueToSetParameterForItemInTraject">
-					</var>
-				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="fmName"
-					datasourceid="6dd3da41-63a0-417f-af27-bce097b7b5b7"
-					variableid="cb52c14e-9bef-4f4a-9d11-1758141c50cb"
-					variablename="substringNameItemInTraject">
-					</var>
-					<var
-					dataname="nameOfParameter_DeltaL_InPropertiesPanel"
-					datasourceid="b76df6f8-799c-4ff8-8df2-198969a6b4be"
-					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
-					variablename="nameOfParameterInPropertiesPanel">
-					</var>
-					<var
-					dataname="finalValueParameter_DeltaL"
-					datasourceid="b76df6f8-799c-4ff8-8df2-198969a6b4be"
-					variableid="7ba665dd-518f-4369-9f74-2efdb2cfd916"
-					variablename="valueToSetParameterForItemInTraject">
-					</var>
-				</missingdatabinding>
-			</testmodule>
-			<smartfoldernode
-			datasource="tableFMsWIthNoNParameter"
-			id="02d6fbbd-047b-4a52-86eb-40cf83f3a5ba"
-			name="NoParameterN(STMI,AWO,GABU,GABI,STKWI,INN)">
-				<parameters>
-					<param
-					name="NNameInPropertiesPanel"
-					value="N [-]">
-					</param>
-				</parameters>
-			</smartfoldernode>
 			<testmodule
 			id="03349242-efda-46a7-b3e2-71c891fc246e"
 			name="CloseViewCentralPanelWithFocus"
@@ -540,7 +458,7 @@
 			<smartfoldernode
 			datasource="tableFMsToValidateTrajectLength"
 			id="1010c180-4323-4c5d-a8f2-a1541376c852"
-			name="CompareTrajectLengthInFMs">
+			name="CompareTrajectLengthInFM">
 				<parameters>
 					<param
 					name="nameOfLengthParameterToValidate"
@@ -583,58 +501,6 @@
 				</missingdatabinding>
 			</testmodule>
 			<testmodule
-			id="1115d338-6f63-4419-b0ef-587167c98aa9"
-			name="ValidateValueParameterForItemInTraject"
-			ref="54946666-7cba-49b9-b848-41ea43b074d9"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="hardCodedTrajectToAdd"
-					datasourceid="de320efd-8193-4dd4-9e9d-8fb5690ddafb"
-					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
-					variablename="substringTrajectName">
-					</var>
-					<var
-					dataname="nameOfParameter_2NA_InPropertiesPanel"
-					datasourceid="004305c8-dc2f-4236-9cb5-fb4029bbb90b"
-					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
-					variablename="nameOfParameterInPropertiesPanel">
-					</var>
-					<var
-					dataname="fmName"
-					datasourceid="bede15ad-b61c-41fa-a4ae-07db5ac38d84"
-					variableid="cb52c14e-9bef-4f4a-9d11-1758141c50cb"
-					variablename="substringNameItemInTraject">
-					</var>
-					<var
-					dataname="finalValueParameter_2NA"
-					datasourceid="004305c8-dc2f-4236-9cb5-fb4029bbb90b"
-					variableid="541e9cf7-fb71-4773-bd20-19b633ea6f9d"
-					variablename="expectedValueOfParameterForItemInTraject">
-					</var>
-				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="fmName"
-					datasourceid="6dd3da41-63a0-417f-af27-bce097b7b5b7"
-					variableid="cb52c14e-9bef-4f4a-9d11-1758141c50cb"
-					variablename="substringNameItemInTraject">
-					</var>
-					<var
-					dataname="finalValueParameter_DeltaL"
-					datasourceid="b76df6f8-799c-4ff8-8df2-198969a6b4be"
-					variableid="541e9cf7-fb71-4773-bd20-19b633ea6f9d"
-					variablename="expectedValueOfParameterForItemInTraject">
-					</var>
-					<var
-					dataname="nameOfParameter_DeltaL_InPropertiesPanel"
-					datasourceid="b76df6f8-799c-4ff8-8df2-198969a6b4be"
-					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
-					variablename="nameOfParameterInPropertiesPanel">
-					</var>
-				</missingdatabinding>
-			</testmodule>
-			<testmodule
 			id="119063a9-23da-4b4e-a0d7-504af8944e9d"
 			name="ValidateDetailedAssessmentValueAtRow"
 			ref="91919928-72e3-45e3-8af5-a51f8db749e3"
@@ -668,58 +534,6 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
-			<testmodule
-			id="127cd33f-3715-4bd8-8b74-c3ed29f9a79d"
-			name="ValidateValueParameterForItemInTraject"
-			ref="54946666-7cba-49b9-b848-41ea43b074d9"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="hardCodedTrajectToAdd"
-					datasourceid="de320efd-8193-4dd4-9e9d-8fb5690ddafb"
-					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
-					variablename="substringTrajectName">
-					</var>
-					<var
-					dataname="nameOfParameter_DeltaL_InPropertiesPanel"
-					datasourceid="b76df6f8-799c-4ff8-8df2-198969a6b4be"
-					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
-					variablename="nameOfParameterInPropertiesPanel">
-					</var>
-					<var
-					dataname="finalValueParameter_DeltaL"
-					datasourceid="b76df6f8-799c-4ff8-8df2-198969a6b4be"
-					variableid="541e9cf7-fb71-4773-bd20-19b633ea6f9d"
-					variablename="expectedValueOfParameterForItemInTraject">
-					</var>
-					<var
-					dataname="fmName"
-					datasourceid="6dd3da41-63a0-417f-af27-bce097b7b5b7"
-					variableid="cb52c14e-9bef-4f4a-9d11-1758141c50cb"
-					variablename="substringNameItemInTraject">
-					</var>
-				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="fmName"
-					datasourceid="748d51a9-ceeb-4ad2-9005-0e58af7ac131"
-					variableid="cb52c14e-9bef-4f4a-9d11-1758141c50cb"
-					variablename="substringNameItemInTraject">
-					</var>
-					<var
-					dataname="finalValueParameter_a"
-					datasourceid="8cb65e99-632a-4992-ae3e-ec6bb44ff32d"
-					variableid="541e9cf7-fb71-4773-bd20-19b633ea6f9d"
-					variablename="expectedValueOfParameterForItemInTraject">
-					</var>
-					<var
-					dataname="nameOfParameter_a_InPropertiesPanel"
-					datasourceid="8cb65e99-632a-4992-ae3e-ec6bb44ff32d"
-					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
-					variablename="nameOfParameterInPropertiesPanel">
-					</var>
-				</missingdatabinding>
-			</testmodule>
 			<smartfoldernode
 			datasource="customAssessmentHTKW"
 			id="13215e9b-ec6c-4672-94f7-9dfaa4786756"
@@ -744,58 +558,6 @@
 					variablename="AppPath">
 					</var>
 				</databinding>
-			</testmodule>
-			<testmodule
-			id="13aec01b-f5ba-45a0-bf51-084f3df2a7e5"
-			name="ValidateValueParameterForItemInTraject"
-			ref="54946666-7cba-49b9-b848-41ea43b074d9"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="hardCodedTrajectToAdd"
-					datasourceid="de320efd-8193-4dd4-9e9d-8fb5690ddafb"
-					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
-					variablename="substringTrajectName">
-					</var>
-					<var
-					dataname="NParameterNameInPropertiesPanel"
-					datasourceid="d08f45c8-4f17-409f-ade9-f896ccfc0c91"
-					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
-					variablename="nameOfParameterInPropertiesPanel">
-					</var>
-					<var
-					dataname="fmName"
-					datasourceid="903b5ff4-9ed4-4974-8688-9c279ca9633c"
-					variableid="cb52c14e-9bef-4f4a-9d11-1758141c50cb"
-					variablename="substringNameItemInTraject">
-					</var>
-					<var
-					dataname="NValue"
-					datasourceid="903b5ff4-9ed4-4974-8688-9c279ca9633c"
-					variableid="541e9cf7-fb71-4773-bd20-19b633ea6f9d"
-					variablename="expectedValueOfParameterForItemInTraject">
-					</var>
-				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="fmName"
-					datasourceid="b45bfffb-5bba-474f-b237-c2f41613bb15"
-					variableid="cb52c14e-9bef-4f4a-9d11-1758141c50cb"
-					variablename="substringNameItemInTraject">
-					</var>
-					<var
-					dataname="convertedValue"
-					datasourceid="548bde8b-44b7-4508-aaf3-3824011d3029"
-					variableid="541e9cf7-fb71-4773-bd20-19b633ea6f9d"
-					variablename="expectedValueOfParameterForItemInTraject">
-					</var>
-					<var
-					dataname="NNameInPropertiesPanel"
-					datasourceid="548bde8b-44b7-4508-aaf3-3824011d3029"
-					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
-					variablename="nameOfParameterInPropertiesPanel">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="144b94b7-6f3a-452f-9c0e-4eb2aace5612"
@@ -908,7 +670,6 @@
 				</databinding>
 			</testmodule>
 			<testmodule
-			enabled="False"
 			id="170f46b0-fe63-4238-9874-af8420fa3e8f"
 			name="CloseAUT"
 			ref="07688822-3eb6-4d71-a97b-33498ae1d748"
@@ -1041,34 +802,22 @@
 				</missingdatabinding>
 			</testmodule>
 			<testmodule
-			id="19df0b36-eb0a-4d14-ada6-547eda8896bf"
-			name="CalculateNFormula1"
-			ref="41b2435b-9741-4e36-b6b5-e09633ca92af"
+			id="1a1ce4d8-2e64-4c2d-9b58-fb68447b6cd0"
+			name="SetCustomAssessmentAtRowBSKW"
+			ref="e78f6f84-4ef0-4595-a918-ed7f2b719e4e"
 			type="Recording">
 				<databinding>
 					<var
-					dataname="a"
-					datasourceid="42425944-15c7-418b-b5cd-a582e15b80df"
-					variableid="c4fb7e0f-1b4a-4bea-9859-6df4ef4e7575"
-					variablename="param_a">
+					dataname="rowIndex"
+					datasourceid="79c90d4e-7015-4bbc-a7e5-9c7c59ef642b"
+					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
+					variablename="rowIndex">
 					</var>
 					<var
-					dataname="b"
-					datasourceid="42425944-15c7-418b-b5cd-a582e15b80df"
-					variableid="d4d40a20-8e23-43c9-8d61-e0223065ca14"
-					variablename="param_b">
-					</var>
-					<var
-					dataname="Ltraject"
-					datasourceid="42425944-15c7-418b-b5cd-a582e15b80df"
-					variableid="aca9a68d-d676-4995-b752-34e825497c29"
-					variablename="L_traject">
-					</var>
-					<var
-					dataname="NCalculated"
-					datasourceid="42425944-15c7-418b-b5cd-a582e15b80df"
-					variableid="c2e2a175-ac6e-4e69-a5aa-8e49e7a9e37e"
-					variablename="calculatedN">
+					dataname="CustomAssessmentTypeItem"
+					datasourceid="79c90d4e-7015-4bbc-a7e5-9c7c59ef642b"
+					variableid="c5b8922f-77bf-441a-9b88-99da98bf1e54"
+					variablename="DropDownItem">
 					</var>
 				</databinding>
 			</testmodule>
@@ -1185,22 +934,12 @@
 			id="1ca083b2-ffd0-4553-a50a-f17aad616df9"
 			name="ValidateDetailedAsssessmentType">
 			</smartfoldernode>
-			<smartfoldernode
-			id="1d7d98c9-1fe4-475e-a93d-ce80f772ec6d"
-			name="ValidateLengthEffectParameterN">
-			</smartfoldernode>
 			<testmodule
 			id="1d810921-50cd-4fc1-8d23-f9cd2c9ecfd5"
 			name="SetCustomAssessmentAtRow"
 			ref="dc218a16-91e8-4197-ae23-5bbe0c083a04"
 			type="Recording">
 				<databinding>
-					<var
-					dataname="CustomAssessmentTypeItem"
-					datasourceid="966ae336-7d09-4c72-8bd1-f42df6fe0f32"
-					variableid="c5b8922f-77bf-441a-9b88-99da98bf1e54"
-					variablename="DropDownItem">
-					</var>
 					<var
 					dataname="rowIndex"
 					datasourceid="966ae336-7d09-4c72-8bd1-f42df6fe0f32"
@@ -1212,6 +951,12 @@
 					datasourceid="966ae336-7d09-4c72-8bd1-f42df6fe0f32"
 					variableid="ebca180a-929b-4462-bf7c-2388fcd92b35"
 					variablename="expectedCustomAssessmentValue">
+					</var>
+					<var
+					dataname="CustomAssessmentTypeItem"
+					datasourceid="966ae336-7d09-4c72-8bd1-f42df6fe0f32"
+					variableid="c5b8922f-77bf-441a-9b88-99da98bf1e54"
+					variablename="DropDownItem">
 					</var>
 				</databinding>
 				<missingdatabinding>
@@ -1270,7 +1015,7 @@
 					variablename="rowIndex">
 					</var>
 					<var
-					dataname="FaalkansSetValue"
+					dataname="FaalkansValidateValue"
 					datasourceid="db66c0df-6518-4c43-b352-656c3623717d"
 					variableid="ebca180a-929b-4462-bf7c-2388fcd92b35"
 					variablename="expectedCustomAssessmentValue">
@@ -1282,6 +1027,14 @@
 					variablename="DropDownItem">
 					</var>
 				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="FaalkansSetValue"
+					datasourceid="db66c0df-6518-4c43-b352-656c3623717d"
+					variableid="ebca180a-929b-4462-bf7c-2388fcd92b35"
+					variablename="expectedCustomAssessmentValue">
+					</var>
+				</missingdatabinding>
 				<missingdatavariablesbinding>
 					<var
 					dataname="CustomAssessmentTypeItem"
@@ -1479,58 +1232,6 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
-			<testmodule
-			id="271738ae-5952-4a54-a0d6-dc1ad4aab3ca"
-			name="GetValueParameterForItemInTraject"
-			ref="3b08b464-43f7-4e4b-9c47-143e9b31807c"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="hardCodedTrajectToAdd"
-					datasourceid="de320efd-8193-4dd4-9e9d-8fb5690ddafb"
-					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
-					variablename="substringTrajectName">
-					</var>
-					<var
-					dataname="fmName"
-					datasourceid="56686535-e9c1-4dee-937e-6edd48e15b86"
-					variableid="cb52c14e-9bef-4f4a-9d11-1758141c50cb"
-					variablename="substringNameItemInTraject">
-					</var>
-					<var
-					dataname="twoNAParameterValue"
-					datasourceid="56686535-e9c1-4dee-937e-6edd48e15b86"
-					variableid="d2cb0634-81a3-4751-83ba-7939e1c8f258"
-					variablename="valueOfParameterInPropertiesPanel">
-					</var>
-					<var
-					dataname="twoNANameInPropertiesPanel"
-					datasourceid="56686535-e9c1-4dee-937e-6edd48e15b86"
-					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
-					variablename="nameOfParameterInPropertiesPanel">
-					</var>
-				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="fmName"
-					datasourceid="5328d042-0c00-4277-af0a-8c5ec2f49435"
-					variableid="cb52c14e-9bef-4f4a-9d11-1758141c50cb"
-					variablename="substringNameItemInTraject">
-					</var>
-					<var
-					dataname="deltaLNameInPropertiesPanel"
-					datasourceid="5328d042-0c00-4277-af0a-8c5ec2f49435"
-					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
-					variablename="nameOfParameterInPropertiesPanel">
-					</var>
-					<var
-					dataname="deltaLValue"
-					datasourceid="5328d042-0c00-4277-af0a-8c5ec2f49435"
-					variableid="d2cb0634-81a3-4751-83ba-7939e1c8f258"
-					variablename="valueOfParameterInPropertiesPanel">
-					</var>
-				</missingdatabinding>
-			</testmodule>
 			<smartfoldernode
 			id="2936422b-bbb3-46e9-90ff-9b57deb4271f"
 			name="DetailedAssessmentFMsGroup2_DA">
@@ -1586,32 +1287,6 @@
 					datasourceid="1b1df013-4a4b-4a2a-a392-87368b82bae9"
 					variableid="6f91cdce-7f0c-42ee-93e0-4a3735497a16"
 					variablename="fmShouldBeRelevant">
-					</var>
-				</databinding>
-			</testmodule>
-			<testmodule
-			id="2a5687ca-af5a-4caa-b1b6-b804952fe10d"
-			name="ValidateParameterDoesNotExistForItemInTraject"
-			ref="76b79b85-92aa-460c-b126-3cc5de9d5f07"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="hardCodedTrajectToAdd"
-					datasourceid="de320efd-8193-4dd4-9e9d-8fb5690ddafb"
-					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
-					variablename="substringTrajectName">
-					</var>
-					<var
-					dataname="fmName"
-					datasourceid="12e9dff7-d117-4313-9d7d-2edf4975608f"
-					variableid="cb52c14e-9bef-4f4a-9d11-1758141c50cb"
-					variablename="substringNameItemInTraject">
-					</var>
-					<var
-					dataname="NNameInPropertiesPanel"
-					datasourceid="02d6fbbd-047b-4a52-86eb-40cf83f3a5ba"
-					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
-					variablename="nameOfParameterInPropertiesPanel">
 					</var>
 				</databinding>
 			</testmodule>
@@ -2427,97 +2102,6 @@
 			id="417987a8-4ee5-437b-9310-9e2b361d6485"
 			name="LoopRowsSetCustomAssessment">
 			</smartfoldernode>
-			<testmodule
-			id="41c3c68b-3e84-45ba-8bb2-bb1659a139f5"
-			name="GetValueParameterForItemInTraject"
-			ref="3b08b464-43f7-4e4b-9c47-143e9b31807c"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="hardCodedTrajectToAdd"
-					datasourceid="de320efd-8193-4dd4-9e9d-8fb5690ddafb"
-					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
-					variablename="substringTrajectName">
-					</var>
-					<var
-					dataname="nameOfParameter_2NA_InPropertiesPanel"
-					datasourceid="004305c8-dc2f-4236-9cb5-fb4029bbb90b"
-					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
-					variablename="nameOfParameterInPropertiesPanel">
-					</var>
-					<var
-					dataname="initialValueParameter_2NA"
-					datasourceid="004305c8-dc2f-4236-9cb5-fb4029bbb90b"
-					variableid="d2cb0634-81a3-4751-83ba-7939e1c8f258"
-					variablename="valueOfParameterInPropertiesPanel">
-					</var>
-					<var
-					dataname="fmName"
-					datasourceid="bede15ad-b61c-41fa-a4ae-07db5ac38d84"
-					variableid="cb52c14e-9bef-4f4a-9d11-1758141c50cb"
-					variablename="substringNameItemInTraject">
-					</var>
-				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="fmName"
-					datasourceid="6dd3da41-63a0-417f-af27-bce097b7b5b7"
-					variableid="cb52c14e-9bef-4f4a-9d11-1758141c50cb"
-					variablename="substringNameItemInTraject">
-					</var>
-					<var
-					dataname="nameOfParameter_DeltaL_InPropertiesPanel"
-					datasourceid="b76df6f8-799c-4ff8-8df2-198969a6b4be"
-					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
-					variablename="nameOfParameterInPropertiesPanel">
-					</var>
-					<var
-					dataname="initialValueParameter_DeltaL"
-					datasourceid="b76df6f8-799c-4ff8-8df2-198969a6b4be"
-					variableid="d2cb0634-81a3-4751-83ba-7939e1c8f258"
-					variablename="valueOfParameterInPropertiesPanel">
-					</var>
-				</missingdatabinding>
-			</testmodule>
-			<smartfoldernode
-			datasource="tableFMsFormulaGroup1N"
-			id="42425944-15c7-418b-b5cd-a582e15b80df"
-			name="FormulaType1_(STPH,STBI,STBU)">
-				<parameters>
-					<param
-					name="a"
-					value="">
-					</param>
-					<param
-					name="b"
-					value="">
-					</param>
-					<param
-					name="Ltraject"
-					value="">
-					</param>
-					<param
-					name="NCalculated"
-					value="">
-					</param>
-					<param
-					name="a_param_nameInPropertiespanel"
-					value="a [-]">
-					</param>
-					<param
-					name="b_param_nameInPropertiespanel"
-					value="b [m]">
-					</param>
-					<param
-					name="lengte_param_nameInPropertiespanel"
-					value="Lengte* [m]">
-					</param>
-					<param
-					name="Nformula_param_nameInPropertiespanel"
-					value="N* [-]">
-					</param>
-				</parameters>
-			</smartfoldernode>
 			<smartfoldernode
 			id="42f4cf7a-f88d-4f29-88fb-bd3bb76afff6"
 			name="DetailedAssessmentFMsGroup1_GEKB">
@@ -2691,58 +2275,6 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
-			<testmodule
-			id="4515e4d7-70e7-4310-a81c-13390c15a3a0"
-			name="SetValueParameterForItemInTraject"
-			ref="fe097e7d-bf74-4910-a6c5-c4cd7da935d8"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="hardCodedTrajectToAdd"
-					datasourceid="de320efd-8193-4dd4-9e9d-8fb5690ddafb"
-					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
-					variablename="substringTrajectName">
-					</var>
-					<var
-					dataname="nameOfParameter_DeltaL_InPropertiesPanel"
-					datasourceid="b76df6f8-799c-4ff8-8df2-198969a6b4be"
-					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
-					variablename="nameOfParameterInPropertiesPanel">
-					</var>
-					<var
-					dataname="finalValueParameter_DeltaL"
-					datasourceid="b76df6f8-799c-4ff8-8df2-198969a6b4be"
-					variableid="7ba665dd-518f-4369-9f74-2efdb2cfd916"
-					variablename="valueToSetParameterForItemInTraject">
-					</var>
-					<var
-					dataname="fmName"
-					datasourceid="6dd3da41-63a0-417f-af27-bce097b7b5b7"
-					variableid="cb52c14e-9bef-4f4a-9d11-1758141c50cb"
-					variablename="substringNameItemInTraject">
-					</var>
-				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="fmName"
-					datasourceid="748d51a9-ceeb-4ad2-9005-0e58af7ac131"
-					variableid="cb52c14e-9bef-4f4a-9d11-1758141c50cb"
-					variablename="substringNameItemInTraject">
-					</var>
-					<var
-					dataname="nameOfParameter_a_InPropertiesPanel"
-					datasourceid="8cb65e99-632a-4992-ae3e-ec6bb44ff32d"
-					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
-					variablename="nameOfParameterInPropertiesPanel">
-					</var>
-					<var
-					dataname="finalValueParameter_a"
-					datasourceid="8cb65e99-632a-4992-ae3e-ec6bb44ff32d"
-					variableid="7ba665dd-518f-4369-9f74-2efdb2cfd916"
-					variablename="valueToSetParameterForItemInTraject">
-					</var>
-				</missingdatabinding>
-			</testmodule>
 			<smartfoldernode
 			id="466ac64f-9a07-4a8a-82b8-3af12a998abc"
 			name="SimpleAssessmentFMsGroup2">
@@ -2771,38 +2303,6 @@
 					variablename="fileNameToOpen">
 					</var>
 				</missingdatabinding>
-			</testmodule>
-			<testmodule
-			id="4ae7556e-4930-43f7-8794-8679450f77c8"
-			name="CalculateLinearTransformationOfValue"
-			ref="ff1cb4d9-1388-49e6-bf2a-00ed354dca1e"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="finalValueParameter_a"
-					datasourceid="8cb65e99-632a-4992-ae3e-ec6bb44ff32d"
-					variableid="5c3fdb07-7073-459d-8c51-922caeb92a86"
-					variablename="returnedValue">
-					</var>
-					<var
-					dataname="factorM"
-					datasourceid="8cb65e99-632a-4992-ae3e-ec6bb44ff32d"
-					variableid="96607dd0-1076-4d31-a7dd-d20dfee7c567"
-					variablename="aParameter">
-					</var>
-					<var
-					dataname="shiftB"
-					datasourceid="8cb65e99-632a-4992-ae3e-ec6bb44ff32d"
-					variableid="16f51e88-473c-4f0d-b4a9-810b68fea466"
-					variablename="bParameter">
-					</var>
-					<var
-					dataname="initialValueParameter_a"
-					datasourceid="8cb65e99-632a-4992-ae3e-ec6bb44ff32d"
-					variableid="32b52b59-7056-4c43-85c8-445a27bd4e65"
-					variablename="xVariable">
-					</var>
-				</databinding>
 			</testmodule>
 			<smartfoldernode
 			datasource="customAssessmentSTMI"
@@ -3051,38 +2551,6 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
-			<testmodule
-			id="51330cc3-8fc6-4da8-ad51-229af37158ca"
-			name="SetValueParameterForItemInTraject"
-			ref="fe097e7d-bf74-4910-a6c5-c4cd7da935d8"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="fmName"
-					datasourceid="748d51a9-ceeb-4ad2-9005-0e58af7ac131"
-					variableid="cb52c14e-9bef-4f4a-9d11-1758141c50cb"
-					variablename="substringNameItemInTraject">
-					</var>
-					<var
-					dataname="hardCodedTrajectToAdd"
-					datasourceid="de320efd-8193-4dd4-9e9d-8fb5690ddafb"
-					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
-					variablename="substringTrajectName">
-					</var>
-					<var
-					dataname="nameOfParameter_a_InPropertiesPanel"
-					datasourceid="8cb65e99-632a-4992-ae3e-ec6bb44ff32d"
-					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
-					variablename="nameOfParameterInPropertiesPanel">
-					</var>
-					<var
-					dataname="finalValueParameter_a"
-					datasourceid="8cb65e99-632a-4992-ae3e-ec6bb44ff32d"
-					variableid="7ba665dd-518f-4369-9f74-2efdb2cfd916"
-					variablename="valueToSetParameterForItemInTraject">
-					</var>
-				</databinding>
-			</testmodule>
 			<smartfoldernode
 			datasource="customAssessmentDA"
 			id="518aaf6a-1d6f-4199-9f77-408cbcdd330f"
@@ -3130,40 +2598,6 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
-			<smartfoldernode
-			id="5328d042-0c00-4277-af0a-8c5ec2f49435"
-			name="FormulaType2_(AGK)">
-				<parameters>
-					<param
-					name="lengthValue"
-					value="">
-					</param>
-					<param
-					name="deltaLValue"
-					value="">
-					</param>
-					<param
-					name="NAsteriskValue"
-					value="">
-					</param>
-					<param
-					name="lengthNameInPropertiesPanel"
-					value="Lengte* [m]">
-					</param>
-					<param
-					name="deltaLNameInPropertiesPanel"
-					value="ΔL [m]">
-					</param>
-					<param
-					name="NAsteriskNameInPropertiesPanel"
-					value="N* [-]">
-					</param>
-					<param
-					name="fmName"
-					value="Dijken en dammen - Golfklappen op asfaltbekleding">
-					</param>
-				</parameters>
-			</smartfoldernode>
 			<smartfoldernode
 			datasource="detailedAssessmentPKW"
 			id="5340027b-b4a4-4dba-b063-174101b7a625"
@@ -3224,12 +2658,6 @@
 			type="Recording">
 				<databinding>
 					<var
-					dataname="CustomAssessmentTypeItem"
-					datasourceid="b0afe8e5-1bf6-4cc5-b2ba-80070a1555f7"
-					variableid="c5b8922f-77bf-441a-9b88-99da98bf1e54"
-					variablename="DropDownItem">
-					</var>
-					<var
 					dataname="rowIndex"
 					datasourceid="b0afe8e5-1bf6-4cc5-b2ba-80070a1555f7"
 					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
@@ -3240,6 +2668,12 @@
 					datasourceid="b0afe8e5-1bf6-4cc5-b2ba-80070a1555f7"
 					variableid="ebca180a-929b-4462-bf7c-2388fcd92b35"
 					variablename="expectedCustomAssessmentValue">
+					</var>
+					<var
+					dataname="CustomAssessmentTypeItem"
+					datasourceid="b0afe8e5-1bf6-4cc5-b2ba-80070a1555f7"
+					variableid="c5b8922f-77bf-441a-9b88-99da98bf1e54"
+					variablename="DropDownItem">
 					</var>
 				</databinding>
 				<missingdatabinding>
@@ -3351,21 +2785,6 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
-			<smartfoldernode
-			datasource="tableFMsNValue"
-			id="548bde8b-44b7-4508-aaf3-3824011d3029"
-			name="FormulaType4_(ZST,PKW,STKWp,DA)">
-				<parameters>
-					<param
-					name="convertedValue"
-					value="">
-					</param>
-					<param
-					name="NNameInPropertiesPanel"
-					value="N [-]">
-					</param>
-				</parameters>
-			</smartfoldernode>
 			<testmodule
 			id="56029d62-93b4-4ee9-9779-508743b1219b"
 			name="CloseViewCentralPanelWithFocus"
@@ -3448,40 +2867,6 @@
 					</var>
 				</missingdatavariablesbinding>
 			</testmodule>
-			<smartfoldernode
-			id="56686535-e9c1-4dee-937e-6edd48e15b86"
-			name="FormulaType3_(BSKW)">
-				<parameters>
-					<param
-					name="fmName"
-					value="Kunstwerken - Betrouwbaarheid sluiting kunstwerk">
-					</param>
-					<param
-					name="cParameterValue"
-					value="">
-					</param>
-					<param
-					name="twoNAParameterValue"
-					value="">
-					</param>
-					<param
-					name="NAsteriskValue"
-					value="">
-					</param>
-					<param
-					name="cNameInPropertiesPanel"
-					value="C [-]">
-					</param>
-					<param
-					name="twoNANameInPropertiesPanel"
-					value="2NA [-]">
-					</param>
-					<param
-					name="NAsteriskNameInPropertiesPanel"
-					value="N* [-]">
-					</param>
-				</parameters>
-			</smartfoldernode>
 			<smartfoldernode
 			datasource="outputRelevancePE"
 			id="571a9ba3-86a6-4c7e-9f89-17d420e49e63"
@@ -3739,12 +3124,6 @@
 			ref="3c2d44f5-31b5-4584-91c8-1ad748affc77"
 			type="Recording">
 			</testmodule>
-			<testmodule
-			id="5cf5f154-cb30-4728-8b81-be2f1c2230a9"
-			name="CalculateCategoryBoundary"
-			ref="b235cebd-3495-47c7-96d9-f82c3092f4cb"
-			type="Recording">
-			</testmodule>
 			<smartfoldernode
 			datasource="detailedAssessmentBSKWType"
 			id="5d98a6f1-5e9f-4420-8f4b-70a04216142f"
@@ -3841,26 +3220,6 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
-			<testmodule
-			id="60e53209-a978-4c5a-817e-3b4685b8922b"
-			name="OpenViewForCategoryBoundaries"
-			ref="ed363a67-11ee-4f0d-b3b8-1920b8a08550"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="hardCodedTrajectToAdd"
-					datasourceid="de320efd-8193-4dd4-9e9d-8fb5690ddafb"
-					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
-					variablename="substringTrajectName">
-					</var>
-					<var
-					dataname="fmName"
-					datasourceid="6f7c440d-3d2b-4277-bfaa-9daa8a3fdee8"
-					variableid="3a7276c1-fca1-4026-9d2e-5bac10651a47"
-					variablename="substringFMName">
-					</var>
-				</databinding>
-			</testmodule>
 			<smartfoldernode
 			datasource="customAssessmentSTKWp"
 			id="61c39043-1c24-4ae8-ae86-745f1889b53f"
@@ -3880,89 +3239,11 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
-			<testmodule
-			id="62bcf81e-2dea-4d4b-bb32-bc50cb233b18"
-			name="CalculateNFormula2"
-			ref="7a5a313f-03e9-4259-a9ba-83be32da5355"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="NAsteriskValue"
-					datasourceid="5328d042-0c00-4277-af0a-8c5ec2f49435"
-					variableid="5ce84dc8-5f13-49e7-a07d-ce6076d55089"
-					variablename="calculatedN">
-					</var>
-					<var
-					dataname="deltaLValue"
-					datasourceid="5328d042-0c00-4277-af0a-8c5ec2f49435"
-					variableid="91f5c876-a42c-49ed-9ad8-8b22965ce608"
-					variablename="deltaLParameter">
-					</var>
-					<var
-					dataname="lengthValue"
-					datasourceid="5328d042-0c00-4277-af0a-8c5ec2f49435"
-					variableid="d88257d3-e0b0-4347-a7ac-d38c9b08e655"
-					variablename="lengthParameter">
-					</var>
-				</databinding>
-			</testmodule>
 			<smartfoldernode
 			datasource="detailedAssessmentHTKW"
 			id="6328f616-711a-4f5c-92de-34ee4b839518"
 			name="ValidateDetailedAsssessmentValue">
 			</smartfoldernode>
-			<testmodule
-			id="638def4b-9e2a-41be-bb18-2991948a1821"
-			name="GetValueParameterForItemInTraject"
-			ref="3b08b464-43f7-4e4b-9c47-143e9b31807c"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="hardCodedTrajectToAdd"
-					datasourceid="de320efd-8193-4dd4-9e9d-8fb5690ddafb"
-					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
-					variablename="substringTrajectName">
-					</var>
-					<var
-					dataname="a"
-					datasourceid="42425944-15c7-418b-b5cd-a582e15b80df"
-					variableid="d2cb0634-81a3-4751-83ba-7939e1c8f258"
-					variablename="valueOfParameterInPropertiesPanel">
-					</var>
-					<var
-					dataname="fmName"
-					datasourceid="62781130-fdeb-4216-af7f-09bd61e2f1a7"
-					variableid="cb52c14e-9bef-4f4a-9d11-1758141c50cb"
-					variablename="substringNameItemInTraject">
-					</var>
-					<var
-					dataname="a_param_nameInPropertiespanel"
-					datasourceid="42425944-15c7-418b-b5cd-a582e15b80df"
-					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
-					variablename="nameOfParameterInPropertiesPanel">
-					</var>
-				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="fmName"
-					datasourceid="bede15ad-b61c-41fa-a4ae-07db5ac38d84"
-					variableid="cb52c14e-9bef-4f4a-9d11-1758141c50cb"
-					variablename="substringNameItemInTraject">
-					</var>
-					<var
-					dataname="nameOfParameter_2NA_InPropertiesPanel"
-					datasourceid="004305c8-dc2f-4236-9cb5-fb4029bbb90b"
-					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
-					variablename="nameOfParameterInPropertiesPanel">
-					</var>
-					<var
-					dataname="initialValueParameter_2NA"
-					datasourceid="004305c8-dc2f-4236-9cb5-fb4029bbb90b"
-					variableid="d2cb0634-81a3-4751-83ba-7939e1c8f258"
-					variablename="valueOfParameterInPropertiesPanel">
-					</var>
-				</missingdatabinding>
-			</testmodule>
 			<smartfoldernode
 			id="645a1e46-fc85-4ee5-b48f-628d1c339748"
 			name="UpdateSubsurfaceSchematizationEditedSTPH">
@@ -4126,6 +3407,10 @@
 				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
+			id="69391c41-06e7-414a-84c6-6ddfce6d7bdd"
+			name="LastFolder">
+			</smartfoldernode>
+			<smartfoldernode
 			datasource="customAssessmentGEBU"
 			id="69b0f5eb-98f2-4752-994c-053d61efa218"
 			name="LoopRowsSetCustomAssessment">
@@ -4170,58 +3455,6 @@
 					datasourceid="8f20477d-a7a3-4a0d-9b87-260c551eac8a"
 					variableid="3a7276c1-fca1-4026-9d2e-5bac10651a47"
 					variablename="substringItemName">
-					</var>
-				</missingdatabinding>
-			</testmodule>
-			<testmodule
-			id="6b662658-3148-41e0-8df4-b5523ada99ca"
-			name="GetValueParameterForItemInTraject"
-			ref="3b08b464-43f7-4e4b-9c47-143e9b31807c"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="hardCodedTrajectToAdd"
-					datasourceid="de320efd-8193-4dd4-9e9d-8fb5690ddafb"
-					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
-					variablename="substringTrajectName">
-					</var>
-					<var
-					dataname="nameOfParameter_a_InPropertiesPanel"
-					datasourceid="8cb65e99-632a-4992-ae3e-ec6bb44ff32d"
-					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
-					variablename="nameOfParameterInPropertiesPanel">
-					</var>
-					<var
-					dataname="fmName"
-					datasourceid="748d51a9-ceeb-4ad2-9005-0e58af7ac131"
-					variableid="cb52c14e-9bef-4f4a-9d11-1758141c50cb"
-					variablename="substringNameItemInTraject">
-					</var>
-					<var
-					dataname="initialValueParameter_a"
-					datasourceid="8cb65e99-632a-4992-ae3e-ec6bb44ff32d"
-					variableid="d2cb0634-81a3-4751-83ba-7939e1c8f258"
-					variablename="valueOfParameterInPropertiesPanel">
-					</var>
-				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="nameItemReferenceLineInProjectExplorer"
-					datasourceid="90aa5c69-ee83-454b-8d3f-8cf843f5fd19"
-					variableid="cb52c14e-9bef-4f4a-9d11-1758141c50cb"
-					variablename="substringnameitemintraject">
-					</var>
-					<var
-					dataname="nameLengthParameterInPropertiesPanel"
-					datasourceid="90aa5c69-ee83-454b-8d3f-8cf843f5fd19"
-					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
-					variablename="nameOfParameterInPropertiesPanel">
-					</var>
-					<var
-					dataname="trajectLengthValue"
-					datasourceid="095a933f-0351-4f44-914c-746ccae54ec0"
-					variableid="d2cb0634-81a3-4751-83ba-7939e1c8f258"
-					variablename="valueOfParameterInPropertiesPanel">
 					</var>
 				</missingdatabinding>
 			</testmodule>
@@ -4619,11 +3852,6 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
-			<smartfoldernode
-			datasource="tableNamesFMsForDeterminationAssessmentRequirementsTraject"
-			id="78947188-1351-4994-baff-766da4b7d2e0"
-			name="c)DeterminationOfAssessmentRequirementsForSection(Traject)">
-			</smartfoldernode>
 			<smartfoldernode
 			datasource="possibleTrajectTypes"
 			id="78a783b3-ec47-4145-85f3-55c2b56b7aa0"
@@ -5368,10 +4596,6 @@
 					</var>
 				</databinding>
 			</testmodule>
-			<smartfoldernode
-			id="8a8ffa3e-b7fa-4e60-8b15-6a29f00df521"
-			name="ValidateUpperBoundaries">
-			</smartfoldernode>
 			<testmodule
 			id="8ab87b1e-169d-4d5c-8cdd-4fc27b76b0d7"
 			name="ValidateDetailedAssessmentTypeAtRowCategoryIVv"
@@ -5459,33 +4683,6 @@
 					</var>
 				</missingdatavariablesbinding>
 			</testmodule>
-			<smartfoldernode
-			datasource="tableFMsForNewValueParameter_a"
-			id="8cb65e99-632a-4992-ae3e-ec6bb44ff32d"
-			name="SetNewValueForParameter_a">
-				<parameters>
-					<param
-					name="nameOfParameter_a_InPropertiesPanel"
-					value="a [-]">
-					</param>
-					<param
-					name="initialValueParameter_a"
-					value="">
-					</param>
-					<param
-					name="finalValueParameter_a"
-					value="">
-					</param>
-					<param
-					name="factorM"
-					value="0.9">
-					</param>
-					<param
-					name="shiftB"
-					value="0.1">
-					</param>
-				</parameters>
-			</smartfoldernode>
 			<testmodule
 			id="8d2a706a-b551-4065-9b11-e5be98fe1e58"
 			name="OpenResultView"
@@ -6351,10 +5548,6 @@
 			ref="3c2d44f5-31b5-4584-91c8-1ad748affc77"
 			type="Recording">
 			</testmodule>
-			<smartfoldernode
-			id="a19d64b1-9804-430e-b24d-b02b6bf6945a"
-			name="ValidateLowerBoundaries">
-			</smartfoldernode>
 			<testmodule
 			id="a21427ac-0a51-4e66-b4ea-2e2800b1719f"
 			name="AddNewTraject"
@@ -6457,16 +5650,16 @@
 					variablename="rowIndex">
 					</var>
 					<var
-					dataname="CustomAssessmentTypeItem"
-					datasourceid="763670ca-a427-4f8e-9a18-bfaf8d252c9b"
-					variableid="c5b8922f-77bf-441a-9b88-99da98bf1e54"
-					variablename="DropDownItem">
-					</var>
-					<var
 					dataname="FaalkansValidateValue"
 					datasourceid="763670ca-a427-4f8e-9a18-bfaf8d252c9b"
 					variableid="ebca180a-929b-4462-bf7c-2388fcd92b35"
 					variablename="expectedCustomAssessmentValue">
+					</var>
+					<var
+					dataname="CustomAssessmentTypeItem"
+					datasourceid="763670ca-a427-4f8e-9a18-bfaf8d252c9b"
+					variableid="c5b8922f-77bf-441a-9b88-99da98bf1e54"
+					variablename="DropDownItem">
 					</var>
 				</databinding>
 				<missingdatabinding>
@@ -6653,10 +5846,6 @@
 			type="Recording">
 			</testmodule>
 			<smartfoldernode
-			id="ab2dcae4-2020-4e09-bf5b-32fb590d3155"
-			name="b)LengthEffectParameters">
-			</smartfoldernode>
-			<smartfoldernode
 			datasource="detailedAssessmentGEBUType"
 			id="aba03c61-b85c-4b02-b4fd-6792f2b3b1eb"
 			name="ValidateDetailedAsssessmentType">
@@ -6795,12 +5984,6 @@
 					variablename="textItemDropDownMenu">
 					</var>
 				</missingdatavariablesbinding>
-			</testmodule>
-			<testmodule
-			id="b00fa597-7d2c-403b-98c9-b3b57af8a0ed"
-			name="ValidateCategoryBoundary"
-			ref="b8095d4b-9eb5-467b-976f-5811b54836f6"
-			type="Recording">
 			</testmodule>
 			<smartfoldernode
 			id="b02d0880-3b6a-463e-98a6-5186f92abd12"
@@ -7195,141 +6378,6 @@
 				</parameters>
 			</smartfoldernode>
 			<smartfoldernode
-			datasource="tableFMsToAdjustValueDeltaL"
-			id="b76df6f8-799c-4ff8-8df2-198969a6b4be"
-			name="SetAndValidateNewValueFor_DeltaL">
-				<parameters>
-					<param
-					name="factorM"
-					value="1.5">
-					</param>
-					<param
-					name="shiftB"
-					value="0.1">
-					</param>
-					<param
-					name="finalValueParameter_DeltaL"
-					value="">
-					</param>
-					<param
-					name="initialValueParameter_DeltaL"
-					value="">
-					</param>
-					<param
-					name="nameOfParameter_DeltaL_InPropertiesPanel"
-					value="ΔL [m]">
-					</param>
-				</parameters>
-			</smartfoldernode>
-			<smartfoldernode
-			id="b795459a-cbc9-44b8-808d-ecbcb138ed78"
-			name="d)DeterminationOfAssessmentRequirementsForSubSection(Vak)">
-			</smartfoldernode>
-			<testmodule
-			id="b82eab11-472c-4185-82c4-694c60a90d9d"
-			name="GetValueParameterForItemInTraject"
-			ref="3b08b464-43f7-4e4b-9c47-143e9b31807c"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="hardCodedTrajectToAdd"
-					datasourceid="de320efd-8193-4dd4-9e9d-8fb5690ddafb"
-					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
-					variablename="substringTrajectName">
-					</var>
-					<var
-					dataname="initialValueParameter_DeltaL"
-					datasourceid="b76df6f8-799c-4ff8-8df2-198969a6b4be"
-					variableid="d2cb0634-81a3-4751-83ba-7939e1c8f258"
-					variablename="valueOfParameterInPropertiesPanel">
-					</var>
-					<var
-					dataname="nameOfParameter_DeltaL_InPropertiesPanel"
-					datasourceid="b76df6f8-799c-4ff8-8df2-198969a6b4be"
-					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
-					variablename="nameOfParameterInPropertiesPanel">
-					</var>
-					<var
-					dataname="fmName"
-					datasourceid="6dd3da41-63a0-417f-af27-bce097b7b5b7"
-					variableid="cb52c14e-9bef-4f4a-9d11-1758141c50cb"
-					variablename="substringNameItemInTraject">
-					</var>
-				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="fmName"
-					datasourceid="748d51a9-ceeb-4ad2-9005-0e58af7ac131"
-					variableid="cb52c14e-9bef-4f4a-9d11-1758141c50cb"
-					variablename="substringNameItemInTraject">
-					</var>
-					<var
-					dataname="nameOfParameter_a_InPropertiesPanel"
-					datasourceid="8cb65e99-632a-4992-ae3e-ec6bb44ff32d"
-					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
-					variablename="nameOfParameterInPropertiesPanel">
-					</var>
-					<var
-					dataname="initialValueParameter_a"
-					datasourceid="8cb65e99-632a-4992-ae3e-ec6bb44ff32d"
-					variableid="d2cb0634-81a3-4751-83ba-7939e1c8f258"
-					variablename="valueOfParameterInPropertiesPanel">
-					</var>
-				</missingdatabinding>
-			</testmodule>
-			<testmodule
-			id="b8493da3-6ce3-4b44-9406-06ff8d98cf12"
-			name="ValidateValueParameterForItemInTraject"
-			ref="54946666-7cba-49b9-b848-41ea43b074d9"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="hardCodedTrajectToAdd"
-					datasourceid="de320efd-8193-4dd4-9e9d-8fb5690ddafb"
-					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
-					variablename="substringTrajectName">
-					</var>
-					<var
-					dataname="fmName"
-					datasourceid="5328d042-0c00-4277-af0a-8c5ec2f49435"
-					variableid="cb52c14e-9bef-4f4a-9d11-1758141c50cb"
-					variablename="substringNameItemInTraject">
-					</var>
-					<var
-					dataname="NAsteriskNameInPropertiesPanel"
-					datasourceid="5328d042-0c00-4277-af0a-8c5ec2f49435"
-					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
-					variablename="nameOfParameterInPropertiesPanel">
-					</var>
-					<var
-					dataname="NAsteriskValue"
-					datasourceid="5328d042-0c00-4277-af0a-8c5ec2f49435"
-					variableid="541e9cf7-fb71-4773-bd20-19b633ea6f9d"
-					variablename="expectedValueOfParameterForItemInTraject">
-					</var>
-				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="fmName"
-					datasourceid="62781130-fdeb-4216-af7f-09bd61e2f1a7"
-					variableid="cb52c14e-9bef-4f4a-9d11-1758141c50cb"
-					variablename="substringNameItemInTraject">
-					</var>
-					<var
-					dataname="NCalculated"
-					datasourceid="42425944-15c7-418b-b5cd-a582e15b80df"
-					variableid="541e9cf7-fb71-4773-bd20-19b633ea6f9d"
-					variablename="expectedValueOfParameterForItemInTraject">
-					</var>
-					<var
-					dataname="Nformula_param_nameInPropertiespanel"
-					datasourceid="42425944-15c7-418b-b5cd-a582e15b80df"
-					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
-					variablename="nameOfParameterInPropertiesPanel">
-					</var>
-				</missingdatabinding>
-			</testmodule>
-			<smartfoldernode
 			datasource="detailedAssessmentZST"
 			id="b90f12e8-31ee-41a0-b1e5-7fad5522e116"
 			name="ValidateDetailedAsssessmentValue">
@@ -7367,54 +6415,6 @@
 					variablename="fmExpectedRelevance">
 					</var>
 				</missingdatabinding>
-			</testmodule>
-			<testmodule
-			id="b9e78914-c8f3-4843-8685-db81d3edc7fa"
-			name="SetCustomAssessmentAtRow"
-			ref="dc218a16-91e8-4197-ae23-5bbe0c083a04"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="CustomAssessmentTypeItem"
-					datasourceid="79c90d4e-7015-4bbc-a7e5-9c7c59ef642b"
-					variableid="c5b8922f-77bf-441a-9b88-99da98bf1e54"
-					variablename="DropDownItem">
-					</var>
-					<var
-					dataname="rowIndex"
-					datasourceid="79c90d4e-7015-4bbc-a7e5-9c7c59ef642b"
-					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
-					variablename="rowIndex">
-					</var>
-				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="rowIndex"
-					datasourceid="966ae336-7d09-4c72-8bd1-f42df6fe0f32"
-					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
-					variablename="rowIndex">
-					</var>
-					<var
-					dataname="CustomAssessmentTypeItem"
-					datasourceid="966ae336-7d09-4c72-8bd1-f42df6fe0f32"
-					variableid="d82001f1-20c0-4080-a06d-9f1f8ee3a56d"
-					variablename="textItemDropDownMenu">
-					</var>
-					<var
-					dataname="FaalkansSetValue"
-					datasourceid="79c90d4e-7015-4bbc-a7e5-9c7c59ef642b"
-					variableid="ebca180a-929b-4462-bf7c-2388fcd92b35"
-					variablename="expectedCustomAssessmentValue">
-					</var>
-				</missingdatabinding>
-				<missingdatavariablesbinding>
-					<var
-					dataname="CustomAssessmentTypeItem"
-					datasourceid="79c90d4e-7015-4bbc-a7e5-9c7c59ef642b"
-					variableid="d82001f1-20c0-4080-a06d-9f1f8ee3a56d"
-					variablename="textItemDropDownMenu">
-					</var>
-				</missingdatavariablesbinding>
 			</testmodule>
 			<testmodule
 			id="ba648b93-330d-4bcd-b732-0962c88a1e97"
@@ -7565,58 +6565,6 @@
 			name="loopSubsurfaceSchematizations">
 			</smartfoldernode>
 			<testmodule
-			id="bfdb6bd2-c766-46a9-84a4-05512080c534"
-			name="GetValueParameterForItemInTraject"
-			ref="3b08b464-43f7-4e4b-9c47-143e9b31807c"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="hardCodedTrajectToAdd"
-					datasourceid="de320efd-8193-4dd4-9e9d-8fb5690ddafb"
-					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
-					variablename="substringTrajectName">
-					</var>
-					<var
-					dataname="b"
-					datasourceid="42425944-15c7-418b-b5cd-a582e15b80df"
-					variableid="d2cb0634-81a3-4751-83ba-7939e1c8f258"
-					variablename="valueOfParameterInPropertiesPanel">
-					</var>
-					<var
-					dataname="fmName"
-					datasourceid="62781130-fdeb-4216-af7f-09bd61e2f1a7"
-					variableid="cb52c14e-9bef-4f4a-9d11-1758141c50cb"
-					variablename="substringNameItemInTraject">
-					</var>
-					<var
-					dataname="b_param_nameInPropertiespanel"
-					datasourceid="42425944-15c7-418b-b5cd-a582e15b80df"
-					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
-					variablename="nameOfParameterInPropertiesPanel">
-					</var>
-				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="fmName"
-					datasourceid="bede15ad-b61c-41fa-a4ae-07db5ac38d84"
-					variableid="cb52c14e-9bef-4f4a-9d11-1758141c50cb"
-					variablename="substringNameItemInTraject">
-					</var>
-					<var
-					dataname="nameOfParameter_2NA_InPropertiesPanel"
-					datasourceid="004305c8-dc2f-4236-9cb5-fb4029bbb90b"
-					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
-					variablename="nameOfParameterInPropertiesPanel">
-					</var>
-					<var
-					dataname="initialValueParameter_2NA"
-					datasourceid="004305c8-dc2f-4236-9cb5-fb4029bbb90b"
-					variableid="d2cb0634-81a3-4751-83ba-7939e1c8f258"
-					variablename="valueOfParameterInPropertiesPanel">
-					</var>
-				</missingdatabinding>
-			</testmodule>
-			<testmodule
 			id="bfe68ed4-439b-42d2-9993-94bfe81816c1"
 			name="CloseViewCentralPanelWithFocus"
 			ref="3c2d44f5-31b5-4584-91c8-1ad748affc77"
@@ -7668,12 +6616,6 @@
 			type="Recording">
 				<databinding>
 					<var
-					dataname="CustomAssessmentTypeItem"
-					datasourceid="73482a32-d808-4575-8d91-5c7224df5d2f"
-					variableid="c5b8922f-77bf-441a-9b88-99da98bf1e54"
-					variablename="DropDownItem">
-					</var>
-					<var
 					dataname="rowIndex"
 					datasourceid="73482a32-d808-4575-8d91-5c7224df5d2f"
 					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
@@ -7684,6 +6626,12 @@
 					datasourceid="73482a32-d808-4575-8d91-5c7224df5d2f"
 					variableid="ebca180a-929b-4462-bf7c-2388fcd92b35"
 					variablename="expectedCustomAssessmentValue">
+					</var>
+					<var
+					dataname="CustomAssessmentTypeItem"
+					datasourceid="73482a32-d808-4575-8d91-5c7224df5d2f"
+					variableid="c5b8922f-77bf-441a-9b88-99da98bf1e54"
+					variablename="DropDownItem">
 					</var>
 				</databinding>
 				<missingdatabinding>
@@ -7762,58 +6710,6 @@
 					variablename="fmExpectedRelevance">
 					</var>
 				</databinding>
-			</testmodule>
-			<testmodule
-			id="c3744923-020e-4304-b830-2ea9ca446b46"
-			name="GetValueParameterForItemInTraject"
-			ref="3b08b464-43f7-4e4b-9c47-143e9b31807c"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="hardCodedTrajectToAdd"
-					datasourceid="de320efd-8193-4dd4-9e9d-8fb5690ddafb"
-					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
-					variablename="substringTrajectName">
-					</var>
-					<var
-					dataname="lengthValue"
-					datasourceid="5328d042-0c00-4277-af0a-8c5ec2f49435"
-					variableid="d2cb0634-81a3-4751-83ba-7939e1c8f258"
-					variablename="valueOfParameterInPropertiesPanel">
-					</var>
-					<var
-					dataname="fmName"
-					datasourceid="5328d042-0c00-4277-af0a-8c5ec2f49435"
-					variableid="cb52c14e-9bef-4f4a-9d11-1758141c50cb"
-					variablename="substringNameItemInTraject">
-					</var>
-					<var
-					dataname="lengthNameInPropertiesPanel"
-					datasourceid="5328d042-0c00-4277-af0a-8c5ec2f49435"
-					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
-					variablename="nameOfParameterInPropertiesPanel">
-					</var>
-				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="fmName"
-					datasourceid="62781130-fdeb-4216-af7f-09bd61e2f1a7"
-					variableid="cb52c14e-9bef-4f4a-9d11-1758141c50cb"
-					variablename="substringNameItemInTraject">
-					</var>
-					<var
-					dataname="a_param_nameInPropertiespanel"
-					datasourceid="42425944-15c7-418b-b5cd-a582e15b80df"
-					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
-					variablename="nameOfParameterInPropertiesPanel">
-					</var>
-					<var
-					dataname="a"
-					datasourceid="42425944-15c7-418b-b5cd-a582e15b80df"
-					variableid="d2cb0634-81a3-4751-83ba-7939e1c8f258"
-					variablename="valueOfParameterInPropertiesPanel">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="c37a773d-baf6-452d-9821-17a44cc0d6a6"
@@ -8342,73 +7238,10 @@
 				</parameters>
 			</smartfoldernode>
 			<smartfoldernode
-			datasource="tableNValueInFMsForTraject12_2"
-			id="d08f45c8-4f17-409f-ade9-f896ccfc0c91"
-			name="FormulaType5_(GEKB,GEBU,HTKW)">
-				<parameters>
-					<param
-					name="NParameterNameInPropertiesPanel"
-					value="N [-]">
-					</param>
-				</parameters>
-			</smartfoldernode>
-			<smartfoldernode
 			datasource="detailedAssessmentSTBUType"
 			id="d09feb8c-4a12-4dc9-b05b-f585593616e5"
 			name="LoopRowsSelectDetailedAssessmentType">
 			</smartfoldernode>
-			<testmodule
-			id="d0c11874-c327-406d-8281-7f92abb088a2"
-			name="ValidateValueParameterForItemInTraject"
-			ref="54946666-7cba-49b9-b848-41ea43b074d9"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="hardCodedTrajectToAdd"
-					datasourceid="de320efd-8193-4dd4-9e9d-8fb5690ddafb"
-					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
-					variablename="substringTrajectName">
-					</var>
-					<var
-					dataname="fmName"
-					datasourceid="56686535-e9c1-4dee-937e-6edd48e15b86"
-					variableid="cb52c14e-9bef-4f4a-9d11-1758141c50cb"
-					variablename="substringNameItemInTraject">
-					</var>
-					<var
-					dataname="NAsteriskValue"
-					datasourceid="56686535-e9c1-4dee-937e-6edd48e15b86"
-					variableid="541e9cf7-fb71-4773-bd20-19b633ea6f9d"
-					variablename="expectedValueOfParameterForItemInTraject">
-					</var>
-					<var
-					dataname="NAsteriskNameInPropertiesPanel"
-					datasourceid="56686535-e9c1-4dee-937e-6edd48e15b86"
-					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
-					variablename="nameOfParameterInPropertiesPanel">
-					</var>
-				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="fmName"
-					datasourceid="5328d042-0c00-4277-af0a-8c5ec2f49435"
-					variableid="cb52c14e-9bef-4f4a-9d11-1758141c50cb"
-					variablename="substringNameItemInTraject">
-					</var>
-					<var
-					dataname="NAsteriskValue"
-					datasourceid="5328d042-0c00-4277-af0a-8c5ec2f49435"
-					variableid="541e9cf7-fb71-4773-bd20-19b633ea6f9d"
-					variablename="expectedValueOfParameterForItemInTraject">
-					</var>
-					<var
-					dataname="NAsteriskNameInPropertiesPanel"
-					datasourceid="5328d042-0c00-4277-af0a-8c5ec2f49435"
-					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
-					variablename="nameOfParameterInPropertiesPanel">
-					</var>
-				</missingdatabinding>
-			</testmodule>
 			<testmodule
 			id="d0cf8d4c-e4d4-44b1-9f4f-5c87de35d121"
 			name="SelectDetailedAssessmentForRowCategoryVv"
@@ -8849,58 +7682,6 @@
 			ref="3c2d44f5-31b5-4584-91c8-1ad748affc77"
 			type="Recording">
 			</testmodule>
-			<testmodule
-			id="ddcb574e-dd31-4b69-9a30-e87fd52dcd68"
-			name="ValidateValueParameterForItemInTraject"
-			ref="54946666-7cba-49b9-b848-41ea43b074d9"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="hardCodedTrajectToAdd"
-					datasourceid="de320efd-8193-4dd4-9e9d-8fb5690ddafb"
-					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
-					variablename="substringTrajectName">
-					</var>
-					<var
-					dataname="fmName"
-					datasourceid="b45bfffb-5bba-474f-b237-c2f41613bb15"
-					variableid="cb52c14e-9bef-4f4a-9d11-1758141c50cb"
-					variablename="substringNameItemInTraject">
-					</var>
-					<var
-					dataname="convertedValue"
-					datasourceid="548bde8b-44b7-4508-aaf3-3824011d3029"
-					variableid="541e9cf7-fb71-4773-bd20-19b633ea6f9d"
-					variablename="expectedValueOfParameterForItemInTraject">
-					</var>
-					<var
-					dataname="NNameInPropertiesPanel"
-					datasourceid="548bde8b-44b7-4508-aaf3-3824011d3029"
-					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
-					variablename="nameOfParameterInPropertiesPanel">
-					</var>
-				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="fmName"
-					datasourceid="56686535-e9c1-4dee-937e-6edd48e15b86"
-					variableid="cb52c14e-9bef-4f4a-9d11-1758141c50cb"
-					variablename="substringNameItemInTraject">
-					</var>
-					<var
-					dataname="NAsteriskValue"
-					datasourceid="56686535-e9c1-4dee-937e-6edd48e15b86"
-					variableid="541e9cf7-fb71-4773-bd20-19b633ea6f9d"
-					variablename="expectedValueOfParameterForItemInTraject">
-					</var>
-					<var
-					dataname="NAsteriskNameInPropertiesPanel"
-					datasourceid="56686535-e9c1-4dee-937e-6edd48e15b86"
-					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
-					variablename="nameOfParameterInPropertiesPanel">
-					</var>
-				</missingdatabinding>
-			</testmodule>
 			<smartfoldernode
 			id="ddfa8ca6-6795-4646-9070-a5d686852fac"
 			name="CopyOrginalFiles">
@@ -9108,58 +7889,6 @@
 			id="e1ff5697-2c1e-4010-85a0-6f45679d7f50"
 			name="LoopFMs">
 			</smartfoldernode>
-			<testmodule
-			id="e29498d5-9a1d-4564-bb6b-70d00ffa1bc7"
-			name="ValidateValueParameterForItemInTraject"
-			ref="54946666-7cba-49b9-b848-41ea43b074d9"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="hardCodedTrajectToAdd"
-					datasourceid="de320efd-8193-4dd4-9e9d-8fb5690ddafb"
-					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
-					variablename="substringTrajectName">
-					</var>
-					<var
-					dataname="fmName"
-					datasourceid="748d51a9-ceeb-4ad2-9005-0e58af7ac131"
-					variableid="cb52c14e-9bef-4f4a-9d11-1758141c50cb"
-					variablename="substringNameItemInTraject">
-					</var>
-					<var
-					dataname="nameOfParameter_a_InPropertiesPanel"
-					datasourceid="8cb65e99-632a-4992-ae3e-ec6bb44ff32d"
-					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
-					variablename="nameOfParameterInPropertiesPanel">
-					</var>
-					<var
-					dataname="finalValueParameter_a"
-					datasourceid="8cb65e99-632a-4992-ae3e-ec6bb44ff32d"
-					variableid="541e9cf7-fb71-4773-bd20-19b633ea6f9d"
-					variablename="expectedValueOfParameterForItemInTraject">
-					</var>
-				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="fmName"
-					datasourceid="6d42c555-b56d-4896-8200-5e6619488fd5"
-					variableid="cb52c14e-9bef-4f4a-9d11-1758141c50cb"
-					variablename="substringNameItemInTraject">
-					</var>
-					<var
-					dataname="trajectLengthValue"
-					datasourceid="095a933f-0351-4f44-914c-746ccae54ec0"
-					variableid="541e9cf7-fb71-4773-bd20-19b633ea6f9d"
-					variablename="expectedValueOfParameterForItemInTraject">
-					</var>
-					<var
-					dataname="nameOfLengthParameterToValidate"
-					datasourceid="1010c180-4323-4c5d-a8f2-a1541376c852"
-					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
-					variablename="nameOfParameterInPropertiesPanel">
-					</var>
-				</missingdatabinding>
-			</testmodule>
 			<testmodule
 			id="e39f866d-3530-42bb-90d0-e3376c330a62"
 			name="CopyFile"
@@ -9370,34 +8099,6 @@
 			name="FMsGroup1">
 			</smartfoldernode>
 			<testmodule
-			id="e75ffd20-b9fc-4102-86bf-135cea0754e0"
-			name="ValidateCustomAssessmentValue"
-			ref="da4d5264-71fa-4c55-ade2-9344716cd1cc"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="rowIndex"
-					datasourceid="79c90d4e-7015-4bbc-a7e5-9c7c59ef642b"
-					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
-					variablename="rowIndex">
-					</var>
-				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="rowIndex"
-					datasourceid="966ae336-7d09-4c72-8bd1-f42df6fe0f32"
-					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
-					variablename="rowIndex">
-					</var>
-					<var
-					dataname="FaalkansValidateValue"
-					datasourceid="79c90d4e-7015-4bbc-a7e5-9c7c59ef642b"
-					variableid="0602758b-9931-4e34-a69f-4ebf0d921f1e"
-					variablename="expectedCustomAssessmentValueAtCell">
-					</var>
-				</missingdatabinding>
-			</testmodule>
-			<testmodule
 			id="e7fa6a2a-28c5-4b07-9ba8-d95dcaaab080"
 			name="ValidateDetailedAssessmentTypeAtRowCategoryIIv"
 			ref="d90761a4-7311-4462-be01-cf40cca191d7"
@@ -9507,92 +8208,10 @@
 			id="e9e0fe4f-6dd2-478a-b8dd-a7c6f77a1a6c"
 			name="ValidateCustomAsssessmentType">
 			</smartfoldernode>
-			<testmodule
-			id="ea71d278-5c6a-4b77-827b-50c9d289c19b"
-			name="CalculateNFormula3"
-			ref="cd64e64b-746a-4846-8490-369760278039"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="cParameterValue"
-					datasourceid="56686535-e9c1-4dee-937e-6edd48e15b86"
-					variableid="f7cb300b-676c-4f58-ab5e-484ae1000f26"
-					variablename="cParameter">
-					</var>
-					<var
-					dataname="twoNAParameterValue"
-					datasourceid="56686535-e9c1-4dee-937e-6edd48e15b86"
-					variableid="4bec1e01-45fd-4d82-ad80-dd9a69fa0954"
-					variablename="twoNAParameter">
-					</var>
-					<var
-					dataname="NAsteriskValue"
-					datasourceid="56686535-e9c1-4dee-937e-6edd48e15b86"
-					variableid="01c55dfa-c21e-487c-b180-1db60317126d"
-					variablename="calculatedN">
-					</var>
-				</databinding>
-			</testmodule>
 			<smartfoldernode
 			datasource="detailedAssessmentGABUType"
 			id="ea9ba8b2-e4f0-4023-8f1a-fddd36872370"
 			name="ValidateDetailedAsssessmentType">
-			</smartfoldernode>
-			<testmodule
-			id="eb349781-0c2a-466b-bac8-2d3278af1636"
-			name="ValidateValueParameterForItemInTraject"
-			ref="54946666-7cba-49b9-b848-41ea43b074d9"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="hardCodedTrajectToAdd"
-					datasourceid="de320efd-8193-4dd4-9e9d-8fb5690ddafb"
-					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
-					variablename="substringTrajectName">
-					</var>
-					<var
-					dataname="NCalculated"
-					datasourceid="42425944-15c7-418b-b5cd-a582e15b80df"
-					variableid="541e9cf7-fb71-4773-bd20-19b633ea6f9d"
-					variablename="expectedValueOfParameterForItemInTraject">
-					</var>
-					<var
-					dataname="fmName"
-					datasourceid="62781130-fdeb-4216-af7f-09bd61e2f1a7"
-					variableid="cb52c14e-9bef-4f4a-9d11-1758141c50cb"
-					variablename="substringNameItemInTraject">
-					</var>
-					<var
-					dataname="Nformula_param_nameInPropertiespanel"
-					datasourceid="42425944-15c7-418b-b5cd-a582e15b80df"
-					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
-					variablename="nameOfParameterInPropertiesPanel">
-					</var>
-				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="fmName"
-					datasourceid="bede15ad-b61c-41fa-a4ae-07db5ac38d84"
-					variableid="cb52c14e-9bef-4f4a-9d11-1758141c50cb"
-					variablename="substringNameItemInTraject">
-					</var>
-					<var
-					dataname="finalValueParameter_2NA"
-					datasourceid="004305c8-dc2f-4236-9cb5-fb4029bbb90b"
-					variableid="541e9cf7-fb71-4773-bd20-19b633ea6f9d"
-					variablename="expectedValueOfParameterForItemInTraject">
-					</var>
-					<var
-					dataname="nameOfParameter_2NA_InPropertiesPanel"
-					datasourceid="004305c8-dc2f-4236-9cb5-fb4029bbb90b"
-					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
-					variablename="nameOfParameterInPropertiesPanel">
-					</var>
-				</missingdatabinding>
-			</testmodule>
-			<smartfoldernode
-			id="eb4954a5-f66b-4693-981d-d581746768ca"
-			name="ValidateBoundaries">
 			</smartfoldernode>
 			<smartfoldernode
 			id="ec6146f8-9a08-478a-a252-c91651cac9fe"
@@ -9733,10 +8352,6 @@
 				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
-			id="ee7b2bd4-7803-4972-bcb9-6a818edd0be0"
-			name="OpenCategoryBoundaries">
-			</smartfoldernode>
-			<smartfoldernode
 			id="ee88d553-74da-4ddc-8379-5e7a8c51ffe9"
 			name="DetailedAssessmentFMsGroup3_PKW">
 				<parameters>
@@ -9788,26 +8403,6 @@
 					variablename="expectedCustomAssessmentCellType">
 					</var>
 				</missingdatabinding>
-			</testmodule>
-			<testmodule
-			id="f0d3bf2d-f64e-4ec8-9a6e-181653681492"
-			name="ConvertToCurrentCulture"
-			ref="c1edbea9-a1e3-45d7-835b-452fd53ec06b"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="NValue"
-					datasourceid="b45bfffb-5bba-474f-b237-c2f41613bb15"
-					variableid="84c03b89-e5c0-4f39-95db-8114c2dacb0f"
-					variablename="valueToBeConverted">
-					</var>
-					<var
-					dataname="convertedValue"
-					datasourceid="548bde8b-44b7-4508-aaf3-3824011d3029"
-					variableid="ac108b35-e8c3-4c50-8517-867ecd23a44d"
-					variablename="convertedValue">
-					</var>
-				</databinding>
 			</testmodule>
 			<testcase
 			id="f16b204f-b66b-40a0-82c1-8d62dcbc8b22"
@@ -10202,116 +8797,6 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
-			<testmodule
-			id="fa4a7b00-c471-465b-80d2-f01f64b85443"
-			name="GetValueParameterForItemInTraject"
-			ref="3b08b464-43f7-4e4b-9c47-143e9b31807c"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="hardCodedTrajectToAdd"
-					datasourceid="de320efd-8193-4dd4-9e9d-8fb5690ddafb"
-					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
-					variablename="substringTrajectName">
-					</var>
-					<var
-					dataname="fmName"
-					datasourceid="5328d042-0c00-4277-af0a-8c5ec2f49435"
-					variableid="cb52c14e-9bef-4f4a-9d11-1758141c50cb"
-					variablename="substringNameItemInTraject">
-					</var>
-					<var
-					dataname="deltaLValue"
-					datasourceid="5328d042-0c00-4277-af0a-8c5ec2f49435"
-					variableid="d2cb0634-81a3-4751-83ba-7939e1c8f258"
-					variablename="valueOfParameterInPropertiesPanel">
-					</var>
-					<var
-					dataname="deltaLNameInPropertiesPanel"
-					datasourceid="5328d042-0c00-4277-af0a-8c5ec2f49435"
-					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
-					variablename="nameOfParameterInPropertiesPanel">
-					</var>
-				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="fmName"
-					datasourceid="62781130-fdeb-4216-af7f-09bd61e2f1a7"
-					variableid="cb52c14e-9bef-4f4a-9d11-1758141c50cb"
-					variablename="substringNameItemInTraject">
-					</var>
-					<var
-					dataname="b_param_nameInPropertiespanel"
-					datasourceid="42425944-15c7-418b-b5cd-a582e15b80df"
-					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
-					variablename="nameOfParameterInPropertiesPanel">
-					</var>
-					<var
-					dataname="b"
-					datasourceid="42425944-15c7-418b-b5cd-a582e15b80df"
-					variableid="d2cb0634-81a3-4751-83ba-7939e1c8f258"
-					variablename="valueOfParameterInPropertiesPanel">
-					</var>
-				</missingdatabinding>
-			</testmodule>
-			<testmodule
-			id="fb55700a-6442-4774-8d5d-4b3bc4dbf23d"
-			name="CalculateLinearTransformationOfValue"
-			ref="ff1cb4d9-1388-49e6-bf2a-00ed354dca1e"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="initialValueParameter_DeltaL"
-					datasourceid="b76df6f8-799c-4ff8-8df2-198969a6b4be"
-					variableid="32b52b59-7056-4c43-85c8-445a27bd4e65"
-					variablename="xVariable">
-					</var>
-					<var
-					dataname="factorM"
-					datasourceid="b76df6f8-799c-4ff8-8df2-198969a6b4be"
-					variableid="96607dd0-1076-4d31-a7dd-d20dfee7c567"
-					variablename="aParameter">
-					</var>
-					<var
-					dataname="shiftB"
-					datasourceid="b76df6f8-799c-4ff8-8df2-198969a6b4be"
-					variableid="16f51e88-473c-4f0d-b4a9-810b68fea466"
-					variablename="bParameter">
-					</var>
-					<var
-					dataname="finalValueParameter_DeltaL"
-					datasourceid="b76df6f8-799c-4ff8-8df2-198969a6b4be"
-					variableid="5c3fdb07-7073-459d-8c51-922caeb92a86"
-					variablename="returnedValue">
-					</var>
-				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="finalValueParameter_a"
-					datasourceid="8cb65e99-632a-4992-ae3e-ec6bb44ff32d"
-					variableid="5c3fdb07-7073-459d-8c51-922caeb92a86"
-					variablename="returnedValue">
-					</var>
-					<var
-					dataname="factorM"
-					datasourceid="8cb65e99-632a-4992-ae3e-ec6bb44ff32d"
-					variableid="96607dd0-1076-4d31-a7dd-d20dfee7c567"
-					variablename="aParameter">
-					</var>
-					<var
-					dataname="shiftB"
-					datasourceid="8cb65e99-632a-4992-ae3e-ec6bb44ff32d"
-					variableid="16f51e88-473c-4f0d-b4a9-810b68fea466"
-					variablename="bParameter">
-					</var>
-					<var
-					dataname="initialValueParameter_a"
-					datasourceid="8cb65e99-632a-4992-ae3e-ec6bb44ff32d"
-					variableid="32b52b59-7056-4c43-85c8-445a27bd4e65"
-					variablename="xVariable">
-					</var>
-				</missingdatabinding>
-			</testmodule>
 			<smartfoldernode
 			datasource="detailedAssessmentPKWType"
 			id="fba8bc9d-f1c1-405a-857e-dcce975295f6"
@@ -10536,58 +9021,6 @@
 			name="teardown">
 			</teardown>
 			<testmodule
-			id="fe47f240-eb04-43d0-bcf0-19bd316466ec"
-			name="GetValueParameterForItemInTraject"
-			ref="3b08b464-43f7-4e4b-9c47-143e9b31807c"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="hardCodedTrajectToAdd"
-					datasourceid="de320efd-8193-4dd4-9e9d-8fb5690ddafb"
-					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
-					variablename="substringTrajectName">
-					</var>
-					<var
-					dataname="Ltraject"
-					datasourceid="42425944-15c7-418b-b5cd-a582e15b80df"
-					variableid="d2cb0634-81a3-4751-83ba-7939e1c8f258"
-					variablename="valueOfParameterInPropertiesPanel">
-					</var>
-					<var
-					dataname="fmName"
-					datasourceid="62781130-fdeb-4216-af7f-09bd61e2f1a7"
-					variableid="cb52c14e-9bef-4f4a-9d11-1758141c50cb"
-					variablename="substringNameItemInTraject">
-					</var>
-					<var
-					dataname="lengte_param_nameInPropertiespanel"
-					datasourceid="42425944-15c7-418b-b5cd-a582e15b80df"
-					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
-					variablename="nameOfParameterInPropertiesPanel">
-					</var>
-				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="fmName"
-					datasourceid="bede15ad-b61c-41fa-a4ae-07db5ac38d84"
-					variableid="cb52c14e-9bef-4f4a-9d11-1758141c50cb"
-					variablename="substringNameItemInTraject">
-					</var>
-					<var
-					dataname="nameOfParameter_2NA_InPropertiesPanel"
-					datasourceid="004305c8-dc2f-4236-9cb5-fb4029bbb90b"
-					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
-					variablename="nameOfParameterInPropertiesPanel">
-					</var>
-					<var
-					dataname="initialValueParameter_2NA"
-					datasourceid="004305c8-dc2f-4236-9cb5-fb4029bbb90b"
-					variableid="d2cb0634-81a3-4751-83ba-7939e1c8f258"
-					variablename="valueOfParameterInPropertiesPanel">
-					</var>
-				</missingdatabinding>
-			</testmodule>
-			<testmodule
 			id="fed9ccd4-1918-418c-9a8c-d05cb1ac83c9"
 			name="OpenResultView"
 			ref="14b19856-facd-4b69-82b3-b7f678560774"
@@ -10618,58 +9051,6 @@
 					datasourceid="8f20477d-a7a3-4a0d-9b87-260c551eac8a"
 					variableid="3a7276c1-fca1-4026-9d2e-5bac10651a47"
 					variablename="substringItemName">
-					</var>
-				</missingdatabinding>
-			</testmodule>
-			<testmodule
-			id="ffd1bb2c-ae53-40b3-a440-7eb1b8939a09"
-			name="GetValueParameterForItemInTraject"
-			ref="3b08b464-43f7-4e4b-9c47-143e9b31807c"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="hardCodedTrajectToAdd"
-					datasourceid="de320efd-8193-4dd4-9e9d-8fb5690ddafb"
-					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
-					variablename="substringTrajectName">
-					</var>
-					<var
-					dataname="fmName"
-					datasourceid="56686535-e9c1-4dee-937e-6edd48e15b86"
-					variableid="cb52c14e-9bef-4f4a-9d11-1758141c50cb"
-					variablename="substringNameItemInTraject">
-					</var>
-					<var
-					dataname="cParameterValue"
-					datasourceid="56686535-e9c1-4dee-937e-6edd48e15b86"
-					variableid="d2cb0634-81a3-4751-83ba-7939e1c8f258"
-					variablename="valueOfParameterInPropertiesPanel">
-					</var>
-					<var
-					dataname="cNameInPropertiesPanel"
-					datasourceid="56686535-e9c1-4dee-937e-6edd48e15b86"
-					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
-					variablename="nameOfParameterInPropertiesPanel">
-					</var>
-				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="fmName"
-					datasourceid="5328d042-0c00-4277-af0a-8c5ec2f49435"
-					variableid="cb52c14e-9bef-4f4a-9d11-1758141c50cb"
-					variablename="substringNameItemInTraject">
-					</var>
-					<var
-					dataname="lengthNameInPropertiesPanel"
-					datasourceid="5328d042-0c00-4277-af0a-8c5ec2f49435"
-					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
-					variablename="nameOfParameterInPropertiesPanel">
-					</var>
-					<var
-					dataname="lengthValue"
-					datasourceid="5328d042-0c00-4277-af0a-8c5ec2f49435"
-					variableid="d2cb0634-81a3-4751-83ba-7939e1c8f258"
-					variablename="valueOfParameterInPropertiesPanel">
 					</var>
 				</missingdatabinding>
 			</testmodule>
@@ -10759,216 +9140,28 @@
 							</smartfoldernode>
 						</smartfoldernode>
 						<smartfoldernode
-						id="ab2dcae4-2020-4e09-bf5b-32fb590d3155"
-						name="b)LengthEffectParameters">
+						id="095a933f-0351-4f44-914c-746ccae54ec0"
+						name="LengthEffects(trajectType=Dijk/Duin)">
 							<smartfoldernode
-							id="095a933f-0351-4f44-914c-746ccae54ec0"
-							name="LengthEffects(trajectType=Dijk/Duin)">
-								<smartfoldernode
-								id="90aa5c69-ee83-454b-8d3f-8cf843f5fd19"
-								name="ReadTrajectLength">
-									<testmodule
-									id="2c4d685d-ade2-4128-95f9-3f5bfb343ec9"
-									name="GetValueParameterForItemInTraject">
-									</testmodule>
-								</smartfoldernode>
-								<smartfoldernode
-								id="1010c180-4323-4c5d-a8f2-a1541376c852"
-								name="CompareTrajectLengthInFMs">
-									<testmodule
-									id="5dc9bc5e-24e1-48cf-8f85-854b488174f0"
-									name="ValidateValueParameterForItemInTraject">
-									</testmodule>
-								</smartfoldernode>
-							</smartfoldernode>
-							<smartfoldernode
-							id="8cb65e99-632a-4992-ae3e-ec6bb44ff32d"
-							name="SetNewValueForParameter_a">
+							id="90aa5c69-ee83-454b-8d3f-8cf843f5fd19"
+							name="ReadTrajectLength">
 								<testmodule
-								id="6b662658-3148-41e0-8df4-b5523ada99ca"
+								id="2c4d685d-ade2-4128-95f9-3f5bfb343ec9"
 								name="GetValueParameterForItemInTraject">
 								</testmodule>
-								<testmodule
-								id="4ae7556e-4930-43f7-8794-8679450f77c8"
-								name="CalculateLinearTransformationOfValue">
-								</testmodule>
-								<testmodule
-								id="51330cc3-8fc6-4da8-ad51-229af37158ca"
-								name="SetValueParameterForItemInTraject">
-								</testmodule>
-								<testmodule
-								id="e29498d5-9a1d-4564-bb6b-70d00ffa1bc7"
-								name="ValidateValueParameterForItemInTraject">
-								</testmodule>
 							</smartfoldernode>
 							<smartfoldernode
-							id="b76df6f8-799c-4ff8-8df2-198969a6b4be"
-							name="SetAndValidateNewValueFor_DeltaL">
+							id="1010c180-4323-4c5d-a8f2-a1541376c852"
+							name="CompareTrajectLengthInFM">
 								<testmodule
-								id="b82eab11-472c-4185-82c4-694c60a90d9d"
-								name="GetValueParameterForItemInTraject">
-								</testmodule>
-								<testmodule
-								id="fb55700a-6442-4774-8d5d-4b3bc4dbf23d"
-								name="CalculateLinearTransformationOfValue">
-								</testmodule>
-								<testmodule
-								id="4515e4d7-70e7-4310-a81c-13390c15a3a0"
-								name="SetValueParameterForItemInTraject">
-								</testmodule>
-								<testmodule
-								id="127cd33f-3715-4bd8-8b74-c3ed29f9a79d"
+								id="5dc9bc5e-24e1-48cf-8f85-854b488174f0"
 								name="ValidateValueParameterForItemInTraject">
 								</testmodule>
-							</smartfoldernode>
-							<smartfoldernode
-							id="004305c8-dc2f-4236-9cb5-fb4029bbb90b"
-							name="SetAndValidateNewValueFor_2NA">
-								<testmodule
-								id="41c3c68b-3e84-45ba-8bb2-bb1659a139f5"
-								name="GetValueParameterForItemInTraject">
-								</testmodule>
-								<testmodule
-								id="02ab976f-385f-419e-a525-516a1091e111"
-								name="SetValueParameterForItemInTraject">
-								</testmodule>
-								<testmodule
-								id="1115d338-6f63-4419-b0ef-587167c98aa9"
-								name="ValidateValueParameterForItemInTraject">
-								</testmodule>
-							</smartfoldernode>
-							<smartfoldernode
-							id="1d7d98c9-1fe4-475e-a93d-ce80f772ec6d"
-							name="ValidateLengthEffectParameterN">
-								<smartfoldernode
-								id="42425944-15c7-418b-b5cd-a582e15b80df"
-								name="FormulaType1_(STPH,STBI,STBU)">
-									<testmodule
-									id="638def4b-9e2a-41be-bb18-2991948a1821"
-									name="GetValueParameterForItemInTraject">
-									</testmodule>
-									<testmodule
-									id="bfdb6bd2-c766-46a9-84a4-05512080c534"
-									name="GetValueParameterForItemInTraject">
-									</testmodule>
-									<testmodule
-									id="fe47f240-eb04-43d0-bcf0-19bd316466ec"
-									name="GetValueParameterForItemInTraject">
-									</testmodule>
-									<testmodule
-									id="19df0b36-eb0a-4d14-ada6-547eda8896bf"
-									name="CalculateNFormula1">
-									</testmodule>
-									<testmodule
-									id="eb349781-0c2a-466b-bac8-2d3278af1636"
-									name="ValidateValueParameterForItemInTraject">
-									</testmodule>
-								</smartfoldernode>
-								<smartfoldernode
-								id="5328d042-0c00-4277-af0a-8c5ec2f49435"
-								name="FormulaType2_(AGK)">
-									<testmodule
-									id="c3744923-020e-4304-b830-2ea9ca446b46"
-									name="GetValueParameterForItemInTraject">
-									</testmodule>
-									<testmodule
-									id="fa4a7b00-c471-465b-80d2-f01f64b85443"
-									name="GetValueParameterForItemInTraject">
-									</testmodule>
-									<testmodule
-									id="62bcf81e-2dea-4d4b-bb32-bc50cb233b18"
-									name="CalculateNFormula2">
-									</testmodule>
-									<testmodule
-									id="b8493da3-6ce3-4b44-9406-06ff8d98cf12"
-									name="ValidateValueParameterForItemInTraject">
-									</testmodule>
-								</smartfoldernode>
-								<smartfoldernode
-								id="56686535-e9c1-4dee-937e-6edd48e15b86"
-								name="FormulaType3_(BSKW)">
-									<testmodule
-									id="ffd1bb2c-ae53-40b3-a440-7eb1b8939a09"
-									name="GetValueParameterForItemInTraject">
-									</testmodule>
-									<testmodule
-									id="271738ae-5952-4a54-a0d6-dc1ad4aab3ca"
-									name="GetValueParameterForItemInTraject">
-									</testmodule>
-									<testmodule
-									id="ea71d278-5c6a-4b77-827b-50c9d289c19b"
-									name="CalculateNFormula3">
-									</testmodule>
-									<testmodule
-									id="d0c11874-c327-406d-8281-7f92abb088a2"
-									name="ValidateValueParameterForItemInTraject">
-									</testmodule>
-								</smartfoldernode>
-								<smartfoldernode
-								id="548bde8b-44b7-4508-aaf3-3824011d3029"
-								name="FormulaType4_(ZST,PKW,STKWp,DA)">
-									<testmodule
-									id="f0d3bf2d-f64e-4ec8-9a6e-181653681492"
-									name="ConvertToCurrentCulture">
-									</testmodule>
-									<testmodule
-									id="ddcb574e-dd31-4b69-9a30-e87fd52dcd68"
-									name="ValidateValueParameterForItemInTraject">
-									</testmodule>
-								</smartfoldernode>
-								<smartfoldernode
-								id="d08f45c8-4f17-409f-ade9-f896ccfc0c91"
-								name="FormulaType5_(GEKB,GEBU,HTKW)">
-									<testmodule
-									id="13aec01b-f5ba-45a0-bf51-084f3df2a7e5"
-									name="ValidateValueParameterForItemInTraject">
-									</testmodule>
-								</smartfoldernode>
-								<smartfoldernode
-								id="02d6fbbd-047b-4a52-86eb-40cf83f3a5ba"
-								name="NoParameterN(STMI,AWO,GABU,GABI,STKWI,INN)">
-									<testmodule
-									id="2a5687ca-af5a-4caa-b1b6-b804952fe10d"
-									name="ValidateParameterDoesNotExistForItemInTraject">
-									</testmodule>
-								</smartfoldernode>
 							</smartfoldernode>
 						</smartfoldernode>
 						<smartfoldernode
-						id="78947188-1351-4994-baff-766da4b7d2e0"
-						name="c)DeterminationOfAssessmentRequirementsForSection(Traject)">
-							<smartfoldernode
-							id="ee7b2bd4-7803-4972-bcb9-6a818edd0be0"
-							name="OpenCategoryBoundaries">
-								<testmodule
-								id="60e53209-a978-4c5a-817e-3b4685b8922b"
-								name="OpenViewForCategoryBoundaries">
-								</testmodule>
-							</smartfoldernode>
-							<smartfoldernode
-							id="eb4954a5-f66b-4693-981d-d581746768ca"
-							name="ValidateBoundaries">
-								<smartfoldernode
-								id="a19d64b1-9804-430e-b24d-b02b6bf6945a"
-								name="ValidateLowerBoundaries">
-									<testmodule
-									id="5cf5f154-cb30-4728-8b81-be2f1c2230a9"
-									name="CalculateCategoryBoundary">
-									</testmodule>
-									<testmodule
-									id="b00fa597-7d2c-403b-98c9-b3b57af8a0ed"
-									name="ValidateCategoryBoundary">
-									</testmodule>
-								</smartfoldernode>
-								<smartfoldernode
-								id="8a8ffa3e-b7fa-4e60-8b15-6a29f00df521"
-								name="ValidateUpperBoundaries">
-								</smartfoldernode>
-							</smartfoldernode>
-						</smartfoldernode>
-						<smartfoldernode
-						id="b795459a-cbc9-44b8-808d-ecbcb138ed78"
-						name="d)DeterminationOfAssessmentRequirementsForSubSection(Vak)">
+						id="69391c41-06e7-414a-84c6-6ddfce6d7bdd"
+						name="LastFolder">
 						</smartfoldernode>
 						<teardown
 						id="f4d4d958-8b7c-427f-873c-e4ab538b83a8"
@@ -12363,8 +10556,8 @@
 									id="a62f19a6-916a-4eae-a94c-9f8d7e719c12"
 									name="LoopRowsSetCustomAssessment">
 										<testmodule
-										id="b9e78914-c8f3-4843-8685-db81d3edc7fa"
-										name="SetCustomAssessmentAtRow">
+										id="1a1ce4d8-2e64-4c2d-9b58-fb68447b6cd0"
+										name="SetCustomAssessmentAtRowBSKW">
 										</testmodule>
 									</smartfoldernode>
 									<smartfoldernode
@@ -12373,10 +10566,6 @@
 										<testmodule
 										id="75f65bed-f101-450b-90cd-5db21120b6ac"
 										name="ValidateCustomAssessmentTypeAtRow">
-										</testmodule>
-										<testmodule
-										id="e75ffd20-b9fc-4102-86bf-135cea0754e0"
-										name="ValidateCustomAssessmentValue">
 										</testmodule>
 									</smartfoldernode>
 									<testmodule
@@ -13936,7 +12125,7 @@
 		<DataSource
 		id="e2d7e84b-eacb-4fe6-984c-f0d55a076570"
 		includefile="Unchecked"
-		lastknownrowcount="7"
+		lastknownrowcount="8"
 		name="customAssessmentCategories"
 		type="Ranorex.Core.Data.CsvDataConnector"
 		withheaders="True">
@@ -14242,7 +12431,7 @@
 		<DataSource
 		id="db66c0df-6518-4c43-b352-656c3623717d"
 		includefile="Unchecked"
-		lastknownrowcount="8"
+		lastknownrowcount="9"
 		name="customAssessmentSTPH"
 		type="Ranorex.Core.Data.CsvDataConnector"
 		withheaders="True">
@@ -14252,9 +12441,6 @@
 				</column>
 				<column>
 					CustomAssessmentTypeItem
-				</column>
-				<column>
-					FaalkansSetValue
 				</column>
 				<column>
 					FaalkansValidateValue
@@ -15615,7 +13801,7 @@
 			<maskedcolumns>
 			</maskedcolumns>
 			<file>
-				X:\script21\input\CSVs\relevanceOfFMsInTraject44_2FMCView.csv
+				X:\script21\CSVs\setRelevanceOfFMsInTraject44-2FMCView.csv
 			</file>
 		</DataSource>
 		<DataSource
@@ -15802,184 +13988,6 @@
 			</table>
 		</DataSource>
 		<DataSource
-		id="62781130-fdeb-4216-af7f-09bd61e2f1a7"
-		lastknownrowcount="3"
-		name="tableFMsFormulaGroup1N"
-		type="Ranorex.Core.Data.SimpleDataConnector">
-			<lastknowncolumns>
-				<column>
-					fmName
-				</column>
-			</lastknowncolumns>
-			<maskedcolumns>
-			</maskedcolumns>
-			<table>
-				<tr>
-					<th>
-						fmName
-					</th>
-				</tr>
-				<tr>
-					<td>
-						Dijken en dammen - Piping
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Dijken en dammen - Macrostabiliteit binnenwaarts
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Dijken en dammen - Macrostabiliteit buitenwaarts
-					</td>
-				</tr>
-			</table>
-		</DataSource>
-		<DataSource
-		id="748d51a9-ceeb-4ad2-9005-0e58af7ac131"
-		lastknownrowcount="3"
-		name="tableFMsForNewValueParameter_a"
-		type="Ranorex.Core.Data.SimpleDataConnector">
-			<lastknowncolumns>
-				<column>
-					fmName
-				</column>
-			</lastknowncolumns>
-			<maskedcolumns>
-			</maskedcolumns>
-			<table>
-				<tr>
-					<th>
-						fmName
-					</th>
-				</tr>
-				<tr>
-					<td>
-						Dijken en dammen - Piping
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Dijken en dammen - Macrostabiliteit binnenwaarts
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Dijken en dammen - Macrostabiliteit buitenwaarts
-					</td>
-				</tr>
-			</table>
-		</DataSource>
-		<DataSource
-		id="b45bfffb-5bba-474f-b237-c2f41613bb15"
-		lastknownrowcount="4"
-		name="tableFMsNValue"
-		type="Ranorex.Core.Data.SimpleDataConnector">
-			<lastknowncolumns>
-				<column>
-					fmName
-				</column>
-				<column>
-					NValue
-				</column>
-			</lastknowncolumns>
-			<maskedcolumns>
-			</maskedcolumns>
-			<table>
-				<tr>
-					<th>
-						fmName
-					</th>
-					<th>
-						NValue
-					</th>
-				</tr>
-				<tr>
-					<td>
-						Dijken en dammen - Stabiliteit steenzetting
-					</td>
-					<td>
-						4
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Kunstwerken - Piping bij kunstwerk
-					</td>
-					<td>
-						1
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Kunstwerken - Sterkte en stabiliteit puntconstructies
-					</td>
-					<td>
-						3
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Duinwaterkering - Duinafslag
-					</td>
-					<td>
-						2
-					</td>
-				</tr>
-			</table>
-		</DataSource>
-		<DataSource
-		id="6dd3da41-63a0-417f-af27-bce097b7b5b7"
-		lastknownrowcount="1"
-		name="tableFMsToAdjustValueDeltaL"
-		type="Ranorex.Core.Data.SimpleDataConnector">
-			<lastknowncolumns>
-				<column>
-					fmName
-				</column>
-			</lastknowncolumns>
-			<maskedcolumns>
-			</maskedcolumns>
-			<table>
-				<tr>
-					<th>
-						fmName
-					</th>
-				</tr>
-				<tr>
-					<td>
-						Dijken en dammen - Golfklappen op asfaltbekleding
-					</td>
-				</tr>
-			</table>
-		</DataSource>
-		<DataSource
-		id="bede15ad-b61c-41fa-a4ae-07db5ac38d84"
-		lastknownrowcount="1"
-		name="tableFMsToSetAndValidateValueFor_2NA"
-		type="Ranorex.Core.Data.SimpleDataConnector">
-			<lastknowncolumns>
-				<column>
-					fmName
-				</column>
-			</lastknowncolumns>
-			<maskedcolumns>
-			</maskedcolumns>
-			<table>
-				<tr>
-					<th>
-						fmName
-					</th>
-				</tr>
-				<tr>
-					<td>
-						Kunstwerken - Betrouwbaarheid sluiting kunstwerk
-					</td>
-				</tr>
-			</table>
-		</DataSource>
-		<DataSource
 		id="6d42c555-b56d-4896-8200-5e6619488fd5"
 		lastknownrowcount="4"
 		name="tableFMsToValidateTrajectLength"
@@ -16019,228 +14027,11 @@
 				</tr>
 			</table>
 		</DataSource>
-		<DataSource
-		id="12e9dff7-d117-4313-9d7d-2edf4975608f"
-		lastknownrowcount="6"
-		name="tableFMsWIthNoNParameter"
-		type="Ranorex.Core.Data.SimpleDataConnector">
-			<lastknowncolumns>
-				<column>
-					fmName
-				</column>
-			</lastknowncolumns>
-			<maskedcolumns>
-			</maskedcolumns>
-			<table>
-				<tr>
-					<th>
-						fmName
-					</th>
-				</tr>
-				<tr>
-					<td>
-						Dijken en dammen - Microstabiliteit&#10;
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Dijken en dammen - Wateroverdruk bij asfaltbekleding&#10;
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Dijken en dammen - Grasbekleding afschuiven buitentalud&#10;
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Dijken en dammen - Grasbekleding afschuiven binnentalud&#10;
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Kunstwerken - Sterkte en stabiliteit langsconstructies&#10;
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Technische innovaties - Technische innovaties&#10;
-					</td>
-				</tr>
-			</table>
-		</DataSource>
-		<DataSource
-		id="6f7c440d-3d2b-4277-bfaa-9daa8a3fdee8"
-		lastknownrowcount="11"
-		name="tableNamesFMsForDeterminationAssessmentRequirementsTraject"
-		type="Ranorex.Core.Data.SimpleDataConnector">
-			<lastknowncolumns>
-				<column>
-					fmName
-				</column>
-				<column>
-					fmLabel
-				</column>
-			</lastknowncolumns>
-			<maskedcolumns>
-			</maskedcolumns>
-			<table>
-				<tr>
-					<th>
-						fmName
-					</th>
-					<th>
-						fmLabel
-					</th>
-				</tr>
-				<tr>
-					<td>
-						Dijken en dammen - Piping
-					</td>
-					<td>
-						STPH
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Dijken en dammen - Grasbekleding erosie kruin en binnentalud
-					</td>
-					<td>
-						GEKB
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Dijken en dammen - Macrostabiliteit binnenwaarts
-					</td>
-					<td>
-						STBI
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Dijken en dammen - Stabiliteit steenzetting
-					</td>
-					<td>
-						ZST
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Dijken en dammen - Golfklappen op asfaltbekleding
-					</td>
-					<td>
-						AGK
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Dijken en dammen - Grasbekleding erosie buitentalud
-					</td>
-					<td>
-						GEBU
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Kunstwerken - Hoogte kunstwerk
-					</td>
-					<td>
-						HTKW
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Kunstwerken - Betrouwbaarheid sluiting kunstwerk
-					</td>
-					<td>
-						BSKW
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Kunstwerken - Piping bij kunstwerk
-					</td>
-					<td>
-						PKW
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Kunstwerken - Sterkte en stabiliteit puntconstructies
-					</td>
-					<td>
-						STKWp
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Duinwaterkering - Duinafslag
-					</td>
-					<td>
-						DA
-					</td>
-				</tr>
-			</table>
-		</DataSource>
-		<DataSource
-		id="903b5ff4-9ed4-4974-8688-9c279ca9633c"
-		lastknownrowcount="3"
-		name="tableNValueInFMsForTraject12_2"
-		type="Ranorex.Core.Data.SimpleDataConnector">
-			<lastknowncolumns>
-				<column>
-					fmName
-				</column>
-				<column>
-					NValue
-				</column>
-			</lastknowncolumns>
-			<maskedcolumns>
-			</maskedcolumns>
-			<table>
-				<tr>
-					<th>
-						fmName
-					</th>
-					<th>
-						NValue
-					</th>
-				</tr>
-				<tr>
-					<td>
-						Dijken en dammen - Grasbekleding erosie kruin en binnentalud
-					</td>
-					<td>
-						2
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Dijken en dammen - Grasbekleding erosie buitentalud
-					</td>
-					<td>
-						2
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Kunstwerken - Hoogte kunstwerk
-					</td>
-					<td>
-						2
-					</td>
-				</tr>
-			</table>
-		</DataSource>
 	</datasources>
 	<testconfigurations
 	default="TestRun">
 		<testconfiguration
 		name="TestRun">
-			<testcontainer
-			id="004305c8-dc2f-4236-9cb5-fb4029bbb90b">
-			</testcontainer>
 			<testcontainer
 			id="00c7a4e5-d91a-40ea-9fc2-39264a957d87">
 			</testcontainer>
@@ -16252,9 +14043,6 @@
 			</testcontainer>
 			<testcontainer
 			id="02a85580-c5da-4d64-8012-b42d5a9ad388">
-			</testcontainer>
-			<testcontainer
-			id="02d6fbbd-047b-4a52-86eb-40cf83f3a5ba">
 			</testcontainer>
 			<testcontainer
 			id="06908862-b5db-4ca7-99ea-562da0210ef4">
@@ -16303,9 +14091,6 @@
 			</testcontainer>
 			<testcontainer
 			id="1ca083b2-ffd0-4553-a50a-f17aad616df9">
-			</testcontainer>
-			<testcontainer
-			id="1d7d98c9-1fe4-475e-a93d-ce80f772ec6d">
 			</testcontainer>
 			<testcontainer
 			id="1eff0053-015a-4ebc-aece-f2f6f630f6bc">
@@ -16365,9 +14150,6 @@
 			id="417987a8-4ee5-437b-9310-9e2b361d6485">
 			</testcontainer>
 			<testcontainer
-			id="42425944-15c7-418b-b5cd-a582e15b80df">
-			</testcontainer>
-			<testcontainer
 			id="42f4cf7a-f88d-4f29-88fb-bd3bb76afff6">
 			</testcontainer>
 			<testcontainer
@@ -16404,19 +14186,10 @@
 			id="5219c50f-4bd7-468e-80ac-46316597d2b8">
 			</testcontainer>
 			<testcontainer
-			id="5328d042-0c00-4277-af0a-8c5ec2f49435">
-			</testcontainer>
-			<testcontainer
 			id="5340027b-b4a4-4dba-b063-174101b7a625">
 			</testcontainer>
 			<testcontainer
 			id="54726836-ea20-4aed-9544-c3ea520ce225">
-			</testcontainer>
-			<testcontainer
-			id="548bde8b-44b7-4508-aaf3-3824011d3029">
-			</testcontainer>
-			<testcontainer
-			id="56686535-e9c1-4dee-937e-6edd48e15b86">
 			</testcontainer>
 			<testcontainer
 			id="571a9ba3-86a6-4c7e-9f89-17d420e49e63">
@@ -16464,6 +14237,9 @@
 			id="645a1e46-fc85-4ee5-b48f-628d1c339748">
 			</testcontainer>
 			<testcontainer
+			id="69391c41-06e7-414a-84c6-6ddfce6d7bdd">
+			</testcontainer>
+			<testcontainer
 			id="69b0f5eb-98f2-4752-994c-053d61efa218">
 			</testcontainer>
 			<testcontainer
@@ -16486,9 +14262,6 @@
 			</testcontainer>
 			<testcontainer
 			id="75bc37b3-8164-46db-8dab-3fbff66c9045">
-			</testcontainer>
-			<testcontainer
-			id="78947188-1351-4994-baff-766da4b7d2e0">
 			</testcontainer>
 			<testcontainer
 			id="78a783b3-ec47-4145-85f3-55c2b56b7aa0">
@@ -16545,13 +14318,7 @@
 			id="88b858d8-647d-4f7f-9c26-ec7fc0783f3a">
 			</testcontainer>
 			<testcontainer
-			id="8a8ffa3e-b7fa-4e60-8b15-6a29f00df521">
-			</testcontainer>
-			<testcontainer
 			id="8b8fa870-c170-4c55-b819-337a8696544e">
-			</testcontainer>
-			<testcontainer
-			id="8cb65e99-632a-4992-ae3e-ec6bb44ff32d">
 			</testcontainer>
 			<testcontainer
 			id="8f466d99-9dec-4400-9916-caced2df458b">
@@ -16599,9 +14366,6 @@
 			id="a05f1ece-a4c1-439f-a1db-ff664bd18416">
 			</testcontainer>
 			<testcontainer
-			id="a19d64b1-9804-430e-b24d-b02b6bf6945a">
-			</testcontainer>
-			<testcontainer
 			id="a220e9d3-3388-4a68-b45b-6ab4a63711ed">
 			</testcontainer>
 			<testcontainer
@@ -16621,9 +14385,6 @@
 			</testcontainer>
 			<testcontainer
 			id="aa5794c0-c09f-491c-aabc-539950fa3cbf">
-			</testcontainer>
-			<testcontainer
-			id="ab2dcae4-2020-4e09-bf5b-32fb590d3155">
 			</testcontainer>
 			<testcontainer
 			id="aba03c61-b85c-4b02-b4fd-6792f2b3b1eb">
@@ -16657,12 +14418,6 @@
 			</testcontainer>
 			<testcontainer
 			id="b6c982e8-d12d-4bc1-8e69-daec37d56780">
-			</testcontainer>
-			<testcontainer
-			id="b76df6f8-799c-4ff8-8df2-198969a6b4be">
-			</testcontainer>
-			<testcontainer
-			id="b795459a-cbc9-44b8-808d-ecbcb138ed78">
 			</testcontainer>
 			<testcontainer
 			id="b90f12e8-31ee-41a0-b1e5-7fad5522e116">
@@ -16717,9 +14472,6 @@
 			</testcontainer>
 			<testcontainer
 			id="d08265bc-bb9d-45a6-a666-5d4e5a13a1ca">
-			</testcontainer>
-			<testcontainer
-			id="d08f45c8-4f17-409f-ade9-f896ccfc0c91">
 			</testcontainer>
 			<testcontainer
 			id="d09feb8c-4a12-4dc9-b05b-f585593616e5">
@@ -16800,13 +14552,7 @@
 			id="ea9ba8b2-e4f0-4023-8f1a-fddd36872370">
 			</testcontainer>
 			<testcontainer
-			id="eb4954a5-f66b-4693-981d-d581746768ca">
-			</testcontainer>
-			<testcontainer
 			id="ec6146f8-9a08-478a-a252-c91651cac9fe">
-			</testcontainer>
-			<testcontainer
-			id="ee7b2bd4-7803-4972-bcb9-6a818edd0be0">
 			</testcontainer>
 			<testcontainer
 			id="ee88d553-74da-4ddc-8379-5e7a8c51ffe9">
