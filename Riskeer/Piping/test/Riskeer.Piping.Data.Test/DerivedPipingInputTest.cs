@@ -69,9 +69,9 @@ namespace Riskeer.Piping.Data.Test
                 PiezoHeadCalculatorStub piezometricHeadAtExitCalculator = factory.LastCreatedPiezometricHeadAtExitCalculator;
 
                 Assert.AreEqual(assessmentLevel, piezometricHeadAtExitCalculator.HRiver, assessmentLevel.GetAccuracy());
-                Assert.AreEqual(PipingSemiProbabilisticDesignVariableFactory.GetPhreaticLevelExit(input).GetDesignValue(), piezometricHeadAtExitCalculator.PhiPolder,
+                Assert.AreEqual(SemiProbabilisticPipingDesignVariableFactory.GetPhreaticLevelExit(input).GetDesignValue(), piezometricHeadAtExitCalculator.PhiPolder,
                                 input.PhreaticLevelExit.GetAccuracy());
-                Assert.AreEqual(PipingSemiProbabilisticDesignVariableFactory.GetDampingFactorExit(input).GetDesignValue(), piezometricHeadAtExitCalculator.RExit,
+                Assert.AreEqual(SemiProbabilisticPipingDesignVariableFactory.GetDampingFactorExit(input).GetDesignValue(), piezometricHeadAtExitCalculator.RExit,
                                 input.DampingFactorExit.GetAccuracy());
             }
         }

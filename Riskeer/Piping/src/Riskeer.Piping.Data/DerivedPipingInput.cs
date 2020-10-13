@@ -52,8 +52,8 @@ namespace Riskeer.Piping.Data
                 throw new ArgumentNullException(nameof(input));
             }
 
-            RoundedDouble dampingFactorExit = PipingSemiProbabilisticDesignVariableFactory.GetDampingFactorExit(input).GetDesignValue();
-            RoundedDouble phreaticLevelExit = PipingSemiProbabilisticDesignVariableFactory.GetPhreaticLevelExit(input).GetDesignValue();
+            RoundedDouble dampingFactorExit = SemiProbabilisticPipingDesignVariableFactory.GetDampingFactorExit(input).GetDesignValue();
+            RoundedDouble phreaticLevelExit = SemiProbabilisticPipingDesignVariableFactory.GetPhreaticLevelExit(input).GetDesignValue();
 
             return new RoundedDouble(2, InputParameterCalculationService.CalculatePiezometricHeadAtExit(assessmentLevel,
                                                                                                         dampingFactorExit,
@@ -276,7 +276,7 @@ namespace Riskeer.Piping.Data
                 var weightedMean = new RoundedDouble(GetNumberOfDecimals(effectiveThicknessCoverageLayerDistribution),
                                                      InputParameterCalculationService.CalculateEffectiveThicknessCoverageLayer(
                                                          input.WaterVolumetricWeight,
-                                                         PipingSemiProbabilisticDesignVariableFactory.GetPhreaticLevelExit(input).GetDesignValue(),
+                                                         SemiProbabilisticPipingDesignVariableFactory.GetPhreaticLevelExit(input).GetDesignValue(),
                                                          input.ExitPointL,
                                                          input.SurfaceLine,
                                                          input.StochasticSoilProfile.SoilProfile));

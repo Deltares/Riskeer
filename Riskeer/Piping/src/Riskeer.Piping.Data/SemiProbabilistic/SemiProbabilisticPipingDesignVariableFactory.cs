@@ -26,7 +26,7 @@ namespace Riskeer.Piping.Data.SemiProbabilistic
     /// <summary>
     /// Factory for creating design variables based on probabilistic distributions for piping.
     /// </summary>
-    public static class PipingSemiProbabilisticDesignVariableFactory
+    public static class SemiProbabilisticPipingDesignVariableFactory
     {
         #region General parameters
 

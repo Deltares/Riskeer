@@ -30,7 +30,7 @@ using Riskeer.Piping.Data.TestUtil;
 namespace Riskeer.Piping.Data.Test.SemiProbabilistic
 {
     [TestFixture]
-    public class PipingSemiProbabilisticDesignVariableFactoryTest
+    public class SemiProbabilisticPipingDesignVariableFactoryTest
     {
         private static void AssertPercentile<T>(double percentile, DesignVariable<T> designVariable) where T : IDistribution
         {
@@ -55,7 +55,7 @@ namespace Riskeer.Piping.Data.Test.SemiProbabilistic
             PipingInput inputParameters = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
 
             // Call
-            DeterministicDesignVariable<LogNormalDistribution> upliftModelFactor = PipingSemiProbabilisticDesignVariableFactory.GetUpliftModelFactorDesignVariable(inputParameters);
+            DeterministicDesignVariable<LogNormalDistribution> upliftModelFactor = SemiProbabilisticPipingDesignVariableFactory.GetUpliftModelFactorDesignVariable(inputParameters);
 
             // Assert
             DistributionAssert.AreEqual(inputParameters.UpliftModelFactor, upliftModelFactor.Distribution);
@@ -69,7 +69,7 @@ namespace Riskeer.Piping.Data.Test.SemiProbabilistic
             PipingInput inputParameters = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
 
             // Call
-            DeterministicDesignVariable<LogNormalDistribution> sellmeijerModelFactor = PipingSemiProbabilisticDesignVariableFactory.GetSellmeijerModelFactorDesignVariable(inputParameters);
+            DeterministicDesignVariable<LogNormalDistribution> sellmeijerModelFactor = SemiProbabilisticPipingDesignVariableFactory.GetSellmeijerModelFactorDesignVariable(inputParameters);
 
             // Assert
             DistributionAssert.AreEqual(inputParameters.SellmeijerModelFactor, sellmeijerModelFactor.Distribution);
@@ -83,7 +83,7 @@ namespace Riskeer.Piping.Data.Test.SemiProbabilistic
             PipingInput inputParameters = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
 
             // Call
-            DesignVariable<LogNormalDistribution> thicknessCoverageLayer = PipingSemiProbabilisticDesignVariableFactory.GetThicknessCoverageLayer(inputParameters);
+            DesignVariable<LogNormalDistribution> thicknessCoverageLayer = SemiProbabilisticPipingDesignVariableFactory.GetThicknessCoverageLayer(inputParameters);
 
             // Assert
             Assert.IsInstanceOf<PercentileBasedDesignVariable<LogNormalDistribution>>(thicknessCoverageLayer);
@@ -98,7 +98,7 @@ namespace Riskeer.Piping.Data.Test.SemiProbabilistic
             var inputParameters = new PipingInput(new GeneralPipingInput());
 
             // Call
-            DesignVariable<LogNormalDistribution> thicknessCoverageLayer = PipingSemiProbabilisticDesignVariableFactory.GetThicknessCoverageLayer(inputParameters);
+            DesignVariable<LogNormalDistribution> thicknessCoverageLayer = SemiProbabilisticPipingDesignVariableFactory.GetThicknessCoverageLayer(inputParameters);
 
             // Assert
             Assert.IsInstanceOf<DeterministicDesignVariable<LogNormalDistribution>>(thicknessCoverageLayer);
@@ -114,7 +114,7 @@ namespace Riskeer.Piping.Data.Test.SemiProbabilistic
 
             // Call
             DesignVariable<LogNormalDistribution> effectiveThicknessCoverageLayer =
-                PipingSemiProbabilisticDesignVariableFactory.GetEffectiveThicknessCoverageLayer(inputParameters);
+                SemiProbabilisticPipingDesignVariableFactory.GetEffectiveThicknessCoverageLayer(inputParameters);
 
             // Assert
             Assert.IsInstanceOf<PercentileBasedDesignVariable<LogNormalDistribution>>(effectiveThicknessCoverageLayer);
@@ -130,7 +130,7 @@ namespace Riskeer.Piping.Data.Test.SemiProbabilistic
 
             // Call
             DesignVariable<LogNormalDistribution> effectiveThicknessCoverageLayer =
-                PipingSemiProbabilisticDesignVariableFactory.GetEffectiveThicknessCoverageLayer(inputParameters);
+                SemiProbabilisticPipingDesignVariableFactory.GetEffectiveThicknessCoverageLayer(inputParameters);
 
             // Assert
             Assert.IsInstanceOf<DeterministicDesignVariable<LogNormalDistribution>>(effectiveThicknessCoverageLayer);
@@ -146,7 +146,7 @@ namespace Riskeer.Piping.Data.Test.SemiProbabilistic
 
             // Call
             DesignVariable<NormalDistribution> freaticLevelExit =
-                PipingSemiProbabilisticDesignVariableFactory.GetPhreaticLevelExit(inputParameters);
+                SemiProbabilisticPipingDesignVariableFactory.GetPhreaticLevelExit(inputParameters);
 
             // Assert
             Assert.AreSame(inputParameters.PhreaticLevelExit, freaticLevelExit.Distribution);
@@ -161,7 +161,7 @@ namespace Riskeer.Piping.Data.Test.SemiProbabilistic
 
             // Call
             DesignVariable<LogNormalDistribution> dampingFactorExit =
-                PipingSemiProbabilisticDesignVariableFactory.GetDampingFactorExit(inputParameters);
+                SemiProbabilisticPipingDesignVariableFactory.GetDampingFactorExit(inputParameters);
 
             // Assert
             Assert.AreSame(inputParameters.DampingFactorExit, dampingFactorExit.Distribution);
@@ -180,7 +180,7 @@ namespace Riskeer.Piping.Data.Test.SemiProbabilistic
 
             // Call
             VariationCoefficientDesignVariable<VariationCoefficientLogNormalDistribution> seepageLength =
-                PipingSemiProbabilisticDesignVariableFactory.GetSeepageLength(inputParameters);
+                SemiProbabilisticPipingDesignVariableFactory.GetSeepageLength(inputParameters);
 
             // Assert
             DistributionAssert.AreEqual(DerivedPipingInput.GetSeepageLength(inputParameters), seepageLength.Distribution);
@@ -195,7 +195,7 @@ namespace Riskeer.Piping.Data.Test.SemiProbabilistic
 
             // Call
             VariationCoefficientDesignVariable<VariationCoefficientLogNormalDistribution> d70 =
-                PipingSemiProbabilisticDesignVariableFactory.GetDiameter70(inputParameters);
+                SemiProbabilisticPipingDesignVariableFactory.GetDiameter70(inputParameters);
 
             // Assert
             DistributionAssert.AreEqual(DerivedPipingInput.GetDiameterD70(inputParameters), d70.Distribution);
@@ -210,7 +210,7 @@ namespace Riskeer.Piping.Data.Test.SemiProbabilistic
 
             // Call
             VariationCoefficientDesignVariable<VariationCoefficientLogNormalDistribution> darcyPermeability =
-                PipingSemiProbabilisticDesignVariableFactory.GetDarcyPermeability(inputParameters);
+                SemiProbabilisticPipingDesignVariableFactory.GetDarcyPermeability(inputParameters);
 
             // Assert
             DistributionAssert.AreEqual(DerivedPipingInput.GetDarcyPermeability(inputParameters), darcyPermeability.Distribution);
@@ -229,7 +229,7 @@ namespace Riskeer.Piping.Data.Test.SemiProbabilistic
 
             // Call
             DesignVariable<LogNormalDistribution> saturatedVolumicWeightOfCoverageLayer =
-                PipingSemiProbabilisticDesignVariableFactory.GetSaturatedVolumicWeightOfCoverageLayer(inputParameters);
+                SemiProbabilisticPipingDesignVariableFactory.GetSaturatedVolumicWeightOfCoverageLayer(inputParameters);
 
             // Assert
             DistributionAssert.AreEqual(DerivedPipingInput.GetSaturatedVolumicWeightOfCoverageLayer(inputParameters),
@@ -245,7 +245,7 @@ namespace Riskeer.Piping.Data.Test.SemiProbabilistic
 
             // Call
             DesignVariable<LogNormalDistribution> saturatedVolumicWeightOfCoverageLayer =
-                PipingSemiProbabilisticDesignVariableFactory.GetSaturatedVolumicWeightOfCoverageLayer(inputParameters);
+                SemiProbabilisticPipingDesignVariableFactory.GetSaturatedVolumicWeightOfCoverageLayer(inputParameters);
 
             // Assert
             Assert.IsInstanceOf<DeterministicDesignVariable<LogNormalDistribution>>(saturatedVolumicWeightOfCoverageLayer);
@@ -262,7 +262,7 @@ namespace Riskeer.Piping.Data.Test.SemiProbabilistic
 
             // Call
             DesignVariable<LogNormalDistribution> thicknessAquiferLayer =
-                PipingSemiProbabilisticDesignVariableFactory.GetThicknessAquiferLayer(inputParameters);
+                SemiProbabilisticPipingDesignVariableFactory.GetThicknessAquiferLayer(inputParameters);
 
             // Assert
             DistributionAssert.AreEqual(DerivedPipingInput.GetThicknessAquiferLayer(inputParameters), thicknessAquiferLayer.Distribution);
