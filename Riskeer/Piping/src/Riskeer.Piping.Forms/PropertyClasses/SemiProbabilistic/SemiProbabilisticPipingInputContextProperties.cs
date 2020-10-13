@@ -48,8 +48,8 @@ namespace Riskeer.Piping.Forms.PropertyClasses.SemiProbabilistic
     /// <summary>
     /// ViewModel of <see cref="SemiProbabilisticPipingInputContext"/> for properties panel.
     /// </summary>
-    public class PipingInputContextProperties : ObjectProperties<SemiProbabilisticPipingInputContext>,
-                                                IHasHydraulicBoundaryLocationProperty
+    public class SemiProbabilisticPipingInputContextProperties : ObjectProperties<SemiProbabilisticPipingInputContext>,
+                                                                 IHasHydraulicBoundaryLocationProperty
     {
         private const int selectedHydraulicBoundaryLocationPropertyIndex = 1;
         private const int assessmentLevelPropertyIndex = 2;
@@ -74,15 +74,15 @@ namespace Riskeer.Piping.Forms.PropertyClasses.SemiProbabilistic
         private readonly IObservablePropertyChangeHandler propertyChangeHandler;
 
         /// <summary>
-        /// Creates a new instance of <see cref="PipingInputContextProperties"/>.
+        /// Creates a new instance of <see cref="SemiProbabilisticPipingInputContextProperties"/>.
         /// </summary>
         /// <param name="data">The instance to show the properties for.</param>
         /// <param name="getNormativeAssessmentLevelFunc"><see cref="Func{TResult}"/> for obtaining the normative assessment level.</param>
         /// <param name="propertyChangeHandler">The handler responsible for handling effects of a property change.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public PipingInputContextProperties(SemiProbabilisticPipingInputContext data,
-                                            Func<RoundedDouble> getNormativeAssessmentLevelFunc,
-                                            IObservablePropertyChangeHandler propertyChangeHandler)
+        public SemiProbabilisticPipingInputContextProperties(SemiProbabilisticPipingInputContext data,
+                                                             Func<RoundedDouble> getNormativeAssessmentLevelFunc,
+                                                             IObservablePropertyChangeHandler propertyChangeHandler)
         {
             if (data == null)
             {

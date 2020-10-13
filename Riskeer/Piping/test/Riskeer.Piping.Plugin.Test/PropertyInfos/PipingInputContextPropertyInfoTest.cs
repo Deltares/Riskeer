@@ -46,7 +46,7 @@ namespace Riskeer.Piping.Plugin.Test.PropertyInfos
         public void SetUp()
         {
             plugin = new PipingPlugin();
-            info = plugin.GetPropertyInfos().First(tni => tni.PropertyObjectType == typeof(PipingInputContextProperties));
+            info = plugin.GetPropertyInfos().First(tni => tni.PropertyObjectType == typeof(SemiProbabilisticPipingInputContextProperties));
         }
 
         [TearDown]
@@ -60,7 +60,7 @@ namespace Riskeer.Piping.Plugin.Test.PropertyInfos
         {
             // Assert
             Assert.AreEqual(typeof(SemiProbabilisticPipingInputContext), info.DataType);
-            Assert.AreEqual(typeof(PipingInputContextProperties), info.PropertyObjectType);
+            Assert.AreEqual(typeof(SemiProbabilisticPipingInputContextProperties), info.PropertyObjectType);
         }
 
         [Test]
@@ -102,11 +102,11 @@ namespace Riskeer.Piping.Plugin.Test.PropertyInfos
             IObjectProperties objectProperties = info.CreateInstance(context);
 
             // Assert
-            Assert.IsInstanceOf<PipingInputContextProperties>(objectProperties);
+            Assert.IsInstanceOf<SemiProbabilisticPipingInputContextProperties>(objectProperties);
             Assert.AreSame(context, objectProperties.Data);
 
             double expectedAssessmentLevel = assessmentSection.WaterLevelCalculationsForSignalingNorm.ElementAt(0).Output.Result;
-            Assert.AreEqual(expectedAssessmentLevel, ((PipingInputContextProperties) objectProperties).AssessmentLevel);
+            Assert.AreEqual(expectedAssessmentLevel, ((SemiProbabilisticPipingInputContextProperties) objectProperties).AssessmentLevel);
         }
 
         [Test]
@@ -148,11 +148,11 @@ namespace Riskeer.Piping.Plugin.Test.PropertyInfos
             IObjectProperties objectProperties = info.CreateInstance(context);
 
             // Assert
-            Assert.IsInstanceOf<PipingInputContextProperties>(objectProperties);
+            Assert.IsInstanceOf<SemiProbabilisticPipingInputContextProperties>(objectProperties);
             Assert.AreSame(context, objectProperties.Data);
 
             double expectedAssessmentLevel = assessmentSection.WaterLevelCalculationsForLowerLimitNorm.ElementAt(0).Output.Result;
-            Assert.AreEqual(expectedAssessmentLevel, ((PipingInputContextProperties) objectProperties).AssessmentLevel);
+            Assert.AreEqual(expectedAssessmentLevel, ((SemiProbabilisticPipingInputContextProperties) objectProperties).AssessmentLevel);
         }
     }
 }

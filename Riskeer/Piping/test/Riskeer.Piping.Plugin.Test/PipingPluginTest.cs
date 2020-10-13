@@ -83,7 +83,7 @@ namespace Riskeer.Piping.Plugin.Test
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(SemiProbabilisticPipingInputContext),
-                    typeof(PipingInputContextProperties));
+                    typeof(SemiProbabilisticPipingInputContextProperties));
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,

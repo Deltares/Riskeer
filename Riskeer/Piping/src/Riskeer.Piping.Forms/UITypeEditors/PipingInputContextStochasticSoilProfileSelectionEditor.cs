@@ -33,7 +33,7 @@ namespace Riskeer.Piping.Forms.UITypeEditors
     /// This class defines a drop down list edit-control from which the user can select a
     /// <see cref="PipingStochasticSoilProfile"/> from a collection.
     /// </summary>
-    public class PipingInputContextStochasticSoilProfileSelectionEditor : SelectionEditor<PipingInputContextProperties, PipingStochasticSoilProfile>
+    public class PipingInputContextStochasticSoilProfileSelectionEditor : SelectionEditor<SemiProbabilisticPipingInputContextProperties, PipingStochasticSoilProfile>
     {
         /// <summary>
         /// Creates a new instance of <see cref="PipingInputContextStochasticSoilProfileSelectionEditor"/>.

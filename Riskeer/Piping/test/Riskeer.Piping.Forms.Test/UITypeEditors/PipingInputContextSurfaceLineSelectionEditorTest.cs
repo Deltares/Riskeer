@@ -73,7 +73,7 @@ namespace Riskeer.Piping.Forms.Test.UITypeEditors
                                                                 failureMechanism,
                                                                 assessmentSection);
 
-            var properties = new PipingInputContextProperties(inputParametersContext,
+            var properties = new SemiProbabilisticPipingInputContextProperties(inputParametersContext,
                                                               AssessmentSectionTestHelper.GetTestAssessmentLevel,
                                                               handler);
 
@@ -130,7 +130,7 @@ namespace Riskeer.Piping.Forms.Test.UITypeEditors
                                                                 failureMechanism,
                                                                 assessmentSection);
 
-            var properties = new PipingInputContextProperties(inputParametersContext,
+            var properties = new SemiProbabilisticPipingInputContextProperties(inputParametersContext,
                                                               AssessmentSectionTestHelper.GetTestAssessmentLevel,
                                                               handler);
 

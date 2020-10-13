@@ -52,7 +52,7 @@ using Riskeer.Piping.Primitives.TestUtil;
 namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
 {
     [TestFixture]
-    public class PipingInputContextPropertiesTest
+    public class SemiProbabilisticPipingInputContextPropertiesTest
     {
         private const int expectedSelectedHydraulicBoundaryLocationPropertyIndex = 0;
         private const int expectedAssessmentLevelPropertyIndex = 1;
@@ -82,9 +82,9 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () => new PipingInputContextProperties(null,
-                                                                       AssessmentSectionTestHelper.GetTestAssessmentLevel,
-                                                                       handler);
+            TestDelegate test = () => new SemiProbabilisticPipingInputContextProperties(null,
+                                                                                        AssessmentSectionTestHelper.GetTestAssessmentLevel,
+                                                                                        handler);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -105,14 +105,14 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
             var failureMechanism = new PipingFailureMechanism();
 
             var context = new SemiProbabilisticPipingInputContext(calculationItem.InputParameters,
-                                                 calculationItem,
-                                                 Enumerable.Empty<PipingSurfaceLine>(),
-                                                 Enumerable.Empty<PipingStochasticSoilModel>(),
-                                                 failureMechanism,
-                                                 assessmentSection);
+                                                                  calculationItem,
+                                                                  Enumerable.Empty<PipingSurfaceLine>(),
+                                                                  Enumerable.Empty<PipingStochasticSoilModel>(),
+                                                                  failureMechanism,
+                                                                  assessmentSection);
 
             // Call
-            TestDelegate test = () => new PipingInputContextProperties(context, null, handler);
+            TestDelegate test = () => new SemiProbabilisticPipingInputContextProperties(context, null, handler);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -132,16 +132,16 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
             var failureMechanism = new PipingFailureMechanism();
 
             var context = new SemiProbabilisticPipingInputContext(calculationItem.InputParameters,
-                                                 calculationItem,
-                                                 Enumerable.Empty<PipingSurfaceLine>(),
-                                                 Enumerable.Empty<PipingStochasticSoilModel>(),
-                                                 failureMechanism,
-                                                 assessmentSection);
+                                                                  calculationItem,
+                                                                  Enumerable.Empty<PipingSurfaceLine>(),
+                                                                  Enumerable.Empty<PipingStochasticSoilModel>(),
+                                                                  failureMechanism,
+                                                                  assessmentSection);
 
             // Call
-            TestDelegate test = () => new PipingInputContextProperties(context,
-                                                                       AssessmentSectionTestHelper.GetTestAssessmentLevel,
-                                                                       null);
+            TestDelegate test = () => new SemiProbabilisticPipingInputContextProperties(context,
+                                                                                        AssessmentSectionTestHelper.GetTestAssessmentLevel,
+                                                                                        null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -161,16 +161,16 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
             var failureMechanism = new PipingFailureMechanism();
 
             var context = new SemiProbabilisticPipingInputContext(calculationItem.InputParameters,
-                                                 calculationItem,
-                                                 Enumerable.Empty<PipingSurfaceLine>(),
-                                                 Enumerable.Empty<PipingStochasticSoilModel>(),
-                                                 failureMechanism,
-                                                 assessmentSection);
+                                                                  calculationItem,
+                                                                  Enumerable.Empty<PipingSurfaceLine>(),
+                                                                  Enumerable.Empty<PipingStochasticSoilModel>(),
+                                                                  failureMechanism,
+                                                                  assessmentSection);
 
             // Call
-            var properties = new PipingInputContextProperties(context,
-                                                              AssessmentSectionTestHelper.GetTestAssessmentLevel,
-                                                              handler);
+            var properties = new SemiProbabilisticPipingInputContextProperties(context,
+                                                                               AssessmentSectionTestHelper.GetTestAssessmentLevel,
+                                                                               handler);
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<SemiProbabilisticPipingInputContext>>(properties);
@@ -178,40 +178,40 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
             Assert.AreSame(context, properties.Data);
 
             Assert.IsInstanceOf<LogNormalDistributionDesignVariableProperties>(properties.DampingFactorExit);
-            TestHelper.AssertTypeConverter<PipingInputContextProperties, ExpandableObjectConverter>(
-                nameof(PipingInputContextProperties.DampingFactorExit));
+            TestHelper.AssertTypeConverter<SemiProbabilisticPipingInputContextProperties, ExpandableObjectConverter>(
+                nameof(SemiProbabilisticPipingInputContextProperties.DampingFactorExit));
 
             Assert.IsInstanceOf<NormalDistributionDesignVariableProperties>(properties.PhreaticLevelExit);
-            TestHelper.AssertTypeConverter<PipingInputContextProperties, ExpandableObjectConverter>(
-                nameof(PipingInputContextProperties.PhreaticLevelExit));
+            TestHelper.AssertTypeConverter<SemiProbabilisticPipingInputContextProperties, ExpandableObjectConverter>(
+                nameof(SemiProbabilisticPipingInputContextProperties.PhreaticLevelExit));
 
             Assert.IsInstanceOf<VariationCoefficientLogNormalDistributionDesignVariableProperties>(properties.SeepageLength);
-            TestHelper.AssertTypeConverter<PipingInputContextProperties, ExpandableObjectConverter>(
-                nameof(PipingInputContextProperties.SeepageLength));
+            TestHelper.AssertTypeConverter<SemiProbabilisticPipingInputContextProperties, ExpandableObjectConverter>(
+                nameof(SemiProbabilisticPipingInputContextProperties.SeepageLength));
 
             Assert.IsInstanceOf<LogNormalDistributionDesignVariableProperties>(properties.ThicknessCoverageLayer);
-            TestHelper.AssertTypeConverter<PipingInputContextProperties, ExpandableObjectConverter>(
-                nameof(PipingInputContextProperties.ThicknessCoverageLayer));
+            TestHelper.AssertTypeConverter<SemiProbabilisticPipingInputContextProperties, ExpandableObjectConverter>(
+                nameof(SemiProbabilisticPipingInputContextProperties.ThicknessCoverageLayer));
 
             Assert.IsInstanceOf<LogNormalDistributionDesignVariableProperties>(properties.EffectiveThicknessCoverageLayer);
-            TestHelper.AssertTypeConverter<PipingInputContextProperties, ExpandableObjectConverter>(
-                nameof(PipingInputContextProperties.EffectiveThicknessCoverageLayer));
+            TestHelper.AssertTypeConverter<SemiProbabilisticPipingInputContextProperties, ExpandableObjectConverter>(
+                nameof(SemiProbabilisticPipingInputContextProperties.EffectiveThicknessCoverageLayer));
 
             Assert.IsInstanceOf<LogNormalDistributionDesignVariableProperties>(properties.ThicknessAquiferLayer);
-            TestHelper.AssertTypeConverter<PipingInputContextProperties, ExpandableObjectConverter>(
-                nameof(PipingInputContextProperties.ThicknessAquiferLayer));
+            TestHelper.AssertTypeConverter<SemiProbabilisticPipingInputContextProperties, ExpandableObjectConverter>(
+                nameof(SemiProbabilisticPipingInputContextProperties.ThicknessAquiferLayer));
 
             Assert.IsInstanceOf<VariationCoefficientLogNormalDistributionDesignVariableProperties>(properties.DarcyPermeability);
-            TestHelper.AssertTypeConverter<PipingInputContextProperties, ExpandableObjectConverter>(
-                nameof(PipingInputContextProperties.DarcyPermeability));
+            TestHelper.AssertTypeConverter<SemiProbabilisticPipingInputContextProperties, ExpandableObjectConverter>(
+                nameof(SemiProbabilisticPipingInputContextProperties.DarcyPermeability));
 
             Assert.IsInstanceOf<VariationCoefficientLogNormalDistributionDesignVariableProperties>(properties.Diameter70);
-            TestHelper.AssertTypeConverter<PipingInputContextProperties, ExpandableObjectConverter>(
-                nameof(PipingInputContextProperties.Diameter70));
+            TestHelper.AssertTypeConverter<SemiProbabilisticPipingInputContextProperties, ExpandableObjectConverter>(
+                nameof(SemiProbabilisticPipingInputContextProperties.Diameter70));
 
             Assert.IsInstanceOf<ShiftedLogNormalDistributionDesignVariableProperties>(properties.SaturatedVolumicWeightOfCoverageLayer);
-            TestHelper.AssertTypeConverter<PipingInputContextProperties, ExpandableObjectConverter>(
-                nameof(PipingInputContextProperties.SaturatedVolumicWeightOfCoverageLayer));
+            TestHelper.AssertTypeConverter<SemiProbabilisticPipingInputContextProperties, ExpandableObjectConverter>(
+                nameof(SemiProbabilisticPipingInputContextProperties.SaturatedVolumicWeightOfCoverageLayer));
 
             mocks.VerifyAll();
         }
@@ -228,18 +228,18 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
             var failureMechanism = new PipingFailureMechanism();
 
             var context = new SemiProbabilisticPipingInputContext(calculationItem.InputParameters,
-                                                 calculationItem,
-                                                 Enumerable.Empty<PipingSurfaceLine>(),
-                                                 Enumerable.Empty<PipingStochasticSoilModel>(),
-                                                 failureMechanism,
-                                                 assessmentSection);
+                                                                  calculationItem,
+                                                                  Enumerable.Empty<PipingSurfaceLine>(),
+                                                                  Enumerable.Empty<PipingStochasticSoilModel>(),
+                                                                  failureMechanism,
+                                                                  assessmentSection);
 
             var handler = new ObservablePropertyChangeHandler(calculationItem, calculationItem.InputParameters);
 
             // Call
-            var properties = new PipingInputContextProperties(context,
-                                                              AssessmentSectionTestHelper.GetTestAssessmentLevel,
-                                                              handler)
+            var properties = new SemiProbabilisticPipingInputContextProperties(context,
+                                                                               AssessmentSectionTestHelper.GetTestAssessmentLevel,
+                                                                               handler)
             {
                 UseAssessmentLevelManualInput = false
             };
@@ -413,16 +413,16 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
             }
 
             var context = new SemiProbabilisticPipingInputContext(calculationItem.InputParameters,
-                                                 calculationItem,
-                                                 Enumerable.Empty<PipingSurfaceLine>(),
-                                                 Enumerable.Empty<PipingStochasticSoilModel>(),
-                                                 failureMechanism,
-                                                 assessmentSection);
+                                                                  calculationItem,
+                                                                  Enumerable.Empty<PipingSurfaceLine>(),
+                                                                  Enumerable.Empty<PipingStochasticSoilModel>(),
+                                                                  failureMechanism,
+                                                                  assessmentSection);
 
             // Call
-            var properties = new PipingInputContextProperties(context,
-                                                              AssessmentSectionTestHelper.GetTestAssessmentLevel,
-                                                              handler);
+            var properties = new SemiProbabilisticPipingInputContextProperties(context,
+                                                                               AssessmentSectionTestHelper.GetTestAssessmentLevel,
+                                                                               handler);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -462,18 +462,18 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
             var failureMechanism = new PipingFailureMechanism();
 
             var context = new SemiProbabilisticPipingInputContext(calculationItem.InputParameters,
-                                                 calculationItem,
-                                                 Enumerable.Empty<PipingSurfaceLine>(),
-                                                 Enumerable.Empty<PipingStochasticSoilModel>(),
-                                                 failureMechanism,
-                                                 assessmentSection);
+                                                                  calculationItem,
+                                                                  Enumerable.Empty<PipingSurfaceLine>(),
+                                                                  Enumerable.Empty<PipingStochasticSoilModel>(),
+                                                                  failureMechanism,
+                                                                  assessmentSection);
 
             var handler = new ObservablePropertyChangeHandler(calculationItem, calculationItem.InputParameters);
 
             // Call
-            var properties = new PipingInputContextProperties(context,
-                                                              AssessmentSectionTestHelper.GetTestAssessmentLevel,
-                                                              handler)
+            var properties = new SemiProbabilisticPipingInputContextProperties(context,
+                                                                               AssessmentSectionTestHelper.GetTestAssessmentLevel,
+                                                                               handler)
             {
                 UseAssessmentLevelManualInput = useManualAssessmentLevelInput
             };
@@ -564,16 +564,16 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
             SemiProbabilisticPipingInput inputParameters = calculationItem.InputParameters;
 
             var context = new SemiProbabilisticPipingInputContext(inputParameters,
-                                                 calculationItem,
-                                                 Enumerable.Empty<PipingSurfaceLine>(),
-                                                 Enumerable.Empty<PipingStochasticSoilModel>(),
-                                                 failureMechanism,
-                                                 assessmentSection);
+                                                                  calculationItem,
+                                                                  Enumerable.Empty<PipingSurfaceLine>(),
+                                                                  Enumerable.Empty<PipingStochasticSoilModel>(),
+                                                                  failureMechanism,
+                                                                  assessmentSection);
 
             // Call
-            var properties = new PipingInputContextProperties(context,
-                                                              AssessmentSectionTestHelper.GetTestAssessmentLevel,
-                                                              handler);
+            var properties = new SemiProbabilisticPipingInputContextProperties(context,
+                                                                               AssessmentSectionTestHelper.GetTestAssessmentLevel,
+                                                                               handler);
 
             // Assert
             Assert.AreEqual(inputParameters.PhreaticLevelExit.Mean, properties.PhreaticLevelExit.Mean);
@@ -645,16 +645,16 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
             SemiProbabilisticPipingInput inputParameters = calculationItem.InputParameters;
 
             var context = new SemiProbabilisticPipingInputContext(inputParameters,
-                                                 calculationItem,
-                                                 Enumerable.Empty<PipingSurfaceLine>(),
-                                                 Enumerable.Empty<PipingStochasticSoilModel>(),
-                                                 failureMechanism,
-                                                 assessmentSection);
+                                                                  calculationItem,
+                                                                  Enumerable.Empty<PipingSurfaceLine>(),
+                                                                  Enumerable.Empty<PipingStochasticSoilModel>(),
+                                                                  failureMechanism,
+                                                                  assessmentSection);
 
             var handler = new ObservablePropertyChangeHandler(calculationItem, calculationItem.InputParameters);
-            var properties = new PipingInputContextProperties(context,
-                                                              AssessmentSectionTestHelper.GetTestAssessmentLevel,
-                                                              handler);
+            var properties = new SemiProbabilisticPipingInputContextProperties(context,
+                                                                               AssessmentSectionTestHelper.GetTestAssessmentLevel,
+                                                                               handler);
 
             const double assessmentLevel = 0.36;
             const double entryPointL = 0.12;
@@ -859,18 +859,18 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
             inputParameters.Attach(inputObserver);
 
             var context = new SemiProbabilisticPipingInputContext(inputParameters,
-                                                 calculationItem,
-                                                 Enumerable.Empty<PipingSurfaceLine>(),
-                                                 Enumerable.Empty<PipingStochasticSoilModel>(),
-                                                 failureMechanism,
-                                                 assessmentSection);
+                                                                  calculationItem,
+                                                                  Enumerable.Empty<PipingSurfaceLine>(),
+                                                                  Enumerable.Empty<PipingStochasticSoilModel>(),
+                                                                  failureMechanism,
+                                                                  assessmentSection);
 
             var handler = new ObservablePropertyChangeHandler(calculationItem, calculationItem.InputParameters);
 
             // Call
-            var properties = new PipingInputContextProperties(context,
-                                                              AssessmentSectionTestHelper.GetTestAssessmentLevel,
-                                                              handler)
+            var properties = new SemiProbabilisticPipingInputContextProperties(context,
+                                                                               AssessmentSectionTestHelper.GetTestAssessmentLevel,
+                                                                               handler)
             {
                 ExitPointL = (RoundedDouble) exitPoint,
                 EntryPointL = (RoundedDouble) entryPoint
@@ -903,18 +903,18 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
             inputParameters.Attach(inputObserver);
 
             var context = new SemiProbabilisticPipingInputContext(inputParameters,
-                                                 calculationItem,
-                                                 Enumerable.Empty<PipingSurfaceLine>(),
-                                                 Enumerable.Empty<PipingStochasticSoilModel>(),
-                                                 failureMechanism,
-                                                 assessmentSection);
+                                                                  calculationItem,
+                                                                  Enumerable.Empty<PipingSurfaceLine>(),
+                                                                  Enumerable.Empty<PipingStochasticSoilModel>(),
+                                                                  failureMechanism,
+                                                                  assessmentSection);
 
             var handler = new ObservablePropertyChangeHandler(calculationItem, calculationItem.InputParameters);
 
             // Call
-            var properties = new PipingInputContextProperties(context,
-                                                              AssessmentSectionTestHelper.GetTestAssessmentLevel,
-                                                              handler)
+            var properties = new SemiProbabilisticPipingInputContextProperties(context,
+                                                                               AssessmentSectionTestHelper.GetTestAssessmentLevel,
+                                                                               handler)
             {
                 EntryPointL = (RoundedDouble) 0.5,
                 ExitPointL = (RoundedDouble) 2
@@ -950,11 +950,11 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
             var failureMechanism = new PipingFailureMechanism();
 
             var context = new SemiProbabilisticPipingInputContext(calculationItem.InputParameters,
-                                                 calculationItem,
-                                                 Enumerable.Empty<PipingSurfaceLine>(),
-                                                 Enumerable.Empty<PipingStochasticSoilModel>(),
-                                                 failureMechanism,
-                                                 assessmentSection);
+                                                                  calculationItem,
+                                                                  Enumerable.Empty<PipingSurfaceLine>(),
+                                                                  Enumerable.Empty<PipingStochasticSoilModel>(),
+                                                                  failureMechanism,
+                                                                  assessmentSection);
 
             var newExitPointL = (RoundedDouble) newExitPoint;
             var handler = new SetPropertyValueAfterConfirmationParameterTester(new[]
@@ -962,9 +962,9 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
                 observable
             });
 
-            var properties = new PipingInputContextProperties(context,
-                                                              AssessmentSectionTestHelper.GetTestAssessmentLevel,
-                                                              handler);
+            var properties = new SemiProbabilisticPipingInputContextProperties(context,
+                                                                               AssessmentSectionTestHelper.GetTestAssessmentLevel,
+                                                                               handler);
 
             // Call
             TestDelegate call = () => properties.ExitPointL = newExitPointL;
@@ -1000,20 +1000,20 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
             var failureMechanism = new PipingFailureMechanism();
 
             var context = new SemiProbabilisticPipingInputContext(calculationItem.InputParameters,
-                                                 calculationItem,
-                                                 Enumerable.Empty<PipingSurfaceLine>(),
-                                                 Enumerable.Empty<PipingStochasticSoilModel>(),
-                                                 failureMechanism,
-                                                 assessmentSection);
+                                                                  calculationItem,
+                                                                  Enumerable.Empty<PipingSurfaceLine>(),
+                                                                  Enumerable.Empty<PipingStochasticSoilModel>(),
+                                                                  failureMechanism,
+                                                                  assessmentSection);
 
             var handler = new SetPropertyValueAfterConfirmationParameterTester(new[]
             {
                 observable
             });
 
-            var properties = new PipingInputContextProperties(context,
-                                                              AssessmentSectionTestHelper.GetTestAssessmentLevel,
-                                                              handler);
+            var properties = new SemiProbabilisticPipingInputContextProperties(context,
+                                                                               AssessmentSectionTestHelper.GetTestAssessmentLevel,
+                                                                               handler);
 
             // Call
             TestDelegate call = () => properties.EntryPointL = entryPoint;
@@ -1047,11 +1047,11 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
             var failureMechanism = new PipingFailureMechanism();
 
             var context = new SemiProbabilisticPipingInputContext(calculationItem.InputParameters,
-                                                 calculationItem,
-                                                 Enumerable.Empty<PipingSurfaceLine>(),
-                                                 Enumerable.Empty<PipingStochasticSoilModel>(),
-                                                 failureMechanism,
-                                                 assessmentSection);
+                                                                  calculationItem,
+                                                                  Enumerable.Empty<PipingSurfaceLine>(),
+                                                                  Enumerable.Empty<PipingStochasticSoilModel>(),
+                                                                  failureMechanism,
+                                                                  assessmentSection);
 
             var entryPointL = (RoundedDouble) (-15.0);
 
@@ -1060,9 +1060,9 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
                 observable
             });
 
-            var properties = new PipingInputContextProperties(context,
-                                                              AssessmentSectionTestHelper.GetTestAssessmentLevel,
-                                                              handler);
+            var properties = new SemiProbabilisticPipingInputContextProperties(context,
+                                                                               AssessmentSectionTestHelper.GetTestAssessmentLevel,
+                                                                               handler);
 
             // Call
             TestDelegate call = () => properties.EntryPointL = entryPointL;
@@ -1094,11 +1094,11 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
             var failureMechanism = new PipingFailureMechanism();
 
             var context = new SemiProbabilisticPipingInputContext(calculationItem.InputParameters,
-                                                 calculationItem,
-                                                 Enumerable.Empty<PipingSurfaceLine>(),
-                                                 Enumerable.Empty<PipingStochasticSoilModel>(),
-                                                 failureMechanism,
-                                                 assessmentSection);
+                                                                  calculationItem,
+                                                                  Enumerable.Empty<PipingSurfaceLine>(),
+                                                                  Enumerable.Empty<PipingStochasticSoilModel>(),
+                                                                  failureMechanism,
+                                                                  assessmentSection);
 
             var exitPointL = (RoundedDouble) 10.0;
 
@@ -1107,9 +1107,9 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
                 observable
             });
 
-            var properties = new PipingInputContextProperties(context,
-                                                              AssessmentSectionTestHelper.GetTestAssessmentLevel,
-                                                              handler);
+            var properties = new SemiProbabilisticPipingInputContextProperties(context,
+                                                                               AssessmentSectionTestHelper.GetTestAssessmentLevel,
+                                                                               handler);
 
             // Call
             TestDelegate call = () => properties.ExitPointL = exitPointL;
@@ -1140,19 +1140,19 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
             SemiProbabilisticPipingInput inputParameters = calculationItem.InputParameters;
 
             var context = new SemiProbabilisticPipingInputContext(inputParameters,
-                                                 calculationItem,
-                                                 Enumerable.Empty<PipingSurfaceLine>(),
-                                                 Enumerable.Empty<PipingStochasticSoilModel>(),
-                                                 failureMechanism,
-                                                 assessmentSection);
+                                                                  calculationItem,
+                                                                  Enumerable.Empty<PipingSurfaceLine>(),
+                                                                  Enumerable.Empty<PipingStochasticSoilModel>(),
+                                                                  failureMechanism,
+                                                                  assessmentSection);
 
             PipingSurfaceLine newSurfaceLine = ValidSurfaceLine(0, 2);
 
             var handler = new SetPropertyValueAfterConfirmationParameterTester(new IObservable[0]);
 
-            var properties = new PipingInputContextProperties(context,
-                                                              AssessmentSectionTestHelper.GetTestAssessmentLevel,
-                                                              handler);
+            var properties = new SemiProbabilisticPipingInputContextProperties(context,
+                                                                               AssessmentSectionTestHelper.GetTestAssessmentLevel,
+                                                                               handler);
 
             inputParameters.StochasticSoilProfile = new PipingStochasticSoilProfile(0.0, PipingSoilProfileTestFactory.CreatePipingSoilProfile());
 
@@ -1195,18 +1195,18 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
             SemiProbabilisticPipingInput inputParameters = calculationItem.InputParameters;
 
             var context = new SemiProbabilisticPipingInputContext(inputParameters,
-                                                 calculationItem,
-                                                 Enumerable.Empty<PipingSurfaceLine>(),
-                                                 new[]
-                                                 {
-                                                     stochasticSoilModel
-                                                 },
-                                                 failureMechanism,
-                                                 assessmentSection);
+                                                                  calculationItem,
+                                                                  Enumerable.Empty<PipingSurfaceLine>(),
+                                                                  new[]
+                                                                  {
+                                                                      stochasticSoilModel
+                                                                  },
+                                                                  failureMechanism,
+                                                                  assessmentSection);
 
-            var properties = new PipingInputContextProperties(context,
-                                                              AssessmentSectionTestHelper.GetTestAssessmentLevel,
-                                                              handler);
+            var properties = new SemiProbabilisticPipingInputContextProperties(context,
+                                                                               AssessmentSectionTestHelper.GetTestAssessmentLevel,
+                                                                               handler);
 
             // Call
             properties.SurfaceLine = testSurfaceLine;
@@ -1244,22 +1244,22 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
             var failureMechanism = new PipingFailureMechanism();
 
             var context = new SemiProbabilisticPipingInputContext(inputParameters,
-                                                 calculationItem,
-                                                 Enumerable.Empty<PipingSurfaceLine>(),
-                                                 new[]
-                                                 {
-                                                     stochasticSoilModel
-                                                 },
-                                                 failureMechanism,
-                                                 assessmentSection);
+                                                                  calculationItem,
+                                                                  Enumerable.Empty<PipingSurfaceLine>(),
+                                                                  new[]
+                                                                  {
+                                                                      stochasticSoilModel
+                                                                  },
+                                                                  failureMechanism,
+                                                                  assessmentSection);
 
             PipingSurfaceLine newSurfaceLine = ValidSurfaceLine(0, 2);
 
             var handler = new SetPropertyValueAfterConfirmationParameterTester(new IObservable[0]);
 
-            var properties = new PipingInputContextProperties(context,
-                                                              AssessmentSectionTestHelper.GetTestAssessmentLevel,
-                                                              handler);
+            var properties = new SemiProbabilisticPipingInputContextProperties(context,
+                                                                               AssessmentSectionTestHelper.GetTestAssessmentLevel,
+                                                                               handler);
 
             // Call
             properties.SurfaceLine = newSurfaceLine;
@@ -1282,11 +1282,11 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
             var failureMechanism = new PipingFailureMechanism();
             var calculation = new SemiProbabilisticPipingCalculationScenario(failureMechanism.GeneralInput);
             var context = new SemiProbabilisticPipingInputContext(calculation.InputParameters, calculation,
-                                                 failureMechanism.SurfaceLines, failureMechanism.StochasticSoilModels,
-                                                 failureMechanism, assessmentSection);
-            var properties = new PipingInputContextProperties(context,
-                                                              AssessmentSectionTestHelper.GetTestAssessmentLevel,
-                                                              handler);
+                                                                  failureMechanism.SurfaceLines, failureMechanism.StochasticSoilModels,
+                                                                  failureMechanism, assessmentSection);
+            var properties = new SemiProbabilisticPipingInputContextProperties(context,
+                                                                               AssessmentSectionTestHelper.GetTestAssessmentLevel,
+                                                                               handler);
 
             // Call
             IEnumerable<PipingSurfaceLine> surfaceLines = properties.GetAvailableSurfaceLines();
@@ -1308,11 +1308,11 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
             var failureMechanism = new PipingFailureMechanism();
             var calculation = new SemiProbabilisticPipingCalculationScenario(failureMechanism.GeneralInput);
             var context = new SemiProbabilisticPipingInputContext(calculation.InputParameters, calculation,
-                                                 failureMechanism.SurfaceLines, failureMechanism.StochasticSoilModels,
-                                                 failureMechanism, assessmentSection);
-            var properties = new PipingInputContextProperties(context,
-                                                              AssessmentSectionTestHelper.GetTestAssessmentLevel,
-                                                              handler);
+                                                                  failureMechanism.SurfaceLines, failureMechanism.StochasticSoilModels,
+                                                                  failureMechanism, assessmentSection);
+            var properties = new SemiProbabilisticPipingInputContextProperties(context,
+                                                                               AssessmentSectionTestHelper.GetTestAssessmentLevel,
+                                                                               handler);
 
             // Precondition:
             Assert.IsNull(calculation.InputParameters.SurfaceLine);
@@ -1377,11 +1377,11 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
                 }
             };
             var context = new SemiProbabilisticPipingInputContext(calculation.InputParameters, calculation,
-                                                 failureMechanism.SurfaceLines, failureMechanism.StochasticSoilModels,
-                                                 failureMechanism, assessmentSection);
-            var properties = new PipingInputContextProperties(context,
-                                                              AssessmentSectionTestHelper.GetTestAssessmentLevel,
-                                                              handler);
+                                                                  failureMechanism.SurfaceLines, failureMechanism.StochasticSoilModels,
+                                                                  failureMechanism, assessmentSection);
+            var properties = new SemiProbabilisticPipingInputContextProperties(context,
+                                                                               AssessmentSectionTestHelper.GetTestAssessmentLevel,
+                                                                               handler);
 
             // Precondition:
             Assert.IsNotNull(calculation.InputParameters.SurfaceLine);
@@ -1410,11 +1410,11 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
             var failureMechanism = new PipingFailureMechanism();
             var calculation = new SemiProbabilisticPipingCalculationScenario(failureMechanism.GeneralInput);
             var context = new SemiProbabilisticPipingInputContext(calculation.InputParameters, calculation,
-                                                 failureMechanism.SurfaceLines, failureMechanism.StochasticSoilModels,
-                                                 failureMechanism, assessmentSection);
-            var properties = new PipingInputContextProperties(context,
-                                                              AssessmentSectionTestHelper.GetTestAssessmentLevel,
-                                                              handler);
+                                                                  failureMechanism.SurfaceLines, failureMechanism.StochasticSoilModels,
+                                                                  failureMechanism, assessmentSection);
+            var properties = new SemiProbabilisticPipingInputContextProperties(context,
+                                                                               AssessmentSectionTestHelper.GetTestAssessmentLevel,
+                                                                               handler);
 
             // Precondition
             Assert.IsNull(calculation.InputParameters.StochasticSoilModel);
@@ -1450,11 +1450,11 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
                 }
             };
             var context = new SemiProbabilisticPipingInputContext(calculation.InputParameters, calculation,
-                                                 failureMechanism.SurfaceLines, failureMechanism.StochasticSoilModels,
-                                                 failureMechanism, assessmentSection);
-            var properties = new PipingInputContextProperties(context,
-                                                              AssessmentSectionTestHelper.GetTestAssessmentLevel,
-                                                              handler);
+                                                                  failureMechanism.SurfaceLines, failureMechanism.StochasticSoilModels,
+                                                                  failureMechanism, assessmentSection);
+            var properties = new SemiProbabilisticPipingInputContextProperties(context,
+                                                                               AssessmentSectionTestHelper.GetTestAssessmentLevel,
+                                                                               handler);
 
             // Precondition
             Assert.IsNotNull(calculation.InputParameters.StochasticSoilModel);
@@ -1479,11 +1479,11 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
             var failureMechanism = new PipingFailureMechanism();
             var calculation = new SemiProbabilisticPipingCalculationScenario(failureMechanism.GeneralInput);
             var context = new SemiProbabilisticPipingInputContext(calculation.InputParameters, calculation,
-                                                 failureMechanism.SurfaceLines, failureMechanism.StochasticSoilModels,
-                                                 failureMechanism, assessmentSection);
-            var properties = new PipingInputContextProperties(context,
-                                                              AssessmentSectionTestHelper.GetTestAssessmentLevel,
-                                                              handler);
+                                                                  failureMechanism.SurfaceLines, failureMechanism.StochasticSoilModels,
+                                                                  failureMechanism, assessmentSection);
+            var properties = new SemiProbabilisticPipingInputContextProperties(context,
+                                                                               AssessmentSectionTestHelper.GetTestAssessmentLevel,
+                                                                               handler);
 
             SelectableHydraulicBoundaryLocation selectedHydraulicBoundaryLocation = null;
 
@@ -1530,12 +1530,12 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
                 }
             };
             var context = new SemiProbabilisticPipingInputContext(calculation.InputParameters, calculation,
-                                                 failureMechanism.SurfaceLines, failureMechanism.StochasticSoilModels,
-                                                 failureMechanism, assessmentSection);
+                                                                  failureMechanism.SurfaceLines, failureMechanism.StochasticSoilModels,
+                                                                  failureMechanism, assessmentSection);
 
-            var properties = new PipingInputContextProperties(context,
-                                                              AssessmentSectionTestHelper.GetTestAssessmentLevel,
-                                                              handler);
+            var properties = new SemiProbabilisticPipingInputContextProperties(context,
+                                                                               AssessmentSectionTestHelper.GetTestAssessmentLevel,
+                                                                               handler);
 
             // When
             IEnumerable<SelectableHydraulicBoundaryLocation> availableHydraulicBoundaryLocations =
@@ -1575,11 +1575,11 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
             var failureMechanism = new PipingFailureMechanism();
             var calculation = new SemiProbabilisticPipingCalculationScenario(failureMechanism.GeneralInput);
             var context = new SemiProbabilisticPipingInputContext(calculation.InputParameters, calculation,
-                                                 failureMechanism.SurfaceLines, failureMechanism.StochasticSoilModels,
-                                                 failureMechanism, assessmentSection);
-            var properties = new PipingInputContextProperties(context,
-                                                              AssessmentSectionTestHelper.GetTestAssessmentLevel,
-                                                              handler);
+                                                                  failureMechanism.SurfaceLines, failureMechanism.StochasticSoilModels,
+                                                                  failureMechanism, assessmentSection);
+            var properties = new SemiProbabilisticPipingInputContextProperties(context,
+                                                                               AssessmentSectionTestHelper.GetTestAssessmentLevel,
+                                                                               handler);
 
             // Call
             IEnumerable<SelectableHydraulicBoundaryLocation> selectableHydraulicBoundaryLocations =
@@ -1629,11 +1629,11 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
                 }
             };
             var context = new SemiProbabilisticPipingInputContext(calculation.InputParameters, calculation,
-                                                 failureMechanism.SurfaceLines, failureMechanism.StochasticSoilModels,
-                                                 failureMechanism, assessmentSection);
-            var properties = new PipingInputContextProperties(context,
-                                                              AssessmentSectionTestHelper.GetTestAssessmentLevel,
-                                                              handler);
+                                                                  failureMechanism.SurfaceLines, failureMechanism.StochasticSoilModels,
+                                                                  failureMechanism, assessmentSection);
+            var properties = new SemiProbabilisticPipingInputContextProperties(context,
+                                                                               AssessmentSectionTestHelper.GetTestAssessmentLevel,
+                                                                               handler);
 
             // Call
             IEnumerable<SelectableHydraulicBoundaryLocation> selectableHydraulicBoundaryLocations =
@@ -1687,8 +1687,8 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
             };
 
             var context = new SemiProbabilisticPipingInputContext(calculation.InputParameters, calculation,
-                                                 failureMechanism.SurfaceLines, failureMechanism.StochasticSoilModels,
-                                                 failureMechanism, assessmentSection);
+                                                                  failureMechanism.SurfaceLines, failureMechanism.StochasticSoilModels,
+                                                                  failureMechanism, assessmentSection);
 
             PipingSurfaceLine newSurfaceLine = ValidSurfaceLine(0.0, 5.0);
             newSurfaceLine.ReferenceLineIntersectionWorldPoint = new Point2D(0, 190);
@@ -1698,9 +1698,9 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
                 observable
             });
 
-            var properties = new PipingInputContextProperties(context,
-                                                              AssessmentSectionTestHelper.GetTestAssessmentLevel,
-                                                              handler);
+            var properties = new SemiProbabilisticPipingInputContextProperties(context,
+                                                                               AssessmentSectionTestHelper.GetTestAssessmentLevel,
+                                                                               handler);
 
             IEnumerable<SelectableHydraulicBoundaryLocation> originalList = properties.GetSelectableHydraulicBoundaryLocations()
                                                                                       .ToList();
@@ -1746,13 +1746,13 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
             };
 
             var context = new SemiProbabilisticPipingInputContext(calculation.InputParameters, calculation,
-                                                 Enumerable.Empty<PipingSurfaceLine>(),
-                                                 Enumerable.Empty<PipingStochasticSoilModel>(),
-                                                 failureMechanism, assessmentSection);
+                                                                  Enumerable.Empty<PipingSurfaceLine>(),
+                                                                  Enumerable.Empty<PipingStochasticSoilModel>(),
+                                                                  failureMechanism, assessmentSection);
 
-            var properties = new PipingInputContextProperties(context,
-                                                              AssessmentSectionTestHelper.GetTestAssessmentLevel,
-                                                              handler);
+            var properties = new SemiProbabilisticPipingInputContextProperties(context,
+                                                                               AssessmentSectionTestHelper.GetTestAssessmentLevel,
+                                                                               handler);
 
             // Call
             bool result = properties.DynamicReadOnlyValidationMethod("AssessmentLevel");
@@ -1775,13 +1775,13 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
             var calculation = new SemiProbabilisticPipingCalculationScenario(failureMechanism.GeneralInput);
 
             var context = new SemiProbabilisticPipingInputContext(calculation.InputParameters, calculation,
-                                                 Enumerable.Empty<PipingSurfaceLine>(),
-                                                 Enumerable.Empty<PipingStochasticSoilModel>(),
-                                                 failureMechanism, assessmentSection);
+                                                                  Enumerable.Empty<PipingSurfaceLine>(),
+                                                                  Enumerable.Empty<PipingStochasticSoilModel>(),
+                                                                  failureMechanism, assessmentSection);
 
-            var properties = new PipingInputContextProperties(context,
-                                                              AssessmentSectionTestHelper.GetTestAssessmentLevel,
-                                                              handler);
+            var properties = new SemiProbabilisticPipingInputContextProperties(context,
+                                                                               AssessmentSectionTestHelper.GetTestAssessmentLevel,
+                                                                               handler);
 
             // Call
             bool result = properties.DynamicReadOnlyValidationMethod("prop");
@@ -1813,13 +1813,13 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
             };
 
             var context = new SemiProbabilisticPipingInputContext(calculation.InputParameters, calculation,
-                                                 Enumerable.Empty<PipingSurfaceLine>(),
-                                                 Enumerable.Empty<PipingStochasticSoilModel>(),
-                                                 failureMechanism, assessmentSection);
+                                                                  Enumerable.Empty<PipingSurfaceLine>(),
+                                                                  Enumerable.Empty<PipingStochasticSoilModel>(),
+                                                                  failureMechanism, assessmentSection);
 
-            var properties = new PipingInputContextProperties(context,
-                                                              AssessmentSectionTestHelper.GetTestAssessmentLevel,
-                                                              handler);
+            var properties = new SemiProbabilisticPipingInputContextProperties(context,
+                                                                               AssessmentSectionTestHelper.GetTestAssessmentLevel,
+                                                                               handler);
 
             // Call
             bool result = properties.DynamicVisibleValidationMethod("SelectedHydraulicBoundaryLocation");
@@ -1842,13 +1842,13 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
             var calculation = new SemiProbabilisticPipingCalculationScenario(failureMechanism.GeneralInput);
 
             var context = new SemiProbabilisticPipingInputContext(calculation.InputParameters, calculation,
-                                                 Enumerable.Empty<PipingSurfaceLine>(),
-                                                 Enumerable.Empty<PipingStochasticSoilModel>(),
-                                                 failureMechanism, assessmentSection);
+                                                                  Enumerable.Empty<PipingSurfaceLine>(),
+                                                                  Enumerable.Empty<PipingStochasticSoilModel>(),
+                                                                  failureMechanism, assessmentSection);
 
-            var properties = new PipingInputContextProperties(context,
-                                                              AssessmentSectionTestHelper.GetTestAssessmentLevel,
-                                                              handler);
+            var properties = new SemiProbabilisticPipingInputContextProperties(context,
+                                                                               AssessmentSectionTestHelper.GetTestAssessmentLevel,
+                                                                               handler);
 
             // Call
             bool result = properties.DynamicVisibleValidationMethod("prop");
@@ -1858,7 +1858,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
         }
 
         private static void SetPropertyAndVerifyNotificationsForCalculation(
-            Action<PipingInputContextProperties> setProperty,
+            Action<SemiProbabilisticPipingInputContextProperties> setProperty,
             SemiProbabilisticPipingCalculationScenario calculation)
         {
             // Setup
@@ -1873,20 +1873,20 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
             var failureMechanism = new PipingFailureMechanism();
 
             var context = new SemiProbabilisticPipingInputContext(inputParameters,
-                                                 calculation,
-                                                 Enumerable.Empty<PipingSurfaceLine>(),
-                                                 Enumerable.Empty<PipingStochasticSoilModel>(),
-                                                 failureMechanism,
-                                                 assessmentSection);
+                                                                  calculation,
+                                                                  Enumerable.Empty<PipingSurfaceLine>(),
+                                                                  Enumerable.Empty<PipingStochasticSoilModel>(),
+                                                                  failureMechanism,
+                                                                  assessmentSection);
 
             var handler = new SetPropertyValueAfterConfirmationParameterTester(new[]
             {
                 observable
             });
 
-            var properties = new PipingInputContextProperties(context,
-                                                              AssessmentSectionTestHelper.GetTestAssessmentLevel,
-                                                              handler);
+            var properties = new SemiProbabilisticPipingInputContextProperties(context,
+                                                                               AssessmentSectionTestHelper.GetTestAssessmentLevel,
+                                                                               handler);
 
             // Call
             setProperty(properties);
