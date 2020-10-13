@@ -172,11 +172,11 @@ namespace Riskeer.Storage.Core.Test.Create
             {
                 Children =
                 {
-                    new PipingCalculationScenario(generalInputParameters)
+                    new SemiProbabilisticPipingCalculationScenario(generalInputParameters)
                     {
                         Name = "A"
                     },
-                    new PipingCalculationScenario(generalInputParameters)
+                    new SemiProbabilisticPipingCalculationScenario(generalInputParameters)
                     {
                         Name = "B"
                     }
@@ -213,7 +213,7 @@ namespace Riskeer.Storage.Core.Test.Create
                     {
                         Name = "A"
                     },
-                    new PipingCalculationScenario(generalInputParameters)
+                    new SemiProbabilisticPipingCalculationScenario(generalInputParameters)
                     {
                         Name = "B"
                     },
@@ -221,7 +221,7 @@ namespace Riskeer.Storage.Core.Test.Create
                     {
                         Name = "C"
                     },
-                    new PipingCalculationScenario(generalInputParameters)
+                    new SemiProbabilisticPipingCalculationScenario(generalInputParameters)
                     {
                         Name = "D"
                     }

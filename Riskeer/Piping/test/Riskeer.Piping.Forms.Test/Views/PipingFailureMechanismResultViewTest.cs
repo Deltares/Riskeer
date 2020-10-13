@@ -277,7 +277,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             PipingFailureMechanism,
             PipingFailureMechanismSectionResult,
             PipingFailureMechanismSectionResultRow,
-            PipingCalculationScenario>
+            SemiProbabilisticPipingCalculationScenario>
         {
             protected override PipingFailureMechanismResultView CreateResultView(PipingFailureMechanism failureMechanism)
             {
@@ -286,7 +286,7 @@ namespace Riskeer.Piping.Forms.Test.Views
                                                             new AssessmentSectionStub());
             }
 
-            protected override PipingCalculationScenario CreateCalculation()
+            protected override SemiProbabilisticPipingCalculationScenario CreateCalculation()
             {
                 return PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithInvalidInput();
             }

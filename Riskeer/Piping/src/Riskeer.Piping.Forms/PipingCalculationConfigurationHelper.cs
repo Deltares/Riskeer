@@ -146,7 +146,7 @@ namespace Riskeer.Piping.Forms
             string nameBase = $"{surfaceLine.Name} {stochasticSoilProfile}";
             string name = NamingHelper.GetUniqueName(calculations, nameBase, c => c.Name);
 
-            return new PipingCalculationScenario(generalInput)
+            return new SemiProbabilisticPipingCalculationScenario(generalInput)
             {
                 Name = name,
                 InputParameters =

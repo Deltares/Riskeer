@@ -997,7 +997,7 @@ namespace Riskeer.Storage.Core.TestUtil
                 Name = "A",
                 Children =
                 {
-                    new PipingCalculationScenario(pipingFailureMechanism.GeneralInput)
+                    new SemiProbabilisticPipingCalculationScenario(pipingFailureMechanism.GeneralInput)
                     {
                         Name = "With HydraulicBoundaryLocation",
                         IsRelevant = true,
@@ -1028,7 +1028,7 @@ namespace Riskeer.Storage.Core.TestUtil
                         },
                         Output = PipingOutputTestFactory.Create()
                     },
-                    new PipingCalculationScenario(pipingFailureMechanism.GeneralInput)
+                    new SemiProbabilisticPipingCalculationScenario(pipingFailureMechanism.GeneralInput)
                     {
                         Name = "Manual input",
                         IsRelevant = true,
@@ -1066,7 +1066,7 @@ namespace Riskeer.Storage.Core.TestUtil
             {
                 Name = "B"
             });
-            pipingCalculationGroup.Children.Add(new PipingCalculationScenario(pipingFailureMechanism.GeneralInput)
+            pipingCalculationGroup.Children.Add(new SemiProbabilisticPipingCalculationScenario(pipingFailureMechanism.GeneralInput)
             {
                 Name = "C",
                 IsRelevant = false,

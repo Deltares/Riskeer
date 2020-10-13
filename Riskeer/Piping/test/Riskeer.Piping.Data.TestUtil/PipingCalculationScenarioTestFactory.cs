@@ -33,7 +33,7 @@ using Riskeer.Piping.Primitives;
 namespace Riskeer.Piping.Data.TestUtil
 {
     /// <summary>
-    /// Helper class for creating different instances of <see cref="PipingCalculationScenario"/>
+    /// Helper class for creating different instances of <see cref="SemiProbabilisticPipingCalculationScenario"/>
     /// for easier testing.
     /// </summary>
     public static class PipingCalculationScenarioTestFactory
@@ -42,11 +42,11 @@ namespace Riskeer.Piping.Data.TestUtil
         /// Creates a calculated scenario for which the surface line on the input intersects with <paramref name="section"/>.
         /// </summary>
         /// <param name="section">The section for which an intersection will be created.</param>
-        /// <returns>A new <see cref="PipingCalculationScenario"/>.</returns>
+        /// <returns>A new <see cref="SemiProbabilisticPipingCalculationScenario"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="section"/> is <c>null</c>.</exception>
-        public static PipingCalculationScenario CreatePipingCalculationScenario(FailureMechanismSection section)
+        public static SemiProbabilisticPipingCalculationScenario CreatePipingCalculationScenario(FailureMechanismSection section)
         {
-            PipingCalculationScenario scenario = CreateNotCalculatedPipingCalculationScenario(section);
+            SemiProbabilisticPipingCalculationScenario scenario = CreateNotCalculatedPipingCalculationScenario(section);
             scenario.Output = PipingOutputTestFactory.Create();
 
             return scenario;
@@ -57,11 +57,11 @@ namespace Riskeer.Piping.Data.TestUtil
         /// is marked as not relevant for the assessment.
         /// </summary>
         /// <param name="section">The section for which an intersection will be created.</param>
-        /// <returns>A new <see cref="PipingCalculationScenario"/>.</returns>
+        /// <returns>A new <see cref="SemiProbabilisticPipingCalculationScenario"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="section"/> is <c>null</c>.</exception>
-        public static PipingCalculationScenario CreateIrrelevantPipingCalculationScenario(FailureMechanismSection section)
+        public static SemiProbabilisticPipingCalculationScenario CreateIrrelevantPipingCalculationScenario(FailureMechanismSection section)
         {
-            PipingCalculationScenario scenario = CreateNotCalculatedPipingCalculationScenario(section);
+            SemiProbabilisticPipingCalculationScenario scenario = CreateNotCalculatedPipingCalculationScenario(section);
             scenario.IsRelevant = false;
             return scenario;
         }
@@ -71,9 +71,9 @@ namespace Riskeer.Piping.Data.TestUtil
         /// the calculation has not been performed.
         /// </summary>
         /// <param name="section">The section for which an intersection will be created.</param>
-        /// <returns>A new <see cref="PipingCalculationScenario"/>.</returns>
+        /// <returns>A new <see cref="SemiProbabilisticPipingCalculationScenario"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="section"/> is <c>null</c>.</exception>
-        public static PipingCalculationScenario CreateNotCalculatedPipingCalculationScenario(FailureMechanismSection section)
+        public static SemiProbabilisticPipingCalculationScenario CreateNotCalculatedPipingCalculationScenario(FailureMechanismSection section)
         {
             if (section == null)
             {
@@ -89,7 +89,7 @@ namespace Riskeer.Piping.Data.TestUtil
             });
             pipingSurfaceLine.ReferenceLineIntersectionWorldPoint = section.Points.First();
 
-            var scenario = new PipingCalculationScenario(new GeneralPipingInput())
+            var scenario = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput())
             {
                 IsRelevant = true,
                 InputParameters =
@@ -103,21 +103,21 @@ namespace Riskeer.Piping.Data.TestUtil
         /// <summary>
         /// Creates a scenario with invalid input.
         /// </summary>
-        /// <returns>A new <see cref="PipingCalculationScenario"/>.</returns>
-        public static PipingCalculationScenario CreatePipingCalculationScenarioWithInvalidInput()
+        /// <returns>A new <see cref="SemiProbabilisticPipingCalculationScenario"/>.</returns>
+        public static SemiProbabilisticPipingCalculationScenario CreatePipingCalculationScenarioWithInvalidInput()
         {
-            return new PipingCalculationScenario(new GeneralPipingInput());
+            return new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput());
         }
 
         /// <summary>
         /// Creates a scenario with valid input.
         /// </summary>
         /// <param name="hydraulicBoundaryLocation">The hydraulic boundary location to set to the input.</param>
-        /// <returns>A new <see cref="PipingCalculationScenario"/>.</returns>
+        /// <returns>A new <see cref="SemiProbabilisticPipingCalculationScenario"/>.</returns>
         /// <remarks>The caller is responsible for actually providing a valid hydraulic boundary location
         /// (for instance when it comes to the presence of a normative assessment level).</remarks>
         /// <exception cref="ArgumentNullException">Throw when <paramref name="hydraulicBoundaryLocation"/> is <c>null</c>.</exception>
-        public static PipingCalculationScenario CreatePipingCalculationScenarioWithValidInput(HydraulicBoundaryLocation hydraulicBoundaryLocation)
+        public static SemiProbabilisticPipingCalculationScenario CreatePipingCalculationScenarioWithValidInput(HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
             if (hydraulicBoundaryLocation == null)
             {
@@ -177,7 +177,7 @@ namespace Riskeer.Piping.Data.TestUtil
             surfaceLine.SetDitchPolderSideAt(fifthCharacteristicPointLocation);
             surfaceLine.ReferenceLineIntersectionWorldPoint = new Point2D(0.0, 0.0);
 
-            return new PipingCalculationScenario(new GeneralPipingInput())
+            return new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput())
             {
                 InputParameters =
                 {

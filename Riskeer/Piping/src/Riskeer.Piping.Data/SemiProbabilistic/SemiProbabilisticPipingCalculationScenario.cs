@@ -28,18 +28,18 @@ namespace Riskeer.Piping.Data.SemiProbabilistic
     /// <summary>
     /// This class holds the information for a semi-probabilistic piping calculation scenario.
     /// </summary>
-    public class PipingCalculationScenario : SemiProbabilisticPipingCalculation, ICalculationScenario
+    public class SemiProbabilisticPipingCalculationScenario : SemiProbabilisticPipingCalculation, ICalculationScenario
     {
         private RoundedDouble contribution;
 
         /// <summary>
-        /// Creates a new instance of <see cref="PipingCalculationScenario"/>.
+        /// Creates a new instance of <see cref="SemiProbabilisticPipingCalculationScenario"/>.
         /// </summary>
         /// <param name="generalInputParameters">General piping calculation parameters that are the same across all
         /// piping calculations.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="generalInputParameters"/>
         /// is <c>null</c>.</exception>
-        public PipingCalculationScenario(GeneralPipingInput generalInputParameters)
+        public SemiProbabilisticPipingCalculationScenario(GeneralPipingInput generalInputParameters)
             : base(generalInputParameters)
         {
             IsRelevant = true;

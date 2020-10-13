@@ -84,7 +84,7 @@ namespace Riskeer.Piping.IO.Configurations
 
         protected override ICalculation ParseReadCalculation(PipingCalculationConfiguration readCalculation)
         {
-            var pipingCalculation = new PipingCalculationScenario(failureMechanism.GeneralInput)
+            var pipingCalculation = new SemiProbabilisticPipingCalculationScenario(failureMechanism.GeneralInput)
             {
                 Name = readCalculation.Name
             };
@@ -111,7 +111,7 @@ namespace Riskeer.Piping.IO.Configurations
         /// <returns><c>false</c> when the <paramref name="calculationConfiguration"/> has a <see cref="HydraulicBoundaryLocation"/>
         /// set which is not available in <see cref="availableHydraulicBoundaryLocations"/>, <c>true</c> otherwise.</returns>
         private bool TrySetHydraulicBoundaryData(PipingCalculationConfiguration calculationConfiguration,
-                                                 PipingCalculationScenario pipingCalculation)
+                                                 SemiProbabilisticPipingCalculationScenario pipingCalculation)
         {
             HydraulicBoundaryLocation location;
 
@@ -146,7 +146,7 @@ namespace Riskeer.Piping.IO.Configurations
         /// <returns><c>false</c> when the <paramref name="calculationConfiguration"/> has a <see cref="PipingSurfaceLine"/>
         /// set which is not available in <see cref="PipingFailureMechanism.SurfaceLines"/>, <c>true</c> otherwise.</returns>
         private bool TrySetSurfaceLine(PipingCalculationConfiguration calculationConfiguration,
-                                       PipingCalculationScenario pipingCalculation)
+                                       SemiProbabilisticPipingCalculationScenario pipingCalculation)
         {
             if (calculationConfiguration.SurfaceLineName != null)
             {
@@ -176,7 +176,7 @@ namespace Riskeer.Piping.IO.Configurations
         /// <returns><c>false</c> when entry or exit point is set without <see cref="PipingSurfaceLine"/>,
         /// or when entry or exit point is invalid, <c>true</c> otherwise.</returns>
         private bool TrySetEntryExitPoint(PipingCalculationConfiguration calculationConfiguration,
-                                          PipingCalculationScenario pipingCalculation)
+                                          SemiProbabilisticPipingCalculationScenario pipingCalculation)
         {
             bool hasEntryPoint = calculationConfiguration.EntryPointL.HasValue;
             bool hasExitPoint = calculationConfiguration.ExitPointL.HasValue;
@@ -239,7 +239,7 @@ namespace Riskeer.Piping.IO.Configurations
         /// </list>
         /// <c>true</c> otherwise.</returns>
         private bool TrySetStochasticSoilModel(PipingCalculationConfiguration calculationConfiguration,
-                                               PipingCalculationScenario pipingCalculation)
+                                               SemiProbabilisticPipingCalculationScenario pipingCalculation)
         {
             if (calculationConfiguration.StochasticSoilModelName != null)
             {
@@ -284,7 +284,7 @@ namespace Riskeer.Piping.IO.Configurations
         /// </list>
         /// <c>true</c> otherwise.</returns>
         private bool TrySetStochasticSoilProfile(PipingCalculationConfiguration calculationConfiguration,
-                                                 PipingCalculationScenario pipingCalculation)
+                                                 SemiProbabilisticPipingCalculationScenario pipingCalculation)
         {
             if (calculationConfiguration.StochasticSoilProfileName != null)
             {
@@ -324,14 +324,14 @@ namespace Riskeer.Piping.IO.Configurations
         /// <param name="calculationConfiguration">The calculation read from the imported file.</param>
         /// <param name="pipingCalculation">The calculation to configure.</param>
         /// <returns><c>false</c> when a stochast value (mean or standard deviation) is invalid, <c>true</c> otherwise.</returns>
-        private bool TrySetStochasts(PipingCalculationConfiguration calculationConfiguration, PipingCalculationScenario pipingCalculation)
+        private bool TrySetStochasts(PipingCalculationConfiguration calculationConfiguration, SemiProbabilisticPipingCalculationScenario pipingCalculation)
         {
             return TrySetPhreaticLevelExit(calculationConfiguration, pipingCalculation)
                    && TrySetDampingFactorExit(calculationConfiguration, pipingCalculation);
         }
 
         private bool TrySetDampingFactorExit(PipingCalculationConfiguration calculationConfiguration,
-                                             PipingCalculationScenario pipingCalculation)
+                                             SemiProbabilisticPipingCalculationScenario pipingCalculation)
         {
             return ConfigurationImportHelper.TrySetStandardDeviationStochast(
                 PipingCalculationConfigurationSchemaIdentifiers.DampingFactorExitStochastName,
@@ -344,7 +344,7 @@ namespace Riskeer.Piping.IO.Configurations
         }
 
         private bool TrySetPhreaticLevelExit(PipingCalculationConfiguration calculationConfiguration,
-                                             PipingCalculationScenario pipingCalculation)
+                                             SemiProbabilisticPipingCalculationScenario pipingCalculation)
         {
             return ConfigurationImportHelper.TrySetStandardDeviationStochast(
                 PipingCalculationConfigurationSchemaIdentifiers.PhreaticLevelExitStochastName,

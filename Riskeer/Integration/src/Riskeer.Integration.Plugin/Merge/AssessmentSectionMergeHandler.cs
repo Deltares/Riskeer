@@ -212,7 +212,7 @@ namespace Riskeer.Integration.Plugin.Merge
             if (mergeData.MergePiping)
             {
                 targetAssessmentSection.Piping = sourceAssessmentSection.Piping;
-                UpdateCalculationHydraulicBoundaryLocationReferences<PipingFailureMechanism, PipingCalculationScenario, PipingInput>(
+                UpdateCalculationHydraulicBoundaryLocationReferences<PipingFailureMechanism, SemiProbabilisticPipingCalculationScenario, PipingInput>(
                     targetAssessmentSection.Piping, hydraulicBoundaryLocations);
                 LogMergeMessage(targetAssessmentSection.Piping);
             }

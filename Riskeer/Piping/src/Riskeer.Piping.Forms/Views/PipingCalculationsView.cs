@@ -45,7 +45,7 @@ namespace Riskeer.Piping.Forms.Views
     /// <summary>
     /// This class is a view for configuring piping calculations.
     /// </summary>
-    public class PipingCalculationsView : CalculationsView<PipingCalculationScenario, PipingInput, PipingCalculationRow, PipingFailureMechanism>
+    public class PipingCalculationsView : CalculationsView<SemiProbabilisticPipingCalculationScenario, PipingInput, PipingCalculationRow, PipingFailureMechanism>
     {
         private const int selectableHydraulicBoundaryLocationColumnIndex = 1;
         private const int stochasticSoilModelColumnIndex = 2;
@@ -100,12 +100,12 @@ namespace Riskeer.Piping.Forms.Views
             return FailureMechanism.SurfaceLines.Select(sl => sl.ReferenceLineIntersectionWorldPoint);
         }
 
-        protected override bool IsCalculationIntersectionWithReferenceLineInSection(PipingCalculationScenario calculation, IEnumerable<Segment2D> lineSegments)
+        protected override bool IsCalculationIntersectionWithReferenceLineInSection(SemiProbabilisticPipingCalculationScenario calculation, IEnumerable<Segment2D> lineSegments)
         {
             return calculation.IsSurfaceLineIntersectionWithReferenceLineInSection(lineSegments);
         }
 
-        protected override PipingCalculationRow CreateRow(PipingCalculationScenario calculation)
+        protected override PipingCalculationRow CreateRow(SemiProbabilisticPipingCalculationScenario calculation)
         {
             return new PipingCalculationRow(calculation, new ObservablePropertyChangeHandler(calculation, calculation.InputParameters));
         }

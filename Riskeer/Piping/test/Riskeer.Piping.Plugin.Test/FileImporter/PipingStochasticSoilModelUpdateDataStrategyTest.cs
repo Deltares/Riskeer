@@ -273,12 +273,12 @@ namespace Riskeer.Piping.Plugin.Test.FileImporter
             PipingStochasticSoilProfile firstExistingProfile = existingModel.StochasticSoilProfiles.First();
             PipingStochasticSoilModel readModel = CreateSimpleModel(modelsName, firstExistingProfile.SoilProfile.Name);
 
-            var calculationWithNotUpdatedProfile = new PipingCalculationScenario(new GeneralPipingInput());
+            var calculationWithNotUpdatedProfile = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput());
             calculationWithNotUpdatedProfile.InputParameters.StochasticSoilModel = existingModel;
             calculationWithNotUpdatedProfile.InputParameters.StochasticSoilProfile = existingModel.StochasticSoilProfiles.ElementAt(0);
             calculationWithNotUpdatedProfile.Output = new PipingOutput(new PipingOutput.ConstructionProperties());
 
-            var calculationWithDeletedProfile = new PipingCalculationScenario(new GeneralPipingInput());
+            var calculationWithDeletedProfile = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput());
             calculationWithDeletedProfile.InputParameters.StochasticSoilModel = existingModel;
             calculationWithDeletedProfile.InputParameters.StochasticSoilProfile = existingModel.StochasticSoilProfiles.ElementAt(1);
             calculationWithDeletedProfile.Output = new PipingOutput(new PipingOutput.ConstructionProperties());
@@ -334,12 +334,12 @@ namespace Riskeer.Piping.Plugin.Test.FileImporter
                 CreateStochasticSoilProfile("Unaffected Profile")
             });
 
-            var calculationWithUpdatedProfile = new PipingCalculationScenario(new GeneralPipingInput());
+            var calculationWithUpdatedProfile = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput());
             calculationWithUpdatedProfile.InputParameters.StochasticSoilModel = existingModel;
             calculationWithUpdatedProfile.InputParameters.StochasticSoilProfile = existingModel.StochasticSoilProfiles.ElementAt(0);
             calculationWithUpdatedProfile.Output = new PipingOutput(new PipingOutput.ConstructionProperties());
 
-            var calculationWithNotUpdatedProfile = new PipingCalculationScenario(new GeneralPipingInput());
+            var calculationWithNotUpdatedProfile = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput());
             calculationWithNotUpdatedProfile.InputParameters.StochasticSoilModel = existingModel;
             calculationWithNotUpdatedProfile.InputParameters.StochasticSoilProfile = existingModel.StochasticSoilProfiles.ElementAt(1);
             calculationWithNotUpdatedProfile.Output = new PipingOutput(new PipingOutput.ConstructionProperties());
@@ -388,7 +388,7 @@ namespace Riskeer.Piping.Plugin.Test.FileImporter
         {
             // Setup
             PipingStochasticSoilModel existingModel = PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel();
-            var calculation = new PipingCalculationScenario(new GeneralPipingInput());
+            var calculation = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput());
             calculation.InputParameters.StochasticSoilModel = existingModel;
             calculation.InputParameters.StochasticSoilProfile = existingModel.StochasticSoilProfiles.First();
             calculation.Output = new PipingOutput(new PipingOutput.ConstructionProperties());
@@ -443,12 +443,12 @@ namespace Riskeer.Piping.Plugin.Test.FileImporter
                 CreateStochasticSoilProfile("Unaffected Profile")
             });
 
-            var calculationWithRemovedProfile = new PipingCalculationScenario(new GeneralPipingInput());
+            var calculationWithRemovedProfile = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput());
             calculationWithRemovedProfile.InputParameters.StochasticSoilModel = existingModel;
             calculationWithRemovedProfile.InputParameters.StochasticSoilProfile = removedProfile;
             calculationWithRemovedProfile.Output = new PipingOutput(new PipingOutput.ConstructionProperties());
 
-            var calculationWithNotUpdatedProfile = new PipingCalculationScenario(new GeneralPipingInput());
+            var calculationWithNotUpdatedProfile = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput());
             calculationWithNotUpdatedProfile.InputParameters.StochasticSoilModel = existingModel;
             calculationWithNotUpdatedProfile.InputParameters.StochasticSoilProfile = unaffectedProfile;
             calculationWithNotUpdatedProfile.Output = new PipingOutput(new PipingOutput.ConstructionProperties());

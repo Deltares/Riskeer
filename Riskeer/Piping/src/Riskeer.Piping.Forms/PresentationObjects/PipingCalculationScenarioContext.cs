@@ -36,8 +36,8 @@ namespace Riskeer.Piping.Forms.PresentationObjects
     /// Presentation object for all data required to configure an instance of <see cref="PipingCalculation{TPipingInput,TPipingOutput}"/>
     /// in order to prepare it for performing a calculation.
     /// </summary>
-    public class PipingCalculationScenarioContext : PipingContext<PipingCalculationScenario>,
-                                                    ICalculationContext<PipingCalculationScenario, PipingFailureMechanism>
+    public class PipingCalculationScenarioContext : PipingContext<SemiProbabilisticPipingCalculationScenario>,
+                                                    ICalculationContext<SemiProbabilisticPipingCalculationScenario, PipingFailureMechanism>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="PipingCalculationScenarioContext"/> class.
@@ -49,7 +49,7 @@ namespace Riskeer.Piping.Forms.PresentationObjects
         /// <param name="pipingFailureMechanism">The piping failure mechanism which the piping context belongs to.</param>
         /// <param name="assessmentSection">The assessment section which the piping context belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
-        public PipingCalculationScenarioContext(PipingCalculationScenario calculation,
+        public PipingCalculationScenarioContext(SemiProbabilisticPipingCalculationScenario calculation,
                                                 CalculationGroup parent,
                                                 IEnumerable<PipingSurfaceLine> surfaceLines,
                                                 IEnumerable<PipingStochasticSoilModel> stochasticSoilModels,
@@ -67,7 +67,7 @@ namespace Riskeer.Piping.Forms.PresentationObjects
 
         public CalculationGroup Parent { get; }
 
-        public override bool Equals(WrappedObjectContextBase<PipingCalculationScenario> other)
+        public override bool Equals(WrappedObjectContextBase<SemiProbabilisticPipingCalculationScenario> other)
         {
             return base.Equals(other)
                    && other is PipingCalculationScenarioContext

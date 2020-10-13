@@ -36,7 +36,7 @@ namespace Riskeer.Piping.Forms.Views
     /// <summary>
     /// View for configuring piping calculation scenarios.
     /// </summary>
-    public class PipingScenariosView : ScenariosView<PipingCalculationScenario, PipingInput, PipingScenarioRow, PipingFailureMechanism>
+    public class PipingScenariosView : ScenariosView<SemiProbabilisticPipingCalculationScenario, PipingInput, PipingScenarioRow, PipingFailureMechanism>
     {
         private readonly IAssessmentSection assessmentSection;
 
@@ -61,7 +61,7 @@ namespace Riskeer.Piping.Forms.Views
             this.assessmentSection = assessmentSection;
         }
 
-        protected override PipingInput GetCalculationInput(PipingCalculationScenario calculationScenario)
+        protected override PipingInput GetCalculationInput(SemiProbabilisticPipingCalculationScenario calculationScenario)
         {
             return calculationScenario.InputParameters;
         }
@@ -69,9 +69,9 @@ namespace Riskeer.Piping.Forms.Views
         protected override IEnumerable<PipingScenarioRow> GetScenarioRows(FailureMechanismSection failureMechanismSection)
         {
             IEnumerable<Segment2D> lineSegments = Math2D.ConvertPointsToLineSegments(failureMechanismSection.Points);
-            IEnumerable<PipingCalculationScenario> pipingCalculations = CalculationGroup
+            IEnumerable<SemiProbabilisticPipingCalculationScenario> pipingCalculations = CalculationGroup
                                                                         .GetCalculations()
-                                                                        .OfType<PipingCalculationScenario>()
+                                                                        .OfType<SemiProbabilisticPipingCalculationScenario>()
                                                                         .Where(pc => pc.IsSurfaceLineIntersectionWithReferenceLineInSection(lineSegments));
 
             return pipingCalculations.Select(pc => new PipingScenarioRow(pc, FailureMechanism, assessmentSection)).ToList();

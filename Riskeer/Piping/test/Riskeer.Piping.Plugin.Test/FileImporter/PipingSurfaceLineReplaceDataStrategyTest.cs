@@ -185,7 +185,7 @@ namespace Riskeer.Piping.Plugin.Test.FileImporter
                 new Point3D(3, 4, 5)
             });
 
-            var calculation = new PipingCalculationScenario(new GeneralPipingInput())
+            var calculation = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput())
             {
                 InputParameters =
                 {

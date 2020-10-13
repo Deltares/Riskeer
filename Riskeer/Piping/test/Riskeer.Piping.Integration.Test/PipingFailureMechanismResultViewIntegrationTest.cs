@@ -75,7 +75,7 @@ namespace Riskeer.Piping.Integration.Test
                 DataImportHelper.ImportPipingSurfaceLines(assessmentSection);
 
                 // Setup some calculations
-                var pipingCalculation1 = new PipingCalculationScenario(new GeneralPipingInput())
+                var pipingCalculation1 = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput())
                 {
                     InputParameters =
                     {
@@ -83,7 +83,7 @@ namespace Riskeer.Piping.Integration.Test
                             sl => sl.Name == "PK001_0001")
                     }
                 };
-                var pipingCalculation2 = new PipingCalculationScenario(new GeneralPipingInput())
+                var pipingCalculation2 = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput())
                 {
                     InputParameters =
                     {
@@ -129,7 +129,7 @@ namespace Riskeer.Piping.Integration.Test
                 Assert.IsEmpty(dataGridView.Rows[22].Cells[detailedAssessmentIndex].ErrorText);
 
                 // Add another, nested calculation without surface line and ensure the data grid view is updated when the surface line is set
-                var pipingCalculation3 = new PipingCalculationScenario(new GeneralPipingInput());
+                var pipingCalculation3 = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput());
                 nestedPipingCalculationGroup.Children.Add(pipingCalculation3);
                 nestedPipingCalculationGroup.NotifyObservers();
                 Assert.AreEqual(ProbabilityFormattingHelper.Format(2.425418e-4),

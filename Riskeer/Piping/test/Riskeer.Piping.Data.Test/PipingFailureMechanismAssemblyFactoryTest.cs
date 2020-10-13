@@ -153,7 +153,7 @@ namespace Riskeer.Piping.Data.Test
             // Call
             TestDelegate call = () => PipingFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
                 null,
-                Enumerable.Empty<PipingCalculationScenario>(),
+                Enumerable.Empty<SemiProbabilisticPipingCalculationScenario>(),
                 new PipingFailureMechanism(),
                 assessmentSection);
 
@@ -195,7 +195,7 @@ namespace Riskeer.Piping.Data.Test
             // Call
             TestDelegate call = () => PipingFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
                 new PipingFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
-                Enumerable.Empty<PipingCalculationScenario>(),
+                Enumerable.Empty<SemiProbabilisticPipingCalculationScenario>(),
                 null,
                 assessmentSection);
 
@@ -211,7 +211,7 @@ namespace Riskeer.Piping.Data.Test
             // Call
             TestDelegate call = () => PipingFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
                 new PipingFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
-                Enumerable.Empty<PipingCalculationScenario>(),
+                Enumerable.Empty<SemiProbabilisticPipingCalculationScenario>(),
                 new PipingFailureMechanism(),
                 null);
 
@@ -243,14 +243,14 @@ namespace Riskeer.Piping.Data.Test
                 // Call
                 PipingFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
                     sectionResult,
-                    Enumerable.Empty<PipingCalculationScenario>(),
+                    Enumerable.Empty<SemiProbabilisticPipingCalculationScenario>(),
                     failureMechanism,
                     assessmentSection);
 
                 // Assert
                 Assert.AreEqual(sectionResult.DetailedAssessmentResult, calculator.DetailedAssessmentProbabilityOnlyResultInput);
                 Assert.AreEqual(sectionResult.GetDetailedAssessmentProbability(
-                                    Enumerable.Empty<PipingCalculationScenario>(),
+                                    Enumerable.Empty<SemiProbabilisticPipingCalculationScenario>(),
                                     failureMechanism,
                                     assessmentSection),
                                 calculator.DetailedAssessmentProbabilityInput);
@@ -506,7 +506,7 @@ namespace Riskeer.Piping.Data.Test
             // Call
             TestDelegate call = () => PipingFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
                 null,
-                Enumerable.Empty<PipingCalculationScenario>(),
+                Enumerable.Empty<SemiProbabilisticPipingCalculationScenario>(),
                 new PipingFailureMechanism(),
                 assessmentSection);
 
@@ -548,7 +548,7 @@ namespace Riskeer.Piping.Data.Test
             // Call
             TestDelegate call = () => PipingFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
                 new PipingFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
-                Enumerable.Empty<PipingCalculationScenario>(),
+                Enumerable.Empty<SemiProbabilisticPipingCalculationScenario>(),
                 null,
                 assessmentSection);
 
@@ -564,7 +564,7 @@ namespace Riskeer.Piping.Data.Test
             // Call
             TestDelegate call = () => PipingFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
                 new PipingFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
-                Enumerable.Empty<PipingCalculationScenario>(),
+                Enumerable.Empty<SemiProbabilisticPipingCalculationScenario>(),
                 new PipingFailureMechanism(),
                 null);
 
@@ -598,7 +598,7 @@ namespace Riskeer.Piping.Data.Test
                 // Call
                 PipingFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
                     sectionResult,
-                    Enumerable.Empty<PipingCalculationScenario>(),
+                    Enumerable.Empty<SemiProbabilisticPipingCalculationScenario>(),
                     failureMechanism,
                     assessmentSection);
 
@@ -636,7 +636,7 @@ namespace Riskeer.Piping.Data.Test
                 // Call
                 PipingFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
                     sectionResult,
-                    Enumerable.Empty<PipingCalculationScenario>(),
+                    Enumerable.Empty<SemiProbabilisticPipingCalculationScenario>(),
                     failureMechanism,
                     assessmentSection);
 
@@ -669,7 +669,7 @@ namespace Riskeer.Piping.Data.Test
                 FailureMechanismSectionAssembly actualOutput =
                     PipingFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
                         sectionResult,
-                        Enumerable.Empty<PipingCalculationScenario>(),
+                        Enumerable.Empty<SemiProbabilisticPipingCalculationScenario>(),
                         failureMechanism,
                         assessmentSection);
 
@@ -700,7 +700,7 @@ namespace Riskeer.Piping.Data.Test
                 // Call
                 TestDelegate call = () => PipingFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
                     sectionResult,
-                    Enumerable.Empty<PipingCalculationScenario>(),
+                    Enumerable.Empty<SemiProbabilisticPipingCalculationScenario>(),
                     failureMechanism,
                     assessmentSection);
 

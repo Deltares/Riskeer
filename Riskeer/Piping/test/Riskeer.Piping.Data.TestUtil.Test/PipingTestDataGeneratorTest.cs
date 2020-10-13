@@ -75,7 +75,7 @@ namespace Riskeer.Piping.Data.TestUtil.Test
         public void GetPipingCalculationScenario_Always_ReturnCalculationWithDataSet()
         {
             // Call
-            PipingCalculationScenario calculation = PipingTestDataGenerator.GetPipingCalculationScenario();
+            SemiProbabilisticPipingCalculationScenario calculation = PipingTestDataGenerator.GetPipingCalculationScenario();
 
             // Assert
             AssertCalculationScenario(calculation);
@@ -85,7 +85,7 @@ namespace Riskeer.Piping.Data.TestUtil.Test
         public void GetPipingCalculationScenarioWithoutHydraulicLocationAndAssessmentLevel_Always_ReturnCalculationScenarioWithoutHydraulicLocationAndAssessmentLevel()
         {
             // Call
-            PipingCalculationScenario calculation = PipingTestDataGenerator.GetPipingCalculationScenarioWithoutHydraulicLocationAndAssessmentLevel();
+            SemiProbabilisticPipingCalculationScenario calculation = PipingTestDataGenerator.GetPipingCalculationScenarioWithoutHydraulicLocationAndAssessmentLevel();
 
             // Assert
             AssertCalculationScenario(calculation, false);
@@ -95,7 +95,7 @@ namespace Riskeer.Piping.Data.TestUtil.Test
         public void GetPipingCalculationScenarioWithAssessmentLevel_Always_ReturnCalculationScenarioWithAssessmentLevel()
         {
             // Call
-            PipingCalculationScenario calculation = PipingTestDataGenerator.GetPipingCalculationScenarioWithAssessmentLevel();
+            SemiProbabilisticPipingCalculationScenario calculation = PipingTestDataGenerator.GetPipingCalculationScenarioWithAssessmentLevel();
 
             // Assert
             AssertCalculationScenario(calculation, false, true);
@@ -105,7 +105,7 @@ namespace Riskeer.Piping.Data.TestUtil.Test
         public void GetPipingCalculationScenarioWithoutSurfaceLine_Always_ReturnCalculationScenarioWithoutSurfaceLine()
         {
             // Call
-            PipingCalculationScenario calculation = PipingTestDataGenerator.GetPipingCalculationScenarioWithoutSurfaceLine();
+            SemiProbabilisticPipingCalculationScenario calculation = PipingTestDataGenerator.GetPipingCalculationScenarioWithoutSurfaceLine();
 
             // Assert
             AssertCalculationScenario(calculation, true, false, false);
@@ -115,7 +115,7 @@ namespace Riskeer.Piping.Data.TestUtil.Test
         public void GetPipingCalculationScenarioWithoutSoilModel_Always_ReturnCalculationScenarioWithoutSoilModel()
         {
             // Call
-            PipingCalculationScenario calculation = PipingTestDataGenerator.GetPipingCalculationScenarioWithoutSoilModel();
+            SemiProbabilisticPipingCalculationScenario calculation = PipingTestDataGenerator.GetPipingCalculationScenarioWithoutSoilModel();
 
             // Assert
             AssertCalculationScenario(calculation, true, false, true, false);
@@ -125,7 +125,7 @@ namespace Riskeer.Piping.Data.TestUtil.Test
         public void GetPipingCalculationScenarioWithoutSoilProfile_Always_ReturnCalculationScenarioWithoutSoilProfile()
         {
             // Call
-            PipingCalculationScenario calculation = PipingTestDataGenerator.GetPipingCalculationScenarioWithoutSoilProfile();
+            SemiProbabilisticPipingCalculationScenario calculation = PipingTestDataGenerator.GetPipingCalculationScenarioWithoutSoilProfile();
 
             // Assert
             AssertCalculationScenario(calculation, true, false, true, true, false);
@@ -135,7 +135,7 @@ namespace Riskeer.Piping.Data.TestUtil.Test
         public void GetIrrelevantPipingCalculationScenario_Always_ReturnCalculationScenario()
         {
             // Call
-            PipingCalculationScenario calculation = PipingTestDataGenerator.GetIrrelevantPipingCalculationScenario();
+            SemiProbabilisticPipingCalculationScenario calculation = PipingTestDataGenerator.GetIrrelevantPipingCalculationScenario();
 
             // Assert
             Assert.IsFalse(calculation.IsRelevant);
@@ -146,7 +146,7 @@ namespace Riskeer.Piping.Data.TestUtil.Test
         public void GetPipingCalculationScenarioWithNaNs_Always_ReturnCalculationScenarioWithNaNs()
         {
             // Call
-            PipingCalculationScenario calculation = PipingTestDataGenerator.GetPipingCalculationScenarioWithNaNs();
+            SemiProbabilisticPipingCalculationScenario calculation = PipingTestDataGenerator.GetPipingCalculationScenarioWithNaNs();
 
             // Assert
             Assert.IsTrue(calculation.IsRelevant);
@@ -168,7 +168,7 @@ namespace Riskeer.Piping.Data.TestUtil.Test
         public void GetPipingCalculationScenarioWithInfinities_Always_ReturnCalculationScenarioWithInfinities()
         {
             // Call
-            PipingCalculationScenario calculation = PipingTestDataGenerator.GetPipingCalculationScenarioWithInfinities();
+            SemiProbabilisticPipingCalculationScenario calculation = PipingTestDataGenerator.GetPipingCalculationScenarioWithInfinities();
 
             // Assert
             Assert.IsTrue(calculation.IsRelevant);
@@ -186,7 +186,7 @@ namespace Riskeer.Piping.Data.TestUtil.Test
             Assert.AreEqual(double.PositiveInfinity, calculation.InputParameters.DampingFactorExit.StandardDeviation.Value);
         }
 
-        private static void AssertCalculationScenario(PipingCalculationScenario calculation,
+        private static void AssertCalculationScenario(SemiProbabilisticPipingCalculationScenario calculation,
                                                       bool hasHydraulicLocation = true,
                                                       bool hasAssessmentLevel = false,
                                                       bool hasSurfaceLine = true,

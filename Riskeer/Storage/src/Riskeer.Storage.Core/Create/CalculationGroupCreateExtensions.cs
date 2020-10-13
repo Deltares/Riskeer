@@ -84,7 +84,7 @@ namespace Riskeer.Storage.Core.Create
                     entity.CalculationGroupEntity1.Add(childGroup.Create(registry, i));
                 }
 
-                if (calculationBase is PipingCalculationScenario childPipingCalculation)
+                if (calculationBase is SemiProbabilisticPipingCalculationScenario childPipingCalculation)
                 {
                     entity.PipingCalculationEntities.Add(childPipingCalculation.Create(registry, i));
                 }

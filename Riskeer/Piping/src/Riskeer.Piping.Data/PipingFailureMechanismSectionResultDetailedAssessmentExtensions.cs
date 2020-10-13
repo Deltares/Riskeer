@@ -47,7 +47,7 @@ namespace Riskeer.Piping.Data
         /// contribution of the relevant calculations don't add up to 1.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public static double GetDetailedAssessmentProbability(this PipingFailureMechanismSectionResult sectionResult,
-                                                              IEnumerable<PipingCalculationScenario> calculationScenarios,
+                                                              IEnumerable<SemiProbabilisticPipingCalculationScenario> calculationScenarios,
                                                               PipingFailureMechanism failureMechanism,
                                                               IAssessmentSection assessmentSection)
         {
@@ -71,7 +71,7 @@ namespace Riskeer.Piping.Data
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            PipingCalculationScenario[] relevantScenarios = sectionResult.GetCalculationScenarios(calculationScenarios).ToArray();
+            SemiProbabilisticPipingCalculationScenario[] relevantScenarios = sectionResult.GetCalculationScenarios(calculationScenarios).ToArray();
 
             if (relevantScenarios.Length == 0 || !relevantScenarios.All(s => s.HasOutput) || Math.Abs(sectionResult.GetTotalContribution(relevantScenarios) - 1.0) > 1e-6)
             {
@@ -79,7 +79,7 @@ namespace Riskeer.Piping.Data
             }
 
             double totalDetailedAssessmentProbability = 0;
-            foreach (PipingCalculationScenario scenario in relevantScenarios)
+            foreach (SemiProbabilisticPipingCalculationScenario scenario in relevantScenarios)
             {
                 DerivedPipingOutput derivedOutput = DerivedPipingOutputFactory.Create(scenario.Output, failureMechanism, assessmentSection);
 
@@ -97,7 +97,7 @@ namespace Riskeer.Piping.Data
         /// <returns>The total contribution of all relevant calculation scenarios.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public static RoundedDouble GetTotalContribution(this PipingFailureMechanismSectionResult sectionResult,
-                                                         IEnumerable<PipingCalculationScenario> calculationScenarios)
+                                                         IEnumerable<SemiProbabilisticPipingCalculationScenario> calculationScenarios)
         {
             if (sectionResult == null)
             {
@@ -115,15 +115,15 @@ namespace Riskeer.Piping.Data
         }
 
         /// <summary>
-        /// Gets a collection of the relevant <see cref="PipingCalculationScenario"/>.
+        /// Gets a collection of the relevant <see cref="SemiProbabilisticPipingCalculationScenario"/>.
         /// </summary>
         /// <param name="sectionResult">The section result to get the relevant scenarios for.</param>
         /// <param name="calculationScenarios">The calculation scenarios to get the relevant scenarios from.</param>
         /// <returns>A collection of relevant calculation scenarios.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public static IEnumerable<PipingCalculationScenario> GetCalculationScenarios(
+        public static IEnumerable<SemiProbabilisticPipingCalculationScenario> GetCalculationScenarios(
             this PipingFailureMechanismSectionResult sectionResult,
-            IEnumerable<PipingCalculationScenario> calculationScenarios)
+            IEnumerable<SemiProbabilisticPipingCalculationScenario> calculationScenarios)
         {
             if (sectionResult == null)
             {

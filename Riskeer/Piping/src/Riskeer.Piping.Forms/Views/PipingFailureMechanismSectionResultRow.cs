@@ -53,7 +53,7 @@ namespace Riskeer.Piping.Forms.Views
         private readonly int combinedAssemblyProbabilityIndex;
         private readonly int manualAssemblyProbabilityIndex;
 
-        private readonly IEnumerable<PipingCalculationScenario> calculations;
+        private readonly IEnumerable<SemiProbabilisticPipingCalculationScenario> calculations;
         private readonly PipingFailureMechanism failureMechanism;
         private readonly IAssessmentSection assessmentSection;
         private FailureMechanismSectionAssemblyCategoryGroup simpleAssemblyCategoryGroup;
@@ -75,7 +75,7 @@ namespace Riskeer.Piping.Forms.Views
         /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
         /// is a valid value, but unsupported.</exception>
         internal PipingFailureMechanismSectionResultRow(PipingFailureMechanismSectionResult sectionResult,
-                                                        IEnumerable<PipingCalculationScenario> calculations,
+                                                        IEnumerable<SemiProbabilisticPipingCalculationScenario> calculations,
                                                         PipingFailureMechanism failureMechanism,
                                                         IAssessmentSection assessmentSection,
                                                         ConstructionProperties constructionProperties)

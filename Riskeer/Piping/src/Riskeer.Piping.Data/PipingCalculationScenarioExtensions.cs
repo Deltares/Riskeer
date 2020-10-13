@@ -29,7 +29,7 @@ using Riskeer.Piping.Primitives;
 namespace Riskeer.Piping.Data
 {
     /// <summary>
-    /// Defines extension methods dealing with <see cref="PipingCalculationScenario"/> instances.
+    /// Defines extension methods dealing with <see cref="SemiProbabilisticPipingCalculationScenario"/> instances.
     /// </summary>
     public static class PipingCalculationScenarioExtensions
     {
@@ -40,7 +40,7 @@ namespace Riskeer.Piping.Data
         /// <param name="lineSegments">The line segments that define the reference line.</param>
         /// <returns><c>true</c> when intersecting. <c>false</c> otherwise.</returns>
         /// <exception cref="InvalidOperationException">Thrown when <paramref name="lineSegments"/> contains no elements.</exception>
-        public static bool IsSurfaceLineIntersectionWithReferenceLineInSection(this PipingCalculationScenario pipingCalculationScenario, IEnumerable<Segment2D> lineSegments)
+        public static bool IsSurfaceLineIntersectionWithReferenceLineInSection(this SemiProbabilisticPipingCalculationScenario pipingCalculationScenario, IEnumerable<Segment2D> lineSegments)
         {
             PipingSurfaceLine surfaceLine = pipingCalculationScenario?.InputParameters.SurfaceLine;
             if (surfaceLine == null)

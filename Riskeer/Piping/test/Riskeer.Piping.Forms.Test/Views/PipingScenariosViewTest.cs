@@ -90,7 +90,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             using (var pipingScenarioView = new PipingScenariosView(calculationGroup, new PipingFailureMechanism(), assessmentSection))
             {
                 // Assert
-                Assert.IsInstanceOf<ScenariosView<PipingCalculationScenario, PipingInput, PipingScenarioRow, PipingFailureMechanism>>(pipingScenarioView);
+                Assert.IsInstanceOf<ScenariosView<SemiProbabilisticPipingCalculationScenario, PipingInput, PipingScenarioRow, PipingFailureMechanism>>(pipingScenarioView);
                 Assert.AreSame(calculationGroup, pipingScenarioView.Data);
             }
 
@@ -192,7 +192,7 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             failureMechanism.CalculationsGroup.Children.AddRange(new[]
             {
-                new PipingCalculationScenario(new GeneralPipingInput())
+                new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput())
                 {
                     Name = "Calculation 1",
                     InputParameters =
@@ -210,7 +210,7 @@ namespace Riskeer.Piping.Forms.Test.Views
                         ExitPointL = (RoundedDouble) 4.4444
                     }
                 },
-                new PipingCalculationScenario(new GeneralPipingInput())
+                new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput())
                 {
                     Name = "Calculation 2",
                     InputParameters =

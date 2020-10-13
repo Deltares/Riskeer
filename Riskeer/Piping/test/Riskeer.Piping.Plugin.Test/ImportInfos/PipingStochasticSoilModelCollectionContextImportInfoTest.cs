@@ -146,7 +146,7 @@ namespace Riskeer.Piping.Plugin.Test.ImportInfos
             plugin.Gui = gui;
 
             var failureMechanism = new PipingFailureMechanism();
-            failureMechanism.CalculationsGroup.Children.Add(new PipingCalculationScenario(new GeneralPipingInput()));
+            failureMechanism.CalculationsGroup.Children.Add(new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput()));
 
             var stochasticSoilModelCollection = new PipingStochasticSoilModelCollection();
             var context = new PipingStochasticSoilModelCollectionContext(stochasticSoilModelCollection, failureMechanism, assessmentSection);
@@ -176,7 +176,7 @@ namespace Riskeer.Piping.Plugin.Test.ImportInfos
             plugin.Gui = gui;
 
             var failureMechanism = new PipingFailureMechanism();
-            var calculationWithOutput = new PipingCalculationScenario(new GeneralPipingInput())
+            var calculationWithOutput = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput())
             {
                 Output = PipingOutputTestFactory.Create()
             };

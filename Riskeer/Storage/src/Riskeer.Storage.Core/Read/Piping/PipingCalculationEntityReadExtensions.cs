@@ -29,23 +29,23 @@ using Riskeer.Storage.Core.DbContext;
 namespace Riskeer.Storage.Core.Read.Piping
 {
     /// <summary>
-    /// This class defines extension methods for read operations for a <see cref="PipingCalculationScenario"/>
+    /// This class defines extension methods for read operations for a <see cref="SemiProbabilisticPipingCalculationScenario"/>
     /// based on the <see cref="PipingCalculationEntity"/>.
     /// </summary>
     internal static class PipingCalculationEntityReadExtensions
     {
         /// <summary>
         /// Read the <see cref="PipingCalculationEntity"/> and use the information to
-        /// construct a <see cref="PipingCalculationScenario"/>.
+        /// construct a <see cref="SemiProbabilisticPipingCalculationScenario"/>.
         /// </summary>
         /// <param name="entity">The <see cref="PipingCalculationEntity"/> to create
-        /// <see cref="PipingCalculationScenario"/> for.</param>
+        /// <see cref="SemiProbabilisticPipingCalculationScenario"/> for.</param>
         /// <param name="collector">The object keeping track of read operations.</param>
         /// <param name="generalInputParameters">The general input parameters that apply
-        /// to all <see cref="PipingCalculationScenario"/> instances.</param>
-        /// <returns>A new <see cref="PipingCalculationScenario"/>.</returns>
+        /// to all <see cref="SemiProbabilisticPipingCalculationScenario"/> instances.</param>
+        /// <returns>A new <see cref="SemiProbabilisticPipingCalculationScenario"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="collector"/> is <c>null</c>.</exception>
-        public static PipingCalculationScenario Read(this PipingCalculationEntity entity, ReadConversionCollector collector,
+        public static SemiProbabilisticPipingCalculationScenario Read(this PipingCalculationEntity entity, ReadConversionCollector collector,
                                                      GeneralPipingInput generalInputParameters)
         {
             if (collector == null)
@@ -53,7 +53,7 @@ namespace Riskeer.Storage.Core.Read.Piping
                 throw new ArgumentNullException(nameof(collector));
             }
 
-            var calculation = new PipingCalculationScenario(generalInputParameters)
+            var calculation = new SemiProbabilisticPipingCalculationScenario(generalInputParameters)
             {
                 IsRelevant = Convert.ToBoolean(entity.RelevantForScenario),
                 Contribution = (RoundedDouble) entity.ScenarioContribution.ToNullAsNaN(),
@@ -69,7 +69,7 @@ namespace Riskeer.Storage.Core.Read.Piping
             return calculation;
         }
 
-        private static void ReadCalculationOutputs(PipingCalculationScenario calculation, PipingCalculationEntity entity)
+        private static void ReadCalculationOutputs(SemiProbabilisticPipingCalculationScenario calculation, PipingCalculationEntity entity)
         {
             PipingCalculationOutputEntity calculationOutputEntity = entity.PipingCalculationOutputEntities.FirstOrDefault();
             if (calculationOutputEntity != null)

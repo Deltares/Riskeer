@@ -157,18 +157,18 @@ namespace Riskeer.Storage.Core.TestUtil.Test
             var firstCalculationGroup = (CalculationGroup) failureMechanism.CalculationsGroup.Children[0];
             Assert.AreEqual(2, firstCalculationGroup.Children.Count);
 
-            var calculationWithOutput = (PipingCalculationScenario) firstCalculationGroup.Children[0];
+            var calculationWithOutput = (SemiProbabilisticPipingCalculationScenario) firstCalculationGroup.Children[0];
             Assert.IsTrue(calculationWithOutput.HasOutput);
             Assert.IsFalse(calculationWithOutput.InputParameters.UseAssessmentLevelManualInput);
 
-            var calculationWithAssessmentLevelAndOutput = (PipingCalculationScenario) firstCalculationGroup.Children[1];
+            var calculationWithAssessmentLevelAndOutput = (SemiProbabilisticPipingCalculationScenario) firstCalculationGroup.Children[1];
             Assert.IsTrue(calculationWithAssessmentLevelAndOutput.HasOutput);
             Assert.IsTrue(calculationWithAssessmentLevelAndOutput.InputParameters.UseAssessmentLevelManualInput);
 
             var emptyCalculationGroup = (CalculationGroup) failureMechanism.CalculationsGroup.Children[1];
             Assert.AreEqual(0, emptyCalculationGroup.Children.Count);
 
-            var calculationWithoutOutput = (PipingCalculationScenario) failureMechanism.CalculationsGroup.Children[2];
+            var calculationWithoutOutput = (SemiProbabilisticPipingCalculationScenario) failureMechanism.CalculationsGroup.Children[2];
             Assert.IsFalse(calculationWithoutOutput.HasOutput);
         }
 

@@ -109,7 +109,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
         public void ChildNodeObjects_WithOutputData_ReturnOutputChildNode()
         {
             // Setup
-            var calculation = new PipingCalculationScenario(new GeneralPipingInput())
+            var calculation = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput())
             {
                 Output = PipingOutputTestFactory.Create()
             };
@@ -158,7 +158,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var pipingCalculationContext = new PipingCalculationScenarioContext(new PipingCalculationScenario(new GeneralPipingInput()),
+            var pipingCalculationContext = new PipingCalculationScenarioContext(new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput()),
                                                                                 new CalculationGroup(),
                                                                                 Enumerable.Empty<PipingSurfaceLine>(),
                                                                                 Enumerable.Empty<PipingStochasticSoilModel>(),
@@ -187,7 +187,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             // Setup
             using (var treeViewControl = new TreeViewControl())
             {
-                var calculation = new PipingCalculationScenario(new GeneralPipingInput());
+                var calculation = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput());
                 var pipingFailureMechanism = new TestPipingFailureMechanism();
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
                 var nodeData = new PipingCalculationScenarioContext(calculation,
@@ -223,7 +223,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             // Setup
             using (var treeViewControl = new TreeViewControl())
             {
-                var calculation = new PipingCalculationScenario(new GeneralPipingInput())
+                var calculation = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput())
                 {
                     Output = PipingOutputTestFactory.Create()
                 };
@@ -261,7 +261,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             // Setup
             using (var treeViewControl = new TreeViewControl())
             {
-                var calculation = new PipingCalculationScenario(new GeneralPipingInput());
+                var calculation = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput());
                 var pipingFailureMechanism = new TestPipingFailureMechanism();
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
                 var nodeData = new PipingCalculationScenarioContext(calculation,
@@ -304,7 +304,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             {
                 var pipingFailureMechanism = new TestPipingFailureMechanism();
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
-                var nodeData = new PipingCalculationScenarioContext(new PipingCalculationScenario(new GeneralPipingInput()),
+                var nodeData = new PipingCalculationScenarioContext(new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput()),
                                                                     new CalculationGroup(),
                                                                     Enumerable.Empty<PipingSurfaceLine>(),
                                                                     Enumerable.Empty<PipingStochasticSoilModel>(),
@@ -366,7 +366,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             {
                 var pipingFailureMechanism = new PipingFailureMechanism();
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
-                var nodeData = new PipingCalculationScenarioContext(new PipingCalculationScenario(new GeneralPipingInput()),
+                var nodeData = new PipingCalculationScenarioContext(new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput()),
                                                                     new CalculationGroup(),
                                                                     Enumerable.Empty<PipingSurfaceLine>(),
                                                                     Enumerable.Empty<PipingStochasticSoilModel>(),
@@ -416,7 +416,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             // Setup
             using (var treeViewControl = new TreeViewControl())
             {
-                var calculation = new PipingCalculationScenario(new GeneralPipingInput());
+                var calculation = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput());
                 var pipingFailureMechanism = new TestPipingFailureMechanism();
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
                 var nodeData = new PipingCalculationScenarioContext(calculation,
@@ -458,7 +458,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                     new Point3D(1, 2, 3),
                     new Point3D(4, 5, 6)
                 });
-                var calculation = new PipingCalculationScenario(new GeneralPipingInput())
+                var calculation = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput())
                 {
                     InputParameters =
                     {
@@ -506,7 +506,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                     new Point3D(1, 2, 3),
                     new Point3D(4, 5, 6)
                 });
-                var calculation = new PipingCalculationScenario(new GeneralPipingInput())
+                var calculation = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput())
                 {
                     InputParameters =
                     {
@@ -550,7 +550,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             {
                 // Given
                 PipingSurfaceLine surfaceLine;
-                PipingCalculationScenario calculation;
+                SemiProbabilisticPipingCalculationScenario calculation;
                 CreateCalculationWithSurfaceLine(out calculation, out surfaceLine);
 
                 var pipingFailureMechanism = new TestPipingFailureMechanism();
@@ -599,7 +599,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             {
                 // Given
                 PipingSurfaceLine surfaceLine;
-                PipingCalculationScenario calculation;
+                SemiProbabilisticPipingCalculationScenario calculation;
                 CreateCalculationWithSurfaceLine(out calculation, out surfaceLine);
                 calculation.Output = PipingOutputTestFactory.Create();
 
@@ -661,7 +661,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             {
                 // Given
                 PipingSurfaceLine surfaceLine;
-                PipingCalculationScenario calculation;
+                SemiProbabilisticPipingCalculationScenario calculation;
                 CreateCalculationWithSurfaceLine(out calculation, out surfaceLine);
                 calculation.Output = PipingOutputTestFactory.Create();
 
@@ -725,11 +725,11 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             var observer = mocks.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
 
-            var elementToBeRemoved = new PipingCalculationScenario(new GeneralPipingInput());
+            var elementToBeRemoved = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput());
 
             var group = new CalculationGroup();
             group.Children.Add(elementToBeRemoved);
-            group.Children.Add(new PipingCalculationScenario(new GeneralPipingInput()));
+            group.Children.Add(new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput()));
             group.Attach(observer);
 
             var pipingFailureMechanism = new PipingFailureMechanism();
@@ -771,7 +771,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             TestPipingFailureMechanism pipingFailureMechanism = TestPipingFailureMechanism.GetFailureMechanismWithSurfaceLinesAndStochasticSoilModels();
             PipingSurfaceLine[] surfaceLines = pipingFailureMechanism.SurfaceLines.ToArray();
 
-            var elementToBeRemoved = new PipingCalculationScenario(new GeneralPipingInput())
+            var elementToBeRemoved = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput())
             {
                 InputParameters =
                 {
@@ -781,7 +781,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
 
             var group = new CalculationGroup();
             group.Children.Add(elementToBeRemoved);
-            group.Children.Add(new PipingCalculationScenario(new GeneralPipingInput()));
+            group.Children.Add(new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput()));
             group.Attach(observer);
             pipingFailureMechanism.CalculationsGroup.Children.Add(group);
 
@@ -805,7 +805,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             Assert.IsTrue(info.CanRemove(calculationContext, groupContext));
             Assert.AreEqual(2, group.Children.Count);
             PipingFailureMechanismSectionResult[] sectionResults = pipingFailureMechanism.SectionResults.ToArray();
-            CollectionAssert.Contains(sectionResults[0].GetCalculationScenarios(pipingFailureMechanism.Calculations.OfType<PipingCalculationScenario>()), elementToBeRemoved);
+            CollectionAssert.Contains(sectionResults[0].GetCalculationScenarios(pipingFailureMechanism.Calculations.OfType<SemiProbabilisticPipingCalculationScenario>()), elementToBeRemoved);
 
             // Call
             info.OnNodeRemoved(calculationContext, groupContext);
@@ -813,7 +813,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             // Assert
             Assert.AreEqual(1, group.Children.Count);
             CollectionAssert.DoesNotContain(group.Children, elementToBeRemoved);
-            CollectionAssert.DoesNotContain(sectionResults[0].GetCalculationScenarios(pipingFailureMechanism.Calculations.OfType<PipingCalculationScenario>()), elementToBeRemoved);
+            CollectionAssert.DoesNotContain(sectionResults[0].GetCalculationScenarios(pipingFailureMechanism.Calculations.OfType<SemiProbabilisticPipingCalculationScenario>()), elementToBeRemoved);
         }
 
         [Test]
@@ -822,7 +822,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             // Given
             using (var treeViewControl = new TreeViewControl())
             {
-                var calculation = new PipingCalculationScenario(new GeneralPipingInput());
+                var calculation = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput());
                 var failureMechanism = new TestPipingFailureMechanism();
                 var assessmentSection = new AssessmentSectionStub();
                 var pipingCalculationContext = new PipingCalculationScenarioContext(calculation,
@@ -885,7 +885,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             // Given
             using (var treeViewControl = new TreeViewControl())
             {
-                var calculation = new PipingCalculationScenario(new GeneralPipingInput());
+                var calculation = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput());
                 var pipingFailureMechanism = new TestPipingFailureMechanism();
                 var assessmentSection = new AssessmentSectionStub();
 
@@ -937,7 +937,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                     hydraulicBoundaryLocation
                 }, true);
 
-                PipingCalculationScenario calculation = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput(hydraulicBoundaryLocation);
+                SemiProbabilisticPipingCalculationScenario calculation = PipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput(hydraulicBoundaryLocation);
 
                 var pipingCalculationContext = new PipingCalculationScenarioContext(calculation,
                                                                                     new CalculationGroup(),
@@ -1003,7 +1003,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             // Given
             using (var treeViewControl = new TreeViewControl())
             {
-                var calculation = new PipingCalculationScenario(new GeneralPipingInput());
+                var calculation = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput());
                 var pipingFailureMechanism = new PipingFailureMechanism();
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
 
@@ -1089,7 +1089,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             surfaceLine.SetDikeToeAtPolderAt(new Point3D(3, 0, 0));
         }
 
-        private static void CreateCalculationWithSurfaceLine(out PipingCalculationScenario calculation, out PipingSurfaceLine surfaceLine)
+        private static void CreateCalculationWithSurfaceLine(out SemiProbabilisticPipingCalculationScenario calculation, out PipingSurfaceLine surfaceLine)
         {
             surfaceLine = new PipingSurfaceLine(string.Empty);
             surfaceLine.SetGeometry(new[]
@@ -1097,7 +1097,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                 new Point3D(1, 2, 3),
                 new Point3D(4, 5, 6)
             });
-            calculation = new PipingCalculationScenario(new GeneralPipingInput())
+            calculation = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput())
             {
                 InputParameters =
                 {

@@ -77,7 +77,7 @@ namespace Riskeer.Piping.Forms.Factories
                 failureMechanism,
                 sectionResult => PipingFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
                     sectionResult,
-                    failureMechanism.Calculations.Cast<PipingCalculationScenario>(),
+                    failureMechanism.Calculations.Cast<SemiProbabilisticPipingCalculationScenario>(),
                     failureMechanism,
                     assessmentSection));
         }
@@ -131,7 +131,7 @@ namespace Riskeer.Piping.Forms.Factories
                 failureMechanism,
                 sectionResult => PipingFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
                     sectionResult,
-                    failureMechanism.Calculations.Cast<PipingCalculationScenario>(),
+                    failureMechanism.Calculations.Cast<SemiProbabilisticPipingCalculationScenario>(),
                     failureMechanism,
                     assessmentSection));
         }

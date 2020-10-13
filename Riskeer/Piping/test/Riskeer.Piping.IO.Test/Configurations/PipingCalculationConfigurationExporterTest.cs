@@ -37,7 +37,7 @@ namespace Riskeer.Piping.IO.Test.Configurations
         : CustomCalculationConfigurationExporterDesignGuidelinesTestFixture<
             PipingCalculationConfigurationExporter,
             PipingCalculationConfigurationWriter,
-            PipingCalculationScenario,
+            SemiProbabilisticPipingCalculationScenario,
             PipingCalculationConfiguration>
     {
         private static IEnumerable<TestCaseData> Calculations
@@ -109,9 +109,9 @@ namespace Riskeer.Piping.IO.Test.Configurations
             }, expectedXmlFilePath);
         }
 
-        protected override PipingCalculationScenario CreateCalculation()
+        protected override SemiProbabilisticPipingCalculationScenario CreateCalculation()
         {
-            return new PipingCalculationScenario(new GeneralPipingInput());
+            return new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput());
         }
 
         protected override PipingCalculationConfigurationExporter CallConfigurationFilePathConstructor(IEnumerable<ICalculationBase> calculations, string filePath)

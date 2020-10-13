@@ -507,11 +507,11 @@ namespace Riskeer.Piping.Service.Test
         {
             // Setup
             PipingFailureMechanism failureMechanism = PipingTestDataGenerator.GetPipingFailureMechanismWithAllCalculationConfigurations();
-            IEnumerable<PipingCalculationScenario> calculations = failureMechanism.Calculations
-                                                                                  .Cast<PipingCalculationScenario>();
+            IEnumerable<SemiProbabilisticPipingCalculationScenario> calculations = failureMechanism.Calculations
+                                                                                  .Cast<SemiProbabilisticPipingCalculationScenario>();
             PipingStochasticSoilProfile profileToDelete = null;
 
-            foreach (PipingCalculationScenario pipingCalculationScenario in calculations)
+            foreach (SemiProbabilisticPipingCalculationScenario pipingCalculationScenario in calculations)
             {
                 PipingInput input = pipingCalculationScenario.InputParameters;
                 PipingStochasticSoilProfile currentProfile = input.StochasticSoilProfile;
@@ -538,13 +538,13 @@ namespace Riskeer.Piping.Service.Test
         {
             // Setup
             PipingFailureMechanism failureMechanism = PipingTestDataGenerator.GetPipingFailureMechanismWithAllCalculationConfigurations();
-            IEnumerable<PipingCalculationScenario> calculations = failureMechanism.Calculations
-                                                                                  .Cast<PipingCalculationScenario>();
+            IEnumerable<SemiProbabilisticPipingCalculationScenario> calculations = failureMechanism.Calculations
+                                                                                  .Cast<SemiProbabilisticPipingCalculationScenario>();
             PipingStochasticSoilProfile profileToDelete = null;
 
             var expectedInputs = new List<PipingInput>();
 
-            foreach (PipingCalculationScenario pipingCalculationScenario in calculations)
+            foreach (SemiProbabilisticPipingCalculationScenario pipingCalculationScenario in calculations)
             {
                 PipingInput input = pipingCalculationScenario.InputParameters;
                 PipingStochasticSoilProfile currentProfile = input.StochasticSoilProfile;
@@ -573,14 +573,14 @@ namespace Riskeer.Piping.Service.Test
         {
             // Setup
             PipingFailureMechanism failureMechanism = PipingTestDataGenerator.GetPipingFailureMechanismWithAllCalculationConfigurations();
-            IEnumerable<PipingCalculationScenario> calculations = failureMechanism.Calculations
-                                                                                  .Cast<PipingCalculationScenario>();
+            IEnumerable<SemiProbabilisticPipingCalculationScenario> calculations = failureMechanism.Calculations
+                                                                                  .Cast<SemiProbabilisticPipingCalculationScenario>();
 
             var expectedAffectedObjects = new List<IObservable>();
 
             PipingStochasticSoilProfile profileToDelete = null;
 
-            foreach (PipingCalculationScenario pipingCalculationScenario in calculations)
+            foreach (SemiProbabilisticPipingCalculationScenario pipingCalculationScenario in calculations)
             {
                 PipingInput input = pipingCalculationScenario.InputParameters;
                 PipingStochasticSoilProfile currentProfile = input.StochasticSoilProfile;
@@ -642,11 +642,11 @@ namespace Riskeer.Piping.Service.Test
         {
             // Setup
             PipingFailureMechanism failureMechanism = PipingTestDataGenerator.GetPipingFailureMechanismWithAllCalculationConfigurations();
-            IEnumerable<PipingCalculationScenario> calculations = failureMechanism.Calculations
-                                                                                  .Cast<PipingCalculationScenario>();
+            IEnumerable<SemiProbabilisticPipingCalculationScenario> calculations = failureMechanism.Calculations
+                                                                                  .Cast<SemiProbabilisticPipingCalculationScenario>();
             PipingStochasticSoilProfile profileToDelete = null;
 
-            foreach (PipingCalculationScenario pipingCalculationScenario in calculations)
+            foreach (SemiProbabilisticPipingCalculationScenario pipingCalculationScenario in calculations)
             {
                 PipingInput input = pipingCalculationScenario.InputParameters;
                 PipingStochasticSoilProfile currentProfile = input.StochasticSoilProfile;
@@ -673,13 +673,13 @@ namespace Riskeer.Piping.Service.Test
         {
             // Setup
             PipingFailureMechanism failureMechanism = PipingTestDataGenerator.GetPipingFailureMechanismWithAllCalculationConfigurations();
-            IEnumerable<PipingCalculationScenario> calculations = failureMechanism.Calculations
-                                                                                  .Cast<PipingCalculationScenario>();
+            IEnumerable<SemiProbabilisticPipingCalculationScenario> calculations = failureMechanism.Calculations
+                                                                                  .Cast<SemiProbabilisticPipingCalculationScenario>();
             PipingStochasticSoilProfile profileToDelete = null;
 
             var expectedInputs = new List<PipingInput>();
 
-            foreach (PipingCalculationScenario pipingCalculationScenario in calculations)
+            foreach (SemiProbabilisticPipingCalculationScenario pipingCalculationScenario in calculations)
             {
                 PipingInput input = pipingCalculationScenario.InputParameters;
                 PipingStochasticSoilProfile currentProfile = input.StochasticSoilProfile;
@@ -708,14 +708,14 @@ namespace Riskeer.Piping.Service.Test
         {
             // Setup
             PipingFailureMechanism failureMechanism = PipingTestDataGenerator.GetPipingFailureMechanismWithAllCalculationConfigurations();
-            IEnumerable<PipingCalculationScenario> calculations = failureMechanism.Calculations
-                                                                                  .Cast<PipingCalculationScenario>();
+            IEnumerable<SemiProbabilisticPipingCalculationScenario> calculations = failureMechanism.Calculations
+                                                                                  .Cast<SemiProbabilisticPipingCalculationScenario>();
 
             var expectedAffectedObjects = new List<IObservable>();
 
             PipingStochasticSoilProfile profileToDelete = null;
 
-            foreach (PipingCalculationScenario pipingCalculationScenario in calculations)
+            foreach (SemiProbabilisticPipingCalculationScenario pipingCalculationScenario in calculations)
             {
                 PipingInput input = pipingCalculationScenario.InputParameters;
                 PipingStochasticSoilProfile currentProfile = input.StochasticSoilProfile;

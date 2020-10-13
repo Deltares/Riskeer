@@ -67,7 +67,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             PipingCalculationsView view = ShowPipingCalculationsView(new CalculationGroup(), new PipingFailureMechanism(), new AssessmentSectionStub());
 
             // Assert
-            Assert.IsInstanceOf<CalculationsView<PipingCalculationScenario, PipingInput, PipingCalculationRow, PipingFailureMechanism>>(view);
+            Assert.IsInstanceOf<CalculationsView<SemiProbabilisticPipingCalculationScenario, PipingInput, PipingCalculationRow, PipingFailureMechanism>>(view);
 
             var button = (Button) new ControlTester("generateButton").TheObject;
             Assert.AreEqual("Genereer &scenario's...", button.Text);
@@ -519,7 +519,7 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             ShowPipingCalculationsView(calculationGroup, failureMechanism, assessmentSection);
 
-            var calculation = (PipingCalculationScenario) calculationGroup.Children.First();
+            var calculation = (SemiProbabilisticPipingCalculationScenario) calculationGroup.Children.First();
 
             calculation.Attach(calculationObserver);
             calculation.InputParameters.Attach(calculationInputObserver);
@@ -555,7 +555,7 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             ShowPipingCalculationsView(calculationGroup, failureMechanism, assessmentSection);
 
-            var calculation = (PipingCalculationScenario) calculationGroup.Children.First();
+            var calculation = (SemiProbabilisticPipingCalculationScenario) calculationGroup.Children.First();
 
             calculation.Attach(pipingCalculationObserver);
             calculation.InputParameters.Attach(pipingCalculationInputObserver);
@@ -650,7 +650,7 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             ShowPipingCalculationsView(calculationGroup, failureMechanism, assessmentSection);
 
-            var calculation = (PipingCalculationScenario) calculationGroup.Children[1];
+            var calculation = (SemiProbabilisticPipingCalculationScenario) calculationGroup.Children[1];
 
             if (useCalculationWithOutput)
             {
@@ -684,7 +684,7 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             ShowPipingCalculationsView(calculationGroup, failureMechanism, assessmentSection);
 
-            var calculation = (PipingCalculationScenario) calculationGroup.Children[1];
+            var calculation = (SemiProbabilisticPipingCalculationScenario) calculationGroup.Children[1];
 
             var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
@@ -724,7 +724,7 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             PipingCalculationsView view = ShowPipingCalculationsView(calculationGroup, failureMechanism, assessmentSection);
 
-            var calculation = (PipingCalculationScenario) calculationGroup.Children[0];
+            var calculation = (SemiProbabilisticPipingCalculationScenario) calculationGroup.Children[0];
 
             DataGridViewControl dataGridView = view.Controls.Find("dataGridViewControl", true).OfType<DataGridViewControl>().First();
             ListBox listBox = view.Controls.Find("listBox", true).OfType<ListBox>().First();
@@ -887,13 +887,13 @@ namespace Riskeer.Piping.Forms.Test.Views
             button.Click();
 
             // Then
-            PipingCalculationScenario[] pipingCalculationScenarios = failureMechanism.Calculations.OfType<PipingCalculationScenario>().ToArray();
+            SemiProbabilisticPipingCalculationScenario[] pipingCalculationScenarios = failureMechanism.Calculations.OfType<SemiProbabilisticPipingCalculationScenario>().ToArray();
             PipingFailureMechanismSectionResult failureMechanismSectionResult1 = failureMechanism.SectionResults.First();
             PipingFailureMechanismSectionResult failureMechanismSectionResult2 = failureMechanism.SectionResults.ElementAt(1);
 
             Assert.AreEqual(2, failureMechanismSectionResult1.GetCalculationScenarios(pipingCalculationScenarios).Count());
 
-            foreach (PipingCalculationScenario calculationScenario in failureMechanismSectionResult1.GetCalculationScenarios(pipingCalculationScenarios))
+            foreach (SemiProbabilisticPipingCalculationScenario calculationScenario in failureMechanismSectionResult1.GetCalculationScenarios(pipingCalculationScenarios))
             {
                 Assert.IsInstanceOf<ICalculationScenario>(calculationScenario);
             }
@@ -951,7 +951,7 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             ShowPipingCalculationsView(calculationGroup, failureMechanism, assessmentSection);
 
-            var calculation = (PipingCalculationScenario) calculationGroup.Children.First();
+            var calculation = (SemiProbabilisticPipingCalculationScenario) calculationGroup.Children.First();
 
             var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
@@ -1064,7 +1064,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             {
                 Children =
                 {
-                    new PipingCalculationScenario(new GeneralPipingInput())
+                    new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput())
                     {
                         Name = "Calculation 1",
                         InputParameters =
@@ -1084,7 +1084,7 @@ namespace Riskeer.Piping.Forms.Test.Views
                             ExitPointL = (RoundedDouble) 4.4444
                         }
                     },
-                    new PipingCalculationScenario(new GeneralPipingInput())
+                    new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput())
                     {
                         Name = "Calculation 2",
                         InputParameters =

@@ -86,7 +86,7 @@ namespace Riskeer.Storage.Core.Test.Read.Piping
             var generalInputParameters = new GeneralPipingInput();
 
             // Call
-            PipingCalculationScenario calculation = entity.Read(collector, generalInputParameters);
+            SemiProbabilisticPipingCalculationScenario calculation = entity.Read(collector, generalInputParameters);
 
             // Assert
             Assert.AreEqual(isRelevant, calculation.IsRelevant);
@@ -146,7 +146,7 @@ namespace Riskeer.Storage.Core.Test.Read.Piping
             collector.Read(surfaceLineEntity, surfaceLine);
 
             // Call
-            PipingCalculationScenario calculation = entity.Read(collector, new GeneralPipingInput());
+            SemiProbabilisticPipingCalculationScenario calculation = entity.Read(collector, new GeneralPipingInput());
 
             // Assert
             Assert.AreSame(surfaceLine, calculation.InputParameters.SurfaceLine);
@@ -181,7 +181,7 @@ namespace Riskeer.Storage.Core.Test.Read.Piping
             var collector = new ReadConversionCollector();
 
             // Call
-            PipingCalculationScenario calculation = entity.Read(collector, new GeneralPipingInput());
+            SemiProbabilisticPipingCalculationScenario calculation = entity.Read(collector, new GeneralPipingInput());
 
             // Assert
             Assert.IsTrue(collector.ContainsPipingSurfaceLine(surfaceLineEntity));
@@ -208,7 +208,7 @@ namespace Riskeer.Storage.Core.Test.Read.Piping
             collector.Read(hydraulicLocationEntity, hydraulicBoundaryLocation);
 
             // Call
-            PipingCalculationScenario calculation = entity.Read(collector, new GeneralPipingInput());
+            SemiProbabilisticPipingCalculationScenario calculation = entity.Read(collector, new GeneralPipingInput());
 
             // Assert
             Assert.AreSame(hydraulicBoundaryLocation, calculation.InputParameters.HydraulicBoundaryLocation);
@@ -263,7 +263,7 @@ namespace Riskeer.Storage.Core.Test.Read.Piping
             collector.Read(stochasticSoilModelEntity, stochasticSoilModel);
 
             // Call
-            PipingCalculationScenario calculation = entity.Read(collector, new GeneralPipingInput());
+            SemiProbabilisticPipingCalculationScenario calculation = entity.Read(collector, new GeneralPipingInput());
 
             // Assert
             Assert.AreSame(stochasticSoilProfile, calculation.InputParameters.StochasticSoilProfile);
@@ -338,7 +338,7 @@ namespace Riskeer.Storage.Core.Test.Read.Piping
             var collector = new ReadConversionCollector();
 
             // Call
-            PipingCalculationScenario calculation = entity.Read(collector, new GeneralPipingInput());
+            SemiProbabilisticPipingCalculationScenario calculation = entity.Read(collector, new GeneralPipingInput());
 
             // Assert
             PipingOutput output = calculation.Output;

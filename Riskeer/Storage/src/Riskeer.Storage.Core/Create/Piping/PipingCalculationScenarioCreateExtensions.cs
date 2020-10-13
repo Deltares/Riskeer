@@ -28,20 +28,20 @@ using Riskeer.Storage.Core.DbContext;
 namespace Riskeer.Storage.Core.Create.Piping
 {
     /// <summary>
-    /// Extension methods for <see cref="PipingCalculationScenario"/> related to creating
+    /// Extension methods for <see cref="SemiProbabilisticPipingCalculationScenario"/> related to creating
     /// a <see cref="PipingCalculationEntity"/>.
     /// </summary>
     internal static class PipingCalculationScenarioCreateExtensions
     {
         /// <summary>
-        /// Creates a <see cref="PipingCalculationEntity"/> based on the information of the <see cref="PipingCalculationScenario"/>.
+        /// Creates a <see cref="PipingCalculationEntity"/> based on the information of the <see cref="SemiProbabilisticPipingCalculationScenario"/>.
         /// </summary>
         /// <param name="calculation">The piping calculation to create a database entity for.</param>
         /// <param name="registry">The object keeping track of create operations.</param>
         /// <param name="order">The index at which <paramref name="calculation"/> resides within its parent.</param>
         /// <returns>A new <see cref="PipingCalculationEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="registry"/> is <c>null</c>.</exception>
-        public static PipingCalculationEntity Create(this PipingCalculationScenario calculation, PersistenceRegistry registry, int order)
+        public static PipingCalculationEntity Create(this SemiProbabilisticPipingCalculationScenario calculation, PersistenceRegistry registry, int order)
         {
             if (registry == null)
             {

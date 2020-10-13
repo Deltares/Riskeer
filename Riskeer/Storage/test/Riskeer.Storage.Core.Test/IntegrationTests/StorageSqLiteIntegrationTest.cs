@@ -516,9 +516,9 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
                     AssertCalculationGroup(expectedChildGroup, (CalculationGroup) actualChild);
                 }
 
-                if (expectedChild is PipingCalculationScenario expectedPipingCalculation)
+                if (expectedChild is SemiProbabilisticPipingCalculationScenario expectedPipingCalculation)
                 {
-                    AssertPipingCalculationScenario(expectedPipingCalculation, (PipingCalculationScenario) actualChild);
+                    AssertPipingCalculationScenario(expectedPipingCalculation, (SemiProbabilisticPipingCalculationScenario) actualChild);
                 }
 
                 if (expectedChild is MacroStabilityInwardsCalculationScenario expectedMacroStabilityInwardsCalculation)
@@ -1235,8 +1235,8 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
             Assert.AreEqual(expectedModel.A, actualModel.A);
         }
 
-        private static void AssertPipingCalculationScenario(PipingCalculationScenario expectedPipingCalculation,
-                                                            PipingCalculationScenario actualPipingCalculation)
+        private static void AssertPipingCalculationScenario(SemiProbabilisticPipingCalculationScenario expectedPipingCalculation,
+                                                            SemiProbabilisticPipingCalculationScenario actualPipingCalculation)
         {
             Assert.AreEqual(expectedPipingCalculation.IsRelevant, actualPipingCalculation.IsRelevant);
             Assert.AreEqual(expectedPipingCalculation.Contribution, actualPipingCalculation.Contribution);

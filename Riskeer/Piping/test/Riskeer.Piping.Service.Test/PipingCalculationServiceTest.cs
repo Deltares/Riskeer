@@ -46,7 +46,7 @@ namespace Riskeer.Piping.Service.Test
     {
         private const string averagingSoilLayerPropertiesMessage = "Meerdere aaneengesloten deklagen gevonden. De grondeigenschappen worden bepaald door het nemen van een gewogen gemiddelde, mits de standaardafwijkingen en verschuivingen voor alle lagen gelijk zijn.";
         private double testSurfaceLineTopLevel;
-        private PipingCalculationScenario testCalculation;
+        private SemiProbabilisticPipingCalculationScenario testCalculation;
 
         [SetUp]
         public void Setup()

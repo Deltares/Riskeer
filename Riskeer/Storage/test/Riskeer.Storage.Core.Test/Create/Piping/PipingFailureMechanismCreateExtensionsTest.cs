@@ -241,7 +241,7 @@ namespace Riskeer.Storage.Core.Test.Create.Piping
         {
             // Setup
             var calculationGroup = new CalculationGroup();
-            var calculation = new PipingCalculationScenario(new GeneralPipingInput());
+            var calculation = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput());
 
             var failureMechanism = new PipingFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculationGroup);

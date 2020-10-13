@@ -87,7 +87,7 @@ namespace Riskeer.Piping.Data
         /// could not be created.</exception>
         public static FailureMechanismSectionAssembly AssembleDetailedAssessment(
             PipingFailureMechanismSectionResult failureMechanismSectionResult,
-            IEnumerable<PipingCalculationScenario> calculationScenarios,
+            IEnumerable<SemiProbabilisticPipingCalculationScenario> calculationScenarios,
             PipingFailureMechanism failureMechanism,
             IAssessmentSection assessmentSection)
         {
@@ -192,7 +192,7 @@ namespace Riskeer.Piping.Data
         /// could not be created.</exception>
         public static FailureMechanismSectionAssembly AssembleCombinedAssessment(
             PipingFailureMechanismSectionResult failureMechanismSectionResult,
-            IEnumerable<PipingCalculationScenario> calculationScenarios,
+            IEnumerable<SemiProbabilisticPipingCalculationScenario> calculationScenarios,
             PipingFailureMechanism failureMechanism,
             IAssessmentSection assessmentSection)
         {
@@ -353,7 +353,7 @@ namespace Riskeer.Piping.Data
             else
             {
                 sectionAssembly = AssembleCombinedAssessment(failureMechanismSectionResult,
-                                                             failureMechanism.Calculations.Cast<PipingCalculationScenario>(),
+                                                             failureMechanism.Calculations.Cast<SemiProbabilisticPipingCalculationScenario>(),
                                                              failureMechanism,
                                                              assessmentSection);
             }

@@ -97,9 +97,9 @@ namespace Riskeer.Piping.Forms.Factories
         /// <summary>
         /// Create calculation features based on the provided <paramref name="calculations"/>.
         /// </summary>
-        /// <param name="calculations">The collection of <see cref="PipingCalculationScenario"/> to create the calculation features for.</param>
+        /// <param name="calculations">The collection of <see cref="SemiProbabilisticPipingCalculationScenario"/> to create the calculation features for.</param>
         /// <returns>A collection of features or an empty collection when <paramref name="calculations"/> is <c>null</c> or empty.</returns>
-        public static IEnumerable<MapFeature> CreateCalculationFeatures(IEnumerable<PipingCalculationScenario> calculations)
+        public static IEnumerable<MapFeature> CreateCalculationFeatures(IEnumerable<SemiProbabilisticPipingCalculationScenario> calculations)
         {
             bool hasCalculations = calculations != null && calculations.Any();
 
@@ -108,7 +108,7 @@ namespace Riskeer.Piping.Forms.Factories
                 return new MapFeature[0];
             }
 
-            IEnumerable<PipingCalculationScenario> calculationsWithLocationAndHydraulicBoundaryLocation = calculations.Where(
+            IEnumerable<SemiProbabilisticPipingCalculationScenario> calculationsWithLocationAndHydraulicBoundaryLocation = calculations.Where(
                 c => c.InputParameters.SurfaceLine != null &&
                      c.InputParameters.HydraulicBoundaryLocation != null);
 

@@ -55,7 +55,7 @@ namespace Riskeer.Piping.Forms.Test.PresentationObjects
             {
                 PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel()
             };
-            var calculation = new PipingCalculationScenario(new GeneralPipingInput());
+            var calculation = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput());
             var failureMechanism = new PipingFailureMechanism();
             var parent = new CalculationGroup();
 
@@ -68,8 +68,8 @@ namespace Riskeer.Piping.Forms.Test.PresentationObjects
                                                                           assessmentSection);
 
             // Assert
-            Assert.IsInstanceOf<PipingContext<PipingCalculationScenario>>(presentationObject);
-            Assert.IsInstanceOf<ICalculationContext<PipingCalculationScenario, PipingFailureMechanism>>(presentationObject);
+            Assert.IsInstanceOf<PipingContext<SemiProbabilisticPipingCalculationScenario>>(presentationObject);
+            Assert.IsInstanceOf<ICalculationContext<SemiProbabilisticPipingCalculationScenario, PipingFailureMechanism>>(presentationObject);
             Assert.AreSame(calculation, presentationObject.WrappedData);
             Assert.AreSame(parent, presentationObject.Parent);
             Assert.AreSame(surfaceLines, presentationObject.AvailablePipingSurfaceLines);
@@ -95,7 +95,7 @@ namespace Riskeer.Piping.Forms.Test.PresentationObjects
             {
                 PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel()
             };
-            var calculation = new PipingCalculationScenario(new GeneralPipingInput());
+            var calculation = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput());
             var failureMechanism = new PipingFailureMechanism();
 
             // Call
@@ -119,7 +119,7 @@ namespace Riskeer.Piping.Forms.Test.PresentationObjects
             private static readonly MockRepository mocks = new MockRepository();
 
             private static readonly IAssessmentSection assessmentSection = mocks.Stub<IAssessmentSection>();
-            private static readonly PipingCalculationScenario calculation = new PipingCalculationScenario(new GeneralPipingInput());
+            private static readonly SemiProbabilisticPipingCalculationScenario calculation = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput());
             private static readonly IEnumerable<PipingSurfaceLine> surfaceLines = new PipingSurfaceLine[0];
             private static readonly IEnumerable<PipingStochasticSoilModel> stochasticSoilModels = new PipingStochasticSoilModel[0];
             private static readonly PipingFailureMechanism failureMechanism = new PipingFailureMechanism();
@@ -159,7 +159,7 @@ namespace Riskeer.Piping.Forms.Test.PresentationObjects
 
             private static IEnumerable<TestCaseData> GetUnequalTestCases()
             {
-                yield return new TestCaseData(new PipingCalculationScenarioContext(new PipingCalculationScenario(new GeneralPipingInput()),
+                yield return new TestCaseData(new PipingCalculationScenarioContext(new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput()),
                                                                                    parent,
                                                                                    surfaceLines,
                                                                                    stochasticSoilModels,
@@ -178,7 +178,7 @@ namespace Riskeer.Piping.Forms.Test.PresentationObjects
 
         private class DerivedPipingCalculationScenarioContext : PipingCalculationScenarioContext
         {
-            public DerivedPipingCalculationScenarioContext(PipingCalculationScenario calculation,
+            public DerivedPipingCalculationScenarioContext(SemiProbabilisticPipingCalculationScenario calculation,
                                                            CalculationGroup parent,
                                                            IEnumerable<PipingSurfaceLine> surfaceLines,
                                                            IEnumerable<PipingStochasticSoilModel> stochasticSoilModels,

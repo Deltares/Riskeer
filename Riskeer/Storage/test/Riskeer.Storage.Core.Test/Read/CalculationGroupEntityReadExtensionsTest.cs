@@ -188,10 +188,10 @@ namespace Riskeer.Storage.Core.Test.Read
             List<ICalculationBase> rootChildren = rootGroup.Children;
             Assert.AreEqual(2, rootChildren.Count);
 
-            var rootChildCalculation1 = (PipingCalculationScenario) rootChildren[0];
+            var rootChildCalculation1 = (SemiProbabilisticPipingCalculationScenario) rootChildren[0];
             Assert.AreEqual("1", rootChildCalculation1.Name);
 
-            var rootChildCalculation2 = (PipingCalculationScenario) rootChildren[1];
+            var rootChildCalculation2 = (SemiProbabilisticPipingCalculationScenario) rootChildren[1];
             Assert.AreEqual("2", rootChildCalculation2.Name);
         }
 
@@ -242,13 +242,13 @@ namespace Riskeer.Storage.Core.Test.Read
             List<ICalculationBase> rootChildren = rootGroup.Children;
             Assert.AreEqual(4, rootChildren.Count);
 
-            var rootChildCalculation1 = (PipingCalculationScenario) rootChildren[0];
+            var rootChildCalculation1 = (SemiProbabilisticPipingCalculationScenario) rootChildren[0];
             Assert.AreEqual("calculation1", rootChildCalculation1.Name);
 
             var rootChildGroup1 = (CalculationGroup) rootChildren[1];
             Assert.AreEqual("group1", rootChildGroup1.Name);
 
-            var rootChildCalculation2 = (PipingCalculationScenario) rootChildren[2];
+            var rootChildCalculation2 = (SemiProbabilisticPipingCalculationScenario) rootChildren[2];
             Assert.AreEqual("calculation2", rootChildCalculation2.Name);
 
             var rootChildGroup2 = (CalculationGroup) rootChildren[3];

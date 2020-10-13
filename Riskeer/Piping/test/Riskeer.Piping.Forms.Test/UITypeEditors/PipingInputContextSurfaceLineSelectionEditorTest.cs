@@ -54,7 +54,7 @@ namespace Riskeer.Piping.Forms.Test.UITypeEditors
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
 
-            var calculationItem = new PipingCalculationScenario(new GeneralPipingInput());
+            var calculationItem = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput());
             var failureMechanism = new PipingFailureMechanism();
 
             var pipingInput = new SemiProbabilisticPipingInput(new GeneralPipingInput())
@@ -111,7 +111,7 @@ namespace Riskeer.Piping.Forms.Test.UITypeEditors
                 new Point3D(0.0, 0.0, 0.0),
                 new Point3D(1.0, 0.0, 1.0)
             });
-            var calculationItem = new PipingCalculationScenario(new GeneralPipingInput());
+            var calculationItem = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput());
             var failureMechanism = new PipingFailureMechanism();
 
             var pipingInput = new SemiProbabilisticPipingInput(new GeneralPipingInput())

@@ -45,7 +45,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var calculation = new PipingCalculationScenario(new GeneralPipingInput());
+            var calculation = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput());
 
             // Call
             void Call() => new PipingScenarioRow(calculation, null, assessmentSection);
@@ -60,7 +60,7 @@ namespace Riskeer.Piping.Forms.Test.Views
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Setup
-            var calculation = new PipingCalculationScenario(new GeneralPipingInput());
+            var calculation = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput());
 
             // Call
             void Call() => new PipingScenarioRow(calculation, new PipingFailureMechanism(), null);
@@ -80,13 +80,13 @@ namespace Riskeer.Piping.Forms.Test.Views
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
-            var calculation = new PipingCalculationScenario(new GeneralPipingInput());
+            var calculation = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput());
 
             // Call
             var row = new PipingScenarioRow(calculation, failureMechanism, assessmentSection);
 
             // Assert
-            Assert.IsInstanceOf<ScenarioRow<PipingCalculationScenario>>(row);
+            Assert.IsInstanceOf<ScenarioRow<SemiProbabilisticPipingCalculationScenario>>(row);
             Assert.AreSame(calculation, row.CalculationScenario);
 
             TestHelper.AssertTypeConverter<PipingScenarioRow, NoProbabilityValueDoubleConverter>(
@@ -107,7 +107,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
-            var calculation = new PipingCalculationScenario(new GeneralPipingInput())
+            var calculation = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput())
             {
                 Output = PipingOutputTestFactory.Create()
             };
@@ -133,7 +133,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var calculation = new PipingCalculationScenario(new GeneralPipingInput());
+            var calculation = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput());
 
             // Call
             var row = new PipingScenarioRow(calculation, new PipingFailureMechanism(), assessmentSection);
@@ -156,7 +156,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
-            var calculation = new PipingCalculationScenario(new GeneralPipingInput());
+            var calculation = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput());
 
             var row = new PipingScenarioRow(calculation, failureMechanism, assessmentSection);
 
@@ -189,7 +189,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
-            var calculation = new PipingCalculationScenario(new GeneralPipingInput())
+            var calculation = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput())
             {
                 Output = PipingOutputTestFactory.Create()
             };
@@ -225,7 +225,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
-            var calculation = new PipingCalculationScenario(new GeneralPipingInput())
+            var calculation = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput())
             {
                 Output = PipingOutputTestFactory.Create()
             };

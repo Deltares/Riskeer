@@ -92,7 +92,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             // Setup
             var pipingInputContext = new PipingInputContext(
                 new SemiProbabilisticPipingInput(new GeneralPipingInput()),
-                new PipingCalculationScenario(new GeneralPipingInput()),
+                new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput()),
                 Enumerable.Empty<PipingSurfaceLine>(),
                 Enumerable.Empty<PipingStochasticSoilModel>(),
                 new PipingFailureMechanism(),
@@ -113,7 +113,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             // Setup
             var pipingInputContext = new PipingInputContext(
                 new SemiProbabilisticPipingInput(new GeneralPipingInput()),
-                new PipingCalculationScenario(new GeneralPipingInput()),
+                new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput()),
                 Enumerable.Empty<PipingSurfaceLine>(),
                 Enumerable.Empty<PipingStochasticSoilModel>(),
                 new PipingFailureMechanism(),

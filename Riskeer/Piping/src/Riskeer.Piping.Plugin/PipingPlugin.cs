@@ -247,7 +247,7 @@ namespace Riskeer.Piping.Plugin
                 CloseForData = ClosePipingCalculationsViewForData
             };
 
-            yield return new ViewInfo<PipingInputContext, PipingCalculationScenario, PipingInputView>
+            yield return new ViewInfo<PipingInputContext, SemiProbabilisticPipingCalculationScenario, PipingInputView>
             {
                 GetViewData = context => context.PipingCalculation,
                 GetViewName = (view, context) => RiskeerCommonFormsResources.Calculation_Input,
@@ -493,12 +493,12 @@ namespace Riskeer.Piping.Plugin
                 return ReferenceEquals(view.Data, pipingCalculationScenarioContext.WrappedData);
             }
 
-            IEnumerable<PipingCalculationScenario> calculations = null;
+            IEnumerable<SemiProbabilisticPipingCalculationScenario> calculations = null;
 
             if (o is PipingCalculationGroupContext pipingCalculationGroupContext)
             {
                 calculations = pipingCalculationGroupContext.WrappedData.GetCalculations()
-                                                            .OfType<PipingCalculationScenario>();
+                                                            .OfType<SemiProbabilisticPipingCalculationScenario>();
             }
 
             var failureMechanism = o as PipingFailureMechanism;
@@ -518,7 +518,7 @@ namespace Riskeer.Piping.Plugin
             if (failureMechanism != null)
             {
                 calculations = failureMechanism.CalculationsGroup.GetCalculations()
-                                               .OfType<PipingCalculationScenario>();
+                                               .OfType<SemiProbabilisticPipingCalculationScenario>();
             }
 
             return calculations != null && calculations.Any(ci => ReferenceEquals(view.Data, ci));
@@ -684,7 +684,7 @@ namespace Riskeer.Piping.Plugin
             {
                 switch (item)
                 {
-                    case PipingCalculationScenario semiProbabilisticCalculation:
+                    case SemiProbabilisticPipingCalculationScenario semiProbabilisticCalculation:
                         childNodeObjects.Add(new PipingCalculationScenarioContext(semiProbabilisticCalculation,
                                                                                   nodeData.WrappedData,
                                                                                   nodeData.AvailablePipingSurfaceLines,
@@ -729,8 +729,8 @@ namespace Riskeer.Piping.Plugin
             StrictContextMenuItem addSemiProbabilisticCalculationItem = CreateAddSemiProbabilisticCalculationItem(nodeData);
             StrictContextMenuItem addProbabilisticCalculationItem = CreateAddProbabilisticCalculationItem(nodeData);
 
-            PipingCalculationScenario[] calculations = nodeData.WrappedData.GetCalculations()
-                                                               .OfType<PipingCalculationScenario>()
+            SemiProbabilisticPipingCalculationScenario[] calculations = nodeData.WrappedData.GetCalculations()
+                                                               .OfType<SemiProbabilisticPipingCalculationScenario>()
                                                                .ToArray();
             StrictContextMenuItem updateEntryAndExitPointsItem = CreateCalculationGroupUpdateEntryAndExitPointItem(calculations);
 
@@ -794,12 +794,12 @@ namespace Riskeer.Piping.Plugin
                           .Build();
         }
 
-        private StrictContextMenuItem CreateCalculationGroupUpdateEntryAndExitPointItem(IEnumerable<PipingCalculationScenario> calculations)
+        private StrictContextMenuItem CreateCalculationGroupUpdateEntryAndExitPointItem(IEnumerable<SemiProbabilisticPipingCalculationScenario> calculations)
         {
             var contextMenuEnabled = true;
             string toolTipMessage = Resources.PipingPlugin_CreateUpdateEntryAndExitPointItem_Update_all_calculations_with_surface_line_ToolTip;
 
-            PipingCalculationScenario[] calculationsToUpdate = calculations
+            SemiProbabilisticPipingCalculationScenario[] calculationsToUpdate = calculations
                                                                .Where(calc => calc.InputParameters.SurfaceLine != null
                                                                               && !calc.InputParameters.IsEntryAndExitPointInputSynchronized)
                                                                .ToArray();
@@ -820,12 +820,12 @@ namespace Riskeer.Piping.Plugin
             };
         }
 
-        private void UpdateEntryAndExitPointsOfAllCalculations(IEnumerable<PipingCalculationScenario> calculations)
+        private void UpdateEntryAndExitPointsOfAllCalculations(IEnumerable<SemiProbabilisticPipingCalculationScenario> calculations)
         {
             string message = RiskeerCommonFormsResources.VerifyUpdate_Confirm_calculation_outputs_cleared;
             if (VerifyEntryAndExitPointUpdates(calculations, message))
             {
-                foreach (PipingCalculationScenario calculation in calculations)
+                foreach (SemiProbabilisticPipingCalculationScenario calculation in calculations)
                 {
                     UpdateSurfaceLineDependentData(calculation);
                 }
@@ -855,7 +855,7 @@ namespace Riskeer.Piping.Plugin
                 Resources.CalculationGroup_Add_SemiProbabilisticCalculation,
                 Resources.CalculationGroup_Add_SemiProbabilisticCalculation_ToolTip,
                 RiskeerCommonFormsResources.FailureMechanismIcon,
-                (sender, args) => AddCalculation(() => new PipingCalculationScenario(context.FailureMechanism.GeneralInput), context.WrappedData));
+                (sender, args) => AddCalculation(() => new SemiProbabilisticPipingCalculationScenario(context.FailureMechanism.GeneralInput), context.WrappedData));
         }
 
         private static StrictContextMenuItem CreateAddProbabilisticCalculationItem(PipingCalculationGroupContext context)
@@ -927,7 +927,7 @@ namespace Riskeer.Piping.Plugin
 
         private static object[] SemiProbabilisticCalculationContextChildNodeObjects(PipingCalculationScenarioContext context)
         {
-            PipingCalculationScenario pipingCalculationScenario = context.WrappedData;
+            SemiProbabilisticPipingCalculationScenario pipingCalculationScenario = context.WrappedData;
 
             var childNodes = new List<object>
             {

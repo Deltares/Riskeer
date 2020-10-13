@@ -74,7 +74,7 @@ namespace Riskeer.Piping.Plugin.Test.PropertyInfos
             };
 
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
-            var scenario = new PipingCalculationScenario(new GeneralPipingInput())
+            var scenario = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput())
             {
                 InputParameters =
                 {
@@ -120,7 +120,7 @@ namespace Riskeer.Piping.Plugin.Test.PropertyInfos
             };
 
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
-            var scenario = new PipingCalculationScenario(new GeneralPipingInput())
+            var scenario = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput())
             {
                 InputParameters =
                 {

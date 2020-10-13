@@ -35,7 +35,7 @@ namespace Riskeer.Piping.IO.Configurations
     public class PipingCalculationConfigurationExporter
         : CalculationConfigurationExporter<
             PipingCalculationConfigurationWriter,
-            PipingCalculationScenario,
+            SemiProbabilisticPipingCalculationScenario,
             PipingCalculationConfiguration>
     {
         /// <summary>
@@ -48,7 +48,7 @@ namespace Riskeer.Piping.IO.Configurations
         public PipingCalculationConfigurationExporter(IEnumerable<ICalculationBase> calculations, string filePath)
             : base(calculations, new PipingCalculationConfigurationWriter(filePath)) {}
 
-        protected override PipingCalculationConfiguration ToConfiguration(PipingCalculationScenario calculation)
+        protected override PipingCalculationConfiguration ToConfiguration(SemiProbabilisticPipingCalculationScenario calculation)
         {
             SemiProbabilisticPipingInput input = calculation.InputParameters;
 

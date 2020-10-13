@@ -391,13 +391,13 @@ namespace Riskeer.Piping.IO.Test.Configurations
             TestHelper.AssertLogMessageIsGenerated(call, $"Gegevens zijn geïmporteerd vanuit bestand '{filePath}'.", 1);
             Assert.IsTrue(successful);
 
-            var expectedCalculation = new PipingCalculationScenario(pipingFailureMechanism.GeneralInput)
+            var expectedCalculation = new SemiProbabilisticPipingCalculationScenario(pipingFailureMechanism.GeneralInput)
             {
                 Name = "Calculation"
             };
 
             Assert.AreEqual(1, calculationGroup.Children.Count);
-            AssertPipingCalculationScenario(expectedCalculation, (PipingCalculationScenario) calculationGroup.Children[0]);
+            AssertPipingCalculationScenario(expectedCalculation, (SemiProbabilisticPipingCalculationScenario) calculationGroup.Children[0]);
         }
 
         [Test]
@@ -423,7 +423,7 @@ namespace Riskeer.Piping.IO.Test.Configurations
             TestHelper.AssertLogMessageIsGenerated(call, $"Gegevens zijn geïmporteerd vanuit bestand '{filePath}'.", 1);
             Assert.IsTrue(successful);
 
-            var expectedCalculation = new PipingCalculationScenario(pipingFailureMechanism.GeneralInput)
+            var expectedCalculation = new SemiProbabilisticPipingCalculationScenario(pipingFailureMechanism.GeneralInput)
             {
                 Name = "Calculation",
                 InputParameters =
@@ -440,7 +440,7 @@ namespace Riskeer.Piping.IO.Test.Configurations
             };
 
             Assert.AreEqual(1, calculationGroup.Children.Count);
-            AssertPipingCalculationScenario(expectedCalculation, (PipingCalculationScenario) calculationGroup.Children[0]);
+            AssertPipingCalculationScenario(expectedCalculation, (SemiProbabilisticPipingCalculationScenario) calculationGroup.Children[0]);
         }
 
         [Test]
@@ -466,7 +466,7 @@ namespace Riskeer.Piping.IO.Test.Configurations
             TestHelper.AssertLogMessageIsGenerated(call, $"Gegevens zijn geïmporteerd vanuit bestand '{filePath}'.", 1);
             Assert.IsTrue(successful);
 
-            var expectedCalculation = new PipingCalculationScenario(pipingFailureMechanism.GeneralInput)
+            var expectedCalculation = new SemiProbabilisticPipingCalculationScenario(pipingFailureMechanism.GeneralInput)
             {
                 Name = "Calculation",
                 InputParameters =
@@ -483,7 +483,7 @@ namespace Riskeer.Piping.IO.Test.Configurations
             };
 
             Assert.AreEqual(1, calculationGroup.Children.Count);
-            AssertPipingCalculationScenario(expectedCalculation, (PipingCalculationScenario) calculationGroup.Children[0]);
+            AssertPipingCalculationScenario(expectedCalculation, (SemiProbabilisticPipingCalculationScenario) calculationGroup.Children[0]);
         }
 
         [Test]
@@ -537,14 +537,14 @@ namespace Riskeer.Piping.IO.Test.Configurations
             TestHelper.AssertLogMessageIsGenerated(call, $"Gegevens zijn geïmporteerd vanuit bestand '{filePath}'.", 1);
             Assert.IsTrue(successful);
 
-            var expectedCalculation = new PipingCalculationScenario(pipingFailureMechanism.GeneralInput)
+            var expectedCalculation = new SemiProbabilisticPipingCalculationScenario(pipingFailureMechanism.GeneralInput)
             {
                 Name = "Calculation",
                 Contribution = (RoundedDouble) 0.8765
             };
 
             Assert.AreEqual(1, calculationGroup.Children.Count);
-            AssertPipingCalculationScenario(expectedCalculation, (PipingCalculationScenario) calculationGroup.Children[0]);
+            AssertPipingCalculationScenario(expectedCalculation, (SemiProbabilisticPipingCalculationScenario) calculationGroup.Children[0]);
         }
 
         [Test]
@@ -570,14 +570,14 @@ namespace Riskeer.Piping.IO.Test.Configurations
             TestHelper.AssertLogMessageIsGenerated(call, $"Gegevens zijn geïmporteerd vanuit bestand '{filePath}'.", 1);
             Assert.IsTrue(successful);
 
-            var expectedCalculation = new PipingCalculationScenario(pipingFailureMechanism.GeneralInput)
+            var expectedCalculation = new SemiProbabilisticPipingCalculationScenario(pipingFailureMechanism.GeneralInput)
             {
                 Name = "Calculation",
                 IsRelevant = false
             };
 
             Assert.AreEqual(1, calculationGroup.Children.Count);
-            AssertPipingCalculationScenario(expectedCalculation, (PipingCalculationScenario) calculationGroup.Children[0]);
+            AssertPipingCalculationScenario(expectedCalculation, (SemiProbabilisticPipingCalculationScenario) calculationGroup.Children[0]);
         }
 
         [Test]
@@ -637,7 +637,7 @@ namespace Riskeer.Piping.IO.Test.Configurations
             TestHelper.AssertLogMessageIsGenerated(call, $"Gegevens zijn geïmporteerd vanuit bestand '{filePath}'.", 1);
             Assert.IsTrue(successful);
 
-            var expectedCalculation = new PipingCalculationScenario(pipingFailureMechanism.GeneralInput)
+            var expectedCalculation = new SemiProbabilisticPipingCalculationScenario(pipingFailureMechanism.GeneralInput)
             {
                 Name = "Calculation",
                 InputParameters =
@@ -669,7 +669,7 @@ namespace Riskeer.Piping.IO.Test.Configurations
             }
 
             Assert.AreEqual(1, calculationGroup.Children.Count);
-            AssertPipingCalculationScenario(expectedCalculation, (PipingCalculationScenario) calculationGroup.Children[0]);
+            AssertPipingCalculationScenario(expectedCalculation, (SemiProbabilisticPipingCalculationScenario) calculationGroup.Children[0]);
         }
 
         [Test]
@@ -693,12 +693,12 @@ namespace Riskeer.Piping.IO.Test.Configurations
             generalInputParameters.WaterVolumetricWeight = random.NextRoundedDouble(0, 20);
 
             // Then
-            var expectedCalculation = new PipingCalculationScenario(generalInputParameters)
+            var expectedCalculation = new SemiProbabilisticPipingCalculationScenario(generalInputParameters)
             {
                 Name = "Calculation"
             };
 
-            AssertPipingCalculationScenario(expectedCalculation, (PipingCalculationScenario) calculationGroup.Children[0]);
+            AssertPipingCalculationScenario(expectedCalculation, (SemiProbabilisticPipingCalculationScenario) calculationGroup.Children[0]);
         }
 
         private static PipingFailureMechanism CreatePipingFailureMechanism()
@@ -714,7 +714,7 @@ namespace Riskeer.Piping.IO.Test.Configurations
             return pipingFailureMechanism;
         }
 
-        private static void AssertPipingCalculationScenario(PipingCalculationScenario expectedCalculation, PipingCalculationScenario actualCalculation)
+        private static void AssertPipingCalculationScenario(SemiProbabilisticPipingCalculationScenario expectedCalculation, SemiProbabilisticPipingCalculationScenario actualCalculation)
         {
             Assert.AreEqual(expectedCalculation.Name, actualCalculation.Name);
             Assert.AreEqual(expectedCalculation.IsRelevant, actualCalculation.IsRelevant);

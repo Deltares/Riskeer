@@ -79,7 +79,7 @@ namespace Riskeer.Piping.Forms.Views
         private RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> waveHeightCalculationsForFactorizedLowerLimitNormObserver;
         private RecursiveObserver<CalculationGroup, PipingInput> calculationInputObserver;
         private RecursiveObserver<CalculationGroup, CalculationGroup> calculationGroupObserver;
-        private RecursiveObserver<CalculationGroup, PipingCalculationScenario> calculationObserver;
+        private RecursiveObserver<CalculationGroup, SemiProbabilisticPipingCalculationScenario> calculationObserver;
         private RecursiveObserver<PipingSurfaceLineCollection, PipingSurfaceLine> surfaceLineObserver;
         private RecursiveObserver<IObservableEnumerable<PipingFailureMechanismSectionResult>, PipingFailureMechanismSectionResult> sectionResultObserver;
 
@@ -247,7 +247,7 @@ namespace Riskeer.Piping.Forms.Views
                 AssessmentSection.WaveHeightCalculationsForFactorizedLowerLimitNorm, UpdateHydraulicBoundaryLocationsMapData);
 
             calculationInputObserver = new RecursiveObserver<CalculationGroup, PipingInput>(
-                UpdateCalculationsMapData, pcg => pcg.Children.Concat<object>(pcg.Children.OfType<PipingCalculationScenario>().Select(pc => pc.InputParameters)))
+                UpdateCalculationsMapData, pcg => pcg.Children.Concat<object>(pcg.Children.OfType<SemiProbabilisticPipingCalculationScenario>().Select(pc => pc.InputParameters)))
             {
                 Observable = FailureMechanism.CalculationsGroup
             };
@@ -255,7 +255,7 @@ namespace Riskeer.Piping.Forms.Views
             {
                 Observable = FailureMechanism.CalculationsGroup
             };
-            calculationObserver = new RecursiveObserver<CalculationGroup, PipingCalculationScenario>(UpdateCalculationsMapData, pcg => pcg.Children)
+            calculationObserver = new RecursiveObserver<CalculationGroup, SemiProbabilisticPipingCalculationScenario>(UpdateCalculationsMapData, pcg => pcg.Children)
             {
                 Observable = FailureMechanism.CalculationsGroup
             };
@@ -317,8 +317,8 @@ namespace Riskeer.Piping.Forms.Views
 
         private void SetCalculationsMapData()
         {
-            IEnumerable<PipingCalculationScenario> calculations =
-                FailureMechanism.CalculationsGroup.GetCalculations().Cast<PipingCalculationScenario>();
+            IEnumerable<SemiProbabilisticPipingCalculationScenario> calculations =
+                FailureMechanism.CalculationsGroup.GetCalculations().Cast<SemiProbabilisticPipingCalculationScenario>();
             calculationsMapData.Features = PipingMapDataFeaturesFactory.CreateCalculationFeatures(calculations);
         }
 

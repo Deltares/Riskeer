@@ -47,7 +47,7 @@ namespace Riskeer.Piping.Forms.PresentationObjects
         /// <param name="assessmentSection">The assessment section which the piping context belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
         public PipingInputContext(SemiProbabilisticPipingInput pipingInput,
-                                  PipingCalculationScenario calculation,
+                                  SemiProbabilisticPipingCalculationScenario calculation,
                                   IEnumerable<PipingSurfaceLine> surfaceLines,
                                   IEnumerable<PipingStochasticSoilModel> stochasticSoilModels,
                                   PipingFailureMechanism pipingFailureMechanism,
@@ -65,6 +65,6 @@ namespace Riskeer.Piping.Forms.PresentationObjects
         /// <summary>
         /// Gets the calculation scenario which the piping context belongs to.
         /// </summary>
-        public PipingCalculationScenario PipingCalculation { get; }
+        public SemiProbabilisticPipingCalculationScenario PipingCalculation { get; }
     }
 }

@@ -32,7 +32,7 @@ using Riskeer.Piping.Data.TestUtil;
 namespace Riskeer.Piping.Data.Test.SemiProbabilistic
 {
     [TestFixture]
-    public class PipingCalculationScenarioTest
+    public class SemiProbabilisticPipingCalculationScenarioTest
     {
         [Test]
         public void Constructor_ExpectedValues()
@@ -41,7 +41,7 @@ namespace Riskeer.Piping.Data.Test.SemiProbabilistic
             var generalInputParameters = new GeneralPipingInput();
 
             // Call
-            var scenario = new PipingCalculationScenario(generalInputParameters);
+            var scenario = new SemiProbabilisticPipingCalculationScenario(generalInputParameters);
 
             // Assert
             Assert.IsInstanceOf<SemiProbabilisticPipingCalculation>(scenario);
@@ -58,7 +58,7 @@ namespace Riskeer.Piping.Data.Test.SemiProbabilistic
         public void IsRelevant_Always_ReturnsSetValue(bool isRelevant)
         {
             // Setup
-            var scenario = new PipingCalculationScenario(new GeneralPipingInput());
+            var scenario = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput());
 
             // Call
             scenario.IsRelevant = isRelevant;
@@ -74,7 +74,7 @@ namespace Riskeer.Piping.Data.Test.SemiProbabilistic
             var random = new Random(21);
             RoundedDouble contribution = random.NextRoundedDouble();
 
-            var scenario = new PipingCalculationScenario(new GeneralPipingInput());
+            var scenario = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput());
 
             // Call
             scenario.Contribution = contribution;
@@ -88,7 +88,7 @@ namespace Riskeer.Piping.Data.Test.SemiProbabilistic
         public void Clone_AllPropertiesSet_ReturnNewInstanceWithCopiedValues()
         {
             // Setup
-            PipingCalculationScenario original = CreateRandomCalculationScenarioWithoutOutput();
+            SemiProbabilisticPipingCalculationScenario original = CreateRandomCalculationScenarioWithoutOutput();
 
             original.Output = PipingTestDataGenerator.GetRandomPipingOutput();
 
@@ -103,7 +103,7 @@ namespace Riskeer.Piping.Data.Test.SemiProbabilistic
         public void Clone_NotAllPropertiesSet_ReturnNewInstanceWithCopiedValues()
         {
             // Setup
-            PipingCalculationScenario original = CreateRandomCalculationScenarioWithoutOutput();
+            SemiProbabilisticPipingCalculationScenario original = CreateRandomCalculationScenarioWithoutOutput();
 
             // Call
             object clone = original.Clone();
@@ -112,11 +112,11 @@ namespace Riskeer.Piping.Data.Test.SemiProbabilistic
             CoreCloneAssert.AreObjectClones(original, clone, PipingCloneAssert.AreClones);
         }
 
-        private static PipingCalculationScenario CreateRandomCalculationScenarioWithoutOutput()
+        private static SemiProbabilisticPipingCalculationScenario CreateRandomCalculationScenarioWithoutOutput()
         {
             var random = new Random(21);
 
-            var calculation = new PipingCalculationScenario(new GeneralPipingInput())
+            var calculation = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput())
             {
                 Comments =
                 {
