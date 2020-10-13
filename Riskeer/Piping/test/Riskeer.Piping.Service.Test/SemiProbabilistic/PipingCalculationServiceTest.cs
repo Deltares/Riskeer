@@ -38,8 +38,9 @@ using Riskeer.Piping.KernelWrapper;
 using Riskeer.Piping.KernelWrapper.SubCalculator;
 using Riskeer.Piping.KernelWrapper.TestUtil.SubCalculator;
 using Riskeer.Piping.Primitives;
+using Riskeer.Piping.Service.SemiProbabilistic;
 
-namespace Riskeer.Piping.Service.Test
+namespace Riskeer.Piping.Service.Test.SemiProbabilistic
 {
     [TestFixture]
     public class PipingCalculationServiceTest

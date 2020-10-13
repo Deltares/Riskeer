@@ -65,6 +65,7 @@ using Riskeer.Piping.Plugin.FileImporter;
 using Riskeer.Piping.Plugin.Properties;
 using Riskeer.Piping.Primitives;
 using Riskeer.Piping.Service;
+using Riskeer.Piping.Service.SemiProbabilistic;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
 using PipingFormsResources = Riskeer.Piping.Forms.Properties.Resources;

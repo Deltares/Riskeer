@@ -26,6 +26,7 @@ using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Piping.Data.SemiProbabilistic;
 using Riskeer.Piping.Service;
+using Riskeer.Piping.Service.SemiProbabilistic;
 
 namespace Riskeer.Piping.Data.TestUtil.Test
 {

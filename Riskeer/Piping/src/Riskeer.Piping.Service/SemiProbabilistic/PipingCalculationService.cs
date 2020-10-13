@@ -34,7 +34,7 @@ using Riskeer.Piping.Service.Properties;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 using RiskeerCommonServiceResources = Riskeer.Common.Service.Properties.Resources;
 
-namespace Riskeer.Piping.Service
+namespace Riskeer.Piping.Service.SemiProbabilistic
 {
     /// <summary>
     /// This class is responsible for invoking operations on the <see cref="PipingCalculator"/>. Error and status information is 
