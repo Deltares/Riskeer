@@ -66,12 +66,25 @@ namespace Riskeer.Piping.Data.TestUtil
             Assert.AreEqual(original.ExitPointL, clone.ExitPointL);
             CoreCloneAssert.AreObjectClones(original.PhreaticLevelExit, clone.PhreaticLevelExit, DistributionAssert.AreEqual);
             CoreCloneAssert.AreObjectClones(original.DampingFactorExit, clone.DampingFactorExit, DistributionAssert.AreEqual);
-            Assert.AreEqual(original.AssessmentLevel, clone.AssessmentLevel);
-            Assert.AreEqual(original.UseAssessmentLevelManualInput, clone.UseAssessmentLevelManualInput);
             Assert.AreSame(original.SurfaceLine, clone.SurfaceLine);
             Assert.AreSame(original.StochasticSoilModel, clone.StochasticSoilModel);
             Assert.AreSame(original.StochasticSoilProfile, clone.StochasticSoilProfile);
             Assert.AreSame(original.HydraulicBoundaryLocation, clone.HydraulicBoundaryLocation);
+        }
+        
+        /// <summary>
+        /// Method that asserts whether <paramref name="original"/> and <paramref name="clone"/>
+        /// are clones.
+        /// </summary>
+        /// <param name="original">The original object.</param>
+        /// <param name="clone">The cloned object.</param>
+        /// <exception cref="AssertionException">Thrown when <paramref name="original"/> and
+        /// <paramref name="clone"/> are not clones.</exception>
+        public static void AreClones(SemiProbabilisticPipingInput original, SemiProbabilisticPipingInput clone)
+        {
+            AreClones((PipingInput) original, clone);
+            Assert.AreEqual(original.AssessmentLevel, clone.AssessmentLevel);
+            Assert.AreEqual(original.UseAssessmentLevelManualInput, clone.UseAssessmentLevelManualInput);
         }
 
         /// <summary>
