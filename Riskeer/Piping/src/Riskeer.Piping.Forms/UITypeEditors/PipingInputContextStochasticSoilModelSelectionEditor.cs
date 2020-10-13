@@ -23,7 +23,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using Core.Common.Gui.UITypeEditors;
 using Riskeer.Piping.Data.SoilProfile;
-using Riskeer.Piping.Forms.PropertyClasses;
 using Riskeer.Piping.Forms.PropertyClasses.SemiProbabilistic;
 
 namespace Riskeer.Piping.Forms.UITypeEditors

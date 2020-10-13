@@ -267,7 +267,7 @@ namespace Riskeer.Piping.KernelWrapper
             calculator.SetRExit(input.DampingFactorExit);
             calculator.SetHExit(input.PhreaticLevelExit);
             calculator.SetPhiPolder(input.PhreaticLevelExit);
-            
+
             return calculator;
         }
 
@@ -291,7 +291,7 @@ namespace Riskeer.Piping.KernelWrapper
             calculator.SetD70Mean(input.MeanDiameter70);
             calculator.SetBeddingAngle(input.BeddingAngle);
             calculator.SetBottomLevelAquitardAboveExitPointZ(GetBottomAquitardLayerAboveExitPointZ());
-            
+
             return calculator;
         }
 

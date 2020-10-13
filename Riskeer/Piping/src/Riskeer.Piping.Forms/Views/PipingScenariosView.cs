@@ -70,9 +70,9 @@ namespace Riskeer.Piping.Forms.Views
         {
             IEnumerable<Segment2D> lineSegments = Math2D.ConvertPointsToLineSegments(failureMechanismSection.Points);
             IEnumerable<SemiProbabilisticPipingCalculationScenario> pipingCalculations = CalculationGroup
-                                                                        .GetCalculations()
-                                                                        .OfType<SemiProbabilisticPipingCalculationScenario>()
-                                                                        .Where(pc => pc.IsSurfaceLineIntersectionWithReferenceLineInSection(lineSegments));
+                                                                                         .GetCalculations()
+                                                                                         .OfType<SemiProbabilisticPipingCalculationScenario>()
+                                                                                         .Where(pc => pc.IsSurfaceLineIntersectionWithReferenceLineInSection(lineSegments));
 
             return pipingCalculations.Select(pc => new PipingScenarioRow(pc, FailureMechanism, assessmentSection)).ToList();
         }

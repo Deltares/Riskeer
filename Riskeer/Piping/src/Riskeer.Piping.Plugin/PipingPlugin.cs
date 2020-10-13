@@ -87,8 +87,8 @@ namespace Riskeer.Piping.Plugin
             yield return new PropertyInfo<SemiProbabilisticPipingInputContext, SemiProbabilisticPipingInputContextProperties>
             {
                 CreateInstance = context => new SemiProbabilisticPipingInputContextProperties(context,
-                                                                             () => GetNormativeAssessmentLevel(context.AssessmentSection, context.PipingCalculation),
-                                                                             new ObservablePropertyChangeHandler(context.PipingCalculation, context.WrappedData))
+                                                                                              () => GetNormativeAssessmentLevel(context.AssessmentSection, context.PipingCalculation),
+                                                                                              new ObservablePropertyChangeHandler(context.PipingCalculation, context.WrappedData))
             };
             yield return new PropertyInfo<PipingOutputContext, PipingOutputProperties>
             {
@@ -690,11 +690,11 @@ namespace Riskeer.Piping.Plugin
                 {
                     case SemiProbabilisticPipingCalculationScenario semiProbabilisticCalculation:
                         childNodeObjects.Add(new SemiProbabilisticPipingCalculationScenarioContext(semiProbabilisticCalculation,
-                                                                                  nodeData.WrappedData,
-                                                                                  nodeData.AvailablePipingSurfaceLines,
-                                                                                  nodeData.AvailableStochasticSoilModels,
-                                                                                  nodeData.FailureMechanism,
-                                                                                  nodeData.AssessmentSection));
+                                                                                                   nodeData.WrappedData,
+                                                                                                   nodeData.AvailablePipingSurfaceLines,
+                                                                                                   nodeData.AvailableStochasticSoilModels,
+                                                                                                   nodeData.FailureMechanism,
+                                                                                                   nodeData.AssessmentSection));
                         break;
                     case ProbabilisticPipingCalculation probabilisticCalculation:
                         childNodeObjects.Add(new ProbabilisticPipingCalculationContext(probabilisticCalculation,
@@ -734,8 +734,8 @@ namespace Riskeer.Piping.Plugin
             StrictContextMenuItem addProbabilisticCalculationItem = CreateAddProbabilisticCalculationItem(nodeData);
 
             SemiProbabilisticPipingCalculationScenario[] calculations = nodeData.WrappedData.GetCalculations()
-                                                               .OfType<SemiProbabilisticPipingCalculationScenario>()
-                                                               .ToArray();
+                                                                                .OfType<SemiProbabilisticPipingCalculationScenario>()
+                                                                                .ToArray();
             StrictContextMenuItem updateEntryAndExitPointsItem = CreateCalculationGroupUpdateEntryAndExitPointItem(calculations);
 
             if (!isNestedGroup)
@@ -804,9 +804,9 @@ namespace Riskeer.Piping.Plugin
             string toolTipMessage = Resources.PipingPlugin_CreateUpdateEntryAndExitPointItem_Update_all_calculations_with_surface_line_ToolTip;
 
             SemiProbabilisticPipingCalculationScenario[] calculationsToUpdate = calculations
-                                                               .Where(calc => calc.InputParameters.SurfaceLine != null
-                                                                              && !calc.InputParameters.IsEntryAndExitPointInputSynchronized)
-                                                               .ToArray();
+                                                                                .Where(calc => calc.InputParameters.SurfaceLine != null
+                                                                                               && !calc.InputParameters.IsEntryAndExitPointInputSynchronized)
+                                                                                .ToArray();
 
             if (!calculationsToUpdate.Any())
             {
@@ -937,11 +937,11 @@ namespace Riskeer.Piping.Plugin
             {
                 pipingCalculationScenario.Comments,
                 new SemiProbabilisticPipingInputContext(pipingCalculationScenario.InputParameters,
-                                       pipingCalculationScenario,
-                                       context.AvailablePipingSurfaceLines,
-                                       context.AvailableStochasticSoilModels,
-                                       context.FailureMechanism,
-                                       context.AssessmentSection)
+                                                        pipingCalculationScenario,
+                                                        context.AvailablePipingSurfaceLines,
+                                                        context.AvailableStochasticSoilModels,
+                                                        context.FailureMechanism,
+                                                        context.AssessmentSection)
             };
 
             if (pipingCalculationScenario.HasOutput)

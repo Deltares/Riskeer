@@ -59,12 +59,12 @@ namespace Riskeer.Piping.Data
         /// Gets the factor of safety for the uplift sub calculation.
         /// </summary>
         public double UpliftFactorOfSafety { get; }
-        
+
         /// <summary>
         /// Gets the factor of safety for the heave sub calculation.
         /// </summary>
         public double HeaveFactorOfSafety { get; }
-        
+
         /// <summary>
         /// Gets the factor of safety for the Sellmeijer sub calculation.
         /// </summary>
@@ -124,7 +124,7 @@ namespace Riskeer.Piping.Data
             /// Sets the factor of safety for the heave sub calculation.
             /// </summary>
             public double HeaveFactorOfSafety { internal get; set; }
-            
+
             /// <summary>
             /// Sets the factor of safety for the Sellmeijer sub calculation.
             /// </summary>

@@ -24,7 +24,6 @@ using System.Collections.Generic;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.IO.Configurations.Export;
 using Riskeer.Common.IO.Configurations.Helpers;
-using Riskeer.Piping.Data;
 using Riskeer.Piping.Data.SemiProbabilistic;
 
 namespace Riskeer.Piping.IO.Configurations

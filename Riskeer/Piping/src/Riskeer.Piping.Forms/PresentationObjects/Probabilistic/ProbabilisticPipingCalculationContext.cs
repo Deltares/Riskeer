@@ -64,7 +64,7 @@ namespace Riskeer.Piping.Forms.PresentationObjects.Probabilistic
 
             Parent = parent;
         }
-        
+
         public CalculationGroup Parent { get; }
 
         public override bool Equals(WrappedObjectContextBase<ProbabilisticPipingCalculation> other)

@@ -42,7 +42,7 @@ namespace Riskeer.Piping.Data.SemiProbabilistic
         {
             assessmentLevel = new RoundedDouble(2, double.NaN);
         }
-        
+
         /// <summary>
         /// Gets or sets whether the assessment level is manual input for the calculation.
         /// </summary>

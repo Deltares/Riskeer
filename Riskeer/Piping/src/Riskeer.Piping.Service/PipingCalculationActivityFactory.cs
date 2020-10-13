@@ -112,7 +112,7 @@ namespace Riskeer.Piping.Service
             }
 
             return new SemiProbabilisticPipingCalculationActivity(calculation,
-                                                 assessmentSection.GetNormativeAssessmentLevel(calculation.InputParameters.HydraulicBoundaryLocation));
+                                                                  assessmentSection.GetNormativeAssessmentLevel(calculation.InputParameters.HydraulicBoundaryLocation));
         }
     }
 }
