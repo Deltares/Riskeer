@@ -25,6 +25,7 @@ using System.Linq;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Piping.Data.SemiProbabilistic;
 using Riskeer.Piping.Primitives;
 
 namespace Riskeer.Piping.Data.Test

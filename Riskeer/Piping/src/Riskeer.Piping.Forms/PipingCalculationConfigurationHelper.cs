@@ -27,6 +27,7 @@ using log4net;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Forms.Helpers;
 using Riskeer.Piping.Data;
+using Riskeer.Piping.Data.SemiProbabilistic;
 using Riskeer.Piping.Data.SoilProfile;
 using Riskeer.Piping.Forms.Properties;
 using Riskeer.Piping.Primitives;

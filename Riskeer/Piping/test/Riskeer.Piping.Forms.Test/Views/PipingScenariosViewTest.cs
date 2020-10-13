@@ -34,6 +34,7 @@ using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.Views;
 using Riskeer.Piping.Data;
+using Riskeer.Piping.Data.SemiProbabilistic;
 using Riskeer.Piping.Data.TestUtil;
 using Riskeer.Piping.Forms.Views;
 using Riskeer.Piping.Primitives;

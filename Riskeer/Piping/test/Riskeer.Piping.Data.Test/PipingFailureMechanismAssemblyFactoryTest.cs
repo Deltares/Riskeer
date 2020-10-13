@@ -37,6 +37,7 @@ using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Probability;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Primitives;
+using Riskeer.Piping.Data.SemiProbabilistic;
 using Riskeer.Piping.Data.TestUtil;
 
 namespace Riskeer.Piping.Data.Test

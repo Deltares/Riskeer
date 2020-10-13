@@ -26,6 +26,7 @@ using Core.Components.Gis.Features;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Forms.Factories;
 using Riskeer.Piping.Data;
+using Riskeer.Piping.Data.SemiProbabilistic;
 
 namespace Riskeer.Piping.Forms.Factories
 {

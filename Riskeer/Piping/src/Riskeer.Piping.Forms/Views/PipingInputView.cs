@@ -28,6 +28,7 @@ using Core.Components.Chart.Data;
 using Core.Components.Chart.Forms;
 using Riskeer.Common.Forms.Factories;
 using Riskeer.Piping.Data;
+using Riskeer.Piping.Data.SemiProbabilistic;
 using Riskeer.Piping.Forms.Factories;
 using Riskeer.Piping.Primitives;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;

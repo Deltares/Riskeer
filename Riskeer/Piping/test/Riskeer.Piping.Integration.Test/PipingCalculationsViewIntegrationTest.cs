@@ -29,6 +29,7 @@ using Riskeer.Common.Data.Calculation;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.TestUtil;
 using Riskeer.Piping.Data;
+using Riskeer.Piping.Data.SemiProbabilistic;
 using Riskeer.Piping.Data.SoilProfile;
 using Riskeer.Piping.Forms.Views;
 

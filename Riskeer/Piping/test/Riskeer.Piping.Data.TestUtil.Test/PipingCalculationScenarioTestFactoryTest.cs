@@ -24,6 +24,7 @@ using Core.Common.Base.Data;
 using NUnit.Framework;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
+using Riskeer.Piping.Data.SemiProbabilistic;
 using Riskeer.Piping.Service;
 
 namespace Riskeer.Piping.Data.TestUtil.Test

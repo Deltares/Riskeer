@@ -33,6 +33,7 @@ using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Service;
 using Riskeer.Piping.Data;
+using Riskeer.Piping.Data.SemiProbabilistic;
 using Riskeer.Piping.Data.TestUtil;
 using Riskeer.Piping.KernelWrapper.SubCalculator;
 using Riskeer.Piping.KernelWrapper.TestUtil.SubCalculator;

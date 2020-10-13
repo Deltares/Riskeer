@@ -54,6 +54,7 @@ using Riskeer.MacroStabilityInwards.Data.SoilProfile;
 using Riskeer.MacroStabilityInwards.Data.TestUtil;
 using Riskeer.MacroStabilityInwards.Primitives;
 using Riskeer.Piping.Data;
+using Riskeer.Piping.Data.SemiProbabilistic;
 using Riskeer.Piping.Data.SoilProfile;
 using Riskeer.Piping.Data.TestUtil;
 using Riskeer.Piping.Primitives;

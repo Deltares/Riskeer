@@ -25,6 +25,7 @@ using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Forms.TypeConverters;
 using Riskeer.Common.Forms.Views;
 using Riskeer.Piping.Data;
+using Riskeer.Piping.Data.SemiProbabilistic;
 
 namespace Riskeer.Piping.Forms.Views
 {

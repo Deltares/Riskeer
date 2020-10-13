@@ -27,6 +27,7 @@ using Core.Components.Gis.Geometries;
 using NUnit.Framework;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Piping.Data;
+using Riskeer.Piping.Data.SemiProbabilistic;
 using Riskeer.Piping.Data.SoilProfile;
 using Riskeer.Piping.Data.TestUtil;
 using Riskeer.Piping.Forms.Factories;

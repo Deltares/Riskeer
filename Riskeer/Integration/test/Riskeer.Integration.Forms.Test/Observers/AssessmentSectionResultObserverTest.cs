@@ -40,6 +40,7 @@ using Riskeer.Integration.Forms.Observers;
 using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.MacroStabilityInwards.Data.TestUtil;
 using Riskeer.Piping.Data;
+using Riskeer.Piping.Data.SemiProbabilistic;
 using Riskeer.Piping.Data.TestUtil;
 using Riskeer.StabilityPointStructures.Data;
 using Riskeer.StabilityPointStructures.Data.TestUtil;

@@ -29,7 +29,7 @@ using Riskeer.Common.Data.TestUtil;
 using Riskeer.Piping.Data.SemiProbabilistic;
 using Riskeer.Piping.Data.TestUtil;
 
-namespace Riskeer.Piping.Data.Test
+namespace Riskeer.Piping.Data.Test.SemiProbabilistic
 {
     [TestFixture]
     public class PipingCalculationScenarioTest

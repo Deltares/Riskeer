@@ -31,6 +31,7 @@ using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.Data.Probability;
 using Riskeer.Common.Primitives;
+using Riskeer.Piping.Data.SemiProbabilistic;
 using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
 
 namespace Riskeer.Piping.Data

@@ -28,6 +28,7 @@ using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.IO.Configurations.Helpers;
 using Riskeer.Common.IO.Configurations.Import;
 using Riskeer.Piping.Data;
+using Riskeer.Piping.Data.SemiProbabilistic;
 using Riskeer.Piping.Data.SoilProfile;
 using Riskeer.Piping.IO.Properties;
 using Riskeer.Piping.Primitives;

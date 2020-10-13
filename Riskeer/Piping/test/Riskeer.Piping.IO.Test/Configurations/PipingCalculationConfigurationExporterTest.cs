@@ -26,6 +26,7 @@ using NUnit.Framework;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.IO.TestUtil;
 using Riskeer.Piping.Data;
+using Riskeer.Piping.Data.SemiProbabilistic;
 using Riskeer.Piping.Data.TestUtil;
 using Riskeer.Piping.IO.Configurations;
 

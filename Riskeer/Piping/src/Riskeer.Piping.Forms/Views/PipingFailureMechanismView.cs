@@ -33,6 +33,7 @@ using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Forms.Factories;
 using Riskeer.Common.Forms.Helpers;
 using Riskeer.Piping.Data;
+using Riskeer.Piping.Data.SemiProbabilistic;
 using Riskeer.Piping.Data.SoilProfile;
 using Riskeer.Piping.Forms.Factories;
 using Riskeer.Piping.Primitives;

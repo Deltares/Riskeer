@@ -35,6 +35,7 @@ using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.IO.SurfaceLines;
 using Riskeer.Piping.Data;
+using Riskeer.Piping.Data.SemiProbabilistic;
 using Riskeer.Piping.Data.TestUtil;
 using Riskeer.Piping.Forms.PresentationObjects;
 using Riskeer.Piping.Primitives;

@@ -28,6 +28,7 @@ using Riskeer.Common.Data.Exceptions;
 using Riskeer.Integration.IO.Assembly;
 using Riskeer.Integration.IO.Helpers;
 using Riskeer.Piping.Data;
+using Riskeer.Piping.Data.SemiProbabilistic;
 
 namespace Riskeer.Integration.IO.Factories
 {

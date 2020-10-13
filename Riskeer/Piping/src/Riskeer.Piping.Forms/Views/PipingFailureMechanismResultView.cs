@@ -28,6 +28,7 @@ using Riskeer.Common.Forms.Builders;
 using Riskeer.Common.Forms.Controls;
 using Riskeer.Common.Forms.Views;
 using Riskeer.Piping.Data;
+using Riskeer.Piping.Data.SemiProbabilistic;
 
 namespace Riskeer.Piping.Forms.Views
 {

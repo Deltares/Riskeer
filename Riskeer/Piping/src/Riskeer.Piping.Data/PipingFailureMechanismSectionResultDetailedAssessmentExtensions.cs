@@ -26,6 +26,7 @@ using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
+using Riskeer.Piping.Data.SemiProbabilistic;
 
 namespace Riskeer.Piping.Data
 {

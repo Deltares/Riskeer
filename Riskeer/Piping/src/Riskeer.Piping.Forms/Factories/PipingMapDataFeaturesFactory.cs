@@ -27,6 +27,7 @@ using Core.Components.Gis.Features;
 using Riskeer.Common.Forms.Factories;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Piping.Data;
+using Riskeer.Piping.Data.SemiProbabilistic;
 using Riskeer.Piping.Data.SoilProfile;
 using Riskeer.Piping.Primitives;
 using RiskeerCommonUtilResources = Riskeer.Common.Util.Properties.Resources;

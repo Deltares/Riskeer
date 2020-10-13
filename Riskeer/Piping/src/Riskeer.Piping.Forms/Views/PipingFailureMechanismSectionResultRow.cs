@@ -32,6 +32,7 @@ using Riskeer.Common.Forms.TypeConverters;
 using Riskeer.Common.Forms.Views;
 using Riskeer.Common.Primitives;
 using Riskeer.Piping.Data;
+using Riskeer.Piping.Data.SemiProbabilistic;
 
 namespace Riskeer.Piping.Forms.Views
 {

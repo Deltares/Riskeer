@@ -27,6 +27,7 @@ using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.Probabilistics;
 using Riskeer.Common.Data.TestUtil;
+using Riskeer.Piping.Data.SemiProbabilistic;
 
 namespace Riskeer.Piping.Data.TestUtil.Test
 {
