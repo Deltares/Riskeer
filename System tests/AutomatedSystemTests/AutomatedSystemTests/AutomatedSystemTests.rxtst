@@ -3835,6 +3835,26 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
+			<testmodule
+			id="60e53209-a978-4c5a-817e-3b4685b8922b"
+			name="OpenViewForCategoryBoundaries"
+			ref="ed363a67-11ee-4f0d-b3b8-1920b8a08550"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="hardCodedTrajectToAdd"
+					datasourceid="de320efd-8193-4dd4-9e9d-8fb5690ddafb"
+					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
+					variablename="substringTrajectName">
+					</var>
+					<var
+					dataname="fmName"
+					datasourceid="6f7c440d-3d2b-4277-bfaa-9daa8a3fdee8"
+					variableid="3a7276c1-fca1-4026-9d2e-5bac10651a47"
+					variablename="substringFMName">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			datasource="customAssessmentSTKWp"
 			id="61c39043-1c24-4ae8-ae86-745f1889b53f"
@@ -4593,6 +4613,11 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<smartfoldernode
+			datasource="tableNamesFMsForDeterminationAssessmentRequirementsTraject"
+			id="78947188-1351-4994-baff-766da4b7d2e0"
+			name="c)DeterminationOfAssessmentRequirementsForSection(Traject)">
+			</smartfoldernode>
 			<smartfoldernode
 			datasource="possibleTrajectTypes"
 			id="78a783b3-ec47-4145-85f3-55c2b56b7aa0"
@@ -6614,6 +6639,10 @@
 			type="Recording">
 			</testmodule>
 			<smartfoldernode
+			id="ab2dcae4-2020-4e09-bf5b-32fb590d3155"
+			name="b)LengthEffectParameters">
+			</smartfoldernode>
+			<smartfoldernode
 			datasource="detailedAssessmentGEBUType"
 			id="aba03c61-b85c-4b02-b4fd-6792f2b3b1eb"
 			name="ValidateDetailedAsssessmentType">
@@ -7171,6 +7200,10 @@
 					value="ΔL [m]">
 					</param>
 				</parameters>
+			</smartfoldernode>
+			<smartfoldernode
+			id="b795459a-cbc9-44b8-808d-ecbcb138ed78"
+			name="d)DeterminationOfAssessmentRequirementsForSubSection(Vak)">
 			</smartfoldernode>
 			<testmodule
 			id="b82eab11-472c-4185-82c4-694c60a90d9d"
@@ -9676,6 +9709,10 @@
 				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
+			id="ee7b2bd4-7803-4972-bcb9-6a818edd0be0"
+			name="OpenCategoryBoundaries">
+			</smartfoldernode>
+			<smartfoldernode
 			id="ee88d553-74da-4ddc-8379-5e7a8c51ffe9"
 			name="DetailedAssessmentFMsGroup3_PKW">
 				<parameters>
@@ -10698,176 +10735,196 @@
 							</smartfoldernode>
 						</smartfoldernode>
 						<smartfoldernode
-						id="095a933f-0351-4f44-914c-746ccae54ec0"
-						name="LengthEffects(trajectType=Dijk/Duin)">
+						id="ab2dcae4-2020-4e09-bf5b-32fb590d3155"
+						name="b)LengthEffectParameters">
 							<smartfoldernode
-							id="90aa5c69-ee83-454b-8d3f-8cf843f5fd19"
-							name="ReadTrajectLength">
+							id="095a933f-0351-4f44-914c-746ccae54ec0"
+							name="LengthEffects(trajectType=Dijk/Duin)">
+								<smartfoldernode
+								id="90aa5c69-ee83-454b-8d3f-8cf843f5fd19"
+								name="ReadTrajectLength">
+									<testmodule
+									id="2c4d685d-ade2-4128-95f9-3f5bfb343ec9"
+									name="GetValueParameterForItemInTraject">
+									</testmodule>
+								</smartfoldernode>
+								<smartfoldernode
+								id="1010c180-4323-4c5d-a8f2-a1541376c852"
+								name="CompareTrajectLengthInFMs">
+									<testmodule
+									id="5dc9bc5e-24e1-48cf-8f85-854b488174f0"
+									name="ValidateValueParameterForItemInTraject">
+									</testmodule>
+								</smartfoldernode>
+							</smartfoldernode>
+							<smartfoldernode
+							id="8cb65e99-632a-4992-ae3e-ec6bb44ff32d"
+							name="SetNewValueForParameter_a">
 								<testmodule
-								id="2c4d685d-ade2-4128-95f9-3f5bfb343ec9"
+								id="6b662658-3148-41e0-8df4-b5523ada99ca"
 								name="GetValueParameterForItemInTraject">
+								</testmodule>
+								<testmodule
+								id="4ae7556e-4930-43f7-8794-8679450f77c8"
+								name="CalculateLinearTransformationOfValue">
+								</testmodule>
+								<testmodule
+								id="51330cc3-8fc6-4da8-ad51-229af37158ca"
+								name="SetValueParameterForItemInTraject">
+								</testmodule>
+								<testmodule
+								id="e29498d5-9a1d-4564-bb6b-70d00ffa1bc7"
+								name="ValidateValueParameterForItemInTraject">
 								</testmodule>
 							</smartfoldernode>
 							<smartfoldernode
-							id="1010c180-4323-4c5d-a8f2-a1541376c852"
-							name="CompareTrajectLengthInFMs">
+							id="b76df6f8-799c-4ff8-8df2-198969a6b4be"
+							name="SetAndValidateNewValueFor_DeltaL">
 								<testmodule
-								id="5dc9bc5e-24e1-48cf-8f85-854b488174f0"
+								id="b82eab11-472c-4185-82c4-694c60a90d9d"
+								name="GetValueParameterForItemInTraject">
+								</testmodule>
+								<testmodule
+								id="fb55700a-6442-4774-8d5d-4b3bc4dbf23d"
+								name="CalculateLinearTransformationOfValue">
+								</testmodule>
+								<testmodule
+								id="4515e4d7-70e7-4310-a81c-13390c15a3a0"
+								name="SetValueParameterForItemInTraject">
+								</testmodule>
+								<testmodule
+								id="127cd33f-3715-4bd8-8b74-c3ed29f9a79d"
 								name="ValidateValueParameterForItemInTraject">
+								</testmodule>
+							</smartfoldernode>
+							<smartfoldernode
+							id="004305c8-dc2f-4236-9cb5-fb4029bbb90b"
+							name="SetAndValidateNewValueFor_2NA">
+								<testmodule
+								id="41c3c68b-3e84-45ba-8bb2-bb1659a139f5"
+								name="GetValueParameterForItemInTraject">
+								</testmodule>
+								<testmodule
+								id="02ab976f-385f-419e-a525-516a1091e111"
+								name="SetValueParameterForItemInTraject">
+								</testmodule>
+								<testmodule
+								id="1115d338-6f63-4419-b0ef-587167c98aa9"
+								name="ValidateValueParameterForItemInTraject">
+								</testmodule>
+							</smartfoldernode>
+							<smartfoldernode
+							id="1d7d98c9-1fe4-475e-a93d-ce80f772ec6d"
+							name="ValidateLengthEffectParameterN">
+								<smartfoldernode
+								id="42425944-15c7-418b-b5cd-a582e15b80df"
+								name="FormulaType1_(STPH,STBI,STBU)">
+									<testmodule
+									id="638def4b-9e2a-41be-bb18-2991948a1821"
+									name="GetValueParameterForItemInTraject">
+									</testmodule>
+									<testmodule
+									id="bfdb6bd2-c766-46a9-84a4-05512080c534"
+									name="GetValueParameterForItemInTraject">
+									</testmodule>
+									<testmodule
+									id="fe47f240-eb04-43d0-bcf0-19bd316466ec"
+									name="GetValueParameterForItemInTraject">
+									</testmodule>
+									<testmodule
+									id="19df0b36-eb0a-4d14-ada6-547eda8896bf"
+									name="CalculateNFormula1">
+									</testmodule>
+									<testmodule
+									id="eb349781-0c2a-466b-bac8-2d3278af1636"
+									name="ValidateValueParameterForItemInTraject">
+									</testmodule>
+								</smartfoldernode>
+								<smartfoldernode
+								id="5328d042-0c00-4277-af0a-8c5ec2f49435"
+								name="FormulaType2_(AGK)">
+									<testmodule
+									id="c3744923-020e-4304-b830-2ea9ca446b46"
+									name="GetValueParameterForItemInTraject">
+									</testmodule>
+									<testmodule
+									id="fa4a7b00-c471-465b-80d2-f01f64b85443"
+									name="GetValueParameterForItemInTraject">
+									</testmodule>
+									<testmodule
+									id="62bcf81e-2dea-4d4b-bb32-bc50cb233b18"
+									name="CalculateNFormula2">
+									</testmodule>
+									<testmodule
+									id="b8493da3-6ce3-4b44-9406-06ff8d98cf12"
+									name="ValidateValueParameterForItemInTraject">
+									</testmodule>
+								</smartfoldernode>
+								<smartfoldernode
+								id="56686535-e9c1-4dee-937e-6edd48e15b86"
+								name="FormulaType3_(BSKW)">
+									<testmodule
+									id="ffd1bb2c-ae53-40b3-a440-7eb1b8939a09"
+									name="GetValueParameterForItemInTraject">
+									</testmodule>
+									<testmodule
+									id="271738ae-5952-4a54-a0d6-dc1ad4aab3ca"
+									name="GetValueParameterForItemInTraject">
+									</testmodule>
+									<testmodule
+									id="ea71d278-5c6a-4b77-827b-50c9d289c19b"
+									name="CalculateNFormula3">
+									</testmodule>
+									<testmodule
+									id="d0c11874-c327-406d-8281-7f92abb088a2"
+									name="ValidateValueParameterForItemInTraject">
+									</testmodule>
+								</smartfoldernode>
+								<smartfoldernode
+								id="548bde8b-44b7-4508-aaf3-3824011d3029"
+								name="FormulaType4_(ZST,PKW,STKWp,DA)">
+									<testmodule
+									id="f0d3bf2d-f64e-4ec8-9a6e-181653681492"
+									name="ConvertToCurrentCulture">
+									</testmodule>
+									<testmodule
+									id="ddcb574e-dd31-4b69-9a30-e87fd52dcd68"
+									name="ValidateValueParameterForItemInTraject">
+									</testmodule>
+								</smartfoldernode>
+								<smartfoldernode
+								id="d08f45c8-4f17-409f-ade9-f896ccfc0c91"
+								name="FormulaType5_(GEKB,GEBU,HTKW)">
+									<testmodule
+									id="13aec01b-f5ba-45a0-bf51-084f3df2a7e5"
+									name="ValidateValueParameterForItemInTraject">
+									</testmodule>
+								</smartfoldernode>
+								<smartfoldernode
+								id="02d6fbbd-047b-4a52-86eb-40cf83f3a5ba"
+								name="NoParameterN(STMI,AWO,GABU,GABI,STKWI,INN)">
+									<testmodule
+									id="2a5687ca-af5a-4caa-b1b6-b804952fe10d"
+									name="ValidateParameterDoesNotExistForItemInTraject">
+									</testmodule>
+								</smartfoldernode>
+							</smartfoldernode>
+						</smartfoldernode>
+						<smartfoldernode
+						id="78947188-1351-4994-baff-766da4b7d2e0"
+						name="c)DeterminationOfAssessmentRequirementsForSection(Traject)">
+							<smartfoldernode
+							id="ee7b2bd4-7803-4972-bcb9-6a818edd0be0"
+							name="OpenCategoryBoundaries">
+								<testmodule
+								id="60e53209-a978-4c5a-817e-3b4685b8922b"
+								name="OpenViewForCategoryBoundaries">
 								</testmodule>
 							</smartfoldernode>
 						</smartfoldernode>
 						<smartfoldernode
-						id="8cb65e99-632a-4992-ae3e-ec6bb44ff32d"
-						name="SetNewValueForParameter_a">
-							<testmodule
-							id="6b662658-3148-41e0-8df4-b5523ada99ca"
-							name="GetValueParameterForItemInTraject">
-							</testmodule>
-							<testmodule
-							id="4ae7556e-4930-43f7-8794-8679450f77c8"
-							name="CalculateLinearTransformationOfValue">
-							</testmodule>
-							<testmodule
-							id="51330cc3-8fc6-4da8-ad51-229af37158ca"
-							name="SetValueParameterForItemInTraject">
-							</testmodule>
-							<testmodule
-							id="e29498d5-9a1d-4564-bb6b-70d00ffa1bc7"
-							name="ValidateValueParameterForItemInTraject">
-							</testmodule>
-						</smartfoldernode>
-						<smartfoldernode
-						id="b76df6f8-799c-4ff8-8df2-198969a6b4be"
-						name="SetAndValidateNewValueFor_DeltaL">
-							<testmodule
-							id="b82eab11-472c-4185-82c4-694c60a90d9d"
-							name="GetValueParameterForItemInTraject">
-							</testmodule>
-							<testmodule
-							id="fb55700a-6442-4774-8d5d-4b3bc4dbf23d"
-							name="CalculateLinearTransformationOfValue">
-							</testmodule>
-							<testmodule
-							id="4515e4d7-70e7-4310-a81c-13390c15a3a0"
-							name="SetValueParameterForItemInTraject">
-							</testmodule>
-							<testmodule
-							id="127cd33f-3715-4bd8-8b74-c3ed29f9a79d"
-							name="ValidateValueParameterForItemInTraject">
-							</testmodule>
-						</smartfoldernode>
-						<smartfoldernode
-						id="004305c8-dc2f-4236-9cb5-fb4029bbb90b"
-						name="SetAndValidateNewValueFor_2NA">
-							<testmodule
-							id="41c3c68b-3e84-45ba-8bb2-bb1659a139f5"
-							name="GetValueParameterForItemInTraject">
-							</testmodule>
-							<testmodule
-							id="02ab976f-385f-419e-a525-516a1091e111"
-							name="SetValueParameterForItemInTraject">
-							</testmodule>
-							<testmodule
-							id="1115d338-6f63-4419-b0ef-587167c98aa9"
-							name="ValidateValueParameterForItemInTraject">
-							</testmodule>
-						</smartfoldernode>
-						<smartfoldernode
-						id="1d7d98c9-1fe4-475e-a93d-ce80f772ec6d"
-						name="ValidateLengthEffectParameterN">
-							<smartfoldernode
-							id="42425944-15c7-418b-b5cd-a582e15b80df"
-							name="FormulaType1_(STPH,STBI,STBU)">
-								<testmodule
-								id="638def4b-9e2a-41be-bb18-2991948a1821"
-								name="GetValueParameterForItemInTraject">
-								</testmodule>
-								<testmodule
-								id="bfdb6bd2-c766-46a9-84a4-05512080c534"
-								name="GetValueParameterForItemInTraject">
-								</testmodule>
-								<testmodule
-								id="fe47f240-eb04-43d0-bcf0-19bd316466ec"
-								name="GetValueParameterForItemInTraject">
-								</testmodule>
-								<testmodule
-								id="19df0b36-eb0a-4d14-ada6-547eda8896bf"
-								name="CalculateNFormula1">
-								</testmodule>
-								<testmodule
-								id="eb349781-0c2a-466b-bac8-2d3278af1636"
-								name="ValidateValueParameterForItemInTraject">
-								</testmodule>
-							</smartfoldernode>
-							<smartfoldernode
-							id="5328d042-0c00-4277-af0a-8c5ec2f49435"
-							name="FormulaType2_(AGK)">
-								<testmodule
-								id="c3744923-020e-4304-b830-2ea9ca446b46"
-								name="GetValueParameterForItemInTraject">
-								</testmodule>
-								<testmodule
-								id="fa4a7b00-c471-465b-80d2-f01f64b85443"
-								name="GetValueParameterForItemInTraject">
-								</testmodule>
-								<testmodule
-								id="62bcf81e-2dea-4d4b-bb32-bc50cb233b18"
-								name="CalculateNFormula2">
-								</testmodule>
-								<testmodule
-								id="b8493da3-6ce3-4b44-9406-06ff8d98cf12"
-								name="ValidateValueParameterForItemInTraject">
-								</testmodule>
-							</smartfoldernode>
-							<smartfoldernode
-							id="56686535-e9c1-4dee-937e-6edd48e15b86"
-							name="FormulaType3_(BSKW)">
-								<testmodule
-								id="ffd1bb2c-ae53-40b3-a440-7eb1b8939a09"
-								name="GetValueParameterForItemInTraject">
-								</testmodule>
-								<testmodule
-								id="271738ae-5952-4a54-a0d6-dc1ad4aab3ca"
-								name="GetValueParameterForItemInTraject">
-								</testmodule>
-								<testmodule
-								id="ea71d278-5c6a-4b77-827b-50c9d289c19b"
-								name="CalculateNFormula3">
-								</testmodule>
-								<testmodule
-								id="d0c11874-c327-406d-8281-7f92abb088a2"
-								name="ValidateValueParameterForItemInTraject">
-								</testmodule>
-							</smartfoldernode>
-							<smartfoldernode
-							id="548bde8b-44b7-4508-aaf3-3824011d3029"
-							name="FormulaType4_(ZST,PKW,STKWp,DA)">
-								<testmodule
-								id="f0d3bf2d-f64e-4ec8-9a6e-181653681492"
-								name="ConvertToCurrentCulture">
-								</testmodule>
-								<testmodule
-								id="ddcb574e-dd31-4b69-9a30-e87fd52dcd68"
-								name="ValidateValueParameterForItemInTraject">
-								</testmodule>
-							</smartfoldernode>
-							<smartfoldernode
-							id="d08f45c8-4f17-409f-ade9-f896ccfc0c91"
-							name="FormulaType5_(GEKB,GEBU,HTKW)">
-								<testmodule
-								id="13aec01b-f5ba-45a0-bf51-084f3df2a7e5"
-								name="ValidateValueParameterForItemInTraject">
-								</testmodule>
-							</smartfoldernode>
-							<smartfoldernode
-							id="02d6fbbd-047b-4a52-86eb-40cf83f3a5ba"
-							name="NoParameterN(STMI,AWO,GABU,GABI,STKWI,INN)">
-								<testmodule
-								id="2a5687ca-af5a-4caa-b1b6-b804952fe10d"
-								name="ValidateParameterDoesNotExistForItemInTraject">
-								</testmodule>
-							</smartfoldernode>
+						id="b795459a-cbc9-44b8-808d-ecbcb138ed78"
+						name="d)DeterminationOfAssessmentRequirementsForSubSection(Vak)">
 						</smartfoldernode>
 						<teardown
 						id="f4d4d958-8b7c-427f-873c-e4ab538b83a8"
@@ -15969,6 +16026,120 @@
 			</table>
 		</DataSource>
 		<DataSource
+		id="6f7c440d-3d2b-4277-bfaa-9daa8a3fdee8"
+		lastknownrowcount="11"
+		name="tableNamesFMsForDeterminationAssessmentRequirementsTraject"
+		type="Ranorex.Core.Data.SimpleDataConnector">
+			<lastknowncolumns>
+				<column>
+					fmName
+				</column>
+				<column>
+					fmLabel
+				</column>
+			</lastknowncolumns>
+			<maskedcolumns>
+			</maskedcolumns>
+			<table>
+				<tr>
+					<th>
+						fmName
+					</th>
+					<th>
+						fmLabel
+					</th>
+				</tr>
+				<tr>
+					<td>
+						Dijken en dammen - Piping
+					</td>
+					<td>
+						STPH
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Dijken en dammen - Grasbekleding erosie kruin en binnentalud
+					</td>
+					<td>
+						GEKB
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Dijken en dammen - Macrostabiliteit binnenwaarts
+					</td>
+					<td>
+						STBI
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Dijken en dammen - Stabiliteit steenzetting
+					</td>
+					<td>
+						ZST
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Dijken en dammen - Golfklappen op asfaltbekleding
+					</td>
+					<td>
+						AGK
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Dijken en dammen - Grasbekleding erosie buitentalud
+					</td>
+					<td>
+						GEBU
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Kunstwerken - Hoogte kunstwerk
+					</td>
+					<td>
+						HTKW
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Kunstwerken - Betrouwbaarheid sluiting kunstwerk
+					</td>
+					<td>
+						BSKW
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Kunstwerken - Piping bij kunstwerk
+					</td>
+					<td>
+						PKW
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Kunstwerken - Sterkte en stabiliteit puntconstructies
+					</td>
+					<td>
+						STKWp
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Duinwaterkering - Duinafslag
+					</td>
+					<td>
+						DA
+					</td>
+				</tr>
+			</table>
+		</DataSource>
+		<DataSource
 		id="903b5ff4-9ed4-4974-8688-9c279ca9633c"
 		lastknownrowcount="3"
 		name="tableNValueInFMsForTraject12_2"
@@ -16273,6 +16444,9 @@
 			id="75bc37b3-8164-46db-8dab-3fbff66c9045">
 			</testcontainer>
 			<testcontainer
+			id="78947188-1351-4994-baff-766da4b7d2e0">
+			</testcontainer>
+			<testcontainer
 			id="78a783b3-ec47-4145-85f3-55c2b56b7aa0">
 			</testcontainer>
 			<testcontainer
@@ -16399,6 +16573,9 @@
 			id="aa5794c0-c09f-491c-aabc-539950fa3cbf">
 			</testcontainer>
 			<testcontainer
+			id="ab2dcae4-2020-4e09-bf5b-32fb590d3155">
+			</testcontainer>
+			<testcontainer
 			id="aba03c61-b85c-4b02-b4fd-6792f2b3b1eb">
 			</testcontainer>
 			<testcontainer
@@ -16433,6 +16610,9 @@
 			</testcontainer>
 			<testcontainer
 			id="b76df6f8-799c-4ff8-8df2-198969a6b4be">
+			</testcontainer>
+			<testcontainer
+			id="b795459a-cbc9-44b8-808d-ecbcb138ed78">
 			</testcontainer>
 			<testcontainer
 			id="b90f12e8-31ee-41a0-b1e5-7fad5522e116">
@@ -16571,6 +16751,9 @@
 			</testcontainer>
 			<testcontainer
 			id="ec6146f8-9a08-478a-a252-c91651cac9fe">
+			</testcontainer>
+			<testcontainer
+			id="ee7b2bd4-7803-4972-bcb9-6a818edd0be0">
 			</testcontainer>
 			<testcontainer
 			id="ee88d553-74da-4ddc-8379-5e7a8c51ffe9">

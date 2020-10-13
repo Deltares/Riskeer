@@ -22,7 +22,7 @@ using Ranorex.Core.Testing;
 
 namespace AutomatedSystemTests
 {
-    public partial class OpenResultView
+    public partial class OpenViewForCategoryBoundaries
     {
         /// <summary>
         /// This method gets called right after the recording has been started.
@@ -33,12 +33,11 @@ namespace AutomatedSystemTests
             // Your recording specific initialization code goes here.
         }
 
-        public void OpenResultViewIfFMIsRelevant(RepoItemInfo nodeItemInfo, string nameSubnode)
+        public void OpenCategoryBoundariesView(RepoItemInfo nodeItemInfo, string nameSubnode)
         {
             string nameSubnodeLevel1 = "Oordeel";
-            string nameSubnodeLevel2 = "Resultaat";
+            string nameSubnodeLevel2 = "Categoriegrenzen";
         	var nodeChildren = nodeItemInfo.FindAdapter<TreeItem>().Children;
-            string fmRelevance = " is not relevant.";
             foreach (var childNode in nodeChildren) {
             	string childNodeName = NameOfTreeItem(childNode);
             	if (childNodeName == nameSubnodeLevel1) {
@@ -49,30 +48,24 @@ namespace AutomatedSystemTests
             			if (grandchildName == nameSubnodeLevel2) {
             				grandchild.As<TreeItem>().Focus();
             				grandchild.As<TreeItem>().DoubleClick();
-            				fmRelevance = " is relevant.";
             			}
             		}
             	}
             }
-            Report.Log(ReportLevel.Info, "Info", "FM " + NameOfTreeItem(nodeItemInfo) + fmRelevance, nodeItemInfo);
-            Validate.AreEqual(fmRelevance, " is relevant.");
         }
-
+		
         private string NameOfTreeItem(object treeItemInfo)
         {
         	return treeItemInfo.ToString().Substring(10, treeItemInfo.ToString().Length-11);
         }
         
-        
         public void ExpandNode(RepoItemInfo nodeItemInfo)
         {
         	try {
-        		//Validate.Exists(nodeItemInfo, "Node {0} cannot be found!", false);
         		nodeItemInfo.CreateAdapter<TreeItem>(true).Expand();
         	} catch (Exception) {
         	}
-        	
         }
-    }
 
+    }
 }
