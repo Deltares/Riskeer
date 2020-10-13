@@ -25,7 +25,7 @@ using System.Linq;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Riskeer.Common.Data.AssessmentSection;
-using Riskeer.Piping.Data.SemiProbabilistic;
+using Riskeer.Piping.Data.TestUtil;
 using Riskeer.Piping.Primitives;
 
 namespace Riskeer.Piping.Data.Test
@@ -37,7 +37,7 @@ namespace Riskeer.Piping.Data.Test
         public void IsSurfaceLineIntersectionWithReferenceLineInSection_SurfaceLineNull_ReturnsFalse()
         {
             // Setup
-            var calculation = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput());
+            var calculation = new TestPipingCalculation();
 
             // Call
             bool intersects = calculation.IsSurfaceLineIntersectionWithReferenceLineInSection(Enumerable.Empty<Segment2D>());
@@ -67,7 +67,7 @@ namespace Riskeer.Piping.Data.Test
                 new Point2D(10.0, 0.0)
             });
 
-            var calculation = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput())
+            var calculation = new TestPipingCalculation
             {
                 InputParameters =
                 {
@@ -103,7 +103,7 @@ namespace Riskeer.Piping.Data.Test
                 new Point2D(10.0, 0.0)
             });
 
-            var calculation = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput())
+            var calculation = new TestPipingCalculation
             {
                 InputParameters =
                 {
@@ -141,7 +141,7 @@ namespace Riskeer.Piping.Data.Test
                 new Point2D(20.0, 0.0)
             });
 
-            var calculation = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput())
+            var calculation = new TestPipingCalculation
             {
                 InputParameters =
                 {
