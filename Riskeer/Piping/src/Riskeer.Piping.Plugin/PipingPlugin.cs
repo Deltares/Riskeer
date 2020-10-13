@@ -282,9 +282,9 @@ namespace Riskeer.Piping.Plugin
                 FailureMechanismDisabledContextMenuStrip);
 
             yield return RiskeerTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<PipingCalculationScenarioContext>(
-                CalculationContextChildNodeObjects,
-                CalculationContextContextMenuStrip,
-                CalculationContextOnNodeRemoved);
+                SemiProbabilisticCalculationContextChildNodeObjects,
+                SemiProbabilisticCalculationContextContextMenuStrip,
+                SemiProbabilisticCalculationContextOnNodeRemoved);
 
             yield return RiskeerTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<PipingCalculationGroupContext>(
                 CalculationGroupContextChildNodeObjects,
@@ -882,7 +882,7 @@ namespace Riskeer.Piping.Plugin
 
         #region PipingCalculationScenarioContext TreeNodeInfo
 
-        private static object[] CalculationContextChildNodeObjects(PipingCalculationScenarioContext context)
+        private static object[] SemiProbabilisticCalculationContextChildNodeObjects(PipingCalculationScenarioContext context)
         {
             PipingCalculationScenario pipingCalculationScenario = context.WrappedData;
 
@@ -912,8 +912,8 @@ namespace Riskeer.Piping.Plugin
             return childNodes.ToArray();
         }
 
-        private ContextMenuStrip CalculationContextContextMenuStrip(PipingCalculationScenarioContext nodeData,
-                                                                    object parentData, TreeViewControl treeViewControl)
+        private ContextMenuStrip SemiProbabilisticCalculationContextContextMenuStrip(PipingCalculationScenarioContext nodeData,
+                                                                                     object parentData, TreeViewControl treeViewControl)
         {
             var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
 
@@ -983,7 +983,7 @@ namespace Riskeer.Piping.Plugin
             }
         }
 
-        private static void CalculationContextOnNodeRemoved(PipingCalculationScenarioContext pipingCalculationScenarioContext, object parentNodeData)
+        private static void SemiProbabilisticCalculationContextOnNodeRemoved(PipingCalculationScenarioContext pipingCalculationScenarioContext, object parentNodeData)
         {
             if (parentNodeData is PipingCalculationGroupContext calculationGroupContext)
             {
