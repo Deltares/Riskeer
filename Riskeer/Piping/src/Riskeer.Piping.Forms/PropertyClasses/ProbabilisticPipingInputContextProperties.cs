@@ -425,11 +425,11 @@ namespace Riskeer.Piping.Forms.PropertyClasses
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Output))]
         [ResourcesDisplayName(typeof(Resources), nameof(RiskeerCommonFormsResources.SectionLength_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(RiskeerCommonFormsResources.SectionLength_Description))]
-        public string SectionLength
+        public RoundedDouble SectionLength
         {
             get
             {
-                return data.WrappedData.SectionName;
+                return data.WrappedData.SectionLength;
             }
         }
 
