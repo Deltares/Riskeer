@@ -1061,7 +1061,7 @@ namespace Riskeer.Piping.Service.Test
         {
             // Setup
             RoundedDouble normativeAssessmentLevel = AssessmentSectionTestHelper.GetTestAssessmentLevel();
-            PipingInput input = testCalculation.InputParameters;
+            SemiProbabilisticPipingInput input = testCalculation.InputParameters;
 
             input.AssessmentLevel = (RoundedDouble) 2.2;
 
@@ -1086,7 +1086,7 @@ namespace Riskeer.Piping.Service.Test
         {
             // Setup
             RoundedDouble normativeAssessmentLevel = AssessmentSectionTestHelper.GetTestAssessmentLevel();
-            PipingInput input = testCalculation.InputParameters;
+            SemiProbabilisticPipingInput input = testCalculation.InputParameters;
 
             input.UseAssessmentLevelManualInput = useAssessmentLevelManualInput;
 

@@ -82,7 +82,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var pipingInput = new PipingInput(new GeneralPipingInput());
+            var pipingInput = new SemiProbabilisticPipingInput(new GeneralPipingInput());
 
             var calculation = new PipingCalculationScenario(new GeneralPipingInput());
             var calculationInputContext = new PipingInputContext(pipingInput, calculation, Enumerable.Empty<PipingSurfaceLine>(),
