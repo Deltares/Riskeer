@@ -23,6 +23,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using Core.Common.Gui.UITypeEditors;
 using Riskeer.Piping.Forms.PropertyClasses;
+using Riskeer.Piping.Forms.PropertyClasses.SemiProbabilistic;
 using Riskeer.Piping.Primitives;
 
 namespace Riskeer.Piping.Forms.UITypeEditors

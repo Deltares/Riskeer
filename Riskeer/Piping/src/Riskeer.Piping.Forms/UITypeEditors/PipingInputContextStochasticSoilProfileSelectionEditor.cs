@@ -24,6 +24,7 @@ using System.ComponentModel;
 using Core.Common.Gui.UITypeEditors;
 using Riskeer.Piping.Data.SoilProfile;
 using Riskeer.Piping.Forms.PropertyClasses;
+using Riskeer.Piping.Forms.PropertyClasses.SemiProbabilistic;
 using Riskeer.Piping.Primitives;
 
 namespace Riskeer.Piping.Forms.UITypeEditors

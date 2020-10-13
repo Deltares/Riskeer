@@ -33,12 +33,13 @@ using Riskeer.Common.Forms.UITypeEditors;
 using Riskeer.Piping.Data;
 using Riskeer.Piping.Data.Probabilistic;
 using Riskeer.Piping.Data.SoilProfile;
-using Riskeer.Piping.Forms.PresentationObjects;
 using Riskeer.Piping.Forms.PresentationObjects.Probabilistic;
 using Riskeer.Piping.Forms.PropertyClasses;
+using Riskeer.Piping.Forms.PropertyClasses.Probabilistic;
+using Riskeer.Piping.Forms.PropertyClasses.SemiProbabilistic;
 using Riskeer.Piping.Primitives;
 
-namespace Riskeer.Piping.Forms.Test.PropertyClasses
+namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
 {
     [TestFixture]
     public class ProbabilisticPipingInputContextPropertiesTest

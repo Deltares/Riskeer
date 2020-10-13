@@ -37,6 +37,7 @@ using Riskeer.Piping.Data.TestUtil;
 using Riskeer.Piping.Forms.PresentationObjects;
 using Riskeer.Piping.Forms.PresentationObjects.SemiProbabilistic;
 using Riskeer.Piping.Forms.PropertyClasses;
+using Riskeer.Piping.Forms.PropertyClasses.SemiProbabilistic;
 using Riskeer.Piping.Forms.UITypeEditors;
 using Riskeer.Piping.Primitives;
 using Riskeer.Piping.Primitives.TestUtil;
