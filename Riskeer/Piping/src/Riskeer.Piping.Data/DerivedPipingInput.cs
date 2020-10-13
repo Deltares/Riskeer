@@ -25,6 +25,7 @@ using System.Linq;
 using Core.Common.Base.Data;
 using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.Data.Probabilistics;
+using Riskeer.Piping.Data.SemiProbabilistic;
 using Riskeer.Piping.Data.SoilProfile;
 using Riskeer.Piping.InputParameterCalculation;
 using Riskeer.Piping.Primitives;

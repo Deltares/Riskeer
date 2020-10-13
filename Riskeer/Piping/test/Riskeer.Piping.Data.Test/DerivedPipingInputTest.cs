@@ -24,6 +24,7 @@ using Core.Common.Base.Data;
 using NUnit.Framework;
 using Riskeer.Common.Data.Probabilistics;
 using Riskeer.Common.Data.TestUtil;
+using Riskeer.Piping.Data.SemiProbabilistic;
 using Riskeer.Piping.Data.SoilProfile;
 using Riskeer.Piping.Data.TestUtil;
 using Riskeer.Piping.KernelWrapper.SubCalculator;
