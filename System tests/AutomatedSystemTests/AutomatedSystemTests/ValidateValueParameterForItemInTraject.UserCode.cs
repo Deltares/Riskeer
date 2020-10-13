@@ -9,6 +9,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Drawing;
@@ -31,6 +32,20 @@ namespace AutomatedSystemTests
         private void Init()
         {
             // Your recording specific initialization code goes here.
+        }
+
+        public void Validate_GenericParameterVisibleInProjectExplorer(RepoItemInfo rowInfo)
+        {
+            System.Globalization.CultureInfo currentCulture = CultureInfo.CurrentCulture;
+        	Report.Log(ReportLevel.Info, "Validation", "Validating AttributeEqual (AccessibleValue=$expectedValueOfParameterForItemInTraject) on item 'rowInfo'.", rowInfo);
+            Report.Log(ReportLevel.Info, "Validation", "Expected value = "+ expectedValueOfParameterForItemInTraject);
+            string currentValueOfParameterForItemInTraject = rowInfo.CreateAdapter<Row>(true).GetAttributeValue<string>("AccessibleValue");
+            Report.Log(ReportLevel.Info, "Validation", "Current value = "+ currentValueOfParameterForItemInTraject);
+            double currentValueDouble = Double.Parse(currentValueOfParameterForItemInTraject, currentCulture);
+            double expectedValueDouble = Double.Parse(expectedValueOfParameterForItemInTraject, currentCulture);
+            double deviation = Math.Abs(currentValueDouble - expectedValueDouble);
+            Validate.AreEqual( deviation <= 0.0000001, true);
+            //Validate.AttributeEqual(rowInfo, "AccessibleValue", expectedValueOfParameterForItemInTraject);
         }
 
     }

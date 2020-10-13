@@ -69,6 +69,22 @@ mode="Global">
 			id="2d448535-c00d-4768-9a96-5d082211828b">
 			</arguments>
 		</invokeactionrecorditem>
+		<loggingrecorditem
+		category="User"
+		enabled="True"
+		message=""
+		optional="False"
+		reportlevel="Info;20"
+		searchpropertyid="08fe4687-8543-4cb6-94c8-1d282f6e1177">
+			<comment>
+			</comment>
+			<bindings>
+				<binding
+				target="Message"
+				variable="valueToSetParameterForItemInTraject">
+				</binding>
+			</bindings>
+		</loggingrecorditem>
 		<setvaluerecorditem
 		attrname="AccessibleValue"
 		enabled="True"

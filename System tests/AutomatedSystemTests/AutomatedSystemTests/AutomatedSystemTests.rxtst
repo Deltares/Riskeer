@@ -746,6 +746,58 @@
 				</databinding>
 			</testmodule>
 			<testmodule
+			id="13aec01b-f5ba-45a0-bf51-084f3df2a7e5"
+			name="ValidateValueParameterForItemInTraject"
+			ref="54946666-7cba-49b9-b848-41ea43b074d9"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="hardCodedTrajectToAdd"
+					datasourceid="de320efd-8193-4dd4-9e9d-8fb5690ddafb"
+					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
+					variablename="substringTrajectName">
+					</var>
+					<var
+					dataname="NParameterNameInPropertiesPanel"
+					datasourceid="d08f45c8-4f17-409f-ade9-f896ccfc0c91"
+					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
+					variablename="nameOfParameterInPropertiesPanel">
+					</var>
+					<var
+					dataname="fmName"
+					datasourceid="903b5ff4-9ed4-4974-8688-9c279ca9633c"
+					variableid="cb52c14e-9bef-4f4a-9d11-1758141c50cb"
+					variablename="substringNameItemInTraject">
+					</var>
+					<var
+					dataname="NValue"
+					datasourceid="903b5ff4-9ed4-4974-8688-9c279ca9633c"
+					variableid="541e9cf7-fb71-4773-bd20-19b633ea6f9d"
+					variablename="expectedValueOfParameterForItemInTraject">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="fmName"
+					datasourceid="b45bfffb-5bba-474f-b237-c2f41613bb15"
+					variableid="cb52c14e-9bef-4f4a-9d11-1758141c50cb"
+					variablename="substringNameItemInTraject">
+					</var>
+					<var
+					dataname="convertedValue"
+					datasourceid="548bde8b-44b7-4508-aaf3-3824011d3029"
+					variableid="541e9cf7-fb71-4773-bd20-19b633ea6f9d"
+					variablename="expectedValueOfParameterForItemInTraject">
+					</var>
+					<var
+					dataname="NNameInPropertiesPanel"
+					datasourceid="548bde8b-44b7-4508-aaf3-3824011d3029"
+					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
+					variablename="nameOfParameterInPropertiesPanel">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<testmodule
 			id="144b94b7-6f3a-452f-9c0e-4eb2aace5612"
 			name="SetCustomAssessmentAtRowCategories"
 			ref="0a1c5bcf-8247-4ca8-bbd1-a4f8f26f6474"
@@ -856,6 +908,7 @@
 				</databinding>
 			</testmodule>
 			<testmodule
+			enabled="False"
 			id="170f46b0-fe63-4238-9874-af8420fa3e8f"
 			name="CloseAUT"
 			ref="07688822-3eb6-4d71-a97b-33498ae1d748"
@@ -5390,7 +5443,7 @@
 					</param>
 					<param
 					name="factorM"
-					value="1.5">
+					value="0.9">
 					</param>
 					<param
 					name="shiftB"
@@ -8236,8 +8289,15 @@
 				</parameters>
 			</smartfoldernode>
 			<smartfoldernode
+			datasource="tableNValueInFMsForTraject12_2"
 			id="d08f45c8-4f17-409f-ade9-f896ccfc0c91"
 			name="FormulaType5_(GEKB,GEBU,HTKW)">
+				<parameters>
+					<param
+					name="NParameterNameInPropertiesPanel"
+					value="N [-]">
+					</param>
+				</parameters>
 			</smartfoldernode>
 			<smartfoldernode
 			datasource="detailedAssessmentSTBUType"
@@ -10795,6 +10855,10 @@
 							<smartfoldernode
 							id="d08f45c8-4f17-409f-ade9-f896ccfc0c91"
 							name="FormulaType5_(GEKB,GEBU,HTKW)">
+								<testmodule
+								id="13aec01b-f5ba-45a0-bf51-084f3df2a7e5"
+								name="ValidateValueParameterForItemInTraject">
+								</testmodule>
 							</smartfoldernode>
 							<smartfoldernode
 							id="02d6fbbd-047b-4a52-86eb-40cf83f3a5ba"
@@ -15904,6 +15968,56 @@
 				</tr>
 			</table>
 		</DataSource>
+		<DataSource
+		id="903b5ff4-9ed4-4974-8688-9c279ca9633c"
+		lastknownrowcount="3"
+		name="tableNValueInFMsForTraject12_2"
+		type="Ranorex.Core.Data.SimpleDataConnector">
+			<lastknowncolumns>
+				<column>
+					fmName
+				</column>
+				<column>
+					NValue
+				</column>
+			</lastknowncolumns>
+			<maskedcolumns>
+			</maskedcolumns>
+			<table>
+				<tr>
+					<th>
+						fmName
+					</th>
+					<th>
+						NValue
+					</th>
+				</tr>
+				<tr>
+					<td>
+						Dijken en dammen - Grasbekleding erosie kruin en binnentalud
+					</td>
+					<td>
+						2
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Dijken en dammen - Grasbekleding erosie buitentalud
+					</td>
+					<td>
+						2
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Kunstwerken - Hoogte kunstwerk
+					</td>
+					<td>
+						2
+					</td>
+				</tr>
+			</table>
+		</DataSource>
 	</datasources>
 	<testconfigurations
 	default="TestRun">
@@ -16273,6 +16387,9 @@
 			id="a41fa0b2-d5f7-49f5-8cbd-3c55acd955ae">
 			</testcontainer>
 			<testcontainer
+			id="a62f19a6-916a-4eae-a94c-9f8d7e719c12">
+			</testcontainer>
+			<testcontainer
 			id="a6967a33-1477-4893-927e-d6030af4a6df">
 			</testcontainer>
 			<testcontainer
@@ -16363,6 +16480,9 @@
 			id="c91046ba-239e-420f-80d2-a2112978af0e">
 			</testcontainer>
 			<testcontainer
+			id="cbbf627b-1c77-4442-b22c-43f6272158e9">
+			</testcontainer>
+			<testcontainer
 			id="cdba0bb5-d55f-465e-a055-fca75eb90b3d">
 			</testcontainer>
 			<testcontainer
@@ -16421,6 +16541,9 @@
 			</testcontainer>
 			<testcontainer
 			id="e3a5d86a-aed9-4cb2-9fd0-3f8149eb00ca">
+			</testcontainer>
+			<testcontainer
+			id="e43efcb5-c614-46b1-b7a3-9cde910a67ee">
 			</testcontainer>
 			<testcontainer
 			id="e5ae984b-bd5a-4a0a-9e27-8c0d4bf76e75">

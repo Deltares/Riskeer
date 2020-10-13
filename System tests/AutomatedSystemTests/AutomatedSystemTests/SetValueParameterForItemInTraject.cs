@@ -128,7 +128,9 @@ namespace AutomatedSystemTests
             Report.Log(ReportLevel.Info, "Invoke action", "Invoking Select() on item 'RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericItemInTraject'.", repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericItemInTrajectInfo, new RecordItemIndex(1));
             repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericItemInTraject.Select();
             
-            Report.Log(ReportLevel.Info, "Set value", "Setting attribute AccessibleValue to '$valueToSetParameterForItemInTraject' on item 'RiskeerMainWindow.PropertiesPanelContainer.Table.GenericParameterVisibleInProjectExplorer'.", repo.RiskeerMainWindow.PropertiesPanelContainer.Table.GenericParameterVisibleInProjectExplorerInfo, new RecordItemIndex(2));
+            Report.Log(ReportLevel.Info, "User", valueToSetParameterForItemInTraject, new RecordItemIndex(2));
+            
+            Report.Log(ReportLevel.Info, "Set value", "Setting attribute AccessibleValue to '$valueToSetParameterForItemInTraject' on item 'RiskeerMainWindow.PropertiesPanelContainer.Table.GenericParameterVisibleInProjectExplorer'.", repo.RiskeerMainWindow.PropertiesPanelContainer.Table.GenericParameterVisibleInProjectExplorerInfo, new RecordItemIndex(3));
             repo.RiskeerMainWindow.PropertiesPanelContainer.Table.GenericParameterVisibleInProjectExplorer.Element.SetAttributeValue("AccessibleValue", valueToSetParameterForItemInTraject);
             
         }
