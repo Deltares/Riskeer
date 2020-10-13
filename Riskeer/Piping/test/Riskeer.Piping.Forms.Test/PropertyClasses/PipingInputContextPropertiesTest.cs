@@ -559,7 +559,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
 
             var failureMechanism = new PipingFailureMechanism();
 
-            PipingInput inputParameters = calculationItem.InputParameters;
+            SemiProbabilisticPipingInput inputParameters = calculationItem.InputParameters;
 
             var context = new PipingInputContext(inputParameters,
                                                  calculationItem,
@@ -640,7 +640,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
             var calculationItem = new PipingCalculationScenario(new GeneralPipingInput());
             var failureMechanism = new PipingFailureMechanism();
 
-            PipingInput inputParameters = calculationItem.InputParameters;
+            SemiProbabilisticPipingInput inputParameters = calculationItem.InputParameters;
 
             var context = new PipingInputContext(inputParameters,
                                                  calculationItem,
@@ -852,7 +852,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
             var calculationItem = new PipingCalculationScenario(new GeneralPipingInput());
             var failureMechanism = new PipingFailureMechanism();
 
-            PipingInput inputParameters = calculationItem.InputParameters;
+            SemiProbabilisticPipingInput inputParameters = calculationItem.InputParameters;
             inputParameters.SurfaceLine = surfaceLine;
             inputParameters.Attach(inputObserver);
 
@@ -896,7 +896,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
             var calculationItem = new PipingCalculationScenario(new GeneralPipingInput());
             var failureMechanism = new PipingFailureMechanism();
 
-            PipingInput inputParameters = calculationItem.InputParameters;
+            SemiProbabilisticPipingInput inputParameters = calculationItem.InputParameters;
             inputParameters.SurfaceLine = surfaceLine;
             inputParameters.Attach(inputObserver);
 
@@ -1135,7 +1135,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
             };
             var failureMechanism = new PipingFailureMechanism();
 
-            PipingInput inputParameters = calculationItem.InputParameters;
+            SemiProbabilisticPipingInput inputParameters = calculationItem.InputParameters;
 
             var context = new PipingInputContext(inputParameters,
                                                  calculationItem,
@@ -1190,7 +1190,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
             };
             var failureMechanism = new PipingFailureMechanism();
 
-            PipingInput inputParameters = calculationItem.InputParameters;
+            SemiProbabilisticPipingInput inputParameters = calculationItem.InputParameters;
 
             var context = new PipingInputContext(inputParameters,
                                                  calculationItem,
@@ -1238,7 +1238,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
                 }
             };
 
-            PipingInput inputParameters = calculationItem.InputParameters;
+            SemiProbabilisticPipingInput inputParameters = calculationItem.InputParameters;
             var failureMechanism = new PipingFailureMechanism();
 
             var context = new PipingInputContext(inputParameters,
@@ -1866,7 +1866,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
             observable.Expect(o => o.NotifyObservers());
             mocks.ReplayAll();
 
-            PipingInput inputParameters = calculation.InputParameters;
+            SemiProbabilisticPipingInput inputParameters = calculation.InputParameters;
 
             var failureMechanism = new PipingFailureMechanism();
 

@@ -719,8 +719,8 @@ namespace Riskeer.Piping.IO.Test.Configurations
             Assert.AreEqual(expectedCalculation.IsRelevant, actualCalculation.IsRelevant);
             Assert.AreEqual(expectedCalculation.Contribution, actualCalculation.Contribution);
 
-            PipingInput expectedInput = expectedCalculation.InputParameters;
-            PipingInput actualInput = actualCalculation.InputParameters;
+            SemiProbabilisticPipingInput expectedInput = expectedCalculation.InputParameters;
+            SemiProbabilisticPipingInput actualInput = actualCalculation.InputParameters;
             Assert.AreEqual(expectedInput.UseAssessmentLevelManualInput, actualInput.UseAssessmentLevelManualInput);
             if (expectedInput.UseAssessmentLevelManualInput)
             {

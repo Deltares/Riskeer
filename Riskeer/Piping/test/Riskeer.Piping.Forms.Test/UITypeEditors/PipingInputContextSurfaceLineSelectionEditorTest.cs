@@ -56,7 +56,7 @@ namespace Riskeer.Piping.Forms.Test.UITypeEditors
             var calculationItem = new PipingCalculationScenario(new GeneralPipingInput());
             var failureMechanism = new PipingFailureMechanism();
 
-            var pipingInput = new PipingInput(new GeneralPipingInput())
+            var pipingInput = new SemiProbabilisticPipingInput(new GeneralPipingInput())
             {
                 SurfaceLine = ValidSurfaceLine()
             };
@@ -113,7 +113,7 @@ namespace Riskeer.Piping.Forms.Test.UITypeEditors
             var calculationItem = new PipingCalculationScenario(new GeneralPipingInput());
             var failureMechanism = new PipingFailureMechanism();
 
-            var pipingInput = new PipingInput(new GeneralPipingInput())
+            var pipingInput = new SemiProbabilisticPipingInput(new GeneralPipingInput())
             {
                 SurfaceLine = surfaceLine
             };
