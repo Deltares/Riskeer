@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <recordtable
 embeddedrepository="False"
-id="0a1c5bcf-8247-4ca8-bbd1-a4f8f26f6474"
+id="e78f6f84-4ef0-4595-a918-ed7f2b719e4e"
 mode="Global">
 	<repeatcount>
 		1
@@ -19,7 +19,7 @@ mode="Global">
 		True
 	</useDefaultItemLogging>
 	<codegen
-	classname="SetCustomAssessmentAtRowCategories"
+	classname="SetCustomAssessmentAtRowBSKW"
 	namespace="AutomatedSystemTests">
 	</codegen>
 	<variables>
@@ -29,7 +29,7 @@ mode="Global">
 		action="Focus"
 		enabled="True"
 		optional="False"
-		searchpropertyid="e3853e39-6155-4aeb-a598-b62c55a3fe4d">
+		searchpropertyid="67a51247-fa36-4515-a60d-f105eaf0ac85">
 			<comment>
 			</comment>
 			<bindings>
@@ -42,7 +42,7 @@ mode="Global">
 				</path>
 			</info>
 			<arguments
-			id="e0476cca-32ad-485d-bb61-1b0ab356026b">
+			id="3d83b90d-a1e9-4776-85fb-5d9ac11a6eb7">
 			</arguments>
 		</invokeactionrecorditem>
 		<mouseitem
@@ -53,7 +53,7 @@ mode="Global">
 		loc="CenterRight"
 		movetime="300ms"
 		optional="False"
-		searchpropertyid="64d1b1a5-736d-48b6-b3f7-a153ea01ee26"
+		searchpropertyid="1c830bd2-cb3e-4e2f-afc1-9453282f40a0"
 		sx="0"
 		sy="0"
 		warnoutofbounds="False">
@@ -77,7 +77,7 @@ mode="Global">
 		loc="Center"
 		movetime="300ms"
 		optional="False"
-		searchpropertyid="fd5c2977-f36a-43b2-a46b-9f123f321ecf"
+		searchpropertyid="52a44c03-78f2-418b-ab24-e92d2a219742"
 		sx="0"
 		sy="0"
 		warnoutofbounds="False">
@@ -109,7 +109,7 @@ mode="Global">
 	</repository>
 	<usercodefile
 	lang="CSharp">
-		SetCustomAssessmentAtRowCategories.UserCode.cs
+		SetCustomAssessmentAtRowBSKW.UserCode.cs
 	</usercodefile>
 	<references>
 	</references>

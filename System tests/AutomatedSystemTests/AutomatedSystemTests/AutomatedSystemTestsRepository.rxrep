@@ -1,4 +1,5 @@
-﻿<repository
+<?xml version="1.0" encoding="utf-8"?>
+<repository
 id="137723a5-e147-4b62-8c15-5c31a3d68f96"
 name="AutomatedSystemTestsRepository">
 	<codegen
@@ -688,6 +689,7 @@ Ci8EIxlN9/ueuduvvCRUSA/y/BpXl5+Ui+rMfnRmeyL0hblJeL6KhKphqPIwCHnKcUMch8GfPoy/
 					name="GenericCellIcon"
 					refimgid="df30e0c6-39a0-400a-82dd-ad6347165336"
 					searchtimeout="30000ms">
+						/form[@automationid='RiskeerMainWindow']//container[@controlname='MessageWindow']/table[@controlname='messagesDataGridView']/row[@accessiblename='Row '+$indexRowMessage]/cell[@accessiblename&gt;' Row']
 						<image
 						guid="177d1f5e-b60b-4c93-b880-4e6a8dc84a69"
 						name="ErrorIcon">
@@ -703,7 +705,6 @@ h2w43PvQ+hgzZRcwWo36wPa8zQVP066PNZJvg+w96kM2LPd6j1fUg2AHbRLVTte/wQf2vetu3tWY
 Ci8EIxlN9/ueuduvvCRUSA/y/BpXl5+Ui+rMfnRmeyL0hblJeL6KhKphqPIwCHnKcUMch8GfPoy/
 0v+F8V1TqnoOxOXBfwwHqGMAAAAASUVORK5CYII=
 						</image>
-						/form[@automationid='RiskeerMainWindow']//container[@controlname='MessageWindow']/table[@controlname='messagesDataGridView']/row[@accessiblename='Row '+$indexRowMessage]/cell[@accessiblename&gt;' Row']
 					</item>
 					<item
 					addcaps="cell,accessible"
@@ -1109,6 +1110,15 @@ QmCC
 			searchtimeout="30000ms">
 				/list[@controlid='1000']/listitem[@text=$textItemDropDownMenu]
 			</item>
+			<item
+			addcaps="listitem,nativeitem,checkable"
+			capname="listitem"
+			id="db738719-488e-425e-963f-e603572ec330"
+			name="DropDownItem"
+			refimgid="2a0eee92-106d-4496-ae63-13d54c5c92f5"
+			searchtimeout="30000ms">
+				/list[@controlid='1000']/listitem[@text=$DropDownItem]
+			</item>
 			<basepath>
 				/list[@controlid='1000']
 			</basepath>
@@ -1472,6 +1482,10 @@ FjcAAAAASUVORK5CYII=
 		<var
 		id="4f707b64-d756-4bb7-a45a-f34af402b280"
 		name="textDropDownMenu">
+		</var>
+		<var
+		id="c5b8922f-77bf-441a-9b88-99da98bf1e54"
+		name="DropDownItem">
 		</var>
 	</variables>
 </repository>

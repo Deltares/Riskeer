@@ -24,47 +24,34 @@ namespace AutomatedSystemTests
 {
 #pragma warning disable 0436 //(CS0436) The type 'type' in 'assembly' conflicts with the imported type 'type2' in 'assembly'. Using the type defined in 'assembly'.
     /// <summary>
-    ///The ValidateCustomAssessmentValue recording.
+    ///The SetCustomAssessmentAtRowBSKW recording.
     /// </summary>
-    [TestModule("da4d5264-71fa-4c55-ade2-9344716cd1cc", ModuleType.Recording, 1)]
-    public partial class ValidateCustomAssessmentValue : ITestModule
+    [TestModule("e78f6f84-4ef0-4595-a918-ed7f2b719e4e", ModuleType.Recording, 1)]
+    public partial class SetCustomAssessmentAtRowBSKW : ITestModule
     {
         /// <summary>
         /// Holds an instance of the AutomatedSystemTestsRepository repository.
         /// </summary>
         public static AutomatedSystemTestsRepository repo = AutomatedSystemTestsRepository.Instance;
 
-        static ValidateCustomAssessmentValue instance = new ValidateCustomAssessmentValue();
+        static SetCustomAssessmentAtRowBSKW instance = new SetCustomAssessmentAtRowBSKW();
 
         /// <summary>
         /// Constructs a new instance.
         /// </summary>
-        public ValidateCustomAssessmentValue()
+        public SetCustomAssessmentAtRowBSKW()
         {
-            expectedCustomAssessmentValueAtCell = "";
         }
 
         /// <summary>
         /// Gets a static instance of this recording.
         /// </summary>
-        public static ValidateCustomAssessmentValue Instance
+        public static SetCustomAssessmentAtRowBSKW Instance
         {
             get { return instance; }
         }
 
 #region Variables
-
-        string _expectedCustomAssessmentValueAtCell;
-
-        /// <summary>
-        /// Gets or sets the value of variable expectedCustomAssessmentValueAtCell.
-        /// </summary>
-        [TestVariable("0602758b-9931-4e34-a69f-4ebf0d921f1e")]
-        public string expectedCustomAssessmentValueAtCell
-        {
-            get { return _expectedCustomAssessmentValueAtCell; }
-            set { _expectedCustomAssessmentValueAtCell = value; }
-        }
 
         /// <summary>
         /// Gets or sets the value of variable rowIndex.
@@ -74,6 +61,16 @@ namespace AutomatedSystemTests
         {
             get { return repo.rowIndex; }
             set { repo.rowIndex = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets the value of variable DropDownItem.
+        /// </summary>
+        [TestVariable("c5b8922f-77bf-441a-9b88-99da98bf1e54")]
+        public string DropDownItem
+        {
+            get { return repo.DropDownItem; }
+            set { repo.DropDownItem = value; }
         }
 
 #endregion
@@ -102,7 +99,16 @@ namespace AutomatedSystemTests
 
             Init();
 
-            ValidateCustomAssessmentValueCell(repo.RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.DetailedAssessmentValueRowNthInfo, expectedCustomAssessmentValueAtCell);
+            Report.Log(ReportLevel.Info, "Invoke action", "Invoking Focus() on item 'RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.CustomAsssessmentTypeRowNth'.", repo.RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.CustomAsssessmentTypeRowNthInfo, new RecordItemIndex(0));
+            repo.RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.CustomAsssessmentTypeRowNth.Focus();
+            Delay.Milliseconds(0);
+            
+            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.CustomAsssessmentTypeRowNth' at CenterRight.", repo.RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.CustomAsssessmentTypeRowNthInfo, new RecordItemIndex(1));
+            repo.RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.CustomAsssessmentTypeRowNth.Click(Location.CenterRight);
+            Delay.Milliseconds(0);
+            
+            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'DropDownMenuItemList.DropDownItem' at Center.", repo.DropDownMenuItemList.DropDownItemInfo, new RecordItemIndex(2));
+            repo.DropDownMenuItemList.DropDownItem.Click();
             Delay.Milliseconds(0);
             
         }
