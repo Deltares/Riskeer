@@ -62,7 +62,7 @@ namespace Riskeer.Piping.Plugin.Test.ExportInfos
                 Gui = gui
             };
 
-            info = plugin.GetExportInfos().First(ei => ei.DataType == typeof(PipingCalculationScenarioContext));
+            info = plugin.GetExportInfos().First(ei => ei.DataType == typeof(SemiProbabilisticPipingCalculationScenarioContext));
         }
 
         [TearDown]
@@ -92,7 +92,7 @@ namespace Riskeer.Piping.Plugin.Test.ExportInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var context = new PipingCalculationScenarioContext(new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput()),
+            var context = new SemiProbabilisticPipingCalculationScenarioContext(new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput()),
                                                                new CalculationGroup(),
                                                                Enumerable.Empty<PipingSurfaceLine>(),
                                                                Enumerable.Empty<PipingStochasticSoilModel>(),
@@ -113,7 +113,7 @@ namespace Riskeer.Piping.Plugin.Test.ExportInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var context = new PipingCalculationScenarioContext(new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput()),
+            var context = new SemiProbabilisticPipingCalculationScenarioContext(new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput()),
                                                                new CalculationGroup(),
                                                                Enumerable.Empty<PipingSurfaceLine>(),
                                                                Enumerable.Empty<PipingStochasticSoilModel>(),

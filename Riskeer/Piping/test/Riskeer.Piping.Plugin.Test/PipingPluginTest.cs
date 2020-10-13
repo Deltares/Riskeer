@@ -138,7 +138,7 @@ namespace Riskeer.Piping.Plugin.Test
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(PipingStochasticSoilModelCollectionContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(PipingStochasticSoilModel)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(PipingStochasticSoilProfile)));
-                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(PipingCalculationScenarioContext)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(SemiProbabilisticPipingCalculationScenarioContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(PipingCalculationGroupContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(PipingInputContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(PipingFailureMechanismContext)));
@@ -255,7 +255,7 @@ namespace Riskeer.Piping.Plugin.Test
                 // Assert
                 Assert.AreEqual(2, exportInfos.Length);
                 Assert.IsTrue(exportInfos.Any(tni => tni.DataType == typeof(PipingCalculationGroupContext)));
-                Assert.IsTrue(exportInfos.Any(tni => tni.DataType == typeof(PipingCalculationScenarioContext)));
+                Assert.IsTrue(exportInfos.Any(tni => tni.DataType == typeof(SemiProbabilisticPipingCalculationScenarioContext)));
             }
 
             mocks.VerifyAll();

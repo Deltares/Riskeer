@@ -166,7 +166,7 @@ namespace Riskeer.Piping.Plugin
                 context => context.WrappedData.Children.Any(),
                 GetInquiryHelper());
 
-            yield return RiskeerExportInfoFactory.CreateCalculationConfigurationExportInfo<PipingCalculationScenarioContext>(
+            yield return RiskeerExportInfoFactory.CreateCalculationConfigurationExportInfo<SemiProbabilisticPipingCalculationScenarioContext>(
                 (context, filePath) => new PipingCalculationConfigurationExporter(new[]
                 {
                     context.WrappedData
@@ -287,7 +287,7 @@ namespace Riskeer.Piping.Plugin
                 FailureMechanismEnabledContextMenuStrip,
                 FailureMechanismDisabledContextMenuStrip);
 
-            yield return RiskeerTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<PipingCalculationScenarioContext>(
+            yield return RiskeerTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<SemiProbabilisticPipingCalculationScenarioContext>(
                 SemiProbabilisticCalculationContextChildNodeObjects,
                 SemiProbabilisticCalculationContextContextMenuStrip,
                 SemiProbabilisticCalculationContextOnNodeRemoved);
@@ -491,7 +491,7 @@ namespace Riskeer.Piping.Plugin
 
         private static bool ClosePipingInputViewForData(PipingInputView view, object o)
         {
-            if (o is PipingCalculationScenarioContext pipingCalculationScenarioContext)
+            if (o is SemiProbabilisticPipingCalculationScenarioContext pipingCalculationScenarioContext)
             {
                 return ReferenceEquals(view.Data, pipingCalculationScenarioContext.WrappedData);
             }
@@ -688,7 +688,7 @@ namespace Riskeer.Piping.Plugin
                 switch (item)
                 {
                     case SemiProbabilisticPipingCalculationScenario semiProbabilisticCalculation:
-                        childNodeObjects.Add(new PipingCalculationScenarioContext(semiProbabilisticCalculation,
+                        childNodeObjects.Add(new SemiProbabilisticPipingCalculationScenarioContext(semiProbabilisticCalculation,
                                                                                   nodeData.WrappedData,
                                                                                   nodeData.AvailablePipingSurfaceLines,
                                                                                   nodeData.AvailableStochasticSoilModels,
@@ -928,7 +928,7 @@ namespace Riskeer.Piping.Plugin
 
         #region PipingCalculationScenarioContext TreeNodeInfo
 
-        private static object[] SemiProbabilisticCalculationContextChildNodeObjects(PipingCalculationScenarioContext context)
+        private static object[] SemiProbabilisticCalculationContextChildNodeObjects(SemiProbabilisticPipingCalculationScenarioContext context)
         {
             SemiProbabilisticPipingCalculationScenario pipingCalculationScenario = context.WrappedData;
 
@@ -958,7 +958,7 @@ namespace Riskeer.Piping.Plugin
             return childNodes.ToArray();
         }
 
-        private ContextMenuStrip SemiProbabilisticCalculationContextContextMenuStrip(PipingCalculationScenarioContext nodeData,
+        private ContextMenuStrip SemiProbabilisticCalculationContextContextMenuStrip(SemiProbabilisticPipingCalculationScenarioContext nodeData,
                                                                                      object parentData, TreeViewControl treeViewControl)
         {
             var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
@@ -992,17 +992,17 @@ namespace Riskeer.Piping.Plugin
                           .Build();
         }
 
-        private static void SemiProbabilisticCalculationContextOnNodeRemoved(PipingCalculationScenarioContext context, object parentNodeData)
+        private static void SemiProbabilisticCalculationContextOnNodeRemoved(SemiProbabilisticPipingCalculationScenarioContext context, object parentNodeData)
         {
             CalculationContextOnNodeRemoved(parentNodeData, context.WrappedData);
         }
 
-        private static void Validate(PipingCalculationScenarioContext context)
+        private static void Validate(SemiProbabilisticPipingCalculationScenarioContext context)
         {
             PipingCalculationService.Validate(context.WrappedData, GetNormativeAssessmentLevel(context.AssessmentSection, context.WrappedData));
         }
 
-        private void Calculate(SemiProbabilisticPipingCalculation calculation, PipingCalculationScenarioContext context)
+        private void Calculate(SemiProbabilisticPipingCalculation calculation, SemiProbabilisticPipingCalculationScenarioContext context)
         {
             ActivityProgressDialogRunner.Run(Gui.MainWindow,
                                              PipingCalculationActivityFactory.CreateCalculationActivity(calculation, context.AssessmentSection));

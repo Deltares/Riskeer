@@ -111,7 +111,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
         }
 
         /// <summary>
-        /// Gets the available stochastic soil models on <see cref="PipingCalculationScenarioContext"/>.
+        /// Gets the available stochastic soil models on <see cref="SemiProbabilisticPipingCalculationScenarioContext"/>.
         /// </summary>
         public IEnumerable<PipingStochasticSoilModel> GetAvailableStochasticSoilModels()
         {

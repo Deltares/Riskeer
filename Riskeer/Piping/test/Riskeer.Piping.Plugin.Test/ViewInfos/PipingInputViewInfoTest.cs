@@ -108,7 +108,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             var pipingCalculation = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput());
-            var pipingCalculationScenarioContext = new PipingCalculationScenarioContext(pipingCalculation,
+            var pipingCalculationScenarioContext = new SemiProbabilisticPipingCalculationScenarioContext(pipingCalculation,
                                                                                         new CalculationGroup(),
                                                                                         Enumerable.Empty<PipingSurfaceLine>(),
                                                                                         Enumerable.Empty<PipingStochasticSoilModel>(),
@@ -139,7 +139,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
             var pipingCalculation = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput());
             var calculationToRemove = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput());
 
-            var pipingCalculationScenarioContext = new PipingCalculationScenarioContext(calculationToRemove,
+            var pipingCalculationScenarioContext = new SemiProbabilisticPipingCalculationScenarioContext(calculationToRemove,
                                                                                         new CalculationGroup(),
                                                                                         Enumerable.Empty<PipingSurfaceLine>(),
                                                                                         Enumerable.Empty<PipingStochasticSoilModel>(),
