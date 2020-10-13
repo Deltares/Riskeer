@@ -43,7 +43,7 @@ using Riskeer.Piping.Service.SemiProbabilistic;
 namespace Riskeer.Piping.Service.Test.SemiProbabilistic
 {
     [TestFixture]
-    public class PipingCalculationServiceTest
+    public class SemiProbabilisticPipingCalculationServiceTest
     {
         private const string averagingSoilLayerPropertiesMessage = "Meerdere aaneengesloten deklagen gevonden. De grondeigenschappen worden bepaald door het nemen van een gewogen gemiddelde, mits de standaardafwijkingen en verschuivingen voor alle lagen gelijk zijn.";
         private double testSurfaceLineTopLevel;
@@ -60,7 +60,7 @@ namespace Riskeer.Piping.Service.Test.SemiProbabilistic
         public void Validate_CalculationNull_ThrowArgumentNullException()
         {
             // Call
-            void Call() => PipingCalculationService.Validate(null, RoundedDouble.NaN);
+            void Call() => SemiProbabilisticPipingCalculationService.Validate(null, RoundedDouble.NaN);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -71,7 +71,7 @@ namespace Riskeer.Piping.Service.Test.SemiProbabilistic
         public void Validate_Always_LogStartAndEndOfValidatingInputs()
         {
             // Call
-            void Call() => PipingCalculationService.Validate(testCalculation, AssessmentSectionTestHelper.GetTestAssessmentLevel());
+            void Call() => SemiProbabilisticPipingCalculationService.Validate(testCalculation, AssessmentSectionTestHelper.GetTestAssessmentLevel());
 
             // Assert
             TestHelper.AssertLogMessages(Call, messages =>
@@ -91,7 +91,7 @@ namespace Riskeer.Piping.Service.Test.SemiProbabilistic
             invalidPipingCalculation.Output = output;
 
             // Call
-            bool isValid = PipingCalculationService.Validate(invalidPipingCalculation,
+            bool isValid = SemiProbabilisticPipingCalculationService.Validate(invalidPipingCalculation,
                                                              AssessmentSectionTestHelper.GetTestAssessmentLevel());
 
             // Assert
@@ -107,7 +107,7 @@ namespace Riskeer.Piping.Service.Test.SemiProbabilistic
 
             // Call
             var isValid = false;
-            void Call() => isValid = PipingCalculationService.Validate(calculation, AssessmentSectionTestHelper.GetTestAssessmentLevel());
+            void Call() => isValid = SemiProbabilisticPipingCalculationService.Validate(calculation, AssessmentSectionTestHelper.GetTestAssessmentLevel());
 
             // Assert
             TestHelper.AssertLogMessages(Call, messages =>
@@ -133,7 +133,7 @@ namespace Riskeer.Piping.Service.Test.SemiProbabilistic
 
             // Call
             var isValid = false;
-            void Call() => isValid = PipingCalculationService.Validate(testCalculation, RoundedDouble.NaN);
+            void Call() => isValid = SemiProbabilisticPipingCalculationService.Validate(testCalculation, RoundedDouble.NaN);
 
             // Assert
             TestHelper.AssertLogMessages(Call, messages =>
@@ -160,7 +160,7 @@ namespace Riskeer.Piping.Service.Test.SemiProbabilistic
 
             // Call
             var isValid = false;
-            void Call() => isValid = PipingCalculationService.Validate(testCalculation, AssessmentSectionTestHelper.GetTestAssessmentLevel());
+            void Call() => isValid = SemiProbabilisticPipingCalculationService.Validate(testCalculation, AssessmentSectionTestHelper.GetTestAssessmentLevel());
 
             // Assert
             TestHelper.AssertLogMessages(Call, messages =>
@@ -183,7 +183,7 @@ namespace Riskeer.Piping.Service.Test.SemiProbabilistic
 
             // Call
             var isValid = false;
-            void Call() => isValid = PipingCalculationService.Validate(testCalculation, AssessmentSectionTestHelper.GetTestAssessmentLevel());
+            void Call() => isValid = SemiProbabilisticPipingCalculationService.Validate(testCalculation, AssessmentSectionTestHelper.GetTestAssessmentLevel());
 
             // Assert
             TestHelper.AssertLogMessages(Call, messages =>
@@ -205,7 +205,7 @@ namespace Riskeer.Piping.Service.Test.SemiProbabilistic
 
             // Call
             var isValid = false;
-            void Call() => isValid = PipingCalculationService.Validate(testCalculation, AssessmentSectionTestHelper.GetTestAssessmentLevel());
+            void Call() => isValid = SemiProbabilisticPipingCalculationService.Validate(testCalculation, AssessmentSectionTestHelper.GetTestAssessmentLevel());
 
             // Assert
             TestHelper.AssertLogMessages(Call, messages =>
@@ -229,7 +229,7 @@ namespace Riskeer.Piping.Service.Test.SemiProbabilistic
 
             // Call
             var isValid = false;
-            void Call() => isValid = PipingCalculationService.Validate(testCalculation, AssessmentSectionTestHelper.GetTestAssessmentLevel());
+            void Call() => isValid = SemiProbabilisticPipingCalculationService.Validate(testCalculation, AssessmentSectionTestHelper.GetTestAssessmentLevel());
 
             // Assert
             TestHelper.AssertLogMessages(Call, messages =>
@@ -259,7 +259,7 @@ namespace Riskeer.Piping.Service.Test.SemiProbabilistic
 
             // Call
             var isValid = false;
-            void Call() => isValid = PipingCalculationService.Validate(testCalculation, AssessmentSectionTestHelper.GetTestAssessmentLevel());
+            void Call() => isValid = SemiProbabilisticPipingCalculationService.Validate(testCalculation, AssessmentSectionTestHelper.GetTestAssessmentLevel());
 
             // Assert
             TestHelper.AssertLogMessages(Call, messages =>
@@ -283,7 +283,7 @@ namespace Riskeer.Piping.Service.Test.SemiProbabilistic
             var isValid = false;
 
             // Call
-            void Call() => isValid = PipingCalculationService.Validate(testCalculation, AssessmentSectionTestHelper.GetTestAssessmentLevel());
+            void Call() => isValid = SemiProbabilisticPipingCalculationService.Validate(testCalculation, AssessmentSectionTestHelper.GetTestAssessmentLevel());
 
             // Assert
             TestHelper.AssertLogMessages(Call, messages =>
@@ -338,7 +338,7 @@ namespace Riskeer.Piping.Service.Test.SemiProbabilistic
             var isValid = false;
 
             // Call
-            void Call() => isValid = PipingCalculationService.Validate(testCalculation, AssessmentSectionTestHelper.GetTestAssessmentLevel());
+            void Call() => isValid = SemiProbabilisticPipingCalculationService.Validate(testCalculation, AssessmentSectionTestHelper.GetTestAssessmentLevel());
 
             // Assert
             TestHelper.AssertLogMessages(Call, messages =>
@@ -372,7 +372,7 @@ namespace Riskeer.Piping.Service.Test.SemiProbabilistic
             var isValid = false;
 
             // Call
-            void Call() => isValid = PipingCalculationService.Validate(testCalculation, AssessmentSectionTestHelper.GetTestAssessmentLevel());
+            void Call() => isValid = SemiProbabilisticPipingCalculationService.Validate(testCalculation, AssessmentSectionTestHelper.GetTestAssessmentLevel());
 
             // Assert
             TestHelper.AssertLogMessages(Call, messages =>
@@ -419,7 +419,7 @@ namespace Riskeer.Piping.Service.Test.SemiProbabilistic
             var isValid = false;
 
             // Call
-            void Call() => isValid = PipingCalculationService.Validate(testCalculation, AssessmentSectionTestHelper.GetTestAssessmentLevel());
+            void Call() => isValid = SemiProbabilisticPipingCalculationService.Validate(testCalculation, AssessmentSectionTestHelper.GetTestAssessmentLevel());
 
             // Assert
             TestHelper.AssertLogMessages(Call, messages =>
@@ -469,7 +469,7 @@ namespace Riskeer.Piping.Service.Test.SemiProbabilistic
             var isValid = false;
 
             // Call
-            void Call() => isValid = PipingCalculationService.Validate(testCalculation, AssessmentSectionTestHelper.GetTestAssessmentLevel());
+            void Call() => isValid = SemiProbabilisticPipingCalculationService.Validate(testCalculation, AssessmentSectionTestHelper.GetTestAssessmentLevel());
 
             // Assert
             TestHelper.AssertLogMessages(Call, messages =>
@@ -542,7 +542,7 @@ namespace Riskeer.Piping.Service.Test.SemiProbabilistic
             var isValid = false;
 
             // Call
-            void Call() => isValid = PipingCalculationService.Validate(testCalculation, AssessmentSectionTestHelper.GetTestAssessmentLevel());
+            void Call() => isValid = SemiProbabilisticPipingCalculationService.Validate(testCalculation, AssessmentSectionTestHelper.GetTestAssessmentLevel());
 
             // Assert
             TestHelper.AssertLogMessages(Call, messages =>
@@ -607,7 +607,7 @@ namespace Riskeer.Piping.Service.Test.SemiProbabilistic
             var isValid = false;
 
             // Call
-            void Call() => isValid = PipingCalculationService.Validate(testCalculation, AssessmentSectionTestHelper.GetTestAssessmentLevel());
+            void Call() => isValid = SemiProbabilisticPipingCalculationService.Validate(testCalculation, AssessmentSectionTestHelper.GetTestAssessmentLevel());
 
             // Assert
             TestHelper.AssertLogMessages(Call, messages =>
@@ -665,7 +665,7 @@ namespace Riskeer.Piping.Service.Test.SemiProbabilistic
             var isValid = false;
 
             // Call
-            void Call() => isValid = PipingCalculationService.Validate(testCalculation, AssessmentSectionTestHelper.GetTestAssessmentLevel());
+            void Call() => isValid = SemiProbabilisticPipingCalculationService.Validate(testCalculation, AssessmentSectionTestHelper.GetTestAssessmentLevel());
 
             // Assert
             TestHelper.AssertLogMessages(Call, messages =>
@@ -730,7 +730,7 @@ namespace Riskeer.Piping.Service.Test.SemiProbabilistic
             var isValid = false;
 
             // Call
-            void Call() => isValid = PipingCalculationService.Validate(testCalculation, AssessmentSectionTestHelper.GetTestAssessmentLevel());
+            void Call() => isValid = SemiProbabilisticPipingCalculationService.Validate(testCalculation, AssessmentSectionTestHelper.GetTestAssessmentLevel());
 
             // Assert
             TestHelper.AssertLogMessages(Call, messages =>
@@ -799,7 +799,7 @@ namespace Riskeer.Piping.Service.Test.SemiProbabilistic
             var isValid = false;
 
             // Call
-            void Call() => isValid = PipingCalculationService.Validate(testCalculation, AssessmentSectionTestHelper.GetTestAssessmentLevel());
+            void Call() => isValid = SemiProbabilisticPipingCalculationService.Validate(testCalculation, AssessmentSectionTestHelper.GetTestAssessmentLevel());
 
             // Assert
             TestHelper.AssertLogMessages(Call, messages =>
@@ -854,7 +854,7 @@ namespace Riskeer.Piping.Service.Test.SemiProbabilistic
             var isValid = false;
 
             // Call
-            void Call() => isValid = PipingCalculationService.Validate(testCalculation, AssessmentSectionTestHelper.GetTestAssessmentLevel());
+            void Call() => isValid = SemiProbabilisticPipingCalculationService.Validate(testCalculation, AssessmentSectionTestHelper.GetTestAssessmentLevel());
 
             // Assert
             TestHelper.AssertLogMessages(Call, messages =>
@@ -921,7 +921,7 @@ namespace Riskeer.Piping.Service.Test.SemiProbabilistic
             testCalculation.InputParameters.StochasticSoilProfile = new PipingStochasticSoilProfile(0.0, profile);
 
             // Call
-            void Call() => PipingCalculationService.Validate(testCalculation, AssessmentSectionTestHelper.GetTestAssessmentLevel());
+            void Call() => SemiProbabilisticPipingCalculationService.Validate(testCalculation, AssessmentSectionTestHelper.GetTestAssessmentLevel());
 
             // Assert
             TestHelper.AssertLogMessages(Call, messages =>
@@ -941,7 +941,7 @@ namespace Riskeer.Piping.Service.Test.SemiProbabilistic
         public void Calculate_CalculationNull_ThrowArgumentNullException()
         {
             // Call
-            void Call() => PipingCalculationService.Calculate(null, RoundedDouble.NaN);
+            void Call() => SemiProbabilisticPipingCalculationService.Calculate(null, RoundedDouble.NaN);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -964,7 +964,7 @@ namespace Riskeer.Piping.Service.Test.SemiProbabilistic
                 {
                     try
                     {
-                        PipingCalculationService.Calculate(testCalculation, AssessmentSectionTestHelper.GetTestAssessmentLevel());
+                        SemiProbabilisticPipingCalculationService.Calculate(testCalculation, AssessmentSectionTestHelper.GetTestAssessmentLevel());
                     }
                     catch (Exception)
                     {
@@ -1001,7 +1001,7 @@ namespace Riskeer.Piping.Service.Test.SemiProbabilistic
             {
                 using (new PipingSubCalculatorFactoryConfig())
                 {
-                    PipingCalculationService.Calculate(testCalculation, AssessmentSectionTestHelper.GetTestAssessmentLevel());
+                    SemiProbabilisticPipingCalculationService.Calculate(testCalculation, AssessmentSectionTestHelper.GetTestAssessmentLevel());
                 }
             }
 
@@ -1026,7 +1026,7 @@ namespace Riskeer.Piping.Service.Test.SemiProbabilistic
             // Call
             using (new PipingSubCalculatorFactoryConfig())
             {
-                PipingCalculationService.Calculate(testCalculation, normativeAssessmentLevel);
+                SemiProbabilisticPipingCalculationService.Calculate(testCalculation, normativeAssessmentLevel);
             }
 
             // Assert
@@ -1050,7 +1050,7 @@ namespace Riskeer.Piping.Service.Test.SemiProbabilistic
             // Call
             using (new PipingSubCalculatorFactoryConfig())
             {
-                PipingCalculationService.Calculate(testCalculation, normativeAssessmentLevel);
+                SemiProbabilisticPipingCalculationService.Calculate(testCalculation, normativeAssessmentLevel);
             }
 
             // Assert
@@ -1072,7 +1072,7 @@ namespace Riskeer.Piping.Service.Test.SemiProbabilistic
             using (new PipingSubCalculatorFactoryConfig())
             {
                 // Call
-                PipingCalculationService.Validate(testCalculation, normativeAssessmentLevel);
+                SemiProbabilisticPipingCalculationService.Validate(testCalculation, normativeAssessmentLevel);
 
                 // Assert
                 RoundedDouble expectedAssessmentLevel = useAssessmentLevelManualInput
@@ -1095,7 +1095,7 @@ namespace Riskeer.Piping.Service.Test.SemiProbabilistic
             using (new PipingSubCalculatorFactoryConfig())
             {
                 // Call
-                PipingCalculationService.Calculate(testCalculation, normativeAssessmentLevel);
+                SemiProbabilisticPipingCalculationService.Calculate(testCalculation, normativeAssessmentLevel);
 
                 // Assert
                 RoundedDouble expectedAssessmentLevel = useAssessmentLevelManualInput

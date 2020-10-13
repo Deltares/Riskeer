@@ -118,7 +118,7 @@ namespace Riskeer.Piping.Data.TestUtil.Test
             SemiProbabilisticPipingCalculationScenario scenario = SemiProbabilisticPipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithInvalidInput();
 
             // Assert
-            Assert.IsFalse(PipingCalculationService.Validate(scenario, (RoundedDouble) 1.1));
+            Assert.IsFalse(SemiProbabilisticPipingCalculationService.Validate(scenario, (RoundedDouble) 1.1));
         }
 
         [Test]
@@ -143,7 +143,7 @@ namespace Riskeer.Piping.Data.TestUtil.Test
 
             // Assert
             Assert.AreSame(hydraulicBoundaryLocation, scenario.InputParameters.HydraulicBoundaryLocation);
-            Assert.IsTrue(PipingCalculationService.Validate(scenario, (RoundedDouble) 1.1));
+            Assert.IsTrue(SemiProbabilisticPipingCalculationService.Validate(scenario, (RoundedDouble) 1.1));
         }
     }
 }

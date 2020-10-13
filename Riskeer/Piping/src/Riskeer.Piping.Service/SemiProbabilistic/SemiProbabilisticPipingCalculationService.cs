@@ -40,7 +40,7 @@ namespace Riskeer.Piping.Service.SemiProbabilistic
     /// This class is responsible for invoking operations on the <see cref="PipingCalculator"/>. Error and status information is 
     /// logged during the execution of the operation.
     /// </summary>
-    public static class PipingCalculationService
+    public static class SemiProbabilisticPipingCalculationService
     {
         /// <summary>
         /// Performs validation over the values on the given <paramref name="calculation"/>. Error and status information is logged during

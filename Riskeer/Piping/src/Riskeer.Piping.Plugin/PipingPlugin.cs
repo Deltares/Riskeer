@@ -1000,7 +1000,7 @@ namespace Riskeer.Piping.Plugin
 
         private static void Validate(SemiProbabilisticPipingCalculationScenarioContext context)
         {
-            PipingCalculationService.Validate(context.WrappedData, GetNormativeAssessmentLevel(context.AssessmentSection, context.WrappedData));
+            SemiProbabilisticPipingCalculationService.Validate(context.WrappedData, GetNormativeAssessmentLevel(context.AssessmentSection, context.WrappedData));
         }
 
         private void Calculate(SemiProbabilisticPipingCalculation calculation, SemiProbabilisticPipingCalculationScenarioContext context)
@@ -1141,7 +1141,7 @@ namespace Riskeer.Piping.Plugin
         {
             foreach (SemiProbabilisticPipingCalculation calculation in pipingCalculations.OfType<SemiProbabilisticPipingCalculation>())
             {
-                PipingCalculationService.Validate(calculation, GetNormativeAssessmentLevel(assessmentSection, calculation));
+                SemiProbabilisticPipingCalculationService.Validate(calculation, GetNormativeAssessmentLevel(assessmentSection, calculation));
             }
         }
 

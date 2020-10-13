@@ -30,19 +30,19 @@ namespace Riskeer.Piping.Service.SemiProbabilistic
     /// <summary>
     /// <see cref="CalculatableActivity"/> for running a semi-probabilistic piping calculation.
     /// </summary>
-    internal class PipingCalculationActivity : CalculatableActivity
+    internal class SemiProbabilisticPipingCalculationActivity : CalculatableActivity
     {
         private readonly SemiProbabilisticPipingCalculation calculation;
         private readonly RoundedDouble normativeAssessmentLevel;
 
         /// <summary>
-        /// Creates a new instance of <see cref="PipingCalculationActivity"/>.
+        /// Creates a new instance of <see cref="SemiProbabilisticPipingCalculationActivity"/>.
         /// </summary>
         /// <param name="calculation">The piping calculation to perform.</param>
         /// <param name="normativeAssessmentLevel">The normative assessment level to use in case the manual assessment level is not applicable.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculation"/> is <c>null</c>.</exception>
-        public PipingCalculationActivity(SemiProbabilisticPipingCalculation calculation,
-                                         RoundedDouble normativeAssessmentLevel)
+        public SemiProbabilisticPipingCalculationActivity(SemiProbabilisticPipingCalculation calculation,
+                                                          RoundedDouble normativeAssessmentLevel)
             : base(calculation)
         {
             this.calculation = calculation;
@@ -53,12 +53,12 @@ namespace Riskeer.Piping.Service.SemiProbabilistic
 
         protected override void PerformCalculation()
         {
-            PipingCalculationService.Calculate(calculation, normativeAssessmentLevel);
+            SemiProbabilisticPipingCalculationService.Calculate(calculation, normativeAssessmentLevel);
         }
 
         protected override bool Validate()
         {
-            return PipingCalculationService.Validate(calculation, normativeAssessmentLevel);
+            return SemiProbabilisticPipingCalculationService.Validate(calculation, normativeAssessmentLevel);
         }
 
         protected override void OnCancel()

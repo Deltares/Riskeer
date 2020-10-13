@@ -104,7 +104,7 @@ namespace Riskeer.Piping.Service.Test
             CalculatableActivity activity = PipingCalculationActivityFactory.CreateCalculationActivity(calculation, assessmentSection);
 
             // Assert
-            Assert.IsInstanceOf<PipingCalculationActivity>(activity);
+            Assert.IsInstanceOf<SemiProbabilisticPipingCalculationActivity>(activity);
             AssertPipingCalculationActivity(activity, calculation, hydraulicBoundaryLocationCalculation);
         }
 
@@ -181,7 +181,7 @@ namespace Riskeer.Piping.Service.Test
                 calculations, assessmentSection);
 
             // Assert
-            CollectionAssert.AllItemsAreInstancesOfType(activities, typeof(PipingCalculationActivity));
+            CollectionAssert.AllItemsAreInstancesOfType(activities, typeof(SemiProbabilisticPipingCalculationActivity));
             Assert.AreEqual(2, activities.Count());
 
             AssertPipingCalculationActivity(activities.First(), calculation1, hydraulicBoundaryLocationCalculation1);
@@ -259,7 +259,7 @@ namespace Riskeer.Piping.Service.Test
                 failureMechanism, assessmentSection);
 
             // Assert
-            CollectionAssert.AllItemsAreInstancesOfType(activities, typeof(PipingCalculationActivity));
+            CollectionAssert.AllItemsAreInstancesOfType(activities, typeof(SemiProbabilisticPipingCalculationActivity));
             Assert.AreEqual(2, activities.Count());
 
             AssertPipingCalculationActivity(activities.First(), calculation1, hydraulicBoundaryLocationCalculation1);

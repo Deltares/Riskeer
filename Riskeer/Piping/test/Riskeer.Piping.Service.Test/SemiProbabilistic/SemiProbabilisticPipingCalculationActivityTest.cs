@@ -39,7 +39,7 @@ using Riskeer.Piping.Service.SemiProbabilistic;
 namespace Riskeer.Piping.Service.Test.SemiProbabilistic
 {
     [TestFixture]
-    public class PipingCalculationActivityTest
+    public class SemiProbabilisticPipingCalculationActivityTest
     {
         [Test]
         public void Constructor_ExpectedValues()
@@ -48,8 +48,8 @@ namespace Riskeer.Piping.Service.Test.SemiProbabilistic
             var calculation = new SemiProbabilisticPipingCalculation(new GeneralPipingInput());
 
             // Call
-            var activity = new PipingCalculationActivity(calculation,
-                                                         RoundedDouble.NaN);
+            var activity = new SemiProbabilisticPipingCalculationActivity(calculation,
+                                                                          RoundedDouble.NaN);
 
             // Assert
             Assert.IsInstanceOf<CalculatableActivity>(activity);
@@ -64,8 +64,8 @@ namespace Riskeer.Piping.Service.Test.SemiProbabilistic
             // Setup
             SemiProbabilisticPipingCalculation invalidPipingCalculation = SemiProbabilisticPipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithInvalidInput();
 
-            var activity = new PipingCalculationActivity(invalidPipingCalculation,
-                                                         AssessmentSectionTestHelper.GetTestAssessmentLevel());
+            var activity = new SemiProbabilisticPipingCalculationActivity(invalidPipingCalculation,
+                                                                          AssessmentSectionTestHelper.GetTestAssessmentLevel());
 
             // Call
             Action call = () => activity.Run();
@@ -95,8 +95,8 @@ namespace Riskeer.Piping.Service.Test.SemiProbabilistic
             // Setup
             SemiProbabilisticPipingCalculation validPipingCalculation = SemiProbabilisticPipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput(new TestHydraulicBoundaryLocation());
 
-            var activity = new PipingCalculationActivity(validPipingCalculation,
-                                                         AssessmentSectionTestHelper.GetTestAssessmentLevel());
+            var activity = new SemiProbabilisticPipingCalculationActivity(validPipingCalculation,
+                                                                          AssessmentSectionTestHelper.GetTestAssessmentLevel());
 
             // Call
             Action call = () => activity.Run();
@@ -129,8 +129,8 @@ namespace Riskeer.Piping.Service.Test.SemiProbabilistic
             validPipingCalculation.Output = null;
             validPipingCalculation.Attach(observer);
 
-            var activity = new PipingCalculationActivity(validPipingCalculation,
-                                                         AssessmentSectionTestHelper.GetTestAssessmentLevel());
+            var activity = new SemiProbabilisticPipingCalculationActivity(validPipingCalculation,
+                                                                          AssessmentSectionTestHelper.GetTestAssessmentLevel());
 
             activity.Run();
 
