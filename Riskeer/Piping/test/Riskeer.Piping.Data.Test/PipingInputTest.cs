@@ -98,10 +98,6 @@ namespace Riskeer.Piping.Data.Test
             Assert.AreEqual(2, inputParameters.ExitPointL.NumberOfDecimalPlaces);
             Assert.IsNaN(inputParameters.EntryPointL);
             Assert.AreEqual(2, inputParameters.EntryPointL.NumberOfDecimalPlaces);
-
-            Assert.IsNaN(inputParameters.AssessmentLevel);
-            Assert.AreEqual(2, inputParameters.AssessmentLevel.NumberOfDecimalPlaces);
-            Assert.IsFalse(inputParameters.UseAssessmentLevelManualInput);
         }
 
         [Test]
@@ -584,23 +580,6 @@ namespace Riskeer.Piping.Data.Test
 
             // Assert
             DistributionTestHelper.AssertDistributionCorrectlySet(input.DampingFactorExit, distributionToSet, expectedDistribution);
-        }
-
-        [Test]
-        public void AssessmentLevel_SetToNew_ValueIsRounded()
-        {
-            // Setup
-            const double assessmentLevel = 1.111111;
-            var input = new PipingInput(new GeneralPipingInput());
-
-            int originalNumberOfDecimalPlaces = input.AssessmentLevel.NumberOfDecimalPlaces;
-
-            // Call
-            input.AssessmentLevel = (RoundedDouble) assessmentLevel;
-
-            // Assert
-            Assert.AreEqual(originalNumberOfDecimalPlaces, input.AssessmentLevel.NumberOfDecimalPlaces);
-            Assert.AreEqual(assessmentLevel, input.AssessmentLevel, input.AssessmentLevel.GetAccuracy());
         }
 
         [Test]
