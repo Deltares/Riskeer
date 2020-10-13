@@ -441,8 +441,6 @@ namespace Riskeer.Piping.Data.TestUtil
             input.StochasticSoilProfile = new PipingStochasticSoilProfile(random.NextDouble(),
                                                                           PipingSoilProfileTestFactory.CreatePipingSoilProfile());
             input.HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
-            input.UseAssessmentLevelManualInput = random.NextBoolean();
-            input.AssessmentLevel = random.NextRoundedDouble();
             input.PhreaticLevelExit = new NormalDistribution
             {
                 Mean = random.NextRoundedDouble(),
@@ -453,6 +451,20 @@ namespace Riskeer.Piping.Data.TestUtil
                 Mean = random.NextRoundedDouble(),
                 StandardDeviation = random.NextRoundedDouble()
             };
+        }
+
+        /// <summary>
+        /// This method sets random data values to all properties of <paramref name="input"/>.
+        /// </summary>
+        /// <param name="input">The input to set the random data values to.</param>
+        public static void SetRandomDataToPipingInput(SemiProbabilisticPipingInput input)
+        {
+            var random = new Random(21);
+
+            SetRandomDataToPipingInput((PipingInput) input);
+
+            input.UseAssessmentLevelManualInput = random.NextBoolean();
+            input.AssessmentLevel = random.NextRoundedDouble();
         }
 
         /// <summary>
