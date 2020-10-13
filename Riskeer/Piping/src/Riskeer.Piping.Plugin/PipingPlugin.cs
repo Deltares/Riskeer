@@ -924,7 +924,7 @@ namespace Riskeer.Piping.Plugin
 
             SemiProbabilisticPipingCalculation calculation = nodeData.WrappedData;
 
-            StrictContextMenuItem updateEntryAndExitPoint = CreateUpdateEntryAndExitPointItem(nodeData);
+            StrictContextMenuItem updateEntryAndExitPoint = CreateUpdateEntryAndExitPointItem(calculation);
 
             return builder.AddExportItem()
                           .AddSeparator()
@@ -951,53 +951,9 @@ namespace Riskeer.Piping.Plugin
                           .Build();
         }
 
-        private StrictContextMenuItem CreateUpdateEntryAndExitPointItem(PipingCalculationScenarioContext context)
+        private static void SemiProbabilisticCalculationContextOnNodeRemoved(PipingCalculationScenarioContext context, object parentNodeData)
         {
-            var contextMenuEnabled = true;
-            string toolTipMessage = Resources.PipingPlugin_CreateUpdateEntryAndExitPointItem_Update_calculation_with_characteristic_points_ToolTip;
-            if (context.WrappedData.InputParameters.SurfaceLine == null)
-            {
-                contextMenuEnabled = false;
-                toolTipMessage = Resources.PipingPlugin_CreateUpdateEntryAndExitPointItem_Update_calculation_no_surface_line_ToolTip;
-            }
-            else if (context.WrappedData.InputParameters.IsEntryAndExitPointInputSynchronized)
-            {
-                contextMenuEnabled = false;
-                toolTipMessage = RiskeerCommonFormsResources.CalculationItem_No_changes_to_update_ToolTip;
-            }
-
-            return new StrictContextMenuItem(
-                Resources.PipingPlugin_CreateUpdateEntryAndExitPointItem_Update_entry_and_exit_point,
-                toolTipMessage,
-                RiskeerCommonFormsResources.UpdateItemIcon,
-                (o, args) => UpdatedSurfaceLineDependentDataOfCalculation(context.WrappedData))
-            {
-                Enabled = contextMenuEnabled
-            };
-        }
-
-        private void UpdatedSurfaceLineDependentDataOfCalculation(IPipingCalculation<PipingInput, PipingOutput> scenario)
-        {
-            string message = RiskeerCommonFormsResources.VerifyUpdate_Confirm_calculation_output_cleared;
-            if (VerifyEntryAndExitPointUpdates(new[]
-            {
-                scenario
-            }, message))
-            {
-                UpdateSurfaceLineDependentData(scenario);
-            }
-        }
-
-        private static void SemiProbabilisticCalculationContextOnNodeRemoved(PipingCalculationScenarioContext pipingCalculationScenarioContext, object parentNodeData)
-        {
-            if (parentNodeData is PipingCalculationGroupContext calculationGroupContext)
-            {
-                bool successfullyRemovedData = calculationGroupContext.WrappedData.Children.Remove(pipingCalculationScenarioContext.WrappedData);
-                if (successfullyRemovedData)
-                {
-                    calculationGroupContext.NotifyObservers();
-                }
-            }
+            CalculationContextOnNodeRemoved(parentNodeData, context.WrappedData);
         }
 
         private static void Validate(PipingCalculationScenarioContext context)
@@ -1052,7 +1008,7 @@ namespace Riskeer.Piping.Plugin
 
             ProbabilisticPipingCalculation calculation = nodeData.WrappedData;
 
-            StrictContextMenuItem updateEntryAndExitPoint = CreateUpdateEntryAndExitPointItem(nodeData);
+            StrictContextMenuItem updateEntryAndExitPoint = CreateUpdateEntryAndExitPointItem(calculation);
 
             return builder.AddExportItem()
                           .AddSeparator()
@@ -1079,16 +1035,27 @@ namespace Riskeer.Piping.Plugin
                           .Build();
         }
 
-        private StrictContextMenuItem CreateUpdateEntryAndExitPointItem(ProbabilisticPipingCalculationContext context)
+        private static void ProbabilisticCalculationContextOnNodeRemoved(ProbabilisticPipingCalculationContext calculationContext, object parentNodeData)
+        {
+            CalculationContextOnNodeRemoved(parentNodeData, calculationContext.WrappedData);
+        }
+
+        private static void Validate(ProbabilisticPipingCalculationContext context) {}
+
+        private static void Calculate(ProbabilisticPipingCalculation calculation, ProbabilisticPipingCalculationContext context) {}
+
+        #endregion
+        
+        private StrictContextMenuItem CreateUpdateEntryAndExitPointItem(IPipingCalculation<PipingInput, PipingOutput> calculation)
         {
             var contextMenuEnabled = true;
             string toolTipMessage = Resources.PipingPlugin_CreateUpdateEntryAndExitPointItem_Update_calculation_with_characteristic_points_ToolTip;
-            if (context.WrappedData.InputParameters.SurfaceLine == null)
+            if (calculation.InputParameters.SurfaceLine == null)
             {
                 contextMenuEnabled = false;
                 toolTipMessage = Resources.PipingPlugin_CreateUpdateEntryAndExitPointItem_Update_calculation_no_surface_line_ToolTip;
             }
-            else if (context.WrappedData.InputParameters.IsEntryAndExitPointInputSynchronized)
+            else if (calculation.InputParameters.IsEntryAndExitPointInputSynchronized)
             {
                 contextMenuEnabled = false;
                 toolTipMessage = RiskeerCommonFormsResources.CalculationItem_No_changes_to_update_ToolTip;
@@ -1098,13 +1065,13 @@ namespace Riskeer.Piping.Plugin
                 Resources.PipingPlugin_CreateUpdateEntryAndExitPointItem_Update_entry_and_exit_point,
                 toolTipMessage,
                 RiskeerCommonFormsResources.UpdateItemIcon,
-                (o, args) => UpdatedSurfaceLineDependentDataOfCalculation(context.WrappedData))
+                (o, args) => UpdatedSurfaceLineDependentDataOfCalculation(calculation))
             {
                 Enabled = contextMenuEnabled
             };
         }
-
-        private void UpdatedSurfaceLineDependentDataOfCalculation(IPipingCalculation<ProbabilisticPipingInput, PipingOutput> calculation)
+        
+        private void UpdatedSurfaceLineDependentDataOfCalculation(IPipingCalculation<PipingInput, PipingOutput> calculation)
         {
             string message = RiskeerCommonFormsResources.VerifyUpdate_Confirm_calculation_output_cleared;
             if (VerifyEntryAndExitPointUpdates(new[]
@@ -1115,24 +1082,18 @@ namespace Riskeer.Piping.Plugin
                 UpdateSurfaceLineDependentData(calculation);
             }
         }
-
-        private static void ProbabilisticCalculationContextOnNodeRemoved(ProbabilisticPipingCalculationContext calculationContext, object parentNodeData)
+        
+        private static void CalculationContextOnNodeRemoved(object parentNodeData, IPipingCalculation<PipingInput, PipingOutput> calculation)
         {
             if (parentNodeData is PipingCalculationGroupContext calculationGroupContext)
             {
-                bool successfullyRemovedData = calculationGroupContext.WrappedData.Children.Remove(calculationContext.WrappedData);
+                bool successfullyRemovedData = calculationGroupContext.WrappedData.Children.Remove(calculation);
                 if (successfullyRemovedData)
                 {
                     calculationGroupContext.NotifyObservers();
                 }
             }
         }
-
-        private static void Validate(ProbabilisticPipingCalculationContext context) {}
-
-        private static void Calculate(ProbabilisticPipingCalculation calculation, ProbabilisticPipingCalculationContext context) {}
-
-        #endregion
 
         private static void ValidateAll(IEnumerable<IPipingCalculation<PipingInput, PipingOutput>> pipingCalculations, IAssessmentSection assessmentSection)
         {
@@ -1148,16 +1109,16 @@ namespace Riskeer.Piping.Plugin
             return !changeHandler.RequireConfirmation() || changeHandler.InquireConfirmation();
         }
 
-        private static void UpdateSurfaceLineDependentData(ICalculation<PipingInput> scenario)
+        private static void UpdateSurfaceLineDependentData(ICalculation<PipingInput> calculation)
         {
-            scenario.InputParameters.SynchronizeEntryAndExitPointInput();
+            calculation.InputParameters.SynchronizeEntryAndExitPointInput();
 
             var affectedObjects = new List<IObservable>
             {
-                scenario.InputParameters
+                calculation.InputParameters
             };
 
-            affectedObjects.AddRange(RiskeerCommonDataSynchronizationService.ClearCalculationOutput(scenario));
+            affectedObjects.AddRange(RiskeerCommonDataSynchronizationService.ClearCalculationOutput(calculation));
 
             foreach (IObservable affectedObject in affectedObjects)
             {
