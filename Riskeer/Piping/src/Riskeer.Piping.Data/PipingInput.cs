@@ -45,7 +45,6 @@ namespace Riskeer.Piping.Data
         private RoundedDouble exitPointL;
         private RoundedDouble entryPointL;
         private PipingSurfaceLine surfaceLine;
-        private RoundedDouble assessmentLevel;
 
         /// <summary>
         /// Creates a new instance of <see cref="PipingInput"/>.
@@ -75,8 +74,6 @@ namespace Riskeer.Piping.Data
                 Mean = (RoundedDouble) 0.7,
                 StandardDeviation = (RoundedDouble) 0.1
             };
-
-            assessmentLevel = new RoundedDouble(2, double.NaN);
         }
 
         /// <summary>
@@ -184,11 +181,6 @@ namespace Riskeer.Piping.Data
         public PipingStochasticSoilProfile StochasticSoilProfile { get; set; }
 
         /// <summary>
-        /// Gets or sets whether the assessment level is manual input for the calculation.
-        /// </summary>
-        public bool UseAssessmentLevelManualInput { get; set; }
-
-        /// <summary>
         /// Gets the value <c>true</c> if the entry point and exit point of the
         /// instance of <see cref="PipingInput"/> match the entry point and
         /// exit point of <see cref="SurfaceLine"/>; or <c>false</c> if this is
@@ -209,23 +201,6 @@ namespace Riskeer.Piping.Data
 
                 return Math.Abs(newEntryPointL - EntryPointL) < 1e-6
                        && Math.Abs(newExitPointL - ExitPointL) < 1e-6;
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the outside high water level.
-        /// [m+NAP]
-        /// </summary>
-        /// <remarks>This property is only used for calculations when <see cref="UseAssessmentLevelManualInput"/> is <c>true</c>.</remarks>
-        public RoundedDouble AssessmentLevel
-        {
-            get
-            {
-                return assessmentLevel;
-            }
-            set
-            {
-                assessmentLevel = value.ToPrecision(assessmentLevel.NumberOfDecimalPlaces);
             }
         }
 
