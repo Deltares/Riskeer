@@ -20,8 +20,9 @@
 // All rights reserved.
 
 using NUnit.Framework;
+using Riskeer.Piping.Data.Probabilistic;
 
-namespace Riskeer.Piping.Data.Test
+namespace Riskeer.Piping.Data.Test.Probabilistic
 {
     [TestFixture]
     public class ProbabilisticPipingCalculationTest

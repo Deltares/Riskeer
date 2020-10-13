@@ -20,8 +20,9 @@
 // All rights reserved.
 
 using NUnit.Framework;
+using Riskeer.Piping.Data.SemiProbabilistic;
 
-namespace Riskeer.Piping.Data.Test
+namespace Riskeer.Piping.Data.Test.SemiProbabilistic
 {
     [TestFixture]
     public class SemiProbabilisticPipingCalculationTest

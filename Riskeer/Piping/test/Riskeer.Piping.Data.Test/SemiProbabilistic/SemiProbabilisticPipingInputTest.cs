@@ -1,7 +1,4 @@
-﻿using Core.Common.Base.Data;
-using NUnit.Framework;
-using Riskeer.Common.Data.TestUtil;
-
+﻿// Copyright (C) Stichting Deltares 2019. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -22,7 +19,12 @@ using Riskeer.Common.Data.TestUtil;
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Riskeer.Piping.Data.Test
+using Core.Common.Base.Data;
+using NUnit.Framework;
+using Riskeer.Common.Data.TestUtil;
+using Riskeer.Piping.Data.SemiProbabilistic;
+
+namespace Riskeer.Piping.Data.Test.SemiProbabilistic
 {
     [TestFixture]
     public class SemiProbabilisticPipingInputTest

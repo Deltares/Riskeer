@@ -22,41 +22,35 @@
 using System;
 using Core.Common.Base.Data;
 
-namespace Riskeer.Piping.Data
+namespace Riskeer.Piping.Data.Probabilistic
 {
     /// <summary>
-    /// Class for semi-probabilistic piping calculation specific input parameters.
+    /// Class for probabilistic piping calculation specific input parameters.
     /// </summary>
-    public class SemiProbabilisticPipingInput : PipingInput
+    public class ProbabilisticPipingInput : PipingInput
     {
-        private RoundedDouble assessmentLevel;
-
         /// <summary>
-        /// Creates a new instance of <see cref="SemiProbabilisticPipingInput"/>.
+        /// Creates a new instance of <see cref="ProbabilisticPipingInput"/>.
         /// </summary>
         /// <param name="generalInputParameters">General piping calculation parameters that are the same across all
         /// piping calculations.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="generalInputParameters"/>
         /// is <c>null</c>.</exception>
-        public SemiProbabilisticPipingInput(GeneralPipingInput generalInputParameters) : base(generalInputParameters)
-        {
-            assessmentLevel = new RoundedDouble(2, double.NaN);
-        }
-        
-        /// <summary>
-        /// Gets or sets whether the assessment level is manual input for the calculation.
-        /// </summary>
-        public bool UseAssessmentLevelManualInput { get; set; }
+        public ProbabilisticPipingInput(GeneralPipingInput generalInputParameters) : base(generalInputParameters) {}
 
         /// <summary>
-        /// Gets or sets the outside high water level.
-        /// [m+NAP]
+        /// Gets the section name.
         /// </summary>
-        /// <remarks>This property is only used for calculations when <see cref="UseAssessmentLevelManualInput"/> is <c>true</c>.</remarks>
-        public RoundedDouble AssessmentLevel
-        {
-            get => assessmentLevel;
-            set => assessmentLevel = value.ToPrecision(assessmentLevel.NumberOfDecimalPlaces);
-        }
+        public string SectionName { get; }
+
+        /// <summary>
+        /// Gets the section length.
+        /// </summary>
+        public RoundedDouble SectionLength { get; }
+
+        /// <summary>
+        /// Gets or sets if the illustration points should be calculated.
+        /// </summary>
+        public bool ShouldIllustrationPointsBeCalculated { get; set; }
     }
 }

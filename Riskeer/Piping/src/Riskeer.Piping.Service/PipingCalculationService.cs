@@ -26,6 +26,7 @@ using Core.Common.Base.Data;
 using Riskeer.Common.Service;
 using Riskeer.Common.Service.ValidationRules;
 using Riskeer.Piping.Data;
+using Riskeer.Piping.Data.SemiProbabilistic;
 using Riskeer.Piping.KernelWrapper;
 using Riskeer.Piping.KernelWrapper.SubCalculator;
 using Riskeer.Piping.Primitives;

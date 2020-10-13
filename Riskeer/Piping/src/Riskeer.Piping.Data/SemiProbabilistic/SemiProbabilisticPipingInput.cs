@@ -20,21 +20,43 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Base.Data;
 
-namespace Riskeer.Piping.Data
+namespace Riskeer.Piping.Data.SemiProbabilistic
 {
     /// <summary>
-    /// This class holds information about a probabilistic calculation for the <see cref="PipingFailureMechanism"/>.
+    /// Class for semi-probabilistic piping calculation specific input parameters.
     /// </summary>
-    public class ProbabilisticPipingCalculation : PipingCalculation<ProbabilisticPipingInput, PipingOutput>
+    public class SemiProbabilisticPipingInput : PipingInput
     {
+        private RoundedDouble assessmentLevel;
+
         /// <summary>
-        /// Creates a new instance of <see cref="ProbabilisticPipingCalculation"/>.
+        /// Creates a new instance of <see cref="SemiProbabilisticPipingInput"/>.
         /// </summary>
         /// <param name="generalInputParameters">General piping calculation parameters that are the same across all
         /// piping calculations.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="generalInputParameters"/>
         /// is <c>null</c>.</exception>
-        public ProbabilisticPipingCalculation(GeneralPipingInput generalInputParameters) : base(new ProbabilisticPipingInput(generalInputParameters)) {}
+        public SemiProbabilisticPipingInput(GeneralPipingInput generalInputParameters) : base(generalInputParameters)
+        {
+            assessmentLevel = new RoundedDouble(2, double.NaN);
+        }
+        
+        /// <summary>
+        /// Gets or sets whether the assessment level is manual input for the calculation.
+        /// </summary>
+        public bool UseAssessmentLevelManualInput { get; set; }
+
+        /// <summary>
+        /// Gets or sets the outside high water level.
+        /// [m+NAP]
+        /// </summary>
+        /// <remarks>This property is only used for calculations when <see cref="UseAssessmentLevelManualInput"/> is <c>true</c>.</remarks>
+        public RoundedDouble AssessmentLevel
+        {
+            get => assessmentLevel;
+            set => assessmentLevel = value.ToPrecision(assessmentLevel.NumberOfDecimalPlaces);
+        }
     }
 }

@@ -23,6 +23,7 @@ using Core.Common.Data.TestUtil;
 using Core.Common.Util.Reflection;
 using NUnit.Framework;
 using Riskeer.Common.Data.TestUtil;
+using Riskeer.Piping.Data.SemiProbabilistic;
 
 namespace Riskeer.Piping.Data.TestUtil
 {

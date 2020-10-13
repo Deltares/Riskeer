@@ -20,37 +20,21 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Base.Data;
 
-namespace Riskeer.Piping.Data
+namespace Riskeer.Piping.Data.Probabilistic
 {
     /// <summary>
-    /// Class for probabilistic piping calculation specific input parameters.
+    /// This class holds information about a probabilistic calculation for the <see cref="PipingFailureMechanism"/>.
     /// </summary>
-    public class ProbabilisticPipingInput : PipingInput
+    public class ProbabilisticPipingCalculation : PipingCalculation<ProbabilisticPipingInput, PipingOutput>
     {
         /// <summary>
-        /// Creates a new instance of <see cref="ProbabilisticPipingInput"/>.
+        /// Creates a new instance of <see cref="ProbabilisticPipingCalculation"/>.
         /// </summary>
         /// <param name="generalInputParameters">General piping calculation parameters that are the same across all
         /// piping calculations.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="generalInputParameters"/>
         /// is <c>null</c>.</exception>
-        public ProbabilisticPipingInput(GeneralPipingInput generalInputParameters) : base(generalInputParameters) {}
-
-        /// <summary>
-        /// Gets the section name.
-        /// </summary>
-        public string SectionName { get; }
-
-        /// <summary>
-        /// Gets the section length.
-        /// </summary>
-        public RoundedDouble SectionLength { get; }
-
-        /// <summary>
-        /// Gets or sets if the illustration points should be calculated.
-        /// </summary>
-        public bool ShouldIllustrationPointsBeCalculated { get; set; }
+        public ProbabilisticPipingCalculation(GeneralPipingInput generalInputParameters) : base(new ProbabilisticPipingInput(generalInputParameters)) {}
     }
 }
