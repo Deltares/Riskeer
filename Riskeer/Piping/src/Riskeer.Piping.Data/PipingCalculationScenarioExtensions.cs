@@ -23,26 +23,25 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Geometry;
-using Riskeer.Piping.Data.SemiProbabilistic;
 using Riskeer.Piping.Primitives;
 
 namespace Riskeer.Piping.Data
 {
     /// <summary>
-    /// Defines extension methods dealing with <see cref="SemiProbabilisticPipingCalculationScenario"/> instances.
+    /// Defines extension methods dealing with <see cref="IPipingCalculation{TPipingInput,TPipingOutput}"/> instances.
     /// </summary>
     public static class PipingCalculationScenarioExtensions
     {
         /// <summary>
         /// Determines if the surface line of a calculation is intersecting with the section reference line.
         /// </summary>
-        /// <param name="pipingCalculationScenario">The piping calculation scenario containing the surface line.</param>
+        /// <param name="pipingCalculation">The piping calculation containing the surface line.</param>
         /// <param name="lineSegments">The line segments that define the reference line.</param>
         /// <returns><c>true</c> when intersecting. <c>false</c> otherwise.</returns>
         /// <exception cref="InvalidOperationException">Thrown when <paramref name="lineSegments"/> contains no elements.</exception>
-        public static bool IsSurfaceLineIntersectionWithReferenceLineInSection(this SemiProbabilisticPipingCalculationScenario pipingCalculationScenario, IEnumerable<Segment2D> lineSegments)
+        public static bool IsSurfaceLineIntersectionWithReferenceLineInSection(this IPipingCalculation<PipingInput, PipingOutput> pipingCalculation, IEnumerable<Segment2D> lineSegments)
         {
-            PipingSurfaceLine surfaceLine = pipingCalculationScenario?.InputParameters.SurfaceLine;
+            PipingSurfaceLine surfaceLine = pipingCalculation?.InputParameters.SurfaceLine;
             if (surfaceLine == null)
             {
                 return false;
