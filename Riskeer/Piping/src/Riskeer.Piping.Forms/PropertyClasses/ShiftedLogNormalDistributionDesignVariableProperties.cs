@@ -25,7 +25,6 @@ using Core.Common.Gui.Attributes;
 using Core.Common.Util.Attributes;
 using Riskeer.Common.Data.Probabilistics;
 using Riskeer.Common.Forms.PropertyClasses;
-using Riskeer.Piping.Forms.Properties;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.Piping.Forms.PropertyClasses
@@ -58,8 +57,8 @@ namespace Riskeer.Piping.Forms.PropertyClasses
             : base(readOnlyProperties, designVariable, handler) {}
 
         [PropertyOrder(4)]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.Probabilistics_Shift_Symbol))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.Probabilistics_Shift_Description))]
+        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Probabilistics_Shift_Symbol))]
+        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Probabilistics_Shift_Description))]
         public RoundedDouble Shift
         {
             get
@@ -72,7 +71,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses
         {
             return $"{DesignValue} ({RiskeerCommonFormsResources.NormalDistribution_Mean_DisplayName} = {Mean}, " +
                    $"{RiskeerCommonFormsResources.NormalDistribution_StandardDeviation_DisplayName} = {StandardDeviation}, " +
-                   $"{Resources.Probabilistics_Shift_Symbol} = {Shift})";
+                   $"{RiskeerCommonFormsResources.Probabilistics_Shift_Symbol} = {Shift})";
         }
     }
 }

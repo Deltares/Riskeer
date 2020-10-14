@@ -177,11 +177,11 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             Assert.IsInstanceOf<IHasHydraulicBoundaryLocationProperty>(properties);
             Assert.AreSame(context, properties.Data);
 
-            Assert.IsInstanceOf<LogNormalDistributionDesignVariableProperties>(properties.DampingFactorExit);
+            Assert.IsInstanceOf<LogNormalDistributionProperties>(properties.DampingFactorExit);
             TestHelper.AssertTypeConverter<ProbabilisticPipingInputContextProperties, ExpandableObjectConverter>(
                 nameof(ProbabilisticPipingInputContextProperties.DampingFactorExit));
 
-            Assert.IsInstanceOf<NormalDistributionDesignVariableProperties>(properties.PhreaticLevelExit);
+            Assert.IsInstanceOf<NormalDistributionProperties>(properties.PhreaticLevelExit);
             TestHelper.AssertTypeConverter<ProbabilisticPipingInputContextProperties, ExpandableObjectConverter>(
                 nameof(ProbabilisticPipingInputContextProperties.PhreaticLevelExit));
 

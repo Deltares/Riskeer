@@ -198,13 +198,13 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_HydraulicData))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.PipingInput_DampingFactorExit_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.PipingInput_DampingFactorExit_Description))]
-        public LogNormalDistributionDesignVariableProperties DampingFactorExit
+        public LogNormalDistributionProperties DampingFactorExit
         {
             get
             {
-                return new LogNormalDistributionDesignVariableProperties(DistributionReadOnlyProperties.None,
-                                                                         SemiProbabilisticPipingDesignVariableFactory.GetDampingFactorExit(data.WrappedData),
-                                                                         propertyChangeHandler);
+                return new LogNormalDistributionProperties(DistributionReadOnlyProperties.None,
+                                                           data.WrappedData.DampingFactorExit,
+                                                           propertyChangeHandler);
             }
         }
 
@@ -213,12 +213,12 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_HydraulicData))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.PipingInput_PhreaticLevelExit_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.PipingInput_PhreaticLevelExit_Description))]
-        public NormalDistributionDesignVariableProperties PhreaticLevelExit
+        public NormalDistributionProperties PhreaticLevelExit
         {
             get
             {
-                return new NormalDistributionDesignVariableProperties(DistributionReadOnlyProperties.None,
-                                                                      SemiProbabilisticPipingDesignVariableFactory.GetPhreaticLevelExit(data.WrappedData),
+                return new NormalDistributionProperties(DistributionReadOnlyProperties.None,
+                                                                      data.WrappedData.PhreaticLevelExit,
                                                                       propertyChangeHandler);
             }
         }
@@ -346,12 +346,11 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.PipingInput_SeepageLength_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.PipingInput_SeepageLength_Description))]
-        public VariationCoefficientLogNormalDistributionDesignVariableProperties SeepageLength
+        public VariationCoefficientLogNormalDistributionProperties SeepageLength
         {
             get
             {
-                return new VariationCoefficientLogNormalDistributionDesignVariableProperties(
-                    SemiProbabilisticPipingDesignVariableFactory.GetSeepageLength(data.WrappedData));
+                return new VariationCoefficientLogNormalDistributionProperties(DerivedPipingInput.GetSeepageLength(data.WrappedData));
             }
         }
 
@@ -360,12 +359,11 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.PipingInput_ThicknessCoverageLayer_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.PipingInput_ThicknessCoverageLayer_Description))]
-        public LogNormalDistributionDesignVariableProperties ThicknessCoverageLayer
+        public LogNormalDistributionProperties ThicknessCoverageLayer
         {
             get
             {
-                return new LogNormalDistributionDesignVariableProperties(
-                    SemiProbabilisticPipingDesignVariableFactory.GetThicknessCoverageLayer(data.WrappedData));
+                return new LogNormalDistributionProperties(DerivedPipingInput.GetThicknessCoverageLayer(data.WrappedData));
             }
         }
 
@@ -374,12 +372,11 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.PipingInput_EffectiveThicknessCoverageLayer_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.PipingInput_EffectiveThicknessCoverageLayer_Description))]
-        public LogNormalDistributionDesignVariableProperties EffectiveThicknessCoverageLayer
+        public LogNormalDistributionProperties EffectiveThicknessCoverageLayer
         {
             get
             {
-                return new LogNormalDistributionDesignVariableProperties(
-                    SemiProbabilisticPipingDesignVariableFactory.GetEffectiveThicknessCoverageLayer(data.WrappedData));
+                return new LogNormalDistributionProperties(DerivedPipingInput.GetEffectiveThicknessCoverageLayer(data.WrappedData));
             }
         }
 
@@ -388,12 +385,11 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.PipingInput_ThicknessAquiferLayer_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.PipingInput_ThicknessAquiferLayer_Description))]
-        public LogNormalDistributionDesignVariableProperties ThicknessAquiferLayer
+        public LogNormalDistributionProperties ThicknessAquiferLayer
         {
             get
             {
-                return new LogNormalDistributionDesignVariableProperties(
-                    SemiProbabilisticPipingDesignVariableFactory.GetThicknessAquiferLayer(data.WrappedData));
+                return new LogNormalDistributionProperties(DerivedPipingInput.GetThicknessAquiferLayer(data.WrappedData));
             }
         }
 
@@ -402,12 +398,11 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.PipingInput_DarcyPermeability_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.PipingInput_DarcyPermeability_Description))]
-        public VariationCoefficientLogNormalDistributionDesignVariableProperties DarcyPermeability
+        public VariationCoefficientLogNormalDistributionProperties DarcyPermeability
         {
             get
             {
-                return new VariationCoefficientLogNormalDistributionDesignVariableProperties(
-                    SemiProbabilisticPipingDesignVariableFactory.GetDarcyPermeability(data.WrappedData));
+                return new VariationCoefficientLogNormalDistributionProperties(DerivedPipingInput.GetDarcyPermeability(data.WrappedData));
             }
         }
 
@@ -416,12 +411,11 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.PipingInput_Diameter70_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.PipingInput_Diameter70_Description))]
-        public VariationCoefficientLogNormalDistributionDesignVariableProperties Diameter70
+        public VariationCoefficientLogNormalDistributionProperties Diameter70
         {
             get
             {
-                return new VariationCoefficientLogNormalDistributionDesignVariableProperties(
-                    SemiProbabilisticPipingDesignVariableFactory.GetDiameter70(data.WrappedData));
+                return new VariationCoefficientLogNormalDistributionProperties(DerivedPipingInput.GetDiameterD70(data.WrappedData));
             }
         }
 
@@ -430,12 +424,11 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.PipingInput_SaturatedVolumicWeightOfCoverageLayer_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.PipingInput_SaturatedVolumicWeightOfCoverageLayer_Description))]
-        public ShiftedLogNormalDistributionDesignVariableProperties SaturatedVolumicWeightOfCoverageLayer
+        public ShiftedLogNormalDistributionProperties SaturatedVolumicWeightOfCoverageLayer
         {
             get
             {
-                return new ShiftedLogNormalDistributionDesignVariableProperties(
-                    SemiProbabilisticPipingDesignVariableFactory.GetSaturatedVolumicWeightOfCoverageLayer(data.WrappedData));
+                return new ShiftedLogNormalDistributionProperties(DerivedPipingInput.GetSaturatedVolumicWeightOfCoverageLayer(data.WrappedData));
             }
         }
 
