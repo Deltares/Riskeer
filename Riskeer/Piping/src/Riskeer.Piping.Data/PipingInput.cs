@@ -37,7 +37,7 @@ namespace Riskeer.Piping.Data
     /// <summary>
     /// Base class for piping calculation specific input parameters, i.e. values that can differ across various calculations.
     /// </summary>
-    public class PipingInput : CloneableObservable, ICalculationInputWithHydraulicBoundaryLocation
+    public abstract class PipingInput : CloneableObservable, ICalculationInputWithHydraulicBoundaryLocation
     {
         private readonly GeneralPipingInput generalInputParameters;
         private NormalDistribution phreaticLevelExit;
@@ -53,7 +53,7 @@ namespace Riskeer.Piping.Data
         /// piping calculations.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="generalInputParameters"/>
         /// is <c>null</c>.</exception>
-        public PipingInput(GeneralPipingInput generalInputParameters)
+        protected PipingInput(GeneralPipingInput generalInputParameters)
         {
             if (generalInputParameters == null)
             {
