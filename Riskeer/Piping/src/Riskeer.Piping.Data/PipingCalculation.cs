@@ -32,7 +32,7 @@ namespace Riskeer.Piping.Data
     /// </summary>
     /// <typeparam name="TPipingInput">The type of calculation input.</typeparam>
     /// <typeparam name="TPipingOutput">The type of calculation output.</typeparam>
-    public abstract class PipingCalculation<TPipingInput, TPipingOutput> : CloneableObservable, IPipingCalculation<TPipingInput, TPipingOutput>
+    public abstract class PipingCalculation<TPipingInput, TPipingOutput> : CloneableObservable, IPipingCalculation<TPipingInput>
         where TPipingInput : PipingInput
         where TPipingOutput : SemiProbabilisticPipingOutput
     {

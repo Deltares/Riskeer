@@ -23,13 +23,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Geometry;
-using Riskeer.Piping.Data.SemiProbabilistic;
 using Riskeer.Piping.Primitives;
 
 namespace Riskeer.Piping.Data
 {
     /// <summary>
-    /// Defines extension methods dealing with <see cref="IPipingCalculation{TPipingInput,TPipingOutput}"/> instances.
+    /// Defines extension methods dealing with <see cref="IPipingCalculation{TPipingInput}"/> instances.
     /// </summary>
     public static class PipingCalculationExtensions
     {
@@ -40,7 +39,7 @@ namespace Riskeer.Piping.Data
         /// <param name="lineSegments">The line segments that define the reference line.</param>
         /// <returns><c>true</c> when intersecting. <c>false</c> otherwise.</returns>
         /// <exception cref="InvalidOperationException">Thrown when <paramref name="lineSegments"/> contains no elements.</exception>
-        public static bool IsSurfaceLineIntersectionWithReferenceLineInSection(this IPipingCalculation<PipingInput, SemiProbabilisticPipingOutput> pipingCalculation, IEnumerable<Segment2D> lineSegments)
+        public static bool IsSurfaceLineIntersectionWithReferenceLineInSection(this IPipingCalculation<PipingInput> pipingCalculation, IEnumerable<Segment2D> lineSegments)
         {
             PipingSurfaceLine surfaceLine = pipingCalculation?.InputParameters.SurfaceLine;
             if (surfaceLine == null)
