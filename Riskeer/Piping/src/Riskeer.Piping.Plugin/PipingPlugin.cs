@@ -667,7 +667,7 @@ namespace Riskeer.Piping.Plugin
 
         private static void ValidateAllInFailureMechanism(PipingFailureMechanismContext context)
         {
-            ValidateAll(context.WrappedData.Calculations.OfType<IPipingCalculation<PipingInput, SemiProbabilisticPipingOutput>>(), context.Parent);
+            ValidateAll(context.WrappedData.Calculations.OfType<IPipingCalculation<PipingInput>>(), context.Parent);
         }
 
         private void CalculateAllInFailureMechanism(PipingFailureMechanismContext failureMechanismContext)
@@ -871,9 +871,9 @@ namespace Riskeer.Piping.Plugin
                 (sender, args) => AddCalculation(() => new ProbabilisticPipingCalculation(context.FailureMechanism.GeneralInput), context.WrappedData));
         }
 
-        private static void AddCalculation(Func<IPipingCalculation<PipingInput, SemiProbabilisticPipingOutput>> createCalculationFunc, CalculationGroup parentGroup)
+        private static void AddCalculation(Func<IPipingCalculation<PipingInput>> createCalculationFunc, CalculationGroup parentGroup)
         {
-            IPipingCalculation<PipingInput, SemiProbabilisticPipingOutput> calculation = createCalculationFunc();
+            IPipingCalculation<PipingInput> calculation = createCalculationFunc();
             calculation.Name = NamingHelper.GetUniqueName(parentGroup.Children, RiskeerCommonDataResources.Calculation_DefaultName, c => c.Name);
 
             parentGroup.Children.Add(calculation);
@@ -916,7 +916,7 @@ namespace Riskeer.Piping.Plugin
 
         private static void ValidateAllInCalculationGroup(PipingCalculationGroupContext context)
         {
-            ValidateAll(context.WrappedData.GetCalculations().OfType<IPipingCalculation<PipingInput, SemiProbabilisticPipingOutput>>(), context.AssessmentSection);
+            ValidateAll(context.WrappedData.GetCalculations().OfType<IPipingCalculation<PipingInput>>(), context.AssessmentSection);
         }
 
         private void CalculateAllInCalculationGroup(CalculationGroup group, PipingCalculationGroupContext context)
@@ -1028,7 +1028,7 @@ namespace Riskeer.Piping.Plugin
                                                     context.AssessmentSection),
                 new EmptyPipingOutput()
             };
-            
+
             return childNodes.ToArray();
         }
 
@@ -1077,7 +1077,7 @@ namespace Riskeer.Piping.Plugin
 
         #endregion
 
-        private StrictContextMenuItem CreateUpdateEntryAndExitPointItem(IPipingCalculation<PipingInput, SemiProbabilisticPipingOutput> calculation)
+        private StrictContextMenuItem CreateUpdateEntryAndExitPointItem(IPipingCalculation<PipingInput> calculation)
         {
             var contextMenuEnabled = true;
             string toolTipMessage = Resources.PipingPlugin_CreateUpdateEntryAndExitPointItem_Update_calculation_with_characteristic_points_ToolTip;
@@ -1102,7 +1102,7 @@ namespace Riskeer.Piping.Plugin
             };
         }
 
-        private void UpdatedSurfaceLineDependentDataOfCalculation(IPipingCalculation<PipingInput, SemiProbabilisticPipingOutput> calculation)
+        private void UpdatedSurfaceLineDependentDataOfCalculation(IPipingCalculation<PipingInput> calculation)
         {
             string message = RiskeerCommonFormsResources.VerifyUpdate_Confirm_calculation_output_cleared;
             if (VerifyEntryAndExitPointUpdates(new[]
@@ -1114,7 +1114,7 @@ namespace Riskeer.Piping.Plugin
             }
         }
 
-        private static void CalculationContextOnNodeRemoved(object parentNodeData, IPipingCalculation<PipingInput, SemiProbabilisticPipingOutput> calculation)
+        private static void CalculationContextOnNodeRemoved(object parentNodeData, IPipingCalculation<PipingInput> calculation)
         {
             if (parentNodeData is PipingCalculationGroupContext calculationGroupContext)
             {
@@ -1126,7 +1126,7 @@ namespace Riskeer.Piping.Plugin
             }
         }
 
-        private static void ValidateAll(IEnumerable<IPipingCalculation<PipingInput, SemiProbabilisticPipingOutput>> pipingCalculations, IAssessmentSection assessmentSection)
+        private static void ValidateAll(IEnumerable<IPipingCalculation<PipingInput>> pipingCalculations, IAssessmentSection assessmentSection)
         {
             foreach (SemiProbabilisticPipingCalculation calculation in pipingCalculations.OfType<SemiProbabilisticPipingCalculation>())
             {
@@ -1134,7 +1134,7 @@ namespace Riskeer.Piping.Plugin
             }
         }
 
-        private bool VerifyEntryAndExitPointUpdates(IEnumerable<IPipingCalculation<PipingInput, SemiProbabilisticPipingOutput>> calculations, string query)
+        private bool VerifyEntryAndExitPointUpdates(IEnumerable<IPipingCalculation<PipingInput>> calculations, string query)
         {
             var changeHandler = new CalculationChangeHandler(calculations, query, GetInquiryHelper());
             return !changeHandler.RequireConfirmation() || changeHandler.InquireConfirmation();
