@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2019. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2019. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -2933,6 +2933,24 @@ namespace Riskeer.Common.Forms.Properties {
             get {
                 object obj = ResourceManager.GetObject("ProbabilisticCalculationIcon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De hoeveelheid waarmee de kansverdeling naar rechts (richting van positieve X-as) verschoven is..
+        /// </summary>
+        public static string Probabilistics_Shift_Description {
+            get {
+                return ResourceManager.GetString("Probabilistics_Shift_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Verschuiving.
+        /// </summary>
+        public static string Probabilistics_Shift_Symbol {
+            get {
+                return ResourceManager.GetString("Probabilistics_Shift_Symbol", resourceCulture);
             }
         }
         
