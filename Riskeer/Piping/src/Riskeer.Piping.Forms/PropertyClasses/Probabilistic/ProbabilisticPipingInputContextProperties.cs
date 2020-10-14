@@ -111,6 +111,14 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
         }
 
         /// <summary>
+        /// Gets the available surface lines on <see cref="SemiProbabilisticPipingCalculationScenarioContext"/>.
+        /// </summary>
+        public IEnumerable<PipingSurfaceLine> GetAvailableSurfaceLines()
+        {
+            return data.AvailablePipingSurfaceLines;
+        }
+
+        /// <summary>
         /// Gets the available stochastic soil models on <see cref="SemiProbabilisticPipingCalculationScenarioContext"/>.
         /// </summary>
         public IEnumerable<PipingStochasticSoilModel> GetAvailableStochasticSoilModels()
@@ -122,6 +130,27 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
 
             return PipingCalculationConfigurationHelper.GetStochasticSoilModelsForSurfaceLine(data.WrappedData.SurfaceLine,
                                                                                               data.AvailableStochasticSoilModels);
+        }
+
+        /// <summary>
+        /// Gets the available stochastic soil profiles on <see cref="SemiProbabilisticPipingCalculationScenarioContext"/>.
+        /// </summary>
+        public IEnumerable<PipingStochasticSoilProfile> GetAvailableStochasticSoilProfiles()
+        {
+            return data.WrappedData.StochasticSoilModel != null
+                       ? data.WrappedData.StochasticSoilModel.StochasticSoilProfiles
+                       : new List<PipingStochasticSoilProfile>();
+        }
+
+        [DynamicReadOnlyValidationMethod]
+        public bool DynamicReadOnlyValidationMethod(string propertyName)
+        {
+            if (propertyName == nameof(EntryPointL) || propertyName == nameof(ExitPointL))
+            {
+                return data.WrappedData.SurfaceLine == null;
+            }
+
+            return true;
         }
 
         /// <summary>
