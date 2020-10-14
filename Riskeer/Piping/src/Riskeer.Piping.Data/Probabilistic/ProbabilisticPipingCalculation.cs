@@ -36,5 +36,29 @@ namespace Riskeer.Piping.Data.Probabilistic
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="generalInputParameters"/>
         /// is <c>null</c>.</exception>
         public ProbabilisticPipingCalculation(GeneralPipingInput generalInputParameters) : base(new ProbabilisticPipingInput(generalInputParameters)) {}
+
+        public override bool HasOutput => Output != null;
+
+        /// <summary>
+        /// Gets or sets the results of the piping calculation.
+        /// </summary>
+        public ProbabilisticPipingOutput Output { get; set; }
+
+        public override void ClearOutput()
+        {
+            Output = null;
+        }
+
+        public override object Clone()
+        {
+            var clone = (ProbabilisticPipingCalculation) base.Clone();
+
+            if (Output != null)
+            {
+                clone.Output = (ProbabilisticPipingOutput) Output.Clone();
+            }
+
+            return clone;
+        }
     }
 }
