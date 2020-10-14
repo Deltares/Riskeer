@@ -132,11 +132,11 @@ namespace Riskeer.Piping.Data.Test
 
             pipingCalculationScenario1.IsRelevant = true;
             pipingCalculationScenario1.Contribution = (RoundedDouble) 0.2111;
-            pipingCalculationScenario1.Output = PipingOutputTestFactory.Create(1.1, 2.2, 3.3);
+            pipingCalculationScenario1.Output = SemiProbabilisticPipingOutputTestFactory.Create(1.1, 2.2, 3.3);
 
             pipingCalculationScenario2.IsRelevant = true;
             pipingCalculationScenario2.Contribution = (RoundedDouble) 0.7889;
-            pipingCalculationScenario2.Output = PipingOutputTestFactory.Create(4.4, 5.5, 6.6);
+            pipingCalculationScenario2.Output = SemiProbabilisticPipingOutputTestFactory.Create(4.4, 5.5, 6.6);
 
             pipingCalculationScenario3.IsRelevant = false;
 

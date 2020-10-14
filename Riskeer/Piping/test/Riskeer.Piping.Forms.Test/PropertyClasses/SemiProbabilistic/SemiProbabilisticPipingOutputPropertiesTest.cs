@@ -64,7 +64,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () => new SemiProbabilisticPipingOutputProperties(PipingOutputTestFactory.Create(), null, assessmentSection);
+            TestDelegate test = () => new SemiProbabilisticPipingOutputProperties(SemiProbabilisticPipingOutputTestFactory.Create(), null, assessmentSection);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -76,7 +76,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new SemiProbabilisticPipingOutputProperties(PipingOutputTestFactory.Create(), new PipingFailureMechanism(), null);
+            TestDelegate call = () => new SemiProbabilisticPipingOutputProperties(SemiProbabilisticPipingOutputTestFactory.Create(), new PipingFailureMechanism(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -93,7 +93,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
-            SemiProbabilisticPipingOutput output = PipingOutputTestFactory.Create();
+            SemiProbabilisticPipingOutput output = SemiProbabilisticPipingOutputTestFactory.Create();
 
             // Call
             var properties = new SemiProbabilisticPipingOutputProperties(output, failureMechanism, assessmentSection);
@@ -175,7 +175,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
             mocks.ReplayAll();
 
             // Call
-            var properties = new SemiProbabilisticPipingOutputProperties(PipingOutputTestFactory.Create(), failureMechanism, assessmentSection);
+            var properties = new SemiProbabilisticPipingOutputProperties(SemiProbabilisticPipingOutputTestFactory.Create(), failureMechanism, assessmentSection);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);

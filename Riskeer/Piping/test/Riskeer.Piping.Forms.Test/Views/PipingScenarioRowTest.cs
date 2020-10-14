@@ -109,7 +109,7 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             var calculation = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput())
             {
-                Output = PipingOutputTestFactory.Create()
+                Output = SemiProbabilisticPipingOutputTestFactory.Create()
             };
 
             // Call
@@ -167,7 +167,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             Assert.IsNaN(row.FailureProbabilitySellmeijer);
 
             // When
-            calculation.Output = PipingOutputTestFactory.Create();
+            calculation.Output = SemiProbabilisticPipingOutputTestFactory.Create();
             row.Update();
 
             // Then
@@ -191,7 +191,7 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             var calculation = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput())
             {
-                Output = PipingOutputTestFactory.Create()
+                Output = SemiProbabilisticPipingOutputTestFactory.Create()
             };
 
             var row = new PipingScenarioRow(calculation, failureMechanism, assessmentSection);
@@ -227,7 +227,7 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             var calculation = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput())
             {
-                Output = PipingOutputTestFactory.Create()
+                Output = SemiProbabilisticPipingOutputTestFactory.Create()
             };
 
             var row = new PipingScenarioRow(calculation, failureMechanism, assessmentSection);
@@ -242,7 +242,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             var random = new Random(11);
 
             // When
-            calculation.Output = PipingOutputTestFactory.Create(random.NextDouble(), random.NextDouble(), random.NextDouble());
+            calculation.Output = SemiProbabilisticPipingOutputTestFactory.Create(random.NextDouble(), random.NextDouble(), random.NextDouble());
             row.Update();
 
             // Then

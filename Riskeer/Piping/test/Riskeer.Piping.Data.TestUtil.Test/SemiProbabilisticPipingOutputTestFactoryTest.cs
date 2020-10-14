@@ -26,13 +26,13 @@ using Riskeer.Piping.Data.SemiProbabilistic;
 namespace Riskeer.Piping.Data.TestUtil.Test
 {
     [TestFixture]
-    public class PipingOutputTestFactoryTest
+    public class SemiProbabilisticPipingOutputTestFactoryTest
     {
         [Test]
         public void Create_WithoutParameters_ReturnOutput()
         {
             // Call
-            SemiProbabilisticPipingOutput output = PipingOutputTestFactory.Create();
+            SemiProbabilisticPipingOutput output = SemiProbabilisticPipingOutputTestFactory.Create();
 
             // Assert
             Assert.IsTrue(IsValidDouble(output.HeaveFactorOfSafety));
@@ -55,7 +55,7 @@ namespace Riskeer.Piping.Data.TestUtil.Test
             double sellmeijerFactorOfSafety = random.NextDouble();
 
             // Call
-            SemiProbabilisticPipingOutput output = PipingOutputTestFactory.Create(heaveFactorOfSafety, upliftFactorOfSafety, sellmeijerFactorOfSafety);
+            SemiProbabilisticPipingOutput output = SemiProbabilisticPipingOutputTestFactory.Create(heaveFactorOfSafety, upliftFactorOfSafety, sellmeijerFactorOfSafety);
 
             // Assert
             Assert.AreEqual(heaveFactorOfSafety, output.HeaveFactorOfSafety);

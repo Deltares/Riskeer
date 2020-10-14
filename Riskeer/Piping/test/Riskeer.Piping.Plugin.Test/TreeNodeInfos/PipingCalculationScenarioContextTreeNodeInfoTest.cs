@@ -112,7 +112,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             // Setup
             var calculation = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput())
             {
-                Output = PipingOutputTestFactory.Create()
+                Output = SemiProbabilisticPipingOutputTestFactory.Create()
             };
 
             var pipingFailureMechanism = new PipingFailureMechanism();
@@ -226,7 +226,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             {
                 var calculation = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput())
                 {
-                    Output = PipingOutputTestFactory.Create()
+                    Output = SemiProbabilisticPipingOutputTestFactory.Create()
                 };
                 var pipingFailureMechanism = new TestPipingFailureMechanism();
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -602,7 +602,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                 PipingSurfaceLine surfaceLine;
                 SemiProbabilisticPipingCalculationScenario calculation;
                 CreateCalculationWithSurfaceLine(out calculation, out surfaceLine);
-                calculation.Output = PipingOutputTestFactory.Create();
+                calculation.Output = SemiProbabilisticPipingOutputTestFactory.Create();
 
                 var pipingFailureMechanism = new TestPipingFailureMechanism();
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -664,7 +664,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                 PipingSurfaceLine surfaceLine;
                 SemiProbabilisticPipingCalculationScenario calculation;
                 CreateCalculationWithSurfaceLine(out calculation, out surfaceLine);
-                calculation.Output = PipingOutputTestFactory.Create();
+                calculation.Output = SemiProbabilisticPipingOutputTestFactory.Create();
 
                 var pipingFailureMechanism = new TestPipingFailureMechanism();
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -1028,7 +1028,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
 
                 plugin.Gui = gui;
 
-                calculation.Output = PipingOutputTestFactory.Create();
+                calculation.Output = SemiProbabilisticPipingOutputTestFactory.Create();
                 calculation.Attach(observer);
 
                 string messageBoxText = null, messageBoxTitle = null;

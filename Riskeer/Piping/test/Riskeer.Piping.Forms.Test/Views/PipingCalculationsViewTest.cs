@@ -654,7 +654,7 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             if (useCalculationWithOutput)
             {
-                calculation.Output = PipingOutputTestFactory.Create();
+                calculation.Output = SemiProbabilisticPipingOutputTestFactory.Create();
             }
 
             calculation.Attach(calculationObserver);

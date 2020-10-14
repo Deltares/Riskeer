@@ -180,7 +180,7 @@ namespace Riskeer.Piping.Plugin.Test.ImportInfos
             var failureMechanism = new PipingFailureMechanism();
             var calculationWithOutput = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput())
             {
-                Output = PipingOutputTestFactory.Create()
+                Output = SemiProbabilisticPipingOutputTestFactory.Create()
             };
             failureMechanism.CalculationsGroup.Children.Add(calculationWithOutput);
 

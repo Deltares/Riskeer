@@ -28,7 +28,7 @@ namespace Riskeer.Piping.Data.TestUtil
     /// Factory for creating <see cref="SemiProbabilisticPipingOutput"/> that can be used
     /// for test purposes.
     /// </summary>
-    public static class PipingOutputTestFactory
+    public static class SemiProbabilisticPipingOutputTestFactory
     {
         /// <summary>
         /// Creates <see cref="SemiProbabilisticPipingOutput"/> with random values.

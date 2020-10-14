@@ -421,7 +421,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             SemiProbabilisticPipingCalculationScenario calculation = SemiProbabilisticPipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput(new TestHydraulicBoundaryLocation());
             if (hasOutput)
             {
-                assignedOutput = PipingOutputTestFactory.Create();
+                assignedOutput = SemiProbabilisticPipingOutputTestFactory.Create();
             }
 
             calculation.Output = assignedOutput;

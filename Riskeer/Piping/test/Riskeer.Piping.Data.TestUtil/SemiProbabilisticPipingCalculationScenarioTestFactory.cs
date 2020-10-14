@@ -47,7 +47,7 @@ namespace Riskeer.Piping.Data.TestUtil
         public static SemiProbabilisticPipingCalculationScenario CreatePipingCalculationScenario(FailureMechanismSection section)
         {
             SemiProbabilisticPipingCalculationScenario scenario = CreateNotCalculatedPipingCalculationScenario(section);
-            scenario.Output = PipingOutputTestFactory.Create();
+            scenario.Output = SemiProbabilisticPipingOutputTestFactory.Create();
 
             return scenario;
         }

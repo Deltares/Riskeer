@@ -305,7 +305,7 @@ namespace Riskeer.Piping.Data.TestUtil
                     SurfaceLine = surfaceLine1,
                     StochasticSoilModel = stochasticSoilModel1
                 },
-                Output = PipingOutputTestFactory.Create()
+                Output = SemiProbabilisticPipingOutputTestFactory.Create()
             };
             var calculationWithSurfaceLineAndSoilModel = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput())
             {
@@ -325,7 +325,7 @@ namespace Riskeer.Piping.Data.TestUtil
                     SurfaceLine = surfaceLine2,
                     StochasticSoilModel = stochasticSoilModel2
                 },
-                Output = PipingOutputTestFactory.Create()
+                Output = SemiProbabilisticPipingOutputTestFactory.Create()
             };
             var calculationWithHydraulicBoundaryLocation = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput())
             {
@@ -354,7 +354,7 @@ namespace Riskeer.Piping.Data.TestUtil
                     StochasticSoilModel = stochasticSoilModel2,
                     StochasticSoilProfile = stochasticSoilModel2.StochasticSoilProfiles.First()
                 },
-                Output = PipingOutputTestFactory.Create()
+                Output = SemiProbabilisticPipingOutputTestFactory.Create()
             };
             var subCalculationWithOutputAndHydraulicBoundaryLocation = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput())
             {
@@ -365,7 +365,7 @@ namespace Riskeer.Piping.Data.TestUtil
                     StochasticSoilModel = stochasticSoilModel1,
                     StochasticSoilProfile = stochasticSoilModel1.StochasticSoilProfiles.First()
                 },
-                Output = PipingOutputTestFactory.Create()
+                Output = SemiProbabilisticPipingOutputTestFactory.Create()
             };
             var subCalculationWithHydraulicBoundaryLocation = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput())
             {
