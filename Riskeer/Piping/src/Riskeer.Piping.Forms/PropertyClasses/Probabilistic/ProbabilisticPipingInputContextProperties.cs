@@ -446,8 +446,8 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
         [DynamicReadOnly]
         [PropertyOrder(sectionNamePropertyIndex)]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.SectionInformation))]
-        [ResourcesDisplayName(typeof(Resources), nameof(RiskeerCommonFormsResources.FailureMechanismSection_Name_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(RiskeerCommonFormsResources.FailureMechanismSection_Name_Description))]
+        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanismSection_Name_DisplayName))]
+        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanismSection_Name_Description))]
         public string SectionName
         {
             get
@@ -459,8 +459,8 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
         [DynamicReadOnly]
         [PropertyOrder(sectionLengthPropertyIndex)]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.SectionInformation))]
-        [ResourcesDisplayName(typeof(Resources), nameof(RiskeerCommonFormsResources.SectionLength_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(RiskeerCommonFormsResources.SectionLength_Description))]
+        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.SectionLength_DisplayName))]
+        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.SectionLength_Description))]
         public RoundedDouble SectionLength
         {
             get

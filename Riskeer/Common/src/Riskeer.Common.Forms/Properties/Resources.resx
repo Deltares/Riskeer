@@ -1599,7 +1599,7 @@ scenario
     <value>Uitvoer</value>
   </data>
   <data name="SectionLength_Description" xml:space="preserve">
-    <value>Vaklengte [m]</value>
+    <value>De lengte van het vak.</value>
   </data>
   <data name="SectionLength_DisplayName" xml:space="preserve">
     <value>Vaklengte [m]</value>

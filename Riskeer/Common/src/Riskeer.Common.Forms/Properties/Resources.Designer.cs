@@ -3230,7 +3230,7 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Vaklengte [m].
+        ///   Looks up a localized string similar to De lengte van het vak..
         /// </summary>
         public static string SectionLength_Description {
             get {

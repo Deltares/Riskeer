@@ -512,16 +512,4 @@ opbarsten
     <value>binnendijkse waterstand
 [m+NAP]</value>
   </data>
-  <data name="FailureMechanismSection_Name_Description" xml:space="preserve">
-    <value>De naam van het vak.</value>
-  </data>
-  <data name="FailureMechanismSection_Name_DisplayName" xml:space="preserve">
-    <value>Vaknaam</value>
-  </data>
-  <data name="SectionLength_Description" xml:space="preserve">
-    <value>De lengte van het vak.</value>
-  </data>
-  <data name="SectionLength_DisplayName" xml:space="preserve">
-    <value>Vaklengte [m]</value>
-  </data>
 </root>
