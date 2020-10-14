@@ -362,10 +362,10 @@ namespace Riskeer.HeightStructures.Service.Test
         }
 
         [Test]
-        [TestCase(CalculationType.NoForeshore)]
-        [TestCase(CalculationType.ForeshoreWithValidBreakWater)]
-        [TestCase(CalculationType.ForeshoreWithoutBreakWater)]
-        public void Calculate_ValidCalculationInputAndForeshoreWithValidBreakWater_LogStartAndEndAndReturnOutput(CalculationType calculationType)
+        [TestCase(ForeshoreCalculationType.NoForeshore)]
+        [TestCase(ForeshoreCalculationType.ForeshoreWithValidBreakWater)]
+        [TestCase(ForeshoreCalculationType.ForeshoreWithoutBreakWater)]
+        public void Calculate_ValidCalculationInputAndForeshoreWithValidBreakWater_LogStartAndEndAndReturnOutput(ForeshoreCalculationType calculationType)
         {
             // Setup
             var failureMechanism = new HeightStructuresFailureMechanism();
@@ -392,16 +392,16 @@ namespace Riskeer.HeightStructures.Service.Test
 
             switch (calculationType)
             {
-                case CalculationType.NoForeshore:
+                case ForeshoreCalculationType.NoForeshore:
                     calculation.InputParameters.ForeshoreProfile = null;
                     calculation.InputParameters.UseForeshore = false;
                     calculation.InputParameters.UseBreakWater = false;
                     break;
-                case CalculationType.ForeshoreWithoutBreakWater:
+                case ForeshoreCalculationType.ForeshoreWithoutBreakWater:
                     calculation.InputParameters.ForeshoreProfile = new TestForeshoreProfile();
                     calculation.InputParameters.UseBreakWater = false;
                     break;
-                case CalculationType.ForeshoreWithValidBreakWater:
+                case ForeshoreCalculationType.ForeshoreWithValidBreakWater:
                     break;
             }
 

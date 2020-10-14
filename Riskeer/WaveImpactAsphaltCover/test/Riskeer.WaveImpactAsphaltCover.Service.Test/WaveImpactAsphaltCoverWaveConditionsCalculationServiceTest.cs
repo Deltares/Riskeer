@@ -183,10 +183,10 @@ namespace Riskeer.WaveImpactAsphaltCover.Service.Test
         }
 
         [Test]
-        [TestCase(CalculationType.NoForeshore)]
-        [TestCase(CalculationType.ForeshoreWithoutBreakWater)]
-        [TestCase(CalculationType.ForeshoreWithValidBreakWater)]
-        public void Run_CalculationWithValidInputAndValidForeshore_LogStartAndEnd(CalculationType calculationType)
+        [TestCase(ForeshoreCalculationType.NoForeshore)]
+        [TestCase(ForeshoreCalculationType.ForeshoreWithoutBreakWater)]
+        [TestCase(ForeshoreCalculationType.ForeshoreWithValidBreakWater)]
+        public void Run_CalculationWithValidInputAndValidForeshore_LogStartAndEnd(ForeshoreCalculationType calculationType)
         {
             // Setup
             IAssessmentSection assessmentSection = CreateAssessmentSectionWithHydraulicBoundaryOutput();
@@ -205,16 +205,16 @@ namespace Riskeer.WaveImpactAsphaltCover.Service.Test
 
             switch (calculationType)
             {
-                case CalculationType.NoForeshore:
+                case ForeshoreCalculationType.NoForeshore:
                     calculation.InputParameters.ForeshoreProfile = null;
                     calculation.InputParameters.UseForeshore = false;
                     calculation.InputParameters.UseBreakWater = false;
                     break;
-                case CalculationType.ForeshoreWithoutBreakWater:
+                case ForeshoreCalculationType.ForeshoreWithoutBreakWater:
                     calculation.InputParameters.ForeshoreProfile = new TestForeshoreProfile();
                     calculation.InputParameters.UseBreakWater = false;
                     break;
-                case CalculationType.ForeshoreWithValidBreakWater:
+                case ForeshoreCalculationType.ForeshoreWithValidBreakWater:
                     break;
             }
 

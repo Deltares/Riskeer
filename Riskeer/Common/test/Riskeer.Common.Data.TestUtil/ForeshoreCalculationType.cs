@@ -24,7 +24,7 @@ namespace Riskeer.Common.Data.TestUtil
     /// <summary>
     /// Defines the input combinations when the calculation inputs have foreshore and breakwater properties.
     /// </summary>
-    public enum CalculationType
+    public enum ForeshoreCalculationType
     {
         /// <summary>
         /// Calculation does not use a foreshore.

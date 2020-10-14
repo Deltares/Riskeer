@@ -426,10 +426,10 @@ namespace Riskeer.Revetment.Service.Test
         }
 
         [Test]
-        [TestCase(CalculationType.NoForeshore)]
-        [TestCase(CalculationType.ForeshoreWithoutBreakWater)]
-        [TestCase(CalculationType.ForeshoreWithValidBreakWater)]
-        public void Validate_ValidInputValidateForeshoreProfile_ReturnsTrueAndLogsValidationStartAndEnd(CalculationType calculationType)
+        [TestCase(ForeshoreCalculationType.NoForeshore)]
+        [TestCase(ForeshoreCalculationType.ForeshoreWithoutBreakWater)]
+        [TestCase(ForeshoreCalculationType.ForeshoreWithValidBreakWater)]
+        public void Validate_ValidInputValidateForeshoreProfile_ReturnsTrueAndLogsValidationStartAndEnd(ForeshoreCalculationType calculationType)
         {
             // Setup 
             var isValid = false;
@@ -438,17 +438,17 @@ namespace Riskeer.Revetment.Service.Test
 
             switch (calculationType)
             {
-                case CalculationType.NoForeshore:
+                case ForeshoreCalculationType.NoForeshore:
                     input.ForeshoreProfile = null;
                     input.UseBreakWater = false;
                     input.UseForeshore = false;
                     input.Orientation = (RoundedDouble) 0;
                     break;
-                case CalculationType.ForeshoreWithoutBreakWater:
+                case ForeshoreCalculationType.ForeshoreWithoutBreakWater:
                     input.ForeshoreProfile = new TestForeshoreProfile();
                     input.UseBreakWater = false;
                     break;
-                case CalculationType.ForeshoreWithValidBreakWater:
+                case ForeshoreCalculationType.ForeshoreWithValidBreakWater:
                     break;
             }
 

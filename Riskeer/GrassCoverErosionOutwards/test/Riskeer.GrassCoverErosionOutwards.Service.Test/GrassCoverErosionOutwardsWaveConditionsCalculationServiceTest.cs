@@ -216,10 +216,10 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
         }
 
         [Test]
-        [TestCase(CalculationType.NoForeshore)]
-        [TestCase(CalculationType.ForeshoreWithoutBreakWater)]
-        [TestCase(CalculationType.ForeshoreWithValidBreakWater)]
-        public void Run_CalculationWithValidInputAndValidForeshore_LogStartAndEnd(CalculationType calculationType)
+        [TestCase(ForeshoreCalculationType.NoForeshore)]
+        [TestCase(ForeshoreCalculationType.ForeshoreWithoutBreakWater)]
+        [TestCase(ForeshoreCalculationType.ForeshoreWithValidBreakWater)]
+        public void Run_CalculationWithValidInputAndValidForeshore_LogStartAndEnd(ForeshoreCalculationType calculationType)
         {
             // Setup
             AssessmentSectionStub assessmentSection = CreateAssessmentSection();
@@ -230,7 +230,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
                 {
                     new TestHydraulicBoundaryLocation()
                 });
-            ConfigureFailureMechanismWithHydraulicBoundaryOutput(failureMechanism);
+            ConfigureFailureMechanismWithHydraulicBoundaryOutput(failureMechanism);    
 
             GrassCoverErosionOutwardsWaveConditionsCalculation calculation = GetDefaultCalculation(assessmentSection.HydraulicBoundaryDatabase.Locations.First());
             RoundedDouble[] waterLevels = GetWaterLevels(calculation, failureMechanism, assessmentSection).ToArray();
@@ -247,16 +247,16 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
 
             switch (calculationType)
             {
-                case CalculationType.NoForeshore:
+                case ForeshoreCalculationType.NoForeshore:
                     calculation.InputParameters.ForeshoreProfile = null;
                     calculation.InputParameters.UseForeshore = false;
                     calculation.InputParameters.UseBreakWater = false;
                     break;
-                case CalculationType.ForeshoreWithoutBreakWater:
+                case ForeshoreCalculationType.ForeshoreWithoutBreakWater:
                     calculation.InputParameters.ForeshoreProfile = new TestForeshoreProfile();
                     calculation.InputParameters.UseBreakWater = false;
                     break;
-                case CalculationType.ForeshoreWithValidBreakWater:
+                case ForeshoreCalculationType.ForeshoreWithValidBreakWater:
                     break;
             }
 

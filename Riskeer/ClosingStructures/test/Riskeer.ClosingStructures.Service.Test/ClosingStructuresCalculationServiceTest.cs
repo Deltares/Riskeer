@@ -881,8 +881,8 @@ namespace Riskeer.ClosingStructures.Service.Test
         public void Calculate_ValidCalculation_LogStartAndEndAndReturnOutput(
             [Values(ClosingStructureInflowModelType.VerticalWall, ClosingStructureInflowModelType.LowSill, ClosingStructureInflowModelType.FloodedCulvert)]
             ClosingStructureInflowModelType inflowModelType,
-            [Values(CalculationType.NoForeshore, CalculationType.ForeshoreWithoutBreakWater, CalculationType.ForeshoreWithValidBreakWater)]
-            CalculationType calculationType)
+            [Values(ForeshoreCalculationType.NoForeshore, ForeshoreCalculationType.ForeshoreWithoutBreakWater, ForeshoreCalculationType.ForeshoreWithValidBreakWater)]
+            ForeshoreCalculationType calculationType)
         {
             // Setup
             var failureMechanism = new ClosingStructuresFailureMechanism();
@@ -910,16 +910,16 @@ namespace Riskeer.ClosingStructures.Service.Test
 
             switch (calculationType)
             {
-                case CalculationType.NoForeshore:
+                case ForeshoreCalculationType.NoForeshore:
                     calculation.InputParameters.ForeshoreProfile = null;
                     calculation.InputParameters.UseForeshore = false;
                     calculation.InputParameters.UseBreakWater = false;
                     break;
-                case CalculationType.ForeshoreWithoutBreakWater:
+                case ForeshoreCalculationType.ForeshoreWithoutBreakWater:
                     calculation.InputParameters.ForeshoreProfile = new TestForeshoreProfile();
                     calculation.InputParameters.UseBreakWater = false;
                     break;
-                case CalculationType.ForeshoreWithValidBreakWater:
+                case ForeshoreCalculationType.ForeshoreWithValidBreakWater:
                     break;
             }
 

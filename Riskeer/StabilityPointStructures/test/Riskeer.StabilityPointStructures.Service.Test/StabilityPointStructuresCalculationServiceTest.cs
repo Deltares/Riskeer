@@ -1593,8 +1593,8 @@ namespace Riskeer.StabilityPointStructures.Service.Test
             StabilityPointStructureInflowModelType inflowModelType,
             [Values(LoadSchematizationType.Quadratic, LoadSchematizationType.Linear)]
             LoadSchematizationType loadSchematizationType,
-            [Values(CalculationType.NoForeshore, CalculationType.ForeshoreWithValidBreakWater, CalculationType.ForeshoreWithoutBreakWater)]
-            CalculationType calculationType)
+            [Values(ForeshoreCalculationType.NoForeshore, ForeshoreCalculationType.ForeshoreWithValidBreakWater, ForeshoreCalculationType.ForeshoreWithoutBreakWater)]
+            ForeshoreCalculationType calculationType)
         {
             // Setup
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
@@ -1623,16 +1623,16 @@ namespace Riskeer.StabilityPointStructures.Service.Test
 
             switch (calculationType)
             {
-                case CalculationType.NoForeshore:
+                case ForeshoreCalculationType.NoForeshore:
                     calculation.InputParameters.ForeshoreProfile = null;
                     calculation.InputParameters.UseForeshore = false;
                     calculation.InputParameters.UseBreakWater = false;
                     break;
-                case CalculationType.ForeshoreWithoutBreakWater:
+                case ForeshoreCalculationType.ForeshoreWithoutBreakWater:
                     calculation.InputParameters.ForeshoreProfile = new TestForeshoreProfile();
                     calculation.InputParameters.UseBreakWater = false;
                     break;
-                case CalculationType.ForeshoreWithValidBreakWater:
+                case ForeshoreCalculationType.ForeshoreWithValidBreakWater:
                     break;
             }
 
