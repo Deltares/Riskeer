@@ -55,39 +55,19 @@ namespace Riskeer.Piping.Data
         }
 
         /// <summary>
-        /// Gets or sets the results of the piping calculation.
-        /// </summary>
-        public TPipingOutput Output { get; set; }
-
-        /// <summary>
         /// Gets the input parameters to perform the piping calculation with.
         /// </summary>
         public TPipingInput InputParameters { get; private set; }
 
         public string Name { get; set; }
 
-        public bool ShouldCalculate
-        {
-            get
-            {
-                return !HasOutput;
-            }
-        }
+        public bool ShouldCalculate => !HasOutput;
 
-        public bool HasOutput
-        {
-            get
-            {
-                return Output != null;
-            }
-        }
+        public abstract bool HasOutput { get; }
 
         public Comment Comments { get; private set; }
 
-        public void ClearOutput()
-        {
-            Output = null;
-        }
+        public abstract void ClearOutput();
 
         public override object Clone()
         {
@@ -95,11 +75,6 @@ namespace Riskeer.Piping.Data
 
             clone.Comments = (Comment) Comments.Clone();
             clone.InputParameters = (TPipingInput) InputParameters.Clone();
-
-            if (Output != null)
-            {
-                clone.Output = (TPipingOutput) Output.Clone();
-            }
 
             return clone;
         }

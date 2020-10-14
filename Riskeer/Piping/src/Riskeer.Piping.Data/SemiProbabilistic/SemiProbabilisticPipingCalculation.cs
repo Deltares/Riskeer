@@ -36,5 +36,29 @@ namespace Riskeer.Piping.Data.SemiProbabilistic
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="generalInputParameters"/>
         /// is <c>null</c>.</exception>
         public SemiProbabilisticPipingCalculation(GeneralPipingInput generalInputParameters) : base(new SemiProbabilisticPipingInput(generalInputParameters)) {}
+
+        public override bool HasOutput => Output != null;
+
+        /// <summary>
+        /// Gets or sets the results of the piping calculation.
+        /// </summary>
+        public PipingOutput Output { get; set; }
+
+        public override void ClearOutput()
+        {
+            Output = null;
+        }
+
+        public override object Clone()
+        {
+            var clone = (SemiProbabilisticPipingCalculation) base.Clone();
+
+            if (Output != null)
+            {
+                clone.Output = (PipingOutput) Output.Clone();
+            }
+
+            return clone;
+        }
     }
 }
