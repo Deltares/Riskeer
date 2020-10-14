@@ -53,10 +53,7 @@ namespace Riskeer.Piping.Service.Test
         public void ClearCalculationOutput_WithCalculation_ClearsOutputAndReturnAffectedCalculations()
         {
             // Setup
-            var calculation = new TestPipingCalculation
-            {
-                Output = PipingOutputTestFactory.Create()
-            };
+            var calculation = new TestPipingCalculation(true);
 
             // Call
             IEnumerable<IObservable> changedObjects = PipingDataSynchronizationService.ClearCalculationOutput(calculation);
@@ -64,7 +61,7 @@ namespace Riskeer.Piping.Service.Test
             // Assert
             // Note: To make sure the clear is performed regardless of what is done with
             // the return result, no ToArray() should be called before these assertions:
-            Assert.IsNull(calculation.Output);
+            Assert.IsFalse(calculation.HasOutput);
 
             CollectionAssert.AreEqual(new[]
             {
@@ -76,10 +73,7 @@ namespace Riskeer.Piping.Service.Test
         public void ClearCalculationOutput_CalculationWithoutOutput_DoNothing()
         {
             // Setup
-            var calculation = new TestPipingCalculation
-            {
-                Output = null
-            };
+            var calculation = new TestPipingCalculation();
 
             // Call
             IEnumerable<IObservable> changedObjects = PipingDataSynchronizationService.ClearCalculationOutput(calculation);
