@@ -28,8 +28,6 @@ namespace Riskeer.Piping.Data
     /// Interface that represents information about a calculation for the <see cref="PipingFailureMechanism"/>.
     /// </summary>
     /// <typeparam name="TPipingInput">The type of calculation input.</typeparam>
-    /// <typeparam name="TPipingOutput">The type of calculation output.</typeparam>
-    public interface IPipingCalculation<out TPipingInput, out TPipingOutput> : ICalculation<TPipingInput>
-        where TPipingInput : PipingInput
-        where TPipingOutput : SemiProbabilisticPipingOutput {}
+    public interface IPipingCalculation<out TPipingInput> : ICalculation<TPipingInput>
+        where TPipingInput : PipingInput {}
 }
