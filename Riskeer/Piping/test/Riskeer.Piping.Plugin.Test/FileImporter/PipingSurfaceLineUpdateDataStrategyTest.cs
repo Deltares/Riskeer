@@ -445,13 +445,12 @@ namespace Riskeer.Piping.Plugin.Test.FileImporter
         {
             // Setup
             PipingSurfaceLine surfaceLine = CreateValidSurfaceLineForCalculations();
-            var calculation = new TestPipingCalculation
+            var calculation = new TestPipingCalculation(true)
             {
                 InputParameters =
                 {
                     SurfaceLine = surfaceLine
-                },
-                Output = PipingOutputTestFactory.Create()
+                }
             };
 
             var failureMechanism = new PipingFailureMechanism();
@@ -492,13 +491,12 @@ namespace Riskeer.Piping.Plugin.Test.FileImporter
                 new Point3D(1, 2, 3),
                 new Point3D(4, 5, 6)
             });
-            var affectedCalculation = new TestPipingCalculation
+            var affectedCalculation = new TestPipingCalculation(true)
             {
                 InputParameters =
                 {
                     SurfaceLine = affectedSurfaceLine
-                },
-                Output = PipingOutputTestFactory.Create()
+                }
             };
 
             var unaffectedGeometry = new[]
@@ -508,13 +506,12 @@ namespace Riskeer.Piping.Plugin.Test.FileImporter
             };
             var unaffectedSurfaceLine = new PipingSurfaceLine(unaffectedSurfaceLineName);
             unaffectedSurfaceLine.SetGeometry(unaffectedGeometry);
-            var unAffectedCalculation = new TestPipingCalculation
+            var unAffectedCalculation = new TestPipingCalculation(true)
             {
                 InputParameters =
                 {
                     SurfaceLine = unaffectedSurfaceLine
-                },
-                Output = PipingOutputTestFactory.Create()
+                }
             };
 
             var failureMechanism = new PipingFailureMechanism();
@@ -574,13 +571,12 @@ namespace Riskeer.Piping.Plugin.Test.FileImporter
                 new Point3D(1, 2, 3),
                 new Point3D(4, 5, 6)
             });
-            var affectedCalculation = new TestPipingCalculation
+            var affectedCalculation = new TestPipingCalculation(true)
             {
                 InputParameters =
                 {
                     SurfaceLine = removedSurfaceLine
-                },
-                Output = PipingOutputTestFactory.Create()
+                }
             };
 
             var unaffectedGeometry = new[]
@@ -590,13 +586,12 @@ namespace Riskeer.Piping.Plugin.Test.FileImporter
             };
             var unaffectedSurfaceLine = new PipingSurfaceLine(unaffectedSurfaceLineName);
             unaffectedSurfaceLine.SetGeometry(unaffectedGeometry);
-            var unAffectedCalculation = new TestPipingCalculation
+            var unAffectedCalculation = new TestPipingCalculation(true)
             {
                 InputParameters =
                 {
                     SurfaceLine = unaffectedSurfaceLine
-                },
-                Output = PipingOutputTestFactory.Create()
+                }
             };
 
             var failureMechanism = new PipingFailureMechanism();
@@ -997,13 +992,12 @@ namespace Riskeer.Piping.Plugin.Test.FileImporter
                 new Point3D(1, 2, 3),
                 new Point3D(4, 5, 6)
             });
-            var affectedCalculation = new TestPipingCalculation
+            var affectedCalculation = new TestPipingCalculation(true)
             {
                 InputParameters =
                 {
                     SurfaceLine = affectedSurfaceLine
-                },
-                Output = PipingOutputTestFactory.Create()
+                }
             };
 
             var failureMechanism = new PipingFailureMechanism();
@@ -1050,14 +1044,13 @@ namespace Riskeer.Piping.Plugin.Test.FileImporter
                 new Point3D(4, 0, 2),
                 new Point3D(5, 0, 3)
             });
-            var affectedCalculation = new TestPipingCalculation
+            var affectedCalculation = new TestPipingCalculation(true)
             {
                 InputParameters =
                 {
                     SurfaceLine = affectedSurfaceLine,
                     EntryPointL = (RoundedDouble) 2
-                },
-                Output = PipingOutputTestFactory.Create()
+                }
             };
 
             var failureMechanism = new PipingFailureMechanism();
@@ -1115,15 +1108,14 @@ namespace Riskeer.Piping.Plugin.Test.FileImporter
                 new Point3D(4, 0, 2),
                 new Point3D(5, 0, 3)
             });
-            var affectedCalculation = new TestPipingCalculation
+            var affectedCalculation = new TestPipingCalculation(true)
             {
                 InputParameters =
                 {
                     SurfaceLine = affectedSurfaceLine,
                     EntryPointL = (RoundedDouble) 0,
                     ExitPointL = (RoundedDouble) 3
-                },
-                Output = PipingOutputTestFactory.Create()
+                }
             };
 
             var failureMechanism = new PipingFailureMechanism();
