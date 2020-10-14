@@ -30,11 +30,5 @@ namespace Riskeer.Piping.Data
     /// <typeparam name="TPipingOutput">The type of calculation output.</typeparam>
     public interface IPipingCalculation<out TPipingInput, out TPipingOutput> : ICalculation<TPipingInput>
         where TPipingInput : PipingInput
-        where TPipingOutput : PipingOutput
-    {
-        /// <summary>
-        /// Gets the results of the piping calculation.
-        /// </summary>
-        TPipingOutput Output { get; }
-    }
+        where TPipingOutput : PipingOutput {}
 }

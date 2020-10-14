@@ -101,7 +101,6 @@ namespace Riskeer.Piping.Data.TestUtil
             Assert.AreEqual(original.Name, clone.Name);
             CoreCloneAssert.AreObjectClones(original.Comments, clone.Comments, CommonCloneAssert.AreClones);
             CoreCloneAssert.AreObjectClones(original.InputParameters, clone.InputParameters, AreClones);
-            CoreCloneAssert.AreObjectClones(original.Output, clone.Output, AreClones);
         }
 
         /// <summary>
@@ -117,6 +116,7 @@ namespace Riskeer.Piping.Data.TestUtil
             AreClones((IPipingCalculation<PipingInput, PipingOutput>) original, clone);
             Assert.AreEqual(original.Contribution, clone.Contribution);
             Assert.AreEqual(original.IsRelevant, clone.IsRelevant);
+            CoreCloneAssert.AreObjectClones(original.Output, clone.Output, AreClones);
         }
     }
 }
