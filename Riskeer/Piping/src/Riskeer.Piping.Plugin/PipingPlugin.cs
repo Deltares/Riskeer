@@ -860,7 +860,7 @@ namespace Riskeer.Piping.Plugin
             return new StrictContextMenuItem(
                 Resources.CalculationGroup_Add_SemiProbabilisticCalculation,
                 Resources.CalculationGroup_Add_SemiProbabilisticCalculation_ToolTip,
-                RiskeerCommonFormsResources.FailureMechanismIcon,
+                RiskeerCommonFormsResources.SemiProbabilisticCalculationIcon,
                 (sender, args) => AddCalculation(() => new SemiProbabilisticPipingCalculationScenario(context.FailureMechanism.GeneralInput), context.WrappedData));
         }
 
@@ -869,7 +869,7 @@ namespace Riskeer.Piping.Plugin
             return new StrictContextMenuItem(
                 Resources.CalculationGroup_Add_ProbabilisticCalculation,
                 Resources.CalculationGroup_Add_ProbabilisticCalculation_ToolTip,
-                RiskeerCommonFormsResources.FailureMechanismIcon,
+                RiskeerCommonFormsResources.ProbabilisticCalculationIcon,
                 (sender, args) => AddCalculation(() => new ProbabilisticPipingCalculation(context.FailureMechanism.GeneralInput), context.WrappedData));
         }
 

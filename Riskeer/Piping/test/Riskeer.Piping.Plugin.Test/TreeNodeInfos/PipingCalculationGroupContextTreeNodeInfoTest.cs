@@ -277,11 +277,11 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddSemiProbabilisticCalculationIndexNestedGroup,
                                                               "Semi-probabilistische berekening &toevoegen",
                                                               "Voeg een nieuwe semi-probabilistische berekening toe aan deze map met berekeningen.",
-                                                              RiskeerCommonFormsResources.HydraulicCalculationIcon);
+                                                              RiskeerCommonFormsResources.SemiProbabilisticCalculationIcon);
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddProbabilisticCalculationIndexNestedGroup,
                                                               "&Probabilistische berekening toevoegen",
                                                               "Voeg een nieuwe probabilistische berekening toe aan deze map met berekeningen.",
-                                                              RiskeerCommonFormsResources.HydraulicCalculationIcon);
+                                                              RiskeerCommonFormsResources.ProbabilisticCalculationIcon);
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuRenameCalculationGroupIndexNestedGroup,
                                                               "&Hernoemen",
                                                               "Wijzig de naam van dit element.",
@@ -407,12 +407,12 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddSemiProbabilisticCalculationIndexRootGroup,
                                                               "Semi-probabilistische berekening &toevoegen",
                                                               "Voeg een nieuwe semi-probabilistische berekening toe aan deze map met berekeningen.",
-                                                              RiskeerCommonFormsResources.HydraulicCalculationIcon);
+                                                              RiskeerCommonFormsResources.SemiProbabilisticCalculationIcon);
 
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddProbabilisticCalculationIndexRootGroup,
                                                               "&Probabilistische berekening toevoegen",
                                                               "Voeg een nieuwe probabilistische berekening toe aan deze map met berekeningen.",
-                                                              RiskeerCommonFormsResources.HydraulicCalculationIcon);
+                                                              RiskeerCommonFormsResources.ProbabilisticCalculationIcon);
 
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuUpdateEntryAndExitPointsAllIndexRootGroup,
                                                               "&Bijwerken intrede- en uittredepunten...",
