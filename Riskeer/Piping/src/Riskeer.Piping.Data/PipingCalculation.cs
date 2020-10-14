@@ -71,8 +71,8 @@ namespace Riskeer.Piping.Data
         {
             var clone = (PipingCalculation<TPipingInput>) base.Clone();
 
-            clone.Comments = (Comment) Comments.Clone();
             clone.InputParameters = (TPipingInput) InputParameters.Clone();
+            clone.Comments = (Comment) Comments.Clone();
 
             return clone;
         }

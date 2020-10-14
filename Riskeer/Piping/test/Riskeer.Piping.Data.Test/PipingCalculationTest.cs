@@ -97,28 +97,15 @@ namespace Riskeer.Piping.Data.Test
             CoreCloneAssert.AreObjectClones(original, clone, PipingCloneAssert.AreClones);
         }
 
-        [Test]
-        public void Clone_NotAllPropertiesSet_ReturnNewInstanceWithCopiedValues()
-        {
-            // Setup
-            PipingCalculation<PipingInput> original = CreateRandomCalculationWithoutOutput();
-
-            // Call
-            object clone = original.Clone();
-
-            // Assert
-            CoreCloneAssert.AreObjectClones(original, clone, PipingCloneAssert.AreClones);
-        }
-
         private static PipingCalculation<PipingInput> CreateRandomCalculationWithoutOutput()
         {
             var calculation = new TestPipingCalculation
             {
+                Name = "Random name",
                 Comments =
                 {
                     Body = "Random body"
-                },
-                Name = "Random name"
+                }
             };
 
             PipingTestDataGenerator.SetRandomDataToPipingInput(calculation.InputParameters);
