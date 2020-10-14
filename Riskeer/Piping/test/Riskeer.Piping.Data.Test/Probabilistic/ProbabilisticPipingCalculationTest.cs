@@ -96,7 +96,7 @@ namespace Riskeer.Piping.Data.Test.Probabilistic
             // Setup
             ProbabilisticPipingCalculation original = CreateRandomCalculationWithoutOutput();
 
-            original.Output = SemiProbabilisticPipingOutputTestFactory.Create();
+            original.Output = ProbabilisticPipingOutputTestFactory.Create();
             
             // Call
             object clone = original.Clone();
