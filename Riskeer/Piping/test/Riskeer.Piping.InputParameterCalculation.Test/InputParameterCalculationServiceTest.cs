@@ -105,7 +105,7 @@ namespace Riskeer.Piping.InputParameterCalculation.Test
                     }
                 }, SoilProfileType.SoilProfile1D));
 
-            var input = new PipingInput(new GeneralPipingInput())
+            var input = new TestPipingInput
             {
                 ExitPointL = (RoundedDouble) 10,
                 SurfaceLine = surfaceLine,
@@ -148,7 +148,7 @@ namespace Riskeer.Piping.InputParameterCalculation.Test
                     }
                 }, SoilProfileType.SoilProfile1D));
 
-            var input = new PipingInput(new GeneralPipingInput())
+            var input = new TestPipingInput
             {
                 ExitPointL = (RoundedDouble) 10,
                 SurfaceLine = surfaceLine,
@@ -171,7 +171,7 @@ namespace Riskeer.Piping.InputParameterCalculation.Test
         public static void CalculatePiezometricHeadAtExit_Always_ReturnsResult()
         {
             // Setup
-            var input = new PipingInput(new GeneralPipingInput());
+            var input = new TestPipingInput();
 
             // Call
             double result = InputParameterCalculationService.CalculatePiezometricHeadAtExit(

@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using NUnit.Framework;
-using Riskeer.Piping.Data;
 using Riskeer.Piping.Data.SoilProfile;
 using Riskeer.Piping.Data.TestUtil;
 using Riskeer.Piping.Primitives.TestUtil;
@@ -35,7 +34,7 @@ namespace Riskeer.Piping.Service.Test
         {
             // Setup
             PipingStochasticSoilModel soilModel = PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel();
-            var pipingInput = new PipingInput(new GeneralPipingInput());
+            var pipingInput = new TestPipingInput();
 
             // Call
             PipingInputService.SetMatchingStochasticSoilModel(pipingInput, new[]
@@ -51,7 +50,7 @@ namespace Riskeer.Piping.Service.Test
         public void SetMatchingStochasticSoilModel_SurfaceLineOverlappingMultipleSoilModels_DoesNotSetModel()
         {
             // Setup
-            var pipingInput = new PipingInput(new GeneralPipingInput());
+            var pipingInput = new TestPipingInput();
             PipingStochasticSoilModel soilModel1 = PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel("A");
             PipingStochasticSoilModel soilModel2 = PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel("C");
 
@@ -71,7 +70,7 @@ namespace Riskeer.Piping.Service.Test
         {
             // Setup
             PipingStochasticSoilModel nonOverlappingSoilModel = PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel();
-            var pipingInput = new PipingInput(new GeneralPipingInput())
+            var pipingInput = new TestPipingInput
             {
                 StochasticSoilModel = nonOverlappingSoilModel
             };
@@ -101,7 +100,7 @@ namespace Riskeer.Piping.Service.Test
                 soilProfile
             });
 
-            var pipingInput = new PipingInput(new GeneralPipingInput())
+            var pipingInput = new TestPipingInput
             {
                 StochasticSoilModel = soilModel
             };
@@ -123,7 +122,7 @@ namespace Riskeer.Piping.Service.Test
                 new PipingStochasticSoilProfile(1.0, PipingSoilProfileTestFactory.CreatePipingSoilProfile())
             });
 
-            var pipingInput = new PipingInput(new GeneralPipingInput())
+            var pipingInput = new TestPipingInput
             {
                 StochasticSoilModel = soilModel
             };
@@ -145,7 +144,7 @@ namespace Riskeer.Piping.Service.Test
                 soilProfile
             });
 
-            var pipingInput = new PipingInput(new GeneralPipingInput())
+            var pipingInput = new TestPipingInput
             {
                 StochasticSoilModel = soilModel,
                 StochasticSoilProfile = soilProfile

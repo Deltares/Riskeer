@@ -60,7 +60,7 @@ namespace Riskeer.Piping.Data.TestUtil
                     }
                 }, SoilProfileType.SoilProfile1D));
 
-            return new TestPipingInput(new GeneralPipingInput())
+            return new TestPipingInput
             {
                 SurfaceLine = surfaceLine,
                 StochasticSoilProfile = stochasticSoilProfile,
@@ -90,7 +90,7 @@ namespace Riskeer.Piping.Data.TestUtil
                     }
                 }, SoilProfileType.SoilProfile1D));
 
-            return new TestPipingInput(new GeneralPipingInput())
+            return new TestPipingInput
             {
                 SurfaceLine = surfaceLine,
                 StochasticSoilProfile = stochasticSoilProfile,
@@ -128,7 +128,7 @@ namespace Riskeer.Piping.Data.TestUtil
                         IsAquifer = false
                     }
                 }, SoilProfileType.SoilProfile1D));
-            var input = new TestPipingInput(new GeneralPipingInput())
+            var input = new TestPipingInput
             {
                 SurfaceLine = surfaceLine,
                 StochasticSoilProfile = stochasticSoilProfile,
@@ -166,7 +166,7 @@ namespace Riskeer.Piping.Data.TestUtil
                         IsAquifer = true
                     }
                 }, SoilProfileType.SoilProfile1D));
-            var input = new TestPipingInput(new GeneralPipingInput())
+            var input = new TestPipingInput
             {
                 SurfaceLine = surfaceLine,
                 StochasticSoilProfile = stochasticSoilProfile,

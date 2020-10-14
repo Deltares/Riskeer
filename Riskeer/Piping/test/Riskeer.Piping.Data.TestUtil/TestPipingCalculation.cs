@@ -31,7 +31,7 @@ namespace Riskeer.Piping.Data.TestUtil
         /// <summary>
         /// Creates a new instance of <see cref="TestPipingCalculation"/> with default <see cref="PipingInput"/>.
         /// </summary>
-        public TestPipingCalculation() : base(new TestPipingInput(new GeneralPipingInput())) {}
+        public TestPipingCalculation() : base(new TestPipingInput()) {}
 
         /// <summary>
         /// Creates a new instance of <see cref="TestPipingCalculation"/>.
