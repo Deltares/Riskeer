@@ -65,16 +65,18 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
         /// <typeparam name="TCalculationContext">The type of the calculation group context.</typeparam>
         /// <param name="calculationGroupContext">The calculation group context belonging to the calculation group.</param>
         /// <param name="addCalculationAction">The action for adding a calculation to the calculation group.</param>
+        /// <param name="calculationType">The type of the calculation to add.</param>
         /// <returns>The created <see cref="StrictContextMenuItem"/>.</returns>
         public static StrictContextMenuItem CreateAddCalculationItem<TCalculationContext>(
             TCalculationContext calculationGroupContext,
-            Action<TCalculationContext> addCalculationAction)
+            Action<TCalculationContext> addCalculationAction,
+            CalculationType calculationType)
             where TCalculationContext : ICalculationContext<CalculationGroup, IFailureMechanism>
         {
             return new StrictContextMenuItem(
                 Resources.CalculationGroup_Add_Calculation,
                 Resources.CalculationGroup_Add_Calculation_Tooltip,
-                Resources.FailureMechanismIcon,
+                CalculationTypeHelper.GetCalculationTypeImage(calculationType),
                 (o, args) => addCalculationAction(calculationGroupContext));
         }
 

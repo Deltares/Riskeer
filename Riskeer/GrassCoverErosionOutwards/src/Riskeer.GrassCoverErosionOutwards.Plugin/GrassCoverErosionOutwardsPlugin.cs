@@ -755,7 +755,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
             }
 
             builder.AddCreateCalculationGroupItem(group)
-                   .AddCreateCalculationItem(nodeData, AddWaveConditionsCalculation)
+                   .AddCreateCalculationItem(nodeData, AddWaveConditionsCalculation, CalculationType.Hydraulic)
                    .AddSeparator();
 
             if (isNestedGroup)

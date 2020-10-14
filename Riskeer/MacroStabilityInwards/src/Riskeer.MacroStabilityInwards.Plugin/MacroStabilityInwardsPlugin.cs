@@ -766,7 +766,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin
             }
 
             builder.AddCreateCalculationGroupItem(group)
-                   .AddCreateCalculationItem(nodeData, AddCalculationScenario)
+                   .AddCreateCalculationItem(nodeData, AddCalculationScenario, CalculationType.SemiProbabilistic)
                    .AddSeparator();
 
             if (isNestedGroup)

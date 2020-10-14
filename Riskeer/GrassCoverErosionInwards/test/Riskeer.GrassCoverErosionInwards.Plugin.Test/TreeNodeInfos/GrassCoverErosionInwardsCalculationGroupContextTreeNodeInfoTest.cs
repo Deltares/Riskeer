@@ -261,7 +261,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationIndexRootGroup,
                                                                   "Berekening &toevoegen",
                                                                   "Voeg een nieuwe berekening toe aan deze map met berekeningen.",
-                                                                  RiskeerCommonFormsResources.FailureMechanismIcon);
+                                                                  RiskeerCommonFormsResources.ProbabilisticCalculationIcon);
 
                     TestHelper.AssertContextMenuStripContainsItem(menu,
                                                                   contextMenuUpdateDikeProfileAllIndexRootGroup,
@@ -391,7 +391,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationIndexNestedGroup,
                                                                   "Berekening &toevoegen",
                                                                   "Voeg een nieuwe berekening toe aan deze map met berekeningen.",
-                                                                  RiskeerCommonFormsResources.FailureMechanismIcon);
+                                                                  RiskeerCommonFormsResources.ProbabilisticCalculationIcon);
                     TestHelper.AssertContextMenuStripContainsItem(menu,
                                                                   contextMenuUpdateDikeProfileAllIndexNestedGroup,
                                                                   "&Bijwerken dijkprofielen...",

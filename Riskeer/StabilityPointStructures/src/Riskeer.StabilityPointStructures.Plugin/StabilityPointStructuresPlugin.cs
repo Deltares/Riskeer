@@ -547,7 +547,7 @@ namespace Riskeer.StabilityPointStructures.Plugin
             }
 
             builder.AddCreateCalculationGroupItem(group)
-                   .AddCreateCalculationItem(context, AddCalculation)
+                   .AddCreateCalculationItem(context, AddCalculation, CalculationType.Probabilistic)
                    .AddSeparator();
 
             if (isNestedGroup)

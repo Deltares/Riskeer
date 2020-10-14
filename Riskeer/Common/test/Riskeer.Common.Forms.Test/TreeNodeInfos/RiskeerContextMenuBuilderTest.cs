@@ -38,6 +38,7 @@ using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.ChangeHandlers;
 using Riskeer.Common.Forms.PresentationObjects;
+using Riskeer.Common.Forms.TestUtil;
 using Riskeer.Common.Forms.TreeNodeInfos;
 using RiskeerFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
@@ -88,7 +89,8 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void AddCreateCalculationItem_WhenBuild_ItemAddedToContextMenu()
+        [TestCaseSource(typeof(CalculationTypeTestHelper), nameof(CalculationTypeTestHelper.CalculationTypeWithImageCases))]
+        public void AddCreateCalculationItem_WhenBuild_ItemAddedToContextMenu(CalculationType calculationType, Bitmap expectedImage)
         {
             // Setup
             var mocks = new MockRepository();
@@ -116,7 +118,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                 var riskeerContextMenuBuilder = new RiskeerContextMenuBuilder(contextMenuBuilder);
 
                 // Call
-                ContextMenuStrip result = riskeerContextMenuBuilder.AddCreateCalculationItem(calculationGroupContext, context => {}).Build();
+                ContextMenuStrip result = riskeerContextMenuBuilder.AddCreateCalculationItem(calculationGroupContext, context => {}, calculationType).Build();
 
                 // Assert
                 Assert.IsInstanceOf<ContextMenuStrip>(result);
@@ -125,7 +127,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                 TestHelper.AssertContextMenuStripContainsItem(result, 0,
                                                               "Berekening &toevoegen",
                                                               "Voeg een nieuwe berekening toe aan deze map met berekeningen.",
-                                                              RiskeerFormsResources.FailureMechanismIcon);
+                                                              expectedImage);
             }
 
             mocks.VerifyAll();

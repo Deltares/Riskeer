@@ -450,7 +450,7 @@ namespace Riskeer.StabilityStoneCover.Plugin
             }
 
             builder.AddCreateCalculationGroupItem(group)
-                   .AddCreateCalculationItem(nodeData, AddWaveConditionsCalculation)
+                   .AddCreateCalculationItem(nodeData, AddWaveConditionsCalculation, CalculationType.Hydraulic)
                    .AddSeparator();
 
             if (isNestedGroup)

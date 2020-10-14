@@ -66,13 +66,15 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
         /// <typeparam name="TCalculationContext">The type of the calculation group context.</typeparam>
         /// <param name="calculationGroupContext">The calculation group context belonging to the calculation group.</param>
         /// <param name="addCalculationAction">The action for adding a calculation to the calculation group.</param>
+        /// <param name="calculationType">The type of the calculation to add.</param>
         /// <returns>The <see cref="RiskeerContextMenuBuilder"/> itself.</returns>
         public RiskeerContextMenuBuilder AddCreateCalculationItem<TCalculationContext>(
             TCalculationContext calculationGroupContext,
-            Action<TCalculationContext> addCalculationAction)
+            Action<TCalculationContext> addCalculationAction,
+            CalculationType calculationType)
             where TCalculationContext : ICalculationContext<CalculationGroup, IFailureMechanism>
         {
-            contextMenuBuilder.AddCustomItem(RiskeerContextMenuItemFactory.CreateAddCalculationItem(calculationGroupContext, addCalculationAction));
+            contextMenuBuilder.AddCustomItem(RiskeerContextMenuItemFactory.CreateAddCalculationItem(calculationGroupContext, addCalculationAction, calculationType));
             return this;
         }
 

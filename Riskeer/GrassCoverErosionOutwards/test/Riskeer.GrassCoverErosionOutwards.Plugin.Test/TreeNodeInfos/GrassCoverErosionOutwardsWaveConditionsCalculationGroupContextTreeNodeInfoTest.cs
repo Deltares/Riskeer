@@ -311,7 +311,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationIndexRootGroup,
                                                                   "Berekening &toevoegen",
                                                                   "Voeg een nieuwe berekening toe aan deze map met berekeningen.",
-                                                                  RiskeerCommonFormsResources.FailureMechanismIcon);
+                                                                  RiskeerCommonFormsResources.HydraulicCalculationIcon);
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuUpdateForeshoreProfileIndexRootGroup,
                                                                   "&Bijwerken voorlandprofielen...",
                                                                   "Er zijn geen berekeningen om bij te werken.",
@@ -436,7 +436,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationIndexNestedGroup,
                                                                   "Berekening &toevoegen",
                                                                   "Voeg een nieuwe berekening toe aan deze map met berekeningen.",
-                                                                  RiskeerCommonFormsResources.FailureMechanismIcon);
+                                                                  RiskeerCommonFormsResources.HydraulicCalculationIcon);
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuUpdateForeshoreProfileIndexNestedGroup,
                                                                   "&Bijwerken voorlandprofielen...",
                                                                   "Er zijn geen berekeningen om bij te werken.",
@@ -512,7 +512,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationIndexRootGroup,
                                                                   "Berekening &toevoegen",
                                                                   "Voeg een nieuwe berekening toe aan deze map met berekeningen.",
-                                                                  RiskeerCommonFormsResources.FailureMechanismIcon);
+                                                                  RiskeerCommonFormsResources.HydraulicCalculationIcon);
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuUpdateForeshoreProfileIndexRootGroup,
                                                                   "&Bijwerken voorlandprofielen...",
                                                                   "Er zijn geen berekeningen om bij te werken.",
@@ -614,7 +614,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationIndexRootGroup,
                                                                   "Berekening &toevoegen",
                                                                   "Voeg een nieuwe berekening toe aan deze map met berekeningen.",
-                                                                  RiskeerCommonFormsResources.FailureMechanismIcon);
+                                                                  RiskeerCommonFormsResources.HydraulicCalculationIcon);
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuRemoveAllChildrenIndexRootGroup,
                                                                   "Ma&p leegmaken...",
                                                                   "Er zijn geen onderliggende elementen om te verwijderen.",
@@ -1664,7 +1664,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                                                                   contextMenuAddCalculationIndexRootGroup,
                                                                   "Berekening &toevoegen",
                                                                   "Voeg een nieuwe berekening toe aan deze map met berekeningen.",
-                                                                  RiskeerCommonFormsResources.FailureMechanismIcon);
+                                                                  RiskeerCommonFormsResources.HydraulicCalculationIcon);
                     // Check expectancies in TearDown()
                 }
             }
