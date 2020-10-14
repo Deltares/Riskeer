@@ -28,6 +28,8 @@ namespace Riskeer.Piping.Data.TestUtil
     /// </summary>
     public class TestPipingCalculation : PipingCalculation<PipingInput, PipingOutput>
     {
+        private bool hasOutput;
+
         /// <summary>
         /// Creates a new instance of <see cref="TestPipingCalculation"/> with default <see cref="PipingInput"/>.
         /// </summary>
@@ -43,14 +45,14 @@ namespace Riskeer.Piping.Data.TestUtil
         /// is <c>null</c>.</exception>
         public TestPipingCalculation(PipingInput pipingInput, bool hasOutput = false) : base(pipingInput)
         {
-            HasOutput = hasOutput;
+            this.hasOutput = hasOutput;
         }
 
-        public override bool HasOutput { get; }
+        public override bool HasOutput => hasOutput;
 
         public override void ClearOutput()
         {
-            // Do nothing
+            hasOutput = false;
         }
     }
 }
