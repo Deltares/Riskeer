@@ -220,7 +220,7 @@ namespace Riskeer.Piping.Plugin
             yield return new ViewInfo<PipingFailureMechanismContext, PipingFailureMechanismView>
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
-                Image = RiskeerCommonFormsResources.CalculationIcon,
+                Image = RiskeerCommonFormsResources.FailureMechanismIcon,
                 CloseForData = ClosePipingFailureMechanismViewForData,
                 AdditionalDataCheck = context => context.WrappedData.IsRelevant,
                 CreateInstance = context => new PipingFailureMechanismView(context.WrappedData, context.Parent)

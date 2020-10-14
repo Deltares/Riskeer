@@ -1363,7 +1363,7 @@ namespace Riskeer.Integration.Plugin
                 FailureMechanismWithDetailedAssessmentView<TFailureMechanism, TSectionResult>>
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
-                Image = RiskeerCommonFormsResources.CalculationIcon,
+                Image = RiskeerCommonFormsResources.FailureMechanismIcon,
                 CloseForData = CloseFailureMechanismWithDetailedAssessmentViewForData,
                 AdditionalDataCheck = context => context.WrappedData.IsRelevant,
                 CreateInstance = createInstanceFunc
@@ -1398,7 +1398,7 @@ namespace Riskeer.Integration.Plugin
                 FailureMechanismWithoutDetailedAssessmentView<TFailureMechanism, TSectionResult>>
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
-                Image = RiskeerCommonFormsResources.CalculationIcon,
+                Image = RiskeerCommonFormsResources.FailureMechanismIcon,
                 CloseForData = CloseFailureMechanismWithoutDetailedAssessmentViewForData,
                 AdditionalDataCheck = context => context.WrappedData.IsRelevant,
                 CreateInstance = createInstanceFunc
