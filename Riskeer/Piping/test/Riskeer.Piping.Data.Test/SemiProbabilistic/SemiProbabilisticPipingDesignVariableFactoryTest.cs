@@ -95,7 +95,7 @@ namespace Riskeer.Piping.Data.Test.SemiProbabilistic
         public void GetThicknessCoverageLayer_PipingInputWithoutCoverLayer_CreateDeterministicDesignVariableForThicknessCoverageLayer()
         {
             // Setup
-            var inputParameters = new PipingInput(new GeneralPipingInput());
+            var inputParameters = new TestPipingInput();
 
             // Call
             DesignVariable<LogNormalDistribution> thicknessCoverageLayer = SemiProbabilisticPipingDesignVariableFactory.GetThicknessCoverageLayer(inputParameters);
@@ -126,7 +126,7 @@ namespace Riskeer.Piping.Data.Test.SemiProbabilistic
         public void GetEffectiveThicknessCoverageLayer_PipingInputWithoutCoverLayer_CreateDeterministicDesignVariableForEffectiveThicknessCoverageLayer()
         {
             // Setup
-            var inputParameters = new PipingInput(new GeneralPipingInput());
+            var inputParameters = new TestPipingInput();
 
             // Call
             DesignVariable<LogNormalDistribution> effectiveThicknessCoverageLayer =
@@ -142,22 +142,22 @@ namespace Riskeer.Piping.Data.Test.SemiProbabilistic
         public void GetPhreaticLevelExit_ValidPipingCalculation_CreateDesignVariableForPhreaticLevelExit()
         {
             // Setup
-            var inputParameters = new PipingInput(new GeneralPipingInput());
+            var inputParameters = new TestPipingInput();
 
             // Call
-            DesignVariable<NormalDistribution> freaticLevelExit =
+            DesignVariable<NormalDistribution> phreaticLevelExit =
                 SemiProbabilisticPipingDesignVariableFactory.GetPhreaticLevelExit(inputParameters);
 
             // Assert
-            Assert.AreSame(inputParameters.PhreaticLevelExit, freaticLevelExit.Distribution);
-            AssertPercentile(0.05, freaticLevelExit);
+            Assert.AreSame(inputParameters.PhreaticLevelExit, phreaticLevelExit.Distribution);
+            AssertPercentile(0.05, phreaticLevelExit);
         }
 
         [Test]
         public void GetDampingFactorExit_ValidPipingCalculation_CreateDesignVariableForDampingFactorExit()
         {
             // Setup
-            var inputParameters = new PipingInput(new GeneralPipingInput());
+            var inputParameters = new TestPipingInput();
 
             // Call
             DesignVariable<LogNormalDistribution> dampingFactorExit =
@@ -176,7 +176,7 @@ namespace Riskeer.Piping.Data.Test.SemiProbabilistic
         public void GetSeepageLength_ValidPipingCalculation_CreateDesignVariableForSeepageLength()
         {
             // Setup
-            var inputParameters = new PipingInput(new GeneralPipingInput());
+            var inputParameters = new TestPipingInput();
 
             // Call
             VariationCoefficientDesignVariable<VariationCoefficientLogNormalDistribution> seepageLength =
@@ -191,7 +191,7 @@ namespace Riskeer.Piping.Data.Test.SemiProbabilistic
         public void GetDiameter70_ValidPipingCalculation_CreateDesignVariableForDiameter70()
         {
             // Setup
-            var inputParameters = new PipingInput(new GeneralPipingInput());
+            var inputParameters = new TestPipingInput();
 
             // Call
             VariationCoefficientDesignVariable<VariationCoefficientLogNormalDistribution> d70 =
@@ -206,7 +206,7 @@ namespace Riskeer.Piping.Data.Test.SemiProbabilistic
         public void GetDarcyPermeability_ValidPipingCalculation_CreateDesignVariableForDarcyPermeability()
         {
             // Setup
-            var inputParameters = new PipingInput(new GeneralPipingInput());
+            var inputParameters = new TestPipingInput();
 
             // Call
             VariationCoefficientDesignVariable<VariationCoefficientLogNormalDistribution> darcyPermeability =
@@ -241,7 +241,7 @@ namespace Riskeer.Piping.Data.Test.SemiProbabilistic
         public void GetSaturatedVolumicWeightOfCoverageLayer_PipingInputWithoutCoverLayer_CreateDeterministicDesignVariableForSaturatedVolumicWeightOfCoverageLayer()
         {
             // Setup
-            var inputParameters = new PipingInput(new GeneralPipingInput());
+            var inputParameters = new TestPipingInput();
 
             // Call
             DesignVariable<LogNormalDistribution> saturatedVolumicWeightOfCoverageLayer =
@@ -258,7 +258,7 @@ namespace Riskeer.Piping.Data.Test.SemiProbabilistic
         public void GetThicknessAquiferLayer_ValidPipingCalculation_CreateDesignVariableForThicknessAquiferLayer()
         {
             // Setup
-            var inputParameters = new PipingInput(new GeneralPipingInput());
+            var inputParameters = new TestPipingInput();
 
             // Call
             DesignVariable<LogNormalDistribution> thicknessAquiferLayer =

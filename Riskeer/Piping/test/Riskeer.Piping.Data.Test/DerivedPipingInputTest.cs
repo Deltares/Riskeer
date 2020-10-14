@@ -51,7 +51,7 @@ namespace Riskeer.Piping.Data.Test
         public void GetPiezometricHeadExit_ValidInput_SetsParametersForCalculatorAndReturnsNotNaN()
         {
             // Setup
-            var input = new PipingInput(new GeneralPipingInput());
+            var input = new TestPipingInput();
 
             using (new PipingSubCalculatorFactoryConfig())
             {

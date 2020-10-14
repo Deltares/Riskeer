@@ -41,7 +41,7 @@ namespace Riskeer.Piping.Data.TestUtil.Test
         public void Constructor_WithPipingInput_ExpectedValues()
         {
             // Setup
-            var pipingInput = new PipingInput(new GeneralPipingInput());
+            var pipingInput = new TestPipingInput(new GeneralPipingInput());
 
             // Call
             var calculation = new TestPipingCalculation(pipingInput);
