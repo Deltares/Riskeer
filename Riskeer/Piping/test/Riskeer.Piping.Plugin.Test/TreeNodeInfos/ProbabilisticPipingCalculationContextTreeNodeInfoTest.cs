@@ -108,7 +108,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             // Setup
             var calculation = new ProbabilisticPipingCalculation(new GeneralPipingInput())
             {
-                Output = PipingOutputTestFactory.Create()
+                Output = new ProbabilisticPipingOutput()
             };
 
             var pipingFailureMechanism = new PipingFailureMechanism();
@@ -222,7 +222,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             {
                 var calculation = new ProbabilisticPipingCalculation(new GeneralPipingInput())
                 {
-                    Output = PipingOutputTestFactory.Create()
+                    Output = new ProbabilisticPipingOutput()
                 };
                 var pipingFailureMechanism = new TestPipingFailureMechanism();
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -598,7 +598,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                 PipingSurfaceLine surfaceLine;
                 ProbabilisticPipingCalculation calculation;
                 CreateCalculationWithSurfaceLine(out calculation, out surfaceLine);
-                calculation.Output = PipingOutputTestFactory.Create();
+                calculation.Output = new ProbabilisticPipingOutput();
 
                 var pipingFailureMechanism = new TestPipingFailureMechanism();
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -660,7 +660,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                 PipingSurfaceLine surfaceLine;
                 ProbabilisticPipingCalculation calculation;
                 CreateCalculationWithSurfaceLine(out calculation, out surfaceLine);
-                calculation.Output = PipingOutputTestFactory.Create();
+                calculation.Output = new ProbabilisticPipingOutput();
 
                 var pipingFailureMechanism = new TestPipingFailureMechanism();
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -790,7 +790,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
 
                 plugin.Gui = gui;
 
-                calculation.Output = PipingOutputTestFactory.Create();
+                calculation.Output = new ProbabilisticPipingOutput();
                 calculation.Attach(observer);
 
                 string messageBoxText = null, messageBoxTitle = null;
