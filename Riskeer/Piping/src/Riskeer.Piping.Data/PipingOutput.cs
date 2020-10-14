@@ -27,7 +27,7 @@ using Riskeer.Common.Data.Calculation;
 namespace Riskeer.Piping.Data
 {
     /// <summary>
-    /// Simple class containing the results of a Piping calculation.
+    /// Class containing the results of a semi-probabilistic piping calculation.
     /// </summary>
     public class PipingOutput : CloneableObservable, ICalculationOutput
     {

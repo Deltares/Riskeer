@@ -63,6 +63,7 @@ namespace Riskeer.Piping.Data.Test
         [Test]
         public void Constructor_ExpectedValues()
         {
+            // Setup
             var random = new Random(22);
             double foSuValue = random.NextDouble();
             double foShValue = random.NextDouble();
@@ -73,6 +74,7 @@ namespace Riskeer.Piping.Data.Test
             double sellmeijerCriticalFall = random.NextDouble();
             double sellmeijerReducedFall = random.NextDouble();
 
+            // Call
             var output = new PipingOutput(new PipingOutput.ConstructionProperties
             {
                 UpliftFactorOfSafety = foSuValue,
@@ -85,9 +87,9 @@ namespace Riskeer.Piping.Data.Test
                 SellmeijerReducedFall = sellmeijerReducedFall
             });
 
+            // Assert
             Assert.IsInstanceOf<CloneableObservable>(output);
             Assert.IsInstanceOf<ICalculationOutput>(output);
-            Assert.IsInstanceOf<ICloneable>(output);
 
             Assert.AreEqual(foSuValue, output.UpliftFactorOfSafety);
             Assert.AreEqual(foShValue, output.HeaveFactorOfSafety);
