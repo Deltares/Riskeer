@@ -29,6 +29,7 @@ using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.Probabilistics;
 using Riskeer.Common.Data.TestUtil;
+using Riskeer.Piping.Data.Probabilistic;
 using Riskeer.Piping.Data.SemiProbabilistic;
 using Riskeer.Piping.Data.SoilProfile;
 using Riskeer.Piping.Primitives;
@@ -460,12 +461,23 @@ namespace Riskeer.Piping.Data.TestUtil
         /// <param name="input">The input to set the random data values to.</param>
         public static void SetRandomDataToPipingInput(SemiProbabilisticPipingInput input)
         {
-            var random = new Random(21);
-
             SetRandomDataToPipingInput((PipingInput) input);
 
+            var random = new Random(21);
             input.UseAssessmentLevelManualInput = random.NextBoolean();
             input.AssessmentLevel = random.NextRoundedDouble();
+        }
+        
+        /// <summary>
+        /// This method sets random data values to all properties of <paramref name="input"/>.
+        /// </summary>
+        /// <param name="input">The input to set the random data values to.</param>
+        public static void SetRandomDataToPipingInput(ProbabilisticPipingInput input)
+        {
+            SetRandomDataToPipingInput((PipingInput) input);
+
+            var random = new Random(21);
+            input.ShouldIllustrationPointsBeCalculated = random.NextBoolean();
         }
 
         /// <summary>

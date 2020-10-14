@@ -19,8 +19,10 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using Core.Common.Data.TestUtil;
 using NUnit.Framework;
 using Riskeer.Piping.Data.Probabilistic;
+using Riskeer.Piping.Data.TestUtil;
 
 namespace Riskeer.Piping.Data.Test.Probabilistic
 {
@@ -39,6 +41,41 @@ namespace Riskeer.Piping.Data.Test.Probabilistic
             // Assert
             Assert.IsInstanceOf<PipingInput>(inputParameters);
             Assert.IsFalse(inputParameters.ShouldIllustrationPointsBeCalculated);
+        }
+
+        [Test]
+        public void Clone_AllPropertiesSet_ReturnNewInstanceWithCopiedValues()
+        {
+            // Setup
+            var original = new ProbabilisticPipingInput(new GeneralPipingInput());
+
+            PipingTestDataGenerator.SetRandomDataToPipingInput(original);
+
+            // Call
+            object clone = original.Clone();
+
+            // Assert
+            CoreCloneAssert.AreObjectClones(original, clone, PipingCloneAssert.AreClones);
+        }
+
+        [Test]
+        public void Clone_NotAllPropertiesSet_ReturnNewInstanceWithCopiedValues()
+        {
+            // Setup
+            var original = new ProbabilisticPipingInput(new GeneralPipingInput());
+
+            PipingTestDataGenerator.SetRandomDataToPipingInput(original);
+
+            original.SurfaceLine = null;
+            original.StochasticSoilModel = null;
+            original.StochasticSoilProfile = null;
+            original.HydraulicBoundaryLocation = null;
+
+            // Call
+            object clone = original.Clone();
+
+            // Assert
+            CoreCloneAssert.AreObjectClones(original, clone, PipingCloneAssert.AreClones);
         }
     }
 }

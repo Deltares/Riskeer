@@ -23,6 +23,7 @@ using Core.Common.Data.TestUtil;
 using Core.Common.Util.Reflection;
 using NUnit.Framework;
 using Riskeer.Common.Data.TestUtil;
+using Riskeer.Piping.Data.Probabilistic;
 using Riskeer.Piping.Data.SemiProbabilistic;
 
 namespace Riskeer.Piping.Data.TestUtil
@@ -86,6 +87,20 @@ namespace Riskeer.Piping.Data.TestUtil
             AreClones((PipingInput) original, clone);
             Assert.AreEqual(original.AssessmentLevel, clone.AssessmentLevel);
             Assert.AreEqual(original.UseAssessmentLevelManualInput, clone.UseAssessmentLevelManualInput);
+        }
+
+        /// <summary>
+        /// Method that asserts whether <paramref name="original"/> and <paramref name="clone"/>
+        /// are clones.
+        /// </summary>
+        /// <param name="original">The original object.</param>
+        /// <param name="clone">The cloned object.</param>
+        /// <exception cref="AssertionException">Thrown when <paramref name="original"/> and
+        /// <paramref name="clone"/> are not clones.</exception>
+        public static void AreClones(ProbabilisticPipingInput original, ProbabilisticPipingInput clone)
+        {
+            AreClones((PipingInput) original, clone);
+            Assert.AreEqual(original.ShouldIllustrationPointsBeCalculated, clone.ShouldIllustrationPointsBeCalculated);
         }
 
         /// <summary>
