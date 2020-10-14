@@ -300,7 +300,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses
         private void CreateDerivedOutput(SemiProbabilisticPipingOutput output, PipingFailureMechanism failureMechanism,
                                          IAssessmentSection assessmentSection)
         {
-            derivedOutput = DerivedPipingOutputFactory.Create(output, failureMechanism, assessmentSection);
+            derivedOutput = DerivedSemiProbabilisticPipingOutputFactory.Create(output, failureMechanism, assessmentSection);
         }
     }
 }

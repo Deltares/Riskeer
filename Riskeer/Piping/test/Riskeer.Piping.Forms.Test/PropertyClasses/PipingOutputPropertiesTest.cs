@@ -140,7 +140,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
             var properties = new PipingOutputProperties(output, failureMechanism, assessmentSection);
 
             // Assert
-            DerivedSemiProbabilisticPipingOutput expectedDerivedOutput = DerivedPipingOutputFactory.Create(output, failureMechanism, assessmentSection);
+            DerivedSemiProbabilisticPipingOutput expectedDerivedOutput = DerivedSemiProbabilisticPipingOutputFactory.Create(output, failureMechanism, assessmentSection);
             Assert.AreEqual(upliftFactorOfSafety, properties.UpliftFactorOfSafety, properties.UpliftFactorOfSafety.GetAccuracy());
             Assert.AreEqual(expectedDerivedOutput.UpliftReliability, properties.UpliftReliability, properties.UpliftReliability.GetAccuracy());
             Assert.AreEqual(ProbabilityFormattingHelper.Format(expectedDerivedOutput.UpliftProbability), properties.UpliftProbability);

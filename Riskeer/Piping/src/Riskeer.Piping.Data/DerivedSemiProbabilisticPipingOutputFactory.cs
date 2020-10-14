@@ -29,7 +29,7 @@ namespace Riskeer.Piping.Data
     /// <summary>
     /// Factory class to create <see cref="DerivedSemiProbabilisticPipingOutput"/>.
     /// </summary>
-    public static class DerivedPipingOutputFactory
+    public static class DerivedSemiProbabilisticPipingOutputFactory
     {
         /// <summary>
         /// Creates a new <see cref="DerivedSemiProbabilisticPipingOutput"/> based on the given parameters.
@@ -40,8 +40,8 @@ namespace Riskeer.Piping.Data
         /// <returns>The created <see cref="DerivedSemiProbabilisticPipingOutput"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public static DerivedSemiProbabilisticPipingOutput Create(SemiProbabilisticPipingOutput output,
-                                                 PipingFailureMechanism failureMechanism,
-                                                 IAssessmentSection assessmentSection)
+                                                                  PipingFailureMechanism failureMechanism,
+                                                                  IAssessmentSection assessmentSection)
         {
             if (output == null)
             {
@@ -86,12 +86,12 @@ namespace Riskeer.Piping.Data
             double requiredReliability = StatisticsConverter.ProbabilityToReliability(requiredProbability);
 
             return new DerivedSemiProbabilisticPipingOutput(upliftFactorOfSafety, upliftReliability,
-                                           upliftProbability, heaveFactorOfSafety,
-                                           heaveReliability, heaveProbability,
-                                           sellmeijerFactorOfSafety, sellmeijerReliability,
-                                           sellmeijerProbability, requiredProbability,
-                                           requiredReliability, pipingProbability,
-                                           pipingReliability, pipingReliability / requiredReliability);
+                                                            upliftProbability, heaveFactorOfSafety,
+                                                            heaveReliability, heaveProbability,
+                                                            sellmeijerFactorOfSafety, sellmeijerReliability,
+                                                            sellmeijerProbability, requiredProbability,
+                                                            requiredReliability, pipingProbability,
+                                                            pipingReliability, pipingReliability / requiredReliability);
         }
 
         /// <summary>

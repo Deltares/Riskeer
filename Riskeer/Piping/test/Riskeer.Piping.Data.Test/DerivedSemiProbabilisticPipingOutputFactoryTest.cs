@@ -29,7 +29,7 @@ using Riskeer.Piping.Data.SemiProbabilistic;
 namespace Riskeer.Piping.Data.Test
 {
     [TestFixture]
-    public class DerivedPipingOutputFactoryTest
+    public class DerivedSemiProbabilisticPipingOutputFactoryTest
     {
         [Test]
         public void Create_OutputNull_ThrowsArgumentNullException()
@@ -40,9 +40,9 @@ namespace Riskeer.Piping.Data.Test
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => DerivedPipingOutputFactory.Create(null,
-                                                                        new PipingFailureMechanism(),
-                                                                        assessmentSection);
+            TestDelegate call = () => DerivedSemiProbabilisticPipingOutputFactory.Create(null,
+                                                                                         new PipingFailureMechanism(),
+                                                                                         assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -59,9 +59,9 @@ namespace Riskeer.Piping.Data.Test
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => DerivedPipingOutputFactory.Create(new SemiProbabilisticPipingOutput(new SemiProbabilisticPipingOutput.ConstructionProperties()),
-                                                                        null,
-                                                                        assessmentSection);
+            TestDelegate call = () => DerivedSemiProbabilisticPipingOutputFactory.Create(new SemiProbabilisticPipingOutput(new SemiProbabilisticPipingOutput.ConstructionProperties()),
+                                                                                         null,
+                                                                                         assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -73,9 +73,9 @@ namespace Riskeer.Piping.Data.Test
         public void Create_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => DerivedPipingOutputFactory.Create(new SemiProbabilisticPipingOutput(new SemiProbabilisticPipingOutput.ConstructionProperties()),
-                                                                        new PipingFailureMechanism(),
-                                                                        null);
+            TestDelegate call = () => DerivedSemiProbabilisticPipingOutputFactory.Create(new SemiProbabilisticPipingOutput(new SemiProbabilisticPipingOutput.ConstructionProperties()),
+                                                                                         new PipingFailureMechanism(),
+                                                                                         null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -103,7 +103,7 @@ namespace Riskeer.Piping.Data.Test
             });
 
             // Call
-            DerivedSemiProbabilisticPipingOutput derivedOutput = DerivedPipingOutputFactory.Create(calculatorResult, failureMechanism, assessmentSection);
+            DerivedSemiProbabilisticPipingOutput derivedOutput = DerivedSemiProbabilisticPipingOutputFactory.Create(calculatorResult, failureMechanism, assessmentSection);
 
             // Assert
             Assert.AreEqual(0.0030333773290253025, derivedOutput.UpliftProbability, 1e-6);

@@ -92,7 +92,7 @@ namespace Riskeer.Piping.Forms.Views
         private void CreateDerivedOutput()
         {
             derivedOutput = CalculationScenario.HasOutput
-                                ? DerivedPipingOutputFactory.Create(CalculationScenario.Output, failureMechanism, assessmentSection)
+                                ? DerivedSemiProbabilisticPipingOutputFactory.Create(CalculationScenario.Output, failureMechanism, assessmentSection)
                                 : null;
         }
     }
