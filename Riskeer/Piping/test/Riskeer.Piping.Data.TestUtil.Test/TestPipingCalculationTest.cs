@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using NUnit.Framework;
-using Riskeer.Piping.Data.SemiProbabilistic;
 
 namespace Riskeer.Piping.Data.TestUtil.Test
 {
@@ -34,7 +33,7 @@ namespace Riskeer.Piping.Data.TestUtil.Test
             var calculation = new TestPipingCalculation();
 
             // Assert
-            Assert.IsInstanceOf<PipingCalculation<PipingInput, SemiProbabilisticPipingOutput>>(calculation);
+            Assert.IsInstanceOf<PipingCalculation<PipingInput>>(calculation);
             Assert.IsInstanceOf<PipingInput>(calculation.InputParameters);
         }
 
@@ -48,7 +47,7 @@ namespace Riskeer.Piping.Data.TestUtil.Test
             var calculation = new TestPipingCalculation(pipingInput);
 
             // Assert
-            Assert.IsInstanceOf<PipingCalculation<PipingInput, SemiProbabilisticPipingOutput>>(calculation);
+            Assert.IsInstanceOf<PipingCalculation<PipingInput>>(calculation);
             Assert.AreSame(pipingInput, calculation.InputParameters);
         }
     }
