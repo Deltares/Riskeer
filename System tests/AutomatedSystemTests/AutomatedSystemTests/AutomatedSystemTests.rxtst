@@ -3,6 +3,11 @@
 	<testsuiteentryhierarchy>
 		<flatlistofchildren>
 			<smartfoldernode
+			datasource="customAssessmentBSKWValues"
+			id="000059d5-187f-48eb-ac93-f01b34d9794e"
+			name="LoopRowsSetCustomAssessmentValue">
+			</smartfoldernode>
+			<smartfoldernode
 			datasource="tableFMsToSetAndValidateValueFor_2NA"
 			id="004305c8-dc2f-4236-9cb5-fb4029bbb90b"
 			name="SetAndValidateNewValueFor_2NA">
@@ -1236,12 +1241,6 @@
 					datasourceid="069205e5-bb48-42a2-81c6-a1e8596e392c"
 					variableid="d82001f1-20c0-4080-a06d-9f1f8ee3a56d"
 					variablename="textItemDropDownMenu">
-					</var>
-					<var
-					dataname="FaalkansSetValue"
-					datasourceid="966ae336-7d09-4c72-8bd1-f42df6fe0f32"
-					variableid="ebca180a-929b-4462-bf7c-2388fcd92b35"
-					variablename="expectedCustomAssessmentValue">
 					</var>
 				</missingdatabinding>
 				<missingdatavariablesbinding>
@@ -7520,6 +7519,12 @@
 					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
 					variablename="rowIndex">
 					</var>
+					<var
+					dataname="FaalkansValidateValue"
+					datasourceid="79c90d4e-7015-4bbc-a7e5-9c7c59ef642b"
+					variableid="ebca180a-929b-4462-bf7c-2388fcd92b35"
+					variablename="expectedCustomAssessmentValue">
+					</var>
 				</databinding>
 				<missingdatabinding>
 					<var
@@ -7533,12 +7538,6 @@
 					datasourceid="966ae336-7d09-4c72-8bd1-f42df6fe0f32"
 					variableid="d82001f1-20c0-4080-a06d-9f1f8ee3a56d"
 					variablename="textItemDropDownMenu">
-					</var>
-					<var
-					dataname="FaalkansSetValue"
-					datasourceid="79c90d4e-7015-4bbc-a7e5-9c7c59ef642b"
-					variableid="ebca180a-929b-4462-bf7c-2388fcd92b35"
-					variablename="expectedCustomAssessmentValue">
 					</var>
 				</missingdatabinding>
 				<missingdatavariablesbinding>
@@ -9520,6 +9519,12 @@
 					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
 					variablename="rowIndex">
 					</var>
+					<var
+					dataname="FaalkansValidateValue"
+					datasourceid="79c90d4e-7015-4bbc-a7e5-9c7c59ef642b"
+					variableid="0602758b-9931-4e34-a69f-4ebf0d921f1e"
+					variablename="expectedCustomAssessmentValueAtCell">
+					</var>
 				</databinding>
 				<missingdatabinding>
 					<var
@@ -9527,12 +9532,6 @@
 					datasourceid="966ae336-7d09-4c72-8bd1-f42df6fe0f32"
 					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
 					variablename="rowIndex">
-					</var>
-					<var
-					dataname="FaalkansValidateValue"
-					datasourceid="79c90d4e-7015-4bbc-a7e5-9c7c59ef642b"
-					variableid="0602758b-9931-4e34-a69f-4ebf0d921f1e"
-					variablename="expectedCustomAssessmentValueAtCell">
 					</var>
 				</missingdatabinding>
 			</testmodule>
@@ -9581,6 +9580,40 @@
 			name="SelectItemBelow"
 			ref="12bc2c02-5298-4ca8-ae8e-6afb9e1b7d0f"
 			type="Recording">
+			</testmodule>
+			<testmodule
+			id="e9464faa-7fa5-4e98-8771-fa771c2fcd69"
+			name="SetCustomAssessmentValueAtRow"
+			ref="a0a01510-32a1-46ad-b596-d7312f892e5d"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="FaalkansSetValue"
+					datasourceid="58285a13-6c9d-46d9-8754-fda6d9dcb673"
+					variableid="a55e52e5-9542-46e7-a977-9cb42ca3e1e8"
+					variablename="expectedCustomAssessmentValue">
+					</var>
+					<var
+					dataname="rowIndex"
+					datasourceid="58285a13-6c9d-46d9-8754-fda6d9dcb673"
+					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
+					variablename="rowIndex">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="FaalkansSetValue"
+					datasourceid="45a78e48-59e0-48e8-b2c5-c2283b0e55c5"
+					variableid="a55e52e5-9542-46e7-a977-9cb42ca3e1e8"
+					variablename="expectedCustomAssessmentValue">
+					</var>
+					<var
+					dataname="rowIndex"
+					datasourceid="45a78e48-59e0-48e8-b2c5-c2283b0e55c5"
+					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
+					variablename="rowIndex">
+					</var>
+				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="e948d845-f900-45c7-bd0e-675a8d01c651"
@@ -12544,6 +12577,14 @@
 										</testmodule>
 									</smartfoldernode>
 									<smartfoldernode
+									id="000059d5-187f-48eb-ac93-f01b34d9794e"
+									name="LoopRowsSetCustomAssessmentValue">
+										<testmodule
+										id="e9464faa-7fa5-4e98-8771-fa771c2fcd69"
+										name="SetCustomAssessmentValueAtRow">
+										</testmodule>
+									</smartfoldernode>
+									<smartfoldernode
 									id="cbbf627b-1c77-4442-b22c-43f6272158e9"
 									name="ValidateCustomAsssessmentType">
 										<testmodule
@@ -14091,7 +14132,7 @@
 		<DataSource
 		id="79c90d4e-7015-4bbc-a7e5-9c7c59ef642b"
 		includefile="Unchecked"
-		lastknownrowcount="9"
+		lastknownrowcount="8"
 		name="customAssessmentBSKW"
 		type="Ranorex.Core.Data.CsvDataConnector"
 		withheaders="True">
@@ -14102,11 +14143,44 @@
 				<column>
 					CustomAssessmentTypeItem
 				</column>
+				<column>
+					FaalkansSetValue
+				</column>
+				<column>
+					FaalkansValidateValue
+				</column>
 			</lastknowncolumns>
 			<maskedcolumns>
 			</maskedcolumns>
 			<file>
 				X:\script21\CSVs\customAssessmentBSKW.csv
+			</file>
+		</DataSource>
+		<DataSource
+		id="58285a13-6c9d-46d9-8754-fda6d9dcb673"
+		includefile="Unchecked"
+		lastknownrowcount="2"
+		name="customAssessmentBSKWValues"
+		type="Ranorex.Core.Data.CsvDataConnector"
+		withheaders="True">
+			<lastknowncolumns>
+				<column>
+					rowIndex
+				</column>
+				<column>
+					CustomAssessmentTypeItem
+				</column>
+				<column>
+					FaalkansSetValue
+				</column>
+				<column>
+					FaalkansValidateValue
+				</column>
+			</lastknowncolumns>
+			<maskedcolumns>
+			</maskedcolumns>
+			<file>
+				X:\script21\CSVs\customAssessmentBSKWValues.csv
 			</file>
 		</DataSource>
 		<DataSource
@@ -16531,6 +16605,9 @@
 	default="TestRun">
 		<testconfiguration
 		name="TestRun">
+			<testcontainer
+			id="000059d5-187f-48eb-ac93-f01b34d9794e">
+			</testcontainer>
 			<testcontainer
 			id="004305c8-dc2f-4236-9cb5-fb4029bbb90b">
 			</testcontainer>
