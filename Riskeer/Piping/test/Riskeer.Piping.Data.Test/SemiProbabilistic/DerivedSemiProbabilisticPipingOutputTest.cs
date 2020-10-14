@@ -23,8 +23,9 @@ using System;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.Data.TestUtil;
+using Riskeer.Piping.Data.SemiProbabilistic;
 
-namespace Riskeer.Piping.Data.Test
+namespace Riskeer.Piping.Data.Test.SemiProbabilistic
 {
     [TestFixture]
     public class DerivedSemiProbabilisticPipingOutputTest
