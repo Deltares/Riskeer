@@ -34,6 +34,11 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
         /// <summary>
         /// Defines a probabilistic calculation.
         /// </summary>
-        Probabilistic = 2
+        Probabilistic = 2,
+        
+        /// <summary>
+        /// Defines a hydraulic calculation.
+        /// </summary>
+        Hydraulic = 3
     }
 }

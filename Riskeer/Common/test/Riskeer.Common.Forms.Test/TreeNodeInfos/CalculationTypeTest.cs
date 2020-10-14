@@ -16,6 +16,9 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                 },
                 {
                     CalculationType.Probabilistic, 2
+                },
+                {
+                    CalculationType.Hydraulic, 3
                 }
             };
     }
