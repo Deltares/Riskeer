@@ -218,6 +218,11 @@
 				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
+			datasource="customAssessmentSTPHValues"
+			id="05f4e98d-2f65-4b6e-909e-fa3589a93157"
+			name="LoopRowsSetCustomAssessmentValue">
+			</smartfoldernode>
+			<smartfoldernode
 			id="06908862-b5db-4ca7-99ea-562da0210ef4"
 			name="UpdateSurfaceLinesEditedSTPH">
 				<parameters>
@@ -2172,6 +2177,40 @@
 					datasourceid="8f20477d-a7a3-4a0d-9b87-260c551eac8a"
 					variableid="3a7276c1-fca1-4026-9d2e-5bac10651a47"
 					variablename="substringItemName">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<testmodule
+			id="3b932247-ad45-4862-8925-18e9606261c7"
+			name="SetCustomAssessmentValueAtRow"
+			ref="a0a01510-32a1-46ad-b596-d7312f892e5d"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="FaalkansSetValue"
+					datasourceid="286dff62-6c52-442c-ae09-dea2b4cd153a"
+					variableid="a55e52e5-9542-46e7-a977-9cb42ca3e1e8"
+					variablename="expectedCustomAssessmentValue">
+					</var>
+					<var
+					dataname="rowIndex"
+					datasourceid="286dff62-6c52-442c-ae09-dea2b4cd153a"
+					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
+					variablename="rowIndex">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="FaalkansSetValue"
+					datasourceid="db66c0df-6518-4c43-b352-656c3623717d"
+					variableid="a55e52e5-9542-46e7-a977-9cb42ca3e1e8"
+					variablename="expectedCustomAssessmentValue">
+					</var>
+					<var
+					dataname="rowIndex"
+					datasourceid="db66c0df-6518-4c43-b352-656c3623717d"
+					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
+					variablename="rowIndex">
 					</var>
 				</missingdatabinding>
 			</testmodule>
@@ -12240,6 +12279,14 @@
 										</testmodule>
 									</smartfoldernode>
 									<smartfoldernode
+									id="05f4e98d-2f65-4b6e-909e-fa3589a93157"
+									name="LoopRowsSetCustomAssessmentValue">
+										<testmodule
+										id="3b932247-ad45-4862-8925-18e9606261c7"
+										name="SetCustomAssessmentValueAtRow">
+										</testmodule>
+									</smartfoldernode>
+									<smartfoldernode
 									id="ac3846b8-cfe0-440c-8c4e-185c97a25237"
 									name="ValidateCustomAsssessmentType">
 										<testmodule
@@ -13936,7 +13983,7 @@
 		<DataSource
 		id="e2d7e84b-eacb-4fe6-984c-f0d55a076570"
 		includefile="Unchecked"
-		lastknownrowcount="7"
+		lastknownrowcount="8"
 		name="customAssessmentCategories"
 		type="Ranorex.Core.Data.CsvDataConnector"
 		withheaders="True">
@@ -14264,6 +14311,33 @@
 			</maskedcolumns>
 			<file>
 				X:\script21\CSVs\customAssessmentSTPH.csv
+			</file>
+		</DataSource>
+		<DataSource
+		id="286dff62-6c52-442c-ae09-dea2b4cd153a"
+		includefile="Unchecked"
+		lastknownrowcount="2"
+		name="customAssessmentSTPHValues"
+		type="Ranorex.Core.Data.CsvDataConnector"
+		withheaders="True">
+			<lastknowncolumns>
+				<column>
+					rowIndex
+				</column>
+				<column>
+					CustomAssessmentTypeItem
+				</column>
+				<column>
+					FaalkansSetValue
+				</column>
+				<column>
+					FaalkansValidateValue
+				</column>
+			</lastknowncolumns>
+			<maskedcolumns>
+			</maskedcolumns>
+			<file>
+				X:\script21\CSVs\customAssessmentSTPHValues.csv
 			</file>
 		</DataSource>
 		<DataSource
@@ -16255,6 +16329,9 @@
 			</testcontainer>
 			<testcontainer
 			id="02d6fbbd-047b-4a52-86eb-40cf83f3a5ba">
+			</testcontainer>
+			<testcontainer
+			id="05f4e98d-2f65-4b6e-909e-fa3589a93157">
 			</testcontainer>
 			<testcontainer
 			id="06908862-b5db-4ca7-99ea-562da0210ef4">

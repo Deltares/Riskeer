@@ -102,7 +102,7 @@ namespace AutomatedSystemTests
 
             Init();
 
-            ValidateCustomAssessmentValueCell(repo.RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.DetailedAssessmentValueRowNthInfo, expectedCustomAssessmentValueAtCell);
+            ValidateCustomAssessmentValueCell(repo.RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.CustomAssessmentValueRowNthInfo, expectedCustomAssessmentValueAtCell);
             Delay.Milliseconds(0);
             
         }

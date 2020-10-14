@@ -621,6 +621,18 @@
       <UserCode>true</UserCode>
       <id>862cfb46-b169-45e8-82a9-91f31df0631b</id>
     </Compile>
+    <Compile Include="SetCustomAssessmentValueAtRow.cs">
+      <BoundTo>498ef0d1-8bb4-4e35-8289-e4628a561c37</BoundTo>
+      <DependentUpon>SetCustomAssessmentValueAtRow.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>bba05597-133f-4b98-b25c-5692e819ade3</id>
+    </Compile>
+    <Compile Include="SetCustomAssessmentValueAtRow.UserCode.cs">
+      <BoundTo>498ef0d1-8bb4-4e35-8289-e4628a561c37</BoundTo>
+      <DependentUpon>SetCustomAssessmentValueAtRow.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>92d17f55-315d-49a0-acd3-42bbb42b6a73</id>
+    </Compile>
     <Compile Include="SetDetailedAssessmentForRowPerSection.cs">
       <BoundTo>a0c074a3-3c19-4557-8ef3-533b43266955</BoundTo>
       <DependentUpon>SetDetailedAssessmentForRowPerSection.rxrec</DependentUpon>
@@ -1316,6 +1328,11 @@
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>0123ee1f-b03e-43f7-aab1-31c845d92f72</id>
       <recordtableid>0a1c5bcf-8247-4ca8-bbd1-a4f8f26f6474</recordtableid>
+    </None>
+    <None Include="SetCustomAssessmentValueAtRow.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>498ef0d1-8bb4-4e35-8289-e4628a561c37</id>
+      <recordtableid>a0a01510-32a1-46ad-b596-d7312f892e5d</recordtableid>
     </None>
     <None Include="SetDetailedAssessmentForRowPerSection.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
