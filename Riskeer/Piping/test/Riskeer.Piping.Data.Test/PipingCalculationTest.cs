@@ -38,7 +38,7 @@ namespace Riskeer.Piping.Data.Test
             var calculation = new TestPipingCalculation();
 
             // Assert
-            Assert.IsInstanceOf<IPipingCalculation<PipingInput, SemiProbabilisticPipingOutput>>(calculation);
+            Assert.IsInstanceOf<IPipingCalculation<PipingInput>>(calculation);
             Assert.IsInstanceOf<CloneableObservable>(calculation);
 
             Assert.AreEqual("Nieuwe berekening", calculation.Name);
