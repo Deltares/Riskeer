@@ -40,7 +40,7 @@ namespace Riskeer.Piping.Data.TestUtil
         /// <param name="clone">The cloned object.</param>
         /// <exception cref="AssertionException">Thrown when <paramref name="original"/> and
         /// <paramref name="clone"/> are not clones.</exception>
-        public static void AreClones(PipingOutput original, PipingOutput clone)
+        public static void AreClones(SemiProbabilisticPipingOutput original, SemiProbabilisticPipingOutput clone)
         {
             Assert.AreEqual(original.UpliftFactorOfSafety, clone.UpliftFactorOfSafety);
             Assert.AreEqual(original.HeaveFactorOfSafety, clone.HeaveFactorOfSafety);
@@ -96,7 +96,7 @@ namespace Riskeer.Piping.Data.TestUtil
         /// <param name="clone">The cloned object.</param>
         /// <exception cref="AssertionException">Thrown when <paramref name="original"/> and
         /// <paramref name="clone"/> are not clones.</exception>
-        public static void AreClones(IPipingCalculation<PipingInput, PipingOutput> original, IPipingCalculation<PipingInput, PipingOutput> clone)
+        public static void AreClones(IPipingCalculation<PipingInput, SemiProbabilisticPipingOutput> original, IPipingCalculation<PipingInput, SemiProbabilisticPipingOutput> clone)
         {
             Assert.AreEqual(original.Name, clone.Name);
             CoreCloneAssert.AreObjectClones(original.Comments, clone.Comments, CommonCloneAssert.AreClones);
@@ -113,7 +113,7 @@ namespace Riskeer.Piping.Data.TestUtil
         /// <paramref name="clone"/> are not clones.</exception>
         public static void AreClones(SemiProbabilisticPipingCalculationScenario original, SemiProbabilisticPipingCalculationScenario clone)
         {
-            AreClones((IPipingCalculation<PipingInput, PipingOutput>) original, clone);
+            AreClones((IPipingCalculation<PipingInput, SemiProbabilisticPipingOutput>) original, clone);
             Assert.AreEqual(original.Contribution, clone.Contribution);
             Assert.AreEqual(original.IsRelevant, clone.IsRelevant);
             CoreCloneAssert.AreObjectClones(original.Output, clone.Output, AreClones);

@@ -58,7 +58,7 @@ namespace Riskeer.Storage.Core.Test.Read.Piping
             };
 
             // Call
-            PipingOutput output = entity.Read();
+            SemiProbabilisticPipingOutput output = entity.Read();
 
             // Assert
             Assert.AreEqual(entity.HeaveFactorOfSafety, output.HeaveFactorOfSafety);
@@ -88,7 +88,7 @@ namespace Riskeer.Storage.Core.Test.Read.Piping
             };
 
             // Call
-            PipingOutput output = entity.Read();
+            SemiProbabilisticPipingOutput output = entity.Read();
 
             // Assert
             Assert.IsNaN(output.HeaveFactorOfSafety);

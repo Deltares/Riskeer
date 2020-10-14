@@ -37,7 +37,7 @@ namespace Riskeer.Piping.Data.Test
             var calculation = new TestPipingCalculation();
 
             // Assert
-            Assert.IsInstanceOf<IPipingCalculation<PipingInput, PipingOutput>>(calculation);
+            Assert.IsInstanceOf<IPipingCalculation<PipingInput, SemiProbabilisticPipingOutput>>(calculation);
             Assert.IsInstanceOf<CloneableObservable>(calculation);
 
             Assert.AreEqual("Nieuwe berekening", calculation.Name);
@@ -88,7 +88,7 @@ namespace Riskeer.Piping.Data.Test
         public void Clone_AllPropertiesSet_ReturnNewInstanceWithCopiedValues()
         {
             // Setup
-            PipingCalculation<PipingInput, PipingOutput> original = CreateRandomCalculationWithoutOutput();
+            PipingCalculation<PipingInput, SemiProbabilisticPipingOutput> original = CreateRandomCalculationWithoutOutput();
 
             // Call
             object clone = original.Clone();
@@ -101,7 +101,7 @@ namespace Riskeer.Piping.Data.Test
         public void Clone_NotAllPropertiesSet_ReturnNewInstanceWithCopiedValues()
         {
             // Setup
-            PipingCalculation<PipingInput, PipingOutput> original = CreateRandomCalculationWithoutOutput();
+            PipingCalculation<PipingInput, SemiProbabilisticPipingOutput> original = CreateRandomCalculationWithoutOutput();
 
             // Call
             object clone = original.Clone();
@@ -110,7 +110,7 @@ namespace Riskeer.Piping.Data.Test
             CoreCloneAssert.AreObjectClones(original, clone, PipingCloneAssert.AreClones);
         }
 
-        private static PipingCalculation<PipingInput, PipingOutput> CreateRandomCalculationWithoutOutput()
+        private static PipingCalculation<PipingInput, SemiProbabilisticPipingOutput> CreateRandomCalculationWithoutOutput()
         {
             var calculation = new TestPipingCalculation
             {

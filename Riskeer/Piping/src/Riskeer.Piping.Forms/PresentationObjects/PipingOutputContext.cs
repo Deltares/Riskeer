@@ -27,18 +27,18 @@ using Riskeer.Piping.Data;
 namespace Riskeer.Piping.Forms.PresentationObjects
 {
     /// <summary>
-    /// A presentation layer object which wraps a <see cref="PipingOutput"/>.
+    /// A presentation layer object which wraps a <see cref="SemiProbabilisticPipingOutput"/>.
     /// </summary>
-    public class PipingOutputContext : WrappedObjectContextBase<PipingOutput>
+    public class PipingOutputContext : WrappedObjectContextBase<SemiProbabilisticPipingOutput>
     {
         /// <summary>
         /// Creates a new instance of <see cref="PipingOutputContext"/>.
         /// </summary>
-        /// <param name="pipingOutput">The <see cref="PipingOutput"/> object to wrap.</param>
+        /// <param name="pipingOutput">The <see cref="SemiProbabilisticPipingOutput"/> object to wrap.</param>
         /// <param name="failureMechanism">The failure mechanism that the output belongs to.</param>
         /// <param name="assessmentSection">The assessment section that the output belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public PipingOutputContext(PipingOutput pipingOutput, PipingFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+        public PipingOutputContext(SemiProbabilisticPipingOutput pipingOutput, PipingFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
             : base(pipingOutput)
         {
             if (failureMechanism == null)

@@ -30,5 +30,5 @@ namespace Riskeer.Piping.Data
     /// <typeparam name="TPipingOutput">The type of calculation output.</typeparam>
     public interface IPipingCalculation<out TPipingInput, out TPipingOutput> : ICalculation<TPipingInput>
         where TPipingInput : PipingInput
-        where TPipingOutput : PipingOutput {}
+        where TPipingOutput : SemiProbabilisticPipingOutput {}
 }

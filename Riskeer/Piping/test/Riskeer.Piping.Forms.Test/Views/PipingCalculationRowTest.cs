@@ -416,7 +416,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
             mockRepository.ReplayAll();
 
-            PipingOutput assignedOutput = null;
+            SemiProbabilisticPipingOutput assignedOutput = null;
 
             SemiProbabilisticPipingCalculationScenario calculation = SemiProbabilisticPipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput(new TestHydraulicBoundaryLocation());
             if (hasOutput)

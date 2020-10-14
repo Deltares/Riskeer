@@ -191,7 +191,7 @@ namespace Riskeer.Piping.Plugin.Test.FileImporter
                 {
                     SurfaceLine = existingSurfaceLine
                 },
-                Output = new PipingOutput(new PipingOutput.ConstructionProperties())
+                Output = new SemiProbabilisticPipingOutput(new SemiProbabilisticPipingOutput.ConstructionProperties())
             };
 
             var failureMechanism = new PipingFailureMechanism();

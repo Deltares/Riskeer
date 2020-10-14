@@ -26,28 +26,28 @@ using Riskeer.Storage.Core.DbContext;
 namespace Riskeer.Storage.Core.Read.Piping
 {
     /// <summary>
-    /// This class defines extension methods for read operations for an <see cref="PipingOutput"/>
+    /// This class defines extension methods for read operations for an <see cref="SemiProbabilisticPipingOutput"/>
     /// based on the <see cref="PipingCalculationOutputEntity"/>.
     /// </summary>
     internal static class PipingCalculationOutputEntityReadExtensions
     {
         /// <summary>
         /// Read the <see cref="PipingCalculationOutputEntity"/> and use the information to
-        /// construct a <see cref="PipingOutput"/>.
+        /// construct a <see cref="SemiProbabilisticPipingOutput"/>.
         /// </summary>
         /// <param name="entity">The <see cref="PipingCalculationOutputEntity"/> to create
-        /// <see cref="PipingOutput"/> for.</param>
-        /// <returns>A new <see cref="PipingOutput"/>.</returns>
+        /// <see cref="SemiProbabilisticPipingOutput"/> for.</param>
+        /// <returns>A new <see cref="SemiProbabilisticPipingOutput"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/>
         /// is <c>null</c>.</exception>
-        public static PipingOutput Read(this PipingCalculationOutputEntity entity)
+        public static SemiProbabilisticPipingOutput Read(this PipingCalculationOutputEntity entity)
         {
             if (entity == null)
             {
                 throw new ArgumentNullException(nameof(entity));
             }
 
-            return new PipingOutput(new PipingOutput.ConstructionProperties
+            return new SemiProbabilisticPipingOutput(new SemiProbabilisticPipingOutput.ConstructionProperties
             {
                 UpliftFactorOfSafety = entity.UpliftFactorOfSafety.ToNullAsNaN(),
                 HeaveFactorOfSafety = entity.HeaveFactorOfSafety.ToNullAsNaN(),

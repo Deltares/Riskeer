@@ -29,16 +29,16 @@ namespace Riskeer.Piping.Data
     /// <summary>
     /// Class containing the results of a semi-probabilistic piping calculation.
     /// </summary>
-    public class PipingOutput : CloneableObservable, ICalculationOutput
+    public class SemiProbabilisticPipingOutput : CloneableObservable, ICalculationOutput
     {
         /// <summary>
-        /// Creates a new instance of <see cref="PipingOutput"/>. 
+        /// Creates a new instance of <see cref="SemiProbabilisticPipingOutput"/>. 
         /// </summary>
         /// <param name="constructionProperties">The container of the properties for the
-        /// <see cref="PipingOutput"/>.</param>
+        /// <see cref="SemiProbabilisticPipingOutput"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when the <paramref name="constructionProperties"/>
         /// is <c>null</c>.</exception>
-        public PipingOutput(ConstructionProperties constructionProperties)
+        public SemiProbabilisticPipingOutput(ConstructionProperties constructionProperties)
         {
             if (constructionProperties == null)
             {
@@ -96,7 +96,7 @@ namespace Riskeer.Piping.Data
         public RoundedDouble SellmeijerReducedFall { get; }
 
         /// <summary>
-        /// Container for properties for constructing a <see cref="PipingOutput"/>.
+        /// Container for properties for constructing a <see cref="SemiProbabilisticPipingOutput"/>.
         /// </summary>
         public class ConstructionProperties
         {

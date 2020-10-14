@@ -256,7 +256,7 @@ namespace Riskeer.Piping.Data.Test
 
             pipingCalculationScenario2.IsRelevant = true;
             pipingCalculationScenario2.Contribution = (RoundedDouble) contribution2;
-            pipingCalculationScenario2.Output = new PipingOutput(new PipingOutput.ConstructionProperties());
+            pipingCalculationScenario2.Output = new SemiProbabilisticPipingOutput(new SemiProbabilisticPipingOutput.ConstructionProperties());
 
             SemiProbabilisticPipingCalculationScenario[] calculations =
             {

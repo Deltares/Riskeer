@@ -246,7 +246,7 @@ namespace Riskeer.Storage.Core.Test.Create.Piping
             // Setup
             var registry = new PersistenceRegistry();
 
-            PipingOutput newOutput = PipingOutputTestFactory.Create();
+            SemiProbabilisticPipingOutput newOutput = PipingOutputTestFactory.Create();
             var calculation = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput())
             {
                 Output = newOutput

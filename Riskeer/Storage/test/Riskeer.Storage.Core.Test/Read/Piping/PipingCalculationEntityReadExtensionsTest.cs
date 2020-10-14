@@ -341,7 +341,7 @@ namespace Riskeer.Storage.Core.Test.Read.Piping
             SemiProbabilisticPipingCalculationScenario calculation = entity.Read(collector, new GeneralPipingInput());
 
             // Assert
-            PipingOutput output = calculation.Output;
+            SemiProbabilisticPipingOutput output = calculation.Output;
             Assert.IsNotNull(output);
 
             Assert.IsNaN(output.HeaveFactorOfSafety);

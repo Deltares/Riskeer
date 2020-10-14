@@ -92,13 +92,13 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
-            PipingOutput output = PipingOutputTestFactory.Create();
+            SemiProbabilisticPipingOutput output = PipingOutputTestFactory.Create();
 
             // Call
             var properties = new PipingOutputProperties(output, failureMechanism, assessmentSection);
 
             // Assert
-            Assert.IsInstanceOf<ObjectProperties<PipingOutput>>(properties);
+            Assert.IsInstanceOf<ObjectProperties<SemiProbabilisticPipingOutput>>(properties);
             Assert.AreSame(output, properties.Data);
             mocks.VerifyAll();
         }
@@ -123,7 +123,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
             double heaveFactorOfSafety = random.NextDouble();
             double sellmeijerFactorOfSafety = random.NextDouble();
 
-            var output = new PipingOutput(new PipingOutput.ConstructionProperties
+            var output = new SemiProbabilisticPipingOutput(new SemiProbabilisticPipingOutput.ConstructionProperties
             {
                 UpliftEffectiveStress = upliftEffectiveStress,
                 HeaveGradient = heaveGradient,

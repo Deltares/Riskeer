@@ -104,7 +104,7 @@ namespace Riskeer.Piping.Service.SemiProbabilistic
                 PipingCalculatorResult pipingResult = new PipingCalculator(CreateInputFromData(calculation.InputParameters, normativeAssessmentLevel),
                                                                            PipingSubCalculatorFactory.Instance).Calculate();
 
-                calculation.Output = new PipingOutput(new PipingOutput.ConstructionProperties
+                calculation.Output = new SemiProbabilisticPipingOutput(new SemiProbabilisticPipingOutput.ConstructionProperties
                 {
                     UpliftFactorOfSafety = pipingResult.UpliftFactorOfSafety,
                     HeaveFactorOfSafety = pipingResult.HeaveFactorOfSafety,

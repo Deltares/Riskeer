@@ -86,7 +86,7 @@ namespace Riskeer.Piping.Service.Test.SemiProbabilistic
         public void Validate_InvalidPipingCalculationWithOutput_ReturnsFalseNoOutputChange()
         {
             // Setup
-            PipingOutput output = PipingOutputTestFactory.Create();
+            SemiProbabilisticPipingOutput output = PipingOutputTestFactory.Create();
             SemiProbabilisticPipingCalculation invalidPipingCalculation = SemiProbabilisticPipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithInvalidInput();
             invalidPipingCalculation.Output = output;
 
@@ -1030,7 +1030,7 @@ namespace Riskeer.Piping.Service.Test.SemiProbabilistic
             }
 
             // Assert
-            PipingOutput pipingOutput = testCalculation.Output;
+            SemiProbabilisticPipingOutput pipingOutput = testCalculation.Output;
             Assert.IsNotNull(pipingOutput);
             Assert.IsFalse(double.IsNaN(pipingOutput.UpliftEffectiveStress));
             Assert.IsFalse(double.IsNaN(pipingOutput.UpliftFactorOfSafety));
@@ -1042,7 +1042,7 @@ namespace Riskeer.Piping.Service.Test.SemiProbabilistic
         public void Calculate_ValidPipingCalculationWithOutput_ShouldChangeOutput()
         {
             // Setup
-            PipingOutput output = PipingOutputTestFactory.Create();
+            SemiProbabilisticPipingOutput output = PipingOutputTestFactory.Create();
             RoundedDouble normativeAssessmentLevel = AssessmentSectionTestHelper.GetTestAssessmentLevel();
 
             testCalculation.Output = output;

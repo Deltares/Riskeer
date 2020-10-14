@@ -26,7 +26,7 @@ namespace Riskeer.Piping.Data.SemiProbabilistic
     /// <summary>
     /// This class holds information about a semi-probabilistic calculation for the <see cref="PipingFailureMechanism"/>.
     /// </summary>
-    public class SemiProbabilisticPipingCalculation : PipingCalculation<SemiProbabilisticPipingInput, PipingOutput>
+    public class SemiProbabilisticPipingCalculation : PipingCalculation<SemiProbabilisticPipingInput, SemiProbabilisticPipingOutput>
     {
         /// <summary>
         /// Creates a new instance of <see cref="SemiProbabilisticPipingCalculation"/>.
@@ -42,7 +42,7 @@ namespace Riskeer.Piping.Data.SemiProbabilistic
         /// <summary>
         /// Gets or sets the results of the piping calculation.
         /// </summary>
-        public PipingOutput Output { get; set; }
+        public SemiProbabilisticPipingOutput Output { get; set; }
 
         public override void ClearOutput()
         {
@@ -55,7 +55,7 @@ namespace Riskeer.Piping.Data.SemiProbabilistic
 
             if (Output != null)
             {
-                clone.Output = (PipingOutput) Output.Clone();
+                clone.Output = (SemiProbabilisticPipingOutput) Output.Clone();
             }
 
             return clone;

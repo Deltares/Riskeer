@@ -86,14 +86,14 @@ namespace Riskeer.Piping.Forms.Test.PresentationObjects
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            PipingOutput output = PipingOutputTestFactory.Create();
+            SemiProbabilisticPipingOutput output = PipingOutputTestFactory.Create();
             var failureMechanism = new PipingFailureMechanism();
 
             // Call
             var context = new PipingOutputContext(output, failureMechanism, assessmentSection);
 
             // Assert
-            Assert.IsInstanceOf<WrappedObjectContextBase<PipingOutput>>(context);
+            Assert.IsInstanceOf<WrappedObjectContextBase<SemiProbabilisticPipingOutput>>(context);
             Assert.AreSame(output, context.WrappedData);
             Assert.AreSame(failureMechanism, context.FailureMechanism);
             Assert.AreSame(assessmentSection, context.AssessmentSection);

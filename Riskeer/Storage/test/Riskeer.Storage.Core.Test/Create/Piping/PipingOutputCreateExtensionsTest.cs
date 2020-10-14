@@ -35,7 +35,7 @@ namespace Riskeer.Storage.Core.Test.Create.Piping
         public void Create_OutputNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => ((PipingOutput) null).Create();
+            void Call() => ((SemiProbabilisticPipingOutput) null).Create();
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -46,7 +46,7 @@ namespace Riskeer.Storage.Core.Test.Create.Piping
         public void Create_AllOutputValuesSet_ReturnEntity()
         {
             // Setup
-            var pipingOutput = new PipingOutput(new PipingOutput.ConstructionProperties
+            var pipingOutput = new SemiProbabilisticPipingOutput(new SemiProbabilisticPipingOutput.ConstructionProperties
             {
                 UpliftFactorOfSafety = 2.2,
                 HeaveFactorOfSafety = 4.4,
@@ -76,7 +76,7 @@ namespace Riskeer.Storage.Core.Test.Create.Piping
         public void Create_AllOutputValuesNaN_ReturnEntityWithNullValues()
         {
             // Setup
-            var pipingOutput = new PipingOutput(new PipingOutput.ConstructionProperties());
+            var pipingOutput = new SemiProbabilisticPipingOutput(new SemiProbabilisticPipingOutput.ConstructionProperties());
 
             // Call
             PipingCalculationOutputEntity entity = pipingOutput.Create();

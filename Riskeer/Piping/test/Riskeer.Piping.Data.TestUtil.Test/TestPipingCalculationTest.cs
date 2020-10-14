@@ -33,7 +33,7 @@ namespace Riskeer.Piping.Data.TestUtil.Test
             var calculation = new TestPipingCalculation();
 
             // Assert
-            Assert.IsInstanceOf<PipingCalculation<PipingInput, PipingOutput>>(calculation);
+            Assert.IsInstanceOf<PipingCalculation<PipingInput, SemiProbabilisticPipingOutput>>(calculation);
             Assert.IsInstanceOf<PipingInput>(calculation.InputParameters);
         }
 
@@ -47,7 +47,7 @@ namespace Riskeer.Piping.Data.TestUtil.Test
             var calculation = new TestPipingCalculation(pipingInput);
 
             // Assert
-            Assert.IsInstanceOf<PipingCalculation<PipingInput, PipingOutput>>(calculation);
+            Assert.IsInstanceOf<PipingCalculation<PipingInput, SemiProbabilisticPipingOutput>>(calculation);
             Assert.AreSame(pipingInput, calculation.InputParameters);
         }
     }

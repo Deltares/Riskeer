@@ -38,7 +38,7 @@ namespace Riskeer.Piping.Data
         /// <param name="assessmentSection">The assessment section the calculation belongs to.</param>
         /// <returns>The created <see cref="DerivedPipingOutput"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public static DerivedPipingOutput Create(PipingOutput output,
+        public static DerivedPipingOutput Create(SemiProbabilisticPipingOutput output,
                                                  PipingFailureMechanism failureMechanism,
                                                  IAssessmentSection assessmentSection)
         {

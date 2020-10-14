@@ -26,7 +26,7 @@ namespace Riskeer.Piping.Data.TestUtil
     /// <summary>
     /// Piping calculation that can be used for testing.
     /// </summary>
-    public class TestPipingCalculation : PipingCalculation<PipingInput, PipingOutput>
+    public class TestPipingCalculation : PipingCalculation<PipingInput, SemiProbabilisticPipingOutput>
     {
         private bool hasOutput;
 

@@ -1273,7 +1273,7 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
             Assert.AreEqual(expectedPipingInput.AssessmentLevel, actualPipingInput.AssessmentLevel);
         }
 
-        private static void AssertPipingOutput(PipingOutput expectedOutput, PipingOutput actualOutput)
+        private static void AssertPipingOutput(SemiProbabilisticPipingOutput expectedOutput, SemiProbabilisticPipingOutput actualOutput)
         {
             if (expectedOutput == null)
             {

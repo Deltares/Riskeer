@@ -94,10 +94,10 @@ namespace Riskeer.Piping.Plugin.FileImporter
 
         private IEnumerable<IObservable> UpdateSurfaceLineDependentData(PipingSurfaceLine surfaceLine)
         {
-            IEnumerable<IPipingCalculation<PipingInput, PipingOutput>> affectedCalculations = GetAffectedCalculationWithSurfaceLine(surfaceLine);
+            IEnumerable<IPipingCalculation<PipingInput, SemiProbabilisticPipingOutput>> affectedCalculations = GetAffectedCalculationWithSurfaceLine(surfaceLine);
 
             var affectedObjects = new List<IObservable>();
-            foreach (IPipingCalculation<PipingInput, PipingOutput> affectedCalculation in affectedCalculations)
+            foreach (IPipingCalculation<PipingInput, SemiProbabilisticPipingOutput> affectedCalculation in affectedCalculations)
             {
                 affectedObjects.AddRange(RiskeerCommonDataSynchronizationService.ClearCalculationOutput(affectedCalculation));
             }
@@ -107,10 +107,10 @@ namespace Riskeer.Piping.Plugin.FileImporter
 
         private IEnumerable<IObservable> UpdateStochasticSoilModel(PipingSurfaceLine updatedSurfaceLine)
         {
-            IEnumerable<IPipingCalculation<PipingInput, PipingOutput>> calculationsToUpdate = GetAffectedCalculationWithSurfaceLine(updatedSurfaceLine);
+            IEnumerable<IPipingCalculation<PipingInput, SemiProbabilisticPipingOutput>> calculationsToUpdate = GetAffectedCalculationWithSurfaceLine(updatedSurfaceLine);
 
             var affectedObjects = new List<IObservable>();
-            foreach (IPipingCalculation<PipingInput, PipingOutput> calculation in calculationsToUpdate)
+            foreach (IPipingCalculation<PipingInput, SemiProbabilisticPipingOutput> calculation in calculationsToUpdate)
             {
                 IEnumerable<PipingStochasticSoilModel> matchingSoilModels = GetAvailableStochasticSoilModels(updatedSurfaceLine);
 
@@ -122,11 +122,11 @@ namespace Riskeer.Piping.Plugin.FileImporter
             return affectedObjects;
         }
 
-        private IEnumerable<IPipingCalculation<PipingInput, PipingOutput>> GetAffectedCalculationWithSurfaceLine(PipingSurfaceLine surfaceLine)
+        private IEnumerable<IPipingCalculation<PipingInput, SemiProbabilisticPipingOutput>> GetAffectedCalculationWithSurfaceLine(PipingSurfaceLine surfaceLine)
         {
-            IEnumerable<IPipingCalculation<PipingInput, PipingOutput>> affectedCalculations =
+            IEnumerable<IPipingCalculation<PipingInput, SemiProbabilisticPipingOutput>> affectedCalculations =
                 FailureMechanism.Calculations
-                                .Cast<IPipingCalculation<PipingInput, PipingOutput>>()
+                                .Cast<IPipingCalculation<PipingInput, SemiProbabilisticPipingOutput>>()
                                 .Where(calc => ReferenceEquals(calc.InputParameters.SurfaceLine, surfaceLine));
             return affectedCalculations;
         }
@@ -139,8 +139,8 @@ namespace Riskeer.Piping.Plugin.FileImporter
 
         private void ValidateEntryAndExitPoints(PipingSurfaceLine surfaceLine)
         {
-            IEnumerable<IPipingCalculation<PipingInput, PipingOutput>> affectedCalculations = GetAffectedCalculationWithSurfaceLine(surfaceLine);
-            foreach (IPipingCalculation<PipingInput, PipingOutput> affectedCalculation in affectedCalculations)
+            IEnumerable<IPipingCalculation<PipingInput, SemiProbabilisticPipingOutput>> affectedCalculations = GetAffectedCalculationWithSurfaceLine(surfaceLine);
+            foreach (IPipingCalculation<PipingInput, SemiProbabilisticPipingOutput> affectedCalculation in affectedCalculations)
             {
                 PipingInput inputParameters = affectedCalculation.InputParameters;
                 if (!ValidateLocalCoordinateOnSurfaceLine(surfaceLine, inputParameters.EntryPointL))

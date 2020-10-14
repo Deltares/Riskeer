@@ -30,13 +30,13 @@ using Riskeer.Piping.Data.TestUtil;
 namespace Riskeer.Piping.Data.Test
 {
     [TestFixture]
-    public class PipingOutputTest
+    public class SemiProbabilisticPipingOutputTest
     {
         [Test]
         public void Constructor_WithoutConstructionProperties_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => new PipingOutput(null);
+            void Call() => new SemiProbabilisticPipingOutput(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -47,7 +47,7 @@ namespace Riskeer.Piping.Data.Test
         public void Constructor_ConstructionPropertiesWithoutValuesSet_PropertiesAreDefault()
         {
             // Call
-            var actual = new PipingOutput(new PipingOutput.ConstructionProperties());
+            var actual = new SemiProbabilisticPipingOutput(new SemiProbabilisticPipingOutput.ConstructionProperties());
 
             // Assert
             Assert.IsNaN(actual.UpliftFactorOfSafety);
@@ -75,7 +75,7 @@ namespace Riskeer.Piping.Data.Test
             double sellmeijerReducedFall = random.NextDouble();
 
             // Call
-            var output = new PipingOutput(new PipingOutput.ConstructionProperties
+            var output = new SemiProbabilisticPipingOutput(new SemiProbabilisticPipingOutput.ConstructionProperties
             {
                 UpliftFactorOfSafety = foSuValue,
                 HeaveFactorOfSafety = foShValue,
@@ -111,7 +111,7 @@ namespace Riskeer.Piping.Data.Test
         public void Clone_Always_ReturnNewInstanceWithCopiedValues()
         {
             // Setup
-            PipingOutput original = PipingTestDataGenerator.GetRandomPipingOutput();
+            SemiProbabilisticPipingOutput original = PipingTestDataGenerator.GetRandomPipingOutput();
 
             // Call
             object clone = original.Clone();

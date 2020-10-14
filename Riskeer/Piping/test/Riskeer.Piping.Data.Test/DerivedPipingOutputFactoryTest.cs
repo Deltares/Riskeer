@@ -58,7 +58,7 @@ namespace Riskeer.Piping.Data.Test
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => DerivedPipingOutputFactory.Create(new PipingOutput(new PipingOutput.ConstructionProperties()),
+            TestDelegate call = () => DerivedPipingOutputFactory.Create(new SemiProbabilisticPipingOutput(new SemiProbabilisticPipingOutput.ConstructionProperties()),
                                                                         null,
                                                                         assessmentSection);
 
@@ -72,7 +72,7 @@ namespace Riskeer.Piping.Data.Test
         public void Create_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => DerivedPipingOutputFactory.Create(new PipingOutput(new PipingOutput.ConstructionProperties()),
+            TestDelegate call = () => DerivedPipingOutputFactory.Create(new SemiProbabilisticPipingOutput(new SemiProbabilisticPipingOutput.ConstructionProperties()),
                                                                         new PipingFailureMechanism(),
                                                                         null);
 
@@ -94,7 +94,7 @@ namespace Riskeer.Piping.Data.Test
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
-            var calculatorResult = new PipingOutput(new PipingOutput.ConstructionProperties
+            var calculatorResult = new SemiProbabilisticPipingOutput(new SemiProbabilisticPipingOutput.ConstructionProperties
             {
                 UpliftFactorOfSafety = 1.2,
                 HeaveFactorOfSafety = 1.4,

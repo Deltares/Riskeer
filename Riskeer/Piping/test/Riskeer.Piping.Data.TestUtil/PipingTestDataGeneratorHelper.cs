@@ -44,10 +44,10 @@ namespace Riskeer.Piping.Data.TestUtil
         public static void AssertHasAllPossibleCalculationConfigurationsWithOutputs(PipingFailureMechanism failureMechanism)
         {
             IEnumerable<ICalculationBase> calculationRoot = failureMechanism.CalculationsGroup.Children;
-            AssertPipingCalculationGroupWithOutput(calculationRoot.OfType<IPipingCalculation<PipingInput, PipingOutput>>());
+            AssertPipingCalculationGroupWithOutput(calculationRoot.OfType<IPipingCalculation<PipingInput, SemiProbabilisticPipingOutput>>());
 
             CalculationGroup nestedCalculations = calculationRoot.OfType<CalculationGroup>().First();
-            AssertPipingCalculationGroupWithOutput(nestedCalculations.Children.OfType<IPipingCalculation<PipingInput, PipingOutput>>());
+            AssertPipingCalculationGroupWithOutput(nestedCalculations.Children.OfType<IPipingCalculation<PipingInput, SemiProbabilisticPipingOutput>>());
         }
 
         /// <summary>
@@ -60,10 +60,10 @@ namespace Riskeer.Piping.Data.TestUtil
         public static void AssertHasAllPossibleCalculationConfigurationsWithoutOutputs(PipingFailureMechanism failureMechanism)
         {
             IEnumerable<ICalculationBase> calculationRoot = failureMechanism.CalculationsGroup.Children;
-            AssertPipingCalculationGroupWithoutOutput(calculationRoot.OfType<IPipingCalculation<PipingInput, PipingOutput>>());
+            AssertPipingCalculationGroupWithoutOutput(calculationRoot.OfType<IPipingCalculation<PipingInput, SemiProbabilisticPipingOutput>>());
 
             CalculationGroup nestedCalculations = calculationRoot.OfType<CalculationGroup>().First();
-            AssertPipingCalculationGroupWithoutOutput(nestedCalculations.Children.OfType<IPipingCalculation<PipingInput, PipingOutput>>());
+            AssertPipingCalculationGroupWithoutOutput(nestedCalculations.Children.OfType<IPipingCalculation<PipingInput, SemiProbabilisticPipingOutput>>());
         }
 
         /// <summary>
@@ -104,18 +104,18 @@ namespace Riskeer.Piping.Data.TestUtil
             Assert.AreEqual("path/to/sections", failureMechanism.FailureMechanismSectionSourcePath);
         }
 
-        private static void AssertPipingCalculationGroupWithOutput(IEnumerable<IPipingCalculation<PipingInput, PipingOutput>> children)
+        private static void AssertPipingCalculationGroupWithOutput(IEnumerable<IPipingCalculation<PipingInput, SemiProbabilisticPipingOutput>> children)
         {
             AssertCalculationConfig(children, true, true);
         }
 
-        private static void AssertPipingCalculationGroupWithoutOutput(IEnumerable<IPipingCalculation<PipingInput, PipingOutput>> children)
+        private static void AssertPipingCalculationGroupWithoutOutput(IEnumerable<IPipingCalculation<PipingInput, SemiProbabilisticPipingOutput>> children)
         {
             AssertCalculationConfig(children, false, false);
             AssertCalculationConfig(children, true, false);
         }
 
-        private static void AssertCalculationConfig(IEnumerable<IPipingCalculation<PipingInput, PipingOutput>> children,
+        private static void AssertCalculationConfig(IEnumerable<IPipingCalculation<PipingInput, SemiProbabilisticPipingOutput>> children,
                                                     bool hasHydraulicBoundaryLocation, bool hasOutput)
         {
             Assert.NotNull(children.FirstOrDefault(calc => calc.InputParameters.HydraulicBoundaryLocation != null == hasHydraulicBoundaryLocation

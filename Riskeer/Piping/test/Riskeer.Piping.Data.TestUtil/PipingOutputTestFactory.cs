@@ -24,20 +24,20 @@ using System;
 namespace Riskeer.Piping.Data.TestUtil
 {
     /// <summary>
-    /// Factory for creating <see cref="PipingOutput"/> that can be used
+    /// Factory for creating <see cref="SemiProbabilisticPipingOutput"/> that can be used
     /// for test purposes.
     /// </summary>
     public static class PipingOutputTestFactory
     {
         /// <summary>
-        /// Creates <see cref="PipingOutput"/> with random values.
+        /// Creates <see cref="SemiProbabilisticPipingOutput"/> with random values.
         /// </summary>
-        /// <returns>The created <see cref="PipingOutput"/>.</returns>
-        public static PipingOutput Create()
+        /// <returns>The created <see cref="SemiProbabilisticPipingOutput"/>.</returns>
+        public static SemiProbabilisticPipingOutput Create()
         {
             var random = new Random(39);
 
-            return new PipingOutput(new PipingOutput.ConstructionProperties
+            return new SemiProbabilisticPipingOutput(new SemiProbabilisticPipingOutput.ConstructionProperties
             {
                 HeaveFactorOfSafety = random.NextDouble(),
                 UpliftEffectiveStress = random.NextDouble(),
@@ -56,10 +56,10 @@ namespace Riskeer.Piping.Data.TestUtil
         /// <param name="heaveFactorOfSafety">The heave factor of safety.</param>
         /// <param name="upliftFactorOfSafety">The uplift factor of safety.</param>
         /// <param name="sellmeijerFactorOfSafety">The sellmeijer factor of safety.</param>
-        /// <returns>The created <see cref="PipingOutput"/>.</returns>
-        public static PipingOutput Create(double heaveFactorOfSafety, double upliftFactorOfSafety, double sellmeijerFactorOfSafety)
+        /// <returns>The created <see cref="SemiProbabilisticPipingOutput"/>.</returns>
+        public static SemiProbabilisticPipingOutput Create(double heaveFactorOfSafety, double upliftFactorOfSafety, double sellmeijerFactorOfSafety)
         {
-            return new PipingOutput(new PipingOutput.ConstructionProperties
+            return new SemiProbabilisticPipingOutput(new SemiProbabilisticPipingOutput.ConstructionProperties
             {
                 HeaveFactorOfSafety = heaveFactorOfSafety,
                 UpliftFactorOfSafety = upliftFactorOfSafety,

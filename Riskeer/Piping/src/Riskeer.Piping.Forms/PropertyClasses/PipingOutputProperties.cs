@@ -32,9 +32,9 @@ using Riskeer.Piping.Forms.Properties;
 namespace Riskeer.Piping.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel of <see cref="PipingOutput"/> for properties panel.
+    /// ViewModel of <see cref="SemiProbabilisticPipingOutput"/> for properties panel.
     /// </summary>
-    public class PipingOutputProperties : ObjectProperties<PipingOutput>
+    public class PipingOutputProperties : ObjectProperties<SemiProbabilisticPipingOutput>
     {
         private DerivedPipingOutput derivedOutput;
 
@@ -46,7 +46,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses
         /// <param name="assessmentSection">The assessment section the output belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter
         /// is <c>null</c>.</exception>
-        public PipingOutputProperties(PipingOutput output, PipingFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+        public PipingOutputProperties(SemiProbabilisticPipingOutput output, PipingFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
         {
             if (output == null)
             {
@@ -296,7 +296,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses
             }
         }
 
-        private void CreateDerivedOutput(PipingOutput output, PipingFailureMechanism failureMechanism,
+        private void CreateDerivedOutput(SemiProbabilisticPipingOutput output, PipingFailureMechanism failureMechanism,
                                          IAssessmentSection assessmentSection)
         {
             derivedOutput = DerivedPipingOutputFactory.Create(output, failureMechanism, assessmentSection);

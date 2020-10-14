@@ -97,7 +97,7 @@ namespace Riskeer.Storage.Core.Create.Piping
             }
         }
 
-        private static void AddEntityForPipingOutput(PipingCalculationEntity entity, PipingOutput output)
+        private static void AddEntityForPipingOutput(PipingCalculationEntity entity, SemiProbabilisticPipingOutput output)
         {
             if (output != null)
             {

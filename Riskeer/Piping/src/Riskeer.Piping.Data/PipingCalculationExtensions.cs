@@ -39,7 +39,7 @@ namespace Riskeer.Piping.Data
         /// <param name="lineSegments">The line segments that define the reference line.</param>
         /// <returns><c>true</c> when intersecting. <c>false</c> otherwise.</returns>
         /// <exception cref="InvalidOperationException">Thrown when <paramref name="lineSegments"/> contains no elements.</exception>
-        public static bool IsSurfaceLineIntersectionWithReferenceLineInSection(this IPipingCalculation<PipingInput, PipingOutput> pipingCalculation, IEnumerable<Segment2D> lineSegments)
+        public static bool IsSurfaceLineIntersectionWithReferenceLineInSection(this IPipingCalculation<PipingInput, SemiProbabilisticPipingOutput> pipingCalculation, IEnumerable<Segment2D> lineSegments)
         {
             PipingSurfaceLine surfaceLine = pipingCalculation?.InputParameters.SurfaceLine;
             if (surfaceLine == null)

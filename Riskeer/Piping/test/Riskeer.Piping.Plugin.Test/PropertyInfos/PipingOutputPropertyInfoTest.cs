@@ -69,7 +69,7 @@ namespace Riskeer.Piping.Plugin.Test.PropertyInfos
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
-            PipingOutput output = PipingOutputTestFactory.Create();
+            SemiProbabilisticPipingOutput output = PipingOutputTestFactory.Create();
             var context = new PipingOutputContext(output, failureMechanism, assessmentSection);
 
             // Call
