@@ -23,7 +23,6 @@ using System;
 using Core.Common.Base;
 using Core.Common.Data.TestUtil;
 using NUnit.Framework;
-using Riskeer.Piping.Data.SemiProbabilistic;
 using Riskeer.Piping.Data.TestUtil;
 
 namespace Riskeer.Piping.Data.Test
@@ -89,7 +88,7 @@ namespace Riskeer.Piping.Data.Test
         public void Clone_AllPropertiesSet_ReturnNewInstanceWithCopiedValues()
         {
             // Setup
-            PipingCalculation<PipingInput, SemiProbabilisticPipingOutput> original = CreateRandomCalculationWithoutOutput();
+            PipingCalculation<PipingInput> original = CreateRandomCalculationWithoutOutput();
 
             // Call
             object clone = original.Clone();
@@ -102,7 +101,7 @@ namespace Riskeer.Piping.Data.Test
         public void Clone_NotAllPropertiesSet_ReturnNewInstanceWithCopiedValues()
         {
             // Setup
-            PipingCalculation<PipingInput, SemiProbabilisticPipingOutput> original = CreateRandomCalculationWithoutOutput();
+            PipingCalculation<PipingInput> original = CreateRandomCalculationWithoutOutput();
 
             // Call
             object clone = original.Clone();
@@ -111,7 +110,7 @@ namespace Riskeer.Piping.Data.Test
             CoreCloneAssert.AreObjectClones(original, clone, PipingCloneAssert.AreClones);
         }
 
-        private static PipingCalculation<PipingInput, SemiProbabilisticPipingOutput> CreateRandomCalculationWithoutOutput()
+        private static PipingCalculation<PipingInput> CreateRandomCalculationWithoutOutput()
         {
             var calculation = new TestPipingCalculation
             {

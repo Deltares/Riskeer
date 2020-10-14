@@ -21,7 +21,6 @@
 
 using NUnit.Framework;
 using Riskeer.Piping.Data.Probabilistic;
-using Riskeer.Piping.Data.SemiProbabilistic;
 
 namespace Riskeer.Piping.Data.Test.Probabilistic
 {
@@ -35,7 +34,7 @@ namespace Riskeer.Piping.Data.Test.Probabilistic
             var calculation = new ProbabilisticPipingCalculation(new GeneralPipingInput());
 
             // Assert
-            Assert.IsInstanceOf<PipingCalculation<ProbabilisticPipingInput, SemiProbabilisticPipingOutput>>(calculation);
+            Assert.IsInstanceOf<PipingCalculation<ProbabilisticPipingInput>>(calculation);
             Assert.IsInstanceOf<ProbabilisticPipingInput>(calculation.InputParameters);
 
             Assert.IsNull(calculation.Output);

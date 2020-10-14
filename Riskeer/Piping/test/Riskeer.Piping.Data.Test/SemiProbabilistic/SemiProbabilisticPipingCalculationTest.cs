@@ -35,7 +35,7 @@ namespace Riskeer.Piping.Data.Test.SemiProbabilistic
             var calculation = new SemiProbabilisticPipingCalculation(new GeneralPipingInput());
 
             // Assert
-            Assert.IsInstanceOf<PipingCalculation<SemiProbabilisticPipingInput, SemiProbabilisticPipingOutput>>(calculation);
+            Assert.IsInstanceOf<PipingCalculation<SemiProbabilisticPipingInput>>(calculation);
             Assert.IsInstanceOf<SemiProbabilisticPipingInput>(calculation.InputParameters);
 
             Assert.IsNull(calculation.Output);

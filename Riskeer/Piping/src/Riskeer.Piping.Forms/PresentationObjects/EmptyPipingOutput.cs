@@ -19,13 +19,12 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Riskeer.Piping.Data;
 using Riskeer.Piping.Data.SemiProbabilistic;
 
 namespace Riskeer.Piping.Forms.PresentationObjects
 {
     /// <summary>
-    /// This class represents the placeholder for a <see cref="SemiProbabilisticPipingOutput"/> for a <see cref="PipingCalculation{TPipingInput,TPipingOutput}"/>
+    /// This class represents the placeholder for a <see cref="SemiProbabilisticPipingOutput"/> for a <see cref="SemiProbabilisticPipingCalculation"/>
     /// that hasn't been calculated yet.
     /// </summary>
     public class EmptyPipingOutput {}

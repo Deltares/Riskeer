@@ -20,14 +20,13 @@
 // All rights reserved.
 
 using System;
-using Riskeer.Piping.Data.SemiProbabilistic;
 
 namespace Riskeer.Piping.Data.TestUtil
 {
     /// <summary>
     /// Piping calculation that can be used for testing.
     /// </summary>
-    public class TestPipingCalculation : PipingCalculation<PipingInput, SemiProbabilisticPipingOutput>
+    public class TestPipingCalculation : PipingCalculation<PipingInput>
     {
         private bool hasOutput;
 
