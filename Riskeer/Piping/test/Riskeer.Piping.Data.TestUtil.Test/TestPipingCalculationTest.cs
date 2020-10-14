@@ -35,10 +35,25 @@ namespace Riskeer.Piping.Data.TestUtil.Test
             // Assert
             Assert.IsInstanceOf<PipingCalculation<PipingInput>>(calculation);
             Assert.IsInstanceOf<PipingInput>(calculation.InputParameters);
+            Assert.IsFalse(calculation.HasOutput);
         }
 
         [Test]
-        public void Constructor_WithPipingInput_ExpectedValues()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Constructor_WithHasOutputParameter_ExpectedValues(bool hasOutput)
+        {
+            // Call
+            var calculation = new TestPipingCalculation(hasOutput);
+
+            // Assert
+            Assert.IsInstanceOf<PipingCalculation<PipingInput>>(calculation);
+            Assert.IsInstanceOf<PipingInput>(calculation.InputParameters);
+            Assert.AreEqual(hasOutput, calculation.HasOutput);
+        }
+
+        [Test]
+        public void Constructor_WithPipingInputParameter_ExpectedValues()
         {
             // Setup
             var pipingInput = new TestPipingInput();
@@ -49,6 +64,24 @@ namespace Riskeer.Piping.Data.TestUtil.Test
             // Assert
             Assert.IsInstanceOf<PipingCalculation<PipingInput>>(calculation);
             Assert.AreSame(pipingInput, calculation.InputParameters);
+            Assert.IsFalse(calculation.HasOutput);
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Constructor_WithPipingInputAndHasOutputParameter_ExpectedValues(bool hasOutput)
+        {
+            // Setup
+            var pipingInput = new TestPipingInput();
+
+            // Call
+            var calculation = new TestPipingCalculation(pipingInput, hasOutput);
+
+            // Assert
+            Assert.IsInstanceOf<PipingCalculation<PipingInput>>(calculation);
+            Assert.AreSame(pipingInput, calculation.InputParameters);
+            Assert.AreEqual(hasOutput, calculation.HasOutput);
         }
     }
 }
