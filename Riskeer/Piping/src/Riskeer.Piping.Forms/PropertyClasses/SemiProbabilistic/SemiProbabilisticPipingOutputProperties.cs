@@ -30,7 +30,7 @@ using Riskeer.Piping.Data;
 using Riskeer.Piping.Data.SemiProbabilistic;
 using Riskeer.Piping.Forms.Properties;
 
-namespace Riskeer.Piping.Forms.PropertyClasses
+namespace Riskeer.Piping.Forms.PropertyClasses.SemiProbabilistic
 {
     /// <summary>
     /// ViewModel of <see cref="SemiProbabilisticPipingOutput"/> for properties panel.

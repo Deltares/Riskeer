@@ -31,9 +31,9 @@ using Riskeer.Common.Forms.Helpers;
 using Riskeer.Piping.Data;
 using Riskeer.Piping.Data.SemiProbabilistic;
 using Riskeer.Piping.Data.TestUtil;
-using Riskeer.Piping.Forms.PropertyClasses;
+using Riskeer.Piping.Forms.PropertyClasses.SemiProbabilistic;
 
-namespace Riskeer.Piping.Forms.Test.PropertyClasses
+namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
 {
     [TestFixture]
     public class SemiProbabilisticPipingOutputPropertiesTest
