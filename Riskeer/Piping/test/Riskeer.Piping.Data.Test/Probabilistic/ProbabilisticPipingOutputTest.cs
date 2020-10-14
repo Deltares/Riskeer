@@ -20,9 +20,11 @@
 // All rights reserved.
 
 using Core.Common.Base;
+using Core.Common.Data.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Piping.Data.Probabilistic;
+using Riskeer.Piping.Data.TestUtil;
 
 namespace Riskeer.Piping.Data.Test.Probabilistic
 {
@@ -38,6 +40,19 @@ namespace Riskeer.Piping.Data.Test.Probabilistic
             // Assert
             Assert.IsInstanceOf<CloneableObservable>(output);
             Assert.IsInstanceOf<ICalculationOutput>(output);
+        }
+
+        [Test]
+        public void Clone_Always_ReturnNewInstanceWithCopiedValues()
+        {
+            // Setup
+            var original = new ProbabilisticPipingOutput();
+
+            // Call
+            object clone = original.Clone();
+
+            // Assert
+            CoreCloneAssert.AreObjectClones(original, clone, PipingCloneAssert.AreClones);
         }
     }
 }
