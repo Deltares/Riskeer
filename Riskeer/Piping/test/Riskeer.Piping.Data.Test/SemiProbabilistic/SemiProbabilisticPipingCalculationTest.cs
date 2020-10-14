@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using Core.Common.Data.TestUtil;
 using NUnit.Framework;
 using Riskeer.Piping.Data.SemiProbabilistic;
 using Riskeer.Piping.Data.TestUtil;
@@ -87,6 +88,50 @@ namespace Riskeer.Piping.Data.Test.SemiProbabilistic
 
             // Assert
             Assert.IsNull(calculation.Output);
+        }
+        
+        [Test]
+        public void Clone_AllPropertiesSet_ReturnNewInstanceWithCopiedValues()
+        {
+            // Setup
+            SemiProbabilisticPipingCalculation original = CreateRandomCalculationWithoutOutput();
+
+            original.Output = PipingOutputTestFactory.Create();
+            
+            // Call
+            object clone = original.Clone();
+
+            // Assert
+            CoreCloneAssert.AreObjectClones(original, clone, PipingCloneAssert.AreClones);
+        }
+
+        [Test]
+        public void Clone_NotAllPropertiesSet_ReturnNewInstanceWithCopiedValues()
+        {
+            // Setup
+            SemiProbabilisticPipingCalculation original = CreateRandomCalculationWithoutOutput();
+            
+            // Call
+            object clone = original.Clone();
+
+            // Assert
+            CoreCloneAssert.AreObjectClones(original, clone, PipingCloneAssert.AreClones);
+        }
+
+        private static SemiProbabilisticPipingCalculation CreateRandomCalculationWithoutOutput()
+        {
+            var calculation = new SemiProbabilisticPipingCalculation(new GeneralPipingInput())
+            {
+                Name = "Random name",
+                Comments =
+                {
+                    Body = "Random body"
+                }
+            };
+
+            PipingTestDataGenerator.SetRandomDataToPipingInput(calculation.InputParameters);
+
+            return calculation;
         }
     }
 }
