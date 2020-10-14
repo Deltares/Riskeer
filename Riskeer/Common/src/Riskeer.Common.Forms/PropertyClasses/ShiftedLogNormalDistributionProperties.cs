@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Core.Common.Base.Data;
 using Core.Common.Gui.Attributes;
 using Core.Common.Util.Attributes;
@@ -32,16 +33,13 @@ namespace Riskeer.Common.Forms.PropertyClasses
     /// </summary>
     public class ShiftedLogNormalDistributionProperties : LogNormalDistributionProperties
     {
-
         /// <summary>
         /// Creates a new instance of <see cref="ShiftedLogNormalDistributionProperties"/>
         /// in which the properties of <paramref name="distribution"/> are displayed read-only.
         /// </summary>
         /// <param name="distribution">The <see cref="LogNormalDistributionProperties"/> to create the properties for.</param>
         public ShiftedLogNormalDistributionProperties(LogNormalDistribution distribution) : base(distribution)
-        {
-            Shift = distribution.Shift;
-        }
+        {}
 
         /// <summary>
         /// Creates a new instance of <see cref="ShiftedLogNormalDistributionProperties"/>.
@@ -54,13 +52,22 @@ namespace Riskeer.Common.Forms.PropertyClasses
         /// <exception cref="ArgumentException">Any number of properties in this class is editable and the 
         /// <paramref name="handler"/> is <c>null</c>.</exception>
         public ShiftedLogNormalDistributionProperties(DistributionReadOnlyProperties readOnlyProperties, LogNormalDistribution distribution, IObservablePropertyChangeHandler handler) : base(readOnlyProperties, distribution, handler)
-        {
-            Shift = distribution.Shift;
-        }
+        {}
 
         [PropertyOrder(4)]
         [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Probabilistics_Shift_Symbol))]
         [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Probabilistics_Shift_Description))]
-        public RoundedDouble Shift { get; }
+        public RoundedDouble Shift
+        {
+            get
+            {
+                return ((LogNormalDistribution) Data).Shift;
+            }
+        }
+
+        public override string ToString()
+        {
+            return $"{Mean} ({RiskeerCommonFormsResources.NormalDistribution_StandardDeviation_DisplayName} = {StandardDeviation}) ({RiskeerCommonFormsResources.Probabilistics_Shift_Symbol} = {Shift})";
+        }
     }
 }

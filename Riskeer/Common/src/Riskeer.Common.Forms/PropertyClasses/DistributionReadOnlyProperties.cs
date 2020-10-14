@@ -49,6 +49,11 @@ namespace Riskeer.Common.Forms.PropertyClasses
         /// Mark both <see cref="DistributionPropertiesBase{T}.Mean"/> and
         /// <see cref="DistributionPropertiesBase{T}.StandardDeviation"/> as read-only.
         /// </summary>
-        All = Mean | StandardDeviation
+        All = Mean | StandardDeviation,
+
+        /// <summary>
+        /// Mark <see cref="DistributionPropertiesBase{T}.Shift"/> read-only.
+        /// </summary>
+        Shift = 4
     }
 }
