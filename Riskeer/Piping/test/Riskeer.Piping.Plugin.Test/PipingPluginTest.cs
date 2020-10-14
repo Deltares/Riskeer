@@ -87,7 +87,7 @@ namespace Riskeer.Piping.Plugin.Test
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
-                    typeof(PipingOutputContext),
+                    typeof(SemiProbabilisticPipingOutputContext),
                     typeof(PipingOutputProperties));
 
                 PluginTestHelper.AssertPropertyInfoDefined(
@@ -143,7 +143,7 @@ namespace Riskeer.Piping.Plugin.Test
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(SemiProbabilisticPipingInputContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(PipingFailureMechanismContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(ProbabilityFailureMechanismSectionResultContext<PipingFailureMechanismSectionResult>)));
-                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(PipingOutputContext)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(SemiProbabilisticPipingOutputContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(PipingScenariosContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(EmptySemiProbabilisticPipingOutput)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(ProbabilisticPipingCalculationContext)));

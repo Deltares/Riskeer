@@ -57,7 +57,7 @@ namespace Riskeer.Piping.Plugin.Test.PropertyInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(PipingOutputContext), info.DataType);
+            Assert.AreEqual(typeof(SemiProbabilisticPipingOutputContext), info.DataType);
         }
 
         [Test]
@@ -71,7 +71,7 @@ namespace Riskeer.Piping.Plugin.Test.PropertyInfos
             mocks.ReplayAll();
 
             SemiProbabilisticPipingOutput output = PipingOutputTestFactory.Create();
-            var context = new PipingOutputContext(output, failureMechanism, assessmentSection);
+            var context = new SemiProbabilisticPipingOutputContext(output, failureMechanism, assessmentSection);
 
             // Call
             IObjectProperties objectProperties = info.CreateInstance(context);

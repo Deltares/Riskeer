@@ -30,16 +30,16 @@ namespace Riskeer.Piping.Forms.PresentationObjects
     /// <summary>
     /// A presentation layer object which wraps a <see cref="SemiProbabilisticPipingOutput"/>.
     /// </summary>
-    public class PipingOutputContext : WrappedObjectContextBase<SemiProbabilisticPipingOutput>
+    public class SemiProbabilisticPipingOutputContext : WrappedObjectContextBase<SemiProbabilisticPipingOutput>
     {
         /// <summary>
-        /// Creates a new instance of <see cref="PipingOutputContext"/>.
+        /// Creates a new instance of <see cref="SemiProbabilisticPipingOutputContext"/>.
         /// </summary>
         /// <param name="pipingOutput">The <see cref="SemiProbabilisticPipingOutput"/> object to wrap.</param>
         /// <param name="failureMechanism">The failure mechanism that the output belongs to.</param>
         /// <param name="assessmentSection">The assessment section that the output belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public PipingOutputContext(SemiProbabilisticPipingOutput pipingOutput, PipingFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+        public SemiProbabilisticPipingOutputContext(SemiProbabilisticPipingOutput pipingOutput, PipingFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
             : base(pipingOutput)
         {
             if (failureMechanism == null)

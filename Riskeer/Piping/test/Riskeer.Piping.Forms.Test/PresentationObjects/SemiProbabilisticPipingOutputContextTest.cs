@@ -32,7 +32,7 @@ using Riskeer.Piping.Forms.PresentationObjects;
 namespace Riskeer.Piping.Forms.Test.PresentationObjects
 {
     [TestFixture]
-    public class PipingOutputContextTest
+    public class SemiProbabilisticPipingOutputContextTest
     {
         [Test]
         public void Constructor_OutputNull_ThrowsArgumentNullException()
@@ -43,7 +43,7 @@ namespace Riskeer.Piping.Forms.Test.PresentationObjects
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () => new PipingOutputContext(null, new PipingFailureMechanism(), assessmentSection);
+            TestDelegate test = () => new SemiProbabilisticPipingOutputContext(null, new PipingFailureMechanism(), assessmentSection);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -60,7 +60,7 @@ namespace Riskeer.Piping.Forms.Test.PresentationObjects
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () => new PipingOutputContext(PipingOutputTestFactory.Create(), null, assessmentSection);
+            TestDelegate test = () => new SemiProbabilisticPipingOutputContext(PipingOutputTestFactory.Create(), null, assessmentSection);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -72,7 +72,7 @@ namespace Riskeer.Piping.Forms.Test.PresentationObjects
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new PipingOutputContext(PipingOutputTestFactory.Create(), new PipingFailureMechanism(), null);
+            TestDelegate call = () => new SemiProbabilisticPipingOutputContext(PipingOutputTestFactory.Create(), new PipingFailureMechanism(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -91,7 +91,7 @@ namespace Riskeer.Piping.Forms.Test.PresentationObjects
             var failureMechanism = new PipingFailureMechanism();
 
             // Call
-            var context = new PipingOutputContext(output, failureMechanism, assessmentSection);
+            var context = new SemiProbabilisticPipingOutputContext(output, failureMechanism, assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<WrappedObjectContextBase<SemiProbabilisticPipingOutput>>(context);

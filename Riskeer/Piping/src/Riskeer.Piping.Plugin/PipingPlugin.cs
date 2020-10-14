@@ -90,7 +90,7 @@ namespace Riskeer.Piping.Plugin
                                                                                               () => GetNormativeAssessmentLevel(context.AssessmentSection, context.PipingCalculation),
                                                                                               new ObservablePropertyChangeHandler(context.PipingCalculation, context.WrappedData))
             };
-            yield return new PropertyInfo<PipingOutputContext, PipingOutputProperties>
+            yield return new PropertyInfo<SemiProbabilisticPipingOutputContext, PipingOutputProperties>
             {
                 CreateInstance = context => new PipingOutputProperties(context.WrappedData, context.FailureMechanism, context.AssessmentSection)
             };
@@ -390,7 +390,7 @@ namespace Riskeer.Piping.Plugin
                                                                                  .Build()
             };
 
-            yield return new TreeNodeInfo<PipingOutputContext>
+            yield return new TreeNodeInfo<SemiProbabilisticPipingOutputContext>
             {
                 Text = pipingOutput => RiskeerCommonFormsResources.CalculationOutput_DisplayName,
                 Image = pipingOutput => RiskeerCommonFormsResources.GeneralOutputIcon,
@@ -948,7 +948,7 @@ namespace Riskeer.Piping.Plugin
 
             if (pipingCalculationScenario.HasOutput)
             {
-                childNodes.Add(new PipingOutputContext(
+                childNodes.Add(new SemiProbabilisticPipingOutputContext(
                                    pipingCalculationScenario.Output,
                                    context.FailureMechanism,
                                    context.AssessmentSection));

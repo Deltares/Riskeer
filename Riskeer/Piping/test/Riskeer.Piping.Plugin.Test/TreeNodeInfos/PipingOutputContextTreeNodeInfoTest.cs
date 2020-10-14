@@ -44,7 +44,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
         {
             mocks = new MockRepository();
             plugin = new PipingPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(PipingOutputContext));
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(SemiProbabilisticPipingOutputContext));
         }
 
         [TearDown]
