@@ -59,13 +59,10 @@ namespace Riskeer.Piping.Data.Test
         }
 
         [Test]
-        public void ShouldCalculate_OutputNull_ReturnsTrue()
+        public void ShouldCalculate_HasOutputFalse_ReturnsTrue()
         {
             // Setup
-            var calculation = new ProbabilisticPipingCalculation(new GeneralPipingInput())
-            {
-                Output = null
-            };
+            var calculation = new TestPipingCalculation();
 
             // Call
             bool shouldCalculate = calculation.ShouldCalculate;
@@ -75,13 +72,10 @@ namespace Riskeer.Piping.Data.Test
         }
 
         [Test]
-        public void ShouldCalculate_OutputSet_ReturnsFalse()
+        public void ShouldCalculate_HasOutputTrue_ReturnsFalse()
         {
             // Setup
-            var calculation = new ProbabilisticPipingCalculation(new GeneralPipingInput())
-            {
-                Output = new ProbabilisticPipingOutput()
-            };
+            var calculation = new TestPipingCalculation(true);
 
             // Call
             bool shouldCalculate = calculation.ShouldCalculate;
