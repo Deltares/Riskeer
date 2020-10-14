@@ -141,10 +141,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             CollectionAssert.AreEqual(pipingCalculationContext.AvailablePipingSurfaceLines, pipingInputContext.AvailablePipingSurfaceLines);
             CollectionAssert.AreEqual(pipingCalculationContext.AvailableStochasticSoilModels, pipingInputContext.AvailableStochasticSoilModels);
 
-            var pipingOutputContext = (PipingOutputContext) children[2];
-            Assert.AreSame(pipingCalculationContext.WrappedData.Output, pipingOutputContext.WrappedData);
-            Assert.AreSame(pipingCalculationContext.FailureMechanism, pipingOutputContext.FailureMechanism);
-            Assert.AreSame(pipingCalculationContext.AssessmentSection, pipingOutputContext.AssessmentSection);
+            // TODO: Assert output node as soon as implemented (WTI-2088)
         }
 
         [Test]
