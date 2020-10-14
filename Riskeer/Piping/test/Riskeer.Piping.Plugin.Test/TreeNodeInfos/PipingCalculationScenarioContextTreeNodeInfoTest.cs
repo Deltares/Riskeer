@@ -179,7 +179,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             CollectionAssert.AreEqual(pipingCalculationContext.AvailablePipingSurfaceLines, pipingInputContext.AvailablePipingSurfaceLines);
             CollectionAssert.AreEqual(pipingCalculationContext.AvailableStochasticSoilModels, pipingInputContext.AvailableStochasticSoilModels);
 
-            Assert.IsInstanceOf<EmptyPipingOutput>(children[2]);
+            Assert.IsInstanceOf<EmptySemiProbabilisticPipingOutput>(children[2]);
         }
 
         [Test]

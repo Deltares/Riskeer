@@ -33,7 +33,7 @@ using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class EmptyPipingOutputTreeNodeInfoTest
+    public class EmptySemiProbabilisticPipingOutputTreeNodeInfoTest
     {
         private MockRepository mocks;
         private PipingPlugin plugin;
@@ -44,7 +44,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
         {
             mocks = new MockRepository();
             plugin = new PipingPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(EmptyPipingOutput));
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(EmptySemiProbabilisticPipingOutput));
         }
 
         [TearDown]

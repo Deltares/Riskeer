@@ -408,7 +408,7 @@ namespace Riskeer.Piping.Plugin
                                                                                  .Build()
             };
 
-            yield return new TreeNodeInfo<EmptyPipingOutput>
+            yield return new TreeNodeInfo<EmptySemiProbabilisticPipingOutput>
             {
                 Text = emptyPipingOutput => RiskeerCommonFormsResources.CalculationOutput_DisplayName,
                 Image = emptyPipingOutput => RiskeerCommonFormsResources.GeneralOutputIcon,
@@ -955,7 +955,7 @@ namespace Riskeer.Piping.Plugin
             }
             else
             {
-                childNodes.Add(new EmptyPipingOutput());
+                childNodes.Add(new EmptySemiProbabilisticPipingOutput());
             }
 
             return childNodes.ToArray();
@@ -1028,7 +1028,7 @@ namespace Riskeer.Piping.Plugin
                                                     context.AvailableStochasticSoilModels,
                                                     context.FailureMechanism,
                                                     context.AssessmentSection),
-                new EmptyPipingOutput()
+                new EmptySemiProbabilisticPipingOutput()
             };
 
             return childNodes.ToArray();
