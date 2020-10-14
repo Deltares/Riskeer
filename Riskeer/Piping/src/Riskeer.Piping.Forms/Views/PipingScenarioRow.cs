@@ -36,7 +36,7 @@ namespace Riskeer.Piping.Forms.Views
     {
         private readonly PipingFailureMechanism failureMechanism;
         private readonly IAssessmentSection assessmentSection;
-        private DerivedPipingOutput derivedOutput;
+        private DerivedSemiProbabilisticPipingOutput derivedOutput;
 
         /// <summary>
         /// Creates a new instance of <see cref="PipingCalculationRow"/>.

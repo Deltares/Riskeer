@@ -27,19 +27,19 @@ using Riskeer.Piping.Data.SemiProbabilistic;
 namespace Riskeer.Piping.Data
 {
     /// <summary>
-    /// Factory class to create <see cref="DerivedPipingOutput"/>.
+    /// Factory class to create <see cref="DerivedSemiProbabilisticPipingOutput"/>.
     /// </summary>
     public static class DerivedPipingOutputFactory
     {
         /// <summary>
-        /// Creates a new <see cref="DerivedPipingOutput"/> based on the given parameters.
+        /// Creates a new <see cref="DerivedSemiProbabilisticPipingOutput"/> based on the given parameters.
         /// </summary>
         /// <param name="output">The output of a calculation.</param>
         /// <param name="failureMechanism">The failure mechanism the calculation belongs to.</param>
         /// <param name="assessmentSection">The assessment section the calculation belongs to.</param>
-        /// <returns>The created <see cref="DerivedPipingOutput"/>.</returns>
+        /// <returns>The created <see cref="DerivedSemiProbabilisticPipingOutput"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public static DerivedPipingOutput Create(SemiProbabilisticPipingOutput output,
+        public static DerivedSemiProbabilisticPipingOutput Create(SemiProbabilisticPipingOutput output,
                                                  PipingFailureMechanism failureMechanism,
                                                  IAssessmentSection assessmentSection)
         {
@@ -85,7 +85,7 @@ namespace Riskeer.Piping.Data
                                                              contribution);
             double requiredReliability = StatisticsConverter.ProbabilityToReliability(requiredProbability);
 
-            return new DerivedPipingOutput(upliftFactorOfSafety, upliftReliability,
+            return new DerivedSemiProbabilisticPipingOutput(upliftFactorOfSafety, upliftReliability,
                                            upliftProbability, heaveFactorOfSafety,
                                            heaveReliability, heaveProbability,
                                            sellmeijerFactorOfSafety, sellmeijerReliability,

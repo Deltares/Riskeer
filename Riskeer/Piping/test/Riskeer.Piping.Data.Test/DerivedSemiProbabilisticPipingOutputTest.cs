@@ -27,7 +27,7 @@ using Riskeer.Common.Data.TestUtil;
 namespace Riskeer.Piping.Data.Test
 {
     [TestFixture]
-    public class DerivedPipingOutputTest
+    public class DerivedSemiProbabilisticPipingOutputTest
     {
         [Test]
         public void Constructor_DefaultPropertiesSet()
@@ -50,7 +50,7 @@ namespace Riskeer.Piping.Data.Test
             double pipingFactorOfSafety = random.NextDouble();
 
             // Call
-            var output = new DerivedPipingOutput(
+            var output = new DerivedSemiProbabilisticPipingOutput(
                 upliftFactorOfSafety,
                 upliftReliability,
                 upliftProbability,
@@ -116,7 +116,7 @@ namespace Riskeer.Piping.Data.Test
             double pipingFactorOfSafety = random.NextDouble();
 
             // Call
-            var output = new DerivedPipingOutput(
+            var output = new DerivedSemiProbabilisticPipingOutput(
                 upliftFactorOfSafety,
                 upliftReliability,
                 upliftProbability,
@@ -163,7 +163,7 @@ namespace Riskeer.Piping.Data.Test
             double pipingFactorOfSafety = random.NextDouble();
 
             // Call
-            TestDelegate call = () => new DerivedPipingOutput(
+            TestDelegate call = () => new DerivedSemiProbabilisticPipingOutput(
                 upliftFactorOfSafety,
                 upliftReliability,
                 upliftProbability,
@@ -208,7 +208,7 @@ namespace Riskeer.Piping.Data.Test
             double pipingFactorOfSafety = random.NextDouble();
 
             // Call
-            var output = new DerivedPipingOutput(
+            var output = new DerivedSemiProbabilisticPipingOutput(
                 upliftFactorOfSafety,
                 upliftReliability,
                 upliftProbability,
@@ -255,7 +255,7 @@ namespace Riskeer.Piping.Data.Test
             double pipingFactorOfSafety = random.NextDouble();
 
             // Call
-            TestDelegate call = () => new DerivedPipingOutput(
+            TestDelegate call = () => new DerivedSemiProbabilisticPipingOutput(
                 upliftFactorOfSafety,
                 upliftReliability,
                 upliftProbability,
@@ -300,7 +300,7 @@ namespace Riskeer.Piping.Data.Test
             double pipingFactorOfSafety = random.NextDouble();
 
             // Call
-            var output = new DerivedPipingOutput(
+            var output = new DerivedSemiProbabilisticPipingOutput(
                 upliftFactorOfSafety,
                 upliftReliability,
                 upliftProbability,
@@ -347,7 +347,7 @@ namespace Riskeer.Piping.Data.Test
             double pipingFactorOfSafety = random.NextDouble();
 
             // Call
-            TestDelegate call = () => new DerivedPipingOutput(
+            TestDelegate call = () => new DerivedSemiProbabilisticPipingOutput(
                 upliftFactorOfSafety,
                 upliftReliability,
                 upliftProbability,
@@ -392,7 +392,7 @@ namespace Riskeer.Piping.Data.Test
             double pipingFactorOfSafety = random.NextDouble();
 
             // Call
-            var output = new DerivedPipingOutput(
+            var output = new DerivedSemiProbabilisticPipingOutput(
                 upliftFactorOfSafety,
                 upliftReliability,
                 upliftProbability,
@@ -439,7 +439,7 @@ namespace Riskeer.Piping.Data.Test
             double pipingFactorOfSafety = random.NextDouble();
 
             // Call
-            TestDelegate call = () => new DerivedPipingOutput(
+            TestDelegate call = () => new DerivedSemiProbabilisticPipingOutput(
                 upliftFactorOfSafety,
                 upliftReliability,
                 upliftProbability,
@@ -484,7 +484,7 @@ namespace Riskeer.Piping.Data.Test
             double pipingFactorOfSafety = random.NextDouble();
 
             // Call
-            var output = new DerivedPipingOutput(
+            var output = new DerivedSemiProbabilisticPipingOutput(
                 upliftFactorOfSafety,
                 upliftReliability,
                 upliftProbability,
@@ -531,7 +531,7 @@ namespace Riskeer.Piping.Data.Test
             double pipingFactorOfSafety = random.NextDouble();
 
             // Call
-            TestDelegate call = () => new DerivedPipingOutput(
+            TestDelegate call = () => new DerivedSemiProbabilisticPipingOutput(
                 upliftFactorOfSafety,
                 upliftReliability,
                 upliftProbability,

@@ -29,7 +29,7 @@ namespace Riskeer.Piping.Data
     /// This class contains the results of a semi-probabilistic assessment of the piping
     /// failure mechanism.
     /// </summary>
-    public class DerivedPipingOutput
+    public class DerivedSemiProbabilisticPipingOutput
     {
         private double requiredProbability;
         private double pipingProbability;
@@ -38,7 +38,7 @@ namespace Riskeer.Piping.Data
         private double sellmeijerProbability;
 
         /// <summary>
-        /// Creates a new instance of <see cref="DerivedPipingOutput"/>.
+        /// Creates a new instance of <see cref="DerivedSemiProbabilisticPipingOutput"/>.
         /// </summary>
         /// <param name="upliftFactorOfSafety">The factor of safety for the uplift sub mechanism.</param>
         /// <param name="upliftReliability">The reliability of uplift the sub mechanism.</param>
@@ -56,11 +56,11 @@ namespace Riskeer.Piping.Data
         /// <param name="pipingFactorOfSafety">The factor of safety for the piping failure mechanism.</param>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when setting a probability that falls
         /// outside the [0.0, 1.0] range or isn't <see cref="double.NaN"/>.</exception>
-        public DerivedPipingOutput(double upliftFactorOfSafety, double upliftReliability, double upliftProbability,
-                                   double heaveFactorOfSafety, double heaveReliability, double heaveProbability,
-                                   double sellmeijerFactorOfSafety, double sellmeijerReliability, double sellmeijerProbability,
-                                   double requiredProbability, double requiredReliability,
-                                   double pipingProbability, double pipingReliability, double pipingFactorOfSafety)
+        public DerivedSemiProbabilisticPipingOutput(double upliftFactorOfSafety, double upliftReliability, double upliftProbability,
+                                                    double heaveFactorOfSafety, double heaveReliability, double heaveProbability,
+                                                    double sellmeijerFactorOfSafety, double sellmeijerReliability, double sellmeijerProbability,
+                                                    double requiredProbability, double requiredReliability,
+                                                    double pipingProbability, double pipingReliability, double pipingFactorOfSafety)
         {
             UpliftFactorOfSafety = new RoundedDouble(3, upliftFactorOfSafety);
             UpliftReliability = new RoundedDouble(5, upliftReliability);

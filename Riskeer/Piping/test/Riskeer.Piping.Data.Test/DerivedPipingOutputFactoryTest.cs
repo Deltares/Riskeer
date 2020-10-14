@@ -103,7 +103,7 @@ namespace Riskeer.Piping.Data.Test
             });
 
             // Call
-            DerivedPipingOutput derivedOutput = DerivedPipingOutputFactory.Create(calculatorResult, failureMechanism, assessmentSection);
+            DerivedSemiProbabilisticPipingOutput derivedOutput = DerivedPipingOutputFactory.Create(calculatorResult, failureMechanism, assessmentSection);
 
             // Assert
             Assert.AreEqual(0.0030333773290253025, derivedOutput.UpliftProbability, 1e-6);

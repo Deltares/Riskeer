@@ -37,7 +37,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses
     /// </summary>
     public class PipingOutputProperties : ObjectProperties<SemiProbabilisticPipingOutput>
     {
-        private DerivedPipingOutput derivedOutput;
+        private DerivedSemiProbabilisticPipingOutput derivedOutput;
 
         /// <summary>
         /// Creates a new instance of <see cref="PipingOutputProperties"/>.

@@ -21,7 +21,7 @@
 
 using Riskeer.Piping.Data.SemiProbabilistic;
 
-namespace Riskeer.Piping.Forms.PresentationObjects
+namespace Riskeer.Piping.Forms.PresentationObjects.SemiProbabilistic
 {
     /// <summary>
     /// This class represents the placeholder for a <see cref="SemiProbabilisticPipingOutput"/> for a
