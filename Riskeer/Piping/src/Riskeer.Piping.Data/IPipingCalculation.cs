@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using Riskeer.Common.Data.Calculation;
+using Riskeer.Piping.Data.SemiProbabilistic;
 
 namespace Riskeer.Piping.Data
 {

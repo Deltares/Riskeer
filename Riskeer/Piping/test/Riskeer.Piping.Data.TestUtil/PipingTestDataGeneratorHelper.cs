@@ -25,6 +25,7 @@ using NUnit.Framework;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.IO.SoilProfile;
+using Riskeer.Piping.Data.SemiProbabilistic;
 using Riskeer.Piping.Primitives;
 
 namespace Riskeer.Piping.Data.TestUtil

@@ -22,6 +22,7 @@
 using System;
 using Core.Common.Base;
 using Riskeer.Common.Data;
+using Riskeer.Piping.Data.SemiProbabilistic;
 using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
 
 namespace Riskeer.Piping.Data

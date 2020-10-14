@@ -28,6 +28,7 @@ using Riskeer.Common.Data.UpdateDataStrategies;
 using Riskeer.Common.IO.SurfaceLines;
 using Riskeer.Common.Service;
 using Riskeer.Piping.Data;
+using Riskeer.Piping.Data.SemiProbabilistic;
 using Riskeer.Piping.Data.SoilProfile;
 using Riskeer.Piping.Forms;
 using Riskeer.Piping.Primitives;

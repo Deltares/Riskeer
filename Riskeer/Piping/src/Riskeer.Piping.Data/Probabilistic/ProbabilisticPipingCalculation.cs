@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Riskeer.Piping.Data.SemiProbabilistic;
 
 namespace Riskeer.Piping.Data.Probabilistic
 {

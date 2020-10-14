@@ -30,6 +30,7 @@ using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.IO.SoilProfile;
 using Riskeer.Common.Service;
 using Riskeer.Piping.Data;
+using Riskeer.Piping.Data.SemiProbabilistic;
 using Riskeer.Piping.Data.SoilProfile;
 using Riskeer.Piping.Primitives;
 

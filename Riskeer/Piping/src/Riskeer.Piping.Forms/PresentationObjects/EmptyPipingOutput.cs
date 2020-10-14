@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using Riskeer.Piping.Data;
+using Riskeer.Piping.Data.SemiProbabilistic;
 
 namespace Riskeer.Piping.Forms.PresentationObjects
 {

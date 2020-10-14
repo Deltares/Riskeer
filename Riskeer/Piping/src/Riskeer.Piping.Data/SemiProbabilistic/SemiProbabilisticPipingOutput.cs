@@ -24,7 +24,7 @@ using Core.Common.Base;
 using Core.Common.Base.Data;
 using Riskeer.Common.Data.Calculation;
 
-namespace Riskeer.Piping.Data
+namespace Riskeer.Piping.Data.SemiProbabilistic
 {
     /// <summary>
     /// Class containing the results of a semi-probabilistic piping calculation.

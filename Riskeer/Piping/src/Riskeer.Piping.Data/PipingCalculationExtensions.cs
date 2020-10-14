@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Geometry;
+using Riskeer.Piping.Data.SemiProbabilistic;
 using Riskeer.Piping.Primitives;
 
 namespace Riskeer.Piping.Data

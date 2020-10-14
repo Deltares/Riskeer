@@ -22,6 +22,7 @@
 using System;
 using Core.Common.Util;
 using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Piping.Data.SemiProbabilistic;
 
 namespace Riskeer.Piping.Data
 {

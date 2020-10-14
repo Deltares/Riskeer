@@ -23,6 +23,7 @@ using System;
 using Core.Common.Base;
 using Core.Common.Data.TestUtil;
 using NUnit.Framework;
+using Riskeer.Piping.Data.SemiProbabilistic;
 using Riskeer.Piping.Data.TestUtil;
 
 namespace Riskeer.Piping.Data.Test

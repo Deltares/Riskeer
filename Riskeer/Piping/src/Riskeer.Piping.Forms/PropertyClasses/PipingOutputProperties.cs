@@ -27,6 +27,7 @@ using Core.Common.Util.Attributes;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Forms.Helpers;
 using Riskeer.Piping.Data;
+using Riskeer.Piping.Data.SemiProbabilistic;
 using Riskeer.Piping.Forms.Properties;
 
 namespace Riskeer.Piping.Forms.PropertyClasses

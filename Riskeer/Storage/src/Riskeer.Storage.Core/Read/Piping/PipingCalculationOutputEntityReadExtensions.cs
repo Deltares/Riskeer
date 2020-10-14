@@ -21,6 +21,7 @@
 
 using System;
 using Riskeer.Piping.Data;
+using Riskeer.Piping.Data.SemiProbabilistic;
 using Riskeer.Storage.Core.DbContext;
 
 namespace Riskeer.Storage.Core.Read.Piping

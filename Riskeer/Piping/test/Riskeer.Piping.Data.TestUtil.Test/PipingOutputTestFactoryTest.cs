@@ -21,6 +21,7 @@
 
 using System;
 using NUnit.Framework;
+using Riskeer.Piping.Data.SemiProbabilistic;
 
 namespace Riskeer.Piping.Data.TestUtil.Test
 {

@@ -23,6 +23,7 @@ using System;
 using Core.Common.Controls.PresentationObjects;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Piping.Data;
+using Riskeer.Piping.Data.SemiProbabilistic;
 
 namespace Riskeer.Piping.Forms.PresentationObjects
 {
