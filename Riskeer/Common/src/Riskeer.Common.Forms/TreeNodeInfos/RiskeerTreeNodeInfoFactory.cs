@@ -89,7 +89,7 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
             return new TreeNodeInfo<TCalculationContext>
             {
                 Text = context => context.WrappedData.Name,
-                Image = context => Resources.CalculationIcon,
+                Image = context => Resources.HydraulicCalculationIcon,
                 EnsureVisibleOnCreate = (context, parent) => true,
                 ChildNodeObjects = childNodeObjects,
                 ContextMenuStrip = contextMenuStrip,

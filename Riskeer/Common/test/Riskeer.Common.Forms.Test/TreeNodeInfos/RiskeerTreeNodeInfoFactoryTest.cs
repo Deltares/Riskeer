@@ -605,7 +605,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         public void CreateCalculationContextTreeNodeInfo_Always_ExpectedPropertiesSet()
         {
             // Setup
-            Bitmap icon = RiskeerFormsResources.CalculationIcon;
+            Bitmap icon = RiskeerFormsResources.HydraulicCalculationIcon;
             Func<TestCalculationContext, object[]> childNodeObjects = context => new object[0];
             Func<TestCalculationContext, object, TreeViewControl, ContextMenuStrip> contextMenuStrip = (context, parent, treeViewControl) => new ContextMenuStrip();
             Action<TestCalculationContext, object> onNodeRemoved = (context, parent) => {};

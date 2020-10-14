@@ -259,7 +259,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationIndexNestedGroup,
                                                               "Berekening &toevoegen",
                                                               "Voeg een nieuwe berekening toe aan deze map met berekeningen.",
-                                                              RiskeerCommonFormsResources.CalculationIcon);
+                                                              RiskeerCommonFormsResources.HydraulicCalculationIcon);
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuRenameCalculationGroupIndexNestedGroup,
                                                               "&Hernoemen",
                                                               "Wijzig de naam van dit element.",
@@ -380,7 +380,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationIndexRootGroup,
                                                               "Berekening &toevoegen",
                                                               "Voeg een nieuwe berekening toe aan deze map met berekeningen.",
-                                                              RiskeerCommonFormsResources.CalculationIcon);
+                                                              RiskeerCommonFormsResources.HydraulicCalculationIcon);
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuValidateAllIndexRootGroup,
                                                               "Alles &valideren",
                                                               "Valideer alle berekeningen binnen deze map met berekeningen.",

@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2019. All rights reserved.
+// Copyright (C) Stichting Deltares 2019. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -40,7 +40,7 @@ namespace Riskeer.Common.Forms.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Resources {
@@ -540,16 +540,6 @@ namespace Riskeer.Common.Forms.Properties {
         public static string CalculationGroup_Validate_All_ToolTip {
             get {
                 return ResourceManager.GetString("CalculationGroup_Validate_All_ToolTip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap CalculationIcon {
-            get {
-                object obj = ResourceManager.GetObject("CalculationIcon", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
@@ -2488,6 +2478,16 @@ namespace Riskeer.Common.Forms.Properties {
         public static string HydraulicBoundaryLocationsExporter_DisplayName {
             get {
                 return ResourceManager.GetString("HydraulicBoundaryLocationsExporter_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap HydraulicCalculationIcon {
+            get {
+                object obj = ResourceManager.GetObject("HydraulicCalculationIcon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         

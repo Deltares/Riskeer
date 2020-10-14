@@ -107,7 +107,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
             Image image = info.Image(null);
 
             // Assert
-            TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.CalculationIcon, image);
+            TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.HydraulicCalculationIcon, image);
         }
 
         [Test]
