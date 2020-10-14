@@ -1025,21 +1025,10 @@ namespace Riskeer.Piping.Plugin
                                                     context.AvailablePipingSurfaceLines,
                                                     context.AvailableStochasticSoilModels,
                                                     context.FailureMechanism,
-                                                    context.AssessmentSection)
+                                                    context.AssessmentSection),
+                new EmptyPipingOutput()
             };
-
-            if (calculation.HasOutput)
-            {
-                childNodes.Add(new PipingOutputContext(
-                                   calculation.Output,
-                                   context.FailureMechanism,
-                                   context.AssessmentSection));
-            }
-            else
-            {
-                childNodes.Add(new EmptyPipingOutput());
-            }
-
+            
             return childNodes.ToArray();
         }
 
