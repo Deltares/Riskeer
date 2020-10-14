@@ -22,9 +22,8 @@
 using System;
 using Core.Common.Util;
 using Riskeer.Common.Data.AssessmentSection;
-using Riskeer.Piping.Data.SemiProbabilistic;
 
-namespace Riskeer.Piping.Data
+namespace Riskeer.Piping.Data.SemiProbabilistic
 {
     /// <summary>
     /// Factory class to create <see cref="DerivedSemiProbabilisticPipingOutput"/>.
