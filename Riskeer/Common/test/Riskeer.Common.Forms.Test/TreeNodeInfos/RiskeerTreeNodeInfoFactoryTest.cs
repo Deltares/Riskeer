@@ -35,6 +35,7 @@ using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.PresentationObjects;
+using Riskeer.Common.Forms.TestUtil;
 using Riskeer.Common.Forms.TreeNodeInfos;
 using RiskeerFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
@@ -604,25 +605,8 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         #region CreateCalculationContextTreeNodeInfo
 
         [Test]
-        public void CreateCalculationContextTreeNodeInfo_InvalidCalculationType_ThrowsInvalidEnumArgumentException()
-        {
-            // Setup
-            Func<TestCalculationContext, object[]> childNodeObjects = context => new object[0];
-            Func<TestCalculationContext, object, TreeViewControl, ContextMenuStrip> contextMenuStrip = (context, parent, treeViewControl) => new ContextMenuStrip();
-            Action<TestCalculationContext, object> onNodeRemoved = (context, parent) => {};
-            const CalculationType calculationType = (CalculationType) 99;
-
-            // Call
-            void Call() => RiskeerTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo(childNodeObjects, contextMenuStrip, onNodeRemoved, calculationType);
-
-            // Assert
-            var expectedMessage = $"The value of argument 'calculationType' ({calculationType}) is invalid for Enum type '{nameof(CalculationType)}'.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(Call, expectedMessage);
-        }
-
-        [Test]
-        [TestCaseSource(nameof(GetCalculationTypes))]
-        public void CreateCalculationContextTreeNodeInfo_ValidData_ExpectedPropertiesSet(CalculationType calculationType, Bitmap expectedIcon)
+        [TestCaseSource(typeof(CalculationTypeTestHelper), nameof(CalculationTypeTestHelper.CalculationTypeWithImageCases))]
+        public void CreateCalculationContextTreeNodeInfo_Always_ExpectedPropertiesSet(CalculationType calculationType, Bitmap expectedIcon)
         {
             // Setup
             Func<TestCalculationContext, object[]> childNodeObjects = context => new object[0];
@@ -645,7 +629,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void TextOfCalculationContextTreeNodeInfo_ValidData_ReturnsWrappedDataName()
+        public void TextOfCalculationContextTreeNodeInfo_Always_ReturnsWrappedDataName()
         {
             // Setup
             var mocks = new MockRepository();
@@ -672,7 +656,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void EnsureVisibleOnCreateOfCalculationContextTreeNodeInfo_ValidData_ReturnsTrue()
+        public void EnsureVisibleOnCreateOfCalculationContextTreeNodeInfo_Always_ReturnsTrue()
         {
             // Setup
             var calculationType = new Random(21).NextEnumValue<CalculationType>();
@@ -686,7 +670,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void CanRenameCalculationContextTreeNodeInfo_ValidData_ReturnTrue()
+        public void CanRenameCalculationContextTreeNodeInfo_Always_ReturnTrue()
         {
             // Setup
             var calculationType = new Random(21).NextEnumValue<CalculationType>();
@@ -700,7 +684,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void OnNodeRenamedOfCalculationContextTreeNodeInfo_ValidData_SetNewNameToCalculationItemAndNotifyObserver()
+        public void OnNodeRenamedOfCalculationContextTreeNodeInfo_Always_SetNewNameToCalculationItemAndNotifyObserver()
         {
             // Setup
             var mocks = new MockRepository();
@@ -817,16 +801,6 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
 
             // Assert
             Assert.IsTrue(canDrag);
-        }
-
-        private static IEnumerable<TestCaseData> GetCalculationTypes()
-        {
-            return new[]
-            {
-                new TestCaseData(CalculationType.Hydraulic, RiskeerFormsResources.HydraulicCalculationIcon),
-                new TestCaseData(CalculationType.Probabilistic, RiskeerFormsResources.ProbabilisticCalculationIcon),
-                new TestCaseData(CalculationType.SemiProbabilistic, RiskeerFormsResources.SemiProbabilisticCalculationIcon),
-            };
         }
 
         #endregion
