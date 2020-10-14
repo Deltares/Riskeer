@@ -48,7 +48,6 @@ using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.MacroStabilityInwards.Data.SoilProfile;
 using Riskeer.MacroStabilityInwards.Primitives;
 using Riskeer.Piping.Data;
-using Riskeer.Piping.Data.SemiProbabilistic;
 using Riskeer.Piping.Data.SoilProfile;
 using Riskeer.Piping.Primitives;
 using Riskeer.StabilityPointStructures.Data;
@@ -176,10 +175,10 @@ namespace Riskeer.Integration.Service.Test
                                                             .Select(c => c.InputParameters)
                                                             .Where(i => i.HydraulicBoundaryLocation != null));
             expectedAffectedItems.AddRange(assessmentSection.Piping.Calculations
-                                                            .Cast<IPipingCalculation<PipingInput, SemiProbabilisticPipingOutput>>()
+                                                            .Cast<IPipingCalculation<PipingInput>>()
                                                             .Where(c => c.HasOutput));
             expectedAffectedItems.AddRange(assessmentSection.Piping.Calculations
-                                                            .Cast<IPipingCalculation<PipingInput, SemiProbabilisticPipingOutput>>()
+                                                            .Cast<IPipingCalculation<PipingInput>>()
                                                             .Select(c => c.InputParameters)
                                                             .Where(i => i.HydraulicBoundaryLocation != null));
             expectedAffectedItems.AddRange(assessmentSection.StabilityPointStructures.Calculations
@@ -225,7 +224,7 @@ namespace Riskeer.Integration.Service.Test
                                            .All(c => c.InputParameters.HydraulicBoundaryLocation == null && !c.HasOutput));
             Assert.IsTrue(assessmentSection.HeightStructures.Calculations.Cast<StructuresCalculation<HeightStructuresInput>>()
                                            .All(c => c.InputParameters.HydraulicBoundaryLocation == null && !c.HasOutput));
-            Assert.IsTrue(assessmentSection.Piping.Calculations.Cast<IPipingCalculation<PipingInput, SemiProbabilisticPipingOutput>>()
+            Assert.IsTrue(assessmentSection.Piping.Calculations.Cast<IPipingCalculation<PipingInput>>()
                                            .All(c => c.InputParameters.HydraulicBoundaryLocation == null && !c.HasOutput));
             Assert.IsTrue(assessmentSection.StabilityPointStructures.Calculations.Cast<StructuresCalculation<StabilityPointStructuresInput>>()
                                            .All(c => c.InputParameters.HydraulicBoundaryLocation == null && !c.HasOutput));
