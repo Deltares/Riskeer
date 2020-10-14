@@ -21,6 +21,7 @@
 
 using NUnit.Framework;
 using Riskeer.Piping.Data.SemiProbabilistic;
+using Riskeer.Piping.Data.TestUtil;
 
 namespace Riskeer.Piping.Data.Test.SemiProbabilistic
 {
@@ -36,6 +37,88 @@ namespace Riskeer.Piping.Data.Test.SemiProbabilistic
             // Assert
             Assert.IsInstanceOf<PipingCalculation<SemiProbabilisticPipingInput, PipingOutput>>(calculation);
             Assert.IsInstanceOf<SemiProbabilisticPipingInput>(calculation.InputParameters);
+
+            Assert.IsNull(calculation.Output);
+        }
+
+        [Test]
+        public void ClearOutput_Always_SetsOutputToNull()
+        {
+            // Setup
+            var calculation = new SemiProbabilisticPipingCalculation(new GeneralPipingInput())
+            {
+                Output = PipingOutputTestFactory.Create()
+            };
+
+            // Call
+            calculation.ClearOutput();
+
+            // Assert
+            Assert.IsNull(calculation.Output);
+        }
+
+        [Test]
+        public void HasOutput_OutputNull_ReturnsFalse()
+        {
+            // Setup
+            var calculation = new SemiProbabilisticPipingCalculation(new GeneralPipingInput())
+            {
+                Output = null
+            };
+
+            // Call
+            bool hasOutput = calculation.HasOutput;
+
+            // Assert
+            Assert.IsFalse(hasOutput);
+        }
+
+        [Test]
+        public void HasOutput_OutputSet_ReturnsTrue()
+        {
+            // Setup
+            var calculation = new SemiProbabilisticPipingCalculation(new GeneralPipingInput())
+            {
+                Output = PipingOutputTestFactory.Create()
+            };
+
+            // Call
+            bool hasOutput = calculation.HasOutput;
+
+            // Assert
+            Assert.IsTrue(hasOutput);
+        }
+
+        [Test]
+        public void ShouldCalculate_OutputNull_ReturnsTrue()
+        {
+            // Setup
+            var calculation = new SemiProbabilisticPipingCalculation(new GeneralPipingInput())
+            {
+                Output = null
+            };
+
+            // Call
+            bool shouldCalculate = calculation.ShouldCalculate;
+
+            // Assert
+            Assert.IsTrue(shouldCalculate);
+        }
+
+        [Test]
+        public void ShouldCalculate_OutputSet_ReturnsFalse()
+        {
+            // Setup
+            var calculation = new SemiProbabilisticPipingCalculation(new GeneralPipingInput())
+            {
+                Output = PipingOutputTestFactory.Create()
+            };
+
+            // Call
+            bool shouldCalculate = calculation.ShouldCalculate;
+
+            // Assert
+            Assert.IsFalse(shouldCalculate);
         }
     }
 }

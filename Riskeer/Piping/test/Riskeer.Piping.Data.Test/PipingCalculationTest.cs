@@ -45,7 +45,6 @@ namespace Riskeer.Piping.Data.Test
             Assert.IsInstanceOf<PipingInput>(calculation.InputParameters);
 
             Assert.IsNull(calculation.Comments.Body);
-            Assert.IsNull(calculation.Output);
         }
 
         [Test]
@@ -60,92 +59,10 @@ namespace Riskeer.Piping.Data.Test
         }
 
         [Test]
-        public void ClearOutput_Always_SetsOutputToNull()
-        {
-            // Setup
-            var calculation = new TestPipingCalculation
-            {
-                Output = PipingOutputTestFactory.Create()
-            };
-
-            // Call
-            calculation.ClearOutput();
-
-            // Assert
-            Assert.IsNull(calculation.Output);
-        }
-
-        [Test]
-        public void HasOutput_OutputNull_ReturnsFalse()
-        {
-            // Setup
-            var calculation = new TestPipingCalculation
-            {
-                Output = null
-            };
-
-            // Call
-            bool hasOutput = calculation.HasOutput;
-
-            // Assert
-            Assert.IsFalse(hasOutput);
-        }
-
-        [Test]
-        public void HasOutput_OutputSet_ReturnsTrue()
-        {
-            // Setup
-            var calculation = new TestPipingCalculation
-            {
-                Output = PipingOutputTestFactory.Create()
-            };
-
-            // Call
-            bool hasOutput = calculation.HasOutput;
-
-            // Assert
-            Assert.IsTrue(hasOutput);
-        }
-
-        [Test]
-        public void ShouldCalculate_OutputNull_ReturnsTrue()
-        {
-            // Setup
-            var calculation = new TestPipingCalculation
-            {
-                Output = null
-            };
-
-            // Call
-            bool shouldCalculate = calculation.ShouldCalculate;
-
-            // Assert
-            Assert.IsTrue(shouldCalculate);
-        }
-
-        [Test]
-        public void ShouldCalculate_OutputSet_ReturnsFalse()
-        {
-            // Setup
-            var calculation = new TestPipingCalculation
-            {
-                Output = PipingOutputTestFactory.Create()
-            };
-
-            // Call
-            bool shouldCalculate = calculation.ShouldCalculate;
-
-            // Assert
-            Assert.IsFalse(shouldCalculate);
-        }
-
-        [Test]
         public void Clone_AllPropertiesSet_ReturnNewInstanceWithCopiedValues()
         {
             // Setup
             PipingCalculation<PipingInput, PipingOutput> original = CreateRandomCalculationWithoutOutput();
-
-            original.Output = PipingTestDataGenerator.GetRandomPipingOutput();
 
             // Call
             object clone = original.Clone();

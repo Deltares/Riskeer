@@ -37,6 +37,8 @@ namespace Riskeer.Piping.Data.SemiProbabilistic
         /// is <c>null</c>.</exception>
         public SemiProbabilisticPipingCalculation(GeneralPipingInput generalInputParameters) : base(new SemiProbabilisticPipingInput(generalInputParameters)) {}
 
+        public override bool ShouldCalculate => !HasOutput;
+
         public override bool HasOutput => Output != null;
 
         /// <summary>
