@@ -153,6 +153,12 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
             return true;
         }
 
+        [DynamicVisibleValidationMethod]
+        public bool DynamicVisibleValidationMethod(string propertyName)
+        {
+            return false;
+        }
+
         /// <summary>
         /// Gets the available selectable hydraulic boundary locations on <see cref="SemiProbabilisticPipingInputContext"/>.
         /// </summary>
@@ -165,7 +171,6 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
 
         #region Hydraulic data
 
-        [DynamicVisible]
         [PropertyOrder(selectedHydraulicBoundaryLocationPropertyIndex)]
         [Editor(typeof(HydraulicBoundaryLocationEditor), typeof(UITypeEditor))]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_HydraulicData))]
@@ -440,7 +445,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
 
         [DynamicReadOnly]
         [PropertyOrder(sectionNamePropertyIndex)]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Output))]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.SectionInformation))]
         [ResourcesDisplayName(typeof(Resources), nameof(RiskeerCommonFormsResources.FailureMechanismSection_Name_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(RiskeerCommonFormsResources.FailureMechanismSection_Name_Description))]
         public string SectionName
@@ -453,7 +458,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
 
         [DynamicReadOnly]
         [PropertyOrder(sectionLengthPropertyIndex)]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Output))]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.SectionInformation))]
         [ResourcesDisplayName(typeof(Resources), nameof(RiskeerCommonFormsResources.SectionLength_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(RiskeerCommonFormsResources.SectionLength_Description))]
         public RoundedDouble SectionLength

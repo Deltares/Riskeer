@@ -3221,6 +3221,15 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Vakinformatie.
+        /// </summary>
+        public static string SectionInformation {
+            get {
+                return ResourceManager.GetString("SectionInformation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Vaklengte [m].
         /// </summary>
         public static string SectionLength_Description {

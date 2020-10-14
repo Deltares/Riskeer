@@ -1604,4 +1604,7 @@ scenario
   <data name="SectionLength_DisplayName" xml:space="preserve">
     <value>Vaklengte [m]</value>
   </data>
+  <data name="SectionInformation" xml:space="preserve">
+    <value>Vakinformatie</value>
+  </data>
 </root>
