@@ -35,20 +35,20 @@ using Riskeer.Piping.Primitives;
 namespace Riskeer.Piping.Forms
 {
     /// <summary>
-    /// Class holds methods to help views when dealing with <see cref="PipingCalculation{TPipingInput,TPipingOutput}"/>
+    /// Class holds methods to help views when dealing with <see cref="PipingCalculation{TPipingInput}"/>
     /// </summary>
     public static class PipingCalculationConfigurationHelper
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(PipingCalculationConfigurationHelper));
 
         /// <summary>
-        /// Creates a structure of <see cref="CalculationGroup"/> and <see cref="PipingCalculation{TPipingInput,TPipingOutput}"/>
+        /// Creates a structure of <see cref="CalculationGroup"/> and <see cref="PipingCalculation{TPipingInput}"/>
         /// based on combination of the <paramref name="surfaceLines"/> and the <paramref name="soilModels"/>.
         /// </summary>
         /// <param name="surfaceLines">Surface lines to generate the structure for and to use to configure
-        /// <see cref="PipingCalculation{TPipingInput,TPipingOutput}"/> with.</param>
+        /// <see cref="PipingCalculation{TPipingInput}"/> with.</param>
         /// <param name="soilModels">The soil models from which profiles are taken to configure
-        /// <see cref="PipingCalculation{TPipingInput,TPipingOutput}"/> with.</param>
+        /// <see cref="PipingCalculation{TPipingInput}"/> with.</param>
         /// <param name="generalInput">General input to assign to each generated piping calculation.</param>
         /// <returns>A structure of <see cref="ICalculationBase"/> matching combinations of <paramref name="surfaceLines"/> and
         /// profiles of intersecting <paramref name="soilModels"/>.</returns>
