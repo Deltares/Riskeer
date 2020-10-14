@@ -297,7 +297,8 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
             yield return RiskeerTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<GrassCoverErosionInwardsCalculationScenarioContext>(
                 CalculationContextChildNodeObjects,
                 CalculationContextContextMenuStrip,
-                CalculationContextOnNodeRemoved);
+                CalculationContextOnNodeRemoved,
+                CalculationType.Probabilistic);
 
             yield return new TreeNodeInfo<GrassCoverErosionInwardsScenariosContext>
             {

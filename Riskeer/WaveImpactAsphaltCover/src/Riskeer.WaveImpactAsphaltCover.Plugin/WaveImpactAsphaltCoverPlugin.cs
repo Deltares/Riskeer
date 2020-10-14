@@ -159,7 +159,8 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
             yield return RiskeerTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<WaveImpactAsphaltCoverWaveConditionsCalculationContext>(
                 WaveConditionsCalculationContextChildNodeObjects,
                 WaveConditionsCalculationContextContextMenuStrip,
-                WaveConditionsCalculationContextOnNodeRemoved);
+                WaveConditionsCalculationContextOnNodeRemoved,
+                CalculationType.Hydraulic);
 
             yield return new TreeNodeInfo<EmptyWaveImpactAsphaltCoverOutput>
             {

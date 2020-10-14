@@ -222,7 +222,8 @@ namespace Riskeer.HeightStructures.Plugin
             yield return RiskeerTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<HeightStructuresCalculationScenarioContext>(
                 CalculationContextChildNodeObjects,
                 CalculationContextContextMenuStrip,
-                CalculationContextOnNodeRemoved);
+                CalculationContextOnNodeRemoved,
+                CalculationType.Probabilistic);
 
             yield return new TreeNodeInfo<HeightStructuresInputContext>
             {

@@ -322,7 +322,8 @@ namespace Riskeer.MacroStabilityInwards.Plugin
             yield return RiskeerTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<MacroStabilityInwardsCalculationScenarioContext>(
                 CalculationContextChildNodeObjects,
                 CalculationContextContextMenuStrip,
-                CalculationContextOnNodeRemoved);
+                CalculationContextOnNodeRemoved,
+                CalculationType.SemiProbabilistic);
 
             yield return RiskeerTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<MacroStabilityInwardsCalculationGroupContext>(
                 CalculationGroupContextChildNodeObjects,

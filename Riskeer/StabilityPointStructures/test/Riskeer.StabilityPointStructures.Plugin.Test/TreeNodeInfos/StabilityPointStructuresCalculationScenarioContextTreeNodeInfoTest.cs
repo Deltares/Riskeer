@@ -106,7 +106,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             Image image = info.Image(null);
 
             // Assert
-            TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.HydraulicCalculationIcon, image);
+            TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.ProbabilisticCalculationIcon, image);
         }
 
         [Test]

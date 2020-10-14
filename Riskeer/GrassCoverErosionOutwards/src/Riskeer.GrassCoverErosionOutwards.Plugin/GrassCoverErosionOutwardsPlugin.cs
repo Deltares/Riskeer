@@ -239,7 +239,8 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
             yield return RiskeerTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<GrassCoverErosionOutwardsWaveConditionsCalculationContext>(
                 WaveConditionsCalculationContextChildNodeObjects,
                 WaveConditionsCalculationContextMenuStrip,
-                WaveConditionsCalculationContextOnNodeRemoved);
+                WaveConditionsCalculationContextOnNodeRemoved,
+                CalculationType.Hydraulic);
 
             yield return new TreeNodeInfo<FailureMechanismSectionResultContext<GrassCoverErosionOutwardsFailureMechanismSectionResult>>
             {

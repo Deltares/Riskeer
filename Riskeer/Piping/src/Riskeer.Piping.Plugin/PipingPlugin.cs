@@ -291,12 +291,14 @@ namespace Riskeer.Piping.Plugin
             yield return RiskeerTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<SemiProbabilisticPipingCalculationScenarioContext>(
                 SemiProbabilisticCalculationContextChildNodeObjects,
                 SemiProbabilisticCalculationContextContextMenuStrip,
-                SemiProbabilisticCalculationContextOnNodeRemoved);
+                SemiProbabilisticCalculationContextOnNodeRemoved,
+                CalculationType.SemiProbabilistic);
 
             yield return RiskeerTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<ProbabilisticPipingCalculationContext>(
                 ProbabilisticCalculationContextChildNodeObjects,
                 ProbabilisticCalculationContextContextMenuStrip,
-                ProbabilisticCalculationContextOnNodeRemoved);
+                ProbabilisticCalculationContextOnNodeRemoved,
+                CalculationType.Probabilistic);
 
             yield return RiskeerTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<PipingCalculationGroupContext>(
                 CalculationGroupContextChildNodeObjects,

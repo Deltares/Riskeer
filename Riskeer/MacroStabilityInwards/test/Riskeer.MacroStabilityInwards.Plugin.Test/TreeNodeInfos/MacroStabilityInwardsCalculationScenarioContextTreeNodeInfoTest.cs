@@ -99,7 +99,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
             Image image = info.Image(null);
 
             // Assert
-            TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.HydraulicCalculationIcon, image);
+            TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.SemiProbabilisticCalculationIcon, image);
         }
 
         [Test]

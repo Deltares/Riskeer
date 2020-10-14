@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -79,17 +80,25 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
         /// <param name="childNodeObjects">The function for obtaining the child node objects.</param>
         /// <param name="contextMenuStrip">The function for obtaining the context menu strip.</param>
         /// <param name="onNodeRemoved">The action to perform on removing a node.</param>
+        /// <param name="calculationType">The type of the calculation.</param>
         /// <returns>A <see cref="TreeNodeInfo"/> object.</returns>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="calculationType"/>
+        /// has an invalid value.</exception>
+        /// <exception cref="NotSupportedException">Thrown when <paramref name="calculationType"/>
+        /// has a valid but not supported value.</exception>
         public static TreeNodeInfo<TCalculationContext> CreateCalculationContextTreeNodeInfo<TCalculationContext>(
             Func<TCalculationContext, object[]> childNodeObjects,
             Func<TCalculationContext, object, TreeViewControl, ContextMenuStrip> contextMenuStrip,
-            Action<TCalculationContext, object> onNodeRemoved)
+            Action<TCalculationContext, object> onNodeRemoved,
+            CalculationType calculationType)
             where TCalculationContext : ICalculationContext<ICalculation, IFailureMechanism>
         {
+            Bitmap image = GetCalculationContextTreeNodeImage(calculationType);
+            
             return new TreeNodeInfo<TCalculationContext>
             {
                 Text = context => context.WrappedData.Name,
-                Image = context => Resources.HydraulicCalculationIcon,
+                Image = context => image,
                 EnsureVisibleOnCreate = (context, parent) => true,
                 ChildNodeObjects = childNodeObjects,
                 ContextMenuStrip = contextMenuStrip,
@@ -138,6 +147,37 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
         }
 
         #region Helper methods for CreateCalculationContextTreeNodeInfo
+
+        /// <summary>
+        /// Gets the calculation context tree node image based on the given <paramref name="calculationType"/>.
+        /// </summary>
+        /// <param name="calculationType">The <see cref="CalculationType"/> to get the image for.</param>
+        /// <returns>A calculation context tree node image.</returns>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="calculationType"/>
+        /// has an invalid value.</exception>
+        /// <exception cref="NotSupportedException">Thrown when <paramref name="calculationType"/>
+        /// has a valid but not supported value.</exception>
+        private static Bitmap GetCalculationContextTreeNodeImage(CalculationType calculationType)
+        {
+            if (!Enum.IsDefined(typeof(CalculationType), calculationType))
+            {
+                throw new InvalidEnumArgumentException(nameof(calculationType),
+                                                       (int) calculationType,
+                                                       typeof(CalculationType));
+            }
+
+            switch (calculationType)
+            {
+                case CalculationType.SemiProbabilistic:
+                    return Resources.SemiProbabilisticCalculationIcon;
+                case CalculationType.Probabilistic:
+                    return Resources.ProbabilisticCalculationIcon;
+                case CalculationType.Hydraulic:
+                    return Resources.HydraulicCalculationIcon;
+                default:
+                    throw new NotSupportedException();
+            }
+        }
 
         private static bool CalculationContextCanRemove(ICalculationContext<ICalculation, IFailureMechanism> calculationContext, object parentNodeData)
         {

@@ -153,7 +153,8 @@ namespace Riskeer.ClosingStructures.Plugin
             yield return RiskeerTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<ClosingStructuresCalculationScenarioContext>(
                 CalculationContextChildNodeObjects,
                 CalculationContextContextMenuStrip,
-                CalculationContextOnNodeRemoved);
+                CalculationContextOnNodeRemoved,
+                CalculationType.Probabilistic);
 
             yield return new TreeNodeInfo<ProbabilityFailureMechanismSectionResultContext<ClosingStructuresFailureMechanismSectionResult>>
             {

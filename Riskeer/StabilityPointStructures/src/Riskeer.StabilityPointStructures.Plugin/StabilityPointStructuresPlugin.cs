@@ -195,7 +195,8 @@ namespace Riskeer.StabilityPointStructures.Plugin
             yield return RiskeerTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<StabilityPointStructuresCalculationScenarioContext>(
                 CalculationContextChildNodeObjects,
                 CalculationContextContextMenuStrip,
-                CalculationContextOnNodeRemoved);
+                CalculationContextOnNodeRemoved,
+                CalculationType.Probabilistic);
 
             yield return new TreeNodeInfo<StabilityPointStructuresInputContext>
             {

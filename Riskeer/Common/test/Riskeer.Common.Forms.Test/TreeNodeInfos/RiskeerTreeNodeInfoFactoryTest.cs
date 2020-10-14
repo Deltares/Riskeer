@@ -20,6 +20,8 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -602,20 +604,37 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         #region CreateCalculationContextTreeNodeInfo
 
         [Test]
-        public void CreateCalculationContextTreeNodeInfo_Always_ExpectedPropertiesSet()
+        public void CreateCalculationContextTreeNodeInfo_InvalidCalculationType_ThrowsInvalidEnumArgumentException()
         {
             // Setup
-            Bitmap icon = RiskeerFormsResources.HydraulicCalculationIcon;
+            Func<TestCalculationContext, object[]> childNodeObjects = context => new object[0];
+            Func<TestCalculationContext, object, TreeViewControl, ContextMenuStrip> contextMenuStrip = (context, parent, treeViewControl) => new ContextMenuStrip();
+            Action<TestCalculationContext, object> onNodeRemoved = (context, parent) => {};
+            const CalculationType calculationType = (CalculationType) 99;
+
+            // Call
+            void Call() => RiskeerTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo(childNodeObjects, contextMenuStrip, onNodeRemoved, calculationType);
+
+            // Assert
+            var expectedMessage = $"The value of argument 'calculationType' ({calculationType}) is invalid for Enum type '{nameof(CalculationType)}'.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(Call, expectedMessage);
+        }
+
+        [Test]
+        [TestCaseSource(nameof(GetCalculationTypes))]
+        public void CreateCalculationContextTreeNodeInfo_ValidData_ExpectedPropertiesSet(CalculationType calculationType, Bitmap expectedIcon)
+        {
+            // Setup
             Func<TestCalculationContext, object[]> childNodeObjects = context => new object[0];
             Func<TestCalculationContext, object, TreeViewControl, ContextMenuStrip> contextMenuStrip = (context, parent, treeViewControl) => new ContextMenuStrip();
             Action<TestCalculationContext, object> onNodeRemoved = (context, parent) => {};
 
             // Call
-            TreeNodeInfo<TestCalculationContext> treeNodeInfo = RiskeerTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo(childNodeObjects, contextMenuStrip, onNodeRemoved);
+            TreeNodeInfo<TestCalculationContext> treeNodeInfo = RiskeerTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo(childNodeObjects, contextMenuStrip, onNodeRemoved, calculationType);
 
             // Assert
             Assert.AreEqual(typeof(TestCalculationContext), treeNodeInfo.TagType);
-            TestHelper.AssertImagesAreEqual(icon, treeNodeInfo.Image(null));
+            TestHelper.AssertImagesAreEqual(expectedIcon, treeNodeInfo.Image(null));
             Assert.AreSame(childNodeObjects, treeNodeInfo.ChildNodeObjects);
             Assert.AreSame(contextMenuStrip, treeNodeInfo.ContextMenuStrip);
             Assert.AreSame(onNodeRemoved, treeNodeInfo.OnNodeRemoved);
@@ -626,12 +645,14 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void TextOfCalculationContextTreeNodeInfo_Always_ReturnsWrappedDataName()
+        public void TextOfCalculationContextTreeNodeInfo_ValidData_ReturnsWrappedDataName()
         {
             // Setup
             var mocks = new MockRepository();
             var failureMechanism = mocks.StrictMock<IFailureMechanism>();
             mocks.ReplayAll();
+
+            var calculationType = new Random(21).NextEnumValue<CalculationType>();
 
             const string calculationName = "calculationName";
             var calculation = new TestCalculation
@@ -640,7 +661,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             };
 
             var context = new TestCalculationContext(calculation, new CalculationGroup(), failureMechanism);
-            TreeNodeInfo<TestCalculationContext> treeNodeInfo = RiskeerTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<TestCalculationContext>(null, null, null);
+            TreeNodeInfo<TestCalculationContext> treeNodeInfo = RiskeerTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<TestCalculationContext>(null, null, null, calculationType);
 
             // Call
             string text = treeNodeInfo.Text(context);
@@ -651,10 +672,11 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void EnsureVisibleOnCreateOfCalculationContextTreeNodeInfo_Always_ReturnsTrue()
+        public void EnsureVisibleOnCreateOfCalculationContextTreeNodeInfo_ValidData_ReturnsTrue()
         {
             // Setup
-            TreeNodeInfo<TestCalculationContext> treeNodeInfo = RiskeerTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<TestCalculationContext>(null, null, null);
+            var calculationType = new Random(21).NextEnumValue<CalculationType>();
+            TreeNodeInfo<TestCalculationContext> treeNodeInfo = RiskeerTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<TestCalculationContext>(null, null, null, calculationType);
 
             // Call
             bool result = treeNodeInfo.EnsureVisibleOnCreate(null, null);
@@ -664,10 +686,11 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void CanRenameCalculationContextTreeNodeInfo_Always_ReturnTrue()
+        public void CanRenameCalculationContextTreeNodeInfo_ValidData_ReturnTrue()
         {
             // Setup
-            TreeNodeInfo<TestCalculationContext> treeNodeInfo = RiskeerTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<TestCalculationContext>(null, null, null);
+            var calculationType = new Random(21).NextEnumValue<CalculationType>();
+            TreeNodeInfo<TestCalculationContext> treeNodeInfo = RiskeerTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<TestCalculationContext>(null, null, null, calculationType);
 
             // Call
             bool renameAllowed = treeNodeInfo.CanRename(null, null);
@@ -677,7 +700,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void OnNodeRenamedOfCalculationContextTreeNodeInfo_Always_SetNewNameToCalculationItemAndNotifyObserver()
+        public void OnNodeRenamedOfCalculationContextTreeNodeInfo_ValidData_SetNewNameToCalculationItemAndNotifyObserver()
         {
             // Setup
             var mocks = new MockRepository();
@@ -686,13 +709,15 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             var failureMechanism = mocks.StrictMock<IFailureMechanism>();
             mocks.ReplayAll();
 
+            var calculationType = new Random(21).NextEnumValue<CalculationType>();
+
             var calculation = new TestCalculation
             {
                 Name = "<Original name>"
             };
 
             var context = new TestCalculationContext(calculation, new CalculationGroup(), failureMechanism);
-            TreeNodeInfo<TestCalculationContext> treeNodeInfo = RiskeerTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<TestCalculationContext>(null, null, null);
+            TreeNodeInfo<TestCalculationContext> treeNodeInfo = RiskeerTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<TestCalculationContext>(null, null, null, calculationType);
 
             context.WrappedData.Attach(observer);
 
@@ -717,8 +742,10 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             var failureMechanism = mocks.StrictMock<IFailureMechanism>();
             mocks.ReplayAll();
 
+            var calculationType = new Random(21).NextEnumValue<CalculationType>();
+
             var context = new TestCalculationContext(calculationToBeRemoved, group, failureMechanism);
-            TreeNodeInfo<TestCalculationContext> treeNodeInfo = RiskeerTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<TestCalculationContext>(null, null, null);
+            TreeNodeInfo<TestCalculationContext> treeNodeInfo = RiskeerTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<TestCalculationContext>(null, null, null, calculationType);
 
             var groupContext = new TestCalculationGroupContext(group, new CalculationGroup(), failureMechanism);
 
@@ -741,8 +768,10 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             var failureMechanism = mocks.StrictMock<IFailureMechanism>();
             mocks.ReplayAll();
 
+            var calculationType = new Random(21).NextEnumValue<CalculationType>();
+
             var context = new TestCalculationContext(calculationToBeRemoved, group, failureMechanism);
-            TreeNodeInfo<TestCalculationContext> treeNodeInfo = RiskeerTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<TestCalculationContext>(null, null, null);
+            TreeNodeInfo<TestCalculationContext> treeNodeInfo = RiskeerTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<TestCalculationContext>(null, null, null, calculationType);
 
             var groupContext = new TestCalculationGroupContext(group, new CalculationGroup(), failureMechanism);
 
@@ -763,8 +792,10 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             var failureMechanism = mocks.StrictMock<IFailureMechanism>();
             mocks.ReplayAll();
 
+            var calculationType = new Random(21).NextEnumValue<CalculationType>();
+
             var calculationContext = new TestCalculationContext(new TestCalculation(), new CalculationGroup(), failureMechanism);
-            TreeNodeInfo<TestCalculationContext> treeNodeInfo = RiskeerTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<TestCalculationContext>(null, null, null);
+            TreeNodeInfo<TestCalculationContext> treeNodeInfo = RiskeerTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<TestCalculationContext>(null, null, null, calculationType);
 
             // Call
             bool removalAllowed = treeNodeInfo.CanRemove(calculationContext, data);
@@ -778,13 +809,24 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         public void CanDragCalculationContextTreeNodeInfo_Always_ReturnTrue()
         {
             // Setup
-            TreeNodeInfo<TestCalculationContext> treeNodeInfo = RiskeerTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<TestCalculationContext>(null, null, null);
+            var calculationType = new Random(21).NextEnumValue<CalculationType>();
+            TreeNodeInfo<TestCalculationContext> treeNodeInfo = RiskeerTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<TestCalculationContext>(null, null, null, calculationType);
 
             // Call
             bool canDrag = treeNodeInfo.CanDrag(null, null);
 
             // Assert
             Assert.IsTrue(canDrag);
+        }
+
+        private static IEnumerable<TestCaseData> GetCalculationTypes()
+        {
+            return new[]
+            {
+                new TestCaseData(CalculationType.Hydraulic, RiskeerFormsResources.HydraulicCalculationIcon),
+                new TestCaseData(CalculationType.Probabilistic, RiskeerFormsResources.ProbabilisticCalculationIcon),
+                new TestCaseData(CalculationType.SemiProbabilistic, RiskeerFormsResources.SemiProbabilisticCalculationIcon),
+            };
         }
 
         #endregion

@@ -141,7 +141,8 @@ namespace Riskeer.StabilityStoneCover.Plugin
             yield return RiskeerTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<StabilityStoneCoverWaveConditionsCalculationContext>(
                 WaveConditionsCalculationContextChildNodeObjects,
                 WaveConditionsCalculationContextContextMenuStrip,
-                WaveConditionsCalculationContextOnNodeRemoved);
+                WaveConditionsCalculationContextOnNodeRemoved,
+                CalculationType.Hydraulic);
 
             yield return new TreeNodeInfo<EmptyStabilityStoneCoverOutput>
             {
