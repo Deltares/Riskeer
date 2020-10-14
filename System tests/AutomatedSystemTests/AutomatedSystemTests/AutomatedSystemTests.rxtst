@@ -7832,12 +7832,6 @@
 					variableid="d82001f1-20c0-4080-a06d-9f1f8ee3a56d"
 					variablename="textItemDropDownMenu">
 					</var>
-					<var
-					dataname="FaalkansSetValue"
-					datasourceid="73482a32-d808-4575-8d91-5c7224df5d2f"
-					variableid="ebca180a-929b-4462-bf7c-2388fcd92b35"
-					variablename="expectedCustomAssessmentValue">
-					</var>
 				</missingdatabinding>
 				<missingdatavariablesbinding>
 					<var
@@ -8067,6 +8061,40 @@
 					variablename="expectedSurfaceLineName">
 					</var>
 				</databinding>
+			</testmodule>
+			<testmodule
+			id="c4cea96c-7dd7-485b-872f-a0a20d0ed6e1"
+			name="SetCustomAssessmentValueAtRow"
+			ref="a0a01510-32a1-46ad-b596-d7312f892e5d"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="FaalkansSetValue"
+					datasourceid="89049b94-a5d2-435c-94b3-734a0ab1acc8"
+					variableid="a55e52e5-9542-46e7-a977-9cb42ca3e1e8"
+					variablename="expectedCustomAssessmentValue">
+					</var>
+					<var
+					dataname="rowIndex"
+					datasourceid="89049b94-a5d2-435c-94b3-734a0ab1acc8"
+					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
+					variablename="rowIndex">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="FaalkansSetValue"
+					datasourceid="58285a13-6c9d-46d9-8754-fda6d9dcb673"
+					variableid="a55e52e5-9542-46e7-a977-9cb42ca3e1e8"
+					variablename="expectedCustomAssessmentValue">
+					</var>
+					<var
+					dataname="rowIndex"
+					datasourceid="58285a13-6c9d-46d9-8754-fda6d9dcb673"
+					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
+					variablename="rowIndex">
+					</var>
+				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="c53bef5c-8b8b-4613-90e3-6b825e45f072"
@@ -9298,6 +9326,11 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<smartfoldernode
+			datasource="customAssessmentSTKWpValues"
+			id="e2f5aa1d-3132-4116-af80-d971c4da14fe"
+			name="LoopRowsSetCustomAssessmentValue">
+			</smartfoldernode>
 			<testmodule
 			id="e39f866d-3530-42bb-90d0-e3376c330a62"
 			name="CopyFile"
@@ -12617,6 +12650,14 @@
 										</testmodule>
 									</smartfoldernode>
 									<smartfoldernode
+									id="e2f5aa1d-3132-4116-af80-d971c4da14fe"
+									name="LoopRowsSetCustomAssessmentValue">
+										<testmodule
+										id="c4cea96c-7dd7-485b-872f-a0a20d0ed6e1"
+										name="SetCustomAssessmentValueAtRow">
+										</testmodule>
+									</smartfoldernode>
+									<smartfoldernode
 									id="01a8cff1-2dad-4f40-abf5-f73ee2e5c6f5"
 									name="ValidateCustomAsssessmentType">
 										<testmodule
@@ -14537,7 +14578,7 @@
 		<DataSource
 		id="73482a32-d808-4575-8d91-5c7224df5d2f"
 		includefile="Unchecked"
-		lastknownrowcount="9"
+		lastknownrowcount="8"
 		name="customAssessmentSTKWp"
 		type="Ranorex.Core.Data.CsvDataConnector"
 		withheaders="True">
@@ -14549,6 +14590,9 @@
 					CustomAssessmentTypeItem
 				</column>
 				<column>
+					FaalkansSetValue
+				</column>
+				<column>
 					FaalkansValidateValue
 				</column>
 			</lastknowncolumns>
@@ -14556,6 +14600,33 @@
 			</maskedcolumns>
 			<file>
 				X:\script21\CSVs\customAssessmentSTKWp.csv
+			</file>
+		</DataSource>
+		<DataSource
+		id="89049b94-a5d2-435c-94b3-734a0ab1acc8"
+		includefile="Unchecked"
+		lastknownrowcount="2"
+		name="customAssessmentSTKWpValues"
+		type="Ranorex.Core.Data.CsvDataConnector"
+		withheaders="True">
+			<lastknowncolumns>
+				<column>
+					rowIndex
+				</column>
+				<column>
+					CustomAssessmentTypeItem
+				</column>
+				<column>
+					FaalkansSetValue
+				</column>
+				<column>
+					FaalkansValidateValue
+				</column>
+			</lastknowncolumns>
+			<maskedcolumns>
+			</maskedcolumns>
+			<file>
+				X:\script21\CSVs\customAssessmentSTKWpValues.csv
 			</file>
 		</DataSource>
 		<DataSource
@@ -17147,6 +17218,9 @@
 			</testcontainer>
 			<testcontainer
 			id="e1ff5697-2c1e-4010-85a0-6f45679d7f50">
+			</testcontainer>
+			<testcontainer
+			id="e2f5aa1d-3132-4116-af80-d971c4da14fe">
 			</testcontainer>
 			<testcontainer
 			id="e3a5d86a-aed9-4cb2-9fd0-3f8149eb00ca">
