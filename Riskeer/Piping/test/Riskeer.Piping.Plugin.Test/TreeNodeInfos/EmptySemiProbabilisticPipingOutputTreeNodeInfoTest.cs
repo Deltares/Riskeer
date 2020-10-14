@@ -27,7 +27,6 @@ using Core.Common.Gui.ContextMenu;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Riskeer.Piping.Forms.PresentationObjects;
 using Riskeer.Piping.Forms.PresentationObjects.SemiProbabilistic;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
