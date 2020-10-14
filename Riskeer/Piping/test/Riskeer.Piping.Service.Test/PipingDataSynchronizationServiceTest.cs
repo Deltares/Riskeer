@@ -129,7 +129,7 @@ namespace Riskeer.Piping.Service.Test
         {
             // Setup
             PipingFailureMechanism failureMechanism = PipingTestDataGenerator.GetPipingFailureMechanismWithAllCalculationConfigurations();
-            IPipingCalculation<PipingInput, SemiProbabilisticPipingOutput>[] calculations = failureMechanism.Calculations.Cast<IPipingCalculation<PipingInput, SemiProbabilisticPipingOutput>>().ToArray();
+            IPipingCalculation<PipingInput>[] calculations = failureMechanism.Calculations.Cast<IPipingCalculation<PipingInput>>().ToArray();
             IObservable[] expectedAffectedCalculations = calculations.Where(c => c.HasOutput)
                                                                      .Cast<IObservable>()
                                                                      .ToArray();
@@ -145,7 +145,7 @@ namespace Riskeer.Piping.Service.Test
             // Note: To make sure the clear is performed regardless of what is done with
             // the return result, no ToArray() should be called before these assertions:
             Assert.IsTrue(failureMechanism.Calculations
-                                          .Cast<IPipingCalculation<PipingInput, SemiProbabilisticPipingOutput>>()
+                                          .Cast<IPipingCalculation<PipingInput>>()
                                           .All(c => c.InputParameters.HydraulicBoundaryLocation == null &&
                                                     !c.HasOutput));
 
@@ -234,12 +234,12 @@ namespace Riskeer.Piping.Service.Test
             // Setup
             PipingFailureMechanism failureMechanism = PipingTestDataGenerator.GetPipingFailureMechanismWithAllCalculationConfigurations();
             PipingSurfaceLine surfaceLine = failureMechanism.SurfaceLines[0];
-            IPipingCalculation<PipingInput, SemiProbabilisticPipingOutput>[] calculationsWithSurfaceLine = failureMechanism.Calculations
-                                                                                                          .Cast<IPipingCalculation<PipingInput, SemiProbabilisticPipingOutput>>()
-                                                                                                          .Where(c => ReferenceEquals(c.InputParameters.SurfaceLine, surfaceLine))
-                                                                                                          .ToArray();
-            IPipingCalculation<PipingInput, SemiProbabilisticPipingOutput>[] calculationsWithOutput = calculationsWithSurfaceLine.Where(c => c.HasOutput)
-                                                                                                                .ToArray();
+            IPipingCalculation<PipingInput>[] calculationsWithSurfaceLine = failureMechanism.Calculations
+                                                                                            .Cast<IPipingCalculation<PipingInput>>()
+                                                                                            .Where(c => ReferenceEquals(c.InputParameters.SurfaceLine, surfaceLine))
+                                                                                            .ToArray();
+            IPipingCalculation<PipingInput>[] calculationsWithOutput = calculationsWithSurfaceLine.Where(c => c.HasOutput)
+                                                                                                  .ToArray();
 
             // Precondition
             CollectionAssert.IsNotEmpty(calculationsWithSurfaceLine);
@@ -251,7 +251,7 @@ namespace Riskeer.Piping.Service.Test
             // Note: To make sure the clear is performed regardless of what is done with
             // the return result, no ToArray() should be called before these assertions:
             CollectionAssert.DoesNotContain(failureMechanism.SurfaceLines, surfaceLine);
-            foreach (IPipingCalculation<PipingInput, SemiProbabilisticPipingOutput> calculation in calculationsWithSurfaceLine)
+            foreach (IPipingCalculation<PipingInput> calculation in calculationsWithSurfaceLine)
             {
                 Assert.IsNull(calculation.InputParameters.SurfaceLine);
             }
@@ -260,7 +260,7 @@ namespace Riskeer.Piping.Service.Test
             int expectedAffectedObjectCount = 1 + calculationsWithOutput.Length + calculationsWithSurfaceLine.Length;
             Assert.AreEqual(expectedAffectedObjectCount, affectedObjectsArray.Length);
 
-            foreach (IPipingCalculation<PipingInput, SemiProbabilisticPipingOutput> calculation in calculationsWithOutput)
+            foreach (IPipingCalculation<PipingInput> calculation in calculationsWithOutput)
             {
                 Assert.IsFalse(calculation.HasOutput);
             }
@@ -292,12 +292,12 @@ namespace Riskeer.Piping.Service.Test
         {
             // Setup
             PipingFailureMechanism failureMechanism = PipingTestDataGenerator.GetPipingFailureMechanismWithAllCalculationConfigurations();
-            IPipingCalculation<PipingInput, SemiProbabilisticPipingOutput>[] calculationsWithSurfaceLine = failureMechanism.Calculations
-                                                                                                          .Cast<IPipingCalculation<PipingInput, SemiProbabilisticPipingOutput>>()
-                                                                                                          .Where(calc => calc.InputParameters.SurfaceLine != null)
-                                                                                                          .ToArray();
-            IPipingCalculation<PipingInput, SemiProbabilisticPipingOutput>[] calculationsWithOutput = calculationsWithSurfaceLine.Where(c => c.HasOutput)
-                                                                                                                .ToArray();
+            IPipingCalculation<PipingInput>[] calculationsWithSurfaceLine = failureMechanism.Calculations
+                                                                                            .Cast<IPipingCalculation<PipingInput>>()
+                                                                                            .Where(calc => calc.InputParameters.SurfaceLine != null)
+                                                                                            .ToArray();
+            IPipingCalculation<PipingInput>[] calculationsWithOutput = calculationsWithSurfaceLine.Where(c => c.HasOutput)
+                                                                                                  .ToArray();
 
             // Precondition
             CollectionAssert.IsNotEmpty(calculationsWithSurfaceLine);
@@ -309,7 +309,7 @@ namespace Riskeer.Piping.Service.Test
             // Note: To make sure the clear is performed regardless of what is done with
             // the return result, no ToArray() should be called before these assertions:
             CollectionAssert.IsEmpty(failureMechanism.SurfaceLines);
-            foreach (IPipingCalculation<PipingInput, SemiProbabilisticPipingOutput> calculation in calculationsWithSurfaceLine)
+            foreach (IPipingCalculation<PipingInput> calculation in calculationsWithSurfaceLine)
             {
                 Assert.IsNull(calculation.InputParameters.SurfaceLine);
             }
@@ -318,7 +318,7 @@ namespace Riskeer.Piping.Service.Test
             int expectedAffectedObjectCount = 1 + calculationsWithOutput.Length + calculationsWithSurfaceLine.Length;
             Assert.AreEqual(expectedAffectedObjectCount, affectedObjectsArray.Length);
 
-            foreach (IPipingCalculation<PipingInput, SemiProbabilisticPipingOutput> calculation in calculationsWithOutput)
+            foreach (IPipingCalculation<PipingInput> calculation in calculationsWithOutput)
             {
                 Assert.IsFalse(calculation.HasOutput);
             }
@@ -368,12 +368,12 @@ namespace Riskeer.Piping.Service.Test
             // Setup
             PipingFailureMechanism failureMechanism = PipingTestDataGenerator.GetPipingFailureMechanismWithAllCalculationConfigurations();
             PipingStochasticSoilModel soilModel = failureMechanism.StochasticSoilModels[1];
-            IPipingCalculation<PipingInput, SemiProbabilisticPipingOutput>[] calculationsWithSoilModel = failureMechanism.Calculations
-                                                                                                        .Cast<IPipingCalculation<PipingInput, SemiProbabilisticPipingOutput>>()
-                                                                                                        .Where(c => ReferenceEquals(c.InputParameters.StochasticSoilModel, soilModel))
-                                                                                                        .ToArray();
-            IPipingCalculation<PipingInput, SemiProbabilisticPipingOutput>[] calculationsWithOutput = calculationsWithSoilModel.Where(c => c.HasOutput)
-                                                                                                              .ToArray();
+            IPipingCalculation<PipingInput>[] calculationsWithSoilModel = failureMechanism.Calculations
+                                                                                          .Cast<IPipingCalculation<PipingInput>>()
+                                                                                          .Where(c => ReferenceEquals(c.InputParameters.StochasticSoilModel, soilModel))
+                                                                                          .ToArray();
+            IPipingCalculation<PipingInput>[] calculationsWithOutput = calculationsWithSoilModel.Where(c => c.HasOutput)
+                                                                                                .ToArray();
 
             // Precondition
             CollectionAssert.IsNotEmpty(calculationsWithSoilModel);
@@ -385,7 +385,7 @@ namespace Riskeer.Piping.Service.Test
             // Note: To make sure the clear is performed regardless of what is done with
             // the return result, no ToArray() should be called before these assertions:
             CollectionAssert.DoesNotContain(failureMechanism.StochasticSoilModels, soilModel);
-            foreach (IPipingCalculation<PipingInput, SemiProbabilisticPipingOutput> calculation in calculationsWithSoilModel)
+            foreach (IPipingCalculation<PipingInput> calculation in calculationsWithSoilModel)
             {
                 Assert.IsNull(calculation.InputParameters.StochasticSoilModel);
             }
@@ -394,7 +394,7 @@ namespace Riskeer.Piping.Service.Test
             int expectedAffectedObjectCount = 1 + calculationsWithOutput.Length + calculationsWithSoilModel.Length;
             Assert.AreEqual(expectedAffectedObjectCount, affectedObjectsArray.Length);
 
-            foreach (IPipingCalculation<PipingInput, SemiProbabilisticPipingOutput> calculation in calculationsWithOutput)
+            foreach (IPipingCalculation<PipingInput> calculation in calculationsWithOutput)
             {
                 Assert.IsFalse(calculation.HasOutput);
             }
@@ -426,12 +426,12 @@ namespace Riskeer.Piping.Service.Test
         {
             // Setup
             PipingFailureMechanism failureMechanism = PipingTestDataGenerator.GetPipingFailureMechanismWithAllCalculationConfigurations();
-            IPipingCalculation<PipingInput, SemiProbabilisticPipingOutput>[] calculationsWithStochasticSoilModel = failureMechanism.Calculations
-                                                                                                                  .Cast<IPipingCalculation<PipingInput, SemiProbabilisticPipingOutput>>()
-                                                                                                                  .Where(calc => calc.InputParameters.StochasticSoilModel != null)
-                                                                                                                  .ToArray();
-            IPipingCalculation<PipingInput, SemiProbabilisticPipingOutput>[] calculationsWithOutput = calculationsWithStochasticSoilModel.Where(c => c.HasOutput)
-                                                                                                                        .ToArray();
+            IPipingCalculation<PipingInput>[] calculationsWithStochasticSoilModel = failureMechanism.Calculations
+                                                                                                    .Cast<IPipingCalculation<PipingInput>>()
+                                                                                                    .Where(calc => calc.InputParameters.StochasticSoilModel != null)
+                                                                                                    .ToArray();
+            IPipingCalculation<PipingInput>[] calculationsWithOutput = calculationsWithStochasticSoilModel.Where(c => c.HasOutput)
+                                                                                                          .ToArray();
 
             // Precondition
             CollectionAssert.IsNotEmpty(calculationsWithStochasticSoilModel);
@@ -443,7 +443,7 @@ namespace Riskeer.Piping.Service.Test
             // Note: To make sure the clear is performed regardless of what is done with
             // the return result, no ToArray() should be called before these assertions:
             CollectionAssert.IsEmpty(failureMechanism.StochasticSoilModels);
-            foreach (IPipingCalculation<PipingInput, SemiProbabilisticPipingOutput> calculation in calculationsWithStochasticSoilModel)
+            foreach (IPipingCalculation<PipingInput> calculation in calculationsWithStochasticSoilModel)
             {
                 Assert.IsNull(calculation.InputParameters.StochasticSoilModel);
             }
@@ -452,7 +452,7 @@ namespace Riskeer.Piping.Service.Test
             int expectedAffectedObjectCount = 1 + calculationsWithOutput.Length + calculationsWithStochasticSoilModel.Length;
             Assert.AreEqual(expectedAffectedObjectCount, affectedObjectsArray.Length);
 
-            foreach (IPipingCalculation<PipingInput, SemiProbabilisticPipingOutput> calculation in calculationsWithOutput)
+            foreach (IPipingCalculation<PipingInput> calculation in calculationsWithOutput)
             {
                 Assert.IsFalse(calculation.HasOutput);
             }
@@ -600,7 +600,7 @@ namespace Riskeer.Piping.Service.Test
             // Assert
             CollectionAssert.AreEquivalent(expectedAffectedObjects, affected);
             CollectionAssert.IsEmpty(affected.OfType<PipingInput>().Where(a => a.StochasticSoilProfile != null));
-            CollectionAssert.IsEmpty(affected.OfType<IPipingCalculation<PipingInput, SemiProbabilisticPipingOutput>>().Where(a => a.HasOutput));
+            CollectionAssert.IsEmpty(affected.OfType<IPipingCalculation<PipingInput>>().Where(a => a.HasOutput));
         }
 
         [Test]
@@ -735,7 +735,7 @@ namespace Riskeer.Piping.Service.Test
             // Assert
             CollectionAssert.AreEquivalent(expectedAffectedObjects, affected);
             CollectionAssert.IsEmpty(affected.OfType<PipingInput>().Where(a => a.StochasticSoilProfile == null));
-            CollectionAssert.IsEmpty(affected.OfType<IPipingCalculation<PipingInput, SemiProbabilisticPipingOutput>>().Where(a => a.HasOutput));
+            CollectionAssert.IsEmpty(affected.OfType<IPipingCalculation<PipingInput>>().Where(a => a.HasOutput));
         }
     }
 }
