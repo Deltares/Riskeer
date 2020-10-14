@@ -36,7 +36,7 @@ using Riskeer.Piping.Forms.PropertyClasses;
 namespace Riskeer.Piping.Forms.Test.PropertyClasses
 {
     [TestFixture]
-    public class PipingOutputPropertiesTest
+    public class SemiProbabilisticPipingOutputPropertiesTest
     {
         [Test]
         public void Constructor_OutputNull_ThrowsArgumentNullException()
@@ -47,7 +47,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () => new PipingOutputProperties(null, new PipingFailureMechanism(), assessmentSection);
+            TestDelegate test = () => new SemiProbabilisticPipingOutputProperties(null, new PipingFailureMechanism(), assessmentSection);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -64,7 +64,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () => new PipingOutputProperties(PipingOutputTestFactory.Create(), null, assessmentSection);
+            TestDelegate test = () => new SemiProbabilisticPipingOutputProperties(PipingOutputTestFactory.Create(), null, assessmentSection);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -76,7 +76,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new PipingOutputProperties(PipingOutputTestFactory.Create(), new PipingFailureMechanism(), null);
+            TestDelegate call = () => new SemiProbabilisticPipingOutputProperties(PipingOutputTestFactory.Create(), new PipingFailureMechanism(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -96,7 +96,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
             SemiProbabilisticPipingOutput output = PipingOutputTestFactory.Create();
 
             // Call
-            var properties = new PipingOutputProperties(output, failureMechanism, assessmentSection);
+            var properties = new SemiProbabilisticPipingOutputProperties(output, failureMechanism, assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<SemiProbabilisticPipingOutput>>(properties);
@@ -137,7 +137,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
             });
 
             // Call
-            var properties = new PipingOutputProperties(output, failureMechanism, assessmentSection);
+            var properties = new SemiProbabilisticPipingOutputProperties(output, failureMechanism, assessmentSection);
 
             // Assert
             DerivedSemiProbabilisticPipingOutput expectedDerivedOutput = DerivedSemiProbabilisticPipingOutputFactory.Create(output, failureMechanism, assessmentSection);
@@ -175,7 +175,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             // Call
-            var properties = new PipingOutputProperties(PipingOutputTestFactory.Create(), failureMechanism, assessmentSection);
+            var properties = new SemiProbabilisticPipingOutputProperties(PipingOutputTestFactory.Create(), failureMechanism, assessmentSection);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);

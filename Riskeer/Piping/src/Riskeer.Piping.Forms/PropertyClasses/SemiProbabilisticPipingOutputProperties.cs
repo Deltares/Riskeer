@@ -35,19 +35,19 @@ namespace Riskeer.Piping.Forms.PropertyClasses
     /// <summary>
     /// ViewModel of <see cref="SemiProbabilisticPipingOutput"/> for properties panel.
     /// </summary>
-    public class PipingOutputProperties : ObjectProperties<SemiProbabilisticPipingOutput>
+    public class SemiProbabilisticPipingOutputProperties : ObjectProperties<SemiProbabilisticPipingOutput>
     {
         private DerivedSemiProbabilisticPipingOutput derivedOutput;
 
         /// <summary>
-        /// Creates a new instance of <see cref="PipingOutputProperties"/>.
+        /// Creates a new instance of <see cref="SemiProbabilisticPipingOutputProperties"/>.
         /// </summary>
         /// <param name="output">The output to show the properties for.</param>
         /// <param name="failureMechanism">The failure mechanism the output belongs to.</param>
         /// <param name="assessmentSection">The assessment section the output belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter
         /// is <c>null</c>.</exception>
-        public PipingOutputProperties(SemiProbabilisticPipingOutput output, PipingFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+        public SemiProbabilisticPipingOutputProperties(SemiProbabilisticPipingOutput output, PipingFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
         {
             if (output == null)
             {

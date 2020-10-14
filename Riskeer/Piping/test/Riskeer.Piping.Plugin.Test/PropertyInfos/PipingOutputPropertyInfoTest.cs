@@ -45,7 +45,7 @@ namespace Riskeer.Piping.Plugin.Test.PropertyInfos
         public void SetUp()
         {
             plugin = new PipingPlugin();
-            info = plugin.GetPropertyInfos().First(tni => tni.PropertyObjectType == typeof(PipingOutputProperties));
+            info = plugin.GetPropertyInfos().First(tni => tni.PropertyObjectType == typeof(SemiProbabilisticPipingOutputProperties));
         }
 
         [TearDown]
@@ -78,7 +78,7 @@ namespace Riskeer.Piping.Plugin.Test.PropertyInfos
             IObjectProperties objectProperties = info.CreateInstance(context);
 
             // Assert
-            Assert.IsInstanceOf<PipingOutputProperties>(objectProperties);
+            Assert.IsInstanceOf<SemiProbabilisticPipingOutputProperties>(objectProperties);
             Assert.AreSame(output, objectProperties.Data);
             mocks.VerifyAll();
         }

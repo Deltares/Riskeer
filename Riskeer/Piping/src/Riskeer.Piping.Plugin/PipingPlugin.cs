@@ -90,9 +90,9 @@ namespace Riskeer.Piping.Plugin
                                                                                               () => GetNormativeAssessmentLevel(context.AssessmentSection, context.PipingCalculation),
                                                                                               new ObservablePropertyChangeHandler(context.PipingCalculation, context.WrappedData))
             };
-            yield return new PropertyInfo<SemiProbabilisticPipingOutputContext, PipingOutputProperties>
+            yield return new PropertyInfo<SemiProbabilisticPipingOutputContext, SemiProbabilisticPipingOutputProperties>
             {
-                CreateInstance = context => new PipingOutputProperties(context.WrappedData, context.FailureMechanism, context.AssessmentSection)
+                CreateInstance = context => new SemiProbabilisticPipingOutputProperties(context.WrappedData, context.FailureMechanism, context.AssessmentSection)
             };
             yield return new PropertyInfo<PipingSurfaceLinesContext, PipingSurfaceLineCollectionProperties>
             {
