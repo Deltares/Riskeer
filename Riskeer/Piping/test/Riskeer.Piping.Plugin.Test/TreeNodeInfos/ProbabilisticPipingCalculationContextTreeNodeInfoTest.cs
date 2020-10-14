@@ -132,7 +132,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             object[] children = info.ChildNodeObjects(pipingCalculationContext).ToArray();
 
             // Assert
-            Assert.AreEqual(3, children.Length);
+            Assert.AreEqual(2, children.Length);
             var comment = (Comment) children[0];
             Assert.AreSame(pipingCalculationContext.WrappedData.Comments, comment);
 
@@ -140,8 +140,6 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             Assert.AreSame(pipingCalculationContext.WrappedData.InputParameters, pipingInputContext.WrappedData);
             CollectionAssert.AreEqual(pipingCalculationContext.AvailablePipingSurfaceLines, pipingInputContext.AvailablePipingSurfaceLines);
             CollectionAssert.AreEqual(pipingCalculationContext.AvailableStochasticSoilModels, pipingInputContext.AvailableStochasticSoilModels);
-
-            // TODO: Assert output node as soon as implemented (WTI-2088)
         }
 
         [Test]
@@ -163,7 +161,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             object[] children = info.ChildNodeObjects(pipingCalculationContext).ToArray();
 
             // Assert
-            Assert.AreEqual(3, children.Length);
+            Assert.AreEqual(2, children.Length);
             var comment = (Comment) children[0];
             Assert.AreSame(pipingCalculationContext.WrappedData.Comments, comment);
 
@@ -171,8 +169,6 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             Assert.AreSame(pipingCalculationContext.WrappedData.InputParameters, pipingInputContext.WrappedData);
             CollectionAssert.AreEqual(pipingCalculationContext.AvailablePipingSurfaceLines, pipingInputContext.AvailablePipingSurfaceLines);
             CollectionAssert.AreEqual(pipingCalculationContext.AvailableStochasticSoilModels, pipingInputContext.AvailableStochasticSoilModels);
-
-            Assert.IsInstanceOf<EmptySemiProbabilisticPipingOutput>(children[2]);
         }
 
         [Test]
