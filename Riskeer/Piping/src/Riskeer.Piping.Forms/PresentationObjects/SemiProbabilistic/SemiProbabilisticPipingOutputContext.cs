@@ -25,7 +25,7 @@ using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Piping.Data;
 using Riskeer.Piping.Data.SemiProbabilistic;
 
-namespace Riskeer.Piping.Forms.PresentationObjects
+namespace Riskeer.Piping.Forms.PresentationObjects.SemiProbabilistic
 {
     /// <summary>
     /// A presentation layer object which wraps a <see cref="SemiProbabilisticPipingOutput"/>.

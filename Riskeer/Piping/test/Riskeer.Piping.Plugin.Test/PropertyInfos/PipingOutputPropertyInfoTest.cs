@@ -30,6 +30,7 @@ using Riskeer.Piping.Data;
 using Riskeer.Piping.Data.SemiProbabilistic;
 using Riskeer.Piping.Data.TestUtil;
 using Riskeer.Piping.Forms.PresentationObjects;
+using Riskeer.Piping.Forms.PresentationObjects.SemiProbabilistic;
 using Riskeer.Piping.Forms.PropertyClasses;
 
 namespace Riskeer.Piping.Plugin.Test.PropertyInfos
