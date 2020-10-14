@@ -26,7 +26,7 @@ namespace Riskeer.Piping.Data.SemiProbabilistic
     /// <summary>
     /// This class holds information about a semi-probabilistic calculation for the <see cref="PipingFailureMechanism"/>.
     /// </summary>
-    public class SemiProbabilisticPipingCalculation : PipingCalculation<SemiProbabilisticPipingInput, SemiProbabilisticPipingOutput>
+    public class SemiProbabilisticPipingCalculation : PipingCalculation<SemiProbabilisticPipingInput>
     {
         /// <summary>
         /// Creates a new instance of <see cref="SemiProbabilisticPipingCalculation"/>.

@@ -22,7 +22,6 @@
 using System;
 using Core.Common.Base;
 using Riskeer.Common.Data;
-using Riskeer.Piping.Data.SemiProbabilistic;
 using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
 
 namespace Riskeer.Piping.Data
@@ -31,13 +30,11 @@ namespace Riskeer.Piping.Data
     /// Base class that holds information about a calculation for the <see cref="PipingFailureMechanism"/>.
     /// </summary>
     /// <typeparam name="TPipingInput">The type of calculation input.</typeparam>
-    /// <typeparam name="TPipingOutput">The type of calculation output.</typeparam>
-    public abstract class PipingCalculation<TPipingInput, TPipingOutput> : CloneableObservable, IPipingCalculation<TPipingInput>
+    public abstract class PipingCalculation<TPipingInput> : CloneableObservable, IPipingCalculation<TPipingInput>
         where TPipingInput : PipingInput
-        where TPipingOutput : SemiProbabilisticPipingOutput
     {
         /// <summary>
-        /// Creates a new instance of <see cref="PipingCalculation{TPipingInput,TPipingOutput}"/> with default values set for some of
+        /// Creates a new instance of <see cref="PipingCalculation{TPipingInput}"/> with default values set for some of
         /// the parameters.
         /// </summary>
         /// <param name="pipingInput">The input parameters to perform the piping calculation with.</param>
@@ -72,7 +69,7 @@ namespace Riskeer.Piping.Data
 
         public override object Clone()
         {
-            var clone = (PipingCalculation<TPipingInput, TPipingOutput>) base.Clone();
+            var clone = (PipingCalculation<TPipingInput>) base.Clone();
 
             clone.Comments = (Comment) Comments.Clone();
             clone.InputParameters = (TPipingInput) InputParameters.Clone();
