@@ -59,6 +59,38 @@ namespace Riskeer.Piping.Data.Test
         }
 
         [Test]
+        public void ShouldCalculate_OutputNull_ReturnsTrue()
+        {
+            // Setup
+            var calculation = new ProbabilisticPipingCalculation(new GeneralPipingInput())
+            {
+                Output = null
+            };
+
+            // Call
+            bool shouldCalculate = calculation.ShouldCalculate;
+
+            // Assert
+            Assert.IsTrue(shouldCalculate);
+        }
+
+        [Test]
+        public void ShouldCalculate_OutputSet_ReturnsFalse()
+        {
+            // Setup
+            var calculation = new ProbabilisticPipingCalculation(new GeneralPipingInput())
+            {
+                Output = new ProbabilisticPipingOutput()
+            };
+
+            // Call
+            bool shouldCalculate = calculation.ShouldCalculate;
+
+            // Assert
+            Assert.IsFalse(shouldCalculate);
+        }
+
+        [Test]
         public void Clone_AllPropertiesSet_ReturnNewInstanceWithCopiedValues()
         {
             // Setup

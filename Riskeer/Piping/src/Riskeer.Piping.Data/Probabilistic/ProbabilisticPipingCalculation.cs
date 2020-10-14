@@ -37,8 +37,6 @@ namespace Riskeer.Piping.Data.Probabilistic
         /// is <c>null</c>.</exception>
         public ProbabilisticPipingCalculation(GeneralPipingInput generalInputParameters) : base(new ProbabilisticPipingInput(generalInputParameters)) {}
 
-        public override bool ShouldCalculate => !HasOutput;
-
         public override bool HasOutput => Output != null;
 
         /// <summary>

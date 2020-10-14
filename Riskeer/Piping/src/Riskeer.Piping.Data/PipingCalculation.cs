@@ -61,7 +61,7 @@ namespace Riskeer.Piping.Data
 
         public string Name { get; set; }
 
-        public abstract bool ShouldCalculate { get; }
+        public bool ShouldCalculate => !HasOutput;
 
         public abstract bool HasOutput { get; }
 

@@ -88,37 +88,5 @@ namespace Riskeer.Piping.Data.Test.SemiProbabilistic
             // Assert
             Assert.IsTrue(hasOutput);
         }
-
-        [Test]
-        public void ShouldCalculate_OutputNull_ReturnsTrue()
-        {
-            // Setup
-            var calculation = new SemiProbabilisticPipingCalculation(new GeneralPipingInput())
-            {
-                Output = null
-            };
-
-            // Call
-            bool shouldCalculate = calculation.ShouldCalculate;
-
-            // Assert
-            Assert.IsTrue(shouldCalculate);
-        }
-
-        [Test]
-        public void ShouldCalculate_OutputSet_ReturnsFalse()
-        {
-            // Setup
-            var calculation = new SemiProbabilisticPipingCalculation(new GeneralPipingInput())
-            {
-                Output = PipingOutputTestFactory.Create()
-            };
-
-            // Call
-            bool shouldCalculate = calculation.ShouldCalculate;
-
-            // Assert
-            Assert.IsFalse(shouldCalculate);
-        }
     }
 }
