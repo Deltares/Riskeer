@@ -40,7 +40,7 @@ namespace Riskeer.Common.Forms.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Resources {
@@ -2927,6 +2927,16 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap ProbabilisticCalculationIcon {
+            get {
+                object obj = ResourceManager.GetObject("ProbabilisticCalculationIcon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to De waarde kon niet geïnterpreteerd worden als een kans..
         /// </summary>
         public static string Probability_Could_not_parse_string_to_probability {
@@ -3326,6 +3336,16 @@ namespace Riskeer.Common.Forms.Properties {
         public static System.Drawing.Bitmap SelectionDialogIcon {
             get {
                 object obj = ResourceManager.GetObject("SelectionDialogIcon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap SemiProbabilisticCalculationIcon {
+            get {
+                object obj = ResourceManager.GetObject("SemiProbabilisticCalculationIcon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
