@@ -36,7 +36,7 @@ namespace AutomatedSystemTests
         public string CalculateSingleCategoryBoundary()
         {
             // TODO: Replace the following line with your code implementation.
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
 
     }

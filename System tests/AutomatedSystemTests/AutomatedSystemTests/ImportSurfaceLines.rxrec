@@ -1079,8 +1079,17 @@ d309t7M22ZlGTnAAGBV+gCGb/X2/1b+lag6Csub/AF9v9W/pWoOgpvoJdQooopDCiiigAooooAKK
 KKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooA//2Q==
 			</helperscreenshot>
 		</mouseitem>
+		<explicitdelayitem
+		duration="1000ms"
+		enabled="False"
+		optional="False">
+			<comment>
+			</comment>
+			<bindings>
+			</bindings>
+		</explicitdelayitem>
 		<WaitForRecordItem
-		enabled="True"
+		enabled="False"
 		optional="False"
 		searchpropertyid="7607f713-ef5c-44ba-b806-a2e9e0114f53"
 		waitaction="Exists"

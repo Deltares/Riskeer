@@ -241,27 +241,27 @@
 					</param>
 					<param
 					name="sourceSurfaceLineFile"
-					value="X:\script10\input\01edited\surfacelines traject 12-2.csv">
+					value="X:\script10\01edited\surfacelines traject 12-2.csv">
 					</param>
 					<param
 					name="sourceSurfaceLineCharPoints"
-					value="X:\script10\input\01edited\surfacelines traject 12-2.krp.csv">
+					value="X:\script10\01edited\surfacelines traject 12-2.krp.csv">
 					</param>
 					<param
 					name="destinationSurfaceLineFile"
-					value="X:\script10\input\surfacelines traject 12-2.csv">
+					value="X:\script10\surfacelines traject 12-2.csv">
 					</param>
 					<param
 					name="destinationSurfaceLineCharPoints"
-					value="X:\script10\input\surfacelines traject 12-2.krp.csv">
+					value="X:\script10\surfacelines traject 12-2.krp.csv">
 					</param>
 					<param
 					name="surfacelineFileToDelete"
-					value="X:\script10\input\surfacelines traject 12-2.csv">
+					value="X:\script10\surfacelines traject 12-2.csv">
 					</param>
 					<param
 					name="surfacelineCharactPointsToDelete"
-					value="X:\script10\input\surfacelines traject 12-2.krp.csv">
+					value="X:\script10\surfacelines traject 12-2.krp.csv">
 					</param>
 				</parameters>
 			</smartfoldernode>
@@ -2764,7 +2764,7 @@
 					</param>
 					<param
 					name="pathImportedSurfaceLines"
-					value="X:\script10\input\surfacelines traject 12-2.csv">
+					value="X:\script10\surfacelines traject 12-2.csv">
 					</param>
 				</parameters>
 			</smartfoldernode>
@@ -3090,7 +3090,7 @@
 					</param>
 					<param
 					name="pathSubsurfaceStochasticModels"
-					value="X:\script10\input\Ondergrond traject 12_2_met_DSoil_v17_2_1_987.soil">
+					value="X:\script10\Ondergrond traject 12_2_met_DSoil_v17_2_1_987.soil">
 					</param>
 				</parameters>
 			</smartfoldernode>
@@ -3402,7 +3402,7 @@
 				<parameters>
 					<param
 					name="filenameSurfaceLines"
-					value="X:\script10\input\surfacelines traject 12-2.csv">
+					value="X:\script10\surfacelines traject 12-2.csv">
 					</param>
 					<param
 					name="substringTrajectName"
@@ -3750,7 +3750,7 @@
 				<parameters>
 					<param
 					name="filename"
-					value="X:\script10\input\Ondergrond traject 12_2_met_DSoil_v17_2_1_987.soil">
+					value="X:\script10\Ondergrond traject 12_2_met_DSoil_v17_2_1_987.soil">
 					</param>
 					<param
 					name="substringFM"
@@ -3766,15 +3766,15 @@
 					</param>
 					<param
 					name="oldFileToDelete"
-					value="X:\script10\input\Ondergrond traject 12_2_met_DSoil_v17_2_1_987.soil">
+					value="X:\script10\Ondergrond traject 12_2_met_DSoil_v17_2_1_987.soil">
 					</param>
 					<param
 					name="sourceFileSubsurfaceSchematization"
-					value="X:\script10\input\00original\Ondergrond traject 12_2_met_DSoil_v17_2_1_987.soil">
+					value="X:\script10\00original\Ondergrond traject 12_2_met_DSoil_v17_2_1_987.soil">
 					</param>
 					<param
 					name="destinationFileSubsurfaceSchematization"
-					value="X:\script10\input\Ondergrond traject 12_2_met_DSoil_v17_2_1_987.soil">
+					value="X:\script10\Ondergrond traject 12_2_met_DSoil_v17_2_1_987.soil">
 					</param>
 				</parameters>
 			</smartfoldernode>
@@ -3784,7 +3784,7 @@
 				<parameters>
 					<param
 					name="filenameSurfaceLines"
-					value="X:\script10\input\surfacelines traject 12-2.csv">
+					value="X:\script10\surfacelines traject 12-2.csv">
 					</param>
 					<param
 					name="substringTrajectName"
@@ -4040,15 +4040,15 @@
 				<parameters>
 					<param
 					name="destinationFileSubsurfaceSchematization"
-					value="X:\script10\input\Ondergrond traject 12_2_met_DSoil_v17_2_1_987.soil">
+					value="X:\script10\Ondergrond traject 12_2_met_DSoil_v17_2_1_987.soil">
 					</param>
 					<param
 					name="sourceFileSubsurfaceSchematization"
-					value="X:\script10\input\01edited\Ondergrond traject 12_2_met_DSoil_v17_2_1_987.soil">
+					value="X:\script10\01edited\Ondergrond traject 12_2_met_DSoil_v17_2_1_987.soil">
 					</param>
 					<param
 					name="oldFileToDelete"
-					value="X:\script10\input\Ondergrond traject 12_2_met_DSoil_v17_2_1_987.soil">
+					value="X:\script10\Ondergrond traject 12_2_met_DSoil_v17_2_1_987.soil">
 					</param>
 					<param
 					name="substringTraject"
@@ -9073,27 +9073,27 @@
 				<parameters>
 					<param
 					name="surfacelineCharactPointsToDelete"
-					value="X:\script10\input\surfacelines traject 12-2.krp.csv">
+					value="X:\script10\surfacelines traject 12-2.krp.csv">
 					</param>
 					<param
 					name="surfacelineFileToDelete"
-					value="X:\script10\input\surfacelines traject 12-2.csv">
+					value="X:\script10\surfacelines traject 12-2.csv">
 					</param>
 					<param
 					name="destinationSurfaceLineFile"
-					value="X:\script10\input\surfacelines traject 12-2.csv">
+					value="X:\script10\surfacelines traject 12-2.csv">
 					</param>
 					<param
 					name="destinationSurfaceLineCharPoints"
-					value="X:\script10\input\surfacelines traject 12-2.krp.csv">
+					value="X:\script10\surfacelines traject 12-2.krp.csv">
 					</param>
 					<param
 					name="sourceSurfaceLineCharPoints"
-					value="X:\script10\input\00original\surfacelines traject 12-2.krp.csv">
+					value="X:\script10\00original\surfacelines traject 12-2.krp.csv">
 					</param>
 					<param
 					name="sourceSurfaceLineFile"
-					value="X:\script10\input\00original\surfacelines traject 12-2.csv">
+					value="X:\script10\00original\surfacelines traject 12-2.csv">
 					</param>
 				</parameters>
 			</smartfoldernode>
@@ -14173,7 +14173,7 @@
 		<DataSource
 		id="79c90d4e-7015-4bbc-a7e5-9c7c59ef642b"
 		includefile="Unchecked"
-		lastknownrowcount="8"
+		lastknownrowcount="9"
 		name="customAssessmentBSKW"
 		type="Ranorex.Core.Data.CsvDataConnector"
 		withheaders="True">
@@ -14183,12 +14183,6 @@
 				</column>
 				<column>
 					CustomAssessmentTypeItem
-				</column>
-				<column>
-					FaalkansSetValue
-				</column>
-				<column>
-					FaalkansValidateValue
 				</column>
 			</lastknowncolumns>
 			<maskedcolumns>
@@ -14344,9 +14338,6 @@
 					CustomAssessmentTypeItem
 				</column>
 				<column>
-					FaalkansSetValue
-				</column>
-				<column>
 					FaalkansValidateValue
 				</column>
 			</lastknowncolumns>
@@ -14386,7 +14377,7 @@
 		<DataSource
 		id="966ae336-7d09-4c72-8bd1-f42df6fe0f32"
 		includefile="Unchecked"
-		lastknownrowcount="8"
+		lastknownrowcount="9"
 		name="customAssessmentHTKW"
 		type="Ranorex.Core.Data.CsvDataConnector"
 		withheaders="True">
@@ -14396,9 +14387,6 @@
 				</column>
 				<column>
 					CustomAssessmentTypeItem
-				</column>
-				<column>
-					FaalkansSetValue
 				</column>
 				<column>
 					FaalkansValidateValue
@@ -14494,9 +14482,6 @@
 					CustomAssessmentTypeItem
 				</column>
 				<column>
-					FaalkansSetValue
-				</column>
-				<column>
 					FaalkansValidateValue
 				</column>
 			</lastknowncolumns>
@@ -14578,7 +14563,7 @@
 		<DataSource
 		id="73482a32-d808-4575-8d91-5c7224df5d2f"
 		includefile="Unchecked"
-		lastknownrowcount="8"
+		lastknownrowcount="9"
 		name="customAssessmentSTKWp"
 		type="Ranorex.Core.Data.CsvDataConnector"
 		withheaders="True">
@@ -14588,9 +14573,6 @@
 				</column>
 				<column>
 					CustomAssessmentTypeItem
-				</column>
-				<column>
-					FaalkansSetValue
 				</column>
 				<column>
 					FaalkansValidateValue
