@@ -89,15 +89,15 @@ namespace Riskeer.Piping.Data.Test.Probabilistic
             // Assert
             Assert.IsNull(calculation.Output);
         }
-        
+
         [Test]
         public void Clone_AllPropertiesSet_ReturnNewInstanceWithCopiedValues()
         {
             // Setup
             ProbabilisticPipingCalculation original = CreateRandomCalculationWithoutOutput();
 
-            original.Output = ProbabilisticPipingOutputTestFactory.Create();
-            
+            original.Output = PipingTestDataGenerator.GetRandomProbabilisticPipingOutput();
+
             // Call
             object clone = original.Clone();
 
@@ -110,7 +110,7 @@ namespace Riskeer.Piping.Data.Test.Probabilistic
         {
             // Setup
             ProbabilisticPipingCalculation original = CreateRandomCalculationWithoutOutput();
-            
+
             // Call
             object clone = original.Clone();
 
