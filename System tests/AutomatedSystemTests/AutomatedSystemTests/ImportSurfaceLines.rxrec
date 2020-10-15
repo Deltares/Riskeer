@@ -1125,7 +1125,7 @@ KKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooA//2Q==
 			</info>
 		</WaitForRecordItem>
 		<explicitdelayitem
-		duration="300ms"
+		duration="2000ms"
 		enabled="True"
 		optional="False">
 			<comment>

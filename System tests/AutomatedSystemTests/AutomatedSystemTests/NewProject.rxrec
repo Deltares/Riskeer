@@ -266,6 +266,37 @@ SGxgKgbXGGLAiRgRnrgg5A9ulFFADzbRFWUqSHADZYknHSpaKKACiiigAPSo4/8AWN9B/WiigCSi
 iigAooooAKKKKACiiigAooooAKKKKAP/2Q==
 			</helperscreenshot>
 		</mouseitem>
+		<userrecorditem
+		classname="NewProject"
+		enabled="True"
+		isexternaltestmethod="False"
+		methodname="Mouse_Click_ButtonNoIfConformationDialogAppears"
+		namespace="AutomatedSystemTests"
+		optional="False">
+			<comment>
+			</comment>
+			<bindings>
+			</bindings>
+			<arguments
+			id="0e78cac1-cfc9-4e53-8723-157f318a44b2">
+				<argument
+				argname="buttonInfo"
+				id="9a7973fe-8134-41de-84e6-bdf823049b8b">
+					<argvaluetype>
+						Ranorex.Core.Repository.RepoItemInfo, Ranorex.Core, Culture=neutral
+					</argvaluetype>
+					<argvalue>
+					</argvalue>
+					<info
+					id="2229a024-7306-4b0d-a6ab-e43f6a29c1bd"
+					sourcename="ItemRecorderEditor">
+						<path>
+							/form[@title='Project afsluiten']/button[@text='&amp;No']
+						</path>
+					</info>
+				</argument>
+			</arguments>
+		</userrecorditem>
 		<WaitForRecordItem
 		enabled="True"
 		optional="False"

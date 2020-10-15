@@ -85,7 +85,9 @@ namespace AutomatedSystemTests
             Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'RiskeerMainWindow.Ribbon.ButtonMenuFileNewProject' at Center.", repo.RiskeerMainWindow.Ribbon.ButtonMenuFileNewProjectInfo, new RecordItemIndex(1));
             repo.RiskeerMainWindow.Ribbon.ButtonMenuFileNewProject.Click();
             
-            Report.Log(ReportLevel.Info, "Wait", "Waiting 5s to exist. Associated repository item: 'RiskeerMainWindow.ProjectExplorer.ProjectRootNode'", repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.SelfInfo, new ActionTimeout(5000), new RecordItemIndex(2));
+            Mouse_Click_ButtonNoIfConformationDialogAppears(repo.ConfirmSaveProjectDialogWhenClosing.ButtonNoInfo);
+            
+            Report.Log(ReportLevel.Info, "Wait", "Waiting 5s to exist. Associated repository item: 'RiskeerMainWindow.ProjectExplorer.ProjectRootNode'", repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.SelfInfo, new ActionTimeout(5000), new RecordItemIndex(3));
             repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.SelfInfo.WaitForExists(5000);
             
         }
