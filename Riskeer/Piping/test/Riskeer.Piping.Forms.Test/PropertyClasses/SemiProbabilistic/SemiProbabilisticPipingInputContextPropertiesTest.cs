@@ -177,6 +177,8 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
             Assert.IsInstanceOf<ObjectProperties<SemiProbabilisticPipingInputContext>>(properties);
             Assert.IsInstanceOf<IHasHydraulicBoundaryLocationProperty>(properties);
             Assert.IsInstanceOf<IHasSurfaceLineProperty>(properties);
+            Assert.IsInstanceOf<IHasStochasticSoilModel>(properties);
+            Assert.IsInstanceOf<IHasStochasticSoilProfile>(properties);
             Assert.AreSame(context, properties.Data);
 
             Assert.IsInstanceOf<LogNormalDistributionDesignVariableProperties>(properties.DampingFactorExit);
