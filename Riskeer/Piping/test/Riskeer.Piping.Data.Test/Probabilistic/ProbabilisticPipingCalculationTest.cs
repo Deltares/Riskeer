@@ -64,7 +64,7 @@ namespace Riskeer.Piping.Data.Test.Probabilistic
             // Setup
             var calculation = new ProbabilisticPipingCalculation(new GeneralPipingInput())
             {
-                Output = new ProbabilisticPipingOutput()
+                Output = PipingTestDataGenerator.GetRandomProbabilisticPipingOutput()
             };
 
             // Call
@@ -80,7 +80,7 @@ namespace Riskeer.Piping.Data.Test.Probabilistic
             // Setup
             var calculation = new ProbabilisticPipingCalculation(new GeneralPipingInput())
             {
-                Output = new ProbabilisticPipingOutput()
+                Output = PipingTestDataGenerator.GetRandomProbabilisticPipingOutput()
             };
 
             // Call

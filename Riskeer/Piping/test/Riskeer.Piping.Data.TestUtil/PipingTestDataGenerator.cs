@@ -538,7 +538,8 @@ namespace Riskeer.Piping.Data.TestUtil
         /// <returns>A random instance of <see cref="ProbabilisticPipingOutput"/>.</returns>
         public static ProbabilisticPipingOutput GetRandomProbabilisticPipingOutput()
         {
-            return new ProbabilisticPipingOutput();
+            return new ProbabilisticPipingOutput(GetRandomPartialProbabilisticPipingOutput(new TestGeneralResultFaultTreeIllustrationPoint()),
+                                                 GetRandomPartialProbabilisticPipingOutput(new TestGeneralResultFaultTreeIllustrationPoint()));
         }
     }
 }

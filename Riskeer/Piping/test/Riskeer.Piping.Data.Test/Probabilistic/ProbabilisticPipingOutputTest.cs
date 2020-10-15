@@ -23,6 +23,7 @@ using Core.Common.Base;
 using Core.Common.Data.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.Data.Calculation;
+using Riskeer.Common.Data.TestUtil.IllustrationPoints;
 using Riskeer.Piping.Data.Probabilistic;
 using Riskeer.Piping.Data.TestUtil;
 
@@ -34,19 +35,25 @@ namespace Riskeer.Piping.Data.Test.Probabilistic
         [Test]
         public void Constructor_ExpectedValues()
         {
+            // Setup
+            PartialProbabilisticPipingOutput resultWithLength = PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput(new TestGeneralResultFaultTreeIllustrationPoint());
+            PartialProbabilisticPipingOutput resultWithoutLength = PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput(new TestGeneralResultFaultTreeIllustrationPoint());
+
             // Call
-            var output = new ProbabilisticPipingOutput();
+            var output = new ProbabilisticPipingOutput(resultWithLength, resultWithoutLength);
 
             // Assert
             Assert.IsInstanceOf<CloneableObservable>(output);
             Assert.IsInstanceOf<ICalculationOutput>(output);
+            Assert.AreSame(resultWithLength, output.ResultWithLength);
+            Assert.AreSame(resultWithoutLength, output.ResultWithoutLength);
         }
 
         [Test]
         public void Clone_Always_ReturnNewInstanceWithCopiedValues()
         {
             // Setup
-            var original = new ProbabilisticPipingOutput();
+            ProbabilisticPipingOutput original = PipingTestDataGenerator.GetRandomProbabilisticPipingOutput();
 
             // Call
             object clone = original.Clone();

@@ -27,5 +27,29 @@ namespace Riskeer.Piping.Data.Probabilistic
     /// <summary>
     /// Class containing the results of a probabilistic piping calculation.
     /// </summary>
-    public class ProbabilisticPipingOutput : CloneableObservable, ICalculationOutput {}
+    public class ProbabilisticPipingOutput : CloneableObservable, ICalculationOutput
+    {
+        /// <summary>
+        /// Creates a new instance of <see cref="ProbabilisticPipingOutput"/>.
+        /// </summary>
+        /// <param name="resultWithLength">The result of the sub-calculation that takes into account the section length.</param>
+        /// <param name="resultWithoutLength">The result of the sub-calculation that doesn't take into account the section length.</param>
+        /// <remarks>The input parameters are not checked for being <c>null</c> as (one of the) the sub-calculation results might
+        /// be missing due to calculation failure.</remarks>
+        public ProbabilisticPipingOutput(PartialProbabilisticPipingOutput resultWithLength, PartialProbabilisticPipingOutput resultWithoutLength)
+        {
+            ResultWithLength = resultWithLength;
+            ResultWithoutLength = resultWithoutLength;
+        }
+
+        /// <summary>
+        /// Gets the result of the sub-calculation that takes into account the section length.
+        /// </summary>
+        public PartialProbabilisticPipingOutput ResultWithLength { get; }
+
+        /// <summary>
+        /// Gets the result of the sub-calculation that doesn't take into account the section length.
+        /// </summary>
+        public PartialProbabilisticPipingOutput ResultWithoutLength { get; }
+    }
 }
