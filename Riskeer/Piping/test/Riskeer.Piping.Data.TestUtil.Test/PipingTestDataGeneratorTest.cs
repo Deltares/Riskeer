@@ -28,6 +28,8 @@ using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.Probabilistics;
 using Riskeer.Common.Data.TestUtil;
+using Riskeer.Common.Data.TestUtil.IllustrationPoints;
+using Riskeer.Piping.Data.Probabilistic;
 using Riskeer.Piping.Data.SemiProbabilistic;
 
 namespace Riskeer.Piping.Data.TestUtil.Test
@@ -220,6 +222,31 @@ namespace Riskeer.Piping.Data.TestUtil.Test
             Assert.AreEqual(heaveFactorOfSafety, output.HeaveFactorOfSafety);
             Assert.AreEqual(upliftFactorOfSafety, output.UpliftFactorOfSafety);
             Assert.AreEqual(sellmeijerFactorOfSafety, output.SellmeijerFactorOfSafety);
+        }
+
+        [Test]
+        public void GetRandomPartialProbabilisticPipingOutput_WithGeneralResult_ReturnOutput()
+        {
+            // Setup
+            var generalResult = new TestGeneralResultFaultTreeIllustrationPoint();
+
+            // Call
+            PartialProbabilisticPipingOutput output = PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput(generalResult);
+
+            // Assert
+            Assert.IsTrue(IsValidDouble(output.Reliability));
+            Assert.AreSame(generalResult, output.GeneralResult);
+        }
+
+        [Test]
+        public void GetRandomPartialProbabilisticPipingOutput_WithoutGeneralResult_ReturnOutput()
+        {
+            // Call
+            PartialProbabilisticPipingOutput output = PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput(null);
+
+            // Assert
+            Assert.IsTrue(IsValidDouble(output.Reliability));
+            Assert.IsNull(output.GeneralResult);
         }
 
         private static void AssertCalculationScenario(SemiProbabilisticPipingCalculationScenario calculation,
