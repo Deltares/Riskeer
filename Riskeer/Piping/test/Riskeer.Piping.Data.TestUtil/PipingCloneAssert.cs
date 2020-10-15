@@ -61,7 +61,11 @@ namespace Riskeer.Piping.Data.TestUtil
         /// <param name="clone">The cloned object.</param>
         /// <exception cref="AssertionException">Thrown when <paramref name="original"/> and
         /// <paramref name="clone"/> are not clones.</exception>
-        public static void AreClones(ProbabilisticPipingOutput original, ProbabilisticPipingOutput clone) {}
+        public static void AreClones(ProbabilisticPipingOutput original, ProbabilisticPipingOutput clone)
+        {
+            AreClones(original.ResultWithLength, clone.ResultWithLength);
+            AreClones(original.ResultWithoutLength, clone.ResultWithoutLength);
+        }
 
         /// <summary>
         /// Method that asserts whether <paramref name="original"/> and <paramref name="clone"/>
