@@ -19,7 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.ComponentModel;
+using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -31,6 +33,64 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
     [TestFixture]
     public class ShiftedLogNormalDistributionPropertiesTest
     {
+        [Test]
+        public void SingleParameterConstructor_DistributionNull_ThrowArgumentNullException()
+        {
+            // Call
+            void Call() => new ShiftedLogNormalDistributionProperties(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("distribution", exception.ParamName);
+        }
+
+        [Test]
+        public void SingleParameterConstructor_ExpectedValues()
+        {
+            // Setup
+            var distribution = new LogNormalDistribution();
+
+            // Call
+            var properties = new ShiftedLogNormalDistributionProperties(distribution);
+
+            // Assert
+            Assert.IsInstanceOf<LogNormalDistributionProperties>(properties);
+            Assert.AreSame(distribution, properties.Data);
+            Assert.AreEqual(distribution.Mean, properties.Mean);
+            Assert.AreEqual(distribution.StandardDeviation, properties.StandardDeviation);
+            Assert.AreEqual(distribution.Shift, properties.Shift);
+            Assert.AreEqual("Lognormaal", properties.DistributionType);
+        }
+
+        [Test]
+        public void Constructor_DistributionNull_ThrowArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
+            mocks.ReplayAll();
+
+            // Call
+            void Call() => new ShiftedLogNormalDistributionProperties(DistributionReadOnlyProperties.None, null, handler);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("distribution", exception.ParamName);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Constructor_HandlerNullAndReadOnlyPropertiesNone_ThrowArgumentException()
+        {
+            // Call
+            void Call() => new ShiftedLogNormalDistributionProperties(DistributionReadOnlyProperties.None, new LogNormalDistribution(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentException>(Call);
+            Assert.AreEqual("handler", exception.ParamName);
+            Assert.AreEqual("Change handler required if changes are possible.\r\nParameter name: handler", exception.Message);
+        }
+
         [Test]
         public void Constructor_WithDistribution_ExpectedValues()
         {
@@ -70,6 +130,61 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             AssertPropertiesInState(properties, false, false);
 
             mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GetProperties_WithData_ReturnExpectedValues()
+        {
+            // Setup
+            var mockRepository = new MockRepository();
+            var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
+            mockRepository.ReplayAll();
+
+            var distribution = new LogNormalDistribution(2)
+            {
+                Mean = new RoundedDouble(2, 1),
+                StandardDeviation = new RoundedDouble(2, 2),
+                Shift = new RoundedDouble(2, 0.2)
+            };
+
+            // Call
+            var properties = new ShiftedLogNormalDistributionProperties(DistributionReadOnlyProperties.None,
+                                                                        distribution,
+                                                                        handler);
+
+            // Assert
+            Assert.AreEqual("Lognormaal", properties.DistributionType);
+            Assert.AreEqual(distribution.Mean, properties.Mean);
+            Assert.AreEqual(distribution.StandardDeviation, properties.StandardDeviation);
+            Assert.AreEqual(distribution.Shift, properties.Shift);
+        }
+
+        [Test]
+        [SetCulture("nl-NL")]
+        public void ToString_Always_ReturnDistributionName()
+        {
+            // Setup
+            var mockRepository = new MockRepository();
+            var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
+            mockRepository.ReplayAll();
+
+            var distribution = new LogNormalDistribution(2)
+            {
+                Mean = new RoundedDouble(2, 1),
+                StandardDeviation = new RoundedDouble(2, 2),
+                Shift = new RoundedDouble(2, 0.3)
+            };
+
+            // Call
+            var properties = new ShiftedLogNormalDistributionProperties(DistributionReadOnlyProperties.None,
+                                                                        distribution,
+                                                                        handler);
+
+            // Call
+            var propertyName = properties.ToString();
+
+            // Assert
+            Assert.AreEqual("1,00 (Standaardafwijking = 2,00) (Verschuiving = 0,30)", propertyName);
         }
 
         private static void AssertPropertiesInState(ShiftedLogNormalDistributionProperties properties, bool meanReadOnly, bool deviationReadOnly)
