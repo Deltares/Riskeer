@@ -23,11 +23,13 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing.Design;
+using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Util.Attributes;
+using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Forms.ChangeHandlers;
 using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.PresentationObjects;
@@ -444,7 +446,8 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
         {
             get
             {
-                return data.WrappedData.SectionName;
+
+                return GetSection().Name ?? "-";
             }
         }
 
@@ -453,11 +456,12 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.SectionInformation))]
         [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.SectionLength_DisplayName))]
         [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.SectionLength_Description))]
-        public RoundedDouble SectionLength
+        public double SectionLength
         {
             get
             {
-                return data.WrappedData.SectionLength;
+                FailureMechanismSection failureMechanismSection = GetSection();
+                return failureMechanismSection == null ? 0d: failureMechanismSection.Length;
             }
         }
 
@@ -482,5 +486,12 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
         }
 
         #endregion
+
+        private FailureMechanismSection GetSection()
+        {
+            return data.FailureMechanism
+                       .Sections
+                       .FirstOrDefault(section => data.PipingCalculation.IsSurfaceLineIntersectionWithReferenceLineInSection(Math2D.ConvertPointsToLineSegments(section.Points)));
+        }
     }
 }

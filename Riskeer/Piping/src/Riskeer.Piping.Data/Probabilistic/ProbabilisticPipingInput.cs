@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Base.Data;
 
 namespace Riskeer.Piping.Data.Probabilistic
 {
@@ -37,16 +36,6 @@ namespace Riskeer.Piping.Data.Probabilistic
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="generalInputParameters"/>
         /// is <c>null</c>.</exception>
         public ProbabilisticPipingInput(GeneralPipingInput generalInputParameters) : base(generalInputParameters) {}
-
-        /// <summary>
-        /// Gets the section name.
-        /// </summary>
-        public string SectionName { get; }
-
-        /// <summary>
-        /// Gets the section length.
-        /// </summary>
-        public RoundedDouble SectionLength { get; }
 
         /// <summary>
         /// Gets or sets if the illustration points should be calculated.
