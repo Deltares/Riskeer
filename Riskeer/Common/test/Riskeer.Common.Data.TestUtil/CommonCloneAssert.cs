@@ -363,6 +363,20 @@ namespace Riskeer.Common.Data.TestUtil
         /// <param name="clone">The cloned object.</param>
         /// <exception cref="AssertionException">Thrown when <paramref name="original"/> and
         /// <paramref name="clone"/> are not clones.</exception>
+        public static void AreClones(ICalculation original, ICalculation clone)
+        {
+            AreClones((ICalculationBase) original, clone);
+            CoreCloneAssert.AreObjectClones(original.Comments, clone.Comments, AreClones);
+        }
+
+        /// <summary>
+        /// Method that asserts whether <paramref name="original"/> and <paramref name="clone"/>
+        /// are clones.
+        /// </summary>
+        /// <param name="original">The original object.</param>
+        /// <param name="clone">The cloned object.</param>
+        /// <exception cref="AssertionException">Thrown when <paramref name="original"/> and
+        /// <paramref name="clone"/> are not clones.</exception>
         private static void AreClones(ICalculationBase original, ICalculationBase clone)
         {
             Assert.AreEqual(original.Name, clone.Name);

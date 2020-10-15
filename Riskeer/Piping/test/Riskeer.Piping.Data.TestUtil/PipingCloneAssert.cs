@@ -125,10 +125,9 @@ namespace Riskeer.Piping.Data.TestUtil
         /// <param name="clone">The cloned object.</param>
         /// <exception cref="AssertionException">Thrown when <paramref name="original"/> and
         /// <paramref name="clone"/> are not clones.</exception>
-        public static void AreClones(IPipingCalculation<PipingInput> original, IPipingCalculation<PipingInput> clone)
+        public static void AreClones(PipingCalculation<PipingInput> original, PipingCalculation<PipingInput> clone)
         {
-            Assert.AreEqual(original.Name, clone.Name);
-            CoreCloneAssert.AreObjectClones(original.Comments, clone.Comments, CommonCloneAssert.AreClones);
+            CommonCloneAssert.AreClones(original, clone);
             CoreCloneAssert.AreObjectClones(original.InputParameters, clone.InputParameters, AreClones);
         }
 
@@ -142,7 +141,8 @@ namespace Riskeer.Piping.Data.TestUtil
         /// <paramref name="clone"/> are not clones.</exception>
         public static void AreClones(SemiProbabilisticPipingCalculation original, SemiProbabilisticPipingCalculation clone)
         {
-            AreClones((IPipingCalculation<PipingInput>) original, clone);
+            CommonCloneAssert.AreClones(original, clone);
+            CoreCloneAssert.AreObjectClones(original.InputParameters, clone.InputParameters, AreClones);
             CoreCloneAssert.AreObjectClones(original.Output, clone.Output, AreClones);
         }
 
@@ -156,7 +156,8 @@ namespace Riskeer.Piping.Data.TestUtil
         /// <paramref name="clone"/> are not clones.</exception>
         public static void AreClones(ProbabilisticPipingCalculation original, ProbabilisticPipingCalculation clone)
         {
-            AreClones((IPipingCalculation<PipingInput>) original, clone);
+            CommonCloneAssert.AreClones(original, clone);
+            CoreCloneAssert.AreObjectClones(original.InputParameters, clone.InputParameters, AreClones);
             CoreCloneAssert.AreObjectClones(original.Output, clone.Output, AreClones);
         }
 
