@@ -23,7 +23,6 @@ using System;
 using Core.Common.Data.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.Data.IllustrationPoints;
-using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Data.TestUtil.IllustrationPoints;
 using Riskeer.Piping.Data.Probabilistic;
 using Riskeer.Piping.Data.TestUtil;
@@ -65,7 +64,7 @@ namespace Riskeer.Piping.Data.Test.Probabilistic
             object clone = original.Clone();
 
             // Assert
-            CoreCloneAssert.AreObjectClones(original, clone, CommonCloneAssert.AreClones);
+            CoreCloneAssert.AreObjectClones(original, clone, PipingCloneAssert.AreClones);
         }
 
         [Test]
@@ -78,7 +77,7 @@ namespace Riskeer.Piping.Data.Test.Probabilistic
             object clone = original.Clone();
 
             // Assert
-            CoreCloneAssert.AreObjectClones(original, clone, CommonCloneAssert.AreClones);
+            CoreCloneAssert.AreObjectClones(original, clone, PipingCloneAssert.AreClones);
         }
 
         [Test]
