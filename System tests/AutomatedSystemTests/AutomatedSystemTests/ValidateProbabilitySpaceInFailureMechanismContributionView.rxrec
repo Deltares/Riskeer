@@ -39,6 +39,10 @@ mode="Global">
 		id="89b0cb78-8dc2-46b2-a3e4-6295a3181948"
 		name="contributionValue">
 		</var>
+		<var
+		id="9b94e552-ef8b-4b1f-b14a-b179b6f3403f"
+		name="probSpaceForZeroContribution">
+		</var>
 	</variables>
 	<recorditems>
 		<userrecorditem
@@ -69,6 +73,16 @@ mode="Global">
 							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismContributionView']/container[@controlname='probabilityDistributionGrid']/table/row[@accessiblevalue~';'+$fmLabel+';']/cell[@accessiblename&gt;'Faalkansruimte']
 						</path>
 					</info>
+				</argument>
+				<argument
+				argname="probabilitySpaceForZeroContribution"
+				id="53356da6-80c3-4204-8274-115c30aba064"
+				variable="probSpaceForZeroContribution">
+					<argvaluetype>
+						System.String
+					</argvaluetype>
+					<argvalue>
+					</argvalue>
 				</argument>
 			</arguments>
 		</userrecorditem>

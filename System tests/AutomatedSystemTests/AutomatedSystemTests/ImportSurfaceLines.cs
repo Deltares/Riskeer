@@ -127,11 +127,17 @@ namespace AutomatedSystemTests
             Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'Openen.ButtonOpen' at 41;7.", repo.Openen.ButtonOpenInfo, new RecordItemIndex(4));
             repo.Openen.ButtonOpen.Click("41;7");
             
-            Report.Log(ReportLevel.Info, "Wait", "Waiting 5s to exist. Associated repository item: 'ActivityProgressDialog.ButtonCancel'", repo.ActivityProgressDialog.ButtonCancelInfo, new ActionTimeout(5000), new RecordItemIndex(5));
-            repo.ActivityProgressDialog.ButtonCancelInfo.WaitForExists(5000);
+            //Report.Log(ReportLevel.Info, "Delay", "Waiting for 1s.", new RecordItemIndex(5));
+            //Delay.Duration(1000, false);
             
-            Report.Log(ReportLevel.Info, "Wait", "Waiting 5s to not exist. Associated repository item: 'ActivityProgressDialog.ButtonCancel'", repo.ActivityProgressDialog.ButtonCancelInfo, new ActionTimeout(5000), new RecordItemIndex(6));
+            //Report.Log(ReportLevel.Info, "Wait", "Waiting 5s to exist. Associated repository item: 'ActivityProgressDialog.ButtonCancel'", repo.ActivityProgressDialog.ButtonCancelInfo, new ActionTimeout(5000), new RecordItemIndex(6));
+            //repo.ActivityProgressDialog.ButtonCancelInfo.WaitForExists(5000);
+            
+            Report.Log(ReportLevel.Info, "Wait", "Waiting 5s to not exist. Associated repository item: 'ActivityProgressDialog.ButtonCancel'", repo.ActivityProgressDialog.ButtonCancelInfo, new ActionTimeout(5000), new RecordItemIndex(7));
             repo.ActivityProgressDialog.ButtonCancelInfo.WaitForNotExists(5000);
+            
+            Report.Log(ReportLevel.Info, "Delay", "Waiting for 2s.", new RecordItemIndex(8));
+            Delay.Duration(2000, false);
             
         }
 

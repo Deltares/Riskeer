@@ -47,6 +47,7 @@ namespace AutomatedSystemTests
             		foreach (var grandchild in grandchildren) {
             			string grandchildName = NameOfTreeItem(grandchild);
             			if (grandchildName == nameSubnodeLevel2) {
+            				grandchild.As<TreeItem>().Focus();
             				grandchild.As<TreeItem>().DoubleClick();
             				fmRelevance = " is relevant.";
             			}

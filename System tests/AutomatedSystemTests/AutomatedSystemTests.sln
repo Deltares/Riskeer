@@ -11,6 +11,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutomatedSystemTests", "AutomatedSystemTests\AutomatedSystemTests.csproj", "{6068A2A0-0B81-46C9-88D6-CD4C4B1E138E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ranorex Automation Helpers", "RanorexAutomationHelpers\Ranorex Automation Helpers.csproj", "{CED4450F-858B-422D-89CE-DF083B491295}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -21,5 +23,9 @@ Global
 		{6068A2A0-0B81-46C9-88D6-CD4C4B1E138E}.Debug|x86.ActiveCfg = Debug|x86
 		{6068A2A0-0B81-46C9-88D6-CD4C4B1E138E}.Release|x86.Build.0 = Release|x86
 		{6068A2A0-0B81-46C9-88D6-CD4C4B1E138E}.Release|x86.ActiveCfg = Release|x86
+		{CED4450F-858B-422D-89CE-DF083B491295}.Debug|x86.Build.0 = Debug|x86
+		{CED4450F-858B-422D-89CE-DF083B491295}.Debug|x86.ActiveCfg = Debug|x86
+		{CED4450F-858B-422D-89CE-DF083B491295}.Release|x86.Build.0 = Release|x86
+		{CED4450F-858B-422D-89CE-DF083B491295}.Release|x86.ActiveCfg = Release|x86
 	EndGlobalSection
 EndGlobal

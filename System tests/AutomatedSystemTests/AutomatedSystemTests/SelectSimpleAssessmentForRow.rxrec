@@ -49,6 +49,26 @@ mode="Global">
 			id="0b04fbdb-98e8-435d-b306-51df7227cad0">
 			</arguments>
 		</invokeactionrecorditem>
+		<invokeactionrecorditem
+		action="Select"
+		enabled="True"
+		optional="False"
+		searchpropertyid="7d713f58-76dd-4534-8a3f-e83c62ecdf35">
+			<comment>
+			</comment>
+			<bindings>
+			</bindings>
+			<info
+			id="78777803-f3ba-489a-8aa8-3ad795fbe569"
+			sourcename="RepositoryEditor">
+				<path>
+					/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename&gt;'Eenvoudige toets Row ']
+				</path>
+			</info>
+			<arguments
+			id="4710a562-0611-4688-b390-88bab902e3d7">
+			</arguments>
+		</invokeactionrecorditem>
 		<mouseitem
 		action="Click"
 		button="Left"
@@ -73,6 +93,15 @@ mode="Global">
 				</path>
 			</info>
 		</mouseitem>
+		<explicitdelayitem
+		duration="300ms"
+		enabled="True"
+		optional="False">
+			<comment>
+			</comment>
+			<bindings>
+			</bindings>
+		</explicitdelayitem>
 		<mouseitem
 		action="Click"
 		button="Left"

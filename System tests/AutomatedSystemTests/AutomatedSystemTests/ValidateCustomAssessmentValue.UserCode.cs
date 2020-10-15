@@ -9,6 +9,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Drawing;
@@ -35,11 +36,12 @@ namespace AutomatedSystemTests
 
         public void ValidateCustomAssessmentValueCell(RepoItemInfo cellInfo, string expectedValue)
         {
+            System.Globalization.CultureInfo currentCulture = CultureInfo.CurrentCulture;
             expectedValue = expectedValue.Replace(" ", String.Empty).Replace(".", String.Empty);
         	Report.Log(ReportLevel.Info, "Info", expectedValue, cellInfo);
         	Report.Log(ReportLevel.Info, "Validation", "Validating AttributeEqual (AccessibleValue='" + expectedValue.ToString() + "') on item 'cellInfo'.", cellInfo);
         	string foundValue = cellInfo.CreateAdapter<Cell>(true).GetAttributeValue<String>("AccessibleValue");
-        	foundValue = foundValue.Replace(" ", String.Empty).Replace(".", String.Empty);
+        	foundValue = foundValue.Replace(currentCulture.NumberFormat.NumberGroupSeparator, "");
             Validate.AreEqual(foundValue, expectedValue);
         }
 

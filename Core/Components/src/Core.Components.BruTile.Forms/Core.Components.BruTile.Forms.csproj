@@ -37,6 +37,6 @@
     </PackageReference>
   </ItemGroup>
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="xcopy /d/s/y &quot;$(PkgBruTile)\lib\net45\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Externals\BruTile-2.1.2\*&quot;" />
+    <Exec Command="xcopy /d/s/y &quot;$(PkgBruTile)\lib\net45\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\BruTile-2.1.2\*&quot;" />
   </Target>
 </Project>

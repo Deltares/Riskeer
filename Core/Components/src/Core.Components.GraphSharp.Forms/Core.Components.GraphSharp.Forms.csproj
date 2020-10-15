@@ -54,7 +54,7 @@
     </PackageReference>
   </ItemGroup>
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="xcopy /d/s/y &quot;$(PkgGraphSharp)\lib\net40\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Externals\GraphSharp-1.1.0\*&quot;" />
-    <Exec Command="xcopy /d/s/y &quot;$(PkgWPFExtensions)\lib\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Externals\WPFExtensions-1.0.0\*&quot;" />
+    <Exec Command="xcopy /d/s/y &quot;$(PkgGraphSharp)\lib\net40\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\GraphSharp-1.1.0\*&quot;" />
+    <Exec Command="xcopy /d/s/y &quot;$(PkgWPFExtensions)\lib\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\WPFExtensions-1.0.0\*&quot;" />
   </Target>
 </Project>

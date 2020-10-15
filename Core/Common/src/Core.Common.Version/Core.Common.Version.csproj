@@ -16,6 +16,6 @@
     <Compile Remove="GlobalAssembly.cs" />
   </ItemGroup>
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
-    <Exec Command="cmd /c $(SolutionDir)build\git_insert_hash.cmd $(SolutionDir)Core\Common\src\Core.Common.Version GlobalAssembly.cs.template GlobalAssembly.cs" />
+    <Exec Command="cmd /c &quot;&quot;$(SolutionDir)build\git_insert_hash.cmd&quot; &quot;$(SolutionDir)Core\Common\src\Core.Common.Version&quot; GlobalAssembly.cs.template GlobalAssembly.cs&quot;" />
   </Target>
 </Project>

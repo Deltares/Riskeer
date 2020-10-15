@@ -25,6 +25,55 @@ mode="Global">
 	<variables>
 	</variables>
 	<recorditems>
+		<invokeactionrecorditem
+		action="Focus"
+		enabled="True"
+		optional="False"
+		searchpropertyid="f3978514-bd9c-4d70-a948-68dcc8e6a1ad">
+			<comment>
+			</comment>
+			<bindings>
+			</bindings>
+			<info
+			id="03aba76a-aaa9-4a4f-afc6-7205205077c8"
+			sourcename="RepositoryEditor">
+				<path>
+					/form[@automationid='RiskeerMainWindow']//container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]/treeitem[@accessiblename~$substringTrajectName]/treeitem[@accessiblename~$substringFMName]/treeitem[@accessiblename='Invoer']/treeitem[@accessiblename='Stochastische ondergrondmodellen']
+				</path>
+			</info>
+			<arguments
+			id="9bbb4119-f9fd-4d4f-a53a-dd902fb15a16">
+			</arguments>
+		</invokeactionrecorditem>
+		<invokeactionrecorditem
+		action="Select"
+		enabled="True"
+		optional="False"
+		searchpropertyid="98563518-4ddc-459b-bd81-81e45ba9b4ee">
+			<comment>
+			</comment>
+			<bindings>
+			</bindings>
+			<info
+			id="03aba76a-aaa9-4a4f-afc6-7205205077c8"
+			sourcename="RepositoryEditor">
+				<path>
+					/form[@automationid='RiskeerMainWindow']//container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]/treeitem[@accessiblename~$substringTrajectName]/treeitem[@accessiblename~$substringFMName]/treeitem[@accessiblename='Invoer']/treeitem[@accessiblename='Stochastische ondergrondmodellen']
+				</path>
+			</info>
+			<arguments
+			id="3e643edb-2345-4565-963e-b9e01555d9c7">
+			</arguments>
+		</invokeactionrecorditem>
+		<explicitdelayitem
+		duration="300ms"
+		enabled="True"
+		optional="False">
+			<comment>
+			</comment>
+			<bindings>
+			</bindings>
+		</explicitdelayitem>
 		<mouseitem
 		action="Click"
 		button="Right"
@@ -126,6 +175,15 @@ mode="Global">
 				</path>
 			</info>
 		</mouseitem>
+		<explicitdelayitem
+		duration="300ms"
+		enabled="True"
+		optional="False">
+			<comment>
+			</comment>
+			<bindings>
+			</bindings>
+		</explicitdelayitem>
 		<WaitForRecordItem
 		enabled="True"
 		optional="False"

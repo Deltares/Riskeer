@@ -108,7 +108,7 @@ namespace AutomatedSystemTests
         /// DO NOT REFERENCE THIS CODE  - auto generated
         /// </summary>
         Imaging.FindOptions GenericCellIcon_ErrorIcon_Options
-        { get { return Imaging.FindOptions.Parse("1;Edges;0,0,0,0;True;10000000;0ms"); } }
+        { get { return Imaging.FindOptions.Parse("0.8;Edges;0,0,0,0;True;10000000;0ms"); } }
 
 #endregion
     }

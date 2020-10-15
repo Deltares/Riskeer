@@ -57,11 +57,6 @@
                   <MIME ContentType="application/rtd" Default="no" />
                 </Extension>
               </ProgId>
-              
-            </Component>
-            
-            <Component Id="LicenseFile" Guid="7A302FAD-4BEF-4C0F-805E-406DB172D530">
-              <File Id="RiskeerLicense" Name="Licentie.rtf" Source="Licentie.rtf" KeyPath="yes"/>  
             </Component>
 
             <Component Id="UserManual" Guid="6AD109DF-87BD-4748-BCF6-D1391F12D8A1">
@@ -167,7 +162,6 @@
       <ComponentGroupRef Id="CalculationConfigurationFiles"/>
       <ComponentRef Id="ProgramMenuShortcut"/>
       <ComponentRef Id="DesktopShortcut"/>
-      <ComponentRef Id="LicenseFile"/>
       <ComponentRef Id="UserManual"/>
       <ComponentRef Id="ProgramMenuManualShortcut"/>
       <ComponentRef Id="IHWFile"/>
