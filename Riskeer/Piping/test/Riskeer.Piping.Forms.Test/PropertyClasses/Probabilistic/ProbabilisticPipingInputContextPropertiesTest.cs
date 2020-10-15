@@ -185,31 +185,31 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             TestHelper.AssertTypeConverter<ProbabilisticPipingInputContextProperties, ExpandableObjectConverter>(
                 nameof(ProbabilisticPipingInputContextProperties.PhreaticLevelExit));
 
-            Assert.IsInstanceOf<VariationCoefficientLogNormalDistributionDesignVariableProperties>(properties.SeepageLength);
+            Assert.IsInstanceOf<VariationCoefficientLogNormalDistributionProperties>(properties.SeepageLength);
             TestHelper.AssertTypeConverter<ProbabilisticPipingInputContextProperties, ExpandableObjectConverter>(
                 nameof(ProbabilisticPipingInputContextProperties.SeepageLength));
 
-            Assert.IsInstanceOf<LogNormalDistributionDesignVariableProperties>(properties.ThicknessCoverageLayer);
+            Assert.IsInstanceOf<LogNormalDistributionProperties>(properties.ThicknessCoverageLayer);
             TestHelper.AssertTypeConverter<ProbabilisticPipingInputContextProperties, ExpandableObjectConverter>(
                 nameof(ProbabilisticPipingInputContextProperties.ThicknessCoverageLayer));
 
-            Assert.IsInstanceOf<LogNormalDistributionDesignVariableProperties>(properties.EffectiveThicknessCoverageLayer);
+            Assert.IsInstanceOf<LogNormalDistributionProperties>(properties.EffectiveThicknessCoverageLayer);
             TestHelper.AssertTypeConverter<ProbabilisticPipingInputContextProperties, ExpandableObjectConverter>(
                 nameof(ProbabilisticPipingInputContextProperties.EffectiveThicknessCoverageLayer));
 
-            Assert.IsInstanceOf<LogNormalDistributionDesignVariableProperties>(properties.ThicknessAquiferLayer);
+            Assert.IsInstanceOf<LogNormalDistributionProperties>(properties.ThicknessAquiferLayer);
             TestHelper.AssertTypeConverter<ProbabilisticPipingInputContextProperties, ExpandableObjectConverter>(
                 nameof(ProbabilisticPipingInputContextProperties.ThicknessAquiferLayer));
 
-            Assert.IsInstanceOf<VariationCoefficientLogNormalDistributionDesignVariableProperties>(properties.DarcyPermeability);
+            Assert.IsInstanceOf<VariationCoefficientLogNormalDistributionProperties>(properties.DarcyPermeability);
             TestHelper.AssertTypeConverter<ProbabilisticPipingInputContextProperties, ExpandableObjectConverter>(
                 nameof(ProbabilisticPipingInputContextProperties.DarcyPermeability));
 
-            Assert.IsInstanceOf<VariationCoefficientLogNormalDistributionDesignVariableProperties>(properties.Diameter70);
+            Assert.IsInstanceOf<VariationCoefficientLogNormalDistributionProperties>(properties.Diameter70);
             TestHelper.AssertTypeConverter<ProbabilisticPipingInputContextProperties, ExpandableObjectConverter>(
                 nameof(ProbabilisticPipingInputContextProperties.Diameter70));
 
-            Assert.IsInstanceOf<ShiftedLogNormalDistributionDesignVariableProperties>(properties.SaturatedVolumicWeightOfCoverageLayer);
+            Assert.IsInstanceOf<ShiftedLogNormalDistributionProperties>(properties.SaturatedVolumicWeightOfCoverageLayer);
             TestHelper.AssertTypeConverter<ProbabilisticPipingInputContextProperties, ExpandableObjectConverter>(
                 nameof(ProbabilisticPipingInputContextProperties.SaturatedVolumicWeightOfCoverageLayer));
 
