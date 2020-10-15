@@ -249,6 +249,21 @@ namespace Riskeer.Piping.Data.TestUtil.Test
             Assert.IsNull(output.GeneralResult);
         }
 
+        [Test]
+        public void GetRandomProbabilisticPipingOutput_Always_ReturnOutput()
+        {
+            // Call
+            ProbabilisticPipingOutput output = PipingTestDataGenerator.GetRandomProbabilisticPipingOutput();
+
+            // Assert
+            Assert.IsNotNull(output.ResultWithLength);
+            Assert.IsTrue(IsValidDouble(output.ResultWithLength.Reliability));
+            Assert.IsNotNull(output.ResultWithLength.GeneralResult);
+            Assert.IsNotNull(output.ResultWithoutLength);
+            Assert.IsTrue(IsValidDouble(output.ResultWithoutLength.Reliability));
+            Assert.IsNotNull(output.ResultWithoutLength.GeneralResult);
+        }
+
         private static void AssertCalculationScenario(SemiProbabilisticPipingCalculationScenario calculation,
                                                       bool hasHydraulicLocation = true,
                                                       bool hasAssessmentLevel = false,
