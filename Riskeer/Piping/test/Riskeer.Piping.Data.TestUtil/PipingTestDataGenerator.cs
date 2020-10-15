@@ -503,6 +503,23 @@ namespace Riskeer.Piping.Data.TestUtil
         }
         
         /// <summary>
+        /// Creates an instance of <see cref="SemiProbabilisticPipingOutput"/> with the given values.
+        /// </summary>
+        /// <param name="heaveFactorOfSafety">The heave factor of safety.</param>
+        /// <param name="upliftFactorOfSafety">The uplift factor of safety.</param>
+        /// <param name="sellmeijerFactorOfSafety">The sellmeijer factor of safety.</param>
+        /// <returns>The created <see cref="SemiProbabilisticPipingOutput"/>.</returns>
+        public static SemiProbabilisticPipingOutput GetSemiProbabilisticPipingOutput(double heaveFactorOfSafety, double upliftFactorOfSafety, double sellmeijerFactorOfSafety)
+        {
+            return new SemiProbabilisticPipingOutput(new SemiProbabilisticPipingOutput.ConstructionProperties
+            {
+                HeaveFactorOfSafety = heaveFactorOfSafety,
+                UpliftFactorOfSafety = upliftFactorOfSafety,
+                SellmeijerFactorOfSafety = sellmeijerFactorOfSafety
+            });
+        }
+        
+        /// <summary>
         /// Creates a random instance of <see cref="PartialProbabilisticPipingOutput"/>.
         /// </summary>
         /// <param name="generalResult">The general result to set to the output.</param>
