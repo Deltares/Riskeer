@@ -51,7 +51,8 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
     /// ViewModel of <see cref="ProbabilisticPipingInputContext"/> for properties panel.
     /// </summary>
     public class ProbabilisticPipingInputContextProperties : ObjectProperties<ProbabilisticPipingInputContext>,
-                                                             IHasHydraulicBoundaryLocationProperty
+                                                             IHasHydraulicBoundaryLocationProperty,
+                                                             IHasSurfaceLineProperty
     {
         private const int selectedHydraulicBoundaryLocationPropertyIndex = 1;
         private const int dampingFactorExitPropertyIndex = 2;
@@ -241,7 +242,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
         #region Schematization
 
         [PropertyOrder(surfaceLinePropertyIndex)]
-        [Editor(typeof(PipingInputContextSurfaceLineSelectionEditor), typeof(UITypeEditor))]
+        [Editor(typeof(PipingInputContextSurfaceLineSelectionEditor<>), typeof(UITypeEditor))]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization))]
         [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.SurfaceLine_DisplayName))]
         [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.SurfaceLine_Description))]

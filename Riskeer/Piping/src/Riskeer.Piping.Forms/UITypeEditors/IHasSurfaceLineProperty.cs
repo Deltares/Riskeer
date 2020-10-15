@@ -20,34 +20,22 @@
 // All rights reserved.
 
 using System.Collections.Generic;
-using System.ComponentModel;
-using Core.Common.Gui.UITypeEditors;
+using Core.Common.Gui.PropertyBag;
 using Riskeer.Piping.Primitives;
 
 namespace Riskeer.Piping.Forms.UITypeEditors
 {
-    /// <summary>
-    /// This class defines a drop down list edit-control from which the user can select a
-    /// <see cref="PipingSurfaceLine"/> from a collection.
-    /// </summary>
-    public class PipingInputContextSurfaceLineSelectionEditor<T> : SelectionEditor<T, PipingSurfaceLine> where T : IHasSurfaceLineProperty
+   public interface IHasSurfaceLineProperty : IObjectProperties
     {
         /// <summary>
-        /// Creates a new instance of <see cref="PipingInputContextSurfaceLineSelectionEditor{T}"/>.
+        /// Returns the collection of surface lines.
         /// </summary>
-        public PipingInputContextSurfaceLineSelectionEditor()
-        {
-            DisplayMember = nameof(PipingSurfaceLine.Name);
-        }
+        /// <returns>A collection of surface lines.</returns>
+        IEnumerable<PipingSurfaceLine> GetAvailableSurfaceLines();
 
-        protected override IEnumerable<PipingSurfaceLine> GetAvailableOptions(ITypeDescriptorContext context)
-        {
-            return GetPropertiesObject(context).GetAvailableSurfaceLines();
-        }
-
-        protected override PipingSurfaceLine GetCurrentOption(ITypeDescriptorContext context)
-        {
-            return GetPropertiesObject(context).SurfaceLine;
-        }
+        /// <summary>
+        /// Gets the piping surface line.
+        /// </summary>
+        PipingSurfaceLine SurfaceLine { get; }
     }
 }
