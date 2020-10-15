@@ -51,7 +51,7 @@ namespace Riskeer.Piping.Data.Probabilistic
         /// Gets the result of the sub-calculation that doesn't take into account the section length.
         /// </summary>
         public PartialProbabilisticPipingOutput ResultWithoutLength { get; private set; }
-        
+
         public override object Clone()
         {
             var clone = (ProbabilisticPipingOutput) base.Clone();
@@ -65,7 +65,7 @@ namespace Riskeer.Piping.Data.Probabilistic
             {
                 clone.ResultWithoutLength = (PartialProbabilisticPipingOutput) ResultWithoutLength.Clone();
             }
-            
+
             return clone;
         }
     }

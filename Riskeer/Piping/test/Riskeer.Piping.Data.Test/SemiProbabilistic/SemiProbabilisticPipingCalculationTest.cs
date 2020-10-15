@@ -89,7 +89,7 @@ namespace Riskeer.Piping.Data.Test.SemiProbabilistic
             // Assert
             Assert.IsNull(calculation.Output);
         }
-        
+
         [Test]
         public void Clone_AllPropertiesSet_ReturnNewInstanceWithCopiedValues()
         {
@@ -97,7 +97,7 @@ namespace Riskeer.Piping.Data.Test.SemiProbabilistic
             SemiProbabilisticPipingCalculation original = CreateRandomCalculationWithoutOutput();
 
             original.Output = PipingTestDataGenerator.GetRandomSemiProbabilisticPipingOutput();
-            
+
             // Call
             object clone = original.Clone();
 
@@ -110,7 +110,7 @@ namespace Riskeer.Piping.Data.Test.SemiProbabilistic
         {
             // Setup
             SemiProbabilisticPipingCalculation original = CreateRandomCalculationWithoutOutput();
-            
+
             // Call
             object clone = original.Clone();
 

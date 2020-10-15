@@ -64,7 +64,7 @@ namespace Riskeer.Piping.Data.Test.SemiProbabilistic
             Assert.AreEqual(originalNumberOfDecimalPlaces, input.AssessmentLevel.NumberOfDecimalPlaces);
             Assert.AreEqual(assessmentLevel, input.AssessmentLevel, input.AssessmentLevel.GetAccuracy());
         }
-        
+
         [Test]
         public void Clone_AllPropertiesSet_ReturnNewInstanceWithCopiedValues()
         {

@@ -468,7 +468,7 @@ namespace Riskeer.Piping.Data.TestUtil
             input.UseAssessmentLevelManualInput = random.NextBoolean();
             input.AssessmentLevel = random.NextRoundedDouble();
         }
-        
+
         /// <summary>
         /// This method sets random data values to all properties of <paramref name="input"/>.
         /// </summary>
@@ -501,7 +501,7 @@ namespace Riskeer.Piping.Data.TestUtil
                 SellmeijerReducedFall = random.NextDouble()
             });
         }
-        
+
         /// <summary>
         /// Creates an instance of <see cref="SemiProbabilisticPipingOutput"/> with the given values.
         /// </summary>
@@ -518,7 +518,7 @@ namespace Riskeer.Piping.Data.TestUtil
                 SellmeijerFactorOfSafety = sellmeijerFactorOfSafety
             });
         }
-        
+
         /// <summary>
         /// Creates a random instance of <see cref="PartialProbabilisticPipingOutput"/>.
         /// </summary>
@@ -531,7 +531,7 @@ namespace Riskeer.Piping.Data.TestUtil
             return new PartialProbabilisticPipingOutput(random.NextDouble(),
                                                         generalResult);
         }
-        
+
         /// <summary>
         /// Creates a random instance of <see cref="ProbabilisticPipingOutput"/>.
         /// </summary>

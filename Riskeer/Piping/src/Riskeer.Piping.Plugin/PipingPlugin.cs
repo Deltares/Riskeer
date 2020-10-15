@@ -95,7 +95,7 @@ namespace Riskeer.Piping.Plugin
             {
                 CreateInstance = context => new ProbabilisticPipingInputContextProperties(context,
                                                                                           () => GetNormativeAssessmentLevel(context.AssessmentSection, context.PipingCalculation),
-                                                                                              new ObservablePropertyChangeHandler(context.PipingCalculation, context.WrappedData))
+                                                                                          new ObservablePropertyChangeHandler(context.PipingCalculation, context.WrappedData))
             };
             yield return new PropertyInfo<SemiProbabilisticPipingOutputContext, SemiProbabilisticPipingOutputProperties>
             {
