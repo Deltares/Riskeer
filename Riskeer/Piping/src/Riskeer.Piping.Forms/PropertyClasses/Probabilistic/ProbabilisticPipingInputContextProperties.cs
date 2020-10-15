@@ -52,7 +52,9 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
     /// </summary>
     public class ProbabilisticPipingInputContextProperties : ObjectProperties<ProbabilisticPipingInputContext>,
                                                              IHasHydraulicBoundaryLocationProperty,
-                                                             IHasSurfaceLineProperty
+                                                             IHasSurfaceLineProperty,
+                                                             IHasStochasticSoilModel,
+                                                             IHasStochasticSoilProfile
     {
         private const int selectedHydraulicBoundaryLocationPropertyIndex = 1;
         private const int dampingFactorExitPropertyIndex = 2;
@@ -266,7 +268,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
         }
 
         [PropertyOrder(stochasticSoilModelPropertyIndex)]
-        [Editor(typeof(PipingInputContextStochasticSoilModelSelectionEditor), typeof(UITypeEditor))]
+        [Editor(typeof(PipingInputContextStochasticSoilModelSelectionEditor<ProbabilisticPipingInputContextProperties>), typeof(UITypeEditor))]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.PipingInput_StochasticSoilModel_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.PipingInput_StochasticSoilModel_Description))]
@@ -290,7 +292,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
         }
 
         [PropertyOrder(stochasticSoilProfilePropertyIndex)]
-        [Editor(typeof(PipingInputContextStochasticSoilProfileSelectionEditor), typeof(UITypeEditor))]
+        [Editor(typeof(PipingInputContextStochasticSoilProfileSelectionEditor<ProbabilisticPipingInputContextProperties>), typeof(UITypeEditor))]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.PipingInput_StochasticSoilProfile_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.PipingInput_StochasticSoilProfile_Description))]

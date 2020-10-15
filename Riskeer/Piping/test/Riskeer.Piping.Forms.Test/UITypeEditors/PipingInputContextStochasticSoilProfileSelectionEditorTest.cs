@@ -77,7 +77,7 @@ namespace Riskeer.Piping.Forms.Test.UITypeEditors
                                                                                AssessmentSectionTestHelper.GetTestAssessmentLevel,
                                                                                handler);
 
-            var editor = new PipingInputContextStochasticSoilProfileSelectionEditor();
+            var editor = new PipingInputContextStochasticSoilProfileSelectionEditor<SemiProbabilisticPipingInputContextProperties>();
             var someValue = new object();
             var propertyBag = new DynamicPropertyBag(properties);
 
@@ -147,7 +147,7 @@ namespace Riskeer.Piping.Forms.Test.UITypeEditors
                                                                                AssessmentSectionTestHelper.GetTestAssessmentLevel,
                                                                                handler);
 
-            var editor = new PipingInputContextStochasticSoilProfileSelectionEditor();
+            var editor = new PipingInputContextStochasticSoilProfileSelectionEditor<SemiProbabilisticPipingInputContextProperties>();
             var someValue = new object();
             var propertyBag = new DynamicPropertyBag(properties);
 

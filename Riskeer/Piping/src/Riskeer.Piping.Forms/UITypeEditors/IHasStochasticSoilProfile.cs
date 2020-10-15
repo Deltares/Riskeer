@@ -20,34 +20,22 @@
 // All rights reserved.
 
 using System.Collections.Generic;
-using System.ComponentModel;
-using Core.Common.Gui.UITypeEditors;
+using Core.Common.Gui.PropertyBag;
 using Riskeer.Piping.Data.SoilProfile;
 
 namespace Riskeer.Piping.Forms.UITypeEditors
 {
-    /// <summary>
-    /// This class defines a drop down list edit-control from which the user can select a
-    /// <see cref="PipingStochasticSoilModel"/> from a collection.
-    /// </summary>
-    public class PipingInputContextStochasticSoilModelSelectionEditor<T> : SelectionEditor<T, PipingStochasticSoilModel> where T: IHasStochasticSoilModel
+    public interface IHasStochasticSoilProfile : IObjectProperties
     {
         /// <summary>
-        /// Creates a new instance of <see cref="PipingInputContextStochasticSoilModelSelectionEditor{T}"/>.
+        /// Returns the collection of surface lines.
         /// </summary>
-        public PipingInputContextStochasticSoilModelSelectionEditor()
-        {
-            DisplayMember = nameof(PipingStochasticSoilModel.Name);
-        }
+        /// <returns>A collection of surface lines.</returns>
+        IEnumerable<PipingStochasticSoilProfile> GetAvailableStochasticSoilProfiles();
 
-        protected override IEnumerable<PipingStochasticSoilModel> GetAvailableOptions(ITypeDescriptorContext context)
-        {
-            return GetPropertiesObject(context).GetAvailableStochasticSoilModels();
-        }
-
-        protected override PipingStochasticSoilModel GetCurrentOption(ITypeDescriptorContext context)
-        {
-            return GetPropertiesObject(context).StochasticSoilModel;
-        }
+        /// <summary>
+        /// Gets the piping surface line.
+        /// </summary>
+        PipingStochasticSoilProfile StochasticSoilProfile { get; }
     }
 }
