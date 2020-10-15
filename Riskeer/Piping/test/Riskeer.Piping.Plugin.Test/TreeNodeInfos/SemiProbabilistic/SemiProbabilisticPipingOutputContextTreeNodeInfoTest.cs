@@ -27,18 +27,13 @@ using Core.Common.Gui.ContextMenu;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Riskeer.Common.Data.AssessmentSection;
-using Riskeer.Piping.Data;
-using Riskeer.Piping.Data.Probabilistic;
-using Riskeer.Piping.Data.SoilProfile;
-using Riskeer.Piping.Forms.PresentationObjects.Probabilistic;
-using Riskeer.Piping.Forms.Properties;
-using Riskeer.Piping.Primitives;
+using Riskeer.Piping.Forms.PresentationObjects.SemiProbabilistic;
+using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
-namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
+namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.SemiProbabilistic
 {
     [TestFixture]
-    public class ProbabilisticPipingInputContextTreeNodeInfoTest
+    public class SemiProbabilisticPipingOutputContextTreeNodeInfoTest
     {
         private MockRepository mocks;
         private PipingPlugin plugin;
@@ -49,7 +44,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
         {
             mocks = new MockRepository();
             plugin = new PipingPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(ProbabilisticPipingInputContext));
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(SemiProbabilisticPipingOutputContext));
         }
 
         [TearDown]
@@ -89,59 +84,34 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
         [Test]
         public void Text_Always_ReturnsTextFromResource()
         {
-            // Setup
-            var pipingInputContext = new ProbabilisticPipingInputContext(
-                new ProbabilisticPipingInput(new GeneralPipingInput()),
-                new ProbabilisticPipingCalculation(new GeneralPipingInput()),
-                Enumerable.Empty<PipingSurfaceLine>(),
-                Enumerable.Empty<PipingStochasticSoilModel>(),
-                new PipingFailureMechanism(),
-                mocks.Stub<IAssessmentSection>());
-
-            mocks.ReplayAll();
-
             // Call
-            string text = info.Text(pipingInputContext);
+            string text = info.Text(null);
 
             // Assert
-            Assert.AreEqual("Invoer", text);
+            Assert.AreEqual("Resultaat", text);
         }
 
         [Test]
         public void Image_Always_ReturnsSetImage()
         {
-            // Setup
-            var pipingInputContext = new ProbabilisticPipingInputContext(
-                new ProbabilisticPipingInput(new GeneralPipingInput()),
-                new ProbabilisticPipingCalculation(new GeneralPipingInput()),
-                Enumerable.Empty<PipingSurfaceLine>(),
-                Enumerable.Empty<PipingStochasticSoilModel>(),
-                new PipingFailureMechanism(),
-                mocks.Stub<IAssessmentSection>());
-
-            mocks.ReplayAll();
-
             // Call
-            Image image = info.Image(pipingInputContext);
+            Image image = info.Image(null);
 
             // Assert
-            TestHelper.AssertImagesAreEqual(Resources.PipingInputIcon, image);
+            TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.GeneralOutputIcon, image);
         }
 
         [Test]
         public void ContextMenuStrip_Always_CallsBuilder()
         {
             // Setup
-            var gui = mocks.Stub<IGui>();
             var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
-
-            menuBuilder.Expect(mb => mb.AddOpenItem()).Return(menuBuilder);
-            menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
             menuBuilder.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilder);
             menuBuilder.Expect(mb => mb.Build()).Return(null);
 
             using (var treeViewControl = new TreeViewControl())
             {
+                var gui = mocks.Stub<IGui>();
                 gui.Stub(g => g.Get(null, treeViewControl)).Return(menuBuilder);
                 mocks.ReplayAll();
 

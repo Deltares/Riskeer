@@ -30,10 +30,10 @@ using Rhino.Mocks;
 using Riskeer.Piping.Forms.PresentationObjects.SemiProbabilistic;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
-namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
+namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.SemiProbabilistic
 {
     [TestFixture]
-    public class PipingOutputContextTreeNodeInfoTest
+    public class EmptySemiProbabilisticPipingOutputTreeNodeInfoTest
     {
         private MockRepository mocks;
         private PipingPlugin plugin;
@@ -44,7 +44,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
         {
             mocks = new MockRepository();
             plugin = new PipingPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(SemiProbabilisticPipingOutputContext));
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(EmptySemiProbabilisticPipingOutput));
         }
 
         [TearDown]
@@ -62,7 +62,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
 
             // Assert
             Assert.IsNotNull(info.Text);
-            Assert.IsNull(info.ForeColor);
+            Assert.IsNotNull(info.ForeColor);
             Assert.IsNotNull(info.Image);
             Assert.IsNotNull(info.ContextMenuStrip);
             Assert.IsNull(info.EnsureVisibleOnCreate);
@@ -82,8 +82,11 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void Text_Always_ReturnsTextFromResource()
+        public void Text_Always_ReturnsFromResource()
         {
+            // Setup
+            mocks.ReplayAll();
+
             // Call
             string text = info.Text(null);
 
@@ -92,8 +95,11 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void Image_Always_ReturnsSetImage()
+        public void Image_Always_ReturnsGeneralOutputIcon()
         {
+            // Setup
+            mocks.ReplayAll();
+
             // Call
             Image image = info.Image(null);
 
@@ -102,17 +108,33 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_Always_CallsBuilder()
+        public void ForeColor_Always_ReturnsGrayText()
+        {
+            // Setup
+            mocks.ReplayAll();
+
+            // Call
+            Color textColor = info.ForeColor(null);
+
+            // Assert
+            Assert.AreEqual(Color.FromKnownColor(KnownColor.GrayText), textColor);
+        }
+
+        [Test]
+        public void ContextMenuStrip_Always_CallsContextMenuBuilderMethods()
         {
             // Setup
             var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
-            menuBuilder.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilder);
-            menuBuilder.Expect(mb => mb.Build()).Return(null);
+            using (mocks.Ordered())
+            {
+                menuBuilder.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.Build()).Return(null);
+            }
 
             using (var treeViewControl = new TreeViewControl())
             {
                 var gui = mocks.Stub<IGui>();
-                gui.Stub(g => g.Get(null, treeViewControl)).Return(menuBuilder);
+                gui.Stub(cmp => cmp.Get(null, treeViewControl)).Return(menuBuilder);
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;

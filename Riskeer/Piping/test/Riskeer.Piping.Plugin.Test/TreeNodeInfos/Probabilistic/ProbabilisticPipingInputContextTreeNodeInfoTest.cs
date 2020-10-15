@@ -29,16 +29,16 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Piping.Data;
-using Riskeer.Piping.Data.SemiProbabilistic;
+using Riskeer.Piping.Data.Probabilistic;
 using Riskeer.Piping.Data.SoilProfile;
-using Riskeer.Piping.Forms.PresentationObjects.SemiProbabilistic;
+using Riskeer.Piping.Forms.PresentationObjects.Probabilistic;
 using Riskeer.Piping.Forms.Properties;
 using Riskeer.Piping.Primitives;
 
-namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
+namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
 {
     [TestFixture]
-    public class PipingInputContextTreeNodeInfoTest
+    public class ProbabilisticPipingInputContextTreeNodeInfoTest
     {
         private MockRepository mocks;
         private PipingPlugin plugin;
@@ -49,7 +49,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
         {
             mocks = new MockRepository();
             plugin = new PipingPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(SemiProbabilisticPipingInputContext));
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(ProbabilisticPipingInputContext));
         }
 
         [TearDown]
@@ -90,9 +90,9 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
         public void Text_Always_ReturnsTextFromResource()
         {
             // Setup
-            var pipingInputContext = new SemiProbabilisticPipingInputContext(
-                new SemiProbabilisticPipingInput(new GeneralPipingInput()),
-                new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput()),
+            var pipingInputContext = new ProbabilisticPipingInputContext(
+                new ProbabilisticPipingInput(new GeneralPipingInput()),
+                new ProbabilisticPipingCalculation(new GeneralPipingInput()),
                 Enumerable.Empty<PipingSurfaceLine>(),
                 Enumerable.Empty<PipingStochasticSoilModel>(),
                 new PipingFailureMechanism(),
@@ -111,9 +111,9 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
         public void Image_Always_ReturnsSetImage()
         {
             // Setup
-            var pipingInputContext = new SemiProbabilisticPipingInputContext(
-                new SemiProbabilisticPipingInput(new GeneralPipingInput()),
-                new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput()),
+            var pipingInputContext = new ProbabilisticPipingInputContext(
+                new ProbabilisticPipingInput(new GeneralPipingInput()),
+                new ProbabilisticPipingCalculation(new GeneralPipingInput()),
                 Enumerable.Empty<PipingSurfaceLine>(),
                 Enumerable.Empty<PipingStochasticSoilModel>(),
                 new PipingFailureMechanism(),

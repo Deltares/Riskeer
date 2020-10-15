@@ -27,13 +27,18 @@ using Core.Common.Gui.ContextMenu;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Piping.Data;
+using Riskeer.Piping.Data.SemiProbabilistic;
+using Riskeer.Piping.Data.SoilProfile;
 using Riskeer.Piping.Forms.PresentationObjects.SemiProbabilistic;
-using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
+using Riskeer.Piping.Forms.Properties;
+using Riskeer.Piping.Primitives;
 
-namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
+namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.SemiProbabilistic
 {
     [TestFixture]
-    public class EmptySemiProbabilisticPipingOutputTreeNodeInfoTest
+    public class SemiProbabilisticPipingInputContextTreeNodeInfoTest
     {
         private MockRepository mocks;
         private PipingPlugin plugin;
@@ -44,7 +49,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
         {
             mocks = new MockRepository();
             plugin = new PipingPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(EmptySemiProbabilisticPipingOutput));
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(SemiProbabilisticPipingInputContext));
         }
 
         [TearDown]
@@ -62,7 +67,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
 
             // Assert
             Assert.IsNotNull(info.Text);
-            Assert.IsNotNull(info.ForeColor);
+            Assert.IsNull(info.ForeColor);
             Assert.IsNotNull(info.Image);
             Assert.IsNotNull(info.ContextMenuStrip);
             Assert.IsNull(info.EnsureVisibleOnCreate);
@@ -82,59 +87,62 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void Text_Always_ReturnsFromResource()
+        public void Text_Always_ReturnsTextFromResource()
         {
             // Setup
+            var pipingInputContext = new SemiProbabilisticPipingInputContext(
+                new SemiProbabilisticPipingInput(new GeneralPipingInput()),
+                new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput()),
+                Enumerable.Empty<PipingSurfaceLine>(),
+                Enumerable.Empty<PipingStochasticSoilModel>(),
+                new PipingFailureMechanism(),
+                mocks.Stub<IAssessmentSection>());
+
             mocks.ReplayAll();
 
             // Call
-            string text = info.Text(null);
+            string text = info.Text(pipingInputContext);
 
             // Assert
-            Assert.AreEqual("Resultaat", text);
+            Assert.AreEqual("Invoer", text);
         }
 
         [Test]
-        public void Image_Always_ReturnsGeneralOutputIcon()
+        public void Image_Always_ReturnsSetImage()
         {
             // Setup
+            var pipingInputContext = new SemiProbabilisticPipingInputContext(
+                new SemiProbabilisticPipingInput(new GeneralPipingInput()),
+                new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput()),
+                Enumerable.Empty<PipingSurfaceLine>(),
+                Enumerable.Empty<PipingStochasticSoilModel>(),
+                new PipingFailureMechanism(),
+                mocks.Stub<IAssessmentSection>());
+
             mocks.ReplayAll();
 
             // Call
-            Image image = info.Image(null);
+            Image image = info.Image(pipingInputContext);
 
             // Assert
-            TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.GeneralOutputIcon, image);
+            TestHelper.AssertImagesAreEqual(Resources.PipingInputIcon, image);
         }
 
         [Test]
-        public void ForeColor_Always_ReturnsGrayText()
+        public void ContextMenuStrip_Always_CallsBuilder()
         {
             // Setup
-            mocks.ReplayAll();
-
-            // Call
-            Color textColor = info.ForeColor(null);
-
-            // Assert
-            Assert.AreEqual(Color.FromKnownColor(KnownColor.GrayText), textColor);
-        }
-
-        [Test]
-        public void ContextMenuStrip_Always_CallsContextMenuBuilderMethods()
-        {
-            // Setup
+            var gui = mocks.Stub<IGui>();
             var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
-            using (mocks.Ordered())
-            {
-                menuBuilder.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.Build()).Return(null);
-            }
+
+            menuBuilder.Expect(mb => mb.AddOpenItem()).Return(menuBuilder);
+            menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
+            menuBuilder.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilder);
+            menuBuilder.Expect(mb => mb.Build()).Return(null);
 
             using (var treeViewControl = new TreeViewControl())
             {
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(null, treeViewControl)).Return(menuBuilder);
+                gui.Stub(g => g.Get(null, treeViewControl)).Return(menuBuilder);
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;
