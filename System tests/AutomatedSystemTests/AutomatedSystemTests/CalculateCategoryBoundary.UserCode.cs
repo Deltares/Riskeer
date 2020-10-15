@@ -37,6 +37,7 @@ namespace AutomatedSystemTests
         {
             // TODO: Replace the following line with your code implementation.
             //throw new NotImplementedException();
+            return "";
         }
 
     }

@@ -53,7 +53,7 @@ mode="Global">
 		action="DoubleClick"
 		button="Left"
 		duration="300ms"
-		enabled="True"
+		enabled="False"
 		loc="CenterRight"
 		movetime="300ms"
 		optional="False"
@@ -76,7 +76,7 @@ mode="Global">
 		<keysequenceitem
 		KeySequence="{Back}"
 		duration="20ms"
-		enabled="True"
+		enabled="False"
 		optional="False"
 		presstime="20ms"
 		searchpropertyid="ecd098fd-16fe-43b8-8380-04c4263dbe2b">
@@ -95,7 +95,7 @@ mode="Global">
 		<keysequenceitem
 		KeySequence="{NumPad0}{Decimal}{NumPad0}{NumPad0}{NumPad1}{NumPad2}{NumPad5}"
 		duration="20ms"
-		enabled="True"
+		enabled="False"
 		optional="False"
 		presstime="20ms"
 		searchpropertyid="28ae3c89-fbed-4091-b7a3-a00f6ca312d0">
@@ -115,10 +115,34 @@ mode="Global">
 				</path>
 			</info>
 		</keysequenceitem>
+		<setvaluerecorditem
+		attrname="AccessibleValue"
+		enabled="True"
+		optional="False"
+		searchpropertyid="562a3825-c20c-402a-9e66-5167f3b051e1">
+			<comment>
+			</comment>
+			<bindings>
+				<binding
+				target="AttributeValue"
+				variable="expectedCustomAssessmentValue">
+				</binding>
+			</bindings>
+			<info
+			id="2a76c8ea-2ab5-4255-931e-89d10c2fcde3"
+			sourcename="RepositoryEditor">
+				<path>
+					/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename&gt;'Toets op maatfaalkans Row ']
+				</path>
+			</info>
+			<AttributeValue>
+				yourValue
+			</AttributeValue>
+		</setvaluerecorditem>
 		<keysequenceitem
 		KeySequence="{Return}"
 		duration="20ms"
-		enabled="True"
+		enabled="False"
 		optional="False"
 		presstime="20ms"
 		searchpropertyid="f5d428a4-8a03-43c6-8c6d-2fea39ad4c5b">

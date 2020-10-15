@@ -106,21 +106,25 @@ namespace AutomatedSystemTests
             repo.RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.CustomAssessmentValueRowNth.Focus();
             Delay.Milliseconds(0);
             
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left DoubleClick item 'RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.CustomAssessmentValueRowNth' at CenterRight.", repo.RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.CustomAssessmentValueRowNthInfo, new RecordItemIndex(1));
-            repo.RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.CustomAssessmentValueRowNth.DoubleClick(Location.CenterRight);
+            //Report.Log(ReportLevel.Info, "Mouse", "Mouse Left DoubleClick item 'RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.CustomAssessmentValueRowNth' at CenterRight.", repo.RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.CustomAssessmentValueRowNthInfo, new RecordItemIndex(1));
+            //repo.RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.CustomAssessmentValueRowNth.DoubleClick(Location.CenterRight);
+            //Delay.Milliseconds(0);
+            
+            //Report.Log(ReportLevel.Info, "Keyboard", "Key sequence '{Back}' with focus on 'RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.CustomAssessmentValueRowNth'.", repo.RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.CustomAssessmentValueRowNthInfo, new RecordItemIndex(2));
+            //repo.RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.CustomAssessmentValueRowNth.PressKeys("{Back}");
+            //Delay.Milliseconds(0);
+            
+            //Report.Log(ReportLevel.Info, "Keyboard", "Key sequence from variable '$expectedCustomAssessmentValue' with focus on 'RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.CustomAssessmentValueRowNth'.", repo.RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.CustomAssessmentValueRowNthInfo, new RecordItemIndex(3));
+            //repo.RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.CustomAssessmentValueRowNth.PressKeys(expectedCustomAssessmentValue);
+            //Delay.Milliseconds(0);
+            
+            Report.Log(ReportLevel.Info, "Set value", "Setting attribute AccessibleValue to '$expectedCustomAssessmentValue' on item 'RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.CustomAssessmentValueRowNth'.", repo.RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.CustomAssessmentValueRowNthInfo, new RecordItemIndex(4));
+            repo.RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.CustomAssessmentValueRowNth.Element.SetAttributeValue("AccessibleValue", expectedCustomAssessmentValue);
             Delay.Milliseconds(0);
             
-            Report.Log(ReportLevel.Info, "Keyboard", "Key sequence '{Back}' with focus on 'RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.CustomAssessmentValueRowNth'.", repo.RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.CustomAssessmentValueRowNthInfo, new RecordItemIndex(2));
-            repo.RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.CustomAssessmentValueRowNth.PressKeys("{Back}");
-            Delay.Milliseconds(0);
-            
-            Report.Log(ReportLevel.Info, "Keyboard", "Key sequence from variable '$expectedCustomAssessmentValue' with focus on 'RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.CustomAssessmentValueRowNth'.", repo.RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.CustomAssessmentValueRowNthInfo, new RecordItemIndex(3));
-            repo.RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.CustomAssessmentValueRowNth.PressKeys(expectedCustomAssessmentValue);
-            Delay.Milliseconds(0);
-            
-            Report.Log(ReportLevel.Info, "Keyboard", "Key sequence '{Return}' with focus on 'RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.CustomAssessmentValueRowNth'.", repo.RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.CustomAssessmentValueRowNthInfo, new RecordItemIndex(4));
-            repo.RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.CustomAssessmentValueRowNth.PressKeys("{Return}");
-            Delay.Milliseconds(0);
+            //Report.Log(ReportLevel.Info, "Keyboard", "Key sequence '{Return}' with focus on 'RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.CustomAssessmentValueRowNth'.", repo.RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.CustomAssessmentValueRowNthInfo, new RecordItemIndex(5));
+            //repo.RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.CustomAssessmentValueRowNth.PressKeys("{Return}");
+            //Delay.Milliseconds(0);
             
         }
 

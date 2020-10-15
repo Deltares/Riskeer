@@ -7,7 +7,7 @@ mode="Global">
 		1
 	</repeatcount>
 	<turbomode>
-		False
+		True
 	</turbomode>
 	<genreport>
 		True
@@ -49,6 +49,26 @@ mode="Global">
 			id="0b04fbdb-98e8-435d-b306-51df7227cad0">
 			</arguments>
 		</invokeactionrecorditem>
+		<invokeactionrecorditem
+		action="Select"
+		enabled="True"
+		optional="False"
+		searchpropertyid="88eeba83-f128-4a2e-bb9c-7110237e0003">
+			<comment>
+			</comment>
+			<bindings>
+			</bindings>
+			<info
+			id="88678175-4929-4e0e-a802-3dbaab044649"
+			sourcename="RepositoryEditor">
+				<path>
+					/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename='Toets op maat Row '+$rowIndex]
+				</path>
+			</info>
+			<arguments
+			id="6496a149-5c44-4c1c-9764-203f6f3625bb">
+			</arguments>
+		</invokeactionrecorditem>
 		<mouseitem
 		action="Click"
 		button="Left"
@@ -73,12 +93,21 @@ mode="Global">
 				</path>
 			</info>
 		</mouseitem>
+		<explicitdelayitem
+		duration="100ms"
+		enabled="True"
+		optional="False">
+			<comment>
+			</comment>
+			<bindings>
+			</bindings>
+		</explicitdelayitem>
 		<mouseitem
 		action="Click"
 		button="Left"
 		duration="300ms"
 		enabled="True"
-		loc="57;8"
+		loc="Center"
 		movetime="300ms"
 		optional="False"
 		searchpropertyid="decb05e3-049e-459e-a7c1-4799856b9d81"

@@ -25,6 +25,46 @@ mode="Global">
 	<variables>
 	</variables>
 	<recorditems>
+		<invokeactionrecorditem
+		action="Focus"
+		enabled="True"
+		optional="False"
+		searchpropertyid="4f4c5b11-653a-476c-a015-1947011ee441">
+			<comment>
+			</comment>
+			<bindings>
+			</bindings>
+			<info
+			id="0975ee40-020d-45db-a2a2-374a609a3436"
+			sourcename="RepositoryEditor">
+				<path>
+					/form[@automationid='RiskeerMainWindow']//container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]/treeitem[@accessiblename~$substringTrajectName]/treeitem[@accessiblename~$substringFMName]/treeitem[@accessiblename='Invoer']/treeitem[@accessiblename='Profielschematisaties']
+				</path>
+			</info>
+			<arguments
+			id="22e9419c-e8bb-4989-9c54-5a8a9a45349a">
+			</arguments>
+		</invokeactionrecorditem>
+		<invokeactionrecorditem
+		action="Select"
+		enabled="True"
+		optional="False"
+		searchpropertyid="cf65e626-739b-4970-92a4-d5411c699136">
+			<comment>
+			</comment>
+			<bindings>
+			</bindings>
+			<info
+			id="0975ee40-020d-45db-a2a2-374a609a3436"
+			sourcename="RepositoryEditor">
+				<path>
+					/form[@automationid='RiskeerMainWindow']//container[@controlname='ProjectExplorer']//tree[@controlname='treeView']/tree[@accessiblerole='Outline']/treeitem[1]/treeitem[@accessiblename~$substringTrajectName]/treeitem[@accessiblename~$substringFMName]/treeitem[@accessiblename='Invoer']/treeitem[@accessiblename='Profielschematisaties']
+				</path>
+			</info>
+			<arguments
+			id="9652dc4e-4096-4a61-b586-5f84f64acc4e">
+			</arguments>
+		</invokeactionrecorditem>
 		<mouseitem
 		action="Click"
 		button="Right"
