@@ -46,6 +46,7 @@ using Riskeer.Piping.Data.TestUtil;
 using Riskeer.Piping.Forms.PresentationObjects.Probabilistic;
 using Riskeer.Piping.Forms.PropertyClasses;
 using Riskeer.Piping.Forms.PropertyClasses.Probabilistic;
+using Riskeer.Piping.Forms.UITypeEditors;
 using Riskeer.Piping.Primitives;
 using Riskeer.Piping.Primitives.TestUtil;
 
@@ -175,6 +176,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             // Assert
             Assert.IsInstanceOf<ObjectProperties<ProbabilisticPipingInputContext>>(properties);
             Assert.IsInstanceOf<IHasHydraulicBoundaryLocationProperty>(properties);
+            Assert.IsInstanceOf<IHasSurfaceLineProperty>(properties);
             Assert.AreSame(context, properties.Data);
 
             Assert.IsInstanceOf<LogNormalDistributionProperties>(properties.DampingFactorExit);
