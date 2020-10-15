@@ -33,8 +33,7 @@ namespace Riskeer.Piping.Data.Probabilistic
         /// Creates a new instance of <see cref="PartialProbabilisticPipingOutput"/>.
         /// </summary>
         /// <param name="reliability">The reliability of the calculation.</param>
-        /// <param name="generalResult">The general result of this output with the 
-        /// fault tree illustration points.</param>
+        /// <param name="generalResult">The general result of this output with the fault tree illustration points.</param>
         public PartialProbabilisticPipingOutput(double reliability,
                                                 GeneralResult<TopLevelFaultTreeIllustrationPoint> generalResult)
         {
