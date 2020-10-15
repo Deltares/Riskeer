@@ -28,7 +28,7 @@ namespace Riskeer.Storage.Core.Create.Piping
     /// <summary>
     /// Extension methods for <see cref="SemiProbabilisticPipingOutput"/> related to creating a <see cref="PipingCalculationOutputEntity"/>.
     /// </summary>
-    internal static class PipingOutputCreateExtensions
+    internal static class SemiProbabilisticPipingOutputCreateExtensions
     {
         /// <summary>
         /// Creates a <see cref="PipingCalculationOutputEntity"/> based on the information

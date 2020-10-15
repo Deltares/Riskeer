@@ -28,7 +28,7 @@ using Riskeer.Storage.Core.Read.Piping;
 namespace Riskeer.Storage.Core.Test.Read.Piping
 {
     [TestFixture]
-    public class PipingCalculationOutputEntityReadExtensionsTest
+    public class SemiProbabilisticPipingCalculationOutputEntityReadExtensionsTest
     {
         [Test]
         public void Read_EntityNull_ThrowsArgumentNullException()

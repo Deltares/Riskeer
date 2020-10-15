@@ -40,7 +40,7 @@ using Riskeer.Storage.Core.TestUtil.Hydraulics;
 namespace Riskeer.Storage.Core.Test.Read.Piping
 {
     [TestFixture]
-    public class PipingCalculationEntityReadExtensionsTest
+    public class SemiProbabilisticPipingCalculationEntityReadExtensionsTest
     {
         [Test]
         public void Read_CollectorIsNull_ThrowArgumentNullException()

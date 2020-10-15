@@ -29,7 +29,7 @@ namespace Riskeer.Storage.Core.Read.Piping
     /// This class defines extension methods for read operations for an <see cref="SemiProbabilisticPipingOutput"/>
     /// based on the <see cref="PipingCalculationOutputEntity"/>.
     /// </summary>
-    internal static class PipingCalculationOutputEntityReadExtensions
+    internal static class SemiProbabilisticPipingCalculationOutputEntityReadExtensions
     {
         /// <summary>
         /// Read the <see cref="PipingCalculationOutputEntity"/> and use the information to

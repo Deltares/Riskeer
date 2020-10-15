@@ -40,7 +40,7 @@ using Riskeer.Storage.Core.DbContext;
 namespace Riskeer.Storage.Core.Test.Create.Piping
 {
     [TestFixture]
-    public class PipingCalculationScenarioCreateExtensionsTest
+    public class SemiProbabilisticPipingCalculationScenarioCreateExtensionsTest
     {
         [Test]
         public void Create_PersistenceRegistryIsNull_ThrowArgumentNullException()
