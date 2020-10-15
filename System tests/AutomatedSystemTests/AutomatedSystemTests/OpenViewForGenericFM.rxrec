@@ -69,6 +69,15 @@ mode="Global">
 			id="4ebb7c0e-23e9-4db3-974f-a2d23b8c6f59">
 			</arguments>
 		</invokeactionrecorditem>
+		<explicitdelayitem
+		duration="300ms"
+		enabled="True"
+		optional="False">
+			<comment>
+			</comment>
+			<bindings>
+			</bindings>
+		</explicitdelayitem>
 		<mouseitem
 		action="Click"
 		button="Right"
