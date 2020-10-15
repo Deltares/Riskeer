@@ -40,6 +40,6 @@
     </PackageReference>
   </ItemGroup>
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="xcopy /d/s/y &quot;$(PkgOxyPlot_WindowsForms)\lib\net45\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Externals\OxyPlot.WindowsForms-1.0.0\*&quot;" />
+    <Exec Command="xcopy /d/s/y &quot;$(PkgOxyPlot_WindowsForms)\lib\net45\*&quot; &quot;$(SolutionDir)bin\$(Configuration)\Application\Built-in\Managed\Third-party\OxyPlot.WindowsForms-1.0.0\*&quot;" />
   </Target>
 </Project>
