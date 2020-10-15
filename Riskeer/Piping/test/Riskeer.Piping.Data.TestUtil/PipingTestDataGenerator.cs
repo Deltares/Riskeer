@@ -29,6 +29,7 @@ using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.Probabilistics;
 using Riskeer.Common.Data.TestUtil;
+using Riskeer.Common.Data.TestUtil.IllustrationPoints;
 using Riskeer.Piping.Data.Probabilistic;
 using Riskeer.Piping.Data.SemiProbabilistic;
 using Riskeer.Piping.Data.SoilProfile;
@@ -499,6 +500,19 @@ namespace Riskeer.Piping.Data.TestUtil
                 SellmeijerCriticalFall = random.NextDouble(),
                 SellmeijerReducedFall = random.NextDouble()
             });
+        }
+        
+        /// <summary>
+        /// Creates a random instance of <see cref="PartialProbabilisticPipingOutput"/>.
+        /// </summary>
+        /// <param name="generalResult">The general result to set to the output.</param>
+        /// <returns>A random instance of <see cref="PartialProbabilisticPipingOutput"/>.</returns>
+        public static PartialProbabilisticPipingOutput GetRandomPartialProbabilisticPipingOutput(TestGeneralResultFaultTreeIllustrationPoint generalResult)
+        {
+            var random = new Random(21);
+
+            return new PartialProbabilisticPipingOutput(random.NextDouble(),
+                                                        generalResult);
         }
     }
 }
