@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Data;
@@ -186,6 +187,41 @@ namespace Riskeer.Piping.Data.TestUtil.Test
             Assert.AreEqual(double.PositiveInfinity, calculation.InputParameters.DampingFactorExit.StandardDeviation.Value);
         }
 
+        [Test]
+        public void GetRandomSemiProbabilisticPipingOutput_Always_ReturnOutput()
+        {
+            // Call
+            SemiProbabilisticPipingOutput output = PipingTestDataGenerator.GetRandomSemiProbabilisticPipingOutput();
+
+            // Assert
+            Assert.IsTrue(IsValidDouble(output.HeaveFactorOfSafety));
+            Assert.IsTrue(IsValidDouble(output.UpliftEffectiveStress));
+            Assert.IsTrue(IsValidDouble(output.UpliftFactorOfSafety));
+            Assert.IsTrue(IsValidDouble(output.SellmeijerFactorOfSafety));
+            Assert.IsTrue(IsValidDouble(output.HeaveGradient));
+            Assert.IsTrue(IsValidDouble(output.SellmeijerCreepCoefficient));
+            Assert.IsTrue(IsValidDouble(output.SellmeijerCriticalFall));
+            Assert.IsTrue(IsValidDouble(output.SellmeijerReducedFall));
+        }
+
+        [Test]
+        public void GetSemiProbabilisticPipingOutput_Always_ReturnOutput()
+        {
+            // Setup
+            var random = new Random(39);
+            double heaveFactorOfSafety = random.NextDouble();
+            double upliftFactorOfSafety = random.NextDouble();
+            double sellmeijerFactorOfSafety = random.NextDouble();
+
+            // Call
+            SemiProbabilisticPipingOutput output = PipingTestDataGenerator.GetSemiProbabilisticPipingOutput(heaveFactorOfSafety, upliftFactorOfSafety, sellmeijerFactorOfSafety);
+
+            // Assert
+            Assert.AreEqual(heaveFactorOfSafety, output.HeaveFactorOfSafety);
+            Assert.AreEqual(upliftFactorOfSafety, output.UpliftFactorOfSafety);
+            Assert.AreEqual(sellmeijerFactorOfSafety, output.SellmeijerFactorOfSafety);
+        }
+
         private static void AssertCalculationScenario(SemiProbabilisticPipingCalculationScenario calculation,
                                                       bool hasHydraulicLocation = true,
                                                       bool hasAssessmentLevel = false,
@@ -270,6 +306,11 @@ namespace Riskeer.Piping.Data.TestUtil.Test
             {
                 Assert.AreSame(hydraulicBoundaryLocation, calculation.InputParameters.HydraulicBoundaryLocation);
             }
+        }
+
+        private static bool IsValidDouble(double value)
+        {
+            return !double.IsNaN(value) && !double.IsInfinity(value);
         }
     }
 }
