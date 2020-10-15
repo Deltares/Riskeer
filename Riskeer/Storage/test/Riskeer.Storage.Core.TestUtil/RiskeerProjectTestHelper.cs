@@ -1026,7 +1026,7 @@ namespace Riskeer.Storage.Core.TestUtil
                                 StandardDeviation = (RoundedDouble) 4.4
                             }
                         },
-                        Output = SemiProbabilisticPipingOutputTestFactory.Create()
+                        Output = PipingTestDataGenerator.GetRandomSemiProbabilisticPipingOutput()
                     },
                     new SemiProbabilisticPipingCalculationScenario(pipingFailureMechanism.GeneralInput)
                     {
@@ -1058,7 +1058,7 @@ namespace Riskeer.Storage.Core.TestUtil
                             UseAssessmentLevelManualInput = true,
                             AssessmentLevel = (RoundedDouble) 6.0
                         },
-                        Output = SemiProbabilisticPipingOutputTestFactory.Create()
+                        Output = PipingTestDataGenerator.GetRandomSemiProbabilisticPipingOutput()
                     }
                 }
             });

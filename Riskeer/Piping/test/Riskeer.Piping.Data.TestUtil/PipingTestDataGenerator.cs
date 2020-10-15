@@ -306,7 +306,7 @@ namespace Riskeer.Piping.Data.TestUtil
                     SurfaceLine = surfaceLine1,
                     StochasticSoilModel = stochasticSoilModel1
                 },
-                Output = SemiProbabilisticPipingOutputTestFactory.Create()
+                Output = GetRandomSemiProbabilisticPipingOutput()
             };
             var calculationWithSurfaceLineAndSoilModel = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput())
             {
@@ -326,7 +326,7 @@ namespace Riskeer.Piping.Data.TestUtil
                     SurfaceLine = surfaceLine2,
                     StochasticSoilModel = stochasticSoilModel2
                 },
-                Output = SemiProbabilisticPipingOutputTestFactory.Create()
+                Output = GetRandomSemiProbabilisticPipingOutput()
             };
             var calculationWithHydraulicBoundaryLocation = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput())
             {
@@ -355,7 +355,7 @@ namespace Riskeer.Piping.Data.TestUtil
                     StochasticSoilModel = stochasticSoilModel2,
                     StochasticSoilProfile = stochasticSoilModel2.StochasticSoilProfiles.First()
                 },
-                Output = SemiProbabilisticPipingOutputTestFactory.Create()
+                Output = GetRandomSemiProbabilisticPipingOutput()
             };
             var subCalculationWithOutputAndHydraulicBoundaryLocation = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput())
             {
@@ -366,7 +366,7 @@ namespace Riskeer.Piping.Data.TestUtil
                     StochasticSoilModel = stochasticSoilModel1,
                     StochasticSoilProfile = stochasticSoilModel1.StochasticSoilProfiles.First()
                 },
-                Output = SemiProbabilisticPipingOutputTestFactory.Create()
+                Output = GetRandomSemiProbabilisticPipingOutput()
             };
             var subCalculationWithHydraulicBoundaryLocation = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput())
             {

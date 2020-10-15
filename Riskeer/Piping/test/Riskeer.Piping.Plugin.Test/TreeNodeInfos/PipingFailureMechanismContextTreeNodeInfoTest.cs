@@ -238,11 +238,11 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                 var generalInputParameters = new GeneralPipingInput();
                 var pipingCalculation1 = new SemiProbabilisticPipingCalculationScenario(generalInputParameters)
                 {
-                    Output = SemiProbabilisticPipingOutputTestFactory.Create()
+                    Output = PipingTestDataGenerator.GetRandomSemiProbabilisticPipingOutput()
                 };
                 var pipingCalculation2 = new SemiProbabilisticPipingCalculationScenario(generalInputParameters)
                 {
-                    Output = SemiProbabilisticPipingOutputTestFactory.Create()
+                    Output = PipingTestDataGenerator.GetRandomSemiProbabilisticPipingOutput()
                 };
 
                 var observer = mocks.StrictMock<IObserver>();
@@ -313,7 +313,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             var failureMechanism = new TestPipingFailureMechanism();
             var pipingCalculation = new SemiProbabilisticPipingCalculationScenario(failureMechanism.GeneralInput)
             {
-                Output = SemiProbabilisticPipingOutputTestFactory.Create()
+                Output = PipingTestDataGenerator.GetRandomSemiProbabilisticPipingOutput()
             };
             failureMechanism.CalculationsGroup.Children.Add(pipingCalculation);
 
@@ -447,7 +447,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             {
                 var pipingCalculation = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput())
                 {
-                    Output = SemiProbabilisticPipingOutputTestFactory.Create()
+                    Output = PipingTestDataGenerator.GetRandomSemiProbabilisticPipingOutput()
                 };
 
                 var failureMechanism = new PipingFailureMechanism();

@@ -64,7 +64,7 @@ namespace Riskeer.Piping.Data.Test.SemiProbabilistic
             // Setup
             var calculation = new SemiProbabilisticPipingCalculation(new GeneralPipingInput())
             {
-                Output = SemiProbabilisticPipingOutputTestFactory.Create()
+                Output = PipingTestDataGenerator.GetRandomSemiProbabilisticPipingOutput()
             };
 
             // Call
@@ -80,7 +80,7 @@ namespace Riskeer.Piping.Data.Test.SemiProbabilistic
             // Setup
             var calculation = new SemiProbabilisticPipingCalculation(new GeneralPipingInput())
             {
-                Output = SemiProbabilisticPipingOutputTestFactory.Create()
+                Output = PipingTestDataGenerator.GetRandomSemiProbabilisticPipingOutput()
             };
 
             // Call
@@ -96,7 +96,7 @@ namespace Riskeer.Piping.Data.Test.SemiProbabilistic
             // Setup
             SemiProbabilisticPipingCalculation original = CreateRandomCalculationWithoutOutput();
 
-            original.Output = SemiProbabilisticPipingOutputTestFactory.Create();
+            original.Output = PipingTestDataGenerator.GetRandomSemiProbabilisticPipingOutput();
             
             // Call
             object clone = original.Clone();

@@ -178,7 +178,7 @@ namespace Riskeer.Piping.Plugin.Test.UpdateInfos
             var failureMechanism = new PipingFailureMechanism();
             var calculationWithOutput = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput())
             {
-                Output = SemiProbabilisticPipingOutputTestFactory.Create()
+                Output = PipingTestDataGenerator.GetRandomSemiProbabilisticPipingOutput()
             };
             failureMechanism.CalculationsGroup.Children.Add(calculationWithOutput);
 

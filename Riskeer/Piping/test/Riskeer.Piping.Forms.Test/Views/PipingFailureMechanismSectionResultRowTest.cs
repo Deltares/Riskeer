@@ -1069,7 +1069,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             var sectionResult = new PipingFailureMechanismSectionResult(section);
 
             SemiProbabilisticPipingCalculationScenario scenario = SemiProbabilisticPipingCalculationScenarioTestFactory.CreateNotCalculatedPipingCalculationScenario(section);
-            scenario.Output = SemiProbabilisticPipingOutputTestFactory.Create();
+            scenario.Output = PipingTestDataGenerator.GetRandomSemiProbabilisticPipingOutput();
             scenario.Contribution = (RoundedDouble) 0.3;
 
             using (new AssemblyToolCalculatorFactoryConfig())

@@ -60,7 +60,7 @@ namespace Riskeer.Piping.Forms.Test.PresentationObjects.SemiProbabilistic
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () => new SemiProbabilisticPipingOutputContext(SemiProbabilisticPipingOutputTestFactory.Create(), null, assessmentSection);
+            TestDelegate test = () => new SemiProbabilisticPipingOutputContext(PipingTestDataGenerator.GetRandomSemiProbabilisticPipingOutput(), null, assessmentSection);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -72,7 +72,7 @@ namespace Riskeer.Piping.Forms.Test.PresentationObjects.SemiProbabilistic
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new SemiProbabilisticPipingOutputContext(SemiProbabilisticPipingOutputTestFactory.Create(), new PipingFailureMechanism(), null);
+            TestDelegate call = () => new SemiProbabilisticPipingOutputContext(PipingTestDataGenerator.GetRandomSemiProbabilisticPipingOutput(), new PipingFailureMechanism(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -87,7 +87,7 @@ namespace Riskeer.Piping.Forms.Test.PresentationObjects.SemiProbabilistic
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            SemiProbabilisticPipingOutput output = SemiProbabilisticPipingOutputTestFactory.Create();
+            SemiProbabilisticPipingOutput output = PipingTestDataGenerator.GetRandomSemiProbabilisticPipingOutput();
             var failureMechanism = new PipingFailureMechanism();
 
             // Call

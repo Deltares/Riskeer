@@ -207,7 +207,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
 
             group.Children.Add(new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput())
             {
-                Output = SemiProbabilisticPipingOutputTestFactory.Create()
+                Output = PipingTestDataGenerator.GetRandomSemiProbabilisticPipingOutput()
             });
 
             var pipingFailureMechanism = new TestPipingFailureMechanism();
@@ -344,7 +344,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
 
             group.Children.Add(new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput())
             {
-                Output = SemiProbabilisticPipingOutputTestFactory.Create()
+                Output = PipingTestDataGenerator.GetRandomSemiProbabilisticPipingOutput()
             });
 
             var pipingFailureMechanism = new TestPipingFailureMechanism();
@@ -1189,11 +1189,11 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
 
                 SemiProbabilisticPipingCalculationScenario calculation1 = SemiProbabilisticPipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput(hydraulicBoundaryLocation);
                 calculation1.Name = "A";
-                calculation1.Output = SemiProbabilisticPipingOutputTestFactory.Create();
+                calculation1.Output = PipingTestDataGenerator.GetRandomSemiProbabilisticPipingOutput();
                 calculation1.Attach(calculation1Observer);
                 SemiProbabilisticPipingCalculationScenario calculation2 = SemiProbabilisticPipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput(hydraulicBoundaryLocation);
                 calculation2.Name = "B";
-                calculation2.Output = SemiProbabilisticPipingOutputTestFactory.Create();
+                calculation2.Output = PipingTestDataGenerator.GetRandomSemiProbabilisticPipingOutput();
                 calculation2.Attach(calculation2Observer);
 
                 var childGroup = new CalculationGroup();
@@ -1758,7 +1758,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                         EntryPointL = (RoundedDouble) 0,
                         ExitPointL = (RoundedDouble) 1
                     },
-                    Output = SemiProbabilisticPipingOutputTestFactory.Create()
+                    Output = PipingTestDataGenerator.GetRandomSemiProbabilisticPipingOutput()
                 };
                 calculation1.Attach(calculation1Observer);
                 calculation1.InputParameters.Attach(calculation1InputObserver);
@@ -1771,7 +1771,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                         EntryPointL = (RoundedDouble) 0,
                         ExitPointL = (RoundedDouble) 1
                     },
-                    Output = SemiProbabilisticPipingOutputTestFactory.Create()
+                    Output = PipingTestDataGenerator.GetRandomSemiProbabilisticPipingOutput()
                 };
                 calculation2.Attach(calculation2Observer);
                 calculation2.InputParameters.Attach(calculation2InputObserver);
@@ -1873,7 +1873,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                         EntryPointL = (RoundedDouble) 0,
                         ExitPointL = (RoundedDouble) 1
                     },
-                    Output = SemiProbabilisticPipingOutputTestFactory.Create()
+                    Output = PipingTestDataGenerator.GetRandomSemiProbabilisticPipingOutput()
                 };
                 calculation1.Attach(calculation1Observer);
                 calculation1.InputParameters.Attach(calculation1InputObserver);
@@ -1886,7 +1886,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                         EntryPointL = (RoundedDouble) 0,
                         ExitPointL = (RoundedDouble) 1
                     },
-                    Output = SemiProbabilisticPipingOutputTestFactory.Create()
+                    Output = PipingTestDataGenerator.GetRandomSemiProbabilisticPipingOutput()
                 };
                 calculation2.Attach(calculation2Observer);
                 calculation2.InputParameters.Attach(calculation2InputObserver);
