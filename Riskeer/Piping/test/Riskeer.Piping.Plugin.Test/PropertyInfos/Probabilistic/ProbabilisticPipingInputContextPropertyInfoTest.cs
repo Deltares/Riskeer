@@ -32,7 +32,7 @@ using Riskeer.Piping.Forms.PresentationObjects.Probabilistic;
 using Riskeer.Piping.Forms.PropertyClasses.Probabilistic;
 using Riskeer.Piping.Primitives;
 
-namespace Riskeer.Piping.Plugin.Test.PropertyInfos
+namespace Riskeer.Piping.Plugin.Test.PropertyInfos.Probabilistic
 {
     [TestFixture]
     public class ProbabilisticPipingInputContextPropertyInfoTest

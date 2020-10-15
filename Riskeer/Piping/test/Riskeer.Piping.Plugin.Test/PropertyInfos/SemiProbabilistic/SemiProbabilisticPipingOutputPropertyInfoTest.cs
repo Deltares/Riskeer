@@ -32,10 +32,10 @@ using Riskeer.Piping.Data.TestUtil;
 using Riskeer.Piping.Forms.PresentationObjects.SemiProbabilistic;
 using Riskeer.Piping.Forms.PropertyClasses.SemiProbabilistic;
 
-namespace Riskeer.Piping.Plugin.Test.PropertyInfos
+namespace Riskeer.Piping.Plugin.Test.PropertyInfos.SemiProbabilistic
 {
     [TestFixture]
-    public class PipingOutputPropertyInfoTest
+    public class SemiProbabilisticPipingOutputPropertyInfoTest
     {
         private PipingPlugin plugin;
         private PropertyInfo info;
