@@ -162,7 +162,7 @@ namespace Riskeer.Storage.Core.TestUtil
                     {
                         command.CommandText = commandText;
                         command.ExecuteNonQuery();
-                        
+
                         transaction.Commit();
                     }
                     finally

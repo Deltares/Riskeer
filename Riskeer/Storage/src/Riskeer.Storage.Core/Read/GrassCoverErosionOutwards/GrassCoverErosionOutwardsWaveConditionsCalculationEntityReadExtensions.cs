@@ -144,7 +144,7 @@ namespace Riskeer.Storage.Core.Read.GrassCoverErosionOutwards
 
             if (hasWaveImpactOutput)
             {
-                return !hasTailorMadeWaveImpactOutput 
+                return !hasTailorMadeWaveImpactOutput
                            ? GrassCoverErosionOutwardsWaveConditionsOutputFactory.CreateOutputWithWaveRunUpAndWaveImpact(waveRunUpOutput, waveImpactOutput)
                            : GrassCoverErosionOutwardsWaveConditionsOutputFactory.CreateOutputWithWaveRunUpWaveImpactAndTailorMadeWaveImpact(waveRunUpOutput, waveImpactOutput, tailorMadeWaveImpactOutput);
             }
@@ -152,7 +152,6 @@ namespace Riskeer.Storage.Core.Read.GrassCoverErosionOutwards
             return hasTailorMadeWaveImpactOutput
                        ? GrassCoverErosionOutwardsWaveConditionsOutputFactory.CreateOutputWithWaveRunUpAndTailorMadeWaveImpact(waveRunUpOutput, tailorMadeWaveImpactOutput)
                        : GrassCoverErosionOutwardsWaveConditionsOutputFactory.CreateOutputWithWaveRunUp(waveRunUpOutput);
-
         }
 
         private static ForeshoreProfile GetDikeProfileValue(ForeshoreProfileEntity foreshoreProfileEntity,

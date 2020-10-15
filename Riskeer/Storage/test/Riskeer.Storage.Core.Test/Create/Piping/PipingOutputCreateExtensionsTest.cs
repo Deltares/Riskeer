@@ -22,7 +22,6 @@
 using System;
 using NUnit.Framework;
 using Riskeer.Common.Data.TestUtil;
-using Riskeer.Piping.Data;
 using Riskeer.Piping.Data.SemiProbabilistic;
 using Riskeer.Storage.Core.Create.Piping;
 using Riskeer.Storage.Core.DbContext;

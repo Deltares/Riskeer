@@ -273,8 +273,8 @@ namespace Riskeer.Storage.Core.Test.Create.HeightStructures
             Assert.AreEqual(0, childGroupEntity.Order);
 
             HeightStructuresCalculationEntity[] calculationEntities = entity.CalculationGroupEntity.HeightStructuresCalculationEntities
-                                                                             .OrderBy(ce => ce.Order)
-                                                                             .ToArray();
+                                                                            .OrderBy(ce => ce.Order)
+                                                                            .ToArray();
             HeightStructuresCalculationEntity calculationEntity = calculationEntities[0];
             Assert.AreEqual("Nieuwe berekening", calculationEntity.Name);
             Assert.AreEqual(1, calculationEntity.Order);

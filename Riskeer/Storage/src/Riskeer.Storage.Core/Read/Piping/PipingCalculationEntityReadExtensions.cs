@@ -46,7 +46,7 @@ namespace Riskeer.Storage.Core.Read.Piping
         /// <returns>A new <see cref="SemiProbabilisticPipingCalculationScenario"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="collector"/> is <c>null</c>.</exception>
         public static SemiProbabilisticPipingCalculationScenario Read(this PipingCalculationEntity entity, ReadConversionCollector collector,
-                                                     GeneralPipingInput generalInputParameters)
+                                                                      GeneralPipingInput generalInputParameters)
         {
             if (collector == null)
             {
