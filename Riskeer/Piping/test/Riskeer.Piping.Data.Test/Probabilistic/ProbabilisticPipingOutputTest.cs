@@ -50,7 +50,46 @@ namespace Riskeer.Piping.Data.Test.Probabilistic
         }
 
         [Test]
-        public void Clone_Always_ReturnNewInstanceWithCopiedValues()
+        public void Clone_NoPropertiesSet_ReturnNewInstanceWithCopiedValues()
+        {
+            // Setup
+            var original = new ProbabilisticPipingOutput(null, null);
+
+            // Call
+            object clone = original.Clone();
+
+            // Assert
+            CoreCloneAssert.AreObjectClones(original, clone, PipingCloneAssert.AreClones);
+        }
+
+        [Test]
+        public void Clone_OnlyOutputWithLengthSet_ReturnNewInstanceWithCopiedValues()
+        {
+            // Setup
+            var original = new ProbabilisticPipingOutput(PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput(new TestGeneralResultFaultTreeIllustrationPoint()), null);
+
+            // Call
+            object clone = original.Clone();
+
+            // Assert
+            CoreCloneAssert.AreObjectClones(original, clone, PipingCloneAssert.AreClones);
+        }
+
+        [Test]
+        public void Clone_OnlyOutputWithoutLengthSet_ReturnNewInstanceWithCopiedValues()
+        {
+            // Setup
+            var original = new ProbabilisticPipingOutput(null, PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput(new TestGeneralResultFaultTreeIllustrationPoint()));
+
+            // Call
+            object clone = original.Clone();
+
+            // Assert
+            CoreCloneAssert.AreObjectClones(original, clone, PipingCloneAssert.AreClones);
+        }
+
+        [Test]
+        public void Clone_AllPropertiesSet_ReturnNewInstanceWithCopiedValues()
         {
             // Setup
             ProbabilisticPipingOutput original = PipingTestDataGenerator.GetRandomProbabilisticPipingOutput();

@@ -45,11 +45,28 @@ namespace Riskeer.Piping.Data.Probabilistic
         /// <summary>
         /// Gets the result of the sub-calculation that takes into account the section length.
         /// </summary>
-        public PartialProbabilisticPipingOutput ResultWithLength { get; }
+        public PartialProbabilisticPipingOutput ResultWithLength { get; private set; }
 
         /// <summary>
         /// Gets the result of the sub-calculation that doesn't take into account the section length.
         /// </summary>
-        public PartialProbabilisticPipingOutput ResultWithoutLength { get; }
+        public PartialProbabilisticPipingOutput ResultWithoutLength { get; private set; }
+        
+        public override object Clone()
+        {
+            var clone = (ProbabilisticPipingOutput) base.Clone();
+
+            if (ResultWithLength != null)
+            {
+                clone.ResultWithLength = (PartialProbabilisticPipingOutput) ResultWithLength.Clone();
+            }
+
+            if (ResultWithoutLength != null)
+            {
+                clone.ResultWithoutLength = (PartialProbabilisticPipingOutput) ResultWithoutLength.Clone();
+            }
+            
+            return clone;
+        }
     }
 }
