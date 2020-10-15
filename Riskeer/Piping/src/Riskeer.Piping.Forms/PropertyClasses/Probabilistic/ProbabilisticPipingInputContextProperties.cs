@@ -446,8 +446,8 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
         {
             get
             {
-
-                return GetSection().Name ?? "-";
+                FailureMechanismSection failureMechanismSection = GetSection();
+                return failureMechanismSection == null ? "-" : failureMechanismSection.Name;
             }
         }
 

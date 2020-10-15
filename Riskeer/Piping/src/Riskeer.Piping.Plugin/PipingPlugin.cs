@@ -58,6 +58,7 @@ using Riskeer.Piping.Forms.PresentationObjects;
 using Riskeer.Piping.Forms.PresentationObjects.Probabilistic;
 using Riskeer.Piping.Forms.PresentationObjects.SemiProbabilistic;
 using Riskeer.Piping.Forms.PropertyClasses;
+using Riskeer.Piping.Forms.PropertyClasses.Probabilistic;
 using Riskeer.Piping.Forms.PropertyClasses.SemiProbabilistic;
 using Riskeer.Piping.Forms.Views;
 using Riskeer.Piping.IO.Configurations;
@@ -88,6 +89,12 @@ namespace Riskeer.Piping.Plugin
             {
                 CreateInstance = context => new SemiProbabilisticPipingInputContextProperties(context,
                                                                                               () => GetNormativeAssessmentLevel(context.AssessmentSection, context.PipingCalculation),
+                                                                                              new ObservablePropertyChangeHandler(context.PipingCalculation, context.WrappedData))
+            };
+            yield return new PropertyInfo<ProbabilisticPipingInputContext, ProbabilisticPipingInputContextProperties>
+            {
+                CreateInstance = context => new ProbabilisticPipingInputContextProperties(context,
+                                                                                          () => GetNormativeAssessmentLevel(context.AssessmentSection, context.PipingCalculation),
                                                                                               new ObservablePropertyChangeHandler(context.PipingCalculation, context.WrappedData))
             };
             yield return new PropertyInfo<SemiProbabilisticPipingOutputContext, SemiProbabilisticPipingOutputProperties>
@@ -568,7 +575,7 @@ namespace Riskeer.Piping.Plugin
 
         #endregion
 
-        private static RoundedDouble GetNormativeAssessmentLevel(IAssessmentSection assessmentSection, SemiProbabilisticPipingCalculation calculation)
+        private static RoundedDouble GetNormativeAssessmentLevel(IAssessmentSection assessmentSection, IPipingCalculation<PipingInput> calculation)
         {
             return assessmentSection.GetNormativeAssessmentLevel(calculation.InputParameters.HydraulicBoundaryLocation);
         }
