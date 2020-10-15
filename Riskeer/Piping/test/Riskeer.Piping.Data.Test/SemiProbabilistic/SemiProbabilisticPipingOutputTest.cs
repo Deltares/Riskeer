@@ -112,7 +112,7 @@ namespace Riskeer.Piping.Data.Test.SemiProbabilistic
         public void Clone_Always_ReturnNewInstanceWithCopiedValues()
         {
             // Setup
-            SemiProbabilisticPipingOutput original = PipingTestDataGenerator.GetRandomPipingOutput();
+            SemiProbabilisticPipingOutput original = PipingTestDataGenerator.GetRandomSemiProbabilisticPipingOutput();
 
             // Call
             object clone = original.Clone();

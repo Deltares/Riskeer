@@ -90,7 +90,7 @@ namespace Riskeer.Piping.Data.Test.SemiProbabilistic
             // Setup
             SemiProbabilisticPipingCalculationScenario original = CreateRandomCalculationScenarioWithoutOutput();
 
-            original.Output = PipingTestDataGenerator.GetRandomPipingOutput();
+            original.Output = PipingTestDataGenerator.GetRandomSemiProbabilisticPipingOutput();
 
             // Call
             object clone = original.Clone();

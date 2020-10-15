@@ -485,7 +485,7 @@ namespace Riskeer.Piping.Data.TestUtil
         /// Creates a random instance of <see cref="SemiProbabilisticPipingOutput"/>.
         /// </summary>
         /// <returns>A random instance of <see cref="SemiProbabilisticPipingOutput"/>.</returns>
-        public static SemiProbabilisticPipingOutput GetRandomPipingOutput()
+        public static SemiProbabilisticPipingOutput GetRandomSemiProbabilisticPipingOutput()
         {
             var random = new Random(22);
 
