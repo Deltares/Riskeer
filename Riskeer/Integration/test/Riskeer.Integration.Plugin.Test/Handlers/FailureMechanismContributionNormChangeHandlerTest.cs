@@ -326,10 +326,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             var expectedException = new Exception();
 
             // Call
-            TestDelegate test = () => handler.SetPropertyValueAfterConfirmation(() =>
-            {
-                throw expectedException;
-            });
+            TestDelegate test = () => handler.SetPropertyValueAfterConfirmation(() => { throw expectedException; });
 
             // Assert
             var exception = Assert.Throws<Exception>(test);
