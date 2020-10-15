@@ -820,7 +820,7 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             SemiProbabilisticPipingCalculationScenario calculationScenario = SemiProbabilisticPipingCalculationScenarioTestFactory.CreateNotCalculatedPipingCalculationScenario(
                 section);
-            calculationScenario.Output = SemiProbabilisticPipingOutputTestFactory.Create(double.NaN, double.NaN, double.NaN);
+            calculationScenario.Output = PipingTestDataGenerator.GetSemiProbabilisticPipingOutput(double.NaN, double.NaN, double.NaN);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {

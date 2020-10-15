@@ -55,7 +55,7 @@ namespace Riskeer.Piping.Data.TestUtil.Test
             double sellmeijerFactorOfSafety = random.NextDouble();
 
             // Call
-            SemiProbabilisticPipingOutput output = SemiProbabilisticPipingOutputTestFactory.Create(heaveFactorOfSafety, upliftFactorOfSafety, sellmeijerFactorOfSafety);
+            SemiProbabilisticPipingOutput output = PipingTestDataGenerator.GetSemiProbabilisticPipingOutput(heaveFactorOfSafety, upliftFactorOfSafety, sellmeijerFactorOfSafety);
 
             // Assert
             Assert.AreEqual(heaveFactorOfSafety, output.HeaveFactorOfSafety);

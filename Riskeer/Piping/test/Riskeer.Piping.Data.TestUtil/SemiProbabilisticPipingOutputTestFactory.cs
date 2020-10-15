@@ -50,22 +50,5 @@ namespace Riskeer.Piping.Data.TestUtil
                 SellmeijerReducedFall = random.NextDouble()
             });
         }
-
-        /// <summary>
-        /// Creates output with the given values.
-        /// </summary>
-        /// <param name="heaveFactorOfSafety">The heave factor of safety.</param>
-        /// <param name="upliftFactorOfSafety">The uplift factor of safety.</param>
-        /// <param name="sellmeijerFactorOfSafety">The sellmeijer factor of safety.</param>
-        /// <returns>The created <see cref="SemiProbabilisticPipingOutput"/>.</returns>
-        public static SemiProbabilisticPipingOutput Create(double heaveFactorOfSafety, double upliftFactorOfSafety, double sellmeijerFactorOfSafety)
-        {
-            return new SemiProbabilisticPipingOutput(new SemiProbabilisticPipingOutput.ConstructionProperties
-            {
-                HeaveFactorOfSafety = heaveFactorOfSafety,
-                UpliftFactorOfSafety = upliftFactorOfSafety,
-                SellmeijerFactorOfSafety = sellmeijerFactorOfSafety
-            });
-        }
     }
 }

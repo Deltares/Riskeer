@@ -227,7 +227,7 @@ namespace Riskeer.Piping.Forms.Test.Views
                         EntryPointL = (RoundedDouble) 7.7777,
                         ExitPointL = (RoundedDouble) 8.8888
                     },
-                    Output = SemiProbabilisticPipingOutputTestFactory.Create(0.26065, 0.81398, 0.38024)
+                    Output = PipingTestDataGenerator.GetSemiProbabilisticPipingOutput(0.26065, 0.81398, 0.38024)
                 }
             });
 

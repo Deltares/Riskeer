@@ -242,7 +242,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             var random = new Random(11);
 
             // When
-            calculation.Output = SemiProbabilisticPipingOutputTestFactory.Create(random.NextDouble(), random.NextDouble(), random.NextDouble());
+            calculation.Output = PipingTestDataGenerator.GetSemiProbabilisticPipingOutput(random.NextDouble(), random.NextDouble(), random.NextDouble());
             row.Update();
 
             // Then
