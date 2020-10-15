@@ -42,6 +42,7 @@ using Riskeer.Piping.Forms.PresentationObjects;
 using Riskeer.Piping.Forms.PresentationObjects.Probabilistic;
 using Riskeer.Piping.Forms.PresentationObjects.SemiProbabilistic;
 using Riskeer.Piping.Forms.PropertyClasses;
+using Riskeer.Piping.Forms.PropertyClasses.Probabilistic;
 using Riskeer.Piping.Forms.PropertyClasses.SemiProbabilistic;
 using Riskeer.Piping.Forms.Views;
 using Riskeer.Piping.Primitives;
@@ -73,7 +74,7 @@ namespace Riskeer.Piping.Plugin.Test
                 PropertyInfo[] propertyInfos = plugin.GetPropertyInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(9, propertyInfos.Length);
+                Assert.AreEqual(10, propertyInfos.Length);
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
@@ -84,6 +85,11 @@ namespace Riskeer.Piping.Plugin.Test
                     propertyInfos,
                     typeof(SemiProbabilisticPipingInputContext),
                     typeof(SemiProbabilisticPipingInputContextProperties));
+
+                PluginTestHelper.AssertPropertyInfoDefined(
+                    propertyInfos,
+                    typeof(ProbabilisticPipingInputContext),
+                    typeof(ProbabilisticPipingInputContextProperties));
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
