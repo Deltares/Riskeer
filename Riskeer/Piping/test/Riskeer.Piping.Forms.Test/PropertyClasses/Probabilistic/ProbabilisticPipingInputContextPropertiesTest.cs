@@ -31,6 +31,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.Probabilistics;
 using Riskeer.Common.Data.TestUtil;
@@ -560,6 +561,10 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
 
             Assert.AreSame(hydraulicBoundaryLocation, properties.SelectedHydraulicBoundaryLocation.HydraulicBoundaryLocation);
 
+            Assert.AreEqual("-", properties.SectionName);
+            Assert.AreEqual(0.0, properties.SectionLength);
+            Assert.AreEqual(inputParameters.ShouldIllustrationPointsBeCalculated, properties.ShouldIllustrationPointsBeCalculated);
+            
             mocks.VerifyAll();
         }
 
@@ -582,6 +587,14 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
                                                               Enumerable.Empty<PipingStochasticSoilModel>(),
                                                               failureMechanism,
                                                               assessmentSection);
+            context.FailureMechanism.SetSections(new[]
+            {
+                new FailureMechanismSection("Section", new[]
+                {
+                    new Point2D(0.0, 0.0),
+                    new Point2D(5.0, 0.0)
+                })
+            }, "path/to/sections");
 
             var handler = new ObservablePropertyChangeHandler(calculationItem, calculationItem.InputParameters);
             var properties = new ProbabilisticPipingInputContextProperties(context,
@@ -605,7 +618,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
                     Mean = (RoundedDouble) 1.55,
                     StandardDeviation = (RoundedDouble) 0.22
                 });
-
+            
             // When
             properties.SurfaceLine = surfaceLine;
             properties.EntryPointL = (RoundedDouble) entryPointL;
@@ -616,6 +629,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             properties.DampingFactorExit.StandardDeviation = dampingFactorExit.Distribution.StandardDeviation;
             properties.PhreaticLevelExit.Mean = phreaticLevelExit.Distribution.Mean;
             properties.PhreaticLevelExit.StandardDeviation = phreaticLevelExit.Distribution.StandardDeviation;
+            properties.ShouldIllustrationPointsBeCalculated = true;
 
             // Then
             Assert.AreEqual(entryPointL, inputParameters.EntryPointL,
@@ -627,6 +641,11 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             Assert.AreSame(soilProfile, inputParameters.StochasticSoilProfile);
             DistributionAssert.AreEqual(dampingFactorExit.Distribution, inputParameters.DampingFactorExit);
             DistributionAssert.AreEqual(phreaticLevelExit.Distribution, inputParameters.PhreaticLevelExit);
+            
+            Assert.AreEqual("Section", properties.SectionName);
+            Assert.AreEqual(5.0, properties.SectionLength);
+            Assert.AreEqual(true, properties.ShouldIllustrationPointsBeCalculated);
+
             mocks.VerifyAll();
         }
 
@@ -1719,6 +1738,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
                 new Point3D(xMin, 0.0, 0.0),
                 new Point3D(xMax, 0.0, 1.0)
             });
+            surfaceLine.ReferenceLineIntersectionWorldPoint = new Point2D(2.0,0.0);
             return surfaceLine;
         }
     }

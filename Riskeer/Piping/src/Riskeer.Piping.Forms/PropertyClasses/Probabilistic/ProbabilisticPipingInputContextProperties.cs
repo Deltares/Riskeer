@@ -177,7 +177,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
 
         [PropertyOrder(selectedHydraulicBoundaryLocationPropertyIndex)]
         [Editor(typeof(HydraulicBoundaryLocationEditor), typeof(UITypeEditor))]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_HydraulicData))]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_HydraulicData),1,4)]
         [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.HydraulicBoundaryLocation_DisplayName))]
         [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.HydraulicBoundaryLocation_Description_with_assessment_level))]
         public SelectableHydraulicBoundaryLocation SelectedHydraulicBoundaryLocation
@@ -199,7 +199,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
 
         [PropertyOrder(dampingFactorExitPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_HydraulicData))]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_HydraulicData), 1, 4)]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.PipingInput_DampingFactorExit_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.PipingInput_DampingFactorExit_Description))]
         public LogNormalDistributionProperties DampingFactorExit
@@ -214,7 +214,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
 
         [PropertyOrder(phreaticLevelExitPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_HydraulicData))]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_HydraulicData), 1, 4)]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.PipingInput_PhreaticLevelExit_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.PipingInput_PhreaticLevelExit_Description))]
         public NormalDistributionProperties PhreaticLevelExit
@@ -228,7 +228,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
         }
 
         [PropertyOrder(piezometricHeadExitPropertyIndex)]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_HydraulicData))]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_HydraulicData), 1, 4)]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.PipingInput_PiezometricHeadExit_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.PipingInput_PiezometricHeadExit_Description))]
         public RoundedDouble PiezometricHeadExit
@@ -245,7 +245,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
 
         [PropertyOrder(surfaceLinePropertyIndex)]
         [Editor(typeof(PipingInputContextSurfaceLineSelectionEditor<ProbabilisticPipingInputContextProperties>), typeof(UITypeEditor))]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization))]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization), 2, 4)]
         [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.SurfaceLine_DisplayName))]
         [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.SurfaceLine_Description))]
         public PipingSurfaceLine SurfaceLine
@@ -269,7 +269,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
 
         [PropertyOrder(stochasticSoilModelPropertyIndex)]
         [Editor(typeof(PipingInputContextStochasticSoilModelSelectionEditor<ProbabilisticPipingInputContextProperties>), typeof(UITypeEditor))]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization))]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization), 2, 4)]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.PipingInput_StochasticSoilModel_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.PipingInput_StochasticSoilModel_Description))]
         public PipingStochasticSoilModel StochasticSoilModel
@@ -293,7 +293,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
 
         [PropertyOrder(stochasticSoilProfilePropertyIndex)]
         [Editor(typeof(PipingInputContextStochasticSoilProfileSelectionEditor<ProbabilisticPipingInputContextProperties>), typeof(UITypeEditor))]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization))]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization), 2, 4)]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.PipingInput_StochasticSoilProfile_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.PipingInput_StochasticSoilProfile_Description))]
         public PipingStochasticSoilProfile StochasticSoilProfile
@@ -313,7 +313,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
 
         [DynamicReadOnly]
         [PropertyOrder(entryPointLPropertyIndex)]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization))]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization), 2, 4)]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.PipingInput_EntryPointL_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.PipingInput_EntryPointL_Description))]
         public RoundedDouble EntryPointL
@@ -330,7 +330,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
 
         [DynamicReadOnly]
         [PropertyOrder(exitPointLPropertyIndex)]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization))]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization), 2, 4)]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.PipingInput_ExitPointL_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.PipingInput_ExitPointL_Description))]
         public RoundedDouble ExitPointL
@@ -347,7 +347,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
 
         [PropertyOrder(seepageLengthPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization))]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization), 2, 4)]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.PipingInput_SeepageLength_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.PipingInput_SeepageLength_Description))]
         public VariationCoefficientLogNormalDistributionProperties SeepageLength
@@ -360,7 +360,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
 
         [PropertyOrder(thicknessCoverageLayerPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization))]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization), 2, 4)]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.PipingInput_ThicknessCoverageLayer_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.PipingInput_ThicknessCoverageLayer_Description))]
         public LogNormalDistributionProperties ThicknessCoverageLayer
@@ -373,7 +373,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
 
         [PropertyOrder(effectiveThicknessCoverageLayerPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization))]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization), 2, 4)]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.PipingInput_EffectiveThicknessCoverageLayer_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.PipingInput_EffectiveThicknessCoverageLayer_Description))]
         public LogNormalDistributionProperties EffectiveThicknessCoverageLayer
@@ -386,7 +386,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
 
         [PropertyOrder(thicknessAquiferLayerPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization))]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization), 2, 4)]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.PipingInput_ThicknessAquiferLayer_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.PipingInput_ThicknessAquiferLayer_Description))]
         public LogNormalDistributionProperties ThicknessAquiferLayer
@@ -399,7 +399,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
 
         [PropertyOrder(darcyPermeabilityPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization))]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization), 2, 4)]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.PipingInput_DarcyPermeability_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.PipingInput_DarcyPermeability_Description))]
         public VariationCoefficientLogNormalDistributionProperties DarcyPermeability
@@ -412,7 +412,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
 
         [PropertyOrder(diameter70PropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization))]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization), 2, 4)]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.PipingInput_Diameter70_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.PipingInput_Diameter70_Description))]
         public VariationCoefficientLogNormalDistributionProperties Diameter70
@@ -425,7 +425,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
 
         [PropertyOrder(saturatedVolumicWeightOfCoverageLayerPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization))]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization), 2, 4)]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.PipingInput_SaturatedVolumicWeightOfCoverageLayer_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.PipingInput_SaturatedVolumicWeightOfCoverageLayer_Description))]
         public ShiftedLogNormalDistributionProperties SaturatedVolumicWeightOfCoverageLayer
@@ -442,7 +442,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
 
         [DynamicReadOnly]
         [PropertyOrder(sectionNamePropertyIndex)]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.SectionInformation))]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.SectionInformation), 3, 4)]
         [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanismSection_Name_DisplayName))]
         [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanismSection_Name_Description))]
         public string SectionName
@@ -456,7 +456,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
 
         [DynamicReadOnly]
         [PropertyOrder(sectionLengthPropertyIndex)]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.SectionInformation))]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.SectionInformation), 3, 4)]
         [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.SectionLength_DisplayName))]
         [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.SectionLength_Description))]
         public double SectionLength
@@ -473,7 +473,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
         #region Output
 
         [PropertyOrder(shouldIllustrationPointsBeCalculatedPropertyIndex)]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_OutputSettings))]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_OutputSettings), 4, 4)]
         [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.ShouldIllustrationPointsBeCalculated_DisplayName))]
         [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.ShouldIllustrationPointsBeCalculated_Description))]
         public bool ShouldIllustrationPointsBeCalculated
