@@ -37,8 +37,8 @@ namespace AutomatedSystemTests
         public void CreateFolderInForCaseOutputDrive(string caseNumber)
         {
             // Specify the directory you want to manipulate.
-        string path = @"Y:\script" + caseNumber;
-
+        //string path = @"Y:\script" + caseNumber;
+        string path = Directory.GetCurrentDirectory() + @"\script" + caseNumber;
         try
         {
             // Determine whether the folder exists.

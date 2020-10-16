@@ -98,24 +98,30 @@ namespace AutomatedSystemTests
             Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'RiskeerMainWindow.Ribbon.ButtonMenuFileSaveProjectAs' at Center.", repo.RiskeerMainWindow.Ribbon.ButtonMenuFileSaveProjectAsInfo, new RecordItemIndex(1));
             repo.RiskeerMainWindow.Ribbon.ButtonMenuFileSaveProjectAs.Click();
             
-            Report.Log(ReportLevel.Info, "Set value", "Setting attribute Text to '$fileNameToSave' on item 'OpslaanAls.SaveAsFileName'.", repo.OpslaanAls.SaveAsFileNameInfo, new RecordItemIndex(2));
+            AddWorkingDirectoryToFileNameIfRelativeFileName();
+            
+            Report.Log(ReportLevel.Info, "User", "Name of file to save:", new RecordItemIndex(3));
+            
+            Report.Log(ReportLevel.Info, "User", fileNameToSave, new RecordItemIndex(4));
+            
+            Report.Log(ReportLevel.Info, "Set value", "Setting attribute Text to '$fileNameToSave' on item 'OpslaanAls.SaveAsFileName'.", repo.OpslaanAls.SaveAsFileNameInfo, new RecordItemIndex(5));
             repo.OpslaanAls.SaveAsFileName.Element.SetAttributeValue("Text", fileNameToSave);
             
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'OpslaanAls.SaveButton' at Center.", repo.OpslaanAls.SaveButtonInfo, new RecordItemIndex(3));
+            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'OpslaanAls.SaveButton' at Center.", repo.OpslaanAls.SaveButtonInfo, new RecordItemIndex(6));
             repo.OpslaanAls.SaveButton.Click();
             
-            Report.Log(ReportLevel.Info, "Delay", "Waiting for 50ms.", new RecordItemIndex(4));
+            Report.Log(ReportLevel.Info, "Delay", "Waiting for 50ms.", new RecordItemIndex(7));
             Delay.Duration(50, false);
             
             ConfirmOverwrite(repo.ButtonYesInfo);
             
-            Report.Log(ReportLevel.Info, "Delay", "Waiting for 250ms.", new RecordItemIndex(6));
+            Report.Log(ReportLevel.Info, "Delay", "Waiting for 250ms.", new RecordItemIndex(9));
             Delay.Duration(250, false);
             
-            //Report.Log(ReportLevel.Info, "Wait", "Waiting 5m to not exist. Associated repository item: 'ActivityProgressDialog.ProgressBar'", repo.ActivityProgressDialog.ProgressBarInfo, new ActionTimeout(300000), new RecordItemIndex(7));
+            //Report.Log(ReportLevel.Info, "Wait", "Waiting 5m to not exist. Associated repository item: 'ActivityProgressDialog.ProgressBar'", repo.ActivityProgressDialog.ProgressBarInfo, new ActionTimeout(300000), new RecordItemIndex(10));
             //repo.ActivityProgressDialog.ProgressBarInfo.WaitForNotExists(300000);
             
-            Report.Log(ReportLevel.Info, "Wait", "Waiting 5m to not exist. Associated repository item: 'ActivityProgressDialog.ButtonCancel'", repo.ActivityProgressDialog.ButtonCancelInfo, new ActionTimeout(300000), new RecordItemIndex(8));
+            Report.Log(ReportLevel.Info, "Wait", "Waiting 5m to not exist. Associated repository item: 'ActivityProgressDialog.ButtonCancel'", repo.ActivityProgressDialog.ButtonCancelInfo, new ActionTimeout(300000), new RecordItemIndex(11));
             repo.ActivityProgressDialog.ButtonCancelInfo.WaitForNotExists(300000);
             
         }

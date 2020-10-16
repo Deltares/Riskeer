@@ -723,6 +723,49 @@ z3DRsoR95Oeoxj9Pep5ZRV7hKUUrssIojddsezLDndmrtZ8EplVCwwRJg/ga0Kum27tidrKwUh6i
 lpD1H1rQQtFFFABRRRQAUUUUAf/Z
 			</helperscreenshot>
 		</mouseitem>
+		<userrecorditem
+		classname="OpenProject"
+		enabled="True"
+		isexternaltestmethod="False"
+		methodname="AddWorkingDirectoryToFileNameIfRelativeFileName"
+		namespace="AutomatedSystemTests"
+		optional="False">
+			<comment>
+			</comment>
+			<bindings>
+			</bindings>
+			<arguments
+			id="ac9b2af7-84ad-4b14-ab49-e62c23002b9f">
+			</arguments>
+		</userrecorditem>
+		<loggingrecorditem
+		category="User"
+		enabled="True"
+		message="Name of file to open:"
+		optional="False"
+		reportlevel="Info;20"
+		searchpropertyid="454b2c36-7d9e-4fe9-91a8-61ec20c47d3b">
+			<comment>
+			</comment>
+			<bindings>
+			</bindings>
+		</loggingrecorditem>
+		<loggingrecorditem
+		category="User"
+		enabled="True"
+		message=""
+		optional="False"
+		reportlevel="Info;20"
+		searchpropertyid="dbf6b794-d034-401a-9a3a-7fd490027816">
+			<comment>
+			</comment>
+			<bindings>
+				<binding
+				target="Message"
+				variable="fileNameToOpen">
+				</binding>
+			</bindings>
+		</loggingrecorditem>
 		<setvaluerecorditem
 		attrname="Text"
 		enabled="True"

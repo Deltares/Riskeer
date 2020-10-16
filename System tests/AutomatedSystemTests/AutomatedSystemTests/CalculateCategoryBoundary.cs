@@ -42,6 +42,13 @@ namespace AutomatedSystemTests
         public CalculateCategoryBoundary()
         {
             calculatedCategoryBoundary = "";
+            signalingValueText = "";
+            lowerLimitText = "";
+            contributionText = "";
+            parameterNText = "";
+            categorySuffix = "";
+            categoryName = "";
+            boundaryType = "";
         }
 
         /// <summary>
@@ -64,6 +71,86 @@ namespace AutomatedSystemTests
         {
             get { return _calculatedCategoryBoundary; }
             set { _calculatedCategoryBoundary = value; }
+        }
+
+        string _signalingValueText;
+
+        /// <summary>
+        /// Gets or sets the value of variable signalingValueText.
+        /// </summary>
+        [TestVariable("9b47e300-8808-473e-a46a-b2091672dbb4")]
+        public string signalingValueText
+        {
+            get { return _signalingValueText; }
+            set { _signalingValueText = value; }
+        }
+
+        string _lowerLimitText;
+
+        /// <summary>
+        /// Gets or sets the value of variable lowerLimitText.
+        /// </summary>
+        [TestVariable("9c0297fc-a6f9-4b34-b9da-205c21fac4e4")]
+        public string lowerLimitText
+        {
+            get { return _lowerLimitText; }
+            set { _lowerLimitText = value; }
+        }
+
+        string _contributionText;
+
+        /// <summary>
+        /// Gets or sets the value of variable contributionText.
+        /// </summary>
+        [TestVariable("3b08541b-e356-4de9-93a9-02a963944915")]
+        public string contributionText
+        {
+            get { return _contributionText; }
+            set { _contributionText = value; }
+        }
+
+        string _parameterNText;
+
+        /// <summary>
+        /// Gets or sets the value of variable parameterNText.
+        /// </summary>
+        [TestVariable("6ff9b730-3222-46fb-9471-57195f388715")]
+        public string parameterNText
+        {
+            get { return _parameterNText; }
+            set { _parameterNText = value; }
+        }
+
+        string _boundaryType;
+
+        /// <summary>
+        /// Gets or sets the value of variable boundaryType.
+        /// </summary>
+        [TestVariable("78b35dc6-a224-4dc7-992a-f9b42e96fbaa")]
+        public string boundaryType
+        {
+            get { return _boundaryType; }
+            set { _boundaryType = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets the value of variable categorySuffix.
+        /// </summary>
+        [TestVariable("3f59ffa1-9268-4020-89db-834b5121cca0")]
+        public string categorySuffix
+        {
+            get { return repo.categorysuffix; }
+            set { repo.categorysuffix = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets the value of variable categoryName.
+        /// </summary>
+        [TestVariable("8a30822a-a8b0-4fa7-b364-eee06359becc")]
+        public string categoryName
+        {
+            get { return repo.categoryName; }
+            set { repo.categoryName = value; }
         }
 
 #endregion

@@ -7,7 +7,7 @@ mode="Global">
 		1
 	</repeatcount>
 	<turbomode>
-		False
+		True
 	</turbomode>
 	<genreport>
 		True
@@ -43,6 +43,26 @@ mode="Global">
 			</info>
 			<arguments
 			id="0b04fbdb-98e8-435d-b306-51df7227cad0">
+			</arguments>
+		</invokeactionrecorditem>
+		<invokeactionrecorditem
+		action="Select"
+		enabled="True"
+		optional="False"
+		searchpropertyid="8dc86b1b-0400-4942-97ed-208a8e582595">
+			<comment>
+			</comment>
+			<bindings>
+			</bindings>
+			<info
+			id="65e328b8-068a-4b37-a2d7-cb220911d1fe"
+			sourcename="RepositoryEditor">
+				<path>
+					/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename&gt;'Gedetailleerde toets per vak Row ']
+				</path>
+			</info>
+			<arguments
+			id="0bb59f29-d609-4f21-adf0-3fb2f959d6b2">
 			</arguments>
 		</invokeactionrecorditem>
 		<mouseitem

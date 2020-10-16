@@ -24,34 +24,58 @@ namespace AutomatedSystemTests
 {
 #pragma warning disable 0436 //(CS0436) The type 'type' in 'assembly' conflicts with the imported type 'type2' in 'assembly'. Using the type defined in 'assembly'.
     /// <summary>
-    ///The OpenViewForCategoryBoundaries recording.
+    ///The CalculateValueParameterN recording.
     /// </summary>
-    [TestModule("ed363a67-11ee-4f0d-b3b8-1920b8a08550", ModuleType.Recording, 1)]
-    public partial class OpenViewForCategoryBoundaries : ITestModule
+    [TestModule("2fdf315c-3bbf-4b7a-b901-e88b144bf94e", ModuleType.Recording, 1)]
+    public partial class CalculateValueParameterN : ITestModule
     {
         /// <summary>
         /// Holds an instance of the AutomatedSystemTestsRepository repository.
         /// </summary>
         public static AutomatedSystemTestsRepository repo = AutomatedSystemTestsRepository.Instance;
 
-        static OpenViewForCategoryBoundaries instance = new OpenViewForCategoryBoundaries();
+        static CalculateValueParameterN instance = new CalculateValueParameterN();
 
         /// <summary>
         /// Constructs a new instance.
         /// </summary>
-        public OpenViewForCategoryBoundaries()
+        public CalculateValueParameterN()
         {
+            valueOfParameterInPropertiesPanel = "";
+            fmLabel = "";
         }
 
         /// <summary>
         /// Gets a static instance of this recording.
         /// </summary>
-        public static OpenViewForCategoryBoundaries Instance
+        public static CalculateValueParameterN Instance
         {
             get { return instance; }
         }
 
 #region Variables
+
+        string _valueOfParameterInPropertiesPanel;
+
+        /// <summary>
+        /// Gets or sets the value of variable valueOfParameterInPropertiesPanel.
+        /// </summary>
+        [TestVariable("36cb73b7-04f3-4751-8474-8aef02c92ab7")]
+        public string valueOfParameterInPropertiesPanel
+        {
+            get { return _valueOfParameterInPropertiesPanel; }
+            set { _valueOfParameterInPropertiesPanel = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets the value of variable nameOfParameterInPropertiesPanel.
+        /// </summary>
+        [TestVariable("be55172b-156d-4b6c-a990-593bf6c5d6a2")]
+        public string nameOfParameterInPropertiesPanel
+        {
+            get { return repo.nameOfParameterInPropertiesPanel; }
+            set { repo.nameOfParameterInPropertiesPanel = value; }
+        }
 
         /// <summary>
         /// Gets or sets the value of variable substringTrajectName.
@@ -64,13 +88,23 @@ namespace AutomatedSystemTests
         }
 
         /// <summary>
-        /// Gets or sets the value of variable substringFMName.
+        /// Gets or sets the value of variable substringNameItemInTraject.
         /// </summary>
-        [TestVariable("3a7276c1-fca1-4026-9d2e-5bac10651a47")]
-        public string substringFMName
+        [TestVariable("cb52c14e-9bef-4f4a-9d11-1758141c50cb")]
+        public string substringNameItemInTraject
         {
-            get { return repo.substringFMName; }
-            set { repo.substringFMName = value; }
+            get { return repo.substringNameItemInTraject; }
+            set { repo.substringNameItemInTraject = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets the value of variable fmLabel.
+        /// </summary>
+        [TestVariable("e5da979c-abe6-4a71-b419-78bbd2a92489")]
+        public string fmLabel
+        {
+            get { return repo.fmLabel; }
+            set { repo.fmLabel = value; }
         }
 
 #endregion
@@ -99,16 +133,15 @@ namespace AutomatedSystemTests
 
             Init();
 
-            Report.Log(ReportLevel.Info, "Invoke action", "Invoking Focus() on item 'RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericFMItemWithSubstringInName'.", repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericFMItemWithSubstringInName.SelfInfo, new RecordItemIndex(0));
-            repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericFMItemWithSubstringInName.Self.Focus();
+            Report.Log(ReportLevel.Info, "Invoke action", "Invoking Focus() on item 'RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericItemInTraject'.", repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericItemInTrajectInfo, new RecordItemIndex(0));
+            repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericItemInTraject.Focus();
             
-            ExpandNode(repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericFMItemWithSubstringInName.SelfInfo);
+            Report.Log(ReportLevel.Info, "Invoke action", "Invoking Select() on item 'RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericItemInTraject'.", repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericItemInTrajectInfo, new RecordItemIndex(1));
+            repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericItemInTraject.Select();
             
-            try {
-                OpenCategoryBoundariesView(repo.RiskeerMainWindow.ProjectExplorer.ProjectRootNode.TrajectWithSubstringInName.GenericFMItemWithSubstringInName.SelfInfo, "Oordeel");
-            } catch(Exception ex) { Report.Log(ReportLevel.Warn, "Module", "(Optional Action) " + ex.Message, new RecordItemIndex(2)); }
+            CalculateValueNFromFMParameters();
             
-            Report.Screenshot(ReportLevel.Info, "User", "", repo.RiskeerMainWindow.DocumentViewContainer.Self, false, new RecordItemIndex(3));
+            //Report_Log();
             
         }
 

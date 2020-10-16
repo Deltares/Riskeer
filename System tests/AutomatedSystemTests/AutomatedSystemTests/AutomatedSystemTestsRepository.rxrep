@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<repository
+﻿<repository
 id="137723a5-e147-4b62-8c15-5c31a3d68f96"
 name="AutomatedSystemTestsRepository">
 	<codegen
@@ -353,6 +352,81 @@ name="AutomatedSystemTestsRepository">
 						/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismContributionView']
 					</basepath>
 				</folder>
+				<folder
+				capname="container"
+				id="a7a59ba5-6496-4ab2-b44f-ade262080acc"
+				isrooted="True"
+				name="ViewCategoryBoundaries"
+				refimgid="8b5dc543-11c6-4c32-b4b6-aead6e03ee05"
+				searchtimeout="30000ms"
+				usecache="False">
+					<folder
+					capname="table"
+					id="4745d840-a581-449e-847e-f550c8da8ab1"
+					isrooted="True"
+					name="CategoryBoundariesTraject"
+					refimgid="ad41c1d7-c113-440c-bf67-9feb29895bdb"
+					searchtimeout="30000ms"
+					usecache="False">
+						<item
+						addcaps="cell,accessible"
+						capname="cell"
+						id="7a00fb5d-66a4-40e8-8a63-145f885e2cc1"
+						name="TrajectCategoryBoundaryCell"
+						refimgid="3a15189a-acbf-4618-8aa5-c43b204aebb2"
+						searchtimeout="30000ms">
+							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismAssemblyCategoriesView']/?/container[@controlname='failureMechanismAssemblyGroupBox']/?/table/row[@accessiblevalue&gt;$categoryName]/cell[@accessiblename&gt;$boundaryTypeSubstring]
+						</item>
+						<basepath>
+							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismAssemblyCategoriesView']/?/container[@controlname='failureMechanismAssemblyGroupBox']/?/table
+						</basepath>
+					</folder>
+					<folder
+					capname="table"
+					id="18d1028e-38e3-4f44-b5ad-2cf029772ce2"
+					isrooted="True"
+					name="CategoryBoundariesSection"
+					refimgid="d4edf10a-d3b6-4d58-b318-ff1fbf6223cb"
+					searchtimeout="30000ms"
+					usecache="False">
+						<item
+						addcaps="cell,accessible"
+						capname="cell"
+						id="f47b61a0-ce9b-40a1-8285-7159e89702b5"
+						name="SectionCategoryBoundaryCell"
+						refimgid="3a15189a-acbf-4618-8aa5-c43b204aebb2"
+						searchtimeout="30000ms">
+							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismAssemblyCategoriesView']/?/container[@controlname='failureMechanismSectionAssemblyGroupBox']/?/table/row[@accessiblevalue&gt;$categoryName]/cell[@accessiblename&gt;$boundaryTypeSubstring]
+						</item>
+						<basepath>
+							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismAssemblyCategoriesView']/?/container[@controlname='failureMechanismSectionAssemblyGroupBox']/?/table
+						</basepath>
+					</folder>
+					<folder
+					capname="table"
+					id="4dcc478e-90aa-482a-a498-61f1ce9584ef"
+					isrooted="True"
+					name="GenericCategoryBoundaries"
+					refimgid="ad41c1d7-c113-440c-bf67-9feb29895bdb"
+					searchtimeout="30000ms"
+					usecache="False">
+						<item
+						addcaps="cell,accessible"
+						capname="cell"
+						id="c05e48a6-c497-43a0-9a7d-e3c812e6e11e"
+						name="GenericCategoryBoundaryCell"
+						refimgid="3a15189a-acbf-4618-8aa5-c43b204aebb2"
+						searchtimeout="30000ms">
+							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismAssemblyCategoriesView']/?/container[@controlname='failureMechanism'+$sectionSubstring+'AssemblyGroupBox']/?/table/row[@accessiblevalue&gt;$categoryName+$categorysuffix]/cell[@accessiblename&gt;$boundaryTypeSubstring]
+						</item>
+						<basepath>
+							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismAssemblyCategoriesView']/?/container[@controlname='failureMechanism'+$sectionSubstring+'AssemblyGroupBox']/?/table
+						</basepath>
+					</folder>
+					<basepath>
+						/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismAssemblyCategoriesView']
+					</basepath>
+				</folder>
 				<basepath>
 					/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']
 				</basepath>
@@ -689,7 +763,6 @@ Ci8EIxlN9/ueuduvvCRUSA/y/BpXl5+Ui+rMfnRmeyL0hblJeL6KhKphqPIwCHnKcUMch8GfPoy/
 					name="GenericCellIcon"
 					refimgid="df30e0c6-39a0-400a-82dd-ad6347165336"
 					searchtimeout="30000ms">
-						/form[@automationid='RiskeerMainWindow']//container[@controlname='MessageWindow']/table[@controlname='messagesDataGridView']/row[@accessiblename='Row '+$indexRowMessage]/cell[@accessiblename&gt;' Row']
 						<image
 						guid="177d1f5e-b60b-4c93-b880-4e6a8dc84a69"
 						name="ErrorIcon">
@@ -705,6 +778,7 @@ h2w43PvQ+hgzZRcwWo36wPa8zQVP066PNZJvg+w96kM2LPd6j1fUg2AHbRLVTte/wQf2vetu3tWY
 Ci8EIxlN9/ueuduvvCRUSA/y/BpXl5+Ui+rMfnRmeyL0hblJeL6KhKphqPIwCHnKcUMch8GfPoy/
 0v+F8V1TqnoOxOXBfwwHqGMAAAAASUVORK5CYII=
 						</image>
+						/form[@automationid='RiskeerMainWindow']//container[@controlname='MessageWindow']/table[@controlname='messagesDataGridView']/row[@accessiblename='Row '+$indexRowMessage]/cell[@accessiblename&gt;' Row']
 					</item>
 					<item
 					addcaps="cell,accessible"
@@ -1486,6 +1560,22 @@ FjcAAAAASUVORK5CYII=
 		<var
 		id="c5b8922f-77bf-441a-9b88-99da98bf1e54"
 		name="DropDownItem">
+		</var>
+		<var
+		id="e76c5155-f1f8-4415-bd13-dde7073c53b6"
+		name="categoryName">
+		</var>
+		<var
+		id="8f75181e-5620-4184-b263-790e9b45c319"
+		name="boundaryTypeSubstring">
+		</var>
+		<var
+		id="7f611ae2-9cdd-49ab-9f5c-3a3d10895d80"
+		name="sectionSubstring">
+		</var>
+		<var
+		id="b8671a42-1c75-4941-b387-69d720e545f8"
+		name="categorysuffix">
 		</var>
 	</variables>
 </repository>

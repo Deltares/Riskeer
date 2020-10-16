@@ -33,5 +33,11 @@ namespace AutomatedSystemTests
             // Your recording specific initialization code goes here.
         }
 
+        public void Validate_GenericCategoryBoundaryCell(RepoItemInfo cellInfo)
+        {
+            Report.Log(ReportLevel.Info, "Validation", "Validating AttributeEqual (AccessibleValue=$expectedBoundary) on item 'cellInfo'.", cellInfo);
+            Validate.AttributeEqual(cellInfo, "AccessibleValue", expectedBoundary);
+        }
+
     }
 }

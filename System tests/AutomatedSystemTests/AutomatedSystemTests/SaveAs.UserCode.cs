@@ -8,6 +8,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -40,6 +41,16 @@ namespace AutomatedSystemTests
             	Report.Log(ReportLevel.Info, "Mouse", "(Optional Action)\r\nMouse Left Click item 'buttonInfo' at Center.", buttonInfo);
                 buttonInfo.FindAdapter<Button>().Click();
             }
+        }
+
+        public void AddWorkingDirectoryToFileNameIfRelativeFileName()
+        {
+        	if (fileNameToSave.Substring(1,2) == @":\") {
+            	// fileNameToSave has been declared using absolute path
+            	return;
+            }
+        	// fileNameToSave has been declared using relative path 
+        	fileNameToSave = Directory.GetCurrentDirectory() + "\\" + fileNameToSave;
         }
 
     }
