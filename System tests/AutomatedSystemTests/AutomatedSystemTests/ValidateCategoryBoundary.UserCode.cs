@@ -9,6 +9,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Drawing;
@@ -33,10 +34,22 @@ namespace AutomatedSystemTests
             // Your recording specific initialization code goes here.
         }
 
-        public void Validate_GenericCategoryBoundaryCell(RepoItemInfo cellInfo)
+        public void Validate_GenericCategoryBoundaryCellAlmostEqual(RepoItemInfo cellInfo)
         {
-            Report.Log(ReportLevel.Info, "Validation", "Validating AttributeEqual (AccessibleValue=$expectedBoundary) on item 'cellInfo'.", cellInfo);
-            Validate.AttributeEqual(cellInfo, "AccessibleValue", expectedBoundary);
+            Report.Log(ReportLevel.Info, "Validation", "(Optional Action)\r\nValidating AttributeEqual (AccessibleValue=$expectedBoundary) on item 'cellInfo'.", cellInfo);
+            var currentValue = cellInfo.CreateAdapter<Cell>(true).GetAttributeValue<string>("AccessibleValue");
+            if (currentValue==expectedBoundary) {
+            	Validate.AttributeEqual(cellInfo, "AccessibleValue", expectedBoundary);
+            }
+            else {
+            	System.Globalization.CultureInfo currentCulture = CultureInfo.CurrentCulture;
+            	Report.Log(ReportLevel.Info, "Validation", "Value found: " + currentValue + " is not equal to expected value: " + expectedBoundary + "\r\nEvaluating whether they are almost (within 0.01%) equal...");
+            	var expectedDouble = 1.0/(Double.Parse(expectedBoundary.Substring(2,expectedBoundary.Length-2), currentCulture));
+            	var currentDouble = 1.0/(Double.Parse(currentValue.Substring(2,currentValue.Length-2), currentCulture));
+            	var deviation = Math.Abs(100.0*(expectedDouble - currentDouble) / expectedDouble);
+            	Report.Log(ReportLevel.Info, "Validation", "Deviation = " + deviation + " %");
+            	Validate.IsTrue(deviation<0.01);
+            }
         }
 
     }

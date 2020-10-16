@@ -89,33 +89,37 @@ mode="Global">
 				</path>
 			</info>
 		</loggingrecorditem>
-		<validationitem
-		action="AttributeEqual"
+		<userrecorditem
+		classname="ValidateCategoryBoundary"
 		enabled="True"
-		optional="False"
-		searchpropertyid="e9eaca21-be7c-4311-9d71-d1c334243b00">
+		isexternaltestmethod="False"
+		methodname="Validate_GenericCategoryBoundaryCellAlmostEqual"
+		namespace="AutomatedSystemTests"
+		optional="False">
 			<comment>
 			</comment>
 			<bindings>
-				<binding
-				target="MatchValue"
-				variable="expectedBoundary">
-				</binding>
 			</bindings>
-			<info
-			id="c05e48a6-c497-43a0-9a7d-e3c812e6e11e"
-			sourcename="RepositoryEditor">
-				<path>
-					/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismAssemblyCategoriesView']/?/container[@controlname='failureMechanism'+$sectionSubstring+'AssemblyGroupBox']/?/table/row[@accessiblevalue&gt;$categoryName+$categorysuffix]/cell[@accessiblename&gt;$boundaryTypeSubstring]
-				</path>
-			</info>
-			<matchname>
-				AccessibleValue
-			</matchname>
-			<matchvalue>
-				yourValue
-			</matchvalue>
-		</validationitem>
+			<arguments
+			id="c8c33f6a-5447-4fc1-96d9-18702cb6a5e7">
+				<argument
+				argname="cellInfo"
+				id="f8c68965-468e-4956-832e-f2cdc32e7c0b">
+					<argvaluetype>
+						Ranorex.Core.Repository.RepoItemInfo, Ranorex.Core, Culture=neutral
+					</argvaluetype>
+					<argvalue>
+					</argvalue>
+					<info
+					id="c05e48a6-c497-43a0-9a7d-e3c812e6e11e"
+					sourcename="ItemRecorderEditor">
+						<path>
+							/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismAssemblyCategoriesView']/?/container[@controlname='failureMechanism'+$sectionSubstring+'AssemblyGroupBox']/?/table/row[@accessiblevalue&gt;$categoryName+$categorysuffix]/cell[@accessiblename&gt;$boundaryTypeSubstring]
+						</path>
+					</info>
+				</argument>
+			</arguments>
+		</userrecorditem>
 	</recorditems>
 	<repository
 	id="137723a5-e147-4b62-8c15-5c31a3d68f96"

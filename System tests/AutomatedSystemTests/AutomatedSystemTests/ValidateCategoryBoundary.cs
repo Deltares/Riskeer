@@ -142,8 +142,7 @@ namespace AutomatedSystemTests
             
             Report.Screenshot(ReportLevel.Info, "User", "", repo.RiskeerMainWindow.DocumentViewContainerUncached.ViewCategoryBoundaries.GenericCategoryBoundaries.GenericCategoryBoundaryCell, false, new RecordItemIndex(2));
             
-            Report.Log(ReportLevel.Info, "Validation", "Validating AttributeEqual (AccessibleValue=$expectedBoundary) on item 'RiskeerMainWindow.DocumentViewContainerUncached.ViewCategoryBoundaries.GenericCategoryBoundaries.GenericCategoryBoundaryCell'.", repo.RiskeerMainWindow.DocumentViewContainerUncached.ViewCategoryBoundaries.GenericCategoryBoundaries.GenericCategoryBoundaryCellInfo, new RecordItemIndex(3));
-            Validate.AttributeEqual(repo.RiskeerMainWindow.DocumentViewContainerUncached.ViewCategoryBoundaries.GenericCategoryBoundaries.GenericCategoryBoundaryCellInfo, "AccessibleValue", expectedBoundary);
+            Validate_GenericCategoryBoundaryCellAlmostEqual(repo.RiskeerMainWindow.DocumentViewContainerUncached.ViewCategoryBoundaries.GenericCategoryBoundaries.GenericCategoryBoundaryCellInfo);
             Delay.Milliseconds(0);
             
         }

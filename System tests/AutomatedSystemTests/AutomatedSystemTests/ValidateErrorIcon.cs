@@ -89,11 +89,8 @@ namespace AutomatedSystemTests
 
             Init();
 
-            try {
-                Report.Log(ReportLevel.Info, "Validation", "(Optional Action)\r\nValidating ContainsImage (Screenshot: 'ErrorIcon' with region {X=0,Y=1,Width=17,Height=15}) on item 'RiskeerMainWindow.MessagesDataGridView.GenericRow.GenericCellIcon'.", repo.RiskeerMainWindow.MessagesDataGridView.GenericRow.GenericCellIconInfo, new RecordItemIndex(0));
-                Validate.ContainsImage(repo.RiskeerMainWindow.MessagesDataGridView.GenericRow.GenericCellIconInfo, GenericCellIcon_ErrorIcon, GenericCellIcon_ErrorIcon_Options, "Comparing with error icon", new Validate.Options(){ReportSimilarity=Validate.ResultOption.Always, ReportDifferenceImages=Validate.ResultOption.OnFail, ReportExpectedAndActualImages=Validate.ResultOption.Always});
-                Delay.Milliseconds(100);
-            } catch(Exception ex) { Report.Log(ReportLevel.Warn, "Module", "(Optional Action) " + ex.Message, new RecordItemIndex(0)); }
+            Validate_GenericCellIcon(repo.RiskeerMainWindow.MessagesDataGridView.GenericRow.GenericCellIconInfo);
+            Delay.Milliseconds(0);
             
         }
 
