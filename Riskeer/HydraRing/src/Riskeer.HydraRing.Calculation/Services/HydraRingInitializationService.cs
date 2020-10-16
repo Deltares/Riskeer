@@ -42,6 +42,7 @@ namespace Riskeer.HydraRing.Calculation.Services
     /// </summary>
     internal class HydraRingInitializationService
     {
+        private const string hydraRingVersionNumber = "19.1.1.9292";
         private const string hydraRingBinariesSubDirectory = "HydraRing";
 
         private const string iniFileExtension = ".ini";
@@ -85,7 +86,7 @@ namespace Riskeer.HydraRing.Calculation.Services
             hlcdFilePath = settings.HlcdFilePath;
 
             string applicationFolder = AssemblyResolver.GetApplicationDirectory();
-            hydraRingDirectory = Path.Combine(applicationFolder, "Standalone", "Deltares", hydraRingBinariesSubDirectory);
+            hydraRingDirectory = Path.Combine(applicationFolder, "Standalone", "Deltares", $"{hydraRingBinariesSubDirectory}-{hydraRingVersionNumber}");
 
             configurationDatabaseFilePath = Path.Combine(hydraRingDirectory, HydraRingFileConstants.ConfigurationDatabaseFileName);
             preprocessorDirectory = settings.PreprocessorDirectory;
