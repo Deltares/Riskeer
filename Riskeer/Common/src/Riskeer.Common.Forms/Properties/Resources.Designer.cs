@@ -40,7 +40,7 @@ namespace Riskeer.Common.Forms.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Resources {
@@ -657,6 +657,16 @@ namespace Riskeer.Common.Forms.Properties {
         public static string CalculationOutput_TargetReliability_DisplayName {
             get {
                 return ResourceManager.GetString("CalculationOutput_TargetReliability_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap CalculationOutputFolderIcon {
+            get {
+                object obj = ResourceManager.GetObject("CalculationOutputFolderIcon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
@@ -2912,16 +2922,6 @@ namespace Riskeer.Common.Forms.Properties {
         public static System.Drawing.Bitmap OutputFolderIcon {
             get {
                 object obj = ResourceManager.GetObject("OutputFolderIcon", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap OutputIcon {
-            get {
-                object obj = ResourceManager.GetObject("OutputIcon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
