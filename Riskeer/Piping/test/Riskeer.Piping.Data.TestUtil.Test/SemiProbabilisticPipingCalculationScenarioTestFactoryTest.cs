@@ -121,7 +121,7 @@ namespace Riskeer.Piping.Data.TestUtil.Test
         }
 
         [Test]
-        public void CreatePipingCalculationScenarioWithValidInput_HydraulicBoundaryLocationNull_ThrowsArgumentnullException()
+        public void CreatePipingCalculationScenarioWithValidInput_HydraulicBoundaryLocationNull_ThrowsArgumentNullException()
         {
             // Call
             void Call() => SemiProbabilisticPipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput(null);
@@ -129,6 +129,30 @@ namespace Riskeer.Piping.Data.TestUtil.Test
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("hydraulicBoundaryLocation", exception.ParamName);
+        }
+        
+        [Test]
+        public void CreatePipingCalculationWithValidInput_HydraulicBoundaryLocationNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => SemiProbabilisticPipingCalculationScenarioTestFactory.CreatePipingCalculationWithValidInput(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("hydraulicBoundaryLocation", exception.ParamName);
+        }
+
+        [Test]
+        public void CreatePipingCalculationWithValidInput_HydraulicBoundaryLocation_CreatesPipingCalculationScenarioWithValidInput()
+        {
+            // Setup
+            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
+
+            // Call
+            IPipingCalculation<PipingInput> scenario = SemiProbabilisticPipingCalculationScenarioTestFactory.CreatePipingCalculationWithValidInput(hydraulicBoundaryLocation);
+
+            // Assert
+            Assert.AreSame(hydraulicBoundaryLocation, scenario.InputParameters.HydraulicBoundaryLocation);
         }
 
         [Test]

@@ -38,6 +38,9 @@ namespace Riskeer.Piping.Data.TestUtil
     /// </summary>
     public static class SemiProbabilisticPipingCalculationScenarioTestFactory
     {
+        private const double bottom = 1.12;
+        private const double top = 10.56;
+
         /// <summary>
         /// Creates a calculated scenario for which the surface line on the input intersects with <paramref name="section"/>.
         /// </summary>
@@ -110,6 +113,38 @@ namespace Riskeer.Piping.Data.TestUtil
         }
 
         /// <summary>
+        /// Creates a calculation with valid input.
+        /// </summary>
+        /// <param name="hydraulicBoundaryLocation">The hydraulic boundary location to set to the input.</param>
+        /// <param name="hasOutput">Indicator whether the calculation has output.</param>
+        /// <returns>A new <see cref="IPipingCalculation{PipingInput}"/>.</returns>
+        /// <remarks>The caller is responsible for actually providing a valid hydraulic boundary location
+        /// (for instance when it comes to the presence of a normative assessment level).</remarks>
+        /// <exception cref="ArgumentNullException">Throw when <paramref name="hydraulicBoundaryLocation"/> is <c>null</c>.</exception>
+        public static PipingCalculation<PipingInput> CreatePipingCalculationWithValidInput(HydraulicBoundaryLocation hydraulicBoundaryLocation, bool hasOutput = false)
+        {
+            if (hydraulicBoundaryLocation == null)
+            {
+                throw new ArgumentNullException(nameof(hydraulicBoundaryLocation));
+            }
+
+            return new TestPipingCalculation(new TestPipingInput
+            {
+                DampingFactorExit =
+                {
+                    Mean = (RoundedDouble) 1.0
+                },
+                PhreaticLevelExit =
+                {
+                    Mean = (RoundedDouble) 2.0
+                },
+                SurfaceLine = GetSurfaceLine(),
+                StochasticSoilProfile = GetStochasticSoilProfile(),
+                HydraulicBoundaryLocation = hydraulicBoundaryLocation
+            }, hasOutput);
+        }
+
+        /// <summary>
         /// Creates a scenario with valid input.
         /// </summary>
         /// <param name="hydraulicBoundaryLocation">The hydraulic boundary location to set to the input.</param>
@@ -123,10 +158,57 @@ namespace Riskeer.Piping.Data.TestUtil
             {
                 throw new ArgumentNullException(nameof(hydraulicBoundaryLocation));
             }
+            
+            return new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput())
+            {
+                InputParameters =
+                {
+                    DampingFactorExit =
+                    {
+                        Mean = (RoundedDouble) 1.0
+                    },
+                    PhreaticLevelExit =
+                    {
+                        Mean = (RoundedDouble) 2.0
+                    },
+                    SurfaceLine = GetSurfaceLine(),
+                    StochasticSoilProfile = GetStochasticSoilProfile(),
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
+                }
+            };
+        }
 
-            const double bottom = 1.12;
-            const double top = 10.56;
-            var stochasticSoilProfile = new PipingStochasticSoilProfile(
+        private static PipingSurfaceLine GetSurfaceLine()
+        {
+            var surfaceLine = new PipingSurfaceLine(string.Empty);
+            var firstCharacteristicPointLocation = new Point3D(0.2, 0.0, bottom + 3 * top / 4);
+            var secondCharacteristicPointLocation = new Point3D(0.3, 0.0, bottom + 2 * top / 4);
+            var thirdCharacteristicPointLocation = new Point3D(0.4, 0.0, bottom + top / 4);
+            var fourthCharacteristicPointLocation = new Point3D(0.5, 0.0, bottom + 2 * top / 4);
+            var fifthCharacteristicPointLocation = new Point3D(0.6, 0.0, bottom + 3 * top / 4);
+            surfaceLine.SetGeometry(new[]
+            {
+                new Point3D(0.0, 0.0, 0.0),
+                firstCharacteristicPointLocation,
+                secondCharacteristicPointLocation,
+                thirdCharacteristicPointLocation,
+                fourthCharacteristicPointLocation,
+                fifthCharacteristicPointLocation,
+                new Point3D(1.0, 0.0, top)
+            });
+            surfaceLine.SetDikeToeAtPolderAt(firstCharacteristicPointLocation);
+            surfaceLine.SetDitchDikeSideAt(secondCharacteristicPointLocation);
+            surfaceLine.SetBottomDitchDikeSideAt(thirdCharacteristicPointLocation);
+            surfaceLine.SetBottomDitchPolderSideAt(fourthCharacteristicPointLocation);
+            surfaceLine.SetDitchPolderSideAt(fifthCharacteristicPointLocation);
+            surfaceLine.ReferenceLineIntersectionWorldPoint = new Point2D(0.0, 0.0);
+
+            return surfaceLine;
+        }
+
+        private static PipingStochasticSoilProfile GetStochasticSoilProfile()
+        {
+            return new PipingStochasticSoilProfile(
                 0.0, new PipingSoilProfile(string.Empty, 0.0, new[]
                 {
                     new PipingSoilLayer(top)
@@ -154,46 +236,6 @@ namespace Riskeer.Piping.Data.TestUtil
                         }
                     }
                 }, SoilProfileType.SoilProfile1D));
-            var surfaceLine = new PipingSurfaceLine(string.Empty);
-            var firstCharacteristicPointLocation = new Point3D(0.2, 0.0, bottom + 3 * top / 4);
-            var secondCharacteristicPointLocation = new Point3D(0.3, 0.0, bottom + 2 * top / 4);
-            var thirdCharacteristicPointLocation = new Point3D(0.4, 0.0, bottom + top / 4);
-            var fourthCharacteristicPointLocation = new Point3D(0.5, 0.0, bottom + 2 * top / 4);
-            var fifthCharacteristicPointLocation = new Point3D(0.6, 0.0, bottom + 3 * top / 4);
-            surfaceLine.SetGeometry(new[]
-            {
-                new Point3D(0.0, 0.0, 0.0),
-                firstCharacteristicPointLocation,
-                secondCharacteristicPointLocation,
-                thirdCharacteristicPointLocation,
-                fourthCharacteristicPointLocation,
-                fifthCharacteristicPointLocation,
-                new Point3D(1.0, 0.0, top)
-            });
-            surfaceLine.SetDikeToeAtPolderAt(firstCharacteristicPointLocation);
-            surfaceLine.SetDitchDikeSideAt(secondCharacteristicPointLocation);
-            surfaceLine.SetBottomDitchDikeSideAt(thirdCharacteristicPointLocation);
-            surfaceLine.SetBottomDitchPolderSideAt(fourthCharacteristicPointLocation);
-            surfaceLine.SetDitchPolderSideAt(fifthCharacteristicPointLocation);
-            surfaceLine.ReferenceLineIntersectionWorldPoint = new Point2D(0.0, 0.0);
-
-            return new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput())
-            {
-                InputParameters =
-                {
-                    DampingFactorExit =
-                    {
-                        Mean = (RoundedDouble) 1.0
-                    },
-                    PhreaticLevelExit =
-                    {
-                        Mean = (RoundedDouble) 2.0
-                    },
-                    SurfaceLine = surfaceLine,
-                    StochasticSoilProfile = stochasticSoilProfile,
-                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
-                }
-            };
         }
     }
 }

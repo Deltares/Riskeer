@@ -696,7 +696,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                 {
                     Children =
                     {
-                        new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput())
+                        new TestPipingCalculation()
                     }
                 };
 
@@ -746,7 +746,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                 {
                     Children =
                     {
-                        SemiProbabilisticPipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput(hydraulicBoundaryLocation)
+                        SemiProbabilisticPipingCalculationScenarioTestFactory.CreatePipingCalculationWithValidInput(hydraulicBoundaryLocation)
                     }
                 };
 
@@ -785,12 +785,12 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             {
                 var pipingFailureMechanism = new TestPipingFailureMechanism();
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
-                SemiProbabilisticPipingCalculationScenario pipingCalculationScenario = SemiProbabilisticPipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput(new TestHydraulicBoundaryLocation());
+                IPipingCalculation<PipingInput> calculation = SemiProbabilisticPipingCalculationScenarioTestFactory.CreatePipingCalculationWithValidInput(new TestHydraulicBoundaryLocation());
                 var group = new CalculationGroup
                 {
                     Children =
                     {
-                        pipingCalculationScenario
+                        calculation
                     }
                 };
 
@@ -807,7 +807,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
 
                 plugin.Gui = gui;
 
-                ChangeSurfaceLine(pipingCalculationScenario.InputParameters.SurfaceLine);
+                ChangeSurfaceLine(calculation.InputParameters.SurfaceLine);
 
                 // Call
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
@@ -1656,27 +1656,23 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                     new Point3D(4, 5, 6)
                 });
 
-                var calculation1 = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput())
+                var calculation1 = new TestPipingCalculation(new TestPipingInput
                 {
-                    InputParameters =
-                    {
-                        SurfaceLine = surfaceLine,
-                        EntryPointL = (RoundedDouble) 0,
-                        ExitPointL = (RoundedDouble) 1
-                    }
-                };
+                    SurfaceLine = surfaceLine,
+                    EntryPointL = (RoundedDouble) 0,
+                    ExitPointL = (RoundedDouble) 1
+                });
+
                 calculation1.Attach(calculation1Observer);
                 calculation1.InputParameters.Attach(calculation1InputObserver);
 
-                var calculation2 = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput())
+                var calculation2 = new TestPipingCalculation(new TestPipingInput
                 {
-                    InputParameters =
-                    {
-                        SurfaceLine = surfaceLine,
-                        EntryPointL = (RoundedDouble) 0,
-                        ExitPointL = (RoundedDouble) 1
-                    }
-                };
+                    SurfaceLine = surfaceLine,
+                    EntryPointL = (RoundedDouble) 0,
+                    ExitPointL = (RoundedDouble) 1
+                });
+
                 calculation2.Attach(calculation2Observer);
                 calculation2.InputParameters.Attach(calculation2InputObserver);
 
@@ -1750,29 +1746,23 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                     new Point3D(4, 5, 6)
                 });
 
-                var calculation1 = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput())
+                var calculation1 = new TestPipingCalculation(new TestPipingInput
                 {
-                    InputParameters =
-                    {
-                        SurfaceLine = surfaceLine,
-                        EntryPointL = (RoundedDouble) 0,
-                        ExitPointL = (RoundedDouble) 1
-                    },
-                    Output = PipingTestDataGenerator.GetRandomSemiProbabilisticPipingOutput()
-                };
+                    SurfaceLine = surfaceLine,
+                    EntryPointL = (RoundedDouble) 0,
+                    ExitPointL = (RoundedDouble) 1
+                }, true);
+
                 calculation1.Attach(calculation1Observer);
                 calculation1.InputParameters.Attach(calculation1InputObserver);
 
-                var calculation2 = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput())
+                var calculation2 = new TestPipingCalculation(new TestPipingInput
                 {
-                    InputParameters =
-                    {
-                        SurfaceLine = surfaceLine,
-                        EntryPointL = (RoundedDouble) 0,
-                        ExitPointL = (RoundedDouble) 1
-                    },
-                    Output = PipingTestDataGenerator.GetRandomSemiProbabilisticPipingOutput()
-                };
+                    SurfaceLine = surfaceLine,
+                    EntryPointL = (RoundedDouble) 0,
+                    ExitPointL = (RoundedDouble) 1
+                }, true);
+
                 calculation2.Attach(calculation2Observer);
                 calculation2.InputParameters.Attach(calculation2InputObserver);
 
@@ -1865,29 +1855,23 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                     new Point3D(4, 5, 6)
                 });
 
-                var calculation1 = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput())
+                var calculation1 = new TestPipingCalculation(new TestPipingInput
                 {
-                    InputParameters =
-                    {
-                        SurfaceLine = surfaceLine,
-                        EntryPointL = (RoundedDouble) 0,
-                        ExitPointL = (RoundedDouble) 1
-                    },
-                    Output = PipingTestDataGenerator.GetRandomSemiProbabilisticPipingOutput()
-                };
+                    SurfaceLine = surfaceLine,
+                    EntryPointL = (RoundedDouble) 0,
+                    ExitPointL = (RoundedDouble) 1
+                }, true);
+
                 calculation1.Attach(calculation1Observer);
                 calculation1.InputParameters.Attach(calculation1InputObserver);
 
-                var calculation2 = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput())
+                var calculation2 = new TestPipingCalculation(new TestPipingInput
                 {
-                    InputParameters =
-                    {
-                        SurfaceLine = surfaceLine,
-                        EntryPointL = (RoundedDouble) 0,
-                        ExitPointL = (RoundedDouble) 1
-                    },
-                    Output = PipingTestDataGenerator.GetRandomSemiProbabilisticPipingOutput()
-                };
+                    SurfaceLine = surfaceLine,
+                    EntryPointL = (RoundedDouble) 0,
+                    ExitPointL = (RoundedDouble) 1
+                }, true);
+
                 calculation2.Attach(calculation2Observer);
                 calculation2.InputParameters.Attach(calculation2InputObserver);
 

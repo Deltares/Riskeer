@@ -776,9 +776,9 @@ namespace Riskeer.Piping.Plugin
             StrictContextMenuItem addSemiProbabilisticCalculationItem = CreateAddSemiProbabilisticCalculationItem(nodeData);
             StrictContextMenuItem addProbabilisticCalculationItem = CreateAddProbabilisticCalculationItem(nodeData);
 
-            SemiProbabilisticPipingCalculationScenario[] calculations = nodeData.WrappedData.GetCalculations()
-                                                                                .OfType<SemiProbabilisticPipingCalculationScenario>()
-                                                                                .ToArray();
+            IPipingCalculation<PipingInput>[] calculations = nodeData.WrappedData.GetCalculations()
+                                                                     .OfType<IPipingCalculation<PipingInput>>()
+                                                                     .ToArray();
             StrictContextMenuItem updateEntryAndExitPointsItem = CreateCalculationGroupUpdateEntryAndExitPointItem(calculations);
 
             if (!isNestedGroup)
@@ -841,15 +841,15 @@ namespace Riskeer.Piping.Plugin
                           .Build();
         }
 
-        private StrictContextMenuItem CreateCalculationGroupUpdateEntryAndExitPointItem(IEnumerable<SemiProbabilisticPipingCalculationScenario> calculations)
+        private StrictContextMenuItem CreateCalculationGroupUpdateEntryAndExitPointItem(IEnumerable<IPipingCalculation<PipingInput>> calculations)
         {
             var contextMenuEnabled = true;
             string toolTipMessage = Resources.PipingPlugin_CreateUpdateEntryAndExitPointItem_Update_all_calculations_with_surface_line_ToolTip;
 
-            SemiProbabilisticPipingCalculationScenario[] calculationsToUpdate = calculations
-                                                                                .Where(calc => calc.InputParameters.SurfaceLine != null
-                                                                                               && !calc.InputParameters.IsEntryAndExitPointInputSynchronized)
-                                                                                .ToArray();
+            IPipingCalculation<PipingInput>[] calculationsToUpdate = calculations
+                                                                     .Where(calc => calc.InputParameters.SurfaceLine != null
+                                                                                    && !calc.InputParameters.IsEntryAndExitPointInputSynchronized)
+                                                                     .ToArray();
 
             if (!calculationsToUpdate.Any())
             {
@@ -867,12 +867,12 @@ namespace Riskeer.Piping.Plugin
             };
         }
 
-        private void UpdateEntryAndExitPointsOfAllCalculations(IEnumerable<SemiProbabilisticPipingCalculationScenario> calculations)
+        private void UpdateEntryAndExitPointsOfAllCalculations(IEnumerable<IPipingCalculation<PipingInput>> calculations)
         {
             string message = RiskeerCommonFormsResources.VerifyUpdate_Confirm_calculation_outputs_cleared;
             if (VerifyEntryAndExitPointUpdates(calculations, message))
             {
-                foreach (SemiProbabilisticPipingCalculationScenario calculation in calculations)
+                foreach (IPipingCalculation<PipingInput> calculation in calculations)
                 {
                     UpdateSurfaceLineDependentData(calculation);
                 }
