@@ -94,9 +94,8 @@ namespace AutomatedSystemTests
 
             Report.Screenshot(ReportLevel.Info, "User", "", repo.RiskeerMainWindow.PropertiesPanelContainer.Table.ContributionPercentage, false, new RecordItemIndex(0));
             
-            Report.Log(ReportLevel.Info, "Validation", "Validating AttributeEqual (AccessibleValue=$contributionPercentage) on item 'RiskeerMainWindow.PropertiesPanelContainer.Table.ContributionPercentage'.", repo.RiskeerMainWindow.PropertiesPanelContainer.Table.ContributionPercentageInfo, new RecordItemIndex(1));
-            Validate.AttributeEqual(repo.RiskeerMainWindow.PropertiesPanelContainer.Table.ContributionPercentageInfo, "AccessibleValue", contributionPercentage);
-            Delay.Milliseconds(100);
+            Validate_ContributionPercentage(repo.RiskeerMainWindow.PropertiesPanelContainer.Table.ContributionPercentageInfo);
+            Delay.Milliseconds(0);
             
         }
 
