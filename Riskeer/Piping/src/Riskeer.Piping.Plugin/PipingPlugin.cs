@@ -424,14 +424,38 @@ namespace Riskeer.Piping.Plugin
                                                                                  .AddPropertiesItem()
                                                                                  .Build()
             };
-            
+
             yield return new TreeNodeInfo<ProbabilisticPipingOutputContext>
             {
                 Text = context => RiskeerCommonFormsResources.CalculationOutput_DisplayName,
                 Image = context => RiskeerCommonFormsResources.CalculationOutputFolderIcon,
                 ForeColor = context => context.WrappedData.HasOutput
                                            ? Color.FromKnownColor(KnownColor.ControlText)
-                                           : Color.FromKnownColor(KnownColor.GrayText), 
+                                           : Color.FromKnownColor(KnownColor.GrayText)
+            };
+
+            yield return new TreeNodeInfo<ProbabilisticPipingProfileSpecificOutputContext>
+            {
+                Text = context => PipingFormsResources.ProbabilisticProfileSpecificOutput_DisplayName,
+                Image = context => RiskeerCommonFormsResources.GeneralOutputIcon,
+                ForeColor = context => context.WrappedData.HasOutput
+                                           ? Color.FromKnownColor(KnownColor.ControlText)
+                                           : Color.FromKnownColor(KnownColor.GrayText),
+                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
+                                                                                 .AddPropertiesItem()
+                                                                                 .Build()
+            };
+
+            yield return new TreeNodeInfo<ProbabilisticPipingSectionSpecificOutputContext>
+            {
+                Text = context => PipingFormsResources.ProbabilisticSectionSpecificOutput_DisplayName,
+                Image = context => RiskeerCommonFormsResources.GeneralOutputIcon,
+                ForeColor = context => context.WrappedData.HasOutput
+                                           ? Color.FromKnownColor(KnownColor.ControlText)
+                                           : Color.FromKnownColor(KnownColor.GrayText),
+                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
+                                                                                 .AddPropertiesItem()
+                                                                                 .Build()
             };
         }
 

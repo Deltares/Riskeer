@@ -506,4 +506,10 @@ opbarsten
     <value>binnendijkse waterstand
 [m+NAP]</value>
   </data>
+  <data name="ProbabilisticProfileSpecificOutput_DisplayName" xml:space="preserve">
+    <value>Resultaat doorsnede</value>
+  </data>
+  <data name="ProbabilisticSectionSpecificOutput_DisplayName" xml:space="preserve">
+    <value>Resultaat vak</value>
+  </data>
 </root>

@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2019. All rights reserved.
+// Copyright (C) Stichting Deltares 2019. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -40,7 +40,7 @@ namespace Riskeer.Piping.Forms.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Resources {
@@ -1183,6 +1183,24 @@ namespace Riskeer.Piping.Forms.Properties {
         public static string PipingSurfaceLineSelectionDialog_Select_SurfaceLines {
             get {
                 return ResourceManager.GetString("PipingSurfaceLineSelectionDialog_Select_SurfaceLines", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Resultaat doorsnede.
+        /// </summary>
+        public static string ProbabilisticProfileSpecificOutput_DisplayName {
+            get {
+                return ResourceManager.GetString("ProbabilisticProfileSpecificOutput_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Resultaat vak.
+        /// </summary>
+        public static string ProbabilisticSectionSpecificOutput_DisplayName {
+            get {
+                return ResourceManager.GetString("ProbabilisticSectionSpecificOutput_DisplayName", resourceCulture);
             }
         }
         
