@@ -332,7 +332,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
             yield return new TreeNodeInfo<GrassCoverErosionInwardsOutputContext>
             {
                 Text = context => RiskeerCommonFormsResources.CalculationOutput_DisplayName,
-                Image = context => Resources.OutputIcon,
+                Image = context => RiskeerCommonFormsResources.OutputIcon,
                 ForeColor = context => context.WrappedData.HasOutput
                                            ? Color.FromKnownColor(KnownColor.ControlText)
                                            : Color.FromKnownColor(KnownColor.GrayText),

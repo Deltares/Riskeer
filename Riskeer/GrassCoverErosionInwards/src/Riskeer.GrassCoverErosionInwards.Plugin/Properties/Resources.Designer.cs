@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2019. All rights reserved.
+// Copyright (C) Stichting Deltares 2019. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -171,16 +171,6 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Properties {
             get {
                 return ResourceManager.GetString("GrassCoverErosionInwardsPlugin_VerifyDikeProfileUpdate_When_updating_Calculation_" +
                         "with_DikeProfile_data_output_will_be_cleared_confirm", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap OutputIcon {
-            get {
-                object obj = ResourceManager.GetObject("OutputIcon", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
             }
         }
         

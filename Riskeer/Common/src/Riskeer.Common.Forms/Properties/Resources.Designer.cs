@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2019. All rights reserved.
+// Copyright (C) Stichting Deltares 2019. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -2912,6 +2912,16 @@ namespace Riskeer.Common.Forms.Properties {
         public static System.Drawing.Bitmap OutputFolderIcon {
             get {
                 object obj = ResourceManager.GetObject("OutputFolderIcon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap OutputIcon {
+            get {
+                object obj = ResourceManager.GetObject("OutputIcon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
