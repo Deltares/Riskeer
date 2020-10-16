@@ -969,7 +969,6 @@
 				</databinding>
 			</testmodule>
 			<testmodule
-			enabled="False"
 			id="170f46b0-fe63-4238-9874-af8420fa3e8f"
 			name="CloseAUT"
 			ref="07688822-3eb6-4d71-a97b-33498ae1d748"
@@ -3966,12 +3965,6 @@
 					variablename="calculatedCategoryBoundary">
 					</var>
 					<var
-					dataname="categoriesSuffix"
-					datasourceid="a19d64b1-9804-430e-b24d-b02b6bf6945a"
-					variableid="3f59ffa1-9268-4020-89db-834b5121cca0"
-					variablename="categorySuffix">
-					</var>
-					<var
 					dataname="prefix"
 					datasourceid="0b466300-a11b-4ace-860a-c951a79db2c2"
 					variableid="8a30822a-a8b0-4fa7-b364-eee06359becc"
@@ -4007,6 +4000,12 @@
 					variableid="78b35dc6-a224-4dc7-992a-f9b42e96fbaa"
 					variablename="boundaryType">
 					</var>
+					<var
+					dataname="suffixScope"
+					datasourceid="e4aa2fbe-8cc3-4c2e-8735-175a6a8ab1a4"
+					variableid="3f59ffa1-9268-4020-89db-834b5121cca0"
+					variablename="categorySuffix">
+					</var>
 				</databinding>
 				<missingdatabinding>
 					<var
@@ -4020,6 +4019,12 @@
 					datasourceid="eb4954a5-f66b-4693-981d-d581746768ca"
 					variableid="9c0297fc-a6f9-4b34-b9da-205c21fac4e4"
 					variablename="lowerLimitText">
+					</var>
+					<var
+					dataname="categoriesSuffix"
+					datasourceid="a19d64b1-9804-430e-b24d-b02b6bf6945a"
+					variableid="3f59ffa1-9268-4020-89db-834b5121cca0"
+					variablename="categorySuffix">
 					</var>
 				</missingdatabinding>
 			</testmodule>
@@ -4708,6 +4713,11 @@
 			id="739dbdee-cb57-479e-9461-6d944c1505e4"
 			name="teardown">
 			</teardown>
+			<smartfoldernode
+			datasource="tableScopeBoundaries"
+			id="73bba093-ff0b-403e-a5d4-33568e569c7c"
+			name="LoopScope(t_v)">
+			</smartfoldernode>
 			<testmodule
 			id="74354751-ba73-4f11-b592-d198491917b6"
 			name="ValidateSourcePathSubsurfaceStochasticModels"
@@ -6833,17 +6843,7 @@
 			<smartfoldernode
 			datasource="tableCategoriesPrefixes"
 			id="a19d64b1-9804-430e-b24d-b02b6bf6945a"
-			name="ValidateBoundariesTraject">
-				<parameters>
-					<param
-					name="categoriesSuffix"
-					value="t">
-					</param>
-					<param
-					name="substringSection"
-					value="">
-					</param>
-				</parameters>
+			name="LoopCategories(I_VI)">
 			</smartfoldernode>
 			<testmodule
 			id="a21427ac-0a51-4e66-b4ea-2e2800b1719f"
@@ -7076,6 +7076,7 @@
 			</testmodule>
 			<smartfoldernode
 			datasource="expectedErrorMessagesWhenNotIntersectingSurfaceLines"
+			errorbehavior="ContinueNextIteration"
 			id="a9476a5d-b871-4277-9188-1ebfe572836e"
 			name="ValidateErrorMessages">
 			</smartfoldernode>
@@ -7162,8 +7163,9 @@
 			</smartfoldernode>
 			<smartfoldernode
 			datasource="boundaryTypesNames"
+			errorbehavior="ContinueNextIteration"
 			id="aedd5571-96f0-44fd-9a62-fa76607ec249"
-			name="LoopBoundaryType">
+			name="LoopBoundaryType(LowerUpper)">
 				<parameters>
 					<param
 					name="expectedBoundaryValue"
@@ -7304,18 +7306,6 @@
 					variablename="categoryName">
 					</var>
 					<var
-					dataname="substringSection"
-					datasourceid="a19d64b1-9804-430e-b24d-b02b6bf6945a"
-					variableid="7f611ae2-9cdd-49ab-9f5c-3a3d10895d80"
-					variablename="sectionSubstring">
-					</var>
-					<var
-					dataname="categoriesSuffix"
-					datasourceid="a19d64b1-9804-430e-b24d-b02b6bf6945a"
-					variableid="b8671a42-1c75-4941-b387-69d720e545f8"
-					variablename="categorysuffix">
-					</var>
-					<var
 					dataname="prefixBoundaryType"
 					datasourceid="d28727ab-c53e-454f-bdd6-0451d5d86352"
 					variableid="8f75181e-5620-4184-b263-790e9b45c319"
@@ -7327,6 +7317,18 @@
 					variableid="74f78223-bbfe-48f3-8b40-2445e6a47468"
 					variablename="expectedBoundary">
 					</var>
+					<var
+					dataname="suffixScope"
+					datasourceid="e4aa2fbe-8cc3-4c2e-8735-175a6a8ab1a4"
+					variableid="b8671a42-1c75-4941-b387-69d720e545f8"
+					variablename="categorysuffix">
+					</var>
+					<var
+					dataname="substringScope"
+					datasourceid="e4aa2fbe-8cc3-4c2e-8735-175a6a8ab1a4"
+					variableid="7f611ae2-9cdd-49ab-9f5c-3a3d10895d80"
+					variablename="sectionSubstring">
+					</var>
 				</databinding>
 				<missingdatabinding>
 					<var
@@ -7334,6 +7336,18 @@
 					datasourceid="15b1c076-68c4-4b9f-99cb-be17a5ee60ed"
 					variableid="8f75181e-5620-4184-b263-790e9b45c319"
 					variablename="boundaryTypeSubstring">
+					</var>
+					<var
+					dataname="substringSection"
+					datasourceid="a19d64b1-9804-430e-b24d-b02b6bf6945a"
+					variableid="7f611ae2-9cdd-49ab-9f5c-3a3d10895d80"
+					variablename="sectionSubstring">
+					</var>
+					<var
+					dataname="categoriesSuffix"
+					datasourceid="a19d64b1-9804-430e-b24d-b02b6bf6945a"
+					variableid="b8671a42-1c75-4941-b387-69d720e545f8"
+					variablename="categorysuffix">
 					</var>
 				</missingdatabinding>
 			</testmodule>
@@ -7755,10 +7769,6 @@
 					value="ΔL [m]">
 					</param>
 				</parameters>
-			</smartfoldernode>
-			<smartfoldernode
-			id="b795459a-cbc9-44b8-808d-ecbcb138ed78"
-			name="d)DeterminationOfAssessmentRequirementsForSubSection(Vak)">
 			</smartfoldernode>
 			<testmodule
 			id="b82eab11-472c-4185-82c4-694c60a90d9d"
@@ -11634,27 +11644,27 @@
 								id="eb4954a5-f66b-4693-981d-d581746768ca"
 								name="ValidateBoundaries">
 									<smartfoldernode
-									id="a19d64b1-9804-430e-b24d-b02b6bf6945a"
-									name="ValidateBoundariesTraject">
+									id="73bba093-ff0b-403e-a5d4-33568e569c7c"
+									name="LoopScope(t_v)">
 										<smartfoldernode
-										id="aedd5571-96f0-44fd-9a62-fa76607ec249"
-										name="LoopBoundaryType">
-											<testmodule
-											id="5cf5f154-cb30-4728-8b81-be2f1c2230a9"
-											name="CalculateCategoryBoundary">
-											</testmodule>
-											<testmodule
-											id="b00fa597-7d2c-403b-98c9-b3b57af8a0ed"
-											name="ValidateCategoryBoundary">
-											</testmodule>
+										id="a19d64b1-9804-430e-b24d-b02b6bf6945a"
+										name="LoopCategories(I_VI)">
+											<smartfoldernode
+											id="aedd5571-96f0-44fd-9a62-fa76607ec249"
+											name="LoopBoundaryType(LowerUpper)">
+												<testmodule
+												id="5cf5f154-cb30-4728-8b81-be2f1c2230a9"
+												name="CalculateCategoryBoundary">
+												</testmodule>
+												<testmodule
+												id="b00fa597-7d2c-403b-98c9-b3b57af8a0ed"
+												name="ValidateCategoryBoundary">
+												</testmodule>
+											</smartfoldernode>
 										</smartfoldernode>
 									</smartfoldernode>
 								</smartfoldernode>
 							</smartfoldernode>
-						</smartfoldernode>
-						<smartfoldernode
-						id="b795459a-cbc9-44b8-808d-ecbcb138ed78"
-						name="d)DeterminationOfAssessmentRequirementsForSubSection(Vak)">
 						</smartfoldernode>
 						<teardown
 						id="f4d4d958-8b7c-427f-873c-e4ab538b83a8"
@@ -17225,6 +17235,47 @@
 				</tr>
 			</table>
 		</DataSource>
+		<DataSource
+		id="e4aa2fbe-8cc3-4c2e-8735-175a6a8ab1a4"
+		lastknownrowcount="2"
+		name="tableScopeBoundaries"
+		type="Ranorex.Core.Data.SimpleDataConnector">
+			<lastknowncolumns>
+				<column>
+					suffixScope
+				</column>
+				<column>
+					substringScope
+				</column>
+			</lastknowncolumns>
+			<maskedcolumns>
+			</maskedcolumns>
+			<table>
+				<tr>
+					<th>
+						suffixScope
+					</th>
+					<th>
+						substringScope
+					</th>
+				</tr>
+				<tr>
+					<td>
+						t
+					</td>
+					<td>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						v
+					</td>
+					<td>
+						Section
+					</td>
+				</tr>
+			</table>
+		</DataSource>
 	</datasources>
 	<testconfigurations
 	default="TestRun">
@@ -17267,9 +17318,6 @@
 			id="36de5b8d-308c-4502-9938-6fab6ac232a3">
 			</testcontainer>
 			<testcontainer
-			id="37c811fd-9297-4d92-b429-28a452540bf1">
-			</testcontainer>
-			<testcontainer
 			id="42425944-15c7-418b-b5cd-a582e15b80df">
 			</testcontainer>
 			<testcontainer
@@ -17306,16 +17354,13 @@
 			id="645a1e46-fc85-4ee5-b48f-628d1c339748">
 			</testcontainer>
 			<testcontainer
-			id="72139e5e-316f-4a54-9d52-75f865439dd6">
+			id="73bba093-ff0b-403e-a5d4-33568e569c7c">
 			</testcontainer>
 			<testcontainer
 			id="78947188-1351-4994-baff-766da4b7d2e0">
 			</testcontainer>
 			<testcontainer
 			id="78a783b3-ec47-4145-85f3-55c2b56b7aa0">
-			</testcontainer>
-			<testcontainer
-			id="78b7779b-7370-4e07-b1e4-d9a21ce890e1">
 			</testcontainer>
 			<testcontainer
 			id="7b0054c9-2118-49ba-881e-5da96a820b5a">
@@ -17348,9 +17393,6 @@
 			id="b76df6f8-799c-4ff8-8df2-198969a6b4be">
 			</testcontainer>
 			<testcontainer
-			id="b795459a-cbc9-44b8-808d-ecbcb138ed78">
-			</testcontainer>
-			<testcontainer
 			id="bbc104ea-69c3-4dcd-8e50-5d1b60cd8d06">
 			</testcontainer>
 			<testcontainer
@@ -17375,16 +17417,10 @@
 			id="e3a5d86a-aed9-4cb2-9fd0-3f8149eb00ca">
 			</testcontainer>
 			<testcontainer
-			id="e5ae984b-bd5a-4a0a-9e27-8c0d4bf76e75">
-			</testcontainer>
-			<testcontainer
 			id="eb4954a5-f66b-4693-981d-d581746768ca">
 			</testcontainer>
 			<testcontainer
 			id="ee7b2bd4-7803-4972-bcb9-6a818edd0be0">
-			</testcontainer>
-			<testcontainer
-			id="f16b204f-b66b-40a0-82c1-8d62dcbc8b22">
 			</testcontainer>
 			<testcontainer
 			id="f4955a2d-d976-4dab-9a66-884a462172a4">
