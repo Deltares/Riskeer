@@ -45,7 +45,14 @@ namespace AutomatedSystemTests
             string currentValueOfParameterForItemInTraject = rowInfo.CreateAdapter<Row>(true).GetAttributeValue<string>("AccessibleValue");
             Report.Log(ReportLevel.Info, "Validation", "Current value = "+ currentValueOfParameterForItemInTraject);
             double currentValueDouble = Double.Parse(currentValueOfParameterForItemInTraject, currentCulture);
-            double expectedValueDouble = Double.Parse(expectedValueOfParameterForItemInTraject, dataCulture);
+            double expectedValueDouble;
+            try {
+            	// if expected value has been read from Ranorex data
+            	expectedValueDouble = Double.Parse(expectedValueOfParameterForItemInTraject, dataCulture);
+            } catch (Exception) {
+            	// if expected value has been read from AUT GUI
+            	expectedValueDouble = Double.Parse(expectedValueOfParameterForItemInTraject, currentCulture);
+            }
             double deviation = Math.Abs(currentValueDouble - expectedValueDouble);
             Validate.AreEqual( deviation <= 0.0000001, true);            
         }
