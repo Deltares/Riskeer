@@ -103,12 +103,16 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
         }
 
         [Test]
-        public void ChildNodeObjects_WithOutputData_ReturnOutputChildNode()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void ChildNodeObjects_Always_ReturnsCollectionWithOutputObjects(bool hasOutput)
         {
             // Setup
             var calculation = new ProbabilisticPipingCalculation(new GeneralPipingInput())
             {
-                Output = PipingTestDataGenerator.GetRandomProbabilisticPipingOutput()
+                Output = hasOutput
+                             ? PipingTestDataGenerator.GetRandomProbabilisticPipingOutput()
+                             : null
             };
 
             var pipingFailureMechanism = new PipingFailureMechanism();
@@ -132,7 +136,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
             object[] children = info.ChildNodeObjects(pipingCalculationContext).ToArray();
 
             // Assert
-            Assert.AreEqual(2, children.Length);
+            Assert.AreEqual(3, children.Length);
             var comment = (Comment) children[0];
             Assert.AreSame(pipingCalculationContext.WrappedData.Comments, comment);
 
@@ -140,35 +144,9 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
             Assert.AreSame(pipingCalculationContext.WrappedData.InputParameters, pipingInputContext.WrappedData);
             CollectionAssert.AreEqual(pipingCalculationContext.AvailablePipingSurfaceLines, pipingInputContext.AvailablePipingSurfaceLines);
             CollectionAssert.AreEqual(pipingCalculationContext.AvailableStochasticSoilModels, pipingInputContext.AvailableStochasticSoilModels);
-        }
 
-        [Test]
-        public void ChildNodeObjects_WithoutOutput_ReturnNoChildNodes()
-        {
-            // Setup
-            var pipingFailureMechanism = new PipingFailureMechanism();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var pipingCalculationContext = new ProbabilisticPipingCalculationContext(new ProbabilisticPipingCalculation(new GeneralPipingInput()),
-                                                                                     new CalculationGroup(),
-                                                                                     Enumerable.Empty<PipingSurfaceLine>(),
-                                                                                     Enumerable.Empty<PipingStochasticSoilModel>(),
-                                                                                     pipingFailureMechanism,
-                                                                                     assessmentSection);
-
-            // Call
-            object[] children = info.ChildNodeObjects(pipingCalculationContext).ToArray();
-
-            // Assert
-            Assert.AreEqual(2, children.Length);
-            var comment = (Comment) children[0];
-            Assert.AreSame(pipingCalculationContext.WrappedData.Comments, comment);
-
-            var pipingInputContext = (ProbabilisticPipingInputContext) children[1];
-            Assert.AreSame(pipingCalculationContext.WrappedData.InputParameters, pipingInputContext.WrappedData);
-            CollectionAssert.AreEqual(pipingCalculationContext.AvailablePipingSurfaceLines, pipingInputContext.AvailablePipingSurfaceLines);
-            CollectionAssert.AreEqual(pipingCalculationContext.AvailableStochasticSoilModels, pipingInputContext.AvailableStochasticSoilModels);
+            var pipingOutputContext = (ProbabilisticPipingOutputContext) children[2];
+            Assert.AreSame(pipingCalculationContext.WrappedData, pipingOutputContext.WrappedData);
         }
 
         [Test]
