@@ -28,7 +28,6 @@ using Core.Components.Chart.Data;
 using Core.Components.Chart.Forms;
 using Riskeer.Common.Forms.Factories;
 using Riskeer.Piping.Data;
-using Riskeer.Piping.Data.SemiProbabilistic;
 using Riskeer.Piping.Forms.Factories;
 using Riskeer.Piping.Primitives;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
@@ -57,7 +56,7 @@ namespace Riskeer.Piping.Forms.Views
 
         private readonly List<ChartMultipleAreaData> soilLayerChartDataLookup;
 
-        private SemiProbabilisticPipingCalculationScenario data;
+        private IPipingCalculation<PipingInput> data;
 
         private PipingSoilProfile currentSoilProfile;
 
@@ -105,7 +104,7 @@ namespace Riskeer.Piping.Forms.Views
             }
             set
             {
-                data = value as SemiProbabilisticPipingCalculationScenario;
+                data = value as IPipingCalculation<PipingInput>;
 
                 calculationObserver.Observable = data;
                 calculationInputObserver.Observable = data?.InputParameters;

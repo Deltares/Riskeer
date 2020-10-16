@@ -266,6 +266,14 @@ namespace Riskeer.Piping.Plugin
                 CloseForData = ClosePipingInputViewForData
             };
 
+            yield return new ViewInfo<ProbabilisticPipingInputContext, ProbabilisticPipingCalculation, PipingInputView>
+            {
+                GetViewData = context => context.PipingCalculation,
+                GetViewName = (view, context) => RiskeerCommonFormsResources.Calculation_Input,
+                Image = PipingFormsResources.PipingInputIcon,
+                CloseForData = ClosePipingInputViewForData
+            };
+
             yield return new ViewInfo<PipingScenariosContext, CalculationGroup, PipingScenariosView>
             {
                 GetViewData = context => context.WrappedData,

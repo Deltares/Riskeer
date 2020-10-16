@@ -31,6 +31,7 @@ using Rhino.Mocks;
 using Riskeer.Piping.Data;
 using Riskeer.Piping.Data.SemiProbabilistic;
 using Riskeer.Piping.Data.SoilProfile;
+using Riskeer.Piping.Data.TestUtil;
 using Riskeer.Piping.Forms.Views;
 using Riskeer.Piping.Primitives;
 
@@ -101,7 +102,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             // Setup
             using (var view = new PipingInputView())
             {
-                var calculation = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput());
+                var calculation = new TestPipingCalculation(new TestPipingInput());
 
                 // Call
                 view.Data = calculation;
