@@ -244,7 +244,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
         #region Schematization
 
         [PropertyOrder(surfaceLinePropertyIndex)]
-        [Editor(typeof(PipingInputContextSurfaceLineSelectionEditor<>), typeof(UITypeEditor))]
+        [Editor(typeof(PipingInputContextSurfaceLineSelectionEditor<ProbabilisticPipingInputContextProperties>), typeof(UITypeEditor))]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Schematization))]
         [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.SurfaceLine_DisplayName))]
         [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.SurfaceLine_Description))]
