@@ -36,17 +36,17 @@ namespace Riskeer.Piping.Data.Test.Probabilistic
         public void Constructor_ExpectedValues()
         {
             // Setup
-            PartialProbabilisticPipingOutput resultWithLength = PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput(new TestGeneralResultFaultTreeIllustrationPoint());
-            PartialProbabilisticPipingOutput resultWithoutLength = PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput(new TestGeneralResultFaultTreeIllustrationPoint());
+            PartialProbabilisticPipingOutput sectionSpecificOutput = PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput(new TestGeneralResultFaultTreeIllustrationPoint());
+            PartialProbabilisticPipingOutput profileSpecificOutput = PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput(new TestGeneralResultFaultTreeIllustrationPoint());
 
             // Call
-            var output = new ProbabilisticPipingOutput(resultWithLength, resultWithoutLength);
+            var output = new ProbabilisticPipingOutput(sectionSpecificOutput, profileSpecificOutput);
 
             // Assert
             Assert.IsInstanceOf<CloneableObservable>(output);
             Assert.IsInstanceOf<ICalculationOutput>(output);
-            Assert.AreSame(resultWithLength, output.ResultWithLength);
-            Assert.AreSame(resultWithoutLength, output.ResultWithoutLength);
+            Assert.AreSame(sectionSpecificOutput, output.SectionSpecificOutput);
+            Assert.AreSame(profileSpecificOutput, output.ProfileSpecificOutput);
         }
 
         [Test]
@@ -63,7 +63,7 @@ namespace Riskeer.Piping.Data.Test.Probabilistic
         }
 
         [Test]
-        public void Clone_OnlyOutputWithLengthSet_ReturnNewInstanceWithCopiedValues()
+        public void Clone_OnlySectionSpecificOutputSet_ReturnNewInstanceWithCopiedValues()
         {
             // Setup
             var original = new ProbabilisticPipingOutput(PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput(new TestGeneralResultFaultTreeIllustrationPoint()), null);
@@ -76,7 +76,7 @@ namespace Riskeer.Piping.Data.Test.Probabilistic
         }
 
         [Test]
-        public void Clone_OnlyOutputWithoutLengthSet_ReturnNewInstanceWithCopiedValues()
+        public void Clone_OnlyProfileSpecificOutputSet_ReturnNewInstanceWithCopiedValues()
         {
             // Setup
             var original = new ProbabilisticPipingOutput(null, PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput(new TestGeneralResultFaultTreeIllustrationPoint()));

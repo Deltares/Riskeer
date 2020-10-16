@@ -256,12 +256,12 @@ namespace Riskeer.Piping.Data.TestUtil.Test
             ProbabilisticPipingOutput output = PipingTestDataGenerator.GetRandomProbabilisticPipingOutput();
 
             // Assert
-            Assert.IsNotNull(output.ResultWithLength);
-            Assert.IsTrue(IsValidDouble(output.ResultWithLength.Reliability));
-            Assert.IsNotNull(output.ResultWithLength.GeneralResult);
-            Assert.IsNotNull(output.ResultWithoutLength);
-            Assert.IsTrue(IsValidDouble(output.ResultWithoutLength.Reliability));
-            Assert.IsNotNull(output.ResultWithoutLength.GeneralResult);
+            Assert.IsNotNull(output.SectionSpecificOutput);
+            Assert.IsTrue(IsValidDouble(output.SectionSpecificOutput.Reliability));
+            Assert.IsNotNull(output.SectionSpecificOutput.GeneralResult);
+            Assert.IsNotNull(output.ProfileSpecificOutput);
+            Assert.IsTrue(IsValidDouble(output.ProfileSpecificOutput.Reliability));
+            Assert.IsNotNull(output.ProfileSpecificOutput.GeneralResult);
         }
 
         private static void AssertCalculationScenario(SemiProbabilisticPipingCalculationScenario calculation,

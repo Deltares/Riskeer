@@ -63,8 +63,8 @@ namespace Riskeer.Piping.Data.TestUtil
         /// <paramref name="clone"/> are not clones.</exception>
         public static void AreClones(ProbabilisticPipingOutput original, ProbabilisticPipingOutput clone)
         {
-            CoreCloneAssert.AreObjectClones(original.ResultWithLength, clone.ResultWithLength, AreClones);
-            CoreCloneAssert.AreObjectClones(original.ResultWithoutLength, clone.ResultWithoutLength, AreClones);
+            CoreCloneAssert.AreObjectClones(original.SectionSpecificOutput, clone.SectionSpecificOutput, AreClones);
+            CoreCloneAssert.AreObjectClones(original.ProfileSpecificOutput, clone.ProfileSpecificOutput, AreClones);
         }
 
         /// <summary>

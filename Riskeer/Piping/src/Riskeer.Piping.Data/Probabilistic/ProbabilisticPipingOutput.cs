@@ -32,38 +32,38 @@ namespace Riskeer.Piping.Data.Probabilistic
         /// <summary>
         /// Creates a new instance of <see cref="ProbabilisticPipingOutput"/>.
         /// </summary>
-        /// <param name="resultWithLength">The result of the sub-calculation that takes into account the section length.</param>
-        /// <param name="resultWithoutLength">The result of the sub-calculation that doesn't take into account the section length.</param>
+        /// <param name="sectionSpecificOutput">The result of the sub-calculation that takes into account the section length.</param>
+        /// <param name="profileSpecificOutput">The result of the sub-calculation that doesn't take into account the section length.</param>
         /// <remarks>The input parameters are not checked for being <c>null</c> as (one of the) the sub-calculation results might
         /// be missing due to calculation failure.</remarks>
-        public ProbabilisticPipingOutput(PartialProbabilisticPipingOutput resultWithLength, PartialProbabilisticPipingOutput resultWithoutLength)
+        public ProbabilisticPipingOutput(PartialProbabilisticPipingOutput sectionSpecificOutput, PartialProbabilisticPipingOutput profileSpecificOutput)
         {
-            ResultWithLength = resultWithLength;
-            ResultWithoutLength = resultWithoutLength;
+            SectionSpecificOutput = sectionSpecificOutput;
+            ProfileSpecificOutput = profileSpecificOutput;
         }
 
         /// <summary>
         /// Gets the result of the sub-calculation that takes into account the section length.
         /// </summary>
-        public PartialProbabilisticPipingOutput ResultWithLength { get; private set; }
+        public PartialProbabilisticPipingOutput SectionSpecificOutput { get; private set; }
 
         /// <summary>
         /// Gets the result of the sub-calculation that doesn't take into account the section length.
         /// </summary>
-        public PartialProbabilisticPipingOutput ResultWithoutLength { get; private set; }
+        public PartialProbabilisticPipingOutput ProfileSpecificOutput { get; private set; }
 
         public override object Clone()
         {
             var clone = (ProbabilisticPipingOutput) base.Clone();
 
-            if (ResultWithLength != null)
+            if (SectionSpecificOutput != null)
             {
-                clone.ResultWithLength = (PartialProbabilisticPipingOutput) ResultWithLength.Clone();
+                clone.SectionSpecificOutput = (PartialProbabilisticPipingOutput) SectionSpecificOutput.Clone();
             }
 
-            if (ResultWithoutLength != null)
+            if (ProfileSpecificOutput != null)
             {
-                clone.ResultWithoutLength = (PartialProbabilisticPipingOutput) ResultWithoutLength.Clone();
+                clone.ProfileSpecificOutput = (PartialProbabilisticPipingOutput) ProfileSpecificOutput.Clone();
             }
 
             return clone;
