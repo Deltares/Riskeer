@@ -250,9 +250,9 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
 
             Assert.AreEqual(19, dynamicProperties.Count);
 
-            const string hydraulicDataCategory = "Hydraulische gegevens";
-            const string schematizationCategory = "Schematisatie";
-            const string sectionInformationCategory = "Vakinformatie";
+            const string hydraulicDataCategory = "\t\t\tHydraulische gegevens";
+            const string schematizationCategory = "\t\tSchematisatie";
+            const string sectionInformationCategory = "\tVakinformatie";
             const string outputCategory = "Uitvoer";
 
             PropertyDescriptor hydraulicBoundaryLocationProperty = dynamicProperties[expectedSelectedHydraulicBoundaryLocationPropertyIndex];
@@ -438,7 +438,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
 
-            const string schematizationCategory = "Schematisatie";
+            const string schematizationCategory = "\t\tSchematisatie";
 
             PropertyDescriptor entryPointLProperty = dynamicProperties[expectedEntryPointLPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
