@@ -42,6 +42,9 @@ namespace AutomatedSystemTests
         		actualProbabilitySpace = cellInfo.CreateAdapter<Cell>(true).GetAttributeValue<string>("AccessibleValue");
         	} else {
         		System.Globalization.CultureInfo currentCulture = CultureInfo.CurrentCulture;
+            	System.Globalization.CultureInfo dataCulture = new CultureInfo( "en-US", false );
+            	dataCulture.NumberFormat.NumberDecimalSeparator = ".";
+            	dataCulture.NumberFormat.NumberGroupSeparator = "";
         		string expectedFailureProbToUse = normTypeVar=="Signal"?signallingValueVar:lowLimitValueVar;
 	        	Report.Log(ReportLevel.Info, "normType: " + normTypeVar + ", failure probability to use:" + expectedFailureProbToUse);
 	        	string invExpectedFailureProbToUse = expectedFailureProbToUse.Substring(expectedFailureProbToUse.LastIndexOf('/') + 1);

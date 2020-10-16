@@ -37,15 +37,17 @@ namespace AutomatedSystemTests
         public void Validate_GenericParameterVisibleInProjectExplorer(RepoItemInfo rowInfo)
         {
             System.Globalization.CultureInfo currentCulture = CultureInfo.CurrentCulture;
+            System.Globalization.CultureInfo dataCulture = new CultureInfo( "en-US", false );
+            dataCulture.NumberFormat.NumberDecimalSeparator = ".";
+            dataCulture.NumberFormat.NumberGroupSeparator = "";
         	Report.Log(ReportLevel.Info, "Validation", "Validating AttributeEqual (AccessibleValue=$expectedValueOfParameterForItemInTraject) on item 'rowInfo'.", rowInfo);
             Report.Log(ReportLevel.Info, "Validation", "Expected value = "+ expectedValueOfParameterForItemInTraject);
             string currentValueOfParameterForItemInTraject = rowInfo.CreateAdapter<Row>(true).GetAttributeValue<string>("AccessibleValue");
             Report.Log(ReportLevel.Info, "Validation", "Current value = "+ currentValueOfParameterForItemInTraject);
             double currentValueDouble = Double.Parse(currentValueOfParameterForItemInTraject, currentCulture);
-            double expectedValueDouble = Double.Parse(expectedValueOfParameterForItemInTraject, currentCulture);
+            double expectedValueDouble = Double.Parse(expectedValueOfParameterForItemInTraject, dataCulture);
             double deviation = Math.Abs(currentValueDouble - expectedValueDouble);
-            Validate.AreEqual( deviation <= 0.0000001, true);
-            //Validate.AttributeEqual(rowInfo, "AccessibleValue", expectedValueOfParameterForItemInTraject);
+            Validate.AreEqual( deviation <= 0.0000001, true);            
         }
 
     }

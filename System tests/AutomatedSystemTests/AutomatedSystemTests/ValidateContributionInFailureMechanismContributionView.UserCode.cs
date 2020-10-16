@@ -9,6 +9,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Drawing;
@@ -35,11 +36,17 @@ namespace AutomatedSystemTests
 
         public void Validate_ContributionCell(RepoItemInfo cellInfo)
         {
-            Report.Log(ReportLevel.Info, "Validation", "Validating AttributeEqual (AccessibleValue=$contributionValue) on item 'cellInfo'.", cellInfo);
+            System.Globalization.CultureInfo currentCulture = CultureInfo.CurrentCulture;
+            System.Globalization.CultureInfo dataCulture = new CultureInfo( "en-US", false );
+            dataCulture.NumberFormat.NumberDecimalSeparator = ".";
+            dataCulture.NumberFormat.NumberGroupSeparator = "";
+        	Report.Log(ReportLevel.Info, "Validation", "Validating AttributeEqual (AccessibleValue=$contributionValue) on item 'cellInfo'.", cellInfo);
             var accValue = cellInfo.CreateAdapter<Cell>(true).GetAttributeValue<string>("AccessibleValue");
+            double accValueNumber = Double.Parse(accValue, currentCulture);
+            double contributionValueNumber = Double.Parse(accValue, dataCulture);
             Report.Log(ReportLevel.Info, "Actual contribution: " + accValue);
             Report.Log(ReportLevel.Info, "Expected contribution: " + contributionValue);
-            Validate.AreEqual(accValue, contributionValue);
+            Validate.AreEqual(accValueNumber, contributionValueNumber);
         }
 
     }
