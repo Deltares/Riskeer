@@ -424,6 +424,15 @@ namespace Riskeer.Piping.Plugin
                                                                                  .AddPropertiesItem()
                                                                                  .Build()
             };
+            
+            yield return new TreeNodeInfo<ProbabilisticPipingOutputContext>
+            {
+                Text = context => RiskeerCommonFormsResources.CalculationOutput_DisplayName,
+                Image = context => RiskeerCommonFormsResources.OutputIcon,
+                ForeColor = context => context.WrappedData.HasOutput
+                                           ? Color.FromKnownColor(KnownColor.ControlText)
+                                           : Color.FromKnownColor(KnownColor.GrayText), 
+            };
         }
 
         #region ViewInfos
