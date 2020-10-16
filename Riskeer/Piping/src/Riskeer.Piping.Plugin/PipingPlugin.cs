@@ -1020,11 +1020,11 @@ namespace Riskeer.Piping.Plugin
                           .AddSeparator()
                           .AddValidateCalculationItem(
                               nodeData,
-                              Validate)
+                              ValidateSemiProbabilistic)
                           .AddPerformCalculationItem(
                               calculation,
                               nodeData,
-                              Calculate)
+                              CalculateSemiProbabilistic)
                           .AddSeparator()
                           .AddClearCalculationOutputItem(calculation)
                           .AddDeleteItem()
@@ -1041,12 +1041,12 @@ namespace Riskeer.Piping.Plugin
             CalculationContextOnNodeRemoved(parentNodeData, context.WrappedData);
         }
 
-        private static void Validate(SemiProbabilisticPipingCalculationScenarioContext context)
+        private static void ValidateSemiProbabilistic(SemiProbabilisticPipingCalculationScenarioContext context)
         {
             SemiProbabilisticPipingCalculationService.Validate(context.WrappedData, GetNormativeAssessmentLevel(context.AssessmentSection, context.WrappedData));
         }
 
-        private void Calculate(SemiProbabilisticPipingCalculation calculation, SemiProbabilisticPipingCalculationScenarioContext context)
+        private void CalculateSemiProbabilistic(SemiProbabilisticPipingCalculation calculation, SemiProbabilisticPipingCalculationScenarioContext context)
         {
             ActivityProgressDialogRunner.Run(Gui.MainWindow,
                                              PipingCalculationActivityFactory.CreateCalculationActivity(calculation, context.AssessmentSection));
@@ -1093,11 +1093,11 @@ namespace Riskeer.Piping.Plugin
                           .AddSeparator()
                           .AddValidateCalculationItem(
                               nodeData,
-                              Validate)
+                              ValidateProbabilistic)
                           .AddPerformCalculationItem(
                               calculation,
                               nodeData,
-                              Calculate)
+                              CalculateProbabilistic)
                           .AddSeparator()
                           .AddClearCalculationOutputItem(calculation)
                           .AddDeleteItem()
@@ -1114,9 +1114,9 @@ namespace Riskeer.Piping.Plugin
             CalculationContextOnNodeRemoved(parentNodeData, calculationContext.WrappedData);
         }
 
-        private static void Validate(ProbabilisticPipingCalculationContext context) {}
+        private static void ValidateProbabilistic(ProbabilisticPipingCalculationContext context) {}
 
-        private static void Calculate(ProbabilisticPipingCalculation calculation, ProbabilisticPipingCalculationContext context) {}
+        private static void CalculateProbabilistic(ProbabilisticPipingCalculation calculation, ProbabilisticPipingCalculationContext context) {}
 
         #endregion
 
