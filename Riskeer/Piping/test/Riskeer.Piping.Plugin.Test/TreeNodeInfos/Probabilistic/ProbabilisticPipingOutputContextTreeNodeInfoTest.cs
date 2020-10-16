@@ -61,7 +61,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
             Assert.IsNull(info.ContextMenuStrip);
             Assert.IsNull(info.EnsureVisibleOnCreate);
             Assert.IsNull(info.ExpandOnCreate);
-            Assert.IsNull(info.ChildNodeObjects);
+            Assert.IsNotNull(info.ChildNodeObjects);
             Assert.IsNull(info.CanRename);
             Assert.IsNull(info.OnNodeRenamed);
             Assert.IsNull(info.CanRemove);
@@ -124,6 +124,31 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
 
             // Assert
             TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.CalculationOutputFolderIcon, image);
+        }
+        
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void ChildNodeObjects_Always_ReturnsCollectionWithOutputObjects(bool hasOutput)
+        {
+            // Setup
+            var calculation = new ProbabilisticPipingCalculation(new GeneralPipingInput())
+            {
+                Output = hasOutput ? PipingTestDataGenerator.GetRandomProbabilisticPipingOutput() : null
+            };
+            var context = new ProbabilisticPipingOutputContext(calculation);
+
+            // Call
+            object[] children = info.ChildNodeObjects(context).ToArray();
+
+            // Assert
+            Assert.AreEqual(2, children.Length);
+
+            var profileSpecificOutputContext = children[0] as ProbabilisticPipingProfileSpecificOutputContext;
+            Assert.AreSame(calculation, profileSpecificOutputContext.WrappedData);
+            
+            var sectionSpecificOutputContext = children[1] as ProbabilisticPipingSectionSpecificOutputContext;
+            Assert.AreSame(calculation, sectionSpecificOutputContext.WrappedData);
         }
     }
 }

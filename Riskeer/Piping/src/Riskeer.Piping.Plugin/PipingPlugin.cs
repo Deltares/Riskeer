@@ -431,7 +431,8 @@ namespace Riskeer.Piping.Plugin
                 Image = context => RiskeerCommonFormsResources.CalculationOutputFolderIcon,
                 ForeColor = context => context.WrappedData.HasOutput
                                            ? Color.FromKnownColor(KnownColor.ControlText)
-                                           : Color.FromKnownColor(KnownColor.GrayText)
+                                           : Color.FromKnownColor(KnownColor.GrayText),
+                ChildNodeObjects = ProbabilisticOutputChildNodeObjects,
             };
 
             yield return new TreeNodeInfo<ProbabilisticPipingProfileSpecificOutputContext>
@@ -1116,6 +1117,21 @@ namespace Riskeer.Piping.Plugin
         private static void Validate(ProbabilisticPipingCalculationContext context) {}
 
         private static void Calculate(ProbabilisticPipingCalculation calculation, ProbabilisticPipingCalculationContext context) {}
+
+        #endregion
+
+        #region ProbabilisticPipingOutputContext TreeNodeInfo
+
+        private static object[] ProbabilisticOutputChildNodeObjects(ProbabilisticPipingOutputContext context)
+        {
+            ProbabilisticPipingCalculation calculation = context.WrappedData;
+
+            return new object[]
+            {
+                new ProbabilisticPipingProfileSpecificOutputContext(calculation),
+                new ProbabilisticPipingSectionSpecificOutputContext(calculation)
+            };
+        }
 
         #endregion
 
