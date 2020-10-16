@@ -301,6 +301,54 @@ namespace AutomatedSystemTests
             set { _DropDownItem = value; }
         }
 
+        string _categoryName = "";
+
+        /// <summary>
+        /// Gets or sets the value of variable categoryName.
+        /// </summary>
+        [TestVariable("e76c5155-f1f8-4415-bd13-dde7073c53b6")]
+        public string categoryName
+        {
+            get { return _categoryName; }
+            set { _categoryName = value; }
+        }
+
+        string _boundaryTypeSubstring = "";
+
+        /// <summary>
+        /// Gets or sets the value of variable boundaryTypeSubstring.
+        /// </summary>
+        [TestVariable("8f75181e-5620-4184-b263-790e9b45c319")]
+        public string boundaryTypeSubstring
+        {
+            get { return _boundaryTypeSubstring; }
+            set { _boundaryTypeSubstring = value; }
+        }
+
+        string _sectionSubstring = "";
+
+        /// <summary>
+        /// Gets or sets the value of variable sectionSubstring.
+        /// </summary>
+        [TestVariable("7f611ae2-9cdd-49ab-9f5c-3a3d10895d80")]
+        public string sectionSubstring
+        {
+            get { return _sectionSubstring; }
+            set { _sectionSubstring = value; }
+        }
+
+        string _categorysuffix = "";
+
+        /// <summary>
+        /// Gets or sets the value of variable categorysuffix.
+        /// </summary>
+        [TestVariable("b8671a42-1c75-4941-b387-69d720e545f8")]
+        public string categorysuffix
+        {
+            get { return _categorysuffix; }
+            set { _categorysuffix = value; }
+        }
+
 #endregion
 
         /// <summary>
@@ -1571,6 +1619,7 @@ namespace AutomatedSystemTests
         public partial class DocumentViewContainerUncachedFolder : RepoGenBaseFolder
         {
             AutomatedSystemTestsRepositoryFolders.FailureMechanismsContributionViewFolder _failuremechanismscontributionview;
+            AutomatedSystemTestsRepositoryFolders.ViewCategoryBoundariesFolder _viewcategoryboundaries;
             RepoItemInfo _insidedocument_isfmrelevantcellInfo;
 
             /// <summary>
@@ -1580,6 +1629,7 @@ namespace AutomatedSystemTests
                     base("DocumentViewContainerUncached", "?/container[10]/container[@controltypename='WinFormsAdapter']", parentFolder, 30000, null, false, "0577a18c-71af-4c1c-bb03-b668001706c5", "")
             {
                 _failuremechanismscontributionview = new AutomatedSystemTestsRepositoryFolders.FailureMechanismsContributionViewFolder(this);
+                _viewcategoryboundaries = new AutomatedSystemTestsRepositoryFolders.ViewCategoryBoundariesFolder(this);
                 _insidedocument_isfmrelevantcellInfo = new RepoItemInfo(this, "insideDocument_IsFMRelevantCell", ".//container[@controlname='FailureMechanismContributionView']/?/table/row[@accessiblevalue~$labelFM]/cell[@accessiblename>'Is relevant']", 30000, null, "db215a7f-7857-4f38-b16c-d96366f08703");
             }
 
@@ -1638,6 +1688,15 @@ namespace AutomatedSystemTests
             public virtual AutomatedSystemTestsRepositoryFolders.FailureMechanismsContributionViewFolder FailureMechanismsContributionView
             {
                 get { return _failuremechanismscontributionview; }
+            }
+
+            /// <summary>
+            /// The ViewCategoryBoundaries folder.
+            /// </summary>
+            [RepositoryFolder("a7a59ba5-6496-4ab2-b44f-ade262080acc")]
+            public virtual AutomatedSystemTestsRepositoryFolders.ViewCategoryBoundariesFolder ViewCategoryBoundaries
+            {
+                get { return _viewcategoryboundaries; }
             }
         }
 
@@ -1780,6 +1839,277 @@ namespace AutomatedSystemTests
                 get
                 {
                     return _probabilityspacecelluncachedInfo;
+                }
+            }
+        }
+
+        /// <summary>
+        /// The ViewCategoryBoundariesFolder folder.
+        /// </summary>
+        [RepositoryFolder("a7a59ba5-6496-4ab2-b44f-ade262080acc")]
+        public partial class ViewCategoryBoundariesFolder : RepoGenBaseFolder
+        {
+            AutomatedSystemTestsRepositoryFolders.CategoryBoundariesTrajectFolder _categoryboundariestraject;
+            AutomatedSystemTestsRepositoryFolders.CategoryBoundariesSectionFolder _categoryboundariessection;
+            AutomatedSystemTestsRepositoryFolders.GenericCategoryBoundariesFolder _genericcategoryboundaries;
+
+            /// <summary>
+            /// Creates a new ViewCategoryBoundaries  folder.
+            /// </summary>
+            public ViewCategoryBoundariesFolder(RepoGenBaseFolder parentFolder) :
+                    base("ViewCategoryBoundaries", "container[@controlname='FailureMechanismAssemblyCategoriesView']", parentFolder, 30000, null, false, "a7a59ba5-6496-4ab2-b44f-ade262080acc", "")
+            {
+                _categoryboundariestraject = new AutomatedSystemTestsRepositoryFolders.CategoryBoundariesTrajectFolder(this);
+                _categoryboundariessection = new AutomatedSystemTestsRepositoryFolders.CategoryBoundariesSectionFolder(this);
+                _genericcategoryboundaries = new AutomatedSystemTestsRepositoryFolders.GenericCategoryBoundariesFolder(this);
+            }
+
+            /// <summary>
+            /// The Self item.
+            /// </summary>
+            [RepositoryItem("a7a59ba5-6496-4ab2-b44f-ade262080acc")]
+            public virtual Ranorex.Container Self
+            {
+                get
+                {
+                    return _selfInfo.CreateAdapter<Ranorex.Container>(true);
+                }
+            }
+
+            /// <summary>
+            /// The Self item info.
+            /// </summary>
+            [RepositoryItemInfo("a7a59ba5-6496-4ab2-b44f-ade262080acc")]
+            public virtual RepoItemInfo SelfInfo
+            {
+                get
+                {
+                    return _selfInfo;
+                }
+            }
+
+            /// <summary>
+            /// The CategoryBoundariesTraject folder.
+            /// </summary>
+            [RepositoryFolder("4745d840-a581-449e-847e-f550c8da8ab1")]
+            public virtual AutomatedSystemTestsRepositoryFolders.CategoryBoundariesTrajectFolder CategoryBoundariesTraject
+            {
+                get { return _categoryboundariestraject; }
+            }
+
+            /// <summary>
+            /// The CategoryBoundariesSection folder.
+            /// </summary>
+            [RepositoryFolder("18d1028e-38e3-4f44-b5ad-2cf029772ce2")]
+            public virtual AutomatedSystemTestsRepositoryFolders.CategoryBoundariesSectionFolder CategoryBoundariesSection
+            {
+                get { return _categoryboundariessection; }
+            }
+
+            /// <summary>
+            /// The GenericCategoryBoundaries folder.
+            /// </summary>
+            [RepositoryFolder("4dcc478e-90aa-482a-a498-61f1ce9584ef")]
+            public virtual AutomatedSystemTestsRepositoryFolders.GenericCategoryBoundariesFolder GenericCategoryBoundaries
+            {
+                get { return _genericcategoryboundaries; }
+            }
+        }
+
+        /// <summary>
+        /// The CategoryBoundariesTrajectFolder folder.
+        /// </summary>
+        [RepositoryFolder("4745d840-a581-449e-847e-f550c8da8ab1")]
+        public partial class CategoryBoundariesTrajectFolder : RepoGenBaseFolder
+        {
+            RepoItemInfo _trajectcategoryboundarycellInfo;
+
+            /// <summary>
+            /// Creates a new CategoryBoundariesTraject  folder.
+            /// </summary>
+            public CategoryBoundariesTrajectFolder(RepoGenBaseFolder parentFolder) :
+                    base("CategoryBoundariesTraject", "?/container[@controlname='failureMechanismAssemblyGroupBox']/?/table", parentFolder, 30000, null, false, "4745d840-a581-449e-847e-f550c8da8ab1", "")
+            {
+                _trajectcategoryboundarycellInfo = new RepoItemInfo(this, "TrajectCategoryBoundaryCell", "row[@accessiblevalue>$categoryName]/cell[@accessiblename>$boundaryTypeSubstring]", 30000, null, "7a00fb5d-66a4-40e8-8a63-145f885e2cc1");
+            }
+
+            /// <summary>
+            /// The Self item.
+            /// </summary>
+            [RepositoryItem("4745d840-a581-449e-847e-f550c8da8ab1")]
+            public virtual Ranorex.Table Self
+            {
+                get
+                {
+                    return _selfInfo.CreateAdapter<Ranorex.Table>(true);
+                }
+            }
+
+            /// <summary>
+            /// The Self item info.
+            /// </summary>
+            [RepositoryItemInfo("4745d840-a581-449e-847e-f550c8da8ab1")]
+            public virtual RepoItemInfo SelfInfo
+            {
+                get
+                {
+                    return _selfInfo;
+                }
+            }
+
+            /// <summary>
+            /// The TrajectCategoryBoundaryCell item.
+            /// </summary>
+            [RepositoryItem("7a00fb5d-66a4-40e8-8a63-145f885e2cc1")]
+            public virtual Ranorex.Cell TrajectCategoryBoundaryCell
+            {
+                get
+                {
+                    return _trajectcategoryboundarycellInfo.CreateAdapter<Ranorex.Cell>(true);
+                }
+            }
+
+            /// <summary>
+            /// The TrajectCategoryBoundaryCell item info.
+            /// </summary>
+            [RepositoryItemInfo("7a00fb5d-66a4-40e8-8a63-145f885e2cc1")]
+            public virtual RepoItemInfo TrajectCategoryBoundaryCellInfo
+            {
+                get
+                {
+                    return _trajectcategoryboundarycellInfo;
+                }
+            }
+        }
+
+        /// <summary>
+        /// The CategoryBoundariesSectionFolder folder.
+        /// </summary>
+        [RepositoryFolder("18d1028e-38e3-4f44-b5ad-2cf029772ce2")]
+        public partial class CategoryBoundariesSectionFolder : RepoGenBaseFolder
+        {
+            RepoItemInfo _sectioncategoryboundarycellInfo;
+
+            /// <summary>
+            /// Creates a new CategoryBoundariesSection  folder.
+            /// </summary>
+            public CategoryBoundariesSectionFolder(RepoGenBaseFolder parentFolder) :
+                    base("CategoryBoundariesSection", "?/container[@controlname='failureMechanismSectionAssemblyGroupBox']/?/table", parentFolder, 30000, null, false, "18d1028e-38e3-4f44-b5ad-2cf029772ce2", "")
+            {
+                _sectioncategoryboundarycellInfo = new RepoItemInfo(this, "SectionCategoryBoundaryCell", "row[@accessiblevalue>$categoryName]/cell[@accessiblename>$boundaryTypeSubstring]", 30000, null, "f47b61a0-ce9b-40a1-8285-7159e89702b5");
+            }
+
+            /// <summary>
+            /// The Self item.
+            /// </summary>
+            [RepositoryItem("18d1028e-38e3-4f44-b5ad-2cf029772ce2")]
+            public virtual Ranorex.Table Self
+            {
+                get
+                {
+                    return _selfInfo.CreateAdapter<Ranorex.Table>(true);
+                }
+            }
+
+            /// <summary>
+            /// The Self item info.
+            /// </summary>
+            [RepositoryItemInfo("18d1028e-38e3-4f44-b5ad-2cf029772ce2")]
+            public virtual RepoItemInfo SelfInfo
+            {
+                get
+                {
+                    return _selfInfo;
+                }
+            }
+
+            /// <summary>
+            /// The SectionCategoryBoundaryCell item.
+            /// </summary>
+            [RepositoryItem("f47b61a0-ce9b-40a1-8285-7159e89702b5")]
+            public virtual Ranorex.Cell SectionCategoryBoundaryCell
+            {
+                get
+                {
+                    return _sectioncategoryboundarycellInfo.CreateAdapter<Ranorex.Cell>(true);
+                }
+            }
+
+            /// <summary>
+            /// The SectionCategoryBoundaryCell item info.
+            /// </summary>
+            [RepositoryItemInfo("f47b61a0-ce9b-40a1-8285-7159e89702b5")]
+            public virtual RepoItemInfo SectionCategoryBoundaryCellInfo
+            {
+                get
+                {
+                    return _sectioncategoryboundarycellInfo;
+                }
+            }
+        }
+
+        /// <summary>
+        /// The GenericCategoryBoundariesFolder folder.
+        /// </summary>
+        [RepositoryFolder("4dcc478e-90aa-482a-a498-61f1ce9584ef")]
+        public partial class GenericCategoryBoundariesFolder : RepoGenBaseFolder
+        {
+            RepoItemInfo _genericcategoryboundarycellInfo;
+
+            /// <summary>
+            /// Creates a new GenericCategoryBoundaries  folder.
+            /// </summary>
+            public GenericCategoryBoundariesFolder(RepoGenBaseFolder parentFolder) :
+                    base("GenericCategoryBoundaries", "?/container[@controlname='failureMechanism'+$sectionSubstring+'AssemblyGroupBox']/?/table", parentFolder, 30000, null, false, "4dcc478e-90aa-482a-a498-61f1ce9584ef", "")
+            {
+                _genericcategoryboundarycellInfo = new RepoItemInfo(this, "GenericCategoryBoundaryCell", "row[@accessiblevalue>$categoryName+$categorysuffix]/cell[@accessiblename>$boundaryTypeSubstring]", 30000, null, "c05e48a6-c497-43a0-9a7d-e3c812e6e11e");
+            }
+
+            /// <summary>
+            /// The Self item.
+            /// </summary>
+            [RepositoryItem("4dcc478e-90aa-482a-a498-61f1ce9584ef")]
+            public virtual Ranorex.Table Self
+            {
+                get
+                {
+                    return _selfInfo.CreateAdapter<Ranorex.Table>(true);
+                }
+            }
+
+            /// <summary>
+            /// The Self item info.
+            /// </summary>
+            [RepositoryItemInfo("4dcc478e-90aa-482a-a498-61f1ce9584ef")]
+            public virtual RepoItemInfo SelfInfo
+            {
+                get
+                {
+                    return _selfInfo;
+                }
+            }
+
+            /// <summary>
+            /// The GenericCategoryBoundaryCell item.
+            /// </summary>
+            [RepositoryItem("c05e48a6-c497-43a0-9a7d-e3c812e6e11e")]
+            public virtual Ranorex.Cell GenericCategoryBoundaryCell
+            {
+                get
+                {
+                    return _genericcategoryboundarycellInfo.CreateAdapter<Ranorex.Cell>(true);
+                }
+            }
+
+            /// <summary>
+            /// The GenericCategoryBoundaryCell item info.
+            /// </summary>
+            [RepositoryItemInfo("c05e48a6-c497-43a0-9a7d-e3c812e6e11e")]
+            public virtual RepoItemInfo GenericCategoryBoundaryCellInfo
+            {
+                get
+                {
+                    return _genericcategoryboundarycellInfo;
                 }
             }
         }

@@ -41,6 +41,7 @@ namespace AutomatedSystemTests
         /// </summary>
         public ValidateCategoryBoundary()
         {
+            expectedBoundary = "";
         }
 
         /// <summary>
@@ -52,6 +53,58 @@ namespace AutomatedSystemTests
         }
 
 #region Variables
+
+        string _expectedBoundary;
+
+        /// <summary>
+        /// Gets or sets the value of variable expectedBoundary.
+        /// </summary>
+        [TestVariable("74f78223-bbfe-48f3-8b40-2445e6a47468")]
+        public string expectedBoundary
+        {
+            get { return _expectedBoundary; }
+            set { _expectedBoundary = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets the value of variable sectionSubstring.
+        /// </summary>
+        [TestVariable("7f611ae2-9cdd-49ab-9f5c-3a3d10895d80")]
+        public string sectionSubstring
+        {
+            get { return repo.sectionSubstring; }
+            set { repo.sectionSubstring = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets the value of variable categoryName.
+        /// </summary>
+        [TestVariable("e76c5155-f1f8-4415-bd13-dde7073c53b6")]
+        public string categoryName
+        {
+            get { return repo.categoryName; }
+            set { repo.categoryName = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets the value of variable categorysuffix.
+        /// </summary>
+        [TestVariable("b8671a42-1c75-4941-b387-69d720e545f8")]
+        public string categorysuffix
+        {
+            get { return repo.categorysuffix; }
+            set { repo.categorysuffix = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets the value of variable boundaryTypeSubstring.
+        /// </summary>
+        [TestVariable("8f75181e-5620-4184-b263-790e9b45c319")]
+        public string boundaryTypeSubstring
+        {
+            get { return repo.boundaryTypeSubstring; }
+            set { repo.boundaryTypeSubstring = value; }
+        }
 
 #endregion
 
@@ -79,6 +132,20 @@ namespace AutomatedSystemTests
 
             Init();
 
+            //Report.Log(ReportLevel.Info, "Invoke action", "Invoking Focus() on item 'RiskeerMainWindow.DocumentViewContainerUncached.ViewCategoryBoundaries.GenericCategoryBoundaries.GenericCategoryBoundaryCell'.", repo.RiskeerMainWindow.DocumentViewContainerUncached.ViewCategoryBoundaries.GenericCategoryBoundaries.GenericCategoryBoundaryCellInfo, new RecordItemIndex(0));
+            //repo.RiskeerMainWindow.DocumentViewContainerUncached.ViewCategoryBoundaries.GenericCategoryBoundaries.GenericCategoryBoundaryCell.Focus();
+            //Delay.Milliseconds(0);
+            
+            //Report.Log(ReportLevel.Info, "Invoke action", "Invoking Select() on item 'RiskeerMainWindow.DocumentViewContainerUncached.ViewCategoryBoundaries.GenericCategoryBoundaries.GenericCategoryBoundaryCell'.", repo.RiskeerMainWindow.DocumentViewContainerUncached.ViewCategoryBoundaries.GenericCategoryBoundaries.GenericCategoryBoundaryCellInfo, new RecordItemIndex(1));
+            //repo.RiskeerMainWindow.DocumentViewContainerUncached.ViewCategoryBoundaries.GenericCategoryBoundaries.GenericCategoryBoundaryCell.Select();
+            //Delay.Milliseconds(0);
+            
+            Report.Screenshot(ReportLevel.Info, "User", "", repo.RiskeerMainWindow.DocumentViewContainerUncached.ViewCategoryBoundaries.GenericCategoryBoundaries.GenericCategoryBoundaryCell, false, new RecordItemIndex(2));
+            
+            Report.Log(ReportLevel.Info, "Validation", "Validating AttributeEqual (AccessibleValue=$expectedBoundary) on item 'RiskeerMainWindow.DocumentViewContainerUncached.ViewCategoryBoundaries.GenericCategoryBoundaries.GenericCategoryBoundaryCell'.", repo.RiskeerMainWindow.DocumentViewContainerUncached.ViewCategoryBoundaries.GenericCategoryBoundaries.GenericCategoryBoundaryCellInfo, new RecordItemIndex(3));
+            Validate.AttributeEqual(repo.RiskeerMainWindow.DocumentViewContainerUncached.ViewCategoryBoundaries.GenericCategoryBoundaries.GenericCategoryBoundaryCellInfo, "AccessibleValue", expectedBoundary);
+            Delay.Milliseconds(0);
+            
         }
 
 #region Image Feature Data

@@ -633,6 +633,49 @@ naLgXumYbgcL
 				</path>
 			</info>
 		</mouseitem>
+		<userrecorditem
+		classname="SaveAs"
+		enabled="True"
+		isexternaltestmethod="False"
+		methodname="AddWorkingDirectoryToFileNameIfRelativeFileName"
+		namespace="AutomatedSystemTests"
+		optional="False">
+			<comment>
+			</comment>
+			<bindings>
+			</bindings>
+			<arguments
+			id="ac9b2af7-84ad-4b14-ab49-e62c23002b9f">
+			</arguments>
+		</userrecorditem>
+		<loggingrecorditem
+		category="User"
+		enabled="True"
+		message="Name of file to save:"
+		optional="False"
+		reportlevel="Info;20"
+		searchpropertyid="dea3c1b2-21f8-4060-9ca6-02687a971078">
+			<comment>
+			</comment>
+			<bindings>
+			</bindings>
+		</loggingrecorditem>
+		<loggingrecorditem
+		category="User"
+		enabled="True"
+		message=""
+		optional="False"
+		reportlevel="Info;20"
+		searchpropertyid="4e4e9e4f-4e33-44d9-aad2-9025500ca5db">
+			<comment>
+			</comment>
+			<bindings>
+				<binding
+				target="Message"
+				variable="fileNameToSave">
+				</binding>
+			</bindings>
+		</loggingrecorditem>
 		<setvaluerecorditem
 		attrname="Text"
 		enabled="True"

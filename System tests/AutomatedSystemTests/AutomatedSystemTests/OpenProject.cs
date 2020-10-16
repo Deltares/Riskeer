@@ -96,20 +96,26 @@ namespace AutomatedSystemTests
             Report.Log(ReportLevel.Info, "Mouse", "Click on shortcut Open file\r\nMouse Left Click item 'RiskeerMainWindow.Ribbon.UpperButtonsContainer.OpenProjectButton' at Center.", repo.RiskeerMainWindow.Ribbon.UpperButtonsContainer.OpenProjectButtonInfo, new RecordItemIndex(0));
             repo.RiskeerMainWindow.Ribbon.UpperButtonsContainer.OpenProjectButton.Click();
             
+            AddWorkingDirectoryToFileNameIfRelativeFileName();
+            
+            Report.Log(ReportLevel.Info, "User", "Name of file to open:", new RecordItemIndex(2));
+            
+            Report.Log(ReportLevel.Info, "User", fileNameToOpen, new RecordItemIndex(3));
+            
             // Assign file name to open
-            Report.Log(ReportLevel.Info, "Set value", "Assign file name to open\r\nSetting attribute Text to '$fileNameToOpen' on item 'OpenDialog.FileNameField'.", repo.OpenDialog.FileNameFieldInfo, new RecordItemIndex(1));
+            Report.Log(ReportLevel.Info, "Set value", "Assign file name to open\r\nSetting attribute Text to '$fileNameToOpen' on item 'OpenDialog.FileNameField'.", repo.OpenDialog.FileNameFieldInfo, new RecordItemIndex(4));
             repo.OpenDialog.FileNameField.Element.SetAttributeValue("Text", fileNameToOpen);
             
             // Click on open button
-            Report.Log(ReportLevel.Info, "Mouse", "Click on open button\r\nMouse Left Click item 'OpenDialog.ButtonOpen' at Center.", repo.OpenDialog.ButtonOpenInfo, new RecordItemIndex(2));
+            Report.Log(ReportLevel.Info, "Mouse", "Click on open button\r\nMouse Left Click item 'OpenDialog.ButtonOpen' at Center.", repo.OpenDialog.ButtonOpenInfo, new RecordItemIndex(5));
             repo.OpenDialog.ButtonOpen.Click();
             
             // Wait time (300ms) so that dialog is started up
-            Report.Log(ReportLevel.Info, "Delay", "Wait time (300ms) so that dialog is started up\r\nWaiting for 300ms.", new RecordItemIndex(3));
+            Report.Log(ReportLevel.Info, "Delay", "Wait time (300ms) so that dialog is started up\r\nWaiting for 300ms.", new RecordItemIndex(6));
             Delay.Duration(300, false);
             
             // Wait until file has been loaded and open dialog has been closed
-            Report.Log(ReportLevel.Info, "Wait", "Wait until file has been loaded and open dialog has been closed\r\nWaiting 30s to not exist. Associated repository item: 'ActivityProgressDialog.ProgressBar'", repo.ActivityProgressDialog.ProgressBarInfo, new ActionTimeout(30000), new RecordItemIndex(4));
+            Report.Log(ReportLevel.Info, "Wait", "Wait until file has been loaded and open dialog has been closed\r\nWaiting 30s to not exist. Associated repository item: 'ActivityProgressDialog.ProgressBar'", repo.ActivityProgressDialog.ProgressBarInfo, new ActionTimeout(30000), new RecordItemIndex(7));
             repo.ActivityProgressDialog.ProgressBarInfo.WaitForNotExists(30000);
             
         }
