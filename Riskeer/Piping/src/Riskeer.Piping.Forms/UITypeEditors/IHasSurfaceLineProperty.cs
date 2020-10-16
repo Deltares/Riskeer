@@ -25,7 +25,10 @@ using Riskeer.Piping.Primitives;
 
 namespace Riskeer.Piping.Forms.UITypeEditors
 {
-   public interface IHasSurfaceLineProperty : IObjectProperties
+    /// <summary>
+    /// Interface for objects which can have a surface line.
+    /// </summary>
+    public interface IHasSurfaceLineProperty : IObjectProperties
     {
         /// <summary>
         /// Returns the collection of surface lines.

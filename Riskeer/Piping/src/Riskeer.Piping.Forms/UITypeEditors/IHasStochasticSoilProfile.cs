@@ -25,16 +25,19 @@ using Riskeer.Piping.Data.SoilProfile;
 
 namespace Riskeer.Piping.Forms.UITypeEditors
 {
+    /// <summary>
+    /// Interface for objects which can have a soil profile.
+    /// </summary>
     public interface IHasStochasticSoilProfile : IObjectProperties
     {
         /// <summary>
-        /// Returns the collection of surface lines.
+        /// Returns the collection of stochastic soil profiles.
         /// </summary>
-        /// <returns>A collection of surface lines.</returns>
+        /// <returns>A collection of stochastic soil profiles.</returns>
         IEnumerable<PipingStochasticSoilProfile> GetAvailableStochasticSoilProfiles();
 
         /// <summary>
-        /// Gets the piping surface line.
+        /// Gets the piping stochastic soil profile.
         /// </summary>
         PipingStochasticSoilProfile StochasticSoilProfile { get; }
     }
