@@ -26,15 +26,15 @@ using Riskeer.Piping.Data.Probabilistic;
 namespace Riskeer.Piping.Forms.PresentationObjects.Probabilistic
 {
     /// <summary>
-    /// A presentation layer object which wraps a <see cref="ProbabilisticPipingOutput"/>.
+    /// A presentation layer object which wraps a <see cref="ProbabilisticPipingCalculation"/>.
     /// </summary>
-    public class ProbabilisticPipingOutputContext : ObservableWrappedObjectContextBase<ProbabilisticPipingOutput>
+    public class ProbabilisticPipingOutputContext : ObservableWrappedObjectContextBase<ProbabilisticPipingCalculation>
     {
         /// <summary>
         /// Creates a new instance of <see cref="ProbabilisticPipingOutputContext"/>.
         /// </summary>
-        /// <param name="pipingOutput">The <see cref="ProbabilisticPipingOutput"/> object to wrap.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="pipingOutput"/> is <c>null</c>.</exception>
-        public ProbabilisticPipingOutputContext(ProbabilisticPipingOutput pipingOutput) : base(pipingOutput) {}
+        /// <param name="calculation">The <see cref="ProbabilisticPipingCalculation"/> object to wrap.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculation"/> is <c>null</c>.</exception>
+        public ProbabilisticPipingOutputContext(ProbabilisticPipingCalculation calculation) : base(calculation) {}
     }
 }

@@ -22,6 +22,7 @@
 using Core.Common.Controls.PresentationObjects;
 using NUnit.Framework;
 using Riskeer.Common.Data.TestUtil.IllustrationPoints;
+using Riskeer.Piping.Data;
 using Riskeer.Piping.Data.Probabilistic;
 using Riskeer.Piping.Forms.PresentationObjects.Probabilistic;
 
@@ -34,15 +35,14 @@ namespace Riskeer.Piping.Forms.Test.PresentationObjects.Probabilistic
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var partialOutput = new PartialProbabilisticPipingOutput(0, new TestGeneralResultFaultTreeIllustrationPoint());
-            var output = new ProbabilisticPipingOutput(partialOutput, partialOutput);
+            var calculation = new ProbabilisticPipingCalculation(new GeneralPipingInput());
 
             // Call
-            var context = new ProbabilisticPipingOutputContext(output);
+            var context = new ProbabilisticPipingOutputContext(calculation);
 
             // Assert
-            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<ProbabilisticPipingOutput>>(context);
-            Assert.AreSame(output, context.WrappedData);
+            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<ProbabilisticPipingCalculation>>(context);
+            Assert.AreSame(calculation, context.WrappedData);
         }
     }
 }
