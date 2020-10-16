@@ -27,6 +27,11 @@ namespace Riskeer.HydraRing.Calculation
     internal static class HydraRingFileConstants
     {
         /// <summary>
+        /// The version of Hydra-Ring.
+        /// </summary>
+        internal const string HydraRingVersionNumber = "19.1.1.9292";
+        
+        /// <summary>
         /// The file name of the file containing the output of a calculation.
         /// </summary>
         internal const string DesignTablesFileName = "designTable.txt";
