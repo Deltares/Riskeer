@@ -19,22 +19,30 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using Core.Common.Controls.PresentationObjects;
+using NUnit.Framework;
+using Riskeer.Common.Data.TestUtil.IllustrationPoints;
+using Riskeer.Piping.Data;
 using Riskeer.Piping.Data.Probabilistic;
+using Riskeer.Piping.Forms.PresentationObjects.Probabilistic;
 
-namespace Riskeer.Piping.Forms.PresentationObjects.Probabilistic
+namespace Riskeer.Piping.Forms.Test.PresentationObjects.Probabilistic
 {
-    /// <summary>
-    /// Presentation object for the output of <see cref="ProbabilisticPipingCalculation"/>.
-    /// </summary>
-    public class ProbabilisticPipingOutputContext : ObservableWrappedObjectContextBase<ProbabilisticPipingCalculation>
+    [TestFixture]
+    public class ProbabilisticPipingProfileSpecificOutputContextTest
     {
-        /// <summary>
-        /// Creates a new instance of <see cref="ProbabilisticPipingOutputContext"/>.
-        /// </summary>
-        /// <param name="calculation">The <see cref="ProbabilisticPipingCalculation"/> object to wrap.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculation"/> is <c>null</c>.</exception>
-        public ProbabilisticPipingOutputContext(ProbabilisticPipingCalculation calculation) : base(calculation) {}
+        [Test]
+        public void Constructor_ExpectedValues()
+        {
+            // Setup
+            var calculation = new ProbabilisticPipingCalculation(new GeneralPipingInput());
+
+            // Call
+            var context = new ProbabilisticPipingProfileSpecificOutputContext(calculation);
+
+            // Assert
+            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<ProbabilisticPipingCalculation>>(context);
+            Assert.AreSame(calculation, context.WrappedData);
+        }
     }
 }
