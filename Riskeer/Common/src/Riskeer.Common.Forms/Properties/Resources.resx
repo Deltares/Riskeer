@@ -1595,16 +1595,13 @@ scenario
     <value>toegestane peilverhoging komberging
 [m]</value>
   </data>
-  <data name="Output" xml:space="preserve">
-    <value>Uitvoer</value>
-  </data>
   <data name="SectionLength_Description" xml:space="preserve">
     <value>De lengte van het vak.</value>
   </data>
   <data name="SectionLength_DisplayName" xml:space="preserve">
     <value>Vaklengte [m]</value>
   </data>
-  <data name="SectionInformation" xml:space="preserve">
+  <data name="Categories_FailureMechanismSection" xml:space="preserve">
     <value>Vakinformatie</value>
   </data>
   <data name="ProbabilisticCalculationIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
