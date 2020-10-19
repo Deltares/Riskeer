@@ -24,46 +24,46 @@ namespace AutomatedSystemTests
 {
 #pragma warning disable 0436 //(CS0436) The type 'type' in 'assembly' conflicts with the imported type 'type2' in 'assembly'. Using the type defined in 'assembly'.
     /// <summary>
-    ///The ValidateDetailedAssessmentTypeAtRow recording.
+    ///The SetDetailedAssessmentValueForRow recording.
     /// </summary>
-    [TestModule("f90323b9-0faf-4e8d-ba0d-cddbcaec15a5", ModuleType.Recording, 1)]
-    public partial class ValidateDetailedAssessmentTypeAtRow : ITestModule
+    [TestModule("8ba1a78d-5071-4845-bc94-8ab1fa70f8c1", ModuleType.Recording, 1)]
+    public partial class SetDetailedAssessmentValueForRow : ITestModule
     {
         /// <summary>
         /// Holds an instance of the AutomatedSystemTestsRepository repository.
         /// </summary>
         public static AutomatedSystemTestsRepository repo = AutomatedSystemTestsRepository.Instance;
 
-        static ValidateDetailedAssessmentTypeAtRow instance = new ValidateDetailedAssessmentTypeAtRow();
+        static SetDetailedAssessmentValueForRow instance = new SetDetailedAssessmentValueForRow();
 
         /// <summary>
         /// Constructs a new instance.
         /// </summary>
-        public ValidateDetailedAssessmentTypeAtRow()
+        public SetDetailedAssessmentValueForRow()
         {
-            expectedDetailedAssessmentCellType = "";
+            assessmentValueToAssign = "";
         }
 
         /// <summary>
         /// Gets a static instance of this recording.
         /// </summary>
-        public static ValidateDetailedAssessmentTypeAtRow Instance
+        public static SetDetailedAssessmentValueForRow Instance
         {
             get { return instance; }
         }
 
 #region Variables
 
-        string _expectedDetailedAssessmentCellType;
+        string _assessmentValueToAssign;
 
         /// <summary>
-        /// Gets or sets the value of variable expectedDetailedAssessmentCellType.
+        /// Gets or sets the value of variable assessmentValueToAssign.
         /// </summary>
-        [TestVariable("8099b7cd-452a-42e6-8a28-9c7c1869088a")]
-        public string expectedDetailedAssessmentCellType
+        [TestVariable("3d41c7f7-4aea-4ded-b952-9a31e437e726")]
+        public string assessmentValueToAssign
         {
-            get { return _expectedDetailedAssessmentCellType; }
-            set { _expectedDetailedAssessmentCellType = value; }
+            get { return _assessmentValueToAssign; }
+            set { _assessmentValueToAssign = value; }
         }
 
         /// <summary>
@@ -102,8 +102,13 @@ namespace AutomatedSystemTests
 
             Init();
 
-            Report.Log(ReportLevel.Info, "Validation", "Validating AttributeEqual (AccessibleValue=$expectedDetailedAssessmentCellType) on item 'RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.DetailedAsssessmentTypeRowNth'.", repo.RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.DetailedAsssessmentTypeRowNthInfo, new RecordItemIndex(0));
-            Validate.AttributeEqual(repo.RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.DetailedAsssessmentTypeRowNthInfo, "AccessibleValue", expectedDetailedAssessmentCellType);
+            Report.Log(ReportLevel.Info, "Invoke action", "Invoking Focus() on item 'RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.DetailedAssessmentValueRowNth'.", repo.RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.DetailedAssessmentValueRowNthInfo, new RecordItemIndex(0));
+            repo.RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.DetailedAssessmentValueRowNth.Focus();
+            
+            Report.Log(ReportLevel.Info, "Invoke action", "Invoking Select() on item 'RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.DetailedAssessmentValueRowNth'.", repo.RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.DetailedAssessmentValueRowNthInfo, new RecordItemIndex(1));
+            repo.RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.DetailedAssessmentValueRowNth.Select();
+            
+            Set_value_DetailedAsssessmentTypeRowNth(repo.RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.DetailedAssessmentValueRowNthInfo);
             
         }
 

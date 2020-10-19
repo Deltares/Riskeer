@@ -7,7 +7,7 @@ mode="Global">
 		1
 	</repeatcount>
 	<turbomode>
-		False
+		True
 	</turbomode>
 	<genreport>
 		True
@@ -49,72 +49,26 @@ mode="Global">
 			id="62a2b33d-d577-40b8-b792-2d97e236d481">
 			</arguments>
 		</invokeactionrecorditem>
-		<mouseitem
-		action="DoubleClick"
-		button="Left"
-		duration="300ms"
-		enabled="False"
-		loc="CenterRight"
-		movetime="300ms"
+		<invokeactionrecorditem
+		action="Select"
+		enabled="True"
 		optional="False"
-		searchpropertyid="6d2e9083-f6c4-4501-ac91-9b881afa0431"
-		sx="0"
-		sy="0"
-		warnoutofbounds="False">
+		searchpropertyid="075e7398-eb1d-48fd-8755-ff109e3df732">
 			<comment>
 			</comment>
 			<bindings>
 			</bindings>
 			<info
 			id="2a76c8ea-2ab5-4255-931e-89d10c2fcde3"
-			sourcename="ItemRecorderEditor">
+			sourcename="RepositoryEditor">
 				<path>
 					/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename&gt;'Toets op maatfaalkans Row ']
 				</path>
 			</info>
-		</mouseitem>
-		<keysequenceitem
-		KeySequence="{Back}"
-		duration="20ms"
-		enabled="False"
-		optional="False"
-		presstime="20ms"
-		searchpropertyid="ecd098fd-16fe-43b8-8380-04c4263dbe2b">
-			<comment>
-			</comment>
-			<bindings>
-			</bindings>
-			<info
-			id="2a76c8ea-2ab5-4255-931e-89d10c2fcde3"
-			sourcename="Recorder">
-				<path>
-					/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename&gt;'Toets op maatfaalkans Row ']
-				</path>
-			</info>
-		</keysequenceitem>
-		<keysequenceitem
-		KeySequence="{NumPad0}{Decimal}{NumPad0}{NumPad0}{NumPad1}{NumPad2}{NumPad5}"
-		duration="20ms"
-		enabled="False"
-		optional="False"
-		presstime="20ms"
-		searchpropertyid="28ae3c89-fbed-4091-b7a3-a00f6ca312d0">
-			<comment>
-			</comment>
-			<bindings>
-				<binding
-				target="KeySequence"
-				variable="expectedCustomAssessmentValue">
-				</binding>
-			</bindings>
-			<info
-			id="2a76c8ea-2ab5-4255-931e-89d10c2fcde3"
-			sourcename="Recorder">
-				<path>
-					/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename&gt;'Toets op maatfaalkans Row ']
-				</path>
-			</info>
-		</keysequenceitem>
+			<arguments
+			id="53945325-9f9c-495e-b89f-e3abee4873c0">
+			</arguments>
+		</invokeactionrecorditem>
 		<setvaluerecorditem
 		attrname="AccessibleValue"
 		enabled="True"
@@ -139,25 +93,6 @@ mode="Global">
 				yourValue
 			</AttributeValue>
 		</setvaluerecorditem>
-		<keysequenceitem
-		KeySequence="{Return}"
-		duration="20ms"
-		enabled="False"
-		optional="False"
-		presstime="20ms"
-		searchpropertyid="f5d428a4-8a03-43c6-8c6d-2fea39ad4c5b">
-			<comment>
-			</comment>
-			<bindings>
-			</bindings>
-			<info
-			id="2a76c8ea-2ab5-4255-931e-89d10c2fcde3"
-			sourcename="Recorder">
-				<path>
-					/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismResultView']/container/table[@controlname='dataGridView']/row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename&gt;'Toets op maatfaalkans Row ']
-				</path>
-			</info>
-		</keysequenceitem>
 	</recorditems>
 	<repository
 	id="137723a5-e147-4b62-8c15-5c31a3d68f96"
