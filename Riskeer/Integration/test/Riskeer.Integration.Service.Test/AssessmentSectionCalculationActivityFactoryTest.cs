@@ -89,7 +89,7 @@ namespace Riskeer.Integration.Service.Test
             assessmentSection.GrassCoverErosionOutwards.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryLocations);
 
             AddGrassCoverErosionInwardsCalculation(assessmentSection, hydraulicBoundaryLocation);
-            AddPipingCalculationScenario(assessmentSection, hydraulicBoundaryLocation);
+            AddSemiProbabilisticPipingCalculationScenario(assessmentSection, hydraulicBoundaryLocation);
             AddMacroStabilityInwardsCalculationScenario(assessmentSection, hydraulicBoundaryLocation);
             AddStabilityStoneCoverCalculation(assessmentSection, hydraulicBoundaryLocation);
             AddWaveImpactAsphaltCoverCalculation(assessmentSection, hydraulicBoundaryLocation);
@@ -252,7 +252,7 @@ namespace Riskeer.Integration.Service.Test
         private static IEnumerable<TestCaseData> GetFailureMechanismTestCases()
         {
             yield return new TestCaseData(new Action<AssessmentSection>(section => section.Piping.IsRelevant = false),
-                                          new Action<AssessmentSection>(section => AddPipingCalculationScenario(section, new TestHydraulicBoundaryLocation())))
+                                          new Action<AssessmentSection>(section => AddSemiProbabilisticPipingCalculationScenario(section, new TestHydraulicBoundaryLocation())))
                 .SetName("Piping");
             yield return new TestCaseData(new Action<AssessmentSection>(section => section.GrassCoverErosionInwards.IsRelevant = false),
                                           new Action<AssessmentSection>(section => AddGrassCoverErosionInwardsCalculation(section, new TestHydraulicBoundaryLocation())))
@@ -310,8 +310,8 @@ namespace Riskeer.Integration.Service.Test
             });
         }
 
-        private static void AddPipingCalculationScenario(AssessmentSection assessmentSection,
-                                                         HydraulicBoundaryLocation hydraulicBoundaryLocation)
+        private static void AddSemiProbabilisticPipingCalculationScenario(AssessmentSection assessmentSection,
+                                                                          HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
             SemiProbabilisticPipingCalculationScenario pipingCalculationScenario = SemiProbabilisticPipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithValidInput(hydraulicBoundaryLocation);
             pipingCalculationScenario.InputParameters.UseAssessmentLevelManualInput = true;

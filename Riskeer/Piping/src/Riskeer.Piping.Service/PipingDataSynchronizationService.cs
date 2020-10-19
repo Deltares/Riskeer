@@ -287,7 +287,7 @@ namespace Riskeer.Piping.Service
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism containing <paramref name="soilProfile"/>.</param>
         /// <param name="soilProfile">The soil profile residing in <paramref name="failureMechanism"/>
-        /// that has beeen removed.</param>
+        /// that has been removed.</param>
         /// <returns>All observable objects affected by this method.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
         /// or <paramref name="soilProfile"/> is <c>null</c>.</exception>

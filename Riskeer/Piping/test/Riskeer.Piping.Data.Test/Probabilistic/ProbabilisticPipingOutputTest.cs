@@ -36,8 +36,10 @@ namespace Riskeer.Piping.Data.Test.Probabilistic
         public void Constructor_ExpectedValues()
         {
             // Setup
-            PartialProbabilisticPipingOutput sectionSpecificOutput = PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput(new TestGeneralResultFaultTreeIllustrationPoint());
-            PartialProbabilisticPipingOutput profileSpecificOutput = PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput(new TestGeneralResultFaultTreeIllustrationPoint());
+            PartialProbabilisticPipingOutput sectionSpecificOutput =
+                PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput(new TestGeneralResultFaultTreeIllustrationPoint());
+            PartialProbabilisticPipingOutput profileSpecificOutput =
+                PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput(new TestGeneralResultFaultTreeIllustrationPoint());
 
             // Call
             var output = new ProbabilisticPipingOutput(sectionSpecificOutput, profileSpecificOutput);
@@ -66,7 +68,9 @@ namespace Riskeer.Piping.Data.Test.Probabilistic
         public void Clone_OnlySectionSpecificOutputSet_ReturnNewInstanceWithCopiedValues()
         {
             // Setup
-            var original = new ProbabilisticPipingOutput(PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput(new TestGeneralResultFaultTreeIllustrationPoint()), null);
+            var original = new ProbabilisticPipingOutput(
+                PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput(new TestGeneralResultFaultTreeIllustrationPoint()),
+                null);
 
             // Call
             object clone = original.Clone();
@@ -79,7 +83,9 @@ namespace Riskeer.Piping.Data.Test.Probabilistic
         public void Clone_OnlyProfileSpecificOutputSet_ReturnNewInstanceWithCopiedValues()
         {
             // Setup
-            var original = new ProbabilisticPipingOutput(null, PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput(new TestGeneralResultFaultTreeIllustrationPoint()));
+            var original = new ProbabilisticPipingOutput(
+                null,
+                PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput(new TestGeneralResultFaultTreeIllustrationPoint()));
 
             // Call
             object clone = original.Clone();

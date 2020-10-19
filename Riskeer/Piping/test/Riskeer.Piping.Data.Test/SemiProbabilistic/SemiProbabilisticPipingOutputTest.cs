@@ -48,17 +48,17 @@ namespace Riskeer.Piping.Data.Test.SemiProbabilistic
         public void Constructor_ConstructionPropertiesWithoutValuesSet_PropertiesAreDefault()
         {
             // Call
-            var actual = new SemiProbabilisticPipingOutput(new SemiProbabilisticPipingOutput.ConstructionProperties());
+            var semiProbabilisticPipingOutput = new SemiProbabilisticPipingOutput(new SemiProbabilisticPipingOutput.ConstructionProperties());
 
             // Assert
-            Assert.IsNaN(actual.UpliftFactorOfSafety);
-            Assert.IsNaN(actual.HeaveFactorOfSafety);
-            Assert.IsNaN(actual.SellmeijerFactorOfSafety);
-            Assert.IsNaN(actual.UpliftEffectiveStress);
-            Assert.IsNaN(actual.HeaveGradient);
-            Assert.IsNaN(actual.SellmeijerCreepCoefficient);
-            Assert.IsNaN(actual.SellmeijerCriticalFall);
-            Assert.IsNaN(actual.SellmeijerReducedFall);
+            Assert.IsNaN(semiProbabilisticPipingOutput.UpliftFactorOfSafety);
+            Assert.IsNaN(semiProbabilisticPipingOutput.HeaveFactorOfSafety);
+            Assert.IsNaN(semiProbabilisticPipingOutput.SellmeijerFactorOfSafety);
+            Assert.IsNaN(semiProbabilisticPipingOutput.UpliftEffectiveStress);
+            Assert.IsNaN(semiProbabilisticPipingOutput.HeaveGradient);
+            Assert.IsNaN(semiProbabilisticPipingOutput.SellmeijerCreepCoefficient);
+            Assert.IsNaN(semiProbabilisticPipingOutput.SellmeijerCriticalFall);
+            Assert.IsNaN(semiProbabilisticPipingOutput.SellmeijerReducedFall);
         }
 
         [Test]

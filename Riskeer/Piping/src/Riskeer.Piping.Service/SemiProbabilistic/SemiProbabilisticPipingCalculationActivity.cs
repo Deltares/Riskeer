@@ -28,7 +28,7 @@ using RiskeerCommonServiceResources = Riskeer.Common.Service.Properties.Resource
 namespace Riskeer.Piping.Service.SemiProbabilistic
 {
     /// <summary>
-    /// <see cref="CalculatableActivity"/> for running a semi-probabilistic piping calculation.
+    /// <see cref="CalculatableActivity"/> for running a <see cref="SemiProbabilisticPipingCalculation"/>.
     /// </summary>
     internal class SemiProbabilisticPipingCalculationActivity : CalculatableActivity
     {
@@ -38,7 +38,7 @@ namespace Riskeer.Piping.Service.SemiProbabilistic
         /// <summary>
         /// Creates a new instance of <see cref="SemiProbabilisticPipingCalculationActivity"/>.
         /// </summary>
-        /// <param name="calculation">The piping calculation to perform.</param>
+        /// <param name="calculation">The <see cref="SemiProbabilisticPipingCalculation"/> to perform.</param>
         /// <param name="normativeAssessmentLevel">The normative assessment level to use in case the manual assessment level is not applicable.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculation"/> is <c>null</c>.</exception>
         public SemiProbabilisticPipingCalculationActivity(SemiProbabilisticPipingCalculation calculation,

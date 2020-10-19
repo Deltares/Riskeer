@@ -543,9 +543,9 @@ namespace Riskeer.Piping.Plugin
 
         private static bool ClosePipingInputViewForData(PipingInputView view, object o)
         {
-            if (o is ProbabilisticPipingCalculationContext probabilisticPipingCalculationScenarioContext)
+            if (o is ProbabilisticPipingCalculationContext probabilisticPipingCalculationContext)
             {
-                return ReferenceEquals(view.Data, probabilisticPipingCalculationScenarioContext.WrappedData);
+                return ReferenceEquals(view.Data, probabilisticPipingCalculationContext.WrappedData);
             }
 
             if (o is SemiProbabilisticPipingCalculationScenarioContext semiProbabilisticPipingCalculationScenarioContext)
