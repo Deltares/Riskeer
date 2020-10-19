@@ -24,46 +24,85 @@ namespace AutomatedSystemTests
 {
 #pragma warning disable 0436 //(CS0436) The type 'type' in 'assembly' conflicts with the imported type 'type2' in 'assembly'. Using the type defined in 'assembly'.
     /// <summary>
-    ///The BorraEsto recording.
+    ///The CalculatePathInPropertiesPanelOfBoundaryCategory recording.
     /// </summary>
-    [TestModule("80ee3780-ce84-4fd2-bf57-10594c61bb9b", ModuleType.Recording, 1)]
-    public partial class BorraEsto : ITestModule
+    [TestModule("6fcd729a-b24a-42d7-8636-f8d75a283109", ModuleType.Recording, 1)]
+    public partial class CalculatePathInPropertiesPanelOfBoundaryCategory : ITestModule
     {
         /// <summary>
         /// Holds an instance of the AutomatedSystemTestsRepository repository.
         /// </summary>
         public static AutomatedSystemTestsRepository repo = AutomatedSystemTestsRepository.Instance;
 
-        static BorraEsto instance = new BorraEsto();
+        static CalculatePathInPropertiesPanelOfBoundaryCategory instance = new CalculatePathInPropertiesPanelOfBoundaryCategory();
 
         /// <summary>
         /// Constructs a new instance.
         /// </summary>
-        public BorraEsto()
+        public CalculatePathInPropertiesPanelOfBoundaryCategory()
         {
-            expectedValue = "";
+            path = "";
+            categoryType = "";
+            scopeSuffix = "";
+            boundaryType = "";
         }
 
         /// <summary>
         /// Gets a static instance of this recording.
         /// </summary>
-        public static BorraEsto Instance
+        public static CalculatePathInPropertiesPanelOfBoundaryCategory Instance
         {
             get { return instance; }
         }
 
 #region Variables
 
-        string _expectedValue;
+        string _path;
 
         /// <summary>
-        /// Gets or sets the value of variable expectedValue.
+        /// Gets or sets the value of variable path.
         /// </summary>
-        [TestVariable("50e84123-8388-42eb-96bc-d22731373c20")]
-        public string expectedValue
+        [TestVariable("58843f31-3094-441c-a3e5-9fe451ee7b75")]
+        public string path
         {
-            get { return _expectedValue; }
-            set { _expectedValue = value; }
+            get { return _path; }
+            set { _path = value; }
+        }
+
+        string _categoryType;
+
+        /// <summary>
+        /// Gets or sets the value of variable categoryType.
+        /// </summary>
+        [TestVariable("58116721-7a4c-4863-a1be-ee8671658a1f")]
+        public string categoryType
+        {
+            get { return _categoryType; }
+            set { _categoryType = value; }
+        }
+
+        string _scopeSuffix;
+
+        /// <summary>
+        /// Gets or sets the value of variable scopeSuffix.
+        /// </summary>
+        [TestVariable("89a99481-fa7b-4744-8c1f-17c4fe82e0fc")]
+        public string scopeSuffix
+        {
+            get { return _scopeSuffix; }
+            set { _scopeSuffix = value; }
+        }
+
+        string _boundaryType;
+
+        /// <summary>
+        /// Gets or sets the value of variable boundaryType.
+        /// </summary>
+        [TestVariable("23fa09c0-3863-421b-a382-eac9a0d3f1c7")]
+        public string boundaryType
+        {
+            get { return _boundaryType; }
+            set { _boundaryType = value; }
         }
 
 #endregion
@@ -86,13 +125,14 @@ namespace AutomatedSystemTests
         [System.CodeDom.Compiler.GeneratedCode("Ranorex", global::Ranorex.Core.Constants.CodeGenVersion)]
         void ITestModule.Run()
         {
-            Mouse.DefaultMoveTime = 0;
+            Mouse.DefaultMoveTime = 300;
             Keyboard.DefaultKeyPressTime = 20;
-            Delay.SpeedFactor = 0.00;
+            Delay.SpeedFactor = 1.00;
 
             Init();
 
-            ValidateValueCellGivenPath(repo.RiskeerMainWindow.PropertiesPanelContainer.Table.Self, "Categoriegrenzen per vak>[2]>Ondergrens [1/jaar]");
+            BuildPathInPPToCategoryBoundary();
+            Delay.Milliseconds(0);
             
         }
 

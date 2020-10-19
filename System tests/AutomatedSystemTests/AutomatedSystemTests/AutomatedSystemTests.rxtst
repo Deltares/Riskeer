@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <testsuitedoc>
 	<testsuiteentryhierarchy>
 		<flatlistofchildren>
@@ -356,6 +356,16 @@
 			datasource="customAssessmentAGK"
 			id="07d2eecf-fe16-4ca1-9bc5-a8e1504701c1"
 			name="LoopRowsSetCustomAssessment">
+			</smartfoldernode>
+			<smartfoldernode
+			id="0844cea9-d97a-40ca-b4cf-3f0c73488c9c"
+			name="ValidationInPropertiesPanel">
+				<parameters>
+					<param
+					name="pathToItemInPropertiesPanel"
+					value="">
+					</param>
+				</parameters>
 			</smartfoldernode>
 			<testmodule
 			id="08e4a791-e60d-455f-a435-761a347bddcf"
@@ -2939,10 +2949,6 @@
 					value="N* [-]">
 					</param>
 				</parameters>
-			</smartfoldernode>
-			<smartfoldernode
-			id="425667dc-67f8-4d79-b29a-7a4a40648cda"
-			name="BoundariesInPropertiesPanel">
 			</smartfoldernode>
 			<smartfoldernode
 			id="42f4cf7a-f88d-4f29-88fb-bd3bb76afff6"
@@ -7583,6 +7589,10 @@
 				</databinding>
 			</testmodule>
 			<smartfoldernode
+			id="9b499f01-56e6-434d-b7fd-6043d1ff2349"
+			name="ValidationInDocumentView">
+			</smartfoldernode>
+			<smartfoldernode
 			id="9b5303ea-11e0-4a2d-9cd9-dbdc460927eb"
 			name="a)_Failure_probability_and_space">
 			</smartfoldernode>
@@ -7823,6 +7833,38 @@
 			id="a41fa0b2-d5f7-49f5-8cbd-3c55acd955ae"
 			name="LoopRowsSelectDetailedAssessmentType">
 			</smartfoldernode>
+			<testmodule
+			id="a42057e3-eca0-4eed-8a1e-b9408652464a"
+			name="CalculatePathInPropertiesPanelOfBoundaryCategory"
+			ref="6fcd729a-b24a-42d7-8636-f8d75a283109"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="prefix"
+					datasourceid="0b466300-a11b-4ace-860a-c951a79db2c2"
+					variableid="58116721-7a4c-4863-a1be-ee8671658a1f"
+					variablename="categoryType">
+					</var>
+					<var
+					dataname="suffixScope"
+					datasourceid="e4aa2fbe-8cc3-4c2e-8735-175a6a8ab1a4"
+					variableid="89a99481-fa7b-4744-8c1f-17c4fe82e0fc"
+					variablename="scopeSuffix">
+					</var>
+					<var
+					dataname="prefixBoundaryType"
+					datasourceid="d28727ab-c53e-454f-bdd6-0451d5d86352"
+					variableid="23fa09c0-3863-421b-a382-eac9a0d3f1c7"
+					variablename="boundaryType">
+					</var>
+					<var
+					dataname="pathToItemInPropertiesPanel"
+					datasourceid="0844cea9-d97a-40ca-b4cf-3f0c73488c9c"
+					variableid="58843f31-3094-441c-a3e5-9fe451ee7b75"
+					variablename="path">
+					</var>
+				</databinding>
+			</testmodule>
 			<testmodule
 			id="a46f091f-7f93-41c7-960c-eafe67bdca7a"
 			name="SetCustomAssessmentAtRow"
@@ -8373,7 +8415,7 @@
 			</testmodule>
 			<testmodule
 			id="b00fa597-7d2c-403b-98c9-b3b57af8a0ed"
-			name="ValidateCategoryBoundary"
+			name="ValidateCategoryBoundaryInDocumentView"
 			ref="b8095d4b-9eb5-467b-976f-5811b54836f6"
 			type="Recording">
 				<databinding>
@@ -8479,9 +8521,23 @@
 			</testmodule>
 			<testmodule
 			id="b1127ddf-d791-470b-9712-3c4b3aba230d"
-			name="BorraEsto"
+			name="ValidateCategoryBoundaryInPropertiesPanel"
 			ref="80ee3780-ce84-4fd2-bf57-10594c61bb9b"
 			type="Recording">
+				<databinding>
+					<var
+					dataname="expectedBoundaryValue"
+					datasourceid="aedd5571-96f0-44fd-9a62-fa76607ec249"
+					variableid="50e84123-8388-42eb-96bc-d22731373c20"
+					variablename="expectedBoundary">
+					</var>
+					<var
+					dataname="pathToItemInPropertiesPanel"
+					datasourceid="0844cea9-d97a-40ca-b4cf-3f0c73488c9c"
+					variableid="7e05293e-8342-4b70-9b76-96a72de0f75c"
+					variablename="pathCellToValidate">
+					</var>
+				</databinding>
 			</testmodule>
 			<smartfoldernode
 			datasource="customAssessmentGABU"
@@ -11499,7 +11555,7 @@
 			</testmodule>
 			<smartfoldernode
 			id="eb4954a5-f66b-4693-981d-d581746768ca"
-			name="ValidateBoundariesInView">
+			name="ValidateBoundaries">
 			</smartfoldernode>
 			<smartfoldernode
 			id="ec6146f8-9a08-478a-a252-c91651cac9fe"
@@ -12930,7 +12986,7 @@
 								</smartfoldernode>
 								<smartfoldernode
 								id="eb4954a5-f66b-4693-981d-d581746768ca"
-								name="ValidateBoundariesInView">
+								name="ValidateBoundaries">
 									<smartfoldernode
 									id="73bba093-ff0b-403e-a5d4-33568e569c7c"
 									name="LoopScope(t_v)">
@@ -12944,21 +13000,29 @@
 												id="5cf5f154-cb30-4728-8b81-be2f1c2230a9"
 												name="CalculateCategoryBoundary">
 												</testmodule>
-												<testmodule
-												id="b00fa597-7d2c-403b-98c9-b3b57af8a0ed"
-												name="ValidateCategoryBoundary">
-												</testmodule>
+												<smartfoldernode
+												id="9b499f01-56e6-434d-b7fd-6043d1ff2349"
+												name="ValidationInDocumentView">
+													<testmodule
+													id="b00fa597-7d2c-403b-98c9-b3b57af8a0ed"
+													name="ValidateCategoryBoundaryInDocumentView">
+													</testmodule>
+												</smartfoldernode>
+												<smartfoldernode
+												id="0844cea9-d97a-40ca-b4cf-3f0c73488c9c"
+												name="ValidationInPropertiesPanel">
+													<testmodule
+													id="a42057e3-eca0-4eed-8a1e-b9408652464a"
+													name="CalculatePathInPropertiesPanelOfBoundaryCategory">
+													</testmodule>
+													<testmodule
+													id="b1127ddf-d791-470b-9712-3c4b3aba230d"
+													name="ValidateCategoryBoundaryInPropertiesPanel">
+													</testmodule>
+												</smartfoldernode>
 											</smartfoldernode>
 										</smartfoldernode>
 									</smartfoldernode>
-								</smartfoldernode>
-								<smartfoldernode
-								id="425667dc-67f8-4d79-b29a-7a4a40648cda"
-								name="BoundariesInPropertiesPanel">
-									<testmodule
-									id="b1127ddf-d791-470b-9712-3c4b3aba230d"
-									name="BorraEsto">
-									</testmodule>
 								</smartfoldernode>
 							</smartfoldernode>
 						</smartfoldernode>
@@ -16511,12 +16575,6 @@
 				<column>
 					CustomAssessmentTypeItem
 				</column>
-				<column>
-					FaalkansSetValue
-				</column>
-				<column>
-					FaalkansValidateValue
-				</column>
 			</lastknowncolumns>
 			<maskedcolumns>
 			</maskedcolumns>
@@ -18759,7 +18817,157 @@
 			id="e680c0ff-a1be-4b90-bace-43e573cf1610">
 			</testcontainer>
 			<testcontainer
+			id="004305c8-dc2f-4236-9cb5-fb4029bbb90b">
+			</testcontainer>
+			<testcontainer
+			id="02a85580-c5da-4d64-8012-b42d5a9ad388">
+			</testcontainer>
+			<testcontainer
+			id="02d6fbbd-047b-4a52-86eb-40cf83f3a5ba">
+			</testcontainer>
+			<testcontainer
+			id="06908862-b5db-4ca7-99ea-562da0210ef4">
+			</testcontainer>
+			<testcontainer
+			id="0844cea9-d97a-40ca-b4cf-3f0c73488c9c">
+			</testcontainer>
+			<testcontainer
+			id="095a933f-0351-4f44-914c-746ccae54ec0">
+			</testcontainer>
+			<testcontainer
+			id="0a0d9792-5b24-45f6-ae6d-dc982e3702be">
+			</testcontainer>
+			<testcontainer
+			id="0b01a003-4cf0-4102-8e1e-b4df2f019fb1">
+			</testcontainer>
+			<testcontainer
+			id="1010c180-4323-4c5d-a8f2-a1541376c852">
+			</testcontainer>
+			<testcontainer
+			id="11c52315-f52b-4972-a950-d9cb3e55b8ba">
+			</testcontainer>
+			<testcontainer
+			id="1d7d98c9-1fe4-475e-a93d-ce80f772ec6d">
+			</testcontainer>
+			<testcontainer
+			id="22e4bbf9-0675-41cb-8838-d39c0cf423b6">
+			</testcontainer>
+			<testcontainer
+			id="36de5b8d-308c-4502-9938-6fab6ac232a3">
+			</testcontainer>
+			<testcontainer
+			id="42425944-15c7-418b-b5cd-a582e15b80df">
+			</testcontainer>
+			<testcontainer
+			id="44f46814-6990-4cf7-a952-322a09d85d43">
+			</testcontainer>
+			<testcontainer
+			id="4722f879-2e55-4a3f-b631-b1ba7550f6e4">
+			</testcontainer>
+			<testcontainer
+			id="4cf4be7b-d8e8-48b0-b19f-e7e4d203d35e">
+			</testcontainer>
+			<testcontainer
+			id="50ca1144-cabd-4fb2-b556-22a7edfadf97">
+			</testcontainer>
+			<testcontainer
+			id="5328d042-0c00-4277-af0a-8c5ec2f49435">
+			</testcontainer>
+			<testcontainer
+			id="54726836-ea20-4aed-9544-c3ea520ce225">
+			</testcontainer>
+			<testcontainer
+			id="548bde8b-44b7-4508-aaf3-3824011d3029">
+			</testcontainer>
+			<testcontainer
+			id="56686535-e9c1-4dee-937e-6edd48e15b86">
+			</testcontainer>
+			<testcontainer
+			id="5b63b031-dd02-4a8d-89c0-7f1d5f3066a9">
+			</testcontainer>
+			<testcontainer
+			id="5c9aaf1b-40ce-4a6c-923c-fbe5859aa91f">
+			</testcontainer>
+			<testcontainer
+			id="645a1e46-fc85-4ee5-b48f-628d1c339748">
+			</testcontainer>
+			<testcontainer
+			id="73bba093-ff0b-403e-a5d4-33568e569c7c">
+			</testcontainer>
+			<testcontainer
+			id="78947188-1351-4994-baff-766da4b7d2e0">
+			</testcontainer>
+			<testcontainer
+			id="78a783b3-ec47-4145-85f3-55c2b56b7aa0">
+			</testcontainer>
+			<testcontainer
+			id="7b0054c9-2118-49ba-881e-5da96a820b5a">
+			</testcontainer>
+			<testcontainer
+			id="7df4f5d9-6c64-457c-8a84-336b3a0d721b">
+			</testcontainer>
+			<testcontainer
+			id="8cb65e99-632a-4992-ae3e-ec6bb44ff32d">
+			</testcontainer>
+			<testcontainer
+			id="90aa5c69-ee83-454b-8d3f-8cf843f5fd19">
+			</testcontainer>
+			<testcontainer
+			id="9b499f01-56e6-434d-b7fd-6043d1ff2349">
+			</testcontainer>
+			<testcontainer
+			id="9b5303ea-11e0-4a2d-9cd9-dbdc460927eb">
+			</testcontainer>
+			<testcontainer
+			id="a19d64b1-9804-430e-b24d-b02b6bf6945a">
+			</testcontainer>
+			<testcontainer
+			id="a9476a5d-b871-4277-9188-1ebfe572836e">
+			</testcontainer>
+			<testcontainer
+			id="ab2dcae4-2020-4e09-bf5b-32fb590d3155">
+			</testcontainer>
+			<testcontainer
+			id="aedd5571-96f0-44fd-9a62-fa76607ec249">
+			</testcontainer>
+			<testcontainer
+			id="b76df6f8-799c-4ff8-8df2-198969a6b4be">
+			</testcontainer>
+			<testcontainer
+			id="bbc104ea-69c3-4dcd-8e50-5d1b60cd8d06">
+			</testcontainer>
+			<testcontainer
+			id="bf121a60-f853-42d9-97a2-42a7a3601c72">
+			</testcontainer>
+			<testcontainer
+			id="c2835620-b926-49c7-95b5-58ccb48f4e0e">
+			</testcontainer>
+			<testcontainer
+			id="d08f45c8-4f17-409f-ade9-f896ccfc0c91">
+			</testcontainer>
+			<testcontainer
+			id="d430e17b-6468-4a3d-83d4-6333c1b327ad">
+			</testcontainer>
+			<testcontainer
+			id="ddfa8ca6-6795-4646-9070-a5d686852fac">
+			</testcontainer>
+			<testcontainer
+			id="de320efd-8193-4dd4-9e9d-8fb5690ddafb">
+			</testcontainer>
+			<testcontainer
+			id="e3a5d86a-aed9-4cb2-9fd0-3f8149eb00ca">
+			</testcontainer>
+			<testcontainer
+			id="eb4954a5-f66b-4693-981d-d581746768ca">
+			</testcontainer>
+			<testcontainer
+			id="ee7b2bd4-7803-4972-bcb9-6a818edd0be0">
+			</testcontainer>
+			<testcontainer
 			id="f16b204f-b66b-40a0-82c1-8d62dcbc8b22">
+			</testcontainer>
+			<testcontainer
+			id="f4955a2d-d976-4dab-9a66-884a462172a4">
 			</testcontainer>
 			<testcontainer
 			id="fda567a0-be92-41b9-9761-e7e7d9e7be7f">
