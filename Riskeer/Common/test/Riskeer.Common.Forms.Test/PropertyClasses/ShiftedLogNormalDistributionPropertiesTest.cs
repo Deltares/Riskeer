@@ -144,7 +144,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             {
                 Mean = new RoundedDouble(2, 1),
                 StandardDeviation = new RoundedDouble(2, 2),
-                Shift = new RoundedDouble(2, 0.2)
+                Shift = new RoundedDouble(2, 0.3)
             };
 
             // Call
@@ -175,7 +175,6 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
                 Shift = new RoundedDouble(2, 0.3)
             };
 
-            // Call
             var properties = new ShiftedLogNormalDistributionProperties(DistributionReadOnlyProperties.None,
                                                                         distribution,
                                                                         handler);
