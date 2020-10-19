@@ -23,7 +23,6 @@ using System.Linq;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
-using Riskeer.Common.Data.Contribution;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Piping.Data;
 using Riskeer.Piping.Data.Probabilistic;
@@ -62,82 +61,17 @@ namespace Riskeer.Piping.Plugin.Test.PropertyInfos.Probabilistic
         }
 
         [Test]
-        public void CreateInstance_WithContextAndNormTypeSignaling_ExpectedProperties()
+        public void CreateInstance_WithContext_ExpectedProperties()
         {
             // Setup
-            var assessmentSection = new AssessmentSectionStub
-            {
-                FailureMechanismContribution =
-                {
-                    NormativeNorm = NormType.Signaling
-                }
-            };
-
-            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
-            var scenario = new ProbabilisticPipingCalculation(new GeneralPipingInput())
-            {
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
-                }
-            };
-
-            var failureMechanism = new PipingFailureMechanism();
+            var scenario = new ProbabilisticPipingCalculation(new GeneralPipingInput());
             var context = new ProbabilisticPipingInputContext(
                 scenario.InputParameters,
                 scenario,
                 Enumerable.Empty<PipingSurfaceLine>(),
                 Enumerable.Empty<PipingStochasticSoilModel>(),
-                failureMechanism,
-                assessmentSection);
-
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
-            {
-                hydraulicBoundaryLocation
-            }, true);
-
-            // Call
-            IObjectProperties objectProperties = info.CreateInstance(context);
-
-            // Assert
-            Assert.IsInstanceOf<ProbabilisticPipingInputContextProperties>(objectProperties);
-            Assert.AreSame(context, objectProperties.Data);
-        }
-
-        [Test]
-        public void CreateInstance_WithContextAndNormTypeLowerLimit_ExpectedProperties()
-        {
-            // Setup
-            var assessmentSection = new AssessmentSectionStub
-            {
-                FailureMechanismContribution =
-                {
-                    NormativeNorm = NormType.LowerLimit
-                }
-            };
-
-            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
-            var scenario = new ProbabilisticPipingCalculation(new GeneralPipingInput())
-            {
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
-                }
-            };
-
-            var failureMechanism = new PipingFailureMechanism();
-            var context = new ProbabilisticPipingInputContext(
-                scenario.InputParameters,
-                scenario,
-                Enumerable.Empty<PipingSurfaceLine>(),
-                Enumerable.Empty<PipingStochasticSoilModel>(),
-                failureMechanism,
-                assessmentSection);
-
-            assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
-            {
-                hydraulicBoundaryLocation
-            }, true);
+                new PipingFailureMechanism(),
+                new AssessmentSectionStub());
 
             // Call
             IObjectProperties objectProperties = info.CreateInstance(context);

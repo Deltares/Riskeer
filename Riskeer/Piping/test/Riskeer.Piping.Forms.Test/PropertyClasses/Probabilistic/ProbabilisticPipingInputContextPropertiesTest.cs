@@ -550,9 +550,9 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
 
             Assert.AreEqual(DerivedPipingInput.GetPiezometricHeadExit(inputParameters, AssessmentSectionTestHelper.GetTestAssessmentLevel()), properties.PiezometricHeadExit);
 
-            Assert.AreEqual(DerivedPipingInput.GetSeepageLength(inputParameters).Mean, properties.SeepageLength.Mean);
-            Assert.AreEqual(DerivedPipingInput.GetSeepageLength(inputParameters).CoefficientOfVariation, properties.SeepageLength.CoefficientOfVariation);
-            Assert.AreEqual(DerivedPipingInput.GetSeepageLength(inputParameters).Mean, properties.ExitPointL - properties.EntryPointL);
+            VariationCoefficientLogNormalDistribution seepageLength = DerivedPipingInput.GetSeepageLength(inputParameters);
+            Assert.AreEqual(seepageLength.Mean, properties.SeepageLength.Mean);
+            Assert.AreEqual(seepageLength.CoefficientOfVariation, properties.SeepageLength.CoefficientOfVariation);
             Assert.AreEqual(inputParameters.ExitPointL, properties.ExitPointL);
 
             Assert.AreSame(surfaceLine, properties.SurfaceLine);
@@ -564,7 +564,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             Assert.AreEqual("-", properties.SectionName);
             Assert.AreEqual(0.0, properties.SectionLength);
             Assert.AreEqual(inputParameters.ShouldIllustrationPointsBeCalculated, properties.ShouldIllustrationPointsBeCalculated);
-            
+
             mocks.VerifyAll();
         }
 
@@ -618,7 +618,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
                     Mean = (RoundedDouble) 1.55,
                     StandardDeviation = (RoundedDouble) 0.22
                 });
-            
+
             // When
             properties.SurfaceLine = surfaceLine;
             properties.EntryPointL = (RoundedDouble) entryPointL;
@@ -641,7 +641,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             Assert.AreSame(soilProfile, inputParameters.StochasticSoilProfile);
             DistributionAssert.AreEqual(dampingFactorExit.Distribution, inputParameters.DampingFactorExit);
             DistributionAssert.AreEqual(phreaticLevelExit.Distribution, inputParameters.PhreaticLevelExit);
-            
+
             Assert.AreEqual("Section", properties.SectionName);
             Assert.AreEqual(5.0, properties.SectionLength);
             Assert.AreEqual(true, properties.ShouldIllustrationPointsBeCalculated);
@@ -1091,7 +1091,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
         }
 
         [Test]
-        public void SurfaceLine_SameSurfaceLine_SoilProfileUnchanged()
+        public void SurfaceLine_SameSurfaceLine_StochasticSoilModelAndSoilProfileUnchanged()
         {
             // Setup
             var mocks = new MockRepository();
@@ -1738,7 +1738,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
                 new Point3D(xMin, 0.0, 0.0),
                 new Point3D(xMax, 0.0, 1.0)
             });
-            surfaceLine.ReferenceLineIntersectionWorldPoint = new Point2D(2.0,0.0);
+            surfaceLine.ReferenceLineIntersectionWorldPoint = new Point2D(2.0, 0.0);
             return surfaceLine;
         }
     }

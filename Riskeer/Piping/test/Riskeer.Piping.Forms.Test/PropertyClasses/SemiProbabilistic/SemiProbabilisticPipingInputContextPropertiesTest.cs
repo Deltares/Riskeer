@@ -619,9 +619,9 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
 
             Assert.AreEqual(DerivedPipingInput.GetPiezometricHeadExit(inputParameters, expectedAssessmentLevel), properties.PiezometricHeadExit);
 
-            Assert.AreEqual(DerivedPipingInput.GetSeepageLength(inputParameters).Mean, properties.SeepageLength.Mean);
-            Assert.AreEqual(DerivedPipingInput.GetSeepageLength(inputParameters).CoefficientOfVariation, properties.SeepageLength.CoefficientOfVariation);
-            Assert.AreEqual(DerivedPipingInput.GetSeepageLength(inputParameters).Mean, properties.ExitPointL - properties.EntryPointL);
+            VariationCoefficientLogNormalDistribution seepageLength = DerivedPipingInput.GetSeepageLength(inputParameters);
+            Assert.AreEqual(seepageLength.Mean, properties.SeepageLength.Mean);
+            Assert.AreEqual(seepageLength.CoefficientOfVariation, properties.SeepageLength.CoefficientOfVariation);
             Assert.AreEqual(inputParameters.ExitPointL, properties.ExitPointL);
 
             Assert.AreSame(surfaceLine, properties.SurfaceLine);
@@ -1170,7 +1170,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
         }
 
         [Test]
-        public void SurfaceLine_SameSurfaceLine_SoilProfileUnchanged()
+        public void SurfaceLine_SameSurfaceLine_StochasticSoilModelAndSoilProfileUnchanged()
         {
             // Setup
             var mocks = new MockRepository();

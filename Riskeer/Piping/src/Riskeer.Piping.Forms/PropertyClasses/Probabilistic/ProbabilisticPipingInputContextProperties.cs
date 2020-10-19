@@ -113,12 +113,46 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
             this.propertyChangeHandler = propertyChangeHandler;
         }
 
-        /// <summary>
-        /// Gets the available surface lines on <see cref="ProbabilisticPipingCalculationContext"/>.
-        /// </summary>
-        public IEnumerable<PipingSurfaceLine> GetAvailableSurfaceLines()
+        #region Output
+
+        [PropertyOrder(shouldIllustrationPointsBeCalculatedPropertyIndex)]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_OutputSettings), 4, 4)]
+        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.ShouldIllustrationPointsBeCalculated_DisplayName))]
+        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.ShouldIllustrationPointsBeCalculated_Description))]
+        public bool ShouldIllustrationPointsBeCalculated
         {
-            return data.AvailablePipingSurfaceLines;
+            get
+            {
+                return data.WrappedData.ShouldIllustrationPointsBeCalculated;
+            }
+            set
+            {
+                data.WrappedData.ShouldIllustrationPointsBeCalculated = value;
+                data.NotifyObservers();
+            }
+        }
+
+        #endregion
+
+        [DynamicReadOnlyValidationMethod]
+        public bool DynamicReadOnlyValidationMethod(string propertyName)
+        {
+            if (propertyName == nameof(EntryPointL) || propertyName == nameof(ExitPointL))
+            {
+                return data.WrappedData.SurfaceLine == null;
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// Gets the available selectable hydraulic boundary locations on <see cref="ProbabilisticPipingInputContext"/>.
+        /// </summary>
+        public IEnumerable<SelectableHydraulicBoundaryLocation> GetSelectableHydraulicBoundaryLocations()
+        {
+            Point2D referencePoint = SurfaceLine?.ReferenceLineIntersectionWorldPoint;
+            return SelectableHydraulicBoundaryLocationHelper.GetSortedSelectableHydraulicBoundaryLocations(
+                data.AssessmentSection.HydraulicBoundaryDatabase.Locations, referencePoint);
         }
 
         /// <summary>
@@ -145,32 +179,26 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
                        : new List<PipingStochasticSoilProfile>();
         }
 
-        [DynamicReadOnlyValidationMethod]
-        public bool DynamicReadOnlyValidationMethod(string propertyName)
+        /// <summary>
+        /// Gets the available surface lines on <see cref="ProbabilisticPipingCalculationContext"/>.
+        /// </summary>
+        public IEnumerable<PipingSurfaceLine> GetAvailableSurfaceLines()
         {
-            if (propertyName == nameof(EntryPointL) || propertyName == nameof(ExitPointL))
-            {
-                return data.WrappedData.SurfaceLine == null;
-            }
-
-            return true;
+            return data.AvailablePipingSurfaceLines;
         }
 
-        /// <summary>
-        /// Gets the available selectable hydraulic boundary locations on <see cref="ProbabilisticPipingInputContext"/>.
-        /// </summary>
-        public IEnumerable<SelectableHydraulicBoundaryLocation> GetSelectableHydraulicBoundaryLocations()
+        private FailureMechanismSection GetSection()
         {
-            Point2D referencePoint = SurfaceLine?.ReferenceLineIntersectionWorldPoint;
-            return SelectableHydraulicBoundaryLocationHelper.GetSortedSelectableHydraulicBoundaryLocations(
-                data.AssessmentSection.HydraulicBoundaryDatabase.Locations, referencePoint);
+            return data.FailureMechanism
+                       .Sections
+                       .FirstOrDefault(section => data.PipingCalculation.IsSurfaceLineIntersectionWithReferenceLineInSection(Math2D.ConvertPointsToLineSegments(section.Points)));
         }
 
         #region Hydraulic data
 
         [PropertyOrder(selectedHydraulicBoundaryLocationPropertyIndex)]
         [Editor(typeof(HydraulicBoundaryLocationEditor), typeof(UITypeEditor))]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_HydraulicData),1,4)]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_HydraulicData), 1, 4)]
         [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.HydraulicBoundaryLocation_DisplayName))]
         [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.HydraulicBoundaryLocation_Description_with_assessment_level))]
         public SelectableHydraulicBoundaryLocation SelectedHydraulicBoundaryLocation
@@ -215,8 +243,8 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
             get
             {
                 return new NormalDistributionProperties(DistributionReadOnlyProperties.None,
-                                                                      data.WrappedData.PhreaticLevelExit,
-                                                                      propertyChangeHandler);
+                                                        data.WrappedData.PhreaticLevelExit,
+                                                        propertyChangeHandler);
             }
         }
 
@@ -455,38 +483,10 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
             get
             {
                 FailureMechanismSection failureMechanismSection = GetSection();
-                return failureMechanismSection == null ? 0.00d: failureMechanismSection.Length;
+                return failureMechanismSection == null ? 0.00d : failureMechanismSection.Length;
             }
         }
 
         #endregion
-
-        #region Output
-
-        [PropertyOrder(shouldIllustrationPointsBeCalculatedPropertyIndex)]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_OutputSettings), 4, 4)]
-        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.ShouldIllustrationPointsBeCalculated_DisplayName))]
-        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.ShouldIllustrationPointsBeCalculated_Description))]
-        public bool ShouldIllustrationPointsBeCalculated
-        {
-            get
-            {
-                return data.WrappedData.ShouldIllustrationPointsBeCalculated;
-            }
-            set
-            {
-                data.WrappedData.ShouldIllustrationPointsBeCalculated = value;
-                data.NotifyObservers();
-            }
-        }
-
-        #endregion
-
-        private FailureMechanismSection GetSection()
-        {
-            return data.FailureMechanism
-                       .Sections
-                       .FirstOrDefault(section => data.PipingCalculation.IsSurfaceLineIntersectionWithReferenceLineInSection(Math2D.ConvertPointsToLineSegments(section.Points)));
-        }
     }
 }
