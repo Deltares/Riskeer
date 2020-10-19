@@ -56,6 +56,9 @@ namespace Riskeer.Piping.Forms.PropertyClasses
                                                                     IObservablePropertyChangeHandler handler)
             : base(readOnlyProperties, designVariable, handler) {}
 
+        /// <summary>
+        /// Gets the shift of the <see cref="LogNormalDistribution"/>.
+        /// </summary>
         [PropertyOrder(4)]
         [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Probabilistics_Shift_Symbol))]
         [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Probabilistics_Shift_Description))]
