@@ -36,6 +36,7 @@ using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Forms.PropertyClasses;
 using Riskeer.Common.Forms.Views;
 using Riskeer.Piping.Data;
+using Riskeer.Piping.Data.Probabilistic;
 using Riskeer.Piping.Data.SemiProbabilistic;
 using Riskeer.Piping.Data.SoilProfile;
 using Riskeer.Piping.Forms.PresentationObjects;
@@ -170,7 +171,7 @@ namespace Riskeer.Piping.Plugin.Test
                 ViewInfo[] viewInfos = plugin.GetViewInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(6, viewInfos.Length);
+                Assert.AreEqual(7, viewInfos.Length);
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
@@ -193,6 +194,12 @@ namespace Riskeer.Piping.Plugin.Test
                     viewInfos,
                     typeof(SemiProbabilisticPipingInputContext),
                     typeof(SemiProbabilisticPipingCalculationScenario),
+                    typeof(PipingInputView));
+
+                PluginTestHelper.AssertViewInfoDefined(
+                    viewInfos,
+                    typeof(ProbabilisticPipingInputContext),
+                    typeof(ProbabilisticPipingCalculation),
                     typeof(PipingInputView));
 
                 PluginTestHelper.AssertViewInfoDefined(
