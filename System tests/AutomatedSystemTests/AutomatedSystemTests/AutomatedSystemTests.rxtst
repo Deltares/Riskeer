@@ -5452,6 +5452,63 @@
 				</missingdatabinding>
 			</testmodule>
 			<testmodule
+			id="776bd91d-fa7b-464e-9b71-310e03e5073c"
+			name="SetCustomAssessmentAtRow"
+			ref="dc218a16-91e8-4197-ae23-5bbe0c083a04"
+			type="Recording">
+				<description>
+					<![CDATA[Initialize dropdown menu so it does not close when opening it the first time]]>
+				</description>
+				<databinding>
+					<var
+					dataname="dropDownItem"
+					datasourceid="e680c0ff-a1be-4b90-bace-43e573cf1610"
+					variableid="c5b8922f-77bf-441a-9b88-99da98bf1e54"
+					variablename="DropDownItem">
+					</var>
+					<var
+					dataname="rowIndex"
+					datasourceid="e680c0ff-a1be-4b90-bace-43e573cf1610"
+					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
+					variablename="rowIndex">
+					</var>
+					<var
+					dataname="expectedValue"
+					datasourceid="e680c0ff-a1be-4b90-bace-43e573cf1610"
+					variableid="ebca180a-929b-4462-bf7c-2388fcd92b35"
+					variablename="expectedCustomAssessmentValue">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="db66c0df-6518-4c43-b352-656c3623717d"
+					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
+					variablename="rowIndex">
+					</var>
+					<var
+					dataname="FaalkansSetValue"
+					datasourceid="db66c0df-6518-4c43-b352-656c3623717d"
+					variableid="ebca180a-929b-4462-bf7c-2388fcd92b35"
+					variablename="expectedCustomAssessmentValue">
+					</var>
+					<var
+					dataname="CustomAssessmentTypeItem"
+					datasourceid="db66c0df-6518-4c43-b352-656c3623717d"
+					variableid="c5b8922f-77bf-441a-9b88-99da98bf1e54"
+					variablename="DropDownItem">
+					</var>
+				</missingdatabinding>
+				<missingdatavariablesbinding>
+					<var
+					dataname="CustomAssessmentTypeItem"
+					datasourceid="db66c0df-6518-4c43-b352-656c3623717d"
+					variableid="d82001f1-20c0-4080-a06d-9f1f8ee3a56d"
+					variablename="textItemDropDownMenu">
+					</var>
+				</missingdatavariablesbinding>
+			</testmodule>
+			<testmodule
 			id="776c5ec5-58b6-44f0-942e-10110068333c"
 			name="ValidateDetailedAssessmentTypeAtRow"
 			ref="f90323b9-0faf-4e8d-ba0d-cddbcaec15a5"
@@ -11082,6 +11139,24 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<smartfoldernode
+			id="e680c0ff-a1be-4b90-bace-43e573cf1610"
+			name="InitializeDropDownMenu">
+				<parameters>
+					<param
+					name="rowIndex"
+					value="1">
+					</param>
+					<param
+					name="dropDownItem"
+					value="&lt;selecteer>">
+					</param>
+					<param
+					name="expectedValue"
+					value="0.01">
+					</param>
+				</parameters>
+			</smartfoldernode>
 			<testmodule
 			id="e680e9c9-f285-4214-830d-460d076e00a5"
 			name="CloseViewCentralPanelWithFocus"
@@ -14832,6 +14907,14 @@
 									id="8d2a706a-b551-4065-9b11-e5be98fe1e58"
 									name="OpenResultView">
 									</testmodule>
+									<smartfoldernode
+									id="e680c0ff-a1be-4b90-bace-43e573cf1610"
+									name="InitializeDropDownMenu">
+										<testmodule
+										id="776bd91d-fa7b-464e-9b71-310e03e5073c"
+										name="SetCustomAssessmentAtRow">
+										</testmodule>
+									</smartfoldernode>
 									<smartfoldernode
 									id="87a0e03b-abc1-4296-980a-56ed1cbd73d8"
 									name="LoopRowsSetCustomAssessment">
@@ -18655,103 +18738,31 @@
 		<testconfiguration
 		name="TestRun">
 			<testcontainer
-			id="076b98f5-2de0-453f-80b4-9ab21546c977">
-			</testcontainer>
-			<testcontainer
-			id="164856d7-ad8c-4c33-99bc-291be6aaa123">
-			</testcontainer>
-			<testcontainer
-			id="31bff391-b4e6-4a1b-b0ce-497602716d4e">
-			</testcontainer>
-			<testcontainer
-			id="35db0ef3-1a5c-4aa3-9dbe-ae780737b2d8">
-			</testcontainer>
-			<testcontainer
 			id="37c811fd-9297-4d92-b429-28a452540bf1">
 			</testcontainer>
 			<testcontainer
-			id="417987a8-4ee5-437b-9310-9e2b361d6485">
-			</testcontainer>
-			<testcontainer
-			id="4af1cd5a-736a-403f-b3ea-8fd2ba508ef7">
-			</testcontainer>
-			<testcontainer
-			id="4e683ef5-8de6-4b4a-8cc8-c213eced4dea">
-			</testcontainer>
-			<testcontainer
-			id="5219c50f-4bd7-468e-80ac-46316597d2b8">
+			id="3eb30b78-64ef-4a56-96ce-0c4ccda12b32">
 			</testcontainer>
 			<testcontainer
 			id="5a79372d-2a17-44e3-93d6-a6b0ba0c45ef">
 			</testcontainer>
 			<testcontainer
-			id="605db10e-3b81-4440-ab40-285bb6c6c78a">
+			id="71289708-437a-4e75-bc9e-9e81ff0a6640">
 			</testcontainer>
 			<testcontainer
-			id="651d41c8-0a63-4272-9314-17f8cb8c6642">
-			</testcontainer>
-			<testcontainer
-			id="6aa9c4ab-df97-4ba7-b358-8f4376a2ad3d">
-			</testcontainer>
-			<testcontainer
-			id="72767219-184e-484a-9b39-7f46306abd3f">
-			</testcontainer>
-			<testcontainer
-			id="77a43584-774b-4f54-8b6f-84c3051ea698">
-			</testcontainer>
-			<testcontainer
-			id="801ee4e6-f913-4992-b2a4-79fc46a643f6">
-			</testcontainer>
-			<testcontainer
-			id="88357d13-4b34-418f-9814-2201061ab692">
-			</testcontainer>
-			<testcontainer
-			id="9b975fc2-fa92-4d56-91af-7ae4807dd70c">
-			</testcontainer>
-			<testcontainer
-			id="a146a3a3-3d42-4182-a9aa-e2c95f0f00cd">
+			id="87a0e03b-abc1-4296-980a-56ed1cbd73d8">
 			</testcontainer>
 			<testcontainer
 			id="aeb77e69-5899-4233-a3e5-bcfb058676c3">
 			</testcontainer>
 			<testcontainer
-			id="b1218be8-5ca4-4f36-b6ce-d5b70c507764">
-			</testcontainer>
-			<testcontainer
-			id="b4b537f1-a82a-4ae1-a747-607953a2cb2a">
-			</testcontainer>
-			<testcontainer
-			id="c7fbbace-f85e-46b1-a696-1e672cb2a7a7">
-			</testcontainer>
-			<testcontainer
-			id="c91046ba-239e-420f-80d2-a2112978af0e">
-			</testcontainer>
-			<testcontainer
-			id="e1b2b639-5f1b-4f49-9b02-6a308676d2d0">
-			</testcontainer>
-			<testcontainer
-			id="e9e0fe4f-6dd2-478a-b8dd-a7c6f77a1a6c">
-			</testcontainer>
-			<testcontainer
-			id="eab3597b-22a3-49f6-a7b8-91c0f57c6971">
-			</testcontainer>
-			<testcontainer
-			id="eee73f19-015d-4029-ae00-d96e1fdb264a">
+			id="e680c0ff-a1be-4b90-bace-43e573cf1610">
 			</testcontainer>
 			<testcontainer
 			id="f16b204f-b66b-40a0-82c1-8d62dcbc8b22">
 			</testcontainer>
 			<testcontainer
-			id="f5e34352-036b-4227-8656-49499d3a6536">
-			</testcontainer>
-			<testcontainer
-			id="fd1e0266-ac62-4eb5-8a26-7bc102126f55">
-			</testcontainer>
-			<testcontainer
 			id="fda567a0-be92-41b9-9761-e7e7d9e7be7f">
-			</testcontainer>
-			<testcontainer
-			id="fdaf20c9-38bc-4d90-9d0e-cec63bbe5fc4">
 			</testcontainer>
 		</testconfiguration>
 	</testconfigurations>
