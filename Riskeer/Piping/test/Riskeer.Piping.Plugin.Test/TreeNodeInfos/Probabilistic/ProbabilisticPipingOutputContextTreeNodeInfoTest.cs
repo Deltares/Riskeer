@@ -125,7 +125,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
             // Assert
             TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.CalculationOutputFolderIcon, image);
         }
-        
+
         [Test]
         [TestCase(true)]
         [TestCase(false)]
@@ -146,7 +146,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.Probabilistic
 
             var profileSpecificOutputContext = children[0] as ProbabilisticPipingProfileSpecificOutputContext;
             Assert.AreSame(calculation, profileSpecificOutputContext.WrappedData);
-            
+
             var sectionSpecificOutputContext = children[1] as ProbabilisticPipingSectionSpecificOutputContext;
             Assert.AreSame(calculation, sectionSpecificOutputContext.WrappedData);
         }

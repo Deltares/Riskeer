@@ -21,7 +21,6 @@
 
 using Core.Common.Controls.PresentationObjects;
 using NUnit.Framework;
-using Riskeer.Common.Data.TestUtil.IllustrationPoints;
 using Riskeer.Piping.Data;
 using Riskeer.Piping.Data.Probabilistic;
 using Riskeer.Piping.Forms.PresentationObjects.Probabilistic;
