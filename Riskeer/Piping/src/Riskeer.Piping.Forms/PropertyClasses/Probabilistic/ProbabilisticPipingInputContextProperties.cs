@@ -38,7 +38,6 @@ using Riskeer.Common.Forms.UITypeEditors;
 using Riskeer.Piping.Data;
 using Riskeer.Piping.Data.SoilProfile;
 using Riskeer.Piping.Forms.PresentationObjects.Probabilistic;
-using Riskeer.Piping.Forms.PresentationObjects.SemiProbabilistic;
 using Riskeer.Piping.Forms.Properties;
 using Riskeer.Piping.Forms.UITypeEditors;
 using Riskeer.Piping.Primitives;
@@ -115,7 +114,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
         }
 
         /// <summary>
-        /// Gets the available surface lines on <see cref="SemiProbabilisticPipingCalculationScenarioContext"/>.
+        /// Gets the available surface lines on <see cref="ProbabilisticPipingCalculationContext"/>.
         /// </summary>
         public IEnumerable<PipingSurfaceLine> GetAvailableSurfaceLines()
         {
@@ -123,7 +122,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
         }
 
         /// <summary>
-        /// Gets the available stochastic soil models on <see cref="SemiProbabilisticPipingCalculationScenarioContext"/>.
+        /// Gets the available stochastic soil models on <see cref="ProbabilisticPipingCalculationContext"/>.
         /// </summary>
         public IEnumerable<PipingStochasticSoilModel> GetAvailableStochasticSoilModels()
         {
@@ -137,7 +136,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
         }
 
         /// <summary>
-        /// Gets the available stochastic soil profiles on <see cref="SemiProbabilisticPipingCalculationScenarioContext"/>.
+        /// Gets the available stochastic soil profiles on <see cref="ProbabilisticPipingCalculationContext"/>.
         /// </summary>
         public IEnumerable<PipingStochasticSoilProfile> GetAvailableStochasticSoilProfiles()
         {
@@ -157,14 +156,8 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
             return true;
         }
 
-        [DynamicVisibleValidationMethod]
-        public bool DynamicVisibleValidationMethod(string propertyName)
-        {
-            return false;
-        }
-
         /// <summary>
-        /// Gets the available selectable hydraulic boundary locations on <see cref="SemiProbabilisticPipingInputContext"/>.
+        /// Gets the available selectable hydraulic boundary locations on <see cref="ProbabilisticPipingInputContext"/>.
         /// </summary>
         public IEnumerable<SelectableHydraulicBoundaryLocation> GetSelectableHydraulicBoundaryLocations()
         {
@@ -440,7 +433,6 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
 
         #region Section information
 
-        [DynamicReadOnly]
         [PropertyOrder(sectionNamePropertyIndex)]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_FailureMechanismSection), 3, 4)]
         [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanismSection_Name_DisplayName))]
@@ -454,7 +446,6 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
             }
         }
 
-        [DynamicReadOnly]
         [PropertyOrder(sectionLengthPropertyIndex)]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_FailureMechanismSection), 3, 4)]
         [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.SectionLength_DisplayName))]
@@ -464,7 +455,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
             get
             {
                 FailureMechanismSection failureMechanismSection = GetSection();
-                return failureMechanismSection == null ? 0d: failureMechanismSection.Length;
+                return failureMechanismSection == null ? 0.00d: failureMechanismSection.Length;
             }
         }
 
@@ -484,7 +475,8 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
             }
             set
             {
-                PropertyChangeHelper.ChangePropertyAndNotify(() => data.WrappedData.ShouldIllustrationPointsBeCalculated = value, propertyChangeHandler);
+                data.WrappedData.ShouldIllustrationPointsBeCalculated = value;
+                data.NotifyObservers();
             }
         }
 

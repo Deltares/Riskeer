@@ -31,14 +31,14 @@ namespace Riskeer.Piping.Forms.UITypeEditors
     public interface IHasSurfaceLineProperty : IObjectProperties
     {
         /// <summary>
+        /// Gets the surface line.
+        /// </summary>
+        PipingSurfaceLine SurfaceLine { get; }
+
+        /// <summary>
         /// Returns the collection of surface lines.
         /// </summary>
         /// <returns>A collection of surface lines.</returns>
         IEnumerable<PipingSurfaceLine> GetAvailableSurfaceLines();
-
-        /// <summary>
-        /// Gets the piping surface line.
-        /// </summary>
-        PipingSurfaceLine SurfaceLine { get; }
     }
 }

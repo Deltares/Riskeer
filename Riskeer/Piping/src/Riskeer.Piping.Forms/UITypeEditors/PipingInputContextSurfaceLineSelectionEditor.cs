@@ -30,6 +30,7 @@ namespace Riskeer.Piping.Forms.UITypeEditors
     /// This class defines a drop down list edit-control from which the user can select a
     /// <see cref="PipingSurfaceLine"/> from a collection.
     /// </summary>
+    /// <typeparam name="T">The type of object properties.</typeparam>
     public class PipingInputContextSurfaceLineSelectionEditor<T> : SelectionEditor<T, PipingSurfaceLine> where T : IHasSurfaceLineProperty
     {
         /// <summary>
