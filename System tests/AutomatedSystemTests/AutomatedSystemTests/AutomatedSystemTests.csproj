@@ -150,6 +150,18 @@
       <RepositoryCode>true</RepositoryCode>
       <id>325092cf-4a87-4a04-a578-da3aff997536</id>
     </Compile>
+    <Compile Include="BorraEsto.cs">
+      <BoundTo>772256b0-c236-4c14-95ed-d0682f4b713d</BoundTo>
+      <DependentUpon>BorraEsto.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>f617a859-903d-4326-a423-a5b02bf60a59</id>
+    </Compile>
+    <Compile Include="BorraEsto.UserCode.cs">
+      <BoundTo>772256b0-c236-4c14-95ed-d0682f4b713d</BoundTo>
+      <DependentUpon>BorraEsto.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>d7fac196-e1dd-4d34-ad29-fa17def25d19</id>
+    </Compile>
     <Compile Include="CalculateCategoryBoundary.cs">
       <BoundTo>19cd184f-d473-437a-9fd5-c592a2f61743</BoundTo>
       <DependentUpon>CalculateCategoryBoundary.rxrec</DependentUpon>
@@ -1145,6 +1157,11 @@
       <id>8b6648ca-2429-462f-8074-96184700bbed</id>
       <repoid>137723a5-e147-4b62-8c15-5c31a3d68f96</repoid>
       <reporootid>40cb8eed-98dc-4b16-a5ad-7ef93b4f444c</reporootid>
+    </None>
+    <None Include="BorraEsto.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>772256b0-c236-4c14-95ed-d0682f4b713d</id>
+      <recordtableid>80ee3780-ce84-4fd2-bf57-10594c61bb9b</recordtableid>
     </None>
     <None Include="CalculateCategoryBoundary.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>

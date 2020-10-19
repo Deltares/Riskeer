@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <testsuitedoc>
 	<testsuiteentryhierarchy>
 		<flatlistofchildren>
@@ -2232,16 +2232,16 @@
 					variablename="substringNameItemInTraject">
 					</var>
 					<var
-					dataname="parameterNName"
-					datasourceid="11c52315-f52b-4972-a950-d9cb3e55b8ba"
-					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
-					variablename="nameOfParameterInPropertiesPanel">
-					</var>
-					<var
 					dataname="parameterNValue"
 					datasourceid="0b01a003-4cf0-4102-8e1e-b4df2f019fb1"
 					variableid="36cb73b7-04f3-4751-8474-8aef02c92ab7"
 					variablename="valueOfParameterInPropertiesPanel">
+					</var>
+					<var
+					dataname="parameterNName"
+					datasourceid="11c52315-f52b-4972-a950-d9cb3e55b8ba"
+					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
+					variablename="nameOfParameterInPropertiesPanel">
 					</var>
 				</databinding>
 			</testmodule>
@@ -2714,6 +2714,10 @@
 					value="N* [-]">
 					</param>
 				</parameters>
+			</smartfoldernode>
+			<smartfoldernode
+			id="425667dc-67f8-4d79-b29a-7a4a40648cda"
+			name="BoundariesInPropertiesPanel">
 			</smartfoldernode>
 			<smartfoldernode
 			id="42f4cf7a-f88d-4f29-88fb-bd3bb76afff6"
@@ -7399,6 +7403,12 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<testmodule
+			id="b1127ddf-d791-470b-9712-3c4b3aba230d"
+			name="BorraEsto"
+			ref="80ee3780-ce84-4fd2-bf57-10594c61bb9b"
+			type="Recording">
+			</testmodule>
 			<smartfoldernode
 			datasource="customAssessmentGABU"
 			id="b1218be8-5ca4-4f36-b6ce-d5b70c507764"
@@ -10247,7 +10257,7 @@
 			</testmodule>
 			<smartfoldernode
 			id="eb4954a5-f66b-4693-981d-d581746768ca"
-			name="ValidateBoundaries">
+			name="ValidateBoundariesInView">
 			</smartfoldernode>
 			<smartfoldernode
 			id="ec6146f8-9a08-478a-a252-c91651cac9fe"
@@ -10389,7 +10399,7 @@
 			</testmodule>
 			<smartfoldernode
 			id="ee7b2bd4-7803-4972-bcb9-6a818edd0be0"
-			name="OpenCategoryBoundaries">
+			name="OpenCategoryBoundariesView">
 			</smartfoldernode>
 			<smartfoldernode
 			id="ee88d553-74da-4ddc-8379-5e7a8c51ffe9"
@@ -11634,7 +11644,7 @@
 								</smartfoldernode>
 								<smartfoldernode
 								id="ee7b2bd4-7803-4972-bcb9-6a818edd0be0"
-								name="OpenCategoryBoundaries">
+								name="OpenCategoryBoundariesView">
 									<testmodule
 									id="60e53209-a978-4c5a-817e-3b4685b8922b"
 									name="OpenViewForCategoryBoundaries">
@@ -11642,7 +11652,7 @@
 								</smartfoldernode>
 								<smartfoldernode
 								id="eb4954a5-f66b-4693-981d-d581746768ca"
-								name="ValidateBoundaries">
+								name="ValidateBoundariesInView">
 									<smartfoldernode
 									id="73bba093-ff0b-403e-a5d4-33568e569c7c"
 									name="LoopScope(t_v)">
@@ -11663,6 +11673,14 @@
 											</smartfoldernode>
 										</smartfoldernode>
 									</smartfoldernode>
+								</smartfoldernode>
+								<smartfoldernode
+								id="425667dc-67f8-4d79-b29a-7a4a40648cda"
+								name="BoundariesInPropertiesPanel">
+									<testmodule
+									id="b1127ddf-d791-470b-9712-3c4b3aba230d"
+									name="BorraEsto">
+									</testmodule>
 								</smartfoldernode>
 							</smartfoldernode>
 						</smartfoldernode>
@@ -17325,6 +17343,9 @@
 			</testcontainer>
 			<testcontainer
 			id="4bb671b5-bd57-42fd-a72e-41482b3d1dbb">
+			</testcontainer>
+			<testcontainer
+			id="425667dc-67f8-4d79-b29a-7a4a40648cda">
 			</testcontainer>
 			<testcontainer
 			id="571a9ba3-86a6-4c7e-9f89-17d420e49e63">
