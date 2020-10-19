@@ -16373,7 +16373,7 @@
 				</tr>
 				<tr>
 					<td>
-						D:\script21\customAssessment.risk
+						script21\customAssessment.risk
 					</td>
 				</tr>
 			</table>
@@ -17306,31 +17306,19 @@
 		<testconfiguration
 		name="TestRun">
 			<testcontainer
-			id="571a9ba3-86a6-4c7e-9f89-17d420e49e63">
+			id="37c811fd-9297-4d92-b429-28a452540bf1">
 			</testcontainer>
 			<testcontainer
-			id="716669cb-8d3f-4f98-a608-2311ffb07430">
+			id="5a79372d-2a17-44e3-93d6-a6b0ba0c45ef">
 			</testcontainer>
 			<testcontainer
-			id="75bc37b3-8164-46db-8dab-3fbff66c9045">
+			id="aeb77e69-5899-4233-a3e5-bcfb058676c3">
 			</testcontainer>
 			<testcontainer
-			id="9cb3bdde-1999-4bae-aa4e-6330208999d4">
-			</testcontainer>
-			<testcontainer
-			id="a05f1ece-a4c1-439f-a1db-ff664bd18416">
-			</testcontainer>
-			<testcontainer
-			id="c13fce8d-93a7-44e9-8603-4f02531c48d4">
-			</testcontainer>
-			<testcontainer
-			id="d3a5f35e-8801-4c38-a81d-c55a85a2fdc5">
+			id="c7aa0781-b102-4705-92d4-de781e658f70">
 			</testcontainer>
 			<testcontainer
 			id="f16b204f-b66b-40a0-82c1-8d62dcbc8b22">
-			</testcontainer>
-			<testcontainer
-			id="f5d0be3d-2759-45ad-91aa-cd3a341517b3">
 			</testcontainer>
 			<testcontainer
 			id="fda567a0-be92-41b9-9761-e7e7d9e7be7f">
