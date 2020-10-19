@@ -543,17 +543,20 @@ namespace Riskeer.Piping.Plugin
 
         private static bool ClosePipingInputViewForData(PipingInputView view, object o)
         {
-            if (o is SemiProbabilisticPipingCalculationScenarioContext pipingCalculationScenarioContext)
+            switch (o)
             {
-                return ReferenceEquals(view.Data, pipingCalculationScenarioContext.WrappedData);
+                case ProbabilisticPipingCalculationContext probabilisticPipingCalculationScenarioContext:
+                    return ReferenceEquals(view.Data, probabilisticPipingCalculationScenarioContext.WrappedData);
+                case SemiProbabilisticPipingCalculationScenarioContext semiProbabilisticPipingCalculationScenarioContext:
+                    return ReferenceEquals(view.Data, semiProbabilisticPipingCalculationScenarioContext.WrappedData);
             }
 
-            IEnumerable<SemiProbabilisticPipingCalculationScenario> calculations = null;
+            IEnumerable<IPipingCalculation<PipingInput>> calculations = null;
 
             if (o is PipingCalculationGroupContext pipingCalculationGroupContext)
             {
                 calculations = pipingCalculationGroupContext.WrappedData.GetCalculations()
-                                                            .OfType<SemiProbabilisticPipingCalculationScenario>();
+                                                            .OfType<IPipingCalculation<PipingInput>>();
             }
 
             var failureMechanism = o as PipingFailureMechanism;
@@ -573,7 +576,7 @@ namespace Riskeer.Piping.Plugin
             if (failureMechanism != null)
             {
                 calculations = failureMechanism.CalculationsGroup.GetCalculations()
-                                               .OfType<SemiProbabilisticPipingCalculationScenario>();
+                                               .OfType<IPipingCalculation<PipingInput>>();
             }
 
             return calculations != null && calculations.Any(ci => ReferenceEquals(view.Data, ci));
