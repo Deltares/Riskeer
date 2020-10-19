@@ -150,15 +150,27 @@
       <RepositoryCode>true</RepositoryCode>
       <id>325092cf-4a87-4a04-a578-da3aff997536</id>
     </Compile>
-    <Compile Include="BorraEsto.cs">
+    <Compile Include="CalculatePathInPropertiesPanelOfBoundaryCategory.cs">
+      <BoundTo>ead7dbbc-6b97-49df-999c-7ea29e40cd4c</BoundTo>
+      <DependentUpon>CalculatePathInPropertiesPanelOfBoundaryCategory.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>baec6999-9bb8-4ef5-990c-cdf55ac97b71</id>
+    </Compile>
+    <Compile Include="CalculatePathInPropertiesPanelOfBoundaryCategory.UserCode.cs">
+      <BoundTo>ead7dbbc-6b97-49df-999c-7ea29e40cd4c</BoundTo>
+      <DependentUpon>CalculatePathInPropertiesPanelOfBoundaryCategory.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>4a953aa8-5f5c-4bf0-92db-7ab2d99cd6ac</id>
+    </Compile>
+    <Compile Include="ValidateCategoryBoundaryInPropertiesPanel.cs">
       <BoundTo>772256b0-c236-4c14-95ed-d0682f4b713d</BoundTo>
-      <DependentUpon>BorraEsto.rxrec</DependentUpon>
+      <DependentUpon>ValidateCategoryBoundaryInPropertiesPanel.rxrec</DependentUpon>
       <RecorderCode>true</RecorderCode>
       <id>f617a859-903d-4326-a423-a5b02bf60a59</id>
     </Compile>
-    <Compile Include="BorraEsto.UserCode.cs">
+    <Compile Include="ValidateCategoryBoundaryInPropertiesPanel.UserCode.cs">
       <BoundTo>772256b0-c236-4c14-95ed-d0682f4b713d</BoundTo>
-      <DependentUpon>BorraEsto.rxrec</DependentUpon>
+      <DependentUpon>ValidateCategoryBoundaryInPropertiesPanel.rxrec</DependentUpon>
       <UserCode>true</UserCode>
       <id>d7fac196-e1dd-4d34-ad29-fa17def25d19</id>
     </Compile>
@@ -777,15 +789,15 @@
       <UserCode>true</UserCode>
       <id>5edd3525-f8f2-4e1e-9179-3c85f8165e4b</id>
     </Compile>
-    <Compile Include="ValidateCategoryBoundary.cs">
+    <Compile Include="ValidateCategoryBoundaryInDocumentView.cs">
       <BoundTo>28e8d2ac-8496-492c-bd67-c05dd0310839</BoundTo>
-      <DependentUpon>ValidateCategoryBoundary.rxrec</DependentUpon>
+      <DependentUpon>ValidateCategoryBoundaryInDocumentView.rxrec</DependentUpon>
       <RecorderCode>true</RecorderCode>
       <id>311a55ef-b84d-4ae2-89cd-1f81897d4107</id>
     </Compile>
-    <Compile Include="ValidateCategoryBoundary.UserCode.cs">
+    <Compile Include="ValidateCategoryBoundaryInDocumentView.UserCode.cs">
       <BoundTo>28e8d2ac-8496-492c-bd67-c05dd0310839</BoundTo>
-      <DependentUpon>ValidateCategoryBoundary.rxrec</DependentUpon>
+      <DependentUpon>ValidateCategoryBoundaryInDocumentView.rxrec</DependentUpon>
       <UserCode>true</UserCode>
       <id>42cfd11f-b1b1-4fec-bfb1-b648b87e1bcf</id>
     </Compile>
@@ -1158,7 +1170,12 @@
       <repoid>137723a5-e147-4b62-8c15-5c31a3d68f96</repoid>
       <reporootid>40cb8eed-98dc-4b16-a5ad-7ef93b4f444c</reporootid>
     </None>
-    <None Include="BorraEsto.rxrec">
+    <None Include="CalculatePathInPropertiesPanelOfBoundaryCategory.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>ead7dbbc-6b97-49df-999c-7ea29e40cd4c</id>
+      <recordtableid>6fcd729a-b24a-42d7-8636-f8d75a283109</recordtableid>
+    </None>
+    <None Include="ValidateCategoryBoundaryInPropertiesPanel.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>772256b0-c236-4c14-95ed-d0682f4b713d</id>
       <recordtableid>80ee3780-ce84-4fd2-bf57-10594c61bb9b</recordtableid>
@@ -1418,7 +1435,7 @@
       <id>48b2d7f3-eb5f-4e6a-906d-06315aeaa9db</id>
       <recordtableid>18e39f84-9b42-4666-802c-2fecd9846123</recordtableid>
     </None>
-    <None Include="ValidateCategoryBoundary.rxrec">
+    <None Include="ValidateCategoryBoundaryInDocumentView.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>28e8d2ac-8496-492c-bd67-c05dd0310839</id>
       <recordtableid>b8095d4b-9eb5-467b-976f-5811b54836f6</recordtableid>

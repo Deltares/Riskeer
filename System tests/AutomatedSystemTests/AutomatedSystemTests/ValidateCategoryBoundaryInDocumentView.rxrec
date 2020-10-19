@@ -19,7 +19,7 @@ mode="Global">
 		True
 	</useDefaultItemLogging>
 	<codegen
-	classname="ValidateCategoryBoundary"
+	classname="ValidateCategoryBoundaryInDocumentView"
 	namespace="AutomatedSystemTests">
 	</codegen>
 	<variables>
@@ -90,7 +90,7 @@ mode="Global">
 			</info>
 		</loggingrecorditem>
 		<userrecorditem
-		classname="ValidateCategoryBoundary"
+		classname="ValidateCategoryBoundaryInDocumentView"
 		enabled="True"
 		isexternaltestmethod="False"
 		methodname="Validate_GenericCategoryBoundaryCellAlmostEqual"
@@ -136,7 +136,7 @@ mode="Global">
 	</repository>
 	<usercodefile
 	lang="CSharp">
-		ValidateCategoryBoundary.UserCode.cs
+		ValidateCategoryBoundaryInDocumentView.UserCode.cs
 	</usercodefile>
 	<references>
 	</references>

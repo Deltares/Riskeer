@@ -8,6 +8,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 using System;
+using System.Globalization;
 using System.Linq;
 using System.Collections.Generic;
 using System.Text;
@@ -23,7 +24,7 @@ using Ranorex.Core.Testing;
 
 namespace AutomatedSystemTests
 {
-    public partial class BorraEsto
+    public partial class ValidateCategoryBoundaryInPropertiesPanel
     {
         /// <summary>
         /// This method gets called right after the recording has been started.
@@ -34,7 +35,7 @@ namespace AutomatedSystemTests
             // Your recording specific initialization code goes here.
         }
 
-        public Ranorex.Row GetCellPropertiesPanelGivenPath(Adapter argumentAdapter, string pathItem)
+        public Ranorex.Row GetRowInPropertiesPanelGivenPath(Adapter argumentAdapter, string pathItem)
         	{
         	int minimumIndex = 0;
         	var stepsPathItem = pathItem.Split('>').ToList();
@@ -44,7 +45,6 @@ namespace AutomatedSystemTests
         			var step = stepsPathItem[i];
         			var completeList = argumentAdapter.As<Table>().Rows.ToList();
         			var searchList = completeList.GetRange(minimumIndex, completeList.Count-minimumIndex);
-        			//stepRow = searchList.FirstOrDefault(rw => rw.GetAttributeValue<string>("AccessibleName") == step);
         			var indexStepRow = searchList.FindIndex(rw => rw.GetAttributeValue<string>("AccessibleName") == step);
         			stepRow = searchList[indexStepRow];
         			// Select (and expand) the item
@@ -63,8 +63,22 @@ namespace AutomatedSystemTests
 
         public void ValidateValueCellGivenPath(Adapter propertiesPanelAdapter, string pathCell)
         {
-        	Ranorex.Row row = GetCellPropertiesPanelGivenPath(propertiesPanelAdapter, pathCell);
-        	Report.Log(ReportLevel.Info, "", row.GetAttributeValue<string>("AccessibleValue"));
+        	Ranorex.Row row = GetRowInPropertiesPanelGivenPath(propertiesPanelAdapter, pathCell);
+        	var currentBoundary = row.GetAttributeValue<string>("AccessibleValue");
+        	Report.Log(ReportLevel.Info, "", "Current value: " + currentBoundary);
+        	Report.Log(ReportLevel.Info, "", "Expected value: " + expectedBoundary);
+        	if (currentBoundary==expectedBoundary) {
+            	Validate.AreEqual(currentBoundary, expectedBoundary);
+            }
+            else {
+            	System.Globalization.CultureInfo currentCulture = CultureInfo.CurrentCulture;
+            	Report.Log(ReportLevel.Info, "Validation", "Value found: " + currentBoundary + " is not equal to expected value: " + expectedBoundary + "\r\nEvaluating whether they are almost (within 0.01%) equal...");
+            	var expectedDouble = 1.0/(Double.Parse(expectedBoundary.Substring(2,expectedBoundary.Length-2), currentCulture));
+            	var currentDouble = 1.0/(Double.Parse(currentBoundary.Substring(2,currentBoundary.Length-2), currentCulture));
+            	var deviation = Math.Abs(100.0*(expectedDouble - currentDouble) / expectedDouble);
+            	Report.Log(ReportLevel.Info, "Validation", "Deviation = " + deviation + " %");
+            	Validate.IsTrue(deviation<0.01);
+            }
         }
 
     }

@@ -24,22 +24,22 @@ namespace AutomatedSystemTests
 {
 #pragma warning disable 0436 //(CS0436) The type 'type' in 'assembly' conflicts with the imported type 'type2' in 'assembly'. Using the type defined in 'assembly'.
     /// <summary>
-    ///The ValidateCategoryBoundary recording.
+    ///The ValidateCategoryBoundaryInDocumentView recording.
     /// </summary>
     [TestModule("b8095d4b-9eb5-467b-976f-5811b54836f6", ModuleType.Recording, 1)]
-    public partial class ValidateCategoryBoundary : ITestModule
+    public partial class ValidateCategoryBoundaryInDocumentView : ITestModule
     {
         /// <summary>
         /// Holds an instance of the AutomatedSystemTestsRepository repository.
         /// </summary>
         public static AutomatedSystemTestsRepository repo = AutomatedSystemTestsRepository.Instance;
 
-        static ValidateCategoryBoundary instance = new ValidateCategoryBoundary();
+        static ValidateCategoryBoundaryInDocumentView instance = new ValidateCategoryBoundaryInDocumentView();
 
         /// <summary>
         /// Constructs a new instance.
         /// </summary>
-        public ValidateCategoryBoundary()
+        public ValidateCategoryBoundaryInDocumentView()
         {
             expectedBoundary = "";
         }
@@ -47,7 +47,7 @@ namespace AutomatedSystemTests
         /// <summary>
         /// Gets a static instance of this recording.
         /// </summary>
-        public static ValidateCategoryBoundary Instance
+        public static ValidateCategoryBoundaryInDocumentView Instance
         {
             get { return instance; }
         }
