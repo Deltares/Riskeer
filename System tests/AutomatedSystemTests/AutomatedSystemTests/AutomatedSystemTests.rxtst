@@ -14705,7 +14705,7 @@
 		<DataSource
 		id="79c90d4e-7015-4bbc-a7e5-9c7c59ef642b"
 		includefile="Unchecked"
-		lastknownrowcount="9"
+		lastknownrowcount="8"
 		name="customAssessmentBSKW"
 		type="Ranorex.Core.Data.CsvDataConnector"
 		withheaders="True">
@@ -14715,6 +14715,12 @@
 				</column>
 				<column>
 					CustomAssessmentTypeItem
+				</column>
+				<column>
+					FaalkansSetValue
+				</column>
+				<column>
+					FaalkansValidateValue
 				</column>
 			</lastknowncolumns>
 			<maskedcolumns>
@@ -14870,6 +14876,9 @@
 					CustomAssessmentTypeItem
 				</column>
 				<column>
+					FaalkansSetValue
+				</column>
+				<column>
 					FaalkansValidateValue
 				</column>
 			</lastknowncolumns>
@@ -14909,7 +14918,7 @@
 		<DataSource
 		id="966ae336-7d09-4c72-8bd1-f42df6fe0f32"
 		includefile="Unchecked"
-		lastknownrowcount="9"
+		lastknownrowcount="8"
 		name="customAssessmentHTKW"
 		type="Ranorex.Core.Data.CsvDataConnector"
 		withheaders="True">
@@ -14919,6 +14928,9 @@
 				</column>
 				<column>
 					CustomAssessmentTypeItem
+				</column>
+				<column>
+					FaalkansSetValue
 				</column>
 				<column>
 					FaalkansValidateValue
@@ -15014,6 +15026,9 @@
 					CustomAssessmentTypeItem
 				</column>
 				<column>
+					FaalkansSetValue
+				</column>
+				<column>
 					FaalkansValidateValue
 				</column>
 			</lastknowncolumns>
@@ -15064,6 +15079,12 @@
 				<column>
 					CustomAssessmentTypeItem
 				</column>
+				<column>
+					FaalkansSetValue
+				</column>
+				<column>
+					FaalkansValidateValue
+				</column>
 			</lastknowncolumns>
 			<maskedcolumns>
 			</maskedcolumns>
@@ -15095,7 +15116,7 @@
 		<DataSource
 		id="73482a32-d808-4575-8d91-5c7224df5d2f"
 		includefile="Unchecked"
-		lastknownrowcount="9"
+		lastknownrowcount="8"
 		name="customAssessmentSTKWp"
 		type="Ranorex.Core.Data.CsvDataConnector"
 		withheaders="True">
@@ -15105,6 +15126,9 @@
 				</column>
 				<column>
 					CustomAssessmentTypeItem
+				</column>
+				<column>
+					FaalkansSetValue
 				</column>
 				<column>
 					FaalkansValidateValue
