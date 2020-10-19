@@ -92,10 +92,8 @@ namespace AutomatedSystemTests
 
             Init();
 
-            Report.Log(ReportLevel.Info, "Application", "Closing application with Process ID bound to variable $CloseAutProcessIDVar.", new RecordItemIndex(0));
-            Host.Current.CloseApplication(int.Parse(CloseAutProcessIDVar), 500);
-            
-            ClickButtonNoIfDialogShown(repo.ConfirmSaveProjectDialogWhenClosing.ButtonNoInfo);
+            Report.Log(ReportLevel.Info, "Application", "Killing application containing item 'RiskeerMainWindow'.", repo.RiskeerMainWindow.SelfInfo, new RecordItemIndex(0));
+            Host.Current.KillApplication(repo.RiskeerMainWindow.Self);
             
         }
 
