@@ -1118,6 +1118,24 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<smartfoldernode
+			id="1974ee84-2435-4577-aa44-6a688d2d0e17"
+			name="InitializeDropDownMenu">
+				<parameters>
+					<param
+					name="rowIndex"
+					value="1">
+					</param>
+					<param
+					name="dropDownItem"
+					value="&lt;selecteer>">
+					</param>
+					<param
+					name="expectedValue"
+					value="0.01">
+					</param>
+				</parameters>
+			</smartfoldernode>
 			<testmodule
 			id="19df0b36-eb0a-4d14-ada6-547eda8896bf"
 			name="CalculateNFormula1"
@@ -1425,6 +1443,63 @@
 			name="CloseViewCentralPanelWithFocus"
 			ref="3c2d44f5-31b5-4584-91c8-1ad748affc77"
 			type="Recording">
+			</testmodule>
+			<testmodule
+			id="253158bf-3700-41a3-a813-38a197b9e21c"
+			name="SetCustomAssessmentAtRow"
+			ref="dc218a16-91e8-4197-ae23-5bbe0c083a04"
+			type="Recording">
+				<description>
+					<![CDATA[Initialize dropdown menu so it does not close when opening it the first time]]>
+				</description>
+				<databinding>
+					<var
+					dataname="dropDownItem"
+					datasourceid="7ae8b475-5c92-4326-a964-7a96111cb499"
+					variableid="c5b8922f-77bf-441a-9b88-99da98bf1e54"
+					variablename="DropDownItem">
+					</var>
+					<var
+					dataname="rowIndex"
+					datasourceid="7ae8b475-5c92-4326-a964-7a96111cb499"
+					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
+					variablename="rowIndex">
+					</var>
+					<var
+					dataname="expectedValue"
+					datasourceid="7ae8b475-5c92-4326-a964-7a96111cb499"
+					variableid="ebca180a-929b-4462-bf7c-2388fcd92b35"
+					variablename="expectedCustomAssessmentValue">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="db66c0df-6518-4c43-b352-656c3623717d"
+					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
+					variablename="rowIndex">
+					</var>
+					<var
+					dataname="FaalkansSetValue"
+					datasourceid="db66c0df-6518-4c43-b352-656c3623717d"
+					variableid="ebca180a-929b-4462-bf7c-2388fcd92b35"
+					variablename="expectedCustomAssessmentValue">
+					</var>
+					<var
+					dataname="CustomAssessmentTypeItem"
+					datasourceid="db66c0df-6518-4c43-b352-656c3623717d"
+					variableid="c5b8922f-77bf-441a-9b88-99da98bf1e54"
+					variablename="DropDownItem">
+					</var>
+				</missingdatabinding>
+				<missingdatavariablesbinding>
+					<var
+					dataname="CustomAssessmentTypeItem"
+					datasourceid="db66c0df-6518-4c43-b352-656c3623717d"
+					variableid="d82001f1-20c0-4080-a06d-9f1f8ee3a56d"
+					variablename="textItemDropDownMenu">
+					</var>
+				</missingdatavariablesbinding>
 			</testmodule>
 			<testmodule
 			id="25377ebc-fa0d-4713-8955-ec6af099d1cb"
@@ -3053,6 +3128,63 @@
 				</missingdatabinding>
 			</testmodule>
 			<testmodule
+			id="49b91497-5305-423a-9cee-11b127035113"
+			name="SetCustomAssessmentAtRow"
+			ref="dc218a16-91e8-4197-ae23-5bbe0c083a04"
+			type="Recording">
+				<description>
+					<![CDATA[Initialize dropdown menu so it does not close when opening it the first time]]>
+				</description>
+				<databinding>
+					<var
+					dataname="dropDownItem"
+					datasourceid="1974ee84-2435-4577-aa44-6a688d2d0e17"
+					variableid="c5b8922f-77bf-441a-9b88-99da98bf1e54"
+					variablename="DropDownItem">
+					</var>
+					<var
+					dataname="rowIndex"
+					datasourceid="1974ee84-2435-4577-aa44-6a688d2d0e17"
+					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
+					variablename="rowIndex">
+					</var>
+					<var
+					dataname="expectedValue"
+					datasourceid="1974ee84-2435-4577-aa44-6a688d2d0e17"
+					variableid="ebca180a-929b-4462-bf7c-2388fcd92b35"
+					variablename="expectedCustomAssessmentValue">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="db66c0df-6518-4c43-b352-656c3623717d"
+					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
+					variablename="rowIndex">
+					</var>
+					<var
+					dataname="FaalkansSetValue"
+					datasourceid="db66c0df-6518-4c43-b352-656c3623717d"
+					variableid="ebca180a-929b-4462-bf7c-2388fcd92b35"
+					variablename="expectedCustomAssessmentValue">
+					</var>
+					<var
+					dataname="CustomAssessmentTypeItem"
+					datasourceid="db66c0df-6518-4c43-b352-656c3623717d"
+					variableid="c5b8922f-77bf-441a-9b88-99da98bf1e54"
+					variablename="DropDownItem">
+					</var>
+				</missingdatabinding>
+				<missingdatavariablesbinding>
+					<var
+					dataname="CustomAssessmentTypeItem"
+					datasourceid="db66c0df-6518-4c43-b352-656c3623717d"
+					variableid="d82001f1-20c0-4080-a06d-9f1f8ee3a56d"
+					variablename="textItemDropDownMenu">
+					</var>
+				</missingdatavariablesbinding>
+			</testmodule>
+			<testmodule
 			id="4ae7556e-4930-43f7-8794-8679450f77c8"
 			name="CalculateLinearTransformationOfValue"
 			ref="ff1cb4d9-1388-49e6-bf2a-00ed354dca1e"
@@ -3964,6 +4096,63 @@
 					variablename="substringItemName">
 					</var>
 				</missingdatabinding>
+			</testmodule>
+			<testmodule
+			id="5b5fb496-9974-43ec-8090-9f8edc7f7c2e"
+			name="SetCustomAssessmentAtRow"
+			ref="dc218a16-91e8-4197-ae23-5bbe0c083a04"
+			type="Recording">
+				<description>
+					<![CDATA[Initialize dropdown menu so it does not close when opening it the first time]]>
+				</description>
+				<databinding>
+					<var
+					dataname="dropDownItem"
+					datasourceid="96e429af-b1a2-4acb-8bde-a8198c5526bd"
+					variableid="c5b8922f-77bf-441a-9b88-99da98bf1e54"
+					variablename="DropDownItem">
+					</var>
+					<var
+					dataname="rowIndex"
+					datasourceid="96e429af-b1a2-4acb-8bde-a8198c5526bd"
+					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
+					variablename="rowIndex">
+					</var>
+					<var
+					dataname="expectedValue"
+					datasourceid="96e429af-b1a2-4acb-8bde-a8198c5526bd"
+					variableid="ebca180a-929b-4462-bf7c-2388fcd92b35"
+					variablename="expectedCustomAssessmentValue">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="db66c0df-6518-4c43-b352-656c3623717d"
+					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
+					variablename="rowIndex">
+					</var>
+					<var
+					dataname="FaalkansSetValue"
+					datasourceid="db66c0df-6518-4c43-b352-656c3623717d"
+					variableid="ebca180a-929b-4462-bf7c-2388fcd92b35"
+					variablename="expectedCustomAssessmentValue">
+					</var>
+					<var
+					dataname="CustomAssessmentTypeItem"
+					datasourceid="db66c0df-6518-4c43-b352-656c3623717d"
+					variableid="c5b8922f-77bf-441a-9b88-99da98bf1e54"
+					variablename="DropDownItem">
+					</var>
+				</missingdatabinding>
+				<missingdatavariablesbinding>
+					<var
+					dataname="CustomAssessmentTypeItem"
+					datasourceid="db66c0df-6518-4c43-b352-656c3623717d"
+					variableid="d82001f1-20c0-4080-a06d-9f1f8ee3a56d"
+					variablename="textItemDropDownMenu">
+					</var>
+				</missingdatavariablesbinding>
 			</testmodule>
 			<smartfoldernode
 			id="5b63b031-dd02-4a8d-89c0-7f1d5f3066a9"
@@ -5213,6 +5402,24 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<smartfoldernode
+			id="7ae8b475-5c92-4326-a964-7a96111cb499"
+			name="InitializeDropDownMenu">
+				<parameters>
+					<param
+					name="rowIndex"
+					value="1">
+					</param>
+					<param
+					name="dropDownItem"
+					value="&lt;selecteer>">
+					</param>
+					<param
+					name="expectedValue"
+					value="0.01">
+					</param>
+				</parameters>
+			</smartfoldernode>
 			<smartfoldernode
 			datasource="contributionsFMsTypeDijkFMCView"
 			id="7b0054c9-2118-49ba-881e-5da96a820b5a"
@@ -6767,6 +6974,24 @@
 			id="96337f21-01ec-4e24-8cc0-5f1f26b5d326"
 			name="setup">
 			</setup>
+			<smartfoldernode
+			id="96e429af-b1a2-4acb-8bde-a8198c5526bd"
+			name="InitializeDropDownMenu">
+				<parameters>
+					<param
+					name="rowIndex"
+					value="1">
+					</param>
+					<param
+					name="dropDownItem"
+					value="&lt;selecteer>">
+					</param>
+					<param
+					name="expectedValue"
+					value="0.01">
+					</param>
+				</parameters>
+			</smartfoldernode>
 			<testmodule
 			id="96f11f03-af56-45e6-931e-b0e5a1423a66"
 			name="SetCustomAssessmentValueAtRow"
@@ -7458,6 +7683,63 @@
 			id="ac3846b8-cfe0-440c-8c4e-185c97a25237"
 			name="ValidateCustomAsssessmentType">
 			</smartfoldernode>
+			<testmodule
+			id="ac42895e-f7ac-4dfb-8c65-b1e7764a44d9"
+			name="SetCustomAssessmentAtRow"
+			ref="dc218a16-91e8-4197-ae23-5bbe0c083a04"
+			type="Recording">
+				<description>
+					<![CDATA[Initialize dropdown menu so it does not close when opening it the first time]]>
+				</description>
+				<databinding>
+					<var
+					dataname="dropDownItem"
+					datasourceid="b9399cd3-4c95-4ec3-b616-a6f1761f3e3d"
+					variableid="c5b8922f-77bf-441a-9b88-99da98bf1e54"
+					variablename="DropDownItem">
+					</var>
+					<var
+					dataname="rowIndex"
+					datasourceid="b9399cd3-4c95-4ec3-b616-a6f1761f3e3d"
+					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
+					variablename="rowIndex">
+					</var>
+					<var
+					dataname="expectedValue"
+					datasourceid="b9399cd3-4c95-4ec3-b616-a6f1761f3e3d"
+					variableid="ebca180a-929b-4462-bf7c-2388fcd92b35"
+					variablename="expectedCustomAssessmentValue">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="db66c0df-6518-4c43-b352-656c3623717d"
+					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
+					variablename="rowIndex">
+					</var>
+					<var
+					dataname="FaalkansSetValue"
+					datasourceid="db66c0df-6518-4c43-b352-656c3623717d"
+					variableid="ebca180a-929b-4462-bf7c-2388fcd92b35"
+					variablename="expectedCustomAssessmentValue">
+					</var>
+					<var
+					dataname="CustomAssessmentTypeItem"
+					datasourceid="db66c0df-6518-4c43-b352-656c3623717d"
+					variableid="c5b8922f-77bf-441a-9b88-99da98bf1e54"
+					variablename="DropDownItem">
+					</var>
+				</missingdatabinding>
+				<missingdatavariablesbinding>
+					<var
+					dataname="CustomAssessmentTypeItem"
+					datasourceid="db66c0df-6518-4c43-b352-656c3623717d"
+					variableid="d82001f1-20c0-4080-a06d-9f1f8ee3a56d"
+					variablename="textItemDropDownMenu">
+					</var>
+				</missingdatavariablesbinding>
+			</testmodule>
 			<smartfoldernode
 			datasource="detailedAssessmentGEKB"
 			id="adfd004f-4c6b-44ef-86d2-3ee33f7984a2"
@@ -8191,6 +8473,24 @@
 			datasource="detailedAssessmentZST"
 			id="b90f12e8-31ee-41a0-b1e5-7fad5522e116"
 			name="ValidateDetailedAsssessmentValue">
+			</smartfoldernode>
+			<smartfoldernode
+			id="b9399cd3-4c95-4ec3-b616-a6f1761f3e3d"
+			name="InitializeDropDownMenu">
+				<parameters>
+					<param
+					name="rowIndex"
+					value="1">
+					</param>
+					<param
+					name="dropDownItem"
+					value="&lt;selecteer>">
+					</param>
+					<param
+					name="expectedValue"
+					value="0.01">
+					</param>
+				</parameters>
 			</smartfoldernode>
 			<testmodule
 			id="b9c082f3-aad7-4cda-80a3-8d15ba80625c"
@@ -13612,6 +13912,14 @@
 									name="OpenResultView">
 									</testmodule>
 									<smartfoldernode
+									id="7ae8b475-5c92-4326-a964-7a96111cb499"
+									name="InitializeDropDownMenu">
+										<testmodule
+										id="253158bf-3700-41a3-a813-38a197b9e21c"
+										name="SetCustomAssessmentAtRow">
+										</testmodule>
+									</smartfoldernode>
+									<smartfoldernode
 									id="7a60e0f2-b425-46b7-b896-ab915ac90b0b"
 									name="LoopRowsSetCustomAssessment">
 										<testmodule
@@ -13639,6 +13947,14 @@
 									id="9577bfe1-4021-433c-8193-43600751cb30"
 									name="OpenResultView">
 									</testmodule>
+									<smartfoldernode
+									id="1974ee84-2435-4577-aa44-6a688d2d0e17"
+									name="InitializeDropDownMenu">
+										<testmodule
+										id="49b91497-5305-423a-9cee-11b127035113"
+										name="SetCustomAssessmentAtRow">
+										</testmodule>
+									</smartfoldernode>
 									<smartfoldernode
 									id="07d2eecf-fe16-4ca1-9bc5-a8e1504701c1"
 									name="LoopRowsSetCustomAssessment">
@@ -13668,6 +13984,14 @@
 									name="OpenResultView">
 									</testmodule>
 									<smartfoldernode
+									id="96e429af-b1a2-4acb-8bde-a8198c5526bd"
+									name="InitializeDropDownMenu">
+										<testmodule
+										id="5b5fb496-9974-43ec-8090-9f8edc7f7c2e"
+										name="SetCustomAssessmentAtRow">
+										</testmodule>
+									</smartfoldernode>
+									<smartfoldernode
 									id="69b0f5eb-98f2-4752-994c-053d61efa218"
 									name="LoopRowsSetCustomAssessment">
 										<testmodule
@@ -13695,6 +14019,14 @@
 									id="b492d86e-1c0f-4fb6-9509-b5100be82807"
 									name="OpenResultView">
 									</testmodule>
+									<smartfoldernode
+									id="b9399cd3-4c95-4ec3-b616-a6f1761f3e3d"
+									name="InitializeDropDownMenu">
+										<testmodule
+										id="ac42895e-f7ac-4dfb-8c65-b1e7764a44d9"
+										name="SetCustomAssessmentAtRow">
+										</testmodule>
+									</smartfoldernode>
 									<smartfoldernode
 									id="518aaf6a-1d6f-4199-9f77-408cbcdd330f"
 									name="LoopRowsSetCustomAssessment">
@@ -17742,106 +18074,64 @@
 		<testconfiguration
 		name="TestRun">
 			<testcontainer
-			id="000059d5-187f-48eb-ac93-f01b34d9794e">
+			id="07d2eecf-fe16-4ca1-9bc5-a8e1504701c1">
 			</testcontainer>
 			<testcontainer
-			id="01a8cff1-2dad-4f40-abf5-f73ee2e5c6f5">
+			id="0be4c0d3-4d42-46b5-9a6e-02fb775d70ae">
 			</testcontainer>
 			<testcontainer
-			id="05f4e98d-2f65-4b6e-909e-fa3589a93157">
-			</testcontainer>
-			<testcontainer
-			id="069b6ec4-1e04-449b-887b-6fac9a0e1699">
-			</testcontainer>
-			<testcontainer
-			id="13215e9b-ec6c-4672-94f7-9dfaa4786756">
-			</testcontainer>
-			<testcontainer
-			id="16fa50a1-745f-445e-905e-caf42dd1a7c9">
-			</testcontainer>
-			<testcontainer
-			id="1a95de64-0bb3-4b5f-b756-bec7fbf699c2">
+			id="1974ee84-2435-4577-aa44-6a688d2d0e17">
 			</testcontainer>
 			<testcontainer
 			id="37c811fd-9297-4d92-b429-28a452540bf1">
 			</testcontainer>
 			<testcontainer
-			id="562bd8d6-038e-4c82-adc1-39540ae9a54a">
-			</testcontainer>
-			<testcontainer
-			id="575ee873-16c6-4f4e-ad69-c2ed3365835d">
+			id="518aaf6a-1d6f-4199-9f77-408cbcdd330f">
 			</testcontainer>
 			<testcontainer
 			id="5a79372d-2a17-44e3-93d6-a6b0ba0c45ef">
 			</testcontainer>
 			<testcontainer
-			id="5ed16dd4-4669-4b3e-971f-09da17463932">
+			id="69b0f5eb-98f2-4752-994c-053d61efa218">
 			</testcontainer>
 			<testcontainer
-			id="61c39043-1c24-4ae8-ae86-745f1889b53f">
+			id="7a60e0f2-b425-46b7-b896-ab915ac90b0b">
 			</testcontainer>
 			<testcontainer
-			id="7489d122-ebfa-46e4-bc4e-7d20ade37334">
+			id="7ae8b475-5c92-4326-a964-7a96111cb499">
 			</testcontainer>
 			<testcontainer
-			id="8e383190-760c-45e7-a27d-cccf61cae200">
+			id="93c5b621-1022-4b03-8a29-789f6b8433f4">
 			</testcontainer>
 			<testcontainer
-			id="8e475866-ae72-4e5b-a60c-4aaead3b9643">
+			id="96e429af-b1a2-4acb-8bde-a8198c5526bd">
 			</testcontainer>
 			<testcontainer
-			id="9217c88b-b56e-49fb-b95e-cb3908ef6441">
-			</testcontainer>
-			<testcontainer
-			id="a62f19a6-916a-4eae-a94c-9f8d7e719c12">
-			</testcontainer>
-			<testcontainer
-			id="ab87b46e-5093-473d-a4de-7c78c4af6486">
-			</testcontainer>
-			<testcontainer
-			id="ac3846b8-cfe0-440c-8c4e-185c97a25237">
+			id="a220e9d3-3388-4a68-b45b-6ab4a63711ed">
 			</testcontainer>
 			<testcontainer
 			id="aeb77e69-5899-4233-a3e5-bcfb058676c3">
 			</testcontainer>
 			<testcontainer
-			id="b5ffcf6c-191b-4757-9d22-49e7233e7c54">
+			id="b02d0880-3b6a-463e-98a6-5186f92abd12">
 			</testcontainer>
 			<testcontainer
-			id="c23e27aa-dca4-4ae7-9cab-a920f2b2d594">
+			id="b6c982e8-d12d-4bc1-8e69-daec37d56780">
 			</testcontainer>
 			<testcontainer
-			id="c48c8467-bdef-4f2f-8d2f-27a5a0de8688">
+			id="b9399cd3-4c95-4ec3-b616-a6f1761f3e3d">
 			</testcontainer>
 			<testcontainer
-			id="cbbf627b-1c77-4442-b22c-43f6272158e9">
+			id="d9730e02-f6b1-404b-ac86-2f7e800d7928">
 			</testcontainer>
 			<testcontainer
-			id="d357b7c9-2532-407c-85c2-873543da9ffa">
-			</testcontainer>
-			<testcontainer
-			id="d49fa026-5b47-4430-998d-1a57f0402e66">
-			</testcontainer>
-			<testcontainer
-			id="e2f5aa1d-3132-4116-af80-d971c4da14fe">
-			</testcontainer>
-			<testcontainer
-			id="e43efcb5-c614-46b1-b7a3-9cde910a67ee">
-			</testcontainer>
-			<testcontainer
-			id="e6c18649-1811-4b8f-a6ab-a27ae4889312">
-			</testcontainer>
-			<testcontainer
-			id="ec6146f8-9a08-478a-a252-c91651cac9fe">
+			id="e9d223d7-578b-455b-b78e-1e2f3e7f5bdd">
 			</testcontainer>
 			<testcontainer
 			id="f16b204f-b66b-40a0-82c1-8d62dcbc8b22">
 			</testcontainer>
 			<testcontainer
-			id="f4709c6d-6b14-4bd7-b86d-894c04ab9e92">
-			</testcontainer>
-			<testcontainer
-			id="f99923d8-ea13-4734-860b-1c4574acdfd5">
+			id="f6ac514e-d12f-43e4-b2e6-7a72929bcf5e">
 			</testcontainer>
 			<testcontainer
 			id="fda567a0-be92-41b9-9761-e7e7d9e7be7f">
