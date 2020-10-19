@@ -29,7 +29,8 @@ using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 namespace Riskeer.Common.Forms.PropertyClasses
 {
     /// <summary>
-    /// Properties class for implementations of <see cref="ShiftedLogNormalDistributionProperties"/>.
+    /// Properties class for implementations of <see cref="LogNormalDistributionProperties"/>
+    /// including the shift for properties panel.
     /// </summary>
     public class ShiftedLogNormalDistributionProperties : LogNormalDistributionProperties
     {
@@ -37,9 +38,9 @@ namespace Riskeer.Common.Forms.PropertyClasses
         /// Creates a new instance of <see cref="ShiftedLogNormalDistributionProperties"/>
         /// in which the properties of <paramref name="distribution"/> are displayed read-only.
         /// </summary>
-        /// <param name="distribution">The <see cref="LogNormalDistributionProperties"/> to create the properties for.</param>
-        public ShiftedLogNormalDistributionProperties(LogNormalDistribution distribution) : base(distribution)
-        {}
+        /// <param name="distribution">The <see cref="LogNormalDistribution"/> to create the properties for.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="distribution"/> is <c>null</c>.</exception>
+        public ShiftedLogNormalDistributionProperties(LogNormalDistribution distribution) : base(distribution) {}
 
         /// <summary>
         /// Creates a new instance of <see cref="ShiftedLogNormalDistributionProperties"/>.
@@ -49,11 +50,14 @@ namespace Riskeer.Common.Forms.PropertyClasses
         /// <param name="distribution">The <see cref="LogNormalDistribution"/> to create the properties for.</param>
         /// <param name="handler">Optional handler that is used to handle property changes.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="distribution"/> is <c>null</c>.</exception>
-        /// <exception cref="ArgumentException">Any number of properties in this class is editable and the 
+        /// <exception cref="ArgumentException">Thrown when any number of properties in this class is editable and the 
         /// <paramref name="handler"/> is <c>null</c>.</exception>
-        public ShiftedLogNormalDistributionProperties(DistributionReadOnlyProperties readOnlyProperties, LogNormalDistribution distribution, IObservablePropertyChangeHandler handler) : base(readOnlyProperties, distribution, handler)
-        {}
+        public ShiftedLogNormalDistributionProperties(DistributionReadOnlyProperties readOnlyProperties, LogNormalDistribution distribution, IObservablePropertyChangeHandler handler)
+            : base(readOnlyProperties, distribution, handler) {}
 
+        /// <summary>
+        /// Gets the shift of the <see cref="LogNormalDistribution"/>.
+        /// </summary>
         [PropertyOrder(4)]
         [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Probabilistics_Shift_Symbol))]
         [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Probabilistics_Shift_Description))]
@@ -67,7 +71,7 @@ namespace Riskeer.Common.Forms.PropertyClasses
 
         public override string ToString()
         {
-            return $"{Mean} ({RiskeerCommonFormsResources.NormalDistribution_StandardDeviation_DisplayName} = {StandardDeviation}) ({RiskeerCommonFormsResources.Probabilistics_Shift_Symbol} = {Shift})";
+            return $"{Mean} ({RiskeerCommonFormsResources.NormalDistribution_StandardDeviation_DisplayName} = {StandardDeviation}, {RiskeerCommonFormsResources.Probabilistics_Shift_Symbol} = {Shift})";
         }
     }
 }
