@@ -183,7 +183,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             var propertyName = properties.ToString();
 
             // Assert
-            Assert.AreEqual("1,00 (Standaardafwijking = 2,00) (Verschuiving = 0,30)", propertyName);
+            Assert.AreEqual("1,00 (Standaardafwijking = 2,00, Verschuiving = 0,30)", propertyName);
         }
 
         private static void AssertPropertiesInState(ShiftedLogNormalDistributionProperties properties, bool meanReadOnly, bool deviationReadOnly)

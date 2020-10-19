@@ -385,7 +385,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
                 sectionLengthProperty,
                 sectionInformationCategory,
                 "Vaklengte [m]",
-                "De lengte van het vak.",
+                "De totale lengte van het vak in meters (afgerond).",
                 true);
 
             PropertyDescriptor shouldCalculateIllustrationPointsProperty = dynamicProperties[expectedShouldCalculateIllustrationPointsPropertyIndex];
