@@ -34,8 +34,7 @@ namespace Riskeer.Piping.Data
         where TPipingInput : PipingInput
     {
         /// <summary>
-        /// Creates a new instance of <see cref="PipingCalculation{TPipingInput}"/> with default values set for some of
-        /// the parameters.
+        /// Creates a new instance of <see cref="PipingCalculation{TPipingInput}"/>.
         /// </summary>
         /// <param name="pipingInput">The input parameters to perform the piping calculation with.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="pipingInput"/>

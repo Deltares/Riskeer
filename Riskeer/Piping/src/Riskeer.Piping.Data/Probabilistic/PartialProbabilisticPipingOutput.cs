@@ -49,13 +49,7 @@ namespace Riskeer.Piping.Data.Probabilistic
         /// <summary>
         /// Gets the value indicating whether the output contains a general result with illustration points.
         /// </summary>
-        public bool HasGeneralResult
-        {
-            get
-            {
-                return GeneralResult != null;
-            }
-        }
+        public bool HasGeneralResult => GeneralResult != null;
 
         /// <summary>
         /// Gets the general result with the fault tree illustration points.
