@@ -8,6 +8,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 using System;
+using System.Globalization;
 using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -35,12 +36,22 @@ namespace AutomatedSystemTests
 
         public void ValidateDetailedAssessmentCell(RepoItemInfo cellInfo, string expectedValue)
         {
-        	expectedValue = expectedValue.Replace(" ", String.Empty).Replace(".", String.Empty);
-        	Report.Log(ReportLevel.Info, "Info", expectedValue, cellInfo);
-        	Report.Log(ReportLevel.Info, "Validation", "Validating AttributeEqual (AccessibleValue='" + expectedValue.ToString() + "') on item 'cellInfo'.", cellInfo);
-        	string foundValue = cellInfo.CreateAdapter<Cell>(true).GetAttributeValue<String>("AccessibleValue");
-        	foundValue = foundValue.Replace(" ", String.Empty).Replace(".", String.Empty);
-            Validate.AreEqual(foundValue, expectedValue);
+            System.Globalization.CultureInfo currentCulture = CultureInfo.CurrentCulture;
+            var currentValue = cellInfo.CreateAdapter<Cell>(true).GetAttributeValue<string>("AccessibleValue");
+            currentValue = "1/" + Double.Parse(currentValue.Substring(2,currentValue.Length-2), currentCulture).ToString();
+            Report.Log(ReportLevel.Info, "", "Current value: " + currentValue);
+        	Report.Log(ReportLevel.Info, "", "Expected value: " + expectedValue);
+        	if (currentValue==expectedValue) {
+            	Validate.AreEqual(currentValue, expectedValue);
+            }
+            else {
+            	Report.Log(ReportLevel.Info, "Validation", "Value found: " + currentValue + " is not equal to expected value: " + expectedValue + "\r\nEvaluating whether they are almost (within 0.01%) equal...");
+            	var expectedDouble = 1.0/(Double.Parse(expectedValue.Substring(2,expectedValue.Length-2), currentCulture));
+            	var currentDouble = 1.0/(Double.Parse(currentValue.Substring(2,currentValue.Length-2), currentCulture));
+            	var deviation = Math.Abs(100.0*(expectedDouble - currentDouble) / expectedDouble);
+            	Report.Log(ReportLevel.Info, "Validation", "Deviation = " + deviation + " %");
+            	Validate.IsTrue(deviation<0.01);
+            }
         }
 
     }

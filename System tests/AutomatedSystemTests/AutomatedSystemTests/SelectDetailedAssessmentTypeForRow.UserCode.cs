@@ -22,7 +22,7 @@ using Ranorex.Core.Testing;
 
 namespace AutomatedSystemTests
 {
-    public partial class SelectDetailedAssessmentForRow
+    public partial class SelectDetailedAssessmentTypeForRow
     {
         /// <summary>
         /// This method gets called right after the recording has been started.

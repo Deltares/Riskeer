@@ -19,7 +19,7 @@ mode="Global">
 		True
 	</useDefaultItemLogging>
 	<codegen
-	classname="SelectDetailedAssessmentForRow"
+	classname="SelectDetailedAssessmentTypeForRow"
 	namespace="AutomatedSystemTests">
 	</codegen>
 	<variables>

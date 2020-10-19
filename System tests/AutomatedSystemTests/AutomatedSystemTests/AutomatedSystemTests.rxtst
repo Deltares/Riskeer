@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <testsuitedoc>
 	<testsuiteentryhierarchy>
 		<flatlistofchildren>
@@ -1037,7 +1037,7 @@
 			</testmodule>
 			<testmodule
 			id="17ae2977-b078-46e9-a87a-327dd1483895"
-			name="SelectDetailedAssessmentForRow"
+			name="SelectDetailedAssessmentTypeForRow"
 			ref="30a2f45d-ee95-4cb0-9ee5-87d71ca20ca5"
 			type="Recording">
 				<databinding>
@@ -1420,6 +1420,26 @@
 			id="2179672b-c6cc-4f03-8e2b-71ae42170951"
 			name="LoopFMs">
 			</smartfoldernode>
+			<testmodule
+			id="21a47727-74cb-4a10-bbb4-028879a15193"
+			name="ValidateDetailedAssessmentValueAtRow"
+			ref="91919928-72e3-45e3-8af5-a51f8db749e3"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="3c2460b6-313c-41d2-8595-0158614c6855"
+					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
+					variablename="rowIndex">
+					</var>
+					<var
+					dataname="ExpectedFailureProbability"
+					datasourceid="3c2460b6-313c-41d2-8595-0158614c6855"
+					variableid="79d7d1d0-a157-4326-954d-9ee0a7bbe710"
+					variablename="expectedDetailedAssessmentCellValue">
+					</var>
+				</databinding>
+			</testmodule>
 			<testmodule
 			id="2231bc32-f818-461b-bed9-5b15d5df8e30"
 			name="CloseViewCentralPanelWithFocus"
@@ -2195,7 +2215,7 @@
 			</testmodule>
 			<testmodule
 			id="328383e3-e3fc-4be6-9787-baa30b524f66"
-			name="SelectDetailedAssessmentForRow"
+			name="SelectDetailedAssessmentTypeForRow"
 			ref="30a2f45d-ee95-4cb0-9ee5-87d71ca20ca5"
 			type="Recording">
 				<databinding>
@@ -6253,7 +6273,7 @@
 			</testmodule>
 			<testmodule
 			id="85bb6cdf-43c8-40bf-bd78-b48f8eddd505"
-			name="SelectDetailedAssessmentForRow"
+			name="SelectDetailedAssessmentTypeForRow"
 			ref="30a2f45d-ee95-4cb0-9ee5-87d71ca20ca5"
 			type="Recording">
 				<databinding>
@@ -7466,6 +7486,31 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<smartfoldernode
+			id="980edd35-a335-4919-bd8e-16577a599027"
+			name="RunOnlyWhenValueIsPresent">
+				<conditiongroup
+				comparison="AND"
+				enabled="True">
+					<condition
+					comparison="IsNotEqual">
+						<leftvalue>
+							<datavaluesource>
+								<databinding
+								bindingtype="DataConnector"
+								dataname="FailureProbabilityToAssign"
+								id="3c2460b6-313c-41d2-8595-0158614c6855">
+								</databinding>
+							</datavaluesource>
+						</leftvalue>
+						<rightvalue>
+							<simplevaluesource
+							value="">
+							</simplevaluesource>
+						</rightvalue>
+					</condition>
+				</conditiongroup>
+			</smartfoldernode>
 			<testmodule
 			id="98217c5a-f9f6-48b6-83c0-be402c429503"
 			name="SelectTrajectType"
@@ -7585,6 +7630,26 @@
 					datasourceid="54726836-ea20-4aed-9544-c3ea520ce225"
 					variableid="f767b8db-9a01-48e3-94b0-8a4492473cc6"
 					variablename="messageToBeLogged">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
+			id="9b218b5f-8d85-4795-a786-88d4b4aa24fa"
+			name="SetDetailedAssessmentValueForRow"
+			ref="8ba1a78d-5071-4845-bc94-8ab1fa70f8c1"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="rowIndex"
+					datasourceid="3c2460b6-313c-41d2-8595-0158614c6855"
+					variableid="3191cedb-5ef9-4f31-85c1-c8b9bb6a46f0"
+					variablename="rowIndex">
+					</var>
+					<var
+					dataname="FailureProbabilityToAssign"
+					datasourceid="3c2460b6-313c-41d2-8595-0158614c6855"
+					variableid="3d41c7f7-4aea-4ded-b952-9a31e437e726"
+					variablename="assessmentValueToAssign">
 					</var>
 				</databinding>
 			</testmodule>
@@ -7915,7 +7980,7 @@
 			</testmodule>
 			<testmodule
 			id="a46fc1f7-1603-4109-82e8-c949ad6730a0"
-			name="SelectDetailedAssessmentForRow"
+			name="SelectDetailedAssessmentTypeForRow"
 			ref="30a2f45d-ee95-4cb0-9ee5-87d71ca20ca5"
 			type="Recording">
 				<databinding>
@@ -8030,7 +8095,7 @@
 			</smartfoldernode>
 			<testmodule
 			id="aaec2432-7ff2-4ec8-b30d-e06d293aa57d"
-			name="SelectDetailedAssessmentForRow"
+			name="SelectDetailedAssessmentTypeForRow"
 			ref="30a2f45d-ee95-4cb0-9ee5-87d71ca20ca5"
 			type="Recording">
 				<databinding>
@@ -9533,7 +9598,7 @@
 			</testmodule>
 			<testmodule
 			id="c3ff5558-7cbd-4b78-8fc0-21abe810b3a8"
-			name="SelectDetailedAssessmentForRow"
+			name="SelectDetailedAssessmentTypeForRow"
 			ref="30a2f45d-ee95-4cb0-9ee5-87d71ca20ca5"
 			type="Recording">
 				<databinding>
@@ -9918,7 +9983,7 @@
 			</testmodule>
 			<testmodule
 			id="cb028f34-42e5-4785-9b4f-fd7d2b62294a"
-			name="SelectDetailedAssessmentForRow"
+			name="SelectDetailedAssessmentTypeForRow"
 			ref="30a2f45d-ee95-4cb0-9ee5-87d71ca20ca5"
 			type="Recording">
 				<databinding>
@@ -10736,6 +10801,31 @@
 			ref="3c2d44f5-31b5-4584-91c8-1ad748affc77"
 			type="Recording">
 			</testmodule>
+			<smartfoldernode
+			id="ddaf7864-9c21-484a-8623-b66f223bc8c8"
+			name="RunOnlyWhenValueIsPresent">
+				<conditiongroup
+				comparison="AND"
+				enabled="True">
+					<condition
+					comparison="IsNotEqual">
+						<leftvalue>
+							<datavaluesource>
+								<databinding
+								bindingtype="DataConnector"
+								dataname="ExpectedFailureProbability"
+								id="3c2460b6-313c-41d2-8595-0158614c6855">
+								</databinding>
+							</datavaluesource>
+						</leftvalue>
+						<rightvalue>
+							<simplevaluesource
+							value="">
+							</simplevaluesource>
+						</rightvalue>
+					</condition>
+				</conditiongroup>
+			</smartfoldernode>
 			<testmodule
 			id="ddcb574e-dd31-4b69-9a30-e87fd52dcd68"
 			name="ValidateValueParameterForItemInTraject"
@@ -13604,7 +13694,7 @@
 									name="LoopRowsSelectDetailedAssessmentType">
 										<testmodule
 										id="328383e3-e3fc-4be6-9787-baa30b524f66"
-										name="SelectDetailedAssessmentForRow">
+										name="SelectDetailedAssessmentTypeForRow">
 										</testmodule>
 									</smartfoldernode>
 									<smartfoldernode
@@ -13640,7 +13730,7 @@
 									name="LoopRowsSelectDetailedAssessmentType">
 										<testmodule
 										id="c3ff5558-7cbd-4b78-8fc0-21abe810b3a8"
-										name="SelectDetailedAssessmentForRow">
+										name="SelectDetailedAssessmentTypeForRow">
 										</testmodule>
 									</smartfoldernode>
 									<smartfoldernode
@@ -13676,7 +13766,7 @@
 									name="LoopRowsSelectDetailedAssessmentType">
 										<testmodule
 										id="17ae2977-b078-46e9-a87a-327dd1483895"
-										name="SelectDetailedAssessmentForRow">
+										name="SelectDetailedAssessmentTypeForRow">
 										</testmodule>
 									</smartfoldernode>
 									<smartfoldernode
@@ -13712,8 +13802,16 @@
 									name="LoopRowsSelectDetailedAssessmentType">
 										<testmodule
 										id="aaec2432-7ff2-4ec8-b30d-e06d293aa57d"
-										name="SelectDetailedAssessmentForRow">
+										name="SelectDetailedAssessmentTypeForRow">
 										</testmodule>
+										<smartfoldernode
+										id="980edd35-a335-4919-bd8e-16577a599027"
+										name="RunOnlyWhenValueIsPresent">
+											<testmodule
+											id="9b218b5f-8d85-4795-a786-88d4b4aa24fa"
+											name="SetDetailedAssessmentValueForRow">
+											</testmodule>
+										</smartfoldernode>
 									</smartfoldernode>
 									<smartfoldernode
 									id="a6967a33-1477-4893-927e-d6030af4a6df"
@@ -13722,6 +13820,14 @@
 										id="9f901137-82e7-47f9-9766-5121ab0b3b15"
 										name="ValidateDetailedAssessmentTypeAtRow">
 										</testmodule>
+										<smartfoldernode
+										id="ddaf7864-9c21-484a-8623-b66f223bc8c8"
+										name="RunOnlyWhenValueIsPresent">
+											<testmodule
+											id="21a47727-74cb-4a10-bbb4-028879a15193"
+											name="ValidateDetailedAssessmentValueAtRow">
+											</testmodule>
+										</smartfoldernode>
 									</smartfoldernode>
 									<testmodule
 									id="177c9598-f8c9-4e63-b767-c5f1d49f4be4"
@@ -13748,7 +13854,7 @@
 									name="LoopRowsSelectDetailedAssessmentType">
 										<testmodule
 										id="85bb6cdf-43c8-40bf-bd78-b48f8eddd505"
-										name="SelectDetailedAssessmentForRow">
+										name="SelectDetailedAssessmentTypeForRow">
 										</testmodule>
 									</smartfoldernode>
 									<smartfoldernode
@@ -13784,7 +13890,7 @@
 									name="LoopRowsSelectDetailedAssessmentType">
 										<testmodule
 										id="a46fc1f7-1603-4109-82e8-c949ad6730a0"
-										name="SelectDetailedAssessmentForRow">
+										name="SelectDetailedAssessmentTypeForRow">
 										</testmodule>
 									</smartfoldernode>
 									<smartfoldernode
@@ -13820,7 +13926,7 @@
 									name="LoopRowsSelectDetailedAssessmentType">
 										<testmodule
 										id="cb028f34-42e5-4785-9b4f-fd7d2b62294a"
-										name="SelectDetailedAssessmentForRow">
+										name="SelectDetailedAssessmentTypeForRow">
 										</testmodule>
 									</smartfoldernode>
 									<smartfoldernode
@@ -17208,6 +17314,12 @@
 				<column>
 					DetailedAssessmentTypeItem
 				</column>
+				<column>
+					FailureProbabilityToAssign
+				</column>
+				<column>
+					ExpectedFailureProbability
+				</column>
 			</lastknowncolumns>
 			<maskedcolumns>
 			</maskedcolumns>
@@ -18796,27 +18908,6 @@
 		<testconfiguration
 		name="TestRun">
 			<testcontainer
-			id="37c811fd-9297-4d92-b429-28a452540bf1">
-			</testcontainer>
-			<testcontainer
-			id="3eb30b78-64ef-4a56-96ce-0c4ccda12b32">
-			</testcontainer>
-			<testcontainer
-			id="5a79372d-2a17-44e3-93d6-a6b0ba0c45ef">
-			</testcontainer>
-			<testcontainer
-			id="71289708-437a-4e75-bc9e-9e81ff0a6640">
-			</testcontainer>
-			<testcontainer
-			id="87a0e03b-abc1-4296-980a-56ed1cbd73d8">
-			</testcontainer>
-			<testcontainer
-			id="aeb77e69-5899-4233-a3e5-bcfb058676c3">
-			</testcontainer>
-			<testcontainer
-			id="e680c0ff-a1be-4b90-bace-43e573cf1610">
-			</testcontainer>
-			<testcontainer
 			id="004305c8-dc2f-4236-9cb5-fb4029bbb90b">
 			</testcontainer>
 			<testcontainer
@@ -18853,7 +18944,16 @@
 			id="22e4bbf9-0675-41cb-8838-d39c0cf423b6">
 			</testcontainer>
 			<testcontainer
+			id="29d86fdd-4a06-4cf2-b6b4-163ef6f223e4">
+			</testcontainer>
+			<testcontainer
 			id="36de5b8d-308c-4502-9938-6fab6ac232a3">
+			</testcontainer>
+			<testcontainer
+			id="37c811fd-9297-4d92-b429-28a452540bf1">
+			</testcontainer>
+			<testcontainer
+			id="3eb30b78-64ef-4a56-96ce-0c4ccda12b32">
 			</testcontainer>
 			<testcontainer
 			id="42425944-15c7-418b-b5cd-a582e15b80df">
@@ -18883,6 +18983,9 @@
 			id="56686535-e9c1-4dee-937e-6edd48e15b86">
 			</testcontainer>
 			<testcontainer
+			id="5a79372d-2a17-44e3-93d6-a6b0ba0c45ef">
+			</testcontainer>
+			<testcontainer
 			id="5b63b031-dd02-4a8d-89c0-7f1d5f3066a9">
 			</testcontainer>
 			<testcontainer
@@ -18890,6 +18993,9 @@
 			</testcontainer>
 			<testcontainer
 			id="645a1e46-fc85-4ee5-b48f-628d1c339748">
+			</testcontainer>
+			<testcontainer
+			id="71289708-437a-4e75-bc9e-9e81ff0a6640">
 			</testcontainer>
 			<testcontainer
 			id="73bba093-ff0b-403e-a5d4-33568e569c7c">
@@ -18907,10 +19013,19 @@
 			id="7df4f5d9-6c64-457c-8a84-336b3a0d721b">
 			</testcontainer>
 			<testcontainer
+			id="7f1d4de9-90da-4126-bf23-7008a5a44fee">
+			</testcontainer>
+			<testcontainer
+			id="87a0e03b-abc1-4296-980a-56ed1cbd73d8">
+			</testcontainer>
+			<testcontainer
 			id="8cb65e99-632a-4992-ae3e-ec6bb44ff32d">
 			</testcontainer>
 			<testcontainer
 			id="90aa5c69-ee83-454b-8d3f-8cf843f5fd19">
+			</testcontainer>
+			<testcontainer
+			id="980edd35-a335-4919-bd8e-16577a599027">
 			</testcontainer>
 			<testcontainer
 			id="9b499f01-56e6-434d-b7fd-6043d1ff2349">
@@ -18922,16 +19037,28 @@
 			id="a19d64b1-9804-430e-b24d-b02b6bf6945a">
 			</testcontainer>
 			<testcontainer
+			id="a340e9a4-4cf7-4999-b91c-36776c39fc1f">
+			</testcontainer>
+			<testcontainer
+			id="a6967a33-1477-4893-927e-d6030af4a6df">
+			</testcontainer>
+			<testcontainer
 			id="a9476a5d-b871-4277-9188-1ebfe572836e">
 			</testcontainer>
 			<testcontainer
 			id="ab2dcae4-2020-4e09-bf5b-32fb590d3155">
 			</testcontainer>
 			<testcontainer
+			id="aeb77e69-5899-4233-a3e5-bcfb058676c3">
+			</testcontainer>
+			<testcontainer
 			id="aedd5571-96f0-44fd-9a62-fa76607ec249">
 			</testcontainer>
 			<testcontainer
 			id="b76df6f8-799c-4ff8-8df2-198969a6b4be">
+			</testcontainer>
+			<testcontainer
+			id="bbc066fa-b5b2-4b7d-99bd-7df1666d347a">
 			</testcontainer>
 			<testcontainer
 			id="bbc104ea-69c3-4dcd-8e50-5d1b60cd8d06">
@@ -18946,7 +19073,13 @@
 			id="d08f45c8-4f17-409f-ade9-f896ccfc0c91">
 			</testcontainer>
 			<testcontainer
+			id="d09feb8c-4a12-4dc9-b05b-f585593616e5">
+			</testcontainer>
+			<testcontainer
 			id="d430e17b-6468-4a3d-83d4-6333c1b327ad">
+			</testcontainer>
+			<testcontainer
+			id="ddaf7864-9c21-484a-8623-b66f223bc8c8">
 			</testcontainer>
 			<testcontainer
 			id="ddfa8ca6-6795-4646-9070-a5d686852fac">
@@ -18956,6 +19089,9 @@
 			</testcontainer>
 			<testcontainer
 			id="e3a5d86a-aed9-4cb2-9fd0-3f8149eb00ca">
+			</testcontainer>
+			<testcontainer
+			id="e680c0ff-a1be-4b90-bace-43e573cf1610">
 			</testcontainer>
 			<testcontainer
 			id="eb4954a5-f66b-4693-981d-d581746768ca">
@@ -18968,6 +19104,9 @@
 			</testcontainer>
 			<testcontainer
 			id="f4955a2d-d976-4dab-9a66-884a462172a4">
+			</testcontainer>
+			<testcontainer
+			id="fbb2a28a-3275-45eb-99ac-4e94fcc817ec">
 			</testcontainer>
 			<testcontainer
 			id="fda567a0-be92-41b9-9761-e7e7d9e7be7f">

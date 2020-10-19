@@ -162,6 +162,18 @@
       <UserCode>true</UserCode>
       <id>4a953aa8-5f5c-4bf0-92db-7ab2d99cd6ac</id>
     </Compile>
+    <Compile Include="SetDetailedAssessmentValueForRow.cs">
+      <BoundTo>a6aa9891-7b17-448b-bd52-f69c71b53d62</BoundTo>
+      <DependentUpon>SetDetailedAssessmentValueForRow.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>31dd2ae8-99e2-433c-b17e-3c3b6bc252ff</id>
+    </Compile>
+    <Compile Include="SetDetailedAssessmentValueForRow.UserCode.cs">
+      <BoundTo>a6aa9891-7b17-448b-bd52-f69c71b53d62</BoundTo>
+      <DependentUpon>SetDetailedAssessmentValueForRow.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>f4e1c91c-d051-492f-af16-e0356367e1d4</id>
+    </Compile>
     <Compile Include="ValidateCategoryBoundaryInPropertiesPanel.cs">
       <BoundTo>772256b0-c236-4c14-95ed-d0682f4b713d</BoundTo>
       <DependentUpon>ValidateCategoryBoundaryInPropertiesPanel.rxrec</DependentUpon>
@@ -426,15 +438,15 @@
       <UserCode>true</UserCode>
       <id>83c1d0c2-3e84-4874-9d4d-515e0dca156e</id>
     </Compile>
-    <Compile Include="SelectDetailedAssessmentForRow.cs">
+    <Compile Include="SelectDetailedAssessmentTypeForRow.cs">
       <BoundTo>731610be-3ce8-4f1d-8c8d-98ec88fef6e9</BoundTo>
-      <DependentUpon>SelectDetailedAssessmentForRow.rxrec</DependentUpon>
+      <DependentUpon>SelectDetailedAssessmentTypeForRow.rxrec</DependentUpon>
       <RecorderCode>true</RecorderCode>
       <id>e70f1c00-c1c2-4507-a588-d018c54868b4</id>
     </Compile>
-    <Compile Include="SelectDetailedAssessmentForRow.UserCode.cs">
+    <Compile Include="SelectDetailedAssessmentTypeForRow.UserCode.cs">
       <BoundTo>731610be-3ce8-4f1d-8c8d-98ec88fef6e9</BoundTo>
-      <DependentUpon>SelectDetailedAssessmentForRow.rxrec</DependentUpon>
+      <DependentUpon>SelectDetailedAssessmentTypeForRow.rxrec</DependentUpon>
       <UserCode>true</UserCode>
       <id>487f6ed8-b5f5-4fb1-924f-bc9cd1a1e518</id>
     </Compile>
@@ -1175,6 +1187,11 @@
       <id>ead7dbbc-6b97-49df-999c-7ea29e40cd4c</id>
       <recordtableid>6fcd729a-b24a-42d7-8636-f8d75a283109</recordtableid>
     </None>
+    <None Include="SetDetailedAssessmentValueForRow.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>a6aa9891-7b17-448b-bd52-f69c71b53d62</id>
+      <recordtableid>8ba1a78d-5071-4845-bc94-8ab1fa70f8c1</recordtableid>
+    </None>
     <None Include="ValidateCategoryBoundaryInPropertiesPanel.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>772256b0-c236-4c14-95ed-d0682f4b713d</id>
@@ -1285,7 +1302,7 @@
       <id>cd7df858-0e65-4fa4-b41f-594ad71f9cec</id>
       <recordtableid>d37f64f8-25dc-4a23-8dbd-257a13f39617</recordtableid>
     </None>
-    <None Include="SelectDetailedAssessmentForRow.rxrec">
+    <None Include="SelectDetailedAssessmentTypeForRow.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>731610be-3ce8-4f1d-8c8d-98ec88fef6e9</id>
       <recordtableid>30a2f45d-ee95-4cb0-9ee5-87d71ca20ca5</recordtableid>
