@@ -67,23 +67,16 @@ namespace Riskeer.Piping.Data.Probabilistic
         /// </summary>
         public void ClearIllustrationPoints()
         {
-            SectionSpecificOutput?.ClearIllustrationPoints();
-            ProfileSpecificOutput?.ClearIllustrationPoints();
+            SectionSpecificOutput.ClearIllustrationPoints();
+            ProfileSpecificOutput.ClearIllustrationPoints();
         }
-        
+
         public override object Clone()
         {
             var clone = (ProbabilisticPipingOutput) base.Clone();
 
-            if (SectionSpecificOutput != null)
-            {
-                clone.SectionSpecificOutput = (PartialProbabilisticPipingOutput) SectionSpecificOutput.Clone();
-            }
-
-            if (ProfileSpecificOutput != null)
-            {
-                clone.ProfileSpecificOutput = (PartialProbabilisticPipingOutput) ProfileSpecificOutput.Clone();
-            }
+            clone.SectionSpecificOutput = (PartialProbabilisticPipingOutput) SectionSpecificOutput.Clone();
+            clone.ProfileSpecificOutput = (PartialProbabilisticPipingOutput) ProfileSpecificOutput.Clone();
 
             return clone;
         }
