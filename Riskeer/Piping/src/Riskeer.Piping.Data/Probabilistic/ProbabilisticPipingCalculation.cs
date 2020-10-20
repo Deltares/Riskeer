@@ -45,6 +45,14 @@ namespace Riskeer.Piping.Data.Probabilistic
         /// </summary>
         public ProbabilisticPipingOutput Output { get; set; }
 
+        /// <summary>
+        /// Clears the calculated illustration points.
+        /// </summary>
+        public void ClearIllustrationPoints()
+        {
+            Output?.ClearIllustrationPoints();
+        }
+
         public override void ClearOutput()
         {
             Output = null;
