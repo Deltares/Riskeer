@@ -384,7 +384,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
                 sectionLengthProperty,
                 sectionInformationCategory,
-                "Vaklengte [m]",
+                "Lengte* [m]",
                 "De totale lengte van het vak in meters (afgerond).",
                 true);
 

@@ -686,15 +686,6 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Vakinformatie.
-        /// </summary>
-        public static string Categories_FailureMechanismSection {
-            get {
-                return ResourceManager.GetString("Categories_FailureMechanismSection", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Voorland en (haven)dam.
         /// </summary>
         public static string Categories_Foreshore {
@@ -3243,15 +3234,6 @@ namespace Riskeer.Common.Forms.Properties {
         public static string SectionLength_Description {
             get {
                 return ResourceManager.GetString("SectionLength_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Vaklengte [m].
-        /// </summary>
-        public static string SectionLength_DisplayName {
-            get {
-                return ResourceManager.GetString("SectionLength_DisplayName", resourceCulture);
             }
         }
         

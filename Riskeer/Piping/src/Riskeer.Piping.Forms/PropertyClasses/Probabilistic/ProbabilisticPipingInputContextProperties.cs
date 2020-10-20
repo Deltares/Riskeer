@@ -462,7 +462,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
         #region Section information
 
         [PropertyOrder(sectionNamePropertyIndex)]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_FailureMechanismSection), 3, 4)]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_FailureMechanismSection), 3, 4)]
         [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanismSection_Name_DisplayName))]
         [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanismSection_Name_Description))]
         public string SectionName
@@ -475,8 +475,8 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
         }
 
         [PropertyOrder(sectionLengthPropertyIndex)]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_FailureMechanismSection), 3, 4)]
-        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.SectionLength_DisplayName))]
+        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_FailureMechanismSection), 3, 4)]
+        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanismSection_Length_Rounded_DisplayName))]
         [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanismSection_Length_Rounded_Description))]
         public double SectionLength
         {
