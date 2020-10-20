@@ -1062,7 +1062,7 @@ namespace Riskeer.Piping.Plugin
         private void CalculateSemiProbabilistic(SemiProbabilisticPipingCalculation calculation, SemiProbabilisticPipingCalculationScenarioContext context)
         {
             ActivityProgressDialogRunner.Run(Gui.MainWindow,
-                                             PipingCalculationActivityFactory.CreateCalculationActivity(calculation, context.AssessmentSection));
+                                             PipingCalculationActivityFactory.CreateSemiProbabilisticPipingCalculationActivity(calculation, context.AssessmentSection));
         }
 
         #endregion

@@ -45,7 +45,7 @@ namespace Riskeer.Piping.Service.Test
     public class PipingCalculationActivityFactoryTest
     {
         [Test]
-        public void CreateCalculationActivity_CalculationNull_ThrowsArgumentNullException()
+        public void CreateSemiProbabilisticPipingCalculationActivity_CalculationNull_ThrowsArgumentNullException()
         {
             // Setup
             var mocks = new MockRepository();
@@ -53,7 +53,7 @@ namespace Riskeer.Piping.Service.Test
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () => PipingCalculationActivityFactory.CreateCalculationActivity(null, assessmentSection);
+            TestDelegate test = () => PipingCalculationActivityFactory.CreateSemiProbabilisticPipingCalculationActivity(null, assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -62,13 +62,13 @@ namespace Riskeer.Piping.Service.Test
         }
 
         [Test]
-        public void CreateCalculationActivity_AssessmentSectionNull_ThrowsArgumentNullException()
+        public void CreateSemiProbabilisticPipingCalculationActivity_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Setup
             SemiProbabilisticPipingCalculationScenario calculation = SemiProbabilisticPipingCalculationScenarioTestFactory.CreatePipingCalculationScenarioWithInvalidInput();
 
             // Call
-            TestDelegate test = () => PipingCalculationActivityFactory.CreateCalculationActivity(calculation, null);
+            TestDelegate test = () => PipingCalculationActivityFactory.CreateSemiProbabilisticPipingCalculationActivity(calculation, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -76,7 +76,7 @@ namespace Riskeer.Piping.Service.Test
         }
 
         [Test]
-        public void CreateCalculationActivity_WithValidCalculation_ReturnsPipingCalculationActivityWithParametersSet()
+        public void CreateSemiProbabilisticPipingCalculationActivity_WithValidCalculation_ReturnsActivityWithParametersSet()
         {
             // Setup
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
@@ -101,7 +101,7 @@ namespace Riskeer.Piping.Service.Test
             SemiProbabilisticPipingCalculationScenario calculation = CreateValidCalculation(hydraulicBoundaryLocation);
 
             // Call
-            CalculatableActivity activity = PipingCalculationActivityFactory.CreateCalculationActivity(calculation, assessmentSection);
+            CalculatableActivity activity = PipingCalculationActivityFactory.CreateSemiProbabilisticPipingCalculationActivity(calculation, assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<SemiProbabilisticPipingCalculationActivity>(activity);
