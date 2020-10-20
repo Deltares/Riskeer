@@ -761,6 +761,41 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
         }
 
         [Test]
+        public void SetShouldIllustrationPointsBeCalculated_ValueChanged_UpdateDataAndNotifyObservers()
+        {
+            // Setup
+            var random = new Random(21);
+            bool newBoolean = random.NextBoolean();
+
+            var mockRepository = new MockRepository();
+            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
+            var observer = mockRepository.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+
+            var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
+            mockRepository.ReplayAll();
+
+            var calculation = new ProbabilisticPipingCalculation(new GeneralPipingInput());
+            var failureMechanism = new PipingFailureMechanism();
+            var inputContext = new ProbabilisticPipingInputContext(calculation.InputParameters,
+                                                                   calculation,
+                                                                   Enumerable.Empty<PipingSurfaceLine>(),
+                                                                   Enumerable.Empty<PipingStochasticSoilModel>(),
+                                                                   failureMechanism,
+                                                                   assessmentSection);
+            inputContext.Attach(observer);
+
+            var properties = new ProbabilisticPipingInputContextProperties(inputContext, AssessmentSectionTestHelper.GetTestAssessmentLevel, handler);
+
+            // Call
+            properties.ShouldIllustrationPointsBeCalculated = newBoolean;
+
+            // Assert
+            Assert.AreEqual(newBoolean, calculation.InputParameters.ShouldIllustrationPointsBeCalculated);
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
         [TestCase(0, 3, 3)]
         [TestCase(2, 4, 2)]
         [TestCase(1e-2, 4, 4 - 1e-2)]
