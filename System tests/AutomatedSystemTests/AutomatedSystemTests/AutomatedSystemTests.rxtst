@@ -7505,7 +7505,7 @@
 						</leftvalue>
 						<rightvalue>
 							<simplevaluesource
-							value="">
+							value="-">
 							</simplevaluesource>
 						</rightvalue>
 					</condition>
@@ -10820,7 +10820,7 @@
 						</leftvalue>
 						<rightvalue>
 							<simplevaluesource
-							value="">
+							value="-">
 							</simplevaluesource>
 						</rightvalue>
 					</condition>
