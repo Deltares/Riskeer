@@ -19,6 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
+using Riskeer.HydraRing.Calculation.Data.Variables;
+
 namespace Riskeer.HydraRing.Calculation.Data.Input
 {
     /// <summary>
@@ -26,16 +29,119 @@ namespace Riskeer.HydraRing.Calculation.Data.Input
     /// </summary>
     public class PipingCalculationInput : ExceedanceProbabilityCalculationInput
     {
+        private readonly double phreaticLevelExitMean;
+        private readonly double phreaticLevelExitStandardDeviation;
+        private readonly double waterVolumetricWeight;
+        private readonly double effectiveThicknessCoverageLayerMean;
+        private readonly double effectiveThicknessCoverageLayerStandardDeviation;
+        private readonly double saturatedVolumicWeightOfCoverageLayerMean;
+        private readonly double saturatedVolumicWeightOfCoverageLayerStandardDeviation;
+        private readonly double saturatedVolumicWeightOfCoverageLayerShift;
+        private readonly double upliftModelFactorMean;
+        private readonly double upliftModelFactorStandardDeviation;
+        private readonly double dampingFactorExitMean;
+        private readonly double dampingFactorExitStandardDeviation;
+        private readonly double seepageLengthMean;
+        private readonly double seepageLengthCoefficientOfVariation;
+        private readonly double thicknessAquiferLayerMean;
+        private readonly double thicknessAquiferLayerStandardDeviation;
+        private readonly double sandParticlesVolumicWeight;
+        private readonly double sellmeijerModelFactorMean;
+        private readonly double sellmeijerModelFactorStandardDeviation;
+        private readonly double beddingAngle;
+        private readonly double whitesDragCoefficient;
+        private readonly double waterKinematicViscosity;
+        private readonly double darcyPermeabilityMean;
+        private readonly double darcyPermeabilityCoefficientOfVariation;
+        private readonly double diameter70Mean;
+        private readonly double diameter70CoefficientOfVariation;
+        private readonly double gravity;
+        private readonly double criticalHeaveGradient;
+
         /// <summary>
         /// Creates a new instance of the <see cref="PipingCalculationInput"/> class.
         /// </summary>
         /// <param name="hydraulicBoundaryLocationId">The id of the hydraulic boundary location.</param>
         /// <param name="sectionLength">The length of the section.</param>
+        /// <param name="phreaticLevelExitMean"></param>
+        /// <param name="phreaticLevelExitStandardDeviation"></param>
+        /// <param name="waterVolumetricWeight"></param>
+        /// <param name="effectiveThicknessCoverageLayerMean"></param>
+        /// <param name="effectiveThicknessCoverageLayerStandardDeviation"></param>
+        /// <param name="saturatedVolumicWeightOfCoverageLayerMean"></param>
+        /// <param name="saturatedVolumicWeightOfCoverageLayerStandardDeviation"></param>
+        /// <param name="saturatedVolumicWeightOfCoverageLayerShift"></param>
+        /// <param name="upliftModelFactorMean"></param>
+        /// <param name="upliftModelFactorStandardDeviation"></param>
+        /// <param name="dampingFactorExitMean"></param>
+        /// <param name="dampingFactorExitStandardDeviation"></param>
+        /// <param name="seepageLengthMean"></param>
+        /// <param name="seepageLengthCoefficientOfVariation"></param>
+        /// <param name="thicknessAquiferLayerMean"></param>
+        /// <param name="thicknessAquiferLayerStandardDeviation"></param>
+        /// <param name="sandParticlesVolumicWeight"></param>
+        /// <param name="sellmeijerModelFactorMean"></param>
+        /// <param name="sellmeijerModelFactorStandardDeviation"></param>
+        /// <param name="beddingAngle"></param>
+        /// <param name="whitesDragCoefficient"></param>
+        /// <param name="waterKinematicViscosity"></param>
+        /// <param name="darcyPermeabilityMean"></param>
+        /// <param name="darcyPermeabilityCoefficientOfVariation"></param>
+        /// <param name="diameter70Mean"></param>
+        /// <param name="diameter70CoefficientOfVariation"></param>
+        /// <param name="gravity"></param>
+        /// <param name="criticalHeaveGradient"></param>
         public PipingCalculationInput(long hydraulicBoundaryLocationId,
-                                      double sectionLength)
+                                      double sectionLength,
+                                      double phreaticLevelExitMean, double phreaticLevelExitStandardDeviation,
+                                      double waterVolumetricWeight,
+                                      double effectiveThicknessCoverageLayerMean, double effectiveThicknessCoverageLayerStandardDeviation,
+                                      double saturatedVolumicWeightOfCoverageLayerMean, double saturatedVolumicWeightOfCoverageLayerStandardDeviation,
+                                      double saturatedVolumicWeightOfCoverageLayerShift,
+                                      double upliftModelFactorMean, double upliftModelFactorStandardDeviation,
+                                      double dampingFactorExitMean, double dampingFactorExitStandardDeviation,
+                                      double seepageLengthMean, double seepageLengthCoefficientOfVariation,
+                                      double thicknessAquiferLayerMean, double thicknessAquiferLayerStandardDeviation,
+                                      double sandParticlesVolumicWeight,
+                                      double sellmeijerModelFactorMean, double sellmeijerModelFactorStandardDeviation,
+                                      double beddingAngle,
+                                      double whitesDragCoefficient,
+                                      double waterKinematicViscosity,
+                                      double darcyPermeabilityMean, double darcyPermeabilityCoefficientOfVariation,
+                                      double diameter70Mean, double diameter70CoefficientOfVariation,
+                                      double gravity,
+                                      double criticalHeaveGradient)
             : base(hydraulicBoundaryLocationId)
         {
             Section = new HydraRingSection(1, sectionLength, double.NaN);
+            this.phreaticLevelExitMean = phreaticLevelExitMean;
+            this.phreaticLevelExitStandardDeviation = phreaticLevelExitStandardDeviation;
+            this.waterVolumetricWeight = waterVolumetricWeight;
+            this.effectiveThicknessCoverageLayerMean = effectiveThicknessCoverageLayerMean;
+            this.effectiveThicknessCoverageLayerStandardDeviation = effectiveThicknessCoverageLayerStandardDeviation;
+            this.saturatedVolumicWeightOfCoverageLayerMean = saturatedVolumicWeightOfCoverageLayerMean;
+            this.saturatedVolumicWeightOfCoverageLayerStandardDeviation = saturatedVolumicWeightOfCoverageLayerStandardDeviation;
+            this.saturatedVolumicWeightOfCoverageLayerShift = saturatedVolumicWeightOfCoverageLayerShift;
+            this.upliftModelFactorMean = upliftModelFactorMean;
+            this.upliftModelFactorStandardDeviation = upliftModelFactorStandardDeviation;
+            this.dampingFactorExitMean = dampingFactorExitMean;
+            this.dampingFactorExitStandardDeviation = dampingFactorExitStandardDeviation;
+            this.seepageLengthMean = seepageLengthMean;
+            this.seepageLengthCoefficientOfVariation = seepageLengthCoefficientOfVariation;
+            this.thicknessAquiferLayerMean = thicknessAquiferLayerMean;
+            this.thicknessAquiferLayerStandardDeviation = thicknessAquiferLayerStandardDeviation;
+            this.sandParticlesVolumicWeight = sandParticlesVolumicWeight;
+            this.sellmeijerModelFactorMean = sellmeijerModelFactorMean;
+            this.sellmeijerModelFactorStandardDeviation = sellmeijerModelFactorStandardDeviation;
+            this.beddingAngle = beddingAngle;
+            this.whitesDragCoefficient = whitesDragCoefficient;
+            this.waterKinematicViscosity = waterKinematicViscosity;
+            this.darcyPermeabilityMean = darcyPermeabilityMean;
+            this.darcyPermeabilityCoefficientOfVariation = darcyPermeabilityCoefficientOfVariation;
+            this.diameter70Mean = diameter70Mean;
+            this.diameter70CoefficientOfVariation = diameter70CoefficientOfVariation;
+            this.gravity = gravity;
+            this.criticalHeaveGradient = criticalHeaveGradient;
         }
 
         public override HydraRingFailureMechanismType FailureMechanismType { get; } = HydraRingFailureMechanismType.Piping;
@@ -43,5 +149,40 @@ namespace Riskeer.HydraRing.Calculation.Data.Input
         public override int VariableId { get; } = 58;
 
         public override HydraRingSection Section { get; }
+
+        public override IEnumerable<HydraRingVariable> Variables
+        {
+            get
+            {
+                yield return new NormalHydraRingVariable(42, HydraRingDeviationType.Standard, phreaticLevelExitMean,
+                                                         phreaticLevelExitStandardDeviation);
+                yield return new DeterministicHydraRingVariable(43, waterVolumetricWeight);
+                yield return new LogNormalHydraRingVariable(44, HydraRingDeviationType.Standard, effectiveThicknessCoverageLayerMean,
+                                                            effectiveThicknessCoverageLayerStandardDeviation);
+                yield return new LogNormalHydraRingVariable(45, HydraRingDeviationType.Standard, saturatedVolumicWeightOfCoverageLayerMean,
+                                                            saturatedVolumicWeightOfCoverageLayerStandardDeviation,
+                                                            saturatedVolumicWeightOfCoverageLayerShift);
+                yield return new LogNormalHydraRingVariable(46, HydraRingDeviationType.Standard, upliftModelFactorMean,
+                                                            upliftModelFactorStandardDeviation);
+                yield return new LogNormalHydraRingVariable(47, HydraRingDeviationType.Standard, dampingFactorExitMean,
+                                                            dampingFactorExitStandardDeviation);
+                yield return new LogNormalHydraRingVariable(48, HydraRingDeviationType.Variation, seepageLengthMean,
+                                                            seepageLengthCoefficientOfVariation);
+                yield return new LogNormalHydraRingVariable(49, HydraRingDeviationType.Standard, thicknessAquiferLayerMean,
+                                                            thicknessAquiferLayerStandardDeviation);
+                yield return new DeterministicHydraRingVariable(50, sandParticlesVolumicWeight + waterVolumetricWeight);
+                yield return new LogNormalHydraRingVariable(51, HydraRingDeviationType.Standard, sellmeijerModelFactorMean,
+                                                            sellmeijerModelFactorStandardDeviation);
+                yield return new DeterministicHydraRingVariable(52, beddingAngle);
+                yield return new DeterministicHydraRingVariable(53, whitesDragCoefficient);
+                yield return new DeterministicHydraRingVariable(54, waterKinematicViscosity);
+                yield return new LogNormalHydraRingVariable(55, HydraRingDeviationType.Variation, darcyPermeabilityMean,
+                                                            darcyPermeabilityCoefficientOfVariation);
+                yield return new LogNormalHydraRingVariable(56, HydraRingDeviationType.Variation, diameter70Mean,
+                                                            diameter70CoefficientOfVariation);
+                yield return new DeterministicHydraRingVariable(58, gravity);
+                yield return new DeterministicHydraRingVariable(124, criticalHeaveGradient);
+            }
+        }
     }
 }
