@@ -178,7 +178,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
         }
 
         [Test]
-        public void ClearIllustrationPoints_OutputWithGeneralResult_ClearsGeneralResult()
+        public void ClearIllustrationPoints_OutputWithGeneralResult_ClearsGeneralResultAndOtherOutputIsNotAffected()
         {
             // Setup
             var random = new Random(32);
@@ -209,7 +209,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
         }
 
         [Test]
-        public void ClearIllustrationPoints_OutputWithoutGeneralResult_NothingHappens()
+        public void ClearIllustrationPoints_OutputWithoutGeneralResult_OtherOutputIsNotAffected()
         {
             // Setup
             var random = new Random(32);

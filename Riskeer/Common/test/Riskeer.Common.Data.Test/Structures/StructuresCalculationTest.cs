@@ -150,7 +150,7 @@ namespace Riskeer.Common.Data.Test.Structures
         }
 
         [Test]
-        public void ClearIllustrationPoints_CalculationWithoutOutput_NothingHappens()
+        public void ClearIllustrationPoints_CalculationWithoutOutput_DoesNotThrow()
         {
             // Setup
             var calculation = new TestStructuresCalculation();

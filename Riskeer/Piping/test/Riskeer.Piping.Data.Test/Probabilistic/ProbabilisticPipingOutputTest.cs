@@ -53,7 +53,7 @@ namespace Riskeer.Piping.Data.Test.Probabilistic
         }
 
         [Test]
-        public void ClearIllustrationPoints_OutputWithGeneralResult_ClearsGeneralResult()
+        public void ClearIllustrationPoints_OutputWithGeneralResult_ClearsGeneralResultAndOtherOutputIsNotAffected()
         {
             // Setup
             var random = new Random(39);
@@ -78,7 +78,7 @@ namespace Riskeer.Piping.Data.Test.Probabilistic
         }
 
         [Test]
-        public void ClearIllustrationPoints_OutputWithoutGeneralResult_NothingHappens()
+        public void ClearIllustrationPoints_OutputWithoutGeneralResult_OtherOutputIsNotAffected()
         {
             // Setup
             var random = new Random(39);
