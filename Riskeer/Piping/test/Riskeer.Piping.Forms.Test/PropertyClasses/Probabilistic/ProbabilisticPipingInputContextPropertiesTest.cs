@@ -95,34 +95,6 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
         }
 
         [Test]
-        public void Constructor_GetAssessmentLevelFuncNull_ThrowArgumentNullException()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var handler = mocks.Stub<IObservablePropertyChangeHandler>();
-            mocks.ReplayAll();
-
-            var probabilisticPipingCalculation = new ProbabilisticPipingCalculation(new GeneralPipingInput());
-            var failureMechanism = new PipingFailureMechanism();
-
-            var context = new ProbabilisticPipingInputContext(probabilisticPipingCalculation.InputParameters,
-                                                              probabilisticPipingCalculation,
-                                                              Enumerable.Empty<PipingSurfaceLine>(),
-                                                              Enumerable.Empty<PipingStochasticSoilModel>(),
-                                                              failureMechanism,
-                                                              assessmentSection);
-
-            // Call
-            void Call() => new ProbabilisticPipingInputContextProperties(context, handler);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("getNormativeAssessmentLevelFunc", exception.ParamName);
-            mocks.VerifyAll();
-        }
-
-        [Test]
         public void Constructor_PropertyChangeHandlerNull_ThrowArgumentNullException()
         {
             // Setup
@@ -544,7 +516,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             Assert.AreSame(hydraulicBoundaryLocation, properties.SelectedHydraulicBoundaryLocation.HydraulicBoundaryLocation);
 
             Assert.AreEqual("-", properties.SectionName);
-            Assert.AreEqual(0.0, properties.SectionLength);
+            Assert.AreEqual(new RoundedDouble(2), properties.SectionLength);
             Assert.AreEqual(inputParameters.ShouldIllustrationPointsBeCalculated, properties.ShouldIllustrationPointsBeCalculated);
 
             mocks.VerifyAll();
@@ -623,7 +595,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             DistributionAssert.AreEqual(phreaticLevelExit.Distribution, inputParameters.PhreaticLevelExit);
 
             Assert.AreEqual("Section", properties.SectionName);
-            Assert.AreEqual(5.0, properties.SectionLength);
+            Assert.AreEqual(new RoundedDouble(2, 5), properties.SectionLength);
             Assert.AreEqual(true, properties.ShouldIllustrationPointsBeCalculated);
 
             mocks.VerifyAll();

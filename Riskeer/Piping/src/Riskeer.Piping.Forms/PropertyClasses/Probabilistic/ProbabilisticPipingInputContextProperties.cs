@@ -77,7 +77,6 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
 
         private const int shouldIllustrationPointsBeCalculatedPropertyIndex = 19;
 
-        private readonly Func<RoundedDouble> getNormativeAssessmentLevelFunc;
         private readonly IObservablePropertyChangeHandler propertyChangeHandler;
 
         /// <summary>
@@ -94,11 +93,6 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
                 throw new ArgumentNullException(nameof(data));
             }
 
-            if (getNormativeAssessmentLevelFunc == null)
-            {
-                throw new ArgumentNullException(nameof(getNormativeAssessmentLevelFunc));
-            }
-
             if (propertyChangeHandler == null)
             {
                 throw new ArgumentNullException(nameof(propertyChangeHandler));
@@ -106,7 +100,6 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
 
             Data = data;
 
-            this.getNormativeAssessmentLevelFunc = getNormativeAssessmentLevelFunc;
             this.propertyChangeHandler = propertyChangeHandler;
         }
 
@@ -463,12 +456,12 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_FailureMechanismSection), 3, 4)]
         [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanismSection_Length_Rounded_DisplayName))]
         [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanismSection_Length_Rounded_Description))]
-        public double SectionLength
+        public RoundedDouble SectionLength
         {
             get
             {
                 FailureMechanismSection failureMechanismSection = GetSection();
-                return failureMechanismSection == null ? 0.00d : failureMechanismSection.Length;
+                return failureMechanismSection == null ? new RoundedDouble(2) : new RoundedDouble(2, failureMechanismSection.Length);
             }
         }
 
