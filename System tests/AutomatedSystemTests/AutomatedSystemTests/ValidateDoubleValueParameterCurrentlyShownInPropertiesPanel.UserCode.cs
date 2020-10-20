@@ -8,6 +8,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 using System;
+using System.Globalization;
 using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -22,7 +23,7 @@ using Ranorex.Core.Testing;
 
 namespace AutomatedSystemTests
 {
-    public partial class NewProject
+    public partial class ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel
     {
         /// <summary>
         /// This method gets called right after the recording has been started.
@@ -33,14 +34,14 @@ namespace AutomatedSystemTests
             // Your recording specific initialization code goes here.
         }
 
-        public void Mouse_Click_ButtonNoIfConformationDialogAppears(RepoItemInfo buttonInfo)
+        public string CovertValueIntoCurrentCulture(string valueToConvert)
         {
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'buttonInfo'.", buttonInfo);
-            try {
-                buttonInfo.WaitForExists(2000);
-            	buttonInfo.FindAdapter<Button>().Click();
-            } catch(Exception) { }
-            
+            System.Globalization.CultureInfo fixedDataSourceCulture = new CultureInfo("en-US");
+			fixedDataSourceCulture.NumberFormat.NumberDecimalSeparator = ".";
+			fixedDataSourceCulture.NumberFormat.NumberGroupSeparator = "";
+			System.Globalization.CultureInfo currentCulture = CultureInfo.CurrentCulture;
+			valueToConvert= Double.Parse(valueToConvert, fixedDataSourceCulture).ToString(currentCulture);
+			return valueToConvert;
         }
 
     }

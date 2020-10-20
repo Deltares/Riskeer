@@ -22,7 +22,7 @@ using Ranorex.Core.Testing;
 
 namespace AutomatedSystemTests
 {
-    public partial class NewProject
+    public partial class PressCancelDialog
     {
         /// <summary>
         /// This method gets called right after the recording has been started.
@@ -33,15 +33,9 @@ namespace AutomatedSystemTests
             // Your recording specific initialization code goes here.
         }
 
-        public void Mouse_Click_ButtonNoIfConformationDialogAppears(RepoItemInfo buttonInfo)
+        public void PrepareMessageToStopAt()
         {
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'buttonInfo'.", buttonInfo);
-            try {
-                buttonInfo.WaitForExists(2000);
-            	buttonInfo.FindAdapter<Button>().Click();
-            } catch(Exception) { }
-            
+            calculationIndexToStopAt = calculationIndexToStopAt + additionalMessageToStopAt;
         }
-
     }
 }

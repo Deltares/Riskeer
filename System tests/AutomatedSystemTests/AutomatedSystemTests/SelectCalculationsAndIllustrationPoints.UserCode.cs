@@ -9,12 +9,12 @@
 
 using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices.ComTypes;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Drawing;
 using System.Threading;
 using WinForms = System.Windows.Forms;
-
 using Ranorex;
 using Ranorex.Core;
 using Ranorex.Core.Repository;
@@ -22,7 +22,7 @@ using Ranorex.Core.Testing;
 
 namespace AutomatedSystemTests
 {
-    public partial class NewProject
+    public partial class SelectCalculationsAndIllustrationPoints
     {
         /// <summary>
         /// This method gets called right after the recording has been started.
@@ -33,14 +33,21 @@ namespace AutomatedSystemTests
             // Your recording specific initialization code goes here.
         }
 
-        public void Mouse_Click_ButtonNoIfConformationDialogAppears(RepoItemInfo buttonInfo)
+        public void SetCheckBoxesNthRow(RepoItemInfo cellCalculationInfo, RepoItemInfo cellIllustrationPointInfo)
         {
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'buttonInfo'.", buttonInfo);
-            try {
-                buttonInfo.WaitForExists(2000);
-            	buttonInfo.FindAdapter<Button>().Click();
-            } catch(Exception) { }
-            
+            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'cellInfo' at Center when required.", cellCalculationInfo);
+            ClickOnCheckboxCellIfNeeded(cellCalculationInfo, calculationMustBeChecked);
+            ClickOnCheckboxCellIfNeeded(cellIllustrationPointInfo, IllustrationPointsMustBeChecked);
+        }
+        
+        public void ClickOnCheckboxCellIfNeeded(RepoItemInfo itemInfo, string expectedCheckedState)
+        {
+        	string currentState = itemInfo.CreateAdapter<Cell>(true).Element.GetAttributeValueText("AccessibleState");
+        	var currentlyChecked = currentState.Contains("Checked").ToString().ToLower();
+            if (currentlyChecked!=expectedCheckedState) {
+        		itemInfo.FindAdapter<Cell>().Click(new Duration(1));
+            }
+        
         }
 
     }
