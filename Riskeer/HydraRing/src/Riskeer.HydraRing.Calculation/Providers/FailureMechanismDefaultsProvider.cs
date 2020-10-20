@@ -120,6 +120,14 @@ namespace Riskeer.HydraRing.Calculation.Providers
                 },
                 {
                     HydraRingFailureMechanismType.OvertoppingRate, GetOvertoppingDefaults()
+                },
+                {
+                    HydraRingFailureMechanismType.Piping, new FailureMechanismDefaults(103, new[]
+                    {
+                        311,
+                        313,
+                        314
+                    }, 3015, -999, -999)
                 }
             };
         }

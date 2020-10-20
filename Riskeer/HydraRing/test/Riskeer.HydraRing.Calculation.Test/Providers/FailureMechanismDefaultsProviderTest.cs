@@ -95,6 +95,12 @@ namespace Riskeer.HydraRing.Calculation.Test.Providers
             102,
             103
         }, 1017, 9, 1)]
+        [TestCase(HydraRingFailureMechanismType.Piping, 103, new[]
+        {
+            311,
+            313,
+            314
+        }, 3015, -999, -999)]
         public void GetFailureMechanismDefaults_ReturnsExpectedFailureMechanismDefaults(HydraRingFailureMechanismType failureMechanismType,
                                                                                         int expectedMechanismId,
                                                                                         IEnumerable<int> expectedSubMechanismIds,
