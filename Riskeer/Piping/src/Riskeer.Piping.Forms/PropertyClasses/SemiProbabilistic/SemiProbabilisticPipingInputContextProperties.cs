@@ -33,7 +33,6 @@ using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Forms.PropertyClasses;
 using Riskeer.Common.Forms.UITypeEditors;
-using Riskeer.Piping.Data;
 using Riskeer.Piping.Data.SemiProbabilistic;
 using Riskeer.Piping.Data.SoilProfile;
 using Riskeer.Piping.Forms.PresentationObjects.SemiProbabilistic;
@@ -108,38 +107,6 @@ namespace Riskeer.Piping.Forms.PropertyClasses.SemiProbabilistic
             this.propertyChangeHandler = propertyChangeHandler;
         }
 
-        /// <summary>
-        /// Gets the available surface lines on <see cref="SemiProbabilisticPipingCalculationScenarioContext"/>.
-        /// </summary>
-        public IEnumerable<PipingSurfaceLine> GetAvailableSurfaceLines()
-        {
-            return data.AvailablePipingSurfaceLines;
-        }
-
-        /// <summary>
-        /// Gets the available stochastic soil models on <see cref="SemiProbabilisticPipingCalculationScenarioContext"/>.
-        /// </summary>
-        public IEnumerable<PipingStochasticSoilModel> GetAvailableStochasticSoilModels()
-        {
-            if (data.WrappedData.SurfaceLine == null)
-            {
-                return data.AvailableStochasticSoilModels;
-            }
-
-            return PipingCalculationConfigurationHelper.GetStochasticSoilModelsForSurfaceLine(data.WrappedData.SurfaceLine,
-                                                                                              data.AvailableStochasticSoilModels);
-        }
-
-        /// <summary>
-        /// Gets the available stochastic soil profiles on <see cref="SemiProbabilisticPipingCalculationScenarioContext"/>.
-        /// </summary>
-        public IEnumerable<PipingStochasticSoilProfile> GetAvailableStochasticSoilProfiles()
-        {
-            return data.WrappedData.StochasticSoilModel != null
-                       ? data.WrappedData.StochasticSoilModel.StochasticSoilProfiles
-                       : new List<PipingStochasticSoilProfile>();
-        }
-
         [DynamicReadOnlyValidationMethod]
         public bool DynamicReadOnlyValidationMethod(string propertyName)
         {
@@ -175,6 +142,38 @@ namespace Riskeer.Piping.Forms.PropertyClasses.SemiProbabilistic
             Point2D referencePoint = SurfaceLine?.ReferenceLineIntersectionWorldPoint;
             return SelectableHydraulicBoundaryLocationHelper.GetSortedSelectableHydraulicBoundaryLocations(
                 data.AssessmentSection.HydraulicBoundaryDatabase.Locations, referencePoint);
+        }
+
+        /// <summary>
+        /// Gets the available stochastic soil models on <see cref="SemiProbabilisticPipingCalculationScenarioContext"/>.
+        /// </summary>
+        public IEnumerable<PipingStochasticSoilModel> GetAvailableStochasticSoilModels()
+        {
+            if (data.WrappedData.SurfaceLine == null)
+            {
+                return data.AvailableStochasticSoilModels;
+            }
+
+            return PipingCalculationConfigurationHelper.GetStochasticSoilModelsForSurfaceLine(data.WrappedData.SurfaceLine,
+                                                                                              data.AvailableStochasticSoilModels);
+        }
+
+        /// <summary>
+        /// Gets the available stochastic soil profiles on <see cref="SemiProbabilisticPipingCalculationScenarioContext"/>.
+        /// </summary>
+        public IEnumerable<PipingStochasticSoilProfile> GetAvailableStochasticSoilProfiles()
+        {
+            return data.WrappedData.StochasticSoilModel != null
+                       ? data.WrappedData.StochasticSoilModel.StochasticSoilProfiles
+                       : new List<PipingStochasticSoilProfile>();
+        }
+
+        /// <summary>
+        /// Gets the available surface lines on <see cref="SemiProbabilisticPipingCalculationScenarioContext"/>.
+        /// </summary>
+        public IEnumerable<PipingSurfaceLine> GetAvailableSurfaceLines()
+        {
+            return data.AvailablePipingSurfaceLines;
         }
 
         private RoundedDouble GetEffectiveAssessmentLevel()
@@ -280,7 +279,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses.SemiProbabilistic
         {
             get
             {
-                return DerivedPipingInput.GetPiezometricHeadExit(data.WrappedData, GetEffectiveAssessmentLevel());
+                return SemiProbabilisticDerivedPipingInput.GetPiezometricHeadExit(data.WrappedData, GetEffectiveAssessmentLevel());
             }
         }
 

@@ -38,29 +38,6 @@ namespace Riskeer.Piping.Data
     public static class DerivedPipingInput
     {
         /// <summary>
-        /// Gets the piezometric head at the exit point.
-        /// [m]
-        /// </summary>
-        /// <param name="input">The input to calculate the derived piping input for.</param>
-        /// <param name="assessmentLevel">The assessment level at stake.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="input"/> is <c>null</c>.</exception>
-        /// <returns>Returns the corresponding derived input value.</returns>
-        public static RoundedDouble GetPiezometricHeadExit(PipingInput input, RoundedDouble assessmentLevel)
-        {
-            if (input == null)
-            {
-                throw new ArgumentNullException(nameof(input));
-            }
-
-            RoundedDouble dampingFactorExit = SemiProbabilisticPipingDesignVariableFactory.GetDampingFactorExit(input).GetDesignValue();
-            RoundedDouble phreaticLevelExit = SemiProbabilisticPipingDesignVariableFactory.GetPhreaticLevelExit(input).GetDesignValue();
-
-            return new RoundedDouble(2, InputParameterCalculationService.CalculatePiezometricHeadAtExit(assessmentLevel,
-                                                                                                        dampingFactorExit,
-                                                                                                        phreaticLevelExit));
-        }
-
-        /// <summary>
         /// Gets the horizontal distance between entry and exit point.
         /// [m]
         /// </summary>
