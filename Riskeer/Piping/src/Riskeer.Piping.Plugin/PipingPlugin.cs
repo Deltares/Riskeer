@@ -93,9 +93,7 @@ namespace Riskeer.Piping.Plugin
             };
             yield return new PropertyInfo<ProbabilisticPipingInputContext, ProbabilisticPipingInputContextProperties>
             {
-                CreateInstance = context => new ProbabilisticPipingInputContextProperties(context,
-                                                                                          () => GetNormativeAssessmentLevel(context.AssessmentSection, context.PipingCalculation),
-                                                                                          new ObservablePropertyChangeHandler(context.PipingCalculation, context.WrappedData))
+                CreateInstance = context => new ProbabilisticPipingInputContextProperties(context, new ObservablePropertyChangeHandler(context.PipingCalculation, context.WrappedData))
             };
             yield return new PropertyInfo<SemiProbabilisticPipingOutputContext, SemiProbabilisticPipingOutputProperties>
             {
@@ -622,7 +620,7 @@ namespace Riskeer.Piping.Plugin
 
         #endregion
 
-        private static RoundedDouble GetNormativeAssessmentLevel(IAssessmentSection assessmentSection, IPipingCalculation<PipingInput> calculation)
+        private static RoundedDouble GetNormativeAssessmentLevel(IAssessmentSection assessmentSection, SemiProbabilisticPipingCalculation calculation)
         {
             return assessmentSection.GetNormativeAssessmentLevel(calculation.InputParameters.HydraulicBoundaryLocation);
         }

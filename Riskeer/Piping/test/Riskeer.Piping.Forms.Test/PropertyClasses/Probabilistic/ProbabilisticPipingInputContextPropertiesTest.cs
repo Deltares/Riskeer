@@ -42,7 +42,6 @@ using Riskeer.Common.Forms.TestUtil;
 using Riskeer.Common.Forms.UITypeEditors;
 using Riskeer.Piping.Data;
 using Riskeer.Piping.Data.Probabilistic;
-using Riskeer.Piping.Data.SemiProbabilistic;
 using Riskeer.Piping.Data.SoilProfile;
 using Riskeer.Piping.Data.TestUtil;
 using Riskeer.Piping.Forms.PresentationObjects.Probabilistic;
@@ -59,25 +58,24 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
         private const int expectedSelectedHydraulicBoundaryLocationPropertyIndex = 0;
         private const int expectedDampingFactorExitPropertyIndex = 1;
         private const int expectedPhreaticLevelExitPropertyIndex = 2;
-        private const int expectedPiezometricHeadExitPropertyIndex = 3;
 
-        private const int expectedSurfaceLinePropertyIndex = 4;
-        private const int expectedStochasticSoilModelPropertyIndex = 5;
-        private const int expectedStochasticSoilProfilePropertyIndex = 6;
-        private const int expectedEntryPointLPropertyIndex = 7;
-        private const int expectedExitPointLPropertyIndex = 8;
-        private const int expectedSeepageLengthPropertyIndex = 9;
-        private const int expectedThicknessCoverageLayerPropertyIndex = 10;
-        private const int expectedEffectiveThicknessCoverageLayerPropertyIndex = 11;
-        private const int expectedThicknessAquiferLayerPropertyIndex = 12;
-        private const int expectedDarcyPermeabilityPropertyIndex = 13;
-        private const int expectedDiameter70PropertyIndex = 14;
-        private const int expectedSaturatedVolumicWeightOfCoverageLayerPropertyIndex = 15;
+        private const int expectedSurfaceLinePropertyIndex = 3;
+        private const int expectedStochasticSoilModelPropertyIndex = 4;
+        private const int expectedStochasticSoilProfilePropertyIndex = 5;
+        private const int expectedEntryPointLPropertyIndex = 6;
+        private const int expectedExitPointLPropertyIndex = 7;
+        private const int expectedSeepageLengthPropertyIndex = 8;
+        private const int expectedThicknessCoverageLayerPropertyIndex = 9;
+        private const int expectedEffectiveThicknessCoverageLayerPropertyIndex = 10;
+        private const int expectedThicknessAquiferLayerPropertyIndex = 11;
+        private const int expectedDarcyPermeabilityPropertyIndex = 12;
+        private const int expectedDiameter70PropertyIndex = 13;
+        private const int expectedSaturatedVolumicWeightOfCoverageLayerPropertyIndex = 14;
 
-        private const int expectedSectionNamePropertyIndex = 16;
-        private const int expectedSectionLengthPropertyIndex = 17;
+        private const int expectedSectionNamePropertyIndex = 15;
+        private const int expectedSectionLengthPropertyIndex = 16;
 
-        private const int expectedShouldCalculateIllustrationPointsPropertyIndex = 18;
+        private const int expectedShouldCalculateIllustrationPointsPropertyIndex = 17;
 
         [Test]
         public void Constructor_DataNull_ThrowArgumentNullException()
@@ -88,7 +86,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             mocks.ReplayAll();
 
             // Call
-            void Call() => new ProbabilisticPipingInputContextProperties(null, AssessmentSectionTestHelper.GetTestAssessmentLevel, handler);
+            void Call() => new ProbabilisticPipingInputContextProperties(null, handler);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -116,7 +114,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
                                                               assessmentSection);
 
             // Call
-            void Call() => new ProbabilisticPipingInputContextProperties(context, null, handler);
+            void Call() => new ProbabilisticPipingInputContextProperties(context, handler);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -143,7 +141,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
                                                               assessmentSection);
 
             // Call
-            void Call() => new ProbabilisticPipingInputContextProperties(context, AssessmentSectionTestHelper.GetTestAssessmentLevel, null);
+            void Call() => new ProbabilisticPipingInputContextProperties(context, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -170,9 +168,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
                                                               assessmentSection);
 
             // Call
-            var properties = new ProbabilisticPipingInputContextProperties(context,
-                                                                           AssessmentSectionTestHelper.GetTestAssessmentLevel,
-                                                                           handler);
+            var properties = new ProbabilisticPipingInputContextProperties(context, handler);
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<ProbabilisticPipingInputContext>>(properties);
@@ -242,14 +238,12 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             var handler = new ObservablePropertyChangeHandler(probabilisticPipingCalculation, probabilisticPipingCalculation.InputParameters);
 
             // Call
-            var properties = new ProbabilisticPipingInputContextProperties(context,
-                                                                           AssessmentSectionTestHelper.GetTestAssessmentLevel,
-                                                                           handler);
+            var properties = new ProbabilisticPipingInputContextProperties(context, handler);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
 
-            Assert.AreEqual(19, dynamicProperties.Count);
+            Assert.AreEqual(18, dynamicProperties.Count);
 
             const string hydraulicDataCategory = "\t\t\tHydraulische gegevens";
             const string schematizationCategory = "\t\tSchematisatie";
@@ -280,14 +274,6 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
                 "Binnendijkse waterstand ter plaatse van het uittredepunt.",
                 true);
             Assert.IsInstanceOf<ExpandableObjectConverter>(phreaticLevelExitProperty.Converter);
-
-            PropertyDescriptor piezometricHeadExitProperty = dynamicProperties[expectedPiezometricHeadExitPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
-                piezometricHeadExitProperty,
-                hydraulicDataCategory,
-                "Stijghoogte bij uittredepunt [m+NAP]",
-                "Stijghoogte bij uittredepunt.",
-                true);
 
             PropertyDescriptor surfaceLineProperty = dynamicProperties[expectedSurfaceLinePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(
@@ -433,7 +419,6 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
 
             // Call
             var properties = new ProbabilisticPipingInputContextProperties(context,
-                                                                           AssessmentSectionTestHelper.GetTestAssessmentLevel,
                                                                            handler);
 
             // Assert
@@ -511,9 +496,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
                                                               assessmentSection);
 
             // Call
-            var properties = new ProbabilisticPipingInputContextProperties(context,
-                                                                           AssessmentSectionTestHelper.GetTestAssessmentLevel,
-                                                                           handler);
+            var properties = new ProbabilisticPipingInputContextProperties(context, handler);
 
             // Assert
             Assert.AreEqual(inputParameters.PhreaticLevelExit.Mean, properties.PhreaticLevelExit.Mean);
@@ -548,8 +531,6 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
                             properties.SaturatedVolumicWeightOfCoverageLayer.StandardDeviation);
             Assert.AreEqual(saturatedVolumicWeightOfCoverageLayer.Shift,
                             properties.SaturatedVolumicWeightOfCoverageLayer.Shift);
-
-            Assert.AreEqual(DerivedSemiProbabilisticPipingInput.GetPiezometricHeadExit(inputParameters, AssessmentSectionTestHelper.GetTestAssessmentLevel()), properties.PiezometricHeadExit);
 
             VariationCoefficientLogNormalDistribution seepageLength = DerivedPipingInput.GetSeepageLength(inputParameters);
             Assert.AreEqual(seepageLength.Mean, properties.SeepageLength.Mean);
@@ -598,9 +579,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             }, "path/to/sections");
 
             var handler = new ObservablePropertyChangeHandler(calculationItem, calculationItem.InputParameters);
-            var properties = new ProbabilisticPipingInputContextProperties(context,
-                                                                           AssessmentSectionTestHelper.GetTestAssessmentLevel,
-                                                                           handler);
+            var properties = new ProbabilisticPipingInputContextProperties(context, handler);
 
             const double entryPointL = 0.12;
             const double exitPointL = 0.44;
@@ -785,7 +764,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
                                                                    assessmentSection);
             inputContext.Attach(observer);
 
-            var properties = new ProbabilisticPipingInputContextProperties(inputContext, AssessmentSectionTestHelper.GetTestAssessmentLevel, handler);
+            var properties = new ProbabilisticPipingInputContextProperties(inputContext, handler);
 
             // Call
             properties.ShouldIllustrationPointsBeCalculated = newBoolean;
@@ -829,9 +808,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             var handler = new ObservablePropertyChangeHandler(calculationItem, calculationItem.InputParameters);
 
             // Call
-            var properties = new ProbabilisticPipingInputContextProperties(context,
-                                                                           AssessmentSectionTestHelper.GetTestAssessmentLevel,
-                                                                           handler)
+            var properties = new ProbabilisticPipingInputContextProperties(context, handler)
             {
                 ExitPointL = (RoundedDouble) exitPoint,
                 EntryPointL = (RoundedDouble) entryPoint
@@ -873,9 +850,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             var handler = new ObservablePropertyChangeHandler(calculationItem, calculationItem.InputParameters);
 
             // Call
-            var properties = new ProbabilisticPipingInputContextProperties(context,
-                                                                           AssessmentSectionTestHelper.GetTestAssessmentLevel,
-                                                                           handler)
+            var properties = new ProbabilisticPipingInputContextProperties(context, handler)
             {
                 EntryPointL = (RoundedDouble) 0.5,
                 ExitPointL = (RoundedDouble) 2
@@ -923,9 +898,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
                 observable
             });
 
-            var properties = new ProbabilisticPipingInputContextProperties(context,
-                                                                           AssessmentSectionTestHelper.GetTestAssessmentLevel,
-                                                                           handler);
+            var properties = new ProbabilisticPipingInputContextProperties(context, handler);
 
             // Call
             void Call() => properties.ExitPointL = newExitPointL;
@@ -972,9 +945,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
                 observable
             });
 
-            var properties = new ProbabilisticPipingInputContextProperties(context,
-                                                                           AssessmentSectionTestHelper.GetTestAssessmentLevel,
-                                                                           handler);
+            var properties = new ProbabilisticPipingInputContextProperties(context, handler);
 
             // Call
             void Call() => properties.EntryPointL = entryPoint;
@@ -1021,9 +992,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
                 observable
             });
 
-            var properties = new ProbabilisticPipingInputContextProperties(context,
-                                                                           AssessmentSectionTestHelper.GetTestAssessmentLevel,
-                                                                           handler);
+            var properties = new ProbabilisticPipingInputContextProperties(context, handler);
 
             // Call
             void Call() => properties.EntryPointL = entryPointL;
@@ -1068,9 +1037,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
                 observable
             });
 
-            var properties = new ProbabilisticPipingInputContextProperties(context,
-                                                                           AssessmentSectionTestHelper.GetTestAssessmentLevel,
-                                                                           handler);
+            var properties = new ProbabilisticPipingInputContextProperties(context, handler);
 
             // Call
             void Call() => properties.ExitPointL = exitPointL;
@@ -1111,9 +1078,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
 
             var handler = new SetPropertyValueAfterConfirmationParameterTester(new IObservable[0]);
 
-            var properties = new ProbabilisticPipingInputContextProperties(context,
-                                                                           AssessmentSectionTestHelper.GetTestAssessmentLevel,
-                                                                           handler);
+            var properties = new ProbabilisticPipingInputContextProperties(context, handler);
 
             inputParameters.StochasticSoilProfile = new PipingStochasticSoilProfile(0.0, PipingSoilProfileTestFactory.CreatePipingSoilProfile());
 
@@ -1165,9 +1130,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
                                                               failureMechanism,
                                                               assessmentSection);
 
-            var properties = new ProbabilisticPipingInputContextProperties(context,
-                                                                           AssessmentSectionTestHelper.GetTestAssessmentLevel,
-                                                                           handler);
+            var properties = new ProbabilisticPipingInputContextProperties(context, handler);
 
             // Call
             properties.SurfaceLine = testSurfaceLine;
@@ -1218,9 +1181,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
 
             var handler = new SetPropertyValueAfterConfirmationParameterTester(new IObservable[0]);
 
-            var properties = new ProbabilisticPipingInputContextProperties(context,
-                                                                           AssessmentSectionTestHelper.GetTestAssessmentLevel,
-                                                                           handler);
+            var properties = new ProbabilisticPipingInputContextProperties(context, handler);
 
             // Call
             properties.SurfaceLine = newSurfaceLine;
@@ -1245,9 +1206,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             var context = new ProbabilisticPipingInputContext(calculation.InputParameters, calculation,
                                                               failureMechanism.SurfaceLines, failureMechanism.StochasticSoilModels,
                                                               failureMechanism, assessmentSection);
-            var properties = new ProbabilisticPipingInputContextProperties(context,
-                                                                           AssessmentSectionTestHelper.GetTestAssessmentLevel,
-                                                                           handler);
+            var properties = new ProbabilisticPipingInputContextProperties(context, handler);
 
             // Call
             IEnumerable<PipingSurfaceLine> surfaceLines = properties.GetAvailableSurfaceLines();
@@ -1271,9 +1230,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             var context = new ProbabilisticPipingInputContext(calculation.InputParameters, calculation,
                                                               failureMechanism.SurfaceLines, failureMechanism.StochasticSoilModels,
                                                               failureMechanism, assessmentSection);
-            var properties = new ProbabilisticPipingInputContextProperties(context,
-                                                                           AssessmentSectionTestHelper.GetTestAssessmentLevel,
-                                                                           handler);
+            var properties = new ProbabilisticPipingInputContextProperties(context, handler);
 
             // Precondition:
             Assert.IsNull(calculation.InputParameters.SurfaceLine);
@@ -1340,9 +1297,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             var context = new ProbabilisticPipingInputContext(calculation.InputParameters, calculation,
                                                               failureMechanism.SurfaceLines, failureMechanism.StochasticSoilModels,
                                                               failureMechanism, assessmentSection);
-            var properties = new ProbabilisticPipingInputContextProperties(context,
-                                                                           AssessmentSectionTestHelper.GetTestAssessmentLevel,
-                                                                           handler);
+            var properties = new ProbabilisticPipingInputContextProperties(context, handler);
 
             // Precondition:
             Assert.IsNotNull(calculation.InputParameters.SurfaceLine);
@@ -1373,9 +1328,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             var context = new ProbabilisticPipingInputContext(calculation.InputParameters, calculation,
                                                               failureMechanism.SurfaceLines, failureMechanism.StochasticSoilModels,
                                                               failureMechanism, assessmentSection);
-            var properties = new ProbabilisticPipingInputContextProperties(context,
-                                                                           AssessmentSectionTestHelper.GetTestAssessmentLevel,
-                                                                           handler);
+            var properties = new ProbabilisticPipingInputContextProperties(context, handler);
 
             // Precondition
             Assert.IsNull(calculation.InputParameters.StochasticSoilModel);
@@ -1413,9 +1366,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             var context = new ProbabilisticPipingInputContext(calculation.InputParameters, calculation,
                                                               failureMechanism.SurfaceLines, failureMechanism.StochasticSoilModels,
                                                               failureMechanism, assessmentSection);
-            var properties = new ProbabilisticPipingInputContextProperties(context,
-                                                                           AssessmentSectionTestHelper.GetTestAssessmentLevel,
-                                                                           handler);
+            var properties = new ProbabilisticPipingInputContextProperties(context, handler);
 
             // Precondition
             Assert.IsNotNull(calculation.InputParameters.StochasticSoilModel);
@@ -1442,9 +1393,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             var context = new ProbabilisticPipingInputContext(calculation.InputParameters, calculation,
                                                               failureMechanism.SurfaceLines, failureMechanism.StochasticSoilModels,
                                                               failureMechanism, assessmentSection);
-            var properties = new ProbabilisticPipingInputContextProperties(context,
-                                                                           AssessmentSectionTestHelper.GetTestAssessmentLevel,
-                                                                           handler);
+            var properties = new ProbabilisticPipingInputContextProperties(context, handler);
 
             SelectableHydraulicBoundaryLocation selectedHydraulicBoundaryLocation = null;
 
@@ -1494,9 +1443,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
                                                               failureMechanism.SurfaceLines, failureMechanism.StochasticSoilModels,
                                                               failureMechanism, assessmentSection);
 
-            var properties = new ProbabilisticPipingInputContextProperties(context,
-                                                                           AssessmentSectionTestHelper.GetTestAssessmentLevel,
-                                                                           handler);
+            var properties = new ProbabilisticPipingInputContextProperties(context, handler);
 
             // When
             IEnumerable<SelectableHydraulicBoundaryLocation> availableHydraulicBoundaryLocations =
@@ -1538,9 +1485,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             var context = new ProbabilisticPipingInputContext(calculation.InputParameters, calculation,
                                                               failureMechanism.SurfaceLines, failureMechanism.StochasticSoilModels,
                                                               failureMechanism, assessmentSection);
-            var properties = new ProbabilisticPipingInputContextProperties(context,
-                                                                           AssessmentSectionTestHelper.GetTestAssessmentLevel,
-                                                                           handler);
+            var properties = new ProbabilisticPipingInputContextProperties(context, handler);
 
             // Call
             IEnumerable<SelectableHydraulicBoundaryLocation> selectableHydraulicBoundaryLocations =
@@ -1592,9 +1537,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
             var context = new ProbabilisticPipingInputContext(calculation.InputParameters, calculation,
                                                               failureMechanism.SurfaceLines, failureMechanism.StochasticSoilModels,
                                                               failureMechanism, assessmentSection);
-            var properties = new ProbabilisticPipingInputContextProperties(context,
-                                                                           AssessmentSectionTestHelper.GetTestAssessmentLevel,
-                                                                           handler);
+            var properties = new ProbabilisticPipingInputContextProperties(context, handler);
 
             // Call
             IEnumerable<SelectableHydraulicBoundaryLocation> selectableHydraulicBoundaryLocations =
@@ -1659,9 +1602,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
                 observable
             });
 
-            var properties = new ProbabilisticPipingInputContextProperties(context,
-                                                                           AssessmentSectionTestHelper.GetTestAssessmentLevel,
-                                                                           handler);
+            var properties = new ProbabilisticPipingInputContextProperties(context, handler);
 
             IEnumerable<SelectableHydraulicBoundaryLocation> originalList = properties.GetSelectableHydraulicBoundaryLocations()
                                                                                       .ToList();
@@ -1703,9 +1644,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
                                                               Enumerable.Empty<PipingStochasticSoilModel>(),
                                                               failureMechanism, assessmentSection);
 
-            var properties = new ProbabilisticPipingInputContextProperties(context,
-                                                                           AssessmentSectionTestHelper.GetTestAssessmentLevel,
-                                                                           handler);
+            var properties = new ProbabilisticPipingInputContextProperties(context, handler);
 
             // Call
             bool result = properties.DynamicReadOnlyValidationMethod("prop");
@@ -1742,9 +1681,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.Probabilistic
                 observable
             });
 
-            var properties = new ProbabilisticPipingInputContextProperties(context,
-                                                                           AssessmentSectionTestHelper.GetTestAssessmentLevel,
-                                                                           handler);
+            var properties = new ProbabilisticPipingInputContextProperties(context, handler);
 
             // Call
             setProperty(properties);

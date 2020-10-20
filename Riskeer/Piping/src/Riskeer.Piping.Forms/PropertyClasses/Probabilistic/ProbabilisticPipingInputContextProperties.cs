@@ -36,7 +36,6 @@ using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Forms.PropertyClasses;
 using Riskeer.Common.Forms.UITypeEditors;
 using Riskeer.Piping.Data;
-using Riskeer.Piping.Data.SemiProbabilistic;
 using Riskeer.Piping.Data.SoilProfile;
 using Riskeer.Piping.Forms.PresentationObjects.Probabilistic;
 using Riskeer.Piping.Forms.Properties;
@@ -59,7 +58,6 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
         private const int selectedHydraulicBoundaryLocationPropertyIndex = 1;
         private const int dampingFactorExitPropertyIndex = 2;
         private const int phreaticLevelExitPropertyIndex = 3;
-        private const int piezometricHeadExitPropertyIndex = 4;
 
         private const int surfaceLinePropertyIndex = 5;
         private const int stochasticSoilModelPropertyIndex = 6;
@@ -86,11 +84,9 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
         /// Creates a new instance of <see cref="ProbabilisticPipingInputContextProperties"/>.
         /// </summary>
         /// <param name="data">The instance to show the properties for.</param>
-        /// <param name="getNormativeAssessmentLevelFunc"><see cref="Func{TResult}"/> for obtaining the normative assessment level.</param>
         /// <param name="propertyChangeHandler">The handler responsible for handling effects of a property change.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public ProbabilisticPipingInputContextProperties(ProbabilisticPipingInputContext data,
-                                                         Func<RoundedDouble> getNormativeAssessmentLevelFunc,
                                                          IObservablePropertyChangeHandler propertyChangeHandler)
         {
             if (data == null)
@@ -246,18 +242,6 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
                 return new NormalDistributionProperties(DistributionReadOnlyProperties.None,
                                                         data.WrappedData.PhreaticLevelExit,
                                                         propertyChangeHandler);
-            }
-        }
-
-        [PropertyOrder(piezometricHeadExitPropertyIndex)]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_HydraulicData), 1, 4)]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.PipingInput_PiezometricHeadExit_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.PipingInput_PiezometricHeadExit_Description))]
-        public RoundedDouble PiezometricHeadExit
-        {
-            get
-            {
-                return DerivedSemiProbabilisticPipingInput.GetPiezometricHeadExit(data.WrappedData, getNormativeAssessmentLevelFunc());
             }
         }
 
