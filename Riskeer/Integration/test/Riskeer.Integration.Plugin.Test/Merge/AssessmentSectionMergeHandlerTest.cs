@@ -42,8 +42,7 @@ using Riskeer.Integration.Data;
 using Riskeer.Integration.Data.Merge;
 using Riskeer.Integration.Plugin.Merge;
 using Riskeer.MacroStabilityInwards.Data;
-using Riskeer.Piping.Data;
-using Riskeer.Piping.Data.SemiProbabilistic;
+using Riskeer.Piping.Data.TestUtil;
 using Riskeer.StabilityPointStructures.Data;
 using Riskeer.StabilityStoneCover.Data;
 using Riskeer.WaveImpactAsphaltCover.Data;
@@ -384,7 +383,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
 
             AssessmentSection targetAssessmentSection = CreateAssessmentSection(targetLocations);
             AssessmentSection sourceAssessmentSection = CreateAssessmentSection(sourceLocations);
-            sourceAssessmentSection.Piping.CalculationsGroup.Children.Add(new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput())
+            sourceAssessmentSection.Piping.CalculationsGroup.Children.Add(new TestPipingCalculation
             {
                 InputParameters =
                 {
@@ -473,7 +472,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
                                      }));
 
             // Then
-            var pipingCalculation = (SemiProbabilisticPipingCalculationScenario) targetAssessmentSection.Piping.Calculations.Single();
+            var pipingCalculation = (TestPipingCalculation) targetAssessmentSection.Piping.Calculations.Single();
             Assert.AreSame(targetLocations[0], pipingCalculation.InputParameters.HydraulicBoundaryLocation);
 
             var grassInwardsCalculation = (GrassCoverErosionInwardsCalculationScenario) targetAssessmentSection.GrassCoverErosionInwards.Calculations.Single();

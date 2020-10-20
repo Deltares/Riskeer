@@ -40,7 +40,6 @@ using Riskeer.Integration.Data.Merge;
 using Riskeer.Integration.Plugin.Properties;
 using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.Piping.Data;
-using Riskeer.Piping.Data.SemiProbabilistic;
 using Riskeer.Revetment.Data;
 using Riskeer.StabilityPointStructures.Data;
 using Riskeer.StabilityStoneCover.Data;
@@ -212,7 +211,7 @@ namespace Riskeer.Integration.Plugin.Merge
             if (mergeData.MergePiping)
             {
                 targetAssessmentSection.Piping = sourceAssessmentSection.Piping;
-                UpdateCalculationHydraulicBoundaryLocationReferences<PipingFailureMechanism, SemiProbabilisticPipingCalculationScenario, PipingInput>(
+                UpdateCalculationHydraulicBoundaryLocationReferences<PipingFailureMechanism, IPipingCalculation<PipingInput>, PipingInput>(
                     targetAssessmentSection.Piping, hydraulicBoundaryLocations);
                 LogMergeMessage(targetAssessmentSection.Piping);
             }

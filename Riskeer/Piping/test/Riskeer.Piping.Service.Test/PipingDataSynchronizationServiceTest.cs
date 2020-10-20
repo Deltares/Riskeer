@@ -504,9 +504,9 @@ namespace Riskeer.Piping.Service.Test
                                                                                         .Cast<IPipingCalculation<PipingInput>>();
             PipingStochasticSoilProfile profileToDelete = null;
 
-            foreach (IPipingCalculation<PipingInput> pipingCalculationScenario in calculations)
+            foreach (IPipingCalculation<PipingInput> calculation in calculations)
             {
-                PipingInput input = pipingCalculationScenario.InputParameters;
+                PipingInput input = calculation.InputParameters;
                 PipingStochasticSoilProfile currentProfile = input.StochasticSoilProfile;
                 if (profileToDelete == null)
                 {
@@ -537,9 +537,9 @@ namespace Riskeer.Piping.Service.Test
 
             var expectedInputs = new List<PipingInput>();
 
-            foreach (IPipingCalculation<PipingInput> pipingCalculationScenario in calculations)
+            foreach (IPipingCalculation<PipingInput> calculation in calculations)
             {
-                PipingInput input = pipingCalculationScenario.InputParameters;
+                PipingInput input = calculation.InputParameters;
                 PipingStochasticSoilProfile currentProfile = input.StochasticSoilProfile;
                 if (profileToDelete == null)
                 {
@@ -548,7 +548,7 @@ namespace Riskeer.Piping.Service.Test
 
                 if (profileToDelete != null && ReferenceEquals(profileToDelete, currentProfile))
                 {
-                    pipingCalculationScenario.ClearOutput();
+                    calculation.ClearOutput();
                     expectedInputs.Add(input);
                 }
             }
@@ -573,9 +573,9 @@ namespace Riskeer.Piping.Service.Test
 
             PipingStochasticSoilProfile profileToDelete = null;
 
-            foreach (IPipingCalculation<PipingInput> pipingCalculationScenario in calculations)
+            foreach (IPipingCalculation<PipingInput> calculation in calculations)
             {
-                PipingInput input = pipingCalculationScenario.InputParameters;
+                PipingInput input = calculation.InputParameters;
                 PipingStochasticSoilProfile currentProfile = input.StochasticSoilProfile;
                 if (profileToDelete == null)
                 {
@@ -584,9 +584,9 @@ namespace Riskeer.Piping.Service.Test
 
                 if (profileToDelete != null && ReferenceEquals(profileToDelete, currentProfile))
                 {
-                    if (pipingCalculationScenario.HasOutput)
+                    if (calculation.HasOutput)
                     {
-                        expectedAffectedObjects.Add(pipingCalculationScenario);
+                        expectedAffectedObjects.Add(calculation);
                     }
 
                     expectedAffectedObjects.Add(input);
@@ -639,9 +639,9 @@ namespace Riskeer.Piping.Service.Test
                                                                                         .Cast<IPipingCalculation<PipingInput>>();
             PipingStochasticSoilProfile profileToDelete = null;
 
-            foreach (IPipingCalculation<PipingInput> pipingCalculationScenario in calculations)
+            foreach (IPipingCalculation<PipingInput> calculation in calculations)
             {
-                PipingInput input = pipingCalculationScenario.InputParameters;
+                PipingInput input = calculation.InputParameters;
                 PipingStochasticSoilProfile currentProfile = input.StochasticSoilProfile;
                 if (profileToDelete == null)
                 {
@@ -672,9 +672,9 @@ namespace Riskeer.Piping.Service.Test
 
             var expectedInputs = new List<PipingInput>();
 
-            foreach (IPipingCalculation<PipingInput> pipingCalculationScenario in calculations)
+            foreach (IPipingCalculation<PipingInput> calculation in calculations)
             {
-                PipingInput input = pipingCalculationScenario.InputParameters;
+                PipingInput input = calculation.InputParameters;
                 PipingStochasticSoilProfile currentProfile = input.StochasticSoilProfile;
                 if (profileToDelete == null)
                 {
@@ -683,7 +683,7 @@ namespace Riskeer.Piping.Service.Test
 
                 if (profileToDelete != null && ReferenceEquals(profileToDelete, currentProfile))
                 {
-                    pipingCalculationScenario.ClearOutput();
+                    calculation.ClearOutput();
                     expectedInputs.Add(input);
                 }
             }
@@ -708,9 +708,9 @@ namespace Riskeer.Piping.Service.Test
 
             PipingStochasticSoilProfile profileToDelete = null;
 
-            foreach (IPipingCalculation<PipingInput> pipingCalculationScenario in calculations)
+            foreach (IPipingCalculation<PipingInput> calculation in calculations)
             {
-                PipingInput input = pipingCalculationScenario.InputParameters;
+                PipingInput input = calculation.InputParameters;
                 PipingStochasticSoilProfile currentProfile = input.StochasticSoilProfile;
                 if (profileToDelete == null)
                 {
@@ -719,9 +719,9 @@ namespace Riskeer.Piping.Service.Test
 
                 if (profileToDelete != null && ReferenceEquals(profileToDelete, currentProfile))
                 {
-                    if (pipingCalculationScenario.HasOutput)
+                    if (calculation.HasOutput)
                     {
-                        expectedAffectedObjects.Add(pipingCalculationScenario);
+                        expectedAffectedObjects.Add(calculation);
                     }
 
                     expectedAffectedObjects.Add(input);

@@ -40,7 +40,7 @@ using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 namespace Riskeer.Piping.Plugin.Test.ExportInfos
 {
     [TestFixture]
-    public class PipingCalculationContextExportInfoTest
+    public class SemiProbabilisticPipingCalculationScenarioContextExportInfoTest
     {
         private PipingPlugin plugin;
         private ExportInfo info;
