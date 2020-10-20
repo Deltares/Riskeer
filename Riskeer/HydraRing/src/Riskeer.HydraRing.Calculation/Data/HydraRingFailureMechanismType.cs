@@ -41,6 +41,7 @@ namespace Riskeer.HydraRing.Calculation.Data
         StructuresClosure = 8,
         StructuresStructuralFailure = 9,
         DunesBoundaryConditions = 10,
-        OvertoppingRate = 11
+        OvertoppingRate = 11,
+        Piping = 12
     }
 }

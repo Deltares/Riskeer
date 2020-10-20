@@ -31,7 +31,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Data
         [Test]
         public void Values_ExpectedValues()
         {
-            Assert.AreEqual(12, Enum.GetValues(typeof(HydraRingFailureMechanismType)).Length);
+            Assert.AreEqual(13, Enum.GetValues(typeof(HydraRingFailureMechanismType)).Length);
 
             const string message = "Value no longer corresponds to id in Hydra-Ring settings database files.";
             Assert.AreEqual(0, (int) HydraRingFailureMechanismType.AssessmentLevel, message);
@@ -46,6 +46,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Data
             Assert.AreEqual(9, (int) HydraRingFailureMechanismType.StructuresStructuralFailure, message);
             Assert.AreEqual(10, (int) HydraRingFailureMechanismType.DunesBoundaryConditions, message);
             Assert.AreEqual(11, (int) HydraRingFailureMechanismType.OvertoppingRate, message);
+            Assert.AreEqual(12, (int) HydraRingFailureMechanismType.Piping, message);
         }
     }
 }
