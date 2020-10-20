@@ -34,6 +34,32 @@ namespace Riskeer.Piping.Data.Test.Probabilistic
     public class ProbabilisticPipingOutputTest
     {
         [Test]
+        public void Constructor_SectionSpecificOutputNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => new ProbabilisticPipingOutput(
+                null,
+                PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput(new TestGeneralResultFaultTreeIllustrationPoint()));
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
+            Assert.AreEqual("sectionSpecificOutput", paramName);
+        }
+
+        [Test]
+        public void Constructor_ProfileSpecificOutputNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => new ProbabilisticPipingOutput(
+                PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput(new TestGeneralResultFaultTreeIllustrationPoint()),
+                null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
+            Assert.AreEqual("profileSpecificOutput", paramName);
+        }
+
+        [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup
@@ -98,62 +124,6 @@ namespace Riskeer.Piping.Data.Test.Probabilistic
             Assert.AreEqual(profileSpecificReliability, output.ProfileSpecificOutput.Reliability);
             Assert.IsFalse(output.ProfileSpecificOutput.HasGeneralResult);
             Assert.IsNull(output.ProfileSpecificOutput.GeneralResult);
-        }
-
-        [Test]
-        public void ClearIllustrationPoints_NoOutput_DoesNotThrow()
-        {
-            // Setup
-            var output = new ProbabilisticPipingOutput(null, null);
-
-            // Call
-            void Call() => output.ClearIllustrationPoints();
-
-            // Assert
-            Assert.DoesNotThrow(Call);
-        }
-
-        [Test]
-        public void Clone_NoPropertiesSet_ReturnNewInstanceWithCopiedValues()
-        {
-            // Setup
-            var original = new ProbabilisticPipingOutput(null, null);
-
-            // Call
-            object clone = original.Clone();
-
-            // Assert
-            CoreCloneAssert.AreObjectClones(original, clone, PipingCloneAssert.AreClones);
-        }
-
-        [Test]
-        public void Clone_OnlySectionSpecificOutputSet_ReturnNewInstanceWithCopiedValues()
-        {
-            // Setup
-            var original = new ProbabilisticPipingOutput(
-                PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput(new TestGeneralResultFaultTreeIllustrationPoint()),
-                null);
-
-            // Call
-            object clone = original.Clone();
-
-            // Assert
-            CoreCloneAssert.AreObjectClones(original, clone, PipingCloneAssert.AreClones);
-        }
-
-        [Test]
-        public void Clone_OnlyProfileSpecificOutputSet_ReturnNewInstanceWithCopiedValues()
-        {
-            // Setup
-            var original = new ProbabilisticPipingOutput(
-                null,
-                PipingTestDataGenerator.GetRandomPartialProbabilisticPipingOutput(new TestGeneralResultFaultTreeIllustrationPoint()));
-
-            // Call
-            object clone = original.Clone();
-
-            // Assert
-            CoreCloneAssert.AreObjectClones(original, clone, PipingCloneAssert.AreClones);
         }
 
         [Test]

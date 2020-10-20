@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Core.Common.Base;
 using Riskeer.Common.Data.Calculation;
 
@@ -34,10 +35,19 @@ namespace Riskeer.Piping.Data.Probabilistic
         /// </summary>
         /// <param name="sectionSpecificOutput">The result of the sub-calculation that takes into account the section length.</param>
         /// <param name="profileSpecificOutput">The result of the sub-calculation that doesn't take into account the section length.</param>
-        /// <remarks>The input parameters are not checked for being <c>null</c> as (one of the) the sub-calculation results might
-        /// be missing due to calculation failure.</remarks>
+        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         public ProbabilisticPipingOutput(PartialProbabilisticPipingOutput sectionSpecificOutput, PartialProbabilisticPipingOutput profileSpecificOutput)
         {
+            if (sectionSpecificOutput == null)
+            {
+                throw new ArgumentNullException(nameof(sectionSpecificOutput));
+            }
+
+            if (profileSpecificOutput == null)
+            {
+                throw new ArgumentNullException(nameof(profileSpecificOutput));
+            }
+
             SectionSpecificOutput = sectionSpecificOutput;
             ProfileSpecificOutput = profileSpecificOutput;
         }
