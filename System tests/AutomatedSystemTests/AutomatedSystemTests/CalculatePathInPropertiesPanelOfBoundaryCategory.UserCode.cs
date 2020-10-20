@@ -59,7 +59,6 @@ namespace AutomatedSystemTests
         		default:
         			Report.Log(ReportLevel.Error, "", categoryType + " is no valid category type!");
         			throw new Exception();
-        			break;
         	}
         	string pathLevelThree = boundaryType + "grens [1/jaar]";
         	path = pathLevelOne + ">" + pathLevelTwo + ">" + pathLevelThree; 

@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<recordtable
+embeddedrepository="False"
+id="5d9d0b0c-5c9f-4686-a9eb-207de4b6b2e3"
+mode="Global">
+	<repeatcount>
+		1
+	</repeatcount>
+	<turbomode>
+		True
+	</turbomode>
+	<genreport>
+		True
+	</genreport>
+	<speedfactor>
+		1
+	</speedfactor>
+	<useDefaultItemLogging>
+		True
+	</useDefaultItemLogging>
+	<codegen
+	classname="SelectRowCalculation"
+	namespace="AutomatedSystemTests">
+	</codegen>
+	<variables>
+	</variables>
+	<recorditems>
+		<invokeactionrecorditem
+		action="Focus"
+		enabled="True"
+		optional="False"
+		searchpropertyid="b60f2f2f-0b40-4695-8300-0e6a3f440ba7">
+			<comment>
+			</comment>
+			<bindings>
+			</bindings>
+			<info
+			id="8d26c2ea-9826-475b-ba13-7a87660216ce"
+			sourcename="RepositoryEditor">
+				<path>
+					/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='DesignWaterLevelCalculationsView']/container/container[@controlname='panel1']/container/table/row[@accessiblename='Row '+$rowIndex]
+				</path>
+			</info>
+			<arguments
+			id="95c1e14f-4c7e-442c-9444-f585a9f7892a">
+			</arguments>
+		</invokeactionrecorditem>
+		<invokeactionrecorditem
+		action="Select"
+		enabled="True"
+		optional="False"
+		searchpropertyid="aa3352b1-7134-4be7-b17a-4be63c4182e7">
+			<comment>
+			</comment>
+			<bindings>
+			</bindings>
+			<info
+			id="8d26c2ea-9826-475b-ba13-7a87660216ce"
+			sourcename="RepositoryEditor">
+				<path>
+					/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname='DesignWaterLevelCalculationsView']/container/container[@controlname='panel1']/container/table/row[@accessiblename='Row '+$rowIndex]
+				</path>
+			</info>
+			<arguments
+			id="19358362-e384-416d-8606-bc803c0f7287">
+			</arguments>
+		</invokeactionrecorditem>
+	</recorditems>
+	<repository
+	id="137723a5-e147-4b62-8c15-5c31a3d68f96"
+	name="AutomatedSystemTestsRepository"
+	relativepath="AutomatedSystemTestsRepository.rxrep">
+		<codegen
+		classname="AutomatedSystemTestsRepository"
+		namespace="AutomatedSystemTests">
+		</codegen>
+		<rootfolder
+		id="40cb8eed-98dc-4b16-a5ad-7ef93b4f444c"
+		name="_rootdummy_">
+		</rootfolder>
+	</repository>
+	<usercodefile
+	lang="CSharp">
+		SelectRowCalculation.UserCode.cs
+	</usercodefile>
+	<references>
+	</references>
+</recordtable>

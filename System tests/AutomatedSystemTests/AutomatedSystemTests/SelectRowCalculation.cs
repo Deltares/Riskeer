@@ -24,29 +24,29 @@ namespace AutomatedSystemTests
 {
 #pragma warning disable 0436 //(CS0436) The type 'type' in 'assembly' conflicts with the imported type 'type2' in 'assembly'. Using the type defined in 'assembly'.
     /// <summary>
-    ///The SetCustomAssessmentAtRow recording.
+    ///The SelectRowCalculation recording.
     /// </summary>
-    [TestModule("dc218a16-91e8-4197-ae23-5bbe0c083a04", ModuleType.Recording, 1)]
-    public partial class SetCustomAssessmentAtRow : ITestModule
+    [TestModule("5d9d0b0c-5c9f-4686-a9eb-207de4b6b2e3", ModuleType.Recording, 1)]
+    public partial class SelectRowCalculation : ITestModule
     {
         /// <summary>
         /// Holds an instance of the AutomatedSystemTestsRepository repository.
         /// </summary>
         public static AutomatedSystemTestsRepository repo = AutomatedSystemTestsRepository.Instance;
 
-        static SetCustomAssessmentAtRow instance = new SetCustomAssessmentAtRow();
+        static SelectRowCalculation instance = new SelectRowCalculation();
 
         /// <summary>
         /// Constructs a new instance.
         /// </summary>
-        public SetCustomAssessmentAtRow()
+        public SelectRowCalculation()
         {
         }
 
         /// <summary>
         /// Gets a static instance of this recording.
         /// </summary>
-        public static SetCustomAssessmentAtRow Instance
+        public static SelectRowCalculation Instance
         {
             get { return instance; }
         }
@@ -61,16 +61,6 @@ namespace AutomatedSystemTests
         {
             get { return repo.rowIndex; }
             set { repo.rowIndex = value; }
-        }
-
-        /// <summary>
-        /// Gets or sets the value of variable DropDownItem.
-        /// </summary>
-        [TestVariable("c5b8922f-77bf-441a-9b88-99da98bf1e54")]
-        public string DropDownItem
-        {
-            get { return repo.DropDownItem; }
-            set { repo.DropDownItem = value; }
         }
 
 #endregion
@@ -99,20 +89,11 @@ namespace AutomatedSystemTests
 
             Init();
 
-            Report.Log(ReportLevel.Info, "Invoke action", "Invoking Focus() on item 'RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.CustomAsssessmentTypeRowNth'.", repo.RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.CustomAsssessmentTypeRowNthInfo, new RecordItemIndex(0));
-            repo.RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.CustomAsssessmentTypeRowNth.Focus();
+            Report.Log(ReportLevel.Info, "Invoke action", "Invoking Focus() on item 'RiskeerMainWindow.DocumentViewContainer.DesignWaterLevelCalculationsViewCached.LeftSide.Table.GenericRow'.", repo.RiskeerMainWindow.DocumentViewContainer.DesignWaterLevelCalculationsViewCached.LeftSide.Table.GenericRowInfo, new RecordItemIndex(0));
+            repo.RiskeerMainWindow.DocumentViewContainer.DesignWaterLevelCalculationsViewCached.LeftSide.Table.GenericRow.Focus();
             
-            Report.Log(ReportLevel.Info, "Invoke action", "Invoking Select() on item 'RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.CustomAsssessmentTypeRowNth'.", repo.RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.CustomAsssessmentTypeRowNthInfo, new RecordItemIndex(1));
-            repo.RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.CustomAsssessmentTypeRowNth.Select();
-            
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.CustomAsssessmentTypeRowNth' at CenterRight.", repo.RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.CustomAsssessmentTypeRowNthInfo, new RecordItemIndex(2));
-            repo.RiskeerMainWindow.DocumentViewContainer.FailureMechanismResultView.TableDataGridView.CustomAsssessmentTypeRowNth.Click(Location.CenterRight);
-            
-            Report.Log(ReportLevel.Info, "Delay", "Waiting for 100ms.", new RecordItemIndex(3));
-            Delay.Duration(100, false);
-            
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'DropDownMenuItemList.DropDownItem' at Center.", repo.DropDownMenuItemList.DropDownItemInfo, new RecordItemIndex(4));
-            repo.DropDownMenuItemList.DropDownItem.Click();
+            Report.Log(ReportLevel.Info, "Invoke action", "Invoking Select() on item 'RiskeerMainWindow.DocumentViewContainer.DesignWaterLevelCalculationsViewCached.LeftSide.Table.GenericRow'.", repo.RiskeerMainWindow.DocumentViewContainer.DesignWaterLevelCalculationsViewCached.LeftSide.Table.GenericRowInfo, new RecordItemIndex(1));
+            repo.RiskeerMainWindow.DocumentViewContainer.DesignWaterLevelCalculationsViewCached.LeftSide.Table.GenericRow.Select();
             
         }
 

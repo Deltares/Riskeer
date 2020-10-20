@@ -162,6 +162,114 @@
       <UserCode>true</UserCode>
       <id>4a953aa8-5f5c-4bf0-92db-7ab2d99cd6ac</id>
     </Compile>
+    <Compile Include="ClickOnRunSelectedCalculations.cs">
+      <BoundTo>656b7e3b-fd9a-4148-9687-72c952815443</BoundTo>
+      <DependentUpon>ClickOnRunSelectedCalculations.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>1bee2ad9-5232-4b46-bb9e-38546a2b7fe4</id>
+    </Compile>
+    <Compile Include="ClickOnRunSelectedCalculations.UserCode.cs">
+      <BoundTo>656b7e3b-fd9a-4148-9687-72c952815443</BoundTo>
+      <DependentUpon>ClickOnRunSelectedCalculations.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>443d8da9-77fd-404d-b4e8-8470675a6acc</id>
+    </Compile>
+    <Compile Include="ConvertValueFromRanorexDataCultureToDoubleCurrentCulture.cs">
+      <BoundTo>afe71edd-6c53-4ff6-b655-f93726b80b35</BoundTo>
+      <DependentUpon>ConvertValueFromRanorexDataCultureToDoubleCurrentCulture.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>3773b24c-25ae-4174-b494-451d981ae4ea</id>
+    </Compile>
+    <Compile Include="ConvertValueFromRanorexDataCultureToDoubleCurrentCulture.UserCode.cs">
+      <BoundTo>afe71edd-6c53-4ff6-b655-f93726b80b35</BoundTo>
+      <DependentUpon>ConvertValueFromRanorexDataCultureToDoubleCurrentCulture.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>415a7e92-e277-4f06-9523-3ab35c41fb3e</id>
+    </Compile>
+    <Compile Include="CreateScreenshotDocumentView.cs">
+      <BoundTo>14e0954b-aab4-4b1e-ba03-71e0aa224712</BoundTo>
+      <DependentUpon>CreateScreenshotDocumentView.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>13f73063-bc54-4776-be86-96ab37f198bb</id>
+    </Compile>
+    <Compile Include="CreateScreenshotDocumentView.UserCode.cs">
+      <BoundTo>14e0954b-aab4-4b1e-ba03-71e0aa224712</BoundTo>
+      <DependentUpon>CreateScreenshotDocumentView.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>92d5b475-ba4e-49fb-b139-178afd9897fb</id>
+    </Compile>
+    <Compile Include="CreateScreenShotPropertiesPanel.cs">
+      <BoundTo>a1bf799f-50b7-4bb2-a418-2705a88cab3e</BoundTo>
+      <DependentUpon>CreateScreenShotPropertiesPanel.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>baf9f544-a346-4cd3-88de-fefe6bf8de18</id>
+    </Compile>
+    <Compile Include="CreateScreenShotPropertiesPanel.UserCode.cs">
+      <BoundTo>a1bf799f-50b7-4bb2-a418-2705a88cab3e</BoundTo>
+      <DependentUpon>CreateScreenShotPropertiesPanel.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>83cbb184-cd9a-4bbe-9e6d-347e402a8d89</id>
+    </Compile>
+    <Compile Include="ExpandAllSubnodesHydraulicBCs.cs">
+      <BoundTo>9c7a41bd-e0db-4210-bf12-9dd7eea737e2</BoundTo>
+      <DependentUpon>ExpandAllSubnodesHydraulicBCs.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>9785942f-dd41-47b9-a5e1-c279b23f3747</id>
+    </Compile>
+    <Compile Include="ExpandAllSubnodesHydraulicBCs.UserCode.cs">
+      <BoundTo>9c7a41bd-e0db-4210-bf12-9dd7eea737e2</BoundTo>
+      <DependentUpon>ExpandAllSubnodesHydraulicBCs.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>654ef44a-74bd-4346-92cb-6094981aa98f</id>
+    </Compile>
+    <Compile Include="OpenViewForSubSubItemInTraject.cs">
+      <BoundTo>d3dfaa10-d374-4ca6-83b6-5ae812dbc084</BoundTo>
+      <DependentUpon>OpenViewForSubSubItemInTraject.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>4e56f234-d8af-4325-ac97-79727e8b8bab</id>
+    </Compile>
+    <Compile Include="OpenViewForSubSubItemInTraject.UserCode.cs">
+      <BoundTo>d3dfaa10-d374-4ca6-83b6-5ae812dbc084</BoundTo>
+      <DependentUpon>OpenViewForSubSubItemInTraject.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>376ab36c-85a8-469c-ad18-78923a6edc3c</id>
+    </Compile>
+    <Compile Include="PressCancelDialog.cs">
+      <BoundTo>279e8679-12f1-4fcf-a30c-2b5d6f7769dd</BoundTo>
+      <DependentUpon>PressCancelDialog.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>e8e4b375-caea-4492-b8cd-b445c3bdd113</id>
+    </Compile>
+    <Compile Include="PressCancelDialog.UserCode.cs">
+      <BoundTo>279e8679-12f1-4fcf-a30c-2b5d6f7769dd</BoundTo>
+      <DependentUpon>PressCancelDialog.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>3ee5481a-3806-4bd5-a9d9-97db758837fa</id>
+    </Compile>
+    <Compile Include="SelectCalculationsAndIllustrationPoints.cs">
+      <BoundTo>873bbf94-8af0-47b2-b4c4-0c1d338af2f8</BoundTo>
+      <DependentUpon>SelectCalculationsAndIllustrationPoints.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>f83ba396-52d2-4c92-993c-4b833f1a4a92</id>
+    </Compile>
+    <Compile Include="SelectCalculationsAndIllustrationPoints.UserCode.cs">
+      <BoundTo>873bbf94-8af0-47b2-b4c4-0c1d338af2f8</BoundTo>
+      <DependentUpon>SelectCalculationsAndIllustrationPoints.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>659285ce-19aa-4ef8-afb9-faf0a2f8271a</id>
+    </Compile>
+    <Compile Include="SelectRowCalculation.cs">
+      <BoundTo>afcbcacc-5b0b-4d59-884d-84d57b286c4c</BoundTo>
+      <DependentUpon>SelectRowCalculation.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>3a258613-a85e-4975-831c-1381d0f27f51</id>
+    </Compile>
+    <Compile Include="SelectRowCalculation.UserCode.cs">
+      <BoundTo>afcbcacc-5b0b-4d59-884d-84d57b286c4c</BoundTo>
+      <DependentUpon>SelectRowCalculation.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>2e623771-4aa4-4081-9812-2277697511fa</id>
+    </Compile>
     <Compile Include="SetDetailedAssessmentValueForRow.cs">
       <BoundTo>a6aa9891-7b17-448b-bd52-f69c71b53d62</BoundTo>
       <DependentUpon>SetDetailedAssessmentValueForRow.rxrec</DependentUpon>
@@ -993,6 +1101,18 @@
       <UserCode>true</UserCode>
       <id>9aabd863-3df8-4890-abd4-a997f4914ca5</id>
     </Compile>
+    <Compile Include="ValidateNormalDoubleCurrentlyShownInPropertiesPanel.cs">
+      <BoundTo>1e3ffeec-c56b-4b2f-84cb-53870e9a4344</BoundTo>
+      <DependentUpon>ValidateNormalDoubleCurrentlyShownInPropertiesPanel.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>87fd4fe9-620b-494c-ad48-022d9f457847</id>
+    </Compile>
+    <Compile Include="ValidateNormalDoubleCurrentlyShownInPropertiesPanel.UserCode.cs">
+      <BoundTo>1e3ffeec-c56b-4b2f-84cb-53870e9a4344</BoundTo>
+      <DependentUpon>ValidateNormalDoubleCurrentlyShownInPropertiesPanel.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>7fa19957-1318-4443-a664-bcea138e1fb3</id>
+    </Compile>
     <Compile Include="ValidateParameterDoesNotExistForItemInTraject.cs">
       <BoundTo>27f04823-1f1a-4251-be16-0e92f15ca64c</BoundTo>
       <DependentUpon>ValidateParameterDoesNotExistForItemInTraject.rxrec</DependentUpon>
@@ -1149,6 +1269,18 @@
       <UserCode>true</UserCode>
       <id>efa53e23-d8e4-4e67-ac1c-b7c4fc9f2aaf</id>
     </Compile>
+    <Compile Include="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel.cs">
+      <BoundTo>a1f5fde3-a22c-4109-b9aa-57a295901e7a</BoundTo>
+      <DependentUpon>ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>49843c46-7cc6-44ab-843e-37241eba37de</id>
+    </Compile>
+    <Compile Include="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel.UserCode.cs">
+      <BoundTo>a1f5fde3-a22c-4109-b9aa-57a295901e7a</BoundTo>
+      <DependentUpon>ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>2f4eb245-a630-42b8-ba85-36351a31ec80</id>
+    </Compile>
     <Compile Include="ValidateValueParameterForItemInTraject.cs">
       <BoundTo>f146138e-5d6e-47a6-b572-efcb4d6fe1ba</BoundTo>
       <DependentUpon>ValidateValueParameterForItemInTraject.rxrec</DependentUpon>
@@ -1160,6 +1292,18 @@
       <DependentUpon>ValidateValueParameterForItemInTraject.rxrec</DependentUpon>
       <UserCode>true</UserCode>
       <id>6933b1f0-e685-46fa-afeb-f550560bf1b5</id>
+    </Compile>
+    <Compile Include="ValidateWaterLevelInDocumentView.cs">
+      <BoundTo>b6c2ba00-63e3-4440-af0f-320297649b7e</BoundTo>
+      <DependentUpon>ValidateWaterLevelInDocumentView.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>8550311c-8bfa-4c55-a0d1-9a867ff12464</id>
+    </Compile>
+    <Compile Include="ValidateWaterLevelInDocumentView.UserCode.cs">
+      <BoundTo>b6c2ba00-63e3-4440-af0f-320297649b7e</BoundTo>
+      <DependentUpon>ValidateWaterLevelInDocumentView.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>c0294f29-44a4-412a-8249-afbe98678ba2</id>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -1186,6 +1330,51 @@
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>ead7dbbc-6b97-49df-999c-7ea29e40cd4c</id>
       <recordtableid>6fcd729a-b24a-42d7-8636-f8d75a283109</recordtableid>
+    </None>
+    <None Include="ClickOnRunSelectedCalculations.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>656b7e3b-fd9a-4148-9687-72c952815443</id>
+      <recordtableid>907b89b7-6058-4333-a615-ff354007586c</recordtableid>
+    </None>
+    <None Include="ConvertValueFromRanorexDataCultureToDoubleCurrentCulture.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>afe71edd-6c53-4ff6-b655-f93726b80b35</id>
+      <recordtableid>9f850752-ea2b-451f-9b30-164f5bceb80b</recordtableid>
+    </None>
+    <None Include="CreateScreenshotDocumentView.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>14e0954b-aab4-4b1e-ba03-71e0aa224712</id>
+      <recordtableid>8badabce-c10f-42fb-a575-8d9ad473c375</recordtableid>
+    </None>
+    <None Include="CreateScreenShotPropertiesPanel.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>a1bf799f-50b7-4bb2-a418-2705a88cab3e</id>
+      <recordtableid>bbe1b453-6dad-446c-8f21-3104847f3bd8</recordtableid>
+    </None>
+    <None Include="ExpandAllSubnodesHydraulicBCs.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>9c7a41bd-e0db-4210-bf12-9dd7eea737e2</id>
+      <recordtableid>3cb9fa1a-aba2-473a-8e0f-8b29e9388cba</recordtableid>
+    </None>
+    <None Include="OpenViewForSubSubItemInTraject.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>d3dfaa10-d374-4ca6-83b6-5ae812dbc084</id>
+      <recordtableid>5b90023d-8ce6-4c31-82f9-6806a72b326f</recordtableid>
+    </None>
+    <None Include="PressCancelDialog.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>279e8679-12f1-4fcf-a30c-2b5d6f7769dd</id>
+      <recordtableid>de80be27-ca55-476e-b824-e08916e3e0a3</recordtableid>
+    </None>
+    <None Include="SelectCalculationsAndIllustrationPoints.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>873bbf94-8af0-47b2-b4c4-0c1d338af2f8</id>
+      <recordtableid>7654cb84-67f3-46ba-9397-46d52163b934</recordtableid>
+    </None>
+    <None Include="SelectRowCalculation.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>afcbcacc-5b0b-4d59-884d-84d57b286c4c</id>
+      <recordtableid>5d9d0b0c-5c9f-4686-a9eb-207de4b6b2e3</recordtableid>
     </None>
     <None Include="SetDetailedAssessmentValueForRow.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
@@ -1532,6 +1721,11 @@
       <id>31e81b77-c11e-4528-8722-7adaeeeb11ad</id>
       <recordtableid>85bd5588-c795-4a99-aeaf-4daebe835849</recordtableid>
     </None>
+    <None Include="ValidateNormalDoubleCurrentlyShownInPropertiesPanel.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>1e3ffeec-c56b-4b2f-84cb-53870e9a4344</id>
+      <recordtableid>96402262-15e0-4220-98f9-083d0b2a69c0</recordtableid>
+    </None>
     <None Include="ValidateParameterDoesNotExistForItemInTraject.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>27f04823-1f1a-4251-be16-0e92f15ca64c</id>
@@ -1597,10 +1791,20 @@
       <id>a07de890-0a93-4d5e-865b-7ca9370d261c</id>
       <recordtableid>200d05d0-2615-44bf-991e-2913171cd220</recordtableid>
     </None>
+    <None Include="ValidateDoubleValueParameterCurrentlyShownInPropertiesPanel.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>a1f5fde3-a22c-4109-b9aa-57a295901e7a</id>
+      <recordtableid>79ee9c65-cb26-47bb-bf72-e22edc799777</recordtableid>
+    </None>
     <None Include="ValidateValueParameterForItemInTraject.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>f146138e-5d6e-47a6-b572-efcb4d6fe1ba</id>
       <recordtableid>54946666-7cba-49b9-b848-41ea43b074d9</recordtableid>
+    </None>
+    <None Include="ValidateWaterLevelInDocumentView.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>b6c2ba00-63e3-4440-af0f-320297649b7e</id>
+      <recordtableid>c93bb1b9-c14c-4a0a-ae72-fe034593361b</recordtableid>
     </None>
   </ItemGroup>
   <ItemGroup>

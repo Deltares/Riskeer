@@ -23,10 +23,6 @@ mode="Global">
 	namespace="AutomatedSystemTests">
 	</codegen>
 	<variables>
-		<var
-		id="ebca180a-929b-4462-bf7c-2388fcd92b35"
-		name="expectedCustomAssessmentValue">
-		</var>
 	</variables>
 	<recorditems>
 		<invokeactionrecorditem

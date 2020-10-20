@@ -50,12 +50,10 @@ namespace AutomatedSystemTests
         			calculatedCategoryBoundary = "1/Oneindig";
         			Report.Log(ReportLevel.Info, "", categoryName+categorySuffix+boundaryType+ " : " + calculatedCategoryBoundary);
         			return calculatedCategoryBoundary;
-        			break;
         		case "VIBoven":
         			calculatedCategoryBoundary = "1/1";
         			Report.Log(ReportLevel.Info, "", categoryName+categorySuffix+boundaryType+ " : " + calculatedCategoryBoundary);
         			return calculatedCategoryBoundary;
-        			break;
         		case "IIOnder":
         			boundaryValue = (1.0/30.0)*signalingValueD*contributionD/100.0;
         			if (categorySuffix=="v") {
@@ -107,7 +105,6 @@ namespace AutomatedSystemTests
         		default:
         			Report.Log(ReportLevel.Info,"", "case : " + boundaryToEvaluate + "error!");
         			throw new Exception();
-        			break;
         	}
         	var denominatorBoundary = Math.Round(1/boundaryValue);
         	calculatedCategoryBoundary = "1/" + denominatorBoundary.ToString("N0", currentCulture.NumberFormat);
