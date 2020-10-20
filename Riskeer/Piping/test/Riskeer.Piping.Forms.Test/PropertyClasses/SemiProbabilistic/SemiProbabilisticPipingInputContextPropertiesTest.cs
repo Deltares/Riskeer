@@ -617,7 +617,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
                                                         ? inputParameters.AssessmentLevel
                                                         : AssessmentSectionTestHelper.GetTestAssessmentLevel();
 
-            Assert.AreEqual(DerivedPipingInput.GetPiezometricHeadExit(inputParameters, expectedAssessmentLevel), properties.PiezometricHeadExit);
+            Assert.AreEqual(DerivedSemiProbabilisticPipingInput.GetPiezometricHeadExit(inputParameters, expectedAssessmentLevel), properties.PiezometricHeadExit);
 
             VariationCoefficientLogNormalDistribution seepageLength = DerivedPipingInput.GetSeepageLength(inputParameters);
             Assert.AreEqual(seepageLength.Mean, properties.SeepageLength.Mean);

@@ -24,11 +24,8 @@ using Core.Common.Base.Data;
 using NUnit.Framework;
 using Riskeer.Common.Data.Probabilistics;
 using Riskeer.Common.Data.TestUtil;
-using Riskeer.Piping.Data.SemiProbabilistic;
 using Riskeer.Piping.Data.SoilProfile;
 using Riskeer.Piping.Data.TestUtil;
-using Riskeer.Piping.KernelWrapper.SubCalculator;
-using Riskeer.Piping.KernelWrapper.TestUtil.SubCalculator;
 using Riskeer.Piping.Primitives;
 
 namespace Riskeer.Piping.Data.Test
@@ -36,59 +33,6 @@ namespace Riskeer.Piping.Data.Test
     [TestFixture]
     public class DerivedPipingInputTest
     {
-        [Test]
-        public void GetPiezometricHeadExit_InputNull_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate call = () => DerivedPipingInput.GetPiezometricHeadExit(null, RoundedDouble.NaN);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("input", paramName);
-        }
-
-        [Test]
-        public void GetPiezometricHeadExit_ValidInput_SetsParametersForCalculatorAndReturnsNotNaN()
-        {
-            // Setup
-            var input = new TestPipingInput();
-
-            using (new PipingSubCalculatorFactoryConfig())
-            {
-                // Setup
-                var assessmentLevel = (RoundedDouble) 1.1;
-
-                // Call
-                RoundedDouble piezometricHead = DerivedPipingInput.GetPiezometricHeadExit(input, assessmentLevel);
-
-                // Assert
-                Assert.AreEqual(2, piezometricHead.NumberOfDecimalPlaces);
-                Assert.IsFalse(double.IsNaN(piezometricHead));
-
-                var factory = (TestPipingSubCalculatorFactory) PipingSubCalculatorFactory.Instance;
-                PiezoHeadCalculatorStub piezometricHeadAtExitCalculator = factory.LastCreatedPiezometricHeadAtExitCalculator;
-
-                Assert.AreEqual(assessmentLevel, piezometricHeadAtExitCalculator.HRiver, assessmentLevel.GetAccuracy());
-                Assert.AreEqual(SemiProbabilisticPipingDesignVariableFactory.GetPhreaticLevelExit(input).GetDesignValue(), piezometricHeadAtExitCalculator.PhiPolder,
-                                input.PhreaticLevelExit.GetAccuracy());
-                Assert.AreEqual(SemiProbabilisticPipingDesignVariableFactory.GetDampingFactorExit(input).GetDesignValue(), piezometricHeadAtExitCalculator.RExit,
-                                input.DampingFactorExit.GetAccuracy());
-            }
-        }
-
-        [Test]
-        public void GetPiezometricHeadExit_AssessmentLevelNaN_ReturnsNaN()
-        {
-            // Setup
-            PipingInput input = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer(1.0, 1.0);
-
-            // Call
-            RoundedDouble piezometricHead = DerivedPipingInput.GetPiezometricHeadExit(input, RoundedDouble.NaN);
-
-            // Assert
-            Assert.IsNaN(piezometricHead);
-        }
-
         [Test]
         public void GetEffectiveThicknessCoverageLayer_InputNull_ThrowsArgumentNullException()
         {
