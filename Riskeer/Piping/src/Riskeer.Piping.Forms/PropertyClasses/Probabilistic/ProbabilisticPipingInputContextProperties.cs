@@ -257,7 +257,7 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
         {
             get
             {
-                return SemiProbabilisticDerivedPipingInput.GetPiezometricHeadExit(data.WrappedData, getNormativeAssessmentLevelFunc());
+                return DerivedSemiProbabilisticPipingInput.GetPiezometricHeadExit(data.WrappedData, getNormativeAssessmentLevelFunc());
             }
         }
 

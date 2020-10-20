@@ -161,7 +161,7 @@ namespace Riskeer.Piping.Service.SemiProbabilistic
             {
                 validationResults.AddRange(ValidateAssessmentLevel(inputParameters, normativeAssessmentLevel));
 
-                RoundedDouble piezometricHeadExit = SemiProbabilisticDerivedPipingInput.GetPiezometricHeadExit(inputParameters, GetEffectiveAssessmentLevel(inputParameters, normativeAssessmentLevel));
+                RoundedDouble piezometricHeadExit = DerivedSemiProbabilisticPipingInput.GetPiezometricHeadExit(inputParameters, GetEffectiveAssessmentLevel(inputParameters, normativeAssessmentLevel));
                 if (double.IsNaN(piezometricHeadExit) || double.IsInfinity(piezometricHeadExit))
                 {
                     validationResults.Add(Resources.PipingCalculationService_ValidateInput_Cannot_determine_PiezometricHeadExit);
@@ -371,7 +371,7 @@ namespace Riskeer.Piping.Service.SemiProbabilistic
                     SaturatedVolumicWeightOfCoverageLayer = SemiProbabilisticPipingDesignVariableFactory.GetSaturatedVolumicWeightOfCoverageLayer(inputParameters).GetDesignValue(),
                     UpliftModelFactor = SemiProbabilisticPipingDesignVariableFactory.GetUpliftModelFactorDesignVariable(inputParameters).GetDesignValue(),
                     AssessmentLevel = effectiveAssessmentLevel,
-                    PiezometricHeadExit = SemiProbabilisticDerivedPipingInput.GetPiezometricHeadExit(inputParameters, effectiveAssessmentLevel),
+                    PiezometricHeadExit = DerivedSemiProbabilisticPipingInput.GetPiezometricHeadExit(inputParameters, effectiveAssessmentLevel),
                     DampingFactorExit = SemiProbabilisticPipingDesignVariableFactory.GetDampingFactorExit(inputParameters).GetDesignValue(),
                     PhreaticLevelExit = SemiProbabilisticPipingDesignVariableFactory.GetPhreaticLevelExit(inputParameters).GetDesignValue(),
                     CriticalHeaveGradient = inputParameters.CriticalHeaveGradient,

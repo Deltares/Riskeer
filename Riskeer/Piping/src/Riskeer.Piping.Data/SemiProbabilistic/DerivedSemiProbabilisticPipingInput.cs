@@ -28,7 +28,7 @@ namespace Riskeer.Piping.Data.SemiProbabilistic
     /// <summary>
     /// Class responsible for calculating the derived semi-probabilistic piping input.
     /// </summary>
-    public static class SemiProbabilisticDerivedPipingInput
+    public static class DerivedSemiProbabilisticPipingInput
     {
         /// <summary>
         /// Gets the piezometric head at the exit point.
