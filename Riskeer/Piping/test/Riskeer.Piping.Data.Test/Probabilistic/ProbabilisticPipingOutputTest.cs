@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Core.Common.Base;
 using Core.Common.Data.TestUtil;
 using NUnit.Framework;
@@ -49,6 +50,67 @@ namespace Riskeer.Piping.Data.Test.Probabilistic
             Assert.IsInstanceOf<ICalculationOutput>(output);
             Assert.AreSame(sectionSpecificOutput, output.SectionSpecificOutput);
             Assert.AreSame(profileSpecificOutput, output.ProfileSpecificOutput);
+        }
+
+        [Test]
+        public void ClearIllustrationPoints_OutputWithGeneralResult_ClearsGeneralResult()
+        {
+            // Setup
+            var random = new Random(39);
+            double sectionSpecificReliability = random.NextDouble();
+            double profileSpecificReliability = random.NextDouble();
+            var sectionSpecificOutput = new PartialProbabilisticPipingOutput(sectionSpecificReliability,
+                                                                             new TestGeneralResultFaultTreeIllustrationPoint());
+            var profileSpecificOutput = new PartialProbabilisticPipingOutput(profileSpecificReliability,
+                                                                             new TestGeneralResultFaultTreeIllustrationPoint());
+            var output = new ProbabilisticPipingOutput(sectionSpecificOutput, profileSpecificOutput);
+
+            // Call
+            output.ClearIllustrationPoints();
+
+            // Assert
+            Assert.AreEqual(sectionSpecificReliability, output.SectionSpecificOutput.Reliability);
+            Assert.IsFalse(output.SectionSpecificOutput.HasGeneralResult);
+            Assert.IsNull(output.SectionSpecificOutput.GeneralResult);
+            Assert.AreEqual(profileSpecificReliability, output.ProfileSpecificOutput.Reliability);
+            Assert.IsFalse(output.ProfileSpecificOutput.HasGeneralResult);
+            Assert.IsNull(output.ProfileSpecificOutput.GeneralResult);
+        }
+
+        [Test]
+        public void ClearIllustrationPoints_OutputWithoutGeneralResult_NothingHappens()
+        {
+            // Setup
+            var random = new Random(39);
+            double sectionSpecificReliability = random.NextDouble();
+            double profileSpecificReliability = random.NextDouble();
+            var sectionSpecificOutput = new PartialProbabilisticPipingOutput(sectionSpecificReliability, null);
+            var profileSpecificOutput = new PartialProbabilisticPipingOutput(profileSpecificReliability, null);
+            var output = new ProbabilisticPipingOutput(sectionSpecificOutput, profileSpecificOutput);
+
+            // Call
+            output.ClearIllustrationPoints();
+
+            // Assert
+            Assert.AreEqual(sectionSpecificReliability, output.SectionSpecificOutput.Reliability);
+            Assert.IsFalse(output.SectionSpecificOutput.HasGeneralResult);
+            Assert.IsNull(output.SectionSpecificOutput.GeneralResult);
+            Assert.AreEqual(profileSpecificReliability, output.ProfileSpecificOutput.Reliability);
+            Assert.IsFalse(output.ProfileSpecificOutput.HasGeneralResult);
+            Assert.IsNull(output.ProfileSpecificOutput.GeneralResult);
+        }
+
+        [Test]
+        public void ClearIllustrationPoints_NoOutput_DoesNotThrow()
+        {
+            // Setup
+            var output = new ProbabilisticPipingOutput(null, null);
+
+            // Call
+            void Call() => output.ClearIllustrationPoints();
+
+            // Assert
+            Assert.DoesNotThrow(Call);
         }
 
         [Test]

@@ -52,6 +52,15 @@ namespace Riskeer.Piping.Data.Probabilistic
         /// </summary>
         public PartialProbabilisticPipingOutput ProfileSpecificOutput { get; private set; }
 
+        /// <summary>
+        /// Clears the calculated illustration points.
+        /// </summary>
+        public void ClearIllustrationPoints()
+        {
+            SectionSpecificOutput?.ClearIllustrationPoints();
+            ProfileSpecificOutput?.ClearIllustrationPoints();
+        }
+        
         public override object Clone()
         {
             var clone = (ProbabilisticPipingOutput) base.Clone();
