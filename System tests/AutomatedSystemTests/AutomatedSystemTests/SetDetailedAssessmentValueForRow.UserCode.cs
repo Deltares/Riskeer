@@ -36,9 +36,13 @@ namespace AutomatedSystemTests
 
         public void Set_value_DetailedAsssessmentTypeRowNth(RepoItemInfo cellInfo)
         {
-            System.Globalization.CultureInfo currentCulture = CultureInfo.CurrentCulture;
-        	Report.Log(ReportLevel.Info, "Set value", "Setting attribute AccessibleValue to '$assessmentValueToAssign' on item 'cellInfo'.", cellInfo);
-            assessmentValueToAssign = Double.Parse(assessmentValueToAssign).ToString(currentCulture);
+            System.Globalization.CultureInfo fixedDataSourceCulture = new CultureInfo("en-US");
+        	fixedDataSourceCulture.NumberFormat.NumberDecimalSeparator = ".";
+        	fixedDataSourceCulture.NumberFormat.NumberGroupSeparator = "";
+        	System.Globalization.CultureInfo currentCulture = CultureInfo.CurrentCulture;
+            assessmentValueToAssign = Double.Parse(assessmentValueToAssign, fixedDataSourceCulture).ToString(currentCulture);
+			Report.Log(ReportLevel.Info, "Info", "Value to assign: " + assessmentValueToAssign);
+			Report.Log(ReportLevel.Info, "Set value", "Setting attribute AccessibleValue to '$assessmentValueToAssign' on item 'cellInfo'.", cellInfo);
             cellInfo.FindAdapter<Cell>().Element.SetAttributeValue("AccessibleValue", assessmentValueToAssign);
         }
 
