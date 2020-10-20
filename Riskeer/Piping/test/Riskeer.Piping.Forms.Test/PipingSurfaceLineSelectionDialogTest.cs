@@ -23,9 +23,9 @@ using System;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.DataGrid;
+using Core.Common.Controls.Dialogs;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using Riskeer.Common.Forms;
 using Riskeer.Piping.Primitives;
 
 namespace Riskeer.Piping.Forms.Test
@@ -36,55 +36,60 @@ namespace Riskeer.Piping.Forms.Test
         private const int selectItemColumnIndex = 0;
         private const int nameColumnIndex = 1;
 
+        private Form testForm;
+
+        [SetUp]
+        public void Setup()
+        {
+            testForm = new Form();
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            testForm.Dispose();
+        }
+
         [Test]
-        public void Constructor_WithoutParent_ThrowsArgumentNullException()
+        public void Constructor_DialogParentNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new PipingSurfaceLineSelectionDialog(null, Enumerable.Empty<PipingSurfaceLine>());
+            void Call() => new PipingSurfaceLineSelectionDialog(null, Enumerable.Empty<PipingSurfaceLine>());
 
             // Assert
-            string parameter = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("dialogParent", parameter);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("dialogParent", exception.ParamName);
         }
 
         [Test]
-        public void Constructor_WithoutSurfaceLines_ThrowsArgumentNullException()
+        public void Constructor_SurfaceLinesNull_ThrowsArgumentNullException()
         {
-            // Setup
-            using (var viewParent = new Form())
-            {
-                // Call
-                TestDelegate test = () => new PipingSurfaceLineSelectionDialog(viewParent, null);
+            // Call
+            void Call() => new PipingSurfaceLineSelectionDialog(testForm, null);
 
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("surfaceLines", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_ExpectedValues()
+        {
+            // Call
+            using (var dialog = new PipingSurfaceLineSelectionDialog(testForm, Enumerable.Empty<PipingSurfaceLine>()))
+            {
                 // Assert
-                string parameter = Assert.Throws<ArgumentNullException>(test).ParamName;
-                Assert.AreEqual("surfaceLines", parameter);
-            }
-        }
-
-        [Test]
-        public void Constructor_WithParentAndSurfaceLines_DefaultProperties()
-        {
-            // Setup
-            using (var viewParent = new Form())
-            {
-                // Call
-                using (var dialog = new PipingSurfaceLineSelectionDialog(viewParent, Enumerable.Empty<PipingSurfaceLine>()))
-                {
-                    // Assert
-                    Assert.IsInstanceOf<SelectionDialogBase<PipingSurfaceLine>>(dialog);
-                    CollectionAssert.IsEmpty(dialog.SelectedItems);
-                    Assert.AreEqual("Selecteer profielschematisaties", dialog.Text);
-                }
+                Assert.IsInstanceOf<DialogBase>(dialog);
+                CollectionAssert.IsEmpty(dialog.SelectedItems);
+                Assert.AreEqual("Selecteer profielschematisaties", dialog.Text);
             }
         }
 
         [Test]
         public void Constructor_DataGridViewCorrectlyInitialized()
         {
-            // Setup & Call
-            using (var viewParent = new Form())
-            using (var dialog = new PipingSurfaceLineSelectionDialog(viewParent, Enumerable.Empty<PipingSurfaceLine>()))
+            // Call
+            using (var dialog = new PipingSurfaceLineSelectionDialog(testForm, Enumerable.Empty<PipingSurfaceLine>()))
             {
                 dialog.Show();
 
@@ -114,12 +119,11 @@ namespace Riskeer.Piping.Forms.Test
         public void Constructor_SurfaceLinesOneEntry_OneRowInGrid()
         {
             // Setup
-            const string testname = "testName";
-            var pipingSurfaceLine = new PipingSurfaceLine(testname);
+            const string testName = "testName";
+            var pipingSurfaceLine = new PipingSurfaceLine(testName);
 
             // Call
-            using (var viewParent = new Form())
-            using (var dialog = new PipingSurfaceLineSelectionDialog(viewParent, new[]
+            using (var dialog = new PipingSurfaceLineSelectionDialog(testForm, new[]
             {
                 pipingSurfaceLine
             }))
@@ -130,7 +134,181 @@ namespace Riskeer.Piping.Forms.Test
                 var dataGridViewControl = (DataGridViewControl) new ControlTester("DataGridViewControl").TheObject;
                 Assert.AreEqual(1, dataGridViewControl.Rows.Count);
                 Assert.IsFalse((bool) dataGridViewControl.Rows[0].Cells[selectItemColumnIndex].Value);
-                Assert.AreEqual(testname, (string) dataGridViewControl.Rows[0].Cells[nameColumnIndex].Value);
+                Assert.AreEqual(testName, (string) dataGridViewControl.Rows[0].Cells[nameColumnIndex].Value);
+            }
+        }
+
+        [Test]
+        public void GivenDialogWithSelectedItems_WhenCloseWithoutConfirmation_ThenReturnsEmptyCollection()
+        {
+            // Given
+            var surfaceLines = new[]
+            {
+                new PipingSurfaceLine("surface line 1"),
+                new PipingSurfaceLine("surface line 2")
+            };
+
+            using (var dialog = new PipingSurfaceLineSelectionDialog(testForm, surfaceLines))
+            {
+                var selectionView = (DataGridViewControl) new ControlTester("DataGridViewControl", dialog).TheObject;
+
+                dialog.Show();
+                selectionView.Rows[0].Cells[0].Value = true;
+
+                // When
+                dialog.Close();
+
+                // Then
+                CollectionAssert.IsEmpty(dialog.SelectedItems);
+            }
+        }
+
+        [Test]
+        public void GivenDialogWithSelectedItems_WhenCancelButtonClicked_ThenReturnsEmptyCollection()
+        {
+            // Given
+            var surfaceLines = new[]
+            {
+                new PipingSurfaceLine("surface line 1"),
+                new PipingSurfaceLine("surface line 2")
+            };
+
+            using (var dialog = new PipingSurfaceLineSelectionDialog(testForm, surfaceLines))
+            {
+                var selectionView = (DataGridViewControl) new ControlTester("DataGridViewControl", dialog).TheObject;
+
+                dialog.Show();
+                selectionView.Rows[0].Cells[0].Value = true;
+
+                // When
+                var cancelButton = new ButtonTester("CustomCancelButton", dialog);
+                cancelButton.Click();
+
+                // Then
+                CollectionAssert.IsEmpty(dialog.SelectedItems);
+            }
+        }
+
+        [Test]
+        public void GivenDialogWithSelectedItems_WhenDoForSelectedButtonClicked_ThenReturnsSelectedCollection()
+        {
+            // Given
+            var selectedSurfaceLine = new PipingSurfaceLine("surface line 1");
+            PipingSurfaceLine[] surfaceLines =
+            {
+                selectedSurfaceLine,
+                new PipingSurfaceLine("surface line 2")
+            };
+
+            using (var dialog = new PipingSurfaceLineSelectionDialog(testForm, surfaceLines))
+            {
+                var selectionView = (DataGridViewControl) new ControlTester("DataGridViewControl", dialog).TheObject;
+
+                dialog.Show();
+
+                selectionView.Rows[0].Cells[0].Value = true;
+
+                // When
+                var generateButton = new ButtonTester("DoForSelectedButton", dialog);
+                generateButton.Click();
+
+                // Then
+                CollectionAssert.AreEqual(new[]
+                {
+                    selectedSurfaceLine
+                }, dialog.SelectedItems);
+            }
+        }
+
+        [Test]
+        public void SelectAllButton_SelectAllButtonClicked_AllItemsSelected()
+        {
+            // Setup
+            var surfaceLines = new[]
+            {
+                new PipingSurfaceLine("surface line 1"),
+                new PipingSurfaceLine("surface line 2")
+            };
+
+            using (var dialog = new PipingSurfaceLineSelectionDialog(testForm, surfaceLines))
+            {
+                dialog.Show();
+
+                var dataGridView = (DataGridViewControl) new ControlTester("DataGridViewControl", dialog).TheObject;
+                DataGridViewRowCollection rows = dataGridView.Rows;
+                var button = new ButtonTester("SelectAllButton", dialog);
+
+                // Precondition
+                Assert.IsFalse((bool) rows[0].Cells[selectItemColumnIndex].Value);
+                Assert.IsFalse((bool) rows[1].Cells[selectItemColumnIndex].Value);
+
+                // Call
+                button.Click();
+
+                // Assert
+                Assert.IsTrue((bool) rows[0].Cells[selectItemColumnIndex].Value);
+                Assert.IsTrue((bool) rows[1].Cells[selectItemColumnIndex].Value);
+            }
+        }
+
+        [Test]
+        public void DeselectAllButton_AllItemsSelectedDeselectAllButtonClicked_AllItemsNotSelected()
+        {
+            // Setup
+            var surfaceLines = new[]
+            {
+                new PipingSurfaceLine("surface line 1"),
+                new PipingSurfaceLine("surface line 2")
+            };
+
+            using (var dialog = new PipingSurfaceLineSelectionDialog(testForm, surfaceLines))
+            {
+                dialog.Show();
+
+                var dataGridView = (DataGridViewControl) new ControlTester("DataGridViewControl", dialog).TheObject;
+                DataGridViewRowCollection rows = dataGridView.Rows;
+                var button = new ButtonTester("DeselectAllButton", dialog);
+
+                foreach (DataGridViewRow row in rows)
+                {
+                    row.Cells[selectItemColumnIndex].Value = true;
+                }
+
+                // Precondition
+                Assert.IsTrue((bool) rows[0].Cells[selectItemColumnIndex].Value);
+                Assert.IsTrue((bool) rows[1].Cells[selectItemColumnIndex].Value);
+
+                // Call
+                button.Click();
+
+                // Assert
+                Assert.IsFalse((bool) rows[0].Cells[selectItemColumnIndex].Value);
+                Assert.IsFalse((bool) rows[1].Cells[selectItemColumnIndex].Value);
+            }
+        }
+
+        [Test]
+        public void DoForSelectedButton_NoneSelected_DoForSelectedButtonDisabled()
+        {
+            // Setup
+            var surfaceLines = new[]
+            {
+                new PipingSurfaceLine("surface line 1"),
+                new PipingSurfaceLine("surface line 2")
+            };
+
+            using (var dialog = new PipingSurfaceLineSelectionDialog(testForm, surfaceLines))
+            {
+                dialog.Show();
+
+                var buttonTester = new ButtonTester("DoForSelectedButton", dialog);
+
+                // Call
+                var button = (Button) buttonTester.TheObject;
+
+                // Assert
+                Assert.IsFalse(button.Enabled);
+                CollectionAssert.IsEmpty(dialog.SelectedItems);
             }
         }
     }
