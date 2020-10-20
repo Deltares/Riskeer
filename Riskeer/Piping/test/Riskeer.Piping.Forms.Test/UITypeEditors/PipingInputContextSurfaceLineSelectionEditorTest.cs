@@ -20,21 +20,12 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Windows.Forms.Design;
-using Core.Common.Base.Geometry;
 using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Riskeer.Common.Data.AssessmentSection;
-using Riskeer.Common.Data.TestUtil;
-using Riskeer.Common.Forms.PropertyClasses;
-using Riskeer.Piping.Data;
-using Riskeer.Piping.Data.SemiProbabilistic;
-using Riskeer.Piping.Data.SoilProfile;
-using Riskeer.Piping.Forms.PresentationObjects.SemiProbabilistic;
-using Riskeer.Piping.Forms.PropertyClasses.SemiProbabilistic;
 using Riskeer.Piping.Forms.UITypeEditors;
 using Riskeer.Piping.Primitives;
 
@@ -51,31 +42,13 @@ namespace Riskeer.Piping.Forms.Test.UITypeEditors
             var provider = mockRepository.DynamicMock<IServiceProvider>();
             var service = mockRepository.DynamicMock<IWindowsFormsEditorService>();
             var context = mockRepository.DynamicMock<ITypeDescriptorContext>();
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
 
-            var calculationItem = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput());
-            var failureMechanism = new PipingFailureMechanism();
-
-            var pipingInput = new SemiProbabilisticPipingInput(new GeneralPipingInput())
+            var properties = new TestHasSurfaceLineProperty(new PipingSurfaceLine("1"), new[]
             {
-                SurfaceLine = ValidSurfaceLine()
-            };
-            var inputParametersContext = new SemiProbabilisticPipingInputContext(pipingInput,
-                                                                                 calculationItem,
-                                                                                 new[]
-                                                                                 {
-                                                                                     new PipingSurfaceLine(string.Empty)
-                                                                                 },
-                                                                                 Enumerable.Empty<PipingStochasticSoilModel>(),
-                                                                                 failureMechanism,
-                                                                                 assessmentSection);
+                new PipingSurfaceLine("2")
+            });
 
-            var properties = new SemiProbabilisticPipingInputContextProperties(inputParametersContext,
-                                                                               AssessmentSectionTestHelper.GetTestAssessmentLevel,
-                                                                               handler);
-
-            var editor = new PipingInputContextSurfaceLineSelectionEditor<SemiProbabilisticPipingInputContextProperties>();
+            var editor = new PipingInputContextSurfaceLineSelectionEditor<TestHasSurfaceLineProperty>();
             var someValue = new object();
             var propertyBag = new DynamicPropertyBag(properties);
 
@@ -102,37 +75,14 @@ namespace Riskeer.Piping.Forms.Test.UITypeEditors
             var provider = mockRepository.DynamicMock<IServiceProvider>();
             var service = mockRepository.DynamicMock<IWindowsFormsEditorService>();
             var context = mockRepository.DynamicMock<ITypeDescriptorContext>();
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            var handler = mockRepository.Stub<IObservablePropertyChangeHandler>();
 
             var surfaceLine = new PipingSurfaceLine(string.Empty);
-            surfaceLine.SetGeometry(new[]
+            var properties = new TestHasSurfaceLineProperty(surfaceLine, new[]
             {
-                new Point3D(0.0, 0.0, 0.0),
-                new Point3D(1.0, 0.0, 1.0)
+                surfaceLine
             });
-            var calculationItem = new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput());
-            var failureMechanism = new PipingFailureMechanism();
 
-            var pipingInput = new SemiProbabilisticPipingInput(new GeneralPipingInput())
-            {
-                SurfaceLine = surfaceLine
-            };
-            var inputParametersContext = new SemiProbabilisticPipingInputContext(pipingInput,
-                                                                                 calculationItem,
-                                                                                 new[]
-                                                                                 {
-                                                                                     surfaceLine
-                                                                                 },
-                                                                                 Enumerable.Empty<PipingStochasticSoilModel>(),
-                                                                                 failureMechanism,
-                                                                                 assessmentSection);
-
-            var properties = new SemiProbabilisticPipingInputContextProperties(inputParametersContext,
-                                                                               AssessmentSectionTestHelper.GetTestAssessmentLevel,
-                                                                               handler);
-
-            var editor = new PipingInputContextSurfaceLineSelectionEditor<SemiProbabilisticPipingInputContextProperties>();
+            var editor = new PipingInputContextSurfaceLineSelectionEditor<TestHasSurfaceLineProperty>();
             var someValue = new object();
             var propertyBag = new DynamicPropertyBag(properties);
 
@@ -151,15 +101,26 @@ namespace Riskeer.Piping.Forms.Test.UITypeEditors
             mockRepository.VerifyAll();
         }
 
-        private static PipingSurfaceLine ValidSurfaceLine()
+        private class TestHasSurfaceLineProperty : IHasSurfaceLineProperty
         {
-            var surfaceLine = new PipingSurfaceLine(string.Empty);
-            surfaceLine.SetGeometry(new[]
+            private readonly IEnumerable<PipingSurfaceLine> availableSurfaceLines;
+
+            public event EventHandler<EventArgs> RefreshRequired;
+
+            public TestHasSurfaceLineProperty(PipingSurfaceLine surfaceLine, IEnumerable<PipingSurfaceLine> availableSurfaceLines)
             {
-                new Point3D(0.0, 0.0, 0.0),
-                new Point3D(1.0, 0.0, 1.0)
-            });
-            return surfaceLine;
+                this.availableSurfaceLines = availableSurfaceLines;
+                SurfaceLine = surfaceLine;
+            }
+
+            public object Data { get; set; }
+
+            public PipingSurfaceLine SurfaceLine { get; }
+
+            public IEnumerable<PipingSurfaceLine> GetAvailableSurfaceLines()
+            {
+                return availableSurfaceLines;
+            }
         }
     }
 }
