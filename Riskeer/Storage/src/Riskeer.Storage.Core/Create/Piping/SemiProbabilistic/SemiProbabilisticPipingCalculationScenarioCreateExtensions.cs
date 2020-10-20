@@ -24,7 +24,7 @@ using Core.Common.Util.Extensions;
 using Riskeer.Piping.Data.SemiProbabilistic;
 using Riskeer.Storage.Core.DbContext;
 
-namespace Riskeer.Storage.Core.Create.Piping
+namespace Riskeer.Storage.Core.Create.Piping.SemiProbabilistic
 {
     /// <summary>
     /// Extension methods for <see cref="SemiProbabilisticPipingCalculationScenario"/> related to creating

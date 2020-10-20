@@ -33,11 +33,11 @@ using Riskeer.Piping.Primitives;
 using Riskeer.Piping.Primitives.TestUtil;
 using Riskeer.Storage.Core.DbContext;
 using Riskeer.Storage.Core.Read;
-using Riskeer.Storage.Core.Read.Piping;
+using Riskeer.Storage.Core.Read.Piping.SemiProbabilistic;
 using Riskeer.Storage.Core.Serializers;
 using Riskeer.Storage.Core.TestUtil.Hydraulics;
 
-namespace Riskeer.Storage.Core.Test.Read.Piping
+namespace Riskeer.Storage.Core.Test.Read.Piping.SemiProbabilistic
 {
     [TestFixture]
     public class SemiProbabilisticPipingCalculationEntityReadExtensionsTest

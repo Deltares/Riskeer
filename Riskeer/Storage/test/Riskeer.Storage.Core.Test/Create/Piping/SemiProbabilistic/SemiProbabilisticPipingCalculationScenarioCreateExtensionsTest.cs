@@ -35,9 +35,10 @@ using Riskeer.Piping.Primitives;
 using Riskeer.Piping.Primitives.TestUtil;
 using Riskeer.Storage.Core.Create;
 using Riskeer.Storage.Core.Create.Piping;
+using Riskeer.Storage.Core.Create.Piping.SemiProbabilistic;
 using Riskeer.Storage.Core.DbContext;
 
-namespace Riskeer.Storage.Core.Test.Create.Piping
+namespace Riskeer.Storage.Core.Test.Create.Piping.SemiProbabilistic
 {
     [TestFixture]
     public class SemiProbabilisticPipingCalculationScenarioCreateExtensionsTest

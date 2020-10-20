@@ -23,10 +23,10 @@ using System;
 using NUnit.Framework;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Piping.Data.SemiProbabilistic;
-using Riskeer.Storage.Core.Create.Piping;
+using Riskeer.Storage.Core.Create.Piping.SemiProbabilistic;
 using Riskeer.Storage.Core.DbContext;
 
-namespace Riskeer.Storage.Core.Test.Create.Piping
+namespace Riskeer.Storage.Core.Test.Create.Piping.SemiProbabilistic
 {
     [TestFixture]
     public class SemiProbabilisticPipingOutputCreateExtensionsTest

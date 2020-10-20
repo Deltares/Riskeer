@@ -23,7 +23,7 @@ using System;
 using Riskeer.Piping.Data.SemiProbabilistic;
 using Riskeer.Storage.Core.DbContext;
 
-namespace Riskeer.Storage.Core.Read.Piping
+namespace Riskeer.Storage.Core.Read.Piping.SemiProbabilistic
 {
     /// <summary>
     /// This class defines extension methods for read operations for an <see cref="SemiProbabilisticPipingOutput"/>

@@ -34,7 +34,7 @@ using Riskeer.StabilityStoneCover.Data;
 using Riskeer.Storage.Core.Create.GrassCoverErosionInwards;
 using Riskeer.Storage.Core.Create.GrassCoverErosionOutwards;
 using Riskeer.Storage.Core.Create.MacroStabilityInwards;
-using Riskeer.Storage.Core.Create.Piping;
+using Riskeer.Storage.Core.Create.Piping.SemiProbabilistic;
 using Riskeer.Storage.Core.Create.StabilityStoneCover;
 using Riskeer.Storage.Core.Create.WaveImpactAsphaltCover;
 using Riskeer.Storage.Core.DbContext;

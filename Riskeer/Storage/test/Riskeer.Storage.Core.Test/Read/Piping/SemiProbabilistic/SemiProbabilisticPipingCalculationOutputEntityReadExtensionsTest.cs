@@ -23,9 +23,9 @@ using System;
 using NUnit.Framework;
 using Riskeer.Piping.Data.SemiProbabilistic;
 using Riskeer.Storage.Core.DbContext;
-using Riskeer.Storage.Core.Read.Piping;
+using Riskeer.Storage.Core.Read.Piping.SemiProbabilistic;
 
-namespace Riskeer.Storage.Core.Test.Read.Piping
+namespace Riskeer.Storage.Core.Test.Read.Piping.SemiProbabilistic
 {
     [TestFixture]
     public class SemiProbabilisticPipingCalculationOutputEntityReadExtensionsTest
