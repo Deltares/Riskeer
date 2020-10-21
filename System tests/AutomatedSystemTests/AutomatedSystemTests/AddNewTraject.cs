@@ -125,8 +125,8 @@ namespace AutomatedSystemTests
 
             Init();
 
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'RiskeerMainWindow.Ribbon.TABsButtons.StartBeeldTabs.AddAssessmentSectionButton' at Center.", repo.RiskeerMainWindow.Ribbon.TABsButtons.StartBeeldTabs.AddAssessmentSectionButtonInfo, new RecordItemIndex(0));
-            repo.RiskeerMainWindow.Ribbon.TABsButtons.StartBeeldTabs.AddAssessmentSectionButton.Click();
+            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'RiskeerMainWindow.Ribbon.AddAssessmentSectionButton' at Center.", repo.RiskeerMainWindow.Ribbon.AddAssessmentSectionButtonInfo, new RecordItemIndex(0));
+            repo.RiskeerMainWindow.Ribbon.AddAssessmentSectionButton.Click();
             
             Report.Log(ReportLevel.Info, "Invoke action", "Invoking Focus() on item 'DialogNewTraject.TableTrajects.GenericTrajectIDRow.CellTrajectId'.", repo.DialogNewTraject.TableTrajects.GenericTrajectIDRow.CellTrajectIdInfo, new RecordItemIndex(1));
             repo.DialogNewTraject.TableTrajects.GenericTrajectIDRow.CellTrajectId.Focus();

@@ -237,17 +237,8 @@ name="AutomatedSystemTestsRepository">
 					name="StartBeeldTabs"
 					searchtimeout="30000ms"
 					usecache="True">
-						<item
-						addcaps="button,wpfelement,wpfgroupelement"
-						capname="button"
-						id="7a81ef7d-edff-44f0-9cd8-00e61c6c28f3"
-						name="AddAssessmentSectionButton"
-						refimgid="8d47bc49-610d-4f2c-bf00-13a23fa65084"
-						searchtimeout="30000ms">
-							/form[@automationid='RiskeerMainWindow']/menubar[@automationid='Ribbon']/list[@automationid='PART_RibbonTabControl']/list/button[@automationid='AddAssessmentSectionButton']
-						</item>
 						<basepath>
-							/form[@automationid='RiskeerMainWindow']/menubar[@automationid='Ribbon']/list[@automationid='PART_RibbonTabControl']/list
+							/form[@automationid='RiskeerMainWindow']/menubar/list[@automationid='PART_RibbonTabControl']/list
 						</basepath>
 					</folder>
 					<folder
@@ -258,11 +249,11 @@ name="AutomatedSystemTestsRepository">
 					searchtimeout="30000ms"
 					usecache="True">
 						<basepath>
-							/form[@automationid='RiskeerMainWindow']/menubar[@automationid='Ribbon']/list[@automationid='PART_RibbonTabControl']/container/list
+							/form[@automationid='RiskeerMainWindow']/menubar/list[@automationid='PART_RibbonTabControl']/container/list
 						</basepath>
 					</folder>
 					<basepath>
-						/form[@automationid='RiskeerMainWindow']/menubar[@automationid='Ribbon']/list[@automationid='PART_RibbonTabControl']
+						/form[@automationid='RiskeerMainWindow']/menubar/list[@automationid='PART_RibbonTabControl']
 					</basepath>
 				</folder>
 				<folder
@@ -278,12 +269,11 @@ name="AutomatedSystemTestsRepository">
 					id="199b3b31-3000-4083-9b32-a3b12ac2844a"
 					name="OpenProjectButton"
 					refimgid="1f91bbc7-5c47-44e1-be8d-ca9077b651b3"
-					refpath="/form[@automationid='RiskeerMainWindow']/menubar[@automationid='Ribbon']/container[@automationid='PART_ToolBarPanel']/button[2]"
 					searchtimeout="30000ms">
-						/form[@automationid='RiskeerMainWindow']/menubar[@automationid='Ribbon']/container[@automationid='PART_ToolBarPanel']/button[2]
+						/form[@automationid='RiskeerMainWindow']/menubar/container[@automationid='PART_ToolBarPanel']/button[2]
 					</item>
 					<basepath>
-						/form[@automationid='RiskeerMainWindow']/menubar[@automationid='Ribbon']/container[@automationid='PART_ToolBarPanel']
+						/form[@automationid='RiskeerMainWindow']/menubar/container[@automationid='PART_ToolBarPanel']
 					</basepath>
 				</folder>
 				<item
@@ -293,7 +283,7 @@ name="AutomatedSystemTestsRepository">
 				name="Bestand"
 				refimgid="7e47a659-c52c-45ba-a6c7-9f6115204406"
 				searchtimeout="30000ms">
-					/form[@automationid='RiskeerMainWindow']/menubar[@automationid='Ribbon']/?/?/text[@caption='Bestand']
+					/form[@automationid='RiskeerMainWindow']/menubar/?/?/text[@caption='Bestand']
 				</item>
 				<item
 				addcaps="button,wpfelement,wpfgroupelement"
@@ -302,7 +292,7 @@ name="AutomatedSystemTestsRepository">
 				name="ButtonMenuFileSaveProjectAs"
 				refimgid="386f5558-51e7-4270-8861-ff555ad58d1c"
 				searchtimeout="30000ms">
-					/form[@automationid='RiskeerMainWindow']/menubar[@automationid='Ribbon']/?/?/button[@automationid='ButtonMenuFileSaveProjectAs']
+					/form[@automationid='RiskeerMainWindow']/menubar/?/?/button[@automationid='ButtonMenuFileSaveProjectAs']
 				</item>
 				<item
 				addcaps="button,uiautomation,uiautomationinvoke"
@@ -311,10 +301,19 @@ name="AutomatedSystemTestsRepository">
 				name="ButtonMenuFileNewProject"
 				refimgid="cbe45f81-ca04-4c67-bc95-a3f6466374d1"
 				searchtimeout="30000ms">
-					/form[@automationid='RiskeerMainWindow']/menubar[@automationid='Ribbon']/?/?/button[@automationid='ButtonMenuFileNewProject']
+					/form[@automationid='RiskeerMainWindow']/menubar/?/?/button[@automationid='ButtonMenuFileNewProject']
+				</item>
+				<item
+				addcaps="list,wpfelement,wpfgroupelement"
+				capname="button"
+				id="b862f8e9-14fb-4449-825c-ca6e151ff6c2"
+				name="AddAssessmentSectionButton"
+				refimgid="b30bd1d0-a4cc-466c-9fea-d8b59803f065"
+				searchtimeout="30000ms">
+					/form[@automationid='RiskeerMainWindow']/menubar//button[@automationid='AddAssessmentSectionButton']
 				</item>
 				<basepath>
-					/form[@automationid='RiskeerMainWindow']/menubar[@automationid='Ribbon']
+					/form[@automationid='RiskeerMainWindow']/menubar
 				</basepath>
 			</folder>
 			<folder

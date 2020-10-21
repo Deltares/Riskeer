@@ -50,10 +50,10 @@ mode="Global">
 			<bindings>
 			</bindings>
 			<info
-			id="7a81ef7d-edff-44f0-9cd8-00e61c6c28f3"
+			id="b862f8e9-14fb-4449-825c-ca6e151ff6c2"
 			sourcename="RepositoryEditor">
 				<path>
-					/form[@automationid='RiskeerMainWindow']/menubar[@automationid='Ribbon']/list[@automationid='PART_RibbonTabControl']/list/button[@automationid='AddAssessmentSectionButton']
+					/form[@automationid='RiskeerMainWindow']/menubar//button[@automationid='AddAssessmentSectionButton']
 				</path>
 			</info>
 		</mouseitem>
