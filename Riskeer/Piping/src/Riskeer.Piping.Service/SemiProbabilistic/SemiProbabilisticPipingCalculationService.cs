@@ -47,10 +47,13 @@ namespace Riskeer.Piping.Service.SemiProbabilistic
         /// the execution of the operation.
         /// </summary>
         /// <param name="calculation">The <see cref="SemiProbabilisticPipingCalculation"/> for which to validate the values.</param>
+        /// <param name="generalInput">The <see cref="GeneralPipingInput"/> to derive values from use during the validation.</param>
         /// <param name="normativeAssessmentLevel">The normative assessment level to use in case the manual assessment level is not applicable.</param>
         /// <returns><c>false</c> if <paramref name="calculation"/> contains validation errors; <c>true</c> otherwise.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculation"/> is <c>null</c>.</exception>
-        public static bool Validate(SemiProbabilisticPipingCalculation calculation, RoundedDouble normativeAssessmentLevel)
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculation"/> or <paramref name="generalInput"/> is <c>null</c>.</exception>
+        public static bool Validate(SemiProbabilisticPipingCalculation calculation,
+                                    GeneralPipingInput generalInput,
+                                    RoundedDouble normativeAssessmentLevel)
         {
             if (calculation == null)
             {
@@ -61,7 +64,7 @@ namespace Riskeer.Piping.Service.SemiProbabilistic
 
             CalculationServiceHelper.LogMessagesAsWarning(GetInputWarnings(calculation.InputParameters).ToArray());
 
-            string[] inputValidationResults = ValidateInput(calculation.InputParameters, normativeAssessmentLevel).ToArray();
+            string[] inputValidationResults = ValidateInput(calculation.InputParameters, generalInput, normativeAssessmentLevel).ToArray();
 
             if (inputValidationResults.Length > 0)
             {
@@ -70,7 +73,9 @@ namespace Riskeer.Piping.Service.SemiProbabilistic
                 return false;
             }
 
-            List<string> validationResults = new PipingCalculator(CreateInputFromData(calculation.InputParameters, normativeAssessmentLevel),
+            List<string> validationResults = new PipingCalculator(CreateInputFromData(calculation.InputParameters,
+                                                                                      generalInput,
+                                                                                      normativeAssessmentLevel),
                                                                   PipingSubCalculatorFactory.Instance).Validate();
 
             CalculationServiceHelper.LogMessagesAsError(validationResults.ToArray());
@@ -86,11 +91,14 @@ namespace Riskeer.Piping.Service.SemiProbabilistic
         /// information is logged during the execution of the operation.
         /// </summary>
         /// <param name="calculation">The <see cref="SemiProbabilisticPipingCalculation"/> to base the input for the calculation upon.</param>
+        /// <param name="generalInput">The <see cref="GeneralPipingInput"/> to derive values from use during the calculation.</param>
         /// <param name="normativeAssessmentLevel">The normative assessment level to use in case the manual assessment level is not applicable.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculation"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculation"/> or <paramref name="generalInput"/> is <c>null</c>.</exception>
         /// <exception cref="PipingCalculatorException">Thrown when an unexpected error occurred during the calculation.</exception>
         /// <remarks>Consider calling <see cref="Validate"/> first to see if calculation is possible.</remarks>
-        public static void Calculate(SemiProbabilisticPipingCalculation calculation, RoundedDouble normativeAssessmentLevel)
+        public static void Calculate(SemiProbabilisticPipingCalculation calculation,
+                                     GeneralPipingInput generalInput,
+                                     RoundedDouble normativeAssessmentLevel)
         {
             if (calculation == null)
             {
@@ -101,7 +109,9 @@ namespace Riskeer.Piping.Service.SemiProbabilistic
 
             try
             {
-                PipingCalculatorResult pipingResult = new PipingCalculator(CreateInputFromData(calculation.InputParameters, normativeAssessmentLevel),
+                PipingCalculatorResult pipingResult = new PipingCalculator(CreateInputFromData(calculation.InputParameters,
+                                                                                               generalInput,
+                                                                                               normativeAssessmentLevel),
                                                                            PipingSubCalculatorFactory.Instance).Calculate();
 
                 calculation.Output = new SemiProbabilisticPipingOutput(new SemiProbabilisticPipingOutput.ConstructionProperties
@@ -128,40 +138,40 @@ namespace Riskeer.Piping.Service.SemiProbabilistic
             }
         }
 
-        private static List<string> ValidateInput(SemiProbabilisticPipingInput inputParameters, RoundedDouble normativeAssessmentLevel)
+        private static List<string> ValidateInput(SemiProbabilisticPipingInput input, GeneralPipingInput generalInput, RoundedDouble normativeAssessmentLevel)
         {
             var validationResults = new List<string>();
 
-            validationResults.AddRange(ValidateHydraulics(inputParameters, normativeAssessmentLevel));
+            validationResults.AddRange(ValidateHydraulics(input, normativeAssessmentLevel));
 
-            IEnumerable<string> coreValidationError = ValidateCoreSurfaceLineAndSoilProfileProperties(inputParameters);
+            IEnumerable<string> coreValidationError = ValidateCoreSurfaceLineAndSoilProfileProperties(input);
             validationResults.AddRange(coreValidationError);
 
-            if (double.IsNaN(inputParameters.EntryPointL))
+            if (double.IsNaN(input.EntryPointL))
             {
                 validationResults.Add(Resources.PipingCalculationService_ValidateInput_No_value_for_EntryPointL);
             }
 
             if (!coreValidationError.Any())
             {
-                validationResults.AddRange(ValidateSoilLayers(inputParameters));
+                validationResults.AddRange(ValidateSoilLayers(input, generalInput));
             }
 
             return validationResults;
         }
 
-        private static IEnumerable<string> ValidateHydraulics(SemiProbabilisticPipingInput inputParameters, RoundedDouble normativeAssessmentLevel)
+        private static IEnumerable<string> ValidateHydraulics(SemiProbabilisticPipingInput input, RoundedDouble normativeAssessmentLevel)
         {
             var validationResults = new List<string>();
-            if (!inputParameters.UseAssessmentLevelManualInput && inputParameters.HydraulicBoundaryLocation == null)
+            if (!input.UseAssessmentLevelManualInput && input.HydraulicBoundaryLocation == null)
             {
                 validationResults.Add(RiskeerCommonServiceResources.CalculationService_ValidateInput_No_hydraulic_boundary_location_selected);
             }
             else
             {
-                validationResults.AddRange(ValidateAssessmentLevel(inputParameters, normativeAssessmentLevel));
+                validationResults.AddRange(ValidateAssessmentLevel(input, normativeAssessmentLevel));
 
-                RoundedDouble piezometricHeadExit = DerivedSemiProbabilisticPipingInput.GetPiezometricHeadExit(inputParameters, GetEffectiveAssessmentLevel(inputParameters, normativeAssessmentLevel));
+                RoundedDouble piezometricHeadExit = DerivedSemiProbabilisticPipingInput.GetPiezometricHeadExit(input, GetEffectiveAssessmentLevel(input, normativeAssessmentLevel));
                 if (double.IsNaN(piezometricHeadExit) || double.IsInfinity(piezometricHeadExit))
                 {
                     validationResults.Add(Resources.PipingCalculationService_ValidateInput_Cannot_determine_PiezometricHeadExit);
@@ -171,13 +181,13 @@ namespace Riskeer.Piping.Service.SemiProbabilistic
             return validationResults;
         }
 
-        private static IEnumerable<string> ValidateAssessmentLevel(SemiProbabilisticPipingInput inputParameters, RoundedDouble normativeAssessmentLevel)
+        private static IEnumerable<string> ValidateAssessmentLevel(SemiProbabilisticPipingInput input, RoundedDouble normativeAssessmentLevel)
         {
             var validationResult = new List<string>();
 
-            if (inputParameters.UseAssessmentLevelManualInput)
+            if (input.UseAssessmentLevelManualInput)
             {
-                validationResult.AddRange(new NumericInputRule(inputParameters.AssessmentLevel, ParameterNameExtractor.GetFromDisplayName(RiskeerCommonFormsResources.WaterLevel_DisplayName)).Validate());
+                validationResult.AddRange(new NumericInputRule(input.AssessmentLevel, ParameterNameExtractor.GetFromDisplayName(RiskeerCommonFormsResources.WaterLevel_DisplayName)).Validate());
             }
             else
             {
@@ -190,20 +200,20 @@ namespace Riskeer.Piping.Service.SemiProbabilistic
             return validationResult;
         }
 
-        private static IEnumerable<string> ValidateCoreSurfaceLineAndSoilProfileProperties(PipingInput inputParameters)
+        private static IEnumerable<string> ValidateCoreSurfaceLineAndSoilProfileProperties(PipingInput input)
         {
             var validationResults = new List<string>();
-            if (inputParameters.SurfaceLine == null)
+            if (input.SurfaceLine == null)
             {
                 validationResults.Add(Resources.PipingCalculationService_ValidateInput_No_SurfaceLine_selected);
             }
 
-            if (inputParameters.StochasticSoilProfile == null)
+            if (input.StochasticSoilProfile == null)
             {
                 validationResults.Add(Resources.PipingCalculationService_ValidateInput_No_StochasticSoilProfile_selected);
             }
 
-            if (double.IsNaN(inputParameters.ExitPointL))
+            if (double.IsNaN(input.ExitPointL))
             {
                 validationResults.Add(Resources.PipingCalculationService_ValidateInput_No_value_for_ExitPointL);
             }
@@ -211,23 +221,23 @@ namespace Riskeer.Piping.Service.SemiProbabilistic
             return validationResults;
         }
 
-        private static IEnumerable<string> ValidateSoilLayers(PipingInput inputParameters)
+        private static IEnumerable<string> ValidateSoilLayers(PipingInput input, GeneralPipingInput generalInput)
         {
             var validationResults = new List<string>();
-            if (double.IsNaN(DerivedPipingInput.GetThicknessAquiferLayer(inputParameters).Mean))
+            if (double.IsNaN(DerivedPipingInput.GetThicknessAquiferLayer(input).Mean))
             {
                 validationResults.Add(Resources.PipingCalculationService_ValidateInput_Cannot_determine_thickness_aquifer_layer);
             }
 
-            PipingSoilProfile pipingSoilProfile = inputParameters.StochasticSoilProfile.SoilProfile;
-            double surfaceLevel = inputParameters.SurfaceLine.GetZAtL(inputParameters.ExitPointL);
+            PipingSoilProfile pipingSoilProfile = input.StochasticSoilProfile.SoilProfile;
+            double surfaceLevel = input.SurfaceLine.GetZAtL(input.ExitPointL);
 
-            validationResults.AddRange(ValidateAquiferLayers(inputParameters, pipingSoilProfile, surfaceLevel));
-            validationResults.AddRange(ValidateCoverageLayers(inputParameters, pipingSoilProfile, surfaceLevel));
+            validationResults.AddRange(ValidateAquiferLayers(input, pipingSoilProfile, surfaceLevel));
+            validationResults.AddRange(ValidateCoverageLayers(input, generalInput, pipingSoilProfile, surfaceLevel));
             return validationResults;
         }
 
-        private static IEnumerable<string> ValidateAquiferLayers(PipingInput inputParameters, PipingSoilProfile pipingSoilProfile, double surfaceLevel)
+        private static IEnumerable<string> ValidateAquiferLayers(PipingInput input, PipingSoilProfile pipingSoilProfile, double surfaceLevel)
         {
             var validationResult = new List<string>();
 
@@ -238,12 +248,12 @@ namespace Riskeer.Piping.Service.SemiProbabilistic
             }
             else
             {
-                if (double.IsNaN(SemiProbabilisticPipingDesignVariableFactory.GetDarcyPermeability(inputParameters).GetDesignValue()))
+                if (double.IsNaN(SemiProbabilisticPipingDesignVariableFactory.GetDarcyPermeability(input).GetDesignValue()))
                 {
                     validationResult.Add(Resources.PipingCalculationService_ValidateInput_Cannot_derive_DarcyPermeability);
                 }
 
-                if (double.IsNaN(SemiProbabilisticPipingDesignVariableFactory.GetDiameter70(inputParameters).GetDesignValue()))
+                if (double.IsNaN(SemiProbabilisticPipingDesignVariableFactory.GetDiameter70(input).GetDesignValue()))
                 {
                     validationResult.Add(Resources.PipingCalculationService_ValidateInput_Cannot_derive_Diameter70);
                 }
@@ -252,7 +262,7 @@ namespace Riskeer.Piping.Service.SemiProbabilistic
             return validationResult;
         }
 
-        private static IEnumerable<string> ValidateCoverageLayers(PipingInput inputParameters, PipingSoilProfile pipingSoilProfile, double surfaceLevel)
+        private static IEnumerable<string> ValidateCoverageLayers(PipingInput input, GeneralPipingInput generalInput, PipingSoilProfile pipingSoilProfile, double surfaceLevel)
         {
             var validationResult = new List<string>();
 
@@ -260,13 +270,13 @@ namespace Riskeer.Piping.Service.SemiProbabilistic
             if (hasConsecutiveCoverageLayers)
             {
                 RoundedDouble saturatedVolumicWeightOfCoverageLayer =
-                    SemiProbabilisticPipingDesignVariableFactory.GetSaturatedVolumicWeightOfCoverageLayer(inputParameters).GetDesignValue();
+                    SemiProbabilisticPipingDesignVariableFactory.GetSaturatedVolumicWeightOfCoverageLayer(input).GetDesignValue();
 
                 if (double.IsNaN(saturatedVolumicWeightOfCoverageLayer))
                 {
                     validationResult.Add(Resources.PipingCalculationService_ValidateInput_Cannot_derive_SaturatedVolumicWeight);
                 }
-                else if (saturatedVolumicWeightOfCoverageLayer < inputParameters.WaterVolumetricWeight)
+                else if (saturatedVolumicWeightOfCoverageLayer < generalInput.WaterVolumetricWeight)
                 {
                     validationResult.Add(Resources.PipingCalculationService_ValidateInput_SaturatedVolumicWeightCoverageLayer_must_be_larger_than_WaterVolumetricWeight);
                 }
@@ -275,29 +285,29 @@ namespace Riskeer.Piping.Service.SemiProbabilistic
             return validationResult;
         }
 
-        private static List<string> GetInputWarnings(PipingInput inputParameters)
+        private static List<string> GetInputWarnings(PipingInput input)
         {
             var warnings = new List<string>();
 
-            if (IsSurfaceLineProfileDefinitionComplete(inputParameters))
+            if (IsSurfaceLineProfileDefinitionComplete(input))
             {
-                double surfaceLineLevel = inputParameters.SurfaceLine.GetZAtL(inputParameters.ExitPointL);
+                double surfaceLineLevel = input.SurfaceLine.GetZAtL(input.ExitPointL);
 
-                warnings.AddRange(GetMultipleAquiferLayersWarning(inputParameters, surfaceLineLevel));
-                warnings.AddRange(GetMultipleCoverageLayersWarning(inputParameters, surfaceLineLevel));
-                warnings.AddRange(GetDiameter70Warnings(inputParameters));
-                warnings.AddRange(GetThicknessCoverageLayerWarnings(inputParameters));
+                warnings.AddRange(GetMultipleAquiferLayersWarning(input, surfaceLineLevel));
+                warnings.AddRange(GetMultipleCoverageLayersWarning(input, surfaceLineLevel));
+                warnings.AddRange(GetDiameter70Warnings(input));
+                warnings.AddRange(GetThicknessCoverageLayerWarnings(input));
             }
 
             return warnings;
         }
 
-        private static IEnumerable<string> GetThicknessCoverageLayerWarnings(PipingInput inputParameters)
+        private static IEnumerable<string> GetThicknessCoverageLayerWarnings(PipingInput input)
         {
             var warnings = new List<string>();
 
-            PipingSoilProfile pipingSoilProfile = inputParameters.StochasticSoilProfile.SoilProfile;
-            double surfaceLevel = inputParameters.SurfaceLine.GetZAtL(inputParameters.ExitPointL);
+            PipingSoilProfile pipingSoilProfile = input.StochasticSoilProfile.SoilProfile;
+            double surfaceLevel = input.SurfaceLine.GetZAtL(input.ExitPointL);
 
             bool hasConsecutiveCoverageLayers = pipingSoilProfile.GetConsecutiveCoverageLayersBelowLevel(surfaceLevel).Any();
             if (!hasConsecutiveCoverageLayers)
@@ -305,7 +315,7 @@ namespace Riskeer.Piping.Service.SemiProbabilistic
                 warnings.Add(Resources.PipingCalculationService_ValidateInput_No_coverage_layer_at_ExitPointL_under_SurfaceLine);
             }
 
-            if (double.IsNaN(DerivedPipingInput.GetThicknessCoverageLayer(inputParameters).Mean))
+            if (double.IsNaN(DerivedPipingInput.GetThicknessCoverageLayer(input).Mean))
             {
                 warnings.Add(Resources.PipingCalculationService_ValidateInput_Cannot_determine_thickness_coverage_layer);
             }
@@ -313,11 +323,11 @@ namespace Riskeer.Piping.Service.SemiProbabilistic
             return warnings;
         }
 
-        private static IEnumerable<string> GetDiameter70Warnings(PipingInput inputParameters)
+        private static IEnumerable<string> GetDiameter70Warnings(PipingInput input)
         {
             var warnings = new List<string>();
 
-            RoundedDouble diameter70Value = SemiProbabilisticPipingDesignVariableFactory.GetDiameter70(inputParameters).GetDesignValue();
+            RoundedDouble diameter70Value = SemiProbabilisticPipingDesignVariableFactory.GetDiameter70(input).GetDesignValue();
 
             if (!double.IsNaN(diameter70Value) && (diameter70Value < 6.3e-5 || diameter70Value > 0.5e-3))
             {
@@ -327,11 +337,11 @@ namespace Riskeer.Piping.Service.SemiProbabilistic
             return warnings;
         }
 
-        private static IEnumerable<string> GetMultipleCoverageLayersWarning(PipingInput inputParameters, double surfaceLineLevel)
+        private static IEnumerable<string> GetMultipleCoverageLayersWarning(PipingInput input, double surfaceLineLevel)
         {
             var warnings = new List<string>();
 
-            bool hasMoreThanOneCoverageLayer = inputParameters.StochasticSoilProfile.SoilProfile.GetConsecutiveCoverageLayersBelowLevel(surfaceLineLevel).Count() > 1;
+            bool hasMoreThanOneCoverageLayer = input.StochasticSoilProfile.SoilProfile.GetConsecutiveCoverageLayersBelowLevel(surfaceLineLevel).Count() > 1;
             if (hasMoreThanOneCoverageLayer)
             {
                 warnings.Add(Resources.PipingCalculationService_GetInputWarnings_Multiple_coverage_layers_Attempt_to_determine_value_from_combination);
@@ -340,11 +350,11 @@ namespace Riskeer.Piping.Service.SemiProbabilistic
             return warnings;
         }
 
-        private static IEnumerable<string> GetMultipleAquiferLayersWarning(PipingInput inputParameters, double surfaceLineLevel)
+        private static IEnumerable<string> GetMultipleAquiferLayersWarning(PipingInput input, double surfaceLineLevel)
         {
             var warnings = new List<string>();
 
-            bool hasMoreThanOneAquiferLayer = inputParameters.StochasticSoilProfile.SoilProfile.GetConsecutiveAquiferLayersBelowLevel(surfaceLineLevel).Count() > 1;
+            bool hasMoreThanOneAquiferLayer = input.StochasticSoilProfile.SoilProfile.GetConsecutiveAquiferLayersBelowLevel(surfaceLineLevel).Count() > 1;
             if (hasMoreThanOneAquiferLayer)
             {
                 warnings.Add(Resources.PipingCalculationService_GetInputWarnings_Multiple_aquifer_layers_Attempt_to_determine_values_for_DiameterD70_and_DarcyPermeability_from_top_layer);
@@ -353,45 +363,47 @@ namespace Riskeer.Piping.Service.SemiProbabilistic
             return warnings;
         }
 
-        private static bool IsSurfaceLineProfileDefinitionComplete(PipingInput surfaceLineMissing)
+        private static bool IsSurfaceLineProfileDefinitionComplete(PipingInput input)
         {
-            return surfaceLineMissing.SurfaceLine != null &&
-                   surfaceLineMissing.StochasticSoilProfile != null &&
-                   !double.IsNaN(surfaceLineMissing.ExitPointL);
+            return input.SurfaceLine != null &&
+                   input.StochasticSoilProfile != null &&
+                   !double.IsNaN(input.ExitPointL);
         }
 
-        private static PipingCalculatorInput CreateInputFromData(SemiProbabilisticPipingInput inputParameters, RoundedDouble normativeAssessmentLevel)
+        private static PipingCalculatorInput CreateInputFromData(SemiProbabilisticPipingInput input,
+                                                                 GeneralPipingInput generalPipingInput,
+                                                                 RoundedDouble normativeAssessmentLevel)
         {
-            RoundedDouble effectiveAssessmentLevel = GetEffectiveAssessmentLevel(inputParameters, normativeAssessmentLevel);
+            RoundedDouble effectiveAssessmentLevel = GetEffectiveAssessmentLevel(input, normativeAssessmentLevel);
 
             return new PipingCalculatorInput(
                 new PipingCalculatorInput.ConstructionProperties
                 {
-                    WaterVolumetricWeight = inputParameters.WaterVolumetricWeight,
-                    SaturatedVolumicWeightOfCoverageLayer = SemiProbabilisticPipingDesignVariableFactory.GetSaturatedVolumicWeightOfCoverageLayer(inputParameters).GetDesignValue(),
-                    UpliftModelFactor = SemiProbabilisticPipingDesignVariableFactory.GetUpliftModelFactorDesignVariable(inputParameters).GetDesignValue(),
+                    WaterVolumetricWeight = generalPipingInput.WaterVolumetricWeight,
+                    SaturatedVolumicWeightOfCoverageLayer = SemiProbabilisticPipingDesignVariableFactory.GetSaturatedVolumicWeightOfCoverageLayer(input).GetDesignValue(),
+                    UpliftModelFactor = SemiProbabilisticPipingDesignVariableFactory.GetUpliftModelFactorDesignVariable(generalPipingInput).GetDesignValue(),
                     AssessmentLevel = effectiveAssessmentLevel,
-                    PiezometricHeadExit = DerivedSemiProbabilisticPipingInput.GetPiezometricHeadExit(inputParameters, effectiveAssessmentLevel),
-                    DampingFactorExit = SemiProbabilisticPipingDesignVariableFactory.GetDampingFactorExit(inputParameters).GetDesignValue(),
-                    PhreaticLevelExit = SemiProbabilisticPipingDesignVariableFactory.GetPhreaticLevelExit(inputParameters).GetDesignValue(),
-                    CriticalHeaveGradient = inputParameters.CriticalHeaveGradient,
-                    ThicknessCoverageLayer = SemiProbabilisticPipingDesignVariableFactory.GetThicknessCoverageLayer(inputParameters).GetDesignValue(),
-                    EffectiveThicknessCoverageLayer = SemiProbabilisticPipingDesignVariableFactory.GetEffectiveThicknessCoverageLayer(inputParameters).GetDesignValue(),
-                    SellmeijerModelFactor = SemiProbabilisticPipingDesignVariableFactory.GetSellmeijerModelFactorDesignVariable(inputParameters).GetDesignValue(),
-                    SellmeijerReductionFactor = inputParameters.SellmeijerReductionFactor,
-                    SeepageLength = SemiProbabilisticPipingDesignVariableFactory.GetSeepageLength(inputParameters).GetDesignValue(),
-                    SandParticlesVolumicWeight = inputParameters.SandParticlesVolumicWeight,
-                    WhitesDragCoefficient = inputParameters.WhitesDragCoefficient,
-                    Diameter70 = SemiProbabilisticPipingDesignVariableFactory.GetDiameter70(inputParameters).GetDesignValue(),
-                    DarcyPermeability = SemiProbabilisticPipingDesignVariableFactory.GetDarcyPermeability(inputParameters).GetDesignValue(),
-                    WaterKinematicViscosity = inputParameters.WaterKinematicViscosity,
-                    Gravity = inputParameters.Gravity,
-                    ThicknessAquiferLayer = SemiProbabilisticPipingDesignVariableFactory.GetThicknessAquiferLayer(inputParameters).GetDesignValue(),
-                    MeanDiameter70 = inputParameters.MeanDiameter70,
-                    BeddingAngle = inputParameters.BeddingAngle,
-                    ExitPointXCoordinate = inputParameters.ExitPointL,
-                    SurfaceLine = inputParameters.SurfaceLine,
-                    SoilProfile = inputParameters.StochasticSoilProfile?.SoilProfile
+                    PiezometricHeadExit = DerivedSemiProbabilisticPipingInput.GetPiezometricHeadExit(input, effectiveAssessmentLevel),
+                    DampingFactorExit = SemiProbabilisticPipingDesignVariableFactory.GetDampingFactorExit(input).GetDesignValue(),
+                    PhreaticLevelExit = SemiProbabilisticPipingDesignVariableFactory.GetPhreaticLevelExit(input).GetDesignValue(),
+                    CriticalHeaveGradient = generalPipingInput.CriticalHeaveGradient,
+                    ThicknessCoverageLayer = SemiProbabilisticPipingDesignVariableFactory.GetThicknessCoverageLayer(input).GetDesignValue(),
+                    EffectiveThicknessCoverageLayer = SemiProbabilisticPipingDesignVariableFactory.GetEffectiveThicknessCoverageLayer(input, generalPipingInput).GetDesignValue(),
+                    SellmeijerModelFactor = SemiProbabilisticPipingDesignVariableFactory.GetSellmeijerModelFactorDesignVariable(generalPipingInput).GetDesignValue(),
+                    SellmeijerReductionFactor = generalPipingInput.SellmeijerReductionFactor,
+                    SeepageLength = SemiProbabilisticPipingDesignVariableFactory.GetSeepageLength(input).GetDesignValue(),
+                    SandParticlesVolumicWeight = generalPipingInput.SandParticlesVolumicWeight,
+                    WhitesDragCoefficient = generalPipingInput.WhitesDragCoefficient,
+                    Diameter70 = SemiProbabilisticPipingDesignVariableFactory.GetDiameter70(input).GetDesignValue(),
+                    DarcyPermeability = SemiProbabilisticPipingDesignVariableFactory.GetDarcyPermeability(input).GetDesignValue(),
+                    WaterKinematicViscosity = generalPipingInput.WaterKinematicViscosity,
+                    Gravity = generalPipingInput.Gravity,
+                    ThicknessAquiferLayer = SemiProbabilisticPipingDesignVariableFactory.GetThicknessAquiferLayer(input).GetDesignValue(),
+                    MeanDiameter70 = generalPipingInput.MeanDiameter70,
+                    BeddingAngle = generalPipingInput.BeddingAngle,
+                    ExitPointXCoordinate = input.ExitPointL,
+                    SurfaceLine = input.SurfaceLine,
+                    SoilProfile = input.StochasticSoilProfile?.SoilProfile
                 });
         }
 
