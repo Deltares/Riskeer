@@ -427,7 +427,8 @@ namespace Riskeer.Piping.Forms.PropertyClasses.SemiProbabilistic
             get
             {
                 return new LogNormalDistributionDesignVariableProperties(
-                    SemiProbabilisticPipingDesignVariableFactory.GetEffectiveThicknessCoverageLayer(data.WrappedData));
+                    SemiProbabilisticPipingDesignVariableFactory.GetEffectiveThicknessCoverageLayer(data.WrappedData,
+                                                                                                    data.FailureMechanism.GeneralInput));
             }
         }
 

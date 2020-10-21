@@ -103,6 +103,27 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
             this.propertyChangeHandler = propertyChangeHandler;
         }
 
+        #region Output
+
+        [PropertyOrder(shouldIllustrationPointsBeCalculatedPropertyIndex)]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_OutputSettings), 4, 4)]
+        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.ShouldIllustrationPointsBeCalculated_DisplayName))]
+        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.ShouldIllustrationPointsBeCalculated_Description))]
+        public bool ShouldIllustrationPointsBeCalculated
+        {
+            get
+            {
+                return data.WrappedData.ShouldIllustrationPointsBeCalculated;
+            }
+            set
+            {
+                data.WrappedData.ShouldIllustrationPointsBeCalculated = value;
+                data.NotifyObservers();
+            }
+        }
+
+        #endregion
+
         [DynamicReadOnlyValidationMethod]
         public bool DynamicReadOnlyValidationMethod(string propertyName)
         {
@@ -358,7 +379,8 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
         {
             get
             {
-                return new LogNormalDistributionProperties(DerivedPipingInput.GetEffectiveThicknessCoverageLayer(data.WrappedData));
+                return new LogNormalDistributionProperties(DerivedPipingInput.GetEffectiveThicknessCoverageLayer(data.WrappedData,
+                                                                                                                 data.FailureMechanism.GeneralInput));
             }
         }
 
@@ -441,27 +463,6 @@ namespace Riskeer.Piping.Forms.PropertyClasses.Probabilistic
             {
                 FailureMechanismSection failureMechanismSection = GetSection();
                 return failureMechanismSection == null ? new RoundedDouble(2) : new RoundedDouble(2, failureMechanismSection.Length);
-            }
-        }
-
-        #endregion
-
-        #region Output
-
-        [PropertyOrder(shouldIllustrationPointsBeCalculatedPropertyIndex)]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_OutputSettings), 4, 4)]
-        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.ShouldIllustrationPointsBeCalculated_DisplayName))]
-        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.ShouldIllustrationPointsBeCalculated_Description))]
-        public bool ShouldIllustrationPointsBeCalculated
-        {
-            get
-            {
-                return data.WrappedData.ShouldIllustrationPointsBeCalculated;
-            }
-            set
-            {
-                data.WrappedData.ShouldIllustrationPointsBeCalculated = value;
-                data.NotifyObservers();
             }
         }
 
