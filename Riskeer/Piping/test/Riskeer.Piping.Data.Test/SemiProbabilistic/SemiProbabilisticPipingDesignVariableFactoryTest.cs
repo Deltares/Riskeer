@@ -49,10 +49,10 @@ namespace Riskeer.Piping.Data.Test.SemiProbabilistic
         #region General parameters
 
         [Test]
-        public void GetUpliftModelFactorDesignVariable_PipingInputWithCoverLayer_CreateDeterministicDesignVariableForUpliftModelFactor()
+        public void GetUpliftModelFactorDesignVariable_GeneralPipingInput_CreateDeterministicDesignVariableForUpliftModelFactor()
         {
             // Setup
-            PipingInput inputParameters = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
+            var inputParameters = new GeneralPipingInput();
 
             // Call
             DeterministicDesignVariable<LogNormalDistribution> upliftModelFactor = SemiProbabilisticPipingDesignVariableFactory.GetUpliftModelFactorDesignVariable(inputParameters);
@@ -63,10 +63,10 @@ namespace Riskeer.Piping.Data.Test.SemiProbabilistic
         }
 
         [Test]
-        public void GetSellmeijerModelFactorDesignVariable_PipingInputWithCoverLayer_CreateDeterministicDesignVariableForSellmeijerModelFactor()
+        public void GetSellmeijerModelFactorDesignVariable_GeneralPipingInput_CreateDeterministicDesignVariableForSellmeijerModelFactor()
         {
             // Setup
-            PipingInput inputParameters = PipingInputFactory.CreateInputWithAquiferAndCoverageLayer();
+            var inputParameters = new GeneralPipingInput();
 
             // Call
             DeterministicDesignVariable<LogNormalDistribution> sellmeijerModelFactor = SemiProbabilisticPipingDesignVariableFactory.GetSellmeijerModelFactorDesignVariable(inputParameters);
