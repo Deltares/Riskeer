@@ -40,14 +40,14 @@ namespace Riskeer.Piping.Forms.PresentationObjects.Probabilistic
         /// Creates a new instance of <see cref="ProbabilisticPipingInputContext"/>
         /// </summary>
         /// <param name="pipingInput">The piping input instance wrapped by this context object.</param>
-        /// <param name="calculation">The calculation the <paramref name="pipingInput"/> belongs to.</param>
+        /// <param name="calculation">The calculation scenario the <paramref name="pipingInput"/> belongs to.</param>
         /// <param name="surfaceLines">The surface lines available within the piping context.</param>
         /// <param name="stochasticSoilModels">The stochastic soil models available within the piping context.</param>
         /// <param name="pipingFailureMechanism">The failure mechanism which the piping context belongs to.</param>
         /// <param name="assessmentSection">The assessment section which the piping context belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
         public ProbabilisticPipingInputContext(ProbabilisticPipingInput pipingInput,
-                                               ProbabilisticPipingCalculation calculation,
+                                               ProbabilisticPipingCalculationScenario calculation,
                                                IEnumerable<PipingSurfaceLine> surfaceLines,
                                                IEnumerable<PipingStochasticSoilModel> stochasticSoilModels,
                                                PipingFailureMechanism pipingFailureMechanism,
@@ -63,8 +63,8 @@ namespace Riskeer.Piping.Forms.PresentationObjects.Probabilistic
         }
 
         /// <summary>
-        /// Gets the calculation which the piping context belongs to.
+        /// Gets the calculation scenario which the piping context belongs to.
         /// </summary>
-        public ProbabilisticPipingCalculation PipingCalculation { get; }
+        public ProbabilisticPipingCalculationScenario PipingCalculation { get; }
     }
 }
