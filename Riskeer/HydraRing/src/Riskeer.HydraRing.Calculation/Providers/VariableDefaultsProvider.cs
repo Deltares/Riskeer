@@ -367,6 +367,62 @@ namespace Riskeer.HydraRing.Calculation.Providers
                 },
                 {
                     HydraRingFailureMechanismType.OvertoppingRate, GetOvertoppingDefaults()
+                },
+                {
+                    HydraRingFailureMechanismType.Piping, new Dictionary<int, VariableDefaults>
+                    {
+                        {
+                            42, new VariableDefaults(777)
+                        },
+                        {
+                            43, new VariableDefaults(notApplicableCorrelationLength)
+                        },
+                        {
+                            44, new VariableDefaults(200)
+                        },
+                        {
+                            45, new VariableDefaults(300)
+                        },
+                        {
+                            46, new VariableDefaults(notApplicableCorrelationLength)
+                        },
+                        {
+                            47, new VariableDefaults(notApplicableCorrelationLength)
+                        },
+                        {
+                            48, new VariableDefaults(3000)
+                        },
+                        {
+                            49, new VariableDefaults(1500)
+                        },
+                        {
+                            50, new VariableDefaults(notApplicableCorrelationLength)
+                        },
+                        {
+                            51, new VariableDefaults(notApplicableCorrelationLength)
+                        },
+                        {
+                            52, new VariableDefaults(notApplicableCorrelationLength)
+                        },
+                        {
+                            53, new VariableDefaults(notApplicableCorrelationLength)
+                        },
+                        {
+                            54, new VariableDefaults(notApplicableCorrelationLength)
+                        },
+                        {
+                            55, new VariableDefaults(600)
+                        },
+                        {
+                            56, new VariableDefaults(180)
+                        },
+                        {
+                            58, new VariableDefaults(notApplicableCorrelationLength)
+                        },
+                        {
+                            124, new VariableDefaults(300)
+                        }
+                    }
                 }
             };
         }
