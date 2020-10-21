@@ -944,7 +944,8 @@ namespace Riskeer.Piping.Plugin
                 {
                     foreach (ICalculationBase @group in PipingCalculationConfigurationHelper.GenerateCalculationItemsStructure(
                         dialog.SelectedItems,
-                        true, false,
+                        dialog.GenerateSemiProbabilistic,
+                        dialog.GenerateProbabilistic,
                         nodeData.AvailableStochasticSoilModels,
                         nodeData.FailureMechanism.GeneralInput))
                     {

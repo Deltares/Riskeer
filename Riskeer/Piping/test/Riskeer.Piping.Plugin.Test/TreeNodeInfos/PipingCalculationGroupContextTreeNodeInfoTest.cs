@@ -1322,7 +1322,11 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void GivenPipingCalculationsViewGenerateScenariosButtonClicked_WhenSurfaceLineSelectedAndDialogClosed_ThenUpdateSectionResultScenarios()
+        [TestCase(true, true)]
+        [TestCase(true, false)]
+        [TestCase(false, true)]
+        public void GivenPipingCalculationsViewGenerateScenariosButtonClicked_WhenSurfaceLineSelectedAndDialogClosed_ThenCalculationScenariosGenerated(
+            bool generateSemiProbabilistic, bool generateProbabilistic)
         {
             // Given
             using (var treeViewControl = new TreeViewControl())
@@ -1408,6 +1412,12 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                     var selectionDialog = (PipingSurfaceLineSelectionDialog) new FormTester(name).TheObject;
                     var grid = (DataGridViewControl) new ControlTester("DataGridViewControl", selectionDialog).TheObject;
 
+                    var semiProbabilisticCheckBox = (CheckBox) new CheckBoxTester("SemiProbabilisticCheckBox", selectionDialog).TheObject;
+                    var probabilisticCheckBox = (CheckBox) new CheckBoxTester("ProbabilisticCheckBox", selectionDialog).TheObject;
+
+                    semiProbabilisticCheckBox.Checked = generateSemiProbabilistic;
+                    probabilisticCheckBox.Checked = generateProbabilistic;
+
                     grid.Rows[0].Cells[0].Value = true;
 
                     new ButtonTester("DoForSelectedButton", selectionDialog).Click();
@@ -1419,24 +1429,34 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                     contextMenu.Items[customOnlyContextMenuAddGenerateCalculationsIndex].PerformClick();
 
                     // Then
-                    PipingFailureMechanismSectionResult failureMechanismSectionResult1 = failureMechanism.SectionResults.First();
-                    PipingFailureMechanismSectionResult failureMechanismSectionResult2 = failureMechanism.SectionResults.ElementAt(1);
+                    CalculationGroup addedGroup = failureMechanism.CalculationsGroup.Children.OfType<CalculationGroup>().Single();
+                    Assert.AreEqual("Surface line 1", addedGroup.Name);
 
-                    SemiProbabilisticPipingCalculationScenario[] pipingCalculationScenarios = failureMechanism.Calculations.OfType<SemiProbabilisticPipingCalculationScenario>().ToArray();
-                    Assert.AreEqual(2, failureMechanismSectionResult1.GetCalculationScenarios(pipingCalculationScenarios).Count());
-
-                    foreach (SemiProbabilisticPipingCalculationScenario calculationScenario in failureMechanismSectionResult1.GetCalculationScenarios(pipingCalculationScenarios))
+                    if (generateSemiProbabilistic)
                     {
-                        Assert.IsInstanceOf<ICalculationScenario>(calculationScenario);
+                        SemiProbabilisticPipingCalculationScenario[] semiProbabilisticPipingCalculationScenarios =
+                            addedGroup.Children.OfType<SemiProbabilisticPipingCalculationScenario>().ToArray();
+
+                        Assert.AreEqual(2, semiProbabilisticPipingCalculationScenarios.Length);
+                        Assert.AreEqual("Surface line 1 A", semiProbabilisticPipingCalculationScenarios[0].Name);
+                        Assert.AreEqual("Surface line 1 B", semiProbabilisticPipingCalculationScenarios[1].Name);
                     }
 
-                    CollectionAssert.IsEmpty(failureMechanismSectionResult2.GetCalculationScenarios(pipingCalculationScenarios));
+                    if (generateProbabilistic)
+                    {
+                        ProbabilisticPipingCalculation[] probabilisticPipingCalculationScenarios =
+                            addedGroup.Children.OfType<ProbabilisticPipingCalculation>().ToArray();
+
+                        Assert.AreEqual(2, probabilisticPipingCalculationScenarios.Length);
+                        Assert.AreEqual("Surface line 1 A", probabilisticPipingCalculationScenarios[0].Name);
+                        Assert.AreEqual("Surface line 1 B", probabilisticPipingCalculationScenarios[1].Name);
+                    }
                 }
             }
         }
 
         [Test]
-        public void GivenPipingCalculationsViewGenerateScenariosButtonClicked_WhenCancelButtonClickedAndDialogClosed_ThenSectionResultScenariosNotUpdated()
+        public void GivenPipingCalculationsViewGenerateScenariosButtonClicked_WhenCancelButtonClickedAndDialogClosed_ThenNoCalculationScenariosGenerated()
         {
             // Given
             using (var treeViewControl = new TreeViewControl())
@@ -1536,10 +1556,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                     contextMenu.Items[customOnlyContextMenuAddGenerateCalculationsIndex].PerformClick();
 
                     // Then
-                    foreach (PipingFailureMechanismSectionResult failureMechanismSectionResult in failureMechanism.SectionResults)
-                    {
-                        CollectionAssert.IsEmpty(failureMechanismSectionResult.GetCalculationScenarios(failureMechanism.Calculations.OfType<SemiProbabilisticPipingCalculationScenario>()));
-                    }
+                    CollectionAssert.IsEmpty(failureMechanism.CalculationsGroup.Children);
                 }
             }
         }
