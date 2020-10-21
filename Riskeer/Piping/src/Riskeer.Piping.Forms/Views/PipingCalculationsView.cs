@@ -129,8 +129,7 @@ namespace Riskeer.Piping.Forms.Views
                         dialog.SelectedItems,
                         dialog.GenerateSemiProbabilistic,
                         dialog.GenerateProbabilistic,
-                        FailureMechanism.StochasticSoilModels,
-                        FailureMechanism.GeneralInput);
+                        FailureMechanism.StochasticSoilModels);
 
                     foreach (ICalculationBase item in calculationsStructure)
                     {

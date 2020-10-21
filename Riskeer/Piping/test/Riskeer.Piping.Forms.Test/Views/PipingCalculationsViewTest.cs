@@ -1087,7 +1087,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             {
                 Children =
                 {
-                    new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput())
+                    new SemiProbabilisticPipingCalculationScenario
                     {
                         Name = "Calculation 1",
                         InputParameters =
@@ -1107,7 +1107,7 @@ namespace Riskeer.Piping.Forms.Test.Views
                             ExitPointL = (RoundedDouble) 4.4444
                         }
                     },
-                    new SemiProbabilisticPipingCalculationScenario(new GeneralPipingInput())
+                    new SemiProbabilisticPipingCalculationScenario
                     {
                         Name = "Calculation 2",
                         InputParameters =
