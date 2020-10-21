@@ -22,6 +22,7 @@
 using System;
 using Core.Common.Base.Data;
 using Riskeer.Common.Service;
+using Riskeer.Piping.Data;
 using Riskeer.Piping.Data.SemiProbabilistic;
 using RiskeerCommonServiceResources = Riskeer.Common.Service.Properties.Resources;
 
@@ -33,19 +34,29 @@ namespace Riskeer.Piping.Service.SemiProbabilistic
     internal class SemiProbabilisticPipingCalculationActivity : CalculatableActivity
     {
         private readonly SemiProbabilisticPipingCalculation calculation;
+        private readonly GeneralPipingInput generalPipingInput;
         private readonly RoundedDouble normativeAssessmentLevel;
 
         /// <summary>
         /// Creates a new instance of <see cref="SemiProbabilisticPipingCalculationActivity"/>.
         /// </summary>
         /// <param name="calculation">The <see cref="SemiProbabilisticPipingCalculation"/> to perform.</param>
+        /// <param name="generalPipingInput">The <see cref="GeneralPipingInput"/> to use during the calculation.</param>
         /// <param name="normativeAssessmentLevel">The normative assessment level to use in case the manual assessment level is not applicable.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculation"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculation"/> or <paramref name="generalPipingInput"/>
+        /// is <c>null</c>.</exception>
         public SemiProbabilisticPipingCalculationActivity(SemiProbabilisticPipingCalculation calculation,
+                                                          GeneralPipingInput generalPipingInput,
                                                           RoundedDouble normativeAssessmentLevel)
             : base(calculation)
         {
+            if (generalPipingInput == null)
+            {
+                throw new ArgumentNullException(nameof(generalPipingInput));
+            }
+
             this.calculation = calculation;
+            this.generalPipingInput = generalPipingInput;
             this.normativeAssessmentLevel = normativeAssessmentLevel;
 
             Description = string.Format(RiskeerCommonServiceResources.Perform_calculation_with_name_0_, calculation.Name);
@@ -53,12 +64,12 @@ namespace Riskeer.Piping.Service.SemiProbabilistic
 
         protected override void PerformCalculation()
         {
-            SemiProbabilisticPipingCalculationService.Calculate(calculation, normativeAssessmentLevel);
+            SemiProbabilisticPipingCalculationService.Calculate(calculation, generalPipingInput, normativeAssessmentLevel);
         }
 
         protected override bool Validate()
         {
-            return SemiProbabilisticPipingCalculationService.Validate(calculation, normativeAssessmentLevel);
+            return SemiProbabilisticPipingCalculationService.Validate(calculation, generalPipingInput, normativeAssessmentLevel);
         }
 
         protected override void OnCancel()
