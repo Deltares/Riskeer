@@ -86,7 +86,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
 
             var pipingInput = new ProbabilisticPipingInput();
 
-            var calculation = new ProbabilisticPipingCalculation();
+            var calculation = new ProbabilisticPipingCalculationScenario();
             var calculationInputContext = new ProbabilisticPipingInputContext(pipingInput, calculation, Enumerable.Empty<PipingSurfaceLine>(),
                                                                               Enumerable.Empty<PipingStochasticSoilModel>(),
                                                                               new PipingFailureMechanism(),
@@ -167,7 +167,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var calculation = new ProbabilisticPipingCalculation();
+            var calculation = new ProbabilisticPipingCalculationScenario();
             var calculationGroup = new CalculationGroup();
             calculationGroup.Children.Add(calculation);
 
@@ -198,7 +198,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var calculation = new ProbabilisticPipingCalculation();
+            var calculation = new ProbabilisticPipingCalculationScenario();
             var calculationGroup = new CalculationGroup();
             calculationGroup.Children.Add(calculation);
 
@@ -229,7 +229,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var calculation = new ProbabilisticPipingCalculation();
+            var calculation = new ProbabilisticPipingCalculationScenario();
             var nestedGroup = new CalculationGroup();
             nestedGroup.Children.Add(calculation);
             var calculationGroup = new CalculationGroup();
@@ -262,7 +262,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var calculation = new ProbabilisticPipingCalculation();
+            var calculation = new ProbabilisticPipingCalculationScenario();
             var nestedGroup = new CalculationGroup();
             nestedGroup.Children.Add(calculation);
             var calculationGroup = new CalculationGroup();
@@ -295,7 +295,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var calculation = new ProbabilisticPipingCalculation();
+            var calculation = new ProbabilisticPipingCalculationScenario();
             var failureMechanism = new PipingFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculation);
 
@@ -322,7 +322,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var calculation = new ProbabilisticPipingCalculation();
+            var calculation = new ProbabilisticPipingCalculationScenario();
             var failureMechanism = new PipingFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculation);
 
@@ -349,7 +349,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var calculation = new ProbabilisticPipingCalculation();
+            var calculation = new ProbabilisticPipingCalculationScenario();
             var calculationGroup = new CalculationGroup();
             calculationGroup.Children.Add(calculation);
 
@@ -379,7 +379,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var calculation = new ProbabilisticPipingCalculation();
+            var calculation = new ProbabilisticPipingCalculationScenario();
             var calculationGroup = new CalculationGroup();
             calculationGroup.Children.Add(calculation);
 
@@ -406,7 +406,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
         public void CloseForData_ViewCorrespondingToRemovedFailureMechanism_ReturnsTrue()
         {
             // Setup
-            var calculation = new ProbabilisticPipingCalculation();
+            var calculation = new ProbabilisticPipingCalculationScenario();
             var failureMechanism = new PipingFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculation);
 
@@ -427,7 +427,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
         public void CloseForData_ViewNotCorrespondingToRemovedFailureMechanism_ReturnsFalse()
         {
             // Setup
-            var calculation = new ProbabilisticPipingCalculation();
+            var calculation = new ProbabilisticPipingCalculationScenario();
             var failureMechanism = new PipingFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculation);
 
@@ -448,7 +448,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
         public void CloseForData_NestedViewCorrespondingToRemovedFailureMechanism_ReturnsTrue()
         {
             // Setup
-            var calculation = new ProbabilisticPipingCalculation();
+            var calculation = new ProbabilisticPipingCalculationScenario();
             var calculationGroup = new CalculationGroup();
             calculationGroup.Children.Add(calculation);
 
@@ -472,7 +472,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
         public void CloseForData_NestedViewNotCorrespondingToRemovedFailureMechanism_ReturnsFalse()
         {
             // Setup
-            var calculation = new ProbabilisticPipingCalculation();
+            var calculation = new ProbabilisticPipingCalculationScenario();
             var calculationGroup = new CalculationGroup();
             calculationGroup.Children.Add(calculation);
 
@@ -496,7 +496,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
         public void CloseForData_ViewCorrespondingToRemovedAssessmentSection_ReturnsTrue()
         {
             // Setup
-            var calculation = new ProbabilisticPipingCalculation();
+            var calculation = new ProbabilisticPipingCalculationScenario();
             var failureMechanism = new PipingFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculation);
 
@@ -526,7 +526,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
         public void CloseForData_ViewNotCorrespondingToRemovedAssessmentSection_ReturnsFalse()
         {
             // Setup
-            var calculation = new ProbabilisticPipingCalculation();
+            var calculation = new ProbabilisticPipingCalculationScenario();
             var failureMechanism = new PipingFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculation);
 
@@ -540,7 +540,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
 
             using (var view = new PipingInputView
             {
-                Data = new ProbabilisticPipingCalculation()
+                Data = new ProbabilisticPipingCalculationScenario()
             })
             {
                 // Call
@@ -556,7 +556,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
         public void CloseForData_NestedViewCorrespondingToRemovedAssessmentSection_ReturnsTrue()
         {
             // Setup
-            var calculation = new ProbabilisticPipingCalculation();
+            var calculation = new ProbabilisticPipingCalculationScenario();
             var calculationGroup = new CalculationGroup();
             calculationGroup.Children.Add(calculation);
 
@@ -589,7 +589,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
         public void CloseForData_NestedViewNotCorrespondingToRemovedAssessmentSection_ReturnsFalse()
         {
             // Setup
-            var calculation = new ProbabilisticPipingCalculation();
+            var calculation = new ProbabilisticPipingCalculationScenario();
             var calculationGroup = new CalculationGroup();
             calculationGroup.Children.Add(calculation);
 
@@ -606,7 +606,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
 
             using (var view = new PipingInputView
             {
-                Data = new ProbabilisticPipingCalculation()
+                Data = new ProbabilisticPipingCalculationScenario()
             })
             {
                 // Call
