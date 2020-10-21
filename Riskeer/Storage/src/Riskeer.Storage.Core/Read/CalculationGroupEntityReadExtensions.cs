@@ -22,7 +22,6 @@
 using System;
 using System.Collections;
 using Riskeer.Common.Data.Calculation;
-using Riskeer.Piping.Data;
 using Riskeer.Storage.Core.DbContext;
 using Riskeer.Storage.Core.Read.ClosingStructures;
 using Riskeer.Storage.Core.Read.GrassCoverErosionInwards;
@@ -49,21 +48,13 @@ namespace Riskeer.Storage.Core.Read
         /// <param name="entity">The <see cref="CalculationGroupEntity"/> to create 
         /// <see cref="CalculationGroup"/> for.</param>
         /// <param name="collector">The object keeping track of read operations.</param>
-        /// <param name="generalPipingInput">The calculation input parameters for piping.</param>
         /// <returns>A new <see cref="CalculationGroup"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="collector"/>
-        /// or <paramref name="generalPipingInput"/> is <c>null</c>.</exception>
-        internal static CalculationGroup ReadAsPipingCalculationGroup(this CalculationGroupEntity entity, ReadConversionCollector collector,
-                                                                      GeneralPipingInput generalPipingInput)
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="collector"/> is <c>null</c>.</exception>
+        internal static CalculationGroup ReadAsPipingCalculationGroup(this CalculationGroupEntity entity, ReadConversionCollector collector)
         {
             if (collector == null)
             {
                 throw new ArgumentNullException(nameof(collector));
-            }
-
-            if (generalPipingInput == null)
-            {
-                throw new ArgumentNullException(nameof(generalPipingInput));
             }
 
             var group = new CalculationGroup
@@ -76,13 +67,13 @@ namespace Riskeer.Storage.Core.Read
                 var childCalculationGroupEntity = childEntity as CalculationGroupEntity;
                 if (childCalculationGroupEntity != null)
                 {
-                    group.Children.Add(childCalculationGroupEntity.ReadAsPipingCalculationGroup(collector, generalPipingInput));
+                    group.Children.Add(childCalculationGroupEntity.ReadAsPipingCalculationGroup(collector));
                 }
 
                 var childCalculationEntity = childEntity as PipingCalculationEntity;
                 if (childCalculationEntity != null)
                 {
-                    group.Children.Add(childCalculationEntity.Read(collector, generalPipingInput));
+                    group.Children.Add(childCalculationEntity.Read(collector));
                 }
             }
 

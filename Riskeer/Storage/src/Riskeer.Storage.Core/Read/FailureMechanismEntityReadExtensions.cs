@@ -164,8 +164,7 @@ namespace Riskeer.Storage.Core.Read
 
             entity.ReadPipingMechanismSectionResults(failureMechanism, collector);
 
-            ReadPipingRootCalculationGroup(entity.CalculationGroupEntity, failureMechanism.CalculationsGroup,
-                                           failureMechanism.GeneralInput, collector);
+            ReadPipingRootCalculationGroup(entity.CalculationGroupEntity, failureMechanism.CalculationsGroup, collector);
         }
 
         private static void ReadPipingMechanismSectionResults(this FailureMechanismEntity entity,
@@ -183,10 +182,9 @@ namespace Riskeer.Storage.Core.Read
 
         private static void ReadPipingRootCalculationGroup(CalculationGroupEntity rootCalculationGroupEntity,
                                                            CalculationGroup targetRootCalculationGroup,
-                                                           GeneralPipingInput generalPipingInput,
                                                            ReadConversionCollector collector)
         {
-            CalculationGroup rootCalculationGroup = rootCalculationGroupEntity.ReadAsPipingCalculationGroup(collector, generalPipingInput);
+            CalculationGroup rootCalculationGroup = rootCalculationGroupEntity.ReadAsPipingCalculationGroup(collector);
             foreach (ICalculationBase calculationBase in rootCalculationGroup.Children)
             {
                 targetRootCalculationGroup.Children.Add(calculationBase);

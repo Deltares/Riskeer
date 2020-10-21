@@ -22,7 +22,6 @@
 using System;
 using System.Linq;
 using Core.Common.Base.Data;
-using Riskeer.Piping.Data;
 using Riskeer.Piping.Data.SemiProbabilistic;
 using Riskeer.Storage.Core.DbContext;
 
@@ -41,19 +40,16 @@ namespace Riskeer.Storage.Core.Read.Piping.SemiProbabilistic
         /// <param name="entity">The <see cref="PipingCalculationEntity"/> to create
         /// <see cref="SemiProbabilisticPipingCalculationScenario"/> for.</param>
         /// <param name="collector">The object keeping track of read operations.</param>
-        /// <param name="generalInputParameters">The general input parameters that apply
-        /// to all <see cref="SemiProbabilisticPipingCalculationScenario"/> instances.</param>
         /// <returns>A new <see cref="SemiProbabilisticPipingCalculationScenario"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="collector"/> is <c>null</c>.</exception>
-        public static SemiProbabilisticPipingCalculationScenario Read(this PipingCalculationEntity entity, ReadConversionCollector collector,
-                                                                      GeneralPipingInput generalInputParameters)
+        public static SemiProbabilisticPipingCalculationScenario Read(this PipingCalculationEntity entity, ReadConversionCollector collector)
         {
             if (collector == null)
             {
                 throw new ArgumentNullException(nameof(collector));
             }
 
-            var calculation = new SemiProbabilisticPipingCalculationScenario(generalInputParameters)
+            var calculation = new SemiProbabilisticPipingCalculationScenario
             {
                 IsRelevant = Convert.ToBoolean(entity.RelevantForScenario),
                 Contribution = (RoundedDouble) entity.ScenarioContribution.ToNullAsNaN(),
