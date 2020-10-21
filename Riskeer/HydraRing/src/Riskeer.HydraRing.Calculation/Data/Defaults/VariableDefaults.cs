@@ -38,6 +38,7 @@ namespace Riskeer.HydraRing.Calculation.Data.Defaults
         /// <summary>
         /// Gets the correlation length.
         /// </summary>
+        /// <remarks>When this property equals <see cref="double.NaN"/>, the length of the section should be used.</remarks>
         public double CorrelationLength { get; }
     }
 }

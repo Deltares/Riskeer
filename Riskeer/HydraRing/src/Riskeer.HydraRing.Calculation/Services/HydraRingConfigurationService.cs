@@ -444,6 +444,10 @@ namespace Riskeer.HydraRing.Calculation.Services
                 {
                     VariableDefaults variableDefaults = variableDefaultsProvider.GetVariableDefaults(hydraRingCalculationInput.FailureMechanismType, hydraRingVariable.VariableId);
 
+                    double correlationLength = double.IsNaN(variableDefaults.CorrelationLength)
+                                                   ? hydraRingCalculationInput.Section.SectionLength
+                                                   : variableDefaults.CorrelationLength;
+                    
                     orderDictionaries.Add(new OrderedDictionary
                     {
                         {
@@ -486,7 +490,7 @@ namespace Riskeer.HydraRing.Calculation.Services
                             "CoefficientOfVariation", GetHydraRingValue(hydraRingVariable.CoefficientOfVariation)
                         },
                         {
-                            "CorrelationLength", GetHydraRingValue(variableDefaults.CorrelationLength)
+                            "CorrelationLength", GetHydraRingValue(correlationLength)
                         }
                     });
                 }

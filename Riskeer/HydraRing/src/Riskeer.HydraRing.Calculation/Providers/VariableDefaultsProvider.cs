@@ -372,7 +372,7 @@ namespace Riskeer.HydraRing.Calculation.Providers
                     HydraRingFailureMechanismType.Piping, new Dictionary<int, VariableDefaults>
                     {
                         {
-                            42, new VariableDefaults(777)
+                            42, new VariableDefaults(double.NaN)
                         },
                         {
                             43, new VariableDefaults(notApplicableCorrelationLength)

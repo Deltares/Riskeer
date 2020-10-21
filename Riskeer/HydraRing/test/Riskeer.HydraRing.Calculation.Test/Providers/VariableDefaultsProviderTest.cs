@@ -144,7 +144,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Providers
         [TestCase(HydraRingFailureMechanismType.OvertoppingRate, 17, 300)]
         [TestCase(HydraRingFailureMechanismType.OvertoppingRate, 120, 300)]
         [TestCase(HydraRingFailureMechanismType.OvertoppingRate, 123, 300)]
-        [TestCase(HydraRingFailureMechanismType.Piping, 42, 777)]
+        [TestCase(HydraRingFailureMechanismType.Piping, 42, double.NaN)]
         [TestCase(HydraRingFailureMechanismType.Piping, 43, 999999)]
         [TestCase(HydraRingFailureMechanismType.Piping, 44, 200)]
         [TestCase(HydraRingFailureMechanismType.Piping, 45, 300)]
@@ -161,7 +161,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Providers
         [TestCase(HydraRingFailureMechanismType.Piping, 56, 180)]
         [TestCase(HydraRingFailureMechanismType.Piping, 58, 999999)]
         [TestCase(HydraRingFailureMechanismType.Piping, 124, 300)]
-        public void GetVariableDefaults_ReturnsExpectedVariableDefaults(HydraRingFailureMechanismType failureMechanismType, int variableId, int expectedCorrelationLength)
+        public void GetVariableDefaults_ReturnsExpectedVariableDefaults(HydraRingFailureMechanismType failureMechanismType, int variableId, double expectedCorrelationLength)
         {
             // Setup
             var variableDefaultsProvider = new VariableDefaultsProvider();
