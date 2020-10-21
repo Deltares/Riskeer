@@ -38,35 +38,36 @@ namespace Riskeer.HydraRing.Calculation.Test.Data.Input.Piping
         {
             // Setup
             const int hydraulicBoundaryLocationId = 1000;
-            const double sectionLength = 22.2;
-            const double phreaticLevelExitMean = 1.1;
-            const double phreaticLevelExitStandardDeviation = 2.2;
-            const double waterVolumetricWeight = 3.3;
-            const double effectiveThicknessCoverageLayerMean = 4.4;
-            const double effectiveThicknessCoverageLayerStandardDeviation = 5.5;
-            const double saturatedVolumicWeightOfCoverageLayerMean = 6.6;
-            const double saturatedVolumicWeightOfCoverageLayerStandardDeviation = 7.7;
-            const double saturatedVolumicWeightOfCoverageLayerShift = 8.8;
-            const double upliftModelFactorMean = 9.9;
-            const double upliftModelFactorStandardDeviation = 10.0;
-            const double dampingFactorExitMean = 11.1;
-            const double dampingFactorExitStandardDeviation = 12.2;
-            const double seepageLengthMean = 13.3;
-            const double seepageLengthCoefficientOfVariation = 14.4;
-            const double thicknessAquiferLayerMean = 15.5;
-            const double thicknessAquiferLayerStandardDeviation = 16.6;
-            const double sandParticlesVolumicWeight = 17.7;
-            const double sellmeijerModelFactorMean = 18.8;
-            const double sellmeijerModelFactorStandardDeviation = 19.9;
-            const double beddingAngle = 20.0;
-            const double whitesDragCoefficient = 21.1;
-            const double waterKinematicViscosity = 22.2;
-            const double darcyPermeabilityMean = 23.3;
-            const double darcyPermeabilityCoefficientOfVariation = 24.4;
-            const double diameter70Mean = 25.5;
-            const double diameter70CoefficientOfVariation = 26.6;
-            const double gravity = 27.7;
-            const double criticalHeaveGradient = 28.8;
+            const double sectionLength = 1.1;
+            const double phreaticLevelExitMean = 2.2;
+            const double phreaticLevelExitStandardDeviation = 3.3;
+            const double waterVolumetricWeight = 4.4;
+            const double effectiveThicknessCoverageLayerMean = 5.5;
+            const double effectiveThicknessCoverageLayerStandardDeviation = 6.6;
+            const double saturatedVolumicWeightOfCoverageLayerMean = 7.7;
+            const double saturatedVolumicWeightOfCoverageLayerStandardDeviation = 8.8;
+            const double saturatedVolumicWeightOfCoverageLayerShift = 9.9;
+            const double upliftModelFactorMean = 10.0;
+            const double upliftModelFactorStandardDeviation = 11.1;
+            const double dampingFactorExitMean = 12.2;
+            const double dampingFactorExitStandardDeviation = 13.3;
+            const double seepageLengthMean = 14.4;
+            const double seepageLengthCoefficientOfVariation = 15.5;
+            const double thicknessAquiferLayerMean = 16.6;
+            const double thicknessAquiferLayerStandardDeviation = 17.7;
+            const double sandParticlesVolumicWeight = 18.8;
+            const double sellmeijerModelFactorMean = 19.9;
+            const double sellmeijerModelFactorStandardDeviation = 20.0;
+            const double beddingAngle = 21.1;
+            const double whitesDragCoefficient = 22.2;
+            const double waterKinematicViscosity = 23.3;
+            const double darcyPermeabilityMean = 24.4;
+            const double darcyPermeabilityCoefficientOfVariation = 25.5;
+            const double diameter70Mean = 26.6;
+            const double diameter70CoefficientOfVariation = 27.7;
+            const double gravity = 28.8;
+            const double criticalHeaveGradientMean = 29.9;
+            const double criticalHeaveGradientStandardDeviation = 30.0;
 
             // Call
             var pipingCalculationInput = new PipingCalculationInput(
@@ -78,7 +79,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Data.Input.Piping
                 thicknessAquiferLayerMean, thicknessAquiferLayerStandardDeviation, sandParticlesVolumicWeight,
                 sellmeijerModelFactorMean, sellmeijerModelFactorStandardDeviation, beddingAngle, whitesDragCoefficient,
                 waterKinematicViscosity, darcyPermeabilityMean, darcyPermeabilityCoefficientOfVariation, diameter70Mean,
-                diameter70CoefficientOfVariation, gravity, criticalHeaveGradient);
+                diameter70CoefficientOfVariation, gravity, criticalHeaveGradientMean, criticalHeaveGradientStandardDeviation);
 
             // Assert
             const int expectedCalculationTypeId = 1;
@@ -99,23 +100,23 @@ namespace Riskeer.HydraRing.Calculation.Test.Data.Input.Piping
 
         private static IEnumerable<HydraRingVariable> GetDefaultPipingVariables()
         {
-            yield return new NormalHydraRingVariable(42, HydraRingDeviationType.Standard, 1.1, 2.2);
-            yield return new DeterministicHydraRingVariable(43, 3.3);
-            yield return new LogNormalHydraRingVariable(44, HydraRingDeviationType.Standard, 4.4, 5.5);
-            yield return new LogNormalHydraRingVariable(45, HydraRingDeviationType.Standard, 6.6, 7.7, 8.8);
-            yield return new LogNormalHydraRingVariable(46, HydraRingDeviationType.Standard, 9.9, 10.0);
-            yield return new LogNormalHydraRingVariable(47, HydraRingDeviationType.Standard, 11.1, 12.2);
-            yield return new LogNormalHydraRingVariable(48, HydraRingDeviationType.Variation, 13.3, 14.4);
-            yield return new LogNormalHydraRingVariable(49, HydraRingDeviationType.Standard, 15.5, 16.6);
-            yield return new DeterministicHydraRingVariable(50, 17.7 + 3.3);
-            yield return new LogNormalHydraRingVariable(51, HydraRingDeviationType.Standard, 18.8, 19.9);
-            yield return new DeterministicHydraRingVariable(52, 20.0);
-            yield return new DeterministicHydraRingVariable(53, 21.1);
-            yield return new DeterministicHydraRingVariable(54, 22.2);
-            yield return new LogNormalHydraRingVariable(55, HydraRingDeviationType.Variation, 23.3, 24.4);
-            yield return new LogNormalHydraRingVariable(56, HydraRingDeviationType.Variation, 25.5, 26.6);
-            yield return new DeterministicHydraRingVariable(58, 27.7);
-            yield return new DeterministicHydraRingVariable(124, 28.8);
+            yield return new NormalHydraRingVariable(42, HydraRingDeviationType.Standard, 2.2, 3.3);
+            yield return new DeterministicHydraRingVariable(43, 4.4);
+            yield return new LogNormalHydraRingVariable(44, HydraRingDeviationType.Standard, 5.5, 6.6);
+            yield return new LogNormalHydraRingVariable(45, HydraRingDeviationType.Standard, 7.7, 8.8, 9.9);
+            yield return new LogNormalHydraRingVariable(46, HydraRingDeviationType.Standard, 10.0, 11.1);
+            yield return new LogNormalHydraRingVariable(47, HydraRingDeviationType.Standard, 12.2, 13.3);
+            yield return new LogNormalHydraRingVariable(48, HydraRingDeviationType.Variation, 14.4, 15.5);
+            yield return new LogNormalHydraRingVariable(49, HydraRingDeviationType.Standard, 16.6, 17.7);
+            yield return new DeterministicHydraRingVariable(50, 18.8 + 4.4);
+            yield return new LogNormalHydraRingVariable(51, HydraRingDeviationType.Standard, 19.9, 20.0);
+            yield return new DeterministicHydraRingVariable(52, 21.1);
+            yield return new DeterministicHydraRingVariable(53, 22.2);
+            yield return new DeterministicHydraRingVariable(54, 23.3);
+            yield return new LogNormalHydraRingVariable(55, HydraRingDeviationType.Variation, 24.4, 25.5);
+            yield return new LogNormalHydraRingVariable(56, HydraRingDeviationType.Variation, 26.6, 27.7);
+            yield return new DeterministicHydraRingVariable(58, 28.8);
+            yield return new LogNormalHydraRingVariable(124, HydraRingDeviationType.Standard, 29.9, 30);
         }
     }
 }

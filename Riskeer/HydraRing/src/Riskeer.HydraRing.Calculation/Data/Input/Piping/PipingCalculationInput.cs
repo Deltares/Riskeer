@@ -56,7 +56,8 @@ namespace Riskeer.HydraRing.Calculation.Data.Input.Piping
         private readonly double diameter70Mean;
         private readonly double diameter70CoefficientOfVariation;
         private readonly double gravity;
-        private readonly double criticalHeaveGradient;
+        private readonly double criticalHeaveGradientMean;
+        private readonly double criticalHeaveGradientStandardDeviation;
 
         /// <summary>
         /// Creates a new instance of the <see cref="PipingCalculationInput"/> class.
@@ -90,7 +91,8 @@ namespace Riskeer.HydraRing.Calculation.Data.Input.Piping
         /// <param name="diameter70Mean">The mean of the sieve size through which 70% of the grains of the top part of the aquifer pass.</param>
         /// <param name="diameter70CoefficientOfVariation">The coefficient of variation of the sieve size through which 70% of the grains of the top part of the aquifer pass.</param>
         /// <param name="gravity">The gravitational acceleration.</param>
-        /// <param name="criticalHeaveGradient">The critical exit gradient for heave.</param>
+        /// <param name="criticalHeaveGradientMean">The mean of the critical exit gradient for heave.</param>
+        /// <param name="criticalHeaveGradientStandardDeviation">The standard deviation of the critical exit gradient for heave.</param>
         public PipingCalculationInput(long hydraulicBoundaryLocationId,
                                       double sectionLength,
                                       double phreaticLevelExitMean, double phreaticLevelExitStandardDeviation,
@@ -110,7 +112,8 @@ namespace Riskeer.HydraRing.Calculation.Data.Input.Piping
                                       double darcyPermeabilityMean, double darcyPermeabilityCoefficientOfVariation,
                                       double diameter70Mean, double diameter70CoefficientOfVariation,
                                       double gravity,
-                                      double criticalHeaveGradient)
+                                      double criticalHeaveGradientMean,
+                                      double criticalHeaveGradientStandardDeviation)
             : base(hydraulicBoundaryLocationId)
         {
             Section = new HydraRingSection(1, sectionLength, double.NaN);
@@ -141,7 +144,8 @@ namespace Riskeer.HydraRing.Calculation.Data.Input.Piping
             this.diameter70Mean = diameter70Mean;
             this.diameter70CoefficientOfVariation = diameter70CoefficientOfVariation;
             this.gravity = gravity;
-            this.criticalHeaveGradient = criticalHeaveGradient;
+            this.criticalHeaveGradientMean = criticalHeaveGradientMean;
+            this.criticalHeaveGradientStandardDeviation = criticalHeaveGradientStandardDeviation;
         }
 
         public override HydraRingFailureMechanismType FailureMechanismType { get; } = HydraRingFailureMechanismType.Piping;
@@ -181,7 +185,8 @@ namespace Riskeer.HydraRing.Calculation.Data.Input.Piping
                 yield return new LogNormalHydraRingVariable(56, HydraRingDeviationType.Variation, diameter70Mean,
                                                             diameter70CoefficientOfVariation);
                 yield return new DeterministicHydraRingVariable(58, gravity);
-                yield return new DeterministicHydraRingVariable(124, criticalHeaveGradient);
+                yield return new LogNormalHydraRingVariable(124, HydraRingDeviationType.Standard, criticalHeaveGradientMean,
+                                                            criticalHeaveGradientStandardDeviation);
             }
         }
     }
