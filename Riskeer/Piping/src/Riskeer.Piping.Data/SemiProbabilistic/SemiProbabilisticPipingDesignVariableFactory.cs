@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Riskeer.Common.Data.Probabilistics;
 
 namespace Riskeer.Piping.Data.SemiProbabilistic
@@ -35,8 +36,14 @@ namespace Riskeer.Piping.Data.SemiProbabilistic
         /// </summary>
         /// <param name="generalPipingInput">The general piping input.</param>
         /// <returns>The created <see cref="DeterministicDesignVariable{LogNormalDistribution}"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="generalPipingInput"/> is <c>null</c>.</exception>
         public static DeterministicDesignVariable<LogNormalDistribution> GetUpliftModelFactorDesignVariable(GeneralPipingInput generalPipingInput)
         {
+            if (generalPipingInput == null)
+            {
+                throw new ArgumentNullException(nameof(generalPipingInput));
+            }
+
             return new DeterministicDesignVariable<LogNormalDistribution>(generalPipingInput.UpliftModelFactor, generalPipingInput.UpliftModelFactor.Mean);
         }
 
@@ -45,8 +52,14 @@ namespace Riskeer.Piping.Data.SemiProbabilistic
         /// </summary>
         /// <param name="generalPipingInput">The general piping input.</param>
         /// <returns>The created <see cref="DeterministicDesignVariable{LogNormalDistribution}"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="generalPipingInput"/> is <c>null</c>.</exception>
         public static DeterministicDesignVariable<LogNormalDistribution> GetSellmeijerModelFactorDesignVariable(GeneralPipingInput generalPipingInput)
         {
+            if (generalPipingInput == null)
+            {
+                throw new ArgumentNullException(nameof(generalPipingInput));
+            }
+
             return new DeterministicDesignVariable<LogNormalDistribution>(generalPipingInput.SellmeijerModelFactor, generalPipingInput.SellmeijerModelFactor.Mean);
         }
 
@@ -55,6 +68,7 @@ namespace Riskeer.Piping.Data.SemiProbabilistic
         /// </summary>
         /// <param name="pipingInput">The piping input.</param>
         /// <returns>The created <see cref="DesignVariable{LogNormalDistribution}"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="pipingInput"/> is <c>null</c>.</exception>
         public static DesignVariable<LogNormalDistribution> GetSaturatedVolumicWeightOfCoverageLayer(PipingInput pipingInput)
         {
             LogNormalDistribution thicknessCoverageLayer = DerivedPipingInput.GetThicknessCoverageLayer(pipingInput);
@@ -76,6 +90,7 @@ namespace Riskeer.Piping.Data.SemiProbabilistic
         /// </summary>
         /// <param name="pipingInput">The piping input.</param>
         /// <returns>The created <see cref="DesignVariable{LogNormalDistribution}"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="pipingInput"/> is <c>null</c>.</exception>
         public static DesignVariable<LogNormalDistribution> GetThicknessCoverageLayer(PipingInput pipingInput)
         {
             LogNormalDistribution thicknessCoverageLayer = DerivedPipingInput.GetThicknessCoverageLayer(pipingInput);
@@ -97,6 +112,7 @@ namespace Riskeer.Piping.Data.SemiProbabilistic
         /// <param name="pipingInput">The piping input.</param>
         /// <param name="generalInput">The general piping input.</param>
         /// <returns>The created <see cref="DesignVariable{LogNormalDistribution}"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         public static DesignVariable<LogNormalDistribution> GetEffectiveThicknessCoverageLayer(PipingInput pipingInput, GeneralPipingInput generalInput)
         {
             LogNormalDistribution thicknessCoverageLayer = DerivedPipingInput.GetThicknessCoverageLayer(pipingInput);
@@ -118,8 +134,14 @@ namespace Riskeer.Piping.Data.SemiProbabilistic
         /// </summary>
         /// <param name="pipingInput">The piping input.</param>
         /// <returns>The created <see cref="DesignVariable{NormalDistribution}"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="pipingInput"/> is <c>null</c>.</exception>
         public static DesignVariable<NormalDistribution> GetPhreaticLevelExit(PipingInput pipingInput)
         {
+            if (pipingInput == null)
+            {
+                throw new ArgumentNullException(nameof(pipingInput));
+            }
+
             return new NormalDistributionDesignVariable(pipingInput.PhreaticLevelExit)
             {
                 Percentile = 0.05
@@ -131,8 +153,14 @@ namespace Riskeer.Piping.Data.SemiProbabilistic
         /// </summary>
         /// <param name="pipingInput">The piping input.</param>
         /// <returns>The created <see cref="DesignVariable{LogNormalDistribution}"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="pipingInput"/> is <c>null</c>.</exception>
         public static DesignVariable<LogNormalDistribution> GetDampingFactorExit(PipingInput pipingInput)
         {
+            if (pipingInput == null)
+            {
+                throw new ArgumentNullException(nameof(pipingInput));
+            }
+
             return new LogNormalDistributionDesignVariable(pipingInput.DampingFactorExit)
             {
                 Percentile = 0.95
@@ -148,6 +176,7 @@ namespace Riskeer.Piping.Data.SemiProbabilistic
         /// </summary>
         /// <param name="pipingInput">The piping input.</param>
         /// <returns>The created <see cref="VariationCoefficientDesignVariable{VariationCoefficientLogNormalDistribution}"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="pipingInput"/> is <c>null</c>.</exception>
         public static VariationCoefficientDesignVariable<VariationCoefficientLogNormalDistribution> GetSeepageLength(PipingInput pipingInput)
         {
             return new VariationCoefficientLogNormalDistributionDesignVariable(DerivedPipingInput.GetSeepageLength(pipingInput))
@@ -161,6 +190,7 @@ namespace Riskeer.Piping.Data.SemiProbabilistic
         /// </summary>
         /// <param name="pipingInput">The piping input.</param>
         /// <returns>The created <see cref="VariationCoefficientDesignVariable{VariationCoefficientLogNormalDistribution}"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="pipingInput"/> is <c>null</c>.</exception>
         public static VariationCoefficientDesignVariable<VariationCoefficientLogNormalDistribution> GetDiameter70(PipingInput pipingInput)
         {
             return new VariationCoefficientLogNormalDistributionDesignVariable(DerivedPipingInput.GetDiameterD70(pipingInput))
@@ -174,6 +204,7 @@ namespace Riskeer.Piping.Data.SemiProbabilistic
         /// </summary>
         /// <param name="pipingInput">The piping input.</param>
         /// <returns>The created <see cref="VariationCoefficientDesignVariable{VariationCoefficientLogNormalDistribution}"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="pipingInput"/> is <c>null</c>.</exception>
         public static VariationCoefficientDesignVariable<VariationCoefficientLogNormalDistribution> GetDarcyPermeability(PipingInput pipingInput)
         {
             return new VariationCoefficientLogNormalDistributionDesignVariable(DerivedPipingInput.GetDarcyPermeability(pipingInput))
@@ -187,6 +218,7 @@ namespace Riskeer.Piping.Data.SemiProbabilistic
         /// </summary>
         /// <param name="pipingInput">The piping input.</param>
         /// <returns>The created <see cref="DesignVariable{LogNormalDistribution}"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="pipingInput"/> is <c>null</c>.</exception>
         public static DesignVariable<LogNormalDistribution> GetThicknessAquiferLayer(PipingInput pipingInput)
         {
             return new LogNormalDistributionDesignVariable(DerivedPipingInput.GetThicknessAquiferLayer(pipingInput))
