@@ -51,8 +51,7 @@ namespace Riskeer.HydraRing.Calculation.Calculator
         /// Creates a new instance of <see cref="HydraRingCalculatorBase"/> with a default Hydra-Ring file parser
         /// initialized.
         /// </summary>
-        /// <param name="calculationSettings">The <see cref="HydraRingCalculationSettings"/> with the
-        /// Hydra-Ring calculation settings.</param>
+        /// <param name="calculationSettings">The <see cref="HydraRingCalculationSettings"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculationSettings"/> is <c>null</c>.</exception>
         /// <remarks>Preprocessing is disabled when <see cref="HydraRingCalculationSettings.PreprocessorDirectory"/>
         /// equals <see cref="string.Empty"/>.</remarks>
