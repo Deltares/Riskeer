@@ -1216,7 +1216,7 @@ namespace Riskeer.Piping.Service.Test.SemiProbabilistic
 
             Assert.AreEqual(expectedThicknessCoverageLayerDesignValue, heaveCalculator.DTotal, thicknessCoverageLayerAccuracy);
             Assert.AreEqual(expectedPhreaticLevelExitDesignValue, heaveCalculator.HExit, phreaticLevelExitDesignAccuracy);
-            Assert.AreEqual(generalPipingInput.CriticalHeaveGradient, heaveCalculator.Ich);
+            Assert.AreEqual(SemiProbabilisticPipingDesignVariableFactory.GetCriticalHeaveGradientDesignVariable(generalPipingInput).GetDesignValue(), heaveCalculator.Ich);
             Assert.AreEqual(expectedPhreaticLevelExitDesignValue, heaveCalculator.PhiPolder, phreaticLevelExitDesignAccuracy);
             Assert.AreEqual(expectedPiezometricHeadExit, heaveCalculator.PhiExit);
             Assert.AreEqual(expectedDampingFactorExitDesignValue, heaveCalculator.RExit, dampingFactorExitAccuracy);
