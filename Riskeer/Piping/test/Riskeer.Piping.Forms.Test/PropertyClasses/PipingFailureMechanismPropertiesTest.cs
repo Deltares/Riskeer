@@ -141,16 +141,20 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
             Assert.AreEqual(isRelevant, properties.IsRelevant);
 
             GeneralPipingInput generalInput = failureMechanism.GeneralInput;
+
             Assert.AreEqual(generalInput.UpliftModelFactor.Mean, properties.UpliftModelFactor.Mean);
             Assert.AreEqual(generalInput.UpliftModelFactor.StandardDeviation, properties.UpliftModelFactor.StandardDeviation);
+            Assert.AreEqual(generalInput.UpliftModelFactor.Mean, properties.UpliftModelFactor.DesignValue);
 
             Assert.AreEqual(generalInput.SellmeijerModelFactor.Mean, properties.SellmeijerModelFactor.Mean);
             Assert.AreEqual(generalInput.SellmeijerModelFactor.StandardDeviation, properties.SellmeijerModelFactor.StandardDeviation);
+            Assert.AreEqual(generalInput.SellmeijerModelFactor.Mean, properties.SellmeijerModelFactor.DesignValue);
 
             Assert.AreEqual(generalInput.WaterVolumetricWeight, properties.WaterVolumetricWeight);
 
             Assert.AreEqual(generalInput.CriticalHeaveGradient.Mean, properties.CriticalHeaveGradient.Mean);
             Assert.AreEqual(generalInput.CriticalHeaveGradient.StandardDeviation, properties.CriticalHeaveGradient.StandardDeviation);
+            Assert.AreEqual(0.3, properties.CriticalHeaveGradient.DesignValue);
 
             Assert.AreEqual(generalInput.SandParticlesVolumicWeight, properties.SandParticlesVolumicWeight);
             Assert.AreEqual(generalInput.WhitesDragCoefficient, properties.WhitesDragCoefficient);
